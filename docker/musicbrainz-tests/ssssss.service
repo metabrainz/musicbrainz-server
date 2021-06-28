@@ -1,0 +1,9 @@
+#!/bin/sh
+
+cd /home/musicbrainz/musicbrainz-server
+
+export SSSSSS_STORAGE=/var/ssssss
+mkdir -p "$SSSSSS_STORAGE"
+chown musicbrainz:musicbrainz "$SSSSSS_STORAGE"
+
+exec sudo -E -H -u musicbrainz carton exec -- plackup --port 5050 -r contrib/ssssss.psgi

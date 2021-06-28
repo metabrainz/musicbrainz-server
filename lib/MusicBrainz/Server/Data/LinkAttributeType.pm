@@ -134,6 +134,12 @@ sub insert
     $row->{gid} = $values->{gid} || generate_gid();
     $row->{root} = $row->{parent} ? $self->find_root($row->{parent}) : $row->{id};
     $self->sql->insert_row('link_attribute_type', $row);
+    if ($values->{creditable}) {
+        $self->sql->insert_row('link_creditable_attribute_type', { attribute_type => $row->{id} });
+    }
+    if ($values->{free_text}) {
+        $self->sql->insert_row('link_text_attribute_type', { attribute_type => $row->{id} });
+    }
     return $self->_entity_class->new( id => $row->{id}, gid => $row->{gid} );
 }
 
@@ -156,6 +162,35 @@ sub update
     my ($self, $id, $values) = @_;
 
     my $row = $self->_hash_to_row($values);
+    my $attribute = $self->get_by_id($id);
+    my $attribute_in_use = $self->in_use($id);
+    my $adds_creditable = $values->{creditable} && !($attribute->creditable);
+    my $removes_creditable = $attribute->creditable && defined $values->{creditable} && !($values->{creditable});
+    my $adds_free_text = $values->{free_text} && !($attribute->free_text);
+    my $removes_free_text = $attribute->free_text && defined $values->{free_text} && !($values->{free_text});
+
+    if ($adds_creditable) {
+        $self->sql->insert_row('link_creditable_attribute_type', { attribute_type => $id });
+    }
+    if ($removes_creditable) {
+        if ($attribute_in_use) {
+            die('The attribute is in use, and this change would risk damaging existing values');
+        }
+        $self->sql->do('DELETE FROM link_creditable_attribute_type WHERE attribute_type = ?', $id);
+    }
+    if ($adds_free_text) {
+        if ($attribute_in_use) {
+            die('The attribute is in use, and this change would risk damaging existing values');
+        }
+        $self->sql->insert_row('link_text_attribute_type', { attribute_type => $id });
+    }
+    if ($removes_free_text) {
+        if ($attribute_in_use) {
+            die('The attribute is in use, and this change would risk damaging existing values');
+        }
+        $self->sql->do('DELETE FROM link_text_attribute_type WHERE attribute_type = ?', $id);
+    }
+
     if (%$row) {
         if ($row->{parent}) {
             $row->{root} = $self->find_root($row->{parent});
@@ -320,17 +355,17 @@ sub merge_instrument_attributes {
         $new_link->{attributes} = [values %new_attributes];
 
         my $new_link_id = $self->c->model('Link')->find_or_insert($new_link);
-        my $relationships = $self->sql->select_list_of_hashes(<<"EOSQL", $new_link_id, $old_link_id, $new_link_id);
+        my $relationships = $self->sql->select_list_of_hashes(<<~"EOSQL", $new_link_id, $old_link_id, $new_link_id);
             UPDATE l_${entity_type0}_${entity_type1} r1 SET link = ? WHERE link = ? AND NOT EXISTS (
                 SELECT 1
-                  FROM l_${entity_type0}_${entity_type1} r2
-                 WHERE r2.link = ?
-                   AND r2.entity0 = r1.entity0
-                   AND r2.entity1 = r1.entity1
-                   AND r2.link_order = r1.link_order
-               )
+                FROM l_${entity_type0}_${entity_type1} r2
+                WHERE r2.link = ?
+                AND r2.entity0 = r1.entity0
+                AND r2.entity1 = r1.entity1
+                AND r2.link_order = r1.link_order
+            )
             RETURNING *
-EOSQL
+            EOSQL
 
         # Delete leftover duplicate relationships already using $new_link_id.
         $self->sql->do("DELETE FROM l_${entity_type0}_${entity_type1} WHERE link = ?", $old_link_id);

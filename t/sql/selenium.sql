@@ -14,6 +14,7 @@ INSERT INTO area (id, gid, name, type, edits_pending, last_updated, begin_date_y
     (73, '08310658-51eb-3801-80de-5a0739207115', 'France', 1, 0, '2013-05-27 12:50:32.702645+00', NULL, NULL,  NULL,  NULL,  NULL,  NULL, 'f', ''),
     (96, '0373cdff-eac8-3fbc-92dc-36a607da06d1', 'Hong Kong', 1, 0, '2013-11-03 06:25:22.345722+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
     (107, '2db42837-c832-3c27-b4a3-08198f75693c', 'Japan', 1, 0, '2013-05-27 12:29:56.162248+00', NULL, NULL,  NULL,  NULL,  NULL,  NULL, 'f', ''),
+    (194, '471c46a7-afc5-31c4-923c-d0444f5053a4', 'Spain', 1, 0, '2013-05-27 13:08:54.580681+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
     (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1, 0, '2013-05-16 11:06:19.67235+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
     (222, '489ce91b-6658-3307-9877-795b68554c98', 'United States', 1, 0, '2013-06-15 18:06:39.59323+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
     (241, '89a675c2-3e37-3518-b83c-418bad59a85a', 'Europe', NULL, 0, '2013-08-28 11:55:13.834089+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
@@ -23,7 +24,8 @@ INSERT INTO area (id, gid, name, type, edits_pending, last_updated, begin_date_y
     (7020, '74e50e58-5deb-4b99-93a2-decbb365c07f', 'New York', 3, 0, '2014-12-02 22:23:17.690134+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
     (39872, '61941444-5a83-43e2-ba48-4db7438e0f26', 'Brixton', 5, 0, '2013-11-06 23:15:45.851377+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
     (55331, 'afdf771e-35ec-4279-be90-cbf169294be3', 'Walthamstow', 5, 0, '2013-11-06 23:05:25.22908+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
-    (88303, '05d2ed87-4040-462a-bdfa-06a8967a3694', 'Alcobendas', 3, 0, '2013-12-30 00:54:17.407234+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', '');
+    (88303, '05d2ed87-4040-462a-bdfa-06a8967a3694', 'Alcobendas', 3, 0, '2013-12-30 00:54:17.407234+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
+    (106566, '86bdc5d6-7cb9-4f83-b967-61081da93703', 'Tacoronte', 4, 0, '2015-02-22 08:05:15.25412+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', '');
 
 INSERT INTO area_gid_redirect (gid, new_id, created) VALUES
   ('aafabb17-528e-51e3-9ac8-b8471dacd710', 38, '2013-05-27 13:15:52.179105+00');
@@ -83,6 +85,7 @@ INSERT INTO iso_3166_1 (area, code) VALUES
     (73, 'FR'),
     (96, 'HK'),
     (107, 'JP'),
+    (194, 'ES'),
     (221, 'GB'),
     (222, 'US'),
     (241, 'XE');

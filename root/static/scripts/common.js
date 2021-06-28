@@ -5,13 +5,6 @@ require('./common/focusin-focusout-polyfill');
 
 require('./public-path');
 
-/*
- * Needed by root/release/cover_art_uploader.tt, which uses the
- * css_manifest TT macro that requires common.less to exist in
- * rev-manifest.json.
- */
-require('../styles/common.less');
-
 const DBDefs = require('./common/DBDefs-client');
 
 import MB from './common/MB';

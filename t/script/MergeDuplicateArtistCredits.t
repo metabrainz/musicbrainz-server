@@ -21,55 +21,55 @@ test all => sub {
         system 'sh', '-c' => "echo $sql | $psql TEST";
     };
 
-    $exec_sql->(<<EOSQL);
-    BEGIN;
+    $exec_sql->(<<~'EOSQL');
+        BEGIN;
 
-    INSERT INTO artist VALUES
-        (1, '89ad4ac3-39f7-470e-963a-56509c546377', 'Various Artists', 'Various Artists', NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, '', 0, '2020-03-25 13:00:27.07439+00', 'f', NULL, NULL),
-        (163, '382f1005-e9ab-4684-afd4-0bdae4ee37f2', '2Pac', '2Pac', 1971, 6, 16, 1996, 9, 13, 1, NULL, 1, 'US rapper', 0, '2020-02-12 09:01:30.694647+00', 't', NULL, NULL),
-        (535, '9e839dc3-55f3-4492-ad0e-a1a2e84275e2', 'Xzibit', 'Xzibit', 1974, 9, 18, NULL, NULL, NULL, 1, NULL, 1, '', 0, '2019-08-17 19:02:08.831976+00', 'f', NULL, NULL),
-        (89559, '812d3015-2f4c-4fa7-bd7d-30ec4beb2c82', 'N.O.R.E.', 'N.O.R.E.', 1977, 9, 6, NULL, NULL, NULL, 1, NULL, 1, 'Noreaga, hip-hop artist from Queens, NY', 0, '2019-01-16 16:00:22.114503+00', 'f', NULL, NULL);
+        INSERT INTO artist VALUES
+            (1, '89ad4ac3-39f7-470e-963a-56509c546377', 'Various Artists', 'Various Artists', NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, '', 0, '2020-03-25 13:00:27.07439+00', 'f', NULL, NULL),
+            (163, '382f1005-e9ab-4684-afd4-0bdae4ee37f2', '2Pac', '2Pac', 1971, 6, 16, 1996, 9, 13, 1, NULL, 1, 'US rapper', 0, '2020-02-12 09:01:30.694647+00', 't', NULL, NULL),
+            (535, '9e839dc3-55f3-4492-ad0e-a1a2e84275e2', 'Xzibit', 'Xzibit', 1974, 9, 18, NULL, NULL, NULL, 1, NULL, 1, '', 0, '2019-08-17 19:02:08.831976+00', 'f', NULL, NULL),
+            (89559, '812d3015-2f4c-4fa7-bd7d-30ec4beb2c82', 'N.O.R.E.', 'N.O.R.E.', 1977, 9, 6, NULL, NULL, NULL, 1, NULL, 1, 'Noreaga, hip-hop artist from Queens, NY', 0, '2019-01-16 16:00:22.114503+00', 'f', NULL, NULL);
 
-    INSERT INTO artist_credit VALUES
-        (1, 'Various Artists', 1, 317291, '2011-05-16 16:32:11.963929+00', 0),
-        (1033220, 'Various Artists', 1, 4215, '2012-08-12 01:20:35.977725+00', 0),
-        (1091952, 'Various Artists', 1, 105, '2012-12-08 17:05:37.270366+00', 1),
-        (1079039, '2Pac feat. Xzibit & Noreaga', 3, 2, '2012-11-12 18:45:33.408347+00', 1),
-        (1216448, '2Pac feat. Xzibit & Noreaga', 3, 1, '2013-09-14 06:42:02.852405+00', 1),
-        (163, '2Pac', 1, 5626, '2011-05-16 16:32:11.963929+00', 1);
+        INSERT INTO artist_credit VALUES
+            (1, 'Various Artists', 1, 317291, '2011-05-16 16:32:11.963929+00', 0),
+            (1033220, 'Various Artists', 1, 4215, '2012-08-12 01:20:35.977725+00', 0),
+            (1091952, 'Various Artists', 1, 105, '2012-12-08 17:05:37.270366+00', 1),
+            (1079039, '2Pac feat. Xzibit & Noreaga', 3, 2, '2012-11-12 18:45:33.408347+00', 1),
+            (1216448, '2Pac feat. Xzibit & Noreaga', 3, 1, '2013-09-14 06:42:02.852405+00', 1),
+            (163, '2Pac', 1, 5626, '2011-05-16 16:32:11.963929+00', 1);
 
-    INSERT INTO artist_credit_name VALUES
-        (1, 0, 1, 'Various Artists', ''),
-        (1033220, 0, 1, 'Various Artists', ''),
-        (1091952, 0, 1, 'Various Artists', ''),
-        (1079039, 0, 163, '2Pac', ' feat. '),
-        (1079039, 1, 535, 'Xzibit', ' & '),
-        (1079039, 2, 89559, 'Noreaga', ''),
-        (1216448, 0, 163, '2Pac', ' feat. '),
-        (1216448, 1, 535, 'Xzibit', ' & '),
-        (1216448, 2, 89559, 'Noreaga', ''),
-        (163, 0, 163, '2Pac', '');
+        INSERT INTO artist_credit_name VALUES
+            (1, 0, 1, 'Various Artists', ''),
+            (1033220, 0, 1, 'Various Artists', ''),
+            (1091952, 0, 1, 'Various Artists', ''),
+            (1079039, 0, 163, '2Pac', ' feat. '),
+            (1079039, 1, 535, 'Xzibit', ' & '),
+            (1079039, 2, 89559, 'Noreaga', ''),
+            (1216448, 0, 163, '2Pac', ' feat. '),
+            (1216448, 1, 535, 'Xzibit', ' & '),
+            (1216448, 2, 89559, 'Noreaga', ''),
+            (163, 0, 163, '2Pac', '');
 
-    INSERT INTO release_group VALUES
-        (170162, 'f946cdb1-d74e-355d-a187-2a4a6200fbcc', 'Thug Nature', 163, 1, '', 0, '2012-05-15 19:01:58.718541+00'),
-        (898532, 'f1cd9625-d7bb-41f4-9053-b9cf83068dcf', 'Atomic Beats', 1, 11, '', 0, '2009-12-03 03:11:59.75341+00'),
-        (1292773, '76faec64-dbcc-4113-8c37-6b3f9674e383', '100 Hits of the Sixties', 1033220, 1, '', 0, '2020-03-22 13:20:03.259135+00'),
-        (1219512, 'a4776762-078c-48d8-9f39-2fc68a702733', 'Chi: Harmony & Meditation - The Way to Your Soul', 1091952, NULL, '', 0, '2017-02-23 20:05:58.950458+00');
+        INSERT INTO release_group VALUES
+            (170162, 'f946cdb1-d74e-355d-a187-2a4a6200fbcc', 'Thug Nature', 163, 1, '', 0, '2012-05-15 19:01:58.718541+00'),
+            (898532, 'f1cd9625-d7bb-41f4-9053-b9cf83068dcf', 'Atomic Beats', 1, 11, '', 0, '2009-12-03 03:11:59.75341+00'),
+            (1292773, '76faec64-dbcc-4113-8c37-6b3f9674e383', '100 Hits of the Sixties', 1033220, 1, '', 0, '2020-03-22 13:20:03.259135+00'),
+            (1219512, 'a4776762-078c-48d8-9f39-2fc68a702733', 'Chi: Harmony & Meditation - The Way to Your Soul', 1091952, NULL, '', 0, '2017-02-23 20:05:58.950458+00');
 
-    INSERT INTO release VALUES
-        (1328498, 'fb6a168b-e419-403c-a4a6-24fd992bbfb3', 'Thug Nature', 163, 170162, 3, NULL, 120, 28, NULL, '', 0, -1, '2015-10-29 17:01:28.262899+00');
+        INSERT INTO release VALUES
+            (1328498, 'fb6a168b-e419-403c-a4a6-24fd992bbfb3', 'Thug Nature', 163, 170162, 3, NULL, 120, 28, NULL, '', 0, -1, '2015-10-29 17:01:28.262899+00');
 
-    INSERT INTO medium VALUES
-        (1372126, 1328498, 1, 1, '', 0, '2013-09-09 01:09:39.168562+00', 15);
+        INSERT INTO medium VALUES
+            (1372126, 1328498, 1, 1, '', 0, '2013-09-09 01:09:39.168562+00', 15);
 
-    INSERT INTO recording VALUES
-        (1723928, 'c490731a-35e2-466e-83c8-a1084f5adb21', 'Blood Money (remix)', 1079039, 237000, '', 0, '2015-09-03 01:00:44.001512+00', 'f');
+        INSERT INTO recording VALUES
+            (1723928, 'c490731a-35e2-466e-83c8-a1084f5adb21', 'Blood Money (remix)', 1079039, 237000, '', 0, '2015-09-03 01:00:44.001512+00', 'f');
 
-    INSERT INTO track VALUES
-        (15351681, '6d0598f0-a044-409f-a77a-97bbbb072b14', 1723928, 1372126, 12, 12, 'Blood Money (remix)', 1216448, 237000, 0, '2015-09-03 01:00:44.001512+00', 'f');
+        INSERT INTO track VALUES
+            (15351681, '6d0598f0-a044-409f-a77a-97bbbb072b14', 1723928, 1372126, 12, 12, 'Blood Money (remix)', 1216448, 237000, 0, '2015-09-03 01:00:44.001512+00', 'f');
 
-    COMMIT;
-EOSQL
+        COMMIT;
+        EOSQL
 
     # Should skip all ACs with edits_pending != 0
     system (
@@ -259,17 +259,17 @@ EOSQL
         },
     ]);
 
-    $exec_sql->(<<EOSQL);
-    SET client_min_messages TO WARNING;
-    TRUNCATE artist CASCADE;
-    TRUNCATE artist_credit CASCADE;
-    TRUNCATE artist_credit_name CASCADE;
-    TRUNCATE release_group CASCADE;
-    TRUNCATE release CASCADE;
-    TRUNCATE medium CASCADE;
-    TRUNCATE recording CASCADE;
-    TRUNCATE track CASCADE;
-EOSQL
+    $exec_sql->(<<~'EOSQL');
+        SET client_min_messages TO WARNING;
+        TRUNCATE artist CASCADE;
+        TRUNCATE artist_credit CASCADE;
+        TRUNCATE artist_credit_name CASCADE;
+        TRUNCATE release_group CASCADE;
+        TRUNCATE release CASCADE;
+        TRUNCATE medium CASCADE;
+        TRUNCATE recording CASCADE;
+        TRUNCATE track CASCADE;
+        EOSQL
 };
 
 run_me;

@@ -20,9 +20,11 @@ $mech->default_header("Accept" => "application/xml");
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
-$c->sql->do(<<'EOSQL');
-UPDATE instrument_alias SET type = 1, locale = 'fr', primary_for_locale = true WHERE id = 1;
-EOSQL
+$c->sql->do(<<~'EOSQL');
+    UPDATE instrument_alias
+    SET type = 1, locale = 'fr', primary_for_locale = true
+    WHERE id = 1;
+    EOSQL
 
 $mech->get('/ws/2/instrument/3590521b-8c97-4f4b-b1bb-5f68d3663d8a?inc=coffee');
 is($mech->status, 400);

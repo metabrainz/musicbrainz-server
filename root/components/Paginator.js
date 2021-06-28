@@ -18,6 +18,7 @@ type PageQueryObject = {[pageVar: PageQueryParam]: number, ...};
 type Props = {
   +$c: CatalystContextT,
   +guessSearch?: boolean,
+  +hash?: string,
   +pager: PagerT,
   +pageVar?: PageQueryParam,
 };
@@ -26,6 +27,7 @@ function uriPage(
   uri: string,
   pageVar: PageQueryParam,
   page: number,
+  hash: ?string,
 ) {
   /*
    * See "Flow errors on unions in computed properties" here:
@@ -33,12 +35,14 @@ function uriPage(
    */
   const params: PageQueryObject = {};
   params[pageVar] = page;
-  return uriWith(uri, params);
+  return uriWith(uri, params) +
+    (nonEmpty(hash) ? '#' + hash : '');
 }
 
 const Paginator = ({
   $c,
   guessSearch = false,
+  hash,
   pager,
   pageVar = 'page',
 }: Props): React.Element<'nav'> | null => {
@@ -65,7 +69,7 @@ const Paginator = ({
       <ul className="pagination">
         {previousPage ? (
           <li key="previous">
-            <a href={uriPage(reqUri, pageVar, previousPage)}>
+            <a href={uriPage(reqUri, pageVar, previousPage, hash)}>
               {l('Previous')}
             </a>
           </li>
@@ -79,7 +83,7 @@ const Paginator = ({
 
         {start > firstPage ? (
           <li key="first">
-            <a href={uriPage(reqUri, pageVar, firstPage)}>
+            <a href={uriPage(reqUri, pageVar, firstPage, hash)}>
               {firstPage}
             </a>
           </li>
@@ -96,14 +100,14 @@ const Paginator = ({
             <li key={'number-' + page}>
               <a
                 className="sel"
-                href={uriPage(reqUri, pageVar, page)}
+                href={uriPage(reqUri, pageVar, page, hash)}
               >
                 <strong>{page}</strong>
               </a>
             </li>
           ) : (
             <li key={'number-' + page}>
-              <a href={uriPage(reqUri, pageVar, page)}>
+              <a href={uriPage(reqUri, pageVar, page, hash)}>
                 {page}
               </a>
             </li>
@@ -118,7 +122,7 @@ const Paginator = ({
 
         {end < lastPage ? (
           <li key="last">
-            <a href={uriPage(reqUri, pageVar, lastPage)}>
+            <a href={uriPage(reqUri, pageVar, lastPage, hash)}>
               {lastPage}
             </a>
           </li>
@@ -133,7 +137,7 @@ const Paginator = ({
         <li className="separator" key="separate-next">
           {nextPage ? (
             <li key="next">
-              <a href={uriPage(reqUri, pageVar, nextPage)}>
+              <a href={uriPage(reqUri, pageVar, nextPage, hash)}>
                 {l('Next')}
               </a>
             </li>

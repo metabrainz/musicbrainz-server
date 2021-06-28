@@ -15,26 +15,6 @@ import MB from '../../common/MB';
 
 MB.CoverArt = {};
 
-MB.CoverArt.get_image_mime_type = function () {
-  var filename = $('iframe')
-    .contents()
-    .find('#file')
-    .val();
-  var mimeType = null;
-
-  if (filename.match(/\.j(peg|pg|pe|fif|if)$/i)) {
-    mimeType = 'image/jpeg';
-  } else if (filename.match(/\.png$/i)) {
-    mimeType = 'image/png';
-  } else if (filename.match(/\.gif$/i)) {
-    mimeType = 'image/gif';
-  } else if (filename.match(/\.pdf$/i)) {
-    mimeType = 'application/pdf';
-  }
-
-  return mimeType;
-};
-
 MB.CoverArt.image_error = function ($img, image) {
   if ($img.attr('src') === image.image) {
     /*
@@ -200,9 +180,16 @@ MB.CoverArt.file_data_uri = function (file) {
 MB.CoverArt.sign_upload = function (fileUpload, gid, mimeType) {
   var deferred = $.Deferred();
 
+  const data = {mime_type: mimeType};
+  /* global COVER_ART_IMAGE_ID */
+  if (typeof COVER_ART_IMAGE_ID === 'number') {
+    /* eslint-disable-next-line no-global-assign */
+    data.image_id = COVER_ART_IMAGE_ID++;
+  }
+
   var postfields = $.ajax({
     url: '/ws/js/cover-art-upload/' + gid,
-    data: {mime_type: mimeType},
+    data,
     dataType: 'json',
     cache: false,
   });
@@ -529,97 +516,57 @@ MB.CoverArt.set_position = function () {
 };
 
 MB.CoverArt.add_cover_art = function (gid) {
-  if (typeof (window.FormData) !== 'undefined' &&
-      typeof (window.FileReader) !== 'undefined') {
-    File.prototype.slice = File.prototype.webkitSlice ||
-                           File.prototype.mozSlice ||
-                           File.prototype.slice;
+  var upvm = new MB.CoverArt.UploadProcessViewModel();
+  ko.applyBindings(upvm);
 
-    /*
-     * FormData is supported, so we can present the multifile ajax
-     * upload form.
-     */
+  $(document).on('click', 'button.cancel-file', function (event) {
+    event.preventDefault();
+    upvm.files_to_upload.remove(ko.dataFor(this));
+  });
 
-    $('.with-formdata').show();
+  $(document).on('click', 'button.file-up', function (event) {
+    event.preventDefault();
+    upvm.moveFile(ko.dataFor(this), -1);
+  });
 
-    var upvm = new MB.CoverArt.UploadProcessViewModel();
-    ko.applyBindings(upvm);
+  $(document).on('click', 'button.file-down', function (event) {
+    event.preventDefault();
+    upvm.moveFile(ko.dataFor(this), 1);
+  });
 
-    $(document).on('click', 'button.cancel-file', function (event) {
-      event.preventDefault();
-      upvm.files_to_upload.remove(ko.dataFor(this));
+  $('button.add-files').on('click', function () {
+    $('input.add-files').trigger('click');
+  });
+
+  $('input.add-files').on('change', function () {
+    $.each($('input.add-files')[0].files, function (idx, file) {
+      upvm.addFile(file);
     });
 
-    $(document).on('click', 'button.file-up', function (event) {
-      event.preventDefault();
-      upvm.moveFile(ko.dataFor(this), -1);
-    });
-
-    $(document).on('click', 'button.file-down', function (event) {
-      event.preventDefault();
-      upvm.moveFile(ko.dataFor(this), 1);
-    });
-
-    $('button.add-files').on('click', function () {
-      $('input.add-files').trigger('click');
-    });
-
-    $('input.add-files').on('change', function () {
-      $.each($('input.add-files')[0].files, function (idx, file) {
-        upvm.addFile(file);
-      });
-
-      $('#add-cover-art-submit').prop('disabled', false);
-    });
-
-    $('#drop-zone').on('dragover', function (event) {
-      event.preventDefault();
-      event.stopPropagation();
-      event.originalEvent.dataTransfer.dropEffect = 'copy';
-    });
-
-    $('#drop-zone').on('drop', function (event) {
-      event.preventDefault();
-      event.stopPropagation();
-      $.each(event.originalEvent.dataTransfer.files, function (idx, file) {
-        upvm.addFile(file);
-      });
-
-      $('#add-cover-art-submit').prop('disabled', false);
-    });
-
-    $('#add-cover-art-submit').on('click.mb', function (event) {
-      event.preventDefault();
-      MB.CoverArt.set_position();
-      MB.CoverArt.add_cover_art_submit(gid, upvm);
-    });
-  } else {
-    $('.without-formdata').show();
     $('#add-cover-art-submit').prop('disabled', false);
+  });
 
-    $('#add-cover-art-submit').on('click.mb', function (event) {
-      event.preventDefault();
-      MB.CoverArt.set_position();
+  $('#drop-zone').on('dragover', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    event.originalEvent.dataTransfer.dropEffect = 'copy';
+  });
 
-      var mimeType = MB.CoverArt.get_image_mime_type();
-      $('#id-add-cover-art\\.mime_type').val(mimeType);
-
-      if (mimeType) {
-        $('iframe')[0].contentWindow.upload(
-          gid,
-          $('#id-add-cover-art\\.id').val(),
-          mimeType,
-        );
-      } else {
-        $('iframe')
-          .contents()
-          .find('#cover-art-file-error')
-          .show();
-      }
-
-      return false;
+  $('#drop-zone').on('drop', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    $.each(event.originalEvent.dataTransfer.files, function (idx, file) {
+      upvm.addFile(file);
     });
-  }
+
+    $('#add-cover-art-submit').prop('disabled', false);
+  });
+
+  $('#add-cover-art-submit').on('click.mb', function (event) {
+    event.preventDefault();
+    MB.CoverArt.set_position();
+    MB.CoverArt.add_cover_art_submit(gid, upvm);
+  });
 };
 
 /*

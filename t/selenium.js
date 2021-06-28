@@ -46,7 +46,6 @@ const JSON5 = require('json5');
 const path = require('path');
 const test = require('tape');
 const TestCls = require('tape/lib/test');
-const utf8 = require('utf8');
 const webdriver = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 const firefox = require('selenium-webdriver/firefox');
@@ -69,10 +68,13 @@ function compareEditDataValues(actualValue, expectedValue) {
    * Handle cases where Perl's JSON module serializes numbers in the
    * edit data as strings (something we can't fix easily).
    */
-  if (typeof actualValue === 'string' &&
-      typeof expectedValue === 'number' &&
-      actualValue === String(expectedValue)) {
-    return true;
+  if (
+    (typeof actualValue === 'string' ||
+      typeof actualValue === 'number') &&
+    (typeof expectedValue === 'string' ||
+      typeof expectedValue === 'number')
+  ) {
+    return String(actualValue) === String(expectedValue);
   }
   // Tells `deepEqual` to perform its default comparison.
   return null;
@@ -149,7 +151,7 @@ const driver = (x => {
       options.addArguments(
         'disable-dev-shm-usage',
         'no-sandbox',
-        'proxy-server=http://localhost:5050',
+        'proxy-server=http://localhost:5051',
       );
       x.setChromeOptions(options);
       break;
@@ -166,7 +168,7 @@ const driver = (x => {
       throw new Error('Unsupported browser: ' + argv.browser);
   }
 
-  x.setProxy(webdriverProxy.manual({http: 'localhost:5050'}));
+  x.setProxy(webdriverProxy.manual({http: 'localhost:5051'}));
 
   if (argv.headless) {
     options.headless();
@@ -266,6 +268,7 @@ const KEY_CODES = {
   '${KEY_HOME}': Key.HOME,
   '${KEY_SHIFT}': Key.SHIFT,
   '${KEY_TAB}': Key.TAB,
+  '${MBS_ROOT}': DBDefs.MB_SERVER_ROOT.replace(/\/$/, ''),
 };
 
 function getPageErrors() {
@@ -326,12 +329,21 @@ async function handleCommand({command, target, value}, t) {
 
   t.comment(
     command +
-    ' target=' + utf8.encode(JSON.stringify(target)) +
-    ' value=' + utf8.encode(JSON.stringify(value)),
+    ' target=' + JSON.stringify(target) +
+    ' value=' + JSON.stringify(value),
   );
 
   let element;
   switch (command) {
+    case 'assertArtworkJson':
+      const artworkJson = JSON.parse(await driver.executeAsyncScript(`
+        var callback = arguments[arguments.length - 1];
+        fetch('http://localhost:8081/release/${target}')
+          .then(x => x.text().then(callback));
+      `));
+      t.deepEqual2(artworkJson, value);
+      break;
+
     case 'assertAttribute':
       const splitAt = target.indexOf('@');
       const locator = target.slice(0, splitAt);
@@ -483,7 +495,10 @@ const seleniumTests = [
   {name: 'MBS-9941.json5', login: true},
   {name: 'MBS-10188.json5', login: true, sql: 'mbs-10188.sql'},
   {name: 'MBS-10510.json5', login: true, sql: 'mbs-10510.sql'},
+  {name: 'MBS-11730.json5', login: true},
+  {name: 'MBS-11735.json5', login: true},
   {name: 'Artist_Credit_Editor.json5', login: true},
+  {name: 'CAA.json5', login: true},
   {name: 'External_Links_Editor.json5', login: true},
   {name: 'Work_Editor.json5', login: true},
   {name: 'Redirect_Merged_Entities.json5', login: true},
@@ -505,6 +520,11 @@ const seleniumTests = [
   {name: 'release-editor/MBS-11015.json5', login: true},
   {name: 'release-editor/MBS-11114.json5', login: true},
   {name: 'release-editor/MBS-11156.json5', login: true},
+  {
+    name: 'Check_Duplicates.json5',
+    login: true,
+    sql: 'duplicate_checker.sql',
+  },
 ];
 
 const testPath = name => path.resolve(__dirname, 'selenium', name);
@@ -574,57 +594,7 @@ async function runCommands(commands, t) {
 (async function runTests() {
   const TEST_TIMEOUT = 200000; // 200 seconds
 
-  const cartonPrefix = process.env.PERL_CARTON_PATH
-    ? 'carton exec -- '
-    : '';
-
-  function pgPasswordEnv(db) {
-    if (db.password) {
-      return {env: Object.assign({}, process.env, {PGPASSWORD: db.password})};
-    }
-    return {};
-  }
-
-  async function getDbConfig(name) {
-    const result = (await execFile(
-      'sh', [
-        '-c',
-        `$(${cartonPrefix}./script/database_configuration ${name}) && ` +
-        'echo "$PGHOST\n$PGPORT\n$PGDATABASE\n$PGUSER\n$PGPASSWORD"',
-      ],
-    )).stdout.split('\n').map(x => x.trim());
-
-    return {
-      host: result[0],
-      port: result[1],
-      database: result[2],
-      user: result[3],
-      password: result[4],
-    };
-  }
-
-  const seleniumDb = await getDbConfig('SELENIUM');
-  const systemDb = await getDbConfig('SYSTEM');
-  const hostPort = ['-h', seleniumDb.host, '-p', seleniumDb.port];
-
   async function cleanSeleniumDb(extraSql) {
-    // Close active sessions before dropping the database.
-    await execFile(
-      'psql',
-      [
-        ...hostPort,
-        '-U',
-        systemDb.user,
-        '-c',
-        `
-          SELECT pg_terminate_backend(pg_stat_activity.pid)
-            FROM pg_stat_activity
-           WHERE datname = '${seleniumDb.database.replace(/'/g, "''")}'
-        `,
-        'template1',
-      ],
-      pgPasswordEnv(systemDb),
-    );
     await execFile(
       path.resolve(__dirname, '../script/reset_selenium_env.sh'),
       extraSql ? [path.resolve(__dirname, 'sql', extraSql)] : [],
@@ -638,7 +608,7 @@ async function runCommands(commands, t) {
     ? seleniumTests.filter(x => testsPathsToRun.includes(x.path))
     : seleniumTests;
 
-  customProxyServer.listen(5050);
+  customProxyServer.listen(5051);
 
   await testsToRun.reduce(function (accum, stest, index) {
     const {commands, plan, title} = getPlan(stest.path);

@@ -18,9 +18,10 @@ my $mech = $test->mech;
 $mech->default_header("Accept" => "application/xml");
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
-MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-INSERT INTO release_tag (count, release, tag) VALUES (1, 123054, 114);
-EOSQL
+MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    INSERT INTO release_tag (count, release, tag)
+        VALUES (1, 123054, 114);
+    EOSQL
 
 ws_test 'browse releases via artist (paging)',
     '/release?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&offset=2' =>

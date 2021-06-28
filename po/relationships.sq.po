@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-05-27 14:33+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2021-06-18 02:28+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2848,12 +2848,6 @@ msgid ""
 "Note about CD Baby: Many CD Baby releases are also available (usually with bigger covers) on Amazon.com."
 msgstr ""
 
-#: DB:link_type/description:930 DB:link_type/description:931
-msgid ""
-"This relationship type is <strong>deprecated</strong>! Please use the "
-"instrument technician relationship, and select \"piano\" as the instrument."
-msgstr ""
-
 #: DB:link_type/description:15
 msgid ""
 "This relationship type is used to indicate that a release group is a cover version of another release group, i.e. when an artist performs a new rendition of another artist's album.<br/>\n"
@@ -5594,15 +5588,6 @@ msgstr ""
 msgid "photography"
 msgstr "fotografi"
 
-#: DB:link_type/name:930 DB:link_type/name:931
-#: DB:link_type/reverse_link_phrase:930 DB:link_type/reverse_link_phrase:931
-msgid "piano technician"
-msgstr "akordues pianoje"
-
-#: DB:link_type/link_phrase:930 DB:link_type/link_phrase:931
-msgid "piano technician for"
-msgstr "akordues pianoje për"
-
 #: DB:link_type/link_phrase:173 DB:link_type/link_phrase:396
 #: DB:link_type/link_phrase:732
 msgid "picture"
@@ -6540,10 +6525,6 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:836
 msgid "was rescheduled as"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:930 DB:link_type/long_link_phrase:931
-msgid "was the piano technician for"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:760 DB:link_type/long_link_phrase:759

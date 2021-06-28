@@ -131,20 +131,20 @@ ok(!defined $work);
 test 'Merge with funky relationships' => sub {
     my $test = shift;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, <<'EOSQL');
-INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, '5f9913b0-7219-11de-8a39-0800200c9a66', 'Artist', 'Artist');
+    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (1, '5f9913b0-7219-11de-8a39-0800200c9a66', 'Artist', 'Artist');
 
-INSERT INTO work (id, gid, name)
-    VALUES (1, '145c079d-374e-4436-9448-da92dedef3cf', 'Target'),
-           (2, '245c079d-374e-4436-9448-da92dedef3cf', 'Merge 1'),
-           (3, '345c079d-374e-4436-9448-da92dedef3cf', 'Merge 2');
+        INSERT INTO work (id, gid, name)
+            VALUES (1, '145c079d-374e-4436-9448-da92dedef3cf', 'Target'),
+                   (2, '245c079d-374e-4436-9448-da92dedef3cf', 'Merge 1'),
+                   (3, '345c079d-374e-4436-9448-da92dedef3cf', 'Merge 2');
 
-INSERT INTO link (id, link_type, attribute_count) VALUES (1, 167, 0);
-INSERT INTO l_artist_work (id, entity0, link, entity1)
-    VALUES (1, 1, 1, 2),
-           (2, 1, 1, 3);
-EOSQL
+        INSERT INTO link (id, link_type, attribute_count) VALUES (1, 167, 0);
+        INSERT INTO l_artist_work (id, entity0, link, entity1)
+            VALUES (1, 1, 1, 2),
+                   (2, 1, 1, 3);
+        EOSQL
 
     $test->c->model('Work')->merge(1, 2, 3);
 

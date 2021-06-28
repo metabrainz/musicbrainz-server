@@ -16,6 +16,7 @@ import clean from '../common/utility/clean';
 import debounce from '../common/utility/debounce';
 import isBlank from '../common/utility/isBlank';
 import request from '../common/utility/request';
+import {unaccent} from '../common/utility/strings';
 
 import PossibleDuplicates from './components/PossibleDuplicates';
 import validation from './validation';
@@ -124,13 +125,17 @@ function isPlaceCommentRequired(duplicates) {
   });
 }
 
+const normalizeName = name => unaccent(name).toUpperCase();
+
 function isCommentRequired(type, name, duplicates) {
   if (type === 'place') {
     return isPlaceCommentRequired(duplicates);
   }
 
+  const normalizedName = normalizeName(name);
+
   return duplicates.some(function (duplicate) {
-    return name.toUpperCase() === duplicate.unaccented_name.toUpperCase();
+    return normalizedName === normalizeName(duplicate.name);
   });
 }
 

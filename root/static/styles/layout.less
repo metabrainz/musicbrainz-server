@@ -66,7 +66,7 @@ h1 {
 h1 a { color: @text-black !important; }
 
 h2,
-fieldset legend {
+fieldset:not(.row) legend {
     margin-top: 1em;
     margin-bottom: 0;
     font-size: @large-text;
@@ -725,7 +725,6 @@ table.tbl {
     /* Striping */
     tr.even td,
     tr.even th {
-        padding: 0.2em 0.4em;
         background: @even-table-row;
     }
     tr:target td { background-color: @highlight-table-row; }
@@ -735,6 +734,7 @@ table.tbl {
     .year { width: 4em; }
     &.release-group-list .artist { width: 25%; }
     .count { width: 2em; }
+    .last-edited-heading { width: 10em; }
     .rating { width: 50px; }
     .treleases { width: 3em; }
     .t { text-align: right; }

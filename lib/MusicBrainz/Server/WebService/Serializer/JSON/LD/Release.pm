@@ -5,6 +5,7 @@ use List::AllUtils qw( uniq );
 use List::UtilsBy qw( uniq_by );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Genre';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Length';

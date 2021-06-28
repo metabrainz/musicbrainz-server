@@ -4,6 +4,7 @@ use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( list_or_single serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Genre';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Aliases';

@@ -375,10 +375,10 @@ sub subscribed_entity_edits {
         my $edit_entity_table = 'edit_' . $_;
         my $edit_status_table = $edit_entity_table;
         my $editor_subscribe_table = 'editor_subscribe_' . $_;
-        my $result = <<EOSQL;
-SELECT edit FROM $edit_entity_table
-JOIN $editor_subscribe_table ON $editor_subscribe_table.$_ = $edit_entity_table.$_
-EOSQL
+        my $result = <<~"EOSQL";
+            SELECT edit FROM $edit_entity_table
+            JOIN $editor_subscribe_table ON $editor_subscribe_table.$_ = $edit_entity_table.$_
+            EOSQL
 
         # Join with the edit table if
         # (1) this entity doesn't have a materialized edit status (e.g. series), or
@@ -408,24 +408,24 @@ EOSQL
     } entities_with('collections'));
     # FIXME: very similar to $EDIT_IDS_FOR_COLLECTION_SQL, should be generalized
 
-    my $query = <<EOSQL;
-SELECT $columns FROM $table
-JOIN (
-    $entity_sql
-    UNION
-    SELECT edit FROM ($subscriptions_sql) ce
-      JOIN edit ON ce.edit = edit.id
-     WHERE ${\($edit_filter->('edit', 'ce'))}
-) edits ON edit.id = edits.edit
-WHERE ${\($edit_filter->('edit', 'edit', '!='))}
-AND NOT EXISTS (
-    SELECT TRUE FROM vote
-    WHERE vote.edit = edit.id
-    AND vote.editor = \$1
-)
-ORDER BY id ASC
-LIMIT $LIMIT_FOR_EDIT_LISTING
-EOSQL
+    my $query = <<~"EOSQL";
+        SELECT $columns FROM $table
+        JOIN (
+            $entity_sql
+            UNION
+            SELECT edit FROM ($subscriptions_sql) ce
+            JOIN edit ON ce.edit = edit.id
+            WHERE ${\($edit_filter->('edit', 'ce'))}
+        ) edits ON edit.id = edits.edit
+        WHERE ${\($edit_filter->('edit', 'edit', '!='))}
+        AND NOT EXISTS (
+            SELECT TRUE FROM vote
+            WHERE vote.edit = edit.id
+            AND vote.editor = \$1
+        )
+        ORDER BY id ASC
+        LIMIT $LIMIT_FOR_EDIT_LISTING
+        EOSQL
 
     $self->query_to_list_limited($query, \@args, $limit, $offset, undef,
                                  dollar_placeholders => 1);

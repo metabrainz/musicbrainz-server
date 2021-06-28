@@ -15,12 +15,18 @@ use MusicBrainz::Errors qw(
     send_message_to_sentry
 );
 use MusicBrainz::Server::WebService::Validator;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Constants qw( entities_with %ENTITIES $CONTACT_URL );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Validation qw( is_database_row_id is_guid );
+use MusicBrainz::Server::Validation qw(
+    is_database_row_id
+    is_guid
+    is_positive_integer
+);
 use Readonly;
 use Scalar::Util qw( blessed );
 use Text::Trim;
@@ -35,6 +41,10 @@ my $ws_defs = Data::OptList::mkopt([
         method => 'GET',
         inc => [ qw(recordings rels) ],
         optional => [ qw(q artist tracks limit page timestamp) ]
+    },
+    "tracks" => {
+        method => 'GET',
+        optional => [ qw(q page ) ]
     },
     "cdstub" => {
         method => 'GET',
@@ -90,6 +100,33 @@ sub medium : Chained('root') PathPart Args(1) {
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body(encode_json($medium->TO_JSON));
+}
+
+sub tracks : Chained('root') PathPart Args(1) {
+    my ($self, $c, $medium_id) = @_;
+
+    $self->detach_with_error($c, "malformed medium id: $medium_id", 400)
+        unless is_database_row_id($medium_id);
+
+    my $page = $c->stash->{args}{page} || 1;
+    $self->detach_with_error($c, "malformed page: $page", 400)
+        unless is_positive_integer($page);
+
+    my ($pager, $tracks) = $c->model('Track')->load_for_medium_paged($medium_id, $page);
+    $c->model('Track')->load_related_info($c->user_exists ? $c->user->id : undef, @$tracks);
+
+    my $tracks_json_array = to_json_array($tracks);
+    my $linked_entities = $MusicBrainz::Server::Entity::Util::JSON::linked_entities;
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body(encode_json({
+        linked_entities => {
+            link_attribute_type => ($linked_entities->{link_attribute_type} // {}),
+            link_type => ($linked_entities->{link_type} // {}),
+        },
+        pager => serialize_pager($pager),
+        tracks => $tracks_json_array,
+    }));
 }
 
 sub cdstub : Chained('root') PathPart Args(1) {
@@ -291,7 +328,7 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
         $bucket_uri->scheme('https');
 
         if (
-            DBDefs->DEVELOPMENT_SERVER &&
+            (DBDefs->DEVELOPMENT_SERVER || DBDefs->DB_STAGING_TESTING_FEATURES) &&
             $bucket_uri->authority !~ m/\.archive\.org$/
         ) {
             # This allows using contrib/ssssss.psgi for testing, but
@@ -316,7 +353,7 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
         $context->lwp->timeout(30);
 
         my $response = $context->lwp->request($s3_request);
-        if ($response->code == 200) {
+        if ($response->is_success) {
             # The bucket was created succesfully.
         } elsif ($response->code == 409) {
             my $s3_error_code;
@@ -342,7 +379,7 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
                 my $item_metadata;
                 my $json_decode_error;
 
-                if ($response->code == 200) {
+                if ($response->is_success) {
                     capture_exceptions(sub {
                         $item_metadata = $c->json->decode($item_metadata_content);
                     }, sub {
@@ -424,11 +461,19 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
 
     my $id = $c->request->params->{image_id} // $c->model('CoverArtArchive')->fresh_id;
 
+    if ($c->model('CoverArtArchive')->is_id_in_use($id)) {
+        $self->detach_with_error($c, {message => "The ID $id is already in use (1)."});
+    }
+
     # Create a nonce associated with this image ID which we'll later
     # use to verify that the user went through this endpoint to
     # initiate the upload. This is necessary to ensure we're the owner
     # of the bucket (see above) before allowing any edit submission.
     my $nonce_key = 'cover_art_upload_nonce:' . $id;
+    my $existing_nonce = $context->store->get($nonce_key);
+    if ($existing_nonce) {
+        $self->detach_with_error($c, {message => "The ID $id is already in use (2)."});
+    }
     my $nonce = $c->generate_nonce;
     $context->store->set($nonce_key, $nonce);
     # Expire the nonce in 1 hour.

@@ -38,6 +38,14 @@ export function kebabCase(str: string): string {
     .toLowerCase();
 }
 
+const combiningDiacriticalMarks = /[\u0300-\u036F]/g;
+
+export function unaccent(str: string): string {
+  return str
+    .normalize('NFD')
+    .replace(combiningDiacriticalMarks, '');
+}
+
 let NEXT_UNIQUE_ID = 1;
 
 export function uniqueId(prefix?: string = ''): string {

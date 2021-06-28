@@ -40,7 +40,8 @@ with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
                                           {from => 'recordings_jsonld', to => 'recordings'},
                                           {from => 'identities', to => 'identities'},
                                           {from => 'legal_name', to => 'legal_name'},
-                                          {from => 'other_identities', to => 'other_identities'}]},
+                                          {from => 'other_identities', to => 'other_identities'},
+                                          'top_tags']},
                   recordings => {copy_stash => [{from => 'recordings_jsonld', to => 'recordings'}]},
                   relationships => {},
                   aliases => {copy_stash => ['aliases']}}
@@ -729,7 +730,9 @@ sub split : Chained('load') Edit {
     my $artist = $c->stash->{artist};
     $self->_stash_collections($c);
 
-    if (!can_split($artist)) {
+    my $can_split = $c->model('Artist')->can_split($artist->id);
+
+    if (!$can_split) {
         my %props = (
             artist => $artist->TO_JSON,
         );
@@ -741,10 +744,30 @@ sub split : Chained('load') Edit {
         $c->detach;
     }
 
+    my $is_empty = $c->model('Artist')->is_empty($artist->id);
+
+    if ($is_empty) {
+        my %props = (
+            artist => $artist,
+            isEmpty => \1
+        );
+        $c->stash(
+            component_path => 'artist/CannotSplit',
+            component_props => \%props,
+            current_view => 'Node',
+        );
+        $c->detach;
+    }
+
     my $ac = $c->model('ArtistCredit')->find_for_artist($artist);
 
+    my @collaborators = map { $_->target } grep {
+        $_->link->type->gid eq $ARTIST_ARTIST_COLLABORATION
+    } $artist->all_relationships;
+
     $c->stash(
-        in_use => $c->model('ArtistCredit')->in_use($ac)
+        in_use => $c->model('ArtistCredit')->in_use($ac),
+        collaborators => \@collaborators,
     );
 
     my $edit = $self->edit_action(
@@ -789,13 +812,6 @@ sub split : Chained('load') Edit {
                 $c->uri_for_action('/artist/show', [ $artist->gid ]))
         }
     );
-}
-
-sub can_split {
-    my $artist = shift;
-    return (grep {
-        $_->link->type->gid ne $ARTIST_ARTIST_COLLABORATION
-    } $artist->all_relationships) == 0;
 }
 
 sub credit : Chained('load') PathPart('credit') CaptureArgs(1) {

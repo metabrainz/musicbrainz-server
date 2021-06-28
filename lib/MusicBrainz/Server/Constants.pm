@@ -71,7 +71,7 @@ our @EXPORT_OK = (
         %PART_OF_SERIES $PART_OF_AREA_LINK_TYPE $PART_OF_AREA_LINK_TYPE_ID
         $SERIES_ORDERING_TYPE_AUTOMATIC $SERIES_ORDERING_TYPE_MANUAL
         $SERIES_ORDERING_ATTRIBUTE
-        $MAX_INITIAL_MEDIUMS
+        $MAX_INITIAL_MEDIUMS $MAX_INITIAL_TRACKS
         $MAX_POSTGRES_INT $MAX_POSTGRES_BIGINT
         @FULL_TABLE_LIST
         @CORE_TABLE_LIST
@@ -89,6 +89,7 @@ our @EXPORT_OK = (
         $CONTACT_URL
         $WS_EDIT_RESPONSE_OK $WS_EDIT_RESPONSE_NO_CHANGES
         %ENTITIES_WITH_RELATIONSHIP_CREDITS
+        %HISTORICAL_RELEASE_GROUP_TYPES
         %ENTITIES entities_with @RELATABLE_ENTITIES
         $EDITOR_SANITISED_COLUMNS
         $PASSPHRASE_BCRYPT_COST
@@ -405,6 +406,7 @@ Readonly our $PART_OF_AREA_LINK_TYPE => 'de7cc874-8b1b-3a05-8272-f3834c968fb7';
 Readonly our $PART_OF_AREA_LINK_TYPE_ID => 356;
 
 Readonly our $MAX_INITIAL_MEDIUMS => 10;
+Readonly our $MAX_INITIAL_TRACKS => 100;
 
 Readonly our $MAX_POSTGRES_INT => 2147483647;
 Readonly our $MAX_POSTGRES_BIGINT => 9223372036854775807;
@@ -420,6 +422,20 @@ Readonly our %ENTITIES_WITH_RELATIONSHIP_CREDITS => map { $_ => 1 } qw(
     instrument
     label
     place
+);
+
+Readonly our %HISTORICAL_RELEASE_GROUP_TYPES => (
+    1 => 'Album',
+    2 => 'Single',
+    3 => 'EP',
+    4 => 'Compilation',
+    5 => 'Soundtrack',
+    6 => 'Spokenword',
+    7 => 'Interview',
+    8 => 'Audiobook',
+    9 => 'Live',
+    10 => 'Remix',
+    11 => 'Other',
 );
 
 Readonly our %ENTITIES => %{

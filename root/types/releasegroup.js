@@ -30,4 +30,13 @@ declare type ReleaseGroupT = $ReadOnly<{
   +typeName: string | null,
 }>;
 
-declare type ReleaseGroupTypeT = OptionTreeT<'release_group_type'>;
+declare type ReleaseGroupTypeT = {
+  ...OptionTreeT<'release_group_type'>,
+  +historic: false,
+};
+
+declare type ReleaseGroupHistoricTypeT = {
+  +historic: true,
+  +id: number,
+  +name: string,
+};

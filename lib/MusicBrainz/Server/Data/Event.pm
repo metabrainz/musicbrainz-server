@@ -153,20 +153,20 @@ sub is_empty {
     my ($self, $event_id) = @_;
 
     my $used_in_relationship = used_in_relationship($self->c, event => 'event_row.id');
-    return $self->sql->select_single_value(<<EOSQL, $event_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<~"EOSQL", $event_id, $STATUS_OPEN);
         SELECT TRUE
         FROM event event_row
         WHERE id = ?
         AND edits_pending = 0
         AND NOT (
-          EXISTS (
-            SELECT TRUE
-            FROM edit_event JOIN edit ON edit_event.edit = edit.id
-            WHERE status = ? AND event = event_row.id
-          ) OR
-          $used_in_relationship
+            EXISTS (
+                SELECT TRUE
+                FROM edit_event JOIN edit ON edit_event.edit = edit.id
+                WHERE status = ? AND event = event_row.id
+            ) OR
+            $used_in_relationship
         )
-EOSQL
+        EOSQL
 }
 
 sub load_related_info {
@@ -191,23 +191,29 @@ sub find_by_area
 {
     my ($self, $area_id, $limit, $offset) = @_;
     my (
-        $containment_query,
-        @containment_query_args,
-    ) = get_area_containment_query('$2', 'lae.entity0');
+        $area_containment_query,
+        @area_containment_query_args,
+    ) = get_area_containment_query('$2', 'ea.area');
     my $query =
         "SELECT " . $self->_columns ."
-           FROM (
-                    SELECT DISTINCT lae.entity1 AS event
-                      FROM l_area_event lae
-                     WHERE lae.entity0 = \$1 OR EXISTS (
-                        SELECT 1 FROM ($containment_query) ac
-                         WHERE ac.descendant = lae.entity0 AND ac.parent = \$1
-                     )
-                ) s, " . $self->_table . "
+            FROM (
+                SELECT ea.event FROM (
+                    SELECT lae.entity1 AS event, lae.entity0 AS area
+                    FROM l_area_event lae
+                    UNION
+                    SELECT lep.entity0 AS event, p.area
+                    FROM l_event_place lep
+                    JOIN place p ON lep.entity1 = p.id
+                ) ea
+                WHERE ea.area = \$1 OR EXISTS (
+                    SELECT 1 FROM ($area_containment_query) ac
+                    WHERE ac.descendant = ea.area AND ac.parent = \$1
+                )
+            ) s, " . $self->_table . "
           WHERE event.id = s.event
        ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, event.name COLLATE musicbrainz";
     $self->query_to_list_limited(
-        $query, [$area_id, @containment_query_args], $limit, $offset, undef,
+        $query, [$area_id, @area_containment_query_args], $limit, $offset, undef,
         dollar_placeholders => 1,
     );
 }

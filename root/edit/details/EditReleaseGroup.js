@@ -26,7 +26,7 @@ type EditReleaseGroupEditT = {
     +name?: CompT<string>,
     +release_group: ReleaseGroupT,
     +secondary_types: CompT<string>,
-    +type?: CompT<ReleaseGroupTypeT | null>,
+    +type?: CompT<ReleaseGroupTypeT | ReleaseGroupHistoricTypeT | null>,
   },
 };
 
@@ -39,6 +39,8 @@ const EditReleaseGroup = ({edit}: Props): React.Element<'table'> => {
   const name = display.name;
   const comment = display.comment;
   const type = display.type;
+  const oldType = type?.old;
+  const newType = type?.new;
   const secondaryTypes = display.secondary_types;
   const artistCredit = display.artist_credit;
 
@@ -66,12 +68,23 @@ const EditReleaseGroup = ({edit}: Props): React.Element<'table'> => {
       ) : null}
       {type ? (
         <FullChangeDiff
-          label={l('Primary Type:')}
-          newContent={type.new?.name
-            ? lp_attributes(type.new.name, 'release_group_primary_type')
+          label={
+            (newType?.historic || oldType?.historic)
+              ? addColonText(l('Type'))
+              : l('Primary Type:')}
+          newContent={newType?.name
+            ? (
+              newType?.historic
+                ? lp_attributes(newType.name, 'release_group_secondary_type')
+                : lp_attributes(newType.name, 'release_group_primary_type')
+            )
             : ''}
-          oldContent={type.old?.name
-            ? lp_attributes(type.old.name, 'release_group_primary_type')
+          oldContent={oldType?.name
+            ? (
+              oldType?.historic
+                ? lp_attributes(oldType.name, 'release_group_secondary_type')
+                : lp_attributes(oldType.name, 'release_group_primary_type')
+            )
             : ''}
         />
       ) : null}

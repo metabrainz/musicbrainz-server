@@ -221,12 +221,21 @@ ws_test 'recording lookup with puids (no-op) and isrcs',
     </recording>
 </metadata>';
 
-ws_test 'recording lookup with release relationships',
-    '/recording/37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9?inc=release-rels' =>
+ws_test 'recording lookup with release relationships and artist credits',
+    '/recording/37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9?inc=release-rels+artist-credits' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording id="37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9">
         <title>Dear Diary</title>
+        <artist-credit>
+            <name-credit>
+                <artist id="6fe9f838-112e-44f1-af83-97464f08285b" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+                    <name>Wedlock</name>
+                    <sort-name>Wedlock</sort-name>
+                    <disambiguation>USA electro pop</disambiguation>
+                </artist>
+            </name-credit>
+        </artist-credit>
         <length>86666</length>
         <first-release-date>2008-04-29</first-release-date>
         <relation-list target-type="release">
@@ -236,6 +245,14 @@ ws_test 'recording lookup with release relationships',
                 <begin>2008</begin>
                 <release id="4ccb3e54-caab-4ad4-94a6-a598e0e52eec">
                     <title>An Inextricable Tale Audiobook</title>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="05d83760-08b5-42bb-a8d7-00d80b3bf47c">
+                                <name>Paul Allgood</name>
+                                <sort-name>Allgood, Paul</sort-name>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
                     <quality>normal</quality>
                     <text-representation>
                         <language>eng</language>

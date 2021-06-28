@@ -5,6 +5,7 @@ use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable ArtistCreditDefinition );
+use MusicBrainz::Server::Edit::Historic::Utils qw( get_historic_type );
 use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     artist_credit_preview
@@ -59,7 +60,8 @@ sub build_display_data
         artist_credit => to_json_object(artist_credit_preview($loaded, $self->data->{artist_credit})),
         name          => $self->data->{name} || '',
         comment       => $self->data->{comment} || '',
-        type          => $type ? to_json_object($loaded->{ReleaseGroupType}{$type}) : undef,
+        # Older edits store historic (pre-split) "secondary" types
+        type          => get_historic_type($type, $loaded),
         release_group => to_json_object((defined($self->entity_id) &&
                               $loaded->{ReleaseGroup}{ $self->entity_id }) ||
                                   ReleaseGroup->new( name => $self->data->{name} )),

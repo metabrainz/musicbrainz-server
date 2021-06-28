@@ -118,18 +118,18 @@ $sql->commit;
 
 test 'Delete release groups with secondary types' => sub {
     my $test = shift;
-    $test->c->sql->do(<<'EOSQL');
-INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Name', 1);
-INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
-    VALUES (1, 1, 'Name', 0, '');
+    $test->c->sql->do(<<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
+        INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Name', 1);
+        INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
+            VALUES (1, 1, 'Name', 0, '');
 
-INSERT INTO release_group (id, gid, name, artist_credit, type, comment, edits_pending)
-    VALUES (1, '7b5d22d0-72d7-11de-8a39-0800200c9a66', 'Release Group', 1, 1, 'Comment', 2);
-INSERT INTO release_group_secondary_type_join (release_group, secondary_type)
-    VALUES (1, 7);
-EOSQL
+        INSERT INTO release_group (id, gid, name, artist_credit, type, comment, edits_pending)
+            VALUES (1, '7b5d22d0-72d7-11de-8a39-0800200c9a66', 'Release Group', 1, 1, 'Comment', 2);
+        INSERT INTO release_group_secondary_type_join (release_group, secondary_type)
+            VALUES (1, 7);
+        EOSQL
 
     $test->c->model('ReleaseGroup')->delete(1);
     ok(!defined $test->c->model('ReleaseGroup')->get_by_id(1));
@@ -208,10 +208,10 @@ test 'Merging release groups with cover art set preserves target cover art' => s
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+releasegroup');
 
-    $c->sql->do(<<'EOSQL');
-    INSERT INTO cover_art_archive.release_group_cover_art (release_group, release)
-      VALUES (4, 4), (5, 5)
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO cover_art_archive.release_group_cover_art (release_group, release)
+            VALUES (4, 4), (5, 5)
+        EOSQL
 
     $c->model('CoverArtArchive')->merge_release_groups(4, 5);
 
@@ -229,10 +229,10 @@ test 'Merging release groups with cover art otherwise uses a random choice' => s
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+releasegroup');
 
-    $c->sql->do(<<'EOSQL');
-    INSERT INTO cover_art_archive.release_group_cover_art (release_group, release)
-      VALUES (4, 4), (5, 5)
-EOSQL
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO cover_art_archive.release_group_cover_art (release_group, release)
+            VALUES (4, 4), (5, 5)
+        EOSQL
 
     $c->model('CoverArtArchive')->merge_release_groups(3, 4, 5);
 

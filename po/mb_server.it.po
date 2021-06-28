@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-09 18:02-0500\n"
-"PO-Revision-Date: 2021-06-10 13:32+0000\n"
+"PO-Revision-Date: 2021-06-22 11:12+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -2360,14 +2360,14 @@ msgid ""
 "Keep in mind that unselecting this will delete the track if the medium has a"
 " disc ID! If you unselect it by mistake, please readd the pregap track "
 "before submitting."
-msgstr "Ricorda che deselezionare questa opzione eliminerà la traccia se il supporto ha un ID disco! Se la deselezioni per errore, ricordati di riaggiungere la traccia pregap prima di cliccare su Invia."
+msgstr "Tieni presente che deselezionare questa opzione eliminerà la traccia se il supporto ha un ID disco! Se la deselezioni per errore, ricordati di riaggiungere la traccia pregap prima di cliccare su Invia."
 
 #: ../root/release/edit/tracklist.tt:476
 msgid ""
 "Keep in mind that unselecting this will delete the tracks if the medium has "
 "a disc ID! If you unselect it by mistake, please readd the data tracks "
 "before submitting."
-msgstr "Ricorda che deselezionare questa opzione eliminerà le tracce se il supporto ha un ID disco! Se la deselezioni per errore, ricordati di riaggiungere le tracce dati prima di cliccare su Invia."
+msgstr "Tieni presente che deselezionare questa opzione eliminerà le tracce se il supporto ha un ID disco! Se la deselezioni per errore, ricordati di riaggiungere le tracce dati prima di cliccare su Invia."
 
 #: ../root/cdtoc/attach_artist_releases.tt:17
 #: ../root/cdtoc/attach_filter_release.tt:31 ../root/cdtoc/list.tt:11
@@ -3176,7 +3176,7 @@ msgstr "Scegli una condizione"
 msgid ""
 "Please choose a valid image. Currently the Cover Art Archive only supports "
 "JPEG, PNG, GIF and PDF files."
-msgstr "Seleziona un'immagine valida. Il Cover Art Archive supporta attualmente solo file JPEG, PNG, GIF e PDF."
+msgstr "Seleziona un'immagine valida. Attualmente il Cover Art Archive supporta solo file JPEG, PNG, GIF e PDF."
 
 #: ../root/cdtoc/lookup.tt:99
 msgid ""
@@ -4555,7 +4555,7 @@ msgstr "Questo utente è automatizzato."
 #: ../root/components/common-macros.tt:498
 #: ../root/edit/components/EditorTypeInfo.js:28
 msgid "This user is new to MusicBrainz."
-msgstr "Questo utente è nuovo di MusicBrainz."
+msgstr "Questo utente è nuovo su MusicBrainz."
 
 #: ../root/release/edit_relationships.tt:136
 msgid "This will add a relationship to all checked recordings."

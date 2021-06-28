@@ -539,6 +539,7 @@ sub schema_fixup
 
                 push @{$data->{mediums}}, $medium;
             }
+            $data->{mediums_loaded} = 1;
             delete $data->{"media"};
         }
 

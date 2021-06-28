@@ -87,18 +87,6 @@ class Relationship {
     this.setAttributes(data.attributes);
     this.attributes.original = {};
 
-    this.relationshipInfo = ko.computed(function () {
-      return {
-        attributes: this.attributes().map(x => {
-          const result = x.toJS();
-          result.typeID = x.type.id;
-          result.typeName = x.type.name;
-          return result;
-        }),
-        linkTypeID: this.linkTypeID(),
-      };
-    }, this);
-
     if (data.id) {
       for (const attribute of this.attributes.peek()) {
         self.attributes.original[attribute.type.gid] = attribute.toJS();
@@ -365,8 +353,18 @@ class Relationship {
   }
 
   phraseAndExtraAttributes(phraseProp, shouldStripAttributes) {
+    const linkType = this.getLinkType();
+    if (!linkType) {
+      return ['', ''];
+    }
     const result = linkPhrase.getPhraseAndExtraAttributesText(
-      this.relationshipInfo(),
+      linkType,
+      this.attributes().map(x => {
+        const result = x.toJS();
+        result.typeID = x.type.id;
+        result.typeName = x.type.name;
+        return result;
+      }),
       phraseProp,
       shouldStripAttributes,
     );

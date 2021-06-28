@@ -9,11 +9,13 @@
 
 import * as React from 'react';
 
-import PaginatedResults from '../components/PaginatedResults';
-import loopParity from '../utility/loopParity';
-import EntityLink from '../static/scripts/common/components/EntityLink';
 import formatBarcode from '../static/scripts/common/utility/formatBarcode';
+import {
+  defineEntityColumn,
+  defineTextColumn,
+} from '../utility/tableColumns';
 
+import ReleaseList from './components/ReleaseList';
 import ReportLayout from './components/ReportLayout';
 import type {ReportDataT} from './types';
 
@@ -32,60 +34,42 @@ const ReleasesSameBarcode = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportRowT>): React.Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report shows non-bootleg releases which have
-       the same barcode, yet are placed in different release groups.
-       Chances are that the releases are duplicates or parts of a set,
-       or at least that the release groups should be merged.`,
-    )}
-    entityType="release"
-    filtered={filtered}
-    generated={generated}
-    title={l('Releases with the same barcode in different release groups')}
-    totalEntries={pager.total_entries}
-  >
-    <PaginatedResults pager={pager}>
-      <table className="tbl">
-        <thead>
-          <tr>
-            <th>{l('Barcode')}</th>
-            <th>{l('Release')}</th>
-            <th>{l('Release Group')}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item, index) => (
-            <tr className={loopParity(index)} key={item.release_id}>
-              <td className="barcode-cell">
-                {formatBarcode(item.barcode)}
-              </td>
-              {item.release ? (
-                <td>
-                  <EntityLink entity={item.release} />
-                </td>
-              ) : (
-                <td>
-                  {l('This release no longer exists.')}
-                </td>
-              )}
-              {item.release_group ? (
-                <td>
-                  <EntityLink entity={item.release_group} />
-                </td>
-              ) : (
-                <td>
-                  {l('This release group no longer exists.')}
-                </td>
-              )}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </PaginatedResults>
-  </ReportLayout>
-);
+}: ReportDataT<ReportRowT>): React.Element<typeof ReportLayout> => {
+  const barcodeColumn = defineTextColumn<ReportRowT>({
+    cellProps: {className: 'barcode-cell'},
+    columnName: 'barcode',
+    getText: result => formatBarcode(result.barcode),
+    title: l('Barcode'),
+  });
+  const releaseGroupColumn = defineEntityColumn<ReportRowT>({
+    columnName: 'release_group',
+    descriptive: false,
+    getEntity: result => result.release_group ?? null,
+    title: l('Release Group'),
+  });
+
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report shows non-bootleg releases which have
+         the same barcode, yet are placed in different release groups.
+         Chances are that the releases are duplicates or parts of a set,
+         or at least that the release groups should be merged.`,
+      )}
+      entityType="release"
+      filtered={filtered}
+      generated={generated}
+      title={l('Releases with the same barcode in different release groups')}
+      totalEntries={pager.total_entries}
+    >
+      <ReleaseList
+        columnsBefore={[barcodeColumn, releaseGroupColumn]}
+        items={items}
+        pager={pager}
+      />
+    </ReportLayout>
+  );
+};
 
 export default ReleasesSameBarcode;

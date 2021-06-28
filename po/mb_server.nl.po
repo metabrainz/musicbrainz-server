@@ -31,8 +31,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-09 18:02-0500\n"
-"PO-Revision-Date: 2021-06-10 09:42+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-06-23 08:21+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -772,7 +772,7 @@ msgstr "Disc-ID toevoegen"
 
 #: ../root/cdtoc/index.tt:7
 msgid "Attached to releases"
-msgstr "Gekoppeld aan uitgaves"
+msgstr "Gekoppeld aan uitgaven"
 
 #: ../root/components/relationship-editor.tt:141
 #: ../root/edit/details/edit_relationship_type.tt:68
@@ -831,7 +831,7 @@ msgstr "Streepjescode:"
 msgid ""
 "Based on the above CD stub, we also found the following releases in "
 "MusicBrainz that may be related:"
-msgstr "Op basis van het bovenstaande cd-beginnetje hebben we de volgende mogelijk gerelateerde uitgaves gevonden in MusicBrainz:"
+msgstr "Op basis van het bovenstaande cd-beginnetje hebben we de volgende mogelijk gerelateerde uitgaven gevonden in MusicBrainz:"
 
 #: ../root/release/edit/duplicates.tt:4
 msgid ""
@@ -1466,7 +1466,7 @@ msgstr "Opgeheven:"
 
 #: ../root/release/edit/duplicates.tt:40
 msgid "Do not use any of the above releases as a starting point"
-msgstr "Gebruik geen van de bovenstaande uitgaves als uitgangspunt"
+msgstr "Gebruik geen van de bovenstaande uitgaven als uitgangspunt"
 
 #: ../root/edit/details/edit_relationship_type.tt:98
 #: ../root/relationship/linktype/form.tt:65
@@ -2410,7 +2410,7 @@ msgstr "Platenmaatschappijdetails"
 #: ../root/label/edit_form.tt:28
 #: ../root/layout/components/sidebar/LabelSidebar.js:82
 msgid "Label code:"
-msgstr "Platenmaatschappij-code:"
+msgstr "Platenmaatschappijcode:"
 
 #: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
 msgid "Label ratings"
@@ -2655,7 +2655,7 @@ msgstr "Samenvoegingsproces"
 
 #: ../root/release/merge.tt:1 ../root/release/merge.tt:3
 msgid "Merge Releases"
-msgstr "Uitgaves samenvoegen"
+msgstr "Uitgaven samenvoegen"
 
 #: ../root/edit/details/merge_releases.tt:149
 #: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:51
@@ -2904,7 +2904,7 @@ msgstr "Geen waarderingen."
 
 #: ../root/release_group/set_cover_art.tt:96
 msgid "No releases have cover art marked as \"Front\", cannot set cover art."
-msgstr "Geen van de uitgaves heeft een afbeelding van de voorkant, dus er kan geen afbeelding worden ingesteld."
+msgstr "Geen van de uitgaven heeft een afbeelding van de voorkant, dus er kan geen afbeelding worden ingesteld."
 
 #: ../root/release/edit/tracklist.tt:140 ../root/admin/IpLookup.js:35
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:457
@@ -3011,13 +3011,13 @@ msgstr "Oude versie:"
 msgid ""
 "Only releases with a front cover on the {caa|Cover Art Archive} can be "
 "selected."
-msgstr "Je kan alleen uitgaves met een afbeelding van de voorkant in het {caa|Cover Art Archive} selecteren."
+msgstr "Je kan alleen uitgaven met een afbeelding van de voorkant in het {caa|Cover Art Archive} selecteren."
 
 #: ../root/cdtoc/move_search.tt:7
 msgid ""
 "Only releases with the same amount of tracks ({n}) as the release the disc "
 "ID is currently attached to are shown."
-msgstr "Alleen uitgaves met hetzelfde aantal nummers ({n}) als de uitgave waar de disc-ID aan is gekoppeld, worden getoond."
+msgstr "Alleen uitgaven met hetzelfde aantal nummers ({n}) als de uitgave waar de disc-ID aan is gekoppeld, worden getoond."
 
 #: ../root/edit/list.tt:5
 msgid "Only show open edits"
@@ -3145,7 +3145,7 @@ msgstr "Details van de plaats"
 
 #: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
 msgid "Place ratings"
-msgstr ""
+msgstr "Waarderingen van plaatsen"
 
 #: ../root/components/common-macros.tt:557
 msgid "Place:"
@@ -3624,7 +3624,7 @@ msgstr "Uitgave:"
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:29
 #: ../root/tag/TagLayout.js:27
 msgid "Releases"
-msgstr "Uitgaves"
+msgstr "Uitgaven"
 
 #: ../root/admin/attributes/delete.tt:13 ../root/cdtoc/list.tt:59
 #: ../root/relationship/linkattributetype/delete.tt:14
@@ -3839,7 +3839,7 @@ msgstr "Naar artiesten zoeken"
 
 #: ../root/cdtoc/lookup.tt:80
 msgid "Search by release"
-msgstr "Naar uitgaves zoeken"
+msgstr "Naar uitgaven zoeken"
 
 #: ../root/edit/search.tt:2 ../root/edit/search_macros.tt:8
 #: ../root/edit/search_results.tt:3
@@ -3987,7 +3987,7 @@ msgstr "Toon {autoedit_select_block} sortering: {sort_select_block}, {match_or_n
 
 #: ../root/release/edit/duplicates.tt:2
 msgid "Similar releases"
-msgstr "Soortgelijke uitgaves"
+msgstr "Soortgelijke uitgaven"
 
 #: ../root/admin/edit_user.tt:38
 msgid "Skip verification"
@@ -4174,7 +4174,7 @@ msgstr "De datum die je hebt ingevoerd, is niet geldig."
 msgid ""
 "The disambiguation field is used to help users distinguish between "
 "identically named releases."
-msgstr "De verduidelijking wordt gebruikt om het verschil tussen uitgaves met dezelfde naam aan te geven."
+msgstr "De verduidelijking wordt gebruikt om het verschil tussen uitgaven met dezelfde naam aan te geven."
 
 #: ../root/edit/search_macros.tt:9
 msgid ""
@@ -4269,7 +4269,7 @@ msgid ""
 "at the bottom of the {alias_uri|aliases} tab and remove all existing "
 "{rel_uri|relationships} instead, which will allow ModBot to automatically "
 "remove this artist in the upcoming days."
-msgstr "Er zijn geen nummers, opnames, uitgavegroepen en uitgaves die alleen onder {name} worden vermeld. Als je {name} probeert te verwijderen, bewerk dan in plaats daarvan alle vermeldingen onderaan de {alias_uri|tab aliassen} en verwijder alle bestaande {rel_uri|relaties}, zodat ModBot deze artiest in de komende dagen automatisch kan verwijderen."
+msgstr "Er zijn geen nummers, opnames, uitgavegroepen en uitgaven die alleen onder {name} worden vermeld. Als je {name} probeert te verwijderen, bewerk dan in plaats daarvan alle vermeldingen onderaan de {alias_uri|tab aliassen} en verwijder alle bestaande {rel_uri|relaties}, zodat ModBot deze artiest in de komende dagen automatisch kan verwijderen."
 
 #: ../root/place/edit_form.tt:29
 msgid "These coordinates could not be parsed."
@@ -4377,7 +4377,7 @@ msgid ""
 "This form allows you to edit the artist credit \"{ac}\". When the edit is "
 "accepted, all tracks, recordings, releases and release groups using this "
 "artist credit will be update to use the new one."
-msgstr "Met dit formulier kan je de vermelding van een artiest ‘{ac}’ bewerken. Als deze bewerking wordt doorgevoerd, zullen alle nummers, opnames, uitgaves en uitgavegroepen die deze vermelding gebruiken, worden gewijzigd naar de nieuwe naam."
+msgstr "Met dit formulier kan je de vermelding van een artiest ‘{ac}’ bewerken. Als deze bewerking wordt doorgevoerd, zullen alle nummers, opnames, uitgaven en uitgavegroepen die deze vermelding gebruiken, worden gewijzigd naar de nieuwe naam."
 
 #: ../root/artist/split.tt:29
 msgid ""
@@ -4429,7 +4429,7 @@ msgstr "Dit zijn de onbewerkte gegevens voor de bewerking #{id}. Dit is beschikb
 msgid ""
 "This label cannot be removed because there are still releases, recordings "
 "and/or relationships attributed to it."
-msgstr "Deze platenmaatschappij kan niet worden verwijderd omdat er nog steeds uitgaves, opnames en/of relaties aan verbonden zijn."
+msgstr "Deze platenmaatschappij kan niet worden verwijderd omdat er nog steeds uitgaven, opnames en/of relaties aan verbonden zijn."
 
 #: ../root/label/edit_form.tt:36
 msgid "This label has ended."
@@ -4476,7 +4476,7 @@ msgstr "Het probleem bestond waarschijnlijk al toen je de uitgavebewerker opende
 
 #: ../root/recording/delete.tt:14
 msgid "This recording cannot be removed because it is still used on releases."
-msgstr "Deze opname kan niet worden verwijderd omdat hij nog steeds wordt gebruikt in uitgaves."
+msgstr "Deze opname kan niet worden verwijderd omdat hij nog steeds wordt gebruikt in uitgaven."
 
 #: ../root/components/common-macros.tt:302
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:696
@@ -4509,7 +4509,7 @@ msgstr "Deze uitgave heeft geen streepjescode"
 msgid ""
 "This release group will be removed automatically once it has no releases nor"
 " relationships."
-msgstr "Deze uitgavegroep zal automatisch worden verwijderd zodra het geen uitgaves of relaties meer heeft."
+msgstr "Deze uitgavegroep zal automatisch worden verwijderd zodra het geen uitgaven of relaties meer heeft."
 
 #: ../root/edit/details/merge_releases.tt:35
 msgid "This release has no media to merge."
@@ -4641,7 +4641,7 @@ msgstr "Vink meerdere opnames of composities aan om het partij-gereedschap te ge
 msgid ""
 "To watch an artist and be notified of new releases, {search_url|search} for "
 "them and select 'Watch this artist for new releases' from the sidebar."
-msgstr "{search_url|Zoek} naar een artiest en klik “Volg deze artiest voor nieuwe uitgaves” in het zijmenu om een artiest te volgen en op de hoogte te worden gehouden van nieuwe uitgaves."
+msgstr "{search_url|Zoek} naar een artiest en klik “Volg deze artiest voor nieuwe uitgaven” in het zijmenu om een artiest te volgen en op de hoogte te worden gehouden van nieuwe uitgaven."
 
 #: ../root/cdstub/browse.tt:2 ../root/cdstub/browse.tt:3
 #: ../root/layout/components/BottomMenu.js:214
@@ -4936,7 +4936,7 @@ msgid ""
 "may specify the new order of mediums. The order does not have to be "
 "continuous, but all medium positions must be positive, and multiple mediums "
 "cannot be in the same position"
-msgstr "Door deze samenvoegingsstrategie te gebruiken, worden alle media van alle uitgaves gebruikt. Je kan een nieuwe volgorde van media instellen. Deze volgorde hoeft niet continu te zijn, maar alle posities van de media moeten positief zijn, en meerdere media mogen niet dezelfde positie hebben."
+msgstr "Door deze samenvoegingsstrategie te gebruiken, worden alle media van alle uitgaven gebruikt. Je kan een nieuwe volgorde van media instellen. Deze volgorde hoeft niet continu te zijn, maar alle posities van de media moeten positief zijn, en meerdere media mogen niet dezelfde positie hebben."
 
 #: ../root/release/add_cover_art.tt:60
 msgid "Validating file..."
@@ -5032,7 +5032,7 @@ msgid ""
 "Warning! \"1990-10-25\" is the bogus date that Amazon gives to all releases "
 "for which they don't know the actual date. <strong>Please use this date only"
 " if you're certain this date is correct!</strong>"
-msgstr "Let op! “25 oktober 1990” is een nepdatum die Amazon laat zien voor alle uitgaves waarvan ze de datum niet kennen. <strong>Gebruik deze datum alleen als je zeker weet dat hij klopt!</strong>"
+msgstr "Let op! ‘25 oktober 1990’ is een nepdatum die Amazon laat zien voor alle uitgaven waarvan ze de datum niet kennen. <strong>Gebruik deze datum alleen als je zeker weet dat hij klopt!</strong>"
 
 #: ../root/release/edit/tracklist.tt:371
 msgid "Warning:"
@@ -5075,7 +5075,7 @@ msgid ""
 "We found discs matching the information you requested, listed below. If none"
 " of these are the release you are looking for, you may search using the form"
 " below in order to attach this disc to another MusicBrainz release."
-msgstr "We hebben media gevonden die overeenkomen met de informatie die je opvroeg. Als geen van deze uitgaves is wat je zoekt, kan je met het onderstaande formulier zoeken naar andere uitgaves in MusicBrainz, zodat je dit medium eraan kan toevoegen."
+msgstr "We hebben media gevonden die overeenkomen met de informatie die je opvroeg. Als geen van deze uitgaven is wat je zoekt, kan je met het onderstaande formulier zoeken naar andere uitgaven in MusicBrainz, zodat je dit medium eraan kan toevoegen."
 
 #: ../root/release/edit_relationships.tt:96 ../root/release/index.tt:10
 msgid "We have no information about this release’s media and tracklist."
@@ -5209,11 +5209,11 @@ msgstr "Je staat op het punt om een bewerking toe te voegen die de duur van de n
 msgid ""
 "You are about to merge all these releases into a single one. Please select "
 "the release all others should be merged into:"
-msgstr "Je staat op het punt om al deze uitgaves samen te voegen. Selecteer de uitgave waarin je de andere wil samenvoegen:"
+msgstr "Je staat op het punt om al deze uitgaven samen te voegen. Selecteer de uitgave waarin je de andere wil samenvoegen:"
 
 #: ../root/watch/list.tt:7
 msgid "You are currently watching the following artists for new releases."
-msgstr "Je volgt nu de volgende artiesten voor nieuwe uitgaves."
+msgstr "Je volgt nu de volgende artiesten voor nieuwe uitgaven."
 
 #: ../root/edit/index.tt:55
 msgid "You are not currently able to vote on this edit. ({url|Details})"
@@ -5221,11 +5221,11 @@ msgstr "Je kan momenteel niet op deze bewerking stemmen. ({url|Details})"
 
 #: ../root/watch/list.tt:34
 msgid "You are not currently watching any artists for new releases."
-msgstr "Je volgt nu geen artiesten voor nieuwe uitgaves."
+msgstr "Je volgt nu geen artiesten voor nieuwe uitgaven."
 
 #: ../root/cdtoc/attach_artist_releases.tt:5
 msgid "You are viewing releases by {artist}."
-msgstr "Je bekijkt uitgaves van {artist}."
+msgstr "Je bekijkt uitgaven van {artist}."
 
 #: ../root/cdtoc/lookup.tt:112
 msgid ""
@@ -5334,7 +5334,7 @@ msgid ""
 "erroneously, since a release can have multiple valid disc IDs, and each disc"
 " ID can belong to more than one release. For more in-depth information about"
 " this topic, please see our {doc|CD submission guide}."
-msgstr "Je moet er zeker van zijn dat deze disc-ID foutief aan deze uitgave is toegevoegd, aangezien een uitgave meerdere geldige disc-ID’s kan hebben, en elke disc-ID bij meerdere uitgaves kan horen. Lees onze {doc|handleiding voor het indienen van cd’s} voor meer informatie."
+msgstr "Je moet er zeker van zijn dat deze disc-ID foutief aan deze uitgave is toegevoegd, aangezien een uitgave meerdere geldige disc-ID’s kan hebben, en elke disc-ID bij meerdere uitgaven kan horen. Lees onze {doc|handleiding voor het indienen van cd’s} voor meer informatie."
 
 #: ../root/edit/search.tt:7
 msgid ""
@@ -5724,7 +5724,7 @@ msgstr "uitgavegroepen"
 
 #: ../root/components/common-macros.tt:115
 msgid "releases"
-msgstr "uitgaves"
+msgstr "uitgaven"
 
 #: ../root/components/common-macros.tt:115
 msgctxt "plural"
@@ -5785,8 +5785,8 @@ msgstr "{artist} als {name}"
 #: ../root/cdtoc/attach_artist_releases.tt:45
 msgid "{artist} has no releases which have only {n} track."
 msgid_plural "{artist} has no releases which have {n} tracks."
-msgstr[0] "{artist} heeft geen uitgaves met maar {n} nummer."
-msgstr[1] "{artist} heeft geen uitgaves met maar {n} nummers."
+msgstr[0] "{artist} heeft geen uitgaven met maar één nummer."
+msgstr[1] "{artist} heeft geen uitgaven met maar {n} nummers."
 
 #: ../root/entity/collections.tt:10
 msgid "{collection} by {owner}"
@@ -5853,7 +5853,7 @@ msgstr[1] "{num} maanden geleden"
 msgid "{num} release found matching your query."
 msgid_plural "{num} releases found matching your query."
 msgstr[0] "Een uitgave gevonden die aan je zoekopdracht voldoet."
-msgstr[1] "{num} uitgaves gevonden die aan je zoekopdracht voldoen."
+msgstr[1] "{num} uitgaven gevonden die aan je zoekopdracht voldoen."
 
 #: ../root/components/common-macros.tt:63 ../root/utility/age.js:161
 msgid "{num} year ago"
@@ -5941,12 +5941,12 @@ msgid ""
 " was a valid, non-duplicate entry that does belong in MusicBrainz, feel free"
 " to add it again, but please ensure enough data is added to it this time to "
 "avoid another automatic removal."
-msgstr "Dit object werd automatisch verwijderd omdat het leeg was: het had geen relaties, noch (voor zover dat voor dit type object relevant is) gekoppelde opnames, uitgaves of uitgavegroepen. Als je denkt dat dit object wel in MusicBrainz thuishoort, kan je het opnieuw toevoegen. Zorg er dan wel voor dat je genoeg informatie toevoegt, zodat het niet weer automatisch wordt verwijderd."
+msgstr "Dit object werd automatisch verwijderd omdat het leeg was: het had geen relaties, noch (voor zover dat voor dit type object relevant is) gekoppelde opnames, uitgaven of uitgavegroepen. Als je denkt dat dit object wel in MusicBrainz thuishoort, kan je het opnieuw toevoegen. Zorg er dan wel voor dat je genoeg informatie toevoegt, zodat het niet weer automatisch wordt verwijderd."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:33
 #, perl-brace-format
 msgid "'{id}' is not a valid MusicBrainz ID"
-msgstr "“{id}” is geen geldige MusicBrainz-ID"
+msgstr "‘{id}’ is geen geldige MusicBrainz-ID"
 
 #: ../lib/MusicBrainz/Server/Controller.pm:121
 #, perl-brace-format
@@ -6012,7 +6012,7 @@ msgstr "Helaas, deze e-mailverificatielink is verlopen."
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:282
 #, perl-brace-format
 msgid "The user with ID '{user_id}' could not be found."
-msgstr "De gebruiker met de ID “{user_id}” kon niet worden gevonden."
+msgstr "De gebruiker met de ID ‘{user_id}’ kon niet worden gevonden."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:169
 msgid ""
@@ -6112,7 +6112,7 @@ msgstr "Je kan een artiest niet met een verwijderde artiest samenvoegen"
 #: ../lib/MusicBrainz/Server/Controller/AutoEditorElections.pm:83
 #, perl-brace-format
 msgid "'{id}' is not a valid election ID"
-msgstr "“{id}” is geen geldige verkiezings-ID"
+msgstr "‘{id}’ is geen geldige verkiezings-ID"
 
 #: ../lib/MusicBrainz/Server/Controller/CDStub.pm:62
 msgid "The required TOC parameter was invalid or not present"
@@ -6167,12 +6167,12 @@ msgstr "Je kunt een platenmaatschappij niet met een verwijderde platenmaatschapp
 #: ../lib/MusicBrainz/Server/Controller/Relationship/LinkType.pm:70
 #, perl-brace-format
 msgid "'{types}' is not a valid pair of types for relationships."
-msgstr "“{types}” is geen geldig paar relatietypes."
+msgstr "‘{types}’ is geen geldig paar relatietypes."
 
 #: ../lib/MusicBrainz/Server/Controller/Release.pm:520
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
-msgstr "Deze samenvoegingsstrategie kan niet toegepast worden op de uitgaves die je hebt geselecteerd."
+msgstr "Deze samenvoegingsstrategie kan niet toegepast worden op de uitgaven die je hebt geselecteerd."
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:57
 msgid "The annotation revision ID must be a positive integer"
@@ -6227,7 +6227,7 @@ msgstr "Je bericht kon niet worden verzonden"
 #: ../lib/MusicBrainz/Server/Controller/User.pm:509
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
-msgstr "“{type}” is geen type object dat een waardering kan hebben."
+msgstr "‘{type}’ is geen type object dat een waardering kan hebben."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:738
 msgid "An error occurred while trying to send your report."
@@ -6316,7 +6316,7 @@ msgstr "Ongeldige streepjescode"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:162
 msgid "There are already MusicBrainz releases with this disc ID"
-msgstr "Er zijn al uitgaves in MusicBrainz met deze disc-ID"
+msgstr "Er zijn al uitgaven in MusicBrainz met deze disc-ID"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:169
 msgid "There is already a CD stub with this disc ID"
@@ -6369,7 +6369,7 @@ msgid ""
 "A merge cycle exists whereby two recordings ({recording1} and {recording2}) "
 "each want to merge into the other. This is likely because the tracks or "
 "recordings are in an inconsistent order on the releases."
-msgstr "Er bestaat een situatie waarin twee opnames ({recording1} en {recording2}) allebei in elkaar zouden moeten worden samengevoegd. Dit komt waarschijnlijk doordat de nummers of de opnames op de uitgaves niet in dezelfde volgorde staan."
+msgstr "Er bestaat een situatie waarin twee opnames ({recording1} en {recording2}) allebei in elkaar zouden moeten worden samengevoegd. Dit komt waarschijnlijk doordat de nummers of de opnames op de uitgaven niet in dezelfde volgorde staan."
 
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:159
 msgid "Total"
@@ -6451,7 +6451,7 @@ msgid ""
 "The “{artist_type}” type has not been added to the destination artist "
 "because it conflicted with the gender setting of one of the artists here. "
 "Group artists cannot have a gender."
-msgstr ""
+msgstr "Het type “{artist_type}” is niet aan de doelartiest toegevoegd omdat het niet past bij het ingestelde geslacht van een van de artiesten. Groepen kunnen geen geslacht hebben."
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:102
 #, perl-brace-format
@@ -6459,7 +6459,7 @@ msgid ""
 "The “{gender}” gender has not been added to the destination artist because "
 "it conflicted with the group type of one of the artists here. Group artists "
 "cannot have a gender."
-msgstr ""
+msgstr "Het geslacht “{gender}” is niet aan de doelartiest toegevoegd omdat het niet past bij het type groep van een van de artiesten. Groepen kunnen geen geslacht hebben."
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAlias.pm:11
 msgid "Add event alias"
@@ -6567,7 +6567,7 @@ msgstr "Uitgave naar één artiest omzetten (historisch)"
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeReleaseMAC.pm:9
 #: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:140
 msgid "Merge releases"
-msgstr "Uitgaves samenvoegen"
+msgstr "Uitgaven samenvoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/MoveDiscID.pm:21
@@ -6600,7 +6600,7 @@ msgstr "Uitgavegebeurtenissen verwijderen (historisch)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveReleases.pm:12
 msgid "Remove releases (historic)"
-msgstr "Uitgaves verwijderen (historisch)"
+msgstr "Uitgaven verwijderen (historisch)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/SACToMAC.pm:16
 msgid "Convert release to multiple artists (historic)"
@@ -6852,7 +6852,7 @@ msgstr "(onbekend)"
 #: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:347
 #, perl-brace-format
 msgid "These releases could not be merged: {reason}"
-msgstr "Deze uitgaves kunnen niet worden samengevoegd: {reason}"
+msgstr "Deze uitgaven kunnen niet worden samengevoegd: {reason}"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:20
 msgid "Remove cover art"
@@ -6916,8 +6916,8 @@ msgid ""
 msgid_plural ""
 "The IPI {ipi} is already in use on {artist_count} artists. Please check "
 "{artist_search|all uses of this IPI}."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "De IPI {ipi} wordt al voor een artiest gebruikt. Controleer {artist_search|alle plekken waar deze IPI wordt gebruikt}."
+msgstr[1] "De IPI {ipi} wordt al voor {artist_count} artiesten gebruikt. Controleer {artist_search|alle plekken waar deze IPI wordt gebruikt}."
 
 #: ../lib/MusicBrainz/Server/Edit/Role/IPI.pm:45
 #, perl-brace-format
@@ -6927,8 +6927,8 @@ msgid ""
 msgid_plural ""
 "The IPI {ipi} is already in use on {label_count} labels. Please check "
 "{label_search|all uses of this IPI}."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "De IPI {ipi} wordt al voor een platenmaatschappij gebruikt. Controleer {label_search|alle plekken waar deze IPI wordt gebruikt}."
+msgstr[1] "De IPI {ipi} wordt al voor {label_count} platenmaatschappijen gebruikt. Controleer {label_search|alle plekken waar deze IPI wordt gebruikt}."
 
 #: ../lib/MusicBrainz/Server/Edit/Role/ISNI.pm:39
 #, perl-brace-format
@@ -6938,8 +6938,8 @@ msgid ""
 msgid_plural ""
 "The ISNI {isni} is already in use on {artist_count} artists. Please check "
 "{artist_search|all uses of this ISNI}."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "De ISNI {isni} wordt al voor een artiest gebruikt. Controleer {artist_search|alle plekken waar deze IPI wordt gebruikt}."
+msgstr[1] "De ISNI {isni} wordt al voor {artist_count} artiesten gebruikt. Controleer {artist_search|alle plekken waar deze IPI wordt gebruikt}."
 
 #: ../lib/MusicBrainz/Server/Edit/Role/ISNI.pm:45
 #, perl-brace-format
@@ -6949,8 +6949,8 @@ msgid ""
 msgid_plural ""
 "The ISNI {isni} is already in use on {label_count} labels. Please check "
 "{label_search|all uses of this ISNI}."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "De ISNI {isni} wordt al voor een platenmaatschappij gebruikt. Controleer {label_search|alle plekken waar deze IPI wordt gebruikt}."
+msgstr[1] "De ISNI {isni} wordt al voor {label_count} platenmaatschappijen gebruikt. Controleer {label_search|alle plekken waar deze IPI wordt gebruikt}."
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAlias.pm:11
 msgid "Add series alias"
@@ -7210,7 +7210,7 @@ msgstr "Stream op Deezer"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Dogmazic.pm:10
 msgid "Stream at Dogmazic"
-msgstr ""
+msgstr "Stream op Dogmazic"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Gutenberg.pm:9
 msgid "Project Gutenberg"
@@ -7737,7 +7737,7 @@ msgstr "Onbekend type compositie-eigenschap."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:153
 msgid "You cannot enter the same attribute and value more than once."
-msgstr ""
+msgstr "Je kan dezelfde eigenschap of waarde maar één keer invoeren."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:160
 msgid "This value is not allowed for this work attribute type."
@@ -7780,7 +7780,7 @@ msgstr "Een soundtrack is de muziek voor een film, tv-serie, toneelvoorstelling,
 
 #: ../lib/MusicBrainz/Server/Release.pm:59
 msgid "Non-music spoken word releases."
-msgstr "Gesproken uitgaves zonder muziek."
+msgstr "Gesproken uitgaven zonder muziek."
 
 #: ../lib/MusicBrainz/Server/Release.pm:60
 msgid "An interview release contains an interview with the Artist."
@@ -7806,13 +7806,13 @@ msgstr "Een uitgave die niet onder één van bovenstaande categorieën valt."
 msgid ""
 "Any release officially sanctioned by the artist and/or their record company."
 " (Most releases will fit into this category.)"
-msgstr "Elke uitgave die officieel door de artiest of platenmaatschappij is gesanctioneerd. (De meeste uitgaves vallen onder deze categorie.)"
+msgstr "Elke uitgave die officieel door de artiest of platenmaatschappij is gesanctioneerd. (De meeste uitgaven vallen onder deze categorie.)"
 
 #: ../lib/MusicBrainz/Server/Release.pm:67
 msgid ""
 "A giveaway release or a release intended to promote an upcoming official "
 "release. (e.g. prerelease albums or releases included with a magazine)"
-msgstr "Een uitgave die wordt weggegeven of bedoeld is om een officiële uitgave te promoten. (Bijv. prerelease uitgaves of uitgaves die met een tijdschrift zijn gebundeld.)"
+msgstr "Een uitgave die wordt weggegeven of bedoeld is om een officiële uitgave te promoten. (Bijv. prerelease uitgaven of uitgaven die met een tijdschrift zijn gebundeld.)"
 
 #: ../lib/MusicBrainz/Server/Release.pm:68
 msgid ""
@@ -8327,15 +8327,15 @@ msgstr "Dit gebied is niet gerelateerd aan opnames."
 #: ../root/instrument/InstrumentReleases.js:57 ../root/label/LabelIndex.js:73
 #: ../root/release_group/ReleaseGroupIndex.js:159
 msgid "Add selected releases for merging"
-msgstr "Geselecteerde uitgaves samenvoegen"
+msgstr "Geselecteerde uitgaven samenvoegen"
 
 #: ../root/area/AreaReleases.js:59
 msgid "This area is not currently associated with any releases."
-msgstr "Dit gebied is momenteel niet gekoppeld aan uitgaves."
+msgstr "Dit gebied is momenteel niet gekoppeld aan uitgaven."
 
 #: ../root/area/AreaReleases.js:69
 msgid "This area has no relationships to any releases."
-msgstr "Dit gebied is niet gerelateerd aan uitgaves."
+msgstr "Dit gebied is niet gerelateerd aan uitgaven."
 
 #: ../root/area/AreaUsers.js:28 ../root/area/AreaUsers.js:29
 #: ../root/components/EntityTabs.js:34
@@ -8413,7 +8413,7 @@ msgid ""
 "This artist has no relationships, recordings, releases or release groups, "
 "and will be removed automatically in the next few days. If this is not "
 "intended, please add more data to this artist."
-msgstr "Deze artiest heeft geen relaties, opnames, uitgaves of uitgavegroepen en zal in de komende paar dagen automatisch worden verwijderd. Voeg meer gegevens aan deze artiest toe als dit niet de bedoeling is."
+msgstr "Deze artiest heeft geen relaties, opnames, uitgaven of uitgavegroepen en zal in de komende paar dagen automatisch worden verwijderd. Voeg meer gegevens aan deze artiest toe als dit niet de bedoeling is."
 
 #: ../root/artist/ArtistIndex.js:247 ../root/artist/ArtistIndex.js:255
 msgid "Legal name"
@@ -8508,33 +8508,33 @@ msgstr "Vermeld als"
 
 #: ../root/artist/ArtistReleases.js:72
 msgid "No releases found that match this search."
-msgstr "Geen uitgaves gevonden die aan deze zoekopdracht voldoen."
+msgstr "Geen uitgaven gevonden die aan deze zoekopdracht voldoen."
 
 #: ../root/artist/ArtistReleases.js:73
 #: ../root/instrument/InstrumentReleases.js:65
 #: ../root/release_group/ReleaseGroupIndex.js:165
 msgid "No releases found."
-msgstr "Geen uitgaves gevonden."
+msgstr "Geen uitgaven gevonden."
 
 #: ../root/artist/ArtistReleases.js:79
 msgid ""
 "Showing Various Artist releases. {show_subset|Show releases by this artist "
 "instead}."
-msgstr "Uitgaves van Diverse Artiesten worden weergegeven. {show_subset|In plaats daarvan uitgaves van alleen deze artiest weergeven}."
+msgstr "Uitgaven van Diverse Artiesten worden weergegeven. {show_subset|In plaats daarvan uitgaven van alleen deze artiest weergeven}."
 
 #: ../root/artist/ArtistReleases.js:90
 msgid "This search only found releases by various artists."
-msgstr "Met deze zoekopdracht zijn alleen uitgaves van diverse artiesten gevonden."
+msgstr "Met deze zoekopdracht zijn alleen uitgaven van diverse artiesten gevonden."
 
 #: ../root/artist/ArtistReleases.js:92
 msgid "This artist only has releases by various artists."
-msgstr "Deze artiest heeft alleen uitgaves van diverse artiesten."
+msgstr "Deze artiest heeft alleen uitgaven van diverse artiesten."
 
 #: ../root/artist/ArtistReleases.js:97
 msgid ""
 "Showing releases by this artist. {show_all|Show Various Artist releases "
 "instead}."
-msgstr "Uitgaves van alleen deze artiest worden weergegeven. {show_all|In plaats daarvan uitgaves van diverse artiesten weergeven}."
+msgstr "Uitgaven van alleen deze artiest worden weergegeven. {show_all|In plaats daarvan uitgaven van diverse artiesten weergeven}."
 
 #: ../root/artist/ArtistWorks.js:50 ../root/iswc/Index.js:77
 msgid "Add selected works for merging"
@@ -8638,8 +8638,8 @@ msgstr[1] "Bekijk alle {num} uitgavegroepen"
 #: ../root/components/TagEntitiesList.js:187
 msgid "See all {num} releases"
 msgid_plural "See all {num} releases"
-msgstr[0] "Bekijk alle {num} uitgaves"
-msgstr[1] "Bekijk alle {num} uitgaves"
+msgstr[0] "Bekijk de uitgave"
+msgstr[1] "Bekijk alle {num} uitgaven"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:125
 #: ../root/components/TagEntitiesList.js:191
@@ -8670,7 +8670,7 @@ msgstr[1] "{num} opnames gevonden"
 msgid "{num} release found"
 msgid_plural "{num} releases found"
 msgstr[0] "{num} uitgave gevonden"
-msgstr[1] "{num} uitgaves gevonden"
+msgstr[1] "{num} uitgaven gevonden"
 
 #: ../root/artist_credit/EntityList.js:24 ../root/tag/EntityList.js:78
 msgid "{num} release group found"
@@ -8690,7 +8690,7 @@ msgstr "Geen opnames met deze artiestvermelding gevonden."
 
 #: ../root/artist_credit/EntityList.js:32
 msgid "No releases with this artist credit were found."
-msgstr "Geen uitgaves met deze artiestvermelding gevonden."
+msgstr "Geen uitgaven met deze artiestvermelding gevonden."
 
 #: ../root/artist_credit/EntityList.js:33
 msgid "No release groups with this artist credit were found."
@@ -8743,11 +8743,11 @@ msgstr "Collectie ‘{collection}’"
 
 #: ../root/collection/CollectionMerge.js:51
 msgid "Entity Type"
-msgstr ""
+msgstr "Objecttype"
 
 #: ../root/collection/CollectionMerge.js:56
 msgid "Entities"
-msgstr ""
+msgstr "Objecten"
 
 #: ../root/collection/CollectionMerge.js:70 ../root/user/UserCollections.js:74
 msgid "Public"
@@ -8766,26 +8766,26 @@ msgstr "Privacy"
 #: ../root/collection/CollectionMerge.js:110
 #: ../root/collection/CollectionMerge.js:112
 msgid "Merge collections"
-msgstr ""
+msgstr "Collecties samenvoegen"
 
 #: ../root/collection/CollectionMerge.js:114
 msgid ""
 "You are about to merge all these collections into a single one. Please "
 "select the collection all others should be merged into:"
-msgstr ""
+msgstr "Je staat op het punt om al deze collecties samen te voegen. Selecteer de collectie waarin je de andere wil samenvoegen:"
 
 #: ../root/collection/CollectionMerge.js:123
 msgid ""
 "<strong>Warning:</strong> These collections are for different entity types. "
 "Please remove some collections from the merge queue until you only have "
 "collections for the same entity type."
-msgstr ""
+msgstr "<strong>Waarschuwing:</strong> Deze collecties zijn bedoeld voor verschillende objecttypes. Verwijder niet-passende collecties uit de wachtrij, zodat je alleen collecties voor hetzelfde objecttype hebt."
 
 #: ../root/collection/CollectionMerge.js:130
 msgid ""
 "<strong>Warning:</strong> These collections are for different entity types. "
 "Only collections for the same entity type can be merged."
-msgstr ""
+msgstr "<strong>Waarschuwing:</strong> Deze collecties zijn bedoeld voor verschillende objecttypes. Alleen collecties voor hetzelfde objecttype kunnen worden samengevoegd."
 
 #: ../root/collection/CollectionMerge.js:142
 msgid ""
@@ -8793,20 +8793,20 @@ msgid ""
 "private. Keep in mind the privacy setting of the destination collection will"
 " apply. If you merge your private collections into a public one, the final "
 "result will be visible to other users."
-msgstr ""
+msgstr "<strong>Waarschuwing:</strong> Sommige van deze collecties zijn openbaar en sommige privé. Houd er rekening mee dat de instelling voor de doelcollectie wordt aangehouden. Als je privécollecties in een openbare collectie samenvoegt, is het eindresultaat voor andere gebruikers zichtbaar."
 
 #: ../root/collection/CollectionMerge.js:157
 msgid "The merged collection will have the following collaborators:"
-msgstr ""
+msgstr "De samengevoegde collectie zal de volgende deelnemers hebben:"
 
 #: ../root/collection/CollectionMerge.js:168
 msgid ""
 "This process cannot be reverted. Are you sure you want to enter a merge?"
-msgstr ""
+msgstr "Dit proces kan niet ongedaan worden gemaakt. Weet je zeker dat je ze wilt samenvoegen?"
 
 #: ../root/collection/CollectionMerge.js:178
 msgid "Confirm"
-msgstr ""
+msgstr "Bevestigen"
 
 #: ../root/collection/CreateCollection.js:30
 #: ../root/collection/CreateCollection.js:33
@@ -8906,7 +8906,7 @@ msgid ""
 "This label has no relationships or releases and will be removed "
 "automatically in the next few days. If this is not intended, please add more"
 " data to this label."
-msgstr "Deze platenmaatschappij heeft geen relaties of uitgaves en zal in de komende paar dagen automatisch worden verwijderd. Voeg meer gegevens aan deze platenmaatschappij toe als dit niet de bedoeling is."
+msgstr "Deze platenmaatschappij heeft geen relaties of uitgaven en zal in de komende paar dagen automatisch worden verwijderd. Voeg meer gegevens aan deze platenmaatschappij toe als dit niet de bedoeling is."
 
 #: ../root/components/CleanupBanner.js:30
 msgid ""
@@ -8919,7 +8919,7 @@ msgid ""
 "This release group has no relationships or releases associated, and will be "
 "removed automatically in the next few days. If this is not intended, please "
 "add more data to this release group."
-msgstr "Deze uitgavegroep heeft geen relaties of uitgaves en zal in de komende paar dagen automatisch worden verwijderd. Voeg meer gegevens aan deze uitgavegroep toe als dit niet de bedoeling is."
+msgstr "Deze uitgavegroep heeft geen relaties of uitgaven en zal in de komende paar dagen automatisch worden verwijderd. Voeg meer gegevens aan deze uitgavegroep toe als dit niet de bedoeling is."
 
 #: ../root/components/CleanupBanner.js:40
 msgid ""
@@ -9321,7 +9321,7 @@ msgstr "{edit} heeft één of meer tegenstemmen gekregen. Je moet een notitie bi
 
 #: ../root/edit/components/EditNote.js:82
 msgid "[time missing]"
-msgstr ""
+msgstr "[duur ontbreekt]"
 
 #: ../root/edit/components/EditNotes.js:51
 msgid "No edit notes have been added."
@@ -9386,7 +9386,7 @@ msgstr "Notitie toevoegen"
 #: ../root/edit/details/historic/ChangeReleaseQuality.js:38
 #: ../root/edit/details/historic/RemoveReleases.js:29
 msgid "Releases:"
-msgstr "Uitgaves:"
+msgstr "Uitgaven:"
 
 #: ../root/edit/components/IntentionallyRawIcon.js:19
 msgid ""
@@ -9760,11 +9760,11 @@ msgstr "Nieuw schrift:"
 
 #: ../root/edit/details/historic/MergeReleases.js:36
 msgid "Old releases:"
-msgstr "Oude uitgaves:"
+msgstr "Oude uitgaven:"
 
 #: ../root/edit/details/historic/MergeReleases.js:48
 msgid "New releases:"
-msgstr "Nieuwe uitgaves:"
+msgstr "Nieuwe uitgaven:"
 
 #: ../root/edit/details/historic/MergeReleases.js:60
 msgid "Merge attributes:"
@@ -9778,7 +9778,7 @@ msgstr "Taal en schrift samenvoegen:"
 msgid ""
 "This edit was a \"Merge Releases (Various Artists)\" edit which additionally"
 " set the release artist to Various Artists."
-msgstr "Deze bewerking was een ‘Uitgaves van diverse artiesten samenvoegen’-bewerking die de uitgave-artiest ook veranderde in Diverse Artiesten."
+msgstr "Deze bewerking was een ‘Uitgaven van diverse artiesten samenvoegen’-bewerking die de uitgave-artiest ook veranderde in Diverse Artiesten."
 
 #: ../root/edit/details/historic/MoveRelease.js:37
 msgid "Change track artists:"
@@ -9966,7 +9966,7 @@ msgstr "(onbekend)"
 
 #: ../root/entity/Details.js:101
 msgid "Permanent link:"
-msgstr "Permanente verwijzing:"
+msgstr "Permanente link:"
 
 #: ../root/entity/Details.js:109
 msgid "{xml_ws_docs|XML}"
@@ -10006,7 +10006,7 @@ msgstr "TOC niet gevonden"
 
 #: ../root/entity/NotFound.js:40
 msgid "Sorry, we could not find the CD TOC you specified."
-msgstr "We konden de door jou gespecificeerde TOC helaas niet vinden."
+msgstr "We konden de door jou opgegeven TOC helaas niet vinden."
 
 #: ../root/entity/NotFound.js:45
 msgid "Collection Not Found"
@@ -10401,7 +10401,7 @@ msgstr "Ontbreekt er een instrument in deze lijst? {link|Lees hier} hoe je het k
 
 #: ../root/isrc/Index.js:38 ../root/isrc/Index.js:42
 msgid "ISRC “{isrc}”"
-msgstr "ISRC “{isrc}”"
+msgstr "ISRC ‘{isrc}’"
 
 #: ../root/isrc/Index.js:48
 msgid "Associated with {num} recording"
@@ -10421,7 +10421,7 @@ msgstr[1] "Gekoppeld aan {num} composities"
 
 #: ../root/label/LabelIndex.js:78
 msgid "This label does not have any releases."
-msgstr "Deze platenmaatschappij heeft geen uitgaves."
+msgstr "Deze platenmaatschappij heeft geen uitgaven."
 
 #: ../root/label/LabelMerge.js:35
 msgid ""
@@ -11545,7 +11545,7 @@ msgstr "Je staat op het punt om al deze plaatsen samen te voegen. Selecteer de p
 
 #: ../root/place/PlacePerformances.js:38
 msgid "No recordings, releases or release groups are linked to this place."
-msgstr "Er zijn geen opnames, uitgaves of uitgavegroepen aan deze plaats gekoppeld."
+msgstr "Er zijn geen opnames, uitgaven of uitgavegroepen aan deze plaats gekoppeld."
 
 #: ../root/recording/RecordingFingerprints.js:29
 msgid "Associated AcoustIDs"
@@ -11587,11 +11587,11 @@ msgstr "Medium {medium_num}, nummer {track_num}"
 
 #: ../root/recording/RecordingIndex.js:162
 msgid "Appears on releases"
-msgstr "Staat op uitgaves"
+msgstr "Staat op uitgaven"
 
 #: ../root/recording/RecordingIndex.js:171
 msgid "No releases found which feature this recording."
-msgstr "Geen uitgaves gevonden met deze opname."
+msgstr "Geen uitgaven met deze opname gevonden."
 
 #: ../root/recording/RecordingMerge.js:38
 msgid ""
@@ -11625,7 +11625,7 @@ msgstr "Het type relatie-eigenschap ‘{type}’ kan niet worden verwijderd, omd
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:74
 msgid "Relationship Attribute"
-msgstr ""
+msgstr "Relatie-eigenschap"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:115
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:106
@@ -11640,27 +11640,27 @@ msgstr "UUID:"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:131
 msgid "Parent attribute"
-msgstr ""
+msgstr "Bovenliggende eigenschap"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:142
 msgid "Possible values"
-msgstr ""
+msgstr "Mogelijke waarden"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:157
 msgid "Relationship usage"
-msgstr ""
+msgstr "Gebruik van de relatie"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:161
 msgid "This attribute is being used by the following relationship types:"
-msgstr ""
+msgstr "Deze eigenschap wordt door de volgende relatietypes gebruikt:"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:175
 msgid "{type0} - {type1}"
-msgstr ""
+msgstr "{type0} – {type1}"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:192
 msgid "This attribute isn’t directly being used by any relationship types."
-msgstr ""
+msgstr "Deze eigenschap wordt niet rechtstreeks door een relatietype gebruikt."
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:46
 msgid "none"
@@ -11929,11 +11929,11 @@ msgstr "Uitgavegroepen met aantekeningen"
 
 #: ../root/report/AnnotationsReleases.js:27
 msgid "This report lists releases with annotations."
-msgstr "In dit rapport staan uitgaves met aantekeningen."
+msgstr "In dit rapport staan uitgaven met aantekeningen."
 
 #: ../root/report/AnnotationsReleases.js:32
 msgid "Release annotations"
-msgstr "Uitgaves met aantekeningen"
+msgstr "Uitgaven met aantekeningen"
 
 #: ../root/report/AnnotationsSeries.js:27
 msgid "This report lists series with annotations."
@@ -11956,12 +11956,12 @@ msgid ""
 "This report lists artist credits that have a trailing join phrase that looks"
 " like it might have been left behind in error, such as a trailing comma or "
 "“feat.”."
-msgstr ""
+msgstr "In dit rapport staan artiestvermeldingen die eindigen met een koppelzin waarbij het lijkt alsof hij per ongeluk is overgebleven, zoals een komma of “feat.”"
 
 #: ../root/report/ArtistCreditsWithDubiousTrailingPhrases.js:33
 #: ../root/report/ReportsIndex.js:120
 msgid "Artist credits with dubious trailing join phrases"
-msgstr ""
+msgstr "Artiestvermeldingen die eindigen op een twijfelachtige koppelzin"
 
 #: ../root/report/ArtistsContainingDisambiguationComments.js:26
 msgid ""
@@ -12057,19 +12057,19 @@ msgid ""
 " barcode, you can also search Amazon for it and see which ASIN matches. You "
 "might also find some ASINs linked to several discs of a multi-disc release: "
 "just merge those (see {how_to_merge_releases|How to Merge Releases})."
-msgstr "In dit rapport staan URL’s van Amazon die aan meerdere uitgaves zijn gekoppeld. In de meeste gevallen zouden ASIN’s van Amazon 1:1 overeen moeten komen met uitgaves op MusicBrainz, zodat er maar één correcte link kan zijn. Controleer of de uitgave in MusicBrainz overeenkomt met de uitgave op Amazon (let op het medium, de nummers op de uitgave en het land van uitgave). Soms is een URL van Amazon gekoppeld aan verschillende uitgaves in MusicBrainz die eigenlijk verschillende losse media van één uitgave zijn. In dat geval moeten deze uitgaves worden samengevoegd (zie {how_to_merge_releases|Uitgaves samenvoegen})."
+msgstr "In dit rapport staan URL’s van Amazon die aan meerdere uitgaven zijn gekoppeld. In de meeste gevallen zouden ASIN’s van Amazon 1:1 overeen moeten komen met uitgaven op MusicBrainz, zodat er maar één correcte link kan zijn. Controleer of de uitgave in MusicBrainz overeenkomt met de uitgave op Amazon (let op het medium, de nummers op de uitgave en het land van uitgave). Soms is een URL van Amazon gekoppeld aan verschillende uitgaven in MusicBrainz die eigenlijk verschillende losse media van één uitgave zijn. In dat geval moeten deze uitgaven worden samengevoegd (zie {how_to_merge_releases|Uitgaven samenvoegen})."
 
 #: ../root/report/AsinsWithMultipleReleases.js:40
 #: ../root/report/ReportsIndex.js:272
 msgid "Amazon URLs linked to multiple releases"
-msgstr "URL’s van Amazon die aan meerdere uitgaves zijn gekoppeld"
+msgstr "URL’s van Amazon die aan meerdere uitgaven zijn gekoppeld"
 
 #: ../root/report/BadAmazonUrls.js:31
 msgid ""
 "This report shows releases with Amazon URLs which don't follow the expected "
 "format. They might still be correct if they're archive.org cover links, but "
 "in any other case they should probably be fixed or removed."
-msgstr "In dit rapport staan uitgaves met Amazon-URL’s die niet de verwachte opmaak hebben. Ze kunnen nog steeds kloppen als het links van archive.org zijn, maar anders moeten ze waarschijnlijk worden verbeterd of verwijderd."
+msgstr "In dit rapport staan uitgaven met Amazon-URL’s die niet de verwachte opmaak hebben. Ze kunnen nog steeds kloppen als het links van archive.org zijn, maar anders moeten ze waarschijnlijk worden verbeterd of verwijderd."
 
 #: ../root/report/BadAmazonUrls.js:39
 msgid "Bad Amazon URLs"
@@ -12125,11 +12125,11 @@ msgid ""
 "This is almost always wrong: ASINs are just Amazon's entries for the "
 "releases and should be linked to the release with an Amazon URL relationship"
 " instead."
-msgstr "In dit rapport staan uitgaves met catalogusnummers die lijken op ASIN’s van Amazon. Dit is bijna altijd verkeerd: ASIN’s zijn alleen verwijzingen naar uitgaves op Amazon en moeten aan een uitgave op MusicBrainz worden gekoppeld door middel van een Amazon URL-relatie."
+msgstr "In dit rapport staan uitgaven met catalogusnummers die lijken op ASIN’s van Amazon. Dit is bijna altijd verkeerd: ASIN’s zijn alleen verwijzingen naar uitgaven op Amazon en moeten aan een uitgave op MusicBrainz worden gekoppeld door middel van een Amazon URL-relatie."
 
 #: ../root/report/CatNoLooksLikeAsin.js:39 ../root/report/ReportsIndex.js:315
 msgid "Releases with catalog numbers that look like ASINs"
-msgstr "Uitgaves met catalogusnummers die eruitzien als ASIN’s"
+msgstr "Uitgaven met catalogusnummers die eruitzien als ASIN’s"
 
 #: ../root/report/CatNoLooksLikeIsrc.js:31
 msgid ""
@@ -12139,11 +12139,11 @@ msgid ""
 "artist/label. But ISRCs are codes assigned to recordings, and should be "
 "linked to the appropriate recording instead. That said, do make sure this is"
 " not a legitimate catalog number that just happens to look like an ISRC!"
-msgstr "In dit rapport staan uitgaves met catalogusnummers die op {doc_link|ISRC’s} lijken. ISRC’s aan uitgaves toevoegen is bijna altijd niet de bedoeling, maar het gebeurt soms toch, vooral bij uitgaves die door een artiest of platenmaatschappij aan MusicBrainz worden toegevoegd. ISRC’s horen bij opnames en moeten aan de juiste opname worden toegevoegd. \nMaar let wel goed op of het niet toevallig om een catalogusnummer gaat dat er toevallig als een ISRC uitziet."
+msgstr "In dit rapport staan uitgaven met catalogusnummers die op {doc_link|ISRC’s} lijken. ISRC’s aan uitgaven toevoegen is bijna altijd niet de bedoeling, maar het gebeurt soms toch, vooral bij uitgaven die door een artiest of platenmaatschappij aan MusicBrainz worden toegevoegd. ISRC’s horen bij opnames en moeten aan de juiste opname worden toegevoegd. \nMaar let wel goed op of het niet toevallig om een catalogusnummer gaat dat er toevallig als een ISRC uitziet."
 
 #: ../root/report/CatNoLooksLikeIsrc.js:43 ../root/report/ReportsIndex.js:319
 msgid "Releases with catalog numbers that look like ISRCs"
-msgstr "Uitgaves met catalogusnummers die eruitzien als ISRC’s"
+msgstr "Uitgaven met catalogusnummers die eruitzien als ISRC’s"
 
 #: ../root/report/CatNoLooksLikeLabelCode.js:31
 msgid ""
@@ -12152,12 +12152,12 @@ msgid ""
 "confused: label codes apply to the label, not to a specific release. If you "
 "confirm this is a label code (check the label page to see if they match, for"
 " example), remove it or, even better, try to find the actual catalog number."
-msgstr "In dit rapport staan uitgaves met catalogusnummers die eruitzien als {doc_link|platenmaatschappij-codes}. Deze twee identificatiecodes worden vaak door elkaar gehaald, maar zijn iets anders: catalogusnummers identificeren de uitgave, platenmaatschappij-codes de platenmaatschappij. Als je kan vaststellen dat dit een platenmaatschappij-code is (je kan bijvoorbeeld op de pagina van de platenmaatschappij kijken), kun je hem verwijderen, of het juiste catalogusnummer invoeren."
+msgstr "In dit rapport staan uitgaven met catalogusnummers die eruitzien als {doc_link|platenmaatschappijcodes}. Deze twee identificatiecodes worden vaak door elkaar gehaald, maar zijn iets anders: catalogusnummers identificeren de uitgave, platenmaatschappijcodes de platenmaatschappij. Als je kan vaststellen dat dit een platenmaatschappijcode is (je kan bijvoorbeeld op de pagina van de platenmaatschappij kijken), kun je hem verwijderen, of het juiste catalogusnummer invoeren."
 
 #: ../root/report/CatNoLooksLikeLabelCode.js:42
 #: ../root/report/ReportsIndex.js:324
 msgid "Releases with catalog numbers that look like Label Codes"
-msgstr "Uitgaves met catalogusnummers die eruitzien als platenmaatschappij-codes"
+msgstr "Uitgaven met catalogusnummers die eruitzien als platenmaatschappijcodes"
 
 #: ../root/report/CollaborationRelationships.js:32
 msgid ""
@@ -12181,11 +12181,11 @@ msgstr "Samenwerker"
 
 #: ../root/report/CoverArtRelationships.js:26
 msgid "This report shows releases that still have cover art relationships."
-msgstr "In dit rapport staan uitgaves die nog relaties voor afbeeldingen hebben."
+msgstr "In dit rapport staan uitgaven die nog relaties voor afbeeldingen hebben."
 
 #: ../root/report/CoverArtRelationships.js:32
 msgid "Releases with cover art relationships"
-msgstr "Uitgaves met relaties voor afbeeldingen"
+msgstr "Uitgaven met relaties voor afbeeldingen"
 
 #: ../root/report/DeprecatedRelationshipArtists.js:27
 msgid ""
@@ -12246,12 +12246,12 @@ msgstr "Uitgavegroepen met verouderde relaties"
 msgid ""
 "This report lists releases which have relationships using deprecated and "
 "grouping-only relationship types."
-msgstr "In dit rapport staan uitgaves met verouderde relaties of relaties die alleen voor het groeperen van relaties worden gebruikt."
+msgstr "In dit rapport staan uitgaven met verouderde relaties of relaties die alleen voor het groeperen van relaties worden gebruikt."
 
 #: ../root/report/DeprecatedRelationshipReleases.js:33
 #: ../root/report/ReportsIndex.js:381
 msgid "Releases with deprecated relationships"
-msgstr "Uitgaves met verouderde relaties"
+msgstr "Uitgaven met verouderde relaties"
 
 #: ../root/report/DeprecatedRelationshipUrls.js:27
 msgid ""
@@ -12312,12 +12312,12 @@ msgid ""
 "etc.). You might also find some Discogs URLs linked to several discs of a "
 "multi-disc release: just merge those (see {how_to_merge_releases|How to "
 "Merge Releases})."
-msgstr "In dit rapport staan URL’s van Discogs die aan meerdere uitgaves zijn gekoppeld. In de meeste gevallen zouden uitgaves in Discogs 1:1 overeen moeten komen met uitgaves op MusicBrainz, zodat er maar één correcte link kan zijn. Controleer of de uitgave in MusicBrainz overeenkomt met de uitgave op Discogs (let op het medium, de nummers op de uitgave en het land van uitgave). Soms is een URL van Discogs gekoppeld aan verschillende uitgaves in MusicBrainz die eigenlijk verschillende losse media van één uitgave zijn. In dat geval moeten deze uitgaves worden samengevoegd (zie {how_to_merge_releases|Uitgaves samenvoegen})."
+msgstr "In dit rapport staan URL’s van Discogs die aan meerdere uitgaven zijn gekoppeld. In de meeste gevallen zouden uitgaven in Discogs 1:1 overeen moeten komen met uitgaven op MusicBrainz, zodat er maar één correcte link kan zijn. Controleer of de uitgave in MusicBrainz overeenkomt met de uitgave op Discogs (let op het medium, de nummers op de uitgave en het land van uitgave). Soms is een URL van Discogs gekoppeld aan verschillende uitgaven in MusicBrainz die eigenlijk verschillende losse media van één uitgave zijn. In dat geval moeten deze uitgaven worden samengevoegd (zie {how_to_merge_releases|Uitgaven samenvoegen})."
 
 #: ../root/report/DiscogsLinksWithMultipleReleases.js:39
 #: ../root/report/ReportsIndex.js:276
 msgid "Discogs URLs linked to multiple releases"
-msgstr "URL’s van Discogs die aan meerdere uitgaves zijn gekoppeld"
+msgstr "URL’s van Discogs die aan meerdere uitgaven zijn gekoppeld"
 
 #: ../root/report/DuplicateArtists.js:36
 msgid "Total duplicate groups: {count}"
@@ -12402,12 +12402,12 @@ msgstr "Uitgavegroepen met mogelijk dubbele relaties"
 msgid ""
 "This report lists releases which have multiple relationships to the same "
 "entity using the same relationship type."
-msgstr "In dit rapport staan uitgaves met meerdere relaties van hetzelfde type met hetzelfde object."
+msgstr "In dit rapport staan uitgaven met meerdere relaties van hetzelfde type met hetzelfde object."
 
 #: ../root/report/DuplicateRelationshipsReleases.js:32
 #: ../root/report/ReportsIndex.js:369
 msgid "Releases with possible duplicate relationships"
-msgstr "Uitgaves met mogelijk dubbele relaties"
+msgstr "Uitgaven met mogelijk dubbele relaties"
 
 #: ../root/report/DuplicateRelationshipsWorks.js:26
 msgid ""
@@ -12430,7 +12430,7 @@ msgid ""
 "artist has an album and single with the same name, then there is usually no "
 "need to change anything. In other cases, a disambiguation comment may be "
 "helpful."
-msgstr "In dit rapport staan uitgavegroepen met erg op elkaar lijkende namen en artiesten. Als de uitgaves in de uitgavegroepen bij elkaar horen (zie de {url|stijlgids}), kunnen de uitgavegroepen worden samengevoegd. Als ze niet gegroepeerd zouden moeten worden maar van elkaar onderscheiden kunnen worden aan de hand van het type uitgavegroep, hoeft er meestal niets veranderd te worden. In andere gevallen kan een verduidelijking handig zijn."
+msgstr "In dit rapport staan uitgavegroepen met erg op elkaar lijkende namen en artiesten. Als de uitgaven in de uitgavegroepen bij elkaar horen (zie de {url|stijlgids}), kunnen de uitgavegroepen worden samengevoegd. Als ze niet gegroepeerd zouden moeten worden maar van elkaar onderscheiden kunnen worden aan de hand van het type uitgavegroep, hoeft er meestal niets veranderd te worden. In andere gevallen kan een verduidelijking handig zijn."
 
 #: ../root/report/DuplicateReleaseGroups.js:39
 #: ../root/report/ReportsIndex.js:219
@@ -12485,11 +12485,11 @@ msgid ""
 "featured artists} to know more. Don’t forget that the same generally applies"
 " to tracks, so if the track titles also include featuring credits you can "
 "fix them too while you edit the release!"
-msgstr "In dit rapport staan uitgaves met “feat. Artist” (of iets dergelijks) in de titel. Lees voor klassieke uitgaves de {CSG|Klassieke stijlgids}. Voor niet-klassieke uitgaves is dit meestal een overblijfsel van een oudere versie van MusicBrainz en moet dit worden verbeterd. Lees {featured_artists| de pagina over gastartiesten} om meer te weten te komen. Vergeet niet dat voor de nummers meestal hetzelfde geldt, dus je kan tegelijk met de uitgave ook de titels en artiesten van die nummers verbeteren."
+msgstr "In dit rapport staan uitgaven met “feat. Artist” (of iets dergelijks) in de titel. Lees voor klassieke uitgaven de {CSG|Klassieke stijlgids}. Voor niet-klassieke uitgaven is dit meestal een overblijfsel van een oudere versie van MusicBrainz en moet dit worden verbeterd. Lees {featured_artists| de pagina over gastartiesten} om meer te weten te komen. Vergeet niet dat voor de nummers meestal hetzelfde geldt, dus je kan tegelijk met de uitgave ook de titels en artiesten van die nummers verbeteren."
 
 #: ../root/report/FeaturingReleases.js:43 ../root/report/ReportsIndex.js:300
 msgid "Releases with titles containing featuring artists"
-msgstr "Uitgaves met de naam van een gastartiest in de titel"
+msgstr "Uitgaven met de naam van een gastartiest in de titel"
 
 #: ../root/report/FilterLink.js:26
 msgid "Show all results."
@@ -12584,11 +12584,11 @@ msgstr "Beginners / beperkte redacteurs"
 msgid ""
 "This report lists all releases with gaps in the medium numbers (e.g. there "
 "is a medium 1 and 3 but no medium 2)."
-msgstr "In dit rapport staan alle uitgaves waarvan de media niet continu genummerd zijn (bijv. als er media met de posities 1 en 3 zijn, maar niet 2)."
+msgstr "In dit rapport staan alle uitgaven waarvan de media niet continu genummerd zijn (bijv. als er media met de posities 1 en 3 zijn, maar niet 2)."
 
 #: ../root/report/MediumsWithSequenceIssues.js:32
 msgid "Releases with medium number issues"
-msgstr "Uitgaves met problemen bij de mediumposities"
+msgstr "Uitgaven met problemen bij de mediumposities"
 
 #: ../root/report/MultipleAsins.js:26
 msgid ""
@@ -12597,11 +12597,11 @@ msgid ""
 " be correct. Just check which ones do not fit the release (because of "
 "format, different number of tracks, etc). If the release has a barcode, you "
 "can search Amazon for it and see which ASIN matches."
-msgstr "In dit rapport staan uitgaves die meer dan een ASIN van Amazon hebben. In de meeste gevallen moeten ASIN’s één op één overeenkomen met uitgaves op MusicBrainz en zal er dus maar één link correct zijn. Controleer welke niet bij de uitgave passen (vanwege het soort medium of het aantal nummers bijvoorbeeld) en verwijder deze ASIN. Als de uitgave een streepjescode heeft, kan je daar op Amazon naar zoeken en kijken of de ASIN overeenkomt."
+msgstr "In dit rapport staan uitgaven die meer dan een ASIN van Amazon hebben. In de meeste gevallen moeten ASIN’s één op één overeenkomen met uitgaven op MusicBrainz en zal er dus maar één link correct zijn. Controleer welke niet bij de uitgave passen (vanwege het soort medium of het aantal nummers bijvoorbeeld) en verwijder deze ASIN. Als de uitgave een streepjescode heeft, kan je daar op Amazon naar zoeken en kijken of de ASIN overeenkomt."
 
 #: ../root/report/MultipleAsins.js:36
 msgid "Releases with multiple ASINs"
-msgstr "Uitgaves met meerdere ASIN’s"
+msgstr "Uitgaven met meerdere ASIN’s"
 
 #: ../root/report/MultipleDiscogsLinks.js:26
 msgid ""
@@ -12611,33 +12611,33 @@ msgid ""
 "release (because of format, different number of tracks, etc). Any \"master\""
 " Discogs page belongs at the {release_group|release group level}, not at the"
 " release level, and should be removed from releases too."
-msgstr "In dit rapport staan uitgaves die meer dan één Discogs-link hebben. In de meeste gevallen hoort een uitgave op MusicBrainz maar één equivalent te hebben op Discogs, dus zal er maar één link correct zijn. Controleer welke niet bij de uitgave passen (vanwege het medium of het aantal nummers bijvoorbeeld) en verwijder deze link. Een ‘master’-Discogspagina hoort bij de {release_group|uitgavegroep} en moet ook van uitgaves worden verwijderd."
+msgstr "In dit rapport staan uitgaven die meer dan één Discogs-link hebben. In de meeste gevallen hoort een uitgave op MusicBrainz maar één equivalent te hebben op Discogs, dus zal er maar één link correct zijn. Controleer welke niet bij de uitgave passen (vanwege het medium of het aantal nummers bijvoorbeeld) en verwijder deze link. Een ‘master’-Discogspagina hoort bij de {release_group|uitgavegroep} en moet ook van uitgaven worden verwijderd."
 
 #: ../root/report/MultipleDiscogsLinks.js:38
 msgid "Releases with multiple Discogs links"
-msgstr "Uitgaves met meerdere Discogs-links"
+msgstr "Uitgaven met meerdere Discogs-links"
 
 #: ../root/report/NoLanguage.js:26
 msgid ""
 "This report shows releases that have no language set. If you recognize the "
 "language, please set it! Do it only if you are pretty sure, don't just "
 "guess: not everything written in Cyrillic is Russian, for example."
-msgstr "In dit rapport staan uitgaves waarvan de taal niet is ingesteld. Stel de taal in als je hem herkent. Doe dit alleen als je zeker bent en ga niet gokken: niet alles dat in het cyrillisch is geschreven is bijvoorbeeld Russisch."
+msgstr "In dit rapport staan uitgaven waarvan de taal niet is ingesteld. Stel de taal in als je hem herkent. Doe dit alleen als je zeker bent en ga niet gokken: niet alles dat in het cyrillisch is geschreven is bijvoorbeeld Russisch."
 
 #: ../root/report/NoLanguage.js:34 ../root/report/ReportsIndex.js:252
 msgid "Releases without language"
-msgstr "Uitgaves zonder taal"
+msgstr "Uitgaven zonder taal"
 
 #: ../root/report/NoScript.js:26
 msgid ""
 "This report shows releases that have no script set. If you recognize the "
 "script, just add it! Remember that the script used for English (and most "
 "other European languages) is Latin."
-msgstr "In dit rapport staan uitgaves waarvan het schrift niet is ingesteld. Als je het schrift herkent, kan je het gewoon toevoegen! Vergeet niet dat het schrift dat voor Engels (en de meeste Europese talen) wordt gebruikt Latijn is."
+msgstr "In dit rapport staan uitgaven waarvan het schrift niet is ingesteld. Als je het schrift herkent, kan je het gewoon toevoegen! Vergeet niet dat het schrift dat voor Engels (en de meeste Europese talen) wordt gebruikt Latijn is."
 
 #: ../root/report/NoScript.js:33 ../root/report/ReportsIndex.js:256
 msgid "Releases without script"
-msgstr "Uitgaves zonder schrift"
+msgstr "Uitgaven zonder schrift"
 
 #: ../root/report/PartOfSetRelationships.js:26
 msgid ""
@@ -12647,11 +12647,11 @@ msgid ""
 " releases}. If the releases are not really part of a set (for example, if "
 "they are independently-released volumes in a series) just remove the "
 "relationship."
-msgstr "In dit rapport staan uitgaves die nog steeds de verouderde deel-van-een-set-relatie hebben en waarschijnlijk samengevoegd moeten worden. Zie de documentatie over {how_to_merge_releases|Uitgaves samenvoegen} voor instructies. Als de uitgaves niet een deel van een set zijn (bijvoorbeeld omdat het onafhankelijk van elkaar uitgebrachte delen van een serie zijn) kan de relatie gewoon verwijderd worden."
+msgstr "In dit rapport staan uitgaven die nog steeds de verouderde deel-van-een-set-relatie hebben en waarschijnlijk samengevoegd moeten worden. Zie de documentatie over {how_to_merge_releases|Uitgaven samenvoegen} voor instructies. Als de uitgaven niet een deel van een set zijn (bijvoorbeeld omdat het onafhankelijk van elkaar uitgebrachte delen van een serie zijn) kan de relatie gewoon verwijderd worden."
 
 #: ../root/report/PartOfSetRelationships.js:38
 msgid "Releases with “part of set” relationships"
-msgstr "Uitgaves met deel-van-een-set-relaties"
+msgstr "Uitgaven met deel-van-een-set-relaties"
 
 #: ../root/report/PlacesWithoutCoordinates.js:31
 msgid "This report lists places without coordinates."
@@ -12801,24 +12801,24 @@ msgid ""
 "This report lists releases where the label name is the same as the artist "
 "name. Often this means the release is self-released, and the label "
 "{SpecialPurposeLabel|should be \"[no label]\" instead}."
-msgstr "In dit rapport staan uitgaves met een platenmaatschappij die dezelfde naam heeft als de artiest. Vaak betekent dit dat de uitgave in eigen beheer is uitgegeven, en dat de platenmaatschappij {SpecialPurposeLabel|“[geen platenmaatschappij]”} zou moeten zijn."
+msgstr "In dit rapport staan uitgaven met een platenmaatschappij die dezelfde naam heeft als de artiest. Vaak betekent dit dat de uitgave in eigen beheer is uitgegeven, en dat de platenmaatschappij {SpecialPurposeLabel|“[geen platenmaatschappij]”} zou moeten zijn."
 
 #: ../root/report/ReleaseLabelSameArtist.js:42
 #: ../root/report/ReportsIndex.js:418
 msgid "Releases where artist name and label name are the same"
-msgstr "Uitgaves waarvan de platenmaatschappij hetzelfde is als de artiestennaam"
+msgstr "Uitgaven waarvan de platenmaatschappij hetzelfde is als de artiestennaam"
 
 #: ../root/report/ReleaseRgDifferentName.js:30
 msgid ""
 "This report shows releases which are the only ones in their release group, "
 "yet have a different name than the group. This might mean one of the two "
 "needs to be renamed to match the other."
-msgstr "In dit rapport staan uitgaves die de enige in hun uitgavegroep zijn, maar een andere titel hebben. Het kan zijn dat een van de twee moet worden hernoemd, zodat de titels overeenkomen."
+msgstr "In dit rapport staan uitgaven die de enige in hun uitgavegroep zijn, maar een andere titel hebben. Het kan zijn dat een van de twee moet worden hernoemd, zodat de titels overeenkomen."
 
 #: ../root/report/ReleaseRgDifferentName.js:37
 #: ../root/report/ReportsIndex.js:424
 msgid "Releases with a different name than their release group"
-msgstr "Uitgaves met een andere titel dan hun uitgavegroep"
+msgstr "Uitgaven met een andere titel dan hun uitgavegroep"
 
 #: ../root/report/ReleaseRgDifferentName.js:66
 #: ../root/report/ReleasesSameBarcode.js:80
@@ -12835,41 +12835,41 @@ msgid ""
 "released too early to have disc IDs, where one of the medium formats didn't "
 "exist at the time the release was released or where a disc ID is attached to"
 " a medium whose format does not have disc IDs."
-msgstr "In dit rapport staan uitgaves die disc-ID’s hebben terwijl ze te vroeg zijn uitgebracht om disc-ID’s te kunnen hebben, waar één van de media van een type is dat nog niet bestond toen de uitgave werd uitgebracht of waar er disc-ID’s zijn gekoppeld aan types media waarvoor geen disc-ID bestaat."
+msgstr "In dit rapport staan uitgaven die disc-ID’s hebben terwijl ze te vroeg zijn uitgebracht om disc-ID’s te kunnen hebben, waar één van de media van een type is dat nog niet bestond toen de uitgave werd uitgebracht of waar er disc-ID’s zijn gekoppeld aan types media waarvoor geen disc-ID bestaat."
 
 #: ../root/report/ReleasedTooEarly.js:35 ../root/report/ReportsIndex.js:304
 msgid "Releases released too early"
-msgstr "Uitgaves die te vroeg zijn uitgegeven"
+msgstr "Uitgaven die te vroeg zijn uitgegeven"
 
 #: ../root/report/ReleasesConflictingDiscIds.js:26
 msgid ""
 "This report shows releases that have conflicting disc IDs on the same medium"
 " with significant differences in duration. This usually means a disc ID was "
 "applied to the wrong medium or the wrong release."
-msgstr "In dit rapport staan uitgaves met meerdere disc-ID’s op hetzelfde medium met significante verschillen in nummerlengtes. Dit betekent vaak dat een disc-ID aan het verkeerde medium of de verkeerde uitgave is gekoppeld."
+msgstr "In dit rapport staan uitgaven met meerdere disc-ID’s op hetzelfde medium met significante verschillen in nummerlengtes. Dit betekent vaak dat een disc-ID aan het verkeerde medium of de verkeerde uitgave is gekoppeld."
 
 #: ../root/report/ReleasesConflictingDiscIds.js:33
 #: ../root/report/ReportsIndex.js:413
 msgid "Releases with conflicting disc IDs"
-msgstr "Uitgaves met elkaar tegensprekende disc-ID’s"
+msgstr "Uitgaven met elkaar tegensprekende disc-ID’s"
 
 #: ../root/report/ReleasesInCaaWithCoverArtRelationships.js:26
 msgid ""
 "This report shows releases which have artwork in the Cover Art Archive, but "
 "still have a cover art relationship (pointing to a URL)."
-msgstr "In dit rapport staan uitgaves met afbeeldingen in het Cover Art Archive die nog steeds relaties voor afbeeldingen hebben (die naar URL’s verwijzen)."
+msgstr "In dit rapport staan uitgaven met afbeeldingen in het Cover Art Archive die nog steeds relaties voor afbeeldingen hebben (die naar URL’s verwijzen)."
 
 #: ../root/report/ReleasesInCaaWithCoverArtRelationships.js:33
 #: ../root/report/ReportsIndex.js:337
 msgid ""
 "Releases in the Cover Art Archive that still have cover art relationships"
-msgstr "Uitgaves in het Cover Art Archive die nog steeds relaties hebben voor afbeeldingen."
+msgstr "Uitgaven in het Cover Art Archive die nog steeds relaties hebben voor afbeeldingen."
 
 #: ../root/report/ReleasesMissingDiscIds.js:26
 msgid ""
 "This report shows releases (official and promotional only) that have at "
 "least one medium with a format that supports disc IDs, but is missing one."
-msgstr "Dit rapport laat (officiële en promotie)uitgaves zien waar geen disc-id aan is gekoppeld, terwijl ten minste één van de aanwezige media van een type is dat disc-id’s ondersteunt."
+msgstr "Dit rapport laat (officiële en promotie)uitgaven zien waar geen disc-id aan is gekoppeld, terwijl ten minste één van de aanwezige media van een type is dat disc-id’s ondersteunt."
 
 #: ../root/report/ReleasesMissingDiscIds.js:32
 msgid ""
@@ -12880,7 +12880,7 @@ msgstr "Lees de documentatie over {add_discids|het toevoegen van disc-ID’s} vo
 #: ../root/report/ReleasesMissingDiscIds.js:38
 #: ../root/report/ReportsIndex.js:409
 msgid "Releases missing disc IDs"
-msgstr "Uitgaves zonder disc-ID’s"
+msgstr "Uitgaven zonder disc-ID’s"
 
 #: ../root/report/ReleasesSameBarcode.js:39
 msgid ""
@@ -12888,11 +12888,11 @@ msgid ""
 "placed in different release groups. Chances are that the releases are "
 "duplicates or parts of a set, or at least that the release groups should be "
 "merged."
-msgstr "In dit rapport staan uitgaves die geen bootleg zijn, dezelfde streepjescode hebben en deel uitmaken van verschillende uitgavegroepen. Mogelijk zijn de uitgaves dubbel, maken ze deel uit van een set of moeten de uitgavegroepen worden samengevoegd."
+msgstr "In dit rapport staan uitgaven die geen bootleg zijn, dezelfde streepjescode hebben en deel uitmaken van verschillende uitgavegroepen. Mogelijk zijn de uitgaven dubbel, maken ze deel uit van een set of moeten de uitgavegroepen worden samengevoegd."
 
 #: ../root/report/ReleasesSameBarcode.js:47 ../root/report/ReportsIndex.js:430
 msgid "Releases with the same barcode in different release groups"
-msgstr "Uitgaves met dezelfde streepjescode in verschillende uitgavegroepen"
+msgstr "Uitgaven met dezelfde streepjescode in verschillende uitgavegroepen"
 
 #: ../root/report/ReleasesToConvert.js:26
 msgid ""
@@ -12900,23 +12900,23 @@ msgid ""
 "artists (because the track artists are on the title field, for example). "
 "Currently it does this by looking for releases where every track contains "
 "\"/\" or \"-\"."
-msgstr "In dit rapport staan uitgaves waarvan de artiest misschien moet worden opgesplitst in meerdere artiesten (bijvoorbeeld omdat de artiest van een nummer in de titel van een nummer staat). Momenteel gebeurt dit door te zoeken naar uitgaves waarbij elk nummer een ‘/’ of een ‘-’ bevat."
+msgstr "In dit rapport staan uitgaven waarvan de artiest misschien moet worden opgesplitst in meerdere artiesten (bijvoorbeeld omdat de artiest van een nummer in de titel van een nummer staat). Momenteel gebeurt dit door te zoeken naar uitgaven waarbij elk nummer een ‘/’ of een ‘-’ bevat."
 
 #: ../root/report/ReleasesToConvert.js:34 ../root/report/ReportsIndex.js:247
 msgid "Releases which might need converting to \"multiple artists\""
-msgstr "Uitgaves die misschien moeten worden omgezet naar ‘diverse artiesten’"
+msgstr "Uitgaven die misschien moeten worden omgezet naar ‘diverse artiesten’"
 
 #: ../root/report/ReleasesWithCaaNoTypes.js:26
 msgid ""
 "This report shows releases which have cover art in the Cover Art Archive, "
 "but where none of it has any types set. This often means a front cover was "
 "added, but not marked as such."
-msgstr "In dit rapport staan uitgaves met afbeeldingen in het Cover Art Archive, maar waarbij geen type voor de afbeeldingen is ingesteld. Dit betekent vaak dat er een afbeelding van de voorkant aanwezig is, maar dat die niet als zodanig is gemarkeerd."
+msgstr "In dit rapport staan uitgaven met afbeeldingen in het Cover Art Archive, maar waarbij geen type voor de afbeeldingen is ingesteld. Dit betekent vaak dat er een afbeelding van de voorkant aanwezig is, maar dat die niet als zodanig is gemarkeerd."
 
 #: ../root/report/ReleasesWithCaaNoTypes.js:34
 #: ../root/report/ReportsIndex.js:351
 msgid "Releases in the Cover Art Archive where no cover art piece has types"
-msgstr "Uitgaves met afbeeldingen in het Cover Art Archive die allemaal geen ingesteld type hebben"
+msgstr "Uitgaven met afbeeldingen in het Cover Art Archive die allemaal geen ingesteld type hebben"
 
 #: ../root/report/ReleasesWithDownloadRelationships.js:26
 msgid ""
@@ -12924,65 +12924,65 @@ msgid ""
 "digital media releases (download/streaming), but have media whose format is "
 "not “Digital Media”. Generally, these should be moved to the appropriate "
 "digital media release. If one doesn’t exist yet, feel free to create it."
-msgstr ""
+msgstr "In dit rapport staan uitgaven met relaties die alleen van toepassing zijn op digitale uitgaven (downloads/streaming), maar die media bevatten die geen digitale media zijn. Over het algemeen moeten deze relaties worden verplaatst naar de juiste digitale uitgave. Als die nog niet bestaat, kun je haar aanmaken."
 
 #: ../root/report/ReleasesWithDownloadRelationships.js:36
 #: ../root/report/ReportsIndex.js:377
 msgid "Non-digital releases with digital relationships"
-msgstr ""
+msgstr "Niet-digitale uitgaven met digitale relaties"
 
 #: ../root/report/ReleasesWithEmptyMediums.js:26
 msgid ""
 "This report shows releases with at least one medium that is missing a "
 "tracklist. If you can find the tracklist, please help complete the data!"
-msgstr "In dit rapport staan uitgaves met ten minste één medium zonder nummerlijst. Je kan helpen de data compleet te maken door uit te zoeken welke nummers er op het medium staan."
+msgstr "In dit rapport staan uitgaven met ten minste één medium zonder nummerlijst. Je kan helpen de data compleet te maken door uit te zoeken welke nummers er op het medium staan."
 
 #: ../root/report/ReleasesWithEmptyMediums.js:33
 #: ../root/report/ReportsIndex.js:393
 msgid "Releases with empty mediums"
-msgstr "Uitgaves met lege media"
+msgstr "Uitgaven met lege media"
 
 #: ../root/report/ReleasesWithNoMediums.js:26
 msgid "This report shows releases without any mediums (no tracklist)."
-msgstr "In dit rapport staan uitgaves die geen media (geen nummerlijsten) hebben."
+msgstr "In dit rapport staan uitgaven die geen media (geen nummerlijsten) hebben."
 
 #: ../root/report/ReleasesWithNoMediums.js:31
 #: ../root/report/ReportsIndex.js:389
 msgid "Releases with no mediums"
-msgstr "Uitgaves zonder media."
+msgstr "Uitgaven zonder media."
 
 #: ../root/report/ReleasesWithUnlikelyLanguageScript.js:26
 msgid ""
 "This report shows releases that have an unlikely combination of language and"
 " script properties, such as German and Ethiopic."
-msgstr "In dit rapport staan uitgaves die een onwaarschijnlijke combinatie van taal en schrift hebben, zoals Duits en Ethiopisch."
+msgstr "In dit rapport staan uitgaven die een onwaarschijnlijke combinatie van taal en schrift hebben, zoals Duits en Ethiopisch."
 
 #: ../root/report/ReleasesWithUnlikelyLanguageScript.js:32
 #: ../root/report/ReportsIndex.js:361
 msgid "Releases with unlikely language/script pairs"
-msgstr "Uitgaves met een onwaarschijnlijke combinatie van taal en schrift."
+msgstr "Uitgaven met een onwaarschijnlijke combinatie van taal en schrift."
 
 #: ../root/report/ReleasesWithoutVaCredit.js:26
 msgid ""
 "This report shows releases linked to the Various Artists entity without "
 "\"Various Artists\" as the credited name."
-msgstr "In dit rapport staan uitgaves die gekoppeld zijn aan de artiest ‘Diverse Artiesten’, maar die onder een andere artiestennaam worden vermeld."
+msgstr "In dit rapport staan uitgaven die gekoppeld zijn aan de artiest ‘Diverse Artiesten’, maar die onder een andere artiestennaam worden vermeld."
 
 #: ../root/report/ReleasesWithoutVaCredit.js:32
 #: ../root/report/ReportsIndex.js:398
 msgid "Releases not credited to \"Various Artists\" but linked to VA"
-msgstr "Uitgaves die niet aan ‘Diverse Artiesten’ zijn toegeschreven, maar daar wel aan zijn gekoppeld"
+msgstr "Uitgaven die niet aan ‘Diverse Artiesten’ zijn toegeschreven, maar daar wel aan zijn gekoppeld"
 
 #: ../root/report/ReleasesWithoutVaLink.js:26
 msgid ""
 "This report shows releases with \"Various Artists\" as the credited name but"
 " not linked to the Various Artists entity."
-msgstr "In dit rapport staan uitgaves die niet gekoppeld zijn aan de artiest ‘Diverse Artiesten’, maar waarvan de artiest wel als ‘Diverse Artiesten’ wordt vermeld."
+msgstr "In dit rapport staan uitgaven die niet gekoppeld zijn aan de artiest ‘Diverse Artiesten’, maar waarvan de artiest wel als ‘Diverse Artiesten’ wordt vermeld."
 
 #: ../root/report/ReleasesWithoutVaLink.js:32
 #: ../root/report/ReportsIndex.js:404
 msgid "Releases credited to \"Various Artists\" but not linked to VA"
-msgstr "Uitgaves die aan ‘Diverse Artiesten’ zijn toegeschreven, maar daar niet aan zijn gekoppeld"
+msgstr "Uitgaven die aan ‘Diverse Artiesten’ zijn toegeschreven, maar daar niet aan zijn gekoppeld"
 
 #: ../root/report/ReportNotAvailable.js:20
 msgid "We are sorry, but data for this report is not available right now."
@@ -13039,23 +13039,23 @@ msgstr "Uitgavegroepen met aantekeningen"
 
 #: ../root/report/ReportsIndex.js:260
 msgid "Releases which have unexpected Amazon URLs"
-msgstr "Uitgaves met onverwachte Amazon-URL’s"
+msgstr "Uitgaven met onverwachte Amazon-URL’s"
 
 #: ../root/report/ReportsIndex.js:264
 msgid "Releases which have multiple ASINs"
-msgstr "Uitgaves met meerdere ASIN’s"
+msgstr "Uitgaven met meerdere ASIN’s"
 
 #: ../root/report/ReportsIndex.js:268
 msgid "Releases which have multiple Discogs links"
-msgstr "Uitgaves met meerdere Discogs-verwijzingen"
+msgstr "Uitgaven met meerdere Discogs-links"
 
 #: ../root/report/ReportsIndex.js:280
 msgid "Releases which have part of set relationships"
-msgstr "Uitgaves met deel-van-een-set-relaties"
+msgstr "Uitgaven met deel-van-een-set-relaties"
 
 #: ../root/report/ReportsIndex.js:284
 msgid "Discs entered as separate releases"
-msgstr "Media die als afzonderlijke uitgaves zijn toegevoegd"
+msgstr "Media die als afzonderlijke uitgaven zijn toegevoegd"
 
 #: ../root/report/ReportsIndex.js:288
 msgid "Tracks whose names include their sequence numbers"
@@ -13063,42 +13063,42 @@ msgstr "Nummers met de positie in de titel"
 
 #: ../root/report/ReportsIndex.js:292
 msgid "Releases with non-sequential track numbers"
-msgstr "Uitgaves met nummers die niet op volgorde zijn"
+msgstr "Uitgaven met nummers die niet op volgorde zijn"
 
 #: ../root/report/ReportsIndex.js:296
 #: ../root/report/SuperfluousDataTracks.js:41
 msgid "Releases with superfluous data tracks"
-msgstr "Uitgaves met overbodige gegevensnummers"
+msgstr "Uitgaven met overbodige gegevensnummers"
 
 #: ../root/report/ReportsIndex.js:309
 msgid "Releases where some (but not all) mediums have no format set"
-msgstr "Uitgaves waar bij sommige (maar niet alle) media geen type is ingesteld."
+msgstr "Uitgaven waar bij sommige (maar niet alle) media geen type is ingesteld."
 
 #: ../root/report/ReportsIndex.js:330
 msgid ""
 "Translated/Transliterated Pseudo-Releases not linked to an original version"
-msgstr "Vertaalde of getranslitereerde pseudo-uitgaves die niet aan de originele uitgave zijn gekoppeld."
+msgstr "Vertaalde of getranslitereerde pseudo-uitgaven die niet aan de originele uitgave zijn gekoppeld."
 
 #: ../root/report/ReportsIndex.js:344
 msgid "Releases of any sort that still have cover art relationships"
-msgstr "Uitgaves van elk type die nog relaties voor afbeeldingen hebben."
+msgstr "Uitgaven van elk type die nog relaties voor afbeeldingen hebben."
 
 #: ../root/report/ReportsIndex.js:357
 msgid "Releases with non-sequential mediums"
-msgstr "Uitgaves met media die niet op volgorde zijn"
+msgstr "Uitgaven met media die niet op volgorde zijn"
 
 #: ../root/report/ReportsIndex.js:365 ../root/report/TracksWithoutTimes.js:32
 msgid "Releases with unknown track times"
-msgstr "Uitgaves met onbekende nummerduur"
+msgstr "Uitgaven met onbekende nummerduur"
 
 #: ../root/report/ReportsIndex.js:373
 #: ../root/report/SingleMediumReleasesWithMediumTitles.js:33
 msgid "Releases with a single medium that has a name"
-msgstr "Uitgaves met één medium met een naam"
+msgstr "Uitgaven met één medium met een naam"
 
 #: ../root/report/ReportsIndex.js:385
 msgid "Releases with annotations"
-msgstr "Uitgaves met aantekeningen"
+msgstr "Uitgaven met aantekeningen"
 
 #: ../root/report/ReportsIndex.js:460
 msgid "Recordings with annotations"
@@ -13123,7 +13123,7 @@ msgstr "Composities met aantekeningen."
 #: ../root/report/ReportsIndex.js:544
 #: ../root/report/WorkSameTypeAsParent.js:37
 msgid "Works with the same type as their parent"
-msgstr ""
+msgstr "Composities van hetzelfde type als de bovenliggende compositie"
 
 #: ../root/report/ReportsIndex.js:559
 #: ../root/search/components/RecordingResults.js:132
@@ -13140,17 +13140,17 @@ msgstr "ISWC’s"
 #: ../root/report/SeparateDiscs.js:26
 msgid ""
 "This report shows releases which have (disc n) or (bonus disc) in the title."
-msgstr "In dit rapport staan uitgaves met (disc n) of (bonus disc) in de titel."
+msgstr "In dit rapport staan uitgaven met (disc n) of (bonus disc) in de titel."
 
 #: ../root/report/SeparateDiscs.js:31
 msgid ""
 "For instructions on how to fix them, please see the documentation about "
 "{howto|how to merge releases}."
-msgstr "Lees de documentatie over {howto|Uitgaves samenvoegen} voor instructies hoe je ze kan verbeteren."
+msgstr "Lees de documentatie over {howto|Uitgaven samenvoegen} voor instructies hoe je ze kan verbeteren."
 
 #: ../root/report/SeparateDiscs.js:37
 msgid "Discs as separate releases"
-msgstr "Media als afzonderlijke uitgaves"
+msgstr "Media als afzonderlijke uitgaven"
 
 #: ../root/report/SetInDifferentRg.js:26
 msgid ""
@@ -13160,7 +13160,7 @@ msgid ""
 "them. If the releases are discs linked with \"part of set\" relationships, "
 "you might want to merge them too into one multi-disc release (see "
 "{how_to_merge_releases|How to Merge Releases})."
-msgstr "In dit rapport staan uitgavegroepen met uitgaves die via een deel-van-een-set-relatie of een transliteratie-relatie gekoppeld zijn aan een uitgave in een andere uitgavegroep. Paren van uitgavegroepen in dit rapport moeten waarschijnlijk worden samengevoegd. Als blijkt dat de verschillende uitgaves eigenlijk de losse media van één uitgave zijn, kunnen die uitgaves ook worden samengevoegd. Zie {how_to_merge_releases|Uitgaves samenvoegen}."
+msgstr "In dit rapport staan uitgavegroepen met uitgaven die via een deel-van-een-set-relatie of een transliteratie-relatie gekoppeld zijn aan een uitgave in een andere uitgavegroep. Paren van uitgavegroepen in dit rapport moeten waarschijnlijk worden samengevoegd. Als blijkt dat de verschillende uitgaven eigenlijk de losse media van één uitgave zijn, kunnen die uitgaven ook worden samengevoegd. Zie {how_to_merge_releases|Uitgaven samenvoegen}."
 
 #: ../root/report/SetInDifferentRg.js:38
 msgid "Mismatched release groups"
@@ -13171,7 +13171,7 @@ msgid ""
 "This report shows releases that have a single medium, where this medium also"
 " has a specific name. Usually, this is not necessary and is duplicate "
 "information which can be removed."
-msgstr "In dit rapport staan uitgaves die bestaan uit één medium, maar waarbij dat medium ook een specifieke naam heeft. Meestal is dit dubbele informatie die kan worden verwijderd."
+msgstr "In dit rapport staan uitgaven die bestaan uit één medium, maar waarbij dat medium ook een specifieke naam heeft. Meestal is dit dubbele informatie die kan worden verwijderd."
 
 #: ../root/report/SomeFormatsUnset.js:26
 msgid ""
@@ -13179,11 +13179,11 @@ msgid ""
 "others are unset. In most cases, it should be easy to find out which the "
 "correct formats are (don't just assume that they're all CDs because one is "
 "though!)."
-msgstr "In dit rapport staan uitgaves waarbij het type van sommige media is ingesteld, maar niet bij allemaal. In de meeste gevallen moet het simpel zijn om te achterhalen wat de correcte types zijn (maar ga er niet gewoon vanuit dat het allemaal cd’s zijn omdat één medium een cd is)."
+msgstr "In dit rapport staan uitgaven waarbij het type van sommige media is ingesteld, maar niet bij allemaal. In de meeste gevallen moet het simpel zijn om te achterhalen wat de correcte types zijn (maar ga er niet gewoon vanuit dat het allemaal cd’s zijn omdat één medium een cd is)."
 
 #: ../root/report/SomeFormatsUnset.js:34
 msgid "Releases with some formats unset"
-msgstr "Uitgaves waarbij sommige mediumtypes ontbreken."
+msgstr "Uitgaven waarbij sommige mediumtypes ontbreken."
 
 #: ../root/report/SuperfluousDataTracks.js:26
 msgid ""
@@ -13192,7 +13192,7 @@ msgid ""
 "data tracks. A data track should be marked as such if it is the last track "
 "of the CD and contains audio or video. Otherwise, it should just be removed."
 " See the {data_track_guidelines|data track guidelines}."
-msgstr "In dit rapport staan uitgaves zonder disc-ID’s die waarschijnlijk datanummers (zoals video’s) aan het einde van het medium hebben, maar die geen nummers hebben die als datanummer zijn aangemerkt. Een datanummer moet als zodanig worden aangemerkt als het het laatste nummer van het medium is en audio of video bevat. In andere gevallen moet het worden verwijderd. Zie de {data_track_guidelines|richtlijnen over datanummers}."
+msgstr "In dit rapport staan uitgaven zonder disc-ID’s die waarschijnlijk datanummers (zoals video’s) aan het einde van het medium hebben, maar die geen nummers hebben die als datanummer zijn aangemerkt. Een datanummer moet als zodanig worden aangemerkt als het het laatste nummer van het medium is en audio of video bevat. In andere gevallen moet het worden verwijderd. Zie de {data_track_guidelines|richtlijnen over datanummers}."
 
 #: ../root/report/TracksNamedWithSequence.js:26
 msgid ""
@@ -13200,28 +13200,28 @@ msgid ""
 "track number, e.g. \"1) Some Name\" (instead of just \"Some Name\"). Notice "
 "that sometimes this is justified and correct, don't automatically assume it "
 "is a mistake! If you confirm it is a mistake, please correct it."
-msgstr "In dit rapport staan uitgaves waarbij de titels van nummers de positie lijken te bevatten, zoals ‘1) Een titel’ in plaats van gewoon ‘Een titel’. Let wel dat dit soms terecht en correct is, ga er dus niet automatisch van uit dat dit een fout is. Als je zeker weet dat een fout is, kan je het verbeteren."
+msgstr "In dit rapport staan uitgaven waarbij de titels van nummers de positie lijken te bevatten, zoals ‘1) Een titel’ in plaats van gewoon ‘Een titel’. Let wel dat dit soms terecht en correct is, ga er dus niet automatisch van uit dat dit een fout is. Als je zeker weet dat een fout is, kan je het verbeteren."
 
 #: ../root/report/TracksNamedWithSequence.js:35
 msgid "Releases where track names start with their track number"
-msgstr "Uitgaves waarbij de titels van de nummers beginnen met de positie"
+msgstr "Uitgaven waarbij de titels van de nummers beginnen met de positie"
 
 #: ../root/report/TracksWithSequenceIssues.js:26
 msgid ""
 "This report lists all releases where the track numbers are not continuous "
 "(e.g. there is no \"track 2\"), or with duplicated track numbers (e.g. there"
 " are two \"track 4\"s)."
-msgstr "In dit rapport staan alle uitgaves waarop de nummers niet continu genummerd zijn (bijv. als er geen ‘nummer 2’ is) of waarop meerdere nummers dezelfde positie hebben (bijv. als er twee ‘nummers 4’ zijn)."
+msgstr "In dit rapport staan alle uitgaven waarop de nummers niet continu genummerd zijn (bijv. als er geen ‘nummer 2’ is) of waarop meerdere nummers dezelfde positie hebben (bijv. als er twee ‘nummers 4’ zijn)."
 
 #: ../root/report/TracksWithSequenceIssues.js:33
 msgid "Releases with track number issues"
-msgstr "Uitgaves met problemen bij de nummerposities"
+msgstr "Uitgaven met problemen bij de nummerposities"
 
 #: ../root/report/TracksWithoutTimes.js:26
 msgid ""
 "This report lists all releases where some or all tracks have unknown track "
 "lengths."
-msgstr "In dit rapport staan uitgaves waarbij de duur van sommige of alle nummers onbekend is."
+msgstr "In dit rapport staan uitgaven waarbij de duur van sommige of alle nummers onbekend is."
 
 #: ../root/report/UnlinkedPseudoReleases.js:26
 msgid ""
@@ -13229,11 +13229,11 @@ msgid ""
 " the translation/transliteration relationship to an original version. This "
 "could be because the original version is missing, or just because the "
 "release status is wrongly set."
-msgstr "In dit rapport staan uitgaves met de status Pseudo-uitgave die niet met een vertaling of transcriptie-relatie aan de originele uitgave zijn gekoppeld. Dit kan zijn omdat de originele uitgave ontbreekt of omdat de status van de uitgave verkeerd is ingesteld."
+msgstr "In dit rapport staan uitgaven met de status pseudo-uitgave die niet met een vertaling of transcriptie-relatie aan de originele uitgave zijn gekoppeld. Dit kan zijn omdat de originele uitgave ontbreekt of omdat de status van de uitgave verkeerd is ingesteld."
 
 #: ../root/report/UnlinkedPseudoReleases.js:34
 msgid "Unlinked pseudo-releases"
-msgstr "Niet-gekoppelde pseudo-uitgaves"
+msgstr "Niet-gekoppelde pseudo-uitgaven"
 
 #: ../root/report/WorkSameTypeAsParent.js:26
 msgid ""
@@ -13243,7 +13243,7 @@ msgid ""
 "or (most likely) no type at all, as per {work_style_doc|the work "
 "guidelines}. Sometimes the parent work type might be the one that needs to "
 "be changed."
-msgstr ""
+msgstr "In dit rapport staan composities met minimaal één bovenliggende compositie van hetzelfde type (bijvoorbeeld een sonate die onderdeel is van een andere sonate). In de meeste gevallen betekent dit dat deze composities een ander type moeten krijgen of (meestal) geen type moeten hebben. Soms moet de bovenliggende compositie worden veranderd. Zie de  {work_style_doc|richtlijnen voor composities}."
 
 #: ../root/report/components/ArtistAnnotationList.js:33
 #: ../root/report/components/LabelAnnotationList.js:32
@@ -13258,7 +13258,7 @@ msgstr "Laatst bewerkt op"
 
 #: ../root/report/components/ArtistCreditList.js:45
 msgid "This artist credit no longer exists."
-msgstr ""
+msgstr "Deze artiestvermelding bestaat niet meer."
 
 #: ../root/report/components/CDTocList.js:62
 #: ../root/report/components/CDTocReleaseList.js:66
@@ -13307,7 +13307,7 @@ msgstr "Totaal aantal gevonden artiesten: {count}"
 
 #: ../root/report/components/ReportLayout.js:20
 msgid "Total artist credits found: {count}"
-msgstr ""
+msgstr "Totaal aantal gevonden vermeldingen: {count}"
 
 #: ../root/report/components/ReportLayout.js:21
 msgid "Total discIDs found: {count}"
@@ -13351,7 +13351,7 @@ msgstr "Totaal aantal gevonden relaties {count}"
 
 #: ../root/report/components/ReportLayout.js:31
 msgid "Total releases found: {count}"
-msgstr "Totaal aantal gevonden uitgaves: {count}"
+msgstr "Totaal aantal gevonden uitgaven: {count}"
 
 #: ../root/report/components/ReportLayout.js:32
 msgid "Total release groups found: {count}"
@@ -13379,7 +13379,7 @@ msgstr "Deze serie bestaat niet meer."
 
 #: ../root/report/components/UrlRelationshipList.js:33
 msgid "URL Entity"
-msgstr ""
+msgstr "URL-object"
 
 #: ../root/report/constants.js:11
 msgid ""
@@ -13494,7 +13494,7 @@ msgstr "Je kan ook {uri|een nieuwe compositie toevoegen}."
 msgid ""
 "Sorry, but your query “(<code>{query}</code>)” could not be performed, due "
 "to an error which we are not quite able to identify."
-msgstr ""
+msgstr "Je zoekopdracht “<code>{query}</code>” kon helaas niet worden uitgevoerd vanwege een fout die we niet kunnen identificeren."
 
 #: ../root/search/error/InternalError.js:25
 msgid ""
@@ -13510,21 +13510,21 @@ msgstr "Onze meedogenloze zoekserver heeft je zoekopdracht ongeldig verklaard."
 msgid ""
 "Sorry, your query “(<code>{query}</code>)” does not contain enough "
 "information to carry out a search."
-msgstr ""
+msgstr "Je zoekopdracht “<code>{query}</code>” bevat helaas niet genoeg informatie om uit te voeren."
 
 #: ../root/search/error/NoResults.js:28
 msgid ""
 "Sorry, but your query “(<code>{query}</code>)” did not find any results of "
 "the type “{type}”. Please check you used the correct spelling. Sometimes "
 "searching for fewer or different words may also help."
-msgstr ""
+msgstr "Je zoekopdracht “<code>{query}</code>” leverde helaas geen resultaten van het type “{type}” op. Controleer de spelling van je zoekopdracht of probeer met minder woorden te zoeken."
 
 #: ../root/search/error/RateLimited.js:26
 msgid ""
 "Sorry, but your query “(<code>{query}</code>)” could not be performed, "
 "because it appears you've been rate-limited. Either the server is overloaded"
 " or you're making a lot of requests all at once!."
-msgstr ""
+msgstr "Je zoekopdracht “<code>{query}</code>” kon niet helaas worden uitgevoerd omdat je snelheid is gelimiteerd. Dit komt omdat de server overbelast is of omdat je te veel gelijktijdige verzoeken doet!"
 
 #: ../root/search/error/UriTooLarge.js:22
 msgid "Sorry, your query was too large."
@@ -13708,7 +13708,7 @@ msgid ""
 "Keep in mind artist credits should generally follow what is printed on "
 "releases. If an artist has changed their name, but old releases were "
 "credited to the existing name, do not change the artist credit."
-msgstr "Vergeet niet dat de vermeldingen over het algemeen de tekst op de uitgave zelf moeten volgen. Als artiesten hun naam veranderen, maar oude uitgaves onder de bestaande naam zijn uitgegeven, moet je die vermeldingen niet veranderen."
+msgstr "Vergeet niet dat de vermeldingen over het algemeen de tekst op de uitgave zelf moeten volgen. Als artiesten hun naam veranderen, maar oude uitgaven onder de bestaande naam zijn uitgegeven, moet je die vermeldingen niet veranderen."
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:238
 msgid "Show less artist credits"
@@ -13851,7 +13851,7 @@ msgstr "{artist} ({roles})"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:57
 msgid "Recent items"
-msgstr ""
+msgstr "Recente objecten"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:66
 msgid "Try again with direct search."
@@ -13891,7 +13891,7 @@ msgstr "Een platenmaatschappij zoeken"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:135
 msgid "Search for a relationship type"
-msgstr ""
+msgstr "Een relatietype zoeken"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:136
 msgid "Search for a place"
@@ -13985,7 +13985,7 @@ msgstr "Filter opnames"
 
 #: ../root/static/scripts/common/components/FilterForm.js:39
 msgid "Filter releases"
-msgstr "Filter uitgaves"
+msgstr "Filter uitgaven"
 
 #: ../root/static/scripts/common/components/FilterForm.js:41
 msgid "Filter release groups"
@@ -14044,8 +14044,8 @@ msgstr "laat minder zien"
 #: ../root/static/scripts/common/components/ReleaseGroupAppearances.js:38
 msgid "and another {num} release group"
 msgid_plural "and another {num} release groups"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "en nog één uitgavegroep"
+msgstr[1] "en nog {num} uitgavegroepen"
 
 #: ../root/static/scripts/common/components/TagEditor.js:98
 msgid "Withdraw vote"
@@ -14196,7 +14196,7 @@ msgstr "Je hebt {label} geselecteerd."
 
 #: ../root/static/scripts/common/entity.js:245
 msgid "Label code: {code}"
-msgstr "Platenmaatschappij-code: {code}"
+msgstr "Platenmaatschappijcode: {code}"
 
 #: ../root/static/scripts/common/entity.js:267
 msgid "You selected {area}."
@@ -14270,7 +14270,7 @@ msgstr "Opgeheven in:"
 msgid ""
 "Please link to a channel, not a specific video. Videos should be linked to "
 "the appropriate recordings or releases instead."
-msgstr "Dit object moet aan een kanaal worden gekoppeld, in plaats van aan een specifieke video. Video’s moeten aan de bijbehorende opnames of uitgaves worden gekoppeld."
+msgstr "Dit object moet aan een kanaal worden gekoppeld, in plaats van aan een specifieke video. Video’s moeten aan de bijbehorende opnames of uitgaven worden gekoppeld."
 
 #: ../root/static/scripts/edit/URLCleanup.js:336
 msgid ""
@@ -14321,7 +14321,7 @@ msgstr "Voer een link naar de hoofdpagina van de platenmaatschappij toe in plaat
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
-msgstr "Discogs-URL’s met “{master_url_pattern}” verwijzen naar pagina’s waarop verschillende uitgaves worden gegroepeerd, dus deze link moet aan de uitgavegroep worden toegevoegd."
+msgstr "Discogs-URL’s met “{master_url_pattern}” verwijzen naar pagina’s waarop verschillende uitgaven worden gegroepeerd, dus deze link moet aan de uitgavegroep worden toegevoegd."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1765
 msgid ""
@@ -14370,7 +14370,7 @@ msgstr "Dit is een link naar het oude domein van Resident Advisor. Volg {ra_url|
 
 #: ../root/static/scripts/edit/URLCleanup.js:3314
 msgid "This is not a profile, but a Twitter documentation page."
-msgstr ""
+msgstr "Dit is geen openbaar profiel, maar een documentatiepagina van Twitter."
 
 #: ../root/static/scripts/edit/URLCleanup.js:3327
 msgid "Please link to Twitter profiles, not tweets."
@@ -14391,7 +14391,7 @@ msgstr "Deze URL bevat een niet-gecodeerde ‘?’ of ‘#’. Controleer de URL
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
-msgstr "Je kan geen links naar WhoSampled-pagina’s met de vorm “{unwanted_url_pattern}” toevoegen. Gebruik in plaats daarvan de WhoSampled-pagina’s voor artiesten, nummers of uitgaves."
+msgstr "Je kan geen links naar WhoSampled-pagina’s met de vorm “{unwanted_url_pattern}” toevoegen. Gebruik in plaats daarvan de WhoSampled-pagina’s voor artiesten, nummers of uitgaven."
 
 #: ../root/static/scripts/edit/URLCleanup.js:3540
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
@@ -14409,25 +14409,25 @@ msgstr "Je kan WhoSampled-pagina’s over nummers alleen aan opnames koppelen."
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
-msgstr "Links naar specifieke delen van Wikipedia-pagina’s zijn niet toegestaan. Verwijder “{fragment}” of verwijder de link als de hele pagina niet relevant is voor dit object. Zie onze {url|richtlijnen}."
+msgstr "Links naar specifieke delen van Wikipedia-pagina’s zijn niet toegestaan. Verwijder ‘{fragment}’ of verwijder de link als de hele pagina niet relevant is voor dit object. Zie onze {url|richtlijnen}."
 
 #: ../root/static/scripts/edit/URLCleanup.js:3719
 msgid "Only video and playlist links are allowed on releases."
-msgstr "Alleen links naar video’s en speellijsten mogen aan uitgaves worden toegevoegd."
+msgstr "Alleen links naar video’s en speellijsten mogen aan uitgaven worden toegevoegd."
 
 #: ../root/static/scripts/edit/URLCleanup.js:3788
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia"
 " links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
-msgstr "Wikipedia heeft normaal gesproken geen lemma’s voor specifieke uitgaves, dus het toevoegen van Wikipedia-links aan een uitgave wordt geblokkeerd. Voeg de Wikipedia-link, als hij relevant is, toe aan de uitgavegroep."
+msgstr "Wikipedia heeft normaal gesproken geen lemma’s voor specifieke uitgaven, dus het toevoegen van Wikipedia-links aan een uitgave wordt geblokkeerd. Voeg de Wikipedia-link, als hij relevant is, toe aan de uitgavegroep."
 
 #: ../root/static/scripts/edit/URLCleanup.js:3799
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
-msgstr "Wikidata heeft normaal gesproken geen lemma’s voor specifieke uitgaves, dus het toevoegen van Wikidata-links aan een uitgave wordt geblokkeerd. Voeg de Wikidata-link, als hij relevant is, toe aan de uitgavegroep."
+msgstr "Wikidata heeft normaal gesproken geen lemma’s voor specifieke uitgaven, dus het toevoegen van Wikidata-links aan een uitgave wordt geblokkeerd. Voeg de Wikidata-link, als hij relevant is, toe aan de uitgavegroep."
 
 #: ../root/static/scripts/edit/URLCleanup.js:3810
 msgid ""
@@ -14553,7 +14553,7 @@ msgstr "We hebben de volgende objecten met sterk gelijkende namen gevonden:"
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:31
 msgid "Yes, I still want to enter “{entity_name}”."
-msgstr "Ja, ik wil “{entity_name}” nog steeds toevoegen."
+msgstr "Ja, ik wil ‘{entity_name}’ nog steeds toevoegen."
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:38
 msgid ""
@@ -14665,7 +14665,7 @@ msgstr "De serie die je hebt geselecteerd, is voor opnames."
 
 #: ../root/static/scripts/relationship-editor/common/dialog.js:38
 msgid "The series you’ve selected is for releases."
-msgstr "De serie die je hebt geselecteerd, is voor uitgaves."
+msgstr "De serie die je hebt geselecteerd, is voor uitgaven."
 
 #: ../root/static/scripts/relationship-editor/common/dialog.js:39
 msgid "The series you’ve selected is for release groups."
@@ -14805,7 +14805,7 @@ msgid ""
 "The following releases with that barcode are already in the MusicBrainz "
 "database. Please make sure you are not adding an exact duplicate of any of "
 "these:"
-msgstr "De volgende uitgaves met die streepjescodes staan al in de database van MusicBrainz. Let op dat je geen duplicaat van een van deze uitgaves toevoegt:"
+msgstr "De volgende uitgaven met die streepjescodes staan al in de database van MusicBrainz. Let op dat je geen duplicaat van een van deze uitgaven toevoegt:"
 
 #: ../root/static/scripts/release-editor/validation.js:178
 msgid "The check digit is {checkdigit}."
@@ -14892,7 +14892,7 @@ msgstr "Opnames met de tag ‘{tag}’"
 
 #: ../root/tag/EntityList.js:32
 msgid "Releases tagged as “{tag}”"
-msgstr "Uitgaves met de tag ‘{tag}’"
+msgstr "Uitgaven met de tag ‘{tag}’"
 
 #: ../root/tag/EntityList.js:33
 msgid "Release groups tagged as “{tag}”"
@@ -14937,7 +14937,7 @@ msgstr "Opnames die {user] de tag ‘{tag}’ heeft gegeven."
 
 #: ../root/tag/EntityList.js:46
 msgid "Releases {user} tagged as “{tag}”"
-msgstr "Uitgaves die {user] de tag ‘{tag}’ heeft gegeven."
+msgstr "Uitgaven die {user] de tag ‘{tag}’ heeft gegeven."
 
 #: ../root/tag/EntityList.js:47
 msgid "Release groups {user} tagged as “{tag}”"
@@ -14982,7 +14982,7 @@ msgstr "Opnames waarbij {user} de tag ‘{tag}’ omlaag heeft gestemd"
 
 #: ../root/tag/EntityList.js:60
 msgid "Releases where {user} downvoted “{tag}”"
-msgstr "Uitgaves waarbij {user} de tag ‘{tag}’ omlaag heeft gestemd"
+msgstr "Uitgaven waarbij {user} de tag ‘{tag}’ omlaag heeft gestemd"
 
 #: ../root/tag/EntityList.js:61
 msgid "Release groups where {user} downvoted “{tag}”"
@@ -15340,7 +15340,7 @@ msgstr "Collecties met opnames"
 
 #: ../root/user/UserCollections.js:47
 msgid "Release Collections"
-msgstr "Collecties met uitgaves."
+msgstr "Collecties met uitgaven."
 
 #: ../root/user/UserCollections.js:48
 msgid "Release Group Collections"
@@ -15828,7 +15828,7 @@ msgid ""
 "(the edits more likely to cause a mess if they incorrectly go through), one "
 "for relationship removals only, and one for destructive changes to releases "
 "(track, medium and release label removals)."
-msgstr "Destructieve bewerkingen (verwijderingen en samenvoegingen) zijn vaak heel moeilijk of zelfs onmogelijk terug te draaien. Een destructieve bewerkingen die ongemerkt wordt doorgevoerd kan dus veel problemen veroorzaken! De meeste van deze bewerkingen blijven altijd minimaal 48 uur open, zelfs als er drie keer voor wordt gestemd. Toch is het altijd een goed idee als er zo veel mogelijk mensen naar kijken.\nHieronder vind je vier zoekopdrachten: een voor alle destructieve bewerkingen (dit kunnen er héél veel zijn), een met alleen het samenvoegen en verwijderen van objecten (bewerkingen die grote problemen kunnen veroorzaken als ze onjuist zijn), een voor het verwijderen van relaties en een voor destructieve veranderingen aan uitgaves (het verwijderen van nummers, media en platenmaatschappijen)."
+msgstr "Destructieve bewerkingen (verwijderingen en samenvoegingen) zijn vaak heel moeilijk of zelfs onmogelijk terug te draaien. Een destructieve bewerkingen die ongemerkt wordt doorgevoerd kan dus veel problemen veroorzaken! De meeste van deze bewerkingen blijven altijd minimaal 48 uur open, zelfs als er drie keer voor wordt gestemd. Toch is het altijd een goed idee als er zo veel mogelijk mensen naar kijken.\nHieronder vind je vier zoekopdrachten: een voor alle destructieve bewerkingen (dit kunnen er héél veel zijn), een met alleen het samenvoegen en verwijderen van objecten (bewerkingen die grote problemen kunnen veroorzaken als ze onjuist zijn), een voor het verwijderen van relaties en een voor destructieve veranderingen aan uitgaven (het verwijderen van nummers, media en platenmaatschappijen)."
 
 #: ../root/vote/VotingIndex.js:103
 msgid "All open destructive edits"
@@ -15844,7 +15844,7 @@ msgstr "Alle open verwijderingen van relaties"
 
 #: ../root/vote/VotingIndex.js:130
 msgid "All open destructive changes to releases"
-msgstr "Alle open destructieve veranderingen aan uitgaves"
+msgstr "Alle open destructieve veranderingen aan uitgaven"
 
 #: ../root/vote/VotingIndex.js:141
 msgid "Unreviewed and potentially problematic edits"
@@ -15936,7 +15936,7 @@ msgid ""
 "probably the most complex and as such reasonably likely to have issues, plus"
 " for edits adding artists, which might include artists trying to add their "
 "own data and not doing a great job of it."
-msgstr "Er zijn zoekopdrachten voor bewerkingen die uitgaves of media toevoegen, omdat deze bewerkingen het meest complex zijn en de kans op problemen dus groot is, en er zijn zoekopdrachten voor bewerkingen die artiesten toevoegen, omdat dit soms artiesten zijn die informatie over zichzelf toevoegen en daar fouten bij maken."
+msgstr "Er zijn zoekopdrachten voor bewerkingen die uitgaven of media toevoegen, omdat deze bewerkingen het meest complex zijn en de kans op problemen dus groot is, en er zijn zoekopdrachten voor bewerkingen die artiesten toevoegen, omdat dit soms artiesten zijn die informatie over zichzelf toevoegen en daar fouten bij maken."
 
 #: ../root/vote/VotingIndex.js:281
 msgid "All edits from beginner editors"

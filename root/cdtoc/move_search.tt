@@ -12,7 +12,7 @@
     [% USE r = FormRenderer(query_release) %]
     <input type="hidden" name="toc" value="[% medium_cdtoc.id %]" />
     [% WRAPPER form_row %]
-      [% r.label('query', l('Release title:')) %]
+      [% r.label('query', add_colon(l('Release title or MBID'))) %]
       [% r.text('query') %]
       [% form_submit(l('Search'), 'inline') %]
     [% END %]
