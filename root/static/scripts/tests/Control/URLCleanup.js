@@ -2471,12 +2471,6 @@ const testData = [
             expected_clean_url: 'http://lyric.evesta.jp/l7a75fa.html',
        only_valid_entity_types: ['work'],
   },
-  // LYRICSnMUSIC
-  {
-                     input_url: 'http://www.lyricsnmusic.com/david-hasselhoff/white-christmas-lyrics/27952232',
-             input_entity_type: 'work',
-    expected_relationship_type: 'lyrics',
-  },
   // Mainly Norfolk
   {
                      input_url: 'https://www.mainlynorfolk.info/watersons/index.html',

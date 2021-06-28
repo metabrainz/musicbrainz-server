@@ -102,7 +102,6 @@ my %URL_SPECIALIZATIONS = (
     'LoC'                 => qr{^https?://(?:[^/]+\.)?loc\.gov/}i,
     'Loudr'               => qr{^https?://(?:www\.)?loudr\.fm/}i,
     'LyricEvesta'         => qr{^https?://lyric\.evesta\.jp/}i,
-    'LyricsNMusic'        => qr{^https?://lyricsnmusic\.com/}i,
     'MainlyNorfolk'       => qr{^https?://(?:www\.)?mainlynorfolk\.info/}i,
     'Maniadb'             => qr{^https?://(?:www\.)?maniadb\.com/}i,
     'MetalArchives'       => qr{^https?://(?:www\.)?metal-archives\.com/}i,
