@@ -68,7 +68,7 @@
                 <ul>
                   <li>[%- l('Types:') %] [% comma_list(image.types) || '-' -%]</li>
                   [%- IF image.comment -%]
-                    <li>[%- l('Comment:') %] [%- image.comment | html -%]</li>
+                    <li>[%- l('Comment:') %] [% image.comment | html -%]</li>
                   [%- END -%]
                 </ul>
                 [%- IF originally_selected -%]
