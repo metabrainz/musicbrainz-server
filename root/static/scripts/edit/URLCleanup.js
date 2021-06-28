@@ -1797,18 +1797,6 @@ const CLEANUPS = {
       return {result: true, target: ERROR_TARGETS.URL};
     },
   },
-  'fandomlyrics': {
-    match: [new RegExp(
-      '^(https?://)?(fr\\.)?lyrics\\.(wikia|fandom)\\.com',
-      'i',
-    )],
-    type: LINK_TYPES.lyrics,
-    clean: function (url) {
-      url = url.replace(/^https?:\/\/lyrics\.(?:wikia|fandom)\.com/, 'https://lyrics.fandom.com');
-      url = url.replace(/^https?:\/\/fr\.lyrics\.(?:wikia|fandom)\.com/, 'https://lyrics.fandom.com/fr');
-      return url;
-    },
-  },
   'flattr': {
     match: [new RegExp(
       '^(https?://)?(www\\.)?flattr\\.com/profile/[^/?#]',

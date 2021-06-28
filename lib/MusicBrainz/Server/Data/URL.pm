@@ -185,7 +185,6 @@ my %URL_SPECIALIZATIONS = (
     'VocaDB'              => qr{^https?://(?:www\.)?vocadb\.net/}i,
     'Weibo'               => qr{^https?://(?:www\.)?weibo\.com/}i,
     'WhoSampled'          => qr{^https?://(?:www\.)?whosampled\.com/}i,
-    'WikiaParoles'        => qr{^https?://(?:fr.lyrics\.wikia\.com/wiki/|lyrics\.fandom\.com/fr/wiki)}i,
     'Wikidata'            => qr{^https?://(?:www\.)?wikidata\.org/wiki/}i,
     'Wikipedia'           => qr{^https?://([\w-]{2,})\.wikipedia\.org/wiki/}i,
     'Wikisource'          => qr{^https?://([\w-]{2,})\.wikisource\.org/wiki/}i,

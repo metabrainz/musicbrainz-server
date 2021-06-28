@@ -4407,25 +4407,6 @@ const testData = [
             expected_clean_url: 'https://www.whosampled.com/sample/127347/Death-Grips-5D-Pet-Shop-Boys-West-End-Girls/',
        only_valid_entity_types: [],
   },
-  // Fandom (old Wikia)
-  {
-                     input_url: 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
-             input_entity_type: 'release_group',
-    expected_relationship_type: 'lyrics',
-            expected_clean_url: 'https://lyrics.fandom.com/Van_Canto:Hero_(2008)',
-  },
-  {
-                     input_url: 'http://lyrics.fandom.com/wiki/S%C3%B5pruse_Puiestee:Miks_Ma_Ei_V%C3%B5iks_Olla_Maailmas_%C3%9Cksi',
-             input_entity_type: 'work',
-    expected_relationship_type: 'lyrics',
-            expected_clean_url: 'https://lyrics.fandom.com/wiki/S%C3%B5pruse_Puiestee:Miks_Ma_Ei_V%C3%B5iks_Olla_Maailmas_%C3%9Cksi',
-  },
-  {
-                     input_url: 'http://fr.lyrics.wikia.com/wiki/Christiane_Legrand/Les_parapluies_de_Cherbourg',
-             input_entity_type: 'work',
-    expected_relationship_type: 'lyrics',
-            expected_clean_url: 'https://lyrics.fandom.com/fr/wiki/Christiane_Legrand/Les_parapluies_de_Cherbourg',
-  },
   // Wikidata
   {
                      input_url: 'https://www.wikidata.org/wiki/Q42',
