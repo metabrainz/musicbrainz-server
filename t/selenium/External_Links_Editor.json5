@@ -45,14 +45,14 @@
     },
     {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'error')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//div[contains(@class, 'error')]",
       value: 'Enter a valid url e.g. "http://google.com/"',
     },
     // clear
     {
-      command: 'sendKeys',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}',
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//button[contains(@class, 'remove-item')]",
+      value: '',
     },
     // MBS-11688
     {
@@ -67,7 +67,7 @@
     },
     {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//div[contains(@class, 'error')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//div[contains(@class, 'error')]",
       value: 'Enter a valid url e.g. "http://google.com/"',
     },
     {
@@ -88,7 +88,7 @@
     },
     {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//div[contains(@class, 'error')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//div[contains(@class, 'error')]",
       value: 'Please don’t enter bundled/shortened URLs, enter the destination URL(s) instead.',
     },
     {
