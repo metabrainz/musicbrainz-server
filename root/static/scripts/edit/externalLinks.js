@@ -113,6 +113,7 @@ export class ExternalLinksEditor
 
   handleUrlBlur(
     index: number,
+    error: string,
     event: SyntheticEvent<HTMLInputElement>,
   ) {
     const url = event.currentTarget.value;
@@ -122,20 +123,32 @@ export class ExternalLinksEditor
     if (url !== unicodeUrl) {
       this.setLinkState(index, {url: unicodeUrl});
     }
-    if (url !== '') {
+    // Don't add link to list if it's empty or has error
+    if (url !== '' && !error) {
       this.appendEmptyLink();
     }
   }
 
-  handlePressEnter(event: SyntheticKeyboardEvent<HTMLInputElement>) {
+  handlePressEnter(
+    error: string,
+    event: SyntheticKeyboardEvent<HTMLInputElement>,
+  ) {
     const url = event.currentTarget.value;
-    if (url !== '') {
+    // Don't add link to list if it's empty or has error
+    if (url !== '' && !error) {
       this.appendEmptyLink();
     }
   }
 
   handleTypeChange(index: number, event: SyntheticEvent<HTMLSelectElement>) {
-    this.setLinkState(index, {type: +event.currentTarget.value || null});
+    const type = +event.currentTarget.value || null;
+    this.setLinkState(index, {type}, () => {
+      const link = this.state.links[index];
+      const isLastLink = index === this.state.links.length - 1;
+      if (isLastLink && link.url && type) {
+        this.appendEmptyLink();
+      }
+    });
   }
 
   handleVideoChange(index: number, event: SyntheticEvent<HTMLInputElement>) {
@@ -326,9 +339,9 @@ export class ExternalLinksEditor
               <ExternalLink
                 errorMessage={error || ''}
                 errorTarget={errorTarget}
-                handlePressEnter={this.handlePressEnter.bind(this)}
+                handlePressEnter={this.handlePressEnter.bind(this, error)}
                 handleUrlBlur={
-                  (event) => this.handleUrlBlur(index, event)
+                  (event) => this.handleUrlBlur(index, error, event)
                 }
                 handleUrlChange={
                   (event) => this.handleUrlChange(index, event)
