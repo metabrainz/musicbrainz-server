@@ -70,6 +70,10 @@ export const WorkListRow = ({
       <td><EntityLink entity={work} /></td>
       <td>
         <ArtistRoles relations={work.writers} />
+        {manifest.js(
+          'common/components/ArtistRoles',
+          {async: 'async'},
+        )}
       </td>
       <td>
         <WorkArtists artists={work.artists} />

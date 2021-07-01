@@ -45,6 +45,7 @@ const entries = [
   'collection/edit',
   'common',
   'common/components/AcoustIdCell',
+  'common/components/ArtistRoles',
   'common/components/AttributeList',
   'common/components/ReleaseEvents',
   'common/components/TaggerIcon',

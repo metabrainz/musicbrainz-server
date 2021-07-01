@@ -134,7 +134,13 @@ export function defineArtistRolesColumn<D>(
 }>> {
   return {
     Cell: ({row: {original}}) => (
-      <ArtistRoles relations={props.getRoles(original)} />
+      <>
+        <ArtistRoles relations={props.getRoles(original)} />
+        {manifest.js(
+          'common/components/ArtistRoles',
+          {async: 'async'},
+        )}
+      </>
     ),
     Header: props.title,
     id: props.columnName,
