@@ -14,9 +14,7 @@ import {kebabCase} from '../utility/strings';
 import {SidebarProperty}
   from '../../../../layout/components/sidebar/SidebarProperties';
 
-const TO_SHOW_BEFORE = 2;
-const TO_SHOW_AFTER = 1;
-const TO_TRIGGER_COLLAPSE = TO_SHOW_BEFORE + TO_SHOW_AFTER + 2;
+import CollapsibleList from './CollapsibleList';
 
 const buildAttributeListRow = (attribute) => (
   <li
@@ -62,74 +60,20 @@ type AttributeListProps = {|
 const AttributeList = ({
   attributes,
   isSidebar = false,
-}: AttributeListProps) => {
-  const [expanded, setExpanded] = React.useState<boolean>(false);
-
-  const expand = React.useCallback(event => {
-    event.preventDefault();
-    setExpanded(true);
-  });
-
-  const collapse = React.useCallback(event => {
-    event.preventDefault();
-    setExpanded(false);
-  });
-
-  const tooManyEvents = attributes
-    ? attributes.length >= TO_TRIGGER_COLLAPSE
-    : false;
-
-  return (
-    (attributes?.length) ? (
-      <>
-        {(tooManyEvents && !expanded) ? (
-          <>
-            {attributes.slice(0, TO_SHOW_BEFORE).map(
-              attribute => isSidebar
-                ? buildAttributeSidebarRow(attribute)
-                : buildAttributeListRow(attribute),
-            )}
-            <p className="show-all" key="show-all">
-              <a
-                href="#"
-                onClick={expand}
-                role="button"
-                title={l('Show all attributes')}
-              >
-                {bracketedText(texp.l('show {n} more', {
-                  n: attributes.length - (TO_SHOW_BEFORE + TO_SHOW_AFTER),
-                }))}
-              </a>
-            </p>
-            {attributes.slice(-TO_SHOW_AFTER).map(
-              attribute => isSidebar
-                ? buildAttributeSidebarRow(attribute)
-                : buildAttributeListRow(attribute),
-            )}
-          </>
-        ) : (
-          <>
-            {attributes.map(attribute => isSidebar
-              ? buildAttributeSidebarRow(attribute)
-              : buildAttributeListRow(attribute))}
-            {tooManyEvents && expanded ? (
-              <p className="show-less" key="show-less">
-                <a
-                  href="#"
-                  onClick={collapse}
-                  role="button"
-                  title={l('Show less attributes')}
-                >
-                  {bracketedText(l('show less'))}
-                </a>
-              </p>
-            ) : null}
-          </>
-        )}
-      </>
-    ) : null
-  );
-};
+}: AttributeListProps) => (
+  <CollapsibleList
+    ContainerElement={isSidebar ? 'dl' : 'ul'}
+    InnerElement={isSidebar ? 'p' : 'li'}
+    ariaLabel={l('Work Attributes')}
+    buildRow={isSidebar ? buildAttributeSidebarRow : buildAttributeListRow}
+    className={isSidebar ? 'properties work-attributes' : 'work-attributes'}
+    rows={attributes}
+    showAllTitle={l('Show all attributes')}
+    showLessTitle={l('Show less attributes')}
+    toShowAfter={1}
+    toShowBefore={2}
+  />
+);
 
 export default (hydrate<AttributeListProps>(
   'div.entity-attributes-container',

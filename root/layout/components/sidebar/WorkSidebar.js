@@ -95,13 +95,11 @@ const WorkSidebar = ({work}: Props): React.Element<'div'> => {
           {attributes.length ? (
             <>
               <h2 className="work-attributes">{l('Work attributes')}</h2>
-              <SidebarProperties>
-                <AttributeList attributes={attributes} isSidebar />
-                {manifest.js(
-                  'common/components/AttributeList',
-                  {async: 'async'},
-                )}
-              </SidebarProperties>
+              <AttributeList attributes={attributes} isSidebar />
+              {manifest.js(
+                'common/components/AttributeList',
+                {async: 'async'},
+              )}
             </>
           ) : null}
         </>
