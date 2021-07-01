@@ -94,9 +94,7 @@ const WorkSidebar = ({work}: Props): React.Element<'div'> => {
           {attributes.length ? (
             <>
               <h2 className="work-attributes">{l('Work attributes')}</h2>
-              <SidebarProperties>
-                <AttributeList attributes={attributes} isSidebar />
-              </SidebarProperties>
+              <AttributeList attributes={attributes} isSidebar />
             </>
           ) : null}
         </>
