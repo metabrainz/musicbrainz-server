@@ -501,7 +501,7 @@ export class ExternalLink extends React.Component<LinkProps> {
           }
         </td>
         <td>
-          {props.isLastLink ? (
+          {(props.isLastLink || !props.url) ? (
             <input
               className="value with-button"
               onBlur={props.handleUrlBlur}
