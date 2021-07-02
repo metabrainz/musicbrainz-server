@@ -8,11 +8,12 @@
  */
 
 import * as React from 'react';
+import type {LinkStateT} from '../externalLinks';
 import ButtonPopover from '../../common/components/ButtonPopover';
 
 type PropsT = {
-  errorMessage: React.Node,
-  onCancel: (number, LinkStateT) => void,
+  errorMessage: string,
+  onCancel: ($Shape<LinkStateT>) => void,
   onChange: (number, SyntheticEvent<HTMLInputElement>) => void,
   rawUrl: string,
   url: string,
@@ -60,7 +61,7 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
             </td>
             <td>
               <input
-                className="value"
+                className="value raw-url"
                 onChange={props.onChange}
                 style={{width: '336px'}}
                 type="url"
@@ -81,7 +82,7 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
               {l('Cleaned up to:')}
             </td>
             <td>
-              <a href={props.url}>{props.url}</a>
+              <a className="clean-url" href={props.url}>{props.url}</a>
             </td>
           </tr>
         </tbody>

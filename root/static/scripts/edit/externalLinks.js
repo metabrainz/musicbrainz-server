@@ -36,7 +36,7 @@ import {linkTypeOptions} from './forms';
 import * as URLCleanup from './URLCleanup';
 import validation from './validation';
 
-type LinkStateT = {
+export type LinkStateT = {
   rawUrl: string,
   // New relationships will use a unique string ID like "new-1".
   relationship: StrOrNum | null,
@@ -400,7 +400,7 @@ class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
 type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
 
 type LinkProps = {
-  errorMessage: React.Node,
+  errorMessage: string,
   errorTarget: ErrorTarget,
   handlePressEnter: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
   handleUrlBlur: (SyntheticEvent<HTMLInputElement>) => void,
@@ -409,7 +409,7 @@ type LinkProps = {
     (SyntheticEvent<HTMLInputElement>) => void,
   isLastLink: boolean,
   isOnlyLink: boolean,
-  onCancelEdit: (number, LinkStateT) => void,
+  onCancelEdit: ($Shape<LinkStateT>) => void,
   onRemove: (number) => void,
   rawUrl: string,
   type: number | null,
@@ -512,7 +512,7 @@ export class ExternalLink extends React.Component<LinkProps> {
               value={props.rawUrl}
             />
           ) : (
-            <a href={props.url}>{props.url}</a>
+            <a className="url" href={props.url}>{props.url}</a>
           )}
           {props.errorMessage &&
             <div
