@@ -14,8 +14,8 @@ import RatingStars from '../../../../components/RatingStars';
 import loopParity from '../../../../utility/loopParity';
 
 import ArtistRoles from './ArtistRoles';
-import CodeLink from './CodeLink';
 import AttributeList from './AttributeList';
+import CodeLink from './CodeLink';
 import EntityLink from './EntityLink';
 import WorkArtists from './WorkArtists';
 
@@ -102,7 +102,11 @@ export const WorkListRow = ({
       </td>
       {showAttributes ? (
         <td>
-          <AttributeList entity={work} />
+          {work.attributes ? (
+            <ul>
+              <AttributeList attributes={work.attributes} />
+            </ul>
+          ) : null}
         </td>
       ) : null}
       {showRatings ? (
