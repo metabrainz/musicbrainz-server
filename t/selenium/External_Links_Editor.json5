@@ -536,8 +536,8 @@
     },
     {
       command: 'assertEval',
-      target: "window.JSON.stringify(window.Array.from(window.document.querySelectorAll('#external-links-editor input[type=url]').values()).map(function (x) { return x.value }))",
-      value: '["https://www.gnu.org/licenses/gpl-3.0.en.html",""]',
+      target: "window.JSON.stringify(window.Array.from(window.document.querySelectorAll('#external-links-editor a[class=url]').values()).map(function (x) { return x.href }))",
+      value: '["https://www.gnu.org/licenses/gpl-3.0.en.html"]',
     },
   ],
 }
