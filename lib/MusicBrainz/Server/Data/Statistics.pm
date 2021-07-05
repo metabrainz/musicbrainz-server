@@ -775,7 +775,7 @@ my %stats = (
         SQL => "SELECT COUNT(*) FROM recording",
     },
     "count.video" => {
-        DESC => "Count of all video recording",
+        DESC => "Count of all video recordings",
         SQL => "SELECT COUNT(*) FROM recording WHERE video",
     },
     "count.work" => {
