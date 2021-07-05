@@ -21,10 +21,10 @@ import {
   defineDatePeriodColumn,
   defineLocationColumn,
   defineNameColumn,
+  defineRatingsColumn,
   defineSeriesNumberColumn,
   defineTypeColumn,
   defineTextColumn,
-  ratingsColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns';
 
@@ -109,6 +109,9 @@ const EventList = ({
         getEntity: entity => entity,
         order: order,
         sortable: sortable,
+      });
+      const ratingsColumn = defineRatingsColumn<EventT>({
+        getEntity: entity => entity,
       });
 
       return [

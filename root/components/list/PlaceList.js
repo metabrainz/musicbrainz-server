@@ -19,7 +19,7 @@ import {
   defineEntityColumn,
   defineBeginDateColumn,
   defineEndDateColumn,
-  ratingsColumn,
+  defineRatingsColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns';
 
@@ -72,6 +72,9 @@ const PlaceList = ({
       });
       const beginDateColumn = defineBeginDateColumn({});
       const endDateColumn = defineEndDateColumn({});
+      const ratingsColumn = defineRatingsColumn<PlaceT>({
+        getEntity: entity => entity,
+      });
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),

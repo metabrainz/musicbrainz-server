@@ -21,10 +21,10 @@ import {
   defineCheckboxColumn,
   defineInstrumentUsageColumn,
   defineNameColumn,
+  defineRatingsColumn,
   defineSeriesNumberColumn,
   defineTextColumn,
   isrcsColumn,
-  ratingsColumn,
   removeFromMergeColumn,
   useAcoustIdsColumn,
 } from '../../utility/tableColumns';
@@ -125,6 +125,9 @@ const RecordingList = ({
           instrumentCreditsAndRelTypes: instrumentCreditsAndRelTypes,
         })
         : null;
+      const ratingsColumn = defineRatingsColumn<RecordingT>({
+        getEntity: entity => entity,
+      });
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),

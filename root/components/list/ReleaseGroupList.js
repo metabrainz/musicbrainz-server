@@ -17,11 +17,11 @@ import parseDate from '../../static/scripts/common/utility/parseDate';
 import {
   defineArtistCreditColumn,
   defineCheckboxColumn,
+  defineCountColumn,
   defineNameColumn,
+  defineRatingsColumn,
   defineSeriesNumberColumn,
   defineTextColumn,
-  defineCountColumn,
-  ratingsColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns';
 
@@ -105,6 +105,9 @@ export const ReleaseGroupListTable = ({
         columnName: 'release_count',
         getCount: entity => entity.release_count,
         title: l('Releases'),
+      });
+      const ratingsColumn = defineRatingsColumn<ReleaseGroupT>({
+        getEntity: entity => entity,
       });
 
       return [

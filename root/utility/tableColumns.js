@@ -418,6 +418,28 @@ export function defineNameColumn<T: CoreEntityT | CollectionT>(
   };
 }
 
+export function defineRatingsColumn<D>(
+  props: {
+    +getEntity: (D) => RatableT | null,
+  },
+): ColumnOptions<D, number> {
+  return {
+    Cell: ({row: {original}}) => {
+      const ratableEntity = props.getEntity(original);
+      if (ratableEntity == null) {
+        return null;
+      }
+      return (
+        <RatingStars entity={ratableEntity} />
+      );
+    },
+    cellProps: {className: 'c'},
+    Header: N_l('Rating'),
+    headerProps: {className: 'rating c'},
+    id: 'rating',
+  };
+}
+
 export function defineReleaseCatnosColumn<D>(
   props: {
     ...OrderableProps,
@@ -739,15 +761,6 @@ export const iswcsColumn:
     cellProps: {className: 'iswc'},
     Header: N_l('ISWC'),
     id: 'iswcs',
-  };
-
-export const ratingsColumn:
-  ColumnOptions<RatableT, number> = {
-    Cell: ({row: {original}}) => <RatingStars entity={original} />,
-    cellProps: {className: 'c'},
-    Header: N_l('Rating'),
-    headerProps: {className: 'rating c'},
-    id: 'rating',
   };
 
 export const removeFromMergeColumn:
