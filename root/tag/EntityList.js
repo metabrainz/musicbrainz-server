@@ -17,7 +17,7 @@ import TagLink from '../static/scripts/common/components/TagLink';
 import expand2react from '../static/scripts/common/i18n/expand2react';
 import expand2text from '../static/scripts/common/i18n/expand2text';
 import {formatCount} from '../statistics/utilities';
-import UserTagVoteSelection from '../user/components/UserTagVoteSelection';
+import UserTagFilters from '../user/components/UserTagFilters';
 
 import TagLayout from './TagLayout';
 
@@ -144,7 +144,11 @@ export const EntityListContent = ({
       {getTagEntityListHeading(user?.name, tag, showDownvoted, entityType)}
     </h2>
     {showVotesSelect ? (
-      <UserTagVoteSelection $c={$c} showDownvoted={showDownvoted} />
+      <UserTagFilters
+        $c={$c}
+        showDownvoted={showDownvoted}
+        showVotesSelect
+      />
     ) : null}
     <p>
       {expand2text(
