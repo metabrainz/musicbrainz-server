@@ -17,7 +17,7 @@ import {UserTagLink} from '../static/scripts/common/components/TagLink';
 import expand2react from '../static/scripts/common/i18n/expand2react';
 import loopParity from '../utility/loopParity';
 
-import UserTagVoteSelection from './components/UserTagVoteSelection';
+import UserTagFilters from './components/UserTagFilters';
 
 const headingsText: {+[vote: string]: () => string} = {
   down: N_l('Tags {user} downvoted'),
@@ -49,6 +49,7 @@ type Props = {
   +$c: CatalystContextT,
   +genres: $ReadOnlyArray<UserTagT>,
   +showDownvoted?: boolean,
+  +sortBy?: 'count' | 'countdesc' | 'name',
   +tags: $ReadOnlyArray<UserTagT>,
   +user: AccountLayoutUserT,
 };
@@ -57,6 +58,7 @@ const UserTagList = ({
   $c,
   genres,
   showDownvoted = false,
+  sortBy,
   tags,
   user,
 }: Props): React.Element<typeof UserAccountLayout> => (
@@ -65,7 +67,13 @@ const UserTagList = ({
       {getTagListHeading(user.name, showDownvoted)}
     </h2>
 
-    <UserTagVoteSelection $c={$c} showDownvoted={showDownvoted} />
+    <UserTagFilters
+      $c={$c}
+      showDownvoted={showDownvoted}
+      showSortSelect
+      showVotesSelect
+      sortBy={sortBy}
+    />
 
     <div id="all-tags">
       {(genres.length > 0 || tags.length > 0) ? (
