@@ -736,6 +736,12 @@ const stats = {
     description: l('Count of all works'),
     label: l('Works'),
   },
+  'count.work.has_iswc': {
+    category: 'other',
+    color: '#ff0000',
+    description: l('Count of all Works with ISWCs'),
+    label: l('Works with ISWCs'),
+  },
   'rateTooltipCloser': l('/day'),
 };
 
