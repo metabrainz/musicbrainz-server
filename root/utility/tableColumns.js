@@ -369,13 +369,13 @@ export function defineLinkColumn<D>(
   },
 ): ColumnOptions<D, string> {
   return {
+    accessor: row => props.getContent(row) ?? '',
     Cell: ({row: {original}}) => (
       <a href={props.getHref(original)}>
         {props.getContent(original)}
       </a>
     ),
     Header: props.title,
-    accessor: row => props.getContent(row) ?? '',
     id: props.columnName,
   };
 }
