@@ -135,7 +135,7 @@ export class ExternalLinksEditor
         }
         newLinks[index] = newLink;
       });
-      return {links: withOneEmptyLink(newLinks, -1)};
+      return {links: withOneEmptyLink(newLinks, linkIndexes[0])};
     });
   }
 
@@ -512,7 +512,7 @@ const ExternalLinkRelationship =
     let faviconClass: string | void;
     const backward = linkType && linkType.type1 > 'url';
 
-    const showTypeSelection = link.error || hasUrlError
+    const showTypeSelection = (link.error || hasUrlError)
       ? true
       : !(link.urlMatchesType || isEmpty(link));
 
@@ -653,6 +653,9 @@ export class ExternalLink
     // Temporarily hide changes while editing
     const props =
       this.state.isPopoverOpen ? this.state.originalProps : this.props;
+    const notEmpty = props.relationships.some(link => {
+      return !isEmpty(link);
+    });
 
     return (
       <React.Fragment>
@@ -704,14 +707,14 @@ export class ExternalLink
                 url={this.props.url}
               />
             }
-            {!isEmpty(props) &&
+            {notEmpty &&
               <RemoveButton
                 onClick={props.onUrlRemove}
                 title={l('Remove Link')}
               />}
           </td>
         </tr>
-        {isEmpty(props) ||
+        {notEmpty &&
           props.relationships.map((link, index) => (
             <ExternalLinkRelationship
               handleTypeChange={props.typeChangeCallback}
