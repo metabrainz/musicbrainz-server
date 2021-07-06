@@ -138,6 +138,9 @@ function cleanCredit(name, isProbablyClassical) {
 }
 
 function bestArtistMatch(artists, name) {
+  if (!artists) {
+    return null;
+  }
   let match = null;
   for (const artist of artists) {
     const similarity = getSimilarity(name, artist.name);
