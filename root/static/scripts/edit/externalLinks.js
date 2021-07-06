@@ -479,7 +479,7 @@ const TypeDescription =
     }
 
     typeDescription = (
-      <>
+      <div style={{textAlign: 'left'}}>
         <a
           href={props.url}
           rel="noopener noreferrer"
@@ -490,7 +490,7 @@ const TypeDescription =
         <br />
         <br />
         {typeDescription}
-      </>
+      </div>
     );
 
     return <HelpIcon content={typeDescription} />;
@@ -581,7 +581,7 @@ const ExternalLinkRelationship =
               {link.error.message}
             </div>}
         </td>
-        <td>
+        <td className="link-actions" style={{minWidth: '34px'}}>
           {link.url && !link.error && !hasUrlError &&
             <TypeDescription type={link.type} url={link.url} />}
           <RemoveButton
@@ -645,7 +645,7 @@ export class ExternalLink extends React.Component<LinkProps> {
               {props.error.message}
             </div>}
           </td>
-          <td style={{minWidth: '34px'}}>
+          <td className="link-actions" style={{minWidth: '17px'}}>
             {notEmpty &&
               <RemoveButton
                 onClick={props.onUrlRemove}
@@ -668,7 +668,7 @@ export class ExternalLink extends React.Component<LinkProps> {
         {notEmpty &&
         <tr className="add-relationship">
           <td />
-          <td>
+          <td className="add-item" colSpan="4">
             <button
               className="add-item with-label"
               onClick={props.onAddRelationship.bind(this, props.url)}
