@@ -57,7 +57,7 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
         <tbody>
           <tr>
             <td className="section">
-              {l('URL:')}
+              {addColonText(l('URL'))}
             </td>
             <td>
               <input
@@ -79,7 +79,7 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
           </tr>
           <tr>
             <td className="section" style={{whiteSpace: 'nowrap'}}>
-              {l('Cleaned up to:')}
+              {addColonText(l('Cleaned up to'))}
             </td>
             <td>
               <a className="clean-url" href={props.url}>{props.url}</a>
