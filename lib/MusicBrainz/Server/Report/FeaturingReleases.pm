@@ -14,7 +14,7 @@ sub query {
             JOIN artist_credit ac ON r.artist_credit = ac.id
             JOIN release_meta rm ON r.id = rm.id
         WHERE
-            r.name ~ E' \\\\((duet with|(f|w)/|(f|feat|ft)\\\\.|featuring) '
+            r.name ~* E' \\\\((duet with|(f|w)/|(f|feat|ft)\\\\.|featuring) '
     ";
 }
 
