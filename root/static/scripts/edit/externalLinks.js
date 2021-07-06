@@ -184,6 +184,15 @@ export class ExternalLinksEditor
     });
   }
 
+  addRelationship(url: string) {
+    this.setState(prevState => {
+      const newRelationship = newLinkState({
+        url, relationship: uniqueId('new-'),
+      });
+      return {links: prevState.links.concat([newRelationship])};
+    });
+  }
+
   getOldLinksHash(): LinkHashT {
     return keyBy(
       this.props.initialLinks
@@ -412,6 +421,7 @@ export class ExternalLinksEditor
                 isLastLink={index === linksByUrl.length - 1}
                 isOnlyLink={linksByUrl.length === 1}
                 key={index}
+                onAddRelationship={this.addRelationship.bind(this)}
                 onLinkRemove={this.removeLink.bind(this)}
                 onUrlRemove={this.removeLinks.bind(this, linkIndexes)}
                 relationships={links}
@@ -592,6 +602,7 @@ type LinkProps = {
   index: number,
   isLastLink: boolean,
   isOnlyLink: boolean,
+  onAddRelationship: (string) => void,
   onLinkRemove: (number) => void,
   onUrlRemove: (Array<number>) => void,
   relationships: Array<LinkRelationshipT>,
@@ -654,6 +665,19 @@ export class ExternalLink extends React.Component<LinkProps> {
             typeOptions={props.typeOptions}
           />
         ))}
+        {notEmpty &&
+        <tr className="add-relationship">
+          <td />
+          <td>
+            <button
+              className="add-item with-label"
+              onClick={props.onAddRelationship.bind(this, props.url)}
+              type="button"
+            >
+              {l('Add another relationship')}
+            </button>
+          </td>
+        </tr>}
       </React.Fragment>
     );
   }
