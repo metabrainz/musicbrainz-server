@@ -590,7 +590,7 @@ const ExternalLinkRelationship =
               {link.error.message}
             </div>}
         </td>
-        <td>
+        <td className="link-actions" style={{minWidth: '34px'}}>
           {link.url && !link.error && !hasUrlError &&
             <TypeDescription type={link.type} url={link.url} />}
           <RemoveButton
@@ -705,7 +705,7 @@ export class ExternalLink
               </div>
             }
           </td>
-          <td style={{minWidth: '34px'}}>
+          <td className="link-actions" style={{minWidth: '34px'}}>
             {// Use current props to preview changes while editing
               !isEmpty(props) &&
               <URLInputPopover
@@ -740,7 +740,7 @@ export class ExternalLink
         {notEmpty &&
         <tr className="add-relationship">
           <td />
-          <td>
+          <td className="add-item" colSpan="4">
             <button
               className="add-item with-label"
               onClick={props.onAddRelationship.bind(this, props.url)}
