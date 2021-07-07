@@ -113,7 +113,6 @@ export class ExternalLinksEditor
 
   handleUrlBlur(
     index: number,
-    error: string,
     event: SyntheticEvent<HTMLInputElement>,
   ) {
     const url = event.currentTarget.value;
@@ -123,19 +122,16 @@ export class ExternalLinksEditor
     if (url !== unicodeUrl) {
       this.setLinkState(index, {url: unicodeUrl});
     }
-    // Don't add link to list if it's empty or has error
-    if (url !== '' && !error) {
+    // Don't add link to list if it's empty
+    if (url !== '') {
       this.appendEmptyLink();
     }
   }
 
-  handlePressEnter(
-    error: string,
-    event: SyntheticKeyboardEvent<HTMLInputElement>,
-  ) {
+  handlePressEnter(event: SyntheticKeyboardEvent<HTMLInputElement>) {
     const url = event.currentTarget.value;
-    // Don't add link to list if it's empty or has error
-    if (url !== '' && !error) {
+    // Don't add link to list if it's empty
+    if (url !== '') {
       this.appendEmptyLink();
     }
   }
@@ -339,9 +335,9 @@ export class ExternalLinksEditor
               <ExternalLink
                 errorMessage={error || ''}
                 errorTarget={errorTarget}
-                handlePressEnter={this.handlePressEnter.bind(this, error)}
+                handlePressEnter={this.handlePressEnter.bind(this)}
                 handleUrlBlur={
-                  (event) => this.handleUrlBlur(index, error, event)
+                  (event) => this.handleUrlBlur(index, event)
                 }
                 handleUrlChange={
                   (event) => this.handleUrlChange(index, event)
