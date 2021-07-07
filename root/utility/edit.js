@@ -91,6 +91,21 @@ export function getEditStatusDescription(edit: EditT): string {
   }
 }
 
+export function getEditStatusClass(edit: EditT): string {
+  switch (edit.status) {
+    case EDIT_STATUS_OPEN:
+      return 'open';
+    case EDIT_STATUS_APPLIED:
+      return 'applied';
+    case EDIT_STATUS_FAILEDVOTE:
+      return 'failed';
+    case EDIT_STATUS_DELETED:
+      return 'cancelled';
+    default:
+      return 'edit-error';
+  }
+}
+
 export function getVotesForEditor(
   edit: EditT,
   editor: UnsanitizedEditorT,
