@@ -463,11 +463,11 @@ test('guessing feat. artists', function (t) {
     },
   ];
 
-  function toJS(track) {
+  function toJS(entity) {
     return {
-      name: track.name(),
+      name: entity.name(),
       artistCredit: {
-        names: track.artistCredit().names.map((name) => {
+        names: entity.artistCredit().names.map((name) => {
           const copy = {...name};
           delete copy.artist;
           delete copy.automaticJoinPhrase;
