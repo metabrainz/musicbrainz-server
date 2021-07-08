@@ -414,14 +414,9 @@
     },
     // duplicate the first URL again by editing the other existing URL
     {
-      command: 'sendKeys',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}',
-    },
-    {
-      command: 'select',
-      target: "xpath=//table[@id='external-links-editor']//tr[2]//select[contains(@class, 'link-type')]",
-      value: 'label=regexp:\\B',
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[2]//button[contains(@class, 'remove-item')]",
+      value: '',
     },
     // Open popover
     {
