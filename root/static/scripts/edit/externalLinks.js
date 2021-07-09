@@ -549,8 +549,14 @@ export class ExternalLink
               </label>
             </div>}
         </td>
-        <td style={{minWidth: '51px'}}>
-          {typeDescription && <HelpIcon content={typeDescription} />}
+        <td className="link-actions" style={{minWidth: '51px'}}>
+          {typeDescription &&
+            <HelpIcon
+              content={
+                <div style={{textAlign: 'left'}}>
+                  {typeDescription}
+                </div>}
+            />}
           {!props.isLastLink &&
             // Use current props to preview changes while editing
             <URLInputPopover
