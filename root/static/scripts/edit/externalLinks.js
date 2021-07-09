@@ -417,6 +417,14 @@ type LinkProps = {
 };
 
 export class ExternalLink extends React.Component<LinkProps> {
+  constructor(props: LinksEditorProps) {
+    super(props);
+    this.state = {
+      originalProps: props,
+      isPopoverOpen: false,
+    };
+  }
+
   handleKeyDown(event: SyntheticKeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Enter') {
       event.preventDefault();
@@ -424,8 +432,28 @@ export class ExternalLink extends React.Component<LinkProps> {
     }
   }
 
+  onTogglePopover(open: boolean) {
+    if (open) {
+      // Backup original link state
+      this.setState({originalProps: this.props});
+    }
+    this.setState({isPopoverOpen: open});
+  }
+
+  handleCancelEdit() {
+    const props = this.state.originalProps;
+    // Restore original link state when cancelled
+    this.props.onCancelEdit({
+      url: props.url,
+      rawUrl: props.rawUrl,
+      type: props.type,
+    });
+  }
+
   render(): React.Element<'tr'> {
-    const props = this.props;
+    // Temporarily hide changes while editing
+    const props =
+      this.state.isPopoverOpen ? this.state.originalProps : this.props;
     const linkType = props.type ? linkedEntities.link_type[props.type] : null;
     let typeDescription = '';
     let faviconClass: string | void;
@@ -535,12 +563,14 @@ export class ExternalLink extends React.Component<LinkProps> {
         <td style={{minWidth: '51px'}}>
           {typeDescription && <HelpIcon content={typeDescription} />}
           {!props.isLastLink &&
+            // Use current props to preview changes while editing
             <URLInputPopover
-              errorMessage={props.errorMessage}
-              onCancel={props.onCancelEdit}
-              onChange={props.handleUrlChange}
-              rawUrl={props.rawUrl}
-              url={props.url}
+              errorMessage={this.props.errorMessage}
+              onCancel={this.handleCancelEdit.bind(this)}
+              onChange={this.props.handleUrlChange}
+              onToggle={this.onTogglePopover.bind(this)}
+              rawUrl={this.props.rawUrl}
+              url={this.props.url}
             />
           }
           {!isEmpty(props) && !props.isLastLink &&

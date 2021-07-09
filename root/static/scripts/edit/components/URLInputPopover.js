@@ -8,13 +8,13 @@
  */
 
 import * as React from 'react';
-import type {LinkStateT} from '../externalLinks';
 import ButtonPopover from '../../common/components/ButtonPopover';
 
 type PropsT = {
   errorMessage: string,
-  onCancel: ($Shape<LinkStateT>) => void,
+  onCancel: () => void,
   onChange: (number, SyntheticEvent<HTMLInputElement>) => void,
+  onToggle: (boolean) => void,
   rawUrl: string,
   url: string,
 };
@@ -22,26 +22,24 @@ type PropsT = {
 const URLInputPopover = (props: PropsT): React.MixedElement => {
   const popoverButtonRef = React.useRef(null);
   const [isOpen, setIsOpen] = React.useState(false);
-  const [
-    originalLinkState,
-    setOriginalLinkState,
-  ] = React.useState({
-    rawUrl: props.rawUrl,
-    url: props.url,
-  });
 
   const toggle = (open) => {
-    if (open) {
-      // Backup original link state
-      setOriginalLinkState({
-        rawUrl: props.rawUrl,
-        url: props.url,
-      });
-    } else {
-      // Restore original link state when cancelled
-      props.onCancel(originalLinkState);
+    /*
+     * Will be called by ButtonPopover when closed
+     * either by losing focus or click 'Close' button,
+     * therefore cancel action should be checked here.
+     */
+    if (!open) {
+      props.onCancel();
     }
     setIsOpen(open);
+    props.onToggle(open);
+  };
+
+  const onConfirm = () => {
+    // Bypass 'toggle' to avoid trigering onCancel
+    setIsOpen(false);
+    props.onToggle(false);
   };
 
   const buildPopoverChildren = (
@@ -50,7 +48,7 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        setIsOpen(false);
+        onConfirm();
       }}
     >
       <table>
@@ -77,14 +75,16 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
               }
             </td>
           </tr>
-          <tr>
-            <td className="section" style={{whiteSpace: 'nowrap'}}>
-              {addColonText(l('Cleaned up to'))}
-            </td>
-            <td>
-              <a className="clean-url" href={props.url}>{props.url}</a>
-            </td>
-          </tr>
+          {props.url &&
+            <tr>
+              <td className="section" style={{whiteSpace: 'nowrap'}}>
+                {addColonText(l('Cleaned up to'))}
+              </td>
+              <td>
+                <a className="clean-url" href={props.url}>{props.url}</a>
+              </td>
+            </tr>
+          }
         </tbody>
       </table>
       <div className="buttons" style={{display: 'block', marginTop: '1em'}}>
@@ -101,7 +101,7 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
         >
           <button
             className="positive"
-            onClick={() => setIsOpen(false)}
+            onClick={onConfirm}
             type="button"
           >
             {l('Done')}
