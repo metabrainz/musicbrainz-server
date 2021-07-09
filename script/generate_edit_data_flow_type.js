@@ -51,8 +51,8 @@ const {generateFlowType} = require('../root/utility/generateFlowType');
   const createIterator = () => {
     let buffer/*: Array<string> | null */ = [];
     let index = 0;
-    return {
-      /*:: @@asyncIterator: function () { return this; }, */
+    const it = {
+      /*:: @@asyncIterator: function () { return it; }, */
       async next() {
         if (buffer == null) {
           return {done: true};
@@ -82,6 +82,7 @@ const {generateFlowType} = require('../root/utility/generateFlowType');
         });
       },
     };
+    return it;
   };
 
   const objectStrings = {
