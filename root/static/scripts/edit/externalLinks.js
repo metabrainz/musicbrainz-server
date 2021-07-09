@@ -416,12 +416,18 @@ type LinkProps = {
   video: boolean,
 };
 
-export class ExternalLink extends React.Component<LinkProps> {
-  constructor(props: LinksEditorProps) {
+type ExternalLinkState = {
+  isPopoverOpen: boolean,
+  originalProps: LinkProps,
+};
+
+export class ExternalLink
+  extends React.Component<LinkProps, ExternalLinkState> {
+  constructor(props: LinkProps) {
     super(props);
     this.state = {
-      originalProps: props,
       isPopoverOpen: false,
+      originalProps: props,
     };
   }
 
