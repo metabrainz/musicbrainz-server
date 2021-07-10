@@ -311,7 +311,11 @@ const MediumTable = (React.memo<PropsT>(({
 
         {loadingMessage ? (
           <tr>
-            <td colSpan={columnCount} style={{padding: '1em'}}>
+            <td
+              className="loading-message"
+              colSpan={columnCount}
+              style={{padding: '1em'}}
+            >
               {loadingMessage}
             </td>
           </tr>
