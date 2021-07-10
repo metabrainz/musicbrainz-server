@@ -199,6 +199,83 @@
       target: "xpath=//table[@id='external-links-editor']//tr[1]//a[contains(@class, 'url')]",
       value: 'https://en.wikipedia.org/wiki/No_Age',
     },
+    // Test grouping links by URL
+    {
+      command: 'click',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      value: 'https://google.com',
+    },
+    {
+      command: 'select',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//select[contains(@class, 'link-type')]",
+      value: 'label=regexp:\\s*official homepages',
+    },
+    // Add relationship by clicking button
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'add-relationship')][2]//button[contains(@class, 'add-item')]",
+      value: '',
+    },
+    {
+      command: 'assertElementPresent',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][3]//select[contains(@class, 'link-type')]",
+      value: '',
+    },
+    {
+      command: 'select',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][3]//select[contains(@class, 'link-type')]",
+      value: 'label=regexp:\\s*fan pages',
+    },
+    // Add relationship by entering the same URL
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[3]",
+      value: 'https://google.com',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('select.link-type')).map(x => x.value).join('\\n')",
+      value: '183\n\n172',
+    },
+    {
+      command: 'select',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][3]//select[contains(@class, 'link-type')]",
+      value: 'label=regexp:\\s*biographies',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#external-links-editor tr')).map(x => x.className).join('\\n')",
+      // Wikipedia link + current link(3 relationships)
+      value: 'external-link-item\nrelationship-item\nadd-relationship\nexternal-link-item\nrelationship-item\nrelationship-item\nrelationship-item\nadd-relationship\nexternal-link-item',
+    },
+    // Delete single relationship
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//button[contains(@class, 'remove-item')]",
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('select.link-type')).map(x => x.value).join('\\n')",
+      value: '182\n172',
+    },
+    // Delete link with all relationships
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//button[contains(@class, 'remove-item')]",
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#external-links-editor tr')).map(x => x.className).join('\\n')",
+      // Wikipedia link + empty input box
+      value: 'external-link-item\nrelationship-item\nadd-relationship\nexternal-link-item',
+    },
     // submit the artist
     {
       command: 'type',
