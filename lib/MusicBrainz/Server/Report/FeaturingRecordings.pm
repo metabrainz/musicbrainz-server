@@ -12,7 +12,7 @@ sub query {
         FROM recording r
             JOIN artist_credit ac ON r.artist_credit = ac.id
         WHERE
-            r.name ~ E' \\\\((duet with|(f|w)/|(f|feat|ft)\\\\.|featuring) '
+            r.name ~* E' \\\\((duet with|(f|w)/|(f|feat|ft)\\\\.|featuring) '
     ";
 }
 
