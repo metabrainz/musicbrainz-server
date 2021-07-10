@@ -13,6 +13,9 @@ import expand, {
   parseContinuousString,
   parseStringVarSubst,
   state,
+  VarArgs,
+  type VarArgsObject,
+  type VarArgsClass,
 } from './expand2';
 import {
   l as lActual,
@@ -80,25 +83,32 @@ function parseRoot(args) {
  */
 export default function expand2text(
   source: string,
-  args: {+[arg: string]: StrOrNum, ...},
+  args: VarArgsObject<StrOrNum>,
+): string {
+  return expand2textWithVarArgsClass(source, new VarArgs(args));
+}
+
+export function expand2textWithVarArgsClass(
+  source: string,
+  args: VarArgsClass<StrOrNum>,
 ): string {
   return expand<string, StrOrNum>(parseRoot, source, args);
 }
 
 export const l = (
   key: string,
-  args: {+[arg: string]: StrOrNum, ...},
+  args: VarArgsObject<StrOrNum>,
 ): string => expand2text(lActual(key), args);
 
 export const ln = (
   skey: string,
   pkey: string,
   val: number,
-  args: {+[arg: string]: StrOrNum, ...},
+  args: VarArgsObject<StrOrNum>,
 ): string => expand2text(lnActual(skey, pkey, val), args);
 
 export const lp = (
   key: string,
   context: string,
-  args: {+[arg: string]: StrOrNum, ...},
+  args: VarArgsObject<StrOrNum>,
 ): string => expand2text(lpActual(key, context), args);

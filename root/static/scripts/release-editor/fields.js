@@ -957,7 +957,7 @@ class Release extends mbEntity.Release {
     }
 
     ko.computed(function () {
-      for (const events of Object.values(groupBy(self.events(), countryID))) {
+      for (const events of groupBy(self.events(), countryID).values()) {
         const isDuplicate = events.filter(nonEmptyEvent).length > 1;
         events.forEach(e => e.isDuplicate(isDuplicate));
       }
@@ -985,7 +985,7 @@ class Release extends mbEntity.Release {
 
     ko.computed(function () {
       const labelsByKey = groupBy(self.labels(), releaseLabelKey);
-      for (const labels of Object.values(labelsByKey)) {
+      for (const labels of labelsByKey.values()) {
         const isDuplicate = labels.filter(nonEmptyReleaseLabel).length > 1;
         labels.forEach(l => l.isDuplicate(isDuplicate));
       }

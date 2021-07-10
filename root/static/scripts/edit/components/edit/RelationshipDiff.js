@@ -14,8 +14,10 @@ import relationshipDateText
 import {INSERT, DELETE} from '../../utility/editDiff';
 import DescriptiveLink from '../../../common/components/DescriptiveLink';
 import commaList from '../../../common/i18n/commaList';
-import expand2react, {hooks as expand2reactHooks}
-  from '../../../common/i18n/expand2react';
+import {
+  expand2reactWithVarArgsInstance,
+  hooks as expand2reactHooks,
+} from '../../../common/i18n/expand2react';
 import linkedEntities from '../../../common/linkedEntities';
 import {keyBy} from '../../../common/utility/arrays';
 import bracketed from '../../../common/utility/bracketed';
@@ -56,17 +58,17 @@ const RelationshipDiff = ({
       const typeId = String(attr.typeID);
       const display = displayLinkAttribute(attr);
 
-      if (oldAttrs[typeId] && !newAttrs[typeId]) {
+      if (oldAttrs.has(typeId) && !newAttrs.get(typeId)) {
         return diffOnlyA(display);
       }
 
-      if (newAttrs[typeId] && !oldAttrs[typeId]) {
+      if (newAttrs.get(typeId) && !oldAttrs.has(typeId)) {
         return diffOnlyB(display);
       }
 
       return display;
     },
-    expand: expand2react,
+    expand: expand2reactWithVarArgsInstance,
   };
 
   const oldLinkType = linkedEntities.link_type[oldRelationship.linkTypeID];

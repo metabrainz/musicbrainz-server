@@ -7,10 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+// $FlowIgnore[method-unbinding]
 const objectHasOwnProperty = Object.prototype.hasOwnProperty;
 
 export default function hasOwnProp(
-  object: {__proto__: empty, ...},
+  object: {__proto__: null, ...} | {...},
   prop: string,
 ): boolean {
   return objectHasOwnProperty.call(object, prop);

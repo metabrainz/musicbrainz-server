@@ -52,15 +52,26 @@ exports.loadDomain = function (domain /*: string */) {
 };
 
 exports.jedInstance = jedInstance;
+
 exports.dgettext = (
-  jedInstance.dgettext.bind(jedInstance)
-  /*: ((string, string) => string) */
-);
+  domain/*: string */,
+  key/*: string */,
+)/*: string */ => jedInstance.dgettext(domain, key);
+
 exports.dngettext = (
-  jedInstance.dngettext.bind(jedInstance)
-  /*: ((string, string, string, number) => string) */
+  domain/*: string */,
+  singularKey/*: string */,
+  pluralKey/*: string */,
+  value/*: number */,
+)/*: string */ => jedInstance.dngettext(
+  domain,
+  singularKey,
+  pluralKey,
+  value,
 );
+
 exports.dpgettext = (
-  jedInstance.dpgettext.bind(jedInstance)
-  /*: ((string, string, string) => string) */
-);
+  domain/*: string */,
+  context/*: string */,
+  key/*: string */,
+)/*: string */ => jedInstance.dpgettext(domain, context, key);

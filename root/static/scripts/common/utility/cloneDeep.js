@@ -50,14 +50,14 @@ function cloneArrayDeep/*:: <+T> */(
  * This module is imported by our Webpack config file, so don't use
  * `hasOwnProp` here. It's not available!
  */
+// $FlowIgnore[method-unbinding]
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 function _cloneObjectDeep/*:: <+T: {...}> */(
   object/*: T */,
   seen/*: WeakMap<any, any> */,
 )/*: T */ {
-  const clone/*: any */ = {};
-  Object.setPrototypeOf(clone, Object.getPrototypeOf(object));
+  const clone/*: any */ = Object.create(Object.getPrototypeOf(object));
   seen.set(object, clone);
   for (const key in object) {
     if (hasOwnProperty.call(object, key)) {

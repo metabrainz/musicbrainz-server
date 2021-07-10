@@ -97,6 +97,9 @@ export type LinkedEntitiesT = {
 };
 */
 
+// $FlowIgnore[method-unbinding]
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
 const EMPTY_OBJECT = Object.freeze({});
 
 const linkedEntities/*: LinkedEntitiesT */ = Object.create(Object.seal({
@@ -121,7 +124,7 @@ const linkedEntities/*: LinkedEntitiesT */ = Object.create(Object.seal({
   mergeLinkedEntities(update/*: ?$Shape<LinkedEntitiesT> */) {
     if (update) {
       for (const [type, entities] of Object.entries(update)) {
-        if (Object.prototype.hasOwnProperty.call(linkedEntities, type)) {
+        if (hasOwnProperty.call(linkedEntities, type)) {
           Object.assign(linkedEntities[type], entities);
         } else {
           linkedEntities[type] = entities;

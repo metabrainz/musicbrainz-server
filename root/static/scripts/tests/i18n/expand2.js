@@ -3,7 +3,9 @@ import * as React from 'react';
 
 import {VarArgs} from '../../common/i18n/expand2';
 import expand2html from '../../common/i18n/expand2html';
-import expand2text from '../../common/i18n/expand2text';
+import expand2text, {
+  expand2textWithVarArgsClass,
+} from '../../common/i18n/expand2text';
 
 test('expand2', function (t) {
   t.plan(64);
@@ -236,9 +238,13 @@ test('expand2', function (t) {
       return expand2text('some {value}', {value});
     }
   };
-  expandText(
-    '{value}, huh?',
-    new CustomArgs({value: 'nesting'}),
+
+  error = '';
+  t.equal(
+    expand2textWithVarArgsClass(
+      '{value}, huh?',
+      new CustomArgs({value: 'nesting'}),
+    ),
     'some nesting, huh?',
   );
 
