@@ -85,8 +85,8 @@ const MediumTable = (React.memo<PropsT>(({
     React.useState(false);
 
   const showArtists = React.useMemo(
-    () => mediumHasMultipleArtists(release, medium),
-    [release, medium],
+    () => mediumHasMultipleArtists(release, tracks),
+    [release, tracks],
   );
 
   const loadedTrackCount = (tracks?.length) ?? 0;
