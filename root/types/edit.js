@@ -29,6 +29,7 @@ declare type EditStatusT =
 
 // MusicBrainz::Server::Edit::TO_JSON
 declare type EditT = {
+  +auto_edit: boolean,
   +close_time: string,
   +conditions: {
     +auto_edit: boolean,
@@ -39,6 +40,7 @@ declare type EditT = {
   +created_time: string,
   +data: {+[dataProp: string]: any, ...},
   +edit_kind: 'add' | 'edit' | 'remove' | 'merge' | 'other',
+  +edit_name: string,
   +edit_notes: $ReadOnlyArray<EditNoteT>,
   +edit_type: number,
   +editor_id: number,

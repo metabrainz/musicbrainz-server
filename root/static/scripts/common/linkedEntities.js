@@ -23,6 +23,9 @@ export type LinkedEntitiesT = {
   artist_type: {
     [artistId: number]: ArtistTypeT,
   },
+  editor: {
+    [editorId: number]: EditorT,
+  },
   event: {
     [eventId: number]: EventT,
   },
@@ -104,6 +107,7 @@ const EMPTY_OBJECT = Object.freeze({});
 
 const linkedEntities/*: LinkedEntitiesT */ = Object.create(Object.seal({
   artist_type:                    EMPTY_OBJECT,
+  editor:                         EMPTY_OBJECT,
   language:                       EMPTY_OBJECT,
   link_attribute_type:            EMPTY_OBJECT,
   link_type:                      EMPTY_OBJECT,

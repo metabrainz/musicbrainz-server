@@ -46,16 +46,18 @@
         <form action="[% c.uri_for('/edit/enter_votes') %]" method="post">
             [%~ FOREACH edit=edits ~%]
                 <div class="edit-list">
-                    [%~ INCLUDE 'edit/edit_header.tt' summary=1 -%]
-
-                    <input type="hidden" value="[% edit.id %]" name="enter-vote.vote.[% loop.index %].edit_id" />
-
                     [%- edit_json_obj = React.to_json_object(edit); rendered_react_template = '' -%]
+
                     [%- IF edit.data.defined AND edit.edit_template_react;
                             rendered_react_template = React.embed(c, "edit/details/${edit.edit_template_react}.js", {edit => edit_json_obj});
                         END;
                         edit_json_obj.delete('display_data')
                     -%]
+
+                    [%~ React.embed(c, "edit/components/EditHeader.js", {edit => edit_json_obj, isSummary => 1, voter = React.to_json_object(voter)}) ~%]
+
+                    <input type="hidden" value="[% edit.id %]" name="enter-vote.vote.[% loop.index %].edit_id" />
+
                     <div class="edit-actions c[%- edit_status_class(edit) -%]">
                         [%- React.embed(c, 'edit/components/EditSummary', {edit => edit_json_obj, index => loop.index}) -%]
                     </div>
