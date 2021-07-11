@@ -32,10 +32,12 @@ const RemoveReleaseLabel = ({edit}: Props): React.Element<'table'> => {
 
   return (
     <table className="details remove-release-label">
-      <tr>
-        <th>{l('Release:')}</th>
-        <td><DescriptiveLink entity={display.release} /></td>
-      </tr>
+      {edit.preview /*:: === true */ ? null : (
+        <tr>
+          <th>{l('Release:')}</th>
+          <td><DescriptiveLink entity={display.release} /></td>
+        </tr>
+      )}
       <tr>
         <th>{l('Label:')}</th>
         <td>
