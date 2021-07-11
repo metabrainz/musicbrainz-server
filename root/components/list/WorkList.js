@@ -15,11 +15,11 @@ import {
   defineArtistRolesColumn,
   defineCheckboxColumn,
   defineNameColumn,
+  defineRatingsColumn,
   defineSeriesNumberColumn,
   defineTypeColumn,
   attributesColumn,
   iswcsColumn,
-  ratingsColumn,
   removeFromMergeColumn,
   workArtistsColumn,
   workLanguagesColumn,
@@ -68,6 +68,9 @@ const WorkList = ({
         order: order,
         sortable: sortable,
         typeContext: 'work_type',
+      });
+      const ratingsColumn = defineRatingsColumn<WorkT>({
+        getEntity: entity => entity,
       });
 
       return [
