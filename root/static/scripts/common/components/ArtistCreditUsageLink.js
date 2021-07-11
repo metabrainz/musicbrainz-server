@@ -11,9 +11,12 @@ import * as React from 'react';
 
 import {reduceArtistCredit} from '../immutable-entities';
 
+import {MpIcon} from './ArtistCreditLink';
+
 type Props = {
   +artistCredit: ArtistCreditT,
   +content?: string,
+  +showEditsPending?: boolean,
   +subPath?: string,
   +target?: '_blank',
 };
@@ -21,9 +24,10 @@ type Props = {
 const ArtistCreditUsageLink = ({
   artistCredit,
   content,
+  showEditsPending = false,
   subPath,
   ...props
-}: Props): React.Element<'a'> | null => {
+}: Props): React.Element<'a' | 'span'> | null => {
   const id = artistCredit.id;
   if (id == null) {
     return null;
@@ -32,10 +36,20 @@ const ArtistCreditUsageLink = ({
   if (nonEmpty(subPath)) {
     href += '/' + subPath;
   }
-  return (
+
+  const artistCreditLink = (
     <a href={href} {...props}>
       {nonEmpty(content) ? content : reduceArtistCredit(artistCredit)}
     </a>
+  );
+
+  return (
+    artistCredit.editsPending /*:: === true */ && showEditsPending ? (
+      <span className="mp">
+        {artistCreditLink}
+        <MpIcon artistCredit={artistCredit} />
+      </span>
+    ) : artistCreditLink
   );
 };
 
