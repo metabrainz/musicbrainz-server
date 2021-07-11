@@ -11,25 +11,39 @@ import * as React from 'react';
 
 import WorkList from '../components/list/WorkList';
 import PaginatedResults from '../components/PaginatedResults';
+import Filter from '../static/scripts/common/components/Filter';
+import {type FilterFormT}
+  from '../static/scripts/common/components/FilterForm';
 import {returnToCurrentPage} from '../utility/returnUri';
 
 import ArtistLayout from './ArtistLayout';
 
 type Props = {
   +$c: CatalystContextT,
+  +ajaxFilterFormUrl: string,
   +artist: ArtistT,
+  +filterForm: ?FilterFormT,
+  +hasFilter: boolean,
   +pager: PagerT,
   +works: ?$ReadOnlyArray<WorkT>,
 };
 
 const ArtistWorks = ({
   $c,
+  ajaxFilterFormUrl,
   artist,
+  filterForm,
+  hasFilter,
   pager,
   works,
 }: Props): React.Element<typeof ArtistLayout> => (
   <ArtistLayout entity={artist} page="works" title={l('Works')}>
     <h2>{l('Works')}</h2>
+
+    <Filter
+      ajaxFormUrl={ajaxFilterFormUrl}
+      initialFilterForm={filterForm}
+    />
 
     {works?.length ? (
       <form
@@ -55,7 +69,9 @@ const ArtistWorks = ({
       </form>
     ) : (
       <p>
-        {l('This artist is not currently associated with any works.')}
+        {hasFilter
+          ? l('No works found that match this search.')
+          : l('This artist is not currently associated with any works.')}
       </p>
     )}
   </ArtistLayout>
