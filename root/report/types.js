@@ -189,13 +189,6 @@ export type ReportRecordingT = {
   +row_number: number,
 };
 
-export type ReportRecordingTrackT = {
-  +recording: ?RecordingWithArtistCreditT,
-  +recording_id: number,
-  +row_number: number,
-  +track_name: string,
-};
-
 export type ReportReleaseAnnotationT = {
   ...ReportAnnotationRoleT,
   +release: ?ReleaseT,

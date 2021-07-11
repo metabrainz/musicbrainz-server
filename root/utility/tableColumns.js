@@ -822,6 +822,18 @@ export const taggerColumn:
     id: 'tagger',
   };
 
+export const trackColumn:
+  ColumnOptions<{+track: TrackT, ...}, TrackT> = {
+    accessor: x => x.track,
+    Cell: ({cell: {value}}) => (
+      <a href={'/track/' + value.gid}>
+        {value.name}
+      </a>
+    ),
+    Header: N_l('Track'),
+    id: 'track',
+  };
+
 export const workArtistsColumn:
   ColumnOptions<WorkT, $ReadOnlyArray<ArtistCreditT>> = {
     accessor: x => x.artists,
