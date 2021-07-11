@@ -7,13 +7,14 @@
  */
 
 import test from 'tape';
+import ko from 'knockout';
 
 import guessFeat from '../edit/utility/guessFeat';
 import fields from '../release-editor/fields';
 
 /* eslint-disable sort-keys */
 test('guessing feat. artists', function (t) {
-  t.plan(22);
+  t.plan(24);
 
   const trackTests = [
     {
@@ -425,13 +426,48 @@ test('guessing feat. artists', function (t) {
         },
       },
     },
+    {
+      input: {
+        name: 'Coast To Coast feat. 漢、般若',
+        artistCredit: {names: [{name: 'DJ Baku', joinPhrase: ''}]},
+      },
+      output: {
+        name: 'Coast To Coast',
+        artistCredit: {
+          names: [
+            {name: 'DJ Baku', joinPhrase: ' feat. '},
+            {name: '漢', joinPhrase: '、'},
+            {name: '般若', joinPhrase: ''},
+          ],
+        },
+      },
+    },
   ];
 
-  function toJS(track) {
+  const releaseGroupTests = [
+    {
+      input: {
+        name: 'Coast To Coast feat. 漢、般若',
+        artistCredit: {names: [{name: 'DJ Baku', joinPhrase: ''}]},
+      },
+      output: {
+        name: 'Coast To Coast',
+        artistCredit: {
+          names: [
+            {name: 'DJ Baku', joinPhrase: ' feat. '},
+            {name: '漢', joinPhrase: '、'},
+            {name: '般若', joinPhrase: ''},
+          ],
+        },
+      },
+    },
+  ];
+
+  function toJS(entity) {
     return {
-      name: track.name(),
+      name: entity.name(),
       artistCredit: {
-        names: track.artistCredit().names.map((name) => {
+        names: entity.artistCredit().names.map((name) => {
           const copy = {...name};
           delete copy.artist;
           delete copy.automaticJoinPhrase;
@@ -442,6 +478,20 @@ test('guessing feat. artists', function (t) {
   }
 
   function runTest(x, entity) {
+    guessFeat(entity);
+    t.deepEqual(
+      toJS(entity), x.output, x.input.name + ' -> ' + x.output.name,
+    );
+  }
+
+  function runReleaseGroupTest(x, entity) {
+    /*
+     * This is a hack because RG is in itself hackily implemented
+     * and can be hopefully dropped once all of this uses React
+     */
+    entity.name = ko.observable(entity.name);
+    entity.artistCredit = ko.observable(entity.artistCredit);
+
     guessFeat(entity);
     t.deepEqual(
       toJS(entity), x.output, x.input.name + ' -> ' + x.output.name,
@@ -459,5 +509,9 @@ test('guessing feat. artists', function (t) {
 
   for (const test of releaseTests) {
     runTest(test, new fields.Release(test.input));
+  }
+
+  for (const test of releaseGroupTests) {
+    runReleaseGroupTest(test, new fields.ReleaseGroup(test.input));
   }
 });
