@@ -4434,8 +4434,8 @@ msgstr ""
 msgid "has its history presented at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:982 DB:link_type/long_link_phrase:93
-#: DB:link_type/long_link_phrase:197
+#: DB:link_type/long_link_phrase:93 DB:link_type/long_link_phrase:197
+#: DB:link_type/long_link_phrase:982
 msgid "has lyrics available at"
 msgstr ""
 
@@ -5002,18 +5002,18 @@ msgstr "Logod"
 msgid "lyricist"
 msgstr ""
 
-#: DB:link_type/name:982 DB:link_type/name:93 DB:link_type/name:271
-#: DB:link_type/name:197
+#: DB:link_type/name:93 DB:link_type/name:271 DB:link_type/name:197
+#: DB:link_type/name:982
 msgid "lyrics"
 msgstr ""
 
-#: DB:link_type/link_phrase:982 DB:link_type/link_phrase:93
-#: DB:link_type/link_phrase:197 DB:link_type/reverse_link_phrase:271
+#: DB:link_type/link_phrase:93 DB:link_type/link_phrase:197
+#: DB:link_type/link_phrase:982 DB:link_type/reverse_link_phrase:271
 msgid "lyrics page"
 msgstr "Sõnade leht"
 
-#: DB:link_type/link_phrase:271 DB:link_type/reverse_link_phrase:982
-#: DB:link_type/reverse_link_phrase:93 DB:link_type/reverse_link_phrase:197
+#: DB:link_type/link_phrase:271 DB:link_type/reverse_link_phrase:93
+#: DB:link_type/reverse_link_phrase:197 DB:link_type/reverse_link_phrase:982
 msgid "lyrics page for"
 msgstr ""
 

@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-05-25 17:35+0000\n"
+"PO-Revision-Date: 2021-06-28 20:18+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -3638,6 +3638,13 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Janaranjani"
 msgstr "Janaranjani"
 
+#: DB:release_packaging/description:21
+msgctxt "release_packaging"
+msgid ""
+"Japanese case that holds an 8cm CD. It is rectangular but can be snapped to "
+"make it more compact (hence the name)."
+msgstr "Custodia giapponese che contiene un CD da 8 cm. È rettangolare, ma può essere chiusa a scatto per renderla più compatta (da cui il nome)."
+
 #: DB:work_attribute_type_allowed_value/value:929
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jaunpuri"
@@ -6298,6 +6305,11 @@ msgstr "Slim jewel case"
 msgctxt "release_packaging"
 msgid "Snap Case"
 msgstr "Snap case"
+
+#: DB:release_packaging/name:21
+msgctxt "release_packaging"
+msgid "SnapPack"
+msgstr "SnapPack"
 
 #: DB:work_attribute_type_allowed_value/value:771
 msgctxt "work_attribute_type_allowed_value"

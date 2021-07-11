@@ -4443,8 +4443,8 @@ msgstr "ha il marchio discografico"
 msgid "has its history presented at"
 msgstr "ha la sua storia presentata su"
 
-#: DB:link_type/long_link_phrase:982 DB:link_type/long_link_phrase:93
-#: DB:link_type/long_link_phrase:197
+#: DB:link_type/long_link_phrase:93 DB:link_type/long_link_phrase:197
+#: DB:link_type/long_link_phrase:982
 msgid "has lyrics available at"
 msgstr "ha il testo disponibile su"
 
@@ -5011,18 +5011,18 @@ msgstr "loghi"
 msgid "lyricist"
 msgstr "paroliere"
 
-#: DB:link_type/name:982 DB:link_type/name:93 DB:link_type/name:271
-#: DB:link_type/name:197
+#: DB:link_type/name:93 DB:link_type/name:271 DB:link_type/name:197
+#: DB:link_type/name:982
 msgid "lyrics"
 msgstr "testi"
 
-#: DB:link_type/link_phrase:982 DB:link_type/link_phrase:93
-#: DB:link_type/link_phrase:197 DB:link_type/reverse_link_phrase:271
+#: DB:link_type/link_phrase:93 DB:link_type/link_phrase:197
+#: DB:link_type/link_phrase:982 DB:link_type/reverse_link_phrase:271
 msgid "lyrics page"
 msgstr "pagina di testi"
 
-#: DB:link_type/link_phrase:271 DB:link_type/reverse_link_phrase:982
-#: DB:link_type/reverse_link_phrase:93 DB:link_type/reverse_link_phrase:197
+#: DB:link_type/link_phrase:271 DB:link_type/reverse_link_phrase:93
+#: DB:link_type/reverse_link_phrase:197 DB:link_type/reverse_link_phrase:982
 msgid "lyrics page for"
 msgstr "pagina di testi di"
 
