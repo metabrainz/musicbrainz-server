@@ -32,12 +32,15 @@ export function gotMatch(x: mixed): boolean %checks {
 }
 
 export type VarArgsObject<+T> = {
-  __proto__: empty,
   +[arg: string]: T,
-  ...
 };
 
-export class VarArgs<+T, +U = T> {
+export interface VarArgsClass<+T> {
+  get(name: string): T,
+  has(name: string): boolean,
+}
+
+export class VarArgs<+T, +U = T> implements VarArgsClass<T | U> {
   +data: VarArgsObject<T>;
 
   constructor(data: VarArgsObject<T>) {
@@ -53,9 +56,10 @@ export class VarArgs<+T, +U = T> {
   }
 }
 
-export type Parser<+T, -V> = (VarArgs<V>) => T;
+export type Parser<+T, -V> = (VarArgsClass<V>) => T;
 
 const EMPTY_OBJECT = Object.freeze({});
+const EMPTY_VARARGS = new VarArgs(EMPTY_OBJECT);
 
 type State = {
   /*
@@ -140,7 +144,7 @@ export function saveMatch<T, V>(cb: Parser<T, V>): Parser<T, V> {
 
 export function parseContinuous<T, U, V>(
   parsers: $ReadOnlyArray<Parser<T | NO_MATCH, V>>,
-  args: VarArgs<V>,
+  args: VarArgsClass<V>,
   matchCallback: (U | NO_MATCH, T) => U,
   defaultValue: U,
 ): U {
@@ -178,7 +182,7 @@ function concatStringMatch(
 
 export function parseContinuousString<V>(
   parsers: $ReadOnlyArray<Parser<string | NO_MATCH, V>>,
-  args: VarArgs<V>,
+  args: VarArgsClass<V>,
 ): string {
   return parseContinuous<string, string, V>(
     parsers,
@@ -202,16 +206,18 @@ export const createTextContentParser = <+T, V>(
 const varSubst = /^\{([0-9A-z_]+)\}/;
 export const createVarSubstParser = <T, V>(
   argFilter: (V) => T,
-): Parser<T | string | NO_MATCH, V> => saveMatch(function (args: VarArgs<V>) {
-  const name = accept(varSubst);
-  if (typeof name !== 'string') {
-    return NO_MATCH_VALUE;
-  }
-  if (args.has(name)) {
-    return argFilter(args.get(name));
-  }
-  return state.match;
-});
+): Parser<T | string | NO_MATCH, V> => saveMatch(
+  function (args: VarArgsClass<V>) {
+    const name = accept(varSubst);
+    if (typeof name !== 'string') {
+      return NO_MATCH_VALUE;
+    }
+    if (args.has(name)) {
+      return argFilter(args.get(name));
+    }
+    return state.match;
+  },
+);
 
 export const parseStringVarSubst: Parser<string | NO_MATCH, mixed> =
   createVarSubstParser<string, mixed>(getString);
@@ -271,9 +277,9 @@ export const createCondSubstParser = <T, V>(
  * and input arg values.
  */
 export default function expand<+T, V>(
-  rootParser: (VarArgs<V>) => T,
+  rootParser: (VarArgsClass<V>) => T,
   source: ?string,
-  args: ?(VarArgsObject<V> | VarArgs<V>),
+  args: ?VarArgsClass<V>,
 ): T | string {
   if (!source) {
     return '';
@@ -292,13 +298,9 @@ export default function expand<+T, V>(
   state.running = true;
   state.source = source;
 
-  if (!(args instanceof VarArgs)) {
-    args = new VarArgs<V>(args ?? EMPTY_OBJECT);
-  }
-
   let result;
   try {
-    result = rootParser(args);
+    result = rootParser(args ?? EMPTY_VARARGS);
 
     if (state.remainder) {
       throw error('unexpected token');

@@ -13,14 +13,14 @@ import {CatalystContext} from '../../context';
 import Table from '../Table';
 import formatLabelCode from '../../utility/formatLabelCode';
 import {
+  defineBeginDateColumn,
   defineCheckboxColumn,
+  defineEndDateColumn,
   defineNameColumn,
+  defineEntityColumn,
+  defineRatingsColumn,
   defineTextColumn,
   defineTypeColumn,
-  defineEntityColumn,
-  defineBeginDateColumn,
-  defineEndDateColumn,
-  ratingsColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns';
 
@@ -81,6 +81,9 @@ const LabelList = ({
       const endDateColumn = defineEndDateColumn({
         order: order,
         sortable: sortable,
+      });
+      const ratingsColumn = defineRatingsColumn<LabelT>({
+        getEntity: entity => entity,
       });
 
       return [

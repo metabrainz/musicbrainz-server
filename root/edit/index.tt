@@ -1,8 +1,12 @@
 [%- WRAPPER 'layout.tt' title=l('Edit #{id}', { id => edit.id }) -%]
     <div id="content">
 
-        [% INCLUDE 'edit/edit_header.tt' %]
         [%- edit_json_obj = React.to_json_object(edit) -%]
+        [%- edit_json_obj_no_data = {} -%]
+        [%- edit_json_obj_no_data.import(edit_json_obj) -%]
+        [%- edit_json_obj_no_data.delete('display_data') -%]
+
+        [%~ React.embed(c, "edit/components/EditHeader.js", {edit => edit_json_obj_no_data}) ~%]
 
         <h2>[% l('Changes') %]</h2>
         [% IF edit.data.defined %]
@@ -11,7 +15,6 @@
           [% ELSE %]
             [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
           [% END %]
-          [%- edit_json_obj.delete('display_data') -%]
         [% ELSE %]
           <p>[% l('An error occurred while loading this edit.') %]</p>
           <p>[% link_edit(edit, 'data', l('Raw edit data may be available.')) %]</p>
@@ -32,7 +35,7 @@
                     <tr class="noborder">
                             <th>[% l('My vote:') %]</th>
                             <td class="vote">
-                                [% React.embed(c, 'edit/components/Vote', {edit => edit_json_obj}) %]
+                                [% React.embed(c, 'edit/components/Vote', {edit => edit_json_obj_no_data}) %]
                             </td>
                     </tr>
                 [% END %]
@@ -75,7 +78,7 @@
 
         <h2>[% l('Edit notes') %]</h2>
         [%~ IF c.user_exists ~%]
-            [%- React.embed(c, 'edit/components/EditNotes', {edit => edit_json_obj, index => 0, isOnEditPage => 1}) -%]
+            [%- React.embed(c, 'edit/components/EditNotes', {edit => edit_json_obj_no_data, index => 0, isOnEditPage => 1}) -%]
             [%- IF edit.editor_may_vote(c.user) -%]
                     [%- form_submit(l('Submit vote and note')) -%]
             [%- ELSIF edit.editor_may_add_note(c.user) -%]
@@ -92,6 +95,6 @@
     </div>
 
   [%- IF !full_width -%]
-    [%- React.embed(c, 'edit/components/EditSidebar', {edit => edit_json_obj}) -%]
+    [%- React.embed(c, 'edit/components/EditSidebar', {edit => edit_json_obj_no_data}) -%]
   [%- END -%]
 [%- END -%]

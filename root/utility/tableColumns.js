@@ -369,13 +369,13 @@ export function defineLinkColumn<D>(
   },
 ): ColumnOptions<D, string> {
   return {
+    accessor: row => props.getContent(row) ?? '',
     Cell: ({row: {original}}) => (
       <a href={props.getHref(original)}>
         {props.getContent(original)}
       </a>
     ),
     Header: props.title,
-    accessor: row => props.getContent(row) ?? '',
     id: props.columnName,
   };
 }
@@ -415,6 +415,28 @@ export function defineNameColumn<T: CoreEntityT | CollectionT>(
       )
       : props.title),
     id: 'name',
+  };
+}
+
+export function defineRatingsColumn<D>(
+  props: {
+    +getEntity: (D) => RatableT | null,
+  },
+): ColumnOptions<D, number> {
+  return {
+    Cell: ({row: {original}}) => {
+      const ratableEntity = props.getEntity(original);
+      if (ratableEntity == null) {
+        return null;
+      }
+      return (
+        <RatingStars entity={ratableEntity} />
+      );
+    },
+    cellProps: {className: 'c'},
+    Header: N_l('Rating'),
+    headerProps: {className: 'rating c'},
+    id: 'rating',
   };
 }
 
@@ -741,15 +763,6 @@ export const iswcsColumn:
     id: 'iswcs',
   };
 
-export const ratingsColumn:
-  ColumnOptions<RatableT, number> = {
-    Cell: ({row: {original}}) => <RatingStars entity={original} />,
-    cellProps: {className: 'c'},
-    Header: N_l('Rating'),
-    headerProps: {className: 'rating c'},
-    id: 'rating',
-  };
-
 export const removeFromMergeColumn:
   ColumnOptions<ArtistT | RecordingT | ReleaseT, number> = {
     Cell: ({row: {original}}) => {
@@ -820,6 +833,18 @@ export const taggerColumn:
     Cell: ({row: {original}}) => <TaggerIcon entity={original} />,
     Header: N_l('Tagger'),
     id: 'tagger',
+  };
+
+export const trackColumn:
+  ColumnOptions<{+track: TrackT, ...}, TrackT> = {
+    accessor: x => x.track,
+    Cell: ({cell: {value}}) => (
+      <a href={'/track/' + value.gid}>
+        {value.name}
+      </a>
+    ),
+    Header: N_l('Track'),
+    id: 'track',
   };
 
 export const workArtistsColumn:

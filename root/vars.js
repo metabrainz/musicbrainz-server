@@ -22,7 +22,7 @@ declare var GLOBAL_JS_NAMESPACE: '__MB__';
 declare var addColon: (variable: Expand2ReactInput) => Expand2ReactOutput;
 declare var addColonText: (variable: StrOrNum) => string;
 declare var hasOwnProp: (
-  object: {__proto__: empty, ...},
+  object: interface {},
   prop: string,
 ) => boolean;
 declare var hyphenateTitle: (title: string, subtitle: string) => string;

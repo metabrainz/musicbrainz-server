@@ -102,8 +102,6 @@ function removeLanguageFromState(form: WorkForm, i: number): WorkForm {
 class WorkAttribute {
   allowedValues: () => OptionListT;
 
-  allowedValuesByTypeID: {[typeId: StrOrNum]: OptionListT, ...};
-
   attributeValue: KnockoutObservable<string>;
 
   errors: KnockoutObservableArray<string>;
@@ -136,7 +134,7 @@ class WorkAttribute {
       if (this.allowsFreeText(typeID)) {
         return [];
       }
-      return this.parent.allowedValuesByTypeID[typeID] ?? [];
+      return this.parent.allowedValuesByTypeID.get(String(typeID)) ?? [];
     });
 
     this.typeID.subscribe((previousTypeID => {
@@ -191,7 +189,7 @@ class ViewModel {
 
   attributeTypesByID: {[typeId: StrOrNum]: WorkAttributeTypeTreeT, ...};
 
-  allowedValuesByTypeID: {[typeId: StrOrNum]: OptionListT, ...};
+  allowedValuesByTypeID: $ReadOnlyMap<string, OptionListT>;
 
   attributes: KnockoutObservableArray<WorkAttribute>;
 
@@ -208,9 +206,12 @@ class ViewModel {
 
     this.attributeTypesByID = attributeTypes.children.reduce(byID, {});
 
-    this.allowedValuesByTypeID = Object.fromEntries(
-      Object.entries(
-        groupBy(allowedValues.children, x => String(x.workAttributeTypeID)),
+    this.allowedValuesByTypeID = new Map(
+      Array.from(
+        groupBy(
+          allowedValues.children,
+          x => String(x.workAttributeTypeID),
+        ).entries(),
       ).map(([typeId, children]) => [
         typeId,
         buildOptionsTree(

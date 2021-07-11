@@ -414,6 +414,10 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
           reportName="ReleasesConflictingDiscIDs"
         />
         <ReportsIndexEntry
+          content={l('Releases that have disc IDs, but shouldn’t')}
+          reportName="ShouldNotHaveDiscIDs"
+        />
+        <ReportsIndexEntry
           content={l(
             'Releases where artist name and label name are the same',
           )}
@@ -553,8 +557,15 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
           content={l('URLs with deprecated relationships')}
           reportName="DeprecatedRelationshipURLs"
         />
+        <ReportsIndexEntry
+          content={l('URLs linked to multiple entities')}
+          reportName="LinksWithMultipleEntities"
+        />
+        <ReportsIndexEntry
+          content={l('Wikidata URLs linked to multiple entities')}
+          reportName="WikidataLinksWithMultipleEntities"
+        />
       </ul>
-
 
       <h2>{l('ISRCs')}</h2>
 

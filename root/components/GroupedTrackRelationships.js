@@ -91,7 +91,9 @@ const irrelevantLinkTypes = new Map([
   [350, false], // arrangements
 ]);
 
-function isIrrelevantLinkType(relationship) {
+export function isIrrelevantLinkType(
+  relationship: RelationshipT,
+): boolean {
   return irrelevantLinkTypes.get(relationship.linkTypeID) ===
     relationship.backward;
 }

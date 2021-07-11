@@ -732,6 +732,7 @@ sub report : Chained('load') RequireAuth HiddenOnSlaves SecureForm {
                 reason          => $form->value->{reason},
                 message         => $form->value->{message},
                 reveal_address  => $form->value->{reveal_address},
+                send_to_self    => $form->value->{send_to_self},
             );
         } catch {
             log_debug { "Couldn't send email: $_" } $_;

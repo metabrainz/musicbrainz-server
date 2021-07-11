@@ -4463,8 +4463,8 @@ msgstr "a une marque"
 msgid "has its history presented at"
 msgstr "son histoire est présentée par"
 
-#: DB:link_type/long_link_phrase:982 DB:link_type/long_link_phrase:93
-#: DB:link_type/long_link_phrase:197
+#: DB:link_type/long_link_phrase:93 DB:link_type/long_link_phrase:197
+#: DB:link_type/long_link_phrase:982
 msgid "has lyrics available at"
 msgstr "a des paroles proposées sur"
 
@@ -5031,18 +5031,18 @@ msgstr "logos"
 msgid "lyricist"
 msgstr "parolier"
 
-#: DB:link_type/name:982 DB:link_type/name:93 DB:link_type/name:271
-#: DB:link_type/name:197
+#: DB:link_type/name:93 DB:link_type/name:271 DB:link_type/name:197
+#: DB:link_type/name:982
 msgid "lyrics"
 msgstr "paroles"
 
-#: DB:link_type/link_phrase:982 DB:link_type/link_phrase:93
-#: DB:link_type/link_phrase:197 DB:link_type/reverse_link_phrase:271
+#: DB:link_type/link_phrase:93 DB:link_type/link_phrase:197
+#: DB:link_type/link_phrase:982 DB:link_type/reverse_link_phrase:271
 msgid "lyrics page"
 msgstr "page des paroles"
 
-#: DB:link_type/link_phrase:271 DB:link_type/reverse_link_phrase:982
-#: DB:link_type/reverse_link_phrase:93 DB:link_type/reverse_link_phrase:197
+#: DB:link_type/link_phrase:271 DB:link_type/reverse_link_phrase:93
+#: DB:link_type/reverse_link_phrase:197 DB:link_type/reverse_link_phrase:982
 msgid "lyrics page for"
 msgstr "page des paroles pour"
 

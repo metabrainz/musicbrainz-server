@@ -31,9 +31,11 @@ import expand, {
   saveMatch,
   state,
   substEnd,
+  VarArgs,
   type NO_MATCH,
   type Parser,
-  type VarArgs,
+  type VarArgsObject,
+  type VarArgsClass,
 } from './expand2';
 
 type Input = Expand2ReactInput;
@@ -181,7 +183,7 @@ function concatArrayMatch<T: MatchUpperBoundT>(
 
 function parseContinuousArray<T: MatchUpperBoundT, V>(
   parsers: $ReadOnlyArray<Parser<Array<T> | T | NO_MATCH, V>>,
-  args: VarArgs<V>,
+  args: VarArgsClass<V>,
 ): Array<T> {
   return parseContinuous<Array<T> | T, Array<T>, V>(
     parsers,
@@ -363,7 +365,17 @@ const parseRoot = args => parseContinuousArray(rootParsers, args);
  */
 export default function expand2react(
   source: string,
-  args?: ?{+[arg: string]: Input, ...},
+  args?: ?VarArgsObject<Input>,
+): Output {
+  return expand2reactWithVarArgsInstance(
+    source,
+    args ? new VarArgs(args) : null,
+  );
+}
+
+export function expand2reactWithVarArgsInstance(
+  source: string,
+  args?: ?VarArgsClass<Input>,
 ): Output {
   const result = expand<$ReadOnlyArray<Output>, Input>(
     parseRoot,
@@ -382,18 +394,18 @@ export default function expand2react(
 
 export const l = (
   key: string,
-  args?: ?{+[arg: string]: Input, ...},
+  args?: ?VarArgsObject<Input>,
 ): Output => expand2react(lActual(key), args);
 
 export const ln = (
   skey: string,
   pkey: string,
   val: number,
-  args?: ?{+[arg: string]: Input, ...},
+  args?: ?VarArgsObject<Input>,
 ): Output => expand2react(lnActual(skey, pkey, val), args);
 
 export const lp = (
   key: string,
   context: string,
-  args?: ?{+[arg: string]: Input, ...},
+  args?: ?VarArgsObject<Input>,
 ): Output => expand2react(lpActual(key, context), args);

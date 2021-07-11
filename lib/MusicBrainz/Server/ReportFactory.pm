@@ -59,6 +59,7 @@ use MusicBrainz::Server::PagedReport;
     ISWCsWithManyWorks
     LabelsDisambiguationSameName
     LimitedEditors
+    LinksWithMultipleEntities
     MediumsWithSequenceIssues
     MultipleASINs
     MultipleDiscogsLinks
@@ -92,6 +93,7 @@ use MusicBrainz::Server::PagedReport;
     ReleasesConflictingDiscIDs
     SeparateDiscs
     SetInDifferentRG
+    ShouldNotHaveDiscIDs
     SingleMediumReleasesWithMediumTitles
     SomeFormatsUnset
     SuperfluousDataTracks
@@ -99,6 +101,7 @@ use MusicBrainz::Server::PagedReport;
     TracksWithoutTimes
     TracksWithSequenceIssues
     UnlinkedPseudoReleases
+    WikidataLinksWithMultipleEntities
     WorkSameTypeAsParent
 );
 
@@ -150,6 +153,7 @@ use MusicBrainz::Server::Report::ISRCsWithManyRecordings;
 use MusicBrainz::Server::Report::ISWCsWithManyWorks;
 use MusicBrainz::Server::Report::LabelsDisambiguationSameName;
 use MusicBrainz::Server::Report::LimitedEditors;
+use MusicBrainz::Server::Report::LinksWithMultipleEntities;
 use MusicBrainz::Server::Report::MediumsWithSequenceIssues;
 use MusicBrainz::Server::Report::MultipleASINs;
 use MusicBrainz::Server::Report::MultipleDiscogsLinks;
@@ -184,6 +188,7 @@ use MusicBrainz::Server::Report::ReleasesMissingDiscIDs;
 use MusicBrainz::Server::Report::ReleasesConflictingDiscIDs;
 use MusicBrainz::Server::Report::SeparateDiscs;
 use MusicBrainz::Server::Report::SetInDifferentRG;
+use MusicBrainz::Server::Report::ShouldNotHaveDiscIDs;
 use MusicBrainz::Server::Report::SingleMediumReleasesWithMediumTitles;
 use MusicBrainz::Server::Report::SomeFormatsUnset;
 use MusicBrainz::Server::Report::SuperfluousDataTracks;
@@ -191,6 +196,7 @@ use MusicBrainz::Server::Report::TracksNamedWithSequence;
 use MusicBrainz::Server::Report::TracksWithoutTimes;
 use MusicBrainz::Server::Report::TracksWithSequenceIssues;
 use MusicBrainz::Server::Report::UnlinkedPseudoReleases;
+use MusicBrainz::Server::Report::WikidataLinksWithMultipleEntities;
 use MusicBrainz::Server::Report::WorkSameTypeAsParent;
 
 my %all = map { $_ => 1 } @all;

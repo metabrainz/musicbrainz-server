@@ -85,8 +85,8 @@ const MediumTable = (React.memo<PropsT>(({
     React.useState(false);
 
   const showArtists = React.useMemo(
-    () => mediumHasMultipleArtists(release, medium),
-    [release, medium],
+    () => mediumHasMultipleArtists(release, tracks),
+    [release, tracks],
   );
 
   const loadedTrackCount = (tracks?.length) ?? 0;
@@ -311,7 +311,11 @@ const MediumTable = (React.memo<PropsT>(({
 
         {loadingMessage ? (
           <tr>
-            <td colSpan={columnCount} style={{padding: '1em'}}>
+            <td
+              className="loading-message"
+              colSpan={columnCount}
+              style={{padding: '1em'}}
+            >
               {loadingMessage}
             </td>
           </tr>

@@ -17,11 +17,11 @@ import parseDate from '../../static/scripts/common/utility/parseDate';
 import {
   defineArtistCreditColumn,
   defineCheckboxColumn,
+  defineCountColumn,
   defineNameColumn,
+  defineRatingsColumn,
   defineSeriesNumberColumn,
   defineTextColumn,
-  defineCountColumn,
-  ratingsColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns';
 
@@ -106,6 +106,9 @@ export const ReleaseGroupListTable = ({
         getCount: entity => entity.release_count,
         title: l('Releases'),
       });
+      const ratingsColumn = defineRatingsColumn<ReleaseGroupT>({
+        getEntity: entity => entity,
+      });
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
@@ -153,31 +156,30 @@ const ReleaseGroupList = ({
   sortable,
 }: ReleaseGroupListProps): Array<React$Node> => {
   const groupedReleaseGroups = groupBy(releaseGroups, x => x.typeName ?? '');
-  return (
-    Object.keys(groupedReleaseGroups).map<React$Node>((type) => {
-      const releaseGroupsOfType = groupedReleaseGroups[type];
-      return (
-        <React.Fragment key={type}>
-          <h3>
-            {type === ''
-              ? l('Unspecified type')
-              : releaseGroupType(releaseGroupsOfType[0])
-            }
-          </h3>
-          <ReleaseGroupListTable
-            checkboxes={checkboxes}
-            mergeForm={mergeForm}
-            order={order}
-            releaseGroups={releaseGroupsOfType}
-            seriesItemNumbers={seriesItemNumbers}
-            showRatings={showRatings}
-            showType={false}
-            sortable={sortable}
-          />
-        </React.Fragment>
-      );
-    })
-  );
+  const tables = [];
+  for (const [type, releaseGroupsOfType] of groupedReleaseGroups) {
+    tables.push(
+      <React.Fragment key={type}>
+        <h3>
+          {type === ''
+            ? l('Unspecified type')
+            : releaseGroupType(releaseGroupsOfType[0])
+          }
+        </h3>
+        <ReleaseGroupListTable
+          checkboxes={checkboxes}
+          mergeForm={mergeForm}
+          order={order}
+          releaseGroups={releaseGroupsOfType}
+          seriesItemNumbers={seriesItemNumbers}
+          showRatings={showRatings}
+          showType={false}
+          sortable={sortable}
+        />
+      </React.Fragment>,
+    );
+  }
+  return tables;
 };
 
 export default ReleaseGroupList;

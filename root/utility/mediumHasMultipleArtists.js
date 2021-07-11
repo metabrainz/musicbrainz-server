@@ -9,9 +9,8 @@
 
 export default function mediumHasMultipleArtists(
   release: ReleaseT,
-  medium: MediumT,
+  tracks: ?$ReadOnlyArray<TrackT>,
 ): boolean {
-  const tracks = medium.tracks;
   if (!tracks || !tracks.length) {
     return false;
   }
