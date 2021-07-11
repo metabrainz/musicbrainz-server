@@ -13,9 +13,13 @@
       [%- SET count = 0 -%]
       [% FOR image = images %]
         <div class="editimage thumb-position">
-          [%- display_artwork(image, undef, undef) -%]
-          <div>
+          [%- display_artwork(image) -%]
+          <div style="display: flex; justify-content: space-around;">
             <button type="button" class="left">&larr;</button>
+            [% React.embed(c, 'static/scripts/edit/components/InformationIcon', {
+              style => {'align-self' => 'flex-start'},
+              title => l('Types:') _ ' ' _ (comma_only_list(image.l_types) || '-') _ 
+                       (image.comment ? (' / ' _ l('Comment:') _ ' ' _ image.comment) : '')}) %]
             <button type="button" class="right" style="float: right;">&rarr;</button>
           </div>
           <input type="hidden" value="[% image.id %]" class="id"
