@@ -678,6 +678,16 @@ const Index = ({
             <td>{fc('video')}</td>
             <td>{fp('video', 'recording')}</td>
           </tr>
+          <tr>
+            <th>{addColonText(lp('Standalone', 'recording'))}</th>
+            <td>{fc('recording.standalone')}</td>
+            <td>{fp('recording.standalone', 'recording')}</td>
+          </tr>
+          <tr>
+            <th>{addColonText(l('With ISRCs'))}</th>
+            <td>{fc('recording.has_isrc')}</td>
+            <td>{fp('recording.has_isrc', 'recording')}</td>
+          </tr>
         </tbody>
       </table>
 
@@ -733,6 +743,11 @@ const Index = ({
             <th>{l('None')}</th>
             <td>{fc('work.type.null')}</td>
             <td>{fp('work.type.null', 'work')}</td>
+          </tr>
+          <tr>
+            <th>{addColonText(l('With ISWCs'))}</th>
+            <td>{fc('work.has_iswc')}</td>
+            <td>{fp('work.has_iswc', 'work')}</td>
           </tr>
         </tbody>
       </table>
