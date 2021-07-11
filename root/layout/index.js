@@ -10,10 +10,12 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context';
+import {age} from '../utility/age';
 import {formatUserDateObject} from '../utility/formatUserDate';
 import getRequestCookie from '../utility/getRequestCookie';
 import {RT_SLAVE} from '../static/scripts/common/constants';
 import DBDefs from '../static/scripts/common/DBDefs';
+import parseDate from '../static/scripts/common/utility/parseDate';
 import {
   isAddingNotesDisabled,
   isEditingDisabled,
@@ -52,6 +54,52 @@ function showBirthdayBanner($c) {
            Number(formatUserDateObject($c, now, {format: '%m'})) &&
          !getRequestCookie($c.req, 'birthday_message_dismissed_mtime');
 }
+
+const AnniversaryBanner = ({$c}) => {
+  const registrationDate = $c.user ? $c.user.registration_date : null;
+  if (registrationDate == null) {
+    return null;
+  }
+
+  const parsedDate = parseDate(registrationDate.slice(0, 10));
+  if (parsedDate == null) {
+    return null;
+  }
+
+  const now = parseDate((new Date()).toISOString().slice(0, 10));
+  const editorAge = age({begin_date: parsedDate, end_date: now, ended: true});
+  if (editorAge == null) {
+    return null;
+  }
+
+  const showBanner =
+    editorAge[1] === 0 && editorAge[2] === 0 &&
+    !getRequestCookie($c.req, 'anniversary_message_dismissed_mtime');
+
+  if (showBanner /*:: === true */) {
+    return (
+      <div className="banner anniversary-message">
+        <p>
+          <BirthdayCakes />
+          {' '}
+          {exp.ln(
+            `You’ve been a MusicBrainz editor for {num} year!
+             Happy anniversary, and thanks for contributing to MusicBrainz!`,
+            `You’ve been a MusicBrainz editor for {num} years!
+             Happy anniversary, and thanks for contributing to MusicBrainz!`,
+            editorAge[0],
+            {num: editorAge[0]},
+          )}
+          {' '}
+          <BirthdayCakes />
+        </p>
+        <DismissBannerButton bannerName="anniversary_message" />
+      </div>
+    );
+  }
+
+  return null;
+};
 
 const ServerDetailsBanner = () => {
   if (DBDefs.DB_STAGING_SERVER) {
@@ -198,6 +246,8 @@ const Layout = ({
             </p>
             <DismissBannerButton bannerName="birthday_message" />
           </div>}
+
+        <AnniversaryBanner $c={$c} />
 
         {!!($c.stash.new_edit_notes /*:: === true */ &&
             ($c.stash.new_edit_notes_mtime ?? Infinity) >
