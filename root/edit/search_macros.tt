@@ -29,6 +29,7 @@
       <option value="closed_asc"' _ selected_if_matches('closed_asc', query.order) _ '>' _ l('earliest closed first')     _ '</option>
       <option value="vote_closing_asc"' _ selected_if_matches('vote_closing_asc', query.order) _ '>' _ l('voting closing sooner first')     _ '</option>
       <option value="vote_closing_desc"' _ selected_if_matches('vote_closing_desc', query.order) _ '>' _ l('voting closing later first')     _ '</option>
+      <option value="latest_note"' _ selected_if_matches('latest_note', query.order) _ '>' _ l('with recent edit notes first')     _ '</option>
       <option value="rand"' _ selected_if_matches('rand', query.order) _ '>' _ l('randomly')     _ '</option>
     </select>' -%]
     [%- match_or_negation_block = '<select name="negation">
