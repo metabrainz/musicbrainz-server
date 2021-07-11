@@ -615,7 +615,6 @@ sub send_editor_report {
         $body .= "You’ll have to contact them through their user page if necessary.\n";
     }
 
-
     my @headers = (
         'To'          => $EMAIL_ACCOUNT_ADMINS_ADDRESS,
         'Sender'      => $EMAIL_NOREPLY_ADDRESS,
@@ -637,7 +636,7 @@ sub send_editor_report {
         my $copy_subject = 'Copy of your report of ' . $reported_user_name;
 
         my @copy_headers = (
-            'To'          => _user_address($reporter}),
+            'To'          => _user_address($reporter),
             'Sender'      => $EMAIL_NOREPLY_ADDRESS,
             'Subject'     => _encode_header($copy_subject),
             'Message-Id'  => _message_id('editor-report-copy-%s-%s-%d', $reporter->id, $reported_user->id, time),
