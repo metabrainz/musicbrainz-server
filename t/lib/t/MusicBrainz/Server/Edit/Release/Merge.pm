@@ -7,7 +7,7 @@ with 't::Context';
 BEGIN { use MusicBrainz::Server::Edit::Release::Merge };
 
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MERGE $STATUS_APPLIED );
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MERGE $STATUS_APPLIED $STATUS_ERROR );
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
@@ -547,6 +547,62 @@ test 'Release merges should not fail if a recording is both a merge source and m
         ],
         'final recording ids are correct',
     );
+};
+
+test 'Merging release with empty medium (MBS-11614)' => sub {
+
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+release');
+
+    my $wrong_edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_MERGE,
+        editor_id => 1,
+        new_entity => {
+            id => 101,
+            name => 'One Empty Medium',
+        },
+        old_entities => [
+            {
+                id => 111,
+                name => 'No Empty Mediums'
+            }
+        ],
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE
+    );
+    ok($wrong_edit->is_open);
+    $c->model('Edit')->accept($wrong_edit);
+    is($wrong_edit->status, $STATUS_ERROR, 'edit is not applied, with an error');
+
+    my $right_edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_MERGE,
+        editor_id => 1,
+        new_entity => {
+            id => 111,
+            name => 'No Empty Mediums',
+        },
+        old_entities => [
+            {
+                id => 101,
+                name => 'One Empty Medium'
+            }
+        ],
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE
+    );
+    
+    ok($right_edit->is_open);
+    $c->model('Edit')->accept($right_edit);
+    is($right_edit->status, $STATUS_APPLIED, 'edit is applied');
+
+    my $release = $c->model('Release')->get_by_id(111);
+    $c->model('Medium')->load_for_releases($release);
+
+    my @mediums = $release->all_mediums;
+    $c->model('Track')->load_for_mediums(@mediums);
+
+    ok($mediums[0]->track_count == 1, 'First medium has one track');
+    ok($mediums[1]->track_count == 1, 'Second medium has one track');
 };
 
 1;
