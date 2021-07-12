@@ -335,7 +335,9 @@ export class ExternalLinksEditor
               <ExternalLink
                 errorMessage={error || ''}
                 errorTarget={errorTarget}
-                handlePressEnter={this.handlePressEnter.bind(this)}
+                handlePressEnter={
+                  (event) => this.handlePressEnter(event)
+                }
                 handleUrlBlur={
                   (event) => this.handleUrlBlur(index, event)
                 }
@@ -348,7 +350,9 @@ export class ExternalLinksEditor
                 isLastLink={isLastLink}
                 isOnlyLink={this.state.links.length === 1}
                 key={link.relationship}
-                onCancelEdit={this.setLinkState.bind(this, index)}
+                onCancelEdit={
+                  (state) => this.setLinkState(index, state)
+                }
                 onRemove={() => this.removeLink(index)}
                 rawUrl={link.rawUrl}
                 type={link.type}
@@ -406,7 +410,7 @@ type LinkProps = {
   isLastLink: boolean,
   isOnlyLink: boolean,
   onCancelEdit: ($Shape<LinkStateT>) => void,
-  onRemove: (number) => void,
+  onRemove: () => void,
   rawUrl: string,
   type: number | null,
   typeChangeCallback: (SyntheticEvent<HTMLSelectElement>) => void,
@@ -519,7 +523,7 @@ export class ExternalLink
               className="value with-button"
               onBlur={props.handleUrlBlur}
               onChange={props.handleUrlChange}
-              onKeyDown={this.handleKeyDown.bind(this)}
+              onKeyDown={(event) => this.handleKeyDown(event)}
               type="url"
               // Don't interrupt user input with clean URL
               value={props.rawUrl}
@@ -561,9 +565,9 @@ export class ExternalLink
             // Use current props to preview changes while editing
             <URLInputPopover
               errorMessage={this.props.errorMessage}
-              onCancel={this.handleCancelEdit.bind(this)}
+              onCancel={() => this.handleCancelEdit()}
               onChange={this.props.handleUrlChange}
-              onToggle={this.onTogglePopover.bind(this)}
+              onToggle={(open) => this.onTogglePopover(open)}
               rawUrl={this.props.rawUrl}
               url={this.props.url}
             />

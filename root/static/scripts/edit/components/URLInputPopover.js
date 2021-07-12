@@ -13,7 +13,7 @@ import ButtonPopover from '../../common/components/ButtonPopover';
 type PropsT = {
   errorMessage: string,
   onCancel: () => void,
-  onChange: (number, SyntheticEvent<HTMLInputElement>) => void,
+  onChange: (SyntheticEvent<HTMLInputElement>) => void,
   onToggle: (boolean) => void,
   rawUrl: string,
   url: string,
