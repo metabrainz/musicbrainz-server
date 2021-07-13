@@ -121,7 +121,7 @@ sub _get_tags_for_type
 
 sub get_tags
 {
-    my ($self, $user, $show_downvoted) = @_;
+    my ($self, $user, $show_downvoted, $order) = @_;
 
 
     my $tags = {};
@@ -151,7 +151,14 @@ sub get_tags
         $tags->{$_}->{tag} = $entities->{$_};
     }
 
-    my @tags = sort { $a->{tag}->name cmp $b->{tag}->name } values %$tags;
+    my @tags;
+    if ($order eq 'count') {
+        @tags = sort { $b->{count} <=> $a->{count} } values %$tags;
+    } elsif ($order eq 'countdesc') {
+        @tags = sort { $a->{count} <=> $b->{count} } values %$tags;
+    } else {
+        @tags = sort { $a->{tag}->name cmp $b->{tag}->name } values %$tags;
+    }
 
     return { max => $max, tags => \@tags };
 }
