@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,9 +9,12 @@
 
 import * as React from 'react';
 import ButtonPopover from '../../common/components/ButtonPopover';
+import type {ErrorTarget} from '../externalLinks';
+import {ERROR_TARGETS} from '../URLCleanup';
 
 type PropsT = {
   errorMessage: string,
+  errorTarget: ErrorTarget,
   onCancel: () => void,
   onChange: (SyntheticEvent<HTMLInputElement>) => void,
   onToggle: (boolean) => void,
@@ -66,6 +69,7 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
                 value={props.rawUrl}
               />
               {props.errorMessage &&
+                props.errorTarget === ERROR_TARGETS.URL &&
                 <div
                   className="error field-error target-url"
                   data-visible="1"

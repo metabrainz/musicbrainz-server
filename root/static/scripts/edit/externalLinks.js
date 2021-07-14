@@ -397,7 +397,7 @@ class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
   }
 }
 
-type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
+export type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
 
 type LinkProps = {
   errorMessage: string,
@@ -565,6 +565,7 @@ export class ExternalLink
             // Use current props to preview changes while editing
             <URLInputPopover
               errorMessage={this.props.errorMessage}
+              errorTarget={this.props.errorTarget}
               onCancel={() => this.handleCancelEdit()}
               onChange={this.props.handleUrlChange}
               onToggle={(open) => this.onTogglePopover(open)}
