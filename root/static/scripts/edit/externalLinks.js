@@ -112,6 +112,11 @@ export class ExternalLinksEditor
     const rawUrl = event.currentTarget.value;
     let url = rawUrl;
 
+    // Remove empty links
+    if (rawUrl === '') {
+      this.removeLinks(linkIndexes);
+      return;
+    }
     this.setState(prevState => {
       let newLinks = [...prevState.links];
       linkIndexes.forEach(index => {
@@ -206,6 +211,20 @@ export class ExternalLinksEditor
 
   addRelationship(url: string) {
     this.setState(prevState => {
+      const links = [...prevState.links];
+      const linkCount = links.length;
+      const lastLink = links[linkCount - 1];
+      /*
+       * If the last (latest-added) link is empty, then use it
+       * to maintain the order that the empty link should be at the end.
+       */
+      if (lastLink.url === '') {
+        links[linkCount - 1] = Object.assign(
+          {}, lastLink, {url},
+        );
+        return {links: withOneEmptyLink(links)};
+      }
+      // Otherwise create a new link with the given URL
       const newRelationship = newLinkState({
         url, relationship: uniqueId('new-'),
       });
