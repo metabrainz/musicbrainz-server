@@ -15,8 +15,6 @@ import FormRowTextLong
   from '../../static/scripts/edit/components/FormRowTextLong.js';
 import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 
-import type {StatisticsEventFormT} from './types.js';
-
 type PropsT = {
   +form: StatisticsEventFormT,
 };
