@@ -527,6 +527,7 @@ const TypeDescription =
 type ExternalLinkRelationshipProps = {
   handleTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
   hasUrlError: boolean,
+  isOnlyRelationship: boolean,
   link: LinkRelationshipT,
   onLinkRemove: (number) => void,
   onVideoChange:
@@ -612,10 +613,11 @@ const ExternalLinkRelationship =
         <td className="link-actions" style={{minWidth: '34px'}}>
           {link.url && !link.error && !hasUrlError &&
             <TypeDescription type={link.type} url={link.url} />}
-          <RemoveButton
-            onClick={props.onLinkRemove.bind(this, link.index)}
-            title={l('Remove Relationship')}
-          />
+          {!props.isOnlyRelationship &&
+            <RemoveButton
+              onClick={props.onLinkRemove.bind(this, link.index)}
+              title={l('Remove Relationship')}
+            />}
         </td>
       </tr>
     );
@@ -749,6 +751,7 @@ export class ExternalLink
             <ExternalLinkRelationship
               handleTypeChange={props.typeChangeCallback}
               hasUrlError={props.error != null}
+              isOnlyRelationship={props.relationships.length === 1}
               key={index}
               link={link}
               onLinkRemove={props.onLinkRemove}

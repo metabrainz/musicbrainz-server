@@ -240,11 +240,11 @@
     {
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll('select.link-type')).map(x => x.value).join('\\n')",
-      value: '183\n\n172',
+      value: '183\n172\n',
     },
     {
       command: 'select',
-      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][3]//select[contains(@class, 'link-type')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][4]//select[contains(@class, 'link-type')]",
       value: 'label=regexp:\\s*biographies',
     },
     {
@@ -262,7 +262,7 @@
     {
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll('select.link-type')).map(x => x.value).join('\\n')",
-      value: '182\n172',
+      value: '172\n182',
     },
     // Delete link with all relationships
     {
@@ -274,6 +274,22 @@
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll('#external-links-editor tr')).map(x => x.className).join('\\n')",
       // Wikipedia link + empty input box
+      value: 'external-link-item\nrelationship-item\nadd-relationship\nexternal-link-item',
+    },
+    // Automatically delete empty URL
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      value: 'https://en.wikipedia.org/wiki/',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#external-links-editor tr')).map(x => x.className).join('\\n')",
       value: 'external-link-item\nrelationship-item\nadd-relationship\nexternal-link-item',
     },
     // submit the artist
@@ -394,7 +410,7 @@
     {
       command: 'sendKeys',
       target: "xpath=(//div[@id='url-input-popover']//input[contains(@class, 'raw-url')])[1]",
-      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}https://www.gnu.org/licenses/gpl-3.0.en.html',
+      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}https://www.gnu.org/licenses/gpl-3.0.en.html',
     },
     // Save URL change
     {
@@ -504,7 +520,7 @@
     {
       command: 'sendKeys',
       target: "xpath=(//div[@id='url-input-popover']//input[contains(@class, 'raw-url')])[1]",
-      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}https://www.amazon.co.jp/gp/product/B017VORJK6',
+      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}https://www.amazon.co.jp/gp/product/B017VORJK6',
     },
     // Save URL change
     {
@@ -532,7 +548,7 @@
     {
       command: 'sendKeys',
       target: "xpath=(//div[@id='url-input-popover']//input[contains(@class, 'raw-url')])[1]",
-      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}https://www.gnu.org/licenses/gpl-3.0.en.html',
+      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}https://www.gnu.org/licenses/gpl-3.0.en.html',
     },
     // Save URL change
     {
