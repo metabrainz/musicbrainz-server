@@ -297,6 +297,7 @@ const MediumTable = (React.memo<PropsT>(({
               )}
               {' '}
               <a
+                className="load-tracks"
                 href="#"
                 onClick={(event) => {
                   event.preventDefault();
