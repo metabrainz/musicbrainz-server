@@ -164,7 +164,7 @@
       target: "xpath=(//div[@id='url-input-popover']//input[@type='url'])[1]",
       value: '?oldformat=true',
     },
-    // Discard changes when lost focus
+    // Test keeping changes when lost focus
     {
       command: 'click',
       target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
@@ -176,21 +176,16 @@
       target: "xpath=//table[@id='external-links-editor']//tr[1]//button[contains(@class, 'edit-item')]",
       value: '',
     },
-    // assert URL is unchanged
+    // assert changes are kept
     {
       command: 'assertEval',
       target: "document.getElementsByClassName('raw-url')[0].value.trim()",
-      value: 'https://en.wikipedia.org/wiki/No_Age',
+      value: 'https://en.wikipedia.org/wiki/No_Age?oldformat=true',
     },
-    {
-      command: 'sendKeys',
-      target: "xpath=(//div[@id='url-input-popover']//input[@type='url'])[1]",
-      value: '?oldformat=true',
-    },
-    // Save URL change
+    // Close popover
     {
       command: 'click',
-      target: "xpath=//div[@id='url-input-popover']//button[contains(@class, 'positive')]",
+      target: "xpath=//div[@id='url-input-popover']//button[contains(@class, 'negative')]",
       value: '',
     },
     // assert clean URL is used
