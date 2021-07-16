@@ -28,7 +28,8 @@ my $ws_defs = Data::OptList::mkopt([
                                           collection) ],
                          inc      => [ qw(aliases artist-credits labels recordings discids
                                           tags user-tags genres user-genres ratings user-ratings
-                                          release-groups media _relations annotation) ],
+                                          release-groups media recording-level-rels
+                                          work-level-rels _relations annotation) ],
                          optional => [ qw(fmt limit offset) ],
      },
      release => {
