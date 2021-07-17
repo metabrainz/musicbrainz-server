@@ -60,7 +60,6 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
                 className="value raw-url"
                 onChange={props.onChange}
                 style={{width: '336px'}}
-                type="url"
                 value={props.rawUrl}
               />
               {props.errorMessage &&
