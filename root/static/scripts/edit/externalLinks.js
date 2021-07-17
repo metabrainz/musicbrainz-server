@@ -561,8 +561,8 @@ export class ExternalLink
                   {typeDescription}
                 </div>}
             />}
-          {!props.isLastLink &&
-            // Use current props to preview changes while editing
+          {// Use current props to preview changes while editing
+            !isEmpty(props) &&
             <URLInputPopover
               errorMessage={this.props.errorMessage}
               errorTarget={this.props.errorTarget}
@@ -573,7 +573,7 @@ export class ExternalLink
               url={this.props.url}
             />
           }
-          {!isEmpty(props) && !props.isLastLink &&
+          {!isEmpty(props) &&
             <RemoveButton
               onClick={props.onRemove}
               title={l('Remove Link')}
