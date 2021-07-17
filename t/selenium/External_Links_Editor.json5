@@ -126,7 +126,7 @@
     },
     {
       command: 'sendKeys',
-      target: "xpath=(//div[@id='url-input-popover']//input[@type='url'])[1]",
+      target: "xpath=(//div[@id='url-input-popover']//input[contains(@class, 'raw-url')])[1]",
       value: '?oldformat=true',
     },
     // assert clean URL is displayed correctly
@@ -161,7 +161,7 @@
     },
     {
       command: 'sendKeys',
-      target: "xpath=(//div[@id='url-input-popover']//input[@type='url'])[1]",
+      target: "xpath=(//div[@id='url-input-popover']//input[contains(@class, 'raw-url')])[1]",
       value: '?oldformat=true',
     },
     // Test keeping changes when lost focus
@@ -311,7 +311,7 @@
     },
     {
       command: 'sendKeys',
-      target: "xpath=(//div[@id='url-input-popover']//input[@type='url'])[1]",
+      target: "xpath=(//div[@id='url-input-popover']//input[contains(@class, 'raw-url')])[1]",
       value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}https://www.gnu.org/licenses/gpl-3.0.en.html',
     },
     // Save URL change
@@ -421,7 +421,7 @@
     },
     {
       command: 'sendKeys',
-      target: "xpath=(//div[@id='url-input-popover']//input[@type='url'])[1]",
+      target: "xpath=(//div[@id='url-input-popover']//input[contains(@class, 'raw-url')])[1]",
       value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}https://www.amazon.co.jp/gp/product/B017VORJK6',
     },
     // Save URL change
@@ -449,7 +449,7 @@
     },
     {
       command: 'sendKeys',
-      target: "xpath=(//div[@id='url-input-popover']//input[@type='url'])[1]",
+      target: "xpath=(//div[@id='url-input-popover']//input[contains(@class, 'raw-url')])[1]",
       value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}https://www.gnu.org/licenses/gpl-3.0.en.html',
     },
     // Save URL change
