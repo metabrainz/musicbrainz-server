@@ -1,6 +1,7 @@
 # 
 # Translators:
 # Keshav Kini <email address hidden>, 2013
+# Masuda Sunatomo <email address hidden>, 2021
 # Mitsuharu Kurita, 2016
 # Nozomu KURASAWA <email address hidden>, 2013
 # ffff23 <email address hidden>, 2021
@@ -9,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-06-08 21:41+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-07-18 13:02+0000\n"
+"Last-Translator: Masuda Sunatomo <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -79,21 +80,21 @@ msgstr ""
 #. name:kös
 #: DB:instrument/description:739
 msgid "A Turkish drum used in the traditional Ottoman military bands"
-msgstr ""
+msgstr "伝統的なオスマン帝国の軍楽隊で使用されるトルコの太鼓"
 
 #. name:tef
 #: DB:instrument/description:531
 msgid ""
 "A Turkish version of tambourine / daf, made from animal skin and played with"
 " the fingers."
-msgstr ""
+msgstr "動物の皮から作られた、指で演奏するタンバリン/ダフのトルコ版。"
 
 #. name:barrel organ
 #: DB:instrument/description:490
 msgid ""
 "A barrel organ is a mechanical musical instrument typically operated by a "
 "person turning a crank which turns a barrel which has music encoded onto it."
-msgstr ""
+msgstr "手回しオルガンは、音楽がエンコードされたバレルを回すために人がクランクを回す機械楽器です。"
 
 #. name:bass synthesizer
 #: DB:instrument/description:456
@@ -105,92 +106,92 @@ msgstr "ベース・シンセサイザーは、低音領域の音を出すのに
 msgid ""
 "A bell tree is a percussion instrument, consisting of vertically nested "
 "inverted metal bowls."
-msgstr ""
+msgstr "ベルツリーは、垂直に入れ子になった逆さの金属製のボウルで構成される打楽器です。"
 
 #. name:chamber organ
 #: DB:instrument/description:471
 msgid "A chamber organ is a small pipe organ."
-msgstr ""
+msgstr "チャンバーオルガンは小型のパイプオルガンです。"
 
 #. name:cuatro
 #: DB:instrument/description:439
 msgid "A class of South-American guitars"
-msgstr ""
+msgstr "南アメリカのギターの一種"
 
 #. name:saduk
 #: DB:instrument/description:804
 msgid ""
 "A cross between a saxophone and a duduk invented and played by Alexander "
 "Berne"
-msgstr ""
+msgstr "アレクサンダー・バーンが発明し演奏したサックスとドゥドゥクの中間物"
 
 #. name:cylindrical drum
 #: DB:instrument/description:658
 msgid "A cylindrical drum is a straight-sided and generally two-headed drum."
-msgstr ""
+msgstr "シリンドリカルドラムは、側面がまっすぐで、通常は2つの頭を持つドラムです。"
 
 #. name:descant recorder / soprano recorder
 #: DB:instrument/description:469
 msgid ""
 "A descant or soprano recorder is the most common size of recorder and is "
 "often learnt by children."
-msgstr ""
+msgstr "デスカントまたはソプラノレコーダーは、レコーダーの最も一般的なサイズであり、多くの場合、子供たちによって学習されます。"
 
 #. name:dolceola
 #: DB:instrument/description:750
 msgid ""
 "A dolceola is a musical instrument resembling a miniature piano, but which "
 "is in fact a zither with a keyboard."
-msgstr ""
+msgstr "デコラはミニチュアピアノに似た楽器ですが、実際にはキーボード付きのツィターです。"
 
 #. name:five-string banjo
 #: DB:instrument/description:523
 msgid "A five-string banjo is a banjo with five strings."
-msgstr ""
+msgstr "5弦バンジョーは5弦のバンジョーです。"
 
 #. name:four-string banjo
 #: DB:instrument/description:656
 msgid "A four-string banjo is a banjo with four strings."
-msgstr ""
+msgstr "4弦バンジョーは4弦のバンジョーです。"
 
 #. name:gong bass drum
 #: DB:instrument/description:639
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
-msgstr ""
+msgstr "ゴングバスドラムは、ゴングに似た大きなシングルドラムヘッドです。"
 
 #. name:guitar synthesizer
 #: DB:instrument/description:763
 msgid ""
 "A guitar synthesizer is any one of a number of systems that allow a guitar "
 "player to play synthesizer sound."
-msgstr ""
+msgstr "ギターシンセサイザーは、ギタープレーヤーがシンセサイザーサウンドを再生できるようにする多くのシステムのうちの一つです。"
 
 #. name:hi-hat
 #: DB:instrument/description:454
 msgid ""
 "A hi-hat is a typical part of a drum kit, consisting of a pair of cymbals "
 "mounted on a stand."
-msgstr ""
+msgstr "ハイハットはドラムキットの典型的な部分であり、スタンドに取り付けられた1対のシンバルで構成されています。"
 
 #. name:poi āwhiowhio
 #: DB:instrument/description:792
 msgid ""
 "A hollowed out gourd (hue) with one to three holes, swung around creating a "
 "whistling, chattering sound that resembled birds"
-msgstr ""
+msgstr "1〜3個の穴が開いたくり抜かれたひょうたん（ヒュー）、振り回すことにより鳥のような口笛を吹くようなチャタリング音が鳴ります。"
 
 #. name:17-string bass koto
 #: DB:instrument/description:516
 msgid ""
 "A koto with 17 rather than 13 strings, sometimes described as a bass koto."
-msgstr ""
+msgstr "13弦ではなく17弦の箏。ベース箏と呼ばれることもあります。"
 
 #. name:daire
 #: DB:instrument/description:532
 msgid ""
 "A larger version of tef, used to indicate the rhythmic structures (usul) in "
 "makam music."
-msgstr ""
+msgstr "マカーム音楽のリズム（ウスル）を表現する際に使用されるテフの大型版。"
 
 #. name:laser harp
 #: DB:instrument/description:515
@@ -198,7 +199,7 @@ msgid ""
 "A laser harp is an electronic musical instrument consisting of several laser"
 " beams to be blocked, in analogy with the plucking of the strings of a harp,"
 " in order to produce sounds."
-msgstr ""
+msgstr "レーザーハープは、楽器ハープの弦を弾くのと同様、いくつかのレーザービームを遮断することで音を鳴らす電子楽器です。"
 
 #. name:đàn tứ dây
 #: DB:instrument/description:233
