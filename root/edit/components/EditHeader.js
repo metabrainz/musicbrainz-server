@@ -205,6 +205,7 @@ const EditHeader = ({
               'Edit by {editor}',
               {editor: <EditorLink editor={editEditor} />},
             )}
+            {' '}
             <EditorTypeInfo editor={editEditor} />
           </>
         ) : (
