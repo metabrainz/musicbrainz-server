@@ -114,10 +114,10 @@ releaseEditor.edits = {
     var edits = [];
 
     for (let newLabel of newLabels) {
-      const id = newLabel.release_label;
+      const id = getReleaseLabel(newLabel);
 
       if (id) {
-        const oldLabel = oldLabelsByID[id];
+        const oldLabel = oldLabelsByID.get(id);
 
         if (oldLabel && !deepEqual(newLabel, oldLabel)) {
           // Edit ReleaseLabel
@@ -135,8 +135,8 @@ releaseEditor.edits = {
     }
 
     for (let oldLabel of oldLabels) {
-      const id = oldLabel.release_label;
-      const newLabel = newLabelsByID[id];
+      const id = getReleaseLabel(oldLabel);
+      const newLabel = newLabelsByID.get(id);
 
       if (!newLabel || !(newLabel.label || newLabel.catalog_number)) {
         // Delete ReleaseLabel
@@ -383,19 +383,21 @@ releaseEditor.edits = {
       return edits;
     }
 
-    for (const link of Object.values(allLinks)) {
+    for (const link of allLinks.values()) {
       if (!link.type || !link.url) {
         continue;
       }
 
       const newData = MB.edit.fields.externalLinkRelationship(link, release);
+      const relationshipId = link.relationship;
+      const relationshipIdString = String(relationshipId);
 
       if (isPositiveInteger(link.relationship)) {
-        if (!newLinks[link.relationship]) {
+        if (!newLinks.has(relationshipIdString)) {
           edits.push(MB.edit.relationshipDelete(newData));
-        } else if (oldLinks[link.relationship]) {
+        } else if (oldLinks.has(relationshipIdString)) {
           const original = MB.edit.fields.externalLinkRelationship(
-            oldLinks[link.relationship],
+            oldLinks.get(relationshipIdString),
             release,
           );
 
@@ -412,7 +414,7 @@ releaseEditor.edits = {
             edits.push(editData);
           }
         }
-      } else if (newLinks[link.relationship]) {
+      } else if (newLinks.has(relationshipIdString)) {
         edits.push(MB.edit.relationshipCreate(newData));
       }
     }
@@ -667,7 +669,9 @@ releaseEditor.orderedEditSubmissions = [
       var newMediums = release.mediums();
 
       newMediums.filter(m => m.id == null).forEach(function (medium) {
-        var addedData = added[medium.tmpPosition || medium.position()];
+        var addedData = added.get(
+          String(medium.tmpPosition || medium.position()),
+        );
 
         if (addedData) {
           medium.id = addedData.id;

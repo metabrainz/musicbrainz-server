@@ -19,13 +19,13 @@ import {
   defineCheckboxColumn,
   defineInstrumentUsageColumn,
   defineNameColumn,
+  defineRatingsColumn,
   defineReleaseCatnosColumn,
   defineReleaseEventsColumn,
   defineReleaseLabelsColumn,
   defineReleaseLanguageColumn,
   defineSeriesNumberColumn,
   defineTextColumn,
-  ratingsColumn,
   taggerColumn,
 } from '../../utility/tableColumns';
 
@@ -153,6 +153,9 @@ const ReleaseList = ({
           title: l('Status'),
         })
         : null;
+      const ratingsColumn = defineRatingsColumn<ReleaseT>({
+        getEntity: entity => entity.releaseGroup ?? null,
+      });
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),

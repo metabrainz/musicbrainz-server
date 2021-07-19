@@ -298,7 +298,7 @@ const RelationshipsTable = ({
     }
   }
 
-  if (totalRelationships === 0) {
+  if (totalRelationships === 0 && !pagedLinkTypeGroup) {
     return nonEmpty(fallbackMessage) ? (
       <>
         <h2>{heading}</h2>
@@ -328,15 +328,26 @@ const RelationshipsTable = ({
   let finalHeading = heading;
 
   if (pagedLinkTypeGroup /*:: && pager */) {
-    finalHeading = exp.l(
+    const linkPhrase = getLinkPhraseForGroup(pagedLinkTypeGroup);
+    finalHeading = linkPhrase ? exp.l(
       '“{link_phrase}” relationships',
       {link_phrase: getLinkPhraseForGroup(pagedLinkTypeGroup)},
-    );
-    pageContent = (
-      <PaginatedResults pager={pager}>
-        {tableElement}
-      </PaginatedResults>
-    );
+    ) : l('Invalid relationship type');
+    if (pagedLinkTypeGroup.total_relationships > 0) {
+      pageContent = (
+        <PaginatedResults pager={pager}>
+          {tableElement}
+        </PaginatedResults>
+      );
+    } else {
+      pageContent = (
+        <p>
+          {linkPhrase
+            ? l('No relationships of the selected type were found.')
+            : l('The provided relationship type ID is not valid.')}
+        </p>
+      );
+    }
   }
 
   return (

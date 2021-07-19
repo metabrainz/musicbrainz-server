@@ -25,6 +25,10 @@ has_field 'reveal_address' => (
     default => 1,
 );
 
+has_field 'send_to_self' => (
+    type => 'Boolean',
+);
+
 Readonly our %REASONS => (
     'spam' => N_l('Editor is spamming'),
     'unresponsiveness' => N_l('Editor is unresponsive to edit notes'),

@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Report::FeaturingRecordings;
 use Moose;
+use utf8;
 
 with 'MusicBrainz::Server::Report::RecordingReport',
      'MusicBrainz::Server::Report::FilterForEditor::RecordingID';
@@ -12,7 +13,7 @@ sub query {
         FROM recording r
             JOIN artist_credit ac ON r.artist_credit = ac.id
         WHERE
-            r.name ~ E' \\\\((duet with|(f|w)/|(f|feat|ft)\\\\.|featuring) '
+            r.name COLLATE musicbrainz ~* E' \\\\((duet with|συμμετέχει|(f|w)/|(f|feat|ｆｅａｔ|ft|συμμ)(\\\\.|．)|(featuring|ｆｅａｔｕｒｉｎｇ)) '
     ";
 }
 

@@ -144,8 +144,8 @@ const ExternalLinks = ({
     ));
 
   // We ensure official sites are listed above blogs, and blogs above others
-  links.push.apply(links, blogLinks);
-  links.push.apply(links, uniqueOtherLinks.map(({id, ...props}) => (
+  links.push(...blogLinks);
+  links.push(...uniqueOtherLinks.map(({id, ...props}) => (
     <ExternalLink key={id} {...props} />
   )));
 

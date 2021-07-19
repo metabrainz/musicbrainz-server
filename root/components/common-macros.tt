@@ -494,11 +494,6 @@ END -%]
     INCLUDE _link_other_entity content=text action=action type='user' default_content=editor.name avatar=image_url image_size=size;
 END -%]
 
-[%~ MACRO editor_type_info(editor) BLOCK; -%]
-    [% IF editor.is_limited; '<span class="editor-class">(<span class="tooltip" title="' _ l('This user is new to MusicBrainz.') _ '">' _ l('beginner') _ '</span>)</span>'; END %]
-    [% IF editor.is_bot; '<span class="editor-class">(<span class="tooltip" title="' _ l('This user is automated.') _ '">' _ l('bot') _ '</span>)</span>'; END %]
-[%- END -%]
-
 [%~ MACRO link_edit(edit, action, text) BLOCK; # Converted to React at root/static/scripts/common/components/EditLink.js
     INCLUDE _link_other_entity content=text action=action type='edit' default_content=edit.id;
 END -%]
@@ -611,7 +606,7 @@ END -%]
     CASE 2;  l('High');
 END -%]
 
-[%~ MACRO edit_status_class(edit) BLOCK ~%]
+[%~ MACRO edit_status_class(edit) BLOCK # Converted to React as getEditStatusClass at root/utility/edit.js ~%]
     [%~ IF edit.status == 1 ~%]
         [%- " open" -%]
     [%~ ELSIF edit.status == 2 ~%]
@@ -625,7 +620,7 @@ END -%]
     [%~ END ~%]
 [%~ END ~%]
 
-[%~ MACRO vote_tally(edit) BLOCK -%]
+[%~ MACRO vote_tally(edit) BLOCK # Converted to React at root/edit/components/VoteTally.js -%]
     [%- IF edit.auto_edit; '<strong>' _ l('automatically applied') _ '</strong>';
        ELSE; l('{yes} yes : {no} no',
         { yes => '<strong>' _ edit.yes_votes _ '</strong>',
@@ -633,7 +628,7 @@ END -%]
     END -%]
 [%- END -%]
 
-[%~ MACRO css_class_name(name) BLOCK;
+[%~ MACRO css_class_name(name) BLOCK; # React equivalent is kebabCase at root/static/scripts/common/utility/strings.js
     name | lower | replace('[^a-z]+', '-') | remove('^-|-$');
     END -%]
 

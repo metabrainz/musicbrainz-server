@@ -120,9 +120,11 @@ div.release-events-container {
             min-width: 10em;
 
             li.release-event {
+                display: table-row;
+
                 .release-country {
                     box-sizing: border-box;
-                    display: inline-block;
+                    display: table-cell;
                     width: 4em;
                     /*
                      * Cancel 3px padding of the flag to keep country/date texts
@@ -132,7 +134,7 @@ div.release-events-container {
                 }
 
                 .release-date {
-                    display: inline-block;
+                    display: table-cell;
                     margin-left: 4em;
                 }
 

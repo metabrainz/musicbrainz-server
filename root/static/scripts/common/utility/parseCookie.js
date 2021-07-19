@@ -16,6 +16,7 @@
 
 const {parse} = require('cookie');
 
+// $FlowIgnore[method-unbinding]
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 function parseCookie(

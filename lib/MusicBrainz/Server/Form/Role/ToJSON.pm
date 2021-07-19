@@ -49,7 +49,7 @@ sub TO_JSON {
         if ($self->isa('HTML::FormHandler::Field::Checkbox')) {
             $json->{value} = boolean_to_json($self->value);
         } else {
-            $json->{value} = $self->value;
+            $json->{value} = $self->fif;
         }
     }
 

@@ -81,37 +81,37 @@ const ReleaseEventsDiff = ({
   const oldEventsByCountry = keyBy(oldEvents, getCountryId);
   const newEventsByCountry = keyBy(newEvents, getCountryId);
 
-  const oldKeys = Object.keys(oldEventsByCountry).sort();
-  const newKeys = Object.keys(newEventsByCountry).sort();
+  const oldKeys = Array.from(oldEventsByCountry.keys()).sort();
+  const newKeys = Array.from(newEventsByCountry.keys()).sort();
 
   const oldSide = [];
   const newSide = [];
 
   for (let i = 0; i < oldKeys.length; i++) {
     const key = oldKeys[i];
-    const oldEvent = oldEventsByCountry[key];
-    let newEvent = newEventsByCountry[key];
+    const oldEvent = oldEventsByCountry.get(key);
+    let newEvent = newEventsByCountry.get(key);
     /*
      * If this country was removed, compare against the new entry at
      * the same position visually.
      */
     if (!newEvent && i < newKeys.length) {
-      newEvent = newEventsByCountry[newKeys[i]];
+      newEvent = newEventsByCountry.get(newKeys[i]);
     }
     oldSide.push(changeSide(oldEvent, newEvent, DELETE));
   }
 
   for (let i = 0; i < newKeys.length; i++) {
     const key = newKeys[i];
-    let oldEvent = oldEventsByCountry[key];
+    let oldEvent = oldEventsByCountry.get(key);
     /*
      * If this country was added, compare against the old entry at
      * the same position visually.
      */
     if (!oldEvent && i < oldKeys.length) {
-      oldEvent = oldEventsByCountry[oldKeys[i]];
+      oldEvent = oldEventsByCountry.get(oldKeys[i]);
     }
-    const newEvent = newEventsByCountry[key];
+    const newEvent = newEventsByCountry.get(key);
     newSide.push(changeSide(oldEvent, newEvent, INSERT));
   }
 

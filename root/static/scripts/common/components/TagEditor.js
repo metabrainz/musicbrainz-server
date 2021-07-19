@@ -554,7 +554,7 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
                 </p>
               )}
               <p>
-                <a href="#" onClick={this.showAllTags.bind(this)}>
+                <a href="#" onClick={(event) => this.showAllTags(event)}>
                   {l('Show all tags.')}
                 </a>
               </p>
@@ -568,7 +568,10 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
               </p>
               {this.props.$c.user?.has_confirmed_email_address ? (
                 <p>
-                  <a href="#" onClick={this.hideNegativeTags.bind(this)}>
+                  <a
+                    href="#"
+                    onClick={(event) => this.hideNegativeTags(event)}
+                  >
                     {l(
                       `Hide tags with a score of zero or below,
                        and tags that you’ve downvoted.`,
@@ -577,7 +580,10 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
                 </p>
               ) : (
                 <p>
-                  <a href="#" onClick={this.hideNegativeTags.bind(this)}>
+                  <a
+                    href="#"
+                    onClick={(event) => this.hideNegativeTags(event)}
+                  >
                     {l('Hide tags with a score of zero or below.')}
                   </a>
                 </p>
@@ -679,7 +685,7 @@ function createInitialTagState(
   const used = new Set();
 
   const combined = aggregatedTags.map(function (t) {
-    const userTag = userTagsByName[t.tag.name];
+    const userTag = userTagsByName.get(t.tag.name);
 
     used.add(t.tag.name);
 
@@ -691,8 +697,7 @@ function createInitialTagState(
   });
 
   // Always show upvoted user tags (affects sidebar)
-  for (const tagName of Object.keys(userTagsByName)) {
-    const tag = userTagsByName[tagName];
+  for (const [tagName, tag] of userTagsByName) {
     if (tag.vote > 0 && !used.has(tagName)) {
       combined.push(tag);
     }

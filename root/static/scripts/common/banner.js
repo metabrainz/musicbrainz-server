@@ -10,13 +10,18 @@ import $ from 'jquery';
 
 import setCookie from './utility/setCookie';
 
+function isOneDayBanner(bannerName) {
+  return bannerName === 'birthday_message' ||
+         bannerName === 'anniversary_message';
+}
+
 $(function () {
   $('.dismiss-banner').on('click', function () {
     const bannerName = $(this).parent().remove()
       .end()
       .data('banner-name');
 
-    if (bannerName === 'birthday_message') {
+    if (isOneDayBanner(bannerName)) {
       const oneDayFromNow = new Date(Date.now() + (1000 * 60 * 60 * 24));
       setCookie(
         bannerName + '_dismissed_mtime',

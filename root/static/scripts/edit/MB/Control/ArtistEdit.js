@@ -98,7 +98,7 @@ MB.Control.ArtistEdit = function () {
   self.$type.bind('change.mb', self.typeChanged);
 
   MB.Control.RangeSelect(
-    '#artist-credit-renamer span.rename-artist-credit input[type="checkbox"]',
+    '#artist-credit-renamer input[type="checkbox"]',
   );
 
   MB.Control.initializeGuessCase('artist', 'id-edit-artist');

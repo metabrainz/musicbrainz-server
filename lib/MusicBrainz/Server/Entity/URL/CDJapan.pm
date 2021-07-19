@@ -9,7 +9,7 @@ override href_url => sub {
     shift->url->as_string =~ s{^http:}{https:}r;
 };
 
-sub sidebar_name { 'CD Japan' }
+sub sidebar_name { 'CDJapan' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

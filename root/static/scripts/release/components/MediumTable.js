@@ -85,8 +85,8 @@ const MediumTable = (React.memo<PropsT>(({
     React.useState(false);
 
   const showArtists = React.useMemo(
-    () => mediumHasMultipleArtists(release, medium),
-    [release, medium],
+    () => mediumHasMultipleArtists(release, tracks),
+    [release, tracks],
   );
 
   const loadedTrackCount = (tracks?.length) ?? 0;
@@ -297,6 +297,7 @@ const MediumTable = (React.memo<PropsT>(({
               )}
               {' '}
               <a
+                className="load-tracks"
                 href="#"
                 onClick={(event) => {
                   event.preventDefault();
@@ -311,8 +312,13 @@ const MediumTable = (React.memo<PropsT>(({
 
         {loadingMessage ? (
           <tr>
-            <td colSpan={columnCount} style={{padding: '1em'}}>
-              {loadingMessage}
+            <td
+              colSpan={columnCount}
+              style={{padding: '1em'}}
+            >
+              <div className="loading-message">
+                {loadingMessage}
+              </div>
             </td>
           </tr>
         ) : null}

@@ -62,14 +62,17 @@ INSERT INTO release (id, gid, name, artist_credit, release_group) VALUES (5, '53
 
 -- test merge strategies
 INSERT INTO release_group (id, gid, name, artist_credit)
-    VALUES (100, '7a14d050-759c-41c0-b7a0-71424d1b177a', 'Pregap?', 1);
+    VALUES (100, '7a14d050-759c-41c0-b7a0-71424d1b177a', 'Pregap?', 1),
+           (101, '3a14d050-759c-41c0-b7a0-71424d1b177a', 'Empty Medium Merge', 2);
 INSERT INTO release (id, gid, name, release_group, artist_credit)
     VALUES (6, '7a906020-72db-11de-8a39-0800200c9a70', 'The Prologue (disc 1)', 1, 1),
            (7, '7a906020-72db-11de-8a39-0800200c9a71', 'The Prologue (disc 2)', 1, 1),
            (8, '7a906020-72db-11de-8a39-0800200c9a72', 'Subversion EP (disc 1)', 1, 1),
            (9, '7a906020-72db-11de-8a39-0800200c9a73', 'Subversion EP (disc 2)', 1, 1),
            (100, '6b89a7f7-ac01-4b57-ab0a-381b10523b34', 'Pregap', 100, 1),
-           (110, '94a44113-f3e7-4bf1-8d68-0d71922ac346', 'No pregap', 100, 1);
+           (110, '94a44113-f3e7-4bf1-8d68-0d71922ac346', 'No pregap', 100, 1),
+           (101, '3b89a7f7-ac01-4b57-ab0a-381b10523b34', 'One Empty Medium', 101, 2),
+           (111, '34a44113-f3e7-4bf1-8d68-0d71922ac346', 'No Empty Mediums', 101, 2);
 INSERT INTO recording (id, gid, name, artist_credit)
     VALUES (2, '50a772b0-f0cc-11df-98cf-0800200c9a66', 'Track on recording', 1),
            (3, '5d9cb570-f0cc-11df-98cf-0800200c9a66', 'Track on recording', 1),
@@ -78,14 +81,19 @@ INSERT INTO recording (id, gid, name, artist_credit)
 INSERT INTO medium (id, release, track_count, position)
     VALUES (2, 6, 0, 1), (3, 7, 0, 1),
            (4, 8, 0, 1), (5, 9, 0, 1),
-           (60, 100, 1, 1), (70, 110, 1, 1);
+           (60, 100, 0, 1), (70, 110, 0, 1),
+           (80, 101, 0, 1), (81, 101, 0, 2),
+           (90, 111, 0, 1), (91, 111, 0, 2);
 INSERT INTO track (id, gid, name, artist_credit, medium, position, number, recording)
     VALUES (2, 'd6de1f70-4a29-4cce-a35b-aa2b56265583', 'Track on recording', 1, 2, 1, 1, 2),
            (3, '929e5fb9-cfe7-4764-b3f6-80e056f0c1da', 'Track on recording', 1, 3, 1, 1, 3),
            (4, '7e489434-e293-44e9-9254-8dec56a0c0c6', 'Track on recording', 1, 4, 1, 1, 4),
            (5, 'a833f5c7-dd13-40ba-bb5b-dc4e35d2bb90', 'Track on recording', 1, 5, 1, 1, 5),
            (60, 'fb6e4cd4-fa17-434f-b6ce-d1622e6f3b82', 'Pregap', 1, 60, 0, '', 2),
-           (70, '0f4846f2-f96b-4fc3-b979-5fce32f193e5', 'Not pregap', 1, 70, 1, '1', 2);
+           (70, '0f4846f2-f96b-4fc3-b979-5fce32f193e5', 'Not pregap', 1, 70, 1, '1', 2),
+           (81, 'ab6e4cd4-fa17-434f-b6ce-d1622e6f3b82', 'A Track', 2, 81, 1, '1', 2),
+           (90, 'bb6e4cd4-fa17-434f-b6ce-d1622e6f3b82', 'A Track', 2, 90, 1, '1', 2),
+           (91, 'cb6e4cd4-fa17-434f-b6ce-d1622e6f3b82', 'Another Track', 2, 91, 1, '1', 2);
 
 -- Test for searching by track artist
 INSERT INTO artist_credit (id, name, artist_count) VALUES (3, 'Various Artists', 2);

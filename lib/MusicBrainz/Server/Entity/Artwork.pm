@@ -89,7 +89,7 @@ sub _ia_url_prefix {
 
     my $download_prefix = DBDefs->COVER_ART_ARCHIVE_IA_DOWNLOAD_PREFIX;
     unless ($download_prefix) {
-        $suffix =~ s/_thumb([0-9]+)\.jpg/-\1.jpg/;
+        $suffix =~ s/_thumb([0-9]+)\.jpg/-$1.jpg/;
         return $self->_url_prefix($suffix);
     }
 

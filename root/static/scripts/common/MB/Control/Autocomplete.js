@@ -763,7 +763,7 @@ MB.Control.autocomplete_formatters = {
     if (item.labels) {
       for (
         const [name, releaseLabels] of
-        Object.entries(groupBy(item.labels, getLabelName))
+        groupBy(item.labels, getLabelName)
       ) {
         const catalogNumbers =
           compactMap(releaseLabels, getCatalogNumber)

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-05-14 20:46+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2021-07-11 07:51+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -507,7 +507,7 @@ msgid "TRM collisions"
 msgstr "TRM-i kokkupõrked"
 
 #: DB:statistics.statistic_event/title:2007-10-17
-#: ../root/statistics/stats.js:627
+#: ../root/statistics/stats.js:633
 msgid "Tags"
 msgstr "Sildid"
 
@@ -671,14 +671,14 @@ msgid "Draw a rectangle on either graph"
 msgstr "Joonista ristkülik emmal-kummal graafikul"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:98
-#: ../root/statistics/Editors.js:109 ../root/statistics/Index.js:909
+#: ../root/statistics/Editors.js:109 ../root/statistics/Index.js:924
 #: ../root/statistics/StatisticsLayout.js:81
 msgid "Editors"
 msgstr "Toimetajad"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:36
 #: ../root/statistics/Edits.js:40 ../root/statistics/Edits.js:49
-#: ../root/statistics/Index.js:1033 ../root/statistics/StatisticsLayout.js:71
+#: ../root/statistics/Index.js:1048 ../root/statistics/StatisticsLayout.js:71
 #: ../root/statistics/stats.js:184
 msgid "Edits"
 msgstr "Toimetused"
@@ -774,12 +774,12 @@ msgstr "Artistid"
 #: ../root/statistics/Countries.js:57 ../root/statistics/CoverArt.js:105
 #: ../root/statistics/Formats.js:56 ../root/statistics/Index.js:359
 #: ../root/statistics/LanguagesScripts.js:71
-#: ../root/statistics/LanguagesScripts.js:152 ../root/statistics/stats.js:537
+#: ../root/statistics/LanguagesScripts.js:152 ../root/statistics/stats.js:543
 msgid "Releases"
 msgstr "Väljalasked"
 
-#: ../root/statistics/Countries.js:61 ../root/statistics/Index.js:684
-#: ../root/statistics/Index.js:691 ../root/statistics/stats.js:375
+#: ../root/statistics/Countries.js:61 ../root/statistics/Index.js:694
+#: ../root/statistics/Index.js:701 ../root/statistics/stats.js:375
 msgid "Labels"
 msgstr "Plaadifirmad"
 
@@ -789,7 +789,7 @@ msgid "Total"
 msgstr "Kokku"
 
 #: ../root/statistics/Countries.js:87 ../root/statistics/stats.js:57
-#: ../root/statistics/stats.js:381 ../root/statistics/stats.js:543
+#: ../root/statistics/stats.js:381 ../root/statistics/stats.js:549
 msgid "Unknown Country"
 msgstr "[riik määramata]"
 
@@ -996,8 +996,8 @@ msgstr "Radu:"
 msgid "Labels:"
 msgstr "Plaadifirmasid:"
 
-#: ../root/statistics/Index.js:120 ../root/statistics/Index.js:719
-#: ../root/statistics/Index.js:746
+#: ../root/statistics/Index.js:120 ../root/statistics/Index.js:729
+#: ../root/statistics/Index.js:761
 msgid "Works:"
 msgstr "Teoseid:"
 
@@ -1005,24 +1005,24 @@ msgstr "Teoseid:"
 msgid "URLs:"
 msgstr "URL-e:"
 
-#: ../root/statistics/Index.js:128 ../root/statistics/Index.js:776
+#: ../root/statistics/Index.js:128 ../root/statistics/Index.js:791
 msgid "Areas:"
 msgstr "Piirkondi:"
 
-#: ../root/statistics/Index.js:132 ../root/statistics/Index.js:804
+#: ../root/statistics/Index.js:132 ../root/statistics/Index.js:819
 msgid "Places:"
 msgstr "Kohti:"
 
-#: ../root/statistics/Index.js:136 ../root/statistics/Index.js:832
+#: ../root/statistics/Index.js:136 ../root/statistics/Index.js:847
 msgctxt "plural"
 msgid "Series:"
 msgstr "Seeriaid:"
 
-#: ../root/statistics/Index.js:140 ../root/statistics/Index.js:854
+#: ../root/statistics/Index.js:140 ../root/statistics/Index.js:869
 msgid "Instruments:"
 msgstr "Instrumente:"
 
-#: ../root/statistics/Index.js:144 ../root/statistics/Index.js:884
+#: ../root/statistics/Index.js:144 ../root/statistics/Index.js:899
 msgid "Events:"
 msgstr "Sündmusi:"
 
@@ -1248,7 +1248,7 @@ msgstr "Ilma plaadi-ID-ta helikandjaid:"
 msgid "Mediums with at least one disc ID:"
 msgstr "Vähemalt ühe plaadi-ID-ga helikandjaid:"
 
-#: ../root/statistics/Index.js:607 ../root/statistics/stats.js:615
+#: ../root/statistics/Index.js:607 ../root/statistics/stats.js:621
 msgid "Release Groups"
 msgstr "Väljalaskerühmad"
 
@@ -1269,182 +1269,195 @@ msgstr "Salvestised"
 msgid "Videos:"
 msgstr "Videoid:"
 
-#: ../root/statistics/Index.js:688 ../root/statistics/Index.js:716
-#: ../root/statistics/Index.js:773 ../root/statistics/Index.js:801
-#: ../root/statistics/Index.js:829 ../root/statistics/Index.js:851
-#: ../root/statistics/Index.js:881
+#: ../root/statistics/Index.js:682
+msgctxt "recording"
+msgid "Standalone"
+msgstr ""
+
+#: ../root/statistics/Index.js:687
+msgid "With ISRCs"
+msgstr ""
+
+#: ../root/statistics/Index.js:698 ../root/statistics/Index.js:726
+#: ../root/statistics/Index.js:788 ../root/statistics/Index.js:816
+#: ../root/statistics/Index.js:844 ../root/statistics/Index.js:866
+#: ../root/statistics/Index.js:896
 msgid "Types"
 msgstr "Tüübid"
 
-#: ../root/statistics/Index.js:705 ../root/statistics/Index.js:733
-#: ../root/statistics/Index.js:762 ../root/statistics/Index.js:790
-#: ../root/statistics/Index.js:818 ../root/statistics/Index.js:870
-#: ../root/statistics/Index.js:898
+#: ../root/statistics/Index.js:715 ../root/statistics/Index.js:743
+#: ../root/statistics/Index.js:777 ../root/statistics/Index.js:805
+#: ../root/statistics/Index.js:833 ../root/statistics/Index.js:885
+#: ../root/statistics/Index.js:913
 msgid "None"
 msgstr "[määramata]"
 
-#: ../root/statistics/Index.js:712 ../root/statistics/LanguagesScripts.js:75
-#: ../root/statistics/stats.js:737
+#: ../root/statistics/Index.js:722 ../root/statistics/LanguagesScripts.js:75
+#: ../root/statistics/stats.js:743
 msgid "Works"
 msgstr "Teosed"
 
-#: ../root/statistics/Index.js:743
+#: ../root/statistics/Index.js:748
+msgid "With ISWCs"
+msgstr ""
+
+#: ../root/statistics/Index.js:758
 msgid "Attributes"
 msgstr "Atribuudid"
 
-#: ../root/statistics/Index.js:769 ../root/statistics/stats.js:39
+#: ../root/statistics/Index.js:784 ../root/statistics/stats.js:39
 msgid "Areas"
 msgstr "Piirkonnad"
 
-#: ../root/statistics/Index.js:797 ../root/statistics/stats.js:405
+#: ../root/statistics/Index.js:812 ../root/statistics/stats.js:405
 msgid "Places"
 msgstr "Kohad"
 
-#: ../root/statistics/Index.js:825 ../root/statistics/stats.js:621
+#: ../root/statistics/Index.js:840 ../root/statistics/stats.js:627
 msgctxt "plural"
 msgid "Series"
 msgstr "Seeriad"
 
-#: ../root/statistics/Index.js:847 ../root/statistics/stats.js:309
+#: ../root/statistics/Index.js:862 ../root/statistics/stats.js:309
 msgid "Instruments"
 msgstr "Instrumendid"
 
-#: ../root/statistics/Index.js:877 ../root/statistics/stats.js:303
+#: ../root/statistics/Index.js:892 ../root/statistics/stats.js:303
 msgid "Events"
 msgstr "Sündmused"
 
-#: ../root/statistics/Index.js:905
+#: ../root/statistics/Index.js:920
 msgid "Editors, Edits, and Votes"
 msgstr "Toimetajad, toimetamised ja hääled"
 
-#: ../root/statistics/Index.js:912
+#: ../root/statistics/Index.js:927
 msgid "Editors (valid):"
 msgstr "Toimetajaid (kehtiva kontoga):"
 
-#: ../root/statistics/Index.js:918
+#: ../root/statistics/Index.js:933
 msgid "active ever:"
 msgstr "Kordki aktiivseid:"
 
-#: ../root/statistics/Index.js:926
+#: ../root/statistics/Index.js:941
 msgid "who edited and/or voted in the last 7 days:"
 msgstr "Toimetanud ja/või hääletanud viimase 7 päeva jooksul:"
 
-#: ../root/statistics/Index.js:935
+#: ../root/statistics/Index.js:950
 msgid "who edited in the last 7 days:"
 msgstr "Toimetanud viimase 7 päeva jooksul:"
 
-#: ../root/statistics/Index.js:943
+#: ../root/statistics/Index.js:958
 msgid "who voted in the last 7 days:"
 msgstr "Hääletanud viimase 7 päeva jooksul:"
 
-#: ../root/statistics/Index.js:950
+#: ../root/statistics/Index.js:965
 msgid "who edit:"
 msgstr "Toimetanud:"
 
-#: ../root/statistics/Index.js:957
+#: ../root/statistics/Index.js:972
 msgid "who vote:"
 msgstr "Hääletanud:"
 
-#: ../root/statistics/Index.js:964
+#: ../root/statistics/Index.js:979
 msgid "who leave edit notes:"
 msgstr "Toimetusmärkmeid jätnud:"
 
-#: ../root/statistics/Index.js:971
+#: ../root/statistics/Index.js:986
 msgid "who use tags:"
 msgstr "Silte kasutanud:"
 
-#: ../root/statistics/Index.js:978
+#: ../root/statistics/Index.js:993
 msgid "who use ratings:"
 msgstr "Hindeid kasutanud:"
 
-#: ../root/statistics/Index.js:987
+#: ../root/statistics/Index.js:1002
 msgid "who use subscriptions:"
 msgstr "Jälgimisfunktsioone kasutanud:"
 
-#: ../root/statistics/Index.js:996
+#: ../root/statistics/Index.js:1011
 msgid "who use collections:"
 msgstr "Kogusid kasutanud:"
 
-#: ../root/statistics/Index.js:1006
+#: ../root/statistics/Index.js:1021
 msgid "who have registered applications:"
 msgstr "Rakendusi registreerinud:"
 
-#: ../root/statistics/Index.js:1015
+#: ../root/statistics/Index.js:1030
 msgid "validated email only:"
 msgstr "Üksnes kinnitatud e-postiga:"
 
-#: ../root/statistics/Index.js:1021
+#: ../root/statistics/Index.js:1036
 msgid "inactive:"
 msgstr "Passiivseid:"
 
-#: ../root/statistics/Index.js:1026
+#: ../root/statistics/Index.js:1041
 msgid "Editors (deleted):"
 msgstr "Toimetajad (kustutatud kontoga):"
 
-#: ../root/statistics/Index.js:1036 ../root/statistics/Index.js:1083
+#: ../root/statistics/Index.js:1051 ../root/statistics/Index.js:1098
 msgid "Edits:"
 msgstr "Toimetusi:"
 
-#: ../root/statistics/Index.js:1042
+#: ../root/statistics/Index.js:1057
 msgid "Open:"
 msgstr "Lahtisi:"
 
-#: ../root/statistics/Index.js:1048
+#: ../root/statistics/Index.js:1063
 msgid "Applied:"
 msgstr "Rakendatud:"
 
-#: ../root/statistics/Index.js:1054
+#: ../root/statistics/Index.js:1069
 msgid "Voted down:"
 msgstr "Mahahääletatud:"
 
-#: ../root/statistics/Index.js:1060
+#: ../root/statistics/Index.js:1075
 msgid "Failed (dependency):"
 msgstr "Nurjunud (sõltuvus):"
 
-#: ../root/statistics/Index.js:1066
+#: ../root/statistics/Index.js:1081
 msgid "Failed (prerequisite):"
 msgstr "Nurjunud (eeltingimus):"
 
-#: ../root/statistics/Index.js:1072
+#: ../root/statistics/Index.js:1087
 msgid "Failed (internal error):"
 msgstr "Nurjunud (sisemine viga):"
 
-#: ../root/statistics/Index.js:1078
+#: ../root/statistics/Index.js:1093
 msgid "Cancelled:"
 msgstr "Tühistatud:"
 
-#: ../root/statistics/Index.js:1089 ../root/statistics/Index.js:1141
+#: ../root/statistics/Index.js:1104 ../root/statistics/Index.js:1156
 msgid "Last 7 days:"
 msgstr "Viimase 7 päeva jooksul:"
 
-#: ../root/statistics/Index.js:1096 ../root/statistics/Index.js:1148
+#: ../root/statistics/Index.js:1111 ../root/statistics/Index.js:1163
 msgid "Yesterday:"
 msgstr "Eile:"
 
-#: ../root/statistics/Index.js:1103 ../root/statistics/stats.js:700
+#: ../root/statistics/Index.js:1118 ../root/statistics/stats.js:706
 msgid "Votes"
 msgstr "Hääled"
 
-#: ../root/statistics/Index.js:1106 ../root/statistics/Index.js:1135
+#: ../root/statistics/Index.js:1121 ../root/statistics/Index.js:1150
 msgid "Votes:"
 msgstr "Hääli:"
 
-#: ../root/statistics/Index.js:1112
+#: ../root/statistics/Index.js:1127
 msgctxt "vote"
 msgid "Approve"
 msgstr "Heakskiitev"
 
-#: ../root/statistics/Index.js:1118
+#: ../root/statistics/Index.js:1133
 msgctxt "vote"
 msgid "Yes"
 msgstr "Jah"
 
-#: ../root/statistics/Index.js:1124
+#: ../root/statistics/Index.js:1139
 msgctxt "vote"
 msgid "No"
 msgstr "Ei"
 
-#: ../root/statistics/Index.js:1130
+#: ../root/statistics/Index.js:1145
 msgctxt "vote"
 msgid "Abstain"
 msgstr "Erapooletu"
@@ -2142,303 +2155,319 @@ msgid "Recordings with ISRCs"
 msgstr "ISRC-dega salvestised"
 
 #: ../root/statistics/stats.js:536
-msgid "Count of all releases"
+msgid "Count of all standalone recordings"
+msgstr ""
+
+#: ../root/statistics/stats.js:537
+msgid "Standalone recordings"
 msgstr ""
 
 #: ../root/statistics/stats.js:542
+msgid "Count of all releases"
+msgstr ""
+
+#: ../root/statistics/stats.js:548
 msgid "Releases with no country set"
 msgstr ""
 
-#: ../root/statistics/stats.js:548 ../root/statistics/stats.js:549
-#: ../root/statistics/stats.js:566
+#: ../root/statistics/stats.js:554 ../root/statistics/stats.js:555
+#: ../root/statistics/stats.js:572
 msgid "Releases with Amazon Cover Art"
 msgstr "Amazoni kaanepiltidega väljalasked"
 
-#: ../root/statistics/stats.js:554 ../root/statistics/stats.js:555
+#: ../root/statistics/stats.js:560 ../root/statistics/stats.js:561
 msgid "Releases with CAA Cover Art"
 msgstr "CAA aaanepiltidega väljalasked"
 
-#: ../root/statistics/stats.js:560 ../root/statistics/stats.js:561
+#: ../root/statistics/stats.js:566 ../root/statistics/stats.js:567
 msgid "Releases with No Cover Art"
 msgstr "Ilma kaanepildita väljalasked"
 
-#: ../root/statistics/stats.js:567
+#: ../root/statistics/stats.js:573
 msgid "Releases with Cover Art from Relationships"
 msgstr "Seostest pärit kaanepiltidega väljalasked"
 
-#: ../root/statistics/stats.js:572
+#: ../root/statistics/stats.js:578
 msgid "Releases with a no-format medium"
 msgstr ""
 
-#: ../root/statistics/stats.js:573
+#: ../root/statistics/stats.js:579
 msgid "Unknown Format (release)"
 msgstr ""
 
-#: ../root/statistics/stats.js:578 ../root/statistics/stats.js:579
+#: ../root/statistics/stats.js:584 ../root/statistics/stats.js:585
 msgid "Releases with Cover Art"
 msgstr "Kaanepildiga väljalasked"
 
-#: ../root/statistics/stats.js:584
+#: ../root/statistics/stats.js:590
 msgid "Count of all Releases with Disc IDs"
 msgstr ""
 
-#: ../root/statistics/stats.js:585
+#: ../root/statistics/stats.js:591
 msgid "Releases with Disc IDs"
 msgstr ""
 
-#: ../root/statistics/stats.js:590
+#: ../root/statistics/stats.js:596
 msgid "Releases with no language set"
 msgstr ""
 
-#: ../root/statistics/stats.js:591
+#: ../root/statistics/stats.js:597
 msgid "Unknown Language"
 msgstr ""
 
-#: ../root/statistics/stats.js:596
+#: ../root/statistics/stats.js:602
 msgid "Count of all Releases not V.A."
 msgstr ""
 
-#: ../root/statistics/stats.js:597
+#: ../root/statistics/stats.js:603
 msgid "Releases not VA"
 msgstr ""
 
-#: ../root/statistics/stats.js:602
+#: ../root/statistics/stats.js:608
 msgid "Releases with no script set"
 msgstr ""
 
-#: ../root/statistics/stats.js:603
+#: ../root/statistics/stats.js:609
 msgid "Unknown Script"
 msgstr ""
 
-#: ../root/statistics/stats.js:608
+#: ../root/statistics/stats.js:614
 msgid "Count of all Releases by Various Artists"
 msgstr ""
 
-#: ../root/statistics/stats.js:609
+#: ../root/statistics/stats.js:615
 msgid "Releases (VA)"
 msgstr ""
 
-#: ../root/statistics/stats.js:614
+#: ../root/statistics/stats.js:620
 msgid "Count of all release groups"
 msgstr ""
 
-#: ../root/statistics/stats.js:620
+#: ../root/statistics/stats.js:626
 msgid "Count of all series"
 msgstr ""
 
-#: ../root/statistics/stats.js:626
+#: ../root/statistics/stats.js:632
 msgid "Count of all Tags"
 msgstr ""
 
-#: ../root/statistics/stats.js:632
+#: ../root/statistics/stats.js:638
 msgid "Count of all Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:633
+#: ../root/statistics/stats.js:639
 msgid "Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:638
+#: ../root/statistics/stats.js:644
 msgid "Count of all Area Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:639
+#: ../root/statistics/stats.js:645
 msgid "Area Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:644
+#: ../root/statistics/stats.js:650
 msgid "Count of all Artist Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:645
+#: ../root/statistics/stats.js:651
 msgid "Artist Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:650
+#: ../root/statistics/stats.js:656
 msgid "Count of all Instrument Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:651
+#: ../root/statistics/stats.js:657
 msgid "Instrument Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:656
+#: ../root/statistics/stats.js:662
 msgid "Count of all Label Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:657
+#: ../root/statistics/stats.js:663
 msgid "Label Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:662
+#: ../root/statistics/stats.js:668
 msgid "Count of all Recording Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:663
+#: ../root/statistics/stats.js:669
 msgid "Recording Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:668
+#: ../root/statistics/stats.js:674
 msgid "Count of all Release Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:669
+#: ../root/statistics/stats.js:675
 msgid "Release Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:674
+#: ../root/statistics/stats.js:680
 msgid "Count of all Release Group Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:675
+#: ../root/statistics/stats.js:681
 msgid "Release Group Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:680
+#: ../root/statistics/stats.js:686
 msgid "Count of all Series Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:681
+#: ../root/statistics/stats.js:687
 msgid "Series Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:686
+#: ../root/statistics/stats.js:692
 msgid "Count of all Work Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:687
+#: ../root/statistics/stats.js:693
 msgid "Work Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:692
+#: ../root/statistics/stats.js:698
 msgid "Count of all Tracks"
 msgstr ""
 
-#: ../root/statistics/stats.js:693
+#: ../root/statistics/stats.js:699
 msgid "Tracks"
 msgstr "Rajad"
 
-#: ../root/statistics/stats.js:698
+#: ../root/statistics/stats.js:704
 msgid "Count of all votes"
 msgstr ""
 
-#: ../root/statistics/stats.js:705
+#: ../root/statistics/stats.js:711
 msgid "Count of all Abstain votes"
 msgstr ""
 
-#: ../root/statistics/stats.js:706
+#: ../root/statistics/stats.js:712
 msgid "Abstentions"
 msgstr "Erapooletuksjäämised"
 
-#: ../root/statistics/stats.js:711
+#: ../root/statistics/stats.js:717
 msgid "Count of all No votes"
 msgstr ""
 
-#: ../root/statistics/stats.js:712
+#: ../root/statistics/stats.js:718
 msgid "No Votes"
 msgstr ""
 
-#: ../root/statistics/stats.js:717
+#: ../root/statistics/stats.js:723
 msgid "Count of votes per day"
 msgstr ""
 
-#: ../root/statistics/stats.js:719
+#: ../root/statistics/stats.js:725
 msgid "Votes per day"
 msgstr "Hääli päevas"
 
-#: ../root/statistics/stats.js:724
+#: ../root/statistics/stats.js:730
 msgid "Count of votes per week"
 msgstr ""
 
-#: ../root/statistics/stats.js:725
+#: ../root/statistics/stats.js:731
 msgid "Votes per week"
 msgstr "Hääli nädalas"
 
-#: ../root/statistics/stats.js:730
+#: ../root/statistics/stats.js:736
 msgid "Count of all Yes votes"
 msgstr ""
 
-#: ../root/statistics/stats.js:731
+#: ../root/statistics/stats.js:737
 msgid "Yes Votes"
 msgstr ""
 
-#: ../root/statistics/stats.js:736
+#: ../root/statistics/stats.js:742
 msgid "Count of all works"
 msgstr ""
 
-#: ../root/statistics/stats.js:739
+#: ../root/statistics/stats.js:748
+msgid "Count of all Works with ISWCs"
+msgstr ""
+
+#: ../root/statistics/stats.js:749
+msgid "Works with ISWCs"
+msgstr ""
+
+#: ../root/statistics/stats.js:751
 msgid "/day"
 msgstr "/päev"
 
-#: ../root/statistics/stats.js:748
+#: ../root/statistics/stats.js:760
 msgid "Count of all Releases with {n} Disc IDs"
 msgstr ""
 
-#: ../root/statistics/stats.js:750
+#: ../root/statistics/stats.js:762
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/stats.js:760
+#: ../root/statistics/stats.js:772
 msgid "Count of all Mediums with {n} Disc IDs"
 msgstr ""
 
-#: ../root/statistics/stats.js:762
+#: ../root/statistics/stats.js:774
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
 msgstr[0] "1 plaadi-ID-ga helikandjad"
 msgstr[1] "{n} plaadi-ID-ga helikandjad"
 
-#: ../root/statistics/stats.js:772
+#: ../root/statistics/stats.js:784
 msgid "Count of all Recordings with {n} Releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:774
+#: ../root/statistics/stats.js:786
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
 msgstr[0] "Salvestised 1 väljalaskel"
 msgstr[1] "Salvestised {n} väljalaskel"
 
-#: ../root/statistics/stats.js:784
+#: ../root/statistics/stats.js:796
 msgid "Count of all Release Groups with {n} Releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:786
+#: ../root/statistics/stats.js:798
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
 msgstr[0] "1 väljalaskega väljalaskerühmad"
 msgstr[1] "{n} väljalaskega väljalaskerühmad"
 
-#: ../root/statistics/stats.js:828
+#: ../root/statistics/stats.js:840
 msgid "{country} artists"
 msgstr "{country}: artistid"
 
-#: ../root/statistics/stats.js:835
+#: ../root/statistics/stats.js:847
 msgid "{country} labels"
 msgstr "{country}: plaadifirmad"
 
-#: ../root/statistics/stats.js:842
+#: ../root/statistics/stats.js:854
 msgid "{country} releases"
 msgstr "{country}: väljalasked"
 
-#: ../root/statistics/stats.js:854
+#: ../root/statistics/stats.js:866
 msgid "{name} releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:861
+#: ../root/statistics/stats.js:873
 msgid "{name} mediums"
 msgstr ""
 
-#: ../root/statistics/stats.js:873
+#: ../root/statistics/stats.js:885
 msgid "{language} releases"
 msgstr "{language} keeles väljalasked"
 
-#: ../root/statistics/stats.js:880
+#: ../root/statistics/stats.js:892
 msgid "l_{first}_{second} Relationships"
 msgstr ""
 
-#: ../root/statistics/stats.js:901
+#: ../root/statistics/stats.js:913
 msgid "{script} releases"
 msgstr "{script} kirjas väljalasked"
 

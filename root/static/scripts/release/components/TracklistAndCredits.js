@@ -9,6 +9,8 @@
 
 import * as React from 'react';
 
+import {isIrrelevantLinkType}
+  from '../../../../components/GroupedTrackRelationships';
 import Relationships from '../../../../components/Relationships';
 import StaticRelationshipsDisplay
   from '../../../../components/StaticRelationshipsDisplay';
@@ -152,7 +154,9 @@ function getCombinedTrackRelationships(
           const workRelationships = target.relationships;
           if (workRelationships) {
             for (const workRelationship of workRelationships) {
-              pushRelationship(workRelationship, track);
+              if (!isIrrelevantLinkType(workRelationship)) {
+                pushRelationship(workRelationship, track);
+              }
             }
           }
         }

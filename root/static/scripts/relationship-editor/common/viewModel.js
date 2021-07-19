@@ -56,7 +56,7 @@ RE.exportTypeInfo = function (typeInfo, attrInfo) {
     }
     switch (item.entityType) {
       case 'link_attribute_type':
-        const children = attrChildren[item.id];
+        const children = attrChildren.get(item.id);
         if (children) {
           item.children = children;
         }

@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Report::FeaturingReleases;
 use Moose;
+use utf8;
 
 with 'MusicBrainz::Server::Report::ReleaseReport',
      'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
@@ -14,7 +15,7 @@ sub query {
             JOIN artist_credit ac ON r.artist_credit = ac.id
             JOIN release_meta rm ON r.id = rm.id
         WHERE
-            r.name ~ E' \\\\((duet with|(f|w)/|(f|feat|ft)\\\\.|featuring) '
+            r.name COLLATE musicbrainz ~* E' \\\\((duet with|συμμετέχει|(f|w)/|(f|feat|ｆｅａｔ|ft|συμμ)(\\\\.|．)|(featuring|ｆｅａｔｕｒｉｎｇ)) '
     ";
 }
 

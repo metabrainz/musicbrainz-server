@@ -20,8 +20,8 @@ import {
   defineBeginDateColumn,
   defineEndDateColumn,
   defineInstrumentUsageColumn,
+  defineRatingsColumn,
   defineSeriesNumberColumn,
-  ratingsColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns';
 
@@ -116,6 +116,9 @@ const ArtistList = ({
           instrumentCreditsAndRelTypes: instrumentCreditsAndRelTypes,
         })
         : null;
+      const ratingsColumn = defineRatingsColumn<ArtistT>({
+        getEntity: entity => entity,
+      });
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),

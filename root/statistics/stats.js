@@ -530,6 +530,12 @@ const stats = {
     description: l('Count of all Recordings with ISRCs'),
     label: l('Recordings with ISRCs'),
   },
+  'count.recording.standalone': {
+    category: 'other',
+    color: '#ff0000',
+    description: l('Count of all standalone recordings'),
+    label: l('Standalone recordings'),
+  },
   'count.release': {
     category: 'core-entities',
     color: '#a8ff00',
@@ -735,6 +741,12 @@ const stats = {
     color: '#00ffa8',
     description: l('Count of all works'),
     label: l('Works'),
+  },
+  'count.work.has_iswc': {
+    category: 'other',
+    color: '#ff0000',
+    description: l('Count of all Works with ISWCs'),
+    label: l('Works with ISWCs'),
   },
   'rateTooltipCloser': l('/day'),
 };
