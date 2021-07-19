@@ -1154,6 +1154,7 @@ msgid "cuatro"
 msgstr ""
 
 #: DB:instrument/name:491
+msgctxt "Brazilian friction-drum"
 msgid "cuíca"
 msgstr ""
 

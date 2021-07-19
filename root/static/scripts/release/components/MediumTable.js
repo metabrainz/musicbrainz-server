@@ -297,6 +297,7 @@ const MediumTable = (React.memo<PropsT>(({
               )}
               {' '}
               <a
+                className="load-tracks"
                 href="#"
                 onClick={(event) => {
                   event.preventDefault();
@@ -312,11 +313,12 @@ const MediumTable = (React.memo<PropsT>(({
         {loadingMessage ? (
           <tr>
             <td
-              className="loading-message"
               colSpan={columnCount}
               style={{padding: '1em'}}
             >
-              {loadingMessage}
+              <div className="loading-message">
+                {loadingMessage}
+              </div>
             </td>
           </tr>
         ) : null}
