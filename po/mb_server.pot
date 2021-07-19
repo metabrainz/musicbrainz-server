@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-11 02:49-0500\n"
+"POT-Creation-Date: 2021-07-19 20:27+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14858,7 +14858,7 @@ msgid ""
 "{loaded_track_count} out of {total_track_count} total."
 msgstr ""
 
-#: ../root/static/scripts/release/components/MediumTable.js:306
+#: ../root/static/scripts/release/components/MediumTable.js:307
 msgid "Load all tracks..."
 msgstr ""
 

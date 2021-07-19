@@ -2058,6 +2058,13 @@ msgid ""
 "strings, but is made of wood."
 msgstr ""
 
+#. name:cuíca 
+#: DB:instrument/description:491
+msgid ""
+"Originating in Africa, it is used in carnivals and samba music. Consisting "
+"of a wooden or metal barrel, its single membrane has a tuning-stick attached."
+msgstr ""
+
 #. name:çevgen 
 #: DB:instrument/description:740
 msgid ""
@@ -3024,11 +3031,6 @@ msgstr ""
 msgid ""
 "The cornamuse is a double reed instrument from the Renaissance, similar to "
 "the crumhorn but with a closed bell."
-msgstr ""
-
-#. name:cuíca 
-#: DB:instrument/description:491
-msgid "The cuíca is a Brazilian friction drum often used in samba music."
 msgstr ""
 
 #. name:cò ke 
