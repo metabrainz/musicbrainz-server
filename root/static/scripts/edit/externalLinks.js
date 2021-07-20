@@ -31,11 +31,13 @@ import {isMalware} from '../../../url/utility/isGreyedOut';
 import isPositiveInteger from './utility/isPositiveInteger';
 import HelpIcon from './components/HelpIcon';
 import RemoveButton from './components/RemoveButton';
+import URLInputPopover from './components/URLInputPopover';
 import {linkTypeOptions} from './forms';
 import * as URLCleanup from './URLCleanup';
 import validation from './validation';
 
-type LinkStateT = {
+export type LinkStateT = {
+  rawUrl: string,
   // New relationships will use a unique string ID like "new-1".
   relationship: StrOrNum | null,
   type: number | null,
@@ -74,11 +76,20 @@ export class ExternalLinksEditor
   ) {
     const newLinks: Array<LinkStateT> = this.state.links.concat();
     newLinks[index] = Object.assign({}, newLinks[index], state);
-    this.setState({links: withOneEmptyLink(newLinks, index)}, callback);
+    this.setState({links: newLinks}, callback);
+  }
+
+  appendEmptyLink() {
+    this.setState({
+      links: this.state.links.concat(
+        newLinkState({relationship: uniqueId('new-')}),
+      ),
+    });
   }
 
   handleUrlChange(index: number, event: SyntheticEvent<HTMLInputElement>) {
-    let url = event.currentTarget.value;
+    const rawUrl = event.currentTarget.value;
+    let url = rawUrl;
     const link = this.state.links[index];
 
     // Allow adding spaces while typing, they'll be trimmed on blur
@@ -89,7 +100,7 @@ export class ExternalLinksEditor
       url = URLCleanup.cleanURL(url) || url;
     }
 
-    this.setLinkState(index, {url: url}, () => {
+    this.setLinkState(index, {url: url, rawUrl: rawUrl}, () => {
       if (!link.type) {
         const type = URLCleanup.guessType(this.props.sourceType, url);
 
@@ -100,7 +111,10 @@ export class ExternalLinksEditor
     });
   }
 
-  handleUrlBlur(index: number, event: SyntheticEvent<HTMLInputElement>) {
+  handleUrlBlur(
+    index: number,
+    event: SyntheticEvent<HTMLInputElement>,
+  ) {
     const url = event.currentTarget.value;
     const trimmed = url.trim();
     const unicodeUrl = getUnicodeUrl(trimmed);
@@ -108,10 +122,29 @@ export class ExternalLinksEditor
     if (url !== unicodeUrl) {
       this.setLinkState(index, {url: unicodeUrl});
     }
+    // Don't add link to list if it's empty
+    if (url !== '') {
+      this.appendEmptyLink();
+    }
+  }
+
+  handlePressEnter(event: SyntheticKeyboardEvent<HTMLInputElement>) {
+    const url = event.currentTarget.value;
+    // Don't add link to list if it's empty
+    if (url !== '') {
+      this.appendEmptyLink();
+    }
   }
 
   handleTypeChange(index: number, event: SyntheticEvent<HTMLSelectElement>) {
-    this.setLinkState(index, {type: +event.currentTarget.value || null});
+    const type = +event.currentTarget.value || null;
+    this.setLinkState(index, {type}, () => {
+      const link = this.state.links[index];
+      const isLastLink = index === this.state.links.length - 1;
+      if (isLastLink && link.url && type) {
+        this.appendEmptyLink();
+      }
+    });
   }
 
   handleVideoChange(index: number, event: SyntheticEvent<HTMLInputElement>) {
@@ -222,6 +255,7 @@ export class ExternalLinksEditor
           {linksArray.map((link, index) => {
             let error;
             let errorTarget: ErrorTarget = URLCleanup.ERROR_TARGETS.NONE;
+            const isLastLink = index === linksArray.length - 1;
             const linkType = link.type
               ? linkedEntities.link_type[link.type] : {};
             const checker = URLCleanup.validationRules[linkType.gid];
@@ -301,6 +335,9 @@ export class ExternalLinksEditor
               <ExternalLink
                 errorMessage={error || ''}
                 errorTarget={errorTarget}
+                handlePressEnter={
+                  (event) => this.handlePressEnter(event)
+                }
                 handleUrlBlur={
                   (event) => this.handleUrlBlur(index, event)
                 }
@@ -310,9 +347,14 @@ export class ExternalLinksEditor
                 handleVideoChange={
                   (event) => this.handleVideoChange(index, event)
                 }
+                isLastLink={isLastLink}
                 isOnlyLink={this.state.links.length === 1}
                 key={link.relationship}
+                onCancelEdit={
+                  (state) => this.setLinkState(index, state)
+                }
                 onRemove={() => this.removeLink(index)}
+                rawUrl={link.rawUrl}
                 type={link.type}
                 typeChangeCallback={
                   (event) => this.handleTypeChange(index, event)
@@ -355,17 +397,21 @@ class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
   }
 }
 
-type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
+export type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
 
 type LinkProps = {
-  errorMessage: React.Node,
+  errorMessage: string,
   errorTarget: ErrorTarget,
+  handlePressEnter: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
   handleUrlBlur: (SyntheticEvent<HTMLInputElement>) => void,
   handleUrlChange: (SyntheticEvent<HTMLInputElement>) => void,
   handleVideoChange:
     (SyntheticEvent<HTMLInputElement>) => void,
+  isLastLink: boolean,
   isOnlyLink: boolean,
-  onRemove: (number) => void,
+  onCancelEdit: ($Shape<LinkStateT>) => void,
+  onRemove: () => void,
+  rawUrl: string,
   type: number | null,
   typeChangeCallback: (SyntheticEvent<HTMLSelectElement>) => void,
   typeOptions: Array<React.Element<'option'>>,
@@ -374,9 +420,50 @@ type LinkProps = {
   video: boolean,
 };
 
-export class ExternalLink extends React.Component<LinkProps> {
+type ExternalLinkState = {
+  isPopoverOpen: boolean,
+  originalProps: LinkProps,
+};
+
+export class ExternalLink
+  extends React.Component<LinkProps, ExternalLinkState> {
+  constructor(props: LinkProps) {
+    super(props);
+    this.state = {
+      isPopoverOpen: false,
+      originalProps: props,
+    };
+  }
+
+  handleKeyDown(event: SyntheticKeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.props.handlePressEnter(event);
+    }
+  }
+
+  onTogglePopover(open: boolean) {
+    if (open) {
+      // Backup original link state
+      this.setState({originalProps: this.props});
+    }
+    this.setState({isPopoverOpen: open});
+  }
+
+  handleCancelEdit() {
+    const props = this.state.originalProps;
+    // Restore original link state when cancelled
+    this.props.onCancelEdit({
+      url: props.url,
+      rawUrl: props.rawUrl,
+      type: props.type,
+    });
+  }
+
   render(): React.Element<'tr'> {
-    const props = this.props;
+    // Temporarily hide changes while editing
+    const props =
+      this.state.isPopoverOpen ? this.state.originalProps : this.props;
     const linkType = props.type ? linkedEntities.link_type[props.type] : null;
     let typeDescription = '';
     let faviconClass: string | void;
@@ -387,23 +474,6 @@ export class ExternalLink extends React.Component<LinkProps> {
         description: expand2react(l_relationships(linkType.description)),
         url: '/relationship/' + linkType.gid,
       });
-    }
-
-    if (props.url && !props.errorMessage) {
-      typeDescription = (
-        <>
-          <a
-            href={props.url}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            {props.url}
-          </a>
-          <br />
-          <br />
-          {typeDescription}
-        </>
-      );
     }
 
     const showTypeSelection = props.errorMessage
@@ -448,13 +518,19 @@ export class ExternalLink extends React.Component<LinkProps> {
           }
         </td>
         <td>
-          <input
-            className="value with-button"
-            onBlur={props.handleUrlBlur}
-            onChange={props.handleUrlChange}
-            type="url"
-            value={props.url}
-          />
+          {(props.isLastLink || !props.url) ? (
+            <input
+              className="value with-button"
+              onBlur={props.handleUrlBlur}
+              onChange={props.handleUrlChange}
+              onKeyDown={(event) => this.handleKeyDown(event)}
+              type="url"
+              // Don't interrupt user input with clean URL
+              value={props.rawUrl}
+            />
+          ) : (
+            <a className="url" href={props.url}>{props.url}</a>
+          )}
           {props.errorMessage &&
             <div
               className={`error field-error target-${props.errorTarget}`}
@@ -477,9 +553,27 @@ export class ExternalLink extends React.Component<LinkProps> {
               </label>
             </div>}
         </td>
-        <td style={{minWidth: '34px'}}>
-          {typeDescription && <HelpIcon content={typeDescription} />}
-          {isEmpty(props) ||
+        <td className="link-actions" style={{minWidth: '51px'}}>
+          {typeDescription &&
+            <HelpIcon
+              content={
+                <div style={{textAlign: 'left'}}>
+                  {typeDescription}
+                </div>}
+            />}
+          {// Use current props to preview changes while editing
+            !isEmpty(props) &&
+            <URLInputPopover
+              errorMessage={this.props.errorMessage}
+              errorTarget={this.props.errorTarget}
+              onCancel={() => this.handleCancelEdit()}
+              onChange={this.props.handleUrlChange}
+              onToggle={(open) => this.onTogglePopover(open)}
+              rawUrl={this.props.rawUrl}
+              url={this.props.url}
+            />
+          }
+          {!isEmpty(props) &&
             <RemoveButton
               onClick={props.onRemove}
               title={l('Remove Link')}
@@ -491,6 +585,7 @@ export class ExternalLink extends React.Component<LinkProps> {
 }
 
 const defaultLinkState: LinkStateT = {
+  rawUrl: '',
   relationship: null,
   type: null,
   url: '',
@@ -559,6 +654,7 @@ export function parseRelationships(
     if (target.entityType === 'url') {
       accum.push({
         relationship: data.id,
+        rawUrl: target.name,
         type: data.linkTypeID ?? null,
         url: target.name,
         video: data.attributes
