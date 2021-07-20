@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import LinkSearchableEditType from '../components/LinkSearchableEditType';
 import {l as lMbServer} from '../static/scripts/common/i18n';
 import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
 
@@ -69,10 +70,13 @@ const Edits = ({
                       <th />
                       <th>{lMbServer(type.edit_name)}</th>
                       <td>
-                        {formatCount(
-                          $c,
-                          stats['count.edit.type.' + type.edit_type],
-                        )}
+                        <LinkSearchableEditType
+                          editTypeId={type.edit_type}
+                          text={formatCount(
+                            $c,
+                            stats['count.edit.type.' + type.edit_type],
+                          )}
+                        />
                         {' '}
                         <TimelineLink
                           statName={'count.edit.type.' + type.edit_type}
