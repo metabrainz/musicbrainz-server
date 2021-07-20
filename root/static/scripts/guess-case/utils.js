@@ -45,6 +45,7 @@ const preBracketSingleWordsList = [
   'main',
   'megamix',
   'mix',
+  'official',
   'original',
   'piano',
   'radio',
