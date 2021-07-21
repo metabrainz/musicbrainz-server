@@ -2052,6 +2052,13 @@ const testData = [
             expected_clean_url: 'https://www.instagram.com/explore/locations/277133756/pacha-club-ibiza/',
        only_valid_entity_types: [],
   },
+  {
+                     input_url: 'https://www.instagram.com/accounts/edit',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.instagram.com/accounts/',
+       only_valid_entity_types: [],
+  },
   // Irish Traditional Music Tune Index (Alan Ng's Tunography)
   {
                      input_url: 'https://www.irishtune.info/album/MCnnly/#',
