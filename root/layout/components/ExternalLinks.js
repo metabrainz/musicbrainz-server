@@ -36,6 +36,7 @@ function faviconClass(urlEntity) {
 type ExternalLinkProps = {
   +className?: string,
   +editsPending: boolean,
+  +entityCredit: string,
   +text?: string,
   +url: UrlT,
 };
@@ -43,6 +44,7 @@ type ExternalLinkProps = {
 const ExternalLink = ({
   className,
   editsPending,
+  entityCredit,
   text,
   url,
 }: ExternalLinkProps) => {
@@ -51,6 +53,13 @@ const ExternalLink = ({
       {nonEmpty(text) ? text : url.sidebar_name}
     </a>
   );
+
+  if (nonEmpty(entityCredit)) {
+    element = exp.l(
+      '{url} (as {credited_name})',
+      {credited_name: entityCredit, url: element},
+    );
+  }
 
   if (editsPending) {
     element = <span className="mp mp-rel">{element}</span>;
@@ -87,6 +96,7 @@ const ExternalLinks = ({
   const blogLinks = [];
   const otherLinks: Array<{
     +editsPending: boolean,
+    +entityCredit: string,
     +id: number,
     +url: UrlT,
   }> = [];
@@ -94,6 +104,9 @@ const ExternalLinks = ({
   for (let i = 0; i < relationships.length; i++) {
     const relationship = relationships[i];
     const target = relationship.target;
+    const entityCredit = entity.id === relationship.entity0_id
+      ? relationship.entity0_credit
+      : relationship.entity1_credit;
 
     if (target.entityType !== 'url' || isDisabledLink(relationship, target)) {
       continue;
@@ -106,6 +119,7 @@ const ExternalLinks = ({
         <ExternalLink
           className="home-favicon"
           editsPending={relationship.editsPending}
+          entityCredit={entityCredit}
           key={relationship.id}
           text={l('Official homepage')}
           url={target}
@@ -116,6 +130,7 @@ const ExternalLinks = ({
         <ExternalLink
           className="blog-favicon"
           editsPending={relationship.editsPending}
+          entityCredit={entityCredit}
           key={relationship.id}
           text={l('Blog')}
           url={target}
@@ -124,6 +139,7 @@ const ExternalLinks = ({
     } else if (target.show_in_external_links /*:: === true */) {
       otherLinks.push({
         editsPending: relationship.editsPending,
+        entityCredit: entityCredit,
         id: relationship.id,
         url: target,
       });
