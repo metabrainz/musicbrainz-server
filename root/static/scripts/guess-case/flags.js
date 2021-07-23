@@ -39,22 +39,22 @@ export function pushBracket(b) {
 }
 
 export function popBracket() {
-  var cb = getCurrentCloseBracket();
+  const cb = getCurrentCloseBracket();
   context.openBrackets.pop();
   return cb;
 }
 
-var bracketChars = /^[()\[\]{}<>]$/;
+const bracketChars = /^[()\[\]{}<>]$/;
 
-var bracketPairs = {
+const bracketPairs = {
   '(': ')',
   ')': '(',
+  '<': '>',
+  '>': '<',
   '[': ']',
   ']': '[',
   '{': '}',
   '}': '{',
-  '<': '>',
-  '>': '<',
 };
 
 function getCorrespondingBracket(w) {
@@ -62,7 +62,7 @@ function getCorrespondingBracket(w) {
 }
 
 export function getCurrentCloseBracket() {
-  var ob = context.openBrackets[context.openBrackets.length - 1];
+  const ob = context.openBrackets[context.openBrackets.length - 1];
   return ob ? getCorrespondingBracket(ob) : null;
 }
 
