@@ -333,7 +333,7 @@ MB.GuessCase.Handler.Base = function (gc) {
 
       // Don't capitalize next word after hyphen in sentence mode.
       flags.context.forceCaps = !gc.mode.isSentenceCaps();
-      flags.context.hypen = true;
+      flags.context.hyphen = true;
       return true;
     }
     return false;

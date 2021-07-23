@@ -11,7 +11,7 @@
 export const context = {
   whitespace: false,
   openingBracket: false,
-  hypen: false,
+  hyphen: false,
   colon: false,
   acronym_split: false,
   singlequote: false,
@@ -22,7 +22,7 @@ export const context = {
 export function resetContext() {
   context.whitespace = false;
   context.openingBracket = false;
-  context.hypen = false;
+  context.hyphen = false;
   context.colon = false;
   context.acronym_split = false;
   context.singlequote = false;
