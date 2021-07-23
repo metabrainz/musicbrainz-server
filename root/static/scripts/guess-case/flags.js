@@ -9,24 +9,24 @@
 
 // Holds the state of the current GC operation.
 export const context = {
-  whitespace: false,
-  openingBracket: false,
-  hyphen: false,
-  colon: false,
   acronym_split: false,
-  singlequote: false,
+  colon: false,
   ellipsis: false,
+  hyphen: false,
+  openingBracket: false,
+  singlequote: false,
+  whitespace: false,
 };
 
 // Reset the context
 export function resetContext() {
-  context.whitespace = false;
-  context.openingBracket = false;
-  context.hyphen = false;
-  context.colon = false;
   context.acronym_split = false;
-  context.singlequote = false;
+  context.colon = false;
   context.ellipsis = false;
+  context.hyphen = false;
+  context.openingBracket = false;
+  context.singlequote = false;
+  context.whitespace = false;
 }
 
 // Returns if there are opened brackets at current position in the string.
