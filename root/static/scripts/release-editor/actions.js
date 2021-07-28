@@ -127,7 +127,7 @@ const actions = {
     }
   },
 
-  guessCaseMediaNames: function () {
+  guessCaseAllMedia: function () {
     for (const medium of this.mediums.peek()) {
       releaseEditor.guessCaseMediumName(medium);
       releaseEditor.guessCaseTrackNames(medium);
