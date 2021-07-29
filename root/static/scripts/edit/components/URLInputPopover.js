@@ -36,10 +36,6 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
     setIsOpen(open);
   };
 
-  const handleCancel = () => {
-    toggle(false);
-  };
-
   const handleUrlChange = (event) => {
     setLink({
       ...link,
@@ -106,7 +102,7 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
         <div className="buttons" style={{display: 'block', marginTop: '1em'}}>
           <button
             className="negative"
-            onClick={handleCancel}
+            onClick={closeAndReturnFocus}
             type="button"
           >
             {l('Cancel')}
