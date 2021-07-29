@@ -119,12 +119,22 @@ export class ExternalLinksEditor
     });
   }
 
+  cleanupUrl(url: string): string {
+    if (url.match(/^\w+\./)) {
+      url = 'http://' + url;
+    }
+    return URLCleanup.cleanURL(url) || url;
+  }
+
   handleUrlChange(
     linkIndexes: Array<number>,
-    event: SyntheticEvent<HTMLInputElement>,
+    rawUrl: string,
   ) {
-    const rawUrl = event.currentTarget.value;
     let url = rawUrl;
+    if (url === '') {
+      this.removeLinks(linkIndexes);
+      return;
+    }
 
     this.setState(prevState => {
       let newLinks = [...prevState.links];
@@ -133,10 +143,7 @@ export class ExternalLinksEditor
 
         // Allow adding spaces while typing, they'll be trimmed on blur
         if (url.trim() !== link.url.trim()) {
-          if (url.match(/^\w+\./)) {
-            url = 'http://' + url;
-          }
-          url = URLCleanup.cleanURL(url) || url;
+          url = this.cleanupUrl(url);
         }
 
         let newLink = Object.assign({}, newLinks[index], {url, rawUrl});
@@ -308,19 +315,117 @@ export class ExternalLinksEditor
     }
   }
 
-  render(): React.Element<'table'> {
-    this.props.errorObservable(false);
-
+  validateLink(link: LinkStateT): ErrorT {
     const oldLinks = this.getOldLinksHash();
-    const linksArray = this.state.links;
-    const linksByUrl = Array.from(groupLinksByUrl(linksArray));
     const linksByTypeAndUrl = groupBy(
       uniqBy(
-        linksArray.concat(this.props.initialLinks),
+        this.state.links.concat(this.props.initialLinks),
         link => link.relationship,
       ),
       linkTypeAndUrlString,
     );
+    let error = null;
+
+    const linkType = link.type
+      ? linkedEntities.link_type[link.type] : {};
+    const checker = URLCleanup.validationRules[linkType.gid];
+    const oldLink = oldLinks[link.relationship];
+    const isNewLink = !isPositiveInteger(link.relationship);
+    const linkChanged = oldLink && link.url !== oldLink.url;
+    const isNewOrChangedLink = (isNewLink || linkChanged);
+    const linkTypeChanged = oldLink && +link.type !== +oldLink.type;
+    link.url = getUnicodeUrl(link.url);
+
+    if (isEmpty(link)) {
+      error = null;
+    } else if (!link.url) {
+      error = {
+        message: l('Required field.'),
+        target: URLCleanup.ERROR_TARGETS.URL,
+      };
+    } else if (isNewOrChangedLink && !isValidURL(link.url)) {
+      error = {
+        message: l('Enter a valid url e.g. "http://google.com/"'),
+        target: URLCleanup.ERROR_TARGETS.URL,
+      };
+    } else if (isNewOrChangedLink && isMusicBrainz(link.url)) {
+      error = {
+        message: l(`Links to MusicBrainz URLs are not allowed.
+                Did you mean to paste something else?`),
+        target: URLCleanup.ERROR_TARGETS.URL,
+      };
+    } else if (isNewOrChangedLink && isMalware(link.url)) {
+      error = {
+        message: l(`Links to this website are not allowed
+                because it is known to host malware.`),
+        target: URLCleanup.ERROR_TARGETS.URL,
+      };
+    } else if (isNewOrChangedLink && isShortened(link.url)) {
+      error = {
+        message: l(`Please don’t enter bundled/shortened URLs,
+                enter the destination URL(s) instead.`),
+        target: URLCleanup.ERROR_TARGETS.URL,
+      };
+    } else if (isNewOrChangedLink && isGoogleAmp(link.url)) {
+      error = {
+        message: l(`Please don’t enter Google AMP links,
+                since they are effectively an extra redirect.
+                Enter the destination URL instead.`),
+        target: URLCleanup.ERROR_TARGETS.URL,
+      };
+    } else if (!link.type) {
+      error = {
+        message: l(`Please select a link type for the URL
+                you’ve entered.`),
+        target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
+      };
+    } else if (
+      linkType.deprecated && (isNewLink || linkTypeChanged)
+    ) {
+      error = {
+        message: l(`This relationship type is deprecated 
+                and should not be used.`),
+        target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
+      };
+    } else if (
+      (linksByTypeAndUrl[linkTypeAndUrlString(link)] ||
+        []).length > 1
+    ) {
+      error = {
+        message: l('This relationship already exists.'),
+        target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
+      };
+    } else if (isNewOrChangedLink && checker) {
+      const check = checker(link.url);
+      if (!check.result) {
+        error = {
+          message: '',
+          target: URLCleanup.ERROR_TARGETS.NONE,
+        };
+        error.target = check.target ||
+          URLCleanup.ERROR_TARGETS.NONE;
+        if (error.target === URLCleanup.ERROR_TARGETS.URL) {
+          error.message = l(
+            `This URL is not allowed for the selected link type,
+            or is incorrectly formatted.`,
+          );
+        }
+        if (error.target ===
+          URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
+          error.message = l(`This URL is not allowed 
+                    for the selected link type.`);
+        }
+        error.message = check.error || error.message;
+      }
+    }
+    return error;
+  }
+
+  render(): React.Element<'table'> {
+    this.props.errorObservable(false);
+
+    const linksArray = this.state.links;
+    const linksByUrl = Array.from(groupLinksByUrl(linksArray));
 
     return (
       <table
@@ -341,101 +446,10 @@ export class ExternalLinksEditor
             const linkIndexes = links.map(link => link.index);
             let urlError = null;
             links.forEach(link => {
-              let error = null;
-
               const linkType = link.type
                 ? linkedEntities.link_type[link.type] : {};
-              const checker = URLCleanup.validationRules[linkType.gid];
-              const oldLink = oldLinks[link.relationship];
-              const isNewLink = !isPositiveInteger(link.relationship);
-              const linkChanged = oldLink && link.url !== oldLink.url;
-              const isNewOrChangedLink = (isNewLink || linkChanged);
-              const linkTypeChanged = oldLink && +link.type !== +oldLink.type;
               link.url = getUnicodeUrl(link.url);
-
-              if (isEmpty(link)) {
-                error = null;
-              } else if (!link.url) {
-                error = {
-                  message: l('Required field.'),
-                  target: URLCleanup.ERROR_TARGETS.URL,
-                };
-              } else if (isNewOrChangedLink && !isValidURL(link.url)) {
-                error = {
-                  message: l('Enter a valid url e.g. "http://google.com/"'),
-                  target: URLCleanup.ERROR_TARGETS.URL,
-                };
-              } else if (isNewOrChangedLink && isMusicBrainz(link.url)) {
-                error = {
-                  message: l(`Links to MusicBrainz URLs are not allowed.
-                          Did you mean to paste something else?`),
-                  target: URLCleanup.ERROR_TARGETS.URL,
-                };
-              } else if (isNewOrChangedLink && isMalware(link.url)) {
-                error = {
-                  message: l(`Links to this website are not allowed
-                          because it is known to host malware.`),
-                  target: URLCleanup.ERROR_TARGETS.URL,
-                };
-              } else if (isNewOrChangedLink && isShortened(link.url)) {
-                error = {
-                  message: l(`Please don’t enter bundled/shortened URLs,
-                          enter the destination URL(s) instead.`),
-                  target: URLCleanup.ERROR_TARGETS.URL,
-                };
-              } else if (isNewOrChangedLink && isGoogleAmp(link.url)) {
-                error = {
-                  message: l(`Please don’t enter Google AMP links,
-                          since they are effectively an extra redirect.
-                          Enter the destination URL instead.`),
-                  target: URLCleanup.ERROR_TARGETS.URL,
-                };
-              } else if (!link.type) {
-                error = {
-                  message: l(`Please select a link type for the URL
-                          you’ve entered.`),
-                  target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
-                };
-              } else if (
-                linkType.deprecated && (isNewLink || linkTypeChanged)
-              ) {
-                error = {
-                  message: l(`This relationship type is deprecated 
-                          and should not be used.`),
-                  target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
-                };
-              } else if (
-                (linksByTypeAndUrl[linkTypeAndUrlString(link)] ||
-                  []).length > 1
-              ) {
-                error = {
-                  message: l('This relationship already exists.'),
-                  target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
-                };
-              } else if (isNewOrChangedLink && checker) {
-                const check = checker(link.url);
-                if (!check.result) {
-                  error = {
-                    message: '',
-                    target: URLCleanup.ERROR_TARGETS.NONE,
-                  };
-                  error.target = check.target ||
-                    URLCleanup.ERROR_TARGETS.NONE;
-                  if (error.target === URLCleanup.ERROR_TARGETS.URL) {
-                    error.message = l(
-                      `This URL is not allowed for the selected link type,
-                      or is incorrectly formatted.`,
-                    );
-                  }
-                  if (error.target ===
-                    URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
-                    error.message = l(`This URL is not allowed 
-                              for the selected link type.`);
-                  }
-                  error.message = check.error || error.message;
-                }
-              }
-
+              const error = this.validateLink(link);
               if (error) {
                 this.props.errorObservable(true);
                 if (error.target === URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
@@ -452,6 +466,7 @@ export class ExternalLinksEditor
 
             return (
               <ExternalLink
+                cleanupUrl={(url) => this.cleanupUrl(url)}
                 error={urlError}
                 handleLinkRemove={(index) => this.removeLink(index)}
                 handlePressEnter={
@@ -461,16 +476,13 @@ export class ExternalLinksEditor
                   (event) => this.handleUrlBlur(index, event)
                 }
                 handleUrlChange={
-                  (event) => this.handleUrlChange(linkIndexes, event)
+                  (rawUrl) => this.handleUrlChange(linkIndexes, rawUrl)
                 }
                 index={index}
                 isLastLink={isLastLink}
                 isOnlyLink={linksByUrl.length === 1}
                 key={index}
                 onAddRelationship={(url) => this.addRelationship(url)}
-                onCancelEdit={
-                  (links) => this.handleCancelEdit(links)
-                }
                 onTypeChange={
                   (index, event) => this.handleTypeChange(index, event)
                 }
@@ -480,6 +492,7 @@ export class ExternalLinksEditor
                 relationships={links}
                 typeOptions={this.props.typeOptions}
                 url={url}
+                validateLink={(link) => this.validateLink(link)}
               />
             );
           })}
@@ -637,15 +650,15 @@ const ExternalLinkRelationship =
   };
 
 type LinkProps = {
+  cleanupUrl: (string) => string,
   error: ErrorT | null,
   handleLinkRemove: (number) => void,
   handleUrlBlur: (number, SyntheticEvent<HTMLInputElement>) => void,
-  handleUrlChange: (Array<number>, SyntheticEvent<HTMLInputElement>) => void,
+  handleUrlChange: (string) => void,
   index: number,
   isLastLink: boolean,
   isOnlyLink: boolean,
   onAddRelationship: (string) => void,
-  onCancelEdit: (Array<LinkRelationshipT>) => void,
   onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
   onUrlRemove: () => void,
   onVideoChange:
@@ -653,23 +666,10 @@ type LinkProps = {
   relationships: Array<LinkRelationshipT>,
   typeOptions: Array<React.Element<'option'>>,
   url: string,
+  validateLink: (LinkStateT) => ErrorT,
 };
 
-type ExternalLinkState = {
-  isPopoverOpen: boolean,
-  originalProps: LinkProps,
-};
-
-export class ExternalLink
-  extends React.Component<LinkProps, ExternalLinkState> {
-  constructor(props: LinkProps) {
-    super(props);
-    this.state = {
-      isPopoverOpen: false,
-      originalProps: props,
-    };
-  }
-
+export class ExternalLink extends React.Component<LinkProps> {
   handleKeyDown(event: SyntheticKeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Enter') {
       event.preventDefault();
@@ -677,24 +677,8 @@ export class ExternalLink
     }
   }
 
-  onTogglePopover(open: boolean) {
-    if (open) {
-      // Backup original link state
-      this.setState({originalProps: this.props});
-    }
-    this.setState({isPopoverOpen: open});
-  }
-
-  handleCancelEdit() {
-    const props = this.state.originalProps;
-    // Restore original link state when cancelled
-    this.props.onCancelEdit(props.relationships);
-  }
-
   render(): React.Element<'tr'> {
-    // Temporarily hide changes while editing
-    const props =
-      this.state.isPopoverOpen ? this.state.originalProps : this.props;
+    const props = this.props;
     const notEmpty = props.relationships.some(link => {
       return !isEmpty(link);
     });
@@ -718,7 +702,9 @@ export class ExternalLink
               <input
                 className="value with-button"
                 onBlur={props.handleUrlBlur}
-                onChange={props.handleUrlChange}
+                onChange={(event) => {
+                  props.handleUrlChange(event.currentTarget.value);
+                }}
                 onKeyDown={(event) => this.handleKeyDown(event)}
                 type="url"
                 // Don't interrupt user input with clean URL
@@ -740,13 +726,14 @@ export class ExternalLink
             {// Use current props to preview changes while editing
               !isEmpty(props) &&
               <URLInputPopover
-                errorMessage={this.props.errorMessage}
-                errorTarget={this.props.errorTarget}
-                onCancel={() => this.handleCancelEdit()}
-                onChange={this.props.handleUrlChange}
-                onToggle={(open) => this.onTogglePopover(open)}
-                rawUrl={this.props.rawUrl}
-                url={this.props.url}
+                cleanupUrl={props.cleanupUrl}
+                /*
+                 * Randomly choose a link because relationship errors
+                 * are not displayed, thus link type doesn't matter.
+                 */
+                link={props.relationships[0]}
+                onConfirm={props.handleUrlChange}
+                validateLink={props.validateLink}
               />
             }
             {notEmpty &&

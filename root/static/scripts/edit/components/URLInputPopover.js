@@ -9,22 +9,24 @@
 
 import * as React from 'react';
 import ButtonPopover from '../../common/components/ButtonPopover';
-import type {ErrorTarget} from '../externalLinks';
+import type {ErrorT, LinkStateT} from '../externalLinks';
 import {ERROR_TARGETS} from '../URLCleanup';
 
 type PropsT = {
-  errorMessage: string,
-  errorTarget: ErrorTarget,
-  onCancel: () => void,
-  onChange: (SyntheticEvent<HTMLInputElement>) => void,
-  onToggle: (boolean) => void,
-  rawUrl: string,
-  url: string,
+  cleanupUrl: (string) => string,
+  link: LinkStateT,
+  onConfirm: (string) => void,
+  validateLink: (LinkStateT) => ErrorT,
 };
 
 const URLInputPopover = (props: PropsT): React.MixedElement => {
   const popoverButtonRef = React.useRef(null);
   const [isOpen, setIsOpen] = React.useState(false);
+  const [link, setLink] = React.useState(props.link);
+
+  React.useEffect(() => {
+    setLink(props.link);
+  }, [props.link]);
 
   const toggle = (open) => {
     /*
@@ -32,89 +34,102 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
      * either by losing focus or click 'Close' button
      */
     setIsOpen(open);
-    props.onToggle(open);
   };
 
   const handleCancel = () => {
-    props.onCancel();
     toggle(false);
+  };
+
+  const handleUrlChange = (event) => {
+    setLink({
+      ...link,
+      rawUrl: event.target.value,
+      url: props.cleanupUrl(event.target.value),
+    });
   };
 
   const buildPopoverChildren = (
     closeAndReturnFocus,
-  ) => (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
-        closeAndReturnFocus();
-      }}
-    >
-      <table>
-        <tbody>
-          <tr>
-            <td className="section">
-              {addColonText(l('URL'))}
-            </td>
-            <td>
-              <input
-                className="value raw-url"
-                onChange={props.onChange}
-                style={{width: '336px'}}
-                value={props.rawUrl}
-              />
-              {props.errorMessage &&
-                props.errorTarget === ERROR_TARGETS.URL &&
-                <div
-                  className="error field-error target-url"
-                  data-visible="1"
-                >
-                  {props.errorMessage}
-                </div>
-              }
-            </td>
-          </tr>
-          {props.url &&
+  ) => {
+    const error = props.validateLink(link);
+    return (
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          props.onConfirm(link.rawUrl);
+          closeAndReturnFocus();
+        }}
+      >
+        <table>
+          <tbody>
             <tr>
-              <td className="section" style={{whiteSpace: 'nowrap'}}>
-                {addColonText(l('Cleaned up to'))}
+              <td className="section">
+                {addColonText(l('URL'))}
               </td>
               <td>
-                <a
-                  className="clean-url"
-                  href={props.url}
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  {props.url}
-                </a>
+                <input
+                  className="value raw-url"
+                  onChange={handleUrlChange}
+                  style={{width: '336px'}}
+                  value={link.rawUrl}
+                />
+                {error &&
+                  error.target === ERROR_TARGETS.URL &&
+                  <div
+                    className="error field-error target-url"
+                    data-visible="1"
+                  >
+                    {error.message}
+                  </div>
+                }
               </td>
             </tr>
-          }
-        </tbody>
-      </table>
-      <div className="buttons" style={{display: 'block', marginTop: '1em'}}>
-        <button
-          className="negative"
-          onClick={handleCancel}
-          type="button"
-        >
-          {l('Cancel')}
-        </button>
-        <div
-          className="buttons-right"
-          style={{float: 'right', textAlign: 'right'}}
-        >
+            {link.url &&
+              <tr>
+                <td className="section" style={{whiteSpace: 'nowrap'}}>
+                  {addColonText(l('Cleaned up to'))}
+                </td>
+                <td>
+                  <a
+                    className="clean-url"
+                    href={link.url}
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    {link.url}
+                  </a>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+        <div className="buttons" style={{display: 'block', marginTop: '1em'}}>
           <button
-            className="positive"
-            onClick={closeAndReturnFocus}
+            className="negative"
+            onClick={handleCancel}
             type="button"
           >
-            {l('Done')}
+            {l('Cancel')}
           </button>
+          <div
+            className="buttons-right"
+            style={{float: 'right', textAlign: 'right'}}
+          >
+            <button
+              className="positive"
+              onClick={() => {
+                props.onConfirm(link.rawUrl);
+                closeAndReturnFocus();
+              }}
+              type="button"
+            >
+              {l('Done')}
+            </button>
+          </div>
         </div>
-      </div>
-    </form>
-  );
+      </form>
+    );
+  };
 
   return (
     <ButtonPopover
