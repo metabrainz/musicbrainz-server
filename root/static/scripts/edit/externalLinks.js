@@ -58,6 +58,7 @@ type LinkMapT = Map<string, LinkStateT>;
 type LinkRelationshipT = {
   error: ErrorT | null,
   index: number,
+  rawUrl: string,
   relationship: number | string | null,
   type: number | null,
   url: string,
@@ -97,6 +98,19 @@ export class ExternalLinksEditor
     this.setState({links: newLinks}, callback);
   }
 
+  handleCancelEdit(links: Array<LinkRelationshipT>) {
+    const newLinks: Array<LinkStateT> = this.state.links.concat();
+    links.forEach((link) => {
+      const {index, type, url, rawUrl} = link;
+      newLinks[index] = Object.assign({}, newLinks[index], {
+        rawUrl,
+        url,
+        type,
+      });
+    });
+    this.setState({links: newLinks});
+  }
+
   appendEmptyLink() {
     this.setState({
       links: this.state.links.concat(
@@ -112,11 +126,6 @@ export class ExternalLinksEditor
     const rawUrl = event.currentTarget.value;
     let url = rawUrl;
 
-    // Remove empty links
-    if (rawUrl === '') {
-      this.removeLinks(linkIndexes);
-      return;
-    }
     this.setState(prevState => {
       let newLinks = [...prevState.links];
       linkIndexes.forEach(index => {
@@ -140,7 +149,7 @@ export class ExternalLinksEditor
         }
         newLinks[index] = newLink;
       });
-      return {links: withOneEmptyLink(newLinks, linkIndexes[0])};
+      return {links: newLinks};
     });
   }
 
@@ -444,6 +453,7 @@ export class ExternalLinksEditor
             return (
               <ExternalLink
                 error={urlError}
+                handleLinkRemove={(index) => this.removeLink(index)}
                 handlePressEnter={
                   (event) => this.handlePressEnter(event)
                 }
@@ -451,26 +461,23 @@ export class ExternalLinksEditor
                   (event) => this.handleUrlBlur(index, event)
                 }
                 handleUrlChange={
-                  (event) => this.handleUrlChange(index, event)
-                }
-                handleVideoChange={
-                  (event) => this.handleVideoChange(index, event)
+                  (event) => this.handleUrlChange(linkIndexes, event)
                 }
                 index={index}
                 isLastLink={isLastLink}
                 isOnlyLink={linksByUrl.length === 1}
                 key={index}
-                onAddRelationship={this.addRelationship.bind(this)}
+                onAddRelationship={(url) => this.addRelationship(url)}
                 onCancelEdit={
-                  (state) => this.setLinkState(index, state)
+                  (links) => this.handleCancelEdit(links)
                 }
-                onLinkRemove={this.removeLink.bind(this)}
-                onUrlRemove={this.removeLinks.bind(this, linkIndexes)}
+                onTypeChange={
+                  (index, event) => this.handleTypeChange(index, event)
+                }
+                onUrlRemove={() => this.removeLinks(linkIndexes)}
+                onVideoChange={this.handleVideoChange}
                 rawUrl={rawUrl}
                 relationships={links}
-                typeChangeCallback={
-                  (event) => this.handleTypeChange(index, event)
-                }
                 typeOptions={this.props.typeOptions}
                 url={url}
               />
@@ -525,11 +532,11 @@ const TypeDescription =
   };
 
 type ExternalLinkRelationshipProps = {
-  handleTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
   hasUrlError: boolean,
   isOnlyRelationship: boolean,
   link: LinkRelationshipT,
   onLinkRemove: (number) => void,
+  onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
   onVideoChange:
   (number, SyntheticEvent<HTMLInputElement>) => void,
   typeOptions: Array<React.Element<'option'>>,
@@ -567,7 +574,7 @@ const ExternalLinkRelationship =
               ? (
                 <LinkTypeSelect
                   handleTypeChange={
-                    props.handleTypeChange.bind(this, link.index)
+                    (event) => props.onTypeChange(link.index, event)
                   }
                   type={link.type}
                 >
@@ -597,7 +604,7 @@ const ExternalLinkRelationship =
                 <input
                   checked={link.video}
                   onChange={
-                    props.onVideoChange.bind(this, link.index)
+                    (event) => props.onVideoChange(link.index, event)
                   }
                   type="checkbox"
                 />
@@ -615,7 +622,7 @@ const ExternalLinkRelationship =
             <TypeDescription type={link.type} url={link.url} />}
           {!props.isOnlyRelationship &&
             <RemoveButton
-              onClick={props.onLinkRemove.bind(this, link.index)}
+              onClick={() => props.onLinkRemove(link.index)}
               title={l('Remove Relationship')}
             />}
         </td>
@@ -625,18 +632,19 @@ const ExternalLinkRelationship =
 
 type LinkProps = {
   error: ErrorT | null,
+  handleLinkRemove: (number) => void,
   handleUrlBlur: (number, SyntheticEvent<HTMLInputElement>) => void,
   handleUrlChange: (Array<number>, SyntheticEvent<HTMLInputElement>) => void,
-  handleVideoChange:
-    (number, SyntheticEvent<HTMLInputElement>) => void,
   index: number,
   isLastLink: boolean,
   isOnlyLink: boolean,
   onAddRelationship: (string) => void,
-  onLinkRemove: (number) => void,
-  onUrlRemove: (Array<number>) => void,
+  onCancelEdit: (Array<LinkRelationshipT>) => void,
+  onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
+  onUrlRemove: () => void,
+  onVideoChange:
+    (number, SyntheticEvent<HTMLInputElement>) => void,
   relationships: Array<LinkRelationshipT>,
-  typeChangeCallback: (number, SyntheticEvent<HTMLSelectElement>) => void,
   typeOptions: Array<React.Element<'option'>>,
   url: string,
 };
@@ -674,11 +682,7 @@ export class ExternalLink
   handleCancelEdit() {
     const props = this.state.originalProps;
     // Restore original link state when cancelled
-    this.props.onCancelEdit({
-      url: props.url,
-      rawUrl: props.rawUrl,
-      type: props.type,
-    });
+    this.props.onCancelEdit(props.relationships);
   }
 
   render(): React.Element<'tr'> {
@@ -741,7 +745,7 @@ export class ExternalLink
             }
             {notEmpty &&
               <RemoveButton
-                onClick={props.onUrlRemove}
+                onClick={() => props.onUrlRemove()}
                 title={l('Remove Link')}
               />}
           </td>
@@ -749,13 +753,13 @@ export class ExternalLink
         {notEmpty &&
           props.relationships.map((link, index) => (
             <ExternalLinkRelationship
-              handleTypeChange={props.typeChangeCallback}
               hasUrlError={props.error != null}
               isOnlyRelationship={props.relationships.length === 1}
               key={index}
               link={link}
-              onLinkRemove={props.onLinkRemove}
-              onVideoChange={props.handleVideoChange}
+              onLinkRemove={props.handleLinkRemove}
+              onTypeChange={props.onTypeChange}
+              onVideoChange={props.onVideoChange}
               typeOptions={props.typeOptions}
             />
         ))}
@@ -765,7 +769,7 @@ export class ExternalLink
           <td className="add-item" colSpan="4">
             <button
               className="add-item with-label"
-              onClick={props.onAddRelationship.bind(this, props.url)}
+              onClick={() => props.onAddRelationship(props.url)}
               type="button"
             >
               {l('Add another relationship')}
