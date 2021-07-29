@@ -528,7 +528,13 @@ const TypeDescription =
       });
     }
 
-    return <HelpIcon content={typeDescription} />;
+    return (
+      <HelpIcon
+        content={
+          <div style={{textAlign: 'left'}}>{typeDescription}</div>
+        }
+      />
+    );
   };
 
 type ExternalLinkRelationshipProps = {
