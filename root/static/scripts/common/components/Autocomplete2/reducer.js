@@ -172,6 +172,9 @@ export function determineIfUserCanAddEntities<+T: EntityItemT>(
     case 'area':
       return isLocationEditor(user);
     case 'editor':
+    case 'genre':
+    case 'link_type':
+    case 'link_attribute_type':
       return false;
     case 'instrument':
       return isRelationshipEditor(user);
