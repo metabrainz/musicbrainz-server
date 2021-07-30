@@ -171,6 +171,8 @@ export function determineIfUserCanAddEntities<+T: EntityItemT>(
   switch (state.entityType) {
     case 'area':
       return isLocationEditor(user);
+    case 'editor':
+      return false;
     case 'instrument':
       return isRelationshipEditor(user);
     default:
