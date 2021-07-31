@@ -218,7 +218,7 @@
     // Add relationship by clicking button
     {
       command: 'click',
-      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'add-relationship')][2]//button[contains(@class, 'add-item')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'add-relationship')][1]//button[contains(@class, 'add-item')]",
       value: '',
     },
     {
@@ -251,7 +251,7 @@
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll('#external-links-editor tr')).map(x => x.className).join('\\n')",
       // Wikipedia link + current link(3 relationships)
-      value: 'external-link-item\nrelationship-item\nadd-relationship\nexternal-link-item\nrelationship-item\nrelationship-item\nrelationship-item\nadd-relationship\nexternal-link-item',
+      value: 'external-link-item\nrelationship-item\nexternal-link-item\nrelationship-item\nrelationship-item\nrelationship-item\nadd-relationship\nexternal-link-item',
     },
     // Delete single relationship
     {
@@ -274,7 +274,7 @@
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll('#external-links-editor tr')).map(x => x.className).join('\\n')",
       // Wikipedia link + empty input box
-      value: 'external-link-item\nrelationship-item\nadd-relationship\nexternal-link-item',
+      value: 'external-link-item\nrelationship-item\nexternal-link-item',
     },
     // Automatically delete empty URL
     {
@@ -297,7 +297,7 @@
     {
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll('#external-links-editor tr')).map(x => x.className).join('\\n')",
-      value: 'external-link-item\nrelationship-item\nadd-relationship\nexternal-link-item',
+      value: 'external-link-item\nrelationship-item\nexternal-link-item',
     },
     // submit the artist
     {
