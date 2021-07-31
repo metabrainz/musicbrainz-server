@@ -388,7 +388,7 @@ export class ExternalLinksEditor
         target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
       };
     } else if (
-      (linksByTypeAndUrl[linkTypeAndUrlString(link)] ||
+      (linksByTypeAndUrl.get(linkTypeAndUrlString(link)) ||
         []).length > 1
     ) {
       error = {
@@ -438,7 +438,7 @@ export class ExternalLinksEditor
             const relationships = item[1];
             /*
              * The first element of tuple `item` is not the URL
-             * when the URL is empty.
+             * when the URL is empty or is the last one.
              */
             const {url, rawUrl} = relationships[0];
             const isLastLink = index === linksByUrl.length - 1;
@@ -863,8 +863,10 @@ function groupLinksByUrl(
   let map = new Map();
   links.forEach((link, index) => {
     const relationship: LinkRelationshipT = {...link, error: null, index};
-    // Treat empty URLs as separate links
-    const key = link.url === '' ? String(link.relationship) : link.url;
+    // Treat empty URLs and the last URL(editing) as separate links
+    const key = (link.url === '' || index === links.length - 1)
+      ? String(link.relationship)
+      : link.url;
     const relationships = map.get(key);
     if (relationships) {
       relationships.push(relationship);

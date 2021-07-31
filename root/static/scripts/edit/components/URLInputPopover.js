@@ -29,10 +29,10 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
   }, [props.link]);
 
   const toggle = (open) => {
-    /*
-     * Will be called by ButtonPopover when closed
-     * either by losing focus or click 'Close' button
-     */
+    // Will be called by ButtonPopover when closed by losing focus
+    if (!open) {
+      props.onConfirm(link.rawUrl);
+    }
     setIsOpen(open);
   };
 
@@ -44,6 +44,11 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
     });
   };
 
+  const handleConfirm = (closeCallback) => {
+    props.onConfirm(link.rawUrl);
+    closeCallback();
+  };
+
   const buildPopoverChildren = (
     closeAndReturnFocus,
   ) => {
@@ -52,8 +57,7 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          props.onConfirm(link.rawUrl);
-          closeAndReturnFocus();
+          handleConfirm(closeAndReturnFocus);
         }}
       >
         <table>
@@ -102,7 +106,12 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
         <div className="buttons" style={{display: 'block', marginTop: '1em'}}>
           <button
             className="negative"
-            onClick={closeAndReturnFocus}
+            onClick={() => {
+              // Reset input field value
+              setLink(props.link);
+              // Avoid calling toggle() otherwise changes will be saved
+              setIsOpen(false);
+            }}
             type="button"
           >
             {l('Cancel')}
@@ -113,10 +122,7 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
           >
             <button
               className="positive"
-              onClick={() => {
-                props.onConfirm(link.rawUrl);
-                closeAndReturnFocus();
-              }}
+              onClick={() => handleConfirm(closeAndReturnFocus)}
               type="button"
             >
               {l('Done')}
