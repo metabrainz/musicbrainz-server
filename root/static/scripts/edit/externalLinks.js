@@ -38,12 +38,12 @@ import validation from './validation';
 
 type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
 
-type ErrorT = {
+export type ErrorT = {
   message: React.Node,
   target: ErrorTarget,
 };
 
-type LinkStateT = {
+export type LinkStateT = {
   rawUrl: string,
   // New relationships will use a unique string ID like "new-1".
   relationship: StrOrNum | null,
@@ -315,7 +315,7 @@ export class ExternalLinksEditor
     }
   }
 
-  validateLink(link: LinkStateT): ErrorT {
+  validateLink(link: LinkStateT): ErrorT | null {
     const oldLinks = this.getOldLinksHash();
     const linksByTypeAndUrl = groupBy(
       uniqBy(
@@ -329,7 +329,7 @@ export class ExternalLinksEditor
     const linkType = link.type
       ? linkedEntities.link_type[link.type] : {};
     const checker = URLCleanup.validationRules[linkType.gid];
-    const oldLink = oldLinks[link.relationship];
+    const oldLink = oldLinks.get(String(link.relationship));
     const isNewLink = !isPositiveInteger(link.relationship);
     const linkChanged = oldLink && link.url !== oldLink.url;
     const isNewOrChangedLink = (isNewLink || linkChanged);
@@ -487,7 +487,9 @@ export class ExternalLinksEditor
                   (index, event) => this.handleTypeChange(index, event)
                 }
                 onUrlRemove={() => this.removeLinks(linkIndexes)}
-                onVideoChange={this.handleVideoChange}
+                onVideoChange={
+                  (index, event) => this.handleVideoChange(index, event)
+                }
                 rawUrl={rawUrl}
                 relationships={links}
                 typeOptions={this.props.typeOptions}
@@ -653,7 +655,8 @@ type LinkProps = {
   cleanupUrl: (string) => string,
   error: ErrorT | null,
   handleLinkRemove: (number) => void,
-  handleUrlBlur: (number, SyntheticEvent<HTMLInputElement>) => void,
+  handlePressEnter: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
+  handleUrlBlur: (SyntheticEvent<HTMLInputElement>) => void,
   handleUrlChange: (string) => void,
   index: number,
   isLastLink: boolean,
@@ -663,10 +666,11 @@ type LinkProps = {
   onUrlRemove: () => void,
   onVideoChange:
     (number, SyntheticEvent<HTMLInputElement>) => void,
+  rawUrl: string,
   relationships: Array<LinkRelationshipT>,
   typeOptions: Array<React.Element<'option'>>,
   url: string,
-  validateLink: (LinkStateT) => ErrorT,
+  validateLink: (LinkStateT) => ErrorT | null,
 };
 
 export class ExternalLink extends React.Component<LinkProps> {
@@ -677,7 +681,7 @@ export class ExternalLink extends React.Component<LinkProps> {
     }
   }
 
-  render(): React.Element<'tr'> {
+  render(): React.Element<typeof React.Fragment> {
     const props = this.props;
     const notEmpty = props.relationships.some(link => {
       return !isEmpty(link);
@@ -715,7 +719,7 @@ export class ExternalLink extends React.Component<LinkProps> {
             )}
             {props.error &&
               <div
-                className={`error field-error target-${props.errorTarget}`}
+                className={`error field-error target-${props.error.target}`}
                 data-visible="1"
               >
                 {props.error.message}

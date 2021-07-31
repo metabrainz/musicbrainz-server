@@ -16,19 +16,19 @@ type PropsT = {
   cleanupUrl: (string) => string,
   link: LinkStateT,
   onConfirm: (string) => void,
-  validateLink: (LinkStateT) => ErrorT,
+  validateLink: (LinkStateT) => ErrorT | null,
 };
 
 const URLInputPopover = (props: PropsT): React.MixedElement => {
   const popoverButtonRef = React.useRef(null);
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [link, setLink] = React.useState(props.link);
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [link, setLink] = React.useState<LinkStateT>(props.link);
 
   React.useEffect(() => {
     setLink(props.link);
   }, [props.link]);
 
-  const toggle = (open) => {
+  const toggle = (open: boolean) => {
     // Will be called by ButtonPopover when closed by losing focus
     if (!open) {
       props.onConfirm(link.rawUrl);
@@ -36,15 +36,16 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
     setIsOpen(open);
   };
 
-  const handleUrlChange = (event) => {
+  const handleUrlChange = (event: SyntheticEvent<HTMLInputElement>) => {
+    const rawUrl = event.currentTarget.value;
     setLink({
       ...link,
-      rawUrl: event.target.value,
-      url: props.cleanupUrl(event.target.value),
+      rawUrl,
+      url: props.cleanupUrl(rawUrl),
     });
   };
 
-  const handleConfirm = (closeCallback) => {
+  const handleConfirm = (closeCallback: () => void) => {
     props.onConfirm(link.rawUrl);
     closeCallback();
   };
