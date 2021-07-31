@@ -126,7 +126,7 @@
     // Open popover
     {
       command: 'click',
-      target: "xpath=//table[@id='external-links-editor']//tr[1]//button[contains(@class, 'edit-item')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][1]//button[contains(@class, 'edit-item')]",
       value: '',
     },
     {
@@ -155,7 +155,7 @@
     // Open popover
     {
       command: 'click',
-      target: "xpath=//table[@id='external-links-editor']//tr[1]//button[contains(@class, 'edit-item')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][1]//button[contains(@class, 'edit-item')]",
       value: '',
     },
     // assert URL is unchanged
@@ -178,7 +178,7 @@
     // Open popover
     {
       command: 'click',
-      target: "xpath=//table[@id='external-links-editor']//tr[1]//button[contains(@class, 'edit-item')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][1]//button[contains(@class, 'edit-item')]",
       value: '',
     },
     // assert changes are kept
@@ -196,18 +196,18 @@
     // assert clean URL is used
     {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[1]//a[contains(@class, 'url')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][1]//a[contains(@class, 'url')]",
       value: 'https://en.wikipedia.org/wiki/No_Age',
     },
     // Test grouping links by URL
     {
       command: 'click',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
       value: '',
     },
     {
       command: 'sendKeys',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
       value: 'https://google.com',
     },
     {
@@ -234,8 +234,8 @@
     // Add relationship by entering the same URL
     {
       command: 'sendKeys',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[3]",
-      value: 'https://google.com',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://google.com${KEY_ENTER}',
     },
     {
       command: 'assertEval',
@@ -279,13 +279,20 @@
     // Automatically delete empty URL
     {
       command: 'sendKeys',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
-      value: 'https://en.wikipedia.org/wiki/',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://en.wikipedia.org/wiki/${KEY_ENTER}',
     },
+    // Open popover
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//button[contains(@class, 'edit-item')]",
+      value: '',
+    },
+    // Empty input box and press enter to save
     {
       command: 'sendKeys',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
-      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}',
+      target: "xpath=(//div[@id='url-input-popover']//input[contains(@class, 'raw-url')])[1]",
+      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}${KEY_ENTER}',
     },
     {
       command: 'assertEval',
@@ -331,7 +338,7 @@
     },
     {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][1]//div[contains(@class, 'error')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//div[contains(@class, 'error')]",
       value: 'This relationship type is deprecated and should not be used.',
     },
     // relationshipCreate edit for external link is generated for existing release
@@ -404,7 +411,7 @@
     // Open popover
     {
       command: 'click',
-      target: "xpath=//table[@id='external-links-editor']//tr[2]//button[contains(@class, 'edit-item')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//button[contains(@class, 'edit-item')]",
       value: '',
     },
     {
@@ -514,7 +521,7 @@
     // Open popover
     {
       command: 'click',
-      target: "xpath=//table[@id='external-links-editor']//tr[1]//button[contains(@class, 'edit-item')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][1]//button[contains(@class, 'edit-item')]",
       value: '',
     },
     {
@@ -542,7 +549,7 @@
     // Open popover
     {
       command: 'click',
-      target: "xpath=//table[@id='external-links-editor']//tr[1]//button[contains(@class, 'edit-item')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][1]//button[contains(@class, 'edit-item')]",
       value: '',
     },
     {
