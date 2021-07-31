@@ -98,19 +98,6 @@ export class ExternalLinksEditor
     this.setState({links: newLinks}, callback);
   }
 
-  handleCancelEdit(links: Array<LinkRelationshipT>) {
-    const newLinks: Array<LinkStateT> = this.state.links.concat();
-    links.forEach((link) => {
-      const {index, type, url, rawUrl} = link;
-      newLinks[index] = Object.assign({}, newLinks[index], {
-        rawUrl,
-        url,
-        type,
-      });
-    });
-    this.setState({links: newLinks});
-  }
-
   appendEmptyLink() {
     this.setState({
       links: this.state.links.concat(
