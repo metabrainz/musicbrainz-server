@@ -639,9 +639,18 @@ table.artist-credit-editor {
             padding-bottom: @form-margin / 4;
         }
 
-        td.relationship-name {
+        td.relationship-content {
+            display: flex;
+
             label {
                 margin-right: @form-margin / 2;
+                white-space: nowrap;
+            }
+
+            label.relationship-name {
+                flex: 2 5;
+                text-align: left;
+                white-space: inherit;
             }
 
             select {

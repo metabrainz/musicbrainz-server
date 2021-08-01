@@ -573,8 +573,8 @@ const ExternalLinkRelationship =
     return (
       <tr className="relationship-item" key={link.relationship}>
         <td />
-        <td className="relationship-name">
-          <label>{l('Type:')}</label>
+        <td className="relationship-content">
+          <label>{addColonText(l('Type'))}</label>
           {/* If the URL matches its type or is just empty,
               display either a favicon
               or a prompt for a new link as appropriate. */
@@ -589,7 +589,7 @@ const ExternalLinkRelationship =
                   {props.typeOptions}
                 </LinkTypeSelect>
               ) : (
-                <label>
+                <label className="relationship-name">
                   {faviconClass &&
                   <span
                     className={'favicon ' + faviconClass + '-favicon'}
@@ -680,10 +680,10 @@ export class ExternalLink extends React.Component<LinkProps> {
           <td>
             <label>
               {props.isOnlyLink
-                ? l('Add link:')
+                ? addColonText(l('Add link'))
                 : (
                   props.isLastLink
-                    ? l('Add another link:')
+                    ? addColonText(l('Add another link'))
                     : props.index + 1
                 )}
             </label>
