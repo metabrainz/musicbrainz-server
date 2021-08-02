@@ -33,13 +33,13 @@ self.modeName = getCookie('guesscase_mode') || 'English';
 self.mode = modes[self.modeName];
 
 // Config
-self.CFG_UC_UPPERCASED = getCookie('guesscase_keepuppercase') !== 'false';
+self.CFG_KEEP_UPPERCASED = getCookie('guesscase_keepuppercase') !== 'false';
 
 // Member variables
-self.i = Input(self);
-self.o = Output(self);
+self.input = Input(self);
+self.output = Output(self);
 
-self.re = {
+self.regexes = {
   // define commonly used RE's
   SPACES_DOTS: /\s|\./i,
   SERIES_NUMBER: /^(\d+|[ivx]+)$/i,

@@ -20,11 +20,11 @@ MB.GuessCase.Handler.Release = function (gc) {
   // Checks special cases of releases
   self.checkSpecialCase = function (is) {
     if (is) {
-      if (!gc.re.RELEASE_UNTITLED) {
+      if (!gc.regexes.RELEASE_UNTITLED) {
         // Untitled
-        gc.re.RELEASE_UNTITLED = /^([\(\[]?\s*untitled\s*[\)\]]?)$/i;
+        gc.regexes.RELEASE_UNTITLED = /^([\(\[]?\s*untitled\s*[\)\]]?)$/i;
       }
-      if (is.match(gc.re.RELEASE_UNTITLED)) {
+      if (is.match(gc.regexes.RELEASE_UNTITLED)) {
         return self.SPECIALCASE_UNTITLED;
       }
     }
@@ -45,7 +45,7 @@ MB.GuessCase.Handler.Release = function (gc) {
 
   self.getWordsForProcessing = function (is) {
     is = gc.mode.preProcessTitles(is);
-    return gc.mode.prepExtraTitleInfo(gc.i.splitWordsAndPunctuation(is));
+    return gc.mode.prepExtraTitleInfo(gc.input.splitWordsAndPunctuation(is));
   };
 
   /*

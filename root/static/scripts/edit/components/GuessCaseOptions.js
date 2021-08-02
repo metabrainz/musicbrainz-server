@@ -42,7 +42,7 @@ export type PropsT = $ReadOnly<{
 
 export function createInitialState(): StateT {
   return {
-    keepUpperCase: gc.CFG_UC_UPPERCASED,
+    keepUpperCase: gc.CFG_KEEP_UPPERCASED,
     mode: gc.modeName,
     upperCaseRoman: getBooleanCookie('guesscase_roman'),
   };
@@ -64,7 +64,7 @@ export function runReducer(
     }
     case 'set-keep-upper-case': {
       const enabled = action.enabled;
-      gc.CFG_UC_UPPERCASED = enabled;
+      gc.CFG_KEEP_UPPERCASED = enabled;
       setCookie('guesscase_keepuppercase', enabled);
       state.keepUpperCase = enabled;
       break;

@@ -14,8 +14,8 @@ declare type GuessCaseModeT = any;
 declare type GuessCaseOutputT = any;
 
 export type GuessCaseT = {
-  CFG_UC_UPPERCASED: boolean,
-  i: GuessCaseInputT,
+  CFG_KEEP_UPPERCASED: boolean,
+  input: GuessCaseInputT,
   mode: GuessCaseModeT,
-  o: GuessCaseOutputT,
+  output: GuessCaseOutputT,
 };

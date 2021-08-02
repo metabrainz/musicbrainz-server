@@ -14,7 +14,7 @@ import gc from '../guess-case/MB/GuessCase/Main';
 import * as modes from '../guess-case/modes';
 
 setCookie('guesscase_roman', 'false');
-gc.CFG_UC_UPPERCASED = 'false';
+gc.CFG_KEEP_UPPERCASED = 'false';
 gc.mode = modes.English;
 
 /* eslint-disable sort-keys */
@@ -349,7 +349,7 @@ test('Work', function (t) {
 
   for (const test of tests) {
     setCookie('guesscase_roman', String(test.roman));
-    gc.CFG_UC_UPPERCASED = test.keepuppercase;
+    gc.CFG_KEEP_UPPERCASED = test.keepuppercase;
     gc.mode = modes[test.mode];
 
     const result = MB.GuessCase.work.guess(test.input);
@@ -549,7 +549,7 @@ test('BugFixes', function (t) {
   ];
 
   for (const test of tests) {
-    gc.CFG_UC_UPPERCASED = false;
+    gc.CFG_KEEP_UPPERCASED = false;
     gc.mode = modes[test.mode];
 
     const result = MB.GuessCase.work.guess(test.input);

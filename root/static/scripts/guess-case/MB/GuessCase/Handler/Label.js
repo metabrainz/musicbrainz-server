@@ -24,31 +24,31 @@ MB.GuessCase.Handler.Label = function (gc) {
    */
   self.checkSpecialCase = function (is) {
     if (is) {
-      if (!gc.re.LABEL_EMPTY) {
+      if (!gc.regexes.LABEL_EMPTY) {
         // Match empty
-        gc.re.LABEL_EMPTY = /^\s*$/i;
+        gc.regexes.LABEL_EMPTY = /^\s*$/i;
         // Match "unknown" and variants
-        gc.re.LABEL_UNKNOWN = /^[\(\[]?\s*Unknown\s*[\)\]]?$/i;
+        gc.regexes.LABEL_UNKNOWN = /^[\(\[]?\s*Unknown\s*[\)\]]?$/i;
         // Match "none" and variants
-        gc.re.LABEL_NONE = /^[\(\[]?\s*none\s*[\)\]]?$/i;
+        gc.regexes.LABEL_NONE = /^[\(\[]?\s*none\s*[\)\]]?$/i;
         // Match "no label" and variants
-        gc.re.LABEL_NOLABEL = /^[\(\[]?\s*no[\s-]+label\s*[\)\]]?$/i;
+        gc.regexes.LABEL_NOLABEL = /^[\(\[]?\s*no[\s-]+label\s*[\)\]]?$/i;
         // Match "not applicable" and variants
-        gc.re.LABEL_NOTAPPLICABLE = /^[\(\[]?\s*not[\s-]+applicable\s*[\)\]]?$/i;
+        gc.regexes.LABEL_NOTAPPLICABLE = /^[\(\[]?\s*not[\s-]+applicable\s*[\)\]]?$/i;
         // Match "n/a" and variants
-        gc.re.LABEL_NA = /^[\(\[]?\s*n\s*[\\\/]\s*a\s*[\)\]]?$/i;
+        gc.regexes.LABEL_NA = /^[\(\[]?\s*n\s*[\\\/]\s*a\s*[\)\]]?$/i;
       }
-      if (is.match(gc.re.LABEL_EMPTY)) {
+      if (is.match(gc.regexes.LABEL_EMPTY)) {
         return self.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.re.LABEL_UNKNOWN)) {
+      } else if (is.match(gc.regexes.LABEL_UNKNOWN)) {
         return self.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.re.LABEL_NONE)) {
+      } else if (is.match(gc.regexes.LABEL_NONE)) {
         return self.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.re.LABEL_NOLABEL)) {
+      } else if (is.match(gc.regexes.LABEL_NOLABEL)) {
         return self.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.re.LABEL_NOTAPPLICABLE)) {
+      } else if (is.match(gc.regexes.LABEL_NOTAPPLICABLE)) {
         return self.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.re.LABEL_NA)) {
+      } else if (is.match(gc.regexes.LABEL_NA)) {
         return self.SPECIALCASE_UNKNOWN;
       }
     }
@@ -60,9 +60,9 @@ MB.GuessCase.Handler.Label = function (gc) {
    * in the common word handlers.
    */
   self.doWord = function () {
-    gc.o.appendSpaceIfNeeded();
-    gc.i.capitalizeCurrentWord();
-    gc.o.appendCurrentWord();
+    gc.output.appendSpaceIfNeeded();
+    gc.input.capitalizeCurrentWord();
+    gc.output.appendCurrentWord();
 
     flags.resetContext();
     flags.context.number = false;

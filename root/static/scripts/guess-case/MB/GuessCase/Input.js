@@ -193,11 +193,11 @@ MB.GuessCase.Input = function (gc) {
     var chars = is.split('');
     var splitwords = [];
     var word = [];
-    if (!gc.re.SPLITWORDSANDPUNCTUATION) {
-      gc.re.SPLITWORDSANDPUNCTUATION = /[^!¿¡\"%&'´`‘’‹›“”„“«»()\[\]\{\}\*\+,-\.\/:;<=>\?\s#]/;
+    if (!gc.regexes.SPLITWORDSANDPUNCTUATION) {
+      gc.regexes.SPLITWORDSANDPUNCTUATION = /[^!¿¡\"%&'´`‘’‹›“”„“«»()\[\]\{\}\*\+,-\.\/:;<=>\?\s#]/;
     }
     for (var i = 0; i < chars.length; i++) {
-      if (chars[i].match(gc.re.SPLITWORDSANDPUNCTUATION)) {
+      if (chars[i].match(gc.regexes.SPLITWORDSANDPUNCTUATION)) {
         /*
          * See http://www.codingforums.com/archive/index.php/t-49001
          * for reference (escaping the sequence)

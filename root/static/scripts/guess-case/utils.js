@@ -180,8 +180,8 @@ export function titleString(
     : forceCaps;
 
   // Get current pointer in word array.
-  const len = gc.i.getLength();
-  let pos = gc.i.getPos();
+  const len = gc.input.getLength();
+  let pos = gc.input.getPos();
 
   /*
    * If pos === len, this means that the pointer is beyond the last position
@@ -191,7 +191,7 @@ export function titleString(
    */
   if (pos === len) {
     pos = len - 1;
-    gc.i.setPos(pos);
+    gc.input.setPos(pos);
   }
 
   let outputString;
@@ -200,10 +200,11 @@ export function titleString(
 
   if (inputString === uppercase &&
       inputString.length > 1 &&
-      gc.CFG_UC_UPPERCASED) {
+      gc.CFG_KEEP_UPPERCASED) {
     outputString = uppercase;
     // we got an 'x (apostrophe),keep the text lowercased
-  } else if (lowercase.length === 1 && isApostrophe(gc.i.getPreviousWord())) {
+  } else if (lowercase.length === 1 &&
+             isApostrophe(gc.input.getPreviousWord())) {
     outputString = lowercase;
     /*
      * we got an 's (It is = It's), lowercase
@@ -220,7 +221,7 @@ export function titleString(
      */
   } else if (
     gc.mode.name === 'English' &&
-    isApostrophe(gc.i.getPreviousWord()) &&
+    isApostrophe(gc.input.getPreviousWord()) &&
     lowercase.match(/^(?:s|round|em|ve|ll|d|cha|re|til|way|all|mon)$/i)
   ) {
     outputString = lowercase;
@@ -231,15 +232,15 @@ export function titleString(
      */
   } else if (
     gc.mode.name === 'English' &&
-    isApostrophe(gc.i.getPreviousWord()) &&
-    gc.i.getWordAtIndex(pos - 2) === 'Ev'
+    isApostrophe(gc.input.getPreviousWord()) &&
+    gc.input.getWordAtIndex(pos - 2) === 'Ev'
   ) {
     outputString = lowercase;
     // Make it O'Titled, Y'All, C'mon
   } else if (
     gc.mode.name === 'English' &&
     lowercase.match(/^[coy]$/i) &&
-    isApostrophe(gc.i.getNextWord())
+    isApostrophe(gc.input.getNextWord())
   ) {
     outputString = uppercase;
   } else {
@@ -247,7 +248,7 @@ export function titleString(
     lowercase = gc.mode.toLowerCase(outputString);
     uppercase = gc.mode.toUpperCase(outputString);
 
-    const nextWord = gc.i.getNextWord();
+    const nextWord = gc.input.getNextWord();
     const followedByPunctuation =
       nextWord && nextWord.length === 1 && isPunctuationChar(nextWord);
     const followedByApostrophe =
@@ -297,10 +298,10 @@ export function titleStringByMode(
    * See if the word before is a sentence stop character.
    * -- http://bugs.musicbrainz.org/ticket/40
    */
-  const opos = gc.o.getLength();
+  const opos = gc.output.getLength();
   let wordBefore = '';
   if (opos > 1) {
-    wordBefore = gc.o.getWordAtIndex(opos - 2);
+    wordBefore = gc.output.getWordAtIndex(opos - 2);
   }
 
   /*
@@ -311,7 +312,7 @@ export function titleStringByMode(
     forceCaps || !gc.mode.isSentenceCaps() ||
       flags.context.slurpExtraTitleInformation ||
       flags.context.openingBracket ||
-      gc.i.isFirstWord() || isSentenceStopChar(wordBefore)
+      gc.input.isFirstWord() || isSentenceStopChar(wordBefore)
   );
 
   if (doCaps) {

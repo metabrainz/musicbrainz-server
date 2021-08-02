@@ -45,7 +45,7 @@ MB.GuessCase.Output = function (gc) {
    */
   self.appendCurrentWord = function () {
     var w;
-    if ((w = gc.i.getCurrentWord()) != null) {
+    if ((w = gc.input.getCurrentWord()) != null) {
       self.appendWord(w);
     }
   };
@@ -57,7 +57,7 @@ MB.GuessCase.Output = function (gc) {
    */
   self.appendWord = function (w) {
     if (w == ' ') {
-      gc.o.appendSpace();
+      gc.output.appendSpace();
     } else if (w != '' && w != null) {
       self._w[self._w.length] = w;
     }
@@ -74,7 +74,7 @@ MB.GuessCase.Output = function (gc) {
    */
   self.appendSpaceIfNeeded = function () {
     if (flags.context.spaceNextWord) {
-      gc.o.appendSpace();
+      gc.output.appendSpace();
     }
   };
 
@@ -139,16 +139,18 @@ MB.GuessCase.Output = function (gc) {
           // Else capitalize the current word.
         } else {
           // Rewind pos pointer on input
-          const bef = gc.i.getPos();
+          const bef = gc.input.getPos();
           let pos = bef - 1;
           while (pos >= 0 &&
-                utils.trim(gc.i.getWordAtIndex(pos).toLowerCase()) != probe) {
+                 utils.trim(
+                   gc.input.getWordAtIndex(pos).toLowerCase(),
+                 ) != probe) {
             pos--;
           }
-          gc.i.setPos(pos);
+          gc.input.setPos(pos);
           o = utils.titleString(gc, w, overrideCaps);
           // Restore pos pointer on input
-          gc.i.setPos(bef);
+          gc.input.setPos(bef);
           if (w != o) {
             self.setWordAtIndex(index, o);
           }
@@ -200,8 +202,8 @@ MB.GuessCase.Output = function (gc) {
   self.appendWordPreserveWhiteSpace = function (c) {
     if (c) {
       var ws = {
-        after: gc.i.isNextWord(' '),
-        before: gc.i.isPreviousWord(' '),
+        after: gc.input.isNextWord(' '),
+        before: gc.input.isPreviousWord(' '),
       };
       if (c.apply) {
         /*

@@ -91,7 +91,7 @@ guessCaseOptions.help = ko.computed({
 });
 
 guessCaseOptions.keepUpperCase.subscribe(function (value) {
-  gc.CFG_UC_UPPERCASED = value;
+  gc.CFG_KEEP_UPPERCASED = value;
   setCookie('guesscase_keepuppercase', value);
 });
 
@@ -113,7 +113,7 @@ ko.bindingHandlers.guessCase = {
     }
 
     if (!guessCaseOptions.keepUpperCase.peek()) {
-      guessCaseOptions.keepUpperCase(gc.CFG_UC_UPPERCASED);
+      guessCaseOptions.keepUpperCase(gc.CFG_KEEP_UPPERCASED);
     }
 
     if (!guessCaseOptions.upperCaseRoman.peek()) {
