@@ -18,7 +18,6 @@ class GuessCaseInput {
     this.gc = gc;
     this.source = '';
     this.wordList = [];
-    this.wordListLength = 0;
     this.wordIndex = 0;
   }
 
@@ -28,13 +27,12 @@ class GuessCaseInput {
   init(inputString, wordlist) {
     this.source = (inputString || '');
     this.wordList = (wordlist || []);
-    this.wordListLength = this.wordList.length;
     this.wordIndex = 0;
   }
 
   // Returns the length of the wordlist
   getLength() {
-    return this.wordListLength;
+    return this.wordList.length;
   }
 
   isEmpty() {
@@ -133,7 +131,6 @@ class GuessCaseInput {
     const part1 = this.wordList.slice(0, index);
     const part2 = this.wordList.slice(index, this.wordList.length);
     this.wordList = part1.concat(newWords).concat(part2);
-    this.wordListLength = this.wordList.length;
   }
 
   capitalizeCurrentWord() {
@@ -157,7 +154,6 @@ class GuessCaseInput {
 
   insertWordAtEnd(word) {
     this.wordList[this.wordList.length] = word;
-    this.wordListLength++;
   }
 
   /*
