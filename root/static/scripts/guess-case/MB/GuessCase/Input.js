@@ -37,24 +37,20 @@ class GuessCaseInput {
     return this.wordListLength;
   }
 
-  // Returns true if the lenght==0
   isEmpty() {
     return this.getLength() === 0;
   }
 
-  // Get the cursor position
   getCursorPosition() {
     return this.wordIndex;
   }
 
-  // Set the cursor to a new position
   setCursorPosition(index) {
     if (index >= 0 && index < this.getLength()) {
       this.wordIndex = index;
     }
   }
 
-  // Accessors for strings at certain positions.
   getWordAtIndex(index) {
     return (this.wordList[index] || null);
   }
@@ -71,7 +67,6 @@ class GuessCaseInput {
     return this.getWordAtIndex(this.wordIndex - 1);
   }
 
-  // Test methods
   isFirstWord() {
     return (this.wordIndex === 0);
   }
@@ -97,7 +92,7 @@ class GuessCaseInput {
   }
 
   /*
-   * Match the word at index wi against the
+   * Match the word at the given index against the
    * regular expression or string given
    */
   matchWordAtIndex(index, regex) {
@@ -111,7 +106,6 @@ class GuessCaseInput {
     return result;
   }
 
-  // Index methods
   hasMoreWords() {
     return (this.wordIndex === 0 && this.getLength() > 0 ||
             this.wordIndex - 1 < this.getLength());
@@ -135,7 +129,6 @@ class GuessCaseInput {
     }
   }
 
-  // Capitalize the word at the current position
   insertWordsAtIndex(index, newWords) {
     const part1 = this.wordList.slice(0, index);
     const part2 = this.wordList.slice(index, this.wordList.length);
@@ -143,7 +136,6 @@ class GuessCaseInput {
     this.wordListLength = this.wordList.length;
   }
 
-  // Capitalize the word at the current position
   capitalizeCurrentWord() {
     const word = this.getCurrentWord();
     if (word != null) {
@@ -156,7 +148,6 @@ class GuessCaseInput {
     return null;
   }
 
-  // Update the word at the current position
   updateCurrentWord(word) {
     const currentWord = this.getCurrentWord();
     if (currentWord != null) {
@@ -164,7 +155,6 @@ class GuessCaseInput {
     }
   }
 
-  // Insert a word at the end of the wordlist
   insertWordAtEnd(word) {
     this.wordList[this.wordList.length] = word;
     this.wordListLength++;
