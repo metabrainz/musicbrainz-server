@@ -39,7 +39,7 @@ class GuessCaseInput {
 
   // Returns true if the lenght==0
   isEmpty() {
-    var f = (this.getLength() == 0);
+    const f = (this.getLength() === 0);
     return f;
   }
 
@@ -74,19 +74,19 @@ class GuessCaseInput {
 
   // Test methods
   isFirstWord() {
-    return (0 == this._wi);
+    return (0 === this._wi);
   }
 
   isLastWord() {
-    return (this.getLength() == this._wi - 1);
+    return (this.getLength() === this._wi - 1);
   }
 
   isNextWord(s) {
-    return (this.hasMoreWords() && this.getNextWord() == s);
+    return (this.hasMoreWords() && this.getNextWord() === s);
   }
 
   isPreviousWord(s) {
-    return (!this.isFirstWord() && this.getPreviousWord() == s);
+    return (!this.isFirstWord() && this.getPreviousWord() === s);
   }
 
   /*
@@ -102,10 +102,10 @@ class GuessCaseInput {
    * regular expression or string given
    */
   matchWordAtIndex(index, re) {
-    var cw = (this.getWordAtIndex(index) || '');
-    var f;
+    const cw = (this.getWordAtIndex(index) || '');
+    let f;
     if (typeof re === 'string') {
-      f = (re == cw);
+      f = (re === cw);
     } else {
       f = (cw.match(re) != null);
     }
@@ -114,12 +114,12 @@ class GuessCaseInput {
 
   // Index methods
   hasMoreWords() {
-    return (this._wi == 0 && this.getLength() > 0 ||
+    return (this._wi === 0 && this.getLength() > 0 ||
             this._wi - 1 < this.getLength());
   }
 
   isIndexAtEnd() {
-    return (this._wi == this.getLength());
+    return (this._wi === this.getLength());
   }
 
   nextIndex() {
@@ -138,18 +138,18 @@ class GuessCaseInput {
 
   // Capitalize the word at the current position
   insertWordsAtIndex(index, w) {
-    var part1 = this._w.slice(0, index);
-    var part2 = this._w.slice(index, this._w.length);
+    const part1 = this._w.slice(0, index);
+    const part2 = this._w.slice(index, this._w.length);
     this._w = part1.concat(w).concat(part2);
     this._l = this._w.length;
   }
 
   // Capitalize the word at the current position
   capitalizeCurrentWord() {
-    var w;
-    if ((w = this.getCurrentWord()) != null) {
-      var o = utils.titleString(this.gc, w);
-      if (w != o) {
+    const w = this.getCurrentWord();
+    if (w != null) {
+      const o = utils.titleString(this.gc, w);
+      if (w !== o) {
         this.updateCurrentWord(o);
       }
       return o;
@@ -159,7 +159,7 @@ class GuessCaseInput {
 
   // Update the word at the current position
   updateCurrentWord(o) {
-    var w = this.getCurrentWord();
+    const w = this.getCurrentWord();
     if (w != null) {
       this._w[this._wi] = o;
     }
@@ -187,13 +187,13 @@ class GuessCaseInput {
     is = is.replace(/^\s\s*/, ''); // delete leading space
     is = is.replace(/\s\s*$/, ''); // delete trailing space
     is = is.replace(/\s\s*/g, ' '); // compress whitespace:
-    var chars = is.split('');
-    var splitwords = [];
-    var word = [];
+    const chars = is.split('');
+    const splitwords = [];
+    let word = [];
     if (!this.gc.regexes.SPLITWORDSANDPUNCTUATION) {
       this.gc.regexes.SPLITWORDSANDPUNCTUATION = /[^!¿¡\"%&'´`‘’‹›“”„“«»()\[\]\{\}\*\+,-\.\/:;<=>\?\s#]/;
     }
-    for (var i = 0; i < chars.length; i++) {
+    for (let i = 0; i < chars.length; i++) {
       if (chars[i].match(this.gc.regexes.SPLITWORDSANDPUNCTUATION)) {
         /*
          * See http://www.codingforums.com/archive/index.php/t-49001
