@@ -265,6 +265,15 @@ sub insert
     }, $self->sql);
 }
 
+sub search_old_editor_names {
+    my ($self, $name, $use_regular_expression) = @_;
+
+    my $condition = $use_regular_expression ? "name ~* ?" : "LOWER(name) = LOWER(?)";
+    my $query = "SELECT name FROM old_editor_name WHERE $condition LIMIT 100";
+
+    @{ $self->sql->select_single_column_array($query, $name) };
+}
+
 sub update_email
 {
     my ($self, $editor, $email) = @_;

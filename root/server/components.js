@@ -38,6 +38,7 @@ module.exports = {
   'admin/EditBanner': require('../admin/EditBanner'),
   'admin/EmailSearch': require('../admin/EmailSearch'),
   'admin/IpLookup': require('../admin/IpLookup'),
+  'admin/LockedUsernameSearch': require('../admin/LockedUsernameSearch'),
   'admin/attributes/Attribute': require('../admin/attributes/Attribute'),
   'admin/attributes/CannotRemoveAttribute': require('../admin/attributes/CannotRemoveAttribute'),
   'admin/attributes/Index': require('../admin/attributes/Index'),
