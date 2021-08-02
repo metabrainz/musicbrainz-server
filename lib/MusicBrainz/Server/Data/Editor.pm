@@ -274,6 +274,14 @@ sub search_old_editor_names {
     @{ $self->sql->select_single_column_array($query, $name) };
 }
 
+sub unlock_old_editor_name {
+    my ($self, $name) = @_;
+
+    my $query = "DELETE FROM old_editor_name WHERE name = ?";
+
+    $self->sql->do($query, $name);
+}
+
 sub update_email
 {
     my ($self, $editor, $email) = @_;

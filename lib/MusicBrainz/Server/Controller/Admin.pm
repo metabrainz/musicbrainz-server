@@ -239,6 +239,28 @@ sub locked_username_search : Path('/admin/locked-usernames/search') Args(0) Requ
     );
 }
 
+sub unlock_username : Path('/admin/locked-usernames/unlock') Args(1) RequireAuth(account_admin) HiddenOnSlaves {
+    my ($self, $c, $username) = @_;
+
+    my $form = $c->form(form => 'SecureConfirm');
+
+    if ($c->form_posted_and_valid($form)) {
+        $c->model('MB')->with_transaction(sub {
+            $c->model('Editor')->unlock_old_editor_name($username);
+        });
+        $c->response->redirect($c->uri_for_action('/admin/locked_username_search'));
+    }
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'admin/LockedUsernameUnlock',
+        component_props => {
+            form => $form->TO_JSON,
+            username => $username,
+        },
+    );
+}
+
 1;
 
 =head1 COPYRIGHT AND LICENSE
