@@ -42,8 +42,9 @@ sub _get_extract
             elsif ($_->target->isa('MusicBrainz::Server::Entity::URL::Wikidata')) { 1; }
             else { 0; }
         } grep {
-            $_->target->isa('MusicBrainz::Server::Entity::URL::Wikipedia') ||
-            $_->target->isa('MusicBrainz::Server::Entity::URL::Wikidata')
+            !$_->link->{ended} &&
+            ($_->target->isa('MusicBrainz::Server::Entity::URL::Wikipedia') ||
+             $_->target->isa('MusicBrainz::Server::Entity::URL::Wikidata'))
         } @{ $entity->relationships_by_link_type_names('wikipedia', 'wikidata') };
 
     if (scalar @links) {
