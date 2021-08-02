@@ -36,7 +36,7 @@ self.mode = modes[self.modeName];
 self.CFG_KEEP_UPPERCASED = getCookie('guesscase_keepuppercase') !== 'false';
 
 // Member variables
-self.input = Input(self);
+self.input = new Input(self);
 self.output = Output(self);
 
 self.regexes = {

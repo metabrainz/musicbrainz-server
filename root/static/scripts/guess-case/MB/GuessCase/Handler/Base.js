@@ -85,7 +85,8 @@ MB.GuessCase.Handler.Base = function (gc) {
     }
   };
 
-  self.getWordsForProcessing = gc.input.splitWordsAndPunctuation;
+  self.getWordsForProcessing =
+    gc.input.splitWordsAndPunctuation.bind(gc.input);
 
   self.process = function (is) {
     gc.output.init();

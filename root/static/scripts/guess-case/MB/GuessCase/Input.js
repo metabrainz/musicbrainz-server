@@ -7,105 +7,102 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import MB from '../../../common/MB';
 import * as utils from '../../utils';
-
-
-MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 
 /*
  * Holds the input variables
  */
-MB.GuessCase.Input = function (gc) {
-  var self = {};
-
-  // Member variables
-  self._source = '';
-  self._w = [];
-  self._l = 0;
-  self._wi = 0;
+class GuessCaseInput {
+  constructor(gc) {
+    // Member variables
+    this.gc = gc;
+    this._source = '';
+    this._w = [];
+    this._l = 0;
+    this._wi = 0;
+  }
 
   // Member functions
 
   // Initialise the GcInput object
-  self.init = function (is, w) {
-    self._source = (is || '');
-    self._w = (w || []);
-    self._l = self._w.length;
-    self._wi = 0;
-  };
+  init(is, w) {
+    this._source = (is || '');
+    this._w = (w || []);
+    this._l = this._w.length;
+    this._wi = 0;
+  }
 
   // Returns the length of the wordlist
-  self.getLength = function () {
-    return self._l;
-  };
+  getLength() {
+    return this._l;
+  }
 
   // Returns true if the lenght==0
-  self.isEmpty = function () {
-    var f = (self.getLength() == 0);
+  isEmpty() {
+    var f = (this.getLength() == 0);
     return f;
-  };
+  }
 
   // Get the cursor position
-  self.getPos = function () {
-    return self._wi;
-  };
+  getPos() {
+    return this._wi;
+  }
 
   // Set the cursor to a new position
-  self.setPos = function (index) {
-    if (index >= 0 && index < self.getLength()) {
-      self._wi = index;
+  setPos(index) {
+    if (index >= 0 && index < this.getLength()) {
+      this._wi = index;
     }
-  };
+  }
 
   // Accessors for strings at certain positions.
-  self.getWordAtIndex = function (index) {
-    return (self._w[index] || null);
-  };
+  getWordAtIndex(index) {
+    return (this._w[index] || null);
+  }
 
-  self.getNextWord = function () {
-    return self.getWordAtIndex(self._wi + 1);
-  };
+  getNextWord() {
+    return this.getWordAtIndex(this._wi + 1);
+  }
 
-  self.getCurrentWord = function () {
-    return self.getWordAtIndex(self._wi);
-  };
+  getCurrentWord() {
+    return this.getWordAtIndex(this._wi);
+  }
 
-  self.getPreviousWord = function () {
-    return self.getWordAtIndex(self._wi - 1);
-  };
+  getPreviousWord() {
+    return this.getWordAtIndex(this._wi - 1);
+  }
 
   // Test methods
-  self.isFirstWord = function () {
-    return (0 == self._wi);
-  };
+  isFirstWord() {
+    return (0 == this._wi);
+  }
 
-  self.isLastWord = function () {
-    return (self.getLength() == self._wi - 1);
-  };
+  isLastWord() {
+    return (this.getLength() == this._wi - 1);
+  }
 
-  self.isNextWord = function (s) {
-    return (self.hasMoreWords() && self.getNextWord() == s);
-  };
+  isNextWord(s) {
+    return (this.hasMoreWords() && this.getNextWord() == s);
+  }
 
-  self.isPreviousWord = function (s) {
-    return (!self.isFirstWord() && self.getPreviousWord() == s);
-  };
+  isPreviousWord(s) {
+    return (!this.isFirstWord() && this.getPreviousWord() == s);
+  }
 
   /*
    * Match the word at the current index against the
    * regular expression or string given
    */
-  self.matchCurrentWord = function (re) {
-    return self.matchWordAtIndex(self.getPos(), re);
-  };
+  matchCurrentWord(re) {
+    return this.matchWordAtIndex(this.getPos(), re);
+  }
 
   /*
    * Match the word at index wi against the
    * regular expression or string given
    */
-  self.matchWordAtIndex = function (index, re) {
-    var cw = (self.getWordAtIndex(index) || '');
+  matchWordAtIndex(index, re) {
+    var cw = (this.getWordAtIndex(index) || '');
     var f;
     if (typeof re === 'string') {
       f = (re == cw);
@@ -113,66 +110,66 @@ MB.GuessCase.Input = function (gc) {
       f = (cw.match(re) != null);
     }
     return f;
-  };
+  }
 
   // Index methods
-  self.hasMoreWords = function () {
-    return (self._wi == 0 && self.getLength() > 0 ||
-            self._wi - 1 < self.getLength());
-  };
+  hasMoreWords() {
+    return (this._wi == 0 && this.getLength() > 0 ||
+            this._wi - 1 < this.getLength());
+  }
 
-  self.isIndexAtEnd = function () {
-    return (self._wi == self.getLength());
-  };
+  isIndexAtEnd() {
+    return (this._wi == this.getLength());
+  }
 
-  self.nextIndex = function () {
-    self._wi++;
-  };
+  nextIndex() {
+    this._wi++;
+  }
 
   // Returns the last word of the wordlist
-  self.dropLastWord = function () {
-    if (self.getLength() > 0) {
-      self._w.pop();
-      if (self.isIndexAtEnd()) {
-        self._wi--;
+  dropLastWord() {
+    if (this.getLength() > 0) {
+      this._w.pop();
+      if (this.isIndexAtEnd()) {
+        this._wi--;
       }
     }
-  };
+  }
 
   // Capitalize the word at the current position
-  self.insertWordsAtIndex = function (index, w) {
-    var part1 = self._w.slice(0, index);
-    var part2 = self._w.slice(index, self._w.length);
-    self._w = part1.concat(w).concat(part2);
-    self._l = self._w.length;
-  };
+  insertWordsAtIndex(index, w) {
+    var part1 = this._w.slice(0, index);
+    var part2 = this._w.slice(index, this._w.length);
+    this._w = part1.concat(w).concat(part2);
+    this._l = this._w.length;
+  }
 
   // Capitalize the word at the current position
-  self.capitalizeCurrentWord = function () {
+  capitalizeCurrentWord() {
     var w;
-    if ((w = self.getCurrentWord()) != null) {
-      var o = utils.titleString(gc, w);
+    if ((w = this.getCurrentWord()) != null) {
+      var o = utils.titleString(this.gc, w);
       if (w != o) {
-        self.updateCurrentWord(o);
+        this.updateCurrentWord(o);
       }
       return o;
     }
     return null;
-  };
+  }
 
   // Update the word at the current position
-  self.updateCurrentWord = function (o) {
-    var w = self.getCurrentWord();
+  updateCurrentWord(o) {
+    var w = this.getCurrentWord();
     if (w != null) {
-      self._w[self._wi] = o;
+      this._w[this._wi] = o;
     }
-  };
+  }
 
   // Insert a word at the end of the wordlist
-  self.insertWordAtEnd = function (w) {
-    self._w[self._w.length] = w;
-    self._l++;
-  };
+  insertWordAtEnd(w) {
+    this._w[this._w.length] = w;
+    this._l++;
+  }
 
   /*
    * This function returns an array of all the words, punctuation and
@@ -186,18 +183,18 @@ MB.GuessCase.Input = function (gc) {
    * @param is the un-processed input string
    * @returns sets the GLOBAL array of words and puctuation characters
    */
-  self.splitWordsAndPunctuation = function (is) {
+  splitWordsAndPunctuation(is) {
     is = is.replace(/^\s\s*/, ''); // delete leading space
     is = is.replace(/\s\s*$/, ''); // delete trailing space
     is = is.replace(/\s\s*/g, ' '); // compress whitespace:
     var chars = is.split('');
     var splitwords = [];
     var word = [];
-    if (!gc.regexes.SPLITWORDSANDPUNCTUATION) {
-      gc.regexes.SPLITWORDSANDPUNCTUATION = /[^!¿¡\"%&'´`‘’‹›“”„“«»()\[\]\{\}\*\+,-\.\/:;<=>\?\s#]/;
+    if (!this.gc.regexes.SPLITWORDSANDPUNCTUATION) {
+      this.gc.regexes.SPLITWORDSANDPUNCTUATION = /[^!¿¡\"%&'´`‘’‹›“”„“«»()\[\]\{\}\*\+,-\.\/:;<=>\?\s#]/;
     }
     for (var i = 0; i < chars.length; i++) {
-      if (chars[i].match(gc.regexes.SPLITWORDSANDPUNCTUATION)) {
+      if (chars[i].match(this.gc.regexes.SPLITWORDSANDPUNCTUATION)) {
         /*
          * See http://www.codingforums.com/archive/index.php/t-49001
          * for reference (escaping the sequence)
@@ -216,9 +213,7 @@ MB.GuessCase.Input = function (gc) {
       splitwords.push(word.join(''));
     }
     return splitwords;
-  };
+  }
+}
 
-  return self;
-};
-
-export default MB.GuessCase.Input;
+export default GuessCaseInput;
