@@ -16,159 +16,158 @@ class GuessCaseInput {
   constructor(gc) {
     // Member variables
     this.gc = gc;
-    this._source = '';
-    this._w = [];
-    this._l = 0;
-    this._wi = 0;
+    this.source = '';
+    this.wordList = [];
+    this.wordListLength = 0;
+    this.wordIndex = 0;
   }
 
   // Member functions
 
   // Initialise the GcInput object
-  init(is, w) {
-    this._source = (is || '');
-    this._w = (w || []);
-    this._l = this._w.length;
-    this._wi = 0;
+  init(inputString, wordlist) {
+    this.source = (inputString || '');
+    this.wordList = (wordlist || []);
+    this.wordListLength = this.wordList.length;
+    this.wordIndex = 0;
   }
 
   // Returns the length of the wordlist
   getLength() {
-    return this._l;
+    return this.wordListLength;
   }
 
   // Returns true if the lenght==0
   isEmpty() {
-    const f = (this.getLength() === 0);
-    return f;
+    return this.getLength() === 0;
   }
 
   // Get the cursor position
   getPos() {
-    return this._wi;
+    return this.wordIndex;
   }
 
   // Set the cursor to a new position
   setPos(index) {
     if (index >= 0 && index < this.getLength()) {
-      this._wi = index;
+      this.wordIndex = index;
     }
   }
 
   // Accessors for strings at certain positions.
   getWordAtIndex(index) {
-    return (this._w[index] || null);
+    return (this.wordList[index] || null);
   }
 
   getNextWord() {
-    return this.getWordAtIndex(this._wi + 1);
+    return this.getWordAtIndex(this.wordIndex + 1);
   }
 
   getCurrentWord() {
-    return this.getWordAtIndex(this._wi);
+    return this.getWordAtIndex(this.wordIndex);
   }
 
   getPreviousWord() {
-    return this.getWordAtIndex(this._wi - 1);
+    return this.getWordAtIndex(this.wordIndex - 1);
   }
 
   // Test methods
   isFirstWord() {
-    return (0 === this._wi);
+    return (this.wordIndex === 0);
   }
 
   isLastWord() {
-    return (this.getLength() === this._wi - 1);
+    return (this.getLength() === this.wordIndex - 1);
   }
 
-  isNextWord(s) {
-    return (this.hasMoreWords() && this.getNextWord() === s);
+  isNextWord(word) {
+    return (this.hasMoreWords() && this.getNextWord() === word);
   }
 
-  isPreviousWord(s) {
-    return (!this.isFirstWord() && this.getPreviousWord() === s);
+  isPreviousWord(word) {
+    return (!this.isFirstWord() && this.getPreviousWord() === word);
   }
 
   /*
    * Match the word at the current index against the
    * regular expression or string given
    */
-  matchCurrentWord(re) {
-    return this.matchWordAtIndex(this.getPos(), re);
+  matchCurrentWord(regex) {
+    return this.matchWordAtIndex(this.getPos(), regex);
   }
 
   /*
    * Match the word at index wi against the
    * regular expression or string given
    */
-  matchWordAtIndex(index, re) {
-    const cw = (this.getWordAtIndex(index) || '');
-    let f;
-    if (typeof re === 'string') {
-      f = (re === cw);
+  matchWordAtIndex(index, regex) {
+    const word = (this.getWordAtIndex(index) || '');
+    let result;
+    if (typeof regex === 'string') {
+      result = (regex === word);
     } else {
-      f = (cw.match(re) != null);
+      result = (word.match(regex) != null);
     }
-    return f;
+    return result;
   }
 
   // Index methods
   hasMoreWords() {
-    return (this._wi === 0 && this.getLength() > 0 ||
-            this._wi - 1 < this.getLength());
+    return (this.wordIndex === 0 && this.getLength() > 0 ||
+            this.wordIndex - 1 < this.getLength());
   }
 
   isIndexAtEnd() {
-    return (this._wi === this.getLength());
+    return (this.wordIndex === this.getLength());
   }
 
   nextIndex() {
-    this._wi++;
+    this.wordIndex++;
   }
 
   // Returns the last word of the wordlist
   dropLastWord() {
     if (this.getLength() > 0) {
-      this._w.pop();
+      this.wordList.pop();
       if (this.isIndexAtEnd()) {
-        this._wi--;
+        this.wordIndex--;
       }
     }
   }
 
   // Capitalize the word at the current position
-  insertWordsAtIndex(index, w) {
-    const part1 = this._w.slice(0, index);
-    const part2 = this._w.slice(index, this._w.length);
-    this._w = part1.concat(w).concat(part2);
-    this._l = this._w.length;
+  insertWordsAtIndex(index, newWords) {
+    const part1 = this.wordList.slice(0, index);
+    const part2 = this.wordList.slice(index, this.wordList.length);
+    this.wordList = part1.concat(newWords).concat(part2);
+    this.wordListLength = this.wordList.length;
   }
 
   // Capitalize the word at the current position
   capitalizeCurrentWord() {
-    const w = this.getCurrentWord();
-    if (w != null) {
-      const o = utils.titleString(this.gc, w);
-      if (w !== o) {
-        this.updateCurrentWord(o);
+    const word = this.getCurrentWord();
+    if (word != null) {
+      const output = utils.titleString(this.gc, word);
+      if (word !== output) {
+        this.updateCurrentWord(output);
       }
-      return o;
+      return output;
     }
     return null;
   }
 
   // Update the word at the current position
-  updateCurrentWord(o) {
-    const w = this.getCurrentWord();
-    if (w != null) {
-      this._w[this._wi] = o;
+  updateCurrentWord(word) {
+    const currentWord = this.getCurrentWord();
+    if (currentWord != null) {
+      this.wordList[this.wordIndex] = word;
     }
   }
 
   // Insert a word at the end of the wordlist
-  insertWordAtEnd(w) {
-    this._w[this._w.length] = w;
-    this._l++;
+  insertWordAtEnd(word) {
+    this.wordList[this.wordList.length] = word;
+    this.wordListLength++;
   }
 
   /*
@@ -183,11 +182,11 @@ class GuessCaseInput {
    * @param is the un-processed input string
    * @returns sets the GLOBAL array of words and puctuation characters
    */
-  splitWordsAndPunctuation(is) {
-    is = is.replace(/^\s\s*/, ''); // delete leading space
-    is = is.replace(/\s\s*$/, ''); // delete trailing space
-    is = is.replace(/\s\s*/g, ' '); // compress whitespace:
-    const chars = is.split('');
+  splitWordsAndPunctuation(inputString) {
+    inputString = inputString.replace(/^\s\s*/, ''); // delete leading space
+    inputString = inputString.replace(/\s\s*$/, ''); // delete trailing space
+    inputString = inputString.replace(/\s\s*/g, ' '); // compress whitespace:
+    const chars = inputString.split('');
     const splitwords = [];
     let word = [];
     if (!this.gc.regexes.SPLITWORDSANDPUNCTUATION) {
