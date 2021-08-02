@@ -181,7 +181,7 @@ export function titleString(
 
   // Get current pointer in word array.
   const len = gc.input.getLength();
-  let pos = gc.input.getPos();
+  let pos = gc.input.getCursorPosition();
 
   /*
    * If pos === len, this means that the pointer is beyond the last position
@@ -191,7 +191,7 @@ export function titleString(
    */
   if (pos === len) {
     pos = len - 1;
-    gc.input.setPos(pos);
+    gc.input.setCursorPosition(pos);
   }
 
   let outputString;

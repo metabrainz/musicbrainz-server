@@ -43,12 +43,12 @@ class GuessCaseInput {
   }
 
   // Get the cursor position
-  getPos() {
+  getCursorPosition() {
     return this.wordIndex;
   }
 
   // Set the cursor to a new position
-  setPos(index) {
+  setCursorPosition(index) {
     if (index >= 0 && index < this.getLength()) {
       this.wordIndex = index;
     }
@@ -93,7 +93,7 @@ class GuessCaseInput {
    * regular expression or string given
    */
   matchCurrentWord(regex) {
-    return this.matchWordAtIndex(this.getPos(), regex);
+    return this.matchWordAtIndex(this.getCursorPosition(), regex);
   }
 
   /*

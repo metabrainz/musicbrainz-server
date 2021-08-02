@@ -211,7 +211,7 @@ MB.GuessCase.Handler.Base = function (gc) {
 
       // from next position on, skip spaces and dots.
       var skip = false;
-      var pos = gc.input.getPos();
+      var pos = gc.input.getCursorPosition();
       var len = gc.input.getLength();
       if (pos < len - 2) {
         var nword = gc.input.getWordAtIndex(pos + 1);
@@ -485,7 +485,7 @@ MB.GuessCase.Handler.Base = function (gc) {
       flags.pushBracket(gc.input.getCurrentWord());
       var cb = flags.getCurrentCloseBracket();
       var forcelowercase = false;
-      var pos = gc.input.getPos() + 1;
+      var pos = gc.input.getCursorPosition() + 1;
       for (var i = pos; i < gc.input.getLength(); i++) {
         var w = (gc.input.getWordAtIndex(i) || '');
         if (w != ' ') {
@@ -643,7 +643,7 @@ MB.GuessCase.Handler.Base = function (gc) {
 
       acronymloop:
       for (
-        subIndex = gc.input.getPos() + 1;
+        subIndex = gc.input.getCursorPosition() + 1;
         subIndex < gc.input.getLength();
       ) {
         cw = gc.input.getWordAtIndex(subIndex); // Remember current word.
@@ -681,7 +681,8 @@ MB.GuessCase.Handler.Base = function (gc) {
       flags.context.acronym = true;
       flags.context.spaceNextWord = true;
       flags.context.forceCaps = false;
-      gc.input.setPos(subIndex - 1); // Set pointer to after acronym
+      // Set pointer to after acronym
+      gc.input.setCursorPosition(subIndex - 1);
       return true;
     }
     return false;
@@ -705,7 +706,7 @@ MB.GuessCase.Handler.Base = function (gc) {
 
       numberloop:
       for (
-        subIndex = gc.input.getPos() + 1;
+        subIndex = gc.input.getCursorPosition() + 1;
         subIndex < gc.input.getLength();
       ) {
         if (flags.context.numberSplitExpect) {
@@ -762,7 +763,7 @@ MB.GuessCase.Handler.Base = function (gc) {
         }
         subIndex++;
       }
-      gc.input.setPos(subIndex - 1);
+      gc.input.setCursorPosition(subIndex - 1);
 
       gc.output.appendSpaceIfNeeded();
       gc.output.appendWord(tmp.join(''));
@@ -818,7 +819,7 @@ MB.GuessCase.Handler.Base = function (gc) {
        * Only try to convert to feat. if there are
        * enough words after the keyword
        */
-      if (gc.input.getPos() < gc.input.getLength() - 2) {
+      if (gc.input.getCursorPosition() < gc.input.getLength() - 2) {
         const featWord = gc.input.getCurrentWord() + (
           gc.input.isNextWord('.') || gc.input.isNextWord('/')
             ? gc.input.getNextWord()
@@ -854,7 +855,7 @@ MB.GuessCase.Handler.Base = function (gc) {
            *    though :]
            * Blah (feat. Erroll Flynn Some Remixname) (remix)
            */
-          const pos = gc.input.getPos();
+          const pos = gc.input.getCursorPosition();
           const len = gc.input.getLength();
           let i = pos;
           for (; i < len; i++) {

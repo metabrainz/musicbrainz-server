@@ -139,7 +139,7 @@ MB.GuessCase.Output = function (gc) {
           // Else capitalize the current word.
         } else {
           // Rewind pos pointer on input
-          const bef = gc.input.getPos();
+          const bef = gc.input.getCursorPosition();
           let pos = bef - 1;
           while (pos >= 0 &&
                  utils.trim(
@@ -147,10 +147,10 @@ MB.GuessCase.Output = function (gc) {
                  ) != probe) {
             pos--;
           }
-          gc.input.setPos(pos);
+          gc.input.setCursorPosition(pos);
           o = utils.titleString(gc, w, overrideCaps);
           // Restore pos pointer on input
-          gc.input.setPos(bef);
+          gc.input.setCursorPosition(bef);
           if (w != o) {
             self.setWordAtIndex(index, o);
           }
