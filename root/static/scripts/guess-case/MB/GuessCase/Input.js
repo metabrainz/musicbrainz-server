@@ -146,14 +146,9 @@ class GuessCaseInput {
   }
 
   updateCurrentWord(word) {
-    const currentWord = this.getCurrentWord();
-    if (currentWord != null) {
+    if (this.wordIndex < this.wordList.length) {
       this.wordList[this.wordIndex] = word;
     }
-  }
-
-  insertWordAtEnd(word) {
-    this.wordList[this.wordList.length] = word;
   }
 
   /*
