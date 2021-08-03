@@ -7,7 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-declare type GuessCaseInputT = any;
+import type GuessCaseInput from './MB/GuessCase/Input';
+
+declare type GuessCaseInputT = GuessCaseInput;
 
 declare type GuessCaseModeT = any;
 
@@ -18,4 +20,7 @@ export type GuessCaseT = {
   input: GuessCaseInputT,
   mode: GuessCaseModeT,
   output: GuessCaseOutputT,
+  regexes: {
+    [regexName: string]: RegExp,
+  },
 };

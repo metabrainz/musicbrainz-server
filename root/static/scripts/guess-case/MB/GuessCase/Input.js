@@ -1,4 +1,5 @@
 /*
+ * @flow strict-local
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -8,12 +9,21 @@
  */
 
 import * as utils from '../../utils';
+import type {GuessCaseT} from '../../types';
 
 /*
  * Holds the input variables
  */
 class GuessCaseInput {
-  constructor(gc) {
+  gc: GuessCaseT;
+
+  source: string;
+
+  wordIndex: number;
+
+  wordList: Array<string>;
+
+  constructor(gc: GuessCaseT) {
     // Member variables
     this.gc = gc;
     this.source = '';
@@ -24,60 +34,60 @@ class GuessCaseInput {
   // Member functions
 
   // Initialise the GcInput object
-  init(inputString, wordlist) {
+  init(inputString: string, wordlist: Array<string>) {
     this.source = (inputString || '');
     this.wordList = (wordlist || []);
     this.wordIndex = 0;
   }
 
   // Returns the length of the wordlist
-  getLength() {
+  getLength(): number {
     return this.wordList.length;
   }
 
-  isEmpty() {
+  isEmpty(): boolean {
     return this.getLength() === 0;
   }
 
-  getCursorPosition() {
+  getCursorPosition(): number {
     return this.wordIndex;
   }
 
-  setCursorPosition(index) {
+  setCursorPosition(index: number) {
     if (index >= 0 && index < this.getLength()) {
       this.wordIndex = index;
     }
   }
 
-  getWordAtIndex(index) {
+  getWordAtIndex(index: number): string | null {
     return (this.wordList[index] || null);
   }
 
-  getNextWord() {
+  getNextWord(): string | null {
     return this.getWordAtIndex(this.wordIndex + 1);
   }
 
-  getCurrentWord() {
+  getCurrentWord(): string | null {
     return this.getWordAtIndex(this.wordIndex);
   }
 
-  getPreviousWord() {
+  getPreviousWord(): string | null {
     return this.getWordAtIndex(this.wordIndex - 1);
   }
 
-  isFirstWord() {
+  isFirstWord(): boolean {
     return (this.wordIndex === 0);
   }
 
-  isLastWord() {
+  isLastWord(): boolean {
     return (this.getLength() === this.wordIndex - 1);
   }
 
-  isNextWord(word) {
+  isNextWord(word: string): boolean {
     return (this.hasMoreWords() && this.getNextWord() === word);
   }
 
-  isPreviousWord(word) {
+  isPreviousWord(word: string): boolean {
     return (!this.isFirstWord() && this.getPreviousWord() === word);
   }
 
@@ -85,7 +95,7 @@ class GuessCaseInput {
    * Match the word at the current index against the
    * regular expression or string given
    */
-  matchCurrentWord(regex) {
+  matchCurrentWord(regex: RegExp | string): boolean {
     return this.matchWordAtIndex(this.getCursorPosition(), regex);
   }
 
@@ -93,7 +103,7 @@ class GuessCaseInput {
    * Match the word at the given index against the
    * regular expression or string given
    */
-  matchWordAtIndex(index, regex) {
+  matchWordAtIndex(index: number, regex: RegExp | string): boolean {
     const word = (this.getWordAtIndex(index) || '');
     let result;
     if (typeof regex === 'string') {
@@ -104,12 +114,12 @@ class GuessCaseInput {
     return result;
   }
 
-  hasMoreWords() {
+  hasMoreWords(): boolean {
     return (this.wordIndex === 0 && this.getLength() > 0 ||
             this.wordIndex - 1 < this.getLength());
   }
 
-  isIndexAtEnd() {
+  isIndexAtEnd(): boolean {
     return (this.wordIndex === this.getLength());
   }
 
@@ -126,13 +136,13 @@ class GuessCaseInput {
     }
   }
 
-  insertWordsAtIndex(index, newWords) {
+  insertWordsAtIndex(index: number, newWords: $ReadOnlyArray<string>) {
     const part1 = this.wordList.slice(0, index);
     const part2 = this.wordList.slice(index, this.wordList.length);
     this.wordList = part1.concat(newWords).concat(part2);
   }
 
-  capitalizeCurrentWord() {
+  capitalizeCurrentWord(): string | null {
     const word = this.getCurrentWord();
     if (word == null) {
       return null;
@@ -144,7 +154,7 @@ class GuessCaseInput {
     return output;
   }
 
-  updateCurrentWord(word) {
+  updateCurrentWord(word: string) {
     if (this.wordIndex < this.wordList.length) {
       this.wordList[this.wordIndex] = word;
     }
@@ -162,11 +172,12 @@ class GuessCaseInput {
    * @param is the un-processed input string
    * @returns sets the GLOBAL array of words and puctuation characters
    */
-  splitWordsAndPunctuation(inputString) {
-    inputString = inputString.replace(/^\s\s*/, ''); // delete leading space
-    inputString = inputString.replace(/\s\s*$/, ''); // delete trailing space
-    inputString = inputString.replace(/\s\s*/g, ' '); // compress whitespace:
-    const chars = inputString.split('');
+  splitWordsAndPunctuation(inputString: string): Array<string> {
+    let input = inputString;
+    input = input.replace(/^\s\s*/, ''); // delete leading space
+    input = input.replace(/\s\s*$/, ''); // delete trailing space
+    input = input.replace(/\s\s*/g, ' '); // compress whitespace:
+    const chars = input.split('');
     const splitwords = [];
     let word = [];
     if (!this.gc.regexes.SPLITWORDSANDPUNCTUATION) {

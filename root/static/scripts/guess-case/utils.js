@@ -146,13 +146,19 @@ export function isSentenceStopChar(word: string): boolean {
 
 const apostropheChars = /^['’]$/;
 
-export function isApostrophe(word: string): boolean {
+export function isApostrophe(word: string | null): boolean {
+  if (word == null) {
+    return false;
+  }
   return apostropheChars.test(word);
 }
 
 const punctuationChars = /^[:.;?!,]$/;
 
-export function isPunctuationChar(word: string): boolean {
+export function isPunctuationChar(word: string | null): boolean {
+  if (word == null) {
+    return false;
+  }
   return punctuationChars.test(word);
 }
 
@@ -169,7 +175,7 @@ export function trim(word: string): string {
 export function titleString(
   gc: GuessCaseT,
   inputString: string | null,
-  forceCaps: boolean,
+  forceCaps?: boolean,
 ): string {
   if (!nonEmpty(inputString)) {
     return '';
@@ -250,9 +256,10 @@ export function titleString(
 
     const nextWord = gc.input.getNextWord();
     const followedByPunctuation =
-      nextWord && nextWord.length === 1 && isPunctuationChar(nextWord);
+      nonEmpty(nextWord) && nextWord.length === 1 &&
+      isPunctuationChar(nextWord);
     const followedByApostrophe =
-      nextWord && nextWord.length === 1 && isApostrophe(nextWord);
+      nonEmpty(nextWord) && nextWord.length === 1 && isApostrophe(nextWord);
 
     /*
      * Unless forceCaps is enabled, lowercase the word
