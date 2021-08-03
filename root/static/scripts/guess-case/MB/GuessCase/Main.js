@@ -37,7 +37,7 @@ self.CFG_KEEP_UPPERCASED = getCookie('guesscase_keepuppercase') !== 'false';
 
 // Member variables
 self.input = new Input(self);
-self.output = Output(self);
+self.output = new Output(self);
 
 self.regexes = {
   // define commonly used RE's
