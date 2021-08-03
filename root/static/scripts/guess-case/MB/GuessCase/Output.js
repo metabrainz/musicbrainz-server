@@ -49,13 +49,13 @@ class GuessCaseOutput {
     if (w === ' ') {
       this.gc.output.appendSpace();
     } else if (w !== '' && w != null) {
-      this.wordList[this.wordList.length] = w;
+      this.wordList.push(w);
     }
   }
 
   // Adds a space to the processed wordlist
   appendSpace() {
-    this.wordList[this.wordList.length] = ' ';
+    this.wordList.push(' ');
   }
 
   /*
