@@ -15,19 +15,19 @@ class GuessCaseOutput {
   constructor(gc) {
     // Member variables
     this.gc = gc;
-    this._w = [];
+    this.wordList = [];
   }
 
   // Member functions
 
   // Initialise the GcOutput object for another run
   init() {
-    this._w = [];
+    this.wordList = [];
   }
 
   // @returns the length
   getLength() {
-    return this._w.length;
+    return this.wordList.length;
   }
 
   // @returns if the array is empty
@@ -55,13 +55,13 @@ class GuessCaseOutput {
     if (w === ' ') {
       this.gc.output.appendSpace();
     } else if (w !== '' && w != null) {
-      this._w[this._w.length] = w;
+      this.wordList[this.wordList.length] = w;
     }
   }
 
   // Adds a space to the processed wordslist
   appendSpace() {
-    this._w[this._w.length] = ' ';
+    this.wordList[this.wordList.length] = ' ';
   }
 
   /*
@@ -76,8 +76,8 @@ class GuessCaseOutput {
 
   // Returns the word at the index, or null if index outside bounds
   getWordAtIndex(index) {
-    if (this._w[index]) {
-      return this._w[index];
+    if (this.wordList[index]) {
+      return this.wordList[index];
     }
     return null;
   }
@@ -85,7 +85,7 @@ class GuessCaseOutput {
   // Returns the word at the index, or null if index outside bounds
   setWordAtIndex(index, word) {
     if (this.getWordAtIndex(index)) {
-      this._w[index] = word;
+      this.wordList[index] = word;
     }
   }
 
@@ -94,13 +94,13 @@ class GuessCaseOutput {
     if (this.isEmpty()) {
       return null;
     }
-    return this._w[this._w.length - 1];
+    return this.wordList[this.wordList.length - 1];
   }
 
   // Returns the last word of the wordlist
   dropLastWord() {
     if (!this.isEmpty()) {
-      return this._w.pop();
+      return this.wordList.pop();
     }
     return null;
   }
@@ -173,7 +173,7 @@ class GuessCaseOutput {
     this.capitalizeLastWord();
 
     this.closeOpenBrackets();
-    return utils.trim(this._w.join(''));
+    return utils.trim(this.wordList.join(''));
   }
 
   // Work through the stack of opened parentheses and close them
