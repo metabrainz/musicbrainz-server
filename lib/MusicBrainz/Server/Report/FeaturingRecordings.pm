@@ -13,7 +13,7 @@ sub query {
         FROM recording r
             JOIN artist_credit ac ON r.artist_credit = ac.id
         WHERE
-            r.name COLLATE musicbrainz ~* E' \\\\((duet with|συμμετέχει|(f|w)/|(feat|ｆｅａｔ|ft|συμμ)(\\\\.|．)|(featuring|ｆｅａｔｕｒｉｎｇ)) '
+            r.name COLLATE musicbrainz ~* E' \\\\(((f|w)/|(feat|ｆｅａｔ|ft|συμμ)(\\\\.|．)|(duet with|συμμετέχει|featuring|ｆｅａｔｕｒｉｎｇ) )'
     ";
 }
 
