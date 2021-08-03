@@ -16,7 +16,6 @@ class GuessCaseOutput {
     // Member variables
     this.gc = gc;
     this._w = [];
-    this._output = '';
   }
 
   // Member functions
@@ -24,7 +23,6 @@ class GuessCaseOutput {
   // Initialise the GcOutput object for another run
   init() {
     this._w = [];
-    this._output = '';
   }
 
   // @returns the length
