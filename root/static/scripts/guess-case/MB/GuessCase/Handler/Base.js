@@ -246,7 +246,7 @@ MB.GuessCase.Handler.Base = function (gc) {
       gc.regexes.ASTERIX = '*';
     }
     if (gc.input.matchCurrentWord(gc.regexes.ASTERIX)) {
-      gc.output.appendWordPreserveWhiteSpace({apply: true, capslast: true});
+      gc.output.appendWordPreserveWhiteSpace(true);
       flags.resetContext();
       return true;
     }
@@ -259,7 +259,7 @@ MB.GuessCase.Handler.Base = function (gc) {
       gc.regexes.DIAMOND = '#';
     }
     if (gc.input.matchCurrentWord(gc.regexes.DIAMOND)) {
-      gc.output.appendWordPreserveWhiteSpace({apply: true, capslast: true});
+      gc.output.appendWordPreserveWhiteSpace(true);
       flags.resetContext();
       return true;
     }
@@ -275,7 +275,7 @@ MB.GuessCase.Handler.Base = function (gc) {
       gc.regexes.PERCENT = '%';
     }
     if (gc.input.matchCurrentWord(gc.regexes.PERCENT)) {
-      gc.output.appendWordPreserveWhiteSpace({apply: true, capslast: true});
+      gc.output.appendWordPreserveWhiteSpace(true);
       flags.resetContext();
       return true;
     }
@@ -332,7 +332,7 @@ MB.GuessCase.Handler.Base = function (gc) {
       gc.regexes.HYPHEN = '-';
     }
     if (gc.input.matchCurrentWord(gc.regexes.HYPHEN)) {
-      gc.output.appendWordPreserveWhiteSpace({apply: true, capslast: true});
+      gc.output.appendWordPreserveWhiteSpace(true);
       flags.resetContext();
 
       // Don't capitalize next word after hyphen in sentence mode.
@@ -349,7 +349,7 @@ MB.GuessCase.Handler.Base = function (gc) {
       gc.regexes.INVERTEDMARKS = /(¿|¡)/;
     }
     if (gc.input.matchCurrentWord(gc.regexes.INVERTEDMARKS)) {
-      gc.output.appendWordPreserveWhiteSpace({apply: true, capslast: false});
+      gc.output.appendWordPreserveWhiteSpace(false);
       flags.resetContext();
 
       // Next word is start of a new sentence.
@@ -365,7 +365,7 @@ MB.GuessCase.Handler.Base = function (gc) {
       gc.regexes.PLUS = '+';
     }
     if (gc.input.matchCurrentWord(gc.regexes.PLUS)) {
-      gc.output.appendWordPreserveWhiteSpace({apply: true, capslast: true});
+      gc.output.appendWordPreserveWhiteSpace(true);
       flags.resetContext();
       return true;
     }
@@ -381,7 +381,7 @@ MB.GuessCase.Handler.Base = function (gc) {
       gc.regexes.SLASH = /[\\\/]/;
     }
     if (gc.input.matchCurrentWord(gc.regexes.SLASH)) {
-      gc.output.appendWordPreserveWhiteSpace({apply: true, capslast: true});
+      gc.output.appendWordPreserveWhiteSpace(true);
       flags.resetContext();
       flags.context.forceCaps = true;
       return true;
@@ -396,7 +396,7 @@ MB.GuessCase.Handler.Base = function (gc) {
     }
     if (gc.input.matchCurrentWord(gc.regexes.DOUBLEQUOTE)) {
       // Changed 05/2006: do not force capitalization before quotes
-      gc.output.appendWordPreserveWhiteSpace({apply: true, capslast: false});
+      gc.output.appendWordPreserveWhiteSpace(false);
 
       // Changed 05/2006: do not force capitalization after quotes
       flags.resetContext();

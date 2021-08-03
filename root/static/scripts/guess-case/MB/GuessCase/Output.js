@@ -171,36 +171,23 @@ class GuessCaseOutput {
    * This function checks the wordlist for spaces before
    * and after the current cursor position, and modifies
    * the spaces of the input string.
-   *
-   * param config is a configuration wrapper:
-   * config.apply: if true, apply changes
-   * config.capslast: if true, capitalize word before
    */
-  appendWordPreserveWhiteSpace(config) {
-    if (config) {
-      const whitespace = {
-        after: this.gc.input.isNextWord(' '),
-        before: this.gc.input.isPreviousWord(' '),
-      };
-      if (config.apply) {
-        /*
-         * Do not register method, such that this message appears as
-         * it were sent from the calling method.
-         */
-        if (config.capslast) {
-          // capitalize last word before current
-          this.capitalizeLastWord(!this.gc.mode.isSentenceCaps());
-        }
-        if (whitespace.before) {
-          this.appendSpace();  // preserve whitespace before,
-        }
-        this.appendCurrentWord(); // append current word
-        // preserve whitespace after
-        flags.context.spaceNextWord = (whitespace.after);
-      }
-      return whitespace;
+  appendWordPreserveWhiteSpace(capitalizeLast) {
+    const whitespace = {
+      after: this.gc.input.isNextWord(' '),
+      before: this.gc.input.isPreviousWord(' '),
+    };
+    if (capitalizeLast) {
+      // capitalize last word before current
+      this.capitalizeLastWord(!this.gc.mode.isSentenceCaps());
     }
-    return null;
+    if (whitespace.before) {
+      // preserve whitespace before,
+      this.appendSpace();
+    }
+    this.appendCurrentWord();
+    // preserve whitespace after
+    flags.context.spaceNextWord = (whitespace.after);
   }
 }
 
