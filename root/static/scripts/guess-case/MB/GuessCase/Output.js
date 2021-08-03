@@ -25,12 +25,11 @@ class GuessCaseOutput {
     this.wordList = [];
   }
 
-  // @returns the length
+  // Returns the length of the wordlist
   getLength() {
     return this.wordList.length;
   }
 
-  // @returns if the array is empty
   isEmpty() {
     return this.getLength() === 0;
   }
@@ -46,11 +45,6 @@ class GuessCaseOutput {
     }
   }
 
-  /*
-   * Append the word w to the worlist
-   *
-   * @param w the word
-   */
   appendWord(w) {
     if (w === ' ') {
       this.gc.output.appendSpace();
@@ -59,7 +53,7 @@ class GuessCaseOutput {
     }
   }
 
-  // Adds a space to the processed wordslist
+  // Adds a space to the processed wordlist
   appendSpace() {
     this.wordList[this.wordList.length] = ' ';
   }
@@ -74,7 +68,6 @@ class GuessCaseOutput {
     }
   }
 
-  // Returns the word at the index, or null if index outside bounds
   getWordAtIndex(index) {
     if (this.wordList[index]) {
       return this.wordList[index];
@@ -82,14 +75,12 @@ class GuessCaseOutput {
     return null;
   }
 
-  // Returns the word at the index, or null if index outside bounds
   setWordAtIndex(index, word) {
     if (this.getWordAtIndex(index)) {
       this.wordList[index] = word;
     }
   }
 
-  // Returns the last word of the wordlist
   getLastWord() {
     if (this.isEmpty()) {
       return null;
@@ -97,7 +88,6 @@ class GuessCaseOutput {
     return this.wordList[this.wordList.length - 1];
   }
 
-  // Capitalize the word at the current cursor position.
   capitalizeWordAtIndex(index, overrideCaps) {
     overrideCaps = overrideCaps == null
       ? flags.context.forceCaps
@@ -148,11 +138,10 @@ class GuessCaseOutput {
   }
 
   /*
-   * Capitalize the word at the current cursor position.
-   * Modifies the last element of the processed wordlist
+   * Capitalize the last element of the processed wordlist
    *
-   * @param    overrideCaps    can be used to override
-   *                            the flags.context.forceCaps parameter.
+   * overrideCaps can be used to override
+   * the flags.context.forceCaps parameter.
    */
   capitalizeLastWord(overrideCaps) {
     this.capitalizeWordAtIndex(this.getLength() - 1, overrideCaps);
@@ -183,9 +172,9 @@ class GuessCaseOutput {
    * and after the current cursor position, and modifies
    * the spaces of the input string.
    *
-   * @param c        configuration wrapper
-   *                c.apply:     if true, apply changes
-   *                c.capslast: if true, capitalize word before
+   * param c is a configuration wrapper:
+   * c.apply: if true, apply changes
+   * c.capslast: if true, capitalize word before
    */
   appendWordPreserveWhiteSpace(c) {
     if (c) {
