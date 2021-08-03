@@ -8,12 +8,13 @@
  */
 
 import type GuessCaseInput from './MB/GuessCase/Input';
+import type GuessCaseOutput from './MB/GuessCase/Output';
 
 declare type GuessCaseInputT = GuessCaseInput;
 
 declare type GuessCaseModeT = any;
 
-declare type GuessCaseOutputT = any;
+declare type GuessCaseOutputT = GuessCaseOutput;
 
 export type GuessCaseT = {
   CFG_KEEP_UPPERCASED: boolean,

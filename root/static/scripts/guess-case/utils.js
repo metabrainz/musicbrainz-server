@@ -127,20 +127,29 @@ export function turkishLowerCase(word: string): string {
     .toLowerCase();
 }
 
-export function isLowerCaseBracketWord(word: string): boolean {
+export function isLowerCaseBracketWord(word: string | null): boolean {
+  if (word == null) {
+    return false;
+  }
   return lowerCaseBracketWords.test(word);
 }
 
 // Words which are put into brackets if they aren't yet.
 const prepBracketWords = /^(?:cd|disk|12["”]|7["”]|a_cappella|re_edit)$/i;
 
-export function isPrepBracketWord(word: string): boolean {
+export function isPrepBracketWord(word: string | null): boolean {
+  if (word == null) {
+    return false;
+  }
   return prepBracketWords.test(word) || isLowerCaseBracketWord(word);
 }
 
 const sentenceStopChars = /^[:.;?!\/]$/;
 
-export function isSentenceStopChar(word: string): boolean {
+export function isSentenceStopChar(word: string | null): boolean {
+  if (word == null) {
+    return false;
+  }
   return sentenceStopChars.test(word);
 }
 

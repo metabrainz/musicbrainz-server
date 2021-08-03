@@ -1,4 +1,5 @@
 /*
+ * @flow strict-local
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -9,10 +10,15 @@
 
 import * as flags from '../../flags';
 import * as utils from '../../utils';
+import type {GuessCaseT} from '../../types';
 
 // Holds the output variables
 class GuessCaseOutput {
-  constructor(gc) {
+  gc: GuessCaseT;
+
+  wordList: Array<string>;
+
+  constructor(gc: GuessCaseT) {
     // Member variables
     this.gc = gc;
     this.wordList = [];
@@ -26,11 +32,11 @@ class GuessCaseOutput {
   }
 
   // Returns the length of the wordlist
-  getLength() {
+  getLength(): number {
     return this.wordList.length;
   }
 
-  isEmpty() {
+  isEmpty(): boolean {
     return this.getLength() === 0;
   }
 
@@ -45,7 +51,7 @@ class GuessCaseOutput {
     }
   }
 
-  appendWord(word) {
+  appendWord(word: string | null) {
     if (word === ' ') {
       this.gc.output.appendSpace();
     } else if (word !== '' && word != null) {
@@ -68,69 +74,65 @@ class GuessCaseOutput {
     }
   }
 
-  getWordAtIndex(index) {
+  getWordAtIndex(index: number): string | null {
     if (this.wordList[index]) {
       return this.wordList[index];
     }
     return null;
   }
 
-  setWordAtIndex(index, word) {
+  setWordAtIndex(index: number, word: string) {
     if (this.getWordAtIndex(index)) {
       this.wordList[index] = word;
     }
   }
 
-  getLastWord() {
+  getLastWord(): string | null {
     if (this.isEmpty()) {
       return null;
     }
     return this.wordList[this.wordList.length - 1];
   }
 
-  capitalizeWordAtIndex(index, overrideCaps) {
-    overrideCaps = overrideCaps == null
+  capitalizeWordAtIndex(index: number, overrideCaps?: boolean) {
+    const forceCaps = overrideCaps == null
       ? flags.context.forceCaps
       : overrideCaps;
-    if ((!this.gc.mode.isSentenceCaps() || overrideCaps) &&
-        (!this.isEmpty()) &&
-        (this.getWordAtIndex(index) != null)) {
-      /*
-       * Don't capitalize last word before punctuation/end of string
-       * in sentence mode.
-       */
+    if ((!this.gc.mode.isSentenceCaps() || forceCaps) &&
+        (!this.isEmpty())) {
       const word = this.getWordAtIndex(index);
-      let output = word;
+      if (word != null) {
+        let output = word;
 
-      // Check that last word is NOT an acronym.
-      if (word.match(/^\w\..*/) == null) {
-        // Some words that were manipulated might have space padding
-        const probe = utils.trim(word.toLowerCase());
+        // Check that last word is NOT an acronym.
+        if (word.match(/^\w\..*/) == null) {
+          // Some words that were manipulated might have space padding
+          const probe = utils.trim(word.toLowerCase());
 
-        // If inside brackets, do nothing.
-        if (!overrideCaps &&
-            flags.isInsideBrackets() &&
-            utils.isLowerCaseBracketWord(probe)) {
-
-          // If it is an UPPERCASE word,do nothing.
-        } else if (!overrideCaps && this.gc.mode.isUpperCaseWord(probe)) {
-          // Else capitalize the current word.
-        } else {
-          // Rewind pos pointer on input
-          const bef = this.gc.input.getCursorPosition();
-          let pos = bef - 1;
-          while (pos >= 0 &&
-                 utils.trim(
-                   this.gc.input.getWordAtIndex(pos).toLowerCase(),
-                 ) !== probe) {
-            pos--;
-          }
-          this.gc.input.setCursorPosition(pos);
-          output = utils.titleString(this.gc, word, overrideCaps);
-          // Restore pos pointer on input
-          this.gc.input.setCursorPosition(bef);
-          if (word !== output) {
-            this.setWordAtIndex(index, output);
+          if (!forceCaps &&
+              flags.isInsideBrackets() &&
+              utils.isLowerCaseBracketWord(probe)) {
+            // If inside brackets, do nothing.
+          } else if (!forceCaps && this.gc.mode.isUpperCaseWord(probe)) {
+            // If it is an UPPERCASE word,do nothing.
+          } else { // Else capitalize the current word.
+            // Rewind pos pointer on input
+            const originalPosition = this.gc.input.getCursorPosition();
+            let position = originalPosition - 1;
+            while (position >= 0) {
+              const word = this.gc.input.getWordAtIndex(position);
+              if (word == null || utils.trim(word.toLowerCase()) === probe) {
+                break;
+              }
+              position--;
+            }
+            this.gc.input.setCursorPosition(position);
+            output = utils.titleString(this.gc, word, forceCaps);
+            // Restore pos pointer on input
+            this.gc.input.setCursorPosition(originalPosition);
+            if (word !== output) {
+              this.setWordAtIndex(index, output);
+            }
           }
         }
       }
@@ -143,12 +145,12 @@ class GuessCaseOutput {
    * overrideCaps can be used to override
    * the flags.context.forceCaps parameter.
    */
-  capitalizeLastWord(overrideCaps) {
+  capitalizeLastWord(overrideCaps?: boolean) {
     this.capitalizeWordAtIndex(this.getLength() - 1, overrideCaps);
   }
 
   // Apply post-processing, and return the string
-  getOutput() {
+  getOutput(): string {
     // If *not* sentence mode, force caps on last word.
     flags.context.forceCaps = !this.gc.mode.isSentenceCaps();
     this.capitalizeLastWord();
@@ -159,7 +161,7 @@ class GuessCaseOutput {
 
   // Work through the stack of opened parentheses and close them
   closeOpenBrackets() {
-    const parts = new Array();
+    const parts = [];
     while (flags.isInsideBrackets()) {
       // Close brackets that were opened before
       parts[parts.length] = flags.popBracket();
@@ -172,7 +174,7 @@ class GuessCaseOutput {
    * and after the current cursor position, and modifies
    * the spaces of the input string.
    */
-  appendWordPreserveWhiteSpace(capitalizeLast) {
+  appendWordPreserveWhiteSpace(capitalizeLast: boolean) {
     const whitespace = {
       after: this.gc.input.isNextWord(' '),
       before: this.gc.input.isPreviousWord(' '),
