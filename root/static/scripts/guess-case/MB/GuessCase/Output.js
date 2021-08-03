@@ -34,8 +34,7 @@ class GuessCaseOutput {
 
   // @returns if the array is empty
   isEmpty() {
-    var f = (this.getLength() == 0);
-    return f;
+    return this.getLength() === 0;
   }
 
   /*
@@ -43,8 +42,8 @@ class GuessCaseOutput {
    * object, and appends it to the wordlist.
    */
   appendCurrentWord() {
-    var w;
-    if ((w = this.gc.input.getCurrentWord()) != null) {
+    const w = this.gc.input.getCurrentWord();
+    if (w != null) {
       this.appendWord(w);
     }
   }
@@ -55,9 +54,9 @@ class GuessCaseOutput {
    * @param w the word
    */
   appendWord(w) {
-    if (w == ' ') {
+    if (w === ' ') {
       this.gc.output.appendSpace();
-    } else if (w != '' && w != null) {
+    } else if (w !== '' && w != null) {
       this._w[this._w.length] = w;
     }
   }
@@ -126,7 +125,7 @@ class GuessCaseOutput {
       // Check that last word is NOT an acronym.
       if (w.match(/^\w\..*/) == null) {
         // Some words that were manipulated might have space padding
-        var probe = utils.trim(w.toLowerCase());
+        const probe = utils.trim(w.toLowerCase());
 
         // If inside brackets, do nothing.
         if (!overrideCaps &&
@@ -143,14 +142,14 @@ class GuessCaseOutput {
           while (pos >= 0 &&
                  utils.trim(
                    this.gc.input.getWordAtIndex(pos).toLowerCase(),
-                 ) != probe) {
+                 ) !== probe) {
             pos--;
           }
           this.gc.input.setCursorPosition(pos);
           o = utils.titleString(this.gc, w, overrideCaps);
           // Restore pos pointer on input
           this.gc.input.setCursorPosition(bef);
-          if (w != o) {
+          if (w !== o) {
             this.setWordAtIndex(index, o);
           }
         }
@@ -181,7 +180,7 @@ class GuessCaseOutput {
 
   // Work through the stack of opened parentheses and close them
   closeOpenBrackets() {
-    var parts = new Array();
+    const parts = new Array();
     while (flags.isInsideBrackets()) {
       // Close brackets that were opened before
       parts[parts.length] = flags.popBracket();
@@ -200,7 +199,7 @@ class GuessCaseOutput {
    */
   appendWordPreserveWhiteSpace(c) {
     if (c) {
-      var ws = {
+      const ws = {
         after: this.gc.input.isNextWord(' '),
         before: this.gc.input.isPreviousWord(' '),
       };
