@@ -97,14 +97,6 @@ class GuessCaseOutput {
     return this.wordList[this.wordList.length - 1];
   }
 
-  // Returns the last word of the wordlist
-  dropLastWord() {
-    if (!this.isEmpty()) {
-      return this.wordList.pop();
-    }
-    return null;
-  }
-
   // Capitalize the word at the current cursor position.
   capitalizeWordAtIndex(index, overrideCaps) {
     overrideCaps = overrideCaps == null
