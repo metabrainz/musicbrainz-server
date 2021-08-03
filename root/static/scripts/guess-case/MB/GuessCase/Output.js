@@ -39,17 +39,17 @@ class GuessCaseOutput {
    * object, and appends it to the wordlist.
    */
   appendCurrentWord() {
-    const w = this.gc.input.getCurrentWord();
-    if (w != null) {
-      this.appendWord(w);
+    const currentWord = this.gc.input.getCurrentWord();
+    if (currentWord != null) {
+      this.appendWord(currentWord);
     }
   }
 
-  appendWord(w) {
-    if (w === ' ') {
+  appendWord(word) {
+    if (word === ' ') {
       this.gc.output.appendSpace();
-    } else if (w !== '' && w != null) {
-      this.wordList.push(w);
+    } else if (word !== '' && word != null) {
+      this.wordList.push(word);
     }
   }
 
@@ -99,13 +99,13 @@ class GuessCaseOutput {
        * Don't capitalize last word before punctuation/end of string
        * in sentence mode.
        */
-      const w = this.getWordAtIndex(index);
-      let o = w;
+      const word = this.getWordAtIndex(index);
+      let output = word;
 
       // Check that last word is NOT an acronym.
-      if (w.match(/^\w\..*/) == null) {
+      if (word.match(/^\w\..*/) == null) {
         // Some words that were manipulated might have space padding
-        const probe = utils.trim(w.toLowerCase());
+        const probe = utils.trim(word.toLowerCase());
 
         // If inside brackets, do nothing.
         if (!overrideCaps &&
@@ -126,11 +126,11 @@ class GuessCaseOutput {
             pos--;
           }
           this.gc.input.setCursorPosition(pos);
-          o = utils.titleString(this.gc, w, overrideCaps);
+          output = utils.titleString(this.gc, word, overrideCaps);
           // Restore pos pointer on input
           this.gc.input.setCursorPosition(bef);
-          if (w !== o) {
-            this.setWordAtIndex(index, o);
+          if (word !== output) {
+            this.setWordAtIndex(index, output);
           }
         }
       }
@@ -172,32 +172,33 @@ class GuessCaseOutput {
    * and after the current cursor position, and modifies
    * the spaces of the input string.
    *
-   * param c is a configuration wrapper:
-   * c.apply: if true, apply changes
-   * c.capslast: if true, capitalize word before
+   * param config is a configuration wrapper:
+   * config.apply: if true, apply changes
+   * config.capslast: if true, capitalize word before
    */
-  appendWordPreserveWhiteSpace(c) {
-    if (c) {
-      const ws = {
+  appendWordPreserveWhiteSpace(config) {
+    if (config) {
+      const whitespace = {
         after: this.gc.input.isNextWord(' '),
         before: this.gc.input.isPreviousWord(' '),
       };
-      if (c.apply) {
+      if (config.apply) {
         /*
          * Do not register method, such that this message appears as
          * it were sent from the calling method.
          */
-        if (c.capslast) {
+        if (config.capslast) {
           // capitalize last word before current
           this.capitalizeLastWord(!this.gc.mode.isSentenceCaps());
         }
-        if (ws.before) {
+        if (whitespace.before) {
           this.appendSpace();  // preserve whitespace before,
         }
         this.appendCurrentWord(); // append current word
-        flags.context.spaceNextWord = (ws.after); // and afterwards as well
+        // preserve whitespace after
+        flags.context.spaceNextWord = (whitespace.after);
       }
-      return ws;
+      return whitespace;
     }
     return null;
   }
