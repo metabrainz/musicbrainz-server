@@ -117,7 +117,6 @@ class GuessCaseInput {
     this.wordIndex++;
   }
 
-  // Returns the last word of the wordlist
   dropLastWord() {
     if (this.getLength() > 0) {
       this.wordList.pop();
