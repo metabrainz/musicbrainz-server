@@ -134,14 +134,14 @@ class GuessCaseInput {
 
   capitalizeCurrentWord() {
     const word = this.getCurrentWord();
-    if (word != null) {
-      const output = utils.titleString(this.gc, word);
-      if (word !== output) {
-        this.updateCurrentWord(output);
-      }
-      return output;
+    if (word == null) {
+      return null;
     }
-    return null;
+    const output = utils.titleString(this.gc, word);
+    if (word !== output) {
+      this.updateCurrentWord(output);
+    }
+    return output;
   }
 
   updateCurrentWord(word) {
