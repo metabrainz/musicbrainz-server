@@ -28,10 +28,10 @@ export type GuessCaseModeT = {
 
 export type GuessCaseT = {
   CFG_KEEP_UPPERCASED: boolean,
-  input: GuessCaseInput,
-  mode: GuessCaseModeT,
-  output: GuessCaseOutput,
-  regexes: {
+  +input: GuessCaseInput,
+  +mode: GuessCaseModeT,
+  +output: GuessCaseOutput,
+  +regexes: {
     [regexName: string]: RegExp,
   },
 };
