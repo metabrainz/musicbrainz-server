@@ -137,6 +137,30 @@ function runFixes(is, fixes) {
 const DefaultMode = {
   description: '',
 
+  /*
+   * Delegate function for mode-specific word handling. This is mostly used
+   * for context-based title changes.
+   *
+   * @return  `false`, such that the normal word handling can take place for
+   *          the current word. If that should not be done, return `true`.
+   */
+  doWord() {
+    return false;
+  },
+
+  /*
+   * Look for and convert vinyl expressions.
+   * - Look only at substrings which start with ' ' or '('.
+   * - Convert 7', 7'', 7", 7in, and 7inch to '7" ' (followed by space).
+   * - Convert 12', 12'', 12", 12in, and 12inch to '12" ' (followed by space).
+   * - Do not convert strings like 80's.
+   */
+  fixVinylSizes(is) {
+    return is
+      .replace(/(\s+|\()(7|10|12)(?:inch\b|in\b|'|''|")([^s]|$)/ig, '$1$2"$3')
+      .replace(/((?:\s+|\()(?:7|10|12)")([^),\s])/, '$1 $2');
+  },
+
   isLowerCaseWord(w) {
     return LOWER_CASE_WORDS.test(w);
   },
@@ -154,14 +178,6 @@ const DefaultMode = {
   },
 
   name: '',
-
-  toLowerCase(str) {
-    return str.toLowerCase();
-  },
-
-  toUpperCase(str) {
-    return str.toUpperCase();
-  },
 
   /*
    * Pre-process to find any lowercase_bracket word that needs to be put into
@@ -259,28 +275,12 @@ const DefaultMode = {
     return runFixes(is, POSTPROCESS_FIXLIST);
   },
 
-  /*
-   * Look for and convert vinyl expressions.
-   * - Look only at substrings which start with ' ' or '('.
-   * - Convert 7', 7'', 7", 7in, and 7inch to '7" ' (followed by space).
-   * - Convert 12', 12'', 12", 12in, and 12inch to '12" ' (followed by space).
-   * - Do not convert strings like 80's.
-   */
-  fixVinylSizes(is) {
-    return is
-      .replace(/(\s+|\()(7|10|12)(?:inch\b|in\b|'|''|")([^s]|$)/ig, '$1$2"$3')
-      .replace(/((?:\s+|\()(?:7|10|12)")([^),\s])/, '$1 $2');
+  toLowerCase(str) {
+    return str.toLowerCase();
   },
 
-  /*
-   * Delegate function for mode-specific word handling. This is mostly used
-   * for context-based title changes.
-   *
-   * @return  `false`, such that the normal word handling can take place for
-   *          the current word. If that should not be done, return `true`.
-   */
-  doWord() {
-    return false;
+  toUpperCase(str) {
+    return str.toUpperCase();
   },
 };
 
