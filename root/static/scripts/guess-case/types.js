@@ -10,17 +10,13 @@
 import type GuessCaseInput from './MB/GuessCase/Input';
 import type GuessCaseOutput from './MB/GuessCase/Output';
 
-declare type GuessCaseInputT = GuessCaseInput;
-
 declare type GuessCaseModeT = any;
-
-declare type GuessCaseOutputT = GuessCaseOutput;
 
 export type GuessCaseT = {
   CFG_KEEP_UPPERCASED: boolean,
-  input: GuessCaseInputT,
+  input: GuessCaseInput,
   mode: GuessCaseModeT,
-  output: GuessCaseOutputT,
+  output: GuessCaseOutput,
   regexes: {
     [regexName: string]: RegExp,
   },
