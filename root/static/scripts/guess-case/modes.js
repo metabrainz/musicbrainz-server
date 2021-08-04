@@ -95,7 +95,7 @@ const POSTPROCESS_FIXLIST = [
 ];
 /* eslint-enable no-multi-spaces */
 
-function replaceMatch(matches, is, regex, replacement) {
+function replaceMatch(matches, inputString, regex, replacement) {
   // get reference to first set of parentheses
   const a = matches[1] || '';
 
@@ -103,7 +103,7 @@ function replaceMatch(matches, is, regex, replacement) {
   const b = matches[matches.length - 1] || '';
 
   // compile replace string
-  return is.replace(regex, [a, replacement, b].join(''));
+  return inputString.replace(regex, [a, replacement, b].join(''));
 }
 
 /*
@@ -112,26 +112,26 @@ function replaceMatch(matches, is, regex, replacement) {
  * @param is     the input string
  * @param fixes  the list of fix objects to apply
  */
-function runFixes(is, fixes) {
+function runFixes(inputString, fixes) {
   fixes.forEach(function (fix) {
     const [regex, replacement] = fix;
     let matches;
 
     if (regex.global) {
-      let oldis;
-      while ((matches = regex.exec(is))) {
-        oldis = is;
-        is = replaceMatch(matches, is, regex, replacement);
-        if (oldis === is) {
+      let oldInputString;
+      while ((matches = regex.exec(inputString))) {
+        oldInputString = inputString;
+        inputString = replaceMatch(matches, inputString, regex, replacement);
+        if (oldInputString === inputString) {
           break;
         }
       }
-    } else if ((matches = is.match(regex)) !== null) {
-      is = replaceMatch(matches, is, regex, replacement);
+    } else if ((matches = inputString.match(regex)) !== null) {
+      inputString = replaceMatch(matches, inputString, regex, replacement);
     }
   });
 
-  return is;
+  return inputString;
 }
 
 const DefaultMode = {
@@ -155,26 +155,26 @@ const DefaultMode = {
    * - Convert 12', 12'', 12", 12in, and 12inch to '12" ' (followed by space).
    * - Do not convert strings like 80's.
    */
-  fixVinylSizes(is) {
-    return is
+  fixVinylSizes(inputString) {
+    return inputString
       .replace(/(\s+|\()(7|10|12)(?:inch\b|in\b|'|''|")([^s]|$)/ig, '$1$2"$3')
       .replace(/((?:\s+|\()(?:7|10|12)")([^),\s])/, '$1 $2');
   },
 
-  isLowerCaseWord(w) {
-    return LOWER_CASE_WORDS.test(w);
+  isLowerCaseWord(word) {
+    return LOWER_CASE_WORDS.test(word);
   },
 
-  isRomanNumber(w) {
-    return getBooleanCookie('guesscase_roman') && ROMAN_NUMERALS.test(w);
+  isRomanNumber(word) {
+    return getBooleanCookie('guesscase_roman') && ROMAN_NUMERALS.test(word);
   },
 
   isSentenceCaps() {
     return true;
   },
 
-  isUpperCaseWord(w) {
-    return UPPER_CASE_WORDS.test(w);
+  isUpperCaseWord(word) {
+    return UPPER_CASE_WORDS.test(word);
   },
 
   name: '',
@@ -188,23 +188,23 @@ const DefaultMode = {
    */
   prepExtraTitleInfo(words) {
     const lastWord = words.length - 1;
-    let wi = lastWord;
+    let wordIndex = lastWord;
     let handlePreProcess = false;
 
-    while (wi >= 0 && (
+    while (wordIndex >= 0 && (
       // skip whitespace
-      (words[wi] === ' ') ||
+      (words[wordIndex] === ' ') ||
 
       // vinyl (7" or 12")
-      (words[wi] === '"' &&
-        (words[wi - 1] === '7' || words[wi - 1] === '12')) ||
-      ((words[wi + 1] || '') === '"' &&
-        (words[wi] === '7' || words[wi] === '12')) ||
+      (words[wordIndex] === '"' &&
+        (words[wordIndex - 1] === '7' || words[wordIndex - 1] === '12')) ||
+      ((words[wordIndex + 1] || '') === '"' &&
+        (words[wordIndex] === '7' || words[wordIndex] === '12')) ||
 
-      isPrepBracketWord(words[wi])
+      isPrepBracketWord(words[wordIndex])
     )) {
       handlePreProcess = true;
-      wi--;
+      wordIndex--;
     }
 
     /*
@@ -218,11 +218,11 @@ const DefaultMode = {
      * trackback the skipped spaces spaces, and then slurp the next word, so
      * see which word we found.
      */
-    if (wi < lastWord) {
+    if (wordIndex < lastWord) {
       // the word at wi broke out of the loop above, is not extra title info
-      wi++;
-      while (words[wi] === ' ' && wi < lastWord) {
-        wi++; // skip whitespace
+      wordIndex++;
+      while (words[wordIndex] === ' ' && wordIndex < lastWord) {
+        wordIndex++; // skip whitespace
       }
 
       /*
@@ -230,23 +230,23 @@ const DefaultMode = {
        * the list of words were we don't do that, otherwise continue.
        */
       const probe = words[lastWord];
-      if (wi === lastWord && isPrepBracketSingleWord(probe)) {
+      if (wordIndex === lastWord && isPrepBracketSingleWord(probe)) {
         handlePreProcess = false;
       }
 
-      if (handlePreProcess && wi > 0 && wi <= lastWord) {
-        let newWords = words.slice(0, wi);
+      if (handlePreProcess && wordIndex > 0 && wordIndex <= lastWord) {
+        let newWords = words.slice(0, wordIndex);
 
-        if (newWords[wi - 1] === '(') {
+        if (newWords[wordIndex - 1] === '(') {
           newWords.pop();
         }
 
-        if (newWords[wi - 1] === '-') {
+        if (newWords[wordIndex - 1] === '-') {
           newWords.pop();
         }
 
         newWords.push('(');
-        newWords = newWords.concat(words.slice(wi, words.length));
+        newWords = newWords.concat(words.slice(wordIndex, words.length));
         newWords.push(')');
         words = newWords;
       }
@@ -263,24 +263,24 @@ const DefaultMode = {
    *
    * keschte  2005-11-10  first version
    */
-  preProcessTitles(is) {
-    return runFixes(is, PREPROCESS_FIXLIST);
+  preProcessTitles(inputString) {
+    return runFixes(inputString, PREPROCESS_FIXLIST);
   },
 
   /*
    * Collect words from processed wordlist and apply minor fixes that
    * aren't handled in the specific function.
    */
-  runPostProcess(is) {
-    return runFixes(is, POSTPROCESS_FIXLIST);
+  runPostProcess(inputString) {
+    return runFixes(inputString, POSTPROCESS_FIXLIST);
   },
 
-  toLowerCase(str) {
-    return str.toLowerCase();
+  toLowerCase(string) {
+    return string.toLowerCase();
   },
 
-  toUpperCase(str) {
-    return str.toUpperCase();
+  toUpperCase(string) {
+    return string.toUpperCase();
   },
 };
 
@@ -302,14 +302,14 @@ export const English = {
 
   name: 'English',
 
-  runPostProcess(is) {
-    is = DefaultMode.runPostProcess(is);
+  runPostProcess(inputString) {
+    inputString = DefaultMode.runPostProcess(inputString);
     /*
      * This changes key names in titles to follow
      * the English classical music guidelines.
      * See https://musicbrainz.org/doc/Style/Classical/Language/English#Keys
      */
-    is = is.replace(
+    inputString = inputString.replace(
       /\bin ([a-g])(?:[\s-]([Ff]lat|[Ss]harp))?\s(dorian|lydian|major|minor|mixolydian)(?:\b|$)/ig,
       function (match, p1, p2, p3) {
         return 'in ' + p1.toUpperCase() +
@@ -317,7 +317,7 @@ export const English = {
           ' ' + p3.toLowerCase();
       },
     );
-    return is;
+    return inputString;
   },
 };
 
@@ -335,8 +335,8 @@ export const French = {
 
   name: 'French',
 
-  runPostProcess(is) {
-    return DefaultMode.runPostProcess(is)
+  runPostProcess(inputString) {
+    return DefaultMode.runPostProcess(inputString)
       .replace(/([!\?;:]+)/gi, ' $1')
       .replace(/([«]+)/gi, '$1 ')
       .replace(/([»]+)/gi, ' $1')
@@ -374,8 +374,8 @@ export const Turkish = {
     },
   )),
 
-  isLowerCaseWord(w) {
-    return LOWER_CASE_WORDS.test(w) || LOWER_CASE_WORDS_TURKISH.test(w);
+  isLowerCaseWord(word) {
+    return LOWER_CASE_WORDS.test(word) || LOWER_CASE_WORDS_TURKISH.test(word);
   },
 
   isSentenceCaps() {
