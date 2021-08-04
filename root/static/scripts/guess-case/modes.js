@@ -284,7 +284,8 @@ const DefaultMode = {
   },
 };
 
-export const English = Object.assign({}, DefaultMode, {
+export const English = {
+  ...DefaultMode,
   description: ReactDOMServer.renderToStaticMarkup(exp.l(
     `This mode capitalises almost all words, with some words (mainly articles 
      and short prepositions) lowercased. Some words may need to be manually 
@@ -322,9 +323,10 @@ export const English = Object.assign({}, DefaultMode, {
     is = this.fixEnglishKeyNames(is);
     return is;
   },
-});
+};
 
-export const French = Object.assign({}, DefaultMode, {
+export const French = {
+  ...DefaultMode,
   description: ReactDOMServer.renderToStaticMarkup(exp.l(
     `This mode capitalises titles as sentence mode, but also inserts spaces 
      before semicolons, colons, exclamation marks and question marks, 
@@ -345,9 +347,10 @@ export const French = Object.assign({}, DefaultMode, {
       .replace(/^(Le\s|La\s|Les\s|L[’'])(\S+)$/gi,
                (_, m1, m2) => m1.replace('\'', '’') + capitalize(m2));
   },
-});
+};
 
-export const Sentence = Object.assign({}, DefaultMode, {
+export const Sentence = {
+  ...DefaultMode,
   description: ReactDOMServer.renderToStaticMarkup(exp.l(
     `This mode capitalises the first word of a sentence, most other words 
      are lowercased. Some words, often proper nouns, may need to be manually 
@@ -359,8 +362,10 @@ export const Sentence = Object.assign({}, DefaultMode, {
   )),
 
   name: 'Sentence',
-});
-export const Turkish = Object.assign({}, DefaultMode, {
+};
+
+export const Turkish = {
+  ...DefaultMode,
   description: ReactDOMServer.renderToStaticMarkup(exp.l(
     `This mode handles the Turkish capitalisation of 'i' ('İ') and 'ı' ('I').
      Some words may need to be manually corrected according to 
@@ -386,4 +391,4 @@ export const Turkish = Object.assign({}, DefaultMode, {
   toLowerCase: turkishLowerCase,
 
   toUpperCase: turkishUpperCase,
-});
+};
