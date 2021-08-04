@@ -1,4 +1,5 @@
 /*
+ * @flow strict-local
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2015 MetaBrainz Foundation
  *
@@ -12,6 +13,7 @@ import * as ReactDOMServer from 'react-dom/server';
 import getBooleanCookie from '../common/utility/getBooleanCookie';
 import {capitalize} from '../common/utility/strings';
 
+import type {GuessCaseModeT} from './types';
 import {
   isPrepBracketWord,
   isPrepBracketSingleWord,
@@ -95,7 +97,12 @@ const POSTPROCESS_FIXLIST = [
 ];
 /* eslint-enable no-multi-spaces */
 
-function replaceMatch(matches, inputString, regex, replacement) {
+function replaceMatch(
+  matches: RegExp$matchResult,
+  inputString: string,
+  regex: RegExp,
+  replacement: string,
+): string {
   // get reference to first set of parentheses
   const a = matches[1] || '';
 
@@ -112,29 +119,36 @@ function replaceMatch(matches, inputString, regex, replacement) {
  * @param is     the input string
  * @param fixes  the list of fix objects to apply
  */
-function runFixes(inputString, fixes) {
+function runFixes(
+  inputString: string,
+  fixes: $ReadOnlyArray<[RegExp, string]>,
+): string {
+  let output = inputString;
   fixes.forEach(function (fix) {
     const [regex, replacement] = fix;
     let matches;
 
     if (regex.global) {
-      let oldInputString;
-      while ((matches = regex.exec(inputString))) {
-        oldInputString = inputString;
-        inputString = replaceMatch(matches, inputString, regex, replacement);
-        if (oldInputString === inputString) {
+      let previousOutput;
+      while ((matches = regex.exec(output))) {
+        previousOutput = output;
+        output = replaceMatch(matches, output, regex, replacement);
+        if (previousOutput === output) {
           break;
         }
       }
-    } else if ((matches = inputString.match(regex)) !== null) {
-      inputString = replaceMatch(matches, inputString, regex, replacement);
+    } else {
+      const matches = output.match(regex);
+      if (matches !== null) {
+        output = replaceMatch(matches, output, regex, replacement);
+      }
     }
   });
 
-  return inputString;
+  return output;
 }
 
-const DefaultMode = {
+const DefaultMode: GuessCaseModeT = {
   description: '',
 
   /*
@@ -187,21 +201,24 @@ const DefaultMode = {
    * My Track 12" remix => My Track (12" remix)
    */
   prepExtraTitleInfo(words) {
-    const lastWord = words.length - 1;
+    let outputWords = words;
+    const lastWord = outputWords.length - 1;
     let wordIndex = lastWord;
     let handlePreProcess = false;
 
     while (wordIndex >= 0 && (
       // skip whitespace
-      (words[wordIndex] === ' ') ||
+      (outputWords[wordIndex] === ' ') ||
 
       // vinyl (7" or 12")
-      (words[wordIndex] === '"' &&
-        (words[wordIndex - 1] === '7' || words[wordIndex - 1] === '12')) ||
-      ((words[wordIndex + 1] || '') === '"' &&
-        (words[wordIndex] === '7' || words[wordIndex] === '12')) ||
+      (outputWords[wordIndex] === '"' &&
+        (outputWords[wordIndex - 1] === '7' ||
+         outputWords[wordIndex - 1] === '12')) ||
+      ((outputWords[wordIndex + 1] || '') === '"' &&
+        (outputWords[wordIndex] === '7' ||
+         outputWords[wordIndex] === '12')) ||
 
-      isPrepBracketWord(words[wordIndex])
+      isPrepBracketWord(outputWords[wordIndex])
     )) {
       handlePreProcess = true;
       wordIndex--;
@@ -221,7 +238,7 @@ const DefaultMode = {
     if (wordIndex < lastWord) {
       // the word at wi broke out of the loop above, is not extra title info
       wordIndex++;
-      while (words[wordIndex] === ' ' && wordIndex < lastWord) {
+      while (outputWords[wordIndex] === ' ' && wordIndex < lastWord) {
         wordIndex++; // skip whitespace
       }
 
@@ -229,13 +246,13 @@ const DefaultMode = {
        * If we have a single word that needs to be put in parentheses, consult
        * the list of words were we don't do that, otherwise continue.
        */
-      const probe = words[lastWord];
+      const probe = outputWords[lastWord];
       if (wordIndex === lastWord && isPrepBracketSingleWord(probe)) {
         handlePreProcess = false;
       }
 
       if (handlePreProcess && wordIndex > 0 && wordIndex <= lastWord) {
-        let newWords = words.slice(0, wordIndex);
+        let newWords = outputWords.slice(0, wordIndex);
 
         if (newWords[wordIndex - 1] === '(') {
           newWords.pop();
@@ -246,13 +263,15 @@ const DefaultMode = {
         }
 
         newWords.push('(');
-        newWords = newWords.concat(words.slice(wordIndex, words.length));
+        newWords = newWords.concat(
+          outputWords.slice(wordIndex, outputWords.length),
+        );
         newWords.push(')');
-        words = newWords;
+        outputWords = newWords;
       }
     }
 
-    return words;
+    return outputWords;
   },
 
   /*
@@ -284,7 +303,7 @@ const DefaultMode = {
   },
 };
 
-export const English = {
+export const English: GuessCaseModeT = {
   ...DefaultMode,
   description: ReactDOMServer.renderToStaticMarkup(exp.l(
     `This mode capitalises almost all words, with some words (mainly articles 
@@ -303,13 +322,13 @@ export const English = {
   name: 'English',
 
   runPostProcess(inputString) {
-    inputString = DefaultMode.runPostProcess(inputString);
+    let output = DefaultMode.runPostProcess(inputString);
     /*
      * This changes key names in titles to follow
      * the English classical music guidelines.
      * See https://musicbrainz.org/doc/Style/Classical/Language/English#Keys
      */
-    inputString = inputString.replace(
+    output = output.replace(
       /\bin ([a-g])(?:[\s-]([Ff]lat|[Ss]harp))?\s(dorian|lydian|major|minor|mixolydian)(?:\b|$)/ig,
       function (match, p1, p2, p3) {
         return 'in ' + p1.toUpperCase() +
@@ -317,11 +336,11 @@ export const English = {
           ' ' + p3.toLowerCase();
       },
     );
-    return inputString;
+    return output;
   },
 };
 
-export const French = {
+export const French: GuessCaseModeT = {
   ...DefaultMode,
   description: ReactDOMServer.renderToStaticMarkup(exp.l(
     `This mode capitalises titles as sentence mode, but also inserts spaces 
@@ -345,7 +364,7 @@ export const French = {
   },
 };
 
-export const Sentence = {
+export const Sentence: GuessCaseModeT = {
   ...DefaultMode,
   description: ReactDOMServer.renderToStaticMarkup(exp.l(
     `This mode capitalises the first word of a sentence, most other words 
@@ -360,7 +379,7 @@ export const Sentence = {
   name: 'Sentence',
 };
 
-export const Turkish = {
+export const Turkish: GuessCaseModeT = {
   ...DefaultMode,
   description: ReactDOMServer.renderToStaticMarkup(exp.l(
     `This mode handles the Turkish capitalisation of 'i' ('İ') and 'ı' ('I').
