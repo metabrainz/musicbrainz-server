@@ -6,6 +6,7 @@ use MusicBrainz::Server::PagedReport;
 @all = qw(
     ASINsWithMultipleReleases
     AnnotationsArtists
+    AnnotationsEvents
     AnnotationsLabels
     AnnotationsPlaces
     AnnotationsRecordings

@@ -8,6 +8,7 @@
  */
 
 import * as React from 'react';
+import type {ColumnOptionsNoValue} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults';
 import Table from '../../components/Table';
@@ -20,15 +21,19 @@ import {
 } from '../../utility/tableColumns';
 import type {ReportEventT} from '../types';
 
-type Props = {
-  +items: $ReadOnlyArray<ReportEventT>,
+type Props<D: {+event: ?EventT, ...}> = {
+  +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  +items: $ReadOnlyArray<D>,
   +pager: PagerT,
 };
 
-const EventList = ({
+const EventList = <D: {+event: ?EventT, ...}>({
+  columnsBefore,
+  columnsAfter,
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => {
+}: Props<D>): React.Element<typeof PaginatedResults> => {
   const existingEventItems = items.reduce((result, item) => {
     if (item.event != null) {
       result.push(item);
@@ -73,15 +78,17 @@ const EventList = ({
       });
 
       return [
+        ...(columnsBefore ? [...columnsBefore] : []),
         nameColumn,
         typeColumn,
         artistsColumn,
         locationColumn,
         dateColumn,
         timeColumn,
+        ...(columnsAfter ? [...columnsAfter] : []),
       ];
     },
-    [],
+    [columnsAfter, columnsBefore],
   );
 
   return (
