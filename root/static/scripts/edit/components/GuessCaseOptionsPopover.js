@@ -30,7 +30,7 @@ const GuessCaseOptionsPopover = (React.memo(({
   dispatch,
   isOpen,
   keepUpperCase,
-  mode,
+  modeName,
   toggle,
   upperCaseRoman,
 }: Props): React.Element<typeof ButtonPopover> => {
@@ -48,7 +48,7 @@ const GuessCaseOptionsPopover = (React.memo(({
       <GuessCaseOptions
         dispatch={dispatch}
         keepUpperCase={keepUpperCase}
-        mode={mode}
+        modeName={modeName}
         upperCaseRoman={upperCaseRoman}
       />
       <div
@@ -72,7 +72,7 @@ const GuessCaseOptionsPopover = (React.memo(({
   ), [
     dispatch,
     keepUpperCase,
-    mode,
+    modeName,
     upperCaseRoman,
   ]);
 

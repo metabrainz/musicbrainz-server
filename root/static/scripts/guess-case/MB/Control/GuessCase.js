@@ -75,10 +75,9 @@ var mode = ko.computed({
 
     if (modeName !== gc.modeName) {
       gc.modeName = modeName;
-      gc.mode = modes[modeName];
       setCookie('guesscase_mode', modeName);
     }
-    return gc.mode;
+    return modes[modeName];
   },
   deferEvaluation: true,
 });

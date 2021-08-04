@@ -11,7 +11,11 @@
 import clean from '../common/utility/clean';
 
 import * as flags from './flags';
-import type {GuessCaseT} from './types';
+import * as modes from './modes';
+import type {GuessCaseT, GuessCaseModeT} from './types';
+import input from './MB/GuessCase/Input';
+import output from './MB/GuessCase/Output';
+
 
 /*
  * Words which are turned to lowercase if in brackets, but
@@ -189,14 +193,14 @@ export function titleString(
   if (!nonEmpty(inputString)) {
     return '';
   }
-
+  const guessCaseMode = modes[gc.modeName];
   const localForceCaps = forceCaps == null
     ? flags.context.forceCaps
     : forceCaps;
 
   // Get current pointer in word array.
-  const len = gc.input.getLength();
-  let pos = gc.input.getCursorPosition();
+  const len = input.getLength();
+  let pos = input.getCursorPosition();
 
   /*
    * If pos === len, this means that the pointer is beyond the last position
@@ -206,12 +210,12 @@ export function titleString(
    */
   if (pos === len) {
     pos = len - 1;
-    gc.input.setCursorPosition(pos);
+    input.setCursorPosition(pos);
   }
 
   let outputString;
-  let lowercase = gc.mode.toLowerCase(inputString);
-  let uppercase = gc.mode.toUpperCase(inputString);
+  let lowercase = guessCaseMode.toLowerCase(inputString);
+  let uppercase = guessCaseMode.toUpperCase(inputString);
 
   if (inputString === uppercase &&
       inputString.length > 1 &&
@@ -219,7 +223,7 @@ export function titleString(
     outputString = uppercase;
     // we got an 'x (apostrophe),keep the text lowercased
   } else if (lowercase.length === 1 &&
-             isApostrophe(gc.input.getPreviousWord())) {
+             isApostrophe(input.getPreviousWord())) {
     outputString = lowercase;
     /*
      * we got an 's (It is = It's), lowercase
@@ -235,8 +239,8 @@ export function titleString(
      * we got a 'mon (Come on = C'mon), lowercase
      */
   } else if (
-    gc.mode.name === 'English' &&
-    isApostrophe(gc.input.getPreviousWord()) &&
+    guessCaseMode.name === 'English' &&
+    isApostrophe(input.getPreviousWord()) &&
     lowercase.match(/^(?:s|round|em|ve|ll|d|cha|re|til|way|all|mon)$/i)
   ) {
     outputString = lowercase;
@@ -246,24 +250,28 @@ export function titleString(
      * Everything = Ev'rything, lowercase (more cases?)
      */
   } else if (
-    gc.mode.name === 'English' &&
-    isApostrophe(gc.input.getPreviousWord()) &&
-    gc.input.getWordAtIndex(pos - 2) === 'Ev'
+    guessCaseMode.name === 'English' &&
+    isApostrophe(input.getPreviousWord()) &&
+    input.getWordAtIndex(pos - 2) === 'Ev'
   ) {
     outputString = lowercase;
     // Make it O'Titled, Y'All, C'mon
   } else if (
-    gc.mode.name === 'English' &&
+    guessCaseMode.name === 'English' &&
     lowercase.match(/^[coy]$/i) &&
-    isApostrophe(gc.input.getNextWord())
+    isApostrophe(input.getNextWord())
   ) {
     outputString = uppercase;
   } else {
-    outputString = titleStringByMode(gc, lowercase, localForceCaps);
-    lowercase = gc.mode.toLowerCase(outputString);
-    uppercase = gc.mode.toUpperCase(outputString);
+    outputString = titleStringByMode(
+      guessCaseMode,
+      lowercase,
+      localForceCaps,
+    );
+    lowercase = guessCaseMode.toLowerCase(outputString);
+    uppercase = guessCaseMode.toUpperCase(outputString);
 
-    const nextWord = gc.input.getNextWord();
+    const nextWord = input.getNextWord();
     const followedByPunctuation =
       nonEmpty(nextWord) && nextWord.length === 1 &&
       isPunctuationChar(nextWord);
@@ -274,16 +282,18 @@ export function titleString(
      * Unless forceCaps is enabled, lowercase the word
      * if it's not followed by punctuation.
      */
-    if (!localForceCaps && gc.mode.isLowerCaseWord(lowercase) &&
+    if (!localForceCaps && guessCaseMode.isLowerCaseWord(lowercase) &&
         !followedByPunctuation) {
       outputString = lowercase;
-    } else if (gc.mode.isRomanNumber(lowercase) && !followedByApostrophe) {
+    } else if (
+      guessCaseMode.isRomanNumber(lowercase) && !followedByApostrophe
+    ) {
       /*
        * Uppercase Roman numerals unless followed by apostrophe
        * (likely false positive, "d'amore", "c'est")
        */
       outputString = uppercase;
-    } else if (gc.mode.isUpperCaseWord(lowercase)) {
+    } else if (guessCaseMode.isUpperCaseWord(lowercase)) {
       outputString = uppercase;
     } else if (
       flags.isInsideBrackets() && isLowerCaseBracketWord(lowercase)
@@ -300,7 +310,7 @@ export function titleString(
  * need to be uppercased as well.
  */
 export function titleStringByMode(
-  gc: GuessCaseT,
+  guessCaseMode: GuessCaseModeT,
   inputString: string | null,
   forceCaps: boolean,
 ): string {
@@ -308,16 +318,16 @@ export function titleStringByMode(
     return '';
   }
 
-  let outputString = gc.mode.toLowerCase(inputString);
+  let outputString = guessCaseMode.toLowerCase(inputString);
 
   /*
    * See if the word before is a sentence stop character.
    * -- http://bugs.musicbrainz.org/ticket/40
    */
-  const opos = gc.output.getLength();
+  const opos = output.getLength();
   let wordBefore = '';
   if (opos > 1) {
-    wordBefore = gc.output.getWordAtIndex(opos - 2);
+    wordBefore = output.getWordAtIndex(opos - 2);
   }
 
   /*
@@ -325,19 +335,19 @@ export function titleStringByMode(
    * opening bracket, keep the work lowercased.
    */
   const doCaps = (
-    forceCaps || !gc.mode.isSentenceCaps() ||
+    forceCaps || !guessCaseMode.isSentenceCaps() ||
       flags.context.slurpExtraTitleInformation ||
       flags.context.openingBracket ||
-      gc.input.isFirstWord() || isSentenceStopChar(wordBefore)
+      input.isFirstWord() || isSentenceStopChar(wordBefore)
   );
 
   if (doCaps) {
     const chars = outputString.split('');
-    chars[0] = gc.mode.toUpperCase(chars[0]);
+    chars[0] = guessCaseMode.toUpperCase(chars[0]);
 
     if (inputString.length > 2 && inputString.substring(0, 2) === 'mc') {
       // Make it McTitled
-      chars[2] = gc.mode.toUpperCase(chars[2]);
+      chars[2] = guessCaseMode.toUpperCase(chars[2]);
     }
 
     outputString = chars.join('');

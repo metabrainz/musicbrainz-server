@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -10,6 +10,8 @@
 
 import * as utils from '../../utils';
 import type {GuessCaseT} from '../../types';
+
+import gc from './Main';
 
 /*
  * Holds the input variables
@@ -23,9 +25,8 @@ class GuessCaseInput {
 
   wordList: Array<string>;
 
-  constructor(gc: GuessCaseT) {
+  constructor() {
     // Member variables
-    this.gc = gc;
     this.source = '';
     this.wordList = [];
     this.wordIndex = 0;
@@ -147,7 +148,7 @@ class GuessCaseInput {
     if (word == null) {
       return null;
     }
-    const output = utils.titleString(this.gc, word);
+    const output = utils.titleString(gc, word);
     if (word !== output) {
       this.updateCurrentWord(output);
     }
@@ -180,11 +181,11 @@ class GuessCaseInput {
     const chars = input.split('');
     const splitwords = [];
     let word = [];
-    if (!this.gc.regexes.SPLITWORDSANDPUNCTUATION) {
-      this.gc.regexes.SPLITWORDSANDPUNCTUATION = /[^!¿¡\"%&'´`‘’‹›“”„“«»()\[\]\{\}\*\+,-\.\/:;<=>\?\s#]/;
+    if (!gc.regexes.SPLITWORDSANDPUNCTUATION) {
+      gc.regexes.SPLITWORDSANDPUNCTUATION = /[^!¿¡\"%&'´`‘’‹›“”„“«»()\[\]\{\}\*\+,-\.\/:;<=>\?\s#]/;
     }
     for (let i = 0; i < chars.length; i++) {
-      if (chars[i].match(this.gc.regexes.SPLITWORDSANDPUNCTUATION)) {
+      if (chars[i].match(gc.regexes.SPLITWORDSANDPUNCTUATION)) {
         /*
          * See http://www.codingforums.com/archive/index.php/t-49001
          * for reference (escaping the sequence)
@@ -206,4 +207,4 @@ class GuessCaseInput {
   }
 }
 
-export default GuessCaseInput;
+export default (new GuessCaseInput(): GuessCaseInput);

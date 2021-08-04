@@ -9,6 +9,8 @@
 
 import MB from '../../../../common/MB';
 import * as flags from '../../../flags';
+import * as modes from '../../../modes';
+import input from '../Input';
 
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
@@ -32,8 +34,10 @@ MB.GuessCase.Handler.Work = function (gc) {
   };
 
   self.getWordsForProcessing = function (is) {
-    is = gc.mode.preProcessTitles(is);
-    return gc.mode.prepExtraTitleInfo(gc.input.splitWordsAndPunctuation(is));
+    is = modes[gc.modeName].preProcessTitles(is);
+    return modes.[gc.modeName].prepExtraTitleInfo(
+      input.splitWordsAndPunctuation(is),
+    );
   };
 
   /*
@@ -47,7 +51,7 @@ MB.GuessCase.Handler.Work = function (gc) {
     (
       self.doIgnoreWords() ||
       self.doFeaturingArtistStyle() ||
-      gc.mode.doWord() ||
+      modes[gc.modeName].doWord() ||
       self.doNormalWord()
     );
     flags.context.number = false;

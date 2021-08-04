@@ -11,11 +11,10 @@ import test from 'tape';
 import MB from '../common/MB';
 import setCookie from '../common/utility/setCookie';
 import gc from '../guess-case/MB/GuessCase/Main';
-import * as modes from '../guess-case/modes';
 
 setCookie('guesscase_roman', 'false');
 gc.CFG_KEEP_UPPERCASED = 'false';
-gc.mode = modes.English;
+gc.modeName = 'English';
 
 /* eslint-disable sort-keys */
 test('Sortname', function (t) {
@@ -350,7 +349,7 @@ test('Work', function (t) {
   for (const test of tests) {
     setCookie('guesscase_roman', String(test.roman));
     gc.CFG_KEEP_UPPERCASED = test.keepuppercase;
-    gc.mode = modes[test.mode];
+    gc.modeName = test.mode;
 
     const result = MB.GuessCase.work.guess(test.input);
     t.equal(result, test.expected, test.input);
@@ -550,7 +549,7 @@ test('BugFixes', function (t) {
 
   for (const test of tests) {
     gc.CFG_KEEP_UPPERCASED = false;
-    gc.mode = modes[test.mode];
+    gc.modeName = test.mode;
 
     const result = MB.GuessCase.work.guess(test.input);
     t.equal(result, test.expected, test.bug + ', ' + test.input);
@@ -561,7 +560,7 @@ test('vinyl numbers are fixed', function (t) {
   t.plan(5);
 
   setCookie('guesscase_roman', 'false');
-  gc.mode = modes.English;
+  gc.modeName = 'English';
 
   const tests = [
     {
@@ -596,7 +595,7 @@ test('no "quote blocks" over multiple track titles (MBS-8621)', function (t) {
   t.plan(3);
 
   setCookie('guesscase_roman', 'false');
-  gc.mode = modes.English;
+  gc.modeName = 'English';
 
   const tests = [
     {

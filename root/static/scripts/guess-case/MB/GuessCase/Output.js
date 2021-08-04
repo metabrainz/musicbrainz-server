@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -9,18 +9,18 @@
  */
 
 import * as flags from '../../flags';
+import * as modes from '../../modes';
 import * as utils from '../../utils';
-import type {GuessCaseT} from '../../types';
+
+import gc from './Main';
+import input from './Input';
 
 // Holds the output variables
 class GuessCaseOutput {
-  gc: GuessCaseT;
-
   wordList: Array<string>;
 
-  constructor(gc: GuessCaseT) {
+  constructor() {
     // Member variables
-    this.gc = gc;
     this.wordList = [];
   }
 
@@ -45,7 +45,7 @@ class GuessCaseOutput {
    * object, and appends it to the wordlist.
    */
   appendCurrentWord() {
-    const currentWord = this.gc.input.getCurrentWord();
+    const currentWord = input.getCurrentWord();
     if (currentWord != null) {
       this.appendWord(currentWord);
     }
@@ -53,7 +53,7 @@ class GuessCaseOutput {
 
   appendWord(word: string | null) {
     if (word === ' ') {
-      this.gc.output.appendSpace();
+      this.appendSpace();
     } else if (word !== '' && word != null) {
       this.wordList.push(word);
     }
@@ -70,7 +70,7 @@ class GuessCaseOutput {
    */
   appendSpaceIfNeeded() {
     if (flags.context.spaceNextWord) {
-      this.gc.output.appendSpace();
+      this.appendSpace();
     }
   }
 
@@ -98,7 +98,7 @@ class GuessCaseOutput {
     const forceCaps = overrideCaps == null
       ? flags.context.forceCaps
       : overrideCaps;
-    if ((!this.gc.mode.isSentenceCaps() || forceCaps) &&
+    if ((!modes[gc.modeName].isSentenceCaps() || forceCaps) &&
         (!this.isEmpty())) {
       const word = this.getWordAtIndex(index);
       if (word != null) {
@@ -113,23 +113,25 @@ class GuessCaseOutput {
               flags.isInsideBrackets() &&
               utils.isLowerCaseBracketWord(probe)) {
             // If inside brackets, do nothing.
-          } else if (!forceCaps && this.gc.mode.isUpperCaseWord(probe)) {
+          } else if (
+            !forceCaps && modes[gc.modeName].isUpperCaseWord(probe)
+          ) {
             // If it is an UPPERCASE word,do nothing.
           } else { // Else capitalize the current word.
             // Rewind pos pointer on input
-            const originalPosition = this.gc.input.getCursorPosition();
+            const originalPosition = input.getCursorPosition();
             let position = originalPosition - 1;
             while (position >= 0) {
-              const word = this.gc.input.getWordAtIndex(position);
+              const word = input.getWordAtIndex(position);
               if (word == null || utils.trim(word.toLowerCase()) === probe) {
                 break;
               }
               position--;
             }
-            this.gc.input.setCursorPosition(position);
-            output = utils.titleString(this.gc, word, forceCaps);
+            input.setCursorPosition(position);
+            output = utils.titleString(gc, word, forceCaps);
             // Restore pos pointer on input
-            this.gc.input.setCursorPosition(originalPosition);
+            input.setCursorPosition(originalPosition);
             if (word !== output) {
               this.setWordAtIndex(index, output);
             }
@@ -152,7 +154,7 @@ class GuessCaseOutput {
   // Apply post-processing, and return the string
   getOutput(): string {
     // If *not* sentence mode, force caps on last word.
-    flags.context.forceCaps = !this.gc.mode.isSentenceCaps();
+    flags.context.forceCaps = !modes[gc.modeName].isSentenceCaps();
     this.capitalizeLastWord();
 
     this.closeOpenBrackets();
@@ -176,12 +178,12 @@ class GuessCaseOutput {
    */
   appendWordPreserveWhiteSpace(capitalizeLast: boolean) {
     const whitespace = {
-      after: this.gc.input.isNextWord(' '),
-      before: this.gc.input.isPreviousWord(' '),
+      after: input.isNextWord(' '),
+      before: input.isPreviousWord(' '),
     };
     if (capitalizeLast) {
       // capitalize last word before current
-      this.capitalizeLastWord(!this.gc.mode.isSentenceCaps());
+      this.capitalizeLastWord(!modes[gc.modeName].isSentenceCaps());
     }
     if (whitespace.before) {
       // preserve whitespace before,
@@ -193,4 +195,4 @@ class GuessCaseOutput {
   }
 }
 
-export default GuessCaseOutput;
+export default (new GuessCaseOutput(): GuessCaseOutput);

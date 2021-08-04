@@ -9,6 +9,9 @@
 
 import MB from '../../../../common/MB';
 import * as flags from '../../../flags';
+import * as modes from '../../../modes';
+import input from '../Input';
+import output from '../Output';
 
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
@@ -32,12 +35,14 @@ MB.GuessCase.Handler.Track = function (gc) {
    */
   const baseProcess = self.process;
   self.process = function (os) {
-    return gc.mode.fixVinylSizes(baseProcess(os));
+    return modes[gc.modeName].fixVinylSizes(baseProcess(os));
   };
 
   self.getWordsForProcessing = function (is) {
-    is = gc.mode.preProcessTitles(self.removeBonusInfo(is));
-    return gc.mode.prepExtraTitleInfo(gc.input.splitWordsAndPunctuation(is));
+    is = modes[gc.modeName].preProcessTitles(self.removeBonusInfo(is));
+    return modes[gc.modeName].prepExtraTitleInfo(
+      input.splitWordsAndPunctuation(is),
+    );
   };
 
   /*
@@ -88,26 +93,26 @@ MB.GuessCase.Handler.Track = function (gc) {
     if (
       !self.doIgnoreWords() &&
       !self.doFeaturingArtistStyle() &&
-      !gc.mode.doWord()
+      !modes[gc.modeName].doWord()
     ) {
-      if (gc.input.matchCurrentWord(/7in/i)) {
-        gc.output.appendSpaceIfNeeded();
-        gc.output.appendWord('7"');
+      if (input.matchCurrentWord(/7in/i)) {
+        output.appendSpaceIfNeeded();
+        output.appendWord('7"');
         flags.resetContext();
         flags.context.spaceNextWord = false;
         flags.context.forceCaps = false;
-      } else if (gc.input.matchCurrentWord(/12in/i)) {
-        gc.output.appendSpaceIfNeeded();
-        gc.output.appendWord('12"');
+      } else if (input.matchCurrentWord(/12in/i)) {
+        output.appendSpaceIfNeeded();
+        output.appendWord('12"');
         flags.resetContext();
         flags.context.spaceNextWord = false;
         flags.context.forceCaps = false;
       } else {
         // Handle other cases (e.g. normal words)
-        gc.output.appendSpaceIfNeeded();
-        gc.input.capitalizeCurrentWord();
+        output.appendSpaceIfNeeded();
+        input.capitalizeCurrentWord();
 
-        gc.output.appendCurrentWord();
+        output.appendCurrentWord();
         flags.resetContext();
         flags.context.spaceNextWord = true;
         flags.context.forceCaps = false;

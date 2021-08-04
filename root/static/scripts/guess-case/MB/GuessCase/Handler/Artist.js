@@ -10,6 +10,8 @@
 import MB from '../../../../common/MB';
 import * as flags from '../../../flags';
 import * as utils from '../../../utils';
+import input from '../Input';
+import output from '../Output';
 
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
@@ -61,9 +63,9 @@ MB.GuessCase.Handler.Artist = function (gc) {
    * in the common word handlers.
    */
   self.doWord = function () {
-    gc.output.appendSpaceIfNeeded();
-    gc.input.capitalizeCurrentWord();
-    gc.output.appendCurrentWord();
+    output.appendSpaceIfNeeded();
+    input.capitalizeCurrentWord();
+    output.appendCurrentWord();
 
     flags.resetContext();
     flags.context.number = false;
