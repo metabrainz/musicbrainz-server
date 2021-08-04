@@ -294,12 +294,12 @@
     {
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll('#external-links-editor tr[class=\"external-link-item\"]')).slice(0, 3).map(x => x.querySelector('.error') ? x.querySelector('.error').textContent : '').join('\\n')",
-      value: '\nRequired field.\nThis URL is not allowed for the selected link type, or is incorrectly formatted.',
+      value: '\nRequired field.\n',
     },
     {
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll('#external-links-editor tr[class=\"relationship-item\"]')).slice(0, 3).map(x => [x.querySelector('select').value, x.querySelector('.error') ? x.querySelector('.error').textContent : ''].join('\\t')).join('\\n')",
-      value: '\tPlease select a link type for the URL you’ve entered.\n77\t\n76\t',
+      value: '\tPlease select a link type for the URL you’ve entered.\n77\t\n76\tThis URL is not allowed for the selected link type.',
     },
     // MBS-7250: seeding empty date parts gives an ISE
     {
