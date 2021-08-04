@@ -146,15 +146,21 @@ function getCombinedTrackRelationships(
     const recordingRelationships = recording.relationships;
     if (recordingRelationships) {
       for (const relationship of recordingRelationships) {
-        pushRelationship(relationship, track);
-
         const target = relationship.target;
+
+        if (!isIrrelevantLinkType(
+          relationship, target.entityType,
+        )) {
+          pushRelationship(relationship, track);
+        }
 
         if (target.entityType === 'work') {
           const workRelationships = target.relationships;
           if (workRelationships) {
             for (const workRelationship of workRelationships) {
-              if (!isIrrelevantLinkType(workRelationship)) {
+              if (!isIrrelevantLinkType(
+                workRelationship, target.entityType,
+              )) {
                 pushRelationship(workRelationship, track);
               }
             }
