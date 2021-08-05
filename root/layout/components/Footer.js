@@ -52,8 +52,8 @@ const Footer = (): React.Element<'div'> => {
            {spon|sponsors} and {supp|supporters}. Cover Art provided
            by the {caa|Cover Art Archive}.`,
           {
-            MeB: 'https://metabrainz.org/',
             caa: '//coverartarchive.org/',
+            MeB: 'https://metabrainz.org/',
             spon: 'https://metabrainz.org/sponsors',
             supp: 'https://metabrainz.org/supporters',
           },
