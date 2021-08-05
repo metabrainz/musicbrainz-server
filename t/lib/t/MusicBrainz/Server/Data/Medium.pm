@@ -33,7 +33,7 @@ test 'Insert medium' => sub {
             {
                 name => 'Dirty Electro Mix',
                 position => 1,
-                number => "A1",
+                number => 'A1',
                 recording_id => 1,
                 length => 330160,
                 artist_credit => $artist_credit,
@@ -41,7 +41,7 @@ test 'Insert medium' => sub {
             {
                 name => 'I.Y.F.F.E Guest Mix',
                 position => 2,
-                number => "B1",
+                number => 'B1',
                 recording_id => 2,
                 length => 262000,
                 artist_credit => $artist_credit,
@@ -55,7 +55,7 @@ test 'Insert medium' => sub {
     isa_ok($medium, 'MusicBrainz::Server::Entity::Medium');
 
     $c->model('Medium')->load_track_durations($medium);
-    is($medium->length, 330160 + 262000, "inserted medium has expected length");
+    is($medium->length, 330160 + 262000, 'inserted medium has expected length');
 
     my $trackoffset0 = 150;
     my $trackoffset1 = $trackoffset0 + int(330160 * 75 / 1000);
@@ -65,7 +65,7 @@ test 'Insert medium' => sub {
 
     my $fuzzy = 1;
     my ($durationlookup, $hits) = $c->model('DurationLookup')->lookup($toc, $fuzzy);
-    is($hits, 1, "one match with TOC lookup");
+    is($hits, 1, 'one match with TOC lookup');
 
     $medium = $c->model('Medium')->get_by_id($durationlookup->[0]{results}[0]{medium});
     is($medium->id, $created->{id});

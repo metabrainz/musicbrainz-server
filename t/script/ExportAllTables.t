@@ -27,7 +27,7 @@ test all => sub {
         system 'sh', '-c' => "echo $sql | $psql TEST_FULL_EXPORT";
     };
 
-    my $output_dir = tempdir("t-fullexport-XXXXXXXX", DIR => '/tmp', CLEANUP => 1);
+    my $output_dir = tempdir('t-fullexport-XXXXXXXX', DIR => '/tmp', CLEANUP => 1);
     my $schema_seq = DBDefs->DB_SCHEMA_SEQUENCE;
 
     # MBS-9342

@@ -35,7 +35,7 @@ test 'Delete account as a regular user' => sub {
     html_ok($mech->content);
     $mech->submit_form( form_id => 'delete-account-form' );
 
-    is($mech->uri->path, '/user/Deleted%20Editor%20%232', "redirected to the deleted editor's profile");
+    is($mech->uri->path, '/user/Deleted%20Editor%20%232', q(redirected to the deleted editor's profile));
     $mech->content_contains('Log In', 'no longer logged in');
 
     $mech->get_ok('/account/edit');
@@ -70,7 +70,7 @@ test 'Delete account as an admin' => sub {
     html_ok($mech->content);
     $mech->submit_form( form_id => 'delete-account-form' );
 
-    is($mech->uri->path, '/user/Deleted%20Editor%20%232', "redirected to the deleted editor's profile");
+    is($mech->uri->path, '/user/Deleted%20Editor%20%232', q(redirected to the deleted editor's profile));
     $mech->content_contains('kuno', 'still logged in');
 
 };

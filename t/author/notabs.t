@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use Test::More;
 
-eval "use Test::NoTabs";
+eval 'use Test::NoTabs';
 plan skip_all => 'Test::NoTabs required' if $@;
 
 use FindBin '$Bin';

@@ -14,7 +14,7 @@ with 't::Mechanize', 't::Context';
 
 use utf8;
 
-test "collection lookup" => sub {
+test 'collection lookup' => sub {
     my $test = shift;
     my $c = $test->c;
 
@@ -283,7 +283,7 @@ test "collection lookup" => sub {
 </metadata>', { username => 'the-anti-kuno', password => 'notreally' };
 };
 
-test "collection lookup errors" => sub {
+test 'collection lookup errors' => sub {
     my $test = shift;
     my $c = $test->c;
 
@@ -379,7 +379,7 @@ EOXML
         $bad_entity_response->('work'), { response_code => 400 };
 };
 
-test "browsing by area" => sub {
+test 'browsing by area' => sub {
     my $test = shift;
     my $c = $test->c;
 
@@ -426,7 +426,7 @@ test "browsing by area" => sub {
         { username => 'the-anti-kuno', password => 'wrong_password' };
 };
 
-test "browsing by release" => sub {
+test 'browsing by release' => sub {
     my $test = shift;
     my $c = $test->c;
 
@@ -473,7 +473,7 @@ test "browsing by release" => sub {
         { username => 'the-anti-kuno', password => 'wrong_password' };
 };
 
-test "browsing by release group" => sub {
+test 'browsing by release group' => sub {
     my $test = shift;
     my $c = $test->c;
 

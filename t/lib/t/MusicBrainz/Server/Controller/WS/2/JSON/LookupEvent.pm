@@ -17,15 +17,15 @@ test 'basic event lookup' => sub {
     ws_test_json 'basic event lookup',
     '/event/eb668bdc-a928-49a1-beb7-8e37db2a5b65' =>
         {
-            id => "eb668bdc-a928-49a1-beb7-8e37db2a5b65",
-            name => "Cool Festival",
-            disambiguation => "",
-            type => "Festival",
-            "type-id" => "b6ded574-b592-3f0e-b56e-5b5f06aa0678",
-            time => "",
-            setlist => "",
+            id => 'eb668bdc-a928-49a1-beb7-8e37db2a5b65',
+            name => 'Cool Festival',
+            disambiguation => '',
+            type => 'Festival',
+            'type-id' => 'b6ded574-b592-3f0e-b56e-5b5f06aa0678',
+            time => '',
+            setlist => '',
             cancelled => JSON::false,
-            "life-span" => {
+            'life-span' => {
                 begin => JSON::null,
                 end => JSON::null,
                 ended => JSON::false
@@ -40,38 +40,38 @@ test 'basic event lookup, inc=aliases' => sub {
     ws_test_json 'basic event lookup, inc=aliases',
     '/event/eb668bdc-a928-49a1-beb7-8e37db2a5b65?inc=aliases' =>
         {
-            id => "eb668bdc-a928-49a1-beb7-8e37db2a5b65",
-            name => "Cool Festival",
-            disambiguation => "",
-            type => "Festival",
-            "type-id" => "b6ded574-b592-3f0e-b56e-5b5f06aa0678",
-            time => "",
-            setlist => "",
+            id => 'eb668bdc-a928-49a1-beb7-8e37db2a5b65',
+            name => 'Cool Festival',
+            disambiguation => '',
+            type => 'Festival',
+            'type-id' => 'b6ded574-b592-3f0e-b56e-5b5f06aa0678',
+            time => '',
+            setlist => '',
             cancelled => JSON::false,
-            "life-span" => {
+            'life-span' => {
                 begin => JSON::null,
                 end => JSON::null,
                 ended => JSON::false
             },
             aliases => [
                 {
-                    name => "El Festival Cool",
-                    "sort-name" => "Festival Cool, El",
+                    name => 'El Festival Cool',
+                    'sort-name' => 'Festival Cool, El',
                     locale => JSON::null,
                     primary => JSON::null,
                     type => JSON::null,
-                    "type-id" => JSON::null,
+                    'type-id' => JSON::null,
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
                 },
                 {
-                    name => "Warm Festival",
-                    "sort-name" => "Warm Festival",
+                    name => 'Warm Festival',
+                    'sort-name' => 'Warm Festival',
                     locale => JSON::null,
                     primary => JSON::null,
                     type => JSON::null,
-                    "type-id" => JSON::null,
+                    'type-id' => JSON::null,
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,

@@ -50,13 +50,13 @@ test all => sub {
 
     # Find all aliases for an artist
     my $alias_set = $artist_data->alias->find_by_entity_id(1);
-    is(scalar @$alias_set, 2, "Expected number of aliases");
+    is(scalar @$alias_set, 2, 'Expected number of aliases');
     verify_artist_alias($alias_set->[0], 'Alias 2', 1, 'en_GB');
     verify_artist_alias($alias_set->[1], 'Alias 1', 1, undef);
 
     # Attempt finding aliases for an artist with no aliases
     $alias_set = $artist_data->alias->find_by_entity_id(2);
-    is(scalar @$alias_set, 0, "Expected lack of aliases found");
+    is(scalar @$alias_set, 0, 'Expected lack of aliases found');
 
     # Make sure we can check if an entity has aliases for a given locale
     ok($artist_data->alias->has_locale(1, 'en_GB'), 'artist #1 has en_GB locale');
@@ -65,7 +65,7 @@ test all => sub {
     $artist_data->alias->merge(1, 2);
 
     $alias_set = $artist_data->alias->find_by_entity_id(1);
-    is(scalar @$alias_set, 3, "Expected number of aliases");
+    is(scalar @$alias_set, 3, 'Expected number of aliases');
     is($alias_set->[0]->name, 'Alias 2', 'Original alias #1');
     is($alias_set->[1]->name, 'Alias 1', 'Original alias #2');
     is($alias_set->[2]->name, 'Empty Artist', 'has the old artist as an alias');
@@ -77,7 +77,7 @@ test all => sub {
     $artist_data->alias->merge(1, 3);
 
     $alias_set = $artist_data->alias->find_by_entity_id(1);
-    is(scalar @$alias_set, 4, "Expected number of aliases");
+    is(scalar @$alias_set, 4, 'Expected number of aliases');
     verify_artist_alias($alias_set->[0], 'Alias 2', 1, 'en_GB');
     verify_artist_alias($alias_set->[1], 'Alias 1', 1, undef);
     verify_artist_alias($alias_set->[2], 'Alias 2', 1, undef);
@@ -102,10 +102,10 @@ test all => sub {
                                 });
 
     $alias_set = $artist_data->alias->find_by_entity_id(1);
-    is(scalar @$alias_set, 1, "Artist #1 has a single newly inserted alias");
+    is(scalar @$alias_set, 1, 'Artist #1 has a single newly inserted alias');
     verify_artist_alias($alias_set->[0], 'New alias', 1, 'en_AU');
-    is($alias_set->[0]->sort_name, 'New sort name', "sort_name");
-    is($alias_set->[0]->primary_for_locale, 0, "primary_for_locale");
+    is($alias_set->[0]->sort_name, 'New sort name', 'sort_name');
+    is($alias_set->[0]->primary_for_locale, 0, 'primary_for_locale');
 
     $test->c->sql->commit;
 

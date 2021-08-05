@@ -77,7 +77,7 @@ test all => sub {
                     'Has release date: ' . $_->name)
         for @releases;
 
-    contains_string($email->text, sprintf("/release/%s", $_->gid),
+    contains_string($email->text, sprintf('/release/%s', $_->gid),
                     'Has release link: ' . $_->name)
         for @releases;
 

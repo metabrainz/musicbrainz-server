@@ -19,11 +19,11 @@ my $lt_data = MusicBrainz::Server::Data::ReleaseStatus->new(c => $test->c);
 
 my $lt = $lt_data->get_by_id(1);
 is ( $lt->id, 1 );
-is ( $lt->name, "Official" );
+is ( $lt->name, 'Official' );
 
 my $lts = $lt_data->get_by_ids(1);
 is ( $lts->{1}->id, 1 );
-is ( $lts->{1}->name, "Official" );
+is ( $lts->{1}->name, 'Official' );
 
 does_ok($lt_data, 'MusicBrainz::Server::Data::Role::SelectAll');
 my @status = $lt_data->get_all;

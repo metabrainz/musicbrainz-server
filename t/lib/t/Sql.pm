@@ -18,10 +18,10 @@ test 'Nest select_single_column_array in select' => sub {
     my $test = shift;
     my $sql = $test->c->sql;
 
-    my $rows = $sql->select("SELECT * FROM (VALUES (1, 'musical'), (2, 'rock')) tag (id, name)");
+    my $rows = $sql->select(q(SELECT * FROM (VALUES (1, 'musical'), (2, 'rock')) tag (id, name)));
     is exception {
         while (my $row = $sql->next_row_ref) {
-            $sql->select_single_column_array("SELECT * FROM generate_series(1, 10)");
+            $sql->select_single_column_array('SELECT * FROM generate_series(1, 10)');
         }
     }, undef;
 };
@@ -30,10 +30,10 @@ test 'Nest select_single_row_array in select' => sub {
     my $test = shift;
     my $sql = $test->c->sql;
 
-    my $rows = $sql->select("SELECT * FROM (VALUES (1, 'musical'), (2, 'rock')) tag (id, name)");
+    my $rows = $sql->select(q(SELECT * FROM (VALUES (1, 'musical'), (2, 'rock')) tag (id, name)));
     is exception {
         while (my $row = $sql->next_row_ref) {
-            $sql->select_single_row_array("SELECT * FROM generate_series(1, 10) LIMIT 1");
+            $sql->select_single_row_array('SELECT * FROM generate_series(1, 10) LIMIT 1');
         }
     }, undef;
 };
@@ -59,7 +59,7 @@ test 'All tests' => sub {
 
     {
         # Selection stuff
-        my $rows = $sql->select("SELECT * FROM (VALUES (1, 'musical'), (2, 'rock'), (3, 'jazz'), (4, 'foo')) tag (id, name)");
+        my $rows = $sql->select(q(SELECT * FROM (VALUES (1, 'musical'), (2, 'rock'), (3, 'jazz'), (4, 'foo')) tag (id, name)));
         is($rows, 4);
         is($sql->row_count, $rows);
 
@@ -77,7 +77,7 @@ test 'All tests' => sub {
 
     {
         # Selection with bind parameters
-        my $rows = $sql->select("SELECT id, name FROM (VALUES (1, 'musical') ) tag(id, name) WHERE id = ?", 1);
+        my $rows = $sql->select(q(SELECT id, name FROM (VALUES (1, 'musical') ) tag(id, name) WHERE id = ?), 1);
         is($rows, 1, 'where clause and bind parameters');
 
         my $row = $sql->next_row_hash_ref;
@@ -128,7 +128,7 @@ test 'All tests' => sub {
         is($rows, 1);
 
         $sql->auto_commit(1);
-        ok !exception { $id = $sql->insert_row('artist_type', { id => 9, gid => 'c9ac3831-739d-11de-8a39-0800200c9a68', name => \"'calm'" }) }, 'can insert with literal sql';
+        ok !exception { $id = $sql->insert_row('artist_type', { id => 9, gid => 'c9ac3831-739d-11de-8a39-0800200c9a68', name => \q('calm') }) }, 'can insert with literal sql';
         $rows = $sql->select_single_value('SELECT count(*) FROM artist_type WHERE id = ?', 9);
         is($rows, 1);
 
@@ -197,63 +197,63 @@ test 'All tests' => sub {
     {
         # Selecting single values
         ok !exception {
-            is_deeply($sql->select_single_row_hash("SELECT id,name FROM (VALUES (1, 'musical')) tag (id, name) WHERE id = 1"),
+            is_deeply($sql->select_single_row_hash(q(SELECT id,name FROM (VALUES (1, 'musical')) tag (id, name) WHERE id = 1)),
                       { name => 'musical', id => 1 })
         }, 'select_single_row_hash with SQL';
 
         ok !exception {
-            is_deeply($sql->select_single_row_hash("SELECT id,name FROM (VALUES (1, 'musical')) tag (id, name) WHERE id = ?", 1),
+            is_deeply($sql->select_single_row_hash(q(SELECT id,name FROM (VALUES (1, 'musical')) tag (id, name) WHERE id = ?), 1),
                       {
                           name => 'musical', id => 1 })
         }, 'select_single_row_hash with bind parameters';
 
         ok !exception {
-            is_deeply($sql->select_single_row_array("SELECT id,name FROM (VALUES (1, 'musical')) tag (id, name) WHERE id = 1"),
+            is_deeply($sql->select_single_row_array(q(SELECT id,name FROM (VALUES (1, 'musical')) tag (id, name) WHERE id = 1)),
                       [ 1, 'musical' ])
         }, 'select_single_row_array with SQL';
 
         ok !exception {
-            is_deeply($sql->select_single_row_array("SELECT id,name FROM (VALUES (1, 'musical')) tag (id, name) WHERE id = ?", 1),
+            is_deeply($sql->select_single_row_array(q(SELECT id,name FROM (VALUES (1, 'musical')) tag (id, name) WHERE id = ?), 1),
                       [ 1, 'musical' ])
         }, 'select_single_row_array with bind parameters';
 
         ok !exception {
-            is_deeply($sql->select_single_column_array("SELECT id FROM (VALUES (1, 'musical')) tag (id, name) WHERE id = 1"),
+            is_deeply($sql->select_single_column_array(q(SELECT id FROM (VALUES (1, 'musical')) tag (id, name) WHERE id = 1)),
                       [ 1 ])
         }, 'select_single_column_array with SQL';
 
         ok !exception {
-            is_deeply($sql->select_single_column_array("SELECT id FROM (VALUES (1, 'musical')) tag (id, name) WHERE id = ?", 1),
+            is_deeply($sql->select_single_column_array(q(SELECT id FROM (VALUES (1, 'musical')) tag (id, name) WHERE id = ?), 1),
                       [ 1 ])
         }, 'select_single_column_array with bind parameters';
 
         ok !exception {
-            is_deeply($sql->select_single_column_array("SELECT id FROM (VALUES (6, 'musical'), (7, 'rock')) tag (id, name) WHERE id > ?", 5),
+            is_deeply($sql->select_single_column_array(q(SELECT id FROM (VALUES (6, 'musical'), (7, 'rock')) tag (id, name) WHERE id > ?), 5),
                       [ 6, 7 ])
         }, 'select_single_column_array with bind parameters';
 
         like exception {
-            $sql->select_single_column_array("SELECT id,name FROM (VALUES (1, 'musical')) tag (id, name) WHERE id = 1")
+            $sql->select_single_column_array(q(SELECT id,name FROM (VALUES (1, 'musical')) tag (id, name) WHERE id = 1))
         }, qr/Query returned multiple columns/, 'select_single_column_array with bind parameters';
 
         ok !exception {
-            is($sql->select_single_value("SELECT id FROM (VALUES (1, 'musical')) tag (id, name) WHERE id = 1"), 1)
+            is($sql->select_single_value(q(SELECT id FROM (VALUES (1, 'musical')) tag (id, name) WHERE id = 1)), 1)
         }, 'select_single_value with SQL';
 
         ok !exception {
-            is($sql->select_single_value("SELECT id FROM (VALUES (1, 'musical')) tag (id, name) WHERE id = ?", 1), 1)
+            is($sql->select_single_value(q(SELECT id FROM (VALUES (1, 'musical')) tag (id, name) WHERE id = ?), 1), 1)
         }, 'select_single_value with bind parameters';
     }
 
     {
         # Selecting lists
         ok !exception {
-            is_deeply($sql->select_list_of_lists("SELECT id,name FROM (VALUES (1, 'musical'), (2, 'rock')) tag (id, name) WHERE id IN (1,2) ORDER BY id ASC"),
+            is_deeply($sql->select_list_of_lists(q(SELECT id,name FROM (VALUES (1, 'musical'), (2, 'rock')) tag (id, name) WHERE id IN (1,2) ORDER BY id ASC)),
                       [[1, 'musical'], [2, 'rock']]);
         }, 'select_list_of_lists with SQL';
 
         ok !exception {
-            is_deeply($sql->select_list_of_lists("SELECT id,name FROM (VALUES (1, 'musical'), (2, 'rock')) tag (id, name) WHERE id IN (?,?) ORDER BY id ASC", 1, 2),
+            is_deeply($sql->select_list_of_lists(q(SELECT id,name FROM (VALUES (1, 'musical'), (2, 'rock')) tag (id, name) WHERE id IN (?,?) ORDER BY id ASC), 1, 2),
                       [[1, 'musical'], [2, 'rock']]);
         }, 'select_list_of_lists with bind paremeters';
     }
@@ -261,7 +261,7 @@ test 'All tests' => sub {
     {
         # Selecting list of hashes
         ok !exception {
-            is_deeply($sql->select_list_of_hashes("SELECT id,name FROM (VALUES (1, 'musical'), (2, 'rock')) tag (id, name) WHERE id IN (1,2) ORDER BY id ASC"),
+            is_deeply($sql->select_list_of_hashes(q(SELECT id,name FROM (VALUES (1, 'musical'), (2, 'rock')) tag (id, name) WHERE id IN (1,2) ORDER BY id ASC)),
                       [
                           {
                               id => 1, name => 'musical' },
@@ -271,7 +271,7 @@ test 'All tests' => sub {
         }, 'select_list_of_hashes with SQL';
 
         ok !exception {
-            is_deeply($sql->select_list_of_hashes("SELECT id,name FROM (VALUES (1, 'musical'), (2, 'rock')) tag (id, name) WHERE id IN (?,?) ORDER BY id ASC", 1, 2),
+            is_deeply($sql->select_list_of_hashes(q(SELECT id,name FROM (VALUES (1, 'musical'), (2, 'rock')) tag (id, name) WHERE id IN (?,?) ORDER BY id ASC), 1, 2),
                       [
                           {
                               id => 1, name => 'musical' },

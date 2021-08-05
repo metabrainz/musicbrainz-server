@@ -44,24 +44,24 @@ my $work_data = MusicBrainz::Server::Data::Work->new(c => $test->c);
 
 my $work = $work_data->get_by_id(1);
 is ( $work->id, 1 );
-is ( $work->gid, "745c079d-374e-4436-9448-da92dedef3ce" );
-is ( $work->name, "Dancing Queen" );
+is ( $work->gid, '745c079d-374e-4436-9448-da92dedef3ce' );
+is ( $work->name, 'Dancing Queen' );
 is ( $work->type_id, 1 );
 is ( $work->edits_pending, 0 );
 
-$work = $work_data->get_by_gid("745c079d-374e-4436-9448-da92dedef3ce");
+$work = $work_data->get_by_gid('745c079d-374e-4436-9448-da92dedef3ce');
 is ( $work->id, 1 );
-is ( $work->gid, "745c079d-374e-4436-9448-da92dedef3ce" );
-is ( $work->name, "Dancing Queen" );
+is ( $work->gid, '745c079d-374e-4436-9448-da92dedef3ce' );
+is ( $work->name, 'Dancing Queen' );
 is ( $work->type_id, 1 );
 is ( $work->edits_pending, 0 );
 
 is ( $work->type, undef );
 MusicBrainz::Server::Data::WorkType->new(c => $test->c)->load($work);
-is ( $work->type->name, "Aria" );
+is ( $work->type->name, 'Aria' );
 
 my $annotation = $work_data->annotation->get_latest(1);
-is ( $annotation->text, "Annotation" );
+is ( $annotation->text, 'Annotation' );
 
 
 $work = $work_data->get_by_gid('28e73402-5666-4d74-80ab-c3734dc699ea');
@@ -72,11 +72,11 @@ is ( $work, undef );
 
 
 my $search = MusicBrainz::Server::Data::Search->new(c => $test->c);
-my ($results, $hits) = $search->search("work", "queen", 10);
+my ($results, $hits) = $search->search('work', 'queen', 10);
 is( $hits, 1 );
 is( scalar(@$results), 1 );
 is( $results->[0]->position, 1 );
-is( $results->[0]->entity->name, "Dancing Queen" );
+is( $results->[0]->entity->name, 'Dancing Queen' );
 
 
 $test->c->sql->begin;
@@ -294,7 +294,7 @@ test 'Merge attributes for works' => sub {
             ),
             methods(
                 type => methods(id => 6),
-                value => "Free Text"
+                value => 'Free Text'
             ),
             methods(
                 type => methods(id => 4),

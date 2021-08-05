@@ -64,13 +64,15 @@ test 'Reject when in use' => sub {
     my $test = shift;
 
     my $edit = create_edit($test->c, privileges => $UNTRUSTED_FLAG);
+    my $entity_id = $edit->entity_id;
 
-    $test->c->sql->do("
-INSERT INTO track (id, gid, medium, artist_credit, name, recording, position, number)
-    VALUES (1, '32b10778-137d-46bd-957d-2bef4435882f', 22,
-             (SELECT id FROM artist_credit LIMIT 1),
-             (SELECT name FROM recording LIMIT 1), " . $edit->entity_id . ", 1, 1);
-");
+    $test->c->sql->do(<<~"EOSQL");
+        INSERT INTO track (id, gid, medium, artist_credit, name, recording, position, number)
+        VALUES (1, '32b10778-137d-46bd-957d-2bef4435882f', 22,
+                (SELECT id FROM artist_credit LIMIT 1),
+                (SELECT name FROM recording LIMIT 1), $entity_id, 1, 1);
+        EOSQL
+
 
     reject_edit($test->c, $edit);
 

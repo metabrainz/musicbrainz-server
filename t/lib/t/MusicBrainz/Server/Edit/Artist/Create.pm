@@ -22,13 +22,13 @@ test all => sub {
     my $test = shift;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($c, <<'SQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
         SET client_min_messages TO warning;
         TRUNCATE artist CASCADE;
-SQL
+        EOSQL
 
     # avoid artist_va_check violation
-    $c->sql->do("SELECT setval('artist_id_seq', 1)");
+    $c->sql->do(q(SELECT setval('artist_id_seq', 1)));
 
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_CREATE,
@@ -46,30 +46,30 @@ SQL
     ok(defined $edit->artist_id, 'edit should store the artist id');
 
     my ($edits, $hits) = $c->model('Edit')->find({ artist => $edit->artist_id }, 10, 0);
-    is($edits->[0]->id, $edit->id, "Edit IDs match between edit and ->find");
+    is($edits->[0]->id, $edit->id, 'Edit IDs match between edit and ->find');
 
     my $artist = $c->model('Artist')->get_by_id($edit->artist_id);
-    ok(defined $artist, "Artist was actually created.");
-    is($artist->name, 'Junior Boys', "Name is correct in created artist.");
-    is($artist->gender_id, 1, "Gender ID is correct in created artist.");
-    is($artist->comment, 'Canadian electronica duo', "Comment is correct in created artist.");
-    is($artist->begin_date->format, "1981-05", "Begin date is correct in created artist.");
-    is($artist->ended, 1, "Has 'ended' set on created artist.");
+    ok(defined $artist, 'Artist was actually created.');
+    is($artist->name, 'Junior Boys', 'Name is correct in created artist.');
+    is($artist->gender_id, 1, 'Gender ID is correct in created artist.');
+    is($artist->comment, 'Canadian electronica duo', 'Comment is correct in created artist.');
+    is($artist->begin_date->format, '1981-05', 'Begin date is correct in created artist.');
+    is($artist->ended, 1, 'Has "ended" set on created artist.');
 
     my $ipi_codes = $c->model('Artist')->ipi->find_by_entity_id($artist->id);
-    is(scalar @$ipi_codes, 0, "Artist has no ipi codes");
+    is(scalar @$ipi_codes, 0, 'Artist has no ipi codes');
 
     my $isni_codes = $c->model('Artist')->isni->find_by_entity_id($artist->id);
-    is(scalar @$isni_codes, 0, "Artist has no isni codes");
+    is(scalar @$isni_codes, 0, 'Artist has no isni codes');
 
     $edit = $c->model('Edit')->get_by_id($edit->id);
     $c->model('Edit')->load_all($edit);
 
-    is($edit->display_data->{name}, 'Junior Boys', "Name is correct in display data.");
-    is($edit->display_data->{gender}->{name}, 'Male', "Gender is correct in display data.");
-    is($edit->display_data->{comment}, 'Canadian electronica duo', "Comment is correct in display data.");
-    is($edit->display_data->{begin_date}{year}, 1981, "Begin date is correct in display data." );
-    is($edit->display_data->{ended}, boolean_to_json(1), "Has 'ended' set in display data.");
+    is($edit->display_data->{name}, 'Junior Boys', 'Name is correct in display data.');
+    is($edit->display_data->{gender}->{name}, 'Male', 'Gender is correct in display data.');
+    is($edit->display_data->{comment}, 'Canadian electronica duo', 'Comment is correct in display data.');
+    is($edit->display_data->{begin_date}{year}, 1981, 'Begin date is correct in display data.' );
+    is($edit->display_data->{ended}, boolean_to_json(1), 'Has "ended" set in display data.');
 
     is($edit->status, $STATUS_APPLIED, 'add artist edits should be autoedits');
     is($artist->edits_pending, 0, 'add artist edits should be autoedits');

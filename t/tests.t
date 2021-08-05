@@ -22,7 +22,7 @@ my @classes = (
 
 MusicBrainz::Server::Test->prepare_test_server;
 
-@classes = commandline_override("t::MusicBrainz::Server::", @classes);
+@classes = commandline_override('t::MusicBrainz::Server::', @classes);
 
 # XXX Filter out WatchArtist for now as the tests are broken
 @classes = grep { $_ !~ /WatchArtist/ } @classes;

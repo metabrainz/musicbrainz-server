@@ -21,7 +21,7 @@ test all => sub {
         EOSQL
 
     my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
-    $mech->default_header("Accept" => "application/json");
+    $mech->default_header('Accept' => 'application/json');
 
     my $url = '/ws/js/work?q=Let\'s Meet Again&direct=true';
 
@@ -38,7 +38,7 @@ test all => sub {
         EOSQL
 
     $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
-    $mech->default_header("Accept" => "application/json");
+    $mech->default_header('Accept' => 'application/json');
     $mech->get_ok($url, 'fetching again');
 
     $data = $json->decode($mech->content);

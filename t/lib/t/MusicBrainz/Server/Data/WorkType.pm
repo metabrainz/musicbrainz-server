@@ -17,18 +17,18 @@ test all => sub {
 
     my $wt = $wt_data->get_by_id(1);
     is ($wt->id, 1);
-    is ($wt->name, "Aria");
+    is ($wt->name, 'Aria');
 
     $wt = $wt_data->get_by_id(2);
     is ($wt->id, 2);
-    is ($wt->name, "Ballet");
+    is ($wt->name, 'Ballet');
 
     my $wts = $wt_data->get_by_ids(1, 2);
     is ($wts->{1}->id, 1);
-    is ($wts->{1}->name, "Aria");
+    is ($wts->{1}->name, 'Aria');
 
     is ($wts->{2}->id, 2);
-    is ($wts->{2}->name, "Ballet");
+    is ($wts->{2}->name, 'Ballet');
 
     does_ok($wt_data, 'MusicBrainz::Server::Data::Role::SelectAll');
     my @types = $wt_data->get_all;

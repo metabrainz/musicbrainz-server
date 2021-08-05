@@ -43,7 +43,7 @@ test 'Sitemap build scripts' => sub {
             VALUES (1, 0, 1, 'A', '');
         EOSQL
 
-    my $tmp = tempdir("t-sitemaps-XXXXXXXX", DIR => '/tmp', CLEANUP => 1);
+    my $tmp = tempdir('t-sitemaps-XXXXXXXX', DIR => '/tmp', CLEANUP => 1);
     my $output_dir = File::Spec->catdir($tmp, 'sitemaps');
     system "mkdir -p $output_dir";
 
@@ -231,7 +231,7 @@ test 'Sitemap build scripts' => sub {
 1\tf\t"id"='1' "name"='B' "last_updated"='2015-10-03 20:03:56.069908+00'\x{20}
 EOF
 
-    $exec_sql->("UPDATE artist SET name = 'B' WHERE id = 1;");
+    $exec_sql->(q(UPDATE artist SET name = 'B' WHERE id = 1;));
     $build_packet->(1, $dbmirror_pending, $dbmirror_pendingdata);
 
     my $build_time2 = '2015-10-03T21:02:50.000000Z';
@@ -387,7 +387,7 @@ EOF
     # Insert an ISWC for the first work, a composer relationship for the
     # second, and change the name of the third. Make sure it updates the
     # works' lastmod dates.
-    $dbmirror_pending = qq();
+    $dbmirror_pending = '';
     chomp ($dbmirror_pending = <<"EOF");
 1\t"musicbrainz"."iswc"\ti\t1
 2\t"musicbrainz"."link"\ti\t2
@@ -548,7 +548,7 @@ EOF
 
     # Insert a medium with more than 10 discs, and another with 1 disc
     # but more than 100 tracks. These should be paged appropriately.
-    $dbmirror_pending = qq();
+    $dbmirror_pending = '';
     chomp ($dbmirror_pending = <<"EOF");
 1\t"musicbrainz"."release_group"\ti\t1
 2\t"musicbrainz"."release"\ti\t1

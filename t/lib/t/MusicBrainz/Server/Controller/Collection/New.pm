@@ -24,15 +24,15 @@ test 'Create collection from release page adds the new release' => sub {
     $mech->follow_link(text => 'Add to a new collection');
 
     $mech->form_number(2);
-    $mech->field("edit-list.name", "Super collection");
+    $mech->field('edit-list.name', 'Super collection');
     $mech->field('edit-list.description', '');
     $mech->click();
 
     my $tx = test_xpath_html($mech->content);
     $tx->is('//div[@id="content"]/div/h1/a',
-            "Super collection", 'contains collection name');
+            'Super collection', 'contains collection name');
     $tx->is('count(//table[@class="tbl"]/tbody/tr)',
-            "1", "one item in the table");
+            '1', 'one item in the table');
 
     $mech->get_ok('/release/f34c079d-374e-4436-9448-da92dedef3ce');
     $mech->content_contains('Remove from Super collection');
@@ -45,14 +45,14 @@ test 'Create collection with no release set does not add release' => sub {
     $mech->get_ok('/collection/create');
     # Second form is the new collection one
     $mech->form_number(2);
-    $mech->field("edit-list.name", "mycollection");
+    $mech->field('edit-list.name', 'mycollection');
     $mech->field('edit-list.description', '');
     $mech->click();
 
-    $mech->content_contains("This collection is empty.");
+    $mech->content_contains('This collection is empty.');
 
     my $tx = test_xpath_html($mech->content);
-    $tx->is('//div[@id="content"]/div/h1/a', "mycollection",
+    $tx->is('//div[@id="content"]/div/h1/a', 'mycollection',
             'contains collection name');
 };
 

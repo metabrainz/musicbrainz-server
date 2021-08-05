@@ -41,13 +41,13 @@ test all => sub {
     my $edit = $c->model('Edit')->create(%edit_args);
 
     my ($edits, $hits) = $c->model('Edit')->find({ series => 2 }, 10, 0);
-    is($hits, 1, "Found 1 edit for series 2");
-    is($edits->[0]->id, $edit->id, "... which has the same id as the edit just created");
+    is($hits, 1, 'Found 1 edit for series 2');
+    is($edits->[0]->id, $edit->id, '... which has the same id as the edit just created');
 
     for my $i (1..4) {
         ($edits, $hits) = $c->model('Edit')->find({ work => $i }, 10, 0);
         is($hits, 1, "Found 1 edit for work $i");
-        is($edits->[0]->id, $edit->id, "... which has the same id as the edit just created");
+        is($edits->[0]->id, $edit->id, '... which has the same id as the edit just created');
     }
 
     $rels = $c->model('Relationship')->get_by_ids('series', 'work', 1..4);

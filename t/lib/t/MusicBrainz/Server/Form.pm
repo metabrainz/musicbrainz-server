@@ -41,7 +41,7 @@ test 'Check unserialize(serialize(x)) == x' => sub {
     );
 
     my $subfields = $form->field('foo.baz')->fields;
-    is(scalar(@$subfields), 3, "non-empty repeatable has three fields");
+    is(scalar(@$subfields), 3, 'non-empty repeatable has three fields');
 
     $form->field('foo.baz.0.qux')->disabled(1);
     $form->field('foo.baz.1.qux')->readonly(1);

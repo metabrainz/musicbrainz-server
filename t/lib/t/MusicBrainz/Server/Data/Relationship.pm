@@ -348,7 +348,7 @@ is( $recording1->relationships->[1]->direction, $DIRECTION_BACKWARD );
 
 my $sql = $test->c->sql;
 $sql->begin;
-$sql->do("INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (4, 1, 2, 2)");
+$sql->do('INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (4, 1, 2, 2)');
 # Merge ARs for artist #2 to #1
 $rel_data->merge_entities('artist', 1, [2]);
 $test->c->sql->commit;

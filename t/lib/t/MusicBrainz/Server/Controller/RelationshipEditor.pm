@@ -71,7 +71,7 @@ test 'Can add relationship' => sub {
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
     my @edits = capture_edits {
-        $mech->post("/relationship-editor", {
+        $mech->post('/relationship-editor', {
                 'rel-editor.rels.0.link_type' => '148',
                 'rel-editor.rels.0.action' => 'add',
                 'rel-editor.rels.0.attributes.0.type.gid' => '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f',
@@ -134,7 +134,7 @@ test 'Can edit relationship' => sub {
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
     my ($edit) = capture_edits {
-        $mech->post("/relationship-editor", {
+        $mech->post('/relationship-editor', {
                 'rel-editor.rels.0.id' => '1',
                 'rel-editor.rels.0.link_type' => '148',
                 'rel-editor.rels.0.action' => 'edit',
@@ -212,10 +212,10 @@ test 'Can remove relationship' => sub {
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
-    $mech->get_ok("/release/f34c079d-374e-4436-9448-da92dedef3ce/edit-relationships");
+    $mech->get_ok('/release/f34c079d-374e-4436-9448-da92dedef3ce/edit-relationships');
 
     my ($edit) = capture_edits {
-        $mech->post("/relationship-editor", {
+        $mech->post('/relationship-editor', {
                 'rel-editor.rels.0.id' => '1',
                 'rel-editor.rels.0.link_type' => '148',
                 'rel-editor.rels.0.action' => 'remove',
@@ -243,7 +243,7 @@ test 'MBS-7058: Can submit a relationship without "ended" fields' => sub {
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
     my ($edit) = capture_edits {
-        $mech->post("/relationship-editor", {
+        $mech->post('/relationship-editor', {
                 'rel-editor.rels.0.link_type' => '148',
                 'rel-editor.rels.0.action' => 'add',
                 'rel-editor.rels.0.entity.0.gid' => '745c079d-374e-4436-9448-da92dedef3ce',
@@ -273,7 +273,7 @@ test 'Can submit a relationship with empty-string date values' => sub {
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
     my ($edit) = capture_edits {
-        $mech->post("/relationship-editor", {
+        $mech->post('/relationship-editor', {
                 'rel-editor.rels.0.link_type' => '148',
                 'rel-editor.rels.0.action' => 'add',
                 'rel-editor.rels.0.entity.0.gid' => '745c079d-374e-4436-9448-da92dedef3ce',
@@ -299,7 +299,7 @@ test 'mismatched link types are rejected' => sub {
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
     my ($edit) = capture_edits {
-        $mech->post("/relationship-editor", {
+        $mech->post('/relationship-editor', {
                 # artist-release concertmaster
                 'rel-editor.rels.0.link_type' => '759',
                 'rel-editor.rels.0.action' => 'add',
@@ -323,7 +323,7 @@ test 'Can submit URL relationships using actual URLs, not gids' => sub {
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
     my @edits = capture_edits {
-        $mech->post("/relationship-editor", {
+        $mech->post('/relationship-editor', {
                 'rel-editor.rels.0.link_type' => '183',
                 'rel-editor.rels.0.action' => 'add',
                 'rel-editor.rels.0.entity.0.gid' => '745c079d-374e-4436-9448-da92dedef3ce',
@@ -361,7 +361,7 @@ test 'Can clear all attributes from a relationship' => sub {
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
     my ($edit) = capture_edits {
-        $mech->post("/relationship-editor", {
+        $mech->post('/relationship-editor', {
                 'rel-editor.rels.0.id' => '1',
                 'rel-editor.rels.0.link_type' => '148',
                 'rel-editor.rels.0.action' => 'edit',

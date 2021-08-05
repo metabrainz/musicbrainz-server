@@ -51,7 +51,7 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Edit');
 cmp_deeply($edit->data, {
         entity => {
             id => 3,
-            gid => re("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"),
+            gid => re('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'),
             name => 'Test Artist'
         },
         new => {

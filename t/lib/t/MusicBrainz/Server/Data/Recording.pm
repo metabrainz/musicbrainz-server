@@ -25,16 +25,16 @@ my $rec_data = MusicBrainz::Server::Data::Recording->new(c => $test->c);
 
 my $rec = $rec_data->get_by_id(1);
 is ( $rec->id, 1 );
-is ( $rec->gid, "54b9d183-7dab-42ba-94a3-7388a66604b8" );
-is ( $rec->name, "King of the Mountain" );
+is ( $rec->gid, '54b9d183-7dab-42ba-94a3-7388a66604b8' );
+is ( $rec->name, 'King of the Mountain' );
 is ( $rec->artist_credit_id, 1 );
 is ( $rec->length, undef );
 is ( $rec->edits_pending, 0 );
 
-$rec = $rec_data->get_by_gid("54b9d183-7dab-42ba-94a3-7388a66604b8");
+$rec = $rec_data->get_by_gid('54b9d183-7dab-42ba-94a3-7388a66604b8');
 is ( $rec->id, 1 );
-is ( $rec->gid, "54b9d183-7dab-42ba-94a3-7388a66604b8" );
-is ( $rec->name, "King of the Mountain" );
+is ( $rec->gid, '54b9d183-7dab-42ba-94a3-7388a66604b8' );
+is ( $rec->name, 'King of the Mountain' );
 is ( $rec->artist_credit_id, 1 );
 is ( $rec->length, undef );
 is ( $rec->edits_pending, 0 );
@@ -42,13 +42,13 @@ is ( $rec->edits_pending, 0 );
 my ($recs, $hits) = $rec_data->find_by_artist(1, 100, 0);
 is( $hits, 17 );
 is( scalar(@$recs), 17 );
-is( $recs->[0]->name, "[pregap]" );
-is( $recs->[1]->name, "A Coral Room" );
-is( $recs->[14]->name, "Sunset" );
-is( $recs->[15]->name, "The Painter's Link" );
+is( $recs->[0]->name, '[pregap]' );
+is( $recs->[1]->name, 'A Coral Room' );
+is( $recs->[14]->name, 'Sunset' );
+is( $recs->[15]->name, q(The Painter's Link) );
 
 my $annotation = $rec_data->annotation->get_latest(1);
-is ( $annotation->text, "Annotation" );
+is ( $annotation->text, 'Annotation' );
 
 
 $rec = $rec_data->get_by_gid('0986e67c-6b7a-40b7-b4ba-c9d7583d6426');
@@ -61,11 +61,11 @@ is ( $rec_map->{'54b9d183-7dab-42ba-94a3-7388a66604b8'}->id, 1 );
 
 my $search = MusicBrainz::Server::Data::Search->new(c => $test->c);
 my $results;
-($results, $hits) = $search->search("recording", "coral", 10);
+($results, $hits) = $search->search('recording', 'coral', 10);
 is( $hits, 1 );
 is( scalar(@$results), 1 );
 is( $results->[0]->position, 1 );
-is( $results->[0]->entity->name, "A Coral Room" );
+is( $results->[0]->entity->name, 'A Coral Room' );
 
 
 $test->c->sql->begin;
@@ -120,11 +120,11 @@ my @entities = map { $rec_data->get_by_id($_) } qw(1 8 14);
 my $appears = $rec_data->appears_on(\@entities, 2);
 $results = $appears->{1}->{results};
 
-is ($appears->{8}->{results}->[0]->name, "Aerial", "recording 8 appears on Aerial");
-is ($appears->{1}->{hits}, 4, "recording 1 appears on four release groups");
-is (scalar @$results, 2, " ... of which two have been returned");
-is ($results->[0]->name, "Aerial", "recording 1 appears on Aerial");
-is ($results->[1]->name, "エアリアル", "recording 1 appears on エアリアル");
+is ($appears->{8}->{results}->[0]->name, 'Aerial', 'recording 8 appears on Aerial');
+is ($appears->{1}->{hits}, 4, 'recording 1 appears on four release groups');
+is (scalar @$results, 2, ' ... of which two have been returned');
+is ($results->[0]->name, 'Aerial', 'recording 1 appears on Aerial');
+is ($results->[1]->name, 'エアリアル', 'recording 1 appears on エアリアル');
 
 };
 
