@@ -582,7 +582,7 @@ test 'Tracks can be reordered' => sub {
 
     # The positions would be changed in a real edit, so we mock that
     $medium->tracks->[1]->position(1);
-    $medium->tracks->[0]->position(2); 
+    $medium->tracks->[0]->position(2);
 
     my $edit = $c->model('Edit')->create(
         editor_id => 1,

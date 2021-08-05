@@ -365,7 +365,7 @@ test 'Deleting an editor changes all Yes/No votes on open edits to Abstain' => s
 
 
     $c->model('Editor')->delete(2);
-    
+
     # Clear the votes to load again
     $edit->votes([]);
 

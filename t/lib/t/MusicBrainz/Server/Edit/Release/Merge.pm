@@ -590,7 +590,7 @@ test 'Merging release with empty medium (MBS-11614)' => sub {
         ],
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE
     );
-    
+
     ok($right_edit->is_open);
     $c->model('Edit')->accept($right_edit);
     is($right_edit->status, $STATUS_APPLIED, 'edit is applied');
