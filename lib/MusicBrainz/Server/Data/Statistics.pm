@@ -405,11 +405,11 @@ my %stats = (
         },
     },
     "count.series" => {
-        DESC => "Count of all seriess",
+        DESC => "Count of all series",
         SQL => "SELECT COUNT(*) FROM series",
     },
     "count.series.type" => {
-        DESC => "Distribution of seriess by type",
+        DESC => "Distribution of series by type",
         CALC => sub {
             my ($self, $sql) = @_;
 
