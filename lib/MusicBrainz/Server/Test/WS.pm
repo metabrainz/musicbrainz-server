@@ -25,7 +25,7 @@ Readonly our $FORBIDDEN_JSON_RESPONSE => {
 };
 
 Readonly our $UNAUTHORIZED_JSON_RESPONSE => {
-    error => 'Your credentials could not be verified. Either you supplied the wrong credentials (e.g., bad password), or your client doesn\'t understand how to supply the credentials required.',
+    error => q(Your credentials could not be verified. Either you supplied the wrong credentials (e.g., bad password), or your client doesn't understand how to supply the credentials required.),
     help => 'For usage, please see: https://musicbrainz.org/development/mmd',
 };
 

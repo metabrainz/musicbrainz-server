@@ -46,7 +46,7 @@ role {
             $clause .
             join(' ', "$final_table_alias.$column", $self->operator,
                  $self->operator eq '='  ? 'any(?)' :
-                 $self->operator eq '!=' ? 'all(?)' : die 'Shouldn\'t get here') . ')',
+                 $self->operator eq '!=' ? 'all(?)' : die q(Shouldn't get here)) . ')',
             $self->sql_arguments
         ]) if $self->arguments > 0;
     };

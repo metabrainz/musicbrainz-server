@@ -22,7 +22,7 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/alias/1/delete');
 my $response = $mech->submit_form(
     with_fields => {
-        'confirm.edit_note' => 'Some edit note since it\'s required'
+        'confirm.edit_note' => q(Some edit note since it's required)
     });
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);

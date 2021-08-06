@@ -454,7 +454,7 @@ test 'Cannot edit an artist into something that would violate uniqueness' => sub
     );
 };
 
-test 'Deleting an artist that\'s in a collection' => sub {
+test q(Deleting an artist that's in a collection) => sub {
     my $test = shift;
     my $c = $test->c;
 
@@ -481,7 +481,7 @@ test 'Deleting an artist that\'s in a collection' => sub {
     ok(!$c->model('Artist')->get_by_id($artist->{id}));
 };
 
-test 'Merging an artist that\'s in a collection' => sub {
+test q(Merging an artist that's in a collection) => sub {
     my $test = shift;
     my $c = $test->c;
 

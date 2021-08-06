@@ -128,7 +128,7 @@ is ($results->[1]->name, 'エアリアル', 'recording 1 appears on エアリア
 
 };
 
-test 'Deleting a recording that\'s in a collection' => sub {
+test q(Deleting a recording that's in a collection) => sub {
     my $test = shift;
     my $c = $test->c;
 
@@ -156,7 +156,7 @@ test 'Deleting a recording that\'s in a collection' => sub {
     ok(!$c->model('Recording')->get_by_id($recording->{id}));
 };
 
-test 'Merging a recording that\'s in a collection' => sub {
+test q(Merging a recording that's in a collection) => sub {
     my $test = shift;
     my $c = $test->c;
 

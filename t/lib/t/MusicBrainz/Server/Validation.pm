@@ -213,7 +213,7 @@ test 'Test is_valid_partial_date' => sub {
 };
 
 test 'Test encode_entities' => sub {
-    is(encode_entities('ãñ><"\'&Å'), 'ãñ&gt;&lt;&quot;&#39;&amp;Å');
+    is(encode_entities(q(ãñ><"'&Å)), 'ãñ&gt;&lt;&quot;&#39;&amp;Å');
 };
 
 test 'Test normalise_strings' => sub {

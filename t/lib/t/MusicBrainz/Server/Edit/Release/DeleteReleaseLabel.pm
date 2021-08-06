@@ -94,7 +94,7 @@ test 'Displays correctly following release merges' => sub {
     is($edit->display_data->{release}{id}, 2);
 };
 
-test 'Loads correctly when there\'s just a catalog number' => sub {
+test q(Loads correctly when there's just a catalog number) => sub {
     my $test = shift;
     my $c = $test->c;
 

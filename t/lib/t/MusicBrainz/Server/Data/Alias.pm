@@ -44,7 +44,7 @@ test all => sub {
 
     # Loading the artist from an alias
     $artist_data->load($alias);
-    ok(defined $alias->artist, 'didn\'t load artist');
+    ok(defined $alias->artist, q(didn't load artist));
     isa_ok($alias->artist, 'MusicBrainz::Server::Entity::Artist', 'not an artist object');
     is($alias->artist->id, $alias->artist_id, 'loaded artist id');
 

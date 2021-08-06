@@ -106,7 +106,7 @@ test 'Uniqueness violations are caught before insertion (MBS-6065)' => sub {
     }, 'The given values duplicate an existing row.');
 };
 
-test 'Rejected edits are applied if the label can\'t be deleted' => sub {
+test q(Rejected edits are applied if the label can't be deleted) => sub {
     my $test = shift;
     my $c = $test->c;
 

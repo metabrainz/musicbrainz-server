@@ -23,14 +23,14 @@ test all => sub {
     my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
     $mech->default_header('Accept' => 'application/json');
 
-    my $url = '/ws/js/work?q=Let\'s Meet Again&direct=true';
+    my $url = q(/ws/js/work?q=Let's Meet Again&direct=true);
 
     $mech->get_ok($url, 'fetching');
 
     my $data = $json->decode($mech->content);
 
     is($data->[0]->{id}, 4223060, 'Got the work expected');
-    is($data->[0]->{primaryAlias}, 'Hello! Let\'s Meet Again (7ninmatsuri version)', 'Got correct primary alias (en_US)');
+    is($data->[0]->{primaryAlias}, q(Hello! Let's Meet Again (7ninmatsuri version)), 'Got correct primary alias (en_US)');
 
     $c->sql->do(<<~'EOSQL');
         INSERT INTO work_alias (work, name, sort_name, locale, primary_for_locale)
@@ -44,7 +44,7 @@ test all => sub {
     $data = $json->decode($mech->content);
 
     is($data->[0]->{id}, 4223060, 'Got the work expected');
-    is($data->[0]->{primaryAlias}, 'Hello! Let\'s Meet Again (7nin Matsuri version)', 'Got correct primary alias (en)');
+    is($data->[0]->{primaryAlias}, q(Hello! Let's Meet Again (7nin Matsuri version)), 'Got correct primary alias (en)');
 
 };
 

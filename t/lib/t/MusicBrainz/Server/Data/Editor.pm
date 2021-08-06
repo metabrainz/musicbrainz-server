@@ -58,7 +58,7 @@ test 'Remember me tokens' => sub {
        'Can consume "remember me" tokens');
 
     ok(!$model->consume_remember_me_token($user_name, $token),
-       'Remember me tokens with improper capitalization can\'t be consumed');
+       q(Remember me tokens with improper capitalization can't be consumed));
 
     ok(!exception { $model->consume_remember_me_token('Unknown User', $token) },
        'It is not an exception to attempt to consume tokens for non-existent users');

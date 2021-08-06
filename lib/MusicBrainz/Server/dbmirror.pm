@@ -116,7 +116,7 @@ sub unpack_data
     {
         # "ColumnName"=
         my ($k) = ($packed =~ /\A"(.*?)"=/)
-                or warn("Failed to parse: expected [\"ColumnName\"=] but found [$packed]"), return undef;
+                or warn(qq(Failed to parse: expected ["ColumnName"=] but found [$packed])), return undef;
         substr($packed, 0, $+[0], '');
 
         my $v = undef;

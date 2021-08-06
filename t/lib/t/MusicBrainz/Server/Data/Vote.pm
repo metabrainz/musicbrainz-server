@@ -79,7 +79,7 @@ test 'Extend expiration on first no vote' => sub {
     my $expire_time = DateTime::Format::Pg->parse_datetime(
         $c->sql->select_single_value('SELECT expire_time FROM edit WHERE id = ?', $edit->id));
     is(DateTime->compare($expire_time, $expected_expire_time), -1,
-                         'edit\'s expiration time is less than 72 hours');
+                         q(edit's expiration time is less than 72 hours));
 
     my $editor2 = $c->model('Editor')->get_by_id(2);
 
@@ -87,7 +87,7 @@ test 'Extend expiration on first no vote' => sub {
 
     $expire_time = DateTime::Format::Pg->parse_datetime(
         $c->sql->select_single_value('SELECT expire_time FROM edit WHERE id = ?', $edit->id));
-    is($expire_time, $expected_expire_time, 'edit\'s expiration was extended by the no vote');
+    is($expire_time, $expected_expire_time, q(edit's expiration was extended by the no vote));
 };
 
 test all => sub {

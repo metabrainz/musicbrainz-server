@@ -75,7 +75,7 @@ test 'basic series lookup' => sub {
                         iswcs => [],
                         language => 'deu',
                         languages => ['deu'],
-                        title => "Kantate, BWV 1 \"Wie sch\x{f6}n leuchtet der Morgenstern\"",
+                        title => qq(Kantate, BWV 1 "Wie sch\x{f6}n leuchtet der Morgenstern"),
                         type => 'Cantata',
                         'type-id' => '0db2f555-15f9-393f-af4c-739db5711146',
                     },

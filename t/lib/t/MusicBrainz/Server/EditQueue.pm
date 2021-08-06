@@ -138,7 +138,7 @@ test 'Edit queue can close edits with sufficient yes votes early' => sub {
     is($edit->status, $STATUS_APPLIED, 'applied');
 };
 
-test 'Edit queue won\'t close recent destructive edits even with sufficient yes votes' => sub {
+test q(Edit queue won't close recent destructive edits even with sufficient yes votes) => sub {
     my $test = shift;
     $test->c->sql->do(<<~"EOSQL");
         INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (10, 'Editor', '{CLEARTEXT}pass', 'b5ba49bbd92eb35ddb35b5acd039440d', '', now());

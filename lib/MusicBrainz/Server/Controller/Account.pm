@@ -119,7 +119,7 @@ sub verify_email : Path('/verify-email') ForbiddenOnSlaves DenyWhenReadonly
             current_view => 'Node',
             component_path => 'account/EmailVerificationStatus',
             component_props => {
-                message => l('The user with ID \'{user_id}\' could not be found.',
+                message => l(q(The user with ID '{user_id}' could not be found.),
                                                 { user_id => $user_id }),
             }
         );
@@ -200,7 +200,7 @@ sub lost_password : Path('/lost-password') ForbiddenOnSlaves SecureForm
                 $form->field('email')->add_error(l('There is no user with this username and email'));
             }
             elsif (!$editor->email) {
-                $form->field('email')->add_error(l('We can\'t send a password reset email, because we have no email on record for this user.'));
+                $form->field('email')->add_error(l(q(We can't send a password reset email, because we have no email on record for this user.)));
             }
             else {
                 $self->_send_password_reset_email($c, $editor);
@@ -279,7 +279,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves DenyWhenReadonly 
             current_view => 'Node',
             component_path => 'account/ResetPasswordStatus',
             component_props => {
-                message => l('The user with ID \'{user_id}\' could not be found.',
+                message => l(q(The user with ID '{user_id}' could not be found.),
                                                 { user_id => $editor_id }),
             }
         );

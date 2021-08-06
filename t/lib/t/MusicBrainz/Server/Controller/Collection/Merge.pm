@@ -83,7 +83,7 @@ test 'Can only merge own collections' => sub {
 
     # Someone else's collection, not allowed!
     $mech->get('/collection/merge_queue?add-to-merge=2');
-    is($mech->status, 403, 'forbidden to add other editor\'s collection');
+    is($mech->status, 403, q(forbidden to add other editor's collection));
 };
 
 1;

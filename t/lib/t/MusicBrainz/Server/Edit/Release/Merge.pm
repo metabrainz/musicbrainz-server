@@ -292,7 +292,7 @@ test 'Relationships used as documentation examples are merged (MBS-8516)' => sub
     is_deeply($examples, [1, 4]);
 };
 
-test 'Appended mediums that get removed don\'t prevent application of the edit (MBS-8571)' => sub {
+test q(Appended mediums that get removed don't prevent application of the edit (MBS-8571)) => sub {
     my $test = shift;
     my $c = $test->c;
 
@@ -434,8 +434,8 @@ test 'Release merges should not fail if a recording is both a merge source and m
                 destination => { name => 'Lonel boy', id => 14317504, length => 147960 },
             },
             {
-                destination => { id => 14317507, name => 'It\'s Time To Cry', length => 143573 },
-                sources => [{ length => 144173, id => 14317525, name => 'It\'s Time To Cry' }],
+                destination => { id => 14317507, name => q(It's Time To Cry), length => 143573 },
+                sources => [{ length => 144173, id => 14317525, name => q(It's Time To Cry) }],
                 medium => 1,
                 track => 7,
             },
@@ -446,14 +446,14 @@ test 'Release merges should not fail if a recording is both a merge source and m
                 track => 8,
             },
             {
-                sources => [{ length => 148773, name => 'Don\'t Gamble With Love', id => 14317528 }],
-                destination => { name => 'It Doesn\'t Matter Anymore', id => 14317510, length => 147600 },
+                sources => [{ length => 148773, name => q(Don't Gamble With Love), id => 14317528 }],
+                destination => { name => q(It Doesn't Matter Anymore), id => 14317510, length => 147600 },
                 medium => 1,
                 track => 10,
             },
             {
                 track => 11,
-                sources => [{ name => 'It Doesn\'t Matter Anymore', id => 1769019, length => 109334 }],
+                sources => [{ name => q(It Doesn't Matter Anymore), id => 1769019, length => 109334 }],
                 medium => 1,
                 destination => { length => 112333, id => 14317511, name => 'Midnight' },
             },

@@ -228,7 +228,7 @@ $sql->commit;
 
 };
 
-test 'Deleting a place that\'s in a collection' => sub {
+test q(Deleting a place that's in a collection) => sub {
     my $test = shift;
     my $c = $test->c;
 
@@ -255,7 +255,7 @@ test 'Deleting a place that\'s in a collection' => sub {
     ok(!$c->model('Place')->get_by_id($place->{id}));
 };
 
-test 'Merging a place that\'s in a collection' => sub {
+test q(Merging a place that's in a collection) => sub {
     my $test = shift;
     my $c = $test->c;
 

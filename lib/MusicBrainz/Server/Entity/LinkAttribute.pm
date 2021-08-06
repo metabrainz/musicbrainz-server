@@ -26,7 +26,7 @@ sub html {
     my $value = encode_entities($type->l_name);
 
     if ($type->root->id == $INSTRUMENT_ROOT_ID && $type->gid) {
-        $value = "<a href=\"/instrument/" . $type->gid . "\">$value</a>";
+        $value = '<a href="/instrument/' . $type->gid . qq(">$value</a>);
     }
 
     if (non_empty($self->credited_as) && $type->l_name ne $self->credited_as) {

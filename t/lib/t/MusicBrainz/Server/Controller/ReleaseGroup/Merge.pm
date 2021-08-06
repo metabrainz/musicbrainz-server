@@ -24,7 +24,7 @@ test all => sub {
     $mech->submit_form(
         with_fields => {
             'merge.target' => 3,
-            'merge.edit_note' => 'Let\'s put something arbitrary here!'
+            'merge.edit_note' => q(Let's put something arbitrary here!)
         }
     );
     ok($mech->uri =~ qr{/release-group/ecc33260-454c-11de-8a39-0800200c9a66});

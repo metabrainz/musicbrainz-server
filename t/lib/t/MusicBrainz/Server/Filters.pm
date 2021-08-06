@@ -55,7 +55,7 @@ test 'Edit note syntax' => sub {
 
     is(format_editnote('http://www.blah.com/1234567890/123456789?bh=foo&bah=jeez'),
        '<a href="http://www.blah.com/1234567890/123456789?bh=foo&amp;bah=jeez" rel="nofollow">http://www.blah.com/1234567890/123456789?bh=foo&amp;&#8230;</a>',
-       'Trimming doesn\'t split entities in format_editnote');
+       q(Trimming doesn't split entities in format_editnote));
 
     is(format_editnote("Problems with this edit\n\n1."),
        'Problems with this edit<br/><br/>1.', 'newlines -> br');

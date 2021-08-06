@@ -105,7 +105,7 @@ test 'Merge matching undated rels on entity merge' => sub {
     is(scalar($label->all_relationships) => 1, 'two relationships became one');
 };
 
-test 'Don\'t merge matching dated/undated rels on entity merge if they originate from the same entity' => sub {
+test q(Don't merge matching dated/undated rels on entity merge if they originate from the same entity) => sub {
     my $test = shift;
     my $c = $test->c;
 
@@ -122,7 +122,7 @@ test 'Don\'t merge matching dated/undated rels on entity merge if they originate
     is(scalar($label->all_relationships) => 2, 'three relationships, two on the same entity dated vs. undated, became two');
 };
 
-test 'Don\'t merge matching rels, other than attributes' => sub {
+test q(Don't merge matching rels, other than attributes) => sub {
     my $test = shift;
     my $c = $test->c;
 
@@ -139,7 +139,7 @@ test 'Don\'t merge matching rels, other than attributes' => sub {
     is(scalar($artist->all_relationships) => 2, 'two relationships that are the same other than attributes are not merged');
 };
 
-test 'Don\'t merge matching rels, other than link_order' => sub {
+test q(Don't merge matching rels, other than link_order) => sub {
     my $test = shift;
     my $c = $test->c;
 
@@ -156,7 +156,7 @@ test 'Don\'t merge matching rels, other than link_order' => sub {
     is(scalar($artist->all_relationships) => 2, 'two relationships that are the same other than link orders are not merged');
 };
 
-test 'Don\'t consider relationships with different link orders to be the same' => sub {
+test q(Don't consider relationships with different link orders to be the same) => sub {
     my $test = shift;
     my $c = $test->c;
 
