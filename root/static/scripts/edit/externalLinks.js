@@ -19,7 +19,7 @@ import {
   VIDEO_ATTRIBUTE_ID,
   VIDEO_ATTRIBUTE_GID,
 } from '../common/constants';
-import {compare} from '../common/i18n';
+import {compare, l} from '../common/i18n';
 import expand2react from '../common/i18n/expand2react';
 import linkedEntities from '../common/linkedEntities';
 import MB from '../common/MB';
@@ -47,6 +47,7 @@ export type LinkStateT = {
   rawUrl: string,
   // New relationships will use a unique string ID like "new-1".
   relationship: StrOrNum | null,
+  submitted: boolean,
   type: number | null,
   url: string,
   video: boolean,
@@ -55,15 +56,10 @@ export type LinkStateT = {
 
 type LinkMapT = Map<string, LinkStateT>;
 
-type LinkRelationshipT = {
+type LinkRelationshipT = LinkStateT & {
   error: ErrorT | null,
   index: number,
-  rawUrl: string,
-  relationship: number | string | null,
-  type: number | null,
-  url: string,
   urlMatchesType?: boolean,
-  video: boolean,
   ...
 };
 
@@ -96,14 +92,6 @@ export class ExternalLinksEditor
     const newLinks: Array<LinkStateT> = this.state.links.concat();
     newLinks[index] = Object.assign({}, newLinks[index], state);
     this.setState({links: newLinks}, callback);
-  }
-
-  appendEmptyLink() {
-    this.setState({
-      links: this.state.links.concat(
-        newLinkState({relationship: uniqueId('new-')}),
-      ),
-    });
   }
 
   cleanupUrl(url: string): string {
@@ -143,44 +131,63 @@ export class ExternalLinksEditor
         }
         newLinks[index] = newLink;
       });
-      return {links: newLinks};
+      return {links: withOneEmptyLink(newLinks, -1)};
     });
   }
 
   handleUrlBlur(
     index: number,
-    event: SyntheticEvent<HTMLInputElement>,
+    event: SyntheticFocusEvent<HTMLInputElement>,
   ) {
+    const relatedTarget = event.relatedTarget;
+    const link = this.state.links[index];
     const url = event.currentTarget.value;
     const trimmed = url.trim();
     const unicodeUrl = getUnicodeUrl(trimmed);
 
     if (url !== unicodeUrl) {
-      this.setLinkState(index, {url: unicodeUrl});
+      link.url = unicodeUrl;
     }
-    // Don't add link to list if it's empty
-    if (url !== '') {
-      this.appendEmptyLink();
+
+    const clickingRelatedItems =
+      relatedTarget && relatedTarget.dataset.index === index.toString();
+    /*
+     * Don't add link to list if it's empty
+     * or when the user is clicking type select / related icons
+     */
+    if (url !== '' && !clickingRelatedItems) {
+      link.submitted = true;
     }
+    this.setLinkState(index, link);
   }
 
-  handlePressEnter(event: SyntheticKeyboardEvent<HTMLInputElement>) {
+  handleLinkSubmit(
+    index: number,
+    event: SyntheticEvent<HTMLInputElement>,
+  ) {
+    const link = this.state.links[index];
     const url = event.currentTarget.value;
+    const trimmed = url.trim();
+    const unicodeUrl = getUnicodeUrl(trimmed);
+
+    if (url !== unicodeUrl) {
+      link.url = unicodeUrl;
+    }
     // Don't add link to list if it's empty
     if (url !== '') {
-      this.appendEmptyLink();
+      link.submitted = true;
     }
+    this.setLinkState(index, link);
   }
 
   handleTypeChange(index: number, event: SyntheticEvent<HTMLSelectElement>) {
     const type = +event.currentTarget.value || null;
-    this.setLinkState(index, {type}, () => {
-      const link = this.state.links[index];
-      const isLastLink = index === this.state.links.length - 1;
-      if (isLastLink && link.url && type) {
-        this.appendEmptyLink();
-      }
-    });
+    const link = this.state.links[index];
+    link.type = type;
+    if (link.url && type) {
+      link.submitted = true;
+    }
+    this.setLinkState(index, link);
   }
 
   handleVideoChange(index: number, event: SyntheticEvent<HTMLInputElement>) {
@@ -223,13 +230,13 @@ export class ExternalLinksEditor
        */
       if (lastLink.url === '') {
         links[linkCount - 1] = Object.assign(
-          {}, lastLink, {url},
+          {}, lastLink, {url, submitted: true},
         );
         return {links: withOneEmptyLink(links)};
       }
       // Otherwise create a new link with the given URL
       const newRelationship = newLinkState({
-        url, relationship: uniqueId('new-'),
+        url, relationship: uniqueId('new-'), submitted: true,
       });
       return {links: prevState.links.concat([newRelationship])};
     });
@@ -412,7 +419,8 @@ export class ExternalLinksEditor
     this.props.errorObservable(false);
 
     const linksArray = this.state.links;
-    const linksByUrl = Array.from(groupLinksByUrl(linksArray));
+    const linksGroupMap = groupLinksByUrl(linksArray);
+    const linksByUrl = Array.from(linksGroupMap);
 
     return (
       <table
@@ -430,9 +438,19 @@ export class ExternalLinksEditor
             const {url, rawUrl} = relationships[0];
             const isLastLink = index === linksByUrl.length - 1;
             let links = [...relationships];
-            const linkIndexes = links.map(link => link.index);
+            const linkIndexes = [];
+
+            // Check duplicates and show notice
+            const duplicate = links[0].submitted
+              ? false : linksGroupMap.get(url);
+            const duplicateNotice = duplicate
+              ? l(`Note:
+                This link already exists at item #${duplicate[0].index + 1}`)
+              : '';
+
             let urlError = null;
             links.forEach(link => {
+              linkIndexes.push(link.index);
               const linkType = link.type
                 ? linkedEntities.link_type[link.type] : {};
               link.url = getUnicodeUrl(link.url);
@@ -450,17 +468,18 @@ export class ExternalLinksEditor
                 this.props.sourceType, url,
               );
             });
+            const firstLinkIndex = linkIndexes[0];
 
             return (
               <ExternalLink
                 cleanupUrl={(url) => this.cleanupUrl(url)}
                 error={urlError}
                 handleLinkRemove={(index) => this.removeLink(index)}
-                handlePressEnter={
-                  (event) => this.handlePressEnter(event)
+                handleLinkSubmit={
+                  (event) => this.handleLinkSubmit(firstLinkIndex, event)
                 }
                 handleUrlBlur={
-                  (event) => this.handleUrlBlur(index, event)
+                  (event) => this.handleUrlBlur(firstLinkIndex, event)
                 }
                 handleUrlChange={
                   (rawUrl) => this.handleUrlChange(linkIndexes, rawUrl)
@@ -469,6 +488,7 @@ export class ExternalLinksEditor
                 isLastLink={isLastLink}
                 isOnlyLink={linksByUrl.length === 1}
                 key={index}
+                notice={duplicateNotice}
                 onAddRelationship={(url) => this.addRelationship(url)}
                 onTypeChange={
                   (index, event) => this.handleTypeChange(index, event)
@@ -495,6 +515,7 @@ type LinkTypeSelectProps = {
   children: Array<React.Element<'option'>>,
   handleTypeChange:
     (SyntheticEvent<HTMLSelectElement>) => void,
+  index: number,
   type: number | null,
 };
 
@@ -503,6 +524,7 @@ class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
     return (
       <select
         className="link-type"
+        data-index={this.props.index}
         onChange={this.props.handleTypeChange}
         value={this.props.type || ''}
       >
@@ -585,6 +607,7 @@ const ExternalLinkRelationship =
                     handleTypeChange={
                       (event) => props.onTypeChange(link.index, event)
                     }
+                    index={link.index}
                     type={link.type}
                   >
                     {props.typeOptions}
@@ -644,12 +667,13 @@ type LinkProps = {
   cleanupUrl: (string) => string,
   error: ErrorT | null,
   handleLinkRemove: (number) => void,
-  handlePressEnter: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
-  handleUrlBlur: (SyntheticEvent<HTMLInputElement>) => void,
+  handleLinkSubmit: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
+  handleUrlBlur: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
   handleUrlChange: (string) => void,
   index: number,
   isLastLink: boolean,
   isOnlyLink: boolean,
+  notice: string,
   onAddRelationship: (string) => void,
   onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
   onUrlRemove: () => void,
@@ -666,7 +690,7 @@ export class ExternalLink extends React.Component<LinkProps> {
   handleKeyDown(event: SyntheticKeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Enter') {
       event.preventDefault();
-      this.props.handlePressEnter(event);
+      this.props.handleLinkSubmit(event);
     }
   }
 
@@ -675,6 +699,7 @@ export class ExternalLink extends React.Component<LinkProps> {
     const notEmpty = props.relationships.some(link => {
       return !isEmpty(link);
     });
+    const firstLink = props.relationships[0];
 
     return (
       <React.Fragment>
@@ -691,7 +716,10 @@ export class ExternalLink extends React.Component<LinkProps> {
             </label>
           </td>
           <td>
-            {(props.isLastLink || !props.url) ? (
+            {/* Links that are not submitted will not be grouped,
+              * so it's safe to check the first link only.
+              */}
+            {(!firstLink.submitted || !props.url) ? (
               <input
                 className="value with-button"
                 onBlur={props.handleUrlBlur}
@@ -706,6 +734,14 @@ export class ExternalLink extends React.Component<LinkProps> {
             ) : (
               <a className="url" href={props.url}>{props.url}</a>
             )}
+            {props.notice &&
+              <div
+                className="error field-error"
+                data-visible="1"
+              >
+                {props.notice}
+              </div>
+            }
             {props.error &&
               <div
                 className={`error field-error target-${props.error.target}`}
@@ -716,15 +752,14 @@ export class ExternalLink extends React.Component<LinkProps> {
             }
           </td>
           <td className="link-actions" style={{minWidth: '34px'}}>
-            {// Use current props to preview changes while editing
-              !isEmpty(props) &&
+            {!isEmpty(props) && firstLink.submitted &&
               <URLInputPopover
                 cleanupUrl={props.cleanupUrl}
                 /*
                  * Randomly choose a link because relationship errors
                  * are not displayed, thus link type doesn't matter.
                  */
-                link={props.relationships[0]}
+                link={firstLink}
                 onConfirm={props.handleUrlChange}
                 validateLink={props.validateLink}
               />
@@ -750,7 +785,7 @@ export class ExternalLink extends React.Component<LinkProps> {
             />
         ))}
         {/* Hide the button when link type is auto-selected */}
-        {notEmpty && !props.relationships[0].urlMatchesType &&
+        {notEmpty && !firstLink.urlMatchesType &&
         <tr className="add-relationship">
           <td />
           <td className="add-item" colSpan="4">
@@ -771,6 +806,7 @@ export class ExternalLink extends React.Component<LinkProps> {
 const defaultLinkState: LinkStateT = {
   rawUrl: '',
   relationship: null,
+  submitted: false,
   type: null,
   url: '',
   video: false,
@@ -858,9 +894,7 @@ function groupLinksByUrl(
   links.forEach((link, index) => {
     const relationship: LinkRelationshipT = {...link, error: null, index};
     // Treat empty URLs and the last URL(editing) as separate links
-    const key = (link.url === '' || index === links.length - 1)
-      ? String(link.relationship)
-      : link.url;
+    const key = link.submitted ? link.url : String(link.relationship);
     const relationships = map.get(key);
     if (relationships) {
       relationships.push(relationship);
