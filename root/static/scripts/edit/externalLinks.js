@@ -158,6 +158,7 @@ export class ExternalLinksEditor
 
   handleLinkSubmit(
     index: number,
+    urlIndex: number,
     event: SyntheticEvent<HTMLInputElement>,
   ) {
     const link = this.state.links[index];
@@ -172,7 +173,13 @@ export class ExternalLinksEditor
     if (url !== '') {
       link.submitted = true;
     }
-    this.setLinkState(index, link);
+    this.setLinkState(index, link, () => {
+      // Redirect focus to the 'x' icon instead of the link
+      $(this.tableRef.current)
+        .find(`tr.external-link-item:eq(${urlIndex})`)
+        .find('button.remove-item')
+        .focus();
+    });
   }
 
   handleTypeChange(
@@ -492,7 +499,9 @@ export class ExternalLinksEditor
                 error={urlError}
                 handleLinkRemove={(index) => this.removeLink(index)}
                 handleLinkSubmit={
-                  (event) => this.handleLinkSubmit(firstLinkIndex, event)
+                  (event) => this.handleLinkSubmit(
+                    firstLinkIndex, index, event,
+                  )
                 }
                 handleUrlBlur={
                   (event) => this.handleUrlBlur(
