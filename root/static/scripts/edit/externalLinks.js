@@ -206,16 +206,10 @@ export class ExternalLinksEditor
       const newLinks = prevState.links.concat();
       newLinks.splice(index, 1);
       return {links: newLinks};
-    }, () => {
-      $(this.tableRef.current)
-        .find('tr:gt(' + (index - 1) + ') button.remove:first, ' +
-              'tr:lt(' + (index + 1) + ') button.remove:last')
-        .eq(0)
-        .focus();
     });
   }
 
-  removeLinks(indexes: Array<number>) {
+  removeLinks(indexes: Array<number>, urlIndex: number) {
     this.setState(prevState => {
       const newLinks = [...prevState.links];
       // Iterate from the end to avoid messing up indexes
@@ -223,6 +217,13 @@ export class ExternalLinksEditor
         newLinks.splice(indexes[i], 1);
       }
       return {links: withOneEmptyLink(newLinks, -1)};
+    }, () => {
+      // Return focus to the next item
+      $(this.tableRef.current)
+        .find(`tr.external-link-item:eq(${urlIndex})`)
+        .find('button.edit-item, input')
+        .eq(0)
+        .focus();
     });
   }
 
@@ -512,7 +513,7 @@ export class ExternalLinksEditor
                     index, !!duplicate, event,
                   )
                 }
-                onUrlRemove={() => this.removeLinks(linkIndexes)}
+                onUrlRemove={() => this.removeLinks(linkIndexes, index)}
                 onVideoChange={
                   (index, event) => this.handleVideoChange(index, event)
                 }
