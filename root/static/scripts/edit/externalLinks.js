@@ -137,9 +137,9 @@ export class ExternalLinksEditor
 
   handleUrlBlur(
     index: number,
+    isDuplicate: boolean,
     event: SyntheticFocusEvent<HTMLInputElement>,
   ) {
-    const relatedTarget = event.relatedTarget;
     const link = this.state.links[index];
     const url = event.currentTarget.value;
     const trimmed = url.trim();
@@ -149,13 +149,8 @@ export class ExternalLinksEditor
       link.url = unicodeUrl;
     }
 
-    const clickingRelatedItems =
-      relatedTarget && relatedTarget.dataset.index === index.toString();
-    /*
-     * Don't add link to list if it's empty
-     * or when the user is clicking type select / related icons
-     */
-    if (url !== '' && !clickingRelatedItems) {
+    // Don't add link to list if it's empty or is a duplicate
+    if (url !== '' && !isDuplicate) {
       link.submitted = true;
     }
     this.setLinkState(index, link);
@@ -180,14 +175,26 @@ export class ExternalLinksEditor
     this.setLinkState(index, link);
   }
 
-  handleTypeChange(index: number, event: SyntheticEvent<HTMLSelectElement>) {
+  handleTypeChange(
+    index: number,
+    isDuplicate: boolean,
+    event: SyntheticEvent<HTMLSelectElement>,
+  ) {
     const type = +event.currentTarget.value || null;
     const link = this.state.links[index];
     link.type = type;
     if (link.url && type) {
       link.submitted = true;
     }
-    this.setLinkState(index, link);
+    this.setLinkState(index, link, () => {
+      // Return focus to the input box after merging
+      if (isDuplicate) {
+        $(this.tableRef.current)
+          .find("input[type='url']")
+          .eq(0)
+          .focus();
+      }
+    });
   }
 
   handleVideoChange(index: number, event: SyntheticEvent<HTMLInputElement>) {
@@ -433,7 +440,7 @@ export class ExternalLinksEditor
             const relationships = item[1];
             /*
              * The first element of tuple `item` is not the URL
-             * when the URL is empty or is the last one.
+             * when the URL is not submitted therefore isn't grouped.
              */
             const {url, rawUrl} = relationships[0];
             const isLastLink = index === linksByUrl.length - 1;
@@ -445,7 +452,8 @@ export class ExternalLinksEditor
               ? false : linksGroupMap.get(url);
             const duplicateNotice = duplicate
               ? l(`Note:
-                This link already exists at item #${duplicate[0].index + 1}`)
+                This link already exists at item #${duplicate[0].index + 1}. 
+                To merge, press enter or select a type.`)
               : '';
 
             let urlError = null;
@@ -479,7 +487,9 @@ export class ExternalLinksEditor
                   (event) => this.handleLinkSubmit(firstLinkIndex, event)
                 }
                 handleUrlBlur={
-                  (event) => this.handleUrlBlur(firstLinkIndex, event)
+                  (event) => this.handleUrlBlur(
+                    firstLinkIndex, !!duplicate, event,
+                  )
                 }
                 handleUrlChange={
                   (rawUrl) => this.handleUrlChange(linkIndexes, rawUrl)
@@ -491,7 +501,9 @@ export class ExternalLinksEditor
                 notice={duplicateNotice}
                 onAddRelationship={(url) => this.addRelationship(url)}
                 onTypeChange={
-                  (index, event) => this.handleTypeChange(index, event)
+                  (index, event) => this.handleTypeChange(
+                    index, !!duplicate, event,
+                  )
                 }
                 onUrlRemove={() => this.removeLinks(linkIndexes)}
                 onVideoChange={
@@ -515,7 +527,6 @@ type LinkTypeSelectProps = {
   children: Array<React.Element<'option'>>,
   handleTypeChange:
     (SyntheticEvent<HTMLSelectElement>) => void,
-  index: number,
   type: number | null,
 };
 
@@ -524,7 +535,6 @@ class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
     return (
       <select
         className="link-type"
-        data-index={this.props.index}
         onChange={this.props.handleTypeChange}
         value={this.props.type || ''}
       >
@@ -607,7 +617,6 @@ const ExternalLinkRelationship =
                     handleTypeChange={
                       (event) => props.onTypeChange(link.index, event)
                     }
-                    index={link.index}
                     type={link.type}
                   >
                     {props.typeOptions}
@@ -893,7 +902,10 @@ function groupLinksByUrl(
   let map = new Map();
   links.forEach((link, index) => {
     const relationship: LinkRelationshipT = {...link, error: null, index};
-    // Treat empty URLs and the last URL(editing) as separate links
+    /*
+     * Don't group links that are not submitted,
+     * e.g: empty links and the last link(editing)
+     */
     const key = link.submitted ? link.url : String(link.relationship);
     const relationships = map.get(key);
     if (relationships) {
