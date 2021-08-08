@@ -237,6 +237,13 @@
       target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
       value: 'https://google.com${KEY_ENTER}',
     },
+    // Pressing enter submits the link
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#external-links-editor tr')).map(x => x.className).join('\\n')",
+      // Wikipedia link + current link(3 relationships)
+      value: 'external-link-item\nrelationship-item\nexternal-link-item\nrelationship-item\nrelationship-item\nrelationship-item\nadd-relationship\nexternal-link-item',
+    },
     {
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll('select.link-type')).map(x => x.value).join('\\n')",
@@ -246,12 +253,6 @@
       command: 'select',
       target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][4]//select[contains(@class, 'link-type')]",
       value: 'label=regexp:\\s*biographies',
-    },
-    {
-      command: 'assertEval',
-      target: "Array.from(document.querySelectorAll('#external-links-editor tr')).map(x => x.className).join('\\n')",
-      // Wikipedia link + current link(3 relationships)
-      value: 'external-link-item\nrelationship-item\nexternal-link-item\nrelationship-item\nrelationship-item\nrelationship-item\nadd-relationship\nexternal-link-item',
     },
     // Delete single relationship
     {
@@ -263,6 +264,74 @@
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll('select.link-type')).map(x => x.value).join('\\n')",
       value: '172\n182',
+    },
+    // Immediately appends new input box
+    {
+      command: 'click',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://google.com',
+    },
+    {
+      command: 'assertElementPresent',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      value: '',
+    },
+    // Pressing tab does not submit the link when it's a duplicate
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: '${KEY_TAB}',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll(\"input[type='url']\")).map(x => x.value).join('\\n')",
+      value: 'https://google.com\n',
+    },
+    // Duplicate URL notice
+    {
+      command: 'assertText',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][3]//div[contains(@class, 'error')]",
+      value: 'Note: This link already exists at item #2. To merge, press enter or select a type.',
+    },
+    // Automatically submitted after selecting a type
+    {
+      command: 'select',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][4]//select[contains(@class, 'link-type')]",
+      value: 'label=regexp:\\s*interviews',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#external-links-editor tr')).map(x => x.className).join('\\n')",
+      // Wikipedia link + current link(3 relationships)
+      value: 'external-link-item\nrelationship-item\nexternal-link-item\nrelationship-item\nrelationship-item\nrelationship-item\nadd-relationship\nexternal-link-item',
+    },
+    // Delete link while entering
+    {
+      command: 'click',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://google.com',
+    },
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][3]//button[contains(@class, 'remove-item')]",
+      value: '',
+    },
+    // Assert link is deleted
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#external-links-editor tr')).map(x => x.className).join('\\n')",
+      // Wikipedia link + current link(3 relationships)
+      value: 'external-link-item\nrelationship-item\nexternal-link-item\nrelationship-item\nrelationship-item\nrelationship-item\nadd-relationship\nexternal-link-item',
     },
     // Delete link with all relationships
     {
