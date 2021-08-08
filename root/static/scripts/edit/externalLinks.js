@@ -103,11 +103,12 @@ export class ExternalLinksEditor
 
   handleUrlChange(
     linkIndexes: Array<number>,
+    urlIndex: number,
     rawUrl: string,
   ) {
     let url = rawUrl;
     if (url === '') {
-      this.removeLinks(linkIndexes);
+      this.removeLinks(linkIndexes, urlIndex);
       return;
     }
 
@@ -509,7 +510,7 @@ export class ExternalLinksEditor
                   )
                 }
                 handleUrlChange={
-                  (rawUrl) => this.handleUrlChange(linkIndexes, rawUrl)
+                  (rawUrl) => this.handleUrlChange(linkIndexes, index, rawUrl)
                 }
                 index={index}
                 isLastLink={isLastLink}
@@ -694,7 +695,7 @@ type LinkProps = {
   error: ErrorT | null,
   handleLinkRemove: (number) => void,
   handleLinkSubmit: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
-  handleUrlBlur: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
+  handleUrlBlur: (SyntheticFocusEvent<HTMLInputElement>) => void,
   handleUrlChange: (string) => void,
   index: number,
   isLastLink: boolean,
@@ -901,6 +902,7 @@ export function parseRelationships(
       accum.push({
         relationship: data.id,
         rawUrl: target.name,
+        submitted: true,
         type: data.linkTypeID ?? null,
         url: target.name,
         video: data.attributes
