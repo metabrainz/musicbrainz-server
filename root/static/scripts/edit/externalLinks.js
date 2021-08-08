@@ -604,21 +604,11 @@ const ExternalLinkRelationship =
   (props: ExternalLinkRelationshipProps): React.Element<'tr'> => {
     const {link, hasUrlError} = props;
     const linkType = link.type ? linkedEntities.link_type[link.type] : null;
-    let faviconClass: string | void;
     const backward = linkType && linkType.type1 > 'url';
 
     const showTypeSelection = (link.error || hasUrlError)
       ? true
       : !(link.urlMatchesType || isEmpty(link));
-
-    if (!showTypeSelection && link.urlMatchesType) {
-      for (const key of Object.keys(FAVICON_CLASSES)) {
-        if (link.url.indexOf(key) > 0) {
-          faviconClass = FAVICON_CLASSES[key];
-          break;
-        }
-      }
-    }
 
     return (
       <tr className="relationship-item" key={link.relationship}>
@@ -641,10 +631,6 @@ const ExternalLinkRelationship =
                   </LinkTypeSelect>
                 ) : (
                   <label className="relationship-name">
-                    {faviconClass &&
-                    <span
-                      className={'favicon ' + faviconClass + '-favicon'}
-                    />}
                     {linkType ? (
                       backward
                         ? l_relationships(linkType.reverse_link_phrase)
@@ -728,10 +714,22 @@ export class ExternalLink extends React.Component<LinkProps> {
     });
     const firstLink = props.relationships[0];
 
+    let faviconClass: string | void;
+    for (const key of Object.keys(FAVICON_CLASSES)) {
+      if (props.url.indexOf(key) > 0) {
+        faviconClass = FAVICON_CLASSES[key];
+        break;
+      }
+    }
+
     return (
       <React.Fragment>
         <tr className="external-link-item">
           <td>
+            {faviconClass &&
+            <span
+              className={'favicon ' + faviconClass + '-favicon'}
+            />}
             <label>
               {props.isOnlyLink
                 ? addColonText(l('Add link'))
