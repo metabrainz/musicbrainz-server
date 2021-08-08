@@ -226,7 +226,7 @@ export class ExternalLinksEditor
     });
   }
 
-  addRelationship(url: string) {
+  addRelationship(url: string, urlIndex: number) {
     this.setState(prevState => {
       const links = [...prevState.links];
       const linkCount = links.length;
@@ -246,6 +246,13 @@ export class ExternalLinksEditor
         url, relationship: uniqueId('new-'), submitted: true,
       });
       return {links: prevState.links.concat([newRelationship])};
+    }, () => {
+      // Return focus to the new type select
+      $(this.tableRef.current)
+        .find(`tr.add-relationship:eq(${urlIndex})`)
+        .prev()
+        .find('select.link-type')
+        .focus();
     });
   }
 
@@ -499,7 +506,7 @@ export class ExternalLinksEditor
                 isOnlyLink={linksByUrl.length === 1}
                 key={index}
                 notice={duplicateNotice}
-                onAddRelationship={(url) => this.addRelationship(url)}
+                onAddRelationship={(url) => this.addRelationship(url, index)}
                 onTypeChange={
                   (index, event) => this.handleTypeChange(
                     index, !!duplicate, event,
