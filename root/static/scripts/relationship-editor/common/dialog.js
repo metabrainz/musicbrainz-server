@@ -375,6 +375,10 @@ class Dialog {
     relationship.entities(relationship.entities().slice(0).reverse());
   }
 
+  toggleDatesHelp() {
+    this.showDatesHelp(!this.showDatesHelp.peek());
+  }
+
   copyDate(data, event) {
     const dialog = ko.contextFor(event.target).$parent;
     dialog.relationship().end_date.year(data.date.year());
@@ -660,6 +664,7 @@ let _uiSetupDone = false;
 Object.assign(Dialog.prototype, {
   loading: ko.observable(false),
   showAttributesHelp: ko.observable(false),
+  showDatesHelp: ko.observable(false),
   showLinkTypeHelp: ko.observable(false),
 
   uiOptions: {
