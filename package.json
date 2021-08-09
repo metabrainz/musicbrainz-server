@@ -32,6 +32,7 @@
     "copy-webpack-plugin": "4.6.0",
     "core-js": "3.6.5",
     "detect-node": "2.0.3",
+    "eslint-plugin-fb-flow": "^0.0.2",
     "file-loader": "3.0.1",
     "filesize": "2.0.4",
     "generic-diff": "1.0.1",
