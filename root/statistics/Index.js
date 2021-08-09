@@ -164,6 +164,10 @@ const Index = ({
             <td colSpan="3">{fc('ar.links')}</td>
           </tr>
           <tr>
+            <th>{addColonText(l('Collections'))}</th>
+            <td colSpan="3">{fc('collection')}</td>
+          </tr>
+          <tr>
             <th>{l('CD Stubs (all time / current):')}</th>
             <td>{fc('cdstub.submitted')}</td>
             <td>{'/'}</td>
@@ -913,6 +917,161 @@ const Index = ({
             <th>{l('None')}</th>
             <td>{fc('event.type.null')}</td>
             <td>{fp('event.type.null', 'event')}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>{l('Collections')}</h2>
+      <table className="database-statistics">
+        <tbody>
+          <tr className="thead">
+            <th colSpan="5">{l('Collections')}</th>
+          </tr>
+          <tr>
+            <th colSpan="3">{addColonText(l('Collections'))}</th>
+            <td>{fc('collection')}</td>
+            <td />
+          </tr>
+          <tr>
+            <th />
+            <th colSpan="2">{addColonText(l('Of releases'))}</th>
+            <td>{fc('collection.type.release.all')}</td>
+            <td>{fp('collection.type.release.all', 'collection')}</td>
+          </tr>
+          <tr>
+            <th />
+            <th />
+            <th>{addColonText(l('Generic'))}</th>
+            <td>{fc('collection.type.release')}</td>
+            <td>
+              {fp('collection.type.release', 'collection.type.release.all')}
+            </td>
+          </tr>
+          <tr>
+            <th />
+            <th />
+            <th>{addColonText(l('Owned music'))}</th>
+            <td>{fc('collection.type.owned')}</td>
+            <td>
+              {fp('collection.type.owned', 'collection.type.release.all')}
+            </td>
+          </tr>
+          <tr>
+            <th />
+            <th />
+            <th>{addColonText(l('Wishlist'))}</th>
+            <td>{fc('collection.type.wishlist')}</td>
+            <td>
+              {fp('collection.type.wishlist', 'collection.type.release.all')}
+            </td>
+          </tr>
+          <tr>
+            <th />
+            <th colSpan="2">{addColonText(l('Of events'))}</th>
+            <td>{fc('collection.type.event.all')}</td>
+            <td>{fp('collection.type.event.all', 'collection')}</td>
+          </tr>
+          <tr>
+            <th />
+            <th />
+            <th>{addColonText(l('Generic'))}</th>
+            <td>{fc('collection.type.event')}</td>
+            <td>
+              {fp('collection.type.event', 'collection.type.event.all')}
+            </td>
+          </tr>
+          <tr>
+            <th />
+            <th />
+            <th>{addColonText(l('Of type Attending'))}</th>
+            <td>{fc('collection.type.attending')}</td>
+            <td>
+              {fp('collection.type.attending', 'collection.type.event.all')}
+            </td>
+          </tr>
+          <tr>
+            <th />
+            <th />
+            <th>{addColonText(l('Of type Maybe attending'))}</th>
+            <td>{fc('collection.type.maybe_attending')}</td>
+            <td>
+              {fp(
+                'collection.type.maybe_attending',
+                'collection.type.event.all',
+              )}
+            </td>
+          </tr>
+          <tr>
+            <th />
+            <th colSpan="2">{addColonText(l('Of areas'))}</th>
+            <td>{fc('collection.type.area')}</td>
+            <td>{fp('collection.type.area', 'collection')}</td>
+          </tr>
+          <tr>
+            <th />
+            <th colSpan="2">{addColonText(l('Of artists'))}</th>
+            <td>{fc('collection.type.artist')}</td>
+            <td>{fp('collection.type.artist', 'collection')}</td>
+          </tr>
+          <tr>
+            <th />
+            <th colSpan="2">{addColonText(l('Of instruments'))}</th>
+            <td>{fc('collection.type.instrument')}</td>
+            <td>{fp('collection.type.instrument', 'collection')}</td>
+          </tr>
+          <tr>
+            <th />
+            <th colSpan="2">{addColonText(l('Of labels'))}</th>
+            <td>{fc('collection.type.label')}</td>
+            <td>{fp('collection.type.label', 'collection')}</td>
+          </tr>
+          <tr>
+            <th />
+            <th colSpan="2">{addColonText(l('Of places'))}</th>
+            <td>{fc('collection.type.place')}</td>
+            <td>{fp('collection.type.place', 'collection')}</td>
+          </tr>
+          <tr>
+            <th />
+            <th colSpan="2">{addColonText(l('Of recordings'))}</th>
+            <td>{fc('collection.type.recording')}</td>
+            <td>{fp('collection.type.recording', 'collection')}</td>
+          </tr>
+          <tr>
+            <th />
+            <th colSpan="2">{addColonText(l('Of release groups'))}</th>
+            <td>{fc('collection.type.release_group')}</td>
+            <td>{fp('collection.type.release_group', 'collection')}</td>
+          </tr>
+          <tr>
+            <th />
+            <th colSpan="2">{addColonText(l('Of series'))}</th>
+            <td>{fc('collection.type.series')}</td>
+            <td>{fp('collection.type.series', 'collection')}</td>
+          </tr>
+          <tr>
+            <th />
+            <th colSpan="2">{addColonText(l('Of works'))}</th>
+            <td>{fc('collection.type.work')}</td>
+            <td>{fp('collection.type.work', 'collection')}</td>
+          </tr>
+          <tr>
+            <th />
+            <th colSpan="2">{addColonText(l('Public'))}</th>
+            <td>{fc('collection.public')}</td>
+            <td>{fp('collection.public', 'collection')}</td>
+          </tr>
+          <tr>
+            <th />
+            <th colSpan="2">{addColonText(l('Private'))}</th>
+            <td>{fc('collection.private')}</td>
+            <td>{fp('collection.private', 'collection')}</td>
+          </tr>
+          <tr>
+            <th />
+            <th colSpan="2">{addColonText(l('With collaborators'))}</th>
+            <td>{fc('collection.has_collaborators')}</td>
+            <td>{fp('collection.has_collaborators', 'collection')}</td>
           </tr>
         </tbody>
       </table>
