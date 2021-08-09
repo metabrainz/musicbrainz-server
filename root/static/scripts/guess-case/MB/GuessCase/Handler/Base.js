@@ -117,7 +117,7 @@ MB.GuessCase.Handler.Base = function (gc) {
        */
       var handled = false;
       if (!gc.regexes.SPECIALCASES) {
-        gc.regexes.SPECIALCASES = /(&|¿|¡|\?|\!|;|:|'|‘|’|‹|›|"|“|”|„|“|«|»|\-|\+|,|\*|\.|#|%|\/|\(|\)|\{|\}|\[|\])/;
+        gc.regexes.SPECIALCASES = /(&|¿|¡|\?|\!|;|:|'|‘|’|‹|›|"|“|”|„|“|«|»|\-|‐|\+|,|\*|\.|#|%|\/|\(|\)|\{|\}|\[|\])/;
       }
       if (input.matchCurrentWord(gc.regexes.SPECIALCASES)) {
         handled = !!(
@@ -332,7 +332,7 @@ MB.GuessCase.Handler.Base = function (gc) {
    */
   self.doHyphen = function () {
     if (!gc.regexes.HYPHEN) {
-      gc.regexes.HYPHEN = '-';
+      gc.regexes.HYPHEN = /^[\-‐]$/;
     }
     if (input.matchCurrentWord(gc.regexes.HYPHEN)) {
       output.appendWordPreserveWhiteSpace(true);

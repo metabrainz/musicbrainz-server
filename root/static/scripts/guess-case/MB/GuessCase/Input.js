@@ -182,7 +182,7 @@ class GuessCaseInput {
     const splitwords = [];
     let word = [];
     if (!gc.regexes.SPLITWORDSANDPUNCTUATION) {
-      gc.regexes.SPLITWORDSANDPUNCTUATION = /[^!¿¡\"%&'´`‘’‹›“”„“«»()\[\]\{\}\*\+,-\.\/:;<=>\?\s#]/;
+      gc.regexes.SPLITWORDSANDPUNCTUATION = /[^!¿¡\"%&'´`‘’‹›“”„“«»()\[\]\{\}\*\+‐\-,\.\/:;<=>\?\s#]/;
     }
     for (let i = 0; i < chars.length; i++) {
       if (chars[i].match(gc.regexes.SPLITWORDSANDPUNCTUATION)) {
