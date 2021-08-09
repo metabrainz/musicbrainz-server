@@ -335,20 +335,6 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
         <ReportsIndexEntry
           content={l(
             `Releases in the Cover Art Archive
-             that still have cover art relationships`,
-          )}
-          reportName="ReleasesInCAAWithCoverArtRelationships"
-        />
-        <ReportsIndexEntry
-          content={l(
-            `Releases of any sort
-             that still have cover art relationships`,
-          )}
-          reportName="CoverArtRelationships"
-        />
-        <ReportsIndexEntry
-          content={l(
-            `Releases in the Cover Art Archive
              where no cover art piece has types`,
           )}
           reportName="ReleasesWithCAANoTypes"
