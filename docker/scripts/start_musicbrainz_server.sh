@@ -21,6 +21,10 @@ if [ -s "$PID_FILE" ]; then
     fi
 fi
 
+chpst -u musicbrainz:musicbrainz \
+    carton exec -- ./script/dbdefs_exists \
+    || exit $?
+
 exec chpst -u musicbrainz:musicbrainz \
     carton exec -- \
         start_server --port 5000 --pid-file "$PID_FILE" -- \

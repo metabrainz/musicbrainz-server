@@ -144,6 +144,7 @@ copy_mb(``admin/ admin/'')
 copy_mb(``app.psgi entities.json ./'')
 copy_mb(``bin/ bin/'')
 copy_mb(``lib/ lib/'')
+copy_mb(``script/functions.sh script/dbdefs_exists script/'')
 copy_mb(``script/functions.sh script/git_info script/'')')
 
 m4_define(
