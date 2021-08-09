@@ -9,6 +9,9 @@
 
 import MB from '../../../../common/MB';
 import * as flags from '../../../flags';
+import * as modes from '../../../modes';
+import input from '../Input';
+import output from '../Output';
 
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
@@ -32,12 +35,14 @@ MB.GuessCase.Handler.Track = function (gc) {
    */
   const baseProcess = self.process;
   self.process = function (os) {
-    return gc.mode.fixVinylSizes(baseProcess(os));
+    return modes[gc.modeName].fixVinylSizes(baseProcess(os));
   };
 
   self.getWordsForProcessing = function (is) {
-    is = gc.mode.preProcessTitles(self.removeBonusInfo(is));
-    return gc.mode.prepExtraTitleInfo(gc.i.splitWordsAndPunctuation(is));
+    is = modes[gc.modeName].preProcessTitles(self.removeBonusInfo(is));
+    return modes[gc.modeName].prepExtraTitleInfo(
+      input.splitWordsAndPunctuation(is),
+    );
   };
 
   /*
@@ -51,27 +56,27 @@ MB.GuessCase.Handler.Track = function (gc) {
    */
   self.checkSpecialCase = function (is) {
     if (is) {
-      if (!gc.re.TRACK_DATATRACK) {
+      if (!gc.regexes.TRACK_DATATRACK) {
         // Data tracks
-        gc.re.TRACK_DATATRACK = /^([\(\[]?\s*data(\s+track)?\s*[\)\]]?$)/i;
+        gc.regexes.TRACK_DATATRACK = /^([\(\[]?\s*data(\s+track)?\s*[\)\]]?$)/i;
         // Silence
-        gc.re.TRACK_SILENCE = /^([\(\[]?\s*(silen(t|ce)|blank)(\s+track)?\s*[\)\]]?)$/i;
+        gc.regexes.TRACK_SILENCE = /^([\(\[]?\s*(silen(t|ce)|blank)(\s+track)?\s*[\)\]]?)$/i;
         // Untitled
-        gc.re.TRACK_UNTITLED = /^([\(\[]?\s*untitled(\s+track)?\s*[\)\]]?)$/i;
+        gc.regexes.TRACK_UNTITLED = /^([\(\[]?\s*untitled(\s+track)?\s*[\)\]]?)$/i;
         // Unknown
-        gc.re.TRACK_UNKNOWN = /^([\(\[]?\s*(unknown|bonus|hidden)(\s+track)?\s*[\)\]]?)$/i;
+        gc.regexes.TRACK_UNKNOWN = /^([\(\[]?\s*(unknown|bonus|hidden)(\s+track)?\s*[\)\]]?)$/i;
         // Any number of question marks
-        gc.re.TRACK_MYSTERY = /^\?+$/i;
+        gc.regexes.TRACK_MYSTERY = /^\?+$/i;
       }
-      if (is.match(gc.re.TRACK_DATATRACK)) {
+      if (is.match(gc.regexes.TRACK_DATATRACK)) {
         return self.SPECIALCASE_DATA_TRACK;
-      } else if (is.match(gc.re.TRACK_SILENCE)) {
+      } else if (is.match(gc.regexes.TRACK_SILENCE)) {
         return self.SPECIALCASE_SILENCE;
-      } else if (is.match(gc.re.TRACK_UNTITLED)) {
+      } else if (is.match(gc.regexes.TRACK_UNTITLED)) {
         return self.SPECIALCASE_UNTITLED;
-      } else if (is.match(gc.re.TRACK_UNKNOWN)) {
+      } else if (is.match(gc.regexes.TRACK_UNKNOWN)) {
         return self.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.re.TRACK_MYSTERY)) {
+      } else if (is.match(gc.regexes.TRACK_MYSTERY)) {
         return self.SPECIALCASE_UNKNOWN;
       }
     }
@@ -88,26 +93,26 @@ MB.GuessCase.Handler.Track = function (gc) {
     if (
       !self.doIgnoreWords() &&
       !self.doFeaturingArtistStyle() &&
-      !gc.mode.doWord()
+      !modes[gc.modeName].doWord()
     ) {
-      if (gc.i.matchCurrentWord(/7in/i)) {
-        gc.o.appendSpaceIfNeeded();
-        gc.o.appendWord('7"');
+      if (input.matchCurrentWord(/7in/i)) {
+        output.appendSpaceIfNeeded();
+        output.appendWord('7"');
         flags.resetContext();
         flags.context.spaceNextWord = false;
         flags.context.forceCaps = false;
-      } else if (gc.i.matchCurrentWord(/12in/i)) {
-        gc.o.appendSpaceIfNeeded();
-        gc.o.appendWord('12"');
+      } else if (input.matchCurrentWord(/12in/i)) {
+        output.appendSpaceIfNeeded();
+        output.appendWord('12"');
         flags.resetContext();
         flags.context.spaceNextWord = false;
         flags.context.forceCaps = false;
       } else {
         // Handle other cases (e.g. normal words)
-        gc.o.appendSpaceIfNeeded();
-        gc.i.capitalizeCurrentWord();
+        output.appendSpaceIfNeeded();
+        input.capitalizeCurrentWord();
 
-        gc.o.appendCurrentWord();
+        output.appendCurrentWord();
         flags.resetContext();
         flags.context.spaceNextWord = true;
         flags.context.forceCaps = false;

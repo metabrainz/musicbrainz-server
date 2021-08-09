@@ -10,10 +10,6 @@
 import MB from '../../../common/MB';
 import getCookie from '../../../common/utility/getCookie';
 import * as flags from '../../flags';
-import * as modes from '../../modes';
-
-import Input from './Input';
-import Output from './Output';
 
 import './Handler/Base';
 import './Handler/Area';
@@ -30,16 +26,11 @@ MB.GuessCase = MB.GuessCase || {};
 var self = {};
 
 self.modeName = getCookie('guesscase_mode') || 'English';
-self.mode = modes[self.modeName];
 
 // Config
-self.CFG_UC_UPPERCASED = getCookie('guesscase_keepuppercase') !== 'false';
+self.CFG_KEEP_UPPERCASED = getCookie('guesscase_keepuppercase') !== 'false';
 
-// Member variables
-self.i = Input(self);
-self.o = Output(self);
-
-self.re = {
+self.regexes = {
   // define commonly used RE's
   SPACES_DOTS: /\s|\./i,
   SERIES_NUMBER: /^(\d+|[ivx]+)$/i,

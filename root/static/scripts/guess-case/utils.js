@@ -1,4 +1,5 @@
 /*
+ * @flow strict-local
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2015 MetaBrainz Foundation
  *
@@ -10,6 +11,11 @@
 import clean from '../common/utility/clean';
 
 import * as flags from './flags';
+import * as modes from './modes';
+import type {GuessCaseT, GuessCaseModeT} from './types';
+import input from './MB/GuessCase/Input';
+import output from './MB/GuessCase/Output';
+
 
 /*
  * Words which are turned to lowercase if in brackets, but
@@ -74,8 +80,8 @@ const preBracketSingleWords = new RegExp(
   '^(' + preBracketSingleWordsList.join('|') + ')$', 'i',
 );
 
-export function isPrepBracketSingleWord(w) {
-  return preBracketSingleWords.test(w);
+export function isPrepBracketSingleWord(word: string): boolean {
+  return preBracketSingleWords.test(word);
 }
 
 /*
@@ -116,64 +122,85 @@ const lowerCaseBracketWords = new RegExp(
   '^(' + lowerCaseBracketWordsList.join('|') + ')$', 'i',
 );
 
-export function turkishUpperCase(str) {
-  return str.replace(/i/g, 'İ').toUpperCase();
+export function turkishUpperCase(word: string): string {
+  return word.replace(/i/g, 'İ').toUpperCase();
 }
 
-export function turkishLowerCase(str) {
-  return str.replace(/I\u0307/g, 'i').replace(/I/g, 'ı').replace(/İ/g, 'i')
+export function turkishLowerCase(word: string): string {
+  return word.replace(/I\u0307/g, 'i').replace(/I/g, 'ı').replace(/İ/g, 'i')
     .toLowerCase();
 }
 
-export function isLowerCaseBracketWord(w) {
-  return lowerCaseBracketWords.test(w);
+export function isLowerCaseBracketWord(word: string | null): boolean {
+  if (word == null) {
+    return false;
+  }
+  return lowerCaseBracketWords.test(word);
 }
 
 // Words which are put into brackets if they aren't yet.
 const prepBracketWords = /^(?:cd|disk|12["”]|7["”]|a_cappella|re_edit)$/i;
 
-export function isPrepBracketWord(w) {
-  return prepBracketWords.test(w) || isLowerCaseBracketWord(w);
+export function isPrepBracketWord(word: string | null): boolean {
+  if (word == null) {
+    return false;
+  }
+  return prepBracketWords.test(word) || isLowerCaseBracketWord(word);
 }
 
 const sentenceStopChars = /^[:.;?!\/]$/;
 
-export function isSentenceStopChar(w) {
-  return sentenceStopChars.test(w);
+export function isSentenceStopChar(word: string | null): boolean {
+  if (word == null) {
+    return false;
+  }
+  return sentenceStopChars.test(word);
 }
 
 const apostropheChars = /^['’]$/;
 
-export function isApostrophe(w) {
-  return apostropheChars.test(w);
+export function isApostrophe(word: string | null): boolean {
+  if (word == null) {
+    return false;
+  }
+  return apostropheChars.test(word);
 }
 
 const punctuationChars = /^[:.;?!,]$/;
 
-export function isPunctuationChar(w) {
-  return punctuationChars.test(w);
+export function isPunctuationChar(word: string | null): boolean {
+  if (word == null) {
+    return false;
+  }
+  return punctuationChars.test(word);
 }
 
 // Trim leading, trailing and running-line whitespace from the given string.
-export function trim(is) {
-  is = clean(is);
-  return is.replace(/([(\[])\s+/, '$1').replace(/\s+([)\]])/, '$1');
+export function trim(word: string): string {
+  const cleanedWord = clean(word);
+  return cleanedWord.replace(/([(\[])\s+/, '$1').replace(/\s+([)\]])/, '$1');
 }
 
 /*
  * Uppercase first letter of word unless it's one of the words
  * in the lowercase words array.
  */
-export function titleString(gc, is, forceCaps) {
-  if (!is) {
+export function titleString(
+  gc: GuessCaseT,
+  inputString: string | null,
+  forceCaps?: boolean,
+): string {
+  if (!nonEmpty(inputString)) {
     return '';
   }
-
-  forceCaps = (forceCaps == null ? flags.context.forceCaps : forceCaps);
+  const guessCaseMode = modes[gc.modeName];
+  const localForceCaps = forceCaps == null
+    ? flags.context.forceCaps
+    : forceCaps;
 
   // Get current pointer in word array.
-  const len = gc.i.getLength();
-  let pos = gc.i.getPos();
+  const len = input.getLength();
+  let pos = input.getCursorPosition();
 
   /*
    * If pos === len, this means that the pointer is beyond the last position
@@ -183,18 +210,21 @@ export function titleString(gc, is, forceCaps) {
    */
   if (pos === len) {
     pos = len - 1;
-    gc.i.setPos(pos);
+    input.setCursorPosition(pos);
   }
 
-  let os;
-  let lc = gc.mode.toLowerCase(is);
-  let uc = gc.mode.toUpperCase(is);
+  let outputString;
+  let lowercase = guessCaseMode.toLowerCase(inputString);
+  let uppercase = guessCaseMode.toUpperCase(inputString);
 
-  if (is === uc && is.length > 1 && gc.CFG_UC_UPPERCASED) {
-    os = uc;
+  if (inputString === uppercase &&
+      inputString.length > 1 &&
+      gc.CFG_KEEP_UPPERCASED) {
+    outputString = uppercase;
     // we got an 'x (apostrophe),keep the text lowercased
-  } else if (lc.length === 1 && isApostrophe(gc.i.getPreviousWord())) {
-    os = lc;
+  } else if (lowercase.length === 1 &&
+             isApostrophe(input.getPreviousWord())) {
+    outputString = lowercase;
     /*
      * we got an 's (It is = It's), lowercase
      * we got an 'all (Y'all = You all), lowercase
@@ -209,81 +239,95 @@ export function titleString(gc, is, forceCaps) {
      * we got a 'mon (Come on = C'mon), lowercase
      */
   } else if (
-    gc.mode.name === 'English' &&
-    isApostrophe(gc.i.getPreviousWord()) &&
-    lc.match(/^(?:s|round|em|ve|ll|d|cha|re|til|way|all|mon)$/i)
+    guessCaseMode.name === 'English' &&
+    isApostrophe(input.getPreviousWord()) &&
+    lowercase.match(/^(?:s|round|em|ve|ll|d|cha|re|til|way|all|mon)$/i)
   ) {
-    os = lc;
+    outputString = lowercase;
     /*
      * we got an Ev'..
      * Every = Ev'ry, lowercase
      * Everything = Ev'rything, lowercase (more cases?)
      */
   } else if (
-    gc.mode.name === 'English' &&
-    isApostrophe(gc.i.getPreviousWord()) &&
-    gc.i.getWordAtIndex(pos - 2) === 'Ev'
+    guessCaseMode.name === 'English' &&
+    isApostrophe(input.getPreviousWord()) &&
+    input.getWordAtIndex(pos - 2) === 'Ev'
   ) {
-    os = lc;
+    outputString = lowercase;
     // Make it O'Titled, Y'All, C'mon
   } else if (
-    gc.mode.name === 'English' &&
-    lc.match(/^[coy]$/i) &&
-    isApostrophe(gc.i.getNextWord())
+    guessCaseMode.name === 'English' &&
+    lowercase.match(/^[coy]$/i) &&
+    isApostrophe(input.getNextWord())
   ) {
-    os = uc;
+    outputString = uppercase;
   } else {
-    os = titleStringByMode(gc, lc, forceCaps);
-    lc = gc.mode.toLowerCase(os);
-    uc = gc.mode.toUpperCase(os);
+    outputString = titleStringByMode(
+      guessCaseMode,
+      lowercase,
+      localForceCaps,
+    );
+    lowercase = guessCaseMode.toLowerCase(outputString);
+    uppercase = guessCaseMode.toUpperCase(outputString);
 
-    const nextWord = gc.i.getNextWord();
+    const nextWord = input.getNextWord();
     const followedByPunctuation =
-      nextWord && nextWord.length === 1 && isPunctuationChar(nextWord);
+      nonEmpty(nextWord) && nextWord.length === 1 &&
+      isPunctuationChar(nextWord);
     const followedByApostrophe =
-      nextWord && nextWord.length === 1 && isApostrophe(nextWord);
+      nonEmpty(nextWord) && nextWord.length === 1 && isApostrophe(nextWord);
 
     /*
      * Unless forceCaps is enabled, lowercase the word
      * if it's not followed by punctuation.
      */
-    if (!forceCaps && gc.mode.isLowerCaseWord(lc) && !followedByPunctuation) {
-      os = lc;
-    } else if (gc.mode.isRomanNumber(lc) && !followedByApostrophe) {
+    if (!localForceCaps && guessCaseMode.isLowerCaseWord(lowercase) &&
+        !followedByPunctuation) {
+      outputString = lowercase;
+    } else if (
+      guessCaseMode.isRomanNumber(lowercase) && !followedByApostrophe
+    ) {
       /*
        * Uppercase Roman numerals unless followed by apostrophe
        * (likely false positive, "d'amore", "c'est")
        */
-      os = uc;
-    } else if (gc.mode.isUpperCaseWord(lc)) {
-      os = uc;
-    } else if (flags.isInsideBrackets() && isLowerCaseBracketWord(lc)) {
-      os = lc;
+      outputString = uppercase;
+    } else if (guessCaseMode.isUpperCaseWord(lowercase)) {
+      outputString = uppercase;
+    } else if (
+      flags.isInsideBrackets() && isLowerCaseBracketWord(lowercase)
+    ) {
+      outputString = lowercase;
     }
   }
 
-  return os;
+  return outputString;
 }
 
 /*
  * Capitalize the string, but check if some characters inside the word
  * need to be uppercased as well.
  */
-export function titleStringByMode(gc, is, forceCaps) {
-  if (!is) {
+export function titleStringByMode(
+  guessCaseMode: GuessCaseModeT,
+  inputString: string | null,
+  forceCaps: boolean,
+): string {
+  if (!nonEmpty(inputString)) {
     return '';
   }
 
-  let os = gc.mode.toLowerCase(is);
+  let outputString = guessCaseMode.toLowerCase(inputString);
 
   /*
    * See if the word before is a sentence stop character.
    * -- http://bugs.musicbrainz.org/ticket/40
    */
-  const opos = gc.o.getLength();
+  const opos = output.getLength();
   let wordBefore = '';
   if (opos > 1) {
-    wordBefore = gc.o.getWordAtIndex(opos - 2);
+    wordBefore = output.getWordAtIndex(opos - 2);
   }
 
   /*
@@ -291,23 +335,23 @@ export function titleStringByMode(gc, is, forceCaps) {
    * opening bracket, keep the work lowercased.
    */
   const doCaps = (
-    forceCaps || !gc.mode.isSentenceCaps() ||
+    forceCaps || !guessCaseMode.isSentenceCaps() ||
       flags.context.slurpExtraTitleInformation ||
       flags.context.openingBracket ||
-      gc.i.isFirstWord() || isSentenceStopChar(wordBefore)
+      input.isFirstWord() || isSentenceStopChar(wordBefore)
   );
 
   if (doCaps) {
-    const chars = os.split('');
-    chars[0] = gc.mode.toUpperCase(chars[0]);
+    const chars = outputString.split('');
+    chars[0] = guessCaseMode.toUpperCase(chars[0]);
 
-    if (is.length > 2 && is.substring(0, 2) === 'mc') {
+    if (inputString.length > 2 && inputString.substring(0, 2) === 'mc') {
       // Make it McTitled
-      chars[2] = gc.mode.toUpperCase(chars[2]);
+      chars[2] = guessCaseMode.toUpperCase(chars[2]);
     }
 
-    os = chars.join('');
+    outputString = chars.join('');
   }
 
-  return os;
+  return outputString;
 }

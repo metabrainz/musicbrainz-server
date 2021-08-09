@@ -8,6 +8,7 @@
 
 import MB from '../../../../common/MB';
 import * as flags from '../../../flags';
+import * as modes from '../../../modes';
 import * as utils from '../../../utils';
 
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
@@ -33,7 +34,7 @@ MB.GuessCase.Handler.Area = function (gc) {
     (
       self.doIgnoreWords() ||
       self.doFeaturingArtistStyle() ||
-      gc.mode.doWord() ||
+      modes[gc.modeName].doWord() ||
       self.doNormalWord()
     );
     flags.context.number = false;
