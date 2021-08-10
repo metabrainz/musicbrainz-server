@@ -7,6 +7,7 @@ extends 'MusicBrainz::Server::Entity';
 
 with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'CoverArtType',
+    sort_criterion => 'id',
 };
 
 sub entity_type { 'cover_art_type' }
