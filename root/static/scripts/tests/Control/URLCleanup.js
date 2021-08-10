@@ -1408,7 +1408,7 @@ const testData = [
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/1227621485',
-       only_valid_entity_types: ['release'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'release'],
   },
   {
                      input_url: 'https://d-nb.info/gnd/2026867-1',
@@ -1436,7 +1436,7 @@ const testData = [
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/1181136512',
-       only_valid_entity_types: ['release'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'release'],
   },
   // Dogmazic
   {
