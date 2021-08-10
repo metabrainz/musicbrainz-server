@@ -32,12 +32,14 @@ tablesorter.addWidget({
     $('tbody tr', table).each(function (index) {
       if ((index + 1) % 2 === 0) {
         $(this).addClass('even');
+        $(this).removeClass('odd');
       } else {
+        $(this).addClass('odd');
         $(this).removeClass('even');
       }
     });
   },
-  id: 'evenRowClasses',
+  id: 'loopParity',
 });
 
 tablesorter.addParser({
@@ -61,7 +63,7 @@ $('#countries-table').tablesorter({
   },
   // order by descending number of entities, then name
   sortList: [[5, 1], [1, 0]],
-  widgets: ['indexFirstColumn', 'evenRowClasses'],
+  widgets: ['indexFirstColumn', 'loopParity'],
 });
 
 $('#languages-table').tablesorter({
@@ -73,12 +75,12 @@ $('#languages-table').tablesorter({
   },
   // order by descending number of entities, then name
   sortList: [[4, 1], [1, 0]],
-  widgets: ['indexFirstColumn', 'evenRowClasses'],
+  widgets: ['indexFirstColumn', 'loopParity'],
 });
 
 $('#scripts-table').tablesorter({
   headers: {[0]: {sorter: false}, [2]: {sorter: 'fancyNumber'}},
   // order by descending number of entities, then name
   sortList: [[2, 1], [1, 0]],
-  widgets: ['indexFirstColumn', 'evenRowClasses'],
+  widgets: ['indexFirstColumn', 'loopParity'],
 });
