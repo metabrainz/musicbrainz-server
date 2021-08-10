@@ -758,7 +758,14 @@ export class ExternalLink extends React.Component<LinkProps> {
                 value={props.rawUrl}
               />
             ) : (
-              <a className="url" href={props.url}>{props.url}</a>
+              <a
+                className="url"
+                href={props.url}
+                rel="noreferrer"
+                target="_blank"
+              >
+                {props.url}
+              </a>
             )}
             {props.notice &&
               <div
