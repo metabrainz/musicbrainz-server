@@ -620,6 +620,10 @@ table.artist-credit-editor {
     td {
         vertical-align: top;
         padding-top: @form-margin / 2;
+
+        &:first-child {
+            min-width: 75px;
+        }
     }
 
     td.link-actions {
@@ -637,6 +641,7 @@ table.artist-credit-editor {
 
             label {
                 text-align: center;
+                width: -moz-fit-content !important;
                 width: fit-content !important;
                 min-width: 16px;
             }

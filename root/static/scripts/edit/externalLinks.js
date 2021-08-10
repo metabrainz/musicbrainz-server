@@ -731,13 +731,7 @@ export class ExternalLink extends React.Component<LinkProps> {
               className={'favicon ' + faviconClass + '-favicon'}
             />}
             <label>
-              {props.isOnlyLink
-                ? addColonText(l('Add link'))
-                : (
-                  props.isLastLink
-                    ? addColonText(l('Add another link'))
-                    : props.index + 1
-                )}
+              {props.index + 1}
             </label>
           </td>
           <td>
@@ -752,6 +746,13 @@ export class ExternalLink extends React.Component<LinkProps> {
                   props.handleUrlChange(event.currentTarget.value);
                 }}
                 onKeyDown={(event) => this.handleKeyDown(event)}
+                placeholder={props.isOnlyLink
+                  ? l('Add link')
+                  : (
+                    props.isLastLink
+                      ? l('Add another link')
+                      : ''
+                  )}
                 type="url"
                 // Don't interrupt user input with clean URL
                 value={props.rawUrl}
