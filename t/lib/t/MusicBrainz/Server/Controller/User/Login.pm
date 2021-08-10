@@ -76,7 +76,7 @@ test 'http login with redirects to ssl' => sub {
     is($mech->uri->scheme, 'https', 'We started insecure, but we have stayed on https');
 };
 
-test 'Can login with usernames that contain the "/" character"' => sub {
+test 'Can login with usernames that contain the "/" character' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $enable_ssl = enable_ssl();
@@ -118,7 +118,7 @@ test 'Deleted editors cannot login (even if they have a password)' => sub {
 };
 
 sub enable_ssl {
-    my $dbdefs = ref(*DBDefs::SSL_REDIRECTS_ENABLED) ? "DBDefs" : "DBDefs::Default";
+    my $dbdefs = ref(*DBDefs::SSL_REDIRECTS_ENABLED) ? 'DBDefs' : 'DBDefs::Default';
     my $wrapper = wrap "${dbdefs}::SSL_REDIRECTS_ENABLED",
         pre => sub { $_[-1] = 1 };
 

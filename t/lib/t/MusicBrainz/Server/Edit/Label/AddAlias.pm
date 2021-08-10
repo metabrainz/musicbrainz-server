@@ -30,7 +30,7 @@ is(@$edits, 1);
 is($edits->[0]->id, $edit->id);
 
 my $label = $c->model('Label')->get_by_id(1);
-is($label->edits_pending, 0, "Adding aliases is an autoedit");
+is($label->edits_pending, 0, 'Adding aliases is an autoedit');
 
 $c->model('Edit')->load_all($edit);
 is($edit->display_data->{label}{id}, 1);

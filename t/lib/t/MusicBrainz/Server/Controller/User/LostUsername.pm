@@ -16,7 +16,7 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 $mech->get_ok('/lost-username');
 html_ok($mech->content);
 $mech->submit_form( with_fields => { 'lostusername.email' => 'test@email.com' } );
-$mech->content_contains("We&#x27;ve sent you information about your MusicBrainz account.");
+$mech->content_contains('We&#x27;ve sent you information about your MusicBrainz account.');
 
 
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;

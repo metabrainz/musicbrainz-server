@@ -20,7 +20,7 @@ $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 my @edits = capture_edits {
-    $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/edit");
+    $mech->get_ok('/work/745c079d-374e-4436-9448-da92dedef3ce/edit');
     html_ok($mech->content);
     my $request = POST $mech->uri, [
         'edit-work.comment' => 'A comment!',
@@ -42,7 +42,7 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Work::Edit');
 cmp_deeply($edit->data, {
     entity => {
         id => 1,
-        gid => re("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"),
+        gid => re('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'),
         name => 'Dancing Queen'
     },
     new => {
@@ -109,7 +109,7 @@ test 'Editing works with attributes' => sub {
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
     my @edits = capture_edits {
-        $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/edit");
+        $mech->get_ok('/work/745c079d-374e-4436-9448-da92dedef3ce/edit');
         html_ok($mech->content);
         my $request = POST $mech->uri, [
             'edit-work.name' => 'Work name',
@@ -126,7 +126,7 @@ test 'Editing works with attributes' => sub {
         $edits[0]->data->{new}{attributes},
         [
             {
-                attribute_text => "Free text",
+                attribute_text => 'Free text',
                 attribute_type_id => 6,
                 attribute_value_id => undef
             },
@@ -155,7 +155,7 @@ test 'MBS-8636: Adding a relationship to a series which contains duplicate items
     $mech->submit_form(with_fields => { username => 'editor', password => 'pass' });
 
     my @edits = capture_edits {
-        $mech->post("/work/02bfb89e-8877-47c0-a19d-b574bae78198/edit", {
+        $mech->post('/work/02bfb89e-8877-47c0-a19d-b574bae78198/edit', {
             'edit-work.comment' => '',
             'edit-work.edit_note' => '',
             'edit-work.iswcs.0' => '',
@@ -229,7 +229,7 @@ test 'Editing works with multiple languages' => sub {
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
     my @edits = capture_edits {
-        $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/edit");
+        $mech->get_ok('/work/745c079d-374e-4436-9448-da92dedef3ce/edit');
         my $request = POST $mech->uri, [
             'edit-work.name' => 'Dancing Queen',
             'edit-work.languages.0' => '120',
@@ -249,7 +249,7 @@ test 'Editing works with multiple languages' => sub {
     like($languages, qr/Japanese/, '..has Japanese');
 
     @edits = capture_edits {
-        $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/edit");
+        $mech->get_ok('/work/745c079d-374e-4436-9448-da92dedef3ce/edit');
         my $request = POST $mech->uri, [
             'edit-work.name' => 'Dancing Queen',
             'edit-work.languages.0' => '145',

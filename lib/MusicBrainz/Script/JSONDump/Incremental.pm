@@ -144,7 +144,7 @@ sub run_impl {
     my $full_replication_sequence = $c->sql->select_single_value(
         'SELECT full_json_dump_replication_sequence FROM json_dump.control');
 
-    die 'The incremental script can\'t run until a full dump has run at least once.'
+    die q(The incremental script can't run until a full dump has run at least once.)
         unless defined $full_replication_sequence;
 
     $self->packet_limit(1);

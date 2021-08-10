@@ -13,7 +13,7 @@ my $c    = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
 
-$mech->get_ok("/artist/745c079d-374e-4436-9448-da92dedef3ce", 'fetch artist index page');
+$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce', 'fetch artist index page');
 html_ok($mech->content);
 $mech->title_like(qr/Test Artist/, 'title has artist name');
 $mech->content_like(qr/Test Artist/, 'content has artist name');

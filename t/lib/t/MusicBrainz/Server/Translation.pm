@@ -13,13 +13,13 @@ test 'Check _expand_link' => sub {
                                                   apple_fruit => 'http://www.apple.com'),
         'An <a href="http://www.apple.com">Apple</a>', 'Replacement with links');
     is(MusicBrainz::Server::Translation->instance->expand('A {apple_fruit|apple}',
-                                                  apple_fruit => 'http://www.apple.com', apple => "pear"),
+                                                  apple_fruit => 'http://www.apple.com', apple => 'pear'),
         'A <a href="http://www.apple.com">pear</a>', 'Replacement with link description evaluation');
     is(MusicBrainz::Server::Translation->instance->expand('A {apple_fruit|apple}',
-                                                  apple_fruit => {href => 'http://www.apple.com', target => '_blank'}, apple => "pear"),
+                                                  apple_fruit => {href => 'http://www.apple.com', target => '_blank'}, apple => 'pear'),
         'A <a href="http://www.apple.com" target="_blank">pear</a>', 'Replacement with link description evaluation and hash argument');
     is(MusicBrainz::Server::Translation->instance->expand('A {apple_fruit|{condition} apple …}',
-                                                  apple_fruit => {href => 'http://www.apple.com', target => '_blank'}, condition => "bad"),
+                                                  apple_fruit => {href => 'http://www.apple.com', target => '_blank'}, condition => 'bad'),
         'A <a href="http://www.apple.com" target="_blank">bad apple …</a>', 'Replacement with link description evaluation and nested hash argument');
 };
 

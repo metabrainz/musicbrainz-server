@@ -27,7 +27,7 @@ use MusicBrainz::Server::Constants qw(
 );
 
 use MusicBrainz::Server::EditRegistry;
-MusicBrainz::Server::EditRegistry->register_type("t::Edit::MockEdit");
+MusicBrainz::Server::EditRegistry->register_type('t::Edit::MockEdit');
 
 with 't::Context';
 
@@ -91,7 +91,7 @@ test 'Test locks on edits' => sub {
 
 sub is_expected_edit_ids {
     my ($expected_edit_ids, $edits) = @_;
-    pairwise { is($a->id, $b, "Found edit #".$a->id) } @$edits, @$expected_edit_ids;
+    pairwise { is($a->id, $b, 'Found edit #'.$a->id) } @$edits, @$expected_edit_ids;
 }
 
 test all => sub {
@@ -123,41 +123,41 @@ test all => sub {
     # is given in the 2nd parameter to find()
     test_number_of_results_returned({}, 5, 2, 'Max results vs. hits');
 
-    test_find_edits({}, [5, 4, 3, 2, 1], "Every edit");
-    test_find_edits({ status => $STATUS_OPEN }, [5, 3, 2, 1], "Open edits", $edit_data);
-    test_find_edits({ editor => 1 }, [3, 1], "Edits by editor", $edit_data);
+    test_find_edits({}, [5, 4, 3, 2, 1], 'Every edit');
+    test_find_edits({ status => $STATUS_OPEN }, [5, 3, 2, 1], 'Open edits', $edit_data);
+    test_find_edits({ editor => 1 }, [3, 1], 'Edits by editor', $edit_data);
     test_number_of_results_returned({ editor => 122 }, 0, 0, 'No results');
-    test_find_edits({ editor => 1, status => $STATUS_OPEN }, [3, 1], "Open edits by editor", $edit_data);
-    test_find_edits({ artist => 1 }, [4,1], "Edits by an artist", $edit_data);
-    test_find_edits({ status => $STATUS_APPLIED, artist => 1 }, [4], "Applied edits by an artist", $edit_data);
-    test_find_edits({ status => $STATUS_APPLIED, artist => [1,2] }, [4], "Applied edits by either of two artists", $edit_data);
+    test_find_edits({ editor => 1, status => $STATUS_OPEN }, [3, 1], 'Open edits by editor', $edit_data);
+    test_find_edits({ artist => 1 }, [4,1], 'Edits by an artist', $edit_data);
+    test_find_edits({ status => $STATUS_APPLIED, artist => 1 }, [4], 'Applied edits by an artist', $edit_data);
+    test_find_edits({ status => $STATUS_APPLIED, artist => [1,2] }, [4], 'Applied edits by either of two artists', $edit_data);
 
     subtest 'Accepting an edit' => sub {
         my $edit = $edit_data->get_by_id(1);
 
         my $edit_counts = $editor_model->various_edit_counts($edit->editor_id);
-        is($edit_counts->{accepted_count}, 0, "Edit not yet accepted");
+        is($edit_counts->{accepted_count}, 0, 'Edit not yet accepted');
 
         $sql->begin;
         $edit_data->accept($edit);
         $sql->commit;
 
         $edit_counts = $editor_model->various_edit_counts($edit->editor_id);
-        is($edit_counts->{accepted_count}, 1, "Edit accepted");
+        is($edit_counts->{accepted_count}, 1, 'Edit accepted');
     };
 
     subtest 'Rejecting an edit' => sub {
         my $edit = $edit_data->get_by_id(3);
 
         my $edit_counts = $editor_model->various_edit_counts($edit->editor_id);
-        is($edit_counts->{rejected_count}, 0, "Edit not yet rejected");
+        is($edit_counts->{rejected_count}, 0, 'Edit not yet rejected');
 
         $sql->begin;
         $edit_data->reject($edit, $STATUS_FAILEDVOTE);
         $sql->commit;
 
         $edit_counts = $editor_model->various_edit_counts($edit->editor_id);
-        is($edit_counts->{rejected_count}, 1, "Edit rejected");
+        is($edit_counts->{rejected_count}, 1, 'Edit rejected');
     };
 
     subtest 'Approving an edit' => sub {
@@ -167,11 +167,11 @@ test all => sub {
         $edit_data->approve($edit, $editor);
 
         $edit = $edit_data->get_by_id(5);
-        is($edit->status, $STATUS_APPLIED, "Edit now applied");
+        is($edit->status, $STATUS_APPLIED, 'Edit now applied');
 
         $test->c->model('Vote')->load_for_edits($edit);
-        is($edit->votes->[0]->vote, $VOTE_APPROVE, "First vote is approval");
-        is($edit->votes->[0]->editor_id, 1, "First vote by editor-1");
+        is($edit->votes->[0]->vote, $VOTE_APPROVE, 'First vote is approval');
+        is($edit->votes->[0]->editor_id, 1, 'First vote by editor-1');
     };
 
     subtest 'Canceling an edit'=> sub {
@@ -186,7 +186,7 @@ test all => sub {
 
         $edit_data->cancel($edit);
         $edit = $edit_data->get_by_id(2);
-        is($edit->status, $STATUS_DELETED, "Edit now canceled");
+        is($edit->status, $STATUS_DELETED, 'Edit now canceled');
 
         $edit_counts = $editor_model->various_edit_counts($edit->editor_id);
         my $cancelled_accepted_edits = $edit_counts->{accepted_count};
@@ -228,15 +228,15 @@ test 'Find edits by subscription' => sub {
             is_expected_edit_ids($expected_edit_ids, \@edits);
         };
     };
-    test_find_subscription_edits(ArtistSubscription->new(artist_id => 1, last_edit_sent => 0), [1, 4], "Artist subscription");
-    test_find_subscription_edits(ArtistSubscription->new(artist_id => 1, last_edit_sent => 1), [4], "Artist subscription with offset");
-    test_find_subscription_edits(EditorSubscription->new(subscribed_editor_id => 2, last_edit_sent => 0), [2, 4], "Editor subscription");
-    test_find_subscription_edits(LabelSubscription->new(label_id => 1, last_edit_sent => 0), [2], "Label subscription");
+    test_find_subscription_edits(ArtistSubscription->new(artist_id => 1, last_edit_sent => 0), [1, 4], 'Artist subscription');
+    test_find_subscription_edits(ArtistSubscription->new(artist_id => 1, last_edit_sent => 1), [4], 'Artist subscription with offset');
+    test_find_subscription_edits(EditorSubscription->new(subscribed_editor_id => 2, last_edit_sent => 0), [2, 4], 'Editor subscription');
+    test_find_subscription_edits(LabelSubscription->new(label_id => 1, last_edit_sent => 0), [2], 'Label subscription');
 
     $sql->do('UPDATE edit SET status = ? WHERE id = ?', $STATUS_ERROR, 1);
     my $edit = $edit_data->get_by_id(1);
     is($edit->status, $STATUS_ERROR, 'Edit now in error');
-    test_find_subscription_edits(ArtistSubscription->new(artist_id => 1, last_edit_sent => 0), [4], "Artist subscription after an edit marked as error");
+    test_find_subscription_edits(ArtistSubscription->new(artist_id => 1, last_edit_sent => 0), [4], 'Artist subscription after an edit marked as error');
 };
 
 test 'Accepting auto-edits should credit editor auto-edits column' => sub {
@@ -259,8 +259,8 @@ test 'Accepting auto-edits should credit editor auto-edits column' => sub {
     my $new_ae_count = $edit_counts->{accepted_auto_count};
     my $new_e_count = $edit_counts->{accepted_count};
 
-    is $new_ae_count, $old_ae_count + 1, "One more accepted auto-edit";
-    is $new_e_count, $old_e_count, "Same number of accepted edits";
+    is $new_ae_count, $old_ae_count + 1, 'One more accepted auto-edit';
+    is $new_e_count, $old_e_count, 'Same number of accepted edits';
 };
 
 test 'default_includes function' => sub {

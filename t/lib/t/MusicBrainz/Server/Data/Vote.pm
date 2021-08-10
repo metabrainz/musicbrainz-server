@@ -21,7 +21,7 @@ with 't::Context';
 }
 
 use MusicBrainz::Server::EditRegistry;
-MusicBrainz::Server::EditRegistry->register_type("t::Vote::MockEdit", 1);
+MusicBrainz::Server::EditRegistry->register_type('t::Vote::MockEdit', 1);
 
 test 'Email on first no vote' => sub {
     my $test = shift;
@@ -69,23 +69,25 @@ test 'Extend expiration on first no vote' => sub {
         foo => 'bar',
     );
 
-    $c->sql->do("UPDATE edit SET expire_time = NOW() + interval '20 hours'
-        WHERE id = ?", $edit->id);
+    $c->sql->do(
+        q(UPDATE edit SET expire_time = NOW() + interval '20 hours' WHERE id = ?),
+        $edit->id
+    );
 
     my $expected_expire_time = DateTime::Format::Pg->parse_datetime(
-        $c->sql->select_single_value("SELECT NOW() + interval '72 hours';"));
+        $c->sql->select_single_value(q(SELECT NOW() + interval '72 hours';)));
     my $expire_time = DateTime::Format::Pg->parse_datetime(
-        $c->sql->select_single_value("SELECT expire_time FROM edit WHERE id = ?", $edit->id));
+        $c->sql->select_single_value('SELECT expire_time FROM edit WHERE id = ?', $edit->id));
     is(DateTime->compare($expire_time, $expected_expire_time), -1,
-                         'edit\'s expiration time is less than 72 hours');
+                         q(edit's expiration time is less than 72 hours));
 
     my $editor2 = $c->model('Editor')->get_by_id(2);
 
     $c->model('Vote')->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_NO });
 
     $expire_time = DateTime::Format::Pg->parse_datetime(
-        $c->sql->select_single_value("SELECT expire_time FROM edit WHERE id = ?", $edit->id));
-    is($expire_time, $expected_expire_time, 'edit\'s expiration was extended by the no vote');
+        $c->sql->select_single_value('SELECT expire_time FROM edit WHERE id = ?', $edit->id));
+    is($expire_time, $expected_expire_time, q(edit's expiration was extended by the no vote));
 };
 
 test all => sub {

@@ -22,35 +22,35 @@ test all => sub {
     my $label_data = MusicBrainz::Server::Data::Label->new(c => $test->c);
 
     my $label = $label_data->get_by_id(3);
-    is( $label->id, 3, "id");
-    is( $label->gid, "46f0f4cd-8aab-4b33-b698-f459faf64190", "gid" );
-    is( $label->name, "Warp Records", "label name" );
-    is( $label->begin_date->year, 1989, "begin date, year");
-    is( $label->begin_date->month, 2, "begin date, month" );
-    is( $label->begin_date->day, 3, "begin date, day" );
-    is( $label->end_date->year, 2008, "end date, year" );
-    is( $label->end_date->month, 5, "end date, month" );
-    is( $label->end_date->day, 19, "end date, day" );
-    is( $label->edits_pending, 0, "no edits pending" );
-    is( $label->type_id, 3, "type id" );
-    is( $label->label_code, 2070, "label code" );
-    is( $label->format_label_code, 'LC 02070', "formatted label code" );
-    is( $label->comment, 'Sheffield based electronica label', "comment" );
+    is( $label->id, 3, 'id');
+    is( $label->gid, '46f0f4cd-8aab-4b33-b698-f459faf64190', 'gid' );
+    is( $label->name, 'Warp Records', 'label name' );
+    is( $label->begin_date->year, 1989, 'begin date, year');
+    is( $label->begin_date->month, 2, 'begin date, month' );
+    is( $label->begin_date->day, 3, 'begin date, day' );
+    is( $label->end_date->year, 2008, 'end date, year' );
+    is( $label->end_date->month, 5, 'end date, month' );
+    is( $label->end_date->day, 19, 'end date, day' );
+    is( $label->edits_pending, 0, 'no edits pending' );
+    is( $label->type_id, 3, 'type id' );
+    is( $label->label_code, 2070, 'label code' );
+    is( $label->format_label_code, 'LC 02070', 'formatted label code' );
+    is( $label->comment, 'Sheffield based electronica label', 'comment' );
 
     my $annotation = $label_data->annotation->get_latest(3);
-    is( $annotation->text, "Label Annotation", "annotation" );
+    is( $annotation->text, 'Label Annotation', 'annotation' );
 
 
     $label = $label_data->get_by_gid('efdf3fe9-c293-4acd-b4b2-8d2a7d4f9592');
-    is( $label->id, 3, "get label by gid" );
+    is( $label->id, 3, 'get label by gid' );
 
 
     my $search = MusicBrainz::Server::Data::Search->new(c => $test->c);
-    my ($results, $hits) = $search->search("label", "Warp", 10);
-    is( $hits, 1, "Searching for Warp, 1 hit" );
-    is( scalar(@$results), 1, "Searching for Warp, 1 result" );
+    my ($results, $hits) = $search->search('label', 'Warp', 10);
+    is( $hits, 1, 'Searching for Warp, 1 hit' );
+    is( scalar(@$results), 1, 'Searching for Warp, 1 result' );
     is( $results->[0]->position, 1 );
-    is( $results->[0]->entity->name, "Warp Records", "Found Warp Records");
+    is( $results->[0]->entity->name, 'Warp Records', 'Found Warp Records');
 
     $test->c->sql->begin;
 
@@ -68,7 +68,7 @@ test all => sub {
     # ---
     # Missing entities search
     my $found = $label_data->search_by_names();
-    is(scalar keys %$found, 0, "Nothing found when searching for nothing");
+    is(scalar keys %$found, 0, 'Nothing found when searching for nothing');
 
     $found = $label_data->search_by_names('Warp Records');
     isa_ok($found->{'Warp Records'}->[0], 'MusicBrainz::Server::Entity::Label');
@@ -79,12 +79,12 @@ test all => sub {
     ok(!defined $found->{'Not there'}, 'Non existent label was not found');
 
     $label = $label_data->get_by_id($label->{id});
-    is($label->name, 'RAM Records', "name");
-    is($label->type_id, 1, "type id");
-    is($label->area_id, 221, "area id");
-    ok(!$label->end_date->is_empty, "end date is not empty");
-    is($label->end_date->year, 2000, "end date, year");
-    is($label->end_date->month, 5, "end date, month");
+    is($label->name, 'RAM Records', 'name');
+    is($label->type_id, 1, 'type id');
+    is($label->area_id, 221, 'area id');
+    ok(!$label->end_date->is_empty, 'end date is not empty');
+    is($label->end_date->year, 2000, 'end date, year');
+    is($label->end_date->month, 5, 'end date, month');
 
     $label_data->update($label->id, {
         begin_date => { year => 1990 },
@@ -94,24 +94,24 @@ test all => sub {
     });
 
     $label = $label_data->get_by_id($label->id);
-    is($label->name, 'RAM Records', "name hasn't changed");
-    is($label->comment, 'Drum & bass label', "comment updated");
-    ok(!$label->begin_date->is_empty, "begin date is not empty");
-    ok(!$label->end_date->is_empty, "end date is not empty");
-    is($label->begin_date->year, 1990, "begin date, year");
-    is($label->end_date->year, 2000, "end date, year");
-    is($label->end_date->month, 5, "end date, month");
+    is($label->name, 'RAM Records', q(name hasn't changed));
+    is($label->comment, 'Drum & bass label', 'comment updated');
+    ok(!$label->begin_date->is_empty, 'begin date is not empty');
+    ok(!$label->end_date->is_empty, 'end date is not empty');
+    is($label->begin_date->year, 1990, 'begin date, year');
+    is($label->end_date->year, 2000, 'end date, year');
+    is($label->end_date->month, 5, 'end date, month');
 
     $label_data->delete($label->id);
     $label = $label_data->get_by_id($label->id);
-    ok(!defined $label, "label deleted");
+    ok(!defined $label, 'label deleted');
 
     $label_data->merge(3, 2);
     $label = $label_data->get_by_id(2);
-    ok(!defined $label, "label merged");
+    ok(!defined $label, 'label merged');
 
     $label = $label_data->get_by_id(3);
-    ok(defined $label, "label merged");
+    ok(defined $label, 'label merged');
 
     $test->c->sql->commit;
 

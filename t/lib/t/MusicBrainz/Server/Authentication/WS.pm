@@ -37,14 +37,14 @@ test 'Authenticate WS bearer' => sub {
     is(401, $test->mech->status);
 
     # Drop the profile scope
-    $test->c->sql->do("UPDATE editor_oauth_token SET scope = 0 WHERE access_token = 'Nlaa7v15QHm9g8rUOmT3dQ'");
+    $test->c->sql->do(q(UPDATE editor_oauth_token SET scope = 0 WHERE access_token = 'Nlaa7v15QHm9g8rUOmT3dQ'));
     $test->mech->get("$path?access_token=Nlaa7v15QHm9g8rUOmT3dQ");
     is(401, $test->mech->status);
     $test->mech->get($path, Authorization => 'Bearer Nlaa7v15QHm9g8rUOmT3dQ');
     is(401, $test->mech->status);
 
     # Expire the token
-    $test->c->sql->do("UPDATE editor_oauth_token SET expire_time = now() - interval '1 hour' WHERE access_token = 'Nlaa7v15QHm9g8rUOmT3dQ'");
+    $test->c->sql->do(q(UPDATE editor_oauth_token SET expire_time = now() - interval '1 hour' WHERE access_token = 'Nlaa7v15QHm9g8rUOmT3dQ'));
     $test->mech->get("$path?access_token=Nlaa7v15QHm9g8rUOmT3dQ");
     is(401, $test->mech->status);
     $test->mech->get($path, Authorization => 'Bearer Nlaa7v15QHm9g8rUOmT3dQ');

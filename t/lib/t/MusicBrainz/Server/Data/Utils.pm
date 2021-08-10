@@ -50,32 +50,32 @@ is( $result[0]->id, 2, 'got result with id 2 as the first (with offset)' );
 my $order_by;
 
 $order_by = order_by(
-    undef, "1", { "1" => "a, b", "2" => "c, b" });
-is( $order_by, "a, b" );
+    undef, '1', { '1' => 'a, b', '2' => 'c, b' });
+is( $order_by, 'a, b' );
 
 $order_by = order_by(
-    "1", "1", { "1" => "a, b", "2" => "c, b" });
-is( $order_by, "a, b" );
+    '1', '1', { '1' => 'a, b', '2' => 'c, b' });
+is( $order_by, 'a, b' );
 
 $order_by = order_by(
-    "3", "1", { "1" => "a, b", "2" => "c, b" });
-is( $order_by, "a, b" );
+    '3', '1', { '1' => 'a, b', '2' => 'c, b' });
+is( $order_by, 'a, b' );
 
 $order_by = order_by(
-    "2", "1", { "1" => "a, b", "2" => "c, b" });
-is( $order_by, "c, b" );
+    '2', '1', { '1' => 'a, b', '2' => 'c, b' });
+is( $order_by, 'c, b' );
 
 $order_by = order_by(
-    "-1", "1", { "1" => "a, b", "2" => "c, b" });
-is( $order_by, "a DESC, b DESC" );
+    '-1', '1', { '1' => 'a, b', '2' => 'c, b' });
+is( $order_by, 'a DESC, b DESC' );
 
 $order_by = order_by(
-    "-2", "1", { "1" => "a, b", "2" => "c, b" });
-is( $order_by, "c DESC, b DESC" );
+    '-2', '1', { '1' => 'a, b', '2' => 'c, b' });
+is( $order_by, 'c DESC, b DESC' );
 
 $order_by = order_by(
-    "-3", "1", { "1" => "a, b", "2" => "c, b" });
-is( $order_by, "a, b" );
+    '-3', '1', { '1' => 'a, b', '2' => 'c, b' });
+is( $order_by, 'a, b' );
 
 my $gid = generate_gid();
 is($gid, lc($gid), 'GID is returned as lower-case');
@@ -177,21 +177,21 @@ test 'Test trim and sanitize' => sub {
            'removes LRM/RLM from between strong characters of different directionality');
 
     $run->("A  \x{FDD0}B",
-           "A B",
+           'A B',
            'collapses spaces before a non-printable character');
 
     $run->("A \x{FDD0} B",
-           "A B",
+           'A B',
            'collapses spaces surrounding a non-printable character');
 
     $run->("A\x{FDD0}  B",
-           "A B",
+           'A B',
            'collapses spaces after a non-printable character');
 
     $run->("\x{FEFF} A \x{FEFF} B \x{FEFF}",
-           "A B",
+           'A B',
            'strips BOM, removes leading/trailing whitespace',
-           " A B ",
+           ' A B ',
            'strips BOM, keeps leading/trailing whitespace');
 };
 

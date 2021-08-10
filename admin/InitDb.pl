@@ -148,8 +148,8 @@ sub CreateReplicationFunction
 
     $sql->auto_commit;
     $sql->do(
-        "CREATE FUNCTION \"recordchange\" () RETURNS trigger
-        AS ?, 'recordchange' LANGUAGE C",
+        q(CREATE FUNCTION "recordchange" () RETURNS trigger
+        AS ?, 'recordchange' LANGUAGE C),
         $path_to_pending_so,
     );
 }
@@ -260,7 +260,7 @@ sub CreateRelations
     my $opts = $DB->shell_args;
     $ENV{"PGPASSWORD"} = $DB->password;
 
-    system(sprintf("echo \"CREATE SCHEMA %s\" | $psql $opts", $_))
+    system(sprintf(qq(echo "CREATE SCHEMA %s" | $psql $opts), $_))
         for (qw(
             musicbrainz
             cover_art_archive
@@ -384,7 +384,7 @@ sub CreateRelations
     print localtime() . " : Optimizing database ...\n" unless $fQuiet;
     $opts = $DB->shell_args;
     $ENV{"PGPASSWORD"} = $DB->password;
-    system("echo \"vacuum analyze\" | $psql $opts");
+    system(qq(echo "vacuum analyze" | $psql $opts));
     die "\nFailed to optimize database\n" if ($? >> 8);
 
     print localtime() . " : Initialized and imported data into the database.\n" unless $fQuiet;

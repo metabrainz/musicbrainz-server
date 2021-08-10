@@ -22,7 +22,7 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 
 $mech->content_contains('/account/resend-verification');
 
-$mech->follow_link_ok({ url_regex => qr%/account/resend-verification% }, "User page contains a reverification link");
+$mech->follow_link_ok({ url_regex => qr%/account/resend-verification% }, 'User page contains a reverification link');
 
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 my $reverify_email = $email_transport->shift_deliveries->{email};
@@ -34,13 +34,13 @@ like($email_body, qr{http://localhost/verify-email.*}, 'email contains verify-em
 $email_body =~ qr{http://localhost(/verify-email.*)};
 my $reverify_email_path = $1;
 $mech->get_ok($reverify_email_path);
-$mech->content_contains("Thank you, your email address has now been verified!");
+$mech->content_contains('Thank you, your email address has now been verified!');
 
 $mech->get_ok('/user/new_editor');
 $mech->content_like(qr{\(verified at (.*)\)});
 
 my $editor = $c->model('Editor')->get_by_name('new_editor');
-ok($editor->email_confirmation_date->year > 2003, "Reverification date is newer than original verification date")
+ok($editor->email_confirmation_date->year > 2003, 'Reverification date is newer than original verification date')
 
 };
 

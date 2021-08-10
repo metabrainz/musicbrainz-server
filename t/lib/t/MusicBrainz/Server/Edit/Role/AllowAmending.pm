@@ -35,8 +35,8 @@ test 'Allow amending entity within one day' => sub {
     };
 
     subtest 'Non-auto-edit amending entity without create edit in entity editing history' => sub {
-        $test->c->sql->do("DELETE FROM edit_release WHERE edit = 1;");
-        $test->c->sql->do("DELETE FROM edit WHERE id = 1;");
+        $test->c->sql->do('DELETE FROM edit_release WHERE edit = 1;');
+        $test->c->sql->do('DELETE FROM edit WHERE id = 1;');
         $edit = create_edit($c, $medium, 1411455, 30171);
         is($edit->can_amend(1), '', 'amending disallowed');
     };

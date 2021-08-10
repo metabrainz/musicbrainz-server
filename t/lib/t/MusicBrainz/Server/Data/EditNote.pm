@@ -68,7 +68,7 @@ MusicBrainz::Server::Test->prepare_test_database($test->c, '+edit_note');
 MusicBrainz::Server::Test->prepare_raw_test_database($test->c, $raw_sql);
 
 use MusicBrainz::Server::EditRegistry;
-MusicBrainz::Server::EditRegistry->register_type("MockEdit");
+MusicBrainz::Server::EditRegistry->register_type('MockEdit');
 
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 my $en_data = MusicBrainz::Server::Data::EditNote->new(c => $test->c);
@@ -125,13 +125,13 @@ lives_ok {
     $en_data->insert($edit->id, {
             editor_id => 3,
             text => 'Note' })
-} "Edit notes don't die while in a transaction already";
+} q(Edit notes don't die while in a transaction already);
 $test->c->sql->commit;
 
 # Test adding edit notes with email sending
 $test->c->model('Vote')->enter_votes($editor2, { edit_id => $edit->id, vote => 1 });
 
-$en_data->add_note($edit->id, { text => "This is my note!", editor_id => 3 });
+$en_data->add_note($edit->id, { text => 'This is my note!', editor_id => 3 });
 
 my $server = 'https://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
@@ -163,7 +163,7 @@ sub check_note {
     isa_ok($note, $class);
     is($note->$_, $attrs{$_}, "check_note: $_ is ".$attrs{$_})
         for keys %attrs;
-    ok(defined $note->post_time, "check_note: edit has post time");
+    ok(defined $note->post_time, 'check_note: edit has post time');
 }
 
 1;

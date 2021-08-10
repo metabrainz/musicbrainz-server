@@ -48,10 +48,10 @@ ok(defined $l2);
 is($l2->edits_pending, 0);
 
 my $ipi_codes = $c->model('Label')->ipi->find_by_entity_id($l2->id);
-is(scalar @$ipi_codes, 1, "Merged Label has all ipi codes after accepting edit");
+is(scalar @$ipi_codes, 1, 'Merged Label has all ipi codes after accepting edit');
 
 my $isni_codes = $c->model('Label')->isni->find_by_entity_id($l2->id);
-is(scalar @$isni_codes, 1, "Merged Label has all isni codes after accepting edit");
+is(scalar @$isni_codes, 1, 'Merged Label has all isni codes after accepting edit');
 
 };
 
@@ -94,9 +94,11 @@ test 'Duplicate release labels are merged' => sub {
     my $release;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
-    $c->sql->do("INSERT INTO release_label (release, label, catalog_number)
-                 SELECT 1, label, catalog_number FROM release_label
-                 WHERE release = 1");
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO release_label (release, label, catalog_number)
+            SELECT 1, label, catalog_number FROM release_label
+            WHERE release = 1
+        EOSQL
 
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_LABEL_MERGE,

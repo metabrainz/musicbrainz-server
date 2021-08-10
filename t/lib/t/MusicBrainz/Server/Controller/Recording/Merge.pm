@@ -21,7 +21,7 @@ test all => sub {
     my $mech = $test->mech;
     my $c    = $test->c;
 
-    $c->sql->do("DELETE FROM isrc WHERE recording = 1");
+    $c->sql->do('DELETE FROM isrc WHERE recording = 1');
 
     $mech->get_ok('/recording/merge_queue?add-to-merge=1');
     $mech->get_ok('/recording/merge_queue?add-to-merge=2');

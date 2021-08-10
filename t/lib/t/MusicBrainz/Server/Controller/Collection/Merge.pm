@@ -32,12 +32,12 @@ test 'Can merge collections' => sub {
     $mech->content_contains('Copy of the Better Festival', 'event was moved to destination collection');
 
     my $merged_added = $c->sql->select_single_value(
-        "SELECT added FROM editor_collection_event WHERE collection = 3 AND event = 4"
+        'SELECT added FROM editor_collection_event WHERE collection = 3 AND event = 4'
     );
     ok($merged_added eq '2014-11-05 03:00:13.359654+00', 'merged added value is oldest');
 
     my $merged_comment = $c->sql->select_single_value(
-        "SELECT comment FROM editor_collection_event WHERE collection = 3 AND event = 4"
+        'SELECT comment FROM editor_collection_event WHERE collection = 3 AND event = 4'
     );
     like($merged_comment, qr{testy1}, 'merged comment contains first comment');
     like($merged_comment, qr{testy2}, 'merged comment contains second comment');
@@ -83,7 +83,7 @@ test 'Can only merge own collections' => sub {
 
     # Someone else's collection, not allowed!
     $mech->get('/collection/merge_queue?add-to-merge=2');
-    is($mech->status, 403, 'forbidden to add other editor\'s collection');
+    is($mech->status, 403, q(forbidden to add other editor's collection));
 };
 
 1;

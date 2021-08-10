@@ -30,7 +30,7 @@ my $hard_mock_edit_class = $mock_edit_class + 1;
         return {
             entity_type => 'label',
             entity => MusicBrainz::Server::Entity::Label->new(
-                name => "Testy",
+                name => 'Testy',
                 id => 1,
             )->TO_JSON,
         }

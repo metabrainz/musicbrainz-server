@@ -607,7 +607,7 @@ sub DEMOLISH
     #return if $t < 0.1;
 
     local $" = ", ";
-    my $msg = sprintf "SQL: %8.4fs \"%s\" (%s)", $t,
+    my $msg = sprintf 'SQL: %8.4fs "%s" (%s)', $t,
         $sql, join(", ", @{ $self->args });
 
     printf STDERR "sql: %s at %s line %d\n", $msg, $self->file, $self->line_number;

@@ -96,7 +96,7 @@ has current_time => (
     default => '',
     traits => ['Getopt'],
     cmd_flag => 'current-time',
-    documentation => 'substitute for DateTime::now, for testing purposes (default: \'\')',
+    documentation => q(substitute for DateTime::now, for testing purposes (default: '')),
 );
 
 has index => (

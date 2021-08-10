@@ -122,7 +122,7 @@ test 'Test DatePeriod role' => sub {
                          'period.end_date.year' => 1991,
                          'period.end_date.month' => 12,
                          'period.end_date.day' => 20
-                     }), "Invalid begin date, valid end date");
+                     }), 'Invalid begin date, valid end date');
 
     ok(!$form->process({ 'period.begin_date.year' => 1991,
                          'period.begin_date.month' => 11,
@@ -130,7 +130,7 @@ test 'Test DatePeriod role' => sub {
                          'period.end_date.year' => 1991,
                          'period.end_date.month' => 11,
                          'period.end_date.day' => 31
-                     }), "Invalid end date, valid begin date");
+                     }), 'Invalid end date, valid begin date');
 
     ok(!$form->process({ 'period.begin_date.year' => 1991,
                          'period.begin_date.month' => 11,
@@ -138,7 +138,7 @@ test 'Test DatePeriod role' => sub {
                          'period.end_date.year' => 1991,
                          'period.end_date.month' => 11,
                          'period.end_date.day' => 31
-                     }), "Invalid begin and end dates (same date)");
+                     }), 'Invalid begin and end dates (same date)');
 
     ok(!$form->process({ 'period.begin_date.year' => 1991,
                          'period.begin_date.month' => 11,
@@ -146,7 +146,7 @@ test 'Test DatePeriod role' => sub {
                          'period.end_date.year' => 1992,
                          'period.end_date.month' => 02,
                          'period.end_date.day' => 31
-                     }), "Invalid begin and end dates (different dates)");
+                     }), 'Invalid begin and end dates (different dates)');
 };
 
 1;

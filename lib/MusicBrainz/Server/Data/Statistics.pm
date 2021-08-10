@@ -405,11 +405,11 @@ my %stats = (
         },
     },
     "count.series" => {
-        DESC => "Count of all seriess",
+        DESC => "Count of all series",
         SQL => "SELECT COUNT(*) FROM series",
     },
     "count.series.type" => {
-        DESC => "Distribution of seriess by type",
+        DESC => "Distribution of series by type",
         CALC => sub {
             my ($self, $sql) = @_;
 
@@ -463,15 +463,15 @@ my %stats = (
         CALC => sub {
             my ($self, $sql) = @_;
 
-            my $data = $sql->select_list_of_lists(
-               'SELECT (cover_art_url ~ \'^https?://.*.images-amazon.com\')::int AS is_amazon, COUNT(*) FROM release_coverart
+            my $data = $sql->select_list_of_lists(<<~'EOSQL');
+                SELECT (cover_art_url ~ '^https?://.*.images-amazon.com')::int AS is_amazon, COUNT(*) FROM release_coverart
                   WHERE cover_art_url IS NOT NULL
                     AND NOT EXISTS (
                       SELECT TRUE FROM cover_art_archive.cover_art ca
                         JOIN cover_art_archive.cover_art_type cat ON ca.id = cat.id
                       WHERE ca.release = release_coverart.id AND cat.type_id = 1)
-                GROUP BY is_amazon'
-            );
+                GROUP BY is_amazon
+                EOSQL
 
             my %dist = map { @$_ } @$data;
 

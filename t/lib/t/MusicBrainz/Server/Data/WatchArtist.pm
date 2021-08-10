@@ -100,7 +100,7 @@ test 'WatchArtist->find_new_releases' => sub {
 
     subtest 'Find releases in the future' => sub {
         $test->sql->begin;
-        $test->sql->do("UPDATE release_meta SET date_added = NOW() + '@ 1 week'::INTERVAL");
+        $test->sql->do(q(UPDATE release_meta SET date_added = NOW() + '@ 1 week'::INTERVAL));
 
         my @releases = $test->c->model('WatchArtist')->find_new_releases(1);
         is(@releases => 1, 'found one release');
@@ -109,17 +109,20 @@ test 'WatchArtist->find_new_releases' => sub {
 
     subtest 'Find releases within our notification timeframe' => sub {
         $test->sql->begin;
-        $test->sql->do(
-            "UPDATE release SET date_year = EXTRACT(YEAR FROM NOW() + '@ 3 week'),
-                                date_month = EXTRACT(MONTH FROM NOW() + '@ 3 week'),
-                                date_day = EXTRACT(MONTH FROM NOW() + '@ 3 week')");
+        $test->sql->do(<<~'EOSQL');
+            UPDATE release SET date_year = EXTRACT(YEAR FROM NOW() + '@ 3 week'),
+                               date_month = EXTRACT(MONTH FROM NOW() + '@ 3 week'),
+                               date_day = EXTRACT(MONTH FROM NOW() + '@ 3 week')
+            EOSQL
 
         my @releases = $test->c->model('WatchArtist')->find_new_releases(1);
         is(@releases => 0, 'found no releases with 1 week timeframe');
 
-        $test->sql->do(
-            "UPDATE editor_watch_preferences SET notification_timeframe = '@ 1 month'
-              WHERE editor = 1");
+        $test->sql->do(<<~'EOSQL');
+            UPDATE editor_watch_preferences
+            SET notification_timeframe = '@ 1 month'
+            WHERE editor = 1
+            EOSQL
 
         @releases = $test->c->model('WatchArtist')->find_new_releases(1);
         is(@releases => 1, 'found releases with a 1 month timeframe');
@@ -130,7 +133,7 @@ test 'WatchArtist->find_new_releases' => sub {
     subtest 'Do not notify of newly added releases released in the past' => sub {
         $test->sql->begin;
         $test->sql->do('UPDATE release SET date_year = 2009');
-        $test->sql->do("UPDATE release_meta SET date_added = NOW() + '@ 1 week'::INTERVAL");
+        $test->sql->do(q(UPDATE release_meta SET date_added = NOW() + '@ 1 week'::INTERVAL));
         my @releases = $test->c->model('WatchArtist')->find_new_releases(1);
         is(@releases => 0, 'found no releases');
         $test->sql->rollback;

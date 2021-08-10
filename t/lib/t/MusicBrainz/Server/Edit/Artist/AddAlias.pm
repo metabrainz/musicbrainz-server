@@ -34,7 +34,7 @@ is($edit->display_data->{artist}{id}, 1);
 is($edit->display_data->{alias}, 'Another alias');
 
 my $artist = $c->model('Artist')->get_by_id(1);
-is($artist->edits_pending, 0, "Alias addition was an autoedit");
+is($artist->edits_pending, 0, 'Alias addition was an autoedit');
 
 $alias_set = $c->model('Artist')->alias->find_by_entity_id(1);
 is(@$alias_set, 3);

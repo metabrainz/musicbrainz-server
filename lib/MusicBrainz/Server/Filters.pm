@@ -63,7 +63,7 @@ sub _make_link
 {
     my ($type, $mbid, $content) = @_;
     $content //= "$type:$mbid";
-    return "<a href=\"/$type/$mbid\">$content</a>"
+    return qq(<a href="/$type/$mbid">$content</a>)
 }
 
 sub encode_square_brackets

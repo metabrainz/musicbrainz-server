@@ -26,7 +26,7 @@ test 'Collection view has link back to all collections (signed in)' => sub {
 
     $tx->ok('//div[@id="content"]/div/p/span[@class="small"]/a[contains(@href,"/editor1/collections")]',
             'contains link');
-    $tx->is('//div[@id="content"]/div/p/span[@class="small"]/a', "See all of your collections",
+    $tx->is('//div[@id="content"]/div/p/span[@class="small"]/a', 'See all of your collections',
             'contains correct description');
 };
 
@@ -39,7 +39,7 @@ test 'Collection view has link back to all collections (not yours)' => sub {
 
     $tx->ok('//div[@id="content"]/div/p/span[@class="small"]/a[contains(@href,"/editor2/collections")]',
             'contains link');
-    $tx->is('//div[@id="content"]/div/p/span[@class="small"]/a', "See all of editor2's public collections",
+    $tx->is('//div[@id="content"]/div/p/span[@class="small"]/a', q(See all of editor2's public collections),
             'contains correct description');
 };
 
@@ -92,14 +92,14 @@ test 'Private collection pages are private' => sub {
     my $mech = $test->mech;
 
     $mech->get('/collection/a34c079d-374e-4436-9448-da92dedef3cb');
-    is($mech->status, 403, "main collection page is private");
+    is($mech->status, 403, 'main collection page is private');
     $mech->get('/collection/a34c079d-374e-4436-9448-da92dedef3cb/subscribers');
-    is($mech->status, 403, "subscribers page is private");
+    is($mech->status, 403, 'subscribers page is private');
 
     $mech->get('/collection/f34c079d-374e-4436-9448-da92dedef3cd');
-    is($mech->status, 200, "main collection page is visible to owner");
+    is($mech->status, 200, 'main collection page is visible to owner');
     $mech->get('/collection/f34c079d-374e-4436-9448-da92dedef3cd/subscribers');
-    is($mech->status, 200, "subscribers page is visible to owner");
+    is($mech->status, 200, 'subscribers page is visible to owner');
 };
 
 test 'Unknown collection' => sub {

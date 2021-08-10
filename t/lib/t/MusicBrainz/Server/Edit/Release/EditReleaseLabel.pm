@@ -318,7 +318,7 @@ test 'Can add a label where one is currently missing' => sub {
     is($edit->status, $STATUS_APPLIED);
 };
 
-test "Edits that only change the catalog number show up in the label's edit history (MBS-8533)" => sub {
+test q(Edits that only change the catalog number show up in the label's edit history (MBS-8533)) => sub {
     my $test = shift;
     my $c = $test->c;
 
@@ -337,7 +337,7 @@ test "Edits that only change the catalog number show up in the label's edit hist
     ok($c->sql->select_single_value('SELECT 1 FROM edit_label WHERE edit = ?', $edit->id));
 };
 
-test "Edits that only change the catalog number still store and display the label" => sub {
+test 'Edits that only change the catalog number still store and display the label' => sub {
     my $test = shift;
     my $c = $test->c;
 
@@ -369,7 +369,7 @@ test "Edits that only change the catalog number still store and display the labe
     is($edit->display_data->{label}{old}->gid, 'f2a9a3c0-72e3-11de-8a39-0800200c9a66');
 };
 
-test "Edits that only change the label still store and display the catalog number (MBS-8534)" => sub {
+test 'Edits that only change the label still store and display the catalog number (MBS-8534)' => sub {
     my $test = shift;
     my $c = $test->c;
 

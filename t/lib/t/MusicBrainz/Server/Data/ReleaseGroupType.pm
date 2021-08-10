@@ -19,18 +19,18 @@ my $rgt_data = MusicBrainz::Server::Data::ReleaseGroupType->new(c => $test->c);
 
 my $rgt = $rgt_data->get_by_id(1);
 is ( $rgt->id, 1 );
-is ( $rgt->name, "Album" );
+is ( $rgt->name, 'Album' );
 
 $rgt = $rgt_data->get_by_id(2);
 is ( $rgt->id, 2 );
-is ( $rgt->name, "Single" );
+is ( $rgt->name, 'Single' );
 
 my $rgts = $rgt_data->get_by_ids(1, 2);
 is ( $rgts->{1}->id, 1 );
-is ( $rgts->{1}->name, "Album" );
+is ( $rgts->{1}->name, 'Album' );
 
 is ( $rgts->{2}->id, 2 );
-is ( $rgts->{2}->name, "Single" );
+is ( $rgts->{2}->name, 'Single' );
 
 
 does_ok($rgt_data, 'MusicBrainz::Server::Data::Role::SelectAll');

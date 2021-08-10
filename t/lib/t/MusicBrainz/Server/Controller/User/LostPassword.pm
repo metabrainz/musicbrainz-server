@@ -19,7 +19,7 @@ $mech->submit_form( with_fields => {
     'lostpassword.username' => 'new_editor',
     'lostpassword.email' => 'test@email.com'
 } );
-$mech->content_contains("We&#x27;ve sent you instructions on how to reset your password.");
+$mech->content_contains('We&#x27;ve sent you instructions on how to reset your password.');
 
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 my $email = $email_transport->shift_deliveries->{email};
@@ -32,18 +32,18 @@ $email_body =~ qr{http://localhost(/reset-password.*)};
 my $reset_password_path = $1;
 $mech->get_ok($reset_password_path);
 html_ok($mech->content);
-$mech->content_contains("Set a new password for your MusicBrainz account.");
+$mech->content_contains('Set a new password for your MusicBrainz account.');
 $mech->submit_form( with_fields => {
     'resetpassword.password' => 'new_password',
     'resetpassword.confirm_password' => 'new_password_2'
 } );
-$mech->content_contains("The password confirmation does not match the password");
+$mech->content_contains('The password confirmation does not match the password');
 $mech->submit_form( with_fields => {
     'resetpassword.password' => 'new_password',
     'resetpassword.confirm_password' => 'new_password'
 } );
 
-$mech->content_contains("Your password has been reset.");
+$mech->content_contains('Your password has been reset.');
 
 $mech->get_ok('/logout');
 $mech->get('/login');

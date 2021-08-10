@@ -9,7 +9,7 @@ use lib "$FindBin::Bin/../lib";
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 
-my $usage = "\"Usage: $0 number_of_rows domain.name [domain.name ...]\"";
+my $usage = qq("Usage: $0 number_of_rows domain.name [domain.name ...]");
 
 my $number_of_rows = shift;
 is_positive_integer($number_of_rows) or warn $usage and die "invalid number of rows";

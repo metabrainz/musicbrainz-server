@@ -16,7 +16,7 @@ MusicBrainz::Server::Test->prepare_test_database($c);
 $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
-$mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/edit_annotation");
+$mech->get_ok('/work/745c079d-374e-4436-9448-da92dedef3ce/edit_annotation');
 $mech->submit_form(
     with_fields => {
         'edit-annotation.text' => "    * Test annotation\x{0007} for a work  \r\n\r\n\t\x{00A0}\r\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets  \t\t",

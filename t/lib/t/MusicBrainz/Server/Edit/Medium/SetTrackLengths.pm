@@ -106,7 +106,7 @@ test 'Fail gracefully if CD TOC has been removed' => sub {
     );
     isa_ok($edit => 'MusicBrainz::Server::Edit::Medium::SetTrackLengths');
 
-    $c->sql->do("DELETE FROM cdtoc WHERE id = 1");
+    $c->sql->do('DELETE FROM cdtoc WHERE id = 1');
 
     $c->model('Edit')->accept($edit);
     ok(!$edit->is_open);

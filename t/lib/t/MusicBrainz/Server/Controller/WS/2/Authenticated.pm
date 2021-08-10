@@ -18,7 +18,7 @@ my $test = shift;
 my $c = $test->c;
 my $v2 = schema_validator;
 my $mech = $test->mech;
-$mech->default_header("Accept" => "application/xml");
+$mech->default_header('Accept' => 'application/xml');
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
@@ -72,7 +72,7 @@ _compare_tags ($c, 'Recording', '162630d9-36d2-4a8d-ade1-1c77440b34e7',
                {'country schlager thrash gabber' => 1});
 
 $mech->get_ok('/ws/2/tag?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist');
-&$v2 ($mech->content, "Validate user tag lookup for artist");
+&$v2 ($mech->content, 'Validate user tag lookup for artist');
 
 $mech->content_contains('hello project');
 $mech->content_contains('jpop');
@@ -100,7 +100,7 @@ is($xp->find('//message/text')->string_value, 'OK', 'POST request got "OK" respo
 _compare_tags($c, 'Artist', '802673f0-9b88-4e8a-bb5c-dd01d68b086f', {'h!p' => 1, 'jpop' => 1, 'asdfjkl;' => -1});
 
 $mech->get_ok('/ws/2/tag?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist');
-&$v2($mech->content, "Validate user tag lookup for artist");
+&$v2($mech->content, 'Validate user tag lookup for artist');
 
 $mech->content_contains('h!p');
 $mech->content_contains('jpop');
@@ -126,7 +126,7 @@ $xp = XML::XPath->new( xml => $mech->content );
 is ($xp->find('//message/text')->string_value, 'OK', 'POST request got "OK" response');
 
 $mech->get_ok('/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist');
-&$v2 ($mech->content, "Validate user rating lookup for artist");
+&$v2 ($mech->content, 'Validate user rating lookup for artist');
 
 my $expected = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
@@ -162,22 +162,22 @@ test 'OAuth bearer' => sub {
 
     my $token = '';
 
-    $mech->get("/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist");
+    $mech->get('/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist');
     is($mech->status, 401, 'Rejected without authentication');
 
-    $mech->get("/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist&access_token=7Fjfp0ZBr1KtDRbnfVdmIw");
+    $mech->get('/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist&access_token=7Fjfp0ZBr1KtDRbnfVdmIw');
     is($mech->status, 401, 'Rejected with insufficent scope of the authentication');
 
-    $mech->get_ok("/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist&access_token=Nlaa7v15QHm9g8rUOmT3dQ");
+    $mech->get_ok('/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist&access_token=Nlaa7v15QHm9g8rUOmT3dQ');
 
     $mech->delete_header('Authorization');
     $mech->add_header('Authorization', 'Bearer 7Fjfp0ZBr1KtDRbnfVdmIw');
-    $mech->get("/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist");
+    $mech->get('/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist');
     is($mech->status, 401, 'Rejected with insufficent scope of the authentication');
 
     $mech->delete_header('Authorization');
     $mech->add_header('Authorization', 'Bearer Nlaa7v15QHm9g8rUOmT3dQ');
-    $mech->get_ok("/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist");
+    $mech->get_ok('/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist');
 };
 
 test 'Authorization header must be correctly encoded' => sub {
@@ -190,9 +190,9 @@ test 'Authorization header must be correctly encoded' => sub {
     # This is not valid UTF-8, so it should immediately 400 without even trying
     # to parse this header.
     $mech->delete_header('Authorization');
-    $mech->add_header('Authorization', pack("H*", "df27"));
+    $mech->add_header('Authorization', pack('H*', 'df27'));
 
-    $mech->get("/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist");
+    $mech->get('/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist');
     is($mech->status, 400);
 };
 

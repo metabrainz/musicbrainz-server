@@ -35,7 +35,7 @@ $mech->submit_form(
     with_fields => { username => 'editor', password => 'pass' } );
 
 my @edits = capture_edits {
-    $mech->get_ok("/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/edit");
+    $mech->get_ok('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/edit');
     html_ok($mech->content);
     my $request = POST $mech->uri, [
         'edit-recording.length' => '1:23',
@@ -67,7 +67,7 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::Edit');
 cmp_deeply($edit->data, {
     entity => {
         id => 1,
-        gid => re("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"),
+        gid => re('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'),
         name => 'Dancing Queen'
     },
     new => {
@@ -159,7 +159,7 @@ is_deeply($edit->data, {
 # test edit-recording submission without artist credit fields
 
 @edits = capture_edits {
-    $mech->get_ok("/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/edit");
+    $mech->get_ok('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/edit');
     html_ok($mech->content);
     my $request = POST $mech->uri, [
         'edit-recording.length' => '4:56',
@@ -180,7 +180,7 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::Edit');
 cmp_deeply($edit->data, {
     entity => {
         id => 1,
-        gid => re("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"),
+        gid => re('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'),
         name => 'Dancing Queen'
     },
     new => { length => 296000 },

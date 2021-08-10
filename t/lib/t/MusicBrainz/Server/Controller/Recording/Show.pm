@@ -223,7 +223,7 @@ test 'Embedded JSON-LD' => sub {
         ],
         'duration' => 'PT04M38S',
         'isrcCode' => 'USJI10100576',
-        'name' => 'The World\'s Greatest',
+        'name' => q(The World's Greatest),
         'producer' => {
             '@id' => 'http://musicbrainz.org/artist/c2d25856-a09a-4d15-b404-77dd19c19e63',
             '@type' => ['Person', 'MusicGroup'],
@@ -232,7 +232,7 @@ test 'Embedded JSON-LD' => sub {
         'recordingOf' => {
             '@id' => 'http://musicbrainz.org/work/2025da95-23f1-31ae-b991-088834e6ce2f',
             '@type' => 'MusicComposition',
-            'name' => 'The World\'s Greatest'
+            'name' => q(The World's Greatest)
         }
     };
 };

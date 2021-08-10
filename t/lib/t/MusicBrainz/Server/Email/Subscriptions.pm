@@ -60,7 +60,7 @@ test all => sub {
     $expected = "collection1 (1 open, 2 applied)\n$server/collection/f34c079d-374e-4436-9448-da92dedef3cd/edits";
     contains_string($text, $expected, 'Correctly displayed collection1 edits and url');
 
-    $expected = "Collection \"collection2\" - deleted or made private";
+    $expected = 'Collection "collection2" - deleted or made private';
     contains_string($text, $expected, 'Correctly displayed collection2 as deleted or private');
 };
 

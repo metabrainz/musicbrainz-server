@@ -22,7 +22,7 @@ my $rl = $rl_data->get_by_id(1);
 is( $rl->id, 1 );
 is( $rl->release_id, 1 );
 is( $rl->label_id, 1 );
-is( $rl->catalog_number, "ABC-123" );
+is( $rl->catalog_number, 'ABC-123' );
 
 ok( !$rl_data->load() );
 

@@ -66,12 +66,12 @@ test 'country statistics have area links' => sub {
 test 'Fetch /statistics/dataset' => sub {
     my $test = shift;
     $test->mech->get_ok('/statistics/dataset/count.artist');
-    like($test->mech->content, qr{^\{.*\}$}, "Looks like a JSON object");
+    like($test->mech->content, qr{^\{.*\}$}, 'Looks like a JSON object');
 
     initialize_stats($test->c);
 
     $test->mech->get_ok('/statistics/dataset/count.artist');
-    like($test->mech->content, qr{^\{.*[0-9].*\}$}, "Looks like a JSON object including at least one number");
+    like($test->mech->content, qr{^\{.*[0-9].*\}$}, 'Looks like a JSON object including at least one number');
 };
 
 1;

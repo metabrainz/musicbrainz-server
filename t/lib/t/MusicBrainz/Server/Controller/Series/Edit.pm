@@ -35,7 +35,7 @@ test all => sub {
     cmp_deeply($edit->data, {
         entity => {
             id => 1,
-            gid => re("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"),
+            gid => re('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'),
             name => 'Test Recording Series'
         },
         new => {
@@ -60,7 +60,7 @@ test all => sub {
     $mech->text_contains('Manual', '..has new ordering type');
 
     my @edits = capture_edits {
-        $mech->post("/series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d/edit", {
+        $mech->post('/series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d/edit', {
             'edit-series.name' => 'New Name!',
             'edit-series.comment' => 'new comment!',
             'edit-series.type_id' => 3,

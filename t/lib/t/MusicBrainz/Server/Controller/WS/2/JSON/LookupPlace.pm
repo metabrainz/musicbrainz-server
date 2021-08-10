@@ -22,8 +22,8 @@ test 'basic place lookup' => sub {
             'iso-3166-1-codes' => ['XE'],
             'name' => 'Europe',
             'sort-name' => 'Europe',
-            "type" => JSON::null,
-            "type-id" => JSON::null,
+            'type' => JSON::null,
+            'type-id' => JSON::null,
         },
         'coordinates' => {
             'latitude' => 0.323,

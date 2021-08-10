@@ -65,11 +65,11 @@ test all => sub {
 
     $c->model('ReleaseGroupSecondaryType')->load_for_release_groups($new_rg);
 
-    is(scalar @{ $new_rg->secondary_types }, 2, "Release group has two secondary types after merging");
+    is(scalar @{ $new_rg->secondary_types }, 2, 'Release group has two secondary types after merging');
     my %types = map { $_->name => 1 } @{ $new_rg->secondary_types };
 
-    ok($types{"DJ-mix"}, "Release group has type DJ-mix");
-    ok($types{"Demo"}, "Release group has type Demo");
+    ok($types{'DJ-mix'}, 'Release group has type DJ-mix');
+    ok($types{'Demo'}, 'Release group has type Demo');
 };
 
 1;

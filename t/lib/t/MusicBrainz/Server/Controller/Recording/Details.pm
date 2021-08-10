@@ -13,7 +13,7 @@ my $c    = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c);
 
-$mech->get_ok("/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/details",
+$mech->get_ok('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/details',
               'fetch recording details page');
 html_ok($mech->content);
 $mech->content_contains('https://musicbrainz.org/recording/54b9d183-7dab-42ba-94a3-7388a66604b8',
