@@ -3004,7 +3004,7 @@ eslint-module-utils@^2.6.0:
     debug "^2.6.9"
     pkg-dir "^2.0.0"
 
-eslint-plugin-fb-flow@^0.0.2:
+eslint-plugin-fb-flow@0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/eslint-plugin-fb-flow/-/eslint-plugin-fb-flow-0.0.2.tgz#54a5d1699872863b86a79f19f39c3085bb65a517"
   integrity sha512-Wp5u0rGWLbufdv6rKUoa6A3/DWF1Tc19F762apVmBg2edVET4LjHIApsMl+LIzuRw767uTGF9BB9KuPtrakM0g==
