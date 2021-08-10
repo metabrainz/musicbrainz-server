@@ -461,6 +461,7 @@ module.exports = {
   'static/scripts/edit/components/AddIcon': require('../static/scripts/edit/components/AddIcon'),
   'static/scripts/edit/components/FormRowNameWithGuessCase': require('../static/scripts/edit/components/FormRowNameWithGuessCase'),
   'static/scripts/edit/components/GuessCaseIcon': require('../static/scripts/edit/components/GuessCaseIcon'),
+  'static/scripts/edit/components/InformationIcon': require('../static/scripts/edit/components/InformationIcon'),
   'static/scripts/edit/components/edit/RelationshipDiff': require('../static/scripts/edit/components/edit/RelationshipDiff'),
   'static/scripts/edit/components/edit/ReleaseEventsDiff': require('../static/scripts/edit/components/edit/ReleaseEventsDiff'),
   'static/scripts/recording/RecordingName': require('../static/scripts/recording/RecordingName'),
