@@ -2138,6 +2138,22 @@ const CLEANUPS = {
               target: ERROR_TARGETS.URL,
             };
           }
+          if ([
+            'accounts',
+            'accounts_center',
+            'direct',
+            'email',
+            'push',
+            'session',
+          ].includes(prefix)) {
+            return {
+              error: l(
+                `This is an internal Instagram page and should not be added.`,
+              ),
+              result: false,
+              target: ERROR_TARGETS.URL,
+            };
+          }
           return {
             result: /^(?!(?:explore|p|stories|tv)$)/.test(prefix) &&
               target === undefined,
