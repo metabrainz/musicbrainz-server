@@ -27,7 +27,6 @@ use MusicBrainz::Server::PagedReport;
     CDTOCDubiousLength
     CDTOCNotApplied
     CollaborationRelationships
-    CoverArtRelationships
     DeprecatedRelationshipArtists
     DeprecatedRelationshipLabels
     DeprecatedRelationshipPlaces
@@ -77,7 +76,6 @@ use MusicBrainz::Server::PagedReport;
     ReleasedTooEarly
     ReleaseGroupsWithoutVACredit
     ReleaseGroupsWithoutVALink
-    ReleasesInCAAWithCoverArtRelationships
     ReleaseLabelSameArtist
     ReleaseRGDifferentName
     ReleasesSameBarcode
@@ -121,7 +119,6 @@ use MusicBrainz::Server::Report::CatNoLooksLikeLabelCode;
 use MusicBrainz::Server::Report::CDTOCDubiousLength;
 use MusicBrainz::Server::Report::CDTOCNotApplied;
 use MusicBrainz::Server::Report::CollaborationRelationships;
-use MusicBrainz::Server::Report::CoverArtRelationships;
 use MusicBrainz::Server::Report::DeprecatedRelationshipArtists;
 use MusicBrainz::Server::Report::DeprecatedRelationshipLabels;
 use MusicBrainz::Server::Report::DeprecatedRelationshipPlaces;
@@ -172,7 +169,6 @@ use MusicBrainz::Server::Report::RecordingsWithFutureDates;
 use MusicBrainz::Server::Report::ReleasedTooEarly;
 use MusicBrainz::Server::Report::ReleaseGroupsWithoutVACredit;
 use MusicBrainz::Server::Report::ReleaseGroupsWithoutVALink;
-use MusicBrainz::Server::Report::ReleasesInCAAWithCoverArtRelationships;
 use MusicBrainz::Server::Report::ReleaseLabelSameArtist;
 use MusicBrainz::Server::Report::ReleaseRGDifferentName;
 use MusicBrainz::Server::Report::ReleasesToConvert;
