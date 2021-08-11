@@ -59,6 +59,7 @@ type LinkMapT = Map<string, LinkStateT>;
 type LinkRelationshipT = LinkStateT & {
   error: ErrorT | null,
   index: number,
+  urlIndex: number,
   urlMatchesType?: boolean,
   ...
 };
@@ -513,7 +514,7 @@ export class ExternalLinksEditor
               ? false : linksGroupMap.get(url);
             const duplicateNotice = duplicate
               ? l(`Note: This link already exists 
-                at position #${duplicate[0].index + 1}. 
+                at position #${duplicate[0].urlIndex + 1}. 
                 To merge, press enter or select a type.`)
               : '';
 
@@ -986,8 +987,11 @@ function groupLinksByUrl(
   links: Array<LinkStateT>,
 ): Map<string, Array<LinkRelationshipT>> {
   let map = new Map();
+  let urlIndex = 0;
   links.forEach((link, index) => {
-    const relationship: LinkRelationshipT = {...link, error: null, index};
+    const relationship: LinkRelationshipT = {
+      ...link, error: null, index, urlIndex: index,
+    };
     /*
      * Don't group links that are not submitted,
      * e.g: empty links and the last link(editing)
@@ -995,8 +999,10 @@ function groupLinksByUrl(
     const key = link.submitted ? link.url : String(link.relationship);
     const relationships = map.get(key);
     if (relationships) {
+      relationship.urlIndex = relationships[0].urlIndex;
       relationships.push(relationship);
     } else {
+      relationship.urlIndex = urlIndex++;
       map.set(key, [relationship]);
     }
   });
