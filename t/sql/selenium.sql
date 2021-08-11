@@ -105,11 +105,18 @@ INSERT INTO label_gid_redirect (gid, new_id, created) VALUES
 INSERT INTO link_type (id, parent, child_order, gid, entity_type0, entity_type1, name, description, link_phrase, reverse_link_phrase, long_link_phrase, priority, last_updated, is_deprecated, has_dates, entity0_cardinality, entity1_cardinality) VALUES
 --    (74, 73, 1, '98e08c20-8402-4163-8970-53504bb6a1e4', 'release', 'url', 'purchase for download', 'This is used to link to a page where the release can be purchased for download.', 'purchase for download', 'download purchase page for', 'can be purchased for download at', 0, '2013-12-10 13:51:19.794106+00', false, true, 0, 0),
 --    (85, 73, 3, '08445ccf-7b99-4438-9f9a-fb9ac18099ee', 'release', 'url', 'streaming music', 'This relationship type is used to link a release to a site where the tracks can be legally streamed for free, e.g. Spotify.', 'stream {video} for free', 'free music {video} streaming page for', '{video} can be streamed for free at', 0, '2014-01-19 02:56:04.116246+00', false, true, 0, 0),
-    (666, 188, 0, 'baf4b924-088c-41b3-8b49-7a4d1d5f3be9', 'artist', 'url', 'musicmoz', '', 'MusicMoz', 'MusicMoz page for', 'has a MusicMoz page at', 0, '2017-09-11 04:00:09.052103+00', true, false, 0, 0);
+    -- We want this to be deprecated but need to change that later, since we cannot insert any usages otherwise
+    (666, 188, 0, 'baf4b924-088c-41b3-8b49-7a4d1d5f3be9', 'artist', 'url', 'musicmoz', 'This links an artist to its MusicMoz page', 'MusicMoz', 'MusicMoz page for', 'has a MusicMoz page at', 0, '2017-09-11 04:00:09.052103+00', false, false, 0, 0),
+    -- We want this to be deprecated and have zero uses
+    (667, 188, 0, 'baf4b924-088c-41b3-8b49-7a4d1d5f3be8', 'artist', 'url', 'deleted', 'This relationship type has been deprecated and has zero uses', 'deleted', 'deleted', 'deleted', 0, '2017-09-11 04:00:09.052103+00', true, false, 0, 0);
 
 INSERT INTO link (id, link_type, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, attribute_count, created, ended) VALUES
     (6313, 74, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2011-05-16 15:03:23.368437+00', false),
-    (6330, 85, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2011-05-16 15:03:23.368437+00', false);
+    (6330, 85, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2011-05-16 15:03:23.368437+00', false),
+    -- 666 needs one usage in order to be displayed at all, since it will be deprecated
+    (63100, 666, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2011-05-16 15:03:23.368437+00', false);
+
+UPDATE link_type SET is_deprecated = TRUE WHERE id = 666;
 
 INSERT INTO place (id, gid, name, type, address, area, coordinates, comment, edits_pending, last_updated, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, ended) VALUES
     (1161, '88f4fdcb-c7a7-4df3-bd7d-9b02a8cb2a32', 'Many Rooms Music', 1, 'Agoura, California', NULL, NULL, '', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'f');
