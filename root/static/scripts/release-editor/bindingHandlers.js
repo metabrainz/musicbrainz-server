@@ -99,6 +99,7 @@ ko.bindingHandlers.artistCreditEditor = {
     const artistCredit = track.artistCredit.peek();
 
     track.medium.release.mediums()
+      .filter(m => !m.collapsed.peek())
       .flatMap(m => m.tracks())
       .forEach(function (t) {
         if (t === track) {
