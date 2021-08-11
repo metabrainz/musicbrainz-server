@@ -2779,11 +2779,11 @@ const CLEANUPS = {
     type: LINK_TYPES.lyrics,
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?musixmatch\.com\/(artist)\/([^\/?#]+).*$/, 'https://www.musixmatch.com/$1/$2');
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?musixmatch\.com\/(lyrics)\/([^\/?#]+)\/([^\/?#]+).*$/, 'https://www.musixmatch.com/$1/$2/$3');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?musixmatch\.com\/(album|lyrics)\/([^\/?#]+)\/([^\/?#]+).*$/, 'https://www.musixmatch.com/$1/$2/$3');
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/www.musixmatch\.com\/(artist|lyrics)\/[^?#]+$/.exec(url);
+      const m = /^https:\/\/www.musixmatch\.com\/(album|artist|lyrics)\/[^?#]+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -2792,6 +2792,25 @@ const CLEANUPS = {
               result: prefix === 'artist',
               target: ERROR_TARGETS.RELATIONSHIP,
             };
+          case LINK_TYPES.lyrics.release_group:
+            if (prefix === 'album') {
+              return {
+                error: exp.l(
+                  `Musixmatch “{album_url_pattern}” pages are a bad match
+                   for MusicBrainz release groups, and linking to them
+                   is currently disallowed. Please consider adding Musixmatch
+                   links to the relevant artists and works instead.`,
+                  {
+                    album_url_pattern: (
+                      <span className="url-quote">{'/album'}</span>
+                    ),
+                  },
+                ),
+                result: false,
+                target: ERROR_TARGETS.ENTITY,
+              };
+            }
+            return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
           case LINK_TYPES.lyrics.work:
             return {
               result: prefix === 'lyrics',
