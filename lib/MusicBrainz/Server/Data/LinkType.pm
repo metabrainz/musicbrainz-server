@@ -114,14 +114,28 @@ sub load
 
 sub get_tree
 {
-    my ($self, $type0, $type1) = @_;
+    my ($self, $type0, $type1, %opts) = @_;
 
     my %id_to_obj;
     my @objs;
+    my $extra_condition = '';
+
+    unless ($opts{get_deprecated_and_empty}) {
+        $extra_condition = <<~'EOSQL';
+            AND (
+                is_deprecated = FALSE
+                OR
+                EXISTS (
+                    SELECT 1 FROM link WHERE link.link_type = id
+                )
+            )
+            EOSQL
+    }
+
     for my $row (@{
         $self->sql->select_list_of_hashes(
-            'SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
-             WHERE entity_type0=? AND entity_type1=?
+            'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
+             WHERE entity_type0=? AND entity_type1=? ' . $extra_condition . '
              ORDER BY child_order, id', $type0, $type1)
     }) {
         my $obj = $self->_new_from_row($row);
@@ -145,13 +159,28 @@ sub get_tree
 
 sub get_full_tree
 {
-    my ($self) = @_;
+    my ($self, $get_deprecated_and_empty) = @_;
 
     my %id_to_obj;
     my @objs;
+    my $extra_condition = '';
+
+    unless ($get_deprecated_and_empty) {
+        $extra_condition = <<~'EOSQL';
+            WHERE (
+                is_deprecated = FALSE
+                OR
+                EXISTS (
+                    SELECT 1 FROM link WHERE link.link_type = id
+                )
+            )
+            EOSQL
+    }
+
     for my $row (@{
         $self->sql->select_list_of_hashes(
-            'SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
+            'SELECT '  .$self->_columns . ' FROM ' . $self->_table .
+            ' ' . $extra_condition . '
              ORDER BY entity_type0, entity_type1, child_order, id')
     }) {
         my $obj = $self->_new_from_row($row);
