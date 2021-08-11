@@ -287,6 +287,7 @@
       target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
       value: '${KEY_TAB}',
     },
+    // Assert not merged
     {
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll(\"input[type='url']\")).map(x => x.value).join('\\n')",
@@ -296,13 +297,30 @@
     {
       command: 'assertText',
       target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][3]//div[contains(@class, 'error')]",
-      value: 'Note: This link already exists at item #2. To merge, press enter or select a type.',
+      value: 'Note: This link already exists at position #2. To merge, press enter or select a type.',
     },
-    // Automatically submitted after selecting a type
+    // Don't merge while using arrow keys to select relationship type
+    {
+      command: 'sendKeys',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][4]//select[contains(@class, 'link-type')]",
+      value: '${KEY_DOWN}',
+    },
+    // Assert not merged
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll(\"input[type='url']\")).map(x => x.value).join('\\n')",
+      value: 'https://google.com\n',
+    },
+    // Automatically submitted after selecting a type and moving focus away from the type select
     {
       command: 'select',
       target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][4]//select[contains(@class, 'link-type')]",
       value: 'label=regexp:\\s*interviews',
+    },
+    {
+      command: 'click',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      value: '',
     },
     {
       command: 'assertEval',

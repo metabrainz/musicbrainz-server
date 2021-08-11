@@ -13,6 +13,7 @@ class RemoveButton extends React.Component {
     return (
       <button
         className="nobutton icon remove-item"
+        data-index={this.props['data-index']}
         onClick={this.props.onClick}
         title={this.props.title}
         type="button"

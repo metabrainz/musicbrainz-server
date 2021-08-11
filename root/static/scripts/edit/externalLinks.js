@@ -140,6 +140,7 @@ export class ExternalLinksEditor
     index: number,
     isDuplicate: boolean,
     event: SyntheticFocusEvent<HTMLInputElement>,
+    urlIndex: number,
   ) {
     const link = this.state.links[index];
     const url = event.currentTarget.value;
@@ -150,11 +151,32 @@ export class ExternalLinksEditor
       link.url = unicodeUrl;
     }
 
-    // Don't add link to list if it's empty or is a duplicate
-    if (url !== '' && !isDuplicate) {
+    let callback = undefined;
+    // Don't add link to list if it's empty or is a duplicate without type
+    if (url !== '' && (!isDuplicate || link.type)) {
       link.submitted = true;
+      if (isDuplicate) {
+        callback = () => {
+          // Return focus to the input box after merging
+          $(this.tableRef.current)
+            .find("input[type='url']")
+            .eq(0)
+            .focus();
+        };
+        /*
+         * $FlowIssue[incompatible-type]: relatedTarget is EventTarget
+         * Don't merge when user clicks on delete icon,
+         * otherwise UI change will prevent the deletion.
+         */
+        const relatedTarget: HTMLElement = event.relatedTarget;
+        const clickingDeleteIcon =
+        relatedTarget && relatedTarget.dataset.index === urlIndex.toString();
+        if (clickingDeleteIcon) {
+          link.submitted = false;
+        }
+      }
     }
-    this.setLinkState(index, link);
+    this.setLinkState(index, link, callback);
   }
 
   handleLinkSubmit(
@@ -191,17 +213,40 @@ export class ExternalLinksEditor
     const type = +event.currentTarget.value || null;
     const link = this.state.links[index];
     link.type = type;
-    if (link.url && type) {
+    this.setLinkState(index, link);
+  }
+
+  handleTypeBlur(
+    index: number,
+    event: SyntheticFocusEvent<HTMLSelectElement>,
+    isDuplicate: boolean,
+    urlIndex: number,
+  ) {
+    if (!isDuplicate) {
+      return;
+    }
+    /*
+     * $FlowIssue[incompatible-type]: relatedTarget is EventTarget
+     * Don't merge when user clicks on delete icon,
+     * otherwise UI change will prevent the deletion.
+     */
+    const relatedTarget: HTMLElement = event.relatedTarget;
+    const clickingDeleteIcon =
+      relatedTarget && relatedTarget.dataset.index === urlIndex.toString();
+    if (clickingDeleteIcon) {
+      return;
+    }
+
+    const link = this.state.links[index];
+    if (link.url && link.type) {
       link.submitted = true;
     }
     this.setLinkState(index, link, () => {
       // Return focus to the input box after merging
-      if (isDuplicate) {
-        $(this.tableRef.current)
-          .find("input[type='url']")
-          .eq(0)
-          .focus();
-      }
+      $(this.tableRef.current)
+        .find("input[type='url']")
+        .eq(0)
+        .focus();
     });
   }
 
@@ -467,8 +512,8 @@ export class ExternalLinksEditor
             const duplicate = links[0].submitted
               ? false : linksGroupMap.get(url);
             const duplicateNotice = duplicate
-              ? l(`Note:
-                This link already exists at item #${duplicate[0].index + 1}. 
+              ? l(`Note: This link already exists 
+                at position #${duplicate[0].index + 1}. 
                 To merge, press enter or select a type.`)
               : '';
 
@@ -506,7 +551,7 @@ export class ExternalLinksEditor
                 }
                 handleUrlBlur={
                   (event) => this.handleUrlBlur(
-                    firstLinkIndex, !!duplicate, event,
+                    firstLinkIndex, !!duplicate, event, index,
                   )
                 }
                 handleUrlChange={
@@ -518,6 +563,11 @@ export class ExternalLinksEditor
                 key={index}
                 notice={duplicateNotice}
                 onAddRelationship={(url) => this.addRelationship(url, index)}
+                onTypeBlur={
+                  (linkIndex, event) => this.handleTypeBlur(
+                    linkIndex, event, !!duplicate, index,
+                  )
+                }
                 onTypeChange={
                   (index, event) => this.handleTypeChange(
                     index, !!duplicate, event,
@@ -543,6 +593,8 @@ export class ExternalLinksEditor
 
 type LinkTypeSelectProps = {
   children: Array<React.Element<'option'>>,
+  handleTypeBlur:
+    (SyntheticFocusEvent<HTMLSelectElement>) => void,
   handleTypeChange:
     (SyntheticEvent<HTMLSelectElement>) => void,
   type: number | null,
@@ -553,6 +605,7 @@ class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
     return (
       <select
         className="link-type"
+        onBlur={this.props.handleTypeBlur}
         onChange={this.props.handleTypeChange}
         value={this.props.type || ''}
       >
@@ -594,6 +647,7 @@ type ExternalLinkRelationshipProps = {
   isOnlyRelationship: boolean,
   link: LinkRelationshipT,
   onLinkRemove: (number) => void,
+  onTypeBlur: (number, SyntheticFocusEvent<HTMLSelectElement>) => void,
   onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
   onVideoChange:
   (number, SyntheticEvent<HTMLInputElement>) => void,
@@ -622,6 +676,9 @@ const ExternalLinkRelationship =
               showTypeSelection
                 ? (
                   <LinkTypeSelect
+                    handleTypeBlur={
+                      (event) => props.onTypeBlur(link.index, event)
+                    }
                     handleTypeChange={
                       (event) => props.onTypeChange(link.index, event)
                     }
@@ -688,6 +745,7 @@ type LinkProps = {
   isOnlyLink: boolean,
   notice: string,
   onAddRelationship: (string) => void,
+  onTypeBlur: (number, SyntheticFocusEvent<HTMLSelectElement>) => void,
   onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
   onUrlRemove: () => void,
   onVideoChange:
@@ -741,6 +799,7 @@ export class ExternalLink extends React.Component<LinkProps> {
             {(!firstLink.submitted || !props.url) ? (
               <input
                 className="value with-button"
+                data-index={props.index}
                 onBlur={props.handleUrlBlur}
                 onChange={(event) => {
                   props.handleUrlChange(event.currentTarget.value);
@@ -799,6 +858,7 @@ export class ExternalLink extends React.Component<LinkProps> {
             }
             {notEmpty &&
               <RemoveButton
+                data-index={props.index}
                 onClick={() => props.onUrlRemove()}
                 title={l('Remove Link')}
               />}
@@ -812,6 +872,7 @@ export class ExternalLink extends React.Component<LinkProps> {
               key={index}
               link={link}
               onLinkRemove={props.handleLinkRemove}
+              onTypeBlur={props.onTypeBlur}
               onTypeChange={props.onTypeChange}
               onVideoChange={props.onVideoChange}
               typeOptions={props.typeOptions}
