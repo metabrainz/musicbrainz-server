@@ -80,21 +80,45 @@ const renderWorkRelationship = (relationship: RelationshipT) => {
   );
 };
 
-const irrelevantLinkTypes = new Map([
-  // [id, is backward (direction)]
-  [239, true], // medleys including this
-  [241, false], // generic later versions
-  [281, false], // parts
-  [314, false], // works based on this
-  [315, false], // revisions
-  [316, false], // orchestrations
-  [350, false], // arrangements
-]);
+/*
+ * Specifically ignore rels that do not give information
+ * relevant to this track, such as other arrangements of the work,
+ * all the parts of the work linked, or all remixes of this recording.
+ *
+ * The format of the map is [id, is backward (direction)]
+ */
+const irrelevantLinkTypes: {
+  [entity: CoreEntityTypeT]: Map<number, boolean>,
+} = {
+  recording: new Map([
+    [226, false], // karaoke versions of this
+    [227, true], // DJ-mixes of this
+    [228, true], // recordings compiling this one
+    [230, true], // remixes of this
+    [231, true], // recordings sampling this one
+    [232, true], // mash-ups of this
+    [309, true], // edits of this
+  ]),
+  work: new Map([
+    [239, true], // medleys including this
+    [241, false], // generic later versions
+    [281, false], // parts
+    [314, false], // works based on this
+    [315, false], // revisions
+    [316, false], // orchestrations
+    [350, false], // arrangements
+  ]),
+};
 
 export function isIrrelevantLinkType(
   relationship: RelationshipT,
+  targetType: CoreEntityTypeT,
 ): boolean {
-  return irrelevantLinkTypes.get(relationship.linkTypeID) ===
+  const irrelevantTypesForTargetType = irrelevantLinkTypes[targetType];
+  if (irrelevantTypesForTargetType == null) {
+    return false;
+  }
+  return irrelevantTypesForTargetType.get(relationship.linkTypeID) ===
     relationship.backward;
 }
 
@@ -112,12 +136,7 @@ const GroupedTrackRelationships = ({
         targetType: CoreEntityTypeT,
       ) => {
         if (targetType === 'work') {
-          /*
-           * Specifically ignore rels that do not give information
-           * relevant to this track, such as other arrangements of the work
-           * or all the parts of the work linked.
-           */
-          if (!isIrrelevantLinkType(relationship)) {
+          if (!isIrrelevantLinkType(relationship, targetType)) {
             workRelationships.push(relationship);
           }
           return false;
@@ -125,7 +144,10 @@ const GroupedTrackRelationships = ({
         if (targetType === 'url') {
           return false;
         }
-        return true;
+        if (!isIrrelevantLinkType(relationship, targetType)) {
+          return true;
+        }
+        return false;
       },
     },
   );
