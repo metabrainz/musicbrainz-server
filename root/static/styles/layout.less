@@ -531,15 +531,22 @@ div.warning img.warning {
 ** Footer
 */
 #footer {
-    height: 1em;
-    margin: 1em 0;
     padding: 0 1em;
     font-size: @small-text;
     color: @very-dark-text;
 }
 
 #footer a { color: @link-default; }
-#footer a:hover { color: @text-orange; }
+
+#footer #footer-menu a {
+    color: @musicbrainz-purple;
+    padding: 10px 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#footer a:hover,
+#footer #footer-menu a:hover { color: @text-orange; }
 
 #footer p {
     display: inline-block;
