@@ -98,11 +98,6 @@
       value: 'http://example.com/',
     },
     {
-      command: 'runScript',
-      target: 'document.querySelector(\'option[value="666"]\').disabled = false;',
-      value: '',
-    },
-    {
       command: 'select',
       target: 'css=select.link-type',
       value: 'label=regexp:\\s*MusicMoz',
@@ -116,6 +111,12 @@
       command: 'click',
       target: "xpath=//table[@id='external-links-editor']//tr[2]//button[contains(@class, 'remove-item')]",
       value: '',
+    },
+    // deprecated and empty links do not appear at all
+    {
+      command: 'assertEval',
+      target: 'document.querySelector(\'option[value="667"]\')',
+      value: 'null',
     },
     // URLInputPopover tests
     // Open popover
@@ -220,11 +221,6 @@
       command: 'type',
       target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
       value: 'http://example.com/',
-    },
-    {
-      command: 'runScript',
-      target: 'document.querySelector(\'option[value="666"]\').disabled = false;',
-      value: '',
     },
     {
       command: 'select',

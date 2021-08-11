@@ -126,7 +126,7 @@ sub get_tree
                 is_deprecated = FALSE
                 OR
                 EXISTS (
-                    SELECT 1 FROM link WHERE link.link_type = id
+                    SELECT 1 FROM link WHERE link.link_type = lt.id
                 )
             )
             EOSQL
@@ -134,7 +134,7 @@ sub get_tree
 
     for my $row (@{
         $self->sql->select_list_of_hashes(
-            'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
+            'SELECT ' . $self->_columns . ' FROM ' . $self->_table . ' lt
              WHERE entity_type0=? AND entity_type1=? ' . $extra_condition . '
              ORDER BY child_order, id', $type0, $type1)
     }) {
@@ -171,7 +171,7 @@ sub get_full_tree
                 is_deprecated = FALSE
                 OR
                 EXISTS (
-                    SELECT 1 FROM link WHERE link.link_type = id
+                    SELECT 1 FROM link WHERE link.link_type = lt.id
                 )
             )
             EOSQL
@@ -179,8 +179,8 @@ sub get_full_tree
 
     for my $row (@{
         $self->sql->select_list_of_hashes(
-            'SELECT '  .$self->_columns . ' FROM ' . $self->_table .
-            ' ' . $extra_condition . '
+            'SELECT '  .$self->_columns . ' FROM ' . $self->_table . ' lt ' .
+             $extra_condition . '
              ORDER BY entity_type0, entity_type1, child_order, id')
     }) {
         my $obj = $self->_new_from_row($row);
