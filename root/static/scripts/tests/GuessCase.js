@@ -357,7 +357,7 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-  t.plan(27);
+  t.plan(29);
 
   const tests = [
     {
@@ -520,6 +520,18 @@ test('BugFixes', function (t) {
       input: '[Unknown] / This track is / [Untitled]',
       expected: '[unknown] / This Track Is / [untitled]',
       bug: 'MBS-11662',
+      mode: 'English',
+    },
+    {
+      input: 'The Best Song (Official Video Mix)',
+      expected: 'The Best Song (official video mix)',
+      bug: 'MBS-11788',
+      mode: 'English',
+    },
+    {
+      input: 'The Best Song (Uncensored Explicit Video)',
+      expected: 'The Best Song (uncensored explicit video)',
+      bug: 'MBS-11797',
       mode: 'English',
     },
     /*
