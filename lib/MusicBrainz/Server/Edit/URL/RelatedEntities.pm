@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::URL::RelatedEntities;
 use Moose::Role;
+use MusicBrainz::Server::Constants qw( :direction );
 use namespace::autoclean;
 
 requires 'c';
@@ -21,7 +22,9 @@ around '_build_related_entities' => sub
 
     for my $rel (@relationships) {
         my $target_type = $rel->target_type;
-        my $target_id = $rel->direction == 1 ? $rel->entity1_id : $rel->entity0_id;
+        my $target_id = $rel->direction == $DIRECTION_FORWARD
+            ? $rel->entity1_id
+            : $rel->entity0_id;
         push @{ $related_entities->{$target_type} //= [] }, $target_id;
     }
 
