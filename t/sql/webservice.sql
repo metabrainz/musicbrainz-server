@@ -915,7 +915,8 @@ INSERT INTO place_alias (id, place, name, locale, edits_pending, last_updated, t
 -- Series
 
 INSERT INTO series (id, gid, name, type, ordering_attribute, ordering_type) VALUES
-    (25, 'd977f7fd-96c9-4e3e-83b5-eb484a9e6582', 'Bach-Werke-Verzeichnis', 5, 788, 1);
+    (25, 'd977f7fd-96c9-4e3e-83b5-eb484a9e6582', 'Bach-Werke-Verzeichnis', 5, 788, 1),
+    (30, 'd977f7fd-96c9-4e3e-83b5-eb484a9e6581', 'A Release Group Series', 1, 788, 1);
 
 INSERT INTO series_alias (id, series, name, sort_name) VALUES
     (7, 25, 'BWV', 'BWV');
@@ -932,18 +933,24 @@ INSERT INTO work_language (work, language) VALUES
 
 INSERT INTO link (attribute_count, begin_date_day, begin_date_month, begin_date_year, created, end_date_day, end_date_month, end_date_year, ended, id, link_type) VALUES
     (1, NULL, NULL, NULL, '2014-07-09 15:10:16.494155-05', NULL, NULL, NULL, '0', 180865, 743),
+    (1, NULL, NULL, NULL, '2014-07-09 15:10:16.494155-05', NULL, NULL, NULL, '0', 180875, 742),
     (1, NULL, NULL, NULL, '2014-07-03 15:25:50.050958-05', NULL, NULL, NULL, '0', 180086, 743),
     (1, NULL, NULL, NULL, '2014-06-24 07:16:41.33395-05', NULL, NULL, NULL, '0', 178448, 743);
 
 INSERT INTO link_attribute (attribute_type, created, link) VALUES
     (788, '2014-07-09 15:10:16.494155-05', 180865),
+    (788, '2014-07-09 15:10:16.494155-05', 180875),
     (788, '2014-07-03 15:25:50.050958-05', 180086),
     (788, '2014-06-24 07:16:41.33395-05', 178448);
 
 INSERT INTO link_attribute_text_value (attribute_type, link, text_value) VALUES
     (788, 180865, 'BWV 1'),
     (788, 180086, 'BWV 2'),
-    (788, 178448, 'BWV 3');
+    (788, 178448, 'BWV 3'),
+    (788, 180875, '1');
+
+INSERT INTO l_release_group_series (edits_pending, entity0, entity0_credit, entity1, entity1_credit, id, last_updated, link, link_order) VALUES
+    (0, 403214, '', 30, '', 7765, '2014-07-09 15:10:16.494155-05', 180875, 1);
 
 INSERT INTO l_series_work (edits_pending, entity0, entity0_credit, entity1, entity1_credit, id, last_updated, link, link_order) VALUES
     (0, 25, '', 12488154, '', 7760, '2014-07-09 15:10:16.494155-05', 180865, 1),
