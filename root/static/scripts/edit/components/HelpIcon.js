@@ -18,11 +18,18 @@ class HelpIcon extends React.Component {
 
   render() {
     return (
-      <div style={{position: 'relative', display: 'inline-block'}}>
+      <div
+        style={{
+          position: 'relative',
+          display: 'inline-block',
+          marginLeft: '10px',
+        }}
+      >
         <div
           className="img icon help"
           onMouseEnter={() => this.setState({hover: true})}
           onMouseLeave={() => this.setState({hover: false})}
+          style={{verticalAlign: 'text-top'}}
         />
         {this.state.hover &&
           <Tooltip

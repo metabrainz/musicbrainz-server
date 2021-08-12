@@ -671,59 +671,60 @@ const ExternalLinkRelationship =
         <td>
           <div className="relationship-content">
             <label>{addColonText(l('Type'))}</label>
-            {/* If the URL matches its type or is just empty,
-                display either a favicon
-                or a prompt for a new link as appropriate. */
-              showTypeSelection
-                ? (
-                  <LinkTypeSelect
-                    handleTypeBlur={
-                      (event) => props.onTypeBlur(link.index, event)
-                    }
-                    handleTypeChange={
-                      (event) => props.onTypeChange(link.index, event)
-                    }
-                    type={link.type}
-                  >
-                    {props.typeOptions}
-                  </LinkTypeSelect>
-                ) : (
-                  <label className="relationship-name">
-                    {linkType ? (
+            <label className="relationship-name">
+              {/* If the URL matches its type or is just empty,
+                  display either a favicon
+                  or a prompt for a new link as appropriate. */
+                showTypeSelection
+                  ? (
+                    <LinkTypeSelect
+                      handleTypeBlur={
+                        (event) => props.onTypeBlur(link.index, event)
+                      }
+                      handleTypeChange={
+                        (event) => props.onTypeChange(link.index, event)
+                      }
+                      type={link.type}
+                    >
+                      {props.typeOptions}
+                    </LinkTypeSelect>
+                  ) : (
+                    linkType ? (
                       backward
                         ? l_relationships(linkType.reverse_link_phrase)
                         : l_relationships(linkType.link_phrase)
-                    ) : null}
+                    ) : null
+                  )
+              }
+              {linkType &&
+                hasOwnProp(
+                  linkType.attributes,
+                  String(VIDEO_ATTRIBUTE_ID),
+                ) &&
+                <div className="attribute-container">
+                  <label>
+                    <input
+                      checked={link.video}
+                      onChange={
+                        (event) => props.onVideoChange(link.index, event)
+                      }
+                      style={{verticalAlign: 'text-top'}}
+                      type="checkbox"
+                    />
+                    {' '}
+                    {l('video')}
                   </label>
-                )
-            }
-            {linkType &&
-              hasOwnProp(
-                linkType.attributes,
-                String(VIDEO_ATTRIBUTE_ID),
-              ) &&
-              <div className="attribute-container">
-                <label>
-                  <input
-                    checked={link.video}
-                    onChange={
-                      (event) => props.onVideoChange(link.index, event)
-                    }
-                    type="checkbox"
-                  />
-                  {' '}
-                  {l('video')}
-                </label>
-              </div>}
+                </div>}
+              {link.url && !link.error && !hasUrlError &&
+                <TypeDescription type={link.type} url={link.url} />}
+            </label>
           </div>
           {link.error &&
             <div className="error field-error" data-visible="1">
               {link.error.message}
             </div>}
         </td>
-        <td className="link-actions" style={{minWidth: '34px'}}>
-          {link.url && !link.error && !hasUrlError &&
-            <TypeDescription type={link.type} url={link.url} />}
+        <td className="link-actions" style={{minWidth: '17px'}}>
           {!props.isOnlyRelationship &&
             <RemoveButton
               onClick={() => props.onLinkRemove(link.index)}
@@ -844,7 +845,7 @@ export class ExternalLink extends React.Component<LinkProps> {
               </div>
             }
           </td>
-          <td className="link-actions" style={{minWidth: '34px'}}>
+          <td className="link-actions" style={{minWidth: '38px'}}>
             {!isEmpty(props) && firstLink.submitted &&
               <URLInputPopover
                 cleanupUrl={props.cleanupUrl}
