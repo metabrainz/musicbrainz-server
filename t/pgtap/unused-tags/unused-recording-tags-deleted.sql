@@ -14,6 +14,7 @@ INSERT INTO tag (id, name) VALUES (2, 'Unused tag'), (4, 'Used tag'), (5, 'Share
 INSERT INTO recording_tag (recording, tag, count) VALUES
   (1, 2, 1), (1, 4, 1), (1, 5, 1), (2, 5, 1);
 
+-- Delete tag before commit to test AFTER INSERT ON tag trigger
 DELETE FROM recording_tag WHERE tag = 2;
 
 -- Deleting but the re-adding should not garbage collect
@@ -32,7 +33,15 @@ SET CONSTRAINTS ALL IMMEDIATE;
 
 SELECT set_eq(
   'SELECT id FROM tag', '{4, 5}'::INT[],
-  'Tag collected after commit'
+  'Tag deleted after commit by AFTER INSERT ON tag'
+);
+
+-- Delete tag after commit to test AFTER DELETE ON recording_tag trigger
+DELETE FROM recording_tag WHERE tag = 5;
+
+SELECT set_eq(
+  'SELECT id FROM tag', '{4}'::INT[],
+  'Tag deleted after commit by AFTER DELETE ON recording_tag'
 );
 
 SELECT finish();

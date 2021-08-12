@@ -4,22 +4,22 @@ SET search_path = 'musicbrainz', 'public';
 BEGIN;
 SELECT no_plan();
 
-INSERT INTO work (id, gid, name)
-  VALUES (1, '82ac9811-db47-4c05-9792-83cf4208afd0', 'Work'),
-         (2, '9baea67a-8d86-422d-b653-b0f6d0a93c7c', 'Work');
+INSERT INTO series (id, gid, name, comment, type, ordering_attribute, ordering_type)
+  VALUES (1, '82ac9811-db47-4c05-9792-83cf4208afd0', 'Series', 'Series 1', 1, 788, 1),
+         (2, '9baea67a-8d86-422d-b653-b0f6d0a93c7c', 'Series', 'Series 2', 1, 788, 1);
 
 INSERT INTO tag (id, name) VALUES (2, 'Unused tag'), (4, 'Used tag'), (5, 'Shared tag');
-INSERT INTO work_tag (work, tag, count) VALUES
+INSERT INTO series_tag (series, tag, count) VALUES
   (1, 2, 1), (1, 4, 1), (1, 5, 1), (2, 5, 1);
 
 -- Delete tag before commit to test AFTER INSERT ON tag trigger
-DELETE FROM work_tag WHERE tag = 2;
+DELETE FROM series_tag WHERE tag = 2;
 
 -- Deleting but the re-adding should not garbage collect
-DELETE FROM work_tag WHERE tag = 4;
-INSERT INTO work_tag (work, tag, count) VALUES (1, 4, 1);
+DELETE FROM series_tag WHERE tag = 4;
+INSERT INTO series_tag (series, tag, count) VALUES (1, 4, 1);
 
-DELETE FROM work_tag WHERE tag = 5 AND work = 1;
+DELETE FROM series_tag WHERE tag = 5 AND series = 1;
 
 SELECT set_eq(
   'SELECT id FROM tag', '{2, 4, 5}'::INT[],
@@ -34,12 +34,13 @@ SELECT set_eq(
   'Tag deleted after commit by AFTER INSERT ON tag'
 );
 
--- Delete tag after commit to test AFTER DELETE ON work_tag trigger
-DELETE FROM work_tag WHERE tag = 5;
+-- Delete tag after commit to test AFTER DELETE ON series_tag trigger
+DELETE FROM series_tag WHERE tag = 5;
 
 SELECT set_eq(
   'SELECT id FROM tag', '{4}'::INT[],
-  'Tag deleted after commit by AFTER DELETE ON work_tag');
+  'Tag deleted after commit by AFTER DELETE ON series_tag'
+);
 
 SELECT finish();
 ROLLBACK;
