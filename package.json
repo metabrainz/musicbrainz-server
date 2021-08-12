@@ -92,7 +92,7 @@
     "tap-junit": "3.1.0",
     "tape": "4.7.0",
     "utf8": "2.1.2",
-    "xgettext-js": "2.0.0"
+    "xgettext-js": "3.0.0"
   },
   "private": true
 }
