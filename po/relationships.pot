@@ -1529,6 +1529,12 @@ msgid ""
 "\" or \"first conductor\"."
 msgstr ""
 
+#: DB:link_type/description:998 DB:link_type/description:999
+msgid ""
+"This indicates that the label performed a role not covered by other "
+"relationship types."
+msgstr ""
+
 #: DB:link_type/description:890
 msgid ""
 "This indicates that the organisation commissioned the work. This is most "
@@ -4311,6 +4317,7 @@ msgid "has a logo at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:129 DB:link_type/long_link_phrase:25
+#: DB:link_type/long_link_phrase:998 DB:link_type/long_link_phrase:999
 msgid "has a miscellaneous role on"
 msgstr ""
 
@@ -5184,16 +5191,19 @@ msgid "minor"
 msgstr ""
 
 #: DB:link_type/name:162 DB:link_type/name:129 DB:link_type/name:25
+#: DB:link_type/name:998 DB:link_type/name:999
 msgid "misc"
 msgstr ""
 
 #: DB:link_type/link_phrase:162 DB:link_type/link_phrase:129
-#: DB:link_type/link_phrase:25
+#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:998
+#: DB:link_type/link_phrase:999
 msgid "miscellaneous roles"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:162 DB:link_type/reverse_link_phrase:129
-#: DB:link_type/reverse_link_phrase:25
+#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:998
+#: DB:link_type/reverse_link_phrase:999
 msgid "miscellaneous support"
 msgstr ""
 

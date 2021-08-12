@@ -655,6 +655,13 @@ msgid ""
 "common combination for 20th century classical groups."
 msgstr ""
 
+#. name:string quintet 
+#: DB:instrument/description:1033
+msgid ""
+"Chamber ensemble of five players (two violins, one viola & one cello, then "
+"either a second viola, a second cello or a double bass)"
+msgstr ""
+
 #. name:string quartet 
 #: DB:instrument/description:908
 msgid "Chamber ensemble of four players (two violins, one viola, one cello)"

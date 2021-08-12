@@ -17098,7 +17098,7 @@ msgstr ""
 msgid "Kuni-Boazi"
 msgstr ""
 
-#. frequency:0 iso_code_3:xug 
+#. frequency:1 iso_code_3:xug 
 #: DB:language/name:7421
 msgid "Kunigami"
 msgstr ""
@@ -29088,7 +29088,7 @@ msgstr ""
 msgid "Russian Sign Language"
 msgstr ""
 
-#. frequency:0 iso_code_3:rue 
+#. frequency:1 iso_code_3:rue 
 #: DB:language/name:5790
 msgid "Rusyn"
 msgstr ""
@@ -38688,7 +38688,7 @@ msgstr ""
 msgid "Yora"
 msgstr ""
 
-#. frequency:0 iso_code_3:yox 
+#. frequency:1 iso_code_3:yox 
 #: DB:language/name:7602
 msgid "Yoron"
 msgstr ""
