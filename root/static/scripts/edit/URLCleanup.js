@@ -4518,7 +4518,7 @@ Object.values(LINK_TYPES).forEach(function (linkType) {
         }
         return {
           result: RESTRICTED_LINK_TYPES.indexOf(id) === -1,
-          target: ERROR_TARGETS.URL,
+          target: ERROR_TARGETS.RELATIONSHIP,
         };
       };
     }
