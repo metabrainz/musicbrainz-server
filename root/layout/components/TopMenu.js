@@ -167,6 +167,11 @@ const AdminMenu = ({user}: UserProp) => (
           <li>
             <a href="/admin/email-search">{l('Email Search')}</a>
           </li>
+          <li>
+            <a href="/admin/locked-usernames/search">
+              {l('Locked Username Search')}
+            </a>
+          </li>
         </>
       ) : null}
     </ul>
