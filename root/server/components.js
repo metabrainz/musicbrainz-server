@@ -204,6 +204,7 @@ module.exports = {
   'report/LimitedEditors': require('../report/LimitedEditors'),
   'report/LinksWithMultipleEntities': require('../report/LinksWithMultipleEntities'),
   'report/MediumsWithSequenceIssues': require('../report/MediumsWithSequenceIssues'),
+  'report/MislinkedPseudoReleases': require('../report/MislinkedPseudoReleases'),
   'report/MultipleAsins': require('../report/MultipleAsins'),
   'report/MultipleDiscogsLinks': require('../report/MultipleDiscogsLinks'),
   'report/NoLanguage': require('../report/NoLanguage'),

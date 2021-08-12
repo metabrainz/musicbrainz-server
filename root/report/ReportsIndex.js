@@ -328,6 +328,13 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
         <ReportsIndexEntry
           content={l(
             `Translated/Transliterated Pseudo-Releases
+             marked as the original version`,
+          )}
+          reportName="MislinkedPseudoReleases"
+        />
+        <ReportsIndexEntry
+          content={l(
+            `Translated/Transliterated Pseudo-Releases
              not linked to an original version`,
           )}
           reportName="UnlinkedPseudoReleases"
