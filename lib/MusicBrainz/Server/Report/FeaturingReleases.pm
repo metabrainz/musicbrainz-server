@@ -15,7 +15,7 @@ sub query {
             JOIN artist_credit ac ON r.artist_credit = ac.id
             JOIN release_meta rm ON r.id = rm.id
         WHERE
-            r.name COLLATE musicbrainz ~* E' \\\\((duet with|συμμετέχει|(f|w)/|(f|feat|ｆｅａｔ|ft|συμμ)(\\\\.|．)|(featuring|ｆｅａｔｕｒｉｎｇ)) '
+            r.name COLLATE musicbrainz ~* E' \\\\(((f|w)/|(feat|ｆｅａｔ|ft|συμμ)(\\\\.|．)|(duet with|συμμετέχει|featuring|ｆｅａｔｕｒｉｎｇ) )'
     ";
 }
 
