@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::Role::UserProfile;
 use HTML::FormHandler::Moose::Role;
 use List::MoreUtils qw( any all );
 use MusicBrainz::Server::Form::Utils qw( language_options select_options_tree validate_username );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l ln N_l );
 use MusicBrainz::Server::Validation qw( is_valid_url );
 
 has_field 'username' => (
@@ -53,11 +53,13 @@ has_field 'languages' => (
 
 has_field 'languages.language_id' => (
     type => 'Select',
+    messages => { required => N_l('A language is required.') },
     required => 1
 );
 
 has_field 'languages.fluency' => (
     type => 'Select',
+    messages => { required => N_l('A fluency level is required.') },
     required => 1
 );
 
