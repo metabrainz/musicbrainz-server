@@ -48,6 +48,17 @@
       target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//div[contains(@class, 'error')]",
       value: 'Enter a valid url e.g. "http://google.com/"',
     },
+    // Don't freeze to link when there's an error
+    {
+      command: 'click',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll(\"input[type='url']\")).map(x => x.value).join('\\n')",
+      value: 'foo\n',
+    },
     // clear
     {
       command: 'click',

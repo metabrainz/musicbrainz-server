@@ -142,6 +142,7 @@ export class ExternalLinksEditor
     isDuplicate: boolean,
     event: SyntheticFocusEvent<HTMLInputElement>,
     urlIndex: number,
+    error: ErrorT | null,
   ) {
     const link = this.state.links[index];
     const url = event.currentTarget.value;
@@ -153,8 +154,11 @@ export class ExternalLinksEditor
     }
 
     let callback = undefined;
-    // Don't add link to list if it's empty or is a duplicate without type
-    if (url !== '' && (!isDuplicate || link.type)) {
+    /*
+     * Don't add link to list if it's empty,
+     * has error, or is a duplicate without type.
+     */
+    if (url !== '' && !error && (!isDuplicate || link.type)) {
       link.submitted = true;
       if (isDuplicate) {
         callback = () => {
@@ -184,6 +188,7 @@ export class ExternalLinksEditor
     index: number,
     urlIndex: number,
     event: SyntheticEvent<HTMLInputElement>,
+    error: ErrorT | null,
   ) {
     const link = this.state.links[index];
     const url = event.currentTarget.value;
@@ -193,17 +198,19 @@ export class ExternalLinksEditor
     if (url !== unicodeUrl) {
       link.url = unicodeUrl;
     }
-    // Don't add link to list if it's empty
-    if (url !== '') {
+    // Don't add link to list if it's empty or has error
+    if (url !== '' && !error) {
       link.submitted = true;
+      this.setLinkState(index, link, () => {
+        // Redirect focus to the 'x' icon instead of the link
+        $(this.tableRef.current)
+          .find(`tr.external-link-item:eq(${urlIndex})`)
+          .find('button.remove-item')
+          .focus();
+      });
+    } else {
+      this.setLinkState(index, link);
     }
-    this.setLinkState(index, link, () => {
-      // Redirect focus to the 'x' icon instead of the link
-      $(this.tableRef.current)
-        .find(`tr.external-link-item:eq(${urlIndex})`)
-        .find('button.remove-item')
-        .focus();
-    });
   }
 
   handleTypeChange(
@@ -222,8 +229,9 @@ export class ExternalLinksEditor
     event: SyntheticFocusEvent<HTMLSelectElement>,
     isDuplicate: boolean,
     urlIndex: number,
+    error: ErrorT | null,
   ) {
-    if (!isDuplicate) {
+    if (!isDuplicate || error) {
       return;
     }
     /*
@@ -547,12 +555,12 @@ export class ExternalLinksEditor
                 handleLinkRemove={(index) => this.removeLink(index)}
                 handleLinkSubmit={
                   (event) => this.handleLinkSubmit(
-                    firstLinkIndex, index, event,
+                    firstLinkIndex, index, event, urlError,
                   )
                 }
                 handleUrlBlur={
                   (event) => this.handleUrlBlur(
-                    firstLinkIndex, !!duplicate, event, index,
+                    firstLinkIndex, !!duplicate, event, index, urlError,
                   )
                 }
                 handleUrlChange={
@@ -566,7 +574,7 @@ export class ExternalLinksEditor
                 onAddRelationship={(url) => this.addRelationship(url, index)}
                 onTypeBlur={
                   (linkIndex, event) => this.handleTypeBlur(
-                    linkIndex, event, !!duplicate, index,
+                    linkIndex, event, !!duplicate, index, urlError,
                   )
                 }
                 onTypeChange={

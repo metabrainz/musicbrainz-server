@@ -91,14 +91,15 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
                   {addColonText(l('Cleaned up to'))}
                 </td>
                 <td>
-                  <a
-                    className="clean-url"
-                    href={link.url}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    {link.url}
-                  </a>
+                  {error ? link.url : (
+                    <a
+                      className="clean-url"
+                      href={link.url}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      {link.url}
+                    </a>)}
                 </td>
               </tr>
             }
