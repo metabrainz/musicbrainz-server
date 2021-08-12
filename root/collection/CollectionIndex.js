@@ -33,7 +33,7 @@ import CollectionLayout from './CollectionLayout';
 type PropsForEntity<T: CoreEntityT> = {
   +$c: CatalystContextT,
   +collection: CollectionT,
-  +collectionEntityType: $ElementType<T, 'entityType'>,
+  +collectionEntityType: T['entityType'],
   +entities: $ReadOnlyArray<T>,
   +order: string,
   +pager: PagerT,

@@ -19,7 +19,7 @@ import {
   VIDEO_ATTRIBUTE_ID,
   VIDEO_ATTRIBUTE_GID,
 } from '../common/constants';
-import {compare} from '../common/i18n';
+import {compare, l} from '../common/i18n';
 import expand2react from '../common/i18n/expand2react';
 import linkedEntities from '../common/linkedEntities';
 import MB from '../common/MB';
@@ -31,13 +31,23 @@ import {isMalware} from '../../../url/utility/isGreyedOut';
 import isPositiveInteger from './utility/isPositiveInteger';
 import HelpIcon from './components/HelpIcon';
 import RemoveButton from './components/RemoveButton';
+import URLInputPopover from './components/URLInputPopover';
 import {linkTypeOptions} from './forms';
 import * as URLCleanup from './URLCleanup';
 import validation from './validation';
 
-type LinkStateT = {
+type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
+
+export type ErrorT = {
+  message: React.Node,
+  target: ErrorTarget,
+};
+
+export type LinkStateT = {
+  rawUrl: string,
   // New relationships will use a unique string ID like "new-1".
   relationship: StrOrNum | null,
+  submitted: boolean,
   type: number | null,
   url: string,
   video: boolean,
@@ -45,6 +55,14 @@ type LinkStateT = {
 };
 
 type LinkMapT = Map<string, LinkStateT>;
+
+type LinkRelationshipT = LinkStateT & {
+  error: ErrorT | null,
+  index: number,
+  urlIndex: number,
+  urlMatchesType?: boolean,
+  ...
+};
 
 type LinksEditorProps = {
   errorObservable: (boolean) => void,
@@ -74,44 +92,171 @@ export class ExternalLinksEditor
   ) {
     const newLinks: Array<LinkStateT> = this.state.links.concat();
     newLinks[index] = Object.assign({}, newLinks[index], state);
-    this.setState({links: withOneEmptyLink(newLinks, index)}, callback);
+    this.setState({links: newLinks}, callback);
   }
 
-  handleUrlChange(index: number, event: SyntheticEvent<HTMLInputElement>) {
-    let url = event.currentTarget.value;
-    const link = this.state.links[index];
+  cleanupUrl(url: string): string {
+    if (url.match(/^\w+\./)) {
+      url = 'http://' + url;
+    }
+    return URLCleanup.cleanURL(url) || url;
+  }
 
-    // Allow adding spaces while typing, they'll be trimmed on blur
-    if (url.trim() !== link.url.trim()) {
-      if (url.match(/^\w+\./)) {
-        url = 'http://' + url;
-      }
-      url = URLCleanup.cleanURL(url) || url;
+  handleUrlChange(
+    linkIndexes: Array<number>,
+    urlIndex: number,
+    rawUrl: string,
+  ) {
+    let url = rawUrl;
+    if (url === '') {
+      this.removeLinks(linkIndexes, urlIndex);
+      return;
     }
 
-    this.setLinkState(index, {url: url}, () => {
-      if (!link.type) {
-        const type = URLCleanup.guessType(this.props.sourceType, url);
+    this.setState(prevState => {
+      let newLinks = [...prevState.links];
+      linkIndexes.forEach(index => {
+        const link = newLinks[index];
 
-        if (type) {
-          this.setLinkState(index, {type: linkedEntities.link_type[type].id});
+        // Allow adding spaces while typing, they'll be trimmed on blur
+        if (url.trim() !== link.url.trim()) {
+          url = this.cleanupUrl(url);
         }
-      }
+
+        let newLink = Object.assign({}, newLinks[index], {url, rawUrl});
+        if (!link.type) {
+          const type = URLCleanup.guessType(this.props.sourceType, url);
+
+          if (type) {
+            newLink.type = linkedEntities.link_type[type].id;
+          }
+        }
+        newLinks[index] = newLink;
+      });
+      return {links: withOneEmptyLink(newLinks, -1)};
     });
   }
 
-  handleUrlBlur(index: number, event: SyntheticEvent<HTMLInputElement>) {
+  handleUrlBlur(
+    index: number,
+    isDuplicate: boolean,
+    event: SyntheticFocusEvent<HTMLInputElement>,
+    urlIndex: number,
+    error: ErrorT | null,
+  ) {
+    const link = this.state.links[index];
     const url = event.currentTarget.value;
     const trimmed = url.trim();
     const unicodeUrl = getUnicodeUrl(trimmed);
 
     if (url !== unicodeUrl) {
-      this.setLinkState(index, {url: unicodeUrl});
+      link.url = unicodeUrl;
+    }
+
+    let callback = undefined;
+    /*
+     * Don't add link to list if it's empty,
+     * has error, or is a duplicate without type.
+     */
+    if (url !== '' && !error && (!isDuplicate || link.type)) {
+      link.submitted = true;
+      if (isDuplicate) {
+        callback = () => {
+          // Return focus to the input box after merging
+          $(this.tableRef.current)
+            .find("input[type='url']")
+            .eq(0)
+            .focus();
+        };
+        /*
+         * $FlowIssue[incompatible-type]: relatedTarget is EventTarget
+         * Don't merge when user clicks on delete icon,
+         * otherwise UI change will prevent the deletion.
+         */
+        const relatedTarget: HTMLElement = event.relatedTarget;
+        const clickingDeleteIcon =
+        relatedTarget && relatedTarget.dataset.index === urlIndex.toString();
+        if (clickingDeleteIcon) {
+          link.submitted = false;
+        }
+      }
+    }
+    this.setLinkState(index, link, callback);
+  }
+
+  handleLinkSubmit(
+    index: number,
+    urlIndex: number,
+    event: SyntheticEvent<HTMLInputElement>,
+    error: ErrorT | null,
+  ) {
+    const link = this.state.links[index];
+    const url = event.currentTarget.value;
+    const trimmed = url.trim();
+    const unicodeUrl = getUnicodeUrl(trimmed);
+
+    if (url !== unicodeUrl) {
+      link.url = unicodeUrl;
+    }
+    // Don't add link to list if it's empty or has error
+    if (url !== '' && !error) {
+      link.submitted = true;
+      this.setLinkState(index, link, () => {
+        // Redirect focus to the 'x' icon instead of the link
+        $(this.tableRef.current)
+          .find(`tr.external-link-item:eq(${urlIndex})`)
+          .find('button.remove-item')
+          .focus();
+      });
+    } else {
+      this.setLinkState(index, link);
     }
   }
 
-  handleTypeChange(index: number, event: SyntheticEvent<HTMLSelectElement>) {
-    this.setLinkState(index, {type: +event.currentTarget.value || null});
+  handleTypeChange(
+    index: number,
+    isDuplicate: boolean,
+    event: SyntheticEvent<HTMLSelectElement>,
+  ) {
+    const type = +event.currentTarget.value || null;
+    const link = this.state.links[index];
+    link.type = type;
+    this.setLinkState(index, link);
+  }
+
+  handleTypeBlur(
+    index: number,
+    event: SyntheticFocusEvent<HTMLSelectElement>,
+    isDuplicate: boolean,
+    urlIndex: number,
+    error: ErrorT | null,
+  ) {
+    if (!isDuplicate || error) {
+      return;
+    }
+    /*
+     * $FlowIssue[incompatible-type]: relatedTarget is EventTarget
+     * Don't merge when user clicks on delete icon,
+     * otherwise UI change will prevent the deletion.
+     */
+    const relatedTarget: HTMLElement = event.relatedTarget;
+    const clickingDeleteIcon =
+      relatedTarget && relatedTarget.dataset.index === urlIndex.toString();
+    if (clickingDeleteIcon) {
+      return;
+    }
+
+    const link = this.state.links[index];
+    if (link.url && link.type) {
+      link.submitted = true;
+    }
+    this.setLinkState(index, link, () => {
+      // Return focus to the input box after merging
+      $(this.tableRef.current)
+        .find("input[type='url']")
+        .eq(0)
+        .focus();
+    });
   }
 
   handleVideoChange(index: number, event: SyntheticEvent<HTMLInputElement>) {
@@ -123,11 +268,53 @@ export class ExternalLinksEditor
       const newLinks = prevState.links.concat();
       newLinks.splice(index, 1);
       return {links: newLinks};
+    });
+  }
+
+  removeLinks(indexes: Array<number>, urlIndex: number) {
+    this.setState(prevState => {
+      const newLinks = [...prevState.links];
+      // Iterate from the end to avoid messing up indexes
+      for (let i = indexes.length - 1; i >= 0; --i) {
+        newLinks.splice(indexes[i], 1);
+      }
+      return {links: withOneEmptyLink(newLinks, -1)};
     }, () => {
+      // Return focus to the next item
       $(this.tableRef.current)
-        .find('tr:gt(' + (index - 1) + ') button.remove:first, ' +
-              'tr:lt(' + (index + 1) + ') button.remove:last')
+        .find(`tr.external-link-item:eq(${urlIndex})`)
+        .find('button.edit-item, input')
         .eq(0)
+        .focus();
+    });
+  }
+
+  addRelationship(url: string, urlIndex: number) {
+    this.setState(prevState => {
+      const links = [...prevState.links];
+      const linkCount = links.length;
+      const lastLink = links[linkCount - 1];
+      /*
+       * If the last (latest-added) link is empty, then use it
+       * to maintain the order that the empty link should be at the end.
+       */
+      if (lastLink.url === '') {
+        links[linkCount - 1] = Object.assign(
+          {}, lastLink, {url, submitted: true},
+        );
+        return {links: withOneEmptyLink(links)};
+      }
+      // Otherwise create a new link with the given URL
+      const newRelationship = newLinkState({
+        url, relationship: uniqueId('new-'), submitted: true,
+      });
+      return {links: prevState.links.concat([newRelationship])};
+    }, () => {
+      // Return focus to the new type select
+      $(this.tableRef.current)
+        .find(`tr.add-relationship:eq(${urlIndex})`)
+        .prev()
+        .find('select.link-type')
         .focus();
     });
   }
@@ -199,18 +386,118 @@ export class ExternalLinksEditor
     }
   }
 
-  render(): React.Element<'table'> {
-    this.props.errorObservable(false);
-
+  validateLink(link: LinkStateT): ErrorT | null {
     const oldLinks = this.getOldLinksHash();
-    const linksArray = this.state.links;
     const linksByTypeAndUrl = groupBy(
       uniqBy(
-        linksArray.concat(this.props.initialLinks),
+        this.state.links.concat(this.props.initialLinks),
         link => link.relationship,
       ),
       linkTypeAndUrlString,
     );
+    let error = null;
+
+    const linkType = link.type
+      ? linkedEntities.link_type[link.type] : {};
+    const checker = URLCleanup.validationRules[linkType.gid];
+    const oldLink = oldLinks.get(String(link.relationship));
+    const isNewLink = !isPositiveInteger(link.relationship);
+    const linkChanged = oldLink && link.url !== oldLink.url;
+    const isNewOrChangedLink = (isNewLink || linkChanged);
+    const linkTypeChanged = oldLink && +link.type !== +oldLink.type;
+    link.url = getUnicodeUrl(link.url);
+
+    if (isEmpty(link)) {
+      error = null;
+    } else if (!link.url) {
+      error = {
+        message: l('Required field.'),
+        target: URLCleanup.ERROR_TARGETS.URL,
+      };
+    } else if (isNewOrChangedLink && !isValidURL(link.url)) {
+      error = {
+        message: l('Enter a valid url e.g. "http://google.com/"'),
+        target: URLCleanup.ERROR_TARGETS.URL,
+      };
+    } else if (isNewOrChangedLink && isMusicBrainz(link.url)) {
+      error = {
+        message: l(`Links to MusicBrainz URLs are not allowed.
+                Did you mean to paste something else?`),
+        target: URLCleanup.ERROR_TARGETS.URL,
+      };
+    } else if (isNewOrChangedLink && isMalware(link.url)) {
+      error = {
+        message: l(`Links to this website are not allowed
+                because it is known to host malware.`),
+        target: URLCleanup.ERROR_TARGETS.URL,
+      };
+    } else if (isNewOrChangedLink && isShortened(link.url)) {
+      error = {
+        message: l(`Please don’t enter bundled/shortened URLs,
+                enter the destination URL(s) instead.`),
+        target: URLCleanup.ERROR_TARGETS.URL,
+      };
+    } else if (isNewOrChangedLink && isGoogleAmp(link.url)) {
+      error = {
+        message: l(`Please don’t enter Google AMP links,
+                since they are effectively an extra redirect.
+                Enter the destination URL instead.`),
+        target: URLCleanup.ERROR_TARGETS.URL,
+      };
+    } else if (!link.type) {
+      error = {
+        message: l(`Please select a link type for the URL
+                you’ve entered.`),
+        target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
+      };
+    } else if (
+      linkType.deprecated && (isNewLink || linkTypeChanged)
+    ) {
+      error = {
+        message: l(`This relationship type is deprecated 
+                and should not be used.`),
+        target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
+      };
+    } else if (
+      (linksByTypeAndUrl.get(linkTypeAndUrlString(link)) ||
+        []).length > 1
+    ) {
+      error = {
+        message: l('This relationship already exists.'),
+        target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
+      };
+    } else if (isNewOrChangedLink && checker) {
+      const check = checker(link.url);
+      if (!check.result) {
+        error = {
+          message: '',
+          target: URLCleanup.ERROR_TARGETS.NONE,
+        };
+        error.target = check.target ||
+          URLCleanup.ERROR_TARGETS.NONE;
+        if (error.target === URLCleanup.ERROR_TARGETS.URL) {
+          error.message = l(
+            `This URL is not allowed for the selected link type,
+            or is incorrectly formatted.`,
+          );
+        }
+        if (error.target ===
+          URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
+          error.message = l(`This URL is not allowed 
+                    for the selected link type.`);
+        }
+        error.message = check.error || error.message;
+      }
+    }
+    return error;
+  }
+
+  render(): React.Element<'table'> {
+    this.props.errorObservable(false);
+
+    const linksArray = this.state.links;
+    const linksGroupMap = groupLinksByUrl(linksArray);
+    const linksByUrl = Array.from(linksGroupMap);
 
     return (
       <table
@@ -219,112 +506,93 @@ export class ExternalLinksEditor
         ref={this.tableRef}
       >
         <tbody>
-          {linksArray.map((link, index) => {
-            let error;
-            let errorTarget: ErrorTarget = URLCleanup.ERROR_TARGETS.NONE;
-            const linkType = link.type
-              ? linkedEntities.link_type[link.type] : {};
-            const checker = URLCleanup.validationRules[linkType.gid];
-            const oldLink = oldLinks.get(String(link.relationship));
-            const isNewLink = !isPositiveInteger(link.relationship);
-            const linkChanged = oldLink && link.url !== oldLink.url;
-            const isNewOrChangedLink = (isNewLink || linkChanged);
-            const linkTypeChanged = oldLink && +link.type !== +oldLink.type;
-            link.url = getUnicodeUrl(link.url);
+          {linksByUrl.map((item, index) => {
+            const relationships = item[1];
+            /*
+             * The first element of tuple `item` is not the URL
+             * when the URL is not submitted therefore isn't grouped.
+             */
+            const {url, rawUrl} = relationships[0];
+            const isLastLink = index === linksByUrl.length - 1;
+            let links = [...relationships];
+            const linkIndexes = [];
 
-            if (isEmpty(link)) {
-              error = '';
-            } else if (!link.url) {
-              error = l('Required field.');
-              errorTarget = URLCleanup.ERROR_TARGETS.URL;
-            } else if (isNewOrChangedLink && !isValidURL(link.url)) {
-              error = l('Enter a valid url e.g. "http://google.com/"');
-              errorTarget = URLCleanup.ERROR_TARGETS.URL;
-            } else if (isNewOrChangedLink && isMusicBrainz(link.url)) {
-              error = l(`Links to MusicBrainz URLs are not allowed.
-                         Did you mean to paste something else?`);
-              errorTarget = URLCleanup.ERROR_TARGETS.URL;
-            } else if (isNewOrChangedLink && isMalware(link.url)) {
-              error = l(`Links to this website are not allowed
-                         because it is known to host malware.`);
-              errorTarget = URLCleanup.ERROR_TARGETS.URL;
-            } else if (isNewOrChangedLink && isShortened(link.url)) {
-              error = l(`Please don’t enter bundled/shortened URLs,
-                         enter the destination URL(s) instead.`);
-              errorTarget = URLCleanup.ERROR_TARGETS.URL;
-            } else if (isNewOrChangedLink && isGoogleAmp(link.url)) {
-              error = l(`Please don’t enter Google AMP links,
-                         since they are effectively an extra redirect.
-                         Enter the destination URL instead.`);
-              errorTarget = URLCleanup.ERROR_TARGETS.URL;
-            } else if (!link.type) {
-              error = l(`Please select a link type for the URL
-                         you’ve entered.`);
-              errorTarget = URLCleanup.ERROR_TARGETS.RELATIONSHIP;
-            } else if (
-              linkType.deprecated && (isNewLink || linkTypeChanged)
-            ) {
-              error = l(`This relationship type is deprecated 
-                         and should not be used.`);
-              errorTarget = URLCleanup.ERROR_TARGETS.RELATIONSHIP;
-            } else if (
-              (linksByTypeAndUrl.get(
-                linkTypeAndUrlString(link),
-              ) || []).length > 1
-            ) {
-              error = l('This relationship already exists.');
-              errorTarget = URLCleanup.ERROR_TARGETS.RELATIONSHIP;
-            } else if (isNewOrChangedLink && checker) {
-              const check = checker(link.url);
-              if (!check.result) {
-                errorTarget = check.target ||
-                  URLCleanup.ERROR_TARGETS.NONE;
-                if (errorTarget === URLCleanup.ERROR_TARGETS.URL) {
-                  error = l(
-                    `This URL is not allowed for the selected link type,
-                     or is incorrectly formatted.`,
-                  );
+            // Check duplicates and show notice
+            const duplicate = links[0].submitted
+              ? false : linksGroupMap.get(url);
+            const duplicateNotice = duplicate
+              ? texp.l(
+                `Note: This link already exists 
+                 at position #{position}. 
+                 To merge, press enter or select a type.`,
+                {position: duplicate[0].urlIndex + 1},
+              ) : '';
+
+            let urlError = null;
+            links.forEach(link => {
+              linkIndexes.push(link.index);
+              const linkType = link.type
+                ? linkedEntities.link_type[link.type] : {};
+              link.url = getUnicodeUrl(link.url);
+              const error = this.validateLink(link);
+              if (error) {
+                this.props.errorObservable(true);
+                if (error.target === URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
+                  link.error = error;
+                } else {
+                  urlError = error;
                 }
-                if (errorTarget === URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
-                  error = l(`This URL is not allowed 
-                             for the selected link type.`);
-                }
-                error = check.error || error;
               }
-            }
 
-            if (error) {
-              this.props.errorObservable(true);
-            }
+              link.urlMatchesType = linkType.gid === URLCleanup.guessType(
+                this.props.sourceType, url,
+              );
+            });
+            const firstLinkIndex = linkIndexes[0];
 
             return (
               <ExternalLink
-                errorMessage={error || ''}
-                errorTarget={errorTarget}
-                handleUrlBlur={
-                  (event) => this.handleUrlBlur(index, event)
-                }
-                handleUrlChange={
-                  (event) => this.handleUrlChange(index, event)
-                }
-                handleVideoChange={
-                  (event) => this.handleVideoChange(index, event)
-                }
-                isOnlyLink={this.state.links.length === 1}
-                key={link.relationship}
-                onRemove={() => this.removeLink(index)}
-                type={link.type}
-                typeChangeCallback={
-                  (event) => this.handleTypeChange(index, event)
-                }
-                typeOptions={this.props.typeOptions}
-                url={link.url}
-                urlMatchesType={
-                  linkType.gid === URLCleanup.guessType(
-                    this.props.sourceType, link.url,
+                cleanupUrl={(url) => this.cleanupUrl(url)}
+                error={urlError}
+                handleLinkRemove={(index) => this.removeLink(index)}
+                handleLinkSubmit={
+                  (event) => this.handleLinkSubmit(
+                    firstLinkIndex, index, event, urlError,
                   )
                 }
-                video={link.video}
+                handleUrlBlur={
+                  (event) => this.handleUrlBlur(
+                    firstLinkIndex, !!duplicate, event, index, urlError,
+                  )
+                }
+                handleUrlChange={
+                  (rawUrl) => this.handleUrlChange(linkIndexes, index, rawUrl)
+                }
+                index={index}
+                isLastLink={isLastLink}
+                isOnlyLink={linksByUrl.length === 1}
+                key={index}
+                notice={duplicateNotice}
+                onAddRelationship={(url) => this.addRelationship(url, index)}
+                onTypeBlur={
+                  (linkIndex, event) => this.handleTypeBlur(
+                    linkIndex, event, !!duplicate, index, urlError,
+                  )
+                }
+                onTypeChange={
+                  (index, event) => this.handleTypeChange(
+                    index, !!duplicate, event,
+                  )
+                }
+                onUrlRemove={() => this.removeLinks(linkIndexes, index)}
+                onVideoChange={
+                  (index, event) => this.handleVideoChange(index, event)
+                }
+                rawUrl={rawUrl}
+                relationships={links}
+                typeOptions={this.props.typeOptions}
+                url={url}
+                validateLink={(link) => this.validateLink(link)}
               />
             );
           })}
@@ -336,7 +604,10 @@ export class ExternalLinksEditor
 
 type LinkTypeSelectProps = {
   children: Array<React.Element<'option'>>,
-  handleTypeChange: (SyntheticEvent<HTMLSelectElement>) => void,
+  handleTypeBlur:
+    (SyntheticFocusEvent<HTMLSelectElement>) => void,
+  handleTypeChange:
+    (SyntheticEvent<HTMLSelectElement>) => void,
   type: number | null,
 };
 
@@ -345,6 +616,7 @@ class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
     return (
       <select
         className="link-type"
+        onBlur={this.props.handleTypeBlur}
         onChange={this.props.handleTypeChange}
         value={this.props.type || ''}
       >
@@ -355,32 +627,15 @@ class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
   }
 }
 
-type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
-
-type LinkProps = {
-  errorMessage: React.Node,
-  errorTarget: ErrorTarget,
-  handleUrlBlur: (SyntheticEvent<HTMLInputElement>) => void,
-  handleUrlChange: (SyntheticEvent<HTMLInputElement>) => void,
-  handleVideoChange:
-    (SyntheticEvent<HTMLInputElement>) => void,
-  isOnlyLink: boolean,
-  onRemove: (number) => void,
+type TypeDescriptionProps = {
   type: number | null,
-  typeChangeCallback: (SyntheticEvent<HTMLSelectElement>) => void,
-  typeOptions: Array<React.Element<'option'>>,
   url: string,
-  urlMatchesType: boolean,
-  video: boolean,
 };
 
-export class ExternalLink extends React.Component<LinkProps> {
-  render(): React.Element<'tr'> {
-    const props = this.props;
+const TypeDescription =
+  (props: TypeDescriptionProps): React.Element<typeof HelpIcon> => {
     const linkType = props.type ? linkedEntities.link_type[props.type] : null;
     let typeDescription = '';
-    let faviconClass: string | void;
-    const backward = linkType && linkType.type1 > 'url';
 
     if (linkType && linkType.description) {
       typeDescription = exp.l('{description} ({url|more documentation})', {
@@ -389,109 +644,275 @@ export class ExternalLink extends React.Component<LinkProps> {
       });
     }
 
-    if (props.url && !props.errorMessage) {
-      typeDescription = (
-        <>
-          <a
-            href={props.url}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            {props.url}
-          </a>
-          <br />
-          <br />
-          {typeDescription}
-        </>
-      );
-    }
-
-    const showTypeSelection = props.errorMessage
-      ? true
-      : !(props.urlMatchesType || isEmpty(props));
-
-    if (!showTypeSelection && props.urlMatchesType) {
-      for (const key of Object.keys(FAVICON_CLASSES)) {
-        if (props.url.indexOf(key) > 0) {
-          faviconClass = FAVICON_CLASSES[key];
-          break;
+    return (
+      <HelpIcon
+        content={
+          <div style={{textAlign: 'left'}}>{typeDescription}</div>
         }
+      />
+    );
+  };
+
+type ExternalLinkRelationshipProps = {
+  hasUrlError: boolean,
+  isOnlyRelationship: boolean,
+  link: LinkRelationshipT,
+  onLinkRemove: (number) => void,
+  onTypeBlur: (number, SyntheticFocusEvent<HTMLSelectElement>) => void,
+  onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
+  onVideoChange:
+  (number, SyntheticEvent<HTMLInputElement>) => void,
+  typeOptions: Array<React.Element<'option'>>,
+};
+
+const ExternalLinkRelationship =
+  (props: ExternalLinkRelationshipProps): React.Element<'tr'> => {
+    const {link, hasUrlError} = props;
+    const linkType = link.type ? linkedEntities.link_type[link.type] : null;
+    const backward = linkType && linkType.type1 > 'url';
+
+    const showTypeSelection = (link.error || hasUrlError)
+      ? true
+      : !(link.urlMatchesType || isEmpty(link));
+
+    return (
+      <tr className="relationship-item" key={link.relationship}>
+        <td />
+        <td>
+          <div className="relationship-content">
+            <label>{addColonText(l('Type'))}</label>
+            <label className="relationship-name">
+              {/* If the URL matches its type or is just empty,
+                  display either a favicon
+                  or a prompt for a new link as appropriate. */
+                showTypeSelection
+                  ? (
+                    <LinkTypeSelect
+                      handleTypeBlur={
+                        (event) => props.onTypeBlur(link.index, event)
+                      }
+                      handleTypeChange={
+                        (event) => props.onTypeChange(link.index, event)
+                      }
+                      type={link.type}
+                    >
+                      {props.typeOptions}
+                    </LinkTypeSelect>
+                  ) : (
+                    linkType ? (
+                      backward
+                        ? l_relationships(linkType.reverse_link_phrase)
+                        : l_relationships(linkType.link_phrase)
+                    ) : null
+                  )
+              }
+              {linkType &&
+                hasOwnProp(
+                  linkType.attributes,
+                  String(VIDEO_ATTRIBUTE_ID),
+                ) &&
+                <div className="attribute-container">
+                  <label>
+                    <input
+                      checked={link.video}
+                      onChange={
+                        (event) => props.onVideoChange(link.index, event)
+                      }
+                      style={{verticalAlign: 'text-top'}}
+                      type="checkbox"
+                    />
+                    {' '}
+                    {l('video')}
+                  </label>
+                </div>}
+              {link.url && !link.error && !hasUrlError &&
+                <TypeDescription type={link.type} url={link.url} />}
+            </label>
+          </div>
+          {link.error &&
+            <div className="error field-error" data-visible="1">
+              {link.error.message}
+            </div>}
+        </td>
+        <td className="link-actions" style={{minWidth: '17px'}}>
+          {!props.isOnlyRelationship &&
+            <RemoveButton
+              onClick={() => props.onLinkRemove(link.index)}
+              title={l('Remove Relationship')}
+            />}
+        </td>
+      </tr>
+    );
+  };
+
+type LinkProps = {
+  cleanupUrl: (string) => string,
+  error: ErrorT | null,
+  handleLinkRemove: (number) => void,
+  handleLinkSubmit: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
+  handleUrlBlur: (SyntheticFocusEvent<HTMLInputElement>) => void,
+  handleUrlChange: (string) => void,
+  index: number,
+  isLastLink: boolean,
+  isOnlyLink: boolean,
+  notice: string,
+  onAddRelationship: (string) => void,
+  onTypeBlur: (number, SyntheticFocusEvent<HTMLSelectElement>) => void,
+  onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
+  onUrlRemove: () => void,
+  onVideoChange:
+    (number, SyntheticEvent<HTMLInputElement>) => void,
+  rawUrl: string,
+  relationships: Array<LinkRelationshipT>,
+  typeOptions: Array<React.Element<'option'>>,
+  url: string,
+  validateLink: (LinkStateT) => ErrorT | null,
+};
+
+export class ExternalLink extends React.Component<LinkProps> {
+  handleKeyDown(event: SyntheticKeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.props.handleLinkSubmit(event);
+    }
+  }
+
+  render(): React.Element<typeof React.Fragment> {
+    const props = this.props;
+    const notEmpty = props.relationships.some(link => {
+      return !isEmpty(link);
+    });
+    const firstLink = props.relationships[0];
+
+    let faviconClass: string | void;
+    for (const key of Object.keys(FAVICON_CLASSES)) {
+      if (props.url.indexOf(key) > 0) {
+        faviconClass = FAVICON_CLASSES[key];
+        break;
       }
     }
 
     return (
-      <tr>
-        <td>
-          {/* If the URL matches its type or is just empty, display either a
-              favicon or a prompt for a new link as appropriate. */
-            showTypeSelection
-              ? (
-                <LinkTypeSelect
-                  handleTypeChange={props.typeChangeCallback}
-                  type={props.type}
-                >
-                  {props.typeOptions}
-                </LinkTypeSelect>
-              ) : (
-                <label>
-                  {faviconClass &&
-                  <span className={'favicon ' + faviconClass + '-favicon'} />}
-                  {(linkType ? (
-                    backward
-                      ? l_relationships(linkType.reverse_link_phrase)
-                      : l_relationships(linkType.link_phrase)
-                  ) : null) ||
-                  (props.isOnlyLink
-                    ? l('Add link:')
-                    : l('Add another link:'))}
-                </label>)
-          }
-        </td>
-        <td>
-          <input
-            className="value with-button"
-            onBlur={props.handleUrlBlur}
-            onChange={props.handleUrlChange}
-            type="url"
-            value={props.url}
-          />
-          {props.errorMessage &&
-            <div
-              className={`error field-error target-${props.errorTarget}`}
-              data-visible="1"
-            >
-              {props.errorMessage}
-            </div>
-          }
-          {linkType &&
-            hasOwnProp(linkType.attributes, String(VIDEO_ATTRIBUTE_ID)) &&
-            <div className="attribute-container">
-              <label>
-                <input
-                  checked={props.video}
-                  onChange={props.handleVideoChange}
-                  type="checkbox"
-                />
-                {' '}
-                {l('video')}
-              </label>
-            </div>}
-        </td>
-        <td style={{minWidth: '34px'}}>
-          {typeDescription && <HelpIcon content={typeDescription} />}
-          {isEmpty(props) ||
-            <RemoveButton
-              onClick={props.onRemove}
-              title={l('Remove Link')}
+      <React.Fragment>
+        <tr className="external-link-item">
+          <td>
+            {faviconClass &&
+            <span
+              className={'favicon ' + faviconClass + '-favicon'}
             />}
-        </td>
-      </tr>
+            <label>
+              {props.index + 1}
+            </label>
+          </td>
+          <td>
+            {/* Links that are not submitted will not be grouped,
+              * so it's safe to check the first link only.
+              */}
+            {(!firstLink.submitted || !props.url) ? (
+              <input
+                className="value with-button"
+                data-index={props.index}
+                onBlur={props.handleUrlBlur}
+                onChange={(event) => {
+                  props.handleUrlChange(event.currentTarget.value);
+                }}
+                onKeyDown={(event) => this.handleKeyDown(event)}
+                placeholder={props.isOnlyLink
+                  ? l('Add link')
+                  : (
+                    props.isLastLink
+                      ? l('Add another link')
+                      : ''
+                  )}
+                type="url"
+                // Don't interrupt user input with clean URL
+                value={props.rawUrl}
+              />
+            ) : (
+              <a
+                className="url"
+                href={props.url}
+                rel="noreferrer"
+                target="_blank"
+              >
+                {props.url}
+              </a>
+            )}
+            {props.notice &&
+              <div
+                className="error field-error"
+                data-visible="1"
+              >
+                {props.notice}
+              </div>
+            }
+            {props.error &&
+              <div
+                className={`error field-error target-${props.error.target}`}
+                data-visible="1"
+              >
+                {props.error.message}
+              </div>
+            }
+          </td>
+          <td className="link-actions" style={{minWidth: '38px'}}>
+            {!isEmpty(props) && firstLink.submitted &&
+              <URLInputPopover
+                cleanupUrl={props.cleanupUrl}
+                /*
+                 * Randomly choose a link because relationship errors
+                 * are not displayed, thus link type doesn't matter.
+                 */
+                link={firstLink}
+                onConfirm={props.handleUrlChange}
+                validateLink={props.validateLink}
+              />
+            }
+            {notEmpty &&
+              <RemoveButton
+                data-index={props.index}
+                onClick={() => props.onUrlRemove()}
+                title={l('Remove Link')}
+              />}
+          </td>
+        </tr>
+        {notEmpty &&
+          props.relationships.map((link, index) => (
+            <ExternalLinkRelationship
+              hasUrlError={props.error != null}
+              isOnlyRelationship={props.relationships.length === 1}
+              key={index}
+              link={link}
+              onLinkRemove={props.handleLinkRemove}
+              onTypeBlur={props.onTypeBlur}
+              onTypeChange={props.onTypeChange}
+              onVideoChange={props.onVideoChange}
+              typeOptions={props.typeOptions}
+            />
+        ))}
+        {/* Hide the button when link type is auto-selected */}
+        {notEmpty && !firstLink.urlMatchesType &&
+        <tr className="add-relationship">
+          <td />
+          <td className="add-item" colSpan="4">
+            <button
+              className="add-item with-label"
+              onClick={() => props.onAddRelationship(props.url)}
+              type="button"
+            >
+              {l('Add another relationship')}
+            </button>
+          </td>
+        </tr>}
+      </React.Fragment>
     );
   }
 }
 
 const defaultLinkState: LinkStateT = {
+  rawUrl: '',
   relationship: null,
+  submitted: false,
   type: null,
   url: '',
   video: false,
@@ -559,6 +980,8 @@ export function parseRelationships(
     if (target.entityType === 'url') {
       accum.push({
         relationship: data.id,
+        rawUrl: target.name,
+        submitted: true,
         type: data.linkTypeID ?? null,
         url: target.name,
         video: data.attributes
@@ -569,6 +992,32 @@ export function parseRelationships(
 
     return accum;
   }, []);
+}
+
+function groupLinksByUrl(
+  links: Array<LinkStateT>,
+): Map<string, Array<LinkRelationshipT>> {
+  let map = new Map();
+  let urlIndex = 0;
+  links.forEach((link, index) => {
+    const relationship: LinkRelationshipT = {
+      ...link, error: null, index, urlIndex: index,
+    };
+    /*
+     * Don't group links that are not submitted,
+     * e.g: empty links and the last link(editing)
+     */
+    const key = link.submitted ? link.url : String(link.relationship);
+    const relationships = map.get(key);
+    if (relationships) {
+      relationship.urlIndex = relationships[0].urlIndex;
+      relationships.push(relationship);
+    } else {
+      relationship.urlIndex = urlIndex++;
+      map.set(key, [relationship]);
+    }
+  });
+  return map;
 }
 
 const protocolRegex = /^(https?|ftp):$/;

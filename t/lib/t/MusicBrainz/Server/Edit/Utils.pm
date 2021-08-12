@@ -13,31 +13,31 @@ test 'clean_submitted_artist_credits, copy name to credit' => sub {
     my $ac = {
         names => [
             {
-                artist => { name => "J Alvarez" },
-                join_phrase => " feat. ",
+                artist => { name => 'J Alvarez' },
+                join_phrase => ' feat. ',
             },
             {
-                artist => { name => "Voltio" },
-                name => "Julio Voltio",
+                artist => { name => 'Voltio' },
+                name => 'Julio Voltio',
             }]
     };
 
     my $expected = {
         names => [
             {
-                artist => { name => "J Alvarez" },
-                name => "J Alvarez",
-                join_phrase => " feat. ",
+                artist => { name => 'J Alvarez' },
+                name => 'J Alvarez',
+                join_phrase => ' feat. ',
             },
             {
-                artist => { name => "Voltio" },
-                name => "Julio Voltio",
-                join_phrase => "",
+                artist => { name => 'Voltio' },
+                name => 'Julio Voltio',
+                join_phrase => '',
             }]
     };
 
     is_deeply( clean_submitted_artist_credits ($ac),
-                $expected, "copied name to credits" );
+                $expected, 'copied name to credits' );
 };
 
 test 'clean_submitted_artist_credits, trim and collapse all fields' => sub {
@@ -45,41 +45,41 @@ test 'clean_submitted_artist_credits, trim and collapse all fields' => sub {
     my $ac = {
         names => [
             {
-                artist => { name => "  J  Alvarez  " },
-                join_phrase => "   feat.   ",
+                artist => { name => '  J  Alvarez  ' },
+                join_phrase => '   feat.   ',
             },
             {
-                artist => { name => "  Voltio  " },
-                name => "   Julio   Voltio  ",
-                join_phrase => "!!!11~   ",
+                artist => { name => '  Voltio  ' },
+                name => '   Julio   Voltio  ',
+                join_phrase => '!!!11~   ',
             }]
     };
 
     my $expected = {
         names => [
             {
-                artist => { name => "J Alvarez" },
-                name => "J Alvarez",
-                join_phrase => " feat. ",
+                artist => { name => 'J Alvarez' },
+                name => 'J Alvarez',
+                join_phrase => ' feat. ',
             },
             {
-                artist => { name => "Voltio" },
-                name => "Julio Voltio",
-                join_phrase => "!!!11~",
+                artist => { name => 'Voltio' },
+                name => 'Julio Voltio',
+                join_phrase => '!!!11~',
             }]
     };
 
     is_deeply( clean_submitted_artist_credits ($ac),
-                $expected, "trimmed and collapsed" );
+                $expected, 'trimmed and collapsed' );
 };
 
 test 'entering "0" as a credited name/join phrase' => sub {
     my $input = {
         names => [
             {
-                artist => { name => "Zero", id => 123 },
-                name => "0",
-                join_phrase => "0",
+                artist => { name => 'Zero', id => 123 },
+                name => '0',
+                join_phrase => '0',
             },
         ]
     };
@@ -87,9 +87,9 @@ test 'entering "0" as a credited name/join phrase' => sub {
     is_deeply(clean_submitted_artist_credits($input), {
         names => [
             {
-                artist => { name => "Zero", id => 123 },
-                name => "0",
-                join_phrase => "0",
+                artist => { name => 'Zero', id => 123 },
+                name => '0',
+                join_phrase => '0',
             },
         ]
     });
@@ -101,14 +101,14 @@ test 'entering "0" as a credited name/join phrase' => sub {
     my $ac = artist_credit_from_loaded_definition({ Artist => {} }, $input);
     my @names = $ac->all_names;
 
-    is($names[0]->name, "0");
-    is($names[0]->join_phrase, "0");
+    is($names[0]->name, '0');
+    is($names[0]->join_phrase, '0');
 
     $ac = artist_credit_preview({ Artist => {} }, $input);
     @names = $ac->all_names;
 
-    is($names[0]->name, "0");
-    is($names[0]->join_phrase, "0");
+    is($names[0]->name, '0');
+    is($names[0]->join_phrase, '0');
 };
 
 1;

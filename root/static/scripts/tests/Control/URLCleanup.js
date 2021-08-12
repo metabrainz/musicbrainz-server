@@ -1394,35 +1394,49 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/gnd/129802433',
-       only_valid_entity_types: ['artist', 'label', 'place'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'work'],
   },
   {
                      input_url: 'https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=nid%3D119194901X',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/gnd/119194901X',
-       only_valid_entity_types: ['artist', 'label', 'place'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'work'],
+  },
+  {
+                     input_url: 'https://portal.dnb.de/opac/opacPresentation?cqlMode=true&reset=true&referrerPosition=0&referrerResultId=coriolan%26any&query=idn%3D30001502X',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/30001502X',
+       only_valid_entity_types: ['artist', 'label', 'place', 'release', 'work'],
   },
   {
                      input_url: 'https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=idn%3D1227621485',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/1227621485',
-       only_valid_entity_types: ['release'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'release', 'work'],
   },
   {
                      input_url: 'https://d-nb.info/gnd/2026867-1',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/gnd/2026867-1',
-       only_valid_entity_types: ['artist', 'label', 'place'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'work'],
   },
   {
                      input_url: 'http://d-nb.info/gnd/1133522467',
              input_entity_type: 'place',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/gnd/1133522467',
-       only_valid_entity_types: ['artist', 'label', 'place'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'work'],
+  },
+  {
+                     input_url: 'http://d-nb.info/gnd/1100718354',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/gnd/1100718354',
+       only_valid_entity_types: ['artist', 'label', 'place', 'work'],
   },
   {
                      input_url: 'http://d-nb.info/dnbn/390205699',
@@ -1436,7 +1450,7 @@ const testData = [
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/1181136512',
-       only_valid_entity_types: ['release'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'release', 'work'],
   },
   // Dogmazic
   {
@@ -2052,6 +2066,13 @@ const testData = [
             expected_clean_url: 'https://www.instagram.com/explore/locations/277133756/pacha-club-ibiza/',
        only_valid_entity_types: [],
   },
+  {
+                     input_url: 'https://www.instagram.com/accounts/edit',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.instagram.com/accounts/',
+       only_valid_entity_types: [],
+  },
   // Irish Traditional Music Tune Index (Alan Ng's Tunography)
   {
                      input_url: 'https://www.irishtune.info/album/MCnnly/#',
@@ -2471,12 +2492,6 @@ const testData = [
             expected_clean_url: 'http://lyric.evesta.jp/l7a75fa.html',
        only_valid_entity_types: ['work'],
   },
-  // LYRICSnMUSIC
-  {
-                     input_url: 'http://www.lyricsnmusic.com/david-hasselhoff/white-christmas-lyrics/27952232',
-             input_entity_type: 'work',
-    expected_relationship_type: 'lyrics',
-  },
   // Mainly Norfolk
   {
                      input_url: 'https://www.mainlynorfolk.info/watersons/index.html',
@@ -2749,10 +2764,11 @@ const testData = [
        only_valid_entity_types: ['artist'],
   },
   {
-                     input_url: 'https://www.musixmatch.com/album/Bruno-Mars/This-Is-My-Love-Remixes-3',
+                     input_url: 'http://www.musixmatch.com/album/Bruno-Mars/This-Is-My-Love-Remixes-3#',
              input_entity_type: 'album',
     expected_relationship_type: undefined,
        input_relationship_type: 'lyrics',
+            expected_clean_url: 'https://www.musixmatch.com/album/Bruno-Mars/This-Is-My-Love-Remixes-3',
        only_valid_entity_types: [],
   },
   {
@@ -4412,25 +4428,6 @@ const testData = [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.whosampled.com/sample/127347/Death-Grips-5D-Pet-Shop-Boys-West-End-Girls/',
        only_valid_entity_types: [],
-  },
-  // Fandom (old Wikia)
-  {
-                     input_url: 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
-             input_entity_type: 'release_group',
-    expected_relationship_type: 'lyrics',
-            expected_clean_url: 'https://lyrics.fandom.com/Van_Canto:Hero_(2008)',
-  },
-  {
-                     input_url: 'http://lyrics.fandom.com/wiki/S%C3%B5pruse_Puiestee:Miks_Ma_Ei_V%C3%B5iks_Olla_Maailmas_%C3%9Cksi',
-             input_entity_type: 'work',
-    expected_relationship_type: 'lyrics',
-            expected_clean_url: 'https://lyrics.fandom.com/wiki/S%C3%B5pruse_Puiestee:Miks_Ma_Ei_V%C3%B5iks_Olla_Maailmas_%C3%9Cksi',
-  },
-  {
-                     input_url: 'http://fr.lyrics.wikia.com/wiki/Christiane_Legrand/Les_parapluies_de_Cherbourg',
-             input_entity_type: 'work',
-    expected_relationship_type: 'lyrics',
-            expected_clean_url: 'https://lyrics.fandom.com/fr/wiki/Christiane_Legrand/Les_parapluies_de_Cherbourg',
   },
   // Wikidata
   {

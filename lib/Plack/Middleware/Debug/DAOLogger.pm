@@ -27,7 +27,7 @@ sub run {
             "<table>".
                 '<thead><tr><th style="width: 6em">Time</th><th>Call</th></tr></thead>' .
                     render_stack(0, @call_stack) .
-                        "<tr><th style=\"text-align: left\" colspan=\"2\">$sum</th></tr>".
+                        qq(<tr><th style="text-align: left" colspan="2">$sum</th></tr>).
                             "</table>");
 
         $panel->nav_title('Data Access');

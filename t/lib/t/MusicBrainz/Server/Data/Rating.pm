@@ -15,7 +15,7 @@ with 't::Context';
 test all => sub {
 
 my $test = shift;
-MusicBrainz::Server::Test->prepare_test_database($test->c, "
+MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'EOSQL');
     SET client_min_messages TO 'warning';
 
     TRUNCATE artist CASCADE;
@@ -28,11 +28,15 @@ MusicBrainz::Server::Test->prepare_test_database($test->c, "
     UPDATE artist_meta SET rating=33, rating_count=3 WHERE id=1;
     UPDATE artist_meta SET rating=50, rating_count=1 WHERE id=2;
 
-    INSERT INTO editor (id, name, password, ha1) VALUES (11, 'editor1', '{CLEARTEXT}password', '0e5b1cce99adc89b535a3c6523c5410a'), (12, 'editor2', '{CLEARTEXT}password', '9ab932d00c88daf4a3ccf3a25e00f977'), (13, 'editor3', '{CLEARTEXT}password', '8226c71cd2dd007dc924910793b8ca83'), (14, 'editor4', '{CLEARTEXT}password', 'f0ab22e1a22cb1e60fea481f812450cb');
+    INSERT INTO editor (id, name, password, ha1)
+        VALUES (11, 'editor1', '{CLEARTEXT}password', '0e5b1cce99adc89b535a3c6523c5410a'),
+               (12, 'editor2', '{CLEARTEXT}password', '9ab932d00c88daf4a3ccf3a25e00f977'),
+               (13, 'editor3', '{CLEARTEXT}password', '8226c71cd2dd007dc924910793b8ca83'),
+               (14, 'editor4', '{CLEARTEXT}password', 'f0ab22e1a22cb1e60fea481f812450cb');
 
     INSERT INTO artist_rating_raw (artist, editor, rating)
         VALUES (1, 11, 50), (2, 12, 50), (1, 13, 40), (1, 14, 10);
-");
+    EOSQL
 
 my $rating_data = MusicBrainz::Server::Data::Rating->new(
     c => $test->c, type => 'artist', parent => $test->c->model('Artist') );
@@ -99,11 +103,11 @@ $test->c->sql->commit;
 @ratings = $rating_data->find_by_entity_id(1);
 is( scalar(@ratings), 0 );
 
-MusicBrainz::Server::Test->prepare_raw_test_database($test->c, "
+MusicBrainz::Server::Test->prepare_raw_test_database($test->c, <<~'EOSQL');
     TRUNCATE artist_rating_raw CASCADE;
     INSERT INTO artist_rating_raw (artist, editor, rating)
         VALUES (1, 11, 50), (2, 11, 60), (2, 12, 70), (1, 13, 40), (1, 14, 10);
-");
+    EOSQL
 
 $test->c->sql->begin;
 $rating_data->_update_aggregate_rating(1);
@@ -138,19 +142,21 @@ test 'Test find_editor_ratings' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, "
-    INSERT INTO artist (id, gid, name, sort_name, comment) VALUES
-        (1, 'c09150d1-1e1b-46ad-9873-cc76d0c44499', 'Test', 'Test', 'Test 1'),
-        (2, 'd09150d1-1e1b-46ad-9873-cc76d0c44499', 'Test', 'Test', 'Test 2');
+    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name, comment) VALUES
+            (1, 'c09150d1-1e1b-46ad-9873-cc76d0c44499', 'Test', 'Test', 'Test 1'),
+            (2, 'd09150d1-1e1b-46ad-9873-cc76d0c44499', 'Test', 'Test', 'Test 2');
 
-    UPDATE artist_meta SET rating=33, rating_count=3 WHERE id=1;
-    UPDATE artist_meta SET rating=50, rating_count=1 WHERE id=2;
+        UPDATE artist_meta SET rating=33, rating_count=3 WHERE id=1;
+        UPDATE artist_meta SET rating=50, rating_count=1 WHERE id=2;
 
-    INSERT INTO editor (id, name, password, ha1) VALUES (11, 'editor1', '{CLEARTEXT}password', '0e5b1cce99adc89b535a3c6523c5410a'), (12, 'editor2', '{CLEARTEXT}password', '9ab932d00c88daf4a3ccf3a25e00f977');
+        INSERT INTO editor (id, name, password, ha1) 
+            VALUES (11, 'editor1', '{CLEARTEXT}password', '0e5b1cce99adc89b535a3c6523c5410a'),
+                   (12, 'editor2', '{CLEARTEXT}password', '9ab932d00c88daf4a3ccf3a25e00f977');
 
-    INSERT INTO artist_rating_raw (artist, editor, rating)
-        VALUES (1, 11, 50), (2, 11, 60), (1, 12, 40);
-");
+        INSERT INTO artist_rating_raw (artist, editor, rating)
+            VALUES (1, 11, 50), (2, 11, 60), (1, 12, 40);
+        EOSQL
 
     my @tests = (
         { editor_id => 11, limit => 1, offset => 0, expected_hits => 2, expected_ids => [ 2 ] },

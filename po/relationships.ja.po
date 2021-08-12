@@ -2,6 +2,7 @@
 # Translators:
 # john doe, 2018
 # john doe, 2018
+# Masuda Sunatomo <email address hidden>, 2021
 # Mitsuharu Kurita, 2016
 # Mitsuharu Kurita, 2016
 # Nozomu KURASAWA <email address hidden>, 2012-2013
@@ -14,8 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-06-18 02:28+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2021-08-02 13:17+0000\n"
+"Last-Translator: Masuda Sunatomo <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -229,7 +230,7 @@ msgstr "次のDiscogsページ"
 msgid ""
 "For indicating the step-spouse of the artist's parent, or the sibling "
 "relationship with the children of such a spouse"
-msgstr ""
+msgstr "アーティストの親の継配偶者、またはそのような配偶者の子供との兄弟関係を示す"
 
 #: DB:link_attribute_type/description:580
 msgid ""
@@ -318,11 +319,11 @@ msgstr "アーティストの（JPEG、GIF、PNG形式の）画像を示しま�
 msgid ""
 "Indicates a place that moved from one location to another, while still being"
 " generally considered the same."
-msgstr ""
+msgstr "一般的に同一と見なされている期間に、ある場所から別の場所に移動した場所を示す。"
 
 #: DB:link_attribute_type/description:1019
 msgid "Indicates a sibling with whom the artist has only one parent in common"
-msgstr ""
+msgstr "アーティストに共通の親が1人しかない兄弟を示す"
 
 #: DB:link_type/description:842
 msgid "Indicates a webpage that reviews the event in question."
@@ -335,7 +336,7 @@ msgstr "リリース（グループ）についてレビューするWebページ
 #: DB:link_type/description:958
 msgid ""
 "Indicates a webpage where you can download a label's releases for free."
-msgstr ""
+msgstr "レーベルのリリースを無料でダウンロードできるウェブページを示す。"
 
 #: DB:link_type/description:177
 msgid "Indicates a webpage where you can download an artist's work for free."
@@ -394,7 +395,7 @@ msgstr "このリリースで演奏したオーケストラを示します。"
 #: DB:link_attribute_type/description:1080
 msgid ""
 "Indicates how many of a specific instrument an ensemble usually includes."
-msgstr ""
+msgstr "アンサンブルに通常含まれる特定の楽器の数を示す。"
 
 #: DB:link_type/description:844
 msgid ""
@@ -414,7 +415,7 @@ msgstr "片方がもう片方のカバーであることを示します。"
 
 #: DB:link_type/description:996
 msgid "Indicates that the artist is part of a series."
-msgstr ""
+msgstr "アーティストがシリーズの一部であることを示す。"
 
 #: DB:link_type/description:802
 msgid "Indicates that the event is part of a series."
@@ -441,7 +442,7 @@ msgstr "このレコーディングがあるシリーズの一部であること
 
 #: DB:link_attribute_type/description:1053
 msgid "Indicates that the relationship is optional - doesn't always apply."
-msgstr ""
+msgstr "関係がオプショナル-常に適用されるとは限らない- である示す。"
 
 #: DB:link_type/description:49
 msgid ""
@@ -474,7 +475,7 @@ msgstr "この作品が初めて演奏された地域を示します。"
 
 #: DB:link_type/description:956
 msgid "Indicates the artist(s) who gave the first performance of the work"
-msgstr ""
+msgstr "作品の最初のパフォーマンスを行ったアーティストを示す"
 
 #: DB:link_type/description:55
 msgid ""
@@ -496,13 +497,13 @@ msgstr "この作品が初めて演奏されたイベントを示します。"
 msgid ""
 "Indicates the instrument technician for this recording. Use also for \"piano"
 " tuner\" credits and other similar ones."
-msgstr ""
+msgstr "この録音の機器技術者を示す。 「ピアノ調律師」のクレジットなどにも利用可能である。"
 
 #: DB:link_type/description:987
 msgid ""
 "Indicates the instrument technician for this release. Use also for \"piano "
 "tuner\" credits and other similar ones."
-msgstr ""
+msgstr "このリリースの計測技術者を示す。 「ピアノ調律師」のクレジットなどにも利用可能である。"
 
 #: DB:link_type/description:57
 msgid "Indicates the librettist for this release."
@@ -514,7 +515,7 @@ msgstr "この作品の台本作家を示します。"
 
 #: DB:link_type/description:995
 msgid "Indicates the location a run or residency was held at."
-msgstr ""
+msgstr "ラン や レジデンシー （連続的な興行）が開催されている場所を示す。"
 
 #: DB:link_type/description:56
 msgid "Indicates the lyricist for this release."
@@ -725,11 +726,11 @@ msgstr "リリースをリミックスが行われた地域へリンクします
 msgid ""
 "Links a release to the area where the lacquer cutting took place. Use only "
 "when the place is unknown!"
-msgstr ""
+msgstr "（アナログ盤の）カッティングが行われたエリアにリンクする。 場所が不明な場合のみ使用のこと。"
 
 #: DB:link_type/description:969
 msgid "Links a release to the engineer who did the lacquer cutting for it."
-msgstr ""
+msgstr "リリースを、（アナログ盤の）カッティングを行ったエンジニアにリンクする。"
 
 #: DB:link_type/description:810
 msgid "Links a release to the event it was recorded at."
@@ -751,7 +752,7 @@ msgstr "リリースをエンジニアリングが行われた場所へリンク
 msgid ""
 "Links a release to the place it was manufactured at. Use a more specific "
 "credit if available"
-msgstr ""
+msgstr "その作品の製造場所にリンクする。 可能ならば、より具体的なクレジットを使用のこと。"
 
 #: DB:link_type/description:697
 msgid "Links a release to the place it was mastered at."
@@ -781,11 +782,11 @@ msgstr "リリースをリミックスが行われた場所へリンクします
 msgid ""
 "Links a release to the place where the glass master for pressing was made. "
 "Not the same as mastered!"
-msgstr ""
+msgstr "リリースを（CD・DVD複製）プレス用のグラスマスターが作成された場所にリンクする。 マスターとは異なる。"
 
 #: DB:link_type/description:968
 msgid "Links a release to the place where the lacquer cutting took place."
-msgstr ""
+msgstr "(アナログ盤の)カッティングが行われれたリリース場所へリンクする。"
 
 #: DB:link_type/description:796
 msgid "Links a release with a launch event for it."
@@ -800,7 +801,7 @@ msgstr "リリースを頒布されたイベントへリンクします。イベ
 
 #: DB:link_type/description:823
 msgid "Links a series to another series that exists within it."
-msgstr ""
+msgstr "シリーズ内に含まれる他のシリーズにリンクする。"
 
 #: DB:link_type/description:798
 msgid "Links an event to (one of) its main performer(s)."
@@ -810,13 +811,13 @@ msgstr "イベントとその主要なパフォーマーとを結びつけます
 msgid ""
 "Links an event to (one of) its support act(s) (also known as opening acts or"
 " warm-up acts)."
-msgstr ""
+msgstr "サポートアクト（オープニングアクトまたはウォームアップアクトとも呼ばれます）のイベントへリンクする。"
 
 #: DB:link_type/description:932
 msgid ""
 "Links an event to a DJ that appeared in a supporting role (e.g. DJing "
 "between artists, or closing the night after a concert)."
-msgstr ""
+msgstr "脇役として登場したDJ（アーティスト間のDJ、コンサート後の夜の締めくくりなど）のイベントへリンクする。"
 
 #: DB:link_type/description:800
 msgid ""
@@ -855,7 +856,7 @@ msgstr "バンドの演奏開始予定時刻の現地時間を HH:MM の書式�
 
 #: DB:link_attribute_type/description:1060
 msgid "Meane or mean is a young male singer with a voice lower than a treble"
-msgstr ""
+msgstr "Meaneまたはmeanは、treble より低音の若い男性歌手を示す"
 
 #: DB:link_type/link_phrase:215 DB:link_type/link_phrase:462
 #: DB:link_type/link_phrase:189
@@ -869,7 +870,7 @@ msgstr "次のMyspaceページ"
 
 #: DB:link_attribute_type/description:461
 msgid "Other vocalizations"
-msgstr ""
+msgstr "その他のボーカル"
 
 #: DB:link_type/description:852
 msgid "Points to the BookBrainz page for this artist."
@@ -897,7 +898,7 @@ msgstr "この地域のGeonamesページを指します。"
 
 #: DB:link_type/description:934
 msgid "Points to the Geonames page for this place."
-msgstr ""
+msgstr "この場所の Geonames ページを指す。"
 
 #: DB:link_type/description:706
 msgid "Points to the Internet Movie Database page for this place."
@@ -907,55 +908,55 @@ msgstr "この場所のInternet Moive Databaseページを指します。"
 msgid ""
 "Points to the Wikidata page for this area, and will be used to fetch "
 "Wikipedia summaries and images"
-msgstr ""
+msgstr "この領域での Wikidata ページを指し、Wikipedia での要約と画像を取得するために使用される"
 
 #: DB:link_type/description:352
 msgid ""
 "Points to the Wikidata page for this artist, and will be used to fetch "
 "Wikipedia summaries and images"
-msgstr ""
+msgstr "このアーティストでの Wikidata ページを指し、Wikipedia での要約と画像を取得するために使用される"
 
 #: DB:link_type/description:790
 msgid ""
 "Points to the Wikidata page for this event, and will be used to fetch "
 "Wikipedia summaries and images"
-msgstr ""
+msgstr "このイベントでの Wikidata ページを指し、Wikipedia での要約と画像を取得するために使用される"
 
 #: DB:link_type/description:733
 msgid ""
 "Points to the Wikidata page for this instrument, and will be used to fetch "
 "Wikipedia summaries and images"
-msgstr ""
+msgstr "この楽器での Wikidata ページを指し、Wikipedia での要約と画像を取得するために使用される"
 
 #: DB:link_type/description:354
 msgid ""
 "Points to the Wikidata page for this label, and will be used to fetch "
 "Wikipedia summaries and images"
-msgstr ""
+msgstr "このラベルでの Wikidata ページを指し、Wikipedia での要約と画像を取得するために使用される"
 
 #: DB:link_type/description:594
 msgid ""
 "Points to the Wikidata page for this place, and will be used to fetch "
 "Wikipedia summaries and images"
-msgstr ""
+msgstr "この場所での Wikidata ページを指し、Wikipedia での要約と画像を取得するために使用される"
 
 #: DB:link_type/description:353
 msgid ""
 "Points to the Wikidata page for this release group, and will be used to "
 "fetch Wikipedia summaries"
-msgstr ""
+msgstr "このリリースグループでの Wikidata ページを指し、Wikipedia での要約と画像を取得するために使用される"
 
 #: DB:link_type/description:749
 msgid ""
 "Points to the Wikidata page for this series, and will be used to fetch "
 "Wikipedia summaries and images"
-msgstr ""
+msgstr "このシリーズでの Wikidata ページを指し、Wikipedia での要約と画像を取得するために使用される"
 
 #: DB:link_type/description:351
 msgid ""
 "Points to the Wikidata page for this work, and will be used to fetch "
 "Wikipedia summaries and images"
-msgstr ""
+msgstr "この作品での Wikidata ページを指し、Wikipedia での要約と画像を取得するために使用される"
 
 #: DB:link_type/description:89
 msgid "Points to the Wikipedia page for this album."
@@ -975,7 +976,7 @@ msgstr "このイベントのWikipediaページを指します。"
 
 #: DB:link_type/description:731
 msgid "Points to the Wikipedia page for this instrument."
-msgstr ""
+msgstr "この楽器での Wikidata ページを指す。"
 
 #: DB:link_type/description:595
 msgid "Points to the Wikipedia page for this place"
@@ -994,7 +995,7 @@ msgid ""
 "Publishers should be added on works instead. Keep in mind this is "
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
 "label</a>."
-msgstr ""
+msgstr "代わりに、出版社を作品に追加する必要がある。これは<a href=\"/doc/Label\">レコードレーベル</a>と同じ概念<strong>ではない</strong>ことに注意すること。"
 
 #: DB:link_type/link_phrase:174
 msgid "PureVolume"
@@ -1048,17 +1049,17 @@ msgstr "次のSoundCloudページ"
 msgid ""
 "Specifies the level of studies that a student studied towards in an "
 "educational institution."
-msgstr ""
+msgstr "学生が教育機関で学習した学習のレベルを指定する。"
 
 #: DB:link_attribute_type/description:1125
 msgid ""
 "Specifies the subject that was taught by a teacher in an institution and/or "
 "to a student."
-msgstr ""
+msgstr "教育機関の教師や学生に教えられた教科を指定する。"
 
 #: DB:link_attribute_type/description:561
 msgid "Spoken vocals (speech)"
-msgstr ""
+msgstr "口頭言語（スピーチ）"
 
 #: DB:link_type/long_link_phrase:880
 msgid ""
@@ -1084,19 +1085,19 @@ msgstr "{entry1}の歌詞は{additional:補助的に}{entity0}によって書か
 
 #: DB:link_type/long_link_phrase:274
 msgid "The score for {entity1} can be downloaded for free at {entity0}"
-msgstr ""
+msgstr "{entity1}のスコアは、{entity0}から無料でダウンロード可能です。"
 
 #: DB:link_type/long_link_phrase:912
 msgid "The score for {entity1} can be purchased for download at {entity0}"
-msgstr ""
+msgstr "{entity1}のスコアは、{entity0}からダウンロード購入可能です。"
 
 #: DB:link_type/long_link_phrase:913
 msgid "The score for {entity1} can be purchased for mail-order at {entity0}"
-msgstr ""
+msgstr "{entity1}のスコアは、{entity0}でメール注文可能です。"
 
 #: DB:link_type/description:933
 msgid "This allows linking a series to the label who publishes it."
-msgstr ""
+msgstr "これにより、シリーズを発行元のラベルにリンク可能である。"
 
 #: DB:link_attribute_type/description:3
 msgid "This attribute describes a type of vocal performance."
@@ -1106,7 +1107,7 @@ msgstr "この属性はどの種類のヴォーカルであるかを記述しま
 msgid ""
 "This attribute describes if a particular collaboration was considered equal "
 "or minor."
-msgstr ""
+msgstr "本属性は、特定のコラボレーションが同等またはマイナーと見なされたかどうかを示す。"
 
 #: DB:link_attribute_type/description:1
 msgid ""
@@ -1118,84 +1119,84 @@ msgstr "この属性は果たした役割が全体的なものであったか補
 msgid ""
 "This attribute indicates a 'guest' performance where the performer is not "
 "usually part of the band."
-msgstr ""
+msgstr "本属性は、パフォーマーが通常バンドのパートではない「ゲスト」 パフォーマンスであることを示す。"
 
 #: DB:link_attribute_type/description:1094
 msgid ""
 "This attribute indicates a member the band is named after and without which "
 "it wouldn't exist (e.g. Miles Davis -&gt; Miles Davis Sextet)"
-msgstr ""
+msgstr "本属性は、バンド名に名前が付けられ、その人なしでは存在しなかった重要メンバーを示す（例：Miles Davis-＆gt; Miles Davis Sextet）"
 
 #: DB:link_attribute_type/description:511
 msgid ""
 "This attribute indicates a version with satirical, ironic, or otherwise "
 "humorous intent. Parodies in most cases have altered lyrics."
-msgstr ""
+msgstr "本属性は、風刺的、皮肉的、またはその他のユーモラスな意図を持つバージョンを示す。 大概の場合、歌詞をパロディーで変更している。"
 
 #: DB:link_attribute_type/description:517
 msgid ""
 "This attribute indicates a version with the lyrics in a different language "
 "than the original."
-msgstr ""
+msgstr "本属性は、オリジナルとは異なる言語の歌詞を含むバージョンを示す。"
 
 #: DB:link_attribute_type/description:525
 msgid ""
 "This attribute indicates that an artist was an original member of a group "
 "artist."
-msgstr ""
+msgstr "本属性は、アーティストがグループアーティストの元のメンバーであったことを示す。"
 
 #: DB:link_attribute_type/description:582
 msgid ""
 "This attribute indicates that the streamable content is not audio but video."
-msgstr ""
+msgstr "本属性は、ストリーミング可能なコンテンツがオーディオではなくビデオであることを示す。"
 
 #: DB:link_attribute_type/description:788
 msgid "This attribute indicates the number of an entity in a series."
-msgstr ""
+msgstr "本属性は、シリーズ内のエンティティの番号を示す。"
 
 #: DB:link_attribute_type/description:425
 msgid ""
 "This attribute is to be used if the role was fulfilled in an executive "
 "capacity."
-msgstr ""
+msgstr "本属性は、その役割が十分果たされた場合のみ使用するべきである。"
 
 #: DB:link_type/description:146
 msgid ""
 "This credits a person or agency who provided some kind of general creative "
 "inspiration during the recording of this recording, without actually "
 "contributing to the writing or performance."
-msgstr ""
+msgstr "これは、実際に作詞・作曲やパフォーマンスではなく、この録音の録音中にある種の一般的な創造的なインスピレーションを提供した個人または機関のクレジットである。"
 
 #: DB:link_type/description:63
 msgid ""
 "This credits a person or agency who provided some kind of general creative "
 "inspiration during the recording of this release group, without actually "
 "contributing to the writing or performance."
-msgstr ""
+msgstr "これは、本リリースグループのレコーディング中に、実際に作詞・作曲やパフォーマンスではなく、ある種の一般的な創造的なインスピレーションを提供した個人または機関のクレジットである。"
 
 #: DB:link_type/description:123
 msgid ""
 "This credits a person or agency whose photographs are included as part of a "
 "recording."
-msgstr ""
+msgstr "これは、写真がレコーディングの一部として含まれている個人または機関のクレジットである。"
 
 #: DB:link_type/description:20
 msgid ""
 "This credits a person or agency whose photographs are included as part of a "
 "release."
-msgstr ""
+msgstr "これは、写真がリリースの一部として含まれている個人または機関のクレジットである。"
 
 #: DB:link_type/description:134
 msgid ""
 "This credits a person who was responsible for booking the studio or "
 "performance venue where the recording was recorded."
-msgstr ""
+msgstr "これは、レコーディングが録音されたスタジオまたはパフォーマンス会場の予約を担当した人物のクレジットである。"
 
 #: DB:link_type/description:23
 msgid ""
 "This credits a person who was responsible for booking the studio or "
 "performance venue where the release was recorded."
-msgstr ""
+msgstr "これは、リリースが録音されたスタジオまたはパフォーマンス会場の予約を担当した人物のクレジットである。"
 
 #: DB:link_type/description:24
 msgid ""
@@ -1203,13 +1204,13 @@ msgid ""
 " the sleeve). While most time liner notes are just personnel information and"
 " production data, in some cases they consist of a blurb of text (article). "
 "This relationship type should be used in this last case."
-msgstr ""
+msgstr "これは、リリースで提供されたライナーノーツの作者のクレジットである（通常はスリーブに記載されている）。大概のライナーノーツは単なる人事情報と制作データですが、場合によりテキスト（記事）の宣伝文で構成されている。 後者の場合、本関係タイプを使用する必要がある。"
 
 #: DB:link_type/description:125 DB:link_type/description:27
 msgid ""
 "This credits the people or agency who did the graphic design, arranging "
 "pieces of content into a coherent and aesthetically-pleasing sleeve design."
-msgstr ""
+msgstr "これは、グラフィックデザインを行い、コンテンツを一貫性のある見た目に美しいスリーブデザインに配置した人々または代理店のクレジットである。"
 
 #: DB:link_type/description:202
 msgid ""
@@ -1220,7 +1221,7 @@ msgid ""
 "the label <a href=\"/label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a> "
 "into <a href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music"
 " Group</a>, as Verve continued its existence thereafter as an imprint."
-msgstr ""
+msgstr "これは、純粋に美的な理由で、または買収/売却/スピンオフの後に、レーベルの名前が変更された状況を説明している。 複雑なマージ/分割/再構築の財務操作が行われる場合は、特に注意が必要である。 たとえば、Verveはその後もインプリントとして存在し続けたため、レーベルの名前を<a href=\"/label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a>から<a href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve MusicGroup</a>に変更することはお勧めできない。"
 
 #: DB:link_type/description:200
 msgid ""
@@ -1229,13 +1230,13 @@ msgid ""
 "describe the fact a label is a subdivision of another one, or, through "
 "corporate acquisition of the former label, has become a subdivision of "
 "another one."
-msgstr ""
+msgstr "これは、特定の期間中に、あるレーベルが別のレーベルの子会社である（であった）状況を表す。 これは、レーベルが別のレーベルの下位区分であるという事実を説明するために使用するか、以前のレーベルの企業買収を通じて別のレーベルの下位区分になっていることを説明するために使用する必要がある。"
 
 #: DB:link_type/description:203
 msgid ""
 "This describes a situation where one label is distributing (part of) another"
 " label's catalog, in a country/region of the world, during a period of time."
-msgstr ""
+msgstr "これは、あるレーベルが一定期間に別のレーベルのカタログ（の一部）を世界の国/地域で配布している状況を表しています。"
 
 #: DB:link_type/description:201
 msgid ""
@@ -1245,14 +1246,14 @@ msgid ""
 "<li>A label buys the rights to a defunct label's catalog, or buys a label (with its catalog) and dismantles it.</li>\n"
 "<li>A bootleg label reissues another label's catalog.</li>\n"
 "</ul>"
-msgstr ""
+msgstr "これは、あるレーベルが別のレーベルのカタログ（の一部）を独自の名前で再発行している状況を表している。 これは、少なくとも3つの場合に発生する可能性がある。\n<ul>\n<li> 世界の特定の地域で、ある期間、別のレーベルのカタログのリースを取得する。</li>\n <li>廃止されたレーベルのカタログに対する権利を購入するか、（カタログを含む）レーベルを購入し解体された。 </li>\n<li>海賊版レーベルは、別のレーベルのカタログを再発行する。</li>\n</ul>"
 
 #: DB:link_type/description:140 DB:link_type/description:31
 msgid ""
 "This describes an engineer involved with the machines used to generate "
 "sound, such as effects processors and digital audio equipment used to modify"
 " or manipulate sound in either an analogue or digital form."
-msgstr ""
+msgstr "これは、アナログまたはデジタル形式のサウンドを変更または操作するために使用されるエフェクトプロセッサやデジタルオーディオ機器など、サウンドを生成するために使用されるマシンに関与するエンジニアについて説明している。"
 
 #: DB:link_type/description:128 DB:link_type/description:36
 msgid ""
@@ -1260,7 +1261,7 @@ msgid ""
 "tape. This can be as complex as setting up the microphones, amplifiers, and "
 "recording devices, or as simple as pressing the 'record' button on a "
 "4-track."
-msgstr ""
+msgstr "これは、パフォーマンスをテープレコーディングする際の責任者としてのエンジニアについて説明している。 本作業は、マイク、アンプ、録音デバイスのセットアップのように複雑な場合もあれば、4トラックの「録音」ボタンを押すのと同じくらい容易な場合もある。"
 
 #: DB:link_type/description:144 DB:link_type/description:38
 msgid ""
@@ -1270,14 +1271,14 @@ msgid ""
 "work done by the mix engineer. It can also involve streamlining a longer "
 "track to around the 3 minute mark in order to make it suitable for radio "
 "play (a \"radio edit\")."
-msgstr ""
+msgstr "これは、オーディオレコーディングの個別要素を接続するか、セッションで録音された素材を再配布する責任があるエンジニアについて説明している。 これは通常、二次的なものであるか、ミックスエンジニアが行う作業に追加される。 また、ラジオプレイ（「ラジオ編集」）に適したものにするために、長いトラックを3分前後に合理化することも含まれる。"
 
 #: DB:link_type/description:133 DB:link_type/description:29
 msgid ""
 "This describes an engineer responsible for ensuring that the sounds that the"
 " artists make reach the microphones sounding pleasant, without unwanted "
 "resonance or noise. Sometimes known as acoustical engineering."
-msgstr ""
+msgstr "これは、アーティストが作成する音が、不要な共振やノイズなしに、心地よい音でマイクに届くようにする責任があるエンジニアについて説明している。 音響工学としても知られている。"
 
 #: DB:link_type/description:143
 msgid ""
@@ -1285,7 +1286,7 @@ msgid ""
 "recorded track into a single piece of music suitable for release. For "
 "remixing, see <a href=\"/relationship/7950be4d-13a3-48e7-906b-"
 "5af562e39544\">remixer</a>."
-msgstr ""
+msgstr "これは、ミキシングコンソールを使用して、録音されたトラックをリリースに適した単一の音楽にミキシングする責任があるエンジニアについて説明している。 リミックスについては、<a href=\"/relationship/7950be4d-13a3-48e7-906b-5af562e39544\">リミキサー</a>を参照のこと。"
 
 #: DB:link_type/description:26
 msgid ""
@@ -1293,69 +1294,69 @@ msgid ""
 "recorded track into a single piece of music suitable for release. For "
 "remixing, see <a href=\"/relationship/ac6a86db-f757-4815-a07e-"
 "744428d2382b\">remixer</a>."
-msgstr ""
+msgstr "これは、ミキシングコンソールを使用して、録音されたトラックをリリースに適した単一の音楽にミキシングする責任があるエンジニアについて説明している。 リミックスについては、<a href=\"/relationship/ac6a86db-f757-4815-a07e-744428d2382b\">リミキサー</a>を参照のこと。"
 
 #: DB:link_type/description:138 DB:link_type/description:28
 msgid "This describes an engineer who performed a general engineering role."
-msgstr ""
+msgstr "これは、一般的なエンジニアリングの役割のエンジニアについて説明している。"
 
 #: DB:link_type/description:103
 msgid "This indicates a person is a member of a group."
-msgstr ""
+msgstr "これは、個人がグループのメンバーであることを示す。"
 
 #: DB:link_type/description:135 DB:link_type/description:62
 msgid ""
 "This indicates a person or agency which is responsible for talent scouting, "
 "overseeing the artistic development of an artist, and acting as liaison "
 "between artists and the labels."
-msgstr ""
+msgstr "これは、タレントスカウト、アーティストの芸術的発展の監督、アーティストとレーベル間の連絡役を務める個人または機関を示す。"
 
 #: DB:link_type/description:928
 msgid "This indicates a person or agency who did design for the release."
-msgstr ""
+msgstr "これは、リリースの設計を行った個人または代理店を示す。"
 
 #: DB:link_type/description:19
 msgid ""
 "This indicates a person or agency who did design or illustration for the "
 "release. This relationship is deprecated, please use either \"design\" or "
 "\"illustration\" (or both!)"
-msgstr ""
+msgstr "これは、リリースのデザインまたはイラストを作成した個人または代理店を示す。 この関係記述は廃止されました。「デザイン」または「イラスト」のいずれか（または両方！）を使用のこと。"
 
 #: DB:link_type/description:130
 msgid ""
 "This indicates a person or agency who did design or illustration for the "
 "track."
-msgstr ""
+msgstr "これは、トラックのデザインまたはイラストを作成した人または代理店を示す。"
 
 #: DB:link_type/description:927
 msgid ""
 "This indicates a person or agency who did illustration for the release."
-msgstr ""
+msgstr "これは、リリースのイラストを描いた人物または代理店を示す。"
 
 #: DB:link_type/description:993
 msgid ""
 "This indicates a person or agency who provided artwork for the release when "
 "no more specific information is available."
-msgstr ""
+msgstr "これは、具体的な情報が入手出来ない場合にリリース用のアートワークを提供した個人または代理店を示す。"
 
 #: DB:link_type/description:723
 msgid ""
 "This indicates a personal production label for an artist. A personal label "
 "is a small label (usually a subdivision of a larger one) that exclusively "
 "handles releases by that artist."
-msgstr ""
+msgstr "これは、アーティストの個人的な制作レーベルを示す。 パーソナルレーベルは、そのアーティストによるリリースのみを処理する小さなレーベル（通常は大きなレーベルの下位区分）である。"
 
 #: DB:link_type/description:724
 msgid ""
 "This indicates a personal publishing label for an artist. A personal "
 "publishing label is a small label (usually a subdivision of a larger one) "
 "that exclusively handles the rights to works by that artist."
-msgstr ""
+msgstr "これは、アーティストの個人的な出版レーベルを示しています。 個人の出版レーベルは、そのアーティストの作品の権利を独占的に扱う小さなレーベル（通常は大きなレーベルの下位区分）です。"
 
 #: DB:link_type/description:895
 msgid ""
 "This indicates an artist (generally a person) was the founder of a group."
-msgstr ""
+msgstr "これは、アーティスト（通常は人）がグループの創設者であることを示す。"
 
 #: DB:link_attribute_type/description:921
 msgid "This indicates an artist cancelled their appearance at an event."
@@ -1365,88 +1366,88 @@ msgstr "アーティストがイベント出演をキャンセルしたことを
 msgid ""
 "This indicates an artist reconstructed a work (usually one where the score "
 "was lost) to make it ready for performance."
-msgstr ""
+msgstr "これは、アーティストが作品（通常はスコアが失われた作品）を再構築し、パフォーマンスの準備が完了したことを示す。"
 
 #: DB:link_type/description:151
 msgid ""
 "This indicates an artist who conducted an orchestra, band or choir on this "
 "recording."
-msgstr ""
+msgstr "これは、このレコーディングでオーケストラ、バンド、または合唱団を指揮したアーティストを示す。"
 
 #: DB:link_type/description:46
 msgid ""
 "This indicates an artist who conducted an orchestra, band or choir on this "
 "release."
-msgstr ""
+msgstr "これは、このリリースでオーケストラ、バンド、または合唱団を指揮したアーティストを示す。"
 
 #: DB:link_type/description:141 DB:link_type/description:30
 msgid ""
 "This indicates an artist who is responsible for the creative and practical "
 "day-to-day aspects involved with making a musical recording."
-msgstr ""
+msgstr "これは、レコーディングの作成に関連する創造的かつ実用的な日常の側面を担当するアーティストを示す。"
 
 #: DB:link_type/description:760
 msgid ""
 "This indicates an artist who was the concertmaster/leader for an orchestra "
 "or band on this recording."
-msgstr ""
+msgstr "これは、このレコーディングでオーケストラまたはバンドのコンサートマスター/リーダーを務めたアーティストを示す。"
 
 #: DB:link_type/description:759
 msgid ""
 "This indicates an artist who was the concertmaster/leader for an orchestra "
 "or band on this release."
-msgstr ""
+msgstr "これは、このリリースでオーケストラまたはバンドのコンサートマスター/リーダーであったアーティストを示す。"
 
 #: DB:link_type/description:891
 msgid ""
 "This indicates that (most commonly) a festival commissioned the work. This "
 "is most common for classical works, but also exists in other genres to a "
 "degree."
-msgstr ""
+msgstr "これは、（一般的には）フェスティバルが作業を委託したことを示す。 これはクラシック作品で般的ですが、ある程度他のジャンルにも存在する。"
 
 #: DB:link_type/description:305
 msgid "This indicates that a person is, or was, a conductor for a group."
-msgstr ""
+msgstr "これは、個人がグループの指揮者である （であった） ことを示す。"
 
 #: DB:link_type/description:965
 msgid ""
 "This indicates that a person is, or was, the artistic director of a group "
 "(e.g. a ballet/opera company)."
-msgstr ""
+msgstr "これは、ある人物がグループ（バレエ/オペラ会社など）の芸術監督である（であった） ことを示す。"
 
 #: DB:link_type/description:137
 msgid ""
 "This indicates that a person or agency did the art direction for the "
 "recording."
-msgstr ""
+msgstr "これは、個人または代理店がレコーディングのアートディレクションを行ったことを示す。"
 
 #: DB:link_type/description:18
 msgid ""
 "This indicates that a person or agency did the art direction for the "
 "release."
-msgstr ""
+msgstr "これは、個人または代理店がリリースのアートディレクションを行ったことを示す。"
 
 #: DB:link_type/description:142
 msgid ""
 "This indicates that a person or firm provided legal representation for the "
 "recording."
-msgstr ""
+msgstr "これは、個人または会社がレコーディングの法的代理人を提供したことを示す。"
 
 #: DB:link_type/description:22
 msgid ""
 "This indicates that a person or firm provided legal representation for the "
 "release."
-msgstr ""
+msgstr "これは、個人または企業がリリースの法的代理人を提供したことを示す。"
 
 #: DB:link_type/description:717
 msgid "This indicates that a place is part of another place."
-msgstr ""
+msgstr "これは、ある場所が別の場所の一部であることを示す。"
 
 #: DB:link_type/description:725
 msgid ""
 "This indicates that a record label (company) owns or has the right to use an"
 " imprint."
-msgstr ""
+msgstr "これは、レコードレーベル（会社）が出版社を所有または使用する権利を持っていることを示す。"
 
 #: DB:link_type/description:228
 msgid ""
@@ -1456,14 +1457,14 @@ msgid ""
 " has not been altered. If the tracks are pitched or blended into each other,"
 " the <a href=\"/relationship/451076df-61cf-46ab-9921-555cab2f050d\">DJ-mix "
 "relationship type</a> may be more appropriate."
-msgstr ""
+msgstr "これは、レコーディングが他のいくつかのレコーディングの編集であることを示す。 これは、元のレコーディングのオーディオ素材が変更されていない、複数の曲が次々に含まれる1つの長いレコーディングに適用される。 トラックが互いにピッチングまたはブレンドされている場合は、<a href=\"/relationship/451076df-61cf-46ab-9921-555cab2f050d\">DJミックス関係タイプ</a>の方が適切な場合がある。"
 
 #: DB:link_type/description:894
 msgid ""
 "This indicates that a release group was included in another. This allows "
 "linking release groups (often albums) to box sets and other compilations "
 "that contain them."
-msgstr ""
+msgstr "これは、リリースグループが別のグループに含まれていたことを示す。 これにより、リリースグループ（多くの場合アルバム）をボックスセットやそれらを含む他のコンピレーションにリンク可能である。"
 
 #: DB:link_type/description:3
 msgid ""
@@ -1471,79 +1472,79 @@ msgid ""
 "This allows a release to be linked to its supporting singles, EPs, and remix"
 " releases. A 'supporting release' is one which is released to increase sales"
 " of an album or to create publicity for an album."
-msgstr ""
+msgstr "これは、あるリリースが別のリリースをサポートするためにリリースされたことを示す。 これにより、リリースをサポートするシングル・EP・およびリミックスリリースにリンク可能である。 「サポートリリース」とは、アルバムの売り上げを伸ばすため、またはアルバムの宣伝を目的としてリリースされたものである。"
 
 #: DB:link_type/description:11
 msgid ""
 "This indicates that a single or EP release group includes at least one track"
 " taken from an album release group. This allows a release group to be linked"
 " to its associated singles and EPs."
-msgstr ""
+msgstr "これは、シングルまたはEPリリースグループに、アルバムリリースグループから取得したトラックが少なくとも1つ含まれていることを示す。 これにより、リリースグループを関連するシングルおよびEPにリンク可能である。"
 
 #: DB:link_type/description:281
 msgid ""
 "This indicates that a work is made up of multiple parts (e.g. an orchestral "
 "suite broken into movements)"
-msgstr ""
+msgstr "これは、作品が複数のパーツで構成されていることを示す（例：オーケストラスイートが楽章単位で分割されている）"
 
 #: DB:link_type/description:858
 msgid ""
 "This indicates that an artist appears on a music video, but doesn't actually"
 " perform on the audio track."
-msgstr ""
+msgstr "これは、アーティストがミュージックビデオに出演しているが、実際にはオーディオトラックで演奏していないことを示す。"
 
 #: DB:link_type/description:121
 msgid "This indicates that an artist had a recording contract with a label."
-msgstr ""
+msgstr "これは、アーティストが過去にレーベルとレコーディング契約を結んでいたことを示す。"
 
 #: DB:link_type/description:117
 msgid ""
 "This indicates that an artist was officially employed by a label as a "
 "producer."
-msgstr ""
+msgstr "これは、アーティストがプロデューサーとしてレーベルに正式に雇用されたことを示す。"
 
 #: DB:link_type/description:120
 msgid ""
 "This indicates that an artist was officially employed by a label as an "
 "engineer."
-msgstr ""
+msgstr "これは、アーティストがエンジニアとしてレーベルに正式に雇用されたことを示す。"
 
 #: DB:link_type/description:115
 msgid ""
 "This indicates that an artist was officially employed by a label in a "
 "creative position, such as photographer or graphic designer."
-msgstr ""
+msgstr "これは、アーティストが写真家やグラフィックデザイナーなどのクリエイティブな立場としてレーベルに正式に雇用されたことを示す。"
 
 #: DB:link_type/description:818
 msgid ""
 "This indicates that an event is made up of multiple parts (e.g. a festival "
 "happening on multiple venues over the course of a few days)."
-msgstr ""
+msgstr "これは、イベントが複数のパートで構成されていることを示す（たとえば、数日間にわたって複数の会場で行われるフェスティバル等）。"
 
 #: DB:link_type/description:916
 msgid ""
 "This indicates that an instrument is a hybrid of two or more other "
 "instruments."
-msgstr ""
+msgstr "これは、ある機器が2つ以上の他の機器のハイブリッドであることを示す。"
 
 #: DB:link_type/description:2
 msgid ""
 "This indicates that one release is identical to another release, but that "
 "the release title and track titles have been either translated (into another"
 " language) or transliterated (into another script)."
-msgstr ""
+msgstr "これは、あるリリースが別のリリースと同一であるが、リリースタイトルとトラックタイトルが（別の言語に）翻訳されているか、（別のスクリプトに）音訳されていることを示す。"
 
 #: DB:link_type/description:889
 msgid ""
 "This indicates that the artist commissioned the work. This is most common "
 "for classical works, but also exists in other genres to a degree."
-msgstr ""
+msgstr "これは、アーティストが作品を委託したことを示す。 これはクラシック作品で一般的ですが、ある程度他のジャンルでも存在する。"
 
 #: DB:link_type/description:129 DB:link_type/description:25
 msgid ""
 "This indicates that the artist performed a role not covered by other "
 "relationship types."
-msgstr ""
+msgstr "これは、アーティストが他の関係タイプでカバーされていない役割を果たしたことを示す。"
 
 #: DB:link_attribute_type/description:618
 msgid ""
@@ -1556,13 +1557,13 @@ msgstr "これは、グループにこの指揮者によって率いられる複
 msgid ""
 "This indicates that the organisation commissioned the work. This is most "
 "common for classical works, but also exists in other genres to a degree."
-msgstr ""
+msgstr "これは、組織が作業を委託したことを示す。 これはクラシック作品で般的ですが、ある程度他のジャンルでも存在する。"
 
 #: DB:link_type/description:892
 msgid ""
 "This indicates that the place commissioned the work. This is most common for"
 " classical works, but also exists in other genres to a degree."
-msgstr ""
+msgstr "これは、その場所が作業を委託したことを示す。 これはクラシック作品で一般的ですが、ある程度他のジャンルでも存在する。"
 
 #: DB:link_attribute_type/description:579
 msgid ""
@@ -1578,29 +1579,29 @@ msgstr "これは、ライブ録音であることを示します。"
 msgid ""
 "This indicates that the recording is of a medley, of which the work is one "
 "part."
-msgstr ""
+msgstr "これは、レコーディングがメドレーのものであり、その作業が一部であることを示す。"
 
 #: DB:link_type/description:973
 msgid "This indicates the artist that inspired this artist’s name."
-msgstr ""
+msgstr "これは、このアーティストの名前に影響を与えたアーティストを示す。"
 
 #: DB:link_type/description:975
 msgid "This indicates the artist that inspired this place’s name."
-msgstr ""
+msgstr "これは、この場所の名前に影響を与えたアーティストを示す。"
 
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this music video."
-msgstr ""
+msgstr "これは、アーティストがこのミュージックビデオの監督であったことを示す。"
 
 #: DB:link_type/description:991
 msgid "This indicates the artist was the owner of this label."
-msgstr ""
+msgstr "これは、アーティストがこのレーベルの所有者であったことを示す。"
 
 #: DB:link_type/description:988
 msgid ""
 "This indicates the artist was the owner of this place (often a studio, but "
 "sometimes also a venue)."
-msgstr ""
+msgstr "これは、アーティストがこの場所の所有者であったことを示す（多くの場合、スタジオであるが、会場の場合もある）。"
 
 #: DB:link_type/description:297 DB:link_type/description:298
 #: DB:link_type/description:296 DB:link_type/description:295
@@ -1612,78 +1613,78 @@ msgid ""
 "performance. 'Arrangement' is used as a catch-all term for all processes "
 "that turn a composition into a form that can be played by a specific type of"
 " ensemble."
-msgstr ""
+msgstr "これは、演奏に適した形に曲をアレンジしたアーティストを示す。 「編曲」は、コンポジションを特定のタイプのアンサンブルで演奏できる形式に変えるすべてのプロセスの総称として使用される。"
 
 #: DB:link_type/description:152
 msgid ""
 "This indicates the chorus master of a choir which performed on this "
 "recording."
-msgstr ""
+msgstr "これは、この録音で演奏した合唱団のコーラスマスターを示す。"
 
 #: DB:link_type/description:53
 msgid ""
 "This indicates the chorus master of a choir which performed on this release."
-msgstr ""
+msgstr "これは、このリリースで演奏した合唱団のコーラスマスターを示す。"
 
 #: DB:link_type/description:955
 msgid ""
 "This indicates the company that made the glass master for a release. This is"
 " <strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
 "label</a>, nor as mastering engineering."
-msgstr ""
+msgstr "これは、リリース用のガラスマスターを作成した会社を示しています。 これは、<a href=\"/doc/Label\">レコードレーベル</a>やマスタリングエンジニアリングと同じ概念<strong>ではない</strong>。"
 
 #: DB:link_type/description:989
 msgid ""
 "This indicates the label / organization was the owner of this place (often a"
 " studio, but sometimes also a venue)."
-msgstr ""
+msgstr "これは、レーベル/組織がこの場所の所有者であったことを示す（多くの場合スタジオですが、会場の場合もある）。"
 
 #: DB:link_attribute_type/description:1018
 msgid ""
 "This indicates the linked entity translated something, rather than being the"
 " original writer."
-msgstr ""
+msgstr "これは、リンクされたエンティティが元の作品ではなく、何かを翻訳したものであることを示す。"
 
 #: DB:link_type/description:361
 msgid ""
 "This indicates the organization that distributes (or contracts out distribution). \n"
 "\n"
 "This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\">record label</a>."
-msgstr ""
+msgstr "これは、配布（または配布を委託する）組織を示す。\n\nこれは<a href=\"/doc/Label\">レコードレーベル</a>と同じ概念<strong>ではない</strong>。"
 
 #: DB:link_type/description:360
 msgid ""
 "This indicates the organization that manufactures (or contracts out manufacturing). \n"
 "This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\">record label</a>."
-msgstr ""
+msgstr "これは、製造（または製造を委託する）組織を示す。\nこれは<a href=\"/doc/Label\">レコードレーベル</a>と同じ概念<strong>ではない</strong>。"
 
 #: DB:link_type/description:848
 msgid ""
 "This indicates the organization that markets a release. This is "
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
 "label</a>."
-msgstr ""
+msgstr "これは、リリースの販売組織を示す。 これは<a href=\"/doc/Label\">レコードレーベル</a>と同じ概念<strong>ではない</strong>。"
 
 #: DB:link_type/description:985
 msgid ""
 "This indicates the organization that printed a release. This is "
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
 "label</a>."
-msgstr ""
+msgstr "これは、リリースを印刷した組織を示す。 これは<a href=\"/doc/Label\">レコードレーベル</a>と同じ概念<strong>ではない</strong>。"
 
 #: DB:link_type/description:359
 msgid ""
 "This indicates the organization that promotes (or contracts out promotion) "
 "for a release. This is <strong>not</strong> the same concept as the <a "
 "href=\"/doc/Label\">record label</a>."
-msgstr ""
+msgstr "これは、リリースをプロモートする（またはプロモート契約する）組織を示す。 これは<a href=\"/doc/Label\">レコードレーベル</a>と同じ概念<strong>ではない</strong>。"
 
 #: DB:link_type/description:362
 msgid ""
 "This indicates the organization which releases a release. This is "
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
 "label</a>."
-msgstr ""
+msgstr "これは、リリースのリリース組織を示す。 これは<a href=\"/doc/Label\">レコードレーベル</a>と同じ概念<strong>ではない</strong>。"
 
 #: DB:link_type/description:300
 msgid ""
@@ -1694,7 +1695,7 @@ msgid ""
 "orchestra, band, choral group, individual instrumentalist(s) or vocalist(s)."
 " In practical terms it consists of deciding which instruments should play "
 "which notes in a piece of music."
-msgstr ""
+msgstr "これは、レコーディングをオーケストレートした人を示す。 オーケストレーションは特別なタイプのアレンジメントである。 これは、音楽の実体が本質的に変わらないように行われる、オーケストラのための作曲の適応を意味する。 オーケストレーターは、オーケストラ、バンド、合唱団、個々の楽器奏者、またはボーカリストのスコアを書く責任も持つ。 実際には、どの楽器が曲のどの音符を演奏するかを決定することで構成される。"
 
 #: DB:link_type/description:40
 msgid ""
@@ -1705,7 +1706,7 @@ msgid ""
 "orchestra, band, choral group, individual instrumentalist(s) or vocalist(s)."
 " In practical terms it consists of deciding which instruments should play "
 "which notes in a piece of music."
-msgstr ""
+msgstr "これは、リリースをオーケストレートした人を示す。 オーケストレーションは特別なタイプのアレンジメントである。 これは、音楽の実体が本質的に変わらないように行われる、オーケストラのための作曲の適応を意味する。 オーケストレーターは、オーケストラ、バンド、合唱団、個々の楽器奏者、またはボーカリストのスコアを書く責任も持つ。 実際には、どの楽器が曲のどの音符を演奏するかを決定することで構成される。"
 
 #: DB:link_type/description:164
 msgid ""
@@ -1716,7 +1717,7 @@ msgid ""
 "orchestra, band, choral group, individual instrumentalist(s) or vocalist(s)."
 " In practical terms it consists of deciding which instruments should play "
 "which notes in a piece of music."
-msgstr ""
+msgstr "これは、作品をオーケストレートした人を示す。 オーケストレーションは特別なタイプのアレンジメントである。 これは、音楽の実体が本質的に変わらないように行われる、オーケストラのための作曲の適応を意味する。 オーケストレーターは、オーケストラ、バンド、合唱団、個々の楽器奏者、またはボーカリストのスコアを書く責任も持つ。 実際には、どの楽器が曲のどの音符を演奏するかを決定することで構成される。"
 
 #: DB:link_type/description:48
 msgid ""
@@ -1724,7 +1725,7 @@ msgid ""
 "compilation. If the tracks are pitched or blended into each other, it is "
 "more appropriate to credit this person as a <a href=\"/relationship"
 "/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a>."
-msgstr ""
+msgstr "これは、編集のためにトラックとシーケンスを選択した人を示す。 トラックが互いにピッチングまたはブレンドされている場合は、この人物を<a href=\"/relationship/9162dedd-790c-446c-838e-240f877dbfe2\">DJミキサー</a>としてクレジットする方が適切である。"
 
 #: DB:link_type/description:147
 msgid ""
@@ -1733,77 +1734,77 @@ msgid ""
 "songs, one after the other. If the tracks are pitched or blended into each "
 "other, it is more appropriate to credit this person as a <a "
 "href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a>."
-msgstr ""
+msgstr "これは、編集のためにトラックとシーケンスを選択した人を示す。 これは、複数の曲を次々に含む1つの長い録音に適用される。 トラックが互いにピッチングまたはブレンドされている場合は、この人物を<a href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">DJミキサー</a>としてクレジットする方が適切である。"
 
 #: DB:link_type/description:942
 msgid ""
 "This indicates the pressing company that presses a release. This is "
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
 "label</a>."
-msgstr ""
+msgstr "これは、リリースをプレスするプレス会社を示す。 これは<a href=\"/doc/Label\">レコードレーベル</a>と同じ概念<strong>ではない</strong>。"
 
 #: DB:link_type/description:974
 msgid "This indicates the release group that inspired this artist’s name."
-msgstr ""
+msgstr "これは、このアーティストの名前に影響を与えたリリースグループを示す。"
 
 #: DB:link_type/description:349
 msgid ""
 "This indicates the rights society associated with a release. The rights "
 "society is an organization which collects royalties on behalf of the "
 "artists."
-msgstr ""
+msgstr "これは、リリースに関連する権利協会を示す。 権利協会は、アーティストに代わって使用料を徴収する組織である。"
 
 #: DB:link_type/description:963
 msgid "This indicates the video was shot at this place."
-msgstr ""
+msgstr "これは、ビデオがこの場所で撮影されたことを示す。"
 
 #: DB:link_type/description:966
 msgid "This indicates the video was shot at/during this event."
-msgstr ""
+msgstr "これは、ビデオがこのイベントで、またはこのイベント中に撮影されたことを示す。"
 
 #: DB:link_type/description:964
 msgid "This indicates the video was shot in this area."
-msgstr ""
+msgstr "これは、ビデオがこのエリアで撮影されたことを示す。"
 
 #: DB:link_type/description:914
 msgid ""
 "This indicates the work is dedicated to a specific area. This is most common"
 " for classical works, but also exists in other genres to a degree."
-msgstr ""
+msgstr "これは、作品が特定の領域に特化していることを示す。 これはクラシック作品で一般的ですが、ある程度他のジャンルにも存在する。"
 
 #: DB:link_type/description:922
 msgid ""
 "This indicates the work is dedicated to a specific organization. This is "
 "most common for classical works, but also exists in other genres to a "
 "degree."
-msgstr ""
+msgstr "これは、作品が特定の組織に特化していることを示す。 これはクラシック作品で最も一般的ですが、ある程度他のジャンルにも存在する。"
 
 #: DB:link_type/description:846
 msgid ""
 "This indicates the work is dedicated to a specific person. This is most "
 "common for classical works, but also exists in other genres to a degree."
-msgstr ""
+msgstr "これは、作品が特定の人物に特化していることを示す。 これはクラシック作品で最も一般的ですが、ある程度他のジャンルにも存在する。"
 
 #: DB:link_type/description:983
 msgid ""
 "This indicates the work is dedicated to a specific place (such an "
 "educational institution). This is most common for classical works, but also "
 "exists in other genres to a degree."
-msgstr ""
+msgstr "これは、作品が特定の場所（教育機関のような）に特化していることを示す。 これはクラシック作品で最も一般的ですが、ある程度他のジャンルにも存在する。"
 
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
-msgstr ""
+msgstr "これは、このアーティストの名前に影響を与えた作品を示しています。"
 
 #: DB:link_type/description:915
 msgid "This indicates where a feed for this podcast can be found."
-msgstr ""
+msgstr "これは、この podcast のフィードがどこにあるかを示しています。"
 
 #: DB:link_type/description:17
 msgid ""
 "This is used to indicate that a release group is a live performance of a "
 "studio release group."
-msgstr ""
+msgstr "これは、リリースグループがスタジオリリースグループのライブパフォーマンスであることを示すために使用される。"
 
 #: DB:link_type/description:239
 msgid ""
@@ -1812,21 +1813,21 @@ msgid ""
 "the form of a medley. See <a "
 "href=\"/relationship/d3fd781c-5894-47e2-8c12-86cc0e2c8d08\">arranger</a> for"
 " crediting the person who arranges songs into a medley."
-msgstr ""
+msgstr "これは、作品が他のいくつかの曲のメドレーであることを示すために使用される。 これは、元の曲がメドレーの形で新しい作品を作成するために再配置されたことを意味する。 曲をメドレーにアレンジした人のクレジットについては、<a href=\"/relationship/d3fd781c-5894-47e2-8c12-86cc0e2c8d08\">アレンジャー</a>を参照のこと。"
 
 #: DB:link_type/description:232
 msgid ""
 "This is used to indicate that the recording is a <a "
 "href=\"/doc/Mix_Terminology#mash-up\">mash-up</a> of two (or more) other "
 "recordings."
-msgstr ""
+msgstr "これは、レコーディングが2つ（またはそれ以上）の他の録音の<a href=\"/doc/Mix_Terminology#mash-up\">マッシュアップ</a>であることを示すために使用される。"
 
 #: DB:link_type/description:10
 msgid ""
 "This is used to indicate that the release group is a mash-up <a "
 "href=\"/doc/Mix_Terminology#mash-up\">mash-up</a> of two (or more) other "
 "release groups."
-msgstr ""
+msgstr "これは、リリースグループが2つ（またはそれ以上）の他のリリースグループの<a href=\"/doc/Mix_Terminology#mash-up\">マッシュアップ</a>であることを示すために使用される。"
 
 #: DB:link_type/description:227
 msgid ""
@@ -1834,17 +1835,17 @@ msgid ""
 "recording to each of the source recordings. See <a "
 "href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a> for"
 " crediting the person who created the DJ-mix."
-msgstr ""
+msgstr "これは、<a href=\"/doc/Mix_Terminology#DJ_mix\">DJミックスされた</a>レコーディングを各ソースレコーディングにリンクするために使用される。 DJミックスを作成した人のクレジットについては、<a href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">DJミキサー</a>を参照のこと。"
 
 #: DB:link_type/description:226
 msgid ""
 "This is used to link a karaoke version of a song to the original song.<br/><br/>\n"
 "A karaoke version is a version of the song with the main vocals removed, designed to be used for karaoke. These are generally produced from the original masters by muting the main vocal track or by using post-processing filters to remove the vocals. Karaoke versions can be found labelled in numerous different ways other than \"karaoke\": instrumental (even if backing vocals are still present), off vocal, backing track, etc."
-msgstr ""
+msgstr "これは、曲のカラオケバージョンを元の曲にリンクするために使用される。<br/><br/>\nカラオケバージョンは、カラオケ用に設計された、メインボーカルが削除された曲のバージョンである。 これらは通常、メインのボーカルトラックをミュートするか、後処理フィルターを使用してボーカルを削除することにより、元のマスターから作成される。 カラオケバージョンは、「カラオケ」以外のさまざまな方法でラベル付けされている。インストルメンタル（バックボーカルがまだ存在する場合でも）、オフボーカル、バッキングトラックなどでである。"
 
 #: DB:link_type/description:213
 msgid "This is used to link a label to an image of its logo."
-msgstr ""
+msgstr "これは、ラベルをそのロゴの画像にリンクするために使用される。"
 
 #: DB:link_type/description:216
 msgid "This is used to link a label to its corresponding Wikipedia page."
@@ -1859,7 +1860,7 @@ msgstr "これは、レーベルをSecondHandSongsデータベースの対応す
 #: DB:link_type/description:857
 msgid ""
 "This is used to link a music video to the corresponding audio recording."
-msgstr ""
+msgstr "これは、ミュージックビデオを対応するオーディオレコーディングにリンクするために使用される。"
 
 #: DB:link_type/description:705
 msgid "This is used to link a place to the equivalent entry in Discogs."
@@ -1883,7 +1884,7 @@ msgid ""
 "the release group containing the source release. See <a href=\"/relationship"
 "/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a> for crediting the "
 "person who created the DJ-mix."
-msgstr ""
+msgstr "これは、リリースの<a href=\"/doc/Mix_Terminology#DJ_mix\">DJミックスされた</a>バージョンを含むリリースグループを、ソースリリースを含むリリースグループにリンクするために使用される。 DJミックスを作成した人のクレジットについては、<a href=\"/relationship/9162dedd-790c-446c-838e-240f877dbfe2\">DJミキサー</a>を参照のこと。"
 
 #: DB:link_type/description:284
 msgid ""
@@ -1926,7 +1927,7 @@ msgstr "これは、アーティストをAllmusic上の対応するページに�
 
 #: DB:link_type/description:714
 msgid "This is used to link an artist to its primary concert venue."
-msgstr ""
+msgstr "これは、アーティストをその主要なコンサート会場にリンクするために使用される。"
 
 #: DB:link_type/description:180
 msgid "This is used to link the Discogs page for this artist."
@@ -1958,7 +1959,7 @@ msgstr "これは、アーティストのリリースをダウンロード購入
 msgid ""
 "This is used to link to a page where the label's releases can be purchased "
 "for download."
-msgstr ""
+msgstr "これは、ラベルのリリースをダウンロード購入可能なページにリンクするために使用される。"
 
 #: DB:link_type/description:254
 msgid ""
@@ -1974,32 +1975,32 @@ msgstr "これは、リリースをダウンロード購入可能なページに
 
 #: DB:link_type/description:278
 msgid "This is used to link works to their recordings."
-msgstr ""
+msgstr "これは、作品をそれらのレコーディングにリンクするために使用される。"
 
 #: DB:link_type/description:102
 msgid ""
 "This is used to specify that an <a href=\"/doc/Artist\" "
 "title=\"Artist\">artist</a> collaborated on a short-term project, for cases "
 "where artist credits can't be used."
-msgstr ""
+msgstr "これは、アーティストクレジットが使用不可能な場合に、<a href=\"/doc/Artist\" title=\"Artist\">アーティスト</a>が短期プロジェクトで共同作業したことを指定するために使用される。"
 
 #: DB:link_type/description:288
 msgid ""
 "This link points to a page for a particular release within a discography for"
 " an artist or label."
-msgstr ""
+msgstr "本リンクは、アーティストまたはレーベルのディスコグラフィー内の特定のリリースのページを指す。"
 
 #: DB:link_type/description:921
 msgid ""
 "This link points to a page for a particular work within a work list for an "
 "artist."
-msgstr ""
+msgstr "本リンクは、アーティストのワークリスト内の特定の作品のページを指す。"
 
 #: DB:link_type/description:43 DB:link_type/description:155
 msgid ""
 "This links a <a href=\"/doc/Mix_Terminology#DJ_mix\">DJ-mix</a> to the "
 "artist who mixed it."
-msgstr ""
+msgstr "それをミックスしたアーティストに対し<a href=\"/doc/Mix_Terminology#DJ_mix\">DJミックス</a>をリンクする。"
 
 #: DB:link_type/description:9
 msgid ""
@@ -2007,124 +2008,124 @@ msgid ""
 "to the source release group and is used to indicate that the release group "
 "includes remixed versions of all (or most of) the tracks in the other "
 "release group."
-msgstr ""
+msgstr "ソースリリースグループに対し<a href=\"/doc/Mix_Terminology#remix\">リミックス</a>リリースグループがリンクされ、リリースグループに他のリリースグループのすべて（またはほとんど）のトラックのリミックスバージョンが含まれていることを示すために使用される。"
 
 #: DB:link_type/description:230
 msgid ""
 "This links a <a href=\"/doc/Mix_Terminology#remix\">remixed</a> recording to"
 " the source recording."
-msgstr ""
+msgstr "ソースレコーディングに対し<a href=\"/doc/Mix_Terminology#remix\">リミックスされた</a>レコーディングがリンクされる。"
 
 #: DB:link_type/description:77
 msgid ""
 "This links a MusicBrainz release to the equivalent entry at Amazon and will "
 "often provide cover art if there is no cover art in the <a "
 "href=\"/doc/Cover_Art_Archive\">Cover Art Archive</a>."
-msgstr ""
+msgstr "Amazonの同等のエントリに対しMusicBrainzリリースがにリンクされ、<a href=\"/doc/Cover_Art_Archive\">カバーアートアーカイブ</a>内にカバーアートがない場合にカバーアートが提供される。"
 
 #: DB:link_type/description:888
 msgid ""
 "This links a concert tour with a release group (generally an album) the tour"
 " is connected with."
-msgstr ""
+msgstr "コンサートツアーを、ツアーが接続されているリリースグループ（通常はアルバム）にリンクする。"
 
 #: DB:link_type/description:855
 msgid ""
 "This links a group (often an orchestra) to a composer who has a composer-in-"
 "residence position with the group."
-msgstr ""
+msgstr "グループとコンポーザー・イン・レジデンスのポジションを持つコンポーザに対しグループ（しばしばオーケストラ）をリンクする。"
 
 #: DB:link_type/description:304
 msgid ""
 "This links a label to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
-msgstr ""
+msgstr "キュレーションされた動画を含む動画共有サイトのチャンネル、再生リスト、またはユーザーページに対しラベルをリンクする。"
 
 #: DB:link_type/description:214
 msgid "This links a label to a fan-created website."
-msgstr ""
+msgstr "ファンが作成したwebサイトに対しラベルをリンクする。"
 
 #: DB:link_type/description:899
 msgid ""
 "This links a label to a site where the label can receive "
 "donations/patronage, such as Flattr or PayPal.me."
-msgstr ""
+msgstr "Flattr や PayPal.me など寄付/後援を受け取ることが可能なサイトに対しラベルをリンクする。"
 
 #: DB:link_type/description:719
 msgid "This links a label to its page at Bandcamp."
-msgstr ""
+msgstr "Bandcamp のページに対しラベルをリンクする。"
 
 #: DB:link_type/description:313
 msgid ""
 "This links a label to its page in <a href=\"http://www.imdb.com/\">IMDb</a>."
-msgstr ""
+msgstr "<a href=\"http://www.imdb.com/\">IMDb</a>のページに対しラベルをリンクする。"
 
 #: DB:link_type/description:290
 msgid "This links a label to its profile at SoundCloud."
-msgstr ""
+msgstr "SoundCloud でのプロファイルに対しラベルをリンクする。"
 
 #: DB:link_type/description:225
 msgid "This links a label to the equivalent entry at YouTube."
-msgstr ""
+msgstr "YouTubeでの同等のエントリに対してラベルをリンクする。"
 
 #: DB:link_type/description:903
 msgid ""
 "This links a label to their profile at a crowdfunding site like Kickstarter "
 "or Indiegogo."
-msgstr ""
+msgstr "Kickstarter やIndiegogo などのクラウドファンディングサイトのプロファイルに対してラベルをリンクする。"
 
 #: DB:link_type/description:937
 msgid ""
 "This links a place (often a concert hall or educational institution) to a "
 "composer who has a composer-in-residence position with it."
-msgstr ""
+msgstr "コンポーザ・イン・レジデンスのポジションにある作曲家に対し場所（多くの場合コンサートホールや教育機関）をリンクする。"
 
 #: DB:link_type/description:495
 msgid ""
 "This links a place to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
-msgstr ""
+msgstr "キュレーションされた動画を含む動画共有サイトのチャンネル、再生リスト、またはユーザーページに対し場所をリンクする。"
 
 #: DB:link_type/description:900
 msgid ""
 "This links a place to a site where the place or the organisation behind it "
 "can receive donations/patronage, such as Flattr or PayPal.me."
-msgstr ""
+msgstr "Flattr や PayPal.me など寄付/後援を受け取ることが可能なサイトに対し場所をリンクする。"
 
 #: DB:link_type/description:940
 msgid "This links a place to its profile at SoundCloud."
-msgstr ""
+msgstr "SoundCloud でのプロファイルに対し場所をリンクする。"
 
 #: DB:link_type/description:909
 msgid ""
 "This links a place to its profile at a crowdfunding site like Kickstarter or"
 " Indiegogo."
-msgstr ""
+msgstr "Kickstarter や Indiegogo などのクラウドファンディングサイトのプロファイルに対し場所をリンクする。"
 
 #: DB:link_type/description:836
 msgid "This links a postponed event to the later rescheduled event."
-msgstr ""
+msgstr "後でリスケジュールされたイベントに対し中止されたイベントをリンクする。"
 
 #: DB:link_type/description:302
 msgid "This links a recording to a license under which it is available."
-msgstr ""
+msgstr "利用可能なライセンスに対しレコーディングをリンクする。"
 
 #: DB:link_type/description:255
 msgid ""
 "This links a recording to a page where it can be legally downloaded for "
 "free."
-msgstr ""
+msgstr "合法的に無料でダウンロードできるページに対しレコーディングをリンクする。"
 
 #: DB:link_type/description:132
 msgid ""
 "This links a recording to the artist who did the programming for electronic "
 "instruments used on the recording. In the most cases, the 'electronic "
 "instrument' is either a synthesizer or a drum machine."
-msgstr ""
+msgstr "レコーディングで使用される電子楽器のプログラミングを行ったアーティストに対しレコーディングをリンクする。 大概の場合、「電子楽器」はシンセサイザーまたはドラムマシンのいずれかである。"
 
 #: DB:link_type/description:726
 msgid "This links a recording to the balance engineer who engineered it."
-msgstr ""
+msgstr "それを設計したバランスエンジニアに対しレコーディングをリンクする。"
 
 #: DB:link_type/description:153
 msgid ""
@@ -2132,13 +2133,13 @@ msgid ""
 "other tracks, substantially altering them and mixing them together with "
 "other material. Note that this includes the artist who created a mash-up or "
 "used samples as well."
-msgstr ""
+msgstr "1つまたは複数の他のトラックを取得し、それらを大幅に変更して他の素材とミックスすることにより、レコーディングをリミックスした人に対しレコーディングをリンクする。 これには、マッシュアップを作成したアーティストやサンプルを使用したアーティストも含まれることに注意すること。"
 
 #: DB:link_type/description:905
 msgid ""
 "This links a recording to the relevant crowdfunding project at a "
 "crowdfunding site like Kickstarter or Indiegogo."
-msgstr ""
+msgstr "Kickstarter や Indiegogo などのクラウドファンディングサイトの関連するクラウドファンディングプロジェクトに対してレコーディングをリンクする。"
 
 #: DB:link_type/description:970
 msgid ""
@@ -2148,7 +2149,7 @@ msgid ""
 "put out by the label, played by other (sometimes very unknown) artists, to "
 "honor the label. Often they are various artist compilations, but a single "
 "artist can perform the entire tribute album."
-msgstr ""
+msgstr "ラベルに対してリリースグループがリンクされ、トリビュートアルバムであることを示す。 トリビュートアルバムには、「A Tribute to Label」または「A Tributeto Artists from Label」という形式のタイトルが付いていることが多く、レーベルを称えるために、他の（時には誰も知らない）アーティストによって演奏された、レーベルによって出された曲のカバーで構成されている。 多くの場合、それらはさまざまなアーティストのコンピレーションですが、1人のアーティストがトリビュートアルバム全体を演奏することもある。"
 
 #: DB:link_type/description:868
 msgid ""
@@ -2157,7 +2158,7 @@ msgid ""
 "for tribute albums consisting of covers of the artist, use the <a "
 "href=\"/relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\">tribute "
 "relationship</a>."
-msgstr ""
+msgstr "専任のアーティストに対しリリースグループをリンクする。 これは、「このアルバムはアーティストの記憶に捧げられています」などの献身的なものである。アーティストのカバーで構成されるトリビュートアルバムの場合は、<a href=\"/relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\">トリビュート関係</a>を使用のこと。"
 
 #: DB:link_type/description:65
 msgid ""
@@ -2167,33 +2168,33 @@ msgid ""
 "by other (sometimes very unknown) bands, to honor the target artist. Often "
 "they are various artist compilations, but a single artist can perform the "
 "entire tribute album."
-msgstr ""
+msgstr "アーティストに対しリリースグループをリンクし、トリビュートアルバムであることを示す。 トリビュートアルバムには、「アーティストへのトリビュート」という形式のタイトルが付いていることが多く、ターゲットアーティストを称えるために、他の（場合によっては非常に未知の）バンドが演奏するターゲットアーティストの曲のカバーで構成される。 多くの場合、それらはさまざまなアーティストのコンピレーションであるが、1人のアーティストがトリビュートアルバム全体を演奏することもある。"
 
 #: DB:link_type/description:907
 msgid ""
 "This links a release group to the relevant crowdfunding project at a "
 "crowdfunding site like Kickstarter or Indiegogo."
-msgstr ""
+msgstr "Kickstarter やIndiegogo などのクラウドファンディングサイトの関連するクラウドファンディングプロジェクトに対しリリースグループをにリンクする。"
 
 #: DB:link_type/description:301
 msgid "This links a release to a license under which it is available."
-msgstr ""
+msgstr "利用可能なライセンスに対しリリースをリンクする。"
 
 #: DB:link_type/description:75
 msgid ""
 "This links a release to a page where it can be legally downloaded for free."
-msgstr ""
+msgstr "合法的に無料でダウンロードできるページに対しリリースをリンクする。"
 
 #: DB:link_type/description:37
 msgid ""
 "This links a release to the artist who did the programming for electronic "
 "instruments used on the release. In the most cases, the 'electronic "
 "instrument' is either a synthesizer or a drum machine."
-msgstr ""
+msgstr "リリースで使用された電子楽器のプログラミングを行ったアーティストに対しリリースをリンクする。 大概の場合、「電子楽器」はシンセサイザーまたはドラムマシンのいずれかによる。"
 
 #: DB:link_type/description:727
 msgid "This links a release to the balance engineer who engineered it."
-msgstr ""
+msgstr "それを設計したバランスエンジニアに対しリリースをリンクする。"
 
 #: DB:link_type/description:47
 msgid ""
@@ -2201,46 +2202,46 @@ msgid ""
 "other tracks, substantially altering them and mixing them together with "
 "other material. Note that this includes the artist who created a mash-up or "
 "used samples as well."
-msgstr ""
+msgstr "1つまたは複数の他のトラックを取得し、それらを大幅に変更し、他の素材と混合することによってリミックスした人に対しリリースをリンクする。 これには、マッシュアップを作成したアーティストやサンプルを使用したアーティストも含まれることに注意のこと。"
 
 #: DB:link_type/description:906
 msgid ""
 "This links a release to the relevant crowdfunding project at a crowdfunding "
 "site like Kickstarter or Indiegogo."
-msgstr ""
+msgstr "Kickstarter や Indiegogo などのクラウドファンディングサイトの関連するクラウドファンディングプロジェクトに対しリリースをリンクする。"
 
 #: DB:link_type/description:870
 msgid ""
 "This links a series (most commonly, but not necessarily always, a music "
 "festival) to its official page at SoundCloud."
-msgstr ""
+msgstr "SoundCloudの公式ページに対しシリーズ（ミュージックフェスティバルと称するのが一般的だが、必ずしもそうではない）をリンクする。"
 
 #: DB:link_type/description:901
 msgid ""
 "This links a series (usually, but not exclusively, a festival or concert "
 "series) to a site where the organisers/creators can receive "
 "donations/patronage, such as Flattr or PayPal.me."
-msgstr ""
+msgstr "主催者/作成者が Flattr や PayPal.me などの寄付/後援を受け取ることができるサイトに対しシリーズ（通常はフェスティバルまたはコンサートシリーズ）をリンクする。"
 
 #: DB:link_type/description:805
 msgid ""
 "This links a series to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
-msgstr ""
+msgstr "キュレーションされた動画を含む動画共有サイトのチャンネル、再生リスト、またはユーザーページに対しシリーズをリンクする。"
 
 #: DB:link_type/description:910
 msgid ""
 "This links a series to its profile (e.g. for a festival) or project (e.g. "
 "for a specific tour, or for compiling a classical catalogue) at a "
 "crowdfunding site like Kickstarter or Indiegogo."
-msgstr ""
+msgstr "KickstarterやIndiegogoなどのクラウドファンディングサイトで、シリーズをそのプロフィール（フェスティバルなど）もしくはプロジェクト（特定のツアーやクラシックカタログの編集など）にリンクする。"
 
 #: DB:link_type/description:97
 msgid ""
 "This links a soundtrack release group to the <a "
 "href=\"http://www.imdb.com/\">IMDb</a> page for the movie, show or game of "
 "which it is a soundtrack."
-msgstr ""
+msgstr "サウンドトラックである映画、ショー、またはゲームの<a href=\"http://www.imdb.com/\">IMDb</a>ページに対しサウンドトラックリリースグループをリンクする。"
 
 #: DB:link_type/description:992
 msgid ""
@@ -2248,28 +2249,28 @@ msgid ""
 "page for the movie, show or game of which it is a soundtrack. VGMdb is a "
 "community project dedicated to cataloguing the music of video games and "
 "anime."
-msgstr ""
+msgstr "サウンドトラック作品を、元の映画、ショー、またはゲームの<a href=\"http://vgmdb.net/\">VGMdbページ</a>にリンクする。 VGMdbは、ビデオゲームやアニメの音楽をカタログ化することを目的としたコミュニティプロジェクトである。"
 
 #: DB:link_type/description:843
 msgid ""
 "This links a soundtrack work to the <a "
 "href=\"http://www.imdb.com/\">IMDb</a> page for the movie, show or game of "
 "which it is a soundtrack."
-msgstr ""
+msgstr "サウンドトラック作品を、元の映画、ショー、またはゲームの<a href=\"http://www.imdb.com/\">IMDb</a>ページにリンクする。"
 
 #: DB:link_type/description:722
 msgid "This links a subgroup to the group from which it was created."
-msgstr ""
+msgstr "作成元のグループに対しサブグループをリンクする。"
 
 #: DB:link_type/description:939
 msgid "This links a work to a license under which it is available."
-msgstr ""
+msgstr "利用可能なライセンスに対し作品をリンクする。"
 
 #: DB:link_type/description:908
 msgid ""
 "This links a work to its project at a crowdfunding site like Kickstarter or "
 "Indiegogo."
-msgstr ""
+msgstr "Kickstarter や Indiegogo などのクラウドファンディングサイトでのプロジェクトに対し作品をリンクする。"
 
 #: DB:link_type/description:885
 msgid "This links a work with the area it was arranged in."
@@ -2335,7 +2336,7 @@ msgstr "（フィクションの）アーティストを声優へリンクしま
 msgid ""
 "This links an artist to a channel, playlist, or user page on a video sharing"
 " site containing videos curated by it."
-msgstr ""
+msgstr "キュレーションされた動画を含む動画共有サイトのチャンネル、再生リスト、またはユーザーページに対しアーティストをリンクする。"
 
 #: DB:link_type/description:172
 msgid "This links an artist to a fan-created website."
@@ -2345,7 +2346,7 @@ msgstr "アーティストをファンが作成したウェブサイトへリン
 msgid ""
 "This links an artist to a site where the artist can receive "
 "donations/patronage, such as Flattr or PayPal.me."
-msgstr ""
+msgstr "Flattr や PayPal.me などの寄付/後援を受け取ることができるサイトに対しアーティストをリンクする。"
 
 #: DB:link_type/description:707
 msgid ""
@@ -2361,7 +2362,7 @@ msgid ""
 "This links an artist to an online discography of their works. The "
 "discography should provide a summary of most, if not all, releases by the "
 "artist, and be as comprehensive as possible."
-msgstr ""
+msgstr "彼らの作品のオンラインディスコグラフィーに対しアーティストをリンクする。 ディスコグラフィーは、アーティストによるリリースのすべてではないにしてもほとんどの要約を提供し、可能な限り包括的である必要がある。"
 
 #: DB:link_type/description:718
 msgid "This links an artist to its page at Bandcamp."
@@ -2369,7 +2370,7 @@ msgstr "アーティストをBandcampページへリンクします。"
 
 #: DB:link_type/description:919
 msgid "This links an artist to its page at CD Baby."
-msgstr ""
+msgstr "アーティストをCDBabyのページにリンクする。"
 
 #: DB:link_type/description:178
 msgid ""
@@ -2387,7 +2388,7 @@ msgstr "アーティストを<a href=\"http://www.imslp.org/\">IMSLP</a>ペー�
 msgid ""
 "This links an artist to its page in <a "
 "href=\"https://www.cpdl.org/\">CPDL</a>."
-msgstr ""
+msgstr "アーティストを<a href=\"https://www.cpdl.org/\">CPDL</a>のページにリンクする。"
 
 #: DB:link_type/description:291
 msgid "This links an artist to its profile at SoundCloud."
@@ -2401,23 +2402,23 @@ msgstr "アーティストを<a href=\"http://www.bbc.co.uk/music\">BBC Music</a
 
 #: DB:link_type/description:174
 msgid "This links an artist to the equivalent entry at PureVolume."
-msgstr ""
+msgstr "アーティストを PureVolume での同等エントリにリンクする。"
 
 #: DB:link_type/description:193
 msgid "This links an artist to the equivalent entry at YouTube."
-msgstr ""
+msgstr "アーティストを YouTube での同等エントリにリンクする。"
 
 #: DB:link_type/description:902
 msgid ""
 "This links an artist to their profile at a crowdfunding site like "
 "Kickstarter or Indiegogo."
-msgstr ""
+msgstr "アーティストを Kickstarter や Indiegogo などのクラウドファンディングサイトのプロフィールにリンクする。"
 
 #: DB:link_type/description:108
 msgid ""
 "This links an artist's performance name (a stage name or alias) with their "
 "legal name."
-msgstr ""
+msgstr "アーティストのパフォーマンス名（ステージ名またはエイリアス）を正式な名前にリンクする。"
 
 #: DB:link_type/description:309
 msgid ""
@@ -2428,13 +2429,13 @@ msgid ""
 "material. The person who edited the recording can be linked using the <a "
 "href=\"/relationship/40dff87a-e475-4aa6-b615-9935b564d756\">editor "
 "relationship type</a>."
-msgstr ""
+msgstr "編集を元のレコーディングににリンクする。 この関係の「編集」は、ラジオ編集（ラジオ再生に適したものにするために長いトラックを約3分マークに合理化することを含む）、または同一素材を短縮、検閲、またはその他の方法で編集されたバージョンの場合がある。 レコーディング編集者は、<a href=\"/relationship/40dff87a-e475-4aa6-b615-9935b564d756\">編集者関係タイプ</a>を使用してリンクされる。"
 
 #: DB:link_type/description:289
 msgid ""
 "This links an entity to the appropriate listing in the Songfacts database, a"
 " user contributed database concerned with the stories behind the songs."
-msgstr ""
+msgstr "エンティティを、曲の背後にあるストーリーに関係するユーザー提供データベースである Songfacts データベースの適切なリストにリンクする。"
 
 #: DB:link_type/description:753 DB:link_type/description:730
 #: DB:link_type/description:82 DB:link_type/description:273
@@ -2446,68 +2447,68 @@ msgid ""
 "This links an entity to the equivalent entry in another database. Please "
 "respect the <a "
 "href=\"/doc/Other_Databases_Relationship_Type/Whitelist\">whitelist</a>."
-msgstr ""
+msgstr "エンティティを別のデータベースの同等のエントリにリンクする。 <a href=\"/doc/Other_Databases_Relationship_Type/Whitelist\">ホワイトリスト</a>として記載のこと。"
 
 #: DB:link_type/description:804
 msgid ""
 "This links an event to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
-msgstr ""
+msgstr "イベントをキュレーションされた動画を含む動画共有サイトのチャンネル、再生リスト、またはユーザーページにリンクする。"
 
 #: DB:link_type/description:898
 msgid ""
 "This links an event to a site where the event organisers can receive "
 "donations/patronage, such as Flattr or PayPal.me."
-msgstr ""
+msgstr "イベントをイベント主催者が Flattr や PayPal.me などの寄付/後援を受け取ることができるサイトにリンクする。"
 
 #: DB:link_type/description:904
 msgid ""
 "This links an event to the relevant crowdfunding project at a crowdfunding "
 "site like Kickstarter or Indiegogo."
-msgstr ""
+msgstr "イベントを Kickstarter や Indiegogo などのクラウドファンディングサイトの関連するクラウドファンディングプロジェクトにリンクする。"
 
 #: DB:link_type/description:111
 msgid "This links artists who were married."
-msgstr ""
+msgstr "既婚のアーティストをリンクする。"
 
 #: DB:link_type/description:315
 msgid ""
 "This links different revisions of the same <a href=\"/doc/Work\" "
 "title=\"Work\">work</a>."
-msgstr ""
+msgstr "同一作品の別リビジョンをリンクする。"
 
 #: DB:link_type/description:212
 msgid "This links to a catalog or list of records published by the label."
-msgstr ""
+msgstr "レーベルにより公開されたレコードのカタログまたはリストにリンクする。"
 
 #: DB:link_type/description:211
 msgid ""
 "This links to a site describing relevant details about a label's history."
-msgstr ""
+msgstr "レーベルの履歴に関連する詳細を説明するサイトにリンクする。"
 
 #: DB:link_type/description:984
 msgid ""
 "This links to a site describing relevant details about a place's history."
-msgstr ""
+msgstr "場所の履歴に関連する詳細を説明するサイトにリンクする。"
 
 #: DB:link_type/description:350
 msgid ""
 "This links two <a href=\"/doc/Work\" title=\"Work\">works</a> where one work"
 " is an arrangement of the other."
-msgstr ""
+msgstr "一方がもう一方の作品の編曲である2つの<a href=\"/doc/Work\" title=\"Work\">作品</a>をリンクする。"
 
 #: DB:link_type/description:316
 msgid ""
 "This links two <a href=\"/doc/Work\" title=\"Work\">works</a> where one work"
 " is an orchestration of the other."
-msgstr ""
+msgstr "一方がもう一方の作品のオーケストレーションである2つの<a href=\"/doc/Work\" title=\"Work\">作品</a>をリンクする。"
 
 #: DB:link_type/description:314
 msgid ""
 "This links two <a href=\"/doc/Work\" title=\"Work\">works</a>, where the "
 "second work is based on music or text from the first, but isn't directly a "
 "revision or an arrangement of it."
-msgstr ""
+msgstr "2つの<a href=\"/doc/Work\" title=\"Work\">作品</a>をリンクする。2番目の作品は最初の作品の音楽またはテキストに基づいているが、直接改訂または編曲されたものではない。"
 
 #: DB:link_type/description:6
 msgid ""
@@ -2517,15 +2518,15 @@ msgid ""
 "playback equipment. The process generally doesn't involve changing the music"
 " in any artistically important way. It may, however, result in recordings "
 "that differ in length by a few seconds."
-msgstr ""
+msgstr "一方は他方の<a href=\"/doc/Mix_Terminology#remaster\">リマスター</a>である2つのリリースをリンクする。 これは通常、オーディオ品質を向上させるため、または最新の再生機器に合わせて調整するために行われる。 このプロセスには通常、芸術的に重要な方法で音楽を変更することは含まれない。 ただし、レコーディングの長さが数秒異なる場合がある。"
 
 #: DB:link_type/description:110
 msgid "This links two siblings (brothers or sisters)."
-msgstr ""
+msgstr "2人の兄弟（または姉妹）がリンクする。"
 
 #: DB:link_type/description:241
 msgid "This links two versions of a <a href=\"/doc/Work\" title=\"Work\">work</a>."
-msgstr ""
+msgstr "<a href=\"/doc/Work\" title=\"Work\">作品</a>の２つのバージョンをリンクする。"
 
 #: DB:link_type/description:310
 msgid ""
@@ -2535,7 +2536,7 @@ msgid ""
 "libraries. (<a "
 "href=\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">more "
 "information on Wikipedia</a>)"
-msgstr ""
+msgstr "これは、このアーティストの<a href=\"//viaf.org/\">VIAF</a>ページを指す。 VIAFは、世界中の図書館が共通の典拠ファイルを利用できるようにする国際的なプロジェクトである。 典拠ファイルは、図書館のMBIDと類似する （<a href=\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">Wikipedia の詳細</a>）。"
 
 #: DB:link_type/description:311
 msgid ""
@@ -2545,7 +2546,7 @@ msgid ""
 "libraries. (<a "
 "href=\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">more "
 "information on Wikipedia</a>)"
-msgstr ""
+msgstr "これは、このレーベルの<a href=\"//viaf.org/\">VIAF</a>ページを指す。 VIAFは、世界中の図書館が共通の典拠ファイルを利用できるようにする国際的なプロジェクトである。 典拠ファイルは、図書館のMBIDと類似する （<a href=\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">Wikipedia の詳細</a>）。"
 
 #: DB:link_type/description:920
 msgid ""
@@ -2555,14 +2556,14 @@ msgid ""
 "libraries. (<a "
 "href=\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">more "
 "information on Wikipedia</a>)"
-msgstr ""
+msgstr "これは、この場所の<a href=\"//viaf.org/\">VIAF</a>ページを指す。 VIAFは、世界中の図書館が共通の典拠ファイルを利用できるようにする国際的なプロジェクトである。 典拠ファイルは、図書館のMBIDと類似する （<a href=\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">Wikipedia の詳細</a>）。"
 
 #: DB:link_type/description:312
 msgid ""
 "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this work. VIAF is an international project to make a common authority file available to libraries across the world. An authority file is similar to an MBID for libraries. (<a href=\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">more information on Wikipedia</a>)\n"
 "<br/><br/>\n"
 "<strong>Note:</strong> Works in VIAF aren't very detailed. Only add links to MusicBrainz works if you're absolutely sure it's the same work."
-msgstr ""
+msgstr "これは、この作品の<a href=\"//viaf.org/\">VIAF</a>ページを指す。 VIAFは、世界中の図書館が共通の典拠ファイルを利用できるようにする国際的なプロジェクトである。 典拠ファイルは、図書館のMBIDと類似する。 （<a href=\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">Wikipedia の詳細</a>）\n<br/><br/>\n<strong>注</strong>：VIAF上の記録はあまり詳細ではありません。 同じ作品であることが絶対に確実な場合にのみ、MusicBrainz 作品へのリンクを追加してください。"
 
 #: DB:link_type/description:197
 msgid ""
@@ -2570,7 +2571,7 @@ msgid ""
 "Only sites on the <a "
 "href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">whitelist</a> are "
 "permitted."
-msgstr ""
+msgstr "この関係は、アーティストの歌詞を見つけることができるURLを表す。 <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">ホワイトリスト</a>内にあるサイトのみが許可される。"
 
 #: DB:link_type/description:982
 msgid ""
@@ -2578,7 +2579,7 @@ msgid ""
 "a publisher) can be found. Only sites on the <a "
 "href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">whitelist</a> are "
 "permitted."
-msgstr ""
+msgstr "この関係は、レーベルの歌詞（ほとんどの場合発行者として）を見つけることができるURLを表す。 <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">ホワイトリスト</a>内にあるサイトのみが許可される。"
 
 #: DB:link_type/description:93
 msgid ""
@@ -2586,7 +2587,7 @@ msgid ""
 "found. Only sites on the <a "
 "href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">whitelist</a> are "
 "permitted."
-msgstr ""
+msgstr "この関係は、リリースグループの歌詞を見つけることができるURLを表す。 <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">ホワイトリスト</a>内にあるサイトのみが許可される。"
 
 #: DB:link_type/description:271
 msgid ""
@@ -2594,76 +2595,76 @@ msgid ""
 "Only sites on the <a "
 "href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">whitelist</a> are "
 "permitted."
-msgstr ""
+msgstr "この関係は、作品の歌詞を見つけることができるURLを表す。 <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">ホワイトリスト</a>内にあるサイトのみが許可される。"
 
 #: DB:link_type/description:929
 msgid ""
 "This relationship indicates an artist credited as the booklet editor for a "
 "release."
-msgstr ""
+msgstr "この関係は、リリースの小冊子 編集者としてクレジットされているアーティストを示す。"
 
 #: DB:link_type/description:893
 msgid ""
 "This relationship indicates that a person was a teacher at an event (e.g. a "
 "masterclass)."
-msgstr ""
+msgstr "この関係は、ある人がイベント（マスタークラスなど）の指導者であったことを示す。"
 
 #: DB:link_type/description:847
 msgid ""
 "This relationship indicates that a person was another's teacher/student."
-msgstr ""
+msgstr "この関係は、ある人が別の人の指導者/生徒であったことを示す。"
 
 #: DB:link_type/description:869
 msgid ""
 "This relationship indicates the artist is the <a "
 "href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">phonographic"
 " copyright</a> holder for this recording."
-msgstr ""
+msgstr "この関係は、アーティストがこのレコーディングの<a href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">（音楽録音）著作権</a>所有者であることを示す。"
 
 #: DB:link_type/description:710
 msgid ""
 "This relationship indicates the artist is the <a "
 "href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">phonographic"
 " copyright</a> holder for this release."
-msgstr ""
+msgstr "この関係は、アーティストがこのリリースの<a href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">（音楽録音）著作権</a>所有者であることを示す。"
 
 #: DB:link_type/description:709
 msgid ""
 "This relationship indicates the artist is the copyright holder for this "
 "release."
-msgstr ""
+msgstr "この関係は、アーティストがこのリリースの著作権所有者であることを示す。"
 
 #: DB:link_type/description:833
 msgid ""
 "This relationship indicates the company that was the licensee of this "
 "release (that is, received a license for it from other company)."
-msgstr ""
+msgstr "この関係は、このリリースのライセンシーであった（つまり、他の会社からライセンスを受け取った）会社を示す。"
 
 #: DB:link_type/description:712
 msgid ""
 "This relationship indicates the company that was the licensor of this "
 "release."
-msgstr ""
+msgstr "この関係は、このリリースのライセンサーであった会社を示す。"
 
 #: DB:link_type/description:867
 msgid ""
 "This relationship indicates the label is the <a "
 "href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">phonographic"
 " copyright</a> holder for this recording."
-msgstr ""
+msgstr "この関係は、レーベルがこのレコーディングの<a href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">（音楽録音）著作権</a>所有者であることを示す。"
 
 #: DB:link_type/description:711
 msgid ""
 "This relationship indicates the label is the <a "
 "href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">phonographic"
 " copyright</a> holder for this release."
-msgstr ""
+msgstr "この関係は、レーベルがこのリリースの<a href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">（音楽録音）著作権</a>所有者であることを示す。"
 
 #: DB:link_type/description:708
 msgid ""
 "This relationship indicates the label is the copyright holder for this "
 "release."
-msgstr ""
+msgstr "この関係は、レーベルがこのリリースの著作権所有者であることを示す。"
 
 #: DB:link_type/description:83
 msgid ""
@@ -2677,19 +2678,19 @@ msgid ""
 "This relationship is deprecated. To indicate work publishers, add label-work"
 " relationships. To indicate (P) holders, use the phonographic copyright "
 "relationship."
-msgstr ""
+msgstr "この関係は非推奨である。 作品の発行者を示すには、レーベルと作品の関係を追加のこと。 （P）所有者を示すには、（音楽録音）著作権関係を使用のこと。"
 
 #: DB:link_type/description:751
 msgid ""
 "This relationship is used to link a catalogue work series to a person who "
 "was involved in compiling it."
-msgstr ""
+msgstr "この関係は、カタログ作品シリーズを編集した人にリンクするために使用される。"
 
 #: DB:link_type/description:750
 msgid ""
 "This relationship is used to link a catalogue work series to a person whose "
 "work it catalogues."
-msgstr ""
+msgstr "この関係は、カタログ作品シリーズをカタログ化作業する人にリンクするために使用される。"
 
 #: DB:link_type/description:54
 msgid ""
@@ -2698,7 +2699,7 @@ msgid ""
 "specific information is available. If possible, the more specific composer, "
 "lyricist and/or librettist types should be used, rather than this "
 "relationship type."
-msgstr ""
+msgstr "この関係は、具体的な情報がない場合に、リリースを音楽や単語（歌詞、台本など）の作成を担当するアーティストにリンクするために使用される。 可能であれば、この関係タイプではなく、より具体的な作曲家、作詞家、台本家のタイプを使用する必要がある。"
 
 #: DB:link_type/description:167
 msgid ""
@@ -2707,60 +2708,60 @@ msgid ""
 "specific information is available. If possible, the more specific composer, "
 "lyricist and/or librettist types should be used, rather than this "
 "relationship type."
-msgstr ""
+msgstr "この関係は、具体的な情報がない場合に、音楽や単語（歌詞、台本など）の作成を担当するアーティストに作品をリンクするために使用される。 可能であれば、この関係タイプではなく、より具体的な作曲家、作詞家、台本家のタイプを使用する必要がある。"
 
 #: DB:link_type/description:994
 msgid ""
 "This relationship links a <a "
 "href=\"https://en.wikipedia.org/wiki/Concert_residency\">concert "
 "residency</a> to the artist(s) who held the residency."
-msgstr ""
+msgstr "この関係は、<a href=\"https://en.wikipedia.org/wiki/Concert_residency\">コンサートのレジデンシー</a>を、レジデンシーを保持したアーティストにリンクする。"
 
 #: DB:link_type/description:859
 msgid ""
 "This relationship links a concert tour to the artist(s) the tour is by."
-msgstr ""
+msgstr "この関係は、コンサートツアーとツアーのアーティストをリンクする。"
 
 #: DB:link_type/description:926
 msgid ""
 "This relationship links a group with the institution (esp. educational "
 "institution) they're associated with."
-msgstr ""
+msgstr "この関係は、グループを、それらが関連付けられている機関（特に教育機関）とリンクする。"
 
 #: DB:link_type/description:924
 msgid ""
 "This relationship links a musician to the music school(s) they taught at."
-msgstr ""
+msgstr "この関係は、ミュージシャンを彼らが教鞭をとった音楽学校とリンクする。"
 
 #: DB:link_type/description:923
 msgid ""
 "This relationship links a musician to the music school(s) they were educated"
 " at."
-msgstr ""
+msgstr "この関係は、ミュージシャンを彼らが教育を受けた音楽学校とリンクする。"
 
 #: DB:link_type/description:918
 msgid ""
 "This relationship links an instrument to the company that invented or "
 "designed it."
-msgstr ""
+msgstr "この関係は、楽器を発明または設計した会社にリンクする。"
 
 #: DB:link_type/description:896
 msgid ""
 "This relationship links an instrument to the person(s) who invented or "
 "designed it."
-msgstr ""
+msgstr "この関係は、楽器を発明または設計した人にリンクする。"
 
 #: DB:link_type/description:856
 msgid ""
 "This relationship links an organist to the place(s) (most commonly religious"
 " buildings) at which they are the resident organist."
-msgstr ""
+msgstr "この関係は、オルガン奏者を、彼らが常駐するオルガン奏者である場所（一般的には宗教的な建物）にリンクする。"
 
 #: DB:link_type/description:729
 msgid ""
 "This relationship links the release of a show's episode (for example a "
 "podcast) to the show notes for this episode."
-msgstr ""
+msgstr "この関係は、番組のエピソード（podcast など）のリリースをこのエピソードの番組ノートにリンクする。"
 
 #: DB:link_type/description:728
 msgid ""
@@ -2769,197 +2770,197 @@ msgid ""
 "specific artist/band; that is, it primarily performs covers of that artist. "
 "They may also be referred to as cover bands. Some tribute artists may name "
 "themselves, dress, and/or act similarly to the artists they pay tribute to."
-msgstr ""
+msgstr "この関係は、アーティストが別の特定のアーティスト/バンドへの<a href=\"http://en.wikipedia.org/wiki/Tribute_act\">トリビュート</a>であることを示す。 つまり、主にそのアーティストのカバーを演奏する。 それらはカバーバンドと呼ばれることもある。 一部のトリビュートアーティストは、トリビュートを払うアーティストと同様に名前を付けたり、服を着たり、行動したりする場合がある。"
 
 #: DB:link_type/description:936
 msgid ""
 "This relationship specifies that an event was held as a tribute/homage to a "
 "specific artist."
-msgstr ""
+msgstr "この関係は、イベントが特定のアーティストへのオマージュ/オマージュとして開催されたことを示す。"
 
 #: DB:link_type/description:462
 msgid ""
 "This relationship type can be used to link a MusicBrainz place to the "
 "equivalent entry in Myspace."
-msgstr ""
+msgstr "この関係タイプを使用して、MusicBrainz の場所を Myspace の同等のエントリにリンク可能である。"
 
 #: DB:link_type/description:116
 msgid ""
 "This relationship type can be used to link a label to the person(s) who "
 "founded it."
-msgstr ""
+msgstr "この関係タイプは、ラベルをそれを作成した人にリンク可能である。"
 
 #: DB:link_type/description:832
 msgid ""
 "This relationship type can be used to link a place (generally a studio or "
 "venue) to the person(s) who founded it."
-msgstr ""
+msgstr "この関係タイプは、場所（通常はスタジオまたは会場）をその場所を作成した人にリンク可能である。"
 
 #: DB:link_type/description:627
 msgid "This relationship type can be used to link a place to its blog"
-msgstr ""
+msgstr "この関係タイプは、場所をそのブログにリンク可能である"
 
 #: DB:link_type/description:528
 msgid ""
 "This relationship type can be used to link a place to the equivalent entry "
 "in YouTube. URLs should follow the format "
 "http://www.youtube.com/user/&lt;username&gt;."
-msgstr ""
+msgstr "このリレーションシップタイプを使用して、場所をYouTube の同等エントリにリンク可能である。 URLは http://www.youtube.com/user/&lt;username&gt; の形式に従う必要がある。"
 
 #: DB:link_type/description:792
 msgid ""
 "This relationship type can be used to link a series to the equivalent entry "
 "in YouTube. URLs should follow the format "
 "http://www.youtube.com/user/&lt;username&gt;"
-msgstr ""
+msgstr "このリレーションシップタイプを使用して、シリーズを YouTube の同等エントリにリンク可能である。 URLは http://www.youtube.com/user/&lt;username&gt; の形式に従う必要がある。"
 
 #: DB:link_type/description:791
 msgid ""
 "This relationship type can be used to link an event to the equivalent entry "
 "in YouTube. URLs should follow the format "
 "http://www.youtube.com/user/&lt;username&gt;"
-msgstr ""
+msgstr "このリレーションシップタイプを使用して、イベントをYouTube の同等のエントリにリンク可能である。 URLは http://www.youtube.com/user/&lt;username&gt; の形式に従う必要がある。"
 
 #: DB:link_type/description:258
 msgid ""
 "This relationship type describes that the recording contains samples taken from a movie, show or game, which has an IMDB page at the given URL.\n"
 "<br/><br/>\n"
 "To say that the recording is part of a soundtrack, please use the <a href=\"/relationship/85b0a010-3237-47c7-8476-6fcefd4761af\">IMDB relationship type for release groups</a>."
-msgstr ""
+msgstr "この関係タイプは、指定された URL に IMDB ページがある映画、ショー、またはゲームから取得されたサンプルが記録に含まれていることを示す。\n<br/><br/>\nレコーディングがサウンドトラックの一部であるためには、<a href=\"/relationship/85b0a010-3237-47c7-8476-6fcefd4761af\">リリースグループ向け IMDB 関係タイプ</a>を使用のこと。"
 
 #: DB:link_type/description:236
 msgid ""
 "This relationship type is <strong>deprecated</strong>! <a "
 "href=\"/doc/Style/Recording#Recordings_with_Different_Mastering\">Different "
 "remasters should be merged.</a>"
-msgstr ""
+msgstr "この関係タイプは<strong>非推奨</strong>である！ <a href=\"/doc/Style/Recording#Recordings_with_Different_Mastering\">別途リマスターをマージする必要がある。</a>"
 
 #: DB:link_type/description:238
 msgid ""
 "This relationship type is <strong>deprecated</strong>! If two recordings are"
 " identical, please merge them."
-msgstr ""
+msgstr "この関係タイプは<strong>非推奨</strong>である！ 両方のレコーディングとも同意の場合、マージすること。"
 
 #: DB:link_type/description:136
 msgid ""
 "This relationship type is <strong>deprecated</strong>! Please add mastering "
 "engineers at the release level."
-msgstr ""
+msgstr "この関係タイプは<strong>非推奨</strong>である！ リリースレベルでマスタリングエンジニアを追加のこと。"
 
 #: DB:link_type/description:1
 msgid ""
 "This relationship type is <strong>deprecated</strong>! Please enter a "
 "release with multiple discs as a single release containing multiple discs."
-msgstr ""
+msgstr "この関係タイプは<strong>非推奨</strong>である！ 複数のディスクを含む単一のリリースとして入力のこと。"
 
 #: DB:link_type/description:78
 msgid ""
 "This relationship type is <strong>deprecated</strong>! Please upload covers on the cover art tab for the release and/or add an ASIN relationship.\n"
 "\n"
 "Note about CD Baby: Many CD Baby releases are also available (usually with bigger covers) on Amazon.com."
-msgstr ""
+msgstr "この関係タイプは<strong>非推奨</strong>である！ リリースのカバーアートタブにカバーをアップロードするか、ASIN 関係を追加のこと。\n\nCD Babyに関する注意：Amazon.com では多くの CD Baby リリースが存在する（通常は大きめのカバーサイズで）。"
 
 #: DB:link_type/description:15
 msgid ""
 "This relationship type is used to indicate that a release group is a cover version of another release group, i.e. when an artist performs a new rendition of another artist's album.<br/>\n"
 "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-ad06-98af558e99b0\">recording-work performance relationship type</a>."
-msgstr ""
+msgstr "この関係タイプは、リリースグループが別のリリースグループのカバーバージョンであることを示すために使用される。つまり、アーティストが別のアーティストのアルバムの新しいレンディションを実行する場合である。<br/>\n個々の曲については、<a href=\"/relationship/a3005666-a872-32c3-ad06-98af558e99b0\">レコーディング作業パフォーマンスの関係タイプ</a>を参照のこと。"
 
 #: DB:link_type/description:997
 msgid ""
 "This relationship type is used to link a label to a site where music can be "
 "legally streamed for free, e.g. Spotify."
-msgstr ""
+msgstr "この関係タイプは、音楽を合法的に無料でストリーミングできるサイト （例えば Spotify）にラベルをリンクするために使用される。"
 
 #: DB:link_type/description:224
 msgid "This relationship type is used to link a label to its blog."
-msgstr ""
+msgstr "この関係タイプは、ラベルをブログにリンクするために使用される。"
 
 #: DB:link_type/description:287
 msgid ""
 "This relationship type is used to link a release group to an official "
 "website created specifically for the release group."
-msgstr ""
+msgstr "この関係タイプは、リリースグループをリリースグループ専用に作成された公式Webサイトにリンクするために使用される。"
 
 #: DB:link_type/description:980
 msgid ""
 "This relationship type is used to link a release to a site where the tracks can be legally streamed for a subscription fee, e.g. Tidal.\n"
 "\n"
 "If the site allows free streaming, use \"free streaming\" instead."
-msgstr ""
+msgstr "この関係タイプは、サブスクリプション料金でトラックを合法的にストリーミングできるサイト （例えば Tidal） にリリースをリンクするために使用される。\n\nサイトで無料ストリーミングが許可されている場合は、代わりに「無料ストリーミング」を使用のこと。"
 
 #: DB:link_type/description:85
 msgid ""
 "This relationship type is used to link a release to a site where the tracks "
 "can be legally streamed for free, e.g. Spotify."
-msgstr ""
+msgstr "この関係タイプは、トラックを合法的に無料でストリーミングできるサイト （例えば Spotify）にリリースをリンクするために使用される。"
 
 #: DB:link_type/description:979
 msgid ""
 "This relationship type is used to link a track to a site where the track can be legally streamed for a subscription fee, e.g. Tidal.\n"
 "\n"
 "If the site allows free streaming, use \"free streaming\" instead."
-msgstr ""
+msgstr "この関係タイプは、サブスクリプション料金でトラックを合法的にストリーミングできるサイト （例えば Tidal） にトラックをリンクするために使用される。\n\nサイトで無料ストリーミングが許可されている場合は、代わりに「無料ストリーミング」を使用のこと。"
 
 #: DB:link_type/description:268
 msgid ""
 "This relationship type is used to link a track to a site where the track can"
 " be legally streamed for free, such as Spotify for audio tracks or YouTube "
 "for videos."
-msgstr ""
+msgstr "この関係タイプは、オーディオトラックの場合 Spotify 、ビデオの場合 YouTube など、トラックを合法的に無料でストリーミングできるサイトにトラックをリンクするために使用される。"
 
 #: DB:link_type/description:978
 msgid ""
 "This relationship type is used to link an artist to a site where music can be legally streamed for a subscription fee, e.g. Tidal.\n"
 "\n"
 "If the site allows free streaming, use \"free streaming\" instead."
-msgstr ""
+msgstr "この関係タイプは、アーティストを、サブスクリプション料金で合法的に音楽をストリーミングできるサイト （例えば Tidal） にリンクするために使用される。\n\nサイトで無料ストリーミングが許可されている場合は、代わりに「無料ストリーミング」を使用のこと。"
 
 #: DB:link_type/description:194
 msgid ""
 "This relationship type is used to link an artist to a site where music can "
 "be legally streamed for free, e.g. Spotify."
-msgstr ""
+msgstr "この関係タイプは、アーティストを、音楽を合法的に無料でストリーミングできるサイト （例えば Spotify） にリンクするために使用される。"
 
 #: DB:link_type/description:199
 msgid "This relationship type is used to link an artist to their blog."
-msgstr ""
+msgstr "この関係タイプは、アーティストをブログにリンクするために使用される。"
 
 #: DB:link_type/description:175
 msgid ""
 "This relationship type is used to link to a page where the artist's releases"
 " can be purchased for mail order."
-msgstr ""
+msgstr "この関係タイプは、アーティストのリリースを通販で購入できるページにリンクするために使用される。"
 
 #: DB:link_type/description:960
 msgid ""
 "This relationship type is used to link to a page where the label's releases "
 "can be purchased for mail order."
-msgstr ""
+msgstr "この関係タイプは、レーベルでのリリースを通信販売で購入できるページにリンクするために使用される。"
 
 #: DB:link_type/description:79
 msgid ""
 "This relationship type is used to link to a page where the release can be "
 "purchased for mail order."
-msgstr ""
+msgstr "この関係タイプは、リリースを通信販売で購入できるページにリンクするために使用される。"
 
 #: DB:link_type/description:274
 msgid ""
 "This relationship type is used to link to a page where the score / sheet "
 "music for this work can be legally downloaded for free."
-msgstr ""
+msgstr "この関係タイプは、この作品の楽譜/楽譜を合法的に無料でダウンロードできるページにリンクするために使用される。"
 
 #: DB:link_type/description:912
 msgid ""
 "This relationship type is used to link to a page where the score / sheet "
 "music for this work can be legally purchased for download."
-msgstr ""
+msgstr "この関係タイプは、この作品の楽譜/楽譜を合法的にダウンロード購入可能なページにリンクするために使用される。"
 
 #: DB:link_type/description:913
 msgid ""
 "This relationship type is used to link to a page where the score / sheet "
 "music for this work can be legally purchased for mail order."
-msgstr ""
+msgstr "この関係タイプは、この作品の楽譜/楽譜を通信販売で合法的に購入できるページにリンクするために使用される。"
 
 #: DB:link_type/description:215
 msgid "This relationship type links a label to its Myspace page."
@@ -2970,7 +2971,7 @@ msgid ""
 "This relationship type links a label to its corresponding page at <a "
 "href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated"
 " to cataloguing the music of video games and anime."
-msgstr ""
+msgstr "この関係タイプは、レーベルを <a href=\"http://vgmdb.net/\">VGMdb</a> の対応するページにリンクする。 VGMdb は、ビデオゲームやアニメの音楽をカタログ化することを目的としたコミュニティプロジェクトである。"
 
 #: DB:link_type/description:838
 msgid ""
@@ -3003,20 +3004,20 @@ msgid ""
 "This relationship type links a release to its corresponding page <a "
 "href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated"
 " to cataloguing the music of video games and anime."
-msgstr ""
+msgstr "この関係タイプは、リリースを <a href=\"http://vgmdb.net/\">VGMdb</a> の対応するページにリンクする。 VGMdb は、ビデオゲームやアニメの音楽をカタログ化することを目的としたコミュニティプロジェクトである。"
 
 #: DB:link_type/description:938
 msgid ""
 "This relationship type links a series (like a festival) to its corresponding"
 " page at setlist.fm"
-msgstr ""
+msgstr "この関係タイプは、シリーズ（フェスティバルなど）を setlist.fm の対応するページにリンクする"
 
 #: DB:link_type/description:191
 msgid ""
 "This relationship type links an artist to its corresponding page at <a "
 "href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated"
 " to cataloguing the music of video games and anime."
-msgstr ""
+msgstr "この関係タイプは、アーティストを <a href=\"http://vgmdb.net/\">VGMdb</a> の対応するページにリンクする。 VGMdb は、ビデオゲームやアニメの音楽をカタログ化することを目的としたコミュニティプロジェクトである。"
 
 #: DB:link_type/description:862
 msgid ""
@@ -3052,19 +3053,19 @@ msgid ""
 "content. The artist may or may not be a member of the group. Examples "
 "include forums, LiveJournal communities and groups on Facebook, Last.fm and "
 "Flickr."
-msgstr ""
+msgstr "この関係タイプは、アーティストをオンラインコミュニティページにリンクする。 オンラインコミュニティは、すべてのメンバーがコンテンツにコメントしたり投稿したりできるグループである。 アーティストは、グループのメンバーである場合とそうでない場合がある。 例としては、フォーラム、Facebook、Last.fm、FlickrのLiveJournalコミュニティやグループがある。"
 
 #: DB:link_type/description:808
 msgid ""
 "This relationship type links an event to a promotional poster for the event."
-msgstr ""
+msgstr "この関係タイプは、イベントをそのイベントの販促ポスターにリンクする。"
 
 #: DB:link_type/description:788
 msgid ""
 "This relationship type links an event to its corresponding page at <a "
 "href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated"
 " to cataloguing the music of video games and anime."
-msgstr ""
+msgstr "この関係タイプは、イベントを <a href=\"http://vgmdb.net/\">VGMdb</a> の対応するページにリンクする。 VGMdb は、ビデオゲームやアニメの音楽をカタログ化することを目的としたコミュニティプロジェクトである。"
 
 #: DB:link_type/description:860
 msgid ""
@@ -3091,55 +3092,55 @@ msgstr "この関係タイプは、イベントを対応するsetlist.fmペー�
 #: DB:link_type/description:752
 msgid ""
 "This relationship type links instruments to the areas they originate from."
-msgstr ""
+msgstr "この関係タイプは、楽器をそれらが由来する場所にリンクする。"
 
 #: DB:link_attribute_type/description:596
 msgid ""
 "This should be used when an artist is credited in liner notes or a similar "
 "source as performing a solo part."
-msgstr ""
+msgstr "これは、アーティストがライナーノーツまたはソロパートを演奏するのと同様のソースでクレジットされている場合に使用する必要がある。"
 
 #: DB:link_attribute_type/description:1150
 msgid ""
 "This specifies the credited task(s) for a relationship that can be credited "
 "in many different ways, such as \"producer\", or one that is otherwise "
 "generic \"miscellaneous support\"."
-msgstr ""
+msgstr "これは、「プロデューサー」や一般的な「その他のサポート」など、さまざまな方法でクレジットできる関係のクレジットされたタスクを指定する。"
 
 #: DB:link_attribute_type/description:568
 msgid "This specifies the medium the relationship applies to."
-msgstr ""
+msgstr "これは、関係が適用される媒体を指定する。"
 
 #: DB:link_attribute_type/description:617
 msgid ""
 "This title indicates that a conductor has at least partially retired, and no"
 " longer plays an active role with the group."
-msgstr ""
+msgstr "このタイトルは、指揮者が少なくとも部分的に引退し、グループで積極的な役割を果たしていないことを示す。"
 
 #: DB:link_attribute_type/description:526
 msgid ""
 "This typically indicates someone who is either a first-timer, or less "
 "experienced, and who is working under the direction of someone who is more "
 "experienced."
-msgstr ""
+msgstr "これは通常、初心者、または経験の浅い人で、経験のある人の指示の下で働いている人を示す。"
 
 #: DB:link_attribute_type/description:527
 msgid ""
 "This typically indicates someone who is less experienced and who is working "
 "under the direction of someone who is more experienced."
-msgstr ""
+msgstr "これは通常、経験の浅い人で、経験のある人の指示の下で働いている人を示す。"
 
 #: DB:link_attribute_type/description:477
 msgid ""
 "Transliterated track listings don't change the language, just the script or "
 "spelling."
-msgstr ""
+msgstr "文字変換されたトラックリストは言語を変更せず、スクリプトまたはスペルのみを変更する。"
 
 #: DB:link_attribute_type/description:834
 msgid ""
 "Treble or boy soprano is a young male singer with an unchanged voice in the "
 "soprano range"
-msgstr ""
+msgstr "トレブルまたはボーイソプラノは、ソプラノの範囲で声が変わらない若い男性歌手である"
 
 #: DB:link_attribute_type/description:1032
 msgid ""
@@ -3147,7 +3148,7 @@ msgid ""
 "href=\"https://en.wikipedia.org/wiki/Number_opera\">separated in "
 "numbers</a>, to specify what parts are numbers (as opposed to spoken dialog "
 "or other non-numbered parts)."
-msgstr ""
+msgstr "<a href=\"https://en.wikipedia.org/wiki/Number_opera\">数字で区切られた</a>オペラや同様の作品に使用し、どの部分が数字であるかを指定する（音声ダイアログやその他の番号のない部分とは対照的であるが）。"
 
 #: DB:link_attribute_type/description:424
 msgid ""
@@ -3155,54 +3156,54 @@ msgid ""
 "co-engineer, etc.) - which generally has a specific meaning that depends on "
 "the specific activity but is different from just \"there were several people"
 " collaborating\"."
-msgstr ""
+msgstr "これは、誰かが共同[役割]（共同プロデューサー、共同エンジニアなど）- 一般的に特定の活動に依存する特定の意味を持っていますが、単に「何人かの人々が協力していた」とは異なる - としてクレジットされている場合にのみ使用のこと。 "
 
 #: DB:link_type/description:949
 msgid ""
 "Use this relationship for credits like \"Recording was arranged by X for "
 "Label\""
-msgstr ""
+msgstr "この関係は、「レコーディングはX レベールによってアレンジされた」などのクレジットに使用する。"
 
 #: DB:link_type/description:946
 msgid ""
 "Use this relationship for credits like \"Recording was mixed by X for "
 "Label\""
-msgstr ""
+msgstr "この関係は、「レコーディングはレーベルのXによってミックスされた」などのクレジットに使用する。"
 
 #: DB:link_type/description:950
 msgid ""
 "Use this relationship for credits like \"Recording was produced by X for "
 "Label\""
-msgstr ""
+msgstr "この関係は、「レコーディングはレーベルの X によってプロデュースされた」などのクレジットにこの関係を使用する"
 
 #: DB:link_type/description:948
 msgid ""
 "Use this relationship for credits like \"Release was arranged by X for "
 "Label\""
-msgstr ""
+msgstr "この関係は、「リリースはレーベルのX によってアレンジされた」などのクレジットに使用する。"
 
 #: DB:link_type/description:952
 msgid ""
 "Use this relationship for credits like \"Release was manufactured by X for "
 "Label\""
-msgstr ""
+msgstr "この関係は、「リリースはレーベルの X によって製造された」などのクレジットに使用する。"
 
 #: DB:link_type/description:947
 msgid ""
 "Use this relationship for credits like \"Release was mixed by X for Label\""
-msgstr ""
+msgstr "「リリースはラベルの X によってミックスされた」などのクレジットにこの関係を使用する"
 
 #: DB:link_type/description:951
 msgid ""
 "Use this relationship for credits like \"Release was produced by X for "
 "Label\""
-msgstr ""
+msgstr "「リリースはレーベルの X によってプロデュースされた」などのクレジットにこの関係を使用する"
 
 #: DB:link_attribute_type/description:952
 msgid ""
 "Use this to indicate that the mastering relationship is specifically for a "
 "remaster."
-msgstr ""
+msgstr "これを使用して、マスタリング関係がリマスター専用であることを示す。"
 
 #: DB:link_attribute_type/description:1033
 msgid ""
@@ -3210,19 +3211,19 @@ msgid ""
 "whole, but is just a grouping of pieces or works that can be performed "
 "individually (collections of songs, several sonatas or concertos published "
 "as a set, books of piano pieces, etc.)"
-msgstr ""
+msgstr "親作品が全体として実行されることを意図しておらず、個別に実行できる作品または作品のグループにすぎないことを示す（曲のコレクション、セットとして公開されたいくつかのソナタまたは協奏曲、ピアノ曲の本、 その他）。"
 
 #: DB:link_attribute_type/description:1030
 msgid ""
 "Use this to mark acts of an opera (as opposed to other parts that are not "
 "acts)"
-msgstr ""
+msgstr "これを使用して、オペラの幕マークする（幕ではない他の部分とは対照的に）。"
 
 #: DB:link_attribute_type/description:1079
 msgid ""
 "Use this to mark that a tour was for the anniversary (rather than the "
 "launch) of a release group."
-msgstr ""
+msgstr "これを使用して、ツアーがリリースグループの（デビューではなく）記念日であることを示す。"
 
 #: DB:link_attribute_type/description:1031
 msgid ""
@@ -3230,7 +3231,7 @@ msgid ""
 "meant to be performed one after another in a particular order (rather than "
 "in any order, or multiple times, or in arbitrary selections rather than as a"
 " whole)."
-msgstr ""
+msgstr "親作業が複数の部分で構成されている場合に使用する。これらの部分は、通常、特定の順序で（任意の順序、複数回、または全体ではなく任意の選択で）次々に実行することを目的としている。"
 
 #: DB:link_type/link_phrase:86 DB:link_type/link_phrase:191
 #: DB:link_type/link_phrase:210 DB:link_type/link_phrase:788
@@ -3261,7 +3262,7 @@ msgstr "次のVIAF ID"
 
 #: DB:link_attribute_type/description:1151
 msgid "Whistling (with mouth, not a whistle)"
-msgstr ""
+msgstr "口笛（ホイッスルではなく口で）"
 
 #: DB:link_type/link_phrase:353 DB:link_type/link_phrase:354
 #: DB:link_type/link_phrase:749 DB:link_type/link_phrase:594
@@ -3309,7 +3310,7 @@ msgstr "YouTubeチャンネル"
 
 #: DB:link_attribute_type/name:1030
 msgid "act"
-msgstr ""
+msgstr "幕"
 
 #: DB:link_attribute_type/name:1
 msgid "additional"
@@ -3334,7 +3335,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1079
 msgid "anniversary"
-msgstr ""
+msgstr "記念日"
 
 #: DB:link_type/link_phrase:357 DB:link_type/name:357
 msgid "anthem"
@@ -3346,7 +3347,7 @@ msgstr "次の歌"
 
 #: DB:link_type/link_phrase:858 DB:link_type/long_link_phrase:858
 msgid "appears on video"
-msgstr ""
+msgstr "ビデオに登場"
 
 #: DB:link_type/name:866 DB:link_type/name:865 DB:link_type/name:886
 #: DB:link_type/reverse_link_phrase:866 DB:link_type/reverse_link_phrase:865
@@ -3356,7 +3357,7 @@ msgstr "編曲した場所"
 #: DB:link_type/name:948 DB:link_type/name:949
 #: DB:link_type/reverse_link_phrase:948 DB:link_type/reverse_link_phrase:949
 msgid "arranged for"
-msgstr ""
+msgstr "アレンジする"
 
 #: DB:link_type/name:864 DB:link_type/name:863 DB:link_type/name:885
 #: DB:link_type/reverse_link_phrase:864 DB:link_type/reverse_link_phrase:863
@@ -3391,15 +3392,15 @@ msgstr "アートディレクション"
 #: DB:link_type/link_phrase:135 DB:link_type/link_phrase:62
 #: DB:link_type/reverse_link_phrase:135 DB:link_type/reverse_link_phrase:62
 msgid "artist & repertoire support"
-msgstr ""
+msgstr "アーティスト＆レパートリーのサポート"
 
 #: DB:link_type/name:965 DB:link_type/reverse_link_phrase:965
 msgid "artistic director"
-msgstr ""
+msgstr "芸術監督"
 
 #: DB:link_type/link_phrase:965
 msgid "artistic director for"
-msgstr ""
+msgstr "芸術監督"
 
 #: DB:link_type/name:135 DB:link_type/name:62
 msgid "artists and repertoire"
@@ -3419,19 +3420,19 @@ msgstr "アソシエイト"
 
 #: DB:link_type/reverse_link_phrase:926
 msgid "associated groups"
-msgstr ""
+msgstr "関連グループ"
 
 #: DB:link_type/reverse_link_phrase:11
 msgid "associated singles/EPs"
-msgstr ""
+msgstr "関連シングル/EP"
 
 #: DB:link_type/link_phrase:926 DB:link_type/name:926
 msgid "associated with"
-msgstr ""
+msgstr "関連付ける"
 
 #: DB:link_type/name:140 DB:link_type/name:31
 msgid "audio"
-msgstr ""
+msgstr "オーディオ"
 
 #: DB:link_type/name:795 DB:link_type/reverse_link_phrase:795
 msgid "available at"
@@ -3467,7 +3468,7 @@ msgstr "バリトンヴォーカル"
 
 #: DB:link_type/name:314
 msgid "based on"
-msgstr ""
+msgstr "準拠する"
 
 #: DB:link_attribute_type/description:7 DB:link_attribute_type/name:7
 msgid "bass vocals"
@@ -3511,25 +3512,25 @@ msgstr "ボーナス"
 #: DB:link_type/name:23 DB:link_type/name:134
 #: DB:link_type/reverse_link_phrase:23 DB:link_type/reverse_link_phrase:134
 msgid "booking"
-msgstr ""
+msgstr "ブッキング"
 
 #: DB:link_type/name:929 DB:link_type/reverse_link_phrase:929
 msgid "booklet editor"
-msgstr ""
+msgstr "小冊子編集者"
 
 #: DB:link_type/link_phrase:929
 msgid "booklet editor for"
-msgstr ""
+msgstr "小冊子編集者"
 
 #: DB:link_type/link_phrase:66 DB:link_type/link_phrase:205
 #: DB:link_type/name:205 DB:link_type/reverse_link_phrase:205
 #: DB:link_type/long_link_phrase:205
 msgid "business association"
-msgstr ""
+msgstr "業界団体"
 
 #: DB:link_type/reverse_link_phrase:66
 msgid "business association with"
-msgstr ""
+msgstr "業界団体"
 
 #: DB:link_type/long_link_phrase:75 DB:link_type/long_link_phrase:255
 msgid "can be downloaded for free at"
@@ -3554,28 +3555,28 @@ msgstr "中止された"
 
 #: DB:link_type/link_phrase:212 DB:link_type/reverse_link_phrase:212
 msgid "catalog of records"
-msgstr ""
+msgstr "レコードのカタログ"
 
 #: DB:link_type/reverse_link_phrase:201
 msgid "catalog reissued by"
-msgstr ""
+msgstr "再発行されたカタログ"
 
 #: DB:link_type/name:212
 msgid "catalog site"
-msgstr ""
+msgstr "カタログサイト"
 
 #: DB:link_type/link_phrase:751 DB:link_type/name:751
 #: DB:link_type/long_link_phrase:751
 msgid "catalogued"
-msgstr ""
+msgstr "カタログ済み"
 
 #: DB:link_type/reverse_link_phrase:751
 msgid "cataloguer"
-msgstr ""
+msgstr "カタログ作成者"
 
 #: DB:link_type/reverse_link_phrase:750
 msgid "catalogues work of"
-msgstr ""
+msgstr "カタログ作成"
 
 #: DB:link_type/reverse_link_phrase:735
 msgid "child of"
@@ -3587,7 +3588,7 @@ msgstr "子"
 
 #: DB:link_attribute_type/description:13 DB:link_attribute_type/name:13
 msgid "choir vocals"
-msgstr ""
+msgstr "合唱団のボーカル"
 
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
@@ -3616,7 +3617,7 @@ msgstr "コラボレーション"
 #: DB:link_type/long_link_phrase:890 DB:link_type/long_link_phrase:889
 #: DB:link_type/long_link_phrase:892
 msgid "commissioned"
-msgstr ""
+msgstr "委託済み"
 
 #: DB:link_type/name:228
 msgid "compilation"
@@ -3629,16 +3630,16 @@ msgstr "コンピレーション元"
 #: DB:link_type/link_phrase:48 DB:link_type/link_phrase:147
 #: DB:link_type/long_link_phrase:48 DB:link_type/long_link_phrase:147
 msgid "compiled"
-msgstr ""
+msgstr "編集済み"
 
 #: DB:link_type/reverse_link_phrase:228
 msgid "compiled in"
-msgstr ""
+msgstr "編集する"
 
 #: DB:link_type/name:48 DB:link_type/name:147
 #: DB:link_type/reverse_link_phrase:48 DB:link_type/reverse_link_phrase:147
 msgid "compiler"
-msgstr ""
+msgstr "編集者"
 
 #: DB:link_type/name:876
 msgid "composed at"
@@ -3900,8 +3901,8 @@ msgid "discography pages"
 msgstr "ディスコグラフィーページ"
 
 #: DB:link_type/name:180 DB:link_type/name:76 DB:link_type/name:217
-#: DB:link_type/name:971 DB:link_type/name:90 DB:link_type/name:747
-#: DB:link_type/name:705
+#: DB:link_type/name:90 DB:link_type/name:747 DB:link_type/name:705
+#: DB:link_type/name:971
 msgid "discogs"
 msgstr "discogs"
 

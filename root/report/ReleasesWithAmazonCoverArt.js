@@ -1,6 +1,6 @@
 /*
  * @flow strict-local
- * Copyright (C) 2018 MetaBrainz Foundation
+ * Copyright (C) 2021 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
  * and is licensed under the GPL version 2, or (at your option) any
@@ -13,7 +13,7 @@ import ReleaseList from './components/ReleaseList';
 import ReportLayout from './components/ReportLayout';
 import type {ReportDataT, ReportReleaseT} from './types';
 
-const ReleasesInCaaWithCoverArtRelationships = ({
+const ReleasesWithAmazonCoverArt = ({
   canBeFiltered,
   filtered,
   generated,
@@ -23,15 +23,17 @@ const ReleasesInCaaWithCoverArtRelationships = ({
   <ReportLayout
     canBeFiltered={canBeFiltered}
     description={l(
-      `This report shows releases which have artwork in the Cover Art Archive,
-       but still have a cover art relationship (pointing to a URL).`,
+      `This report shows releases which have cover art from Amazon, but have
+       no front cover in the Cover Art Archive. The use of Amazon art
+       is going to be discontinued eventually, so these releases will lose
+       their front cover unless one is added to the Cover Art Archive.`,
     )}
     entityType="release"
     filtered={filtered}
     generated={generated}
     title={l(
-      `Releases in the Cover Art Archive
-       that still have cover art relationships`,
+      `Releases that have Amazon cover art
+       but no Cover Art Archive front cover`,
     )}
     totalEntries={pager.total_entries}
   >
@@ -39,4 +41,4 @@ const ReleasesInCaaWithCoverArtRelationships = ({
   </ReportLayout>
 );
 
-export default ReleasesInCaaWithCoverArtRelationships;
+export default ReleasesWithAmazonCoverArt;

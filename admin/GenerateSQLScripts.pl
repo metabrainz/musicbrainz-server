@@ -223,9 +223,9 @@ sub process_tables
         print OUT "BEGIN;\n\n";
         foreach my $row (@replication_triggers) {
             my ($table, $verbose) = @$row;
-            print OUT "CREATE TRIGGER \"reptg_$table\"\n";
-            print OUT "AFTER INSERT OR DELETE OR UPDATE ON \"$table\"\n";
-            print OUT "FOR EACH ROW EXECUTE PROCEDURE \"recordchange\" (" . ($verbose ? "'verbose'" : "") . ");\n\n"
+            print OUT qq(CREATE TRIGGER "reptg_$table"\n);
+            print OUT qq(AFTER INSERT OR DELETE OR UPDATE ON "$table"\n);
+            print OUT 'FOR EACH ROW EXECUTE PROCEDURE "recordchange" (' . ($verbose ? "'verbose'" : "") . ");\n\n"
         }
         print OUT "COMMIT;\n";
         close OUT;

@@ -58,7 +58,7 @@ test 'Remember me tokens' => sub {
        'Can consume "remember me" tokens');
 
     ok(!$model->consume_remember_me_token($user_name, $token),
-       'Remember me tokens with improper capitalization can\'t be consumed');
+       q(Remember me tokens with improper capitalization can't be consumed));
 
     ok(!exception { $model->consume_remember_me_token('Unknown User', $token) },
        'It is not an exception to attempt to consume tokens for non-existent users');
@@ -165,20 +165,20 @@ is($editors[0]->id, $new_editor_2->id);
 
 
 @editors = $editor_data->find_by_subscribed_editor(2, 10, 0);
-is($editors[1], 1, "alice is subscribed to one person ...");
-is($editors[0][0]->id, 1, "          ... that person is new_editor");
+is($editors[1], 1, 'alice is subscribed to one person ...');
+is($editors[0][0]->id, 1, '          ... that person is new_editor');
 
 
 @editors = $editor_data->find_subscribers(1, 10, 0);
-is($editors[1], 1, "new_editor has one subscriber ...");
-is($editors[0][0]->id, 2, "          ... that subscriber is alice");
+is($editors[1], 1, 'new_editor has one subscriber ...');
+is($editors[0][0]->id, 2, '          ... that subscriber is alice');
 
 
 @editors = $editor_data->find_by_subscribed_editor(1, 10, 0);
-is($editors[1], 0, "new_editor has not subscribed to anyone");
+is($editors[1], 0, 'new_editor has not subscribed to anyone');
 
 @editors = $editor_data->find_subscribers(2, 10, 0);
-is($editors[1], 0, "alice has no subscribers");
+is($editors[1], 0, 'alice has no subscribers');
 
 subtest 'Find editors with subscriptions' => sub {
     my @editors = $editor_data->editors_with_subscriptions(0, 1000);
@@ -270,7 +270,7 @@ test 'Deleting editors removes most information' => sub {
     for my $attribute (grep { !$exclusions->contains($_->name) }
                            object_attributes($bob)) {
         attribute_value_is($attribute, $bob, undef,
-                           $attribute->name . " is now undef");
+                           $attribute->name . ' is now undef');
     }
 
     # Ensure all languages have been cleared
@@ -281,12 +281,12 @@ test 'Deleting editors removes most information' => sub {
     my $prefs = $bob->preferences;
     for my $attribute (object_attributes($prefs)) {
         if (!$attribute->has_default) {
-            diag("Editor preference " . attribute->name . " has no default");
+            diag('Editor preference ' . attribute->name . ' has no default');
         }
         else {
             attribute_value_is(
                 $attribute, $prefs, $attribute->default($prefs),
-                "Preference " . $attribute->name . " was cleared");
+                'Preference ' . $attribute->name . ' was cleared');
         }
     }
 
@@ -365,7 +365,7 @@ test 'Deleting an editor changes all Yes/No votes on open edits to Abstain' => s
 
 
     $c->model('Editor')->delete(2);
-    
+
     # Clear the votes to load again
     $edit->votes([]);
 
@@ -418,8 +418,8 @@ test 'Open edit and last-24-hour counts' => sub {
 
     is($open_edit->status, $STATUS_OPEN);
 
-    is($c->model('Editor')->various_edit_counts(1)->{open_count}, 1, "Open edit count is 1");
-    is($c->model('Editor')->last_24h_edit_count(1), 2, "Last 24h count is 2");
+    is($c->model('Editor')->various_edit_counts(1)->{open_count}, 1, 'Open edit count is 1');
+    is($c->model('Editor')->last_24h_edit_count(1), 2, 'Last 24h count is 2');
 };
 
 test 'subscription_summary' => sub {

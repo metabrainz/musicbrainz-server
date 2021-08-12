@@ -465,9 +465,9 @@ EOF
 
     ok(defined $extra);
     is(@$extra, 3);
-    is($extra->[0]->{release}->release_group->primary_type->name, "Album");
-    is($extra->[0]->{release}->name, "Bravo Black Hits, Volume 10");
-    is($extra->[0]->{release}->gid, "56f23fac-24e9-4883-b093-b4c94a001a96");
+    is($extra->[0]->{release}->release_group->primary_type->name, 'Album');
+    is($extra->[0]->{release}->name, 'Bravo Black Hits, Volume 10');
+    is($extra->[0]->{release}->gid, '56f23fac-24e9-4883-b093-b4c94a001a96');
     is($extra->[0]->{track_position}, 17);
     is($extra->[0]->{medium_track_count}, 19);
 
@@ -586,7 +586,7 @@ EOF
 
     my $results = $direct[0];
 
-    is($direct[1], 2, "two search results");
+    is($direct[1], 2, 'two search results');
     is($results->[0]->entity->name, 'Blonde on Blonde', 'exact phrase ranked first');
     is($results->[1]->entity->name, 'Blues on Blonde on Blonde', 'longer phrase ranked second');
 };

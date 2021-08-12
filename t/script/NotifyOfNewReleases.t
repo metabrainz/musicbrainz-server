@@ -67,7 +67,7 @@ test 'Send with releases' => sub {
     }, 'notifies about 1 new release');
 
     TODO: {
-        local $TODO = "Update last checked";
+        local $TODO = 'Update last checked';
         verify($c->model('WatchArtist'))
             ->update_last_checked;
     }

@@ -212,13 +212,7 @@ These are a bit more involved to set up:
 
  * Set USE_SET_DATABASE_HEADER to 1 in lib/DBDefs.pm.
 
- * Run ./script/create_test_db.sh and ./script/compile_resources.sh again.
-
- * Create the `musicbrainz_selenium` database using `musicbrainz_test` as
-   a template:
-
-       $ # On Ubuntu, use sudo -u postgres
-       $ createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_selenium
+ * Run ./script/create_test_db.sh SELENIUM and run ./script/compile_resources.sh again.
 
 With the above prerequisites out of the way, the tests can be run from the
 command line like so:

@@ -17,11 +17,11 @@ test all => sub {
 
     my $lt = $lt_data->get_by_id(3);
     is ($lt->id, 3);
-    is ($lt->name, "Production");
+    is ($lt->name, 'Production');
 
     my $lts = $lt_data->get_by_ids(3);
     is ($lts->{3}->id, 3);
-    is ($lts->{3}->name, "Production");
+    is ($lts->{3}->name, 'Production');
 
     does_ok($lt_data, 'MusicBrainz::Server::Data::Role::SelectAll');
     my @types = $lt_data->get_all;

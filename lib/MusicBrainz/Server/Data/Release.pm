@@ -1538,7 +1538,7 @@ sub newest_releases_with_artwork {
     my $query = '
       SELECT DISTINCT ON (edit.id) ' . $self->_columns . ',
         cover_art.id AS cover_art_id
-      FROM ' . $self->_table . '
+      FROM ' . $self->_table . q(
       JOIN cover_art_archive.cover_art ON (cover_art.release = release.id)
       JOIN cover_art_archive.cover_art_type
         ON (cover_art.id = cover_art_type.id)
@@ -1547,9 +1547,9 @@ sub newest_releases_with_artwork {
       WHERE cover_art_type.type_id = ?
         AND cover_art.ordering = 1
         AND edit.type = ?
-        AND cover_art.date_uploaded < NOW() - INTERVAL \'10 minutes\'
+        AND cover_art.date_uploaded < NOW() - INTERVAL '10 minutes'
       ORDER BY edit.id DESC
-      LIMIT 10';
+      LIMIT 10);
 
     my $FRONT = 1;
     $self->query_to_list($query, [$FRONT, $EDIT_RELEASE_CREATE], sub {

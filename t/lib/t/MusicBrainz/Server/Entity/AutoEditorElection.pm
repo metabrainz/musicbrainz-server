@@ -14,7 +14,7 @@ use MusicBrainz::Server::Entity::Editor;
 test all => sub {
 
 my $election = MusicBrainz::Server::Entity::AutoEditorElection->new;
-ok(defined $election, "constructor");
+ok(defined $election, 'constructor');
 isa_ok($election, 'MusicBrainz::Server::Entity::AutoEditorElection', 'isa');
 can_ok($election, qw( id candidate proposer seconder_1 seconder_2 status
                       yes_votes no_votes propose_time close_time open_time ));

@@ -620,6 +620,81 @@ table.artist-credit-editor {
     td {
         vertical-align: top;
         padding-top: @form-margin / 2;
+
+        &:first-child {
+            min-width: 75px;
+        }
+    }
+
+    td.link-actions {
+        text-align: right;
+        padding-right: 0;
+    }
+
+    .external-link-item {
+        td {
+            padding-bottom: @form-margin / 4;
+        }
+
+        td:first-child {
+            text-align: right;
+
+            label {
+                text-align: center;
+                width: -moz-fit-content !important;
+                width: fit-content !important;
+                min-width: 16px;
+            }
+        }
+
+        td.link-actions {
+            button.edit-item {
+                margin-right: 4px !important;
+            }
+        }
+
+        a.url:focus-visible {
+            outline: revert; // reset to UA stylesheet
+        }
+    }
+
+    .relationship-item {
+        td {
+            padding-top: @form-margin / 4;
+            padding-bottom: @form-margin / 4;
+        }
+
+        div.relationship-content {
+            display: flex;
+
+            label {
+                margin-right: @form-margin / 2;
+                white-space: nowrap;
+            }
+
+            label.relationship-name {
+                flex: 2 5;
+                text-align: left;
+                white-space: inherit;
+            }
+
+            select {
+                width: auto;
+            }
+
+            .attribute-container {
+                display: inline-block;
+            }
+        }
+    }
+
+    td.link-actions {
+        text-align: right;
+        padding-right: 0;
+    }
+
+    .add-relationship td {
+        padding: 0;
     }
 }
 

@@ -1568,21 +1568,22 @@ const CLEANUPS = {
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?d-nb\.info\//, 'http://d-nb.info/');
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=nid%3D(1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X]).*$/, 'http://d-nb.info/gnd/$1');
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac\.htm\?.*\bquery=idn%3D(1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X]).*$/, 'http://d-nb.info/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac(?:\.htm\?)?.*\bquery=nid%3D(1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X]).*$/, 'http://d-nb.info/gnd/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac(?:\.htm\?)?.*\bquery=idn%3D(1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X]).*$/, 'http://d-nb.info/$1');
       return url;
     },
     validate: function (url, id) {
       switch (id) {
         case LINK_TYPES.otherdatabases.artist:
         case LINK_TYPES.otherdatabases.place:
+        case LINK_TYPES.otherdatabases.work:
           return {
-            result: /^http:\/\/d-nb\.info\/gnd\/(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url),
+            result: /^http:\/\/d-nb\.info\/(?:gnd\/)?(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url),
             target: ERROR_TARGETS.RELATIONSHIP,
           };
         case LINK_TYPES.otherdatabases.label:
           return {
-            result: /^http:\/\/d-nb\.info\/(dnbn|gnd)\/(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url),
+            result: /^http:\/\/d-nb\.info\/(?:(?:dnbn|gnd)\/)?(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url),
             target: ERROR_TARGETS.RELATIONSHIP,
           };
         case LINK_TYPES.otherdatabases.release:
@@ -1795,18 +1796,6 @@ const CLEANUPS = {
         };
       }
       return {result: true, target: ERROR_TARGETS.URL};
-    },
-  },
-  'fandomlyrics': {
-    match: [new RegExp(
-      '^(https?://)?(fr\\.)?lyrics\\.(wikia|fandom)\\.com',
-      'i',
-    )],
-    type: LINK_TYPES.lyrics,
-    clean: function (url) {
-      url = url.replace(/^https?:\/\/lyrics\.(?:wikia|fandom)\.com/, 'https://lyrics.fandom.com');
-      url = url.replace(/^https?:\/\/fr\.lyrics\.(?:wikia|fandom)\.com/, 'https://lyrics.fandom.com/fr');
-      return url;
     },
   },
   'flattr': {
@@ -2133,6 +2122,22 @@ const CLEANUPS = {
                     target: '_blank',
                   },
                 },
+              ),
+              result: false,
+              target: ERROR_TARGETS.URL,
+            };
+          }
+          if ([
+            'accounts',
+            'accounts_center',
+            'direct',
+            'email',
+            'push',
+            'session',
+          ].includes(prefix)) {
+            return {
+              error: l(
+                `This is an internal Instagram page and should not be added.`,
               ),
               result: false,
               target: ERROR_TARGETS.URL,
@@ -2550,7 +2555,6 @@ const CLEANUPS = {
       new RegExp('^(https?://)?([^/]+\\.)?lieder\\.net', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?utamap\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?j-lyric\\.net', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?lyricsnmusic\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?muzikum\\.eu', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?gutenberg\\.org', 'i'),
     ],
@@ -2776,11 +2780,11 @@ const CLEANUPS = {
     type: LINK_TYPES.lyrics,
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?musixmatch\.com\/(artist)\/([^\/?#]+).*$/, 'https://www.musixmatch.com/$1/$2');
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?musixmatch\.com\/(lyrics)\/([^\/?#]+)\/([^\/?#]+).*$/, 'https://www.musixmatch.com/$1/$2/$3');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?musixmatch\.com\/(album|lyrics)\/([^\/?#]+)\/([^\/?#]+).*$/, 'https://www.musixmatch.com/$1/$2/$3');
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/www.musixmatch\.com\/(artist|lyrics)\/[^?#]+$/.exec(url);
+      const m = /^https:\/\/www.musixmatch\.com\/(album|artist|lyrics)\/[^?#]+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -2789,6 +2793,25 @@ const CLEANUPS = {
               result: prefix === 'artist',
               target: ERROR_TARGETS.RELATIONSHIP,
             };
+          case LINK_TYPES.lyrics.release_group:
+            if (prefix === 'album') {
+              return {
+                error: exp.l(
+                  `Musixmatch “{album_url_pattern}” pages are a bad match
+                   for MusicBrainz release groups, and linking to them
+                   is currently disallowed. Please consider adding Musixmatch
+                   links to the relevant artists and works instead.`,
+                  {
+                    album_url_pattern: (
+                      <span className="url-quote">{'/album'}</span>
+                    ),
+                  },
+                ),
+                result: false,
+                target: ERROR_TARGETS.ENTITY,
+              };
+            }
+            return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
           case LINK_TYPES.lyrics.work:
             return {
               result: prefix === 'lyrics',
@@ -4495,7 +4518,7 @@ Object.values(LINK_TYPES).forEach(function (linkType) {
         }
         return {
           result: RESTRICTED_LINK_TYPES.indexOf(id) === -1,
-          target: ERROR_TARGETS.URL,
+          target: ERROR_TARGETS.RELATIONSHIP,
         };
       };
     }

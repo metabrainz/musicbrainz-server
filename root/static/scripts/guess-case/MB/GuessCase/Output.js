@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -7,223 +8,191 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import MB from '../../../common/MB';
 import * as flags from '../../flags';
+import * as modes from '../../modes';
 import * as utils from '../../utils';
 
-MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
+import gc from './Main';
+import input from './Input';
 
 // Holds the output variables
-MB.GuessCase.Output = function (gc) {
-  var self = {};
+class GuessCaseOutput {
+  wordList: Array<string>;
 
-  // Member variables
-  self._w = [];
+  constructor() {
+    // Member variables
+    this.wordList = [];
+  }
 
   // Member functions
 
   // Initialise the GcOutput object for another run
-  self.init = function () {
-    self._w = [];
-    self._output = '';
-  };
+  init() {
+    this.wordList = [];
+  }
 
-  // @returns the length
-  self.getLength = function () {
-    return self._w.length;
-  };
+  // Returns the length of the wordlist
+  getLength(): number {
+    return this.wordList.length;
+  }
 
-  // @returns if the array is empty
-  self.isEmpty = function () {
-    var f = (self.getLength() == 0);
-    return f;
-  };
+  isEmpty(): boolean {
+    return this.getLength() === 0;
+  }
 
   /*
    * Fetches the current word from the GcInput
    * object, and appends it to the wordlist.
    */
-  self.appendCurrentWord = function () {
-    var w;
-    if ((w = gc.i.getCurrentWord()) != null) {
-      self.appendWord(w);
+  appendCurrentWord() {
+    const currentWord = input.getCurrentWord();
+    if (currentWord != null) {
+      this.appendWord(currentWord);
     }
-  };
+  }
 
-  /*
-   * Append the word w to the worlist
-   *
-   * @param w the word
-   */
-  self.appendWord = function (w) {
-    if (w == ' ') {
-      gc.o.appendSpace();
-    } else if (w != '' && w != null) {
-      self._w[self._w.length] = w;
+  appendWord(word: string | null) {
+    if (word === ' ') {
+      this.appendSpace();
+    } else if (word !== '' && word != null) {
+      this.wordList.push(word);
     }
-  };
+  }
 
-  // Adds a space to the processed wordslist
-  self.appendSpace = function () {
-    self._w[self._w.length] = ' ';
-  };
+  // Adds a space to the processed wordlist
+  appendSpace() {
+    this.wordList.push(' ');
+  }
 
   /*
    * Checks the global flag spaceNextWord and adds a space to the
    * processed wordlist if needed. The flag is *NOT* reset.
    */
-  self.appendSpaceIfNeeded = function () {
+  appendSpaceIfNeeded() {
     if (flags.context.spaceNextWord) {
-      gc.o.appendSpace();
+      this.appendSpace();
     }
-  };
+  }
 
-  // Returns the word at the index, or null if index outside bounds
-  self.getWordAtIndex = function (index) {
-    if (self._w[index]) {
-      return self._w[index];
+  getWordAtIndex(index: number): string | null {
+    if (this.wordList[index]) {
+      return this.wordList[index];
     }
     return null;
-  };
+  }
 
-  // Returns the word at the index, or null if index outside bounds
-  self.setWordAtIndex = function (index, word) {
-    if (self.getWordAtIndex(index)) {
-      self._w[index] = word;
+  setWordAtIndex(index: number, word: string) {
+    if (this.getWordAtIndex(index)) {
+      this.wordList[index] = word;
     }
-  };
+  }
 
-  // Returns the last word of the wordlist
-  self.getLastWord = function () {
-    if (self.isEmpty()) {
+  getLastWord(): string | null {
+    if (this.isEmpty()) {
       return null;
     }
-    return self._w[self._w.length - 1];
-  };
+    return this.wordList[this.wordList.length - 1];
+  }
 
-  // Returns the last word of the wordlist
-  self.dropLastWord = function () {
-    if (!self.isEmpty()) {
-      return self._w.pop();
-    }
-    return null;
-  };
-
-  // Capitalize the word at the current cursor position.
-  self.capitalizeWordAtIndex = function (index, overrideCaps) {
-    overrideCaps = overrideCaps == null
+  capitalizeWordAtIndex(index: number, overrideCaps?: boolean) {
+    const forceCaps = overrideCaps == null
       ? flags.context.forceCaps
       : overrideCaps;
-    if ((!gc.mode.isSentenceCaps() || overrideCaps) &&
-        (!self.isEmpty()) &&
-        (self.getWordAtIndex(index) != null)) {
-      /*
-       * Don't capitalize last word before punctuation/end of string
-       * in sentence mode.
-       */
-      const w = self.getWordAtIndex(index);
-      let o = w;
+    if ((!modes[gc.modeName].isSentenceCaps() || forceCaps) &&
+        (!this.isEmpty())) {
+      const word = this.getWordAtIndex(index);
+      if (word != null) {
+        let output = word;
 
-      // Check that last word is NOT an acronym.
-      if (w.match(/^\w\..*/) == null) {
-        // Some words that were manipulated might have space padding
-        var probe = utils.trim(w.toLowerCase());
+        // Check that last word is NOT an acronym.
+        if (word.match(/^\w\..*/) == null) {
+          // Some words that were manipulated might have space padding
+          const probe = utils.trim(word.toLowerCase());
 
-        // If inside brackets, do nothing.
-        if (!overrideCaps &&
-            flags.isInsideBrackets() &&
-            utils.isLowerCaseBracketWord(probe)) {
-
-          // If it is an UPPERCASE word,do nothing.
-        } else if (!overrideCaps && gc.mode.isUpperCaseWord(probe)) {
-          // Else capitalize the current word.
-        } else {
-          // Rewind pos pointer on input
-          const bef = gc.i.getPos();
-          let pos = bef - 1;
-          while (pos >= 0 &&
-                utils.trim(gc.i.getWordAtIndex(pos).toLowerCase()) != probe) {
-            pos--;
-          }
-          gc.i.setPos(pos);
-          o = utils.titleString(gc, w, overrideCaps);
-          // Restore pos pointer on input
-          gc.i.setPos(bef);
-          if (w != o) {
-            self.setWordAtIndex(index, o);
+          if (!forceCaps &&
+              flags.isInsideBrackets() &&
+              utils.isLowerCaseBracketWord(probe)) {
+            // If inside brackets, do nothing.
+          } else if (
+            !forceCaps && modes[gc.modeName].isUpperCaseWord(probe)
+          ) {
+            // If it is an UPPERCASE word,do nothing.
+          } else { // Else capitalize the current word.
+            // Rewind pos pointer on input
+            const originalPosition = input.getCursorPosition();
+            let position = originalPosition - 1;
+            while (position >= 0) {
+              const word = input.getWordAtIndex(position);
+              if (word == null || utils.trim(word.toLowerCase()) === probe) {
+                break;
+              }
+              position--;
+            }
+            input.setCursorPosition(position);
+            output = utils.titleString(gc, word, forceCaps);
+            // Restore pos pointer on input
+            input.setCursorPosition(originalPosition);
+            if (word !== output) {
+              this.setWordAtIndex(index, output);
+            }
           }
         }
       }
     }
-  };
+  }
 
   /*
-   * Capitalize the word at the current cursor position.
-   * Modifies the last element of the processed wordlist
+   * Capitalize the last element of the processed wordlist
    *
-   * @param    overrideCaps    can be used to override
-   *                            the flags.context.forceCaps parameter.
+   * overrideCaps can be used to override
+   * the flags.context.forceCaps parameter.
    */
-  self.capitalizeLastWord = function (overrideCaps) {
-    self.capitalizeWordAtIndex(self.getLength() - 1, overrideCaps);
-  };
+  capitalizeLastWord(overrideCaps?: boolean) {
+    this.capitalizeWordAtIndex(this.getLength() - 1, overrideCaps);
+  }
 
   // Apply post-processing, and return the string
-  self.getOutput = function () {
+  getOutput(): string {
     // If *not* sentence mode, force caps on last word.
-    flags.context.forceCaps = !gc.mode.isSentenceCaps();
-    self.capitalizeLastWord();
+    flags.context.forceCaps = !modes[gc.modeName].isSentenceCaps();
+    this.capitalizeLastWord();
 
-    self.closeOpenBrackets();
-    return utils.trim(self._w.join(''));
-  };
+    this.closeOpenBrackets();
+    return utils.trim(this.wordList.join(''));
+  }
 
   // Work through the stack of opened parentheses and close them
-  self.closeOpenBrackets = function () {
-    var parts = new Array();
+  closeOpenBrackets() {
+    const parts = [];
     while (flags.isInsideBrackets()) {
       // Close brackets that were opened before
       parts[parts.length] = flags.popBracket();
     }
-    self.appendWord(parts.join(''));
-  };
+    this.appendWord(parts.join(''));
+  }
 
   /*
    * This function checks the wordlist for spaces before
    * and after the current cursor position, and modifies
    * the spaces of the input string.
-   *
-   * @param c        configuration wrapper
-   *                c.apply:     if true, apply changes
-   *                c.capslast: if true, capitalize word before
    */
-  self.appendWordPreserveWhiteSpace = function (c) {
-    if (c) {
-      var ws = {
-        after: gc.i.isNextWord(' '),
-        before: gc.i.isPreviousWord(' '),
-      };
-      if (c.apply) {
-        /*
-         * Do not register method, such that this message appears as
-         * it were sent from the calling method.
-         */
-        if (c.capslast) {
-          // capitalize last word before current
-          self.capitalizeLastWord(!gc.mode.isSentenceCaps());
-        }
-        if (ws.before) {
-          self.appendSpace();  // preserve whitespace before,
-        }
-        self.appendCurrentWord(); // append current word
-        flags.context.spaceNextWord = (ws.after); // and afterwards as well
-      }
-      return ws;
+  appendWordPreserveWhiteSpace(capitalizeLast: boolean) {
+    const whitespace = {
+      after: input.isNextWord(' '),
+      before: input.isPreviousWord(' '),
+    };
+    if (capitalizeLast) {
+      // capitalize last word before current
+      this.capitalizeLastWord(!modes[gc.modeName].isSentenceCaps());
     }
-    return null;
-  };
+    if (whitespace.before) {
+      // preserve whitespace before,
+      this.appendSpace();
+    }
+    this.appendCurrentWord();
+    // preserve whitespace after
+    flags.context.spaceNextWord = (whitespace.after);
+  }
+}
 
-  return self;
-};
-
-export default MB.GuessCase.Output;
+export default (new GuessCaseOutput(): GuessCaseOutput);

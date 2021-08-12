@@ -54,10 +54,10 @@ test all => sub {
     ok(!defined $artist);
 
     my $ipi_codes = $c->model('Artist')->ipi->find_by_entity_id(3);
-    is(scalar @$ipi_codes, 0, "IPI codes for deleted artist removed from database");
+    is(scalar @$ipi_codes, 0, 'IPI codes for deleted artist removed from database');
 
     my $isni_codes = $c->model('Artist')->isni->find_by_entity_id(3);
-    is(scalar @$isni_codes, 0, "ISNI codes for deleted artist removed from database");
+    is(scalar @$isni_codes, 0, 'ISNI codes for deleted artist removed from database');
 };
 
 test 'Can be entered as an auto-edit' => sub {

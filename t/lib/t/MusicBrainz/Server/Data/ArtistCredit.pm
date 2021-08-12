@@ -99,24 +99,24 @@ test 'Merging updates matching names' => sub {
     );
     my $ac = $artist_credit_data->get_by_id($artist_credit_id);
 
-    is( $ac->artist_count, 2, "2 artists in artist credit");
-    is( $ac->name, "Queen & Merge", "Name is Queen & Merge");
-    is( $ac->names->[0]->name, "Queen", "First artist credit is Queen");
+    is( $ac->artist_count, 2, '2 artists in artist credit');
+    is( $ac->name, 'Queen & Merge', 'Name is Queen & Merge');
+    is( $ac->names->[0]->name, 'Queen', 'First artist credit is Queen');
     is( $ac->names->[0]->artist_id, 1 );
     is( $ac->names->[0]->artist->id, 1 );
-    is( $ac->names->[0]->artist->gid, "945c079d-374e-4436-9448-da92dedef3cf" );
-    is( $ac->names->[0]->artist->name, "Queen", "First artist is Queen");
-    is( $ac->names->[0]->join_phrase, " & " );
-    is( $ac->names->[1]->name, "Merge", "Second artist credit is Merge");
+    is( $ac->names->[0]->artist->gid, '945c079d-374e-4436-9448-da92dedef3cf' );
+    is( $ac->names->[0]->artist->name, 'Queen', 'First artist is Queen');
+    is( $ac->names->[0]->join_phrase, ' & ' );
+    is( $ac->names->[1]->name, 'Merge', 'Second artist credit is Merge');
     is( $ac->names->[1]->artist_id, 3 );
     is( $ac->names->[1]->artist->id, 3 );
-    is( $ac->names->[1]->artist->gid, "5f9913b0-7219-11de-8a39-0800200c9a66" );
-    is( $ac->names->[1]->artist->name, "Merge", "Second artist is Merge");
+    is( $ac->names->[1]->artist->gid, '5f9913b0-7219-11de-8a39-0800200c9a66' );
+    is( $ac->names->[1]->artist->name, 'Merge', 'Second artist is Merge');
     is( $ac->names->[1]->join_phrase, '' );
 
-    my $name = $c->sql->select_single_value("
-        SELECT name FROM artist_credit ac WHERE id=?", $artist_credit_id);
-    is( $name, "Queen & Merge", "Name is Queen & Merge" );
+    my $name = $c->sql->select_single_value(
+        'SELECT name FROM artist_credit ac WHERE id=?', $artist_credit_id);
+    is( $name, 'Queen & Merge', 'Name is Queen & Merge' );
 
     # The credited name "Bowie" is different from the artist name, so it's
     # left alone.
@@ -268,19 +268,19 @@ my $artist_credit_data = MusicBrainz::Server::Data::ArtistCredit->new(c => $test
 
 my $ac = $artist_credit_data->get_by_id(1);
 is ( $ac->id, 1 );
-is ( $ac->artist_count, 2, "2 artists in artist credit");
-is ( $ac->name, "Queen & David Bowie", "Name is Queen & David Bowie");
-is ( $ac->names->[0]->name, "Queen", "First artist credit is Queen");
+is ( $ac->artist_count, 2, '2 artists in artist credit');
+is ( $ac->name, 'Queen & David Bowie', 'Name is Queen & David Bowie');
+is ( $ac->names->[0]->name, 'Queen', 'First artist credit is Queen');
 is ( $ac->names->[0]->artist_id, 1 );
 is ( $ac->names->[0]->artist->id, 1 );
-is ( $ac->names->[0]->artist->gid, "945c079d-374e-4436-9448-da92dedef3cf" );
-is ( $ac->names->[0]->artist->name, "Queen", "First artist is Queen");
-is ( $ac->names->[0]->join_phrase, " & " );
-is ( $ac->names->[1]->name, "David Bowie", "Second artist credit is David Bowie");
+is ( $ac->names->[0]->artist->gid, '945c079d-374e-4436-9448-da92dedef3cf' );
+is ( $ac->names->[0]->artist->name, 'Queen', 'First artist is Queen');
+is ( $ac->names->[0]->join_phrase, ' & ' );
+is ( $ac->names->[1]->name, 'David Bowie', 'Second artist credit is David Bowie');
 is ( $ac->names->[1]->artist_id, 2 );
 is ( $ac->names->[1]->artist->id, 2 );
-is ( $ac->names->[1]->artist->gid, "5441c29d-3602-4898-b1a1-b77fa23b8e50" );
-is ( $ac->names->[1]->artist->name, "David Bowie", "Second artist is David Bowie");
+is ( $ac->names->[1]->artist->gid, '5441c29d-3602-4898-b1a1-b77fa23b8e50' );
+is ( $ac->names->[1]->artist->name, 'David Bowie', 'Second artist is David Bowie');
 is ( $ac->names->[1]->join_phrase, '' );
 
 $ac = $artist_credit_data->find_or_insert({
@@ -297,7 +297,7 @@ $ac = $artist_credit_data->find_or_insert({
         }
     ] });
 
-is($ac, 1, "Found artist credit for Queen & David Bowie");
+is($ac, 1, 'Found artist credit for Queen & David Bowie');
 
 $test->c->sql->begin;
 $ac = $artist_credit_data->find_or_insert({
@@ -320,13 +320,15 @@ ok($ac > 1);
 
 my $name = $test->c->sql->select_single_value('
     SELECT name FROM artist_credit WHERE id=?', $ac);
-is($name, "Massive Attack and Portishead", "Artist Credit name correctly saved in artist_credit table");
+is($name, 'Massive Attack and Portishead', 'Artist Credit name correctly saved in artist_credit table');
 
 $test->c->sql->begin;
 $artist_credit_data->merge_artists(3, [ 2 ]);
 $test->c->sql->commit;
 
-$ac = $artist_credit_data->get_by_id($test->c->sql->select_single_value("SELECT id FROM artist_credit WHERE name = 'Queen & David Bowie'"));
+$ac = $artist_credit_data->get_by_id(
+    $test->c->sql->select_single_value(q(SELECT id FROM artist_credit WHERE name = 'Queen & David Bowie'))
+);
 
 is($ac->names->[0]->artist_id, 1);
 is($ac->names->[1]->artist_id, 3);

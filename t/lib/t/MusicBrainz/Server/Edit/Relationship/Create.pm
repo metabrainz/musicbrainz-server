@@ -96,7 +96,7 @@ subtest 'creating asin relationships should update the releases coverart' => sub
     }
     else
     {
-        plan skip_all => "Amazon keys not configured";
+        plan skip_all => 'Amazon keys not configured';
     }
 };
 

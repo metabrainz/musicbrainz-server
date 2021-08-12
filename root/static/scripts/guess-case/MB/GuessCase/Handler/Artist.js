@@ -10,6 +10,8 @@
 import MB from '../../../../common/MB';
 import * as flags from '../../../flags';
 import * as utils from '../../../utils';
+import input from '../Input';
+import output from '../Output';
 
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
@@ -25,31 +27,31 @@ MB.GuessCase.Handler.Artist = function (gc) {
    */
   self.checkSpecialCase = function (is) {
     if (is) {
-      if (!gc.re.ARTIST_EMPTY) {
+      if (!gc.regexes.ARTIST_EMPTY) {
         // Match empty
-        gc.re.ARTIST_EMPTY = /^\s*$/i;
+        gc.regexes.ARTIST_EMPTY = /^\s*$/i;
         // Match "unknown" and variants
-        gc.re.ARTIST_UNKNOWN = /^[\(\[]?\s*Unknown\s*[\)\]]?$/i;
+        gc.regexes.ARTIST_UNKNOWN = /^[\(\[]?\s*Unknown\s*[\)\]]?$/i;
         // Match "none" and variants
-        gc.re.ARTIST_NONE = /^[\(\[]?\s*none\s*[\)\]]?$/i;
+        gc.regexes.ARTIST_NONE = /^[\(\[]?\s*none\s*[\)\]]?$/i;
         // Match "no artist" and variants
-        gc.re.ARTIST_NOARTIST = /^[\(\[]?\s*no[\s-]+artist\s*[\)\]]?$/i;
+        gc.regexes.ARTIST_NOARTIST = /^[\(\[]?\s*no[\s-]+artist\s*[\)\]]?$/i;
         // Match "not applicable" and variants
-        gc.re.ARTIST_NOTAPPLICABLE = /^[\(\[]?\s*not[\s-]+applicable\s*[\)\]]?$/i;
+        gc.regexes.ARTIST_NOTAPPLICABLE = /^[\(\[]?\s*not[\s-]+applicable\s*[\)\]]?$/i;
         // Match "n/a" and variants
-        gc.re.ARTIST_NA = /^[\(\[]?\s*n\s*[\\\/]\s*a\s*[\)\]]?$/i;
+        gc.regexes.ARTIST_NA = /^[\(\[]?\s*n\s*[\\\/]\s*a\s*[\)\]]?$/i;
       }
-      if (is.match(gc.re.ARTIST_EMPTY)) {
+      if (is.match(gc.regexes.ARTIST_EMPTY)) {
         return self.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.re.ARTIST_UNKNOWN)) {
+      } else if (is.match(gc.regexes.ARTIST_UNKNOWN)) {
         return self.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.re.ARTIST_NONE)) {
+      } else if (is.match(gc.regexes.ARTIST_NONE)) {
         return self.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.re.ARTIST_NOARTIST)) {
+      } else if (is.match(gc.regexes.ARTIST_NOARTIST)) {
         return self.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.re.ARTIST_NOTAPPLICABLE)) {
+      } else if (is.match(gc.regexes.ARTIST_NOTAPPLICABLE)) {
         return self.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.re.ARTIST_NA)) {
+      } else if (is.match(gc.regexes.ARTIST_NA)) {
         return self.SPECIALCASE_UNKNOWN;
       }
     }
@@ -61,9 +63,9 @@ MB.GuessCase.Handler.Artist = function (gc) {
    * in the common word handlers.
    */
   self.doWord = function () {
-    gc.o.appendSpaceIfNeeded();
-    gc.i.capitalizeCurrentWord();
-    gc.o.appendCurrentWord();
+    output.appendSpaceIfNeeded();
+    input.capitalizeCurrentWord();
+    output.appendCurrentWord();
 
     flags.resetContext();
     flags.context.number = false;
@@ -80,16 +82,16 @@ MB.GuessCase.Handler.Artist = function (gc) {
         var append = '';
 
         // Strip Jr./Sr. from the string, and append at the end.
-        if (!gc.re.SORTNAME_SR) {
-          gc.re.SORTNAME_SR = /,\s*Sr[\.]?$/i;
-          gc.re.SORTNAME_JR = /,\s*Jr[\.]?$/i;
+        if (!gc.regexes.SORTNAME_SR) {
+          gc.regexes.SORTNAME_SR = /,\s*Sr[\.]?$/i;
+          gc.regexes.SORTNAME_JR = /,\s*Jr[\.]?$/i;
         }
 
-        if (artist.match(gc.re.SORTNAME_SR)) {
-          artist = artist.replace(gc.re.SORTNAME_SR, '');
+        if (artist.match(gc.regexes.SORTNAME_SR)) {
+          artist = artist.replace(gc.regexes.SORTNAME_SR, '');
           append = ', Sr.';
-        } else if (artist.match(gc.re.SORTNAME_JR)) {
-          artist = artist.replace(gc.re.SORTNAME_JR, '');
+        } else if (artist.match(gc.regexes.SORTNAME_JR)) {
+          artist = artist.replace(gc.regexes.SORTNAME_JR, '');
           append = ', Jr.';
         }
         var names = artist.split(' ');
@@ -99,23 +101,23 @@ MB.GuessCase.Handler.Artist = function (gc) {
          * are sorted at the end.
          */
         var reorder = false;
-        if (!gc.re.SORTNAME_DJ) {
-          gc.re.SORTNAME_DJ = /^DJ$/i; // match DJ
-          gc.re.SORTNAME_THE = /^The$/i; // match The
-          gc.re.SORTNAME_LOS = /^Los$/i; // match Los
-          gc.re.SORTNAME_DR = /^Dr\.$/i; // match Dr.
+        if (!gc.regexes.SORTNAME_DJ) {
+          gc.regexes.SORTNAME_DJ = /^DJ$/i; // match DJ
+          gc.regexes.SORTNAME_THE = /^The$/i; // match The
+          gc.regexes.SORTNAME_LOS = /^Los$/i; // match Los
+          gc.regexes.SORTNAME_DR = /^Dr\.$/i; // match Dr.
         }
         var firstName = names[0];
-        if (firstName.match(gc.re.SORTNAME_DJ)) {
+        if (firstName.match(gc.regexes.SORTNAME_DJ)) {
           append = (', DJ' + append); // handle DJ xyz -> xyz, DJ
           names[0] = null;
-        } else if (firstName.match(gc.re.SORTNAME_THE)) {
+        } else if (firstName.match(gc.regexes.SORTNAME_THE)) {
           append = (', The' + append); // handle The xyz -> xyz, The
           names[0] = null;
-        } else if (firstName.match(gc.re.SORTNAME_LOS)) {
+        } else if (firstName.match(gc.regexes.SORTNAME_LOS)) {
           append = (', Los' + append); // handle Los xyz -> xyz, Los
           names[0] = null;
-        } else if (firstName.match(gc.re.SORTNAME_DR)) {
+        } else if (firstName.match(gc.regexes.SORTNAME_DR)) {
           append = (', Dr.' + append); // handle Dr. xyz -> xyz, Dr.
           names[0] = null;
           reorder = true; // reorder doctors.

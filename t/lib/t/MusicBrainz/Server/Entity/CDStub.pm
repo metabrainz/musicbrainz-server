@@ -30,19 +30,19 @@ has_attribute_ok($cdstub, $_) for qw(
 );
 
 # Now contstruct CDStub and a CDStubTrack
-$cdstubtrack->title("Track title");
-$cdstub->title("CDStub Title");
+$cdstubtrack->title('Track title');
+$cdstub->title('CDStub Title');
 $cdstub->tracks([$cdstubtrack]);
-$cdstub->leadout_offset("100000");
+$cdstub->leadout_offset('100000');
 
 # Check to see that the title of the CD Stub is as we expected
-is ($cdstub->title, "CDStub Title");
+is ($cdstub->title, 'CDStub Title');
 
 # Check to see that the title of the CD Stub Track is as we expected
-is ($cdstub->tracks->[0]->title, "Track title");
+is ($cdstub->tracks->[0]->title, 'Track title');
 
 # Check to see if the calculated length is correct
-is ($cdstub->length, "1333333");
+is ($cdstub->length, '1333333');
 
 };
 

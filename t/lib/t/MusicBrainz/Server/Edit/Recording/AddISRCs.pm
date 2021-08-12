@@ -47,7 +47,7 @@ test 'Applying open edits adding duplicates is a no-op (MBS-8032)' => sub {
     is($edit_1->status, $STATUS_OPEN, 'first edit is open');
 
     my @isrcs = $c->model('ISRC')->find_by_recordings(1);
-    is(scalar @isrcs, 0, "recording has no ISRCs yet");
+    is(scalar @isrcs, 0, 'recording has no ISRCs yet');
 
     my $edit_2 = create_edit($c);
     isa_ok($edit_2, 'MusicBrainz::Server::Edit::Recording::AddISRCs');

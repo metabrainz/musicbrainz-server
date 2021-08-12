@@ -17,7 +17,7 @@ test all => sub {
     my $test = shift;
     my $c = $test->c;
     my $mech = $test->mech;
-    $mech->default_header("Accept" => "application/xml");
+    $mech->default_header('Accept' => 'application/xml');
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
     MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');

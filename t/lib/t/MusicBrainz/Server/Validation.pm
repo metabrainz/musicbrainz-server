@@ -47,17 +47,17 @@ test 'Test trim_in_place' => sub {
 };
 
 test 'Test is_positive_integer' => sub {
-    ok(is_positive_integer(1), "Actual positive integer");
+    ok(is_positive_integer(1), 'Actual positive integer');
     ok(!is_positive_integer(0), 'Zero');
     ok(!is_positive_integer('123 is a nice number'), 'Number plus letters');
-    ok(!is_positive_integer(-1), "Negative integer");
-    ok(!is_positive_integer(undef), "Passing undef to is_positive_integer");
-    ok(!is_positive_integer([1, 2, 3, 4]), "Passing arrayref to is_positive_integer");
-    ok(!is_positive_integer({blah => 'foo', bar => 3}), "Passing hashref to is_positive_integer");
+    ok(!is_positive_integer(-1), 'Negative integer');
+    ok(!is_positive_integer(undef), 'Passing undef to is_positive_integer');
+    ok(!is_positive_integer([1, 2, 3, 4]), 'Passing arrayref to is_positive_integer');
+    ok(!is_positive_integer({blah => 'foo', bar => 3}), 'Passing hashref to is_positive_integer');
 };
 
 test 'Test is_database_row_id' => sub {
-    ok(is_database_row_id(1), "1 is a row id");
+    ok(is_database_row_id(1), '1 is a row id');
     ok(is_database_row_id(2147483647), 'max postgres int is a row id');
     ok(!is_database_row_id(2147483648), '(max postgres int + 1) is not a row id');
     ok(!is_database_row_id(0), 'zero is not a row id');
@@ -69,7 +69,7 @@ test 'Test is_database_row_id' => sub {
 };
 
 test 'Test is_database_bigint_id' => sub {
-    ok(is_database_bigint_id(1), "1 is a bigint");
+    ok(is_database_bigint_id(1), '1 is a bigint');
     ok(is_database_bigint_id(2147483647), 'max postgres int is a bigint ID');
     ok(is_database_bigint_id(2147483648), '(max postgres int + 1) is a bigint ID');
     ok(is_database_bigint_id(9223372036854775807), 'max postgres bigint is a bigint ID');
@@ -80,13 +80,13 @@ test 'Test is_database_bigint_id' => sub {
 
 test 'Test is_guid' => sub {
     my $valid_guid = 'abcdef89-4444-5555-789a-1432abcdef88';
-    ok(is_guid($valid_guid), "Actual GUID");
-    ok(!is_guid('abcdef89-4444'), "Incomplete GUID");
-    ok(!is_guid('00000000a0000-0000-0000-000000000000'), "Incorrect format with correct length");
-    ok(!is_guid('00000000-0000-0000-0000-000000000000'), "All 0s fails");
-    ok(!is_guid(undef), "Passing undef to is_guid");
-    ok(!is_guid([1, 2, 3, 4]), "Passing arrayref to is_guid");
-    ok(!is_guid({blah => 'foo', bar => 3}), "Passing hashref to is_guid");
+    ok(is_guid($valid_guid), 'Actual GUID');
+    ok(!is_guid('abcdef89-4444'), 'Incomplete GUID');
+    ok(!is_guid('00000000a0000-0000-0000-000000000000'), 'Incorrect format with correct length');
+    ok(!is_guid('00000000-0000-0000-0000-000000000000'), 'All 0s fails');
+    ok(!is_guid(undef), 'Passing undef to is_guid');
+    ok(!is_guid([1, 2, 3, 4]), 'Passing arrayref to is_guid');
+    ok(!is_guid({blah => 'foo', bar => 3}), 'Passing hashref to is_guid');
 };
 
 test 'Test is_valid_url' => sub {
@@ -161,30 +161,30 @@ test 'Test is_valid_isni' => sub {
 };
 
 test 'Test is_freedb_id' => sub {
-    ok(is_freedb_id('abcdef12'), "Valid FreeDB ID");
-    ok(is_freedb_id('ABCDEF12'), "Valid FreeDB ID with uppercase");
-    ok(!is_freedb_id('abcqqq12'), "Invalid FreeDB ID");
+    ok(is_freedb_id('abcdef12'), 'Valid FreeDB ID');
+    ok(is_freedb_id('ABCDEF12'), 'Valid FreeDB ID with uppercase');
+    ok(!is_freedb_id('abcqqq12'), 'Invalid FreeDB ID');
 };
 
 test 'Test is_valid_barcode' => sub {
-    ok(is_valid_barcode('1879246154964195'), "Valid Barcode");
-    ok(!is_valid_barcode('129483615aaa'), "Invalid Barcode");
+    ok(is_valid_barcode('1879246154964195'), 'Valid Barcode');
+    ok(!is_valid_barcode('129483615aaa'), 'Invalid Barcode');
 };
 
 test 'Test is_valid_ean' => sub {
-    ok(!is_valid_ean('1234567'), "Invalid EAN (7 chars)");
-    ok(is_valid_ean('96385074'), "Valid EAN (8 chars)");
-    ok(!is_valid_ean('96385076'), "Invalid EAN (8 chars)");
-    ok(is_valid_ean('123456789999'), "Valid UPC (12 chars)");
-    ok(!is_valid_ean('123456789997'), "Invalid UPC (12 chars)");
-    ok(is_valid_ean('5901234123457'), "Valid EAN (13 chars)");
-    ok(!is_valid_ean('5901234123459'), "Invalid EAN (13 chars)");
-    ok(is_valid_ean('12345678901231'), "Valid GTIN (14 chars)");
-    ok(!is_valid_ean('12345678901234'), "Invalid GTIN (14 chars)");
-    ok(is_valid_ean('12345678912345675'), "Valid (17 chars)");
-    ok(!is_valid_ean('12345678912345677'), "Invalid (17 chars)");
-    ok(is_valid_ean('123456789123456789'), "Valid SSCC (18 chars)");
-    ok(!is_valid_ean('123456789123456787'), "Invalid SSCC (18 chars)");
+    ok(!is_valid_ean('1234567'), 'Invalid EAN (7 chars)');
+    ok(is_valid_ean('96385074'), 'Valid EAN (8 chars)');
+    ok(!is_valid_ean('96385076'), 'Invalid EAN (8 chars)');
+    ok(is_valid_ean('123456789999'), 'Valid UPC (12 chars)');
+    ok(!is_valid_ean('123456789997'), 'Invalid UPC (12 chars)');
+    ok(is_valid_ean('5901234123457'), 'Valid EAN (13 chars)');
+    ok(!is_valid_ean('5901234123459'), 'Invalid EAN (13 chars)');
+    ok(is_valid_ean('12345678901231'), 'Valid GTIN (14 chars)');
+    ok(!is_valid_ean('12345678901234'), 'Invalid GTIN (14 chars)');
+    ok(is_valid_ean('12345678912345675'), 'Valid (17 chars)');
+    ok(!is_valid_ean('12345678912345677'), 'Invalid (17 chars)');
+    ok(is_valid_ean('123456789123456789'), 'Valid SSCC (18 chars)');
+    ok(!is_valid_ean('123456789123456787'), 'Invalid SSCC (18 chars)');
 };
 
 test 'Test is_valid_partial_date' => sub {
@@ -213,7 +213,7 @@ test 'Test is_valid_partial_date' => sub {
 };
 
 test 'Test encode_entities' => sub {
-    is(encode_entities('ãñ><"\'&Å'), 'ãñ&gt;&lt;&quot;&#39;&amp;Å');
+    is(encode_entities(q(ãñ><"'&Å)), 'ãñ&gt;&lt;&quot;&#39;&amp;Å');
 };
 
 test 'Test normalise_strings' => sub {
@@ -223,27 +223,27 @@ test 'Test normalise_strings' => sub {
     is($alice2, 'alice');
     is($bob, 'bob');
 
-    is(normalise_strings('"'), "'", 'Double quote to single quote');
+    is(normalise_strings('"'), q('), 'Double quote to single quote');
 
-    is(normalise_strings('`'), "'", 'U+0060 GRAVE ACCENT');
-    is(normalise_strings('´'), "'", 'U+00B4 ACUTE ACCENT');
-    is(normalise_strings('«'), "'", 'U+00AB LEFT-POINTING DOUBLE ANGLE QUOTATION MARK');
-    is(normalise_strings('»'), "'", 'U+00BB RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK');
-    is(normalise_strings('ʻ'), "'", 'U+02BB MODIFIER LETTER TURNED COMMA');
-    is(normalise_strings('׳'), "'", 'U+05F3 HEBREW PUNCTUATION GERESH');
-    is(normalise_strings('״'), "'", 'U+05F4 HEBREW PUNCTUATION GERSHAYIM');
-    is(normalise_strings('‘'), "'", 'U+2018 LEFT SINGLE QUOTATION MARK');
-    is(normalise_strings('’'), "'", 'U+2019 RIGHT SINGLE QUOTATION MARK');
-    is(normalise_strings('‚'), "'", 'U+201A SINGLE LOW-9 QUOTATION MARK');
-    is(normalise_strings('‛'), "'", 'U+201B SINGLE HIGH-REVERSED-9 QUOTATION MARK');
-    is(normalise_strings('“'), "'", 'U+201C LEFT DOUBLE QUOTATION MARK');
-    is(normalise_strings('”'), "'", 'U+201D RIGHT DOUBLE QUOTATION MARK');
-    is(normalise_strings('„'), "'", 'U+201E DOUBLE LOW-9 QUOTATION MARK');
-    is(normalise_strings('‟'), "'", 'U+201F DOUBLE HIGH-REVERSED-9 QUOTAITON MARK');
-    is(normalise_strings('′'), "'", 'U+2032 PRIME');
-    is(normalise_strings('″'), "'", 'U+2033 DOUBLE PRIME');
-    is(normalise_strings('‹'), "'", 'U+2039 SINGLE LEFT-POINTING ANGLE QUOTATION MARK');
-    is(normalise_strings('›'), "'", 'U+203A SINGLE RIGHT-POINTING ANGLE QUOTATION MARK');
+    is(normalise_strings('`'), q('), 'U+0060 GRAVE ACCENT');
+    is(normalise_strings('´'), q('), 'U+00B4 ACUTE ACCENT');
+    is(normalise_strings('«'), q('), 'U+00AB LEFT-POINTING DOUBLE ANGLE QUOTATION MARK');
+    is(normalise_strings('»'), q('), 'U+00BB RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK');
+    is(normalise_strings('ʻ'), q('), 'U+02BB MODIFIER LETTER TURNED COMMA');
+    is(normalise_strings('׳'), q('), 'U+05F3 HEBREW PUNCTUATION GERESH');
+    is(normalise_strings('״'), q('), 'U+05F4 HEBREW PUNCTUATION GERSHAYIM');
+    is(normalise_strings('‘'), q('), 'U+2018 LEFT SINGLE QUOTATION MARK');
+    is(normalise_strings('’'), q('), 'U+2019 RIGHT SINGLE QUOTATION MARK');
+    is(normalise_strings('‚'), q('), 'U+201A SINGLE LOW-9 QUOTATION MARK');
+    is(normalise_strings('‛'), q('), 'U+201B SINGLE HIGH-REVERSED-9 QUOTATION MARK');
+    is(normalise_strings('“'), q('), 'U+201C LEFT DOUBLE QUOTATION MARK');
+    is(normalise_strings('”'), q('), 'U+201D RIGHT DOUBLE QUOTATION MARK');
+    is(normalise_strings('„'), q('), 'U+201E DOUBLE LOW-9 QUOTATION MARK');
+    is(normalise_strings('‟'), q('), 'U+201F DOUBLE HIGH-REVERSED-9 QUOTAITON MARK');
+    is(normalise_strings('′'), q('), 'U+2032 PRIME');
+    is(normalise_strings('″'), q('), 'U+2033 DOUBLE PRIME');
+    is(normalise_strings('‹'), q('), 'U+2039 SINGLE LEFT-POINTING ANGLE QUOTATION MARK');
+    is(normalise_strings('›'), q('), 'U+203A SINGLE RIGHT-POINTING ANGLE QUOTATION MARK');
 
     is(normalise_strings('־'), '-', 'U+05BE HEBREW PUNCTUATION MAQAF');
     is(normalise_strings('‐'), '-', 'U+2010 HYPHEN');

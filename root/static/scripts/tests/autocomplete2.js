@@ -144,6 +144,7 @@ $(function () {
             >
               <option value="area">{'Area'}</option>
               <option value="artist">{'Artist'}</option>
+              <option value="editor">{'Editor'}</option>
               <option value="event">{'Event'}</option>
               <option value="instrument">{'Instrument'}</option>
               <option value="label">{'Label'}</option>

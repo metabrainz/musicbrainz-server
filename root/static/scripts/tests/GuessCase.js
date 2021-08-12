@@ -11,11 +11,10 @@ import test from 'tape';
 import MB from '../common/MB';
 import setCookie from '../common/utility/setCookie';
 import gc from '../guess-case/MB/GuessCase/Main';
-import * as modes from '../guess-case/modes';
 
 setCookie('guesscase_roman', 'false');
-gc.CFG_UC_UPPERCASED = 'false';
-gc.mode = modes.English;
+gc.CFG_KEEP_UPPERCASED = 'false';
+gc.modeName = 'English';
 
 /* eslint-disable sort-keys */
 test('Sortname', function (t) {
@@ -176,7 +175,7 @@ test('Recording', function (t) {
 });
 
 test('Work', function (t) {
-  t.plan(23);
+  t.plan(24);
 
   const tests = [
     {
@@ -345,12 +344,20 @@ test('Work', function (t) {
       roman: false,
       keepuppercase: false,
     },
+    {
+      input: 'hyphen-minus? hyphen‐maximus!',
+      expected: 'Hyphen-Minus? Hyphen‐Maximus!',
+      bug: 'MBS-11854',
+      mode: 'English',
+      roman: false,
+      keepuppercase: false,
+    },
   ];
 
   for (const test of tests) {
     setCookie('guesscase_roman', String(test.roman));
-    gc.CFG_UC_UPPERCASED = test.keepuppercase;
-    gc.mode = modes[test.mode];
+    gc.CFG_KEEP_UPPERCASED = test.keepuppercase;
+    gc.modeName = test.mode;
 
     const result = MB.GuessCase.work.guess(test.input);
     t.equal(result, test.expected, test.input);
@@ -358,7 +365,7 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-  t.plan(27);
+  t.plan(29);
 
   const tests = [
     {
@@ -458,8 +465,8 @@ test('BugFixes', function (t) {
       mode: 'French',
     },
     {
-      input: 'We Love Techno (Re‐Mode)',
-      expected: 'We Love Techno (re‐mode)',
+      input: 'We Love Techno (Remode)',
+      expected: 'We Love Techno (remode)',
       bug: 'MBS-10156',
       mode: 'English',
     },
@@ -523,6 +530,18 @@ test('BugFixes', function (t) {
       bug: 'MBS-11662',
       mode: 'English',
     },
+    {
+      input: 'The Best Song (Official Video Mix)',
+      expected: 'The Best Song (official video mix)',
+      bug: 'MBS-11788',
+      mode: 'English',
+    },
+    {
+      input: 'The Best Song (Uncensored Explicit Video)',
+      expected: 'The Best Song (uncensored explicit video)',
+      bug: 'MBS-11797',
+      mode: 'English',
+    },
     /*
      * There is no fix for these yet.
      * {
@@ -549,8 +568,8 @@ test('BugFixes', function (t) {
   ];
 
   for (const test of tests) {
-    gc.CFG_UC_UPPERCASED = false;
-    gc.mode = modes[test.mode];
+    gc.CFG_KEEP_UPPERCASED = false;
+    gc.modeName = test.mode;
 
     const result = MB.GuessCase.work.guess(test.input);
     t.equal(result, test.expected, test.bug + ', ' + test.input);
@@ -561,7 +580,7 @@ test('vinyl numbers are fixed', function (t) {
   t.plan(5);
 
   setCookie('guesscase_roman', 'false');
-  gc.mode = modes.English;
+  gc.modeName = 'English';
 
   const tests = [
     {
@@ -596,7 +615,7 @@ test('no "quote blocks" over multiple track titles (MBS-8621)', function (t) {
   t.plan(3);
 
   setCookie('guesscase_roman', 'false');
-  gc.mode = modes.English;
+  gc.modeName = 'English';
 
   const tests = [
     {

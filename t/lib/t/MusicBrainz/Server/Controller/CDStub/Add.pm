@@ -20,7 +20,7 @@ test 'Trying to add a CD stub where a real disc ID exists redirects' => sub {
     my $discid = $cdtoc->discid;
 
     $mech->get_ok(
-        "/cdstub/add?toc=" . $cdtoc->toc,
+        '/cdstub/add?toc=' . $cdtoc->toc,
         'fetch top cdstubs page'
     );
 

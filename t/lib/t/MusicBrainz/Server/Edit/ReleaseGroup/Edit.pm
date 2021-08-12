@@ -151,7 +151,7 @@ test 'Reject edits that try to set the release group type to something that does
     ok(defined $exception, 'Did not accept edit');
     isa_ok($exception, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency');
     is($exception->message,
-       "This edit changes the release group's primary type to a type that no longer exists.");
+       q(This edit changes the release group's primary type to a type that no longer exists.));
 };
 
 test 'Changing the secondary types for a release group is not always an auto-edit' => sub {

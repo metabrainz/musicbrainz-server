@@ -56,14 +56,14 @@ test 'previewing/creating/editing a release group and release' => sub {
     my $artist_credit = {
         names => [
             {
-                artist => { id => 39282, name => "  Boredoms  " },
-                name => "  Boredoms  ",
-                join_phrase => "  plus  ",
+                artist => { id => 39282, name => '  Boredoms  ' },
+                name => '  Boredoms  ',
+                join_phrase => '  plus  ',
             },
             {
-                artist => { id => 66666, name => "a fake artist" },
-                name => "a fake artist",
-                join_phrase => "  and  a  trailing  join  phrase  ",
+                artist => { id => 66666, name => 'a fake artist' },
+                name => 'a fake artist',
+                join_phrase => '  and  a  trailing  join  phrase  ',
             },
         ]
     };
@@ -71,14 +71,14 @@ test 'previewing/creating/editing a release group and release' => sub {
     my $cleaned_artist_credit = {
         names => [
             {
-                artist => { id => 39282, name => "Boredoms" },
-                name => "Boredoms",
-                join_phrase => " plus ",
+                artist => { id => 39282, name => 'Boredoms' },
+                name => 'Boredoms',
+                join_phrase => ' plus ',
             },
             {
-                artist => { id => 66666, name => "a fake artist" },
-                name => "a fake artist",
-                join_phrase => " and a trailing join phrase",
+                artist => { id => 66666, name => 'a fake artist' },
+                name => 'a fake artist',
+                join_phrase => ' and a trailing join phrase',
             },
         ]
     };
@@ -1239,9 +1239,9 @@ test 'Invalid release event dates are rejected' => sub {
     my $artist_credit = {
         names => [
             {
-                artist => { id => 39282, name => "Boredoms" },
-                name => "Boredoms",
-                join_phrase => "",
+                artist => { id => 39282, name => 'Boredoms' },
+                name => 'Boredoms',
+                join_phrase => '',
             }
         ]
     };
@@ -1303,8 +1303,8 @@ test 'Releases can be added without any mediums' => sub {
     my $artist_credit = {
         names => [
             {
-                artist => { id => 5, name => "David Bowie" },
-                name => "David Bowie",
+                artist => { id => 5, name => 'David Bowie' },
+                name => 'David Bowie',
                 join_phrase => '',
             }
         ]

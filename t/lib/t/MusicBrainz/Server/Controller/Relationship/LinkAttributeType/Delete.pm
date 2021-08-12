@@ -33,7 +33,7 @@ test 'Deleting relationship attributes' => sub {
         $mech->click('confirm.submit');
         ok($mech->success);
 
-        is($mech->uri, 'http://localhost/relationship-attributes', "Redirect contains link to main relationship page.");
+        is($mech->uri, 'http://localhost/relationship-attributes', 'Redirect contains link to main relationship page.');
     } $test->c;
 
     is(@edits, 1);

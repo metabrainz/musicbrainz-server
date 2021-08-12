@@ -10,7 +10,7 @@ use DateTime;
 test all => sub {
 
 my $token = MusicBrainz::Server::Entity::EditorOAuthToken->new(expire_time => DateTime->now->add( hours => 1));
-ok(!$token->is_expired, "Token is not expired");
+ok(!$token->is_expired, 'Token is not expired');
 
 };
 

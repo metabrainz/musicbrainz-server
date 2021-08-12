@@ -28,7 +28,7 @@ test 'Get ja page from en' => sub {
     $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'ja', cache_only => 0);
     ok(defined $extract);
 
-    like($extract->content, qr{は、中田ヤスタカがプロデュースする広島県出身の3人組テクノポップユニット。}, "contains japanese text");
+    like($extract->content, qr{は、中田ヤスタカがプロデュースする広島県出身の3人組テクノポップユニット。}, 'contains japanese text');
 
     LWP::UserAgent::Mockable->finished;
 };
@@ -50,7 +50,7 @@ test 'Get en page from en' => sub {
     $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'en', cache_only => 0);
     ok(defined $extract);
 
-    like($extract->content, qr{Japanese pop girl group}, "contains english text");
+    like($extract->content, qr{Japanese pop girl group}, 'contains english text');
 
     LWP::UserAgent::Mockable->finished;
 };
@@ -72,7 +72,7 @@ test 'Get ast page from en, fallback to en' => sub {
     $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'ast', cache_only => 0);
     ok(defined $extract);
 
-    like($extract->content, qr{Japanese pop girl group}, "contains english text");
+    like($extract->content, qr{Japanese pop girl group}, 'contains english text');
 
     LWP::UserAgent::Mockable->finished;
 };
@@ -95,7 +95,7 @@ test 'Get en page from wikidata' => sub {
     $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'en', cache_only => 0);
     ok(defined $extract);
 
-    like($extract->content, qr{Japanese pop girl group}, "contains english text");
+    like($extract->content, qr{Japanese pop girl group}, 'contains english text');
 
     LWP::UserAgent::Mockable->finished;
 };
@@ -119,7 +119,7 @@ test 'Request ast page via wikidata, fallback to en' => sub {
     $extract = $c->model('WikipediaExtract')->get_extract([$entity, $entity2], 'ast', cache_only => 0);
     ok(defined $extract);
 
-    like($extract->content, qr{is a municipality}, "contains English text");
+    like($extract->content, qr{is a municipality}, 'contains English text');
 
     LWP::UserAgent::Mockable->finished;
 };
@@ -152,7 +152,7 @@ test 'Request ja page via wikidata, fallback to it (according to browser accepte
     $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'ja', cache_only => 0);
     ok(defined $extract);
 
-    like($extract->content, qr{è un comune tedesco}, "contains italian text");
+    like($extract->content, qr{è un comune tedesco}, 'contains italian text');
 
     LWP::UserAgent::Mockable->finished;
 };
@@ -208,7 +208,7 @@ test 'Request tr page via wikidata, fallback to it (according to editor known la
     $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'fi', cache_only => 0, editor => $bob);
     ok(defined $extract);
 
-    like($extract->content, qr{општина во округот}, "contains macedonian text");
+    like($extract->content, qr{општина во округот}, 'contains macedonian text');
 
     LWP::UserAgent::Mockable->finished;
 };
@@ -231,7 +231,7 @@ test 'Request en page via wikidata, fallback to de (en is redirect)' => sub {
     $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'en', cache_only => 0);
     ok(defined $extract);
 
-    like($extract->content, qr{ist eine US-amerikanisch-italienische Schauspielerin}, "contains German text");
+    like($extract->content, qr{ist eine US-amerikanisch-italienische Schauspielerin}, 'contains German text');
 
     LWP::UserAgent::Mockable->finished;
 };

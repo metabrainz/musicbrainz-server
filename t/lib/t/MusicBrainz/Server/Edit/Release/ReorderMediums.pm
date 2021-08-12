@@ -83,7 +83,7 @@ has medium_positions => (
 test 'Accept edit' => sub {
     my $test = shift;
     # Edit should already be accepted, since it is an autoedit
-    ok(!$test->edit->is_open, "Edit should be automatically accepted.");
+    ok(!$test->edit->is_open, 'Edit should be automatically accepted.');
 
     $test->clear_release;
 

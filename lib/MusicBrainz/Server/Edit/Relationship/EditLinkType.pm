@@ -181,7 +181,11 @@ sub build_display_data {
                                             end_date => MusicBrainz::Server::Entity::PartialDate->new(
                                                 $rel->{link}{end_date}
                                             ),
-                                            type => $loaded->{LinkType}{ $self->data->{link_id} },
+                                            type => $display_data->{link_type} //
+                                                    LinkType->new(
+                                                        id => $self->data->{link_id},
+                                                        name => $self->data->{new}{name}
+                                                    ),
                                         )
                                 )
                         )

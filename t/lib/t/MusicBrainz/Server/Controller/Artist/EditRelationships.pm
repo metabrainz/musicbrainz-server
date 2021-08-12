@@ -25,7 +25,7 @@ test 'adding a relationship' => sub {
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
     my @edits = capture_edits {
-        $mech->post("/artist/745c079d-374e-4436-9448-da92dedef3ce/edit", {
+        $mech->post('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit', {
             'edit-artist.name' => 'Test Artist',
             'edit-artist.sort_name' => 'Artist, Test',
             'edit-artist.type_id' => '1',
@@ -90,7 +90,7 @@ test 'editing a relationship' => sub {
 
     subtest 'change target, add end date and attribute' => sub {
         my @edits = capture_edits {
-            $mech->post("/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit", {
+            $mech->post('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit', {
                 'edit-artist.name' => 'Test Alias',
                 'edit-artist.sort_name' => 'Kate Bush',
                 'edit-artist.rel.0.relationship_id' => '3',
@@ -155,7 +155,7 @@ test 'editing a relationship' => sub {
 
     subtest 'remove attribute and end date' => sub {
         my @edits = capture_edits {
-            $mech->post("/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit", {
+            $mech->post('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit', {
                 'edit-artist.name' => 'Test Alias',
                 'edit-artist.sort_name' => 'Kate Bush',
                 'edit-artist.rel.0.relationship_id' => '3',
@@ -214,7 +214,7 @@ test 'editing a relationship' => sub {
 
     subtest 'remove begin date' => sub {
         my @edits = capture_edits {
-            $mech->post("/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit", {
+            $mech->post('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit', {
                 'edit-artist.name' => 'Test Alias',
                 'edit-artist.sort_name' => 'Kate Bush',
                 'edit-artist.rel.0.relationship_id' => '3',
@@ -266,7 +266,7 @@ test 'editing a relationship' => sub {
 
     subtest 'remove ended flag' => sub {
         my @edits = capture_edits {
-            $mech->post("/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit", {
+            $mech->post('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit', {
                 'edit-artist.name' => 'Test Alias',
                 'edit-artist.sort_name' => 'Kate Bush',
                 'edit-artist.rel.0.relationship_id' => '3',
@@ -322,7 +322,7 @@ test 'removing a relationship' => sub {
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
     my ($edit) = capture_edits {
-        $mech->post("/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit", {
+        $mech->post('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit', {
             'edit-artist.name' => 'Test Alias',
             'edit-artist.sort_name' => 'Kate Bush',
             'edit-artist.rel.0.relationship_id' => '1',
@@ -345,7 +345,7 @@ test 'Cannot create a relationship under a grouping relationship' => sub {
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
     my ($edit) = capture_edits {
-        $mech->post("/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit", {
+        $mech->post('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit', {
             'edit-artist.name' => 'Test Alias',
             'edit-artist.sort_name' => 'Kate Bush',
             'edit-artist.rel.0.link_type_id' => '122',
@@ -353,8 +353,8 @@ test 'Cannot create a relationship under a grouping relationship' => sub {
         });
     } $c;
 
-    ok(!defined $edit, "no edits were made");
-    like($mech->uri, qr{/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit$}, "page hasn't changed");
+    ok(!defined $edit, 'no edits were made');
+    like($mech->uri, qr{/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit$}, q(page hasn't changed));
 };
 
 
@@ -369,7 +369,7 @@ test 'Duplicate relationships are ignored' => sub {
 
     # Duplicates a relationship in admin/sql/InsertTestData.sql
     my ($edit) = capture_edits {
-        $mech->post("/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit", {
+        $mech->post('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit', {
             'edit-artist.name' => 'Test Alias',
             'edit-artist.sort_name' => 'Kate Bush',
             'edit-artist.rel.0.link_type_id' => '148',
@@ -378,7 +378,7 @@ test 'Duplicate relationships are ignored' => sub {
         });
     } $c;
 
-    ok(!defined $edit, "no edits were made");
+    ok(!defined $edit, 'no edits were made');
 };
 
 
@@ -392,7 +392,7 @@ test 'Duplicate link attribute types are ignored' => sub {
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
     my @edits = capture_edits {
-        $mech->post("/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit", {
+        $mech->post('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit', {
             'edit-artist.name' => 'Test Alias',
             'edit-artist.sort_name' => 'Kate Bush',
 
@@ -426,7 +426,7 @@ test 'MBS-8322: URL relationship dates are not removed if not specified' => sub 
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
     my @edits = capture_edits {
-        $mech->post("/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit", {
+        $mech->post('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit', {
             'edit-artist.name' => 'Test Alias',
             'edit-artist.sort_name' => 'Kate Bush',
             'edit-artist.url.0.relationship_id' => '1',

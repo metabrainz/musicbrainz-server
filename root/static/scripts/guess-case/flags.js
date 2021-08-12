@@ -1,4 +1,5 @@
 /*
+ * @flow strict
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -8,62 +9,90 @@
  */
 
 // Holds the state of the current GC operation.
-export const context = {
-  whitespace: false,
-  openingBracket: false,
-  hypen: false,
-  colon: false,
+export type GuessCaseContextT = {
+  acronym: boolean,
+  acronym_split: boolean,
+  colon: boolean,
+  ellipsis: boolean,
+  forceCaps: boolean,
+  hyphen: boolean,
+  number: boolean,
+  numberSplitChar: string | null,
+  numberSplitExpect: boolean,
+  openBrackets: Array<string>,
+  openedSingleQuote: boolean,
+  openingBracket: boolean,
+  singlequote: boolean,
+  slurpExtraTitleInformation: boolean,
+  spaceNextWord: boolean,
+  whitespace: boolean,
+};
+
+export const context: GuessCaseContextT = {
+  acronym: false,
   acronym_split: false,
-  singlequote: false,
+  colon: false,
   ellipsis: false,
+  forceCaps: false,
+  hyphen: false,
+  number: false,
+  numberSplitChar: null,
+  numberSplitExpect: false,
+  openBrackets: [],
+  openedSingleQuote: false,
+  openingBracket: false,
+  singlequote: false,
+  slurpExtraTitleInformation: false,
+  spaceNextWord: false,
+  whitespace: false,
 };
 
 // Reset the context
 export function resetContext() {
-  context.whitespace = false;
-  context.openingBracket = false;
-  context.hypen = false;
-  context.colon = false;
   context.acronym_split = false;
-  context.singlequote = false;
+  context.colon = false;
   context.ellipsis = false;
+  context.hyphen = false;
+  context.openingBracket = false;
+  context.singlequote = false;
+  context.whitespace = false;
 }
 
 // Returns if there are opened brackets at current position in the string.
-export function isInsideBrackets() {
+export function isInsideBrackets(): boolean {
   return context.openBrackets.length > 0;
 }
 
-export function pushBracket(b) {
-  context.openBrackets.push(b);
+export function pushBracket(bracket: string): void {
+  context.openBrackets.push(bracket);
 }
 
-export function popBracket() {
-  var cb = getCurrentCloseBracket();
+export function popBracket(): string | null {
+  const cb = getCurrentCloseBracket();
   context.openBrackets.pop();
   return cb;
 }
 
-var bracketChars = /^[()\[\]{}<>]$/;
+const bracketChars = /^[()\[\]{}<>]$/;
 
-var bracketPairs = {
+const bracketPairs = {
   '(': ')',
   ')': '(',
+  '<': '>',
+  '>': '<',
   '[': ']',
   ']': '[',
   '{': '}',
   '}': '{',
-  '<': '>',
-  '>': '<',
 };
 
-function getCorrespondingBracket(w) {
-  return bracketChars.test(w) ? bracketPairs[w] : '';
+function getCorrespondingBracket(bracketChar: string): string {
+  return bracketChars.test(bracketChar) ? bracketPairs[bracketChar] : '';
 }
 
-export function getCurrentCloseBracket() {
-  var ob = context.openBrackets[context.openBrackets.length - 1];
-  return ob ? getCorrespondingBracket(ob) : null;
+export function getCurrentCloseBracket(): string | null {
+  const openBracket = context.openBrackets[context.openBrackets.length - 1];
+  return openBracket ? getCorrespondingBracket(openBracket) : null;
 }
 
 // Initialise flags for another run.

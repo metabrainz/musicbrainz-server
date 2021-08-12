@@ -3514,6 +3514,11 @@ msgctxt "ensemble of 1st violin, 2nd violin, viola and cello"
 msgid "string quartet"
 msgstr ""
 
+#: DB:instrument/name:1033
+msgctxt "ensemble of 2 violins, viola, cello and a fifth string instrument"
+msgid "string quintet"
+msgstr ""
+
 #: DB:instrument/name:915
 msgctxt "ensemble of violin, viola and cello"
 msgid "string trio"

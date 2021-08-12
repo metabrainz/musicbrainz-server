@@ -40,7 +40,7 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Edit');
 cmp_deeply($edit->data, {
         entity => {
             id => 2,
-            gid => re("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"),
+            gid => re('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'),
             name => 'Warp Records'
         },
         new => {

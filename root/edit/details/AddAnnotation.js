@@ -14,7 +14,7 @@ import DescriptiveLink
 import formatEntityTypeName
   from '../../static/scripts/common/utility/formatEntityTypeName';
 
-type AnnotatedEntityTypeT = $ElementType<AnnotatedEntityT, 'entityType'>;
+type AnnotatedEntityTypeT = AnnotatedEntityT['entityType'];
 
 type AddAnnotationEditT = {
   ...EditT,

@@ -328,23 +328,23 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
         <ReportsIndexEntry
           content={l(
             `Translated/Transliterated Pseudo-Releases
+             marked as the original version`,
+          )}
+          reportName="MislinkedPseudoReleases"
+        />
+        <ReportsIndexEntry
+          content={l(
+            `Translated/Transliterated Pseudo-Releases
              not linked to an original version`,
           )}
           reportName="UnlinkedPseudoReleases"
         />
         <ReportsIndexEntry
           content={l(
-            `Releases in the Cover Art Archive
-             that still have cover art relationships`,
+            `Releases that have Amazon cover art
+             but no Cover Art Archive front cover`,
           )}
-          reportName="ReleasesInCAAWithCoverArtRelationships"
-        />
-        <ReportsIndexEntry
-          content={l(
-            `Releases of any sort
-             that still have cover art relationships`,
-          )}
-          reportName="CoverArtRelationships"
+          reportName="ReleasesWithAmazonCoverArt"
         />
         <ReportsIndexEntry
           content={l(

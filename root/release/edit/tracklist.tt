@@ -498,7 +498,7 @@
   <!-- /ko -->
 
   <!-- ko if: mediums() && mediums().length -->
-    <div data-bind="guessCase: $root.guessCaseMediaNames.bind($data)">
+    <div data-bind="guessCase: $root.guessCaseAllMedia.bind($data)">
       [% guesscase(show_icon=1) %]
     </div>
   <!-- /ko -->

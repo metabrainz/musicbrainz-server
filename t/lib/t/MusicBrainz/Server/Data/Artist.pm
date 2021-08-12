@@ -66,9 +66,9 @@ does_ok($artist_data, 'MusicBrainz::Server::Data::Role::Editable');
 # An artist with all attributes populated
 my $artist = $artist_data->get_by_id(3);
 is ( $artist->id, 3 );
-is ( $artist->gid, "745c079d-374e-4436-9448-da92dedef3ce" );
-is ( $artist->name, "Test Artist" );
-is ( $artist->sort_name, "Artist, Test" );
+is ( $artist->gid, '745c079d-374e-4436-9448-da92dedef3ce' );
+is ( $artist->name, 'Test Artist' );
+is ( $artist->sort_name, 'Artist, Test' );
 is ( $artist->begin_date->year, 2008 );
 is ( $artist->begin_date->month, 1 );
 is ( $artist->begin_date->day, 2 );
@@ -87,9 +87,9 @@ isnt ( $artist->last_updated, undef );
 # An artist with the minimal set of required attributes
 $artist = $artist_data->get_by_id(4);
 is ( $artist->id, 4 );
-is ( $artist->gid, "945c079d-374e-4436-9448-da92dedef3cf" );
-is ( $artist->name, "Minimal Artist" );
-is ( $artist->sort_name, "Minimal Artist" );
+is ( $artist->gid, '945c079d-374e-4436-9448-da92dedef3cf' );
+is ( $artist->name, 'Minimal Artist' );
+is ( $artist->sort_name, 'Minimal Artist' );
 is ( $artist->begin_date->year, undef );
 is ( $artist->begin_date->month, undef );
 is ( $artist->begin_date->day, undef );
@@ -135,12 +135,12 @@ $sql->commit;
 # ---
 # Searching for artists
 my $search = MusicBrainz::Server::Data::Search->new(c => $test->c);
-my ($results, $hits) = $search->search("artist", "test", 10);
+my ($results, $hits) = $search->search('artist', 'test', 10);
 is( $hits, 1 );
 is( scalar(@$results), 1 );
 is( $results->[0]->position, 1 );
-is( $results->[0]->entity->name, "Test Artist" );
-is( $results->[0]->entity->sort_name, "Artist, Test" );
+is( $results->[0]->entity->name, 'Test Artist' );
+is( $results->[0]->entity->sort_name, 'Artist, Test' );
 
 
 $sql->begin;
@@ -260,7 +260,7 @@ my $ac = $test->c->model('ArtistCredit')->find_or_insert(
 ok($artist_data->can_delete(3));
 
 my $rec = $test->c->model('Recording')->insert({
-    name => "Love's Too Tight Too Mention",
+    name => q(Love's Too Tight Too Mention),
     artist_credit => $ac,
     comment => 'Drum & bass track',
 });
@@ -415,15 +415,15 @@ test 'Merging attributes for VA' => sub {
     $c->model('Artist')->merge(1, [4, 5, 6]);
     my $artist = $c->model('Artist')->get_by_id(1);
 
-    is($artist->begin_date->year, undef, "begin date...");
+    is($artist->begin_date->year, undef, 'begin date...');
     is($artist->begin_date->month, undef);
     is($artist->begin_date->day, undef);
-    is($artist->end_date->year, undef, "end date...");
+    is($artist->end_date->year, undef, 'end date...');
     is($artist->end_date->month, undef);
     is($artist->end_date->day, undef);
-    is($artist->area_id, undef, "area is undef");
-    is($artist->gender_id, undef, "gender is undef");
-    is($artist->type_id, 3, "type is unchanged");
+    is($artist->area_id, undef, 'area is undef');
+    is($artist->gender_id, undef, 'gender is undef');
+    is($artist->type_id, 3, 'type is unchanged');
 };
 
 test 'Cannot edit an artist into something that would violate uniqueness' => sub {
@@ -454,7 +454,7 @@ test 'Cannot edit an artist into something that would violate uniqueness' => sub
     );
 };
 
-test 'Deleting an artist that\'s in a collection' => sub {
+test q(Deleting an artist that's in a collection) => sub {
     my $test = shift;
     my $c = $test->c;
 
@@ -481,7 +481,7 @@ test 'Deleting an artist that\'s in a collection' => sub {
     ok(!$c->model('Artist')->get_by_id($artist->{id}));
 };
 
-test 'Merging an artist that\'s in a collection' => sub {
+test q(Merging an artist that's in a collection) => sub {
     my $test = shift;
     my $c = $test->c;
 

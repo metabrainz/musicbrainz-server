@@ -15,7 +15,7 @@ test all => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
     my $mech = $test->mech;
-    $mech->default_header("Accept" => "application/json");
+    $mech->default_header('Accept' => 'application/json');
 
     my $url = '/ws/js/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=recordings+rels';
 
@@ -23,7 +23,7 @@ test all => sub {
 
     my $data = $json->decode($mech->content);
 
-    is($data->{mediums}->[0]->{position}, 1, "first disc has position 1");
+    is($data->{mediums}->[0]->{position}, 1, 'first disc has position 1');
 
     my $rels = $data->{mediums}->[0]->{tracks}->[0]->{recording}->{relationships};
     my ($vocal_performance) = grep { $_->{id} == 6751 } @$rels;
@@ -77,12 +77,12 @@ test all => sub {
         entity1_id => 4525123,
         source_type => 'recording',
         target_type => 'artist'
-    }, "BoA performed vocals");
+    }, 'BoA performed vocals');
 
     is_deeply(
         $data->{mediums}->[0]->{tracks}->[1]->{recording}->{relationships},
         [],
-        "No relationships on second track"
+        'No relationships on second track'
     );
 };
 
@@ -93,14 +93,14 @@ test 'Release group types are serialized (MBS-8212)' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
     my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
-    $mech->default_header("Accept" => "application/json");
+    $mech->default_header('Accept' => 'application/json');
     $mech->get_ok('/ws/js/release/3b3d130a-87a8-4a47-b9fb-920f2530d134', 'fetching release');
 
     my $json = JSON->new->utf8;
     my $data = $json->decode($mech->content);
 
-    is($data->{releaseGroup}{typeID}, 1, "release group primary type is loaded");
-    is_deeply($data->{releaseGroup}{secondaryTypeIDs}, [7], "release group secondary types are loaded");
+    is($data->{releaseGroup}{typeID}, 1, 'release group primary type is loaded');
+    is_deeply($data->{releaseGroup}{secondaryTypeIDs}, [7], 'release group secondary types are loaded');
 };
 
 1;

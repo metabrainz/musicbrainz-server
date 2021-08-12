@@ -16,9 +16,11 @@ test 'tracklist used to fit lookup criteria but no longer does' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
-    $c->sql->do("INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) ".
-                 "VALUES (1, 'annotation_editor', '{CLEARTEXT}password', ".
-                 "'3a115bc4f05ea9856bd4611b75c80bca', 'editor\@example.org', '2005-02-18')");
+    $c->sql->do(<<~'EOSQL');
+        INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
+            VALUES (1, 'annotation_editor', '{CLEARTEXT}password',
+                    '3a115bc4f05ea9856bd4611b75c80bca', 'editor\@example.org', '2005-02-18')
+        EOSQL
 
     my $artist_credit = {
         names => [{ artist => { id => 1 }, name => 'Artist', join_phrase => '' }]
@@ -47,17 +49,17 @@ test 'tracklist used to fit lookup criteria but no longer does' => sub {
         ]
     };
 
-    my $toc = "1 2 44412 0 24762";
+    my $toc = '1 2 44412 0 24762';
 
     my ($durationlookup, $hits) = $c->model('DurationLookup')->lookup($toc, 10000);
-    is($hits, 0, "disc does not exist yet, no match with TOC lookup");
+    is($hits, 0, 'disc does not exist yet, no match with TOC lookup');
 
     my $created = $c->model('Medium')->insert($insert_hash);
     my $medium = $c->model('Medium')->get_by_id($created->{id});
     isa_ok($medium, 'MusicBrainz::Server::Entity::Medium');
 
     ($durationlookup, $hits) = $c->model('DurationLookup')->lookup($toc, 10000);
-    is($hits, 1, "one match with TOC lookup");
+    is($hits, 1, 'one match with TOC lookup');
 
     $medium = $c->model('Medium')->get_by_id($durationlookup->[0]{results}[0]{medium});
     $c->model('Track')->load_for_mediums($medium);
@@ -79,7 +81,7 @@ test 'tracklist used to fit lookup criteria but no longer does' => sub {
     accept_edit($c, $edit);
 
     ($durationlookup, $hits) = $c->model('DurationLookup')->lookup($toc, 10000);
-    is($hits, 0, "duration lookup did not find medium after it was edited");
+    is($hits, 0, 'duration lookup did not find medium after it was edited');
 };
 
 test 'TOC lookup for disc with pregap track' => sub {
@@ -105,7 +107,7 @@ test 'TOC lookup for disc with pregap track' => sub {
             {
                 name => 'Secret Hidden Track',
                 position => 0,
-                number => "00",
+                number => '00',
                 recording_id => 3,
                 length => 1122,
                 artist_credit => $artist_credit,
@@ -113,7 +115,7 @@ test 'TOC lookup for disc with pregap track' => sub {
             {
                 name => 'Dirty Electro Mix',
                 position => 1,
-                number => "A1",
+                number => 'A1',
                 recording_id => 1,
                 length => 330160,
                 artist_credit => $artist_credit,
@@ -127,10 +129,10 @@ test 'TOC lookup for disc with pregap track' => sub {
     isa_ok($medium, 'MusicBrainz::Server::Entity::Medium');
 
     $c->model('Medium')->load_track_durations($medium);
-    is($medium->length, 1122 + 330160, "inserted medium has expected length");
+    is($medium->length, 1122 + 330160, 'inserted medium has expected length');
 
-    my ($durationlookup, $hits) = $c->model('DurationLookup')->lookup("1 1 39872 15110", 1);
-    is($hits, 1, "one match with TOC lookup");
+    my ($durationlookup, $hits) = $c->model('DurationLookup')->lookup('1 1 39872 15110', 1);
+    is($hits, 1, 'one match with TOC lookup');
 
     $medium = $c->model('Medium')->get_by_id($durationlookup->[0]{results}[0]{medium});
     is($medium->id, $created->{id});
@@ -147,7 +149,7 @@ my $sql = $test->c->sql;
 my $lookup_data = MusicBrainz::Server::Data::DurationLookup->new(c => $test->c);
 does_ok($lookup_data, 'MusicBrainz::Server::Data::Role::Context');
 
-my ($release_results, $hits) = $lookup_data->lookup("1 7 171327 150 22179 49905 69318 96240 121186 143398", 10000);
+my ($release_results, $hits) = $lookup_data->lookup('1 7 171327 150 22179 49905 69318 96240 121186 143398', 10000);
 ok ( $hits > 0, 'found results' );
 my $results = $release_results->[0]{results};
 
@@ -164,7 +166,7 @@ if (my ($result) = grep { $_->{medium} == 3 } @$results) {
 }
 
 
-($release_results, $hits) = $lookup_data->lookup("1 9 189343 150 6614 32287 54041 61236 88129 92729 115276 153877", 10000);
+($release_results, $hits) = $lookup_data->lookup('1 9 189343 150 6614 32287 54041 61236 88129 92729 115276 153877', 10000);
 $results = $release_results->[0]{results};
 
 if (my ($result) = grep { $_->{medium} == 2 } @$results) {

@@ -207,7 +207,7 @@ sub expand {
         my $final_text = defined $args{$text} ? $args{$text} : $self->expand($text, %args);
         if (defined $args{$var}) {
             if (ref($args{$var}) eq 'HASH') {
-                return '<a ' . join(' ', map { "$_=\"" . encode_entities($args{$var}->{$_}) . "\"" } sort keys %{ $args{$var} }) . '>' . $final_text . '</a>';
+                return '<a ' . join(' ', map { qq($_=") . encode_entities($args{$var}->{$_}) . '"' } sort keys %{ $args{$var} }) . '>' . $final_text . '</a>';
             } else {
                 return '<a href="' . encode_entities($args{$var}) . '">' . $final_text . '</a>';
             }

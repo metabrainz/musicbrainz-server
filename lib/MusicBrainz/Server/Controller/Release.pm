@@ -296,6 +296,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
     my @mime_types = map { $_->{mime_type} } @{ $c->model('CoverArt')->mime_types };
 
     my @artwork = @{ $c->model('Artwork')->find_by_release($entity) };
+    $c->model('CoverArtType')->load_for(@artwork);
 
     my $count = 1;
     my @positions = map {

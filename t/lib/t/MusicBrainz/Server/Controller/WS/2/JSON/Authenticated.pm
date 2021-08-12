@@ -27,8 +27,8 @@ test 'lookup rating for user' => sub {
   ws_test_json 'ratings lookup for user rejected without authentication',
   '/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist' =>
       {
-        help => "For usage, please see: https://musicbrainz.org/development/mmd",
-        error => "You are not authorized to access this resource.",
+        help => 'For usage, please see: https://musicbrainz.org/development/mmd',
+        error => 'You are not authorized to access this resource.',
       }, { response_code => 401 };
 
   ws_test_json 'ratings lookup for user succeeds after authentication',
@@ -60,8 +60,8 @@ test 'lookup tag for user' => sub {
   ws_test_json 'tag lookup for user rejected without authentication',
   '/tag?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist' =>
       {
-        help => "For usage, please see: https://musicbrainz.org/development/mmd",
-        error => "You are not authorized to access this resource.",
+        help => 'For usage, please see: https://musicbrainz.org/development/mmd',
+        error => 'You are not authorized to access this resource.',
       }, { response_code => 401 };
 
   ws_test_json 'tag lookup for user succeeds after authentication',

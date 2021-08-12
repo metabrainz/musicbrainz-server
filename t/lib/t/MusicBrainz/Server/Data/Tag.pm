@@ -33,7 +33,7 @@ is( $tags[1]->tag->name, 'rock', 'Find top tags finds rock');
 is( $tags[1]->count, 3 );
 
 my $count = $tag_data->find_tag_count(4);
-is ($count, 4, "tag count is four");
+is ($count, 4, 'tag count is four');
 
 @tags = $tag_data->find_tags(4);
 is( scalar(@tags), 4 );
@@ -62,7 +62,7 @@ my $tag_data = MusicBrainz::Server::Data::EntityTag->new(
 my ($tags, $hits) = $test->c->model('Artist')->tags->find_entities(1, 10, 0);
 is($hits, 2);
 is(scalar(@$tags), 2);
-is($tags->[0]->count, 5, "Found 5 artists tagged with musical");
+is($tags->[0]->count, 5, 'Found 5 artists tagged with musical');
 is($tags->[0]->entity->id, 4);
 is($tags->[0]->entity->name, 'Artist 2', '"Artist 2" is tagged with musical');
 is($tags->[1]->count, 1);
@@ -190,7 +190,8 @@ is( $tags[3]->count, 1 );
 is( $tags[4]->tag->name, 'world music' );
 is( $tags[4]->count, 1 );
 
-$tags = $test->c->sql->select_single_column_array("SELECT tag FROM artist_tag_raw WHERE editor=12 AND artist=3 ORDER BY tag");
+$tags = $test->c->sql->select_single_column_array(
+    'SELECT tag FROM artist_tag_raw WHERE editor=12 AND artist=3 ORDER BY tag');
 is_deeply($tags, [1, 5], 'has musical, techno');
 
 };

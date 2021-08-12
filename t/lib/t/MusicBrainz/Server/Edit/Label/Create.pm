@@ -33,7 +33,7 @@ test all => sub {
     my $label = $c->model('Label')->get_by_id($edit->label_id);
     is($label->name, '!K7');
     is($label->type_id, 1);
-    is($label->comment, "Funky record label");
+    is($label->comment, 'Funky record label');
     is($label->label_code, 7306);
     is($label->begin_date->year, 1995);
     is($label->begin_date->month, 1);
@@ -46,18 +46,18 @@ test all => sub {
     is($label->edits_pending, 0, 'add label edits should be autoedits');
 
     my $ipi_codes = $c->model('Label')->ipi->find_by_entity_id($label->id);
-    is(scalar @$ipi_codes, 2, "Label has two ipi codes");
+    is(scalar @$ipi_codes, 2, 'Label has two ipi codes');
 
     my @ipis = sort map { $_->ipi } @$ipi_codes;
-    is($ipis[0], '00262168177', "first ipi is 00262168177");
-    is($ipis[1], '00284373936', "first ipi is 00284373936");
+    is($ipis[0], '00262168177', 'first ipi is 00262168177');
+    is($ipis[1], '00284373936', 'second ipi is 00284373936');
 
     my $isni_codes = $c->model('Label')->isni->find_by_entity_id($label->id);
-    is(scalar @$isni_codes, 2, "Label has two isni codes");
+    is(scalar @$isni_codes, 2, 'Label has two isni codes');
 
     my @isnis = sort map { $_->isni } @$isni_codes;
-    is($isnis[0], '0000000106750994', "first isni is 0000000106750994");
-    is($isnis[1], '0000000106750995', "first isni is 0000000106750995");
+    is($isnis[0], '0000000106750994', 'first isni is 0000000106750994');
+    is($isnis[1], '0000000106750995', 'second isni is 0000000106750995');
 };
 
 test 'Uniqueness violations are caught before insertion (MBS-6065)' => sub {
@@ -106,7 +106,7 @@ test 'Uniqueness violations are caught before insertion (MBS-6065)' => sub {
     }, 'The given values duplicate an existing row.');
 };
 
-test 'Rejected edits are applied if the label can\'t be deleted' => sub {
+test q(Rejected edits are applied if the label can't be deleted) => sub {
     my $test = shift;
     my $c = $test->c;
 

@@ -14,11 +14,12 @@ import bracketed from '../../common/utility/bracketed';
 import getBooleanCookie from '../../common/utility/getBooleanCookie';
 import setCookie from '../../common/utility/setCookie';
 import * as modes from '../../guess-case/modes';
+import type {GuessCaseModeNameT} from '../../guess-case/types';
 import gc from '../../guess-case/MB/GuessCase/Main';
 
 /* eslint-disable flowtype/sort-keys */
 export type ActionT =
-  | {+type: 'set-mode', +mode: string}
+  | {+type: 'set-mode', +modeName: GuessCaseModeNameT}
   | {+type: 'set-keep-upper-case', +enabled: boolean}
   | {+type: 'set-upper-case-roman', +enabled: boolean};
 /* eslint-enable flowtype/sort-keys */
@@ -27,7 +28,7 @@ export type DispatchT = (ActionT) => void;
 
 export type StateT = {
   +keepUpperCase: boolean,
-  +mode: string,
+  +modeName: GuessCaseModeNameT,
   +upperCaseRoman: boolean,
 };
 
@@ -42,8 +43,8 @@ export type PropsT = $ReadOnly<{
 
 export function createInitialState(): StateT {
   return {
-    keepUpperCase: gc.CFG_UC_UPPERCASED,
-    mode: gc.modeName,
+    keepUpperCase: gc.CFG_KEEP_UPPERCASED,
+    modeName: gc.modeName,
     upperCaseRoman: getBooleanCookie('guesscase_roman'),
   };
 }
@@ -54,17 +55,15 @@ export function runReducer(
 ): void {
   switch (action.type) {
     case 'set-mode': {
-      const modeName = action.mode;
+      const modeName = action.modeName;
       gc.modeName = modeName;
-      const mode = modes[modeName];
-      gc.mode = mode;
       setCookie('guesscase_mode', modeName);
-      state.mode = modeName;
+      state.modeName = modeName;
       break;
     }
     case 'set-keep-upper-case': {
       const enabled = action.enabled;
-      gc.CFG_UC_UPPERCASED = enabled;
+      gc.CFG_KEEP_UPPERCASED = enabled;
       setCookie('guesscase_keepuppercase', enabled);
       state.keepUpperCase = enabled;
       break;
@@ -81,14 +80,14 @@ export function runReducer(
 const GuessCaseOptions = ({
   dispatch,
   keepUpperCase,
-  mode: modeName,
+  modeName,
   upperCaseRoman,
 }: PropsT): React.Element<'div'> => {
   function handleModeChange(event) {
     const newModeName = event.target.value;
 
     if (newModeName !== gc.modeName) {
-      dispatch({mode: newModeName, type: 'set-mode'});
+      dispatch({modeName: newModeName, type: 'set-mode'});
     }
   }
 
@@ -122,7 +121,7 @@ const GuessCaseOptions = ({
         </a>,
       )}
       <p>
-        {expand2react(gc.mode?.description ?? '')}
+        {expand2react(modes[modeName].description ?? '')}
       </p>
       <label>
         <input

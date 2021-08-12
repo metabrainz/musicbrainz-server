@@ -54,8 +54,8 @@ test all => sub {
 
     my @tests = (
         [
-            "link_entity(entity)",
-            "React.createElement(EntityLink, {entity: entity})",
+            'link_entity(entity)',
+            'React.createElement(EntityLink, {entity: entity})',
 
             '<span class="flag flag-US">' .
                 '<a href="/area/489ce91b-6658-3307-9877-795b68554c98">' .
@@ -71,8 +71,8 @@ test all => sub {
             ),
         ],
         [
-            "link_entity(entity)",
-            "React.createElement(EntityLink, {entity: entity})",
+            'link_entity(entity)',
+            'React.createElement(EntityLink, {entity: entity})',
 
             '<span class="flag flag-US">' .
                 '<span class="mp">' .
@@ -91,8 +91,8 @@ test all => sub {
             ),
         ],
         [
-            "link_entity(entity, 'edit', l('Edit'))",
-            "React.createElement(EntityLink, {entity: entity, subPath: '/edit', content: l('Edit')})",
+            q(link_entity(entity, 'edit', l('Edit'))),
+            q(React.createElement(EntityLink, {entity: entity, subPath: '/edit', content: l('Edit')})),
 
             '<a href="/area/489ce91b-6658-3307-9877-795b68554c98/edit">' .
                 '<bdi>Edit</bdi>' .
@@ -105,8 +105,8 @@ test all => sub {
             ),
         ],
         [
-            "link_entity(entity)",
-            "React.createElement(EntityLink, {entity: entity})",
+            'link_entity(entity)',
+            'React.createElement(EntityLink, {entity: entity})',
 
             '<a href="/area/32f90933-b4b4-3248-b98c-e573d5329f57">' .
                 '<bdi>Soviet Union</bdi>' .
@@ -123,8 +123,8 @@ test all => sub {
             ),
         ],
         [
-            "link_entity(entity)",
-            "React.createElement(EntityLink, {entity: entity})",
+            'link_entity(entity)',
+            'React.createElement(EntityLink, {entity: entity})',
 
             # same as above, except with comment
             '<a href="/area/32f90933-b4b4-3248-b98c-e573d5329f57">' .
@@ -144,8 +144,8 @@ test all => sub {
             ),
         ],
         [
-            "descriptive_link(entity)",
-            "React.createElement(DescriptiveLink, {entity: entity})",
+            'descriptive_link(entity)',
+            'React.createElement(DescriptiveLink, {entity: entity})',
 
             '<a href="/area/29a709d8-0320-493e-8d0c-f2c386662b7f">' .
                 '<bdi>Chicago</bdi>' .
@@ -160,8 +160,8 @@ test all => sub {
             $chicago,
         ],
         [
-            "link_entity(entity)",
-            "React.createElement(EntityLink, {entity: entity})",
+            'link_entity(entity)',
+            'React.createElement(EntityLink, {entity: entity})',
 
             '<a href="/artist/070d193a-845c-479f-980e-bef15710653e" title="Prince (“The Artist Formerly Known as…”)">' .
                 '<bdi>Prince</bdi>' .
@@ -177,8 +177,8 @@ test all => sub {
             ),
         ],
         [
-            "link_entity(entity, 'show', 'The Artist Formerly Known as Prince')",
-            "React.createElement(EntityLink, {entity: entity, content: 'The Artist Formerly Known as Prince'})",
+            q(link_entity(entity, 'show', 'The Artist Formerly Known as Prince')),
+            q(React.createElement(EntityLink, {entity: entity, content: 'The Artist Formerly Known as Prince'})),
 
             '<span class="mp">' .
                 '<span class="name-variation">' .
@@ -198,8 +198,8 @@ test all => sub {
             ),
         ],
         [
-            "link_entity(entity)",
-            "React.createElement(EntityLink, {entity: entity})",
+            'link_entity(entity)',
+            'React.createElement(EntityLink, {entity: entity})',
 
             '<span class="deleted tooltip" title="This entity has been removed, and cannot be displayed correctly.">' .
                 '<bdi>[removed]</bdi>' .
@@ -208,8 +208,8 @@ test all => sub {
             Artist->new,
         ],
         [
-            "allow_new=1; link_entity(entity)",
-            "React.createElement(EntityLink, {entity: entity, allowNew: true})",
+            'allow_new=1; link_entity(entity)',
+            'React.createElement(EntityLink, {entity: entity, allowNew: true})',
 
             '<span class="tooltip" title="This entity will be created by this edit.">' .
                 '<bdi>[removed]</bdi>' .
@@ -218,8 +218,8 @@ test all => sub {
             Artist->new,
         ],
         [
-            "link_entity(entity)",
-            "React.createElement(EditorLink, {editor: entity})",
+            'link_entity(entity)',
+            'React.createElement(EditorLink, {editor: entity})',
 
             '<a href="/user/%3C%2FBitmap%3E">' .
                 '<img src="//gravatar.com/avatar/9636b32d588adb5f86431818cbb630bd?d=mm&amp;s=24" height="12" width="12" class="gravatar" alt="" />' .
@@ -236,8 +236,8 @@ test all => sub {
             ),
         ],
         [
-            "link_entity(entity)",
-            "React.createElement(EntityLink, {entity: entity})",
+            'link_entity(entity)',
+            'React.createElement(EntityLink, {entity: entity})',
 
             '<span class="mp">' .
                 '<a href="/event/8dcc36ec-d5eb-40a6-86c0-1111dbdf6f7e">' .
@@ -260,8 +260,8 @@ test all => sub {
             ),
         ],
         [
-            "link_entity(entity)",
-            "React.createElement(EntityLink, {entity: entity})",
+            'link_entity(entity)',
+            'React.createElement(EntityLink, {entity: entity})',
 
             '<a href="/label/59fd412e-71df-45b7-97be-37874136fe33">' .
                 '<bdi>Flying Nun Records</bdi>' .
@@ -274,8 +274,8 @@ test all => sub {
             ),
         ],
         [
-            "link_entity(entity)",
-            "React.createElement(EntityLink, {entity: entity})",
+            'link_entity(entity)',
+            'React.createElement(EntityLink, {entity: entity})',
 
             '<span class="deleted tooltip" title="This entity has been removed, and cannot be displayed correctly.">' .
                 '<bdi>Flying Nun Records</bdi>' .
@@ -286,8 +286,8 @@ test all => sub {
             ),
         ],
         [
-            "allow_new=1; link_entity(entity)",
-            "React.createElement(EntityLink, {entity: entity, allowNew: true})",
+            'allow_new=1; link_entity(entity)',
+            'React.createElement(EntityLink, {entity: entity, allowNew: true})',
 
             '<span class="tooltip" title="This entity will be created by this edit.">' .
                 '<bdi>Flying Nun Records</bdi>' .
@@ -298,8 +298,8 @@ test all => sub {
             ),
         ],
         [
-            "descriptive_link(entity)",
-            "React.createElement(DescriptiveLink, {entity: entity})",
+            'descriptive_link(entity)',
+            'React.createElement(DescriptiveLink, {entity: entity})',
 
             '<a href="/place/c4962c57-0bd7-48b1-9e38-eef6c6f331e3">' .
                 '<bdi>Empty Bottle</bdi>' .
@@ -322,8 +322,8 @@ test all => sub {
             ),
         ],
         [
-            "link_entity(entity)",
-            "React.createElement(EntityLink, {entity: entity})",
+            'link_entity(entity)',
+            'React.createElement(EntityLink, {entity: entity})',
 
             '<a href="/recording/6a77d9f9-1641-4fc9-98a8-9f29552b0d40">' .
                 '<bdi>Foo</bdi>' .
@@ -336,8 +336,8 @@ test all => sub {
             ),
         ],
         [
-            "link_entity(entity)",
-            "React.createElement(EntityLink, {entity: entity})",
+            'link_entity(entity)',
+            'React.createElement(EntityLink, {entity: entity})',
 
             '<span class="video" title="This recording is a video"></span>' .
             '<a href="/recording/6a77d9f9-1641-4fc9-98a8-9f29552b0d40">' .
@@ -352,8 +352,8 @@ test all => sub {
             ),
         ],
         [
-            "link_entity(entity, 'show', 'Bar')",
-            "React.createElement(EntityLink, {entity: entity, content: 'Bar'})",
+            q(link_entity(entity, 'show', 'Bar')),
+            q(React.createElement(EntityLink, {entity: entity, content: 'Bar'})),
 
             '<span class="name-variation">' .
                 '<a href="/recording/6a77d9f9-1641-4fc9-98a8-9f29552b0d40" title="Foo">' .
@@ -368,8 +368,8 @@ test all => sub {
             ),
         ],
         [
-            "descriptive_link(entity, 'Bar')",
-            "React.createElement(DescriptiveLink, {entity: entity, content: 'Bar'})",
+            q(descriptive_link(entity, 'Bar')),
+            q(React.createElement(DescriptiveLink, {entity: entity, content: 'Bar'})),
 
             '<span class="name-variation">' .
                 '<a href="/recording/6a77d9f9-1641-4fc9-98a8-9f29552b0d40" title="Foo">' .
@@ -418,8 +418,8 @@ test all => sub {
             ),
         ],
         [
-            "link_entity(entity)",
-            "React.createElement(EntityLink, {entity: entity})",
+            'link_entity(entity)',
+            'React.createElement(EntityLink, {entity: entity})',
 
             '<span class="mp">' .
                 '<a href="http://www.example.com/%C3%A4%C3%9F%C3%B0">' .
@@ -436,8 +436,8 @@ test all => sub {
             ),
         ],
         [
-            "link_entity(entity, 'edit', '<foo> & \"')",
-            "React.createElement(EntityLink, {entity: entity, subPath: 'edit', content: '<foo> & \"'})",
+            q(link_entity(entity, 'edit', '<foo> & "')),
+            q(React.createElement(EntityLink, {entity: entity, subPath: 'edit', content: '<foo> & "'})),
 
             '<a href="/url/f6337023-05b6-41eb-9031-b9bab8acae6a/edit">' .
                 '<bdi>&lt;foo&gt; &amp; &quot;</bdi>' .
@@ -450,8 +450,8 @@ test all => sub {
             ),
         ],
         [
-            "link_entity(entity)",
-            "React.createElement(EntityLink, {entity: entity})",
+            'link_entity(entity)',
+            'React.createElement(EntityLink, {entity: entity})',
 
             '<a href="http://xn--80aeafihs7aqfneip9p.xn--p1ai/">' .
                 '<bdi>http://здравствуйпесня.рф/</bdi>' .
@@ -636,8 +636,8 @@ test all => sub {
             '</tr>',
 
             {
-                old => "The Only Michael - Someone Else's Fur",
-                new => "Someone Else's Fur",
+                old => q(The Only Michael - Someone Else's Fur),
+                new => q(Someone Else's Fur),
             },
         ],
         [

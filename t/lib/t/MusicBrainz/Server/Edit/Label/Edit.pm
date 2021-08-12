@@ -43,7 +43,7 @@ accept_edit($c, $edit);
 $label = $c->model('Label')->get_by_id($edit->label_id);
 is($label->name, 'Edit Name');
 is($label->type_id, 1);
-is($label->comment, "Edit comment");
+is($label->comment, 'Edit comment');
 is($label->label_code, 12345);
 is($label->begin_date->year, 1995);
 is($label->begin_date->month, 1);
@@ -54,13 +54,13 @@ is($label->end_date->day, 30);
 is($label->edits_pending, 0);
 
 my $ipi_codes = $c->model('Label')->ipi->find_by_entity_id($label->id);
-is(scalar @$ipi_codes, 1, "Label has one ipi code after accepting edit");
-isa_ok($ipi_codes->[0], "MusicBrainz::Server::Entity::LabelIPI");
+is(scalar @$ipi_codes, 1, 'Label has one ipi code after accepting edit');
+isa_ok($ipi_codes->[0], 'MusicBrainz::Server::Entity::LabelIPI');
 is($ipi_codes->[0]->ipi, '00262168177');
 
 my $isni_codes = $c->model('Label')->isni->find_by_entity_id($label->id);
-is(scalar @$isni_codes, 1, "Label has one isni code after accepting edit");
-isa_ok($isni_codes->[0], "MusicBrainz::Server::Entity::LabelISNI");
+is(scalar @$isni_codes, 1, 'Label has one isni code after accepting edit');
+isa_ok($isni_codes->[0], 'MusicBrainz::Server::Entity::LabelISNI');
 is($isni_codes->[0]->isni, '0000000106750994');
 
 };

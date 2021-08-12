@@ -43,7 +43,7 @@ for my $path (
             with_fields => { username => 'new_editor', password => 'password' }
         );
 
-        my $dbdefs = ref(*DBDefs::DB_READ_ONLY) ? "DBDefs" : "DBDefs::Default";
+        my $dbdefs = ref(*DBDefs::DB_READ_ONLY) ? 'DBDefs' : 'DBDefs::Default';
         my $wrapped_read_only = wrap "${dbdefs}::DB_READ_ONLY",
             pre => sub { $_[-1] = 1 };
 

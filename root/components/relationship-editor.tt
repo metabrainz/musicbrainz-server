@@ -128,6 +128,9 @@
       <!-- ko if: isBeginDate -->
         <button class="icon copy-date" type="button" title="[% l('Copy to end date') | html %]" data-bind="click: $parent.copyDate"></button>
       <!-- /ko -->
+      <!-- ko if: !isBeginDate -->
+        (<a href="#" data-bind="click: $parent.toggleDatesHelp.bind($parent)">[% l('help') | html %]</a>)
+      <!-- /ko -->
       <div class="error" data-bind="text: $parent.dateError(date)"></div>
       <div class="error" data-bind="text: isBeginDate ? $parent.tooShortBeginYearError() : $parent.tooShortEndYearError()"></div>
     </td>
@@ -172,6 +175,14 @@
           <input type="checkbox" data-bind="checked: relationship().ended, disable: relationship().disableEndedCheckBox" />
           [% l('This relationship has ended.') %]
         </label>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <div class="ar-descr" data-bind="visible: showDatesHelp()">
+          <p>[% l('If you want to set the relationship as happening on one specific date, just set the same end date and start date. You can use the arrow button to copy the begin date to the end date.') %]</p>
+          <p>[% l('If you do not know the end date, but you know the relationship has ended and this seems like useful information to store (for example, if someone is no longer a member of a band), you can indicate it with the checkbox above.') %]</p>
+        </div>
       </td>
     </tr>
   <!-- /ko -->

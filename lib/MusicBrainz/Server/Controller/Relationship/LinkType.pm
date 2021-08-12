@@ -90,7 +90,8 @@ sub tree : Chained('type_specific') PathPart('')
     my ($self, $c) = @_;
 
     my $root = $c->model('LinkType')->get_tree($c->stash->{type0},
-                                                $c->stash->{type1});
+                                                $c->stash->{type1},
+                                                get_deprecated_and_empty => 1);
 
     $c->stash(
         component_path  => 'relationship/linktype/RelationshipTypePairTree',
@@ -127,7 +128,10 @@ sub create : Chained('type_specific') PathPart('create') RequireAuth(relationshi
     my $form = $c->form(
         form => 'Admin::LinkType',
         init_object => { attributes => $attribs },
-        root => $c->model('LinkType')->get_tree($c->stash->{type0}, $c->stash->{type1})
+        root => $c->model('LinkType')->get_tree(
+            $c->stash->{type0},
+            $c->stash->{type1},
+            get_deprecated_and_empty => 1)
     );
     $form->field('parent_id')->_load_options;
 
@@ -172,7 +176,8 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
                     orderable_direction )
         },
         root => $c->model('LinkType')->get_tree($link_type->entity0_type,
-                                                $link_type->entity1_type)
+                                                $link_type->entity1_type,
+                                                get_deprecated_and_empty => 1)
     );
     $form->field('parent_id')->_load_options;
 

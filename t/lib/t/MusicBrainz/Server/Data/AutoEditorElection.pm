@@ -40,8 +40,8 @@ test 'Accept' => sub {
     like($email_body, qr{https://[^/]+/election/${\ $election->id }});
     like($email_body, qr{Candidate:\s+noob1});
     like($email_body, qr{Proposer:\s+autoeditor1});
-    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), "References header is correct");
-    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
+    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References header is correct');
+    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, 'Message-id header has correct format');
     $email_transport->clear_deliveries;
 
     $election = $c->model('AutoEditorElection')->get_by_id($election->id);
@@ -79,8 +79,8 @@ test 'Accept' => sub {
     like($email_body, qr{Proposer:\s+autoeditor1});
     like($email_body, qr{Seconder:\s+autoeditor2});
     like($email_body, qr{Seconder:\s+autoeditor3});
-    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), "References header is correct");
-    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
+    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References header is correct');
+    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, 'Message-id header has correct format');
     $email_transport->clear_deliveries;
 
     $election = $c->model('AutoEditorElection')->get_by_id($election->id);
@@ -131,7 +131,7 @@ test 'Accept' => sub {
     ok( $election );
     is( $election->status, $ELECTION_OPEN );
 
-    $c->sql->do("UPDATE autoeditor_election SET propose_time = propose_time - INTERVAL '2 week'");
+    $c->sql->do(q(UPDATE autoeditor_election SET propose_time = propose_time - INTERVAL '2 week'));
 
     $c->model('AutoEditorElection')->try_to_close();
     $election = $c->model('AutoEditorElection')->get_by_id($election->id);
@@ -144,8 +144,8 @@ test 'Accept' => sub {
     $email_body = $email->object->body_str;
     like($email_body, qr{Voting in this election is now closed: noob1 has been\s+accepted as an auto-editor});
     like($email_body, qr{https://[^/]+/election/${\ $election->id }});
-    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), "References header is correct");
-    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
+    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References header is correct');
+    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, 'Message-id header has correct format');
     $email_transport->clear_deliveries;
 
     $candidate = $c->model('Editor')->get_by_id($candidate->id);
@@ -181,7 +181,7 @@ test 'Rejected' => sub {
     ok( $election );
     is( $election->status, $ELECTION_OPEN );
 
-    $c->sql->do("UPDATE autoeditor_election SET propose_time = propose_time - INTERVAL '2 week'");
+    $c->sql->do(q(UPDATE autoeditor_election SET propose_time = propose_time - INTERVAL '2 week'));
 
     $c->model('AutoEditorElection')->try_to_close();
     $election = $c->model('AutoEditorElection')->get_by_id($election->id);
@@ -194,8 +194,8 @@ test 'Rejected' => sub {
     my $email_body = $email->object->body_str;
     like($email_body, qr{Voting in this election is now closed: the proposal to make\s+noob1 an auto-editor was declined});
     like($email_body, qr{https://[^/]+/election/${\ $election->id }});
-    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), "References header is correct");
-    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
+    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References header is correct');
+    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, 'Message-id header has correct format');
     $email_transport->clear_deliveries;
 
     $candidate = $c->model('Editor')->get_by_id($candidate->id);
@@ -300,7 +300,7 @@ test 'Timeout' => sub {
     ok( $election );
     is( $election->status, $ELECTION_SECONDER_1 );
 
-    $c->sql->do("UPDATE autoeditor_election SET propose_time = propose_time - INTERVAL '2 week'");
+    $c->sql->do(q(UPDATE autoeditor_election SET propose_time = propose_time - INTERVAL '2 week'));
 
     $c->model('AutoEditorElection')->try_to_close();
     $election = $c->model('AutoEditorElection')->get_by_id($election->id);
@@ -313,8 +313,8 @@ test 'Timeout' => sub {
     my $email_body = $email->object->body_str;
     like($email_body, qr{This election has been cancelled, because two seconders could not be\s+found within the allowed time \(1 week\)});
     like($email_body, qr{https://[^/]+/election/${\ $election->id }});
-    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), "References header is correct");
-    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
+    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References header is correct');
+    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, 'Message-id header has correct format');
     $email_transport->clear_deliveries;
 
     $candidate = $c->model('Editor')->get_by_id($candidate->id);
@@ -350,8 +350,8 @@ test 'Cancel' => sub {
     my $email_body = $email->object->body_str;
     like($email_body, qr{This election has been cancelled by the proposer \(autoeditor1\)});
     like($email_body, qr{https://[^/]+/election/${\ $election->id }});
-    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), "References header is correct");
-    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
+    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References header is correct');
+    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, 'Message-id header has correct format');
     $email_transport->clear_deliveries;
 
     $election = $c->model('AutoEditorElection')->get_by_id($election->id);

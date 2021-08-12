@@ -42,7 +42,7 @@ const RecordingAppearancesTable = ({
 }: {
   $c: CatalystContextT,
   recording: RecordingWithArtistCreditT,
-  tracks: $ElementType<Props, 'tracks'>,
+  tracks: Props['tracks'],
 }) => (
   <table className="tbl">
     <thead>
