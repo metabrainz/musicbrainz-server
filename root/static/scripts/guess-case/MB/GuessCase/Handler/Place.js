@@ -6,40 +6,40 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import MB from '../../../../common/MB';
 import * as flags from '../../../flags';
 import * as modes from '../../../modes';
+import gc from '../Main';
 
-MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
-MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
+import GuessCaseHandler from './Base';
 
 // Place specific GuessCase functionality
-MB.GuessCase.Handler.Place = function (gc) {
-  var self = MB.GuessCase.Handler.Base(gc);
-
+class GuessCasePlaceHandler extends GuessCaseHandler {
   // Checks special cases
-  self.checkSpecialCase = function () {
-    return self.NOT_A_SPECIALCASE;
-  };
+  checkSpecialCase() {
+    return this.NOT_A_SPECIALCASE;
+  }
 
   /*
    * Delegate function which handles words not handled
    * in the common word handlers.
    */
-  self.doWord = function () {
+  doWord() {
     (
-      self.doIgnoreWords() ||
+      this.doIgnoreWords() ||
       modes[gc.modeName].doWord() ||
-      self.doNormalWord()
+      this.doNormalWord()
     );
     flags.context.number = false;
     return null;
-  };
+  }
 
   // Guesses the sortname for place aliases
-  self.guessSortName = function (is) {
-    return self.sortCompoundName(is, self.moveArticleToEnd);
-  };
+  guessSortName(is) {
+    return this.sortCompoundName(
+      is,
+      (is) => this.moveArticleToEnd(is),
+    );
+  }
+}
 
-  return self;
-};
+export default GuessCasePlaceHandler;

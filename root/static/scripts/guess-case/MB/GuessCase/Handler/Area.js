@@ -6,22 +6,19 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import MB from '../../../../common/MB';
 import * as flags from '../../../flags';
 import * as modes from '../../../modes';
 import * as utils from '../../../utils';
+import gc from '../Main';
 
-MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
-MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
+import GuessCaseHandler from './Base';
 
 // Area specific GuessCase functionality
-MB.GuessCase.Handler.Area = function (gc) {
-  var self = MB.GuessCase.Handler.Base(gc);
-
+class GuessCaseAreaHandler extends GuessCaseHandler {
   // Checks special cases
-  self.checkSpecialCase = function () {
-    return self.NOT_A_SPECIALCASE;
-  };
+  checkSpecialCase() {
+    return this.NOT_A_SPECIALCASE;
+  }
 
   /*
    * Delegate function which handles words not handled
@@ -30,21 +27,21 @@ MB.GuessCase.Handler.Area = function (gc) {
    * - Handles DiscNumberStyle (DiscNumberWithNameStyle)
    * - Handles FeaturingArtistStyle
    */
-  self.doWord = function () {
+  doWord() {
     (
-      self.doIgnoreWords() ||
-      self.doFeaturingArtistStyle() ||
+      this.doIgnoreWords() ||
+      this.doFeaturingArtistStyle() ||
       modes[gc.modeName].doWord() ||
-      self.doNormalWord()
+      this.doNormalWord()
     );
     flags.context.number = false;
     return null;
-  };
+  }
 
   // Guesses the sortname for areas
-  self.guessSortName = function (is) {
+  guessSortName(is) {
     return utils.trim(is);
-  };
+  }
+}
 
-  return self;
-};
+export default GuessCaseAreaHandler;

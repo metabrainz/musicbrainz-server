@@ -11,14 +11,13 @@ import MB from '../../../common/MB';
 import getCookie from '../../../common/utility/getCookie';
 import * as flags from '../../flags';
 
-import './Handler/Base';
-import './Handler/Area';
-import './Handler/Artist';
-import './Handler/Label';
-import './Handler/Place';
-import './Handler/Release';
-import './Handler/Track';
-import './Handler/Work';
+import GuessCaseAreaHandler from './Handler/Area';
+import GuessCaseArtistHandler from './Handler/Artist';
+import GuessCaseLabelHandler from './Handler/Label';
+import GuessCasePlaceHandler from './Handler/Place';
+import GuessCaseReleaseHandler from './Handler/Release';
+import GuessCaseTrackHandler from './Handler/Track';
+import GuessCaseWorkHandler from './Handler/Work';
 
 MB.GuessCase = MB.GuessCase || {};
 
@@ -40,7 +39,19 @@ self.regexes = {
 
 function guess(handlerName, method) {
   let handler;
-
+  const handlerPicker = {
+    area: GuessCaseAreaHandler,
+    artist: GuessCaseArtistHandler,
+    event: GuessCaseWorkHandler,
+    label: GuessCaseLabelHandler,
+    place: GuessCasePlaceHandler,
+    recording: GuessCaseTrackHandler,
+    release: GuessCaseReleaseHandler,
+    release_group: GuessCaseReleaseHandler,
+    series: GuessCaseWorkHandler,
+    track: GuessCaseTrackHandler,
+    work: GuessCaseWorkHandler,
+  };
   /*
    * Guesses the name (e.g. capitalization) or sort name (for aliases)
    * of a given entity.
@@ -51,7 +62,7 @@ function guess(handlerName, method) {
     // Initialise flags for another run.
     flags.init();
 
-    handler = handler || MB.GuessCase.Handler[handlerName](self);
+    handler = handler || new handlerPicker[handlerName]();
 
     /*
      * We need to query the handler if the input string is
@@ -69,50 +80,19 @@ function guess(handlerName, method) {
 }
 
 MB.GuessCase.area = {
-  guess: guess('Area', 'process'),
-  sortname: guess('Area', 'guessSortName'),
+  guess: guess('area', 'process'),
+  sortname: guess('area', 'guessSortName'),
 };
 
 MB.GuessCase.artist = {
-  guess: guess('Artist', 'process'),
-  sortname: guess('Artist', 'guessSortName'),
+  guess: guess('artist', 'process'),
+  sortname: guess('artist', 'guessSortName'),
 };
 
-MB.GuessCase.label = {
-  guess: guess('Label', 'process'),
-  sortname: guess('Label', 'guessSortName'),
+MB.GuessCase.event = {
+  guess: guess('event', 'process'),
+  sortname: guess('event', 'guessSortName'),
 };
-
-MB.GuessCase.place = {
-  guess: guess('Place', 'process'),
-  sortname: guess('Place', 'guessSortName'),
-};
-
-MB.GuessCase.release = {
-  guess: guess('Release', 'process'),
-  sortname: guess('Release', 'guessSortName'),
-};
-
-MB.GuessCase.release_group = MB.GuessCase.release;
-
-MB.GuessCase.track = {
-  guess: guess('Track', 'process'),
-  sortname: guess('Track', 'guessSortName'),
-};
-
-MB.GuessCase.recording = MB.GuessCase.track;
-
-MB.GuessCase.work = {
-  guess: guess('Work', 'process'),
-  sortname: guess('Work', 'guessSortName'),
-};
-
-/*
- * Series and Event don't have their own handler, and they use the
- * work handler because additional behavior isn't needed.
- */
-MB.GuessCase.series = MB.GuessCase.work;
-MB.GuessCase.event = MB.GuessCase.work;
 
 // For instruments, all we need to do is lowercase the string
 function lowercaseInstrumentName(name) {
@@ -122,6 +102,46 @@ function lowercaseInstrumentName(name) {
 MB.GuessCase.instrument = {
   guess: lowercaseInstrumentName,
   sortname: lowercaseInstrumentName,
+};
+
+MB.GuessCase.label = {
+  guess: guess('label', 'process'),
+  sortname: guess('label', 'guessSortName'),
+};
+
+MB.GuessCase.place = {
+  guess: guess('place', 'process'),
+  sortname: guess('place', 'guessSortName'),
+};
+
+MB.GuessCase.release = {
+  guess: guess('release', 'process'),
+  sortname: guess('release', 'guessSortName'),
+};
+
+MB.GuessCase.release_group = {
+  guess: guess('release_group', 'process'),
+  sortname: guess('release_group', 'guessSortName'),
+};
+
+MB.GuessCase.track = {
+  guess: guess('track', 'process'),
+  sortname: guess('track', 'guessSortName'),
+};
+
+MB.GuessCase.recording = {
+  guess: guess('recording', 'process'),
+  sortname: guess('recording', 'guessSortName'),
+};
+
+MB.GuessCase.series = {
+  guess: guess('series', 'process'),
+  sortname: guess('series', 'guessSortName'),
+};
+
+MB.GuessCase.work = {
+  guess: guess('work', 'process'),
+  sortname: guess('work', 'guessSortName'),
 };
 
 export default self;

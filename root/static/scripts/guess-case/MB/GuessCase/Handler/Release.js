@@ -7,20 +7,17 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import MB from '../../../../common/MB';
 import * as flags from '../../../flags';
 import * as modes from '../../../modes';
 import input from '../Input';
+import gc from '../Main';
 
-MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
-MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
+import GuessCaseHandler from './Base';
 
 // Release specific GuessCase functionality
-MB.GuessCase.Handler.Release = function (gc) {
-  var self = MB.GuessCase.Handler.Base(gc);
-
+class GuessCaseReleaseHandler extends GuessCaseHandler {
   // Checks special cases of releases
-  self.checkSpecialCase = function (is) {
+  checkSpecialCase(is) {
     if (is) {
       if (!gc.regexes.RELEASE_UNTITLED) {
         // Untitled
@@ -31,7 +28,7 @@ MB.GuessCase.Handler.Release = function (gc) {
       }
     }
     return self.NOT_A_SPECIALCASE;
-  };
+  }
 
   /*
    * Guess the releasename given in string is, and
@@ -40,17 +37,16 @@ MB.GuessCase.Handler.Release = function (gc) {
    * @param    is        the inputstring
    * @returns os        the processed string
    */
-  const baseProcess = self.process;
-  self.process = function (os) {
-    return modes[gc.modeName].fixVinylSizes(baseProcess(os));
-  };
+  process(os) {
+    return modes[gc.modeName].fixVinylSizes(super.process(os));
+  }
 
-  self.getWordsForProcessing = function (is) {
+  getWordsForProcessing(is) {
     is = modes[gc.modeName].preProcessTitles(is);
     return modes[gc.modeName].prepExtraTitleInfo(
       input.splitWordsAndPunctuation(is),
     );
-  };
+  }
 
   /*
    * Delegate function which handles words not handled
@@ -59,7 +55,7 @@ MB.GuessCase.Handler.Release = function (gc) {
    * - Handles DiscNumberStyle (DiscNumberWithNameStyle)
    * - Handles FeaturingArtistStyle
    */
-  self.doWord = function () {
+  doWord() {
     (
       self.doFeaturingArtistStyle() ||
       modes[gc.modeName].doWord() ||
@@ -67,10 +63,12 @@ MB.GuessCase.Handler.Release = function (gc) {
     );
     flags.context.number = false;
     return null;
-  };
+  }
 
   // Guesses the sortname for releases (for aliases)
-  self.guessSortName = self.moveArticleToEnd;
+  guessSortName(is) {
+    return this.moveArticleToEnd(is);
+  }
+}
 
-  return self;
-};
+export default GuessCaseReleaseHandler;

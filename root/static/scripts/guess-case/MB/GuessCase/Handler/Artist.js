@@ -7,25 +7,22 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import MB from '../../../../common/MB';
 import * as flags from '../../../flags';
 import * as utils from '../../../utils';
 import input from '../Input';
+import gc from '../Main';
 import output from '../Output';
 
-MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
-MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
+import GuessCaseHandler from './Base';
 
 // Artist specific GuessCase functionality
-MB.GuessCase.Handler.Artist = function (gc) {
-  var self = MB.GuessCase.Handler.Base(gc);
-
+class GuessCaseArtistHandler extends GuessCaseHandler {
   /*
    * Checks special cases of artists
    * - empty, unknown -> [unknown]
    * - none, no artist, not applicable, n/a -> [no artist]
    */
-  self.checkSpecialCase = function (is) {
+  checkSpecialCase(is) {
     if (is) {
       if (!gc.regexes.ARTIST_EMPTY) {
         // Match empty
@@ -42,27 +39,27 @@ MB.GuessCase.Handler.Artist = function (gc) {
         gc.regexes.ARTIST_NA = /^[\(\[]?\s*n\s*[\\\/]\s*a\s*[\)\]]?$/i;
       }
       if (is.match(gc.regexes.ARTIST_EMPTY)) {
-        return self.SPECIALCASE_UNKNOWN;
+        return this.SPECIALCASE_UNKNOWN;
       } else if (is.match(gc.regexes.ARTIST_UNKNOWN)) {
-        return self.SPECIALCASE_UNKNOWN;
+        return this.SPECIALCASE_UNKNOWN;
       } else if (is.match(gc.regexes.ARTIST_NONE)) {
-        return self.SPECIALCASE_UNKNOWN;
+        return this.SPECIALCASE_UNKNOWN;
       } else if (is.match(gc.regexes.ARTIST_NOARTIST)) {
-        return self.SPECIALCASE_UNKNOWN;
+        return this.SPECIALCASE_UNKNOWN;
       } else if (is.match(gc.regexes.ARTIST_NOTAPPLICABLE)) {
-        return self.SPECIALCASE_UNKNOWN;
+        return this.SPECIALCASE_UNKNOWN;
       } else if (is.match(gc.regexes.ARTIST_NA)) {
-        return self.SPECIALCASE_UNKNOWN;
+        return this.SPECIALCASE_UNKNOWN;
       }
     }
-    return self.NOT_A_SPECIALCASE;
-  };
+    return this.NOT_A_SPECIALCASE;
+  }
 
   /*
    * Delegate function which handles words not handled
    * in the common word handlers.
    */
-  self.doWord = function () {
+  doWord() {
     output.appendSpaceIfNeeded();
     input.capitalizeCurrentWord();
     output.appendCurrentWord();
@@ -72,11 +69,11 @@ MB.GuessCase.Handler.Artist = function (gc) {
     flags.context.forceCaps = false;
     flags.context.spaceNextWord = true;
     return null;
-  };
+  }
 
   // Guesses the sortname for artists
-  self.guessSortName = function (is, person) {
-    return self.sortCompoundName(is, function (artist) {
+  guessSortName(is, person) {
+    return this.sortCompoundName(is, function (artist) {
       if (artist) {
         artist = utils.trim(artist);
         var append = '';
@@ -163,7 +160,7 @@ MB.GuessCase.Handler.Artist = function (gc) {
 
       return '';
     });
-  };
+  }
+}
 
-  return self;
-};
+export default GuessCaseArtistHandler;

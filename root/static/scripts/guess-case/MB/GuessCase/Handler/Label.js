@@ -7,24 +7,21 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import MB from '../../../../common/MB';
 import * as flags from '../../../flags';
 import input from '../Input';
+import gc from '../Main';
 import output from '../Output';
 
-MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
-MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
+import GuessCaseHandler from './Base';
 
 // Label specific GuessCase functionality
-MB.GuessCase.Handler.Label = function (gc) {
-  var self = MB.GuessCase.Handler.Base(gc);
-
+class GuessCaseLabelHandler extends GuessCaseHandler {
   /*
    * Checks special cases of labels
    * - empty, unknown -> [unknown]
    * - none, no label, not applicable, n/a -> [no label]
    */
-  self.checkSpecialCase = function (is) {
+  checkSpecialCase(is) {
     if (is) {
       if (!gc.regexes.LABEL_EMPTY) {
         // Match empty
@@ -41,27 +38,27 @@ MB.GuessCase.Handler.Label = function (gc) {
         gc.regexes.LABEL_NA = /^[\(\[]?\s*n\s*[\\\/]\s*a\s*[\)\]]?$/i;
       }
       if (is.match(gc.regexes.LABEL_EMPTY)) {
-        return self.SPECIALCASE_UNKNOWN;
+        return this.SPECIALCASE_UNKNOWN;
       } else if (is.match(gc.regexes.LABEL_UNKNOWN)) {
-        return self.SPECIALCASE_UNKNOWN;
+        return this.SPECIALCASE_UNKNOWN;
       } else if (is.match(gc.regexes.LABEL_NONE)) {
-        return self.SPECIALCASE_UNKNOWN;
+        return this.SPECIALCASE_UNKNOWN;
       } else if (is.match(gc.regexes.LABEL_NOLABEL)) {
-        return self.SPECIALCASE_UNKNOWN;
+        return this.SPECIALCASE_UNKNOWN;
       } else if (is.match(gc.regexes.LABEL_NOTAPPLICABLE)) {
-        return self.SPECIALCASE_UNKNOWN;
+        return this.SPECIALCASE_UNKNOWN;
       } else if (is.match(gc.regexes.LABEL_NA)) {
-        return self.SPECIALCASE_UNKNOWN;
+        return this.SPECIALCASE_UNKNOWN;
       }
     }
-    return self.NOT_A_SPECIALCASE;
-  };
+    return this.NOT_A_SPECIALCASE;
+  }
 
   /*
    * Delegate function which handles words not handled
    * in the common word handlers.
    */
-  self.doWord = function () {
+  doWord() {
     output.appendSpaceIfNeeded();
     input.capitalizeCurrentWord();
     output.appendCurrentWord();
@@ -71,12 +68,15 @@ MB.GuessCase.Handler.Label = function (gc) {
     flags.context.forceCaps = false;
     flags.context.spaceNextWord = true;
     return null;
-  };
+  }
 
   // Guesses the sortname for label aliases
-  self.guessSortName = function (is) {
-    return self.sortCompoundName(is, self.moveArticleToEnd);
-  };
+  guessSortName(is) {
+    return this.sortCompoundName(
+      is,
+      (is) => this.moveArticleToEnd(is),
+    );
+  }
+}
 
-  return self;
-};
+export default GuessCaseLabelHandler;

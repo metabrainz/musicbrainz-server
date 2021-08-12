@@ -7,24 +7,21 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import MB from '../../../../common/MB';
 import * as flags from '../../../flags';
 import * as modes from '../../../modes';
 import input from '../Input';
+import gc from '../Main';
 import output from '../Output';
 
-MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
-MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
+import GuessCaseHandler from './Base';
 
 // Track specific GuessCase functionality
-MB.GuessCase.Handler.Track = function (gc) {
-  var self = MB.GuessCase.Handler.Base(gc);
-
-  self.removeBonusInfo = function (is) {
+class GuessCaseTrackHandler extends GuessCaseHandler {
+  removeBonusInfo(is) {
     return is
       .replace(/[\(\[]?bonus(\s+track)?s?\s*[\)\]]?$/i, '')
       .replace(/[\(\[]?retail(\s+version)?\s*[\)\]]?$/i, '');
-  };
+  }
 
   /*
    * Guess the trackname given in string is, and
@@ -33,17 +30,16 @@ MB.GuessCase.Handler.Track = function (gc) {
    * @param    is       the inputstring
    * @returns os        the processed string
    */
-  const baseProcess = self.process;
-  self.process = function (os) {
-    return modes[gc.modeName].fixVinylSizes(baseProcess(os));
-  };
+  process(os) {
+    return modes[gc.modeName].fixVinylSizes(super.process(os));
+  }
 
-  self.getWordsForProcessing = function (is) {
-    is = modes[gc.modeName].preProcessTitles(self.removeBonusInfo(is));
+  getWordsForProcessing(is) {
+    is = modes[gc.modeName].preProcessTitles(this.removeBonusInfo(is));
     return modes[gc.modeName].prepExtraTitleInfo(
       input.splitWordsAndPunctuation(is),
     );
-  };
+  }
 
   /*
    * Detect if UntitledTrackStyle and DataTrackStyle needs
@@ -54,7 +50,7 @@ MB.GuessCase.Handler.Track = function (gc) {
    * - untitled [track]        -> [untitled]
    * - unknown|bonus [track]    -> [unknown]
    */
-  self.checkSpecialCase = function (is) {
+  checkSpecialCase(is) {
     if (is) {
       if (!gc.regexes.TRACK_DATATRACK) {
         // Data tracks
@@ -69,19 +65,19 @@ MB.GuessCase.Handler.Track = function (gc) {
         gc.regexes.TRACK_MYSTERY = /^\?+$/i;
       }
       if (is.match(gc.regexes.TRACK_DATATRACK)) {
-        return self.SPECIALCASE_DATA_TRACK;
+        return this.SPECIALCASE_DATA_TRACK;
       } else if (is.match(gc.regexes.TRACK_SILENCE)) {
-        return self.SPECIALCASE_SILENCE;
+        return this.SPECIALCASE_SILENCE;
       } else if (is.match(gc.regexes.TRACK_UNTITLED)) {
-        return self.SPECIALCASE_UNTITLED;
+        return this.SPECIALCASE_UNTITLED;
       } else if (is.match(gc.regexes.TRACK_UNKNOWN)) {
-        return self.SPECIALCASE_UNKNOWN;
+        return this.SPECIALCASE_UNKNOWN;
       } else if (is.match(gc.regexes.TRACK_MYSTERY)) {
-        return self.SPECIALCASE_UNKNOWN;
+        return this.SPECIALCASE_UNKNOWN;
       }
     }
-    return self.NOT_A_SPECIALCASE;
-  };
+    return this.NOT_A_SPECIALCASE;
+  }
 
   /*
    * Delegate function which handles words not handled
@@ -89,10 +85,10 @@ MB.GuessCase.Handler.Track = function (gc) {
    *
    * - Handles FeaturingArtistStyle
    */
-  self.doWord = function () {
+  doWord() {
     if (
-      !self.doIgnoreWords() &&
-      !self.doFeaturingArtistStyle() &&
+      !this.doIgnoreWords() &&
+      !this.doFeaturingArtistStyle() &&
       !modes[gc.modeName].doWord()
     ) {
       if (input.matchCurrentWord(/7in/i)) {
@@ -120,10 +116,12 @@ MB.GuessCase.Handler.Track = function (gc) {
     }
     flags.context.number = false;
     return null;
-  };
+  }
 
   // Guesses the sortname for recordings (for aliases)
-  self.guessSortName = self.moveArticleToEnd;
+  guessSortName(is) {
+    return this.moveArticleToEnd(is);
+  }
+}
 
-  return self;
-};
+export default GuessCaseTrackHandler;
