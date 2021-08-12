@@ -521,10 +521,12 @@ export class ExternalLinksEditor
             const duplicate = links[0].submitted
               ? false : linksGroupMap.get(url);
             const duplicateNotice = duplicate
-              ? l(`Note: This link already exists 
-                at position #${duplicate[0].urlIndex + 1}. 
-                To merge, press enter or select a type.`)
-              : '';
+              ? texp.l(
+                `Note: This link already exists 
+                 at position #{position}. 
+                 To merge, press enter or select a type.`,
+                {position: duplicate[0].urlIndex + 1},
+              ) : '';
 
             let urlError = null;
             links.forEach(link => {
