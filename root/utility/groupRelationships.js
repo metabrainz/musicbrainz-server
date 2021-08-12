@@ -125,12 +125,12 @@ const areRelationshipTargetGroupsEqual = (a, b) => {
       b.datedExtraAttributesList,
       areDatedExtraAttributesEqual,
     ) &&
-    (aTracks && bTracks)
+    ((aTracks && bTracks)
       ? arraysEqual(
         Array.from(aTracks),
         Array.from(bTracks),
         (a, b) => a === b,
-      ) : true
+      ) : true)
   );
 };
 
