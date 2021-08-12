@@ -3892,8 +3892,8 @@ msgid "discography pages"
 msgstr "σελίδες δισκογραφίας"
 
 #: DB:link_type/name:180 DB:link_type/name:76 DB:link_type/name:217
-#: DB:link_type/name:971 DB:link_type/name:90 DB:link_type/name:747
-#: DB:link_type/name:705
+#: DB:link_type/name:90 DB:link_type/name:747 DB:link_type/name:705
+#: DB:link_type/name:971
 msgid "discogs"
 msgstr ""
 

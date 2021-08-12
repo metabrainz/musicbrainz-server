@@ -2,7 +2,7 @@
 # Translators:
 # nikki, 2014
 # nikki2 <email address hidden>, 2012
-# David Kellner <email address hidden>, 2019-2020
+# David Kellner <email address hidden>, 2019-2021
 # Eckhard Henkel <email address hidden>, 2018
 # Ettore Atalan <email address hidden>, 2014
 # Felix Gruber <email address hidden>, 2015
@@ -18,8 +18,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-06-18 02:28+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2021-08-04 20:49+0000\n"
+"Last-Translator: David Kellner <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3904,8 +3904,8 @@ msgid "discography pages"
 msgstr "Diskografieseiten"
 
 #: DB:link_type/name:180 DB:link_type/name:76 DB:link_type/name:217
-#: DB:link_type/name:971 DB:link_type/name:90 DB:link_type/name:747
-#: DB:link_type/name:705
+#: DB:link_type/name:90 DB:link_type/name:747 DB:link_type/name:705
+#: DB:link_type/name:971
 msgid "discogs"
 msgstr ""
 
@@ -5550,7 +5550,7 @@ msgstr "leitete {additional:zusätzlich} den Chor auf"
 
 #: DB:link_type/long_link_phrase:44 DB:link_type/long_link_phrase:148
 msgid "performed {additional} {guest} {solo} {instrument:%|instruments} on"
-msgstr "spielte {additional:zusätzlich} {guest:Gast-}{solo:Solo-}{instrument:%|instruments} auf"
+msgstr "spielte {additional:zusätzlich} {guest:Gast-}{solo:Solo-}{instrument:%|Instrumente} auf"
 
 #: DB:link_type/long_link_phrase:60 DB:link_type/long_link_phrase:149
 msgid "performed {additional} {guest} {solo} {vocal:%|vocals} on"
@@ -6690,7 +6690,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:693 DB:link_type/reverse_link_phrase:695
 msgid "{additional:additionally} recorded at"
-msgstr ""
+msgstr "{additional:zusätzlich} aufgenommen bei"
 
 #: DB:link_type/reverse_link_phrase:698 DB:link_type/reverse_link_phrase:699
 msgid "{additional:additionally} recorded in"
@@ -6937,7 +6937,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:56 DB:link_type/reverse_link_phrase:165
 msgid "{additional} lyricist"
-msgstr "{additional} Texter"
+msgstr "{additional:zusätzlicher} Texter"
 
 #: DB:link_type/link_phrase:56 DB:link_type/link_phrase:165
 msgid "{additional} lyrics"
@@ -7084,7 +7084,7 @@ msgstr "{additional:zusätzliche(r)} {guest:Gast-}{solo:Solo-}Interpret(in)"
 #: DB:link_type/link_phrase:44 DB:link_type/link_phrase:148
 #: DB:link_type/reverse_link_phrase:44 DB:link_type/reverse_link_phrase:148
 msgid "{additional} {guest} {solo} {instrument:%|instruments}"
-msgstr "{additional} {guest} {solo} {instrument:%|instruments}"
+msgstr "{additional} {guest:Gast-}{solo:Solo-}{instrument:%|Instrumente}"
 
 #: DB:link_type/link_phrase:60 DB:link_type/link_phrase:149
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149

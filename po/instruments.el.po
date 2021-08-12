@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-06-08 21:41+0000\n"
+"PO-Revision-Date: 2021-07-19 17:36+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -1162,6 +1162,7 @@ msgid "cuatro"
 msgstr ""
 
 #: DB:instrument/name:491
+msgctxt "Brazilian friction-drum"
 msgid "cuíca"
 msgstr ""
 

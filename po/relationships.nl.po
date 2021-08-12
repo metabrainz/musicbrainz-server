@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-06-23 08:22+0000\n"
+"PO-Revision-Date: 2021-08-04 20:49+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -3899,8 +3899,8 @@ msgid "discography pages"
 msgstr "discografie"
 
 #: DB:link_type/name:180 DB:link_type/name:76 DB:link_type/name:217
-#: DB:link_type/name:971 DB:link_type/name:90 DB:link_type/name:747
-#: DB:link_type/name:705
+#: DB:link_type/name:90 DB:link_type/name:747 DB:link_type/name:705
+#: DB:link_type/name:971
 msgid "discogs"
 msgstr "Discogs"
 
@@ -7079,7 +7079,7 @@ msgstr "{additional:aanvullende} {solo:solo} uitvoerend {guest:gast}artiest"
 #: DB:link_type/link_phrase:44 DB:link_type/link_phrase:148
 #: DB:link_type/reverse_link_phrase:44 DB:link_type/reverse_link_phrase:148
 msgid "{additional} {guest} {solo} {instrument:%|instruments}"
-msgstr "{additional:aanvullend} {solo:solo-}{instrument:%|instrumenten} {guest:(als gast)}"
+msgstr "{additional:aanvullend} {solo:solo-}{instrument:%|instrumenten}{guest: (als gast)}"
 
 #: DB:link_type/link_phrase:60 DB:link_type/link_phrase:149
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149

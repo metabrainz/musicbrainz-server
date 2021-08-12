@@ -1,11 +1,11 @@
 # 
 # Translators:
-# Adolfo Jayme Barrientos, 2014
+# Adolfo Jayme-Barrientos, 2014
 # Alexander Dupuy <email address hidden>, 2012
 # Antony Duran <email address hidden>, 2017
 # daniel plinplon <email address hidden>, 2015
 # Biel Perelló <email address hidden>, 2018
-# Adolfo Jayme Barrientos, 2019
+# Adolfo Jayme-Barrientos, 2019
 # 3b2b9b2970dff2223d07f096c7a072f3, 2011
 # Héctor Arroyo <email address hidden>, 2012
 # Kevin López Brante <email address hidden>, 2012
@@ -3905,8 +3905,8 @@ msgid "discography pages"
 msgstr "páginas de discografía"
 
 #: DB:link_type/name:180 DB:link_type/name:76 DB:link_type/name:217
-#: DB:link_type/name:971 DB:link_type/name:90 DB:link_type/name:747
-#: DB:link_type/name:705
+#: DB:link_type/name:90 DB:link_type/name:747 DB:link_type/name:705
+#: DB:link_type/name:971
 msgid "discogs"
 msgstr ""
 

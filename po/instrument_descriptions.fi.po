@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-06-08 21:41+0000\n"
+"PO-Revision-Date: 2021-07-19 17:36+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -2076,6 +2076,14 @@ msgid ""
 " strings, but is made of wood."
 msgstr ""
 
+#. name:cuíca
+#: DB:instrument/description:491
+msgid ""
+"Originating in Africa, it is used in carnivals and samba music. Consisting "
+"of a wooden or metal barrel, its single membrane has a tuning-stick "
+"attached."
+msgstr ""
+
 #. name:çevgen
 #: DB:instrument/description:740
 msgid ""
@@ -3050,11 +3058,6 @@ msgstr ""
 msgid ""
 "The cornamuse is a double reed instrument from the Renaissance, similar to "
 "the crumhorn but with a closed bell."
-msgstr ""
-
-#. name:cuíca
-#: DB:instrument/description:491
-msgid "The cuíca is a Brazilian friction drum often used in samba music."
 msgstr ""
 
 #. name:cò ke

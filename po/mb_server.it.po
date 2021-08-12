@@ -28,8 +28,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-11 02:49-0500\n"
-"PO-Revision-Date: 2021-07-12 00:11+0000\n"
+"POT-Creation-Date: 2021-07-19 20:27+0300\n"
+"PO-Revision-Date: 2021-07-24 16:11+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -810,15 +810,15 @@ msgstr "Sulla base delle informazioni che hai fornito, abbiamo trovato che la se
 
 #: ../root/release/edit_relationships.tt:30
 msgid "Batch-add a relationship to recordings"
-msgstr "Aggiungi un batch di relazioni alle registrazioni"
+msgstr "Aggiungi relazioni in blocco alle registrazioni"
 
 #: ../root/release/edit_relationships.tt:42
 msgid "Batch-add a relationship to works"
-msgstr "Aggiungi un batch di relazioni alle opere"
+msgstr "Aggiungi relazioni in blocco alle opere"
 
 #: ../root/release/edit_relationships.tt:36
 msgid "Batch-create new works"
-msgstr "Crea un batch di nuove opere"
+msgstr "Crea nuove opere in blocco"
 
 #: ../root/annotation/edit.tt:63
 msgid ""
@@ -4552,7 +4552,7 @@ msgstr "Per modificare i tipi, {edit_page|modifica il gruppo di pubblicazioni}."
 msgid ""
 "To use the batch tools, select some recordings or works using the "
 "checkboxes."
-msgstr "Per utilizzare gli strumenti per effettuare batch di modifiche, seleziona alcune registrazioni o opere utilizzando le caselle."
+msgstr "Per utilizzare gli strumenti per effettuare modifiche in blocco, seleziona alcune registrazioni o opere utilizzando le caselle."
 
 #: ../root/watch/list.tt:38
 msgid ""
@@ -14917,7 +14917,7 @@ msgid ""
 "{loaded_track_count} out of {total_track_count} total."
 msgstr "Questo supporto ha troppe tracce per caricarle tutte insieme; al momento sono visualizzate {loaded_track_count} tracce su {total_track_count} totali."
 
-#: ../root/static/scripts/release/components/MediumTable.js:306
+#: ../root/static/scripts/release/components/MediumTable.js:307
 msgid "Load all tracks..."
 msgstr "Carica tutte le tracce..."
 
