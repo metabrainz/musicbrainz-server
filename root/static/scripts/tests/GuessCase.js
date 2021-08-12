@@ -175,7 +175,7 @@ test('Recording', function (t) {
 });
 
 test('Work', function (t) {
-  t.plan(23);
+  t.plan(24);
 
   const tests = [
     {
@@ -344,6 +344,14 @@ test('Work', function (t) {
       roman: false,
       keepuppercase: false,
     },
+    {
+      input: 'hyphen-minus? hyphen‐maximus!',
+      expected: 'Hyphen-Minus? Hyphen‐Maximus!',
+      bug: 'MBS-11854',
+      mode: 'English',
+      roman: false,
+      keepuppercase: false,
+    },
   ];
 
   for (const test of tests) {
@@ -457,8 +465,8 @@ test('BugFixes', function (t) {
       mode: 'French',
     },
     {
-      input: 'We Love Techno (Re‐Mode)',
-      expected: 'We Love Techno (re‐mode)',
+      input: 'We Love Techno (Remode)',
+      expected: 'We Love Techno (remode)',
       bug: 'MBS-10156',
       mode: 'English',
     },
