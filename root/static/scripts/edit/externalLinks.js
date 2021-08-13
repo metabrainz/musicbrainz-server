@@ -202,10 +202,14 @@ export class ExternalLinksEditor
     if (url !== '' && !error) {
       link.submitted = true;
       this.setLinkState(index, link, () => {
-        // Redirect focus to the 'x' icon instead of the link
+        /*
+         * Redirect focus to the next item (either input or link)
+         * instead of staying on the current link.
+         */
         $(this.tableRef.current)
-          .find(`tr.external-link-item:eq(${urlIndex})`)
-          .find('button.remove-item')
+          .find(`tr.external-link-item:eq(${urlIndex + 1})`)
+          .find('a,input')
+          .eq(0)
           .focus();
       });
     } else {
@@ -771,7 +775,11 @@ type LinkProps = {
 
 export class ExternalLink extends React.Component<LinkProps> {
   handleKeyDown(event: SyntheticKeyboardEvent<HTMLInputElement>) {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && this.props.url) {
+      /*
+       * If there's a link, prevent default and submit it,
+       * otherwise allow submitting the form from empty field.
+       */
       event.preventDefault();
       this.props.handleLinkSubmit(event);
     }
