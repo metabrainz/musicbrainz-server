@@ -898,8 +898,11 @@ export class ExternalLink extends React.Component<LinkProps> {
               typeOptions={props.typeOptions}
             />
         ))}
-        {/* Hide the button when link type is auto-selected */}
-        {notEmpty && !firstLink.urlMatchesType &&
+        {/*
+          * Hide the button when link is not submitted
+          * or link type is auto-selected.
+          */}
+        {notEmpty && firstLink.submitted && !firstLink.urlMatchesType &&
         <tr className="add-relationship">
           <td />
           <td className="add-item" colSpan="4">
