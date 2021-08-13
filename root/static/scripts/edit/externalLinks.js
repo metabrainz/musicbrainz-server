@@ -202,15 +202,22 @@ export class ExternalLinksEditor
     if (url !== '' && !error) {
       link.submitted = true;
       this.setLinkState(index, link, () => {
-        /*
-         * Redirect focus to the next item (either input or link)
-         * instead of staying on the current link.
-         */
-        $(this.tableRef.current)
-          .find(`tr.external-link-item:eq(${urlIndex + 1})`)
-          .find('a,input')
-          .eq(0)
-          .focus();
+        // Redirect focus instead of staying on the current link
+        if (link.type) {
+          // If type is selected, jump to the next item(either input or link)
+          $(this.tableRef.current)
+            .find(`tr.external-link-item:eq(${urlIndex + 1})`)
+            .find('a,input')
+            .eq(0)
+            .focus();
+        } else {
+          // If type is not selected, jump to type selector
+          $(this.tableRef.current)
+            .find(`tr.external-link-item:eq(${urlIndex})
+                  + tr.relationship-item`)
+            .find('select.link-type')
+            .focus();
+        }
       });
     } else {
       this.setLinkState(index, link);
