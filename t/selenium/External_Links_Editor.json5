@@ -728,5 +728,94 @@
       target: "window.JSON.stringify(window.Array.from(window.document.querySelectorAll('#external-links-editor a[class=url]').values()).map(function (x) { return x.href }))",
       value: '["https://www.gnu.org/licenses/gpl-3.0.en.html"]',
     },
+    // Set begin date & end date
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://www.amazon.co.jp/gp/product/B017VORJK6${KEY_ENTER}',
+    },
+    // Open popover
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//button[contains(@class, 'edit-item')]",
+      value: '',
+    },
+    // begin date: ????-01-01
+    {
+      command: 'sendKeys',
+      target: "xpath=//div[@id='external-link-attribute-dialog']//input[@id='id-period.begin_date.month']",
+      value: '1',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=//div[@id='external-link-attribute-dialog']//input[@id='id-period.begin_date.day']",
+      value: '1',
+    },
+    // end date: 2021-01-01
+    {
+      command: 'sendKeys',
+      target: "xpath=//div[@id='external-link-attribute-dialog']//input[@id='id-period.end_date.year']",
+      value: '2021',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=//div[@id='external-link-attribute-dialog']//input[@id='id-period.end_date.month']",
+      value: '1',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=//div[@id='external-link-attribute-dialog']//input[@id='id-period.end_date.day']",
+      value: '1',
+    },
+    // Mark as ended
+    {
+      command: 'click',
+      target: "xpath=//div[@id='external-link-attribute-dialog']//input[@id='id-period.ended']",
+      value: '',
+    },
+    // Save
+    {
+      command: 'click',
+      target: "xpath=(//div[@id='external-link-attribute-dialog']//button[contains(@class, 'positive')])[1]",
+      value: '',
+    },
+    // Assert date period is correctly displayed
+    {
+      command: 'assertText',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//span[contains(@class, 'deleted')][1]",
+      value: ' (????-01-01 – 2021-01-01)',
+    },
+    // Check edit preview
+    {
+      command: 'click',
+      target: 'css=a[href="#edit-note"]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1500',
+      value: '',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=(//div[contains(@class, 'edit-list')]//h2)[1]",
+      value: 'Add relationship',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=(//div[contains(@class, 'edit-details')])[1]",
+      value: 'Relationship: ★ by David Bowie has Amazon ASIN https://www.amazon.co.jp/gp/product/B017VORJK6 [info] from ????-01-01 until 2021-01-01',
+    },
+    // Revert changes
+    {
+      command: 'click',
+      target: 'css=a[href="#information"]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//button[contains(@class, 'remove-item')]",
+      value: '',
+    },
   ],
 }

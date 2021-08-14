@@ -32,3 +32,34 @@ export default function copyFieldData<T>(
   targetField.value = sourceField.value;
   copyFieldErrors(sourceField, targetField);
 }
+
+
+export function copyPartialDateField(
+  sourceField: PartialDateFieldT,
+  targetField: WritablePartialDateFieldT,
+) {
+  const sourceSubfields = sourceField.field;
+  const targetSubfields = targetField.field;
+  copyFieldData(sourceSubfields.year, targetSubfields.year);
+  copyFieldData(sourceSubfields.month, targetSubfields.month);
+  copyFieldData(sourceSubfields.day, targetSubfields.day);
+  copyFieldErrors(sourceField, targetField);
+}
+
+export function copyDatePeriodField(
+  sourceField: DatePeriodFieldT,
+  targetField: WritableDatePeriodFieldT,
+) {
+  const sourceSubfields = sourceField.field;
+  const targetSubfields = targetField.field;
+  copyPartialDateField(
+    sourceSubfields.begin_date,
+    targetSubfields.begin_date,
+  );
+  copyPartialDateField(
+    sourceSubfields.end_date,
+    targetSubfields.end_date,
+  );
+  copyFieldData(sourceSubfields.ended, targetSubfields.ended);
+  copyFieldErrors(sourceField, targetField);
+}
