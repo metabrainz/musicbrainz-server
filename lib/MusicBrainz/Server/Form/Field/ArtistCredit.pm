@@ -73,7 +73,7 @@ around 'validate_field' => sub {
     # properly (i.e. environments where AC fields aren't generated).
     unless ($artists || $self->form->init_object)
     {
-        $self->add_error(l("Artist credit field is required"));
+        $self->add_error(l('Artist credit field is required'));
     }
 
     return !$self->has_errors;
