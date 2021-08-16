@@ -7,16 +7,18 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import url from 'url';
-
 export default function uriWith<T: {...}>(
   uriString: string,
   params: T,
 ): string {
-  const u = url.parse(uriString, true);
+  const urlObject = new URL(uriString);
+  const searchParams = new URLSearchParams(urlObject.search);
 
-  u.query = Object.assign(u.query, params);
-  u.search = null;
+  for (const key of Object.keys(params)) {
+    searchParams.set(key, params[key]);
+  }
 
-  return url.format(u);
+  urlObject.search = searchParams.toString();
+
+  return urlObject.href;
 }

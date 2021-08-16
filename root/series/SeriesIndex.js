@@ -153,7 +153,7 @@ const SeriesIndex = ({
       )}
 
       <Relationships source={series} />
-      {manifest.js('series/index.js', {async: 'async'})}
+      {manifest.js('series/index', {async: 'async'})}
     </SeriesLayout>
   );
 };

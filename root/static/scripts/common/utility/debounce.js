@@ -25,7 +25,10 @@ export function debounceComputed(value, delay) {
   if (!ko.isObservable(value)) {
     value = ko.computed(value);
   }
-  if (process.env.MUSICBRAINZ_RUNNING_TESTS) {
+  if (
+    typeof MUSICBRAINZ_RUNNING_TESTS !== 'undefined' &&
+    MUSICBRAINZ_RUNNING_TESTS
+  ) {
     return value;
   }
   return value.extend({

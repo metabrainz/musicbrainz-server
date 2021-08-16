@@ -34,7 +34,7 @@ const PlaceMap = ({
       DBDefs.MAPBOX_ACCESS_TOKEN ? (
         <>
           <div id="largemap" />
-          {manifest.js('place/map.js', {'data-args': mapDataArgs})}
+          {manifest.js('place/map', {'data-args': mapDataArgs})}
         </>
       ) : (
         <p>

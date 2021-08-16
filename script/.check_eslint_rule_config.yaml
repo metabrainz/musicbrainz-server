@@ -21,6 +21,7 @@ globals:
   __webpack_public_path__: writable
   __DEV__: readonly
   GLOBAL_JS_NAMESPACE: readonly
+  MUSICBRAINZ_RUNNING_TESTS: readonly
   addColon: readonly
   addColonText: readonly
   hasOwnProp: readonly

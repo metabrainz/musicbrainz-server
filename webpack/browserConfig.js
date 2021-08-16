@@ -12,10 +12,7 @@ const webpack = require('webpack');
 const definePluginConfig = require('./definePluginConfig');
 
 module.exports = {
-  node: {
-    fs: 'empty',
-    path: true,
-  },
+  node: false,
 
   plugins: [
     new webpack.DefinePlugin(definePluginConfig),
@@ -29,11 +26,6 @@ module.exports = {
     new webpack.IgnorePlugin({
       resourceRegExp: /\/DBDefs(?:-client-values)?$/,
     }),
-
-    new webpack.EnvironmentPlugin({
-      MUSICBRAINZ_RUNNING_TESTS: false,
-      NODE_ENV: process.env.NODE_ENV || 'development',
-    }),
   ],
 
   resolve: {
@@ -45,4 +37,6 @@ module.exports = {
       jquery$: path.resolve(__dirname, '../node_modules/jquery'),
     },
   },
+
+  target: ['web', 'es5'],
 };

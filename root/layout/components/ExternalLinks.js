@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import URL from 'url';
-
 import * as React from 'react';
 
 import EntityLink from '../../static/scripts/common/components/EntityLink';
@@ -20,7 +18,7 @@ import isDisabledLink from '../../utility/isDisabledLink';
 
 function faviconClass(urlEntity) {
   let matchingClass;
-  const urlObject = URL.parse(urlEntity.name, false, true);
+  const urlObject = new URL(urlEntity.name);
 
   for (const key in FAVICON_CLASSES) {
     if ((key.indexOf('/') >= 0 && urlEntity.name.indexOf(key) >= 0) ||
