@@ -67,9 +67,9 @@ sub link_type { shift->data->{link_type} }
 sub initialize
 {
     my ($self, %opts) = @_;
-    my $e0 = delete $opts{entity0} or die "No entity0";
-    my $e1 = delete $opts{entity1} or die "No entity1";
-    my $lt = delete $opts{link_type} or die "No link type";
+    my $e0 = delete $opts{entity0} or die 'No entity0';
+    my $e1 = delete $opts{entity1} or die 'No entity1';
+    my $lt = delete $opts{link_type} or die 'No link type';
 
     my $link_type_id = $lt->id;
     die "Link type $link_type_id is only used for grouping" unless $lt->description;
@@ -82,7 +82,7 @@ sub initialize
         }
     }
 
-    die "Entities in a relationship cannot be the same"
+    die 'Entities in a relationship cannot be the same'
         if $lt->entity0_type eq $lt->entity1_type && $e0->id == $e1->id;
 
     $opts{entity0} = {

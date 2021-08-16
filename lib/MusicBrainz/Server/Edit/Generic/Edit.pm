@@ -51,7 +51,7 @@ sub initialize {
     my ($self, %opts) = @_;
 
     my $entity = delete $opts{to_edit};
-    die "You must specify the object to edit" unless defined $entity;
+    die 'You must specify the object to edit' unless defined $entity;
 
     my $entity_properties = $ENTITIES{model_to_type($self->_edit_model)};
 

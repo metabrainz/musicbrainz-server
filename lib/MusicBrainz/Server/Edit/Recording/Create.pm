@@ -25,7 +25,7 @@ with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_type { $EDIT_RECORDING_CREATE }
 sub edit_name { N_l('Add standalone recording') }
-sub edit_template_react { "AddStandaloneRecording" }
+sub edit_template_react { 'AddStandaloneRecording' }
 sub _create_model { 'Recording' }
 sub recording_id { return shift->entity_id }
 

@@ -33,7 +33,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
-sub edit_name { N_l("Edit relationship") }
+sub edit_name { N_l('Edit relationship') }
 sub edit_kind { 'edit' }
 sub edit_template_react { 'EditRelationship' }
 

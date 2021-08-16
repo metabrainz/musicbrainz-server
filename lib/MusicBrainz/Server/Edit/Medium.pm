@@ -16,14 +16,14 @@ sub check_tracks_against_format {
     return unless any { $_->{is_data_track} } @tracklist;
 
     my $format = $self->c->model('MediumFormat')->get_by_id($format_id);
-    die "Format does not support pregap or data tracks" unless $format->has_discids;
+    die 'Format does not support pregap or data tracks' unless $format->has_discids;
 
     my $data_tracks_started;
     for (@tracklist) {
         if ($_->{is_data_track}) {
             $data_tracks_started = 1;
         } elsif ($data_tracks_started) {
-            die "All data tracks must be contiguous at the end of the medium";
+            die 'All data tracks must be contiguous at the end of the medium';
         }
     }
 }

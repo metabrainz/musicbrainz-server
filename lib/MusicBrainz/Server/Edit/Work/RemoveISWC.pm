@@ -76,7 +76,7 @@ sub build_display_data {
 sub initialize {
     my ($self, %opts) = @_;
 
-    my $iswc = $opts{iswc} or die "Required 'iswc' object missing";
+    my $iswc = $opts{iswc} or die q(Required 'iswc' object missing);
     $self->c->model('Work')->load($iswc) unless defined $iswc->work;
     $self->data({
         iswc => {

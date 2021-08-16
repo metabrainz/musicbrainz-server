@@ -22,7 +22,7 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
-no if $] >= 5.018, warnings => "experimental::smartmatch";
+no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Alias';
@@ -169,7 +169,7 @@ sub initialize
 {
     my ($self, %opts) = @_;
     my $alias = delete $opts{alias};
-    die "You must specify the alias object to edit" unless defined $alias;
+    die 'You must specify the alias object to edit' unless defined $alias;
     my $entity = delete $opts{entity} or die 'Missing "entity" argument';
 
     $self->enforce_dependencies(\%opts);
@@ -189,7 +189,7 @@ sub current_instance {
     $self->_load_alias;
 }
 
-sub edit_template_react { "EditAlias" };
+sub edit_template_react { 'EditAlias' };
 
 around TO_JSON => sub {
     my ($orig, $self) = @_;

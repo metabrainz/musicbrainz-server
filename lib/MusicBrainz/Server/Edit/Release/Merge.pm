@@ -188,7 +188,7 @@ sub alter_edit_pending
     my @recording_ids = map { $_->{id} } map { $_->{destination}, @{ $_->{sources} } } @{ $self->recording_merges // [] };
     return {
         Release => [ $self->release_ids ],
-        @recording_ids ? (Recording => [ @recording_ids ]) : (),    
+        @recording_ids ? (Recording => [ @recording_ids ]) : (),
     }
 }
 

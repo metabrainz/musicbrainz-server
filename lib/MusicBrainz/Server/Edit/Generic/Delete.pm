@@ -81,7 +81,7 @@ sub build_display_data
 sub initialize
 {
     my ($self, %args) = @_;
-    my $entity = delete $args{to_delete} or die "Required 'to_delete' object";
+    my $entity = delete $args{to_delete} or die q(Required 'to_delete' object);
 
     $self->data({
         name      => $entity->name,

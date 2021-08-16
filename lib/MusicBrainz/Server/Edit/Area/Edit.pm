@@ -22,7 +22,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 use aliased 'MusicBrainz::Server::Entity::Area';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
-no if $] >= 5.018, warnings => "experimental::smartmatch";
+no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
@@ -132,13 +132,13 @@ sub _mapping
         begin_date => date_closure('begin_date'),
         end_date => date_closure('end_date'),
         iso_3166_1 => sub {
-            return $self->c->sql->select_single_column_array("SELECT code FROM iso_3166_1 WHERE area = ?", shift->id);
+            return $self->c->sql->select_single_column_array('SELECT code FROM iso_3166_1 WHERE area = ?', shift->id);
         },
         iso_3166_2 => sub {
-            return $self->c->sql->select_single_column_array("SELECT code FROM iso_3166_2 WHERE area = ?", shift->id);
+            return $self->c->sql->select_single_column_array('SELECT code FROM iso_3166_2 WHERE area = ?', shift->id);
         },
         iso_3166_3 => sub {
-            return $self->c->sql->select_single_column_array("SELECT code FROM iso_3166_3 WHERE area = ?", shift->id);
+            return $self->c->sql->select_single_column_array('SELECT code FROM iso_3166_3 WHERE area = ?', shift->id);
         },
     );
 }

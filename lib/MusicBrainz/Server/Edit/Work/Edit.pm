@@ -180,8 +180,8 @@ sub build_display_data
             $display->{languages}{$side} = [
                 map {
                     my $language = $loaded->{Language}{$_};
-                    if ($language && $language->iso_code_3 eq "zxx") {
-                        $language->name(l("[No lyrics]"));
+                    if ($language && $language->iso_code_3 eq 'zxx') {
+                        $language->name(l('[No lyrics]'));
                     }
                     $language ? $language->name : l('[removed]');
                 } @{ $data->{$side}{languages} // [] }

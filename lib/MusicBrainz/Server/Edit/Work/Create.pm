@@ -71,8 +71,8 @@ sub build_display_data
 
     if (defined $data->{language_id}) {
         my $language = $loaded->{Language}{$data->{language_id}};
-        if ($language->iso_code_3 eq "zxx") {
-            $language->name(l("[No lyrics]"));
+        if ($language->iso_code_3 eq 'zxx') {
+            $language->name(l('[No lyrics]'));
         }
         $display->{language} = to_json_object($language);
     }
@@ -81,8 +81,8 @@ sub build_display_data
         $display->{languages} = [
             map {
                 my $language = $loaded->{Language}{$_};
-                if ($language && $language->iso_code_3 eq "zxx") {
-                    $language->name(l("[No lyrics]"));
+                if ($language && $language->iso_code_3 eq 'zxx') {
+                    $language->name(l('[No lyrics]'));
                 }
                 $language ? $language->name : l('[removed]')
             } @{ $data->{languages} }

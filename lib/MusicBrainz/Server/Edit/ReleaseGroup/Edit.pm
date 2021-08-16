@@ -30,7 +30,7 @@ use Scalar::Util qw( looks_like_number );
 
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
-no if $] >= 5.018, warnings => "experimental::smartmatch";
+no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
@@ -44,7 +44,7 @@ with 'MusicBrainz::Server::Edit::Role::EditArtistCredit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_type { $EDIT_RELEASEGROUP_EDIT }
-sub edit_name { N_l("Edit release group") }
+sub edit_name { N_l('Edit release group') }
 sub _edit_model { 'ReleaseGroup' }
 sub release_group_id { shift->data->{entity}{id} }
 
@@ -230,7 +230,7 @@ sub _edit_hash
     return $data;
 }
 
-sub edit_template_react { "EditReleaseGroup" }
+sub edit_template_react { 'EditReleaseGroup' }
 
 before accept => sub {
     my ($self) = @_;
@@ -240,7 +240,7 @@ before accept => sub {
     if (my $type_id = $self->data->{new}{type_id}) {
         if (!$self->c->model('ReleaseGroupType')->get_by_id($type_id)) {
             MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-                "This edit changes the release group's primary type to a type that no longer exists."
+                q(This edit changes the release group's primary type to a type that no longer exists.)
             );
         }
     }

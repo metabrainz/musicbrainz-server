@@ -60,7 +60,7 @@ sub upgrade_release_status
 
     # Status' have their own table, so they don't have the 100 offset as before.
     # They are also indexed from 1, not 0
-    return unless defined $status_id && $status_id ne "";
+    return unless defined $status_id && $status_id ne '';
     return $status_id - 99;
 }
 
@@ -86,7 +86,7 @@ sub get_historic_type {
     if (!$type_id) {
         return undef;
     }
-    
+
     my $loaded_type = to_json_object($loaded->{ReleaseGroupType}{ $type_id });
 
     if ($loaded_type) {

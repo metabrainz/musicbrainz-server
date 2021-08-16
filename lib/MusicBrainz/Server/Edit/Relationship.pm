@@ -13,7 +13,7 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Translation 'l';
 
-no if $] >= 5.018, warnings => "experimental::smartmatch";
+no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 sub edit_category { l('Relationship') }
 
@@ -100,7 +100,7 @@ sub serialize_link_attributes {
 sub editor_may_edit_types {
     my ($self, $type0, $type1) = @_;
 
-    my $types = join "_", sort($type0, $type1);
+    my $types = join '_', sort($type0, $type1);
     if ($types ~~ [qw(area_area area_url)]) {
         return $self->editor->is_location_editor;
     } elsif ($types ~~ [qw(area_instrument instrument_instrument instrument_url)]) {

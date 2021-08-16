@@ -90,10 +90,10 @@ sub build_display_data {
         map {
             my $entity = $loaded->{Medium}{ $_->{medium_id} };
             {
-                old => $_->{old} ? $_->{old} : "new",
+                old => $_->{old} ? $_->{old} : 'new',
                 # For some reason older edits have old as int but new as string
                 new => $_->{new} + 0,
-                title => $entity ? $entity->name : ""
+                title => $entity ? $entity->name : ''
             }
         }
         sort { $a->{new} <=> $b->{new} }
