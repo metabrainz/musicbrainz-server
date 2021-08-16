@@ -94,7 +94,7 @@ sub submit_edits {
         } elsif ($action eq 'edit') {
             $rel->{edit_type} = $EDIT_RELATIONSHIP_EDIT;
         } else {
-            detach_with_error($c, "Missing field: action");
+            detach_with_error($c, 'Missing field: action');
         }
     }
 

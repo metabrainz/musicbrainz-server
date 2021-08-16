@@ -217,7 +217,7 @@ sub list : Path('/instruments') Args(0) {
 
     my $entities = {};
     for my $i (@sorted) {
-        my $type = $i->type_id || "unknown";
+        my $type = $i->type_id || 'unknown';
         push @{ $entities->{$type} }, $i->TO_JSON;
     }
 

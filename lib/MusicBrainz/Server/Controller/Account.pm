@@ -605,7 +605,7 @@ sub register : Path('/register') ForbiddenOnSlaves RequireSSL DenyWhenReadonly S
         }
     }
 
-    my $captcha_html = "";
+    my $captcha_html = '';
     $captcha_html = $captcha->get_html_v2(DBDefs->RECAPTCHA_PUBLIC_KEY)
         if $use_captcha;
 
@@ -660,7 +660,7 @@ sub _send_confirmation_email
                 email             => $email,
                 ip                => $c->req->address,
                 editor            => $editor
-            );            
+            );
         } else {
             $c->model('Email')->send_email_verification(
                 email             => $email,
@@ -703,7 +703,7 @@ sub donation : Local RequireAuth HiddenOnSlaves
         current_view => 'Node',
         component_path => 'account/Donation',
         component_props => {
-            days => sprintf("%.0f", $result->{days}),
+            days => sprintf('%.0f', $result->{days}),
             nag => boolean_to_json($nag),
         }
     );

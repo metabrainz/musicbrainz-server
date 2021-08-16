@@ -67,7 +67,7 @@ sub type_specific : Chained('/') PathPart('relationships') CaptureArgs(1) {
     if (!exists $allowed{$types}) {
         $c->stash(
             message  => l(
-                "'{types}' is not a valid pair of types for relationships.",
+                q('{types}' is not a valid pair of types for relationships.),
                 { types => $types }
             )
         );

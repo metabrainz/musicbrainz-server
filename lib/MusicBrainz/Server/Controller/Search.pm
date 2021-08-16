@@ -11,7 +11,7 @@ use MusicBrainz::Server::Form::Search::Search;
 use Scalar::Util qw( looks_like_number );
 use feature 'switch';
 
-no if $] >= 5.018, warnings => "experimental::smartmatch";
+no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 sub search : Path('')
 {

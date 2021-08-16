@@ -150,7 +150,7 @@ Shows performances linked to a place.
 
 =cut
 
-sub performances : Chained('load') { 
+sub performances : Chained('load') {
     my ($self, $c) = @_;
 
     my $stash = $c->stash;

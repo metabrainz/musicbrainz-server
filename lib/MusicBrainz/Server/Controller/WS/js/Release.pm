@@ -12,12 +12,12 @@ with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion::PrimaryAlia
 };
 
 my $ws_defs = Data::OptList::mkopt([
-    "release" => {
+    'release' => {
         method   => 'GET',
         required => [ qw(q) ],
         optional => [ qw(direct limit page timestamp) ]
     },
-    "release" => {
+    'release' => {
         method => 'GET',
         inc => [ qw(recordings rels) ]
     },
@@ -57,7 +57,7 @@ sub release : Chained('root') PathPart('release') Args(1)
     my ($self, $c, $gid) = @_;
 
     if (!is_guid($gid)) {
-        $c->stash->{error} = "Invalid mbid.";
+        $c->stash->{error} = 'Invalid mbid.';
         $c->detach('bad_req');
     }
 

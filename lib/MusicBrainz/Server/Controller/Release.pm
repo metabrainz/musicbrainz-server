@@ -306,7 +306,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
     my $id = $c->model('CoverArtArchive')->fresh_id;
     $c->stash({
         id => $id,
-        index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/",
+        index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . '/release/' . $entity->gid . '/',
         images => \@artwork,
         mime_types => \@mime_types,
         access_key => DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY // '',
@@ -336,9 +336,9 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
                 release => $entity,
                 cover_art_types => [
                     grep { defined $_ && looks_like_number($_) }
-                        @{ $form->field("type_id")->value }
+                        @{ $form->field('type_id')->value }
                     ],
-                cover_art_position => $form->field("position")->value,
+                cover_art_position => $form->field('position')->value,
                 cover_art_id => $form->field('id')->value,
                 cover_art_comment => $form->field('comment')->value || '',
                 cover_art_mime_type => $form->field('mime_type')->value,
@@ -397,7 +397,7 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') Edit {
                 edit_type => $EDIT_RELEASE_REORDER_COVER_ART,
                 release => $entity,
                 old => \@positions,
-                new => $form->field("artwork")->value
+                new => $form->field('artwork')->value
             );
         });
 
@@ -613,7 +613,7 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit {
     $c->stash({
         artwork => $artwork,
         images => \@artwork,
-        index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/"
+        index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . '/release/' . $entity->gid . '/'
     });
 
     my @type_ids = map { $_->id } $c->model('CoverArtType')->get_by_name(@{ $artwork->types });
@@ -635,7 +635,7 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit {
                 artwork_id => $artwork->id,
                 old_types => [ grep { defined $_ && looks_like_number($_) } @type_ids ],
                 old_comment => $artwork->comment,
-                new_types => [ grep { defined $_ && looks_like_number($_) } @{ $form->field("type_id")->value } ],
+                new_types => [ grep { defined $_ && looks_like_number($_) } @{ $form->field('type_id')->value } ],
                 new_comment => $form->field('comment')->value || '',
             );
         });

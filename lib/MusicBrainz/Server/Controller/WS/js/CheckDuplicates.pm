@@ -8,7 +8,7 @@ use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 BEGIN {extends 'MusicBrainz::Server::ControllerBase::WS::js'}
 
 my $ws_defs = Data::OptList::mkopt([
-    "check_duplicates" => {
+    'check_duplicates' => {
         method => 'GET',
         required => [qw(type name)],
         optional => [qw(mbid)]

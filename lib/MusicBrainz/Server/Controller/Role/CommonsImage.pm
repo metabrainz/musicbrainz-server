@@ -8,9 +8,9 @@ use Readonly;
 
 requires 'load';
 
-Readonly my $WIKIDATA_PROP_IMAGE => "P18";
-Readonly my $WIKIDATA_PROP_LOGO_IMAGE => "P154";
-Readonly my $WIKIDATA_PROP_LOCATOR_MAP_IMAGE => "P242";
+Readonly my $WIKIDATA_PROP_IMAGE => 'P18';
+Readonly my $WIKIDATA_PROP_LOGO_IMAGE => 'P154';
+Readonly my $WIKIDATA_PROP_LOCATOR_MAP_IMAGE => 'P242';
 
 after load => sub {
     my ($self, $c) = @_;

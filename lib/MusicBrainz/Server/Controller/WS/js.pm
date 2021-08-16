@@ -37,30 +37,30 @@ use XML::XPath;
 
 # This defines what options are acceptable for WS calls
 my $ws_defs = Data::OptList::mkopt([
-    "medium" => {
+    'medium' => {
         method => 'GET',
         inc => [ qw(recordings rels) ],
         optional => [ qw(q artist tracks limit page timestamp) ]
     },
-    "tracks" => {
+    'tracks' => {
         method => 'GET',
         optional => [ qw(q page ) ]
     },
-    "cdstub" => {
+    'cdstub' => {
         method => 'GET',
         optional => [ qw(q artist tracks limit page timestamp) ]
     },
-    "cover-art-upload" => {
+    'cover-art-upload' => {
         method => 'GET',
     },
-    "entity" => {
+    'entity' => {
         method => 'GET',
         inc => [ qw(rels) ]
     },
-    "entities" => {
+    'entities' => {
         method => 'GET',
     },
-    "events" => {
+    'events' => {
         method => 'GET'
     },
 ]);
@@ -134,7 +134,7 @@ sub cdstub : Chained('root') PathPart Args(1) {
 
     my $cdstub = $c->model('CDStub')->get_by_discid($id);
     my $ret = {
-        toc => "",
+        toc => '',
         tracks => []
     };
 
@@ -230,7 +230,7 @@ sub disc_search {
     push @query, "artist:($artist)" if $artist;
     push @query, ($type eq 'release' ? "tracksmedium:($tracks)" : "tracks:($tracks)") if $tracks;
 
-    $query = join(" AND ", @query);
+    $query = join(' AND ', @query);
 
     my $no_redirect = 1;
     my $response = $c->model('Search')->external_search($type, $query, $limit, $page, 1);
@@ -519,7 +519,7 @@ sub entity : Chained('root') PathPart('entity') Args(1)
     }
 
     unless (defined $entity) {
-        $c->stash->{error} = "The requested entity was not found.";
+        $c->stash->{error} = 'The requested entity was not found.';
         $c->detach('not_found');
         return;
     }

@@ -43,7 +43,7 @@ sub rating_submit : Private
     {
         my $type = $node->getLocalName;
         $self->_error($c, "Entity type '$type' cannot have ratings. " .
-                           "Supported types are: " . join(', ', keys %ratable))
+                           'Supported types are: ' . join(', ', keys %ratable))
             unless $ratable{$type};
 
         my $gid = $xp->find('@mb:id', $node)->string_value;
@@ -55,7 +55,7 @@ sub rating_submit : Private
         $self->_error($c, "Cannot find $type entity $gid.") unless $entity;
 
         my $rating = $xp->find('mb:user-rating', $node)->string_value;
-        $self->_error($c, "Rating should be an integer between 0 and 100")
+        $self->_error($c, 'Rating should be an integer between 0 and 100')
             unless is_integer($rating) && $rating >= 0 && $rating <= 100;
 
         # postpone any updates until we've made some effort to parse the whole

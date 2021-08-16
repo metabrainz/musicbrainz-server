@@ -377,7 +377,7 @@ sub begin : Private
         $c->stash->{current_action_requires_auth} = 1;
         $c->forward('/user/do_login');
         my $privs = $attributes->{RequireAuth};
-        if ($privs && ref($privs) eq "ARRAY") {
+        if ($privs && ref($privs) eq 'ARRAY') {
             foreach my $priv (@$privs) {
                 last unless $priv;
                 my $accessor = "is_$priv";

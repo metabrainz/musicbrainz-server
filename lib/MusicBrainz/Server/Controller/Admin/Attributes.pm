@@ -4,7 +4,7 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 use MusicBrainz::Server::Translation qw( l ln );
 
-no if $] >= 5.018, warnings => "experimental::smartmatch";
+no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
@@ -55,10 +55,10 @@ sub attribute_index : Chained('attribute_base') PathPart('') RequireAuth(account
     my @attr = $c->model($model)->get_all();
 
     my %component_paths = (
-        Language => "admin/attributes/Language.js",
-        Script => "admin/attributes/Script.js"
+        Language => 'admin/attributes/Language.js',
+        Script => 'admin/attributes/Script.js'
     );
-    my $component_path = $component_paths{$model} // "admin/attributes/Attribute.js";
+    my $component_path = $component_paths{$model} // 'admin/attributes/Attribute.js';
 
     $c->stash(
         current_view => 'Node',
@@ -75,10 +75,10 @@ sub create : Chained('attribute_base') RequireAuth(account_admin) SecureForm {
     my $model = $c->stash->{model};
 
     my %forms = (
-        Language => "Admin::Attributes::Language",
-        Script => "Admin::Attributes::Script"
+        Language => 'Admin::Attributes::Language',
+        Script => 'Admin::Attributes::Script'
     );
-    my $form_name = $forms{$model} // "Admin::Attributes";
+    my $form_name = $forms{$model} // 'Admin::Attributes';
     my $form = $c->form( form => $form_name );
 
     if ($c->form_posted_and_valid($form)) {
@@ -97,10 +97,10 @@ sub edit : Chained('attribute_base') Args(1) RequireAuth(account_admin) SecureFo
     my $attr = $c->model($model)->get_by_id($id);
 
     my %forms = (
-        Language => "Admin::Attributes::Language",
-        Script => "Admin::Attributes::Script"
+        Language => 'Admin::Attributes::Language',
+        Script => 'Admin::Attributes::Script'
     );
-    my $form_name = $forms{$model} // "Admin::Attributes";
+    my $form_name = $forms{$model} // 'Admin::Attributes';
     my $form = $c->form( form => $form_name, init_object => $attr );
 
     if ($c->form_posted_and_valid($form)) {
@@ -128,7 +128,7 @@ sub delete : Chained('attribute_base') Args(1) RequireAuth(account_admin) Secure
             component_path => 'admin/attributes/CannotRemoveAttribute',
             component_props => {message => $error_message}
         );
-        
+
         $c->detach;
     }
 
@@ -140,7 +140,7 @@ sub delete : Chained('attribute_base') Args(1) RequireAuth(account_admin) Secure
             component_path => 'admin/attributes/CannotRemoveAttribute',
             component_props => {message => $error_message}
         );
-        
+
         $c->detach;
     }
     if ($c->form_posted_and_valid($form)) {

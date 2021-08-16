@@ -148,7 +148,7 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
 sub forward_merge : Chained('/') PathPart('release-group/merge') {
     # Since Role::Merge is generic it uses release_group rather than release-group
     # like elsewhere. We should make sure nothing breaks if we expect release-group somewhere
-    my ($self, $c) = @_;    
+    my ($self, $c) = @_;
     $c->forward('/release_group/merge');
 }
 

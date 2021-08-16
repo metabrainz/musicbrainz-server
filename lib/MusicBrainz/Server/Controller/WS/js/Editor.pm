@@ -5,7 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
 use Text::Trim 'trim';
 
 my $ws_defs = Data::OptList::mkopt([
-    "editor" => {
+    'editor' => {
         method   => 'GET',
         required => [ qw(q) ],
         optional => [ qw(direct limit page timestamp) ]

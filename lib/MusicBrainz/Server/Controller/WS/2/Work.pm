@@ -69,7 +69,7 @@ sub work_browse : Private
 
     if (!is_guid($id))
     {
-        $c->stash->{error} = "Invalid mbid.";
+        $c->stash->{error} = 'Invalid mbid.';
         $c->detach('bad_req');
     }
 

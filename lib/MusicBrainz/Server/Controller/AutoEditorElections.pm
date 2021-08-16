@@ -80,7 +80,7 @@ sub _load {
         return $election;
     }
     else {
-        $c->stash( message  => l("'{id}' is not a valid election ID", { id => $id }) );
+        $c->stash( message  => l(q('{id}' is not a valid election ID), { id => $id }) );
         $c->detach('/error_400');
     }
 }
