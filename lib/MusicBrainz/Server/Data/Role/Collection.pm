@@ -13,12 +13,12 @@ sub find_by_collection {
     my $table = $self->_table;
     my $type = $self->_type;
 
-    my $query = "
+    my $query = '
       SELECT *
       FROM (
-      SELECT DISTINCT ON (" . $self->_id_column . ")
-        " . $self->_columns .
-          ($also_select ? ", $also_select" : "") . "
+      SELECT DISTINCT ON (' . $self->_id_column . ')
+        ' . $self->_columns .
+          ($also_select ? ", $also_select" : '') . "
         FROM $table
         JOIN editor_collection_$type ec ON " . $self->_id_column . " = ec.$type
         $extra_join

@@ -12,7 +12,7 @@ parameter 'type' => (
 
 parameter 'table' => (
     isa => 'Str',
-    default => sub { shift->type . "_alias" },
+    default => sub { shift->type . '_alias' },
     lazy => 1
 );
 
@@ -60,15 +60,15 @@ role
 
         my $type = $params->type;
         my $query =
-            "WITH search (term) AS (".
-            "    VALUES " . join (",", ("(?)") x scalar @names) . "), " .
-            "    entity_matches (term, entity) AS (" .
+            'WITH search (term) AS ('.
+            '    VALUES ' . join (',', ('(?)') x scalar @names) . '), ' .
+            '    entity_matches (term, entity) AS (' .
             "        SELECT term, $type FROM ${type}_alias".
             "           JOIN search ON lower(musicbrainz_unaccent(${type}_alias.name)) = lower(musicbrainz_unaccent(term))" .
             "        UNION SELECT term, id FROM $type " .
             "           JOIN search ON lower(musicbrainz_unaccent(${type}.name)) = lower(musicbrainz_unaccent(term)))" .
-            "      SELECT term AS search_term, ".$self->_columns.
-            "      FROM ". $self->_table ." JOIN entity_matches ON entity_matches.entity = $type.id";
+            '      SELECT term AS search_term, '.$self->_columns.
+            '      FROM '. $self->_table ." JOIN entity_matches ON entity_matches.entity = $type.id";
 
         my %ret;
         for my $row (@{ $self->sql->select_list_of_hashes($query, @names) }) {
