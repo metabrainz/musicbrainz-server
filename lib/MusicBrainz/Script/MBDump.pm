@@ -95,7 +95,7 @@ sub begin_dump {
     my $schema_sequence = $replication_control->{current_schema_sequence};
     my $dbdefs_schema_sequence = DBDefs->DB_SCHEMA_SEQUENCE;
     $schema_sequence
-        or die "Don't know what schema sequence number we're using";
+        or die q(Don't know what schema sequence number we're using);
     $schema_sequence == $dbdefs_schema_sequence
         or die "Stored schema sequence ($schema_sequence) does not match " .
                "DBDefs->DB_SCHEMA_SEQUENCE ($dbdefs_schema_sequence)";

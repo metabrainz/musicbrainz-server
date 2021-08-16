@@ -149,10 +149,10 @@ sub run {
     if ($self->summary) {
         printf "%s : Found %d unused $entity%s.\n",
             scalar localtime,
-            $count, ($count==1 ? "" : "s");
+            $count, ($count==1 ? '' : 's');
         printf "%s : Successfully removed %d $entity%s\n",
             scalar localtime,
-            $removed, ($removed==1 ? "" : "s")
+            $removed, ($removed==1 ? '' : 's')
                 if !$self->dry_run;
     }
 }

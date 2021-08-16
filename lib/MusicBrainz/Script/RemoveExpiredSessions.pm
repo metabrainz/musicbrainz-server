@@ -53,7 +53,7 @@ sub run {
     my $now = time + 5; # five seconds grace period for server differences
 
     printf qq(Fetching entries from database; prefix used is "%s".\n), $store->_namespace if $self->verbose;
-    my @keys = $r->_connection->keys($store->_namespace . "expires:*");
+    my @keys = $r->_connection->keys($store->_namespace . 'expires:*');
         # KEYS is very heavy, but our current Redis doesn't have SCAN
     my $considered = scalar @keys;
     if ($considered == 0) {
