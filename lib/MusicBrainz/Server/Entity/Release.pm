@@ -169,19 +169,19 @@ sub combined_track_count
 {
     my ($self) = @_;
     my @mediums = @{$self->mediums};
-    return "" if !@mediums;
+    return '' if !@mediums;
     my @counts;
     foreach my $medium (@mediums) {
         push @counts, $medium->track_count;
     }
-    return join " + ", @counts;
+    return join ' + ', @counts;
 }
 
 sub combined_format_name
 {
     my ($self) = @_;
     my @mediums = @{$self->mediums};
-    return "" if !@mediums;
+    return '' if !@mediums;
     return combined_medium_format_name(map { $_->l_format_name() || lp('(unknown)', 'medium format') } @mediums );
 }
 

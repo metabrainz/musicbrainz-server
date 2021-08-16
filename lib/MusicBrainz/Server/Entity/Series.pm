@@ -3,7 +3,7 @@ package MusicBrainz::Server::Entity::Series;
 use Moose;
 use MusicBrainz::Server::Entity::Types;
 
-no if $] >= 5.018, warnings => "experimental::smartmatch";
+no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Taggable';

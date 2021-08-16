@@ -10,7 +10,7 @@ use Sub::Exporter -setup => { exports => [qw(
 sub combined_medium_format_name
 {
     my (@medium_format_names) = @_;
-    return "" if !@medium_format_names;
+    return '' if !@medium_format_names;
     my %formats_count;
     my @formats_order;
     foreach my $format_name (@medium_format_names) {
@@ -30,7 +30,7 @@ sub combined_medium_format_name
         }
         push @formats, $format;
     }
-    return join " + ", @formats;
+    return join ' + ', @formats;
 }
 
 1;
