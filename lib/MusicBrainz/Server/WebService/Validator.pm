@@ -29,13 +29,13 @@ parameter defs => (
 our (%types, %statuses);
 our %relation_types = (
     1 => {
-        "area-rels" => 1,
-        "artist-rels" => 1,
-        "release-rels" => 1,
-        "track-rels" => 1,
-        "label-rels" => 1,
-        "work-rels" => 1,
-        "url-rels" => 1,
+        'area-rels' => 1,
+        'artist-rels' => 1,
+        'release-rels' => 1,
+        'track-rels' => 1,
+        'label-rels' => 1,
+        'work-rels' => 1,
+        'url-rels' => 1,
     },
     2 => { entities_with(['mbid', 'relatable'],
         take => sub {
@@ -97,7 +97,7 @@ sub validate_type
     unless ($inc->releases || $inc->release_groups ||
             $resource eq 'release' || $resource eq 'release-group')
     {
-        $c->stash->{error} = "type is not a valid parameter unless releases or release-groups are requested.";
+        $c->stash->{error} = 'type is not a valid parameter unless releases or release-groups are requested.';
         $c->detach('bad_req');
     }
 
@@ -132,7 +132,7 @@ sub validate_status
 
     unless ($inc->releases || $resource eq 'release')
     {
-        $c->stash->{error} = "status is not a valid parameter unless releases are requested.";
+        $c->stash->{error} = 'status is not a valid parameter unless releases are requested.';
         $c->detach('bad_req');
     }
 
@@ -199,7 +199,7 @@ sub validate_inc
     my @inc = split(/[+ ]/, $inc || '');
     my %acc = map { $_ => 1 } @{ $def };
 
-    my $allow_relations = exists $acc{"_relations"};
+    my $allow_relations = exists $acc{'_relations'};
     my @relations_used;
     my @filtered;
 
@@ -230,7 +230,7 @@ sub validate_inc
             if (@possible) {
                 $c->stash->{error} =
                     "$i is not a valid option for the inc parameter for the $resource resource " .
-                    "unless you specify one of the following other inc parameters: " .
+                    'unless you specify one of the following other inc parameters: ' .
                         join(', ', @possible);
             }
             else {

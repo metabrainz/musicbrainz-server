@@ -57,7 +57,7 @@ sub serialize
 
     $body{asin} = $entity->amazon_asin if ($toplevel);
     $body{barcode} = $entity->barcode->code;
-    $body{disambiguation} = $entity->comment // "";
+    $body{disambiguation} = $entity->comment // '';
     $body{status} = $entity->status ? $entity->status_name : JSON::null;
     $body{'status-id'} = $entity->status ? $entity->status->gid : JSON::null;
     $body{quality} = _quality($entity->quality);
@@ -76,12 +76,12 @@ sub serialize
         };
     }
 
-    $body{"text-representation"} = {
+    $body{'text-representation'} = {
         script => $entity->script ? $entity->script->iso_code : JSON::null,
         language => $entity->language ? $entity->language->iso_code_3 : JSON::null
     };
 
-    $body{collections} = list_of($entity, $inc, $stash, "collections")
+    $body{collections} = list_of($entity, $inc, $stash, 'collections')
         if $inc && ($inc->collections || $inc->user_collections);
 
     if ($inc && $inc->release_groups)
@@ -95,25 +95,25 @@ sub serialize
         # release group artists which already appear in the release artist
         # credit.
         local $stash->{release_artist_credit} = $entity->artist_credit;
-        $body{"release-group"} = serialize_entity($entity->release_group, $inc, $stash);
+        $body{'release-group'} = serialize_entity($entity->release_group, $inc, $stash);
     }
 
     if ($toplevel)
     {
-        $body{"artist-credit"} = serialize_entity($entity->artist_credit, $inc, $stash, $inc->artists)
+        $body{'artist-credit'} = serialize_entity($entity->artist_credit, $inc, $stash, $inc->artists)
             if $inc->artist_credits || $inc->artists;
     }
     else
     {
-        $body{"artist-credit"} = serialize_entity($entity->artist_credit, $inc, $stash)
+        $body{'artist-credit'} = serialize_entity($entity->artist_credit, $inc, $stash)
             if $inc && $inc->artist_credits;
     }
 
-    $body{"label-info"} = [
+    $body{'label-info'} = [
         map {
             my $label = serialize_entity($_->label, $inc, $stash);
             {
-                "catalog-number" => $_->catalog_number,
+                'catalog-number' => $_->catalog_number,
                 label => $label ? $label : JSON::null,
             }
         } @{ $entity->labels } ] if $toplevel && $inc->labels;

@@ -9,8 +9,8 @@ sub serialize {
     my %body;
 
     $body{name} = $entity->name;
-    $body{disambiguation} = $entity->comment // "";
-    $body{description} = $entity->description // "";
+    $body{disambiguation} = $entity->comment // '';
+    $body{description} = $entity->description // '';
 
     return \%body;
 };

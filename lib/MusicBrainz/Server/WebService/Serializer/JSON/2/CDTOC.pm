@@ -10,7 +10,7 @@ sub serialize
     my %body;
 
     $body{id} = $entity->discid;
-    $body{"offset-count"} = number($entity->track_count);
+    $body{'offset-count'} = number($entity->track_count);
     $body{sectors} = number($entity->leadout_offset);
 
     my @list;
@@ -24,7 +24,7 @@ sub serialize
 
     if ($toplevel)
     {
-        $body{releases} = list_of($entity, $inc, $stash, "releases", $toplevel);
+        $body{releases} = list_of($entity, $inc, $stash, 'releases', $toplevel);
     }
 
     return \%body;
