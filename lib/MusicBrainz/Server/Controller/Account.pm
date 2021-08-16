@@ -726,7 +726,7 @@ sub applications : Path('/account/applications') RequireAuth RequireSSL
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'account/applications/Index.js',
+        component_path => 'account/applications/Index',
         component_props => {
             applications => to_json_array($applications),
             appsPager => serialize_pager($c->stash->{apps_pager}),

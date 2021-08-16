@@ -178,7 +178,7 @@ role {
                 toMerge => to_json_array(\@entities),
             );
             $c->stash(
-                component_path => $c->namespace . '/'. type_to_model($c->namespace) . 'Merge.js',
+                component_path => $c->namespace . '/'. type_to_model($c->namespace) . 'Merge',
                 component_props => \%props,
                 current_view => 'Node',
             );

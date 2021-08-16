@@ -57,7 +57,7 @@ sub index : Path Args(0)
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'main/index.js',
+        component_path => 'main/index',
         component_props => {
             blogEntries => $c->model('Blog')->get_latest_entries,
             newestReleases => to_json_array(\@newest_releases),

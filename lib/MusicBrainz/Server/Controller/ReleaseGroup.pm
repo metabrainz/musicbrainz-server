@@ -94,7 +94,7 @@ sub show : Chained('load') PathPart('') {
     );
 
     $c->stash(
-        component_path => 'release_group/ReleaseGroupIndex.js',
+        component_path => 'release_group/ReleaseGroupIndex',
         component_props => \%props,
         current_view => 'Node',
         releases_jsonld   => { items => $releases },

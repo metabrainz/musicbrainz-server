@@ -73,7 +73,7 @@ sub search : Path('')
             );
 
             $c->stash(
-                component_path => 'search/components/' . type_to_model($type) . 'Results.js',
+                component_path => 'search/components/' . type_to_model($type) . 'Results',
                 component_props => \%props,
                 current_view => 'Node',
             );
@@ -98,7 +98,7 @@ sub doc : Private
     my ($self, $c) = @_;
 
     $c->stash(
-        component_path => 'search/components/DocResults.js',
+        component_path => 'search/components/DocResults',
         current_view => 'Node',
     );
 }

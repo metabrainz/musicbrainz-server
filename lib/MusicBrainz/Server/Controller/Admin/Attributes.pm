@@ -36,7 +36,7 @@ sub index : Path('/admin/attributes') Args(0) RequireAuth(account_admin) {
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'admin/attributes/Index.js',
+        component_path => 'admin/attributes/Index',
         component_props => {models => \@models}
     );
 }
@@ -55,10 +55,10 @@ sub attribute_index : Chained('attribute_base') PathPart('') RequireAuth(account
     my @attr = $c->model($model)->get_all();
 
     my %component_paths = (
-        Language => 'admin/attributes/Language.js',
-        Script => 'admin/attributes/Script.js'
+        Language => 'admin/attributes/Language',
+        Script => 'admin/attributes/Script'
     );
-    my $component_path = $component_paths{$model} // 'admin/attributes/Attribute.js';
+    my $component_path = $component_paths{$model} // 'admin/attributes/Attribute';
 
     $c->stash(
         current_view => 'Node',
