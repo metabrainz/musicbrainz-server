@@ -257,7 +257,7 @@ sub build_one_sitemap {
                 $write_sitemap = 0;
 
                 if ($old_sitemap_modtimes{$remote_filename}) {
-                    print "using previous modtime, since file unchanged...";
+                    print 'using previous modtime, since file unchanged...';
                     $modtime = $old_sitemap_modtimes{$remote_filename};
                 }
             }

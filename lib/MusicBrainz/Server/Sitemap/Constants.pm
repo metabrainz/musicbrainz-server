@@ -45,78 +45,78 @@ our Readonly %SITEMAP_SUFFIX_INFO = map {
 
     if ($entity_type eq 'artist') {
         $suffix_info->{base}{extra_sql} = {
-            columns => "(SELECT count(rg) FROM tmp_sitemaps_artist_direct_rgs tsadr WHERE tsadr.artist = artist.id AND is_official) official_rg_count",
+            columns => '(SELECT count(rg) FROM tmp_sitemaps_artist_direct_rgs tsadr WHERE tsadr.artist = artist.id AND is_official) official_rg_count',
         };
-        $suffix_info->{base}{paginated} = "official_rg_count";
+        $suffix_info->{base}{paginated} = 'official_rg_count';
         $suffix_info->{all} = {
-            extra_sql => {columns => "(SELECT count(rg) FROM tmp_sitemaps_artist_direct_rgs tsadr WHERE tsadr.artist = artist.id) all_rg_count"},
-            paginated => "all_rg_count",
+            extra_sql => {columns => '(SELECT count(rg) FROM tmp_sitemaps_artist_direct_rgs tsadr WHERE tsadr.artist = artist.id) all_rg_count'},
+            paginated => 'all_rg_count',
             suffix => 'all=1',
             filename_suffix => 'all',
             suffix_delimiter => '?'
         };
         $suffix_info->{va} = {
-            extra_sql => {columns => "(SELECT count(rg) FROM tmp_sitemaps_artist_va_rgs tsavr WHERE tsavr.artist = artist.id AND is_official) official_va_rg_count"},
-            paginated => "official_va_rg_count",
+            extra_sql => {columns => '(SELECT count(rg) FROM tmp_sitemaps_artist_va_rgs tsavr WHERE tsavr.artist = artist.id AND is_official) official_va_rg_count'},
+            paginated => 'official_va_rg_count',
             suffix => 'va=1',
             filename_suffix => 'va',
             suffix_delimiter => '?',
             priority => priority_by_count('official_va_rg_count'),
         };
         $suffix_info->{all_va} = {
-            extra_sql => {columns => "(SELECT count(rg) FROM tmp_sitemaps_artist_va_rgs tsavr WHERE tsavr.artist = artist.id) all_va_rg_count"},
-            paginated => "all_va_rg_count",
+            extra_sql => {columns => '(SELECT count(rg) FROM tmp_sitemaps_artist_va_rgs tsavr WHERE tsavr.artist = artist.id) all_va_rg_count'},
+            paginated => 'all_va_rg_count',
             suffix => 'va=1&all=1',
             filename_suffix => 'va-all',
             suffix_delimiter => '?',
             priority => priority_by_count('all_va_rg_count'),
         };
         $suffix_info->{releases} = {
-            extra_sql => {columns => "(SELECT count(release) FROM tmp_sitemaps_artist_direct_releases tsadre WHERE tsadre.artist = artist.id) direct_release_count"},
-            paginated => "direct_release_count",
+            extra_sql => {columns => '(SELECT count(release) FROM tmp_sitemaps_artist_direct_releases tsadre WHERE tsadre.artist = artist.id) direct_release_count'},
+            paginated => 'direct_release_count',
             suffix => 'releases',
             priority => priority_by_count('direct_release_count'),
         };
         $suffix_info->{releases_va} = {
-            extra_sql => {columns => "(SELECT count(release) FROM tmp_sitemaps_artist_va_releases tsavre WHERE tsavre.artist = artist.id) va_release_count"},
-            paginated => "va_release_count",
+            extra_sql => {columns => '(SELECT count(release) FROM tmp_sitemaps_artist_va_releases tsavre WHERE tsavre.artist = artist.id) va_release_count'},
+            paginated => 'va_release_count',
             suffix => 'releases?va=1',
             filename_suffix => 'releases-va',
             priority => priority_by_count('va_release_count'),
         };
         $suffix_info->{recordings} = {
-            extra_sql => {columns => "(SELECT count(recording) FROM tmp_sitemaps_artist_recordings tsar WHERE tsar.artist = artist.id) recording_count"},
-            paginated => "recording_count",
+            extra_sql => {columns => '(SELECT count(recording) FROM tmp_sitemaps_artist_recordings tsar WHERE tsar.artist = artist.id) recording_count'},
+            paginated => 'recording_count',
             suffix => 'recordings',
             priority => priority_by_count('recording_count'),
             jsonld_markup => 1,
         };
         $suffix_info->{recordings_video} = {
-            extra_sql => {columns => "(SELECT count(recording) FROM tmp_sitemaps_artist_recordings tsar WHERE tsar.artist = artist.id AND is_video) video_count"},
-            paginated => "video_count",
+            extra_sql => {columns => '(SELECT count(recording) FROM tmp_sitemaps_artist_recordings tsar WHERE tsar.artist = artist.id AND is_video) video_count'},
+            paginated => 'video_count',
             suffix => 'recordings?video=1',
             filename_suffix => 'recordings-video',
             priority => priority_by_count('video_count'),
             jsonld_markup => 1,
         };
         $suffix_info->{recordings_standalone} = {
-            extra_sql => {columns => "(SELECT count(recording) FROM tmp_sitemaps_artist_recordings tsar WHERE tsar.artist = artist.id AND is_standalone) standalone_count"},
-            paginated => "standalone_count",
+            extra_sql => {columns => '(SELECT count(recording) FROM tmp_sitemaps_artist_recordings tsar WHERE tsar.artist = artist.id AND is_standalone) standalone_count'},
+            paginated => 'standalone_count',
             suffix => 'recordings?standalone=1',
             filename_suffix => 'recordings-standalone',
             priority => priority_by_count('standalone_count'),
             jsonld_markup => 1,
         };
         $suffix_info->{works} = {
-            extra_sql => {columns => "(SELECT count(work) FROM tmp_sitemaps_artist_works tsaw WHERE tsaw.artist = artist.id) work_count"},
-            paginated => "work_count",
+            extra_sql => {columns => '(SELECT count(work) FROM tmp_sitemaps_artist_works tsaw WHERE tsaw.artist = artist.id) work_count'},
+            paginated => 'work_count',
             suffix => 'works',
             priority => priority_by_count('work_count'),
         };
         $suffix_info->{events} = {
             # NOTE: no temporary table needed, since this can really probably just hit l_artist_event directly, no need to join or union. Can revisit if performance is an issue.
-            extra_sql => {columns => "(SELECT count(DISTINCT entity1) FROM l_artist_event WHERE entity0 = artist.id) event_count"},
-            paginated => "event_count",
+            extra_sql => {columns => '(SELECT count(DISTINCT entity1) FROM l_artist_event WHERE entity0 = artist.id) event_count'},
+            paginated => 'event_count',
             suffix => 'events',
             priority => priority_by_count('event_count'),
         };
@@ -124,14 +124,14 @@ our Readonly %SITEMAP_SUFFIX_INFO = map {
 
     if ($entity_type eq 'instrument') {
         $suffix_info->{recordings} = {
-            extra_sql => {columns => "(SELECT count(recording) FROM tmp_sitemaps_instrument_recordings tsir where tsir.instrument = instrument.id) recording_count"},
-            paginated => "recording_count",
+            extra_sql => {columns => '(SELECT count(recording) FROM tmp_sitemaps_instrument_recordings tsir where tsir.instrument = instrument.id) recording_count'},
+            paginated => 'recording_count',
             suffix => 'recordings',
             priority => priority_by_count('recording_count'),
         };
         $suffix_info->{releases} = {
-            extra_sql => {columns => "(SELECT count(release) FROM tmp_sitemaps_instrument_releases tsir where tsir.instrument = instrument.id) release_count"},
-            paginated => "release_count",
+            extra_sql => {columns => '(SELECT count(release) FROM tmp_sitemaps_instrument_releases tsir where tsir.instrument = instrument.id) release_count'},
+            paginated => 'release_count',
             suffix => 'releases',
             priority => priority_by_count('release_count'),
         };
@@ -139,16 +139,16 @@ our Readonly %SITEMAP_SUFFIX_INFO = map {
 
     if ($entity_type eq 'label') {
         $suffix_info->{base}{extra_sql} = {
-            columns => "(SELECT count(DISTINCT release) FROM release_label WHERE release_label.label = label.id) release_count"
+            columns => '(SELECT count(DISTINCT release) FROM release_label WHERE release_label.label = label.id) release_count'
         };
-        $suffix_info->{base}{paginated} = "release_count";
+        $suffix_info->{base}{paginated} = 'release_count';
     }
 
     if ($entity_type eq 'place') {
         $suffix_info->{events} = {
             # NOTE: no temporary table needed, since this can really probably just hit l_event_place directly, no need to join or union. Can revisit if performance is an issue.
-            extra_sql => {columns => "(SELECT count(DISTINCT entity0) FROM l_event_place WHERE entity1 = place.id) event_count"},
-            paginated => "event_count",
+            extra_sql => {columns => '(SELECT count(DISTINCT entity0) FROM l_event_place WHERE entity1 = place.id) event_count'},
+            paginated => 'event_count',
             suffix => 'events',
             priority => priority_by_count('event_count'),
         };
@@ -219,15 +219,15 @@ our Readonly %SITEMAP_SUFFIX_INFO = map {
 
     if ($entity_type eq 'release_group') {
         $suffix_info->{base}{extra_sql} = {
-            columns => "(SELECT count(DISTINCT release.id) FROM release WHERE release.release_group = release_group.id) release_count"
+            columns => '(SELECT count(DISTINCT release.id) FROM release WHERE release.release_group = release_group.id) release_count'
         };
-        $suffix_info->{base}{paginated} = "release_count";
+        $suffix_info->{base}{paginated} = 'release_count';
     }
 
     if ($entity_type eq 'work') {
         $suffix_info->{recordings} = {
-            extra_sql => {columns => "(SELECT recordings_count FROM tmp_sitemaps_work_recordings_count WHERE work = work.id) recordings_count"},
-            paginated => "recordings_count",
+            extra_sql => {columns => '(SELECT recordings_count FROM tmp_sitemaps_work_recordings_count WHERE work = work.id) recordings_count'},
+            paginated => 'recordings_count',
             suffix => 'direction=2&link_type_id=278',
             suffix_delimiter => '?',
             filename_suffix => 'recordings',

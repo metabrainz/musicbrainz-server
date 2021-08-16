@@ -283,7 +283,7 @@ sub run {
     );
 
     unless (-f $self->index_localname) {
-        log("ERROR: No sitemap index file was found");
+        log('ERROR: No sitemap index file was found');
         exit 1;
     }
 
