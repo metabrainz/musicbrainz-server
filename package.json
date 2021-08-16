@@ -31,7 +31,6 @@
     "cookie": "0.4.0",
     "core-js": "3.6.5",
     "detect-node": "2.0.3",
-    "file-loader": "6.2.0",
     "filesize": "2.0.4",
     "generic-diff": "1.0.1",
     "he": "1.1.1",

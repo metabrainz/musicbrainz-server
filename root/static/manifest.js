@@ -10,7 +10,7 @@
  * This module is used to look up assets in webpack's manifest, which maps
  * asset names to their public URLs (which include a hash in the filename
  * in production). This is really only useful for looking up JavaScript
- * bundles; for other types of assets, we use webpack's file-loader. This
+ * bundles; for other types of assets, we use webpack's asset modules. This
  * module shouldn't be used in any client scripts, as it makes no sense
  * there. The actual manifest file (./build/rev-manifest) doesn't exist
  * until after the client scripts are bundled.
