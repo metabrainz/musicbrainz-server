@@ -20,9 +20,9 @@ sub _entity_class
 sub get_latest_statistics {
 
     my $self = shift;
-    my $query = "SELECT " . $self->_columns . "
-                   FROM " . $self->_table . "
-                  WHERE date_collected = (SELECT MAX(date_collected) FROM ". $self->_table .")";
+    my $query = 'SELECT ' . $self->_columns . '
+                   FROM ' . $self->_table . '
+                  WHERE date_collected = (SELECT MAX(date_collected) FROM '. $self->_table .')';
 
     my @statistics = @{ $self->sql->select_list_of_hashes($query) }
         or return undef;
