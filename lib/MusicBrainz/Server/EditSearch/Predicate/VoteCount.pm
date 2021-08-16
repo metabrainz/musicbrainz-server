@@ -16,12 +16,12 @@ has vote => (
 sub combine_with_query {
     my ($self, $query) = @_;
 
-    my $sql = "COALESCE((
+    my $sql = 'COALESCE((
         SELECT SUM(CASE WHEN vote = ? THEN 1 ELSE 0 END)
         FROM vote
         WHERE superseded = FALSE AND edit = edit.id
         GROUP BY edit
-    ), 0)";
+    ), 0)';
 
     if ($self->operator eq 'BETWEEN') {
         $sql .= ' BETWEEN SYMMETRIC ? AND ?';

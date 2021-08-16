@@ -34,10 +34,10 @@ sub combine_with_query {
     return unless @flags;
 
     $query->add_where([
-        "EXISTS (SELECT 1 FROM editor WHERE id = edit.editor AND privs & (" . join(" | ", map { "?::integer" } @flags) . ") " .
+        'EXISTS (SELECT 1 FROM editor WHERE id = edit.editor AND privs & (' . join(' | ', map { '?::integer' } @flags) . ') ' .
              ($self->operator eq '='  ? '!=' :
              $self->operator eq '!=' ? '=' : die 'Shouldnt get here')
-         . " 0)",
+         . ' 0)',
         \@flags,
     ]);
 }
