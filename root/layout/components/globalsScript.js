@@ -24,15 +24,20 @@ import sanitizedContext from '../../utility/sanitizedContext';
  * "DBDefs"
  *   Configuration values used by client code.
  *
- *   In production, lib/DBDefs.pm is rendered by consul-template, and so may
- *   be updated if we change a DBDefs value in consul. In order for client
- *   scripts to pick up on these changes without having to recompile/bundle
- *   all of our JavaScript, we define the DBDefs configuration values in a
- *   <script> on the page external from any JS bundle.
+ *   For production, static resources are built into the Docker image.  These
+ *   images are built without access to any private DBDefs values, and are
+ *   publicly uploaded to Docker Hub; we don't copy in our private DBDefs.pm
+ *   files until after the containers are started.  dbdefs_to_js.pl is then
+ *   run to generate DBDefs-client-values.js.
  *
- *   (CLIENT_DBDEFS_CODE below is a const for the lifetime of the module;
+ *   In order for client scripts to pick up on these changes without having
+ *   to recompile/bundle all of our JavaScript, we define the DBDefs
+ *   configuration values in a <script> on the page external from any JS
+ *   bundle.
+ *
+ *   CLIENT_DBDEFS_CODE below is a const for the lifetime of the module;
  *   modules, including this one, are reloaded when root/server.js receives
- *   a SIGHUP from consul-template.)
+ *   a SIGHUP.
  *
  * "$c"
  *   A sanitized version of $c (Catalyst context) from the server, for React-

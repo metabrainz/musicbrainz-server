@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-exec run-consul-template -config /etc/consul-template-website.conf
+/usr/local/bin/dbdefs_to_js.sh
+
+exec /usr/local/bin/start_musicbrainz_server.sh
