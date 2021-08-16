@@ -40,8 +40,8 @@ sub prepare_insert
     %$valuepairs or die;
 
     my @k = sort keys %$valuepairs;
-    my $colnames = join ", ", map { qq["$_"] } @k;
-    my $params = join ", ", map { "?" } @k;
+    my $colnames = join ', ', map { qq["$_"] } @k;
+    my $params = join ', ', map { '?' } @k;
     my @args = @$valuepairs{@k};
 
     my $sql = qq[INSERT INTO $table ($colnames) VALUES ($params)];
@@ -55,7 +55,7 @@ sub prepare_update
     %$keypairs or die;
 
     my @k = sort keys %$valuepairs;
-    my $setclause = join ", ", map { qq["$_" = ?] } @k;
+    my $setclause = join ', ', map { qq["$_" = ?] } @k;
     my @setargs = @$valuepairs{@k};
 
     my ($whereclause, $whereargs) = make_where_clause($keypairs);
@@ -99,7 +99,7 @@ sub make_where_clause
         }
     }
 
-    my $clause = join " AND ", @conditions;
+    my $clause = join ' AND ', @conditions;
     return ($clause, \@args);
 }
 
@@ -123,22 +123,22 @@ sub unpack_data
         # Optionally, a quoted string
         if ($packed =~ s/\A'//)
         {
-                $v = "";
+                $v = '';
 
                 for (;;)
                 {
                         # \\ => \
-                        $v .= "\\", next if $packed =~ s/\A\\\\//;
+                        $v .= '\\', next if $packed =~ s/\A\\\\//;
 
                         # \' => '
                         # '' => '
-                        $v .= "'", next if $packed =~ s/\A[\\']'//;
+                        $v .= q('), next if $packed =~ s/\A[\\']'//;
 
                         # End of string
                         last if $packed =~ s/\A'//;
 
                         $packed ne ''
-                                or warn("Failed to parse: expected string data but found end of string"), return undef;
+                                or warn('Failed to parse: expected string data but found end of string'), return undef;
 
                         # any other char == itself
                         $v .= substr($packed, 0, 1, '');
@@ -154,7 +154,7 @@ sub unpack_data
     }
 
     if ($seqid == 111117378 || $seqid == 111117379 || $seqid == 111117380 || $seqid == 111404809) {
-        $answer{name} = substr($answer{name}, 0, 1000) . "...";
+        $answer{name} = substr($answer{name}, 0, 1000) . '...';
     }
 
     return \%answer;

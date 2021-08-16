@@ -43,7 +43,7 @@ sub _load {
     ($self->inflate_rows($rows, $c), $hits);
 }
 
-sub ordering { "row_number" }
+sub ordering { 'row_number' }
 
 sub inflate_rows {
     my ($self, $rows) = @_;

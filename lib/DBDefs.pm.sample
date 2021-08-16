@@ -39,7 +39,7 @@ use MusicBrainz::Server::DatabaseConnectionFactory;
 
 # The server root, i.e. the parent directory of admin, bin, lib, root, etc.
 # By default, this uses the path of lib/DBDefs/Default.pm, minus '/lib/DBDefs/Default.pm'
-# sub MB_SERVER_ROOT    { "/home/httpd/musicbrainz/musicbrainz-server" }
+# sub MB_SERVER_ROOT    { '/home/httpd/musicbrainz/musicbrainz-server' }
 # Where static files are located
 # sub STATIC_FILES_DIR { my $self= shift; $self->MB_SERVER_ROOT . '/root/static' }
 
@@ -51,19 +51,19 @@ use MusicBrainz::Server::DatabaseConnectionFactory;
 MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     # How to connect when we need read-write access to the database
     READWRITE => {
-        database    => "musicbrainz_db",
-        username    => "musicbrainz",
-        password        => "musicbrainz",
-#       host            => "",
-#       port            => "",
+        database    => 'musicbrainz_db',
+        username    => 'musicbrainz',
+        password        => 'musicbrainz',
+#       host            => '',
+#       port            => '',
     },
     # How to connect to a test database
     TEST => {
-        database    => "musicbrainz_test",
-        username    => "musicbrainz",
-        password        => "musicbrainz",
-#       host            => "",
-#       port            => "",
+        database    => 'musicbrainz_test',
+        username    => 'musicbrainz',
+        password        => 'musicbrainz',
+#       host            => '',
+#       port            => '',
     },
     # How to connect to a Selenium test database. This database is created
     # (and dropped) automatically by t/selenium.js, and uses the TEST
@@ -72,42 +72,42 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
         database    => 'musicbrainz_selenium',
         schema      => 'musicbrainz',
         username    => 'musicbrainz',
-#       host        => "",
-#       port        => "",
+#       host        => '',
+#       port        => '',
     },
     # How to connect for read-only access.  See "REPLICATION_TYPE" (below)
     READONLY => {
-        database    => "musicbrainz_db",
-        username    => "musicbrainz",
-        password        => "musicbrainz",
-#       host            => "",
-#       port            => "",
+        database    => 'musicbrainz_db',
+        username    => 'musicbrainz',
+        password        => 'musicbrainz',
+#       host            => '',
+#       port            => '',
     },
     # How to connect for administrative access
     SYSTEM    => {
-        database    => "template1",
-        username    => "postgres",
-#       password        => "",
-#       host            => "",
-#       port            => "",
+        database    => 'template1',
+        username    => 'postgres',
+#       password        => '',
+#       host            => '',
+#       port            => '',
     },
     # How to connect when running maintenance scripts located under admin/.
     # This defaults to READWRITE if left undefined, but should be configured if
     # READWRITE points to a connection pooler that doesn't support session-based features.
 #   MAINTENANCE    => {
-#       database    => "musicbrainz_db",
-#       username    => "musicbrainz",
-#       password        => "musicbrainz",
-#       host            => "",
-#       port            => "5432",
+#       database    => 'musicbrainz_db',
+#       username    => 'musicbrainz',
+#       password        => 'musicbrainz',
+#       host            => '',
+#       port            => '5432',
 #   },
     # How to connect when running development scripts that query the production database.
 #   PROD_STANDBY    => {
-#       database    => "musicbrainz_db",
-#       username    => "musicbrainz_ro",
-#       password        => "",
-#       host            => "",
-#       port            => "5432",
+#       database    => 'musicbrainz_db',
+#       username    => 'musicbrainz_ro',
+#       password        => '',
+#       host            => '',
+#       port            => '5432',
 #   },
 );
 
@@ -137,25 +137,25 @@ sub DB_SCHEMA_SEQUENCE { 26 }
 # the replication packets. Enter the access token below:
 # NOTE: DO NOT EXPOSE THIS ACCESS TOKEN PUBLICLY!
 #
-# sub REPLICATION_ACCESS_TOKEN { "" }
+# sub REPLICATION_ACCESS_TOKEN { '' }
 
 ################################################################################
 # GPG Signature
 ################################################################################
 
 # Location of the public key file
-# sub GPG_PUB_KEY { "" }
+# sub GPG_PUB_KEY { '' }
 
 # Define how validation deals with the missing signature file:
 #   FAIL    - validation fails if signature file is missing
 #   PASS    - validation passes if signature file is missing
-# sub GPG_MISSING_SIGNATURE_MODE { "PASS" }
+# sub GPG_MISSING_SIGNATURE_MODE { 'PASS' }
 
 # Key identifiers (compatible with --recipient in GPG) for
 # signatures and encryption of data dumps and packets. Should
 # only be required on the master server.
-# sub GPG_SIGN_KEY { "" }
-# sub GPG_ENCRYPT_KEY { "" }
+# sub GPG_SIGN_KEY { '' }
+# sub GPG_ENCRYPT_KEY { '' }
 
 ################################################################################
 # HTTP Server Names
@@ -166,11 +166,11 @@ sub DB_SCHEMA_SEQUENCE { 26 }
 # Additionally you should set the environment variable
 # MUSICBRAINZ_USE_PROXY=1 when using a reverse proxy to make the server
 # aware of it when generating things like the canonical url in catalyst.
-sub WEB_SERVER                { "www.musicbrainz.example.com" }
+sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 # Relevant only if SSL redirects are enabled
-# sub WEB_SERVER_SSL            { "localhost" }
-# sub SEARCH_SERVER             { "search.musicbrainz.org" }
-# sub SEARCH_ENGINE             { "SOLR" }
+# sub WEB_SERVER_SSL            { 'localhost' }
+# sub SEARCH_SERVER             { 'search.musicbrainz.org' }
+# sub SEARCH_ENGINE             { 'SOLR' }
 # Used, for example, to have emails sent from the beta server list the
 # main server
 # sub WEB_SERVER_USED_IN_EMAIL  { my $self = shift; $self->WEB_SERVER }
@@ -184,7 +184,7 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # Mail Settings
 ################################################################################
 
-# sub SMTP_SERVER { "localhost" }
+# sub SMTP_SERVER { 'localhost' }
 
 # This value should be set to some secret value for your server.  Any old
 # string of stuff should do; something suitably long and random, like for
@@ -192,7 +192,7 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # value (the empty string).  This is so an attacker can't just look in CVS and
 # see the default secret value, and then use it to attack your server.
 
-# sub SMTP_SECRET_CHECKSUM { "" }
+# sub SMTP_SECRET_CHECKSUM { '' }
 # sub EMAIL_VERIFICATION_TIMEOUT { 604800 } # one week
 
 ################################################################################
@@ -231,12 +231,12 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 ################################################################################
 # Documentation Server Settings
 ################################################################################
-# sub WIKITRANS_SERVER     { "wiki.musicbrainz.org" }
+# sub WIKITRANS_SERVER     { 'wiki.musicbrainz.org' }
 
 # The path to MediaWiki's api.php file. This is required to automatically
 # determine which documentation pages need to be updated in the
 # transclusion table.
-# sub WIKITRANS_SERVER_API { "wiki.musicbrainz.org/api.php" }
+# sub WIKITRANS_SERVER_API { 'wiki.musicbrainz.org/api.php' }
 
 # To enable documentation search on your server, create your own Google Custom
 # Search engine and enter its ID as the value of GOOGLE_CUSTOM_SEARCH.
@@ -307,7 +307,7 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # The session store holds user login sessions. Session::Store::MusicBrainz
 # uses DATASTORE_REDIS_ARGS to connect to and store sessions in Redis.
 
-# sub SESSION_STORE { "Session::Store::MusicBrainz" }
+# sub SESSION_STORE { 'Session::Store::MusicBrainz' }
 # sub SESSION_STORE_ARGS { return {} }
 # sub SESSION_EXPIRE { return 36000; } # 10 hours
 
@@ -337,7 +337,7 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }
 
 # The cookie name to use
-# sub SESSION_COOKIE { "AF_SID" }
+# sub SESSION_COOKIE { 'AF_SID' }
 # The domain into which the session cookie is written
 # sub SESSION_DOMAIN { undef }
 
@@ -391,8 +391,8 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # internet archive private/public keys (for coverartarchive.org).
 # sub COVER_ART_ARCHIVE_ACCESS_KEY { };
 # sub COVER_ART_ARCHIVE_SECRET_KEY { };
-# sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf("//%s.s3.us.archive.org/", shift) };
-# sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "//coverartarchive.org" };
+# sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf('//%s.s3.us.archive.org/', shift) };
+# sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { '//coverartarchive.org' };
 
 # Mapbox access token must be set to display area/place maps.
 # sub MAPBOX_MAP_ID { 'mapbox/streets-v11' }

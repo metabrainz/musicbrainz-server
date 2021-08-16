@@ -18,7 +18,7 @@ sub _init_from_object
 
    $node ||= $self;
    return unless $item;
-   warn "HFH: init_from_object ", $self->name, "\n" if $self->verbose;
+   warn 'HFH: init_from_object ', $self->name, "\n" if $self->verbose;
    my $my_value;
    for my $field ( $node->fields ) {
       next if $field->parent && $field->parent != $node;

@@ -22,9 +22,9 @@ sub is_xml_same {
     $tb->ok(@differences == 0, 'XML fragments are identical:');
     for my $difference (@differences) {
         $tb->diag($difference->{message});
-        $tb->diag("Old value: " . $difference->{old_value} )
+        $tb->diag('Old value: ' . $difference->{old_value} )
             if $difference->{old_value};
-        $tb->diag("New value: " . $difference->{new_value} )
+        $tb->diag('New value: ' . $difference->{new_value} )
             if $difference->{new_value};
     }
 }

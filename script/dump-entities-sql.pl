@@ -47,14 +47,14 @@ $MusicBrainz::Script::EntityDump::dump_tags = $tags;
 sub quote_column {
     my ($type, $data) = @_;
 
-    return "NULL" unless defined $data;
+    return 'NULL' unless defined $data;
 
-    croak "no type" unless defined $type;
+    croak 'no type' unless defined $type;
 
     my $ret;
 
     given ($type) {
-        when (/^integer\[\]/) { $ret = "'{" . join(",", @$data) . "}'"; }
+        when (/^integer\[\]/) { $ret = q('{) . join(',', @$data) . q(}'); }
         when (/^integer/) { $ret = $data; }
         when (/^smallint/) { $ret = $data; }
         default {

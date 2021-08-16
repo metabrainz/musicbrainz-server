@@ -10,16 +10,16 @@ my $timeout;
 
 use Getopt::Long;
 GetOptions(
-    "lockfile|f=s"              => \$lockfile,
-    "wait|w"                    => sub { $wait = 1 },
-    "nowait|no-wait|n"  => sub { $wait = 0 },
-    "timeout|t=i"               => \$timeout,
+    'lockfile|f=s'              => \$lockfile,
+    'wait|w'                    => sub { $wait = 1 },
+    'nowait|no-wait|n'  => sub { $wait = 0 },
+    'timeout|t=i'               => \$timeout,
 ) or exit 2;
 
 defined($lockfile) or die "No lockfile defined\n";
 
 use Fcntl qw( LOCK_EX LOCK_NB );
-open(my $fh, ">", $lockfile) or die $!;
+open(my $fh, '>', $lockfile) or die $!;
 
 $SIG{ALRM} = sub {};
 alarm($timeout) if $timeout;

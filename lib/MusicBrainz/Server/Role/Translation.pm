@@ -28,7 +28,7 @@ role {
     {
         my ($self, $msgid, $vars) = @_;
 
-        my %vars = %$vars if (ref $vars eq "HASH");
+        my %vars = %$vars if (ref $vars eq 'HASH');
 
         $self->_bind_domain($params->domain) unless $self->bound;
 
@@ -41,7 +41,7 @@ role {
     {
         my ($self, $msgid, $msgctxt, $vars) = @_;
 
-        my %vars = %$vars if (ref $vars eq "HASH");
+        my %vars = %$vars if (ref $vars eq 'HASH');
 
         $self->_bind_domain($params->domain) unless $self->bound;
 
@@ -54,7 +54,7 @@ role {
     {
         my ($self, $msgid, $msgid_plural, $n, $vars) = @_;
 
-        my %vars = %$vars if (ref $vars eq "HASH");
+        my %vars = %$vars if (ref $vars eq 'HASH');
 
         $self->_bind_domain($params->domain) unless $self->bound;
 

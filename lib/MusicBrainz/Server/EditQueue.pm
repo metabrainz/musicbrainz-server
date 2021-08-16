@@ -58,7 +58,7 @@ sub process_edits
 
     $self->log->debug("Selecting eligible edit IDs\n");
     my $interval = DateTime::Format::Pg->format_interval($MINIMUM_RESPONSE_PERIOD);
-    my $edit_ids = $sql->select_single_column_array("
+    my $edit_ids = $sql->select_single_column_array('
         SELECT id
           FROM edit
                LEFT JOIN (
@@ -74,7 +74,7 @@ sub process_edits
             AND (expire_time < now() OR
                  (vote_info.yes_votes >= ? AND vote_info.no_votes = 0) OR
                  (vote_info.no_votes >= ? AND vote_info.yes_votes = 0 AND vote_info.first_no_vote < NOW() - interval ?))
-          ORDER BY id",
+          ORDER BY id',
         $VOTE_NO, $VOTE_YES, $VOTE_NO,
         $STATUS_OPEN, $REQUIRED_VOTES, $REQUIRED_VOTES, $interval);
 
@@ -84,7 +84,7 @@ sub process_edits
         capture_exceptions(sub {
             my $action;
             Sql::run_in_transaction(sub {
-                $action = $self->_process_edit($edit_id) || "no change"
+                $action = $self->_process_edit($edit_id) || 'no change'
             }, $sql);
             $stats{$action} += 1;
         }, sub {
@@ -164,7 +164,7 @@ sub _process_open_edit
                 $edit->id,
                 {
                     editor_id => $EDITOR_MODBOT,
-                    text => "This edit failed because it affected high quality data and did not receive any votes."
+                    text => 'This edit failed because it affected high quality data and did not receive any votes.'
                 }
             );
             $self->c->model('Edit')->reject($edit, $status);

@@ -28,6 +28,6 @@ my $releasegroups = [
 
 my $cmd = "$root/release-group-sql-dump.pl $root/../t/sql/webservice.sql";
 
-system ("$cmd ".join (" ", @$releasegroups));
+system ("$cmd ".join (' ', @$releasegroups));
 
 
