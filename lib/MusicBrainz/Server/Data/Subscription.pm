@@ -94,7 +94,7 @@ sub unsubscribe
 
         $self->sql->do("
             DELETE FROM $table WHERE editor = ? AND $column IN (".
-            placeholders(@ids) . ")",
+            placeholders(@ids) . ')',
             $user_id, @ids);
 
     }, $self->c->sql);
@@ -121,18 +121,18 @@ sub find_subscribed_editors
     my $table = $self->table;
     my $column = $self->column;
 
-    my $extra_cond = "";
+    my $extra_cond = '';
 
-    $extra_cond = " AND s.available"
-        if ($column eq "collection");
+    $extra_cond = ' AND s.available'
+        if ($column eq 'collection');
 
     my $editor_model = $self->c->model('Editor');
-    my $query = "
-        SELECT " . $editor_model->_columns . "
-        FROM " . $editor_model->_table . "
+    my $query = '
+        SELECT ' . $editor_model->_columns . '
+        FROM ' . $editor_model->_table . "
             JOIN $table s ON editor.id = s.editor
-        WHERE s.$column = ?" . $extra_cond . "
-        ORDER BY editor.name, editor.id";
+        WHERE s.$column = ?" . $extra_cond . '
+        ORDER BY editor.name, editor.id';
 
     $editor_model->query_to_list($query, [$entity_id]);
 }
@@ -205,7 +205,7 @@ sub merge
     my $column = $self->column;
 
     $self->sql->do("UPDATE $table SET merged_by_edit = ?
-              WHERE $column IN (".placeholders(@ids).")",
+              WHERE $column IN (".placeholders(@ids).')',
               $edit_id, @ids);
 }
 

@@ -54,9 +54,9 @@ sub _medium_ids
 {
     my ($self, @track_ids) = @_;
     return $self->sql->select_single_column_array(
-        "SELECT distinct(medium)
+        'SELECT distinct(medium)
            FROM track
-          WHERE id IN (" . placeholders(@track_ids) . ")", @track_ids);
+          WHERE id IN (' . placeholders(@track_ids) . ')', @track_ids);
 }
 
 sub load
@@ -91,10 +91,10 @@ sub load_for_mediums
     my %id_to_medium = object_to_ids(@media);
     my @ids = keys %id_to_medium;
     return unless @ids; # nothing to do
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                 WHERE medium IN (" . placeholders(@ids) . ")
-                 ORDER BY medium, position";
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
+                 WHERE medium IN (' . placeholders(@ids) . ')
+                 ORDER BY medium, position';
     my @tracks = $self->query_to_list($query, \@ids);
 
     foreach my $track (@tracks) {
@@ -138,22 +138,22 @@ sub find_by_artist_credit
 {
     my ($self, $artist_credit_id, $limit, $offset) = @_;
 
-    my $query = "SELECT " . $self->_columns . ",
+    my $query = 'SELECT ' . $self->_columns . ',
                     name COLLATE musicbrainz AS name_collate
-                 FROM " . $self->_table . "
+                 FROM ' . $self->_table . '
                  WHERE artist_credit = ?
-                 ORDER BY name COLLATE musicbrainz";
+                 ORDER BY name COLLATE musicbrainz';
     $self->query_to_list_limited($query, [$artist_credit_id], $limit, $offset);
 }
 
 sub find_by_recording
 {
     my ($self, $recording_id, $limit, $offset) = @_;
-    my $query = "
+    my $query = '
         SELECT *
         FROM (
           SELECT DISTINCT ON (track.id, medium.id)
-            " . $self->_columns . ",
+            ' . $self->_columns . ',
             medium.id AS m_id, medium.format AS m_format,
                 medium.position AS m_position, medium.name AS m_name,
                 medium.release AS m_release,
@@ -179,7 +179,7 @@ sub find_by_recording
           WHERE track.recording = ?
           ORDER BY track.id, medium.id, date_year, date_month, date_day, release.name COLLATE musicbrainz
         ) s
-        ORDER BY date_year, date_month, date_day, r_name COLLATE musicbrainz";
+        ORDER BY date_year, date_month, date_day, r_name COLLATE musicbrainz';
 
     $self->query_to_list_limited(
         $query,

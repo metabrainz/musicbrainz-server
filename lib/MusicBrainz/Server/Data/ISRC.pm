@@ -44,10 +44,10 @@ sub find_by_recordings
     my @ids = ref $_[0] ? @{$_[0]} : @_;
     return () unless @ids;
 
-    my $query = "SELECT ".$self->_columns."
-                   FROM ".$self->_table."
-                  WHERE recording IN (" . placeholders(@ids) . ")
-                  ORDER BY isrc";
+    my $query = 'SELECT '.$self->_columns.'
+                   FROM '.$self->_table.'
+                  WHERE recording IN (' . placeholders(@ids) . ')
+                  ORDER BY isrc';
     $self->query_to_list($query, \@ids);
 }
 
@@ -73,10 +73,10 @@ sub find_by_isrc
 {
     my ($self, $isrc) = @_;
 
-    my $query = "SELECT ".$self->_columns."
-                   FROM ".$self->_table."
+    my $query = 'SELECT '.$self->_columns.'
+                   FROM '.$self->_table.'
                   WHERE isrc = ?
-               ORDER BY id";
+               ORDER BY id';
     $self->query_to_list($query, [$isrc]);
 }
 
@@ -126,7 +126,7 @@ sub insert
     my ($self, @isrcs) = @_;
 
     $self->sql->do('INSERT INTO isrc (recording, isrc, source) VALUES ' .
-                 (join ",", (("(?, ?, ?)") x @isrcs)),
+                 (join ',', (('(?, ?, ?)') x @isrcs)),
              map { $_->{recording_id}, $_->{isrc}, $_->{source} || undef }
                  @isrcs);
 }

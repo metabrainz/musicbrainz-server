@@ -40,8 +40,8 @@ sub _entity_class
 sub _find {
     my ($self, $field, @ids) = @_;
 
-    my $query = "SELECT " . $self->_columns ."
-                   FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns .'
+                   FROM ' . $self->_table . "
                   WHERE $field = any(?)
                   ORDER BY iswc, id";
 
@@ -186,7 +186,7 @@ sub insert
     my ($self, @iswcs) = @_;
 
     $self->sql->do('INSERT INTO iswc (work, iswc) VALUES ' .
-                 (join ",", (("(?, ?)") x @iswcs)),
+                 (join ',', (('(?, ?)') x @iswcs)),
              map { $_->{work_id}, $_->{iswc} } @iswcs);
 }
 

@@ -55,10 +55,10 @@ sub get_by_oauth_id
 sub find_by_owner
 {
     my ($self, $editor_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
                  WHERE owner = ?
-                 ORDER BY id";
+                 ORDER BY id';
     $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
 }
 
@@ -81,7 +81,7 @@ before 'delete' => sub
 
 sub delete_editor {
     my ($self, $editor_id) = @_;
-    $self->sql->do("DELETE FROM " . $self->_table . " WHERE owner = ?", $editor_id);
+    $self->sql->do('DELETE FROM ' . $self->_table . ' WHERE owner = ?', $editor_id);
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -47,10 +47,10 @@ sub load_for_cdstub
     my %id_to_cdstub = map { $_->id => $_ } @cdstubs;
     my @ids = keys %id_to_cdstub;
     return unless @ids; # nothing to do
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                 WHERE release IN (" . placeholders(@ids) . ")
-                 ORDER BY release, sequence";
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
+                 WHERE release IN (' . placeholders(@ids) . ')
+                 ORDER BY release, sequence';
     my @tracks = $self->query_to_list($query, \@ids);
     foreach my $track (@tracks) {
         $id_to_cdstub{$track->cdstub_id}->add_track($track);

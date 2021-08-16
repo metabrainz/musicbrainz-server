@@ -59,8 +59,8 @@ sub load_for_works {
 
     for my $work (@objs) {
         for my $wl ($work->all_languages) {
-            if ($wl->language && $wl->language->iso_code_3 eq "zxx") {
-                $wl->language->name(l("[No lyrics]"));
+            if ($wl->language && $wl->language->iso_code_3 eq 'zxx') {
+                $wl->language->name(l('[No lyrics]'));
             }
         }
     }

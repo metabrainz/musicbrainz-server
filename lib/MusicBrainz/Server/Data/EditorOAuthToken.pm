@@ -69,25 +69,25 @@ sub get_by_refresh_token
 sub find_granted_by_editor
 {
     my ($self, $editor_id, $limit, $offset) = @_;
-    my $query = "SELECT application, scope, max(refresh_token) AS refresh_token
-                 FROM " . $self->_table . "
+    my $query = 'SELECT application, scope, max(refresh_token) AS refresh_token
+                 FROM ' . $self->_table . '
                  WHERE
                     editor = ? AND
                     access_token IS NOT NULL
                  GROUP BY application, scope
-                 ORDER BY application, scope";
+                 ORDER BY application, scope';
     $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
 }
 
 sub check_granted_token
 {
     my ($self, $editor_id, $application_id, $scope, $offline) = @_;
-    my $query = "SELECT count(*)
-                 FROM " . $self->_table . "
+    my $query = 'SELECT count(*)
+                 FROM ' . $self->_table . '
                  WHERE editor = ? AND application = ? AND scope = ? AND
-                       access_token IS NOT NULL";
+                       access_token IS NOT NULL';
     if ($offline) {
-        $query .= " AND refresh_token IS NOT NULL"
+        $query .= ' AND refresh_token IS NOT NULL'
     }
     return $self->c->sql->select_single_value($query, $editor_id, $application_id, $scope);
 }
@@ -95,15 +95,15 @@ sub check_granted_token
 sub delete_application
 {
     my ($self, $application_id) = @_;
-    $self->sql->do("DELETE FROM editor_oauth_token WHERE application = ?", $application_id);
+    $self->sql->do('DELETE FROM editor_oauth_token WHERE application = ?', $application_id);
 }
 
 sub delete_editor
 {
     my ($self, $editor_id) = @_;
-    $self->sql->do("DELETE FROM editor_oauth_token WHERE editor = ?", $editor_id);
-    $self->sql->do("DELETE FROM editor_oauth_token WHERE application IN ".
-        "(SELECT id FROM application WHERE owner = ?)", $editor_id);
+    $self->sql->do('DELETE FROM editor_oauth_token WHERE editor = ?', $editor_id);
+    $self->sql->do('DELETE FROM editor_oauth_token WHERE application IN '.
+        '(SELECT id FROM application WHERE owner = ?)', $editor_id);
 }
 
 sub create_authorization_code
@@ -152,10 +152,10 @@ sub grant_access_token
     $self->sql->update_row($self->_table, $update, { id => $token->id });
 
     # delete expired tokens that can't be refreshed in the future
-    $self->sql->do("DELETE FROM editor_oauth_token
+    $self->sql->do('DELETE FROM editor_oauth_token
                     WHERE editor = ? AND application = ? AND scope = ? AND
                           expire_time < ? AND refresh_token IS NULL AND
-                          access_token IS NOT NULL",
+                          access_token IS NOT NULL',
                    $token->editor_id, $token->application_id, $token->scope,
                    DateTime->now);
 }
@@ -164,9 +164,9 @@ sub revoke_access
 {
     my ($self, $editor_id, $application_id, $scope) = @_;
 
-    $self->sql->do("DELETE FROM editor_oauth_token
+    $self->sql->do('DELETE FROM editor_oauth_token
                     WHERE editor = ? AND application = ? AND scope = ? AND
-                    access_token IS NOT NULL",
+                    access_token IS NOT NULL',
                     $editor_id, $application_id, $scope);
 }
 

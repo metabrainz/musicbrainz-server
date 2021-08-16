@@ -77,7 +77,7 @@ sub _where_filter
         my $needs_rg_table = 0;
         if (exists $filter->{name}) {
             $needs_rg_table = 1 if $using_artist_release_group_table;
-            push @query, "(mb_simple_tsvector(rg.name) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR rg.name = ?)";
+            push @query, q{(mb_simple_tsvector(rg.name) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR rg.name = ?)};
             push @params, $filter->{name}, $filter->{name};
         }
         if (exists $filter->{artist_credit_id}) {
@@ -136,11 +136,11 @@ sub find_artist_credits_by_artist
 {
     my ($self, $artist_id) = @_;
 
-    my $query = "SELECT DISTINCT rel.artist_credit
+    my $query = 'SELECT DISTINCT rel.artist_credit
                  FROM release_group rel
                  JOIN artist_credit_name acn
                      ON acn.artist_credit = rel.artist_credit
-                 WHERE acn.artist = ?";
+                 WHERE acn.artist = ?';
     my $ids = $self->sql->select_single_column_array($query, $artist_id);
     return $self->c->model('ArtistCredit')->find_by_ids($ids);
 }
@@ -243,15 +243,15 @@ sub _find_by_artist_slow
 
     my ($conditions, $extra_joins, $params) = _where_filter($args{filter}, 0);
 
-    push @$conditions, "acn.artist = ?";
+    push @$conditions, 'acn.artist = ?';
     # Show only RGs with official releases by default, plus all-status-less ones so people fix the status
     unless ($show_all) {
-        push @$conditions, "(EXISTS (SELECT 1 FROM release WHERE release.release_group = rg.id AND release.status = '1') OR
-                            NOT EXISTS (SELECT 1 FROM release WHERE release.release_group = rg.id AND release.status IS NOT NULL))";
+        push @$conditions, q{(EXISTS (SELECT 1 FROM release WHERE release.release_group = rg.id AND release.status = '1') OR
+                            NOT EXISTS (SELECT 1 FROM release WHERE release.release_group = rg.id AND release.status IS NOT NULL))};
        }
     push @$params, $artist_id;
 
-    my $query = "SELECT DISTINCT " . $self->_columns . ",
+    my $query = 'SELECT DISTINCT ' . $self->_columns . ',
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
@@ -266,17 +266,17 @@ sub _find_by_artist_slow
                       WHERE rgstj.release_group = rg.id
                       ORDER BY name ASC
                     ) secondary_types
-                 FROM " . $self->_table . "
+                 FROM ' . $self->_table . '
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
-                     " . join(' ', @$extra_joins) . "
-                 WHERE " . join(" AND ", @$conditions) . "
+                     ' . join(' ', @$extra_joins) . '
+                 WHERE ' . join(' AND ', @$conditions) . '
                  ORDER BY
                     rg.type, secondary_types,
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    rg.name COLLATE musicbrainz";
+                    rg.name COLLATE musicbrainz';
     $self->query_to_list_limited(
         $query,
         $params,
@@ -309,7 +309,7 @@ sub _find_by_artist_fast {
     push @$conditions, 'arg.artist = ?';
     push @$params, $artist_id;
 
-    my $inner_query = "FROM artist_release_group arg " .
+    my $inner_query = 'FROM artist_release_group arg ' .
         join(' ', @$extra_joins) . ' ' .
         'WHERE ' . join(' AND ', @$conditions);
 
@@ -416,11 +416,11 @@ sub _find_by_track_artist_slow
     my $extra_conditions = '';
     # Show only RGs with official releases by default, plus all-status-less ones so people fix the status
     unless ($show_all) {
-        $extra_conditions = " AND (EXISTS (SELECT 1 FROM release WHERE release.release_group = rg.id AND release.status = '1') OR
-                            NOT EXISTS (SELECT 1 FROM release WHERE release.release_group = rg.id AND release.status IS NOT NULL)) ";
+        $extra_conditions = q{ AND (EXISTS (SELECT 1 FROM release WHERE release.release_group = rg.id AND release.status = '1') OR
+                            NOT EXISTS (SELECT 1 FROM release WHERE release.release_group = rg.id AND release.status IS NOT NULL)) };
        }
 
-    my $query = "SELECT DISTINCT " . $self->_columns . ",
+    my $query = 'SELECT DISTINCT ' . $self->_columns . ',
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
@@ -435,7 +435,7 @@ sub _find_by_track_artist_slow
                       WHERE rgstj.release_group = rg.id
                       ORDER BY name ASC
                     ) secondary_types
-                 FROM " . $self->_table . "
+                 FROM ' . $self->_table . "
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
                  WHERE rg.id IN (
@@ -493,22 +493,22 @@ sub find_by_artist_credit
 {
     my ($self, $artist_credit_id, $limit, $offset) = @_;
 
-    my $query = "SELECT " . $self->_columns . ",
+    my $query = 'SELECT ' . $self->_columns . ',
                     rg.name COLLATE musicbrainz AS name_collate
-                 FROM " . $self->_table . "
+                 FROM ' . $self->_table . '
                  WHERE rg.artist_credit = ?
-                 ORDER BY rg.name COLLATE musicbrainz";
+                 ORDER BY rg.name COLLATE musicbrainz';
     $self->query_to_list_limited($query, [$artist_credit_id], $limit, $offset);
 }
 
 sub find_by_release
 {
     my ($self, $release_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . ",
+    my $query = 'SELECT ' . $self->_columns . ',
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day
-                 FROM " . $self->_table . "
+                 FROM ' . $self->_table . '
                     JOIN release ON release.release_group = rg.id
                  WHERE release.id = ?
                  ORDER BY
@@ -516,7 +516,7 @@ sub find_by_release
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    rg.name COLLATE musicbrainz";
+                    rg.name COLLATE musicbrainz';
     $self->query_to_list_limited($query, [$release_id], $limit, $offset, sub {
         my ($model, $row) = @_;
         my $rg = $model->_new_from_row($row);
@@ -528,19 +528,19 @@ sub find_by_release
 sub find_by_release_gids
 {
     my ($self, @release_gids) = @_;
-    my $query = "SELECT " . $self->_columns . ",
+    my $query = 'SELECT ' . $self->_columns . ',
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day
-                 FROM " . $self->_table . "
+                 FROM ' . $self->_table . '
                     JOIN release ON release.release_group = rg.id
-                 WHERE release.gid IN (" . placeholders (@release_gids) . ")
+                 WHERE release.gid IN (' . placeholders (@release_gids) . ')
                  ORDER BY
                     rg.type,
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    rg.name COLLATE musicbrainz";
+                    rg.name COLLATE musicbrainz';
     $self->query_to_list($query, \@release_gids, sub {
         my ($model, $row) = @_;
         my $rg = $model->_new_from_row($row);
@@ -552,8 +552,8 @@ sub find_by_release_gids
 sub find_by_recording
 {
     my ($self, $recording) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
                     JOIN release ON release.release_group = rg.id
                     JOIN medium ON medium.release = release.id
                     JOIN track ON track.medium = medium.id
@@ -561,7 +561,7 @@ sub find_by_recording
                  WHERE recording.id = ?
                  ORDER BY
                     rg.type,
-                    rg.name COLLATE musicbrainz";
+                    rg.name COLLATE musicbrainz';
 
     $self->query_to_list($query, [$recording]);
 }
@@ -569,23 +569,23 @@ sub find_by_recording
 sub _order_by {
     my ($self, $order) = @_;
 
-    my $extra_join = "";
-    my $also_select = "";
+    my $extra_join = '';
+    my $also_select = '';
 
-    my $order_by = order_by($order, "name", {
-        "name" => sub {
-            return "name COLLATE musicbrainz"
+    my $order_by = order_by($order, 'name', {
+        'name' => sub {
+            return 'name COLLATE musicbrainz'
         },
-        "artist" => sub {
-            $extra_join = "JOIN artist_credit ac ON ac.id = rg.artist_credit";
-            $also_select = "ac.name AS ac_name";
-            return "ac_name COLLATE musicbrainz, release_group.name COLLATE musicbrainz";
+        'artist' => sub {
+            $extra_join = 'JOIN artist_credit ac ON ac.id = rg.artist_credit';
+            $also_select = 'ac.name AS ac_name';
+            return 'ac_name COLLATE musicbrainz, release_group.name COLLATE musicbrainz';
         },
-        "primary_type" => sub {
-            return "primary_type_id, name COLLATE musicbrainz"
+        'primary_type' => sub {
+            return 'primary_type_id, name COLLATE musicbrainz'
         },
-        "year" => sub {
-            return "first_release_date_year, name COLLATE musicbrainz"
+        'year' => sub {
+            return 'first_release_date_year, name COLLATE musicbrainz'
         }
     });
 
@@ -721,7 +721,7 @@ sub _hash_to_row
 sub load_meta
 {
     my $self = shift;
-    MusicBrainz::Server::Data::Utils::load_meta($self->c, "release_group_meta", sub {
+    MusicBrainz::Server::Data::Utils::load_meta($self->c, 'release_group_meta', sub {
         my ($obj, $row) = @_;
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
@@ -734,9 +734,9 @@ sub has_cover_art_set
 {
     my ($self, $rg_id) = @_;
 
-    my $query = "SELECT release
+    my $query = 'SELECT release
             FROM cover_art_archive.release_group_cover_art
-            WHERE release_group = ?";
+            WHERE release_group = ?';
 
     return $self->sql->select_single_value($query, $rg_id);
 }
@@ -744,29 +744,29 @@ sub has_cover_art_set
 sub set_cover_art {
     my ($self, $rg_id, $release_id) = @_;
 
-    $self->sql->do("
+    $self->sql->do('
         UPDATE cover_art_archive.release_group_cover_art
         SET release = ? WHERE release_group = ?;
         INSERT INTO cover_art_archive.release_group_cover_art (release_group, release)
         (SELECT ? AS release_group, ? AS release WHERE NOT EXISTS
             (SELECT 1 FROM cover_art_archive.release_group_cover_art
-             WHERE release_group = ?));",
+             WHERE release_group = ?));',
         $release_id, $rg_id, $rg_id, $release_id, $rg_id);
 }
 
 sub unset_cover_art {
     my ($self, $rg_id) = @_;
 
-    $self->sql->do("DELETE FROM cover_art_archive.release_group_cover_art
-                    WHERE release_group = ?", $rg_id);
+    $self->sql->do('DELETE FROM cover_art_archive.release_group_cover_art
+                    WHERE release_group = ?', $rg_id);
 }
 
 sub merge_releases {
     my ($self, $new_id, @old_ids) = @_;
 
     my $rg_ids = $self->c->sql->select_list_of_hashes(
-        "SELECT release_group, id FROM release WHERE id IN ("
-        . placeholders ($new_id, @old_ids) . ")", $new_id, @old_ids);
+        'SELECT release_group, id FROM release WHERE id IN ('
+        . placeholders ($new_id, @old_ids) . ')', $new_id, @old_ids);
 
     my %release_rg;
     my %release_group_ids;
@@ -777,9 +777,9 @@ sub merge_releases {
 
     my @release_group_ids = keys %release_group_ids;
     my $rg_cover_art = $self->c->sql->select_list_of_hashes(
-        "SELECT release_group, release
+        'SELECT release_group, release
          FROM cover_art_archive.release_group_cover_art
-         WHERE release_group IN (" . placeholders (@release_group_ids) . ")",
+         WHERE release_group IN (' . placeholders (@release_group_ids) . ')',
         @release_group_ids);
 
     my %has_cover_art = map { $_->{release_group} => $_->{release} } @$rg_cover_art;

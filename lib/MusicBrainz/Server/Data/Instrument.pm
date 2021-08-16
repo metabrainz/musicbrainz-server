@@ -124,12 +124,12 @@ sub _hash_to_row {
 
 sub _order_by {
     my ($self, $order) = @_;
-    my $order_by = order_by($order, "name", {
-        "name" => sub {
-            return "name COLLATE musicbrainz"
+    my $order_by = order_by($order, 'name', {
+        'name' => sub {
+            return 'name COLLATE musicbrainz'
         },
-        "type" => sub {
-            return "type, name COLLATE musicbrainz"
+        'type' => sub {
+            return 'type, name COLLATE musicbrainz'
         }
     });
 
@@ -139,7 +139,7 @@ sub _order_by {
 sub get_all {
     my $self = shift;
 
-    my $query = "SELECT " . $self->_columns . " FROM " . $self->_table;
+    my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table;
 
     $self->query_to_list($query);
 }

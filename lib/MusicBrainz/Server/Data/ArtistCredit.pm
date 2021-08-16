@@ -24,13 +24,13 @@ sub get_by_ids
 {
     my ($self, @ids) = @_;
     my $artist_columns = $self->c->model('Artist')->_columns;
-    my $query = "SELECT artist, artist_credit_name.name AS ac_name, join_phrase, artist_credit, " .
-                $artist_columns . ", ac.edits_pending AS ac_edits_pending " .
-                "FROM artist_credit_name " .
-                "JOIN artist ON artist.id=artist_credit_name.artist " .
-                "JOIN artist_credit ac ON ac.id = artist_credit_name.artist_credit " .
-                "WHERE artist_credit IN (" . placeholders(@ids) . ") " .
-                "ORDER BY artist_credit, position";
+    my $query = "SELECT artist, artist_credit_name.name AS ac_name, join_phrase, artist_credit,
+                $artist_columns, ac.edits_pending AS ac_edits_pending
+                FROM artist_credit_name
+                JOIN artist ON artist.id=artist_credit_name.artist
+                JOIN artist_credit ac ON ac.id = artist_credit_name.artist_credit
+                WHERE artist_credit IN (" . placeholders(@ids) . ')
+                ORDER BY artist_credit, position';
 
     my %result;
     my %counts;
@@ -114,7 +114,7 @@ sub _find
     my @credits = map { $_->{name} } @names;
     my @join_phrases = map { $_->{join_phrase} } @names;
 
-    my $name = "";
+    my $name = '';
     my (@joins, @conditions, @args);
     for my $i (@positions) {
         my $ac_name = $names[$i];
@@ -138,9 +138,9 @@ sub _find
         $name .= $ac_name->{join_phrase} if $ac_name->{join_phrase};
     }
 
-    my $query = "SELECT ac.id FROM artist_credit ac " .
-                join(" ", @joins) .
-                " WHERE " . join(" AND ", @conditions) . " AND ac.artist_count = ?";
+    my $query = 'SELECT ac.id FROM artist_credit ac ' .
+                join(' ', @joins) .
+                ' WHERE ' . join(' AND ', @conditions) . ' AND ac.artist_count = ?';
 
     my $id = $self->sql->select_single_value($query, @args, scalar @credits);
 
@@ -346,7 +346,7 @@ sub related_entities {
     }
 
     my $track_ac_releases = $self->c->sql->select_single_column_array(
-        "SELECT DISTINCT medium.release FROM track JOIN medium ON track.medium = medium.id WHERE track.artist_credit = ?",
+        'SELECT DISTINCT medium.release FROM track JOIN medium ON track.medium = medium.id WHERE track.artist_credit = ?',
         $ac_id
     );
 

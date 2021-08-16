@@ -50,10 +50,10 @@ sub get_history
 sub get_latest
 {
     my ($self, $id) = @_;
-    my $query = "SELECT " . $self->_columns .
-                " FROM " . $self->_table .
-                " WHERE " . $self->type . " = ?" .
-                " ORDER BY created DESC, id DESC LIMIT 1";
+    my $query = 'SELECT ' . $self->_columns .
+                ' FROM ' . $self->_table .
+                ' WHERE ' . $self->type . ' = ?' .
+                ' ORDER BY created DESC, id DESC LIMIT 1';
     my $row = $self->sql->select_single_row_hash($query, $id)
         or return undef;
     return $self->_new_from_row($row);
@@ -87,12 +87,12 @@ sub edit
 sub delete
 {
     my ($self, @ids) = @_;
-    my $query = "DELETE FROM " . $self->table .
-                " WHERE " . $self->type . " IN (" . placeholders(@ids) . ")" .
-                " RETURNING annotation";
+    my $query = 'DELETE FROM ' . $self->table .
+                ' WHERE ' . $self->type . ' IN (' . placeholders(@ids) . ')' .
+                ' RETURNING annotation';
     my $annotations = $self->sql->select_single_column_array($query, @ids);
     return 1 unless scalar @$annotations;
-    $query = "DELETE FROM annotation WHERE id IN (" . placeholders(@$annotations) . ")";
+    $query = 'DELETE FROM annotation WHERE id IN (' . placeholders(@$annotations) . ')';
     $self->sql->do($query, @$annotations);
     return 1;
 }
@@ -111,9 +111,9 @@ sub merge
                  SELECT $type, text, row_number() OVER (PARTITION BY $type ORDER BY created DESC)
                  FROM annotation
                  JOIN $table ent_annotation ON ent_annotation.annotation = annotation.id
-                 WHERE $type IN (".placeholders(@ids).")
+                 WHERE $type IN (".placeholders(@ids).')
              ) s
-             WHERE row_number = 1",
+             WHERE row_number = 1',
             @ids
         )
     };
@@ -122,8 +122,8 @@ sub merge
     if (keys %entity_to_annotation > 1) {
         my $new_text = join("\n\n-------\n\n",
                             uniq
-                            grep { $_ ne "" }
-                            map { $entity_to_annotation{$_} // "" }
+                            grep { $_ ne '' }
+                            map { $entity_to_annotation{$_} // '' }
                             @ids);
         if ($new_text ne '') {
             $self->c->model('Edit')->create(
@@ -137,7 +137,7 @@ sub merge
     }
 
     $self->sql->do("UPDATE $table SET $type = ?
-              WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
+              WHERE $type IN (".placeholders(@old_ids).')', $new_id, @old_ids);
 }
 
 no Moose;

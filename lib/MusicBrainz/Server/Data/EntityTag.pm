@@ -28,13 +28,13 @@ has [qw( tag_table type )] => (
 sub find_tags {
     my ($self, $entity_id) = @_;
 
-    my $query = "SELECT tag.name, entity_tag.count,
+    my $query = 'SELECT tag.name, entity_tag.count,
                         tag.id AS tag_id, genre.id AS genre_id
-                 FROM " . $self->tag_table . " entity_tag
+                 FROM ' . $self->tag_table . ' entity_tag
                  JOIN tag ON tag.id = entity_tag.tag
                  LEFT JOIN genre ON tag.name = genre.name
-                 WHERE " . $self->type . " = ?
-                 ORDER BY entity_tag.count DESC, tag.name COLLATE musicbrainz";
+                 WHERE ' . $self->type . ' = ?
+                 ORDER BY entity_tag.count DESC, tag.name COLLATE musicbrainz';
 
     $self->query_to_list($query, [$entity_id]);
 }
@@ -42,8 +42,8 @@ sub find_tags {
 sub find_tag_count
 {
     my ($self, $entity_id) = @_;
-    my $query = "SELECT count(*) FROM " . $self->tag_table . " entity_tag " .
-                "WHERE " . $self->type . " = ? ";
+    my $query = 'SELECT count(*) FROM ' . $self->tag_table . ' entity_tag ' .
+                'WHERE ' . $self->type . ' = ? ';
 
     return $self->sql->select_single_value($query, $entity_id);
 }
@@ -51,22 +51,22 @@ sub find_tag_count
 sub find_top_tags
 {
     my ($self, $entity_id, $limit) = @_;
-    my $query = "
+    my $query = '
         SELECT name, count, tag_id, genre_id FROM ((
             SELECT tag.name, entity_tag.count,
                 tag.id AS tag_id, genre.id AS genre_id
-            FROM " . $self->tag_table . " entity_tag
+            FROM ' . $self->tag_table . ' entity_tag
             JOIN tag ON tag.id = entity_tag.tag
             JOIN genre ON tag.name = genre.name
-            WHERE " .  $self->type . " = ?
+            WHERE ' .  $self->type . ' = ?
             ORDER BY entity_tag.count DESC, tag.name COLLATE musicbrainz
             LIMIT ?
         ) UNION (
             SELECT tag.name, entity_tag.count,
                 tag.id AS tag_id, NULL AS genre_id
-            FROM " . $self->tag_table . " entity_tag
+            FROM ' . $self->tag_table . ' entity_tag
             JOIN tag ON tag.id = entity_tag.tag
-            WHERE " .  $self->type . " = ?   
+            WHERE ' .  $self->type . ' = ?   
             AND NOT EXISTS (
                 SELECT 1 FROM genre
                 WHERE genre.name = tag.name
@@ -74,7 +74,7 @@ sub find_top_tags
             ORDER BY entity_tag.count DESC, tag.name COLLATE musicbrainz
             LIMIT ?       
         )) top_tags
-        ORDER BY count DESC, name COLLATE musicbrainz";
+        ORDER BY count DESC, name COLLATE musicbrainz';
     $self->query_to_list($query, [$entity_id, $limit, $entity_id, $limit]);
 }
 
@@ -84,12 +84,12 @@ sub find_tags_for_entities
 
     return unless scalar @ids;
 
-    my $query = "SELECT tag.id AS tag_id, tag.name, entity_tag.count,
-                        entity_tag." . $self->type . " AS entity
-                 FROM " . $self->tag_table . " entity_tag
+    my $query = 'SELECT tag.id AS tag_id, tag.name, entity_tag.count,
+                        entity_tag.' . $self->type . ' AS entity
+                 FROM ' . $self->tag_table . ' entity_tag
                  JOIN tag ON tag.id = entity_tag.tag
-                 WHERE " . $self->type . " IN (" . placeholders(@ids) . ")
-                 ORDER BY entity_tag.count DESC, tag.name COLLATE musicbrainz";
+                 WHERE ' . $self->type . ' IN (' . placeholders(@ids) . ')
+                 ORDER BY entity_tag.count DESC, tag.name COLLATE musicbrainz';
 
     $self->query_to_list($query, \@ids);
 }
@@ -107,8 +107,8 @@ sub find_user_tags_for_entities
                  FROM $table entity_tag
                  JOIN tag ON tag.id = entity_tag.tag
                  WHERE editor = ?
-                 AND $type IN (" . placeholders(@ids) . ")
-                 ORDER BY tag.name COLLATE musicbrainz";
+                 AND $type IN (" . placeholders(@ids) . ')
+                 ORDER BY tag.name COLLATE musicbrainz';
 
     $self->query_to_list($query, [$user_id, @ids], sub {
         my ($model, $row) = @_;
@@ -131,13 +131,13 @@ sub find_genres_for_entities
 
     return unless scalar @ids;
 
-    my $query = "SELECT tag.id AS tag_id, tag.name, entity_tag.count,
-                        entity_tag." . $self->type . " AS entity, genre.id AS genre_id
-                 FROM " . $self->tag_table . " entity_tag
+    my $query = 'SELECT tag.id AS tag_id, tag.name, entity_tag.count,
+                        entity_tag.' . $self->type . ' AS entity, genre.id AS genre_id
+                 FROM ' . $self->tag_table . ' entity_tag
                  JOIN tag ON tag.id = entity_tag.tag
                  JOIN genre ON tag.name = genre.name
-                 WHERE " . $self->type . " IN (" . placeholders(@ids) . ")
-                 ORDER BY tag.name COLLATE musicbrainz";
+                 WHERE ' . $self->type . ' IN (' . placeholders(@ids) . ')
+                 ORDER BY tag.name COLLATE musicbrainz';
 
     my @tags = $self->query_to_list($query, \@ids);
 
@@ -161,8 +161,8 @@ sub find_user_genres_for_entities
                  JOIN tag ON tag.id = entity_tag.tag
                  JOIN genre ON tag.name = genre.name
                  WHERE editor = ?
-                 AND $type IN (" . placeholders(@ids) . ")
-                 ORDER BY tag.name COLLATE musicbrainz";
+                 AND $type IN (" . placeholders(@ids) . ')
+                 ORDER BY tag.name COLLATE musicbrainz';
 
     my @tags = $self->query_to_list($query, [$user_id, @ids], sub {
         my ($model, $row) = @_;
@@ -205,13 +205,13 @@ sub _new_from_row
 sub delete
 {
     my ($self, @entity_ids) = @_;
-    $self->sql->do("
-        DELETE FROM " . $self->tag_table . "
-        WHERE " . $self->type . " IN (" . placeholders(@entity_ids) . ")",
+    $self->sql->do('
+        DELETE FROM ' . $self->tag_table . '
+        WHERE ' . $self->type . ' IN (' . placeholders(@entity_ids) . ')',
         @entity_ids);
-    $self->c->sql->do("
-        DELETE FROM " . $self->tag_table . "_raw
-        WHERE " . $self->type . " IN (" . placeholders(@entity_ids) . ")",
+    $self->c->sql->do('
+        DELETE FROM ' . $self->tag_table . '_raw
+        WHERE ' . $self->type . ' IN (' . placeholders(@entity_ids) . ')',
         @entity_ids);
     return 1;
 }
@@ -460,8 +460,8 @@ sub find_entities
         ? 'sort_name COLLATE musicbrainz'
         : 'name COLLATE musicbrainz';
     my $tag_table = $self->tag_table;
-    my $query = "SELECT tt.count AS tt_count, " . $self->parent->_columns . "
-                 FROM " . $self->parent->_table . "
+    my $query = 'SELECT tt.count AS tt_count, ' . $self->parent->_columns . '
+                 FROM ' . $self->parent->_table . "
                      JOIN $tag_table tt ON " . $self->parent->_id_column . " = tt.$type
                  WHERE tag = ?
                  AND tt.count > 0
@@ -486,8 +486,8 @@ sub find_editor_entities
     my $tag_table = $self->tag_table . '_raw';
     my $is_upvote = $show_downvoted ? 0 : 1;
 
-    my $query = "SELECT " . $self->parent->_columns . "
-                 FROM " . $self->parent->_table . "
+    my $query = 'SELECT ' . $self->parent->_columns . '
+                 FROM ' . $self->parent->_table . "
                      JOIN $tag_table ttr ON " . $self->parent->_id_column . " = ttr.$type
                  WHERE editor = ? AND tag = ? AND is_upvote = ?
                  ORDER BY name COLLATE musicbrainz, " . $self->parent->_id_column;

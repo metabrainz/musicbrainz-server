@@ -96,10 +96,10 @@ sub load_for_releases
     my @ids = keys %id_to_release;
 
     return unless @ids; # nothing to do
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                 WHERE release IN (" . placeholders(@ids) . ")
-                 ORDER BY release, position";
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
+                 WHERE release IN (' . placeholders(@ids) . ')
+                 ORDER BY release, position';
     my @mediums = $self->query_to_list($query, \@ids);
     foreach my $medium (@mediums) {
         foreach my $release (@{ $id_to_release{$medium->release_id} })
@@ -117,7 +117,7 @@ sub load_for_releases
 sub update
 {
     my ($self, $medium_id, $medium_hash) = @_;
-    die "update cannot update tracklist" if exists $medium_hash->{tracklist};
+    die 'update cannot update tracklist' if exists $medium_hash->{tracklist};
 
     my $row = $self->_create_row($medium_hash);
     return unless %$row;
@@ -196,7 +196,7 @@ sub find_for_cdstub {
         'SELECT ' . join(', ', $self->c->model('Release')->_columns,
                          map { "medium.$_ AS m_$_" } qw(
                              id name track_count release position format edits_pending
-                         )) . "
+                         )) . q(
            FROM (
                     SELECT id, ts_rank_cd(mb_simple_tsvector(name), query, 2) AS rank,
                            name
@@ -211,7 +211,7 @@ sub find_for_cdstub {
           WHERE track_count_matches_cdtoc(medium, ?)
           AND (medium_format.id IS NULL OR medium_format.has_discids)
        ORDER BY name.rank DESC, name.name COLLATE musicbrainz,
-                release.artist_credit";
+                release.artist_credit);
 
     $self->query_to_list(
         $query,
@@ -231,10 +231,10 @@ sub set_lengths_to_cdtoc
 {
     my ($self, $medium_id, $cdtoc_id) = @_;
     my $cdtoc = $self->c->model('CDTOC')->get_by_id($cdtoc_id)
-        or die "Could not load CDTOC";
+        or die 'Could not load CDTOC';
 
     my $medium = $self->get_by_id($medium_id)
-        or die "Could not load tracklist";
+        or die 'Could not load tracklist';
 
     $self->c->model('Track')->load_for_mediums($medium);
     $self->c->model('ArtistCredit')->load($medium->all_tracks);

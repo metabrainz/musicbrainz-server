@@ -55,11 +55,11 @@ sub nominate
     my $sql = $self->c->sql;
     return Sql::run_in_transaction(sub {
 
-        $sql->do("LOCK TABLE autoeditor_election IN EXCLUSIVE MODE");
+        $sql->do('LOCK TABLE autoeditor_election IN EXCLUSIVE MODE');
 
-        my $id = $sql->select_single_value("
-            SELECT id FROM " . $self->_table . "
-            WHERE candidate = ? AND status IN (?, ?, ?)",
+        my $id = $sql->select_single_value('
+            SELECT id FROM ' . $self->_table . '
+            WHERE candidate = ? AND status IN (?, ?, ?)',
             $candidate->id, $ELECTION_SECONDER_1, $ELECTION_SECONDER_2,
             $ELECTION_OPEN);
         return $self->_entity_class->new( id => $id )
@@ -91,7 +91,7 @@ sub second
 
         $election = $self->get_by_id_locked($election->id);
 
-        die "Forbidden" unless $election->can_second($seconder);
+        die 'Forbidden' unless $election->can_second($seconder);
 
         my %update;
         if ($election->status == $ELECTION_SECONDER_1) {
@@ -154,9 +154,9 @@ sub vote
 
         die 'Forbidden' unless $election->can_vote($voter);
 
-        my $old_vote = $sql->select_single_row_hash("
+        my $old_vote = $sql->select_single_row_hash('
             SELECT id, vote FROM autoeditor_election_vote
-            WHERE autoeditor_election = ? AND voter = ?",
+            WHERE autoeditor_election = ? AND voter = ?',
             $election->id, $voter->id);
 
         if (defined $old_vote && $old_vote->{vote} == $vote) {
@@ -164,13 +164,13 @@ sub vote
         }
 
         if (defined $old_vote) {
-            $self->sql->update_row("autoeditor_election_vote", {
+            $self->sql->update_row('autoeditor_election_vote', {
                 vote                => $vote,
                 vote_time           => DateTime->now(),
             }, { id => $old_vote->{id} });
         }
         else {
-            $self->sql->insert_row("autoeditor_election_vote", {
+            $self->sql->insert_row('autoeditor_election_vote', {
                 autoeditor_election => $election->id,
                 voter               => $voter->id,
                 vote                => $vote,
@@ -204,7 +204,7 @@ sub try_to_close
     my $sql = $self->sql;
     return Sql::run_in_transaction(sub {
 
-        $sql->do("LOCK TABLE autoeditor_election IN EXCLUSIVE MODE");
+        $sql->do('LOCK TABLE autoeditor_election IN EXCLUSIVE MODE');
 
         $self->_try_to_close_timeout();
         $self->_try_to_close_voting();
@@ -216,10 +216,10 @@ sub _try_to_close_timeout
 {
     my ($self) = @_;
 
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
                  WHERE now() - propose_time > INTERVAL ? AND
-                       status IN (?, ?)";
+                       status IN (?, ?)';
     my @elections = $self->query_to_list(
         $query,
         [$PROPOSAL_TIMEOUT, $ELECTION_SECONDER_1, $ELECTION_SECONDER_2],
@@ -237,10 +237,10 @@ sub _try_to_close_voting
 {
     my ($self) = @_;
 
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
                  WHERE now() - propose_time > INTERVAL ? AND
-                       status = ?";
+                       status = ?';
     my @elections = $self->query_to_list(
         $query,
         [$VOTING_TIMEOUT, $ELECTION_OPEN],
@@ -298,8 +298,8 @@ sub load_votes
     my ($self, $election) = @_;
 
     my $sql = $self->c->sql;
-    my $query = "SELECT * FROM autoeditor_election_vote
-                 WHERE autoeditor_election = ? ORDER BY vote_time";
+    my $query = 'SELECT * FROM autoeditor_election_vote
+                 WHERE autoeditor_election = ? ORDER BY vote_time';
     for my $row (@{ $self->sql->select_list_of_hashes($query, $election->id) }) {
         my $vote = MusicBrainz::Server::Entity::AutoEditorElectionVote->new({
             election_id => $election->id,
@@ -315,9 +315,9 @@ sub load_votes
 sub get_all {
     my ($self) = @_;
 
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                 ORDER BY propose_time DESC";
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
+                 ORDER BY propose_time DESC';
     $self->query_to_list($query);
 }
 

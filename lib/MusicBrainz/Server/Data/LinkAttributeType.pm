@@ -60,9 +60,9 @@ sub _columns
                  WHERE attribute_type = link_attribute_type.id),
                 false
             ) AS creditable, ' .
-           "COALESCE(ins.instrument_comment, '') AS instrument_comment, " .
+           q{COALESCE(ins.instrument_comment, '') AS instrument_comment, } .
            'ins.instrument_type_id, ' .
-           "COALESCE(ins.instrument_type_name, '') AS instrument_type_name";
+           q{COALESCE(ins.instrument_type_name, '') AS instrument_type_name};
 }
 
 sub _column_mapping
@@ -130,7 +130,7 @@ sub insert
     my ($self, $values) = @_;
 
     my $row = $self->_hash_to_row($values);
-    $row->{id} = $self->sql->select_single_value("SELECT nextval('link_attribute_type_id_seq')");
+    $row->{id} = $self->sql->select_single_value(q{SELECT nextval('link_attribute_type_id_seq')});
     $row->{gid} = $values->{gid} || generate_gid();
     $row->{root} = $row->{parent} ? $self->find_root($row->{parent}) : $row->{id};
     $self->sql->insert_row('link_attribute_type', $row);

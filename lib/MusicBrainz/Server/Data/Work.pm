@@ -103,23 +103,23 @@ L<MusicBrainz::Server::Entity::Work> objects.
 sub find_by_iswc
 {
     my ($self, $iswc) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
                  JOIN iswc ON work.id = iswc.work
                  WHERE iswc.iswc = ?
-                 ORDER BY work.name COLLATE musicbrainz";
+                 ORDER BY work.name COLLATE musicbrainz';
 
     $self->query_to_list($query, [$iswc]);
 }
 
 sub _order_by {
     my ($self, $order) = @_;
-    my $order_by = order_by($order, "name", {
-        "name" => sub {
-            return "name COLLATE musicbrainz"
+    my $order_by = order_by($order, 'name', {
+        'name' => sub {
+            return 'name COLLATE musicbrainz'
         },
-        "type" => sub {
-            return "type, name COLLATE musicbrainz"
+        'type' => sub {
+            return 'type, name COLLATE musicbrainz'
         },
     });
 
@@ -219,7 +219,7 @@ sub _hash_to_row
 sub load_meta
 {
     my $self = shift;
-    MusicBrainz::Server::Data::Utils::load_meta($self->c, "work_meta", sub {
+    MusicBrainz::Server::Data::Utils::load_meta($self->c, 'work_meta', sub {
         my ($obj, $row) = @_;
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
@@ -252,10 +252,10 @@ sub load_ids
     my @gids = map { $_->gid } @works;
     return () unless @gids;
 
-    my $query = "
+    my $query = '
         SELECT gid, id FROM work
-        WHERE gid IN (" . placeholders(@gids) . ")
-    ";
+        WHERE gid IN (' . placeholders(@gids) . ')
+    ';
     my %map = map { $_->[0] => $_->[1] }
         @{ $self->sql->select_list_of_lists($query, @gids) };
 
@@ -337,16 +337,16 @@ sub _find_writers
     my ($self, $ids, $map) = @_;
     return unless @$ids;
 
-    my $query = "
+    my $query = '
         SELECT law.entity1 AS work, law.entity0 AS artist, 
             law.entity0_credit AS credit, array_agg(lt.name) AS roles
         FROM l_artist_work law
         JOIN link l ON law.link = l.id
         JOIN link_type lt ON l.link_type = lt.id
-        WHERE law.entity1 IN (" . placeholders(@$ids) . ")
+        WHERE law.entity1 IN (' . placeholders(@$ids) . ')
         GROUP BY law.entity1, law.entity0, law.entity0_credit
         ORDER BY count(*) DESC, artist, credit
-    ";
+    ';
 
     my $rows = $self->sql->select_list_of_lists($query, @$ids);
 
@@ -394,15 +394,15 @@ sub _find_recording_artists
     my ($self, $ids, $map) = @_;
     return unless @$ids;
 
-    my $query = "
+    my $query = '
         SELECT lrw.entity1 AS work, r.artist_credit
         FROM l_recording_work lrw
         JOIN recording r ON lrw.entity0 = r.id
         LEFT JOIN track t ON r.id = t.recording
-        WHERE lrw.entity1 IN (" . placeholders(@$ids) . ")
+        WHERE lrw.entity1 IN (' . placeholders(@$ids) . ')
         GROUP BY lrw.entity1, r.artist_credit
         ORDER BY count(*) DESC, artist_credit
-    ";
+    ';
 
     my $rows = $self->sql->select_list_of_lists($query, @$ids);
 

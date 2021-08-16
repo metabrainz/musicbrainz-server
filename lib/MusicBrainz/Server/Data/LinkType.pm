@@ -47,11 +47,11 @@ sub _load_attributes
     my ($self, $data, @ids) = @_;
 
     if (@ids) {
-        my $query = "
+        my $query = '
             SELECT *
             FROM link_type_attribute_type
-            WHERE link_type IN (" . placeholders(@ids) . ")
-            ORDER BY link_type";
+            WHERE link_type IN (' . placeholders(@ids) . ')
+            ORDER BY link_type';
         for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
             my $id = $row->{link_type};
             if (exists $data->{$id}) {
@@ -97,11 +97,11 @@ around get_by_gid => sub
 sub find_by_attribute
 {
     my ($self, $attribute_id) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
                      JOIN link_type_attribute_type ltat ON ltat.link_type = link_type.id
                  WHERE ltat.attribute_type = ?
-                 ORDER BY link_type.name COLLATE musicbrainz";
+                 ORDER BY link_type.name COLLATE musicbrainz';
 
     $self->query_to_list($query, [$attribute_id]);
 }
@@ -300,13 +300,13 @@ sub set_examples {
     my ($self, $id, $examples) = @_;
 
     my $link_table = $self->sql->select_single_value(
-        "SELECT 'l_' || entity_type0 || '_' || entity_type1
+        q(SELECT 'l_' || entity_type0 || '_' || entity_type1
          FROM link_type
-         WHERE id = ?",
+         WHERE id = ?),
         $id
     );
 
-    my $documentation_link_table = sprintf "documentation.%s_example",
+    my $documentation_link_table = sprintf 'documentation.%s_example',
         $link_table;
 
     $self->sql->do(

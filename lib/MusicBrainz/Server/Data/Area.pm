@@ -104,7 +104,7 @@ sub _set_codes
     $self->sql->do("DELETE FROM $type WHERE area = ?", $area);
     $self->sql->do(
         "INSERT INTO $type (area, code) VALUES " .
-            join(', ', ("(?, ?)") x @$codes),
+            join(', ', ('(?, ?)') x @$codes),
         map { $area, $_ } @$codes
    ) if @$codes;
 }
@@ -195,7 +195,7 @@ sub delete
     $self->tags->delete(@area_ids);
     $self->remove_gid_redirects(@area_ids);
     for my $code_table (@CODE_TYPES) {
-        $self->sql->do("DELETE FROM $code_table WHERE area IN (" . placeholders(@area_ids) . ")", @area_ids);
+        $self->sql->do("DELETE FROM $code_table WHERE area IN (" . placeholders(@area_ids) . ')', @area_ids);
     }
     $self->delete_returning_gids(@area_ids);
     return 1;
@@ -226,13 +226,13 @@ sub _merge_impl
     );
 
     for my $update (
-        [ artist => "area" ],
-        [ artist => "begin_area" ],
-        [ artist => "end_area" ],
-        [ label => "area" ],
-        [ place => "area" ],
-        [ editor => "area" ],
-        [ release_country => "country" ]
+        [ artist => 'area' ],
+        [ artist => 'begin_area' ],
+        [ artist => 'end_area' ],
+        [ label => 'area' ],
+        [ place => 'area' ],
+        [ editor => 'area' ],
+        [ release_country => 'country' ]
     ) {
         my ($table, $column) = @$update;
         $self->sql->do(
@@ -311,10 +311,10 @@ sub load_ids
     my @gids = map { $_->gid } @areas;
     return () unless @gids;
 
-    my $query = "
+    my $query = '
         SELECT gid, id FROM area
-        WHERE gid IN (" . placeholders(@gids) . ")
-    ";
+        WHERE gid IN (' . placeholders(@gids) . ')
+    ';
     my %map = map { $_->[0] => $_->[1] }
         @{ $self->sql->select_list_of_lists($query, @gids) };
 
@@ -338,10 +338,10 @@ sub get_by_iso_3166_3 {
 sub _get_by_iso {
     my ($self, $table, @codes) = @_;
 
-    my $query = "SELECT " . $self->_columns .
-                " FROM " . $self->_table .
+    my $query = 'SELECT ' . $self->_columns .
+                ' FROM ' . $self->_table .
                 " JOIN ${table} c ON c.area = area.id" .
-                " WHERE c.code = any(?)";
+                ' WHERE c.code = any(?)';
 
     my %ret = map { $_ => undef } @codes;
     for my $row (@{ $self->sql->select_list_of_hashes($query, \@codes) }) {
@@ -358,12 +358,12 @@ sub _get_by_iso {
 sub _order_by {
     my ($self, $order) = @_;
 
-    my $order_by = order_by($order, "name", {
-        "name" => sub {
-            return "name COLLATE musicbrainz"
+    my $order_by = order_by($order, 'name', {
+        'name' => sub {
+            return 'name COLLATE musicbrainz'
         },
-        "type" => sub {
-            return "type, name COLLATE musicbrainz"
+        'type' => sub {
+            return 'type, name COLLATE musicbrainz'
         }
     });
 

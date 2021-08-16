@@ -154,7 +154,7 @@ sub _hash_to_row
 sub load_meta
 {
     my $self = shift;
-    MusicBrainz::Server::Data::Utils::load_meta($self->c, "place_meta", sub {
+    MusicBrainz::Server::Data::Utils::load_meta($self->c, 'place_meta', sub {
         my ($obj, $row) = @_;
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
@@ -187,8 +187,8 @@ sub find_by_area {
         $containment_query,
         @containment_query_args,
     ) = get_area_containment_query('$2', 'area', check_all_levels => 1);
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . "
                  WHERE area = \$1 OR EXISTS (
                     SELECT 1 FROM ($containment_query) ac
                      WHERE ac.descendant = area AND ac.parent = \$1
@@ -202,24 +202,24 @@ sub find_by_area {
 
 sub _order_by {
     my ($self, $order) = @_;
-    my $order_by = order_by($order, "name", {
-        "name" => sub {
-            return "name COLLATE musicbrainz"
+    my $order_by = order_by($order, 'name', {
+        'name' => sub {
+            return 'name COLLATE musicbrainz'
         },
-        "area" => sub {
-            return "area, name COLLATE musicbrainz"
+        'area' => sub {
+            return 'area, name COLLATE musicbrainz'
         },
-        "address" => sub {
-            return "address COLLATE musicbrainz, name COLLATE musicbrainz"
+        'address' => sub {
+            return 'address COLLATE musicbrainz, name COLLATE musicbrainz'
         },
-        "begin_date" => sub {
-            return "begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz"
+        'begin_date' => sub {
+            return 'begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz'
         },
-        "end_date" => sub {
-            return "end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz"
+        'end_date' => sub {
+            return 'end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz'
         },
-        "type" => sub {
-            return "type, name COLLATE musicbrainz"
+        'type' => sub {
+            return 'type, name COLLATE musicbrainz'
         }
     });
 

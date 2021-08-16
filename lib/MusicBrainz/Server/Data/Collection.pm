@@ -46,11 +46,11 @@ sub _column_mapping {
 
 sub find_by_subscribed_editor {
     my ($self, $editor_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
                     JOIN editor_subscribe_collection s ON editor_collection.id = s.collection
                  WHERE s.editor = ? AND s.available
-                 ORDER BY name COLLATE musicbrainz, editor_collection.id";
+                 ORDER BY name COLLATE musicbrainz, editor_collection.id';
     $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
 }
 
@@ -64,7 +64,7 @@ sub add_entities_to_collection {
     $self->sql->do("
         INSERT INTO editor_collection_$type (collection, $type)
            SELECT DISTINCT add.collection, add.$type
-             FROM (VALUES " . join(', ', ("(?::integer, ?::integer)") x @ids) . ") add (collection, $type)
+             FROM (VALUES " . join(', ', ('(?::integer, ?::integer)') x @ids) . ") add (collection, $type)
             WHERE NOT EXISTS (
               SELECT TRUE FROM editor_collection_$type
               WHERE collection = add.collection AND $type = add.$type
@@ -78,7 +78,7 @@ sub remove_entities_from_collection {
 
     $self->sql->auto_commit;
     $self->sql->do("DELETE FROM editor_collection_$type
-              WHERE collection = ? AND $type IN (" . placeholders(@ids) . ")",
+              WHERE collection = ? AND $type IN (" . placeholders(@ids) . ')',
               $collection_id, @ids);
 }
 
@@ -95,9 +95,9 @@ sub is_collection_collaborator {
     my ($self, $user_id, $collection_id) = @_;
 
     return $self->sql->select_single_value(
-        "SELECT 1 FROM editor_collection WHERE (id = \$1 AND editor = \$2) OR 
+        'SELECT 1 FROM editor_collection WHERE (id = $1 AND editor = $2) OR 
             EXISTS (SELECT 1 FROM editor_collection_collaborator ecc
-                WHERE ecc.collection = \$1 AND ecc.editor = \$2)",
+                WHERE ecc.collection = $1 AND ecc.editor = $2)',
         $collection_id, $user_id,
     );
 }
@@ -184,8 +184,8 @@ sub merge {
                           map { $_->description }
                           @collections);
     if ($new_description ne '') {
-        $self->sql->do("UPDATE editor_collection SET description = ?
-                WHERE id = ?",
+        $self->sql->do('UPDATE editor_collection SET description = ?
+                WHERE id = ?',
                 $new_description,
                 $new_id);
     }
@@ -209,13 +209,13 @@ sub merge_entities {
                  AND (collection, $type) NOT IN (
                      SELECT DISTINCT ON (collection) collection, $type
                        FROM editor_collection_$type
-                      WHERE $type IN (" . placeholders(@ids) . ")
-                 )",
+                      WHERE $type IN (" . placeholders(@ids) . ')
+                 )',
         @ids, @ids);
 
     # Move all remaining joins to the new release
     $self->sql->do("UPDATE editor_collection_$type SET $type = ?
-              WHERE $type IN (".placeholders(@ids).")",
+              WHERE $type IN (".placeholders(@ids).')',
               $new_id, @ids);
 }
 
@@ -223,7 +223,7 @@ sub delete_entities {
     my ($self, $type, @ids) = @_;
 
     $self->sql->do("DELETE FROM editor_collection_$type
-              WHERE $type IN (".placeholders(@ids).")", @ids);
+              WHERE $type IN (".placeholders(@ids).')', @ids);
 }
 
 sub find_by {
@@ -345,7 +345,7 @@ sub load_entity_count {
            FROM editor_collection_$_ WHERE collection = col.id), 0)"
        } entities_with('collections')) . '
            ) FROM (
-              VALUES '. join(', ', ("(?::integer)") x keys %collection_map) .'
+              VALUES '. join(', ', ('(?::integer)') x keys %collection_map) .'
                 ) col (id)';
 
     for my $row (@{ $self->sql->select_list_of_lists($query, keys %collection_map) }) {
@@ -371,7 +371,7 @@ sub update {
             !$self->is_empty($old_entity_type, $collection->id)) {
         my $new_type = $self->c->model('CollectionType')->get_by_id($row->{type});
 
-        die "The collection type must match the type of entities it contains."
+        die 'The collection type must match the type of entities it contains.'
             if $old_entity_type ne $new_type->item_entity_type;
     }
 

@@ -75,12 +75,12 @@ sub _hash_to_row {
 
 sub _order_by {
     my ($self, $order) = @_;
-    my $order_by = order_by($order, "name", {
-        "name" => sub {
-            return "name COLLATE musicbrainz"
+    my $order_by = order_by($order, 'name', {
+        'name' => sub {
+            return 'name COLLATE musicbrainz'
         },
-        "type" => sub {
-            return "type, name COLLATE musicbrainz"
+        'type' => sub {
+            return 'type, name COLLATE musicbrainz'
         }
     });
 
@@ -161,7 +161,7 @@ sub update {
         if ($existing_entity_type ne $new_entity_type) {
             my ($items, $hits) = $self->c->model('Series')->get_entities($series, 1, 0);
 
-            die "Cannot change the entity type of a non-empty series" if scalar(@$items);
+            die 'Cannot change the entity type of a non-empty series' if scalar(@$items);
         }
     }
 
@@ -206,9 +206,9 @@ sub get_entities {
     my $entity_type = $series->type->item_entity_type;
     my $model = $self->c->model(type_to_model($entity_type));
 
-    my $query = "
+    my $query = '
       SELECT e.*, es.text_value AS ordering_key
-      FROM (SELECT " . $model->_columns . " FROM " . $model->_table . ") e
+      FROM (SELECT ' . $model->_columns . ' FROM ' . $model->_table . ") e
       JOIN (SELECT * FROM ${entity_type}_series) es ON e.id = es.$entity_type
       WHERE es.series = ?
       ORDER BY es.link_order, e.name COLLATE musicbrainz ASC";
@@ -227,11 +227,11 @@ sub get_entities {
 sub find_by_subscribed_editor
 {
     my ($self, $editor_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
                     JOIN editor_subscribe_series s ON series.id = s.series
                  WHERE s.editor = ?
-                 ORDER BY series.name COLLATE musicbrainz, series.id";
+                 ORDER BY series.name COLLATE musicbrainz, series.id';
     $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
 }
 
@@ -336,7 +336,7 @@ sub automatically_reorder {
             } @{ $relationships_by_link_order{$link_order} // [] };
 
             unless ($conflicting_relationship) {
-                push @from_values, "(?, ?)";
+                push @from_values, '(?, ?)';
                 push @from_args, $relationship->id, $link_order;
                 push @{$relationships_by_link_order{$link_order}}, $relationship;
             }
@@ -355,8 +355,8 @@ sub automatically_reorder {
 
     $self->c->sql->do("
         UPDATE l_${type0}_${type1} SET link_order = x.link_order::integer
-        FROM (VALUES " . join(", ", @from_values) . ") AS x (relationship, link_order)
-        WHERE id = x.relationship::integer",
+        FROM (VALUES " . join(', ', @from_values) . ') AS x (relationship, link_order)
+        WHERE id = x.relationship::integer',
         @from_args
     );
 }
