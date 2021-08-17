@@ -14,7 +14,6 @@ import GuessCase from '../../guess-case/MB/GuessCase/Main';
 
 type SortNamedEntityT = {
   +entityType: CoreEntityTypeT,
-  +typeID?: number | null,
   ...
 };
 
@@ -54,11 +53,10 @@ export function runReducer(
       break;
     }
     case 'guess-case-sortname': {
-      const {entityType, typeID} = action.entity;
+      const {entityType} = action.entity;
       newState.sortNameField.value =
-        GuessCase[entityType].sortname(
+        GuessCase.entities[entityType].sortname(
           newState.nameField.value ?? '',
-          typeID,
         );
       break;
     }

@@ -159,7 +159,7 @@ class GuessCaseHandler {
    */
   doWhiteSpace(): boolean {
     if (!gc.regexes.WHITESPACE) {
-      gc.regexes.WHITESPACE = ' ';
+      gc.regexes.WHITESPACE = /^ $/;
     }
     if (input.matchCurrentWord(gc.regexes.WHITESPACE)) {
       flags.context.whitespace = true;
@@ -178,7 +178,7 @@ class GuessCaseHandler {
    */
   doColon(): boolean {
     if (!gc.regexes.COLON) {
-      gc.regexes.COLON = ':';
+      gc.regexes.COLON = /^:$/;
     }
 
     if (input.matchCurrentWord(gc.regexes.COLON)) {
@@ -238,7 +238,7 @@ class GuessCaseHandler {
   // Deal with asterisk (*)
   doAsterisk(): boolean {
     if (!gc.regexes.ASTERISK) {
-      gc.regexes.ASTERISK = '*';
+      gc.regexes.ASTERISK = /^\*$/;
     }
     if (input.matchCurrentWord(gc.regexes.ASTERISK)) {
       output.appendWordPreserveWhiteSpace(true);
@@ -251,7 +251,7 @@ class GuessCaseHandler {
   // Deal with diamond (#)
   doDiamond(): boolean {
     if (!gc.regexes.DIAMOND) {
-      gc.regexes.DIAMOND = '#';
+      gc.regexes.DIAMOND = /^#$/;
     }
     if (input.matchCurrentWord(gc.regexes.DIAMOND)) {
       output.appendWordPreserveWhiteSpace(true);
@@ -267,7 +267,7 @@ class GuessCaseHandler {
    */
   doPercent(): boolean {
     if (!gc.regexes.PERCENT) {
-      gc.regexes.PERCENT = '%';
+      gc.regexes.PERCENT = /^%$/;
     }
     if (input.matchCurrentWord(gc.regexes.PERCENT)) {
       output.appendWordPreserveWhiteSpace(true);
@@ -280,7 +280,7 @@ class GuessCaseHandler {
   // Deal with ampersands (&)
   doAmpersand(): boolean {
     if (!gc.regexes.AMPERSAND) {
-      gc.regexes.AMPERSAND = '&';
+      gc.regexes.AMPERSAND = /^&$/;
     }
     if (input.matchCurrentWord(gc.regexes.AMPERSAND)) {
       flags.resetContext();
@@ -357,7 +357,7 @@ class GuessCaseHandler {
   // Deal with plus symbol    (+)
   doPlus(): boolean {
     if (!gc.regexes.PLUS) {
-      gc.regexes.PLUS = '+';
+      gc.regexes.PLUS = /^\+$/;
     }
     if (input.matchCurrentWord(gc.regexes.PLUS)) {
       output.appendWordPreserveWhiteSpace(true);
@@ -546,7 +546,7 @@ class GuessCaseHandler {
    */
   doComma(): boolean {
     if (!gc.regexes.COMMA) {
-      gc.regexes.COMMA = ',';
+      gc.regexes.COMMA = /^,$/;
     }
     if (input.matchCurrentWord(gc.regexes.COMMA)) {
       // Skip duplicate commas.
@@ -579,7 +579,7 @@ class GuessCaseHandler {
    */
   doPeriod(): boolean {
     if (!gc.regexes.PERIOD) {
-      gc.regexes.PERIOD = '.';
+      gc.regexes.PERIOD = /^\.$/;
     }
 
     if (input.matchCurrentWord(gc.regexes.PERIOD)) {

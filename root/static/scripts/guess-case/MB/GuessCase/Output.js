@@ -129,7 +129,7 @@ class GuessCaseOutput {
               position--;
             }
             input.setCursorPosition(position);
-            output = utils.titleString(gc, word, forceCaps);
+            output = utils.titleString(word, forceCaps);
             // Restore pos pointer on input
             input.setCursorPosition(originalPosition);
             if (word !== output) {

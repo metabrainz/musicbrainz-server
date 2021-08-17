@@ -140,7 +140,7 @@ const actions = {
     var name = medium.name.peek();
 
     if (name) {
-      medium.name(GuessCase.release.guess(name));
+      medium.name(GuessCase.entities.release.guess(name));
     }
   },
 
@@ -242,7 +242,7 @@ const actions = {
   },
 
   guessCaseTrackName: function (track) {
-    track.name(GuessCase.track.guess(track.name.peek()));
+    track.name(GuessCase.entities.track.guess(track.name.peek()));
   },
 
   guessCaseTrackNames: function (medium) {

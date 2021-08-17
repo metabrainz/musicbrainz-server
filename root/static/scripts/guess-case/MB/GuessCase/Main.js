@@ -1,4 +1,5 @@
 /*
+ * @flow strict-local
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -20,6 +21,21 @@ import GuessCaseWorkHandler from './Handler/Work';
 
 // Main class of the GC functionality
 class GuessCase {
+  CFG_KEEP_UPPERCASED: boolean;
+
+  modeName: string;
+
+  entities: {
+    [entityType: string]: {
+      guess: (string) => string,
+      sortname: (string) => string,
+    },
+  };
+
+  regexes: {
+    [regexName: string]: RegExp,
+  };
+
   constructor() {
     this.modeName = getCookie('guesscase_mode') || 'English';
 
@@ -34,70 +50,65 @@ class GuessCase {
       SPACES_DOTS: /\s|\./i,
     };
 
-    this.area = {
-      guess: this.guess('area', 'process'),
-      sortname: this.guess('area', 'guessSortName'),
-    };
-
-    this.artist = {
-      guess: this.guess('artist', 'process'),
-      sortname: this.guess('artist', 'guessSortName'),
-    };
-
-    this.event = {
-      guess: this.guess('event', 'process'),
-      sortname: this.guess('event', 'guessSortName'),
-    };
-
-    this.instrument = {
-      guess: this.lowercaseInstrumentName,
-      sortname: this.lowercaseInstrumentName,
-    };
-
-    this.label = {
-      guess: this.guess('label', 'process'),
-      sortname: this.guess('label', 'guessSortName'),
-    };
-
-    this.place = {
-      guess: this.guess('place', 'process'),
-      sortname: this.guess('place', 'guessSortName'),
-    };
-
-    this.release = {
-      guess: this.guess('release', 'process'),
-      sortname: this.guess('release', 'guessSortName'),
-    };
-
-    this.release_group = {
-      guess: this.guess('release_group', 'process'),
-      sortname: this.guess('release_group', 'guessSortName'),
-    };
-
-    this.track = {
-      guess: this.guess('track', 'process'),
-      sortname: this.guess('track', 'guessSortName'),
-    };
-
-    this.recording = {
-      guess: this.guess('recording', 'process'),
-      sortname: this.guess('recording', 'guessSortName'),
-    };
-
-    this.series = {
-      guess: this.guess('series', 'process'),
-      sortname: this.guess('series', 'guessSortName'),
-    };
-
-    this.work = {
-      guess: this.guess('work', 'process'),
-      sortname: this.guess('work', 'guessSortName'),
+    this.entities = {
+      area: {
+        guess: this.guess('area', 'process'),
+        sortname: this.guess('area', 'guessSortName'),
+      },
+      artist: {
+        guess: this.guess('artist', 'process'),
+        sortname: this.guess('artist', 'guessSortName'),
+      },
+      event: {
+        guess: this.guess('event', 'process'),
+        sortname: this.guess('event', 'guessSortName'),
+      },
+      instrument: {
+        guess: this.guess('instrument', 'process'),
+        sortname: this.guess('instrument', 'guessSortName'),
+      },
+      label: {
+        guess: this.guess('label', 'process'),
+        sortname: this.guess('label', 'guessSortName'),
+      },
+      place: {
+        guess: this.guess('place', 'process'),
+        sortname: this.guess('place', 'guessSortName'),
+      },
+      recording: {
+        guess: this.guess('recording', 'process'),
+        sortname: this.guess('recording', 'guessSortName'),
+      },
+      release: {
+        guess: this.guess('release', 'process'),
+        sortname: this.guess('release', 'guessSortName'),
+      },
+      release_group: {
+        guess: this.guess('release_group', 'process'),
+        sortname: this.guess('release_group', 'guessSortName'),
+      },
+      series: {
+        guess: this.guess('series', 'process'),
+        sortname: this.guess('series', 'guessSortName'),
+      },
+      track: {
+        guess: this.guess('track', 'process'),
+        sortname: this.guess('track', 'guessSortName'),
+      },
+      work: {
+        guess: this.guess('work', 'process'),
+        sortname: this.guess('work', 'guessSortName'),
+      },
     };
   }
 
   // Member functions
 
-  guess(handlerName, method) {
+  guess(handlerName: string, method: string): (string) => string {
+    if (handlerName === 'instrument') {
+      return ((inputString) => this.lowercaseInstrumentName(inputString));
+    }
+
     let handler;
     const handlerPicker = {
       area: GuessCaseAreaHandler,
@@ -118,7 +129,7 @@ class GuessCase {
      * @param {string} is The unprocessed input string.
      * @return {string} The processed string.
      */
-    return function (inputString) {
+    return function (inputString: string): string {
       // Initialise flags for another run.
       flags.init();
 
@@ -140,9 +151,9 @@ class GuessCase {
   }
 
   // For instruments, all we need to do is lowercase the string
-  lowercaseInstrumentName(name) {
+  lowercaseInstrumentName(name: string): string {
     return name.toLowerCase();
   }
 }
 
-export default new GuessCase();
+export default (new GuessCase(): GuessCase);

@@ -26,7 +26,7 @@ MB.Control.initializeGuessCase = function (type, formPrefix) {
     ko.applyBindingsToNode($options[0], {guessCase: () => undefined});
   }
 
-  var guess = gc[type];
+  var guess = gc.entities[type];
 
   function setVal($input, value) {
     $input.val(value).trigger('change');

@@ -75,7 +75,7 @@ export function runReducer(
   switch (action.type) {
     case 'guess-case': {
       newState.field.value =
-        GuessCase[action.entity.entityType].guess(
+        GuessCase.entities[action.entity.entityType].guess(
           newState.field.value ?? '',
         );
       break;
