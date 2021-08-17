@@ -769,15 +769,19 @@ const ExternalLinkRelationship =
                     {l('video')}
                   </label>
                 </div>}
+              {link.url && !link.error && !hasUrlError &&
+                <TypeDescription type={link.type} url={link.url} />}
               {(
                 !isDateEmpty(link.begin_date) ||
                 !isDateEmpty(link.end_date)
               ) &&
-                <span className={link.ended ? 'deleted' : undefined}>
+                <span
+                  className={link.ended
+                    ? 'date-period deleted'
+                    : 'date-period'}
+                >
                   {` (${formatDatePeriod(link)})`}
                 </span>}
-              {link.url && !link.error && !hasUrlError &&
-                <TypeDescription type={link.type} url={link.url} />}
             </label>
           </div>
           {link.error &&
