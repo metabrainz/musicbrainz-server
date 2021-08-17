@@ -123,7 +123,7 @@ class GuessCaseHandler {
           this.doHyphen() ||
           this.doInvertedMarks() ||
           this.doPlus() ||
-          this.doAsterix() ||
+          this.doAsterisk() ||
           this.doDiamond() ||
           this.doPercent()
         );
@@ -233,11 +233,11 @@ class GuessCaseHandler {
   }
 
   // Deal with asterisk (*)
-  doAsterix() {
-    if (!gc.regexes.ASTERIX) {
-      gc.regexes.ASTERIX = '*';
+  doAsterisk() {
+    if (!gc.regexes.ASTERISK) {
+      gc.regexes.ASTERISK = '*';
     }
-    if (input.matchCurrentWord(gc.regexes.ASTERIX)) {
+    if (input.matchCurrentWord(gc.regexes.ASTERISK)) {
       output.appendWordPreserveWhiteSpace(true);
       flags.resetContext();
       return true;
