@@ -16,6 +16,7 @@ with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 sub edit_type { $EDIT_WIKIDOC_CHANGE }
 sub edit_name { N_l("Change WikiDoc") }
 sub edit_kind { 'other' }
+sub edit_template_react { 'ChangeWikiDoc' }
 
 has '+data' => (
     isa => Dict[
@@ -47,15 +48,10 @@ sub accept
 sub build_display_data {
     my ($self) = @_;
 
-    my ($host, $page, $old_id, $new_id) = (
-        DBDefs->WIKITRANS_SERVER,
-        map { uri_escape($_) } @{$self->data}{qw(page old_version new_version)}
-    );
-
     return {
-        old_version_link => sprintf('//%s/index.php?title=%s&oldid=%d', $host, $page, $old_id),
-        new_version_link => sprintf('//%s/index.php?title=%s&oldid=%d', $host, $page, $new_id),
-        diff_link => sprintf('//%s/index.php?title=%s&diff=%d&oldid=%d', $host, $page, $new_id, $old_id),
+        new_version => $self->data->{new_version},
+        old_version => $self->data->{old_version},
+        page => $self->data->{page},
     };
 }
 
