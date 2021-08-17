@@ -34,10 +34,10 @@ class GuessCasePlaceHandler extends GuessCaseHandler {
   }
 
   // Guesses the sortname for place aliases
-  guessSortName(is) {
+  guessSortName(inputString) {
     return this.sortCompoundName(
-      is,
-      (is) => this.moveArticleToEnd(is),
+      inputString,
+      (inputString) => this.moveArticleToEnd(inputString),
     );
   }
 }

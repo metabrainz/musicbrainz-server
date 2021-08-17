@@ -22,8 +22,8 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
    * - empty, unknown -> [unknown]
    * - none, no artist, not applicable, n/a -> [no artist]
    */
-  checkSpecialCase(is) {
-    if (is) {
+  checkSpecialCase(inputString) {
+    if (inputString) {
       if (!gc.regexes.ARTIST_EMPTY) {
         // Match empty
         gc.regexes.ARTIST_EMPTY = /^\s*$/i;
@@ -38,17 +38,17 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
         // Match "n/a" and variants
         gc.regexes.ARTIST_NA = /^[\(\[]?\s*n\s*[\\\/]\s*a\s*[\)\]]?$/i;
       }
-      if (is.match(gc.regexes.ARTIST_EMPTY)) {
+      if (inputString.match(gc.regexes.ARTIST_EMPTY)) {
         return this.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.regexes.ARTIST_UNKNOWN)) {
+      } else if (inputString.match(gc.regexes.ARTIST_UNKNOWN)) {
         return this.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.regexes.ARTIST_NONE)) {
+      } else if (inputString.match(gc.regexes.ARTIST_NONE)) {
         return this.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.regexes.ARTIST_NOARTIST)) {
+      } else if (inputString.match(gc.regexes.ARTIST_NOARTIST)) {
         return this.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.regexes.ARTIST_NOTAPPLICABLE)) {
+      } else if (inputString.match(gc.regexes.ARTIST_NOTAPPLICABLE)) {
         return this.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.regexes.ARTIST_NA)) {
+      } else if (inputString.match(gc.regexes.ARTIST_NA)) {
         return this.SPECIALCASE_UNKNOWN;
       }
     }
@@ -72,8 +72,8 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
   }
 
   // Guesses the sortname for artists
-  guessSortName(is, person) {
-    return this.sortCompoundName(is, function (artist) {
+  guessSortName(inputString, person) {
+    return this.sortCompoundName(inputString, function (artist) {
       if (artist) {
         artist = utils.trim(artist);
         let append = '';
@@ -128,7 +128,7 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
 
         // we have to reorder the names
         if (reorder) {
-          const reOrderedNames = [];
+          const reorderedNames = [];
           if (names.length > 1) {
             for (let i = 0; i < names.length - 1; i++) {
               // >> firstnames,middlenames one pos right
@@ -139,18 +139,18 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
                  * to the lastname
                  */
               } else if (names[i]) {
-                reOrderedNames[i + 1] = names[i];
+                reorderedNames[i + 1] = names[i];
               }
             }
-            reOrderedNames[0] = names[names.length - 1]; // lastname,firstname
-            if (reOrderedNames.length > 1) {
+            reorderedNames[0] = names[names.length - 1]; // lastname,firstname
+            if (reorderedNames.length > 1) {
               /*
                * Only append comma if there was more than 1
                * non-empty word (and therefore switched)
                */
-              reOrderedNames[0] += ',';
+              reorderedNames[0] += ',';
             }
-            names = reOrderedNames;
+            names = reorderedNames;
           }
         }
 

@@ -17,13 +17,13 @@ import GuessCaseHandler from './Base';
 // Release specific GuessCase functionality
 class GuessCaseReleaseHandler extends GuessCaseHandler {
   // Checks special cases of releases
-  checkSpecialCase(is) {
-    if (is) {
+  checkSpecialCase(inputString) {
+    if (inputString) {
       if (!gc.regexes.RELEASE_UNTITLED) {
         // Untitled
         gc.regexes.RELEASE_UNTITLED = /^([\(\[]?\s*untitled\s*[\)\]]?)$/i;
       }
-      if (is.match(gc.regexes.RELEASE_UNTITLED)) {
+      if (inputString.match(gc.regexes.RELEASE_UNTITLED)) {
         return self.SPECIALCASE_UNTITLED;
       }
     }
@@ -34,17 +34,17 @@ class GuessCaseReleaseHandler extends GuessCaseHandler {
    * Guess the releasename given in string is, and
    * returns the guessed name.
    *
-   * @param    is        the inputstring
+   * @param    is        the inputString
    * @returns os        the processed string
    */
-  process(os) {
-    return modes[gc.modeName].fixVinylSizes(super.process(os));
+  process(inputString) {
+    return modes[gc.modeName].fixVinylSizes(super.process(inputString));
   }
 
-  getWordsForProcessing(is) {
-    is = modes[gc.modeName].preProcessTitles(is);
+  getWordsForProcessing(inputString) {
+    inputString = modes[gc.modeName].preProcessTitles(inputString);
     return modes[gc.modeName].prepExtraTitleInfo(
-      input.splitWordsAndPunctuation(is),
+      input.splitWordsAndPunctuation(inputString),
     );
   }
 
@@ -66,8 +66,8 @@ class GuessCaseReleaseHandler extends GuessCaseHandler {
   }
 
   // Guesses the sortname for releases (for aliases)
-  guessSortName(is) {
-    return this.moveArticleToEnd(is);
+  guessSortName(inputString) {
+    return this.moveArticleToEnd(inputString);
   }
 }
 

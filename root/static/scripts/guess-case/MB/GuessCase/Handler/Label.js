@@ -21,8 +21,8 @@ class GuessCaseLabelHandler extends GuessCaseHandler {
    * - empty, unknown -> [unknown]
    * - none, no label, not applicable, n/a -> [no label]
    */
-  checkSpecialCase(is) {
-    if (is) {
+  checkSpecialCase(inputString) {
+    if (inputString) {
       if (!gc.regexes.LABEL_EMPTY) {
         // Match empty
         gc.regexes.LABEL_EMPTY = /^\s*$/i;
@@ -37,17 +37,17 @@ class GuessCaseLabelHandler extends GuessCaseHandler {
         // Match "n/a" and variants
         gc.regexes.LABEL_NA = /^[\(\[]?\s*n\s*[\\\/]\s*a\s*[\)\]]?$/i;
       }
-      if (is.match(gc.regexes.LABEL_EMPTY)) {
+      if (inputString.match(gc.regexes.LABEL_EMPTY)) {
         return this.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.regexes.LABEL_UNKNOWN)) {
+      } else if (inputString.match(gc.regexes.LABEL_UNKNOWN)) {
         return this.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.regexes.LABEL_NONE)) {
+      } else if (inputString.match(gc.regexes.LABEL_NONE)) {
         return this.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.regexes.LABEL_NOLABEL)) {
+      } else if (inputString.match(gc.regexes.LABEL_NOLABEL)) {
         return this.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.regexes.LABEL_NOTAPPLICABLE)) {
+      } else if (inputString.match(gc.regexes.LABEL_NOTAPPLICABLE)) {
         return this.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.regexes.LABEL_NA)) {
+      } else if (inputString.match(gc.regexes.LABEL_NA)) {
         return this.SPECIALCASE_UNKNOWN;
       }
     }
@@ -71,10 +71,10 @@ class GuessCaseLabelHandler extends GuessCaseHandler {
   }
 
   // Guesses the sortname for label aliases
-  guessSortName(is) {
+  guessSortName(inputString) {
     return this.sortCompoundName(
-      is,
-      (is) => this.moveArticleToEnd(is),
+      inputString,
+      (inputString) => this.moveArticleToEnd(inputString),
     );
   }
 }

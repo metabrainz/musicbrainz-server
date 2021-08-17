@@ -17,8 +17,8 @@ import GuessCaseHandler from './Base';
 
 // Track specific GuessCase functionality
 class GuessCaseTrackHandler extends GuessCaseHandler {
-  removeBonusInfo(is) {
-    return is
+  removeBonusInfo(inputString) {
+    return inputString
       .replace(/[\(\[]?bonus(\s+track)?s?\s*[\)\]]?$/i, '')
       .replace(/[\(\[]?retail(\s+version)?\s*[\)\]]?$/i, '');
   }
@@ -26,18 +26,17 @@ class GuessCaseTrackHandler extends GuessCaseHandler {
   /*
    * Guess the trackname given in string is, and
    * returns the guessed name.
-   *
-   * @param    is       the inputstring
-   * @returns os        the processed string
    */
-  process(os) {
-    return modes[gc.modeName].fixVinylSizes(super.process(os));
+  process(inputString) {
+    return modes[gc.modeName].fixVinylSizes(super.process(inputString));
   }
 
-  getWordsForProcessing(is) {
-    is = modes[gc.modeName].preProcessTitles(this.removeBonusInfo(is));
+  getWordsForProcessing(inputString) {
+    inputString = modes[gc.modeName].preProcessTitles(
+      this.removeBonusInfo(inputString),
+    );
     return modes[gc.modeName].prepExtraTitleInfo(
-      input.splitWordsAndPunctuation(is),
+      input.splitWordsAndPunctuation(inputString),
     );
   }
 
@@ -50,8 +49,8 @@ class GuessCaseTrackHandler extends GuessCaseHandler {
    * - untitled [track]        -> [untitled]
    * - unknown|bonus [track]    -> [unknown]
    */
-  checkSpecialCase(is) {
-    if (is) {
+  checkSpecialCase(inputString) {
+    if (inputString) {
       if (!gc.regexes.TRACK_DATATRACK) {
         // Data tracks
         gc.regexes.TRACK_DATATRACK = /^([\(\[]?\s*data(\s+track)?\s*[\)\]]?$)/i;
@@ -64,15 +63,15 @@ class GuessCaseTrackHandler extends GuessCaseHandler {
         // Any number of question marks
         gc.regexes.TRACK_MYSTERY = /^\?+$/i;
       }
-      if (is.match(gc.regexes.TRACK_DATATRACK)) {
+      if (inputString.match(gc.regexes.TRACK_DATATRACK)) {
         return this.SPECIALCASE_DATA_TRACK;
-      } else if (is.match(gc.regexes.TRACK_SILENCE)) {
+      } else if (inputString.match(gc.regexes.TRACK_SILENCE)) {
         return this.SPECIALCASE_SILENCE;
-      } else if (is.match(gc.regexes.TRACK_UNTITLED)) {
+      } else if (inputString.match(gc.regexes.TRACK_UNTITLED)) {
         return this.SPECIALCASE_UNTITLED;
-      } else if (is.match(gc.regexes.TRACK_UNKNOWN)) {
+      } else if (inputString.match(gc.regexes.TRACK_UNKNOWN)) {
         return this.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.regexes.TRACK_MYSTERY)) {
+      } else if (inputString.match(gc.regexes.TRACK_MYSTERY)) {
         return this.SPECIALCASE_UNKNOWN;
       }
     }
@@ -119,8 +118,8 @@ class GuessCaseTrackHandler extends GuessCaseHandler {
   }
 
   // Guesses the sortname for recordings (for aliases)
-  guessSortName(is) {
-    return this.moveArticleToEnd(is);
+  guessSortName(inputString) {
+    return this.moveArticleToEnd(inputString);
   }
 }
 

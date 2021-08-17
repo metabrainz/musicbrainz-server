@@ -39,8 +39,8 @@ class GuessCaseAreaHandler extends GuessCaseHandler {
   }
 
   // Guesses the sortname for areas
-  guessSortName(is) {
-    return utils.trim(is);
+  guessSortName(inputString) {
+    return utils.trim(inputString);
   }
 }
 

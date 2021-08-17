@@ -17,23 +17,23 @@ import GuessCaseHandler from './Base';
 // Work specific GuessCase functionality
 class GuessCaseWorkHandler extends GuessCaseHandler {
   // Checks special cases of releases
-  checkSpecialCase(is) {
-    if (is) {
+  checkSpecialCase(inputString) {
+    if (inputString) {
       if (!gc.regexes.RELEASE_UNTITLED) {
         // Untitled
         gc.regexes.RELEASE_UNTITLED = /^([\(\[]?\s*untitled\s*[\)\]]?)$/i;
       }
-      if (is.match(gc.regexes.RELEASE_UNTITLED)) {
+      if (inputString.match(gc.regexes.RELEASE_UNTITLED)) {
         return this.SPECIALCASE_UNTITLED;
       }
     }
     return this.NOT_A_SPECIALCASE;
   }
 
-  getWordsForProcessing(is) {
-    is = modes[gc.modeName].preProcessTitles(is);
+  getWordsForProcessing(inputString) {
+    inputString = modes[gc.modeName].preProcessTitles(inputString);
     return modes[gc.modeName].prepExtraTitleInfo(
-      input.splitWordsAndPunctuation(is),
+      input.splitWordsAndPunctuation(inputString),
     );
   }
 
@@ -56,8 +56,8 @@ class GuessCaseWorkHandler extends GuessCaseHandler {
   }
 
   // Guesses the sortname for works
-  guessSortName(is) {
-    return this.moveArticleToEnd(is);
+  guessSortName(inputString) {
+    return this.moveArticleToEnd(inputString);
   }
 }
 

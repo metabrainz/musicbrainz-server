@@ -38,8 +38,8 @@ class GuessCaseHandler {
   // Member functions
 
   // Returns true if the number corresponds to a special case.
-  isSpecialCase(num) {
-    return (num !== this.NOT_A_SPECIALCASE);
+  isSpecialCase(number) {
+    return (number !== this.NOT_A_SPECIALCASE);
   }
 
   /*
@@ -47,8 +47,8 @@ class GuessCaseHandler {
    * special case, or the input string if num
    * does not correspond to a special case
    */
-  getSpecialCaseFormatted(is, num) {
-    switch (num) {
+  getSpecialCaseFormatted(inputString, number) {
+    switch (number) {
       case this.SPECIALCASE_DATA_TRACK:
         return '[data track]';
 
@@ -72,17 +72,17 @@ class GuessCaseHandler {
 
       case this.NOT_A_SPECIALCASE:
       default:
-        return is;
+        return inputString;
     }
   }
 
-  getWordsForProcessing(is) {
-    return input.splitWordsAndPunctuation(is);
+  getWordsForProcessing(inputString) {
+    return input.splitWordsAndPunctuation(inputString);
   }
 
-  process(is) {
+  process(inputString) {
     output.init();
-    input.init(is, this.getWordsForProcessing(is));
+    input.init(inputString, this.getWordsForProcessing(inputString));
     while (!input.isIndexAtEnd()) {
       this.processWord();
     }
@@ -203,11 +203,11 @@ class GuessCaseHandler {
 
       // from next position on, skip spaces and dots.
       let skip = false;
-      const pos = input.getCursorPosition();
-      const len = input.getLength();
-      if (pos < len - 2) {
-        const nword = input.getWordAtIndex(pos + 1);
-        const naword = input.getWordAtIndex(pos + 2);
+      const cursorPosition = input.getCursorPosition();
+      const length = input.getLength();
+      if (cursorPosition < length - 2) {
+        const nword = input.getWordAtIndex(cursorPosition + 1);
+        const naword = input.getWordAtIndex(cursorPosition + 2);
         if (nword.match(gc.regexes.OPENBRACKET)) {
           skip = true;
           flags.context.spaceNextWord = true;
@@ -412,28 +412,28 @@ class GuessCaseHandler {
 
     if (input.matchCurrentWord(gc.regexes.SINGLEQUOTE)) {
       flags.context.forceCaps = false;
-      const a = input.isPreviousWord(' ');
-      const b = input.isNextWord(' ');
+      const isPreviousSpace = input.isPreviousWord(' ');
+      const isNextSpace = input.isNextWord(' ');
       const state = flags.context.openedSingleQuote;
 
       /*
        * Preserve whitespace before opening singlequote.
        * -- if it's a "Asdf 'Text in Quotes'"
        */
-      if (a && !b) {
+      if (isPreviousSpace && !isNextSpace) {
         output.appendSpace();
         flags.context.openedSingleQuote = true;
         flags.context.forceCaps = true;
 
         // Preserve whitespace after closing singlequote.
-      } else if (!a && b) {
+      } else if (!isPreviousSpace && isNextSpace) {
         if (state) {
           flags.context.forceCaps = true;
           flags.context.openedSingleQuote = false;
         }
         output.capitalizeLastWord();
       }
-      flags.context.spaceNextWord = b; // and keep whitespace intact
+      flags.context.spaceNextWord = isNextSpace; // and keep whitespace intact
       output.appendCurrentWord(); // append current word
 
       /*
@@ -475,21 +475,21 @@ class GuessCaseHandler {
 
       // register current bracket as openening bracket
       flags.pushBracket(input.getCurrentWord());
-      const cb = flags.getCurrentCloseBracket();
+      const closingBracket = flags.getCurrentCloseBracket();
       let forcelowercase = false;
-      const pos = input.getCursorPosition() + 1;
-      for (let i = pos; i < input.getLength(); i++) {
-        const w = (input.getWordAtIndex(i) || '');
-        if (w !== ' ') {
-          if ((utils.isLowerCaseBracketWord(w)) ||
-              (w.match(/^featuring$|^ft$|^feat$/i) != null)) {
+      const cursorPosition = input.getCursorPosition() + 1;
+      for (let i = cursorPosition; i < input.getLength(); i++) {
+        const word = (input.getWordAtIndex(i) || '');
+        if (word !== ' ') {
+          if ((utils.isLowerCaseBracketWord(word)) ||
+              (word.match(/^featuring$|^ft$|^feat$/i) != null)) {
             flags.context.slurpExtraTitleInformation = true;
 
-            if (i === pos) {
+            if (i === cursorPosition) {
               forcelowercase = true;
             }
           }
-          if (w === cb) {
+          if (word === closingBracket) {
             break;
           }
         }
@@ -628,8 +628,8 @@ class GuessCaseHandler {
     let subIndex;
     const tmp = [];
     if (input.matchCurrentWord(gc.regexes.ACRONYM)) {
-      let cw = input.getCurrentWord();
-      tmp.push(cw.toUpperCase()); // Add current word
+      let currentWord = input.getCurrentWord();
+      tmp.push(currentWord.toUpperCase()); // Add current word
       flags.context.expectWord = false;
       flags.context.gotPeriod = false;
 
@@ -638,18 +638,19 @@ class GuessCaseHandler {
         subIndex = input.getCursorPosition() + 1;
         subIndex < input.getLength();
       ) {
-        cw = input.getWordAtIndex(subIndex); // Remember current word.
+        currentWord = input.getWordAtIndex(subIndex); // Remember current word
 
-        if (flags.context.expectWord && cw.match(gc.regexes.ACRONYM)) {
-          tmp.push(cw.toUpperCase()); // Do character
+        if (flags.context.expectWord &&
+            currentWord.match(gc.regexes.ACRONYM)) {
+          tmp.push(currentWord.toUpperCase()); // Do character
           flags.context.expectWord = false;
           flags.context.gotPeriod = false;
         } else {
-          if (cw === '.' && !flags.context.gotPeriod) {
+          if (currentWord === '.' && !flags.context.gotPeriod) {
             tmp[tmp.length] = '.'; // Do dot
             flags.context.gotPeriod = true;
             flags.context.expectWord = true;
-          } else if (flags.context.gotPeriod && cw === ' ') {
+          } else if (flags.context.gotPeriod && currentWord === ' ') {
             flags.context.expectWord = true; // Do a single whitespace
           } else if (tmp[tmp.length - 1] !== '.') {
             tmp.pop(); // Lose last of the acronym
@@ -663,11 +664,11 @@ class GuessCaseHandler {
     }
 
     if (tmp.length > 2) {
-      let s = tmp.join(''); // Yes, we have an acronym, get string
-      s = s.replace(/(\.)*$/, '.'); // Replace any number of trailing "." with ". "
+      let string = tmp.join(''); // Yes, we have an acronym, get string
+      string = string.replace(/(\.)*$/, '.'); // Replace any number of trailing "." with ". "
 
       output.appendSpaceIfNeeded();
-      output.appendWord(s);
+      output.appendWord(string);
 
       flags.resetContext();
       flags.context.acronym = true;
@@ -847,10 +848,10 @@ class GuessCaseHandler {
            *    though :]
            * Blah (feat. Erroll Flynn Some Remixname) (remix)
            */
-          const pos = input.getCursorPosition();
-          const len = input.getLength();
-          let i = pos;
-          for (; i < len; i++) {
+          const cursorPosition = input.getCursorPosition();
+          const length = input.getLength();
+          let i = cursorPosition;
+          for (; i < length; i++) {
             if (input.getWordAtIndex(i) === '(') {
               break;
             }
@@ -860,7 +861,7 @@ class GuessCaseHandler {
            * We got a part, but not until the end of the string
            * close feat. part, and add space to next set of brackets
            */
-          if (i !== pos && i < len - 1) {
+          if (i !== cursorPosition && i < length - 1) {
             input.insertWordsAtIndex(i, [')', ' ']);
           }
           input.updateCurrentWord('(');
@@ -887,8 +888,8 @@ class GuessCaseHandler {
     return false;
   }
 
-  moveArticleToEnd(is) {
-    return utils.trim(is).replace(
+  moveArticleToEnd(inputString) {
+    return utils.trim(inputString).replace(
       /^(The|Los) (.+)$/,
       function (match, article, name) {
         return name + ', ' + article;
@@ -896,14 +897,14 @@ class GuessCaseHandler {
     );
   }
 
-  sortCompoundName(is, callback) {
-    is = utils.trim(is);
+  sortCompoundName(inputString, callback) {
+    inputString = utils.trim(inputString);
 
     let joinPhrase = ' and ';
-    joinPhrase = (is.indexOf(' + ') === -1 ? joinPhrase : ' + ');
-    joinPhrase = (is.indexOf(' & ') === -1 ? joinPhrase : ' & ');
+    joinPhrase = (inputString.indexOf(' + ') === -1 ? joinPhrase : ' + ');
+    joinPhrase = (inputString.indexOf(' & ') === -1 ? joinPhrase : ' & ');
 
-    return is.split(joinPhrase).map(callback).join(joinPhrase);
+    return inputString.split(joinPhrase).map(callback).join(joinPhrase);
   }
 }
 
