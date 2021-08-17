@@ -6,6 +6,7 @@ COPY \
     docker/musicbrainz-webservice/webservice.service \
     /etc/service/webservice/run
 RUN chmod 755 /etc/service/webservice/run
+RUN touch /etc/service/webservice/down
 
 COPY docker/scripts/start_musicbrainz_server.sh /usr/local/bin/
 
