@@ -13,6 +13,7 @@ with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 sub edit_name { N_l('Remove relationship attribute') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RELATIONSHIP_REMOVE_LINK_ATTRIBUTE }
+sub edit_template_react { 'RemoveRelationshipAttribute' }
 
 has '+data' => (
     isa => Dict[
@@ -23,6 +24,15 @@ has '+data' => (
         child_order => Optional[Str]
     ]
 );
+
+sub build_display_data {
+    my ($self, $loaded) = @_;
+
+    return {
+        description => $self->data->{description},
+        name => $self->data->{name},
+    };
+}
 
 sub accept {
     my $self = shift;
