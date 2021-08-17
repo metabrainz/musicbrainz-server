@@ -76,7 +76,7 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
     return this.sortCompoundName(is, function (artist) {
       if (artist) {
         artist = utils.trim(artist);
-        var append = '';
+        let append = '';
 
         // Strip Jr./Sr. from the string, and append at the end.
         if (!gc.regexes.SORTNAME_SR) {
@@ -91,20 +91,20 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
           artist = artist.replace(gc.regexes.SORTNAME_JR, '');
           append = ', Jr.';
         }
-        var names = artist.split(' ');
+        let names = artist.split(' ');
 
         /*
          * Handle some special cases, like DJ, The, Los which
          * are sorted at the end.
          */
-        var reorder = false;
+        let reorder = false;
         if (!gc.regexes.SORTNAME_DJ) {
           gc.regexes.SORTNAME_DJ = /^DJ$/i; // match DJ
           gc.regexes.SORTNAME_THE = /^The$/i; // match The
           gc.regexes.SORTNAME_LOS = /^Los$/i; // match Los
           gc.regexes.SORTNAME_DR = /^Dr\.$/i; // match Dr.
         }
-        var firstName = names[0];
+        const firstName = names[0];
         if (firstName.match(gc.regexes.SORTNAME_DJ)) {
           append = (', DJ' + append); // handle DJ xyz -> xyz, DJ
           names[0] = null;
@@ -127,13 +127,12 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
         }
 
         // we have to reorder the names
-        var i = 0;
         if (reorder) {
-          var reOrderedNames = [];
+          const reOrderedNames = [];
           if (names.length > 1) {
-            for (i = 0; i < names.length - 1; i++) {
+            for (let i = 0; i < names.length - 1; i++) {
               // >> firstnames,middlenames one pos right
-              if (i == names.length - 2 && names[i] == 'St.') {
+              if (i === names.length - 2 && names[i] === 'St.') {
                 names[i + 1] = names[i] + ' ' + names[i + 1];
                 /*
                  * Handle St. because it belongs
