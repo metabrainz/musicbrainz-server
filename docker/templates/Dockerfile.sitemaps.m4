@@ -3,9 +3,10 @@ m4_include(`server_base.m4')m4_dnl
 copy_common_mbs_files
 
 COPY \
-    docker/musicbrainz-sitemaps/sitemaps.service \
-    /etc/service/sitemaps/run
-RUN chmod 755 /etc/service/sitemaps/run
+    docker/musicbrainz-website/website.service \
+    /etc/service/website/run
+RUN chmod 755 /etc/service/website/run
+RUN touch /etc/service/website/down
 
 COPY docker/musicbrainz-sitemaps/crontab /var/spool/cron/crontabs/musicbrainz
 
