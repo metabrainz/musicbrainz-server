@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import FormRowText from '../../../../components/FormRowText';
-import MB from '../../common/MB';
+import GuessCase from '../../guess-case/MB/GuessCase/Main';
 
 type SortNamedEntityT = {
   +entityType: CoreEntityTypeT,
@@ -56,7 +56,7 @@ export function runReducer(
     case 'guess-case-sortname': {
       const {entityType, typeID} = action.entity;
       newState.sortNameField.value =
-        (MB.GuessCase: any)[entityType].sortname(
+        GuessCase[entityType].sortname(
           newState.nameField.value ?? '',
           typeID,
         );

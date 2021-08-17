@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import FormRowText from '../../../../components/FormRowText';
-import MB from '../../common/MB';
+import GuessCase from '../../guess-case/MB/GuessCase/Main';
 
 import {
   createInitialState as createGuessCaseOptionsState,
@@ -75,7 +75,7 @@ export function runReducer(
   switch (action.type) {
     case 'guess-case': {
       newState.field.value =
-        (MB.GuessCase: any)[action.entity.entityType].guess(
+        GuessCase[action.entity.entityType].guess(
           newState.field.value ?? '',
         );
       break;
