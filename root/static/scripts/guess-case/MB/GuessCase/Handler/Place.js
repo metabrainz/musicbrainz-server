@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2013 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,

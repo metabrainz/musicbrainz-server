@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -211,11 +211,11 @@ class GuessCaseHandler {
       if (cursorPosition < length - 2) {
         const nextWord = input.getWordAtIndex(cursorPosition + 1);
         const afterNextWord = input.getWordAtIndex(cursorPosition + 2);
-        if (nextWord && nextWord.match(gc.regexes.OPENBRACKET)) {
+        if (nextWord != null && nextWord.match(gc.regexes.OPENBRACKET)) {
           skip = true;
           flags.context.spaceNextWord = true;
         }
-        if (input.isNextWord(' ') && afterNextWord &&
+        if (input.isNextWord(' ') && afterNextWord != null &&
           afterNextWord.match(gc.regexes.OPENBRACKET)) {
           flags.context.spaceNextWord = true;
           skip = true;
@@ -470,7 +470,7 @@ class GuessCaseHandler {
       gc.regexes.OPENBRACKET = /[\(\[\{\<]/;
     }
     const currentWord = input.getCurrentWord();
-    if (currentWord && currentWord.match(gc.regexes.OPENBRACKET)) {
+    if (currentWord != null && currentWord.match(gc.regexes.OPENBRACKET)) {
       /*
        * Force caps on last word before the opending bracket,
        * if the current mode is not sentence mode.
@@ -632,7 +632,7 @@ class GuessCaseHandler {
     let subIndex = input.getCursorPosition() + 1;
     const tmp = [];
     const currentWord = input.getCurrentWord();
-    if (currentWord && currentWord.match(gc.regexes.ACRONYM)) {
+    if (currentWord != null && currentWord.match(gc.regexes.ACRONYM)) {
       tmp.push(currentWord.toUpperCase()); // Add current word
       let expectWord = false;
       let gotPeriod = false;
@@ -644,7 +644,7 @@ class GuessCaseHandler {
         // Remember current word
         const wordAtIndex = input.getWordAtIndex(subIndex);
 
-        if (expectWord && wordAtIndex &&
+        if (expectWord && wordAtIndex != null &&
             wordAtIndex.match(gc.regexes.ACRONYM)) {
           tmp.push(wordAtIndex.toUpperCase()); // Do character
           expectWord = false;
@@ -812,7 +812,7 @@ class GuessCaseHandler {
        * have to check if next word is a "." or a "/"
        */
       if ((currentWord.match(gc.regexes.FEAT_F)) &&
-          nextWord && !nextWord.match(/^[\/.]$/)) {
+          nextWord != null && !nextWord.match(/^[\/.]$/)) {
         return false;
       }
 
@@ -823,7 +823,7 @@ class GuessCaseHandler {
       if (input.getCursorPosition() < input.getLength() - 2) {
         const nextWord = input.getNextWord();
         const featWord = currentWord + (
-          nextWord && (nextWord === '.' || nextWord === '/')
+          nextWord != null && (nextWord === '.' || nextWord === '/')
             ? nextWord
             // Special case (feat), fix typo by adding a "." if missing
             : currentWord.match(gc.regexes.FEAT_FEAT) ? '.' : ''
@@ -909,13 +909,13 @@ class GuessCaseHandler {
     inputString: string,
     callback: (string) => string,
   ): string {
-    inputString = utils.trim(inputString);
+    const trimmedString = utils.trim(inputString);
 
     let joinPhrase = ' and ';
-    joinPhrase = (inputString.indexOf(' + ') === -1 ? joinPhrase : ' + ');
-    joinPhrase = (inputString.indexOf(' & ') === -1 ? joinPhrase : ' & ');
+    joinPhrase = (trimmedString.indexOf(' + ') === -1 ? joinPhrase : ' + ');
+    joinPhrase = (trimmedString.indexOf(' & ') === -1 ? joinPhrase : ' & ');
 
-    return inputString.split(joinPhrase).map(callback).join(joinPhrase);
+    return trimmedString.split(joinPhrase).map(callback).join(joinPhrase);
   }
 }
 

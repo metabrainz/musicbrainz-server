@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -24,7 +24,7 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
    * - none, no artist, not applicable, n/a -> [no artist]
    */
   checkSpecialCase(inputString?: string): number {
-    if (inputString) {
+    if (inputString != null) {
       if (!gc.regexes.ARTIST_EMPTY) {
         // Match empty
         gc.regexes.ARTIST_EMPTY = /^\s*$/i;
@@ -74,9 +74,9 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
 
   // Guesses the sortname for artists
   guessSortName(inputString: string, isPerson: boolean): string {
-    return this.sortCompoundName(inputString, function (artist) {
-      if (artist) {
-        artist = utils.trim(artist);
+    return this.sortCompoundName(inputString, function (artistName) {
+      if (artistName) {
+        let modifiedArtistName = utils.trim(artistName);
         let append = '';
 
         // Strip Jr./Sr. from the string, and append at the end.
@@ -85,14 +85,16 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
           gc.regexes.SORTNAME_JR = /,\s*Jr[\.]?$/i;
         }
 
-        if (artist.match(gc.regexes.SORTNAME_SR)) {
-          artist = artist.replace(gc.regexes.SORTNAME_SR, '');
+        if (modifiedArtistName.match(gc.regexes.SORTNAME_SR)) {
+          modifiedArtistName =
+            modifiedArtistName.replace(gc.regexes.SORTNAME_SR, '');
           append = ', Sr.';
-        } else if (artist.match(gc.regexes.SORTNAME_JR)) {
-          artist = artist.replace(gc.regexes.SORTNAME_JR, '');
+        } else if (modifiedArtistName.match(gc.regexes.SORTNAME_JR)) {
+          modifiedArtistName =
+            modifiedArtistName.replace(gc.regexes.SORTNAME_JR, '');
           append = ', Jr.';
         }
-        let names = artist.split(' ');
+        let names = modifiedArtistName.split(' ');
 
         /*
          * Handle some special cases, like DJ, The, Los which

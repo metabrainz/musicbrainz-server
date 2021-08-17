@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -23,7 +23,7 @@ class GuessCaseLabelHandler extends GuessCaseHandler {
    * - none, no label, not applicable, n/a -> [no label]
    */
   checkSpecialCase(inputString?: string): number {
-    if (inputString) {
+    if (inputString != null) {
       if (!gc.regexes.LABEL_EMPTY) {
         // Match empty
         gc.regexes.LABEL_EMPTY = /^\s*$/i;

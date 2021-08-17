@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -33,11 +33,11 @@ class GuessCaseTrackHandler extends GuessCaseHandler {
   }
 
   getWordsForProcessing(inputString: string): Array<string> {
-    inputString = modes[gc.modeName].preProcessTitles(
+    const preppedString = modes[gc.modeName].preProcessTitles(
       this.removeBonusInfo(inputString),
     );
     return modes[gc.modeName].prepExtraTitleInfo(
-      input.splitWordsAndPunctuation(inputString),
+      input.splitWordsAndPunctuation(preppedString),
     );
   }
 
@@ -51,7 +51,7 @@ class GuessCaseTrackHandler extends GuessCaseHandler {
    * - unknown|bonus [track]    -> [unknown]
    */
   checkSpecialCase(inputString?: string): number {
-    if (inputString) {
+    if (inputString != null) {
       if (!gc.regexes.TRACK_DATATRACK) {
         // Data tracks
         gc.regexes.TRACK_DATATRACK = /^([\(\[]?\s*data(\s+track)?\s*[\)\]]?$)/i;

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -19,7 +19,7 @@ import GuessCaseHandler from './Base';
 class GuessCaseWorkHandler extends GuessCaseHandler {
   // Checks special cases of releases
   checkSpecialCase(inputString?: string): number {
-    if (inputString) {
+    if (inputString != null) {
       if (!gc.regexes.RELEASE_UNTITLED) {
         // Untitled
         gc.regexes.RELEASE_UNTITLED = /^([\(\[]?\s*untitled\s*[\)\]]?)$/i;
@@ -32,9 +32,9 @@ class GuessCaseWorkHandler extends GuessCaseHandler {
   }
 
   getWordsForProcessing(inputString: string): Array<string> {
-    inputString = modes[gc.modeName].preProcessTitles(inputString);
+    const preppedString = modes[gc.modeName].preProcessTitles(inputString);
     return modes[gc.modeName].prepExtraTitleInfo(
-      input.splitWordsAndPunctuation(inputString),
+      input.splitWordsAndPunctuation(preppedString),
     );
   }
 
