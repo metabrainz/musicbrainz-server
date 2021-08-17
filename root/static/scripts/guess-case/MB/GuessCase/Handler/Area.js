@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2013 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -16,8 +17,8 @@ import GuessCaseHandler from './Base';
 // Area specific GuessCase functionality
 class GuessCaseAreaHandler extends GuessCaseHandler {
   // Checks special cases
-  checkSpecialCase() {
-    return this.NOT_A_SPECIALCASE;
+  checkSpecialCase(): number {
+    return this.specialCaseValues.NOT_A_SPECIALCASE;
   }
 
   /*
@@ -27,7 +28,7 @@ class GuessCaseAreaHandler extends GuessCaseHandler {
    * - Handles DiscNumberStyle (DiscNumberWithNameStyle)
    * - Handles FeaturingArtistStyle
    */
-  doWord() {
+  doWord(): boolean {
     (
       this.doIgnoreWords() ||
       this.doFeaturingArtistStyle() ||
@@ -35,11 +36,11 @@ class GuessCaseAreaHandler extends GuessCaseHandler {
       this.doNormalWord()
     );
     flags.context.number = false;
-    return null;
+    return true;
   }
 
   // Guesses the sortname for areas
-  guessSortName(inputString) {
+  guessSortName(inputString: string): string {
     return utils.trim(inputString);
   }
 }

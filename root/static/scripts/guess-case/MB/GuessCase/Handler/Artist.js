@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -22,7 +23,7 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
    * - empty, unknown -> [unknown]
    * - none, no artist, not applicable, n/a -> [no artist]
    */
-  checkSpecialCase(inputString) {
+  checkSpecialCase(inputString?: string): number {
     if (inputString) {
       if (!gc.regexes.ARTIST_EMPTY) {
         // Match empty
@@ -39,27 +40,27 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
         gc.regexes.ARTIST_NA = /^[\(\[]?\s*n\s*[\\\/]\s*a\s*[\)\]]?$/i;
       }
       if (inputString.match(gc.regexes.ARTIST_EMPTY)) {
-        return this.SPECIALCASE_UNKNOWN;
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
       } else if (inputString.match(gc.regexes.ARTIST_UNKNOWN)) {
-        return this.SPECIALCASE_UNKNOWN;
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
       } else if (inputString.match(gc.regexes.ARTIST_NONE)) {
-        return this.SPECIALCASE_UNKNOWN;
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
       } else if (inputString.match(gc.regexes.ARTIST_NOARTIST)) {
-        return this.SPECIALCASE_UNKNOWN;
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
       } else if (inputString.match(gc.regexes.ARTIST_NOTAPPLICABLE)) {
-        return this.SPECIALCASE_UNKNOWN;
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
       } else if (inputString.match(gc.regexes.ARTIST_NA)) {
-        return this.SPECIALCASE_UNKNOWN;
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
       }
     }
-    return this.NOT_A_SPECIALCASE;
+    return this.specialCaseValues.NOT_A_SPECIALCASE;
   }
 
   /*
    * Delegate function which handles words not handled
    * in the common word handlers.
    */
-  doWord() {
+  doWord(): boolean {
     output.appendSpaceIfNeeded();
     input.capitalizeCurrentWord();
     output.appendCurrentWord();
@@ -68,11 +69,11 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
     flags.context.number = false;
     flags.context.forceCaps = false;
     flags.context.spaceNextWord = true;
-    return null;
+    return true;
   }
 
   // Guesses the sortname for artists
-  guessSortName(inputString, person) {
+  guessSortName(inputString: string, isPerson: boolean): string {
     return this.sortCompoundName(inputString, function (artist) {
       if (artist) {
         artist = utils.trim(artist);
@@ -107,22 +108,22 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
         const firstName = names[0];
         if (firstName.match(gc.regexes.SORTNAME_DJ)) {
           append = (', DJ' + append); // handle DJ xyz -> xyz, DJ
-          names[0] = null;
+          names.shift();
         } else if (firstName.match(gc.regexes.SORTNAME_THE)) {
           append = (', The' + append); // handle The xyz -> xyz, The
-          names[0] = null;
+          names.shift();
         } else if (firstName.match(gc.regexes.SORTNAME_LOS)) {
           append = (', Los' + append); // handle Los xyz -> xyz, Los
-          names[0] = null;
+          names.shift();
         } else if (firstName.match(gc.regexes.SORTNAME_DR)) {
           append = (', Dr.' + append); // handle Dr. xyz -> xyz, Dr.
-          names[0] = null;
+          names.shift();
           reorder = true; // reorder doctors.
         } else {
           reorder = true; // reorder by default
         }
 
-        if (!person) {
+        if (!isPerson) {
           reorder = false; // only reorder persons, not groups.
         }
 

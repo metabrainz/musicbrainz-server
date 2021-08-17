@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -21,7 +22,7 @@ class GuessCaseLabelHandler extends GuessCaseHandler {
    * - empty, unknown -> [unknown]
    * - none, no label, not applicable, n/a -> [no label]
    */
-  checkSpecialCase(inputString) {
+  checkSpecialCase(inputString?: string): number {
     if (inputString) {
       if (!gc.regexes.LABEL_EMPTY) {
         // Match empty
@@ -38,27 +39,27 @@ class GuessCaseLabelHandler extends GuessCaseHandler {
         gc.regexes.LABEL_NA = /^[\(\[]?\s*n\s*[\\\/]\s*a\s*[\)\]]?$/i;
       }
       if (inputString.match(gc.regexes.LABEL_EMPTY)) {
-        return this.SPECIALCASE_UNKNOWN;
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
       } else if (inputString.match(gc.regexes.LABEL_UNKNOWN)) {
-        return this.SPECIALCASE_UNKNOWN;
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
       } else if (inputString.match(gc.regexes.LABEL_NONE)) {
-        return this.SPECIALCASE_UNKNOWN;
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
       } else if (inputString.match(gc.regexes.LABEL_NOLABEL)) {
-        return this.SPECIALCASE_UNKNOWN;
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
       } else if (inputString.match(gc.regexes.LABEL_NOTAPPLICABLE)) {
-        return this.SPECIALCASE_UNKNOWN;
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
       } else if (inputString.match(gc.regexes.LABEL_NA)) {
-        return this.SPECIALCASE_UNKNOWN;
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
       }
     }
-    return this.NOT_A_SPECIALCASE;
+    return this.specialCaseValues.NOT_A_SPECIALCASE;
   }
 
   /*
    * Delegate function which handles words not handled
    * in the common word handlers.
    */
-  doWord() {
+  doWord(): boolean {
     output.appendSpaceIfNeeded();
     input.capitalizeCurrentWord();
     output.appendCurrentWord();
@@ -67,11 +68,11 @@ class GuessCaseLabelHandler extends GuessCaseHandler {
     flags.context.number = false;
     flags.context.forceCaps = false;
     flags.context.spaceNextWord = true;
-    return null;
+    return true;
   }
 
   // Guesses the sortname for label aliases
-  guessSortName(inputString) {
+  guessSortName(inputString: string): string {
     return this.sortCompoundName(
       inputString,
       (inputString) => this.moveArticleToEnd(inputString),

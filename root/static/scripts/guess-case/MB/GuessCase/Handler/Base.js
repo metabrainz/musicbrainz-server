@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -16,30 +17,30 @@ import output from '../Output';
 
 // Base class of the type specific handlers
 class GuessCaseHandler {
+  specialCaseValues: {[name: string]: number};
+
   constructor() {
-    // Values of the specialcases defined in
-    this.NOT_A_SPECIALCASE = -1;
-
-    // Artist cases
-    this.SPECIALCASE_UNKNOWN = 10;          // [unknown]
-
-    // Release cases
-    this.SPECIALCASE_DATA_TRACK = 20;       // [data track]
-
-    // Track cases
-    this.SPECIALCASE_DATA_TRACK = 30;       // [data track]
-    this.SPECIALCASE_SILENCE = 31;          // [silence]
-    this.SPECIALCASE_UNTITLED = 32;         // [untitled]
-    this.SPECIALCASE_CROWD_NOISE = 33;      // [crowd noise]
-    this.SPECIALCASE_GUITAR_SOLO = 34;      // [guitar solo]
-    this.SPECIALCASE_DIALOGUE = 35;          // [dialogue]
+    this.specialCaseValues = {
+      NOT_A_SPECIALCASE: -1,
+      SPECIALCASE_CROWD_NOISE: 33,  // [crowd noise]
+      SPECIALCASE_DATA_TRACK: 30,   // [data track]
+      SPECIALCASE_DIALOGUE: 35,     // [dialogue]
+      SPECIALCASE_GUITAR_SOLO: 34,  // [guitar solo]
+      SPECIALCASE_SILENCE: 31,      // [silence]
+      SPECIALCASE_UNKNOWN: 10,      // [unknown]
+      SPECIALCASE_UNTITLED: 32,     // [untitled]
+    };
   }
 
   // Member functions
 
+  checkSpecialCase(): number {
+    return this.specialCaseValues.NOT_A_SPECIALCASE;
+  }
+
   // Returns true if the number corresponds to a special case.
-  isSpecialCase(number) {
-    return (number !== this.NOT_A_SPECIALCASE);
+  isSpecialCase(number: number): boolean {
+    return (number !== this.specialCaseValues.NOT_A_SPECIALCASE);
   }
 
   /*
@@ -47,40 +48,40 @@ class GuessCaseHandler {
    * special case, or the input string if num
    * does not correspond to a special case
    */
-  getSpecialCaseFormatted(inputString, number) {
+  getSpecialCaseFormatted(inputString: string, number: number): string {
     switch (number) {
-      case this.SPECIALCASE_DATA_TRACK:
+      case this.specialCaseValues.SPECIALCASE_DATA_TRACK:
         return '[data track]';
 
-      case this.SPECIALCASE_SILENCE:
+      case this.specialCaseValues.SPECIALCASE_SILENCE:
         return '[silence]';
 
-      case this.SPECIALCASE_UNTITLED:
+      case this.specialCaseValues.SPECIALCASE_UNTITLED:
         return '[untitled]';
 
-      case this.SPECIALCASE_UNKNOWN:
+      case this.specialCaseValues.SPECIALCASE_UNKNOWN:
         return '[unknown]';
 
-      case this.SPECIALCASE_CROWD_NOISE:
+      case this.specialCaseValues.SPECIALCASE_CROWD_NOISE:
         return '[crowd noise]';
 
-      case this.SPECIALCASE_GUITAR_SOLO:
+      case this.specialCaseValues.SPECIALCASE_GUITAR_SOLO:
         return '[guitar solo]';
 
-      case this.SPECIALCASE_DIALOGUE:
+      case this.specialCaseValues.SPECIALCASE_DIALOGUE:
         return '[dialogue]';
 
-      case this.NOT_A_SPECIALCASE:
+      case this.specialCaseValues.NOT_A_SPECIALCASE:
       default:
         return inputString;
     }
   }
 
-  getWordsForProcessing(inputString) {
+  getWordsForProcessing(inputString: string): Array<string> {
     return input.splitWordsAndPunctuation(inputString);
   }
 
-  process(inputString) {
+  process(inputString: string): string {
     output.init();
     input.init(inputString, this.getWordsForProcessing(inputString));
     while (!input.isIndexAtEnd()) {
@@ -138,8 +139,10 @@ class GuessCaseHandler {
     input.nextIndex();
   }
 
-  // Delegate function for Artist/Release/Track specific handlers
-  doWord() {}
+  // Delegate function for specific handlers
+  doWord(): boolean {
+    return true;
+  }
 
   doNormalWord() {
     output.appendSpaceIfNeeded();
@@ -154,7 +157,7 @@ class GuessCaseHandler {
    * Deal with whitespace (\t)
    * Primarily we only look at whitespace for context purposes
    */
-  doWhiteSpace() {
+  doWhiteSpace(): boolean {
     if (!gc.regexes.WHITESPACE) {
       gc.regexes.WHITESPACE = ' ';
     }
@@ -173,7 +176,7 @@ class GuessCaseHandler {
    * Deal with colons (:)
    * Colons are used as a sub-title split,and also for disc/box name splits
    */
-  doColon() {
+  doColon(): boolean {
     if (!gc.regexes.COLON) {
       gc.regexes.COLON = ':';
     }
@@ -184,11 +187,11 @@ class GuessCaseHandler {
        * -- handle special case feat. "role" lowercase.
        */
       const featIndex = output.getLength() - 3;
-      let role;
+      const role = output.getLastWord();
       if (flags.context.slurpExtraTitleInformation &&
           featIndex > 0 &&
           output.getWordAtIndex(featIndex) === 'feat.' &&
-          (role = output.getLastWord()) !== '') {
+          nonEmpty(role)) {
         output.setWordAtIndex(
           output.getLength() - 1,
           role.toLowerCase(),
@@ -206,14 +209,14 @@ class GuessCaseHandler {
       const cursorPosition = input.getCursorPosition();
       const length = input.getLength();
       if (cursorPosition < length - 2) {
-        const nword = input.getWordAtIndex(cursorPosition + 1);
-        const naword = input.getWordAtIndex(cursorPosition + 2);
-        if (nword.match(gc.regexes.OPENBRACKET)) {
+        const nextWord = input.getWordAtIndex(cursorPosition + 1);
+        const afterNextWord = input.getWordAtIndex(cursorPosition + 2);
+        if (nextWord && nextWord.match(gc.regexes.OPENBRACKET)) {
           skip = true;
           flags.context.spaceNextWord = true;
         }
-        if (input.isNextWord(' ') &&
-          naword.match(gc.regexes.OPENBRACKET)) {
+        if (input.isNextWord(' ') && afterNextWord &&
+          afterNextWord.match(gc.regexes.OPENBRACKET)) {
           flags.context.spaceNextWord = true;
           skip = true;
           input.nextIndex();
@@ -233,7 +236,7 @@ class GuessCaseHandler {
   }
 
   // Deal with asterisk (*)
-  doAsterisk() {
+  doAsterisk(): boolean {
     if (!gc.regexes.ASTERISK) {
       gc.regexes.ASTERISK = '*';
     }
@@ -246,7 +249,7 @@ class GuessCaseHandler {
   }
 
   // Deal with diamond (#)
-  doDiamond() {
+  doDiamond(): boolean {
     if (!gc.regexes.DIAMOND) {
       gc.regexes.DIAMOND = '#';
     }
@@ -262,7 +265,7 @@ class GuessCaseHandler {
    * Deal with percent signs (%)
    * TODO: lots of methods for special chars look the same, combine?
    */
-  doPercent() {
+  doPercent(): boolean {
     if (!gc.regexes.PERCENT) {
       gc.regexes.PERCENT = '%';
     }
@@ -275,7 +278,7 @@ class GuessCaseHandler {
   }
 
   // Deal with ampersands (&)
-  doAmpersand() {
+  doAmpersand(): boolean {
     if (!gc.regexes.AMPERSAND) {
       gc.regexes.AMPERSAND = '&';
     }
@@ -291,7 +294,7 @@ class GuessCaseHandler {
   }
 
   // Deal with line terminators other than the period (?!;)
-  doLineStop() {
+  doLineStop(): boolean {
     if (!gc.regexes.LINESTOP) {
       gc.regexes.LINESTOP = /[\?\!\;]/;
     }
@@ -319,7 +322,7 @@ class GuessCaseHandler {
    * Unfortunately it's not practical to implement real em-dashes, however
    * we'll treat a spaced hyphen as an em-dash for the purposes of caps.
    */
-  doHyphen() {
+  doHyphen(): boolean {
     if (!gc.regexes.HYPHEN) {
       gc.regexes.HYPHEN = /^[\-‐]$/;
     }
@@ -336,7 +339,7 @@ class GuessCaseHandler {
   }
 
   // Deal with inverted question (¿) and exclamation marks (¡).
-  doInvertedMarks() {
+  doInvertedMarks(): boolean {
     if (!gc.regexes.INVERTEDMARKS) {
       gc.regexes.INVERTEDMARKS = /(¿|¡)/;
     }
@@ -352,7 +355,7 @@ class GuessCaseHandler {
   }
 
   // Deal with plus symbol    (+)
-  doPlus() {
+  doPlus(): boolean {
     if (!gc.regexes.PLUS) {
       gc.regexes.PLUS = '+';
     }
@@ -368,7 +371,7 @@ class GuessCaseHandler {
    * Deal with slashes (/,\)
    * If a slash has a space near it, pad it out, otherwise leave as is.
    */
-  doSlash() {
+  doSlash(): boolean {
     if (!gc.regexes.SLASH) {
       gc.regexes.SLASH = /[\\\/]/;
     }
@@ -382,7 +385,7 @@ class GuessCaseHandler {
   }
 
   // Deal with double quotes (")
-  doDoubleQuote() {
+  doDoubleQuote(): boolean {
     if (!gc.regexes.DOUBLEQUOTE) {
       gc.regexes.DOUBLEQUOTE = /["“”„“«»]/;
     }
@@ -405,7 +408,7 @@ class GuessCaseHandler {
    *   contractions that are handled), and format the right part (after)
    *   the (') as lowercase.
    */
-  doSingleQuote() {
+  doSingleQuote(): boolean {
     if (!gc.regexes.SINGLEQUOTE) {
       gc.regexes.SINGLEQUOTE = /['‘’‹›]/;
     }
@@ -462,11 +465,12 @@ class GuessCaseHandler {
    * Knowing whether we are inside parenthesis (and multiple levels thereof)
    * is important for determining what words should be capped or not.
    */
-  doOpeningBracket() {
+  doOpeningBracket(): boolean {
     if (!gc.regexes.OPENBRACKET) {
       gc.regexes.OPENBRACKET = /[\(\[\{\<]/;
     }
-    if (input.matchCurrentWord(gc.regexes.OPENBRACKET)) {
+    const currentWord = input.getCurrentWord();
+    if (currentWord && currentWord.match(gc.regexes.OPENBRACKET)) {
       /*
        * Force caps on last word before the opending bracket,
        * if the current mode is not sentence mode.
@@ -474,7 +478,7 @@ class GuessCaseHandler {
       output.capitalizeLastWord(!modes[gc.modeName].isSentenceCaps());
 
       // register current bracket as openening bracket
-      flags.pushBracket(input.getCurrentWord());
+      flags.pushBracket(currentWord);
       const closingBracket = flags.getCurrentCloseBracket();
       let forcelowercase = false;
       const cursorPosition = input.getCursorPosition() + 1;
@@ -510,7 +514,7 @@ class GuessCaseHandler {
    * Knowing whether we are inside parenthesis (and multiple levels thereof)
    * is important for determining what words should be capped or not.
    */
-  doClosingBracket() {
+  doClosingBracket(): boolean {
     if (!gc.regexes.CLOSEBRACKET) {
       gc.regexes.CLOSEBRACKET = /[\)\]\}\>]/;
     }
@@ -540,7 +544,7 @@ class GuessCaseHandler {
    * We need context to guess which one it's meant to be, thus the digit
    * triplet checking later on. Multiple commas are removed.
    */
-  doComma() {
+  doComma(): boolean {
     if (!gc.regexes.COMMA) {
       gc.regexes.COMMA = ',';
     }
@@ -573,7 +577,7 @@ class GuessCaseHandler {
    *   * an acronym split.
    * We flag digits and digit triplets in the words routine.
    */
-  doPeriod() {
+  doPeriod(): boolean {
     if (!gc.regexes.PERIOD) {
       gc.regexes.PERIOD = '.';
     }
@@ -609,7 +613,7 @@ class GuessCaseHandler {
   }
 
   // Check for an acronym
-  doAcronym() {
+  doAcronym(): boolean {
     if (!gc.regexes.ACRONYM) {
       gc.regexes.ACRONYM = /^\w$/;
     }
@@ -625,33 +629,33 @@ class GuessCaseHandler {
      * "A.B.C I Love You"           => "A.B. C I Love You"
      * "P.S I Love You"             => "P. S I Love You"
      */
-    let subIndex;
+    let subIndex = input.getCursorPosition() + 1;
     const tmp = [];
-    if (input.matchCurrentWord(gc.regexes.ACRONYM)) {
-      let currentWord = input.getCurrentWord();
+    const currentWord = input.getCurrentWord();
+    if (currentWord && currentWord.match(gc.regexes.ACRONYM)) {
       tmp.push(currentWord.toUpperCase()); // Add current word
-      flags.context.expectWord = false;
-      flags.context.gotPeriod = false;
-
+      let expectWord = false;
+      let gotPeriod = false;
       acronymloop:
       for (
-        subIndex = input.getCursorPosition() + 1;
+        subIndex;
         subIndex < input.getLength();
       ) {
-        currentWord = input.getWordAtIndex(subIndex); // Remember current word
+        // Remember current word
+        const wordAtIndex = input.getWordAtIndex(subIndex);
 
-        if (flags.context.expectWord &&
-            currentWord.match(gc.regexes.ACRONYM)) {
-          tmp.push(currentWord.toUpperCase()); // Do character
-          flags.context.expectWord = false;
-          flags.context.gotPeriod = false;
+        if (expectWord && wordAtIndex &&
+            wordAtIndex.match(gc.regexes.ACRONYM)) {
+          tmp.push(wordAtIndex.toUpperCase()); // Do character
+          expectWord = false;
+          gotPeriod = false;
         } else {
-          if (currentWord === '.' && !flags.context.gotPeriod) {
+          if (wordAtIndex === '.' && !gotPeriod) {
             tmp[tmp.length] = '.'; // Do dot
-            flags.context.gotPeriod = true;
-            flags.context.expectWord = true;
-          } else if (flags.context.gotPeriod && currentWord === ' ') {
-            flags.context.expectWord = true; // Do a single whitespace
+            gotPeriod = true;
+            expectWord = true;
+          } else if (gotPeriod && wordAtIndex === ' ') {
+            expectWord = true; // Do a single whitespace
           } else if (tmp[tmp.length - 1] !== '.') {
             tmp.pop(); // Lose last of the acronym
             subIndex--; // It's for example "P.S. I" love you
@@ -682,7 +686,7 @@ class GuessCaseHandler {
   }
 
   // Check for a digit only string
-  doDigits() {
+  doDigits(): boolean {
     if (!gc.regexes.DIGITS) {
       gc.regexes.DIGITS = /^\d+$/;
       gc.regexes.DIGITS_NUMBERSPLIT = /[,.]/;
@@ -691,7 +695,7 @@ class GuessCaseHandler {
       gc.regexes.DIGITS_NTUPLE = /^\d\d\d\d+$/;
     }
 
-    let subIndex = null;
+    let subIndex = input.getCursorPosition() + 1;
     const tmp = [];
     if (input.matchCurrentWord(gc.regexes.DIGITS)) {
       tmp.push(input.getCurrentWord());
@@ -699,7 +703,7 @@ class GuessCaseHandler {
 
       numberloop:
       for (
-        subIndex = input.getCursorPosition() + 1;
+        subIndex;
         subIndex < input.getLength();
       ) {
         if (flags.context.numberSplitExpect) {
@@ -775,7 +779,7 @@ class GuessCaseHandler {
    * ---------------------------------------------------
    * warp        2011-08-13        first version
    */
-  doIgnoreWords() {
+  doIgnoreWords(): boolean {
     // deciBel
     if (input.getCurrentWord() === 'dB') {
       output.appendSpaceIfNeeded();
@@ -791,20 +795,24 @@ class GuessCaseHandler {
    *                                  which are added converted to feat.
    * ---------------------------------------------------
    */
-  doFeaturingArtistStyle() {
+  doFeaturingArtistStyle(): boolean {
     if (!gc.regexes.FEAT) {
       gc.regexes.FEAT = /^featuring$|^f$|^ft$|^feat$/i;
       gc.regexes.FEAT_F = /^f$/i; // Match word "f"
       gc.regexes.FEAT_FEAT = /^feat$/i; // Match word "feat"
     }
-    if (input.matchCurrentWord(gc.regexes.FEAT)) {
+    const currentWord = input.getCurrentWord();
+    if (currentWord == null) {
+      return false;
+    }
+    if (currentWord.match(gc.regexes.FEAT)) {
+      const nextWord = input.getNextWord();
       /*
        * Special cases (f.) and (f/),
        * have to check if next word is a "." or a "/"
        */
-      if ((input.matchCurrentWord(gc.regexes.FEAT_F)) &&
-          input.getNextWord() &&
-          !input.getNextWord().match(/^[\/.]$/)) {
+      if ((currentWord.match(gc.regexes.FEAT_F)) &&
+          nextWord && !nextWord.match(/^[\/.]$/)) {
         return false;
       }
 
@@ -813,11 +821,12 @@ class GuessCaseHandler {
        * enough words after the keyword
        */
       if (input.getCursorPosition() < input.getLength() - 2) {
-        const featWord = input.getCurrentWord() + (
-          input.isNextWord('.') || input.isNextWord('/')
-            ? input.getNextWord()
-          // Special case (feat), fix typo by adding a "." if missing
-            : input.matchCurrentWord(gc.regexes.FEAT_FEAT) ? '.' : ''
+        const nextWord = input.getNextWord();
+        const featWord = currentWord + (
+          nextWord && (nextWord === '.' || nextWord === '/')
+            ? nextWord
+            // Special case (feat), fix typo by adding a "." if missing
+            : currentWord.match(gc.regexes.FEAT_FEAT) ? '.' : ''
         );
 
         if (!flags.context.openingBracket && !flags.isInsideBrackets()) {
@@ -878,7 +887,6 @@ class GuessCaseHandler {
         flags.context.openingBracket = false;
         flags.context.spaceNextWord = true;
         flags.context.slurpExtraTitleInformation = true;
-        flags.context.feat = true;
         if (input.isNextWord('.') || input.isNextWord('/')) {
           input.nextIndex();  // skip trailing (.) or (/)
         }
@@ -888,7 +896,7 @@ class GuessCaseHandler {
     return false;
   }
 
-  moveArticleToEnd(inputString) {
+  moveArticleToEnd(inputString: string): string {
     return utils.trim(inputString).replace(
       /^(The|Los) (.+)$/,
       function (match, article, name) {
@@ -897,7 +905,10 @@ class GuessCaseHandler {
     );
   }
 
-  sortCompoundName(inputString, callback) {
+  sortCompoundName(
+    inputString: string,
+    callback: (string) => string,
+  ): string {
     inputString = utils.trim(inputString);
 
     let joinPhrase = ' and ';

@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -17,7 +18,7 @@ import GuessCaseHandler from './Base';
 
 // Track specific GuessCase functionality
 class GuessCaseTrackHandler extends GuessCaseHandler {
-  removeBonusInfo(inputString) {
+  removeBonusInfo(inputString: string): string {
     return inputString
       .replace(/[\(\[]?bonus(\s+track)?s?\s*[\)\]]?$/i, '')
       .replace(/[\(\[]?retail(\s+version)?\s*[\)\]]?$/i, '');
@@ -27,11 +28,11 @@ class GuessCaseTrackHandler extends GuessCaseHandler {
    * Guess the trackname given in string is, and
    * returns the guessed name.
    */
-  process(inputString) {
+  process(inputString: string): string {
     return modes[gc.modeName].fixVinylSizes(super.process(inputString));
   }
 
-  getWordsForProcessing(inputString) {
+  getWordsForProcessing(inputString: string): Array<string> {
     inputString = modes[gc.modeName].preProcessTitles(
       this.removeBonusInfo(inputString),
     );
@@ -49,7 +50,7 @@ class GuessCaseTrackHandler extends GuessCaseHandler {
    * - untitled [track]        -> [untitled]
    * - unknown|bonus [track]    -> [unknown]
    */
-  checkSpecialCase(inputString) {
+  checkSpecialCase(inputString?: string): number {
     if (inputString) {
       if (!gc.regexes.TRACK_DATATRACK) {
         // Data tracks
@@ -64,18 +65,18 @@ class GuessCaseTrackHandler extends GuessCaseHandler {
         gc.regexes.TRACK_MYSTERY = /^\?+$/i;
       }
       if (inputString.match(gc.regexes.TRACK_DATATRACK)) {
-        return this.SPECIALCASE_DATA_TRACK;
+        return this.specialCaseValues.SPECIALCASE_DATA_TRACK;
       } else if (inputString.match(gc.regexes.TRACK_SILENCE)) {
-        return this.SPECIALCASE_SILENCE;
+        return this.specialCaseValues.SPECIALCASE_SILENCE;
       } else if (inputString.match(gc.regexes.TRACK_UNTITLED)) {
-        return this.SPECIALCASE_UNTITLED;
+        return this.specialCaseValues.SPECIALCASE_UNTITLED;
       } else if (inputString.match(gc.regexes.TRACK_UNKNOWN)) {
-        return this.SPECIALCASE_UNKNOWN;
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
       } else if (inputString.match(gc.regexes.TRACK_MYSTERY)) {
-        return this.SPECIALCASE_UNKNOWN;
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
       }
     }
-    return this.NOT_A_SPECIALCASE;
+    return this.specialCaseValues.NOT_A_SPECIALCASE;
   }
 
   /*
@@ -84,7 +85,7 @@ class GuessCaseTrackHandler extends GuessCaseHandler {
    *
    * - Handles FeaturingArtistStyle
    */
-  doWord() {
+  doWord(): boolean {
     if (
       !this.doIgnoreWords() &&
       !this.doFeaturingArtistStyle() &&
@@ -114,11 +115,11 @@ class GuessCaseTrackHandler extends GuessCaseHandler {
       }
     }
     flags.context.number = false;
-    return null;
+    return true;
   }
 
   // Guesses the sortname for recordings (for aliases)
-  guessSortName(inputString) {
+  guessSortName(inputString: string): string {
     return this.moveArticleToEnd(inputString);
   }
 }

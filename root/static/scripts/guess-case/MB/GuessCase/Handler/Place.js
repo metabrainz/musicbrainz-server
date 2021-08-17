@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2013 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -15,26 +16,26 @@ import GuessCaseHandler from './Base';
 // Place specific GuessCase functionality
 class GuessCasePlaceHandler extends GuessCaseHandler {
   // Checks special cases
-  checkSpecialCase() {
-    return this.NOT_A_SPECIALCASE;
+  checkSpecialCase(): number {
+    return this.specialCaseValues.NOT_A_SPECIALCASE;
   }
 
   /*
    * Delegate function which handles words not handled
    * in the common word handlers.
    */
-  doWord() {
+  doWord(): boolean {
     (
       this.doIgnoreWords() ||
       modes[gc.modeName].doWord() ||
       this.doNormalWord()
     );
     flags.context.number = false;
-    return null;
+    return true;
   }
 
   // Guesses the sortname for place aliases
-  guessSortName(inputString) {
+  guessSortName(inputString: string): string {
     return this.sortCompoundName(
       inputString,
       (inputString) => this.moveArticleToEnd(inputString),

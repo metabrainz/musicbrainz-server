@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -17,17 +18,17 @@ import GuessCaseHandler from './Base';
 // Release specific GuessCase functionality
 class GuessCaseReleaseHandler extends GuessCaseHandler {
   // Checks special cases of releases
-  checkSpecialCase(inputString) {
+  checkSpecialCase(inputString?: string): number {
     if (inputString) {
       if (!gc.regexes.RELEASE_UNTITLED) {
         // Untitled
         gc.regexes.RELEASE_UNTITLED = /^([\(\[]?\s*untitled\s*[\)\]]?)$/i;
       }
       if (inputString.match(gc.regexes.RELEASE_UNTITLED)) {
-        return self.SPECIALCASE_UNTITLED;
+        return self.specialCaseValues.SPECIALCASE_UNTITLED;
       }
     }
-    return self.NOT_A_SPECIALCASE;
+    return self.specialCaseValues.NOT_A_SPECIALCASE;
   }
 
   /*
@@ -37,11 +38,11 @@ class GuessCaseReleaseHandler extends GuessCaseHandler {
    * @param    is        the inputString
    * @returns os        the processed string
    */
-  process(inputString) {
+  process(inputString: string): string {
     return modes[gc.modeName].fixVinylSizes(super.process(inputString));
   }
 
-  getWordsForProcessing(inputString) {
+  getWordsForProcessing(inputString: string): Array<string> {
     inputString = modes[gc.modeName].preProcessTitles(inputString);
     return modes[gc.modeName].prepExtraTitleInfo(
       input.splitWordsAndPunctuation(inputString),
@@ -55,18 +56,18 @@ class GuessCaseReleaseHandler extends GuessCaseHandler {
    * - Handles DiscNumberStyle (DiscNumberWithNameStyle)
    * - Handles FeaturingArtistStyle
    */
-  doWord() {
+  doWord(): boolean {
     (
       self.doFeaturingArtistStyle() ||
       modes[gc.modeName].doWord() ||
       self.doNormalWord()
     );
     flags.context.number = false;
-    return null;
+    return true;
   }
 
   // Guesses the sortname for releases (for aliases)
-  guessSortName(inputString) {
+  guessSortName(inputString: string): string {
     return this.moveArticleToEnd(inputString);
   }
 }

@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -17,20 +18,20 @@ import GuessCaseHandler from './Base';
 // Work specific GuessCase functionality
 class GuessCaseWorkHandler extends GuessCaseHandler {
   // Checks special cases of releases
-  checkSpecialCase(inputString) {
+  checkSpecialCase(inputString?: string): number {
     if (inputString) {
       if (!gc.regexes.RELEASE_UNTITLED) {
         // Untitled
         gc.regexes.RELEASE_UNTITLED = /^([\(\[]?\s*untitled\s*[\)\]]?)$/i;
       }
       if (inputString.match(gc.regexes.RELEASE_UNTITLED)) {
-        return this.SPECIALCASE_UNTITLED;
+        return this.specialCaseValues.SPECIALCASE_UNTITLED;
       }
     }
-    return this.NOT_A_SPECIALCASE;
+    return this.specialCaseValues.NOT_A_SPECIALCASE;
   }
 
-  getWordsForProcessing(inputString) {
+  getWordsForProcessing(inputString: string): Array<string> {
     inputString = modes[gc.modeName].preProcessTitles(inputString);
     return modes[gc.modeName].prepExtraTitleInfo(
       input.splitWordsAndPunctuation(inputString),
@@ -44,7 +45,7 @@ class GuessCaseWorkHandler extends GuessCaseHandler {
    * - Handles DiscNumberStyle (DiscNumberWithNameStyle)
    * - Handles FeaturingArtistStyle
    */
-  doWord() {
+  doWord(): boolean {
     (
       this.doIgnoreWords() ||
       this.doFeaturingArtistStyle() ||
@@ -52,11 +53,11 @@ class GuessCaseWorkHandler extends GuessCaseHandler {
       this.doNormalWord()
     );
     flags.context.number = false;
-    return null;
+    return true;
   }
 
   // Guesses the sortname for works
-  guessSortName(inputString) {
+  guessSortName(inputString: string): string {
     return this.moveArticleToEnd(inputString);
   }
 }
