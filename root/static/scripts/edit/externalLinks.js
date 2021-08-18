@@ -848,6 +848,7 @@ export class ExternalLink extends React.Component<LinkProps> {
                 className="url"
                 href={props.url}
                 rel="noreferrer"
+                style={{overflowWrap: 'anywhere'}}
                 target="_blank"
               >
                 {props.url}
