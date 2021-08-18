@@ -102,7 +102,6 @@ const AddRelationshipType = ({
                   {rawIconSection}
                 </>
               ) : lp('(none)', 'description')}
-            {}
           </td>
         </tr>
 

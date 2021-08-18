@@ -74,7 +74,6 @@ const RemoveRelationshipType = ({edit}: Props): React.Element<'table'> => {
                 {rawIconSection}
               </>
             ) : lp('(none)', 'description')}
-          {}
         </td>
       </tr>
 
