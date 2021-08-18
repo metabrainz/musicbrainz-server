@@ -18,6 +18,8 @@ import CritiqueBrainzReview, {type CritiqueBrainzReviewT}
 import PaginatedResults from '../components/PaginatedResults';
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
 import loopParity from '../utility/loopParity';
+import ArtistCreditLink
+  from '../static/scripts/common/components/ArtistCreditLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import CleanupBanner from '../components/CleanupBanner';
 import FormRow from '../components/FormRow';
@@ -45,13 +47,17 @@ type Props = {
   +wikipediaExtract: WikipediaExtractT | null,
 };
 
-function buildReleaseStatusTable($c, releaseStatusGroup) {
+function buildReleaseStatusTable(
+  $c,
+  releaseStatusGroup,
+  releaseGroupCreditId,
+) {
   const status = releaseStatusGroup[0].status;
   return (
     <React.Fragment key={status ? status.name : 'no-status'}>
       <tr className="subh">
         {$c.user ? <th /> : null}
-        <th colSpan={$c.session && $c.session.tport ? 8 : 7}>
+        <th colSpan={$c.session && $c.session.tport ? 9 : 8}>
           {status?.name
             ? lp_attributes(status.name, 'release_status')
             : lp('(unknown)', 'release status')}
@@ -71,6 +77,14 @@ function buildReleaseStatusTable($c, releaseStatusGroup) {
             ) : null}
           <td>
             <EntityLink entity={release} showCaaPresence />
+          </td>
+          {/* The class being added is for usage with userscripts */}
+          <td className={
+            releaseGroupCreditId === release.artistCredit.id
+              ? null
+              : 'artist-credit-variation'}
+          >
+            <ArtistCreditLink artistCredit={release.artistCredit} />
           </td>
           <td>{release.combined_format_name || l('[missing media]')}</td>
           <td>{release.combined_track_count || lp('-', 'missing data')}</td>
@@ -139,6 +153,7 @@ const ReleaseGroupIndex = ({
                     </th>
                   ) : null}
                   <th>{l('Release')}</th>
+                  <th>{l('Artist')}</th>
                   <th>{l('Format')}</th>
                   <th>{l('Tracks')}</th>
                   <th>{l('Country') + lp('/', 'and') + l('Date')}</th>
@@ -150,7 +165,11 @@ const ReleaseGroupIndex = ({
                 </tr>
               </thead>
               <tbody>
-                {releases.map(r => buildReleaseStatusTable($c, r))}
+                {releases.map(releaseStatusGroup => buildReleaseStatusTable(
+                  $c,
+                  releaseStatusGroup,
+                  releaseGroup.artistCredit.id,
+                ))}
               </tbody>
             </table>
           </PaginatedResults>
