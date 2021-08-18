@@ -295,7 +295,7 @@ test 'Can apply after release is merged' => sub {
 
     # Check that the new release loads correctly.
     $c->model('Edit')->load_all($edit);
-    is($edit->display_data->{release}->id, 2);
+    is($edit->display_data->{release}{id}, 2);
 };
 
 test 'Can add a label where one is currently missing' => sub {
@@ -366,7 +366,7 @@ test 'Edits that only change the catalog number still store and display the labe
     });
 
     $c->model('Edit')->load_all($edit);
-    is($edit->display_data->{label}{old}->gid, 'f2a9a3c0-72e3-11de-8a39-0800200c9a66');
+    is($edit->display_data->{label}{old}{gid}, 'f2a9a3c0-72e3-11de-8a39-0800200c9a66');
 };
 
 test 'Edits that only change the label still store and display the catalog number (MBS-8534)' => sub {

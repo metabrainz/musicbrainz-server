@@ -373,6 +373,7 @@ module.exports = {
   'edit/details/EditRelationship': require('../edit/details/EditRelationship'),
   'edit/details/EditRelationshipAttribute': require('../edit/details/EditRelationshipAttribute'),
   'edit/details/EditReleaseGroup': require('../edit/details/EditReleaseGroup'),
+  'edit/details/EditReleaseLabel': require('../edit/details/EditReleaseLabel'),
   'edit/details/EditSeries': require('../edit/details/EditSeries'),
   'edit/details/EditUrl': require('../edit/details/EditUrl'),
   'edit/details/EditWork': require('../edit/details/EditWork'),
