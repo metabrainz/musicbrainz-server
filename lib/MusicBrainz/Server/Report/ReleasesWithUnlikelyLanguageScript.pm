@@ -22,7 +22,7 @@ sub query {
             JOIN script ON r.script = script.id
             JOIN language ON r.language = language.id
         WHERE (
-            script.iso_code NOT IN ('Kana', 'Latn', 'Qaaa') AND 
+            script.iso_code NOT IN ('Brai', 'Kana', 'Latn', 'Qaaa') AND 
             language.iso_code_3 IN (
               'eng', 'spa', 'deu', 'fra', 'por', 'ita', 'swe', 'nor', 'fin',
               'est', 'lav', 'lit', 'pol', 'nld', 'cat', 'hun', 'ces', 'slk',
@@ -30,7 +30,7 @@ sub query {
             )
         ) OR (
             language.iso_code_3 = 'jpn' AND 
-            script.iso_code NOT IN ('Hira', 'Hrkt', 'Kana', 'Jpan', 'Latn', 'Qaaa') 
+            script.iso_code NOT IN ('Brai', 'Hira', 'Hrkt', 'Kana', 'Jpan', 'Latn', 'Qaaa') 
         ) 
     ";
 }
