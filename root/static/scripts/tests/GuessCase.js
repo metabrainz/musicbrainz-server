@@ -8,7 +8,6 @@
 
 import test from 'tape';
 
-import MB from '../common/MB';
 import setCookie from '../common/utility/setCookie';
 import gc from '../guess-case/MB/GuessCase/Main';
 
@@ -39,7 +38,7 @@ test('Sortname', function (t) {
   ];
 
   for (const test of tests) {
-    const result = MB.GuessCase.artist.sortname(test.input, test.person);
+    const result = gc.entities.artist.sortname(test.input, test.person);
     t.equal(result, test.expected, test.input);
   }
 
@@ -74,7 +73,7 @@ test('Sortname', function (t) {
   ];
 
   for (const test of tests) {
-    const result = MB.GuessCase.label.sortname(test.input);
+    const result = gc.entities.label.sortname(test.input);
     t.equal(result, test.expected, test.input);
   }
 });
@@ -120,7 +119,7 @@ test('Artist', function (t) {
   ];
 
   for (const test of tests) {
-    const result = MB.GuessCase.artist.guess(test.input);
+    const result = gc.entities.artist.guess(test.input);
 
     const prefix = test.bug ? test.bug + ', ' : '';
 
@@ -144,7 +143,7 @@ test('Label', function (t) {
   ];
 
   for (const test of tests) {
-    const result = MB.GuessCase.label.guess(test.input);
+    const result = gc.entities.label.guess(test.input);
     t.equal(result, test.expected, test.input);
   }
 });
@@ -167,7 +166,7 @@ test('Recording', function (t) {
 
   for (const test of tests) {
     t.equal(
-      MB.GuessCase.recording.guess(test.input),
+      gc.entities.recording.guess(test.input),
       test.expected,
       test.message,
     );
@@ -359,7 +358,7 @@ test('Work', function (t) {
     gc.CFG_KEEP_UPPERCASED = test.keepuppercase;
     gc.modeName = test.mode;
 
-    const result = MB.GuessCase.work.guess(test.input);
+    const result = gc.entities.work.guess(test.input);
     t.equal(result, test.expected, test.input);
   }
 });
@@ -571,7 +570,7 @@ test('BugFixes', function (t) {
     gc.CFG_KEEP_UPPERCASED = false;
     gc.modeName = test.mode;
 
-    const result = MB.GuessCase.work.guess(test.input);
+    const result = gc.entities.work.guess(test.input);
     t.equal(result, test.expected, test.bug + ', ' + test.input);
   }
 });
@@ -607,7 +606,7 @@ test('vinyl numbers are fixed', function (t) {
   ];
 
   for (const test of tests) {
-    t.equal(MB.GuessCase.track.guess(test.input), test.expected);
+    t.equal(gc.entities.track.guess(test.input), test.expected);
   }
 });
 
@@ -633,6 +632,6 @@ test('no "quote blocks" over multiple track titles (MBS-8621)', function (t) {
   ];
 
   for (const test of tests) {
-    t.equal(MB.GuessCase.track.guess(test.input), test.expected);
+    t.equal(gc.entities.track.guess(test.input), test.expected);
   }
 });

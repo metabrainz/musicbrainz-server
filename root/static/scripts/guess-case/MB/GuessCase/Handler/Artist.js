@@ -1,4 +1,5 @@
 /*
+ * @flow strict
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -7,26 +8,23 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import MB from '../../../../common/MB';
 import * as flags from '../../../flags';
 import * as utils from '../../../utils';
 import input from '../Input';
+import gc from '../Main';
 import output from '../Output';
 
-MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
-MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
+import GuessCaseHandler from './Base';
 
 // Artist specific GuessCase functionality
-MB.GuessCase.Handler.Artist = function (gc) {
-  var self = MB.GuessCase.Handler.Base(gc);
-
+class GuessCaseArtistHandler extends GuessCaseHandler {
   /*
    * Checks special cases of artists
    * - empty, unknown -> [unknown]
    * - none, no artist, not applicable, n/a -> [no artist]
    */
-  self.checkSpecialCase = function (is) {
-    if (is) {
+  checkSpecialCase(inputString?: string): number {
+    if (inputString != null) {
       if (!gc.regexes.ARTIST_EMPTY) {
         // Match empty
         gc.regexes.ARTIST_EMPTY = /^\s*$/i;
@@ -41,28 +39,28 @@ MB.GuessCase.Handler.Artist = function (gc) {
         // Match "n/a" and variants
         gc.regexes.ARTIST_NA = /^[\(\[]?\s*n\s*[\\\/]\s*a\s*[\)\]]?$/i;
       }
-      if (is.match(gc.regexes.ARTIST_EMPTY)) {
-        return self.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.regexes.ARTIST_UNKNOWN)) {
-        return self.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.regexes.ARTIST_NONE)) {
-        return self.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.regexes.ARTIST_NOARTIST)) {
-        return self.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.regexes.ARTIST_NOTAPPLICABLE)) {
-        return self.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.regexes.ARTIST_NA)) {
-        return self.SPECIALCASE_UNKNOWN;
+      if (inputString.match(gc.regexes.ARTIST_EMPTY)) {
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
+      } else if (inputString.match(gc.regexes.ARTIST_UNKNOWN)) {
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
+      } else if (inputString.match(gc.regexes.ARTIST_NONE)) {
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
+      } else if (inputString.match(gc.regexes.ARTIST_NOARTIST)) {
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
+      } else if (inputString.match(gc.regexes.ARTIST_NOTAPPLICABLE)) {
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
+      } else if (inputString.match(gc.regexes.ARTIST_NA)) {
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
       }
     }
-    return self.NOT_A_SPECIALCASE;
-  };
+    return this.specialCaseValues.NOT_A_SPECIALCASE;
+  }
 
   /*
    * Delegate function which handles words not handled
    * in the common word handlers.
    */
-  self.doWord = function () {
+  doWord(): boolean {
     output.appendSpaceIfNeeded();
     input.capitalizeCurrentWord();
     output.appendCurrentWord();
@@ -71,15 +69,15 @@ MB.GuessCase.Handler.Artist = function (gc) {
     flags.context.number = false;
     flags.context.forceCaps = false;
     flags.context.spaceNextWord = true;
-    return null;
-  };
+    return true;
+  }
 
   // Guesses the sortname for artists
-  self.guessSortName = function (is, person) {
-    return self.sortCompoundName(is, function (artist) {
-      if (artist) {
-        artist = utils.trim(artist);
-        var append = '';
+  guessSortName(inputString: string, isPerson: boolean): string {
+    return this.sortCompoundName(inputString, function (artistName) {
+      if (artistName) {
+        let modifiedArtistName = utils.trim(artistName);
+        let append = '';
 
         // Strip Jr./Sr. from the string, and append at the end.
         if (!gc.regexes.SORTNAME_SR) {
@@ -87,74 +85,75 @@ MB.GuessCase.Handler.Artist = function (gc) {
           gc.regexes.SORTNAME_JR = /,\s*Jr[\.]?$/i;
         }
 
-        if (artist.match(gc.regexes.SORTNAME_SR)) {
-          artist = artist.replace(gc.regexes.SORTNAME_SR, '');
+        if (modifiedArtistName.match(gc.regexes.SORTNAME_SR)) {
+          modifiedArtistName =
+            modifiedArtistName.replace(gc.regexes.SORTNAME_SR, '');
           append = ', Sr.';
-        } else if (artist.match(gc.regexes.SORTNAME_JR)) {
-          artist = artist.replace(gc.regexes.SORTNAME_JR, '');
+        } else if (modifiedArtistName.match(gc.regexes.SORTNAME_JR)) {
+          modifiedArtistName =
+            modifiedArtistName.replace(gc.regexes.SORTNAME_JR, '');
           append = ', Jr.';
         }
-        var names = artist.split(' ');
+        let names = modifiedArtistName.split(' ');
 
         /*
          * Handle some special cases, like DJ, The, Los which
          * are sorted at the end.
          */
-        var reorder = false;
+        let reorder = false;
         if (!gc.regexes.SORTNAME_DJ) {
           gc.regexes.SORTNAME_DJ = /^DJ$/i; // match DJ
           gc.regexes.SORTNAME_THE = /^The$/i; // match The
           gc.regexes.SORTNAME_LOS = /^Los$/i; // match Los
           gc.regexes.SORTNAME_DR = /^Dr\.$/i; // match Dr.
         }
-        var firstName = names[0];
+        const firstName = names[0];
         if (firstName.match(gc.regexes.SORTNAME_DJ)) {
           append = (', DJ' + append); // handle DJ xyz -> xyz, DJ
-          names[0] = null;
+          names.shift();
         } else if (firstName.match(gc.regexes.SORTNAME_THE)) {
           append = (', The' + append); // handle The xyz -> xyz, The
-          names[0] = null;
+          names.shift();
         } else if (firstName.match(gc.regexes.SORTNAME_LOS)) {
           append = (', Los' + append); // handle Los xyz -> xyz, Los
-          names[0] = null;
+          names.shift();
         } else if (firstName.match(gc.regexes.SORTNAME_DR)) {
           append = (', Dr.' + append); // handle Dr. xyz -> xyz, Dr.
-          names[0] = null;
+          names.shift();
           reorder = true; // reorder doctors.
         } else {
           reorder = true; // reorder by default
         }
 
-        if (!person) {
+        if (!isPerson) {
           reorder = false; // only reorder persons, not groups.
         }
 
         // we have to reorder the names
-        var i = 0;
         if (reorder) {
-          var reOrderedNames = [];
+          const reorderedNames = [];
           if (names.length > 1) {
-            for (i = 0; i < names.length - 1; i++) {
+            for (let i = 0; i < names.length - 1; i++) {
               // >> firstnames,middlenames one pos right
-              if (i == names.length - 2 && names[i] == 'St.') {
+              if (i === names.length - 2 && names[i] === 'St.') {
                 names[i + 1] = names[i] + ' ' + names[i + 1];
                 /*
                  * Handle St. because it belongs
                  * to the lastname
                  */
               } else if (names[i]) {
-                reOrderedNames[i + 1] = names[i];
+                reorderedNames[i + 1] = names[i];
               }
             }
-            reOrderedNames[0] = names[names.length - 1]; // lastname,firstname
-            if (reOrderedNames.length > 1) {
+            reorderedNames[0] = names[names.length - 1]; // lastname,firstname
+            if (reorderedNames.length > 1) {
               /*
                * Only append comma if there was more than 1
                * non-empty word (and therefore switched)
                */
-              reOrderedNames[0] += ',';
+              reorderedNames[0] += ',';
             }
-            names = reOrderedNames;
+            names = reorderedNames;
           }
         }
 
@@ -163,7 +162,7 @@ MB.GuessCase.Handler.Artist = function (gc) {
 
       return '';
     });
-  };
+  }
+}
 
-  return self;
-};
+export default GuessCaseArtistHandler;

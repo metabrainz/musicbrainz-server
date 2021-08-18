@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2015 MetaBrainz Foundation
  *
@@ -12,7 +12,8 @@ import clean from '../common/utility/clean';
 
 import * as flags from './flags';
 import * as modes from './modes';
-import type {GuessCaseT, GuessCaseModeT} from './types';
+import type {GuessCaseModeT} from './types';
+import gc from './MB/GuessCase/Main';
 import input from './MB/GuessCase/Input';
 import output from './MB/GuessCase/Output';
 
@@ -189,7 +190,6 @@ export function trim(word: string): string {
  * in the lowercase words array.
  */
 export function titleString(
-  gc: GuessCaseT,
   inputString: string | null,
   forceCaps?: boolean,
 ): string {

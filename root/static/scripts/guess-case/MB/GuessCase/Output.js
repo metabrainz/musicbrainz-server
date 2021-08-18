@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -129,7 +129,7 @@ class GuessCaseOutput {
               position--;
             }
             input.setCursorPosition(position);
-            output = utils.titleString(gc, word, forceCaps);
+            output = utils.titleString(word, forceCaps);
             // Restore pos pointer on input
             input.setCursorPosition(originalPosition);
             if (word !== output) {

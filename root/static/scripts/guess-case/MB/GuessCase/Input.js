@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -9,7 +9,6 @@
  */
 
 import * as utils from '../../utils';
-import type {GuessCaseT} from '../../types';
 
 import gc from './Main';
 
@@ -17,8 +16,6 @@ import gc from './Main';
  * Holds the input variables
  */
 class GuessCaseInput {
-  gc: GuessCaseT;
-
   source: string;
 
   wordIndex: number;
@@ -148,7 +145,7 @@ class GuessCaseInput {
     if (word == null) {
       return null;
     }
-    const output = utils.titleString(gc, word);
+    const output = utils.titleString(word);
     if (word !== output) {
       this.updateCurrentWord(output);
     }

@@ -14,12 +14,11 @@ import bracketed from '../../common/utility/bracketed';
 import getBooleanCookie from '../../common/utility/getBooleanCookie';
 import setCookie from '../../common/utility/setCookie';
 import * as modes from '../../guess-case/modes';
-import type {GuessCaseModeNameT} from '../../guess-case/types';
 import gc from '../../guess-case/MB/GuessCase/Main';
 
 /* eslint-disable flowtype/sort-keys */
 export type ActionT =
-  | {+type: 'set-mode', +modeName: GuessCaseModeNameT}
+  | {+type: 'set-mode', +modeName: string}
   | {+type: 'set-keep-upper-case', +enabled: boolean}
   | {+type: 'set-upper-case-roman', +enabled: boolean};
 /* eslint-enable flowtype/sort-keys */
@@ -28,7 +27,7 @@ export type DispatchT = (ActionT) => void;
 
 export type StateT = {
   +keepUpperCase: boolean,
-  +modeName: GuessCaseModeNameT,
+  +modeName: string,
   +upperCaseRoman: boolean,
 };
 
