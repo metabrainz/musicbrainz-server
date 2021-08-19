@@ -782,7 +782,7 @@
     // Assert date period is correctly displayed
     {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//span[contains(@class, 'deleted')][1]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//span[contains(@class, 'date-period')][1]",
       value: ' (????-01-01 – 2021-01-01)',
     },
     // Check edit preview

@@ -775,11 +775,7 @@ const ExternalLinkRelationship =
                 !isDateEmpty(link.begin_date) ||
                 !isDateEmpty(link.end_date)
               ) &&
-                <span
-                  className={link.ended
-                    ? 'date-period deleted'
-                    : 'date-period'}
-                >
+                <span className="date-period">
                   {` (${formatDatePeriod(link)})`}
                 </span>}
             </label>
