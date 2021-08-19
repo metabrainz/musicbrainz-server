@@ -4,6 +4,7 @@ use Moose;
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict Map );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_MEDIUMS );
 use MusicBrainz::Server::Translation qw( N_l );
 
@@ -12,6 +13,7 @@ extends 'MusicBrainz::Server::Edit';
 sub edit_name { N_l('Reorder mediums') }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASE_REORDER_MEDIUMS }
+sub edit_template_react { 'ReorderMediums' }
 
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
@@ -89,7 +91,8 @@ sub build_display_data {
             my $entity = $loaded->{Medium}{ $_->{medium_id} };
             {
                 old => $_->{old} ? $_->{old} : "new",
-                new => $_->{new},
+                # For some reason older edits have old as int but new as string
+                new => $_->{new} + 0,
                 title => $entity ? $entity->name : ""
             }
         }
@@ -102,7 +105,9 @@ sub build_display_data {
         $self->c->model('ArtistCredit')->load($release);
     }
 
-    $data{release} = $release || Release->new( name => $self->data->{release}{name} );
+    $data{release} = to_json_object(
+        $release || Release->new( name => $self->data->{release}{name} )
+    );
 
 
     return \%data;
