@@ -446,6 +446,12 @@ type EditStatsT = {
   +rejected_count: number,
 };
 
+type SecondaryStatsT = {
+  +downvoted_tag_count?: number,
+  +rating_count?: number,
+  +upvoted_tag_count?: number,
+};
+
 type VoteStatsT = Array<{
   +all: {
     +count: number,
@@ -477,6 +483,7 @@ type UserProfileStatisticsProps = {
   +$c: CatalystContextT,
   +addedEntities: EntitiesStatsT,
   +editStats: EditStatsT,
+  +secondaryStats: SecondaryStatsT,
   +user: UnsanitizedEditorT,
   +votes: VoteStatsT,
 };
@@ -486,6 +493,7 @@ const UserProfileStatistics = ({
   editStats,
   user,
   votes,
+  secondaryStats,
   addedEntities,
 }: UserProfileStatisticsProps) => {
   const voteTotals = votes.pop();
@@ -494,6 +502,11 @@ const UserProfileStatistics = ({
                           editStats.accepted_auto_count;
   const hasAddedEntities =
     Object.values(addedEntities).some((number) => number !== 0);
+  const hasPublicRatings = secondaryStats.rating_count != null;
+  const hasPublicTags = secondaryStats.upvoted_tag_count != null;
+  const ratingCount = secondaryStats.rating_count ?? 0;
+  const upvotedTagCount = secondaryStats.upvoted_tag_count ?? 0;
+  const downvotedTagCount = secondaryStats.downvoted_tag_count ?? 0;
 
   return (
     <>
@@ -679,7 +692,7 @@ const UserProfileStatistics = ({
               <abbr title={l('Newly applied edits may ' +
                              'need 24 hours to appear')}
               >
-                {exp.l('Added entities')}
+                {l('Added entities')}
               </abbr>
             </th>
           </tr>
@@ -709,6 +722,58 @@ const UserProfileStatistics = ({
           )}
         </tbody>
       </table>
+
+      {hasPublicTags || hasPublicRatings ? (
+        <table
+          className="statistics"
+          title={l('This table shows a summary ' +
+                  'of secondary data added by this editor.')}
+        >
+          <thead>
+            <tr>
+              <th colSpan="2">
+                {l('Tags and ratings')}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {hasPublicTags ? (
+              <>
+                <UserProfileProperty name={l('Tags upvoted')}>
+                  {$c.user && upvotedTagCount > 0 ? exp.l(
+                    '{count} ({view_url|view})',
+                    {
+                      count: formatCount($c, upvotedTagCount),
+                      view_url: `/user/${encodedName}/tags`,
+                    },
+                  ) : formatCount($c, upvotedTagCount)}
+                </UserProfileProperty>
+
+                <UserProfileProperty name={l('Tags downvoted')}>
+                  {$c.user && downvotedTagCount > 0 ? exp.l(
+                    '{count} ({view_url|view})',
+                    {
+                      count: formatCount($c, downvotedTagCount),
+                      view_url: `/user/${encodedName}/tags?show_downvoted=1`,
+                    },
+                  ) : formatCount($c, downvotedTagCount)}
+                </UserProfileProperty>
+              </>
+            ) : null}
+            {hasPublicRatings ? (
+              <UserProfileProperty name={l('Ratings')}>
+                {$c.user && ratingCount > 0 ? exp.l(
+                  '{count} ({view_url|view})',
+                  {
+                    count: formatCount($c, ratingCount),
+                    view_url: `/user/${encodedName}/ratings`,
+                  },
+                ) : formatCount($c, ratingCount)}
+              </UserProfileProperty>
+            ) : null}
+          </tbody>
+        </table>
+      ) : null}
     </>
   );
 };
@@ -718,6 +783,7 @@ type UserProfileProps = {
   +addedEntities: EntitiesStatsT,
   +editStats: EditStatsT,
   +ipHashes: $ReadOnlyArray<string>,
+  +secondaryStats: SecondaryStatsT,
   +subscribed: boolean,
   +subscriberCount: number,
   +user: UnsanitizedEditorT,
@@ -728,6 +794,7 @@ const UserProfile = ({
   $c,
   editStats,
   ipHashes,
+  secondaryStats,
   subscribed,
   subscriberCount,
   user,
@@ -755,6 +822,7 @@ const UserProfile = ({
         $c={$c}
         addedEntities={addedEntities}
         editStats={editStats}
+        secondaryStats={secondaryStats}
         user={user}
         votes={votes}
       />

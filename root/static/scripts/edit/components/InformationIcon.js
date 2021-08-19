@@ -9,6 +9,8 @@
 
 import * as React from 'react';
 
+import informationIconUrl from '../../../images/icons/information.png';
+
 type Props = {
   className?: string,
   title?: string,
@@ -16,7 +18,7 @@ type Props = {
 
 const InformationIcon = (props: Props): React.Element<'img'> => (
   <img
-    src={require('../../../images/icons/information.png')}
+    src={informationIconUrl}
     {...props}
   />
 );

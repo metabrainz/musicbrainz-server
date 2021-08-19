@@ -1,5 +1,3 @@
-require('@babel/register');
-
 var rowCount = 0;
 var timeout;
 

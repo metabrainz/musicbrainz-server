@@ -58,7 +58,7 @@ const EventIndex = ({
           </p>
         </>
       ) : null}
-      {manifest.js('event/index.js', {async: 'async'})}
+      {manifest.js('event/index', {async: 'async'})}
     </EventLayout>
   );
 };

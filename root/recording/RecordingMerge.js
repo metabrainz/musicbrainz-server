@@ -73,7 +73,7 @@ const RecordingMerge = ({
         </EnterEdit>
       </form>
     </div>
-    {manifest.js('recording/merge.js', {async: 'async'})}
+    {manifest.js('recording/merge', {async: 'async'})}
   </Layout>
 );
 

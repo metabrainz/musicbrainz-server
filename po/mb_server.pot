@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-12 19:29+0300\n"
+"POT-Creation-Date: 2021-08-18 19:46-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -138,7 +138,7 @@ msgstr ""
 #: ../root/components/ReleaseLanguageScript.js:24
 #: ../root/components/ReleaseLanguageScript.js:30
 #: ../root/components/list/ReleaseList.js:100 ../root/release/CoverArt.js:92
-#: ../root/release_group/ReleaseGroupIndex.js:76
+#: ../root/release_group/ReleaseGroupIndex.js:90
 #: ../root/search/components/ReleaseResults.js:55
 #: ../root/static/scripts/common/components/ReleaseEvents.js:55
 #: ../root/static/scripts/common/components/ReleaseEvents.js:72
@@ -151,7 +151,7 @@ msgstr ""
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
 #: ../root/edit/details/merge_releases.tt:23 ../root/release/merge.tt:16
 #: ../root/recording/RecordingIndex.js:57
-#: ../root/release_group/ReleaseGroupIndex.js:144
+#: ../root/release_group/ReleaseGroupIndex.js:159
 #: ../root/search/components/ReleaseResults.js:103
 #: ../root/utility/tableColumns.js:480 ../root/utility/tableColumns.js:488
 msgctxt "and"
@@ -632,7 +632,9 @@ msgstr ""
 #: ../root/edit/details/historic/AddRelease.js:117
 #: ../root/edit/details/historic/AddTrackKV.js:55
 #: ../root/edit/details/historic/EditTrack.js:45 ../root/isrc/Index.js:67
-#: ../root/layout/components/Search.js:26 ../root/report/DuplicateArtists.js:65
+#: ../root/layout/components/Search.js:26
+#: ../root/release_group/ReleaseGroupIndex.js:156
+#: ../root/report/DuplicateArtists.js:65
 #: ../root/report/DuplicateReleaseGroups.js:61
 #: ../root/report/IsrcsWithManyRecordings.js:59
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:55
@@ -763,24 +765,24 @@ msgstr ""
 #: ../root/cdtoc/lookup.tt:46 ../root/edit/details/merge_releases.tt:26
 #: ../root/release/edit/duplicates.tt:17 ../root/release/merge.tt:19
 #: ../root/components/list/ReleaseList.js:128
+#: ../root/edit/details/EditBarcodes.js:58
+#: ../root/edit/details/EditBarcodes.js:64
+#: ../root/edit/details/EditReleaseLabel.js:134
 #: ../root/edit/details/historic/AddRelease.js:152
 #: ../root/edit/details/historic/EditReleaseEvents.js:138
 #: ../root/otherlookup/OtherLookupForm.js:64
-#: ../root/release_group/ReleaseGroupIndex.js:147
+#: ../root/release_group/ReleaseGroupIndex.js:162
 #: ../root/report/ReleasesSameBarcode.js:42
 #: ../root/search/components/ReleaseResults.js:106
 msgid "Barcode"
 msgstr ""
 
 #: ../root/cdstub/edit_form.tt:7 ../root/edit/details/add_release.tt:67
-#: ../root/edit/details/edit_barcodes.tt:17
-#: ../root/edit/details/edit_barcodes.tt:21
 #: ../root/edit/details/edit_release.tt:55
-#: ../root/edit/details/edit_release_label.tt:62
 #: ../root/release/edit/information.tt:216
 #: ../root/release_group/set_cover_art.tt:62
 #: ../root/layout/components/sidebar/CDStubSidebar.js:76
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:142
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:140
 msgid "Barcode:"
 msgstr ""
 
@@ -853,7 +855,7 @@ msgstr ""
 msgid "Bio:"
 msgstr ""
 
-#: ../root/layout.tt:116 ../root/layout/components/ExternalLinks.js:120
+#: ../root/layout.tt:116 ../root/layout/components/ExternalLinks.js:118
 #: ../root/layout/components/Footer.js:32
 msgid "Blog"
 msgstr ""
@@ -947,7 +949,7 @@ msgstr ""
 #: ../root/release_group/ReleaseGroupMerge.js:55
 #: ../root/series/SeriesMerge.js:54
 #: ../root/static/scripts/common/components/FilterForm.js:156
-#: ../root/static/scripts/edit/components/URLInputPopover.js:119
+#: ../root/static/scripts/edit/components/URLInputPopover.js:120
 #: ../root/work/WorkMerge.js:68
 msgid "Cancel"
 msgstr ""
@@ -977,8 +979,8 @@ msgstr ""
 #: ../root/edit/details/edit_relationship_type.tt:55
 #: ../root/relationship/linktype/form.tt:26
 #: ../root/relationship/linktype/form.tt:31
-#: ../root/edit/details/AddRelationshipType.js:158
-#: ../root/edit/details/AddRelationshipType.js:171
+#: ../root/edit/details/AddRelationshipType.js:157
+#: ../root/edit/details/AddRelationshipType.js:170
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:119
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:127
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:94
@@ -990,19 +992,12 @@ msgstr ""
 msgid "Cat. No:"
 msgstr ""
 
-#: ../root/edit/details/edit_release_label.tt:25
-#: ../root/edit/details/edit_release_label.tt:30
-#: ../root/edit/details/AddReleaseLabel.js:54
-#: ../root/edit/details/RemoveReleaseLabel.js:50
-msgid "Catalog number:"
-msgstr ""
-
 #: ../root/cdtoc/attach_artist_releases.tt:18
 #: ../root/cdtoc/attach_filter_release.tt:32 ../root/cdtoc/list.tt:12
 #: ../root/cdtoc/lookup.tt:45 ../root/edit/details/merge_releases.tt:25
 #: ../root/release/edit/duplicates.tt:16 ../root/release/merge.tt:18
 #: ../root/recording/RecordingIndex.js:59
-#: ../root/release_group/ReleaseGroupIndex.js:146
+#: ../root/release_group/ReleaseGroupIndex.js:161
 #: ../root/search/components/ReleaseResults.js:105
 #: ../root/utility/tableColumns.js:456 ../root/utility/tableColumns.js:461
 msgid "Catalog#"
@@ -1070,10 +1065,6 @@ msgstr ""
 msgid ""
 "Click the radio button to select the appropriate artist, or click the "
 "artist’s name to get more info."
-msgstr ""
-
-#: ../root/edit/details/edit_barcodes.tt:5 ../root/edit/details/AddIsrcs.js:40
-msgid "Client:"
 msgstr ""
 
 #: ../root/release/edit/tracklist.tt:237 ../root/release/edit/tracklist.tt:266
@@ -1150,7 +1141,7 @@ msgid "Copy all track titles to associated recordings."
 msgstr ""
 
 #: ../root/components/forms.tt:242
-#: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:118
+#: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:116
 msgid "Copy name"
 msgstr ""
 
@@ -1170,17 +1161,17 @@ msgstr ""
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
 #: ../root/cdtoc/lookup.tt:43 ../root/edit/details/merge_releases.tt:23
 #: ../root/release/edit/duplicates.tt:14 ../root/release/merge.tt:16
+#: ../root/edit/details/EditReleaseLabel.js:123
 #: ../root/edit/details/historic/AddRelease.js:149
 #: ../root/edit/details/historic/EditReleaseEvents.js:135
 #: ../root/recording/RecordingIndex.js:57
-#: ../root/release_group/ReleaseGroupIndex.js:144
+#: ../root/release_group/ReleaseGroupIndex.js:159
 #: ../root/search/components/ReleaseResults.js:103
 #: ../root/static/scripts/common/components/FilterForm.js:110
 #: ../root/utility/tableColumns.js:476 ../root/utility/tableColumns.js:488
 msgid "Country"
 msgstr ""
 
-#: ../root/edit/details/edit_release_label.tt:45
 #: ../root/release/edit/information.tt:150
 #: ../root/release_group/set_cover_art.tt:41
 msgid "Country:"
@@ -1257,10 +1248,11 @@ msgstr ""
 #: ../root/admin/statistics-events/StatisticsEventEditForm.js:35
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:30
 #: ../root/components/RelationshipsTable.js:314
+#: ../root/edit/details/EditReleaseLabel.js:115
 #: ../root/edit/details/historic/AddRelease.js:148
 #: ../root/edit/details/historic/EditReleaseEvents.js:134
 #: ../root/elections/ElectionVotes.js:26 ../root/recording/RecordingIndex.js:57
-#: ../root/release_group/ReleaseGroupIndex.js:144
+#: ../root/release_group/ReleaseGroupIndex.js:159
 #: ../root/search/components/EventResults.js:67
 #: ../root/search/components/ReleaseResults.js:103
 #: ../root/static/scripts/common/components/FilterForm.js:129
@@ -1275,7 +1267,6 @@ msgstr ""
 msgid "Date Period"
 msgstr ""
 
-#: ../root/edit/details/edit_release_label.tt:39
 #: ../root/release/edit/information.tt:124
 #: ../root/release_group/set_cover_art.tt:37
 #: ../root/layout/components/sidebar/EventSidebar.js:57
@@ -1327,6 +1318,7 @@ msgstr ""
 #: ../root/edit/details/EditRelationshipAttribute.js:86
 #: ../root/edit/details/EditRelationshipAttribute.js:92
 #: ../root/edit/details/EditUrl.js:73
+#: ../root/edit/details/RemoveRelationshipAttribute.js:49
 #: ../root/edit/details/RemoveRelationshipType.js:68
 #: ../root/instrument/InstrumentIndex.js:35
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:107
@@ -1338,7 +1330,6 @@ msgid "Description"
 msgstr ""
 
 #: ../root/edit/details/edit_relationship_type.tt:16
-#: ../root/edit/details/remove_relationship_attribute.tt:7
 #: ../root/instrument/edit_form.tt:13
 #: ../root/relationship/linkattributetype/form.tt:15
 #: ../root/relationship/linktype/form.tt:20
@@ -1439,7 +1430,7 @@ msgstr ""
 #: ../root/release/edit/macros.tt:54
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:159
 #: ../root/static/scripts/edit/components/GuessCaseOptionsPopover.js:67
-#: ../root/static/scripts/edit/components/URLInputPopover.js:130
+#: ../root/static/scripts/edit/components/URLInputPopover.js:131
 msgid "Done"
 msgstr ""
 
@@ -1646,7 +1637,7 @@ msgid "Endpoint:"
 msgstr ""
 
 #: ../root/components/forms.tt:258 ../root/components/forms.tt:283
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:112
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:111
 msgid "English"
 msgstr ""
 
@@ -1824,19 +1815,19 @@ msgstr ""
 #: ../root/release/edit/duplicates.tt:11 ../root/release/merge.tt:14
 #: ../root/components/list/ReleaseList.js:93
 #: ../root/edit/details/EditMedium.js:530
+#: ../root/edit/details/EditReleaseLabel.js:141
 #: ../root/edit/details/historic/AddRelease.js:153
 #: ../root/edit/details/historic/EditReleaseEvents.js:139
-#: ../root/release_group/ReleaseGroupIndex.js:142
+#: ../root/release_group/ReleaseGroupIndex.js:157
 #: ../root/report/components/CDTocList.js:46
 #: ../root/search/components/ReleaseResults.js:101
 msgid "Format"
 msgstr ""
 
-#: ../root/edit/details/edit_release_label.tt:68
 #: ../root/release/edit/tracklist.tt:305
 #: ../root/release_group/set_cover_art.tt:46
 #: ../root/edit/details/AddMedium.js:149
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:148
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:146
 msgid "Format:"
 msgstr ""
 
@@ -1891,7 +1882,7 @@ msgid "FreeDB:"
 msgstr ""
 
 #: ../root/components/forms.tt:260 ../root/components/forms.tt:285
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:114
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:113
 msgid "French"
 msgstr ""
 
@@ -1919,7 +1910,7 @@ msgstr ""
 #: ../root/components/forms.tt:228 ../root/release/edit/information.tt:14
 #: ../root/release/edit/tracklist.tt:486
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:153
-#: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:111
+#: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:109
 msgid "Guess case"
 msgstr ""
 
@@ -1938,7 +1929,7 @@ msgid "Guess case medium title"
 msgstr ""
 
 #: ../root/components/forms.tt:232 ../root/release/edit/information.tt:16
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:110
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:109
 #: ../root/static/scripts/edit/components/GuessCaseOptionsPopover.js:26
 msgid "Guess case options"
 msgstr ""
@@ -2315,7 +2306,7 @@ msgid "Javascript is required for this page to work properly."
 msgstr ""
 
 #: ../root/components/forms.tt:267 ../root/components/forms.tt:292
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:132
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:131
 msgid "Keep all-uppercase words uppercased"
 msgstr ""
 
@@ -2352,11 +2343,12 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
 #: ../root/components/list/LabelList.js:54 ../root/edit/details/AddLabel.js:51
 #: ../root/edit/details/EditLabel.js:62
+#: ../root/edit/details/EditReleaseLabel.js:67
 #: ../root/edit/details/historic/AddRelease.js:150
 #: ../root/edit/details/historic/EditReleaseEvents.js:136
 #: ../root/label/LabelHeader.js:27 ../root/layout/components/Search.js:39
 #: ../root/recording/RecordingIndex.js:58
-#: ../root/release_group/ReleaseGroupIndex.js:145
+#: ../root/release_group/ReleaseGroupIndex.js:160
 #: ../root/report/ReleaseLabelSameArtist.js:29
 #: ../root/report/components/LabelList.js:44
 #: ../root/report/components/LabelUrlList.js:35
@@ -2387,7 +2379,6 @@ msgid "Label ratings"
 msgstr ""
 
 #: ../root/components/common-macros.tt:552
-#: ../root/edit/details/edit_release_label.tt:13
 #: ../root/release/edit/information.tt:173
 #: ../root/release_group/set_cover_art.tt:52
 #: ../root/edit/details/AddReleaseLabel.js:46
@@ -2398,7 +2389,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:586 ../root/area/AreaLabels.js:31
 #: ../root/area/AreaLabels.js:32 ../root/components/EntityTabs.js:28
 #: ../root/components/TagEntitiesList.js:174
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:219
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:217
 #: ../root/report/ReportsIndex.js:168
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:23
 #: ../root/tag/TagLayout.js:30
@@ -2408,7 +2399,7 @@ msgstr ""
 #: ../root/edit/details/add_release.tt:46
 #: ../root/edit/details/edit_release.tt:35
 #: ../root/release/edit/information.tt:110
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:193
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:191
 msgid "Language:"
 msgstr ""
 
@@ -2437,7 +2428,7 @@ msgstr ""
 
 #: ../root/recording/edit_form.tt:35 ../root/recording/edit_form.tt:38
 #: ../root/layout/components/sidebar/RecordingSidebar.js:51
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:154
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:152
 msgid "Length:"
 msgstr ""
 
@@ -2450,8 +2441,8 @@ msgid "Lines start with a track number"
 msgstr ""
 
 #: ../root/edit/details/edit_relationship_type.tt:21
-#: ../root/edit/details/AddRelationshipType.js:128
-#: ../root/edit/details/RemoveRelationshipType.js:100
+#: ../root/edit/details/AddRelationshipType.js:127
+#: ../root/edit/details/RemoveRelationshipType.js:99
 msgid "Link phrase:"
 msgstr ""
 
@@ -2490,8 +2481,8 @@ msgstr ""
 
 #: ../root/edit/details/edit_relationship_type.tt:29
 #: ../root/relationship/linktype/form.tt:15
-#: ../root/edit/details/AddRelationshipType.js:144
-#: ../root/edit/details/RemoveRelationshipType.js:124
+#: ../root/edit/details/AddRelationshipType.js:143
+#: ../root/edit/details/RemoveRelationshipType.js:123
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:158
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:79
 msgid "Long link phrase:"
@@ -2730,6 +2721,7 @@ msgstr ""
 #: ../root/edit/details/EditRelationshipAttribute.js:76
 #: ../root/edit/details/EditReleaseGroup.js:57
 #: ../root/edit/details/EditSeries.js:54 ../root/edit/details/EditWork.js:66
+#: ../root/edit/details/RemoveRelationshipAttribute.js:41
 #: ../root/edit/details/RemoveRelationshipType.js:60
 #: ../root/edit/details/historic/AddRelease.js:62
 #: ../root/edit/details/historic/AddRelease.js:116
@@ -2761,7 +2753,6 @@ msgstr ""
 #: ../root/components/forms.tt:226 ../root/edit/details/add_release.tt:10
 #: ../root/edit/details/edit_relationship_type.tt:11
 #: ../root/edit/details/edit_release.tt:11
-#: ../root/edit/details/remove_relationship_attribute.tt:3
 #: ../root/relationship/linkattributetype/form.tt:12
 #: ../root/relationship/linktype/form.tt:12
 #: ../root/relationship/linktype/form.tt:77
@@ -3016,7 +3007,7 @@ msgstr ""
 
 #: ../root/edit/details/edit_relationship_type.tt:61
 #: ../root/relationship/linktype/form.tt:37
-#: ../root/edit/details/AddRelationshipType.js:183
+#: ../root/edit/details/AddRelationshipType.js:182
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:134
 msgid "Orderable direction:"
 msgstr ""
@@ -3038,7 +3029,7 @@ msgstr ""
 #: ../root/edit/details/add_release.tt:60
 #: ../root/edit/details/edit_release.tt:51
 #: ../root/release/edit/information.tt:234
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:172
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:170
 msgid "Packaging:"
 msgstr ""
 
@@ -3240,7 +3231,7 @@ msgstr[1] ""
 
 #: ../root/user/ratings_summary.tt:1 ../root/user/ratings_summary.tt:33
 #: ../root/components/UserAccountTabs.js:60 ../root/entity/Ratings.js:36
-#: ../root/entity/Ratings.js:38
+#: ../root/entity/Ratings.js:38 ../root/user/UserProfile.js:764
 msgid "Ratings"
 msgstr ""
 
@@ -3376,12 +3367,14 @@ msgstr ""
 #: ../root/components/list/ReleaseList.js:76
 #: ../root/edit/details/AddCoverArt.js:36 ../root/edit/details/AddMedium.js:126
 #: ../root/edit/details/ChangeReleaseQuality.js:34
+#: ../root/edit/details/EditBarcodes.js:51
 #: ../root/edit/details/EditCoverArt.js:51
+#: ../root/edit/details/EditReleaseLabel.js:58
 #: ../root/edit/details/RemoveCoverArt.js:35
 #: ../root/edit/details/ReorderCoverArt.js:45
 #: ../root/edit/details/historic/EditReleaseEvents.js:133
 #: ../root/layout/components/Search.js:31
-#: ../root/release_group/ReleaseGroupIndex.js:141
+#: ../root/release_group/ReleaseGroupIndex.js:155
 #: ../root/report/components/CDTocReleaseList.js:46
 #: ../root/report/components/ReleaseList.js:49
 #: ../root/report/components/ReleaseUrlList.js:37
@@ -3469,7 +3462,6 @@ msgid "Release event"
 msgstr ""
 
 #: ../root/edit/details/add_release.tt:74
-#: ../root/edit/details/edit_release_label.tt:51
 #: ../root/static/scripts/edit/components/edit/ReleaseEventsDiff.js:120
 msgid "Release events:"
 msgstr ""
@@ -3491,7 +3483,7 @@ msgid "Release group:"
 msgstr ""
 
 #: ../root/release/edit/information.tt:3
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:137
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:135
 msgid "Release information"
 msgstr ""
 
@@ -3505,10 +3497,7 @@ msgid "Release “{name}” by {artist}"
 msgstr ""
 
 #: ../root/components/common-macros.tt:552
-#: ../root/edit/details/add_release.tt:3
-#: ../root/edit/details/edit_barcodes.tt:12
-#: ../root/edit/details/edit_release.tt:6
-#: ../root/edit/details/edit_release_label.tt:6
+#: ../root/edit/details/add_release.tt:3 ../root/edit/details/edit_release.tt:6
 #: ../root/edit/details/reorder_mediums.tt:4
 #: ../root/release/edit/tracklist.tt:105
 #: ../root/edit/details/AddReleaseLabel.js:37
@@ -3689,8 +3678,8 @@ msgstr ""
 
 #: ../root/edit/details/edit_relationship_type.tt:25
 #: ../root/relationship/linktype/form.tt:14
-#: ../root/edit/details/AddRelationshipType.js:136
-#: ../root/edit/details/RemoveRelationshipType.js:112
+#: ../root/edit/details/AddRelationshipType.js:135
+#: ../root/edit/details/RemoveRelationshipType.js:111
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:153
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:72
 msgid "Reverse link phrase:"
@@ -3722,7 +3711,7 @@ msgstr ""
 #: ../root/edit/details/add_release.tt:53
 #: ../root/edit/details/edit_release.tt:39
 #: ../root/release/edit/information.tt:112
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:202
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:200
 msgid "Script:"
 msgstr ""
 
@@ -3738,7 +3727,7 @@ msgstr ""
 #: ../root/search/SearchIndex.js:32 ../root/search/components/SearchForm.js:97
 #: ../root/static/scripts/common/components/Autocomplete2.js:658
 #: ../root/static/scripts/common/components/Autocomplete2.js:677
-#: ../root/static/scripts/common/components/SearchIcon.js:14
+#: ../root/static/scripts/common/components/SearchIcon.js:16
 #: ../root/taglookup/Form.js:55
 msgid "Search"
 msgstr ""
@@ -3824,7 +3813,7 @@ msgid "Send a copy to my own email address"
 msgstr ""
 
 #: ../root/components/forms.tt:259 ../root/components/forms.tt:284
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:113
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:112
 msgid "Sentence"
 msgstr ""
 
@@ -3959,7 +3948,7 @@ msgstr ""
 #: ../root/edit/details/add_release.tt:39
 #: ../root/edit/details/edit_release.tt:31
 #: ../root/edit/details/historic/AddRelease.js:83
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:183
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:181
 msgctxt "release status"
 msgid "Status:"
 msgstr ""
@@ -4028,10 +4017,10 @@ msgstr ""
 #: ../root/cdtoc/attach_artist_releases.tt:21
 #: ../root/cdtoc/attach_filter_release.tt:35 ../root/cdtoc/list.tt:15
 #: ../root/recording/RecordingIndex.js:62
-#: ../root/release_group/ReleaseGroupIndex.js:149
+#: ../root/release_group/ReleaseGroupIndex.js:164
 #: ../root/search/components/RecordingResults.js:134
 #: ../root/search/components/ReleaseResults.js:112
-#: ../root/static/scripts/common/components/TaggerIcon.js:39
+#: ../root/static/scripts/common/components/TaggerIcon.js:40
 #: ../root/utility/tableColumns.js:834
 msgid "Tagger"
 msgstr ""
@@ -4613,7 +4602,7 @@ msgstr ""
 #: ../root/artist_credit/ArtistCreditLayout.js:31
 #: ../root/components/list/ReleaseList.js:103
 #: ../root/edit/details/historic/AddRelease.js:110
-#: ../root/release_group/ReleaseGroupIndex.js:143
+#: ../root/release_group/ReleaseGroupIndex.js:158
 #: ../root/search/components/CDStubResults.js:49
 #: ../root/search/components/ReleaseResults.js:102
 msgid "Tracks"
@@ -4636,7 +4625,7 @@ msgid "Transclusion editor"
 msgstr ""
 
 #: ../root/components/forms.tt:261 ../root/components/forms.tt:286
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:115
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:114
 msgid "Turkish"
 msgstr ""
 
@@ -4688,7 +4677,7 @@ msgstr ""
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:874
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:447
 #: ../root/static/scripts/common/components/FilterForm.js:63
-#: ../root/static/scripts/edit/externalLinks.js:683
+#: ../root/static/scripts/edit/externalLinks.js:694
 #: ../root/utility/tableColumns.js:613 ../root/utility/tableColumns.js:618
 msgid "Type"
 msgstr ""
@@ -4701,7 +4690,7 @@ msgstr ""
 #: ../root/work/edit_form.tt:14
 #: ../root/layout/components/sidebar/CollectionSidebar.js:47
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:55
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:166
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:164
 #: ../root/layout/components/sidebar/SidebarType.js:26
 #: ../root/search/components/SearchForm.js:81
 msgid "Type:"
@@ -4779,7 +4768,7 @@ msgid "Uploading image..."
 msgstr ""
 
 #: ../root/components/forms.tt:272 ../root/components/forms.tt:297
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:141
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:140
 msgid "Uppercase Roman numerals"
 msgstr ""
 
@@ -4893,7 +4882,7 @@ msgid "Voter"
 msgstr ""
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/index.tt:23
-#: ../root/user/UserProfile.js:616
+#: ../root/user/UserProfile.js:629
 msgid "Votes"
 msgstr ""
 
@@ -4915,7 +4904,7 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:345
 #: ../root/static/scripts/common/components/Warning.js:30
-#: ../root/static/scripts/common/components/WarningIcon.js:14
+#: ../root/static/scripts/common/components/WarningIcon.js:16
 msgid "Warning"
 msgstr ""
 
@@ -5268,7 +5257,7 @@ msgstr ""
 
 #: ../root/edit/details/merge_releases.tt:5
 #: ../root/components/list/ReleaseList.js:90
-#: ../root/release_group/ReleaseGroupIndex.js:75
+#: ../root/release_group/ReleaseGroupIndex.js:89
 #: ../root/search/components/ReleaseResults.js:50
 #: ../root/static/scripts/release-editor/duplicates.js:143
 msgid "[missing media]"
@@ -5399,7 +5388,7 @@ msgstr ""
 #: ../root/edit/search_macros.tt:189 ../root/release/edit/tracklist.tt:3
 #: ../root/release/edit/tracklist.tt:83 ../root/release/edit/tracklist.tt:316
 #: ../root/release/edit/tracklist.tt:454 ../root/release/edit/tracklist.tt:469
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:120
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:119
 msgid "help"
 msgstr ""
 
@@ -6085,16 +6074,16 @@ msgstr ""
 msgid "Your message could not be sent"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:509
+#: ../lib/MusicBrainz/Server/Controller/User.pm:511
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:739
+#: ../lib/MusicBrainz/Server/Controller/User.pm:741
 msgid "An error occurred while trying to send your report."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:743
+#: ../lib/MusicBrainz/Server/Controller/User.pm:745
 msgid "Your report has been sent."
 msgstr ""
 
@@ -6703,7 +6692,7 @@ msgstr ""
 msgid "Edit release alias"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Release/EditBarcodes.pm:19
+#: ../lib/MusicBrainz/Server/Edit/Release/EditBarcodes.pm:20
 msgid "Edit barcodes"
 msgstr ""
 
@@ -6715,7 +6704,7 @@ msgstr ""
 msgid "Edit release label"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:98
+#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:99
 #: ../lib/MusicBrainz/Server/Entity/Release.pm:185
 #: ../root/static/scripts/release-editor/duplicates.js:193
 msgctxt "medium format"
@@ -6858,7 +6847,7 @@ msgstr ""
 msgid "Merge series"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/user/UserProfile.js:575
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/user/UserProfile.js:588
 #: ../root/utility/edit.js:45
 msgid "Open"
 msgstr ""
@@ -6891,7 +6880,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:279
 #: ../root/edit/details/AddEvent.js:67 ../root/edit/details/EditEvent.js:71
-#: ../root/user/UserProfile.js:565 ../root/utility/edit.js:39
+#: ../root/user/UserProfile.js:578 ../root/utility/edit.js:39
 msgid "Cancelled"
 msgstr ""
 
@@ -7337,7 +7326,7 @@ msgid "This is not a valid time."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:25
-#: ../root/static/scripts/edit/externalLinks.js:419
+#: ../root/static/scripts/edit/externalLinks.js:430
 msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr ""
 
@@ -7444,7 +7433,7 @@ msgid "Tag"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
-#: ../root/edit/details/AddRelationshipType.js:210
+#: ../root/edit/details/AddRelationshipType.js:209
 #: ../root/layout/components/BottomMenu.js:276
 #: ../root/layout/components/Search.js:53
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:75
@@ -8026,8 +8015,8 @@ msgstr ""
 #: ../root/admin/attributes/Language.js:35
 #: ../root/admin/attributes/Script.js:36
 #: ../root/components/RelationshipsTable.js:317
-#: ../root/edit/details/AddRelationshipType.js:192
-#: ../root/edit/details/RemoveRelationshipType.js:137
+#: ../root/edit/details/AddRelationshipType.js:191
+#: ../root/edit/details/RemoveRelationshipType.js:136
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:165
 #: ../root/utility/tableColumns.js:626
 msgid "Attributes"
@@ -8242,7 +8231,7 @@ msgstr ""
 
 #: ../root/area/AreaReleases.js:51 ../root/artist/ArtistReleases.js:63
 #: ../root/instrument/InstrumentReleases.js:57 ../root/label/LabelIndex.js:73
-#: ../root/release_group/ReleaseGroupIndex.js:159
+#: ../root/release_group/ReleaseGroupIndex.js:178
 msgid "Add selected releases for merging"
 msgstr ""
 
@@ -8429,7 +8418,7 @@ msgstr ""
 
 #: ../root/artist/ArtistReleases.js:73
 #: ../root/instrument/InstrumentReleases.js:65
-#: ../root/release_group/ReleaseGroupIndex.js:165
+#: ../root/release_group/ReleaseGroupIndex.js:184
 msgid "No releases found."
 msgstr ""
 
@@ -8757,7 +8746,7 @@ msgstr ""
 #: ../root/edit/details/EditAlias.js:105 ../root/edit/details/EditArea.js:77
 #: ../root/edit/details/EditArtist.js:93 ../root/edit/details/EditLabel.js:76
 #: ../root/report/DuplicateArtists.js:66
-#: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:78
+#: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:76
 msgid "Sort name"
 msgstr ""
 
@@ -9468,6 +9457,10 @@ msgstr ""
 msgid "Setlist"
 msgstr ""
 
+#: ../root/edit/details/AddIsrcs.js:40 ../root/edit/details/EditBarcodes.js:40
+msgid "Client:"
+msgstr ""
+
 #: ../root/edit/details/AddIsrcs.js:41
 msgctxt "isrc client"
 msgid "(unknown)"
@@ -9516,30 +9509,36 @@ msgid "Creditable"
 msgstr ""
 
 #: ../root/edit/details/AddRelationshipType.js:104
+#: ../root/edit/details/RemoveRelationshipAttribute.js:57
 #: ../root/edit/details/RemoveRelationshipType.js:76
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:90
 msgctxt "description"
 msgid "(none)"
 msgstr ""
 
-#: ../root/edit/details/AddRelationshipType.js:111
-#: ../root/edit/details/AddRelationshipType.js:120
-#: ../root/edit/details/RemoveRelationshipType.js:83
-#: ../root/edit/details/RemoveRelationshipType.js:92
+#: ../root/edit/details/AddRelationshipType.js:110
+#: ../root/edit/details/AddRelationshipType.js:119
+#: ../root/edit/details/RemoveRelationshipType.js:82
+#: ../root/edit/details/RemoveRelationshipType.js:91
 msgid "Type of {entity_placeholder}"
 msgstr ""
 
-#: ../root/edit/details/AddRelationshipType.js:151
-#: ../root/edit/details/RemoveRelationshipType.js:107
-#: ../root/edit/details/RemoveRelationshipType.js:119
-#: ../root/edit/details/RemoveRelationshipType.js:131
+#: ../root/edit/details/AddRelationshipType.js:150
+#: ../root/edit/details/RemoveRelationshipType.js:106
+#: ../root/edit/details/RemoveRelationshipType.js:118
+#: ../root/edit/details/RemoveRelationshipType.js:130
 msgctxt "link_phrase"
 msgid "(none)"
 msgstr ""
 
-#: ../root/edit/details/AddRelationshipType.js:218
+#: ../root/edit/details/AddRelationshipType.js:217
 msgctxt "documentation"
 msgid "(none)"
+msgstr ""
+
+#: ../root/edit/details/AddReleaseLabel.js:54
+#: ../root/edit/details/RemoveReleaseLabel.js:50
+msgid "Catalog number:"
 msgstr ""
 
 #: ../root/edit/details/AddRemoveAlias.js:64
@@ -9614,6 +9613,19 @@ msgstr ""
 
 #: ../root/edit/details/EditMedium.js:624
 msgid "New Artist"
+msgstr ""
+
+#: ../root/edit/details/EditReleaseLabel.js:92
+#: ../root/edit/details/EditReleaseLabel.js:97
+#: ../root/edit/details/historic/EditReleaseEvents.js:137
+#: ../root/otherlookup/OtherLookupForm.js:59
+msgid "Catalog number"
+msgstr ""
+
+#: ../root/edit/details/EditReleaseLabel.js:106
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:243
+#: ../root/static/scripts/common/components/ReleaseEvents.js:102
+msgid "Release events"
 msgstr ""
 
 #: ../root/edit/details/EditUrl.js:81
@@ -9759,11 +9771,6 @@ msgstr ""
 
 #: ../root/edit/details/historic/EditReleaseAttributes.js:80
 msgid "New Status:"
-msgstr ""
-
-#: ../root/edit/details/historic/EditReleaseEvents.js:137
-#: ../root/otherlookup/OtherLookupForm.js:59
-msgid "Catalog number"
 msgstr ""
 
 #: ../root/edit/details/historic/EditReleaseEvents.js:146
@@ -10539,7 +10546,7 @@ msgstr ""
 msgid "Privileged User Accounts"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:145 ../root/user/UserProfile.js:500
+#: ../root/layout/components/BottomMenu.js:145 ../root/user/UserProfile.js:513
 msgid "Statistics"
 msgstr ""
 
@@ -10692,15 +10699,15 @@ msgstr ""
 msgid "Development"
 msgstr ""
 
-#: ../root/layout/components/ExternalLinks.js:110
+#: ../root/layout/components/ExternalLinks.js:108
 msgid "Official homepage"
 msgstr ""
 
-#: ../root/layout/components/ExternalLinks.js:157
+#: ../root/layout/components/ExternalLinks.js:155
 msgid "External links"
 msgstr ""
 
-#: ../root/layout/components/ExternalLinks.js:164
+#: ../root/layout/components/ExternalLinks.js:162
 msgid "View all relationships"
 msgstr ""
 
@@ -10712,23 +10719,23 @@ msgstr ""
 msgid "Running: {git_details}"
 msgstr ""
 
-#: ../root/layout/components/Head.js:47
+#: ../root/layout/components/Head.js:50
 msgid "Page {n}"
 msgstr ""
 
-#: ../root/layout/components/Head.js:98
+#: ../root/layout/components/Head.js:101
 msgid "MusicBrainz: Artist"
 msgstr ""
 
-#: ../root/layout/components/Head.js:104
+#: ../root/layout/components/Head.js:107
 msgid "MusicBrainz: Label"
 msgstr ""
 
-#: ../root/layout/components/Head.js:110
+#: ../root/layout/components/Head.js:113
 msgid "MusicBrainz: Release"
 msgstr ""
 
-#: ../root/layout/components/Head.js:116
+#: ../root/layout/components/Head.js:119
 msgid "MusicBrainz: Track"
 msgstr ""
 
@@ -11017,63 +11024,58 @@ msgstr ""
 msgid "Release group information"
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:95
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:93
 msgid "Front cover image failed to load correctly.<br/>{all|View all artwork}."
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:101
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:99
 #: ../root/release/CoverArt.js:69
 msgid ""
 "Cover art for this release has been hidden by the Internet Archive because "
 "of a takedown request."
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:109
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:107
 msgid "Cover art from {cover|Amazon}"
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:113
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:111
 msgid "Cover art from {cover|{host}}"
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:124
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:122
 msgid "No front cover image available."
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:127
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:125
 msgid "View all artwork"
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:130
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:128
 msgid "No cover art available."
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:161
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:159
 msgid "Additional details"
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:245
-#: ../root/static/scripts/common/components/ReleaseEvents.js:102
-msgid "Release events"
-msgstr ""
-
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:252
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:250
 msgid "Release group rating"
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:258
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:256
 msgid "Release group reviews"
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:273
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:271
 msgid "Release group external links"
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:279
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:277
 msgid "Edit relationships"
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:285
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:283
 msgid "Change data quality"
 msgstr ""
 
@@ -11094,7 +11096,7 @@ msgstr ""
 msgid "ISNI code:"
 msgstr ""
 
-#: ../root/layout/components/sidebar/SidebarLicenses.js:115
+#: ../root/layout/components/sidebar/SidebarLicenses.js:139
 msgid "License"
 msgstr ""
 
@@ -11634,7 +11636,7 @@ msgid "Release Group Type"
 msgstr ""
 
 #: ../root/recording/RecordingIndex.js:78
-#: ../root/release_group/ReleaseGroupIndex.js:57
+#: ../root/release_group/ReleaseGroupIndex.js:63
 msgctxt "release status"
 msgid "(unknown)"
 msgstr ""
@@ -11755,7 +11757,7 @@ msgid "{entity0}-{entity1}"
 msgstr ""
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:76
-#: ../root/static/scripts/edit/externalLinks.js:457
+#: ../root/static/scripts/edit/externalLinks.js:468
 #: ../root/static/scripts/relationship-editor/common/dialog.js:552
 msgid "This relationship type is deprecated and should not be used."
 msgstr ""
@@ -11927,15 +11929,15 @@ msgstr ""
 msgid "Release group by {artist}"
 msgstr ""
 
-#: ../root/release_group/ReleaseGroupIndex.js:170
+#: ../root/release_group/ReleaseGroupIndex.js:189
 msgid "CritiqueBrainz Reviews"
 msgstr ""
 
-#: ../root/release_group/ReleaseGroupIndex.js:176
+#: ../root/release_group/ReleaseGroupIndex.js:195
 msgid "Most Recent"
 msgstr ""
 
-#: ../root/release_group/ReleaseGroupIndex.js:183
+#: ../root/release_group/ReleaseGroupIndex.js:202
 msgid "Most Popular"
 msgstr ""
 
@@ -13720,25 +13722,25 @@ msgstr ""
 msgid "This alias is no longer current."
 msgstr ""
 
-#: ../root/static/scripts/area/places-map.js:79
+#: ../root/static/scripts/area/places-map.js:95
 msgid "… and {place_count} other"
 msgid_plural "… and {place_count} others"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/static/scripts/area/places-map.js:91
+#: ../root/static/scripts/area/places-map.js:107
 msgid "No type"
 msgstr ""
 
-#: ../root/static/scripts/area/places-map.js:93
+#: ../root/static/scripts/area/places-map.js:109
 msgid "{place_name} (closed)"
 msgstr ""
 
-#: ../root/static/scripts/area/places-map.js:109
+#: ../root/static/scripts/area/places-map.js:125
 msgid "{place_type}: {place_link} (closed)"
 msgstr ""
 
-#: ../root/static/scripts/area/places-map.js:114
+#: ../root/static/scripts/area/places-map.js:130
 msgid "{place_type}: {place_link}"
 msgstr ""
 
@@ -13889,11 +13891,11 @@ msgstr ""
 msgid "Annotation last modified on {date}."
 msgstr ""
 
-#: ../root/static/scripts/common/components/ArtistCreditLink.js:50
+#: ../root/static/scripts/common/components/ArtistCreditLink.js:51
 msgid "This artist credit has pending edits."
 msgstr ""
 
-#: ../root/static/scripts/common/components/ArtistCreditLink.js:59
+#: ../root/static/scripts/common/components/ArtistCreditLink.js:60
 msgid "This artist credit has {edit_search|pending edits}."
 msgstr ""
 
@@ -14027,7 +14029,7 @@ msgid ""
 "prove (but it’s not clearly fake)"
 msgstr ""
 
-#: ../root/static/scripts/common/components/Filter.js:64
+#: ../root/static/scripts/common/components/Filter.js:65
 msgid "Filter"
 msgstr ""
 
@@ -14179,7 +14181,7 @@ msgctxt "verb"
 msgid "Tag"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TaggerIcon.js:36
+#: ../root/static/scripts/common/components/TaggerIcon.js:37
 msgid "Open in tagger"
 msgstr ""
 
@@ -14506,7 +14508,7 @@ msgid ""
 msgstr ""
 
 #: ../root/static/scripts/edit/check-duplicates.js:152
-#: ../root/static/scripts/edit/externalLinks.js:414
+#: ../root/static/scripts/edit/externalLinks.js:425
 #: ../root/static/scripts/relationship-editor/common/dialog.js:578
 msgid "Required field."
 msgstr ""
@@ -14629,80 +14631,80 @@ msgstr ""
 msgid "All of your changes will be lost if you leave this page."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:424
+#: ../root/static/scripts/edit/externalLinks.js:435
 msgid ""
 "Links to MusicBrainz URLs are not allowed. Did you mean to paste something "
 "else?"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:430
+#: ../root/static/scripts/edit/externalLinks.js:441
 msgid ""
 "Links to this website are not allowed because it is known to host malware."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:436
+#: ../root/static/scripts/edit/externalLinks.js:447
 msgid ""
 "Please don’t enter bundled/shortened URLs, enter the destination URL(s) "
 "instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:442
+#: ../root/static/scripts/edit/externalLinks.js:453
 msgid ""
 "Please don’t enter Google AMP links, since they are effectively an extra "
 "redirect. Enter the destination URL instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:449
+#: ../root/static/scripts/edit/externalLinks.js:460
 msgid "Please select a link type for the URL you’ve entered."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:466
+#: ../root/static/scripts/edit/externalLinks.js:477
 msgid "This relationship already exists."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:480
+#: ../root/static/scripts/edit/externalLinks.js:491
 #: ../root/static/scripts/relationship-editor/common/dialog.js:562
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:486
+#: ../root/static/scripts/edit/externalLinks.js:497
 msgid "This URL is not allowed for the selected link type."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:525
+#: ../root/static/scripts/edit/externalLinks.js:536
 msgid ""
 "Note: This link already exists at position #{position}. To merge, press "
 "enter or select a type."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:641
+#: ../root/static/scripts/edit/externalLinks.js:652
 #: ../root/static/scripts/relationship-editor/common/dialog.js:418
 msgid "{description} ({url|more documentation})"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:725
+#: ../root/static/scripts/edit/externalLinks.js:736
 msgid "video"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:741
+#: ../root/static/scripts/edit/externalLinks.js:752
 msgid "Remove Relationship"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:821
+#: ../root/static/scripts/edit/externalLinks.js:836
 msgid "Add link"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:824
+#: ../root/static/scripts/edit/externalLinks.js:839
 msgid "Add another link"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:875
+#: ../root/static/scripts/edit/externalLinks.js:891
 msgid "Remove Link"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:903
+#: ../root/static/scripts/edit/externalLinks.js:922
 msgid "Add another relationship"
 msgstr ""
 
@@ -15632,80 +15634,97 @@ msgstr ""
 msgid "Languages:"
 msgstr ""
 
-#: ../root/user/UserProfile.js:431 ../root/user/UserProfile.js:517
-#: ../root/user/UserProfile.js:527 ../root/user/UserProfile.js:537
-#: ../root/user/UserProfile.js:547 ../root/user/UserProfile.js:557
-#: ../root/user/UserProfile.js:567 ../root/user/UserProfile.js:577
-#: ../root/user/UserProfile.js:586
+#: ../root/user/UserProfile.js:431 ../root/user/UserProfile.js:530
+#: ../root/user/UserProfile.js:540 ../root/user/UserProfile.js:550
+#: ../root/user/UserProfile.js:560 ../root/user/UserProfile.js:570
+#: ../root/user/UserProfile.js:580 ../root/user/UserProfile.js:590
+#: ../root/user/UserProfile.js:599 ../root/user/UserProfile.js:744
+#: ../root/user/UserProfile.js:754 ../root/user/UserProfile.js:766
 msgid "{count} ({view_url|view})"
 msgstr ""
 
-#: ../root/user/UserProfile.js:507
+#: ../root/user/UserProfile.js:520
 msgid "Edits ({view_url|view})"
 msgstr ""
 
-#: ../root/user/UserProfile.js:509
+#: ../root/user/UserProfile.js:522
 msgid "Edits"
 msgstr ""
 
-#: ../root/user/UserProfile.js:515
+#: ../root/user/UserProfile.js:528
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr ""
 
-#: ../root/user/UserProfile.js:525
+#: ../root/user/UserProfile.js:538
 msgid "Auto-edits"
 msgstr ""
 
-#: ../root/user/UserProfile.js:535
+#: ../root/user/UserProfile.js:548
 msgid "Total applied"
 msgstr ""
 
-#: ../root/user/UserProfile.js:545
+#: ../root/user/UserProfile.js:558
 msgid "Voted down"
 msgstr ""
 
-#: ../root/user/UserProfile.js:555
+#: ../root/user/UserProfile.js:568
 msgid "Failed"
 msgstr ""
 
-#: ../root/user/UserProfile.js:585
+#: ../root/user/UserProfile.js:598
 msgid "Last 24 hours"
 msgstr ""
 
-#: ../root/user/UserProfile.js:609
+#: ../root/user/UserProfile.js:622
 msgid "This table shows a summary of votes cast by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:614
+#: ../root/user/UserProfile.js:627
 msgid "Votes ({view_url|view})"
 msgstr ""
 
-#: ../root/user/UserProfile.js:622
+#: ../root/user/UserProfile.js:635
 msgid "Last 28 days"
 msgstr ""
 
-#: ../root/user/UserProfile.js:625
+#: ../root/user/UserProfile.js:638
 msgid "Overall"
 msgstr ""
 
-#: ../root/user/UserProfile.js:673
+#: ../root/user/UserProfile.js:686
 msgid "This table shows a summary of entities added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:679
+#: ../root/user/UserProfile.js:692
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr ""
 
-#: ../root/user/UserProfile.js:682
+#: ../root/user/UserProfile.js:695
 msgid "Added entities"
 msgstr ""
 
-#: ../root/user/UserProfile.js:706
+#: ../root/user/UserProfile.js:719
 msgid "This user has not created any entities."
 msgstr ""
 
-#: ../root/user/UserProfile.js:765
+#: ../root/user/UserProfile.js:729
+msgid "This table shows a summary of secondary data added by this editor."
+msgstr ""
+
+#: ../root/user/UserProfile.js:735
+msgid "Tags and ratings"
+msgstr ""
+
+#: ../root/user/UserProfile.js:742
+msgid "Tags upvoted"
+msgstr ""
+
+#: ../root/user/UserProfile.js:752
+msgid "Tags downvoted"
+msgstr ""
+
+#: ../root/user/UserProfile.js:833
 msgid "Report this user for bad behavior"
 msgstr ""
 

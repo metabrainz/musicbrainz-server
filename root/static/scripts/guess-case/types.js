@@ -22,17 +22,3 @@ export type GuessCaseModeT = {
   +toLowerCase: (string) => string,
   +toUpperCase: (string) => string,
 };
-
-export type GuessCaseModeNameT =
-  'English' |
-  'French' |
-  'Sentence' |
-  'Turkish';
-
-export type GuessCaseT = {
-  CFG_KEEP_UPPERCASED: boolean,
-  +modeName: GuessCaseModeNameT,
-  +regexes: {
-    [regexName: string]: RegExp,
-  },
-};

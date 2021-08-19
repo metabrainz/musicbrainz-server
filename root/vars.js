@@ -18,6 +18,7 @@
 declare var __webpack_public_path__: string;
 declare var __DEV__: boolean;
 declare var GLOBAL_JS_NAMESPACE: '__MB__';
+declare var MUSICBRAINZ_RUNNING_TESTS: false;
 
 declare var addColon: (variable: Expand2ReactInput) => Expand2ReactOutput;
 declare var addColonText: (variable: StrOrNum) => string;

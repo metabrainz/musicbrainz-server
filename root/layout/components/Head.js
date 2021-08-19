@@ -12,6 +12,9 @@ import * as React from 'react';
 import {CatalystContext} from '../../context';
 import * as manifest from '../../static/manifest';
 import DBDefs from '../../static/scripts/common/DBDefs';
+import commonLessUrl from '../../static/styles/common.less';
+import iconLessUrl from '../../static/styles/icons.less';
+import noScriptLessUrl from '../../static/styles/noscript.less';
 import escapeClosingTags from '../../utility/escapeClosingTags';
 
 import globalsScript from './globalsScript';
@@ -79,14 +82,14 @@ const Head = ({...props}: HeadProps): React.Element<'head'> => {
       <CanonicalLink requestUri={$c.req.uri} />
 
       <link
-        href={require('../../static/styles/common.less')}
+        href={commonLessUrl}
         rel="stylesheet"
         type="text/css"
       />
 
       {props.noIcons ? null : (
         <link
-          href={require('../../static/styles/icons.less')}
+          href={iconLessUrl}
           rel="stylesheet"
           type="text/css"
         />
@@ -119,7 +122,7 @@ const Head = ({...props}: HeadProps): React.Element<'head'> => {
 
       <noscript>
         <link
-          href={require('../../static/styles/noscript.less')}
+          href={noScriptLessUrl}
           rel="stylesheet"
           type="text/css"
         />

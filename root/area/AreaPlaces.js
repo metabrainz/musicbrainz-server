@@ -40,7 +40,7 @@ const AreaPlaces = ({
         {DBDefs.MAPBOX_ACCESS_TOKEN ? (
           <>
             <div id="largemap" />
-            {manifest.js('area/places-map.js', {'data-args': mapDataArgs})}
+            {manifest.js('area/places-map', {'data-args': mapDataArgs})}
           </>
         ) : (
           <p>

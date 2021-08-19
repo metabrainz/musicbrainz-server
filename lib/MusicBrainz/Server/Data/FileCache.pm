@@ -79,6 +79,7 @@ sub path_to {
     my ($self, $manifest) = @_;
 
     $manifest =~ s/^\///;
+    $manifest =~ s/\.js(on)?$//;
     return DBDefs->STATIC_RESOURCES_LOCATION . '/' .
         ($self->manifest_signature($manifest) // $manifest);
 }

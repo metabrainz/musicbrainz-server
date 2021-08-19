@@ -11,6 +11,7 @@ import $ from 'jquery';
 import ko from 'knockout';
 import * as Sentry from '@sentry/browser';
 
+import image404Url from '../../../images/image404-125.png';
 import MB from '../../common/MB';
 
 MB.CoverArt = {};
@@ -23,7 +24,7 @@ MB.CoverArt.image_error = function ($img, image) {
      * FIXME: start over if this happens?  obviously the
      * data in the index is incorrect.
      */
-    $img.attr('src', require('../../../images/image404-125.png'));
+    $img.attr('src', image404Url);
   } else {
     $img.attr('src', image.image);
   }

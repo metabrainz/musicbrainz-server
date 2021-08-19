@@ -46,7 +46,7 @@ const PlaceIndex = ({
       entity={place}
     />
     <Relationships source={place} />
-    {manifest.js('place/index.js', {async: 'async'})}
+    {manifest.js('place/index', {async: 'async'})}
   </PlaceLayout>
 );
 

@@ -78,6 +78,7 @@ sub show : Chained('load') PathPart('') {
 
     $c->model('Release')->load_related_info(@$releases);
     $c->model('Release')->load_meta(@$releases);
+    $c->model('ArtistCredit')->load(@$releases);
     $c->model('ReleaseStatus')->load(@$releases);
     $c->model('CritiqueBrainz')->load_display_reviews($rg)
         unless $self->should_return_jsonld($c);

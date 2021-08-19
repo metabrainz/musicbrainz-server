@@ -9,11 +9,14 @@
 
 import * as React from 'react';
 
+import headerLogoSvgUrl
+  from '../../static/images/layout/header-logo.svg';
+
 const HeaderLogo = (): React.Element<'img'> => (
   <img
     alt="MusicBrainz"
     className="logo"
-    src={require('../../static/images/layout/header-logo.svg')}
+    src={headerLogoSvgUrl}
   />
 );
 

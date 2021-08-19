@@ -8,37 +8,55 @@
 
 import L from 'leaflet/dist/leaflet-src';
 
+import arenaMarkerIconUrl
+  from '../../images/leaflet/arena-marker-icon.png';
+import arenaMarkerIcon2xUrl
+  from '../../images/leaflet/arena-marker-icon-2x.png';
+import clusterMarkerIconUrl
+  from '../../images/leaflet/cluster-marker-icon.png';
+import endedMarkerIconUrl
+  from '../../images/leaflet/ended-marker-icon.png';
+import endedMarkerIcon2xUrl
+  from '../../images/leaflet/ended-marker-icon-2x.png';
+import markerIconUrl
+  from '../../images/leaflet/marker-icon.png';
+import markerIcon2xUrl
+  from '../../images/leaflet/marker-icon-2x.png';
+import religiousMarkerIconUrl
+  from '../../images/leaflet/religious-marker-icon.png';
+import religiousMarkerIcon2xUrl
+  from '../../images/leaflet/religious-marker-icon-2x.png';
+import stadiumMarkerIconUrl
+  from '../../images/leaflet/stadium-marker-icon.png';
+import stadiumMarkerIcon2xUrl
+  from '../../images/leaflet/stadium-marker-icon-2x.png';
+import studioMarkerIconUrl
+  from '../../images/leaflet/studio-marker-icon.png';
+import studioMarkerIcon2xUrl
+  from '../../images/leaflet/studio-marker-icon-2x.png';
+import venueMarkerIconUrl
+  from '../../images/leaflet/venue-marker-icon.png';
+import venueMarkerIcon2xUrl
+  from '../../images/leaflet/venue-marker-icon-2x.png';
+
 import DBDefs from './DBDefs-client';
 
 const iconsUrls = {
-  'arena-marker-icon.png':
-    require('../../images/leaflet/arena-marker-icon.png'),
-  'arena-marker-icon-2x.png':
-    require('../../images/leaflet/arena-marker-icon-2x.png'),
-  'cluster-marker-icon.png':
-    require('../../images/leaflet/cluster-marker-icon.png'),
-  'ended-marker-icon.png':
-    require('../../images/leaflet/ended-marker-icon.png'),
-  'ended-marker-icon-2x.png':
-    require('../../images/leaflet/ended-marker-icon-2x.png'),
-  'marker-icon.png': require('../../images/leaflet/marker-icon.png'),
-  'marker-icon-2x.png': require('../../images/leaflet/marker-icon-2x.png'),
-  'religious-marker-icon.png':
-    require('../../images/leaflet/religious-marker-icon.png'),
-  'religious-marker-icon-2x.png':
-    require('../../images/leaflet/religious-marker-icon-2x.png'),
-  'stadium-marker-icon.png':
-    require('../../images/leaflet/stadium-marker-icon.png'),
-  'stadium-marker-icon-2x.png':
-    require('../../images/leaflet/stadium-marker-icon-2x.png'),
-  'studio-marker-icon.png':
-    require('../../images/leaflet/studio-marker-icon.png'),
-  'studio-marker-icon-2x.png':
-    require('../../images/leaflet/studio-marker-icon-2x.png'),
-  'venue-marker-icon.png':
-    require('../../images/leaflet/venue-marker-icon.png'),
-  'venue-marker-icon-2x.png':
-    require('../../images/leaflet/venue-marker-icon-2x.png'),
+  'arena-marker-icon.png': arenaMarkerIconUrl,
+  'arena-marker-icon-2x.png': arenaMarkerIcon2xUrl,
+  'cluster-marker-icon.png': clusterMarkerIconUrl,
+  'ended-marker-icon.png': endedMarkerIconUrl,
+  'ended-marker-icon-2x.png': endedMarkerIcon2xUrl,
+  'marker-icon.png': markerIconUrl,
+  'marker-icon-2x.png': markerIcon2xUrl,
+  'religious-marker-icon.png': religiousMarkerIconUrl,
+  'religious-marker-icon-2x.png': religiousMarkerIcon2xUrl,
+  'stadium-marker-icon.png': stadiumMarkerIconUrl,
+  'stadium-marker-icon-2x.png': stadiumMarkerIcon2xUrl,
+  'studio-marker-icon.png': studioMarkerIconUrl,
+  'studio-marker-icon-2x.png': studioMarkerIcon2xUrl,
+  'venue-marker-icon.png': venueMarkerIconUrl,
+  'venue-marker-icon-2x.png': venueMarkerIcon2xUrl,
 };
 
 L.Icon.Default.prototype._getIconUrl = function (name) {

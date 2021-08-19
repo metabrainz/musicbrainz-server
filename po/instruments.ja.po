@@ -15,8 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-07-23 12:20+0000\n"
-"Last-Translator: Masuda Sunatomo <email address hidden>\n"
+"PO-Revision-Date: 2021-08-12 16:31+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3529,6 +3529,11 @@ msgstr "スティックツィター"
 msgctxt "ensemble of 1st violin, 2nd violin, viola and cello"
 msgid "string quartet"
 msgstr "弦楽四重奏"
+
+#: DB:instrument/name:1033
+msgctxt "ensemble of 2 violins, viola, cello and a fifth string instrument"
+msgid "string quintet"
+msgstr ""
 
 #: DB:instrument/name:915
 msgctxt "ensemble of violin, viola and cello"

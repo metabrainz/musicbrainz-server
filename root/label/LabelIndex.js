@@ -77,7 +77,7 @@ const LabelIndex = ({
     ) : (
       <p>{l('This label does not have any releases.')}</p>
     )}
-    {manifest.js('label/index.js', {async: 'async'})}
+    {manifest.js('label/index', {async: 'async'})}
   </LabelLayout>
 );
 
