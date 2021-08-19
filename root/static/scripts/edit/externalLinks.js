@@ -773,7 +773,8 @@ const ExternalLinkRelationship =
                 <TypeDescription type={link.type} url={link.url} />}
               {(
                 !isDateEmpty(link.begin_date) ||
-                !isDateEmpty(link.end_date)
+                !isDateEmpty(link.end_date) ||
+                link.ended
               ) &&
                 <span className="date-period">
                   {` (${formatDatePeriod(link)})`}
