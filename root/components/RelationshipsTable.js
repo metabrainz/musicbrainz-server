@@ -153,12 +153,14 @@ const RelationshipsTable = ({
               <EntityLink
                 content={targetCredit}
                 entity={relationship.target}
+                showIcon
               />
             </span>
           ) : (
             <EntityLink
               content={targetCredit}
               entity={relationship.target}
+              showIcon
             />
           )}
         </td>
