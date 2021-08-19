@@ -105,10 +105,10 @@ export const FormRowSortNameWithGuessCase = ({
       required={required}
     >
       <button
-        className="guesscase-title icon"
+        className="guesscase-sortname icon"
         disabled={disabled}
         onClick={handleGuessCase}
-        title={l('Guess case')}
+        title={l('Guess sort name')}
         type="button"
       />
       <button
