@@ -351,6 +351,7 @@ module.exports = {
   'edit/details/AddRelationship': require('../edit/details/AddRelationship'),
   'edit/details/AddRelationshipAttribute': require('../edit/details/AddRelationshipAttribute'),
   'edit/details/AddRelationshipType': require('../edit/details/AddRelationshipType'),
+  'edit/details/AddRelease': require('../edit/details/AddRelease'),
   'edit/details/AddReleaseGroup': require('../edit/details/AddReleaseGroup'),
   'edit/details/AddReleaseLabel': require('../edit/details/AddReleaseLabel'),
   'edit/details/AddRemoveAlias': require('../edit/details/AddRemoveAlias'),

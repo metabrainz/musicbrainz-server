@@ -47,7 +47,7 @@ const EditReleaseGroup = ({edit}: Props): React.Element<'table'> => {
   return (
     <table className="details edit-release-group">
       <tr>
-        <th>{addColonText(l('Release Group'))}</th>
+        <th>{addColonText(l('Release group'))}</th>
         <td colSpan="2">
           <DescriptiveLink entity={display.release_group} />
         </td>
