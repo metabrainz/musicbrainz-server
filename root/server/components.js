@@ -359,6 +359,7 @@ module.exports = {
   'edit/details/AddStandaloneRecording': require('../edit/details/AddStandaloneRecording'),
   'edit/details/AddWork': require('../edit/details/AddWork'),
   'edit/details/ChangeReleaseQuality': require('../edit/details/ChangeReleaseQuality'),
+  'edit/details/ChangeWikiDoc': require('../edit/details/ChangeWikiDoc'),
   'edit/details/EditAlias': require('../edit/details/EditAlias'),
   'edit/details/EditArea': require('../edit/details/EditArea'),
   'edit/details/EditArtist': require('../edit/details/EditArtist'),
