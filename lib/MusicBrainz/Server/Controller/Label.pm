@@ -10,7 +10,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
         cardinal => ['edit'],
         default => ['url'],
         subset => {
-            show => ['artist', 'url'],
+            show => ['artist', 'label', 'url'],
             relationships => [qw( area artist event instrument label place series url )],
         },
         paged_subset => {
@@ -40,7 +40,15 @@ with 'MusicBrainz::Server::Controller::Role::Collection' => {
     entity_type => 'label'
 };
 
-use MusicBrainz::Server::Constants qw( $DLABEL_ID $EDIT_LABEL_CREATE $EDIT_LABEL_DELETE $EDIT_LABEL_EDIT $EDIT_LABEL_MERGE );
+use MusicBrainz::Server::Constants qw(
+    $DLABEL_ID
+    $EDIT_LABEL_CREATE
+    $EDIT_LABEL_DELETE
+    $EDIT_LABEL_EDIT
+    $EDIT_LABEL_MERGE
+    $LABEL_RENAME_LINK_TYPE
+    :direction
+);
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use Data::Page;
 use MusicBrainz::Server::Data::Utils qw( is_special_label );
@@ -112,8 +120,10 @@ sub show : PathPart('') Chained('load')
 {
     my  ($self, $c) = @_;
 
+    my $label = $c->stash->{label};
+
     my $releases = $self->_load_paged($c, sub {
-            $c->model('Release')->find_by_label($c->stash->{label}->id, shift, shift);
+            $c->model('Release')->find_by_label($label->id, shift, shift);
         });
 
     $c->model('ArtistCredit')->load(@$releases);
@@ -123,11 +133,32 @@ sub show : PathPart('') Chained('load')
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
     $c->model('ReleaseLabel')->load(@$releases);
  
+    my (@renamed_from, @renamed_into);
+
+    for my $rel (@{ $label->relationships }) {
+        if ($rel->link->type->gid eq $LABEL_RENAME_LINK_TYPE) {
+            if ($rel->direction == $DIRECTION_FORWARD) {
+                push @renamed_into, $rel->target;
+            } else {
+                push @renamed_from, $rel->target;
+            }
+        }
+    }
+
+    if (@renamed_from || @renamed_into) {
+        $c->model('Relationship')->load_subset(
+            ['label'],
+            @renamed_from, @renamed_into,
+        );
+    }
+
     my %props = (
-        label             => $c->stash->{label}->TO_JSON,
+        label             => $label->TO_JSON,
         numberOfRevisions => $c->stash->{number_of_revisions},
         pager             => serialize_pager($c->stash->{pager}),
         releases          => to_json_array($releases),
+        renamedFrom       => to_json_array(\@renamed_from),
+        renamedInto       => to_json_array(\@renamed_into),
         wikipediaExtract  => to_json_object($c->stash->{wikipedia_extract}),
     );
 
