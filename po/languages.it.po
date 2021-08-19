@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-06-01 09:14+0000\n"
+"PO-Revision-Date: 2021-08-16 14:06+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -1312,6 +1312,11 @@ msgstr "Kuanyama"
 msgid "Kumyk"
 msgstr "Cumucco"
 
+#. frequency:1 iso_code_3:xug
+#: DB:language/name:7421
+msgid "Kunigami"
+msgstr "Kunigami"
+
 #. frequency:1 iso_code_3:kur
 #: DB:language/name:232
 msgid "Kurdish"
@@ -1987,6 +1992,11 @@ msgstr "Rundi"
 msgid "Russian"
 msgstr "Russo"
 
+#. frequency:1 iso_code_3:rue
+#: DB:language/name:5790
+msgid "Rusyn"
+msgstr "Ruteno"
+
 #. frequency:1 iso_code_3:rcf
 #: DB:language/name:5690
 msgid "Réunion Creole French"
@@ -2621,6 +2631,11 @@ msgstr "Yapese"
 #: DB:language/name:463
 msgid "Yiddish"
 msgstr "Yiddish"
+
+#. frequency:1 iso_code_3:yox
+#: DB:language/name:7602
+msgid "Yoron"
+msgstr "Yoron"
 
 #. frequency:1 iso_code_3:yor
 #: DB:language/name:464

@@ -15,8 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-08-02 13:17+0000\n"
-"Last-Translator: Masuda Sunatomo <email address hidden>\n"
+"PO-Revision-Date: 2021-08-12 16:31+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1552,6 +1552,12 @@ msgid ""
 "conductor. This may be indicated by either the title of \"principal "
 "conductor\" or \"first conductor\"."
 msgstr "これは、グループにこの指揮者によって率いられる複数の指揮者がいたことを意味します。「首席指揮者」や「第一指揮者」とも呼ばれます。"
+
+#: DB:link_type/description:998 DB:link_type/description:999
+msgid ""
+"This indicates that the label performed a role not covered by other "
+"relationship types."
+msgstr ""
 
 #: DB:link_type/description:890
 msgid ""
@@ -4325,6 +4331,7 @@ msgid "has a logo at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:129 DB:link_type/long_link_phrase:25
+#: DB:link_type/long_link_phrase:998 DB:link_type/long_link_phrase:999
 msgid "has a miscellaneous role on"
 msgstr ""
 
@@ -5198,16 +5205,19 @@ msgid "minor"
 msgstr ""
 
 #: DB:link_type/name:162 DB:link_type/name:129 DB:link_type/name:25
+#: DB:link_type/name:998 DB:link_type/name:999
 msgid "misc"
 msgstr ""
 
 #: DB:link_type/link_phrase:162 DB:link_type/link_phrase:129
-#: DB:link_type/link_phrase:25
+#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:998
+#: DB:link_type/link_phrase:999
 msgid "miscellaneous roles"
 msgstr "その他の役割"
 
 #: DB:link_type/reverse_link_phrase:162 DB:link_type/reverse_link_phrase:129
-#: DB:link_type/reverse_link_phrase:25
+#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:998
+#: DB:link_type/reverse_link_phrase:999
 msgid "miscellaneous support"
 msgstr "その他のサポート"
 

@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-07-19 17:37+0000\n"
+"PO-Revision-Date: 2021-08-16 13:27+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -3528,6 +3528,11 @@ msgstr "cetra a bastone"
 msgctxt "ensemble of 1st violin, 2nd violin, viola and cello"
 msgid "string quartet"
 msgstr "quartetto d'archi"
+
+#: DB:instrument/name:1033
+msgctxt "ensemble of 2 violins, viola, cello and a fifth string instrument"
+msgid "string quintet"
+msgstr "quintetto d'archi"
 
 #: DB:instrument/name:915
 msgctxt "ensemble of violin, viola and cello"

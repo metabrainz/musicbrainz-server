@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-05-31 16:00+0000\n"
+"PO-Revision-Date: 2021-08-12 16:31+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -1309,6 +1309,11 @@ msgstr "kvanjama"
 msgid "Kumyk"
 msgstr "kumõki"
 
+#. frequency:1 iso_code_3:xug
+#: DB:language/name:7421
+msgid "Kunigami"
+msgstr ""
+
 #. frequency:1 iso_code_3:kur
 #: DB:language/name:232
 msgid "Kurdish"
@@ -1984,6 +1989,11 @@ msgstr "rundi"
 msgid "Russian"
 msgstr "vene"
 
+#. frequency:1 iso_code_3:rue
+#: DB:language/name:5790
+msgid "Rusyn"
+msgstr ""
+
 #. frequency:1 iso_code_3:rcf
 #: DB:language/name:5690
 msgid "Réunion Creole French"
@@ -2618,6 +2628,11 @@ msgstr "japi"
 #: DB:language/name:463
 msgid "Yiddish"
 msgstr "jidiš"
+
+#. frequency:1 iso_code_3:yox
+#: DB:language/name:7602
+msgid "Yoron"
+msgstr ""
 
 #. frequency:1 iso_code_3:yor
 #: DB:language/name:464

@@ -16,8 +16,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-06-18 02:28+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2021-08-16 14:06+0000\n"
+"Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1553,6 +1553,12 @@ msgid ""
 "conductor. This may be indicated by either the title of \"principal "
 "conductor\" or \"first conductor\"."
 msgstr "Indica che il gruppo aveva più direttori d'orchestra diretti da questo direttore d'orchestra. Quest'ultimo potrebbe essere indicato col titolo di \"direttore d'orchestra principale\" o \"primo direttore d'orchestra\"."
+
+#: DB:link_type/description:998 DB:link_type/description:999
+msgid ""
+"This indicates that the label performed a role not covered by other "
+"relationship types."
+msgstr "Indica che l'etichetta ha eseguito un ruolo non coperto da altri tipi di relazione."
 
 #: DB:link_type/description:890
 msgid ""
@@ -4326,6 +4332,7 @@ msgid "has a logo at"
 msgstr "ha un logo su"
 
 #: DB:link_type/long_link_phrase:129 DB:link_type/long_link_phrase:25
+#: DB:link_type/long_link_phrase:998 DB:link_type/long_link_phrase:999
 msgid "has a miscellaneous role on"
 msgstr "ha un ruolo a vario titolo su"
 
@@ -5199,16 +5206,19 @@ msgid "minor"
 msgstr "minore"
 
 #: DB:link_type/name:162 DB:link_type/name:129 DB:link_type/name:25
+#: DB:link_type/name:998 DB:link_type/name:999
 msgid "misc"
 msgstr "vari"
 
 #: DB:link_type/link_phrase:162 DB:link_type/link_phrase:129
-#: DB:link_type/link_phrase:25
+#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:998
+#: DB:link_type/link_phrase:999
 msgid "miscellaneous roles"
 msgstr "ruoli vari"
 
 #: DB:link_type/reverse_link_phrase:162 DB:link_type/reverse_link_phrase:129
-#: DB:link_type/reverse_link_phrase:25
+#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:998
+#: DB:link_type/reverse_link_phrase:999
 msgid "miscellaneous support"
 msgstr "supporto a vario titolo"
 

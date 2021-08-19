@@ -18,8 +18,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-08-04 20:49+0000\n"
-"Last-Translator: David Kellner <email address hidden>\n"
+"PO-Revision-Date: 2021-08-12 16:31+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1555,6 +1555,12 @@ msgid ""
 "conductor. This may be indicated by either the title of \"principal "
 "conductor\" or \"first conductor\"."
 msgstr "Dies gibt an, dass die Gruppe mehrere Dirigenten hatte, die von diesem Dirigenten, dem Chefdirigenten, geleitet wurden."
+
+#: DB:link_type/description:998 DB:link_type/description:999
+msgid ""
+"This indicates that the label performed a role not covered by other "
+"relationship types."
+msgstr ""
 
 #: DB:link_type/description:890
 msgid ""
@@ -4328,6 +4334,7 @@ msgid "has a logo at"
 msgstr "hat ein Logo unter"
 
 #: DB:link_type/long_link_phrase:129 DB:link_type/long_link_phrase:25
+#: DB:link_type/long_link_phrase:998 DB:link_type/long_link_phrase:999
 msgid "has a miscellaneous role on"
 msgstr "hat sonstige Rolle auf"
 
@@ -5201,16 +5208,19 @@ msgid "minor"
 msgstr "geringfügig"
 
 #: DB:link_type/name:162 DB:link_type/name:129 DB:link_type/name:25
+#: DB:link_type/name:998 DB:link_type/name:999
 msgid "misc"
 msgstr "Sonstiges"
 
 #: DB:link_type/link_phrase:162 DB:link_type/link_phrase:129
-#: DB:link_type/link_phrase:25
+#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:998
+#: DB:link_type/link_phrase:999
 msgid "miscellaneous roles"
 msgstr "sonstige Rollen"
 
 #: DB:link_type/reverse_link_phrase:162 DB:link_type/reverse_link_phrase:129
-#: DB:link_type/reverse_link_phrase:25
+#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:998
+#: DB:link_type/reverse_link_phrase:999
 msgid "miscellaneous support"
 msgstr "sonstige Unterstützung"
 
