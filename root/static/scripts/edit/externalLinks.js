@@ -202,11 +202,22 @@ export class ExternalLinksEditor
     if (url !== '' && !error) {
       link.submitted = true;
       this.setLinkState(index, link, () => {
-        // Redirect focus to the 'x' icon instead of the link
-        $(this.tableRef.current)
-          .find(`tr.external-link-item:eq(${urlIndex})`)
-          .find('button.remove-item')
-          .focus();
+        // Redirect focus instead of staying on the current link
+        if (link.type) {
+          // If type is selected, jump to the next item(either input or link)
+          $(this.tableRef.current)
+            .find(`tr.external-link-item:eq(${urlIndex + 1})`)
+            .find('a,input')
+            .eq(0)
+            .focus();
+        } else {
+          // If type is not selected, jump to type selector
+          $(this.tableRef.current)
+            .find(`tr.external-link-item:eq(${urlIndex})
+                  + tr.relationship-item`)
+            .find('select.link-type')
+            .focus();
+        }
       });
     } else {
       this.setLinkState(index, link);
@@ -771,7 +782,11 @@ type LinkProps = {
 
 export class ExternalLink extends React.Component<LinkProps> {
   handleKeyDown(event: SyntheticKeyboardEvent<HTMLInputElement>) {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && this.props.url) {
+      /*
+       * If there's a link, prevent default and submit it,
+       * otherwise allow submitting the form from empty field.
+       */
       event.preventDefault();
       this.props.handleLinkSubmit(event);
     }
@@ -833,6 +848,7 @@ export class ExternalLink extends React.Component<LinkProps> {
                 className="url"
                 href={props.url}
                 rel="noreferrer"
+                style={{overflowWrap: 'anywhere'}}
                 target="_blank"
               >
                 {props.url}
@@ -890,8 +906,11 @@ export class ExternalLink extends React.Component<LinkProps> {
               typeOptions={props.typeOptions}
             />
         ))}
-        {/* Hide the button when link type is auto-selected */}
-        {notEmpty && !firstLink.urlMatchesType &&
+        {/*
+          * Hide the button when link is not submitted
+          * or link type is auto-selected.
+          */}
+        {notEmpty && firstLink.submitted && !firstLink.urlMatchesType &&
         <tr className="add-relationship">
           <td />
           <td className="add-item" colSpan="4">

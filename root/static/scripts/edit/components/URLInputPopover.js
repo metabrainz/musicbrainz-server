@@ -96,6 +96,7 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
                       className="clean-url"
                       href={link.url}
                       rel="noreferrer"
+                      style={{overflowWrap: 'anywhere'}}
                       target="_blank"
                     >
                       {link.url}
