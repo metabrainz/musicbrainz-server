@@ -918,13 +918,6 @@ msgid ""
 "melody strings operated by buttons or keys."
 msgstr ""
 
-#. name:seni rebab 
-#: DB:instrument/description:1014
-msgid ""
-"Developed in India during medieval times by Tansen, making it larger, with a "
-"longer neck and giving it metal sympathetic strings."
-msgstr ""
-
 #. name:violin family 
 #: DB:instrument/description:59
 msgid ""
@@ -1365,6 +1358,14 @@ msgid ""
 "curled mouth piece."
 msgstr ""
 
+#. name:sursingar 
+#: DB:instrument/description:816
+msgid ""
+"Improved further by Jaffar Khan, it had a wooden soundboard, the fingerboard "
+"covered with iron and all strings are steel or bronze.<br /> Less common "
+"today, it was used for Dhrupad style music."
+msgstr ""
+
 #. name:morsing 
 #: DB:instrument/description:533
 msgid "Indian mouth harp, played in Carnatic and Rajastani folk music."
@@ -1592,6 +1593,15 @@ msgid ""
 "Larger orchestral version of chimes, closed top hollow metal tubes are set "
 "in a stand with a damper operated by pedals, they are tuned at a definite "
 "pitch and played with mallets."
+msgstr ""
+
+#. name:seni rebab 
+#: DB:instrument/description:1014
+msgid ""
+"Larger, with a longer neck than the kabuli rabab, it has a hide covered "
+"soundbox and wooden fingerboard with mostly gut strings, it was developed "
+"during medieval times by Tansen, who improved it and gave it metal "
+"sympathetic strings."
 msgstr ""
 
 #. name:jegogan 
@@ -5192,13 +5202,6 @@ msgstr ""
 #. name:temür khuur 
 #: DB:instrument/description:810
 msgid "used in folkmedisine and shamanistic rituals"
-msgstr ""
-
-#. name:sursingar 
-#: DB:instrument/description:816
-msgid ""
-"used in the Hindustani style Dhrupad music, it has steel and bronze strings "
-"and is played with a metal pick."
 msgstr ""
 
 #. name:analog synthesizer 

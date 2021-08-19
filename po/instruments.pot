@@ -3568,7 +3568,7 @@ msgid "surdo"
 msgstr ""
 
 #: DB:instrument/name:816
-msgctxt "large lute-sarod from India"
+msgctxt "19th century large North-Indian dhrupad bass-sarod"
 msgid "sursingar"
 msgstr ""
 
