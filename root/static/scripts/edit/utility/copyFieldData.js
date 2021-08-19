@@ -33,11 +33,10 @@ export default function copyFieldData<T>(
   copyFieldErrors(sourceField, targetField);
 }
 
-
 export function copyPartialDateField(
   sourceField: PartialDateFieldT,
   targetField: WritablePartialDateFieldT,
-) {
+): void {
   const sourceSubfields = sourceField.field;
   const targetSubfields = targetField.field;
   copyFieldData(sourceSubfields.year, targetSubfields.year);
@@ -49,7 +48,7 @@ export function copyPartialDateField(
 export function copyDatePeriodField(
   sourceField: DatePeriodFieldT,
   targetField: WritableDatePeriodFieldT,
-) {
+): void {
   const sourceSubfields = sourceField.field;
   const targetSubfields = targetField.field;
   copyPartialDateField(

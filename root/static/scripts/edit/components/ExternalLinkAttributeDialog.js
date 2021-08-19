@@ -20,7 +20,6 @@ import {
   createCompoundField,
   createField,
 } from '../../edit/utility/createField';
-import {l} from '../../common/i18n';
 import {
   applyAllPendingErrors,
   hasSubfieldErrors,
@@ -34,87 +33,100 @@ type PropsT = {
 
 type StateT = {
   +datePeriodField: DatePeriodFieldT,
+  initialDatePeriodField: DatePeriodFieldT,
 };
 
 type WritableStateT = {
   ...StateT,
   datePeriodField: WritableDatePeriodFieldT,
+  initialDatePeriodField: WritableDatePeriodFieldT,
 };
 
 type ActionT =
-| {
-  +action: DateRangeFieldsetActionT,
-  +type: 'update-date-period',
-  }
-| {+type: 'reset'}
-| {+type: 'show-all-pending-errors'};
+  | {
+      +action: DateRangeFieldsetActionT,
+      +type: 'update-date-period',
+    }
+  | {
+      +props: PropsT,
+      +type: 'update-initial-date-period',
+    }
+  | {+type: 'reset'}
+  | {+type: 'show-all-pending-errors'};
 
 const createInitialState = (props: PropsT): StateT => {
   const relationship = props.relationship;
   const beginDate = relationship.begin_date;
   const endDate = relationship.end_date;
 
-  return {
-    datePeriodField: {
-      errors: [],
-      has_errors: false,
-      field: {
-        begin_date: createCompoundField(
-          'period.begin_date',
-          {
-            day: beginDate?.day ?? null,
-            month: beginDate?.month ?? null,
-            year: beginDate?.year ?? null,
-          },
-        ),
-        end_date: createCompoundField(
-          'period.end_date',
-          {
-            day: endDate?.day ?? null,
-            month: endDate?.month ?? null,
-            year: endDate?.year ?? null,
-          },
-        ),
-        ended: createField('period.ended', relationship.ended),
-      },
-      html_name: '',
-      id: 0,
-      type: 'compound_field',
+  const datePeriodField = {
+    errors: [],
+    has_errors: false,
+    field: {
+      begin_date: createCompoundField(
+        'period.begin_date',
+        {
+          day: beginDate?.day ?? null,
+          month: beginDate?.month ?? null,
+          year: beginDate?.year ?? null,
+        },
+      ),
+      end_date: createCompoundField(
+        'period.end_date',
+        {
+          day: endDate?.day ?? null,
+          month: endDate?.month ?? null,
+          year: endDate?.year ?? null,
+        },
+      ),
+      ended: createField('period.ended', relationship.ended),
     },
+    html_name: '',
+    id: 0,
+    type: 'compound_field',
   };
+
+  return {
+    datePeriodField,
+    initialDatePeriodField: datePeriodField,
+  };
+};
+
+const reducer = (state: StateT, action: ActionT): StateT => {
+  return mutate<WritableStateT, StateT>(
+    state, (newState) => {
+      switch (action.type) {
+        case 'update-date-period':
+          runDateRangeFieldsetReducer(
+            newState.datePeriodField,
+            action.action,
+          );
+          break;
+        case 'update-initial-date-period':
+          copyDatePeriodField(
+            createInitialState(action.props).initialDatePeriodField,
+            newState.initialDatePeriodField,
+          );
+          break;
+        case 'reset':
+          copyDatePeriodField(
+            newState.initialDatePeriodField,
+            newState.datePeriodField,
+          );
+          break;
+        case 'show-all-pending-errors':
+          applyAllPendingErrors(newState.datePeriodField);
+          break;
+        default:
+          throw new Error('Unknown action: ' + action.type);
+      }
+    },
+  );
 };
 
 const ExternalLinkAttributeDialog = (props: PropsT): React.MixedElement => {
   const buttonRef = React.useRef<HTMLButtonElement | null>(null);
   const [open, setOpen] = React.useState(false);
-  const initialState = createInitialState(props);
-
-  const resetReducer = (state: WritableStateT): void => {
-    copyDatePeriodField(initialState.datePeriodField, state.datePeriodField);
-  };
-
-  const reducer = (state: StateT, action: ActionT): StateT => {
-    return mutate<WritableStateT, StateT>(
-      state, (newState) => {
-        switch (action.type) {
-          case 'update-date-period':
-            runDateRangeFieldsetReducer(
-              newState.datePeriodField,
-              action.action,
-            );
-            break;
-          case 'reset':
-            resetReducer(newState);
-            break;
-          case 'show-all-pending-errors':
-            applyAllPendingErrors(newState.datePeriodField);
-            break;
-          default:
-            throw new Error('Unknown action: ' + action.type);
-        }
-      },
-    );
-  };
 
   const [state, dispatch] = React.useReducer(
     reducer,
@@ -122,6 +134,10 @@ const ExternalLinkAttributeDialog = (props: PropsT): React.MixedElement => {
     createInitialState,
   );
   const hasErrors = hasSubfieldErrors(state.datePeriodField);
+
+  React.useEffect(() => {
+    dispatch({type: 'update-initial-date-period', props});
+  }, [props]);
 
   const dateDispatch = React.useCallback((action) => {
     dispatch({action, type: 'update-date-period'});

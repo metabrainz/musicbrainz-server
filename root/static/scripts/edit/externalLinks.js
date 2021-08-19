@@ -26,6 +26,7 @@ import MB from '../common/MB';
 import {groupBy, keyBy, uniqBy} from '../common/utility/arrays';
 import {hasSessionStorage} from '../common/utility/storage';
 import {uniqueId} from '../common/utility/strings';
+import {bracketedText} from '../common/utility/bracketed';
 import {isMalware} from '../../../url/utility/isGreyedOut';
 
 import isPositiveInteger from './utility/isPositiveInteger';
@@ -37,8 +38,8 @@ import * as URLCleanup from './URLCleanup';
 import validation from './validation';
 import isDateEmpty from '../common/utility/isDateEmpty';
 import formatDatePeriod from '../common/utility/formatDatePeriod';
-import
-ExternalLinkAttributeDialog from './components/ExternalLinkAttributeDialog';
+import ExternalLinkAttributeDialog
+  from './components/ExternalLinkAttributeDialog';
 
 type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
 
@@ -777,7 +778,8 @@ const ExternalLinkRelationship =
                 link.ended
               ) &&
                 <span className="date-period">
-                  {` (${formatDatePeriod(link)})`}
+                  {' '}
+                  {bracketedText(formatDatePeriod(link))}
                 </span>}
             </label>
           </div>
