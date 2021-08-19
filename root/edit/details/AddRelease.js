@@ -79,7 +79,7 @@ const AddRelease = ({allowNew, edit}: Props): React.MixedElement => {
           </tr>
 
           <tr>
-            <th>{addColonText(l('Release Group'))}</th>
+            <th>{addColonText(l('Release group'))}</th>
             <td>
               {allowNew /*:: === true */ && !display.release_group.gid
                 ? l('(new release group)')
