@@ -28,7 +28,7 @@ class GuessCase {
   entities: {
     [entityType: string]: {
       guess: (string) => string,
-      sortname: (string, typeId?: ?number) => string,
+      sortname: (string, isPerson: boolean) => string,
     },
   };
 
