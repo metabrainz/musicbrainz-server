@@ -36,6 +36,8 @@ export const VOCAL_ROOT_ID = 3;
 
 export const AREA_TYPE_COUNTRY = 1;
 
+export const ARTIST_TYPE_PERSON = 1;
+
 export const CONTACT_URL = 'https://metabrainz.org/contact';
 
 export const DARTIST_ID = 2;
