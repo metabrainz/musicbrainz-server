@@ -36,7 +36,9 @@ import {
   type StateT as GuessCaseOptionsStateT,
   type WritableStateT as WritableGuessCaseOptionsStateT,
 } from '../edit/components/GuessCaseOptions';
-import copyFieldData, {copyFieldErrors} from '../edit/utility/copyFieldData';
+import copyFieldData, {
+  copyDatePeriodField,
+} from '../edit/utility/copyFieldData';
 import {
   createCompoundField,
   createField,
@@ -101,36 +103,6 @@ const blankDatePeriod = {
   id: 0,
   type: 'compound_field',
 };
-
-function copyPartialDateField(
-  sourceField: PartialDateFieldT,
-  targetField: WritablePartialDateFieldT,
-) {
-  const sourceSubfields = sourceField.field;
-  const targetSubfields = targetField.field;
-  copyFieldData(sourceSubfields.year, targetSubfields.year);
-  copyFieldData(sourceSubfields.month, targetSubfields.month);
-  copyFieldData(sourceSubfields.day, targetSubfields.day);
-  copyFieldErrors(sourceField, targetField);
-}
-
-function copyDatePeriodField(
-  sourceField: DatePeriodFieldT,
-  targetField: WritableDatePeriodFieldT,
-) {
-  const sourceSubfields = sourceField.field;
-  const targetSubfields = targetField.field;
-  copyPartialDateField(
-    sourceSubfields.begin_date,
-    targetSubfields.begin_date,
-  );
-  copyPartialDateField(
-    sourceSubfields.end_date,
-    targetSubfields.end_date,
-  );
-  copyFieldData(sourceSubfields.ended, targetSubfields.ended);
-  copyFieldErrors(sourceField, targetField);
-}
 
 function createInitialState(form, searchHintType) {
   return {

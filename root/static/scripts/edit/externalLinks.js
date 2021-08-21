@@ -26,6 +26,7 @@ import MB from '../common/MB';
 import {groupBy, keyBy, uniqBy} from '../common/utility/arrays';
 import {hasSessionStorage} from '../common/utility/storage';
 import {uniqueId} from '../common/utility/strings';
+import {bracketedText} from '../common/utility/bracketed';
 import {isMalware} from '../../../url/utility/isGreyedOut';
 
 import isPositiveInteger from './utility/isPositiveInteger';
@@ -35,6 +36,10 @@ import URLInputPopover from './components/URLInputPopover';
 import {linkTypeOptions} from './forms';
 import * as URLCleanup from './URLCleanup';
 import validation from './validation';
+import isDateEmpty from '../common/utility/isDateEmpty';
+import formatDatePeriod from '../common/utility/formatDatePeriod';
+import ExternalLinkAttributeDialog
+  from './components/ExternalLinkAttributeDialog';
 
 type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
 
@@ -44,6 +49,7 @@ export type ErrorT = {
 };
 
 export type LinkStateT = {
+  ...DatePeriodRoleT,
   rawUrl: string,
   // New relationships will use a unique string ID like "new-1".
   relationship: StrOrNum | null,
@@ -56,7 +62,7 @@ export type LinkStateT = {
 
 type LinkMapT = Map<string, LinkStateT>;
 
-type LinkRelationshipT = LinkStateT & {
+export type LinkRelationshipT = LinkStateT & {
   error: ErrorT | null,
   index: number,
   urlIndex: number,
@@ -394,6 +400,41 @@ export class ExternalLinksEditor
       }
 
       pushInput(prefix, 'link_type_id', String(link.type) || '');
+
+      const beginDate = link.begin_date || nullPartialDate;
+      const endDate = link.end_date || nullPartialDate;
+
+      pushInput(
+        prefix,
+        'period.begin_date.year',
+        beginDate.year ? String(beginDate.year) : '',
+      );
+      pushInput(
+        prefix,
+        'period.begin_date.month',
+        beginDate.month ? String(beginDate.month) : '',
+      );
+      pushInput(
+        prefix,
+        'period.begin_date.day',
+        beginDate.day ? String(beginDate.day) : '',
+      );
+      pushInput(
+        prefix,
+        'period.end_date.year',
+        endDate.year ? String(endDate.year) : '',
+      );
+      pushInput(
+        prefix,
+        'period.end_date.month',
+        endDate.month ? String(endDate.month) : '',
+      );
+      pushInput(
+        prefix,
+        'period.end_date.day',
+        endDate.day ? String(endDate.day) : '',
+      );
+      pushInput(prefix, 'period.ended', link.ended ? '1' : '0');
     }
   }
 
@@ -565,6 +606,9 @@ export class ExternalLinksEditor
               <ExternalLink
                 cleanupUrl={(url) => this.cleanupUrl(url)}
                 error={urlError}
+                handleAttributesChange={
+                  (index, attributes) => this.setLinkState(index, attributes)
+                }
                 handleLinkRemove={(index) => this.removeLink(index)}
                 handleLinkSubmit={
                   (event) => this.handleLinkSubmit(
@@ -668,6 +712,7 @@ type ExternalLinkRelationshipProps = {
   hasUrlError: boolean,
   isOnlyRelationship: boolean,
   link: LinkRelationshipT,
+  onAttributesChange: (number, DatePeriodRoleT) => void,
   onLinkRemove: (number) => void,
   onTypeBlur: (number, SyntheticFocusEvent<HTMLSelectElement>) => void,
   onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
@@ -738,6 +783,15 @@ const ExternalLinkRelationship =
                 </div>}
               {link.url && !link.error && !hasUrlError &&
                 <TypeDescription type={link.type} url={link.url} />}
+              {(
+                !isDateEmpty(link.begin_date) ||
+                !isDateEmpty(link.end_date) ||
+                link.ended
+              ) &&
+                <span className="date-period">
+                  {' '}
+                  {bracketedText(formatDatePeriod(link))}
+                </span>}
             </label>
           </div>
           {link.error &&
@@ -745,7 +799,13 @@ const ExternalLinkRelationship =
               {link.error.message}
             </div>}
         </td>
-        <td className="link-actions" style={{minWidth: '17px'}}>
+        <td className="link-actions" style={{minWidth: '38px'}}>
+          <ExternalLinkAttributeDialog
+            onConfirm={
+              (attributes) => props.onAttributesChange(link.index, attributes)
+            }
+            relationship={link}
+          />
           {!props.isOnlyRelationship &&
             <RemoveButton
               onClick={() => props.onLinkRemove(link.index)}
@@ -759,6 +819,7 @@ const ExternalLinkRelationship =
 type LinkProps = {
   cleanupUrl: (string) => string,
   error: ErrorT | null,
+  handleAttributesChange: (number, DatePeriodRoleT) => void,
   handleLinkRemove: (number) => void,
   handleLinkSubmit: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
   handleUrlBlur: (SyntheticFocusEvent<HTMLInputElement>) => void,
@@ -899,6 +960,7 @@ export class ExternalLink extends React.Component<LinkProps> {
               isOnlyRelationship={props.relationships.length === 1}
               key={index}
               link={link}
+              onAttributesChange={props.handleAttributesChange}
               onLinkRemove={props.handleLinkRemove}
               onTypeBlur={props.onTypeBlur}
               onTypeChange={props.onTypeChange}
@@ -928,7 +990,16 @@ export class ExternalLink extends React.Component<LinkProps> {
   }
 }
 
+const nullPartialDate: PartialDateT = {
+  year: null,
+  month: null,
+  day: null,
+};
+
 const defaultLinkState: LinkStateT = {
+  begin_date: nullPartialDate,
+  end_date: nullPartialDate,
+  ended: false,
   rawUrl: '',
   relationship: null,
   submitted: false,
@@ -995,9 +1066,11 @@ export function parseRelationships(
   }
   return relationships.reduce(function (accum, data) {
     const target = data.target;
-
     if (target.entityType === 'url') {
       accum.push({
+        begin_date: data.begin_date || nullPartialDate,
+        end_date: data.end_date || nullPartialDate,
+        ended: data.ended || false,
         relationship: data.id,
         rawUrl: target.name,
         submitted: true,

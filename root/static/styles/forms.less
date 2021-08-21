@@ -676,6 +676,10 @@ table.artist-credit-editor {
                 flex: 2 5;
                 text-align: left;
                 white-space: inherit;
+
+                span.date-period {
+                    white-space: nowrap;
+                }
             }
 
             select {
@@ -695,6 +699,14 @@ table.artist-credit-editor {
 
     .add-relationship td {
         padding: 0;
+    }
+}
+
+.external-link-attribute-dialog {
+    span.partial-date {
+        input {
+            width: 4em;
+        }
     }
 }
 
