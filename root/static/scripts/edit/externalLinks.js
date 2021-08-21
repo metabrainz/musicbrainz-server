@@ -24,6 +24,8 @@ import expand2react from '../common/i18n/expand2react';
 import linkedEntities from '../common/linkedEntities';
 import MB from '../common/MB';
 import {groupBy, keyBy, uniqBy} from '../common/utility/arrays';
+import isDateEmpty from '../common/utility/isDateEmpty';
+import formatDatePeriod from '../common/utility/formatDatePeriod';
 import {hasSessionStorage} from '../common/utility/storage';
 import {uniqueId} from '../common/utility/strings';
 import {bracketedText} from '../common/utility/bracketed';
@@ -36,8 +38,6 @@ import URLInputPopover from './components/URLInputPopover';
 import {linkTypeOptions} from './forms';
 import * as URLCleanup from './URLCleanup';
 import validation from './validation';
-import isDateEmpty from '../common/utility/isDateEmpty';
-import formatDatePeriod from '../common/utility/formatDatePeriod';
 import ExternalLinkAttributeDialog
   from './components/ExternalLinkAttributeDialog';
 
