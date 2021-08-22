@@ -144,7 +144,7 @@ export class ExternalLinksEditor
     urlIndex: number,
     error: ErrorT | null,
   ) {
-    const link = this.state.links[index];
+    const link = {...this.state.links[index]};
     const url = event.currentTarget.value;
     const trimmed = url.trim();
     const unicodeUrl = getUnicodeUrl(trimmed);
@@ -190,7 +190,7 @@ export class ExternalLinksEditor
     event: SyntheticEvent<HTMLInputElement>,
     error: ErrorT | null,
   ) {
-    const link = this.state.links[index];
+    const link = {...this.state.links[index]};
     const url = event.currentTarget.value;
     const trimmed = url.trim();
     const unicodeUrl = getUnicodeUrl(trimmed);
@@ -230,7 +230,7 @@ export class ExternalLinksEditor
     event: SyntheticEvent<HTMLSelectElement>,
   ) {
     const type = +event.currentTarget.value || null;
-    const link = this.state.links[index];
+    const link = {...this.state.links[index]};
     link.type = type;
     this.setLinkState(index, link);
   }
@@ -257,7 +257,7 @@ export class ExternalLinksEditor
       return;
     }
 
-    const link = this.state.links[index];
+    const link = {...this.state.links[index]};
     if (link.url && link.type) {
       link.submitted = true;
     }
