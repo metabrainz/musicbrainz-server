@@ -668,10 +668,6 @@ END -%]
   <script src="[% c.model('FileCache').path_to(manifest) %]"[% attr_string %]></script>
 [%~ END ~%]
 
-[%~ MACRO css_manifest(manifest) BLOCK # Converted to React at root/static/manifest.js ~%]
-  <link rel="stylesheet" type="text/css" href="[% c.model('FileCache').path_to(manifest) %]" />
-[%~ END ~%]
-
 [%~ MACRO format_length(n) BLOCK; n | format_length; END -%]
 
 [%~ MACRO medium_format_name(medium) BLOCK # Converted to React at root/static/scripts/common/utility/mediumFormatName.js -%]
