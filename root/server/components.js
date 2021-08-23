@@ -401,6 +401,7 @@ module.exports = {
   'edit/details/RemoveRelationshipType': require('../edit/details/RemoveRelationshipType'),
   'edit/details/RemoveReleaseLabel': require('../edit/details/RemoveReleaseLabel'),
   'edit/details/ReorderCoverArt': require('../edit/details/ReorderCoverArt'),
+  'edit/details/ReorderMediums': require('../edit/details/ReorderMediums'),
   'edit/details/ReorderRelationships': require('../edit/details/ReorderRelationships'),
   'edit/details/SetCoverArt': require('../edit/details/SetCoverArt'),
   'edit/details/historic/AddDiscId': require('../edit/details/historic/AddDiscId'),
