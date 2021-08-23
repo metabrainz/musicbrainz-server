@@ -31,9 +31,9 @@ export const HistoricReleaseListContent = ({
     {releases.length ? (
       releases.map((release, index) => (
         <li key={index}>
-          {release
+          {release?.id
             ? <DescriptiveLink entity={release} />
-            : <DeletedLink allowNew={false} name={null} />}
+            : <DeletedLink allowNew={false} name={release?.name ?? null} />}
         </li>
       ))
     ) : (

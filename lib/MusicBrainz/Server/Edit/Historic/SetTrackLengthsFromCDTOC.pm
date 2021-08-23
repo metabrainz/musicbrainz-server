@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_SET_TRACK_LENGTHS_FROM_CDTOC );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Edit::Historic::Base;
@@ -14,7 +15,7 @@ sub edit_name     { N_l('Set track lengths') }
 sub edit_kind     { 'other' }
 sub historic_type { 53 }
 sub edit_type     { $EDIT_HISTORIC_SET_TRACK_LENGTHS_FROM_CDTOC }
-sub edit_template { 'set_track_lengths' }
+sub edit_template_react { 'SetTrackLengths' }
 
 sub _build_related_entities
 {
@@ -39,8 +40,11 @@ sub build_display_data
     my ($self, $loaded) = @_;
 
     return {
-        mediums => [ map { Medium->new( release => $loaded->{Release}{$_} // Release->new() ) } @{ $self->data->{release_ids} } ],
-        cdtoc => $loaded->{CDTOC}{ $self->data->{cdtoc} },
+        releases => to_json_array([
+            map { $loaded->{Release}{$_} // Release->new( id => $_ ) }
+                @{ $self->data->{release_ids} }
+        ]),
+        cdtoc => to_json_object( $loaded->{CDTOC}{ $self->data->{cdtoc} } ),
         length => {
             map {
                 $_ => [ map { MusicBrainz::Server::Track::UnformatTrackLength($_) }
