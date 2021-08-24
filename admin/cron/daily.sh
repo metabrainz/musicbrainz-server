@@ -50,6 +50,9 @@ echo `date`" : Removing unused release groups"
 echo `date`" : Removing unused series"
 ./admin/cleanup/RemoveEmpty series
 
+echo `date`" : Removing unused urls"
+./admin/cleanup/RemoveEmpty url
+
 echo `date`" : Removing unused works"
 ./admin/cleanup/RemoveEmpty work
 
