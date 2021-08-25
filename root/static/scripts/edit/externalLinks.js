@@ -24,6 +24,8 @@ import expand2react from '../common/i18n/expand2react';
 import linkedEntities from '../common/linkedEntities';
 import MB from '../common/MB';
 import {groupBy, keyBy, uniqBy} from '../common/utility/arrays';
+import isDateEmpty from '../common/utility/isDateEmpty';
+import formatDatePeriod from '../common/utility/formatDatePeriod';
 import {hasSessionStorage} from '../common/utility/storage';
 import {uniqueId} from '../common/utility/strings';
 import {bracketedText} from '../common/utility/bracketed';
@@ -36,15 +38,13 @@ import URLInputPopover from './components/URLInputPopover';
 import {linkTypeOptions} from './forms';
 import * as URLCleanup from './URLCleanup';
 import validation from './validation';
-import isDateEmpty from '../common/utility/isDateEmpty';
-import formatDatePeriod from '../common/utility/formatDatePeriod';
 import ExternalLinkAttributeDialog
   from './components/ExternalLinkAttributeDialog';
 
 type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
 
 export type ErrorT = {
-  message: React.Node,
+  message: React$Node,
   target: ErrorTarget,
 };
 
@@ -73,7 +73,7 @@ export type LinkRelationshipT = LinkStateT & {
 type LinksEditorProps = {
   errorObservable: (boolean) => void,
   initialLinks: Array<LinkStateT>,
-  sourceType: string,
+  sourceType: CoreEntityTypeT,
   typeOptions: Array<React.Element<'option'>>,
 };
 
@@ -120,7 +120,7 @@ export class ExternalLinksEditor
     }
 
     this.setState(prevState => {
-      let newLinks = [...prevState.links];
+      const newLinks = [...prevState.links];
       linkIndexes.forEach(index => {
         const link = newLinks[index];
 
@@ -129,7 +129,7 @@ export class ExternalLinksEditor
           url = this.cleanupUrl(url);
         }
 
-        let newLink = Object.assign({}, newLinks[index], {url, rawUrl});
+        const newLink = Object.assign({}, newLinks[index], {url, rawUrl});
         const checker = new URLCleanup.Checker(url, this.props.sourceType);
         const guessedType = checker.guessType();
         if (!newLink.type && guessedType) {
@@ -438,7 +438,7 @@ export class ExternalLinksEditor
 
   validateLink(
     link: LinkStateT,
-    checker?: typeof URLCleanup.Checker,
+    checker?: URLCleanup.Checker,
   ): ErrorT | null {
     const oldLinks = this.getOldLinksHash();
     const linksByTypeAndUrl = groupBy(
@@ -569,7 +569,7 @@ export class ExternalLinksEditor
              */
             const {url, rawUrl} = relationships[0];
             const isLastLink = index === linksByUrl.length - 1;
-            let links = [...relationships];
+            const links = [...relationships];
             const linkIndexes = [];
 
             // Check duplicates and show notice
@@ -995,9 +995,9 @@ export class ExternalLink extends React.Component<LinkProps> {
 }
 
 const nullPartialDate: PartialDateT = {
-  year: null,
-  month: null,
   day: null,
+  month: null,
+  year: null,
 };
 
 const defaultLinkState: LinkStateT = {
@@ -1075,8 +1075,8 @@ export function parseRelationships(
         begin_date: data.begin_date || nullPartialDate,
         end_date: data.end_date || nullPartialDate,
         ended: data.ended || false,
-        relationship: data.id,
         rawUrl: target.name,
+        relationship: data.id,
         submitted: true,
         type: data.linkTypeID ?? null,
         url: target.name,
@@ -1093,7 +1093,7 @@ export function parseRelationships(
 function groupLinksByUrl(
   links: Array<LinkStateT>,
 ): Map<string, Array<LinkRelationshipT>> {
-  let map = new Map();
+  const map = new Map();
   let urlIndex = 0;
   links.forEach((link, index) => {
     const relationship: LinkRelationshipT = {

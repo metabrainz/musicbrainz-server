@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2010 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -6,8 +7,18 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import $ from 'jquery';
+
+type EntityTypeMap = {
+  +[entityType: CoreEntityTypeT]: string,
+};
+
+type LinkTypeMap = {
+  +[type: string]: EntityTypeMap,
+};
+
 // See https://musicbrainz.org/relationships (but deprecated ones)
-export const LINK_TYPES = {
+export const LINK_TYPES: LinkTypeMap = {
   allmusic: {
     artist: '6b3e3c85-0002-4f34-aca6-80ace0d7e846',
     recording: '54482490-5ff1-4b1c-9382-b4d0ef8e0eac',
@@ -266,7 +277,9 @@ export const LINK_TYPES = {
 };
 
 // See https://musicbrainz.org/doc/Style/Relationships/URLs#Restricted_relationships
-const RESTRICTED_LINK_TYPES = [
+
+// $FlowIssue[incompatible-type]: Array<mixed>
+const RESTRICTED_LINK_TYPES: $ReadOnlyArray<string> = [
   LINK_TYPES.allmusic,
   LINK_TYPES.amazon,
   LINK_TYPES.bandcamp,
@@ -298,10 +311,10 @@ const RESTRICTED_LINK_TYPES = [
 }, []);
 
 export const ERROR_TARGETS = {
-  NONE: 'none',
-  URL: 'url',
-  RELATIONSHIP: 'relationship',
   ENTITY: 'entity',
+  NONE: 'none',
+  RELATIONSHIP: 'relationship',
+  URL: 'url',
 };
 
 function reencodeMediawikiLocalPart(url) {
@@ -358,7 +371,24 @@ const linkToVideoMsg = N_l(
  *             for an auto-selected relationship type.
  */
 
-const CLEANUPS = {
+type ValidationResult = {
+  +error?: React$Node,
+  result: boolean,
+  +target?: $Values<typeof ERROR_TARGETS>,
+};
+
+type CleanupEntry = {
+  +clean?: (url: string) => string,
+  +match: $ReadOnlyArray<RegExp>,
+  +restrict?: $ReadOnlyArray<EntityTypeMap>,
+  +validate?: (url: string, id: string) => ValidationResult,
+};
+
+type CleanupEntries = {
+  +[type: string]: CleanupEntry,
+};
+
+const CLEANUPS: CleanupEntries = {
   '7digital': {
     match: [new RegExp(
       '^(https?://)?([^/]+\\.)?(7digital\\.com|zdigital\\.com\\.au)',
@@ -551,7 +581,7 @@ const CLEANUPS = {
         return 'https://www.amazon.' + tld + '/gp/product/' + asin;
       }
 
-      return null;
+      return '';
     },
     validate: function (url) {
       // If you change this, please update the BadAmazonURLs report.
@@ -584,11 +614,13 @@ const CLEANUPS = {
       tld = findAmazonTld(url);
 
       const m = url.match(/\/(albums|artists)\/(B[0-9A-Z]{9}|[0-9]{9}[0-9X])(?:[/?&%#]|$)/);
-      type = m[1];
-      asin = m[2];
+      if (m) {
+        type = m[1];
+        asin = m[2];
 
-      if (tld !== '' && asin !== '') {
-        return 'https://music.amazon.' + tld + '/' + type + '/' + asin;
+        if (tld !== '' && asin !== '') {
+          return 'https://music.amazon.' + tld + '/' + type + '/' + asin;
+        }
       }
 
       return url;
@@ -775,9 +807,9 @@ const CLEANUPS = {
   'bandcamp': {
     match: [new RegExp('^(https?://)?([^/]+)\\.bandcamp\\.com', 'i')],
     restrict: [{
-      work: LINK_TYPES.lyrics.work,
       ...LINK_TYPES.review,
       ...LINK_TYPES.bandcamp,
+      work: LINK_TYPES.lyrics.work,
     }],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/([^?#]*))?.*$/, 'https://$1.bandcamp.com/$2');
@@ -2846,8 +2878,9 @@ const CLEANUPS = {
       return url.replace(/^(?:https?:\/\/)?(?:www\.)?muziekweb\.(?:com|eu|nl)\/(?:[a-z]{2}\/)?Link\/([A-Z]{1,3}\d+(?:\/(?:CLASSICAL(?:\/COMPOSER)?|POPULAR))?).*$/, 'https://www.muziekweb.nl/Link/$1/');
     },
     validate: function (url, id) {
-      const subpath = /^https:\/\/www\.muziekweb\.nl\/Link\/(.*)\/$/.exec(url)[1];
-      if (subpath) {
+      const m = /^https:\/\/www\.muziekweb\.nl\/Link\/(.*)\/$/.exec(url);
+      if (m) {
+        const subpath = m[1];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
             return {
@@ -4500,9 +4533,12 @@ function testAll(tests, text) {
   return false;
 }
 
-const CLEANUP_ENTRIES = Object.values(CLEANUPS);
+// $FlowIssue[incompatible-type]: Array<mixed>
+const CLEANUP_ENTRIES: Array<CleanupEntry> = Object.values(CLEANUPS);
 
-const entitySpecificRules = {};
+const entitySpecificRules: {
+  [entityType: CoreEntityTypeT]: (string) => ValidationResult,
+} = {};
 
 /*
  * Avoid Wikipedia/Wikidata being added as release-level relationship
@@ -4585,13 +4621,13 @@ entitySpecificRules.recording = function (url) {
 };
 
 export class Checker {
-  url;
+  url: string;
 
-  entityType;
+  entityType: CoreEntityTypeT;
 
-  cleanup;
+  cleanup: ?CleanupEntry;
 
-  constructor(url, entityType) {
+  constructor(url: string, entityType: CoreEntityTypeT) {
     this.url = url;
     this.entityType = entityType;
     this.cleanup = CLEANUP_ENTRIES.find(function (cleanup) {
@@ -4605,7 +4641,7 @@ export class Checker {
    * Guess a relationship type or a type combination,
    * return false if it can't be determined.
    */
-  guessType() {
+  guessType(): string | false {
     const types = this.filterApplicableTypes();
     // If not applicable to current entity
     if (types.length === 0) {
@@ -4625,7 +4661,10 @@ export class Checker {
    * @param entityType: Source entity type.
    *        If not specified, the one specified in constructor is used.
    */
-  checkRelationship(id, entityType = this.entityType) {
+  checkRelationship(
+    id: string,
+    entityType: CoreEntityTypeT = this.entityType,
+  ): ValidationResult {
     // Perform entity-specific validation
     const rules = entitySpecificRules[this.entityType];
     if (rules) {
@@ -4655,11 +4694,13 @@ export class Checker {
     };
   }
 
-  filterApplicableTypes(sourceType = this.entityType) {
+  filterApplicableTypes(
+    sourceType: CoreEntityTypeT = this.entityType,
+  ): Array<string> {
     if (!this.cleanup || !this.cleanup.restrict) {
       return [];
     }
-    return this.cleanup.restrict.reduce((result, type) => {
+    return this.cleanup.restrict.reduce((result, type: EntityTypeMap) => {
       if (type[sourceType]) {
         result.push(type[sourceType]);
       }
@@ -4668,17 +4709,17 @@ export class Checker {
   }
 }
 
-export function cleanURL(dirtyURL) {
+export function cleanURL(dirtyURL: string): string {
   dirtyURL = dirtyURL.trim().replace(/(%E2%80%8E|\u200E)$/, '');
 
   const cleanup = CLEANUP_ENTRIES.find(function (cleanup) {
     return cleanup.clean && testAll(cleanup.match, dirtyURL);
   });
 
-  return cleanup ? cleanup.clean(dirtyURL) : dirtyURL;
+  return (cleanup && cleanup.clean) ? cleanup.clean(dirtyURL) : dirtyURL;
 }
 
-export function registerEvents($url) {
+export function registerEvents($url: typeof $) {
   function urlChanged() {
     const url = $url.val();
     const clean = cleanURL(url) || url;
