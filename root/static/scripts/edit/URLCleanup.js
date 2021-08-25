@@ -279,7 +279,7 @@ export const LINK_TYPES: LinkTypeMap = {
 // See https://musicbrainz.org/doc/Style/Relationships/URLs#Restricted_relationships
 
 // $FlowIssue[incompatible-type]: Array<mixed>
-const RESTRICTED_LINK_TYPES: $ReadOnlyArray<string> = [
+export const RESTRICTED_LINK_TYPES: $ReadOnlyArray<string> = [
   LINK_TYPES.allmusic,
   LINK_TYPES.amazon,
   LINK_TYPES.bandcamp,
@@ -4652,6 +4652,20 @@ export class Checker {
       return types[0];
     }
     return false;
+  }
+
+  /*
+   * Relationship type restriction.
+   *
+   * Returns possible relationship types of given URL with given entity.
+   */
+  getPossibleTypes(): Array<string> | false {
+    const types = this.filterApplicableTypes();
+    // If not applicable to current entity
+    if (types.length === 0) {
+      return false;
+    }
+    return types;
   }
 
   /*

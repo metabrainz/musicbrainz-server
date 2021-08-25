@@ -107,27 +107,6 @@
       target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//button[contains(@class, 'remove-item')]",
       value: '',
     },
-    // deprecated link type detection for new links
-    {
-      command: 'sendKeys',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: 'http://example.com/',
-    },
-    {
-      command: 'select',
-      target: 'css=select.link-type',
-      value: 'label=regexp:\\s*MusicMoz',
-    },
-    {
-      command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//div[contains(@class, 'error')]",
-      value: 'This relationship type is deprecated and should not be used.',
-    },
-    {
-      command: 'click',
-      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//button[contains(@class, 'remove-item')]",
-      value: '',
-    },
     // deprecated and empty links do not appear at all
     {
       command: 'assertEval',
