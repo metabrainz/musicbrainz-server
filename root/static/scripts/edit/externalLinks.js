@@ -58,6 +58,7 @@ type LinkTypeOptionT = {
 
 export type LinkStateT = {
   ...DatePeriodRoleT,
+  pendingTypes?: Array<number>,
   rawUrl: string,
   // New relationships will use a unique string ID like "new-1".
   relationship: StrOrNum | null,
@@ -74,7 +75,6 @@ export type LinkRelationshipT = LinkStateT & {
   error: ErrorT | null,
   index: number,
   urlIndex: number,
-  urlMatchesType?: boolean,
   ...
 };
 
@@ -157,6 +157,12 @@ export class ExternalLinksEditor
         if (!newLink.type && guessedType) {
           if (typeof guessedType === 'string') { // Is a single type
             newLink.type = linkedEntities.link_type[guessedType].id;
+          } else {
+            // Is a type combination, set one and add other relationships
+            newLink.type = linkedEntities.link_type[guessedType[0]].id;
+            newLink.pendingTypes = guessedType
+              .slice(1)
+              .map(type => linkedEntities.link_type[type].id);
           }
         }
         newLinks[index] = newLink;
@@ -180,7 +186,7 @@ export class ExternalLinksEditor
     if (url !== unicodeUrl) {
       link.url = unicodeUrl;
     }
-    let callback = undefined;
+
     /*
      * Don't add link to list if it's empty,
      * has error, or is a duplicate without type.
@@ -188,13 +194,6 @@ export class ExternalLinksEditor
     if (url !== '' && !error && (!isDuplicate || link.type)) {
       link.submitted = true;
       if (isDuplicate) {
-        callback = () => {
-          // Return focus to the input box after merging
-          $(this.tableRef.current)
-            .find("input[type='url']")
-            .eq(0)
-            .focus();
-        };
         /*
          * $FlowIssue[incompatible-type]: relatedTarget is EventTarget
          * Don't merge when user clicks on delete icon,
@@ -206,9 +205,57 @@ export class ExternalLinksEditor
         if (clickingDeleteIcon) {
           link.submitted = false;
         }
+        this.setLinkState(index, link, () => {
+          if (link.submitted) {
+            this.submitPendingTypes(link, index);
+          }
+          // Return focus to the input box after merging
+          $(this.tableRef.current)
+            .find("input[type='url']")
+            .eq(0)
+            .focus();
+        });
+      } else {
+        this.setLinkState(index, link, () => {
+          if (link.submitted) {
+            this.submitPendingTypes(link, index);
+          }
+        });
       }
+    } else {
+      this.setLinkState(index, link);
     }
-    this.setLinkState(index, link, callback);
+  }
+
+  submitPendingTypes(link: LinkStateT, index: number) {
+    const pendingTypes = link.pendingTypes;
+    if (!pendingTypes) {
+      return;
+    }
+    this.setState(prevState => {
+      let newLinks = [...prevState.links];
+      newLinks[index] = {...newLinks[index], pendingTypes: undefined};
+      const emptyLinkIndex = newLinks.findIndex(link => {
+        const isNewLink = !isPositiveInteger(link.relationship);
+        return isNewLink && isEmpty(link);
+      });
+      // Remove existing empty links first to maintain the order
+      if (emptyLinkIndex > 0) {
+        newLinks.splice(emptyLinkIndex);
+      }
+      newLinks = newLinks.concat(pendingTypes.map(type => {
+        const linkState = {
+          submitted: true,
+          type,
+          url: link.url,
+        };
+        return newLinkState({
+          ...linkState,
+          relationship: uniqueId('new-'),
+        });
+      }));
+      return {links: withOneEmptyLink(newLinks, -1)};
+    });
   }
 
   handleLinkSubmit(
@@ -229,6 +276,7 @@ export class ExternalLinksEditor
     if (url !== '' && !error) {
       link.submitted = true;
       this.setLinkState(index, link, () => {
+        this.submitPendingTypes(link, index);
         // Redirect focus instead of staying on the current link
         if (link.type) {
           // If type is selected, jump to the next item(either input or link)
@@ -289,6 +337,7 @@ export class ExternalLinksEditor
       link.submitted = true;
     }
     this.setLinkState(index, link, () => {
+      this.submitPendingTypes(link, index);
       // Return focus to the input box after merging
       $(this.tableRef.current)
         .find("input[type='url']")
@@ -627,6 +676,7 @@ export class ExternalLinksEditor
               ) : '';
 
             let urlError: ErrorT | null = null;
+            let hasError = false;
             const checker = new URLCleanup.Checker(
               url, this.props.sourceType,
             );
@@ -643,16 +693,40 @@ export class ExternalLinksEditor
               const error = this.validateLink(link, checker);
               if (error) {
                 this.props.errorObservable(true);
+                hasError = true;
                 if (error.target === URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
                   link.error = error;
                 } else {
                   urlError = error;
                 }
               }
-
-              link.urlMatchesType = linkType.gid === checker.guessType()
-                && possibleTypes && possibleTypes.length === 1;
             });
+
+            // If a link has pending types, it must have only 1 possible type
+            let urlMatchesType = !!links[0].pendingTypes;
+            /*
+             * Only validate type combination
+             * when every single type has passed validation.
+             */
+            const check =
+              checker.checkRelationships(selectedTypes, possibleTypes);
+            if (check.result) {
+              /*
+               * Now that selected types are valid, if there's only one
+               * possible type, then it's a match.
+               */
+              urlMatchesType = possibleTypes && possibleTypes.length === 1;
+            } else if (links[0].submitted &&
+              selectedTypes.length > 0 &&
+              !hasError) {
+              this.props.errorObservable(true);
+              urlError = {
+                message: check.error ||
+                    l('This relationship type combination is invalid.'),
+                target:
+                    check.target || URLCleanup.ERROR_TARGETS.RELATIONSHIP,
+              };
+            }
             const firstLinkIndex = linkIndexes[0];
 
             return (
@@ -700,6 +774,7 @@ export class ExternalLinksEditor
                 relationships={links}
                 typeOptions={typeOptions}
                 url={url}
+                urlMatchesType={urlMatchesType}
                 validateLink={(link) => this.validateLink(link)}
               />
             );
@@ -772,17 +847,18 @@ type ExternalLinkRelationshipProps = {
   onVideoChange:
   (number, SyntheticEvent<HTMLInputElement>) => void,
   typeOptions: Array<LinkTypeOptionT>,
+  urlMatchesType: boolean,
 };
 
 const ExternalLinkRelationship =
   (props: ExternalLinkRelationshipProps): React.Element<'tr'> => {
-    const {link, hasUrlError} = props;
+    const {link, hasUrlError, urlMatchesType} = props;
     const linkType = link.type ? linkedEntities.link_type[link.type] : null;
     const backward = linkType && linkType.type1 > 'url';
 
     const showTypeSelection = (link.error || hasUrlError)
       ? true
-      : !(link.urlMatchesType || isEmpty(link));
+      : !(urlMatchesType || isEmpty(link));
 
     return (
       <tr className="relationship-item" key={link.relationship}>
@@ -879,7 +955,7 @@ const ExternalLinkRelationship =
             }
             relationship={link}
           />
-          {!props.isOnlyRelationship &&
+          {!props.isOnlyRelationship && !props.urlMatchesType &&
             <RemoveButton
               onClick={() => props.onLinkRemove(link.index)}
               title={l('Remove Relationship')}
@@ -911,6 +987,7 @@ type LinkProps = {
   relationships: Array<LinkRelationshipT>,
   typeOptions: Array<LinkTypeOptionT>,
   url: string,
+  urlMatchesType: boolean,
   validateLink: (LinkStateT) => ErrorT | null,
 };
 
@@ -1039,13 +1116,30 @@ export class ExternalLink extends React.Component<LinkProps> {
               onTypeChange={props.onTypeChange}
               onVideoChange={props.onVideoChange}
               typeOptions={props.typeOptions}
+              urlMatchesType={props.urlMatchesType}
             />
+        ))}
+        {firstLink.pendingTypes &&
+          firstLink.pendingTypes.map((type) => (
+            <tr className="relationship-item" key={type}>
+              <td />
+              <td>
+                <div className="relationship-content">
+                  <label>{addColonText(l('Type'))}</label>
+                  <label className="relationship-name">
+                    {l_relationships(
+                      linkedEntities.link_type[type].link_phrase,
+                    )}
+                  </label>
+                </div>
+              </td>
+            </tr>
         ))}
         {/*
           * Hide the button when link is not submitted
           * or link type is auto-selected.
           */}
-        {notEmpty && firstLink.submitted && !firstLink.urlMatchesType &&
+        {notEmpty && firstLink.submitted && !props.urlMatchesType &&
         <tr className="add-relationship">
           <td />
           <td className="add-item" colSpan="4">

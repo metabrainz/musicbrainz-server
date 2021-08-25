@@ -7,6 +7,7 @@
  */
 
 import test from 'tape';
+import {arraysEqual} from '../../common/utility/arrays';
 
 import {
   LINK_TYPES,
@@ -2204,19 +2205,19 @@ const testData = [
   {
                      input_url: 'http://www.jamendo.com/en/track/725574/giraffe',
              input_entity_type: 'recording',
-    expected_relationship_type: 'downloadfree',
+    expected_relationship_type: ['downloadfree', 'streamingfree'],
             expected_clean_url: 'http://www.jamendo.com/track/725574',
   },
   {
                      input_url: 'http://www.jamendo.com/en/list/a84763/crossing-state-lines',
              input_entity_type: 'release',
-    expected_relationship_type: 'downloadfree',
+    expected_relationship_type: ['downloadfree', 'streamingfree'],
             expected_clean_url: 'http://www.jamendo.com/list/a84763',
   },
   {
                      input_url: 'http://www.jamendo.com/en/album/56372',
              input_entity_type: 'release',
-    expected_relationship_type: 'downloadfree',
+    expected_relationship_type: ['downloadfree', 'streamingfree'],
             expected_clean_url: 'http://www.jamendo.com/album/56372',
   },
   // JOYSOUND
@@ -4728,9 +4729,24 @@ function doMatchSubtest(
 ) {
   const checker = new Checker(cleanURL(url), entityType);
   const relUuid = checker.guessType();
+  const expectSingleType = typeof expectedRelationshipType !== 'object'; // string or undefined
   let actualRelationshipType = relUuid || undefined;
-  if (relUuid && relationshipTypesByUuid[relUuid]) {
-    actualRelationshipType = relationshipTypesByUuid[relUuid];
+  if (relUuid) {
+    if (typeof relUuid === 'string') { // Single type
+      if (relationshipTypesByUuid[relUuid]) {
+        actualRelationshipType = relationshipTypesByUuid[relUuid];
+      }
+    } else { // Type combination
+      const relationshipTypes = relUuid.reduce(function (accum, uuid) {
+        if (relationshipTypesByUuid[uuid]) {
+          accum.push(relationshipTypesByUuid[uuid]);
+        }
+        return accum;
+      }, []);
+      if (relationshipTypes.length > 0) {
+        actualRelationshipType = relationshipTypes;
+      }
+    }
   }
   if (expectedRelationshipType === undefined) {
     actualRelationshipType = undefined;
@@ -4738,11 +4754,21 @@ function doMatchSubtest(
 
   const msg = 'Match ' + label + ' URL relationship type for ' +
   entityType + ' entities';
-  st.equal(
-    actualRelationshipType,
-    expectedRelationshipType,
-    msg,
-  );
+  if (expectSingleType) {
+    st.equal(
+      actualRelationshipType,
+      expectedRelationshipType,
+      msg,
+    );
+  } else {
+    st.ok(
+      arraysEqual(
+        actualRelationshipType.sort(),
+        expectedRelationshipType.sort(),
+      ),
+      msg,
+    );
+  }
   previousMatchTests.push(entityType + '+' + url);
 }
 
@@ -4840,18 +4866,35 @@ testData.forEach(function (subtest, i) {
         st.end();
         return;
       }
+      let validationResults = {false: [], true: []};
+      let nbTestedRules = 0;
       const checker = new Checker(cleanUrl, subtest.input_entity_type);
-      const {
-        results: validationResults,
-        testedRules: nbTestedRules,
-      } = testEntitiesOfType(relationshipType, checker);
+      if (typeof relationshipType === 'object') { // Type combination
+        relationshipType.forEach(function (type) {
+          const {results, testedRules} = testEntitiesOfType(type, checker);
+          validationResults.true =
+            validationResults.true.concat(results.true);
+          validationResults.false =
+            validationResults.false.concat(results.false);
+          nbTestedRules += testedRules;
+        });
+      } else { // Single type
+        const {results, testedRules} =
+          testEntitiesOfType(relationshipType, checker);
+        validationResults = results;
+        nbTestedRules = testedRules;
+      }
       if (nbTestedRules === 0) {
         st.fail(
           'Validation test is worthless: No validation rule has been actually tested.',
         );
       } else {
+        // Use Set to remove duplicates when there're multiple types
+        const acceptedEntityTypes = Array.from(
+          new Set(validationResults.true),
+        ).sort();
         st.deepEqual(
-          validationResults.true.sort(),
+          acceptedEntityTypes,
           subtest.only_valid_entity_types.sort(),
           'Validate clean URL by exactly ' +
             subtest.only_valid_entity_types.length +
