@@ -9,6 +9,10 @@
 
 import $ from 'jquery';
 
+type EntityTypesMap = {
+  +[entityType: CoreEntityTypeT]: string | $ReadOnlyArray<string>,
+};
+
 type EntityTypeMap = {
   +[entityType: CoreEntityTypeT]: string,
 };
@@ -16,6 +20,10 @@ type EntityTypeMap = {
 type LinkTypeMap = {
   +[type: string]: EntityTypeMap,
 };
+
+export type RelationshipTypeT =
+  | string // Single type
+  | $ReadOnlyArray<string>; // A type combination
 
 // See https://musicbrainz.org/relationships (but deprecated ones)
 export const LINK_TYPES: LinkTypeMap = {
@@ -358,14 +366,26 @@ const linkToVideoMsg = N_l(
 );
 
 /*
- * CLEANUPS entries have 2 to 4 of the following properties:
+ * CLEANUPS entries have 2 to 5 of the following properties:
  *
  * - match: Array of regexps to match a given URL with the entry.
  *          It is the only mandatory property.
  * - restrict: Array of possible relationship types for the matched URL.
- *             It contains at most 1 relationship type by entity type.
+ *             May contain 1 or more relationship type by entity type.
+ *             You can use multiple() to combine multiple types.
  *             Will be used in auto-selection and validation.
- *             If there's only one type, it will be auto-selected.
+ *             If there's only one type or type combination,
+ *             it will be auto-selected.
+ * - select: Custom function for auto-selection of relationship type(s).
+ *           To select a single type, return a string,
+ *           e.g: LINK_TYPES.otherdatabases.release.
+ *           To select multiple types, return an array of strings,
+ *           e.g: [
+ *             LINK_TYPES.otherdatabases.work,
+ *             LINK_TYPES.lyrics.work,
+ *           ].
+ *           If it can't be determined, return false,
+ *           that'll fall back to traditional auto-selection using `restrict`.
  * - clean: Function to clean up/normalize matched URL.
  * - validate: Function to validate matched (clean) URL
  *             for an auto-selected relationship type.
@@ -380,7 +400,11 @@ type ValidationResult = {
 type CleanupEntry = {
   +clean?: (url: string) => string,
   +match: $ReadOnlyArray<RegExp>,
-  +restrict?: $ReadOnlyArray<EntityTypeMap>,
+  +restrict?: $ReadOnlyArray<EntityTypesMap>,
+  +select?:
+    (url: string, sourceType: CoreEntityTypeT) =>
+    | RelationshipTypeT
+    | false, // No match
   +validate?: (url: string, id: string) => ValidationResult,
 };
 
@@ -406,6 +430,7 @@ const CLEANUPS: CleanupEntries = {
   },
   '45cat': {
     match: [new RegExp('^(https?://)?(www\\.)?45cat\\.com/', 'i')],
+    // $FlowIssue[incompatible-type]: Array<mixed>
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:www\.)?45cat\.com\/([a-z]+\/[^\/?&#]+)(?:[\/?&#].*)?$/, 'http://www.45cat.com/$1');
@@ -2597,7 +2622,34 @@ const CLEANUPS: CleanupEntries = {
   },
   'mainlynorfolk': {
     match: [new RegExp('^(https?://)?(www\\.)?mainlynorfolk\\.info', 'i')],
-    restrict: [LINK_TYPES.otherdatabases],
+    restrict: [
+      LINK_TYPES.otherdatabases,
+      {work: [LINK_TYPES.otherdatabases.work, LINK_TYPES.lyrics.work]},
+    ],
+    select: function (url, sourceType) {
+      const m = /^https:\/\/mainlynorfolk\.info\/(?:[^/]+)\/(records|songs)?/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (prefix) {
+          case 'songs':
+            if (sourceType === 'work') {
+              return LINK_TYPES.otherdatabases.work;
+            }
+            break;
+          case 'records':
+            if (sourceType === 'release') {
+              return LINK_TYPES.otherdatabases.release;
+            }
+            break;
+          default: // artist
+            if (sourceType === 'artist') {
+              return LINK_TYPES.otherdatabases.artist;
+            }
+            break;
+        }
+      }
+      return false;
+    },
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?mainlynorfolk\.info\//, 'https://mainlynorfolk.info/');
       url = url.replace(/^https:\/\/mainlynorfolk\.info\/([^/]+)(?:\/index\.html)?$/, 'https://mainlynorfolk.info/$1/');
@@ -2619,6 +2671,7 @@ const CLEANUPS: CleanupEntries = {
               result: prefix === 'records',
               target: ERROR_TARGETS.RELATIONSHIP,
             };
+          case LINK_TYPES.lyrics.work:
           case LINK_TYPES.otherdatabases.work:
             return {
               result: prefix === 'songs',
@@ -4620,6 +4673,30 @@ entitySpecificRules.recording = function (url) {
   return {result: true};
 };
 
+/**
+ * Merge multiple link types into one object.
+ *
+ * e.g: multiple(LINK_TYPES.downloadfree, LINK_TYPES.streamingfree)
+ * returns: {
+ *   release: [
+ *     LINK_TYPES.downloadfree.release,
+ *     LINK_TYPES.streamingfree.release
+ *   ],
+ *   ...
+ * }
+ */
+// eslint-disable-next-line no-unused-vars
+function multiple(...types): EntityTypesMap {
+  const result = {};
+  types.forEach(function (type: EntityTypeMap) {
+    for (const [entityType, id] of Object.entries(type)) {
+      result[entityType] = result[entityType] || [];
+      result[entityType].push(id);
+    }
+  });
+  return result;
+}
+
 export class Checker {
   url: string;
 
@@ -4641,11 +4718,20 @@ export class Checker {
    * Guess a relationship type or a type combination,
    * return false if it can't be determined.
    */
-  guessType(): string | false {
+  guessType(): RelationshipTypeT | false {
+    const cleanup = this.cleanup;
+    const sourceType = this.entityType;
     const types = this.filterApplicableTypes();
     // If not applicable to current entity
     if (types.length === 0) {
       return false;
+    }
+    // If there is a `select` function, use its return value directly
+    if (cleanup && cleanup.select) {
+      const result = cleanup.select(this.url, sourceType);
+      if (result) {
+        return result;
+      }
     }
     // If there's only one possible type, then select it
     if (types.length === 1) {
@@ -4659,7 +4745,7 @@ export class Checker {
    *
    * Returns possible relationship types of given URL with given entity.
    */
-  getPossibleTypes(): Array<string> | false {
+  getPossibleTypes(): Array<RelationshipTypeT> | false {
     const types = this.filterApplicableTypes();
     // If not applicable to current entity
     if (types.length === 0) {
@@ -4695,9 +4781,12 @@ export class Checker {
       const validation = cleanup.validate
         ? cleanup.validate(this.url, id)
         : {result: true};
-      // Check if given type is specified in `types`
+      /*
+       * Check if given type is specified in `types`,
+       * either as a single type or in a combination.
+       */
       const isRelationshipValid = types.some(
-        type => type === id,
+        ids => typeof ids === 'string' ? ids === id : ids.includes(id),
       );
       validation.result = validation.result && isRelationshipValid;
       return validation;
@@ -4710,11 +4799,11 @@ export class Checker {
 
   filterApplicableTypes(
     sourceType: CoreEntityTypeT = this.entityType,
-  ): Array<string> {
+  ): Array<RelationshipTypeT> {
     if (!this.cleanup || !this.cleanup.restrict) {
       return [];
     }
-    return this.cleanup.restrict.reduce((result, type: EntityTypeMap) => {
+    return this.cleanup.restrict.reduce((result, type: EntityTypesMap) => {
       if (type[sourceType]) {
         result.push(type[sourceType]);
       }

@@ -3,6 +3,32 @@
   commands: [
     {
       command: 'open',
+      target: '/work/create',
+      value: '',
+    },
+    // restrict link type options for URL
+    {
+      command: 'click',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://mainlynorfolk.info/',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('select.link-type > option')).map(x => x.innerText.trim()).toString()",
+      value: ",lyrics page,other databases",
+    },
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[1]//button[contains(@class, 'remove-item')]",
+      value: '',
+    },
+    {
+      command: 'open',
       target: '/artist/create',
       value: '',
     },

@@ -37,6 +37,7 @@ import RemoveButton from './components/RemoveButton';
 import URLInputPopover from './components/URLInputPopover';
 import {linkTypeOptions} from './forms';
 import * as URLCleanup from './URLCleanup';
+import type {RelationshipTypeT} from './URLCleanup';
 import validation from './validation';
 import ExternalLinkAttributeDialog
   from './components/ExternalLinkAttributeDialog';
@@ -154,7 +155,9 @@ export class ExternalLinksEditor
           newLink.type = null;
         }
         if (!newLink.type && guessedType) {
-          newLink.type = linkedEntities.link_type[guessedType].id;
+          if (typeof guessedType === 'string') { // Is a single type
+            newLink.type = linkedEntities.link_type[guessedType].id;
+          }
         }
         newLinks[index] = newLink;
       });
@@ -177,7 +180,6 @@ export class ExternalLinksEditor
     if (url !== unicodeUrl) {
       link.url = unicodeUrl;
     }
-
     let callback = undefined;
     /*
      * Don't add link to list if it's empty,
@@ -569,7 +571,7 @@ export class ExternalLinksEditor
   }
 
   filterTypeOptions(
-    possibleTypes: Array<string> | false,
+    possibleTypes: Array<RelationshipTypeT> | false,
   ): Array<LinkTypeOptionT> {
     if (!possibleTypes) {
       return this.generalLinkTypes;
@@ -580,7 +582,10 @@ export class ExternalLinksEditor
         return true;
       }
       return possibleTypes.some((types) => {
-        return types === option.data.gid;
+        if (typeof types === 'string') {
+          return types === option.data.gid;
+        }
+        return types.includes(option.data.gid);
       });
     });
   }
@@ -645,7 +650,8 @@ export class ExternalLinksEditor
                 }
               }
 
-              link.urlMatchesType = linkType.gid === checker.guessType();
+              link.urlMatchesType = linkType.gid === checker.guessType()
+                && possibleTypes && possibleTypes.length === 1;
             });
             const firstLinkIndex = linkIndexes[0];
 
