@@ -130,12 +130,10 @@ export class ExternalLinksEditor
         }
 
         let newLink = Object.assign({}, newLinks[index], {url, rawUrl});
-        if (!link.type) {
-          const type = URLCleanup.guessType(this.props.sourceType, url);
-
-          if (type) {
-            newLink.type = linkedEntities.link_type[type].id;
-          }
+        const checker = new URLCleanup.Checker(url, this.props.sourceType);
+        const guessedType = checker.guessType();
+        if (!newLink.type && guessedType) {
+          newLink.type = linkedEntities.link_type[guessedType].id;
         }
         newLinks[index] = newLink;
       });
@@ -438,7 +436,10 @@ export class ExternalLinksEditor
     }
   }
 
-  validateLink(link: LinkStateT): ErrorT | null {
+  validateLink(
+    link: LinkStateT,
+    checker?: typeof URLCleanup.Checker,
+  ): ErrorT | null {
     const oldLinks = this.getOldLinksHash();
     const linksByTypeAndUrl = groupBy(
       uniqBy(
@@ -447,11 +448,13 @@ export class ExternalLinksEditor
       ),
       linkTypeAndUrlString,
     );
-    let error = null;
+    let error: ErrorT | null = null;
 
     const linkType = link.type
       ? linkedEntities.link_type[link.type] : {};
-    const checker = URLCleanup.validationRules[linkType.gid];
+    // Use existing checker if possible, otherwise create a new one
+    checker = checker ||
+      new URLCleanup.Checker(link.url, this.props.sourceType);
     const oldLink = oldLinks.get(String(link.relationship));
     const isNewLink = !isPositiveInteger(link.relationship);
     const linkChanged = oldLink && link.url !== oldLink.url;
@@ -518,8 +521,8 @@ export class ExternalLinksEditor
         message: l('This relationship already exists.'),
         target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
       };
-    } else if (isNewOrChangedLink && checker) {
-      const check = checker(link.url);
+    } else if (isNewOrChangedLink) {
+      const check = checker.checkRelationship(linkType.gid);
       if (!check.result) {
         error = {
           message: '',
@@ -580,13 +583,16 @@ export class ExternalLinksEditor
                 {position: duplicate[0].urlIndex + 1},
               ) : '';
 
-            let urlError = null;
+            let urlError: ErrorT | null = null;
+            const checker = new URLCleanup.Checker(
+              url, this.props.sourceType,
+            );
             links.forEach(link => {
               linkIndexes.push(link.index);
               const linkType = link.type
                 ? linkedEntities.link_type[link.type] : {};
               link.url = getUnicodeUrl(link.url);
-              const error = this.validateLink(link);
+              const error = this.validateLink(link, checker);
               if (error) {
                 this.props.errorObservable(true);
                 if (error.target === URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
@@ -596,9 +602,7 @@ export class ExternalLinksEditor
                 }
               }
 
-              link.urlMatchesType = linkType.gid === URLCleanup.guessType(
-                this.props.sourceType, url,
-              );
+              link.urlMatchesType = linkType.gid === checker.guessType();
             });
             const firstLinkIndex = linkIndexes[0];
 
@@ -915,7 +919,7 @@ export class ExternalLink extends React.Component<LinkProps> {
                 {props.url}
               </a>
             )}
-            {props.notice &&
+            {props.url && props.notice &&
               <div
                 className="error field-error"
                 data-visible="1"

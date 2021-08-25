@@ -538,7 +538,9 @@ class Dialog {
   }
 
   linkTypeError() {
-    var linkType = this.relationship().getLinkType();
+    const relationship = this.relationship();
+    const linkType = relationship.getLinkType();
+    const target = relationship.target(this.source);
 
     if (!linkType) {
       return l('Please select a relationship type.');
@@ -552,10 +554,11 @@ class Dialog {
         'This relationship type is deprecated and should not be used.',
       );
     } else if (this.source.entityType === 'url') {
-      var checker = URLCleanup.validationRules[linkType.gid];
+      const url = this.source.name();
+      var checker = new URLCleanup.Checker(url, target.entityType);
 
       if (checker) {
-        const check = checker(this.source.name());
+        const check = checker.checkRelationship(linkType.gid);
         if (!check.result) {
           return check.error ||
           l(

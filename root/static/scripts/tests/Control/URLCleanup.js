@@ -11,8 +11,7 @@ import test from 'tape';
 import {
   LINK_TYPES,
   cleanURL,
-  guessType,
-  validationRules,
+  Checker,
 } from '../../edit/URLCleanup';
 
 /* eslint-disable indent, max-len, sort-keys */
@@ -4713,7 +4712,7 @@ const relationshipTypesByUuid = Object.entries(LINK_TYPES).reduce(function (
   [relationshipType, relUuidByEntityType],
 ) {
   for (const relUuid of Object.values(relUuidByEntityType)) {
-    (results[relUuid] || (results[relUuid] = [])).push(relationshipType);
+    results[relUuid] = relationshipType;
   }
   return results;
 }, {});
@@ -4727,18 +4726,40 @@ function doMatchSubtest(
   label,
   expectedRelationshipType,
 ) {
-  const relUuid = guessType(entityType, url);
-  const actualRelationshipType =
-    relationshipTypesByUuid[relUuid]?.find(function (s) {
-      return s === expectedRelationshipType;
-    });
+  const checker = new Checker(cleanURL(url), entityType);
+  const relUuid = checker.guessType();
+  let actualRelationshipType = relUuid || undefined;
+  if (relUuid && relationshipTypesByUuid[relUuid]) {
+    actualRelationshipType = relationshipTypesByUuid[relUuid];
+  }
+  if (expectedRelationshipType === undefined) {
+    actualRelationshipType = undefined;
+  }
+
+  const msg = 'Match ' + label + ' URL relationship type for ' +
+  entityType + ' entities';
   st.equal(
     actualRelationshipType,
     expectedRelationshipType,
-    'Match ' + label + ' URL relationship type for ' +
-    entityType + ' entities',
+    msg,
   );
   previousMatchTests.push(entityType + '+' + url);
+}
+
+// Test the url with given relationship type combined with every entity.
+function testEntitiesOfType(relationshipType, checker) {
+  let testedRules = 0;
+  const results = Object.entries(LINK_TYPES[relationshipType])
+    .reduce(
+      function (results, [entityType, relUuid]) {
+        const isValid = checker.checkRelationship(relUuid, entityType).result;
+        results[isValid].push(entityType);
+        ++testedRules;
+        return results;
+      },
+      {false: [], true: []},
+    );
+  return {results, testedRules};
 }
 
 testData.forEach(function (subtest, i) {
@@ -4819,18 +4840,11 @@ testData.forEach(function (subtest, i) {
         st.end();
         return;
       }
-      let nbTestedRules = 0;
-      const validationResults = Object.entries(LINK_TYPES[relationshipType])
-        .reduce(
-          function (results, [entityType, relUuid]) {
-            const rule = validationRules[relUuid];
-            const isValid = rule ? rule(cleanUrl).result || false : true;
-            results[isValid].push(entityType);
-            nbTestedRules += rule ? 1 : 0;
-            return results;
-          },
-          {false: [], true: []},
-        );
+      const checker = new Checker(cleanUrl, subtest.input_entity_type);
+      const {
+        results: validationResults,
+        testedRules: nbTestedRules,
+      } = testEntitiesOfType(relationshipType, checker);
       if (nbTestedRules === 0) {
         st.fail(
           'Validation test is worthless: No validation rule has been actually tested.',
