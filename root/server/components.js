@@ -473,6 +473,7 @@ module.exports = {
   'static/scripts/edit/components/edit/RelationshipDiff': require('../static/scripts/edit/components/edit/RelationshipDiff'),
   'static/scripts/edit/components/edit/ReleaseEventsDiff': require('../static/scripts/edit/components/edit/ReleaseEventsDiff'),
   'static/scripts/recording/RecordingName': require('../static/scripts/recording/RecordingName'),
+  'statistics/StatisticsCSS': require('../statistics/StatisticsCSS'),
   'url/UrlHeader': require('../url/UrlHeader'),
   'work/WorkHeader': require('../work/WorkHeader'),
 };

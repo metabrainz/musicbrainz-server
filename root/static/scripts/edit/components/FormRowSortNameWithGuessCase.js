@@ -11,9 +11,11 @@ import * as React from 'react';
 
 import FormRowText from '../../../../components/FormRowText';
 import GuessCase from '../../guess-case/MB/GuessCase/Main';
+import {ARTIST_TYPE_PERSON} from '../../common/constants';
 
 type SortNamedEntityT = {
   +entityType: CoreEntityTypeT,
+  +typeID?: number | null,
   ...
 };
 
@@ -53,10 +55,13 @@ export function runReducer(
       break;
     }
     case 'guess-case-sortname': {
-      const {entityType} = action.entity;
+      const {entityType, typeID} = action.entity;
+      const isPerson =
+        entityType === 'artist' && typeID === ARTIST_TYPE_PERSON;
       newState.sortNameField.value =
         GuessCase.entities[entityType].sortname(
           newState.nameField.value ?? '',
+          isPerson,
         );
       break;
     }
@@ -103,10 +108,10 @@ export const FormRowSortNameWithGuessCase = ({
       required={required}
     >
       <button
-        className="guesscase-title icon"
+        className="guesscase-sortname icon"
         disabled={disabled}
         onClick={handleGuessCase}
-        title={l('Guess case')}
+        title={l('Guess sort name')}
         type="button"
       />
       <button
