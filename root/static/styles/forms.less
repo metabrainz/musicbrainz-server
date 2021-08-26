@@ -629,6 +629,10 @@ table.artist-credit-editor {
     td.link-actions {
         text-align: right;
         padding-right: 0;
+
+        button.remove-item {
+            margin-left: 4px !important;
+        }
     }
 
     .external-link-item {
@@ -644,12 +648,6 @@ table.artist-credit-editor {
                 width: -moz-fit-content !important;
                 width: fit-content !important;
                 min-width: 16px;
-            }
-        }
-
-        td.link-actions {
-            button.edit-item {
-                margin-right: 4px !important;
             }
         }
 
@@ -676,6 +674,10 @@ table.artist-credit-editor {
                 flex: 2 5;
                 text-align: left;
                 white-space: inherit;
+
+                span.date-period {
+                    white-space: nowrap;
+                }
             }
 
             select {
@@ -695,6 +697,14 @@ table.artist-credit-editor {
 
     .add-relationship td {
         padding: 0;
+    }
+}
+
+.external-link-attribute-dialog {
+    span.partial-date {
+        input {
+            width: 4em;
+        }
     }
 }
 

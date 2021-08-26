@@ -108,6 +108,16 @@ import request from '../../common/utility/request';
         editData.attributes = [{type: {gid: VIDEO_ATTRIBUTE_GID}}];
       }
 
+      editData.begin_date = fields.partialDate(link.begin_date);
+      editData.end_date = fields.partialDate(link.end_date);
+
+      if (editData.end_date
+        && Object.values(editData.end_date).some(nonEmpty)) {
+        editData.ended = true;
+      } else {
+        editData.ended = Boolean(value(link.ended));
+      }
+
       return editData;
     },
 

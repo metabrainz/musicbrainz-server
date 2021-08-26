@@ -70,13 +70,14 @@ const RelationshipTargetLinks = ({
   if (hiddenArtistCredit &&
       target.artistCredit &&
       artistCreditsAreEqual(hiddenArtistCredit, target.artistCredit)) {
-    link = <EntityLink content={targetCredit} entity={target} />;
+    link = <EntityLink content={targetCredit} entity={target} showIcon />;
   } else {
     link = (
       <DescriptiveLink
         content={targetCredit}
         disableLink={disableLink}
         entity={target}
+        showIcon
       />
     );
   }

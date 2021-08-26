@@ -207,7 +207,7 @@ const Homepage = ({
             <a href="/doc/How_to_Contribute">{l('How to Contribute')}</a>
           </li>
           <li>
-            <a href="http://tickets.metabrainz.org/">{l('Bug Tracker')}</a>
+            <a href="https://tickets.metabrainz.org/">{l('Bug Tracker')}</a>
           </li>
           <li>
             <a href="https://community.metabrainz.org/">{l('Forums')}</a>
