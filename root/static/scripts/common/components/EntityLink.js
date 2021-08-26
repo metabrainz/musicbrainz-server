@@ -278,6 +278,8 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
           {content}
         </span>
       );
+      // Avoid having the icon *and* the flag
+      showIcon = false;
     }
   }
 
