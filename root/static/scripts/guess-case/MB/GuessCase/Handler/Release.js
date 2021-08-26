@@ -25,10 +25,10 @@ class GuessCaseReleaseHandler extends GuessCaseHandler {
         gc.regexes.RELEASE_UNTITLED = /^([\(\[]?\s*untitled\s*[\)\]]?)$/i;
       }
       if (inputString.match(gc.regexes.RELEASE_UNTITLED)) {
-        return self.specialCaseValues.SPECIALCASE_UNTITLED;
+        return this.specialCaseValues.SPECIALCASE_UNTITLED;
       }
     }
-    return self.specialCaseValues.NOT_A_SPECIALCASE;
+    return this.specialCaseValues.NOT_A_SPECIALCASE;
   }
 
   /*
@@ -58,9 +58,9 @@ class GuessCaseReleaseHandler extends GuessCaseHandler {
    */
   doWord(): boolean {
     (
-      self.doFeaturingArtistStyle() ||
+      this.doFeaturingArtistStyle() ||
       modes[gc.modeName].doWord() ||
-      self.doNormalWord()
+      this.doNormalWord()
     );
     flags.context.number = false;
     return true;
