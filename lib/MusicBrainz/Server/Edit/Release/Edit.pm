@@ -28,6 +28,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     verify_artist_credits
 );
 use MusicBrainz::Server::Entity::PartialDate;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
@@ -49,6 +50,7 @@ sub edit_type { $EDIT_RELEASE_EDIT }
 sub edit_name { N_l('Edit release') }
 sub _edit_model { 'Release' }
 sub release_id { shift->data->{entity}{id} }
+sub edit_template_react { 'EditRelease' }
 
 sub change_fields
 {
@@ -143,29 +145,54 @@ sub build_display_data
     my ($self, $loaded) = @_;
 
     my %map = (
-        packaging => [ qw( packaging_id ReleasePackaging )],
-        status    => [ qw( status_id ReleaseStatus )],
-        group     => [ qw( release_group_id ReleaseGroup )],
-        language  => [ qw( language_id Language )],
-        script    => [ qw( script_id Script )],
-        name      => 'name',
-        comment   => 'comment',
+        packaging       => [ qw( packaging_id ReleasePackaging )],
+        status          => [ qw( status_id ReleaseStatus )],
+        release_group   => [ qw( release_group_id ReleaseGroup )],
+        language        => [ qw( language_id Language )],
+        script          => [ qw( script_id Script )],
+        name            => 'name',
+        comment         => 'comment',
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
 
     if (exists $self->data->{new}{artist_credit}) {
         $data->{artist_credit} = {
-            new => artist_credit_from_loaded_definition($loaded, $self->data->{new}{artist_credit}),
-            old => artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})
+            new => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{new}{artist_credit})),
+            old => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit}))
         }
     }
 
     if (exists $self->data->{new}{barcode}) {
         $data->{barcode} = {
-            new => Barcode->new($self->data->{new}{barcode}),
-            old => Barcode->new($self->data->{old}{barcode}),
+            new => $self->data->{new}{barcode},
+            old => $self->data->{old}{barcode},
         };
+    }
+
+    if (exists $data->{packaging}) {
+        $data->{packaging}{old} = to_json_object($data->{packaging}{old});
+        $data->{packaging}{new} = to_json_object($data->{packaging}{new});
+    }
+
+    if (exists $data->{status}) {
+        $data->{status}{old} = to_json_object($data->{status}{old});
+        $data->{status}{new} = to_json_object($data->{status}{new});
+    }
+
+    if (exists $data->{language}) {
+        $data->{language}{old} = to_json_object($data->{language}{old});
+        $data->{language}{new} = to_json_object($data->{language}{new});
+    }
+
+    if (exists $data->{script}) {
+        $data->{script}{old} = to_json_object($data->{script}{old});
+        $data->{script}{new} = to_json_object($data->{script}{new});
+    }
+
+    if (exists $data->{release_group}) {
+        $data->{release_group}{old} = to_json_object($data->{release_group}{old});
+        $data->{release_group}{new} = to_json_object($data->{release_group}{new});
     }
 
     if (exists $self->data->{new}{events}) {
@@ -181,15 +208,17 @@ sub build_display_data
 
         $data->{events} = {
             map {
-                $_ => [
+                $_ => to_json_array([
                     map { $inflate_event->($_) } @{ $self->data->{$_}{events} }
-                ]
+                ])
             } qw( old new )
         };
     }
 
-    $data->{release} = $loaded->{Release}{ $self->data->{entity}{id} }
-        || Release->new( name => $self->data->{entity}{name} );
+    $data->{release} = to_json_object(
+        $loaded->{Release}{ $self->data->{entity}{id} } ||
+        Release->new( name => $self->data->{entity}{name} )
+    );
 
     return $data;
 }
