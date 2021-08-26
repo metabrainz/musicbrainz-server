@@ -58,7 +58,7 @@ type LinkTypeOptionT = {
 
 export type LinkStateT = {
   ...DatePeriodRoleT,
-  pendingTypes?: Array<number>,
+  pendingTypes?: $ReadOnlyArray<number>,
   rawUrl: string,
   // New relationships will use a unique string ID like "new-1".
   relationship: StrOrNum | null,
@@ -79,21 +79,21 @@ export type LinkRelationshipT = LinkStateT & {
 };
 
 type LinksEditorProps = {
-  errorObservable: (boolean) => void,
-  initialLinks: Array<LinkStateT>,
-  sourceType: CoreEntityTypeT,
-  typeOptions: Array<LinkTypeOptionT>,
+  +errorObservable: (boolean) => void,
+  +initialLinks: $ReadOnlyArray<LinkStateT>,
+  +sourceType: CoreEntityTypeT,
+  +typeOptions: $ReadOnlyArray<LinkTypeOptionT>,
 };
 
 type LinksEditorState = {
-  links: Array<LinkStateT>,
+  links: $ReadOnlyArray<LinkStateT>,
 };
 
 export class ExternalLinksEditor
   extends React.Component<LinksEditorProps, LinksEditorState> {
   tableRef: {current: HTMLTableElement | null};
 
-  generalLinkTypes: Array<LinkTypeOptionT>;
+  generalLinkTypes: $ReadOnlyArray<LinkTypeOptionT>;
 
   constructor(props: LinksEditorProps) {
     super(props);
@@ -124,7 +124,7 @@ export class ExternalLinksEditor
   }
 
   handleUrlChange(
-    linkIndexes: Array<number>,
+    linkIndexes: $ReadOnlyArray<number>,
     urlIndex: number,
     rawUrl: string,
   ) {
@@ -358,7 +358,7 @@ export class ExternalLinksEditor
     });
   }
 
-  removeLinks(indexes: Array<number>, urlIndex: number) {
+  removeLinks(indexes: $ReadOnlyArray<number>, urlIndex: number) {
     this.setState(prevState => {
       const newLinks = [...prevState.links];
       // Iterate from the end to avoid messing up indexes
@@ -620,8 +620,8 @@ export class ExternalLinksEditor
   }
 
   filterTypeOptions(
-    possibleTypes: Array<RelationshipTypeT> | false,
-  ): Array<LinkTypeOptionT> {
+    possibleTypes: $ReadOnlyArray<RelationshipTypeT> | false,
+  ): $ReadOnlyArray<LinkTypeOptionT> {
     if (!possibleTypes) {
       return this.generalLinkTypes;
     }
@@ -786,12 +786,12 @@ export class ExternalLinksEditor
 }
 
 type LinkTypeSelectProps = {
-  children: Array<React.Element<'option'> | null>,
-  handleTypeBlur:
+  +children: Array<React.Element<'option'> | null>,
+  +handleTypeBlur:
     (SyntheticFocusEvent<HTMLSelectElement>) => void,
-  handleTypeChange:
+  +handleTypeChange:
     (SyntheticEvent<HTMLSelectElement>) => void,
-  type: number | null,
+  +type: number | null,
 };
 
 class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
@@ -811,8 +811,8 @@ class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
 }
 
 type TypeDescriptionProps = {
-  type: number | null,
-  url: string,
+  +type: number | null,
+  +url: string,
 };
 
 const TypeDescription =
@@ -837,17 +837,16 @@ const TypeDescription =
   };
 
 type ExternalLinkRelationshipProps = {
-  hasUrlError: boolean,
-  isOnlyRelationship: boolean,
-  link: LinkRelationshipT,
-  onAttributesChange: (number, DatePeriodRoleT) => void,
-  onLinkRemove: (number) => void,
-  onTypeBlur: (number, SyntheticFocusEvent<HTMLSelectElement>) => void,
-  onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
-  onVideoChange:
-  (number, SyntheticEvent<HTMLInputElement>) => void,
-  typeOptions: Array<LinkTypeOptionT>,
-  urlMatchesType: boolean,
+  +hasUrlError: boolean,
+  +isOnlyRelationship: boolean,
+  +link: LinkRelationshipT,
+  +onAttributesChange: (number, DatePeriodRoleT) => void,
+  +onLinkRemove: (number) => void,
+  +onTypeBlur: (number, SyntheticFocusEvent<HTMLSelectElement>) => void,
+  +onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
+  +onVideoChange: (number, SyntheticEvent<HTMLInputElement>) => void,
+  +typeOptions: $ReadOnlyArray<LinkTypeOptionT>,
+  +urlMatchesType: boolean,
 };
 
 const ExternalLinkRelationship =
@@ -966,29 +965,29 @@ const ExternalLinkRelationship =
   };
 
 type LinkProps = {
-  cleanupUrl: (string) => string,
-  error: ErrorT | null,
-  handleAttributesChange: (number, DatePeriodRoleT) => void,
-  handleLinkRemove: (number) => void,
-  handleLinkSubmit: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
-  handleUrlBlur: (SyntheticFocusEvent<HTMLInputElement>) => void,
-  handleUrlChange: (string) => void,
-  index: number,
-  isLastLink: boolean,
-  isOnlyLink: boolean,
-  notice: string,
-  onAddRelationship: (string) => void,
-  onTypeBlur: (number, SyntheticFocusEvent<HTMLSelectElement>) => void,
-  onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
-  onUrlRemove: () => void,
-  onVideoChange:
+  +cleanupUrl: (string) => string,
+  +error: ErrorT | null,
+  +handleAttributesChange: (number, DatePeriodRoleT) => void,
+  +handleLinkRemove: (number) => void,
+  +handleLinkSubmit: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
+  +handleUrlBlur: (SyntheticFocusEvent<HTMLInputElement>) => void,
+  +handleUrlChange: (string) => void,
+  +index: number,
+  +isLastLink: boolean,
+  +isOnlyLink: boolean,
+  +notice: string,
+  +onAddRelationship: (string) => void,
+  +onTypeBlur: (number, SyntheticFocusEvent<HTMLSelectElement>) => void,
+  +onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
+  +onUrlRemove: () => void,
+  +onVideoChange:
     (number, SyntheticEvent<HTMLInputElement>) => void,
-  rawUrl: string,
-  relationships: Array<LinkRelationshipT>,
-  typeOptions: Array<LinkTypeOptionT>,
-  url: string,
-  urlMatchesType: boolean,
-  validateLink: (LinkStateT) => ErrorT | null,
+  +rawUrl: string,
+  +relationships: $ReadOnlyArray<LinkRelationshipT>,
+  +typeOptions: $ReadOnlyArray<LinkTypeOptionT>,
+  +url: string,
+  +urlMatchesType: boolean,
+  +validateLink: (LinkStateT) => ErrorT | null,
 };
 
 export class ExternalLink extends React.Component<LinkProps> {
@@ -1254,7 +1253,7 @@ export function parseRelationships(
 }
 
 function groupLinksByUrl(
-  links: Array<LinkStateT>,
+  links: $ReadOnlyArray<LinkStateT>,
 ): Map<string, Array<LinkRelationshipT>> {
   const map = new Map();
   let urlIndex = 0;
