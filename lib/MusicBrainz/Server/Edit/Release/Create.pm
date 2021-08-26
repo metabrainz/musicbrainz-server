@@ -111,9 +111,9 @@ sub build_display_data
         release_group => (defined($self->data->{release_group_id}) &&
                            to_json_object($loaded->{ReleaseGroup}{ $self->data->{release_group_id} } ||
                                ReleaseGroup->new( name => l('[removed]') ))),
-        release       => (defined($self->entity_id) &&
-                              to_json_object($loaded->{Release}{ $self->entity_id } ||
-                                  Release->new( name => $self->data->{name} ))),
+        release       => to_json_object(defined($self->entity_id) &&
+                            $loaded->{Release}{ $self->entity_id } ||
+                            Release->new( name => $self->data->{name} )),
         events => to_json_array([
             map {
                 MusicBrainz::Server::Entity::ReleaseEvent->new(

@@ -23,8 +23,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-08-12 16:31+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-08-19 01:03+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -944,13 +944,6 @@ msgid ""
 "drone and melody strings operated by buttons or keys."
 msgstr ""
 
-#. name:seni rebab
-#: DB:instrument/description:1014
-msgid ""
-"Developed in India during medieval times by Tansen, making it larger, with a"
-" longer neck and giving it metal sympathetic strings."
-msgstr ""
-
 #. name:violin family
 #: DB:instrument/description:59
 msgid ""
@@ -1393,6 +1386,14 @@ msgid ""
 "metal curled mouth piece."
 msgstr ""
 
+#. name:sursingar
+#: DB:instrument/description:816
+msgid ""
+"Improved further by Jaffar Khan, it had a wooden soundboard, the fingerboard"
+" covered with iron and all strings are steel or bronze.<br /> Less common "
+"today, it was used for Dhrupad style music."
+msgstr ""
+
 #. name:morsing
 #: DB:instrument/description:533
 msgid "Indian mouth harp, played in Carnatic and Rajastani folk music."
@@ -1621,6 +1622,15 @@ msgid ""
 "Larger orchestral version of chimes, closed top hollow metal tubes are set "
 "in a stand with a damper operated by pedals, they are tuned at a definite "
 "pitch and played with mallets."
+msgstr ""
+
+#. name:seni rebab
+#: DB:instrument/description:1014
+msgid ""
+"Larger, with a longer neck than the kabuli rabab, it has a hide covered "
+"soundbox and wooden fingerboard with mostly gut strings, it was developed "
+"during medieval times by Tansen, who improved it and gave it metal "
+"sympathetic strings."
 msgstr ""
 
 #. name:jegogan
@@ -5239,13 +5249,6 @@ msgstr "Guimbarde mongole en bambou, traditionnellement jouée par les filles."
 #: DB:instrument/description:810
 msgid "used in folkmedisine and shamanistic rituals"
 msgstr "Guimbarde mongole en métal, traditionnellement jouée dans les rituels chamaniques."
-
-#. name:sursingar
-#: DB:instrument/description:816
-msgid ""
-"used in the Hindustani style Dhrupad music, it has steel and bronze strings "
-"and is played with a metal pick."
-msgstr "Grand luth indien dérivé du sarod, utilisé dans le dhrupad, style musical classique hindoustani. Ses cordes sont en fer et en bronze et peuvent être jouée avec un plectre métallique."
 
 #. name:analog synthesizer
 #: DB:instrument/description:813

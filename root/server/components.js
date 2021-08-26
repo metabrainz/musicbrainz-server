@@ -374,6 +374,7 @@ module.exports = {
   'edit/details/EditRecording': require('../edit/details/EditRecording'),
   'edit/details/EditRelationship': require('../edit/details/EditRelationship'),
   'edit/details/EditRelationshipAttribute': require('../edit/details/EditRelationshipAttribute'),
+  'edit/details/EditRelease': require('../edit/details/EditRelease'),
   'edit/details/EditReleaseGroup': require('../edit/details/EditReleaseGroup'),
   'edit/details/EditReleaseLabel': require('../edit/details/EditReleaseLabel'),
   'edit/details/EditSeries': require('../edit/details/EditSeries'),
@@ -401,6 +402,7 @@ module.exports = {
   'edit/details/RemoveRelationshipType': require('../edit/details/RemoveRelationshipType'),
   'edit/details/RemoveReleaseLabel': require('../edit/details/RemoveReleaseLabel'),
   'edit/details/ReorderCoverArt': require('../edit/details/ReorderCoverArt'),
+  'edit/details/ReorderMediums': require('../edit/details/ReorderMediums'),
   'edit/details/ReorderRelationships': require('../edit/details/ReorderRelationships'),
   'edit/details/SetCoverArt': require('../edit/details/SetCoverArt'),
   'edit/details/historic/AddDiscId': require('../edit/details/historic/AddDiscId'),
@@ -472,6 +474,7 @@ module.exports = {
   'static/scripts/edit/components/edit/RelationshipDiff': require('../static/scripts/edit/components/edit/RelationshipDiff'),
   'static/scripts/edit/components/edit/ReleaseEventsDiff': require('../static/scripts/edit/components/edit/ReleaseEventsDiff'),
   'static/scripts/recording/RecordingName': require('../static/scripts/recording/RecordingName'),
+  'statistics/StatisticsCSS': require('../statistics/StatisticsCSS'),
   'url/UrlHeader': require('../url/UrlHeader'),
   'work/WorkHeader': require('../work/WorkHeader'),
 };

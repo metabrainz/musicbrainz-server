@@ -1111,18 +1111,18 @@ msgid "Controls"
 msgstr "Bediening"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:39
-#: ../root/statistics/StatisticsLayout.js:51
+#: ../root/statistics/StatisticsLayout.js:52
 msgid "Countries"
 msgstr "Landen"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/CoverArt.js:66
-#: ../root/statistics/StatisticsLayout.js:61 ../root/statistics/stats.js:17
+#: ../root/statistics/StatisticsLayout.js:62 ../root/statistics/stats.js:17
 msgid "Cover Art"
 msgstr "Afbeelding(en)"
 
 #: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
-#: ../root/statistics/StatisticsLayout.js:97
-#: ../root/statistics/StatisticsLayout.js:110
+#: ../root/statistics/StatisticsLayout.js:98
+#: ../root/statistics/StatisticsLayout.js:111
 msgid "Database Statistics"
 msgstr "Statistieken over MusicBrainz"
 
@@ -1136,13 +1136,13 @@ msgstr "Trek een rechthoek op een grafiek"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:98
 #: ../root/statistics/Editors.js:109 ../root/statistics/Index.js:924
-#: ../root/statistics/StatisticsLayout.js:81
+#: ../root/statistics/StatisticsLayout.js:82
 msgid "Editors"
 msgstr "Redacteurs"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:36
 #: ../root/statistics/Edits.js:40 ../root/statistics/Edits.js:49
-#: ../root/statistics/Index.js:1048 ../root/statistics/StatisticsLayout.js:71
+#: ../root/statistics/Index.js:1048 ../root/statistics/StatisticsLayout.js:72
 #: ../root/statistics/stats.js:184
 msgid "Edits"
 msgstr "Bewerkingen"
@@ -1151,7 +1151,7 @@ msgstr "Bewerkingen"
 msgid "Exact Values (items vs. day)"
 msgstr "Exacte waardes (objecten uitgezet tegen de datum)"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:76
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:77
 #: ../root/statistics/stats.js:19
 msgid "Formats"
 msgstr "Mediumtypes"
@@ -1160,7 +1160,7 @@ msgstr "Mediumtypes"
 msgid "Hover and click on vertical lines"
 msgstr "Beweeg over de verticale lijnen en klik er op"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:56
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:57
 msgid "Languages/Scripts"
 msgstr "Talen/Schriften"
 
@@ -1177,7 +1177,7 @@ msgid "MusicBrainz Events:"
 msgstr "Gebeurtenissen op MusicBrainz:"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:81
-#: ../root/statistics/StatisticsLayout.js:46
+#: ../root/statistics/StatisticsLayout.js:47
 msgid "Overview"
 msgstr "Overzicht"
 
@@ -1191,7 +1191,7 @@ msgstr "Veranderingssnelheidsgrafiek"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Relationships.js:97
 #: ../root/statistics/Relationships.js:102
-#: ../root/statistics/StatisticsLayout.js:66 ../root/statistics/stats.js:23
+#: ../root/statistics/StatisticsLayout.js:67 ../root/statistics/stats.js:23
 #: ../root/statistics/stats.js:33
 msgid "Relationships"
 msgstr "Relaties"
@@ -1200,7 +1200,7 @@ msgstr "Relaties"
 msgid "Reset:"
 msgstr "Originele grootte:"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:86
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:87
 msgid "Timeline"
 msgstr "Tijdslijn"
 
@@ -2939,6 +2939,6 @@ msgstr "l_{first}_{second}-relaties"
 msgid "{script} releases"
 msgstr "uitgaven in het {script} schrift"
 
-#: ../root/statistics/utilities.js:39
+#: ../root/statistics/utilities.js:42
 msgid "See on timeline"
 msgstr "Op de tijdslijn bekijken"

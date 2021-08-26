@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-08-16 14:08+0000\n"
+"PO-Revision-Date: 2021-08-19 08:27+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -935,13 +935,6 @@ msgid ""
 "drone and melody strings operated by buttons or keys."
 msgstr "Sviluppato a partire dal <a href=\"/instrument/1975ee04-30de-4835-9656-102ccd49c0c7\">taishogoto</a> giapponese, è realizzato in legno e spesso ha un contenitore integrale. Ha due ordini di corde, melodiche e bordone, azionate attraverso bottoni o tasti."
 
-#. name:seni rebab
-#: DB:instrument/description:1014
-msgid ""
-"Developed in India during medieval times by Tansen, making it larger, with a"
-" longer neck and giving it metal sympathetic strings."
-msgstr "Sviluppato da Tansen nell'India medievale, rendendolo più grande, con un manico più lungo e con corde simpatiche in metallo."
-
 #. name:violin family
 #: DB:instrument/description:59
 msgid ""
@@ -1384,6 +1377,14 @@ msgid ""
 "metal curled mouth piece."
 msgstr "Migliorato da Johann Christoph Denner attorno al 1730, la sua sezione \"a serpente attorcigliato\" ora è conica, e in più è suonato tramite un bocchino rimovibile in metallo."
 
+#. name:sursingar
+#: DB:instrument/description:816
+msgid ""
+"Improved further by Jaffar Khan, it had a wooden soundboard, the fingerboard"
+" covered with iron and all strings are steel or bronze.<br /> Less common "
+"today, it was used for Dhrupad style music."
+msgstr "Ulteriormente migliorato da Jaffar Khan, aveva una tavola armonica in legno, una tastiera ricoperta in ferro e corde tutte in acciaio o in bronzo.<br /> Oggi meno comune, era usato per la musica di stile dhrupad."
+
 #. name:morsing
 #: DB:instrument/description:533
 msgid "Indian mouth harp, played in Carnatic and Rajastani folk music."
@@ -1613,6 +1614,15 @@ msgid ""
 "in a stand with a damper operated by pedals, they are tuned at a definite "
 "pitch and played with mallets."
 msgstr "Versione più grande e orchestrale dei chimes, è composta da tubi cavi in metallo chiusi nella parte superiore, disposti su un supporto con uno smorzatore a pedale. Sono intonate su un tono preciso e suonate con delle mazzuole."
+
+#. name:seni rebab
+#: DB:instrument/description:1014
+msgid ""
+"Larger, with a longer neck than the kabuli rabab, it has a hide covered "
+"soundbox and wooden fingerboard with mostly gut strings, it was developed "
+"during medieval times by Tansen, who improved it and gave it metal "
+"sympathetic strings."
+msgstr "Grande e con un manico più lungo del kabuli rabab, ha una cassa di risonanza ricoperta di pelle e una tastiera in legno con corde perlopiù in budello. Fu sviluppato in epoca medievale da Tansen, che lo migliorò dandogli corde simpatiche in metallo."
 
 #. name:jegogan
 #: DB:instrument/description:979
@@ -5230,13 +5240,6 @@ msgstr "Usato per canzoni tradizionali, soprattutto da ragazzine."
 #: DB:instrument/description:810
 msgid "used in folkmedisine and shamanistic rituals"
 msgstr "Usato nella medicina tradizionale e per rituali sciamanici."
-
-#. name:sursingar
-#: DB:instrument/description:816
-msgid ""
-"used in the Hindustani style Dhrupad music, it has steel and bronze strings "
-"and is played with a metal pick."
-msgstr "Usato nella musica indostana di stile dhrupad, ha corde in acciaio e in bronzo ed è suonato con un plettro in metallo."
 
 #. name:analog synthesizer
 #: DB:instrument/description:813
