@@ -127,6 +127,26 @@ test('Artist', function (t) {
   }
 });
 
+test('Instrument', function (t) {
+  t.plan(1);
+
+  const tests = [
+    {
+      input: 'This Instrument',
+      expected: 'this instrument',
+      message: 'Instrument guess case lowercases name',
+    },
+  ];
+
+  for (const test of tests) {
+    t.equal(
+      gc.entities.instrument.guess(test.input),
+      test.expected,
+      test.message,
+    );
+  }
+});
+
 test('Label', function (t) {
   t.plan(6);
 
@@ -167,6 +187,35 @@ test('Recording', function (t) {
   for (const test of tests) {
     t.equal(
       gc.entities.recording.guess(test.input),
+      test.expected,
+      test.message,
+    );
+  }
+});
+
+test('Release', function (t) {
+  t.plan(2);
+
+  const tests = [
+    {
+      input: 'All The Piano Sonatas',
+      expected: 'All the Piano Sonatas',
+      message: 'Release guess case runs correctly (English)',
+      mode: 'English',
+    },
+    {
+      input: 'Todas Las Sonatas Para Piano',
+      expected: 'Todas las sonatas para piano',
+      message: 'Release guess case runs correctly (Sentence)',
+      mode: 'Sentence',
+    },
+  ];
+
+  for (const test of tests) {
+    gc.modeName = test.mode;
+
+    t.equal(
+      gc.entities.release.guess(test.input),
       test.expected,
       test.message,
     );
