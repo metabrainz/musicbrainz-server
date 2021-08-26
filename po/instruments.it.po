@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-08-16 13:27+0000\n"
+"PO-Revision-Date: 2021-08-19 01:03+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -3583,7 +3583,7 @@ msgid "surdo"
 msgstr "surdo"
 
 #: DB:instrument/name:816
-msgctxt "large lute-sarod from India"
+msgctxt "19th century large North-Indian dhrupad bass-sarod"
 msgid "sursingar"
 msgstr "sursingar"
 

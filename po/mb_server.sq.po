@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-12 19:29+0300\n"
-"PO-Revision-Date: 2021-08-12 16:31+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"POT-Creation-Date: 2021-08-25 22:12-0500\n"
+"PO-Revision-Date: 2021-08-26 03:28+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -105,10 +105,6 @@ msgstr "''të pjerrëta''; '''të trasha'''; '''''të trasha të pjerrëta''''';
 msgid "(add a new recording)"
 msgstr "(shtoni incizim të ri)"
 
-#: ../root/edit/details/add_release.tt:22
-msgid "(new release group)"
-msgstr "(grup i ri hedhjeje në qarkullim)"
-
 #: ../root/release/add_cover_art.tt:127
 msgid "(no other cover art)"
 msgstr "(S’ka kopertinë tjetër)"
@@ -125,7 +121,7 @@ msgstr "(qe media {position}: {name} në hedhjen në qarkullim {release})"
 #: ../root/components/ReleaseLanguageScript.js:24
 #: ../root/components/ReleaseLanguageScript.js:30
 #: ../root/components/list/ReleaseList.js:100 ../root/release/CoverArt.js:92
-#: ../root/release_group/ReleaseGroupIndex.js:76
+#: ../root/release_group/ReleaseGroupIndex.js:90
 #: ../root/search/components/ReleaseResults.js:55
 #: ../root/static/scripts/common/components/ReleaseEvents.js:55
 #: ../root/static/scripts/common/components/ReleaseEvents.js:72
@@ -138,7 +134,7 @@ msgstr ""
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
 #: ../root/edit/details/merge_releases.tt:23 ../root/release/merge.tt:16
 #: ../root/recording/RecordingIndex.js:57
-#: ../root/release_group/ReleaseGroupIndex.js:144
+#: ../root/release_group/ReleaseGroupIndex.js:159
 #: ../root/search/components/ReleaseResults.js:103
 #: ../root/utility/tableColumns.js:480 ../root/utility/tableColumns.js:488
 msgctxt "and"
@@ -436,7 +432,7 @@ msgstr "Lejo emrin “{editor_name}” të ripërdoret."
 msgid "Allows dates:"
 msgstr "Data të lejuara:"
 
-#: ../root/components/common-macros.tt:869
+#: ../root/components/common-macros.tt:865
 msgid ""
 "An entity with that name and disambiguation already exists. You must enter a"
 " unique disambiguation comment."
@@ -604,12 +600,13 @@ msgstr "Zona"
 #: ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:35
 #: ../root/artist/ArtistHeader.js:34
-#: ../root/components/RelationshipsTable.js:318
+#: ../root/components/RelationshipsTable.js:320
 #: ../root/components/list/ArtistList.js:68
 #: ../root/components/list/RecordingList.js:109
 #: ../root/components/list/ReleaseGroupList.js:95
 #: ../root/components/list/ReleaseList.js:83
 #: ../root/edit/details/AddArtist.js:60 ../root/edit/details/AddMedium.js:181
+#: ../root/edit/details/AddRelease.js:73
 #: ../root/edit/details/AddReleaseGroup.js:61
 #: ../root/edit/details/AddStandaloneRecording.js:60
 #: ../root/edit/details/EditArtist.js:77
@@ -622,6 +619,7 @@ msgstr "Zona"
 #: ../root/edit/details/historic/AddTrackKV.js:55
 #: ../root/edit/details/historic/EditTrack.js:45 ../root/isrc/Index.js:67
 #: ../root/layout/components/Search.js:26
+#: ../root/release_group/ReleaseGroupIndex.js:156
 #: ../root/report/DuplicateArtists.js:65
 #: ../root/report/DuplicateReleaseGroups.js:61
 #: ../root/report/IsrcsWithManyRecordings.js:59
@@ -666,7 +664,6 @@ msgstr "Artist {n}:"
 #: ../root/cdstub/edit_form.tt:6 ../root/cdstub/import.tt:7
 #: ../root/cdtoc/attach_filter_artist.tt:8 ../root/cdtoc/lookup.tt:74
 #: ../root/components/common-macros.tt:552
-#: ../root/edit/details/add_release.tt:15
 #: ../root/edit/details/edit_release.tt:17
 #: ../root/release/edit/information.tt:26
 #: ../root/release/edit/tracklist.tt:110
@@ -740,7 +737,7 @@ msgstr "Auto-përpunues"
 msgid "Auto-edits by {name}"
 msgstr "Auto-përpunime nga {name}"
 
-#: ../root/components/common-macros.tt:840
+#: ../root/components/common-macros.tt:836
 #: ../root/static/scripts/common/components/OrderableDirection.js:30
 msgid "Backward"
 msgstr "Mbrapsht"
@@ -754,24 +751,24 @@ msgstr "Përpunues mesazhesh banderolë"
 #: ../root/cdtoc/lookup.tt:46 ../root/edit/details/merge_releases.tt:26
 #: ../root/release/edit/duplicates.tt:17 ../root/release/merge.tt:19
 #: ../root/components/list/ReleaseList.js:128
+#: ../root/edit/details/AddRelease.js:129
+#: ../root/edit/details/EditBarcodes.js:58
+#: ../root/edit/details/EditBarcodes.js:64
+#: ../root/edit/details/EditReleaseLabel.js:134
 #: ../root/edit/details/historic/AddRelease.js:152
 #: ../root/edit/details/historic/EditReleaseEvents.js:138
 #: ../root/otherlookup/OtherLookupForm.js:64
-#: ../root/release_group/ReleaseGroupIndex.js:147
+#: ../root/release_group/ReleaseGroupIndex.js:162
 #: ../root/report/ReleasesSameBarcode.js:42
 #: ../root/search/components/ReleaseResults.js:106
 msgid "Barcode"
 msgstr "Kod me vija"
 
-#: ../root/cdstub/edit_form.tt:7 ../root/edit/details/add_release.tt:67
-#: ../root/edit/details/edit_barcodes.tt:17
-#: ../root/edit/details/edit_barcodes.tt:21
-#: ../root/edit/details/edit_release.tt:55
-#: ../root/edit/details/edit_release_label.tt:62
+#: ../root/cdstub/edit_form.tt:7 ../root/edit/details/edit_release.tt:55
 #: ../root/release/edit/information.tt:216
 #: ../root/release_group/set_cover_art.tt:62
 #: ../root/layout/components/sidebar/CDStubSidebar.js:76
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:142
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:140
 msgid "Barcode:"
 msgstr "Kod me vija:"
 
@@ -823,7 +820,7 @@ msgstr "Bëhuni pjesë e MusicBrainz-it duke krijuar një llogari dhe {how|duke 
 msgid "Begin Area:"
 msgstr "Zonë Fillimi:"
 
-#: ../root/artist/edit_form.tt:38 ../root/components/common-macros.tt:713
+#: ../root/artist/edit_form.tt:38 ../root/components/common-macros.tt:709
 #: ../root/components/forms.tt:212
 #: ../root/components/relationship-editor.tt:159 ../root/event/edit_form.tt:33
 #: ../root/artist/utils.js:34
@@ -845,12 +842,12 @@ msgstr "Më poshtë gjenden të dhënat e gabimit. Nëse dëshironi të depozito
 msgid "Bio:"
 msgstr "Jetëshkrim:"
 
-#: ../root/layout.tt:116 ../root/layout/components/ExternalLinks.js:120
+#: ../root/layout.tt:116 ../root/layout/components/ExternalLinks.js:118
 #: ../root/layout/components/Footer.js:32
 msgid "Blog"
 msgstr "Blog"
 
-#: ../root/components/common-macros.tt:713 ../root/artist/utils.js:26
+#: ../root/components/common-macros.tt:709 ../root/artist/utils.js:26
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:61
 msgid "Born:"
 msgstr "Lindur më:"
@@ -939,7 +936,8 @@ msgstr "Mund të miratohet"
 #: ../root/release_group/ReleaseGroupMerge.js:55
 #: ../root/series/SeriesMerge.js:54
 #: ../root/static/scripts/common/components/FilterForm.js:156
-#: ../root/static/scripts/edit/components/URLInputPopover.js:119
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:203
+#: ../root/static/scripts/edit/components/URLInputPopover.js:120
 #: ../root/work/WorkMerge.js:68
 msgid "Cancel"
 msgstr "Anuloje"
@@ -969,8 +967,8 @@ msgstr "Captcha e pasaktë. Riprovoni."
 #: ../root/edit/details/edit_relationship_type.tt:55
 #: ../root/relationship/linktype/form.tt:26
 #: ../root/relationship/linktype/form.tt:31
-#: ../root/edit/details/AddRelationshipType.js:158
-#: ../root/edit/details/AddRelationshipType.js:171
+#: ../root/edit/details/AddRelationshipType.js:157
+#: ../root/edit/details/AddRelationshipType.js:170
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:119
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:127
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:94
@@ -982,19 +980,12 @@ msgstr ""
 msgid "Cat. No:"
 msgstr "Kat. Nr:"
 
-#: ../root/edit/details/edit_release_label.tt:25
-#: ../root/edit/details/edit_release_label.tt:30
-#: ../root/edit/details/AddReleaseLabel.js:54
-#: ../root/edit/details/RemoveReleaseLabel.js:50
-msgid "Catalog number:"
-msgstr "Numër katalogu:"
-
 #: ../root/cdtoc/attach_artist_releases.tt:18
 #: ../root/cdtoc/attach_filter_release.tt:32 ../root/cdtoc/list.tt:12
 #: ../root/cdtoc/lookup.tt:45 ../root/edit/details/merge_releases.tt:25
 #: ../root/release/edit/duplicates.tt:16 ../root/release/merge.tt:18
 #: ../root/recording/RecordingIndex.js:59
-#: ../root/release_group/ReleaseGroupIndex.js:146
+#: ../root/release_group/ReleaseGroupIndex.js:161
 #: ../root/search/components/ReleaseResults.js:105
 #: ../root/utility/tableColumns.js:456 ../root/utility/tableColumns.js:461
 msgid "Catalog#"
@@ -1063,10 +1054,6 @@ msgid ""
 "Click the radio button to select the appropriate artist, or click the "
 "artist’s name to get more info."
 msgstr ""
-
-#: ../root/edit/details/edit_barcodes.tt:5 ../root/edit/details/AddIsrcs.js:40
-msgid "Client:"
-msgstr "Klient:"
 
 #: ../root/release/edit/tracklist.tt:237 ../root/release/edit/tracklist.tt:266
 msgid "Close"
@@ -1143,7 +1130,7 @@ msgid "Copy all track titles to associated recordings."
 msgstr "Kopjo krejt tituj pjesësh te incizime të përshoqëruara."
 
 #: ../root/components/forms.tt:242
-#: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:118
+#: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:121
 msgid "Copy name"
 msgstr "Kopjoji emrin"
 
@@ -1163,17 +1150,17 @@ msgstr ""
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
 #: ../root/cdtoc/lookup.tt:43 ../root/edit/details/merge_releases.tt:23
 #: ../root/release/edit/duplicates.tt:14 ../root/release/merge.tt:16
+#: ../root/edit/details/EditReleaseLabel.js:123
 #: ../root/edit/details/historic/AddRelease.js:149
 #: ../root/edit/details/historic/EditReleaseEvents.js:135
 #: ../root/recording/RecordingIndex.js:57
-#: ../root/release_group/ReleaseGroupIndex.js:144
+#: ../root/release_group/ReleaseGroupIndex.js:159
 #: ../root/search/components/ReleaseResults.js:103
 #: ../root/static/scripts/common/components/FilterForm.js:110
 #: ../root/utility/tableColumns.js:476 ../root/utility/tableColumns.js:488
 msgid "Country"
 msgstr "Vend"
 
-#: ../root/edit/details/edit_release_label.tt:45
 #: ../root/release/edit/information.tt:150
 #: ../root/release_group/set_cover_art.tt:41
 msgid "Country:"
@@ -1250,12 +1237,13 @@ msgstr "Të dhëna:"
 #: ../root/admin/statistics-events/DeleteStatisticsEvent.js:31
 #: ../root/admin/statistics-events/StatisticsEventEditForm.js:35
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:30
-#: ../root/components/RelationshipsTable.js:314
+#: ../root/components/RelationshipsTable.js:316
+#: ../root/edit/details/EditReleaseLabel.js:115
 #: ../root/edit/details/historic/AddRelease.js:148
 #: ../root/edit/details/historic/EditReleaseEvents.js:134
 #: ../root/elections/ElectionVotes.js:26
 #: ../root/recording/RecordingIndex.js:57
-#: ../root/release_group/ReleaseGroupIndex.js:144
+#: ../root/release_group/ReleaseGroupIndex.js:159
 #: ../root/search/components/EventResults.js:67
 #: ../root/search/components/ReleaseResults.js:103
 #: ../root/static/scripts/common/components/FilterForm.js:129
@@ -1266,11 +1254,10 @@ msgstr "Datë"
 
 #: ../root/artist/edit_form.tt:34 ../root/components/forms.tt:208
 #: ../root/event/edit_form.tt:29
-#: ../root/static/scripts/edit/components/DateRangeFieldset.js:172
+#: ../root/static/scripts/edit/components/DateRangeFieldset.js:173
 msgid "Date Period"
 msgstr "Periudhë Datash"
 
-#: ../root/edit/details/edit_release_label.tt:39
 #: ../root/release/edit/information.tt:124
 #: ../root/release_group/set_cover_art.tt:37
 #: ../root/layout/components/sidebar/EventSidebar.js:57
@@ -1279,7 +1266,7 @@ msgstr "Datë:"
 
 #: ../root/artist/edit_form.tt:36 ../root/components/forms.tt:210
 #: ../root/event/edit_form.tt:31
-#: ../root/static/scripts/edit/components/DateRangeFieldset.js:174
+#: ../root/static/scripts/edit/components/DateRangeFieldset.js:175
 msgid ""
 "Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
 "YYYY are OK, or you can omit the date entirely."
@@ -1322,6 +1309,7 @@ msgstr "Nxjerrë nga përdorimi:"
 #: ../root/edit/details/EditRelationshipAttribute.js:86
 #: ../root/edit/details/EditRelationshipAttribute.js:92
 #: ../root/edit/details/EditUrl.js:73
+#: ../root/edit/details/RemoveRelationshipAttribute.js:49
 #: ../root/edit/details/RemoveRelationshipType.js:68
 #: ../root/instrument/InstrumentIndex.js:35
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:107
@@ -1333,7 +1321,6 @@ msgid "Description"
 msgstr "Përshkrim"
 
 #: ../root/edit/details/edit_relationship_type.tt:16
-#: ../root/edit/details/remove_relationship_attribute.tt:7
 #: ../root/instrument/edit_form.tt:13
 #: ../root/relationship/linkattributetype/form.tt:15
 #: ../root/relationship/linktype/form.tt:20
@@ -1347,17 +1334,12 @@ msgstr "Përshkrim:"
 msgid "Details"
 msgstr "Hollësi"
 
-#: ../root/components/common-macros.tt:717 ../root/artist/utils.js:57
+#: ../root/components/common-macros.tt:713 ../root/artist/utils.js:57
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:62
 msgid "Died:"
 msgstr "Vdekur në:"
 
-#: ../root/edit/details/change_wikidoc.tt:35
-msgid "Diff"
-msgstr "Diff"
-
 #: ../root/area/edit_form.tt:10 ../root/artist/edit_form.tt:14
-#: ../root/edit/details/add_release.tt:32
 #: ../root/edit/details/edit_release.tt:27 ../root/event/edit_form.tt:13
 #: ../root/instrument/edit_form.tt:10 ../root/label/edit_form.tt:13
 #: ../root/place/edit_form.tt:13 ../root/recording/edit_form.tt:33
@@ -1367,6 +1349,7 @@ msgstr "Diff"
 #: ../root/edit/details/AddArtist.js:82 ../root/edit/details/AddEvent.js:61
 #: ../root/edit/details/AddInstrument.js:65
 #: ../root/edit/details/AddLabel.js:74 ../root/edit/details/AddPlace.js:59
+#: ../root/edit/details/AddRelease.js:92
 #: ../root/edit/details/AddReleaseGroup.js:71
 #: ../root/edit/details/AddSeries.js:51
 #: ../root/edit/details/AddStandaloneRecording.js:67
@@ -1412,7 +1395,7 @@ msgstr "ID Disku:"
 msgid "Disc IDs"
 msgstr "ID Disku"
 
-#: ../root/components/common-macros.tt:717
+#: ../root/components/common-macros.tt:713
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:74
 msgid "Dissolved:"
 msgstr ""
@@ -1433,8 +1416,9 @@ msgstr "Dhuroni"
 #: ../root/components/relationship-editor.tt:7
 #: ../root/release/edit/macros.tt:54
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:159
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:215
 #: ../root/static/scripts/edit/components/GuessCaseOptionsPopover.js:67
-#: ../root/static/scripts/edit/components/URLInputPopover.js:130
+#: ../root/static/scripts/edit/components/URLInputPopover.js:131
 msgid "Done"
 msgstr "U krye"
 
@@ -1629,7 +1613,7 @@ msgstr "Fund"
 msgid "End Area:"
 msgstr "Zonë Mbarimi:"
 
-#: ../root/artist/edit_form.tt:51 ../root/components/common-macros.tt:717
+#: ../root/artist/edit_form.tt:51 ../root/components/common-macros.tt:713
 #: ../root/components/forms.tt:214
 #: ../root/components/relationship-editor.tt:163 ../root/event/edit_form.tt:35
 #: ../root/artist/utils.js:65
@@ -1642,7 +1626,7 @@ msgid "Endpoint:"
 msgstr ""
 
 #: ../root/components/forms.tt:258 ../root/components/forms.tt:283
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:112
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:111
 msgid "English"
 msgstr "Anglisht"
 
@@ -1769,7 +1753,7 @@ msgstr "Lidhje të Jashtme"
 msgid "Failed edits by {name}"
 msgstr "Përpunime të dështuara nga {name}"
 
-#: ../root/components/common-macros.tt:833
+#: ../root/components/common-macros.tt:829
 #: ../root/static/scripts/common/components/Cardinality.js:22
 msgid "Few relationships"
 msgstr "Pak marrëdhënie"
@@ -1821,19 +1805,19 @@ msgstr "Për më tepër të dhëna, kontrolloni {doc_doc|dokumentimin}."
 #: ../root/release/edit/duplicates.tt:11 ../root/release/merge.tt:14
 #: ../root/components/list/ReleaseList.js:93
 #: ../root/edit/details/EditMedium.js:530
+#: ../root/edit/details/EditReleaseLabel.js:141
 #: ../root/edit/details/historic/AddRelease.js:153
 #: ../root/edit/details/historic/EditReleaseEvents.js:139
-#: ../root/release_group/ReleaseGroupIndex.js:142
+#: ../root/release_group/ReleaseGroupIndex.js:157
 #: ../root/report/components/CDTocList.js:46
 #: ../root/search/components/ReleaseResults.js:101
 msgid "Format"
 msgstr "Format"
 
-#: ../root/edit/details/edit_release_label.tt:68
 #: ../root/release/edit/tracklist.tt:305
 #: ../root/release_group/set_cover_art.tt:46
 #: ../root/edit/details/AddMedium.js:149
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:148
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:146
 msgid "Format:"
 msgstr "Format:"
 
@@ -1842,7 +1826,7 @@ msgstr "Format:"
 msgid "Forums"
 msgstr "Forume"
 
-#: ../root/components/common-macros.tt:840
+#: ../root/components/common-macros.tt:836
 #: ../root/static/scripts/common/components/OrderableDirection.js:27
 msgid "Forward"
 msgstr ""
@@ -1879,7 +1863,7 @@ msgid_plural "Found {n} results for \"{q}\""
 msgstr[0] "U gjet {n} përfundim për \"{q}\""
 msgstr[1] "U gjetën {n} përfundime për \"{q}\""
 
-#: ../root/components/common-macros.tt:713
+#: ../root/components/common-macros.tt:709
 #: ../root/layout/components/sidebar/LabelSidebar.js:68
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:73
 msgid "Founded:"
@@ -1890,7 +1874,7 @@ msgid "FreeDB:"
 msgstr "FreeDB:"
 
 #: ../root/components/forms.tt:260 ../root/components/forms.tt:285
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:114
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:113
 msgid "French"
 msgstr "Frëngjisht"
 
@@ -1918,7 +1902,6 @@ msgstr "Zhanër:"
 #: ../root/components/forms.tt:228 ../root/release/edit/information.tt:14
 #: ../root/release/edit/tracklist.tt:486
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:153
-#: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:111
 msgid "Guess case"
 msgstr ""
 
@@ -1937,7 +1920,7 @@ msgid "Guess case medium title"
 msgstr ""
 
 #: ../root/components/forms.tt:232 ../root/release/edit/information.tt:16
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:110
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:109
 #: ../root/static/scripts/edit/components/GuessCaseOptionsPopover.js:26
 msgid "Guess case options"
 msgstr ""
@@ -1957,6 +1940,7 @@ msgid "Guess feat. artists from track titles"
 msgstr ""
 
 #: ../root/components/forms.tt:241
+#: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:114
 msgid "Guess sort name"
 msgstr ""
 
@@ -1994,7 +1978,7 @@ msgstr "E fshehur duhet përdorur për gjuhë me shenja dhe gjuhë pa kod ISO 63
 
 #: ../root/components/common-macros.tt:602
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:240
-#: ../root/static/scripts/common/constants.js:277
+#: ../root/static/scripts/common/constants.js:279
 msgid "High"
 msgstr ""
 
@@ -2317,7 +2301,7 @@ msgid "Javascript is required for this page to work properly."
 msgstr "Që kjo faqe të funksionojë si duhet, lypset Javascript-i."
 
 #: ../root/components/forms.tt:267 ../root/components/forms.tt:292
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:132
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:131
 msgid "Keep all-uppercase words uppercased"
 msgstr "Mbajini me shkronja të mëdha krejt fjalët e shkruara ashtu"
 
@@ -2354,11 +2338,12 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
 #: ../root/components/list/LabelList.js:54 ../root/edit/details/AddLabel.js:51
 #: ../root/edit/details/EditLabel.js:62
+#: ../root/edit/details/EditReleaseLabel.js:67
 #: ../root/edit/details/historic/AddRelease.js:150
 #: ../root/edit/details/historic/EditReleaseEvents.js:136
 #: ../root/label/LabelHeader.js:27 ../root/layout/components/Search.js:39
 #: ../root/recording/RecordingIndex.js:58
-#: ../root/release_group/ReleaseGroupIndex.js:145
+#: ../root/release_group/ReleaseGroupIndex.js:160
 #: ../root/report/ReleaseLabelSameArtist.js:29
 #: ../root/report/components/LabelList.js:44
 #: ../root/report/components/LabelUrlList.js:35
@@ -2389,7 +2374,6 @@ msgid "Label ratings"
 msgstr ""
 
 #: ../root/components/common-macros.tt:552
-#: ../root/edit/details/edit_release_label.tt:13
 #: ../root/release/edit/information.tt:173
 #: ../root/release_group/set_cover_art.tt:52
 #: ../root/edit/details/AddReleaseLabel.js:46
@@ -2400,17 +2384,16 @@ msgstr "Etiketë:"
 #: ../root/components/common-macros.tt:586 ../root/area/AreaLabels.js:31
 #: ../root/area/AreaLabels.js:32 ../root/components/EntityTabs.js:28
 #: ../root/components/TagEntitiesList.js:174
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:219
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:217
 #: ../root/report/ReportsIndex.js:168
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:23
 #: ../root/tag/TagLayout.js:30
 msgid "Labels"
 msgstr "Etiketa"
 
-#: ../root/edit/details/add_release.tt:46
 #: ../root/edit/details/edit_release.tt:35
 #: ../root/release/edit/information.tt:110
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:193
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:191
 msgid "Language:"
 msgstr "Gjuhë:"
 
@@ -2421,7 +2404,7 @@ msgstr ""
 #: ../root/cdstub/cdstub.tt:9 ../root/cdtoc/attach_confirm.tt:14
 #: ../root/cdtoc/info.tt:33 ../root/release/discids.tt:10
 #: ../root/release/edit/tracklist.tt:164 ../root/release/edit/tracklist.tt:413
-#: ../root/components/RelationshipsTable.js:319
+#: ../root/components/RelationshipsTable.js:321
 #: ../root/components/list/RecordingList.js:118
 #: ../root/edit/details/AddStandaloneRecording.js:73
 #: ../root/edit/details/EditMedium.js:362
@@ -2439,7 +2422,7 @@ msgstr "Gjatësi"
 
 #: ../root/recording/edit_form.tt:35 ../root/recording/edit_form.tt:38
 #: ../root/layout/components/sidebar/RecordingSidebar.js:51
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:154
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:152
 msgid "Length:"
 msgstr "Gjatësi:"
 
@@ -2452,8 +2435,8 @@ msgid "Lines start with a track number"
 msgstr "Rreshtat fillojnë me numër pjese"
 
 #: ../root/edit/details/edit_relationship_type.tt:21
-#: ../root/edit/details/AddRelationshipType.js:128
-#: ../root/edit/details/RemoveRelationshipType.js:100
+#: ../root/edit/details/AddRelationshipType.js:127
+#: ../root/edit/details/RemoveRelationshipType.js:99
 msgid "Link phrase:"
 msgstr ""
 
@@ -2492,8 +2475,8 @@ msgstr "Hyni"
 
 #: ../root/edit/details/edit_relationship_type.tt:29
 #: ../root/relationship/linktype/form.tt:15
-#: ../root/edit/details/AddRelationshipType.js:144
-#: ../root/edit/details/RemoveRelationshipType.js:124
+#: ../root/edit/details/AddRelationshipType.js:143
+#: ../root/edit/details/RemoveRelationshipType.js:123
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:158
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:79
 msgid "Long link phrase:"
@@ -2513,7 +2496,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:602
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:240
-#: ../root/static/scripts/common/constants.js:274
+#: ../root/static/scripts/common/constants.js:276
 msgid "Low"
 msgstr ""
 
@@ -2548,7 +2531,7 @@ msgstr "Sigurohuni që krejt mediat te hedhjet në qarkullim që po përzihen ja
 msgid "Manual entry"
 msgstr "Futje dorazi"
 
-#: ../root/components/common-macros.tt:833
+#: ../root/components/common-macros.tt:829
 #: ../root/static/scripts/common/components/Cardinality.js:25
 msgid "Many relationships"
 msgstr "Shumë marrëdhënie"
@@ -2558,7 +2541,7 @@ msgid "Matching CDs"
 msgstr "CD me përputhje"
 
 #: ../root/cdtoc/attach_confirm.tt:7 ../root/cdtoc/lookup.tt:40
-#: ../root/cdtoc/set_durations.tt:10 ../root/components/common-macros.tt:678
+#: ../root/cdtoc/set_durations.tt:10 ../root/components/common-macros.tt:674
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:8
 #: ../root/edit/details/EditMedium.js:505
 #: ../root/edit/details/RemoveMedium.js:36
@@ -2566,26 +2549,6 @@ msgstr "CD me përputhje"
 #: ../root/static/scripts/common/utility/mediumFormatName.js:14
 msgid "Medium"
 msgstr "Media"
-
-#: ../root/edit/details/reorder_mediums.tt:32
-msgid ""
-"Medium <span class=\"new\">{new}</span> (moved from position <span "
-"class=\"old\">{old}</span>)"
-msgstr "Media <span class=\"new\">{new}</span> (e lëvizur nga pozicioni <span class=\"old\">{old}</span>)"
-
-#: ../root/edit/details/reorder_mediums.tt:29
-msgid "Medium <span class=\"new\">{new}</span> (new medium)"
-msgstr "Meda <span class=\"new\">{new}</span> (media e re)"
-
-#: ../root/edit/details/reorder_mediums.tt:26
-msgid ""
-"Medium <span class=\"new\">{new}</span>: {title} (moved from position <span "
-"class=\"old\">{old}</span>)"
-msgstr "Media <span class=\"new\">{new}</span>: {title} (e lëvizur nga pozicioni <span class=\"old\">{old}</span>)"
-
-#: ../root/edit/details/reorder_mediums.tt:23
-msgid "Medium <span class=\"new\">{new}</span>: {title} (new medium)"
-msgstr "Media <span class=\"new\">{new}</span>: {title} (media e re)"
 
 #: ../root/release/edit/tracklist.tt:318
 msgid "Medium title:"
@@ -2611,8 +2574,8 @@ msgstr "Media {position}: {name} tani është media {new_position}"
 msgid "Medium {position}: {name} is now medium {new_position}: {new_name}"
 msgstr "Media {position}: {name} tani është media {new_position}: {new_name}"
 
-#: ../root/edit/details/reorder_mediums.tt:17
 #: ../root/edit/details/set_track_lengths.tt:5
+#: ../root/edit/details/ReorderMediums.js:56
 msgid "Mediums:"
 msgstr "Media:"
 
@@ -2722,6 +2685,7 @@ msgstr "Vota ime:"
 #: ../root/edit/details/AddLabel.js:61 ../root/edit/details/AddPlace.js:54
 #: ../root/edit/details/AddRelationshipAttribute.js:48
 #: ../root/edit/details/AddRelationshipType.js:88
+#: ../root/edit/details/AddRelease.js:68
 #: ../root/edit/details/AddReleaseGroup.js:56
 #: ../root/edit/details/AddSeries.js:46
 #: ../root/edit/details/AddStandaloneRecording.js:56
@@ -2735,6 +2699,7 @@ msgstr "Vota ime:"
 #: ../root/edit/details/EditRelationshipAttribute.js:76
 #: ../root/edit/details/EditReleaseGroup.js:57
 #: ../root/edit/details/EditSeries.js:54 ../root/edit/details/EditWork.js:66
+#: ../root/edit/details/RemoveRelationshipAttribute.js:41
 #: ../root/edit/details/RemoveRelationshipType.js:60
 #: ../root/edit/details/historic/AddRelease.js:62
 #: ../root/edit/details/historic/AddRelease.js:116
@@ -2763,10 +2728,9 @@ msgstr "Vota ime:"
 msgid "Name"
 msgstr "Emër"
 
-#: ../root/components/forms.tt:226 ../root/edit/details/add_release.tt:10
+#: ../root/components/forms.tt:226
 #: ../root/edit/details/edit_relationship_type.tt:11
 #: ../root/edit/details/edit_release.tt:11
-#: ../root/edit/details/remove_relationship_attribute.tt:3
 #: ../root/relationship/linkattributetype/form.tt:12
 #: ../root/relationship/linktype/form.tt:12
 #: ../root/relationship/linktype/form.tt:77
@@ -2805,10 +2769,6 @@ msgstr "Lloj i Ri Marrëdhënieje"
 msgid "New medium title:"
 msgstr ""
 
-#: ../root/edit/details/change_wikidoc.tt:17
-msgid "New page"
-msgstr "Faqe e re"
-
 #: ../root/account/change_password.tt:21
 msgid "New password:"
 msgstr "Fjalëkalimi i ri:"
@@ -2816,12 +2776,6 @@ msgstr "Fjalëkalimi i ri:"
 #: ../root/release/merge.tt:72
 msgid "New position:"
 msgstr "Pozicion i ri:"
-
-#: ../root/edit/details/change_wikidoc.tt:23
-#: ../root/edit/details/change_wikidoc.tt:28
-#: ../root/admin/wikidoc/EditWikiDoc.js:48
-msgid "New version:"
-msgstr "Version i ri:"
 
 #: ../root/components/paginator.tt:44 ../root/components/paginator.tt:46
 #: ../root/release/edit/macros.tt:53 ../root/components/Paginator.js:141
@@ -2892,7 +2846,7 @@ msgstr "S’ka votë"
 msgid "Nobody has left notes on any of your edits in the past three months."
 msgstr "Askush s’ka lënë shënime në ndonjë nga përpunimet tuaj në tre muajt e fundit."
 
-#: ../root/components/common-macros.tt:840
+#: ../root/components/common-macros.tt:836
 #: ../root/edit/components/EditHeader.js:124
 #: ../root/edit/components/Vote.js:107
 #: ../root/static/scripts/common/components/OrderableDirection.js:24
@@ -2913,8 +2867,8 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:602
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:240
-#: ../root/static/scripts/common/constants.js:275
-#: ../root/static/scripts/common/constants.js:276
+#: ../root/static/scripts/common/constants.js:277
+#: ../root/static/scripts/common/constants.js:278
 msgid "Normal"
 msgstr "Normal"
 
@@ -2959,11 +2913,6 @@ msgstr ""
 #: ../root/account/change_password.tt:20
 msgid "Old password:"
 msgstr "Fjalëkalimi i vjetër:"
-
-#: ../root/edit/details/change_wikidoc.tt:11
-#: ../root/edit/details/change_wikidoc.tt:16
-msgid "Old version:"
-msgstr "Version i vjetër:"
 
 #: ../root/release_group/set_cover_art.tt:13
 msgid ""
@@ -3021,7 +2970,7 @@ msgstr "Ose…"
 
 #: ../root/edit/details/edit_relationship_type.tt:61
 #: ../root/relationship/linktype/form.tt:37
-#: ../root/edit/details/AddRelationshipType.js:183
+#: ../root/edit/details/AddRelationshipType.js:182
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:134
 msgid "Orderable direction:"
 msgstr ""
@@ -3040,16 +2989,11 @@ msgstr "Përmbledhje"
 msgid "PDF file"
 msgstr "Kartelë PDF"
 
-#: ../root/edit/details/add_release.tt:60
 #: ../root/edit/details/edit_release.tt:51
 #: ../root/release/edit/information.tt:234
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:172
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:170
 msgid "Packaging:"
 msgstr "Paketim:"
-
-#: ../root/edit/details/change_wikidoc.tt:29
-msgid "Page removed"
-msgstr "Faqja është hequr"
 
 #: ../root/admin/wikidoc/create.tt:9 ../root/admin/wikidoc/CreateWikiDoc.js:38
 #: ../root/admin/wikidoc/EditWikiDoc.js:39
@@ -3247,7 +3191,7 @@ msgstr[1] "Vlerësim: {rating} yje"
 
 #: ../root/user/ratings_summary.tt:1 ../root/user/ratings_summary.tt:33
 #: ../root/components/UserAccountTabs.js:60 ../root/entity/Ratings.js:36
-#: ../root/entity/Ratings.js:38
+#: ../root/entity/Ratings.js:38 ../root/user/UserProfile.js:764
 msgid "Ratings"
 msgstr "Vlerësime"
 
@@ -3382,14 +3326,17 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:37
 #: ../root/components/list/ReleaseList.js:76
 #: ../root/edit/details/AddCoverArt.js:36
-#: ../root/edit/details/AddMedium.js:126
+#: ../root/edit/details/AddMedium.js:126 ../root/edit/details/AddRelease.js:54
 #: ../root/edit/details/ChangeReleaseQuality.js:34
+#: ../root/edit/details/EditBarcodes.js:51
 #: ../root/edit/details/EditCoverArt.js:51
+#: ../root/edit/details/EditReleaseLabel.js:58
 #: ../root/edit/details/RemoveCoverArt.js:35
 #: ../root/edit/details/ReorderCoverArt.js:45
+#: ../root/edit/details/ReorderMediums.js:39
 #: ../root/edit/details/historic/EditReleaseEvents.js:133
 #: ../root/layout/components/Search.js:31
-#: ../root/release_group/ReleaseGroupIndex.js:141
+#: ../root/release_group/ReleaseGroupIndex.js:155
 #: ../root/report/components/CDTocReleaseList.js:46
 #: ../root/report/components/ReleaseList.js:49
 #: ../root/report/components/ReleaseUrlList.js:37
@@ -3412,8 +3359,6 @@ msgstr "Përsëdytje Hedhjeje Në Qarkullim"
 
 #: ../root/components/common-macros.tt:569 ../root/edit/search_macros.tt:417
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:36
-#: ../root/edit/details/AddReleaseGroup.js:43
-#: ../root/edit/details/EditReleaseGroup.js:50
 #: ../root/layout/components/Search.js:32
 #: ../root/report/DuplicateReleaseGroups.js:62
 #: ../root/report/ReleaseRgDifferentName.js:32
@@ -3476,12 +3421,6 @@ msgstr "Marrëdhënie Hedhjeje Në Qarkullim"
 msgid "Release event"
 msgstr "Veprimtari hedhjeje në qarkullim"
 
-#: ../root/edit/details/add_release.tt:74
-#: ../root/edit/details/edit_release_label.tt:51
-#: ../root/static/scripts/edit/components/edit/ReleaseEventsDiff.js:120
-msgid "Release events:"
-msgstr "Veprimtari hedhjeje në qarkullim:"
-
 #: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
 msgid "Release group ratings"
 msgstr "Vlerësime grupi hedhjesh në qarkullim"
@@ -3492,14 +3431,13 @@ msgid "Release group “{name}” by {artist}"
 msgstr "Grup hedhjeje në qarkullim “{name}” nga {artist}"
 
 #: ../root/components/common-macros.tt:552
-#: ../root/edit/details/add_release.tt:20
 #: ../root/edit/details/historic/ChangeReleaseGroup.js:35
 #: ../root/edit/details/historic/MoveReleaseToReleaseGroup.js:38
 msgid "Release group:"
 msgstr "Grup hedhjeje në qarkullim:"
 
 #: ../root/release/edit/information.tt:3
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:137
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:135
 msgid "Release information"
 msgstr "Të dhëna hedhjeje në qarkullim"
 
@@ -3513,11 +3451,7 @@ msgid "Release “{name}” by {artist}"
 msgstr "Hedhje në qarkullim “{name}” nga {artist}"
 
 #: ../root/components/common-macros.tt:552
-#: ../root/edit/details/add_release.tt:3
-#: ../root/edit/details/edit_barcodes.tt:12
 #: ../root/edit/details/edit_release.tt:6
-#: ../root/edit/details/edit_release_label.tt:6
-#: ../root/edit/details/reorder_mediums.tt:4
 #: ../root/release/edit/tracklist.tt:105
 #: ../root/edit/details/AddReleaseLabel.js:37
 #: ../root/edit/details/RemoveReleaseLabel.js:37
@@ -3534,7 +3468,7 @@ msgstr "Hedhje në qarkullim:"
 #: ../root/components/TagEntitiesList.js:186
 #: ../root/components/list/ReleaseGroupList.js:107
 #: ../root/instrument/InstrumentReleases.js:36
-#: ../root/instrument/InstrumentReleases.js:38 ../root/label/LabelIndex.js:58
+#: ../root/instrument/InstrumentReleases.js:38 ../root/label/LabelIndex.js:80
 #: ../root/report/ReportsIndex.js:242
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:29
 #: ../root/tag/TagLayout.js:27
@@ -3630,8 +3564,8 @@ msgstr "Hiqni Grup Hedhjeje Në Qarkullim "
 msgid "Remove attribute"
 msgstr "Hiqni atribut"
 
-#: ../root/components/common-macros.tt:882
-#: ../root/components/common-macros.tt:890
+#: ../root/components/common-macros.tt:878
+#: ../root/components/common-macros.tt:886
 #: ../root/components/RemoveFromMergeTableCell.js:39
 #: ../root/utility/tableColumns.js:781 ../root/utility/tableColumns.js:791
 msgid "Remove from merge"
@@ -3697,8 +3631,8 @@ msgstr "Tregoje adresën time email"
 
 #: ../root/edit/details/edit_relationship_type.tt:25
 #: ../root/relationship/linktype/form.tt:14
-#: ../root/edit/details/AddRelationshipType.js:136
-#: ../root/edit/details/RemoveRelationshipType.js:112
+#: ../root/edit/details/AddRelationshipType.js:135
+#: ../root/edit/details/RemoveRelationshipType.js:111
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:153
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:72
 msgid "Reverse link phrase:"
@@ -3726,10 +3660,9 @@ msgstr ""
 msgid "Save"
 msgstr "Ruaje"
 
-#: ../root/edit/details/add_release.tt:53
 #: ../root/edit/details/edit_release.tt:39
 #: ../root/release/edit/information.tt:112
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:202
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:200
 msgid "Script:"
 msgstr "Shkrim:"
 
@@ -3745,7 +3678,7 @@ msgstr "Shkrim:"
 #: ../root/search/SearchIndex.js:32 ../root/search/components/SearchForm.js:97
 #: ../root/static/scripts/common/components/Autocomplete2.js:658
 #: ../root/static/scripts/common/components/Autocomplete2.js:677
-#: ../root/static/scripts/common/components/SearchIcon.js:14
+#: ../root/static/scripts/common/components/SearchIcon.js:16
 #: ../root/taglookup/Form.js:55
 msgid "Search"
 msgstr "Kërkim"
@@ -3832,7 +3765,7 @@ msgid "Send a copy to my own email address"
 msgstr "Dërgo një kopje te adresa ime email"
 
 #: ../root/components/forms.tt:259 ../root/components/forms.tt:284
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:113
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:112
 msgid "Sentence"
 msgstr "Fjali"
 
@@ -3965,10 +3898,10 @@ msgstr "Gjendje"
 msgid "Status:"
 msgstr "Gjendje:"
 
-#: ../root/edit/details/add_release.tt:39
 #: ../root/edit/details/edit_release.tt:31
+#: ../root/edit/details/AddRelease.js:99
 #: ../root/edit/details/historic/AddRelease.js:83
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:183
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:181
 msgctxt "release status"
 msgid "Status:"
 msgstr "Gjendje:"
@@ -4037,10 +3970,10 @@ msgstr ""
 #: ../root/cdtoc/attach_artist_releases.tt:21
 #: ../root/cdtoc/attach_filter_release.tt:35 ../root/cdtoc/list.tt:15
 #: ../root/recording/RecordingIndex.js:62
-#: ../root/release_group/ReleaseGroupIndex.js:149
+#: ../root/release_group/ReleaseGroupIndex.js:164
 #: ../root/search/components/RecordingResults.js:134
 #: ../root/search/components/ReleaseResults.js:112
-#: ../root/static/scripts/common/components/TaggerIcon.js:39
+#: ../root/static/scripts/common/components/TaggerIcon.js:40
 #: ../root/utility/tableColumns.js:834
 msgid "Tagger"
 msgstr "Etiketues"
@@ -4403,7 +4336,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:302
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:696
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:286
-#: ../root/static/scripts/common/components/EntityLink.js:266
+#: ../root/static/scripts/common/components/EntityLink.js:287
 msgid "This recording is a video"
 msgstr "Ky regjistrim është një video"
 
@@ -4412,6 +4345,7 @@ msgid "This relationship allows setting dates"
 msgstr "Kjo marrëdhënie lejon caktim datash"
 
 #: ../root/components/relationship-editor.tt:176
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:191
 msgid "This relationship has ended."
 msgstr "Kjo marrëdhënie ka përfunduar."
 
@@ -4461,12 +4395,12 @@ msgid ""
 "isn’t meant to be a vinyl, or your vinyl isn’t actually a shellac disc."
 msgstr ""
 
-#: ../root/components/common-macros.tt:851
+#: ../root/components/common-macros.tt:847
 #: ../root/static/scripts/common/components/DataTrackIcon.js:15
 msgid "This track is a data track."
 msgstr "Kjo pistë është pistë të dhënash."
 
-#: ../root/components/common-macros.tt:847
+#: ../root/components/common-macros.tt:843
 #: ../root/static/scripts/common/components/PregapTrackIcon.js:15
 msgid "This track is hidden in the pregap."
 msgstr ""
@@ -4511,7 +4445,7 @@ msgstr "Kohë:"
 #: ../root/admin/statistics-events/DeleteStatisticsEvent.js:35
 #: ../root/admin/statistics-events/StatisticsEventEditForm.js:41
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:31
-#: ../root/components/RelationshipsTable.js:315
+#: ../root/components/RelationshipsTable.js:317
 #: ../root/components/list/ReleaseGroupList.js:90
 #: ../root/edit/details/EditMedium.js:360
 #: ../root/edit/details/EditMedium.js:364 ../root/isrc/Index.js:66
@@ -4624,7 +4558,7 @@ msgstr "Listë pjesësh"
 #: ../root/artist_credit/ArtistCreditLayout.js:31
 #: ../root/components/list/ReleaseList.js:103
 #: ../root/edit/details/historic/AddRelease.js:110
-#: ../root/release_group/ReleaseGroupIndex.js:143
+#: ../root/release_group/ReleaseGroupIndex.js:158
 #: ../root/search/components/CDStubResults.js:49
 #: ../root/search/components/ReleaseResults.js:102
 msgid "Tracks"
@@ -4647,7 +4581,7 @@ msgid "Transclusion editor"
 msgstr "Përpunues ndërpërfshirjesh"
 
 #: ../root/components/forms.tt:261 ../root/components/forms.tt:286
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:115
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:114
 msgid "Turkish"
 msgstr "Turqisht"
 
@@ -4695,12 +4629,12 @@ msgstr "Twitter"
 #: ../root/search/components/SeriesResults.js:54
 #: ../root/search/components/WorkResults.js:54
 #: ../root/static/scripts/account/components/ApplicationForm.js:87
-#: ../root/static/scripts/alias/AliasEditForm.js:357
+#: ../root/static/scripts/alias/AliasEditForm.js:329
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:83
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:874
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:447
 #: ../root/static/scripts/common/components/FilterForm.js:63
-#: ../root/static/scripts/edit/externalLinks.js:683
+#: ../root/static/scripts/edit/externalLinks.js:739
 #: ../root/utility/tableColumns.js:613 ../root/utility/tableColumns.js:618
 msgid "Type"
 msgstr "Lloj"
@@ -4713,7 +4647,7 @@ msgstr "Lloj"
 #: ../root/work/edit_form.tt:14
 #: ../root/layout/components/sidebar/CollectionSidebar.js:47
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:55
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:166
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:164
 #: ../root/layout/components/sidebar/SidebarType.js:26
 #: ../root/search/components/SearchForm.js:81
 msgid "Type:"
@@ -4766,7 +4700,7 @@ msgstr "URL-ra"
 msgid "Unable to parse the tracklist you entered."
 msgstr ""
 
-#: ../root/components/common-macros.tt:833
+#: ../root/components/common-macros.tt:829
 #: ../root/report/DuplicateArtists.js:107
 #: ../root/report/DuplicateReleaseGroups.js:95
 #: ../root/report/components/ArtistList.js:56
@@ -4793,7 +4727,7 @@ msgid "Uploading image..."
 msgstr "Po ngarkohet figurë…"
 
 #: ../root/components/forms.tt:272 ../root/components/forms.tt:297
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:141
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:140
 msgid "Uppercase Roman numerals"
 msgstr ""
 
@@ -4886,10 +4820,6 @@ msgstr "Shihni krejt vlerësimet"
 msgid "View annotation history."
 msgstr "Shihni historik shënimi."
 
-#: ../root/edit/details/change_wikidoc.tt:36
-msgid "View diff"
-msgstr "Shihni diff-in"
-
 #: ../root/edit/data.tt:32
 msgid "View the human-readable rendering instead."
 msgstr ""
@@ -4908,7 +4838,7 @@ msgid "Voter"
 msgstr "Votues"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/index.tt:23
-#: ../root/user/UserProfile.js:616
+#: ../root/user/UserProfile.js:629
 msgid "Votes"
 msgstr "Vota"
 
@@ -4930,7 +4860,7 @@ msgstr "Periudhë votimi (ditë)"
 
 #: ../root/release/edit/tracklist.tt:345
 #: ../root/static/scripts/common/components/Warning.js:30
-#: ../root/static/scripts/common/components/WarningIcon.js:14
+#: ../root/static/scripts/common/components/WarningIcon.js:16
 msgid "Warning"
 msgstr "Sinjalizim"
 
@@ -5012,10 +4942,6 @@ msgstr "Wiki"
 #: ../root/edit/search_macros.tt:391
 msgid "Wiki Transcluder"
 msgstr "Ndërpërfshirës Wiki"
-
-#: ../root/edit/details/change_wikidoc.tt:4
-msgid "WikiDoc:"
-msgstr "WikiDoc:"
 
 #: ../root/components/common-macros.tt:569 ../root/edit/search_macros.tt:417
 #: ../lib/MusicBrainz/Server/Edit/Work.pm:9
@@ -5206,7 +5132,7 @@ msgstr ""
 msgid "You must be logged in to vote on edits."
 msgstr ""
 
-#: ../root/components/common-macros.tt:868
+#: ../root/components/common-macros.tt:864
 msgid "You must enter a disambiguation comment for this entity."
 msgstr ""
 
@@ -5288,7 +5214,7 @@ msgstr ""
 
 #: ../root/edit/details/merge_releases.tt:5
 #: ../root/components/list/ReleaseList.js:90
-#: ../root/release_group/ReleaseGroupIndex.js:75
+#: ../root/release_group/ReleaseGroupIndex.js:89
 #: ../root/search/components/ReleaseResults.js:50
 #: ../root/static/scripts/release-editor/duplicates.js:143
 msgid "[missing media]"
@@ -5296,7 +5222,7 @@ msgstr "[mungon media]"
 
 #: ../root/components/common-macros.tt:259
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:86
-#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:111
+#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:113
 #: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:87
 #: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:186
 #: ../root/edit/details/EditAlias.js:94
@@ -5354,7 +5280,7 @@ msgid "by"
 msgstr ""
 
 #: ../root/components/common-macros.tt:178
-#: ../root/static/scripts/common/components/EntityLink.js:70
+#: ../root/static/scripts/common/components/EntityLink.js:89
 msgid "cancelled"
 msgstr "anuluar"
 
@@ -5423,7 +5349,7 @@ msgstr "nga {date} në tani"
 #: ../root/edit/search_macros.tt:189 ../root/release/edit/tracklist.tt:3
 #: ../root/release/edit/tracklist.tt:83 ../root/release/edit/tracklist.tt:316
 #: ../root/release/edit/tracklist.tt:454 ../root/release/edit/tracklist.tt:469
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:120
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:119
 msgid "help"
 msgstr "ndihmë"
 
@@ -5432,17 +5358,17 @@ msgid "hide tracklist"
 msgstr "fshihe listën e pjesëve"
 
 #: ../root/components/common-macros.tt:169
-#: ../root/static/scripts/common/components/EntityLink.js:93
+#: ../root/static/scripts/common/components/EntityLink.js:112
 msgid "historical"
 msgstr ""
 
 #: ../root/components/common-macros.tt:167
-#: ../root/static/scripts/common/components/EntityLink.js:91
+#: ../root/static/scripts/common/components/EntityLink.js:110
 msgid "historical, until {end}"
 msgstr ""
 
 #: ../root/components/common-macros.tt:165
-#: ../root/static/scripts/common/components/EntityLink.js:87
+#: ../root/static/scripts/common/components/EntityLink.js:106
 msgid "historical, {begin}-{end}"
 msgstr ""
 
@@ -5477,8 +5403,8 @@ msgstr "përfshin"
 
 #: ../root/components/common-macros.tt:226
 #: ../root/components/common-macros.tt:302
-#: ../root/static/scripts/common/components/EntityLink.js:115
-#: ../root/static/scripts/common/components/EntityLink.js:348
+#: ../root/static/scripts/common/components/EntityLink.js:134
+#: ../root/static/scripts/common/components/EntityLink.js:375
 msgid "info"
 msgstr "info"
 
@@ -5698,7 +5624,7 @@ msgid "{entity_type} by {artist}"
 msgstr "{entity_type} nga {artist}"
 
 #: ../root/components/common-macros.tt:272 ../root/main/index.js:269
-#: ../root/static/scripts/common/components/DescriptiveLink.js:60
+#: ../root/static/scripts/common/components/DescriptiveLink.js:63
 #: ../root/static/scripts/release-editor/dialogs.js:150
 msgid "{entity} by {artist}"
 msgstr "{entity} nga {artist}"
@@ -5719,18 +5645,18 @@ msgid ""
 "read them and respond if necessary."
 msgstr ""
 
-#: ../root/components/common-macros.tt:681
+#: ../root/components/common-macros.tt:677
 #: ../root/static/scripts/common/components/MediumDescription.js:19
 msgid "{medium_format} {position}"
 msgstr "{medium_format} {position}"
 
-#: ../root/components/common-macros.tt:693
+#: ../root/components/common-macros.tt:689
 #: ../root/static/scripts/common/components/MediumLink.js:21
 msgid "{medium} on {release}"
 msgstr "{medium} te {release}"
 
 #: ../root/components/common-macros.tt:333
-#: ../root/static/scripts/common/components/EntityLink.js:214
+#: ../root/static/scripts/common/components/EntityLink.js:235
 msgid "{name} – {additional_info}"
 msgstr "{name} – {additional_info}"
 
@@ -5759,7 +5685,7 @@ msgstr[0] "{num} vit më parë"
 msgstr[1] "{num} vjet më parë"
 
 #: ../root/components/common-macros.tt:272
-#: ../root/static/scripts/common/components/DescriptiveLink.js:72
+#: ../root/static/scripts/common/components/DescriptiveLink.js:75
 msgid "{place} in {area}"
 msgstr "{place} në {area}"
 
@@ -5798,7 +5724,7 @@ msgid ""
 " that the artist has been entered correctly."
 msgstr ""
 
-#: ../root/components/common-macros.tt:818
+#: ../root/components/common-macros.tt:814
 #: ../root/static/scripts/common/i18n/addColon.js:13
 #: ../root/static/scripts/common/i18n/addColon.js:17
 msgid "{variable}:"
@@ -6044,11 +5970,11 @@ msgstr ""
 msgid "Default"
 msgstr "Parazgjedhje"
 
-#: ../lib/MusicBrainz/Server/Controller/Label.pm:223
+#: ../lib/MusicBrainz/Server/Controller/Label.pm:254
 msgid "You cannot merge a special purpose label into another label."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Label.pm:228
+#: ../lib/MusicBrainz/Server/Controller/Label.pm:259
 msgid "You cannot merge into Deleted Label."
 msgstr ""
 
@@ -6112,16 +6038,16 @@ msgstr ""
 msgid "Your message could not be sent"
 msgstr "Mesazhi juaj s’u dërgua dot"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:509
+#: ../lib/MusicBrainz/Server/Controller/User.pm:511
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:739
+#: ../lib/MusicBrainz/Server/Controller/User.pm:741
 msgid "An error occurred while trying to send your report."
 msgstr "Ndodhi një gabim teksa provohej të dërgohej raporti juaj."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:743
+#: ../lib/MusicBrainz/Server/Controller/User.pm:745
 msgid "Your report has been sent."
 msgstr "Raporti juaj u dërgua."
 
@@ -6402,7 +6328,7 @@ msgid "Add disc ID"
 msgstr "Shtoni ID disku"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddRelease.pm:19
-#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:32
 #: ../root/layout/components/sidebar/ArtistSidebar.js:145
 #: ../root/layout/components/sidebar/LabelSidebar.js:103
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:70
@@ -6730,7 +6656,7 @@ msgstr "Hiqni shtëpi diskografike hedhjeje në qarkullim"
 msgid "Edit release alias"
 msgstr "Përpunoni alias hedhjeje në qarkullim"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/EditBarcodes.pm:19
+#: ../lib/MusicBrainz/Server/Edit/Release/EditBarcodes.pm:20
 msgid "Edit barcodes"
 msgstr "Përpunoni kode me vija"
 
@@ -6742,7 +6668,7 @@ msgstr "Përpunoni kopertinë"
 msgid "Edit release label"
 msgstr "Përpunoni etiketë hedhjeje në qarkullim"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:98
+#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:99
 #: ../lib/MusicBrainz/Server/Entity/Release.pm:185
 #: ../root/static/scripts/release-editor/duplicates.js:193
 msgctxt "medium format"
@@ -6762,11 +6688,14 @@ msgstr "Hiqni kopertinë"
 msgid "Reorder cover art"
 msgstr "Rirenditni kopertinë"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/ReorderMediums.pm:12
+#: ../lib/MusicBrainz/Server/Edit/Release/ReorderMediums.pm:13
 msgid "Reorder mediums"
 msgstr "Rirenditi media"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup.pm:7
+#: ../root/edit/details/AddRelease.js:82
+#: ../root/edit/details/AddReleaseGroup.js:43
+#: ../root/edit/details/EditReleaseGroup.js:50
 #: ../root/edit/details/SetCoverArt.js:40
 #: ../root/static/scripts/common/constants.js:27
 #: ../root/user/UserProfile.js:50
@@ -6803,7 +6732,7 @@ msgid "Edit release group alias"
 msgstr "Përpunoni alias grupi hedhjesh në qarkullim"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Merge.pm:13
-#: ../root/artist/ArtistIndex.js:296
+#: ../root/artist/ArtistIndex.js:283
 #: ../root/release_group/ReleaseGroupMerge.js:31
 #: ../root/release_group/ReleaseGroupMerge.js:33
 msgid "Merge release groups"
@@ -6886,7 +6815,7 @@ msgstr "Përpunoni alias serie"
 msgid "Merge series"
 msgstr "Përzieni seri"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/user/UserProfile.js:575
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/user/UserProfile.js:588
 #: ../root/utility/edit.js:45
 msgid "Open"
 msgstr ""
@@ -6919,7 +6848,7 @@ msgstr "S’ka vota"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:279
 #: ../root/edit/details/AddEvent.js:67 ../root/edit/details/EditEvent.js:71
-#: ../root/user/UserProfile.js:565 ../root/utility/edit.js:39
+#: ../root/user/UserProfile.js:578 ../root/utility/edit.js:39
 msgid "Cancelled"
 msgstr "U anulua"
 
@@ -7293,7 +7222,7 @@ msgid "These coordinates could not be parsed"
 msgstr "Këto koordinata s’u përtypën dot"
 
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:40
-#: ../root/static/scripts/edit/components/DateRangeFieldset.js:63
+#: ../root/static/scripts/edit/components/DateRangeFieldset.js:64
 #: ../root/static/scripts/relationship-editor/common/dialog.js:605
 msgid "The end date cannot precede the begin date."
 msgstr "Data e përfundimit s’mund të bjerë para datës së fillimit."
@@ -7365,7 +7294,7 @@ msgid "This is not a valid time."
 msgstr "Kjo s’është kohë e vlefshme."
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:25
-#: ../root/static/scripts/edit/externalLinks.js:419
+#: ../root/static/scripts/edit/externalLinks.js:471
 msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr "Jepni një URL të vlefshme, p.sh, \"http://google.com/\""
 
@@ -7430,22 +7359,22 @@ msgid "A fluency level is required."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:70
-#: ../root/static/scripts/common/constants.js:285
+#: ../root/static/scripts/common/constants.js:287
 msgid "Basic"
 msgstr "Fillestar"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:71
-#: ../root/static/scripts/common/constants.js:286
+#: ../root/static/scripts/common/constants.js:288
 msgid "Intermediate"
 msgstr "Mesatar"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:72
-#: ../root/static/scripts/common/constants.js:284
+#: ../root/static/scripts/common/constants.js:286
 msgid "Advanced"
 msgstr "I përparuar"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:73
-#: ../root/static/scripts/common/constants.js:287
+#: ../root/static/scripts/common/constants.js:289
 msgid "Native"
 msgstr ""
 
@@ -7472,7 +7401,7 @@ msgid "Tag"
 msgstr "Etiketë"
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
-#: ../root/edit/details/AddRelationshipType.js:210
+#: ../root/edit/details/AddRelationshipType.js:209
 #: ../root/layout/components/BottomMenu.js:276
 #: ../root/layout/components/Search.js:53
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:75
@@ -8055,9 +7984,9 @@ msgstr "Tekst i lirë"
 #: ../root/admin/attributes/Index.js:20 ../root/admin/attributes/Index.js:21
 #: ../root/admin/attributes/Language.js:35
 #: ../root/admin/attributes/Script.js:36
-#: ../root/components/RelationshipsTable.js:317
-#: ../root/edit/details/AddRelationshipType.js:192
-#: ../root/edit/details/RemoveRelationshipType.js:137
+#: ../root/components/RelationshipsTable.js:319
+#: ../root/edit/details/AddRelationshipType.js:191
+#: ../root/edit/details/RemoveRelationshipType.js:136
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:165
 #: ../root/utility/tableColumns.js:626
 msgid "Attributes"
@@ -8079,7 +8008,8 @@ msgid "Cannot Remove Attribute"
 msgstr "S’mund të Hiqet Atribut"
 
 #: ../root/admin/attributes/Language.js:33
-#: ../root/admin/attributes/Language.js:36 ../root/edit/details/AddWork.js:75
+#: ../root/admin/attributes/Language.js:36
+#: ../root/edit/details/AddRelease.js:108 ../root/edit/details/AddWork.js:75
 #: ../root/edit/details/historic/AddRelease.js:101 ../root/iswc/Index.js:59
 #: ../root/report/IswcsWithManyWorks.js:53
 #: ../root/search/components/ReleaseResults.js:107
@@ -8088,6 +8018,7 @@ msgid "Language"
 msgstr "Gjuhë"
 
 #: ../root/admin/attributes/Script.js:34 ../root/admin/attributes/Script.js:37
+#: ../root/edit/details/AddRelease.js:115
 #: ../root/edit/details/historic/AddRelease.js:92
 msgid "Script"
 msgstr "Programth"
@@ -8164,6 +8095,11 @@ msgstr "Përditësoni Faqen"
 #: ../root/admin/wikidoc/EditWikiDoc.js:43
 msgid "Current version:"
 msgstr "Versioni i tanishëm:"
+
+#: ../root/admin/wikidoc/EditWikiDoc.js:48
+#: ../root/edit/details/ChangeWikiDoc.js:72
+msgid "New version:"
+msgstr "Version i ri:"
 
 #: ../root/admin/wikidoc/WikiDocIndex.js:40
 msgid "Page name"
@@ -8271,8 +8207,8 @@ msgid "This area has no relationships to any recordings."
 msgstr ""
 
 #: ../root/area/AreaReleases.js:51 ../root/artist/ArtistReleases.js:63
-#: ../root/instrument/InstrumentReleases.js:57 ../root/label/LabelIndex.js:73
-#: ../root/release_group/ReleaseGroupIndex.js:159
+#: ../root/instrument/InstrumentReleases.js:57 ../root/label/LabelIndex.js:95
+#: ../root/release_group/ReleaseGroupIndex.js:178
 msgid "Add selected releases for merging"
 msgstr "Shtoji hedhjet në qarkullim të përzgjedhura për përzierje"
 
@@ -8307,83 +8243,83 @@ msgstr ""
 msgid "This artist is not currently associated with any events."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:97
+#: ../root/artist/ArtistIndex.js:84
 msgid "Show official release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:104
+#: ../root/artist/ArtistIndex.js:91
 msgid "Show all release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:111
+#: ../root/artist/ArtistIndex.js:98
 msgid "Show official various artist release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:118
+#: ../root/artist/ArtistIndex.js:105
 msgid "Show all various artist release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:147
+#: ../root/artist/ArtistIndex.js:134
 msgid "This artist only has unofficial release groups by various artists."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:153
+#: ../root/artist/ArtistIndex.js:140
 msgid "Showing all release groups for various artists"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:154
+#: ../root/artist/ArtistIndex.js:141
 msgid "This artist does not have any various artists release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:163
+#: ../root/artist/ArtistIndex.js:150
 msgid "This artist only has release groups by various artists."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:167
+#: ../root/artist/ArtistIndex.js:154
 msgid "Showing official release groups for various artists"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:175
+#: ../root/artist/ArtistIndex.js:162
 msgid "This artist only has unofficial release groups."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:179
+#: ../root/artist/ArtistIndex.js:166
 msgid "Showing all release groups by this artist"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:190
+#: ../root/artist/ArtistIndex.js:177
 msgid "Showing official release groups by this artist"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:232 ../root/components/CleanupBanner.js:14
+#: ../root/artist/ArtistIndex.js:219 ../root/components/CleanupBanner.js:14
 msgid ""
 "This artist has no relationships, recordings, releases or release groups, "
 "and will be removed automatically in the next few days. If this is not "
 "intended, please add more data to this artist."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:247 ../root/artist/ArtistIndex.js:255
+#: ../root/artist/ArtistIndex.js:234 ../root/artist/ArtistIndex.js:242
 msgid "Legal name"
 msgstr "Emër ligjor"
 
-#: ../root/artist/ArtistIndex.js:261
+#: ../root/artist/ArtistIndex.js:248
 msgid "Also performs as"
 msgstr "Ekzekuton edhe si"
 
-#: ../root/artist/ArtistIndex.js:275
+#: ../root/artist/ArtistIndex.js:262
 msgid "Discography"
 msgstr "Diskografi"
 
-#: ../root/artist/ArtistIndex.js:316 ../root/artist/ArtistRecordings.js:168
+#: ../root/artist/ArtistIndex.js:303 ../root/artist/ArtistRecordings.js:168
 #: ../root/instrument/InstrumentRecordings.js:58 ../root/isrc/Index.js:99
 msgid "Add selected recordings for merging"
 msgstr "Shtoji incizimet e përzgjedhura për përzierje"
 
-#: ../root/artist/ArtistIndex.js:325
+#: ../root/artist/ArtistIndex.js:312
 msgid "This artist has no release groups, only standalone recordings."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:329
+#: ../root/artist/ArtistIndex.js:316
 msgid "No release groups found that match this search."
 msgstr ""
 
@@ -8459,7 +8395,7 @@ msgstr ""
 
 #: ../root/artist/ArtistReleases.js:73
 #: ../root/instrument/InstrumentReleases.js:65
-#: ../root/release_group/ReleaseGroupIndex.js:165
+#: ../root/release_group/ReleaseGroupIndex.js:184
 msgid "No releases found."
 msgstr "S’u gjetën hedhje në qarkullim."
 
@@ -8787,7 +8723,7 @@ msgstr "Alias"
 #: ../root/edit/details/EditAlias.js:105 ../root/edit/details/EditArea.js:77
 #: ../root/edit/details/EditArtist.js:93 ../root/edit/details/EditLabel.js:76
 #: ../root/report/DuplicateArtists.js:66
-#: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:78
+#: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:81
 msgid "Sort name"
 msgstr ""
 
@@ -8802,7 +8738,7 @@ msgstr "Datë Përfundimi"
 #: ../root/components/Aliases/AliasTable.js:29
 #: ../root/edit/details/AddRemoveAlias.js:89
 #: ../root/edit/details/EditAlias.js:111
-#: ../root/static/scripts/alias/AliasEditForm.js:338
+#: ../root/static/scripts/alias/AliasEditForm.js:310
 msgid "Locale"
 msgstr "Vendore"
 
@@ -8831,7 +8767,7 @@ msgid "Aliases"
 msgstr "Aliase"
 
 #: ../root/components/Aliases/index.js:50
-#: ../root/static/scripts/alias/AliasEditForm.js:302
+#: ../root/static/scripts/alias/AliasEditForm.js:274
 msgid ""
 "An alias is an alternate name for an entity. They typically contain common "
 "misspellings or variations of the name and are also used to improve search "
@@ -8965,23 +8901,23 @@ msgstr "Vepra të ngjashme"
 msgid "See all {num} relationships"
 msgstr ""
 
-#: ../root/components/RelationshipsTable.js:316
+#: ../root/components/RelationshipsTable.js:318
 msgid "Credited As"
 msgstr "Kredituar Si"
 
-#: ../root/components/RelationshipsTable.js:333
+#: ../root/components/RelationshipsTable.js:335
 msgid "“{link_phrase}” relationships"
 msgstr ""
 
-#: ../root/components/RelationshipsTable.js:335
+#: ../root/components/RelationshipsTable.js:337
 msgid "Invalid relationship type"
 msgstr ""
 
-#: ../root/components/RelationshipsTable.js:346
+#: ../root/components/RelationshipsTable.js:348
 msgid "No relationships of the selected type were found."
 msgstr ""
 
-#: ../root/components/RelationshipsTable.js:347
+#: ../root/components/RelationshipsTable.js:349
 msgid "The provided relationship type ID is not valid."
 msgstr ""
 
@@ -9449,7 +9385,7 @@ msgstr "Përmbledhje"
 #: ../root/edit/details/EditEvent.js:89 ../root/edit/details/EditLabel.js:112
 #: ../root/edit/details/EditPlace.js:111
 #: ../root/report/RecordingsWithFutureDates.js:35
-#: ../root/static/scripts/edit/components/DateRangeFieldset.js:182
+#: ../root/static/scripts/edit/components/DateRangeFieldset.js:183
 msgid "Begin date"
 msgstr "Datë fillimi"
 
@@ -9461,7 +9397,7 @@ msgstr "Datë fillimi"
 #: ../root/edit/details/EditPlace.js:119
 #: ../root/elections/ElectionTable/index.js:29
 #: ../root/report/RecordingsWithFutureDates.js:40
-#: ../root/static/scripts/edit/components/DateRangeFieldset.js:196
+#: ../root/static/scripts/edit/components/DateRangeFieldset.js:197
 msgid "End date"
 msgstr "Datë përfundimi"
 
@@ -9495,6 +9431,10 @@ msgstr "Media:"
 #: ../root/event/EventIndex.js:55
 msgid "Setlist"
 msgstr ""
+
+#: ../root/edit/details/AddIsrcs.js:40 ../root/edit/details/EditBarcodes.js:40
+msgid "Client:"
+msgstr "Klient:"
 
 #: ../root/edit/details/AddIsrcs.js:41
 msgctxt "isrc client"
@@ -9544,31 +9484,52 @@ msgid "Creditable"
 msgstr ""
 
 #: ../root/edit/details/AddRelationshipType.js:104
+#: ../root/edit/details/RemoveRelationshipAttribute.js:57
 #: ../root/edit/details/RemoveRelationshipType.js:76
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:90
 msgctxt "description"
 msgid "(none)"
 msgstr "(asnjë)"
 
-#: ../root/edit/details/AddRelationshipType.js:111
-#: ../root/edit/details/AddRelationshipType.js:120
-#: ../root/edit/details/RemoveRelationshipType.js:83
-#: ../root/edit/details/RemoveRelationshipType.js:92
+#: ../root/edit/details/AddRelationshipType.js:110
+#: ../root/edit/details/AddRelationshipType.js:119
+#: ../root/edit/details/RemoveRelationshipType.js:82
+#: ../root/edit/details/RemoveRelationshipType.js:91
 msgid "Type of {entity_placeholder}"
 msgstr ""
 
-#: ../root/edit/details/AddRelationshipType.js:151
-#: ../root/edit/details/RemoveRelationshipType.js:107
-#: ../root/edit/details/RemoveRelationshipType.js:119
-#: ../root/edit/details/RemoveRelationshipType.js:131
+#: ../root/edit/details/AddRelationshipType.js:150
+#: ../root/edit/details/RemoveRelationshipType.js:106
+#: ../root/edit/details/RemoveRelationshipType.js:118
+#: ../root/edit/details/RemoveRelationshipType.js:130
 msgctxt "link_phrase"
 msgid "(none)"
 msgstr "(asnjë)"
 
-#: ../root/edit/details/AddRelationshipType.js:218
+#: ../root/edit/details/AddRelationshipType.js:217
 msgctxt "documentation"
 msgid "(none)"
 msgstr "(asnjë)"
+
+#: ../root/edit/details/AddRelease.js:85
+msgid "(new release group)"
+msgstr "(grup i ri hedhjeje në qarkullim)"
+
+#: ../root/edit/details/AddRelease.js:122
+msgid "Packaging"
+msgstr ""
+
+#: ../root/edit/details/AddRelease.js:136
+#: ../root/edit/details/EditReleaseLabel.js:106
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:243
+#: ../root/static/scripts/common/components/ReleaseEvents.js:102
+msgid "Release events"
+msgstr "Veprimtari hedhjesh në qarkullim"
+
+#: ../root/edit/details/AddReleaseLabel.js:54
+#: ../root/edit/details/RemoveReleaseLabel.js:50
+msgid "Catalog number:"
+msgstr "Numër katalogu:"
 
 #: ../root/edit/details/AddRemoveAlias.js:64
 #: ../root/edit/details/EditAlias.js:69
@@ -9585,6 +9546,30 @@ msgstr "Parësor për vendoren"
 #: ../root/utility/tableColumns.js:819
 msgid "Ordering Type"
 msgstr ""
+
+#: ../root/edit/details/ChangeWikiDoc.js:50
+msgid "WikiDoc:"
+msgstr "WikiDoc:"
+
+#: ../root/edit/details/ChangeWikiDoc.js:59
+msgid "Old version:"
+msgstr "Version i vjetër:"
+
+#: ../root/edit/details/ChangeWikiDoc.js:61
+msgid "New page"
+msgstr "Faqe e re"
+
+#: ../root/edit/details/ChangeWikiDoc.js:74
+msgid "Page removed"
+msgstr "Faqja është hequr"
+
+#: ../root/edit/details/ChangeWikiDoc.js:86
+msgid "Diff"
+msgstr "Diff"
+
+#: ../root/edit/details/ChangeWikiDoc.js:89
+msgid "View diff"
+msgstr "Shihni diff-in"
 
 #: ../root/edit/details/EditAlias.js:89
 msgid "primary for {locale}"
@@ -9644,6 +9629,13 @@ msgstr "Artist i Vjetër"
 msgid "New Artist"
 msgstr "Artist i Ri"
 
+#: ../root/edit/details/EditReleaseLabel.js:92
+#: ../root/edit/details/EditReleaseLabel.js:97
+#: ../root/edit/details/historic/EditReleaseEvents.js:137
+#: ../root/otherlookup/OtherLookupForm.js:59
+msgid "Catalog number"
+msgstr "Numër katalogu"
+
 #: ../root/edit/details/EditUrl.js:81
 msgid "This change affects {num} relationship."
 msgid_plural "This change affects {num} relationships."
@@ -9702,6 +9694,26 @@ msgstr "Pozicione të vjetra:"
 #: ../root/edit/details/ReorderCoverArt.js:64
 msgid "New positions:"
 msgstr "Pozicione të reja:"
+
+#: ../root/edit/details/ReorderMediums.js:60
+msgid "Medium <span class=\"new\">{new}</span>: {title} (new medium)"
+msgstr "Media <span class=\"new\">{new}</span>: {title} (media e re)"
+
+#: ../root/edit/details/ReorderMediums.js:64
+msgid ""
+"Medium <span class=\"new\">{new}</span>: {title} (moved from position <span "
+"class=\"old\">{old}</span>)"
+msgstr "Media <span class=\"new\">{new}</span>: {title} (e lëvizur nga pozicioni <span class=\"old\">{old}</span>)"
+
+#: ../root/edit/details/ReorderMediums.js:72
+msgid "Medium <span class=\"new\">{new}</span> (new medium)"
+msgstr "Meda <span class=\"new\">{new}</span> (media e re)"
+
+#: ../root/edit/details/ReorderMediums.js:75
+msgid ""
+"Medium <span class=\"new\">{new}</span> (moved from position <span "
+"class=\"old\">{old}</span>)"
+msgstr "Media <span class=\"new\">{new}</span> (e lëvizur nga pozicioni <span class=\"old\">{old}</span>)"
 
 #: ../root/edit/details/ReorderRelationships.js:34
 msgid "Old Order"
@@ -9789,11 +9801,6 @@ msgstr "Lloj i Ri:"
 #: ../root/edit/details/historic/EditReleaseAttributes.js:80
 msgid "New Status:"
 msgstr "Gjendje e Re:"
-
-#: ../root/edit/details/historic/EditReleaseEvents.js:137
-#: ../root/otherlookup/OtherLookupForm.js:59
-msgid "Catalog number"
-msgstr "Numër katalogu"
 
 #: ../root/edit/details/historic/EditReleaseEvents.js:146
 msgid "Added"
@@ -10488,7 +10495,15 @@ msgid_plural "Associated with {num} works"
 msgstr[0] "Përshoqëruar me {num} vepër"
 msgstr[1] "Përshoqëruar me {num} vepra"
 
-#: ../root/label/LabelIndex.js:78
+#: ../root/label/LabelIndex.js:63
+msgid "Previously known as"
+msgstr ""
+
+#: ../root/label/LabelIndex.js:70
+msgid "Renamed to"
+msgstr ""
+
+#: ../root/label/LabelIndex.js:100
 msgid "This label does not have any releases."
 msgstr "Kjo etiketë s’ka ndonjë hedhje në qarkullim."
 
@@ -10572,7 +10587,7 @@ msgstr "Zgjedhje Auto-përpunuesi"
 msgid "Privileged User Accounts"
 msgstr "Llogari Përdoruesish të Privilegjuar"
 
-#: ../root/layout/components/BottomMenu.js:145 ../root/user/UserProfile.js:500
+#: ../root/layout/components/BottomMenu.js:145 ../root/user/UserProfile.js:513
 msgid "Statistics"
 msgstr "Statistika"
 
@@ -10725,15 +10740,15 @@ msgstr "Lloje Marrëdhëniesh"
 msgid "Development"
 msgstr "Zhvillim"
 
-#: ../root/layout/components/ExternalLinks.js:110
+#: ../root/layout/components/ExternalLinks.js:108
 msgid "Official homepage"
 msgstr "Faqja hyrëse zyrtare"
 
-#: ../root/layout/components/ExternalLinks.js:157
+#: ../root/layout/components/ExternalLinks.js:155
 msgid "External links"
 msgstr "Lidhje të jashtme"
 
-#: ../root/layout/components/ExternalLinks.js:164
+#: ../root/layout/components/ExternalLinks.js:162
 msgid "View all relationships"
 msgstr "Shihni krejt marrëdhëniet"
 
@@ -10745,23 +10760,23 @@ msgstr ""
 msgid "Running: {git_details}"
 msgstr "Xhiron: {git_details}"
 
-#: ../root/layout/components/Head.js:47
+#: ../root/layout/components/Head.js:50
 msgid "Page {n}"
 msgstr "Faqja {n}"
 
-#: ../root/layout/components/Head.js:98
+#: ../root/layout/components/Head.js:101
 msgid "MusicBrainz: Artist"
 msgstr "MusicBrainz: Artist"
 
-#: ../root/layout/components/Head.js:104
+#: ../root/layout/components/Head.js:107
 msgid "MusicBrainz: Label"
 msgstr "MusicBrainz: Etiketë"
 
-#: ../root/layout/components/Head.js:110
+#: ../root/layout/components/Head.js:113
 msgid "MusicBrainz: Release"
 msgstr "MusicBrainz: Hedhje në qarkullim"
 
-#: ../root/layout/components/Head.js:116
+#: ../root/layout/components/Head.js:119
 msgid "MusicBrainz: Track"
 msgstr "MusicBrainz: Pjesë"
 
@@ -11050,64 +11065,59 @@ msgstr "ISRC:"
 msgid "Release group information"
 msgstr "Të dhëna grupi hedhjesh në qarkullim"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:95
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:93
 msgid ""
 "Front cover image failed to load correctly.<br/>{all|View all artwork}."
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:101
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:99
 #: ../root/release/CoverArt.js:69
 msgid ""
 "Cover art for this release has been hidden by the Internet Archive because "
 "of a takedown request."
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:109
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:107
 msgid "Cover art from {cover|Amazon}"
 msgstr "Kopertinë nga {cover|Amazon}"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:113
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:111
 msgid "Cover art from {cover|{host}}"
 msgstr "Kopertinë nga {cover|{host}}"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:124
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:122
 msgid "No front cover image available."
 msgstr "S’ka figurë mbulese të passhme."
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:127
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:125
 msgid "View all artwork"
 msgstr "Shihni krejt grafikën"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:130
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:128
 msgid "No cover art available."
 msgstr "S’ka kopertinë të passhme."
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:161
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:159
 msgid "Additional details"
 msgstr "Hollësi shtesë"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:245
-#: ../root/static/scripts/common/components/ReleaseEvents.js:102
-msgid "Release events"
-msgstr "Veprimtari hedhjesh në qarkullim"
-
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:252
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:250
 msgid "Release group rating"
 msgstr "Vlerësim grupi hedhjesh në qarkullim"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:258
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:256
 msgid "Release group reviews"
 msgstr "Shqyrtime grupi hedhjesh në qarkullim"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:273
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:271
 msgid "Release group external links"
 msgstr "Lidhje të jashtme grupi hedhjesh në qarkullim"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:279
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:277
 msgid "Edit relationships"
 msgstr "Përpunoni marrëdhënie"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:285
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:283
 msgid "Change data quality"
 msgstr "Ndryshoni cilësi të dhënash"
 
@@ -11128,7 +11138,7 @@ msgstr "Kod IPI:"
 msgid "ISNI code:"
 msgstr "Kod ISNI:"
 
-#: ../root/layout/components/sidebar/SidebarLicenses.js:115
+#: ../root/layout/components/sidebar/SidebarLicenses.js:139
 msgid "License"
 msgstr "Licencë"
 
@@ -11669,7 +11679,7 @@ msgid "Release Group Type"
 msgstr ""
 
 #: ../root/recording/RecordingIndex.js:78
-#: ../root/release_group/ReleaseGroupIndex.js:57
+#: ../root/release_group/ReleaseGroupIndex.js:63
 msgctxt "release status"
 msgid "(unknown)"
 msgstr "(e panjohur)"
@@ -11790,7 +11800,7 @@ msgid "{entity0}-{entity1}"
 msgstr "{entity0}-{entity1}"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:76
-#: ../root/static/scripts/edit/externalLinks.js:457
+#: ../root/static/scripts/edit/externalLinks.js:509
 #: ../root/static/scripts/relationship-editor/common/dialog.js:552
 msgid "This relationship type is deprecated and should not be used."
 msgstr ""
@@ -11962,15 +11972,15 @@ msgstr "Jeni i sigurt se dëshironi të hiqet kopertina më poshtë prej {releas
 msgid "Release group by {artist}"
 msgstr "Grup hedhjesh në qarkullim nga {artist}"
 
-#: ../root/release_group/ReleaseGroupIndex.js:170
+#: ../root/release_group/ReleaseGroupIndex.js:189
 msgid "CritiqueBrainz Reviews"
 msgstr "Recensione CritiqueBrainz"
 
-#: ../root/release_group/ReleaseGroupIndex.js:176
+#: ../root/release_group/ReleaseGroupIndex.js:195
 msgid "Most Recent"
 msgstr "Më të Rejat"
 
-#: ../root/release_group/ReleaseGroupIndex.js:183
+#: ../root/release_group/ReleaseGroupIndex.js:202
 msgid "Most Popular"
 msgstr "Më Populloret"
 
@@ -13744,41 +13754,41 @@ msgstr ""
 msgid "Automatically subscribe me to series I create."
 msgstr ""
 
-#: ../root/static/scripts/alias/AliasEditForm.js:319
+#: ../root/static/scripts/alias/AliasEditForm.js:291
 msgid "Alias Details"
 msgstr "Hollësi Aliasi"
 
-#: ../root/static/scripts/alias/AliasEditForm.js:326
+#: ../root/static/scripts/alias/AliasEditForm.js:298
 msgid "Alias name:"
 msgstr "Emër aliasi:"
 
-#: ../root/static/scripts/alias/AliasEditForm.js:350
+#: ../root/static/scripts/alias/AliasEditForm.js:322
 msgid "This is the primary alias for this locale"
 msgstr "Ky është aliasi parësor për këtë vendore"
 
-#: ../root/static/scripts/alias/AliasEditForm.js:365
+#: ../root/static/scripts/alias/AliasEditForm.js:337
 msgid "This alias is no longer current."
 msgstr "Ky alias s’është më në përdorim."
 
-#: ../root/static/scripts/area/places-map.js:79
+#: ../root/static/scripts/area/places-map.js:95
 msgid "… and {place_count} other"
 msgid_plural "… and {place_count} others"
 msgstr[0] "… dhe {place_count} tjetër"
 msgstr[1] "… dhe {place_count} të tjerë"
 
-#: ../root/static/scripts/area/places-map.js:91
+#: ../root/static/scripts/area/places-map.js:107
 msgid "No type"
 msgstr "Pa lloj"
 
-#: ../root/static/scripts/area/places-map.js:93
+#: ../root/static/scripts/area/places-map.js:109
 msgid "{place_name} (closed)"
 msgstr ""
 
-#: ../root/static/scripts/area/places-map.js:109
+#: ../root/static/scripts/area/places-map.js:125
 msgid "{place_type}: {place_link} (closed)"
 msgstr ""
 
-#: ../root/static/scripts/area/places-map.js:114
+#: ../root/static/scripts/area/places-map.js:130
 msgid "{place_type}: {place_link}"
 msgstr "{place_type}: {place_link}"
 
@@ -13929,11 +13939,11 @@ msgstr ""
 msgid "Annotation last modified on {date}."
 msgstr "Shënim i ndryshua së fundi më {date}."
 
-#: ../root/static/scripts/common/components/ArtistCreditLink.js:50
+#: ../root/static/scripts/common/components/ArtistCreditLink.js:51
 msgid "This artist credit has pending edits."
 msgstr ""
 
-#: ../root/static/scripts/common/components/ArtistCreditLink.js:59
+#: ../root/static/scripts/common/components/ArtistCreditLink.js:60
 msgid "This artist credit has {edit_search|pending edits}."
 msgstr ""
 
@@ -14044,30 +14054,30 @@ msgstr ""
 msgid "[missing editor]"
 msgstr "[mungon përpunues]"
 
-#: ../root/static/scripts/common/components/EntityLink.js:99
+#: ../root/static/scripts/common/components/EntityLink.js:118
 #: ../root/url/UrlIndex.js:32
 msgid ""
 "This link has been temporarily disabled because it has been reported as "
 "potentially harmful."
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:280
+#: ../root/static/scripts/common/components/EntityLink.js:301
 msgid "This release has artwork in the Cover Art Archive"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:295
+#: ../root/static/scripts/common/components/EntityLink.js:316
 msgid ""
 "High quality: All available data has been added, if possible including cover"
 " art with liner info that proves it"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:308
+#: ../root/static/scripts/common/components/EntityLink.js:329
 msgid ""
 "Low quality: The release needs serious fixes, or its existence is hard to "
 "prove (but it’s not clearly fake)"
 msgstr ""
 
-#: ../root/static/scripts/common/components/Filter.js:64
+#: ../root/static/scripts/common/components/Filter.js:65
 msgid "Filter"
 msgstr ""
 
@@ -14219,7 +14229,7 @@ msgctxt "verb"
 msgid "Tag"
 msgstr "Etiketë"
 
-#: ../root/static/scripts/common/components/TaggerIcon.js:36
+#: ../root/static/scripts/common/components/TaggerIcon.js:37
 msgid "Open in tagger"
 msgstr "Hapeni në etiketues"
 
@@ -14547,7 +14557,7 @@ msgid ""
 msgstr ""
 
 #: ../root/static/scripts/edit/check-duplicates.js:152
-#: ../root/static/scripts/edit/externalLinks.js:414
+#: ../root/static/scripts/edit/externalLinks.js:466
 #: ../root/static/scripts/relationship-editor/common/dialog.js:578
 msgid "Required field."
 msgstr "Fushë e domosdoshme."
@@ -14638,7 +14648,7 @@ msgstr "Ngjitni Kredite"
 msgid "Remove Artist Credit"
 msgstr "Hiqni Kredite Artisti"
 
-#: ../root/static/scripts/edit/components/DateRangeFieldset.js:188
+#: ../root/static/scripts/edit/components/DateRangeFieldset.js:189
 msgid "Copy date"
 msgstr ""
 
@@ -14664,86 +14674,90 @@ msgstr ""
 msgid "Cleaned up to"
 msgstr ""
 
+#: ../root/static/scripts/edit/components/edit/ReleaseEventsDiff.js:120
+msgid "Release events:"
+msgstr "Veprimtari hedhjeje në qarkullim:"
+
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:44
 #: ../root/static/scripts/relationship-editor/release.js:87
 #: ../root/static/scripts/release-editor/init.js:270
 msgid "All of your changes will be lost if you leave this page."
 msgstr "Krejt ndryshimet tuaja do të humbin, nëse e braktisni këtë faqe."
 
-#: ../root/static/scripts/edit/externalLinks.js:424
+#: ../root/static/scripts/edit/externalLinks.js:476
 msgid ""
 "Links to MusicBrainz URLs are not allowed. Did you mean to paste something "
 "else?"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:430
+#: ../root/static/scripts/edit/externalLinks.js:482
 msgid ""
 "Links to this website are not allowed because it is known to host malware."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:436
+#: ../root/static/scripts/edit/externalLinks.js:488
 msgid ""
 "Please don’t enter bundled/shortened URLs, enter the destination URL(s) "
 "instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:442
+#: ../root/static/scripts/edit/externalLinks.js:494
 msgid ""
 "Please don’t enter Google AMP links, since they are effectively an extra "
 "redirect. Enter the destination URL instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:449
+#: ../root/static/scripts/edit/externalLinks.js:501
 msgid "Please select a link type for the URL you’ve entered."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:466
+#: ../root/static/scripts/edit/externalLinks.js:518
 msgid "This relationship already exists."
 msgstr "Kjo marrëdhënie ekziston tashmë."
 
-#: ../root/static/scripts/edit/externalLinks.js:480
+#: ../root/static/scripts/edit/externalLinks.js:532
 #: ../root/static/scripts/relationship-editor/common/dialog.js:562
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:486
+#: ../root/static/scripts/edit/externalLinks.js:538
 msgid "This URL is not allowed for the selected link type."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:525
+#: ../root/static/scripts/edit/externalLinks.js:577
 msgid ""
 "Note: This link already exists at position #{position}. To merge, press "
 "enter or select a type."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:641
+#: ../root/static/scripts/edit/externalLinks.js:696
 #: ../root/static/scripts/relationship-editor/common/dialog.js:418
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|më tepër dokumentim})"
 
-#: ../root/static/scripts/edit/externalLinks.js:725
+#: ../root/static/scripts/edit/externalLinks.js:781
 msgid "video"
 msgstr "video"
 
-#: ../root/static/scripts/edit/externalLinks.js:741
+#: ../root/static/scripts/edit/externalLinks.js:812
 msgid "Remove Relationship"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:821
+#: ../root/static/scripts/edit/externalLinks.js:897
 msgid "Add link"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:824
+#: ../root/static/scripts/edit/externalLinks.js:900
 msgid "Add another link"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:875
+#: ../root/static/scripts/edit/externalLinks.js:952
 msgid "Remove Link"
 msgstr "Hiqe Lidhjen"
 
-#: ../root/static/scripts/edit/externalLinks.js:903
+#: ../root/static/scripts/edit/externalLinks.js:984
 msgid "Add another relationship"
 msgstr ""
 
@@ -15674,80 +15688,97 @@ msgstr "pajtohuni"
 msgid "Languages:"
 msgstr "Gjuhë:"
 
-#: ../root/user/UserProfile.js:431 ../root/user/UserProfile.js:517
-#: ../root/user/UserProfile.js:527 ../root/user/UserProfile.js:537
-#: ../root/user/UserProfile.js:547 ../root/user/UserProfile.js:557
-#: ../root/user/UserProfile.js:567 ../root/user/UserProfile.js:577
-#: ../root/user/UserProfile.js:586
+#: ../root/user/UserProfile.js:431 ../root/user/UserProfile.js:530
+#: ../root/user/UserProfile.js:540 ../root/user/UserProfile.js:550
+#: ../root/user/UserProfile.js:560 ../root/user/UserProfile.js:570
+#: ../root/user/UserProfile.js:580 ../root/user/UserProfile.js:590
+#: ../root/user/UserProfile.js:599 ../root/user/UserProfile.js:744
+#: ../root/user/UserProfile.js:754 ../root/user/UserProfile.js:766
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|view})"
 
-#: ../root/user/UserProfile.js:507
+#: ../root/user/UserProfile.js:520
 msgid "Edits ({view_url|view})"
 msgstr "Përpunime ({view_url|shihini})"
 
-#: ../root/user/UserProfile.js:509
+#: ../root/user/UserProfile.js:522
 msgid "Edits"
 msgstr ""
 
-#: ../root/user/UserProfile.js:515
+#: ../root/user/UserProfile.js:528
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "Pranuar"
 
-#: ../root/user/UserProfile.js:525
+#: ../root/user/UserProfile.js:538
 msgid "Auto-edits"
 msgstr "Auto-përpunime"
 
-#: ../root/user/UserProfile.js:535
+#: ../root/user/UserProfile.js:548
 msgid "Total applied"
 msgstr ""
 
-#: ../root/user/UserProfile.js:545
+#: ../root/user/UserProfile.js:558
 msgid "Voted down"
 msgstr ""
 
-#: ../root/user/UserProfile.js:555
+#: ../root/user/UserProfile.js:568
 msgid "Failed"
 msgstr ""
 
-#: ../root/user/UserProfile.js:585
+#: ../root/user/UserProfile.js:598
 msgid "Last 24 hours"
 msgstr "24 orët e fundit"
 
-#: ../root/user/UserProfile.js:609
+#: ../root/user/UserProfile.js:622
 msgid "This table shows a summary of votes cast by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:614
+#: ../root/user/UserProfile.js:627
 msgid "Votes ({view_url|view})"
 msgstr "Vota ({view_url|shihini})"
 
-#: ../root/user/UserProfile.js:622
+#: ../root/user/UserProfile.js:635
 msgid "Last 28 days"
 msgstr "28 ditët e fundit"
 
-#: ../root/user/UserProfile.js:625
+#: ../root/user/UserProfile.js:638
 msgid "Overall"
 msgstr "Gjithsej"
 
-#: ../root/user/UserProfile.js:673
+#: ../root/user/UserProfile.js:686
 msgid "This table shows a summary of entities added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:679
+#: ../root/user/UserProfile.js:692
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr ""
 
-#: ../root/user/UserProfile.js:682
+#: ../root/user/UserProfile.js:695
 msgid "Added entities"
 msgstr ""
 
-#: ../root/user/UserProfile.js:706
+#: ../root/user/UserProfile.js:719
 msgid "This user has not created any entities."
 msgstr ""
 
-#: ../root/user/UserProfile.js:765
+#: ../root/user/UserProfile.js:729
+msgid "This table shows a summary of secondary data added by this editor."
+msgstr ""
+
+#: ../root/user/UserProfile.js:735
+msgid "Tags and ratings"
+msgstr ""
+
+#: ../root/user/UserProfile.js:742
+msgid "Tags upvoted"
+msgstr ""
+
+#: ../root/user/UserProfile.js:752
+msgid "Tags downvoted"
+msgstr ""
+
+#: ../root/user/UserProfile.js:833
 msgid "Report this user for bad behavior"
 msgstr "Raportojeni këtë përdorues për sjellje të keqe"
 
