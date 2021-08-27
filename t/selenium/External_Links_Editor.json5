@@ -3,6 +3,32 @@
   commands: [
     {
       command: 'open',
+      target: '/work/create',
+      value: '',
+    },
+    // restrict link type options for URL
+    {
+      command: 'click',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://mainlynorfolk.info/',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('select.link-type > option')).map(x => x.innerText.trim()).toString()",
+      value: ",lyrics page,other databases",
+    },
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[1]//button[contains(@class, 'remove-item')]",
+      value: '',
+    },
+    {
+      command: 'open',
       target: '/artist/create',
       value: '',
     },
@@ -101,27 +127,6 @@
       command: 'assertText',
       target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//div[contains(@class, 'error')]",
       value: 'Please don’t enter bundled/shortened URLs, enter the destination URL(s) instead.',
-    },
-    {
-      command: 'click',
-      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//button[contains(@class, 'remove-item')]",
-      value: '',
-    },
-    // deprecated link type detection for new links
-    {
-      command: 'sendKeys',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: 'http://example.com/',
-    },
-    {
-      command: 'select',
-      target: 'css=select.link-type',
-      value: 'label=regexp:\\s*MusicMoz',
-    },
-    {
-      command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//div[contains(@class, 'error')]",
-      value: 'This relationship type is deprecated and should not be used.',
     },
     {
       command: 'click',
@@ -815,6 +820,42 @@
     {
       command: 'click',
       target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//button[contains(@class, 'remove-item')]",
+      value: '',
+    },
+    // Test auto-selection of multiple relationships
+    {
+      command: 'open',
+      target: '/release/add',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://www.jamendo.com/${KEY_ENTER}',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#external-links-editor tr')).map(x => x.className).join('\\n')",
+      value: 'external-link-item\nrelationship-item\nrelationship-item\nexternal-link-item',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#external-links-editor label.relationship-name')).map(x => x.innerText).sort().toString()",
+      value: 'download for free,stream {video} for free video',
+    },
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
+    {
+      command: 'handleAlert',
+      target: 'accept',
       value: '',
     },
   ],
