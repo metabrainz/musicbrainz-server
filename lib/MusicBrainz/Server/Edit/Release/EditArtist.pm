@@ -30,7 +30,7 @@ with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-sub edit_name { N_l('Edit releasesssss') }
+sub edit_name { N_l('Edit release') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_ARTIST }
 sub release_id { shift->data->{entity}{id} }

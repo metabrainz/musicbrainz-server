@@ -11,6 +11,7 @@ declare type AnchorProps = {
   +className?: string,
   +href: string,
   +key?: number | string,
+  +rel?: 'noopener noreferrer',
   +target?: '_blank',
   +title?: string,
 };

@@ -37,6 +37,7 @@ import RemoveButton from './components/RemoveButton';
 import URLInputPopover from './components/URLInputPopover';
 import {linkTypeOptions} from './forms';
 import * as URLCleanup from './URLCleanup';
+import type {RelationshipTypeT} from './URLCleanup';
 import validation from './validation';
 import ExternalLinkAttributeDialog
   from './components/ExternalLinkAttributeDialog';
@@ -44,12 +45,20 @@ import ExternalLinkAttributeDialog
 type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
 
 export type ErrorT = {
-  message: React.Node,
+  message: React$Node,
   target: ErrorTarget,
+};
+
+type LinkTypeOptionT = {
+  data: LinkTypeT,
+  disabled?: boolean,
+  text: string,
+  value: number,
 };
 
 export type LinkStateT = {
   ...DatePeriodRoleT,
+  pendingTypes?: $ReadOnlyArray<number>,
   rawUrl: string,
   // New relationships will use a unique string ID like "new-1".
   relationship: StrOrNum | null,
@@ -66,29 +75,35 @@ export type LinkRelationshipT = LinkStateT & {
   error: ErrorT | null,
   index: number,
   urlIndex: number,
-  urlMatchesType?: boolean,
   ...
 };
 
 type LinksEditorProps = {
-  errorObservable: (boolean) => void,
-  initialLinks: Array<LinkStateT>,
-  sourceType: string,
-  typeOptions: Array<React.Element<'option'>>,
+  +errorObservable: (boolean) => void,
+  +initialLinks: $ReadOnlyArray<LinkStateT>,
+  +sourceType: CoreEntityTypeT,
+  +typeOptions: $ReadOnlyArray<LinkTypeOptionT>,
 };
 
 type LinksEditorState = {
-  links: Array<LinkStateT>,
+  links: $ReadOnlyArray<LinkStateT>,
 };
 
 export class ExternalLinksEditor
   extends React.Component<LinksEditorProps, LinksEditorState> {
   tableRef: {current: HTMLTableElement | null};
 
+  generalLinkTypes: $ReadOnlyArray<LinkTypeOptionT>;
+
   constructor(props: LinksEditorProps) {
     super(props);
     this.state = {links: withOneEmptyLink(props.initialLinks)};
     this.tableRef = React.createRef();
+    this.generalLinkTypes = props.typeOptions.filter(
+      // Keep disabled options for grouping
+      (option) => option.disabled ||
+      !URLCleanup.RESTRICTED_LINK_TYPES.includes(option.data.gid),
+    );
   }
 
   setLinkState(
@@ -109,7 +124,7 @@ export class ExternalLinksEditor
   }
 
   handleUrlChange(
-    linkIndexes: Array<number>,
+    linkIndexes: $ReadOnlyArray<number>,
     urlIndex: number,
     rawUrl: string,
   ) {
@@ -120,7 +135,7 @@ export class ExternalLinksEditor
     }
 
     this.setState(prevState => {
-      let newLinks = [...prevState.links];
+      const newLinks = [...prevState.links];
       linkIndexes.forEach(index => {
         const link = newLinks[index];
 
@@ -129,12 +144,25 @@ export class ExternalLinksEditor
           url = this.cleanupUrl(url);
         }
 
-        let newLink = Object.assign({}, newLinks[index], {url, rawUrl});
-        if (!link.type) {
-          const type = URLCleanup.guessType(this.props.sourceType, url);
-
-          if (type) {
-            newLink.type = linkedEntities.link_type[type].id;
+        const newLink = Object.assign({}, newLinks[index], {url, rawUrl});
+        const checker = new URLCleanup.Checker(url, this.props.sourceType);
+        const guessedType = checker.guessType();
+        const possibleTypes = checker.getPossibleTypes();
+        const typeOptions = this.filterTypeOptions(possibleTypes);
+        // Clear selection if current type is not allowed
+        if (link.type &&
+          !typeOptions.some(option => option.data.id === link.type)) {
+          newLink.type = null;
+        }
+        if (!newLink.type && guessedType) {
+          if (typeof guessedType === 'string') { // Is a single type
+            newLink.type = linkedEntities.link_type[guessedType].id;
+          } else {
+            // Is a type combination, set one and add other relationships
+            newLink.type = linkedEntities.link_type[guessedType[0]].id;
+            newLink.pendingTypes = guessedType
+              .slice(1)
+              .map(type => linkedEntities.link_type[type].id);
           }
         }
         newLinks[index] = newLink;
@@ -159,7 +187,6 @@ export class ExternalLinksEditor
       link.url = unicodeUrl;
     }
 
-    let callback = undefined;
     /*
      * Don't add link to list if it's empty,
      * has error, or is a duplicate without type.
@@ -167,13 +194,6 @@ export class ExternalLinksEditor
     if (url !== '' && !error && (!isDuplicate || link.type)) {
       link.submitted = true;
       if (isDuplicate) {
-        callback = () => {
-          // Return focus to the input box after merging
-          $(this.tableRef.current)
-            .find("input[type='url']")
-            .eq(0)
-            .focus();
-        };
         /*
          * $FlowIssue[incompatible-type]: relatedTarget is EventTarget
          * Don't merge when user clicks on delete icon,
@@ -185,9 +205,57 @@ export class ExternalLinksEditor
         if (clickingDeleteIcon) {
           link.submitted = false;
         }
+        this.setLinkState(index, link, () => {
+          if (link.submitted) {
+            this.submitPendingTypes(link, index);
+          }
+          // Return focus to the input box after merging
+          $(this.tableRef.current)
+            .find("input[type='url']")
+            .eq(0)
+            .focus();
+        });
+      } else {
+        this.setLinkState(index, link, () => {
+          if (link.submitted) {
+            this.submitPendingTypes(link, index);
+          }
+        });
       }
+    } else {
+      this.setLinkState(index, link);
     }
-    this.setLinkState(index, link, callback);
+  }
+
+  submitPendingTypes(link: LinkStateT, index: number) {
+    const pendingTypes = link.pendingTypes;
+    if (!pendingTypes) {
+      return;
+    }
+    this.setState(prevState => {
+      let newLinks = [...prevState.links];
+      newLinks[index] = {...newLinks[index], pendingTypes: undefined};
+      const emptyLinkIndex = newLinks.findIndex(link => {
+        const isNewLink = !isPositiveInteger(link.relationship);
+        return isNewLink && isEmpty(link);
+      });
+      // Remove existing empty links first to maintain the order
+      if (emptyLinkIndex > 0) {
+        newLinks.splice(emptyLinkIndex);
+      }
+      newLinks = newLinks.concat(pendingTypes.map(type => {
+        const linkState = {
+          submitted: true,
+          type,
+          url: link.url,
+        };
+        return newLinkState({
+          ...linkState,
+          relationship: uniqueId('new-'),
+        });
+      }));
+      return {links: withOneEmptyLink(newLinks, -1)};
+    });
   }
 
   handleLinkSubmit(
@@ -208,6 +276,7 @@ export class ExternalLinksEditor
     if (url !== '' && !error) {
       link.submitted = true;
       this.setLinkState(index, link, () => {
+        this.submitPendingTypes(link, index);
         // Redirect focus instead of staying on the current link
         if (link.type) {
           // If type is selected, jump to the next item(either input or link)
@@ -268,6 +337,7 @@ export class ExternalLinksEditor
       link.submitted = true;
     }
     this.setLinkState(index, link, () => {
+      this.submitPendingTypes(link, index);
       // Return focus to the input box after merging
       $(this.tableRef.current)
         .find("input[type='url']")
@@ -288,7 +358,7 @@ export class ExternalLinksEditor
     });
   }
 
-  removeLinks(indexes: Array<number>, urlIndex: number) {
+  removeLinks(indexes: $ReadOnlyArray<number>, urlIndex: number) {
     this.setState(prevState => {
       const newLinks = [...prevState.links];
       // Iterate from the end to avoid messing up indexes
@@ -438,7 +508,10 @@ export class ExternalLinksEditor
     }
   }
 
-  validateLink(link: LinkStateT): ErrorT | null {
+  validateLink(
+    link: LinkStateT,
+    checker?: URLCleanup.Checker,
+  ): ErrorT | null {
     const oldLinks = this.getOldLinksHash();
     const linksByTypeAndUrl = groupBy(
       uniqBy(
@@ -447,11 +520,13 @@ export class ExternalLinksEditor
       ),
       linkTypeAndUrlString,
     );
-    let error = null;
+    let error: ErrorT | null = null;
 
     const linkType = link.type
       ? linkedEntities.link_type[link.type] : {};
-    const checker = URLCleanup.validationRules[linkType.gid];
+    // Use existing checker if possible, otherwise create a new one
+    checker = checker ||
+      new URLCleanup.Checker(link.url, this.props.sourceType);
     const oldLink = oldLinks.get(String(link.relationship));
     const isNewLink = !isPositiveInteger(link.relationship);
     const linkChanged = oldLink && link.url !== oldLink.url;
@@ -518,8 +593,8 @@ export class ExternalLinksEditor
         message: l('This relationship already exists.'),
         target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
       };
-    } else if (isNewOrChangedLink && checker) {
-      const check = checker(link.url);
+    } else if (isNewOrChangedLink) {
+      const check = checker.checkRelationship(linkType.gid);
       if (!check.result) {
         error = {
           message: '',
@@ -544,6 +619,26 @@ export class ExternalLinksEditor
     return error;
   }
 
+  filterTypeOptions(
+    possibleTypes: $ReadOnlyArray<RelationshipTypeT> | false,
+  ): $ReadOnlyArray<LinkTypeOptionT> {
+    if (!possibleTypes) {
+      return this.generalLinkTypes;
+    }
+    return this.props.typeOptions.filter((option) => {
+      // Keep disabled options for grouping
+      if (option.disabled) {
+        return true;
+      }
+      return possibleTypes.some((types) => {
+        if (typeof types === 'string') {
+          return types === option.data.gid;
+        }
+        return types.includes(option.data.gid);
+      });
+    });
+  }
+
   render(): React.Element<'table'> {
     this.props.errorObservable(false);
 
@@ -566,7 +661,7 @@ export class ExternalLinksEditor
              */
             const {url, rawUrl} = relationships[0];
             const isLastLink = index === linksByUrl.length - 1;
-            let links = [...relationships];
+            const links = [...relationships];
             const linkIndexes = [];
 
             // Check duplicates and show notice
@@ -580,26 +675,58 @@ export class ExternalLinksEditor
                 {position: duplicate[0].urlIndex + 1},
               ) : '';
 
-            let urlError = null;
+            let urlError: ErrorT | null = null;
+            let hasError = false;
+            const checker = new URLCleanup.Checker(
+              url, this.props.sourceType,
+            );
+            const possibleTypes = checker.getPossibleTypes();
+            const selectedTypes = [];
+            const typeOptions = this.filterTypeOptions(possibleTypes);
             links.forEach(link => {
               linkIndexes.push(link.index);
               const linkType = link.type
                 ? linkedEntities.link_type[link.type] : {};
+              selectedTypes.push(linkType.gid);
               link.url = getUnicodeUrl(link.url);
-              const error = this.validateLink(link);
+
+              const error = this.validateLink(link, checker);
               if (error) {
                 this.props.errorObservable(true);
+                hasError = true;
                 if (error.target === URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
                   link.error = error;
                 } else {
                   urlError = error;
                 }
               }
-
-              link.urlMatchesType = linkType.gid === URLCleanup.guessType(
-                this.props.sourceType, url,
-              );
             });
+
+            // If a link has pending types, it must have only 1 possible type
+            let urlMatchesType = !!links[0].pendingTypes;
+            /*
+             * Only validate type combination
+             * when every single type has passed validation.
+             */
+            const check =
+              checker.checkRelationships(selectedTypes, possibleTypes);
+            if (check.result) {
+              /*
+               * Now that selected types are valid, if there's only one
+               * possible type, then it's a match.
+               */
+              urlMatchesType = possibleTypes && possibleTypes.length === 1;
+            } else if (links[0].submitted &&
+              selectedTypes.length > 0 &&
+              !hasError) {
+              this.props.errorObservable(true);
+              urlError = {
+                message: check.error ||
+                    l('This relationship type combination is invalid.'),
+                target:
+                    check.target || URLCleanup.ERROR_TARGETS.RELATIONSHIP,
+              };
+            }
             const firstLinkIndex = linkIndexes[0];
 
             return (
@@ -645,8 +772,9 @@ export class ExternalLinksEditor
                 }
                 rawUrl={rawUrl}
                 relationships={links}
-                typeOptions={this.props.typeOptions}
+                typeOptions={typeOptions}
                 url={url}
+                urlMatchesType={urlMatchesType}
                 validateLink={(link) => this.validateLink(link)}
               />
             );
@@ -658,12 +786,12 @@ export class ExternalLinksEditor
 }
 
 type LinkTypeSelectProps = {
-  children: Array<React.Element<'option'>>,
-  handleTypeBlur:
+  +children: Array<React.Element<'option'> | null>,
+  +handleTypeBlur:
     (SyntheticFocusEvent<HTMLSelectElement>) => void,
-  handleTypeChange:
+  +handleTypeChange:
     (SyntheticEvent<HTMLSelectElement>) => void,
-  type: number | null,
+  +type: number | null,
 };
 
 class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
@@ -683,8 +811,8 @@ class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
 }
 
 type TypeDescriptionProps = {
-  type: number | null,
-  url: string,
+  +type: number | null,
+  +url: string,
 };
 
 const TypeDescription =
@@ -709,27 +837,27 @@ const TypeDescription =
   };
 
 type ExternalLinkRelationshipProps = {
-  hasUrlError: boolean,
-  isOnlyRelationship: boolean,
-  link: LinkRelationshipT,
-  onAttributesChange: (number, DatePeriodRoleT) => void,
-  onLinkRemove: (number) => void,
-  onTypeBlur: (number, SyntheticFocusEvent<HTMLSelectElement>) => void,
-  onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
-  onVideoChange:
-  (number, SyntheticEvent<HTMLInputElement>) => void,
-  typeOptions: Array<React.Element<'option'>>,
+  +hasUrlError: boolean,
+  +isOnlyRelationship: boolean,
+  +link: LinkRelationshipT,
+  +onAttributesChange: (number, DatePeriodRoleT) => void,
+  +onLinkRemove: (number) => void,
+  +onTypeBlur: (number, SyntheticFocusEvent<HTMLSelectElement>) => void,
+  +onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
+  +onVideoChange: (number, SyntheticEvent<HTMLInputElement>) => void,
+  +typeOptions: $ReadOnlyArray<LinkTypeOptionT>,
+  +urlMatchesType: boolean,
 };
 
 const ExternalLinkRelationship =
   (props: ExternalLinkRelationshipProps): React.Element<'tr'> => {
-    const {link, hasUrlError} = props;
+    const {link, hasUrlError, urlMatchesType} = props;
     const linkType = link.type ? linkedEntities.link_type[link.type] : null;
     const backward = linkType && linkType.type1 > 'url';
 
     const showTypeSelection = (link.error || hasUrlError)
       ? true
-      : !(link.urlMatchesType || isEmpty(link));
+      : !(urlMatchesType || isEmpty(link));
 
     return (
       <tr className="relationship-item" key={link.relationship}>
@@ -752,7 +880,27 @@ const ExternalLinkRelationship =
                       }
                       type={link.type}
                     >
-                      {props.typeOptions}
+                      {props.typeOptions.map((option, index) => {
+                        const nextOption = props.typeOptions[index + 1];
+                        if (!option.disabled ||
+                          // Ignore empty groups
+                          (nextOption &&
+                            // Is not a group delimiter
+                            !nextOption.disabled &&
+                            // Is an item in group
+                            nextOption.text !== nextOption.text.trim())) {
+                          return (
+                            <option
+                              disabled={option.disabled}
+                              key={option.value}
+                              value={option.value}
+                            >
+                              {option.text}
+                            </option>
+                          );
+                        }
+                        return null;
+                      })}
                     </LinkTypeSelect>
                   ) : (
                     linkType ? (
@@ -806,7 +954,7 @@ const ExternalLinkRelationship =
             }
             relationship={link}
           />
-          {!props.isOnlyRelationship &&
+          {!props.isOnlyRelationship && !props.urlMatchesType &&
             <RemoveButton
               onClick={() => props.onLinkRemove(link.index)}
               title={l('Remove Relationship')}
@@ -817,28 +965,29 @@ const ExternalLinkRelationship =
   };
 
 type LinkProps = {
-  cleanupUrl: (string) => string,
-  error: ErrorT | null,
-  handleAttributesChange: (number, DatePeriodRoleT) => void,
-  handleLinkRemove: (number) => void,
-  handleLinkSubmit: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
-  handleUrlBlur: (SyntheticFocusEvent<HTMLInputElement>) => void,
-  handleUrlChange: (string) => void,
-  index: number,
-  isLastLink: boolean,
-  isOnlyLink: boolean,
-  notice: string,
-  onAddRelationship: (string) => void,
-  onTypeBlur: (number, SyntheticFocusEvent<HTMLSelectElement>) => void,
-  onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
-  onUrlRemove: () => void,
-  onVideoChange:
+  +cleanupUrl: (string) => string,
+  +error: ErrorT | null,
+  +handleAttributesChange: (number, DatePeriodRoleT) => void,
+  +handleLinkRemove: (number) => void,
+  +handleLinkSubmit: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
+  +handleUrlBlur: (SyntheticFocusEvent<HTMLInputElement>) => void,
+  +handleUrlChange: (string) => void,
+  +index: number,
+  +isLastLink: boolean,
+  +isOnlyLink: boolean,
+  +notice: string,
+  +onAddRelationship: (string) => void,
+  +onTypeBlur: (number, SyntheticFocusEvent<HTMLSelectElement>) => void,
+  +onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
+  +onUrlRemove: () => void,
+  +onVideoChange:
     (number, SyntheticEvent<HTMLInputElement>) => void,
-  rawUrl: string,
-  relationships: Array<LinkRelationshipT>,
-  typeOptions: Array<React.Element<'option'>>,
-  url: string,
-  validateLink: (LinkStateT) => ErrorT | null,
+  +rawUrl: string,
+  +relationships: $ReadOnlyArray<LinkRelationshipT>,
+  +typeOptions: $ReadOnlyArray<LinkTypeOptionT>,
+  +url: string,
+  +urlMatchesType: boolean,
+  +validateLink: (LinkStateT) => ErrorT | null,
 };
 
 export class ExternalLink extends React.Component<LinkProps> {
@@ -915,7 +1064,7 @@ export class ExternalLink extends React.Component<LinkProps> {
                 {props.url}
               </a>
             )}
-            {props.notice &&
+            {props.url && props.notice &&
               <div
                 className="error field-error"
                 data-visible="1"
@@ -966,13 +1115,30 @@ export class ExternalLink extends React.Component<LinkProps> {
               onTypeChange={props.onTypeChange}
               onVideoChange={props.onVideoChange}
               typeOptions={props.typeOptions}
+              urlMatchesType={props.urlMatchesType}
             />
+        ))}
+        {firstLink.pendingTypes &&
+          firstLink.pendingTypes.map((type) => (
+            <tr className="relationship-item" key={type}>
+              <td />
+              <td>
+                <div className="relationship-content">
+                  <label>{addColonText(l('Type'))}</label>
+                  <label className="relationship-name">
+                    {l_relationships(
+                      linkedEntities.link_type[type].link_phrase,
+                    )}
+                  </label>
+                </div>
+              </td>
+            </tr>
         ))}
         {/*
           * Hide the button when link is not submitted
           * or link type is auto-selected.
           */}
-        {notEmpty && firstLink.submitted && !firstLink.urlMatchesType &&
+        {notEmpty && firstLink.submitted && !props.urlMatchesType &&
         <tr className="add-relationship">
           <td />
           <td className="add-item" colSpan="4">
@@ -991,9 +1157,9 @@ export class ExternalLink extends React.Component<LinkProps> {
 }
 
 const nullPartialDate: PartialDateT = {
-  year: null,
-  month: null,
   day: null,
+  month: null,
+  year: null,
 };
 
 const defaultLinkState: LinkStateT = {
@@ -1071,8 +1237,8 @@ export function parseRelationships(
         begin_date: data.begin_date || nullPartialDate,
         end_date: data.end_date || nullPartialDate,
         ended: data.ended || false,
-        relationship: data.id,
         rawUrl: target.name,
+        relationship: data.id,
         submitted: true,
         type: data.linkTypeID ?? null,
         url: target.name,
@@ -1087,9 +1253,9 @@ export function parseRelationships(
 }
 
 function groupLinksByUrl(
-  links: Array<LinkStateT>,
+  links: $ReadOnlyArray<LinkStateT>,
 ): Map<string, Array<LinkRelationshipT>> {
-  let map = new Map();
+  const map = new Map();
   let urlIndex = 0;
   links.forEach((link, index) => {
     const relationship: LinkRelationshipT = {
@@ -1328,19 +1494,9 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
     return link;
   });
 
-  const typeOptions = (
-    linkTypeOptions(
-      {children: linkedEntities.link_type_tree[entityTypes]},
-      /^url-/.test(entityTypes),
-    ).map((data) => (
-      <option
-        disabled={data.disabled}
-        key={data.value}
-        value={data.value}
-      >
-        {data.text}
-      </option>
-    ))
+  const typeOptions = linkTypeOptions(
+    {children: linkedEntities.link_type_tree[entityTypes]},
+    /^url-/.test(entityTypes),
   );
 
   const errorObservable = options.errorObservable ||

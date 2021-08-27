@@ -19,7 +19,7 @@ import {
 export function arraysEqual<T>(
   a: $ReadOnlyArray<T>,
   b: $ReadOnlyArray<T>,
-  isEqual: (T, T) => boolean,
+  isEqual: (T, T) => boolean = (a, b) => a === b,
 ): boolean {
   const length = a.length;
   if (length !== b.length) {
