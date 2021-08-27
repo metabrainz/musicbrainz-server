@@ -65,8 +65,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-25 22:12-0500\n"
-"PO-Revision-Date: 2021-08-26 03:28+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2021-08-27 08:33+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2220,7 +2220,7 @@ msgid ""
 "If you do not know the end date, but you know the relationship has ended and"
 " this seems like useful information to store (for example, if someone is no "
 "longer a member of a band), you can indicate it with the checkbox above."
-msgstr ""
+msgstr "Si vous ne connaissez pas la date de fin, mais que vous savez que la relation est terminée et qu’il semble utile de le mentionner (par exemple, si quelqu’un n’est plus membre d’un groupe), vous pouvez l’indiquer en cochant la case ci-dessus."
 
 #: ../root/release/edit/information.tt:312
 msgid ""
@@ -2278,7 +2278,7 @@ msgid ""
 "If you want to set the relationship as happening on one specific date, just "
 "set the same end date and start date. You can use the arrow button to copy "
 "the begin date to the end date."
-msgstr ""
+msgstr "Si vous souhaitez spécifier qu’une relation n’a existé qu’à une date spécifique, mettez la même date de début et de fin. Vous pouvez utiliser le bouton avec la flèche pour copier la date de début vers la date de fin."
 
 #: ../root/release/edit/tracklist.tt:379
 msgid ""
@@ -2369,7 +2369,7 @@ msgid ""
 " the old recording, don’t create a new one. If the recording is also used "
 "elsewhere and the durations are significantly different, consider creating a"
 " new recording instead."
-msgstr ""
+msgstr "Gardez à l’esprit que les durées d’un enregistrement sont {doc_link|recalculées à partir des pistes} lorsque la durée d’une piste change. Donc si vous corrigez la durée d’une piste dont l’enregistrement apparaît uniquement dans cette parution, réutilisez simplement le même enregistrement, n’en créez pas un nouveau. Si l’enregistrement apparaît également par ailleurs et les durées sont significativement différentes, veuillez créer un nouvel enregistrement à la place."
 
 #: ../root/release/edit/tracklist.tt:461
 msgid ""
@@ -9573,7 +9573,7 @@ msgstr "(nouveau groupe de parution)"
 
 #: ../root/edit/details/AddRelease.js:122
 msgid "Packaging"
-msgstr ""
+msgstr "Emballage"
 
 #: ../root/edit/details/AddRelease.js:136
 #: ../root/edit/details/EditReleaseLabel.js:106
@@ -10553,11 +10553,11 @@ msgstr[1] "Associé à {num} œuvres"
 
 #: ../root/label/LabelIndex.js:63
 msgid "Previously known as"
-msgstr ""
+msgstr "Précédemment connu comme"
 
 #: ../root/label/LabelIndex.js:70
 msgid "Renamed to"
-msgstr ""
+msgstr "Renommé"
 
 #: ../root/label/LabelIndex.js:100
 msgid "This label does not have any releases."
@@ -15820,19 +15820,19 @@ msgstr "Cet utilisateur n’a créé aucune entité."
 
 #: ../root/user/UserProfile.js:729
 msgid "This table shows a summary of secondary data added by this editor."
-msgstr ""
+msgstr "Cette table affiche un résumé des données secondaires ajoutées par cet éditeur."
 
 #: ../root/user/UserProfile.js:735
 msgid "Tags and ratings"
-msgstr ""
+msgstr "Balises et évaluations"
 
 #: ../root/user/UserProfile.js:742
 msgid "Tags upvoted"
-msgstr ""
+msgstr "Balises votées pour"
 
 #: ../root/user/UserProfile.js:752
 msgid "Tags downvoted"
-msgstr ""
+msgstr "Balises votées contre"
 
 #: ../root/user/UserProfile.js:833
 msgid "Report this user for bad behavior"
