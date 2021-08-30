@@ -141,9 +141,11 @@ sub build_display_data {
                 );
             }
 
-            $event_display->{date} = to_json_object(
-                MusicBrainz::Server::Entity::PartialDate->new($_->{date})
-            );
+            if ($_->{date}) {
+                $event_display->{date} = to_json_object(
+                    MusicBrainz::Server::Entity::PartialDate->new($_->{date})
+                );
+            }
             $event_display;
         } @{ $data->{release}{events} // [] }
     ];
