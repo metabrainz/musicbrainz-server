@@ -118,6 +118,19 @@ sub build_display_data {
             exists $data->{new}{catalog_number} ? (new => $data->{new}{catalog_number}) : (),
             old => $data->{old}{catalog_number},
         },
+        label => {
+            exists $data->{new}{label}
+                ? (
+                    new => defined $data->{new}{label} ? to_json_object(
+                        $loaded->{Label}{gid_or_id($data->{new}{label})} //
+                        Label->new(name => $data->{new}{label}{name})
+                    ) : undef
+                ) : (),
+            old => defined $data->{old}{label} ? to_json_object(
+                $loaded->{Label}{gid_or_id($data->{old}{label})} //
+                Label->new(name => $data->{old}{label}{name})
+            ) : undef,
+        },
         barcode => $data->{release}{barcode}
     };
 
@@ -149,16 +162,6 @@ sub build_display_data {
             $event_display;
         } @{ $data->{release}{events} // [] }
     ];
-
-    for (qw( new old )) {
-        if (my $label = $data->{$_}{label}) {
-            next unless %$label;
-            $display_data->{label}{$_} = to_json_object(
-                $loaded->{Label}{gid_or_id($label)} //
-                Label->new(name => $label->{name})
-            );
-        }
-    }
 
     return $display_data;
 }
