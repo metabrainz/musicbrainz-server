@@ -295,45 +295,47 @@ const UserProfileInformation = ({
           </UserProfileProperty>
         ) : null}
 
-        <UserProfileProperty name={l('Subscribers:')}>
-          {subscriberCount ? (
-            exp.l(
-              '{count} ({url|view list})',
-              {
-                count: subscriberCount,
-                url: `/user/${encodedName}/subscribers`,
-              },
-            )
-          ) : (
-            l('0')
-          )}
-          {$c.user && !viewingOwnProfile ? (
-            <>
-              {' '}
-              {bracketed(
-                subscribed ? (
-                  <a
-                    href={
-                      `/account/subscriptions/editor/remove?id=${user.id}` +
-                      '&' + returnToCurrentPage($c)
-                    }
-                  >
-                    {l('unsubscribe')}
-                  </a>
-                ) : (
-                  <a
-                    href={
-                      `/account/subscriptions/editor/add?id=${user.id}` +
-                      '&' + returnToCurrentPage($c)
-                    }
-                  >
-                    {l('subscribe')}
-                  </a>
-                ),
-              )}
-            </>
-          ) : null}
-        </UserProfileProperty>
+        {user.deleted ? null : (
+          <UserProfileProperty name={l('Subscribers:')}>
+            {subscriberCount ? (
+              exp.l(
+                '{count} ({url|view list})',
+                {
+                  count: subscriberCount,
+                  url: `/user/${encodedName}/subscribers`,
+                },
+              )
+            ) : (
+              l('0')
+            )}
+            {$c.user && !viewingOwnProfile ? (
+              <>
+                {' '}
+                {bracketed(
+                  subscribed ? (
+                    <a
+                      href={
+                        `/account/subscriptions/editor/remove?id=${user.id}` +
+                        '&' + returnToCurrentPage($c)
+                      }
+                    >
+                      {l('unsubscribe')}
+                    </a>
+                  ) : (
+                    <a
+                      href={
+                        `/account/subscriptions/editor/add?id=${user.id}` +
+                        '&' + returnToCurrentPage($c)
+                      }
+                    >
+                      {l('subscribe')}
+                    </a>
+                  ),
+                )}
+              </>
+            ) : null}
+          </UserProfileProperty>
+        )}
 
         {nonEmpty(biography) ? (
           <UserProfileProperty className="biography" name={l('Bio:')}>
