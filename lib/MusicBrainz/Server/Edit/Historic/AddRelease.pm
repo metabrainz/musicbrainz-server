@@ -10,7 +10,11 @@ use aliased 'MusicBrainz::Server::Entity::Label';
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_RELEASE );
-use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date upgrade_id upgrade_type_and_status );
+use MusicBrainz::Server::Edit::Historic::Utils qw(
+    get_historic_type
+    upgrade_date upgrade_id
+    upgrade_type_and_status
+);
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
@@ -108,8 +112,7 @@ sub build_display_data
         ],
         status         => defined($self->data->{status_id}) &&
                             to_json_object($loaded->{ReleaseStatus}{ $self->data->{status_id} }),
-        type           => defined($self->data->{type_id}) &&
-                            to_json_object($loaded->{ReleaseGroupType}{ $self->data->{type_id} }),
+        type           => get_historic_type($self->data->{type_id}, $loaded),
         language       => defined($self->data->{language_id}) &&
                             to_json_object($loaded->{Language}{ $self->data->{language_id} }),
         script         => defined($self->data->{script_id}) &&

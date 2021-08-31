@@ -53,6 +53,7 @@ type Props = {
 const AddRelease = ({edit}: Props): React.Element<'table'> => {
   const display = edit.display_data;
   const artist = display.artist;
+  const type = display.type;
 
   return (
     <table className="details add-release">
@@ -73,8 +74,10 @@ const AddRelease = ({edit}: Props): React.Element<'table'> => {
       <tr>
         <th>{addColonText(l('Type'))}</th>
         <td>
-          {display.type
-            ? lp_attributes(display.type.name, 'release_group_primary_type')
+          {type
+            ? type.historic
+              ? lp_attributes(type.name, 'release_group_secondary_type')
+              : lp_attributes(type.name, 'release_group_primary_type')
             : null}
         </td>
       </tr>
