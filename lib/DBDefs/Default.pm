@@ -319,9 +319,18 @@ EOF
 # Used to display which git branch is currently running along with information
 # about the last commit
 my $git_info = shell_quote(catfile(__PACKAGE__->MB_SERVER_ROOT, 'script/git_info'));
-sub GIT_BRANCH { qx( $git_info branch ) }
-sub GIT_MSG { qx( $git_info msg ) }
-sub GIT_SHA { qx( $git_info sha ) }
+sub GIT_BRANCH {
+    CORE::state $branch = $ENV{GIT_BRANCH} // scalar(qx( $git_info branch ));
+    return $branch;
+}
+sub GIT_MSG {
+    CORE::state $msg = $ENV{GIT_MSG} // scalar(qx( $git_info msg ));
+    return $msg;
+}
+sub GIT_SHA {
+    CORE::state $sha = $ENV{GIT_SHA} // scalar(qx( $git_info sha ));
+    return $sha;
+}
 
 # Amazon associate and developer ids
 my %amazon_store_associate_ids = (

@@ -13,11 +13,6 @@ install_translations()
 install_javascript_and_templates(` --only=production')
 
 COPY \
-    docker/musicbrainz-website/consul-template-template-renderer.conf \
-    docker/musicbrainz-website/consul-template-website.conf \
-    /etc/
-
-COPY \
     docker/musicbrainz-website/template-renderer.service \
     /etc/service/template-renderer/run
 COPY \
@@ -26,6 +21,9 @@ COPY \
 RUN chmod 755 \
         /etc/service/template-renderer/run \
         /etc/service/website/run
+RUN touch \
+        /etc/service/template-renderer/down \
+        /etc/service/website/down
 
 COPY \
     docker/scripts/start_musicbrainz_server.sh \
@@ -36,5 +34,3 @@ RUN chmod 755 \
         /usr/local/bin/start_musicbrainz_server.sh \
         /usr/local/bin/start_template_renderer.sh \
         /usr/local/bin/dbdefs_to_js.sh
-
-copy_mb(`docker/templates/DBDefs.pm.ctmpl lib/')

@@ -1,3 +1,0 @@
-#!/bin/sh
-
-exec run-consul-template -config /etc/consul-template-sitemaps.conf
