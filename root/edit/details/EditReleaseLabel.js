@@ -22,13 +22,13 @@ type EditReleaseLabelEditT = {
   ...EditT,
   +display_data: {
     +barcode: string | null,
-    +catalog_number?: {
+    +catalog_number: {
       +new?: string | null,
       +old: string | null,
     },
     +combined_format?: string,
     +events: $ReadOnlyArray<ReleaseEventT>,
-    +label?: {
+    +label: {
       +new?: LabelT | null,
       +old: LabelT | null,
     },
@@ -44,7 +44,9 @@ const EditReleaseLabel = ({edit}: Props): React.Element<'table'> => {
   const display = edit.display_data;
   const barcode = display.barcode;
   const catNo = display.catalog_number;
+  const showCatNo = nonEmpty(catNo.old) || nonEmpty(catNo.new);
   const label = display.label;
+  const showLabel = label.old || label.new;
   const releaseEvents = display.events;
   const hasMultipleEvents = display.events?.length > 1;
   const firstEvent = display.events[0];
@@ -62,10 +64,16 @@ const EditReleaseLabel = ({edit}: Props): React.Element<'table'> => {
         </tr>
       )}
 
-      {label ? (
+      {showLabel ? (
         <tr>
           <th>{addColonText(l('Label'))}</th>
-          {label.new ? (
+          {label.new === undefined ? (
+            <td colSpan="2">
+              {label.old ? (
+                <EntityLink entity={label.old} />
+              ) : null}
+            </td>
+          ) : (
             <>
               <td className="old">
                 {label.old ? (
@@ -73,20 +81,16 @@ const EditReleaseLabel = ({edit}: Props): React.Element<'table'> => {
                 ) : null}
               </td>
               <td className="new">
-                <EntityLink entity={label.new} />
+                {label.new ? (
+                  <EntityLink entity={label.new} />
+                ) : null}
               </td>
             </>
-          ) : (
-            <td colSpan="2">
-              {label.old ? (
-                <EntityLink entity={label.old} />
-              ) : null}
-            </td>
           )}
         </tr>
       ) : null}
 
-      {catNo ? (
+      {showCatNo ? (
         catNo.new === undefined ? (
           <tr>
             <th>{addColonText(l('Catalog number'))}</th>
