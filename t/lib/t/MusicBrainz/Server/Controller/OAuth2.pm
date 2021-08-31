@@ -335,6 +335,23 @@ test 'Exchange authorization code' => sub {
         );
     }
 
+    # Malformed authorization code
+    $code = qq{'"\x00<script>alert(1);</script>};
+    $test->mech->post('/oauth2/token', {
+        client_id => 'id-desktop',
+        client_secret => 'id-desktop-secret',
+        grant_type => 'authorization_code',
+        redirect_uri => 'urn:ietf:wg:oauth:2.0:oob',
+        code => $code,
+    });
+    $response = from_json($test->mech->content);
+    is($test->mech->status, 400);
+    is($response->{error}, 'invalid_request');
+    is(
+        $response->{error_description},
+        'Malformed authorization code',
+    );
+
     # Unknown authorization code
     $code = 'xxxxxxxxxxxxxxxxxxxxxx';
     $test->mech->post('/oauth2/token', {

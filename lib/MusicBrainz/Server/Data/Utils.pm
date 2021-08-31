@@ -54,6 +54,7 @@ our @EXPORT_OK = qw(
     hash_to_row
     is_special_artist
     is_special_label
+    is_valid_token
     localized_note
     load_everything_for_edits
     load_meta
@@ -244,6 +245,17 @@ sub generate_token {
             'L' x $TOKEN_SIZE,
             map { irand() } (1 .. $TOKEN_SIZE),
         ));
+}
+
+sub is_valid_token {
+    my $token = shift;
+    # Checks that the input looks like a base64url-encoded string produced by
+    # `generate_token`.
+    #
+    # This doesn't check the length because tokens used to be shorter, and
+    # most older OAuth applications still use the shorter token length for
+    # their ID/secret.
+    defined $token && $token =~ /^[A-Za-z0-9_-]+$/;
 }
 
 sub get_area_containment_query {
