@@ -11,7 +11,7 @@ use URI::QueryParam;
 use JSON;
 use MIME::Base64 qw( encode_base64url );
 use MusicBrainz::Server::Constants qw( :access_scope );
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json is_valid_token );
 use Readonly;
 
 Readonly our %ACCESS_SCOPE_BY_NAME => (
@@ -272,7 +272,10 @@ sub token : Local Args(0)
     if ($params{grant_type} eq 'authorization_code') {
         $self->_send_error($c, 'invalid_request', 'Mismatched redirect URI')
             unless $self->_check_redirect_uri($application, $params{redirect_uri});
-        $token = $c->model('EditorOAuthToken')->get_by_authorization_code($params{code});
+        my $authorization_code = $params{code};
+        $self->_send_error($c, 'invalid_request', 'Malformed authorization code')
+            unless is_valid_token($authorization_code);
+        $token = $c->model('EditorOAuthToken')->get_by_authorization_code($authorization_code);
         $self->_send_error($c, 'invalid_grant', 'Invalid authorization code')
             unless defined $token && $token->application_id == $application->id;
         if ($token->code_challenge) {

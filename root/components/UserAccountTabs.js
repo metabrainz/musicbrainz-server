@@ -30,7 +30,13 @@ function buildTabs(
 
   const tabs = [buildTab(page, l('Profile'), userPath, 'index')];
 
-  if (viewingOwnProfile || user.preferences.public_subscriptions) {
+  const userDeleted = user.deleted;
+  const hasPublicSubscriptions =
+    !userDeleted && user.preferences.public_subscriptions;
+  const hasPublicTags = !userDeleted && user.preferences.public_tags;
+  const hasPublicRatings = !userDeleted && user.preferences.public_ratings;
+
+  if (viewingOwnProfile || hasPublicSubscriptions) {
     tabs.push(buildTab(
       page,
       l('Subscriptions'),
@@ -39,24 +45,26 @@ function buildTabs(
     ));
   }
 
-  tabs.push(buildTab(
-    page,
-    l('Subscribers'),
-    userPath + '/subscribers',
-    'subscribers',
-  ));
-  tabs.push(buildTab(
-    page,
-    l('Collections'),
-    userPath + '/collections',
-    'collections',
-  ));
+  if (!userDeleted) {
+    tabs.push(buildTab(
+      page,
+      l('Subscribers'),
+      userPath + '/subscribers',
+      'subscribers',
+    ));
+    tabs.push(buildTab(
+      page,
+      l('Collections'),
+      userPath + '/collections',
+      'collections',
+    ));
+  }
 
-  if (viewingOwnProfile || user.preferences.public_tags) {
+  if (viewingOwnProfile || hasPublicTags) {
     tabs.push(buildTab(page, l('Tags'), userPath + '/tags', 'tags'));
   }
 
-  if (viewingOwnProfile || user.preferences.public_ratings) {
+  if (viewingOwnProfile || hasPublicRatings) {
     tabs.push(buildTab(page, l('Ratings'), userPath + '/ratings', 'ratings'));
   }
 

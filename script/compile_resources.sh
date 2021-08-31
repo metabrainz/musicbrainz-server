@@ -31,8 +31,7 @@ if [ -z "$GIT_SHA" ]; then
 fi
 
 # lib/DBDefs.pm doesn't exist when building Docker images.
-# In production, dbdefs_to_js.pl is run by consul-template once
-# DBDefs.pm is rendered.
+# In production, dbdefs_to_js.pl is run from website.service.
 if [ -f lib/DBDefs.pm ]; then
     ./script/dbdefs_to_js.pl
 fi

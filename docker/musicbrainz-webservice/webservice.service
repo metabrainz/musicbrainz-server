@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-exec run-consul-template -config /etc/consul-template-webservice.conf
+exec /usr/local/bin/start_musicbrainz_server.sh
