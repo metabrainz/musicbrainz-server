@@ -95,10 +95,13 @@ export class ExternalLinksEditor
 
   generalLinkTypes: $ReadOnlyArray<LinkTypeOptionT>;
 
+  oldLinks: LinkMapT;
+
   constructor(props: LinksEditorProps) {
     super(props);
     this.state = {links: withOneEmptyLink(props.initialLinks)};
     this.tableRef = React.createRef();
+    this.oldLinks = this.getOldLinksHash();
     this.generalLinkTypes = props.typeOptions.filter(
       // Keep disabled options for grouping
       (option) => option.disabled ||
@@ -512,7 +515,6 @@ export class ExternalLinksEditor
     link: LinkStateT,
     checker?: URLCleanup.Checker,
   ): ErrorT | null {
-    const oldLinks = this.getOldLinksHash();
     const linksByTypeAndUrl = groupBy(
       uniqBy(
         this.state.links.concat(this.props.initialLinks),
@@ -527,7 +529,7 @@ export class ExternalLinksEditor
     // Use existing checker if possible, otherwise create a new one
     checker = checker ||
       new URLCleanup.Checker(link.url, this.props.sourceType);
-    const oldLink = oldLinks.get(String(link.relationship));
+    const oldLink = this.oldLinks.get(String(link.relationship));
     const isNewLink = !isPositiveInteger(link.relationship);
     const linkChanged = oldLink && link.url !== oldLink.url;
     const isNewOrChangedLink = (isNewLink || linkChanged);
@@ -710,13 +712,29 @@ export class ExternalLinksEditor
              */
             const check =
               checker.checkRelationships(selectedTypes, possibleTypes);
+            /*
+             * Only validate type combination when
+             * the type or the URL has changed
+             * or there's a new relationship.
+             */
+            const shouldValidateTypeCombination =
+              links.some(link => {
+                const oldLink = this.oldLinks.get(String(link.relationship));
+                const isNewLink = !isPositiveInteger(link.relationship);
+                const linkChanged = oldLink && link.url !== oldLink.url;
+                const isNewOrChangedLink = (isNewLink || linkChanged);
+                const linkTypeChanged = oldLink &&
+                  +link.type !== +oldLink.type;
+                return isNewOrChangedLink || linkTypeChanged;
+              });
             if (check.result) {
               /*
                * Now that selected types are valid, if there's only one
                * possible type, then it's a match.
                */
               urlMatchesType = possibleTypes && possibleTypes.length === 1;
-            } else if (links[0].submitted &&
+            } else if (shouldValidateTypeCombination &&
+              links[0].submitted &&
               selectedTypes.length > 0 &&
               !hasError) {
               this.props.errorObservable(true);
