@@ -883,12 +883,13 @@ const ExternalLinkRelationship =
                       {props.typeOptions.map((option, index) => {
                         const nextOption = props.typeOptions[index + 1];
                         if (!option.disabled ||
-                          // Ignore empty groups
+                          /*
+                           * Ignore empty groups by checking
+                           * if the next option is an item in current group,
+                           * if not, then it's an empty group.
+                           */
                           (nextOption &&
-                            // Is not a group delimiter
-                            !nextOption.disabled &&
-                            // Is an item in group
-                            nextOption.text !== nextOption.text.trim())) {
+                            nextOption.data.parent_id === option.value)) {
                           return (
                             <option
                               disabled={option.disabled}
