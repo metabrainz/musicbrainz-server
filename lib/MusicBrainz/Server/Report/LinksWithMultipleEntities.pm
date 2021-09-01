@@ -26,7 +26,10 @@ sub query {
         WHERE url.url NOT LIKE 'https://www.wikidata.org%' -- has its own report
         AND url.url NOT LIKE 'https://www.discogs.com%' -- has its own report set
         AND l.link_type_gid != '4f2e710d-166c-480c-a293-2e2c8d658d87' -- release ASINs have their own report
-        AND l.link_type_gid NOT IN ('004bd0c3-8a45-4309-ba52-fa99f3aa3d50', 'f25e301d-b87b-4561-86a0-5d2df6d26c0a') -- licenses are meant for reuse
+        AND l.link_type_gid NOT IN (
+            '004bd0c3-8a45-4309-ba52-fa99f3aa3d50',
+            'f25e301d-b87b-4561-86a0-5d2df6d26c0a',
+            '770ea9f4-cba0-4194-b77f-fe2740055e34') -- licenses are meant for reuse
         GROUP BY url_id
         HAVING count(*) > 1
         EOSQL
