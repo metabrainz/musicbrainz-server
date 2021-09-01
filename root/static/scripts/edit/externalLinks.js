@@ -804,25 +804,44 @@ export class ExternalLinksEditor
 }
 
 type LinkTypeSelectProps = {
-  +children: Array<React.Element<'option'> | null>,
   +handleTypeBlur:
     (SyntheticFocusEvent<HTMLSelectElement>) => void,
   +handleTypeChange:
     (SyntheticEvent<HTMLSelectElement>) => void,
+  +options: Array<LinkTypeOptionT>,
   +type: number | null,
 };
 
 class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
-  render() {
+  render(): React.Element<'select'> {
+    const {options, type} = this.props;
+    const optionAvailable = options.some(option => option.value === type);
+    // If the selected type is not available, display it as placeholder
+    const linkType = type ? linkedEntities.link_type[type] : null;
+    const placeholder = (optionAvailable || !linkType)
+      ? '\xA0'
+      : l_relationships(
+        linkType.link_phrase,
+      );
+
     return (
       <select
-        className="link-type"
+        // If the selected type is not available, display an error indicator
+        className={optionAvailable || !type ? 'link-type' : 'link-type error'}
         onBlur={this.props.handleTypeBlur}
         onChange={this.props.handleTypeChange}
-        value={this.props.type || ''}
+        value={type || ''}
       >
-        <option value="">{'\xA0'}</option>
-        {this.props.children}
+        <option value="">{placeholder}</option>
+        {options.map(option => (
+          <option
+            disabled={option.disabled}
+            key={option.value}
+            value={option.value}
+          >
+            {option.text}
+          </option>
+        ))}
       </select>
     );
   }
@@ -896,11 +915,10 @@ const ExternalLinkRelationship =
                       handleTypeChange={
                         (event) => props.onTypeChange(link.index, event)
                       }
-                      type={link.type}
-                    >
-                      {props.typeOptions.map((option, index) => {
-                        const nextOption = props.typeOptions[index + 1];
-                        if (!option.disabled ||
+                      options={
+                        props.typeOptions.reduce((options, option, index) => {
+                          const nextOption = props.typeOptions[index + 1];
+                          if (!option.disabled ||
                           /*
                            * Ignore empty groups by checking
                            * if the next option is an item in current group,
@@ -908,19 +926,12 @@ const ExternalLinkRelationship =
                            */
                           (nextOption &&
                             nextOption.data.parent_id === option.value)) {
-                          return (
-                            <option
-                              disabled={option.disabled}
-                              key={option.value}
-                              value={option.value}
-                            >
-                              {option.text}
-                            </option>
-                          );
-                        }
-                        return null;
-                      })}
-                    </LinkTypeSelect>
+                            options.push(option);
+                          }
+                          return options;
+                        }, [])}
+                      type={link.type}
+                    />
                   ) : (
                     linkType ? (
                       backward
