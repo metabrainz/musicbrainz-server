@@ -63,6 +63,7 @@ echo Making database snapshot
     --compress \
     --replication-callback "$MB_SERVER_ROOT/admin/CopyReplication $TEMP_DIR" \
     --database MAINTENANCE \
+    --nodbmirror2 \
     || exit $?
 
 if [ "$WITH_FULL_EXPORT" ]

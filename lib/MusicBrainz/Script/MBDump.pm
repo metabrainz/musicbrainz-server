@@ -146,6 +146,8 @@ sub gpg_sign {
 sub make_tar {
     my ($self, $tar_file, @files) = @_;
 
+    my $export_dir = $self->export_dir;
+
     # These ones go first, so MBImport can quickly find them.
     unshift @files, qw(
         TIMESTAMP
@@ -173,7 +175,7 @@ sub make_tar {
         'bash', '-c',
             'set -o pipefail; ' .
             'tar' .
-            ' -C ' . shell_quote($self->export_dir) .
+            ' -C ' . shell_quote($export_dir) .
             ' --create' .
             ' --verbose' .
             ' -- ' .
