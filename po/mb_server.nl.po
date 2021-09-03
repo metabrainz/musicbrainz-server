@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-27 12:58+0300\n"
+"POT-Creation-Date: 2021-08-31 18:57-0500\n"
 "PO-Revision-Date: 2021-08-27 10:02+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
@@ -80,7 +80,7 @@ msgstr "‘JJ’ zijn de laatste twee cijfers van het registratiejaar."
 #: ../root/edit/details/EditMedium.js:363
 #: ../root/edit/details/EditMedium.js:564
 #: ../root/edit/details/EditMedium.js:622
-#: ../root/edit/details/historic/AddRelease.js:115
+#: ../root/edit/details/historic/AddRelease.js:118
 #: ../root/recording/RecordingIndex.js:50
 #: ../root/static/scripts/release/components/MediumTable.js:218
 #: ../root/utility/tableColumns.js:537
@@ -637,8 +637,8 @@ msgstr "Gebieden"
 #: ../root/edit/details/EditRecording.js:86
 #: ../root/edit/details/EditRelease.js:83
 #: ../root/edit/details/EditReleaseGroup.js:101
-#: ../root/edit/details/historic/AddRelease.js:67
-#: ../root/edit/details/historic/AddRelease.js:117
+#: ../root/edit/details/historic/AddRelease.js:68
+#: ../root/edit/details/historic/AddRelease.js:120
 #: ../root/edit/details/historic/AddTrackKV.js:55
 #: ../root/edit/details/historic/EditTrack.js:45 ../root/isrc/Index.js:67
 #: ../root/layout/components/Search.js:26
@@ -777,8 +777,8 @@ msgstr "Mededelingsredateur"
 #: ../root/edit/details/EditBarcodes.js:58
 #: ../root/edit/details/EditBarcodes.js:64
 #: ../root/edit/details/EditRelease.js:167
-#: ../root/edit/details/EditReleaseLabel.js:134
-#: ../root/edit/details/historic/AddRelease.js:152
+#: ../root/edit/details/EditReleaseLabel.js:138
+#: ../root/edit/details/historic/AddRelease.js:155
 #: ../root/edit/details/historic/EditReleaseEvents.js:138
 #: ../root/otherlookup/OtherLookupForm.js:64
 #: ../root/release_group/ReleaseGroupIndex.js:162
@@ -860,7 +860,7 @@ msgstr "Hieronder staat informatie over de foutmelding. Als je deze fout wil mel
 
 #: ../root/admin/edit_user.tt:41
 #: ../root/static/scripts/account/components/EditProfileForm.js:274
-#: ../root/user/UserProfile.js:339
+#: ../root/user/UserProfile.js:341
 msgid "Bio:"
 msgstr "Biografie:"
 
@@ -1020,7 +1020,7 @@ msgstr "Catalogusnummer:"
 #: ../root/account/change_password.tt:25 ../root/account/change_password.tt:31
 #: ../root/account/change_password.tt:32 ../root/account/change_password.tt:36
 #: ../root/account/change_password.tt:37
-#: ../root/components/UserAccountTabs.js:78
+#: ../root/components/UserAccountTabs.js:86
 msgid "Change Password"
 msgstr "Wachtwoord veranderen"
 
@@ -1101,7 +1101,7 @@ msgid "Collection"
 msgstr "Collectie"
 
 #: ../root/components/common-macros.tt:586 ../root/entity/collections.tt:1
-#: ../root/entity/collections.tt:2 ../root/components/UserAccountTabs.js:50
+#: ../root/entity/collections.tt:2 ../root/components/UserAccountTabs.js:57
 #: ../root/layout/components/sidebar/CollectionLinks.js:35
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:17
 #: ../root/user/UserCollections.js:165
@@ -1113,7 +1113,7 @@ msgid "Comment"
 msgstr "Opmerking"
 
 #: ../root/cdstub/edit_form.tt:8 ../root/release/add_cover_art.tt:67
-#: ../root/release/add_cover_art.tt:136
+#: ../root/release/add_cover_art.tt:135
 #: ../root/release/reorder_cover_art.tt:19
 #: ../root/release_group/set_cover_art.tt:71
 #: ../root/edit/details/AddCoverArt.js:64
@@ -1172,8 +1172,8 @@ msgstr "Naar einddatum kopiëren"
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
 #: ../root/cdtoc/lookup.tt:43 ../root/edit/details/merge_releases.tt:23
 #: ../root/release/edit/duplicates.tt:14 ../root/release/merge.tt:16
-#: ../root/edit/details/EditReleaseLabel.js:123
-#: ../root/edit/details/historic/AddRelease.js:149
+#: ../root/edit/details/EditReleaseLabel.js:127
+#: ../root/edit/details/historic/AddRelease.js:152
 #: ../root/edit/details/historic/EditReleaseEvents.js:135
 #: ../root/recording/RecordingIndex.js:57
 #: ../root/release_group/ReleaseGroupIndex.js:159
@@ -1260,8 +1260,8 @@ msgstr "Data:"
 #: ../root/admin/statistics-events/StatisticsEventEditForm.js:35
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:30
 #: ../root/components/RelationshipsTable.js:316
-#: ../root/edit/details/EditReleaseLabel.js:115
-#: ../root/edit/details/historic/AddRelease.js:148
+#: ../root/edit/details/EditReleaseLabel.js:119
+#: ../root/edit/details/historic/AddRelease.js:151
 #: ../root/edit/details/historic/EditReleaseEvents.js:134
 #: ../root/elections/ElectionVotes.js:26
 #: ../root/recording/RecordingIndex.js:57
@@ -1298,7 +1298,7 @@ msgstr "Data hebben de opmaak JJJJ-MM-DD. Gedeeltelijke data zoals JJJJ-MM of al
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: ../root/admin/delete_user.tt:4 ../root/components/UserAccountTabs.js:103
+#: ../root/admin/delete_user.tt:4 ../root/components/UserAccountTabs.js:111
 msgid "Delete Account"
 msgstr "Account verwijderen"
 
@@ -1662,7 +1662,7 @@ msgid ""
 "marker. If you’re too far out, clicking will zoom instead."
 msgstr "Vul de coördinaten in of klik op de kaart om de coördinaten van de aanwijzer over te nemen. Als je te ver bent uitgezoomd, wordt de map ingezoomd als je erop klikt."
 
-#: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:170
+#: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:168
 #: ../root/release/edit/layout.tt:58 ../root/release/edit_relationships.tt:125
 #: ../root/components/EnterEdit.js:48
 msgid "Enter edit"
@@ -1827,8 +1827,8 @@ msgstr "Lees de {doc_doc|documentatie} voor meer informatie."
 #: ../root/release/edit/duplicates.tt:11 ../root/release/merge.tt:14
 #: ../root/components/list/ReleaseList.js:93
 #: ../root/edit/details/EditMedium.js:530
-#: ../root/edit/details/EditReleaseLabel.js:141
-#: ../root/edit/details/historic/AddRelease.js:153
+#: ../root/edit/details/EditReleaseLabel.js:145
+#: ../root/edit/details/historic/AddRelease.js:156
 #: ../root/edit/details/historic/EditReleaseEvents.js:139
 #: ../root/release_group/ReleaseGroupIndex.js:157
 #: ../root/report/components/CDTocList.js:46
@@ -2360,8 +2360,8 @@ msgstr "Vergeet niet dat de nummers worden verwijderd als je dit vakje uitvinkt 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
 #: ../root/components/list/LabelList.js:54 ../root/edit/details/AddLabel.js:51
 #: ../root/edit/details/EditLabel.js:62
-#: ../root/edit/details/EditReleaseLabel.js:67
-#: ../root/edit/details/historic/AddRelease.js:150
+#: ../root/edit/details/EditReleaseLabel.js:69
+#: ../root/edit/details/historic/AddRelease.js:153
 #: ../root/edit/details/historic/EditReleaseEvents.js:136
 #: ../root/label/LabelHeader.js:27 ../root/layout/components/Search.js:39
 #: ../root/recording/RecordingIndex.js:58
@@ -2431,7 +2431,7 @@ msgstr "Laatste replicatiepakket ontvangen op {datetime}"
 #: ../root/edit/details/EditMedium.js:362
 #: ../root/edit/details/EditMedium.js:366
 #: ../root/edit/details/EditRecording.js:72
-#: ../root/edit/details/historic/AddRelease.js:118
+#: ../root/edit/details/historic/AddRelease.js:121
 #: ../root/edit/details/historic/AddTrackKV.js:68 ../root/isrc/Index.js:68
 #: ../root/recording/RecordingIndex.js:52
 #: ../root/report/IsrcsWithManyRecordings.js:61
@@ -2723,8 +2723,8 @@ msgstr "Mijn stem:"
 #: ../root/edit/details/EditSeries.js:54 ../root/edit/details/EditWork.js:66
 #: ../root/edit/details/RemoveRelationshipAttribute.js:41
 #: ../root/edit/details/RemoveRelationshipType.js:60
-#: ../root/edit/details/historic/AddRelease.js:62
-#: ../root/edit/details/historic/AddRelease.js:116
+#: ../root/edit/details/historic/AddRelease.js:63
+#: ../root/edit/details/historic/AddRelease.js:119
 #: ../root/edit/details/historic/AddTrackKV.js:44
 #: ../root/edit/details/historic/AddTrackOld.js:34
 #: ../root/edit/details/historic/EditReleaseName.js:31
@@ -2772,7 +2772,7 @@ msgstr "Nieuwe vermelding van een artiest"
 msgid "New Attribute"
 msgstr "Nieuwe eigenschap"
 
-#: ../root/release/add_cover_art.tt:148
+#: ../root/release/add_cover_art.tt:146
 msgid "New Image Goes Here"
 msgstr "Nieuwe afbeelding komt hier"
 
@@ -3210,8 +3210,8 @@ msgstr[0] "Waardeer: {rating} ster"
 msgstr[1] "Waardeer: {rating} sterren"
 
 #: ../root/user/ratings_summary.tt:1 ../root/user/ratings_summary.tt:33
-#: ../root/components/UserAccountTabs.js:60 ../root/entity/Ratings.js:36
-#: ../root/entity/Ratings.js:38 ../root/user/UserProfile.js:764
+#: ../root/components/UserAccountTabs.js:68 ../root/entity/Ratings.js:36
+#: ../root/entity/Ratings.js:38 ../root/user/UserProfile.js:766
 msgid "Ratings"
 msgstr "Waarderingen"
 
@@ -3350,7 +3350,7 @@ msgstr "<span class=\"rel-edit\">Geel</span>gemarkeerde relaties zullen worden b
 #: ../root/edit/details/ChangeReleaseQuality.js:34
 #: ../root/edit/details/EditBarcodes.js:51
 #: ../root/edit/details/EditCoverArt.js:51
-#: ../root/edit/details/EditReleaseLabel.js:58
+#: ../root/edit/details/EditReleaseLabel.js:60
 #: ../root/edit/details/RemoveCoverArt.js:35
 #: ../root/edit/details/ReorderCoverArt.js:45
 #: ../root/edit/details/ReorderMediums.js:39
@@ -4563,7 +4563,7 @@ msgstr "Nummerlijst"
 #: ../root/artist_credit/ArtistCreditIndex.js:128
 #: ../root/artist_credit/ArtistCreditLayout.js:31
 #: ../root/components/list/ReleaseList.js:103
-#: ../root/edit/details/historic/AddRelease.js:110
+#: ../root/edit/details/historic/AddRelease.js:113
 #: ../root/release_group/ReleaseGroupIndex.js:158
 #: ../root/search/components/CDStubResults.js:49
 #: ../root/search/components/ReleaseResults.js:102
@@ -4613,7 +4613,7 @@ msgstr "Twitter"
 #: ../root/edit/details/EditLabel.js:92 ../root/edit/details/EditPlace.js:77
 #: ../root/edit/details/EditReleaseGroup.js:73
 #: ../root/edit/details/EditSeries.js:68
-#: ../root/edit/details/historic/AddRelease.js:74 ../root/iswc/Index.js:58
+#: ../root/edit/details/historic/AddRelease.js:75 ../root/iswc/Index.js:58
 #: ../root/release/CoverArtFields.js:55 ../root/report/DuplicateArtists.js:67
 #: ../root/report/DuplicateReleaseGroups.js:63
 #: ../root/report/IswcsWithManyWorks.js:52
@@ -4660,7 +4660,7 @@ msgstr "Type"
 msgid "Type:"
 msgstr "Type:"
 
-#: ../root/release/add_cover_art.tt:136
+#: ../root/release/add_cover_art.tt:135
 #: ../root/release/reorder_cover_art.tt:19
 #: ../root/release_group/set_cover_art.tt:69
 #: ../root/edit/details/AddCoverArt.js:43
@@ -4845,7 +4845,7 @@ msgid "Voter"
 msgstr "Stemmer"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/index.tt:23
-#: ../root/user/UserProfile.js:629
+#: ../root/user/UserProfile.js:631
 msgid "Votes"
 msgstr "Stemmen"
 
@@ -6334,7 +6334,7 @@ msgstr "Evenementen samenvoegen"
 msgid "Add disc ID"
 msgstr "Disc-ID toevoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/AddRelease.pm:19
+#: ../lib/MusicBrainz/Server/Edit/Historic/AddRelease.pm:23
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:32
 #: ../root/layout/components/sidebar/ArtistSidebar.js:145
 #: ../root/layout/components/sidebar/LabelSidebar.js:103
@@ -6823,7 +6823,7 @@ msgstr "Alias van deze serie bewerken"
 msgid "Merge series"
 msgstr "Serie samenvoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/user/UserProfile.js:588
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/user/UserProfile.js:590
 #: ../root/utility/edit.js:45
 msgid "Open"
 msgstr "Geopend"
@@ -6856,7 +6856,7 @@ msgstr "Geen stemmen"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:279
 #: ../root/edit/details/AddEvent.js:67 ../root/edit/details/EditEvent.js:71
-#: ../root/user/UserProfile.js:578 ../root/utility/edit.js:39
+#: ../root/user/UserProfile.js:580 ../root/utility/edit.js:39
 msgid "Cancelled"
 msgstr "Geannuleerd"
 
@@ -7686,7 +7686,7 @@ msgstr "{last_list_item}"
 msgid "{commas_only_list_item}, {rest}"
 msgstr "{commas_only_list_item}, {rest}"
 
-#: ../root/account/Donation.js:21 ../root/components/UserAccountTabs.js:84
+#: ../root/account/Donation.js:21 ../root/components/UserAccountTabs.js:92
 msgid "Donation Check"
 msgstr "Donatiecontrole"
 
@@ -7716,7 +7716,7 @@ msgid "You will never be nagged again!"
 msgstr "Je wordt nooit meer lastiggevallen!"
 
 #: ../root/account/EditProfile.js:38 ../root/account/EditProfile.js:40
-#: ../root/components/UserAccountTabs.js:66
+#: ../root/components/UserAccountTabs.js:74
 msgid "Edit Profile"
 msgstr "Profiel bewerken"
 
@@ -7786,7 +7786,7 @@ msgid ""
 msgstr "We hebben je informatie gestuurd over je MusicBrainz-account. Neem {link|contact met ons op} als je deze e-mail niet hebt ontvangen of nog steeds problemen hebt met aanmelden."
 
 #: ../root/account/Preferences.js:33 ../root/account/PreferencesSaved.js:19
-#: ../root/components/UserAccountTabs.js:72
+#: ../root/components/UserAccountTabs.js:80
 msgid "Preferences"
 msgstr "Voorkeuren"
 
@@ -7970,7 +7970,7 @@ msgid "Enter a {link|POSIX regular expression}."
 msgstr "Voer een {link|reguliere POSIX-expressie} in."
 
 #: ../root/admin/IpLookup.js:25 ../root/admin/IpLookup.js:27
-#: ../root/user/UserProfile.js:369
+#: ../root/user/UserProfile.js:371
 msgid "IP lookup"
 msgstr "IP opzoeken"
 
@@ -8019,7 +8019,7 @@ msgstr "Eigenschap kan niet worden verwijderd"
 #: ../root/admin/attributes/Language.js:36
 #: ../root/edit/details/AddRelease.js:108 ../root/edit/details/AddWork.js:75
 #: ../root/edit/details/EditRelease.js:131
-#: ../root/edit/details/historic/AddRelease.js:101 ../root/iswc/Index.js:59
+#: ../root/edit/details/historic/AddRelease.js:104 ../root/iswc/Index.js:59
 #: ../root/report/IswcsWithManyWorks.js:53
 #: ../root/search/components/ReleaseResults.js:107
 #: ../root/utility/tableColumns.js:524
@@ -8029,7 +8029,7 @@ msgstr "Taal"
 #: ../root/admin/attributes/Script.js:34 ../root/admin/attributes/Script.js:37
 #: ../root/edit/details/AddRelease.js:115
 #: ../root/edit/details/EditRelease.js:143
-#: ../root/edit/details/historic/AddRelease.js:92
+#: ../root/edit/details/historic/AddRelease.js:95
 msgid "Script"
 msgstr "Schrift"
 
@@ -8614,7 +8614,7 @@ msgid "See all of {editor}'s public collections"
 msgstr "Bekijk alle openbare collecties van {editor}"
 
 #: ../root/collection/CollectionIndex.js:185 ../root/user/UserProfile.js:289
-#: ../root/user/UserProfile.js:345
+#: ../root/user/UserProfile.js:347
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr "Om spam te voorkomen is deze informatie verborgen. {url|Meld je aan} om het te bekijken."
@@ -8881,7 +8881,7 @@ msgid "Cover Art ({num})"
 msgstr "Afbeelding(en) ({num})"
 
 #: ../root/components/EntityTabs.js:133
-#: ../root/components/UserAccountTabs.js:56 ../root/entity/Tags.js:34
+#: ../root/components/UserAccountTabs.js:64 ../root/entity/Tags.js:34
 #: ../root/layout/components/BottomMenu.js:211 ../root/tag/TagCloud.js:47
 #: ../root/tag/TagCloud.js:49 ../root/user/UserTagList.js:63
 msgid "Tags"
@@ -9028,21 +9028,21 @@ msgstr[1] "Bekijk alle {num} composities"
 msgid "Profile"
 msgstr "Profiel"
 
-#: ../root/components/UserAccountTabs.js:36
+#: ../root/components/UserAccountTabs.js:42
 #: ../root/layout/components/TopMenu.js:53
 #: ../root/layout/components/sidebar/CollectionSidebar.js:84
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:31
 msgid "Subscriptions"
 msgstr "Abonnementen"
 
-#: ../root/components/UserAccountTabs.js:44 ../root/entity/Subscribers.js:48
+#: ../root/components/UserAccountTabs.js:51 ../root/entity/Subscribers.js:48
 #: ../root/entity/Subscribers.js:50
 #: ../root/layout/components/sidebar/CollectionSidebar.js:113
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:57
 msgid "Subscribers"
 msgstr "Abonnees"
 
-#: ../root/components/UserAccountTabs.js:94
+#: ../root/components/UserAccountTabs.js:102
 msgid "Edit User"
 msgstr "Gebruiker bewerken"
 
@@ -9527,7 +9527,7 @@ msgstr "(nieuwe uitgavegroep)"
 
 #: ../root/edit/details/AddRelease.js:99
 #: ../root/edit/details/EditRelease.js:119
-#: ../root/edit/details/historic/AddRelease.js:83
+#: ../root/edit/details/historic/AddRelease.js:86
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:181
 msgctxt "release status"
 msgid "Status:"
@@ -9539,7 +9539,7 @@ msgid "Packaging"
 msgstr ""
 
 #: ../root/edit/details/AddRelease.js:136
-#: ../root/edit/details/EditReleaseLabel.js:106
+#: ../root/edit/details/EditReleaseLabel.js:110
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:243
 #: ../root/static/scripts/common/components/ReleaseEvents.js:102
 msgid "Release events"
@@ -9652,8 +9652,8 @@ msgstr "Nieuwe artiest"
 msgid "This edit also changed the track artists."
 msgstr "Deze bewerking veranderde ook de artiesten van de nummers."
 
-#: ../root/edit/details/EditReleaseLabel.js:92
-#: ../root/edit/details/EditReleaseLabel.js:97
+#: ../root/edit/details/EditReleaseLabel.js:96
+#: ../root/edit/details/EditReleaseLabel.js:101
 #: ../root/edit/details/historic/EditReleaseEvents.js:137
 #: ../root/otherlookup/OtherLookupForm.js:59
 msgid "Catalog number"
@@ -9774,11 +9774,11 @@ msgstr "TOC:"
 msgid "Relationships:"
 msgstr "Relaties:"
 
-#: ../root/edit/details/historic/AddRelease.js:143
+#: ../root/edit/details/historic/AddRelease.js:146
 msgid "Release Events:"
 msgstr "Uitgavegebeurtenissen:"
 
-#: ../root/edit/details/historic/AddRelease.js:151
+#: ../root/edit/details/historic/AddRelease.js:154
 #: ../root/report/hooks/useCatNoColumn.js:26
 msgid "Catalog Number"
 msgstr "Catalogusnummer"
@@ -10610,7 +10610,7 @@ msgstr "Autoredacteurverkiezingen"
 msgid "Privileged User Accounts"
 msgstr "Geprivilegieerde gebruikers"
 
-#: ../root/layout/components/BottomMenu.js:145 ../root/user/UserProfile.js:513
+#: ../root/layout/components/BottomMenu.js:145 ../root/user/UserProfile.js:515
 msgid "Statistics"
 msgstr "Statistieken"
 
@@ -15696,121 +15696,121 @@ msgstr "Heeft zich nog nooit aangemeld"
 msgid "Homepage:"
 msgstr "Website:"
 
-#: ../root/user/UserProfile.js:298
+#: ../root/user/UserProfile.js:299
 msgid "Subscribers:"
 msgstr "Abonnees:"
 
-#: ../root/user/UserProfile.js:301
+#: ../root/user/UserProfile.js:302
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|bekijk lijst})"
 
-#: ../root/user/UserProfile.js:308
+#: ../root/user/UserProfile.js:309
 msgid "0"
 msgstr "0"
 
-#: ../root/user/UserProfile.js:321
+#: ../root/user/UserProfile.js:322
 msgid "unsubscribe"
 msgstr "abonnement opzeggen"
 
-#: ../root/user/UserProfile.js:330
+#: ../root/user/UserProfile.js:331
 msgid "subscribe"
 msgstr "abonneren"
 
-#: ../root/user/UserProfile.js:355
+#: ../root/user/UserProfile.js:357
 msgid "Languages:"
 msgstr "Talen:"
 
-#: ../root/user/UserProfile.js:431 ../root/user/UserProfile.js:530
-#: ../root/user/UserProfile.js:540 ../root/user/UserProfile.js:550
-#: ../root/user/UserProfile.js:560 ../root/user/UserProfile.js:570
-#: ../root/user/UserProfile.js:580 ../root/user/UserProfile.js:590
-#: ../root/user/UserProfile.js:599 ../root/user/UserProfile.js:744
-#: ../root/user/UserProfile.js:754 ../root/user/UserProfile.js:766
+#: ../root/user/UserProfile.js:433 ../root/user/UserProfile.js:532
+#: ../root/user/UserProfile.js:542 ../root/user/UserProfile.js:552
+#: ../root/user/UserProfile.js:562 ../root/user/UserProfile.js:572
+#: ../root/user/UserProfile.js:582 ../root/user/UserProfile.js:592
+#: ../root/user/UserProfile.js:601 ../root/user/UserProfile.js:746
+#: ../root/user/UserProfile.js:756 ../root/user/UserProfile.js:768
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|bekijk lijst})"
 
-#: ../root/user/UserProfile.js:520
+#: ../root/user/UserProfile.js:522
 msgid "Edits ({view_url|view})"
 msgstr "Bewerkingen ({view_url|bekijken})"
 
-#: ../root/user/UserProfile.js:522
+#: ../root/user/UserProfile.js:524
 msgid "Edits"
 msgstr "Bewerkingen"
 
-#: ../root/user/UserProfile.js:528
+#: ../root/user/UserProfile.js:530
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "Geaccepteerd"
 
-#: ../root/user/UserProfile.js:538
+#: ../root/user/UserProfile.js:540
 msgid "Auto-edits"
 msgstr "Automatische bewerkingen"
 
-#: ../root/user/UserProfile.js:548
+#: ../root/user/UserProfile.js:550
 msgid "Total applied"
 msgstr "Totaal doorgevoerd"
 
-#: ../root/user/UserProfile.js:558
+#: ../root/user/UserProfile.js:560
 msgid "Voted down"
 msgstr "Weggestemd"
 
-#: ../root/user/UserProfile.js:568
+#: ../root/user/UserProfile.js:570
 msgid "Failed"
 msgstr "Mislukt"
 
-#: ../root/user/UserProfile.js:598
+#: ../root/user/UserProfile.js:600
 msgid "Last 24 hours"
 msgstr "Afgelopen 24 uur"
 
-#: ../root/user/UserProfile.js:622
+#: ../root/user/UserProfile.js:624
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "In deze tabel zie je een samenvatting van alle stemmen die door deze redacteur zijn uitgebracht."
 
-#: ../root/user/UserProfile.js:627
+#: ../root/user/UserProfile.js:629
 msgid "Votes ({view_url|view})"
 msgstr "Stemmen ({view_url|bekijken})"
 
-#: ../root/user/UserProfile.js:635
+#: ../root/user/UserProfile.js:637
 msgid "Last 28 days"
 msgstr "Afgelopen 28 dagen"
 
-#: ../root/user/UserProfile.js:638
+#: ../root/user/UserProfile.js:640
 msgid "Overall"
 msgstr "Algemeen"
 
-#: ../root/user/UserProfile.js:686
+#: ../root/user/UserProfile.js:688
 msgid "This table shows a summary of entities added by this editor."
 msgstr "In deze tabel zie je een samenvatting van de objecten die door deze redacteur zijn toegevoegd."
 
-#: ../root/user/UserProfile.js:692
+#: ../root/user/UserProfile.js:694
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr "Het kan zijn dat doorgevoerde bewerkingen pas na 24 uur verschijnen"
 
-#: ../root/user/UserProfile.js:695
+#: ../root/user/UserProfile.js:697
 msgid "Added entities"
 msgstr "Toegevoegde objecten"
 
-#: ../root/user/UserProfile.js:719
+#: ../root/user/UserProfile.js:721
 msgid "This user has not created any entities."
 msgstr "Deze gebruiker heeft nog geen objecten gecreëerd."
 
-#: ../root/user/UserProfile.js:729
+#: ../root/user/UserProfile.js:731
 msgid "This table shows a summary of secondary data added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:735
+#: ../root/user/UserProfile.js:737
 msgid "Tags and ratings"
 msgstr ""
 
-#: ../root/user/UserProfile.js:742
+#: ../root/user/UserProfile.js:744
 msgid "Tags upvoted"
 msgstr ""
 
-#: ../root/user/UserProfile.js:752
+#: ../root/user/UserProfile.js:754
 msgid "Tags downvoted"
 msgstr ""
 
-#: ../root/user/UserProfile.js:833
+#: ../root/user/UserProfile.js:835
 msgid "Report this user for bad behavior"
 msgstr "Deze gebruiker rapporteren voor slecht gedrag"
 
