@@ -35,11 +35,13 @@ my $lockfile = my $deflockfile = '/tmp/.mb-LoadReplicationChanges';
 my @process_opts;
 my $fVerifySig = 0;
 my $database = 'READWRITE';
+my $dbmirror2 = DBDefs->REPLICATION_USE_DBMIRROR2;
 
 GetOptions(
     'help'                      => \$fHelp,
     'lockfile=s'                => \$lockfile,
     'base-uri=s'                => \$baseuri,
+    'dbmirror2!'                => \$dbmirror2,
     'process-arg=s'             => \@process_opts,
     'limit=i'                   => \$limit,
     'period=s'                  => \$period,
@@ -154,8 +156,11 @@ my %known_broken_sequences = (
     '104949' => 1,
 );
 
-if ($sql->select_single_value('SELECT COUNT(*) FROM dbmirror_pending'))
-{
+if (
+    $dbmirror2
+        ? $sql->select_single_value('SELECT count(*) FROM dbmirror2.pending_data')
+        : $sql->select_single_value('SELECT count(*) FROM dbmirror_pending')
+) {
     my $aborted_sequence = $iReplicationSequence + 1;
     if ($known_broken_sequences{$aborted_sequence}) {
         print localtime() . ' : Looks like we may have previously tried ' .
@@ -178,7 +183,13 @@ NEXT_PACKET:
 my $iNextReplicationSequence = $iReplicationSequence + 1;
 my $file = "replication-$iNextReplicationSequence.tar.bz2";
 if ($period ne 'hourly') {
+    if ($dbmirror2) {
+        die "$period packets are not supported with dbmirror2.";
+    }
     $file = "replication-$period-$iNextReplicationSequence.tar.bz2";
+}
+if ($dbmirror2) {
+    $file = "replication-$iNextReplicationSequence-v2.tar.bz2";
 }
 
 my $url = "$baseuri/$file";
@@ -193,6 +204,9 @@ if ($catchup && ($resp->code == RC_OK or $resp->code == RC_NOT_MODIFIED)) {
 } elsif ($catchup) {
     print localtime() . " : Not yet caught up for period '$period'. Applying an hourly packet...\n";
     $file = "replication-$iNextReplicationSequence.tar.bz2";
+    if ($dbmirror2) {
+        $file = "replication-$iNextReplicationSequence-v2.tar.bz2";
+    }
     $url = "$baseuri/$file";
     $localfile = "$tmpdir/$file";
     $resp = retrieve_remote_file($url, $localfile, $fVerifySig);
@@ -297,8 +311,35 @@ unless (defined($LAST_TIMESTAMP) and $LAST_TIMESTAMP =~ /\A(.*)\n\z/)
     print localtime() . " : This packet covers changes until $LAST_TIMESTAMP\n";
 }
 
-# Check existence of the dbmirror_pending and dbmirror_pendingdata data files
-for my $f (('dbmirror_pending', 'dbmirror_pendingdata'))
+my $DBMIRROR_VERSION = read_file('DBMIRROR_VERSION');
+if (defined($DBMIRROR_VERSION) and $DBMIRROR_VERSION =~ /\A(\d+)\n\z/)
+{
+    $DBMIRROR_VERSION = $1;
+} else {
+    $DBMIRROR_VERSION = undef;
+}
+
+if ($dbmirror2 && !(defined $DBMIRROR_VERSION && $DBMIRROR_VERSION == 2)) {
+    print localtime() . " : dbmirror2 is enabled, but DBMIRROR_VERSION != 2\n";
+    exit 1;
+}
+
+my @pending_files;
+if ($dbmirror2) {
+    push @pending_files, qw(
+        pending_data
+        pending_keys
+        pending_ts
+    );
+} else {
+    push @pending_files, qw(
+        dbmirror_pending
+        dbmirror_pendingdata
+    );
+}
+
+# Check existence of the data files
+for my $f (@pending_files)
 {
     next if -f "$mydir/mbdump/$f";
     print localtime() . " : There is no mbdump/$f file in this archive!\n";
@@ -307,14 +348,13 @@ for my $f (('dbmirror_pending', 'dbmirror_pendingdata'))
 }
 
 # Load them
-print localtime() . " : Importing dbmirror_pending and dbmirror_pendingdata files\n";
+print localtime() . " : Importing the pending data files\n";
 system "$FindBin::Bin/ImportReplicationChanges",
     '--database', $database,
+    ($dbmirror2 ? '--dbmirror2' : ()),
     '--tmp-dir', $tmpdir,
     '--',
-    "$mydir/mbdump/dbmirror_pending",
-    "$mydir/mbdump/dbmirror_pendingdata",
-    ;
+    map { "$mydir/mbdump/$_" } @pending_files;
 exit $? if $?;
 
 # Wipe the temporary directory
@@ -325,7 +365,8 @@ rmtree($mydir);
 # If we had some data leftover in the tables, we jump straight in here:
 APPLY_CHANGES:
 # Apply the changes (ProcessReplicationChanges)
-system "$FindBin::Bin/ProcessReplicationChanges", @process_opts;
+system "$FindBin::Bin/ProcessReplicationChanges", @process_opts,
+    ($dbmirror2 ? '--dbmirror2' : ());
 exit $? if $?;
 
 if (-x "$FindBin::Bin/hooks/post-process") {
