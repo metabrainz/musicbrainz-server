@@ -20,7 +20,7 @@ type PropsT = {
   +params: PostParametersT,
 };
 
-const textAreaRegExp = /(^|\.)(annotation|edit_note)$/;
+const textAreaRegExp = /(^|\.)(annotation|edit_note|users)$/;
 
 const PostParameters = ({
   params,

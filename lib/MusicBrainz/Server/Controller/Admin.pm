@@ -6,9 +6,10 @@ use Try::Tiny;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
+use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Constants qw( :privileges );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json trim );
 
 sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors SecureForm
 {
@@ -96,6 +97,22 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
     }
 }
 
+sub _delete_user {
+    my ($self, $c, $editor, $allow_reuse) = @_;
+
+    $c->model('Editor')->delete($editor->id, $allow_reuse);
+    if ($editor->id == $c->user->id) { # don't log out an admin deleting a different user
+        MusicBrainz::Server::Controller::User->_clear_login_cookie($c);
+        $c->logout;
+        $c->delete_session;
+    }
+
+    $editor->name('Deleted Editor #' . $editor->id);
+    $editor->email('editor-' . $editor->id . '@musicbrainz.invalid');
+    $c->forward('/discourse/sync_sso', [$editor]);
+    $c->forward('/discourse/log_out', [$editor]);
+}
+
 sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth(account_admin) HiddenOnMirrors SecureForm {
     my ($self, $c, $name) = @_;
 
@@ -122,16 +139,67 @@ sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth(account_admin) 
         my $allow_reuse = 0;
         $allow_reuse = 1 if $form->field('allow_reuse')->value;
 
-        $c->model('Editor')->delete($id, $allow_reuse);
-
-        $editor->name('Deleted Editor #' . $id);
-        $editor->email('editor-' . $id . '@musicbrainz.invalid');
-        $c->forward('/discourse/sync_sso', [$editor]);
-        $c->forward('/discourse/log_out', [$editor]);
+        $self->_delete_user($c, $editor, $allow_reuse);
 
         $editor = $c->model('Editor')->get_by_id($id);
         $c->response->redirect(
             $editor ? $c->uri_for_action('/user/profile', [ $editor->name ]) : $c->uri_for('/'));
+    }
+}
+
+sub delete_users : Path('/admin/delete-users') RequireAuth(account_admin) HiddenOnSlaves {
+    my ($self, $c) = @_;
+
+    my $form = $c->form(form => 'Admin::DeleteUsers');
+
+    if ($c->form_posted_and_valid($form, $c->req->body_params)) {
+        my $post_params = $c->req->body_params;
+        my $submission_type = %$post_params{'delete-users.submit'};
+        # We delete the unneeded parameters - we only want user
+        # and the other ones cause issues
+        delete(%$post_params{'delete-users.csrf_session_key'});
+        delete(%$post_params{'delete-users.csrf_token'});
+        delete(%$post_params{'delete-users.submit'});
+
+        my $users_string = $form->field('users')->value;
+        my @usernames = uniq grep { $_ } map { lc trim $_ } (split /\n/, $users_string);
+        my @users;
+        my @incorrect_usernames;
+
+        for my $username (@usernames) {
+            my $user = $c->model('Editor')->get_by_name($username);
+            if ($user) {
+                push @users, $user;
+            } else {
+                push @incorrect_usernames, $username;
+            }
+        }
+
+        if ($submission_type eq 'confirmed') {
+            for my $user (@users) {
+                # Don't allow reuse by default, the admin can always
+                # unlock the username in the rare case that is desired
+                $self->_delete_user($c, $user, 0);
+            }
+            $c->response->redirect($c->uri_for('/'));
+        } else {
+            $c->stash(
+                current_view => 'Node',
+                component_path => 'admin/DeleteUsersConfirm',
+                component_props => {
+                    form => $form->TO_JSON,
+                    incorrectUsernames => \@incorrect_usernames,
+                    postParameters => $post_params,
+                    users => [map { $c->unsanitized_editor_json($_) } @users],
+                },
+            );
+        }
+    } else {
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'admin/DeleteUsers',
+            component_props => { form => $form->TO_JSON },
+        );
     }
 }
 

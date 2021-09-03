@@ -23,6 +23,13 @@ declare type MediumFieldT = CompoundFieldT<{
   +release_id: FieldT<number>,
 }>;
 
+declare type DeleteUsersFormT = FormT<{
+  +cancel: FieldT<string>,
+  +csrf_token: FieldT<string>,
+  +submit: FieldT<string>,
+  +users: FieldT<string>,
+}>;
+
 declare type MergeFormT = FormT<{
   +edit_note: FieldT<string>,
   +make_votable: FieldT<boolean>,
