@@ -18,11 +18,17 @@ sub process {
     my $component_path = $c->stash->{component_path} // $c->req->path;
     my $component_props = $c->stash->{component_props} // {};
     my $response = render_component($c, $component_path, $component_props);
-    my ($content_type, $status, $body) =
-        @$response{qw(content_type status body)};
+    my ($content_type, $status, $body);
 
-    if ($content_type eq 'text/html') {
-        $body = $DOCTYPE . $body;
+    if (defined $response) {
+        ($content_type, $status, $body) =
+            @$response{qw(content_type status body)};
+
+        if ($content_type eq 'text/html') {
+            $body = $DOCTYPE . $body;
+        }
+    } else {
+        $content_type = 'text/plain';
     }
 
     $c->res->content_type($content_type . '; charset=utf-8');
