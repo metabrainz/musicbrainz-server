@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT_BARCODES );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
@@ -19,6 +20,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 sub edit_name { N_l('Edit barcodes') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_EDIT_BARCODES }
+sub edit_template_react { 'EditBarcodes' }
 
 has '+data' => (
     isa => Dict[
@@ -56,13 +58,13 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     return {
+        client_version => $self->data->{client_version},
         submissions => [
             map +{
-                release => ($loaded->{Release}{ $_->{release}{id} } ||
+                release => to_json_object($loaded->{Release}{ $_->{release}{id} } ||
                     Release->new( name => $_->{release}{name} )),
-                new_barcode => Barcode->new($_->{barcode}),
-                exists $_->{old_barcode} ?
-                    (old_barcode => Barcode->new($_->{old_barcode})) : ()
+                new_barcode => $_->{barcode},
+                exists $_->{old_barcode} ? (old_barcode => $_->{old_barcode}) : ()
             }, @{ $self->data->{submissions} }
         ]
     }

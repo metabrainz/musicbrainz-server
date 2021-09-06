@@ -78,8 +78,12 @@ function doSearch<T: EntityItemT>(
     });
   });
 
+  const entityWebServicePath = state.entityType === 'editor'
+    ? 'editor'
+    : ENTITIES[state.entityType].url;
+
   const url = (
-    '/ws/js/' + ENTITIES[state.entityType].url +
+    '/ws/js/' + entityWebServicePath +
     '/?q=' + encodeURIComponent(state.inputValue || '') +
     '&page=' + String(state.page) +
     '&direct=' + (state.indexedSearch ? 'false' : 'true')
@@ -117,7 +121,7 @@ function setScrollPosition(menuId: string) {
 type InitialStateT<T: EntityItemT> = {
   +activeUser?: ActiveEditorT,
   +canChangeType?: (string) => boolean,
-  +entityType: $ElementType<T, 'entityType'>,
+  +entityType: T['entityType'],
   +id: string,
   +inputValue?: string,
   +placeholder?: string,

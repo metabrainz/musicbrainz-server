@@ -19,7 +19,7 @@ test all => sub {
 my $test = shift;
 my $c = $test->c;
 my $mech = $test->mech;
-$mech->default_header("Accept" => "application/xml");
+$mech->default_header('Accept' => 'application/xml');
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
@@ -108,7 +108,7 @@ sub check_note {
     isa_ok($note, $class);
     is($note->$_, $attrs{$_}, "check_note: $_ is ".$attrs{$_})
         for keys %attrs;
-    ok(defined $note->post_time, "check_note: edit has post time");
+    ok(defined $note->post_time, 'check_note: edit has post time');
 }
 
 1;

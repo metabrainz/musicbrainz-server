@@ -280,13 +280,13 @@ class EditProfileForm extends React.Component<Props, State> {
             {field.languages.field.map((languageField, index) => (
               <li className="language" key={index}>
                 <SelectField
-                  allowEmpty={false}
+                  allowEmpty
                   field={languageField.field.language_id}
                   onChange={(e) => this.handleLanguageChange(e, index)}
                   options={this.state.languageOptions}
                 />
                 <SelectField
-                  allowEmpty={false}
+                  allowEmpty
                   field={languageField.field.fluency}
                   onChange={(e) => this.handleFluencyChange(e, index)}
                   options={fluencyOptions}
@@ -300,6 +300,8 @@ class EditProfileForm extends React.Component<Props, State> {
                     {l('Remove')}
                   </button>
                 </span>
+                <FieldErrors field={languageField.field.language_id} />
+                <FieldErrors field={languageField.field.fluency} />
               </li>
             ))}
             <li key="add">

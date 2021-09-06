@@ -30,7 +30,7 @@ has force_update_entity_types => (
     cmd_flag => 'force-update',
     documentation => ('force-update entities of this type in its ' .
                       'json_dump.${entity}_json table; by default, ' .
-                      'entities are only inserted where they don\'t ' .
+                      q(entities are only inserted where they don't ) .
                       'exist, and updates are done by the incremental ' .
                       'dump only. can specify multiple of this flag ' .
                       '(default: no force-updates)'),
@@ -118,7 +118,7 @@ sub run_impl {
         }
 
         unless (defined $dump_replication_sequence) {
-            die 'Couldn\'t determine which replication sequence to dump. ' .
+            die q(Couldn't determine which replication sequence to dump. ) .
                 'Is the replication_control table empty?';
         }
 

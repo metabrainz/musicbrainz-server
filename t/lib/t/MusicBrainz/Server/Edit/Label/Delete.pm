@@ -41,10 +41,10 @@ test all => sub {
     ok(!defined $label);
 
     my $ipi_codes = $c->model('Artist')->ipi->find_by_entity_id(2);
-    is(scalar @$ipi_codes, 0, "IPI codes for deleted label removed from database");
+    is(scalar @$ipi_codes, 0, 'IPI codes for deleted label removed from database');
 
     my $isni_codes = $c->model('Artist')->isni->find_by_entity_id(2);
-    is(scalar @$isni_codes, 0, "ISNI codes for deleted label removed from database");
+    is(scalar @$isni_codes, 0, 'ISNI codes for deleted label removed from database');
 };
 
 test 'Edit is failed if label no longer exists' => sub {

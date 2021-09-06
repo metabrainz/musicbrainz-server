@@ -12,6 +12,22 @@ import 'leaflet.markercluster/dist/leaflet.markercluster-src';
 import he from 'he';
 import * as ReactDOMServer from 'react-dom/server';
 
+import clusterMarkerIconUrl
+  from '../../images/leaflet/cluster-marker-icon.png';
+import endedMarkerIconUrl
+  from '../../images/leaflet/ended-marker-icon.png';
+import studioMarkerIconUrl
+  from '../../images/leaflet/studio-marker-icon.png';
+import venueMarkerIconUrl
+  from '../../images/leaflet/venue-marker-icon.png';
+import markerIconUrl
+  from '../../images/leaflet/marker-icon.png';
+import stadiumMarkerIconUrl
+  from '../../images/leaflet/stadium-marker-icon.png';
+import arenaMarkerIconUrl
+  from '../../images/leaflet/arena-marker-icon.png';
+import religiousMarkerIconUrl
+  from '../../images/leaflet/religious-marker-icon.png';
 import EntityLink from '../common/components/EntityLink';
 import {createMap, L} from '../common/leaflet';
 import getScriptArgs from '../common/utility/getScriptArgs';
@@ -38,18 +54,18 @@ if (places.length) {
   const buildIcon = iconUrl => new LeafIcon({iconUrl});
 
   const icons = {
-    0: buildIcon(require('../../images/leaflet/ended-marker-icon.png')),
-    1: buildIcon(require('../../images/leaflet/studio-marker-icon.png')),
-    2: buildIcon(require('../../images/leaflet/venue-marker-icon.png')),
-    3: buildIcon(require('../../images/leaflet/marker-icon.png')),
-    4: buildIcon(require('../../images/leaflet/stadium-marker-icon.png')),
-    5: buildIcon(require('../../images/leaflet/arena-marker-icon.png')),
-    6: buildIcon(require('../../images/leaflet/religious-marker-icon.png')),
+    0: buildIcon(endedMarkerIconUrl),
+    1: buildIcon(studioMarkerIconUrl),
+    2: buildIcon(venueMarkerIconUrl),
+    3: buildIcon(markerIconUrl),
+    4: buildIcon(stadiumMarkerIconUrl),
+    5: buildIcon(arenaMarkerIconUrl),
+    6: buildIcon(religiousMarkerIconUrl),
   };
 
   const markers = L.markerClusterGroup({
     iconCreateFunction: function (cluster) {
-      const iconURL = require('../../images/leaflet/cluster-marker-icon.png');
+      const iconURL = clusterMarkerIconUrl;
 
       return L.divIcon({
         className: 'cluster-div-icon',

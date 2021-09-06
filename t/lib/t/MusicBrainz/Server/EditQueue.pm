@@ -138,7 +138,7 @@ test 'Edit queue can close edits with sufficient yes votes early' => sub {
     is($edit->status, $STATUS_APPLIED, 'applied');
 };
 
-test 'Edit queue won\'t close recent destructive edits even with sufficient yes votes' => sub {
+test q(Edit queue won't close recent destructive edits even with sufficient yes votes) => sub {
     my $test = shift;
     $test->c->sql->do(<<~"EOSQL");
         INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (10, 'Editor', '{CLEARTEXT}pass', 'b5ba49bbd92eb35ddb35b5acd039440d', '', now());
@@ -168,7 +168,7 @@ test '_determine_new_status for different quality levels' => sub {
     $edit->no_votes(0);
     $edit->expires_time(DateTime->now() - DateTime::Duration->new( days => 1 ));
     my $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, $STATUS_APPLIED, "Normal quality edit with no votes passes on expiration");
+    is($status, $STATUS_APPLIED, 'Normal quality edit with no votes passes on expiration');
 
     # Expired one day ago, 1 no vote, 0 yes votes
     $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
@@ -176,7 +176,7 @@ test '_determine_new_status for different quality levels' => sub {
     $edit->no_votes(1);
     $edit->expires_time(DateTime->now() - DateTime::Duration->new( days => 1 ));
     $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, $STATUS_FAILEDVOTE, "Normal quality edit with No > Yes fails on expiration");
+    is($status, $STATUS_FAILEDVOTE, 'Normal quality edit with No > Yes fails on expiration');
 
     # Expired one day ago, 0 no votes, 1 yes vote
     $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
@@ -184,7 +184,7 @@ test '_determine_new_status for different quality levels' => sub {
     $edit->no_votes(0);
     $edit->expires_time(DateTime->now() - DateTime::Duration->new( days => 1 ));
     $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, $STATUS_APPLIED, "Normal quality edit with Yes > No passes on expiration");
+    is($status, $STATUS_APPLIED, 'Normal quality edit with Yes > No passes on expiration');
 
     # Expired one day ago, 1 no vote, 1 yes vote
     $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
@@ -192,7 +192,7 @@ test '_determine_new_status for different quality levels' => sub {
     $edit->no_votes(1);
     $edit->expires_time(DateTime->now() - DateTime::Duration->new( days => 1 ));
     $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, $STATUS_FAILEDVOTE, "Normal quality edit with Yes = No fails on expiration");
+    is($status, $STATUS_FAILEDVOTE, 'Normal quality edit with Yes = No fails on expiration');
 
     # Not expired, without votes
     $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
@@ -200,7 +200,7 @@ test '_determine_new_status for different quality levels' => sub {
     $edit->no_votes(0);
     $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
     $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, undef, "Normal quality edit with no votes is left open before expiration");
+    is($status, undef, 'Normal quality edit with no votes is left open before expiration');
 
     # Not expired, 3 yes votes, 0 no votes
     $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
@@ -209,7 +209,7 @@ test '_determine_new_status for different quality levels' => sub {
     $edit->created_time(DateTime->now() - DateTime::Duration->new( days => 6 ));
     $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
     $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, $STATUS_APPLIED, "Normal quality edit with 3 Yes / 0 No passes before expiration");
+    is($status, $STATUS_APPLIED, 'Normal quality edit with 3 Yes / 0 No passes before expiration');
 
     # Not expired, 0 yes votes, 3 no votes
     $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
@@ -217,7 +217,7 @@ test '_determine_new_status for different quality levels' => sub {
     $edit->no_votes(3);
     $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
     $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, $STATUS_FAILEDVOTE, "Normal quality edit with 0 Yes / 3 No fails before expiration");
+    is($status, $STATUS_FAILEDVOTE, 'Normal quality edit with 0 Yes / 3 No fails before expiration');
 
     # Not expired, 2 yes votes, 0 no votes
     $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
@@ -225,7 +225,7 @@ test '_determine_new_status for different quality levels' => sub {
     $edit->no_votes(0);
     $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
     $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, undef, "Normal quality edit with fewer than 3 Yes votes stays open before expiration");
+    is($status, undef, 'Normal quality edit with fewer than 3 Yes votes stays open before expiration');
 
     # Not expired, 0 yes votes, 2 no votes
     $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
@@ -233,7 +233,7 @@ test '_determine_new_status for different quality levels' => sub {
     $edit->no_votes(2);
     $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
     $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, undef, "Normal quality edit with fewer than 3 No votes stays open before expiration");
+    is($status, undef, 'Normal quality edit with fewer than 3 No votes stays open before expiration');
 
     # Not expired, 3 yes votes, 1 no vote
     $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
@@ -241,7 +241,7 @@ test '_determine_new_status for different quality levels' => sub {
     $edit->no_votes(1);
     $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
     $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, undef, "Normal quality edit with 3 Yes / 1 No stays open before expiration");
+    is($status, undef, 'Normal quality edit with 3 Yes / 1 No stays open before expiration');
 
     # Not expired, 1 yes vote, 3 no votes
     $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
@@ -249,7 +249,7 @@ test '_determine_new_status for different quality levels' => sub {
     $edit->no_votes(3);
     $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
     $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, undef, "Normal quality edit with 1 Yes / 3 No stays open before expiration");
+    is($status, undef, 'Normal quality edit with 1 Yes / 3 No stays open before expiration');
 };
 
 1;

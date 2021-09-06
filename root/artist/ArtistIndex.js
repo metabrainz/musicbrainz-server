@@ -17,7 +17,6 @@ import {type FilterFormT}
   from '../static/scripts/common/components/FilterForm';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract';
-import {addColonText} from '../static/scripts/common/i18n/addColon';
 import commaOnlyList, {commaOnlyListText}
   from '../static/scripts/common/i18n/commaOnlyList';
 import {bracketedText} from '../static/scripts/common/utility/bracketed';
@@ -25,24 +24,12 @@ import FormSubmit from '../components/FormSubmit';
 import RecordingList from '../components/list/RecordingList';
 import ReleaseGroupList from '../components/list/ReleaseGroupList';
 import PaginatedResults from '../components/PaginatedResults';
+import RelatedEntitiesDisplay from '../components/RelatedEntitiesDisplay';
 import * as manifest from '../static/manifest';
 import entityHref from '../static/scripts/common/utility/entityHref';
 import {returnToCurrentPage} from '../utility/returnUri';
 
 import ArtistLayout from './ArtistLayout';
-
-type RelatedArtistsProps = {
-  +children: React$Node,
-  +title: string,
-};
-
-const RelatedArtists = ({children, title}: RelatedArtistsProps) => (
-  <p>
-    <strong>{addColonText(title)}</strong>
-    {' '}
-    {children}
-  </p>
-);
 
 type FooterSwitchProps = {
   +artist: ArtistT,
@@ -244,27 +231,27 @@ const ArtistIndex = ({
       />
 
       {legalName ? (
-        <RelatedArtists title={l('Legal name')}>
+        <RelatedEntitiesDisplay title={l('Legal name')}>
           <DescriptiveLink entity={legalName} />
           {legalNameArtistAliases
             ? ' ' + bracketedText(commaOnlyListText(legalNameArtistAliases))
             : null}
-        </RelatedArtists>
+        </RelatedEntitiesDisplay>
 
       ) : legalNameAliases?.length ? (
-        <RelatedArtists title={l('Legal name')}>
+        <RelatedEntitiesDisplay title={l('Legal name')}>
           {commaOnlyListText(legalNameAliases)}
-        </RelatedArtists>
+        </RelatedEntitiesDisplay>
       ) : null}
 
       {otherIdentities?.length ? (
-        <RelatedArtists title={l('Also performs as')}>
+        <RelatedEntitiesDisplay title={l('Also performs as')}>
           {commaOnlyList(
             otherIdentities.map(a => (
               <DescriptiveLink entity={a} key={a.id} />
             )),
           )}
-        </RelatedArtists>
+        </RelatedEntitiesDisplay>
       ) : null}
 
       <WikipediaExtract
@@ -339,7 +326,7 @@ const ArtistIndex = ({
         />
       )}
 
-      {manifest.js('artist/index.js', {async: 'async'})}
+      {manifest.js('artist/index', {async: 'async'})}
     </ArtistLayout>
   );
 };

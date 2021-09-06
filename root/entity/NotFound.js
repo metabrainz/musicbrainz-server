@@ -35,6 +35,12 @@ const notFoundPages = {
     args: defaultSearchArgs,
     footer: null,
   },
+  'artist_credit': {
+    title: N_l('Artist Credit Not Found'),
+    message: N_l('Sorry, we could not find an artist credit with that ID.'),
+    args: {},
+    footer: null,
+  },
   'cdtoc': {
     title: N_l('CD TOC Not Found'),
     message: N_l('Sorry, we could not find the CD TOC you specified.'),

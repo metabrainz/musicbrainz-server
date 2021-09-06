@@ -19,21 +19,21 @@ my $mf_data = MusicBrainz::Server::Data::MediumFormat->new(c => $test->c);
 
 my $mf = $mf_data->get_by_id(1);
 is ( $mf->id, 1 );
-is ( $mf->name, "CD" );
+is ( $mf->name, 'CD' );
 is ( $mf->year, 1982 );
 
 
 $mf = $mf_data->get_by_id(2);
 is ( $mf->id, 2 );
-is ( $mf->name, "DVD" );
+is ( $mf->name, 'DVD' );
 is ( $mf->year, 1995 );
 
 my $mfs = $mf_data->get_by_ids(1, 2);
 is ( $mfs->{1}->id, 1 );
-is ( $mfs->{1}->name, "CD" );
+is ( $mfs->{1}->name, 'CD' );
 
 is ( $mfs->{2}->id, 2 );
-is ( $mfs->{2}->name, "DVD" );
+is ( $mfs->{2}->name, 'DVD' );
 
 
 does_ok($mf_data, 'MusicBrainz::Server::Data::Role::SelectAll');

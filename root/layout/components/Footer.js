@@ -21,38 +21,43 @@ const Footer = (): React.Element<'div'> => {
   const stash = $c.stash;
   return (
     <div id="footer">
-      <p className="left">
+      <p className="left" id="footer-menu">
         <a className="internal" href={DONATE_URL}>{l('Donate')}</a>
-        {' | '}
         <a className="internal" href="//wiki.musicbrainz.org/">{l('Wiki')}</a>
-        {' | '}
         <a className="internal" href="https://community.metabrainz.org/">{l('Forums')}</a>
-        {' | '}
         <a className="internal" href="/doc/Communication/IRC">
           {l('Chat (IRC)')}
         </a>
-        {' | '}
         <a className="internal" href="http://tickets.metabrainz.org/">{l('Bug Tracker')}</a>
-        {' | '}
         <a className="internal" href="https://blog.metabrainz.org/">{l('Blog')}</a>
-        {' | '}
         <a className="internal" href="https://twitter.com/MusicBrainz">{l('Twitter')}</a>
 
         {DBDefs.BETA_REDIRECT_HOSTNAME ? (
-          <>
-            {' | '}
-            <a
-              className="internal"
-              href={
-                '/set-beta-preference?' + returnToCurrentPage($c)
-              }
-            >
-              {DBDefs.IS_BETA
-                ? l('Stop using beta site')
-                : l('Use beta site')}
-            </a>
-          </>
+          <a
+            className="internal"
+            href={
+              '/set-beta-preference?' + returnToCurrentPage($c)
+            }
+          >
+            {DBDefs.IS_BETA
+              ? l('Stop using beta site')
+              : l('Use beta site')}
+          </a>
         ) : null}
+      </p>
+
+      <p className="right">
+        {exp.l(
+          `Brought to you by {MeB|MetaBrainz Foundation} and our
+           {spon|sponsors} and {supp|supporters}. Cover Art provided
+           by the {caa|Cover Art Archive}.`,
+          {
+            caa: '//coverartarchive.org/',
+            MeB: 'https://metabrainz.org/',
+            spon: 'https://metabrainz.org/sponsors',
+            supp: 'https://metabrainz.org/supporters',
+          },
+        )}
 
         {DBDefs.DB_STAGING_SERVER && DBDefs.GIT_BRANCH ? (
           <>
@@ -83,20 +88,6 @@ const Footer = (): React.Element<'div'> => {
             })}
           </>
         ) : null}
-      </p>
-
-      <p className="right">
-        {exp.l(
-          `Brought to you by {MeB|MetaBrainz Foundation} and our
-           {spon|sponsors} and {supp|supporters}. Cover Art provided
-           by the {caa|Cover Art Archive}.`,
-          {
-            MeB: 'https://metabrainz.org/',
-            caa: '//coverartarchive.org/',
-            spon: 'https://metabrainz.org/sponsors',
-            supp: 'https://metabrainz.org/supporters',
-          },
-        )}
       </p>
     </div>
   );

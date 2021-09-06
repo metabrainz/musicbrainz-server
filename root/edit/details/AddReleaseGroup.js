@@ -40,7 +40,7 @@ const AddReleaseGroup = ({allowNew, edit}: Props): React.MixedElement => {
       <table className="details">
         <tbody>
           <tr>
-            <th>{addColonText(l('Release Group'))}</th>
+            <th>{addColonText(l('Release group'))}</th>
             <td>
               <DescriptiveLink
                 allowNew={allowNew}

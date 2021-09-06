@@ -16,6 +16,8 @@ import FormRowPartialDate, {
 } from '../../../../components/FormRowPartialDate';
 import FormRowCheckbox from '../../../../components/FormRowCheckbox';
 import {applyAllPendingErrors} from '../../../../utility/subfieldErrors';
+import isDateEmpty from '../../common/utility/isDateEmpty';
+import parseIntegerOrNull from '../../common/utility/parseIntegerOrNull';
 import {isDatePeriodValid} from '../utility/dates';
 
 /* eslint-disable flowtype/sort-keys */
@@ -37,14 +39,14 @@ export type StateT = DatePeriodFieldT;
 
 export type WritableStateT = WritableDatePeriodFieldT;
 
-function partialDateFromField(
+export function partialDateFromField(
   compoundField: PartialDateFieldT,
-) {
+): PartialDateT {
   const fields = compoundField.field;
   return {
-    day: fields.day.value,
-    month: fields.month.value,
-    year: fields.year.value,
+    day: parseIntegerOrNull(fields.day.value),
+    month: parseIntegerOrNull(fields.month.value),
+    year: parseIntegerOrNull(fields.year.value),
   };
 }
 
@@ -107,6 +109,15 @@ export function runReducer(
         action.action,
         state,
       );
+      if (action.action.type === 'set-date') {
+        const newDate = action.action.date;
+        if (!isDateEmpty(newDate)) {
+          runReducer(
+            state,
+            {enabled: true, type: 'set-ended'},
+          );
+        }
+      }
       break;
     }
     case 'set-ended': {
@@ -200,7 +211,10 @@ const DateRangeFieldset = ({
           includeSubFields={false}
         />
         <FormRowCheckbox
-          disabled={disabled}
+          disabled={
+            disabled ||
+            !isDateEmpty(partialDateFromField(subfields.end_date))
+          }
           field={subfields.ended}
           label={endedLabel}
           onChange={handleEndedChange}

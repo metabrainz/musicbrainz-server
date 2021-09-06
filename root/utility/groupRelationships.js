@@ -114,14 +114,25 @@ const areDatedExtraAttributesEqual = (a, b) => (
   arraysEqual(a.attributes, b.attributes, areLinkAttrsEqual)
 );
 
-const areRelationshipTargetGroupsEqual = (a, b) => (
-  a.key === b.key &&
-  arraysEqual(
-    a.datedExtraAttributesList,
-    b.datedExtraAttributesList,
-    areDatedExtraAttributesEqual,
-  )
-);
+const areRelationshipTargetGroupsEqual = (a, b) => {
+  const aTracks = a.tracks;
+  const bTracks = b.tracks;
+
+  return (
+    a.key === b.key &&
+    arraysEqual(
+      a.datedExtraAttributesList,
+      b.datedExtraAttributesList,
+      areDatedExtraAttributesEqual,
+    ) &&
+    ((aTracks && bTracks)
+      ? arraysEqual(
+        Array.from(aTracks),
+        Array.from(bTracks),
+        (a, b) => a === b,
+      ) : true)
+  );
+};
 
 function displayLinkPhrase(linkTypeInfo) {
   const phrase = linkTypeInfo.phrase;

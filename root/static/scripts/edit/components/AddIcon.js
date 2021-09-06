@@ -9,10 +9,12 @@
 
 import * as React from 'react';
 
+import addIconUrl from '../../../images/icons/add.png';
+
 const AddIcon = (): React.Element<'img'> => (
   <img
     className="bottom"
-    src={require('../../../images/icons/add.png')}
+    src={addIconUrl}
   />
 );
 

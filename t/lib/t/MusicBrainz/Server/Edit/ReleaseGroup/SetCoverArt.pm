@@ -36,9 +36,9 @@ test 'Set cover art' => sub {
     isa_ok($rg->cover_art->release, 'MusicBrainz::Server::Entity::Release');
     isa_ok($rg->cover_art->release_group, 'MusicBrainz::Server::Entity::ReleaseGroup');
 
-    is($rg->cover_art->is_front, 1, "Associated cover art is a frontiest cover");
-    is($rg->cover_art->id, 12345, "Associated cover art has expected id");
-    is($rg->cover_art->release->id, 1, "Associated cover art has links to expected release id");
+    is($rg->cover_art->is_front, 1, 'Associated cover art is a frontiest cover');
+    is($rg->cover_art->id, 12345, 'Associated cover art has expected id');
+    is($rg->cover_art->release->id, 1, 'Associated cover art has links to expected release id');
 
     my $exception = exception {
         my $edit = $c->model('Edit')->create(
@@ -73,9 +73,9 @@ test 'Set cover art fails if release no longer exists' => sub {
     $c->model('Release')->delete($release->id);
 
     my $exception = exception { $edit->accept };
-    ok($exception, "An exception occurred when accepting the edit");
+    ok($exception, 'An exception occurred when accepting the edit');
     isa_ok($exception, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency',
-        "... and is a failed dependancy");
+        '... and is a failed dependency');
 };
 
 1;

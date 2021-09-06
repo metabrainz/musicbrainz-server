@@ -265,6 +265,23 @@ sub insert
     }, $self->sql);
 }
 
+sub search_old_editor_names {
+    my ($self, $name, $use_regular_expression) = @_;
+
+    my $condition = $use_regular_expression ? "name ~* ?" : "LOWER(name) = LOWER(?)";
+    my $query = "SELECT name FROM old_editor_name WHERE $condition LIMIT 100";
+
+    @{ $self->sql->select_single_column_array($query, $name) };
+}
+
+sub unlock_old_editor_name {
+    my ($self, $name) = @_;
+
+    my $query = "DELETE FROM old_editor_name WHERE name = ?";
+
+    $self->sql->do($query, $name);
+}
+
 sub update_email
 {
     my ($self, $editor, $email) = @_;
@@ -291,10 +308,12 @@ sub update_password
     my ($self, $editor_name, $password) = @_;
 
     Sql::run_in_transaction(sub {
-        $self->sql->do('UPDATE editor SET password = ?, ha1 = md5(name || \':musicbrainz.org:\' || ?), last_login_date = now() WHERE lower(name) = lower(?)',
-                       hash_password($password),
-                       $password,
-                       $editor_name);
+        $self->sql->do(<<~'EOSQL', hash_password($password), $password, $editor_name);
+            UPDATE editor
+            SET password = ?, ha1 = md5(name || ':musicbrainz.org:' || ?), 
+                last_login_date = now()
+            WHERE lower(name) = lower(?)
+            EOSQL
     }, $self->sql);
 }
 
@@ -691,6 +710,69 @@ sub added_entities_counts {
     }
 
     $self->c->cache->set($cache_key, \%result, 60 * 60 * 24);
+
+    return \%result;
+}
+
+sub secondary_counts {
+    my ($self, $editor_id, $viewing_own_profile) = @_;
+
+    my $editor = $self->get_by_id($editor_id);
+    $self->load_preferences($editor);
+
+    my %result;
+
+    if ($viewing_own_profile || $editor->preferences->public_tags) {
+        $result{upvoted_tag_count} = 0;
+        $result{downvoted_tag_count} = 0;
+
+        my @tag_tables = entities_with(
+            'tags',
+            take => sub { shift . '_tag_raw' },
+        );
+        my $tag_inner_query = join(
+            ' UNION ALL ',
+            map { "SELECT is_upvote FROM $_ WHERE editor = ?" } @tag_tables
+        );
+
+        my $query = <<~SQL;
+            SELECT x.is_upvote, count(*)
+            FROM ($tag_inner_query) x
+            GROUP BY x.is_upvote
+            SQL
+
+        my $rows = $self->sql->select_list_of_lists(
+            $query,
+            ($editor_id) x scalar @tag_tables,
+        );
+
+        for my $row (@$rows) {
+            my ($is_upvote, $count) = @$row;
+            if ($is_upvote) {
+                $result{upvoted_tag_count} = $count + 0;
+            } else {
+                $result{downvoted_tag_count} = $count + 0;
+            }
+        }
+  }
+
+    if ($viewing_own_profile || $editor->preferences->public_ratings) {
+        my @rating_tables = entities_with(
+            'ratings',
+            take => sub { shift . '_rating_raw' },
+        );
+        my $rating_inner_query = join(
+            ' UNION ALL ',
+            map { "SELECT 1 FROM $_ WHERE editor = ?" } @rating_tables
+        );
+
+        my $query = "SELECT count(*) FROM ($rating_inner_query) x";
+
+        $result{rating_count} = $self->sql->select_single_value(
+            $query,
+            ($editor_id) x scalar @rating_tables,
+        );
+    }
 
     return \%result;
 }

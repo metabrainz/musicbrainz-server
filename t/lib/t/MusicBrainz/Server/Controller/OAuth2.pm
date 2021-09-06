@@ -335,8 +335,25 @@ test 'Exchange authorization code' => sub {
         );
     }
 
+    # Malformed authorization code
+    $code = qq{'"\x00<script>alert(1);</script>};
+    $test->mech->post('/oauth2/token', {
+        client_id => 'id-desktop',
+        client_secret => 'id-desktop-secret',
+        grant_type => 'authorization_code',
+        redirect_uri => 'urn:ietf:wg:oauth:2.0:oob',
+        code => $code,
+    });
+    $response = from_json($test->mech->content);
+    is($test->mech->status, 400);
+    is($response->{error}, 'invalid_request');
+    is(
+        $response->{error_description},
+        'Malformed authorization code',
+    );
+
     # Unknown authorization code
-    $code = "xxxxxxxxxxxxxxxxxxxxxx";
+    $code = 'xxxxxxxxxxxxxxxxxxxxxx';
     $test->mech->post('/oauth2/token', {
         client_id => 'id-desktop',
         client_secret => 'id-desktop-secret',
@@ -349,7 +366,7 @@ test 'Exchange authorization code' => sub {
     is($response->{error}, 'invalid_grant');
 
     # Expired authorization code
-    $code = "kEbi7Dwg4hGRFvz9W8VIuQ";
+    $code = 'kEbi7Dwg4hGRFvz9W8VIuQ';
     $test->mech->post('/oauth2/token', {
         client_id => 'id-desktop',
         client_secret => 'id-desktop-secret',
@@ -361,7 +378,7 @@ test 'Exchange authorization code' => sub {
     is($test->mech->status, 400);
     is($response->{error}, 'invalid_grant');
 
-    $code = "liUxgzsg4hGvDxX9W8VIuQ";
+    $code = 'liUxgzsg4hGvDxX9W8VIuQ';
 
     # Missing client_id
     $test->mech->post('/oauth2/token', {
@@ -479,7 +496,7 @@ test 'Exchange authorization code' => sub {
     is($response->{error}, 'invalid_grant');
 
     # Correct parameters, but GET request
-    $test->mech->get("/oauth2/token?client_id=id-desktop&client_secret=id-desktop-secret&grant_type=authorization_code&redirect_uri=urn:ietf:wg:oauth:2.0:oob&code=$code");
+    $test->mech->get('/oauth2/token?client_id=id-desktop&client_secret=id-desktop-secret&grant_type=authorization_code&redirect_uri=urn:ietf:wg:oauth:2.0:oob&code=$code');
     $response = from_json($test->mech->content);
     is($test->mech->status, 400);
     is($response->{error}, 'invalid_request');
@@ -698,7 +715,7 @@ test 'Exchange refresh code' => sub {
     my ($code, $response);
 
     # Unknown refresh token
-    $code = "xxxxxxxxxxxxxxxxxxxxxx";
+    $code = 'xxxxxxxxxxxxxxxxxxxxxx';
     $test->mech->post('/oauth2/token', {
         client_id => 'id-desktop',
         client_secret => 'id-desktop-secret',
@@ -710,7 +727,7 @@ test 'Exchange refresh code' => sub {
     is($response->{error}, 'invalid_grant');
 
     # Correct token, but incorrect application
-    $code = "yi3qjrMf4hG9VVUxXMVIuQ";
+    $code = 'yi3qjrMf4hG9VVUxXMVIuQ';
     $test->mech->post('/oauth2/token', {
         client_id => 'id-web',
         client_secret => 'id-web-secret',
@@ -748,21 +765,21 @@ test 'Token info' => sub {
     is($response->header('access-control-allow-origin'), '*');
 
     # Unknown token
-    $code = "xxxxxxxxxxxxxxxxxxxxxx";
+    $code = 'xxxxxxxxxxxxxxxxxxxxxx';
     $test->mech->get("/oauth2/tokeninfo?access_token=$code");
     is($test->mech->status, 400);
     $response = from_json($test->mech->content);
     is($response->{error}, 'invalid_token');
 
     # Expired token
-    $code = "3fxf40Z5r6K78D9b031xaw";
+    $code = '3fxf40Z5r6K78D9b031xaw';
     $test->mech->get("/oauth2/tokeninfo?access_token=$code");
     is($test->mech->status, 400);
     $response = from_json($test->mech->content);
     is($response->{error}, 'invalid_token');
 
     # Valid token
-    $code = "Nlaa7v15QHm9g8rUOmT3dQ";
+    $code = 'Nlaa7v15QHm9g8rUOmT3dQ';
     $test->mech->get("/oauth2/tokeninfo?access_token=$code");
     is($test->mech->status, 200);
     $response = from_json($test->mech->content);
@@ -795,17 +812,17 @@ test 'User info' => sub {
     is($response->header('access-control-allow-origin'), '*');
 
     # Unknown token
-    $code = "xxxxxxxxxxxxxxxxxxxxxx";
+    $code = 'xxxxxxxxxxxxxxxxxxxxxx';
     $test->mech->get("/oauth2/userinfo?access_token=$code");
     is($test->mech->status, 401);
 
     # Expired token
-    $code = "3fxf40Z5r6K78D9b031xaw";
+    $code = '3fxf40Z5r6K78D9b031xaw';
     $test->mech->get("/oauth2/userinfo?access_token=$code");
     is($test->mech->status, 401);
 
     # Valid token with email
-    $code = "Nlaa7v15QHm9g8rUOmT3dQ";
+    $code = 'Nlaa7v15QHm9g8rUOmT3dQ';
     $test->mech->get("/oauth2/userinfo?access_token=$code");
     is($test->mech->status, 200);
     $response = from_json(decode('utf8', $test->mech->content(raw => 1)));
@@ -830,7 +847,7 @@ test 'User info' => sub {
     $test->mech->header_is('access-control-allow-origin', '*');
 
     # Valid token without email
-    $code = "7Fjfp0ZBr1KtDRbnfVdmIw";
+    $code = '7Fjfp0ZBr1KtDRbnfVdmIw';
     $test->mech->get("/oauth2/userinfo?access_token=$code");
     is($test->mech->status, 200);
     $response = from_json(decode('utf8', $test->mech->content(raw => 1)));

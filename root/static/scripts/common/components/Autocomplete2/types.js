@@ -7,14 +7,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export type SearchableTypeT = $ElementType<EntityItemT, 'entityType'>;
+export type SearchableTypeT = EntityItemT['entityType'];
 
 export type StateT<T: EntityItemT> = {
   +activeUser: ActiveEditorT | null,
   +canChangeType?: (string) => boolean,
   +containerClass?: string,
   +disabled?: boolean,
-  +entityType: $ElementType<T, 'entityType'>,
+  +entityType: T['entityType'],
   +error: number,
   +highlightedIndex: number,
   +id: string,

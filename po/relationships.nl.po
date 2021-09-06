@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-06-23 08:22+0000\n"
+"PO-Revision-Date: 2021-08-13 14:54+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1550,6 +1550,12 @@ msgid ""
 "conductor. This may be indicated by either the title of \"principal "
 "conductor\" or \"first conductor\"."
 msgstr "Dit geeft aan dat de groep meerde dirigenten had die door deze dirigent werden geleid. Dit kan worden aangegeven door de titel van hoofddirigent of eerste dirigent."
+
+#: DB:link_type/description:998 DB:link_type/description:999
+msgid ""
+"This indicates that the label performed a role not covered by other "
+"relationship types."
+msgstr "Dit geeft aan dat de platenmaatschappij een rol vervulde die niet onder andere relatietypes valt."
 
 #: DB:link_type/description:890
 msgid ""
@@ -3899,8 +3905,8 @@ msgid "discography pages"
 msgstr "discografie"
 
 #: DB:link_type/name:180 DB:link_type/name:76 DB:link_type/name:217
-#: DB:link_type/name:971 DB:link_type/name:90 DB:link_type/name:747
-#: DB:link_type/name:705
+#: DB:link_type/name:90 DB:link_type/name:747 DB:link_type/name:705
+#: DB:link_type/name:971
 msgid "discogs"
 msgstr "Discogs"
 
@@ -4323,6 +4329,7 @@ msgid "has a logo at"
 msgstr "heeft een logo op"
 
 #: DB:link_type/long_link_phrase:129 DB:link_type/long_link_phrase:25
+#: DB:link_type/long_link_phrase:998 DB:link_type/long_link_phrase:999
 msgid "has a miscellaneous role on"
 msgstr "heeft een diverse rol op"
 
@@ -5196,16 +5203,19 @@ msgid "minor"
 msgstr "secundair"
 
 #: DB:link_type/name:162 DB:link_type/name:129 DB:link_type/name:25
+#: DB:link_type/name:998 DB:link_type/name:999
 msgid "misc"
 msgstr "divers"
 
 #: DB:link_type/link_phrase:162 DB:link_type/link_phrase:129
-#: DB:link_type/link_phrase:25
+#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:998
+#: DB:link_type/link_phrase:999
 msgid "miscellaneous roles"
 msgstr "diverse rollen"
 
 #: DB:link_type/reverse_link_phrase:162 DB:link_type/reverse_link_phrase:129
-#: DB:link_type/reverse_link_phrase:25
+#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:998
+#: DB:link_type/reverse_link_phrase:999
 msgid "miscellaneous support"
 msgstr "diverse ondersteuning"
 
@@ -7079,7 +7089,7 @@ msgstr "{additional:aanvullende} {solo:solo} uitvoerend {guest:gast}artiest"
 #: DB:link_type/link_phrase:44 DB:link_type/link_phrase:148
 #: DB:link_type/reverse_link_phrase:44 DB:link_type/reverse_link_phrase:148
 msgid "{additional} {guest} {solo} {instrument:%|instruments}"
-msgstr "{additional:aanvullend} {solo:solo-}{instrument:%|instrumenten} {guest:(als gast)}"
+msgstr "{additional:aanvullend} {solo:solo-}{instrument:%|instrumenten}{guest: (als gast)}"
 
 #: DB:link_type/link_phrase:60 DB:link_type/link_phrase:149
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149

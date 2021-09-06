@@ -1,4 +1,5 @@
 /*
+ * @flow strict
  * Copyright (C) 2013 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -6,21 +7,19 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import MB from '../../../../common/MB';
 import * as flags from '../../../flags';
+import * as modes from '../../../modes';
 import * as utils from '../../../utils';
+import gc from '../Main';
 
-MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
-MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
+import GuessCaseHandler from './Base';
 
 // Area specific GuessCase functionality
-MB.GuessCase.Handler.Area = function (gc) {
-  var self = MB.GuessCase.Handler.Base(gc);
-
+class GuessCaseAreaHandler extends GuessCaseHandler {
   // Checks special cases
-  self.checkSpecialCase = function () {
-    return self.NOT_A_SPECIALCASE;
-  };
+  checkSpecialCase(): number {
+    return this.specialCaseValues.NOT_A_SPECIALCASE;
+  }
 
   /*
    * Delegate function which handles words not handled
@@ -29,21 +28,21 @@ MB.GuessCase.Handler.Area = function (gc) {
    * - Handles DiscNumberStyle (DiscNumberWithNameStyle)
    * - Handles FeaturingArtistStyle
    */
-  self.doWord = function () {
+  doWord(): boolean {
     (
-      self.doIgnoreWords() ||
-      self.doFeaturingArtistStyle() ||
-      gc.mode.doWord() ||
-      self.doNormalWord()
+      this.doIgnoreWords() ||
+      this.doFeaturingArtistStyle() ||
+      modes[gc.modeName].doWord() ||
+      this.doNormalWord()
     );
     flags.context.number = false;
-    return null;
-  };
+    return true;
+  }
 
   // Guesses the sortname for areas
-  self.guessSortName = function (is) {
-    return utils.trim(is);
-  };
+  guessSortName(inputString: string): string {
+    return utils.trim(inputString);
+  }
+}
 
-  return self;
-};
+export default GuessCaseAreaHandler;

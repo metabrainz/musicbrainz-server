@@ -270,7 +270,7 @@ EOF
 
     # Insert an ISWC for the first work, a composer relationship for the
     # second, and change the name of the third.
-    $dbmirror_pending = qq();
+    $dbmirror_pending = '';
     chomp ($dbmirror_pending = <<"EOF");
 1\t"musicbrainz"."iswc"\ti\t1
 2\t"musicbrainz"."link"\ti\t2

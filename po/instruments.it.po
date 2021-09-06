@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-06-08 21:42+0000\n"
+"PO-Revision-Date: 2021-08-19 01:03+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -1169,6 +1169,7 @@ msgid "cuatro"
 msgstr "cuatro"
 
 #: DB:instrument/name:491
+msgctxt "Brazilian friction-drum"
 msgid "cuíca"
 msgstr "cuíca"
 
@@ -3528,6 +3529,11 @@ msgctxt "ensemble of 1st violin, 2nd violin, viola and cello"
 msgid "string quartet"
 msgstr "quartetto d'archi"
 
+#: DB:instrument/name:1033
+msgctxt "ensemble of 2 violins, viola, cello and a fifth string instrument"
+msgid "string quintet"
+msgstr "quintetto d'archi"
+
 #: DB:instrument/name:915
 msgctxt "ensemble of violin, viola and cello"
 msgid "string trio"
@@ -3577,7 +3583,7 @@ msgid "surdo"
 msgstr "surdo"
 
 #: DB:instrument/name:816
-msgctxt "large lute-sarod from India"
+msgctxt "19th century large North-Indian dhrupad bass-sarod"
 msgid "sursingar"
 msgstr "sursingar"
 

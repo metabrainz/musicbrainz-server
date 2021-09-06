@@ -2,4 +2,4 @@
 
 export RENDERER_WORKERS=${RENDERER_WORKERS:-10}
 
-exec run-consul-template -config /etc/consul-template-template-renderer.conf
+exec /usr/local/bin/start_template_renderer.sh

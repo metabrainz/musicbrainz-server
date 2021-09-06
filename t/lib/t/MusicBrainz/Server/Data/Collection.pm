@@ -44,13 +44,13 @@ my ($sub) = grep { $_->available } @subs;
 is(scalar(@edit_list), 2, 'All edits found for subscription #2');
 
 ($edits, $hits) = $test->c->model('Edit')->subscribed_entity_edits(1);
-is($hits, 0, 'No edits found for editor #1\'s subscribed entities');
+is($hits, 0, q(No edits found for editor #1's subscribed entities));
 
 ($edits, $hits) = $test->c->model('Edit')->subscribed_entity_edits(2, 1);
-is($hits, 1, 'One available open edit found for editor #2\'s subscribed entities');
+is($hits, 1, q(One available open edit found for editor #2's subscribed entities));
 
 ($edits, $hits) = $test->c->model('Edit')->subscribed_entity_edits(2, 0);
-is($hits, 2, 'Two edits total found for editor #2\'s subscribed entities');
+is($hits, 2, q(Two edits total found for editor #2's subscribed entities));
 
 $test->c->model('EditorSubscriptions')->update_subscriptions(2, 2);
 @subs = $test->c->model('EditorSubscriptions')->get_all_subscriptions(2);

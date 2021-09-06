@@ -21,17 +21,17 @@ use Test::More;
 
 test 'IPI field validation and transformation' => sub {
     my $form = t::MusicBrainz::Server::Form::Field::IPI::TestForm->new();
-    ok(!$form->ran_validation, "new form, not yet has_errors");
+    ok(!$form->ran_validation, 'new form, not yet has_errors');
 
-    $form->process({ "test-edit" => {
-        "ipi_9digit" => "123456789",
-        "ipi_11digit" => "66123456789"
+    $form->process({ 'test-edit' => {
+        'ipi_9digit' => '123456789',
+        'ipi_11digit' => '66123456789'
     }});
 
-    ok($form->ran_validation, "processed form, validation run");
-    ok($form->is_valid, "validation passed");
+    ok($form->ran_validation, 'processed form, validation run');
+    ok($form->is_valid, 'validation passed');
 
-    is($form->field('ipi_9digit')->value, '00123456789', "9 digit IPI is padded out to 11 digits");
+    is($form->field('ipi_9digit')->value, '00123456789', '9 digit IPI is padded out to 11 digits');
 };
 
 1;

@@ -71,10 +71,10 @@
                 <th colspan="4">
                   <label>[% l('New position:') %]</label>
                   [% r.text(field.field('position'), size=2) %]
-                  [%~ IF field.field('position').has_errors;
+                  [% IF field.field('position').has_errors;
                         '<span class="error">' _ html_escape(field.field('position').errors.0) _ '</span>';
-                      END ~%]
-                  <label>[% l('New disc title:') %]</label>
+                      END %]
+                  <label>[% l('New medium title:') %]</label>
                   [% r.text(field.field('name')) %]
                   [% r.hidden(field.field('id')) %]
                   [% r.hidden(field.field('release_id')) %]

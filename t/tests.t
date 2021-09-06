@@ -9,7 +9,6 @@ use Test::Routine::Util;
 use MusicBrainz::Server::Test qw( commandline_override );
 
 my @classes = (
-    't::TemplateMacros',
     't::Sql',
     't::MusicBrainz::DataStore::Redis',
     't::MusicBrainz::Script::RebuildCoverArt',
@@ -22,7 +21,7 @@ my @classes = (
 
 MusicBrainz::Server::Test->prepare_test_server;
 
-@classes = commandline_override("t::MusicBrainz::Server::", @classes);
+@classes = commandline_override('t::MusicBrainz::Server::', @classes);
 
 # XXX Filter out WatchArtist for now as the tests are broken
 @classes = grep { $_ !~ /WatchArtist/ } @classes;

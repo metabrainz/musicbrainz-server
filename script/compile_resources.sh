@@ -20,6 +20,8 @@ ln -sf ../../../../node_modules/leaflet/dist/images/*.png .
 find . -type l ! -exec test -e '{}' \; -exec rm '{}' \;
 popd > /dev/null
 
+cp -a root/favicon.ico root/robots.txt.* "$BUILD_DIR"
+
 if [ -z "$GIT_BRANCH" ]; then
     export GIT_BRANCH=$(./script/git_info branch)
 fi
@@ -29,12 +31,12 @@ if [ -z "$GIT_SHA" ]; then
 fi
 
 # lib/DBDefs.pm doesn't exist when building Docker images.
-# In production, dbdefs_to_js.pl is run by consul-template once
-# DBDefs.pm is rendered.
+# In production, dbdefs_to_js.pl is run from website.service.
 if [ -f lib/DBDefs.pm ]; then
     ./script/dbdefs_to_js.pl
 fi
 
+RUN_ARGS=''
 BUILD_CLIENT=0
 BUILD_SERVER=0
 BUILD_TESTS=0
@@ -86,37 +88,24 @@ else
     done
 fi
 
-REV_MANIFEST="$BUILD_DIR/rev-manifest.json"
-
 if [[ "$BUILD_CLIENT" == "1" ]]; then
-    ./node_modules/.bin/webpack --config webpack.client.config.js &
-    check_trap_jobs
-
-    if [[ "$BUILD_SERVER" == "1" ]]; then
-        sleep 5
-        while [[ ! -f "$REV_MANIFEST" ]]; do
-            echo 'Waiting for rev-manifest.json before building server JS ...'
-            sleep 3
-        done
-    fi
+    RUN_ARGS="$RUN_ARGS client"
 fi
 
 if [[ "$BUILD_SERVER" == "1" ]]; then
-    if [[ ! -f "$REV_MANIFEST" ]]; then
-        echo '{}' > "$REV_MANIFEST"
-    fi
-    ./node_modules/.bin/webpack --config webpack.server.config.js &
-    check_trap_jobs
+    RUN_ARGS="$RUN_ARGS server"
 fi
 
 if [[ "$BUILD_TESTS" == "1" ]]; then
+    RUN_ARGS="$RUN_ARGS tests"
     if ./script/database_exists TEST 2> /dev/null; then
         ./script/dump_js_type_info.pl
     else
         echo 'Skipping typeInfo.js dump; no running TEST database?'
     fi
-    ./node_modules/.bin/webpack --config webpack.tests.config.js &
-    check_trap_jobs
 fi
+
+"$MB_SERVER_ROOT"/webpack/run.js $RUN_ARGS &
+check_trap_jobs
 
 if [[ "$WATCH_MODE" == "1" ]]; then wait; fi

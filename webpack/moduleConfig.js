@@ -35,41 +35,45 @@ module.exports = {
     },
     {
       test: /\.(png|svg|jpg|gif)$/,
-      use: [
-        {
-          loader: 'file-loader',
-          options: {
-            name: (
-              PRODUCTION_MODE
-                ? '[name]-[hash:7].[ext]'
-                : '[name].[ext]'
-            ),
-          },
-        },
-      ],
+      type: 'asset/resource',
+      generator: {
+        filename: PRODUCTION_MODE
+          ? '[name]-[hash:7][ext]'
+          : '[name][ext]',
+      },
     },
     {
       test: /\.less$/,
+      type: 'asset/resource',
+      generator: {
+        filename: PRODUCTION_MODE
+          ? '[name]-[hash:7].css'
+          : '[name].css',
+      },
       use: [
         {
-          loader: 'file-loader',
-          options: {
-            name: (
-              PRODUCTION_MODE
-                ? '[name]-[hash:7].css'
-                : '[name].css'
-            ),
-          },
-        },
-        {
           loader: 'less-loader',
-          options: {...lessOptions},
+          options: {lessOptions},
         },
       ],
     },
     {
       test: /leaflet\.markercluster/,
-      use: 'imports-loader?L=leaflet/dist/leaflet-src',
+      use: [
+        {
+          loader: 'imports-loader',
+          options: {
+            imports: [
+              {
+                moduleName: 'leaflet/dist/leaflet-src',
+                name: 'L',
+                syntax: 'single',
+              },
+            ],
+            type: 'commonjs',
+          },
+        },
+      ],
     },
   ],
 };

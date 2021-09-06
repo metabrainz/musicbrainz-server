@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use Test::More;
 
-eval "use Test::EOL";
+eval 'use Test::EOL';
 plan skip_all => 'Test::EOL required' if $@;
 
 use FindBin '$Bin';

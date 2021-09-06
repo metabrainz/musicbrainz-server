@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-06-16 10:08+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2021-08-19 01:03+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -665,6 +665,13 @@ msgid ""
 "common combination for 20th century classical groups."
 msgstr "Een Pierrot-ensemble bestaat uit vijf spelers (fluit, klarinet, viool, cello en piano). Het ensemble was oorspronkelijk benodigd voor Schönbergs Pierrot Lunaire, en werd gedurende de 20e eeuw vrij gebruikelijk."
 
+#. name:string quintet
+#: DB:instrument/description:1033
+msgid ""
+"Chamber ensemble of five players (two violins, one viola & one cello, then "
+"either a second viola, a second cello or a double bass)"
+msgstr "Kamerensemble voor vijf spelers (twee violen, een altviool en een cello met als vijfde lid een tweede altviool of cello of een contrabas)"
+
 #. name:string quartet
 #: DB:instrument/description:908
 msgid "Chamber ensemble of four players (two violins, one viola, one cello)"
@@ -920,13 +927,6 @@ msgid ""
 " is made of wood, often an integral case. It has two courses of strings; "
 "drone and melody strings operated by buttons or keys."
 msgstr "De bulbul tarang is ontwikkeld uit de Japanse </a>taishogoto</a>. Het instrument is gemaakt van hout en de bourdon- en melodiesnaren worden met knoppen of toetsen bespeeld."
-
-#. name:seni rebab
-#: DB:instrument/description:1014
-msgid ""
-"Developed in India during medieval times by Tansen, making it larger, with a"
-" longer neck and giving it metal sympathetic strings."
-msgstr "De seni rebab werd in de middeleeuwen door Tansen ontwikkeld uit de Afghaanse rebab; hij maakte het instrument groter, verlengde de hals en gaf het metalen resonantiesnaren."
 
 #. name:violin family
 #: DB:instrument/description:59
@@ -1370,6 +1370,14 @@ msgid ""
 "metal curled mouth piece."
 msgstr "Johann Christoph Denner verbeterde de renaissanceranket rond 1730. De boring van de barokranket is conisch, en het instrument wordt aangeblazen via een gekruld verwijderbaar mondstuk van metaal."
 
+#. name:sursingar
+#: DB:instrument/description:816
+msgid ""
+"Improved further by Jaffar Khan, it had a wooden soundboard, the fingerboard"
+" covered with iron and all strings are steel or bronze.<br /> Less common "
+"today, it was used for Dhrupad style music."
+msgstr ""
+
 #. name:morsing
 #: DB:instrument/description:533
 msgid "Indian mouth harp, played in Carnatic and Rajastani folk music."
@@ -1599,6 +1607,15 @@ msgid ""
 "in a stand with a damper operated by pedals, they are tuned at a definite "
 "pitch and played with mallets."
 msgstr "Buisklokken is een grotere versie van het klokkenspel, bedoeld voor gebruik in orkesten. Het instrument bestaat uit holle metalen buizen met een gesloten bovenkant in een standaard. De standaard beschikt over dempers die met pedalen worden aangestuurd. De buizen worden met hamers beslagen."
+
+#. name:seni rebab
+#: DB:instrument/description:1014
+msgid ""
+"Larger, with a longer neck than the kabuli rabab, it has a hide covered "
+"soundbox and wooden fingerboard with mostly gut strings, it was developed "
+"during medieval times by Tansen, who improved it and gave it metal "
+"sympathetic strings."
+msgstr ""
 
 #. name:jegogan
 #: DB:instrument/description:979
@@ -2071,6 +2088,14 @@ msgid ""
 "Originating from Henan province, this fretless huqin has the accustomary two"
 " strings, but is made of wood."
 msgstr "De zhuihu is een fretloze huqin uit de provincie Henan. Het instrument heeft twee snaren en is gemaakt van hout."
+
+#. name:cuíca
+#: DB:instrument/description:491
+msgid ""
+"Originating in Africa, it is used in carnivals and samba music. Consisting "
+"of a wooden or metal barrel, its single membrane has a tuning-stick "
+"attached."
+msgstr "Een cuíca is een Braziliaanse rommelpot die in carnavals- en sambamuziek wordt bespeeld. Het bestaat uit een houten of metalen trommel met een enkel membraan waarin een stokje is vastgemaakt waarmee het instrument wordt bespeeld."
 
 #. name:çevgen
 #: DB:instrument/description:740
@@ -3047,11 +3072,6 @@ msgid ""
 "The cornamuse is a double reed instrument from the Renaissance, similar to "
 "the crumhorn but with a closed bell."
 msgstr "Een cornamuse is een dubbelrietinstrument uit de Renaissance."
-
-#. name:cuíca
-#: DB:instrument/description:491
-msgid "The cuíca is a Brazilian friction drum often used in samba music."
-msgstr "De cuíca is een Braziliaans soort rommelpot die vaak voor sambamuziek wordt gebruikt."
 
 #. name:cò ke
 #: DB:instrument/description:309
@@ -5213,13 +5233,6 @@ msgstr "De khulsan khuur is een Mongoolse mondharp van bamboe."
 #: DB:instrument/description:810
 msgid "used in folkmedisine and shamanistic rituals"
 msgstr "De tumur khuur is een Mongoolse mondharp van metaal."
-
-#. name:sursingar
-#: DB:instrument/description:816
-msgid ""
-"used in the Hindustani style Dhrupad music, it has steel and bronze strings "
-"and is played with a metal pick."
-msgstr "De surshringar wordt gebruikt in Hindoestaanse dhroepadmuziek. Hij heeft stalen en bronzen snaren en wordt met een plectrum bespeeld."
 
 #. name:analog synthesizer
 #: DB:instrument/description:813

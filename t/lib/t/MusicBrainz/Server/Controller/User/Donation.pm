@@ -21,14 +21,14 @@ $mech->get('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get('/account/donation');
-$mech->content_contains("You will never be nagged");
+$mech->content_contains('You will never be nagged');
 
 $mech->get('/logout');
 $mech->get('/login');
 $mech->submit_form( with_fields => { username => 'kuno', password => 'byld' } );
 
 $mech->get('/account/donation');
-$mech->content_contains("We have not received a donation from you recently");
+$mech->content_contains('We have not received a donation from you recently');
 
 };
 

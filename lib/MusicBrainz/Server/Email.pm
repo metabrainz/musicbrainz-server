@@ -619,7 +619,7 @@ sub send_editor_report {
         'To'          => $EMAIL_ACCOUNT_ADMINS_ADDRESS,
         'Sender'      => $EMAIL_NOREPLY_ADDRESS,
         'Subject'     => _encode_header($subject),
-        'Message-Id'  => _message_id('editor-report-%s-%s-%d', $reporter->id, $reported_user->id, time),
+        'Message-Id'  => _message_id('editor-report-%s-%d', $reported_user->id, time),
     );
 
     push @headers, 'From', _user_address($reporter, 1);
@@ -639,7 +639,7 @@ sub send_editor_report {
             'To'          => _user_address($reporter),
             'Sender'      => $EMAIL_NOREPLY_ADDRESS,
             'Subject'     => _encode_header($copy_subject),
-            'Message-Id'  => _message_id('editor-report-copy-%s-%s-%d', $reporter->id, $reported_user->id, time),
+            'Message-Id'  => _message_id('editor-report-copy-%s-%d', $reported_user->id, time),
         );
 
         push @copy_headers, 'From', _user_address($reporter, 1);

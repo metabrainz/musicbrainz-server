@@ -77,7 +77,7 @@ test 'Adding locales to an alias with locales should be an auto edit' => sub {
     my $test = shift;
     my $c = $test->c;
     MusicBrainz::Server::Test->prepare_test_database($c, '+artistalias');
-    $c->sql->do("UPDATE artist_alias SET locale = 'fr'");
+    $c->sql->do(q(UPDATE artist_alias SET locale = 'fr'));
     ok(!create_edit($c, locale => 'en_GB')->is_open);
 };
 

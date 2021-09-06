@@ -23,7 +23,7 @@ MusicBrainz::Server::Test->prepare_raw_test_database($c, '+cdstub_raw');
             $_[-1] = [2012, 1, 1];
         };
 
-    $mech->get_ok("/cdstub/browse", 'fetch top cdstubs page');
+    $mech->get_ok('/cdstub/browse', 'fetch top cdstubs page');
 }
 
 

@@ -26,7 +26,7 @@ MB.Control.initializeGuessCase = function (type, formPrefix) {
     ko.applyBindingsToNode($options[0], {guessCase: () => undefined});
   }
 
-  var guess = MB.GuessCase[type];
+  var guess = gc.entities[type];
 
   function setVal($input, value) {
     $input.val(value).trigger('change');
@@ -75,10 +75,9 @@ var mode = ko.computed({
 
     if (modeName !== gc.modeName) {
       gc.modeName = modeName;
-      gc.mode = modes[modeName];
       setCookie('guesscase_mode', modeName);
     }
-    return gc.mode;
+    return modes[modeName];
   },
   deferEvaluation: true,
 });
@@ -91,7 +90,7 @@ guessCaseOptions.help = ko.computed({
 });
 
 guessCaseOptions.keepUpperCase.subscribe(function (value) {
-  gc.CFG_UC_UPPERCASED = value;
+  gc.CFG_KEEP_UPPERCASED = value;
   setCookie('guesscase_keepuppercase', value);
 });
 
@@ -113,7 +112,7 @@ ko.bindingHandlers.guessCase = {
     }
 
     if (!guessCaseOptions.keepUpperCase.peek()) {
-      guessCaseOptions.keepUpperCase(gc.CFG_UC_UPPERCASED);
+      guessCaseOptions.keepUpperCase(gc.CFG_KEEP_UPPERCASED);
     }
 
     if (!guessCaseOptions.upperCaseRoman.peek()) {

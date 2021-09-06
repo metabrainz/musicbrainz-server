@@ -6,6 +6,7 @@ plugins:
   - import
   - react
   - flowtype
+  - fb-flow
   - react-hooks
 
 env:
@@ -23,6 +24,7 @@ globals:
   __webpack_public_path__: writable
   __DEV__: readonly
   GLOBAL_JS_NAMESPACE: readonly
+  MUSICBRAINZ_RUNNING_TESTS: readonly
   addColon: readonly
   addColonText: readonly
   hasOwnProp: readonly
@@ -332,6 +334,12 @@ rules:
   flowtype/space-before-type-colon: [warn, never]
   flowtype/union-intersection-spacing: [warn, always]
   flowtype/use-flow-type: warn
+
+  #########################
+  # eslint-plugin-fb-flow #
+  #########################
+
+  fb-flow/use-indexed-access-type: error
 
   #############################
   # eslint-plugin-react-hooks #

@@ -1,6 +1,6 @@
 # 
 # Translators:
-# Adolfo Jayme Barrientos, 2016
+# Adolfo Jayme-Barrientos, 2016
 # Alexander Dupuy <email address hidden>, 2012
 # Fermin Rodriguez <email address hidden>, 2018
 # 3b2b9b2970dff2223d07f096c7a072f3, 2011
@@ -19,7 +19,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-05-31 16:00+0000\n"
+"PO-Revision-Date: 2021-08-12 16:31+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -1323,6 +1323,11 @@ msgstr "Kuanyama"
 msgid "Kumyk"
 msgstr "Cumuco"
 
+#. frequency:1 iso_code_3:xug
+#: DB:language/name:7421
+msgid "Kunigami"
+msgstr ""
+
 #. frequency:1 iso_code_3:kur
 #: DB:language/name:232
 msgid "Kurdish"
@@ -1998,6 +2003,11 @@ msgstr "Rundi"
 msgid "Russian"
 msgstr "Ruso"
 
+#. frequency:1 iso_code_3:rue
+#: DB:language/name:5790
+msgid "Rusyn"
+msgstr ""
+
 #. frequency:1 iso_code_3:rcf
 #: DB:language/name:5690
 msgid "Réunion Creole French"
@@ -2632,6 +2642,11 @@ msgstr "Yap"
 #: DB:language/name:463
 msgid "Yiddish"
 msgstr "Yidis"
+
+#. frequency:1 iso_code_3:yox
+#: DB:language/name:7602
+msgid "Yoron"
+msgstr ""
 
 #. frequency:1 iso_code_3:yor
 #: DB:language/name:464

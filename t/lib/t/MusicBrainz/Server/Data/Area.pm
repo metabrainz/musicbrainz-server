@@ -32,10 +32,10 @@ for my $test_data (
             INSERT INTO $iso (area, code) VALUES (1, '$code');
             EOSQL
 
-        my $areas = $c->model("Area")->$method($code, 'NA');
+        my $areas = $c->model('Area')->$method($code, 'NA');
         ok(exists $areas->{$code}, "Found an area for $code");
-        ok(exists $areas->{NA}, "There is an entry for NA");
-        is($areas->{NA}, undef, "No area for NA");
+        ok(exists $areas->{NA}, 'There is an entry for NA');
+        is($areas->{NA}, undef, 'No area for NA');
         is($areas->{$code}->gid, $AREA_GID, "Found $code area");
     };
 }

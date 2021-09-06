@@ -6,7 +6,7 @@ use HTML::Selector::XPath 'selector_to_xpath';
 
 with 't::Mechanize', 't::Context';
 
-test "/search portal" => sub {
+test '/search portal' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;

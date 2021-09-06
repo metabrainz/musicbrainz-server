@@ -14,7 +14,7 @@ import {
   isComplexArtistCredit,
   reduceArtistCredit,
 } from '../common/immutable-entities';
-import MB from '../common/MB';
+import GuessCase from '../guess-case/MB/GuessCase/Main';
 import deferFocus from '../edit/utility/deferFocus';
 import guessFeat from '../edit/utility/guessFeat';
 
@@ -127,10 +127,12 @@ const actions = {
     }
   },
 
-  guessCaseMediaNames: function () {
+  guessCaseAllMedia: function () {
     for (const medium of this.mediums.peek()) {
       releaseEditor.guessCaseMediumName(medium);
-      releaseEditor.guessCaseTrackNames(medium);
+      if (!medium.collapsed.peek()) {
+        releaseEditor.guessCaseTrackNames(medium);
+      }
     }
   },
 
@@ -138,7 +140,7 @@ const actions = {
     var name = medium.name.peek();
 
     if (name) {
-      medium.name(MB.GuessCase.release.guess(name));
+      medium.name(GuessCase.entities.release.guess(name));
     }
   },
 
@@ -240,7 +242,7 @@ const actions = {
   },
 
   guessCaseTrackName: function (track) {
-    track.name(MB.GuessCase.track.guess(track.name.peek()));
+    track.name(GuessCase.entities.track.guess(track.name.peek()));
   },
 
   guessCaseTrackNames: function (medium) {

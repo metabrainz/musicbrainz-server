@@ -7,12 +7,12 @@
  */
 
 import test from 'tape';
+import {arraysEqual} from '../../common/utility/arrays';
 
 import {
   LINK_TYPES,
   cleanURL,
-  guessType,
-  validationRules,
+  Checker,
 } from '../../edit/URLCleanup';
 
 /* eslint-disable indent, max-len, sort-keys */
@@ -399,6 +399,10 @@ const testData = [
   {
                      input_url: 'https://beta.music.apple.com/ca/artist/imposs/205021452',
             expected_clean_url: 'https://music.apple.com/ca/artist/205021452',
+  },
+  {
+                     input_url: 'https://music.apple.com/us/label/ghostly-international/1543968172',
+            expected_clean_url: 'https://music.apple.com/us/label/1543968172',
   },
   {
                      input_url: 'https://music.apple.com/ee/music-video/black-and-yellow/539886832?uo=4&mt=5&app=music',
@@ -1394,35 +1398,49 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/gnd/129802433',
-       only_valid_entity_types: ['artist', 'label', 'place'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'work'],
   },
   {
                      input_url: 'https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=nid%3D119194901X',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/gnd/119194901X',
-       only_valid_entity_types: ['artist', 'label', 'place'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'work'],
+  },
+  {
+                     input_url: 'https://portal.dnb.de/opac/opacPresentation?cqlMode=true&reset=true&referrerPosition=0&referrerResultId=coriolan%26any&query=idn%3D30001502X',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/30001502X',
+       only_valid_entity_types: ['artist', 'label', 'place', 'release', 'work'],
   },
   {
                      input_url: 'https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=idn%3D1227621485',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/1227621485',
-       only_valid_entity_types: ['release'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'release', 'work'],
   },
   {
                      input_url: 'https://d-nb.info/gnd/2026867-1',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/gnd/2026867-1',
-       only_valid_entity_types: ['artist', 'label', 'place'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'work'],
   },
   {
                      input_url: 'http://d-nb.info/gnd/1133522467',
              input_entity_type: 'place',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/gnd/1133522467',
-       only_valid_entity_types: ['artist', 'label', 'place'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'work'],
+  },
+  {
+                     input_url: 'http://d-nb.info/gnd/1100718354',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/gnd/1100718354',
+       only_valid_entity_types: ['artist', 'label', 'place', 'work'],
   },
   {
                      input_url: 'http://d-nb.info/dnbn/390205699',
@@ -1436,7 +1454,7 @@ const testData = [
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/1181136512',
-       only_valid_entity_types: ['release'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'release', 'work'],
   },
   // Dogmazic
   {
@@ -2052,6 +2070,13 @@ const testData = [
             expected_clean_url: 'https://www.instagram.com/explore/locations/277133756/pacha-club-ibiza/',
        only_valid_entity_types: [],
   },
+  {
+                     input_url: 'https://www.instagram.com/accounts/edit',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.instagram.com/accounts/',
+       only_valid_entity_types: [],
+  },
   // Irish Traditional Music Tune Index (Alan Ng's Tunography)
   {
                      input_url: 'https://www.irishtune.info/album/MCnnly/#',
@@ -2180,19 +2205,19 @@ const testData = [
   {
                      input_url: 'http://www.jamendo.com/en/track/725574/giraffe',
              input_entity_type: 'recording',
-    expected_relationship_type: 'downloadfree',
+    expected_relationship_type: ['downloadfree', 'streamingfree'],
             expected_clean_url: 'http://www.jamendo.com/track/725574',
   },
   {
                      input_url: 'http://www.jamendo.com/en/list/a84763/crossing-state-lines',
              input_entity_type: 'release',
-    expected_relationship_type: 'downloadfree',
+    expected_relationship_type: ['downloadfree', 'streamingfree'],
             expected_clean_url: 'http://www.jamendo.com/list/a84763',
   },
   {
                      input_url: 'http://www.jamendo.com/en/album/56372',
              input_entity_type: 'release',
-    expected_relationship_type: 'downloadfree',
+    expected_relationship_type: ['downloadfree', 'streamingfree'],
             expected_clean_url: 'http://www.jamendo.com/album/56372',
   },
   // JOYSOUND
@@ -2471,12 +2496,6 @@ const testData = [
             expected_clean_url: 'http://lyric.evesta.jp/l7a75fa.html',
        only_valid_entity_types: ['work'],
   },
-  // LYRICSnMUSIC
-  {
-                     input_url: 'http://www.lyricsnmusic.com/david-hasselhoff/white-christmas-lyrics/27952232',
-             input_entity_type: 'work',
-    expected_relationship_type: 'lyrics',
-  },
   // Mainly Norfolk
   {
                      input_url: 'https://www.mainlynorfolk.info/watersons/index.html',
@@ -2749,10 +2768,11 @@ const testData = [
        only_valid_entity_types: ['artist'],
   },
   {
-                     input_url: 'https://www.musixmatch.com/album/Bruno-Mars/This-Is-My-Love-Remixes-3',
+                     input_url: 'http://www.musixmatch.com/album/Bruno-Mars/This-Is-My-Love-Remixes-3#',
              input_entity_type: 'album',
     expected_relationship_type: undefined,
        input_relationship_type: 'lyrics',
+            expected_clean_url: 'https://www.musixmatch.com/album/Bruno-Mars/This-Is-My-Love-Remixes-3',
        only_valid_entity_types: [],
   },
   {
@@ -4413,25 +4433,6 @@ const testData = [
             expected_clean_url: 'https://www.whosampled.com/sample/127347/Death-Grips-5D-Pet-Shop-Boys-West-End-Girls/',
        only_valid_entity_types: [],
   },
-  // Fandom (old Wikia)
-  {
-                     input_url: 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
-             input_entity_type: 'release_group',
-    expected_relationship_type: 'lyrics',
-            expected_clean_url: 'https://lyrics.fandom.com/Van_Canto:Hero_(2008)',
-  },
-  {
-                     input_url: 'http://lyrics.fandom.com/wiki/S%C3%B5pruse_Puiestee:Miks_Ma_Ei_V%C3%B5iks_Olla_Maailmas_%C3%9Cksi',
-             input_entity_type: 'work',
-    expected_relationship_type: 'lyrics',
-            expected_clean_url: 'https://lyrics.fandom.com/wiki/S%C3%B5pruse_Puiestee:Miks_Ma_Ei_V%C3%B5iks_Olla_Maailmas_%C3%9Cksi',
-  },
-  {
-                     input_url: 'http://fr.lyrics.wikia.com/wiki/Christiane_Legrand/Les_parapluies_de_Cherbourg',
-             input_entity_type: 'work',
-    expected_relationship_type: 'lyrics',
-            expected_clean_url: 'https://lyrics.fandom.com/fr/wiki/Christiane_Legrand/Les_parapluies_de_Cherbourg',
-  },
   // Wikidata
   {
                      input_url: 'https://www.wikidata.org/wiki/Q42',
@@ -4712,7 +4713,7 @@ const relationshipTypesByUuid = Object.entries(LINK_TYPES).reduce(function (
   [relationshipType, relUuidByEntityType],
 ) {
   for (const relUuid of Object.values(relUuidByEntityType)) {
-    (results[relUuid] || (results[relUuid] = [])).push(relationshipType);
+    results[relUuid] = relationshipType;
   }
   return results;
 }, {});
@@ -4726,18 +4727,65 @@ function doMatchSubtest(
   label,
   expectedRelationshipType,
 ) {
-  const relUuid = guessType(entityType, url);
-  const actualRelationshipType =
-    relationshipTypesByUuid[relUuid]?.find(function (s) {
-      return s === expectedRelationshipType;
-    });
-  st.equal(
-    actualRelationshipType,
-    expectedRelationshipType,
-    'Match ' + label + ' URL relationship type for ' +
-    entityType + ' entities',
-  );
+  const checker = new Checker(cleanURL(url), entityType);
+  const relUuid = checker.guessType();
+  const expectSingleType = typeof expectedRelationshipType !== 'object'; // string or undefined
+  let actualRelationshipType = relUuid || undefined;
+  if (relUuid) {
+    if (typeof relUuid === 'string') { // Single type
+      if (relationshipTypesByUuid[relUuid]) {
+        actualRelationshipType = relationshipTypesByUuid[relUuid];
+      }
+    } else { // Type combination
+      const relationshipTypes = relUuid.reduce(function (accum, uuid) {
+        if (relationshipTypesByUuid[uuid]) {
+          accum.push(relationshipTypesByUuid[uuid]);
+        }
+        return accum;
+      }, []);
+      if (relationshipTypes.length > 0) {
+        actualRelationshipType = relationshipTypes;
+      }
+    }
+  }
+  if (expectedRelationshipType === undefined) {
+    actualRelationshipType = undefined;
+  }
+
+  const msg = 'Match ' + label + ' URL relationship type for ' +
+  entityType + ' entities';
+  if (expectSingleType) {
+    st.equal(
+      actualRelationshipType,
+      expectedRelationshipType,
+      msg,
+    );
+  } else {
+    st.ok(
+      arraysEqual(
+        actualRelationshipType.sort(),
+        expectedRelationshipType.sort(),
+      ),
+      msg,
+    );
+  }
   previousMatchTests.push(entityType + '+' + url);
+}
+
+// Test the url with given relationship type combined with every entity.
+function testEntitiesOfType(relationshipType, checker) {
+  let testedRules = 0;
+  const results = Object.entries(LINK_TYPES[relationshipType])
+    .reduce(
+      function (results, [entityType, relUuid]) {
+        const isValid = checker.checkRelationship(relUuid, entityType).result;
+        results[isValid].push(entityType);
+        ++testedRules;
+        return results;
+      },
+      {false: [], true: []},
+    );
+  return {results, testedRules};
 }
 
 testData.forEach(function (subtest, i) {
@@ -4818,25 +4866,35 @@ testData.forEach(function (subtest, i) {
         st.end();
         return;
       }
+      let validationResults = {false: [], true: []};
       let nbTestedRules = 0;
-      const validationResults = Object.entries(LINK_TYPES[relationshipType])
-        .reduce(
-          function (results, [entityType, relUuid]) {
-            const rule = validationRules[relUuid];
-            const isValid = rule ? rule(cleanUrl).result || false : true;
-            results[isValid].push(entityType);
-            nbTestedRules += rule ? 1 : 0;
-            return results;
-          },
-          {false: [], true: []},
-        );
+      const checker = new Checker(cleanUrl, subtest.input_entity_type);
+      if (typeof relationshipType === 'object') { // Type combination
+        relationshipType.forEach(function (type) {
+          const {results, testedRules} = testEntitiesOfType(type, checker);
+          validationResults.true =
+            validationResults.true.concat(results.true);
+          validationResults.false =
+            validationResults.false.concat(results.false);
+          nbTestedRules += testedRules;
+        });
+      } else { // Single type
+        const {results, testedRules} =
+          testEntitiesOfType(relationshipType, checker);
+        validationResults = results;
+        nbTestedRules = testedRules;
+      }
       if (nbTestedRules === 0) {
         st.fail(
           'Validation test is worthless: No validation rule has been actually tested.',
         );
       } else {
+        // Use Set to remove duplicates when there're multiple types
+        const acceptedEntityTypes = Array.from(
+          new Set(validationResults.true),
+        ).sort();
         st.deepEqual(
-          validationResults.true.sort(),
+          acceptedEntityTypes,
           subtest.only_valid_entity_types.sort(),
           'Validate clean URL by exactly ' +
             subtest.only_valid_entity_types.length +

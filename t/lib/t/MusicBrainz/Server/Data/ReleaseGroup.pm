@@ -22,16 +22,16 @@ my $rg_data = MusicBrainz::Server::Data::ReleaseGroup->new(c => $test->c);
 
 my $rg = $rg_data->get_by_id(1);
 is( $rg->id, 1 );
-is( $rg->gid, "7b5d22d0-72d7-11de-8a39-0800200c9a66" );
-is( $rg->name, "Release Group" );
+is( $rg->gid, '7b5d22d0-72d7-11de-8a39-0800200c9a66' );
+is( $rg->name, 'Release Group' );
 is( $rg->artist_credit_id, 1 );
 is( $rg->primary_type_id, 1 );
 is( $rg->edits_pending, 2 );
 
 $rg = $rg_data->get_by_gid('7b5d22d0-72d7-11de-8a39-0800200c9a66');
 is( $rg->id, 1 );
-is( $rg->gid, "7b5d22d0-72d7-11de-8a39-0800200c9a66" );
-is( $rg->name, "Release Group" );
+is( $rg->gid, '7b5d22d0-72d7-11de-8a39-0800200c9a66' );
+is( $rg->name, 'Release Group' );
 is( $rg->artist_credit_id, 1 );
 is( $rg->primary_type_id, 1 );
 is( $rg->edits_pending, 2 );
@@ -57,7 +57,7 @@ isnt( $release->release_group, undef );
 is( $release->release_group->id, 1 );
 
 my $annotation = $rg_data->annotation->get_latest(1);
-is ( $annotation->text, "Annotation" );
+is ( $annotation->text, 'Annotation' );
 
 
 $rg = $rg_data->get_by_gid('77637e8c-be66-46ea-87b3-73addc722fc9');
@@ -65,7 +65,7 @@ is ( $rg->id, 1 );
 
 my $search = MusicBrainz::Server::Data::Search->new(c => $test->c);
 my $results;
-($results, $hits) = $search->search("release_group", "release group", 10);
+($results, $hits) = $search->search('release_group', 'release group', 10);
 is( $hits, 1 );
 is( scalar(@$results), 1 );
 is( $results->[0]->position, 1 );
@@ -140,22 +140,25 @@ test 'Merge releases in seperate release groups where release groups have cover 
     my $test = shift;
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+releasegroup');
 
-    $test->c->sql->do("INSERT INTO cover_art_archive.release_group_cover_art " .
-                      "(release_group, release) VALUES (4, 4), (5, 5);");
+    $test->c->sql->do(<<~'EOSQL');
+        INSERT INTO cover_art_archive.release_group_cover_art (release_group, release)
+            VALUES (4, 4), (5, 5)
+        EOSQL
 
     ok( $test->c->model('Release')->merge(
             new_id => 4, old_ids => [ 5 ],
             merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE
-        ), "Merge releases with cover art");
+        ), 'Merge releases with cover art');
 
-    my $results = $test->c->sql->select_list_of_hashes(
-        "SELECT release_group, release
-         FROM cover_art_archive.release_group_cover_art
-         ORDER BY release_group, release");
+    my $results = $test->c->sql->select_list_of_hashes(<<~'EOSQL');
+        SELECT release_group, release
+        FROM cover_art_archive.release_group_cover_art
+        ORDER BY release_group, release
+        EOSQL
 
     my $expected = [ { release_group => 4, release => 4 } ];
 
-    is_deeply($results, $expected, "release group cover art unset for rg id 5");
+    is_deeply($results, $expected, 'release group cover art unset for rg id 5');
 };
 
 test 'Merge releases in the same release group where the release group has cover art set' => sub {
@@ -163,23 +166,26 @@ test 'Merge releases in the same release group where the release group has cover
     my $test = shift;
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+releasegroup');
 
-    $test->c->sql->do("UPDATE release SET release_group = 4 WHERE id = 5");
-    $test->c->sql->do("INSERT INTO cover_art_archive.release_group_cover_art " .
-                      "(release_group, release) VALUES (4, 5)");
+    $test->c->sql->do('UPDATE release SET release_group = 4 WHERE id = 5');
+    $test->c->sql->do(<<~'EOSQL');
+        INSERT INTO cover_art_archive.release_group_cover_art (release_group, release)
+            VALUES (4, 5)
+        EOSQL
 
     ok( $test->c->model('Release')->merge(
             new_id => 4, old_ids => [ 5 ],
             merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE
-        ), "Merge releases with cover art");
+        ), 'Merge releases with cover art');
 
-    my $results = $test->c->sql->select_list_of_hashes(
-        "SELECT release_group, release
-         FROM cover_art_archive.release_group_cover_art
-         ORDER BY release_group, release");
+    my $results = $test->c->sql->select_list_of_hashes(<<~'EOSQL');
+        SELECT release_group, release
+        FROM cover_art_archive.release_group_cover_art
+        ORDER BY release_group, release
+        EOSQL
 
     my $expected = [ { release_group => 4, release => 4 } ];
 
-    is_deeply($results, $expected, "release group cover art updated after merge");
+    is_deeply($results, $expected, 'release group cover art updated after merge');
 };
 
 test 'Delete release which is set as cover art for a release group' => sub {
@@ -187,19 +193,22 @@ test 'Delete release which is set as cover art for a release group' => sub {
     my $test = shift;
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+releasegroup');
 
-    $test->c->sql->do("INSERT INTO cover_art_archive.release_group_cover_art " .
-                      "(release_group, release) VALUES (4, 4), (5, 5);");
+    $test->c->sql->do(<<~'EOSQL');
+        INSERT INTO cover_art_archive.release_group_cover_art (release_group, release)
+            VALUES (4, 4), (5, 5)
+        EOSQL
 
     $test->c->model('Release')->delete(4);
 
-    my $results = $test->c->sql->select_list_of_hashes(
-        "SELECT release_group, release
-         FROM cover_art_archive.release_group_cover_art
-         ORDER BY release_group, release");
+    my $results = $test->c->sql->select_list_of_hashes(<<~'EOSQL');
+        SELECT release_group, release
+        FROM cover_art_archive.release_group_cover_art
+        ORDER BY release_group, release
+        EOSQL
 
     my $expected = [ { release_group => 5, release => 5 } ];
 
-    is_deeply($results, $expected, "release group cover art unset after release has been deleted");
+    is_deeply($results, $expected, 'release group cover art unset after release has been deleted');
 };
 
 test 'Merging release groups with cover art set preserves target cover art' => sub {

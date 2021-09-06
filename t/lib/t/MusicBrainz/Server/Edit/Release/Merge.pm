@@ -158,7 +158,7 @@ test 'Linking Merge Release edits to recordings' => sub {
 
     # Use a set because the order can be different, but the elements should be the same.
     use Set::Scalar;
-    is(Set::Scalar->new(2, 3)->compare(Set::Scalar->new(@{ $edit->related_entities->{recording} })), 'equal', "Related recordings are correct");
+    is(Set::Scalar->new(2, 3)->compare(Set::Scalar->new(@{ $edit->related_entities->{recording} })), 'equal', 'Related recordings are correct');
     my $recording_in_merge = $c->model('Recording')->get_by_id(2);
     is($recording_in_merge->edits_pending, 1, 'Recording has pending edits with MERGE_MERGE');
 
@@ -234,19 +234,19 @@ test 'Old medium and tracks are removed during merge' => sub {
     $c->model('Medium')->load_for_releases($release);
     $c->model('Track')->load_for_mediums($release->all_mediums);
 
-    is($release->name, "The Prologue (disc 1)", "Release has expected name after merge");
-    is($release->combined_track_count, 1, "Release has 1 track");
-    is($release->mediums->[0]->tracks->[0]->gid, 'd6de1f70-4a29-4cce-a35b-aa2b56265583', "Track has expected mbid");
+    is($release->name, 'The Prologue (disc 1)', 'Release has expected name after merge');
+    is($release->combined_track_count, 1, 'Release has 1 track');
+    is($release->mediums->[0]->tracks->[0]->gid, 'd6de1f70-4a29-4cce-a35b-aa2b56265583', 'Track has expected mbid');
 
     my $medium = $c->model('Medium')->get_by_id(3);
-    is($medium, undef, "Old medium no longer exists");
+    is($medium, undef, 'Old medium no longer exists');
 
     my $track_by_mbid = $c->model('Track')->get_by_gid('929e5fb9-cfe7-4764-b3f6-80e056f0c1da');
     isnt($track_by_mbid, undef, 'track by old MBID still fetches something');
     is($track_by_mbid->gid, 'd6de1f70-4a29-4cce-a35b-aa2b56265583', 'Track mbid was redirected');
 
     my $track = $c->model('Track')->get_by_id(3);
-    is($track, undef, "Old track no longer exists");
+    is($track, undef, 'Old track no longer exists');
 };
 
 test 'Relationships used as documentation examples are merged (MBS-8516)' => sub {
@@ -292,7 +292,7 @@ test 'Relationships used as documentation examples are merged (MBS-8516)' => sub
     is_deeply($examples, [1, 4]);
 };
 
-test 'Appended mediums that get removed don\'t prevent application of the edit (MBS-8571)' => sub {
+test q(Appended mediums that get removed don't prevent application of the edit (MBS-8571)) => sub {
     my $test = shift;
     my $c = $test->c;
 
@@ -434,8 +434,8 @@ test 'Release merges should not fail if a recording is both a merge source and m
                 destination => { name => 'Lonel boy', id => 14317504, length => 147960 },
             },
             {
-                destination => { id => 14317507, name => 'It\'s Time To Cry', length => 143573 },
-                sources => [{ length => 144173, id => 14317525, name => 'It\'s Time To Cry' }],
+                destination => { id => 14317507, name => q(It's Time To Cry), length => 143573 },
+                sources => [{ length => 144173, id => 14317525, name => q(It's Time To Cry) }],
                 medium => 1,
                 track => 7,
             },
@@ -446,14 +446,14 @@ test 'Release merges should not fail if a recording is both a merge source and m
                 track => 8,
             },
             {
-                sources => [{ length => 148773, name => 'Don\'t Gamble With Love', id => 14317528 }],
-                destination => { name => 'It Doesn\'t Matter Anymore', id => 14317510, length => 147600 },
+                sources => [{ length => 148773, name => q(Don't Gamble With Love), id => 14317528 }],
+                destination => { name => q(It Doesn't Matter Anymore), id => 14317510, length => 147600 },
                 medium => 1,
                 track => 10,
             },
             {
                 track => 11,
-                sources => [{ name => 'It Doesn\'t Matter Anymore', id => 1769019, length => 109334 }],
+                sources => [{ name => q(It Doesn't Matter Anymore), id => 1769019, length => 109334 }],
                 medium => 1,
                 destination => { length => 112333, id => 14317511, name => 'Midnight' },
             },
@@ -590,7 +590,7 @@ test 'Merging release with empty medium (MBS-11614)' => sub {
         ],
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE
     );
-    
+
     ok($right_edit->is_open);
     $c->model('Edit')->accept($right_edit);
     is($right_edit->status, $STATUS_APPLIED, 'edit is applied');

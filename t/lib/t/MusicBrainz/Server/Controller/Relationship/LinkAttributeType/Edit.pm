@@ -40,7 +40,7 @@ test 'Editing a relationship attribute /relationship-attribute/edit for a valid 
         ok($mech->success);
 
         my @redir = $response->redirects;
-        like($redir[0]->content, qr{http://localhost/relationship-attribute/0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f}, "Redirect contains link to attribute type page.");
+        like($redir[0]->content, qr{http://localhost/relationship-attribute/0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f}, 'Redirect contains link to attribute type page.');
     } $test->c;
 
     is(@edits, 1);

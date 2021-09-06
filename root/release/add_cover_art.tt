@@ -131,6 +131,12 @@
         [%- FOR image = images -%]
           <div class="thumb-position">
             [%- display_artwork(image) -%]
+            <div style="display: flex; justify-content: space-around;">
+              [% React.embed(c, 'static/scripts/edit/components/InformationIcon', {
+                style => {'align-self' => 'flex-start'},
+                title => l('Types:') _ ' ' _ (comma_only_list(image.l_types) || '-') _ 
+                        (image.comment ? (' / ' _ l('Comment:') _ ' ' _ image.comment) : '')}) %]
+            </div>
           </div>
         [%- END -%]
 

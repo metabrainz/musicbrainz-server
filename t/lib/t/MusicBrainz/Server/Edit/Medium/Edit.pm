@@ -86,9 +86,9 @@ test 'Unused tracks are correctly deleted after tracklist changes' => sub {
     my $edit1 = create_edit(
         $c, $medium,
         [
-         Track->new(name => 'CONCRETE JUNGLE', position => 1, number => "A1",
+         Track->new(name => 'CONCRETE JUNGLE', position => 1, number => 'A1',
                     artist_credit => $new_artist_credit, recording_id => 1, is_data_track => 0),
-         Track->new(name => 'THUNDER TORNADO', position => 2, number => "A2",
+         Track->new(name => 'THUNDER TORNADO', position => 2, number => 'A2',
                     artist_credit => $new_artist_credit, recording_id => 1, is_data_track => 0),
         ]);
 
@@ -109,7 +109,7 @@ test 'Unused tracks are correctly deleted after tracklist changes' => sub {
 
     is($medium->tracks->[0]->name, 'CONCRETE JUNGLE', 'First track is CONCRETE JUNGLE');
     is($medium->tracks->[1]->name, 'THUNDER TORNADO', 'Second track is THUNDER TORNADO');
-    is(scalar $medium->all_tracks, 2, "Medium has two tracks");
+    is(scalar $medium->all_tracks, 2, 'Medium has two tracks');
 
     # All of the above has established a medium with two tracks, the
     # following edit will change track 1 and replace track 2.
@@ -118,9 +118,9 @@ test 'Unused tracks are correctly deleted after tracklist changes' => sub {
         $c, $medium,
         [
          Track->new(name => 'CONCRETE JUNGLE (CONCRETE MAN STAGE)',
-                    id => $concrete_jungle_id, position => 1, number => "A1",
+                    id => $concrete_jungle_id, position => 1, number => 'A1',
                     artist_credit => $new_artist_credit, recording_id => 1, is_data_track => 0),
-         Track->new(name => 'PLUG ELECTRIC', position => 2, number => "A2",
+         Track->new(name => 'PLUG ELECTRIC', position => 2, number => 'A2',
                     artist_credit => $new_artist_credit, recording_id => 1, is_data_track => 0),
         ]);
 
@@ -131,7 +131,7 @@ test 'Unused tracks are correctly deleted after tracklist changes' => sub {
 
     is($medium->tracks->[0]->name, 'CONCRETE JUNGLE (CONCRETE MAN STAGE)', 'First track is CONCRETE JUNGLE (CONCRETE MAN STAGE)');
     is($medium->tracks->[1]->name, 'PLUG ELECTRIC', 'Second track is PLUG ELECTRIC');
-    is(scalar $medium->all_tracks, 2, "Medium has two tracks");
+    is(scalar $medium->all_tracks, 2, 'Medium has two tracks');
 
     is   ($medium->tracks->[0]->id, $concrete_jungle_id, 'First track row id unchanged');
     isnt($medium->tracks->[1]->id, $thunder_tornado_id, 'Second track row id changed');
@@ -268,7 +268,7 @@ test 'Accept/failure conditions regarding links' => sub {
         $medium = $c->model('Medium')->get_by_id(1);
         $c->model('Track')->load_for_mediums($medium);
 
-        is($medium->edits_pending, 0, "Adding first track is an autoedit");
+        is($medium->edits_pending, 0, 'Adding first track is an autoedit');
         # Can't accept since it's already applied
         ok exception { $edit->accept };
     };
@@ -378,7 +378,7 @@ test 'Accept/failure conditions regarding links' => sub {
         );
 
         $medium = $c->model('Medium')->get_by_id(1);
-        is($medium->edits_pending, $old_edits_pending + 1, "Adding a second track is not an autoedit");
+        is($medium->edits_pending, $old_edits_pending + 1, 'Adding a second track is not an autoedit');
 
         ok !exception { $edit->accept };
 
@@ -582,7 +582,7 @@ test 'Tracks can be reordered' => sub {
 
     # The positions would be changed in a real edit, so we mock that
     $medium->tracks->[1]->position(1);
-    $medium->tracks->[0]->position(2); 
+    $medium->tracks->[0]->position(2);
 
     my $edit = $c->model('Edit')->create(
         editor_id => 1,

@@ -9,56 +9,80 @@
 
 import * as React from 'react';
 
+import artLibreIconUrl
+  from '../../../static/images/licenses/ArtLibre.png';
+import cc0IconUrl
+  from '../../../static/images/licenses/CC0.png';
+import ccByIconUrl
+  from '../../../static/images/licenses/CCBY.png';
+import ccByNcIconUrl
+  from '../../../static/images/licenses/CCBYNC.png';
+import ccByNcNdIconUrl
+  from '../../../static/images/licenses/CCBYNCND.png';
+import ccByNcSaIconUrl
+  from '../../../static/images/licenses/CCBYNCSA.png';
+import ccByNdIconUrl
+  from '../../../static/images/licenses/CCBYND.png';
+import ccBySaIconUrl
+  from '../../../static/images/licenses/CCBYSA.png';
+import ccNcSamplingPlusIconUrl
+  from '../../../static/images/licenses/CCNCSamplingPlus.png';
+import ccPdIconUrl
+  from '../../../static/images/licenses/CCPD.png';
+import ccSamplingIconUrl
+  from '../../../static/images/licenses/CCSampling.png';
+import ccSamplingPlusIconUrl
+  from '../../../static/images/licenses/CCSamplingPlus.png';
 import {compare} from '../../../static/scripts/common/i18n';
 import linkedEntities from '../../../static/scripts/common/linkedEntities';
 
 const LICENSE_CLASSES = {
   ArtLibre: {
-    icon: require('../../../static/images/licenses/ArtLibre.png'),
+    icon: artLibreIconUrl,
     pattern: /artlibre\.org\/licence\/lal/,
   },
   CC0: {
-    icon: require('../../../static/images/licenses/CC0.png'),
+    icon: cc0IconUrl,
     pattern: /creativecommons\.org\/publicdomain\/zero\//,
   },
   CCBY: {
-    icon: require('../../../static/images/licenses/CCBY.png'),
+    icon: ccByIconUrl,
     pattern: /creativecommons\.org\/licenses\/by\//,
   },
   CCBYNC: {
-    icon: require('../../../static/images/licenses/CCBYNC.png'),
+    icon: ccByNcIconUrl,
     pattern: /creativecommons\.org\/licenses\/by-nc\//,
   },
   CCBYNCND: {
-    icon: require('../../../static/images/licenses/CCBYNCND.png'),
+    icon: ccByNcNdIconUrl,
     pattern: /creativecommons\.org\/licenses\/by-nc-nd\//,
   },
   CCBYNCSA: {
-    icon: require('../../../static/images/licenses/CCBYNCSA.png'),
+    icon: ccByNcSaIconUrl,
     pattern: /creativecommons\.org\/licenses\/by-nc-sa\//,
   },
   CCBYND: {
-    icon: require('../../../static/images/licenses/CCBYND.png'),
+    icon: ccByNdIconUrl,
     pattern: /creativecommons\.org\/licenses\/by-nd\//,
   },
   CCBYSA: {
-    icon: require('../../../static/images/licenses/CCBYSA.png'),
+    icon: ccBySaIconUrl,
     pattern: /creativecommons\.org\/licenses\/by-sa\//,
   },
   CCNCSamplingPlus: {
-    icon: require('../../../static/images/licenses/CCNCSamplingPlus.png'),
+    icon: ccNcSamplingPlusIconUrl,
     pattern: /creativecommons\.org\/licenses\/nc-sampling\+\//,
   },
   CCPD: {
-    icon: require('../../../static/images/licenses/CCPD.png'),
+    icon: ccPdIconUrl,
     pattern: /creativecommons\.org\/licenses\/publicdomain\//,
   },
   CCSampling: {
-    icon: require('../../../static/images/licenses/CCSampling.png'),
+    icon: ccSamplingIconUrl,
     pattern: /creativecommons\.org\/licenses\/sampling\//,
   },
   CCSamplingPlus: {
-    icon: require('../../../static/images/licenses/CCSamplingPlus.png'),
+    icon: ccSamplingPlusIconUrl,
     pattern: /creativecommons\.org\/licenses\/sampling\+\//,
   },
 };

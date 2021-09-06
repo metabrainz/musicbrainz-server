@@ -174,7 +174,7 @@ const RelationshipTypePairTree = ({
         {type0: formattedType0, type1: formattedType1},
       )}
     >
-      {manifest.js('edit.js')}
+      {manifest.js('edit')}
       <div id="content">
         <RelationshipsHeader />
 

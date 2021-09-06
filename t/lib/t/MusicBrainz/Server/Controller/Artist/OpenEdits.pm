@@ -31,9 +31,9 @@ my $response = $mech->submit_form(
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Edit');
 
-is ($edit->auto_edit, 0, "is not an auto edit");
+is ($edit->auto_edit, 0, 'is not an auto edit');
 
-$mech->get_ok("/artist/745c079d-374e-4436-9448-da92dedef3ce/open_edits",
+$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/open_edits',
               'fetch artist edit history');
 $mech->content_contains('/edit/' . $edit->id, 'contains open edit id');
 

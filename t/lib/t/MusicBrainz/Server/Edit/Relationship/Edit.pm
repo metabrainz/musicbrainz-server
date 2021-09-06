@@ -25,43 +25,43 @@ test all => sub {
     MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
     my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
-    is($rel->edits_pending, 0, "no edit pending on the relationship");
+    is($rel->edits_pending, 0, 'no edit pending on the relationship');
     $c->model('Link')->load($rel);
     $c->model('LinkType')->load($rel->link);
-    is($rel->link->type->id, 103, "link type id = 103");
-    is($rel->link->begin_date->year, undef, "no begin date");
-    is($rel->link->end_date->year, undef, "no end date");
+    is($rel->link->type->id, 103, 'link type id = 103');
+    is($rel->link->begin_date->year, undef, 'no begin date');
+    is($rel->link->end_date->year, undef, 'no end date');
 
     my $edit = _create_edit($c);
     isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
 
     my ($edits, $hits) = $c->model('Edit')->find({ artist => 3 }, 10, 0);
-    is($hits, 1, "Found 1 edit for artist 1");
-    is($edits->[0]->id, $edit->id, "... which has the same id as the edit just created");
+    is($hits, 1, 'Found 1 edit for artist 1');
+    is($edits->[0]->id, $edit->id, '... which has the same id as the edit just created');
 
     ($edits, $hits) = $c->model('Edit')->find({ artist => 4 }, 10, 0);
-    is($hits, 1, "Found 1 edit for artist 2");
-    is($edits->[0]->id, $edit->id, "... which has the same id as the edit just created");
+    is($hits, 1, 'Found 1 edit for artist 2');
+    is($edits->[0]->id, $edit->id, '... which has the same id as the edit just created');
 
     $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
-    is($rel->edits_pending, 1, "The relationship has 1 edit pending.");
+    is($rel->edits_pending, 1, 'The relationship has 1 edit pending.');
 
     # Test rejecting the edit
     reject_edit($c, $edit);
     $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
     ok(defined $rel);
-    is($rel->edits_pending, 0, "After rejecting the edit, no edit pending on the relationship");
+    is($rel->edits_pending, 0, 'After rejecting the edit, no edit pending on the relationship');
 
     # Test accepting the edit
     $edit = _create_edit($c);
     accept_edit($c, $edit);
     $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
-    ok(defined $rel, "After accepting the edit, the relationship has...");
+    ok(defined $rel, 'After accepting the edit, the relationship has...');
     $c->model('Link')->load($rel);
     $c->model('LinkType')->load($rel->link);
-    is($rel->link->type->id, 102, "... type id 102");
-    is($rel->link->begin_date->year, 1994, "... begin year 1994");
-    is($rel->link->end_date->year, 1995, "... end year 1995");
+    is($rel->link->type->id, 102, '... type id 102');
+    is($rel->link->begin_date->year, 1994, '... begin year 1994');
+    is($rel->link->end_date->year, 1995, '... end year 1995');
     is($rel->entity0_id, 3, '... entity 0 is artist 3');
     is($rel->entity1_id, 5, '... entity 1 is artist 5');
 };

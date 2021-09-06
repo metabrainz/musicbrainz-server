@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../../../context';
+import taggerIconUrl from '../../../images/icons/mblookup-tagger.png';
 
 function buildTaggerLink(entity, tport: number): string {
   const gid = entity.gid;
@@ -37,7 +38,7 @@ const TaggerIcon = ({entity}: Props): React.MixedElement => (
       >
         <img
           alt={l('Tagger')}
-          src={require('../../../images/icons/mblookup-tagger.png')}
+          src={taggerIconUrl}
         />
       </a>
     )}

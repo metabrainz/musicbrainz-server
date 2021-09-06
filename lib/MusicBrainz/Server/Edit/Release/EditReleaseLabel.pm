@@ -28,6 +28,7 @@ with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 sub edit_name { N_l('Edit release label') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_EDITRELEASELABEL }
+sub edit_template_react { 'EditReleaseLabel' }
 
 sub alter_edit_pending { { Release => [ shift->release_id ] } }
 
@@ -109,10 +110,26 @@ sub build_display_data {
     my $data = $self->data;
 
     my $display_data = {
-        release => $loaded->{Release}{ gid_or_id($data->{release}) } // Release->new(name => $data->{release}{name}),
+        release => to_json_object(
+            $loaded->{Release}{ gid_or_id($data->{release}) } //
+            Release->new(name => $data->{release}{name})
+        ),
         catalog_number => {
-            new => $data->{new}{catalog_number},
+            exists $data->{new}{catalog_number} ? (new => $data->{new}{catalog_number}) : (),
             old => $data->{old}{catalog_number},
+        },
+        label => {
+            exists $data->{new}{label}
+                ? (
+                    new => defined $data->{new}{label} ? to_json_object(
+                        $loaded->{Label}{gid_or_id($data->{new}{label})} //
+                        Label->new(name => $data->{new}{label}{name})
+                    ) : undef
+                ) : (),
+            old => defined $data->{old}{label} ? to_json_object(
+                $loaded->{Label}{gid_or_id($data->{old}{label})} //
+                Label->new(name => $data->{old}{label}{name})
+            ) : undef,
         },
         barcode => $data->{release}{barcode}
     };
@@ -129,28 +146,22 @@ sub build_display_data {
                 my $country = $_->{country};
                 my $country_gid_or_id = gid_or_id($country);
 
-                $event_display->{country} = defined $country_gid_or_id && $loaded->{Area}{$country_gid_or_id};
-                $event_display->{country} //= defined $country->{name} && MusicBrainz::Server::Entity::Area->new($country);
+                $event_display->{country} = to_json_object(
+                    defined $country_gid_or_id && $loaded->{Area}{$country_gid_or_id}
+                );
+                $event_display->{country} //= to_json_object(
+                    defined $country->{name} && MusicBrainz::Server::Entity::Area->new($country)
+                );
             }
 
-            $event_display->{date} = MusicBrainz::Server::Entity::PartialDate->new($_->{date});
+            if ($_->{date}) {
+                $event_display->{date} = to_json_object(
+                    MusicBrainz::Server::Entity::PartialDate->new($_->{date})
+                );
+            }
             $event_display;
         } @{ $data->{release}{events} // [] }
     ];
-
-    $display_data->{events_json} = [
-        map +{
-            country => to_json_object($_->{country}),
-            date => to_json_object($_->{date}),
-        }, @{ $display_data->{events} }
-    ];
-
-    for (qw( new old )) {
-        if (my $label = $data->{$_}{label}) {
-            next unless %$label;
-            $display_data->{label}{$_} = $loaded->{Label}{gid_or_id($label)} // Label->new(name => $label->{name});
-        }
-    }
 
     return $display_data;
 }

@@ -15,12 +15,12 @@ test 'direct disc id lookup' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
     MusicBrainz::Server::Test->prepare_test_database(
-        $test->c, "INSERT INTO medium_cdtoc (medium, cdtoc) VALUES (2, 2);");
+        $test->c, 'INSERT INTO medium_cdtoc (medium, cdtoc) VALUES (2, 2);');
 
     ws_test_json 'direct disc id lookup',
     '/discid/IeldkVfIh1wep_M8CMuDvA0nQ7Q-' =>
         {
-            id => "IeldkVfIh1wep_M8CMuDvA0nQ7Q-",
+            id => 'IeldkVfIh1wep_M8CMuDvA0nQ7Q-',
             'offset-count' => 9,
             offsets => [
               150,
@@ -36,28 +36,28 @@ test 'direct disc id lookup' => sub {
             sectors => 189343,
             releases => [
                 {
-                    id => "f205627f-b70a-409d-adbe-66289b614e80",
-                    title => "Aerial",
-                    quality => "normal",
-                    date => "2007",
+                    id => 'f205627f-b70a-409d-adbe-66289b614e80',
+                    title => 'Aerial',
+                    quality => 'normal',
+                    date => '2007',
                     media => [
                         {
-                            title => "A Sea of Honey",
-                            format => "Format",
-                            "format-id" => "52014420-cae8-11de-8a39-0800200c9a26",
+                            title => 'A Sea of Honey',
+                            format => 'Format',
+                            'format-id' => '52014420-cae8-11de-8a39-0800200c9a26',
                             position => 1,
                             'track-count' => 7,
                             discs => [],
                         },
                         {
-                            title => "A Sky of Honey",
-                            format => "Format",
-                            "format-id" => "52014420-cae8-11de-8a39-0800200c9a26",
+                            title => 'A Sky of Honey',
+                            format => 'Format',
+                            'format-id' => '52014420-cae8-11de-8a39-0800200c9a26',
                             position => 2,
                             'track-count' => 9,
                             discs => [
                                 {
-                                    id => "IeldkVfIh1wep_M8CMuDvA0nQ7Q-",
+                                    id => 'IeldkVfIh1wep_M8CMuDvA0nQ7Q-',
                                     'offset-count' => 9,
                                     offsets => [
                                       150,
@@ -87,12 +87,12 @@ test 'direct disc id lookup' => sub {
                     country => JSON::null,
                     disambiguation => '',
                     packaging => JSON::null,
-                    "packaging-id" => JSON::null,
+                    'packaging-id' => JSON::null,
                     status => JSON::null,
-                    "status-id" => JSON::null,
+                    'status-id' => JSON::null,
                     'text-representation' => { language => JSON::null, script => JSON::null },
-                    "release-events" => [{
-                        date => "2007",
+                    'release-events' => [{
+                        date => '2007',
                         area => JSON::null,
                     }]
                 }
@@ -123,23 +123,23 @@ test 'lookup via toc' => sub {
             'release-offset' => 0,
             releases => [
                 {
-                    id => "9b3d9383-3d2a-417f-bfbb-56f7c15f075b",
-                    title => "Aerial",
-                    quality => "normal",
-                    date => "2008",
+                    id => '9b3d9383-3d2a-417f-bfbb-56f7c15f075b',
+                    title => 'Aerial',
+                    quality => 'normal',
+                    date => '2008',
                     media => [
                         {
-                            title => "A Sea of Honey",
-                            format => "Format",
-                            "format-id" => "52014420-cae8-11de-8a39-0800200c9a26",
+                            title => 'A Sea of Honey',
+                            format => 'Format',
+                            'format-id' => '52014420-cae8-11de-8a39-0800200c9a26',
                             position => 1,
                             'track-count' => 7,
                             discs => [],
                         },
                         {
-                            title => "A Sky of Honey",
-                            format => "Format",
-                            "format-id" => "52014420-cae8-11de-8a39-0800200c9a26",
+                            title => 'A Sky of Honey',
+                            format => 'Format',
+                            'format-id' => '52014420-cae8-11de-8a39-0800200c9a26',
                             position => 2,
                             'track-count' => 9,
                             discs => [],
@@ -157,45 +157,45 @@ test 'lookup via toc' => sub {
                     country => JSON::null,
                     disambiguation => '',
                     packaging => JSON::null,
-                    "packaging-id" => JSON::null,
+                    'packaging-id' => JSON::null,
                     status => JSON::null,
-                    "status-id" => JSON::null,
+                    'status-id' => JSON::null,
                     'text-representation' => { language => JSON::null, script => JSON::null },
-                    "release-events" => [{
-                        date => "2008",
+                    'release-events' => [{
+                        date => '2008',
                         area => JSON::null,
                     }],
                     tags => [
-                        { count => 2, name => "musical" },
-                        { count => 2, name => "not-used" },
+                        { count => 2, name => 'musical' },
+                        { count => 2, name => 'not-used' },
                     ],
                     genres => [
-                        { count => 2, disambiguation => '', id => "ff6d73e8-bf1a-431e-9911-88ae7ffcfdfb", name => "musical" },
+                        { count => 2, disambiguation => '', id => 'ff6d73e8-bf1a-431e-9911-88ae7ffcfdfb', name => 'musical' },
                     ],
                 },
                 {
-                    id => "f205627f-b70a-409d-adbe-66289b614e80",
-                    title => "Aerial",
-                    quality => "normal",
-                    date => "2007",
+                    id => 'f205627f-b70a-409d-adbe-66289b614e80',
+                    title => 'Aerial',
+                    quality => 'normal',
+                    date => '2007',
                     media => [
                         {
-                            title => "A Sea of Honey",
-                            format => "Format",
-                            "format-id" => "52014420-cae8-11de-8a39-0800200c9a26",
+                            title => 'A Sea of Honey',
+                            format => 'Format',
+                            'format-id' => '52014420-cae8-11de-8a39-0800200c9a26',
                             position => 1,
                             'track-count' => 7,
                             discs => [],
                         },
                         {
-                            title => "A Sky of Honey",
-                            format => "Format",
-                            "format-id" => "52014420-cae8-11de-8a39-0800200c9a26",
+                            title => 'A Sky of Honey',
+                            format => 'Format',
+                            'format-id' => '52014420-cae8-11de-8a39-0800200c9a26',
                             position => 2,
                             'track-count' => 9,
                             discs => [
                                 {
-                                    id => "IeldkVfIh1wep_M8CMuDvA0nQ7Q-",
+                                    id => 'IeldkVfIh1wep_M8CMuDvA0nQ7Q-',
                                     'offset-count' => 9,
                                     offsets => [
                                       150,
@@ -225,12 +225,12 @@ test 'lookup via toc' => sub {
                     country => JSON::null,
                     disambiguation => '',
                     packaging => JSON::null,
-                    "packaging-id" => JSON::null,
+                    'packaging-id' => JSON::null,
                     status => JSON::null,
-                    "status-id" => JSON::null,
+                    'status-id' => JSON::null,
                     'text-representation' => { language => JSON::null, script => JSON::null },
-                    "release-events" => [{
-                        date => "2007",
+                    'release-events' => [{
+                        date => '2007',
                         area => JSON::null,
                     }],
                     tags => [],

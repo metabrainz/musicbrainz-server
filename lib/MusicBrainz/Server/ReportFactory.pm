@@ -27,7 +27,6 @@ use MusicBrainz::Server::PagedReport;
     CDTOCDubiousLength
     CDTOCNotApplied
     CollaborationRelationships
-    CoverArtRelationships
     DeprecatedRelationshipArtists
     DeprecatedRelationshipLabels
     DeprecatedRelationshipPlaces
@@ -61,6 +60,7 @@ use MusicBrainz::Server::PagedReport;
     LimitedEditors
     LinksWithMultipleEntities
     MediumsWithSequenceIssues
+    MislinkedPseudoReleases
     MultipleASINs
     MultipleDiscogsLinks
     NoLanguage
@@ -77,11 +77,11 @@ use MusicBrainz::Server::PagedReport;
     ReleasedTooEarly
     ReleaseGroupsWithoutVACredit
     ReleaseGroupsWithoutVALink
-    ReleasesInCAAWithCoverArtRelationships
     ReleaseLabelSameArtist
     ReleaseRGDifferentName
     ReleasesSameBarcode
     ReleasesToConvert
+    ReleasesWithAmazonCoverArt
     ReleasesWithCAANoTypes
     ReleasesWithDownloadRelationships
     ReleasesWithEmptyMediums
@@ -121,7 +121,6 @@ use MusicBrainz::Server::Report::CatNoLooksLikeLabelCode;
 use MusicBrainz::Server::Report::CDTOCDubiousLength;
 use MusicBrainz::Server::Report::CDTOCNotApplied;
 use MusicBrainz::Server::Report::CollaborationRelationships;
-use MusicBrainz::Server::Report::CoverArtRelationships;
 use MusicBrainz::Server::Report::DeprecatedRelationshipArtists;
 use MusicBrainz::Server::Report::DeprecatedRelationshipLabels;
 use MusicBrainz::Server::Report::DeprecatedRelationshipPlaces;
@@ -155,6 +154,7 @@ use MusicBrainz::Server::Report::LabelsDisambiguationSameName;
 use MusicBrainz::Server::Report::LimitedEditors;
 use MusicBrainz::Server::Report::LinksWithMultipleEntities;
 use MusicBrainz::Server::Report::MediumsWithSequenceIssues;
+use MusicBrainz::Server::Report::MislinkedPseudoReleases;
 use MusicBrainz::Server::Report::MultipleASINs;
 use MusicBrainz::Server::Report::MultipleDiscogsLinks;
 use MusicBrainz::Server::Report::NoLanguage;
@@ -172,11 +172,11 @@ use MusicBrainz::Server::Report::RecordingsWithFutureDates;
 use MusicBrainz::Server::Report::ReleasedTooEarly;
 use MusicBrainz::Server::Report::ReleaseGroupsWithoutVACredit;
 use MusicBrainz::Server::Report::ReleaseGroupsWithoutVALink;
-use MusicBrainz::Server::Report::ReleasesInCAAWithCoverArtRelationships;
 use MusicBrainz::Server::Report::ReleaseLabelSameArtist;
 use MusicBrainz::Server::Report::ReleaseRGDifferentName;
 use MusicBrainz::Server::Report::ReleasesToConvert;
 use MusicBrainz::Server::Report::ReleasesSameBarcode;
+use MusicBrainz::Server::Report::ReleasesWithAmazonCoverArt;
 use MusicBrainz::Server::Report::ReleasesWithCAANoTypes;
 use MusicBrainz::Server::Report::ReleasesWithDownloadRelationships;
 use MusicBrainz::Server::Report::ReleasesWithEmptyMediums;

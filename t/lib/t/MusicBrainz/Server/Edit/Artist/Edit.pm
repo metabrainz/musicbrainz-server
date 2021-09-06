@@ -59,14 +59,14 @@ is($artist->end_date->month, 3);
 is($artist->end_date->day, 20);
 
 my $ipi_codes = $c->model('Artist')->ipi->find_by_entity_id($artist->id);
-is(scalar @$ipi_codes, 2, "Artist has two ipi codes after accepting edit");
-isa_ok($ipi_codes->[0], "MusicBrainz::Server::Entity::ArtistIPI");
-isa_ok($ipi_codes->[1], "MusicBrainz::Server::Entity::ArtistIPI");
+is(scalar @$ipi_codes, 2, 'Artist has two ipi codes after accepting edit');
+isa_ok($ipi_codes->[0], 'MusicBrainz::Server::Entity::ArtistIPI');
+isa_ok($ipi_codes->[1], 'MusicBrainz::Server::Entity::ArtistIPI');
 
 my $isni_codes = $c->model('Artist')->isni->find_by_entity_id($artist->id);
-is(scalar @$isni_codes, 2, "Artist has two isni codes after accepting edit");
-isa_ok($isni_codes->[0], "MusicBrainz::Server::Entity::ArtistISNI");
-isa_ok($isni_codes->[1], "MusicBrainz::Server::Entity::ArtistISNI");
+is(scalar @$isni_codes, 2, 'Artist has two isni codes after accepting edit');
+isa_ok($isni_codes->[0], 'MusicBrainz::Server::Entity::ArtistISNI');
+isa_ok($isni_codes->[1], 'MusicBrainz::Server::Entity::ArtistISNI');
 
 # load the edit and test if it provides a populated ->display_data
 $edit = $c->model('Edit')->get_by_id($edit->id);

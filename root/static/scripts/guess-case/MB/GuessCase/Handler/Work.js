@@ -1,4 +1,5 @@
 /*
+ * @flow strict
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -7,34 +8,35 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import MB from '../../../../common/MB';
 import * as flags from '../../../flags';
+import * as modes from '../../../modes';
+import input from '../Input';
+import gc from '../Main';
 
-MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
-MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
+import GuessCaseHandler from './Base';
 
 // Work specific GuessCase functionality
-MB.GuessCase.Handler.Work = function (gc) {
-  var self = MB.GuessCase.Handler.Base(gc);
-
+class GuessCaseWorkHandler extends GuessCaseHandler {
   // Checks special cases of releases
-  self.checkSpecialCase = function (is) {
-    if (is) {
-      if (!gc.re.RELEASE_UNTITLED) {
+  checkSpecialCase(inputString?: string): number {
+    if (inputString != null) {
+      if (!gc.regexes.RELEASE_UNTITLED) {
         // Untitled
-        gc.re.RELEASE_UNTITLED = /^([\(\[]?\s*untitled\s*[\)\]]?)$/i;
+        gc.regexes.RELEASE_UNTITLED = /^([\(\[]?\s*untitled\s*[\)\]]?)$/i;
       }
-      if (is.match(gc.re.RELEASE_UNTITLED)) {
-        return self.SPECIALCASE_UNTITLED;
+      if (inputString.match(gc.regexes.RELEASE_UNTITLED)) {
+        return this.specialCaseValues.SPECIALCASE_UNTITLED;
       }
     }
-    return self.NOT_A_SPECIALCASE;
-  };
+    return this.specialCaseValues.NOT_A_SPECIALCASE;
+  }
 
-  self.getWordsForProcessing = function (is) {
-    is = gc.mode.preProcessTitles(is);
-    return gc.mode.prepExtraTitleInfo(gc.i.splitWordsAndPunctuation(is));
-  };
+  getWordsForProcessing(inputString: string): Array<string> {
+    const preppedString = modes[gc.modeName].preProcessTitles(inputString);
+    return modes[gc.modeName].prepExtraTitleInfo(
+      input.splitWordsAndPunctuation(preppedString),
+    );
+  }
 
   /*
    * Delegate function which handles words not handled
@@ -43,19 +45,21 @@ MB.GuessCase.Handler.Work = function (gc) {
    * - Handles DiscNumberStyle (DiscNumberWithNameStyle)
    * - Handles FeaturingArtistStyle
    */
-  self.doWord = function () {
+  doWord(): boolean {
     (
-      self.doIgnoreWords() ||
-      self.doFeaturingArtistStyle() ||
-      gc.mode.doWord() ||
-      self.doNormalWord()
+      this.doIgnoreWords() ||
+      this.doFeaturingArtistStyle() ||
+      modes[gc.modeName].doWord() ||
+      this.doNormalWord()
     );
     flags.context.number = false;
-    return null;
-  };
+    return true;
+  }
 
   // Guesses the sortname for works
-  self.guessSortName = self.moveArticleToEnd;
+  guessSortName(inputString: string): string {
+    return this.moveArticleToEnd(inputString);
+  }
+}
 
-  return self;
-};
+export default GuessCaseWorkHandler;

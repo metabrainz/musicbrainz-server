@@ -15,34 +15,34 @@ test 'basic url lookup' => sub {
 
     ws_test_json 'basic url lookup',
     '/url/e0a79771-e9f0-4127-b58a-f5e6869c8e96' =>
-      { id => "e0a79771-e9f0-4127-b58a-f5e6869c8e96",
-        resource => "http://www.discogs.com/artist/Paul+Allgood"
+      { id => 'e0a79771-e9f0-4127-b58a-f5e6869c8e96',
+        resource => 'http://www.discogs.com/artist/Paul+Allgood'
       };
 
     ws_test_json 'basic url lookup (by URL)',
     '/url?resource=http://www.discogs.com/artist/Paul%2BAllgood' =>
-      { id => "e0a79771-e9f0-4127-b58a-f5e6869c8e96",
-        resource => "http://www.discogs.com/artist/Paul+Allgood"
+      { id => 'e0a79771-e9f0-4127-b58a-f5e6869c8e96',
+        resource => 'http://www.discogs.com/artist/Paul+Allgood'
       };
 
     ws_test_json 'basic url lookup (with inc=artist-rels)',
     '/url/e0a79771-e9f0-4127-b58a-f5e6869c8e96?inc=artist-rels' =>
         {
-            id => "e0a79771-e9f0-4127-b58a-f5e6869c8e96",
-            resource => "http://www.discogs.com/artist/Paul+Allgood",
+            id => 'e0a79771-e9f0-4127-b58a-f5e6869c8e96',
+            resource => 'http://www.discogs.com/artist/Paul+Allgood',
             relations => [
                 {
                     attributes => [],
-                    "attribute-ids" => {},
-                    "attribute-values" => {},
+                    'attribute-ids' => {},
+                    'attribute-values' => {},
                     direction => 'backward',
                     artist => {
-                        id => "05d83760-08b5-42bb-a8d7-00d80b3bf47c",
+                        id => '05d83760-08b5-42bb-a8d7-00d80b3bf47c',
                         name => 'Paul Allgood',
                         'sort-name' => 'Allgood, Paul',
                         disambiguation => '',
-                        "type" => "Person",
-                        "type-id" => "b6e035f4-3ce9-331c-97df-83397230b0df",
+                        'type' => 'Person',
+                        'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
                     },
                     ended => JSON::false,
                     begin => JSON::null,

@@ -13,9 +13,13 @@ import CleanupBanner from '../components/CleanupBanner';
 import FormRow from '../components/FormRow';
 import FormSubmit from '../components/FormSubmit';
 import PaginatedResults from '../components/PaginatedResults';
+import DescriptiveLink
+  from '../static/scripts/common/components/DescriptiveLink';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract';
+import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
 import ReleaseList from '../components/list/ReleaseList';
+import RelatedEntitiesDisplay from '../components/RelatedEntitiesDisplay';
 import * as manifest from '../static/manifest';
 import Annotation from '../static/scripts/common/components/Annotation';
 import {returnToCurrentPage} from '../utility/returnUri';
@@ -29,6 +33,8 @@ type Props = {
   +numberOfRevisions: number,
   +pager: PagerT,
   +releases: ?$ReadOnlyArray<ReleaseT>,
+  +renamedFrom: $ReadOnlyArray<LabelT>,
+  +renamedInto: $ReadOnlyArray<LabelT>,
   +wikipediaExtract: WikipediaExtractT | null,
 };
 
@@ -39,6 +45,8 @@ const LabelIndex = ({
   numberOfRevisions,
   pager,
   releases,
+  renamedFrom,
+  renamedInto,
   wikipediaExtract,
 }: Props): React.Element<typeof LabelLayout> => (
   <LabelLayout entity={label} page="index">
@@ -51,6 +59,20 @@ const LabelIndex = ({
       entity={label}
       numberOfRevisions={numberOfRevisions}
     />
+    {renamedFrom.length ? (
+      <RelatedEntitiesDisplay title={l('Previously known as')}>
+        {commaOnlyList(renamedFrom.map(
+          label => <DescriptiveLink entity={label} key={label.gid} />,
+        ))}
+      </RelatedEntitiesDisplay>
+    ) : null}
+    {renamedInto.length ? (
+      <RelatedEntitiesDisplay title={l('Renamed to')}>
+        {commaOnlyList(renamedInto.map(
+          label => <DescriptiveLink entity={label} key={label.gid} />,
+        ))}
+      </RelatedEntitiesDisplay>
+    ) : null}
     <WikipediaExtract
       cachedWikipediaExtract={wikipediaExtract}
       entity={label}
@@ -77,7 +99,7 @@ const LabelIndex = ({
     ) : (
       <p>{l('This label does not have any releases.')}</p>
     )}
-    {manifest.js('label/index.js', {async: 'async'})}
+    {manifest.js('label/index', {async: 'async'})}
   </LabelLayout>
 );
 

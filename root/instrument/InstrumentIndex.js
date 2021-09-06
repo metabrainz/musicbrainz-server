@@ -51,7 +51,7 @@ const InstrumentIndex = ({
       entity={instrument}
     />
     <Relationships source={instrument} />
-    {manifest.js('instrument/index.js', {async: 'async'})}
+    {manifest.js('instrument/index', {async: 'async'})}
   </InstrumentLayout>
 );
 

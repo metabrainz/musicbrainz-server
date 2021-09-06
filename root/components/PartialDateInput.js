@@ -17,7 +17,7 @@ import {applyPendingErrors} from '../utility/subfieldErrors';
 export type ActionT =
   | {
       +type: 'set-date',
-      +date: {+year?: string, month?: string, day?: string},
+      +date: {+year?: string, +month?: string, +day?: string},
     }
   | {+type: 'show-pending-errors'};
 /* eslint-enable flowtype/sort-keys */

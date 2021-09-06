@@ -464,6 +464,7 @@ sub find_entities
                  FROM " . $self->parent->_table . "
                      JOIN $tag_table tt ON " . $self->parent->_id_column . " = tt.$type
                  WHERE tag = ?
+                 AND tt.count > 0
                  ORDER BY tt.count DESC, $ordering_condition, " . $self->parent->_id_column;
     $self->query_to_list_limited($query, [$tag_id], $limit, $offset, sub {
         my ($model, $row) = @_;

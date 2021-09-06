@@ -12,7 +12,7 @@ test all => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c);
 
-    $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce");
+    $mech->get_ok('/work/745c079d-374e-4436-9448-da92dedef3ce');
     html_ok($mech->content);
     $mech->content_like(qr/Dancing Queen/, 'work title');
     $mech->content_like(qr/Composition/, 'work type');

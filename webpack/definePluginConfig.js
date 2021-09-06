@@ -20,4 +20,6 @@ module.exports = {
    */
   __DEV__: JSON.stringify(WEBPACK_MODE === 'development'),
   GLOBAL_JS_NAMESPACE: JSON.stringify(GLOBAL_JS_NAMESPACE),
+  MUSICBRAINZ_RUNNING_TESTS:
+    JSON.stringify(!!process.env.MUSICBRAINZ_RUNNING_TESTS),
 };

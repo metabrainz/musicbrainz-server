@@ -19,7 +19,7 @@ sub compare_body
 
     $got =~ s/[\r\n]+/\n/g;
     $expected =~ s/[\r\n]+/\n/g;
-    is_string($got, $expected, $msg ? $msg : "Body is correct");
+    is_string($got, $expected, $msg ? $msg : 'Body is correct');
 }
 
 test all => sub {
@@ -55,7 +55,7 @@ test all => sub {
     is($e->get_header('To'), '"Editor 2" <bar@example.com>', 'To is Editor 2, bar@example.com');
     is($e->get_header('BCC'), undef, 'BCC is undefined');
     is($e->get_header('Subject'), 'Hey', 'Subject is Hey');
-    like($e->get_header('Message-Id'), qr{<correspondence-4444-8888-\d+@.*>}, "Message-Id has right format");
+    like($e->get_header('Message-Id'), qr{<correspondence-4444-8888-\d+@.*>}, 'Message-Id has right format');
     is($e->get_header('References'), sprintf('<correspondence-%s-%s@%s>', $user1->id, $user2->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References correct correspondence');
     compare_body($e->object->body_str,
                  "MusicBrainz user 'Editor 1' has sent you the following message:\n".
@@ -89,7 +89,7 @@ test all => sub {
     is($e->get_header('To'), '"Editor 2" <bar@example.com>', 'To is Editor 2, bar@example.com');
     is($e->get_header('BCC'), undef, 'BCC is undefined');
     is($e->get_header('Subject'), 'Hey', 'Subject is Hey');
-    like($e->get_header('Message-Id'), qr{<correspondence-4444-8888-\d+@.*>}, "Message-Id has right format");
+    like($e->get_header('Message-Id'), qr{<correspondence-4444-8888-\d+@.*>}, 'Message-Id has right format');
     is($e->get_header('References'), sprintf('<correspondence-%s-%s@%s>', $user1->id, $user2->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References correct correspondence');
     compare_body($e->object->body_str,
                  "MusicBrainz user 'Editor 1' has sent you the following message:\n".
@@ -136,7 +136,7 @@ test all => sub {
     is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'From is noreply@...');
     is($e->get_header('To'), 'user@example.com', 'To is user@example.com');
     is($e->get_header('Subject'), 'Please verify your email address', 'Subject is Please verify your email address');
-    like($e->get_header('Message-Id'), qr{<verify-email-\d+@.*>}, "Message-Id has right format");
+    like($e->get_header('Message-Id'), qr{<verify-email-\d+@.*>}, 'Message-Id has right format');
     compare_body($e->object->body_str,
                  "Hello Editor 1,\n".
                  "\n".
@@ -169,7 +169,7 @@ test all => sub {
     is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'From is noreply@...');
     is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
     is($e->get_header('Subject'), 'Lost username', 'Subject is Lost username');
-    like($e->get_header('Message-Id'), qr{<lost-username-\d+@.*>}, "Message-Id has right format");
+    like($e->get_header('Message-Id'), qr{<lost-username-\d+@.*>}, 'Message-Id has right format');
     compare_body($e->object->body_str,
                  "Someone, probably you, asked to look up the username of the\n".
                  "MusicBrainz account associated with this email address.\n".
@@ -202,7 +202,7 @@ test all => sub {
     is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'From is noreply@...');
     is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
     is($e->get_header('Subject'), 'Password reset request', 'Subject is Password reset request');
-    like($e->get_header('Message-Id'), qr{<password-reset-\d+@.*>}, "Message-Id has right format");
+    like($e->get_header('Message-Id'), qr{<password-reset-\d+@.*>}, 'Message-Id has right format');
     compare_body($e->object->body_str,
                  "Someone, probably you, asked that your MusicBrainz password be reset.\n".
                  "\n".

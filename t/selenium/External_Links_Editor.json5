@@ -3,6 +3,32 @@
   commands: [
     {
       command: 'open',
+      target: '/work/create',
+      value: '',
+    },
+    // restrict link type options for URL
+    {
+      command: 'click',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://mainlynorfolk.info/',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('select.link-type > option')).map(x => x.innerText.trim()).toString()",
+      value: ",lyrics page,other databases",
+    },
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[1]//button[contains(@class, 'remove-item')]",
+      value: '',
+    },
+    {
+      command: 'open',
       target: '/artist/create',
       value: '',
     },
@@ -15,7 +41,7 @@
     {
       command: 'sendKeys',
       target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: 'https://en.wikipedia.org/wiki/No_Age',
+      value: 'https://en.wikipedia.org/wiki/No_Age${KEY_ENTER}',
     },
     {
       command: 'assertElementPresent',
@@ -24,97 +50,358 @@
     },
     {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//label[1]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][1]//label[1]",
+      value: '1',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][1]//label[2]",
       value: 'Wikipedia',
     },
     // invalid URL detection
     {
       command: 'click',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
       value: '',
     },
     {
       command: 'sendKeys',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
       value: 'foo',
     },
     {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'error')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//div[contains(@class, 'error')]",
       value: 'Enter a valid url e.g. "http://google.com/"',
     },
+    // Don't freeze to link when there's an error
     {
       command: 'click',
-      target: "xpath=//table[@id='external-links-editor']//tr[2]//button[contains(@class, 'remove-item')]",
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll(\"input[type='url']\")).map(x => x.value).join('\\n')",
+      value: 'foo\n',
+    },
+    // clear
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//button[contains(@class, 'remove-item')]",
       value: '',
     },
     // MBS-11688
     {
       command: 'click',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
       value: '',
     },
     {
       command: 'sendKeys',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
       value: '//google.com',
     },
     {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'error')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//div[contains(@class, 'error')]",
       value: 'Enter a valid url e.g. "http://google.com/"',
     },
     {
       command: 'click',
-      target: "xpath=//table[@id='external-links-editor']//tr[2]//button[contains(@class, 'remove-item')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//button[contains(@class, 'remove-item')]",
       value: '',
     },
     // shortened URL detection
     {
       command: 'click',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
       value: '',
     },
     {
       command: 'sendKeys',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
       value: 'http://goo.gl/example',
     },
     {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'error')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//div[contains(@class, 'error')]",
       value: 'Please don’t enter bundled/shortened URLs, enter the destination URL(s) instead.',
     },
     {
       command: 'click',
-      target: "xpath=//table[@id='external-links-editor']//tr[2]//button[contains(@class, 'remove-item')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//button[contains(@class, 'remove-item')]",
       value: '',
     },
-    // deprecated link type detection for new links
+    // deprecated and empty links do not appear at all
     {
-      command: 'sendKeys',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
-      value: 'http://example.com/',
+      command: 'assertEval',
+      target: 'document.querySelector(\'option[value="667"]\')',
+      value: 'null',
+    },
+    // URLInputPopover tests
+    // Open popover
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][1]//button[contains(@class, 'edit-item')]",
+      value: '',
     },
     {
-      command: 'runScript',
-      target: 'document.querySelector(\'option[value="666"]\').disabled = false;',
+      command: 'sendKeys',
+      target: "xpath=(//div[@id='url-input-popover']//input[contains(@class, 'raw-url')])[1]",
+      value: '?oldformat=true',
+    },
+    // assert clean URL is displayed correctly
+    {
+      command: 'assertText',
+      target: "xpath=//div[@id='url-input-popover']//a[contains(@class, 'clean-url')]",
+      value: 'https://en.wikipedia.org/wiki/No_Age',
+    },
+    // assert raw URL is preserved
+    {
+      command: 'assertEval',
+      target: "document.getElementsByClassName('raw-url')[0].value.trim()",
+      value: 'https://en.wikipedia.org/wiki/No_Age?oldformat=true',
+    },
+    // Discard URL change by clicking 'Cancel'
+    {
+      command: 'click',
+      target: "xpath=//div[@id='url-input-popover']//button[contains(@class, 'negative')]",
+      value: '',
+    },
+    // Open popover
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][1]//button[contains(@class, 'edit-item')]",
+      value: '',
+    },
+    // assert URL is unchanged
+    {
+      command: 'assertEval',
+      target: "document.getElementsByClassName('raw-url')[0].value.trim()",
+      value: 'https://en.wikipedia.org/wiki/No_Age',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//div[@id='url-input-popover']//input[contains(@class, 'raw-url')])[1]",
+      value: '?oldformat=true',
+    },
+    // Test keeping changes when lost focus
+    {
+      command: 'click',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: '',
+    },
+    // Open popover
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][1]//button[contains(@class, 'edit-item')]",
+      value: '',
+    },
+    // assert changes are kept
+    {
+      command: 'assertEval',
+      target: "document.getElementsByClassName('raw-url')[0].value.trim()",
+      value: 'https://en.wikipedia.org/wiki/No_Age?oldformat=true',
+    },
+    // Close popover
+    {
+      command: 'click',
+      target: "xpath=//div[@id='url-input-popover']//button[contains(@class, 'negative')]",
+      value: '',
+    },
+    // assert clean URL is used
+    {
+      command: 'assertText',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][1]//a[contains(@class, 'url')]",
+      value: 'https://en.wikipedia.org/wiki/No_Age',
+    },
+    // Test grouping links by URL
+    {
+      command: 'click',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://google.com',
+    },
+    {
+      command: 'select',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//select[contains(@class, 'link-type')]",
+      value: 'label=regexp:\\s*official homepages',
+    },
+    // Add relationship by clicking button
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'add-relationship')][1]//button[contains(@class, 'add-item')]",
+      value: '',
+    },
+    {
+      command: 'assertElementPresent',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][3]//select[contains(@class, 'link-type')]",
       value: '',
     },
     {
       command: 'select',
-      target: 'css=select.link-type',
-      value: 'label=regexp:\\s*MusicMoz',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][3]//select[contains(@class, 'link-type')]",
+      value: 'label=regexp:\\s*fan pages',
+    },
+    // Add relationship by entering the same URL
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://google.com${KEY_ENTER}',
+    },
+    // Pressing enter submits the link
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#external-links-editor tr')).map(x => x.className).join('\\n')",
+      // Wikipedia link + current link(3 relationships)
+      value: 'external-link-item\nrelationship-item\nexternal-link-item\nrelationship-item\nrelationship-item\nrelationship-item\nadd-relationship\nexternal-link-item',
     },
     {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('select.link-type')).map(x => x.value).join('\\n')",
+      value: '183\n172\n',
+    },
+    {
+      command: 'select',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][4]//select[contains(@class, 'link-type')]",
+      value: 'label=regexp:\\s*biographies',
+    },
+    // Delete single relationship
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//button[contains(@class, 'remove-item')]",
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('select.link-type')).map(x => x.value).join('\\n')",
+      value: '172\n182',
+    },
+    // Immediately appends new input box
+    {
+      command: 'click',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://google.com',
+    },
+    {
+      command: 'assertElementPresent',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      value: '',
+    },
+    // Pressing tab does not submit the link when it's a duplicate
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: '${KEY_TAB}',
+    },
+    // Assert not merged
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll(\"input[type='url']\")).map(x => x.value).join('\\n')",
+      value: 'https://google.com\n',
+    },
+    // Duplicate URL notice
+    {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'error')]",
-      value: 'This relationship type is deprecated and should not be used.',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][3]//div[contains(@class, 'error')]",
+      value: 'Note: This link already exists at position #2. To merge, press enter or select a type.',
+    },
+    // Don't merge while using arrow keys to select relationship type
+    {
+      command: 'sendKeys',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][4]//select[contains(@class, 'link-type')]",
+      value: '${KEY_DOWN}',
+    },
+    // Assert not merged
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll(\"input[type='url']\")).map(x => x.value).join('\\n')",
+      value: 'https://google.com\n',
+    },
+    // Automatically submitted after selecting a type and moving focus away from the type select
+    {
+      command: 'select',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][4]//select[contains(@class, 'link-type')]",
+      value: 'label=regexp:\\s*interviews',
     },
     {
       command: 'click',
-      target: "xpath=//table[@id='external-links-editor']//tr[2]//button[contains(@class, 'remove-item')]",
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
       value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#external-links-editor tr')).map(x => x.className).join('\\n')",
+      // Wikipedia link + current link(3 relationships)
+      value: 'external-link-item\nrelationship-item\nexternal-link-item\nrelationship-item\nrelationship-item\nrelationship-item\nadd-relationship\nexternal-link-item',
+    },
+    // Delete link while entering
+    {
+      command: 'click',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://google.com',
+    },
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][3]//button[contains(@class, 'remove-item')]",
+      value: '',
+    },
+    // Assert link is deleted
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#external-links-editor tr')).map(x => x.className).join('\\n')",
+      // Wikipedia link + current link(3 relationships)
+      value: 'external-link-item\nrelationship-item\nexternal-link-item\nrelationship-item\nrelationship-item\nrelationship-item\nadd-relationship\nexternal-link-item',
+    },
+    // Delete link with all relationships
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//button[contains(@class, 'remove-item')]",
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#external-links-editor tr')).map(x => x.className).join('\\n')",
+      // Wikipedia link + empty input box
+      value: 'external-link-item\nrelationship-item\nexternal-link-item',
+    },
+    // Automatically delete empty URL
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://en.wikipedia.org/wiki/${KEY_ENTER}',
+    },
+    // Open popover
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//button[contains(@class, 'edit-item')]",
+      value: '',
+    },
+    // Empty input box and press enter to save
+    {
+      command: 'sendKeys',
+      target: "xpath=(//div[@id='url-input-popover']//input[contains(@class, 'raw-url')])[1]",
+      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}${KEY_ENTER}',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#external-links-editor tr')).map(x => x.className).join('\\n')",
+      value: 'external-link-item\nrelationship-item\nexternal-link-item',
     },
     // submit the artist
     {
@@ -144,18 +431,13 @@
       value: 'http://example.com/',
     },
     {
-      command: 'runScript',
-      target: 'document.querySelector(\'option[value="666"]\').disabled = false;',
-      value: '',
-    },
-    {
       command: 'select',
       target: 'css=select.link-type',
       value: 'label=regexp:\\s*MusicMoz',
     },
     {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[1]//div[contains(@class, 'error')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//div[contains(@class, 'error')]",
       value: 'This relationship type is deprecated and should not be used.',
     },
     // relationshipCreate edit for external link is generated for existing release
@@ -172,12 +454,12 @@
     {
       command: 'sendKeys',
       target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: 'https://www.discogs.com/David-Bowie--Blackstar/release/7949394',
+      value: 'https://www.discogs.com/David-Bowie--Blackstar/release/7949394${KEY_ENTER}',
     },
     {
       command: 'sendKeys',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
-      value: 'https://www.amazon.co.jp/Blackstar-David-Bowie/dp/B017VORJK6/',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://www.amazon.co.jp/Blackstar-David-Bowie/dp/B017VORJK6/${KEY_ENTER}',
     },
     {
       command: 'click',
@@ -225,10 +507,22 @@
       target: '1500',
       value: '',
     },
+    // Open popover
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//button[contains(@class, 'edit-item')]",
+      value: '',
+    },
     {
       command: 'sendKeys',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
-      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}https://www.gnu.org/licenses/gpl-3.0.en.html',
+      target: "xpath=(//div[@id='url-input-popover']//input[contains(@class, 'raw-url')])[1]",
+      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}https://www.gnu.org/licenses/gpl-3.0.en.html',
+    },
+    // Save URL change
+    {
+      command: 'click',
+      target: "xpath=//div[@id='url-input-popover']//button[contains(@class, 'positive')]",
+      value: '',
     },
     {
       command: 'select',
@@ -288,18 +582,18 @@
     },
     {
       command: 'click',
-      target: "xpath=//table[@id='external-links-editor']//tr[1]//button[contains(@class, 'remove-item')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][1]//button[contains(@class, 'remove-item')]",
       value: '',
     },
     // check that edits are not generated for links that duplicate removed ones
     {
       command: 'sendKeys',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]",
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
       value: 'https://www.amazon.co.jp/gp/product/B017VORJK6',
     },
     {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'field-error')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//div[contains(@class, 'field-error')]",
       value: 'This relationship already exists.',
     },
     {
@@ -320,13 +614,25 @@
     // duplicate the first URL again by editing the other existing URL
     {
       command: 'click',
-      target: "xpath=//table[@id='external-links-editor']//tr[2]//button[contains(@class, 'remove-item')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//button[contains(@class, 'remove-item')]",
+      value: '',
+    },
+    // Open popover
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][1]//button[contains(@class, 'edit-item')]",
       value: '',
     },
     {
       command: 'sendKeys',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}https://www.amazon.co.jp/gp/product/B017VORJK6',
+      target: "xpath=(//div[@id='url-input-popover']//input[contains(@class, 'raw-url')])[1]",
+      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}https://www.amazon.co.jp/gp/product/B017VORJK6',
+    },
+    // Save URL change
+    {
+      command: 'click',
+      target: "xpath=//div[@id='url-input-popover']//button[contains(@class, 'positive')]",
+      value: '',
     },
     {
       command: 'select',
@@ -335,14 +641,26 @@
     },
     {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[1]//div[contains(@class, 'field-error')]",
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][1]//div[contains(@class, 'field-error')]",
       value: 'This relationship already exists.',
     },
     // revert above edit
+    // Open popover
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][1]//button[contains(@class, 'edit-item')]",
+      value: '',
+    },
     {
       command: 'sendKeys',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}https://www.gnu.org/licenses/gpl-3.0.en.html',
+      target: "xpath=(//div[@id='url-input-popover']//input[contains(@class, 'raw-url')])[1]",
+      value: '${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}https://www.gnu.org/licenses/gpl-3.0.en.html',
+    },
+    // Save URL change
+    {
+      command: 'click',
+      target: "xpath=//div[@id='url-input-popover']//button[contains(@class, 'positive')]",
+      value: '',
     },
     {
       command: 'select',
@@ -412,8 +730,133 @@
     },
     {
       command: 'assertEval',
-      target: "window.JSON.stringify(window.Array.from(window.document.querySelectorAll('#external-links-editor input[type=url]').values()).map(function (x) { return x.value }))",
-      value: '["https://www.gnu.org/licenses/gpl-3.0.en.html",""]',
+      target: "window.JSON.stringify(window.Array.from(window.document.querySelectorAll('#external-links-editor a[class=url]').values()).map(function (x) { return x.href }))",
+      value: '["https://www.gnu.org/licenses/gpl-3.0.en.html"]',
+    },
+    // Set begin date & end date
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://www.amazon.co.jp/gp/product/B017VORJK6${KEY_ENTER}',
+    },
+    // Open popover
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//button[contains(@class, 'edit-item')]",
+      value: '',
+    },
+    // begin date: ????-01-01
+    {
+      command: 'sendKeys',
+      target: "xpath=//div[@id='external-link-attribute-dialog']//input[@id='id-period.begin_date.month']",
+      value: '1',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=//div[@id='external-link-attribute-dialog']//input[@id='id-period.begin_date.day']",
+      value: '1',
+    },
+    // end date: 2021-01-01
+    {
+      command: 'sendKeys',
+      target: "xpath=//div[@id='external-link-attribute-dialog']//input[@id='id-period.end_date.year']",
+      value: '2021',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=//div[@id='external-link-attribute-dialog']//input[@id='id-period.end_date.month']",
+      value: '1',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=//div[@id='external-link-attribute-dialog']//input[@id='id-period.end_date.day']",
+      value: '1',
+    },
+    // Mark as ended
+    {
+      command: 'click',
+      target: "xpath=//div[@id='external-link-attribute-dialog']//input[@id='id-period.ended']",
+      value: '',
+    },
+    // Save
+    {
+      command: 'click',
+      target: "xpath=(//div[@id='external-link-attribute-dialog']//button[contains(@class, 'positive')])[1]",
+      value: '',
+    },
+    // Assert date period is correctly displayed
+    {
+      command: 'assertText',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//span[contains(@class, 'date-period')][1]",
+      value: ' (????-01-01 – 2021-01-01)',
+    },
+    // Check edit preview
+    {
+      command: 'click',
+      target: 'css=a[href="#edit-note"]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1500',
+      value: '',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=(//div[contains(@class, 'edit-list')]//h2)[1]",
+      value: 'Add relationship',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=(//div[contains(@class, 'edit-details')])[1]",
+      value: 'Relationship: ★ by David Bowie has Amazon ASIN https://www.amazon.co.jp/gp/product/B017VORJK6 [info] from ????-01-01 until 2021-01-01',
+    },
+    // Revert changes
+    {
+      command: 'click',
+      target: 'css=a[href="#information"]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//button[contains(@class, 'remove-item')]",
+      value: '',
+    },
+    // Test auto-selection of multiple relationships
+    {
+      command: 'open',
+      target: '/release/add',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://www.jamendo.com/${KEY_ENTER}',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#external-links-editor tr')).map(x => x.className).join('\\n')",
+      value: 'external-link-item\nrelationship-item\nrelationship-item\nexternal-link-item',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#external-links-editor label.relationship-name')).map(x => x.innerText).sort().toString()",
+      value: 'download for free,stream {video} for free video',
+    },
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
+    {
+      command: 'handleAlert',
+      target: 'accept',
+      value: '',
     },
   ],
 }

@@ -107,17 +107,25 @@
            IF c.try_get_session('merger') AND !hide_merge_helper -%]
 
         <div id="footer">
-            <p class="left">
-                <a href="https://metabrainz.org/donate" class="internal">[% l('Donate') %]</a> |
-                <a href="//wiki.musicbrainz.org/" class="internal">[% l('Wiki') %]</a> |
-                <a href="https://community.metabrainz.org/" class="internal">[% l('Forums') %]</a> |
-                <a href="/doc/Communication/IRC" class="internal">[% l('IRC') %]</a> |
-                <a href="http://tickets.metabrainz.org/" class="internal">[% l('Bug Tracker') %]</a> |
-                <a href="https://blog.metabrainz.org/" class="internal">[% l('Blog') %]</a> |
+            <p class="left" id="footer-menu">
+                <a href="https://metabrainz.org/donate" class="internal">[% l('Donate') %]</a>
+                <a href="//wiki.musicbrainz.org/" class="internal">[% l('Wiki') %]</a>
+                <a href="https://community.metabrainz.org/" class="internal">[% l('Forums') %]</a>
+                <a href="/doc/Communication/IRC" class="internal">[% l('IRC') %]</a>
+                <a href="https://tickets.metabrainz.org/" class="internal">[% l('Bug Tracker') %]</a>
+                <a href="https://blog.metabrainz.org/" class="internal">[% l('Blog') %]</a>
                 <a href="https://twitter.com/MusicBrainz" class="internal">[% l('Twitter') %]</a>
-                [%- IF server_details.beta_redirect %] |
+                [%- IF server_details.beta_redirect %]
                 <a href="[% c.uri_for('/set-beta-preference', {returnto => c.relative_uri}) %]" class="internal">[% server_details.is_beta ? l('Stop using beta site') : l('Use beta site') %]</a>
                 [%- END -%]
+            </p>
+
+            <p class="right">
+                [% l('Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and {supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}.',
+                    { MeB  => 'https://metabrainz.org/',
+                      spon => 'https://metabrainz.org/sponsors',
+                      supp => 'https://metabrainz.org/supporters',
+                      caa  => '//coverartarchive.org/' }) %]
                 [% IF server_details.git.branch ~%]
                 <br/>
                     [%~ l('Running: <span class="tooltip" title="{msg}">{branch} ({sha})</span>',
@@ -130,14 +138,6 @@
                 [% l('Last replication packet received at {datetime}',
                      { datetime => UserDate.format(last_replication_date) }) %]
                 [%- END -%]
-            </p>
-
-            <p class="right">
-                [% l('Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and {supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}.',
-                    { MeB  => 'https://metabrainz.org/',
-                      spon => 'https://metabrainz.org/sponsors',
-                      supp => 'https://metabrainz.org/supporters',
-                      caa  => '//coverartarchive.org/' }) %]
             </p>
         </div>
     </body>

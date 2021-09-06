@@ -29,7 +29,7 @@ test all => sub {
     cmp_deeply($edit->data, {
         entity => {
             id => 1,
-            gid => re("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"),
+            gid => re('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'),
             name => 'http://musicbrainz.org/'
         },
         new => {

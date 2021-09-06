@@ -375,6 +375,10 @@ class Dialog {
     relationship.entities(relationship.entities().slice(0).reverse());
   }
 
+  toggleDatesHelp() {
+    this.showDatesHelp(!this.showDatesHelp.peek());
+  }
+
   copyDate(data, event) {
     const dialog = ko.contextFor(event.target).$parent;
     dialog.relationship().end_date.year(data.date.year());
@@ -534,7 +538,9 @@ class Dialog {
   }
 
   linkTypeError() {
-    var linkType = this.relationship().getLinkType();
+    const relationship = this.relationship();
+    const linkType = relationship.getLinkType();
+    const target = relationship.target(this.source);
 
     if (!linkType) {
       return l('Please select a relationship type.');
@@ -548,10 +554,11 @@ class Dialog {
         'This relationship type is deprecated and should not be used.',
       );
     } else if (this.source.entityType === 'url') {
-      var checker = URLCleanup.validationRules[linkType.gid];
+      const url = this.source.name();
+      var checker = new URLCleanup.Checker(url, target.entityType);
 
       if (checker) {
-        const check = checker(this.source.name());
+        const check = checker.checkRelationship(linkType.gid);
         if (!check.result) {
           return check.error ||
           l(
@@ -660,6 +667,7 @@ let _uiSetupDone = false;
 Object.assign(Dialog.prototype, {
   loading: ko.observable(false),
   showAttributesHelp: ko.observable(false),
+  showDatesHelp: ko.observable(false),
   showLinkTypeHelp: ko.observable(false),
 
   uiOptions: {

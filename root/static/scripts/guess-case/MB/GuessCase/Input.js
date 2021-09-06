@@ -1,4 +1,5 @@
 /*
+ * @flow strict
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -7,172 +8,155 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import MB from '../../../common/MB';
 import * as utils from '../../utils';
 
-
-MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
+import gc from './Main';
 
 /*
  * Holds the input variables
  */
-MB.GuessCase.Input = function (gc) {
-  var self = {};
+class GuessCaseInput {
+  source: string;
 
-  // Member variables
-  self._source = '';
-  self._w = [];
-  self._l = 0;
-  self._wi = 0;
+  wordIndex: number;
+
+  wordList: Array<string>;
+
+  constructor() {
+    // Member variables
+    this.source = '';
+    this.wordList = [];
+    this.wordIndex = 0;
+  }
 
   // Member functions
 
   // Initialise the GcInput object
-  self.init = function (is, w) {
-    self._source = (is || '');
-    self._w = (w || []);
-    self._l = self._w.length;
-    self._wi = 0;
-  };
+  init(inputString: string, wordlist: Array<string>) {
+    this.source = (inputString || '');
+    this.wordList = (wordlist || []);
+    this.wordIndex = 0;
+  }
 
   // Returns the length of the wordlist
-  self.getLength = function () {
-    return self._l;
-  };
+  getLength(): number {
+    return this.wordList.length;
+  }
 
-  // Returns true if the lenght==0
-  self.isEmpty = function () {
-    var f = (self.getLength() == 0);
-    return f;
-  };
+  isEmpty(): boolean {
+    return this.getLength() === 0;
+  }
 
-  // Get the cursor position
-  self.getPos = function () {
-    return self._wi;
-  };
+  getCursorPosition(): number {
+    return this.wordIndex;
+  }
 
-  // Set the cursor to a new position
-  self.setPos = function (index) {
-    if (index >= 0 && index < self.getLength()) {
-      self._wi = index;
+  setCursorPosition(index: number) {
+    if (index >= 0 && index < this.getLength()) {
+      this.wordIndex = index;
     }
-  };
+  }
 
-  // Accessors for strings at certain positions.
-  self.getWordAtIndex = function (index) {
-    return (self._w[index] || null);
-  };
+  getWordAtIndex(index: number): string | null {
+    return (this.wordList[index] || null);
+  }
 
-  self.getNextWord = function () {
-    return self.getWordAtIndex(self._wi + 1);
-  };
+  getNextWord(): string | null {
+    return this.getWordAtIndex(this.wordIndex + 1);
+  }
 
-  self.getCurrentWord = function () {
-    return self.getWordAtIndex(self._wi);
-  };
+  getCurrentWord(): string | null {
+    return this.getWordAtIndex(this.wordIndex);
+  }
 
-  self.getPreviousWord = function () {
-    return self.getWordAtIndex(self._wi - 1);
-  };
+  getPreviousWord(): string | null {
+    return this.getWordAtIndex(this.wordIndex - 1);
+  }
 
-  // Test methods
-  self.isFirstWord = function () {
-    return (0 == self._wi);
-  };
+  isFirstWord(): boolean {
+    return (this.wordIndex === 0);
+  }
 
-  self.isLastWord = function () {
-    return (self.getLength() == self._wi - 1);
-  };
+  isLastWord(): boolean {
+    return (this.getLength() === this.wordIndex - 1);
+  }
 
-  self.isNextWord = function (s) {
-    return (self.hasMoreWords() && self.getNextWord() == s);
-  };
+  isNextWord(word: string): boolean {
+    return (this.hasMoreWords() && this.getNextWord() === word);
+  }
 
-  self.isPreviousWord = function (s) {
-    return (!self.isFirstWord() && self.getPreviousWord() == s);
-  };
+  isPreviousWord(word: string): boolean {
+    return (!this.isFirstWord() && this.getPreviousWord() === word);
+  }
 
   /*
    * Match the word at the current index against the
    * regular expression or string given
    */
-  self.matchCurrentWord = function (re) {
-    return self.matchWordAtIndex(self.getPos(), re);
-  };
+  matchCurrentWord(regex: RegExp | string): boolean {
+    return this.matchWordAtIndex(this.getCursorPosition(), regex);
+  }
 
   /*
-   * Match the word at index wi against the
+   * Match the word at the given index against the
    * regular expression or string given
    */
-  self.matchWordAtIndex = function (index, re) {
-    var cw = (self.getWordAtIndex(index) || '');
-    var f;
-    if (typeof re === 'string') {
-      f = (re == cw);
+  matchWordAtIndex(index: number, regex: RegExp | string): boolean {
+    const word = (this.getWordAtIndex(index) || '');
+    let result;
+    if (typeof regex === 'string') {
+      result = (regex === word);
     } else {
-      f = (cw.match(re) != null);
+      result = (word.match(regex) != null);
     }
-    return f;
-  };
+    return result;
+  }
 
-  // Index methods
-  self.hasMoreWords = function () {
-    return (self._wi == 0 && self.getLength() > 0 ||
-            self._wi - 1 < self.getLength());
-  };
+  hasMoreWords(): boolean {
+    return (this.wordIndex === 0 && this.getLength() > 0 ||
+            this.wordIndex - 1 < this.getLength());
+  }
 
-  self.isIndexAtEnd = function () {
-    return (self._wi == self.getLength());
-  };
+  isIndexAtEnd(): boolean {
+    return (this.wordIndex === this.getLength());
+  }
 
-  self.nextIndex = function () {
-    self._wi++;
-  };
+  nextIndex() {
+    this.wordIndex++;
+  }
 
-  // Returns the last word of the wordlist
-  self.dropLastWord = function () {
-    if (self.getLength() > 0) {
-      self._w.pop();
-      if (self.isIndexAtEnd()) {
-        self._wi--;
+  dropLastWord() {
+    if (this.getLength() > 0) {
+      this.wordList.pop();
+      if (this.isIndexAtEnd()) {
+        this.wordIndex--;
       }
     }
-  };
+  }
 
-  // Capitalize the word at the current position
-  self.insertWordsAtIndex = function (index, w) {
-    var part1 = self._w.slice(0, index);
-    var part2 = self._w.slice(index, self._w.length);
-    self._w = part1.concat(w).concat(part2);
-    self._l = self._w.length;
-  };
+  insertWordsAtIndex(index: number, newWords: $ReadOnlyArray<string>) {
+    const part1 = this.wordList.slice(0, index);
+    const part2 = this.wordList.slice(index, this.wordList.length);
+    this.wordList = part1.concat(newWords).concat(part2);
+  }
 
-  // Capitalize the word at the current position
-  self.capitalizeCurrentWord = function () {
-    var w;
-    if ((w = self.getCurrentWord()) != null) {
-      var o = utils.titleString(gc, w);
-      if (w != o) {
-        self.updateCurrentWord(o);
-      }
-      return o;
+  capitalizeCurrentWord(): string | null {
+    const word = this.getCurrentWord();
+    if (word == null) {
+      return null;
     }
-    return null;
-  };
-
-  // Update the word at the current position
-  self.updateCurrentWord = function (o) {
-    var w = self.getCurrentWord();
-    if (w != null) {
-      self._w[self._wi] = o;
+    const output = utils.titleString(word);
+    if (word !== output) {
+      this.updateCurrentWord(output);
     }
-  };
+    return output;
+  }
 
-  // Insert a word at the end of the wordlist
-  self.insertWordAtEnd = function (w) {
-    self._w[self._w.length] = w;
-    self._l++;
-  };
+  updateCurrentWord(word: string) {
+    if (this.wordIndex < this.wordList.length) {
+      this.wordList[this.wordIndex] = word;
+    }
+  }
 
   /*
    * This function returns an array of all the words, punctuation and
@@ -186,18 +170,19 @@ MB.GuessCase.Input = function (gc) {
    * @param is the un-processed input string
    * @returns sets the GLOBAL array of words and puctuation characters
    */
-  self.splitWordsAndPunctuation = function (is) {
-    is = is.replace(/^\s\s*/, ''); // delete leading space
-    is = is.replace(/\s\s*$/, ''); // delete trailing space
-    is = is.replace(/\s\s*/g, ' '); // compress whitespace:
-    var chars = is.split('');
-    var splitwords = [];
-    var word = [];
-    if (!gc.re.SPLITWORDSANDPUNCTUATION) {
-      gc.re.SPLITWORDSANDPUNCTUATION = /[^!¿¡\"%&'´`‘’‹›“”„“«»()\[\]\{\}\*\+,-\.\/:;<=>\?\s#]/;
+  splitWordsAndPunctuation(inputString: string): Array<string> {
+    let input = inputString;
+    input = input.replace(/^\s\s*/, ''); // delete leading space
+    input = input.replace(/\s\s*$/, ''); // delete trailing space
+    input = input.replace(/\s\s*/g, ' '); // compress whitespace:
+    const chars = input.split('');
+    const splitwords = [];
+    let word = [];
+    if (!gc.regexes.SPLITWORDSANDPUNCTUATION) {
+      gc.regexes.SPLITWORDSANDPUNCTUATION = /[^!¿¡\"%&'´`‘’‹›“”„“«»()\[\]\{\}\*\+‐\-,\.\/:;<=>\?\s#]/;
     }
-    for (var i = 0; i < chars.length; i++) {
-      if (chars[i].match(gc.re.SPLITWORDSANDPUNCTUATION)) {
+    for (let i = 0; i < chars.length; i++) {
+      if (chars[i].match(gc.regexes.SPLITWORDSANDPUNCTUATION)) {
         /*
          * See http://www.codingforums.com/archive/index.php/t-49001
          * for reference (escaping the sequence)
@@ -216,9 +201,7 @@ MB.GuessCase.Input = function (gc) {
       splitwords.push(word.join(''));
     }
     return splitwords;
-  };
+  }
+}
 
-  return self;
-};
-
-export default MB.GuessCase.Input;
+export default (new GuessCaseInput(): GuessCaseInput);

@@ -603,7 +603,7 @@ sub _seeded_url
                 $link_type->entity0_type eq 'release' &&
                 $link_type->entity1_type eq 'url') {
 
-            $result->{linkTypeID} = $id;
+            $result->{linkTypeID} = $id + 0;
         } else {
             push @$errors, "Invalid $field_name.link_type: “$id”.";
         }

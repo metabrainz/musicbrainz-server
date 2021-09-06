@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-06-09 11:30+0000\n"
+"PO-Revision-Date: 2021-08-19 08:27+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -110,7 +110,7 @@ msgstr "Si usa per creare suoni nella gamma bassa."
 msgid ""
 "A bell tree is a percussion instrument, consisting of vertically nested "
 "inverted metal bowls."
-msgstr "Strumento a percussione costituito da una serie di scodelle in metallo di misura crescente inserite su un supporto verticale."
+msgstr "Strumento a percussione composto da una serie di scodelle in metallo di misura crescente inserite su un supporto verticale."
 
 #. name:chamber organ
 #: DB:instrument/description:471
@@ -175,7 +175,7 @@ msgstr "Uno qualsiasi tra i sistemi che permettono ad un chitarrista di riprodur
 msgid ""
 "A hi-hat is a typical part of a drum kit, consisting of a pair of cymbals "
 "mounted on a stand."
-msgstr "Componente tipico della batteria composto da una coppia di piatti montati orizzontalmente su un supporto metallico."
+msgstr "Componente tipico della batteria, composto da una coppia di piatti montati orizzontalmente su un supporto metallico."
 
 #. name:poi āwhiowhio
 #: DB:instrument/description:792
@@ -501,7 +501,7 @@ msgstr "Antico dulcimer martellato con cassa di risonanza in noce o acero e a fo
 msgid ""
 "Ancient pipe originating in Europe, with analogies all over the world, it is"
 " often combined with tabor drums."
-msgstr "Antico flauto originario dell'Europa e con corrispondenze in tutto il mondo, compare spesso in combinazione coi tamburi tabor."
+msgstr "Antico flauto originario dell'Europa e con corrispondenti in tutto il mondo, compare spesso in combinazione coi tamburi tabor."
 
 #. name:khlui
 #: DB:instrument/description:666
@@ -671,6 +671,13 @@ msgid ""
 " Originally required for Schönberg's Pierrot Lunaire, it became a fairly "
 "common combination for 20th century classical groups."
 msgstr "Ensemble da camera con cinque musicisti (flauto, clarinetto, violino, violoncello e pianoforte). Necessaria in origine per il Pierrot Lunaire di Schönberg, diventò una combinazione abbastanza comune per i gruppi di musica classica del XX secolo."
+
+#. name:string quintet
+#: DB:instrument/description:1033
+msgid ""
+"Chamber ensemble of five players (two violins, one viola & one cello, then "
+"either a second viola, a second cello or a double bass)"
+msgstr "Ensemble da camera con cinque musicisti (due violini, una viola, un violoncello e una seconda viola, un secondo violoncello o un contrabbasso)."
 
 #. name:string quartet
 #: DB:instrument/description:908
@@ -927,13 +934,6 @@ msgid ""
 " is made of wood, often an integral case. It has two courses of strings; "
 "drone and melody strings operated by buttons or keys."
 msgstr "Sviluppato a partire dal <a href=\"/instrument/1975ee04-30de-4835-9656-102ccd49c0c7\">taishogoto</a> giapponese, è realizzato in legno e spesso ha un contenitore integrale. Ha due ordini di corde, melodiche e bordone, azionate attraverso bottoni o tasti."
-
-#. name:seni rebab
-#: DB:instrument/description:1014
-msgid ""
-"Developed in India during medieval times by Tansen, making it larger, with a"
-" longer neck and giving it metal sympathetic strings."
-msgstr "Sviluppato da Tansen nell'India medievale, rendendolo più grande, con un manico più lungo e con corde simpatiche in metallo."
 
 #. name:violin family
 #: DB:instrument/description:59
@@ -1377,6 +1377,14 @@ msgid ""
 "metal curled mouth piece."
 msgstr "Migliorato da Johann Christoph Denner attorno al 1730, la sua sezione \"a serpente attorcigliato\" ora è conica, e in più è suonato tramite un bocchino rimovibile in metallo."
 
+#. name:sursingar
+#: DB:instrument/description:816
+msgid ""
+"Improved further by Jaffar Khan, it had a wooden soundboard, the fingerboard"
+" covered with iron and all strings are steel or bronze.<br /> Less common "
+"today, it was used for Dhrupad style music."
+msgstr "Ulteriormente migliorato da Jaffar Khan, aveva una tavola armonica in legno, una tastiera ricoperta in ferro e corde tutte in acciaio o in bronzo.<br /> Oggi meno comune, era usato per la musica di stile dhrupad."
+
 #. name:morsing
 #: DB:instrument/description:533
 msgid "Indian mouth harp, played in Carnatic and Rajastani folk music."
@@ -1606,6 +1614,15 @@ msgid ""
 "in a stand with a damper operated by pedals, they are tuned at a definite "
 "pitch and played with mallets."
 msgstr "Versione più grande e orchestrale dei chimes, è composta da tubi cavi in metallo chiusi nella parte superiore, disposti su un supporto con uno smorzatore a pedale. Sono intonate su un tono preciso e suonate con delle mazzuole."
+
+#. name:seni rebab
+#: DB:instrument/description:1014
+msgid ""
+"Larger, with a longer neck than the kabuli rabab, it has a hide covered "
+"soundbox and wooden fingerboard with mostly gut strings, it was developed "
+"during medieval times by Tansen, who improved it and gave it metal "
+"sympathetic strings."
+msgstr "Grande e con un manico più lungo del kabuli rabab, ha una cassa di risonanza ricoperta di pelle e una tastiera in legno con corde perlopiù in budello. Fu sviluppato in epoca medievale da Tansen, che lo migliorò dandogli corde simpatiche in metallo."
 
 #. name:jegogan
 #: DB:instrument/description:979
@@ -2078,6 +2095,14 @@ msgid ""
 "Originating from Henan province, this fretless huqin has the accustomary two"
 " strings, but is made of wood."
 msgstr "Proveniente dalla provincia dell'Henan, questo huqin senza tasti ha le consuete due corde, ma è realizzato in legno."
+
+#. name:cuíca
+#: DB:instrument/description:491
+msgid ""
+"Originating in Africa, it is used in carnivals and samba music. Consisting "
+"of a wooden or metal barrel, its single membrane has a tuning-stick "
+"attached."
+msgstr "Proveniente dall'Africa, è usata nei carnevali e nella musica samba. Composta da un barile in legno o in metallo, ha una sola membrana con fissata un'asticella per l'intonazione."
 
 #. name:çevgen
 #: DB:instrument/description:740
@@ -3054,11 +3079,6 @@ msgid ""
 "The cornamuse is a double reed instrument from the Renaissance, similar to "
 "the crumhorn but with a closed bell."
 msgstr "Strumento rinascimentale ad ancia doppia, simile al cromorno ma con una campana chiusa."
-
-#. name:cuíca
-#: DB:instrument/description:491
-msgid "The cuíca is a Brazilian friction drum often used in samba music."
-msgstr "Tamburo a frizione brasiliano usato spesso nella musica samba."
 
 #. name:cò ke
 #: DB:instrument/description:309
@@ -5220,13 +5240,6 @@ msgstr "Usato per canzoni tradizionali, soprattutto da ragazzine."
 #: DB:instrument/description:810
 msgid "used in folkmedisine and shamanistic rituals"
 msgstr "Usato nella medicina tradizionale e per rituali sciamanici."
-
-#. name:sursingar
-#: DB:instrument/description:816
-msgid ""
-"used in the Hindustani style Dhrupad music, it has steel and bronze strings "
-"and is played with a metal pick."
-msgstr "Usato nella musica indostana di stile dhrupad, ha corde in acciaio e in bronzo ed è suonato con un plettro in metallo."
 
 #. name:analog synthesizer
 #: DB:instrument/description:813

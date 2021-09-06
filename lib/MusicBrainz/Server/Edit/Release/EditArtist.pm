@@ -16,6 +16,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_from_loaded_definition
     load_artist_credit_definitions
 );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Translation qw( l N_l );
 
 extends 'MusicBrainz::Server::Edit';
@@ -33,7 +34,7 @@ sub edit_name { N_l('Edit release') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_ARTIST }
 sub release_id { shift->data->{entity}{id} }
-sub edit_template { "edit_release" }
+sub edit_template_react { 'EditRelease' }
 
 has '+data' => (
     isa => Dict[
@@ -95,14 +96,16 @@ sub build_display_data {
 
     if (exists $self->data->{new_artist_credit}) {
         $data->{artist_credit} = {
-            new => artist_credit_from_loaded_definition($loaded, $self->data->{new_artist_credit}),
-            old => artist_credit_from_loaded_definition($loaded, $self->data->{old_artist_credit})
+            new => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{new_artist_credit})),
+            old => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{old_artist_credit}))
         }
     }
 
     $data->{update_tracklists} = $self->data->{update_tracklists};
-    $data->{release} = $loaded->{Release}{ $self->data->{entity}{id} }
-        || Release->new( name => $self->data->{entity}{name} );
+    $data->{release} = to_json_object(
+        $loaded->{Release}{ $self->data->{entity}{id} }
+        || Release->new( id => $self->data->{entity}{id}, name => $self->data->{entity}{name} )
+    );
 
     return $data;
 }

@@ -308,16 +308,16 @@ my $release_data = MusicBrainz::Server::Data::Release->new(c => $test->c);
 
 my $release = $release_data->get_by_id(1);
 is( $release->id, 1, 'get release 1 by id');
-is( $release->gid, "f34c079d-374e-4436-9448-da92dedef3ce" );
-is( $release->name, "Arrival", 'release is called "Arrival"');
+is( $release->gid, 'f34c079d-374e-4436-9448-da92dedef3ce' );
+is( $release->name, 'Arrival', 'release is called "Arrival"');
 is( $release->artist_credit_id, 1 );
 is( $release->release_group_id, 1 );
 is( $release->status_id, 1 );
 is( $release->packaging_id, 1 );
 is( $release->script_id, 3 );
 is( $release->language_id, 145 );
-is( $release->barcode, "731453398122" );
-is( $release->comment, "Comment" );
+is( $release->barcode, '731453398122' );
+is( $release->comment, 'Comment' );
 is( $release->edits_pending, 2 );
 is( $release->quality, $QUALITY_UNKNOWN_MAPPED );
 
@@ -332,9 +332,9 @@ my $release_label_data = MusicBrainz::Server::Data::ReleaseLabel->new(c => $test
 $release_label_data->load($release);
 ok( @{$release->labels} >= 2 );
 is( $release->labels->[0]->label_id, 1 );
-is( $release->labels->[0]->catalog_number, "ABC-123", 'release has catalog number ABC-123');
+is( $release->labels->[0]->catalog_number, 'ABC-123', 'release has catalog number ABC-123');
 is( $release->labels->[1]->label_id, 1 );
-is( $release->labels->[1]->catalog_number, "ABC-123-X", 'release also has catalog number ABC-123-X' );
+is( $release->labels->[1]->catalog_number, 'ABC-123-X', 'release also has catalog number ABC-123-X' );
 
 $release = $release_data->get_by_id(2);
 is( $release->quality, $QUALITY_UNKNOWN_MAPPED );
@@ -366,7 +366,7 @@ ok( (grep { $_->id == 2 } @$releases), 'found release by release group' );
 is( $releases->[0]->id, 3 );
 
 my $annotation = $release_data->annotation->get_latest(1);
-is ( $annotation->text, "Annotation" );
+is ( $annotation->text, 'Annotation' );
 
 
 $release = $release_data->get_by_gid('71dc55d8-0fc6-41c1-94e0-85ff2404997d');
@@ -723,42 +723,42 @@ test 'merge release events' => sub {
 
     my $release = $c->model('Release')->get_by_id(8);
     $c->model('Release')->load_release_events($release);
-    is($release->all_events, 6, "has six release events");
+    is($release->all_events, 6, 'has six release events');
     my @country_events = grep { defined $_->country_id } $release->all_events;
     my ($re_gb) = grep { $_->country_id == 221 } @country_events;
-    ok(defined $re_gb, "has release event for the U.K.");
+    ok(defined $re_gb, 'has release event for the U.K.');
     my ($re_sm) = grep { $_->country_id == 182 } @country_events;
-    ok(defined $re_sm, "has release event for San Marino");
+    ok(defined $re_sm, 'has release event for San Marino');
     my ($re_mt) = grep { $_->country_id == 132 } @country_events;
-    ok(defined $re_mt, "has release event for Malta");
+    ok(defined $re_mt, 'has release event for Malta');
     my ($re_li) = grep { $_->country_id == 122 } @country_events;
-    ok(defined $re_li, "has release event for Liechtenstein");
+    ok(defined $re_li, 'has release event for Liechtenstein');
     my ($re_ad) = grep { $_->country_id ==   5 } @country_events;
-    ok(defined $re_ad, "has release event for Andorra");
+    ok(defined $re_ad, 'has release event for Andorra');
     my ($re_unknown) = grep { ! defined $_->country_id } $release->all_events;
-    ok(defined $re_unknown, "has release event for unknown country");
+    ok(defined $re_unknown, 'has release event for unknown country');
 
-    is($re_gb->date->year, 2009, "complete date is preferred over partial date");
+    is($re_gb->date->year, 2009, 'complete date is preferred over partial date');
     is($re_gb->date->month, 12);
     is($re_gb->date->day, 11);
 
-    is($re_sm->date->year, 2008, "partial date with year is preferred over other partial date");
+    is($re_sm->date->year, 2008, 'partial date with year is preferred over other partial date');
     is($re_sm->date->month, 8);
     ok(! defined $re_sm->date->day);
 
-    is($re_mt->date->year, 2012, "merge target is preferred among complete dates, for known country");
+    is($re_mt->date->year, 2012, 'merge target is preferred among complete dates, for known country');
     is($re_mt->date->month, 10);
     is($re_mt->date->day, 9);
 
-    is($re_unknown->date->year, 2013, "merge target is preferred among complete dates, for unknown country");
+    is($re_unknown->date->year, 2013, 'merge target is preferred among complete dates, for unknown country');
     is($re_unknown->date->month, 11);
     is($re_unknown->date->day, 22);
 
-    is($re_li->date->year, 2005, "release event from the merge target is retained");
+    is($re_li->date->year, 2005, 'release event from the merge target is retained');
     is($re_li->date->month, 4);
     is($re_li->date->day, 17);
 
-    is($re_ad->date->year, 2007, "release event from the other merged entity is retained");
+    is($re_ad->date->year, 2007, 'release event from the other merged entity is retained');
     ok(! defined $re_ad->date->month);
     ok(! defined $re_ad->date->day);
 };

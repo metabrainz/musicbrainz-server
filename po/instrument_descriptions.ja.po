@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-07-18 13:02+0000\n"
-"Last-Translator: Masuda Sunatomo <email address hidden>\n"
+"PO-Revision-Date: 2021-08-19 01:03+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,7 +36,7 @@ msgid ""
 "href=\"/doc/How_to_Add_Instruments\">requesting the missing instrument</a>. "
 "</li> </ul> If you can't find more information than the generic \"drum\" or "
 "\"drums\" credit, use this instrument."
-msgstr ""
+msgstr "「ドラム」または「ドラム」は一般的ですが、一般的なクレジットは複数の楽器を指す場合があります。 これがどの楽器であるかがわかっている場合は、特定の楽器を選択してください。<ul><li>一般に「ドラム」と呼ばれ、西洋のポピュラー音楽でよく使用される楽器には、<a href=\"/instrument/12092505-6ee1-46af-a15a-b5b468b6b155\">ドラム（ドラムセット）</a>を使用します。</li><li> プログラムまたは「ドラムループ」の場合は、<a href=\"/instrument/ce0eed13-58d8-4744-8ad0-b7d6182a2d0f\">ドラムマシン</a>を使用します。 </li><li>MusicBrainzにまだ含まれていない特定のドラムについては、<a href=\"/instrument/3bccb7eb-cbca-42cd-b0ac-a5e959df7221\">膜鳴楽器</a>（または必要に応じて<a href=\"/instrument/1a03e9a1-f81f-40ce-9d57-65d6c1b9dcb3\">スリットドラム</a>）を使用し、<a href=\"/doc/How_to_Add_Instruments\">不足している楽器をリクエス</a>トすることを検討してください。</li></ul> 一般的な「ドラム」または「ドラム」クレジットよりも多くの情報が見つからない場合は、この楽器を使用してください。"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -668,6 +668,13 @@ msgid ""
 "common combination for 20th century classical groups."
 msgstr ""
 
+#. name:string quintet
+#: DB:instrument/description:1033
+msgid ""
+"Chamber ensemble of five players (two violins, one viola & one cello, then "
+"either a second viola, a second cello or a double bass)"
+msgstr ""
+
 #. name:string quartet
 #: DB:instrument/description:908
 msgid "Chamber ensemble of four players (two violins, one viola, one cello)"
@@ -922,13 +929,6 @@ msgid ""
 "href=\"/instrument/1975ee04-30de-4835-9656-102ccd49c0c7\">taishogoto</a>, it"
 " is made of wood, often an integral case. It has two courses of strings; "
 "drone and melody strings operated by buttons or keys."
-msgstr ""
-
-#. name:seni rebab
-#: DB:instrument/description:1014
-msgid ""
-"Developed in India during medieval times by Tansen, making it larger, with a"
-" longer neck and giving it metal sympathetic strings."
 msgstr ""
 
 #. name:violin family
@@ -1373,6 +1373,14 @@ msgid ""
 "metal curled mouth piece."
 msgstr ""
 
+#. name:sursingar
+#: DB:instrument/description:816
+msgid ""
+"Improved further by Jaffar Khan, it had a wooden soundboard, the fingerboard"
+" covered with iron and all strings are steel or bronze.<br /> Less common "
+"today, it was used for Dhrupad style music."
+msgstr ""
+
 #. name:morsing
 #: DB:instrument/description:533
 msgid "Indian mouth harp, played in Carnatic and Rajastani folk music."
@@ -1601,6 +1609,15 @@ msgid ""
 "Larger orchestral version of chimes, closed top hollow metal tubes are set "
 "in a stand with a damper operated by pedals, they are tuned at a definite "
 "pitch and played with mallets."
+msgstr ""
+
+#. name:seni rebab
+#: DB:instrument/description:1014
+msgid ""
+"Larger, with a longer neck than the kabuli rabab, it has a hide covered "
+"soundbox and wooden fingerboard with mostly gut strings, it was developed "
+"during medieval times by Tansen, who improved it and gave it metal "
+"sympathetic strings."
 msgstr ""
 
 #. name:jegogan
@@ -2073,6 +2090,14 @@ msgstr ""
 msgid ""
 "Originating from Henan province, this fretless huqin has the accustomary two"
 " strings, but is made of wood."
+msgstr ""
+
+#. name:cuíca
+#: DB:instrument/description:491
+msgid ""
+"Originating in Africa, it is used in carnivals and samba music. Consisting "
+"of a wooden or metal barrel, its single membrane has a tuning-stick "
+"attached."
 msgstr ""
 
 #. name:çevgen
@@ -3049,11 +3074,6 @@ msgstr ""
 msgid ""
 "The cornamuse is a double reed instrument from the Renaissance, similar to "
 "the crumhorn but with a closed bell."
-msgstr ""
-
-#. name:cuíca
-#: DB:instrument/description:491
-msgid "The cuíca is a Brazilian friction drum often used in samba music."
 msgstr ""
 
 #. name:cò ke
@@ -5081,12 +5101,12 @@ msgid ""
 "pear shaped body made from a single piece of wood, this medieval bowed "
 "string-instrument originated as a Byzantian lyra like variant of the Arabic "
 "Rebab and was a possible influence to the violin."
-msgstr ""
+msgstr "一枚の木で作られた洋ナシの形の中世の擦弦楽器は、アラビアのレバブの変種のようなビザンチンのライラを起源とし、バイオリンに影響を与えた可能性がある。"
 
 #. name:vuvuzela
 #: DB:instrument/description:877
 msgid "plastic horn often used at football matches in South Africa"
-msgstr ""
+msgstr "南アメリカのサッカー試合でしばしば用いられるプラスチックのホルン"
 
 #. name:guitar family
 #: DB:instrument/description:52
@@ -5100,19 +5120,19 @@ msgstr ""
 msgid ""
 "portable piano with shoulder strap invented in 1795, it is a descendant of "
 "the Baroque Bauchladenspinett and a sort of early precursor of the keytar"
-msgstr ""
+msgstr "1795年に発明されたショルダーストラップ付きのポータブルピアノは、バロック様式のバウクラデンスピネットの子孫であり、キーターの初期の前駆体の一種である。"
 
 #. name:banjolin
 #: DB:instrument/description:831
 msgid ""
 "reinvented several times in different lands, it combines banjo body and neck"
 " of mandolin, it is tuned like it and the violin."
-msgstr ""
+msgstr "さまざまな国で何度か再発明され、バンジョーのボディとマンドリンのネックを組み合わせ、バイオリンのようにチューニングされたもの。"
 
 #. name:sáo meò
 #: DB:instrument/description:316
 msgid "saó ôi (flute of the Muong)"
-msgstr ""
+msgstr "saó ôi (Muong のフルート版)"
 
 #. name:brač
 #: DB:instrument/description:825
@@ -5127,35 +5147,35 @@ msgstr ""
 msgid ""
 "simple, often single-toned and round-bodied whistle often used for "
 "regulation (sport, traffic, ...)."
-msgstr ""
+msgstr "レギュレーション（スポーツ、交通など）目的でよく使用される、シンプルで、多くの場合、単調で丸いボディのホイッスル。"
 
 #. name:härjedalspipa
 #: DB:instrument/description:818
 msgid ""
 "six holed fipple flute used traditionally in pastoral settings like its "
 "cousin the spilåpipa."
-msgstr ""
+msgstr "spilåpipa のような牧歌的な設定で伝統的に使用される6つの穴の開いたフィップルフルート。"
 
 #. name:banjo-ukulele
 #: DB:instrument/description:832
 msgid ""
 "small fretted hybrid instrument with a banjo body and a ukulele neck, "
 "popular in the 1920-30"
-msgstr ""
+msgstr "1920-30年に人気のバンジョーボディとウクレレネックを備えた小型フレットのハイブリッド楽器"
 
 #. name:piano spinet
 #: DB:instrument/description:798
 msgid ""
 "small piano with drop action stickers manufactured from around 1930 to the "
 "early 1990s."
-msgstr ""
+msgstr "1930年頃から1990年代初頭にかけて製造されたドロップアクションステッカー付きの小型ピアノ。"
 
 #. name:Guitaret
 #: DB:instrument/description:795
 msgid ""
 "small white electric thumb piano with metal tines and an electromagnetic "
 "pickup."
-msgstr ""
+msgstr "金属製のタインと電磁ピックアップを備えた小さな白い電気親指ピアノ。"
 
 #. name:bisernica
 #: DB:instrument/description:824
@@ -5175,29 +5195,29 @@ msgstr ""
 #: DB:instrument/description:809
 msgid ""
 "there are two types: temür/tömör khuur (steel) and khulsan khuur (bamboo)"
-msgstr ""
+msgstr "２種類存在する: temür/tömör khuur (スチール製) and khulsan khuur (竹製)"
 
 #. name:rōria
 #: DB:instrument/description:859
 msgid "thin quiet mouth harp like instrument made of wood or bone."
-msgstr ""
+msgstr "木や骨で作られた薄く静で口琴のような楽器。"
 
 #. name:ti bwa
 #: DB:instrument/description:332
 msgid ""
 "ti bwa, percussion instrument made of a piece of bamboo laid horizontally "
 "and beaten with sticks"
-msgstr ""
+msgstr "ti bwa、竹を横に並べて棒で叩く打楽器"
 
 #. name:kagurabue
 #: DB:instrument/description:849
 msgid "traditional six holed bamboo flute used in Gagaku no Kagaku"
-msgstr ""
+msgstr "雅楽で使われる伝統的な6穴竹製フルート "
 
 #. name:trắng jâu
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
-msgstr ""
+msgstr "trắng jâu、 trắng lu のベースフォーム"
 
 #. name:mandoguitar
 #: DB:instrument/description:836
@@ -5210,19 +5230,12 @@ msgstr ""
 #. name:khulsan khuur
 #: DB:instrument/description:811
 msgid "used for folksongs, particularly by young girls."
-msgstr ""
+msgstr "特に若い女の子がフォークソングで使用する。"
 
 #. name:temür khuur
 #: DB:instrument/description:810
 msgid "used in folkmedisine and shamanistic rituals"
-msgstr ""
-
-#. name:sursingar
-#: DB:instrument/description:816
-msgid ""
-"used in the Hindustani style Dhrupad music, it has steel and bronze strings "
-"and is played with a metal pick."
-msgstr ""
+msgstr "民間療法やシャーマニズムの儀式で使用される"
 
 #. name:analog synthesizer
 #: DB:instrument/description:813
@@ -5230,45 +5243,45 @@ msgid ""
 "using analogue circuits and techniques to produce sound electronically, the "
 "first types where created in the 1920's with thermionic valves and other "
 "electromechanical machineries."
-msgstr ""
+msgstr "アナログ回路・アナログ技術により電子的に音を生成する。これは、1920年代に熱電子バルブやその他の電気機械機械で作成された初期タイプによる。"
 
 #. name:fretless bass
 #: DB:instrument/description:435
 msgid "variety of bass guitars without frets"
-msgstr ""
+msgstr "フレットのないベースギターのバラエティ"
 
 #. name:flageolet
 #: DB:instrument/description:843
 msgid ""
 "while today it is obscure, it was developed and improved for 400 years, the "
 "French flageolet has 4 holes in front and two thumb holes in the back"
-msgstr ""
+msgstr "400年間の開発・改良の上、仏式フラジオレットには、正面に4つの穴があり、背面に2つの親指の穴を持つようになった。"
 
 #. name:wind synthesizer
 #: DB:instrument/description:560
 msgid ""
 "wind synthesizer or wind controller, it is connected to a midi controller "
 "and is played like a wind instrument."
-msgstr ""
+msgstr "ウインドシンセサイザーまたはウインドコントローラー。MIDIコントローラーに接続され、管楽器のように演奏される。"
 
 #. name:vibrandoneon
 #: DB:instrument/description:840
 msgid "wood accordina with piano keys invented in Italy"
-msgstr ""
+msgstr "イタリアで発明されたピアノ鍵盤を持つ木製アコーディオン"
 
 #. name:Irish flute
 #: DB:instrument/description:878
 msgid "wooden flute of the simple-system type, popular in Irish folk music"
-msgstr ""
+msgstr "アイルランド民謡で人気のシンプルシステムタイプの木製フルート"
 
 #. name:English flageolet
 #: DB:instrument/description:844
 msgid ""
 "working to improve on its design, the English flageolet had 6 finger holes "
 "in front and one thumb hole in the back."
-msgstr ""
+msgstr "デザインの改善より、英国式フラジオレットでは正面に6つの指穴、背面に1つの親指穴を持つようになった。"
 
 #. name:tube zither
 #: DB:instrument/description:944
 msgid "zither with a hollow or vaulted body, it can have several resonators"
-msgstr ""
+msgstr "中空またはアーチ型のボディを持つツィター、複数の共振器を持つことがあるもの"

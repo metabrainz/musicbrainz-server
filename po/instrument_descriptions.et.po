@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-06-08 21:41+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-08-19 01:03+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -664,6 +664,13 @@ msgid ""
 "common combination for 20th century classical groups."
 msgstr ""
 
+#. name:string quintet
+#: DB:instrument/description:1033
+msgid ""
+"Chamber ensemble of five players (two violins, one viola & one cello, then "
+"either a second viola, a second cello or a double bass)"
+msgstr ""
+
 #. name:string quartet
 #: DB:instrument/description:908
 msgid "Chamber ensemble of four players (two violins, one viola, one cello)"
@@ -918,13 +925,6 @@ msgid ""
 "href=\"/instrument/1975ee04-30de-4835-9656-102ccd49c0c7\">taishogoto</a>, it"
 " is made of wood, often an integral case. It has two courses of strings; "
 "drone and melody strings operated by buttons or keys."
-msgstr ""
-
-#. name:seni rebab
-#: DB:instrument/description:1014
-msgid ""
-"Developed in India during medieval times by Tansen, making it larger, with a"
-" longer neck and giving it metal sympathetic strings."
 msgstr ""
 
 #. name:violin family
@@ -1369,6 +1369,14 @@ msgid ""
 "metal curled mouth piece."
 msgstr ""
 
+#. name:sursingar
+#: DB:instrument/description:816
+msgid ""
+"Improved further by Jaffar Khan, it had a wooden soundboard, the fingerboard"
+" covered with iron and all strings are steel or bronze.<br /> Less common "
+"today, it was used for Dhrupad style music."
+msgstr ""
+
 #. name:morsing
 #: DB:instrument/description:533
 msgid "Indian mouth harp, played in Carnatic and Rajastani folk music."
@@ -1597,6 +1605,15 @@ msgid ""
 "Larger orchestral version of chimes, closed top hollow metal tubes are set "
 "in a stand with a damper operated by pedals, they are tuned at a definite "
 "pitch and played with mallets."
+msgstr ""
+
+#. name:seni rebab
+#: DB:instrument/description:1014
+msgid ""
+"Larger, with a longer neck than the kabuli rabab, it has a hide covered "
+"soundbox and wooden fingerboard with mostly gut strings, it was developed "
+"during medieval times by Tansen, who improved it and gave it metal "
+"sympathetic strings."
 msgstr ""
 
 #. name:jegogan
@@ -2069,6 +2086,14 @@ msgstr ""
 msgid ""
 "Originating from Henan province, this fretless huqin has the accustomary two"
 " strings, but is made of wood."
+msgstr ""
+
+#. name:cuíca
+#: DB:instrument/description:491
+msgid ""
+"Originating in Africa, it is used in carnivals and samba music. Consisting "
+"of a wooden or metal barrel, its single membrane has a tuning-stick "
+"attached."
 msgstr ""
 
 #. name:çevgen
@@ -3045,11 +3070,6 @@ msgstr ""
 msgid ""
 "The cornamuse is a double reed instrument from the Renaissance, similar to "
 "the crumhorn but with a closed bell."
-msgstr ""
-
-#. name:cuíca
-#: DB:instrument/description:491
-msgid "The cuíca is a Brazilian friction drum often used in samba music."
 msgstr ""
 
 #. name:cò ke
@@ -5211,13 +5231,6 @@ msgstr ""
 #. name:temür khuur
 #: DB:instrument/description:810
 msgid "used in folkmedisine and shamanistic rituals"
-msgstr ""
-
-#. name:sursingar
-#: DB:instrument/description:816
-msgid ""
-"used in the Hindustani style Dhrupad music, it has steel and bronze strings "
-"and is played with a metal pick."
 msgstr ""
 
 #. name:analog synthesizer

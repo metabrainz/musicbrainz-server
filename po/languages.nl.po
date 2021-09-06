@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-06-16 10:03+0000\n"
+"PO-Revision-Date: 2021-08-12 19:08+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1311,6 +1311,11 @@ msgstr "Kwanyama (Oshikwanyama)"
 msgid "Kumyk"
 msgstr "Koemuks"
 
+#. frequency:1 iso_code_3:xug
+#: DB:language/name:7421
+msgid "Kunigami"
+msgstr "Kunigami"
+
 #. frequency:1 iso_code_3:kur
 #: DB:language/name:232
 msgid "Kurdish"
@@ -1986,6 +1991,11 @@ msgstr "Rundi (Kirundi)"
 msgid "Russian"
 msgstr "Russisch"
 
+#. frequency:1 iso_code_3:rue
+#: DB:language/name:5790
+msgid "Rusyn"
+msgstr "Roetheens"
+
 #. frequency:1 iso_code_3:rcf
 #: DB:language/name:5690
 msgid "Réunion Creole French"
@@ -2620,6 +2630,11 @@ msgstr "Yapees"
 #: DB:language/name:463
 msgid "Yiddish"
 msgstr "Jiddisch"
+
+#. frequency:1 iso_code_3:yox
+#: DB:language/name:7602
+msgid "Yoron"
+msgstr "Yoron"
 
 #. frequency:1 iso_code_3:yor
 #: DB:language/name:464

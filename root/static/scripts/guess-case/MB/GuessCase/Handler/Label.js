@@ -1,4 +1,5 @@
 /*
+ * @flow strict
  * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
@@ -7,74 +8,76 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import MB from '../../../../common/MB';
 import * as flags from '../../../flags';
+import input from '../Input';
+import gc from '../Main';
+import output from '../Output';
 
-MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
-MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
+import GuessCaseHandler from './Base';
 
 // Label specific GuessCase functionality
-MB.GuessCase.Handler.Label = function (gc) {
-  var self = MB.GuessCase.Handler.Base(gc);
-
+class GuessCaseLabelHandler extends GuessCaseHandler {
   /*
    * Checks special cases of labels
    * - empty, unknown -> [unknown]
    * - none, no label, not applicable, n/a -> [no label]
    */
-  self.checkSpecialCase = function (is) {
-    if (is) {
-      if (!gc.re.LABEL_EMPTY) {
+  checkSpecialCase(inputString?: string): number {
+    if (inputString != null) {
+      if (!gc.regexes.LABEL_EMPTY) {
         // Match empty
-        gc.re.LABEL_EMPTY = /^\s*$/i;
+        gc.regexes.LABEL_EMPTY = /^\s*$/i;
         // Match "unknown" and variants
-        gc.re.LABEL_UNKNOWN = /^[\(\[]?\s*Unknown\s*[\)\]]?$/i;
+        gc.regexes.LABEL_UNKNOWN = /^[\(\[]?\s*Unknown\s*[\)\]]?$/i;
         // Match "none" and variants
-        gc.re.LABEL_NONE = /^[\(\[]?\s*none\s*[\)\]]?$/i;
+        gc.regexes.LABEL_NONE = /^[\(\[]?\s*none\s*[\)\]]?$/i;
         // Match "no label" and variants
-        gc.re.LABEL_NOLABEL = /^[\(\[]?\s*no[\s-]+label\s*[\)\]]?$/i;
+        gc.regexes.LABEL_NOLABEL = /^[\(\[]?\s*no[\s-]+label\s*[\)\]]?$/i;
         // Match "not applicable" and variants
-        gc.re.LABEL_NOTAPPLICABLE = /^[\(\[]?\s*not[\s-]+applicable\s*[\)\]]?$/i;
+        gc.regexes.LABEL_NOTAPPLICABLE = /^[\(\[]?\s*not[\s-]+applicable\s*[\)\]]?$/i;
         // Match "n/a" and variants
-        gc.re.LABEL_NA = /^[\(\[]?\s*n\s*[\\\/]\s*a\s*[\)\]]?$/i;
+        gc.regexes.LABEL_NA = /^[\(\[]?\s*n\s*[\\\/]\s*a\s*[\)\]]?$/i;
       }
-      if (is.match(gc.re.LABEL_EMPTY)) {
-        return self.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.re.LABEL_UNKNOWN)) {
-        return self.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.re.LABEL_NONE)) {
-        return self.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.re.LABEL_NOLABEL)) {
-        return self.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.re.LABEL_NOTAPPLICABLE)) {
-        return self.SPECIALCASE_UNKNOWN;
-      } else if (is.match(gc.re.LABEL_NA)) {
-        return self.SPECIALCASE_UNKNOWN;
+      if (inputString.match(gc.regexes.LABEL_EMPTY)) {
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
+      } else if (inputString.match(gc.regexes.LABEL_UNKNOWN)) {
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
+      } else if (inputString.match(gc.regexes.LABEL_NONE)) {
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
+      } else if (inputString.match(gc.regexes.LABEL_NOLABEL)) {
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
+      } else if (inputString.match(gc.regexes.LABEL_NOTAPPLICABLE)) {
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
+      } else if (inputString.match(gc.regexes.LABEL_NA)) {
+        return this.specialCaseValues.SPECIALCASE_UNKNOWN;
       }
     }
-    return self.NOT_A_SPECIALCASE;
-  };
+    return this.specialCaseValues.NOT_A_SPECIALCASE;
+  }
 
   /*
    * Delegate function which handles words not handled
    * in the common word handlers.
    */
-  self.doWord = function () {
-    gc.o.appendSpaceIfNeeded();
-    gc.i.capitalizeCurrentWord();
-    gc.o.appendCurrentWord();
+  doWord(): boolean {
+    output.appendSpaceIfNeeded();
+    input.capitalizeCurrentWord();
+    output.appendCurrentWord();
 
     flags.resetContext();
     flags.context.number = false;
     flags.context.forceCaps = false;
     flags.context.spaceNextWord = true;
-    return null;
-  };
+    return true;
+  }
 
   // Guesses the sortname for label aliases
-  self.guessSortName = function (is) {
-    return self.sortCompoundName(is, self.moveArticleToEnd);
-  };
+  guessSortName(inputString: string): string {
+    return this.sortCompoundName(
+      inputString,
+      (inputString) => this.moveArticleToEnd(inputString),
+    );
+  }
+}
 
-  return self;
-};
+export default GuessCaseLabelHandler;

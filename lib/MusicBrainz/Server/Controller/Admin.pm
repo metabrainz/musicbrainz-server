@@ -5,6 +5,7 @@ use Try::Tiny;
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use MusicBrainz::Server::Translation qw(l ln );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 
 sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves SecureForm
 {
@@ -198,6 +199,64 @@ sub ip_lookup : Path('/admin/ip-lookup') Args(1) RequireAuth(account_admin) Hidd
         component_props => {
             ipHash => $ip_hash,
             users => [map { $c->unsanitized_editor_json($_) } @users],
+        },
+    );
+}
+
+sub locked_username_search : Path('/admin/locked-usernames/search') Args(0) RequireAuth(account_admin) HiddenOnSlaves {
+    my ($self, $c) = @_;
+
+    my $form = $c->form(form => 'Admin::LockedUsernameSearch');
+    my @results;
+    my $show_results = 0;
+
+    if ($c->form_posted_and_valid($form, $c->req->body_params)) {
+        try {
+            @results = $c->model('Editor')->search_old_editor_names(
+                $form->field('username')->value // '',
+                $form->field('use_regular_expression')->value,
+            );
+            $show_results = 1;
+        } catch {
+            my $error = $_;
+            if ("$error" =~ m/invalid regular expression/) {
+                $form->field('username')->add_error(l('Invalid regular expression.'));
+                $c->response->status(400);
+            } else {
+                die $error;
+            }
+        };
+    }
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'admin/LockedUsernameSearch',
+        component_props => {
+            form => $form->TO_JSON,
+            @results ? (results => \@results) : (),
+            showResults => boolean_to_json($show_results),
+        },
+    );
+}
+
+sub unlock_username : Path('/admin/locked-usernames/unlock') Args(1) RequireAuth(account_admin) HiddenOnSlaves {
+    my ($self, $c, $username) = @_;
+
+    my $form = $c->form(form => 'SecureConfirm');
+
+    if ($c->form_posted_and_valid($form)) {
+        $c->model('MB')->with_transaction(sub {
+            $c->model('Editor')->unlock_old_editor_name($username);
+        });
+        $c->response->redirect($c->uri_for_action('/admin/locked_username_search'));
+    }
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'admin/LockedUsernameUnlock',
+        component_props => {
+            form => $form->TO_JSON,
+            username => $username,
         },
     );
 }

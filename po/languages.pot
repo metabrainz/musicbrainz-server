@@ -1303,6 +1303,11 @@ msgstr ""
 msgid "Kumyk"
 msgstr ""
 
+#. frequency:1 iso_code_3:xug 
+#: DB:language/name:7421
+msgid "Kunigami"
+msgstr ""
+
 #. frequency:1 iso_code_3:kur 
 #: DB:language/name:232
 msgid "Kurdish"
@@ -1978,6 +1983,11 @@ msgstr ""
 msgid "Russian"
 msgstr ""
 
+#. frequency:1 iso_code_3:rue 
+#: DB:language/name:5790
+msgid "Rusyn"
+msgstr ""
+
 #. frequency:1 iso_code_3:rcf 
 #: DB:language/name:5690
 msgid "Réunion Creole French"
@@ -2611,6 +2621,11 @@ msgstr ""
 #. frequency:1 iso_code_3:yid 
 #: DB:language/name:463
 msgid "Yiddish"
+msgstr ""
+
+#. frequency:1 iso_code_3:yox 
+#: DB:language/name:7602
+msgid "Yoron"
 msgstr ""
 
 #. frequency:1 iso_code_3:yor 

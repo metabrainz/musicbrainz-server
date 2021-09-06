@@ -16,6 +16,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     verify_artist_credits
 );
 use MusicBrainz::Server::Entity::ReleaseEvent;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Translation qw( l N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
@@ -32,6 +33,7 @@ sub edit_name { N_l('Add release') }
 sub edit_type { $EDIT_RELEASE_CREATE }
 sub _create_model { 'Release' }
 sub release_id { shift->entity_id }
+sub edit_template_react { 'AddRelease' }
 
 has '+data' => (
     isa => Dict[
@@ -94,25 +96,25 @@ sub build_display_data
     my $lang = $self->data->{language_id};
 
     return {
-        artist_credit => artist_credit_preview($loaded, $self->data->{artist_credit}),
+        artist_credit => to_json_object(artist_credit_preview($loaded, $self->data->{artist_credit})),
         name          => $self->data->{name} || '',
         comment       => $self->data->{comment} || '',
         packaging     => defined($self->data->{packaging_id}) &&
-                           $loaded->{ReleasePackaging}{ $self->data->{packaging_id} },
+                           to_json_object($loaded->{ReleasePackaging}{ $self->data->{packaging_id} }),
         status        => defined($status) &&
-                           $loaded->{ReleaseStatus}{$status},
+                           to_json_object($loaded->{ReleaseStatus}{$status}),
         script        => defined($script) &&
-                           $loaded->{Script}{$script},
+                           to_json_object($loaded->{Script}{$script}),
         language      => defined($lang) &&
-                           $loaded->{Language}{$lang},
-        barcode       => Barcode->new($self->data->{barcode}),
+                           to_json_object($loaded->{Language}{$lang}),
+        barcode       => $self->data->{barcode},
         release_group => (defined($self->data->{release_group_id}) &&
-                           $loaded->{ReleaseGroup}{ $self->data->{release_group_id} }) ||
-                               ReleaseGroup->new( name => l('[removed]') ),
-        release       => (defined($self->entity_id) &&
-                              $loaded->{Release}{ $self->entity_id }) ||
-                                  Release->new( name => $self->data->{name} ),
-        events => [
+                           to_json_object($loaded->{ReleaseGroup}{ $self->data->{release_group_id} } ||
+                               ReleaseGroup->new( name => l('[removed]') ))),
+        release       => to_json_object(defined($self->entity_id) &&
+                            $loaded->{Release}{ $self->entity_id } ||
+                            Release->new( name => $self->data->{name} )),
+        events => to_json_array([
             map {
                 MusicBrainz::Server::Entity::ReleaseEvent->new(
                     country => defined($_->{country_id})
@@ -125,7 +127,7 @@ sub build_display_data
                     })
                 )
             } @{ $self->data->{events} }
-        ]
+        ])
     };
 }
 

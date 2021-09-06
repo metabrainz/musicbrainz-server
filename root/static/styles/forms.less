@@ -250,7 +250,7 @@ table.row-form {
     > tbody > tr, > thead > tr {
         > td:first-child, > th:first-child {
             min-width: @form-label-width;
-            padding: @form-margin / 2;
+            padding: (@form-margin / 2);
             padding-bottom: 9px;
             box-sizing: border-box;
             vertical-align: top;
@@ -619,13 +619,98 @@ table.artist-credit-editor {
 #external-links-editor {
     td {
         vertical-align: top;
-        padding-top: @form-margin / 2;
+        padding-top: (@form-margin / 2);
+
+        &:first-child {
+            min-width: 75px;
+        }
+    }
+
+    td.link-actions {
+        text-align: right;
+        padding-right: 0;
+
+        button.remove-item {
+            margin-left: 4px !important;
+        }
+    }
+
+    .external-link-item {
+        td {
+            padding-bottom: (@form-margin / 4);
+        }
+
+        td:first-child {
+            text-align: right;
+
+            label {
+                text-align: center;
+                width: -moz-fit-content !important;
+                width: fit-content !important;
+                min-width: 16px;
+            }
+        }
+
+        a.url:focus-visible {
+            outline: revert; // reset to UA stylesheet
+        }
+    }
+
+    .relationship-item {
+        td {
+            padding-top: (@form-margin / 4);
+            padding-bottom: (@form-margin / 4);
+        }
+
+        div.relationship-content {
+            display: flex;
+
+            label {
+                margin-right: (@form-margin / 2);
+                white-space: nowrap;
+            }
+
+            label.relationship-name {
+                flex: 2 5;
+                text-align: left;
+                white-space: inherit;
+
+                span.date-period {
+                    white-space: nowrap;
+                }
+            }
+
+            select {
+                width: auto;
+            }
+
+            .attribute-container {
+                display: inline-block;
+            }
+        }
+    }
+
+    td.link-actions {
+        text-align: right;
+        padding-right: 0;
+    }
+
+    .add-relationship td {
+        padding: 0;
+    }
+}
+
+.external-link-attribute-dialog {
+    span.partial-date {
+        input {
+            width: 4em;
+        }
     }
 }
 
 #external-links-editor, #work-attributes {
     width: 100%;
-    padding: @form-margin / 2;
+    padding: (@form-margin / 2);
 
     td:first-child select {
         max-width: @form-label-width - @form-margin;
@@ -707,7 +792,7 @@ div.rel-editor-dialog {
     .change-direction { padding: 2px !important; }
 
     .attribute-container {
-        margin-bottom: @form-margin / 2;
+        margin-bottom: (@form-margin / 2);
     }
 
     .attribute-credit {

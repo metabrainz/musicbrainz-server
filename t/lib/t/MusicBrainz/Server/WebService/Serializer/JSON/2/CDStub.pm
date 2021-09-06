@@ -14,14 +14,14 @@ test 'Can serialize CD stubs to JSON' => sub {
 
     my $cdstub = MusicBrainz::Server::Entity::CDStub->new(
         discid => 'i6hucXpnMSIhNF13L6M8Y2odGP4-',
-        comment => "CD Stub comment",
-        artist => "Artist",
-        title => "Title",
-        barcode => MusicBrainz::Server::Entity::Barcode->new("7181"),
+        comment => 'CD Stub comment',
+        artist => 'Artist',
+        title => 'Title',
+        barcode => MusicBrainz::Server::Entity::Barcode->new('7181'),
         tracks => [
             MusicBrainz::Server::Entity::CDStubTrack->new(
-                artist => "LambdaCat",
-                title => "Ain't No Type System Gonna Hold Me Back",
+                artist => 'LambdaCat',
+                title => q(Ain't No Type System Gonna Hold Me Back),
                 length => 34871
             )
         ]
@@ -40,7 +40,7 @@ test 'Can serialize CD stubs to JSON' => sub {
                     length => $_->length
                 }, $cdstub->all_tracks
             ],
-            "track-count" => $cdstub->track_count,
+            'track-count' => $cdstub->track_count,
             id => $cdstub->discid,
             barcode => $cdstub->barcode
         }

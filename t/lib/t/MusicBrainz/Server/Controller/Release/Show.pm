@@ -150,12 +150,12 @@ page_test_jsonld $mech => {
             'trackNumber' => '2.3',
             '@type' => 'MusicRecording',
             'duration' => 'PT04M50S',
-            'name' => 'An Architect\'s Dream',
+            'name' => q(An Architect's Dream),
             '@id' => 'http://musicbrainz.org/recording/2ed42694-7b28-433e-9cf0-1e14a25babfe'
         },
         {
             'duration' => 'PT01M36S',
-            'name' => 'The Painter\'s Link',
+            'name' => q(The Painter's Link),
             '@id' => 'http://musicbrainz.org/recording/3bf4cbea-f963-4d75-bac5-351a29c60575',
             'trackNumber' => '2.4',
             '@type' => 'MusicRecording'

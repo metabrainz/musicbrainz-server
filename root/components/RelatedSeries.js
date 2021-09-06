@@ -33,7 +33,7 @@ const RelatedSeries = ({seriesIds}: Props): React.MixedElement => {
     const series = linkedEntities.series[seriesIds[i]];
     createArgs.push(
       <h3>
-        <EntityLink entity={series} />
+        <EntityLink entity={series} showIcon />
       </h3>,
       <StaticRelationshipsDisplay
         relationships={
