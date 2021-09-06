@@ -19,12 +19,14 @@ our @EXPORT_OK = qw(
 sub send_to_renderer {
     my ($c, $message, $expect_response) = @_;
 
+    my $socket = $c->stash->{renderer_socket};
+    return unless defined $socket;
+
     require bytes;
 
     state $body_json = JSON->new->utf8->allow_unknown(0)->allow_blessed(0);
     my $encoded_body = encode_with_linked_entities($body_json, $message);
 
-    my $socket = $c->stash->{renderer_socket};
     $socket->send(pack('V', bytes::length($encoded_body)));
     $socket->send($encoded_body);
 
