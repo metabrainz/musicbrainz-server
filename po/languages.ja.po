@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-08-12 16:31+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-09-04 06:26+0000\n"
+"Last-Translator: ffff23 <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1321,7 +1321,7 @@ msgstr "クミク語"
 #. frequency:1 iso_code_3:xug
 #: DB:language/name:7421
 msgid "Kunigami"
-msgstr ""
+msgstr "国頭語"
 
 #. frequency:1 iso_code_3:kur
 #: DB:language/name:232
@@ -2001,7 +2001,7 @@ msgstr "ロシア語"
 #. frequency:1 iso_code_3:rue
 #: DB:language/name:5790
 msgid "Rusyn"
-msgstr ""
+msgstr "ルシン語"
 
 #. frequency:1 iso_code_3:rcf
 #: DB:language/name:5690
@@ -2641,7 +2641,7 @@ msgstr "イディッシュ語"
 #. frequency:1 iso_code_3:yox
 #: DB:language/name:7602
 msgid "Yoron"
-msgstr ""
+msgstr "与論語"
 
 #. frequency:1 iso_code_3:yor
 #: DB:language/name:464

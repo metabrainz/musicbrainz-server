@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-31 18:57-0500\n"
+"POT-Creation-Date: 2021-09-03 18:05+0300\n"
 "PO-Revision-Date: 2021-08-27 10:02+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
@@ -4618,8 +4618,8 @@ msgstr "Twitter"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:874
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:447
 #: ../root/static/scripts/common/components/FilterForm.js:63
-#: ../root/static/scripts/edit/externalLinks.js:867
-#: ../root/static/scripts/edit/externalLinks.js:1127
+#: ../root/static/scripts/edit/externalLinks.js:904
+#: ../root/static/scripts/edit/externalLinks.js:1157
 #: ../root/utility/tableColumns.js:613 ../root/utility/tableColumns.js:618
 msgid "Type"
 msgstr "Lloj"
@@ -7280,7 +7280,7 @@ msgid "This is not a valid time."
 msgstr "Kjo s’është kohë e vlefshme."
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:25
-#: ../root/static/scripts/edit/externalLinks.js:546
+#: ../root/static/scripts/edit/externalLinks.js:548
 msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr "Jepni një URL të vlefshme, p.sh, \"http://google.com/\""
 
@@ -11801,7 +11801,7 @@ msgid "{entity0}-{entity1}"
 msgstr "{entity0}-{entity1}"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:76
-#: ../root/static/scripts/edit/externalLinks.js:584
+#: ../root/static/scripts/edit/externalLinks.js:586
 #: ../root/static/scripts/relationship-editor/common/dialog.js:554
 msgid "This relationship type is deprecated and should not be used."
 msgstr ""
@@ -14562,12 +14562,12 @@ msgid "Some relationship types are missing for this URL."
 msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:4838
-#: ../root/static/scripts/edit/externalLinks.js:725
+#: ../root/static/scripts/edit/externalLinks.js:743
 msgid "This relationship type combination is invalid."
 msgstr ""
 
 #: ../root/static/scripts/edit/check-duplicates.js:152
-#: ../root/static/scripts/edit/externalLinks.js:541
+#: ../root/static/scripts/edit/externalLinks.js:543
 #: ../root/static/scripts/relationship-editor/common/dialog.js:581
 msgid "Required field."
 msgstr "Fushë e domosdoshme."
@@ -14694,80 +14694,80 @@ msgstr "Veprimtari hedhjeje në qarkullim:"
 msgid "All of your changes will be lost if you leave this page."
 msgstr "Krejt ndryshimet tuaja do të humbin, nëse e braktisni këtë faqe."
 
-#: ../root/static/scripts/edit/externalLinks.js:551
+#: ../root/static/scripts/edit/externalLinks.js:553
 msgid ""
 "Links to MusicBrainz URLs are not allowed. Did you mean to paste something "
 "else?"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:557
+#: ../root/static/scripts/edit/externalLinks.js:559
 msgid ""
 "Links to this website are not allowed because it is known to host malware."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:563
+#: ../root/static/scripts/edit/externalLinks.js:565
 msgid ""
 "Please don’t enter bundled/shortened URLs, enter the destination URL(s) "
 "instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:569
+#: ../root/static/scripts/edit/externalLinks.js:571
 msgid ""
 "Please don’t enter Google AMP links, since they are effectively an extra "
 "redirect. Enter the destination URL instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:576
+#: ../root/static/scripts/edit/externalLinks.js:578
 msgid "Please select a link type for the URL you’ve entered."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:593
+#: ../root/static/scripts/edit/externalLinks.js:595
 msgid "This relationship already exists."
 msgstr "Kjo marrëdhënie ekziston tashmë."
 
-#: ../root/static/scripts/edit/externalLinks.js:607
+#: ../root/static/scripts/edit/externalLinks.js:609
 #: ../root/static/scripts/relationship-editor/common/dialog.js:565
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:613
+#: ../root/static/scripts/edit/externalLinks.js:615
 msgid "This URL is not allowed for the selected link type."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:672
+#: ../root/static/scripts/edit/externalLinks.js:674
 msgid ""
 "Note: This link already exists at position #{position}. To merge, press "
 "enter or select a type."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:824
+#: ../root/static/scripts/edit/externalLinks.js:861
 #: ../root/static/scripts/relationship-editor/common/dialog.js:418
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|më tepër dokumentim})"
 
-#: ../root/static/scripts/edit/externalLinks.js:929
+#: ../root/static/scripts/edit/externalLinks.js:959
 msgid "video"
 msgstr "video"
 
-#: ../root/static/scripts/edit/externalLinks.js:960
+#: ../root/static/scripts/edit/externalLinks.js:990
 msgid "Remove Relationship"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:1046
+#: ../root/static/scripts/edit/externalLinks.js:1076
 msgid "Add link"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:1049
+#: ../root/static/scripts/edit/externalLinks.js:1079
 msgid "Add another link"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:1101
+#: ../root/static/scripts/edit/externalLinks.js:1131
 msgid "Remove Link"
 msgstr "Hiqe Lidhjen"
 
-#: ../root/static/scripts/edit/externalLinks.js:1150
+#: ../root/static/scripts/edit/externalLinks.js:1180
 msgid "Add another relationship"
 msgstr ""
 
