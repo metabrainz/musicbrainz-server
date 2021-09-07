@@ -5,7 +5,7 @@ use MooseX::Types::Moose qw( ArrayRef Int Maybe Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
-use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Translation qw( l N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
@@ -71,22 +71,13 @@ sub build_display_data
 
     if (defined $data->{language_id}) {
         my $language = $loaded->{Language}{$data->{language_id}};
-        if ($language->iso_code_3 eq 'zxx') {
-            $language->name(l('[No lyrics]'));
-        }
         $display->{language} = to_json_object($language);
     }
 
     if (defined $data->{languages}) {
-        $display->{languages} = [
-            map {
-                my $language = $loaded->{Language}{$_};
-                if ($language && $language->iso_code_3 eq 'zxx') {
-                    $language->name(l('[No lyrics]'));
-                }
-                $language ? $language->name : l('[removed]')
-            } @{ $data->{languages} }
-        ];
+        $display->{languages} = to_json_array([
+            map { $loaded->{Language}{$_} } @{ $data->{languages} }
+        ]);
     }
 
     return $display;

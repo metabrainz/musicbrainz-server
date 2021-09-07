@@ -16,7 +16,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     changed_display_data
 );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Translation qw( l N_l );
 use Set::Scalar;
 
@@ -177,14 +177,8 @@ sub build_display_data
 
     if (exists $data->{new}{languages}) {
         for my $side (qw( old new )) {
-            $display->{languages}{$side} = [
-                map {
-                    my $language = $loaded->{Language}{$_};
-                    if ($language && $language->iso_code_3 eq 'zxx') {
-                        $language->name(l('[No lyrics]'));
-                    }
-                    $language ? $language->name : l('[removed]');
-                } @{ $data->{$side}{languages} // [] }
+            $display->{languages}{$side} = to_json_array[
+                map { $loaded->{Language}{$_} } @{ $data->{$side}{languages} // [] }
             ];
         }
     }
