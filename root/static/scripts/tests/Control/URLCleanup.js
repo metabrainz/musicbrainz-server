@@ -4626,6 +4626,24 @@ const testData = [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.worldcat.org/identities/lccn-no2015052484/',
   },
+  {
+                     input_url: 'http://www.worldcat.org/identities/lccn-n50005018',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.worldcat.org/identities/lccn-n50005018/',
+  },
+  {
+                     input_url: 'http://worldcat.org/identities/lccn-n79081635/',
+             input_entity_type: 'place',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.worldcat.org/identities/lccn-n79081635/',
+  },
+  {
+                     input_url: 'https://www.worldcat.org/wcidentities/lccn-n94-9040',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.worldcat.org/identities/lccn-n94-9040/',
+  },
   // YouTube
   {
                      input_url: 'http://youtube.com/user/officialpsy/videos',

@@ -4515,6 +4515,8 @@ const CLEANUPS: CleanupEntries = {
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?worldcat\.org/, 'https://www.worldcat.org');
       url = url.replace(/^https:\/\/www\.worldcat\.org(?:\/title\/[a-zA-Z0-9_-]+)?\/oclc\/([^&?]+)(?:.*)$/, 'https://www.worldcat.org/oclc/$1');
+      // oclc permalinks have no ending slash but identities ones do
+      url = url.replace(/^https:\/\/www\.worldcat\.org\/(?:wc)?identities\/([^&?/]+)(?:.*)$/, 'https://www.worldcat.org/identities/$1/');
       return url;
     },
   },
