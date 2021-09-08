@@ -15,7 +15,6 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import {
-  FAVICON_CLASSES,
   VIDEO_ATTRIBUTE_ID,
   VIDEO_ATTRIBUTE_GID,
 } from '../common/constants';
@@ -29,6 +28,7 @@ import formatDatePeriod from '../common/utility/formatDatePeriod';
 import {hasSessionStorage} from '../common/utility/storage';
 import {uniqueId} from '../common/utility/strings';
 import {bracketedText} from '../common/utility/bracketed';
+import getFaviconClass from '../../../url/utility/getFaviconClass';
 import {isMalware} from '../../../url/utility/isGreyedOut';
 import isUrlValid from '../../../url/utility/isUrlValid';
 
@@ -1040,13 +1040,7 @@ export class ExternalLink extends React.Component<LinkProps> {
     });
     const firstLink = props.relationships[0];
 
-    let faviconClass: string | void;
-    for (const key of Object.keys(FAVICON_CLASSES)) {
-      if (props.url.indexOf(key) > 0) {
-        faviconClass = FAVICON_CLASSES[key];
-        break;
-      }
-    }
+    const faviconClass = getFaviconClass(props.url);
 
     return (
       <React.Fragment>
@@ -1054,7 +1048,7 @@ export class ExternalLink extends React.Component<LinkProps> {
           <td>
             {faviconClass &&
             <span
-              className={'favicon ' + faviconClass + '-favicon'}
+              className={'favicon ' + faviconClass}
             />}
             <label>
               {props.index + 1}

@@ -10,26 +10,11 @@
 import * as React from 'react';
 
 import EntityLink from '../../static/scripts/common/components/EntityLink';
-import {FAVICON_CLASSES} from '../../static/scripts/common/constants';
 import {compare, l} from '../../static/scripts/common/i18n';
 import linkedEntities from '../../static/scripts/common/linkedEntities';
 import {uniqBy} from '../../static/scripts/common/utility/arrays';
+import getFaviconClass from '../../url/utility/getFaviconClass';
 import isDisabledLink from '../../utility/isDisabledLink';
-
-function faviconClass(urlEntity) {
-  let matchingClass;
-  const urlObject = new URL(urlEntity.name);
-
-  for (const key in FAVICON_CLASSES) {
-    if ((key.indexOf('/') >= 0 && urlEntity.name.indexOf(key) >= 0) ||
-        (urlObject.host?.indexOf(key) ?? -1) >= 0) {
-      matchingClass = FAVICON_CLASSES[key];
-      break;
-    }
-  }
-
-  return (matchingClass || 'no') + '-favicon';
-}
 
 type ExternalLinkProps = {
   +className?: string,
@@ -59,7 +44,9 @@ const ExternalLink = ({
   }
 
   return (
-    <li className={nonEmpty(className) ? className : faviconClass(url)}>
+    <li
+      className={nonEmpty(className) ? className : getFaviconClass(url.name)}
+    >
       {element}
     </li>
   );
