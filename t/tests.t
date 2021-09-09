@@ -12,6 +12,7 @@ my @classes = (
     't::Sql',
     't::MusicBrainz::DataStore::Redis',
     't::MusicBrainz::Script::RebuildCoverArt',
+    't::MusicBrainz::Script::RemoveEmptyURLs',
     map {
         Module::Pluggable::Object->new( search_path => $_ )->plugins
     } (

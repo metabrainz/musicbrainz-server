@@ -109,7 +109,7 @@ cmp_deeply($edits[1]->data, {
     'type1' => 'url',
     'entity1' => {
         'name' => 'http://microsoft.com/',
-        'id' => 5,
+        'id' => 6,
         'gid' => ignore()
     },
     'ended' => 0,
