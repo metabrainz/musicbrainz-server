@@ -161,7 +161,10 @@ component TypeField(
   );
 }
 
-component FilterForm(form: FilterFormT) {
+component FilterForm(
+  form: FilterFormT,
+  showAllReleaseGroups: boolean = false
+) {
   return (
     <div id="filter">
       <form method="get">
@@ -396,6 +399,10 @@ component FilterForm(form: FilterFormT) {
                 />
               </td>
             </tr>
+
+            {showAllReleaseGroups
+              ? <input name="all" type="hidden" value="1" />
+              : null}
 
             <tr>
               <td />
