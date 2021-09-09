@@ -416,6 +416,11 @@ sub HTML_VALIDATOR { 'http://validator.w3.org/nu/?out=json' }
 # We use a small Node.js server (root/server.js) to render React.js
 # templates. RENDERER_SOCKET configures the local (UNIX) socket path it
 # listens on.
+#
+# If this is set to '' or undef, MBS will not try to communicate with the
+# template-renderer. This can be useful if you only make web service requests
+# and don't have the renderer running, as any attempts to communicate with it
+# will just result in socket timeouts.
 sub RENDERER_SOCKET {
     catfile(tmpdir, 'musicbrainz-template-renderer.socket')
 }

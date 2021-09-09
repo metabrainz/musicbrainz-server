@@ -1260,18 +1260,20 @@ sub _serialize_isrc
 {
     my ($self, $parent_node, $isrc, $inc, $stash, $toplevel) = @_;
 
-    my $opts = $stash->store($isrc);
-    my @recordings = @{ $opts->{recordings}{items} // [] };
-
     my $isrc_node = $parent_node->addNewChild(undef, 'isrc');
     $isrc_node->_setAttribute('id', $isrc->isrc);
 
-    if (@recordings) {
-        my $recordings = {
-            items => \@recordings,
-            total => scalar @recordings,
-        };
-        $self->_serialize_recording_list($isrc_node, $recordings, $inc, $stash, $toplevel)
+    if ($toplevel) {
+        my $opts = $stash->store($isrc);
+        my @recordings = @{ $opts->{recordings}{items} // [] };
+
+        if (@recordings) {
+            my $recordings = {
+                items => \@recordings,
+                total => scalar @recordings,
+            };
+            $self->_serialize_recording_list($isrc_node, $recordings, $inc, $stash, $toplevel)
+        }
     }
 }
 
