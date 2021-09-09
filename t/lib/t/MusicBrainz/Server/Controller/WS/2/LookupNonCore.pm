@@ -124,8 +124,8 @@ ws_test 'discid lookup with artist-credits',
     </disc>
 </metadata>';
 
-ws_test 'isrc lookup with releases',
-    '/isrc/JPA600102460?inc=releases' =>
+ws_test 'isrc lookup with releases and isrcs',
+    '/isrc/JPA600102460?inc=releases+isrcs' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
         <isrc id="JPA600102460">
@@ -182,6 +182,9 @@ ws_test 'isrc lookup with releases',
                             <barcode>4942463511227</barcode>
                         </release>
                     </release-list>
+                    <isrc-list count="1">
+                        <isrc id="JPA600102460"/>
+                    </isrc-list>
                 </recording>
             </recording-list>
         </isrc>
