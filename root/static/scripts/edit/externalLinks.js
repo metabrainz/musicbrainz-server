@@ -1431,6 +1431,7 @@ const URL_SHORTENERS = [
   'u.nu',
   'unitedmasters.com',
   'untd.io',
+  'vyd.co',
   'yep.it',
 ].map(host => new RegExp('^https?://([^/]+\\.)?' + host + '/.+', 'i'));
 
