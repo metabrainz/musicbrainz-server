@@ -24,7 +24,10 @@ test all => sub {
     $mech->content_contains('not a musical', q(new_editor has used the tag 'not a musical'));
 
     $mech->get('/user/alice/tags');
-    is($mech->status, 403, q(alice's tags are private));
+    is($mech->status, 403, q(alice's tag list is private));
+
+    $mech->get('/user/alice/tag/not%20a%20musical');
+    is($mech->status, 403, q(alice's tag pages are private));
 
     $mech->get('/login');
     $mech->submit_form(with_fields => { username => 'new_editor', password => 'password' });
