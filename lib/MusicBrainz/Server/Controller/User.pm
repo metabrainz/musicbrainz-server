@@ -585,6 +585,14 @@ sub tag : Chained('load_tag') PathPart('')
     my $user = $c->stash->{user};
     my $tag = $c->stash->{tag};
     my $show_downvoted = $c->req->params->{show_downvoted} ? 1 : 0;
+
+    if (!defined $c->user || $c->user->id != $user->id)
+    {
+        $c->model('Editor')->load_preferences($user);
+        $c->detach('/error_403')
+            unless $user->preferences->public_tags;
+    }
+
     my %tagged_entities;
     my $tag_in_use = 0;
 
@@ -629,13 +637,22 @@ map {
     my $method = sub {
         my ($self, $c) = @_;
 
+        my $user = $c->stash->{user};
         my $tag = $c->stash->{tag};
         my $show_downvoted = $c->req->params->{show_downvoted} ? 1 : 0;
+
+        if (!defined $c->user || $c->user->id != $user->id)
+        {
+            $c->model('Editor')->load_preferences($user);
+            $c->detach('/error_403')
+                unless $user->preferences->public_tags;
+        }
+
 
         my $entity_tags = $self->_load_paged($c, sub {
             return ([], 0) unless $tag;
             return $c->model($entity_properties->{model})->tags->find_editor_entities(
-                $c->stash->{user}->id, $c->stash->{tag}->id, $show_downvoted, shift, shift);
+                $user->id, $c->stash->{tag}->id, $show_downvoted, shift, shift);
         });
         $c->model('ArtistCredit')->load(map { $_->entity } @$entity_tags) if $entity_properties->{artist_credits};
 
@@ -654,7 +671,7 @@ map {
                 tag => to_json_object($tag // MusicBrainz::Server::Entity::Tag->new(
                     name => $c->stash->{tag_name},
                 )),
-                user => $self->serialize_user($c->stash->{user}),
+                user => $self->serialize_user($user),
             },
         );
     };
