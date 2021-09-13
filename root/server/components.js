@@ -151,6 +151,7 @@ module.exports = {
   'release_group/ReleaseGroupIndex': require('../release_group/ReleaseGroupIndex'),
   'release_group/ReleaseGroupMerge': require('../release_group/ReleaseGroupMerge'),
   'report/AnnotationsArtists': require('../report/AnnotationsArtists'),
+  'report/AnnotationsEvents': require('../report/AnnotationsEvents'),
   'report/AnnotationsLabels': require('../report/AnnotationsLabels'),
   'report/AnnotationsPlaces': require('../report/AnnotationsPlaces'),
   'report/AnnotationsRecordings': require('../report/AnnotationsRecordings'),
