@@ -190,6 +190,7 @@ export const FAVICON_CLASSES = {
   'vgmdb.net': 'vgmdb',
   'viaf.org': 'viaf',
   'videogam.in': 'videogamin',
+  'vimeo.com/ondemand': 'vimeoondemand',
   'vimeo.com': 'vimeo',
   'vk.com': 'vk',
   'vkdb.jp': 'vkdb',

@@ -4340,13 +4340,59 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'vimeo': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?(vimeo\\.com/)', 'i')],
+    match: [new RegExp(
+      '^(https?://)?([^/]+\\.)?vimeo\\.com/(?!(?:ondemand|store/ondemand))',
+      'i',
+    )],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.videochannel}],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com/, 'https://vimeo.com');
       // Remove query string, just the video id should be enough.
       url = url.replace(/\?.*/, '');
       return url;
+    },
+  },
+  'vimeoondemand': {
+    match: [new RegExp(
+      '^(https?://)?([^/]+\\.)?vimeo\\.com/(?:ondemand|store/ondemand)',
+      'i',
+    )],
+    restrict: [LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com\/ondemand\/([^\/?#]+)(?:.*)$/, 'https://vimeo.com/ondemand/$1');
+      return url;
+    },
+    validate: function (url, id) {
+      const isStoreLink = /vimeo\.com\/store\/ondemand/.test(url);
+      if (isStoreLink) {
+        return {
+          error: exp.l(
+            `Please link to the “{allowed_url_pattern}” page
+             rather than this “{current_url_pattern}” link.`,
+            {
+              allowed_url_pattern: (
+                <span className="url-quote">{'/ondemand'}</span>
+              ),
+              current_url_pattern: (
+                <span className="url-quote">{'/store/ondemand'}</span>
+              ),
+            },
+          ),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+      switch (id) {
+        case LINK_TYPES.downloadpurchase.recording:
+        case LINK_TYPES.downloadpurchase.release:
+        case LINK_TYPES.streamingpaid.recording:
+        case LINK_TYPES.streamingpaid.release:
+          return {
+            result: /^https:\/\/vimeo\.com\/ondemand\/([^\/?#]+)*$/.test(url),
+            target: ERROR_TARGETS.URL,
+          };
+      }
+      return {result: false, target: ERROR_TARGETS.ENTITY};
     },
   },
   'vine': {
