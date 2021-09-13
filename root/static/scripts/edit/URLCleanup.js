@@ -3429,9 +3429,10 @@ const CLEANUPS: CleanupEntries = {
       return url.replace(/^(?:https?:\/\/)?(?:www\.)?rateyourmusic\.com\//, 'https://rateyourmusic.com/');
     },
     validate: function (url, id) {
-      const m = /^https:\/\/rateyourmusic\.com\/(\w+)\//.exec(url);
+      const m = /^https:\/\/rateyourmusic\.com\/(\w+)\/(?:(\w+)\/)?/.exec(url);
       if (m) {
         const prefix = m[1];
+        const subPath = m[2];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
             return {
@@ -3451,6 +3452,12 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.place:
             return {
               result: prefix === 'venue',
+              target: ERROR_TARGETS.RELATIONSHIP,
+            };
+          case LINK_TYPES.otherdatabases.recording:
+            return {
+              error: l('Only RYM music videos can be linked to recordings.'),
+              result: prefix === 'release' && subPath === 'musicvideo',
               target: ERROR_TARGETS.RELATIONSHIP,
             };
           case LINK_TYPES.otherdatabases.release:
