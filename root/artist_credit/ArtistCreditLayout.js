@@ -59,6 +59,7 @@ const ArtistCreditLayout = ({
             'Artist credit “{artist_credit}”',
             {artist_credit: reduceArtistCredit(artistCredit)},
           )}
+          showEditsPending
         />
       </h1>
       <Tabs>
