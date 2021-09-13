@@ -471,6 +471,61 @@ ws_test 'release lookup with release-groups and ratings',
     </release>
 </metadata>';
 
+ws_test 'release lookup with release-group-level-rels and series-rels',
+    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=release-groups+release-group-level-rels+series-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
+        <title>the Love Bug</title>
+        <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
+        <quality>normal</quality>
+        <text-representation>
+            <language>eng</language>
+            <script>Latn</script>
+        </text-representation>
+        <release-group type="Single" type-id="d6038452-8ee0-3f68-affc-2de9a1ede0b9" id="153f0a09-fead-3370-9b17-379ebd09446b">
+            <title>the Love Bug</title>
+            <first-release-date>2004-03-17</first-release-date>
+            <primary-type id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">Single</primary-type>
+            <relation-list target-type="series">
+                <relation type="part of" type-id="01018437-91d8-36b9-bf89-3f885d53b5bd">
+                    <target>d977f7fd-96c9-4e3e-83b5-eb484a9e6581</target>
+                    <ordering-key>1</ordering-key>
+                    <direction>forward</direction>
+                    <attribute-list>
+                        <attribute type-id="a59c5830-5ec7-38fe-9a21-c7ea54f6650a" value="1">number</attribute>
+                    </attribute-list>
+                    <series id="d977f7fd-96c9-4e3e-83b5-eb484a9e6581" type="Release group" type-id="4c1c4949-7b6c-3a2d-9d54-a50a27e4fa77">
+                        <name>A Release Group Series</name>
+                    </series>
+                </relation>
+            </relation-list>
+        </release-group>
+        <date>2004-03-17</date>
+        <country>JP</country>
+        <release-event-list count="1">
+            <release-event>
+                <date>2004-03-17</date>
+                <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                    <name>Japan</name>
+                    <sort-name>Japan</sort-name>
+                    <iso-3166-1-code-list>
+                        <iso-3166-1-code>JP</iso-3166-1-code>
+                    </iso-3166-1-code-list>
+                </area>
+            </release-event>
+        </release-event-list>
+        <barcode>4988064451180</barcode>
+        <asin>B0001FAD2O</asin>
+        <cover-art-archive>
+            <artwork>true</artwork>
+            <count>1</count>
+            <front>true</front>
+            <back>false</back>
+        </cover-art-archive>
+    </release>
+</metadata>';
+
 ws_test 'release lookup with discids and recordings',
     '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=discids+recordings' =>
     '<?xml version="1.0" encoding="UTF-8"?>

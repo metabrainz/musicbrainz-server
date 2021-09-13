@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-08-19 01:03+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2021-09-12 09:32+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -58,7 +58,7 @@ msgid ""
 "see <a href=\"/instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">Seni "
 "rebab</a>.<br /> For the medieval European pear-shaped fiddle see <a "
 "href=\"/instrument/3f7302e4-f10f-4905-8d71-ef61141da383\">rebec</a>."
-msgstr "De naam ‘rebab’ wordt gebruikt voor met name drie families snaarinstrumenten (gestreken en getokkeld):<br /> <ul><li>Grote, bootvormige instrumenten met een korte hals van het sarinda-type, zoals de kabuli-rebab</li> <li>Kleine spijkerluiten van het huqin-type, zoals de Indonesische rebab</li> <li>Verschillende formaten instrumenten met een peervormige klankkast en verschillende halslengtes, zoals de Kretenzische lier</li></ul><br /><br />Dankzij de soortgelijke namen worden ze in bronnen vaak door elkaar gehaald. Ook worden ze vaak verward met soortgelijke instrumenten zoals de <a href=\"/instrument/0d766870-3021-47ce-bd51-78d2d2484e1b\">ghidjak</a> (een spijkerluit) en <a href=\"/instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">queychak</a> (met bootvormige klankkast).<br />Het is nu niet bekend of de drie ondersoorten aan elkaar verwand zijn.<br /><br />Zie <a href=\"/instrument/3dbbb5ff-103b-4260-8cf6-679a73a7c552\">Indonesische rebab</a> voor de spijkerluit die in gamelan-ensembles wordt gebruikt.<br />Zie <a href=\"/instrument/7e42e637-c7b4-422c-ad56-f7fafbd961bb\">roebab</a> voor het bootvormige Afghaanse instrument kabuli rebab.<br />Zie <a href=\"/instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">seni rebab</a> voor de middeleeuwse Indiase getokkelde luit.<br />Zie <a href=\"/instrument/3f7302e4-f10f-4905-8d71-ef61141da383\">rebec</a> voor de middeleeuwse Europese peervormige vedel."
+msgstr "De naam ‘rebab’ wordt gebruikt voor met name drie families snaarinstrumenten (gestreken en getokkeld):<br /> <ul><li>Grote, bootvormige instrumenten met een korte hals van het sarinda-type, zoals de kabuli-rebab</li> <li>Kleine spijkerluiten van het huqin-type, zoals de Indonesische rebab</li> <li>Verschillende formaten instrumenten met een peervormige klankkast en verschillende halslengtes, zoals de Kretenzische lier</li></ul><br /><br />Dankzij de soortgelijke namen worden ze in bronnen vaak door elkaar gehaald. Ook worden ze vaak verward met soortgelijke instrumenten zoals de <a href=\"/instrument/0d766870-3021-47ce-bd51-78d2d2484e1b\">ghidjak</a> (een spijkerluit) en <a href=\"/instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">queychak</a> (met bootvormige klankkast).<br />Het is nu niet bekend of de drie ondersoorten aan elkaar verwand zijn.<br /><br />Zie <a href=\"/instrument/3dbbb5ff-103b-4260-8cf6-679a73a7c552\">Indonesische rebab</a> voor de spijkerluit die in gamelan-ensembles wordt gebruikt.<br />Zie <a href=\"/instrument/7e42e637-c7b4-422c-ad56-f7fafbd961bb\">roebab</a> voor het bootvormige Afghaanse instrument kaboeli rebab.<br />Zie <a href=\"/instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">seni rebab</a> voor de middeleeuwse Indiase getokkelde luit.<br />Zie <a href=\"/instrument/3f7302e4-f10f-4905-8d71-ef61141da383\">rebec</a> voor de middeleeuwse Europese peervormige vedel."
 
 #. name:chitra veena
 #: DB:instrument/description:744
@@ -1376,7 +1376,7 @@ msgid ""
 "Improved further by Jaffar Khan, it had a wooden soundboard, the fingerboard"
 " covered with iron and all strings are steel or bronze.<br /> Less common "
 "today, it was used for Dhrupad style music."
-msgstr ""
+msgstr "De sursingar is een Indiaas snaarinstrument met een houten kast en een kalebas die in verbinding staat met de holle houten hals. De toets en de snaren zijn van staal of brons.<br />Het instrument werd veel gebruikt voor dhroepad-muziek, maar is tegenwoordig zeldzamer."
 
 #. name:morsing
 #: DB:instrument/description:533
@@ -1615,7 +1615,7 @@ msgid ""
 "soundbox and wooden fingerboard with mostly gut strings, it was developed "
 "during medieval times by Tansen, who improved it and gave it metal "
 "sympathetic strings."
-msgstr ""
+msgstr "De seni rebab is is een doorontwikkeling van de kaboeli rebab, met een klankkast die is bedekt met huid, een houten toets en voornamelijk darmsnaren. In de middeleeuwen werd het instrument verbeterd door Tansen, die onder andere metalen resonantiesnaren toevoegde."
 
 #. name:jegogan
 #: DB:instrument/description:979

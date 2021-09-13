@@ -28,7 +28,9 @@ my $ws_defs = Data::OptList::mkopt([
                                           collection) ],
                          inc      => [ qw(aliases artist-credits labels recordings discids
                                           tags user-tags genres user-genres ratings user-ratings
-                                          release-groups media _relations annotation) ],
+                                          release-groups media recording-level-rels
+                                          release-group-level-rels work-level-rels
+                                          _relations annotation) ],
                          optional => [ qw(fmt limit offset) ],
      },
      release => {
@@ -37,7 +39,8 @@ my $ws_defs = Data::OptList::mkopt([
                          inc      => [ qw(artists labels recordings release-groups aliases
                                           tags user-tags genres user-genres ratings user-ratings collections user-collections
                                           artist-credits discids media recording-level-rels
-                                          work-level-rels _relations annotation) ],
+                                          release-group-level-rels work-level-rels
+                                          _relations annotation) ],
                          optional => [ qw(fmt) ],
      },
      release => {
@@ -116,6 +119,10 @@ sub release_toplevel {
 
          my @release_groups = map { $_->release_group } @releases;
          $c->model('ReleaseGroup')->load_meta(@release_groups);
+
+        if ($inc->release_group_level_rels) {
+            push @rels_entities, @release_groups;
+        }
 
          $self->linked_release_groups($c, $stash, \@release_groups);
     }

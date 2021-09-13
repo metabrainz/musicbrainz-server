@@ -65,7 +65,7 @@ const AreaPlaces = ({
             <div className="row">
               <span className="buttons">
                 <button type="submit">
-                  {l('Add selected labels for merging')}
+                  {l('Add selected places for merging')}
                 </button>
               </span>
             </div>

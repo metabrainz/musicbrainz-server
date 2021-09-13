@@ -915,7 +915,8 @@ INSERT INTO place_alias (id, place, name, locale, edits_pending, last_updated, t
 -- Series
 
 INSERT INTO series (id, gid, name, type, ordering_attribute, ordering_type) VALUES
-    (25, 'd977f7fd-96c9-4e3e-83b5-eb484a9e6582', 'Bach-Werke-Verzeichnis', 5, 788, 1);
+    (25, 'd977f7fd-96c9-4e3e-83b5-eb484a9e6582', 'Bach-Werke-Verzeichnis', 5, 788, 1),
+    (30, 'd977f7fd-96c9-4e3e-83b5-eb484a9e6581', 'A Release Group Series', 1, 788, 1);
 
 INSERT INTO series_alias (id, series, name, sort_name) VALUES
     (7, 25, 'BWV', 'BWV');
@@ -932,18 +933,24 @@ INSERT INTO work_language (work, language) VALUES
 
 INSERT INTO link (attribute_count, begin_date_day, begin_date_month, begin_date_year, created, end_date_day, end_date_month, end_date_year, ended, id, link_type) VALUES
     (1, NULL, NULL, NULL, '2014-07-09 15:10:16.494155-05', NULL, NULL, NULL, '0', 180865, 743),
+    (1, NULL, NULL, NULL, '2014-07-09 15:10:16.494155-05', NULL, NULL, NULL, '0', 180875, 742),
     (1, NULL, NULL, NULL, '2014-07-03 15:25:50.050958-05', NULL, NULL, NULL, '0', 180086, 743),
     (1, NULL, NULL, NULL, '2014-06-24 07:16:41.33395-05', NULL, NULL, NULL, '0', 178448, 743);
 
 INSERT INTO link_attribute (attribute_type, created, link) VALUES
     (788, '2014-07-09 15:10:16.494155-05', 180865),
+    (788, '2014-07-09 15:10:16.494155-05', 180875),
     (788, '2014-07-03 15:25:50.050958-05', 180086),
     (788, '2014-06-24 07:16:41.33395-05', 178448);
 
 INSERT INTO link_attribute_text_value (attribute_type, link, text_value) VALUES
     (788, 180865, 'BWV 1'),
     (788, 180086, 'BWV 2'),
-    (788, 178448, 'BWV 3');
+    (788, 178448, 'BWV 3'),
+    (788, 180875, '1');
+
+INSERT INTO l_release_group_series (edits_pending, entity0, entity0_credit, entity1, entity1_credit, id, last_updated, link, link_order) VALUES
+    (0, 403214, '', 30, '', 7765, '2014-07-09 15:10:16.494155-05', 180875, 1);
 
 INSERT INTO l_series_work (edits_pending, entity0, entity0_credit, entity1, entity1_credit, id, last_updated, link, link_order) VALUES
     (0, 25, '', 12488154, '', 7760, '2014-07-09 15:10:16.494155-05', 180865, 1),
@@ -1000,8 +1007,9 @@ INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VAL
 INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '511f5124-c0ae-3386-bb76-4b6521498a68', 3622832, NULL, 'Milky Way-君の歌-', NULL);
 INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'd132b1b7-3432-38e1-9e2d-5e5fa319fe8a', 211564, NULL, 'Let Forever Be', NULL);
 INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'c473ece7-4858-3f4f-9d7a-a1e026400887', 2726277, NULL, 'Asleep From Day', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'c473ece7-4858-3f4f-9d7a-a1e026400888', 2726288, NULL, 'Hello Goodbye', NULL);
 
-INSERT INTO work_language (work, language) VALUES (7905446, 198), (4223059, 198);
+INSERT INTO work_language (work, language) VALUES (7905446, 198), (4223059, 198), (2726288, 120);
 
 UPDATE work_meta SET rating_count = NULL, rating = NULL WHERE id = 7905446;
 UPDATE work_meta SET rating_count = NULL, rating = NULL WHERE id = 4223059;
@@ -1052,6 +1060,7 @@ UPDATE work_meta SET rating_count = NULL, rating = NULL WHERE id = 3584196;
 UPDATE work_meta SET rating_count = NULL, rating = NULL WHERE id = 3622832;
 UPDATE work_meta SET rating_count = NULL, rating = NULL WHERE id = 211564;
 UPDATE work_meta SET rating_count = NULL, rating = NULL WHERE id = 2726277;
+UPDATE work_meta SET rating_count = NULL, rating = NULL WHERE id = 2726288;
 
 -- Tags
 INSERT INTO tag (id, name, ref_count) VALUES (1, 'trip-hop', 586);
@@ -1612,6 +1621,7 @@ INSERT INTO l_artist_recording (edits_pending, entity0, entity1, id, last_update
 INSERT INTO l_artist_recording (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 11545, 1542690, 515106, '2011-01-18 15:56:00.408782+00', 12281);
 INSERT INTO l_artist_recording (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 11545, 1542691, 515107, '2011-01-18 15:56:00.408782+00', 12281);
 INSERT INTO l_artist_recording (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 283833, 2726274, 515108, '2011-01-18 15:56:00.408782+00', 12282);
+INSERT INTO l_artist_recording (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 398598, 449989, 515109, '2011-01-18 15:56:00.408782+00', 12282);
 
 INSERT INTO l_artist_release (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 398598, 459740, 79005, '2011-01-18 15:52:02.917556+00', 1956);
 INSERT INTO l_artist_release (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 11545, 24752, 219815, '2011-01-18 15:52:02.917556+00', 34);
@@ -1643,6 +1653,7 @@ INSERT INTO l_artist_url (edits_pending, entity0, entity1, id, last_updated, lin
 INSERT INTO l_artist_url (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 427385, 670180, 36870, '2011-01-18 16:23:37.789736+00', 22998);
 
 INSERT INTO l_artist_work (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 427385, 7905446, 1117124, '2013-04-02 17:42:38.063723+00', 1123780);
+INSERT INTO l_artist_work (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 305, 2726288, 1117125, '2013-04-02 17:42:38.063723+00', 1123780);
 
 INSERT INTO l_recording_recording (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 4223059, 4223061, 37160, '2011-01-18 15:56:00.408782+00', 23805);
 
@@ -1697,6 +1708,7 @@ INSERT INTO l_recording_work (edits_pending, entity0, entity1, id, last_updated,
 INSERT INTO l_recording_work (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 3584196, 3622832, 99903, '2011-01-18 16:15:33.876477+00', 23865);
 INSERT INTO l_recording_work (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 2726275, 211564, 8120, '2011-01-18 16:15:33.876477+00', 23865);
 INSERT INTO l_recording_work (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 2726277, 2726277, 230405, '2011-01-18 16:15:33.876477+00', 23865);
+INSERT INTO l_recording_work (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 14488617, 2726288, 230406, '2011-01-18 16:15:33.876477+00', 23865);
 
 INSERT INTO l_release_group_url (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 403214, 615313, 4356, '2011-01-18 16:23:37.789736+00', 6067);
 INSERT INTO l_release_group_url (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 403214, 615327, 4613, '2011-01-18 16:23:37.789736+00', 6067);

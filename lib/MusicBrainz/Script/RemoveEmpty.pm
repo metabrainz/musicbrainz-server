@@ -116,33 +116,40 @@ sub run {
 
         }
         else {
-            Sql::run_in_transaction(sub {
-                my $edit = $self->c->model('Edit')->create(
-                    edit_type => $edit_class{$entity},
-                    to_delete => $e,
-                    editor => $modbot,
-                    privileges => $BOT_FLAG | $AUTO_EDITOR_FLAG
-                );
+            if ($entity eq 'url') {
+                Sql::run_in_transaction(sub {
+                    $self->c->model('URL')->delete($e->id);
+                    ++$removed
+                }, $self->c->sql);
+            } else {
+                Sql::run_in_transaction(sub {
+                    my $edit = $self->c->model('Edit')->create(
+                        edit_type => $edit_class{$entity},
+                        to_delete => $e,
+                        editor => $modbot,
+                        privileges => $BOT_FLAG | $AUTO_EDITOR_FLAG
+                    );
 
-                $self->c->model('EditNote')->add_note(
-                    $edit->id,
-                    {
-                        editor_id => $EDITOR_MODBOT,
-                        text => localized_note(
-                            N_l('This entity was automatically removed because it was empty: ' .
-                                'it had no relationships associated with it, nor (if ' .
-                                'relevant for the type of entity in question) any recordings, ' .
-                                'releases nor release groups. ' .
-                                'If you consider this was a valid, non-duplicate entry ' .
-                                'that does belong in MusicBrainz, feel free to add it again, ' .
-                                'but please ensure enough data is added to it this time ' .
-                                'to avoid another automatic removal.')
-                        )
-                    }
-                );
+                    $self->c->model('EditNote')->add_note(
+                        $edit->id,
+                        {
+                            editor_id => $EDITOR_MODBOT,
+                            text => localized_note(
+                                N_l('This entity was automatically removed because it was empty: ' .
+                                    'it had no relationships associated with it, nor (if ' .
+                                    'relevant for the type of entity in question) any recordings, ' .
+                                    'releases nor release groups. ' .
+                                    'If you consider this was a valid, non-duplicate entry ' .
+                                    'that does belong in MusicBrainz, feel free to add it again, ' .
+                                    'but please ensure enough data is added to it this time ' .
+                                    'to avoid another automatic removal.')
+                            )
+                        }
+                    );
 
-                ++$removed
-            }, $self->c->sql);
+                    ++$removed
+                }, $self->c->sql);
+            }
         }
     }
 

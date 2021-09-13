@@ -94,6 +94,13 @@ export type ReportEditorT = {
   +row_number: number,
 };
 
+export type ReportEventAnnotationT = {
+  ...ReportAnnotationRoleT,
+  +event: ?EventT,
+  +event_id: number,
+  +row_number: number,
+};
+
 export type ReportEventT = {
   +event: ?EventT,
   +event_id: number,

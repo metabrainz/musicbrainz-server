@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import Relationships from '../components/Relationships';
 import RelationshipsTable from '../components/RelationshipsTable';
-import EntityLink from '../static/scripts/common/components/EntityLink';
 
 import LabelLayout from './LabelLayout';
 
@@ -34,19 +33,7 @@ const LabelRelationships = ({
     title={l('Relationships')}
   >
     {pagedLinkTypeGroup ? null : (
-      label.relationships?.length ? (
-        <Relationships source={label} />
-      ) : (
-        <>
-          <h2 className="relationships">{l('Relationships')}</h2>
-          <p>
-            {exp.l(
-              '{link} has no relationships.',
-              {link: <EntityLink entity={label} />},
-            )}
-          </p>
-        </>
-      )
+      <Relationships showIfEmpty source={label} />
     )}
     <RelationshipsTable
       $c={$c}

@@ -65,8 +65,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-03 18:05+0300\n"
-"PO-Revision-Date: 2021-09-03 14:06+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2021-09-09 09:01+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -8589,7 +8589,7 @@ msgstr[1] "Voir toutes les {num} pistes"
 #: ../root/artist_credit/ArtistCreditLayout.js:49
 #: ../root/artist_credit/ArtistCreditLayout.js:59
 msgid "Artist credit “{artist_credit}”"
-msgstr "Créditd’artiste « {artist_credit} »"
+msgstr "Crédit d’artiste « {artist_credit} »"
 
 #: ../root/artist_credit/EntityList.js:21 ../root/tag/EntityList.js:75
 msgid "{num} recording found"

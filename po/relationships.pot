@@ -1571,6 +1571,12 @@ msgstr ""
 msgid "This indicates the artist that inspired this place’s name."
 msgstr ""
 
+#: DB:link_type/description:1000
+msgid ""
+"This indicates the artist that inspired this series' name, for example for "
+"an award named after a musician."
+msgstr ""
+
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this music video."
 msgstr ""
@@ -4592,8 +4598,9 @@ msgstr ""
 msgid "information page"
 msgstr ""
 
-#: DB:link_type/link_phrase:975 DB:link_type/reverse_link_phrase:973
-#: DB:link_type/reverse_link_phrase:972 DB:link_type/reverse_link_phrase:974
+#: DB:link_type/link_phrase:975 DB:link_type/link_phrase:1000
+#: DB:link_type/reverse_link_phrase:973 DB:link_type/reverse_link_phrase:972
+#: DB:link_type/reverse_link_phrase:974
 msgid "inspired the name of"
 msgstr ""
 
@@ -5303,8 +5310,8 @@ msgstr ""
 
 #: DB:link_type/link_phrase:973 DB:link_type/link_phrase:972
 #: DB:link_type/link_phrase:974 DB:link_type/name:973 DB:link_type/name:972
-#: DB:link_type/name:975 DB:link_type/name:974
-#: DB:link_type/reverse_link_phrase:975
+#: DB:link_type/name:975 DB:link_type/name:974 DB:link_type/name:1000
+#: DB:link_type/reverse_link_phrase:975 DB:link_type/reverse_link_phrase:1000
 msgid "named after"
 msgstr ""
 
@@ -7254,7 +7261,7 @@ msgstr ""
 msgid "{entity1} is licensed under {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:975
+#: DB:link_type/long_link_phrase:975 DB:link_type/long_link_phrase:1000
 msgid "{entity1} is named after {entity0}"
 msgstr ""
 

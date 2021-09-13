@@ -66,9 +66,16 @@ sub tag_submit : Private
     $self->_validate_post($c);
 
     my $xp = MusicBrainz::Server::WebService::XML::XPath->new( xml => $c->request->body );
+    my @nodelist;
+    eval {
+        @nodelist = $xp->find('/mb:metadata/*/*')->get_nodelist;
+    };
+    if ($@) {
+        $self->_error($c, 'Invalid XML.');
+    }
 
     my $submit = {};
-    for my $node ($xp->find('/mb:metadata/*/*')->get_nodelist)
+    for my $node (@nodelist)
     {
         my $type = $node->getLocalName;
         $type =~ s/-/_/;

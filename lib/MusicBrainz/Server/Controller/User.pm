@@ -441,6 +441,10 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     $c->stash->{subscriber_count} = $subscr_model->get_subscribed_editor_count($user->id);
     $c->stash->{votes}            = $c->model('Vote')->editor_statistics($user);
 
+    my ($tokens, $token_count) = $c->model('EditorOAuthToken')->find_granted_by_editor($user->id);
+
+    my ($applications, $application_count) = $c->model('Application')->find_by_owner($user->id);
+
     $c->model('Gender')->load($user);
     $c->model('EditorLanguage')->load_for_editor($user);
 
@@ -459,14 +463,16 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     }
 
     my %props = (
-        editStats       => $edit_stats,
-        ipHashes        => \@ip_hashes,
-        subscribed      => $c->stash->{subscribed},
-        subscriberCount => $c->stash->{subscriber_count},
-        user            => $c->unsanitized_editor_json($user),
-        votes           => $c->stash->{votes},
-        addedEntities   => $added_entities,
-        secondaryStats  => $secondary_stats,
+        applicationCount    => $application_count,
+        editStats           => $edit_stats,
+        ipHashes            => \@ip_hashes,
+        subscribed          => $c->stash->{subscribed},
+        subscriberCount     => $c->stash->{subscriber_count},
+        tokenCount          => $token_count,
+        user                => $c->unsanitized_editor_json($user),
+        votes               => $c->stash->{votes},
+        addedEntities       => $added_entities,
+        secondaryStats      => $secondary_stats,
     );
 
     $c->stash(
@@ -585,6 +591,14 @@ sub tag : Chained('load_tag') PathPart('')
     my $user = $c->stash->{user};
     my $tag = $c->stash->{tag};
     my $show_downvoted = $c->req->params->{show_downvoted} ? 1 : 0;
+
+    if (!defined $c->user || $c->user->id != $user->id)
+    {
+        $c->model('Editor')->load_preferences($user);
+        $c->detach('/error_403')
+            unless $user->preferences->public_tags;
+    }
+
     my %tagged_entities;
     my $tag_in_use = 0;
 
@@ -629,13 +643,22 @@ map {
     my $method = sub {
         my ($self, $c) = @_;
 
+        my $user = $c->stash->{user};
         my $tag = $c->stash->{tag};
         my $show_downvoted = $c->req->params->{show_downvoted} ? 1 : 0;
+
+        if (!defined $c->user || $c->user->id != $user->id)
+        {
+            $c->model('Editor')->load_preferences($user);
+            $c->detach('/error_403')
+                unless $user->preferences->public_tags;
+        }
+
 
         my $entity_tags = $self->_load_paged($c, sub {
             return ([], 0) unless $tag;
             return $c->model($entity_properties->{model})->tags->find_editor_entities(
-                $c->stash->{user}->id, $c->stash->{tag}->id, $show_downvoted, shift, shift);
+                $user->id, $c->stash->{tag}->id, $show_downvoted, shift, shift);
         });
         $c->model('ArtistCredit')->load(map { $_->entity } @$entity_tags) if $entity_properties->{artist_credits};
 
@@ -654,7 +677,7 @@ map {
                 tag => to_json_object($tag // MusicBrainz::Server::Entity::Tag->new(
                     name => $c->stash->{tag_name},
                 )),
-                user => $self->serialize_user($c->stash->{user}),
+                user => $self->serialize_user($user),
             },
         );
     };

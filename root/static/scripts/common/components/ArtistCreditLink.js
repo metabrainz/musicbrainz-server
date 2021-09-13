@@ -25,9 +25,9 @@ type MpIconProps = {
   +artistCredit: ArtistCreditT,
 };
 
-const MpIcon = hydrate<MpIconProps>('span.ac-mp', (
+export const MpIcon = (hydrate<MpIconProps>('span.ac-mp', (
   {artistCredit}: MpIconProps,
-) => {
+): React.Element<typeof React.Fragment> => {
   const [hover, setHover] = React.useState(false);
 
   let editSearch =
@@ -65,7 +65,7 @@ const MpIcon = hydrate<MpIconProps>('span.ac-mp', (
       ) : null}
     </>
   );
-});
+}): React.AbstractComponent<MpIconProps, void>);
 
 const ArtistCreditLink = ({
   artistCredit,
