@@ -7,6 +7,7 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_SET_TRACK_LENGTHS );
 use MusicBrainz::Server::Data::Utils qw( localized_note );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
@@ -22,6 +23,7 @@ with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 sub edit_name { N_l('Set track lengths') }
 sub edit_type { $EDIT_SET_TRACK_LENGTHS }
 sub edit_kind { 'other' }
+sub edit_template_react { 'SetTrackLengths' }
 
 has '+data' => (
     isa => Dict[
@@ -64,23 +66,27 @@ sub foreign_keys {
 sub build_display_data {
     my ($self, $loaded) = @_;
 
-    my @mediums;
+    my $medium;
+    my @releases;
     my $medium_id = $self->data->{medium_id};
 
     if ($medium_id && $loaded->{Medium}{$medium_id}) {
-        @mediums = ($loaded->{Medium}{$medium_id});
+        $medium = $loaded->{Medium}{$medium_id};
         # Edits that have a medium_id can't affect multiple releases.
     } else {
-        @mediums = map {
-            Medium->new( release => $loaded->{Release}{ $_->{id} } //
-                                    Release->new( name => $_->{name} ) )
+        @releases = map {
+            $loaded->{Release}{ $_->{id} } //
+            Release->new( id => $_->{id}, name => $_->{name} )
         } @{ $self->data->{affected_releases} };
     }
 
     return {
-        cdtoc => $loaded->{CDTOC}{ $self->data->{cdtoc}{id} }
-            || CDTOC->new_from_toc( $self->data->{cdtoc}{toc} ),
-        mediums => \@mediums,
+        cdtoc => to_json_object(
+            $loaded->{CDTOC}{ $self->data->{cdtoc}{id} }
+            || CDTOC->new_from_toc( $self->data->{cdtoc}{toc} )
+        ),
+        $medium ? (medium => to_json_object($medium)) : (),
+        releases => to_json_array(\@releases),
         length => {
             map { $_ => $self->data->{length}{$_} } qw( old new )
         }

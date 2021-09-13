@@ -406,6 +406,7 @@ module.exports = {
   'edit/details/ReorderMediums': require('../edit/details/ReorderMediums'),
   'edit/details/ReorderRelationships': require('../edit/details/ReorderRelationships'),
   'edit/details/SetCoverArt': require('../edit/details/SetCoverArt'),
+  'edit/details/SetTrackLengths': require('../edit/details/SetTrackLengths'),
   'edit/details/historic/AddDiscId': require('../edit/details/historic/AddDiscId'),
   'edit/details/historic/AddRelationship': require('../edit/details/historic/AddRelationship'),
   'edit/details/historic/AddRelease': require('../edit/details/historic/AddRelease'),
