@@ -105,6 +105,12 @@ $mech->get_ok('/ws/2/tag?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist')
 $mech->content_contains('h!p');
 $mech->content_contains('jpop');
 
+$mech->request(xml_post('/ws/2/tag?client=post.t-0.0.2', 'garbage'));
+xml_ok ($mech->content);
+
+$xp = XML::XPath->new(xml => $mech->content);
+is($xp->find('//error/text')->string_value, 'Invalid XML.', 'POST request got "Invalid XML." response');
+
 $content = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist-list>
