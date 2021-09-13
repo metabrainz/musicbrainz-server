@@ -259,110 +259,162 @@ test  'browse releases via release group' => sub {
         };
 };
 
-test 'browse releases via recording' => sub {
+test 'browse releases via recording, with recording rels' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
-    ws_test_json 'browse releases via recording',
-    '/release?inc=labels&status=official&recording=0c0245df-34f0-416b-8c3f-f20f66e116d0' =>
+    ws_test_json 'browse releases via recording, with recording and work rels',
+    '/release?inc=recordings+artist-rels+work-rels+recording-level-rels+work-level-rels&status=official&recording=c43ee188-0049-4eec-ba2e-0385c5edd2db' =>
         {
-            'release-count' => 2,
+            'release-count' => 1,
             'release-offset' => 0,
-            releases => [
-                {
-                    id => '28fc2337-985b-3da9-ac40-ad6f28ff0d8e',
-                    title => 'LOVE & HONESTY',
-                    status => 'Official',
-                    'status-id' => '4e304316-386d-3409-af2e-78857eec5cfe',
-                    quality => 'normal',
-                    'text-representation' => { language => 'jpn', script => 'Jpan' },
-                    'cover-art-archive' => {
-                        artwork => JSON::false,
-                        count => 0,
-                        front => JSON::false,
-                        back => JSON::false,
-                        darkened => JSON::false,
-                    },
-                    date => '2004-01-15',
-                    country => 'JP',
-                    'release-events' => [{
-                        date => '2004-01-15',
-                        'area' => {
-                            disambiguation => '',
-                            'id' => '2db42837-c832-3c27-b4a3-08198f75693c',
-                            'name' => 'Japan',
-                            'sort-name' => 'Japan',
-                            'iso-3166-1-codes' => ['JP'],
-                            'type' => JSON::null,
-                            'type-id' => JSON::null,
-                        },
-                    }],
-                    barcode => '4988064173891',
-                    asin => 'B0000YGBSG',
-                    'label-info' => [
-                        {
-                            'catalog-number' => 'AVCD-17389',
-                            label => {
-                                id => '168f48c8-057e-4974-9600-aa9956d21e1a',
-                                name => 'avex trax',
-                                'sort-name' => 'avex trax',
-                                'label-code' => JSON::null,
-                                disambiguation => '',
-                                'type' => 'Original Production',
-                                'type-id' => '7aaa37fe-2def-3476-b359-80245850062d',
-                            }
-                        }],
-                    disambiguation => '',
-                    packaging => JSON::null,
-                    'packaging-id' => JSON::null,
+            releases => [{
+                asin => undef,
+                barcode => '0208311348266',
+                'cover-art-archive' => {
+                    artwork => JSON::false,
+                    back => JSON::false,
+                    count => 0,
+                    darkened => JSON::false,
+                    front => JSON::false
                 },
-                {
-                    id => 'cacc586f-c2f2-49db-8534-6f44b55196f2',
-                    title => 'LOVE & HONESTY',
-                    status => 'Official',
-                    'status-id' => '4e304316-386d-3409-af2e-78857eec5cfe',
-                    quality => 'normal',
-                    'text-representation' => { language => 'jpn', script => 'Jpan' },
-                    'cover-art-archive' => {
-                        artwork => JSON::false,
-                        count => 0,
-                        front => JSON::false,
-                        back => JSON::false,
-                        darkened => JSON::false,
-                    },
-                    date => '2004-01-15',
-                    country => 'JP',
-                    'release-events' => [{
-                        date => '2004-01-15',
-                        'area' => {
+                disambiguation => '',
+                id => 'ec0d0122-b559-4aa1-a017-7068814aae57',
+                media => [ {
+                    format => 'CD',
+                    'format-id' => '9712d52a-4509-3d4b-a1a2-67c88c643e31',
+                    title => '',
+                    'track-count' => 2,
+                    'track-offset' => 0,
+                    position => 1,
+                    pregap => {
+                        id => '1a0ba71b-fb23-3931-a426-cd204a82a90e',
+                        title => 'Hello Goodbye [hidden track]',
+                        length => 128000,
+                        position => 0,
+                        number => '0',
+                        recording => {
+                            id => 'c0beb80b-4185-4328-8761-b9e45a5d0ac6',
+                            title => 'Hello Goodbye [hidden track]',
                             disambiguation => '',
-                            'id' => '2db42837-c832-3c27-b4a3-08198f75693c',
-                            'name' => 'Japan',
-                            'sort-name' => 'Japan',
-                            'iso-3166-1-codes' => ['JP'],
-                            'type' => JSON::null,
-                            'type-id' => JSON::null,
-                        },
-                    }],
-                    barcode => '4988064173907',
-                    asin => 'B0000YG9NS',
-                    'label-info' => [
+                            length => 128000,
+                            video => JSON::false,
+                            relations => [{
+                                begin => JSON::null,
+                                attributes => [],
+                                'attribute-ids' => {},
+                                'attribute-values' => {},
+                                type => 'performance',
+                                direction => 'forward',
+                                'type-id' => 'a3005666-a872-32c3-ad06-98af558e99b0',
+                                ended => JSON::false,
+                                'source-credit' => '',
+                                'target-credit' => '',
+                                end => JSON::null,
+                                work => {
+                                    id => 'c473ece7-4858-3f4f-9d7a-a1e026400888',
+                                    attributes => [],
+                                    iswcs => [],
+                                    language => 'eng',
+                                    languages => ['eng'],
+                                    disambiguation => '',
+                                    title => 'Hello Goodbye',
+                                    'type' => JSON::null,
+                                    'type-id' => JSON::null,
+                                    relations => [{
+                                        begin => JSON::null,
+                                        attributes => [],
+                                        'attribute-ids' => {},
+                                        'attribute-values' => {},
+                                        type => 'composer',
+                                        direction => 'backward',
+                                        'type-id' => 'd59d99ea-23d4-4a80-b066-edca32ee158f',
+                                        ended => JSON::false,
+                                        'source-credit' => '',
+                                        'target-credit' => '',
+                                        end => JSON::null,
+                                        artist => {
+                                            id => '38c5cdab-5d6d-43d1-85b0-dac41bde186e',
+                                            'sort-name' => 'Blind Melon',
+                                            disambiguation => '',
+                                            name => 'Blind Melon',
+                                            'type' => 'Group',
+                                            'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
+                                        },
+                                        'target-type' => 'artist',
+                                    }],
+                                },
+                                'target-type' => 'work',
+                            }],
+                        }
+                    },
+                    tracks => [
                         {
-                            'catalog-number' => 'AVCD-17390',
-                            label => {
-                                id => '168f48c8-057e-4974-9600-aa9956d21e1a',
-                                name => 'avex trax',
-                                'sort-name' => 'avex trax',
-                                'label-code' => JSON::null,
+                            id => '7b84af2d-96b3-3c50-a667-e7d10e8b000d',
+                            title => 'Galaxie',
+                            length => 211133,
+                            position => 1,
+                            number => '1',
+                            recording => {
+                                id => 'c43ee188-0049-4eec-ba2e-0385c5edd2db',
+                                title => 'Hello Goodbye / Galaxie',
                                 disambiguation => '',
-                                'type' => 'Original Production',
-                                'type-id' => '7aaa37fe-2def-3476-b359-80245850062d',
+                                length => 211133,
+                                video => JSON::false,
+                                relations => [{
+                                    begin => JSON::null,
+                                    attributes => ['guitar'],
+                                    type => 'instrument',
+                                    direction => 'backward',
+                                    'type-id' => '59054b12-01ac-43ee-a618-285fd397e461',
+                                    ended => JSON::false,
+                                    'attribute-credits' => {'guitar' => 'crazy guitar'},
+                                    'attribute-ids' => {'guitar' => '63021302-86cd-4aee-80df-2270d54f4978'},
+                                    'attribute-values' => {},
+                                    'source-credit' => '',
+                                    'target-credit' => '',
+                                    end => JSON::null,
+                                    artist => {
+                                        id => '05d83760-08b5-42bb-a8d7-00d80b3bf47c',
+                                        'sort-name' => 'Allgood, Paul',
+                                        disambiguation => '',
+                                        name => 'Paul Allgood',
+                                        'type' => 'Person',
+                                        'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
+                                    },
+                                    'target-type' => 'artist',
+                                }],
                             }
-                        }],
-                    disambiguation => '',
-                    packaging => JSON::null,
-                    'packaging-id' => JSON::null,
-                }]
+                        },
+                        {
+                            id => 'e9f7ca98-ba9d-3276-97a4-26475c9f4527',
+                            title => '2 X 4',
+                            length => 240400,
+                            position => 2,
+                            number => '2',
+                            recording => {
+                                id => 'c830c239-3f91-4485-9577-4b86f92ad725',
+                                title => '2 X 4',
+                                disambiguation => '',
+                                length => 240400,
+                                video => JSON::false,
+                                relations => [],
+                            }
+                        }
+                    ]
+                } ],
+                packaging => JSON::null,
+                'packaging-id' => JSON::null,
+                quality => 'normal',
+                status => 'Official',
+                'status-id' => '4e304316-386d-3409-af2e-78857eec5cfe',
+                'text-representation' => {
+                    language => 'eng',
+                    script => 'Latn'
+                },
+                title => 'Soup',
+                relations => [],
+            }],
         };
 };
 
