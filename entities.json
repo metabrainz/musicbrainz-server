@@ -719,6 +719,9 @@
         "model": "URL",
         "plural": "urls",
         "plural_url": "urls",
+        "removal": {
+            "automatic": {}
+        },
         "url": "url"
     },
     "work": {
