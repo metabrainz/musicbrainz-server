@@ -54,7 +54,8 @@ const Subscribers = ({
 
       {isSpecialPurpose(entity) ? (
         <p>
-          {l('This is a special entity and does not support subscriptions.')}
+          {l(`This is a special purpose entity and
+              does not support subscriptions.`)}
         </p>
       ) : (
         <>
