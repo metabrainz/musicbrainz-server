@@ -441,6 +441,10 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     $c->stash->{subscriber_count} = $subscr_model->get_subscribed_editor_count($user->id);
     $c->stash->{votes}            = $c->model('Vote')->editor_statistics($user);
 
+    my ($tokens, $token_count) = $c->model('EditorOAuthToken')->find_granted_by_editor($user->id);
+
+    my ($applications, $application_count) = $c->model('Application')->find_by_owner($user->id);
+
     $c->model('Gender')->load($user);
     $c->model('EditorLanguage')->load_for_editor($user);
 
@@ -459,14 +463,16 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     }
 
     my %props = (
-        editStats       => $edit_stats,
-        ipHashes        => \@ip_hashes,
-        subscribed      => $c->stash->{subscribed},
-        subscriberCount => $c->stash->{subscriber_count},
-        user            => $c->unsanitized_editor_json($user),
-        votes           => $c->stash->{votes},
-        addedEntities   => $added_entities,
-        secondaryStats  => $secondary_stats,
+        applicationCount    => $application_count,
+        editStats           => $edit_stats,
+        ipHashes            => \@ip_hashes,
+        subscribed          => $c->stash->{subscribed},
+        subscriberCount     => $c->stash->{subscriber_count},
+        tokenCount          => $token_count,
+        user                => $c->unsanitized_editor_json($user),
+        votes               => $c->stash->{votes},
+        addedEntities       => $added_entities,
+        secondaryStats      => $secondary_stats,
     );
 
     $c->stash(
