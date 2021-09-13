@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-08-13 17:00+0000\n"
+"PO-Revision-Date: 2021-09-12 13:27+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
-msgstr "De richtlijn “Niet clusteren” afsgeschaft"
+msgstr "De richtlijn “Niet clusteren” afgeschaft"
 
 #: DB:statistics.statistic_event/title:2017-04-11
 msgid "\"feat.\" standardization dropped"
@@ -121,7 +121,7 @@ msgid ""
 "Commons images. Commons images are still dropped from MusicBrainz sites to "
 "avoid further issues until Wikimedia makes changes that make image reuse "
 "more safe."
-msgstr "Na veel drama achter de schermen won MetaBrainz een juridische strijd tegen een auteursrechtentrol die MetaBrainz aanklaagde vanwege het gebruik van afbeeldingen van Wikimedia Commons. Afbeeldingen van Commons blijven uitgeschakeld tot Wikimedia veranderingen die hergebruik veiliger maken doorvoert."
+msgstr "Na veel drama achter de schermen won MetaBrainz een juridische strijd tegen een auteursrechtentrol die MetaBrainz aanklaagde vanwege het gebruik van afbeeldingen van Wikimedia Commons. Afbeeldingen van Commons blijven uitgeschakeld tot Wikimedia veranderingen doorvoert om hergebruik veiliger te maken."
 
 #: DB:statistics.statistic_event/description:2011-11-23
 msgid ""
@@ -422,23 +422,23 @@ msgstr "Het Grote Schisma"
 
 #: DB:statistics.statistic_event/title:2015-04-27
 msgid "Guess feat. buttons"
-msgstr ""
+msgstr "Knoppen om gastartiesten te gokken"
 
 #: DB:statistics.statistic_event/title:2021-05-26
 msgid "IRC channels move to Libera.Chat"
-msgstr ""
+msgstr "IRC-kanalen naar Libera.Chat verhuisd."
 
 #: DB:statistics.statistic_event/title:2012-09-01
 msgid "Ian McEwen hired"
-msgstr ""
+msgstr "Ian McEwen aangenomen"
 
 #: DB:statistics.statistic_event/title:2015-07-17
 msgid "Ian McEwen leaves MetaBrainz"
-msgstr ""
+msgstr "Ian McEwen verlaat MetaBrainz"
 
 #: DB:statistics.statistic_event/description:2015-07-17
 msgid "Ian McEwen leaves the project for personal reasons."
-msgstr ""
+msgstr "Ian McEwen verlaat het project om persoonlijke redenen."
 
 #: DB:statistics.statistic_event/title:2009-06-17
 msgid "Imported CD Baby catalog as CD Stubs"
@@ -469,7 +469,7 @@ msgid ""
 "In order to make it easier to fix a lot of cases where featured artists are "
 "still part of the track / release titles rather than the artists, guess "
 "feat. buttons are added that greatly simplify the process."
-msgstr ""
+msgstr "Er zijn knoppen toegevoegd waarmee artiesten die nog in de titel van een nummer of uitgave worden vermeld in plaats van in de artiestvermeldingen, makkelijker naar de artiestvermeldingen kunnen worden verplaatst."
 
 #: DB:statistics.statistic_event/description:2011-05-12
 msgid "In preparation for NGS, editing is turned off until release."
@@ -503,26 +503,26 @@ msgstr "Installatiescripts"
 
 #: DB:statistics.statistic_event/title:2020-12-31
 msgid "Instrument images, recordings' first release date"
-msgstr ""
+msgstr "Afbeeldingen voor instrumenten, eerste uitgavedatum voor opnames"
 
 #: DB:statistics.statistic_event/title:2014-05-14
 msgid "Instruments and series"
-msgstr ""
+msgstr "Instrumenten en series"
 
 #: DB:statistics.statistic_event/title:2021-02-01
 msgid "Italian translation released, IPI and ISNI become autoedits"
-msgstr ""
+msgstr "Italiaanse vertaling uitgebracht, IPI- en ISNI-bewerkingen worden automatische bewerkingen"
 
 #: DB:statistics.statistic_event/title:2021-02-23
 msgid "Kartik Ohri joins the MetaBrainz team"
-msgstr ""
+msgstr "Kartik Ohri wordt lid van het MetaBrainz-team"
 
 #: DB:statistics.statistic_event/description:2021-02-23
 msgid ""
 "Kartik Ohri joins the MetaBrainz team to work on ListenBrainz, "
 "AcousticBrainz and CritiqueBrainz, plus the Android app, which he had "
 "already significantly rewritten as a volunteer."
-msgstr ""
+msgstr "Kartik Ohri wordt lid van het MetaBrainz-team om te werken aan ListenBrainz, AcousticBrainz, CritiqueBrainz en de Android-app, die hij als vrijwilliger al grotendeels had herschreven."
 
 #: DB:statistics.statistic_event/description:2009-12-14
 msgid "Kuno Woudt begins working for MusicBrainz full-time."
@@ -546,14 +546,14 @@ msgstr "Last.fm tekent een contract met MetaBrainz en begint gegevens van MusicB
 
 #: DB:statistics.statistic_event/title:2015-09-28
 msgid "Laurent \"zas\" Monin becomes sysadmin"
-msgstr ""
+msgstr "Laurent “zas” Monin wordt systeembeheerder"
 
 #: DB:statistics.statistic_event/description:2015-09-28
 msgid ""
 "Laurent Monin, better known as Zas, joins the team as a dedicated systems "
 "administrator, to make sure the servers run properly and help transition to "
 "a new community discussion system."
-msgstr ""
+msgstr "Laurent Monin, beter bekend als Zas, wordt lid van het team als systeembeheerder. Zijn taak wordt om te zorgen dat de servers goed werken en om te helpen bij de overstap op een nieuw discussiesysteem voor de gemeenschap."
 
 #: DB:statistics.statistic_event/description:2003-12-28
 msgid ""
@@ -574,11 +574,11 @@ msgid ""
 " but should still leave a trace in edit history. This usually involves "
 "removing URLs from problematic domains, marking URLs from domains that have "
 "been closed as ended, and other similar batch-editing jobs."
-msgstr ""
+msgstr "MBBE_Bot wordt gemaakt om dingen te verbeteren die met de hand te veel tijd zouden kosten, maar wel in de bewerkingsgeschiedenis moeten worden opgenomen. Het gaat hierbij meestal om het verwijderen van URL’s van problematische domeinen, het markeren van URL’s van domeinen die zijn beëindigd en meer van dat soort massawerk."
 
 #: DB:statistics.statistic_event/title:2020-10-07
 msgid "MBBE_Bot starts running"
-msgstr ""
+msgstr "MBBE_Bot wordt gestart"
 
 #: DB:statistics.statistic_event/title:2005-10-23
 msgid "Menus/Client scripting"
@@ -586,7 +586,7 @@ msgstr "Scripting voor menu’s en programma’s"
 
 #: DB:statistics.statistic_event/title:2021-05-18
 msgid "Mergeable collections, artist series and ratable places"
-msgstr ""
+msgstr "Collecties samenvoegen, artiestenseries en waarderingen voor plaatsen"
 
 #: DB:statistics.statistic_event/description:2008-04-21
 msgid "MetaBrainz accepts three students for Google Summer of Code."
@@ -602,7 +602,7 @@ msgstr "MetaBrainz gelanceerd"
 
 #: DB:statistics.statistic_event/title:2016-11-08
 msgid "MetaBrainz projects complete move to European servers"
-msgstr ""
+msgstr "MetaBrainz-projecten naar Europese servers verhuisd"
 
 #: DB:statistics.statistic_event/title:2007-01-20
 msgid "MetaBrainz signs first customer"
@@ -610,11 +610,11 @@ msgstr "MetaBrainz tekent zijn eerste klant"
 
 #: DB:statistics.statistic_event/title:2019-06-25
 msgid "MetaBrainz wins copyright troll battle, Wikimedia images dropped"
-msgstr ""
+msgstr "MetaBrainz wint gevecht met auteursrechtentrol, Wikimedia-afbeeldingen verwijderd"
 
 #: DB:statistics.statistic_event/description:2008-04-01
 msgid "MetaWeb becomes a MusicBrainz data user."
-msgstr ""
+msgstr "MetaWeb gaat de data van MusicBrainz gebruiken."
 
 #: DB:statistics.statistic_event/title:2008-04-01
 msgid "MetaWeb signed"
@@ -642,7 +642,7 @@ msgstr "De broncode voor de server van MusicBrainz verhuist van Subversion naar 
 
 #: DB:statistics.statistic_event/title:2012-01-12
 msgid "MusicBrainz adds AcoustID support"
-msgstr ""
+msgstr "MusicBrainz gaat AcoustID ondersteunen"
 
 #: DB:statistics.statistic_event/description:2003-03-29
 msgid "MusicBrainz gets its first dedicated database server."
@@ -691,13 +691,13 @@ msgstr "Nieuw ontwerp voor MusicBrainz"
 
 #: DB:statistics.statistic_event/title:2017-10-31
 msgid "New entity auto-editing period extended to 24 hours"
-msgstr ""
+msgstr "Periode voor automatische bewerkingen van nieuwe objecten verlengd naar 24 uur"
 
 #: DB:statistics.statistic_event/description:2012-02-17
 msgid ""
 "Nicolás Tamargo (reosarevok) becomes the MusicBrainz style leader, and a "
 "new, more official style process using Jira is established."
-msgstr ""
+msgstr "Nicolás Tamargo (reosarevok) wordt de stijlleider van MusicBrainz, en voor het ontwikkelen van de stijlgids wordt een nieuw, formeler proces via Jira ingesteld."
 
 #: DB:statistics.statistic_event/title:2003-10-13
 msgid "Non album tracks"
@@ -727,32 +727,32 @@ msgstr "Met de overstap op SOLR krijgt onze oude zoekserver een flinke upgrade. 
 
 #: DB:statistics.statistic_event/title:2013-10-14
 msgid "PUID support is removed"
-msgstr ""
+msgstr "PUID-ondersteuning beëindigd"
 
 #: DB:statistics.statistic_event/title:2021-04-05
 msgid "Pagination added for relationships, user tags"
-msgstr ""
+msgstr "Paginering voor relaties en gebruikersetiketten toegevoegd"
 
 #: DB:statistics.statistic_event/description:2021-04-05
 msgid ""
 "Pagination was added for two very long lists that sometimes couldn't be "
 "loaded in full because of timeouts: user tags and entity relationships."
-msgstr ""
+msgstr "Voor twee erg lange lijsten die soms niet volledig konden worden geladen omdat dat te lang duurde is paginering toegevoegd: gebruikersetiketten en relaties van objecten."
 
 #: DB:statistics.statistic_event/title:2012-06-02
 msgid "Picard 1.0 released"
-msgstr ""
+msgstr "Picard 1.0 uitgebracht"
 
 #: DB:statistics.statistic_event/title:2018-07-19
 msgid "Picard 2.0 released"
-msgstr ""
+msgstr "Picard 2.0 uitgebracht"
 
 #: DB:statistics.statistic_event/description:2017-10-31
 msgid ""
 "Rather than having to notice any errors during a fairly brief 1 hour period,"
 " editors now have 24 hours to correct errors in the data they have added "
 "without needing a vote."
-msgstr ""
+msgstr "In plaats van dat redacteurs maar een uur hebben om fouten in je bewerkingen te corrigeren zonder dat erover gestemd hoeft te worden, hebben redacteurs nu 24 uur."
 
 #: DB:statistics.statistic_event/title:2012-10-15
 msgid "Relationship Editor"
@@ -760,15 +760,15 @@ msgstr "Relatiebewerker"
 
 #: DB:statistics.statistic_event/title:2015-06-02
 msgid "Relationship credits become available"
-msgstr ""
+msgstr "Relatievermeldingen komen beschikbaar"
 
 #: DB:statistics.statistic_event/title:2011-11-23
 msgid "Relationships displayed on release pages"
-msgstr ""
+msgstr "Relaties worden op uitgavepagina’s weergegeven"
 
 #: DB:statistics.statistic_event/title:2015-04-06
 msgid "Release \"stubs\", minimum voting period for destructive edits"
-msgstr ""
+msgstr "‘Beginnetjes’ voor uitgaven, minimale stemmingsperiode voor destructieve bewerkingen"
 
 #: DB:statistics.statistic_event/title:2009-05-24
 msgid "Release Groups, ISRCs, CDStub searching"
@@ -796,14 +796,14 @@ msgid ""
 "entity merges and removals no longer close immediately once they get 3 Yes "
 "votes, but they remain open for at least 48 hours to ensure people who "
 "oppose them have time to see them."
-msgstr ""
+msgstr "Uitgaven kunnen nu zonder een medium worden toegevoegd. Dat is handig als die informatie niet bekend is, maar de titel, datum, platenmaatschappij of het catalogusnummer wel. Ook blijven destructieve bewerkingen, zoals samenvoegingen, vanaf dit moment ook bij drie stemmen voor minimaal 48 uur open, zodat andere redacteurs die het er mogelijk niet mee eens zijn de bewerking ook te zien krijgen."
 
 #: DB:statistics.statistic_event/description:2017-09-06
 msgid ""
 "Roman Tsukanov decides not to renew his contract. Sambhav Kothari and Param "
 "Singh are hired as replacements to work on search and Picard and on "
 "ListenBrainz, respectively."
-msgstr ""
+msgstr "Roman Tsukanov besluit om zijn contract niet te verlengen. Sambhav Kothari en Param Singh worden aangenomen als zijn vervanger en gaan werken aan respectievelijk Picard en ListenBrainz."
 
 #: DB:statistics.statistic_event/title:2015-09-04
 msgid "Roman Tsukanov joins the MetaBrainz team"
@@ -819,18 +819,18 @@ msgstr "Op SOLR gebaseerde zoekserver geïmplementeerd"
 
 #: DB:statistics.statistic_event/title:2017-09-06
 msgid "Sambhav Kothari and Param Singh replace Roman Tsukanov"
-msgstr ""
+msgstr "Sambhav Kothari en Param Singh vervangen Roman Tsukanov"
 
 #: DB:statistics.statistic_event/description:2018-09-09
 msgid ""
 "Sambhav Kothari leaves MetaBrainz after a lot of hard work getting the SOLR "
 "server ready. Nicolás Tamargo (reosarevok) joins as a programmer part-time "
 "in addition to his style and support positions, to work on MusicBrainz."
-msgstr ""
+msgstr "Na veel werk te hebben verzet om de SOLR-server klaar te krijgen, verlaat Sambhav Kothari MetaBrainz. Nicolás Tamargo (reosarevok) wordt aangenomen als programmeur in deeltijd om naast zijn werk voor de stijlgids en ondersteuning aan MusicBrainz te gaan werken."
 
 #: DB:statistics.statistic_event/title:2018-09-09
 msgid "Sambhav Kothari leaves, Nicolás Tamargo joins as a programmer"
-msgstr ""
+msgstr "Vertrek van Sambhav Kothari, Nicolás Tamargo treedt in dienst als programmeur"
 
 #: DB:statistics.statistic_event/title:2006-12-17
 msgid "Search improvements"
@@ -846,7 +846,7 @@ msgid ""
 " because of the time required to always push new versions, it is dropped and"
 " users are suggested to just run their own Docker setup for MusicBrainz "
 "(which the Virtual Machine already did behind the scenes)."
-msgstr ""
+msgstr "Omdat de virtuele machine toch vaak achterliep bij de actuele data en het uitgeven van nieuwe versies veel tijd kostte, is het VM-project stopgezet en worden gebruikers aangeraden om MusicBrainz zelf via Docker te draaien (iets wat de virtuele machine achter de schermen al deed)."
 
 #: DB:statistics.statistic_event/title:2008-04-21
 msgid "SoC 2008"
@@ -857,7 +857,7 @@ msgid ""
 "Some instrument pages start displaying instrument illustrations by IROM. "
 "Additionally, a first release date starts being calculated and displayed for"
 " recordings based on the releases they appear on."
-msgstr ""
+msgstr "Op sommige instrumentenpagina’s worden illustraties van IROM weergegeven. Bovendien wordt voor opnames op basis van de uitgaven waarop ze staan de eerste uitgavedatum berekend."
 
 #: DB:statistics.statistic_event/description:2006-01-08
 msgid ""
@@ -867,7 +867,7 @@ msgstr "Er wordt een oplossing voor fouten in Stijlgids 5 geïntroduceerd en ong
 
 #: DB:statistics.statistic_event/title:2014-10-17
 msgid "Style process updated again, reosarevok \"promoted\" to Style BDFL"
-msgstr ""
+msgstr "Het stijlproces wordt weer aangepast, reosarevok krijgt ‘promotie’ tot welwillende stijldictator."
 
 #: DB:statistics.statistic_event/description:2007-04-01
 msgid "Support for Labels and data quality are released."
@@ -875,11 +875,11 @@ msgstr "Ondersteuning voor platenmaatschappijen en gegevenskwaliteit worden uitg
 
 #: DB:statistics.statistic_event/title:2015-06-29
 msgid "Tag up/downvoting"
-msgstr ""
+msgstr "Stemmen op etiketten"
 
 #: DB:statistics.statistic_event/title:2007-10-17
 msgid "Tags, editor subscriptions, relationship batch-adding"
-msgstr ""
+msgstr "Etiketten, abonnementen op redacteurs, relaties in bulk toevoegen"
 
 #: DB:statistics.statistic_event/title:2014-11-19
 msgid "The AcousticBrainz project goes live"
@@ -887,7 +887,7 @@ msgstr "Het AcousticBrainz-project wordt gelanceerd"
 
 #: DB:statistics.statistic_event/title:2011-08-03
 msgid "The Android app goes live"
-msgstr ""
+msgstr "De Android-app wordt gelanceerd"
 
 #: DB:statistics.statistic_event/description:2007-06-28
 msgid ""
@@ -911,7 +911,7 @@ msgid ""
 "The Italian translation, mostly worked on by salo.rock, is officially "
 "released. Adding the first IPI and/or ISNI code for an entity becomes an "
 "autoedit, unless the same code is already in use for another."
-msgstr ""
+msgstr "De Italiaanse vertaling, die grotendeels door salo.rock is gemaakt, wordt officieel uitgebracht. Het toevoegen van een eerste IPI en/of ISNI voor een object wordt een automatische bewerking, tenzij dezelfde code al ergens is toegevoegd."
 
 #: DB:statistics.statistic_event/title:2015-09-17
 msgid "The ListenBrainz project goes live"
@@ -925,7 +925,7 @@ msgstr "De MetaBrainz Foundation, het juridische thuis van MusicBrainz, wordt aa
 
 #: DB:statistics.statistic_event/title:2020-05-16
 msgid "The MusicBrainz Virtual Machine is replaced by MusicBrainz Docker"
-msgstr ""
+msgstr "De virtuele machine van MusicBrainz wordt vervangen door MusicBrainz Docker"
 
 #: DB:statistics.statistic_event/description:2015-09-17
 msgid ""
@@ -942,26 +942,26 @@ msgid ""
 "The diminishing quality of the PUID fingerprinting service and the continued"
 " availability of an open source alternative in AcoustID leads to the "
 "decision of dropping PUIDs from MusicBrainz and supporting only AcoustID."
-msgstr ""
+msgstr "Omdat de dienst achter de PUID-vingerafdrukken steeds minder werd en er met AcoustID een openbron-alternatief beschikbaar was, werd besloten om PUID-ondersteuning te beëindigen en voortaan alleen AcoustID te ondersteunen."
 
 #: DB:statistics.statistic_event/description:2020-02-18
 msgid ""
 "The edit history for entities is made visible even when logged out, to make "
 "it easier to understand how each entity has changed (edit notes are kept "
 "hidden to preserve some privacy)."
-msgstr ""
+msgstr "De bewerkingsgeschiedenis van een object is nu ook zichtbaar voor gebruikers die niet zijn aangemeld, waardoor het makkelijker is om te begrijpen hoe elk object in de loop van de tijd is veranderd. Bewerkingsnotities blijven onzichtbaar vanwege de privacy."
 
 #: DB:statistics.statistic_event/description:2012-06-02
 msgid ""
 "The first full-version release of the Picard tagger comes out, with a lot of"
 " changes and improvements."
-msgstr ""
+msgstr "De eerste volledige uitgave van de Picard-tagger wordt uitgebracht met een hoop veranderingen en verbeteringen."
 
 #: DB:statistics.statistic_event/description:2011-08-03
 msgid ""
 "The first version of the MusicBrainz Android app, a Google Summer of Code "
 "project by Jamie McDonald, is made officially available"
-msgstr ""
+msgstr "De eerste versie van de Android-app voor MusicBrainz, een Google Summer of Code-project van Jamie McDonald, komt officieel beschikbaar"
 
 #: DB:statistics.statistic_event/description:2015-09-08
 msgid ""
@@ -969,7 +969,7 @@ msgid ""
 "relationship clusters such as linking every Jackson sibling to each other, "
 "is dropped - avoiding duplicate data becomes a task for relationship "
 "designers, not users entering the data."
-msgstr ""
+msgstr "De impopulaire richtlijn ‘niet clusteren’, die relatieclusters (zoals het aan elkaar koppelen van alle leden van de Jacksons) verbiedt, wordt afgeschaft. Het voorkomen van dubbele gegevens wordt een taak van de bedenkers van relaties in plaats van gebruikers die gegevens toevoegen."
 
 #: DB:statistics.statistic_event/title:2015-05-18
 msgid "The new MetaBrainz website goes live"
@@ -987,7 +987,7 @@ msgid ""
 "The open source fingerprinting solution AcoustID (developed by friend of "
 "MusicBrainz Lukáš Lalinský) starts being used alongside PUID on MusicBrainz "
 "fingerprint pages."
-msgstr ""
+msgstr "De openbronoplossing voor audiovingerafdrukken AcoustID (ontwikkeld door vriend van MusicBrainz Lukáš Lalinský) wordt vanaf nu naast PUID gebruikt op MusicBrainz."
 
 #: DB:statistics.statistic_event/description:2012-10-15
 msgid ""
@@ -1006,7 +1006,7 @@ msgid ""
 "veto, decisions are taken by a BDFL who consults the community when needed. "
 "Nicolás Tamargo (reosarevok) is \"promoted\" from style leader to style "
 "BDFL."
-msgstr ""
+msgstr "Het stijlproces wordt weer eens vernieuwd. In plaats van een lange, vaak slechtgehumeurde discussie binnen de gemeenschap totdat er eindelijk consensus is, worden beslissingen voortaan genomen door een welwillende dictator die als het nodig is advies vraagt aan de gemeenschap. Nicolás Tamargo (reosarevok) krijgt ‘promotie’ van stijlleider tot welwillende stijldictator."
 
 #: DB:statistics.statistic_event/description:2013-06-24
 msgid ""
@@ -1028,7 +1028,7 @@ msgstr "Nummerlengtes die met disc-ID’s zijn ingesteld"
 msgid ""
 "Two new entity types are added to MusicBrainz: instruments and series. "
 "Series of recordings, releases, release groups and works are supported."
-msgstr ""
+msgstr "Er worden twee nieuwe objecten aan MusicBrainz toegevoegd: instrumenten en series. Series van opnames, uitgaven, uitgavegroepen en composities worden ondersteund."
 
 #: DB:statistics.statistic_event/title:2005-02-13
 msgid "User improvements"
@@ -1036,7 +1036,7 @@ msgstr "Verbeteringen voor gebruikers"
 
 #: DB:statistics.statistic_event/description:2003-06-07
 msgid "Users now have to verify their email address for editing."
-msgstr ""
+msgstr "Gebruikers moeten nu voordat ze bewerkingen kunnen doorvoeren hun e-mailadres bevestigen."
 
 #: DB:statistics.statistic_event/description:2019-04-26
 msgid ""
@@ -1067,14 +1067,14 @@ msgstr "Versie 1 van de webdienst uit de lucht gehaald"
 
 #: DB:statistics.statistic_event/title:2014-03-17
 msgid "Work attributes"
-msgstr ""
+msgstr "Compositie-eigenschappen"
 
 #: DB:statistics.statistic_event/description:2014-03-17
 msgid ""
 "Works get their first attributes (such as keys) allowing us to store data "
 "that doesn't make sense as relationships but deserves more than an "
 "annotation entry."
-msgstr ""
+msgstr "Composities krijgen hun eerste eigenschappen (zoals toonsoort), zodat we informatie op kunnen slaan die niet past binnen het idee van relaties maar meer aandacht vereist dan een vermelding in de aantekening."
 
 #: DB:statistics.statistic_event/title:2017-03-13
 msgid "Yvanzo joins MusicBrainz as a developer"
@@ -1092,7 +1092,7 @@ msgstr "mb_server wordt nu gehost op Git"
 
 #: DB:statistics.statistic_event/title:2012-02-17
 msgid "reosarevok becomes the MusicBrainz style leader"
-msgstr ""
+msgstr "reosarevok wordt de stijlleider van MusicBrainz"
 
 #: ../root/statistics/timeline.tt:18
 msgid "Add/remove lines:"
@@ -1736,11 +1736,11 @@ msgstr "Video’s:"
 #: ../root/statistics/Index.js:682
 msgctxt "recording"
 msgid "Standalone"
-msgstr ""
+msgstr "Zonder uitgave"
 
 #: ../root/statistics/Index.js:687
 msgid "With ISRCs"
-msgstr ""
+msgstr "Met ISRC’s"
 
 #: ../root/statistics/Index.js:698 ../root/statistics/Index.js:726
 #: ../root/statistics/Index.js:788 ../root/statistics/Index.js:816
@@ -1763,7 +1763,7 @@ msgstr "Composities"
 
 #: ../root/statistics/Index.js:748
 msgid "With ISWCs"
-msgstr ""
+msgstr "Met ISWC’s"
 
 #: ../root/statistics/Index.js:758
 msgid "Attributes"
@@ -2620,11 +2620,11 @@ msgstr "Opnames met ISRC’s"
 
 #: ../root/statistics/stats.js:536
 msgid "Count of all standalone recordings"
-msgstr ""
+msgstr "Totaal aantal losse opnames (zonder uitgave)"
 
 #: ../root/statistics/stats.js:537
 msgid "Standalone recordings"
-msgstr ""
+msgstr "Losse opnames (zonder uitgave)"
 
 #: ../root/statistics/stats.js:542
 msgid "Count of all releases"
@@ -2857,11 +2857,11 @@ msgstr "Totaal aantal composities"
 
 #: ../root/statistics/stats.js:748
 msgid "Count of all Works with ISWCs"
-msgstr ""
+msgstr "Totaal aantal composities met ISWC’s"
 
 #: ../root/statistics/stats.js:749
 msgid "Works with ISWCs"
-msgstr ""
+msgstr "Composities met ISWC’s"
 
 #: ../root/statistics/stats.js:751
 msgid "/day"
