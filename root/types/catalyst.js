@@ -102,6 +102,7 @@ declare type SanitizedCatalystContextT = {
   +relative_uri: string,
   +req: {
     +method: string,
+    +query_params: {+[param: string]: string},
     +uri: string,
   },
   +session: SanitizedCatalystSessionT | null,

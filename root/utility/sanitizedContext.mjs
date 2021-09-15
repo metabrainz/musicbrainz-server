@@ -27,6 +27,7 @@ export default function sanitizedContext(
     relative_uri: $c.relative_uri,
     req: {
       method: req.method,
+      query_params: req.query_params,
       uri: req.uri,
     },
     session: session ? {
