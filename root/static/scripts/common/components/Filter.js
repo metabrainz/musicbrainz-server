@@ -18,6 +18,7 @@ component Filter(
   ajaxFormUrl: string,
   initialFilterForm: ?FilterFormT,
   showAllReleaseGroups?: boolean,
+  showVAReleaseGroups?: boolean,
 ) {
   const [filterForm, setFilterForm] = React.useState<?FilterFormT>(
     initialFilterForm,
@@ -68,6 +69,7 @@ component Filter(
         <FilterForm
           form={filterForm}
           showAllReleaseGroups={showAllReleaseGroups}
+          showVAReleaseGroups={showVAReleaseGroups}
         />
       ) : null}
     </>

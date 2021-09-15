@@ -245,6 +245,7 @@ component ArtistIndex(
         ajaxFormUrl={ajaxFilterFormUrl}
         initialFilterForm={filterForm}
         showAllReleaseGroups={footerSwitchProps.includingAllStatuses}
+        showVAReleaseGroups={footerSwitchProps.showingVariousArtistsOnly}
       />
 
       {existingReleaseGroups ? (
