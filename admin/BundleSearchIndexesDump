@@ -79,6 +79,7 @@ sub _error { warn "[error] ", (sprintf shift, @_), "\n"; }
 
 my $BACKUP_STAMP = $ENV{BACKUP_STAMP};
 my $COMPRESSION_LEVEL = DBDefs->SEARCH_INDEXES_DUMP_COMPRESSION_LEVEL;
+my $COMPRESSION_THREADS = DBDefs->DUMP_COMPRESSION_THREADS;
 
 my @backup_dirs;
 my @extraneous_files;
@@ -170,7 +171,7 @@ EOF
             ' --verbose' .
             ' -- ' .
             shell_quote($dump_dir) .
-            " | zstd -T0 -$COMPRESSION_LEVEL" .
+            " | zstd -T$COMPRESSION_THREADS -$COMPRESSION_LEVEL" .
             ' > ' . shell_quote("$working_dir/$tar_file");
     if ($? != 0)
     {
