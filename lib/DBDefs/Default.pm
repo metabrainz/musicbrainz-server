@@ -472,6 +472,10 @@ sub SOLRCLOUD_RSYNC_BANDWIDTH { undef }
 sub SOLRCLOUD_SSH_CIPHER_SPEC { undef }
 sub SEARCH_INDEXES_DUMP_COMPRESSION_LEVEL { undef }
 
+# Controls the number of threads to use when compressing JSON dumps or search
+# index dumps. Passed as `-T` or `--threads` to xz and zstd.
+sub DUMP_COMPRESSION_THREADS { 0 }
+
 sub WIKIMEDIA_COMMONS_IMAGES_ENABLED { 1 }
 
 # On release browse endpoints in the webservice, we limit the number of
