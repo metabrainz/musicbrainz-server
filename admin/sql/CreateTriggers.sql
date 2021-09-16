@@ -10,9 +10,6 @@ CREATE TRIGGER b_upd_area_alias BEFORE UPDATE ON area_alias
 CREATE TRIGGER b_upd_area_tag BEFORE UPDATE ON area_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON area_alias
-    FOR EACH ROW EXECUTE PROCEDURE unique_primary_area_alias();
-
 CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON area_alias
     FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(3);
 
@@ -55,9 +52,6 @@ CREATE TRIGGER del_collection_sub_on_delete BEFORE DELETE ON editor_collection
 CREATE TRIGGER del_collection_sub_on_private BEFORE UPDATE ON editor_collection
     FOR EACH ROW EXECUTE PROCEDURE del_collection_sub_on_private();
 
-CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON artist_alias
-    FOR EACH ROW EXECUTE PROCEDURE unique_primary_artist_alias();
-
 CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON artist_alias
     FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(3);
 
@@ -88,9 +82,6 @@ CREATE TRIGGER b_upd_event_alias BEFORE UPDATE ON event_alias
 CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON event_alias
     FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
 
-CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON event_alias
-    FOR EACH ROW EXECUTE PROCEDURE unique_primary_event_alias();
-
 CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON event_alias
     FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
 
@@ -103,9 +94,6 @@ CREATE TRIGGER b_upd_genre BEFORE UPDATE ON genre
 CREATE TRIGGER b_upd_genre_alias BEFORE UPDATE ON genre_alias
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON genre_alias
-    FOR EACH ROW EXECUTE PROCEDURE unique_primary_genre_alias();
-
 CREATE TRIGGER b_upd_instrument BEFORE UPDATE ON instrument
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -117,9 +105,6 @@ CREATE TRIGGER b_upd_instrument_alias BEFORE UPDATE ON instrument_alias
 
 CREATE TRIGGER b_upd_instrument_tag BEFORE UPDATE ON instrument_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
-
-CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON instrument_alias
-    FOR EACH ROW EXECUTE PROCEDURE unique_primary_instrument_alias();
 
 CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON instrument_alias
     FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
@@ -340,9 +325,6 @@ CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON label_alias
 CREATE TRIGGER b_upd_label_alias BEFORE UPDATE ON label_alias
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON label_alias
-    FOR EACH ROW EXECUTE PROCEDURE unique_primary_label_alias();
-
 CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON label_alias
     FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
 
@@ -391,9 +373,6 @@ CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON place_alias
 CREATE TRIGGER b_upd_place_alias BEFORE UPDATE ON place_alias
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON place_alias
-    FOR EACH ROW EXECUTE PROCEDURE unique_primary_place_alias();
-
 CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON place_alias
     FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
 
@@ -418,9 +397,6 @@ CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON recording_alias
 CREATE TRIGGER b_upd_recording_alias BEFORE UPDATE ON recording_alias
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON recording_alias
-    FOR EACH ROW EXECUTE PROCEDURE unique_primary_recording_alias();
-
 CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON recording_alias
     FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
 
@@ -444,9 +420,6 @@ CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON release_alias
 
 CREATE TRIGGER b_upd_release_alias BEFORE UPDATE ON release_alias
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
-
-CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON release_alias
-    FOR EACH ROW EXECUTE PROCEDURE unique_primary_release_alias();
 
 CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON release_alias
     FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
@@ -508,9 +481,6 @@ CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON release_group_a
 CREATE TRIGGER b_upd_release_group_alias BEFORE UPDATE ON release_group_alias
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON release_group_alias
-    FOR EACH ROW EXECUTE PROCEDURE unique_primary_release_group_alias();
-
 CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON release_group_alias
     FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
 
@@ -528,9 +498,6 @@ CREATE TRIGGER b_upd_series_tag BEFORE UPDATE ON series_tag
 
 CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON series_alias
     FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
-
-CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON series_alias
-    FOR EACH ROW EXECUTE PROCEDURE unique_primary_series_alias();
 
 CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON series_alias
     FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
@@ -568,9 +535,6 @@ CREATE TRIGGER b_upd_work_alias BEFORE UPDATE ON work_alias
 
 CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON work_alias
     FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
-
-CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON work_alias
-    FOR EACH ROW EXECUTE PROCEDURE unique_primary_work_alias();
 
 CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON work_alias
     FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
