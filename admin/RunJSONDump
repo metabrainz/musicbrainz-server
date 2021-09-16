@@ -38,7 +38,7 @@ echo `date`" : Making a full JSON dump"
     --worker-count 4 \
     || exit $?
 
-# Copy the full export to the FTP directory.
+echo `date`" : Copying the full export to the local FTP directory"
 chown "$JSON_DUMP_USER:$JSON_DUMP_GROUP" "$TEMP_DIR"/*
 chmod "$JSON_DUMP_FILE_MODE" "$TEMP_DIR"/*
 mv "$TEMP_DIR"/* "$DUMP_DIR"/"$DUMP_STAMP"/
@@ -55,8 +55,10 @@ echo "$DUMP_STAMP" > "$DUMP_DIR"/LATEST
 chmod "$JSON_DUMP_FILE_MODE" "$DUMP_DIR"/LATEST
 chown "$JSON_DUMP_USER:$JSON_DUMP_GROUP" "$DUMP_DIR"/LATEST
 
+echo `date`" : Deleting old full exports from the local FTP directory"
 ./bin/delete-old-fullexports -k -r "$DUMP_DIR"
 
+echo `date`" : Syncing the local FTP directory with the FTP server"
 MBS_ADMIN_CONFIG=config.json-dump.sh ./bin/rsync-fullexport-files
 
 # eof
