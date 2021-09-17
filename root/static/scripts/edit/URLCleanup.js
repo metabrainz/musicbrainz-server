@@ -246,6 +246,7 @@ export const LINK_TYPES: LinkTypeMap = {
     artist: 'e8571dcc-35d4-4e91-a577-a3382fd84460',
     label: 'c4bee4f4-e622-4c74-b80b-585989de27f4',
     place: '49a08641-0aed-4e10-8311-ec220b8c50ad',
+    series: '67764397-d154-4f9a-8aa8-cbc4de4df5b8',
     work: 'b6eaef52-68a0-4b50-b875-8acd7d9212ba',
   },
   videochannel: {

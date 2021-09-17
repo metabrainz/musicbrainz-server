@@ -4302,6 +4302,11 @@ const testData = [
     expected_relationship_type: 'viaf',
   },
   {
+                     input_url: 'http://viaf.org/viaf/154643080',
+             input_entity_type: 'series',
+    expected_relationship_type: 'viaf',
+  },
+  {
                      input_url: 'http://viaf.org/viaf/185694157',
              input_entity_type: 'work',
     expected_relationship_type: 'viaf',
