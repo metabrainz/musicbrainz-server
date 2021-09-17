@@ -622,16 +622,23 @@ table.artist-credit-editor {
         padding-top: (@form-margin / 2);
 
         &:first-child {
-            min-width: 75px;
+            min-width: 30px;
+            padding-right: 0;
         }
+    }
+
+    td:nth-child(3) {
+        width: 100%;
+        padding-left: (@form-margin / 4);
+        padding-right: 9px;
     }
 
     td.link-actions {
         text-align: right;
-        padding-right: 0;
+        min-width: 42px;
 
         button.remove-item {
-            margin-left: 4px !important;
+            margin: 0 4px !important;
         }
     }
 
@@ -642,13 +649,6 @@ table.artist-credit-editor {
 
         td:first-child {
             text-align: right;
-
-            label {
-                text-align: center;
-                width: -moz-fit-content !important;
-                width: fit-content !important;
-                min-width: 16px;
-            }
         }
 
         a.url:focus-visible {
@@ -690,11 +690,6 @@ table.artist-credit-editor {
         }
     }
 
-    td.link-actions {
-        text-align: right;
-        padding-right: 0;
-    }
-
     .add-relationship td {
         padding: 0;
     }
@@ -716,12 +711,12 @@ table.artist-credit-editor {
         max-width: @form-label-width - @form-margin;
     }
 
-    td:nth-child(2) { width: 100%; }
-
     td.errors ul { margin: 0; }
 
     input[type=text], input[type=email], input[type=number], input[type=url] { width: 100%; }
 }
+
+#work-attributes td:nth-child(2) { width: 100%; }
 
 #external-links-editor span.favicon {
     display: inline-block;
