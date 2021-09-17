@@ -1466,6 +1466,16 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
   const entityTypes = [sourceType, 'url'].sort().join('-');
   let initialLinks = parseRelationships(sourceData.relationships);
 
+  initialLinks.sort(function (a, b) {
+    const typeA = a.type && linkedEntities.link_type[a.type];
+    const typeB = b.type && linkedEntities.link_type[b.type];
+
+    return compare(
+      typeA ? l_relationships(typeA.link_phrase).toLowerCase() : '',
+      typeB ? l_relationships(typeB.link_phrase).toLowerCase() : '',
+    );
+  });
+
   // Terribly get seeded URLs
   if (MB.formWasPosted) {
     if (hasSessionStorage) {
@@ -1501,16 +1511,6 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
       }));
     }
   }
-
-  initialLinks.sort(function (a, b) {
-    const typeA = a.type && linkedEntities.link_type[a.type];
-    const typeB = b.type && linkedEntities.link_type[b.type];
-
-    return compare(
-      typeA ? l_relationships(typeA.link_phrase).toLowerCase() : '',
-      typeB ? l_relationships(typeB.link_phrase).toLowerCase() : '',
-    );
-  });
 
   initialLinks = initialLinks.map(function (link) {
     /*
