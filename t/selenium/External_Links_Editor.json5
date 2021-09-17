@@ -50,11 +50,6 @@
     },
     {
       command: 'assertText',
-      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][1]//label[1]",
-      value: '1',
-    },
-    {
-      command: 'assertText',
       target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][1]//label[2]",
       value: 'Wikipedia',
     },
