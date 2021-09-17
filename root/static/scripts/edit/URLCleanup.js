@@ -1639,6 +1639,7 @@ const CLEANUPS: CleanupEntries = {
       switch (id) {
         case LINK_TYPES.otherdatabases.artist:
         case LINK_TYPES.otherdatabases.place:
+        case LINK_TYPES.otherdatabases.series:
         case LINK_TYPES.otherdatabases.work:
           return {
             result: /^http:\/\/d-nb\.info\/(?:gnd\/)?(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url),
