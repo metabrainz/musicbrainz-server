@@ -1494,6 +1494,7 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
       ((Object.values(urls): any): $ReadOnlyArray<SeededUrlShape>)
     ) {
       initialLinks.push(newLinkState({
+        rawUrl: data.text || '',
         relationship: uniqueId('new-'),
         type: parseInt(data.link_type_id, 10) || null,
         url: data.text || '',
