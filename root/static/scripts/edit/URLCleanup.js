@@ -2501,6 +2501,7 @@ const CLEANUPS: CleanupEntries = {
         if (id === LINK_TYPES.otherdatabases.artist ||
             id === LINK_TYPES.otherdatabases.label ||
             id === LINK_TYPES.otherdatabases.place ||
+            id === LINK_TYPES.otherdatabases.series ||
             id === LINK_TYPES.otherdatabases.work) {
           return {result: true};
         }
