@@ -615,6 +615,33 @@ export class ExternalLinksEditor
           error.message = l(`This URL is not allowed 
                     for the selected link type.`);
         }
+        if (error.target === URLCleanup.ERROR_TARGETS.ENTITY) {
+          switch (checker.entityType) {
+            case 'area':
+              error.message = l(`This URL is not allowed for areas.`);
+            case 'artist':
+              error.message = l(`This URL is not allowed for artists.`);
+            case 'event':
+              error.message = l(`This URL is not allowed for events.`);
+            case 'instrument':
+              error.message = l(`This URL is not allowed for instruments.`);
+            case 'label':
+              error.message = l(`This URL is not allowed for labels.`);
+            case 'place':
+              error.message = l(`This URL is not allowed for places.`);
+            case 'recording':
+              error.message = l(`This URL is not allowed for recordings.`);
+            case 'release':
+              error.message = l(`This URL is not allowed for releases.`);
+            case 'release_group':
+              error.message = l(`This URL is not allowed for release
+                                 groups.`);
+            case 'series':
+              error.message = l(`This URL is not allowed for series.`);
+            case 'work':
+              error.message = l(`This URL is not allowed for works.`);
+          }
+        }
         error.message = check.error || error.message;
       }
     }
