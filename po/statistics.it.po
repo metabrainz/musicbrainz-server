@@ -1141,8 +1141,8 @@ msgstr "Disegna un rettangolo su uno dei grafici"
 msgid "Editors"
 msgstr "Editor"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:36
-#: ../root/statistics/Edits.js:40 ../root/statistics/Edits.js:49
+#: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:37
+#: ../root/statistics/Edits.js:41 ../root/statistics/Edits.js:50
 #: ../root/statistics/Index.js:1048 ../root/statistics/StatisticsLayout.js:72
 #: ../root/statistics/stats.js:184
 msgid "Edits"
@@ -1214,7 +1214,7 @@ msgid "Zoom:"
 msgstr "Ingrandisci:"
 
 #: ../root/statistics/Countries.js:41 ../root/statistics/CoverArt.js:68
-#: ../root/statistics/Editors.js:100 ../root/statistics/Edits.js:38
+#: ../root/statistics/Editors.js:100 ../root/statistics/Edits.js:39
 #: ../root/statistics/Formats.js:47 ../root/statistics/Index.js:83
 #: ../root/statistics/LanguagesScripts.js:52
 #: ../root/statistics/Relationships.js:100
@@ -1393,7 +1393,7 @@ msgstr "Voti totali"
 msgid "Top voters overall"
 msgstr "Votanti più attivi di sempre"
 
-#: ../root/statistics/Edits.js:43
+#: ../root/statistics/Edits.js:44
 msgid "No edit statistics available."
 msgstr "Non è disponibile nessuna statistica sulle modifiche."
 

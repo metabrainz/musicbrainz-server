@@ -18,8 +18,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-08-12 16:31+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-09-13 23:43+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1596,6 +1596,12 @@ msgstr ""
 
 #: DB:link_type/description:975
 msgid "This indicates the artist that inspired this place’s name."
+msgstr ""
+
+#: DB:link_type/description:1000
+msgid ""
+"This indicates the artist that inspired this series' name, for example for "
+"an award named after a musician."
 msgstr ""
 
 #: DB:link_type/description:962
@@ -4609,8 +4615,9 @@ msgstr "enthält"
 msgid "information page"
 msgstr "Informationsseite"
 
-#: DB:link_type/link_phrase:975 DB:link_type/reverse_link_phrase:973
-#: DB:link_type/reverse_link_phrase:972 DB:link_type/reverse_link_phrase:974
+#: DB:link_type/link_phrase:975 DB:link_type/link_phrase:1000
+#: DB:link_type/reverse_link_phrase:973 DB:link_type/reverse_link_phrase:972
+#: DB:link_type/reverse_link_phrase:974
 msgid "inspired the name of"
 msgstr "inspirierte den Namen von"
 
@@ -5320,8 +5327,8 @@ msgstr ""
 
 #: DB:link_type/link_phrase:973 DB:link_type/link_phrase:972
 #: DB:link_type/link_phrase:974 DB:link_type/name:973 DB:link_type/name:972
-#: DB:link_type/name:975 DB:link_type/name:974
-#: DB:link_type/reverse_link_phrase:975
+#: DB:link_type/name:975 DB:link_type/name:974 DB:link_type/name:1000
+#: DB:link_type/reverse_link_phrase:975 DB:link_type/reverse_link_phrase:1000
 msgid "named after"
 msgstr "benannt nach"
 
@@ -7273,7 +7280,7 @@ msgstr ""
 msgid "{entity1} is licensed under {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:975
+#: DB:link_type/long_link_phrase:975 DB:link_type/long_link_phrase:1000
 msgid "{entity1} is named after {entity0}"
 msgstr ""
 

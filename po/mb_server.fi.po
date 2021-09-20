@@ -31,9 +31,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-03 18:05+0300\n"
-"PO-Revision-Date: 2021-08-27 10:02+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"POT-Creation-Date: 2021-09-13 18:38-0500\n"
+"PO-Revision-Date: 2021-09-13 23:42+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -708,7 +708,7 @@ msgstr "Artisti:"
 #: ../root/instrument/InstrumentArtists.js:36
 #: ../root/instrument/InstrumentArtists.js:38 ../root/iswc/Index.js:57
 #: ../root/report/IswcsWithManyWorks.js:51 ../root/report/ReportsIndex.js:55
-#: ../root/report/components/EventList.js:61
+#: ../root/report/components/EventList.js:66
 #: ../root/search/components/EventResults.js:70
 #: ../root/search/components/WorkResults.js:52
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:895
@@ -861,11 +861,11 @@ msgstr "Alta löydät tietoja virheestä. Voit halutessasi lisätä virheraporti
 
 #: ../root/admin/edit_user.tt:41
 #: ../root/static/scripts/account/components/EditProfileForm.js:274
-#: ../root/user/UserProfile.js:341
+#: ../root/user/UserProfile.js:379
 msgid "Bio:"
 msgstr "Elämäkerta:"
 
-#: ../root/layout.tt:116 ../root/layout/components/ExternalLinks.js:118
+#: ../root/layout.tt:116 ../root/layout/components/ExternalLinks.js:133
 #: ../root/layout/components/Footer.js:32
 msgid "Blog"
 msgstr "Blogi"
@@ -1387,7 +1387,8 @@ msgstr "Kuolinaika:"
 msgid "Disambiguation"
 msgstr ""
 
-#: ../root/release/discids.tt:8 ../root/otherlookup/OtherLookupForm.js:114
+#: ../root/release/discids.tt:8 ../root/edit/details/SetTrackLengths.js:66
+#: ../root/otherlookup/OtherLookupForm.js:114
 #: ../root/utility/tableColumns.js:179 ../root/utility/tableColumns.js:184
 msgid "Disc ID"
 msgstr "Levyn tunniste"
@@ -1404,8 +1405,8 @@ msgstr "Levyn tunniste \"<code>{discid}</code>\""
 msgid "Disc ID “{discid}”"
 msgstr "Levyn tunniste \"{discid}\""
 
-#: ../root/cdtoc/info.tt:11 ../root/edit/details/set_track_lengths.tt:15
-#: ../root/edit/details/AddDiscId.js:44 ../root/edit/details/MoveDiscId.js:37
+#: ../root/cdtoc/info.tt:11 ../root/edit/details/AddDiscId.js:44
+#: ../root/edit/details/MoveDiscId.js:37
 #: ../root/edit/details/RemoveDiscId.js:41
 #: ../root/edit/details/historic/AddDiscId.js:38
 #: ../root/edit/details/historic/MoveDiscId.js:32
@@ -1414,7 +1415,7 @@ msgid "Disc ID:"
 msgstr "Levyn tunniste:"
 
 #: ../root/release/discids.tt:1 ../root/release/discids.tt:3
-#: ../root/components/EntityTabs.js:106 ../root/report/ReportsIndex.js:588
+#: ../root/components/EntityTabs.js:106 ../root/report/ReportsIndex.js:592
 msgid "Disc IDs"
 msgstr "Levyjen tunnisteet"
 
@@ -1612,7 +1613,7 @@ msgid "Edits for {name}"
 msgstr "Muokkaukset kohteelle {name}"
 
 #: ../root/account/register.tt:39 ../root/admin/edit_user.tt:37
-#: ../root/user/UserProfile.js:178
+#: ../root/user/UserProfile.js:182
 msgid "Email:"
 msgstr "Sähköpostiosoite:"
 
@@ -1708,7 +1709,7 @@ msgstr ""
 #: ../root/components/list/EventList.js:74 ../root/edit/details/AddEvent.js:44
 #: ../root/edit/details/EditEvent.js:52 ../root/event/EventHeader.js:29
 #: ../root/layout/components/Search.js:29
-#: ../root/report/components/EventList.js:45
+#: ../root/report/components/EventList.js:50
 #: ../root/search/components/SearchForm.js:48
 #: ../root/static/scripts/common/constants.js:20
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:52
@@ -1918,7 +1919,7 @@ msgstr "Täysi sisällysluettelo:"
 #: ../root/artist/edit_form.tt:17
 #: ../root/layout/components/sidebar/ArtistSidebar.js:83
 #: ../root/static/scripts/account/components/EditProfileForm.js:222
-#: ../root/user/UserProfile.js:257
+#: ../root/user/UserProfile.js:261
 msgid "Gender:"
 msgstr "Sukupuoli:"
 
@@ -2292,7 +2293,7 @@ msgstr "Soitin:"
 
 #: ../root/components/common-macros.tt:586
 #: ../root/components/TagEntitiesList.js:170
-#: ../root/report/ReportsIndex.js:153
+#: ../root/report/ReportsIndex.js:157
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:21
 #: ../root/tag/TagLayout.js:33
 msgid "Instruments"
@@ -2408,7 +2409,7 @@ msgstr "Levymerkki:"
 #: ../root/area/AreaLabels.js:32 ../root/components/EntityTabs.js:28
 #: ../root/components/TagEntitiesList.js:174
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:217
-#: ../root/report/ReportsIndex.js:168
+#: ../root/report/ReportsIndex.js:172
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:23
 #: ../root/tag/TagLayout.js:30
 msgid "Labels"
@@ -2567,6 +2568,7 @@ msgstr "Hakua vastaavat CD-levyt"
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:8
 #: ../root/edit/details/EditMedium.js:505
 #: ../root/edit/details/RemoveMedium.js:36
+#: ../root/edit/details/SetTrackLengths.js:52
 #: ../root/search/components/RecordingResults.js:136
 #: ../root/static/scripts/common/utility/mediumFormatName.js:14
 msgid "Medium"
@@ -2595,11 +2597,6 @@ msgstr "Tallenne {position}: {name} on nyt tallenne {new_position}"
 #: ../root/edit/details/merge_releases.tt:44
 msgid "Medium {position}: {name} is now medium {new_position}: {new_name}"
 msgstr "Tallenne {position}: {name} on nyt tallenne {new_position}: {new_name}"
-
-#: ../root/edit/details/set_track_lengths.tt:5
-#: ../root/edit/details/ReorderMediums.js:56
-msgid "Mediums:"
-msgstr "Tallenteet:"
 
 #: ../root/layout/merge-helper.tt:30
 #: ../root/layout/components/MergeHelper.js:71
@@ -2896,6 +2893,7 @@ msgstr "Normaali"
 
 #: ../root/edit/details/merge_releases.tt:158
 #: ../root/edit/details/EditRelease.js:182
+#: ../root/edit/details/SetTrackLengths.js:89
 #: ../root/edit/details/historic/MergeReleases.js:69
 #: ../root/user/ReportUser.js:116
 msgid "Note"
@@ -2908,7 +2906,6 @@ msgid ""
 "check that you have entered the release date correctly."
 msgstr "Huomio! Jos et tiedä julkaisun kuukautta tai päivää, jätä ne täyttämättä.  Tammikuun ensimmäinen ei yleensä ole oikea julkaisupäivä. Varmista, että syötit päivämäärän oikein."
 
-#: ../root/edit/details/set_track_lengths.tt:41
 #: ../root/release/edit/recordings.tt:3
 msgid "Note:"
 msgstr "Huomio:"
@@ -3072,7 +3069,7 @@ msgstr "Paikka:"
 #: ../root/components/common-macros.tt:586 ../root/area/AreaPlaces.js:35
 #: ../root/area/AreaPlaces.js:36 ../root/components/EntityTabs.js:31
 #: ../root/components/TagEntitiesList.js:178
-#: ../root/report/ReportsIndex.js:506
+#: ../root/report/ReportsIndex.js:510
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
 #: ../root/tag/TagLayout.js:31
 msgid "Places"
@@ -3212,7 +3209,7 @@ msgstr[1] "Arvostelu: {rating} tähteä"
 
 #: ../root/user/ratings_summary.tt:1 ../root/user/ratings_summary.tt:33
 #: ../root/components/UserAccountTabs.js:68 ../root/entity/Ratings.js:36
-#: ../root/entity/Ratings.js:38 ../root/user/UserProfile.js:766
+#: ../root/entity/Ratings.js:38 ../root/user/UserProfile.js:804
 msgid "Ratings"
 msgstr "Arvostelut"
 
@@ -3274,7 +3271,7 @@ msgstr "Äänite:"
 #: ../root/edit/details/EditMedium.js:559
 #: ../root/instrument/InstrumentRecordings.js:36
 #: ../root/instrument/InstrumentRecordings.js:38
-#: ../root/report/ReportsIndex.js:440
+#: ../root/report/ReportsIndex.js:444
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:27
 #: ../root/tag/TagLayout.js:28 ../root/work/WorkIndex.js:59
 msgid "Recordings"
@@ -3321,11 +3318,9 @@ msgstr "Yhteys-editori"
 
 #: ../root/forms/relationship-editor.tt:5 ../root/area/AreaRecordings.js:36
 #: ../root/area/AreaReleases.js:71 ../root/area/AreaWorks.js:36
-#: ../root/artist/ArtistRelationships.js:34
-#: ../root/artist/ArtistRelationships.js:41
+#: ../root/artist/ArtistRelationships.js:33
 #: ../root/components/EntityTabs.js:93 ../root/components/Relationships.js:99
-#: ../root/label/LabelRelationships.js:34
-#: ../root/label/LabelRelationships.js:41
+#: ../root/label/LabelRelationships.js:33
 #: ../root/relationship/RelationshipsHeader.js:39
 msgid "Relationships"
 msgstr "Yhteydet"
@@ -3487,9 +3482,10 @@ msgstr "Julkaisu:"
 #: ../root/components/EntityTabs.js:33
 #: ../root/components/TagEntitiesList.js:186
 #: ../root/components/list/ReleaseGroupList.js:107
+#: ../root/edit/details/SetTrackLengths.js:59
 #: ../root/instrument/InstrumentReleases.js:36
 #: ../root/instrument/InstrumentReleases.js:38 ../root/label/LabelIndex.js:80
-#: ../root/report/ReportsIndex.js:242
+#: ../root/report/ReportsIndex.js:246
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:29
 #: ../root/tag/TagLayout.js:27
 msgid "Releases"
@@ -4206,10 +4202,6 @@ msgid ""
 "recording merge information can be shown."
 msgstr "Tämä muokkaustyyppi ei tallenna tietoa äänitteiden sulauttamisesta. Koska muokkaus on suljettu, tietoa äänitteiden sulauttamisesta ei voida näyttää."
 
-#: ../root/edit/details/set_track_lengths.tt:42
-msgid "This edit makes subsecond changes to track lengths"
-msgstr "Tämä muokkaus tekee alle sekunnin kestoisia muutoksia kappaleiden kestoihin"
-
 #: ../root/cdtoc/set_durations.tt:31
 msgid "This edit would only make subsecond changes to track lengths."
 msgstr ""
@@ -4435,7 +4427,7 @@ msgstr "Tämä luo uuden teoksen kaikille valituille äänitteille, jolla ei vie
 #: ../root/cdtoc/info.tt:37 ../root/cdtoc/info.tt:39 ../root/cdtoc/info.tt:41
 #: ../root/components/list/EventList.js:92 ../root/edit/details/AddEvent.js:94
 #: ../root/edit/details/EditEvent.js:105
-#: ../root/report/components/EventList.js:69
+#: ../root/report/components/EventList.js:74
 #: ../root/search/components/EventResults.js:68
 msgid "Time"
 msgstr "Aika"
@@ -4542,10 +4534,6 @@ msgstr "Kappaleen lisätiedot:"
 msgid "Track duration comparison"
 msgstr ""
 
-#: ../root/edit/details/set_track_lengths.tt:33
-msgid "Track lengths:"
-msgstr "Kappaleiden kestot:"
-
 #: ../root/cdstub/edit_form.tt:16
 msgid "Track {n}:"
 msgstr "Kappale {n}:"
@@ -4619,7 +4607,7 @@ msgstr "Twitter"
 #: ../root/report/DuplicateReleaseGroups.js:63
 #: ../root/report/IswcsWithManyWorks.js:52
 #: ../root/report/components/ArtistList.js:59
-#: ../root/report/components/EventList.js:56
+#: ../root/report/components/EventList.js:61
 #: ../root/report/components/InstrumentList.js:55
 #: ../root/report/components/ReleaseGroupList.js:62
 #: ../root/report/components/WorkList.js:62
@@ -4699,7 +4687,7 @@ msgid "URL; [URL]; [URL|label]; [entity-type:MBID|label]"
 msgstr "URL; [URL]; [URL|label]; [entity-type:MBID|label]"
 
 #: ../root/components/common-macros.tt:115
-#: ../root/components/common-macros.tt:586 ../root/report/ReportsIndex.js:553
+#: ../root/components/common-macros.tt:586 ../root/report/ReportsIndex.js:557
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
 msgid "URLs"
 msgstr "Web-osoitteet"
@@ -4846,7 +4834,7 @@ msgid "Voter"
 msgstr "Äänestäjä"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/index.tt:23
-#: ../root/user/UserProfile.js:631
+#: ../root/user/UserProfile.js:669
 msgid "Votes"
 msgstr "Äänet"
 
@@ -4991,7 +4979,7 @@ msgstr "Teos:"
 #: ../root/artist/ArtistWorks.js:31 ../root/artist/ArtistWorks.js:32
 #: ../root/components/EntityTabs.js:35
 #: ../root/components/TagEntitiesList.js:198
-#: ../root/report/ReportsIndex.js:532
+#: ../root/report/ReportsIndex.js:536
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:37
 #: ../root/tag/TagLayout.js:29
 msgid "Works"
@@ -5234,6 +5222,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:87
 #: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:186
 #: ../root/edit/details/EditAlias.js:94
+#: ../root/edit/details/SetTrackLengths.js:73
 #: ../root/static/scripts/common/components/EntityLink.js:41
 msgid "[removed]"
 msgstr "[poistettu]"
@@ -5754,7 +5743,7 @@ msgstr "« Aiempi"
 msgid "…"
 msgstr "…"
 
-#: ../lib/MusicBrainz/Script/RemoveEmpty.pm:132
+#: ../lib/MusicBrainz/Script/RemoveEmpty.pm:138
 msgid ""
 "This entity was automatically removed because it was empty: it had no "
 "relationships associated with it, nor (if relevant for the type of entity in"
@@ -6046,16 +6035,16 @@ msgstr "Sähköpostisi on lähetetty onnistuneesti! Klikkaa {link|tästä} jatka
 msgid "Your message could not be sent"
 msgstr "Viestiäsi ei voitu lähettää"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:511
+#: ../lib/MusicBrainz/Server/Controller/User.pm:517
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "'{type}' ei ole entiteetti joka tukee arvosteluja."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:741
+#: ../lib/MusicBrainz/Server/Controller/User.pm:764
 msgid "An error occurred while trying to send your report."
 msgstr "Virhe kesken ilmoituksen lähetyksen."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:745
+#: ../lib/MusicBrainz/Server/Controller/User.pm:768
 msgid "Your report has been sent."
 msgstr "Ilmoituksesi on lähetetty."
 
@@ -6440,8 +6429,8 @@ msgstr "Poista julkaisuja (historiallinen)"
 msgid "Convert release to multiple artists (historic)"
 msgstr "Muokkaa julkaisu usealle artistille (historiallinen)"
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/SetTrackLengthsFromCDTOC.pm:13
-#: ../lib/MusicBrainz/Server/Edit/Medium/SetTrackLengths.pm:22
+#: ../lib/MusicBrainz/Server/Edit/Historic/SetTrackLengthsFromCDTOC.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Medium/SetTrackLengths.pm:23
 msgid "Set track lengths"
 msgstr "Määritä kappaleiden kestot"
 
@@ -6516,7 +6505,7 @@ msgstr "Lisää tallennemuoto"
 msgid "Edit medium"
 msgstr "Muokkaa tallennetta"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/SetTrackLengths.pm:142
+#: ../lib/MusicBrainz/Server/Edit/Medium/SetTrackLengths.pm:148
 msgid ""
 "The CD TOC the track times were being set from has been removed since this "
 "edit was entered."
@@ -6824,7 +6813,7 @@ msgstr "Muokkaa sarjan aliasta"
 msgid "Merge series"
 msgstr "Sulauta sarjat"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/user/UserProfile.js:590
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/user/UserProfile.js:628
 #: ../root/utility/edit.js:45
 msgid "Open"
 msgstr "Avoimet"
@@ -6857,7 +6846,7 @@ msgstr "Ei-äänet"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:279
 #: ../root/edit/details/AddEvent.js:67 ../root/edit/details/EditEvent.js:71
-#: ../root/user/UserProfile.js:580 ../root/utility/edit.js:39
+#: ../root/user/UserProfile.js:618 ../root/utility/edit.js:39
 msgid "Cancelled"
 msgstr "Peruutettu"
 
@@ -7971,7 +7960,7 @@ msgid "Enter a {link|POSIX regular expression}."
 msgstr ""
 
 #: ../root/admin/IpLookup.js:25 ../root/admin/IpLookup.js:27
-#: ../root/user/UserProfile.js:371
+#: ../root/user/UserProfile.js:409
 msgid "IP lookup"
 msgstr ""
 
@@ -8189,7 +8178,7 @@ msgstr ""
 msgid "{area_type} in {parent_areas}"
 msgstr "{area_type} alueella {parent_areas}"
 
-#: ../root/area/AreaLabels.js:50 ../root/area/AreaPlaces.js:68
+#: ../root/area/AreaLabels.js:50
 msgid "Add selected labels for merging"
 msgstr ""
 
@@ -8207,6 +8196,10 @@ msgstr ""
 msgid ""
 "A map cannot be shown because no maps service access token has been set for "
 "this server."
+msgstr ""
+
+#: ../root/area/AreaPlaces.js:68
+msgid "Add selected places for merging"
 msgstr ""
 
 #: ../root/area/AreaPlaces.js:77
@@ -8390,13 +8383,8 @@ msgstr ""
 msgid "No recordings found."
 msgstr "Äänitteitä ei löytynyt."
 
-#: ../root/artist/ArtistRelationships.js:44
-#: ../root/label/LabelRelationships.js:44
-msgid "{link} has no relationships."
-msgstr "Ei yhteyksiä kohteelle {link}."
-
-#: ../root/artist/ArtistRelationships.js:54
-#: ../root/label/LabelRelationships.js:54
+#: ../root/artist/ArtistRelationships.js:41
+#: ../root/label/LabelRelationships.js:41
 msgid "Appearances"
 msgstr "Esiintymiset"
 
@@ -8614,8 +8602,8 @@ msgstr "Näytä kaikki kokoelmasi"
 msgid "See all of {editor}'s public collections"
 msgstr "Näytä kaikki käyttäjän {editor} julkiset kokoelmat"
 
-#: ../root/collection/CollectionIndex.js:185 ../root/user/UserProfile.js:289
-#: ../root/user/UserProfile.js:347
+#: ../root/collection/CollectionIndex.js:185 ../root/user/UserProfile.js:327
+#: ../root/user/UserProfile.js:385
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr "Tämä sisältö on piilotettu roskapostin estämiseksi. Nähdäksesi se, {url|kirjaudu sisään}."
@@ -8908,6 +8896,15 @@ msgstr "Yhdistetyt sarjat"
 msgid "Related works"
 msgstr "Yhdistetyt teokset"
 
+#: ../root/components/Relationships.js:116
+msgid ""
+"{link} only has event relationships, which are displayed in the Events tab."
+msgstr ""
+
+#: ../root/components/Relationships.js:127
+msgid "{link} has no relationships."
+msgstr "Ei yhteyksiä kohteelle {link}."
+
 #: ../root/components/RelationshipsTable.js:129
 msgid "See all {num} relationships"
 msgstr ""
@@ -9007,7 +9004,7 @@ msgstr[1] "Näytä kaikki {num} paikkaa"
 
 #: ../root/components/TagEntitiesList.js:194
 #: ../root/edit/details/AddSeries.js:38 ../root/edit/details/EditSeries.js:47
-#: ../root/report/ReportsIndex.js:523
+#: ../root/report/ReportsIndex.js:527
 #: ../root/report/components/SeriesList.js:44
 msgid "Series"
 msgstr "Sarjat"
@@ -9036,8 +9033,8 @@ msgstr "Profiili"
 msgid "Subscriptions"
 msgstr "Seuratut kohteet"
 
-#: ../root/components/UserAccountTabs.js:51 ../root/entity/Subscribers.js:48
-#: ../root/entity/Subscribers.js:50
+#: ../root/components/UserAccountTabs.js:51 ../root/entity/Subscribers.js:51
+#: ../root/entity/Subscribers.js:53
 #: ../root/layout/components/sidebar/CollectionSidebar.js:113
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:57
 msgid "Subscribers"
@@ -9719,6 +9716,10 @@ msgstr "Vanhat sijainnit:"
 msgid "New positions:"
 msgstr "Uudet sijainnit:"
 
+#: ../root/edit/details/ReorderMediums.js:56
+msgid "Mediums:"
+msgstr "Tallenteet:"
+
 #: ../root/edit/details/ReorderMediums.js:60
 msgid "Medium <span class=\"new\">{new}</span>: {title} (new medium)"
 msgstr "Tallenne <span class=\"new\">{new}</span>: {title} (uusi tallenne)"
@@ -9765,6 +9766,14 @@ msgstr ""
 #: ../root/edit/details/SetCoverArt.js:75
 msgid "New cover art:"
 msgstr "Uusi kansitaide:"
+
+#: ../root/edit/details/SetTrackLengths.js:78
+msgid "Track lengths:"
+msgstr "Kappaleiden kestot:"
+
+#: ../root/edit/details/SetTrackLengths.js:91
+msgid "This edit makes subsecond changes to track lengths"
+msgstr "Tämä muokkaus tekee alle sekunnin kestoisia muutoksia kappaleiden kestoihin"
 
 #: ../root/edit/details/historic/AddDiscId.js:34
 msgid "CD TOC:"
@@ -10327,59 +10336,63 @@ msgstr "Keskiarvo:"
 msgid "{link} has no ratings."
 msgstr "Kohdetta {link} ei ole arvosteltu."
 
-#: ../root/entity/Subscribers.js:58
+#: ../root/entity/Subscribers.js:57
+msgid "This is a special purpose entity and does not support subscriptions."
+msgstr ""
+
+#: ../root/entity/Subscribers.js:68
 msgid "There is currently {num} user subscribed to edits that you make:"
 msgid_plural ""
 "There are currently {num} users subscribed to edits that you make:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/entity/Subscribers.js:69
+#: ../root/entity/Subscribers.js:79
 msgid "There is currently {num} user subscribed to edits that {user} makes:"
 msgid_plural ""
 "There are currently {num} users subscribed to edits that {user} makes:"
 msgstr[0] "Käyttäjän {user} muokkauksilla on tällä hetkellä {num} seuraajaa:"
 msgstr[1] "Käyttäjän {user} muokkauksia seuraa tällä hetkellä {num} käyttäjää:"
 
-#: ../root/entity/Subscribers.js:82
+#: ../root/entity/Subscribers.js:92
 msgid "There is currently {num} user subscribed to {entity}:"
 msgid_plural "There are currently {num} users subscribed to {entity}:"
 msgstr[0] "Entiteettillä {entity} on tällä hetkellä {num} seuraaja:"
 msgstr[1] "Entiteettillä {entity} on tällä hetkellä {num} seuraajaa:"
 
-#: ../root/entity/Subscribers.js:101
+#: ../root/entity/Subscribers.js:111
 msgid "Plus {n} other anonymous user"
 msgid_plural "Plus {n} other anonymous users"
 msgstr[0] "Lisäksi {n} nimetön käyttäjä"
 msgstr[1] "Lisäksi {n} nimetöntä käyttäjää"
 
-#: ../root/entity/Subscribers.js:111
+#: ../root/entity/Subscribers.js:121
 msgid "An anonymous user"
 msgid_plural "{n} anonymous users"
 msgstr[0] "Nimetön käyttäjä."
 msgstr[1] "{n} anonyymiä käyttäjää"
 
-#: ../root/entity/Subscribers.js:125
+#: ../root/entity/Subscribers.js:135
 msgid "There are currently no users subscribed to edits that you make."
 msgstr "Yksikään käyttäjä ei seuraa tekemiäsi muutoksia."
 
-#: ../root/entity/Subscribers.js:128
+#: ../root/entity/Subscribers.js:138
 msgid "There are currently no users subscribed to edits that {user} makes."
 msgstr "Yksikään käyttäjä ei seuraa käyttäjän {user} tekemiä muutoksia."
 
-#: ../root/entity/Subscribers.js:133
+#: ../root/entity/Subscribers.js:143
 msgid "There are currently no users subscribed to {entity}."
 msgstr "Entiteettillä {entity} ei ole tällä hetkellä yhtään seuraajaa."
 
-#: ../root/entity/Subscribers.js:142
+#: ../root/entity/Subscribers.js:152
 msgid "You are currently subscribed. {unsub|Unsubscribe}?"
 msgstr "Seuraat muutoksia. {unsub|Lopeta seuraaminen}?"
 
-#: ../root/entity/Subscribers.js:146
+#: ../root/entity/Subscribers.js:156
 msgid "Be the first! {sub|Subscribe}?"
 msgstr "Ole ensimmäinen! {sub|Seuraa muutoksia}?"
 
-#: ../root/entity/Subscribers.js:149
+#: ../root/entity/Subscribers.js:159
 msgid "You are not currently subscribed. {sub|Subscribe}?"
 msgstr "Et seuraa muutoksia. {sub|Aloita seuraaminen}?"
 
@@ -10611,7 +10624,7 @@ msgstr "Auto-editori-vaalit"
 msgid "Privileged User Accounts"
 msgstr "Erikoiskäyttäjät"
 
-#: ../root/layout/components/BottomMenu.js:145 ../root/user/UserProfile.js:515
+#: ../root/layout/components/BottomMenu.js:145 ../root/user/UserProfile.js:553
 msgid "Statistics"
 msgstr "Tilastot"
 
@@ -10764,15 +10777,19 @@ msgstr "Yhteyksien tyypit"
 msgid "Development"
 msgstr "Sovelluskehitys"
 
-#: ../root/layout/components/ExternalLinks.js:108
+#: ../root/layout/components/ExternalLinks.js:57
+msgid "{url} (as {credited_name})"
+msgstr ""
+
+#: ../root/layout/components/ExternalLinks.js:122
 msgid "Official homepage"
 msgstr "Virallinen kotisivu"
 
-#: ../root/layout/components/ExternalLinks.js:155
+#: ../root/layout/components/ExternalLinks.js:171
 msgid "External links"
 msgstr "Ulkopuoliset linkit"
 
-#: ../root/layout/components/ExternalLinks.js:162
+#: ../root/layout/components/ExternalLinks.js:178
 msgid "View all relationships"
 msgstr "Näytä kaikki yhteydet"
 
@@ -12022,6 +12039,14 @@ msgstr "Tämä raportti listaa artistit, joilla lisätietokenttä."
 msgid "Artist annotations"
 msgstr "Artistin lisätietokenttiä"
 
+#: ../root/report/AnnotationsEvents.js:31
+msgid "This report lists events with annotations."
+msgstr ""
+
+#: ../root/report/AnnotationsEvents.js:36
+msgid "Event annotations"
+msgstr ""
+
 #: ../root/report/AnnotationsLabels.js:31
 msgid "This report lists labels with annotations."
 msgstr "Tämä raportti listaa levymerkit, joilla lisätietokenttä."
@@ -12176,7 +12201,7 @@ msgid ""
 msgstr "Tämä raportti näyttää Amazon web-osoitteet, jotka ovat yhdistetty useisiin julkaisuihin. Yleensä Amazon ASIN-koodin tulisi vastata yksi yhteen MusicBrainzin julkaisun kanssa, joten vain yksi linkeistä on oikein. Tarkista mikä MusicBrainzin julkaisu sopii Amazonin julkaisuun (julkaisumuoto, kappalelista jne). Jos julkaisussa on viivakoodi, voit etsiä sillä Amazonista ja katsoa mikä ASIN vastaa sitä. Jotkut ASIN-koodit saattavat olla yhdistettynä myös useisiin saman julkaisun eri levyihin. Ne tulee sulauttaa (katso {how_to_merge_releases|kuinka sulauttaa julkaisut})."
 
 #: ../root/report/AsinsWithMultipleReleases.js:40
-#: ../root/report/ReportsIndex.js:272
+#: ../root/report/ReportsIndex.js:276
 msgid "Amazon URLs linked to multiple releases"
 msgstr "Amazon web-osoitteet, jotka on yhdistetty useisiin julkaisuihin"
 
@@ -12205,7 +12230,7 @@ msgid ""
 "(SACD) or with a buggy tool."
 msgstr ""
 
-#: ../root/report/CDTocDubiousLength.js:34 ../root/report/ReportsIndex.js:592
+#: ../root/report/CDTocDubiousLength.js:34 ../root/report/ReportsIndex.js:596
 msgid "Disc IDs with dubious duration"
 msgstr ""
 
@@ -12219,7 +12244,7 @@ msgid ""
 "clashes are clear mistakes."
 msgstr ""
 
-#: ../root/report/CDTocNotApplied.js:36 ../root/report/ReportsIndex.js:596
+#: ../root/report/CDTocNotApplied.js:36 ../root/report/ReportsIndex.js:600
 msgid "Disc IDs attached but not applied"
 msgstr ""
 
@@ -12231,7 +12256,7 @@ msgid ""
 " instead."
 msgstr "Tämä raportti näyttää julkaisut, joilla on luettelonumero, joka näyttää ASIN-koodilta. Se on lähes aina väärin: ASIN-koodit ovat Amazonin merkintöjä julkaisuille, ja ne tulisi yhdistää julkaisuihin Amazon-web-osoite-yhteyksillä."
 
-#: ../root/report/CatNoLooksLikeAsin.js:38 ../root/report/ReportsIndex.js:315
+#: ../root/report/CatNoLooksLikeAsin.js:38 ../root/report/ReportsIndex.js:319
 msgid "Releases with catalog numbers that look like ASINs"
 msgstr "Julkaisut, joissa luettelonumero näyttää Amazon ASIN-tunnisteilta"
 
@@ -12245,7 +12270,7 @@ msgid ""
 " not a legitimate catalog number that just happens to look like an ISRC!"
 msgstr ""
 
-#: ../root/report/CatNoLooksLikeIsrc.js:42 ../root/report/ReportsIndex.js:319
+#: ../root/report/CatNoLooksLikeIsrc.js:42 ../root/report/ReportsIndex.js:323
 msgid "Releases with catalog numbers that look like ISRCs"
 msgstr ""
 
@@ -12259,7 +12284,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/CatNoLooksLikeLabelCode.js:42
-#: ../root/report/ReportsIndex.js:324
+#: ../root/report/ReportsIndex.js:328
 msgid "Releases with catalog numbers that look like Label Codes"
 msgstr ""
 
@@ -12308,7 +12333,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DeprecatedRelationshipLabels.js:37
-#: ../root/report/ReportsIndex.js:180
+#: ../root/report/ReportsIndex.js:184
 msgid "Labels with deprecated relationships"
 msgstr "Levymerkit, joilla vanhentuneita yhteyksiä"
 
@@ -12319,7 +12344,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DeprecatedRelationshipPlaces.js:37
-#: ../root/report/ReportsIndex.js:510
+#: ../root/report/ReportsIndex.js:514
 msgid "Places with deprecated relationships"
 msgstr "Paikat, joilla vanhentuneita yhteyksiä"
 
@@ -12330,7 +12355,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DeprecatedRelationshipRecordings.js:37
-#: ../root/report/ReportsIndex.js:460
+#: ../root/report/ReportsIndex.js:464
 msgid "Recordings with deprecated relationships"
 msgstr "Äänitteet, joilla vanhentuneita yhteyksiä"
 
@@ -12341,7 +12366,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DeprecatedRelationshipReleaseGroups.js:37
-#: ../root/report/ReportsIndex.js:215
+#: ../root/report/ReportsIndex.js:219
 msgid "Release groups with deprecated relationships"
 msgstr ""
 
@@ -12352,7 +12377,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DeprecatedRelationshipReleases.js:37
-#: ../root/report/ReportsIndex.js:381
+#: ../root/report/ReportsIndex.js:385
 msgid "Releases with deprecated relationships"
 msgstr "Julkaisut, joissa vanhentuneita yhteyksiä"
 
@@ -12363,7 +12388,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DeprecatedRelationshipUrls.js:37
-#: ../root/report/ReportsIndex.js:557
+#: ../root/report/ReportsIndex.js:561
 msgid "URLs with deprecated relationships"
 msgstr "Web-osoitteet, joilla on vanhentuneita yhteyksiä"
 
@@ -12374,7 +12399,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DeprecatedRelationshipWorks.js:37
-#: ../root/report/ReportsIndex.js:540
+#: ../root/report/ReportsIndex.js:544
 msgid "Works with deprecated relationships"
 msgstr "Teokset, joilla vanhentuneita yhteyksiä"
 
@@ -12392,7 +12417,7 @@ msgid "This report shows Discogs URLs which are linked to multiple labels."
 msgstr "Tämä raportti näyttää Discogs web-osoitteet, jotka on yhdistetty useisiin levymerkkeihin."
 
 #: ../root/report/DiscogsLinksWithMultipleLabels.js:32
-#: ../root/report/ReportsIndex.js:172
+#: ../root/report/ReportsIndex.js:176
 msgid "Discogs URLs linked to multiple labels"
 msgstr "Discogs web-osoitteet, jotka on yhdistetty useisiin levymerkkeihin"
 
@@ -12402,7 +12427,7 @@ msgid ""
 msgstr "Tämä raportti näyttää Discogs web-osoitteet, jotka on yhdistetty useisiin julkaisuryhmiin."
 
 #: ../root/report/DiscogsLinksWithMultipleReleaseGroups.js:33
-#: ../root/report/ReportsIndex.js:207
+#: ../root/report/ReportsIndex.js:211
 msgid "Discogs URLs linked to multiple release groups"
 msgstr "Discogs web-osoitteet, jotka on yhdistetty useisiin julkaisuryhmiin"
 
@@ -12418,7 +12443,7 @@ msgid ""
 msgstr "Tämä raportti näyttää Discogs web-osoitteet, jotka on yhdistetty useisiin julkaisuihin. Yleensä Discogsin julkaisun tulisi vastata yksi yhteen MusicBrainzin julkaisun kanssa, joten vain yksi linkeistä on oikein. Tarkista mikä MusicBrainzin julkaisu sopii Discogsin julkaisuun (julkaisumuoto, kappalelista, julkaisumaa jne). Jotkut Discogs-linkit saattavat olla yhdistettynä myös useisiin saman julkaisun eri levyihin. Ne tulee sulauttaa (katso {how_to_merge_releases|kuinka sulauttaa julkaisut})."
 
 #: ../root/report/DiscogsLinksWithMultipleReleases.js:39
-#: ../root/report/ReportsIndex.js:276
+#: ../root/report/ReportsIndex.js:280
 msgid "Discogs URLs linked to multiple releases"
 msgstr "Discogs web-osoitteet, jotka on yhdistetty useisiin julkaisuihin"
 
@@ -12475,7 +12500,7 @@ msgid ""
 msgstr "Tämä raportti listaa levymerkit, joilla on useita yhteyksiä samaan entiteettiin, käyttäen samaa yhteystyyppiä."
 
 #: ../root/report/DuplicateRelationshipsLabels.js:32
-#: ../root/report/ReportsIndex.js:176
+#: ../root/report/ReportsIndex.js:180
 msgid "Labels with possible duplicate relationships"
 msgstr "Levymerkit, joilla mahdollisesti yhteyksien kaksoiskappaleita"
 
@@ -12486,7 +12511,7 @@ msgid ""
 msgstr "Tämä raportti listaa äänitteet, joilla on useita yhteyksiä samaan entiteettiin, käyttäen samaa yhteystyyppiä."
 
 #: ../root/report/DuplicateRelationshipsRecordings.js:32
-#: ../root/report/ReportsIndex.js:452
+#: ../root/report/ReportsIndex.js:456
 msgid "Recordings with possible duplicate relationships"
 msgstr "Äänitteet, joilla mahdollisesti yhteyksien kaksoiskappaleita"
 
@@ -12497,7 +12522,7 @@ msgid ""
 msgstr "Tämä raportti listaa julkaisuryhmät, joilla on useita yhteyksiä samaan entiteettiin, käyttäen samaa yhteystyyppiä."
 
 #: ../root/report/DuplicateRelationshipsReleaseGroups.js:32
-#: ../root/report/ReportsIndex.js:211
+#: ../root/report/ReportsIndex.js:215
 msgid "Release groups with possible duplicate relationships"
 msgstr "Julkaisuryhmät, joilla mahdollisesti yhteyksien kaksoiskappaleita"
 
@@ -12508,7 +12533,7 @@ msgid ""
 msgstr "Tämä raportti listaa julkaisut, joilla on useita yhteyksiä samaan entiteettiin, käyttäen samaa yhteystyyppiä."
 
 #: ../root/report/DuplicateRelationshipsReleases.js:32
-#: ../root/report/ReportsIndex.js:369
+#: ../root/report/ReportsIndex.js:373
 msgid "Releases with possible duplicate relationships"
 msgstr "Julkaisut, joissa mahdollisesti yhteyksien kaksoiskappaleita"
 
@@ -12520,7 +12545,7 @@ msgid ""
 msgstr "Tämä raportti listaa teokset, joilla on useita yhteyksiä samaan entiteettiin, käyttäen samaa yhteystyyppiä. Äänite-teos-yhteydet eivät ole mukana. Ne löytyvät tämän raportin versiosta äänitteistä."
 
 #: ../root/report/DuplicateRelationshipsWorks.js:34
-#: ../root/report/ReportsIndex.js:536
+#: ../root/report/ReportsIndex.js:540
 msgid "Works with possible duplicate relationships"
 msgstr "Teokset, joilla mahdollisesti yhteyksien kaksoiskappaleita"
 
@@ -12536,7 +12561,7 @@ msgid ""
 msgstr "Tämä raportti listaa julkaisuryhmät, joilla on hyvin samankaltaiset nimet ja artistit. Jos julkaisuryhmien julkaisujen tulisi olla samassa ryhmässä (katso {url|ohjeistus}), ne voidaan yhdistää. Jos niiden ei tule olla samassa ryhmässä, vaan ne voidaan erottaa julkaisuryhmän tyypin mukaan, esim. samannimiset albumi ja single, niin silloin tuskin tarvitsee tehdä mitään. Muissa tapauksissa täsmennyskommentti voi auttaa."
 
 #: ../root/report/DuplicateReleaseGroups.js:54
-#: ../root/report/ReportsIndex.js:219
+#: ../root/report/ReportsIndex.js:223
 msgid "Possible duplicate release groups"
 msgstr "Mahdollisia kaksoiskappaleita julkaisuryhmistä"
 
@@ -12552,7 +12577,7 @@ msgid ""
 msgstr "Tämä raportti listaa tapahtumat, joiden mahdollisesti tulisi olla nimensä perusteella osana sarjaa tai suurempaa tapahtumaa."
 
 #: ../root/report/EventSequenceNotInSeries.js:32
-#: ../root/report/ReportsIndex.js:146
+#: ../root/report/ReportsIndex.js:150
 msgid "Events which should be part of series or larger event"
 msgstr "Tapahtumat, joiden tulisi olla osana suurempaa tapahtumaa"
 
@@ -12566,7 +12591,7 @@ msgid ""
 "artists} to know more."
 msgstr ""
 
-#: ../root/report/FeaturingRecordings.js:41 ../root/report/ReportsIndex.js:448
+#: ../root/report/FeaturingRecordings.js:41 ../root/report/ReportsIndex.js:452
 msgid "Recordings with titles containing featuring artists"
 msgstr "Äänitteet, joiden nimi sisältää vierailevan artistin "
 
@@ -12580,7 +12605,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/FeaturingReleaseGroups.js:40
-#: ../root/report/ReportsIndex.js:202
+#: ../root/report/ReportsIndex.js:206
 msgid "Release groups with titles containing featuring artists"
 msgstr "Julkaisuryhmät, joiden nimissä on vieraileva artisti"
 
@@ -12595,7 +12620,7 @@ msgid ""
 "fix them too while you edit the release!"
 msgstr ""
 
-#: ../root/report/FeaturingReleases.js:43 ../root/report/ReportsIndex.js:300
+#: ../root/report/FeaturingReleases.js:43 ../root/report/ReportsIndex.js:304
 msgid "Releases with titles containing featuring artists"
 msgstr "Julkaisut, joiden nimi sisältää vierailevan artistin"
 
@@ -12614,7 +12639,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/InstrumentsWithoutAnImage.js:32
-#: ../root/report/ReportsIndex.js:157
+#: ../root/report/ReportsIndex.js:161
 msgid "Instruments without an image"
 msgstr "Soittimet, joilla ei kuvia"
 
@@ -12638,7 +12663,7 @@ msgid ""
 msgstr "Tämä raportti listaa {isrc|ISRC-koodit}, jotka ovat liitettyinä useampaan kuin yhteen äänitteeseen. Jos äänitteet ovat samat, ne tulisi sulauttaa (ISRC-koodit voivat olla myös väärin merkittyinä, joten aina tulee varmistaa, että kyseessä on sama äänite). Jos äänitteet ovat osana suurempaa äänitettä, ISRC-koodit luultavasti ovat oikein, ja ne tulisi jättää rauhaan. Jos sama ISRC-koodi on saman julkaisun täysin eri äänitteillä, on syynä luultavasti virhe kun koodit on luettu CD-levyltä."
 
 #: ../root/report/IsrcsWithManyRecordings.js:51
-#: ../root/report/ReportsIndex.js:574
+#: ../root/report/ReportsIndex.js:578
 msgid "ISRCs with multiple recordings"
 msgstr "ISRC-koodeja, joista kukin liittyy useampaan äänitteeseen"
 
@@ -12653,7 +12678,7 @@ msgid ""
 "the works are the same, this usually means they should be merged."
 msgstr "Tämä raportti listaa {iswc|ISWC-koodit}, jotka ovat liitettyinä useampaan kuin yhteen teokseen. Jos teokset ovat samat, ne tulisi yleensä sulauttaa."
 
-#: ../root/report/IswcsWithManyWorks.js:41 ../root/report/ReportsIndex.js:583
+#: ../root/report/IswcsWithManyWorks.js:41 ../root/report/ReportsIndex.js:587
 msgid "ISWCs with multiple works"
 msgstr "ISWC-koodit, jotka viittaavat useaan teokseen"
 
@@ -12669,7 +12694,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/LabelsDisambiguationSameName.js:33
-#: ../root/report/ReportsIndex.js:188
+#: ../root/report/ReportsIndex.js:192
 msgid "Labels with disambiguation the same as the name"
 msgstr "Levymerkit, joiden täsmennyskommentti on sama kuin nimi"
 
@@ -12693,7 +12718,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/LinksWithMultipleEntities.js:53
-#: ../root/report/ReportsIndex.js:561
+#: ../root/report/ReportsIndex.js:565
 msgid "URLs linked to multiple entities"
 msgstr ""
 
@@ -12765,7 +12790,7 @@ msgid ""
 "guess: not everything written in Cyrillic is Russian, for example."
 msgstr "Tämä raportti näyttää julkaisut, joilla ei ole keiltä asetettuna. Jos tunnistat kielen, aseta se! Tee niin vain kun olet melko varma, älä arvaa: kaikki kyrillisellä kirjoitettu ei esimerkiksi ole venäjää."
 
-#: ../root/report/NoLanguage.js:38 ../root/report/ReportsIndex.js:252
+#: ../root/report/NoLanguage.js:38 ../root/report/ReportsIndex.js:256
 msgid "Releases without language"
 msgstr "Julkaisut ilman määritettyä kieltä"
 
@@ -12776,7 +12801,7 @@ msgid ""
 "other European languages) is Latin."
 msgstr "Tämä raportti näyttää julkaisut, joilla ei ole merkistöä asettuna. Jos tunnistat sen, lisää se! Muistathan, että merkistö jota englanti (ja useimmat muut Euroopan kielet) käyttävät on latinalainen."
 
-#: ../root/report/NoScript.js:37 ../root/report/ReportsIndex.js:256
+#: ../root/report/NoScript.js:37 ../root/report/ReportsIndex.js:260
 msgid "Releases without script"
 msgstr "Julkaisut ilman määritettyä merkistöä"
 
@@ -12799,7 +12824,7 @@ msgid "This report lists places without coordinates."
 msgstr "Tämä raportti listaa paikat ilman koordinaatteja."
 
 #: ../root/report/PlacesWithoutCoordinates.js:35
-#: ../root/report/ReportsIndex.js:518
+#: ../root/report/ReportsIndex.js:522
 msgid "Places without coordinates"
 msgstr "Paikat ilman koordinaatteja"
 
@@ -12835,7 +12860,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/RecordingTrackDifferentName.js:46
-#: ../root/report/ReportsIndex.js:496
+#: ../root/report/ReportsIndex.js:500
 msgid "Recordings with a different name than their only track"
 msgstr ""
 
@@ -12866,7 +12891,7 @@ msgid ""
 msgstr "Tämä raportti näyttää äänitteet, joilla on vanhentunut \"ensimmäinen julkaisu\"-yhteystyyppi. Ne tulisi sulauttaa, jos ne todellakin ovat täysin sama äänite. Jos ne eivät ole, yhteys tulee poistaa. Älä sulauta äänitteitä varmistamatta vain sen takia että niiden kestot ovat samat, äläkä sulauta äänitteitä joilla on hyvinkin poikkeavat kestot!"
 
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:36
-#: ../root/report/ReportsIndex.js:444
+#: ../root/report/ReportsIndex.js:448
 msgid "Recordings with earliest release relationships"
 msgstr "Äänitteet, joissa aiempi julkaisu -yhteys"
 
@@ -12887,7 +12912,7 @@ msgid ""
 msgstr "Tämä raportti näyttää äänitteet, joihin yhdistetyissä kappaleissa on heittoa yli 30 sekuntia."
 
 #: ../root/report/RecordingsWithVaryingTrackLengths.js:32
-#: ../root/report/ReportsIndex.js:456
+#: ../root/report/ReportsIndex.js:460
 msgid "Recordings with varying track times"
 msgstr "Äänitteitä, joissa eripituisia kappaleita"
 
@@ -12898,7 +12923,7 @@ msgid ""
 msgstr "Tämä raportti näyttää äänitteet, jotka on yhdistetty eri esittäjiä -entiteettiin ilman että \"Eri esittäjiä\" on tekijänimenä."
 
 #: ../root/report/RecordingsWithoutVaCredit.js:32
-#: ../root/report/ReportsIndex.js:469
+#: ../root/report/ReportsIndex.js:473
 msgid "Recordings not credited to \"Various Artists\" but linked to VA"
 msgstr "Äänitteet, joiden tekijänimenä ei ole \"Eri esittäjiä\", mutta jotka on yhdistetty eri esittäjiin"
 
@@ -12909,7 +12934,7 @@ msgid ""
 msgstr "Tämä raportti näyttää äänitteet, joilla on \"Eri esittäjiä\" tekijänimenä, mutta joita ei ole yhdistetty eri esittäjiä -entiteettiin."
 
 #: ../root/report/RecordingsWithoutVaLink.js:32
-#: ../root/report/ReportsIndex.js:476
+#: ../root/report/ReportsIndex.js:480
 msgid "Recordings credited to \"Various Artists\" but not linked to VA"
 msgstr "Äänitteet, joiden tekijänimenä on \"Eri esittäjiä\", mutta joita ei ole yhdistetty eri esittäjiin"
 
@@ -12920,7 +12945,7 @@ msgid ""
 msgstr "Tämä raportti näyttää julkaisuryhmät, jotka on yhdistetty eri esittäjiä -entiteettiin ilman että \"Eri esittäjiä\" on tekijänimenä."
 
 #: ../root/report/ReleaseGroupsWithoutVaCredit.js:33
-#: ../root/report/ReportsIndex.js:228
+#: ../root/report/ReportsIndex.js:232
 msgid "Release groups not credited to \"Various Artists\" but linked to VA"
 msgstr "Julkaisuryhmät, joiden tekijänimenä ei ole \"Eri esittäjiä\", mutta jotka on yhdistetty eri esittäjiin"
 
@@ -12931,7 +12956,7 @@ msgid ""
 msgstr "Tämä raportti näyttää julkaisuryhmät, joilla on \"Eri esittäjiä\" tekijänimenä, mutta joita ei ole yhdistetty eri esittäjiä -entiteettiin."
 
 #: ../root/report/ReleaseGroupsWithoutVaLink.js:33
-#: ../root/report/ReportsIndex.js:235
+#: ../root/report/ReportsIndex.js:239
 msgid "Release groups credited to \"Various Artists\" but not linked to VA"
 msgstr "Julkaisuryhmät, joiden tekijänimenä on \"Eri esittäjiä\", mutta joita ei ole yhdistetty eri esittäjiin"
 
@@ -12943,7 +12968,7 @@ msgid ""
 msgstr "Tämä raportti listaa julkaisut, joissa levymerkin nimi on sama kuin artistin. Tämä yleensä tarkoittaa sitä, että julkaisu on omakustanne ja levymerkkinä {SpecialPurposeLabel|tulisi olla \"[no label]\" sen sijaan}."
 
 #: ../root/report/ReleaseLabelSameArtist.js:48
-#: ../root/report/ReportsIndex.js:422
+#: ../root/report/ReportsIndex.js:426
 msgid "Releases where artist name and label name are the same"
 msgstr "Julkaisut, joissa artistin ja levymerkin nimet ovat samat"
 
@@ -12955,7 +12980,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleaseRgDifferentName.js:46
-#: ../root/report/ReportsIndex.js:428
+#: ../root/report/ReportsIndex.js:432
 msgid "Releases with a different name than their release group"
 msgstr ""
 
@@ -12967,7 +12992,7 @@ msgid ""
 " a medium whose format does not have disc IDs."
 msgstr "Tämä raportti näyttää julkaisut, joilla on levyn tunniste, mutta julkaisuaika on ennen CD-levyjen tuloa, julkaisut, joissa tallennemuoto ei ole ollut olemassa julkaisuaikana, ja julkaisut, joissa levyn tunniste on liitetty tallennemuotoon, joka ei voi sisältää levyn tunnistetta."
 
-#: ../root/report/ReleasedTooEarly.js:35 ../root/report/ReportsIndex.js:304
+#: ../root/report/ReleasedTooEarly.js:35 ../root/report/ReportsIndex.js:308
 msgid "Releases released too early"
 msgstr "Julkaisut, joiden julkaisuajankohta on liian aikainen"
 
@@ -12979,7 +13004,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesConflictingDiscIds.js:33
-#: ../root/report/ReportsIndex.js:413
+#: ../root/report/ReportsIndex.js:417
 msgid "Releases with conflicting disc IDs"
 msgstr ""
 
@@ -12996,7 +13021,7 @@ msgid ""
 msgstr "Lisätäksesi levyn tunnisteen, tutustu {add_discids|dokumentaatioon}."
 
 #: ../root/report/ReleasesMissingDiscIds.js:38
-#: ../root/report/ReportsIndex.js:409
+#: ../root/report/ReportsIndex.js:413
 msgid "Releases missing disc IDs"
 msgstr "Julkaisut, joilta puuttuu levyn tunniste"
 
@@ -13008,7 +13033,7 @@ msgid ""
 "merged."
 msgstr ""
 
-#: ../root/report/ReleasesSameBarcode.js:63 ../root/report/ReportsIndex.js:434
+#: ../root/report/ReleasesSameBarcode.js:63 ../root/report/ReportsIndex.js:438
 msgid "Releases with the same barcode in different release groups"
 msgstr ""
 
@@ -13020,7 +13045,7 @@ msgid ""
 "\"/\" or \"-\"."
 msgstr "Tämä raportti pyrkii tunnistamaan julkaisut, jotka tulisi muuttaa useiden artistien julkaisuiksi (esim. artistit nimettyinä kappaleisiin). Tällä hetkellä tähän poimitaan julkaisut, joissa kaikki kappaleet sisältävät merkin \"/\" tai \"-\"."
 
-#: ../root/report/ReleasesToConvert.js:34 ../root/report/ReportsIndex.js:247
+#: ../root/report/ReleasesToConvert.js:34 ../root/report/ReportsIndex.js:251
 msgid "Releases which might need converting to \"multiple artists\""
 msgstr "Julkaisut, jotka saattavat vaatia muunnoksen usean artistin julkaisuksi"
 
@@ -13033,7 +13058,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesWithAmazonCoverArt.js:35
-#: ../root/report/ReportsIndex.js:344
+#: ../root/report/ReportsIndex.js:348
 msgid ""
 "Releases that have Amazon cover art but no Cover Art Archive front cover"
 msgstr ""
@@ -13046,7 +13071,7 @@ msgid ""
 msgstr "Tämä raportti näyttää julkaisut, joilla on kansitaidetta Cover Art Archivessa, mutta yhdellekään ei ole merkitty tyyppiä. Tämä yleensä tarkoittaa, että etukansitaide on lisätty, mutta sitä ei ole merkitty sellaiseksi."
 
 #: ../root/report/ReleasesWithCaaNoTypes.js:34
-#: ../root/report/ReportsIndex.js:351
+#: ../root/report/ReportsIndex.js:355
 msgid "Releases in the Cover Art Archive where no cover art piece has types"
 msgstr "Julkaisut Cover Art Archivessa, joiden kansitaiteille ei ole määritelty tyyppejä"
 
@@ -13059,7 +13084,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesWithDownloadRelationships.js:36
-#: ../root/report/ReportsIndex.js:377
+#: ../root/report/ReportsIndex.js:381
 msgid "Non-digital releases with digital relationships"
 msgstr ""
 
@@ -13070,7 +13095,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesWithEmptyMediums.js:33
-#: ../root/report/ReportsIndex.js:393
+#: ../root/report/ReportsIndex.js:397
 msgid "Releases with empty mediums"
 msgstr ""
 
@@ -13079,7 +13104,7 @@ msgid "This report shows releases without any mediums (no tracklist)."
 msgstr ""
 
 #: ../root/report/ReleasesWithNoMediums.js:31
-#: ../root/report/ReportsIndex.js:389
+#: ../root/report/ReportsIndex.js:393
 msgid "Releases with no mediums"
 msgstr "Julkaisut, joissa ei ole tallenteita"
 
@@ -13090,7 +13115,7 @@ msgid ""
 msgstr "Tämä raportti näyttää julkaisut, joilla on epätodennäköinen yhdistelmä kielen ja merkistön määreissä, kuten saksa ja etiopialainen."
 
 #: ../root/report/ReleasesWithUnlikelyLanguageScript.js:36
-#: ../root/report/ReportsIndex.js:361
+#: ../root/report/ReportsIndex.js:365
 msgid "Releases with unlikely language/script pairs"
 msgstr "Julkaisut, joissa epätodennäköisiä kieli- ja merkistöpareja"
 
@@ -13101,7 +13126,7 @@ msgid ""
 msgstr "Tämä raportti näyttää julkaisut, jotka on yhdistetty eri esittäjiä -entiteettiin ilman että \"Eri esittäjiä\" on tekijänimenä."
 
 #: ../root/report/ReleasesWithoutVaCredit.js:32
-#: ../root/report/ReportsIndex.js:398
+#: ../root/report/ReportsIndex.js:402
 msgid "Releases not credited to \"Various Artists\" but linked to VA"
 msgstr "Julkaisut, joiden tekijänimenä ei ole \"Eri esittäjiä\", mutta jotka on yhdistetty eri esittäjiin"
 
@@ -13112,7 +13137,7 @@ msgid ""
 msgstr "Tämä raportti näyttää julkaisut, joilla on \"Eri esittäjiä\" tekijänimenä, mutta joita ei ole yhdistetty eri esittäjiä -entiteettiin."
 
 #: ../root/report/ReleasesWithoutVaLink.js:32
-#: ../root/report/ReportsIndex.js:404
+#: ../root/report/ReportsIndex.js:408
 msgid "Releases credited to \"Various Artists\" but not linked to VA"
 msgstr "Julkaisut, joiden tekijänimenä on \"Eri esittäjiä\", mutta joita ei ole yhdistetty eri esittäjiin"
 
@@ -13146,129 +13171,133 @@ msgid "Editors"
 msgstr "Käyttäjät"
 
 #: ../root/report/ReportsIndex.js:142
+msgid "Events with annotations"
+msgstr ""
+
+#: ../root/report/ReportsIndex.js:146
 msgid "Possibly duplicate events"
 msgstr "Mahdollisia kaksoiskappaleita tapahtumista"
 
-#: ../root/report/ReportsIndex.js:161
+#: ../root/report/ReportsIndex.js:165
 msgid "Instruments without a link to Wikidata"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:184
+#: ../root/report/ReportsIndex.js:188
 msgid "Labels with annotations"
 msgstr "Levymerkit, joilla lisätietokenttä"
 
-#: ../root/report/ReportsIndex.js:193
+#: ../root/report/ReportsIndex.js:197
 msgid "Release groups"
 msgstr "Julkaisuryhmät"
 
-#: ../root/report/ReportsIndex.js:197
+#: ../root/report/ReportsIndex.js:201
 msgid "Release groups that might need to be merged"
 msgstr "Julkaisuryhmät, jotka saattavat vaatia sulauttamisen"
 
-#: ../root/report/ReportsIndex.js:223
+#: ../root/report/ReportsIndex.js:227
 msgid "Release groups with annotations"
 msgstr "Julkaisuryhmät, joilla lisätietokenttä"
 
-#: ../root/report/ReportsIndex.js:260
+#: ../root/report/ReportsIndex.js:264
 msgid "Releases which have unexpected Amazon URLs"
 msgstr "Julkaisut, joissa odottamattomia Amazon web-osoitteita"
 
-#: ../root/report/ReportsIndex.js:264
+#: ../root/report/ReportsIndex.js:268
 msgid "Releases which have multiple ASINs"
 msgstr "Julkaisut, joissa useita ASIN-koodeja"
 
-#: ../root/report/ReportsIndex.js:268
+#: ../root/report/ReportsIndex.js:272
 msgid "Releases which have multiple Discogs links"
 msgstr "Julkaisut, joissa useita Discogs-linkkejä"
 
-#: ../root/report/ReportsIndex.js:280
+#: ../root/report/ReportsIndex.js:284
 msgid "Releases which have part of set relationships"
 msgstr "Julkaisut, joissa osana joukkoa -yhteyksiä"
 
-#: ../root/report/ReportsIndex.js:284
+#: ../root/report/ReportsIndex.js:288
 msgid "Discs entered as separate releases"
 msgstr "Erillisinä julkaisuina syötetyt levyt"
 
-#: ../root/report/ReportsIndex.js:288
+#: ../root/report/ReportsIndex.js:292
 msgid "Tracks whose names include their sequence numbers"
 msgstr "Kappaleet, joiden nimet sisältävät niiden järjestysnumeroita"
 
-#: ../root/report/ReportsIndex.js:292
+#: ../root/report/ReportsIndex.js:296
 msgid "Releases with non-sequential track numbers"
 msgstr "Julkaisut, joissa ei peräkkäistä kappalenumerointia"
 
-#: ../root/report/ReportsIndex.js:296
+#: ../root/report/ReportsIndex.js:300
 #: ../root/report/SuperfluousDataTracks.js:41
 msgid "Releases with superfluous data tracks"
 msgstr "Julkaisut, joissa tarpeettomia data-raitoja"
 
-#: ../root/report/ReportsIndex.js:309
+#: ../root/report/ReportsIndex.js:313
 msgid "Releases where some (but not all) mediums have no format set"
 msgstr "Julkaisut, joissa joidenkin (mutta ei kaikkien) tallenteiden muoto asettamatta"
 
-#: ../root/report/ReportsIndex.js:330
+#: ../root/report/ReportsIndex.js:334
 msgid ""
 "Translated/Transliterated Pseudo-Releases marked as the original version"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:337
+#: ../root/report/ReportsIndex.js:341
 msgid ""
 "Translated/Transliterated Pseudo-Releases not linked to an original version"
 msgstr "Käännetyt/translitteroidut valejulkaisut, joita ei ole yhdistetty alkuperäiseen versioon"
 
-#: ../root/report/ReportsIndex.js:357
+#: ../root/report/ReportsIndex.js:361
 msgid "Releases with non-sequential mediums"
 msgstr "Julkaisut, joissa ei peräkkäisiä tallenteita"
 
-#: ../root/report/ReportsIndex.js:365 ../root/report/TracksWithoutTimes.js:32
+#: ../root/report/ReportsIndex.js:369 ../root/report/TracksWithoutTimes.js:32
 msgid "Releases with unknown track times"
 msgstr "Julkaisut, joissa tuntemattomia kappaleiden kestoja"
 
-#: ../root/report/ReportsIndex.js:373
+#: ../root/report/ReportsIndex.js:377
 #: ../root/report/SingleMediumReleasesWithMediumTitles.js:33
 msgid "Releases with a single medium that has a name"
 msgstr "Julkaisut, joissa ainoalla tallenteella nimi"
 
-#: ../root/report/ReportsIndex.js:385
+#: ../root/report/ReportsIndex.js:389
 msgid "Releases with annotations"
 msgstr "Julkaisut, joilla lisätietokenttä"
 
-#: ../root/report/ReportsIndex.js:417
+#: ../root/report/ReportsIndex.js:421
 #: ../root/report/ShouldNotHaveDiscIds.js:34
 msgid "Releases that have disc IDs, but shouldn’t"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:464
+#: ../root/report/ReportsIndex.js:468
 msgid "Recordings with annotations"
 msgstr "Äänitteet, joilla lisätietokenttä"
 
-#: ../root/report/ReportsIndex.js:501
+#: ../root/report/ReportsIndex.js:505
 msgid "Recordings with dates in the future"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:514
+#: ../root/report/ReportsIndex.js:518
 msgid "Places with annotations"
 msgstr "Paikat, joilla lisätietokenttä"
 
-#: ../root/report/ReportsIndex.js:527
+#: ../root/report/ReportsIndex.js:531
 msgid "Series with annotations"
 msgstr "Sarjat, joilla lisätietokenttä"
 
-#: ../root/report/ReportsIndex.js:544
+#: ../root/report/ReportsIndex.js:548
 msgid "Works with annotations"
 msgstr "Teokset, joilla lisätietokenttä"
 
-#: ../root/report/ReportsIndex.js:548
+#: ../root/report/ReportsIndex.js:552
 #: ../root/report/WorkSameTypeAsParent.js:37
 msgid "Works with the same type as their parent"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:565
+#: ../root/report/ReportsIndex.js:569
 #: ../root/report/WikidataLinksWithMultipleEntities.js:48
 msgid "Wikidata URLs linked to multiple entities"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:570
+#: ../root/report/ReportsIndex.js:574
 #: ../root/search/components/RecordingResults.js:132
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:728
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:311
@@ -13276,7 +13305,7 @@ msgstr ""
 msgid "ISRCs"
 msgstr "ISRC-koodit"
 
-#: ../root/report/ReportsIndex.js:579
+#: ../root/report/ReportsIndex.js:583
 msgid "ISWCs"
 msgstr "ISWC-koodit"
 
@@ -13403,7 +13432,7 @@ msgid ""
 "be changed."
 msgstr ""
 
-#: ../root/report/components/ArtistCreditList.js:45
+#: ../root/report/components/ArtistCreditList.js:48
 msgid "This artist credit no longer exists."
 msgstr ""
 
@@ -13688,7 +13717,7 @@ msgid "If you change your email address, you will be required to verify it."
 msgstr "Jos vaihdat sähköpostiosoitteesi, sinun täytyy vahvistaa se."
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:230
-#: ../root/user/UserProfile.js:263
+#: ../root/user/UserProfile.js:267
 msgid "Location:"
 msgstr "Sijainti: "
 
@@ -15622,196 +15651,208 @@ msgstr "Aloittelija"
 msgid "Normal User"
 msgstr "Normaalikäyttäjä"
 
-#: ../root/user/UserProfile.js:146
+#: ../root/user/UserProfile.js:150
 msgid "The Dawn of the Project"
 msgstr "Projektin synty"
 
-#: ../root/user/UserProfile.js:148
+#: ../root/user/UserProfile.js:152
 msgid "The early days of the project"
 msgstr "Projektin alkutaipale"
 
-#: ../root/user/UserProfile.js:156
+#: ../root/user/UserProfile.js:160
 msgid ""
 "Your homepage and biography will not show until you have completed the email"
 " verification process."
 msgstr ""
 
-#: ../root/user/UserProfile.js:175
+#: ../root/user/UserProfile.js:179
 msgid "General Information"
 msgstr "Yleistä tietoa"
 
-#: ../root/user/UserProfile.js:181
+#: ../root/user/UserProfile.js:185
 msgid "(hidden)"
 msgstr "(piilotettu)"
 
-#: ../root/user/UserProfile.js:184
+#: ../root/user/UserProfile.js:188
 msgid "(verified at {date})"
 msgstr "(vahvistuspäivämäärä {date})"
 
-#: ../root/user/UserProfile.js:189
+#: ../root/user/UserProfile.js:193
 msgid "(<strong>unverified!</strong>)"
 msgstr "(<strong>vahvistamatonEmail Address Verified!</strong>)"
 
-#: ../root/user/UserProfile.js:198
+#: ../root/user/UserProfile.js:202
 msgid "resend verification email"
 msgstr "uudelleenlähetä vahvistussähköposti"
 
-#: ../root/user/UserProfile.js:206
+#: ../root/user/UserProfile.js:210
 msgid "send email"
 msgstr "lähetä sähköposti"
 
-#: ../root/user/UserProfile.js:221
+#: ../root/user/UserProfile.js:225
 msgid "find all users of this email"
 msgstr ""
 
-#: ../root/user/UserProfile.js:231
+#: ../root/user/UserProfile.js:235
 msgctxt "email"
 msgid "(none)"
 msgstr "(ei mitään)"
 
-#: ../root/user/UserProfile.js:238
+#: ../root/user/UserProfile.js:242
 msgid "User type:"
 msgstr "Käyttäjätyyppi:"
 
-#: ../root/user/UserProfile.js:244
+#: ../root/user/UserProfile.js:248
 msgid "nominate for auto-editor"
 msgstr "ehdota auto-editoriksi"
 
-#: ../root/user/UserProfile.js:251
+#: ../root/user/UserProfile.js:255
 msgid "Age:"
 msgstr "Ikä:"
 
-#: ../root/user/UserProfile.js:268
+#: ../root/user/UserProfile.js:272
 msgid "Member since:"
 msgstr "Liittynyt jäseneksi:"
 
-#: ../root/user/UserProfile.js:273
+#: ../root/user/UserProfile.js:278
 msgid "Last login:"
 msgstr "Viimeksi sisäänkirjauduttu:"
 
-#: ../root/user/UserProfile.js:276
+#: ../root/user/UserProfile.js:281
 msgid "Hasn't logged in yet"
 msgstr "Ei ole kirjautunut vielä"
 
-#: ../root/user/UserProfile.js:281
+#: ../root/user/UserProfile.js:286
+msgid "Authorized applications"
+msgstr ""
+
+#: ../root/user/UserProfile.js:293 ../root/user/UserProfile.js:309
+msgid "see list"
+msgstr ""
+
+#: ../root/user/UserProfile.js:302
+msgid "Developer applications"
+msgstr ""
+
+#: ../root/user/UserProfile.js:319
 msgid "Homepage:"
 msgstr "Kotisivu:"
 
-#: ../root/user/UserProfile.js:299
+#: ../root/user/UserProfile.js:337
 msgid "Subscribers:"
 msgstr "Seuraajat:"
 
-#: ../root/user/UserProfile.js:302
+#: ../root/user/UserProfile.js:340
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|näytä lista})"
 
-#: ../root/user/UserProfile.js:309
+#: ../root/user/UserProfile.js:347
 msgid "0"
 msgstr "0"
 
-#: ../root/user/UserProfile.js:322
+#: ../root/user/UserProfile.js:360
 msgid "unsubscribe"
 msgstr "Lopeta muutosten seuraaminen"
 
-#: ../root/user/UserProfile.js:331
+#: ../root/user/UserProfile.js:369
 msgid "subscribe"
 msgstr "Seuraa muutoksia"
 
-#: ../root/user/UserProfile.js:357
+#: ../root/user/UserProfile.js:395
 msgid "Languages:"
 msgstr "Kielet:"
 
-#: ../root/user/UserProfile.js:433 ../root/user/UserProfile.js:532
-#: ../root/user/UserProfile.js:542 ../root/user/UserProfile.js:552
-#: ../root/user/UserProfile.js:562 ../root/user/UserProfile.js:572
-#: ../root/user/UserProfile.js:582 ../root/user/UserProfile.js:592
-#: ../root/user/UserProfile.js:601 ../root/user/UserProfile.js:746
-#: ../root/user/UserProfile.js:756 ../root/user/UserProfile.js:768
+#: ../root/user/UserProfile.js:471 ../root/user/UserProfile.js:570
+#: ../root/user/UserProfile.js:580 ../root/user/UserProfile.js:590
+#: ../root/user/UserProfile.js:600 ../root/user/UserProfile.js:610
+#: ../root/user/UserProfile.js:620 ../root/user/UserProfile.js:630
+#: ../root/user/UserProfile.js:639 ../root/user/UserProfile.js:784
+#: ../root/user/UserProfile.js:794 ../root/user/UserProfile.js:806
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|näytä})"
 
-#: ../root/user/UserProfile.js:522
+#: ../root/user/UserProfile.js:560
 msgid "Edits ({view_url|view})"
 msgstr "Muokkaukset ({view_url|näytä})"
 
-#: ../root/user/UserProfile.js:524
+#: ../root/user/UserProfile.js:562
 msgid "Edits"
 msgstr "Muokkaukset"
 
-#: ../root/user/UserProfile.js:530
+#: ../root/user/UserProfile.js:568
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "Hyväksytty"
 
-#: ../root/user/UserProfile.js:540
+#: ../root/user/UserProfile.js:578
 msgid "Auto-edits"
 msgstr "Automaattiset"
 
-#: ../root/user/UserProfile.js:550
+#: ../root/user/UserProfile.js:588
 msgid "Total applied"
 msgstr ""
 
-#: ../root/user/UserProfile.js:560
+#: ../root/user/UserProfile.js:598
 msgid "Voted down"
 msgstr "Kumotut"
 
-#: ../root/user/UserProfile.js:570
+#: ../root/user/UserProfile.js:608
 msgid "Failed"
 msgstr "Epäonnistuneet"
 
-#: ../root/user/UserProfile.js:600
+#: ../root/user/UserProfile.js:638
 msgid "Last 24 hours"
 msgstr "Viimeiset 24 tuntia"
 
-#: ../root/user/UserProfile.js:624
+#: ../root/user/UserProfile.js:662
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "Taulukko näyttää yhteenvedon tämän editorin antamista äänistä."
 
-#: ../root/user/UserProfile.js:629
+#: ../root/user/UserProfile.js:667
 msgid "Votes ({view_url|view})"
 msgstr "Äänet ({view_url|näytä})"
 
-#: ../root/user/UserProfile.js:637
+#: ../root/user/UserProfile.js:675
 msgid "Last 28 days"
 msgstr "Viimeiset 28 päivää"
 
-#: ../root/user/UserProfile.js:640
+#: ../root/user/UserProfile.js:678
 msgid "Overall"
 msgstr "Yhteensä"
 
-#: ../root/user/UserProfile.js:688
+#: ../root/user/UserProfile.js:726
 msgid "This table shows a summary of entities added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:694
+#: ../root/user/UserProfile.js:732
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr ""
 
-#: ../root/user/UserProfile.js:697
+#: ../root/user/UserProfile.js:735
 msgid "Added entities"
 msgstr ""
 
-#: ../root/user/UserProfile.js:721
+#: ../root/user/UserProfile.js:759
 msgid "This user has not created any entities."
 msgstr ""
 
-#: ../root/user/UserProfile.js:731
+#: ../root/user/UserProfile.js:769
 msgid "This table shows a summary of secondary data added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:737
+#: ../root/user/UserProfile.js:775
 msgid "Tags and ratings"
 msgstr ""
 
-#: ../root/user/UserProfile.js:744
+#: ../root/user/UserProfile.js:782
 msgid "Tags upvoted"
 msgstr ""
 
-#: ../root/user/UserProfile.js:754
+#: ../root/user/UserProfile.js:792
 msgid "Tags downvoted"
 msgstr ""
 
-#: ../root/user/UserProfile.js:835
+#: ../root/user/UserProfile.js:879
 msgid "Report this user for bad behavior"
 msgstr "Ilmoita käyttäjästä huonon käytöksen takia"
 
