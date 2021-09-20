@@ -21,7 +21,7 @@ sub query {
         if ($first) {
             $first = 0;
         } else {
-            $query .= " UNION ";
+            $query .= ' UNION ';
         }
 
         $query .= "SELECT link_type.name AS name, link_type.gid AS gid, $type_column AS entity
@@ -29,15 +29,15 @@ sub query {
                    JOIN link ON link.link_type = link_type.id
                    JOIN $table l_table ON l_table.link = link.id
                    WHERE (link_type.is_deprecated OR link_type.description = '')";
-        
+
         # For URL relationships, ignore ended ones (that means the link is no longer
         # valid, yet being kept for history)
         if (grep(/^$table/, @url_table_names)) {
             $query .= ' AND link.ended IS FALSE';
         }
-        
+
     }
-    $query .= ") l ON l.entity = entity.id";
+    $query .= ') l ON l.entity = entity.id';
     return $query;
 }
 

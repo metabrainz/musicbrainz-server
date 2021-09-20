@@ -5,7 +5,7 @@ with 'MusicBrainz::Server::Report::ReleaseGroupReport',
      'MusicBrainz::Server::Report::FilterForEditor::ReleaseGroupID';
 
 sub query {
-    "
+    q{
 WITH normalised_names AS (
     SELECT musicbrainz_unaccent(regexp_replace(lower(rg.name), ' \((disc [0-9]+|bonus disc)(: .*)?\)\$', '')) AS normalised_name, rg.artist_credit
     FROM release_group rg
@@ -23,7 +23,7 @@ SELECT q.rgid AS release_group_id, q.key, row_number() OVER (ORDER BY ac COLLATE
     GROUP BY artist_credit.name COLLATE musicbrainz, nn.normalised_name||nn.artist_credit, artist_credit.name, release_group.id, release_group.name
 
 ) q
-    ";
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

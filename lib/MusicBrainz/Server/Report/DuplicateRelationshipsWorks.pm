@@ -5,7 +5,7 @@ with 'MusicBrainz::Server::Report::WorkReport',
      'MusicBrainz::Server::Report::FilterForEditor::WorkID';
 
 sub query {
-    "
+    '
 
 SELECT q.entity AS work_id, row_number() OVER (ORDER BY work.name COLLATE musicbrainz) FROM (
 
@@ -60,7 +60,7 @@ SELECT q.entity AS work_id, row_number() OVER (ORDER BY work.name COLLATE musicb
 JOIN work ON q.entity = work.id
 GROUP BY q.entity, work.name
 
-    ";
+    ';
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -6,7 +6,7 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
 
 sub component_name { 'ReleasesWithCaaNoTypes' }
 sub query {
-    "
+    '
         SELECT
             r.id AS release_id,
             row_number() OVER (ORDER BY ac.name COLLATE musicbrainz, r.name COLLATE musicbrainz)
@@ -21,7 +21,7 @@ sub query {
         )
         ) r
         JOIN artist_credit ac ON r.artist_credit = ac.id
-    ";
+    ';
 }
 
 sub table { 'releases_with_caa_no_types' }

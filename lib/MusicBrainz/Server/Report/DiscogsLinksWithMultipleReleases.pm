@@ -6,7 +6,7 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
      'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
 sub query {
-    "
+    q{
         SELECT
             r.id AS release_id, q.id AS url_id,
             row_number() OVER (ORDER BY q.count DESC, q.url, ac.name COLLATE musicbrainz, r.name COLLATE musicbrainz)
@@ -24,7 +24,7 @@ sub query {
             JOIN l_release_url lru ON lru.entity1 = q.id
             JOIN release r ON r.id = lru.entity0
             JOIN artist_credit ac ON r.artist_credit = ac.id
-    ";
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

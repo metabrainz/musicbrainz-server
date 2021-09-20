@@ -7,7 +7,7 @@ with 'MusicBrainz::Server::Report::ReleaseGroupReport';
 sub component_name { 'ReleaseGroupsWithoutVaLink' }
 
 sub query {
-    "
+    q{
         SELECT
             rg.id AS release_group_id,
             row_number() OVER (ORDER BY rg.artist_credit, rg.name)
@@ -16,7 +16,7 @@ sub query {
         JOIN artist a ON a.id = acn.artist
         WHERE acn.name = 'Various Artists'
           AND a.name != 'Various Artists'
-    ";
+    };
 }
 
 __PACKAGE__->meta->make_immutable;
