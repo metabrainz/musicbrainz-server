@@ -139,6 +139,10 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
 
       <ul>
         <ReportsIndexEntry
+          content={l('Events with annotations')}
+          reportName="AnnotationsEvents"
+        />
+        <ReportsIndexEntry
           content={l('Possibly duplicate events')}
           reportName="DuplicateEvents"
         />

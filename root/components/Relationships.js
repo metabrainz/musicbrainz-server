@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {PART_OF_SERIES_LINK_TYPES} from '../static/scripts/common/constants';
+import EntityLink from '../static/scripts/common/components/EntityLink';
 import linkedEntities from '../static/scripts/common/linkedEntities';
 import groupRelationships, {type RelationshipTargetTypeGroupT}
   from '../utility/groupRelationships';
@@ -68,16 +69,18 @@ export function isNotSeriesPart(r: RelationshipT): boolean {
 type PropsT = {
   +noRelationshipsHeading?: boolean,
   +relationships?: $ReadOnlyArray<RelationshipTargetTypeGroupT>,
+  +showIfEmpty?: boolean,
   +source: CoreEntityT,
 };
 
 const Relationships = (React.memo<PropsT>(({
   noRelationshipsHeading = false,
   relationships,
+  showIfEmpty = false,
   source,
 }: PropsT): React.Element<typeof React.Fragment> => {
+  let srcRels = source.relationships;
   if (!relationships) {
-    let srcRels = source.relationships;
     if (srcRels && source.entityType === 'series') {
       srcRels = srcRels.filter(isNotSeriesPart);
     }
@@ -91,17 +94,40 @@ const Relationships = (React.memo<PropsT>(({
     ? {names: [{artist: source, joinPhrase: '', name: source.name}]}
     : (source.artistCredit || null);
 
+  const heading = noRelationshipsHeading
+    ? null
+    : <h2 className="relationships">{l('Relationships')}</h2>;
+
   return (
     <>
       {relationships.length ? (
         <>
-          {noRelationshipsHeading ? null : (
-            <h2 className="relationships">{l('Relationships')}</h2>
-          )}
+          {heading}
           <StaticRelationshipsDisplay
             hiddenArtistCredit={hiddenArtistCredit}
             relationships={relationships}
           />
+        </>
+      ) : source.entityType === 'artist' && srcRels?.length ? (
+        <>
+          {heading}
+          <p>
+            {exp.l(
+              `{link} only has event relationships,
+               which are displayed in the Events tab.`,
+              {link: <EntityLink entity={source} />},
+            )}
+          </p>
+        </>
+      ) : showIfEmpty ? (
+        <>
+          {heading}
+          <p>
+            {exp.l(
+              '{link} has no relationships.',
+              {link: <EntityLink entity={source} />},
+            )}
+          </p>
         </>
       ) : null}
       {source.entityType === 'recording' && source.related_works.length ? (

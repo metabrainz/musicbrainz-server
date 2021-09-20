@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-08-13 14:54+0000\n"
+"PO-Revision-Date: 2021-09-14 08:50+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1592,6 +1592,12 @@ msgstr "Deze relatie geeft aan dat de naam van de artiest is geïnspireerd op de
 #: DB:link_type/description:975
 msgid "This indicates the artist that inspired this place’s name."
 msgstr "Deze relatie geeft aan dat de naam van de plaats is geïnspireerd op deze artiest."
+
+#: DB:link_type/description:1000
+msgid ""
+"This indicates the artist that inspired this series' name, for example for "
+"an award named after a musician."
+msgstr "Deze eigenschap geeft aan dat de naam van een serie is geïnspireerd op een artiest, bijvoorbeeld bij een prijs die naar een artiest is vernoemd."
 
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this music video."
@@ -4604,8 +4610,9 @@ msgstr "bevat"
 msgid "information page"
 msgstr "informatiepagina"
 
-#: DB:link_type/link_phrase:975 DB:link_type/reverse_link_phrase:973
-#: DB:link_type/reverse_link_phrase:972 DB:link_type/reverse_link_phrase:974
+#: DB:link_type/link_phrase:975 DB:link_type/link_phrase:1000
+#: DB:link_type/reverse_link_phrase:973 DB:link_type/reverse_link_phrase:972
+#: DB:link_type/reverse_link_phrase:974
 msgid "inspired the name of"
 msgstr "was de inspiratie voor de naam van"
 
@@ -5315,8 +5322,8 @@ msgstr "Myspace"
 
 #: DB:link_type/link_phrase:973 DB:link_type/link_phrase:972
 #: DB:link_type/link_phrase:974 DB:link_type/name:973 DB:link_type/name:972
-#: DB:link_type/name:975 DB:link_type/name:974
-#: DB:link_type/reverse_link_phrase:975
+#: DB:link_type/name:975 DB:link_type/name:974 DB:link_type/name:1000
+#: DB:link_type/reverse_link_phrase:975 DB:link_type/reverse_link_phrase:1000
 msgid "named after"
 msgstr "vernoemd naar"
 
@@ -7268,7 +7275,7 @@ msgstr "{entity1} is opgedragen aan {entity0}"
 msgid "{entity1} is licensed under {entity0}"
 msgstr "{entity1} is gelicenseerd onder {entity0}"
 
-#: DB:link_type/long_link_phrase:975
+#: DB:link_type/long_link_phrase:975 DB:link_type/long_link_phrase:1000
 msgid "{entity1} is named after {entity0}"
 msgstr "{entity1} is vernoemd naar {entity0}"
 

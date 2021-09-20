@@ -721,7 +721,7 @@ END ~%]
     }) -%]
 [%- END -%]
 
-[%~ MACRO track_duration_changes(loop_over, old_base, new_base, old_prop, new_prop, old_label, new_label) BLOCK -%]
+[%~ MACRO track_duration_changes(loop_over, old_base, new_base, old_prop, new_prop, old_label, new_label) BLOCK # Converted to React at root/edit/components/TrackDurationChanges.js -%]
   [% USE Diff %]
   [%- IF old_label && new_label -%]
     <table class="wrap-block details">

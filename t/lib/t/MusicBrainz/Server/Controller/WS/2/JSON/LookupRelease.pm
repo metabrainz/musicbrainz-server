@@ -711,6 +711,81 @@ test 'release lookup with release-group and ratings' => sub {
     { username => 'the-anti-kuno', password => 'wrong' };
 };
 
+test 'release lookup with release-group-level-rels and series-rels' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws2_test_json 'release lookup with release-group-level-rels and series-rels',
+    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=release-groups+release-group-level-rels+series-rels' =>
+        {
+            id => 'aff4a693-5970-4e2e-bd46-e2ee49c22de7',
+            title => 'the Love Bug',
+            status => 'Official',
+            'status-id' => '4e304316-386d-3409-af2e-78857eec5cfe',
+            quality => 'normal',
+            disambiguation => '',
+            packaging => JSON::null,
+            'packaging-id' => JSON::null,
+            'text-representation' => { language => 'eng', script => 'Latn' },
+            'cover-art-archive' => {
+                artwork => JSON::true,
+                count => 1,
+                front => JSON::true,
+                back => JSON::false,
+                darkened => JSON::false,
+            },
+            date => '2004-03-17',
+            country => 'JP',
+            'release-events' => [{
+                date => '2004-03-17',
+                'area' => {
+                    disambiguation => '',
+                    'id' => '2db42837-c832-3c27-b4a3-08198f75693c',
+                    'name' => 'Japan',
+                    'sort-name' => 'Japan',
+                    'iso-3166-1-codes' => ['JP'],
+                    'type' => JSON::null,
+                    'type-id' => JSON::null,
+                },
+            }],
+            barcode => '4988064451180',
+            asin => 'B0001FAD2O',
+            relations => [ ],
+            'release-group' => {
+                id => '153f0a09-fead-3370-9b17-379ebd09446b',
+                title => 'the Love Bug',
+                disambiguation => '',
+                'first-release-date' => '2004-03-17',
+                'primary-type' => 'Single',
+                'primary-type-id' => 'd6038452-8ee0-3f68-affc-2de9a1ede0b9',
+                'secondary-types' => [],
+                'secondary-type-ids' => [],
+                relations => [{
+                    'target-type' => 'series',
+                    begin => JSON::null,
+                    'source-credit' => '',
+                    end => JSON::null,
+                    'type-id' => '01018437-91d8-36b9-bf89-3f885d53b5bd',
+                    'attribute-ids' => {'number' => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a'},
+                    direction => 'forward',
+                    attributes => ['number'],
+                    ended => JSON::false,
+                    'target-credit' => '',
+                    type => 'part of',
+                    'attribute-values' => {'number' => '1'},
+                    'ordering-key' => 1,
+                    series => {
+                        name => 'A Release Group Series',
+                        type => 'Release group',
+                        id => 'd977f7fd-96c9-4e3e-83b5-eb484a9e6581',
+                        'type-id' => '4c1c4949-7b6c-3a2d-9d54-a50a27e4fa77',
+                        disambiguation => '',
+                    },
+                }],
+            },
+        };
+};
+
 test 'release lookup with discids' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');

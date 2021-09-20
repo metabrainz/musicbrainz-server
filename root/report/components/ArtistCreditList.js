@@ -37,7 +37,10 @@ const ArtistCreditList = ({
             {item.artist_credit ? (
               <>
                 <td>
-                  <ArtistCreditUsageLink artistCredit={item.artist_credit} />
+                  <ArtistCreditUsageLink
+                    artistCredit={item.artist_credit}
+                    showEditsPending
+                  />
                 </td>
               </>
             ) : (

@@ -125,18 +125,22 @@ const UserProfileProperty = ({
 
 type UserProfileInformationProps = {
   +$c: CatalystContextT,
+  +applicationCount: number,
   +ipHashes: $ReadOnlyArray<string>,
   +subscribed: boolean,
   +subscriberCount: number,
+  +tokenCount: number,
   +user: UnsanitizedEditorT,
   +viewingOwnProfile: boolean,
 };
 
 const UserProfileInformation = ({
   $c,
+  applicationCount,
   ipHashes,
   subscribed,
   subscriberCount,
+  tokenCount,
   user,
   viewingOwnProfile,
 }: UserProfileInformationProps) => {
@@ -270,11 +274,45 @@ const UserProfileInformation = ({
         </UserProfileProperty>
 
         {(viewingOwnProfile || isAccountAdmin(viewingUser)) ? (
-          <UserProfileProperty name={l('Last login:')}>
-            {nonEmpty(user.last_login_date)
-              ? formatUserDate($c, user.last_login_date)
-              : l("Hasn't logged in yet")}
-          </UserProfileProperty>
+          <>
+            <UserProfileProperty name={l('Last login:')}>
+              {nonEmpty(user.last_login_date)
+                ? formatUserDate($c, user.last_login_date)
+                : l("Hasn't logged in yet")}
+            </UserProfileProperty>
+
+            {tokenCount ? (
+              <UserProfileProperty
+                name={addColonText(l('Authorized applications'))}
+              >
+                {tokenCount}
+                {viewingOwnProfile ? (
+                  <>
+                    {' '}
+                    <a href="/account/applications" rel="nofollow">
+                      {bracketedText(l('see list'))}
+                    </a>
+                  </>
+                ) : null}
+              </UserProfileProperty>
+            ) : null}
+
+            {applicationCount ? (
+              <UserProfileProperty
+                name={addColonText(l('Developer applications'))}
+              >
+                {applicationCount}
+                {viewingOwnProfile ? (
+                  <>
+                    {' '}
+                    <a href="/account/applications" rel="nofollow">
+                      {bracketedText(l('see list'))}
+                    </a>
+                  </>
+                ) : null}
+              </UserProfileProperty>
+            ) : null}
+          </>
         ) : null}
 
         {nonEmpty(user.website) ? (
@@ -783,22 +821,26 @@ const UserProfileStatistics = ({
 type UserProfileProps = {
   +$c: CatalystContextT,
   +addedEntities: EntitiesStatsT,
+  +applicationCount: number,
   +editStats: EditStatsT,
   +ipHashes: $ReadOnlyArray<string>,
   +secondaryStats: SecondaryStatsT,
   +subscribed: boolean,
   +subscriberCount: number,
+  +tokenCount: number,
   +user: UnsanitizedEditorT,
   +votes: VoteStatsT,
 };
 
 const UserProfile = ({
   $c,
+  applicationCount,
   editStats,
   ipHashes,
   secondaryStats,
   subscribed,
   subscriberCount,
+  tokenCount,
   user,
   votes,
   addedEntities,
@@ -813,9 +855,11 @@ const UserProfile = ({
     >
       <UserProfileInformation
         $c={$c}
+        applicationCount={applicationCount}
         ipHashes={ipHashes}
         subscribed={subscribed}
         subscriberCount={subscriberCount}
+        tokenCount={tokenCount}
         user={user}
         viewingOwnProfile={viewingOwnProfile}
       />
