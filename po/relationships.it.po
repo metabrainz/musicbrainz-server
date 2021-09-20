@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-08-16 14:06+0000\n"
+"PO-Revision-Date: 2021-09-16 19:28+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -1595,6 +1595,12 @@ msgstr "Indica l'artista che ha ispirato il nome di questo artista."
 #: DB:link_type/description:975
 msgid "This indicates the artist that inspired this place’s name."
 msgstr "Indica l'artista che ha ispirato il nome di questo luogo."
+
+#: DB:link_type/description:1000
+msgid ""
+"This indicates the artist that inspired this series' name, for example for "
+"an award named after a musician."
+msgstr "Indica l'artista che ha ispirato il nome della serie, per esempio per un premio che prende il nome da un artista."
 
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this music video."
@@ -4607,8 +4613,9 @@ msgstr "comprende"
 msgid "information page"
 msgstr "pagina di informazioni"
 
-#: DB:link_type/link_phrase:975 DB:link_type/reverse_link_phrase:973
-#: DB:link_type/reverse_link_phrase:972 DB:link_type/reverse_link_phrase:974
+#: DB:link_type/link_phrase:975 DB:link_type/link_phrase:1000
+#: DB:link_type/reverse_link_phrase:973 DB:link_type/reverse_link_phrase:972
+#: DB:link_type/reverse_link_phrase:974
 msgid "inspired the name of"
 msgstr "ha ispirato il nome di"
 
@@ -5318,8 +5325,8 @@ msgstr "myspace"
 
 #: DB:link_type/link_phrase:973 DB:link_type/link_phrase:972
 #: DB:link_type/link_phrase:974 DB:link_type/name:973 DB:link_type/name:972
-#: DB:link_type/name:975 DB:link_type/name:974
-#: DB:link_type/reverse_link_phrase:975
+#: DB:link_type/name:975 DB:link_type/name:974 DB:link_type/name:1000
+#: DB:link_type/reverse_link_phrase:975 DB:link_type/reverse_link_phrase:1000
 msgid "named after"
 msgstr "prende il nome da"
 
@@ -7271,7 +7278,7 @@ msgstr "{entity1} è dedicata a {entity0}"
 msgid "{entity1} is licensed under {entity0}"
 msgstr "{entity1} è licenziata sotto {entity0}"
 
-#: DB:link_type/long_link_phrase:975
+#: DB:link_type/long_link_phrase:975 DB:link_type/long_link_phrase:1000
 msgid "{entity1} is named after {entity0}"
 msgstr "{entity1} prende il nome da {entity0}"
 
