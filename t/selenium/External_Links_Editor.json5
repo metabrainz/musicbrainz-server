@@ -189,7 +189,7 @@
     // Test keeping changes when lost focus
     {
       command: 'click',
-      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      target: "xpath=(//table[@id='external-links-editor']//span[contains(@class, 'favicon')])[1]",
       value: '',
     },
     // Open popover
