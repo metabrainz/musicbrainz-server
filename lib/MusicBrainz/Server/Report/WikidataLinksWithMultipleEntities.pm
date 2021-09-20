@@ -10,21 +10,21 @@ sub query {
 
     my $inner_table = join(
         ' UNION ',
-        map {<<~"EOSQL"} @tables
+        map {<<~"SQL"} @tables
             SELECT link_type.id AS link_type_id, l_table.id AS rel_id, ${\$_->[1]} AS url
             FROM link_type
             JOIN link ON link.link_type = link_type.id
             JOIN ${\$_->[0]} l_table ON l_table.link = link.id
-            EOSQL
+            SQL
     );
 
-    my $query = <<~"EOSQL";
+    my $query = <<~"SQL";
         SELECT url.id AS url_id, count(*) AS count, row_number() OVER (ORDER BY count(*) DESC, url.id DESC)
         FROM url JOIN ($inner_table) l ON l.url = url.id
         WHERE url.url LIKE 'https://www.wikidata.org%'
         GROUP BY url_id
         HAVING count(*) > 1
-        EOSQL
+        SQL
 
     return $query
 }

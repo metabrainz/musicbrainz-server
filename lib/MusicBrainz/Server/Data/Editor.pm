@@ -308,12 +308,12 @@ sub update_password
     my ($self, $editor_name, $password) = @_;
 
     Sql::run_in_transaction(sub {
-        $self->sql->do(<<~'EOSQL', hash_password($password), $password, $editor_name);
+        $self->sql->do(<<~'SQL', hash_password($password), $password, $editor_name);
             UPDATE editor
             SET password = ?, ha1 = md5(name || ':musicbrainz.org:' || ?), 
                 last_login_date = now()
             WHERE lower(name) = lower(?)
-            EOSQL
+            SQL
     }, $self->sql);
 }
 

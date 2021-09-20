@@ -12,12 +12,12 @@ my $mech = $test->mech;
 my $c    = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
-MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
     INSERT INTO artist (id, gid, name, sort_name)
         VALUES (7, 'b9d99e40-72d7-11de-8a39-0800200c9a66', 'Kate Bush', 'Kate Bush');
     TRUNCATE artist_rating_raw CASCADE;
     INSERT INTO artist_rating_raw (artist, editor, rating) VALUES (7, 1, 80);
-    EOSQL
+    SQL
 
 $mech->get('/user/new_editor/ratings');
 $mech->content_contains('Kate Bush', 'new_editor has rated Kate Bush');

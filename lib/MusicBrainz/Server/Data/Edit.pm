@@ -375,10 +375,10 @@ sub subscribed_entity_edits {
         my $edit_entity_table = 'edit_' . $_;
         my $edit_status_table = $edit_entity_table;
         my $editor_subscribe_table = 'editor_subscribe_' . $_;
-        my $result = <<~"EOSQL";
+        my $result = <<~"SQL";
             SELECT edit FROM $edit_entity_table
             JOIN $editor_subscribe_table ON $editor_subscribe_table.$_ = $edit_entity_table.$_
-            EOSQL
+            SQL
 
         # Join with the edit table if
         # (1) this entity doesn't have a materialized edit status (e.g. series), or
@@ -408,7 +408,7 @@ sub subscribed_entity_edits {
     } entities_with('collections'));
     # FIXME: very similar to $EDIT_IDS_FOR_COLLECTION_SQL, should be generalized
 
-    my $query = <<~"EOSQL";
+    my $query = <<~"SQL";
         SELECT $columns FROM $table
         JOIN (
             $entity_sql
@@ -425,7 +425,7 @@ sub subscribed_entity_edits {
         )
         ORDER BY id ASC
         LIMIT $LIMIT_FOR_EDIT_LISTING
-        EOSQL
+        SQL
 
     $self->query_to_list_limited($query, \@args, $limit, $offset, undef,
                                  dollar_placeholders => 1);

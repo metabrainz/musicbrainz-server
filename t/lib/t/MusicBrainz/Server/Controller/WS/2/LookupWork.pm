@@ -18,11 +18,11 @@ my $c = $test->c;
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 MusicBrainz::Server::Test->prepare_test_database($c, '+multi_language_work');
-MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
     INSERT INTO iswc (work, iswc)
         VALUES ( (SELECT id FROM work WHERE gid = '3c37b9fa-a6c1-37d2-9e90-657a116d337c'), 'T-000.000.002-0');
     INSERT INTO work_attribute VALUES (1, 1307406, 1, 33, NULL);
-    EOSQL
+    SQL
 
 ws_test 'basic work lookup',
     '/work/3c37b9fa-a6c1-37d2-9e90-657a116d337c' =>

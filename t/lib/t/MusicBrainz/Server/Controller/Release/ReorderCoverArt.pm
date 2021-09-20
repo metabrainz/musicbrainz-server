@@ -11,7 +11,7 @@ test 'Test reordering cover art' => sub {
     my $c = $test->c;
     my $mech = $test->mech;
 
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO editor (
             id, name, password, privs,
             email, website, bio,
@@ -39,7 +39,7 @@ test 'Test reordering cover art' => sub {
         INSERT INTO edit_data (edit, data) VALUES (1, '{}');
         INSERT INTO cover_art_archive.cover_art (id, release, mime_type, edit, ordering)
             VALUES (12345, 1, 'image/jpeg', 1, 1), (12346, 1, 'image/jpeg', 1, 2);
-        EOSQL
+        SQL
 
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );

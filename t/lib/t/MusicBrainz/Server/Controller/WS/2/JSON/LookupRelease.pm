@@ -203,7 +203,7 @@ test 'basic release with collections' => sub {
     my $c = shift->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO release_tag (count, release, tag)
             VALUES (1, 123054, 114);
         INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
@@ -214,7 +214,7 @@ test 'basic release with collections' => sub {
             VALUES (14934, '5e8dd65f-7d52-4d6e-93f6-f84651e137ca', 15412, 'My Private Collection', FALSE, 1);
         INSERT INTO editor_collection_release (collection, release)
             VALUES (14933, 123054), (14934, 123054);
-        EOSQL
+        SQL
 
     my $common_release_json = {
         id => 'b3b7e934-445b-4c68-a097-730c6a6d47e6',

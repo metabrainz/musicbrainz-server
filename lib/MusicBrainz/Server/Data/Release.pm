@@ -940,12 +940,12 @@ sub can_merge {
             });
         }
 
-        my $merging_into_empty_medium = $self->sql->select_single_value(<<~"EOSQL", \@old_ids, $new_id);
+        my $merging_into_empty_medium = $self->sql->select_single_value(<<~"SQL", \@old_ids, $new_id);
             $mediums_query
             WHERE s.track_count > 0
             AND new_medium.track_count = 0
             LIMIT 1
-            EOSQL
+            SQL
 
         if ($merging_into_empty_medium) {
             return (0, {
@@ -953,12 +953,12 @@ sub can_merge {
             });
         }
 
-        my $medium_track_counts_differ = $self->sql->select_single_value(<<~"EOSQL", \@old_ids, $new_id);
+        my $medium_track_counts_differ = $self->sql->select_single_value(<<~"SQL", \@old_ids, $new_id);
             $mediums_query
             WHERE new_medium.track_count <> s.track_count
             AND s.track_count > 0
             LIMIT 1
-            EOSQL
+            SQL
 
         if ($medium_track_counts_differ) {
             return (0, {

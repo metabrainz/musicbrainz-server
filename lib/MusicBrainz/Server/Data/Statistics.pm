@@ -461,7 +461,7 @@ my %stats = (
         CALC => sub {
             my ($self, $sql) = @_;
 
-            my $data = $sql->select_list_of_lists(<<~'EOSQL');
+            my $data = $sql->select_list_of_lists(<<~'SQL');
                 SELECT (cover_art_url ~ '^https?://.*.images-amazon.com')::int AS is_amazon, COUNT(*) FROM release_coverart
                   WHERE cover_art_url IS NOT NULL
                     AND NOT EXISTS (
@@ -469,7 +469,7 @@ my %stats = (
                         JOIN cover_art_archive.cover_art_type cat ON ca.id = cat.id
                       WHERE ca.release = release_coverart.id AND cat.type_id = 1)
                 GROUP BY is_amazon
-                EOSQL
+                SQL
 
             my %dist = map { @$_ } @$data;
 

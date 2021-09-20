@@ -227,7 +227,7 @@ sub merge {
     # FIXME: Due to the way DISTINCT ON works, if two entities have different
     # votes for the same tag by the same editor, the vote that remains on the
     # merge target is arbitrary. (ORDER BY doesn't work within the sub-select.)
-    $self->c->sql->do(<<~"EOSQL", \@ids, $new_id);
+    $self->c->sql->do(<<~"SQL", \@ids, $new_id);
         WITH deleted_tags AS (
             DELETE FROM $assoc_table_raw
             WHERE $entity_type = any(?)
@@ -236,7 +236,7 @@ sub merge {
         INSERT INTO $assoc_table_raw ($entity_type, editor, tag, is_upvote)
             SELECT ?, s.editor, s.tag, s.is_upvote
             FROM (SELECT DISTINCT ON (editor, tag) editor, tag, is_upvote FROM deleted_tags) s
-        EOSQL
+        SQL
 
     $self->c->sql->do(
         "DELETE FROM $assoc_table WHERE $entity_type = any(?)",

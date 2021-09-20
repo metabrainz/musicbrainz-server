@@ -115,16 +115,16 @@ sub load_for_medium_paged
     my $table = $self->_table;
     my $offset = ($page - 1) * $MAX_INITIAL_TRACKS;
 
-    my $total_tracks = $self->sql->select_single_value(<<~'EOSQL', $medium_id);
+    my $total_tracks = $self->sql->select_single_value(<<~'SQL', $medium_id);
         SELECT count(*) FROM track WHERE medium = ?
-        EOSQL
+        SQL
 
-    my @tracks = $self->query_to_list(<<~"EOSQL", [$medium_id, $MAX_INITIAL_TRACKS, $offset]);
+    my @tracks = $self->query_to_list(<<~"SQL", [$medium_id, $MAX_INITIAL_TRACKS, $offset]);
         SELECT $columns FROM $table
         WHERE medium = ?
         ORDER BY position
         LIMIT ? OFFSET ?
-        EOSQL
+        SQL
 
     my $pager = Data::Page->new;
     $pager->entries_per_page($MAX_INITIAL_TRACKS);

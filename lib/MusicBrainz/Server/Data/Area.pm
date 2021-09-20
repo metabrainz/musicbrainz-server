@@ -152,7 +152,7 @@ sub can_delete
     return 0 if $self->is_release_country_area($area_id);
 
     my $used_in_relationship = used_in_relationship($self->c, area => 'area_row.id');
-    return 1 if $self->sql->select_single_value(<<~"EOSQL", $area_id, $STATUS_OPEN);
+    return 1 if $self->sql->select_single_value(<<~"SQL", $area_id, $STATUS_OPEN);
         SELECT TRUE
         FROM area area_row
         WHERE id = ?
@@ -179,7 +179,7 @@ sub can_delete
             ) OR
             $used_in_relationship
         )
-        EOSQL
+        SQL
 
     return 0;
 }

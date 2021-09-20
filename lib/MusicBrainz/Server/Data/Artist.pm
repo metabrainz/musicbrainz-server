@@ -297,7 +297,7 @@ sub can_split
     # These AND NOT EXISTS clauses are ordered by my estimated likelihood of a 
     # relationship existing for a collaboration, as postgresql will not execute
     # the later clauses if an earlier one has already excluded the lone artist row.
-    my $can_split = $self->sql->select_single_value(<<~'EOSQL', $artist_id);
+    my $can_split = $self->sql->select_single_value(<<~'SQL', $artist_id);
         SELECT TRUE FROM artist WHERE id = ?
         AND NOT EXISTS (SELECT TRUE FROM l_artist_url lau WHERE lau.entity0 = artist.id)
         AND NOT EXISTS (
@@ -320,7 +320,7 @@ sub can_split
         AND NOT EXISTS (SELECT TRUE FROM l_artist_series las WHERE las.entity0 = artist.id)
         AND NOT EXISTS (SELECT TRUE FROM l_artist_instrument lai WHERE lai.entity0 = artist.id)
         AND NOT EXISTS (SELECT TRUE FROM l_area_artist lara WHERE lara.entity1 = artist.id)
-        EOSQL
+        SQL
     return $can_split;
 }
 
@@ -529,7 +529,7 @@ sub is_empty {
     my ($self, $artist_id) = @_;
 
     my $used_in_relationship = used_in_relationship($self->c, artist => 'artist_row.id');
-    return $self->sql->select_single_value(<<~"EOSQL", $artist_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<~"SQL", $artist_id, $STATUS_OPEN);
         SELECT TRUE
         FROM artist artist_row
         WHERE id = ?
@@ -546,7 +546,7 @@ sub is_empty {
             ) OR
             $used_in_relationship
         )
-        EOSQL
+        SQL
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -121,7 +121,7 @@ sub get_tree
     my $extra_condition = '';
 
     unless ($opts{get_deprecated_and_empty}) {
-        $extra_condition = <<~'EOSQL';
+        $extra_condition = <<~'SQL';
             AND (
                 is_deprecated = FALSE
                 OR
@@ -129,7 +129,7 @@ sub get_tree
                     SELECT 1 FROM link WHERE link.link_type = lt.id
                 )
             )
-            EOSQL
+            SQL
     }
 
     for my $row (@{
@@ -166,7 +166,7 @@ sub get_full_tree
     my $extra_condition = '';
 
     unless ($get_deprecated_and_empty) {
-        $extra_condition = <<~'EOSQL';
+        $extra_condition = <<~'SQL';
             WHERE (
                 is_deprecated = FALSE
                 OR
@@ -174,7 +174,7 @@ sub get_full_tree
                     SELECT 1 FROM link WHERE link.link_type = lt.id
                 )
             )
-            EOSQL
+            SQL
     }
 
     for my $row (@{

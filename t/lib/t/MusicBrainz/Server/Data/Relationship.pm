@@ -21,10 +21,10 @@ test 'Relationships between merged entities' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO l_label_label (id, link, entity0, entity1)
             VALUES (1, 1, 2, 3), (2, 1, 1, 3);
-        EOSQL
+        SQL
 
     $c->model('Relationship')->merge_entities('label', 1, [2, 3]);
 
@@ -38,10 +38,10 @@ test 'Merge matching dated/undated rels on entity merge' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO l_label_label (id, link, entity0, entity1)
             VALUES (1, 1, 2, 3), (2, 2, 1, 3);
-        EOSQL
+        SQL
 
     $c->model('Relationship')->merge_entities('label', 1, [2]);
 
@@ -55,12 +55,12 @@ test 'Merge matching dated/undated rels on entity merge (3 entities)' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO label (id, name, gid, comment)
             VALUES (4, 3, 'e2a083a9-0042-4f8e-b4d2-8396350b95f7', 'label 4');
         INSERT INTO l_label_label (id, link, entity0, entity1)
             VALUES (1, 1, 2, 3), (2, 2, 1, 3), (3, 2, 4, 3);
-        EOSQL
+        SQL
 
     $c->model('Relationship')->merge_entities('label', 1, [2]);
 
@@ -74,12 +74,12 @@ test 'Merge matching dated/undated rels on entity merge (3 entities, some flippe
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO label (id, name, gid, comment)
             VALUES (4, 3, 'e2a083a9-0042-4f8e-b4d2-8396350b95f7', 'label 4');
         INSERT INTO l_label_label (id, link, entity0, entity1)
             VALUES (1, 1, 2, 3), (2, 2, 3, 1), (3, 2, 3, 4);
-        EOSQL
+        SQL
 
     $c->model('Relationship')->merge_entities('label', 1, [2]);
 
@@ -93,10 +93,10 @@ test 'Merge matching undated rels on entity merge' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO l_label_label (id, link, entity0, entity1)
             VALUES (1, 1, 1, 3), (2, 1, 2, 3);
-        EOSQL
+        SQL
 
     $c->model('Relationship')->merge_entities('label', 1, [2]);
 
@@ -110,10 +110,10 @@ test q(Don't merge matching dated/undated rels on entity merge if they originate
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO l_label_label (id, link, entity0, entity1)
             VALUES (1, 1, 2, 3), (2, 2, 1, 3), (3, 1, 1, 3);
-        EOSQL
+        SQL
 
     $c->model('Relationship')->merge_entities('label', 1, [2]);
 
@@ -127,10 +127,10 @@ test q(Don't merge matching rels, other than attributes) => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO l_artist_artist (id, link, entity0, entity1)
             VALUES (1, 3, 2, 3), (2, 4, 1, 3);
-        EOSQL
+        SQL
 
     $c->model('Relationship')->merge_entities('artist', 1, [2]);
 
@@ -144,10 +144,10 @@ test q(Don't merge matching rels, other than link_order) => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO l_artist_artist (id, link, link_order, entity0, entity1)
             VALUES (1, 1, 1, 2, 3), (2, 1, 2, 1, 3);
-        EOSQL
+        SQL
 
     $c->model('Relationship')->merge_entities('artist', 1, [2]);
 
@@ -178,7 +178,7 @@ test 'Entity credits are merged' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+relationship_merging');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO label (id, name, gid)
             VALUES (4, 'D', '71a79efe-ab55-4a5a-a221-72062f5acb2f'),
                    (5, 'E', '36df2c0e-c56d-43e5-a031-4049480c5a40'),
@@ -216,7 +216,7 @@ test 'Entity credits are merged' => sub {
                 -- empty source values are ignored
                 (14, 1, 2, 9, 'kept9', ''),
                 (15, 1, 3, 9, '', 'kept10');
-        EOSQL
+        SQL
 
     $c->model('Relationship')->merge_entities('label', 1, [2, 3], rename_credits => 1);
 
@@ -243,7 +243,7 @@ test 'Entity credits plus dates merge harmoniously' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+relationship_merging');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO label (id, name, gid)
             VALUES (4, 'D', '71a79efe-ab55-4a5a-a221-72062f5acb2f');
 
@@ -258,7 +258,7 @@ test 'Entity credits plus dates merge harmoniously' => sub {
                 -- The relationship on the source entity has a begin date and no credits.
                 (3, 1, 1, 4, 'credit2', 'credit3'),
                 (4, 2, 2, 4, '', '');
-        EOSQL
+        SQL
 
     $c->model('Relationship')->merge_entities('label', 1, [2], rename_credits => 1);
 
@@ -279,10 +279,10 @@ test 'Duplicate relationships that only exist among source entities are merged' 
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO l_artist_label (id, link, entity0, entity1)
             VALUES (1, 5, 2, 1), (2, 5, 3, 1);
-        EOSQL
+        SQL
 
     $c->model('Relationship')->merge_entities('artist', 1, [2, 3]);
 

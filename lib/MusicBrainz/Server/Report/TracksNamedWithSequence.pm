@@ -6,7 +6,7 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
      'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
 sub query {
-    <<~'EOSQL'
+    <<~'SQL'
     SELECT release.id AS release_id,
         row_number() OVER (ORDER BY release.name COLLATE musicbrainz)
     FROM (
@@ -20,7 +20,7 @@ sub query {
         HAVING count(*) > 2
     ) s
     JOIN release ON s.id = release.id
-    EOSQL
+    SQL
 }
 
 1;

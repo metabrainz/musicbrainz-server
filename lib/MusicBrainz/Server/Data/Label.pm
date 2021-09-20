@@ -275,7 +275,7 @@ sub is_empty {
     my ($self, $label_id) = @_;
 
     my $used_in_relationship = used_in_relationship($self->c, label => 'label_row.id');
-    return $self->sql->select_single_value(<<~"EOSQL", $label_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<~"SQL", $label_id, $STATUS_OPEN);
         SELECT TRUE
         FROM label label_row
         WHERE id = ?
@@ -291,7 +291,7 @@ sub is_empty {
             ) OR
             $used_in_relationship
         )
-        EOSQL
+        SQL
 }
 
 __PACKAGE__->meta->make_immutable;

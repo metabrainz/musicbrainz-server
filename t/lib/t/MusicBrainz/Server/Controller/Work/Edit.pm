@@ -100,10 +100,10 @@ test 'Editing works with attributes' => sub {
     my $c    = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c);
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         -- We aren't interested in ISWC editing
         DELETE FROM iswc;
-        EOSQL
+        SQL
 
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
@@ -146,10 +146,10 @@ test 'MBS-8636: Adding a relationship to a series which contains duplicate items
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+mbs-8636');
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
             VALUES (1, 'editor', '{CLEARTEXT}pass', '3f3edade87115ce351d63f42d92a1834', 'foo@example.com', now());
-        EOSQL
+        SQL
 
     $mech->get_ok('/login');
     $mech->submit_form(with_fields => { username => 'editor', password => 'pass' });
@@ -220,10 +220,10 @@ test 'Editing works with multiple languages' => sub {
     my $c    = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c);
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         -- We aren't interested in ISWC editing
         DELETE FROM iswc;
-        EOSQL
+        SQL
 
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );

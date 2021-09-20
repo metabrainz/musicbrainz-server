@@ -153,7 +153,7 @@ sub is_empty {
     my ($self, $event_id) = @_;
 
     my $used_in_relationship = used_in_relationship($self->c, event => 'event_row.id');
-    return $self->sql->select_single_value(<<~"EOSQL", $event_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<~"SQL", $event_id, $STATUS_OPEN);
         SELECT TRUE
         FROM event event_row
         WHERE id = ?
@@ -166,7 +166,7 @@ sub is_empty {
             ) OR
             $used_in_relationship
         )
-        EOSQL
+        SQL
 }
 
 sub load_related_info {

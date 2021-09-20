@@ -4,7 +4,7 @@ use Moose;
 with 'MusicBrainz::Server::Report::WorkReport',
      'MusicBrainz::Server::Report::FilterForEditor::WorkID';
 
-sub query {<<~'EOSQL'}
+sub query {<<~'SQL'}
     SELECT DISTINCT w.id AS work_id,
            row_number() OVER (ORDER BY w.type, w.name COLLATE musicbrainz)
     FROM work w
@@ -18,7 +18,7 @@ sub query {<<~'EOSQL'}
         AND lt.gid = 'ca8d3642-ce5f-49f8-91f2-125d72524e6a' --parts
         AND w2.type = w.type 
     )
-    EOSQL
+    SQL
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -26,7 +26,7 @@ test 'Sitemap build scripts' => sub {
         system 'sh', '-c' => "echo $sql | $psql TEST_SITEMAPS";
     };
 
-    $exec_sql->(<<~'EOSQL');
+    $exec_sql->(<<~'SQL');
         DO $$
         BEGIN
             EXECUTE 'ALTER DATABASE ' || current_database() ||
@@ -41,7 +41,7 @@ test 'Sitemap build scripts' => sub {
 
         INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
             VALUES (1, 0, 1, 'A', '');
-        EOSQL
+        SQL
 
     my $tmp = tempdir('t-sitemaps-XXXXXXXX', DIR => '/tmp', CLEANUP => 1);
     my $output_dir = File::Spec->catdir($tmp, 'sitemaps');
@@ -312,12 +312,12 @@ EOF
 3\tf\t"id"='3' "name"='C' "gid"='79e0f9b8-db97-4bfb-9995-217478dd6c3e' "last_updated"='2015-10-04 00:01:02.050000+00'\x{20}
 EOF
 
-    $exec_sql->(<<~'EOSQL');
+    $exec_sql->(<<~'SQL');
         INSERT INTO work (id, gid, name)
             VALUES (1, 'daf4327f-19a0-450b-9448-e0ea1c707136', 'A'),
                    (2, 'b6c76104-d64c-4883-b395-c74f782b751c', 'B'),
                    (3, '79e0f9b8-db97-4bfb-9995-217478dd6c3e', 'C');
-        EOSQL
+        SQL
     $build_packet->(2, $dbmirror_pending, $dbmirror_pendingdata);
 
     my $build_time3 = '2015-10-04T03:33:33.030000Z';
@@ -406,7 +406,7 @@ EOF
 4\tf\t"id"='3' "gid"='79e0f9b8-db97-4bfb-9995-217478dd6c3e' "name"='C?' "type"= "comment"='' "edits_pending"='0' "last_updated"='2017-04-05 01:12:36.172561+00' "language"=\x{20}
 EOF
 
-    $exec_sql->(<<~'EOSQL');
+    $exec_sql->(<<~'SQL');
         INSERT INTO iswc (id, work, iswc, created)
             VALUES (1, 1, 'T-100.000.000-1', '2015-10-05 06:54:32.101234-05');
         INSERT INTO link (id, link_type, attribute_count, ended, created)
@@ -414,7 +414,7 @@ EOF
         INSERT INTO l_artist_work (id, link, entity0, entity1, last_updated)
             VALUES (1, 1, 1, 2, '2017-04-05 00:59:46.503449+00');
         UPDATE work SET name = 'C?' WHERE id = 3;
-        EOSQL
+        SQL
     $build_packet->(3, $dbmirror_pending, $dbmirror_pendingdata);
 
     my $build_time4 = '2015-10-05T13:59:59.000123Z';
@@ -589,7 +589,7 @@ EOF
 16\tf\t"id"='13' "release"='2' "position"='1' "track_count"='102'\x{20}
 EOF
 
-    $exec_sql->(<<~'EOSQL');
+    $exec_sql->(<<~'SQL');
         INSERT INTO release_group (id, gid, name, artist_credit, last_updated)
             VALUES (1, 'b8f8a738-f75c-43df-9f3f-7afb3ceb5173', 'R', 1, '2021-06-10 20:59:59.571049+00');
 
@@ -610,15 +610,15 @@ EOF
                    (11, 1, 11, 1),
 
                    (12, 1, 13, 1);
-        EOSQL
+        SQL
 
-    $exec_sql->(<<~'EOSQL');
+    $exec_sql->(<<~'SQL');
         INSERT INTO release (id, gid, name, artist_credit, release_group, last_updated)
             VALUES (2, '996d3d48-0cfa-4d30-9031-ea50d806b88a', 'R2', 1, 1, '2021-06-10 20:59:59.571049+00');
 
         INSERT INTO medium (id, release, position, track_count)
             VALUES (13, 2, 1, 102);
-        EOSQL
+        SQL
 
     $build_packet->(5, $dbmirror_pending, $dbmirror_pendingdata);
 
@@ -713,12 +713,12 @@ EOF
         },
     ]);
 
-    $exec_sql->(<<~'EOSQL');
+    $exec_sql->(<<~'SQL');
         TRUNCATE artist CASCADE;
         TRUNCATE work CASCADE;
         TRUNCATE sitemaps.control;
         TRUNCATE sitemaps.tmp_checked_entities;
-        EOSQL
+        SQL
 };
 
 run_me;

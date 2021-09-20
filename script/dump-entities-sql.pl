@@ -115,7 +115,7 @@ sub main {
     my ($entity_type, @ids) = @ARGV;
     my $arguments_string = $entity_type . ' ' . join(' ', @ids);
 
-    print <<~"EOSQL";
+    print <<~"SQL";
         -- Automatically generated, do not edit.
         -- $arguments_string
 
@@ -123,7 +123,7 @@ sub main {
 
         -- Temporarily drop triggers.
         DROP TRIGGER deny_deprecated ON link;
-        EOSQL
+        SQL
 
     my $dump_method = $DUMP_METHODS{$entity_type} // sub {
         my ($c, $gids) = @_;
@@ -132,11 +132,11 @@ sub main {
 
     $dump_method->($c, \@ids);
 
-    print <<~'EOSQL';
+    print <<~'SQL';
         -- Restore triggers.
         CREATE TRIGGER deny_deprecated BEFORE UPDATE OR INSERT ON link
             FOR EACH ROW EXECUTE PROCEDURE deny_deprecated_links();
-        EOSQL
+        SQL
 
 }
 

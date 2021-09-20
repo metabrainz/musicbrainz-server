@@ -15,13 +15,13 @@ test 'Can merge areas are used as entity areas' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+area');
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name, area, begin_area, end_area)
             VALUES (5, 'c5655a7c-bba0-46aa-a8fd-db707d47aa5c', 'Artist', 'Artist', 13, 13, 13);
 
         INSERT INTO label (id, gid, name, area)
             VALUES (5, 'c5655a7c-bba0-46aa-a8fd-db707d47aa5c', 'Artist', 13);
-        EOSQL
+        SQL
 
     my $editor = $c->model('Editor')->get_by_id(1);
     $c->model('Editor')->update_privileges($editor, { location_editor => 1 });
@@ -41,7 +41,7 @@ test 'Can merge country areas' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+area');
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, '8469c1b7-04a1-4ca7-a090-a5ed2df2e7ac', 'Artist', 'Artist');
         INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Artist', 1);
@@ -53,7 +53,7 @@ test 'Can merge country areas' => sub {
             VALUES (1, 'a2d13b15-4002-4d04-8a08-b9a9a7fbe9ad', 'Release', 1, 1);
 
         INSERT INTO release_country (release, country) VALUES (1, 13);
-        EOSQL
+        SQL
 
     my $editor = $c->model('Editor')->get_by_id(1);
     $c->model('Editor')->update_privileges($editor, { location_editor => 1 });

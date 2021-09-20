@@ -109,21 +109,21 @@ sub get_changed_documents {
                 $last_modified = $c->sql->select_single_value('SELECT now()');
             }
 
-            my $old_hash = $c->sql->select_single_value(<<~"EOSQL", $row_id, $url);
+            my $old_hash = $c->sql->select_single_value(<<~"SQL", $row_id, $url);
                 SELECT encode(jsonld_sha1, 'hex')
                 FROM sitemaps.${entity_type}_lastmod
                 WHERE id = ? AND url = ?
-                EOSQL
+                SQL
 
             if (defined $old_hash) {
                 if ($old_hash ne $new_hash) {
                     log("Found change at $url");
 
-                    $c->sql->do(<<~"EOSQL", "\\x$new_hash", $last_modified, $replication_sequence, $row_id, $url);
+                    $c->sql->do(<<~"SQL", "\\x$new_hash", $last_modified, $replication_sequence, $row_id, $url);
                         UPDATE sitemaps.${entity_type}_lastmod
                         SET jsonld_sha1 = ?, last_modified = ?, replication_sequence = ?
                         WHERE id = ? AND url = ?
-                        EOSQL
+                        SQL
                     return 1;
                 }
                 log("No change at $url");

@@ -137,10 +137,10 @@ test 'Cache is transactional (MBS-7241)' => sub {
     my $_delete_from_cache = MusicBrainz::Server::Data::Artist->can('_delete_from_cache');
 
     $c1->sql->auto_commit(1);
-    $c1->sql->do(<<~'EOSQL');
+    $c1->sql->do(<<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (3, '31456bd3-0e1a-4c47-a5cc-e147a42965f2', 'Test', 'Test');
-        EOSQL
+        SQL
 
     my $artist_gid = '31456bd3-0e1a-4c47-a5cc-e147a42965f2';
 
@@ -187,10 +187,10 @@ test 'Cache is transactional (MBS-7241)' => sub {
         'database deletion commits, and after cache deletion');
 
     $c1->sql->auto_commit(1);
-    $c1->sql->do(<<~'EOSQL');
+    $c1->sql->do(<<~'SQL');
         DELETE FROM artist WHERE id = 3;
         DELETE FROM deleted_entity WHERE gid = '31456bd3-0e1a-4c47-a5cc-e147a42965f2';
-        EOSQL
+        SQL
 
     *MusicBrainz::Server::Data::Artist::_delete_from_cache = $_delete_from_cache;
     $c1->connector->disconnect;

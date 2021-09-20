@@ -17,10 +17,10 @@ test 'Editing releases should not remove release events' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release');
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO release_unknown_country (release, date_year)
             VALUES (1, 2000);
-        EOSQL
+        SQL
 
     my $load_release = sub { $c->model('Release')->get_by_id(1) };
 

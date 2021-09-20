@@ -355,7 +355,7 @@ sub merge_instrument_attributes {
         $new_link->{attributes} = [values %new_attributes];
 
         my $new_link_id = $self->c->model('Link')->find_or_insert($new_link);
-        my $relationships = $self->sql->select_list_of_hashes(<<~"EOSQL", $new_link_id, $old_link_id, $new_link_id);
+        my $relationships = $self->sql->select_list_of_hashes(<<~"SQL", $new_link_id, $old_link_id, $new_link_id);
             UPDATE l_${entity_type0}_${entity_type1} r1 SET link = ? WHERE link = ? AND NOT EXISTS (
                 SELECT 1
                 FROM l_${entity_type0}_${entity_type1} r2
@@ -365,7 +365,7 @@ sub merge_instrument_attributes {
                 AND r2.link_order = r1.link_order
             )
             RETURNING *
-            EOSQL
+            SQL
 
         # Delete leftover duplicate relationships already using $new_link_id.
         $self->sql->do("DELETE FROM l_${entity_type0}_${entity_type1} WHERE link = ?", $old_link_id);

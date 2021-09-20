@@ -4,14 +4,14 @@ use Moose;
 with 'MusicBrainz::Server::Report::ArtistCreditReport',
      'MusicBrainz::Server::Report::FilterForEditor::ArtistCreditID';
 
-sub query {<<~'EOSQL'}
+sub query {<<~'SQL'}
     SELECT ac.id AS artist_credit_id, ac.name,
            row_number() OVER (ORDER BY ac.id)
     FROM artist_credit ac
     JOIN artist_credit_name acn ON acn.artist_credit = ac.id
     WHERE acn.position = (ac.artist_count - 1)
     AND acn.join_phrase ~* '(?:ft\.?|feat\.?|[;:,])\s*$'
-    EOSQL
+    SQL
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -18,7 +18,7 @@ with 't::Context';
 
 test 'filter_barcode_changes' => sub {
     my $test = shift;
-    $test->c->sql->do(<<~'EOSQL');
+    $test->c->sql->do(<<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
         INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Name', 1);
@@ -33,7 +33,7 @@ test 'filter_barcode_changes' => sub {
                    (3, '6b4faa80-72d9-11de-8a39-0800200c9a66', 'R1', 1, 1, NULL);
         INSERT INTO release_gid_redirect (gid, new_id)
             VALUES ('1b4faa80-72d9-11de-8a39-0800200c9a66', 1);
-        EOSQL
+        SQL
 
     {
         my @in = ();
@@ -197,7 +197,7 @@ test 'can_merge for the merge strategy' => sub {
 
 test 'can_merge for the append strategy' => sub {
     my $test = shift;
-    $test->c->sql->do(<<~'EOSQL');
+    $test->c->sql->do(<<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
         INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Name', 1);
@@ -215,7 +215,7 @@ test 'can_merge for the append strategy' => sub {
             VALUES (1, 1, 1, 1),
                    (2, 2, 1, 1),
                    (3, 3, 1, 1);
-        EOSQL
+        SQL
 
     my $can_merge;
 
@@ -565,7 +565,7 @@ test 'find_by_artist orders by release date and country for non-VA, id only for 
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO area (id, gid, name, type)
             VALUES (1, '8a754a16-0027-4a29-c6d7-2b40ea0481ed', 'Estonia', 1),
                    (2, '8a754a16-0027-3a29-c6d7-2b40ea0481ed', 'France', 1);
@@ -577,7 +577,7 @@ test 'find_by_artist orders by release date and country for non-VA, id only for 
 
         INSERT INTO release_country (release, country, date_year, date_month, date_day)
             VALUES (7, 2, 2009, 5, 8), (7, 1, 2009, 5, 8);
-        EOSQL
+        SQL
 
     my ($releases, undef) = $c->model('Release')->find_by_artist(1, 10, 0);
     is_deeply(
@@ -585,9 +585,9 @@ test 'find_by_artist orders by release date and country for non-VA, id only for 
         [1, 2, 6, 7, 8, 9, 100, 110]
     );
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         UPDATE release SET artist_credit = 3 WHERE artist_credit = 1;
-        EOSQL
+        SQL
 
     ($releases, undef) = $c->model('Release')->find_by_artist(3, 10, 0);
     is_deeply(
@@ -601,7 +601,7 @@ test 'find_by_label orders by release date, catalog_number, name, country, barco
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO area (id, gid, name, type)
             VALUES (1, '8a754a16-0027-4a29-c6d7-2b40ea0481ed', 'Estonia', 1),
                    (2, '8a754a16-0027-3a29-c6d7-2b40ea0481ed', 'France', 1);
@@ -613,7 +613,7 @@ test 'find_by_label orders by release date, catalog_number, name, country, barco
 
         INSERT INTO release_label (release, label, catalog_number)
             VALUES (2, 1, 'ABC-123'), (7, 1, 'ZZZ');
-        EOSQL
+        SQL
 
     my ($releases, undef) = $c->model('Release')->find_by_label(1, 10, 0);
     is_deeply(
@@ -675,10 +675,10 @@ test 'find_by_collection ordering' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+collection');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO medium (id, release, track_count, position)
             VALUES (1, 1, 0, 1), (3, 3, 0, 1);
-        EOSQL
+        SQL
 
     for my $order (qw( date title country label artist catno format tracks )) {
         my ($releases, undef) =
@@ -692,7 +692,7 @@ test 'merge release events' => sub {
     my $test = shift;
     my $c = $test->c;
     MusicBrainz::Server::Test->prepare_test_database($c, '+release');
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO area (id, gid, name, type)
             VALUES (5, 'e01da61e-99a8-3c76-a27d-774c3f4982f0', 'Andorra', 1),
                    (122, 'd2007481-eefe-37c0-be71-2256dfe148cb', 'Liechtenstein', 1),
@@ -713,7 +713,7 @@ test 'merge release events' => sub {
         INSERT INTO release_unknown_country (release, date_year, date_month, date_day)
             VALUES (8, 2013, 11, 22),
                    (9, 2014, 1, 5);
-        EOSQL
+        SQL
 
     $c->model('Release')->merge(
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
@@ -769,7 +769,7 @@ test 'Merging releases with the same date should discard unknown country events'
     my $release_data = $c->model('Release');
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO area (id, gid, name, type)
             VALUES (1, '8a754a16-0027-4a29-c6d7-2b40ea0481ed', 'Estonia', 1);
         INSERT INTO country_area (area) VALUES (1);
@@ -779,7 +779,7 @@ test 'Merging releases with the same date should discard unknown country events'
 
         INSERT INTO release_country (release, country, date_year, date_month, date_day)
             VALUES (9, 1, 2009, 5, 8);
-        EOSQL
+        SQL
 
     $release_data->merge(
         old_ids => [ 9 ],

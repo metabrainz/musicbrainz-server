@@ -557,7 +557,7 @@ sub merge_entities {
             );
         }
 
-        my $relationships = $self->sql->select_list_of_hashes(<<~"EOSQL", \@ids);
+        my $relationships = $self->sql->select_list_of_hashes(<<~"SQL", \@ids);
             SELECT * FROM (
                 SELECT
                     a.*,
@@ -581,7 +581,7 @@ sub merge_entities {
                 ) a
                 JOIN link ON link.id = a.link
             ) b WHERE redundant > 1
-            EOSQL
+            SQL
 
         # Given a set of duplicate relationship where only one will be kept,
         # determine what {entity0,entity1}_credit should be used. Non-empty

@@ -55,7 +55,7 @@ test 'MBS-8590: Clearing relationship credits' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO url (id, gid, url)
             VALUES (1, '94d14d6f-d937-4f24-a814-423cdb977c74', 'http://www.bobmarley.com/');
         INSERT INTO artist (id, gid, name, sort_name)
@@ -63,7 +63,7 @@ test 'MBS-8590: Clearing relationship credits' => sub {
         INSERT INTO link (id, link_type) VALUES (1, 183);
         INSERT INTO l_artist_url (id, link, entity0, entity1, entity0_credit)
             VALUES (1, 1, 3, 1, 'Bob Marley');
-        EOSQL
+        SQL
 
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );

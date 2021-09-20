@@ -394,7 +394,7 @@ sub appears_on
 
     my @ids = map { $_->id } @$recordings;
 
-    my $hits_query = <<~'EOSQL';
+    my $hits_query = <<~'SQL';
         SELECT rec.id AS recording, rgs.hits
         FROM recording rec, LATERAL (
             SELECT count(DISTINCT rg.id) AS hits
@@ -405,14 +405,14 @@ sub appears_on
             WHERE t.recording = rec.id
         ) rgs
         WHERE rec.id = any(?)
-        EOSQL
+        SQL
 
     my %hits_map;
     for my $row (@{ $self->sql->select_list_of_hashes($hits_query, \@ids) }) {
         $hits_map{ $row->{recording} } = $row->{hits};
     }
 
-    my $query = <<~'EOSQL';
+    my $query = <<~'SQL';
         SELECT rec.id AS recording, rgs.*
         FROM recording rec, LATERAL (
             SELECT DISTINCT rg.id, rg.gid, rg.name,
@@ -437,7 +437,7 @@ sub appears_on
             rgs.first_release_date_year,
             rgs.first_release_date_month,
             rgs.first_release_date_day
-        EOSQL
+        SQL
 
     my %map;
     for my $row (@{ $self->sql->select_list_of_hashes($query, $limit, \@ids) }) {

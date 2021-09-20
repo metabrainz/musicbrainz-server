@@ -817,7 +817,7 @@ sub is_empty {
     my $used_in_relationship =
         used_in_relationship($self->c, release_group => 'release_group_row.id');
 
-    return $self->sql->select_single_value(<<~"EOSQL", $release_group_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<~"SQL", $release_group_id, $STATUS_OPEN);
         SELECT TRUE
         FROM release_group release_group_row
         WHERE id = ?
@@ -835,7 +835,7 @@ sub is_empty {
             ) OR
             $used_in_relationship
         )
-        EOSQL
+        SQL
 }
 
 sub series_ordering {
