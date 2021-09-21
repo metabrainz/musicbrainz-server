@@ -7,8 +7,8 @@
  */
 
 import test from 'tape';
-import {arraysEqual} from '../../common/utility/arrays';
 
+import {arraysEqual} from '../../common/utility/arrays';
 import {
   LINK_TYPES,
   cleanURL,
