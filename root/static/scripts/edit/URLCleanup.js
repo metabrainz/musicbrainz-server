@@ -2421,7 +2421,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'kofi': {
-    match: [new RegExp('^(https?://)?(www\\.)?ko-fi.com/[^/?#]', 'i')],
+    match: [new RegExp('^(https?://)?(www\\.)?ko-fi\\.com/(?!s/)', 'i')],
     restrict: [LINK_TYPES.patronage],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ko-fi\.com\/([^\/?#]+)(?:.*)?$/, 'https://ko-fi.com/$1');

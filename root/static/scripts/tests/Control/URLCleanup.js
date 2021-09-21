@@ -2314,6 +2314,13 @@ const testData = [
     expected_relationship_type: 'patronage',
             expected_clean_url: 'https://ko-fi.com/35MJZ8OL4IO',
   },
+  // Ko-fi shop (not to autoselect because they could be different purchase options)
+  {
+                     input_url: 'https://ko-fi.com/s/e953259fd9',
+             input_entity_type: 'artist',
+            expected_clean_url: 'https://ko-fi.com/s/e953259fd9', // uncleaned
+    expected_relationship_type: undefined,
+  },
   // laboiteauxparoles
   {
                      input_url: 'https://laboiteauxparoles.com/interprete/269/loco-locass',
