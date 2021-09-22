@@ -7,7 +7,7 @@ use MusicBrainz::Server::Data::Utils qw( trim );
 use MusicBrainz::Server::Validation qw( validate_coordinates );
 
 my $ws_defs = Data::OptList::mkopt([
-    "parse-coordinates" => {
+    'parse-coordinates' => {
         method   => 'GET',
         required => [ qw(coordinates) ]
     }

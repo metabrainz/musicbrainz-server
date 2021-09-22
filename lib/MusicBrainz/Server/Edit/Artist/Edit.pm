@@ -27,7 +27,7 @@ use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::Area';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
-no if $] >= 5.018, warnings => "experimental::smartmatch";
+no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Artist';
@@ -44,7 +44,7 @@ with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
 sub edit_name { N_l('Edit artist') }
 sub edit_type { $EDIT_ARTIST_EDIT }
 
-sub edit_template_react { "EditArtist" }
+sub edit_template_react { 'EditArtist' }
 
 sub _edit_model { 'Artist' }
 
@@ -219,7 +219,7 @@ around allow_auto_edit => sub {
             return 0;
         }
     }
-        
+
     if (defined $self->data->{new}{isni_codes}) {
         # If there's already ISNIs for the artist, not an autoedit
         if (@{ $self->data->{old}{isni_codes} // [] }) {

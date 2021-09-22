@@ -8,7 +8,7 @@ use MusicBrainz::Server::Validation qw( is_guid );
 use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
 
-no if $] >= 5.018, warnings => "experimental::smartmatch";
+no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 my $ws_defs = Data::OptList::mkopt([
      tag => {

@@ -109,7 +109,7 @@ sub filename
 
     return undef unless $self->release->gid && $self->suffix;
 
-    return sprintf("mbid-%s-%d.%s", $self->release->gid, $self->id, $self->suffix);
+    return sprintf('mbid-%s-%d.%s', $self->release->gid, $self->id, $self->suffix);
 }
 
 sub image {

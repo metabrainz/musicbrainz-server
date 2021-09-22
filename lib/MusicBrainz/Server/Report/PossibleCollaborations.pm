@@ -5,7 +5,7 @@ with 'MusicBrainz::Server::Report::ArtistReport',
      'MusicBrainz::Server::Report::FilterForEditor::ArtistID';
 
 sub query {
-    "
+    q{
         SELECT artist.id AS artist_id, row_number() OVER ( ORDER BY artist.name COLLATE musicbrainz )
         FROM
             artist
@@ -22,7 +22,7 @@ sub query {
                     AND link_type.name IN
                       ('collaboration', 'conductor position', 'founder', 'member of band', 'subgroup')            )
         GROUP BY artist.id, artist.name
-    "
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

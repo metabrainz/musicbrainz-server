@@ -18,13 +18,13 @@ my $mech = $test->mech;
 $mech->default_header('Accept' => 'application/xml');
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+tracklist');
-MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
     INSERT INTO medium_cdtoc (medium, cdtoc) VALUES (2, 2);
     INSERT INTO tag (id, name) VALUES (1, 'musical'), (2, 'not-used');
     INSERT INTO genre (id, gid, name)
         VALUES (1, 'ff6d73e8-bf1a-431e-9911-88ae7ffcfdfb', 'musical');
     INSERT INTO release_tag (tag, release, count) VALUES (1, 2, 2), (2, 2, 2);
-    EOSQL
+    SQL
 
 ws_test 'direct disc id lookup',
     '/discid/IeldkVfIh1wep_M8CMuDvA0nQ7Q-' =>

@@ -174,7 +174,7 @@ sub collections {
 
     # Need a custom query here to exclude private collections.
     my $collection_rows = $c->sql->select_list_of_hashes(
-        "SELECT * FROM editor_collection WHERE id = any(?) and public = 't' ORDER BY id",
+        q{SELECT * FROM editor_collection WHERE id = any(?) and public = 't' ORDER BY id},
         pluck('collection', $entity_collection_rows),
     );
 
@@ -208,7 +208,7 @@ sub relationships {
 
         if (defined $relationships_cardinality) {
             $joins .= "JOIN link ON link.id = $table.link\n";
-            $joins .= "JOIN link_type ON link_type.id = link.link_type";
+            $joins .= 'JOIN link_type ON link_type.id = link.link_type';
             $conditions .= "\n";
             $conditions .= "AND link_type.${column}_cardinality = ?";
             push @values, $relationships_cardinality;

@@ -91,7 +91,7 @@ sub _insert_hash
     return $data;
 }
 
-sub edit_template_react { "AddReleaseGroup" }
+sub edit_template_react { 'AddReleaseGroup' }
 
 before accept => sub {
     my ($self) = @_;

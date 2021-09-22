@@ -44,7 +44,7 @@ around get_by_gids => sub
     }
     if (@missing_gids) {
         my $sql = "SELECT new_id, gid FROM $table
-            WHERE gid IN (" . placeholders(@missing_gids) . ")";
+            WHERE gid IN (" . placeholders(@missing_gids) . ')';
         my $ids = $self->sql->select_list_of_lists($sql, @missing_gids);
         my $id_map = $self->get_by_ids(map { $_->[0] } @$ids);
         for my $row (@$ids) {
@@ -117,8 +117,8 @@ sub _insert_hook_after { }
 sub find_by_name
 {
     my ($self, $name) = @_;
-    my $query = "SELECT " . $self->_columns . " FROM " . $self->_table . "
-                  WHERE lower(musicbrainz_unaccent(name)) = lower(musicbrainz_unaccent(?))";
+    my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
+                  WHERE lower(musicbrainz_unaccent(name)) = lower(musicbrainz_unaccent(?))';
     $self->query_to_list($query, [$name]);
 }
 
@@ -133,9 +133,9 @@ sub get_by_ids_sorted_by_name
         : 'name COLLATE musicbrainz';
 
     my $key = $self->_id_column;
-    my $query = "SELECT " . $self->_columns .
-                " FROM " . $self->_table .
-                " WHERE $key IN (" . placeholders(@ids) . ") " .
+    my $query = 'SELECT ' . $self->_columns .
+                ' FROM ' . $self->_table .
+                " WHERE $key IN (" . placeholders(@ids) . ') ' .
                 " ORDER BY $ordering_condition";
 
     my @result;
@@ -153,13 +153,13 @@ sub find_by_names
 
     return () unless scalar @names;
 
-    my $query = "SELECT " . $self->_columns . ", search_terms.term "
-        ."FROM " . $self->_table
-        . ", (VALUES "
-        .     join (",", ("(?)") x scalar(@names))
-        .    ") search_terms (term)"
-        ." WHERE lower(musicbrainz_unaccent(name)) = "
-        ." lower(musicbrainz_unaccent(search_terms.term));";
+    my $query = 'SELECT ' . $self->_columns . ', search_terms.term '
+        .'FROM ' . $self->_table
+        . ', (VALUES '
+        .     join (',', ('(?)') x scalar(@names))
+        .    ') search_terms (term)'
+        .' WHERE lower(musicbrainz_unaccent(name)) = '
+        .' lower(musicbrainz_unaccent(search_terms.term));';
 
     my $results = $self->c->sql->select_list_of_hashes($query, @names);
 
@@ -204,7 +204,7 @@ sub add_gid_redirects
     my ($self, %redirects) = @_;
     my $table = $self->_gid_redirect_table;
     my $query = "INSERT INTO $table (gid, new_id) VALUES " .
-                (join ", ", ('(?, ?)') x keys %redirects);
+                (join ', ', ('(?, ?)') x keys %redirects);
     $self->sql->do($query, %redirects);
 }
 
@@ -214,7 +214,7 @@ sub update_gid_redirects
     my $table = $self->_gid_redirect_table;
     $self->sql->do("
         UPDATE $table SET new_id = ?
-        WHERE new_id IN (".placeholders(@old_ids).")", $new_id, @old_ids);
+        WHERE new_id IN (".placeholders(@old_ids).')', $new_id, @old_ids);
 }
 
 sub _delete_and_redirect_gids

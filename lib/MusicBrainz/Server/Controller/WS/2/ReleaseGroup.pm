@@ -8,19 +8,19 @@ use List::AllUtils qw( uniq );
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
-     "release-group" => {
+     'release-group' => {
                          method   => 'GET',
                          required => [ qw(query) ],
                          optional => [ qw(fmt limit offset) ],
      },
-     "release-group" => {
+     'release-group' => {
                          method   => 'GET',
                          linked   => [ qw(artist release collection) ],
                          inc      => [ qw(aliases artist-credits annotation
                                           _relations tags user-tags genres user-genres ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
      },
-     "release-group" => {
+     'release-group' => {
                          action   => '/ws/2/releasegroup/lookup',
                          method   => 'GET',
                          inc      => [ qw(artists releases artist-credits aliases annotation
@@ -95,7 +95,7 @@ sub release_group_browse : Private
 
     if (!is_guid($id))
     {
-        $c->stash->{error} = "Invalid mbid.";
+        $c->stash->{error} = 'Invalid mbid.';
         $c->detach('bad_req');
     }
 

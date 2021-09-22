@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::Report::LabelReport',
      'MusicBrainz::Server::Report::FilterForEditor::LabelID';
 
 sub query {
-    "
+    q{
         SELECT
             l.id AS label_id, q.id AS url_id,
             row_number() OVER (ORDER BY q.count DESC, q.url, l.name COLLATE musicbrainz)
@@ -26,7 +26,7 @@ sub query {
             ) AS q
             JOIN l_label_url llu ON llu.entity1 = q.id
             JOIN label l ON l.id = llu.entity0
-    ";
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

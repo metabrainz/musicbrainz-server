@@ -183,7 +183,7 @@ sub load_meta
     for my $row (@{
         $c->sql->select_list_of_hashes(
             "SELECT * FROM $table
-             WHERE id IN (" . placeholders(@ids) . ")",
+             WHERE id IN (" . placeholders(@ids) . ')',
             @ids
         )
     }) {
@@ -214,7 +214,7 @@ sub coordinates_to_hash
 
 sub placeholders
 {
-    return join ",", ("?") x scalar(@_);
+    return join ',', ('?') x scalar(@_);
 }
 
 sub load_everything_for_edits
@@ -228,7 +228,7 @@ sub load_everything_for_edits
         $c->model('Editor')->load(map { ($_, @{ $_->votes }, @{ $_->edit_notes }) } @$edits);
     } catch {
         use Data::Dumper;
-        croak "Failed loading edits (" . (join ', ', map { $_->id } @$edits) . ")\n" .
+        croak 'Failed loading edits (' . (join ', ', map { $_->id } @$edits) . ")\n" .
               "Exception:\n" . Dumper($_) . "\n";
     };
 }
@@ -261,8 +261,8 @@ sub is_valid_token {
 sub get_area_containment_query {
     my ($link_type_param, $descendant_param, %args) = @_;
 
-    my $levels_condition = $args{check_all_levels} 
-        ? '' 
+    my $levels_condition = $args{check_all_levels}
+        ? ''
         : ' JOIN area a ON a.id = ad.parent WHERE a.type IN (1, 2, 3) ';
 
     return ("
@@ -608,7 +608,7 @@ sub merge_table_attributes {
 }
 
 sub merge_string_attributes {
-    _merge_attributes(shift, _conditional_merge("!= ''", default => ''), @_);
+    _merge_attributes(shift, _conditional_merge(q(!= ''), default => ''), @_);
 }
 
 sub merge_boolean_attributes {
@@ -621,8 +621,8 @@ sub merge_boolean_attributes {
                 "$_ = (
                         SELECT bool_or($_)
                         FROM $table
-                        WHERE id IN (" . placeholders(@$all_ids) . ")
-                      )";
+                        WHERE id IN (" . placeholders(@$all_ids) . ')
+                      )';
             } @$columns) . '
             WHERE id = ?',
            (@$all_ids) x @$columns, $new_id)
@@ -725,7 +725,7 @@ sub split_relationship_by_attributes {
 
 sub non_empty {
     my $value = shift;
-    return defined($value) && $value ne "";
+    return defined($value) && $value ne '';
 }
 
 sub boolean_to_json {

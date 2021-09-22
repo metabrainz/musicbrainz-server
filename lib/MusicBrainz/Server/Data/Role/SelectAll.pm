@@ -14,15 +14,15 @@ role
 
     method '_get_all_from_db' => sub {
         my ($self, $p) = @_;
-        my $query = "SELECT " . $self->_columns .
-            " FROM " . $self->_table .
-            " ORDER BY " . (join ", ", @{ $p->order_by });
+        my $query = 'SELECT ' . $self->_columns .
+            ' FROM ' . $self->_table .
+            ' ORDER BY ' . (join ', ', @{ $p->order_by });
         $self->query_to_list($query);
     };
 
     method '_delete_all_from_cache' => sub {
         my $self = shift;
-        $self->c->cache->delete($self->_type . ":all");
+        $self->c->cache->delete($self->_type . ':all');
     };
 
     # Clear cached data if the list of all entities has changed.
@@ -34,7 +34,7 @@ role
     method 'get_all' => sub
     {
         my $self = shift;
-        my $key = $self->_type . ":all";
+        my $key = $self->_type . ':all';
 
         my $cache = $self->c->cache($self->_type);
         my $all = $cache->get($key);

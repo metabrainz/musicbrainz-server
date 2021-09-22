@@ -52,9 +52,9 @@ sub foreign_keys
 
 before initialize => sub {
     my ($self, %opts) = @_;
-    die "You must specify iso_3166_1" unless defined $opts{iso_3166_1};
-    die "You must specify iso_3166_2" unless defined $opts{iso_3166_2};
-    die "You must specify iso_3166_3" unless defined $opts{iso_3166_3};
+    die 'You must specify iso_3166_1' unless defined $opts{iso_3166_1};
+    die 'You must specify iso_3166_2' unless defined $opts{iso_3166_2};
+    die 'You must specify iso_3166_3' unless defined $opts{iso_3166_3};
 };
 
 sub build_display_data

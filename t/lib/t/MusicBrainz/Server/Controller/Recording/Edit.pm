@@ -15,7 +15,7 @@ my $test = shift;
 my $mech = $test->mech;
 my $c    = $test->c;
 
-$c->sql->do(<<~'EOSQL');
+$c->sql->do(<<~'SQL');
     INSERT INTO artist (id, gid, name, sort_name, comment)
         VALUES (3, '745c079d-374e-4436-9448-da92dedef3ce', 'ABBA', 'ABBA', 'A'),
                (6, 'a45c079d-374e-4436-9448-da92dedef3cf', 'ABBA', 'ABBA', 'B'),
@@ -28,7 +28,7 @@ $c->sql->do(<<~'EOSQL');
     INSERT INTO recording (id, gid, name, artist_credit, length)
         VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 'Dancing Queen', 1, 123456);
     INSERT INTO isrc (isrc, recording) VALUES ('DEE250800231', 1);
-    EOSQL
+    SQL
 
 $mech->get_ok('/login');
 $mech->submit_form(

@@ -60,7 +60,7 @@ use aliased 'MusicBrainz::Server::Entity::Track';
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-no if $] >= 5.018, warnings => "experimental::smartmatch";
+no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 Readonly our $ERROR_NOT_LOGGED_IN => 1;
 Readonly our $ERROR_NON_EXISTENT_ENTITIES => 2;
@@ -411,7 +411,7 @@ sub process_relationship {
     delete $data->{entities};
     delete $data->{linkOrder};
 
-    for my $prop ("entity0", "entity1") {
+    for my $prop ('entity0', 'entity1') {
         my $entity_data = $data->{$prop};
 
         if ($entity_data) {
@@ -433,10 +433,10 @@ sub process_relationship {
 
             if ($previewing && !$entity_data->{gid}) {
                 my $entity_class = "MusicBrainz::Server::Entity::$model";
-                my ($entity) = $model eq "URL" ? $c->model('URL')->find_by_url($name) : ();
+                my ($entity) = $model eq 'URL' ? $c->model('URL')->find_by_url($name) : ();
 
                 $data->{$prop} = $entity // $entity_class->new(name => $name);
-            } elsif ($model eq "URL") {
+            } elsif ($model eq 'URL') {
                 $data->{$prop} = $c->model('URL')->find_or_insert($name);
             } else {
                 $loader->($entity_data->{gid}, $model, sub { $data->{$prop} = shift });
@@ -725,7 +725,7 @@ sub submit_edits {
                         $response->{entity}->{position} = $entity->position;
                     }
                 };
-            } elsif ($edit->isa("MusicBrainz::Server::Edit::Release::AddReleaseLabel")) {
+            } elsif ($edit->isa('MusicBrainz::Server::Edit::Release::AddReleaseLabel')) {
                 $response->{entity} = {
                     id              => $edit->entity_id,
                     labelID         => defined($edit->data->{label}) ? $edit->data->{label}{id} : undef,

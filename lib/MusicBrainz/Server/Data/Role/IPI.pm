@@ -23,7 +23,8 @@ role
 
     method find_reused_ipis => sub {
         my ($self, @ipis) = @_;
-        my $query = "SELECT 'artist' AS entity_type, artist_ipi.ipi, COUNT(*) AS count
+
+        my $query = q{SELECT 'artist' AS entity_type, artist_ipi.ipi, COUNT(*) AS count
                     FROM artist
                         JOIN artist_ipi ON artist.id = artist_ipi.artist
                     WHERE artist_ipi.ipi = any(?)
@@ -33,8 +34,9 @@ role
                     FROM label
                         JOIN label_ipi ON label.id = label_ipi.label
                     WHERE label_ipi.ipi = any(?)
-                    GROUP BY label_ipi.ipi";
+                    GROUP BY label_ipi.ipi};
         my $results = $self->sql->select_list_of_hashes($query, \@ipis, \@ipis);
+
         my %reused_ipis;
         for my $result (@$results) {
             my $ipi = $result->{ipi};

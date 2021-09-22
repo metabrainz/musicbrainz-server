@@ -23,7 +23,7 @@ sub serialize
         } sort_by { $_->cdtoc->discid } $entity->all_cdtocs ];
     }
 
-    $body{"track-count"} = number($entity->cdtoc_track_count);
+    $body{'track-count'} = number($entity->cdtoc_track_count);
 
     # Not all tracks in the tracklists may have been loaded.  If not all
     # tracks have been loaded, only one them will have been loaded which
@@ -44,11 +44,11 @@ sub serialize
 
     if (scalar @list) {
         $body{tracks} = \@list ;
-        $body{"track-offset"} = number($entity->has_pregap ? 0 : $min - 1);
+        $body{'track-offset'} = number($entity->has_pregap ? 0 : $min - 1);
     }
 
     if (my @data_tracks = grep { $_->position > 0 && $_->is_data_track } @tracks) {
-        $body{"data-tracks"} = [ map { $self->serialize_track($_, $inc, $stash) } @data_tracks ];
+        $body{'data-tracks'} = [ map { $self->serialize_track($_, $inc, $stash) } @data_tracks ];
     }
 
     return \%body;
@@ -70,7 +70,7 @@ sub serialize_track {
         $track_output{recording} = serialize_entity($entity->recording, $inc, $stash);
     }
 
-    $track_output{"artist-credit"} = serialize_entity($entity->artist_credit, $inc, $stash)
+    $track_output{'artist-credit'} = serialize_entity($entity->artist_credit, $inc, $stash)
         if $inc->artist_credits;
 
     return \%track_output;

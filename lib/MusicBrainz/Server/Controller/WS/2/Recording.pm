@@ -139,7 +139,7 @@ sub recording_browse : Private
 
     if (!is_guid($id))
     {
-        $c->stash->{error} = "Invalid mbid.";
+        $c->stash->{error} = 'Invalid mbid.';
         $c->detach('bad_req');
     }
 
@@ -207,7 +207,7 @@ sub recording_submit : Private
     for my $node ($xp->find('/mb:metadata/mb:recording-list/mb:recording')->get_nodelist)
     {
         my $id = $xp->find('@mb:id', $node)->string_value or
-            $self->_error($c, "All releases must have an MBID present");
+            $self->_error($c, 'All releases must have an MBID present');
 
         $self->_error($c, "$id is not a valid MBID")
             unless is_guid($id);
@@ -236,7 +236,7 @@ sub recording_submit : Private
     }
 
     if (!$c->user->has_confirmed_email_address) {
-        $self->_error($c, "You must have a verified email address to submit edits");
+        $self->_error($c, 'You must have a verified email address to submit edits');
     }
 
     $c->model('MB')->with_transaction(sub {

@@ -21,9 +21,9 @@ sub _entity_class
 sub get_statistic {
 
     my ($self, $statistic) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                   FROM " . $self->_table . "
-                  WHERE name = ?";
+    my $query = 'SELECT ' . $self->_columns . '
+                   FROM ' . $self->_table . '
+                  WHERE name = ?';
 
     my @stats = @{ $self->sql->select_list_of_hashes($query, $statistic) };
     my $stats = MusicBrainz::Server::Entity::Statistics::ByName->new(

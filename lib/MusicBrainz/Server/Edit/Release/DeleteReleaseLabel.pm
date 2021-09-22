@@ -101,7 +101,7 @@ sub initialize
 {
     my ($self, %opts) = @_;
     my $release_label = delete $opts{release_label};
-    die "You must specify the release label object to delete"
+    die 'You must specify the release label object to delete'
         unless defined $release_label;
 
     unless ($release_label->release) {

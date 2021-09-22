@@ -38,7 +38,7 @@ use List::UtilsBy qw( nsort_by partition_by );
 use aliased 'MusicBrainz::Server::Entity::RelationshipTargetTypeGroup';
 use aliased 'MusicBrainz::Server::Entity::RelationshipLinkTypeGroup';
 
-no if $] >= 5.018, warnings => "experimental::smartmatch";
+no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -90,7 +90,7 @@ sub _new_from_row
             $info{target_type} = $type0;
         }
         else {
-            carp "Neither relationship end-point matched the object.";
+            carp 'Neither relationship end-point matched the object.';
         }
     }
 
@@ -126,7 +126,7 @@ sub get_by_ids
     my ($self, $type0, $type1, @ids) = @_;
     $self->_check_types($type0, $type1);
 
-    my $query = "SELECT * FROM l_${type0}_${type1} WHERE id IN (" . placeholders(@ids) . ")";
+    my $query = "SELECT * FROM l_${type0}_${type1} WHERE id IN (" . placeholders(@ids) . ')';
     my $rows = $self->sql->select_list_of_hashes($query, @ids) or return undef;
 
     return { map { $_->{id} => $self->_new_from_row($_, $type0, $type1) } @$rows };
@@ -150,7 +150,7 @@ sub _load
         my (@cond, @params, $target, $target_id, $source_id, $query);
 
         if ($type eq $type0) {
-            my $condstring = "entity0 IN (" . placeholders(@ids) . ")";
+            my $condstring = 'entity0 IN (' . placeholders(@ids) . ')';
             if ($use_cardinality) {
                 $condstring = "($condstring AND entity0_cardinality = 0)";
             }
@@ -161,7 +161,7 @@ sub _load
             $source_id = 'entity0';
         }
         if ($type eq $type1) {
-            my $condstring = "entity1 IN (" . placeholders(@ids) . ")";
+            my $condstring = 'entity1 IN (' . placeholders(@ids) . ')';
             if ($use_cardinality) {
                 $condstring = "($condstring AND entity1_cardinality = 0)";
             }
@@ -174,7 +174,7 @@ sub _load
 
         # If the source and target types are the same, two possible conditions
         # will have been added above, so join them with an OR.
-        @cond = join(" OR ", @cond);
+        @cond = join(' OR ', @cond);
 
         my $select = "l_${type0}_${type1}.* FROM l_${type0}_${type1}
                       JOIN link l ON link = l.id
@@ -195,7 +195,7 @@ sub _load
 
         $query = "SELECT $select
                     JOIN $target ON $target_id = ${target}.id
-                   WHERE " . join(" AND ", @cond) . "
+                   WHERE " . join(' AND ', @cond) . "
                    ORDER BY $order";
 
         for my $row (@{ $self->sql->select_list_of_hashes($query, @params) }) {
@@ -324,7 +324,7 @@ sub load_paged {
                     $condstring .= " AND ${source_column}_cardinality = 0";
                 }
 
-                $query = "SELECT rel.* " .
+                $query = 'SELECT rel.* ' .
                     "FROM l_${type0}_${type1} rel " .
                     'JOIN link l ON link = l.id ' .
                     "JOIN $target_type ON rel.$target_column = ${target_type}.id " .
@@ -557,7 +557,7 @@ sub merge_entities {
             );
         }
 
-        my $relationships = $self->sql->select_list_of_hashes(<<~"EOSQL", \@ids);
+        my $relationships = $self->sql->select_list_of_hashes(<<~"SQL", \@ids);
             SELECT * FROM (
                 SELECT
                     a.*,
@@ -581,7 +581,7 @@ sub merge_entities {
                 ) a
                 JOIN link ON link.id = a.link
             ) b WHERE redundant > 1
-            EOSQL
+            SQL
 
         # Given a set of duplicate relationship where only one will be kept,
         # determine what {entity0,entity1}_credit should be used. Non-empty
@@ -718,8 +718,8 @@ sub delete_entities
         my ($table, $entity0, $entity1) = @$t;
         $self->sql->do("
             DELETE FROM $table a
-            WHERE $entity0 IN (" . placeholders(@ids) . ")
-        ", @ids);
+            WHERE $entity0 IN (" . placeholders(@ids) . ')
+        ', @ids);
     }
 }
 
@@ -768,7 +768,7 @@ sub _check_series_type {
     $self->c->model('SeriesType')->load($series);
 
     if ($series->type->item_entity_type ne $entity_type) {
-        die "Incorrect entity type for part of series relationship";
+        die 'Incorrect entity type for part of series relationship';
     }
 }
 
@@ -777,8 +777,8 @@ sub insert
     my ($self, $type0, $type1, $values) = @_;
     $self->_check_types($type0, $type1);
 
-    $self->_check_series_type($values->{entity0_id}, $values->{link_type_id}, $type1) if $type0 eq "series";
-    $self->_check_series_type($values->{entity1_id}, $values->{link_type_id}, $type0) if $type1 eq "series";
+    $self->_check_series_type($values->{entity0_id}, $values->{link_type_id}, $type1) if $type0 eq 'series';
+    $self->_check_series_type($values->{entity1_id}, $values->{link_type_id}, $type0) if $type1 eq 'series';
 
     my $row = {
         link => $self->c->model('Link')->find_or_insert({
@@ -796,11 +796,11 @@ sub insert
     };
     my $id = $self->sql->insert_row("l_${type0}_${type1}", $row, 'id');
 
-    if ($type0 eq "series") {
+    if ($type0 eq 'series') {
         $self->c->model('Series')->automatically_reorder($values->{entity0_id});
     }
 
-    if ($type1 eq "series") {
+    if ($type1 eq 'series') {
         $self->c->model('Series')->automatically_reorder($values->{entity1_id});
     }
 
@@ -833,8 +833,8 @@ sub update
     $new->{entity0_credit} = $values->{entity0_credit} if defined $values->{entity0_credit};
     $new->{entity1_credit} = $values->{entity1_credit} if defined $values->{entity1_credit};
 
-    my $series0 = $type0 eq "series";
-    my $series1 = $type1 eq "series";
+    my $series0 = $type0 eq 'series';
+    my $series1 = $type1 eq 'series';
     my $entity0_changed = $new->{entity0} && $old->{entity0} != $new->{entity0};
     my $entity1_changed = $new->{entity1} && $old->{entity1} != $new->{entity1};
     my $series0_changed = $series0 && $entity0_changed;
@@ -869,13 +869,13 @@ sub delete
     $self->_check_types($type0, $type1);
 
     my $series_col;
-    $series_col = "entity0" if $type0 eq "series";
-    $series_col = "entity1" if $type1 eq "series";
+    $series_col = 'entity0' if $type0 eq 'series';
+    $series_col = 'entity1' if $type1 eq 'series';
 
     my $deleted = $self->sql->select_list_of_hashes(
         "DELETE FROM l_${type0}_${type1} " .
-        "WHERE id IN (" . placeholders(@ids) . ") " .
-        "RETURNING entity0, entity1",
+        'WHERE id IN (' . placeholders(@ids) . ') ' .
+        'RETURNING entity0, entity1',
         @ids,
     );
 
@@ -899,7 +899,7 @@ sub adjust_edit_pending
 
     my $query = "UPDATE l_${type0}_${type1}
                  SET edits_pending = numeric_larger(0, edits_pending + ?)
-                 WHERE id IN (" . placeholders(@ids) . ")";
+                 WHERE id IN (" . placeholders(@ids) . ')';
     $self->sql->do($query, $adjust, @ids);
 }
 
@@ -931,11 +931,11 @@ sub reorder {
         \@ids
     );
 
-    die "Can only reorder one group of relationships" if @$groups != 1;
+    die 'Can only reorder one group of relationships' if @$groups != 1;
 
     $self->sql->do(
-        "WITH pos (relationship, link_order) AS (
-            VALUES " . join(', ', ('(?::INTEGER, ?::INTEGER)') x @ids) . "
+        'WITH pos (relationship, link_order) AS (
+            VALUES ' . join(', ', ('(?::INTEGER, ?::INTEGER)') x @ids) . "
         )
         UPDATE l_${type0}_${type1} SET link_order = pos.link_order
         FROM pos WHERE pos.relationship = id",

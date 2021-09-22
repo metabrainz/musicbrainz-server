@@ -9,8 +9,8 @@ sub serialize
     my %body;
 
     $body{name} = $entity->name;
-    $body{"sort-name"} = $entity->name;
-    $body{disambiguation} = $entity->comment // "";
+    $body{'sort-name'} = $entity->name;
+    $body{disambiguation} = $entity->comment // '';
     $body{'iso-3166-1-codes'} = [$entity->iso_3166_1_codes] if $entity->iso_3166_1_codes;
     $body{'iso-3166-2-codes'} = [$entity->iso_3166_2_codes] if $entity->iso_3166_2_codes;
     $body{'iso-3166-3-codes'} = [$entity->iso_3166_3_codes] if $entity->iso_3166_3_codes;

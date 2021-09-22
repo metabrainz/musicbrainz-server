@@ -51,11 +51,11 @@ test 'Deleting a medium will also delete its tracks' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_medium');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO track (id, gid, name, medium, recording, artist_credit, position, number)
             VALUES (1, '15d6a884-0274-486c-81fe-94ff57b8cf36', 1, 1, 1, 1, 1, 'A1'),
                    (2, '03d0854f-6053-416c-a67f-8c79a796ed39', 1, 1, 1, 1, 2, 'A2');
-        EOSQL
+        SQL
 
     my $edit = _create_edit($c);
     accept_edit($c, $edit);

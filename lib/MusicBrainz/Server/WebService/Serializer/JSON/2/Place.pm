@@ -10,7 +10,7 @@ sub serialize
     my %body;
 
     $body{name} = $entity->name;
-    $body{disambiguation} = $entity->comment // "";
+    $body{disambiguation} = $entity->comment // '';
     $body{address} = $entity->address;
     $body{area} = $entity->area ? serialize_entity($entity->area) : JSON::null;
     $body{coordinates} = $entity->coordinates ?

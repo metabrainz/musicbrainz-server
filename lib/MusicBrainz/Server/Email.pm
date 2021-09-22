@@ -43,7 +43,7 @@ sub _encode_header {
     my $header = shift;
 
     if ($header =~ /[^\x20-\x7E]/) {
-        return encode("MIME-Q", $header);
+        return encode('MIME-Q', $header);
     } else {
         return $header;
     }
@@ -70,16 +70,16 @@ sub _create_email
     my ($self, $headers, $body) = @_;
 
     # Add a Message-Id header if there isn't one.
-    if ( !(grep { "$_" eq "Message-Id" } @$headers) ) {
+    if ( !(grep { "$_" eq 'Message-Id' } @$headers) ) {
         push @$headers, 'Message-Id', _message_id('uncategorized-email-%d', time());
     }
     return Email::MIME->create(
         header => $headers,
         body => encode('utf-8', $body),
         attributes => {
-            content_type => "text/plain",
-            charset      => "UTF-8",
-            encoding     => "quoted-printable",
+            content_type => 'text/plain',
+            charset      => 'UTF-8',
+            encoding     => 'quoted-printable',
         });
 }
 
@@ -87,10 +87,10 @@ sub _create_message_to_editor_email
 {
     my ($self, %opts) = @_;
 
-    my $from = $opts{from} or die "Missing 'from' argument";
-    my $to = $opts{to} or die "Missing 'to' argument";
-    my $subject = $opts{subject} or die "Missing 'subject' argument";
-    my $message = $opts{message} or die "Missing 'message' argument";
+    my $from = $opts{from} or die q(Missing 'from' argument);
+    my $to = $opts{to} or die q(Missing 'to' argument);
+    my $subject = $opts{subject} or die q(Missing 'subject' argument);
+    my $message = $opts{message} or die q(Missing 'message' argument);
 
     my $time = $opts{time} || time();
 
@@ -272,9 +272,9 @@ sub _create_no_vote_email
 {
     my ($self, %opts) = @_;
 
-    my $edit_id = $opts{edit_id} or die "Missing 'edit_id' argument";
-    my $voter = $opts{voter} or die "Missing 'voter' argument";
-    my $editor = $opts{editor} or die "Missing 'editor' argument";
+    my $edit_id = $opts{edit_id} or die q(Missing 'edit_id' argument);
+    my $voter = $opts{voter} or die q(Missing 'voter' argument);
+    my $editor = $opts{editor} or die q(Missing 'editor' argument);
 
     my @headers = (
         'To'          => _user_address($opts{editor}),
@@ -363,10 +363,10 @@ sub _create_edit_note_email
 {
     my ($self, %opts) = @_;
 
-    my $from_editor = $opts{from_editor} or die "Missing 'from_editor' argument";
-    my $edit_id = $opts{edit_id} or die "Missing 'edit_id' argument";
-    my $editor = $opts{editor} or die "Missing 'editor' argument";
-    my $note_text = $opts{note_text} or die "Missing 'note_text' argument";
+    my $from_editor = $opts{from_editor} or die q(Missing 'from_editor' argument);
+    my $edit_id = $opts{edit_id} or die q(Missing 'edit_id' argument);
+    my $editor = $opts{editor} or die q(Missing 'editor' argument);
+    my $note_text = $opts{note_text} or die q(Missing 'note_text' argument);
     my $own_edit = $opts{own_edit};
 
     if ($from_editor->id == $EDITOR_MODBOT) {
@@ -528,42 +528,42 @@ sub send_election_nomination
 {
     my ($self, $election) = @_;
 
-    return $self->_send_election_mail("Nomination", $election);
+    return $self->_send_election_mail('Nomination', $election);
 }
 
 sub send_election_voting_open
 {
     my ($self, $election) = @_;
 
-    return $self->_send_election_mail("VotingOpen", $election);
+    return $self->_send_election_mail('VotingOpen', $election);
 }
 
 sub send_election_timeout
 {
     my ($self, $election) = @_;
 
-    return $self->_send_election_mail("Timeout", $election);
+    return $self->_send_election_mail('Timeout', $election);
 }
 
 sub send_election_canceled
 {
     my ($self, $election) = @_;
 
-    return $self->_send_election_mail("Canceled", $election);
+    return $self->_send_election_mail('Canceled', $election);
 }
 
 sub send_election_accepted
 {
     my ($self, $election) = @_;
 
-    return $self->_send_election_mail("Accepted", $election);
+    return $self->_send_election_mail('Accepted', $election);
 }
 
 sub send_election_rejected
 {
     my ($self, $election) = @_;
 
-    return $self->_send_election_mail("Rejected", $election);
+    return $self->_send_election_mail('Rejected', $election);
 }
 
 sub send_edit_note
@@ -611,7 +611,7 @@ sub send_editor_report {
     if ($opts{reveal_address}) {
         $body .= "You can reply to this message directly.\n";
     } else {
-        $body .= "The reporter chose not to reveal their email address. ";
+        $body .= 'The reporter chose not to reveal their email address. ';
         $body .= "You’ll have to contact them through their user page if necessary.\n";
     }
 

@@ -70,7 +70,7 @@ sub lookup
         push @durations, $duration;
     }
 
-    my $dur_string = "'{" . join(",", @durations) . "}'";
+    my $dur_string = q('{) . join(',', @durations) . q(}');
 
     $self->query_to_list_limited(
             "SELECT release,
@@ -85,10 +85,10 @@ sub lookup
                ($all_formats ? '' : ' LEFT JOIN medium_format mf ON m.format = mf.id ') . "
              WHERE  track_count_matches_cdtoc(m, ?)
                 AND toc <@ create_bounding_cube($dur_string, ?) " .
-                ($all_formats ? '' : ' AND (m.format IS NULL OR mf.has_discids) ') . "
+                ($all_formats ? '' : ' AND (m.format IS NULL OR mf.has_discids) ') . '
            GROUP BY release
            ORDER BY min_distance, release
-           LIMIT 25",
+           LIMIT 25',
         [$toc_info{tracks}, $fuzzy], $limit, $offset, sub {
             my ($model, $row) = @_;
             return {
@@ -109,14 +109,14 @@ sub update
     #    3. there are at most 99 tracks on the disc
 
     my $results = $self->sql->select_list_of_hashes(
-        "SELECT (sum(track.length) < 4800000 AND
+        'SELECT (sum(track.length) < 4800000 AND
                  bool_and(track.length IS NOT NULL) AND
                  count(track.id) <= 99) AS should_have_index,
                 medium_index.medium IS NOT NULL AS has_index
            FROM track
       LEFT JOIN medium_index ON medium_index.medium = track.medium
           WHERE track.medium = ? AND track.position > 0 AND track.is_data_track = false
-       GROUP BY track.medium, medium_index.medium;", $medium_id);
+       GROUP BY track.medium, medium_index.medium;', $medium_id);
 
     return unless @$results;
 
@@ -124,7 +124,7 @@ sub update
 
     # get track count, excluding any pregap or data track
     my $track_count = $self->sql->select_single_value(
-        "SELECT count(*) FROM track WHERE medium = ? AND position > 0 AND is_data_track = false",
+        'SELECT count(*) FROM track WHERE medium = ? AND position > 0 AND is_data_track = false',
         $medium_id
     );
 
@@ -139,7 +139,7 @@ sub update
 
     if ($disc{has_index} && ! $disc{should_have_index})
     {
-        $self->sql->delete_row("medium_index", { medium => $medium_id });
+        $self->sql->delete_row('medium_index', { medium => $medium_id });
     }
 
     if ($disc{has_index} && $disc{should_have_index})

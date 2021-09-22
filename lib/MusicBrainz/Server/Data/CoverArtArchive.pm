@@ -57,7 +57,7 @@ Generate the policy and form values to upload cover art.
 sub post_fields {
     my ($self, $bucket, $mbid, $id, $opts) = @_;
 
-    my $mime_type = $opts->{mime_type} // "image/jpeg";
+    my $mime_type = $opts->{mime_type} // 'image/jpeg';
     my $redirect = $opts->{redirect};
     my $suffix = $self->c->model('CoverArt')->image_type_suffix($mime_type);
 
@@ -66,10 +66,10 @@ sub post_fields {
     my $filename = "mbid-$mbid-$id.$suffix";
 
     my %extra_fields = (
-        "x-archive-auto-make-bucket" => '1',
-        "x-archive-meta-collection" => 'coverartarchive',
-        "x-archive-meta-mediatype" => 'image',
-        "x-archive-meta-noindex" => 'true',
+        'x-archive-auto-make-bucket' => '1',
+        'x-archive-meta-collection' => 'coverartarchive',
+        'x-archive-meta-mediatype' => 'image',
+        'x-archive-meta-noindex' => 'true',
     );
 
     my $policy = {
@@ -93,7 +93,7 @@ sub post_fields {
         signature => $policy_signature_base64,
         key => $filename,
         acl => 'public-read',
-        "content-type" => $mime_type,
+        'content-type' => $mime_type,
         %extra_fields
     };
 
@@ -157,7 +157,7 @@ sub reorder_cover_art {
 
     $self->sql->do(
         'UPDATE cover_art_archive.cover_art SET ordering = position.ordering ' .
-        'FROM (VALUES '. (join ", ", (("(?::bigint, ?::integer)") x (keys %$positions))) . ') ' .
+        'FROM (VALUES '. (join ', ', (('(?::bigint, ?::integer)') x (keys %$positions))) . ') ' .
         'AS position (id, ordering) WHERE cover_art.id = position.id', %$positions);
 }
 
@@ -172,9 +172,9 @@ sub merge_releases {
     # cover_art_presence enum has 'darkened' as max, and 'absent' as min,
     # so we always want the highest value to be preserved
     $self->sql->do(
-        "UPDATE release_meta SET cover_art_presence = (SELECT max(cover_art_presence)
+        'UPDATE release_meta SET cover_art_presence = (SELECT max(cover_art_presence)
            FROM release_meta WHERE id = any(?))
-           WHERE id = ?", [ $new_release, @old_releases ], $new_release);
+           WHERE id = ?', [ $new_release, @old_releases ], $new_release);
 
     for my $old_release (@old_releases) {
         $self->sql->do(

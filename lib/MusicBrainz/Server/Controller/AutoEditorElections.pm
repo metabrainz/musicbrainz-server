@@ -21,7 +21,7 @@ sub index : Path('')
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'elections/Index.js',
+        component_path => 'elections/Index',
         component_props => {elections => to_json_array(\@elections)},
     );
 }
@@ -51,7 +51,7 @@ sub nominate : Path('nominate') Args(1) RequireAuth(auto_editor) SecureForm
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'elections/Nominate.js',
+        component_path => 'elections/Nominate',
         component_props => {
             candidate => $candidate->TO_JSON,
             form => $form->TO_JSON,
@@ -80,7 +80,7 @@ sub _load {
         return $election;
     }
     else {
-        $c->stash( message  => l("'{id}' is not a valid election ID", { id => $id }) );
+        $c->stash( message  => l(q('{id}' is not a valid election ID), { id => $id }) );
         $c->detach('/error_400');
     }
 }
@@ -95,7 +95,7 @@ sub show : Chained('load') PathPart('') Args(0)
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'elections/Show.js',
+        component_path => 'elections/Show',
         component_props => {election => $election->TO_JSON},
 
     );

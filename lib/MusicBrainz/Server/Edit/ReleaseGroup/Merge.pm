@@ -10,7 +10,7 @@ with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities' => {
 };
 with 'MusicBrainz::Server::Edit::ReleaseGroup';
 
-sub edit_name { N_l("Merge release groups") }
+sub edit_name { N_l('Merge release groups') }
 sub edit_type { $EDIT_RELEASEGROUP_MERGE }
 sub _merge_model { 'ReleaseGroup' }
 sub release_group_ids { @{ shift->_entity_ids } }

@@ -22,9 +22,9 @@ role {
 
         my $table = $self->_main_table;
 
-        my $query = "DELETE FROM $table WHERE id IN (" .placeholders(@ids) . ")
-                     RETURNING gid AS entity_gid, id AS entity_id, name AS last_known_name";
-        $query .= ", comment AS last_known_comment"
+        my $query = "DELETE FROM $table WHERE id IN (" .placeholders(@ids) . ')
+                     RETURNING gid AS entity_gid, id AS entity_id, name AS last_known_name';
+        $query .= ', comment AS last_known_comment'
             if $ENTITIES{$type}{disambiguation};
 
         state $json = JSON::XS->new;
@@ -39,7 +39,7 @@ role {
                 }
             }
             @{ $self->sql->select_list_of_hashes($query, @ids) };
-        $self->sql->insert_many("deleted_entity", @deleted);
+        $self->sql->insert_many('deleted_entity', @deleted);
 
         return [ map { $_->{gid} } @deleted ];
     };

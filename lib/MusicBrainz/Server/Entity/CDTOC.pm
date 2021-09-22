@@ -103,14 +103,14 @@ sub new_from_toc
 
     return unless $leadout_offset > $track_offsets[-1];
 
-    my $message = "";
-    $message .= sprintf("%02X", $first_track);
-    $message .= sprintf("%02X", $last_track);
-    $message .= sprintf("%08X", $leadout_offset);
-    $message .= sprintf("%08X", ($track_offsets[$_-1] || 0)) for 1 .. 99;
+    my $message = '';
+    $message .= sprintf('%02X', $first_track);
+    $message .= sprintf('%02X', $last_track);
+    $message .= sprintf('%08X', $leadout_offset);
+    $message .= sprintf('%08X', ($track_offsets[$_-1] || 0)) for 1 .. 99;
 
     my $discid = sha1_base64($message);
-    $discid .= "="; # bring up to 28 characters, like the client
+    $discid .= '='; # bring up to 28 characters, like the client
     $discid =~ tr[+/=][._-];
 
     my @lengths = map {
@@ -139,7 +139,7 @@ sub _compute_freedb_id
 
     my $t = int($frames[-1]/75) - int($frames[0]/75);
 
-    sprintf "%08x", ((($n % 0xFF) << 24) | ($t << 8) | $tracks);
+    sprintf '%08x', ((($n % 0xFF) << 24) | ($t << 8) | $tracks);
 }
 
 with 'MusicBrainz::Server::Entity::Role::TOC';

@@ -11,7 +11,7 @@ use MusicBrainz::Server::Form::Search::Search;
 use Scalar::Util qw( looks_like_number );
 use feature 'switch';
 
-no if $] >= 5.018, warnings => "experimental::smartmatch";
+no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 sub search : Path('')
 {
@@ -73,7 +73,7 @@ sub search : Path('')
             );
 
             $c->stash(
-                component_path => 'search/components/' . type_to_model($type) . 'Results.js',
+                component_path => 'search/components/' . type_to_model($type) . 'Results',
                 component_props => \%props,
                 current_view => 'Node',
             );
@@ -98,7 +98,7 @@ sub doc : Private
     my ($self, $c) = @_;
 
     $c->stash(
-        component_path => 'search/components/DocResults.js',
+        component_path => 'search/components/DocResults',
         current_view => 'Node',
     );
 }

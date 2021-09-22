@@ -15,12 +15,12 @@ with 'MusicBrainz::Server::Data::Role::QueryToList';
 
 sub _columns
 {
-    die("Not implemented");
+    die('Not implemented');
 }
 
 sub _table
 {
-    die("Not implemented");
+    die('Not implemented');
 }
 
 sub _column_mapping
@@ -34,8 +34,8 @@ sub _get_by_keys {
     @ids = grep { defined && $_ } @ids;
     return () unless @ids;
 
-    my $query = "SELECT " . $self->_columns .
-                " FROM " . $self->_table .
+    my $query = 'SELECT ' . $self->_columns .
+                ' FROM ' . $self->_table .
                 " WHERE $key = any(?)";
 
     $self->query_to_list($query, [\@ids]);
@@ -54,8 +54,8 @@ sub get_by_id_locked {
     return unless $id;
 
     my $key = $self->_id_column;
-    my $query = "SELECT " . $self->_columns .
-                " FROM " . $self->_table .
+    my $query = 'SELECT ' . $self->_columns .
+                ' FROM ' . $self->_table .
                 " WHERE $key = ? FOR UPDATE";
 
     my $rows = $self->c->sql->select_list_of_hashes($query, $id);
@@ -129,10 +129,10 @@ sub _get_by_key
             $query, $id));
 }
 
-sub insert { confess "Not implemented" }
-sub update { confess "Not implemented" }
-sub delete { confess "Not implemented" }
-sub merge  { confess "Not implemented" }
+sub insert { confess 'Not implemented' }
+sub update { confess 'Not implemented' }
+sub delete { confess 'Not implemented' }
+sub merge  { confess 'Not implemented' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -6,11 +6,11 @@ with 'MusicBrainz::Server::Report::FilterForEditor';
 sub filter_sql {
     my ($self, $editor_id) = @_;
 
-    my $filter_query = <<~'EOSQL';
+    my $filter_query = <<~'SQL';
         JOIN artist_credit_name ON artist_credit_id = artist_credit_name.artist_credit
         JOIN editor_subscribe_artist esa ON esa.artist = artist_credit_name.artist
         WHERE esa.editor = ?
-        EOSQL
+        SQL
 
     return ($filter_query, $editor_id);
 }

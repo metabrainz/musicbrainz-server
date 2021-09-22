@@ -97,11 +97,11 @@ after '_delete_from_cache' => sub {
 sub find_by_subscribed_editor
 {
     my ($self, $editor_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
                     JOIN editor_subscribe_artist s ON artist.id = s.artist
                  WHERE s.editor = ?
-                 ORDER BY artist.sort_name COLLATE musicbrainz, artist.id";
+                 ORDER BY artist.sort_name COLLATE musicbrainz, artist.id';
     $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
 }
 
@@ -111,8 +111,8 @@ sub find_by_area {
         $containment_query,
         @containment_query_args,
     ) = get_area_containment_query('$2', 'any(array[area, begin_area, end_area])', check_all_levels => 1);
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . "
                  WHERE \$1 IN (area, begin_area, end_area) OR EXISTS (
                     SELECT 1 FROM ($containment_query) ac
                      WHERE ac.descendant IN (area, begin_area, end_area) AND ac.parent = \$1
@@ -128,9 +128,9 @@ sub find_by_instrument {
     my ($self, $instrument_id, $limit, $offset) = @_;
 
     my $query =
-        "SELECT " . $self->_columns . ",
+        'SELECT ' . $self->_columns . q(,
                 array_agg(json_build_object('typeName', link_type.name, 'credit', lac.credited_as)) AS instrument_credits_and_rel_types
-            FROM " . $self->_table . "
+            FROM ) . $self->_table . '
                 JOIN (
                     SELECT * FROM l_artist_artist
                     UNION ALL
@@ -149,7 +149,7 @@ sub find_by_instrument {
                 )
             WHERE instrument.id = ?
             GROUP BY artist.id
-            ORDER BY artist.sort_name COLLATE musicbrainz";
+            ORDER BY artist.sort_name COLLATE musicbrainz';
 
     $self->query_to_list_limited(
         $query,
@@ -167,20 +167,20 @@ sub find_by_instrument {
 sub find_by_recording
 {
     my ($self, $recording_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
                     JOIN artist_credit_name acn ON acn.artist = artist.id
                     JOIN recording ON recording.artist_credit = acn.artist_credit
                  WHERE recording.id = ?
-                 ORDER BY artist.name COLLATE musicbrainz, artist.id";
+                 ORDER BY artist.name COLLATE musicbrainz, artist.id';
     $self->query_to_list_limited($query, [$recording_id], $limit, $offset);
 }
 
 sub find_by_release
 {
     my ($self, $release_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
                  WHERE artist.id IN (SELECT artist.id
                      FROM artist
                      JOIN artist_credit_name acn ON acn.artist = artist.id
@@ -192,67 +192,67 @@ sub find_by_release
                      JOIN artist_credit_name acn ON acn.artist = artist.id
                      JOIN release ON release.artist_credit = acn.artist_credit
                      WHERE release.id = ?)
-                 ORDER BY artist.name COLLATE musicbrainz, artist.id";
+                 ORDER BY artist.name COLLATE musicbrainz, artist.id';
     $self->query_to_list_limited($query, [($release_id) x 2], $limit, $offset);
 }
 
 sub find_by_release_group
 {
     my ($self, $recording_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
                     JOIN artist_credit_name acn ON acn.artist = artist.id
                     JOIN release_group ON release_group.artist_credit = acn.artist_credit
                  WHERE release_group.id = ?
-                 ORDER BY artist.name COLLATE musicbrainz, artist.id";
+                 ORDER BY artist.name COLLATE musicbrainz, artist.id';
     $self->query_to_list_limited($query, [$recording_id], $limit, $offset);
 }
 
 sub find_by_work
 {
     my ($self, $work_id, $limit, $offset) = @_;
-    my $query = "SELECT DISTINCT name COLLATE musicbrainz name_collate, s.*
+    my $query = 'SELECT DISTINCT name COLLATE musicbrainz name_collate, s.*
                  FROM (
-                   SELECT " . $self->_columns . " FROM ". $self->_table . "
+                   SELECT ' . $self->_columns . ' FROM '. $self->_table . '
                    JOIN artist_credit_name acn ON acn.artist = artist.id
                    JOIN recording ON recording.artist_credit = acn.artist_credit
                    JOIN l_recording_work lrw ON lrw.entity0 = recording.id
                    WHERE lrw.entity1 = ?
                    UNION ALL
-                   SELECT " . $self->_columns . " FROM ". $self->_table . "
+                   SELECT ' . $self->_columns . ' FROM '. $self->_table . '
                    JOIN l_artist_work law ON law.entity0 = artist.id
                    WHERE law.entity1 = ?
                  ) s
-                 ORDER BY name COLLATE musicbrainz, id";
+                 ORDER BY name COLLATE musicbrainz, id';
     $self->query_to_list_limited($query, [($work_id) x 2], $limit, $offset);
 }
 
 sub _order_by {
     my ($self, $order) = @_;
-    my $order_by = order_by($order, "name", {
-        "name" => sub {
-            return "sort_name COLLATE musicbrainz"
+    my $order_by = order_by($order, 'name', {
+        'name' => sub {
+            return 'sort_name COLLATE musicbrainz'
         },
-        "area" => sub {
-            return "area, name COLLATE musicbrainz"
+        'area' => sub {
+            return 'area, name COLLATE musicbrainz'
         },
-        "gender" => sub {
-            return "gender, sort_name COLLATE musicbrainz"
+        'gender' => sub {
+            return 'gender, sort_name COLLATE musicbrainz'
         },
-        "begin_date" => sub {
-            return "begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz"
+        'begin_date' => sub {
+            return 'begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz'
         },
-        "begin_area" => sub {
-            return "begin_area, name COLLATE musicbrainz"
+        'begin_area' => sub {
+            return 'begin_area, name COLLATE musicbrainz'
         },
-        "end_date" => sub {
-            return "end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz"
+        'end_date' => sub {
+            return 'end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz'
         },
-        "end_area" => sub {
-            return "end_area, name COLLATE musicbrainz"
+        'end_area' => sub {
+            return 'end_area, name COLLATE musicbrainz'
         },
-        "type" => sub {
-            return "type, sort_name COLLATE musicbrainz"
+        'type' => sub {
+            return 'type, sort_name COLLATE musicbrainz'
         }
     });
 
@@ -297,7 +297,7 @@ sub can_split
     # These AND NOT EXISTS clauses are ordered by my estimated likelihood of a 
     # relationship existing for a collaboration, as postgresql will not execute
     # the later clauses if an earlier one has already excluded the lone artist row.
-    my $can_split = $self->sql->select_single_value(<<~'EOSQL', $artist_id);
+    my $can_split = $self->sql->select_single_value(<<~'SQL', $artist_id);
         SELECT TRUE FROM artist WHERE id = ?
         AND NOT EXISTS (SELECT TRUE FROM l_artist_url lau WHERE lau.entity0 = artist.id)
         AND NOT EXISTS (
@@ -320,7 +320,7 @@ sub can_split
         AND NOT EXISTS (SELECT TRUE FROM l_artist_series las WHERE las.entity0 = artist.id)
         AND NOT EXISTS (SELECT TRUE FROM l_artist_instrument lai WHERE lai.entity0 = artist.id)
         AND NOT EXISTS (SELECT TRUE FROM l_area_artist lara WHERE lara.entity1 = artist.id)
-        EOSQL
+        SQL
     return $can_split;
 }
 
@@ -496,7 +496,7 @@ sub load_related_info {
 sub load_meta
 {
     my $self = shift;
-    MusicBrainz::Server::Data::Utils::load_meta($self->c, "artist_meta", sub {
+    MusicBrainz::Server::Data::Utils::load_meta($self->c, 'artist_meta', sub {
         my ($obj, $row) = @_;
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
@@ -529,7 +529,7 @@ sub is_empty {
     my ($self, $artist_id) = @_;
 
     my $used_in_relationship = used_in_relationship($self->c, artist => 'artist_row.id');
-    return $self->sql->select_single_value(<<~"EOSQL", $artist_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<~"SQL", $artist_id, $STATUS_OPEN);
         SELECT TRUE
         FROM artist artist_row
         WHERE id = ?
@@ -546,7 +546,7 @@ sub is_empty {
             ) OR
             $used_in_relationship
         )
-        EOSQL
+        SQL
 }
 
 __PACKAGE__->meta->make_immutable;

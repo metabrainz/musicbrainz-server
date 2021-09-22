@@ -4,13 +4,13 @@ use Moose;
 with 'MusicBrainz::Server::Report::ArtistReport';
 
 sub query {
-    "SELECT artist.id AS artist_id,
+    'SELECT artist.id AS artist_id,
        row_number() OVER (ORDER BY count(distinct release_group.id) DESC, artist.edits_pending DESC)
      FROM artist
      LEFT JOIN editor_subscribe_artist ON artist.id=editor_subscribe_artist.artist
      JOIN artist_credit_name ON artist.id = artist_credit_name.artist
      LEFT JOIN release_group ON release_group.artist_credit = artist_credit_name.artist_credit
-     WHERE editor_subscribe_artist.editor IS NULL GROUP BY artist_id";
+     WHERE editor_subscribe_artist.editor IS NULL GROUP BY artist_id';
 }
 
 __PACKAGE__->meta->make_immutable;

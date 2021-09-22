@@ -80,7 +80,7 @@ sub validate
     my $self = shift;
     if ($self->field('multiple_artists')->value) {
         $self->field('artist')->add_error(l('You may not specify a release artist while also specifying track artists.'))
-            if $self->field('artist')->value && $self->field('artist')->value ne "Various Artists";
+            if $self->field('artist')->value && $self->field('artist')->value ne 'Various Artists';
 
         for my $field ($self->field('tracks')->fields) {
             $field = $field->field('artist');

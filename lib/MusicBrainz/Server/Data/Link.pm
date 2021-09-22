@@ -52,7 +52,7 @@ sub _load_attributes
     my ($self, $data, @ids) = @_;
 
     if (@ids) {
-        my $query = "
+        my $query = q{
             SELECT
                 link,
                 attr.id,
@@ -77,8 +77,8 @@ sub _load_attributes
                 LEFT OUTER JOIN link_attribute_credit attr_credit USING (link, attribute_type)
                 LEFT OUTER JOIN instrument ins ON ins.gid = attr.gid
                 LEFT OUTER JOIN instrument_type ins_t ON ins.type = ins_t.id
-            WHERE link IN (" . placeholders(@ids) . ")
-            ORDER BY link, attr.name";
+            WHERE link IN (} . placeholders(@ids) . ')
+            ORDER BY link, attr.name';
 
         for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
             if (my $link = $data->{ $row->{link} }) {
@@ -149,7 +149,7 @@ sub find
     my ($self, $values) = @_;
     my (@joins, @conditions, @args);
 
-    push @conditions, "link_type = ?";
+    push @conditions, 'link_type = ?';
     push @args, $values->{link_type_id};
 
     # end_date_implies_ended
@@ -160,7 +160,7 @@ sub find
 
     $values->{ended} //= 0;
 
-    push @conditions, "ended = ?";
+    push @conditions, 'ended = ?';
     push @args, $values->{ended};
 
     foreach my $date_key (qw( begin_date end_date )) {
@@ -177,7 +177,7 @@ sub find
 
     my @attrs = @{ $values->{attributes} // [] };
 
-    push @conditions, "attribute_count = ?";
+    push @conditions, 'attribute_count = ?';
     push @args, scalar(@attrs);
 
     my $i = 1;
@@ -214,7 +214,7 @@ sub find
         $i += 1;
     }
 
-    my $query = "SELECT link.id FROM link " . join(" ", @joins) . " WHERE " . join(" AND ", @conditions);
+    my $query = 'SELECT link.id FROM link ' . join(' ', @joins) . ' WHERE ' . join(' AND ', @conditions);
     return $self->sql->select_single_value($query, @args);
 }
 
@@ -232,20 +232,20 @@ sub find_or_insert
         attribute_count => scalar(@attrs),
         ended => $values->{ended}
     };
-    add_partial_date_to_row($row, $values->{begin_date}, "begin_date");
-    add_partial_date_to_row($row, $values->{end_date}, "end_date");
-    $id = $self->sql->insert_row("link", $row, "id");
+    add_partial_date_to_row($row, $values->{begin_date}, 'begin_date');
+    add_partial_date_to_row($row, $values->{end_date}, 'end_date');
+    $id = $self->sql->insert_row('link', $row, 'id');
 
     foreach my $attr (@attrs) {
         my $attribute_type = $attr->{type}{id};
 
-        $self->sql->insert_row("link_attribute", {
+        $self->sql->insert_row('link_attribute', {
             link           => $id,
             attribute_type => $attribute_type,
         });
 
         if (non_empty($attr->{credited_as})) {
-            $self->sql->insert_row("link_attribute_credit", {
+            $self->sql->insert_row('link_attribute_credit', {
                 attribute_type => $attribute_type,
                 link => $id,
                 credited_as => $attr->{credited_as}
@@ -253,7 +253,7 @@ sub find_or_insert
         }
 
         if (non_empty($attr->{text_value})) {
-            $self->sql->insert_row("link_attribute_text_value", {
+            $self->sql->insert_row('link_attribute_text_value', {
                 link           => $id,
                 attribute_type => $attribute_type,
                 text_value     => $attr->{text_value}

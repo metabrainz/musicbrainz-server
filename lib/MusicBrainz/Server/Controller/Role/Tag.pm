@@ -46,7 +46,7 @@ sub tags : Chained('load') PathPart('tags') {
     );
 
     $c->stash(
-        component_path  => 'entity/Tags.js',
+        component_path  => 'entity/Tags',
         component_props => \%props,
         current_view    => 'Node',
     );

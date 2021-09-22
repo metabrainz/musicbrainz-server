@@ -128,11 +128,11 @@ test 'Deny delete "Deleted Label" trigger' => sub {
 
 test 'Cannot edit an label into something that would violate uniqueness' => sub {
     my $c = shift->c;
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO label (id, gid, name, comment)
         VALUES (3, '745c079d-374e-4436-9448-da92dedef3ce', 'A', ''),
                (4, '7848d7ce-d650-40c4-b98f-62fc037a678b', 'B', 'Comment');
-        EOSQL
+        SQL
 
     my $conflicts_exception_ok = sub {
         my ($e, $target) = @_;

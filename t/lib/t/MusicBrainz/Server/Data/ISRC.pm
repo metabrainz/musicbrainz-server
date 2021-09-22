@@ -16,10 +16,10 @@ test 'Can merge with multiple recordings and the same ISRC' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+isrc');
 
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO isrc (id, recording, isrc)
             VALUES (4, 3, 'DEE250800230');
-        EOSQL
+        SQL
 
     $c->model('ISRC')->merge_recordings(1, 2, 3);
 

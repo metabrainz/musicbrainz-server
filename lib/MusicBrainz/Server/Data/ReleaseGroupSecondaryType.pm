@@ -70,16 +70,16 @@ sub merge_entities
     my ($self, $new_id, @old_ids) = @_;
 
     $self->sql->do(
-        "DELETE FROM release_group_secondary_type_join " .
-        "WHERE release_group = any(?)", \@old_ids );
+        'DELETE FROM release_group_secondary_type_join
+         WHERE release_group = any(?)', \@old_ids );
 }
 
 sub delete_entities {
     my ($self, @ids) = @_;
 
     $self->sql->do(
-        "DELETE FROM release_group_secondary_type_join " .
-        "WHERE release_group = any(?) ", \@ids);
+        'DELETE FROM release_group_secondary_type_join
+         WHERE release_group = any(?)', \@ids);
 }
 
 sub in_use {

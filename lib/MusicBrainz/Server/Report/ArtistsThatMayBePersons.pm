@@ -5,7 +5,7 @@ with 'MusicBrainz::Server::Report::ArtistReport',
      'MusicBrainz::Server::Report::FilterForEditor::ArtistID';
 
 sub query {
-    "
+    q{
 WITH groups AS (
          SELECT DISTINCT ON (artist.id) artist.id, artist.name FROM
          artist
@@ -39,7 +39,7 @@ WITH groups AS (
               SELECT * FROM groups)
 SELECT DISTINCT ON (artists.id) artists.id AS artist_id, row_number() OVER (ORDER BY artists.name COLLATE musicbrainz, artists.id)
     FROM artists
-    ";
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -63,9 +63,9 @@ sub create_email {
         header => \@headers,
         body => encode('utf-8', $self->body),
         attributes => {
-            content_type => "text/plain",
-            charset      => "UTF-8",
-            encoding     => "quoted-printable",
+            content_type => 'text/plain',
+            charset      => 'UTF-8',
+            encoding     => 'quoted-printable',
         }
     );
 }

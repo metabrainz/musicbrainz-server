@@ -146,7 +146,7 @@ sub initialize
     my $entity = delete $opts{to_edit};
 
     my $tracklist = delete $opts{tracklist};
-    my $delete_tracklist = delete $opts{delete_tracklist};    
+    my $delete_tracklist = delete $opts{delete_tracklist};
     my $data;
 
     $self->check_tracks_against_format($tracklist, $opts{format_id});
@@ -162,7 +162,7 @@ sub initialize
     }
     else
     {
-        die "You must specify the object to edit" unless defined $entity;
+        die 'You must specify the object to edit' unless defined $entity;
 
         unless ($entity->release) {
             $self->c->model('Release')->load($entity);

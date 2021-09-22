@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Work';
 
 sub edit_type { $EDIT_WORK_MERGE }
-sub edit_name { N_l("Merge works") }
+sub edit_name { N_l('Merge works') }
 sub work_ids { @{ shift->_entity_ids } }
 
 sub _merge_model { 'Work' }

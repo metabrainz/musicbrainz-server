@@ -70,11 +70,11 @@ sub find_artist_credits_by_artist
 {
     my ($self, $artist_id) = @_;
 
-    my $query = "SELECT DISTINCT rec.artist_credit
+    my $query = 'SELECT DISTINCT rec.artist_credit
                  FROM recording rec
                  JOIN artist_credit_name acn
                      ON acn.artist_credit = rec.artist_credit
-                 WHERE acn.artist = ?";
+                 WHERE acn.artist = ?';
     my $ids = $self->sql->select_single_column_array($query, $artist_id);
     return $self->c->model('ArtistCredit')->find_by_ids($ids);
 }
@@ -85,30 +85,30 @@ sub find_by_artist
 
     my (@where_query, @where_args);
 
-    push @where_query, "acn.artist = ?";
+    push @where_query, 'acn.artist = ?';
     push @where_args, $artist_id;
 
     if (exists $args{filter}) {
         my %filter = %{ $args{filter} };
         if (exists $filter{name}) {
-            push @where_query, "(mb_simple_tsvector(recording.name) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR recording.name = ?)";
+            push @where_query, q{(mb_simple_tsvector(recording.name) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR recording.name = ?)};
             push @where_args, $filter{name}, $filter{name};
         }
         if (exists $filter{artist_credit_id}) {
-            push @where_query, "recording.artist_credit = ?";
+            push @where_query, 'recording.artist_credit = ?';
             push @where_args, $filter{artist_credit_id};
         }
     }
 
-    my $query = "SELECT DISTINCT " . $self->_columns . ",
+    my $query = 'SELECT DISTINCT ' . $self->_columns . ',
                         recording.name COLLATE musicbrainz AS name_collate,
                         comment COLLATE musicbrainz AS comment_collate
-                 FROM " . $self->_table . "
+                 FROM ' . $self->_table . '
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = recording.artist_credit
-                 WHERE " . join(" AND ", @where_query) . "
+                 WHERE ' . join(' AND ', @where_query) . '
                  ORDER BY recording.name COLLATE musicbrainz,
-                          comment COLLATE musicbrainz";
+                          comment COLLATE musicbrainz';
     $self->query_to_list_limited($query, \@where_args, $limit, $offset);
 }
 
@@ -116,11 +116,11 @@ sub find_by_artist_credit
 {
     my ($self, $artist_credit_id, $limit, $offset) = @_;
 
-    my $query = "SELECT " . $self->_columns . ",
+    my $query = 'SELECT ' . $self->_columns . ',
                    name COLLATE musicbrainz AS name_collate
-                 FROM " . $self->_table . "
+                 FROM ' . $self->_table . '
                  WHERE artist_credit = ?
-                 ORDER BY name COLLATE musicbrainz";
+                 ORDER BY name COLLATE musicbrainz';
     $self->query_to_list_limited($query, [$artist_credit_id], $limit, $offset);
 }
 
@@ -128,9 +128,9 @@ sub find_by_instrument {
     my ($self, $instrument_id, $limit, $offset) = @_;
 
     # NOTE: if more tables than l_artist_recording are added here, check admin/BuildSitemaps.pl
-    my $query = "SELECT " . $self->_columns . ", 
+    my $query = 'SELECT ' . $self->_columns . q{, 
                      array_agg(json_build_object('typeName', link_type.name, 'credit', lac.credited_as)) AS instrument_credits_and_rel_types
-                 FROM " . $self->_table . "
+                 FROM } . $self->_table . '
                      JOIN l_artist_recording ON l_artist_recording.entity1 = recording.id
                      JOIN link ON link.id = l_artist_recording.link
                      JOIN link_type ON link_type.id = link.link_type
@@ -143,7 +143,7 @@ sub find_by_instrument {
                      )
                  WHERE instrument.id = ?
                  GROUP BY recording.id
-                 ORDER BY recording.name COLLATE musicbrainz";
+                 ORDER BY recording.name COLLATE musicbrainz';
 
     $self->query_to_list_limited(
         $query,
@@ -162,13 +162,13 @@ sub find_by_release
 {
     my ($self, $release_id, $limit, $offset) = @_;
 
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
                      JOIN track ON track.recording = recording.id
                      JOIN medium ON medium.id = track.medium
                      JOIN release ON release.id = medium.release
                  WHERE release.id = ?
-                 ORDER BY recording.name COLLATE musicbrainz";
+                 ORDER BY recording.name COLLATE musicbrainz';
 
     $self->query_to_list_limited($query, [$release_id], $limit, $offset);
 }
@@ -178,11 +178,11 @@ sub find_by_works
     my ($self, $work_ids, $limit, $offset) = @_;
     return ([], 0) unless @$work_ids;
 
-    my $query = "SELECT " . $self->_columns . "
-                 FROM ". $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM '. $self->_table . '
                      JOIN l_recording_work lrw ON lrw.entity0 = recording.id
                  WHERE lrw.entity1 = any(?)
-                 ORDER BY recording.name COLLATE musicbrainz";
+                 ORDER BY recording.name COLLATE musicbrainz';
 
     $self->query_to_list_limited($query, [$work_ids], $limit, $offset);
 }
@@ -190,20 +190,20 @@ sub find_by_works
 sub _order_by {
     my ($self, $order) = @_;
 
-    my $extra_join = "";
-    my $also_select = "";
+    my $extra_join = '';
+    my $also_select = '';
 
-    my $order_by = order_by($order, "name", {
-        "name" => sub {
-            return "name COLLATE musicbrainz"
+    my $order_by = order_by($order, 'name', {
+        'name' => sub {
+            return 'name COLLATE musicbrainz'
         },
-        "artist" => sub {
-            $extra_join = "JOIN artist_credit ac ON ac.id = recording.artist_credit";
-            $also_select = "ac.name AS ac_name";
-            return "ac_name COLLATE musicbrainz, recording.name COLLATE musicbrainz";
+        'artist' => sub {
+            $extra_join = 'JOIN artist_credit ac ON ac.id = recording.artist_credit';
+            $also_select = 'ac.name AS ac_name';
+            return 'ac_name COLLATE musicbrainz, recording.name COLLATE musicbrainz';
         },
-        "length" => sub {
-            return "length, name COLLATE musicbrainz"
+        'length' => sub {
+            return 'length, name COLLATE musicbrainz'
         },
     });
 
@@ -272,7 +272,7 @@ sub _hash_to_row
 sub load_meta
 {
     my $self = shift;
-    MusicBrainz::Server::Data::Utils::load_meta($self->c, "recording_meta", sub {
+    MusicBrainz::Server::Data::Utils::load_meta($self->c, 'recording_meta', sub {
         my ($obj, $row) = @_;
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
@@ -394,7 +394,7 @@ sub appears_on
 
     my @ids = map { $_->id } @$recordings;
 
-    my $hits_query = <<~'EOSQL';
+    my $hits_query = <<~'SQL';
         SELECT rec.id AS recording, rgs.hits
         FROM recording rec, LATERAL (
             SELECT count(DISTINCT rg.id) AS hits
@@ -405,14 +405,14 @@ sub appears_on
             WHERE t.recording = rec.id
         ) rgs
         WHERE rec.id = any(?)
-        EOSQL
+        SQL
 
     my %hits_map;
     for my $row (@{ $self->sql->select_list_of_hashes($hits_query, \@ids) }) {
         $hits_map{ $row->{recording} } = $row->{hits};
     }
 
-    my $query = <<~'EOSQL';
+    my $query = <<~'SQL';
         SELECT rec.id AS recording, rgs.*
         FROM recording rec, LATERAL (
             SELECT DISTINCT rg.id, rg.gid, rg.name,
@@ -437,7 +437,7 @@ sub appears_on
             rgs.first_release_date_year,
             rgs.first_release_date_month,
             rgs.first_release_date_day
-        EOSQL
+        SQL
 
     my %map;
     for my $row (@{ $self->sql->select_list_of_hashes($query, $limit, \@ids) }) {

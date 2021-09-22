@@ -6,13 +6,13 @@ use Test::Fatal;
 around run_test => sub {
     my ($orig, $test) = splice(@_, 0, 2);
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+edit_medium');
-    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'SQL');
         INSERT INTO track (id, gid, name, medium, recording, artist_credit, position, number)
             VALUES (1, '15d6a884-0274-486c-81fe-94ff57b8cf36', 1, 1, 1, 1, 1, 1),
                    (2, '03d0854f-6053-416c-a67f-8c79a796ed39', 1, 1, 1, 1, 2, 2),
                    (3, '04a37721-9932-48b8-b2a8-b4754c1bff73', 'Pregap Track', 2, 2, 1, 0, '0'),
                    (4, '4b194683-837f-4fe6-bc96-d2098157b587', 'Track', 2, 1, 1, 1, '1');
-        EOSQL
+        SQL
     $test->_clear_edit;
     $test->$orig(@_);
 };

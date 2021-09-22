@@ -254,7 +254,7 @@ test 'Relationships used as documentation examples are merged (MBS-8516)' => sub
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+release');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO url (id, gid, url)
             VALUES (1, '4ced912c-11a5-4d7d-b280-b5adf30d81b3', 'http://en.wikipedia.org/wiki/Release');
 
@@ -273,7 +273,7 @@ test 'Relationships used as documentation examples are merged (MBS-8516)' => sub
 
         INSERT INTO documentation.l_release_url_example (id, published, name)
             VALUES (1, TRUE, 'E1'), (2, TRUE, 'E2'), (3, TRUE, 'E3');
-        EOSQL
+        SQL
 
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_RELEASE_MERGE,
@@ -400,10 +400,10 @@ test 'Release merges should not fail if a recording is both a merge source and m
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+mbs-8614');
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO editor (id, name, password, email, email_confirm_date, ha1)
             VALUES (1, 'new_editor', '{CLEARTEXT}password', 'example@example.com', '2005-10-20', 'e1dd8fee8ee728b0ddc8027d3a3db478');
-        EOSQL
+        SQL
 
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_RELEASE_MERGE,

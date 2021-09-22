@@ -17,7 +17,7 @@ sub table { 'iswc_with_many_works' }
 sub component_name { 'IswcsWithManyWorks' }
 
 sub query {
-    "
+    '
         SELECT i.iswc, workcount, w.id AS work_id,
           row_number() OVER (ORDER BY i.iswc)
         FROM iswc i
@@ -27,7 +27,7 @@ sub query {
             FROM iswc
             GROUP BY iswc HAVING count(*) > 1
           ) t ON t.iswc = i.iswc
-    ";
+    ';
 }
 
 __PACKAGE__->meta->make_immutable;

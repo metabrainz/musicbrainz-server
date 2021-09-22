@@ -69,7 +69,7 @@ sub remove_duplicates
     my $count = 0;
 
     printf "%s : Replace links %s with %s\n",
-        scalar localtime, join(", ", @remove_ids), $keep_id if $self->verbose;
+        scalar localtime, join(', ', @remove_ids), $keep_id if $self->verbose;
 
     my $rows = $self->c->sql->select_list_of_hashes(
         'SELECT entity_type0, entity_type1
@@ -86,13 +86,13 @@ sub remove_duplicates
         $count += $self->remove_one_duplicate($table, $keep_id, $remove_id);
     }
 
-    my $query = "DELETE FROM link_attribute WHERE link IN (" . placeholders (@remove_ids) . ")";
+    my $query = 'DELETE FROM link_attribute WHERE link IN (' . placeholders (@remove_ids) . ')';
     $count += $self->sql_do($query, @remove_ids);
 
-    $query = "DELETE FROM link_attribute_credit WHERE link IN (" . placeholders (@remove_ids) . ")";
+    $query = 'DELETE FROM link_attribute_credit WHERE link IN (' . placeholders (@remove_ids) . ')';
     $count += $self->sql_do($query, @remove_ids);
 
-    $query = "DELETE FROM link WHERE id IN (" . placeholders (@remove_ids) . ")";
+    $query = 'DELETE FROM link WHERE id IN (' . placeholders (@remove_ids) . ')';
     $count += $self->sql_do($query, @remove_ids);
     return $count;
 }
@@ -112,7 +112,7 @@ sub run {
     # and where the actual attributes are the same, including credits
     # (not that, at time of this writing, credits are fully implemented)
     # And when we do, we should keep the oldest one (i.e., earliest 'created' date)
-    my $query = "
+    my $query = '
        SELECT array_agg(id ORDER BY created ASC)
            FROM (SELECT link.*,array_agg((attribute_type, credited_as) ORDER BY attribute_type) AS attributes
                  FROM link
@@ -122,7 +122,7 @@ sub run {
        GROUP BY link_type, attribute_count, ended, attributes,
                 begin_date_year, begin_date_month, begin_date_day,
                 end_date_year, end_date_month, end_date_day
-         HAVING count(id) > 1";
+         HAVING count(id) > 1';
 
     my $rows = $self->c->sql->select_single_column_array($query);
 
@@ -131,7 +131,7 @@ sub run {
     for my $link (@$rows)
     {
         if ($self->limit > 0 && $count >= $self->limit) {
-            print localtime() . " : Removed limit of " . $self->limit . ", stopping until next invocation\n";
+            print localtime() . ' : Removed limit of ' . $self->limit . ", stopping until next invocation\n";
             last;
         }
         my ($keep, @drop) = @$link;
@@ -145,17 +145,17 @@ sub run {
     if ($self->summary) {
         printf "%s : Found %d duplicated link%s.\n",
             scalar localtime,
-            scalar @$rows, ((scalar @$rows)==1 ? "" : "s");
+            scalar @$rows, ((scalar @$rows)==1 ? '' : 's');
         printf "%s : Processed %d link%s.\n",
             scalar localtime,
-            $count, ($count==1 ? "" : "s");
+            $count, ($count==1 ? '' : 's');
         printf "%s : Successfully removed %d duplicate%s.\n",
             scalar localtime,
-            $removed, ($removed==1 ? "" : "s")
+            $removed, ($removed==1 ? '' : 's')
                 if !$self->dry_run;
         printf "%s : Touched %d row%s total.\n",
             scalar localtime,
-            $total_row_changes, ($total_row_changes==1 ? "" : "s")
+            $total_row_changes, ($total_row_changes==1 ? '' : 's')
                 if !$self->dry_run;
     }
 

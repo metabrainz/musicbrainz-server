@@ -13,11 +13,11 @@ test 'basic work lookup' => sub {
 
     my $c = shift->c;
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO iswc (work, iswc)
             VALUES ((SELECT id FROM work WHERE gid = '3c37b9fa-a6c1-37d2-9e90-657a116d337c'),
                     'T-000.000.002-0')
-        EOSQL
+        SQL
 
     ws_test_json 'basic work lookup',
     '/work/3c37b9fa-a6c1-37d2-9e90-657a116d337c' =>
@@ -60,11 +60,11 @@ test 'work lookup via iswc' => sub {
 
     my $c = shift->c;
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO iswc (work, iswc)
             VALUES ((SELECT id FROM work WHERE gid = '3c37b9fa-a6c1-37d2-9e90-657a116d337c'),
                     'T-000.000.002-0')
-        EOSQL
+        SQL
 
     ws_test_json 'work lookup via iswc',
     '/iswc/T-000.000.002-0' =>

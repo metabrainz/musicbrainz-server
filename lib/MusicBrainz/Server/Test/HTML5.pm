@@ -67,7 +67,7 @@ sub format_message
 
     if ($opts{ignored})
     {
-        return sprintf("%s (ignored): %s", $msg->{type}, $msg->{message});
+        return sprintf('%s (ignored): %s', $msg->{type}, $msg->{message});
     }
     else
     {
@@ -95,8 +95,8 @@ sub save_html
 
     if ($ENV{SAVE_HTML}) {
         my ($fh, $filename) = tempfile(
-            "html5_ok_XXXX", SUFFIX => $suffix, TMPDIR => 1);
-        print $fh encode("utf-8", $content);
+            'html5_ok_XXXX', SUFFIX => $suffix, TMPDIR => 1);
+        print $fh encode('utf-8', $content);
         close($fh);
         $Test->diag("failed output written to $filename");
     };
@@ -112,7 +112,7 @@ sub html5_ok
 {
     my ($Test, $content, $message) = @_;
 
-    $message ||= "valid HTML5";
+    $message ||= 'valid HTML5';
 
     unless (utf8::is_utf8($content)) {
         $Test->ok(0, "$message, need to know encoding of content");
@@ -122,7 +122,7 @@ sub html5_ok
     my $url = DBDefs->HTML_VALIDATOR;
 
     unless ($url) {
-        $Test->skip("No HTML_VALIDATOR configured, skip html validation");
+        $Test->skip('No HTML_VALIDATOR configured, skip html validation');
         return;
     }
 
@@ -132,7 +132,7 @@ sub html5_ok
 
     my $request = HTTP::Request->new(POST => $url);
     $request->header('Content-Type', 'text/html');
-    $request->content(encode("utf-8", $content));
+    $request->content(encode('utf-8', $content));
 
     my $all_ok = 1;
 
@@ -142,11 +142,11 @@ sub html5_ok
         my $report = decode_json($response->content);
         for my $msg (@{ $report->{messages} })
         {
-            next if $msg->{type} eq "info";
+            next if $msg->{type} eq 'info';
 
             if (ignore_warning($msg))
             {
-                $Test->diag(format_message($msg, "ignored" => 1));
+                $Test->diag(format_message($msg, 'ignored' => 1));
             }
             else
             {
@@ -158,10 +158,10 @@ sub html5_ok
     else
     {
         $all_ok = 0;
-        $message .= ", Could not connect to ".$url;
+        $message .= ', Could not connect to '.$url;
     }
 
-    save_html($Test, $content, ".html") unless $all_ok;
+    save_html($Test, $content, '.html') unless $all_ok;
 
     $Test->ok($all_ok, $message);
 }

@@ -22,7 +22,7 @@ sub get_latest_entries {
     if (!$entries) {
         my $xml;
         try {
-            $xml = $self->c->lwp->get("http://blog.metabrainz.org/?feed=rss2");
+            $xml = $self->c->lwp->get('http://blog.metabrainz.org/?feed=rss2');
         };
         return undef unless $xml && $xml->is_success;
 

@@ -20,7 +20,7 @@ has 'thumb_url' => (
 sub page_url
 {
     my $self = shift;
-    return sprintf "https://commons.wikimedia.org/wiki/%s", $self->title;
+    return sprintf 'https://commons.wikimedia.org/wiki/%s', $self->title;
 }
 
 sub TO_JSON {

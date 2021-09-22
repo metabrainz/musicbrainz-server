@@ -21,7 +21,7 @@ sub _fix_html_links
 
     my $wiki_server = DBDefs->WIKITRANS_SERVER;
 
-    my $class = $node->attr('class') || "";
+    my $class = $node->attr('class') || '';
 
     # Remove the title attribute from all links
     $node->attr('title', undef);
@@ -29,7 +29,7 @@ sub _fix_html_links
     # if this is not a link to _our_ wikidocs server, don't mess with it.
     return if ($class =~ m/external/ || $class =~ m/extiw/);
 
-    my $href = $node->attr('href') || "";
+    my $href = $node->attr('href') || '';
 
     # Remove broken links & links to images in the wiki
     if ($href =~ m,^(?:https?:)?//$wiki_server/(File|Image):, || $class =~ m/new/)
@@ -55,7 +55,7 @@ sub _fix_html_markup
     my $wiki_server = DBDefs->WIKITRANS_SERVER;
     my $tree = HTML::TreeBuilder::XPath->new;
 
-    $tree->parse_content("<html><body>".$content."</body></html>");
+    $tree->parse_content('<html><body>'.$content.'</body></html>');
     for my $node ($tree->findnodes(
                       '//span[contains(@class, "editsection")]')->get_nodelist)
     {
@@ -69,16 +69,16 @@ sub _fix_html_markup
 
     for my $node ($tree->findnodes('//img')->get_nodelist)
     {
-        my $src = $node->attr('src') || "";
+        my $src = $node->attr('src') || '';
         $node->attr('src', $src) if ($src =~ s,$WIKI_IMAGE_PREFIX,//$wiki_server$WIKI_IMAGE_PREFIX,);
         # Also re-write srcset values
-        my $srcset = $node->attr('srcset') || "";
+        my $srcset = $node->attr('srcset') || '';
         $node->attr('srcset', $srcset) if ($srcset =~ s,$WIKI_IMAGE_PREFIX,//$wiki_server$WIKI_IMAGE_PREFIX,g);
     }
 
     for my $node ($tree->findnodes('//table')->get_nodelist)
     {
-        my $class = $node->attr('class') || "";
+        my $class = $node->attr('class') || '';
 
         # Special cases where we don't want this class added
         next if ($class =~ /(\btoc\b|\btbl\b)/);
@@ -119,10 +119,10 @@ sub _load_page
 {
     my ($self, $id, $version, $index) = @_;
 
-    return MusicBrainz::Server::Entity::WikiDocPage->new({ canonical => "MusicBrainz_Documentation" })
-        if ($id eq "");
+    return MusicBrainz::Server::Entity::WikiDocPage->new({ canonical => 'MusicBrainz_Documentation' })
+        if ($id eq '');
 
-    my $doc_url = sprintf "http://%s/%s?action=render&redirect=no", DBDefs->WIKITRANS_SERVER, uri_escape($id);
+    my $doc_url = sprintf 'http://%s/%s?action=render&redirect=no', DBDefs->WIKITRANS_SERVER, uri_escape($id);
     if (defined $version) {
         $doc_url .= "&oldid=$version";
     }
@@ -132,13 +132,13 @@ sub _load_page
     return undef unless $response;
 
     if (!$response->is_success) {
-        if ($response->is_redirect && $response->header("Location") =~ /https?:\/\/(.*?)\/(.*)$/) {
+        if ($response->is_redirect && $response->header('Location') =~ /https?:\/\/(.*?)\/(.*)$/) {
             return $self->get_page(uri_unescape($2));
         }
         return undef;
     }
 
-    my $content = decode "utf-8", $response->content;
+    my $content = decode 'utf-8', $response->content;
     if ($content =~ /<title>Error/s) {
         return undef;
     }

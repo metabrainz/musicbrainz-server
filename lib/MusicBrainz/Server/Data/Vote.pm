@@ -58,7 +58,7 @@ sub enter_votes
         @votes = grep { defined $edits->{ $_->{edit_id} } } @votes;
         if (any { $_->{vote} == $VOTE_APPROVE && !$edits->{ $_->{edit_id} }->editor_may_approve($editor) } @votes) {
             # not sufficient to filter the vote because the actual approval is happening elsewhere
-            confess "Unauthorized editor " . $editor->id . " tried to approve edit #" . $_->{edit_id};
+            confess 'Unauthorized editor ' . $editor->id . ' tried to approve edit #' . $_->{edit_id};
         }
         @votes = grep {
             $_->{vote} == $VOTE_APPROVE || $edits->{ $_->{edit_id} }->editor_may_vote($editor)
@@ -97,7 +97,7 @@ sub enter_votes
 
         # Insert our new votes
         $query = 'INSERT INTO vote (editor, edit, vote) VALUES ';
-        $query .= join ", ", (('(?, ?, ?)') x @votes);
+        $query .= join ', ', (('(?, ?, ?)') x @votes);
         $query .= ' RETURNING edit, vote';
         my $voted = $self->sql->select_list_of_hashes($query, map { $editor_id, $_->{edit_id}, $_->{vote} } @votes);
         my %edit_to_vote = map { $_->{edit} => $_->{vote} } @$voted;
@@ -131,14 +131,14 @@ sub editor_statistics
 {
     my ($self, $editor) = @_;
 
-    my $base_query = "SELECT vote, count(vote) AS count " .
-        "FROM vote " .
-        "WHERE NOT superseded AND editor = ? ";
+    my $base_query = 'SELECT vote, count(vote) AS count ' .
+        'FROM vote ' .
+        'WHERE NOT superseded AND editor = ? ';
 
-    my $q_all_votes    = $base_query . "GROUP BY vote";
+    my $q_all_votes    = $base_query . 'GROUP BY vote';
     my $q_recent_votes = $base_query .
-        " AND vote_time > NOW() - INTERVAL '28 day' " .
-        " GROUP BY vote";
+        q{ AND vote_time > NOW() - INTERVAL '28 day' } .
+        ' GROUP BY vote';
 
     my $all_votes = map_query($self->c->sql, 'vote' => 'count', $q_all_votes, $editor->id);
     my $recent_votes = map_query($self->c->sql, 'vote' => 'count', $q_recent_votes, $editor->id);
@@ -198,10 +198,10 @@ sub load_for_edits
     my %id_to_edit = map { $_->id => $_ } @edits;
     my @ids = keys %id_to_edit;
     return unless @ids; # nothing to do
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                 WHERE edit IN (" . placeholders(@ids) . ")
-                 ORDER BY vote_time";
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
+                 WHERE edit IN (' . placeholders(@ids) . ')
+                 ORDER BY vote_time';
     my @votes = $self->query_to_list($query, \@ids, sub {
         my ($model, $row) = @_;
 

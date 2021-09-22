@@ -4,7 +4,7 @@ use Moose;
 with 'MusicBrainz::Server::Report::EventReport',
      'MusicBrainz::Server::Report::FilterForEditor::EventID';
 
-sub query { "
+sub query { q{
 WITH duplicates AS (
     SELECT event.begin_date_year AS begin_date_year, event.begin_date_month AS begin_date_month, 
            event.begin_date_day AS begin_date_day, l_event_place.entity1 AS entity1
@@ -36,7 +36,7 @@ SELECT event.id AS event_id,
         AND lep2.entity1 = duplicates.entity1
         AND e2.comment = ''
   )
-";
+};
 }
 
 __PACKAGE__->meta->make_immutable;

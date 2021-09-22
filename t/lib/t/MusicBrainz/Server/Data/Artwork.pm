@@ -8,7 +8,7 @@ test 'Release group artwork is ordered by release date' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
 
@@ -30,7 +30,7 @@ test 'Release group artwork is ordered by release date' => sub {
         INSERT INTO cover_art_archive.cover_art (id, release, edit, ordering, mime_type)
             VALUES (9876543210, 1, 1, 1, 'image/png'), (2, 2, 2, 1, 'image/png');
         INSERT INTO cover_art_archive.cover_art_type (id, type_id) VALUES (9876543210, 1), (2, 1);
-        EOSQL
+        SQL
 
     my $release_group = $c->model('ReleaseGroup')->get_by_id(1);
     $c->model('Artwork')->load_for_release_groups($release_group);

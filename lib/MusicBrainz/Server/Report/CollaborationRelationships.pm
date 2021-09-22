@@ -6,7 +6,7 @@ with 'MusicBrainz::Server::Report::QueryReport',
      'MusicBrainz::Server::Report::FilterForEditor';
 
 sub query {
-    "
+    q{
         SELECT
             artist0.id AS id0, artist0.name AS name0, artist1.id AS id1, artist1.name AS name1,
             row_number() OVER (
@@ -22,7 +22,7 @@ sub query {
         WHERE
             link_type.name = 'collaboration' AND
             l_artist_url.id IS NULL
-    ";
+    };
 }
 
 sub inflate_rows

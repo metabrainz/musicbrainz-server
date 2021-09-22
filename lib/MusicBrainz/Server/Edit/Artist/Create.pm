@@ -51,8 +51,8 @@ has '+data' => (
 
 before initialize => sub {
     my ($self, %opts) = @_;
-    die "You must specify ipi_codes" unless defined $opts{ipi_codes};
-    die "You must specify isni_codes" unless defined $opts{isni_codes};
+    die 'You must specify ipi_codes' unless defined $opts{ipi_codes};
+    die 'You must specify isni_codes' unless defined $opts{isni_codes};
 };
 
 around initialize => sub {

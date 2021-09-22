@@ -26,7 +26,7 @@ my $attr_info = $json->encode(\@link_attribute_types);
 
 print "Writing root/static/scripts/tests/typeInfo.js ...\n";
 
-open(my $fh, ">", $out_file);
+open(my $fh, '>', $out_file);
 print $fh <<EOF;
 // Automatically generated, do not edit.
 exports.linkTypeTree = $type_info;

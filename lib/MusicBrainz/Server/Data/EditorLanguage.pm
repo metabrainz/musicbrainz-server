@@ -93,7 +93,7 @@ sub set_languages {
 
 sub delete_editor {
     my ($self, $editor_id) = @_;
-    $self->sql->do("DELETE FROM editor_language WHERE editor = ?", $editor_id);
+    $self->sql->do('DELETE FROM editor_language WHERE editor = ?', $editor_id);
 }
 
 __PACKAGE__->meta->make_immutable;

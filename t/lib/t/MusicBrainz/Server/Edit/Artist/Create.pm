@@ -22,10 +22,10 @@ test all => sub {
     my $test = shift;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         SET client_min_messages TO warning;
         TRUNCATE artist CASCADE;
-        EOSQL
+        SQL
 
     # avoid artist_va_check violation
     $c->sql->do(q(SELECT setval('artist_id_seq', 1)));

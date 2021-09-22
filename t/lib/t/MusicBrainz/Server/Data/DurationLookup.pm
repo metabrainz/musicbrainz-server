@@ -16,11 +16,11 @@ test 'tracklist used to fit lookup criteria but no longer does' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
             VALUES (1, 'annotation_editor', '{CLEARTEXT}password',
                     '3a115bc4f05ea9856bd4611b75c80bca', 'editor\@example.org', '2005-02-18')
-        EOSQL
+        SQL
 
     my $artist_credit = {
         names => [{ artist => { id => 1 }, name => 'Artist', join_phrase => '' }]

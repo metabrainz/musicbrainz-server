@@ -102,7 +102,7 @@ sub model
     my $model = $self->models->{$name};
     if (!$model) {
         my $class_name = $self->data_prefix . "::$name";
-        if ($name eq "Email") {
+        if ($name eq 'Email') {
             $class_name =~ s/Data::Email/Email/;
         }
         load_class($class_name);

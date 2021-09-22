@@ -8,10 +8,10 @@ sub find_by_area
     my ($self, $area_id, $limit, $offset) = @_;
     my $area_cols = $self->_area_cols;
     my $name_column = $self->isa('MusicBrainz::Server::Data::Place') ? 'name' : 'name.name';
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                 WHERE " . join(" OR ", map { $_ . " = ?" } @$area_cols ) . "
-                 ORDER BY name COLLATE musicbrainz, id";
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
+                 WHERE ' . join(' OR ', map { $_ . ' = ?' } @$area_cols ) . '
+                 ORDER BY name COLLATE musicbrainz, id';
     $self->query_to_list_limited($query, [($area_id) x @$area_cols], $limit, $offset);
 }
 

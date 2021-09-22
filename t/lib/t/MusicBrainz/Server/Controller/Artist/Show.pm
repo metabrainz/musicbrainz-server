@@ -113,7 +113,7 @@ test 'Embedded JSON-LD `member` property' => sub {
     my $mech = $test->mech;
     my $c = $test->c;
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name, type)
             VALUES (100, 'dcb48a49-b17d-49b9-aee5-4f168d8004d9', 'Group', 'Group', 2),
                    (22, '2a62773a-cdbf-44c6-a700-50f931504054', 'Person A', 'Person A', 1),
@@ -129,7 +129,7 @@ test 'Embedded JSON-LD `member` property' => sub {
 
         INSERT INTO link_attribute (link, attribute_type)
             VALUES (2, 229), (3, 125), (4, 229);
-        EOSQL
+        SQL
 
     $mech->get_ok('/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9');
     page_test_jsonld $mech => {
@@ -200,7 +200,7 @@ test 'Embedded JSON-LD `track` property (for artists with only recordings)' => s
     my $mech = $test->mech;
     my $c = $test->c;
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, 'dcb48a49-b17d-49b9-aee5-4f168d8004d9', 'Group', 'Group');
 
@@ -212,7 +212,7 @@ test 'Embedded JSON-LD `track` property (for artists with only recordings)' => s
         INSERT INTO recording (id, gid, name, artist_credit, length)
             VALUES (1, '7af3d92f-5ef4-4ed4-bbbb-728928984d9c', 'R1', 1, 300000),
                    (2, '67f09ef6-0704-4841-935c-01c5b247574c', 'R2', 1, 250000);
-        EOSQL
+        SQL
 
     $mech->get_ok('/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9');
     page_test_jsonld $mech => {
@@ -242,7 +242,7 @@ test 'Embedded JSON-LD `genre` property' => sub {
     my $mech = $test->mech;
     my $c = $test->c;
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, 'dcb48a49-b17d-49b9-aee5-4f168d8004d9', 'Group', 'Group');
 
@@ -255,7 +255,7 @@ test 'Embedded JSON-LD `genre` property' => sub {
 
         INSERT INTO artist_tag (artist, count, last_updated, tag)
             VALUES (1, 3, '2011-01-18 15:21:33.71184+00', 30);
-        EOSQL
+        SQL
 
     $mech->get_ok('/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9');
     page_test_jsonld $mech => {
@@ -266,10 +266,10 @@ test 'Embedded JSON-LD `genre` property' => sub {
         '@context' => 'http://schema.org'
     };
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO artist_tag (artist, count, last_updated, tag)
             VALUES (1, 2, '2011-01-18 15:21:33.71184+00', 31);
-        EOSQL
+        SQL
 
     $mech->get_ok('/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9');
     page_test_jsonld $mech => {

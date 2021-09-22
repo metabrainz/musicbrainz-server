@@ -5,7 +5,7 @@ with 'MusicBrainz::Server::Report::ArtistReport',
      'MusicBrainz::Server::Report::FilterForEditor::ArtistID';
 
 sub query {
-    "SELECT artist AS artist_id,
+    'SELECT artist AS artist_id,
        row_number() OVER (ORDER BY artist.name COLLATE musicbrainz)
      FROM (
        SELECT DISTINCT artist
@@ -13,7 +13,7 @@ sub query {
        GROUP BY artist_credit, artist
        HAVING count(position) > 1
      ) q
-    JOIN artist ON artist.id = q.artist";
+    JOIN artist ON artist.id = q.artist';
 
 }
 

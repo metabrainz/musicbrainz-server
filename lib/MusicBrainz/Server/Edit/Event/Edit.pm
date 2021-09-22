@@ -28,7 +28,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 use aliased 'MusicBrainz::Server::Entity::Event';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
-no if $] >= 5.018, warnings => "experimental::smartmatch";
+no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
@@ -41,7 +41,7 @@ with 'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_name { N_l('Edit event') }
 sub edit_type { $EDIT_EVENT_EDIT }
-sub edit_template_react { "EditEvent" }
+sub edit_template_react { 'EditEvent' }
 
 sub _edit_model { 'Event' }
 

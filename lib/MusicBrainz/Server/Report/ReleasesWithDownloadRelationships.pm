@@ -5,7 +5,7 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
      'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
 sub query {
-    "
+    '
         SELECT
             DISTINCT r.id AS release_id,
             row_number() OVER (ORDER BY ac.name COLLATE musicbrainz, r.name COLLATE musicbrainz)
@@ -25,7 +25,7 @@ sub query {
             WHERE lru.entity0 = r.id 
               AND link.link_type IN (74, 75, 85, 980) -- paid/free download, free/paid streaming
         )
-    ";
+    ';
 }
 
 __PACKAGE__->meta->make_immutable;

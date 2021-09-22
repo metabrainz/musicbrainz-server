@@ -51,7 +51,7 @@ method alter_edit_pending
 sub initialize {
     my ($self, %opts) = @_;
 
-    my $release_name = delete $opts{release_name} // "";
+    my $release_name = delete $opts{release_name} // '';
     # For linkedEntities to work with edit previews
     my $fake_release_id = 1000000000000;
 
@@ -104,7 +104,7 @@ method build_display_data ($loaded)
                   Medium->new( release_id => $self->release_id,
                                release => $loaded->{Release}{ $self->release_id } //
                                            Release->new(
-                                               id   => $self->release_id, 
+                                               id   => $self->release_id,
                                                name => $self->data->{release}{name},
                                             ),
                                $pos ? ( position => $pos ) : (),

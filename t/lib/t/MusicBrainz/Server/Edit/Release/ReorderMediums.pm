@@ -14,7 +14,7 @@ use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 around run_test => sub {
     my ($orig, $test, @args) = @_;
 
-    $test->c->sql->do(<<~'EOSQL');
+    $test->c->sql->do(<<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
 
@@ -34,7 +34,7 @@ around run_test => sub {
                    (103, 1, 1, 3),
                    (104, 1, 1, 4),
                    (105, 1, 1, 5);
-        EOSQL
+        SQL
 
     $test->clear_edit;
     $test->clear_release;
@@ -128,10 +128,10 @@ test 'MBS-8580' => sub {
 
     ok($edit->is_open);
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO medium (id, release, position, format, name)
             VALUES (106, 1, 6, NULL, '');
-        EOSQL
+        SQL
 
     isa_ok exception { $edit->accept },
         'MusicBrainz::Server::Edit::Exceptions::FailedDependency';

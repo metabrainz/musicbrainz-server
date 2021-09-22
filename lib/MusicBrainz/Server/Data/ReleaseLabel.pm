@@ -44,11 +44,11 @@ sub load
     my %id_to_release = object_to_ids(@releases);
     my @ids = keys %id_to_release;
     return unless @ids; # nothing to do
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
                  LEFT JOIN label ON rl.label = label.id
-                 WHERE release IN (" . placeholders(@ids) . ")
-                 ORDER BY release, rl_catalog_number, label.name COLLATE musicbrainz";
+                 WHERE release IN (' . placeholders(@ids) . ')
+                 ORDER BY release, rl_catalog_number, label.name COLLATE musicbrainz';
     my @labels = $self->query_to_list($query, \@ids);
     foreach my $label (@labels) {
         foreach (@{ $id_to_release{$label->release_id} })
@@ -89,12 +89,12 @@ sub merge_releases
 
     $self->sql->do(
         'DELETE FROM release_label
-          WHERE release IN (' . placeholders(@ids) . ")
+          WHERE release IN (' . placeholders(@ids) . ')
             AND id NOT IN (
                 SELECT DISTINCT ON (label, catalog_number)
                        id
                   FROM release_label
-                 WHERE release IN (" . placeholders(@ids) . ')
+                 WHERE release IN (' . placeholders(@ids) . ')
             )', @ids, @ids);
 
     $self->sql->do('UPDATE release_label SET release = ?

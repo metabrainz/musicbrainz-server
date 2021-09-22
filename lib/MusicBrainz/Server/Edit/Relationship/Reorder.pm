@@ -195,7 +195,7 @@ sub initialize {
         my $relationship = delete $_->{relationship};
         my $link = $relationship->link;
 
-        die "Relationship link type mismatch" if $link->type_id != $lt->id;
+        die 'Relationship link type mismatch' if $link->type_id != $lt->id;
 
         $_->{relationship} = {
             id => $relationship->id,

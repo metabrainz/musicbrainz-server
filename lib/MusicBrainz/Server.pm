@@ -56,7 +56,7 @@ __PACKAGE__->config(
     name => 'MusicBrainz::Server',
     default_view => 'Default',
     encoding => 'UTF-8',
-    "View::Default" => {
+    'View::Default' => {
         expose_methods => [qw(
             boolean_to_json
             comma_list
@@ -154,12 +154,12 @@ __PACKAGE__->config->{form} = {
 };
 
 if ($ENV{'MUSICBRAINZ_RUNNING_TESTS'}) {
-    push @args, "Session::Store::Dummy";
+    push @args, 'Session::Store::Dummy';
 
     # /static is usually taken care of by Plack or nginx, but not when running
     # as part of Test::WWW::Selenium::Catalyst, so we need Static::Simple when
     # running tests.
-    push @args, "Static::Simple";
+    push @args, 'Static::Simple';
     __PACKAGE__->config->{'Plugin::Static::Simple'} = {
         mime_types => {
             json => 'application/json; charset=UTF-8',
@@ -177,7 +177,7 @@ if (DBDefs->STAT_TTL) {
 }
 
 if (DBDefs->CATALYST_DEBUG) {
-    push @args, "-Debug";
+    push @args, '-Debug';
 }
 
 if (DBDefs->SESSION_COOKIE) {
@@ -191,7 +191,7 @@ if (DBDefs->SESSION_DOMAIN) {
 __PACKAGE__->config->{session}{cookie_expires} = DBDefs->WEB_SESSION_SECONDS_TO_LIVE;
 
 if (DBDefs->USE_ETAGS) {
-    push @args, "Cache::HTTP";
+    push @args, 'Cache::HTTP';
 }
 
 if ($ENV{'MUSICBRAINZ_USE_TEST_DATABASE'})
@@ -399,7 +399,7 @@ around dispatch => sub {
     local $SIG{__WARN__} = sub {
         my $warning = shift;
         chomp $warning;
-        $c->log->warn($c->req->method . " " . $c->req->uri . " caused a warning: " . $warning);
+        $c->log->warn($c->req->method . ' ' . $c->req->uri . ' caused a warning: ' . $warning);
     };
 
     $c->$orig(@args);

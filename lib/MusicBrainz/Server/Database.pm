@@ -46,7 +46,7 @@ sub shell_args
     }
     else {
         require String::ShellQuote;
-        return join " ", map { String::ShellQuote::shell_quote($_) } @args;
+        return join ' ', map { String::ShellQuote::shell_quote($_) } @args;
     }
 }
 
