@@ -565,7 +565,8 @@ export class ExternalLinksEditor
       };
     } else if (isNewOrChangedLink && !isValidURL(link.url)) {
       error = {
-        message: l('Enter a valid url e.g. "http://google.com/"'),
+        message: exp.l('Please enter a valid URL, such as “{example_url}”.',
+                       {example_url: <span className="url-quote">{'http://example.com/'}</span>}),
         target: URLCleanup.ERROR_TARGETS.URL,
       };
     } else if (isNewOrChangedLink && isMusicBrainz(link.url)) {

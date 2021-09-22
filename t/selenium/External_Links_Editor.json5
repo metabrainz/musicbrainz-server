@@ -67,7 +67,7 @@
     {
       command: 'assertText',
       target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//div[contains(@class, 'error')]",
-      value: 'Enter a valid url e.g. "http://google.com/"',
+      value: 'Please enter a valid URL, such as “http://example.com/”.',
     },
     // Don't freeze to link when there's an error
     {
@@ -100,7 +100,7 @@
     {
       command: 'assertText',
       target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//div[contains(@class, 'error')]",
-      value: 'Enter a valid url e.g. "http://google.com/"',
+      value: 'Please enter a valid URL, such as “http://example.com/”.',
     },
     {
       command: 'click',
