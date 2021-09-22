@@ -95,7 +95,7 @@
     {
       command: 'sendKeys',
       target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: '//google.com',
+      value: '//example.com',
     },
     {
       command: 'assertText',
@@ -220,7 +220,7 @@
     {
       command: 'sendKeys',
       target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: 'https://google.com',
+      value: 'https://link.example',
     },
     {
       command: 'select',
@@ -247,7 +247,7 @@
     {
       command: 'sendKeys',
       target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: 'https://google.com${KEY_ENTER}',
+      value: 'https://link.example${KEY_ENTER}',
     },
     // Pressing enter submits the link
     {
@@ -286,7 +286,7 @@
     {
       command: 'sendKeys',
       target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: 'https://google.com',
+      value: 'https://link.example',
     },
     {
       command: 'assertElementPresent',
@@ -303,7 +303,7 @@
     {
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll(\"input[type='url']\")).map(x => x.value).join('\\n')",
-      value: 'https://google.com\n',
+      value: 'https://link.example\n',
     },
     // Duplicate URL notice
     {
@@ -321,7 +321,7 @@
     {
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll(\"input[type='url']\")).map(x => x.value).join('\\n')",
-      value: 'https://google.com\n',
+      value: 'https://link.example\n',
     },
     // Automatically submitted after selecting a type and moving focus away from the type select
     {
@@ -349,7 +349,7 @@
     {
       command: 'sendKeys',
       target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: 'https://google.com',
+      value: 'https://link.example',
     },
     {
       command: 'click',
