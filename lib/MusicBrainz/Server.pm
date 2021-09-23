@@ -692,8 +692,12 @@ sub set_csp_headers {
             push @csp_script_src, qw(
                 https://www.google.com/recaptcha/
                 https://www.gstatic.com/recaptcha/
+                https://www.recaptcha.net/recaptcha/
             );
-            push @csp_frame_src, 'https://www.google.com/recaptcha/';
+            push @csp_frame_src, qw(
+                https://www.google.com/recaptcha/
+                https://www.recaptcha.net/recaptcha/
+            );
         }
     }
 
