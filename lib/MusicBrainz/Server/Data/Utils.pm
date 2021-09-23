@@ -214,7 +214,7 @@ sub coordinates_to_hash
 
 sub placeholders
 {
-    return join ',', ('?') x scalar(@_);
+    return join q(,), ('?') x scalar(@_);
 }
 
 sub load_everything_for_edits
@@ -228,7 +228,7 @@ sub load_everything_for_edits
         $c->model('Editor')->load(map { ($_, @{ $_->votes }, @{ $_->edit_notes }) } @$edits);
     } catch {
         use Data::Dumper;
-        croak 'Failed loading edits (' . (join ', ', map { $_->id } @$edits) . ")\n" .
+        croak 'Failed loading edits (' . (join q(, ), map { $_->id } @$edits) . ")\n" .
               "Exception:\n" . Dumper($_) . "\n";
     };
 }
@@ -505,8 +505,8 @@ sub order_by
     }
 
     if ($desc) {
-        my @list = map { "$_ DESC" } split ',', $order_by;
-        $order_by = join ',', @list;
+        my @list = map { "$_ DESC" } split q(,), $order_by;
+        $order_by = join q(,), @list;
     }
 
     return $order_by;
@@ -617,7 +617,7 @@ sub merge_boolean_attributes {
         my $columns = $named_params->{columns} or confess 'Missing parameter columns';
 
         return ("UPDATE $table SET " .
-            join(',', map {
+            join(q(,), map {
                 "$_ = (
                         SELECT bool_or($_)
                         FROM $table

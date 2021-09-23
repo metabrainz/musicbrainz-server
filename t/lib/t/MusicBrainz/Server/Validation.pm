@@ -223,7 +223,7 @@ test 'Test normalise_strings' => sub {
     is($alice2, 'alice');
     is($bob, 'bob');
 
-    is(normalise_strings('"'), q('), 'Double quote to single quote');
+    is(normalise_strings(q(")), q('), 'Double quote to single quote');
 
     is(normalise_strings('`'), q('), 'U+0060 GRAVE ACCENT');
     is(normalise_strings('´'), q('), 'U+00B4 ACUTE ACCENT');

@@ -126,7 +126,7 @@ sub insert
     my ($self, @isrcs) = @_;
 
     $self->sql->do('INSERT INTO isrc (recording, isrc, source) VALUES ' .
-                 (join ',', (('(?, ?, ?)') x @isrcs)),
+                 (join q(,), (('(?, ?, ?)') x @isrcs)),
              map { $_->{recording_id}, $_->{isrc}, $_->{source} || undef }
                  @isrcs);
 }

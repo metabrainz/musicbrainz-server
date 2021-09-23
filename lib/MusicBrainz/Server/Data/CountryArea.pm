@@ -11,7 +11,7 @@ around '_get_all_from_db' => sub {
     my ($orig, $self, $p) = @_;
     my $query = 'SELECT ' . $self->_columns .
         ' FROM ' . $self->_table . ' JOIN country_area ca ON ca.area = area.id ' .
-        ' ORDER BY ' . (join ', ', @{ $p->order_by });
+        ' ORDER BY ' . (join q(, ), @{ $p->order_by });
     $self->query_to_list($query);
 };
 

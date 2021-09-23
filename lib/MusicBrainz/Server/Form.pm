@@ -135,7 +135,7 @@ sub _fix_fif
             my $f = $self->field($fieldname);
             $repeatables{$fieldname} = 1 if ($f && $f->is_repeatable);
 
-            $sep = '.';
+            $sep = q(.);
         }
     }
 

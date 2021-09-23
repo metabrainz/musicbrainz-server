@@ -57,7 +57,7 @@ around serialize => sub {
                 if ($medium->all_tracks) {
                     for my $track ($medium->all_tracks) {
                         if ($track->recording) {
-                            $stash->store($track->recording)->{trackNumber} = join('.', $medium->position, $track->position);
+                            $stash->store($track->recording)->{trackNumber} = join(q(.), $medium->position, $track->position);
                             push(@tracks, serialize_entity($track->recording, $inc, $stash));
                         }
                     }

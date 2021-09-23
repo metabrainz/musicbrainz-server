@@ -310,10 +310,10 @@ sub _hash_artist_credit {
     my ($artist_credit, $visible_only) = @_;
     return join(', ', map {
         '[' .
-            join(',',
+            join(q(,),
                  $_->{name},
                  $_->{artist}{id} // -1)
-            . (!$visible_only ? ',' . $_->{join_phrase} // '' : '')
+            . (!$visible_only ? q(,) . $_->{join_phrase} // '' : '')
             .
         ']'
     } @{ $artist_credit->{names} });

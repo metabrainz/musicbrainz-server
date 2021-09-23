@@ -119,7 +119,7 @@ sub image {
     # but we still call this for edit display.
     return undef unless $self->suffix;
 
-    return $self->_url_prefix('.' . $self->suffix);
+    return $self->_url_prefix(q(.) . $self->suffix);
 }
 
 sub small_thumbnail { my $self = shift; return $self->_url_prefix('-250.jpg'); }

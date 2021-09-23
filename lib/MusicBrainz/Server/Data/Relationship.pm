@@ -572,7 +572,7 @@ sub merge_entities {
         begin_date_year begin_date_month begin_date_day
         end_date_year end_date_month end_date_day ended
     );
-    my $comma_sep_date_fields = join ', ', @date_fields;
+    my $comma_sep_date_fields = join q(, ), @date_fields;
 
     my $do_table_merge = sub {
         my ($table, $entity0, $entity1) = @_;

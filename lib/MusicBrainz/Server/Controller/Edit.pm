@@ -233,7 +233,7 @@ sub search : Path('/search/edits')
     $c->stash(
         edit_types => [
             map [
-                join(',', sort { $a <=> $b } map { $_->edit_type } @{ $grouped{$_} }) => $_
+                join(q(,), sort { $a <=> $b } map { $_->edit_type } @{ $grouped{$_} }) => $_
             ], sort_by { $coll->getSortKey($_) } keys %grouped
         ],
         status => status_names(),

@@ -97,7 +97,7 @@ sub enter_votes
 
         # Insert our new votes
         $query = 'INSERT INTO vote (editor, edit, vote) VALUES ';
-        $query .= join ', ', (('(?, ?, ?)') x @votes);
+        $query .= join q(, ), (('(?, ?, ?)') x @votes);
         $query .= ' RETURNING edit, vote';
         my $voted = $self->sql->select_list_of_hashes($query, map { $editor_id, $_->{edit_id}, $_->{vote} } @votes);
         my %edit_to_vote = map { $_->{edit} => $_->{vote} } @$voted;

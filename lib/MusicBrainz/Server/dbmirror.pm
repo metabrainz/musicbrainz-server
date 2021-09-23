@@ -40,8 +40,8 @@ sub prepare_insert
     %$valuepairs or die;
 
     my @k = sort keys %$valuepairs;
-    my $colnames = join ', ', map { qq["$_"] } @k;
-    my $params = join ', ', map { '?' } @k;
+    my $colnames = join q(, ), map { qq["$_"] } @k;
+    my $params = join q(, ), map { '?' } @k;
     my @args = @$valuepairs{@k};
 
     my $sql = qq[INSERT INTO $table ($colnames) VALUES ($params)];
@@ -55,7 +55,7 @@ sub prepare_update
     %$keypairs or die;
 
     my @k = sort keys %$valuepairs;
-    my $setclause = join ', ', map { qq["$_" = ?] } @k;
+    my $setclause = join q(, ), map { qq["$_" = ?] } @k;
     my @setargs = @$valuepairs{@k};
 
     my ($whereclause, $whereargs) = make_where_clause($keypairs);

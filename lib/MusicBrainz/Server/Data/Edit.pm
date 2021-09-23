@@ -598,7 +598,7 @@ sub create {
         @$ids or next;
 
         my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
-        $query .= join ', ', ('(?, ?)') x @$ids;
+        $query .= join q(, ), ('(?, ?)') x @$ids;
         my @all_ids = ($edit_id) x @$ids;
         $self->c->sql->do($query, zip @all_ids, @$ids);
     }
