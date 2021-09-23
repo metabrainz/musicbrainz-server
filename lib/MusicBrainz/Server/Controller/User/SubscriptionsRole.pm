@@ -40,8 +40,41 @@ role {
         my %extra_props;
 
         if ($type eq 'collection') {
-            $extra_props{privateCollectionCount} = scalar(grep { !$_->public } @{$entities});
-            $entities = [grep { $_->public } @{$entities}]
+            # Show only public collections by default
+            my @private_collections = grep { !$_->public } @{$entities};
+            $entities = [grep { $_->public } @{$entities}];
+
+            # If not logged in, all private collections are hidden
+            if (!$c->user) {
+                $extra_props{hiddenPrivateCollectionCount} =
+                    scalar(@private_collections);
+            } else {
+                my @visible_private_collections;
+                my $hidden_private_collection_count;
+
+                for my $collection (@private_collections) {
+                    my $is_collection_owner =
+                        $collection->editor_id == $c->user->id;
+                    if ($is_collection_owner) {
+                        push @visible_private_collections, $collection;
+                        next;
+                    }
+
+                    my $is_collection_collaborator =
+                        $c->model('Collection')->is_collection_collaborator(
+                            $c->user->id,
+                            $collection->id);
+                    if ($is_collection_collaborator) {
+                        push @visible_private_collections, $collection;
+                        next;
+                    }
+                    $hidden_private_collection_count++;
+                }
+                $extra_props{visiblePrivateCollections} =
+                    to_json_array(\@visible_private_collections);
+                $extra_props{hiddenPrivateCollectionCount} =
+                    $hidden_private_collection_count;
+            }
         }
 
         $c->stash(

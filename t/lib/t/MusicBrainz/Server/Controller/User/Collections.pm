@@ -50,11 +50,11 @@ test 'No collections' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
-    $mech->get_ok('/user/editor3/collections');
+    $mech->get_ok('/user/editor5/collections');
     my $tx = test_xpath_html($mech->content);
 
     $tx->is('//div[@id="page"]/p',
-            'editor3 has no public collections.editor3 isn’t collaborating in any public collections.',
+            'editor5 has no public collections.editor5 isn’t collaborating in any public collections.',
             'editor has no collections');
 };
 
@@ -65,8 +65,11 @@ test 'Viewing someone elses collections' => sub {
     $mech->get_ok('/user/editor2/collections');
     my $tx = test_xpath_html($mech->content);
 
-    $tx->is('count(//div[@id="page"]//table//th)',
-            5, 'other collection list has 5 cols');
+    $tx->is('count(//div[@id="page"]//table[1]//th)',
+            5, q(other editor's collection list has 5 cols));
+
+    $tx->is('count(//div[@id="page"]//table[2]//th)',
+            6, q(other editor's collaborative collection list has 6 cols));
 };
 
 test 'Invalid user' => sub {
