@@ -6,7 +6,7 @@ with 'MusicBrainz::Server::Report::RecordingReport',
      'MusicBrainz::Server::Report::FilterForEditor::RecordingID';
 
 sub query {
-    "
+    q{
         SELECT
             r.id AS recording_id,
             row_number() OVER (ORDER BY ac.name COLLATE musicbrainz, r.name COLLATE musicbrainz)
@@ -14,7 +14,7 @@ sub query {
             JOIN artist_credit ac ON r.artist_credit = ac.id
         WHERE
             r.name COLLATE musicbrainz ~* E' \\\\(((f|w)/|(feat|ｆｅａｔ|ft|συμμ)(\\\\.|．)|(duet with|συμμετέχει|featuring|ｆｅａｔｕｒｉｎｇ) )'
-    ";
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

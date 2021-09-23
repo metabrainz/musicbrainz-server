@@ -26,7 +26,7 @@ sub iswc : Chained('root') PathPart('iswc') Args(1)
 
     if (!is_valid_iswc($iswc))
     {
-        $c->stash->{error} = "Invalid iswc.";
+        $c->stash->{error} = 'Invalid iswc.';
         $c->detach('bad_req');
     }
 

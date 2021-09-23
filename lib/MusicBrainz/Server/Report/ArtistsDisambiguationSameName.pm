@@ -5,13 +5,13 @@ with 'MusicBrainz::Server::Report::ArtistReport',
      'MusicBrainz::Server::Report::FilterForEditor::ArtistID';
 
 sub query {
-    "
+    '
         SELECT
             artist.id AS artist_id,
             row_number() OVER (ORDER BY artist.name COLLATE musicbrainz, artist.id)
         FROM artist
         WHERE artist.name = artist.comment
-    "
+    '
 }
 
 __PACKAGE__->meta->make_immutable;

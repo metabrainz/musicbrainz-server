@@ -26,7 +26,7 @@ use Sub::Exporter -setup => {
 
 sub language_options {
     my $c = shift;
-    my $context = shift // "";
+    my $context = shift // '';
 
     # group list of languages in <optgroups>.
     # most frequently used languages have hardcoded value 2.
@@ -36,16 +36,16 @@ sub language_options {
     my $skip = 0;
 
     my @languages = $c->model('Language')->get_all;
-    if ($context eq "editor") {
+    if ($context eq 'editor') {
         for my $language (@languages) {
             if ($language->iso_code_3 && $language->iso_code_3 eq 'mul') {
                 $language->frequency($skip);
             }
         }
-    } elsif ($context eq "work") {
+    } elsif ($context eq 'work') {
         for my $language (@languages) {
-            if ($language->iso_code_3 && $language->iso_code_3 eq "zxx") {
-                $language->name(l("[No lyrics]"));
+            if ($language->iso_code_3 && $language->iso_code_3 eq 'zxx') {
+                $language->name(l('[No lyrics]'));
                 $language->frequency($frequent);
             }
         }

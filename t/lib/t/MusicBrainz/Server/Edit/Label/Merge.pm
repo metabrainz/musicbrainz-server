@@ -60,7 +60,7 @@ test 'Can merge labels with editors subscribed at both ends' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_label_merge');
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
             VALUES (10, 'Fred', '{CLEARTEXT}mb', '', '', now());
 
@@ -72,7 +72,7 @@ test 'Can merge labels with editors subscribed at both ends' => sub {
             VALUES (10, 2, 1), (10, 3, 1);
 
         ALTER SEQUENCE edit_id_seq RESTART 2;
-        EOSQL
+        SQL
 
     my $edit = create_edit($c);
     $edit->accept;
@@ -94,11 +94,11 @@ test 'Duplicate release labels are merged' => sub {
     my $release;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO release_label (release, label, catalog_number)
             SELECT 1, label, catalog_number FROM release_label
             WHERE release = 1
-        EOSQL
+        SQL
 
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_LABEL_MERGE,

@@ -70,25 +70,25 @@ sub REPLICATION_TYPE { RT_STANDALONE }
 # the replication packets. Enter the access token below:
 # NOTE: DO NOT EXPOSE THIS ACCESS TOKEN PUBLICLY!
 #
-sub REPLICATION_ACCESS_TOKEN { "" }
+sub REPLICATION_ACCESS_TOKEN { '' }
 
 ################################################################################
 # GPG Signature
 ################################################################################
 
 # Location of the public key file to use for verifying packets.
-sub GPG_PUB_KEY { "" }
+sub GPG_PUB_KEY { '' }
 
 # Define how validation deals with the missing signature file:
 #   FAIL    - validation fails if signature file is missing
 #   PASS    - validation passes if signature file is missing
-sub GPG_MISSING_SIGNATURE_MODE { "PASS" }
+sub GPG_MISSING_SIGNATURE_MODE { 'PASS' }
 
 # Key identifiers (compatible with --recipient in GPG) for
 # signatures and encryption of data dumps and packets. Should
 # only be required on the master server.
-sub GPG_SIGN_KEY { "" }
-sub GPG_ENCRYPT_KEY { "" }
+sub GPG_SIGN_KEY { '' }
+sub GPG_ENCRYPT_KEY { '' }
 
 ################################################################################
 # HTTP Server Names
@@ -99,11 +99,11 @@ sub GPG_ENCRYPT_KEY { "" }
 # Additionally you should set the environment variable
 # MUSICBRAINZ_USE_PROXY=1 when using a reverse proxy to make the server
 # aware of it when generating things like the canonical url in catalyst.
-sub WEB_SERVER                { "localhost:5000" }
+sub WEB_SERVER                { 'localhost:5000' }
 # Relevant only if SSL redirects are enabled
-sub WEB_SERVER_SSL            { "localhost" }
-sub SEARCH_SERVER             { "search.musicbrainz.org" }
-sub SEARCH_ENGINE             { "SOLR" }
+sub WEB_SERVER_SSL            { 'localhost' }
+sub SEARCH_SERVER             { 'search.musicbrainz.org' }
+sub SEARCH_ENGINE             { 'SOLR' }
 # Whether to use x-accel-redirect for webservice searches,
 # using /internal/search as the internal redirect
 sub SEARCH_X_ACCEL_REDIRECT   { 0 }
@@ -117,13 +117,13 @@ sub IS_BETA                   { 0 }
 sub BETA_REDIRECT_HOSTNAME    { '' }
 
 # The base URI to use for JSON-LD (RDF) identifiers. Includes scheme.
-sub JSON_LD_ID_BASE_URI       { "http://musicbrainz.org" }
+sub JSON_LD_ID_BASE_URI       { 'http://musicbrainz.org' }
 
 # The server to use for rel="canonical" links. Includes scheme.
-sub CANONICAL_SERVER          { "https://musicbrainz.org" }
+sub CANONICAL_SERVER          { 'https://musicbrainz.org' }
 
 # The server used to link to CritiqueBrainz users and reviews.
-sub CRITIQUEBRAINZ_SERVER     { "https://critiquebrainz.org" }
+sub CRITIQUEBRAINZ_SERVER     { 'https://critiquebrainz.org' }
 
 # The URL where static resources are located, excluding the trailing slash.
 sub STATIC_RESOURCES_LOCATION { '//' . shift->WEB_SERVER . '/static/build' }
@@ -132,7 +132,7 @@ sub STATIC_RESOURCES_LOCATION { '//' . shift->WEB_SERVER . '/static/build' }
 # Mail Settings
 ################################################################################
 
-sub SMTP_SERVER { "localhost" }
+sub SMTP_SERVER { 'localhost' }
 
 # This value should be set to some secret value for your server.  Any old
 # string of stuff should do; something suitably long and random, like for
@@ -140,7 +140,7 @@ sub SMTP_SERVER { "localhost" }
 # value (the empty string).  This is so an attacker can't just look in CVS and
 # see the default secret value, and then use it to attack your server.
 
-sub SMTP_SECRET_CHECKSUM { "" }
+sub SMTP_SECRET_CHECKSUM { '' }
 sub EMAIL_VERIFICATION_TIMEOUT { 604800 } # one week
 
 ################################################################################
@@ -188,12 +188,12 @@ sub LWP_USER_AGENT {
 ################################################################################
 # Documentation Server Settings
 ################################################################################
-sub WIKITRANS_SERVER     { "wiki.musicbrainz.org" }
+sub WIKITRANS_SERVER     { 'wiki.musicbrainz.org' }
 
 # The path to MediaWiki's api.php file. This is required to automatically
 # determine which documentation pages need to be updated in the
 # transclusion table.
-sub WIKITRANS_SERVER_API { "wiki.musicbrainz.org/api.php" }
+sub WIKITRANS_SERVER_API { 'wiki.musicbrainz.org/api.php' }
 
 # To enable documentation search on your server, create your own Google Custom
 # Search engine and enter its ID as the value of GOOGLE_CUSTOM_SEARCH.
@@ -264,7 +264,7 @@ sub ENTITY_CACHE_TTL {
 # The session store holds user login sessions. Session::Store::MusicBrainz
 # uses DATASTORE_REDIS_ARGS to connect to and store sessions in Redis.
 
-sub SESSION_STORE { "Session::Store::MusicBrainz" }
+sub SESSION_STORE { 'Session::Store::MusicBrainz' }
 sub SESSION_STORE_ARGS { return {} }
 sub SESSION_EXPIRE { return 36000; } # 10 hours
 
@@ -294,7 +294,7 @@ sub DATASTORE_REDIS_ARGS {
 sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }
 
 # The cookie name to use
-sub SESSION_COOKIE { "AF_SID" }
+sub SESSION_COOKIE { 'AF_SID' }
 # The domain into which the session cookie is written
 sub SESSION_DOMAIN { undef }
 
@@ -365,8 +365,8 @@ sub RECAPTCHA_PRIVATE_KEY { return undef }
 # internet archive private/public keys (for coverartarchive.org).
 sub COVER_ART_ARCHIVE_ACCESS_KEY { };
 sub COVER_ART_ARCHIVE_SECRET_KEY { };
-sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf("//%s.s3.us.archive.org/", shift) };
-sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "//coverartarchive.org" };
+sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf('//%s.s3.us.archive.org/', shift) };
+sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { '//coverartarchive.org' };
 sub COVER_ART_ARCHIVE_IA_DOWNLOAD_PREFIX { '//archive.org/download' };
 sub COVER_ART_ARCHIVE_IA_METADATA_PREFIX { 'https://archive.org/metadata' };
 
@@ -471,6 +471,10 @@ sub SOLRCLOUD_BACKUP_LOCATION { undef }
 sub SOLRCLOUD_RSYNC_BANDWIDTH { undef }
 sub SOLRCLOUD_SSH_CIPHER_SPEC { undef }
 sub SEARCH_INDEXES_DUMP_COMPRESSION_LEVEL { undef }
+
+# Controls the number of threads to use when compressing JSON dumps or search
+# index dumps. Passed as `-T` or `--threads` to xz and zstd.
+sub DUMP_COMPRESSION_THREADS { 0 }
 
 sub WIKIMEDIA_COMMONS_IMAGES_ENABLED { 1 }
 

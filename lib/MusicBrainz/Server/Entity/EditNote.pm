@@ -9,6 +9,7 @@ use namespace::autoclean;
 use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT );
 use MusicBrainz::Server::Data::Utils qw( datetime_to_iso8601 );
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Filters qw( format_editnote );
 use MusicBrainz::Server::Types qw( DateTime );
 
@@ -125,7 +126,7 @@ around TO_JSON => sub {
 
     my $json = $self->$orig;
     $json->{editor_id} = $self->editor_id + 0;
-    $json->{editor} = $self->editor->TO_JSON;
+    $json->{editor} = to_json_object($self->editor);
     $json->{post_time} = datetime_to_iso8601($self->post_time);
     $json->{formatted_text} = $self->editor_id == $EDITOR_MODBOT
         ? $self->localize : format_editnote($self->text);

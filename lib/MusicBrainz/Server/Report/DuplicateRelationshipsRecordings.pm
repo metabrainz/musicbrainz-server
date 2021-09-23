@@ -5,7 +5,7 @@ with 'MusicBrainz::Server::Report::RecordingReport',
      'MusicBrainz::Server::Report::FilterForEditor::RecordingID';
 
 sub query {
-    "
+    '
 
 SELECT q.entity AS recording_id, row_number() OVER (ORDER BY recording.name COLLATE musicbrainz) FROM (
 
@@ -68,7 +68,7 @@ SELECT q.entity AS recording_id, row_number() OVER (ORDER BY recording.name COLL
 JOIN recording ON q.entity = recording.id
 GROUP BY q.entity, recording.name
 
-    ";
+    ';
 }
 
 __PACKAGE__->meta->make_immutable;

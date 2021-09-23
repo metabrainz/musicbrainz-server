@@ -41,7 +41,7 @@ sub show : Chained('load') PathPart('')
     $c->model('Language')->load_for_works(@works);
     $c->stash(
         current_view => 'Node',
-        component_path => 'iswc/Index.js',
+        component_path => 'iswc/Index',
         component_props => {
             %{$c->stash->{component_props}},
             iswcs => to_json_array($iswcs),

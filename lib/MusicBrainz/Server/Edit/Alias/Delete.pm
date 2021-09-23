@@ -94,7 +94,7 @@ sub initialize
     });
 }
 
-sub edit_template_react { "AddRemoveAlias" };
+sub edit_template_react { 'AddRemoveAlias' };
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

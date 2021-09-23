@@ -45,7 +45,7 @@ sub _lookup_field
 
 sub _id {
     my ($self, $field) = @_;
-    return $self->{id_prefix} . "id-" . $field->html_name;
+    return $self->{id_prefix} . 'id-' . $field->html_name;
 }
 
 sub _render_input
@@ -53,7 +53,7 @@ sub _render_input
     my ($self, $field, $type, %attrs) = @_;
     return unless ref $field;
     if ($field->required && $type !~ /^hidden|image|submit|reset|button$/) {
-        $attrs{required} = "required";
+        $attrs{required} = 'required';
     }
     my $class = delete $attrs{class} || '';
     return $self->h->input({
@@ -173,7 +173,7 @@ sub select
 
         my $option_html = $self->h->option(
             {
-                %$option, selected => $selected ? "selected" : undef,
+                %$option, selected => $selected ? 'selected' : undef,
             }, $self->h->entity_encode($label));
 
         if ($grp)
@@ -199,15 +199,15 @@ sub select
     if (!$field->required || delete $attrs->{no_default})
     {
         unshift @options, $self->h->option({
-            selected => !defined $field->value ? "selected" : undef,
+            selected => !defined $field->value ? 'selected' : undef,
         }, '&#xA0;')
     }
 
     return $self->h->select({
         id => $self->_id($field),
         name => $field->html_name,
-        multiple => $field->multiple ? "multiple" : undef,
-        disabled => $field->disabled ? "disabled" : undef,
+        multiple => $field->multiple ? 'multiple' : undef,
+        disabled => $field->disabled ? 'disabled' : undef,
         class => $attrs->{class},
         %{ $attrs || {} }
     }, \@options);
@@ -225,7 +225,7 @@ sub radio
         id => $self->_id($field) . "-$option" ,
         name => $field->html_name,
         checked => $field->value && $value eq $field->value ? 'checked' : undef,
-        disabled => $field->disabled ? "disabled" : undef,
+        disabled => $field->disabled ? 'disabled' : undef,
         value => $value,
         %{ $attrs || {} }
     });
@@ -236,7 +236,7 @@ sub checkbox
     my ($self, $field_name, $attrs) = @_;
     my $field = $self->_lookup_field($field_name) or return;
     return $self->_render_input($field, 'checkbox',
-        checked => $field->value ? "checked" : undef,
+        checked => $field->value ? 'checked' : undef,
         value => $field->checkbox_value,
         %$attrs
     );

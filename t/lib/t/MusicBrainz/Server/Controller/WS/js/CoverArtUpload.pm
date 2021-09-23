@@ -20,13 +20,13 @@ test 'jpg post fields' => sub {
     # Insert a fake piece of cover art for the release so that we don't
     # have to perform a bucket ownership check in
     # /ws/js/cover-art-upload, which requires external HTTP requests.
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO edit (id, editor, type, status, expire_time)
             VALUES (1, 1, 314, 2, '2000-01-01');
 
         INSERT INTO cover_art_archive.cover_art (id, release, edit, ordering, date_uploaded, mime_type)
             VALUES (1, 2, 1, 1, now(), 'image/jpeg');
-        EOSQL
+        SQL
 
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );

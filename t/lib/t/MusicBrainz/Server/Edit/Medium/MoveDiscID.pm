@@ -51,9 +51,9 @@ test 'Moving a DiscID to the medium it already is attached to does not change an
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+cdtoc');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         DELETE FROM medium_cdtoc WHERE id = 2;
-        EOSQL
+        SQL
 
     my $medium = $c->model('Medium')->get_by_id(1);
     my $medium_cdtoc = $c->model('MediumCDTOC')->get_by_id(1);

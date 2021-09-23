@@ -16,7 +16,7 @@ sub query {
     #    E.g. If the tracklist had tracks: 1, 2, 3, 3, 5 then
     #    the following will *not* hold:
     #    1 + 2 + 3 + 3 + 5 = 1 + 2 + 3 + 4 + 5
-    <<~'EOSQL'
+    <<~'SQL'
     SELECT release.id AS release_id,
       row_number() OVER (ORDER BY release.name COLLATE musicbrainz)
     FROM
@@ -40,7 +40,7 @@ sub query {
         OR last_track <> s.track_count - (1 - first_track)
         OR (last_track * (1 + last_track)) <> 2 * track_pos_acc
     ) release
-    EOSQL
+    SQL
 }
 
 1;

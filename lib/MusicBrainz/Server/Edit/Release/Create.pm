@@ -62,7 +62,7 @@ after 'initialize' => sub {
 
     $self->check_event_countries($self->data->{events} // []);
 
-    croak "No release_group_id specified" unless $self->data->{release_group_id};
+    croak 'No release_group_id specified' unless $self->data->{release_group_id};
 };
 
 sub foreign_keys

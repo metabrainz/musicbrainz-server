@@ -158,7 +158,7 @@ sub _process_seeded_data
 
     if (my $ac = $params->{artist_credit}) {
         $result->{artistCredit} = _seeded_hash($c, \&_seeded_artist_credit,
-            $ac, "artist_credit", \@errors);
+            $ac, 'artist_credit', \@errors);
     }
 
     if (my $gid = $params->{release_group}) {
@@ -248,15 +248,15 @@ sub _process_seeded_data
     }
 
     if (my $events = $params->{events}) {
-        $result->{events} = _seeded_array($c, \&_seeded_event, $events, "events", \@errors);
+        $result->{events} = _seeded_array($c, \&_seeded_event, $events, 'events', \@errors);
     }
 
     if (my $labels = $params->{labels}) {
-        $result->{labels} = _seeded_array($c, \&_seeded_label, $labels, "labels", \@errors);
+        $result->{labels} = _seeded_array($c, \&_seeded_label, $labels, 'labels', \@errors);
     }
 
     if (my $mediums = $params->{mediums}) {
-        $result->{mediums} = _seeded_array($c, \&_seeded_medium, $mediums, "mediums", \@errors);
+        $result->{mediums} = _seeded_array($c, \&_seeded_medium, $mediums, 'mediums', \@errors);
 
         my $position = 0;
 
@@ -266,7 +266,7 @@ sub _process_seeded_data
     }
 
     if (my $urls = $params->{urls}) {
-        $result->{relationships} = _seeded_array($c, \&_seeded_url, $urls, "urls", \@errors);
+        $result->{relationships} = _seeded_array($c, \&_seeded_url, $urls, 'urls', \@errors);
     }
 
     $result->{editNote} = $params->{edit_note} if $params->{edit_note};
@@ -298,7 +298,7 @@ sub _seeded_hash
 
     return unless defined $params;
 
-    if (ref($params) eq "HASH") {
+    if (ref($params) eq 'HASH') {
         return $parse->($c, $params, $field_name, $errors);
     } else {
         push @$errors, "$field_name must be a hash.";
@@ -310,10 +310,10 @@ sub _seeded_array
 {
     my ($c, $parse, $params, $field_name, $errors) = @_;
 
-    unless (ref($params) eq "ARRAY") {
+    unless (ref($params) eq 'ARRAY') {
         push @$errors, "$field_name must be an array";
 
-        if (ref($params) eq "HASH") {
+        if (ref($params) eq 'HASH') {
             _report_unknown_fields($field_name, $params, $errors);
         }
         return undef;
@@ -620,7 +620,7 @@ sub _report_unknown_fields
     my @unknown_keys = sort { $a cmp $b } grep { !exists $valid_keys{$_} } keys %$fields;
 
     push @$errors, map {
-        "Unknown field: " . ($parent ? "$parent." : "") . "$_"
+        'Unknown field: ' . ($parent ? "$parent." : '') . "$_"
     } @unknown_keys;
 }
 

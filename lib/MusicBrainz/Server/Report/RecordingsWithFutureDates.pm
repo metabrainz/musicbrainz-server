@@ -5,7 +5,7 @@ with 'MusicBrainz::Server::Report::RecordingReport',
      'MusicBrainz::Server::Report::FilterForEditor::RecordingID';
 
 sub query {
-    "
+    q{
         WITH
         link AS (
             SELECT
@@ -49,7 +49,7 @@ sub query {
                 UNION ALL
                 SELECT link, entity0, entity1 FROM l_recording_work
             ) AS l_ ON l_.link = link.id
-    ";
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -57,14 +57,6 @@ sub load_for_works {
 
     load_subobjects($self, 'language', map { $_->all_languages } @objs);
 
-    for my $work (@objs) {
-        for my $wl ($work->all_languages) {
-            if ($wl->language && $wl->language->iso_code_3 eq "zxx") {
-                $wl->language->name(l("[No lyrics]"));
-            }
-        }
-    }
-
     return;
 }
 

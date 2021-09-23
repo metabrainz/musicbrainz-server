@@ -109,7 +109,7 @@ sub show : PathPart('') Chained('load') {
     );
 
     $c->stash(
-        component_path => 'place/PlaceIndex.js',
+        component_path => 'place/PlaceIndex',
         component_props => \%props,
         current_view => 'Node',
     );
@@ -138,7 +138,7 @@ sub events : Chained('load')
     );
 
     $c->stash(
-        component_path  => 'place/PlaceEvents.js',
+        component_path  => 'place/PlaceEvents',
         component_props => \%props,
         current_view    => 'Node',
     );
@@ -150,7 +150,7 @@ Shows performances linked to a place.
 
 =cut
 
-sub performances : Chained('load') { 
+sub performances : Chained('load') {
     my ($self, $c) = @_;
 
     my $stash = $c->stash;

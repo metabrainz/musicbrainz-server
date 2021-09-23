@@ -111,7 +111,7 @@ sub href_url {
 
     if ($self->url_is_scheme_independent) {
         $url = $url->clone;
-        $url->scheme("");
+        $url->scheme('');
     }
 
     return $url->as_string;

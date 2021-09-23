@@ -282,7 +282,7 @@ sub show : PathPart('') Chained('load')
                       grep { ($_->name) ne $legal_name->name }
                       # A legal name alias marked ended isn't a current legal name
                       grep { !($_->ended) }
-                      grep { ($_->type_name // "") eq 'Legal name' } @$aliases;
+                      grep { ($_->type_name // '') eq 'Legal name' } @$aliases;
         $c->stash( legal_name_artist_aliases => \@aliases );
         $legal_name_artist_aliases = \@aliases;
         push(@identities, $legal_name);
@@ -293,7 +293,7 @@ sub show : PathPart('') Chained('load')
                       sort_by { $coll->getSortKey($_->name) }
                       # A legal name alias marked ended isn't a current legal name
                       grep { !($_->ended) }
-                      grep { ($_->type_name // "") eq 'Legal name' } @$aliases;
+                      grep { ($_->type_name // '') eq 'Legal name' } @$aliases;
         $c->stash( legal_name_aliases => \@aliases );
         $legal_name_aliases = \@aliases;
     }

@@ -21,28 +21,28 @@ sub serialize
 
     serialize_type($body, $entity->link, $inc, $opts, 1);
 
-    $body->{direction} = $entity->direction == 2 ? "backward" : "forward";
+    $body->{direction} = $entity->direction == 2 ? 'backward' : 'forward';
     $body->{'ordering-key'} = number($entity->link_order) if $entity->link_order;
 
     serialize_date_period($body, $entity->link);
 
     $body->{attributes} = [ map { $_->type->name } @attributes ];
 
-    $body->{"attribute-values"} = {
+    $body->{'attribute-values'} = {
         map {
             non_empty($_->text_value) ? ($_->type->name => $_->text_value) : ()
         }
         @attributes
     };
 
-    $body->{"attribute-ids"} = {
+    $body->{'attribute-ids'} = {
         map {
             $_->type->name => $_->type->gid
         }
         @attributes
     };
 
-    $body->{"attribute-credits"} = {
+    $body->{'attribute-credits'} = {
         map {
             non_empty($_->credited_as) ? ($_->type->name => $_->credited_as) : ()
         }

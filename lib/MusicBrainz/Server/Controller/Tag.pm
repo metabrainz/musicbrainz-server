@@ -124,7 +124,7 @@ map {
     };
 
     find_meta(__PACKAGE__)->add_method($_ => $method);
-    find_meta(__PACKAGE__)->register_method_attributes($method, ["Chained('load')", "PathPart('$url')"]);
+    find_meta(__PACKAGE__)->register_method_attributes($method, [q{Chained('load')}, "PathPart('$url')"]);
 } entities_with('tags');
 
 sub not_found : Private

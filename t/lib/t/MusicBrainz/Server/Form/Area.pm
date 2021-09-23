@@ -59,10 +59,10 @@ for my $config (
 sub prepare_conflict {
     my ($c, $iso_field, $iso_code) = @_;
 
-    $c->sql->do(<<~"EOSQL");
+    $c->sql->do(<<~"SQL");
         INSERT INTO area (id, gid, name) VALUES (1, '$AREA_GID', 'Area');
         INSERT INTO $iso_field (area, code) VALUES (1, '$iso_code');
-        EOSQL
+        SQL
 }
 
 sub form_context {

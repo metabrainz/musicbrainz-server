@@ -6,7 +6,7 @@ with 'MusicBrainz::Server::Report::ReleaseGroupReport',
      'MusicBrainz::Server::Report::FilterForEditor::ReleaseGroupID';
 
 sub query {
-    "
+    q{
         SELECT
             rg.id AS release_group_id,
             row_number() OVER (ORDER BY ac.name COLLATE musicbrainz, rg.name COLLATE musicbrainz)
@@ -16,7 +16,7 @@ sub query {
             JOIN release_group_meta rm ON rg.id = rm.id
         WHERE
             rg.name COLLATE musicbrainz ~* E' \\\\(((f|w)/|(feat|ｆｅａｔ|ft|συμμ)(\\\\.|．)|(duet with|συμμετέχει|featuring|ｆｅａｔｕｒｉｎｇ) )'
-    ";
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

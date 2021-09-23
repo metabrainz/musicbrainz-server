@@ -5,7 +5,7 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
      'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
 sub query {
-    "
+    q{
 SELECT r.id AS release_id,
   row_number() OVER (ORDER BY ac.name COLLATE musicbrainz, r.name COLLATE musicbrainz)
 FROM release r
@@ -22,7 +22,7 @@ WHERE r.status IN (
         FROM release_status rs
         WHERE rs.name = 'Pseudo-Release'
 ) AND lrr.link IS NULL
-    ";
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

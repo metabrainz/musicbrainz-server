@@ -12,13 +12,13 @@ after _load_extra_release_info => sub {
 };
 
 sub query {
-    "
+    '
         SELECT
             r.id AS release_id,
             row_number() OVER (ORDER BY r.artist_credit, r.name)
         FROM release r
         WHERE script IS NULL
-    ";
+    ';
 }
 
 __PACKAGE__->meta->make_immutable;

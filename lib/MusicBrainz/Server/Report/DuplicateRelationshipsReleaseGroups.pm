@@ -5,7 +5,7 @@ with 'MusicBrainz::Server::Report::ReleaseGroupReport',
      'MusicBrainz::Server::Report::FilterForEditor::ReleaseGroupID';
 
 sub query {
-    "
+    '
 
 SELECT q.entity AS release_group_id, row_number() OVER (ORDER BY release_group.name COLLATE musicbrainz) FROM (
 
@@ -67,7 +67,7 @@ SELECT q.entity AS release_group_id, row_number() OVER (ORDER BY release_group.n
 JOIN release_group ON q.entity = release_group.id
 GROUP BY q.entity, release_group.name
 
-    ";
+    ';
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -9,7 +9,7 @@ sub table { 'asins_with_multiple_releases' }
 sub component_name { 'AsinsWithMultipleReleases' }
 
 sub query {
-    "   SELECT r.id AS release_id, q.id AS url_id,
+    q{   SELECT r.id AS release_id, q.id AS url_id,
           row_number() OVER (
              ORDER BY q.count DESC, q.url,
                ac.name COLLATE musicbrainz, r.name COLLATE musicbrainz
@@ -27,7 +27,7 @@ sub query {
             ) AS q
             JOIN l_release_url lru ON lru.entity1 = q.id
             JOIN release r ON r.id = lru.entity0
-            JOIN artist_credit ac ON r.artist_credit = ac.id";
+            JOIN artist_credit ac ON r.artist_credit = ac.id};
 }
 
 __PACKAGE__->meta->make_immutable;

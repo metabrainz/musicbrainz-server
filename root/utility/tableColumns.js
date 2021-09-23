@@ -46,6 +46,8 @@ import formatEndDate from '../static/scripts/common/utility/formatEndDate';
 import renderMergeCheckboxElement
   from '../static/scripts/common/utility/renderMergeCheckboxElement';
 import expand2react from '../static/scripts/common/i18n/expand2react';
+import localizeLanguageName
+  from '../static/scripts/common/i18n/localizeLanguageName';
 import yesNo from '../static/scripts/common/utility/yesNo';
 import type {ReportRelationshipRoleT} from '../report/types';
 
@@ -865,7 +867,7 @@ export const workLanguagesColumn:
             data-iso-639-3={language.language.iso_code_3}
             key={language.language.id}
           >
-            {l_languages(language.language.name)}
+            {localizeLanguageName(language.language, true)}
           </li>
         ))}
       </ul>

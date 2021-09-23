@@ -113,7 +113,7 @@ test q(Rejected edits are applied if the label can't be deleted) => sub {
     my $edit = create_edit($c, privileges => $UNTRUSTED_FLAG);
     my $label_id = $edit->entity_id;
 
-    $c->sql->do(<<~"EOSQL");
+    $c->sql->do(<<~"SQL");
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, '01aa077b-ea92-437a-833f-4bf617dac3e7', 'A', 'A');
 
@@ -128,7 +128,7 @@ test q(Rejected edits are applied if the label can't be deleted) => sub {
             VALUES (1, '357cfecb-8afd-41b7-a357-c1fde7ce46cd', 'R', 1, 1);
 
         INSERT INTO release_label (release, label, catalog_number) VALUES (1, $label_id, '');
-        EOSQL
+        SQL
 
     reject_edit($c, $edit);
     is($edit->status, $STATUS_APPLIED);

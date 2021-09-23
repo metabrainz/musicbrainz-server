@@ -200,8 +200,8 @@ sub find_by_area {
         $containment_query,
         @containment_query_args,
     ) = get_area_containment_query('$2', 'area', check_all_levels => 1);
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . "
                  WHERE area = \$1 OR EXISTS (
                     SELECT 1 FROM ($containment_query) ac
                      WHERE ac.descendant = area AND ac.parent = \$1
@@ -216,32 +216,32 @@ sub find_by_area {
 sub find_by_privileges
 {
     my ($self, $privs) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
                  WHERE (privs & ?) > 0
-                 ORDER BY editor.name, editor.id";
+                 ORDER BY editor.name, editor.id';
     $self->query_to_list($query, [$privs]);
 }
 
 sub find_by_subscribed_editor
 {
     my ($self, $editor_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
                     JOIN editor_subscribe_editor s ON editor.id = s.subscribed_editor
                  WHERE s.editor = ?
-                 ORDER BY editor.name, editor.id";
+                 ORDER BY editor.name, editor.id';
     $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
 }
 
 sub find_subscribers
 {
     my ($self, $editor_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
                     JOIN editor_subscribe_editor s ON editor.id = s.editor
                  WHERE s.subscribed_editor = ?
-                 ORDER BY editor.name, editor.id";
+                 ORDER BY editor.name, editor.id';
     $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
 }
 
@@ -249,7 +249,7 @@ sub insert
 {
     my ($self, $data) = @_;
 
-    die "Invalid user name" if $data->{name} =~ qr{^deleted editor \#\d+$}i;
+    die 'Invalid user name' if $data->{name} =~ qr{^deleted editor \#\d+$}i;
     my $plaintext = $data->{password};
     $data->{password} = hash_password($plaintext);
     $data->{ha1} = ha1_password($data->{name}, $plaintext);
@@ -268,7 +268,7 @@ sub insert
 sub search_old_editor_names {
     my ($self, $name, $use_regular_expression) = @_;
 
-    my $condition = $use_regular_expression ? "name ~* ?" : "LOWER(name) = LOWER(?)";
+    my $condition = $use_regular_expression ? 'name ~* ?' : 'LOWER(name) = LOWER(?)';
     my $query = "SELECT name FROM old_editor_name WHERE $condition LIMIT 100";
 
     @{ $self->sql->select_single_column_array($query, $name) };
@@ -277,7 +277,7 @@ sub search_old_editor_names {
 sub unlock_old_editor_name {
     my ($self, $name) = @_;
 
-    my $query = "DELETE FROM old_editor_name WHERE name = ?";
+    my $query = 'DELETE FROM old_editor_name WHERE name = ?';
 
     $self->sql->do($query, $name);
 }
@@ -308,12 +308,12 @@ sub update_password
     my ($self, $editor_name, $password) = @_;
 
     Sql::run_in_transaction(sub {
-        $self->sql->do(<<~'EOSQL', hash_password($password), $password, $editor_name);
+        $self->sql->do(<<~'SQL', hash_password($password), $password, $editor_name);
             UPDATE editor
             SET password = ?, ha1 = md5(name || ':musicbrainz.org:' || ?), 
                 last_login_date = now()
             WHERE lower(name) = lower(?)
-            EOSQL
+            SQL
     }, $self->sql);
 }
 
@@ -392,8 +392,8 @@ sub load_preferences
     my %editors = map { $_->id => $_ } grep { defined } @editors
         or return;
 
-    my $query = sprintf "SELECT editor, name, value ".
-        "FROM editor_preference WHERE editor IN (%s)",
+    my $query = sprintf 'SELECT editor, name, value '.
+        'FROM editor_preference WHERE editor IN (%s)',
         placeholders(keys %editors);
 
     my $prefs = $self->sql->select_list_of_hashes($query, keys %editors);
@@ -462,8 +462,8 @@ sub load_for_collection {
     return unless $id; # nothing to do
 
     $self->load($collection);
-    my $query = "SELECT " . $self->_columns . ", ep.value AS show_gravatar
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . ', ep.value AS show_gravatar
+                 FROM ' . $self->_table . "
                  JOIN editor_collection_collaborator ecc ON editor.id = ecc.editor
                  LEFT JOIN editor_preference ep ON ep.editor = editor.id AND ep.name = 'show_gravatar'
                  WHERE ecc.collection = $id
@@ -484,12 +484,12 @@ sub editors_with_subscriptions {
     my ($self, $after, $limit) = @_;
 
     my @tables = (entities_with('subscriptions',
-                                take => sub { return "editor_subscribe_" . (shift) }),
+                                take => sub { return 'editor_subscribe_' . (shift) }),
                   entities_with(['subscriptions', 'deleted'],
-                                take => sub { return "editor_subscribe_" . (shift) . "_deleted" }));
+                                take => sub { return 'editor_subscribe_' . (shift) . '_deleted' }));
     my $ids = join(' UNION ALL ', map { "SELECT editor FROM $_" } @tables);
-    my $query = "SELECT " . $self->_columns . ", ep.value AS prefs_value
-                   FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . ', ep.value AS prefs_value
+                   FROM ' . $self->_table . "
               LEFT JOIN editor_preference ep
                      ON ep.editor = editor.id AND
                         ep.name = 'subscriptions_email_period'
@@ -520,7 +520,7 @@ sub delete {
         $editor_id,
     ) unless $allow_reuse;
     $self->sql->do(
-        "UPDATE editor SET name = 'Deleted Editor #' || id,
+        q{UPDATE editor SET name = 'Deleted Editor #' || id,
                            password = ?,
                            ha1 = '',
                            privs = 0,
@@ -532,12 +532,12 @@ sub delete {
                            birth_date = NULL,
                            gender = NULL,
                            deleted = TRUE
-         WHERE id = ?",
+         WHERE id = ?},
         Authen::Passphrase::RejectAll->new->as_rfc2307,
         $editor_id
     );
 
-    $self->sql->do("DELETE FROM editor_preference WHERE editor = ?", $editor_id);
+    $self->sql->do('DELETE FROM editor_preference WHERE editor = ?', $editor_id);
     $self->c->model('EditorLanguage')->delete_editor($editor_id);
 
     $self->c->model('EditorOAuthToken')->delete_editor($editor_id);
@@ -596,16 +596,16 @@ sub delete {
     # and whether or not they have an index to use, as postgresql will not execute
     # the later clauses if an earlier one has already excluded the lone editor row.
     my $should_delete = $self->sql->select_single_value(
-        "SELECT TRUE FROM editor WHERE id = ? " .
-        "AND NOT EXISTS (SELECT TRUE FROM edit WHERE editor = editor.id) " .
-        "AND NOT EXISTS (SELECT TRUE FROM edit_note WHERE editor = editor.id) " .
-        "AND NOT EXISTS (SELECT TRUE FROM vote WHERE editor = editor.id) " .
-        "AND NOT EXISTS (SELECT TRUE FROM annotation WHERE editor = editor.id) " .
-        "AND NOT EXISTS (SELECT TRUE FROM autoeditor_election_vote WHERE voter = editor.id) " .
-        "AND NOT EXISTS (SELECT TRUE FROM autoeditor_election WHERE candidate = editor.id OR proposer = editor.id OR seconder_1 = editor.id OR seconder_2 = editor.id)",
+        'SELECT TRUE FROM editor WHERE id = ?
+         AND NOT EXISTS (SELECT TRUE FROM edit WHERE editor = editor.id)
+         AND NOT EXISTS (SELECT TRUE FROM edit_note WHERE editor = editor.id)
+         AND NOT EXISTS (SELECT TRUE FROM vote WHERE editor = editor.id)
+         AND NOT EXISTS (SELECT TRUE FROM annotation WHERE editor = editor.id)
+         AND NOT EXISTS (SELECT TRUE FROM autoeditor_election_vote WHERE voter = editor.id)
+         AND NOT EXISTS (SELECT TRUE FROM autoeditor_election WHERE candidate = editor.id OR proposer = editor.id OR seconder_1 = editor.id OR seconder_2 = editor.id)',
         $editor_id);
     if ($should_delete) {
-        $self->sql->do("DELETE FROM editor WHERE id = ?", $editor_id);
+        $self->sql->do('DELETE FROM editor WHERE id = ?', $editor_id);
     }
 
     $self->sql->commit;
@@ -780,12 +780,12 @@ sub secondary_counts {
 sub last_24h_edit_count
 {
     my ($self, $editor_id) = @_;
+
     my $query =
-        "SELECT count(*)
+        q{SELECT count(*)
            FROM edit
           WHERE editor = ?
-          AND open_time >= (now() - interval '1 day')
-       ";
+          AND open_time >= (now() - interval '1 day')};
 
     return $self->sql->select_single_value($query, $editor_id);
 }

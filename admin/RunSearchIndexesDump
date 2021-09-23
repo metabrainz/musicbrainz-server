@@ -43,7 +43,7 @@ BACKUP_STAMP="$DUMP_STAMP" \
     --working-dir "$TEMP_DIR" \
     || exit $?
 
-# Copy the dump to the FTP directory.
+echo `date`" : Copying the dump to the local FTP directory"
 chown "$SEARCH_INDEXES_DUMP_USER:$SEARCH_INDEXES_DUMP_GROUP" "$TEMP_DIR"/*
 chmod "$SEARCH_INDEXES_DUMP_FILE_MODE" "$TEMP_DIR"/*
 mv "$TEMP_DIR"/* "$DUMP_DIR"/"$DUMP_STAMP"/
@@ -60,6 +60,8 @@ echo "$DUMP_STAMP" > "$DUMP_DIR"/LATEST
 chmod "$SEARCH_INDEXES_DUMP_FILE_MODE" "$DUMP_DIR"/LATEST
 chown "$SEARCH_INDEXES_DUMP_USER:$SEARCH_INDEXES_DUMP_GROUP" "$DUMP_DIR"/LATEST
 
+echo `date`" : Deleting old full exports from the local FTP directory"
 ./bin/delete-old-fullexports -k -r "$DUMP_DIR"
 
+echo `date`" : Syncing the local FTP directory with the FTP server"
 MBS_ADMIN_CONFIG=config.search-indexes-dump.sh ./bin/rsync-fullexport-files

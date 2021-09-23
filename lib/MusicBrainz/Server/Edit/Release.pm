@@ -17,7 +17,7 @@ sub check_event_countries {
     for (@$events) {
         my $country_id = $_->{country_id} // 'undef';
         if (exists $countries->{$country_id}) {
-            die "Duplicate release country: " . $country_id;
+            die "Duplicate release country: $country_id";
         }
         $countries->{$country_id} = 1;
     }

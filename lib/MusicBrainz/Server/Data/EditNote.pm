@@ -118,14 +118,14 @@ sub add_note
 sub find_by_recipient {
     my ($self, $recipient_id, $limit, $offset) = @_;
 
-    my $query = <<~"EOSQL";
+    my $query = <<~"SQL";
         SELECT ${\($self->_columns)}
         FROM edit_note_recipient
         JOIN ${\($self->_table)} ON ${\($self->_table)}.id = edit_note_recipient.edit_note
         WHERE recipient = \$1
         ORDER BY post_time DESC NULLS LAST, edit DESC
         LIMIT $LIMIT_FOR_EDIT_LISTING
-        EOSQL
+        SQL
     $self->query_to_list_limited(
         $query, [$recipient_id], $limit, $offset, undef,
         dollar_placeholders => 1,

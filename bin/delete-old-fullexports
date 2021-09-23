@@ -12,10 +12,10 @@ my $just_echo;
 use Getopt::Long;
 Getopt::Long::Configure(qw( no_ignore_case ));
 GetOptions(
-    "k"         => \$show_kept,
-    "r"         => \$show_removed,
-    "n"         => \$dry_run,
-    "e"         => \$just_echo,
+    'k'         => \$show_kept,
+    'r'         => \$show_removed,
+    'n'         => \$dry_run,
+    'e'         => \$just_echo,
 ) or exit 2;
 
 my $errors = 0;
@@ -50,8 +50,8 @@ sub prune_dir
         print "Removing $fullexport/$dir\n" if $show_removed;
         next if $dry_run;
 
-        my @echo = ($just_echo ? ("echo") : ());
-        system @echo, "/bin/rm", "-rf", "$fullexport/$dir";
+        my @echo = ($just_echo ? ('echo') : ());
+        system @echo, '/bin/rm', '-rf', "$fullexport/$dir";
 
         unless ($? == 0)
         {

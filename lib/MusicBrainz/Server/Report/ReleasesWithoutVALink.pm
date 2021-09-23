@@ -7,7 +7,7 @@ with 'MusicBrainz::Server::Report::ReleaseReport';
 sub component_name { 'ReleasesWithoutVaLink' }
 
 sub query {
-    "
+    q{
         SELECT DISTINCT ON (r.id)
             r.id AS release_id,
             row_number() OVER (ORDER BY r.artist_credit, r.name)
@@ -30,7 +30,7 @@ sub query {
             WHERE acn.name = 'Various Artists'
               AND a.name != 'Various Artists'
         ) r
-    ";
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

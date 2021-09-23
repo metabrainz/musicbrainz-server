@@ -64,9 +64,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-13 18:38-0500\n"
-"PO-Revision-Date: 2021-09-13 23:42+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"POT-Creation-Date: 2021-09-20 12:21+0300\n"
+"PO-Revision-Date: 2021-09-23 11:49+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -6315,7 +6315,7 @@ msgid ""
 "The “{gender}” gender has not been added to the destination artist because "
 "it conflicted with the group type of one of the artists here. Group artists "
 "cannot have a gender."
-msgstr "Le genre « {genre} » n’a pas été ajouté à l’artiste de destination car il était en conflit avec le type de groupe d’un des artistes ici. Les groupes ne peuvent pas avoir un genre."
+msgstr "Le genre « {gender} » n’a pas été ajouté à l’artiste de destination car il était en conflit avec le type de groupe d’un des artistes ici. Les groupes ne peuvent pas avoir un genre."
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAlias.pm:11
 msgid "Add event alias"
@@ -8233,7 +8233,7 @@ msgstr "Impossible d’afficher une carte, car le jeton d’accès au service ca
 
 #: ../root/area/AreaPlaces.js:68
 msgid "Add selected places for merging"
-msgstr ""
+msgstr "Ajouter les lieux choisis pour la fusion"
 
 #: ../root/area/AreaPlaces.js:77
 msgid "This area is not currently associated with any places."
@@ -8932,7 +8932,7 @@ msgstr "Œuvres connexes"
 #: ../root/components/Relationships.js:116
 msgid ""
 "{link} only has event relationships, which are displayed in the Events tab."
-msgstr ""
+msgstr "{link} n’a des relations qu’avec des événements, voir l’onglet Événements."
 
 #: ../root/components/Relationships.js:127
 msgid "{link} has no relationships."
@@ -10371,7 +10371,7 @@ msgstr "{link} n’a pas d’évaluation."
 
 #: ../root/entity/Subscribers.js:57
 msgid "This is a special purpose entity and does not support subscriptions."
-msgstr ""
+msgstr "C’est une entité à usage spécial à laquelle il n’est pas possible de s’abonner."
 
 #: ../root/entity/Subscribers.js:68
 msgid "There is currently {num} user subscribed to edits that you make:"
@@ -10812,7 +10812,7 @@ msgstr "Développement"
 
 #: ../root/layout/components/ExternalLinks.js:57
 msgid "{url} (as {credited_name})"
-msgstr ""
+msgstr "{url} (en tant que {credited_name})"
 
 #: ../root/layout/components/ExternalLinks.js:122
 msgid "Official homepage"
@@ -12074,11 +12074,11 @@ msgstr "Annotations sur les artistes"
 
 #: ../root/report/AnnotationsEvents.js:31
 msgid "This report lists events with annotations."
-msgstr ""
+msgstr "Ce rapport liste les événements avec des annotations."
 
 #: ../root/report/AnnotationsEvents.js:36
 msgid "Event annotations"
-msgstr ""
+msgstr "Annotations sur les événements"
 
 #: ../root/report/AnnotationsLabels.js:31
 msgid "This report lists labels with annotations."
@@ -13205,7 +13205,7 @@ msgstr "Éditeurs"
 
 #: ../root/report/ReportsIndex.js:142
 msgid "Events with annotations"
-msgstr ""
+msgstr "Événements avec des annotations"
 
 #: ../root/report/ReportsIndex.js:146
 msgid "Possibly duplicate events"
@@ -15757,15 +15757,15 @@ msgstr "Ne s’est encore jamais connecté"
 
 #: ../root/user/UserProfile.js:286
 msgid "Authorized applications"
-msgstr ""
+msgstr "Applications autorisées"
 
 #: ../root/user/UserProfile.js:293 ../root/user/UserProfile.js:309
 msgid "see list"
-msgstr ""
+msgstr "voir la liste"
 
 #: ../root/user/UserProfile.js:302
 msgid "Developer applications"
-msgstr ""
+msgstr "Applications de développeur"
 
 #: ../root/user/UserProfile.js:319
 msgid "Homepage:"

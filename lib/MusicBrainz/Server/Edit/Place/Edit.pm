@@ -30,7 +30,7 @@ use aliased 'MusicBrainz::Server::Entity::Area';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Coordinates';
 
-no if $] >= 5.018, warnings => "experimental::smartmatch";
+no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
@@ -186,7 +186,7 @@ sub _edit_hash {
     return $self->merge_changes;
 }
 
-sub edit_template_react { "EditPlace" }
+sub edit_template_react { 'EditPlace' }
 
 around extract_property => sub {
     my ($orig, $self) = splice(@_, 0, 2);

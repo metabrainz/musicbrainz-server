@@ -5,7 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
 with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion';
 
 my $ws_defs = Data::OptList::mkopt([
-    "genre" => {
+    'genre' => {
         method   => 'GET',
         required => [ qw(q) ],
         optional => [ qw(direct limit page timestamp) ]

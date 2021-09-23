@@ -8,7 +8,7 @@ with 'MusicBrainz::Server::Report::ReleaseGroupReport',
 sub component_name { 'SetInDifferentRg' }
 
 sub query {
-    "
+    q{
         SELECT DISTINCT
             rg.id AS release_group_id,
             row_number() OVER (ORDER BY rg.name COLLATE musicbrainz)
@@ -33,7 +33,7 @@ sub query {
             WHERE link_type.gid IN ('6d08ec1e-a292-4dac-90f3-c398a39defd5', 'fc399d47-23a7-4c28-bfcf-0607a562b644')
                 AND r0.release_group <> r1.release_group
         )
-    ";
+    };
 }
 
 1;

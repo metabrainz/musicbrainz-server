@@ -5,7 +5,7 @@ use 5.18.2;
 use Moose;
 use List::AllUtils qw( any );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MERGE );
-use MusicBrainz::Server::Data::Utils qw( localized_note );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json localized_note );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw(
     ArtistCreditDefinition
@@ -14,6 +14,7 @@ use MusicBrainz::Server::Edit::Types qw(
     RecordingMergesArray
 );
 use MusicBrainz::Server::Edit::Utils qw( large_spread );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 use Try::Tiny;
 
@@ -140,6 +141,7 @@ sub _build_recording_merges {
 sub edit_name { N_l('Merge releases') }
 sub edit_type { $EDIT_RELEASE_MERGE }
 sub _merge_model { 'Release' }
+sub edit_template_react { 'MergeReleases' }
 
 sub release_ids { @{ shift->_entity_ids } }
 
@@ -188,7 +190,7 @@ sub alter_edit_pending
     my @recording_ids = map { $_->{id} } map { $_->{destination}, @{ $_->{sources} } } @{ $self->recording_merges // [] };
     return {
         Release => [ $self->release_ids ],
-        @recording_ids ? (Recording => [ @recording_ids ]) : (),    
+        @recording_ids ? (Recording => [ @recording_ids ]) : (),
     }
 }
 
@@ -240,40 +242,22 @@ override build_display_data => sub
 
     my $data = super();
 
-    $self->c->model('Label')->load(
-        grep { $_->label_id && !defined($_->label) }
-        map { $_->all_labels }
-        values %{ $loaded->{Release} }
-    );
-
-    $self->c->model('Medium')->load_for_releases(
-        grep { $_->medium_count < 1 }
-        values %{ $loaded->{Release} }
-    );
-
-    $self->c->model('MediumFormat')->load(
-        grep { $_->format_id && !defined($_->format) }
-        map { $_->all_mediums }
-        values %{ $loaded->{Release} }
-    );
-
-    $self->c->model('Release')->load_release_events(
-        values %{ $loaded->{Release} }
-    );
-
     if ($self->data->{merge_strategy} == $MusicBrainz::Server::Data::Release::MERGE_APPEND) {
         $data->{changes} = [
             map +{
-                release => $loaded->{Release}{ $_->{release}{id} }
-                    || Release->new( name => $_->{release}{name} ),
-                mediums => $_->{mediums}
+                release => to_json_object(
+                    $loaded->{Release}{ $_->{release}{id} }
+                    || Release->new( name => $_->{release}{name} )
+                ),
+                mediums => to_json_array($_->{mediums})
             }, @{ $self->data->{medium_changes} }
         ];
-        $data->{empty_releases} = [
-            map +{
-                release => $loaded->{Release}{ $_->{id} } // Release->new(name => $_->{name}),
-            }, grep { defined $_->{mediums} && scalar @{ $_->{mediums} } == 0 } @{ $self->data->{old_entities} }
-        ];
+        $data->{empty_releases} = to_json_array([
+            map {
+                $loaded->{Release}{ $_->{id} } //
+                Release->new(name => $_->{name}),
+            } grep { defined $_->{mediums} && scalar @{ $_->{mediums} } == 0 } @{ $self->data->{old_entities} }
+        ]);
     } elsif ($self->data->{merge_strategy} == $MusicBrainz::Server::Data::Release::MERGE_MERGE) {
         my $recording_merges = $self->recording_merges;
 
@@ -289,14 +273,22 @@ override build_display_data => sub
                 )
             } @{$_->{sources}}];
             {
-                medium => $_->{medium},
-                track => $_->{track},
-                destination => $destination,
-                sources => $sources,
-                large_spread => (large_spread(map { $_->length } $destination, @{$sources}) ? 1 : 0),
+                medium => to_json_object($_->{medium}),
+                track => to_json_object($_->{track}),
+                destination => to_json_object($destination),
+                sources => to_json_array($sources),
+                large_spread => boolean_to_json(large_spread(map { $_->length } $destination, @{$sources}) ? 1 : 0),
             }
         } @{$recording_merges}] if defined $recording_merges;
     }
+
+    $data->{merge_strategy} = $self->data->{merge_strategy} == $MusicBrainz::Server::Data::Release::MERGE_APPEND
+        ? 'append'
+        : 'merge';
+
+    $data->{edit_version} = $self->data->{_edit_version};
+
+    $data->{cannot_merge_recordings_reason} = $self->{cannot_merge_recordings_reason};
 
     return $data;
 };

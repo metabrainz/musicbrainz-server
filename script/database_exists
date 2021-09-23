@@ -16,7 +16,7 @@ if ($ARGV[0])
     my $sql = Sql->new( $db->conn );
 
     my $so = $sql->select_single_value(
-        "SELECT TRUE FROM information_schema.information_schema_catalog_name WHERE catalog_name = ?",
+        'SELECT TRUE FROM information_schema.information_schema_catalog_name WHERE catalog_name = ?',
         $db->database->database);
     exit 0 if $so;
     exit 1; # E_NODATABASE

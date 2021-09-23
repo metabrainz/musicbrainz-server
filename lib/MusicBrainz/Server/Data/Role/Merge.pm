@@ -22,10 +22,10 @@ around merge => sub {
         unless $new_id && $new_id > 0;
 
     my @to_merge = grep { $_ != $new_id } @old_ids
-        or croak("Attempted to merge empty list of IDs into target");
+        or croak('Attempted to merge empty list of IDs into target');
 
     @to_merge == @old_ids
-        or croak("Attempted to merge an object into itself");
+        or croak('Attempted to merge an object into itself');
 
     $self->_merge_impl($new_id, @to_merge);
 };

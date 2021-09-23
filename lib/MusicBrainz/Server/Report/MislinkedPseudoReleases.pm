@@ -4,7 +4,7 @@ use Moose;
 with 'MusicBrainz::Server::Report::ReleaseReport',
      'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
-sub query {<<~'EOSQL'}
+sub query {<<~'SQL'}
     SELECT r.id AS release_id,
            row_number() OVER (ORDER BY ac.name COLLATE musicbrainz, r.name COLLATE musicbrainz)
     FROM release r
@@ -14,7 +14,7 @@ sub query {<<~'EOSQL'}
         JOIN artist_credit ac ON r.artist_credit = ac.id
     WHERE lt.gid = 'fc399d47-23a7-4c28-bfcf-0607a562b644' --transl(iter)ation
     AND r.status = 4 --pseudo-release
-    EOSQL
+    SQL
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

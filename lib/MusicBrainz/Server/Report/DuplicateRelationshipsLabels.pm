@@ -5,7 +5,7 @@ with 'MusicBrainz::Server::Report::LabelReport',
      'MusicBrainz::Server::Report::FilterForEditor::LabelID';
 
 sub query {
-    "
+    '
 
 SELECT q.entity AS label_id, row_number() OVER (ORDER BY label.name COLLATE musicbrainz) FROM (
 
@@ -67,7 +67,7 @@ SELECT q.entity AS label_id, row_number() OVER (ORDER BY label.name COLLATE musi
 JOIN label ON q.entity = label.id
 GROUP BY q.entity, label.name
 
-    ";
+    ';
 }
 
 __PACKAGE__->meta->make_immutable;

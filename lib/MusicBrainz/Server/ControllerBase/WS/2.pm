@@ -47,7 +47,7 @@ sub deny_readonly : Private
     if (DBDefs->DB_READ_ONLY) {
         $c->res->status(503);
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-        $c->res->body($c->stash->{serializer}->output_error("The database is currently in readonly mode and cannot handle your request"));
+        $c->res->body($c->stash->{serializer}->output_error('The database is currently in readonly mode and cannot handle your request'));
         $c->detach;
     }
 }
@@ -64,7 +64,7 @@ sub forbidden : Private
     my ($self, $c) = @_;
     $c->res->status(401);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->output_error("You are not authorized to access this resource."));
+    $c->res->body($c->stash->{serializer}->output_error('You are not authorized to access this resource.'));
     $c->detach;
 }
 
@@ -73,10 +73,10 @@ sub unauthorized : Private
     my ($self, $c) = @_;
     $c->res->status(401);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->output_error("Your credentials ".
-        "could not be verified. Either you supplied the wrong credentials ".
-        "(e.g., bad password), or your client doesn't understand how to ".
-        "supply the credentials required."));
+    $c->res->body($c->stash->{serializer}->output_error('Your credentials '.
+        'could not be verified. Either you supplied the wrong credentials '.
+        q{(e.g., bad password), or your client doesn't understand how to }.
+        'supply the credentials required.'));
     $c->detach;
 }
 
@@ -85,13 +85,13 @@ sub not_found : Private
     my ($self, $c) = @_;
     $c->res->status(404);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->output_error("Not Found"));
+    $c->res->body($c->stash->{serializer}->output_error('Not Found'));
 }
 
 sub invalid_mbid : Private
 {
     my ($self, $c, $id) = @_;
-    $c->stash->{error} = "Invalid mbid.";
+    $c->stash->{error} = 'Invalid mbid.';
     $c->detach('bad_req');
 }
 
@@ -111,7 +111,7 @@ sub not_implemented : Private
 
     $c->res->status(501);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->output_error("This hasn't been implemented yet."));
+    $c->res->body($c->stash->{serializer}->output_error(q(This hasn't been implemented yet.)));
 }
 
 sub begin : Private {
@@ -123,7 +123,7 @@ sub begin : Private {
 
 sub end : Private { }
 
-sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
+sub root : Chained('/') PathPart('ws/2') CaptureArgs(0)
 {
     my ($self, $c) = @_;
 
@@ -298,7 +298,7 @@ sub _limit_and_offset
 
     if (!(is_nat($limit) && is_nat($offset))) {
         $self->_error(
-            $c, "The 'limit' and 'offset' parameters must be positive integers"
+            $c, q(The 'limit' and 'offset' parameters must be positive integers)
         );
     }
 
@@ -531,7 +531,7 @@ sub _validate_post
         $c->detach;
     }
 
-    $self->_error($c, "Please specify the name and version number of your client application.")
+    $self->_error($c, 'Please specify the name and version number of your client application.')
         unless $c->req->params->{client};
 }
 
@@ -547,13 +547,13 @@ sub _validate_entity
 
     if (!$gid || !is_guid($gid))
     {
-        $c->stash->{error} = "Invalid mbid.";
+        $c->stash->{error} = 'Invalid mbid.';
         $c->detach('bad_req');
     }
 
     if (!$model)
     {
-        $c->stash->{error} = "Invalid entity type.";
+        $c->stash->{error} = 'Invalid entity type.';
         $c->detach('bad_req');
     }
 
@@ -581,7 +581,7 @@ sub load_relationships {
 
         if ($c->stash->{inc}->work_level_rels)
         {
-            push(@entities_with_rels, @works); 
+            push(@entities_with_rels, @works);
             # Avoid returning recording-work relationships for other recordings
             $c->model('Relationship')->load_subset_cardinal($types, @works);
         }

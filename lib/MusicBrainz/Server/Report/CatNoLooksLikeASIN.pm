@@ -7,7 +7,7 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
 sub component_name { 'CatNoLooksLikeAsin' }
 
 sub query {
-    "
+    q{
         SELECT
             r.id AS release_id, rl.catalog_number,
             row_number() OVER (ORDER BY ac.name COLLATE musicbrainz, r.name COLLATE musicbrainz)
@@ -17,7 +17,7 @@ sub query {
             ON r.id = rl.release
             JOIN artist_credit ac ON r.artist_credit = ac.id
         WHERE rl.catalog_number ~ '^B0[0-9A-Z]{8}\$'
-    "
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

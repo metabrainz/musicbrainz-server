@@ -10,9 +10,9 @@ sub serialize
     my %body;
 
     $body{name} = $entity->name;
-    $body{disambiguation} = $entity->comment // "";
-    $body{time} = $entity->formatted_time // "";
-    $body{setlist} = $entity->setlist // "";
+    $body{disambiguation} = $entity->comment // '';
+    $body{time} = $entity->formatted_time // '';
+    $body{setlist} = $entity->setlist // '';
     $body{cancelled} = boolean($entity->cancelled);
 
     return \%body;

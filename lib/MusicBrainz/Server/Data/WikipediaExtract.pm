@@ -111,7 +111,7 @@ sub get_extract
 sub get_extract_by_language
 {
     my ($self, $title, $language, %opts) = @_;
-    my $url_pattern = "https://%s.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&format=json&redirects=1&titles=%s";
+    my $url_pattern = 'https://%s.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&format=json&redirects=1&titles=%s';
     return $self->_fetch_cache_or_url($url_pattern, 'extract',
                                       $EXTRACT_CACHE_TIMEOUT,
                                       $title, $language,
@@ -125,11 +125,11 @@ sub get_available_languages
     for my $link (@$links) {
         my ($url_pattern, $key, $callback, $language, $ret);
         if ($link->isa('MusicBrainz::Server::Entity::URL::Wikidata')) {
-            $url_pattern = "https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&props=sitelinks&ids=%s%s";
+            $url_pattern = 'https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&props=sitelinks&ids=%s%s';
             $key = 'sitelinks';
             $callback = \&_wikidata_languages_callback;
         } else {
-            $url_pattern = "https://%s.wikipedia.org/w/api.php?action=query&prop=langlinks&lllimit=max&format=json&redirects=1&titles=%s";
+            $url_pattern = 'https://%s.wikipedia.org/w/api.php?action=query&prop=langlinks&lllimit=max&format=json&redirects=1&titles=%s';
             $key = 'langlinks';
             $callback = \&_wikipedia_languages_callback;
             $language = $link->language;
@@ -158,7 +158,7 @@ sub _wikidata_languages_callback
             if ($wiki =~ /wiki$/ and $wiki ne 'commonswiki') {
                 my $lang = $wiki =~ s/wiki$//r;
                 my $page = $opts{fetched}{content}{sitelinks}{$wiki}{title};
-                push @langs, {"lang" => $lang, "title" => $page}
+                push @langs, {'lang' => $lang, 'title' => $page}
             }
         }
         return \@langs;
@@ -168,7 +168,7 @@ sub _wikidata_languages_callback
 sub _wikipedia_languages_callback
 {
     my (%opts) = @_;
-    my @langs = map { {"lang" => $_->{lang}, "title" => $_->{"*"}} } @{ $opts{fetched}{content} };
+    my @langs = map { {'lang' => $_->{lang}, 'title' => $_->{'*'}} } @{ $opts{fetched}{content} };
     return \@langs;
 }
 
@@ -180,7 +180,7 @@ sub _extract_by_language_callback
                                       content => $opts{fetched}{content},
                                       canonical => $opts{fetched}{canonical},
                                       language => $opts{language},
-                                      url => sprintf "https://%s.wikipedia.org/wiki/%s",
+                                      url => sprintf 'https://%s.wikipedia.org/wiki/%s',
                                                      $opts{language},
                                                      uri_escape_utf8($opts{fetched}{title} =~ tr/ /_/r)
         );
@@ -192,7 +192,7 @@ sub _check_for_redirect
     my ($self, $title, $language, %opts) = @_;
     return 1 if exists $redirected_languages{$language};
     # We use formatversion=2 so that "redirect" is returned as an actual boolean, not the empty string
-    my $url_pattern = "https://%s.wikipedia.org/w/api.php?action=query&prop=info&format=json&formatversion=2&titles=%s";
+    my $url_pattern = 'https://%s.wikipedia.org/w/api.php?action=query&prop=info&format=json&formatversion=2&titles=%s';
     my $return = $self->_fetch_cache_or_url($url_pattern, 'redirect',
                                       $EXTRACT_CACHE_TIMEOUT,
                                       $title, $language,

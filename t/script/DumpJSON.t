@@ -38,12 +38,12 @@ test all => sub {
         system 'sh', '-c' => "echo $sql | $psql TEST_JSON_DUMP";
     };
 
-    $exec_sql->(<<~"EOSQL");
+    $exec_sql->(<<~"SQL");
         INSERT INTO replication_control (current_schema_sequence, current_replication_sequence, last_replication_date)
             VALUES ($schema_seq, 1, now() - interval '1 hour');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, '30238ead-59fa-41e2-a7ab-b7f6e6363c4b', 'Blue Guy', 'Blues Guy');
-        EOSQL
+        SQL
 
     my $output_dir;
     my $new_output_dir = sub {
@@ -613,7 +613,7 @@ EOF
     ]);
     $test_dumps_empty_except->($output_dir, qw( artist recording release-group work ));
 
-    $exec_sql->(<<~'EOSQL');
+    $exec_sql->(<<~'SQL');
         TRUNCATE artist CASCADE;
         TRUNCATE artist_credit CASCADE;
         TRUNCATE artist_credit_name CASCADE;
@@ -625,7 +625,7 @@ EOF
         TRUNCATE work CASCADE;
         TRUNCATE json_dump.control;
         TRUNCATE json_dump.tmp_checked_entities;
-        EOSQL
+        SQL
 };
 
 run_me;

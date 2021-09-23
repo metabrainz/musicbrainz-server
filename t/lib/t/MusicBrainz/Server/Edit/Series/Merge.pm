@@ -92,7 +92,7 @@ test 'Can merge series with editors subscribed at both ends' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+series');
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
             VALUES (10, 'Fred', '{CLEARTEXT}mb', '', '', now());
 
@@ -104,7 +104,7 @@ test 'Can merge series with editors subscribed at both ends' => sub {
             VALUES (10, 1, 1), (10, 3, 1);
 
         ALTER SEQUENCE edit_id_seq RESTART 2;
-        EOSQL
+        SQL
 
     my $edit = create_merge_edit($c);
     $edit->accept;

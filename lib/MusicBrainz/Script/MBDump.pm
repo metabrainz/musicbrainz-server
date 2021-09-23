@@ -59,6 +59,12 @@ has compression_level => (
     isa => 'Maybe[Str]',
 );
 
+has compression_threads => (
+    is => 'rw',
+    isa => 'Maybe[Int]',
+    default => DBDefs->DUMP_COMPRESSION_THREADS,
+);
+
 has replication_sequence => (
     is => 'ro',
     isa => 'Maybe[Int]',
@@ -95,7 +101,7 @@ sub begin_dump {
     my $schema_sequence = $replication_control->{current_schema_sequence};
     my $dbdefs_schema_sequence = DBDefs->DB_SCHEMA_SEQUENCE;
     $schema_sequence
-        or die "Don't know what schema sequence number we're using";
+        or die q(Don't know what schema sequence number we're using);
     $schema_sequence == $dbdefs_schema_sequence
         or die "Stored schema sequence ($schema_sequence) does not match " .
                "DBDefs->DB_SCHEMA_SEQUENCE ($dbdefs_schema_sequence)";
@@ -153,11 +159,12 @@ sub make_tar {
     my $output_dir = $self->output_dir;
     my $compression = $self->compression;
     my $compression_level = $self->compression_level;
+    my $compression_threads = $self->compression_threads;
 
     my $compress_command;
     if ($compression) {
         $compress_command = "$compression";
-        $compress_command .= ' --threads=0' if $compression eq 'xz';
+        $compress_command .= " --threads=$compression_threads" if $compression eq 'xz';
         $compress_command .= " -$compression_level" if defined $compression_level;
     }
 

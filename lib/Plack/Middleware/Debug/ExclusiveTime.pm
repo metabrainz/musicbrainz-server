@@ -19,7 +19,7 @@ sub run {
         $panel->content(
             $self->render_list_pairs(
                 [
-                    map { $_, sprintf("%.5f", $call_times{$_}) }
+                    map { $_, sprintf('%.5f', $call_times{$_}) }
                         sort { $call_times{$b} <=> $call_times{$a} }
                             keys %call_times ]));
     };

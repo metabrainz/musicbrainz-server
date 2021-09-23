@@ -65,12 +65,12 @@ sub prepare {
     my $c = $test->c;
     my $mech = $test->mech;
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, 'e69a970a-e916-11e0-a751-00508db50876', 'artist', 'artist');
         INSERT INTO editor (id, name, password, email, ha1, email_confirm_date)
             VALUES (1, 'editor1', '{CLEARTEXT}pass', 'editor1@example.com', '16a4862191803cb596ee4b16802bb7ee', now())
-        EOSQL
+        SQL
 
     my $edit = $test->c->model('Edit')->create(
         editor_id => 1,

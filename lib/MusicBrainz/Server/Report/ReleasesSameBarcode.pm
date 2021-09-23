@@ -9,7 +9,7 @@ sub table { 'releases_same_barcode' }
 sub component_name { 'ReleasesSameBarcode' }
 
 sub query {
-    "
+    q{
         SELECT DISTINCT ON (r.id)
             r.barcode AS barcode, r.id AS release_id, r.release_group AS release_group_id,
             row_number() OVER (ORDER BY r.barcode, r.name COLLATE musicbrainz)
@@ -24,7 +24,7 @@ sub query {
                 AND r2.status != 3 -- skip bootlegs
                 AND r.release_group != r2.release_group
         )
-    "
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

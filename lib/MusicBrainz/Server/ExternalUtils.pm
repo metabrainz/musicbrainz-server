@@ -17,7 +17,7 @@ sub get_chunked_with_retry {
         # delayed, and the LWP timeout fires causing the response to only be
         # partially completed. In this case, the X-Died header is set.  If this
         # happens, we retry the request.
-        my $x_died = $response->headers->header("X-Died");
+        my $x_died = $response->headers->header('X-Died');
         $response = undef if ($x_died && $x_died =~ /read timeout/);
     }
     return $response;

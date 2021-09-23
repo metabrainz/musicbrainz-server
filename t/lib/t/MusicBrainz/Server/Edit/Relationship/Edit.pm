@@ -201,7 +201,7 @@ test 'Editing a relationship refreshes existing cover art' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, '9d0ed9ec-ebd4-40d3-80ec-af70c07c3667', 'Artist', 'Artist');
         INSERT INTO artist_credit (id, artist_count, name) VALUES (1, 1, 'Artist');
@@ -224,7 +224,7 @@ test 'Editing a relationship refreshes existing cover art' => sub {
         INSERT INTO link (id, link_type) VALUES (1, 78);
         UPDATE link_type SET is_deprecated = TRUE WHERE id = 78;
         INSERT INTO l_release_url (id, entity0, entity1, link) VALUES (1, 1, 1, 1);
-        EOSQL
+        SQL
 
     my $rel = $c->model('Relationship')->get_by_id('release', 'url', 1);
     $c->model('Link')->load($rel);

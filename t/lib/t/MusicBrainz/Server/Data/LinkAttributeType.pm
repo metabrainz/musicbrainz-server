@@ -70,12 +70,12 @@ test 'Updating a link attribute invalidates cache entries for links' => sub {
     my $test = shift;
     my $c = $test->cache_aware_c;
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO link (id, link_type, attribute_count)
             VALUES (1, 148, 1);
         INSERT INTO link_attribute (link, attribute_type)
             VALUES (1, 1);
-        EOSQL
+        SQL
 
     # Ensure cache is clear before calling get_by_id
     $c->cache->delete('link:1');

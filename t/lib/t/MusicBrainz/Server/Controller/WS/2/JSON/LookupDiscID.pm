@@ -106,13 +106,13 @@ test 'lookup via toc' => sub {
     my $test = shift;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
-    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'SQL');
         INSERT INTO medium_cdtoc (medium, cdtoc) VALUES (2, 2);
         INSERT INTO tag (id, name) VALUES (1, 'musical'), (2, 'not-used');
         INSERT INTO genre (id, gid, name)
             VALUES (1, 'ff6d73e8-bf1a-431e-9911-88ae7ffcfdfb', 'musical');
         INSERT INTO release_tag (tag, release, count) VALUES (1, 2, 2), (2, 2, 2);
-        EOSQL
+        SQL
     $test->c->model('DurationLookup')->update(2);
     $test->c->model('DurationLookup')->update(4);
 

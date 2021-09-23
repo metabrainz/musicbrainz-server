@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import localizeLanguageName from '../i18n/localizeLanguageName';
 import {CatalystContext} from '../../../../context';
 import RatingStars from '../../../../components/RatingStars';
 import loopParity from '../../../../utility/loopParity';
@@ -95,7 +96,7 @@ export const WorkListRow = ({
               data-iso-639-3={language.language.iso_code_3}
               key={language.language.id}
             >
-              {l_languages(language.language.name)}
+              {localizeLanguageName(language.language, true)}
             </li>
           ))}
         </ul>

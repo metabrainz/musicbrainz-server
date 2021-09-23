@@ -5,7 +5,7 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
      'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
 sub query {
-   "SELECT DISTINCT ON (release.id)
+   q{SELECT DISTINCT ON (release.id)
       release.id AS release_id,
       row_number() OVER (
         ORDER BY artist_credit.name COLLATE musicbrainz, release.name COLLATE musicbrainz
@@ -18,7 +18,7 @@ sub query {
       FROM medium
       GROUP BY release
       HAVING count(id) = 1
-    ) AND medium.name != ''";
+    ) AND medium.name != ''};
 }
 
 __PACKAGE__->meta->make_immutable;

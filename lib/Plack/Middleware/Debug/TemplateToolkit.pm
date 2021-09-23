@@ -17,16 +17,16 @@ sub run {
                      my ($template, $ltime, $calls) = @$_;
                      my $i = 0;
                      "<h3>$template (at $ltime)</h3>" .
-                     "<table><thead><tr>".
+                     '<table><thead><tr>'.
                      join('', map { "<th>$_</th>" } qw(cnt clk user sys cuser csys template)) .
-                     "</tr><thead>".
+                     '</tr><thead>'.
                      join('', map {
                          sprintf('<tr class="%s">', $i++ % 2 == 0 ? 'plDebugEven' : 'plDebugOdd').
-                         sprintf("<td>%d</td><td>%d</td><td>%.2f</td>".
-                                 "<td>%.2f</td><td>%.2f</td><td>%.2f</td><td>%s</td>", @$_).
-                     "</tr>"
+                         sprintf('<td>%d</td><td>%d</td><td>%.2f</td>'.
+                                 '<td>%.2f</td><td>%.2f</td><td>%.2f</td><td>%s</td>', @$_).
+                     '</tr>'
                      } @$calls).
-                     "</table>"
+                     '</table>'
                  } @output)
         );
     }
@@ -44,7 +44,7 @@ sub process {
   my $self = shift;
 
   my $template = $_[0];
-  if (UNIVERSAL::isa($template, "Template::Document")) {
+  if (UNIVERSAL::isa($template, 'Template::Document')) {
     $template = $template->name || $template;
   }
 

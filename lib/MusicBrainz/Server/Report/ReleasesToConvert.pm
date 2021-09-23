@@ -5,7 +5,7 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
      'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
 sub query {
-    "
+    q{
         SELECT DISTINCT release.id AS release_id,
           row_number() OVER (ORDER BY artist_credit.name COLLATE musicbrainz, release.name COLLATE musicbrainz)
         FROM track
@@ -15,7 +15,7 @@ sub query {
         WHERE track.name ~* E'[^\\\\d]-[^\\\\d]' OR track.name LIKE '%/%'
         GROUP BY release.id, release.name, medium.id, medium.track_count, artist_credit.name
         HAVING count(*) = medium.track_count
-    ";
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -14,7 +14,7 @@ my $text_too_long_message = N_l('The value of this field cannot be longer than {
 
 sub localize_method_with_text_maxlength {
     my ($self, $message, @args) = @_;
-    
+
     if ($message eq $text_too_long_message) {
         return l($message, { max => $args[0], actual => $args[1] });
     }

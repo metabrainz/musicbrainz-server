@@ -13,7 +13,7 @@ sub ensure_ssl {
 
     if (DBDefs->SSL_REDIRECTS_ENABLED && !$c->request->secure) {
         $c->response->redirect(
-            "https://".DBDefs->WEB_SERVER_SSL.$c->request->env->{REQUEST_URI});
+            'https://'.DBDefs->WEB_SERVER_SSL.$c->request->env->{REQUEST_URI});
         $c->detach;
     }
 }

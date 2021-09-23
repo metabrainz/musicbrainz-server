@@ -39,16 +39,16 @@ sub _entity_class
 sub get_by_discid
 {
     my ($self, $discid) = @_;
-    my @result = $self->_get_by_keys("discid", $discid);
+    my @result = $self->_get_by_keys('discid', $discid);
     return $result[0];
 }
 
 sub find_by_freedbid
 {
     my ($self, $freedbid) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                 WHERE freedb_id = ?";
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
+                 WHERE freedb_id = ?';
     $self->query_to_list($query, [$freedbid]);
 }
 
@@ -64,7 +64,7 @@ sub find_or_insert
 
     my $cdtoc = MusicBrainz::Server::Entity::CDTOC->new_from_toc($toc);
     if (!$cdtoc) {
-        log_error { "Attempt to insert invalid CDTOC; aborting "};
+        log_error { 'Attempt to insert invalid CDTOC; aborting '};
         return;
     }
 

@@ -109,20 +109,20 @@ test 'WatchArtist->find_new_releases' => sub {
 
     subtest 'Find releases within our notification timeframe' => sub {
         $test->sql->begin;
-        $test->sql->do(<<~'EOSQL');
+        $test->sql->do(<<~'SQL');
             UPDATE release SET date_year = EXTRACT(YEAR FROM NOW() + '@ 3 week'),
                                date_month = EXTRACT(MONTH FROM NOW() + '@ 3 week'),
                                date_day = EXTRACT(MONTH FROM NOW() + '@ 3 week')
-            EOSQL
+            SQL
 
         my @releases = $test->c->model('WatchArtist')->find_new_releases(1);
         is(@releases => 0, 'found no releases with 1 week timeframe');
 
-        $test->sql->do(<<~'EOSQL');
+        $test->sql->do(<<~'SQL');
             UPDATE editor_watch_preferences
             SET notification_timeframe = '@ 1 month'
             WHERE editor = 1
-            EOSQL
+            SQL
 
         @releases = $test->c->model('WatchArtist')->find_new_releases(1);
         is(@releases => 1, 'found releases with a 1 month timeframe');

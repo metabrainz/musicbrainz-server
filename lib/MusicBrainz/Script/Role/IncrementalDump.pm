@@ -450,7 +450,7 @@ sub run_incremental_dump {
 
         if (defined $last_processed_seq) {
             if ($current_seq == $last_processed_seq) {
-                log("Up-to-date.");
+                log('Up-to-date.');
                 last;
             }
         } else {
@@ -476,12 +476,12 @@ sub run_incremental_dump {
 
                 if (($current_seq - $last_processed_seq) > 2) {
                     log("ERROR: Table $dump_schema.tmp_checked_entities " .
-                        "is not empty, and the script is more than two " .
-                        "replication packets behind. You should check " .
-                        "that a previous run of the script didn't " .
-                        "unexpectedly die; this script will not run again " .
+                        'is not empty, and the script is more than two ' .
+                        'replication packets behind. You should check ' .
+                        q(that a previous run of the script didn't ) .
+                        'unexpectedly die; this script will not run again ' .
                         "until $dump_schema.tmp_checked_entities is " .
-                        "cleared.");
+                        'cleared.');
                     exit 1;
                 }
                 exit 0;

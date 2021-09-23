@@ -39,9 +39,9 @@ sub find_watched_artists {
 sub watch_artist {
     my ($self, %params) = @_;
     my $artist_id = delete $params{artist_id}
-        or confess "Missing required parameter 'artist_id'";
+        or confess q(Missing required parameter 'artist_id');
     my $editor_id = delete $params{editor_id}
-        or confess "Missing required parameter 'editor_id'";
+        or confess q(Missing required parameter 'editor_id');
 
     try {
         $self->sql->auto_commit(1);
@@ -64,9 +64,9 @@ sub watch_artist {
 sub stop_watching_artist {
     my ($self, %params) = @_;
     my $artist_ids = delete $params{artist_ids}
-        or confess "Missing required parameter 'artist_ids'";
+        or confess q(Missing required parameter 'artist_ids');
     my $editor_id = delete $params{editor_id}
-        or confess "Missing required parameter 'editor_id'";
+        or confess q(Missing required parameter 'editor_id');
 
     $self->sql->auto_commit(1);
     $self->sql->do(
@@ -80,9 +80,9 @@ sub stop_watching_artist {
 sub is_watching {
     my ($self, %params) = @_;
     my $artist_id = delete $params{artist_id}
-        or confess "Missing required parameter 'artist_id'";
+        or confess q(Missing required parameter 'artist_id');
     my $editor_id = delete $params{editor_id}
-        or confess "Missing required parameter 'editor_id'";
+        or confess q(Missing required parameter 'editor_id');
 
     return $self->sql->select_single_value(
         'SELECT 1 FROM editor_watch_artist
@@ -97,7 +97,7 @@ sub find_new_releases {
 
     my $query =
         'SELECT DISTINCT ' . $self->c->model('Release')->_columns . '
-           FROM ' . $self->c->model('Release')->_table . "
+           FROM ' . $self->c->model('Release')->_table . q(
            JOIN release_group rg ON release_group = rg.id
            JOIN artist_credit_name acn
                ON acn.artist_credit = release.artist_credit
@@ -113,7 +113,7 @@ sub find_new_releases {
                     COALESCE(date_month, '01') || '-' ||
                     COALESCE(date_day, '01'), 'YYYY-MM-DD')
                   BETWEEN (NOW() - ?::INTERVAL) AND
-                          (NOW() + ewp.notification_timeframe)";
+                          (NOW() + ewp.notification_timeframe));
 
     $self->c->model('Release')->query_to_list(
         $query,

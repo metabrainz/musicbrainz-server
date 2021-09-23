@@ -49,7 +49,7 @@ sub get_collection_from_stash {
     my $collection = $c->stash->{entity} // $c->detach('not_found');
     if (!$collection->public) {
         $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
-        unless ($c->user_exists && 
+        unless ($c->user_exists &&
                     $c->model('Collection')->is_collection_collaborator($c->user->id, $collection->id)) {
             $self->_error($c, 'You do not have permission to view this collection');
         }
@@ -172,12 +172,12 @@ map {
 
     my $method_name = $plural . '_get';
     find_meta(__PACKAGE__)->add_method($method_name => $method);
-    find_meta(__PACKAGE__)->register_method_attributes($method, ["Chained('load')", "PathPart('$plural_url')", "Args(0)"]);
+    find_meta(__PACKAGE__)->register_method_attributes($method, [q{Chained('load')}, "PathPart('$plural_url')", 'Args(0)']);
 
     find_meta(__PACKAGE__)->add_method($plural => $submission_method);
     find_meta(__PACKAGE__)->register_method_attributes(
         $submission_method,
-        ["Chained('load')", "PathPart('$plural_url')", "Args(1)"],
+        [q{Chained('load')}, "PathPart('$plural_url')", 'Args(1)'],
     );
 } entities_with('collections');
 

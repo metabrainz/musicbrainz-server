@@ -20,7 +20,7 @@ sub browse_by_collection {
     if (!$collection->public) {
         $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
         $self->unauthorized($c)
-            unless $c->user_exists && 
+            unless $c->user_exists &&
                     $c->model('Collection')->is_collection_collaborator($c->user->id, $collection->id);
     }
 

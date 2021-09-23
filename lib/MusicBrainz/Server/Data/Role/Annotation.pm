@@ -10,7 +10,7 @@ parameter 'type' => (
 
 parameter 'table' => (
     isa => 'Str',
-    default => sub { shift->type . "_annotation" },
+    default => sub { shift->type . '_annotation' },
     lazy => 1
 );
 

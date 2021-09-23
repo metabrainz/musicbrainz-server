@@ -10,21 +10,21 @@ sub serialize
     my %body;
 
     $body{title} = $entity->name;
-    $body{"primary-type"} = $entity->primary_type
+    $body{'primary-type'} = $entity->primary_type
         ? $entity->primary_type->name : JSON::null;
-    $body{"primary-type-id"} = $entity->primary_type
+    $body{'primary-type-id'} = $entity->primary_type
         ? $entity->primary_type->gid : JSON::null;
-    $body{"secondary-types"} = [ map {
+    $body{'secondary-types'} = [ map {
         $_->name } $entity->all_secondary_types ];
-    $body{"secondary-type-ids"} = [ map {
+    $body{'secondary-type-ids'} = [ map {
         $_->gid } $entity->all_secondary_types ];
-    $body{"first-release-date"} = $entity->first_release_date->format;
-    $body{disambiguation} = $entity->comment // "";
+    $body{'first-release-date'} = $entity->first_release_date->format;
+    $body{disambiguation} = $entity->comment // '';
 
-    $body{"artist-credit"} = serialize_entity($entity->artist_credit, $inc, $stash)
+    $body{'artist-credit'} = serialize_entity($entity->artist_credit, $inc, $stash)
         if $inc && ($inc->artist_credits || $inc->artists);
 
-    $body{releases} = list_of($entity, $inc, $stash, "releases")
+    $body{releases} = list_of($entity, $inc, $stash, 'releases')
         if $inc && $inc->releases;
 
     return \%body;

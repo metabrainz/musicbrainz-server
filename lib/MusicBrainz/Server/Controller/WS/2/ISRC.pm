@@ -26,7 +26,7 @@ sub isrc : Chained('root') PathPart('isrc') Args(1)
 
     if (!is_valid_isrc($isrc_code))
     {
-        $c->stash->{error} = "Invalid isrc.";
+        $c->stash->{error} = 'Invalid isrc.';
         $c->detach('bad_req');
     }
 

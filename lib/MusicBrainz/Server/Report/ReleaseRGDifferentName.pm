@@ -9,7 +9,7 @@ sub table { 'release_rg_different_name' }
 sub component_name { 'ReleaseRgDifferentName' }
 
 sub query {
-    "
+    '
         SELECT
             r.id AS release_id, rg.id AS release_group_id,
             row_number() OVER (ORDER BY r.name COLLATE musicbrainz, rg.name COLLATE musicbrainz)
@@ -21,7 +21,7 @@ sub query {
             ON rgm.id = rg.id
         WHERE rgm.release_count = 1
           AND r.name != rg.name
-    "
+    '
 }
 
 __PACKAGE__->meta->make_immutable;

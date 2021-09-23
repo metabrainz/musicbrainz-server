@@ -42,7 +42,7 @@ has '+data' => (
 sub initialize {
     my ($self, %opts) = @_;
     my $release = $opts{release} or die 'Release missing';
-    my $cover_art = $opts{to_delete} or die "Required 'to_delete' object";
+    my $cover_art = $opts{to_delete} or die q(Required 'to_delete' object);
 
     my %type_map = map { $_->name => $_ }
         $self->c->model('CoverArtType')->get_by_name(@{ $cover_art->types });

@@ -5,14 +5,14 @@ with 'MusicBrainz::Server::Report::ArtistReport',
      'MusicBrainz::Server::Report::FilterForEditor::ArtistID';
 
 sub query {
-    "SELECT DISTINCT ON (artist.id) artist.id AS artist_id,
+    q{SELECT DISTINCT ON (artist.id) artist.id AS artist_id,
        row_number() OVER (ORDER BY artist.name COLLATE musicbrainz, artist.id)
      FROM artist
      JOIN l_artist_artist ON l_artist_artist.entity1=artist.id
      JOIN link ON link.id=l_artist_artist.link
      JOIN link_type ON link_type.id=link.link_type
      WHERE (artist.type NOT IN (2, 5, 6) OR artist.type IS NULL)
-       AND link_type.name IN ('collaboration', 'member of band', 'conductor position')"
+       AND link_type.name IN ('collaboration', 'member of band', 'conductor position')}
 }
 
 __PACKAGE__->meta->make_immutable;

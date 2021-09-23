@@ -41,7 +41,7 @@ role {
 
             $clause .= "JOIN $extra_join C ON B.$type_col = C.$extra_col ";
         }
-        $clause .= "WHERE A.edit = edit.id AND ";
+        $clause .= 'WHERE A.edit = edit.id AND ';
         $query->add_where([
             $clause .
             join(' ', "$final_table_alias.$column", $self->operator,

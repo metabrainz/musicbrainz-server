@@ -16,13 +16,13 @@ test 'Adding a CDTOC to a medium removes CD stubs' => sub {
     my $test = shift;
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+cdtoc');
     MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+cdstub_raw');
-    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'SQL');
         INSERT INTO cdtoc
             (id, discid, freedb_id, track_count, leadout_offset, track_offset)
         VALUES
             (3, 'YfSgiOEayqN77Irs.VNV.UNJ0Zs-', '5908ea07', 7, 171327,
             ARRAY[150,22179,49905,69318,96240,121186,143398]);
-        EOSQL
+        SQL
 
     my $discid = 'YfSgiOEayqN77Irs.VNV.UNJ0Zs-';
     my $cdstub = $test->c->model('CDStub')->get_by_discid($discid);

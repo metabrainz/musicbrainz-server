@@ -14,10 +14,10 @@ test 'MBS-8837' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO event (id, name, gid, time)
             VALUES (1, 'test', '5140d04f-a0f9-4846-8b23-b53a36b5c5ff', '19:30:00');
-        EOSQL
+        SQL
 
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_EVENT_EDIT,

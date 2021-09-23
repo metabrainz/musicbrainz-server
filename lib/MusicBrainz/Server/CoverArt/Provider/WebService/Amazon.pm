@@ -82,11 +82,11 @@ sub lookup_cover_art
     }
 
     my $url = "http://$end_point/onca/xml?" .
-                  "Service=AWSECommerceService&" .
-                  "Operation=ItemLookup&" .
+                  'Service=AWSECommerceService&' .
+                  'Operation=ItemLookup&' .
                   "ItemId=$asin&" .
-                  "Version=2011-08-01&" .
-                  "ResponseGroup=Images";
+                  'Version=2011-08-01&' .
+                  'ResponseGroup=Images';
 
     my $cover_art = $self->_lookup_coverart($url) or return;
     $cover_art->asin($asin);
@@ -105,7 +105,7 @@ sub fallback_meta {
 sub _lookup_coverart {
     my ($self, $url) = @_;
 
-    $url .= "&AssociateTag=" . DBDefs->AMAZON_ASSOCIATE_TAG;
+    $url .= '&AssociateTag=' . DBDefs->AMAZON_ASSOCIATE_TAG;
     $url = $self->_aws_signature->addRESTSecret($url);
 
     # Respect Amazon SLA

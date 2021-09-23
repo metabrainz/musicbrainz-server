@@ -37,7 +37,7 @@ sub show : Chained('load') PathPart('')
     $c->model('ArtistCredit')->load(@recordings);
     $c->stash(
         current_view => 'Node',
-        component_path => 'isrc/Index.js',
+        component_path => 'isrc/Index',
         component_props => {
             %{$c->stash->{component_props}},
             isrcs => to_json_array($isrcs),

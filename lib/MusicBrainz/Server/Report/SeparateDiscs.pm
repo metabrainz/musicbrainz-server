@@ -5,7 +5,7 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
      'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
 sub query {
-    "
+    q{
         SELECT DISTINCT ON (r.id)
             r.id AS release_id,
             row_number() OVER (ORDER BY ac.name COLLATE musicbrainz, r.name COLLATE musicbrainz)
@@ -17,7 +17,7 @@ sub query {
         WHERE
             r.name ~ E'\\\\((disc [0-9]+|bonus disc)(: .*)?\\\\)'
             AND NOT (rg.type = 2 AND release_country.country = 221)
-    ";
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

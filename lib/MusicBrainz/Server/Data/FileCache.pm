@@ -51,7 +51,7 @@ sub manifest_signature {
     if (($time - $instance->manifest_last_checked) > $ttl) {
         $instance->manifest_last_checked($time);
 
-        my $path = DBDefs->STATIC_FILES_DIR . "/build/rev-manifest.json";
+        my $path = DBDefs->STATIC_FILES_DIR . '/build/rev-manifest.json';
         my @stat = stat($path);
         my $mtime = $stat[9];
 
@@ -69,7 +69,7 @@ sub template_signature {
     my $instance = $self->instance;
     my $signature_key = 'template' . $template;
     unless (exists $instance->file_signatures->{$signature_key}) {
-        $instance->file_signatures->{$signature_key} = file_md5_hex(DBDefs->MB_SERVER_ROOT . "/root/" . $template);
+        $instance->file_signatures->{$signature_key} = file_md5_hex(DBDefs->MB_SERVER_ROOT . '/root/' . $template);
     }
 
     return $instance->file_signatures->{$signature_key};

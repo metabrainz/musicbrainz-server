@@ -1134,7 +1134,7 @@ sub _serialize_relation
 
     unless ($target_type eq 'url')
     {
-        my $method =  "_serialize_" . $target_type;
+        my $method =  '_serialize_' . $target_type;
 
         local $in_relation_node = 1;
         local $show_aliases = 0;

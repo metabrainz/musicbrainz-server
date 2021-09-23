@@ -52,7 +52,7 @@ sub aliases : Chained('load') PathPart('aliases')
     $c->stash(
         # "aliases" needs to remain here for JSON-LD serialization
         aliases => $aliases,
-        component_path => 'entity/Aliases.js',
+        component_path => 'entity/Aliases',
         component_props => \%props,
         current_view => 'Node',
     );

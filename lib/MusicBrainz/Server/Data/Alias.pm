@@ -78,9 +78,9 @@ sub find_by_entity_ids
 
     my $key = $self->type;
 
-    my $query = "SELECT $key parent_id, " . $self->_columns . "
-                 FROM " . $self->_table . "
-                 WHERE $key IN (" . placeholders(@ids) . ")
+    my $query = "SELECT $key parent_id, " . $self->_columns . '
+                 FROM ' . $self->_table . "
+                 WHERE $key IN (" . placeholders(@ids) . ')
                  ORDER BY locale NULLS LAST,
                    begin_date_year NULLS LAST,
                    begin_date_month NULLS LAST,
@@ -89,7 +89,7 @@ sub find_by_entity_ids
                    end_date_month NULLS LAST,
                    end_date_day NULLS LAST,
                    sort_name COLLATE musicbrainz,
-                   name COLLATE musicbrainz";
+                   name COLLATE musicbrainz';
 
     my %ret = map { $_ => [] } @ids;
 
@@ -133,8 +133,8 @@ sub load
 sub delete
 {
     my ($self, @ids) = @_;
-    my $query = "DELETE FROM " . $self->table .
-                " WHERE id IN (" . placeholders(@ids) . ")";
+    my $query = 'DELETE FROM ' . $self->table .
+                ' WHERE id IN (' . placeholders(@ids) . ')';
     $self->sql->do($query, @ids);
     return 1;
 }
@@ -142,8 +142,8 @@ sub delete
 sub delete_entities
 {
     my ($self, @ids) = @_;
-    my $query = "DELETE FROM " . $self->table .
-                " WHERE " . $self->type . " IN (" . placeholders(@ids) . ")";
+    my $query = 'DELETE FROM ' . $self->table .
+                ' WHERE ' . $self->type . ' IN (' . placeholders(@ids) . ')';
     $self->sql->do($query, @ids);
     return 1;
 }
@@ -165,8 +165,8 @@ sub insert
             ended => $hash->{ended},
         };
 
-        add_partial_date_to_row($row, $hash->{begin_date}, "begin_date");
-        add_partial_date_to_row($row, $hash->{end_date}, "end_date");
+        add_partial_date_to_row($row, $hash->{begin_date}, 'begin_date');
+        add_partial_date_to_row($row, $hash->{end_date}, 'end_date');
 
         push @created, $class->new(id => $self->sql->insert_row($table, $row, 'id'));
     }
@@ -208,7 +208,7 @@ sub merge
 
     # Update all aliases to the new entity
     $self->sql->do("UPDATE $table SET $type = ?
-              WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
+              WHERE $type IN (".placeholders(@old_ids).')', $new_id, @old_ids);
 
     # Insert any aliases from old entity names
     my $sortnamecol = ($type eq 'artist') ? 'sort_name' : 'name';
@@ -238,9 +238,9 @@ sub update
     my %row = %$alias_hash;
     delete @row{qw( begin_date end_date )};
 
-    add_partial_date_to_row(\%row, $alias_hash->{begin_date}, "begin_date")
+    add_partial_date_to_row(\%row, $alias_hash->{begin_date}, 'begin_date')
         if exists $alias_hash->{begin_date};
-    add_partial_date_to_row(\%row, $alias_hash->{end_date}, "end_date")
+    add_partial_date_to_row(\%row, $alias_hash->{end_date}, 'end_date')
         if exists $alias_hash->{end_date};
     $row{type} = delete $row{type_id}
         if exists $row{type_id};
@@ -255,8 +255,8 @@ sub exists {
     return $self->sql->select_single_value(
         "SELECT EXISTS (
              SELECT TRUE
-             FROM $table " .
-             "WHERE name IS NOT DISTINCT FROM ?
+             FROM $table
+             WHERE name IS NOT DISTINCT FROM ?
                AND locale IS NOT DISTINCT FROM ?
                AND type IS NOT DISTINCT FROM ?
                AND $table.id IS DISTINCT FROM ?

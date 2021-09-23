@@ -17,7 +17,7 @@ use MusicBrainz::Server::Constants qw( :edit_status );
 around run_test => sub {
     my ($orig, $test, @args) = @_;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
         INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Name', 1);
@@ -28,7 +28,7 @@ around run_test => sub {
             VALUES (22, 'エアリアル', 22, 1, '888695fa-8acf-4ddb-8726-23edf32e48c5');
         INSERT INTO medium (id, release, position) VALUES (22, 22, 1);
         ALTER SEQUENCE artist_id_seq RESTART 2;
-        EOSQL
+        SQL
 
     $test->$orig(@args);
 };
@@ -66,12 +66,12 @@ test 'Reject when in use' => sub {
     my $edit = create_edit($test->c, privileges => $UNTRUSTED_FLAG);
     my $entity_id = $edit->entity_id;
 
-    $test->c->sql->do(<<~"EOSQL");
+    $test->c->sql->do(<<~"SQL");
         INSERT INTO track (id, gid, medium, artist_credit, name, recording, position, number)
         VALUES (1, '32b10778-137d-46bd-957d-2bef4435882f', 22,
                 (SELECT id FROM artist_credit LIMIT 1),
                 (SELECT name FROM recording LIMIT 1), $entity_id, 1, 1);
-        EOSQL
+        SQL
 
 
     reject_edit($test->c, $edit);
