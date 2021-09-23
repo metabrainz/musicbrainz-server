@@ -54,7 +54,7 @@ test 'No collections' => sub {
     my $tx = test_xpath_html($mech->content);
 
     $tx->is('//div[@id="page"]/p',
-            'editor3 has no public collections.editor3 isn’t collaborating in any collections.',
+            'editor3 has no public collections.editor3 isn’t collaborating in any public collections.',
             'editor has no collections');
 };
 
