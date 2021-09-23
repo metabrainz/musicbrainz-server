@@ -12,6 +12,8 @@ import * as React from 'react';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import {commaOnlyListText} from
   '../../static/scripts/common/i18n/commaOnlyList';
+import localizeLanguageName
+  from '../../static/scripts/common/i18n/localizeLanguageName';
 
 type AddWorkEditT = {
   ...EditT,
@@ -22,7 +24,7 @@ type AddWorkEditT = {
     +comment: string,
     +iswc: string,
     +language?: LanguageT,
-    +languages?: $ReadOnlyArray<string>,
+    +languages?: $ReadOnlyArray<LanguageT>,
     +name: string,
     +type: WorkTypeT | null,
     +work: WorkT,
@@ -73,7 +75,7 @@ const AddWork = ({edit}: Props): React.MixedElement => {
         {language ? (
           <tr>
             <th>{addColonText(l('Language'))}</th>
-            <td>{l_languages(language.name)}</td>
+            <td>{localizeLanguageName(language, true)}</td>
           </tr>
         ) : null}
         {languages && languages.length ? (
@@ -81,7 +83,7 @@ const AddWork = ({edit}: Props): React.MixedElement => {
             <th>{addColonText(l('Lyrics Languages'))}</th>
             <td>
               {commaOnlyListText(languages.map(
-                language => l_languages(language),
+                language => localizeLanguageName(language, true),
               ))}
             </td>
           </tr>
