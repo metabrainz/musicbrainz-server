@@ -7,6 +7,8 @@ severity=1
 
 [ControlStructures::ProhibitUnreachableCode]
 
+[Modules::RequireFilenameMatchesPackage]
+
 [Subroutines::ProhibitReturnSort]
 
 [TestingAndDebugging::ProhibitNoStrict]
