@@ -579,7 +579,7 @@ around _validate_merge => sub {
             l('This merge strategy is not applicable to the releases you have selected.')
         );
         $form->field('merge_strategy')->add_error(
-            l($cannot_merge_reason->{message}, $cannot_merge_reason->{args} // {}),
+            l($cannot_merge_reason->{message}, $cannot_merge_reason->{vars} // {}),
         );
         return 0;
     }

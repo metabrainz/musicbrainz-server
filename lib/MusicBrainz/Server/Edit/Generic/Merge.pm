@@ -64,16 +64,37 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     my $model = $self->_merge_model;
+    my @releases = values %{ $loaded->{Release} };
 
-    my $new_entity = (
+    # For release merges, we need to load additional data
+    # before turning the releases to JSON
+    if ($model eq 'Release') {
+        $self->c->model('Label')->load(
+            grep { $_->label_id && !defined($_->label) }
+            map { $_->all_labels }
+            @releases
+        );
+
+        $self->c->model('Medium')->load_for_releases(
+            grep { $_->medium_count < 1 }
+            @releases
+        );
+
+        $self->c->model('MediumFormat')->load(
+            grep { $_->format_id && !defined($_->format) }
+            map { $_->all_mediums }
+            @releases
+        );
+
+        $self->c->model('Release')->load_release_events(
+            @releases
+        );
+    }
+
+    my $new_entity = to_json_object(
         $loaded->{$model}{ $self->new_entity->{id} } ||
         $self->_build_missing_entity($loaded, $self->new_entity)
     );
-
-    # XXX: root/edit/details/merge_releases.tt is not converted to React yet.
-    if ($model ne 'Release') {
-        $new_entity = to_json_object($new_entity);
-    }
 
     my $data = {
         new => $new_entity,
@@ -84,9 +105,7 @@ sub build_display_data
         my $ent = $loaded->{$model}{ $old->{id} } ||
             $self->_build_missing_entity($loaded, $old);
 
-        push @{ $data->{old} }, (
-            $model ne 'Release' ? to_json_object($ent) : $ent
-        );
+        push @{ $data->{old} }, to_json_object($ent);
     }
 
     return $data;
