@@ -15,6 +15,7 @@ severity=1
 allow=refs
 
 [ValuesAndExpressions::ProhibitInterpolationOfLiterals]
+[ValuesAndExpressions::ProhibitLeadingZeros]
 [ValuesAndExpressions::ProhibitMismatchedOperators]
 [ValuesAndExpressions::ProhibitMixedBooleanOperators]
 

@@ -48,13 +48,13 @@ is ($date->format, '1476-12-01');
 $date = Date->new( '1476-12-01' );
 is ($date->format, '1476-12-01');
 
-$date = Date->new( month => 04, day => 01 );
+$date = Date->new( month => 4, day => 1 );
 is ($date->format, '????-04-01');
 
-$date = Date->new( year => 1999, day => 01 );
+$date = Date->new( year => 1999, day => 1 );
 is ($date->format, '1999-??-01');
 
-$date = Date->new( day => 01 );
+$date = Date->new( day => 1 );
 is ($date->format, '????-??-01');
 
 $date = Date->new( year => 0 );

@@ -32,8 +32,8 @@ my $response = $mech->submit_form(
         'edit-artist.area_id' => 222,
         'edit-artist.gender_id' => 2,
         'edit-artist.period.begin_date.year' => 1990,
-        'edit-artist.period.begin_date.month' => 01,
-        'edit-artist.period.begin_date.day' => 02,
+        'edit-artist.period.begin_date.month' => 1,
+        'edit-artist.period.begin_date.day' => 2,
         'edit-artist.begin_area_id' => 222,
         'edit-artist.period.end_date.year' => '',
         'edit-artist.period.end_date.month' => '',
@@ -63,8 +63,8 @@ cmp_deeply($edit->data, {
             comment => 'artist created in controller_artist.t',
             begin_date => {
                 year => 1990,
-                month => 01,
-                day => 02
+                month => 1,
+                day => 2
             },
             begin_area_id => 222,
             end_date => {

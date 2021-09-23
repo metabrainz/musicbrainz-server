@@ -144,7 +144,7 @@ test 'Test DatePeriod role' => sub {
                          'period.begin_date.month' => 11,
                          'period.begin_date.day' => 31,
                          'period.end_date.year' => 1992,
-                         'period.end_date.month' => 02,
+                         'period.end_date.month' => 2,
                          'period.end_date.day' => 31
                      }), 'Invalid begin and end dates (different dates)');
 };
