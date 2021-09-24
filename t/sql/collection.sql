@@ -39,6 +39,9 @@ INSERT INTO editor_collection (id, gid, editor, name, public, description, type)
            (5, '24375a7a-a4bd-11e4-a92c-3b5e54a633ec', 1, 'work_collection', FALSE, '', 15),
            (6, 'a34c079d-374e-4436-9448-da92dedef3cb', 2, 'collection2_priv', FALSE, 'Private Testy!', 1);
 
+INSERT INTO editor_collection_collaborator(collection, editor)
+    VALUES (3, 2), (4, 2), (4, 3);
+
 INSERT INTO editor_collection_release (collection, release)
     VALUES (1, 1), (1, 3), (2, 2), (2, 4);
 
