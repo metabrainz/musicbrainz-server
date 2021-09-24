@@ -25,7 +25,7 @@ test 'Viewing your own collections' => sub {
     my $tx = test_xpath_html($mech->content);
 
     $tx->is('count(//div[@id="page"]//table)',
-            3, 'three collection lists are present');
+            4, 'three collection lists are present');
 
     $tx->is('count(//div[@id="page"]//table[1]//th)',
             7, 'release collection list has 7 cols');
@@ -38,6 +38,12 @@ test 'Viewing your own collections' => sub {
 
     $tx->is('//div[@id="page"]//table[2]/tbody/tr[1]/td[3]',
             2, 'number of releases is correct');
+
+    $tx->is('count(//div[@id="page"]//table[4]//th)',
+            6, 'collaborative release collection list has 6 cols');
+
+    $tx->is('count(//div[@id="page"]//table[4]//tbody/tr)',
+            2, 'collaborative release collection list has 2 collections');
 };
 
 test 'No collections' => sub {
