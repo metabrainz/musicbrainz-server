@@ -62,7 +62,8 @@ INSERT INTO editor_preference (id, editor, name, value)
 
 INSERT INTO editor_subscribe_collection (id, editor, collection, last_edit_sent, available, last_seen_name)
     VALUES (1, 2, 1, 0, FALSE, 'collection1'),
-           (2, 2, 2, 0, TRUE, NULL);
+           (2, 1, 2, 0, TRUE, NULL),
+           (3, 2, 2, 0, TRUE, NULL);
 
 INSERT INTO edit (id, editor, type, status, expire_time)
     VALUES (1, 1, 32, 1, NOW()),

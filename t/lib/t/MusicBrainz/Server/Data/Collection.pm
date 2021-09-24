@@ -5,22 +5,23 @@ use Test::More;
 
 use MusicBrainz::Server::Data::Collection;
 
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( test_xpath_html );
 use Sql;
 
-with 't::Context';
+with 't::Mechanize', 't::Context';
 
 test all => sub {
 
 my $test = shift;
+my $mech = $test->mech;
 
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+collection');
 
 my $sql = $test->c->sql;
 my $coll_data = MusicBrainz::Server::Data::Collection->new(c => $test->c);
 
-my ($collections, $hits) = $coll_data->find_by_subscribed_editor(1, 10, 0);
-is($hits, 0, 'Editor #1 is subscribed to no collections');
+my ($collections, $hits) = $coll_data->find_by_subscribed_editor(3, 10, 0);
+is($hits, 0, 'Editor #3 is subscribed to no collections');
 
 ($collections, $hits) = $coll_data->find_by_subscribed_editor(2, 10, 0);
 is($hits, 1, 'Editor #2 is subscribed to one available collection');
@@ -115,6 +116,63 @@ ok(!$coll_data->contains_entity('event', 3, 4), 'Now Event #4 is not in collecti
 
 ok($coll_data->contains_entity('work', 5, 1), 'Work #1 is in collection #5');
 
+# Checking for subscription permissions for private collections
+$mech->get_ok('/login');
+$mech->submit_form( with_fields => { username => 'editor1', password => 'pass' } );
+
+$mech->get_ok('/account/subscriptions/collection/add?id=7',
+              'Subscribe to private collection user collaborates on');
+(undef, $hits) = $coll_data->find_by_subscribed_editor(1, 10, 0);
+is($hits, 2, 'Editor #1 is now subscribed to a second collection');
+
+$mech->get('/logout');
+$mech->get_ok('/login');
+$mech->submit_form( with_fields => { username => 'editor3', password => 'pass' } );
+
+$mech->get_ok('/account/subscriptions/collection/add?id=2',
+              'Subscribe to public collection');
+
+$mech->get('/account/subscriptions/collection/add?id=7');
+is($mech->status, 403,
+   'Subscription attempt to private collection was rejected');
+
+(undef, $hits) = $coll_data->find_by_subscribed_editor(3, 10, 0);
+is($hits, 1, 'Editor #3 is now subscribed to one collection');
+
+# Checking for subscription changes when collection is made private
+$mech->get('/logout');
+$mech->get_ok('/login');
+$mech->submit_form( with_fields => { username => 'editor2', password => 'pass' } );
+my $collection2 = $test->c->model('Collection')->get_by_id(2);
+$test->c->model('Editor')->load_for_collection($collection2);
+$mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cb/own_collection/edit');
+$mech->form_number(2);
+$mech->field('edit-list.public', 0);
+$mech->click();
+
+$collection2 = $test->c->model('Collection')->get_by_id(2);
+ok(!$collection2->{public}, 'Collection is now private');
+
+(undef, $hits) = $coll_data->find_by_subscribed_editor(3, 10, 0);
+is($hits, 0, 'Editor #3 is no longer subscribed to now private collection');
+(undef, $hits) = $coll_data->find_by_subscribed_editor(2, 10, 0);
+is($hits, 1,
+   'Editor #2 is still subscribed to now private collection they own');
+(undef, $hits) = $coll_data->find_by_subscribed_editor(1, 10, 0);
+is($hits, 2, 'Editor #1 is still subscribed to now private collection they collaborate on');
+
+# Checking for subscription changes when collaborator is removed
+$mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cb/own_collection/edit');
+$mech->form_number(2);
+$mech->field('edit-list.collaborators.0.id', '');
+$mech->click();
+
+my $tx = test_xpath_html($mech->content);
+$tx->is('//div[@id="content"]/div[@class="collaborators"]/p/a', '',
+      'No longer contains collaborator');
+
+(undef, $hits) = $coll_data->find_by_subscribed_editor(1, 10, 0);
+is($hits, 1, 'Editor #1 is no longer subscribed to private collection they no longer collaborate on');
 };
 
 1;
