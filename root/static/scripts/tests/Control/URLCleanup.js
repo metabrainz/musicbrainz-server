@@ -1036,6 +1036,12 @@ const testData = [
     expected_relationship_type: 'mailorder',
             expected_clean_url: 'https://www.cdjapan.co.jp/product/COCC-72267',
   },
+  {
+                     input_url: 'http://www.cdjapan.co.jp/detailview.html?KEY=LACA-15238',
+             input_entity_type: 'release',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://www.cdjapan.co.jp/product/LACA-15238',
+  },
   // ChangeTip (Tip.Me)
   {
                      input_url: 'https://www.changetip.com/tipme/example',

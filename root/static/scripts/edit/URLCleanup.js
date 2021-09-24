@@ -1297,12 +1297,14 @@ const CLEANUPS: CleanupEntries = {
   },
   'cdjapan': {
     match: [new RegExp(
-      '^(https?://)?(www\\.)?cdjapan\\.co\\.jp/(product|person)/',
+      '^(https?://)?(www\\.)?cdjapan\\.co\\.jp/(detailview|product|person)',
       'i',
     )],
     restrict: [LINK_TYPES.mailorder],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?cdjapan\.co\.jp\/(person|product)\/([^\/?#]+)(?:.*)?$/, 'https://www.cdjapan.co.jp/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?cdjapan\.co\.jp\//, 'https://www.cdjapan.co.jp/');
+      url = url.replace(/^(https:\/\/www\.cdjapan\.co\.jp)\/detailview\.html\?KEY=([^\/?#]+).*$/, '$1/product/$2');
+      url = url.replace(/^(https:\/\/www\.cdjapan\.co\.jp)\/(person|product)\/([^\/?#]+).*$/, '$1/$2/$3');
       return url;
     },
   },
