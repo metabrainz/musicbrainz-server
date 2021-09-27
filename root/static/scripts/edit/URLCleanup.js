@@ -246,6 +246,7 @@ export const LINK_TYPES: LinkTypeMap = {
     artist: 'e8571dcc-35d4-4e91-a577-a3382fd84460',
     label: 'c4bee4f4-e622-4c74-b80b-585989de27f4',
     place: '49a08641-0aed-4e10-8311-ec220b8c50ad',
+    series: '67764397-d154-4f9a-8aa8-cbc4de4df5b8',
     work: 'b6eaef52-68a0-4b50-b875-8acd7d9212ba',
   },
   videochannel: {
@@ -1638,6 +1639,7 @@ const CLEANUPS: CleanupEntries = {
       switch (id) {
         case LINK_TYPES.otherdatabases.artist:
         case LINK_TYPES.otherdatabases.place:
+        case LINK_TYPES.otherdatabases.series:
         case LINK_TYPES.otherdatabases.work:
           return {
             result: /^http:\/\/d-nb\.info\/(?:gnd\/)?(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url),
@@ -2499,6 +2501,7 @@ const CLEANUPS: CleanupEntries = {
         if (id === LINK_TYPES.otherdatabases.artist ||
             id === LINK_TYPES.otherdatabases.label ||
             id === LINK_TYPES.otherdatabases.place ||
+            id === LINK_TYPES.otherdatabases.series ||
             id === LINK_TYPES.otherdatabases.work) {
           return {result: true};
         }
