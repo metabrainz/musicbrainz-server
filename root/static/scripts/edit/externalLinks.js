@@ -15,7 +15,6 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import {
-  FAVICON_CLASSES,
   VIDEO_ATTRIBUTE_ID,
   VIDEO_ATTRIBUTE_GID,
 } from '../common/constants';
@@ -29,7 +28,9 @@ import formatDatePeriod from '../common/utility/formatDatePeriod';
 import {hasSessionStorage} from '../common/utility/storage';
 import {uniqueId} from '../common/utility/strings';
 import {bracketedText} from '../common/utility/bracketed';
+import getFaviconClass from '../../../url/utility/getFaviconClass';
 import {isMalware} from '../../../url/utility/isGreyedOut';
+import isUrlValid from '../../../url/utility/isUrlValid';
 
 import isPositiveInteger from './utility/isPositiveInteger';
 import HelpIcon from './components/HelpIcon';
@@ -543,7 +544,7 @@ export class ExternalLinksEditor
         message: l('Required field.'),
         target: URLCleanup.ERROR_TARGETS.URL,
       };
-    } else if (isNewOrChangedLink && !isValidURL(link.url)) {
+    } else if (isNewOrChangedLink && !isUrlValid(link.url)) {
       error = {
         message: l('Enter a valid url e.g. "http://google.com/"'),
         target: URLCleanup.ERROR_TARGETS.URL,
@@ -1039,13 +1040,7 @@ export class ExternalLink extends React.Component<LinkProps> {
     });
     const firstLink = props.relationships[0];
 
-    let faviconClass: string | void;
-    for (const key of Object.keys(FAVICON_CLASSES)) {
-      if (props.url.indexOf(key) > 0) {
-        faviconClass = FAVICON_CLASSES[key];
-        break;
-      }
-    }
+    const faviconClass = getFaviconClass(props.url);
 
     return (
       <React.Fragment>
@@ -1053,7 +1048,7 @@ export class ExternalLink extends React.Component<LinkProps> {
           <td>
             {faviconClass &&
             <span
-              className={'favicon ' + faviconClass + '-favicon'}
+              className={'favicon ' + faviconClass}
             />}
             <label>
               {props.index + 1}
@@ -1309,11 +1304,8 @@ function groupLinksByUrl(
   return map;
 }
 
-const protocolRegex = /^(https?|ftp):$/;
-const hostnameRegex = /^(([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])\.)*([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])$/;
-
 export function getUnicodeUrl(url: string): string {
-  if (!isValidURL(url)) {
+  if (!isUrlValid(url)) {
     return url;
   }
 
@@ -1322,38 +1314,6 @@ export function getUnicodeUrl(url: string): string {
   const unicodeUrl = url.replace(urlObject.hostname, unicodeHostname);
 
   return unicodeUrl;
-}
-
-function isValidURL(url: string) {
-  const a = document.createElement('a');
-  a.href = url;
-
-  const hostname = a.hostname;
-
-  // To compare with the url we need to decode the Punycode if present
-  const unicodeHostname = punycode.toUnicode(hostname);
-  if (url.indexOf(hostname) < 0 && url.indexOf(unicodeHostname) < 0) {
-    return false;
-  }
-
-  if (!hostnameRegex.test(hostname)) {
-    return false;
-  }
-
-  if (hostname.indexOf('.') < 0) {
-    return false;
-  }
-
-  /*
-   * Check if protocol string is in URL and is valid
-   * Protocol of URL like "//google.com" is inferred as "https:"
-   * but the URL is invalid
-   */
-  if (!url.startsWith(a.protocol) || !protocolRegex.test(a.protocol)) {
-    return false;
-  }
-
-  return true;
 }
 
 const URL_SHORTENERS = [
