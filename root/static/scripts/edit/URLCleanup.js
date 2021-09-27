@@ -4039,10 +4039,10 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'twitch': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?(twitch\\.tv/)', 'i')],
+    match: [new RegExp('^(https?://)?([^/]+\\.)?twitch\\.(?:com|tv)/', 'i')],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.videochannel}],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?twitch\.tv\/((?:videos\/)?[^\/?#]+)(?:.*)?$/, 'https://www.twitch.tv/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?twitch\.(?:com|tv)\/((?:videos\/)?[^\/?#]+)(?:.*)?$/, 'https://www.twitch.tv/$1');
       return url;
     },
     validate: function (url, id) {

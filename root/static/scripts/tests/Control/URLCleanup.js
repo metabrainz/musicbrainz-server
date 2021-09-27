@@ -4111,6 +4111,13 @@ const testData = [
             expected_clean_url: 'https://www.twitch.tv/videos/1234567890',
        only_valid_entity_types: ['recording', 'release'],
   },
+  {
+                     input_url: 'http://twitch.com/pisceze',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'videochannel',
+            expected_clean_url: 'https://www.twitch.tv/pisceze',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
   // Twitter
   {
                      input_url: 'http://twitter.com/miguelgrimaldo',
