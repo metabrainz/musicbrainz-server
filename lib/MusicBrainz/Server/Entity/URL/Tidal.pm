@@ -1,11 +1,13 @@
-package MusicBrainz::Server::Entity::URL::CDJapan;
+package MusicBrainz::Server::Entity::URL::Tidal;
 
 use Moose;
 
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name { 'CDJapan' }
+sub sidebar_name { 'Tidal' };
+
+sub url_is_scheme_independent { 1 }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

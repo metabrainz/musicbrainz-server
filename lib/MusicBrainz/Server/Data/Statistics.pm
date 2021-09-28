@@ -1674,11 +1674,12 @@ my %stats = (
     },
     'count.rating' => {
         DESC => 'Count of all ratings',
-        PREREQ => [qw[ count.rating.artist count.rating.label count.rating.releasegroup count.rating.recording count.rating.work ]],
+        PREREQ => [qw[ count.rating.artist count.rating.label count.rating.place count.rating.releasegroup count.rating.recording count.rating.work ]],
         CALC => sub {
             my ($self, $sql) = @_;
             return $self->fetch('count.rating.artist') +
                    $self->fetch('count.rating.label') +
+                   $self->fetch('count.rating.place') +
                    $self->fetch('count.rating.releasegroup') +
                    $self->fetch('count.rating.work') +
                    $self->fetch('count.rating.recording');
@@ -1686,11 +1687,12 @@ my %stats = (
     },
     'count.rating.raw' => {
         DESC => 'Count of all raw ratings',
-        PREREQ => [qw[ count.rating.raw.artist count.rating.raw.label count.rating.raw.releasegroup count.rating.raw.recording count.rating.raw.work ]],
+        PREREQ => [qw[ count.rating.raw.artist count.rating.raw.label count.rating.raw.place count.rating.raw.releasegroup count.rating.raw.recording count.rating.raw.work ]],
         CALC => sub {
             my ($self, $sql) = @_;
             return $self->fetch('count.rating.raw.artist') +
                    $self->fetch('count.rating.raw.label') +
+                   $self->fetch('count.rating.raw.place') +
                    $self->fetch('count.rating.raw.releasegroup') +
                    $self->fetch('count.rating.raw.work') +
                    $self->fetch('count.rating.raw.recording');
@@ -1926,7 +1928,70 @@ my %stats = (
                 PREREQ_ONLY => 1
             }
         } MusicBrainz::Server::Data::Relationship->all_pairs
-    )
+    ),
+
+    'count.collection' => {
+        DESC => 'Count of all collections',
+        SQL => 'SELECT COUNT(*) FROM editor_collection',
+    },
+
+    'count.collection.type.release' => {
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(<<~'SQL');
+                SELECT type, COUNT(*) AS count
+                FROM editor_collection
+                GROUP BY type
+                SQL
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                'count.collection.type.release' => $dist{1} || 0,
+                'count.collection.type.owned'  => $dist{2} || 0,
+                'count.collection.type.wishlist'  => $dist{3} || 0,
+                'count.collection.type.release.all' => ($dist{1} || 0) + ($dist{2} || 0) + ($dist{3} || 0),
+                'count.collection.type.event'  => $dist{4} || 0,
+                'count.collection.type.attending'  => $dist{5} || 0,
+                'count.collection.type.maybe_attending'  => $dist{6} || 0,
+                'count.collection.type.event.all' => ($dist{4} || 0) + ($dist{5} || 0) + ($dist{6} || 0),
+                'count.collection.type.area' => $dist{7} || 0,
+                'count.collection.type.artist' => $dist{8} || 0,
+                'count.collection.type.instrument' => $dist{9} || 0,
+                'count.collection.type.label' => $dist{10} || 0,
+                'count.collection.type.place' => $dist{11} || 0,
+                'count.collection.type.recording' => $dist{12} || 0,
+                'count.collection.type.release_group' => $dist{13} || 0,
+                'count.collection.type.series' => $dist{14} || 0,
+                'count.collection.type.work' => $dist{15} || 0,
+            };
+        },
+    },
+
+    'count.collection.public' => {
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(<<~'SQL');
+                SELECT public, COUNT(*) AS count
+                FROM editor_collection
+                GROUP BY public
+                SQL
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                'count.collection.public' => $dist{1} || 0,
+                'count.collection.private'  => $dist{0} || 0,
+            };
+        },
+    },
+
+    'count.collection.has_collaborators' => {
+        DESC => 'Count of collections with at least one collaborator',
+        SQL => 'SELECT COUNT(DISTINCT collection) FROM editor_collection_collaborator',
+    },
 );
 
 sub recalculate {

@@ -246,6 +246,7 @@ export const LINK_TYPES: LinkTypeMap = {
     artist: 'e8571dcc-35d4-4e91-a577-a3382fd84460',
     label: 'c4bee4f4-e622-4c74-b80b-585989de27f4',
     place: '49a08641-0aed-4e10-8311-ec220b8c50ad',
+    series: '67764397-d154-4f9a-8aa8-cbc4de4df5b8',
     work: 'b6eaef52-68a0-4b50-b875-8acd7d9212ba',
   },
   videochannel: {
@@ -445,17 +446,17 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: prefix === 'artist',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.label:
             return {
               result: prefix === 'label',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release_group:
             return {
               result: prefix === 'record',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -477,27 +478,27 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: /^(artist|composer|conductor|orchestra|soloist)$/.test(prefix),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.event:
             return {
               result: prefix === 'listing',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.label:
             return {
               result: prefix === 'label',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.place:
             return {
               result: prefix === 'venue',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release_group:
             return {
               result: /^(album|cd|media|music|record)$/.test(prefix),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -519,12 +520,12 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.allmusic.artist:
             return {
               result: prefix === 'artist/mn',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.allmusic.recording:
             return {
               result: prefix === 'performance/mq',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.allmusic.release:
             if (prefix === 'album/mw') {
@@ -551,18 +552,18 @@ const CLEANUPS: CleanupEntries = {
             }
             return {
               result: prefix === 'album/release/mr',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.allmusic.release_group:
             return {
               result: prefix === 'album/mw',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.allmusic.work:
             return {
               result: prefix === 'composition/mc' ||
                 prefix === 'song/mt',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -661,12 +662,12 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.streamingpaid.artist:
             return {
               result: prefix === 'artists',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.streamingpaid.release:
             return {
               result: prefix === 'albums',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -712,17 +713,17 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: prefix === 'person',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release:
             return {
               result: prefix === 'source',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.recording:
             return {
               result: prefix === 'song',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -823,7 +824,7 @@ const CLEANUPS: CleanupEntries = {
               result: /^view\/[1-9][0-9]*\.htm$/.test(path) ||
                 /^subview(\/[1-9][0-9]*){2}\.htm$/.test(path) ||
                 /^item\/[^\/]+(?:\/[1-9][0-9]*)?$/.test(path),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -857,7 +858,7 @@ const CLEANUPS: CleanupEntries = {
                  not to a specific album or track.`,
               ),
               result: false,
-              target: ERROR_TARGETS.URL,
+              target: ERROR_TARGETS.ENTITY,
             };
           }
           return {result: /^https:\/\/[^\/]+\.bandcamp\.com\/$/.test(url)};
@@ -869,22 +870,22 @@ const CLEANUPS: CleanupEntries = {
                  not to a specific album or track.`,
               ),
               result: false,
-              target: ERROR_TARGETS.URL,
+              target: ERROR_TARGETS.ENTITY,
             };
           }
           return {
             result: /^https:\/\/[^\/]+\.bandcamp\.com\/$/.test(url),
-            target: ERROR_TARGETS.RELATIONSHIP,
+            target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.review.release_group:
           return {
             result: /^https:\/\/daily\.bandcamp\.com\/\d+\/\d+\/\d+\/[\w-]+-review\/$/.test(url),
-            target: ERROR_TARGETS.RELATIONSHIP,
+            target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.lyrics.work:
           return {
             result: /^https:\/\/[^\/]+\.bandcamp\.com\/track\/[\w-]+$/.test(url),
-            target: ERROR_TARGETS.RELATIONSHIP,
+            target: ERROR_TARGETS.ENTITY,
           };
       }
       return {result: false, target: ERROR_TARGETS.URL};
@@ -918,17 +919,17 @@ const CLEANUPS: CleanupEntries = {
             return {
               result: prefix === undefined && target !== undefined ||
                 prefix === 'a' && /^[1-9][0-9]*$/.test(target),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.bandsintown.event:
             return {
               result: prefix === 'e' && /^[1-9][0-9]*$/.test(target),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.bandsintown.place:
             return {
               result: prefix === 'v' && /^[1-9][0-9]*$/.test(target),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -995,24 +996,24 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.downloadpurchase.artist:
             return {
               result: prefix === 'artist',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.downloadpurchase.recording:
             return {
               result: prefix === 'track' || prefix === 'stem',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.downloadpurchase.release:
             return {
               result: prefix === 'release' ||
                 prefix === 'chart' ||
                 prefix === 'stem-pack',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.downloadpurchase.label:
             return {
               result: prefix === 'label',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -1054,12 +1055,12 @@ const CLEANUPS: CleanupEntries = {
                   : l(`Please link to the main page for the label,
                        not a specific product.`),
                 result: false,
-                target: ERROR_TARGETS.URL,
+                target: ERROR_TARGETS.ENTITY,
               };
             case LINK_TYPES.mailorder.release:
               return {
                 result: product !== undefined,
-                target: ERROR_TARGETS.RELATIONSHIP,
+                target: ERROR_TARGETS.ENTITY,
               };
           }
         }
@@ -1129,13 +1130,13 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.work:
             return {
               result: digit === '1' || digit === '2',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.event:
           case LINK_TYPES.otherdatabases.release:
             return {
               result: digit === '3' || digit === '4',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.series:
             return {result: true};
@@ -1172,12 +1173,12 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.work:
             return {
               result: prefix === 'works/work',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: prefix !== 'works/work',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -1201,7 +1202,7 @@ const CLEANUPS: CleanupEntries = {
             id === LINK_TYPES.otherdatabases.work) {
           return {result: true};
         }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+        return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },
@@ -1220,12 +1221,12 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.release_group:
             return {
               result: prefix === 'rec/r',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.work:
             return {
               result: prefix === 'tune/t',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -1248,12 +1249,12 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: prefix === 'people',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.recording:
             return {
               result: prefix === 'files',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -1296,12 +1297,14 @@ const CLEANUPS: CleanupEntries = {
   },
   'cdjapan': {
     match: [new RegExp(
-      '^(https?://)?(www\\.)?cdjapan\\.co\\.jp/(product|person)/',
+      '^(https?://)?(www\\.)?cdjapan\\.co\\.jp/(detailview|product|person)',
       'i',
     )],
     restrict: [LINK_TYPES.mailorder],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?cdjapan\.co\.jp\/(person|product)\/([^\/?#]+)(?:.*)?$/, 'https://www.cdjapan.co.jp/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?cdjapan\.co\.jp\//, 'https://www.cdjapan.co.jp/');
+      url = url.replace(/^(https:\/\/www\.cdjapan\.co\.jp)\/detailview\.html\?KEY=([^\/?#]+).*$/, '$1/product/$2');
+      url = url.replace(/^(https:\/\/www\.cdjapan\.co\.jp)\/(person|product)\/([^\/?#]+).*$/, '$1/$2/$3');
       return url;
     },
   },
@@ -1312,7 +1315,7 @@ const CLEANUPS: CleanupEntries = {
     ],
     restrict: [LINK_TYPES.patronage],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?changetip\.com\/tipme\/([^\/?#]+)(?:.*)?$/, 'https://www.changetip.com/tipme/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?changetip\.com\/tipme\/([^\/?#]+).*$/, 'https://www.changetip.com/tipme/$1');
       url = url.replace(/^(?:https?:\/\/)?([^\/?#]+)\.tip\.me(?:[\/?#].*)?$/, 'https://www.changetip.com/tipme/$1');
       return url;
     },
@@ -1346,8 +1349,8 @@ const CLEANUPS: CleanupEntries = {
       url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Work\/([^\/?#]+)/, '$1/work/$2.html');
       url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Performer\/e([^\/?#]+)/, '$1/ensemble/$2.html');
       url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Performer\/p([^\/?#]+)/, '$1/artist/$2.html');
-      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Album\/([^\/?#]+)(?:.*)?$/, '$1/newca/#!/Album/$2');
-      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/(album|artist|composer|ensemble|work)\/([^\/?#]+)(?:.*)?$/, '$1/$2/$3');
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Album\/([^\/?#]+).*$/, '$1/newca/#!/Album/$2');
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/(album|artist|composer|ensemble|work)\/([^\/?#]+).*$/, '$1/$2/$3');
       return url;
     },
     validate: function (url, id) {
@@ -1358,17 +1361,17 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: ['artist', 'composer', 'ensemble'].includes(prefix),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release:
             return {
               result: prefix === 'album' || prefix === 'Album',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.work:
             return {
               result: prefix === 'work',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -1401,17 +1404,17 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: prefix === 'talent',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.recording:
             return {
               result: prefix === 'matrix',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release:
             return {
               result: prefix === 'objects',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -1487,17 +1490,17 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.streamingfree.artist:
             return {
               result: prefix === 'artist',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.streamingfree.release:
             return {
               result: prefix === 'album',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.streamingfree.recording:
             return {
               result: prefix === 'track' || prefix === 'episode',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -1572,23 +1575,23 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.discogs.artist:
             return {
               result: prefix === 'artist' || prefix === 'user',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.discogs.label:
           case LINK_TYPES.discogs.series:
             return {
               result: prefix === 'label',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.discogs.place:
             return {
               result: prefix === 'artist' || prefix === 'label',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.discogs.release_group:
             return {
               result: prefix === 'master',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.discogs.release:
             if (prefix === 'master') {
@@ -1609,12 +1612,12 @@ const CLEANUPS: CleanupEntries = {
             }
             return {
               result: prefix === 'release',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.discogs.work:
             return {
               result: prefix === 'composition',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -1638,20 +1641,21 @@ const CLEANUPS: CleanupEntries = {
       switch (id) {
         case LINK_TYPES.otherdatabases.artist:
         case LINK_TYPES.otherdatabases.place:
+        case LINK_TYPES.otherdatabases.series:
         case LINK_TYPES.otherdatabases.work:
           return {
             result: /^http:\/\/d-nb\.info\/(?:gnd\/)?(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url),
-            target: ERROR_TARGETS.RELATIONSHIP,
+            target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.otherdatabases.label:
           return {
             result: /^http:\/\/d-nb\.info\/(?:(?:dnbn|gnd)\/)?(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url),
-            target: ERROR_TARGETS.RELATIONSHIP,
+            target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.otherdatabases.release:
           return {
             result: /^http:\/\/d-nb\.info\/(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url),
-            target: ERROR_TARGETS.RELATIONSHIP,
+            target: ERROR_TARGETS.ENTITY,
           };
       }
       return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -1711,22 +1715,22 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.streamingfree.artist:
             return {
               result: path === 'artists' && query === 'artist',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.streamingfree.label:
             return {
               result: path === 'labels' && query === 'label',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.streamingfree.release:
             return {
               result: path === 'albums' && query === 'album',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.streamingfree.recording:
             return {
               result: path === 'song' && query === 'song_id',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -1759,22 +1763,22 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: /^(composers|ensembles|performers)$/.test(prefix),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release:
             return {
               result: prefix === 'albums',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.label:
             return {
               result: prefix === 'labels',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.instrument:
             return {
               result: /^instruments\/[a-z-]+$/.test(prefix),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -1789,8 +1793,8 @@ const CLEANUPS: CleanupEntries = {
     ],
     restrict: [LINK_TYPES.patronage],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?d\.rip\/([^\/?#]+)(?:.*)?$/, 'https://d.rip/$1');
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?drip\.kickstarter.com\/([^\/?#]+)(?:.*)?$/, 'https://d.rip/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?d\.rip\/([^\/?#]+).*$/, 'https://d.rip/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?drip\.kickstarter.com\/([^\/?#]+).*$/, 'https://d.rip/$1');
       return url;
     },
   },
@@ -1803,7 +1807,7 @@ const CLEANUPS: CleanupEntries = {
     validate: function (url, id) {
       return {
         result: id === LINK_TYPES.otherdatabases.release,
-        target: ERROR_TARGETS.RELATIONSHIP,
+        target: ERROR_TARGETS.ENTITY,
       };
     },
   },
@@ -1811,7 +1815,7 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?(www\\.)?ester\\.ee/', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ester\.ee\/record=([^~]+)(?:.*)?$/, 'http://www.ester.ee/record=$1~S1*est');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ester\.ee\/record=([^~]+).*$/, 'http://www.ester.ee/record=$1~S1*est');
       return url;
     },
   },
@@ -1867,7 +1871,7 @@ const CLEANUPS: CleanupEntries = {
     )],
     restrict: [LINK_TYPES.patronage],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?flattr\.com\/profile\/([^\/?#]+)(?:.*)?$/, 'https://flattr.com/profile/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?flattr\.com\/profile\/([^\/?#]+).*$/, 'https://flattr.com/profile/$1');
       return url;
     },
   },
@@ -1894,7 +1898,7 @@ const CLEANUPS: CleanupEntries = {
     validate: function (url, id) {
       return {
         result: id === LINK_TYPES.otherdatabases.instrument,
-        target: ERROR_TARGETS.RELATIONSHIP,
+        target: ERROR_TARGETS.ENTITY,
       };
     },
   },
@@ -1910,7 +1914,7 @@ const CLEANUPS: CleanupEntries = {
           id === LINK_TYPES.otherdatabases.label ||
           id === LINK_TYPES.otherdatabases.release_group ||
           id === LINK_TYPES.otherdatabases.work,
-        target: ERROR_TARGETS.RELATIONSHIP,
+        target: ERROR_TARGETS.ENTITY,
       };
     },
   },
@@ -1925,17 +1929,17 @@ const CLEANUPS: CleanupEntries = {
         case LINK_TYPES.lyrics.artist:
           return {
             result: /^https:\/\/genius\.com\/artists\/[\w-]+$/.test(url),
-            target: ERROR_TARGETS.RELATIONSHIP,
+            target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.lyrics.release_group:
           return {
             result: /^https:\/\/genius\.com\/albums\/[\w-]+\/[\w-]+$/.test(url),
-            target: ERROR_TARGETS.RELATIONSHIP,
+            target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.lyrics.work:
           return {
             result: /^https:\/\/genius\.com\/(?!(?:artists|albums)\/)[\w-]+-lyrics$/.test(url),
-            target: ERROR_TARGETS.RELATIONSHIP,
+            target: ERROR_TARGETS.ENTITY,
           };
       }
       return {result: false, target: ERROR_TARGETS.URL};
@@ -1977,7 +1981,7 @@ const CLEANUPS: CleanupEntries = {
             id === LINK_TYPES.otherdatabases.work) {
           return {result: true};
         }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+        return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },
@@ -2000,21 +2004,21 @@ const CLEANUPS: CleanupEntries = {
               result: db === 'mdb' &&
                 type === 'author' &&
                 slashRef === undefined,
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.mailorder.release:
             return {
               result: db === 'products' &&
                 type === 'detail' &&
                 slashRef !== undefined,
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.lyrics.work:
             return {
               result: db === 'mdb' &&
                 type === 'detail' &&
                 slashRef !== undefined,
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -2046,13 +2050,13 @@ const CLEANUPS: CleanupEntries = {
               result: prefix === 'name/nm' ||
                 prefix === 'character/ch' ||
                 prefix === 'company/co',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.imdb.label:
           case LINK_TYPES.imdb.place:
             return {
               result: prefix === 'company/co',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.imdb.recording:
           case LINK_TYPES.imdb.release:
@@ -2060,7 +2064,7 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.imdb.work:
             return {
               result: prefix === 'title/tt',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -2230,12 +2234,12 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.release_group:
             return {
               result: prefix === 'album',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.work:
             return {
               result: prefix === 'tune',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -2290,12 +2294,12 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.downloadpurchase.recording:
             return {
               result: prefix === 'music-video',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.downloadpurchase.release:
             return {
               result: /^(album|audiobook|podcast|preorder)$/.test(prefix),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -2327,12 +2331,12 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.lyrics.artist:
             return {
               result: prefix === 'artist',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.lyrics.work:
             return {
               result: prefix === 'song',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -2361,12 +2365,12 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.lyrics.artist:
             return {
               result: /^kashu\.php\?artist=\d+$/.test(tail),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.lyrics.work:
             return {
               result: /^song_view\.html\?\d+$/.test(tail),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -2395,12 +2399,12 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.lyrics.artist:
             return {
               result: prefix === 'search/index',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.lyrics.work:
             return {
               result: prefix === 'lyric',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -2424,7 +2428,7 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?(www\\.)?ko-fi.com/[^/?#]', 'i')],
     restrict: [LINK_TYPES.patronage],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ko-fi\.com\/([^\/?#]+)(?:.*)?$/, 'https://ko-fi.com/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ko-fi\.com\/([^\/?#]+).*$/, 'https://ko-fi.com/$1');
       return url;
     },
   },
@@ -2435,7 +2439,7 @@ const CLEANUPS: CleanupEntries = {
     )],
     restrict: [LINK_TYPES.lyrics],
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?laboiteauxparoles\.com\/(auteur|editeur|interprete|titre)\/([^\/?#]+)(?:.*)?$/, 'https://laboiteauxparoles.com/$1/$2');
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?laboiteauxparoles\.com\/(auteur|editeur|interprete|titre)\/([^\/?#]+).*$/, 'https://laboiteauxparoles.com/$1/$2');
     },
     validate: function (url, id) {
       const m = /^https:\/\/laboiteauxparoles\.com\/(auteur|editeur|interprete|titre)\//.exec(url);
@@ -2445,17 +2449,17 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.lyrics.artist:
             return {
               result: /^(?:auteur|interprete)$/.test(prefix),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.lyrics.label:
             return {
               result: prefix === 'editeur',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.lyrics.work:
             return {
               result: prefix === 'titre',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -2499,10 +2503,11 @@ const CLEANUPS: CleanupEntries = {
         if (id === LINK_TYPES.otherdatabases.artist ||
             id === LINK_TYPES.otherdatabases.label ||
             id === LINK_TYPES.otherdatabases.place ||
+            id === LINK_TYPES.otherdatabases.series ||
             id === LINK_TYPES.otherdatabases.work) {
           return {result: true};
         }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+        return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },
@@ -2553,22 +2558,22 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: prefix === 'artists',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.event:
             return {
               result: prefix === 'events',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.series:
             return {
               result: prefix === 'groups',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.place:
             return {
               result: prefix === 'venues',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -2598,12 +2603,12 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.lyrics.artist:
             return {
               result: prefix === 'a',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.lyrics.work:
             return {
               result: prefix === 'l',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -2671,13 +2676,13 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.release:
             return {
               result: prefix === 'records',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.lyrics.work:
           case LINK_TYPES.otherdatabases.work:
             return {
               result: prefix === 'songs',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -2699,12 +2704,12 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: prefix === 'artist',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release_group:
             return {
               result: prefix === 'album',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -2729,22 +2734,22 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: /^(?:artists?|bands?)$/.test(prefix),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.label:
             return {
               result: prefix === 'labels',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release:
             return {
               result: prefix === 'albums',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.review.release_group:
             return {
               result: prefix === 'reviews',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -2771,17 +2776,17 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.streamingfree.artist:
             return {
               result: prefix === 'music/artist',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.streamingfree.recording:
             return {
               result: ['live', 'music/song', 'video/mv'].includes(prefix),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.streamingfree.release:
             return {
               result: prefix === 'music/album',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -2817,12 +2822,12 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: prefix === 'artista' || prefix === 'grupo',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release_group:
             return {
               result: prefix === 'disco',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -2847,17 +2852,17 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: prefix === 'artist',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release:
             return {
               result: prefix === 'release',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release_group:
             return {
               result: prefix === 'album',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -2881,7 +2886,7 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.lyrics.artist:
             return {
               result: prefix === 'artist',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.lyrics.release_group:
             if (prefix === 'album') {
@@ -2901,11 +2906,11 @@ const CLEANUPS: CleanupEntries = {
                 target: ERROR_TARGETS.ENTITY,
               };
             }
-            return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+            return {result: false, target: ERROR_TARGETS.ENTITY};
           case LINK_TYPES.lyrics.work:
             return {
               result: prefix === 'lyrics',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -2940,22 +2945,22 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: /^M\d{11}\/(CLASSICAL(?:\/COMPOSER)?|POPULAR)$/.test(subpath),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.label:
             return {
               result: /^L\d{11}$/.test(subpath),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release:
             return {
               result: /^[A-Z]{2,3}\d{4,6}$/.test(subpath),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.work:
             return {
               result: /^U\d{11}\/(CLASSICAL|POPULAR)$/.test(subpath),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -3008,17 +3013,17 @@ const CLEANUPS: CleanupEntries = {
         case LINK_TYPES.streamingpaid.artist:
           return {
             result: /^https:\/\/[a-z]{2}\.napster\.com\/artist\/[\w-]+$/.test(url),
-            target: ERROR_TARGETS.RELATIONSHIP,
+            target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.streamingpaid.recording:
           return {
             result: /^https:\/\/[a-z]{2}\.napster\.com\/artist\/[\w-]+\/album\/[\w-]+\/track\/[\w-]+$/.test(url),
-            target: ERROR_TARGETS.RELATIONSHIP,
+            target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.streamingpaid.release:
           return {
             result: /^https:\/\/[a-z]{2}\.napster\.com\/artist\/[\w-]+\/album\/[\w-]+$/.test(url),
-            target: ERROR_TARGETS.RELATIONSHIP,
+            target: ERROR_TARGETS.ENTITY,
           };
       }
       return {result: false, target: ERROR_TARGETS.URL};
@@ -3115,12 +3120,12 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.recording:
             return {
               result: prefix === 'titel',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release_group:
             return {
               result: prefix === 'album',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -3139,7 +3144,7 @@ const CLEANUPS: CleanupEntries = {
         if (id === LINK_TYPES.lyrics.work) {
           return {result: true};
         }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+        return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },
@@ -3179,17 +3184,17 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: prefix === 'artists',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.place:
             return {
               result: prefix === 'venues',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.work:
             return {
               result: prefix === 'works',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -3252,20 +3257,20 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: prefix === 'artist',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.event:
             return {
               result: prefix === 'performance',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.work:
             return {
               result: prefix === 'expression',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+        return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },
@@ -3296,7 +3301,7 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?(www\\.)?paypal\\.me/[^/?#]', 'i')],
     restrict: [LINK_TYPES.patronage],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?paypal\.me\/([^\/?#]+)(?:.*)?$/, 'https://www.paypal.me/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?paypal\.me\/([^\/?#]+).*$/, 'https://www.paypal.me/$1');
       return url;
     },
   },
@@ -3314,20 +3319,20 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.lyrics.artist:
             return {
               result: prefix === 'lyrics/artist',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.lyrics.release_group:
             return {
               result: prefix === 'lyrics/album',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.lyrics.work:
             return {
               result: prefix === 'lyrics',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+        return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },
@@ -3356,15 +3361,15 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: type === 'artist',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release_group:
             return {
               result: type === 'album',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+        return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },
@@ -3400,24 +3405,24 @@ const CLEANUPS: CleanupEntries = {
               result: type === 'artistes' &&
                 page === 'biographie' &&
                 /^artistid=\d+$/.test(query),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release_group:
             return {
               result: type === 'albums' &&
                 page === 'description' &&
                 /^albumid=\d+$/.test(query),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.work:
             return {
               result: type === 'oeuvres' &&
                 page === 'oeuvre' &&
                 /^oeuvreid=\d+&albumid=\d+$/.test(query),
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+        return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },
@@ -3429,48 +3434,55 @@ const CLEANUPS: CleanupEntries = {
       return url.replace(/^(?:https?:\/\/)?(?:www\.)?rateyourmusic\.com\//, 'https://rateyourmusic.com/');
     },
     validate: function (url, id) {
-      const m = /^https:\/\/rateyourmusic\.com\/(\w+)\//.exec(url);
+      const m = /^https:\/\/rateyourmusic\.com\/(\w+)\/(?:(\w+)\/)?/.exec(url);
       if (m) {
         const prefix = m[1];
+        const subPath = m[2];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: prefix === 'artist',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.event:
             return {
               result: prefix === 'concert',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.label:
             return {
               result: prefix === 'label',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.place:
             return {
               result: prefix === 'venue',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.recording:
+            return {
+              error: l('Only RYM music videos can be linked to recordings.'),
+              result: prefix === 'release' && subPath === 'musicvideo',
               target: ERROR_TARGETS.RELATIONSHIP,
             };
           case LINK_TYPES.otherdatabases.release:
           case LINK_TYPES.otherdatabases.release_group:
             return {
               result: prefix === 'release',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.series:
             return {
               result: prefix === 'classifiers',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.work:
             return {
               result: prefix === 'work',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+        return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },
@@ -3523,37 +3535,37 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.discographyentry.release:
             return {
               result: prefix === 'podcast',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: prefix === 'dj',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.event:
             return {
               result: prefix === 'events',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.label:
             return {
               result: prefix === 'labels',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.place:
             return {
               result: prefix === 'clubs',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.recording:
             return {
               result: prefix === 'tracks',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.review.release_group:
             return {
               result: prefix === 'reviews',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -3601,20 +3613,20 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: !subsection,
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release_group:
             return {
               result: subsection === 'discos',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.work:
             return {
               result: subsection === 'letras',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+        return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       // Keep validating URLs from before Rock.com.ar 2017 relaunch
       m = /^http:\/\/rock\.com\.ar\/(?:(bios|discos|letras)(?:\/[0-9]+){2}\.shtml|(artistas)\/.+)$/.exec(url);
@@ -3624,20 +3636,20 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: prefix === 'artistas' || prefix === 'bios',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release_group:
             return {
               result: prefix === 'discos',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.work:
             return {
               result: prefix === 'letras',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+        return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },
@@ -3683,7 +3695,7 @@ const CLEANUPS: CleanupEntries = {
         if (id === LINK_TYPES.lyrics.work) {
           return {result: true};
         }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+        return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },
@@ -3707,27 +3719,27 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.secondhandsongs.artist:
             return {
               result: prefix === 'artist',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.secondhandsongs.label:
             return {
               result: prefix === 'label',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.secondhandsongs.recording:
             return {
               result: prefix === 'performance',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.secondhandsongs.release:
             return {
               result: prefix === 'release',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.secondhandsongs.work:
             return {
               result: prefix === 'work',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -3749,22 +3761,22 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.setlistfm.artist:
             return {
               result: prefix === 'setlists',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.setlistfm.event:
             return {
               result: prefix === 'setlist' || prefix === 'festival',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.setlistfm.place:
             return {
               result: prefix === 'venue',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.setlistfm.series:
             return {
               result: prefix === 'festivals',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -3790,10 +3802,10 @@ const CLEANUPS: CleanupEntries = {
         case LINK_TYPES.otherdatabases.label:
           return {
             result: /^http:\/\/snaccooperative\.org\/ark:\/99166\/[a-z0-9]+$/.test(url),
-            target: ERROR_TARGETS.RELATIONSHIP,
+            target: ERROR_TARGETS.URL,
           };
       }
-      return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      return {result: false, target: ERROR_TARGETS.ENTITY};
     },
   },
   'songfacts': {
@@ -3819,17 +3831,17 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.songkick.artist:
             return {
               result: prefix === 'artists',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.songkick.event:
             return {
               result: prefix === 'concerts' || prefix === 'festivals',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.songkick.place:
             return {
               result: prefix === 'venues',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -3870,15 +3882,15 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: prefix === 'composer',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release_group:
             return {
               result: prefix === 'title',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+        return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },
@@ -3902,20 +3914,20 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.streamingfree.artist:
             return {
               result: prefix === 'artist',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.streamingfree.release:
             return {
               result: prefix === 'album',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.streamingfree.recording:
             return {
               result: prefix === 'track' || prefix === 'episode',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+        return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },
@@ -3938,7 +3950,7 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?(www\\.)?thesession\\.org', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?thesession\.org\/(tunes|events|recordings(?:\/artists)?|sessions)(?:\/.*)?\/([0-9]+)(?:.*)?$/, 'https://thesession.org/$1/$2');
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?thesession\.org\/(tunes|events|recordings(?:\/artists)?|sessions)(?:\/.*)?\/([0-9]+).*$/, 'https://thesession.org/$1/$2');
     },
     validate: function (url, id) {
       const m = /^https:\/\/thesession\.org\/([a-z\/]+)\/[0-9]+$/.exec(url);
@@ -3948,28 +3960,67 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: prefix === 'recordings/artists',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.event:
             return {
               result: prefix === 'events',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.place:
             return {
               result: prefix === 'sessions',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release_group:
             return {
               result: prefix === 'recordings',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.work:
             return {
               result: prefix === 'tunes',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'tidal': {
+    match: [new RegExp(
+      '^(https?://)?' +
+      '(([^/]+\\.)*(desktop|listen|stage|store|www)\\.)?tidal\\.com' +
+      '/.*(album|artist|track|video)/',
+      'i',
+    )],
+    restrict: [LINK_TYPES.streamingpaid],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:(?:[^\/]+\.)*(?:desktop|listen|stage|store|www)\.)?tidal\.com\/(?:#!\/)?([\w\/]+).*$/, 'https://tidal.com/$1');
+      url = url.replace(/^https:\/\/tidal\.com\/(?:[a-z]{2}\/)?(?:browse\/|store\/)?(?:[a-z]+\/\d+\/)?([a-z]+)\/(\d+)(?:\/[\w]*)?$/, 'https://tidal.com/$1/$2');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/tidal\.com\/([a-z]+)\/\d+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingpaid.artist:
+            if (prefix === 'artist') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+          case LINK_TYPES.streamingpaid.release:
+            if (prefix === 'album' || prefix === 'video') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+          case LINK_TYPES.streamingpaid.recording:
+            if (prefix === 'track' || prefix === 'video') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
       }
@@ -3980,7 +4031,7 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?(?:[^/]+\\.)?tipeee\\.com/[^/?#]', 'i')],
     restrict: [LINK_TYPES.patronage],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?tipeee\.com\/([^\/?#]+)(?:.*)?$/, 'https://www.tipeee.com/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?tipeee\.com\/([^\/?#]+).*$/, 'https://www.tipeee.com/$1');
       return url;
     },
   },
@@ -3999,25 +4050,25 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.downloadpurchase.artist:
             return {
               result: prefix === 'artist',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.downloadpurchase.label:
             return {
               result: prefix === 'label',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.downloadpurchase.recording:
             return {
               result: prefix === 'track',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.downloadpurchase.release:
             return {
               result: prefix === 'title',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+        return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },
@@ -4029,17 +4080,17 @@ const CLEANUPS: CleanupEntries = {
     )],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?trove\.nla\.gov\.au\/work\/([^\/?#]+)(?:.*)?$/, 'https://trove.nla.gov.au/work/$1');
-      url = url.replace(/^(?:https?:\/\/)?trove\.nla\.gov\.au\/people\/([^\/?#]+)(?:.*)?$/, 'https://nla.gov.au/nla.party-$1');
-      url = url.replace(/^(?:https?:\/\/)?nla\.gov\.au\/(nla\.party-|anbd\.bib-an)([^\/?#]+)(?:.*)?$/, 'https://nla.gov.au/$1$2');
+      url = url.replace(/^(?:https?:\/\/)?trove\.nla\.gov\.au\/work\/([^\/?#]+).*$/, 'https://trove.nla.gov.au/work/$1');
+      url = url.replace(/^(?:https?:\/\/)?trove\.nla\.gov\.au\/people\/([^\/?#]+).*$/, 'https://nla.gov.au/nla.party-$1');
+      url = url.replace(/^(?:https?:\/\/)?nla\.gov\.au\/(nla\.party-|anbd\.bib-an)([^\/?#]+).*$/, 'https://nla.gov.au/$1$2');
       return url;
     },
   },
   'twitch': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?(twitch\\.tv/)', 'i')],
+    match: [new RegExp('^(https?://)?([^/]+\\.)?twitch\\.(?:com|tv)/', 'i')],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.videochannel}],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?twitch\.tv\/((?:videos\/)?[^\/?#]+)(?:.*)?$/, 'https://www.twitch.tv/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?twitch\.(?:com|tv)\/((?:videos\/)?[^\/?#]+).*$/, 'https://www.twitch.tv/$1');
       return url;
     },
     validate: function (url, id) {
@@ -4099,13 +4150,13 @@ const CLEANUPS: CleanupEntries = {
           return {
             result: isATweet &&
               (id === LINK_TYPES.streamingfree.recording),
-            target: ERROR_TARGETS.RELATIONSHIP,
+            target: ERROR_TARGETS.ENTITY,
           };
         } else if (isATweet) {
           return {
             error: l('Please link to Twitter profiles, not tweets.'),
             result: false,
-            target: ERROR_TARGETS.URL,
+            target: ERROR_TARGETS.ENTITY,
           };
         }
         return {result: true};
@@ -4150,28 +4201,28 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.label:
             return {
               result: prefix === 'Ar',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.event:
             return {
               result: prefix === 'E',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.recording:
           case LINK_TYPES.otherdatabases.work:
             return {
               result: prefix === 'S',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release_group:
             return {
               result: prefix === 'Al',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.series:
             return {
               result: prefix === 'Es',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -4193,12 +4244,12 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.lyrics.artist:
             return {
               result: prefix === 'artist',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.lyrics.work:
             return {
               result: prefix === 'song',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -4220,12 +4271,12 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.lyrics.artist:
             return {
               result: prefix === 'artist',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.lyrics.work:
             return {
               result: prefix === 'lyric',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -4247,27 +4298,27 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.vgmdb.artist:
             return {
               result: prefix === 'artist' || prefix === 'org',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.vgmdb.release:
             return {
               result: prefix === 'album',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.vgmdb.label:
             return {
               result: prefix === 'org',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.vgmdb.event:
             return {
               result: prefix === 'event',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.vgmdb.work:
             return {
               result: prefix === 'product',
-              target: ERROR_TARGETS.RELATIONSHIP,
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
@@ -4291,13 +4342,59 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'vimeo': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?(vimeo\\.com/)', 'i')],
+    match: [new RegExp(
+      '^(https?://)?([^/]+\\.)?vimeo\\.com/(?!(?:ondemand|store/ondemand))',
+      'i',
+    )],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.videochannel}],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com/, 'https://vimeo.com');
       // Remove query string, just the video id should be enough.
       url = url.replace(/\?.*/, '');
       return url;
+    },
+  },
+  'vimeoondemand': {
+    match: [new RegExp(
+      '^(https?://)?([^/]+\\.)?vimeo\\.com/(?:ondemand|store/ondemand)',
+      'i',
+    )],
+    restrict: [LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com\/ondemand\/([^\/?#]+)(?:.*)$/, 'https://vimeo.com/ondemand/$1');
+      return url;
+    },
+    validate: function (url, id) {
+      const isStoreLink = /vimeo\.com\/store\/ondemand/.test(url);
+      if (isStoreLink) {
+        return {
+          error: exp.l(
+            `Please link to the “{allowed_url_pattern}” page
+             rather than this “{current_url_pattern}” link.`,
+            {
+              allowed_url_pattern: (
+                <span className="url-quote">{'/ondemand'}</span>
+              ),
+              current_url_pattern: (
+                <span className="url-quote">{'/store/ondemand'}</span>
+              ),
+            },
+          ),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+      switch (id) {
+        case LINK_TYPES.downloadpurchase.recording:
+        case LINK_TYPES.downloadpurchase.release:
+        case LINK_TYPES.streamingpaid.recording:
+        case LINK_TYPES.streamingpaid.release:
+          return {
+            result: /^https:\/\/vimeo\.com\/ondemand\/([^\/?#]+)*$/.test(url),
+            target: ERROR_TARGETS.URL,
+          };
+      }
+      return {result: false, target: ERROR_TARGETS.ENTITY};
     },
   },
   'vine': {
@@ -4515,6 +4612,8 @@ const CLEANUPS: CleanupEntries = {
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?worldcat\.org/, 'https://www.worldcat.org');
       url = url.replace(/^https:\/\/www\.worldcat\.org(?:\/title\/[a-zA-Z0-9_-]+)?\/oclc\/([^&?]+)(?:.*)$/, 'https://www.worldcat.org/oclc/$1');
+      // oclc permalinks have no ending slash but identities ones do
+      url = url.replace(/^https:\/\/www\.worldcat\.org\/(?:wc)?identities\/([^&?/]+)(?:.*)$/, 'https://www.worldcat.org/identities/$1/');
       return url;
     },
   },

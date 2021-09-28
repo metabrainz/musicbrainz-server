@@ -1036,6 +1036,12 @@ const testData = [
     expected_relationship_type: 'mailorder',
             expected_clean_url: 'https://www.cdjapan.co.jp/product/COCC-72267',
   },
+  {
+                     input_url: 'http://www.cdjapan.co.jp/detailview.html?KEY=LACA-15238',
+             input_entity_type: 'release',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://www.cdjapan.co.jp/product/LACA-15238',
+  },
   // ChangeTip (Tip.Me)
   {
                      input_url: 'https://www.changetip.com/tipme/example',
@@ -1398,49 +1404,56 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/gnd/129802433',
-       only_valid_entity_types: ['artist', 'label', 'place', 'work'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work'],
   },
   {
                      input_url: 'https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=nid%3D119194901X',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/gnd/119194901X',
-       only_valid_entity_types: ['artist', 'label', 'place', 'work'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work'],
+  },
+  {
+                     input_url: 'https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=nid%3D4507637-6',
+             input_entity_type: 'series',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/gnd/4507637-6',
+       only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work'],
   },
   {
                      input_url: 'https://portal.dnb.de/opac/opacPresentation?cqlMode=true&reset=true&referrerPosition=0&referrerResultId=coriolan%26any&query=idn%3D30001502X',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/30001502X',
-       only_valid_entity_types: ['artist', 'label', 'place', 'release', 'work'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'release', 'series', 'work'],
   },
   {
                      input_url: 'https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=idn%3D1227621485',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/1227621485',
-       only_valid_entity_types: ['artist', 'label', 'place', 'release', 'work'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'release', 'series', 'work'],
   },
   {
                      input_url: 'https://d-nb.info/gnd/2026867-1',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/gnd/2026867-1',
-       only_valid_entity_types: ['artist', 'label', 'place', 'work'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work'],
   },
   {
                      input_url: 'http://d-nb.info/gnd/1133522467',
              input_entity_type: 'place',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/gnd/1133522467',
-       only_valid_entity_types: ['artist', 'label', 'place', 'work'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work'],
   },
   {
                      input_url: 'http://d-nb.info/gnd/1100718354',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/gnd/1100718354',
-       only_valid_entity_types: ['artist', 'label', 'place', 'work'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work'],
   },
   {
                      input_url: 'http://d-nb.info/dnbn/390205699',
@@ -1454,7 +1467,7 @@ const testData = [
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/1181136512',
-       only_valid_entity_types: ['artist', 'label', 'place', 'release', 'work'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'release', 'series', 'work'],
   },
   // Dogmazic
   {
@@ -2394,14 +2407,21 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://id.loc.gov/authorities/names/n79018119',
-       only_valid_entity_types: ['artist', 'label', 'place', 'work'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work'],
   },
   {
                      input_url: 'https://id.loc.gov/authorities/names/no2016104748.html',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://id.loc.gov/authorities/names/no2016104748',
-       only_valid_entity_types: ['artist', 'label', 'place', 'work'],
+       only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work'],
+  },
+  {
+                     input_url: 'https://id.loc.gov/authorities/names/n86864540.html',
+             input_entity_type: 'series',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://id.loc.gov/authorities/names/n86864540',
+       only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work'],
   },
   // LiederNet Archive
   {
@@ -3311,6 +3331,13 @@ const testData = [
         only_valid_entity_types: ['place'],
   },
   {
+                     input_url: 'https://rateyourmusic.com/release/musicvideo/metallica/one/',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://rateyourmusic.com/release/musicvideo/metallica/one/',
+        only_valid_entity_types: ['recording', 'release', 'release_group'],
+  },
+  {
                      input_url: 'https://rateyourmusic.com/release/single/tori_amos/a_sorta_fairytale/',
              input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
@@ -4001,6 +4028,77 @@ const testData = [
             expected_clean_url: 'https://thesession.org/tunes/2305',
        only_valid_entity_types: ['work'],
   },
+  // Tidal
+  {
+                     input_url: 'http://desktop.tidal.com/artist/8140105',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://tidal.com/artist/8140105',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://desktop.stage.tidal.com/artist/7554203',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://tidal.com/artist/7554203',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://tidal.com/#!/track/73579059',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://tidal.com/track/73579059',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://tidal.com/browse/track/87265743?play=true',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://tidal.com/track/87265743',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://listen.tidal.com/album/92616871/track/92616872',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://tidal.com/track/92616872',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'http://listen.tidal.com/video/74314756',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://tidal.com/video/74314756',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
+                     input_url: 'tidal.com/#!/gb/store/album/80921386',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://tidal.com/album/80921386',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://www.tidal.com/album/191185943',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://tidal.com/album/191185943',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://stage.tidal.com/browse/album/77120747',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://tidal.com/album/77120747',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://store.tidal.com/us/album/58294001',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://tidal.com/album/58294001',
+       only_valid_entity_types: ['release'],
+  },
   // Tipeee
   {
                      input_url: 'https://www.tipeee.com/example/news',
@@ -4096,6 +4194,13 @@ const testData = [
     expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://www.twitch.tv/videos/1234567890',
        only_valid_entity_types: ['recording', 'release'],
+  },
+  {
+                     input_url: 'http://twitch.com/pisceze',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'videochannel',
+            expected_clean_url: 'https://www.twitch.tv/pisceze',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   // Twitter
   {
@@ -4302,6 +4407,11 @@ const testData = [
     expected_relationship_type: 'viaf',
   },
   {
+                     input_url: 'http://viaf.org/viaf/154643080',
+             input_entity_type: 'series',
+    expected_relationship_type: 'viaf',
+  },
+  {
                      input_url: 'http://viaf.org/viaf/185694157',
              input_entity_type: 'work',
     expected_relationship_type: 'viaf',
@@ -4350,6 +4460,25 @@ const testData = [
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://vimeo.com/1109226',
+  },
+  {
+                     input_url: 'https://vimeo.com/ondemand/inconcert/193518106?autoplay=1',
+            expected_clean_url: 'https://vimeo.com/ondemand/inconcert',
+       input_relationship_type: 'downloadpurchase',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
+                     input_url: 'https://vimeo.com/ondemand/inconcert#comments',
+            expected_clean_url: 'https://vimeo.com/ondemand/inconcert',
+       input_relationship_type: 'streamingpaid',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
+                     input_url: 'https://vimeo.com/store/ondemand/buy/91410',
+             input_entity_type: 'recording',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'downloadpurchase',
+       only_valid_entity_types: [],
   },
   // Vine
   {
@@ -4625,6 +4754,24 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.worldcat.org/identities/lccn-no2015052484/',
+  },
+  {
+                     input_url: 'http://www.worldcat.org/identities/lccn-n50005018',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.worldcat.org/identities/lccn-n50005018/',
+  },
+  {
+                     input_url: 'http://worldcat.org/identities/lccn-n79081635/',
+             input_entity_type: 'place',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.worldcat.org/identities/lccn-n79081635/',
+  },
+  {
+                     input_url: 'https://www.worldcat.org/wcidentities/lccn-n94-9040',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.worldcat.org/identities/lccn-n94-9040/',
   },
   // YouTube
   {

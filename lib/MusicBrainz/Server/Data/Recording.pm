@@ -418,6 +418,7 @@ sub appears_on
             SELECT DISTINCT rg.id, rg.gid, rg.name,
                 rg.type AS primary_type_id,
                 rg.artist_credit AS artist_credit_id,
+                rg.edits_pending,
                 rgm.first_release_date_year,
                 rgm.first_release_date_month,
                 rgm.first_release_date_day

@@ -119,11 +119,12 @@ sub delete_alias : Chained('alias') PathPart('delete') Edit
     my $type = $self->{entity_name};
     my $entity = $c->stash->{ $type };
     my $edit = $c->model('Edit')->find_creation_edit($model_to_edit_type{add}->{ $self->{model} }, $alias->id, id_field => 'alias_id');
+    my $entity_type = $type eq 'rg' ? 'release_group' : $type;
 
     my %props = (
         alias => $alias->TO_JSON,
         entity => $entity->TO_JSON,
-        type => $type,
+        type => $entity_type,
     );
 
     $c->stash(
