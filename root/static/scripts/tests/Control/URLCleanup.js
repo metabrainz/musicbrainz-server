@@ -44,6 +44,10 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
        only_valid_entity_types: [],
+                expected_error: {
+                                  error: undefined,
+                                  target: 'url',
+                                },
   },
   // 45worlds
   {
@@ -4856,6 +4860,10 @@ limited_link_type_combinations: [
     expected_relationship_type: undefined,
        input_relationship_type: 'discographyentry',
        only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'no entries for specific releases',
+                                  target: 'entity',
+                                },
   },
   // Wikisource
   {
@@ -5278,6 +5286,47 @@ testData.forEach(function (subtest, i) {
         );
         tested = true;
       }
+    }
+    if (subtest.expected_error) {
+      const relationshipType = subtest.input_relationship_type ||
+        subtest.expected_relationship_type;
+      if (!relationshipType) {
+        st.fail(
+          'Test is invalid: "expected_error" is specified with neither "expected_relationship_type" nor "input_relationship_type".',
+        );
+        st.end();
+        return;
+      }
+      if (!subtest.input_entity_type) {
+        st.fail(
+          'Test is invalid: "expected error" is specified without "input_entity_type".',
+        );
+        st.end();
+        return;
+      }
+      const cleanUrl = subtest.expected_clean_url || actualCleanUrl;
+      const checker = new Checker(cleanUrl, subtest.input_entity_type);
+      const validationResult = checker.checkRelationship(
+        LINK_TYPES[relationshipType],
+        subtest.input_entity_type,
+      );
+      if (subtest.expected_error.error === undefined) {
+        st.ok(
+          validationResult.error === undefined,
+          'Default error message will be used as expected',
+        );
+      } else {
+        st.ok(
+          validationResult.error.includes(subtest.expected_error.error),
+          'Error message contains expected string',
+        );
+      }
+      st.equal(
+        validationResult.target,
+        subtest.expected_error.target,
+        'Error target matches expected target',
+      );
+      tested = true;
     }
     if (!tested) {
       st.fail('Test is worthless: Nothing has been actually tested.');
