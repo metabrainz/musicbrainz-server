@@ -4461,6 +4461,25 @@ const testData = [
     expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://vimeo.com/1109226',
   },
+  {
+                     input_url: 'https://vimeo.com/ondemand/inconcert/193518106?autoplay=1',
+            expected_clean_url: 'https://vimeo.com/ondemand/inconcert',
+       input_relationship_type: 'downloadpurchase',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
+                     input_url: 'https://vimeo.com/ondemand/inconcert#comments',
+            expected_clean_url: 'https://vimeo.com/ondemand/inconcert',
+       input_relationship_type: 'streamingpaid',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
+                     input_url: 'https://vimeo.com/store/ondemand/buy/91410',
+             input_entity_type: 'recording',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'downloadpurchase',
+       only_valid_entity_types: [],
+  },
   // Vine
   {
                      input_url: 'https://vine.co/destorm',
