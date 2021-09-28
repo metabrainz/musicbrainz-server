@@ -346,6 +346,10 @@ async function writePreviousSeleniumCoverage() {
   }
 }
 
+function timePrefix(str) {
+  return `[${(new Date()).toISOString().slice(-13)}] ${str}`;
+}
+
 async function checkSirQueues(t) {
   let failedCount = 0;
   let retryCount = 0;
@@ -385,10 +389,10 @@ async function checkSirQueues(t) {
     }
 
     if (indexCount || deleteCount) {
-      t.comment(
+      t.comment(timePrefix(
         'waiting for non-empty sir queues: ' +
         `search.index (${indexCount}), search.delete (${deleteCount})`,
-      );
+      ));
       await driver.sleep(5000);
     } else {
       return;
@@ -420,11 +424,11 @@ async function handleCommand({command, target, value}, t) {
     return pendingReqs.length === 0;
   });
 
-  t.comment(
+  t.comment(timePrefix(
     command +
     ' target=' + JSON.stringify(target) +
     ' value=' + JSON.stringify(value),
-  );
+  ));
 
   let element;
   switch (command) {
@@ -754,9 +758,19 @@ async function runCommands(commands, t) {
         const timeout = setTimeout(resolve, TEST_TIMEOUT);
 
         accum.then(async function () {
-          try {
-            await cleanSeleniumDb(stest.sql);
+          const cleanSeleniumDbStartTime = new Date();
+          await cleanSeleniumDb(stest.sql);
+          const cleanSeleniumDbFinishTime = new Date();
+          const cleanSeleniumDbElapsedTime =
+            (cleanSeleniumDbFinishTime - cleanSeleniumDbStartTime) / 1000;
 
+          t.comment(timePrefix(
+            `cleanSeleniumDb(): took ${cleanSeleniumDbElapsedTime} seconds`,
+          ));
+
+          const startTime = new Date();
+
+          try {
             if (stest.login) {
               await runCommands(loginPlan.commands, t);
             }
@@ -774,6 +788,12 @@ async function runCommands(commands, t) {
               (error && error.stack ? error.stack : error.toString()),
             );
             throw error;
+          } finally {
+            const finishTime = new Date();
+            const elapsedTime = (finishTime - startTime) / 1000;
+            t.comment(timePrefix(
+              `${title}: took ${elapsedTime} seconds`,
+            ));
           }
 
           t.end();
