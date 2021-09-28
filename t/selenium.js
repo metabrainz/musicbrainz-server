@@ -51,7 +51,6 @@ const chrome = require('selenium-webdriver/chrome');
 const firefox = require('selenium-webdriver/firefox');
 const webdriverProxy = require('selenium-webdriver/proxy');
 const {Key} = require('selenium-webdriver/lib/input');
-const promise = require('selenium-webdriver/lib/promise');
 const until = require('selenium-webdriver/lib/until');
 
 const DBDefs = require('../root/static/scripts/common/DBDefs');
@@ -275,11 +274,15 @@ async function selectOption(select, optionLocator) {
       } else {
         value = new RegExp('^\s*' + escapeRegExp(value) + '\s*$');
       }
-      option = await select.findElement(function () {
-        const options = select.findElements(webdriver.By.tagName('option'));
-        return promise.filter(options, function (option) {
-          return option.getText().then(x => value.test(x));
-        });
+      option = await select.findElement(async function () {
+        const options =
+          await select.findElements(webdriver.By.tagName('option'));
+        for (const option of options) {
+          if (value.test(await option.getText())) {
+            return option;
+          }
+        }
+        return null;
       });
       break;
 
