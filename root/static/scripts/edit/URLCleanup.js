@@ -1315,7 +1315,7 @@ const CLEANUPS: CleanupEntries = {
     ],
     restrict: [LINK_TYPES.patronage],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?changetip\.com\/tipme\/([^\/?#]+)(?:.*)?$/, 'https://www.changetip.com/tipme/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?changetip\.com\/tipme\/([^\/?#]+).*$/, 'https://www.changetip.com/tipme/$1');
       url = url.replace(/^(?:https?:\/\/)?([^\/?#]+)\.tip\.me(?:[\/?#].*)?$/, 'https://www.changetip.com/tipme/$1');
       return url;
     },
@@ -1349,8 +1349,8 @@ const CLEANUPS: CleanupEntries = {
       url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Work\/([^\/?#]+)/, '$1/work/$2.html');
       url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Performer\/e([^\/?#]+)/, '$1/ensemble/$2.html');
       url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Performer\/p([^\/?#]+)/, '$1/artist/$2.html');
-      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Album\/([^\/?#]+)(?:.*)?$/, '$1/newca/#!/Album/$2');
-      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/(album|artist|composer|ensemble|work)\/([^\/?#]+)(?:.*)?$/, '$1/$2/$3');
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/newca\/#!\/Album\/([^\/?#]+).*$/, '$1/newca/#!/Album/$2');
+      url = url.replace(/^(https:\/\/www\.classicalarchives\.com)\/(album|artist|composer|ensemble|work)\/([^\/?#]+).*$/, '$1/$2/$3');
       return url;
     },
     validate: function (url, id) {
@@ -1793,8 +1793,8 @@ const CLEANUPS: CleanupEntries = {
     ],
     restrict: [LINK_TYPES.patronage],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?d\.rip\/([^\/?#]+)(?:.*)?$/, 'https://d.rip/$1');
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?drip\.kickstarter.com\/([^\/?#]+)(?:.*)?$/, 'https://d.rip/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?d\.rip\/([^\/?#]+).*$/, 'https://d.rip/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?drip\.kickstarter.com\/([^\/?#]+).*$/, 'https://d.rip/$1');
       return url;
     },
   },
@@ -1815,7 +1815,7 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?(www\\.)?ester\\.ee/', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ester\.ee\/record=([^~]+)(?:.*)?$/, 'http://www.ester.ee/record=$1~S1*est');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ester\.ee\/record=([^~]+).*$/, 'http://www.ester.ee/record=$1~S1*est');
       return url;
     },
   },
@@ -1871,7 +1871,7 @@ const CLEANUPS: CleanupEntries = {
     )],
     restrict: [LINK_TYPES.patronage],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?flattr\.com\/profile\/([^\/?#]+)(?:.*)?$/, 'https://flattr.com/profile/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?flattr\.com\/profile\/([^\/?#]+).*$/, 'https://flattr.com/profile/$1');
       return url;
     },
   },
@@ -2428,7 +2428,7 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?(www\\.)?ko-fi.com/[^/?#]', 'i')],
     restrict: [LINK_TYPES.patronage],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ko-fi\.com\/([^\/?#]+)(?:.*)?$/, 'https://ko-fi.com/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ko-fi\.com\/([^\/?#]+).*$/, 'https://ko-fi.com/$1');
       return url;
     },
   },
@@ -2439,7 +2439,7 @@ const CLEANUPS: CleanupEntries = {
     )],
     restrict: [LINK_TYPES.lyrics],
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?laboiteauxparoles\.com\/(auteur|editeur|interprete|titre)\/([^\/?#]+)(?:.*)?$/, 'https://laboiteauxparoles.com/$1/$2');
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?laboiteauxparoles\.com\/(auteur|editeur|interprete|titre)\/([^\/?#]+).*$/, 'https://laboiteauxparoles.com/$1/$2');
     },
     validate: function (url, id) {
       const m = /^https:\/\/laboiteauxparoles\.com\/(auteur|editeur|interprete|titre)\//.exec(url);
@@ -3301,7 +3301,7 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?(www\\.)?paypal\\.me/[^/?#]', 'i')],
     restrict: [LINK_TYPES.patronage],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?paypal\.me\/([^\/?#]+)(?:.*)?$/, 'https://www.paypal.me/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?paypal\.me\/([^\/?#]+).*$/, 'https://www.paypal.me/$1');
       return url;
     },
   },
@@ -3950,7 +3950,7 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?(www\\.)?thesession\\.org', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?thesession\.org\/(tunes|events|recordings(?:\/artists)?|sessions)(?:\/.*)?\/([0-9]+)(?:.*)?$/, 'https://thesession.org/$1/$2');
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?thesession\.org\/(tunes|events|recordings(?:\/artists)?|sessions)(?:\/.*)?\/([0-9]+).*$/, 'https://thesession.org/$1/$2');
     },
     validate: function (url, id) {
       const m = /^https:\/\/thesession\.org\/([a-z\/]+)\/[0-9]+$/.exec(url);
@@ -4031,7 +4031,7 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?(?:[^/]+\\.)?tipeee\\.com/[^/?#]', 'i')],
     restrict: [LINK_TYPES.patronage],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?tipeee\.com\/([^\/?#]+)(?:.*)?$/, 'https://www.tipeee.com/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?tipeee\.com\/([^\/?#]+).*$/, 'https://www.tipeee.com/$1');
       return url;
     },
   },
@@ -4080,9 +4080,9 @@ const CLEANUPS: CleanupEntries = {
     )],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?trove\.nla\.gov\.au\/work\/([^\/?#]+)(?:.*)?$/, 'https://trove.nla.gov.au/work/$1');
-      url = url.replace(/^(?:https?:\/\/)?trove\.nla\.gov\.au\/people\/([^\/?#]+)(?:.*)?$/, 'https://nla.gov.au/nla.party-$1');
-      url = url.replace(/^(?:https?:\/\/)?nla\.gov\.au\/(nla\.party-|anbd\.bib-an)([^\/?#]+)(?:.*)?$/, 'https://nla.gov.au/$1$2');
+      url = url.replace(/^(?:https?:\/\/)?trove\.nla\.gov\.au\/work\/([^\/?#]+).*$/, 'https://trove.nla.gov.au/work/$1');
+      url = url.replace(/^(?:https?:\/\/)?trove\.nla\.gov\.au\/people\/([^\/?#]+).*$/, 'https://nla.gov.au/nla.party-$1');
+      url = url.replace(/^(?:https?:\/\/)?nla\.gov\.au\/(nla\.party-|anbd\.bib-an)([^\/?#]+).*$/, 'https://nla.gov.au/$1$2');
       return url;
     },
   },
@@ -4090,7 +4090,7 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?twitch\\.(?:com|tv)/', 'i')],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.videochannel}],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?twitch\.(?:com|tv)\/((?:videos\/)?[^\/?#]+)(?:.*)?$/, 'https://www.twitch.tv/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?twitch\.(?:com|tv)\/((?:videos\/)?[^\/?#]+).*$/, 'https://www.twitch.tv/$1');
       return url;
     },
     validate: function (url, id) {
