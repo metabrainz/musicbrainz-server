@@ -118,44 +118,51 @@ TestCls.prototype.okWithRetry = async function (isOk) {
   this.ok(ok);
 };
 
-function execFile(...args) {
-  return new Promise(function (resolve, reject) {
-    let exitCode = null;
-    let result = null;
+function wrapChildProcessMethod(methodName) {
+  return (...args) => {
+    return new Promise(function (resolve, reject) {
+      let exitCode = null;
+      let result = null;
 
-    function done() {
-      result.code = exitCode;
-      if (result.error) {
-        reject(result);
-      } else {
-        resolve(result);
+      function done() {
+        result.code = exitCode;
+        if (result.error) {
+          reject(result);
+        } else {
+          resolve(result);
+        }
       }
-    }
 
-    const child = child_process.execFile(
-      ...args,
-      function (error, stdout, stderr) {
-        result = {error, stdout, stderr};
-        if (exitCode !== null) {
+      const child = child_process[methodName](
+        ...args,
+        function (error, stdout, stderr) {
+          result = {error, stdout, stderr};
+          if (exitCode !== null) {
+            done();
+          }
+        },
+      );
+
+      child.on('exit', function (code) {
+        exitCode = code;
+        if (result !== null) {
           done();
         }
-      },
-    );
-
-    child.on('exit', function (code) {
-      exitCode = code;
-      if (result !== null) {
-        done();
-      }
+      });
     });
-  });
+  };
 }
+
+const exec = wrapChildProcessMethod('exec');
+const execFile = wrapChildProcessMethod('execFile');
 
 const proxy = httpProxy.createProxyServer({});
 let pendingReqs = [];
+let reqsCount = 0;
 
 proxy.on('proxyReq', function (req) {
   pendingReqs.push(req);
+  reqsCount++;
 });
 
 const customProxyServer = http.createServer(function (req, res) {
@@ -334,6 +341,61 @@ async function writePreviousSeleniumCoverage() {
   if (previousCoverage) {
     writeSeleniumCoverage(previousCoverage);
   }
+}
+
+async function checkSirQueues(t) {
+  let failedCount = 0;
+  let retryCount = 0;
+  let indexCount = 0;
+  let deleteCount = 0;
+  let prevIndexCount = 0;
+  let prevDeleteCount = 0;
+
+  while (
+    (prevIndexCount + prevDeleteCount) === 0 ||
+    // Continue if the queues are actually decreasing.
+    (indexCount - prevIndexCount) < 0 ||
+    (deleteCount - prevDeleteCount) < 0
+  ) {
+    prevIndexCount = indexCount;
+    prevDeleteCount = deleteCount;
+
+    const result = await exec(
+      "sudo -n rabbitmqctl list_queues -p '/sir-test' -q --formatter=json",
+    );
+    const sirQueues = JSON.parse(result.stdout);
+    const messageCounts = sirQueues.reduce((map, queue) => {
+      map.set(queue.name, queue.messages);
+      return map;
+    }, new Map());
+
+    failedCount = messageCounts.get('search.failed') || 0;
+    retryCount = messageCounts.get('search.retry') || 0;
+    indexCount = messageCounts.get('search.index') || 0;
+    deleteCount = messageCounts.get('search.delete') || 0;
+
+    if (failedCount || retryCount) {
+      throw new Error(
+        'non-empty sir queues: ' +
+        `search.failed (${failedCount}), search.retry (${retryCount})`,
+      );
+    }
+
+    if (indexCount || deleteCount) {
+      t.comment(
+        'waiting for non-empty sir queues: ' +
+        `search.index (${indexCount}), search.delete (${deleteCount})`,
+      );
+      await driver.sleep(5000);
+    } else {
+      return;
+    }
+  }
+
+  throw new Error(
+    'non-empty sir queues: ' +
+    `search.index (${indexCount}), search.delete (${deleteCount})`,
+  );
 }
 
 async function handleCommandAndWait({command, target, value}, t) {
@@ -604,7 +666,24 @@ async function runCommands(commands, t) {
   await driver.manage().window().setRect({height: 768, width: 1024});
 
   for (let i = 0; i < commands.length; i++) {
+    let reqsCountBeforeCommand = reqsCount;
+
     await handleCommand(commands[i], t);
+
+    /*
+     * Wait for sir queues to empty before proceeding. rabbitmqctl
+     * list_queues is extremely slow (taking more than 500 ms to run on my
+     * local machine), so we try to avoid this for commands that don't have
+     * side-effects, like assertions. If no new requests have been made, we
+     * also consider the command to be side-effect free.
+     */
+    if (
+      process.env.SIR_DIR &&
+      !/^assert/.test(commands[i].command) &&
+      reqsCount > reqsCountBeforeCommand
+    ) {
+      await checkSirQueues(t);
+    }
 
     const nextCommand = i < (commands.length - 1) ? commands[i + 1] : null;
 
