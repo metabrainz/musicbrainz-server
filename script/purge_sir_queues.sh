@@ -2,7 +2,7 @@
 
 VHOST=${1:-/sir}
 
-rabbitmqctl purge_queue -p "$VHOST" search.delete
-rabbitmqctl purge_queue -p "$VHOST" search.failed
-rabbitmqctl purge_queue -p "$VHOST" search.index
-rabbitmqctl purge_queue -p "$VHOST" search.retry
+sudo -n rabbitmqctl purge_queue -p "$VHOST" search.delete
+sudo -n rabbitmqctl purge_queue -p "$VHOST" search.failed
+sudo -n rabbitmqctl purge_queue -p "$VHOST" search.index
+sudo -n rabbitmqctl purge_queue -p "$VHOST" search.retry

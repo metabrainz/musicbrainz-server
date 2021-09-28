@@ -33,7 +33,6 @@ sudo -E -H -u musicbrainz sh -c '. venv/bin/activate; python -m sir amqp_setup; 
 sudo -u postgres psql -U postgres -f sql/CreateExtension.sql musicbrainz_selenium
 sudo -u postgres psql -U musicbrainz -f sql/CreateFunctions.sql musicbrainz_selenium
 sudo -u postgres psql -U musicbrainz -f sql/CreateTriggers.sql musicbrainz_selenium
-rm /etc/service/sir-queue-purger/down && sv start sir-queue-purger
 
 # Install the artwork_indexer schema into musicbrainz_selenium.
 cd /home/musicbrainz/artwork-indexer

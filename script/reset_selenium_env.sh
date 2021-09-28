@@ -27,14 +27,7 @@ if [[ $SIR_DIR ]]; then
     OUTPUT=`./admin/psql SELENIUM <"$SIR_DIR"/sql/DropTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
     echo `date` : Purging sir queues
-    if [[ -d /etc/service/sir-queue-purger ]]; then
-        touch "$HOME"/.purge_sir_queues
-        while [[ -e "$HOME"/.purge_sir_queues ]]; do
-            sleep 1
-        done
-    else
-        OUTPUT=`./script/purge_sir_queues.sh /sir-test 2>&1` || ( echo "$OUTPUT" && exit 1 )
-    fi
+    OUTPUT=`./script/purge_sir_queues.sh /sir-test 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
     echo `date` : Purging Solr cores
     OUTPUT=`./script/purge_solr_cores.sh 2>&1` || ( echo "$OUTPUT" && exit 1 )
