@@ -90,6 +90,34 @@ TestCls.prototype.deepEqual2 = function (a, b, msg, extra) {
   });
 };
 
+async function _retryTest(isOk) {
+  for (let i = 0; i < 3; i++) {
+    if (await isOk()) {
+      break;
+    } else {
+      await driver.sleep(3000);
+    }
+  }
+}
+
+TestCls.prototype.equalWithRetry = async function (a, b) {
+  let aValue;
+  await _retryTest(async () => {
+    aValue = await a();
+    return Object.is(aValue, b);
+  });
+  this.equal(aValue, b);
+};
+
+TestCls.prototype.okWithRetry = async function (isOk) {
+  let ok;
+  await _retryTest(async () => {
+    ok = await isOk();
+    return ok;
+  });
+  this.ok(ok);
+};
+
 function execFile(...args) {
   return new Promise(function (resolve, reject) {
     let exitCode = null;
@@ -350,16 +378,24 @@ async function handleCommand({command, target, value}, t) {
       const attribute = target.slice(splitAt + 1);
       element = await findElement(locator);
 
-      t.equal(await element.getAttribute(attribute), value);
+      await t.equalWithRetry(
+        async () => element.getAttribute(attribute),
+        value,
+      );
       break;
 
     case 'assertElementPresent':
-      const elements = await driver.findElements(makeLocator(target));
-      t.ok(elements.length > 0);
+      await t.okWithRetry(async () => {
+        const elements = await driver.findElements(makeLocator(target));
+        return elements.length > 0;
+      });
       break;
 
     case 'assertEval':
-      t.equal(await driver.executeScript(`return String(${target})`), value);
+      await t.equalWithRetry(
+        async () => driver.executeScript(`return String(${target})`),
+        value,
+      );
       break;
 
     case 'assertEditData':
@@ -375,24 +411,36 @@ async function handleCommand({command, target, value}, t) {
       break;
 
     case 'assertLocationMatches':
-      t.ok(new RegExp(target).test(await driver.getCurrentUrl()));
+      await t.okWithRetry(async () => {
+        return new RegExp(target).test(await driver.getCurrentUrl());
+      });
       break;
 
     case 'assertText':
-      target = await getElementText(target);
-      t.equal(target, value.trim());
+      await t.equalWithRetry(
+        async () => getElementText(target),
+        value.trim(),
+      );
       break;
 
     case 'assertTextMatches':
-      t.ok(new RegExp(value).test(await getElementText(target)));
+      await t.okWithRetry(async () => {
+        return new RegExp(value).test(await getElementText(target));
+      });
       break;
 
     case 'assertTitle':
-      t.equal(await driver.getTitle(), target);
+      await t.equalWithRetry(
+        async () => driver.getTitle(),
+        target,
+      );
       break;
 
     case 'assertValue':
-      t.equal(await findElement(target).getAttribute('value'), value);
+      await t.equalWithRetry(
+        async () => findElement(target).getAttribute('value'),
+        value,
+      );
       break;
 
     case 'check':
