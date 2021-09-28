@@ -722,7 +722,7 @@ async function runCommands(commands, t) {
 }
 
 (async function runTests() {
-  const TEST_TIMEOUT = 200000; // 200 seconds
+  const TEST_TIMEOUT = 300000; // 300 seconds
 
   async function cleanSeleniumDb(extraSql) {
     await execFile(
