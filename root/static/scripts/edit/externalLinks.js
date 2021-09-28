@@ -551,32 +551,32 @@ export class ExternalLinksEditor
     } else if (isNewOrChangedLink && isMusicBrainz(link.url)) {
       error = {
         message: l(`Links to MusicBrainz URLs are not allowed.
-                Did you mean to paste something else?`),
+                    Did you mean to paste something else?`),
         target: URLCleanup.ERROR_TARGETS.URL,
       };
     } else if (isNewOrChangedLink && isMalware(link.url)) {
       error = {
         message: l(`Links to this website are not allowed
-                because it is known to host malware.`),
+                    because it is known to host malware.`),
         target: URLCleanup.ERROR_TARGETS.URL,
       };
     } else if (isNewOrChangedLink && isShortened(link.url)) {
       error = {
         message: l(`Please don’t enter bundled/shortened URLs,
-                enter the destination URL(s) instead.`),
+                    enter the destination URL(s) instead.`),
         target: URLCleanup.ERROR_TARGETS.URL,
       };
     } else if (isNewOrChangedLink && isGoogleAmp(link.url)) {
       error = {
         message: l(`Please don’t enter Google AMP links,
-                since they are effectively an extra redirect.
-                Enter the destination URL instead.`),
+                    since they are effectively an extra redirect.
+                    Enter the destination URL instead.`),
         target: URLCleanup.ERROR_TARGETS.URL,
       };
     } else if (!link.type) {
       error = {
         message: l(`Please select a link type for the URL
-                you’ve entered.`),
+                    you’ve entered.`),
         target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
       };
     } else if (
@@ -584,7 +584,7 @@ export class ExternalLinksEditor
     ) {
       error = {
         message: l(`This relationship type is deprecated 
-                and should not be used.`),
+                    and should not be used.`),
         target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
       };
     } else if (
@@ -602,18 +602,42 @@ export class ExternalLinksEditor
           message: '',
           target: URLCleanup.ERROR_TARGETS.NONE,
         };
-        error.target = check.target ||
-          URLCleanup.ERROR_TARGETS.NONE;
+        error.target = check.target || URLCleanup.ERROR_TARGETS.NONE;
         if (error.target === URLCleanup.ERROR_TARGETS.URL) {
-          error.message = l(
-            `This URL is not allowed for the selected link type,
-            or is incorrectly formatted.`,
-          );
+          error.message = l(`This URL is not allowed
+                             for the selected link type,
+                             or is incorrectly formatted.`);
         }
-        if (error.target ===
-          URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
+        if (error.target === URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
           error.message = l(`This URL is not allowed 
-                    for the selected link type.`);
+                             for the selected link type.`);
+        }
+        if (error.target === URLCleanup.ERROR_TARGETS.ENTITY) {
+          switch (checker.entityType) {
+            case 'area':
+              error.message = l(`This URL is not allowed for areas.`);
+            case 'artist':
+              error.message = l(`This URL is not allowed for artists.`);
+            case 'event':
+              error.message = l(`This URL is not allowed for events.`);
+            case 'instrument':
+              error.message = l(`This URL is not allowed for instruments.`);
+            case 'label':
+              error.message = l(`This URL is not allowed for labels.`);
+            case 'place':
+              error.message = l(`This URL is not allowed for places.`);
+            case 'recording':
+              error.message = l(`This URL is not allowed for recordings.`);
+            case 'release':
+              error.message = l(`This URL is not allowed for releases.`);
+            case 'release_group':
+              error.message = l(`This URL is not allowed for release
+                                 groups.`);
+            case 'series':
+              error.message = l(`This URL is not allowed for series.`);
+            case 'work':
+              error.message = l(`This URL is not allowed for works.`);
+          }
         }
         error.message = check.error || error.message;
       }
