@@ -1674,11 +1674,12 @@ my %stats = (
     },
     'count.rating' => {
         DESC => 'Count of all ratings',
-        PREREQ => [qw[ count.rating.artist count.rating.label count.rating.releasegroup count.rating.recording count.rating.work ]],
+        PREREQ => [qw[ count.rating.artist count.rating.label count.rating.place count.rating.releasegroup count.rating.recording count.rating.work ]],
         CALC => sub {
             my ($self, $sql) = @_;
             return $self->fetch('count.rating.artist') +
                    $self->fetch('count.rating.label') +
+                   $self->fetch('count.rating.place') +
                    $self->fetch('count.rating.releasegroup') +
                    $self->fetch('count.rating.work') +
                    $self->fetch('count.rating.recording');
@@ -1686,11 +1687,12 @@ my %stats = (
     },
     'count.rating.raw' => {
         DESC => 'Count of all raw ratings',
-        PREREQ => [qw[ count.rating.raw.artist count.rating.raw.label count.rating.raw.releasegroup count.rating.raw.recording count.rating.raw.work ]],
+        PREREQ => [qw[ count.rating.raw.artist count.rating.raw.label count.rating.raw.place count.rating.raw.releasegroup count.rating.raw.recording count.rating.raw.work ]],
         CALC => sub {
             my ($self, $sql) = @_;
             return $self->fetch('count.rating.raw.artist') +
                    $self->fetch('count.rating.raw.label') +
+                   $self->fetch('count.rating.raw.place') +
                    $self->fetch('count.rating.raw.releasegroup') +
                    $self->fetch('count.rating.raw.work') +
                    $self->fetch('count.rating.raw.recording');
