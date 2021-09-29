@@ -4,6 +4,8 @@ severity=1
 [BuiltinFunctions::ProhibitBooleanGrep]
 [BuiltinFunctions::ProhibitLvalueSubstr]
 [BuiltinFunctions::ProhibitShiftRef]
+[BuiltinFunctions::ProhibitStringyEval]
+allow_includes=1
 
 [CodeLayout::ProhibitHardTabs]
 [CodeLayout::ProhibitTrailingWhitespace]

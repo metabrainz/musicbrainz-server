@@ -12,7 +12,7 @@ for my $type (grep { $_ ne 'instrument' && $_ ne 'area' } entities_with('annotat
 EOF
     }
 
-    eval <<EOF;
+    eval <<EOF; ## no critic 'ProhibitStringyEval'
 package MusicBrainz::Server::Report::Annotations$plural;
 use Moose;
 
