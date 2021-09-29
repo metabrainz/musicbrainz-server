@@ -405,6 +405,13 @@ async function checkSirQueues(t) {
   );
 }
 
+async function getSeleniumDbTupStats() {
+  const result = await execFile(
+    path.resolve(__dirname, '../script/get_selenium_tup_stats.sh'),
+  );
+  return JSON.parse(result.stdout);
+}
+
 async function handleCommandAndWait({command, target, value}, t) {
   const newCommand = command.replace(/AndWait$/, '');
 
@@ -728,11 +735,17 @@ async function runCommands(commands, t) {
 (async function runTests() {
   const TEST_TIMEOUT = 300000; // 300 seconds
 
-  async function cleanSeleniumDb(extraSql) {
+  async function cleanSeleniumDb(t, extraSql) {
+    const startTime = new Date();
     await execFile(
       path.resolve(__dirname, '../script/reset_selenium_env.sh'),
       extraSql ? [path.resolve(__dirname, 'sql', extraSql)] : [],
     );
+    const finishTime = new Date();
+    const elapsedTime = (finishTime - startTime) / 1000;
+    t.comment(timePrefix(
+      `cleanSeleniumDb(): took ${elapsedTime} seconds`,
+    ));
   }
 
   const loginPlan = getPlan(testPath('Log_In.json5'));
@@ -743,6 +756,8 @@ async function runCommands(commands, t) {
     : seleniumTests;
 
   customProxyServer.listen(5051);
+
+  let shouldCleanSeleniumDb = true;
 
   await testsToRun.reduce(function (accum, stest, index) {
     const {commands, plan, title} = getPlan(stest.path);
@@ -758,17 +773,18 @@ async function runCommands(commands, t) {
         const timeout = setTimeout(resolve, TEST_TIMEOUT);
 
         accum.then(async function () {
-          const cleanSeleniumDbStartTime = new Date();
-          await cleanSeleniumDb(stest.sql);
-          const cleanSeleniumDbFinishTime = new Date();
-          const cleanSeleniumDbElapsedTime =
-            (cleanSeleniumDbFinishTime - cleanSeleniumDbStartTime) / 1000;
+          const hasExtraSql = typeof stest.sql === 'string';
 
-          t.comment(timePrefix(
-            `cleanSeleniumDb(): took ${cleanSeleniumDbElapsedTime} seconds`,
-          ));
+          if (hasExtraSql || shouldCleanSeleniumDb) {
+            await cleanSeleniumDb(t, stest.sql);
+          }
 
           const startTime = new Date();
+
+          let didDatabaseChange = hasExtraSql;
+          const startTupStats = didDatabaseChange
+            ? null
+            : (await getSeleniumDbTupStats());
 
           try {
             if (stest.login) {
@@ -794,6 +810,23 @@ async function runCommands(commands, t) {
             t.comment(timePrefix(
               `${title}: took ${elapsedTime} seconds`,
             ));
+
+            if (!didDatabaseChange) {
+              const finishTupStats = await getSeleniumDbTupStats();
+              didDatabaseChange = (
+                finishTupStats.tup_inserted > startTupStats.tup_inserted ||
+                finishTupStats.tup_updated > startTupStats.tup_updated ||
+                finishTupStats.tup_deleted > startTupStats.tup_deleted
+              );
+            }
+
+            /*
+             * Tests always run serially, one after another.
+             * The require-atomic-updates violation appears to be a false-
+             * positive from eslint.
+             */
+            // eslint-disable-next-line require-atomic-updates
+            shouldCleanSeleniumDb = didDatabaseChange;
           }
 
           t.end();
