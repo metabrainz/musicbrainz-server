@@ -6,6 +6,7 @@ use DBDefs;
 use DateTime::Locale;
 use I18N::LangTags ();
 use I18N::LangTags::Detect;
+use List::AllUtils qw( any );
 use List::UtilsBy qw( sort_by );
 use Locale::Messages qw( bindtextdomain LC_MESSAGES );
 use Locale::Util qw( web_set_locale );
@@ -137,11 +138,11 @@ sub set_language
     my $set_lang_munge = $set_lang =~ s/_([A-Z]{2})/-\L$1/r;
     my $set_lang_nocountry = $set_lang =~ s/_[A-Z]{2}//r;
     # Change en_AQ back to en-aq to compare with MB_LANGUAGES
-    if (grep { $set_lang eq $_ || $set_lang_munge eq $_ } DBDefs->MB_LANGUAGES) {
+    if (any { $set_lang eq $_ || $set_lang_munge eq $_ } DBDefs->MB_LANGUAGES) {
         return $set_lang;
     }
     # Check if the language without country code is in MB_LANGUAGES
-    elsif (grep { $set_lang_nocountry eq $_ } DBDefs->MB_LANGUAGES) {
+    elsif (any { $set_lang_nocountry eq $_ } DBDefs->MB_LANGUAGES) {
         return $set_lang_nocountry;
     }
     # Give up, return the full language even though it looks wrong
@@ -173,10 +174,10 @@ sub language_from_cookie
     my $cookie_nocountry = defined $cookie ? $cookie->value : '';
     $cookie_nocountry =~ s/-[A-Z]{2}//;
     if (defined $cookie &&
-        grep { $cookie->value eq $_ || $cookie_munge eq $_ } DBDefs->MB_LANGUAGES) {
+        any { $cookie->value eq $_ || $cookie_munge eq $_ } DBDefs->MB_LANGUAGES) {
         return $cookie->value;
     } elsif (defined $cookie &&
-             grep { $cookie_nocountry eq $_ } DBDefs->MB_LANGUAGES) {
+             any { $cookie_nocountry eq $_ } DBDefs->MB_LANGUAGES) {
         return $cookie_nocountry;
     } else {
         return undef;

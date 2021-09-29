@@ -1,6 +1,7 @@
 only=1
 severity=1
 
+[BuiltinFunctions::ProhibitBooleanGrep]
 [BuiltinFunctions::ProhibitLvalueSubstr]
 
 [CodeLayout::ProhibitHardTabs]

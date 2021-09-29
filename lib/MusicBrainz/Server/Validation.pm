@@ -25,6 +25,8 @@
 
 package MusicBrainz::Server::Validation;
 
+use List::AllUtils qw( any );
+
 require Exporter;
 {
     our @ISA = qw( Exporter );
@@ -135,7 +137,7 @@ sub is_guid
 sub trim_in_place
 {
     carp 'Uninitialized value passed to trim_in_place'
-        if grep { not defined } @_;
+        if any { not defined } @_;
     for (@_)
     {
         $_ = '' if not defined;

@@ -360,7 +360,7 @@ sub merge
 {
     my ($self, $new_id, $old_ids, %opts) = @_;
 
-    if (grep { is_special_artist($_) } @$old_ids) {
+    if (any { is_special_artist($_) } @$old_ids) {
         confess('Attempt to merge a special purpose artist into another artist');
     }
 

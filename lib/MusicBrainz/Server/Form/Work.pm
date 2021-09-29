@@ -3,7 +3,7 @@ use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation qw( l N_l );
 use MusicBrainz::Server::Form::Utils qw( language_options select_options_tree );
 use JSON;
-use List::AllUtils qw( uniq );
+use List::AllUtils qw( any uniq );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -148,7 +148,7 @@ after 'validate' => sub {
 
         my $used_attribute_values = ($used_attributes{$attribute_type} //= []);
 
-        if (scalar @$used_attribute_values > 0 && grep(/^$value$/, @$used_attribute_values)) {
+        if (any { $_ =~ /^$value$/ } @$used_attribute_values) {
             $attribute_field->add_error(
                 l('You cannot enter the same attribute and value more than once.')
             );

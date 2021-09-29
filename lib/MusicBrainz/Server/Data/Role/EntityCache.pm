@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Role::EntityCache;
 
 use DBDefs;
 use Moose::Role;
-use List::MoreUtils qw( natatime uniq );
+use List::MoreUtils qw( any natatime uniq );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Validation qw( is_database_row_id );
@@ -26,7 +26,7 @@ sub _cache_id {
 
 around get_by_ids => sub {
     my ($orig, $self, @ids) = @_;
-    return {} unless grep { defined && $_ } @ids;
+    return {} unless any { defined && $_ } @ids;
     my %ids = map { $_ => 1 } @ids;
     my @keys = map { $self->_type . ':' . $_ } keys %ids;
     my $cache = $self->c->cache($self->_type);

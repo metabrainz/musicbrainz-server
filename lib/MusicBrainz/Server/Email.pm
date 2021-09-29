@@ -12,6 +12,7 @@ use Email::Sender::Transport::SMTP;
 use URI::Escape qw( uri_escape_utf8 );
 use DBDefs;
 use Try::Tiny;
+use List::AllUtils qw( any );
 use List::UtilsBy qw( sort_by );
 
 use MusicBrainz::Server::Constants qw(
@@ -70,7 +71,7 @@ sub _create_email
     my ($self, $headers, $body) = @_;
 
     # Add a Message-Id header if there isn't one.
-    if ( !(grep { "$_" eq 'Message-Id' } @$headers) ) {
+    if ( !(any { "$_" eq 'Message-Id' } @$headers) ) {
         push @$headers, 'Message-Id', _message_id('uncategorized-email-%d', time());
     }
     return Email::MIME->create(

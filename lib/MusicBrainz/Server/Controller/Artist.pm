@@ -662,7 +662,7 @@ around _validate_merge => sub {
     return unless $self->$orig($c, $form);
     my $target = $form->field('target')->value;
     my @all = map { $_->value } $form->field('merging')->fields;
-    if (grep { is_special_artist($_) && $target != $_ } @all) {
+    if (any { is_special_artist($_) && $target != $_ } @all) {
         $form->field('target')->add_error(l('You cannot merge a special purpose artist into another artist'));
         return 0;
     }

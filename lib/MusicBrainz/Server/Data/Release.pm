@@ -9,7 +9,7 @@ use namespace::autoclean -also => [qw( _where_status_in _where_type_in )];
 use Carp 'confess';
 use DBDefs;
 use JSON::XS;
-use List::AllUtils qw( all );
+use List::AllUtils qw( all any );
 use List::MoreUtils qw( part );
 use List::UtilsBy qw( nsort_by partition_by );
 use MusicBrainz::Server::Constants qw(
@@ -1003,7 +1003,7 @@ sub can_merge {
             \@old_ids
         ) };
 
-        return @failure if grep { !exists $positions{$_} } @must_move_mediums;
+        return @failure if any { !exists $positions{$_} } @must_move_mediums;
 
         # Make sure the new positions don't conflict with the current new medium
         my @conflicts = @{
