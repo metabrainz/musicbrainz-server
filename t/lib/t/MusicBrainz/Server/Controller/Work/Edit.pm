@@ -4,7 +4,7 @@ use Test::More;
 use Test::Deep qw( cmp_deeply ignore re );
 use MusicBrainz::Server::Test qw( accept_edit capture_edits html_ok );
 use HTTP::Request::Common;
-use List::UtilsBy qw( sort_by );
+use List::AllUtils qw( sort_by );
 
 with 't::Mechanize', 't::Context';
 

@@ -11,7 +11,7 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Translation qw( l );
 use List::MoreUtils qw( uniq );
-use List::UtilsBy qw( sort_by );
+use List::AllUtils qw( sort_by );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 

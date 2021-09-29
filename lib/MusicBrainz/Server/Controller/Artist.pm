@@ -80,8 +80,7 @@ use MusicBrainz::Server::FilterUtils qw(
 );
 use Sql;
 
-use List::AllUtils qw( any uniq );
-use List::UtilsBy qw( sort_by );
+use List::AllUtils qw( any sort_by uniq );
 
 =head1 NAME
 

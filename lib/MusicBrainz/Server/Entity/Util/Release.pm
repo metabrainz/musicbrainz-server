@@ -8,7 +8,7 @@ use Sub::Exporter -setup => { exports => [qw(
     group_by_release_status_nested
 )] };
 
-use List::UtilsBy qw( nsort_by partition_by );
+use List::AllUtils qw( nsort_by partition_by );
 
 =func group_by_release_status_nested
 

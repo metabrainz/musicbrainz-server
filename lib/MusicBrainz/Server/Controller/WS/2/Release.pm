@@ -8,8 +8,7 @@ use MusicBrainz::Server::Constants qw(
     $ACCESS_SCOPE_SUBMIT_BARCODE
     $EDIT_RELEASE_EDIT_BARCODES
 );
-use List::AllUtils qw( uniq );
-use List::UtilsBy qw( partition_by uniq_by );
+use List::AllUtils qw( partition_by uniq uniq_by );
 use MusicBrainz::Server::WebService::XML::XPath;
 use MusicBrainz::Server::Validation qw( is_guid is_valid_ean );
 use Readonly;

@@ -17,7 +17,7 @@ use MusicBrainz::Server::Entity::CDTOC;
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::ControllerUtils::CDTOC qw( add_dash );
 
-use List::UtilsBy qw( sort_by );
+use List::AllUtils qw( sort_by );
 
 use HTTP::Status qw( :constants );
 

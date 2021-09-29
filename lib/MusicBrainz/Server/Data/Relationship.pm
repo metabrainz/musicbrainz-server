@@ -33,8 +33,7 @@ use MusicBrainz::Server::Constants qw(
     entities_with
 );
 use Scalar::Util 'weaken';
-use List::AllUtils qw( any part uniq );
-use List::UtilsBy qw( nsort_by partition_by );
+use List::AllUtils qw( any nsort_by part partition_by uniq );
 use aliased 'MusicBrainz::Server::Entity::RelationshipTargetTypeGroup';
 use aliased 'MusicBrainz::Server::Entity::RelationshipLinkTypeGroup';
 

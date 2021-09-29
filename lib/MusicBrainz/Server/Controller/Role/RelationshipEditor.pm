@@ -1,5 +1,5 @@
 package MusicBrainz::Server::Controller::Role::RelationshipEditor;
-use List::UtilsBy qw( uniq_by );
+use List::AllUtils qw( uniq_by );
 use Moose::Role;
 
 use MusicBrainz::Server::Constants qw(

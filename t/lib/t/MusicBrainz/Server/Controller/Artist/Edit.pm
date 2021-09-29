@@ -4,7 +4,7 @@ use Test::More;
 use Test::Deep qw( cmp_deeply re );
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
-use List::UtilsBy qw( sort_by );
+use List::AllUtils qw( sort_by );
 
 with 't::Mechanize', 't::Context';
 

@@ -4,7 +4,7 @@ use Class::Load qw( load_class );
 use Moose;
 use JSON;
 use List::MoreUtils qw( any );
-use List::UtilsBy 'sort_by';
+use List::AllUtils 'sort_by';
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( non_empty ref_to_type type_to_model );
 use MusicBrainz::Server::WebService::WebServiceInc;

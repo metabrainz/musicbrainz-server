@@ -11,7 +11,7 @@ use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
-use List::UtilsBy 'nsort_by';
+use List::AllUtils 'nsort_by';
 use Data::Compare;
 
 use aliased 'MusicBrainz::Server::Entity::Release';

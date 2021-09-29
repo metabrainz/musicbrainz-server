@@ -9,7 +9,7 @@ use DBDefs;
 use HTTP::Request;
 use JSON qw( encode_json decode_json );
 use List::MoreUtils qw( part );
-use List::UtilsBy qw( uniq_by );
+use List::AllUtils qw( uniq_by );
 use MusicBrainz::Errors qw(
     capture_exceptions
     send_message_to_sentry

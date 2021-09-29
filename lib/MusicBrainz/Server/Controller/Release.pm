@@ -29,7 +29,7 @@ with 'MusicBrainz::Server::Controller::Role::Collection' => {
 
 use List::Util qw( first );
 use List::MoreUtils qw( uniq );
-use List::UtilsBy 'nsort_by';
+use List::AllUtils 'nsort_by';
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Constants qw(
     :edit_type

@@ -4,7 +4,7 @@ use MooseX::Role::Parameterized;
 
 use Clone 'clone';
 use List::MoreUtils qw( uniq );
-use List::UtilsBy qw( nsort_by );
+use List::AllUtils qw( nsort_by );
 use MusicBrainz::Server::Edit::Utils qw( merge_set );
 
 parameter prop_name => ( isa => 'Str', required => 1 );

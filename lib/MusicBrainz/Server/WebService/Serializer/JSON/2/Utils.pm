@@ -5,8 +5,7 @@ use strict;
 
 use base 'Exporter';
 use Class::Load qw( load_class );
-use List::AllUtils qw( any );
-use List::UtilsBy qw( sort_by );
+use List::AllUtils qw( any sort_by );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 
 our @EXPORT_OK = qw(

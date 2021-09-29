@@ -2,7 +2,7 @@ package MusicBrainz::Server::Email::Subscriptions;
 use Moose;
 use namespace::autoclean;
 
-use List::UtilsBy qw( sort_by );
+use List::AllUtils qw( sort_by );
 use MooseX::Types::Moose qw( ArrayRef Str );
 use MooseX::Types::Structured qw( Map );
 use String::TT qw( strip tt );

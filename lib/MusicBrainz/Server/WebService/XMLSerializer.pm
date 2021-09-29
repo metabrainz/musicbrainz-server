@@ -4,7 +4,7 @@ use IO::String;
 use Moose;
 use Scalar::Util 'reftype';
 use Readonly;
-use List::UtilsBy qw( nsort_by sort_by );
+use List::AllUtils qw( nsort_by sort_by );
 use MusicBrainz::Server::Constants qw( :direction $VARTIST_ID :quality %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
@@ -302,7 +302,7 @@ sub _serialize_release_group
     $rg_node->_setAttribute('id', $release_group->gid);
 
     if ($primary_type && $primary_type->name eq 'Album') {
-        my $fallback =
+        my ($fallback) =
             nsort_by { $rg_fallback_type_order{$_->name} }
                 grep { exists $rg_fallback_type_order{$_->name} }
                     @secondary_types;

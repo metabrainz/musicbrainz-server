@@ -8,9 +8,8 @@ use Digest::MD5 qw( md5_hex );
 use File::Slurp qw( read_dir );
 use File::Spec;
 use Fcntl qw( :flock );
-use List::AllUtils qw( any );
+use List::AllUtils qw( any sort_by );
 use List::MoreUtils qw( natatime );
-use List::UtilsBy qw( sort_by );
 use Moose;
 use MusicBrainz::Script::Utils qw( log );
 use MusicBrainz::Server::Constants qw(

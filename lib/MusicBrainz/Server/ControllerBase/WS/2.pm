@@ -14,7 +14,7 @@ use MusicBrainz::Server::WebService::XMLSerializer;
 use Readonly;
 use Scalar::Util qw( looks_like_number );
 use List::Util qw( sum );
-use List::UtilsBy qw( partition_by );
+use List::AllUtils qw( partition_by );
 use Try::Tiny;
 
 with 'MusicBrainz::Server::WebService::Format' =>

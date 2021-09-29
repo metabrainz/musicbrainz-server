@@ -1,5 +1,5 @@
 package t::MusicBrainz::Server::Data::Relationship;
-use List::UtilsBy qw( nsort_by );
+use List::AllUtils qw( nsort_by );
 
 use Test::Routine;
 use Test::Moose;

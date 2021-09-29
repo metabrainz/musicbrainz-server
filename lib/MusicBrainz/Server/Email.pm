@@ -12,8 +12,7 @@ use Email::Sender::Transport::SMTP;
 use URI::Escape qw( uri_escape_utf8 );
 use DBDefs;
 use Try::Tiny;
-use List::AllUtils qw( any );
-use List::UtilsBy qw( sort_by );
+use List::AllUtils qw( any sort_by );
 
 use MusicBrainz::Server::Constants qw(
     :edit_status

@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::ReleaseGroup;
 use Moose;
 use namespace::autoclean;
 
-use List::UtilsBy qw( partition_by );
+use List::AllUtils qw( partition_by );
 use MusicBrainz::Server::Entity::ReleaseGroup;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Release;

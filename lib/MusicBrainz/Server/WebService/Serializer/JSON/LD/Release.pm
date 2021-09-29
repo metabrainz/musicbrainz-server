@@ -1,8 +1,7 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::LD::Release;
 use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity list_or_single artwork );
-use List::AllUtils qw( uniq );
-use List::UtilsBy qw( uniq_by );
+use List::AllUtils qw( uniq uniq_by );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Genre';
