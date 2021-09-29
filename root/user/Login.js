@@ -23,6 +23,7 @@ type PropsT = {
   +$c: CatalystContextT,
   +isLoginBad?: boolean,
   +isLoginRequired?: boolean,
+  +isSpammer?: boolean,
   +loginAction: string,
   +loginForm: ReadOnlyFormT<{
     +csrf_token: ReadOnlyFieldT<string>,
@@ -37,6 +38,7 @@ const Login = ({
   $c,
   isLoginBad = false,
   isLoginRequired = false,
+  isSpammer = false,
   loginAction,
   loginForm,
   postParameters,
@@ -64,6 +66,26 @@ const Login = ({
         <div className="row no-label">
           <span className="error">
             <strong>{l('Incorrect username or password')}</strong>
+          </span>
+        </div>
+      ) : null}
+
+      {isSpammer ? (
+        <div className="row no-label">
+          <span className="error">
+            <p>
+              <strong>
+                {l(`You cannot log in because this account
+                    has been marked as a spam account.`)}
+              </strong>
+            </p>
+            <p>
+              {exp.l(
+                `If you think this is a mistake, please contact
+                 <code>support@musicbrainz.org</code>
+                 with the name of your account.`,
+              )}
+            </p>
           </span>
         </div>
       ) : null}

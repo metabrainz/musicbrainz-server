@@ -75,8 +75,12 @@ sub _perform_login {
         # Bad username / password combo
         $c->stash( bad_login => 1 );
         return 0;
-    }
-    else {
+    } elsif ( $c->user->is_spammer ) {
+        # Automatically log out spammers and notify of why
+        $c->stash( spammy_login => 1 );
+        $c->logout;
+        return 0;
+    } else {
         if ($c->user->requires_password_reset) {
             $c->response->redirect($c->uri_for_action('/account/change_password', {
                 username => $c->user->name,
@@ -171,6 +175,7 @@ sub do_login : Private
             loginForm => $form->TO_JSON,
             isLoginBad => boolean_to_json($c->stash->{bad_login}),
             isLoginRequired => boolean_to_json($c->stash->{required_login} // 1),
+            isSpammer => boolean_to_json($c->stash->{spammy_login}),
             postParameters => ((defined $post_params && scalar(%$post_params)) ? $post_params : undef),
         },
     );
