@@ -1,6 +1,8 @@
 only=1
 severity=1
 
+[BuiltinFunctions::ProhibitLvalueSubstr]
+
 [CodeLayout::ProhibitHardTabs]
 [CodeLayout::ProhibitTrailingWhitespace]
 [CodeLayout::RequireConsistentNewlines]
