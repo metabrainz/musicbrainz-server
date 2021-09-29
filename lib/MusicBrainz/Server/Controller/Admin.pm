@@ -37,6 +37,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves Secu
             account_admin           => $user->is_account_admin,
             editing_disabled        => $user->is_editing_disabled,
             adding_notes_disabled   => $user->is_adding_notes_disabled,
+            spammer                 => $user->is_spammer,
             # user profile
             username                => $user->name,
             email                   => $user->email,

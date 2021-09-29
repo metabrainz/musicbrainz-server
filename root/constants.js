@@ -68,6 +68,7 @@ export const LOCATION_EDITOR_FLAG: 256 = 256;
 export const BANNER_EDITOR_FLAG: 512 = 512;
 export const EDITING_DISABLED_FLAG: 1024 = 1024;
 export const ADDING_NOTES_DISABLED_FLAG: 2048 = 2048;
+export const SPAMMER_FLAG: 4096 = 4096;
 export const PUBLIC_FLAGS: number = AUTO_EDITOR_FLAG &
                                     BOT_FLAG &
                                     RELATIONSHIP_EDITOR_FLAG &

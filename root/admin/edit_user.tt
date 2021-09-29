@@ -11,6 +11,7 @@
         [% form_row_checkbox(r, 'banner_editor', l('Banner message editor')) %]
         [% form_row_checkbox(r, 'editing_disabled', l('Editing/voting disabled')) %]
         [% form_row_checkbox(r, 'adding_notes_disabled', l('Edit notes disabled')) %]
+        [% form_row_checkbox(r, 'spammer', l('Spammer')) %]
 
         <h2>[%- l('Technical flags') -%]</h2>
         [% form_row_checkbox(r, 'bot', l('Bot')) %]
