@@ -29,7 +29,7 @@ role {
         }
     );
 
-    use List::MoreUtils qw( part );
+    use List::AllUtils qw( part );
     use MusicBrainz::Server::Data::Utils qw( model_to_type );
     use MusicBrainz::Server::MergeQueue;
 

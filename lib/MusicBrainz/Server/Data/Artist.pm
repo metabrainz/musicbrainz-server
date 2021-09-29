@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use Carp;
-use List::MoreUtils qw( any uniq );
+use List::AllUtils qw( any uniq );
 use MusicBrainz::Server::Constants qw(
     $VARTIST_ID
     $DARTIST_ID

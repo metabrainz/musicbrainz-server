@@ -3,7 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
-use List::MoreUtils qw( uniq all );
+use List::AllUtils qw( all uniq );
 use MusicBrainz::Server::Constants qw( $ACCESS_SCOPE_COLLECTION %ENTITIES entities_with );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::WebService::XML::XPath;

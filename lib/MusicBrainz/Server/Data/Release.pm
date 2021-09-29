@@ -9,8 +9,7 @@ use namespace::autoclean -also => [qw( _where_status_in _where_type_in )];
 use Carp 'confess';
 use DBDefs;
 use JSON::XS;
-use List::AllUtils qw( all any nsort_by partition_by );
-use List::MoreUtils qw( part );
+use List::AllUtils qw( all any nsort_by part partition_by );
 use MusicBrainz::Server::Constants qw(
     :quality
     $EDIT_RELEASE_CREATE

@@ -1,5 +1,5 @@
 package MusicBrainz::Server::Controller::Role::Tag;
-use List::MoreUtils qw( uniq );
+use List::AllUtils qw( uniq );
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 use MusicBrainz::Server::Data::Utils qw( trim );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );

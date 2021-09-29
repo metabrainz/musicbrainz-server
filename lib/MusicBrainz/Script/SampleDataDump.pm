@@ -12,8 +12,7 @@ later version: http://www.gnu.org/licenses/gpl-2.0.txt
 
 use DBDefs;
 use File::Copy qw( copy );
-use List::AllUtils qw( any uniq );
-use List::MoreUtils qw( natatime );
+use List::AllUtils qw( any natatime uniq );
 use Moose;
 use MusicBrainz::Script::Utils qw( log );
 use MusicBrainz::Script::DatabaseDump;

@@ -5,7 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 use namespace::autoclean;
 use Digest::SHA qw(sha1_base64);
 use JSON;
-use List::MoreUtils qw( uniq );
+use List::AllUtils qw( uniq );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );

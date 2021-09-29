@@ -13,7 +13,7 @@ use File::Spec::Functions qw( catdir catfile tmpdir );
 use File::Temp qw( tempdir );
 use Fcntl qw( :flock );
 use JSON::XS;
-use List::MoreUtils qw( natatime );
+use List::AllUtils qw( natatime );
 use Moose;
 use MusicBrainz::Script::JSONDump::Constants qw( %DUMPED_ENTITY_TYPES );
 use MusicBrainz::Script::MBDump;

@@ -16,8 +16,7 @@ use MIME::Base64 qw( encode_base64url );
 use Digest::SHA qw( sha1_base64 );
 use Encode qw( decode encode );
 use JSON::XS;
-use List::MoreUtils qw( natatime uniq zip );
-use List::AllUtils qw( sort_by );
+use List::AllUtils qw( natatime sort_by uniq zip );
 use MusicBrainz::Server::Constants qw(
     $DARTIST_ID
     $VARTIST_ID

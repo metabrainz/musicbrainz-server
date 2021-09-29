@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::ISWC;
 use Moose;
 use namespace::autoclean;
 
-use List::MoreUtils qw( uniq );
+use List::AllUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw(
     object_to_ids
     placeholders

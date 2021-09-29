@@ -6,7 +6,7 @@ use namespace::autoclean;
 use Carp;
 use DateTime::Duration;
 use DateTime::Format::Pg;
-use List::MoreUtils qw( mesh );
+use List::AllUtils qw( mesh );
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use Try::Tiny;
 

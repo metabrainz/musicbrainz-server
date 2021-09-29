@@ -4,7 +4,7 @@ use warnings;
 use 5.10.0;
 
 use JSON;
-use List::MoreUtils qw( minmax uniq );
+use List::AllUtils qw( minmax uniq );
 use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref coordinates_to_hash sanitize trim partial_date_to_hash );
 use MusicBrainz::Server::Edit::Exceptions;

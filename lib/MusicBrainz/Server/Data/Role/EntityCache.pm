@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Role::EntityCache;
 
 use DBDefs;
 use Moose::Role;
-use List::MoreUtils qw( any natatime uniq );
+use List::AllUtils qw( any natatime uniq );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Validation qw( is_database_row_id );

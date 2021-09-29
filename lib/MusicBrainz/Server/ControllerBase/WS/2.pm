@@ -4,7 +4,7 @@ BEGIN { extends 'Catalyst::Controller'; }
 
 use DBDefs;
 use HTTP::Status qw( :constants );
-use List::MoreUtils qw( uniq );
+use List::AllUtils qw( partition_by sum uniq );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( type_to_model model_to_type object_to_ids );
 use MusicBrainz::Server::Validation qw( is_guid is_nat );
@@ -13,7 +13,6 @@ use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::XMLSerializer;
 use Readonly;
 use Scalar::Util qw( looks_like_number );
-use List::AllUtils qw( partition_by sum );
 use Try::Tiny;
 
 with 'MusicBrainz::Server::WebService::Format' =>

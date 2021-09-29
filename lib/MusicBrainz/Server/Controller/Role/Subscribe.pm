@@ -4,7 +4,7 @@ use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use namespace::autoclean;
 
-use List::MoreUtils qw( part );
+use List::AllUtils qw( part );
 
 sub subscribers : Chained('load') RequireAuth {
     my ($self, $c) = @_;
