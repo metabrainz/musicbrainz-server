@@ -27,9 +27,8 @@ with 'MusicBrainz::Server::Controller::Role::Collection' => {
     entity_type => 'release'
 };
 
-use List::Util qw( first );
+use List::AllUtils qw( first nsort_by );
 use List::MoreUtils qw( uniq );
-use List::AllUtils 'nsort_by';
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Constants qw(
     :edit_type

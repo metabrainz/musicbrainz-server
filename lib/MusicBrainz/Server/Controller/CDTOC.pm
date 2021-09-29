@@ -3,7 +3,7 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-use List::Util qw( first );
+use List::AllUtils qw( first );
 use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_ADD_DISCID

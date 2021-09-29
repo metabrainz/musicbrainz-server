@@ -2,8 +2,7 @@ package MusicBrainz::Server::Data::Vote;
 use Moose;
 use namespace::autoclean;
 
-use List::AllUtils qw( any );
-use List::Util qw( sum );
+use List::AllUtils qw( any sum );
 use Carp qw( confess );
 use MusicBrainz::Server::Data::Utils qw( map_query placeholders );
 use MusicBrainz::Server::Email;

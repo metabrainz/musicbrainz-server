@@ -13,8 +13,7 @@ use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::XMLSerializer;
 use Readonly;
 use Scalar::Util qw( looks_like_number );
-use List::Util qw( sum );
-use List::AllUtils qw( partition_by );
+use List::AllUtils qw( partition_by sum );
 use Try::Tiny;
 
 with 'MusicBrainz::Server::WebService::Format' =>

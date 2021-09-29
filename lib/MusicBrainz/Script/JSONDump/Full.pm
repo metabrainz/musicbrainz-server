@@ -6,7 +6,7 @@ use warnings;
 use DBDefs;
 use File::Copy qw( move );
 use File::Spec::Functions qw( catfile );
-use List::Util qw( min );
+use List::AllUtils qw( min );
 use Moose;
 use Parallel::ForkManager 0.7.6;
 use POSIX qw( :signal_h :errno_h :sys_wait_h ceil );

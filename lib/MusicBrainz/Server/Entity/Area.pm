@@ -6,8 +6,7 @@ use MusicBrainz::Server::Translation::Countries qw( l );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
-use List::Util qw( first );
-use List::AllUtils qw( nsort_by );
+use List::AllUtils qw( first nsort_by );
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Taggable';
