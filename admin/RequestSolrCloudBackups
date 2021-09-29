@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Getopt::Long qw( GetOptions );
+use List::AllUtils qw ( any );
 use Pod::Usage qw( pod2usage );
 
 ################################################################################
@@ -45,9 +46,9 @@ my $debug_flag;
 my $help_flag;
 
 GetOptions(
-    "collection|c=s"            => \$sample_collection,
-    "debug|d"                   => \$debug_flag,
-    "help|h"                    => \$help_flag,
+    'collection|c=s'            => \$sample_collection,
+    'debug|d'                   => \$debug_flag,
+    'help|h'                    => \$help_flag,
 );
 
 pod2usage() if $help_flag;
@@ -74,10 +75,10 @@ use MusicBrainz::Server::Context;
 
 ################################################################################
 
-sub _debug { print "[debug] ", (sprintf shift, @_), "\n" if $debug_flag; }
-sub _info { print "[info] ", (sprintf shift, @_), "\n"; }
-sub _warn { warn "[warning] ", (sprintf shift, @_), "\n"; }
-sub _error { warn "[error] ", (sprintf shift, @_), "\n"; }
+sub _debug { print '[debug] ', (sprintf shift, @_), "\n" if $debug_flag; }
+sub _info { print '[info] ', (sprintf shift, @_), "\n"; }
+sub _warn { warn '[warning] ', (sprintf shift, @_), "\n"; }
+sub _error { warn '[error] ', (sprintf shift, @_), "\n"; }
 
 foreach my $def (qw(
     SOLRCLOUD_COLLECTIONS_API
@@ -94,7 +95,7 @@ foreach my $def (qw(
 Readonly my $COLLECTIONS_API => DBDefs->SOLRCLOUD_COLLECTIONS_API;
 Readonly my $BACKUP_LOCATION => DBDefs->SOLRCLOUD_BACKUP_LOCATION;
 
-Readonly my $BACKUP_STAMP => $ENV{BACKUP_STAMP} // strftime "%Y%m%d-%H%M%S", gmtime;
+Readonly my $BACKUP_STAMP => $ENV{BACKUP_STAMP} // strftime '%Y%m%d-%H%M%S', gmtime;
 
 my $c = MusicBrainz::Server::Context->create_script_context;
 
@@ -144,7 +145,7 @@ sub prepare_backup_requests
         if ($solr_request_status ne 'notfound')
         {
             _error(
-                "A request to SolrCloud with id '%d' is '%s' already: '%s'",
+                q(A request to SolrCloud with id '%d' is '%s' already: '%s'),
                 $request_id,
                 $solr_request_status,
                 encode_json($solr_response),
@@ -163,7 +164,7 @@ sub do_backup_collections
         my $collection = $backup_requests{$request_id}{collection};
 
         _debug (
-            "Sending backup request '%d' of collection '%s' as '%s'.",
+            q(Sending backup request '%d' of collection '%s' as '%s'.),
             $request_id,
             $collection,
             $backup_name,
@@ -178,8 +179,8 @@ sub do_backup_collections
         if (defined $solr_response->{error})
         {
             _error(
-                "Failed to backup request '%s' of collection '%s' as '%s': " .
-                "Error '%s'",
+                q(Failed to backup request '%s' of collection '%s' as '%s': ) .
+                q(Error '%s'),
                 $request_id,
                 $collection,
                 $backup_name,
@@ -195,7 +196,7 @@ sub do_backup_collections
 sub wait_backup_complete
 {
     while (
-        grep { $backup_requests{$_}{status} eq $BACKUP_REQUEST_RUNNING }
+        any { $backup_requests{$_}{status} eq $BACKUP_REQUEST_RUNNING }
         keys %backup_requests
     )
     {
@@ -213,13 +214,13 @@ sub wait_backup_complete
                 }
             );
             _debug (
-                "Received: %s",
+                'Received: %s',
                 encode_json($solr_response),
             );
             if (exists $solr_response->{error}) {
                 _error(
-                    "Failed on backup request '%s' of collection '%s' as '%s': " .
-                    "Error '%s'",
+                    q(Failed on backup request '%s' of collection '%s' as '%s': ) .
+                    q(Error '%s'),
                     $request_id,
                     $backup_requests{$request_id}{collection},
                     $backup_requests{$request_id}{name},
@@ -239,8 +240,8 @@ sub wait_backup_complete
             elsif ($solr_response->{status}->{state} ne 'running')
             {
                 _error(
-                    "Failed on backup request '%s' of collection '%s' as '%s': " .
-                    "Unhandled state '%s'",
+                    q(Failed on backup request '%s' of collection '%s' as '%s': ) .
+                    q(Unhandled state '%s'),
                     $request_id,
                     $backup_requests{$request_id}{collection},
                     $backup_requests{$request_id}{name},
@@ -278,13 +279,13 @@ sub _query_collections_api
     {
         $uri->query_param_append($key, $parameters->{$key});
     }
-    _debug "Querying '" . ($uri =~ s/%/%%/gr) . "'";
+    _debug q(Querying ') . ($uri =~ s/%/%%/gr) . q(');
 
     my $http_response = $c->lwp->get($uri);
     if (!$http_response->is_success)
     {
         _error(
-            "Failed HTTP request '%s': Error '%s'",
+            q(Failed HTTP request '%s': Error '%s'),
             $uri =~ s/%/%%/gr,
             $http_response->status_line,
         );
@@ -296,7 +297,7 @@ sub _query_collections_api
     if (($solr_response->{responseHeader}->{status} // '') ne '0')
     {
         _error(
-            "Failed Solr request at '%s': Response '%s'",
+            q(Failed Solr request at '%s': Response '%s'),
             $uri =~ s/%/%%/gr,
             $http_content,
         );

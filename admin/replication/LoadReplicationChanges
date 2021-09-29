@@ -24,28 +24,28 @@ use MusicBrainz::Server::Replication::Packet qw(
 
 my $fHelp;
 my $fProgress = -t STDOUT;
-my $tmpdir = "/tmp";
+my $tmpdir = '/tmp';
 my $fKeepFiles = 0;
 my $limit = 0;
 my $count = 0;
 my $period = 'hourly';
 my $catchup;
 my $baseuri = REPLICATION_ACCESS_URI;
-my $lockfile = my $deflockfile = "/tmp/.mb-LoadReplicationChanges";
+my $lockfile = my $deflockfile = '/tmp/.mb-LoadReplicationChanges';
 my @process_opts;
 my $fVerifySig = 0;
 my $database = 'READWRITE';
 
 GetOptions(
-    "help"                      => \$fHelp,
-    "lockfile=s"                => \$lockfile,
-    "base-uri=s"                => \$baseuri,
-    "process-arg=s"             => \@process_opts,
-    "limit=i"                   => \$limit,
-    "period=s"                  => \$period,
-    "catchup"                   => \$catchup,
-    "verify-sig"                => \$fVerifySig,
-    "database=s"                => \$database,
+    'help'                      => \$fHelp,
+    'lockfile=s'                => \$lockfile,
+    'base-uri=s'                => \$baseuri,
+    'process-arg=s'             => \@process_opts,
+    'limit=i'                   => \$limit,
+    'period=s'                  => \$period,
+    'catchup'                   => \$catchup,
+    'verify-sig'                => \$fVerifySig,
+    'database=s'                => \$database,
 ) or exit 2;
 
 (DBDefs->REPLICATION_TYPE == RT_SLAVE || $database =~ /^TEST/)
@@ -90,7 +90,7 @@ usage(), exit 2 if @ARGV;
 
 if ($baseuri eq REPLICATION_ACCESS_URI) {
     my $token = DBDefs->REPLICATION_ACCESS_TOKEN;
-    die "Invalid or missing REPLICATION_ACCESS_TOKEN in DBDefs.pm -- get one at https://metabrainz.org"
+    die 'Invalid or missing REPLICATION_ACCESS_TOKEN in DBDefs.pm -- get one at https://metabrainz.org'
         unless $token =~ /^[a-zA-Z0-9]{40}$/;
 }
 
@@ -120,7 +120,7 @@ my $dbh = $c->dbh;
 # Retrieve current_schema_sequence and current_replication_sequence
 
 my ($iSchemaSequence, $iReplicationSequence, $dtReplicationDate) = do {
-    my $row = $sql->select_single_row_hash("SELECT * FROM replication_control");
+    my $row = $sql->select_single_row_hash('SELECT * FROM replication_control');
     $row ||= {};
     @$row{qw(
         current_schema_sequence
@@ -141,7 +141,7 @@ unless ($iSchemaSequence == DBDefs->DB_SCHEMA_SEQUENCE)
 
 unless (defined $iReplicationSequence)
 {
-    print localtime() . " : This database does not correspond to any replication sequence"
+    print localtime() . ' : This database does not correspond to any replication sequence'
         . " - you cannot update this database using replication\n"
         if not $iReplicationSequence;
     exit 1;
@@ -158,7 +158,7 @@ if ($sql->select_single_value('SELECT COUNT(*) FROM dbmirror_pending'))
 {
     my $aborted_sequence = $iReplicationSequence + 1;
     if ($known_broken_sequences{$aborted_sequence}) {
-        print localtime() . " : Looks like we may have previously tried " .
+        print localtime() . ' : Looks like we may have previously tried ' .
             "to apply packet #$aborted_sequence, which is known to be " .
             "broken, and failed. Retrying in case the packet was fixed.\n";
         $sql->auto_commit(1);
@@ -227,7 +227,7 @@ my $mydir = decompress_packet(
 );
 
 # Read SCHEMA_SEQUENCE.  Check it matches the current_schema_sequence
-my $SCHEMA_SEQUENCE = read_file("SCHEMA_SEQUENCE");
+my $SCHEMA_SEQUENCE = read_file('SCHEMA_SEQUENCE');
 unless (defined($SCHEMA_SEQUENCE) and $SCHEMA_SEQUENCE =~ /\A(\d+)\n\z/)
 {
     print localtime() . " : SCHEMA_SEQUENCE file missing or malformed\n";
@@ -237,7 +237,7 @@ $SCHEMA_SEQUENCE = $1;
 
 unless ($SCHEMA_SEQUENCE == $iSchemaSequence)
 {
-    printf "%s : This replication packet matches schema sequence #%d"
+    printf '%s : This replication packet matches schema sequence #%d'
         . ", but the database is currently at #%d\n",
         scalar localtime,
         $SCHEMA_SEQUENCE,
@@ -250,7 +250,7 @@ unless ($SCHEMA_SEQUENCE == $iSchemaSequence)
 # Read REPLICATION_SEQUENCE.  Check that it matches the one we thought we'd
 # downloaded.
 
-my $REPLICATION_SEQUENCE = read_file("REPLICATION_SEQUENCE");
+my $REPLICATION_SEQUENCE = read_file('REPLICATION_SEQUENCE');
 unless (defined($REPLICATION_SEQUENCE) and $REPLICATION_SEQUENCE =~ /\A(\d+)\n\z/)
 {
     print localtime() . " : REPLICATION_SEQUENCE file missing or malformed\n";
@@ -258,7 +258,7 @@ unless (defined($REPLICATION_SEQUENCE) and $REPLICATION_SEQUENCE =~ /\A(\d+)\n\z
 }
 $REPLICATION_SEQUENCE = $1;
 
-my $LAST_REPLICATION_SEQUENCE = read_file("LAST_REPLICATION_SEQUENCE");
+my $LAST_REPLICATION_SEQUENCE = read_file('LAST_REPLICATION_SEQUENCE');
 unless (defined($LAST_REPLICATION_SEQUENCE) and $LAST_REPLICATION_SEQUENCE =~ /\A(\d+)\n\z/)
 {
     print localtime() . " : LAST_REPLICATION_SEQUENCE file missing or malformed\n";
@@ -278,7 +278,7 @@ unless ($REPLICATION_SEQUENCE == $iNextReplicationSequence)
 
 # Read and show TIMESTAMP
 
-my $TIMESTAMP = read_file("TIMESTAMP");
+my $TIMESTAMP = read_file('TIMESTAMP');
 unless (defined($TIMESTAMP) and $TIMESTAMP =~ /\A(.*)\n\z/)
 {
     print localtime() . " : TIMESTAMP file missing or malformed, ignoring\n";
@@ -287,7 +287,7 @@ unless (defined($TIMESTAMP) and $TIMESTAMP =~ /\A(.*)\n\z/)
     print localtime() . " : This packet was produced (or begins) at $TIMESTAMP\n";
 }
 
-my $LAST_TIMESTAMP = read_file("LAST_TIMESTAMP");
+my $LAST_TIMESTAMP = read_file('LAST_TIMESTAMP');
 unless (defined($LAST_TIMESTAMP) and $LAST_TIMESTAMP =~ /\A(.*)\n\z/)
 {
     print localtime() . " : LAST_TIMESTAMP file missing or malformed, setting to TIMESTAMP\n";
@@ -309,9 +309,9 @@ for my $f (('dbmirror_pending', 'dbmirror_pendingdata'))
 # Load them
 print localtime() . " : Importing dbmirror_pending and dbmirror_pendingdata files\n";
 system "$FindBin::Bin/ImportReplicationChanges",
-    "--database", $database,
-    "--tmp-dir", $tmpdir,
-    "--",
+    '--database', $database,
+    '--tmp-dir', $tmpdir,
+    '--',
     "$mydir/mbdump/dbmirror_pending",
     "$mydir/mbdump/dbmirror_pendingdata",
     ;
@@ -339,7 +339,7 @@ if (-x "$FindBin::Bin/hooks/post-process") {
 $LAST_REPLICATION_SEQUENCE = $iReplicationSequence + 1
     if not defined $LAST_REPLICATION_SEQUENCE;
 {
-    my $row = $sql->select_single_row_hash("SELECT * FROM replication_control");
+    my $row = $sql->select_single_row_hash('SELECT * FROM replication_control');
     $row->{current_replication_sequence} == $LAST_REPLICATION_SEQUENCE
         or die "Applied changes, but current_replication_sequence is $row->{current_replication_sequence} not $LAST_REPLICATION_SEQUENCE\n";
     not defined($LAST_TIMESTAMP)
@@ -374,13 +374,13 @@ sub check_foreign_keys
 {
     my %non_rep = ();
 
-    my $fks = $sql->select_list_of_hashes("
+    my $fks = $sql->select_list_of_hashes(q{
         SELECT  c.conname, a.relname AS fk_table, b.relname AS pk_table
         FROM    pg_constraint c, pg_class a, pg_class b
         WHERE   a.oid = c.conrelid
         AND             b.oid = c.confrelid
         AND             contype = 'f'
-    ");
+    });
 
     my @bad = grep {
         $non_rep{ $_->{fk_table} } and not $non_rep{ $_->{pk_table} }

@@ -14,7 +14,7 @@ print "Regenerating SQL scripts in $dir...\n";
 sub find_search_path
 {
     my $search_path = '';
-    my $infile = "CreateTables.sql";
+    my $infile = 'CreateTables.sql';
     unless (-e "$dir/$infile") {
         print "Could not find $infile, search_path might not be correct\n";
         return $search_path;
@@ -34,7 +34,7 @@ my $search_path = find_search_path();
 
 sub process_tables
 {
-    my $infile = "CreateTables.sql";
+    my $infile = 'CreateTables.sql';
     unless (-e "$dir/$infile") {
         print "Could not find $infile, skipping\n";
         return;
@@ -194,7 +194,7 @@ sub process_tables
         foreach my $table (@tables) {
             next unless exists $primary_keys{$table};
             my @pks = @{$primary_keys{$table}};
-            my $cols = join ", ", @pks;
+            my $cols = join q(, ), @pks;
             print OUT "ALTER TABLE $table ADD CONSTRAINT ${table}_pkey ";
             print OUT "PRIMARY KEY ($cols);\n";
         }
@@ -225,14 +225,14 @@ sub process_tables
             my ($table, $verbose) = @$row;
             print OUT qq(CREATE TRIGGER "reptg_$table"\n);
             print OUT qq(AFTER INSERT OR DELETE OR UPDATE ON "$table"\n);
-            print OUT 'FOR EACH ROW EXECUTE PROCEDURE "recordchange" (' . ($verbose ? "'verbose'" : "") . ");\n\n"
+            print OUT 'FOR EACH ROW EXECUTE PROCEDURE "recordchange" (' . ($verbose ? q('verbose') : '') . ");\n\n"
         }
         print OUT "COMMIT;\n";
         close OUT;
     }
 }
 
-process_tables("");
+process_tables('');
 
 sub process_indexes
 {
@@ -264,8 +264,8 @@ sub process_indexes
     close OUT;
 }
 
-process_indexes("CreateIndexes.sql", "DropIndexes.sql");
-process_indexes("CreateSearchIndexes.sql", "DropSearchIndexes.sql");
+process_indexes('CreateIndexes.sql', 'DropIndexes.sql');
+process_indexes('CreateSearchIndexes.sql', 'DropSearchIndexes.sql');
 
 sub process_functions
 {
@@ -307,8 +307,8 @@ sub process_functions
     close OUT;
 }
 
-process_functions("CreateFunctions.sql", "DropFunctions.sql");
-process_functions("CreateSlaveOnlyFunctions.sql", "DropSlaveOnlyFunctions.sql");
+process_functions('CreateFunctions.sql', 'DropFunctions.sql');
+process_functions('CreateSlaveOnlyFunctions.sql', 'DropSlaveOnlyFunctions.sql');
 
 sub process_triggers
 {
@@ -338,9 +338,9 @@ sub process_triggers
     close OUT;
 }
 
-process_triggers("CreateTriggers.sql", "DropTriggers.sql");
-process_triggers("CreateSlaveOnlyTriggers.sql", "DropSlaveOnlyTriggers.sql");
-process_triggers("CreateReplicationTriggers.sql", "DropReplicationTriggers.sql");
+process_triggers('CreateTriggers.sql', 'DropTriggers.sql');
+process_triggers('CreateSlaveOnlyTriggers.sql', 'DropSlaveOnlyTriggers.sql');
+process_triggers('CreateReplicationTriggers.sql', 'DropReplicationTriggers.sql');
 
 =head1 COPYRIGHT AND LICENSE
 

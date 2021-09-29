@@ -13,14 +13,14 @@ use DBDefs;
 use Sql;
 
 my ($fHelp, $fIgnoreErrors);
-my $tmpdir = "/tmp";
+my $tmpdir = '/tmp';
 my $database = 'READWRITE';
 
 GetOptions(
-    "help|h"            => \$fHelp,
-    "database=s"        => \$database,
-    "ignore-errors|i!"  => \$fIgnoreErrors,
-    "tmp-dir|t=s"       => \$tmpdir,
+    'help|h'            => \$fHelp,
+    'database=s'        => \$database,
+    'ignore-errors|i!'  => \$fIgnoreErrors,
+    'tmp-dir|t=s'       => \$tmpdir,
 );
 
 sub usage
@@ -62,7 +62,7 @@ for my $arg (@ARGV)
 
     next unless $arg =~ /\.tar\.(gz|bz2)$/;
 
-    my $mode = ($1 eq "gz" ? "gzip" : "bzip2");
+    my $mode = ($1 eq 'gz' ? 'gzip' : 'bzip2');
 
     my $dir = make_tmp_dir();
     print localtime() . " : tar -C $dir --$mode -xvf $arg\n";
@@ -80,7 +80,7 @@ my $errors = 0;
 print localtime() . " : starting import\n";
 
 printf "%-30.30s %9s %4s %9s\n",
-    "Table", "Rows", "est%", "rows/sec",
+    'Table', 'Rows', 'est%', 'rows/sec',
     ;
 
 ImportReplicationTables();
@@ -109,7 +109,7 @@ sub ImportTable
     my $p = sub {
         my ($pre, $post) = @_;
         no integer;
-        printf $pre."%-30.30s %9d %3d%% %9d".$post,
+        printf $pre.'%-30.30s %9d %3d%% %9d'.$post,
                 $table, $rows, int(100 * tell(LOAD) / $size),
                 $rows / ($interval||1);
     };
@@ -118,13 +118,13 @@ sub ImportTable
 
     eval
     {
-        open(LOAD, "<:encoding(utf8)", $file) or die "open $file: $!";
+        open(LOAD, '<:encoding(utf8)', $file) or die "open $file: $!";
 
         $sql->begin;
         my $dbh = $sql->dbh; # issues a ping, must be done before COPY
         $sql->do("COPY $table FROM stdin");
 
-        $p->("", "");
+        $p->('', '');
 
         while (<LOAD>)
         {
@@ -134,7 +134,7 @@ sub ImportTable
                 unless ($rows & 0xFFF)
                 {
                         $interval = tv_interval($t1);
-                        $p->("\r", "");
+                        $p->("\r", '');
                 }
         }
 
@@ -148,7 +148,7 @@ sub ImportTable
 
         $sql->commit;
 
-        die "Error loading data"
+        die 'Error loading data'
                 if -f $file and empty($table);
 
         ++$tables;

@@ -37,13 +37,13 @@ Options are:
 EOF
 
 GetOptions(
-    "short-sql"         => \$short_sql,
-    "long-sql"          => \$long_sql,
-    "debug-xact"        => \$debug_xact,
-    "skip-seqid|s=i"=> \$skip_seqid,
-    "limit=i"           => \$limit,
-    "database=s"        => \$database,
-    "help|h"            => sub { print $help; exit },
+    'short-sql'         => \$short_sql,
+    'long-sql'          => \$long_sql,
+    'debug-xact'        => \$debug_xact,
+    'skip-seqid|s=i'=> \$skip_seqid,
+    'limit=i'           => \$limit,
+    'database=s'        => \$database,
+    'help|h'            => sub { print $help; exit },
 ) or exit 2;
 print($help), exit 2 if @ARGV;
 
@@ -61,12 +61,12 @@ my $sql2 = Sql->new($c->conn);
 my $slave = Sql->new($c->conn);
 
 $sql->auto_commit;
-$sql->do("SET search_path = musicbrainz, public");
+$sql->do('SET search_path = musicbrainz, public');
 
 $sql->auto_commit;
-$sql->do("SET TRANSACTION ISOLATION LEVEL SERIALIZABLE");
+$sql->do('SET TRANSACTION ISOLATION LEVEL SERIALIZABLE');
 $sql->auto_commit;
-$sql->do("SET CONSTRAINTS ALL DEFERRED");
+$sql->do('SET CONSTRAINTS ALL DEFERRED');
 
 #Obtain a list of pending transactions using ordering by our approximation
 #to the commit time.  The commit time approximation is taken to be the
@@ -90,13 +90,13 @@ if (my $totalrows = $sql->select($query))
     my $rows = 0;
     my $strows = 0;
 
-    printf "%9s %9s %4s %9s %9s\n", "XIDs", "Stmts", "est%", "XIDs/sec", "Stmt/sec";
+    printf "%9s %9s %4s %9s %9s\n", 'XIDs', 'Stmts', 'est%', 'XIDs/sec', 'Stmt/sec';
 
     my $lasttime;
     my $p = sub {
         my ($pre, $post) = @_;
         no integer;
-        printf $pre."%9d %9d %3d%% %9d %9d".$post,
+        printf $pre.'%9d %9d %3d%% %9d %9d'.$post,
                 $rows, $strows,
                 int(100 * $strows / $total_statements),
                 $rows / ($interval||1),
@@ -108,7 +108,7 @@ if (my $totalrows = $sql->select($query))
     $p = sub { $lasttime = time }
         if $short_sql or $long_sql or $debug_xact;
 
-        $p->("", "");
+        $p->('', '');
 
     while (@row = $sql->next_row)
     {
@@ -122,13 +122,13 @@ if (my $totalrows = $sql->select($query))
                 next;
         }
 
-        my $query = qq|
+        my $query = q{
                 SELECT  pnd.SeqId, pnd.TableName, pnd.Op, pnddata.IsKey, pnddata.Data AS Data
                 FROM    dbmirror_pending pnd, dbmirror_pendingdata pnddata
                 WHERE   pnd.SeqId = pnddata.SeqId
                 AND             pnd.XID = ?
                 ORDER BY SeqId, IsKey DESC
-        |;
+        };
 
         $slave->begin;
         $sql2->do("DECLARE csr NO SCROLL CURSOR FOR $query", $XID);
@@ -152,8 +152,8 @@ if (my $totalrows = $sql->select($query))
         }
         $sql2->finish;
 
-        $sql2->do("CLOSE csr");
-        $slave->do(qq[DELETE FROM dbmirror_pending WHERE XID = ?], $XID);
+        $sql2->do('CLOSE csr');
+        $slave->do('DELETE FROM dbmirror_pending WHERE XID = ?', $XID);
 
         print localtime() . " : COMMIT XID #$XID\n" if $debug_xact;
         $slave->commit;
@@ -162,7 +162,7 @@ if (my $totalrows = $sql->select($query))
         unless ($rows & 0x1F and time() == $lasttime)
         {
                 $interval = tv_interval($t1);
-                $p->("\r", "");
+                $p->("\r", '');
         }
     }
 
@@ -178,7 +178,7 @@ for my $t (sort keys %bytable)
 {
     printf "%7d  %7d  %7d  %s\n", @{ $bytable{$t} }, $t;
 }
-printf "%7d  %7d  %7d  %s\n", $ins, $upd, $del, "(total)";
+printf "%7d  %7d  %7d  %s\n", $ins, $upd, $del, '(total)';
 
 print localtime() . " : Replication changes applied\n";
 
@@ -301,7 +301,7 @@ sub show_long_sql
     printf "%s : %s (%s)\n",
         scalar(localtime),
         $statement,
-        join(" ", map { defined() ? $_ : "NULL" } @$args),
+        join(' ', map { defined() ? $_ : 'NULL' } @$args),
         ;
 }
 

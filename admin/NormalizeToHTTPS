@@ -12,15 +12,15 @@ use MusicBrainz::Server::Validation qw( is_positive_integer );
 my $usage = qq("Usage: $0 number_of_rows domain.name [domain.name ...]");
 
 my $number_of_rows = shift;
-is_positive_integer($number_of_rows) or warn $usage and die "invalid number of rows";
+is_positive_integer($number_of_rows) or warn $usage and die 'invalid number of rows';
 
 my @domain_names;
 while (my $domain_name = shift) {
-    $domain_name =~ /^(?:[\w-]+\.)+\w+$/n or warn $usage and die "invalid domain name";
+    $domain_name =~ /^(?:[\w-]+\.)+\w+$/n or warn $usage and die 'invalid domain name';
     push @domain_names, $domain_name;
 }
 if (scalar @domain_names == 0) {
-    warn $usage and die "missing domain name";
+    warn $usage and die 'missing domain name';
 }
 
 my $regexp =

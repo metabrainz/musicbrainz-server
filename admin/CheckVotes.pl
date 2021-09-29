@@ -13,10 +13,10 @@ use MusicBrainz::Server::EditQueue;
 
 my ($dry_run, $debug, $summary, $verbose);
 GetOptions(
-    "dryrun|d"      => \$dry_run,
-    "debug"         => \$debug,
-    "summary|s"     => \$summary,
-    "verbose|v"     => \$verbose,
+    'dryrun|d'      => \$dry_run,
+    'debug'         => \$debug,
+    'summary|s'     => \$summary,
+    'verbose|v'     => \$verbose,
 ) or return 2;
 
 my $c = MusicBrainz::Server::Context->create_script_context();

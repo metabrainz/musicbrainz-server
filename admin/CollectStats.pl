@@ -12,7 +12,7 @@ use Getopt::Long;
 
 my $output_file;
 GetOptions(
-    "output-file=s"                => \$output_file,
+    'output-file=s'                => \$output_file,
 ) or exit 2;
 
 my $c = MusicBrainz::Server::Context->create_script_context;

@@ -4,7 +4,7 @@ use warnings;
 
 use strict;
 
-@ARGV == 2 or die "Bad args";
+@ARGV == 2 or die 'Bad args';
 my ($pending, $pendingdata) = @ARGV;
 
 # Join on SeqId, which is numeric and the first column.
@@ -12,7 +12,7 @@ open(my $p_fh, "sort -n < $pending |") or die $!;
 open(my $d_fh, "sort -n < $pendingdata |") or die $!;
 
 # A temporary file to accept the XML output
-open(my $xmlfh, "+>", undef) or die $!;
+open(my $xmlfh, '+>', undef) or die $!;
 my $last_xid = 0;
 my @xml_frags;
 my $is_sorted = 1;
@@ -30,9 +30,9 @@ my %export_columns = (
 
 # How many "PendingData" rows we expect depends on the "Op" of the "Pending" row
 my %op_expect = (
-    "i" => 1,
-    "d" => 1,
-    "u" => 2,
+    'i' => 1,
+    'd' => 1,
+    'u' => 2,
 );
 
 # Which tables are we interested in?
@@ -57,43 +57,43 @@ while (my $p_line = shift_p())
 
 
     my $p_row = decode_row($p_line, qw( SeqId TableName Op XID ));
-    my $op = $p_row->{"Op"} or die "No Op in $p_line";
+    my $op = $p_row->{'Op'} or die "No Op in $p_line";
 
     my $expect_d = $op_expect{$op} or die "Unknown op '$op'";
     die "Wrong number of PendingData lines ($p_line)" unless @d_lines == $expect_d;
 
-    my $table = $p_row->{"TableName"};
+    my $table = $p_row->{'TableName'};
     $want_table{$table} or next;
 
-    my $XID = $p_row->{"XID"};
+    my $XID = $p_row->{'XID'};
 
-    if ($op eq "i")
+    if ($op eq 'i')
     {
         my $ins_row = decode_row($d_lines[0], qw( SeqId IsKey Data ));
-        die "Bad IsKey for Op" unless $ins_row->{"IsKey"} eq "f";
-        my $values = extractData($ins_row->{"Data"});
+        die 'Bad IsKey for Op' unless $ins_row->{'IsKey'} eq 'f';
+        my $values = extractData($ins_row->{'Data'});
         handle_insert($XID, $table, $values);
     }
-    elsif ($op eq "d")
+    elsif ($op eq 'd')
     {
         my $del_row = decode_row($d_lines[0], qw( SeqId IsKey Data ));
-        die "Bad IsKey for Op" unless $del_row->{"IsKey"} eq "t";
-        my $data = extractData($del_row->{"Data"});
+        die 'Bad IsKey for Op' unless $del_row->{'IsKey'} eq 't';
+        my $data = extractData($del_row->{'Data'});
         handle_delete($XID, $table, $data);
     }
-    elsif ($op eq "u")
+    elsif ($op eq 'u')
     {
         my @upd_rows = map { decode_row($_, qw( SeqId IsKey Data )) } @d_lines;
-        (my $keys_row) = grep { $_->{"IsKey"} eq "t" } @upd_rows or die "Bad IsKey for Op";
-        (my $values_row) = grep { $_->{"IsKey"} eq "f" } @upd_rows or die "Bad IsKey for Op";
-        my $keys = extractData($keys_row->{"Data"});
-        my $values = extractData($values_row->{"Data"});
+        (my $keys_row) = grep { $_->{'IsKey'} eq 't' } @upd_rows or die 'Bad IsKey for Op';
+        (my $values_row) = grep { $_->{'IsKey'} eq 'f' } @upd_rows or die 'Bad IsKey for Op';
+        my $keys = extractData($keys_row->{'Data'});
+        my $values = extractData($values_row->{'Data'});
         handle_update($XID, $table, $values, $keys);
     }
-    else { die "Bad Op" }
+    else { die 'Bad Op' }
 }
 
-die "leftover data" if defined shift_d();
+die 'leftover data' if defined shift_d();
 output_xml();
 
 ################################################################################
@@ -109,13 +109,13 @@ output_xml();
 sub handle_insert
 {
     my ($XID, $table, $values) = @_;
-    handle_ins_upd($XID, $table, $values, "insert");
+    handle_ins_upd($XID, $table, $values, 'insert');
 }
 
 sub handle_update
 {
     my ($XID, $table, $values, $keys) = @_;
-    handle_ins_upd($XID, $table, $values, "update");
+    handle_ins_upd($XID, $table, $values, 'update');
 }
 
 sub handle_ins_upd
@@ -130,7 +130,7 @@ sub handle_ins_upd
     for my $col (@$cols)
     {
         my $v = $values->{$col};
-        defined($v) or die "Can't export NULL values";
+        defined($v) or die q(Can't export NULL values);
         $v =~ s/&/&amp;/g; $v =~ s/</&lt;/g; $v =~ s/>/&gt;/g;
         $xml .= qq[    <attribute name="$col">$v</attribute>\n];
     }
@@ -167,7 +167,7 @@ sub write_xml_fragment
 
 sub sort_xml_fragments
 {
-    open(my $newfh, "+>", undef) or die $!;
+    open(my $newfh, '+>', undef) or die $!;
 
     @xml_frags = sort { $a->[0] <=> $b->[0] } @xml_frags;
 
@@ -294,7 +294,7 @@ sub extractData
     }
     else
     {
-      print STDERR "Error in PendingData";
+      print STDERR 'Error in PendingData';
       die;
     }
   }

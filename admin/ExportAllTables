@@ -9,6 +9,7 @@ use DBDefs;
 use integer;
 
 use File::Spec::Functions qw( catfile );
+use List::AllUtils qw( any );
 use MusicBrainz::Script::DatabaseDump;
 use MusicBrainz::Server::Constants qw(
     $EDITOR_SANITISED_COLUMNS
@@ -55,8 +56,8 @@ my @groups = (
 ################################################################################
 
 my $fHelp;
-my $OutputDir = ".";
-my $tmp_dir = "/tmp";
+my $OutputDir = q(.);
+my $tmp_dir = '/tmp';
 my $fCompress = 1;
 my $fKeepFiles = 0;
 my $fDoFullExport = 1;
@@ -66,19 +67,19 @@ my $fCallback;
 my @tablelist;
 
 GetOptions(
-    "output-dir|d=s"            => \$OutputDir,
-    "tmp-dir|t=s"               => \$tmp_dir,
-    "compress|c!"               => \$fCompress,
-    "keep-files|k!"             => \$fKeepFiles,
-    "database=s"                => \$database,
-    "table=s"                   => \@tablelist,
-    "replication-callback=s"    => \$fCallback,
-    "with-replication"          => sub { $fDoReplication = 1 },
-    "without-replication"       => sub { $fDoReplication = 0 },
-    "with-full-export"          => sub { $fDoFullExport = 1 },
-    "without-full-export"       => sub { $fDoFullExport = 0 },
-    "check-completeness"        => sub { $fCheckCompleteness = 1 },
-    "help"                      => \$fHelp,
+    'output-dir|d=s'            => \$OutputDir,
+    'tmp-dir|t=s'               => \$tmp_dir,
+    'compress|c!'               => \$fCompress,
+    'keep-files|k!'             => \$fKeepFiles,
+    'database=s'                => \$database,
+    'table=s'                   => \@tablelist,
+    'replication-callback=s'    => \$fCallback,
+    'with-replication'          => sub { $fDoReplication = 1 },
+    'without-replication'       => sub { $fDoReplication = 0 },
+    'with-full-export'          => sub { $fDoFullExport = 1 },
+    'without-full-export'       => sub { $fDoFullExport = 0 },
+    'check-completeness'        => sub { $fCheckCompleteness = 1 },
+    'help'                      => \$fHelp,
 );
 
 sub usage
@@ -143,7 +144,7 @@ my $mbdump = MusicBrainz::Script::DatabaseDump->new(
 @tables = () if not $fDoFullExport;
 
 # Sanitise various things for public consumption
-if (grep { $_ eq "editor_sanitised" } @tables)
+if (any { $_ eq 'editor_sanitised' } @tables)
 {
     $sql->do("SELECT $EDITOR_SANITISED_COLUMNS
               INTO TEMPORARY editor_sanitised
@@ -195,9 +196,9 @@ if ($fDoReplication)
         $iReplicationSequence ||= 0;
 
         $sql->do(
-                "UPDATE replication_control
+                'UPDATE replication_control
                 SET current_replication_sequence = ?,
-                last_replication_date = NOW()",
+                last_replication_date = NOW()',
                 $iReplicationSequence,
         );
 
@@ -209,21 +210,21 @@ if ($fDoReplication)
         # Remove the rows we just dumped
         empty_replication_tables();
 
-        $mbdump->write_file("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
+        $mbdump->write_file('REPLICATION_SEQUENCE', "$iReplicationSequence\n");
     } elsif (defined $iReplicationSequence and not $fAnyReplicationData) {
         print localtime() . " : No changes since the last replication point (#$iReplicationSequence)\n";
-        $mbdump->write_file("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
+        $mbdump->write_file('REPLICATION_SEQUENCE', "$iReplicationSequence\n");
     } else {
         print localtime() . " : No replication data dumped - not producing a replication packet\n";
-        $mbdump->write_file("REPLICATION_SEQUENCE", "");
+        $mbdump->write_file('REPLICATION_SEQUENCE', '');
     }
 } else {
-    $mbdump->write_file("REPLICATION_SEQUENCE", "");
+    $mbdump->write_file('REPLICATION_SEQUENCE', '');
 }
 
 # Dump this /after/ we've possibly updated the current_replication_sequence
 # Dump this table only if we're dumping everything (i.e., @tablelist is empty) or if it's explicitly requested.
-$mbdump->dump_table("replication_control") if (scalar @tablelist == 0 || grep { $_ eq 'replication_control' } @tablelist);
+$mbdump->dump_table('replication_control') if (scalar @tablelist == 0 || any { $_ eq 'replication_control' } @tablelist);
 
 $mbdump->end_dump;
 
@@ -240,7 +241,7 @@ if ($fCompress and $fDoReplication)
 {
     my $tarfile = "replication-$iReplicationSequence.tar.bz2";
 
-    if (grep { $mbdump->row_counts->{$_} } @replication_tables)
+    if (any { $mbdump->row_counts->{$_} } @replication_tables)
     {
         $mbdump->copy_readme() or die $!;
         # Go for the "most restrictive" license
@@ -257,20 +258,20 @@ if ($fCompress and $fDoFullExport)
 {
     $mbdump->copy_readme() or die $!;
     $mbdump->copy_file("$FindBin::Bin/COPYING-PublicDomain", 'COPYING') or die $!;
-    $mbdump->make_tar("mbdump.tar.bz2", @CORE_TABLE_LIST);
+    $mbdump->make_tar('mbdump.tar.bz2', @CORE_TABLE_LIST);
 
     $mbdump->copy_readme() or die $!;
     $mbdump->copy_file("$FindBin::Bin/COPYING-CCShareAlike", 'COPYING') or die $!;
-    $mbdump->make_tar("mbdump-derived.tar.bz2", @DERIVED_TABLE_LIST);
-    $mbdump->make_tar("mbdump-editor.tar.bz2", @EDITOR_TABLE_LIST);
-    $mbdump->make_tar("mbdump-edit.tar.bz2", @EDIT_TABLE_LIST);
-    $mbdump->make_tar("mbdump-stats.tar.bz2", @STATS_TABLE_LIST);
-    $mbdump->make_tar("mbdump-private.tar.bz2", @PRIVATE_TABLE_LIST);
-    $mbdump->make_tar("mbdump-cdstubs.tar.bz2", @CDSTUBS_TABLE_LIST);
-    $mbdump->make_tar("mbdump-cover-art-archive.tar.bz2", @CAA_TABLE_LIST);
-    $mbdump->make_tar("mbdump-event-art-archive.tar.bz2", @EAA_TABLE_LIST);
-    $mbdump->make_tar("mbdump-wikidocs.tar.bz2", @WIKIDOCS_TABLE_LIST);
-    $mbdump->make_tar("mbdump-documentation.tar.bz2", @DOCUMENTATION_TABLE_LIST);
+    $mbdump->make_tar('mbdump-derived.tar.bz2', @DERIVED_TABLE_LIST);
+    $mbdump->make_tar('mbdump-editor.tar.bz2', @EDITOR_TABLE_LIST);
+    $mbdump->make_tar('mbdump-edit.tar.bz2', @EDIT_TABLE_LIST);
+    $mbdump->make_tar('mbdump-stats.tar.bz2', @STATS_TABLE_LIST);
+    $mbdump->make_tar('mbdump-private.tar.bz2', @PRIVATE_TABLE_LIST);
+    $mbdump->make_tar('mbdump-cdstubs.tar.bz2', @CDSTUBS_TABLE_LIST);
+    $mbdump->make_tar('mbdump-cover-art-archive.tar.bz2', @CAA_TABLE_LIST);
+    $mbdump->make_tar('mbdump-event-art-archive.tar.bz2', @EAA_TABLE_LIST);
+    $mbdump->make_tar('mbdump-wikidocs.tar.bz2', @WIKIDOCS_TABLE_LIST);
+    $mbdump->make_tar('mbdump-documentation.tar.bz2', @DOCUMENTATION_TABLE_LIST);
 
     MusicBrainz::Script::MBDump::write_checksum_files(
         $mbdump->compression,
@@ -285,7 +286,7 @@ if ($fCompress and $fDoFullExport)
 }
 
 # Tar files all created safely... we can erase the tmpdir on exit
-system "/bin/sync"; $? == 0 or die "sync failed (rc=$?)";
+system '/bin/sync'; $? == 0 or die "sync failed (rc=$?)";
 $mbdump->erase_files_on_exit(1);
 
 exit;
@@ -294,8 +295,8 @@ exit;
 
 sub empty_replication_tables
 {
-    $sql->do("DELETE FROM dbmirror_pendingdata");
-    $sql->do("DELETE FROM dbmirror_pending");
+    $sql->do('DELETE FROM dbmirror_pendingdata');
+    $sql->do('DELETE FROM dbmirror_pending');
     # As soon as we commit, the replication data is gone from the DB, so we must
     # be sure that we have a safe copy.
     $mbdump->erase_files_on_exit(0);
@@ -305,9 +306,9 @@ sub optimise_replication_tables
 {
     print localtime() . " : Optimising replication tables\n";
     $sql->auto_commit;
-    $sql->do("VACUUM ANALYZE dbmirror_pendingdata");
+    $sql->do('VACUUM ANALYZE dbmirror_pendingdata');
     $sql->auto_commit;
-    $sql->do("VACUUM ANALYZE dbmirror_pending");
+    $sql->do('VACUUM ANALYZE dbmirror_pending');
 }
 
 sub parse_create_tables
@@ -342,7 +343,7 @@ sub check_tables_completeness
     foreach my $table (@tables) {
         my $included = 0;
         foreach my $group (@groups) {
-            if (grep {$_ eq $table} @$group) {
+            if (any {$_ eq $table} @$group) {
                 $included = 1;
             }
         }

@@ -20,11 +20,11 @@ my $system = 0;
 my $help = 0;
 
 GetOptions(
-    "system"    => \$system,
-    "help"      => \$help,
+    'system'    => \$system,
+    'help'      => \$help,
 ) or exit 2;
 
-my $key = shift // "READWRITE";
+my $key = shift // 'READWRITE';
 
 if ($help) {
     die "Usage: psql [database]\n\n  database -- the DBDefs name of the database to connect to. (default is READWRITE)\n";
@@ -33,13 +33,13 @@ if ($help) {
 my $db = Databases->get($key) or die "No such database '$key'\n";
 
 if ($system) {
-    my $sys_db = Databases->get("SYSTEM");
+    my $sys_db = Databases->get('SYSTEM');
     $db = $db->meta->clone_object($sys_db, database => $db->database);
 }
 
-$ENV{"PGPASSWORD"} = $db->password;
+$ENV{'PGPASSWORD'} = $db->password;
 
-exec "psql", $db->shell_args, @ARGV;
+exec 'psql', $db->shell_args, @ARGV;
 
 =head1 COPYRIGHT AND LICENSE
 

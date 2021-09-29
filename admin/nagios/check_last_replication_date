@@ -23,8 +23,8 @@ my $warn = 3600 * 6;
 my $crit = 3600 * 24;
 
 GetOptions(
-    "warn|w=i"  => \$warn,
-    "critical|c=i"      => \$crit,
+    'warn|w=i'  => \$warn,
+    'critical|c=i'      => \$crit,
 ) or exit 2;
 
 @ARGV == 0 or die "Usage: $0 [-w SECONDS] [-c SECONDS]\n";
@@ -38,14 +38,14 @@ if (DBDefs->REPLICATION_TYPE != DBDefs::RT_SLAVE)
 my $c = MusicBrainz::Server::Context->create_script_context;
 
 my $row = $c->sql->select_single_row_hash(
-    "
+    '
     SELECT
     (last_replication_date < NOW() - ?::INTERVAL) as warn,
     (last_replication_date < NOW() - ?::INTERVAL) as crit,
     last_replication_date,
     NOW() - last_replication_date as age
     FROM replication_control
-    ",
+    ',
     "$warn seconds",
     "$crit seconds",
 );
@@ -56,8 +56,8 @@ if (not $row)
     exit 2;
 }
 
-print ($row->{crit} ? "CRITICAL" : $row->{warn} ? "WARNING" : "OK");
-print ": ";
+print ($row->{crit} ? 'CRITICAL' : $row->{warn} ? 'WARNING' : 'OK');
+print ': ';
 print "Last replication date is $row->{last_replication_date} (age = $row->{age})\n";
 exit ($row->{crit} ? 2 : $row->{warn} ? 1 : 0);
 
