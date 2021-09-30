@@ -106,7 +106,7 @@ around allow_auto_edit => sub {
 
     my $series = $self->c->model('Series')->get_by_id($self->series_id);
     $self->c->model('SeriesType')->load($series);
-    my ($items, $hits) = $self->c->model('Series')->get_entities($series, 1, 0);
+    my ($items, undef) = $self->c->model('Series')->get_entities($series, 1, 0);
 
     # Allow auto-editing the series if it has no items. This is necessary
     # when an editor changes the series type and adds new part-of

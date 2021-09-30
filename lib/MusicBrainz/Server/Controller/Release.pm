@@ -297,9 +297,6 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
     $c->model('CoverArtType')->load_for(@artwork);
 
     my $count = 1;
-    my @positions = map {
-        { id => $_->id, position => $count++ }
-    } @artwork;
 
     my $id = $c->model('CoverArtArchive')->fresh_id;
     $c->stash({

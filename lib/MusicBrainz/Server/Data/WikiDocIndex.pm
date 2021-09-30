@@ -57,7 +57,6 @@ sub set_page_version
 {
     my ($self, $page, $version) = @_;
 
-    my $index = $self->_load_index;
     if (defined $version) {
         my $query =
             'INSERT INTO wikidocs.wikidocs_index (revision, page_name)

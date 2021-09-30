@@ -13,7 +13,6 @@ test 'lookup rating for user' => sub {
 
   my $test = shift;
   my $c = $test->c;
-  my $mech = $test->mech;
 
   MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
   MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
@@ -44,7 +43,6 @@ test 'lookup tag for user' => sub {
 
   my $test = shift;
   my $c = $test->c;
-  my $mech = $test->mech;
 
   MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
   MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');

@@ -44,11 +44,15 @@ for my $path (
         );
 
         my $dbdefs = ref(*DBDefs::DB_READ_ONLY) ? 'DBDefs' : 'DBDefs::Default';
+        # This is a lexically scoped wrapper so the assignment is needed
+        # See https://metacpan.org/pod/Hook::LexWrap#Lexically-scoped-wrappers
         my $wrapped_read_only = wrap "${dbdefs}::DB_READ_ONLY",
             pre => sub { $_[-1] = 1 };
 
         $mech->get($path);
         is($mech->status, HTTP_BAD_REQUEST);
+
+        $wrapped_read_only->DESTROY;
     };
 };
 

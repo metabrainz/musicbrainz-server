@@ -631,7 +631,7 @@ sub _insert_hook_after_each {
 
 sub update {
     my ($self, $group_id, $update) = @_;
-    my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
+
     my $row = $self->_hash_to_row($update);
     $self->sql->update_row('release_group', $row, { id => $group_id }) if %$row;
     $self->c->model('ReleaseGroupSecondaryType')->set_types($group_id, $update->{secondary_type_ids})

@@ -696,7 +696,7 @@ sub merge_entities {
             join "\t", @{$_}{$entity1, qw(link_type link_order)}, @{$_->{attributes}}
         } @$relationships;
 
-        while (my ($key, $possible_dupes) = each %possible_dupes) {
+        while (my (undef, $possible_dupes) = each %possible_dupes) {
             my %definite_dupes = partition_by { join "\t", @{$_}{$entity1, 'link'} } @$possible_dupes;
 
             # Merge relationships that are exact duplicates other than credits,
@@ -752,7 +752,7 @@ sub delete_entities
     my ($self, $type, @ids) = @_;
 
     foreach my $t ($self->generate_table_list($type)) {
-        my ($table, $entity0, $entity1) = @$t;
+        my ($table, $entity0, undef) = @$t;
         $self->sql->do("
             DELETE FROM $table a
             WHERE $entity0 IN (" . placeholders(@ids) . ')

@@ -155,7 +155,6 @@ sub find
         push @pred, "id IN ($subquery)";
     }
 
-    my @params = keys %$p;
     while (my ($param, $value) = each %$p) {
         my @values = ref($value) ? @$value : ($value);
         next unless @values;

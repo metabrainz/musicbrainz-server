@@ -234,7 +234,6 @@ sub _ratings
 {
     my ($self, $c, $modelname, $entities, $stash) = @_;
 
-    my %map = object_to_ids(@$entities);
     my $model = $c->model($modelname);
 
     if ($c->stash->{inc}->ratings)

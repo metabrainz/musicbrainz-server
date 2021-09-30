@@ -164,7 +164,6 @@ sub validate_linked
     my $params = $c->req->params;
     my %acc = map { $_ => 1 } @{ $def };
 
-    my $linked;
     foreach (keys %$params)
     {
         return [$_, $params->{$_}] if (exists $acc{$_});

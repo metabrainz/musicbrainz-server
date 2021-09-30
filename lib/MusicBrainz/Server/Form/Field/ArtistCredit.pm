@@ -25,7 +25,7 @@ around 'validate_field' => sub {
     my $orig = shift;
     my $self = shift;
 
-    my $ret = $self->$orig(@_);
+    $self->$orig(@_);
 
     my $input = $self->result->input;
 

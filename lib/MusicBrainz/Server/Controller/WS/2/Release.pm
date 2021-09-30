@@ -226,7 +226,6 @@ sub release_browse : Private
     }
 
     my $releases;
-    my $total;
     if ($resource eq 'area') {
         my $area = $c->model('Area')->get_by_gid($id);
         $c->detach('not_found') unless ($area);

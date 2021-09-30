@@ -446,8 +446,6 @@ sub end : ActionClass('RenderView')
 {
     my ($self, $c) = @_;
 
-    my $attrs = $c->action->attributes;
-
     $c->stash->{server_details} = {
         %{ $c->stash->{server_details} // {} },
         staging_server_description => DBDefs->DB_STAGING_SERVER_DESCRIPTION,

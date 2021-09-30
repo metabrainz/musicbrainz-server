@@ -512,7 +512,7 @@ sub _seeded_track
         }
     }
 
-    if (my $pregap = $params->{pregap}) {
+    if ($params->{pregap}) {
         $result->{position} = 0;
     }
 

@@ -58,7 +58,6 @@ sub do_merge
 
     my $new_id = $self->new_entity->{id};
     my @old_ids = $self->_old_ids;
-    my $all_ids = [$new_id, @old_ids];
 
     my (undef, $dropped_columns) = $self->c->model('Artist')->merge(
         $new_id,

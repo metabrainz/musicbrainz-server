@@ -77,7 +77,7 @@ sub log_emergency (&@) { _do_log(emergency => @_) }
 sub log_assertion (&$) {
     my ($code, $message) = @_;
     unless ($code->()) {
-        my ($package, $filename, $line) = caller(0);
+        my (undef, $filename, $line) = caller(0);
         log_error { "Failed assertion: $message ($filename:$line)" };
         log_debug {
             'Stacktrace: ' .

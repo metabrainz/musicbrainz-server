@@ -11,7 +11,6 @@ parameter type => (
 
 role {
     my $params = shift;
-    my $type = $params->type;
 
     has name => (
         is => 'ro',

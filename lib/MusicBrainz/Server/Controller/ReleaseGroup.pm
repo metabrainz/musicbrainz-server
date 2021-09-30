@@ -168,7 +168,7 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
     my $entity = $c->stash->{entity};
     return unless $entity->can_set_cover_art;
 
-    my ($releases, $hits) = $c->model('Release')->find_by_release_group(
+    my ($releases, undef) = $c->model('Release')->find_by_release_group(
         $entity->id);
     $c->model('Release')->load_related_info(@$releases);
     $c->model('Release')->load_meta(@$releases);

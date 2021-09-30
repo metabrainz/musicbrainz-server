@@ -297,7 +297,6 @@ sub load_votes
 {
     my ($self, $election) = @_;
 
-    my $sql = $self->c->sql;
     my $query = 'SELECT * FROM autoeditor_election_vote
                  WHERE autoeditor_election = ? ORDER BY vote_time';
     for my $row (@{ $self->sql->select_list_of_hashes($query, $election->id) }) {

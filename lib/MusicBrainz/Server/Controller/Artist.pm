@@ -827,7 +827,7 @@ sub edit_credit : Chained('credit') PathPart('edit') Edit {
     my $artist = $c->stash->{artist};
     my $ac = $c->stash->{ac};
 
-    my $edit = $self->edit_action(
+    $self->edit_action(
         $c,
         form        => 'EditArtistCredit',
         type        => $EDIT_ARTIST_EDITCREDIT,

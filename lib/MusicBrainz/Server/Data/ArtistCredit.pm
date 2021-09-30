@@ -151,7 +151,7 @@ sub find
 {
     my ($self, @artist_joinphrase) = @_;
 
-    my ($id, $name, $positions, $names, $artists, $join_phrases) =
+    my ($id) =
         $self->_find(@artist_joinphrase);
 
     return $id;

@@ -27,8 +27,6 @@ sub uri_for_action {
     return $self->{c}{STASH}{c}->uri_for_action(@_)->as_string;
 }
 
-my $TOKEN_NEW_PARA = chr(10);
-
 my %class_map = (
     '+' => 'diff-only-b',
     '-' => 'diff-only-a'
@@ -221,7 +219,7 @@ sub diff {
         }
     };
 
-    my @compact = traverse_sequences(
+    traverse_sequences(
         \@a, \@b, {
             MATCH     => sub {
                 $flush->('MATCH');

@@ -61,7 +61,7 @@ sub initialize {
 sub accept {
     my $self = shift;
 
-    my $release = $self->c->model('Release')->get_by_gid($self->data->{entity}{mbid})
+    $self->c->model('Release')->get_by_gid($self->data->{entity}{mbid})
         or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
             'This release no longer exists'
         );

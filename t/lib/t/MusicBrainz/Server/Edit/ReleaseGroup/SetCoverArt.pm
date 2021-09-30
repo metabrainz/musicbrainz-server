@@ -41,7 +41,7 @@ test 'Set cover art' => sub {
     is($rg->cover_art->release->id, 1, 'Associated cover art has links to expected release id');
 
     my $exception = exception {
-        my $edit = $c->model('Edit')->create(
+        $c->model('Edit')->create(
             edit_type => $EDIT_RELEASEGROUP_SET_COVER_ART,
             editor_id => 1,
             release => $c->model('Release')->get_by_id(1),

@@ -114,7 +114,6 @@ sub validate_primary_for_locale {
 
 after validate => sub {
     my $self = shift;
-    my $type_id = $self->field('type_id')->value;
 
     if ($self->alias_model->exists({ name => $self->field('name')->value,
                                      locale => $self->field('locale')->value,

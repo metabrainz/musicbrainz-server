@@ -9,7 +9,6 @@ with 't::Mechanize', 't::Context';
 test 'Updated email address is escaped in flash message' => sub {
     my $test = shift;
     my $mech = $test->mech;
-    my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c);
 

@@ -26,7 +26,6 @@ sub xml_search
     my ($self, $resource, $args) = @_;
 
     my $query = '';
-    my $dur = 0;
     my $offset = 0;
     my $limit = 0;
     my $dismax = 'false';

@@ -52,7 +52,7 @@ test 'Enters set of ISWCs (no duplicates)' => sub {
 test 'Notices no changes' => sub {
     my $test = shift;
     isa_ok exception {
-        my $edit = _create_edit($test, [
+        _create_edit($test, [
             $already_exists
         ]);
     }, 'MusicBrainz::Server::Edit::Exceptions::NoChanges';

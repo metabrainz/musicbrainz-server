@@ -128,6 +128,7 @@ test_requires 'HTML::HTML5::Parser';
 test_requires 'HTML::Selector::XPath';
 test_requires 'LWP::UserAgent::Mockable';
 test_requires 'Perl::Critic';
+test_requires 'Perl::Critic::Policy::Variables::ProhibitUnusedVarsStricter';
 test_requires 'TAP::Harness::JUnit';
 test_requires 'TAP::Parser::SourceHandler::pgTAP';
 test_requires 'Test::Aggregate';

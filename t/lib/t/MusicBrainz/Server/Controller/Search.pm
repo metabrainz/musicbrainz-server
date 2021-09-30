@@ -9,7 +9,6 @@ with 't::Mechanize', 't::Context';
 test '/search portal' => sub {
     my $test = shift;
     my $mech = $test->mech;
-    my $c    = $test->c;
 
     $mech->get_ok('/search');
     html_ok($mech->content);

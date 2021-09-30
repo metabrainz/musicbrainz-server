@@ -53,7 +53,7 @@ subtest 'Test edit creation/rejection' => sub {
 };
 
 subtest 'Creating as an auto-editor still requires voting' => sub {
-    my $edit = $c->model('Edit')->create(
+    $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_DELETE,
         editor_id => 1,
         type0 => 'artist',

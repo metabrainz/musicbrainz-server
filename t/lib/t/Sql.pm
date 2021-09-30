@@ -18,9 +18,9 @@ test 'Nest select_single_column_array in select' => sub {
     my $test = shift;
     my $sql = $test->c->sql;
 
-    my $rows = $sql->select(q(SELECT * FROM (VALUES (1, 'musical'), (2, 'rock')) tag (id, name)));
+    $sql->select(q(SELECT * FROM (VALUES (1, 'musical'), (2, 'rock')) tag (id, name)));
     is exception {
-        while (my $row = $sql->next_row_ref) {
+        while ($sql->next_row_ref) {
             $sql->select_single_column_array('SELECT * FROM generate_series(1, 10)');
         }
     }, undef;
@@ -30,9 +30,9 @@ test 'Nest select_single_row_array in select' => sub {
     my $test = shift;
     my $sql = $test->c->sql;
 
-    my $rows = $sql->select(q(SELECT * FROM (VALUES (1, 'musical'), (2, 'rock')) tag (id, name)));
+    $sql->select(q(SELECT * FROM (VALUES (1, 'musical'), (2, 'rock')) tag (id, name)));
     is exception {
-        while (my $row = $sql->next_row_ref) {
+        while ($sql->next_row_ref) {
             $sql->select_single_row_array('SELECT * FROM generate_series(1, 10) LIMIT 1');
         }
     }, undef;

@@ -159,7 +159,7 @@ sub update {
         my $new_entity_type = $new_series_type->item_entity_type;
 
         if ($existing_entity_type ne $new_entity_type) {
-            my ($items, $hits) = $self->c->model('Series')->get_entities($series, 1, 0);
+            my ($items, undef) = $self->c->model('Series')->get_entities($series, 1, 0);
 
             die 'Cannot change the entity type of a non-empty series' if scalar(@$items);
         }

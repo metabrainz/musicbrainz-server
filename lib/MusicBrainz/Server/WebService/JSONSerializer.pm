@@ -224,7 +224,7 @@ sub _with_primary_alias {
         for my $result (@$results) {
             my $out = $renderer->($result);
 
-            my ($primary_alias, @others) =
+            my ($primary_alias) =
                 reverse sort {
                     my $pref_a = $alias_preference{$munge_lang->($a->locale)};
                     my $pref_b = $alias_preference{$munge_lang->($b->locale)};

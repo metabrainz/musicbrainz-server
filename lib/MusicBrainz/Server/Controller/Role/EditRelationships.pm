@@ -420,7 +420,6 @@ role {
                     next unless non_empty($field->{link_order});
 
                     if ($field->{link_order} != $relationship->link_order) {
-                        my $orderable_entity = $orderable_direction == 1 ? $relationship->entity1 : $relationship->entity0;
                         my $unorderable_entity = $orderable_direction == 1 ? $relationship->entity0 : $relationship->entity1;
                         my $is_series = $unorderable_entity->isa('MusicBrainz::Server::Entity::Series');
 

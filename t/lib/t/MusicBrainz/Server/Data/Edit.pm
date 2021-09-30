@@ -41,19 +41,19 @@ test 'Merge entity edit history' => sub {
         SQL
 
     {
-        my ($edits, $hits) = $test->c->model('Edit')->find({ artist => 2 }, 10, 0);
+        my (undef, $hits) = $test->c->model('Edit')->find({ artist => 2 }, 10, 0);
         is($hits => 1, 'found 1 edit before merge');
     }
 
     $test->c->model('Edit')->merge_entities('artist', 1, 2);
 
     {
-        my ($edits, $hits) = $test->c->model('Edit')->find({ artist => 1 }, 10, 0);
+        my (undef, $hits) = $test->c->model('Edit')->find({ artist => 1 }, 10, 0);
         is($hits => 2, 'found 2 edits post merge');
     }
 
     {
-        my ($edits, $hits) = $test->c->model('Edit')->find({ artist => 3 }, 10, 0);
+        my (undef, $hits) = $test->c->model('Edit')->find({ artist => 3 }, 10, 0);
         is($hits => 1, 'other entity-edit links are not affected');
     }
 };
@@ -249,7 +249,7 @@ test 'Accepting auto-edits should credit editor auto-edits column' => sub {
     my $old_ae_count = $edit_counts->{accepted_auto_count};
     my $old_e_count = $edit_counts->{accepted_count};
 
-    my $edit = $c->model('Edit')->create(
+    $c->model('Edit')->create(
         edit_type => 123,
         editor_id => 1,
         privileges => 1

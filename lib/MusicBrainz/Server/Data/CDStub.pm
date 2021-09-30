@@ -180,7 +180,7 @@ sub insert
             lookup_count => int(rand(10)) # FIXME - at least comment why we do this. -- aCiD2
         }, 'id');
 
-        my $cdtoc_id = $self->sql->insert_row('cdtoc_raw', {
+        $self->sql->insert_row('cdtoc_raw', {
             release => $release_id,
             discid => $cdtoc->discid,
             track_count => $cdtoc->track_count,

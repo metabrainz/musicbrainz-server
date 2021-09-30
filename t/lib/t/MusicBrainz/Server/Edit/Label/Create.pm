@@ -26,7 +26,7 @@ test all => sub {
 
     ok(defined $edit->label_id);
 
-    my ($edits, $hits) = $c->model('Edit')->find({ label => $edit->label_id }, 10, 0);
+    my ($edits, undef) = $c->model('Edit')->find({ label => $edit->label_id }, 10, 0);
     is($edits->[0]->id, $edit->id);
 
     $edit = $c->model('Edit')->get_by_id($edit->id);

@@ -57,7 +57,7 @@ sub initialize {
     my $release = $opts{release} or die 'Release missing';
 
     my %old;
-    my %new = ( release_id => $opts{release}->id );
+    my %new = ( release_id => $release->id );
 
     if ($rg->cover_art && $rg->cover_art->release
         && $self->c->model('ReleaseGroup')->has_cover_art_set($rg->id))

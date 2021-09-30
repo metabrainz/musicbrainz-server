@@ -10,7 +10,6 @@ with 't::Mechanize', 't::Context';
 test all => sub {
     my $test = shift;
     my $mech = $test->mech;
-    my $c = $test->c;
 
     LWP::UserAgent::Mockable->set_record_pre_callback(sub {
         my $response = HTTP::Response->new;

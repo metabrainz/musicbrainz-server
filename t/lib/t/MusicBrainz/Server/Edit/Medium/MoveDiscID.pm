@@ -26,7 +26,7 @@ SQL
     is($medium_cdtoc->edits_pending, 0);
     is($medium_cdtoc->medium->release->edits_pending, 0);
 
-    my $edit = create_edit($c, $new_medium, $medium_cdtoc);
+    create_edit($c, $new_medium, $medium_cdtoc);
     ($new_medium, $medium_cdtoc) = reload_data($c);
 
     is($medium_cdtoc->medium_id, 2);
@@ -61,7 +61,7 @@ test 'Moving a DiscID to the medium it already is attached to does not change an
     $c->model('Release')->load($medium, $medium_cdtoc->medium);
 
     isa_ok exception {
-        my $edit = $c->model('Edit')->create(
+        $c->model('Edit')->create(
             edit_type => $EDIT_MEDIUM_MOVE_DISCID,
             editor_id => 1,
             new_medium => $medium,

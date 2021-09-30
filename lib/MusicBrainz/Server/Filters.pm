@@ -102,7 +102,6 @@ sub format_editnote
 {
     my ($html) = @_;
 
-    my $is_url = 1;
     my $server = DBDefs->WEB_SERVER;
 
     # Pre-pass the edit note to attempt to normalise any URLs

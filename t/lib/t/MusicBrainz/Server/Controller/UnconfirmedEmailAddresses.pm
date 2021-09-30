@@ -14,10 +14,6 @@ with 't::Context', 't::Mechanize';
 my @unconfirmed_email_whitelist;
 
 test 'Paths that allow browsing without a confirmed email address' => sub {
-    my $test = shift;
-    my $c = $test->c;
-    my $mech = $test->mech;
-
     my @actions_without_edit_attribute =
         map {
             my $fqn = $_->fully_qualified_name;

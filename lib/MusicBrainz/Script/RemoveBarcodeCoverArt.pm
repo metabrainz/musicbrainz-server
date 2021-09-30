@@ -53,7 +53,6 @@ sub run
 
     my $completed = 0;
     my $total = @releases;
-    my $started_at = DateTime->now;
 
     my %seen;
 

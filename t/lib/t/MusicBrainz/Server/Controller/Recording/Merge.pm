@@ -32,7 +32,7 @@ test all => sub {
     $tx->not_ok(selector_to_xpath('.warning-isrcs-differ'),
                 'Does not have a warning about differing ISRCs');
 
-    my $response = $mech->submit_form(
+    $mech->submit_form(
         with_fields => {
             'merge.target' => '2',
             'merge.edit_note' => 'Destructive edits require an edit note',
@@ -57,13 +57,12 @@ test all => sub {
 test 'Edit note required' => sub {
     my $test = shift;
     my $mech = $test->mech;
-    my $c    = $test->c;
 
     $mech->get_ok('/recording/merge_queue?add-to-merge=1');
     $mech->get_ok('/recording/merge_queue?add-to-merge=2');
 
     $mech->get_ok('/recording/merge');
-    my $response = $mech->submit_form(
+    $mech->submit_form(
         with_fields => {
             'merge.target' => '2',
         }
@@ -74,7 +73,6 @@ test 'Edit note required' => sub {
 test 'Warn the user when merging recordings with different ISRCs' => sub {
     my $test = shift;
     my $mech = $test->mech;
-    my $c    = $test->c;
 
     $mech->get_ok('/recording/merge_queue?add-to-merge=1');
     $mech->get_ok('/recording/merge_queue?add-to-merge=2');

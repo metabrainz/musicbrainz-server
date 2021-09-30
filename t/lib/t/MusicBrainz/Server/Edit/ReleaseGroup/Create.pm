@@ -29,7 +29,7 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::ReleaseGroup::Create');
 
 ok(defined $edit->release_group_id);
 
-my ($edits, $hits) = $c->model('Edit')->find({ release_group => $edit->release_group_id }, 10, 0);
+my ($edits, undef) = $c->model('Edit')->find({ release_group => $edit->release_group_id }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
 my $rg = $c->model('ReleaseGroup')->get_by_id($edit->release_group_id);

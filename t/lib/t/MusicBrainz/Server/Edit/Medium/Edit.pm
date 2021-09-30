@@ -279,7 +279,6 @@ test 'Accept/failure conditions regarding links' => sub {
         $c->model('ArtistCredit')->load($medium->all_tracks);
 
         my $track = $medium->tracks->[0];
-        my $old_recording_id = $track->recording_id;
 
         my $edit = $c->model('Edit')->create(
             editor_id => 1,
@@ -469,7 +468,6 @@ test 'Auto-editing edit medium' => sub {
         $c->model('ArtistCredit')->load($medium->all_tracks);
 
         my $track = $medium->tracks->[0];
-        my $old_recording_id = $track->recording_id;
 
         ok !exception {
             $c->model('Edit')->create(

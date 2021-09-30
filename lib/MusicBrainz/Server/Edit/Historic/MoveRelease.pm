@@ -48,7 +48,7 @@ sub foreign_keys
 sub build_display_data
 {
     my ($self, $loaded) = @_;
-    my @release_ids = @{ $self->data->{release_ids} };
+
     my $new_artist = defined $loaded->{Artist}{ $self->data->{artist_id} }
         ? Artist->meta->clone_object(
             $loaded->{Artist}{ $self->data->{artist_id} },

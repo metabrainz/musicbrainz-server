@@ -223,7 +223,7 @@ test 'Prevents applying an edit with a duplicate label/catalog number pair' => s
     );
 
     # Another edit adds the same release label before the first edit is applied.
-    my $add_edit = $c->model('Edit')->create(
+    $c->model('Edit')->create(
         edit_type => $EDIT_RELEASE_ADDRELEASELABEL,
         editor_id => 1,
         release => $c->model('Release')->get_by_id(1),

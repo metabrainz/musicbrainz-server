@@ -562,7 +562,7 @@ sub _serialize_url
 {
     my ($self, $parent_node, $url, $inc, $stash, $toplevel) = @_;
 
-    my $opts = $stash->store($url);
+    $stash->store($url);
 
     my $url_node = $parent_node->addNewChild(undef, 'url');
     $url_node->_setAttribute('id', $url->gid);

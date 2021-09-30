@@ -18,12 +18,15 @@ MusicBrainz::Server::Test->prepare_raw_test_database($c, '+cdstub_raw');
     # This test is dependent on the current time to generate the 'x years ago'
     # content. I'm using a lexically scoped wrapper around Date::Calc::Today in
     # order to 'lock' the date to 2012/01/01. -- ocharles
+    # See https://metacpan.org/pod/Hook::LexWrap#Lexically-scoped-wrappers
     my $wrapper = wrap 'Date::Calc::Today',
         post => sub {
             $_[-1] = [2012, 1, 1];
         };
 
     $mech->get_ok('/cdstub/browse', 'fetch top cdstubs page');
+
+    $wrapper->DESTROY;
 }
 
 

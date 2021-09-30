@@ -245,7 +245,7 @@ sub _mapping
 around 'initialize' => sub
 {
     my ($orig, $self, %opts) = @_;
-    my $release = $opts{to_edit} or return;
+    return unless $opts{to_edit};
 
     $self->check_event_countries($opts{events} // []);
 

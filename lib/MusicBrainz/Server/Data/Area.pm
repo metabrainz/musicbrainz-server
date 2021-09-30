@@ -270,8 +270,6 @@ sub merge_codes
 {
     my ($self, $new_id, @old_ids) = @_;
 
-    my @ids = ($new_id, @old_ids);
-
     for my $type (@CODE_TYPES) {
         # No work needed to keep codes distinct, as `code` is the PK
         # Simply move everything to the new area

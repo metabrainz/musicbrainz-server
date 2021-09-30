@@ -397,7 +397,7 @@ test 'Open edit and last-24-hour counts' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
 
-    my $applied_edit = $c->model('Edit')->create(
+    $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
         to_edit => $c->model('Artist')->get_by_id(1),

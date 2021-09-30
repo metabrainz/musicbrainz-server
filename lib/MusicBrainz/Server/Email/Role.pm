@@ -44,7 +44,7 @@ around 'text' => sub {
     my ($self, @args) = @_;
 
     my $footer = $self->footer;
-    my $email = join("\n\n", map { strip($_) } grep { $_ }
+    return join("\n\n", map { strip($_) } grep { $_ }
         $self->header,
         $self->$next(@args),
         $footer ? '-' x 80 . "\n" . $footer : ''

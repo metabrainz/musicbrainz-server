@@ -24,7 +24,7 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Work::Create');
 
 ok(defined $edit->work_id);
 
-my ($edits, $hits) = $c->model('Edit')->find({ work => $edit->work_id }, 10, 0);
+my ($edits, undef) = $c->model('Edit')->find({ work => $edit->work_id }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
 my $work = $c->model('Work')->get_by_id($edit->work_id);

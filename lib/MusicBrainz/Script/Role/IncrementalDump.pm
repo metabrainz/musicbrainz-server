@@ -217,8 +217,8 @@ sub get_linked_entities($$$$) {
 
     my $dump_schema = $self->dump_schema;
 
-    my ($src_schema, $src_table, $src_column, $src_value, $replication_sequence) =
-        @{$update}{qw(schema table column value replication_sequence)};
+    my ($src_schema, $src_table, $src_column, $src_value) =
+        @{$update}{qw(schema table column value)};
 
     my $first_join;
     my $last_join;

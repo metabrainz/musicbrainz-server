@@ -50,7 +50,6 @@ sub own_collection : Chained('load') CaptureArgs(0) RequireAuth {
 sub collection_collaborator : Chained('load') CaptureArgs(0) RequireAuth {
     my ($self, $c) = @_;
 
-    my $collection = $c->stash->{collection};
     $c->detach('/error_403') if !$c->stash->{is_collection_collaborator};
 }
 

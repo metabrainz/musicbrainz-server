@@ -59,7 +59,7 @@ sub retrieve_remote_file {
         # Fetch file signature and inform the user about what is being done
         print localtime() . " : Downloading $url to $signature\n";
         my $s_url_token = $url . '?token=' . uri_escape(DBDefs->REPLICATION_ACCESS_TOKEN);
-        my $s_resp = $ua->mirror($s_url_token, $signature);
+        $ua->mirror($s_url_token, $signature);
 
         validate_file_signature($file, $signature);
     }

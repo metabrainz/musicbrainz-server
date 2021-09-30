@@ -393,7 +393,6 @@ sub collections : Chained('load') PathPart('collections')
     my ($self, $c) = @_;
 
     my $user = $c->stash->{user};
-    my $viewing_own_profile = $c->stash->{viewing_own_profile};
 
     my ($collections) = $c->model('Collection')->find_by({
         editor_id => $user->id,
@@ -457,9 +456,9 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     $c->stash->{subscriber_count} = $subscr_model->get_subscribed_editor_count($user->id);
     $c->stash->{votes}            = $c->model('Vote')->editor_statistics($user);
 
-    my ($tokens, $token_count) = $c->model('EditorOAuthToken')->find_granted_by_editor($user->id);
+    my (undef, $token_count) = $c->model('EditorOAuthToken')->find_granted_by_editor($user->id);
 
-    my ($applications, $application_count) = $c->model('Application')->find_by_owner($user->id);
+    my (undef, $application_count) = $c->model('Application')->find_by_owner($user->id);
 
     $c->model('Gender')->load($user);
     $c->model('EditorLanguage')->load_for_editor($user);
@@ -618,7 +617,6 @@ sub tag : Chained('load_tag') PathPart('')
     }
 
     my %tagged_entities;
-    my $tag_in_use = 0;
 
     # Determine whether this tag exists in the database
     if ($tag) {

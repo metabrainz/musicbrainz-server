@@ -160,7 +160,6 @@ sub annotation_diff : Chained('load') PathPart('annotations-differences') Requir
     my ($self, $c) = @_;
 
     my $model            = $self->{model};
-    my $entity           = $c->stash->{entity};
     my $annotation_model = $c->model($model)->annotation;
 
     my $old = $c->req->query_params->{old};

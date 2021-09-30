@@ -15,7 +15,6 @@ Readonly my $WIKIDATA_PROP_LOCATOR_MAP_IMAGE => 'P242';
 after load => sub {
     my ($self, $c) = @_;
 
-    my $entity = $c->stash->{entity};
     $c->stash->{commons_image} = to_json_object($self->_get_commons_image($c, 1));
 };
 

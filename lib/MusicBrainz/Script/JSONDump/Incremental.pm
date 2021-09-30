@@ -26,8 +26,6 @@ sub dump_schema { 'json_dump' }
 sub get_changed_documents {
     my ($self, $c, $entity_type, $ids, $update) = @_;
 
-    state $canonical_json = JSON::XS->new->canonical->utf8;
-
     my ($last_modified, $replication_sequence) =
         @{$update}{qw( last_modified replication_sequence )};
 

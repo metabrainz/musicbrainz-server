@@ -1554,7 +1554,6 @@ sub newest_releases_with_artwork {
         my ($model, $row) = @_;
 
         my $release = $model->_new_from_row($row);
-        my $mbid = $release->gid;
         my $caa_id = $row->{cover_art_id};
 
         Artwork->new(

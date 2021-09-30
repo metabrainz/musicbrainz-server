@@ -57,7 +57,7 @@ subtest 'creating cover art relationships should update the releases coverart' =
 
     $c->sql->do('UPDATE link_type SET is_deprecated = FALSE WHERE id = 78');
 
-    my $edit = $c->model('Edit')->create(
+    $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_CREATE,
         editor_id => 1,
         type0 => 'release',
@@ -79,7 +79,7 @@ subtest 'creating asin relationships should update the releases coverart' => sub
     if (DBDefs->AWS_PUBLIC && DBDefs->AWS_PRIVATE)
     {
         my $e0 = $c->model('Release')->get_by_id(2);
-        my $edit = $c->model('Edit')->create(
+        $c->model('Edit')->create(
             edit_type => $EDIT_RELATIONSHIP_CREATE,
             editor_id => 1,
             type0 => 'release',

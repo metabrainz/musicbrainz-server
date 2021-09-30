@@ -200,7 +200,6 @@ sub coverart : Local
     my $release_status_stats = [];
     my $release_format_stats = [];
     my $type_stats = [];
-    my $per_release_stats = [];
 
     foreach my $stat_name
         (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
