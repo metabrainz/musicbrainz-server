@@ -1,0 +1,7 @@
+ReplicationSetup.sql and MasterSetup.sql are copied from
+https://github.com/metabrainz/dbmirror2, commit 3abd0e1. (These are the only
+two files we need, and submodules are "difficult.")
+
+This is not a fork; please do not make any changes to the files here without
+first submitting them upstream to dbmirror2. They should exactly mirror the
+commit mentioned in the first paragraph.
