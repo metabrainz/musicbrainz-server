@@ -4,16 +4,15 @@ use 5.18.2; # enables the state feature
 use utf8;
 
 use Moose;
-use namespace::autoclean -also => [qw( _where_status_in _where_type_in )];
+use namespace::autoclean;
 
 use Carp 'confess';
 use DBDefs;
 use JSON::XS;
-use List::AllUtils qw( all any nsort_by part partition_by );
+use List::AllUtils qw( all any part partition_by );
 use MusicBrainz::Server::Constants qw(
     :quality
     $EDIT_RELEASE_CREATE
-    $STATUS_APPLIED
     $VARTIST_ID
 );
 use MusicBrainz::Server::Entity::Barcode;
@@ -21,15 +20,12 @@ use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Entity::ReleaseEvent;
 use MusicBrainz::Server::Data::Utils qw(
-    add_partial_date_to_row
     hash_to_row
     load_subobjects
     merge_table_attributes
-    object_to_ids
     order_by
     placeholders
 );
-use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Translation qw( comma_list N_l );
 use MusicBrainz::Server::Validation qw( encode_entities );
 use aliased 'MusicBrainz::Server::Entity::Artwork';

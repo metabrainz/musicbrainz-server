@@ -12,7 +12,6 @@ use Carp qw( confess );
 use HTML::Tiny;
 use HTML::Entities qw( decode_entities );
 use Scalar::Util qw( blessed );
-use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( encode_entities trim_in_place );
 
 no if $] >= 5.018, warnings => 'experimental::smartmatch';

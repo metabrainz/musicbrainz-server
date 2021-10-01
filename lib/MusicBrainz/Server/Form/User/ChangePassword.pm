@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Form::User::ChangePassword;
 
 use HTML::FormHandler::Moose;
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Form';
 

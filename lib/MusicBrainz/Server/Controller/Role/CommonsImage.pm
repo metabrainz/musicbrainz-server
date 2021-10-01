@@ -2,7 +2,6 @@ package MusicBrainz::Server::Controller::Role::CommonsImage;
 use DBDefs;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
-use List::AllUtils qw( sort_by );
 use namespace::autoclean;
 use Readonly;
 

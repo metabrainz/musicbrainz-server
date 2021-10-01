@@ -9,7 +9,6 @@ BEGIN { use MusicBrainz::Server::Edit::Work::Create }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_CREATE );
-use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 use MusicBrainz::Server::Constants qw( :edit_status );
 
 test all => sub {

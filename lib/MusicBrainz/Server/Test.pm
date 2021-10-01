@@ -12,7 +12,7 @@ use Getopt::Long;
 use HTML::HTML5::Parser;
 use HTTP::Headers;
 use HTTP::Request;
-use JSON qw( decode_json encode_json );
+use JSON qw( decode_json );
 use List::AllUtils qw( nsort_by );
 use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;

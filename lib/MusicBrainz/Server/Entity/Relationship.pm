@@ -5,7 +5,7 @@ use Readonly;
 use MusicBrainz::Server::Constants qw( :direction );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Validation qw( trim_in_place );
-use MusicBrainz::Server::Translation qw( l comma_list comma_only_list );
+use MusicBrainz::Server::Translation qw( comma_list comma_only_list );
 use MusicBrainz::Server::Data::Relationship;
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json partial_date_to_hash );
 

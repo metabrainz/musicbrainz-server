@@ -3,7 +3,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Fatal;
-use Test::Deep qw( cmp_set cmp_bag );
+use Test::Deep qw( cmp_bag );
 
 use MusicBrainz::Server::Data::Instrument;
 

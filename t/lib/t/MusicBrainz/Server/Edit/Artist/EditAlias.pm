@@ -15,7 +15,6 @@ with 't::Context';
 BEGIN { use MusicBrainz::Server::Edit::Artist::EditAlias }
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDIT_ALIAS );
-use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test 'Editing an alias sort name should be an auto edit' => sub {
     my $test = shift;

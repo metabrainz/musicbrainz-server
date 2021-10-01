@@ -9,7 +9,6 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_REORDER_MEDIUMS
     $UNTRUSTED_FLAG
 );
-use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 around run_test => sub {
     my ($orig, $test, @args) = @_;

@@ -2,7 +2,6 @@ package MusicBrainz::Server::Edit::Generic::Delete;
 use Moose;
 use MooseX::ABC;
 
-use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_DELETE );
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Types;

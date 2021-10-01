@@ -4,7 +4,6 @@ use Moose;
 use namespace::autoclean;
 use Sql;
 use Encode;
-use List::AllUtils qw( uniq );
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Entity::LinkAttributeType;
 use MusicBrainz::Server::Data::Utils qw(

@@ -9,7 +9,7 @@ use Encode;
 use MusicBrainz::Server::Constants qw( $PASSPHRASE_BCRYPT_COST );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json datetime_to_iso8601 );
 use MusicBrainz::Server::Entity::Preferences;
-use MusicBrainz::Server::Entity::Types qw( Area );
+use MusicBrainz::Server::Entity::Types qw( Area ); ## no critic 'ProhibitUnusedImport'
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Constants qw( :privileges $EDITOR_MODBOT);
 use MusicBrainz::Server::Filters qw( format_wikitext );

@@ -8,12 +8,9 @@ __PACKAGE__->config(
     namespace => 'release_editor'
 );
 
-use List::AllUtils qw( partition_by );
 use Try::Tiny;
-use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MusicBrainz::Server::Track qw( unformat_track_length );
-use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Data::Utils qw( non_empty sanitize trim );
 use MusicBrainz::Server::Form::Utils qw(
     language_options

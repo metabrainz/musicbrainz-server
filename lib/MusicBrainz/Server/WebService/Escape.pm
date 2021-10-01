@@ -2,7 +2,6 @@ package MusicBrainz::Server::WebService::Escape;
 
 use base 'Exporter';
 our @EXPORT_OK = qw( xml_escape );
-use Encode qw( decode encode );
 
 sub xml_escape
 {

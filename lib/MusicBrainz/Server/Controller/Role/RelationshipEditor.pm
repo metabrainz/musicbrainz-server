@@ -8,11 +8,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_DELETE
     $EDIT_RELATIONSHIPS_REORDER
 );
-use List::AllUtils qw( uniq );
-use MusicBrainz::Server::Data::Utils qw(
-    type_to_model
-    split_relationship_by_attributes
-);
+use MusicBrainz::Server::Data::Utils qw( split_relationship_by_attributes );
 use MusicBrainz::Server::Edit::Relationship::Edit;
 
 =method try_and_edit

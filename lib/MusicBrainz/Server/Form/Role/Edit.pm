@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Form::Role::Edit;
 use HTML::FormHandler::Moose::Role;
-use MusicBrainz::Server::Translation qw( l );
 
 with 'MusicBrainz::Server::Form::Role::EditNote';
 

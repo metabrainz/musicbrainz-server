@@ -20,6 +20,8 @@ allow_includes=1
 [TestingAndDebugging::ProhibitNoStrict]
 allow=refs
 
+[TooMuchCode::ProhibitUnusedImport]
+
 [ValuesAndExpressions::ProhibitInterpolationOfLiterals]
 [ValuesAndExpressions::ProhibitLeadingZeros]
 [ValuesAndExpressions::ProhibitMismatchedOperators]

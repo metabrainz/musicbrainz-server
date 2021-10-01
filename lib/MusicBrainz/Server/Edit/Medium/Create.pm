@@ -8,14 +8,9 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_CREATE
     $EDIT_RELEASE_CREATE
-    $STATUS_OPEN
 );
 use MusicBrainz::Server::Edit::Medium::Util ':all';
-use MusicBrainz::Server::Edit::Types qw(
-    ArtistCreditDefinition
-    Nullable
-    NullableOnPreview
-);
+use MusicBrainz::Server::Edit::Types qw( NullableOnPreview );
 use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits );
 use MusicBrainz::Server::Entity::Medium;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );

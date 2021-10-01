@@ -1,10 +1,10 @@
 package MusicBrainz::Server::Entity::Release;
 use Moose;
 
-use List::AllUtils qw( any uniq );
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Translation qw( l lp );
+use MusicBrainz::Server::Translation qw( lp );
 
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::MediumFormat qw( combined_medium_format_name );

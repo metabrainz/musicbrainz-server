@@ -26,11 +26,9 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Constants qw(
     :direction
-    $PART_OF_AREA_LINK_TYPE
     %ENTITIES
     %ENTITIES_WITH_RELATIONSHIP_CREDITS
     @RELATABLE_ENTITIES
-    entities_with
 );
 use Scalar::Util 'weaken';
 use List::AllUtils qw( any nsort_by part partition_by uniq );

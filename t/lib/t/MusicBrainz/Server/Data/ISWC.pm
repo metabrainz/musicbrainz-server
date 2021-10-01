@@ -1,7 +1,7 @@
 package t::MusicBrainz::Server::Data::ISWC;
 use Test::Routine;
 use Test::More;
-use Test::Deep qw( cmp_set cmp_bag );
+use Test::Deep qw( cmp_bag );
 
 use MusicBrainz::Server::Test;
 

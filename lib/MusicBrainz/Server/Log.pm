@@ -16,7 +16,7 @@ BEGIN {
     );
 }
 
-use Sub::Exporter -setup => {
+use Sub::Exporter -setup => { ## no critic 'ProhibitUnusedImport'
     exports => [
         'logger',
         map { ("log_$_") } qw(

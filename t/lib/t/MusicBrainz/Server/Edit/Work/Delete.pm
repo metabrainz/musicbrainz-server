@@ -10,7 +10,7 @@ BEGIN { use MusicBrainz::Server::Edit::Work::Delete }
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_DELETE $EDITOR_MODBOT );
 use MusicBrainz::Server::Constants ':edit_status';
-use MusicBrainz::Server::Test qw( accept_edit reject_edit );
+use MusicBrainz::Server::Test qw( accept_edit );
 
 test 'Can delete works' => sub {
     my $test = shift;

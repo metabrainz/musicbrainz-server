@@ -5,7 +5,6 @@ use namespace::autoclean;
 use Readonly;
 use MusicBrainz::Server::Entity::AutoEditorElection;
 use MusicBrainz::Server::Entity::AutoEditorElectionVote;
-use MusicBrainz::Server::Data::Utils qw( hash_to_row );
 use MusicBrainz::Server::Constants qw( :election_status :election_vote );
 
 extends 'MusicBrainz::Server::Data::Entity';

@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Controller::User::Subscriptions;
 use Moose;
-use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 

@@ -2,9 +2,6 @@ package MusicBrainz::Server::Form;
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
 
-use List::AllUtils qw( sort_by );
-use MusicBrainz::Server::Translation qw( l );
-
 with 'MusicBrainz::Server::Form::Role::ToJSON';
 
 has '+name' => ( required => 1 );

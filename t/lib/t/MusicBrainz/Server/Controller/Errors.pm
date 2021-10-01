@@ -1,8 +1,7 @@
 package t::MusicBrainz::Server::Controller::Errors;
 
 use Catalyst::Test 'MusicBrainz::Server';
-use JSON qw( decode_json encode_json );
-use Moose::Util qw( find_meta );
+use JSON qw( decode_json );
 use Sentry::Raven;
 use Test::Deep qw( cmp_deeply );
 use Test::Routine;

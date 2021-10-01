@@ -8,7 +8,6 @@ BEGIN { use MusicBrainz::Server::Edit::ReleaseGroup::Create }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_CREATE );
-use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 use MusicBrainz::Server::Constants qw( :edit_status );
 
 test all => sub {

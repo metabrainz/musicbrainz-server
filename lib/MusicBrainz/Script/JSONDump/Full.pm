@@ -4,14 +4,12 @@ use strict;
 use warnings;
 
 use DBDefs;
-use File::Copy qw( move );
 use File::Spec::Functions qw( catfile );
 use List::AllUtils qw( min );
 use Moose;
 use Parallel::ForkManager 0.7.6;
 use POSIX qw( :signal_h :errno_h :sys_wait_h ceil );
 
-use MusicBrainz::Script::JSONDump::Constants qw( %DUMPED_ENTITY_TYPES );
 use MusicBrainz::Script::Utils qw( log );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Context;

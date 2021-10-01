@@ -1,6 +1,8 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Genre;
 use Moose::Role;
-use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( list_or_single serialize_entity );
+use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw(
+    list_or_single
+);
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;

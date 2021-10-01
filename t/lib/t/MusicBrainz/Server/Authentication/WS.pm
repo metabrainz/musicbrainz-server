@@ -3,7 +3,6 @@ use Test::Routine;
 use Test::More;
 use utf8;
 
-use Encode qw( encode );
 use URI;
 use URI::QueryParam;
 use JSON;

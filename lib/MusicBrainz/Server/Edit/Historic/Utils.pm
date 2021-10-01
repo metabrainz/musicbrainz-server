@@ -18,7 +18,6 @@ use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use MusicBrainz::Server::Constants qw(
     %HISTORICAL_RELEASE_GROUP_TYPES
 );
-use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 sub upgrade_date

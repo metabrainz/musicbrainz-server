@@ -7,7 +7,6 @@ use MusicBrainz::Server::Data::CountryArea;
 use MusicBrainz::Server::Data::Area;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Form::Utils qw( build_type_info );
-use MusicBrainz::Server::Translation::Statistics qw(l ln);
 use List::AllUtils qw( rev_nsort_by sort_by sum );
 use Date::Calc qw( Today Add_Delta_Days Date_to_Time );
 

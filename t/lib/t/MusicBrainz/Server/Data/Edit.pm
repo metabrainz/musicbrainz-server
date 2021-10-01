@@ -22,7 +22,6 @@ use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Constants qw(
     :edit_status
     $UNTRUSTED_FLAG
-    $VOTE_YES
     $VOTE_APPROVE
 );
 

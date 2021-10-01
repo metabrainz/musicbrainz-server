@@ -3,7 +3,7 @@ package MusicBrainz::Server::Email;
 use utf8;
 use Moose;
 use Readonly;
-use Encode qw( decode encode );
+use Encode qw( encode );
 use Email::Address;
 use Email::Sender::Simple qw( sendmail );
 use Email::MIME;

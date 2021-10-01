@@ -2,7 +2,6 @@ package MusicBrainz::Server::Edit::Release;
 use Moose::Role;
 use namespace::autoclean;
 
-use List::AllUtils qw( max );
 use MusicBrainz::Server::Translation 'l';
 
 sub edit_category { l('Release') }

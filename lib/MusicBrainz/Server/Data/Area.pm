@@ -4,10 +4,7 @@ use DBDefs;
 use Moose;
 use namespace::autoclean;
 use List::AllUtils qw( any partition_by );
-use MusicBrainz::Server::Constants qw(
-    $STATUS_OPEN
-    $AREA_TYPE_COUNTRY
-);
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Entity::Area;
 use MusicBrainz::Server::Entity::PartialDate;
@@ -21,7 +18,6 @@ use MusicBrainz::Server::Data::Utils qw(
     merge_date_period
     order_by
     placeholders
-    object_to_ids
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 

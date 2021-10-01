@@ -4,7 +4,6 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use Readonly;
-use MusicBrainz::Server::Validation qw( is_guid );
 
 my $ws_defs = Data::OptList::mkopt([
      annotation => {

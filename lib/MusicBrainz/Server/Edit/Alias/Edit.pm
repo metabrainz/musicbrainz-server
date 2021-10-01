@@ -7,11 +7,7 @@ use Clone 'clone';
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
-use MusicBrainz::Server::Data::Utils qw(
-    type_to_model
-    non_empty
-    boolean_to_json
-);
+use MusicBrainz::Server::Data::Utils qw( type_to_model boolean_to_json );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(

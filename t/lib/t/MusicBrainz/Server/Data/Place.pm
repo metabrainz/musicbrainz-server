@@ -3,12 +3,10 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Fatal;
-use Test::Deep qw( cmp_set );
 
 use MusicBrainz::Server::Data::Place;
 
 use DateTime;
-use List::AllUtils qw( sort_by );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Search;
 use MusicBrainz::Server::Test;

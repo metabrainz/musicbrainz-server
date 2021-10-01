@@ -5,7 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::ControllerUtils::CDTOC qw( add_dash );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {

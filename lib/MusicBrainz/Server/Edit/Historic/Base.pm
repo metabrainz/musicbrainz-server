@@ -2,7 +2,6 @@ package MusicBrainz::Server::Edit::Historic::Base;
 
 use Moose;
 use Moose::Exporter;
-use Moose::Util qw( find_meta );
 use Class::Load qw( load_class );
 
 sub USE_MOOSE { 1 }

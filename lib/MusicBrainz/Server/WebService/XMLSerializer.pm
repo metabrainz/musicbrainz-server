@@ -7,7 +7,6 @@ use Readonly;
 use List::AllUtils qw( nsort_by sort_by );
 use MusicBrainz::Server::Constants qw( :direction $VARTIST_ID :quality %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( non_empty );
-use MusicBrainz::Server::WebService::Escape qw( xml_escape );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Validation;
 use XML::LibXML;

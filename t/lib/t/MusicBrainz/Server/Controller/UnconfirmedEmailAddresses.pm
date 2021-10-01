@@ -6,7 +6,6 @@ use Test::More;
 use HTTP::Status ':constants';
 use Hook::LexWrap;
 use List::AllUtils 'uniq';
-use MusicBrainz::Server::Test qw( html_ok );
 use Set::Scalar;
 
 with 't::Context', 't::Mechanize';

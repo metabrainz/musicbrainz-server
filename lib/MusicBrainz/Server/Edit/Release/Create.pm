@@ -13,7 +13,6 @@ use MusicBrainz::Server::Edit::Types qw(
 use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     artist_credit_preview
-    verify_artist_credits
 );
 use MusicBrainz::Server::Entity::ReleaseEvent;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );

@@ -3,7 +3,6 @@ use File::Slurp;
 use File::Spec;
 use File::Temp;
 use JSON;
-use List::AllUtils qw( sort_by );
 use String::ShellQuote;
 use Test::Deep qw( cmp_bag );
 use Test::More;

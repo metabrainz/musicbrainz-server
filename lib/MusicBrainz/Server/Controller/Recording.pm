@@ -40,7 +40,6 @@ use List::AllUtils qw( any );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Entity::Recording;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
-use MusicBrainz::Server::Translation qw( l );
 use Set::Scalar;
 
 =head1 NAME

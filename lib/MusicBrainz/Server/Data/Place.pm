@@ -17,10 +17,8 @@ use MusicBrainz::Server::Data::Utils qw(
     merge_table_attributes
     merge_string_attributes
     merge_date_period
-    placeholders
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
-use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'place' };

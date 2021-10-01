@@ -2,8 +2,8 @@ package MusicBrainz::Server::EditSearch::Query;
 use Moose;
 
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
-use MooseX::Types::Moose qw( Any ArrayRef Bool Int Maybe Str );
-use MooseX::Types::Structured qw( Map Tuple );
+use MooseX::Types::Moose qw( Any ArrayRef Bool Maybe Str );
+use MooseX::Types::Structured qw( Tuple );
 use Moose::Util::TypeConstraints qw( enum role_type );
 use MusicBrainz::Server::Constants qw( $LIMIT_FOR_EDIT_LISTING entities_with );
 use MusicBrainz::Server::EditSearch::Predicate::Date;

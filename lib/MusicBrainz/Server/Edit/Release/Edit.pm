@@ -24,7 +24,6 @@ use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     merge_artist_credit
     merge_barcode
-    merge_partial_date
     verify_artist_credits
 );
 use MusicBrainz::Server::Entity::PartialDate;

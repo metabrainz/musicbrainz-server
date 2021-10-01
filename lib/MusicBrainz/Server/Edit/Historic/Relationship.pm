@@ -4,7 +4,7 @@ use MusicBrainz::Server::Edit::Historic::Base;
 
 use MusicBrainz::Server::Constants qw( :direction );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
-use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date upgrade_type );
+use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_type );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 use aliased 'MusicBrainz::Server::Entity::Link';

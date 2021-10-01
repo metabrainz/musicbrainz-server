@@ -16,7 +16,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN $VARTIST_ID );
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release_group' };

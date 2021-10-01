@@ -5,7 +5,6 @@ use DBDefs;
 use DateTime::Duration;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Log qw( log_debug log_notice );
-use MusicBrainz::Server::Data::Utils qw( placeholders );
 
 with 'MooseX::Runnable';
 with 'MooseX::Getopt';

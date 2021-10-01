@@ -6,7 +6,6 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use DateTime;
 use DBDefs;
-use Digest::SHA qw(sha1_base64);
 use Encode;
 use HTTP::Status qw( :constants );
 use List::AllUtils 'sum';
@@ -16,7 +15,7 @@ use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Log qw( log_debug );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l );
 use Try::Tiny;
 
 with 'MusicBrainz::Server::Controller::Role::Subscribe';

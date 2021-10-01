@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Edit::Artist::EditArtistCredit;
 use Moose;
 
-use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';

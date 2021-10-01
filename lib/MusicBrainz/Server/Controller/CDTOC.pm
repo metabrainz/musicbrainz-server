@@ -3,18 +3,16 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-use List::AllUtils qw( first );
 use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_ADD_DISCID
     $EDIT_MEDIUM_REMOVE_DISCID
     $EDIT_MEDIUM_MOVE_DISCID
     $EDIT_SET_TRACK_LENGTHS
-    $EDITOR_MODBOT
     %ENTITIES
 );
 use MusicBrainz::Server::Entity::CDTOC;
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::ControllerUtils::CDTOC qw( add_dash );
 
 use List::AllUtils qw( sort_by );

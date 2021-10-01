@@ -3,8 +3,6 @@ use Moose;
 use MooseX::ABC;
 
 use Clone qw( clone );
-use MooseX::Types::Moose qw( Int );
-use MooseX::Types::Structured qw( Dict );
 
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Constants qw( %ENTITIES );

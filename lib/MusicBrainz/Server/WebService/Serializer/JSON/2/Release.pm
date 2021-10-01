@@ -5,7 +5,6 @@ use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
     boolean
     list_of
     serialize_entity
-    serialize_rating
 );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';

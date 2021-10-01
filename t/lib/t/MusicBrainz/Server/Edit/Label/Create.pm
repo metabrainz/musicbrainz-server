@@ -15,7 +15,7 @@ use MusicBrainz::Server::Constants qw(
     $STATUS_OPEN
     $UNTRUSTED_FLAG
 );
-use MusicBrainz::Server::Test qw( accept_edit reject_edit );
+use MusicBrainz::Server::Test qw( reject_edit );
 
 test all => sub {
     my $test = shift;

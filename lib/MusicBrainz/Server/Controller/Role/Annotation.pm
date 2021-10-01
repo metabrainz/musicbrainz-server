@@ -2,8 +2,7 @@ package MusicBrainz::Server::Controller::Role::Annotation;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
 use MusicBrainz::Server::Constants qw( :annotation entities_with );
-use MusicBrainz::Server::Data::Utils qw( model_to_type );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( is_positive_integer is_nat );
 
 requires 'load', 'show';

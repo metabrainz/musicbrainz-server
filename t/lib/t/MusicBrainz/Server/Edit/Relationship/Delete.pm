@@ -8,7 +8,7 @@ with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Relationship::Delete }
 
-use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_CREATE $EDIT_RELATIONSHIP_DELETE );
+use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_DELETE );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 use MusicBrainz::Server::Constants qw( $AUTO_EDITOR_FLAG $STATUS_APPLIED );
 

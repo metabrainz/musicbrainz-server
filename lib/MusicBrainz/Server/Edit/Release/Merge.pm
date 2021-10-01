@@ -3,7 +3,6 @@ package MusicBrainz::Server::Edit::Release::Merge;
 use 5.18.2;
 
 use Moose;
-use List::AllUtils qw( any );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MERGE );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json localized_note );
 use MusicBrainz::Server::Edit::Exceptions;
@@ -19,7 +18,7 @@ use MusicBrainz::Server::Translation qw( N_l );
 use Try::Tiny;
 
 use MooseX::Types::Moose qw( ArrayRef Int Str );
-use MooseX::Types::Structured qw( Dict Map Optional );
+use MooseX::Types::Structured qw( Dict Optional );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities' => {

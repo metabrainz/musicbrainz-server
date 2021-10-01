@@ -6,7 +6,6 @@ use MooseX::Types::Moose qw( ArrayRef Int Str Bool );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIPS_REORDER
-    $EXPIRE_ACCEPT
     :quality
 );
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash type_to_model );

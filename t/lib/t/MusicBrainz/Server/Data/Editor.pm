@@ -14,7 +14,6 @@ use MusicBrainz::Server::Constants qw(
     :vote
 );
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Test qw( accept_edit );
 use Set::Scalar;
 use Sql;
 use Digest::MD5 qw( md5_hex );

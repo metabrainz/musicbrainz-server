@@ -6,7 +6,6 @@ use DBDefs;
 use DBDefs::Default;
 use HTTP::Status ':constants';
 use Hook::LexWrap;
-use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Context', 't::Mechanize';
 

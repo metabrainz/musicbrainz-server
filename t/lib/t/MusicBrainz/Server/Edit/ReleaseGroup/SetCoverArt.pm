@@ -10,7 +10,6 @@ BEGIN { use MusicBrainz::Server::Edit::ReleaseGroup::Edit }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_SET_COVER_ART );
-use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test 'Set cover art' => sub {
     my $test = shift;

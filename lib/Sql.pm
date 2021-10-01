@@ -4,7 +4,7 @@ use feature 'state';
 
 use Moose;
 use DBDefs;
-use Carp qw( cluck croak carp );
+use Carp qw( cluck croak );
 use List::AllUtils qw( any );
 use Try::Tiny;
 use utf8 ();

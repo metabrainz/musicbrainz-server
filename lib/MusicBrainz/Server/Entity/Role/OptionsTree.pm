@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Entity::Role::OptionsTree;
 use MooseX::Role::Parameterized;
 
-use MooseX::Types::Moose qw( ArrayRef );
 use MusicBrainz::Server::Entity::Types;
 
 use List::AllUtils qw( sort_by );

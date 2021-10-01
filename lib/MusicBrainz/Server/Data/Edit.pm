@@ -24,7 +24,6 @@ use MusicBrainz::Server::Constants qw(
     $MINIMUM_RESPONSE_PERIOD
     $LIMIT_FOR_EDIT_LISTING
     $OPEN_EDIT_DURATION
-    $QUALITY_UNKNOWN_MAPPED
     $EDITOR_MODBOT
     entities_with
     %ENTITIES );

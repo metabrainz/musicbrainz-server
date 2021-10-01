@@ -9,8 +9,7 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
 );
 use MusicBrainz::Server::Entity::Barcode;
-use MusicBrainz::Server::Exceptions qw( BadData Duplicate );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( is_valid_barcode );
 use Readonly;
 

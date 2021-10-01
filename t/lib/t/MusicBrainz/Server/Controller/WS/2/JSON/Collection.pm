@@ -3,7 +3,6 @@ use utf8;
 use JSON;
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( html_ok );
 use MusicBrainz::Server::Test::WS qw(
     ws2_test_json
     ws2_test_json_forbidden

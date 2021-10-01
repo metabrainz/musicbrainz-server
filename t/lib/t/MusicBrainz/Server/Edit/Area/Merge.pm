@@ -8,7 +8,6 @@ with 't::Context';
 
 use MusicBrainz::Server::Constants qw( $EDIT_AREA_MERGE );
 use MusicBrainz::Server::Constants qw( :edit_status );
-use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test 'Can merge areas are used as entity areas' => sub {
     my $test = shift;

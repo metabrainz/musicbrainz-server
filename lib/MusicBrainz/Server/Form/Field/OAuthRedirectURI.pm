@@ -2,8 +2,6 @@ package MusicBrainz::Server::Form::Field::OAuthRedirectURI;
 use URI;
 use Moose;
 
-use MusicBrainz::Server::Translation qw( l );
-
 extends 'HTML::FormHandler::Field::Text';
 
 sub validate
