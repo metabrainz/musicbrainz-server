@@ -6,7 +6,7 @@ use utf8;
 use Moose;
 use namespace::autoclean;
 
-use Carp 'confess';
+use Carp qw( confess );
 use DBDefs;
 use JSON::XS;
 use List::AllUtils qw( all any part partition_by );

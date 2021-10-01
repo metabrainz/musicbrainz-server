@@ -23,7 +23,7 @@ use MusicBrainz::Server::EditSearch::Predicate::ReleaseCountry;
 use MusicBrainz::Server::EditSearch::Predicate::RelationshipType;
 use MusicBrainz::Server::EditSearch::Predicate::EditNoteAuthor;
 use MusicBrainz::Server::EditSearch::Predicate::EditNoteContent;
-use MusicBrainz::Server::Log 'log_warning';
+use MusicBrainz::Server::Log qw( log_warning );
 use Try::Tiny;
 
 my %field_map = (

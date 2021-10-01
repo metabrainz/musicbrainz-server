@@ -3,9 +3,8 @@ use Test::Routine;
 use Test::Deep qw( cmp_set );
 use Test::More;
 
-use HTTP::Status ':constants';
+use HTTP::Status qw( :constants );
 use Hook::LexWrap;
-use List::AllUtils 'uniq';
 use Set::Scalar;
 
 with 't::Context', 't::Mechanize';

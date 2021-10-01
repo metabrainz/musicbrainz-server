@@ -30,7 +30,7 @@ use MusicBrainz::Server::Constants qw(
     %ENTITIES_WITH_RELATIONSHIP_CREDITS
     @RELATABLE_ENTITIES
 );
-use Scalar::Util 'weaken';
+use Scalar::Util qw( weaken );
 use List::AllUtils qw( any nsort_by part partition_by uniq );
 use aliased 'MusicBrainz::Server::Entity::RelationshipTargetTypeGroup';
 use aliased 'MusicBrainz::Server::Entity::RelationshipLinkTypeGroup';

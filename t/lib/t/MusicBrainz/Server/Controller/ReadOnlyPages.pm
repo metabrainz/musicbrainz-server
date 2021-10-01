@@ -4,7 +4,7 @@ use Test::More;
 
 use DBDefs;
 use DBDefs::Default;
-use HTTP::Status ':constants';
+use HTTP::Status qw( :constants );
 use Hook::LexWrap;
 
 with 't::Context', 't::Mechanize';

@@ -4,7 +4,7 @@ use warnings;
 
 package DBDefs;
 use parent 'DBDefs::Default';
-use MusicBrainz::Server::Replication ':replication_type';
+use MusicBrainz::Server::Replication qw( :replication_type );
 use MusicBrainz::Server::DatabaseConnectionFactory;
 
 # Commented-out lines should generally have sane defaults; anything that's uncommented

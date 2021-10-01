@@ -2,7 +2,7 @@ package t::MusicBrainz::Server::Controller::Recording::Merge;
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
-use HTML::Selector::XPath 'selector_to_xpath';
+use HTML::Selector::XPath qw( selector_to_xpath );
 
 around run_test => sub {
     my ($orig, $test, @a) = @_;

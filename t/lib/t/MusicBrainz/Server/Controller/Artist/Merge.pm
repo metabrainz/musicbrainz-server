@@ -2,7 +2,7 @@ package t::MusicBrainz::Server::Controller::Artist::Merge;
 use Test::Routine;
 use Test::More;
 use Test::XPath;
-use HTML::Selector::XPath 'selector_to_xpath';
+use HTML::Selector::XPath qw( selector_to_xpath );
 use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
 
 use aliased 'MusicBrainz::Server::Entity::PartialDate';

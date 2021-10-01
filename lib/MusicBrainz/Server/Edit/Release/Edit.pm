@@ -6,7 +6,7 @@ use MooseX::Types::Moose qw( ArrayRef Int Str Maybe );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Barcode';
-use Clone 'clone';
+use Clone qw( clone );
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CREATE
     $EDIT_RELEASE_EDIT

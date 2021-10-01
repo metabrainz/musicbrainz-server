@@ -4,7 +4,7 @@ use Moose::Role;
 use namespace::autoclean;
 
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
-use MusicBrainz::Server::Translation 'l';
+use MusicBrainz::Server::Translation qw( l );
 
 sub edit_category { l('Work') }
 

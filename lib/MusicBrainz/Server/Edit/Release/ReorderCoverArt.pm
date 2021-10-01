@@ -10,7 +10,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
-use List::AllUtils 'nsort_by';
+use List::AllUtils qw( nsort_by );
 use Data::Compare;
 
 use aliased 'MusicBrainz::Server::Entity::Release';

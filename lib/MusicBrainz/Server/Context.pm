@@ -3,7 +3,7 @@ use Moose;
 
 use DBDefs;
 use MusicBrainz::DataStore::Redis;
-use MusicBrainz::Server::Replication ':replication_type';
+use MusicBrainz::Server::Replication qw( :replication_type );
 use MusicBrainz::Server::CacheManager;
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory';
 use Class::Load qw( load_class );

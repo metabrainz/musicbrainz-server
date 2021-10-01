@@ -8,7 +8,7 @@ use LWP::Simple qw();
 use LWP::UserAgent;
 use XML::Simple;
 use Encode qw( decode );
-use MusicBrainz::Server::Replication ':replication_type';
+use MusicBrainz::Server::Replication qw( :replication_type );
 
 with 'MusicBrainz::Server::Data::Role::Sql';
 

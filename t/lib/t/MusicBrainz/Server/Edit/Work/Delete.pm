@@ -8,8 +8,11 @@ with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Work::Delete }
 
-use MusicBrainz::Server::Constants qw( $EDIT_WORK_DELETE $EDITOR_MODBOT );
-use MusicBrainz::Server::Constants ':edit_status';
+use MusicBrainz::Server::Constants qw(
+    :edit_status
+    $EDIT_WORK_DELETE
+    $EDITOR_MODBOT
+);
 use MusicBrainz::Server::Test qw( accept_edit );
 
 test 'Can delete works' => sub {

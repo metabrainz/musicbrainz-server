@@ -17,7 +17,7 @@ use List::AllUtils qw( nsort_by );
 use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Edit;
-use MusicBrainz::Server::Replication ':replication_type';
+use MusicBrainz::Server::Replication qw( :replication_type );
 use MusicBrainz::Server::Test::HTML5 qw( html5_ok );
 use MusicBrainz::WWW::Mechanize;
 use Sql;

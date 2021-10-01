@@ -13,7 +13,6 @@ use MusicBrainz::Server::Data::Utils qw(
     object_to_ids
     placeholders
 );
-use Scalar::Util 'weaken';
 use aliased 'MusicBrainz::Server::Entity::Work';
 
 extends 'MusicBrainz::Server::Data::CoreEntity';

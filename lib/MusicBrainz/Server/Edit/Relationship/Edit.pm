@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::Relationship::Edit;
 use Moose;
 use Carp;
-use Clone 'clone';
+use Clone qw( clone );
 use Data::Compare;
 use List::AllUtils qw( sort_by );
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
