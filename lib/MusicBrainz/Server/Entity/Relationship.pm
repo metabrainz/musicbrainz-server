@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Entity::Relationship;
 
 use Moose;
-use Readonly;
 use MusicBrainz::Server::Constants qw( :direction );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Validation qw( trim_in_place );

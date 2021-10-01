@@ -21,6 +21,7 @@ allow_includes=1
 allow=refs
 
 [TooMuchCode::ProhibitUnusedImport]
+[TooMuchCode::ProhibitUnusedInclude]
 
 [ValuesAndExpressions::ProhibitInterpolationOfLiterals]
 [ValuesAndExpressions::ProhibitLeadingZeros]

@@ -6,7 +6,6 @@ use feature 'state';
 
 use DBDefs;
 use File::Spec::Functions qw( catdir catfile );
-use JSON::XS;
 use Moose;
 
 use MusicBrainz::Script::Utils qw( log );

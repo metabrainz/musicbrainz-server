@@ -2,7 +2,6 @@ package t::MusicBrainz::Server::Controller::WS::2::JSON::Collection;
 use utf8;
 use JSON;
 use Test::Routine;
-use Test::More;
 use MusicBrainz::Server::Test::WS qw(
     ws2_test_json
     ws2_test_json_forbidden

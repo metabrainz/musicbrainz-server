@@ -11,7 +11,6 @@ use MusicBrainz::Server::Validation qw( is_guid is_nat );
 use MusicBrainz::Server::WebService::Format;
 use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::XMLSerializer;
-use Readonly;
 use Try::Tiny;
 
 with 'MusicBrainz::Server::WebService::Format' =>

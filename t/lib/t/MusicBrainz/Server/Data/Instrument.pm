@@ -2,7 +2,6 @@ package t::MusicBrainz::Server::Data::Instrument;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
-use Test::Fatal;
 use Test::Deep qw( cmp_bag );
 
 use MusicBrainz::Server::Data::Instrument;

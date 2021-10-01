@@ -29,7 +29,6 @@ use Test::XML::SemanticCompare;
 use Test::XPath;
 use XML::LibXML;
 use Email::Sender::Transport::Test;
-use Try::Tiny;
 
 binmode Test::More->builder->output, ':utf8';
 binmode Test::More->builder->failure_output, ':utf8';

@@ -2,7 +2,6 @@ package MusicBrainz::Server::WebService::XMLSerializer;
 
 use IO::String;
 use Moose;
-use Readonly;
 use List::AllUtils qw( nsort_by sort_by );
 use MusicBrainz::Server::Constants qw( :direction $VARTIST_ID :quality %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( non_empty );

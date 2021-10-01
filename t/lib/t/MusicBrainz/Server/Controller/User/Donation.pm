@@ -1,6 +1,5 @@
 package t::MusicBrainz::Server::Controller::User::Donation;
 use Test::Routine;
-use Test::More;
 
 use LWP;
 use LWP::UserAgent::Mockable;

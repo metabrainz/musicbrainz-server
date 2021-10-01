@@ -1,6 +1,5 @@
 package t::MusicBrainz::Server::Controller::WS::2::LookupNonCore;
 use Test::Routine;
-use Test::More;
 
 with 't::Mechanize', 't::Context';
 

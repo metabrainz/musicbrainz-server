@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Edit::Release::EditArtist;
 use Moose;
 use namespace::autoclean;
-use Data::Compare;
 
 use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict );

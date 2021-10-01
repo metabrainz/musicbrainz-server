@@ -1,6 +1,5 @@
 package t::MusicBrainz::Server::Edit::Artist::EditAlias;
 use Test::Routine;
-use Test::Fatal;
 use Test::More;
 
 use Hash::Merge qw( merge );

@@ -8,7 +8,6 @@ use MusicBrainz::Server::Constants qw(
     entities_with
 );
 use Class::MOP;
-use Readonly;
 
 parameter default_serialization_type => (
     is => 'ro',

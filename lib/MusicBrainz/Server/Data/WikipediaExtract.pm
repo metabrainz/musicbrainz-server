@@ -5,7 +5,6 @@ use namespace::autoclean;
 use Readonly;
 use aliased 'MusicBrainz::Server::Entity::WikipediaExtract';
 use aliased 'MusicBrainz::Server::Translation';
-use JSON;
 use URI::Escape qw( uri_escape_utf8 );
 use List::AllUtils qw( first );
 use v5.10.1;

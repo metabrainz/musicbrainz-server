@@ -13,7 +13,6 @@ use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Translation qw( N_l );
 use Scalar::Util qw( blessed );
 use Set::Scalar;
-use Try::Tiny;
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';

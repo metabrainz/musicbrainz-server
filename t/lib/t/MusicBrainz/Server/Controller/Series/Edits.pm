@@ -1,6 +1,5 @@
 package t::MusicBrainz::Server::Controller::Series::Edits;
 use Test::Routine;
-use Test::More;
 
 with 't::Edit';
 with 't::Mechanize';

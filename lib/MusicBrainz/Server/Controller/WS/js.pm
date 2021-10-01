@@ -30,7 +30,6 @@ use Readonly;
 use Scalar::Util qw( blessed );
 use Text::Trim;
 use Time::Piece;
-use Try::Tiny;
 use URI;
 use XML::XPath;
 

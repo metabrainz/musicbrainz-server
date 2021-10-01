@@ -2,7 +2,6 @@ package t::MusicBrainz::Server::Controller::Search::Indexed;
 use HTTP::Response;
 use LWP::UserAgent::Mockable;
 use Test::Routine;
-use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';

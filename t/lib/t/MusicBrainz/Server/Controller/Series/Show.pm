@@ -1,6 +1,5 @@
 package t::MusicBrainz::Server::Controller::Series::Show;
 use Test::Routine;
-use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Edit';

@@ -4,7 +4,6 @@ use namespace::autoclean;
 
 use Readonly;
 use aliased 'MusicBrainz::Server::Entity::CommonsImage';
-use JSON;
 
 with 'MusicBrainz::Server::Data::Role::Context';
 with 'MusicBrainz::Server::Data::Role::MediaWikiAPI';

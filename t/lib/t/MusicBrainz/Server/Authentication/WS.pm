@@ -5,7 +5,6 @@ use utf8;
 
 use URI;
 use URI::QueryParam;
-use JSON;
 
 with 't::Context', 't::Mechanize';
 

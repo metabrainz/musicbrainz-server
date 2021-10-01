@@ -1,7 +1,6 @@
 package t::MusicBrainz::Server::Controller::UnconfirmedEmailAddresses;
 use Test::Routine;
 use Test::Deep qw( cmp_set );
-use Test::More;
 
 use HTTP::Status qw( :constants );
 use Hook::LexWrap;

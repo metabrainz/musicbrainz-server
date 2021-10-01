@@ -1,6 +1,5 @@
 package t::MusicBrainz::Server::Controller::Search::Direct;
 use Test::Routine;
-use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';

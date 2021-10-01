@@ -1,6 +1,5 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2;
 use Moose;
-use JSON;
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

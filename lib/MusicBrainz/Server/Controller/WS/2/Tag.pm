@@ -6,7 +6,6 @@ use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Data::Utils qw( trim type_to_model );
 use MusicBrainz::Server::Validation qw( is_guid );
 use MusicBrainz::Server::WebService::XML::XPath;
-use Readonly;
 
 no if $] >= 5.018, warnings => 'experimental::smartmatch';
 

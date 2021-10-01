@@ -1,7 +1,6 @@
 package Catalyst::Plugin::Session::Store::MusicBrainz;
 use Moose;
 use MusicBrainz::DataStore::Redis;
-use Try::Tiny;
 use MIME::Base64 qw(encode_base64 decode_base64);
 use Storable qw/nfreeze thaw/;
 

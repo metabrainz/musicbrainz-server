@@ -6,7 +6,6 @@ BEGIN { extends 'Catalyst' }
 use Class::Load qw( load_class );
 use DBDefs;
 use Digest::SHA qw( sha256 );
-use Encode;
 use JSON;
 use MIME::Base64 qw( encode_base64 );
 use Moose::Util qw( does_role );
