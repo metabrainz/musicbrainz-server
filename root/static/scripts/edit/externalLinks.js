@@ -616,27 +616,38 @@ export class ExternalLinksEditor
           switch (checker.entityType) {
             case 'area':
               error.message = l(`This URL is not allowed for areas.`);
+              break;
             case 'artist':
               error.message = l(`This URL is not allowed for artists.`);
+              break;
             case 'event':
               error.message = l(`This URL is not allowed for events.`);
+              break;
             case 'instrument':
               error.message = l(`This URL is not allowed for instruments.`);
+              break;
             case 'label':
               error.message = l(`This URL is not allowed for labels.`);
+              break;
             case 'place':
               error.message = l(`This URL is not allowed for places.`);
+              break;
             case 'recording':
               error.message = l(`This URL is not allowed for recordings.`);
+              break;
             case 'release':
               error.message = l(`This URL is not allowed for releases.`);
+              break;
             case 'release_group':
               error.message = l(`This URL is not allowed for release
                                  groups.`);
+              break;
             case 'series':
               error.message = l(`This URL is not allowed for series.`);
+              break;
             case 'work':
               error.message = l(`This URL is not allowed for works.`);
+              break;
           }
         }
         error.message = check.error || error.message;
