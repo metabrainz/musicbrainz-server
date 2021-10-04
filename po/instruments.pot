@@ -2510,6 +2510,7 @@ msgid "mbira"
 msgstr ""
 
 #: DB:instrument/name:37
+msgctxt "Middle-range valved brass"
 msgid "mellophone"
 msgstr ""
 
