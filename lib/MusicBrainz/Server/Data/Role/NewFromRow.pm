@@ -5,7 +5,7 @@ use namespace::autoclean;
 
 sub _entity_class
 {
-    die("Not implemented");
+    die('Not implemented');
 }
 
 sub _column_mapping

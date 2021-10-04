@@ -62,7 +62,7 @@ sub validate {
 
     return 1 if is_valid_partial_date($year, $month, $day);
 
-    return $self->add_error(l("invalid date"));
+    return $self->add_error(l('invalid date'));
 }
 
 1;

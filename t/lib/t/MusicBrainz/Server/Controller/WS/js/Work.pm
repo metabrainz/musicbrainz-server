@@ -13,12 +13,12 @@ test all => sub {
     my $json = JSON->new;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO work_alias (work, name, sort_name, locale, primary_for_locale)
             VALUES (4223060, 'Hello! Let''s Meet Again (7ninmatsuri version)', 'Hello! Let''s Meet Again (7ninmatsuri version)', 'en', FALSE),
                    (4223060, 'Hello! Let''s Meet Again (7ninmatsuri version)', 'Hello! Let''s Meet Again (7ninmatsuri version)', 'en_US', TRUE),
                    (4223060, 'Saluton! Ni Renkontu Denove (7nin-matsuria versio)', 'Saluton! Ni Renkontu Denove (7nin-matsuria versio)', 'eo', TRUE);
-        EOSQL
+        SQL
 
     my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
     $mech->default_header('Accept' => 'application/json');
@@ -32,10 +32,10 @@ test all => sub {
     is($data->[0]->{id}, 4223060, 'Got the work expected');
     is($data->[0]->{primaryAlias}, q(Hello! Let's Meet Again (7ninmatsuri version)), 'Got correct primary alias (en_US)');
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO work_alias (work, name, sort_name, locale, primary_for_locale)
             VALUES (4223060, 'Hello! Let''s Meet Again (7nin Matsuri version)', 'Hello! Let''s Meet Again (7nin Matsuri version)', 'en', TRUE);
-        EOSQL
+        SQL
 
     $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
     $mech->default_header('Accept' => 'application/json');

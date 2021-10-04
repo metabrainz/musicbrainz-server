@@ -170,7 +170,7 @@ test 'Request tr page via wikidata, fallback to it (according to editor known la
     ]);
 
     # Set editor known languages to native Finnish and basic Macedonian
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO area (id, gid, name, type)
             VALUES (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1);
         INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB');
@@ -188,7 +188,7 @@ test 'Request tr page via wikidata, fallback to it (according to editor known la
                    (254, 'mkd', 'mk', 'Macedonian');
         INSERT INTO editor_language (editor, language, fluency)
             VALUES (1, 131, 'native'), (1, 254, 'basic');
-        EOSQL
+        SQL
 
     my $model = $c->model('Editor');
     my $bob = $model->get_by_id(1);

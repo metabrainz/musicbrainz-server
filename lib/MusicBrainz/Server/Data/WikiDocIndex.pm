@@ -13,8 +13,8 @@ use MusicBrainz::Server::Replication ':replication_type';
 
 with 'MusicBrainz::Server::Data::Role::Sql';
 
-Readonly my $CACHE_PREFIX => "wikidoc";
-Readonly my $CACHE_KEY => "wikidoc-index";
+Readonly my $CACHE_PREFIX => 'wikidoc';
+Readonly my $CACHE_KEY => 'wikidoc-index';
 
 sub _load_index_from_db {
     my $self = shift;
@@ -61,14 +61,14 @@ sub set_page_version
     my $index = $self->_load_index;
     if (defined $version) {
         my $query =
-            qq{INSERT INTO wikidocs.wikidocs_index (revision, page_name)
-               VALUES (?, ?)
-               ON CONFLICT (page_name) DO UPDATE
-               SET revision = EXCLUDED.revision};
+            'INSERT INTO wikidocs.wikidocs_index (revision, page_name)
+             VALUES (?, ?)
+             ON CONFLICT (page_name) DO UPDATE
+             SET revision = EXCLUDED.revision';
         $self->sql->do($query, $version, $page);
     }
     else {
-        my $query = "DELETE FROM wikidocs.wikidocs_index WHERE page_name = ?";
+        my $query = 'DELETE FROM wikidocs.wikidocs_index WHERE page_name = ?';
         $self->sql->do($query, $page);
     }
 
@@ -98,7 +98,7 @@ sub get_wiki_versions
             return undef;
         }
 
-        my $doc_url = sprintf "https://%s?action=query&prop=info&format=xml&titles=%s", DBDefs->WIKITRANS_SERVER_API, join('|', @queries);
+        my $doc_url = sprintf 'https://%s?action=query&prop=info&format=xml&titles=%s', DBDefs->WIKITRANS_SERVER_API, join('|', @queries);
 
         my $ua = LWP::UserAgent->new(max_redirect => 0, timeout => 5);
         $ua->env_proxy;
@@ -108,7 +108,7 @@ sub get_wiki_versions
             return undef;
         }
 
-        my $content = decode "utf-8", $response->content;
+        my $content = decode 'utf-8', $response->content;
 
         # Parse the XML and make it easier to use.
         my $xml = XMLin(

@@ -13,7 +13,7 @@ my $c    = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+controller_cdtoc');
 
-MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
     INSERT INTO editor (
         id, name, password, privs,
         email, website, bio,
@@ -23,7 +23,7 @@ MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
         'test@editor.org', 'http://musicbrainz.org', 'biography',
         '2005-10-20', '1989-07-23', now(), 'e1dd8fee8ee728b0ddc8027d3a3db478'
     );
-    EOSQL
+    SQL
 
 $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );

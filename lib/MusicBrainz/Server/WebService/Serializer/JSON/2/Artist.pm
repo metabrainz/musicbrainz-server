@@ -11,8 +11,8 @@ sub serialize
     my %body;
 
     $body{name} = $entity->name;
-    $body{"sort-name"} = $entity->sort_name;
-    $body{disambiguation} = $entity->comment // "";
+    $body{'sort-name'} = $entity->sort_name;
+    $body{disambiguation} = $entity->comment // '';
 
     if ($toplevel)
     {
@@ -28,16 +28,16 @@ sub serialize
         $body{begin_area} = $body{'begin-area'};
         $body{end_area} = $body{'end-area'};
 
-        $body{recordings} = list_of($entity, $inc, $stash, "recordings")
+        $body{recordings} = list_of($entity, $inc, $stash, 'recordings')
             if ($inc && $inc->recordings);
 
-        $body{releases} = list_of($entity, $inc, $stash, "releases")
+        $body{releases} = list_of($entity, $inc, $stash, 'releases')
             if ($inc && $inc->releases);
 
-        $body{"release-groups"} = list_of($entity, $inc, $stash, "release_groups")
+        $body{'release-groups'} = list_of($entity, $inc, $stash, 'release_groups')
             if ($inc && $inc->release_groups);
 
-        $body{works} = list_of($entity, $inc, $stash, "works")
+        $body{works} = list_of($entity, $inc, $stash, 'works')
             if ($inc && $inc->works);
     }
 

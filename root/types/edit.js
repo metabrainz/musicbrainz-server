@@ -57,7 +57,7 @@ declare type EditT = {
 
 // MusicBrainz::Server::Entity::EditNote::TO_JSON
 declare type EditNoteT = {
-  +editor: EditorT,
+  +editor: EditorT | null,
   +editor_id: number,
   +formatted_text: string,
   +post_time: string | null,

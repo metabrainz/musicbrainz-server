@@ -131,7 +131,7 @@ ok(!defined $work);
 test 'Merge with funky relationships' => sub {
     my $test = shift;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, '5f9913b0-7219-11de-8a39-0800200c9a66', 'Artist', 'Artist');
 
@@ -144,7 +144,7 @@ test 'Merge with funky relationships' => sub {
         INSERT INTO l_artist_work (id, entity0, link, entity1)
             VALUES (1, 1, 1, 2),
                    (2, 1, 1, 3);
-        EOSQL
+        SQL
 
     $test->c->model('Work')->merge(1, 2, 3);
 

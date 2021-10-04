@@ -337,7 +337,7 @@ sub contact : Chained('load') RequireAuth HiddenOnSlaves SecureForm
             component_path  => 'user/UserMessage',
             component_props => {
                 title    => l('Email Sent'),
-                message  => l("Your email has been successfully sent! Click {link|here} to continue to {user}'s profile.",
+                message  => l(q(Your email has been successfully sent! Click {link|here} to continue to {user}'s profile.),
                             {
                                 link => $c->uri_for_action('/user/profile', [ $editor->name ]),
                                 user => $editor->name
@@ -514,7 +514,7 @@ sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnSlaves
     if (!$model || !$c->model($model)->can('rating')) {
         $c->stash(
             message  => l(
-                "'{type}' is not an entity type that can have ratings.",
+                q('{type}' is not an entity type that can have ratings.),
                 { type => $type }
             )
         );
@@ -683,7 +683,7 @@ map {
     };
 
     find_meta(__PACKAGE__)->add_method($entity_type . '_tag' => $method);
-    find_meta(__PACKAGE__)->register_method_attributes($method, ["Chained('load_tag')", "PathPart('$url')"]);
+    find_meta(__PACKAGE__)->register_method_attributes($method, [q{Chained('load_tag')}, "PathPart('$url')"]);
 } entities_with('tags');
 
 sub privileged : Path('/privileged')

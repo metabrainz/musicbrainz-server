@@ -9,7 +9,7 @@ sub component_name { 'MultipleAsins' }
 
 sub query
 {
-    "
+    q{
         SELECT
             r.id AS release_id,
             row_number() OVER (ORDER BY ac.name COLLATE musicbrainz, r.name COLLATE musicbrainz)
@@ -24,7 +24,7 @@ sub query
         GROUP BY
             r.id, r.name, ac.name, r.artist_credit
             HAVING COUNT(r.gid) > 1
-    ";
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

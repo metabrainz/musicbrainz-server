@@ -8,7 +8,7 @@ use MusicBrainz::Server::Constants qw( :direction %ENTITIES );
 use Readonly;
 use aliased 'MusicBrainz::Server::Entity::RelationshipLinkTypeGroup';
 
-no if $] >= 5.018, warnings => "experimental::smartmatch";
+no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 parameter 'model' => (
     isa => 'Str',
@@ -128,8 +128,8 @@ role
                         );
                     } else {
                         $lt_group = $lt_groups->[0];
-                    }                    
-                     
+                    }
+
                     $pager->total_entries($lt_group->total_relationships);
                     $c->stash->{pager} = $pager;
                     $c->stash->{paged_link_type_group} = $lt_group;

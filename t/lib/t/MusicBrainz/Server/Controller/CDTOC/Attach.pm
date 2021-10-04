@@ -9,7 +9,7 @@ test 'Logged in users can see matching CD stubs' => sub {
     my $c = $test->c;
     my $mech = $test->mech;
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO release_raw (id, title, artist)
             VALUES (1, 'CD stub name', 'CD stub artist');
         INSERT INTO cdtoc_raw (id, release, discid, track_count, leadout_offset, track_offset)
@@ -26,7 +26,7 @@ test 'Logged in users can see matching CD stubs' => sub {
             'test@editor.org', 'http://musicbrainz.org', 'biography',
             '2005-10-20', '1989-07-23', now(), 'e1dd8fee8ee728b0ddc8027d3a3db478'
         );
-        EOSQL
+        SQL
 
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
@@ -44,7 +44,7 @@ test 'A matching CD stub searches for possible releases' => sub {
     my $c = $test->c;
     my $mech = $test->mech;
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO release_raw (id, title, artist)
             VALUES (1, 'Release stub name', 'CD stub artist');
         INSERT INTO cdtoc_raw (id, release, discid, track_count, leadout_offset, track_offset)
@@ -87,7 +87,7 @@ test 'A matching CD stub searches for possible releases' => sub {
             'test@editor.org', 'http://musicbrainz.org', 'biography',
             '2005-10-20', '1989-07-23', now(), 'e1dd8fee8ee728b0ddc8027d3a3db478'
         );
-        EOSQL
+        SQL
 
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );

@@ -27,7 +27,7 @@ role {
                 my ($depth, $name, $duration) = @$stat;
                 if ($name eq 'request' && $duration > $threshold) {
                     $c->log->warn(
-                        sprintf("Slow request (%.3fs): %s %s", $duration, $c->req->method, $c->req->uri)
+                        sprintf('Slow request (%.3fs): %s %s', $duration, $c->req->method, $c->req->uri)
                     );
                 }
             }

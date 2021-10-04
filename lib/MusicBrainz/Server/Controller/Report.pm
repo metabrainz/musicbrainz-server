@@ -15,7 +15,7 @@ sub index : Path('/reports') Args(0)
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'report/ReportsIndex.js',
+        component_path => 'report/ReportsIndex',
     );
 }
 
@@ -30,7 +30,7 @@ sub show : Path Args(1)
     if (!$report->generated) {
         $c->stash(
             current_view => 'Node',
-            component_path => 'report/ReportNotAvailable.js',
+            component_path => 'report/ReportNotAvailable',
         );
         $c->detach;
     }

@@ -90,10 +90,10 @@ sub build_display_data {
         map {
             my $entity = $loaded->{Medium}{ $_->{medium_id} };
             {
-                old => $_->{old} ? $_->{old} : "new",
+                old => $_->{old} ? $_->{old} : 'new',
                 # For some reason older edits have old as int but new as string
                 new => $_->{new} + 0,
-                title => $entity ? $entity->name : ""
+                title => $entity ? $entity->name : ''
             }
         }
         sort { $a->{new} <=> $b->{new} }
@@ -121,12 +121,12 @@ sub accept {
     my $new_positions = [values %medium_positions];
 
     my $possible_conflicts =
-        $self->c->sql->select_list_of_hashes(<<~'EOSQL', $self->release_id, $new_positions);
+        $self->c->sql->select_list_of_hashes(<<~'SQL', $self->release_id, $new_positions);
             SELECT id, position
             FROM medium
             WHERE release = ?
             AND position = any(?)
-            EOSQL
+            SQL
 
     for my $row (@$possible_conflicts) {
         unless (exists $medium_positions{$row->{id}}) {

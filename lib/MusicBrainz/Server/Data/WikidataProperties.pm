@@ -11,9 +11,9 @@ Readonly my $WIKIDATA_CACHE_TIMEOUT => 60 * 60 * 24 * 3; # 3 days
 sub get_wikidata_properties {
     my ($self, $entity, $property) = @_;
 
-    my $url_pattern = "https://www.wikidata.org/w/api.php?action=wbgetclaims&format=json&entity=%s%s";
+    my $url_pattern = 'https://www.wikidata.org/w/api.php?action=wbgetclaims&format=json&entity=%s%s';
     return $self->_fetch_cache_or_url($url_pattern,
-                                      "wikidata_property",
+                                      'wikidata_property',
                                       $WIKIDATA_CACHE_TIMEOUT,
                                       $entity,
                                       undef,

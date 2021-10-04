@@ -40,7 +40,7 @@ sub run
     }
 
     my $aliases = $sql->select_list_of_hashes(
-        "SELECT artist.gid, artist.id, artist.name, artist.sort_name,
+        q{SELECT artist.gid, artist.id, artist.name, artist.sort_name,
                 musicbrainz_unaccent(alias.name) AS alias,
                 CASE
                   WHEN artist.comment = '' THEN
@@ -50,7 +50,7 @@ sub run
                 (artist.comment != '') AS has_comment,
                 artist.type
          FROM artist
-         JOIN artist_alias alias ON alias.artist = artist.id"
+         JOIN artist_alias alias ON alias.artist = artist.id}
     );
 
     for my $r (@$aliases) {
@@ -90,7 +90,7 @@ sub inflate_rows
     ];
 }
 
-sub ordering { "key" }
+sub ordering { 'key' }
 
 sub load_filtered {
     my ($self, $c, $editor_id, $limit, $offset) = @_;

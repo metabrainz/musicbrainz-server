@@ -389,6 +389,7 @@ module.exports = {
   'edit/details/MergePlaces': require('../edit/details/MergePlaces'),
   'edit/details/MergeRecordings': require('../edit/details/MergeRecordings'),
   'edit/details/MergeReleaseGroups': require('../edit/details/MergeReleaseGroups'),
+  'edit/details/MergeReleases': require('../edit/details/MergeReleases'),
   'edit/details/MergeSeries': require('../edit/details/MergeSeries'),
   'edit/details/MergeWorks': require('../edit/details/MergeWorks'),
   'edit/details/MoveDiscId': require('../edit/details/MoveDiscId'),

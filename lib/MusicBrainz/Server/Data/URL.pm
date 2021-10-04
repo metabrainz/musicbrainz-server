@@ -161,10 +161,11 @@ my %URL_SPECIALIZATIONS = (
     'SpiritOfMetal'       => qr{^https?://(?:www\.)?spirit-of-metal\.com/}i,
     'SpiritOfRock'        => qr{^https?://(?:www\.)?spirit-of-rock\.com/}i,
     'Stage48'             => qr{^https?://(?:www\.)?stage48\.net/}i,
-    'Tipeee'              => qr{^https?://(?:www\.)?tipeee\.com/}i,
     'Theatricalia'        => qr{^https?://(?:www\.)?theatricalia\.com/}i,
     'TheDanceGypsy'       => qr{^https?://(?:www\.)?thedancegypsy\.com/}i,
     'TheSession'          => qr{^https?://(?:www\.)?thesession\.org/}i,
+    'Tidal'               => qr{^https?://(?:[^/]+\.)?tidal\.com/}i,
+    'Tipeee'              => qr{^https?://(?:www\.)?tipeee\.com/}i,
     'TouhouDB'            => qr{^https?://(?:www\.)?touhoudb\.com/}i,
     'Traxsource'          => qr{^https?://(?:www\.)?traxsource.com/}i,
     'TripleJUnearthed'    => qr{^https?://(?:www\.)?triplejunearthed\.com/}i,
@@ -179,7 +180,8 @@ my %URL_SPECIALIZATIONS = (
     'VGMdb'               => qr{^https?://(?:www\.)?vgmdb\.net/}i,
     'VIAF'                => qr{^https?://(?:www\.)?viaf\.org/}i,
     'Videogamin'          => qr{^https?://(?:www\.)?videogam\.in/}i,
-    'Vimeo'               => qr{^https?://(?:www\.)?vimeo\.com/}i,
+    'Vimeo'               => qr{^https?://(?:www\.)?vimeo\.com/(?!ondemand)}i,
+    'VimeoOnDemand'       => qr{^https?://(?:www\.)?vimeo\.com/ondemand}i,
     'VK'                  => qr{^https?://(?:www\.)?vk\.com/}i,
     'Vkdb'                => qr{^https?://(?:www\.)?vkdb\.jp/}i,
     'VocaDB'              => qr{^https?://(?:www\.)?vocadb\.net/}i,
@@ -296,7 +298,7 @@ sub _hash_to_row
     });
 }
 
-sub insert { confess "Should not be used for URLs" }
+sub insert { confess 'Should not be used for URLs' }
 
 sub find_or_insert {
     my ($self, $url) = @_;

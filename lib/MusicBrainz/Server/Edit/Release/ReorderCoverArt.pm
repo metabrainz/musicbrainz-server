@@ -78,7 +78,7 @@ sub accept {
     my @current_ids = sort(map { $_->id } @$current);
     my @edit_ids = sort(map { $_->{id} } @{ $self->data->{old} });
 
-    if (join(",", @current_ids) ne join (",", @edit_ids))
+    if (join(',', @current_ids) ne join (',', @edit_ids))
     {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency
             ->throw('Cover art has been added or removed since this edit was created, which conflicts ' .

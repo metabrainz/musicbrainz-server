@@ -30,7 +30,7 @@ sub discid : Chained('root') PathPart('discid') {
 
     if (!is_valid_discid($id) && !(exists $c->req->query_params->{toc}))
     {
-        $c->stash->{error} = "Invalid discid.";
+        $c->stash->{error} = 'Invalid discid.';
         $c->detach('bad_req');
     }
 
@@ -90,8 +90,8 @@ sub discid : Chained('root') PathPart('discid') {
 
     if (my $toc = $c->req->query_params->{toc}) {
         my $all_formats = 0;
-        if (exists $c->req->query_params->{"media-format"} &&
-                   $c->req->query_params->{'media-format'} eq "all") {
+        if (exists $c->req->query_params->{'media-format'} &&
+                   $c->req->query_params->{'media-format'} eq 'all') {
             $all_formats = 1;
         }
 

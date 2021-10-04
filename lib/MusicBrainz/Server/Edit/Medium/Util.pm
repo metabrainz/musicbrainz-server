@@ -65,16 +65,16 @@ sub check_track_hash {
     my $tracks = shift;
 
     my @track_ids = grep { defined $_ } map { $_->{id} } @$tracks;
-    die "Track IDs are not unique (MBS-7303)"
+    die 'Track IDs are not unique (MBS-7303)'
         unless scalar @track_ids == scalar uniq @track_ids;
 
     my @track_pos = sort { $a <=> $b } map { $_->{position} } @$tracks;
-    die "No tracks" unless @track_pos;
-    die "Track positions not given for all tracks"
+    die 'No tracks' unless @track_pos;
+    die 'Track positions not given for all tracks'
         unless all { defined $_ } @track_pos;
-    die "Track positions are not unique (MBS-7721)"
+    die 'Track positions are not unique (MBS-7721)'
         unless scalar @track_pos == scalar uniq @track_pos;
-    die "Track positions are non-contiguous (MBS-7846)"
+    die 'Track positions are non-contiguous (MBS-7846)'
         unless ($track_pos[0] == 0 || $track_pos[0] == 1)
             && scalar @track_pos == $track_pos[-1] - $track_pos[0] + 1;
 }

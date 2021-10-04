@@ -74,7 +74,7 @@ sub initialize
 {
     my ($self, %opts) = @_;
 
-    my $isrc = $opts{isrc} or die "Required 'isrc' object missing";
+    my $isrc = $opts{isrc} or die q(Required 'isrc' object missing);
     $self->c->model('Recording')->load($isrc) unless defined $isrc->recording;
     $self->data({
         isrc => {

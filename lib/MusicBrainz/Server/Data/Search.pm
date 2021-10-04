@@ -64,9 +64,9 @@ use MusicBrainz::Server::Constants qw( entities_with $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::ExternalUtils qw( get_chunked_with_retry );
 use DateTime::Format::ISO8601;
-use feature "switch";
+use feature 'switch';
 
-no if $] >= 5.018, warnings => "experimental::smartmatch";
+no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -88,9 +88,9 @@ sub search
 
     my @where_args;
 
-    if ($type eq "artist") {
+    if ($type eq 'artist') {
 
-        my $where_deleted = "WHERE entity.id != ?";
+        my $where_deleted = 'WHERE entity.id != ?';
         $deleted_entity = $DARTIST_ID;
 
         my $extra_columns = 'entity.gender, entity.area, entity.begin_area, entity.end_area,' if $type eq 'artist';
@@ -137,12 +137,12 @@ sub search
         $hard_search_limit = $offset * 2;
     }
     elsif ($type ~~ [qw(recording release release_group)]) {
-        my $extra_columns = "";
+        my $extra_columns = '';
         $extra_columns .= 'entity.type AS primary_type_id,'
             if ($type eq 'release_group');
 
-        $extra_columns = "entity.length, entity.video,"
-            if ($type eq "recording");
+        $extra_columns = 'entity.length, entity.video,'
+            if ($type eq 'recording');
 
         $extra_columns .= 'entity.language, entity.script, entity.barcode,
                            entity.release_group, entity.status,'
@@ -167,9 +167,9 @@ sub search
         elsif ($type eq 'recording') {
             if ($where && exists $where->{artist})
             {
-                $join_sql .= " JOIN artist_credit ON artist_credit.id = entity.artist_credit";
+                $join_sql .= ' JOIN artist_credit ON artist_credit.id = entity.artist_credit';
                 $where_sql = 'WHERE artist_credit.name LIKE ?';
-                push @where_args, "%".$where->{artist}."%";
+                push @where_args, '%'.$where->{artist}.'%';
             }
         }
         my $extra_groupby_columns = $extra_columns =~ s/[^ ,]+ AS //gr;
@@ -209,11 +209,11 @@ sub search
     }
 
     elsif ($type ~~ [qw(area event instrument label place series work)]) {
-        my $where_deleted = "WHERE entity.id != ?";
-        if ($type eq "label") {
+        my $where_deleted = 'WHERE entity.id != ?';
+        if ($type eq 'label') {
             $deleted_entity = $DLABEL_ID;
         } else {
-            $where_deleted = "";
+            $where_deleted = '';
         }
 
         my $extra_columns = '';
@@ -275,7 +275,7 @@ sub search
 
     elsif ($type eq 'genre') {
 
-        $query = "
+        $query = q{
             SELECT
                 entity.id,
                 entity.gid,
@@ -297,29 +297,33 @@ sub search
                 rank DESC, entity.name, entity.gid
             OFFSET
                 ?
-        ";
+            };
 
         $use_hard_search_limit = 0;
     }
 
-    elsif ($type eq "tag") {
-        $query = "
+    elsif ($type eq 'tag') {
+        $query = q{
             SELECT tag.id, tag.name, genre.id AS genre_id,
                    ts_rank_cd(mb_simple_tsvector(tag.name), query, 2) AS rank
             FROM tag LEFT JOIN genre USING (name), plainto_tsquery('mb_simple', mb_lower(?)) AS query
             WHERE mb_simple_tsvector(tag.name) @@ query
             ORDER BY rank DESC, tag.name
             OFFSET ?
-        ";
+            };
+
         $use_hard_search_limit = 0;
     }
     elsif ($type eq 'editor') {
-        $query = "SELECT id, name, ts_rank_cd(mb_simple_tsvector(name), query, 2) AS rank,
-                    email
-                  FROM editor, plainto_tsquery('mb_simple', mb_lower(?)) AS query
-                  WHERE mb_simple_tsvector(name) @@ query
-                  ORDER BY rank DESC
-                  OFFSET ?";
+        $query = q{
+            SELECT id, name, ts_rank_cd(mb_simple_tsvector(name), query, 2) AS rank,
+            email
+            FROM editor, plainto_tsquery('mb_simple', mb_lower(?)) AS query
+            WHERE mb_simple_tsvector(name) @@ query
+            ORDER BY rank DESC
+            OFFSET ?
+            };
+
         $use_hard_search_limit = 0;
     }
 
@@ -472,39 +476,39 @@ sub schema_fixup
     }
     if ($type eq 'release')
     {
-        if (defined $data->{"release-events"})
+        if (defined $data->{'release-events'})
         {
             $data->{events} = [];
-            for my $release_event_data (@{$data->{"release-events"}})
+            for my $release_event_data (@{$data->{'release-events'}})
             {
                 my $release_event = MusicBrainz::Server::Entity::ReleaseEvent->new(
                     country => defined($release_event_data->{area}) ?
                         MusicBrainz::Server::Entity::Area->new( gid => $release_event_data->{area}->{id},
-                                                                iso_3166_1 => $release_event_data->{area}->{"iso-3166-1-codes"},
+                                                                iso_3166_1 => $release_event_data->{area}->{'iso-3166-1-codes'},
                                                                 name => $release_event_data->{area}->{name} )
                         : undef,
                     date => MusicBrainz::Server::Entity::PartialDate->new( $release_event_data->{date} ));
 
                 push @{$data->{events}}, $release_event;
             }
-            delete $data->{"release-events"};
+            delete $data->{'release-events'};
         }
         if (defined $data->{barcode})
         {
             $data->{barcode} = MusicBrainz::Server::Entity::Barcode->new( $data->{barcode} );
         }
-        if (defined $data->{"text-representation"} &&
-            defined $data->{"text-representation"}->{language})
+        if (defined $data->{'text-representation'} &&
+            defined $data->{'text-representation'}->{language})
         {
             $data->{language} = $self->c->model('Language')->find_by_code(
-                $data->{"text-representation"}{language}
+                $data->{'text-representation'}{language}
             );
         }
-        if (defined $data->{"text-representation"} &&
-            defined $data->{"text-representation"}->{script})
+        if (defined $data->{'text-representation'} &&
+            defined $data->{'text-representation'}->{script})
         {
             $data->{script} = $self->c->model('Script')->find_by_code(
-                $data->{"text-representation"}{script}
+                $data->{'text-representation'}{script}
             );
         }
 
@@ -523,14 +527,14 @@ sub schema_fixup
             ];
         }
 
-        if (defined $data->{"media"})
+        if (defined $data->{'media'})
         {
             $data->{mediums} = [];
-            for my $medium_data (@{$data->{"media"}})
+            for my $medium_data (@{$data->{'media'}})
             {
                 my $format = $medium_data->{format};
                 my $medium = MusicBrainz::Server::Entity::Medium->new(
-                    track_count => $medium_data->{"track-count"},
+                    track_count => $medium_data->{'track-count'},
                     format => $format &&
                         MusicBrainz::Server::Entity::MediumFormat->new(
                             name => $format
@@ -540,7 +544,7 @@ sub schema_fixup
                 push @{$data->{mediums}}, $medium;
             }
             $data->{mediums_loaded} = 1;
-            delete $data->{"media"};
+            delete $data->{'media'};
         }
 
         my $release_group = delete $data->{'release-group'};
@@ -583,27 +587,27 @@ sub schema_fixup
         fixup_rg($data, $data);
     }
     if ($type eq 'recording' &&
-        defined $data->{"releases"} &&
-        defined $data->{"releases"}->[0] &&
-        defined $data->{"releases"}->[0]->{"media"} &&
-        defined $data->{"releases"}->[0]->{"media"}->[0])
+        defined $data->{'releases'} &&
+        defined $data->{'releases'}->[0] &&
+        defined $data->{'releases'}->[0]->{'media'} &&
+        defined $data->{'releases'}->[0]->{'media'}->[0])
     {
         my @releases;
 
-        foreach my $release (@{$data->{"releases"}})
+        foreach my $release (@{$data->{'releases'}})
         {
             my $medium = MusicBrainz::Server::Entity::Medium->new(
-                position  => $release->{"media"}->[0]->{"position"},
-                track_count => $release->{"media"}->[0]->{"track-count"},
+                position  => $release->{'media'}->[0]->{'position'},
+                track_count => $release->{'media'}->[0]->{'track-count'},
                 tracks => [ MusicBrainz::Server::Entity::Track->new(
-                    position => $release->{"media"}->[0]->{"track-offset"} + 1,
+                    position => $release->{'media'}->[0]->{'track-offset'} + 1,
                     recording => MusicBrainz::Server::Entity::Recording->new(
                         gid => $data->{gid}
                     )
                 ) ]
             );
             my $release_group = MusicBrainz::Server::Entity::ReleaseGroup->new(
-                fixup_rg($release->{"release-group"})
+                fixup_rg($release->{'release-group'})
             );
             push @releases, {
                 release            => MusicBrainz::Server::Entity::Release->new(
@@ -632,12 +636,12 @@ sub schema_fixup
         $data->{video} = defined $data->{video} && $data->{video} == 1;
     }
 
-    if (defined $data->{"relations"} &&
-        defined $data->{"relations"}->[0])
+    if (defined $data->{'relations'} &&
+        defined $data->{'relations'}->[0])
     {
         my @relationships;
 
-        foreach my $rel (@{ $data->{"relations"} })
+        foreach my $rel (@{ $data->{'relations'} })
         {
             my $target_type;
             for (entities_with(['mbid', 'relatable'], take => 'url')) {
@@ -695,7 +699,7 @@ sub schema_fixup
 
     if (defined $data->{'artist_credit'}) {
         my @credits;
-        foreach my $namecredit (@{$data->{"artist_credit"}})
+        foreach my $namecredit (@{$data->{'artist_credit'}})
         {
             my $artist = MusicBrainz::Server::Entity::Artist->new($namecredit->{artist});
             push @credits, MusicBrainz::Server::Entity::ArtistCreditName->new( {
@@ -780,7 +784,7 @@ sub escape_query
 {
     my $str = shift;
 
-    return "" unless defined $str;
+    return '' unless defined $str;
 
     $str =~  s/([+\-&|!(){}\[\]\^"~*?:\\\/])/\\$1/g;
     return $str;
@@ -802,16 +806,16 @@ sub external_search
         my $dismax = $adv ? 'false' : 'true';
         $search_url_string = "http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=jsonnew&dismax=$dismax&web=1";
     } else {
-        my $endpoint = "advanced";
+        my $endpoint = 'advanced';
         if (!$adv)
         {
             # Solr has a bug where the dismax end point behaves differently
             # from edismax (advanced) when the query size is 1. This is a fix
             # for that. See https://issues.apache.org/jira/browse/SOLR-12409
             if (split(/[\P{Word}_]+/, $query, 2) == 1) {
-                $endpoint = "basic";
+                $endpoint = 'basic';
             } else {
-                $endpoint = "select";
+                $endpoint = 'select';
             }
         }
         $search_url_string = "http://%s/%s/$endpoint?q=%s&start=%s&rows=%s&wt=mbjson";
@@ -833,7 +837,7 @@ sub external_search
     {
         return { code => $response->code, error => $response->content };
     }
-    elsif ($response->status_line eq "200 Assumed OK")
+    elsif ($response->status_line eq '200 Assumed OK')
     {
         if ($response->content =~ /<title>([0-9]{3})/)
         {
@@ -868,7 +872,7 @@ sub external_search
 
         # Use types as provided by jsonnew format
         if ($type ~~ [qw(area artist event instrument label place recording release release-group work annotation cdstub editor)]) {
-            $xmltype .= "s";
+            $xmltype .= 's';
         }
 
         foreach my $t (@{$data->{$xmltype}})

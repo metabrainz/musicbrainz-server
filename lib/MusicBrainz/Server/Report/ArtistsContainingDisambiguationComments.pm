@@ -5,11 +5,11 @@ with 'MusicBrainz::Server::Report::ArtistReport',
      'MusicBrainz::Server::Report::FilterForEditor::ArtistID';
 
 sub query {
-    "SELECT artist.id AS artist_id,
+    q{SELECT artist.id AS artist_id,
        row_number() OVER (ORDER BY artist.name COLLATE musicbrainz)
      FROM artist
      WHERE (name LIKE '%(%' OR name LIKE '%)%')
-       AND name NOT LIKE '(%'";
+       AND name NOT LIKE '(%'};
 }
 
 __PACKAGE__->meta->make_immutable;

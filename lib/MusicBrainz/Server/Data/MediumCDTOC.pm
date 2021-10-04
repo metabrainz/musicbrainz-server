@@ -45,10 +45,10 @@ sub find_by_medium
     my ($self, @medium_ids) = @_;
     return () unless @medium_ids;
 
-    my $query = "
-        SELECT " . $self->_columns . " FROM " . $self->_table . "
-        WHERE medium IN (" . placeholders(@medium_ids) . ")
-        ORDER BY id";
+    my $query = '
+        SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
+        WHERE medium IN (' . placeholders(@medium_ids) . ')
+        ORDER BY id';
     $self->query_to_list($query, \@medium_ids);
 }
 

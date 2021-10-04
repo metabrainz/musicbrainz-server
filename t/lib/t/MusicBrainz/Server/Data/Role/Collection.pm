@@ -50,11 +50,11 @@ for my $entity_type (entities_with('collections')) {
 
         MusicBrainz::Server::Test->prepare_test_database($test->c, '+releasegroup');
 
-        $c->sql->do(<<~"EOSQL");
+        $c->sql->do(<<~"SQL");
             INSERT INTO editor (id, name, password, ha1)
                 VALUES (5, 'me', '{CLEARTEXT}mb', 'a152e69b4cf029912ac2dd9742d8a9fc');
             SELECT setval('${entity_type}_id_seq', 666, FALSE);
-            EOSQL
+            SQL
 
         my $model = $c->model($ENTITIES{$entity_type}{model});
         my $entity = $model->insert(create_insert($entity_type, 'Test123'));
@@ -70,11 +70,11 @@ for my $entity_type (entities_with('collections')) {
 
         MusicBrainz::Server::Test->prepare_test_database($test->c, '+releasegroup');
 
-        $c->sql->do(<<~"EOSQL");
+        $c->sql->do(<<~"SQL");
             INSERT INTO editor (id, name, password, ha1)
                 VALUES (5, 'me', '{CLEARTEXT}mb', 'a152e69b4cf029912ac2dd9742d8a9fc');
             SELECT setval('${entity_type}_id_seq', 666, FALSE);
-            EOSQL
+            SQL
 
         my $model = $c->model($ENTITIES{$entity_type}{model});
         my $entity1 = $model->insert(create_insert($entity_type, 'Test123'));

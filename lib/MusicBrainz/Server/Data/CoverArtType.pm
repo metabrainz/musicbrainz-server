@@ -50,11 +50,11 @@ sub find_by_cover_art_ids
     my ($self, @ids) = @_;
     return () unless @ids;
 
-    my $query = "SELECT cover_art_type.id AS cover_art_id, " . $self->_columns . " " .
-        "FROM " . $self->_table . " " .
-        "JOIN cover_art_archive.cover_art_type " .
-        "ON cover_art_type.type_id = art_type.id " .
-        "WHERE cover_art_type.id IN (" . placeholders(@ids) . ")";
+    my $query = 'SELECT cover_art_type.id AS cover_art_id, ' . $self->_columns . ' ' .
+        'FROM ' . $self->_table . ' ' .
+        'JOIN cover_art_archive.cover_art_type ' .
+        'ON cover_art_type.type_id = art_type.id ' .
+        'WHERE cover_art_type.id IN (' . placeholders(@ids) . ')';
 
     my %map;
     for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {

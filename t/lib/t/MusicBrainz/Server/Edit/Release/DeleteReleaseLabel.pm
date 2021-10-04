@@ -99,10 +99,10 @@ test q(Loads correctly when there's just a catalog number) => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO release_label (id, release, label, catalog_number)
             VALUES (2, 1, NULL, 'ABC-456');
-        EOSQL
+        SQL
 
     my $edit = create_edit($c, 2);
     $c->model('Edit')->load_all($edit);

@@ -34,7 +34,7 @@ test all => sub {
     my $long_unicode_tag1 = '松' x 255;
     my $long_unicode_tag2 = '変' x 255;
 
-    $exec_sql->(<<~"EOSQL");
+    $exec_sql->(<<~"SQL");
         BEGIN;
         INSERT INTO replication_control (current_schema_sequence, current_replication_sequence, last_replication_date)
             VALUES ($schema_seq, 1, now() - interval '1 hour');
@@ -66,7 +66,7 @@ test all => sub {
             '35c1f5f73559130eddbef34e50e22ad6', 'f'
         );
         COMMIT;
-        EOSQL
+        SQL
 
     system (
         File::Spec->catfile($root, 'admin/ExportAllTables'),
@@ -83,7 +83,7 @@ test all => sub {
     system("cd $quoted_output_dir && sha256sum -c SHA256SUMS") == 0
         or die $!;
 
-    $exec_sql->(<<~"EOSQL");
+    $exec_sql->(<<~"SQL");
         SET client_min_messages TO WARNING;
         INSERT INTO dbmirror_pending
             VALUES (1, '"musicbrainz"."artist"', 'i', 1),
@@ -96,7 +96,7 @@ test all => sub {
                    (2, 'f', '"name"=''Updated A'' '),
                    (3, 'f', '"id"=''2'' "name"=''$long_unicode_tag2'' "ref_count"=''1'' '),
                    (4, 'f', '"artist"=''667'' "tag"=''2'' "count"=''1'' "last_updated"=''2016-05-03 20:00:00+00'' ');
-        EOSQL
+        SQL
 
     system (
         File::Spec->catfile($root, 'admin/ExportAllTables'),
@@ -129,12 +129,12 @@ test all => sub {
     my $replication_setup = File::Spec->catfile($root, 'admin/sql/ReplicationSetup.sql');
     system 'sh', '-c' => "$psql TEST_FULL_EXPORT < $replication_setup";
 
-    $exec_sql->(<<~"EOSQL");
+    $exec_sql->(<<~"SQL");
         SET client_min_messages TO WARNING;
         TRUNCATE replication_control CASCADE;
         INSERT INTO replication_control (current_schema_sequence, current_replication_sequence, last_replication_date)
             VALUES ($schema_seq, 1, now() - interval '1 hour');
-        EOSQL
+        SQL
 
     system (
         File::Spec->catfile($root, 'admin/replication/LoadReplicationChanges'),
@@ -247,12 +247,12 @@ test all => sub {
         },
     ]);
 
-    $exec_sql->(<<~'EOSQL');
+    $exec_sql->(<<~'SQL');
         SET client_min_messages TO WARNING;
         TRUNCATE artist CASCADE;
         TRUNCATE artist_tag CASCADE;
         TRUNCATE tag CASCADE;
-        EOSQL
+        SQL
 };
 
 run_me;

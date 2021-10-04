@@ -68,7 +68,7 @@ sub _new_from_row
 
     # Readd the class marker
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($row->{type})
-        or confess"Could not look up class for type ".$row->{type};
+        or confess 'Could not look up class for type '.$row->{type};
 
     state $json = JSON::XS->new;
     my $data = $json->decode($row->{data});
@@ -113,8 +113,8 @@ sub get_by_id_and_lock
     my ($self, $id) = @_;
 
     my $query =
-        "SELECT id FROM edit " .
-        "WHERE id = ? FOR UPDATE NOWAIT";
+        'SELECT id FROM edit ' .
+        'WHERE id = ? FOR UPDATE NOWAIT';
     my $row = $self->sql->select_single_row_hash($query, $id);
     return unless defined $row;
 
@@ -126,7 +126,7 @@ sub get_max_id
 {
     my ($self) = @_;
 
-    return $self->sql->select_single_value("SELECT max(id) FROM edit");
+    return $self->sql->select_single_value('SELECT max(id) FROM edit');
 }
 
 sub find
@@ -160,7 +160,7 @@ sub find
     while (my ($param, $value) = each %$p) {
         my @values = ref($value) ? @$value : ($value);
         next unless @values;
-        push @pred, (join " OR ", (("$param = ?") x @values));
+        push @pred, (join ' OR ', (("$param = ?") x @values));
         push @args, @values;
     }
 
@@ -247,7 +247,7 @@ sub find_for_subscription
         my $type = $subscription->type;
         my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
             " WHERE id IN (SELECT edit FROM edit_$type WHERE $type = ?) " .
-            "   AND id > ? AND status IN (?, ?) ORDER BY id";
+            '   AND id > ? AND status IN (?, ?) ORDER BY id';
         $self->query_to_list(
             $query,
             [
@@ -329,12 +329,12 @@ sub find_creation_edit {
     my ($self, $create_edit_type, $entity_id, %args) = @_;
     $args{id_field} ||= 'entity_id';
     my $query =
-        "SELECT " . $self->_columns . "
-           FROM " . $self->_table . "
+        'SELECT ' . $self->_columns . '
+           FROM ' . $self->_table . '
          WHERE edit.status = ?
            AND edit.type = ?
            AND (edit_data.data->>(?::text))::bigint = ?
-         ORDER BY edit.id ASC LIMIT 1";
+         ORDER BY edit.id ASC LIMIT 1';
         # NB. This function is used for cover art too, which uses bigint IDs.
     my ($edit) = $self->query_to_list(
         $query,
@@ -375,10 +375,10 @@ sub subscribed_entity_edits {
         my $edit_entity_table = 'edit_' . $_;
         my $edit_status_table = $edit_entity_table;
         my $editor_subscribe_table = 'editor_subscribe_' . $_;
-        my $result = <<~"EOSQL";
+        my $result = <<~"SQL";
             SELECT edit FROM $edit_entity_table
             JOIN $editor_subscribe_table ON $editor_subscribe_table.$_ = $edit_entity_table.$_
-            EOSQL
+            SQL
 
         # Join with the edit table if
         # (1) this entity doesn't have a materialized edit status (e.g. series), or
@@ -408,7 +408,7 @@ sub subscribed_entity_edits {
     } entities_with('collections'));
     # FIXME: very similar to $EDIT_IDS_FOR_COLLECTION_SQL, should be generalized
 
-    my $query = <<~"EOSQL";
+    my $query = <<~"SQL";
         SELECT $columns FROM $table
         JOIN (
             $entity_sql
@@ -425,7 +425,7 @@ sub subscribed_entity_edits {
         )
         ORDER BY id ASC
         LIMIT $LIMIT_FOR_EDIT_LISTING
-        EOSQL
+        SQL
 
     $self->query_to_list_limited($query, \@args, $limit, $offset, undef,
                                  dollar_placeholders => 1);
@@ -489,13 +489,13 @@ sub merge_entities
         @ids, @ids);
 
     $self->sql->do("UPDATE edit_$type SET $type = ?
-              WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
+              WHERE $type IN (".placeholders(@old_ids).')', $new_id, @old_ids);
 }
 
 sub _create_instance {
     my ($self, $previewing, %opts) = @_;
 
-    my $type = delete $opts{edit_type} or croak "edit_type required";
+    my $type = delete $opts{edit_type} or croak 'edit_type required';
     my $editor = delete $opts{editor};
     my $editor_id = delete $opts{editor_id};
 
@@ -503,7 +503,7 @@ sub _create_instance {
         $editor = $self->c->model('Editor')->get_by_id($editor_id);
     }
 
-    croak "editor required" unless $editor;
+    croak 'editor required' unless $editor;
 
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($type)
         or confess "Could not lookup edit type for $type";
@@ -572,7 +572,7 @@ sub create {
         editor => $edit->editor_id,
         status => $edit->status,
         type => $edit->edit_type,
-        open_time => \"now()",
+        open_time => \'now()',
         expire_time => \"now() + interval '$interval'",
         autoedit => $edit->auto_edit,
         close_time => $edit->close_time
@@ -598,7 +598,7 @@ sub create {
         @$ids or next;
 
         my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
-        $query .= join ", ", ("(?, ?)") x @$ids;
+        $query .= join ', ', ('(?, ?)') x @$ids;
         my @all_ids = ($edit_id) x @$ids;
         $self->c->sql->do($query, zip @all_ids, @$ids);
     }
@@ -822,7 +822,7 @@ sub _do_reject
             return $STATUS_APPLIED;
         }
         else {
-             carp("Could not reject " . $edit->id . ": $err");
+             carp('Could not reject ' . $edit->id . ": $err");
              return $STATUS_ERROR;
         }
     };
@@ -834,7 +834,7 @@ sub accept
 {
     my ($self, $edit) = @_;
 
-    confess "The edit is not open anymore." if $edit->status != $STATUS_OPEN;
+    confess 'The edit is not open anymore.' if $edit->status != $STATUS_OPEN;
     $self->_close($edit, sub { $self->_do_accept(shift) });
 }
 
@@ -843,7 +843,7 @@ sub reject
 {
     my ($self, $edit, $status) = @_;
     $status ||= $STATUS_FAILEDVOTE;
-    confess "The edit is not open anymore."
+    confess 'The edit is not open anymore.'
         unless $edit->status == $STATUS_OPEN;
 
     $self->_close($edit, sub { $self->_do_reject(shift, $status) });
@@ -859,7 +859,7 @@ sub _close
 {
     my ($self, $edit, $close_sub) = @_;
     my $status = &$close_sub($edit);
-    my $query = "UPDATE edit SET status = ?, close_time = NOW() WHERE id = ?";
+    my $query = 'UPDATE edit SET status = ?, close_time = NOW() WHERE id = ?';
     $self->c->sql->do($query, $status, $edit->id);
     $edit->adjust_edit_pending(-1) unless $edit->auto_edit;
     $edit->status($status);
@@ -909,8 +909,8 @@ sub add_link {
 sub extend_expiration_time {
     my ($self, @ids) = @_;
     my $interval = DateTime::Format::Pg->format_interval($MINIMUM_RESPONSE_PERIOD);
-    $self->sql->do("UPDATE edit SET expire_time = NOW() + interval ?
-        WHERE id = any(?) AND expire_time < NOW() + interval ?", $interval, \@ids, $interval);
+    $self->sql->do('UPDATE edit SET expire_time = NOW() + interval ?
+        WHERE id = any(?) AND expire_time < NOW() + interval ?', $interval, \@ids, $interval);
 }
 
 __PACKAGE__->meta->make_immutable;

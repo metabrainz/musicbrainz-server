@@ -66,7 +66,7 @@ sub _decode_value
     my ($scheme, $data) = $value =~ /\A\x1B(\w+);(.*)\z/s
         or return $value;
 
-    return uri_unescape($data) if $scheme eq "URI";
+    return uri_unescape($data) if $scheme eq 'URI';
     die "Unknown encoding scheme '$scheme'";
 }
 

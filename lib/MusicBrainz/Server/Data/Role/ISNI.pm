@@ -23,7 +23,8 @@ role
 
     method find_reused_isnis => sub {
         my ($self, @isnis) = @_;
-        my $query = "SELECT 'artist' AS entity_type, artist_isni.isni, COUNT(*) AS count
+
+        my $query = q{SELECT 'artist' AS entity_type, artist_isni.isni, COUNT(*) AS count
                     FROM artist
                         JOIN artist_isni ON artist.id = artist_isni.artist
                     WHERE artist_isni.isni = any(?)
@@ -33,8 +34,9 @@ role
                     FROM label
                         JOIN label_isni ON label.id = label_isni.label
                     WHERE label_isni.isni = any(?)
-                    GROUP BY label_isni.isni";
+                    GROUP BY label_isni.isni};
         my $results = $self->sql->select_list_of_hashes($query, \@isnis, \@isnis);
+
         my %reused_isnis;
         for my $result (@$results) {
             my $isni = $result->{isni};

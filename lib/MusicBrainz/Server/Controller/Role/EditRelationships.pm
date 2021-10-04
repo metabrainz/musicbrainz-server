@@ -118,7 +118,7 @@ role {
             }
 
             my $url_changes = 0;
-            if ($form_name ne "edit-url") {
+            if ($form_name ne 'edit-url') {
                 my @urls = grep { !$_->is_empty } $form->field('url')->fields;
                 $url_changes = $self->edit_relationships($c, $form, \@urls, $source);
             }
@@ -213,7 +213,7 @@ role {
                         my $is_series = $unorderable_entity->isa('MusicBrainz::Server::Entity::Series');
 
                         if (!$is_series || $unorderable_entity->ordering_type_id == $SERIES_ORDERING_TYPE_MANUAL) {
-                            my $key = join "-", $link_type->id, $unorderable_entity->id;
+                            my $key = join '-', $link_type->id, $unorderable_entity->id;
 
                             push @{ $reordered_relationships{$key} //= [] }, {
                                 relationship => $relationship,

@@ -5,13 +5,13 @@ with 'MusicBrainz::Server::Report::LabelReport',
      'MusicBrainz::Server::Report::FilterForEditor::LabelID';
 
 sub query {
-    "
+    '
         SELECT
             label.id AS label_id,
             row_number() OVER (ORDER BY label.name COLLATE musicbrainz, label.id)
         FROM label
         WHERE label.name = label.comment
-    "
+    '
 }
 
 __PACKAGE__->meta->make_immutable;

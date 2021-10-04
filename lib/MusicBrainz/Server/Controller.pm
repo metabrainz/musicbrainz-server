@@ -30,7 +30,7 @@ sub not_found : Private
 sub invalid_mbid
 {
     my ($self, $c, $id) = @_;
-    $c->stash( message  => l("'{id}' is not a valid MusicBrainz ID", { id => $id }) );
+    $c->stash( message  => l(q('{id}' is not a valid MusicBrainz ID), { id => $id }) );
     $c->detach('/error_400');
 }
 
@@ -104,7 +104,7 @@ sub _insert_edit {
                    num_open_edits => $c->stash->{num_open_edits} );
       my $first_edit_id = $c->stash->{edit_ids}->[0];
       my @edit_ids = @{$c->stash->{edit_ids}};
-      $args{edit_ids} = "#" . join(", #", @edit_ids[0.. ($#edit_ids > 2 ? 2 : $#edit_ids)]) . ($#edit_ids>2?", ...":"");
+      $args{edit_ids} = '#' . join(', #', @edit_ids[0.. ($#edit_ids > 2 ? 2 : $#edit_ids)]) . ($#edit_ids>2?', ...':'');
       $args{edit_url} =
         (($args{num_edits} == 1)
          ? $c->uri_for_action('/edit/show', [ $first_edit_id ])
@@ -231,7 +231,7 @@ sub _load_paged
     my ($self, $c, $loader, %opts) = @_;
 
     my $prefix = $opts{prefix} || '';
-    my $page = $c->request->query_params->{$prefix . "page"};
+    my $page = $c->request->query_params->{$prefix . 'page'};
     $page = 1 unless is_positive_integer($page);
 
     my $LIMIT = $opts{limit} || $self->{paging_limit};
@@ -250,7 +250,7 @@ sub _load_paged
     $pager->total_entries($total || 0);
     $pager->current_page($page);
 
-    $c->stash( $prefix . "pager" => $pager,
+    $c->stash( $prefix . 'pager' => $pager,
                edit_count_limit => $LIMIT_FOR_EDIT_LISTING );
     return $data;
 }

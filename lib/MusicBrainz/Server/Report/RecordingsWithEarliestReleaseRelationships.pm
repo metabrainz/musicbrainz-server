@@ -5,7 +5,7 @@ with 'MusicBrainz::Server::Report::RecordingReport',
      'MusicBrainz::Server::Report::FilterForEditor::RecordingID';
 
 sub query {
-    "
+    q{
         SELECT
             r.id AS recording_id,
             row_number() OVER (ORDER BY ac.name COLLATE musicbrainz, r.name COLLATE musicbrainz)
@@ -26,7 +26,7 @@ sub query {
             JOIN artist_credit ac ON r.artist_credit = ac.id
         WHERE
             link_type.name = 'first track release'
-    ";
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

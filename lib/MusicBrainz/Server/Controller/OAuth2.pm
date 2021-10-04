@@ -561,9 +561,9 @@ sub tokeninfo : Local
         audience => $application->oauth_id,
         issued_to => $application->oauth_id,
         expires_in => $token->expire_time->subtract_datetime_absolute(DateTime->now)->seconds,
-        access_type => $token->refresh_token ? "offline" : "online",
-        token_type => "Bearer",
-        scope => join(" ", @scope),
+        access_type => $token->refresh_token ? 'offline' : 'online',
+        token_type => 'Bearer',
+        scope => join(' ', @scope),
     });
 }
 

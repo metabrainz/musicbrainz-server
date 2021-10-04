@@ -21,7 +21,7 @@ test all => sub {
         system 'sh', '-c' => "echo $sql | $psql TEST";
     };
 
-    $exec_sql->(<<~'EOSQL');
+    $exec_sql->(<<~'SQL');
         BEGIN;
 
         INSERT INTO artist VALUES
@@ -69,7 +69,7 @@ test all => sub {
             (15351681, '6d0598f0-a044-409f-a77a-97bbbb072b14', 1723928, 1372126, 12, 12, 'Blood Money (remix)', 1216448, 237000, 0, '2015-09-03 01:00:44.001512+00', 'f');
 
         COMMIT;
-        EOSQL
+        SQL
 
     # Should skip all ACs with edits_pending != 0
     system (
@@ -259,7 +259,7 @@ test all => sub {
         },
     ]);
 
-    $exec_sql->(<<~'EOSQL');
+    $exec_sql->(<<~'SQL');
         SET client_min_messages TO WARNING;
         TRUNCATE artist CASCADE;
         TRUNCATE artist_credit CASCADE;
@@ -269,7 +269,7 @@ test all => sub {
         TRUNCATE medium CASCADE;
         TRUNCATE recording CASCADE;
         TRUNCATE track CASCADE;
-        EOSQL
+        SQL
 };
 
 run_me;

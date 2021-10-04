@@ -134,11 +134,11 @@ sub is_guid
 
 sub trim_in_place
 {
-    carp "Uninitialized value passed to trim_in_place"
+    carp 'Uninitialized value passed to trim_in_place'
         if grep { not defined } @_;
     for (@_)
     {
-        $_ = "" if not defined;
+        $_ = '' if not defined;
         # TODO decode, trim, encode?
         s/\A\s+//;
         s/\s+\z//;
@@ -172,7 +172,7 @@ sub format_ipi
     my $ipi = shift;
     return $ipi unless $ipi =~ /^[0-9\s.]{5,}$/;
     $ipi =~ s/[\s.]//g;
-    return sprintf("%011.0f", $ipi)
+    return sprintf('%011.0f', $ipi)
 }
 
 sub is_valid_isni
@@ -382,7 +382,7 @@ sub normalise_strings
         $t =~ s/[\x{2026}\x{22EF}]/.../g;
 
         # Unaccent what's left
-        decode("utf-16", unaccent_utf16(encode("utf-16", $t)));
+        decode('utf-16', unaccent_utf16(encode('utf-16', $t)));
     } @_;
 
     wantarray ? @r : $r[-1];
@@ -405,7 +405,7 @@ sub dms {
     $seconds =~ s/,/./;
 
     return
-        sprintf("%.6f", ((0+$degrees) + ((0+$minutes) * 60 + (0+$seconds)) / 3600) * direction($dir))
+        sprintf('%.6f', ((0+$degrees) + ((0+$minutes) * 60 + (0+$seconds)) / 3600) * direction($dir))
         + 0; # remove trailing zeroes (MBS-7438)
 }
 

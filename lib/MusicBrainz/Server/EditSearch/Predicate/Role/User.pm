@@ -49,7 +49,7 @@ role {
             $query->add_where([ $sql, [ $self->user->id ] ]);
         } elsif ($self->operator eq 'limited') {
             # Please keep the logic in sync with Report::LimitedEditors and Entity::Editor
-            $sql = "
+            $sql = q{
               edit.editor != ?
               AND (
                 NOT EXISTS (
@@ -75,7 +75,7 @@ role {
                     AND member_since > NOW() - INTERVAL '2 weeks'
                   )
               )
-            ";
+            };
             $query->add_where([ $sql, [ $EDITOR_MODBOT, $STATUS_APPLIED ] ]);
         } elsif ($self->operator eq 'not_edit_author') {
             $query->add_where([

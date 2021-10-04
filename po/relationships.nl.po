@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-09-14 08:50+0000\n"
+"PO-Revision-Date: 2021-09-25 11:28+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2568,6 +2568,16 @@ msgid ""
 "information on Wikipedia</a>)"
 msgstr "Deze relatie verwijst naar de <a href=\"//viaf.org/\">VIAF</a>-pagina over deze plaats. VIAF is een internationaal project om een gemeenschappelijk autoriteitsbestand beschikbaar te maken voor bibliotheken over de hele wereld. Een autoriteitsbestand is vergelijkbaar met een MBID voor bibliotheken. (<a href=\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">Meer informatie op Wikipedia.</a>)"
 
+#: DB:link_type/description:1001
+msgid ""
+"This points to the <a href=\"//viaf.org/\">VIAF</a> page for this series. "
+"VIAF is an international project to make a common authority file available "
+"to libraries across the world. An authority file is similar to an MBID for "
+"libraries. (<a "
+"href=\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">more "
+"information on Wikipedia</a>)"
+msgstr "Deze relatie verwijst naar de <a href=\"//viaf.org/\">VIAF</a>-pagina over deze serie. VIAF is een internationaal project om een gemeenschappelijk autoriteitsbestand beschikbaar te maken voor bibliotheken over de hele wereld. Een autoriteitsbestand is vergelijkbaar met een MBID voor bibliotheken. (<a href=\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">Meer informatie op Wikipedia.</a>)"
+
 #: DB:link_type/description:312
 msgid ""
 "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this work. VIAF is an international project to make a common authority file available to libraries across the world. An authority file is similar to an MBID for libraries. (<a href=\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">more information on Wikipedia</a>)\n"
@@ -3256,17 +3266,19 @@ msgid "VGMdb page for"
 msgstr "VGMdb-pagina over"
 
 #: DB:link_type/name:311 DB:link_type/name:310 DB:link_type/name:312
-#: DB:link_type/name:920
+#: DB:link_type/name:920 DB:link_type/name:1001
 msgid "VIAF"
 msgstr "VIAF"
 
 #: DB:link_type/link_phrase:311 DB:link_type/link_phrase:310
-#: DB:link_type/link_phrase:920 DB:link_type/reverse_link_phrase:312
+#: DB:link_type/link_phrase:920 DB:link_type/link_phrase:1001
+#: DB:link_type/reverse_link_phrase:312
 msgid "VIAF ID"
 msgstr "VIAF-ID"
 
 #: DB:link_type/link_phrase:312 DB:link_type/reverse_link_phrase:311
 #: DB:link_type/reverse_link_phrase:310 DB:link_type/reverse_link_phrase:920
+#: DB:link_type/reverse_link_phrase:1001
 msgid "VIAF ID for"
 msgstr "VIAF-ID van"
 
@@ -4214,7 +4226,7 @@ msgid "has CD Baby page at"
 msgstr "heeft een CD Baby-pagina op"
 
 #: DB:link_type/long_link_phrase:311 DB:link_type/long_link_phrase:310
-#: DB:link_type/long_link_phrase:920
+#: DB:link_type/long_link_phrase:920 DB:link_type/long_link_phrase:1001
 msgid "has VIAF ID at"
 msgstr "heeft een VIAF-ID op"
 

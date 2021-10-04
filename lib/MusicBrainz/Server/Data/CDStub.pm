@@ -77,9 +77,9 @@ sub load
 sub load_top_cdstubs
 {
     my ($self, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                 ORDER BY lookup_count desc, modify_count DESC";
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
+                 ORDER BY lookup_count desc, modify_count DESC';
     $self->query_to_list_limited($query, [], $LIMIT_TOP_CDSTUBS, $offset);
 }
 

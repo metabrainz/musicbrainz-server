@@ -7,7 +7,7 @@ with 'MusicBrainz::Server::Report::RecordingReport';
 sub component_name { 'RecordingsWithoutVaLink' }
 
 sub query {
-    "
+    q{
         SELECT
             r.id AS recording_id,
             row_number() OVER (ORDER BY r.artist_credit, r.name)
@@ -16,7 +16,7 @@ sub query {
         JOIN artist a ON a.id = acn.artist
         WHERE acn.name = 'Various Artists'
           AND a.name != 'Various Artists'
-    ";
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

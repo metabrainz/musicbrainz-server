@@ -75,7 +75,7 @@ sub find_by_release
     my @ids = keys %id_to_release;
 
     return unless @ids; # nothing to do
-    my $query = "SELECT
+    my $query = 'SELECT
             cover_art_archive.index_listing.id,
             cover_art_archive.index_listing.release,
             cover_art_archive.index_listing.comment,
@@ -93,8 +93,8 @@ sub find_by_release
         JOIN cover_art_archive.image_type
         ON cover_art_archive.index_listing.mime_type = cover_art_archive.image_type.mime_type
         WHERE cover_art_archive.index_listing.release
-        IN (" . placeholders(@ids) . ")
-        ORDER BY cover_art_archive.index_listing.ordering";
+        IN (' . placeholders(@ids) . ')
+        ORDER BY cover_art_archive.index_listing.ordering';
 
     my @artwork = $self->query_to_list($query, \@ids);
     for my $image (@artwork) {
@@ -111,7 +111,7 @@ sub find_front_cover_by_release
     my @ids = keys %id_to_release;
 
     return unless @ids; # nothing to do
-    my $query = "SELECT
+    my $query = 'SELECT
             cover_art_archive.index_listing.id,
             cover_art_archive.index_listing.release,
             cover_art_archive.index_listing.comment,
@@ -131,8 +131,8 @@ sub find_front_cover_by_release
         JOIN cover_art_archive.image_type
         ON cover_art_archive.index_listing.mime_type = cover_art_archive.image_type.mime_type
         WHERE cover_art_archive.index_listing.release
-        IN (" . placeholders(@ids) . ")
-        AND is_front = true";
+        IN (' . placeholders(@ids) . ')
+        AND is_front = true';
 
     my @artwork = $self->query_to_list($query, \@ids);
     foreach my $image (@artwork) {
@@ -150,9 +150,9 @@ sub find_count_by_release
     my ($self, $release_id) = @_;
 
     return unless $release_id; # nothing to do
-    my $query = "SELECT count(*)
+    my $query = 'SELECT count(*)
         FROM cover_art_archive.index_listing
-        WHERE cover_art_archive.index_listing.release = ?";
+        WHERE cover_art_archive.index_listing.release = ?';
 
     return $self->sql->select_single_value($query, $release_id);
 }
@@ -164,7 +164,7 @@ sub load_for_release_groups
     my @ids = keys %id_to_rg;
 
     return unless @ids; # nothing to do
-    my $query = "SELECT
+    my $query = 'SELECT
             DISTINCT ON (release.release_group)
             cover_art_archive.index_listing.id,
             cover_art_archive.index_listing.release,
@@ -194,12 +194,12 @@ sub load_for_release_groups
         ON release_group_cover_art.release = musicbrainz.release.id
         JOIN cover_art_archive.image_type
         ON cover_art_archive.index_listing.mime_type = cover_art_archive.image_type.mime_type
-        WHERE release.release_group IN (" . placeholders(@ids) . ")
+        WHERE release.release_group IN (' . placeholders(@ids) . q{)
         AND is_front = true
         AND cover_art_presence != 'darkened'
         ORDER BY release.release_group, release_group_cover_art.release,
           release_event.date_year, release_event.date_month,
-          release_event.date_day";
+          release_event.date_day};
 
     for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         my $artwork = $self->_new_from_row($row);

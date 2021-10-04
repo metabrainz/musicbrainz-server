@@ -56,9 +56,9 @@ test 'Delete account as an admin' => sub {
     my $c    = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         UPDATE editor SET privs = 128 WHERE id = 3; -- make kuno an account admin
-        EOSQL
+        SQL
 
     $mech->get('/login');
     $mech->submit_form( with_fields => { username => 'kuno', password => 'byld' } );

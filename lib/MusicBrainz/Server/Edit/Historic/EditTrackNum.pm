@@ -55,7 +55,7 @@ sub upgrade
     my $self = shift;
     unless (looks_like_number($self->new_value) &&
             looks_like_number($self->previous_value)) {
-        die "This data is corrupt and cannot be upgraded";
+        die 'This data is corrupt and cannot be upgraded';
     }
 
     $self->data({

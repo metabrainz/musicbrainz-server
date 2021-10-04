@@ -9,6 +9,9 @@
 
 import * as React from 'react';
 
+import localizeLanguageName
+  from '../static/scripts/common/i18n/localizeLanguageName';
+
 import LinkSearchableProperty from './LinkSearchableProperty';
 
 type Props = {
@@ -24,7 +27,7 @@ const LinkSearchableLanguage = ({
     entityType={entityType}
     searchField="lang"
     searchValue={language.iso_code_3 || ''}
-    text={l_languages(language.name)}
+    text={localizeLanguageName(language, entityType === 'work')}
   />
 );
 

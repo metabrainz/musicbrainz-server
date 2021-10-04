@@ -24,7 +24,7 @@ role {
 
     before initialize => sub {
         my ($self, %opts) = @_;
-        die "You must specify " . $prop_name unless defined $opts{$prop_name};
+        die 'You must specify ' . $prop_name unless defined $opts{$prop_name};
     };
 
     around new_data => sub {

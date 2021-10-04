@@ -9,14 +9,14 @@ around run_test => sub {
     my $c = $test->c;
     my $mech = $test->mech;
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO editor (id, name, password, email, email_confirm_date, ha1)
             VALUES (1, 'new_editor', '{CLEARTEXT}password', 'example@example.com', '2005-10-20', 'e1dd8fee8ee728b0ddc8027d3a3db478');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (10, '9f0b3e1a-2431-400f-b6ff-2bcebbf0971a', 'Bob & David', 'Bob & David'),
                    (11, '1f0b3e1a-2431-400f-b6ff-2bcebbf0971a', 'Bob', 'Bob'),
                    (12, '2f0b3e1a-2431-400f-b6ff-2bcebbf0971a', 'David', 'David');
-        EOSQL
+        SQL
 
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
@@ -30,10 +30,10 @@ test 'Split artist remove all collaboration relationships for that artist' => su
     my $test = shift;
     my $c = $test->c;
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO link (id, link_type) VALUES (1, 102);
         INSERT INTO l_artist_artist (id, link, entity0, entity1) VALUES (1, 1, 11, 10);
-        EOSQL
+        SQL
 
     my @edits = perform_split($test);
 
@@ -59,14 +59,14 @@ test 'Test splitting an artist' => sub {
 
     my $c = $test->c;
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO artist_credit (id, name, artist_count)
             VALUES (100, 'Bob & David', 1);
         INSERT INTO artist_credit_name (artist_credit, position, artist, name)
             VALUES (100, 0, 10, 'Bob & David');
         INSERT INTO recording (id, gid, name, artist_credit, length)
             VALUES (1, '123c079d-374e-4436-9448-da92dedef3cd', 'Bobbing and Daviding', 100, 123456);
-        EOSQL
+        SQL
 
     my @edits = perform_split($test);
 

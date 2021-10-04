@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::Report::RecordingReport',
 # production.
 
 sub query {
-    "
+    '
     SELECT
         recording_id,
         row_number() OVER (ORDER BY rname COLLATE musicbrainz, artist_id)
@@ -27,7 +27,7 @@ sub query {
             JOIN artist a2 ON (acn2.artist = a2.id AND a1.id != a2.id)
             WHERE (acn1.name = acn2.name OR a1.name = a2.name)
     ) r
-    ";
+    ';
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -37,7 +37,7 @@ $sql->commit;
 
 test 'Merging release labels' => sub {
     my $test = shift;
-    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Artist', 'Artist');
 
@@ -60,7 +60,7 @@ test 'Merging release labels' => sub {
         INSERT INTO release_label (release, label, catalog_number)
             VALUES (1, 1, 'ABC'), (2, 1, 'ABC'), (2, 1, 'XYZ'),
                    (3, NULL, 'MARVIN001'), (4, NULL, 'MARVIN001');
-        EOSQL
+        SQL
 
     subtest 'Merging when label and catalog numbers are not null' => sub {
         $test->c->model('ReleaseLabel')->merge_releases(1, 2);
@@ -90,7 +90,7 @@ test 'Merging release labels' => sub {
 
 test 'Release labels are intelligently merged when one release label has a catalog and the other does not' => sub {
     my $test = shift;
-    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Artist', 'Artist');
         INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Artist', 1);
@@ -106,7 +106,7 @@ test 'Release labels are intelligently merged when one release label has a catal
 
         INSERT INTO release_label (release, label, catalog_number)
             VALUES (1, 1, 'ABC'), (2, 1, NULL);
-        EOSQL
+        SQL
 
     $test->c->model('ReleaseLabel')->merge_releases(1, 2);
 

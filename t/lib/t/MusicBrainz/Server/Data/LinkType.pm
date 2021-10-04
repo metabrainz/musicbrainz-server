@@ -92,9 +92,9 @@ test 'Can load relationship documentation' => sub {
     my $c = $test->c;
 
     my $expected_documentation = 'Documentation goes here';
-    $test->c->sql->do(<<~'EOSQL', $expected_documentation);
+    $test->c->sql->do(<<~'SQL', $expected_documentation);
         INSERT INTO documentation.link_type_documentation (id, documentation) VALUES (102, ?);
-        EOSQL
+        SQL
 
     my $link_types = $c->model('LinkType')->get_by_ids(102, 103);
     my @all_link_types = values %$link_types;

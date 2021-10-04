@@ -8,7 +8,7 @@ with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion::PrimaryAlia
 };
 
 my $ws_defs = Data::OptList::mkopt([
-    "label" => {
+    'label' => {
         method   => 'GET',
         required => [ qw(q) ],
         optional => [ qw(direct limit page timestamp) ]

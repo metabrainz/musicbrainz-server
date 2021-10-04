@@ -8,7 +8,7 @@ sub table { 'isrc_with_many_recordings' }
 sub component_name { 'IsrcsWithManyRecordings' }
 
 sub query {
-    "
+    '
         SELECT i.isrc, recordingcount, r.id AS recording_id, r.name, r.length,
           row_number() OVER (ORDER BY i.isrc)
         FROM isrc i
@@ -18,7 +18,7 @@ sub query {
             FROM isrc
             GROUP BY isrc HAVING count(*) > 1
           ) t ON t.isrc = i.isrc
-    ";
+    ';
 }
 
 __PACKAGE__->meta->make_immutable;

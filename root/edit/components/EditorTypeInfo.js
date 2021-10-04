@@ -13,35 +13,37 @@ import bracketed from '../../static/scripts/common/utility/bracketed';
 import {isBot} from '../../static/scripts/common/utility/privileges';
 
 type Props = {
-  +editor: EditorT,
+  +editor: EditorT | null,
 };
 
 const EditorTypeInfo = ({
   editor,
-}: Props): React.Element<typeof React.Fragment> => (
-  <>
-    {editor.is_limited ? (
-      <span className="editor-class">
-        {bracketed(
-          <span
-            className="tooltip"
-            title={l('This user is new to MusicBrainz.')}
-          >
-            {l('beginner')}
-          </span>,
-        )}
-      </span>
-    ) : null}
-    {isBot(editor) ? (
-      <span className="editor-class">
-        {bracketed(
-          <span className="tooltip" title={l('This user is automated.')}>
-            {l('bot')}
-          </span>,
-        )}
-      </span>
-    ) : null}
-  </>
+}: Props): React.Element<typeof React.Fragment> | null => (
+  editor == null ? null : (
+    <>
+      {editor.is_limited ? (
+        <span className="editor-class">
+          {bracketed(
+            <span
+              className="tooltip"
+              title={l('This user is new to MusicBrainz.')}
+            >
+              {l('beginner')}
+            </span>,
+          )}
+        </span>
+      ) : null}
+      {isBot(editor) ? (
+        <span className="editor-class">
+          {bracketed(
+            <span className="tooltip" title={l('This user is automated.')}>
+              {l('bot')}
+            </span>,
+          )}
+        </span>
+      ) : null}
+    </>
+  )
 );
 
 export default EditorTypeInfo;

@@ -15,7 +15,7 @@ with 't::Context';
 test all => sub {
 
 my $test = shift;
-MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'EOSQL');
+MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'SQL');
     SET client_min_messages TO 'warning';
 
     TRUNCATE artist CASCADE;
@@ -36,7 +36,7 @@ MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'EOSQL');
 
     INSERT INTO artist_rating_raw (artist, editor, rating)
         VALUES (1, 11, 50), (2, 12, 50), (1, 13, 40), (1, 14, 10);
-    EOSQL
+    SQL
 
 my $rating_data = MusicBrainz::Server::Data::Rating->new(
     c => $test->c, type => 'artist', parent => $test->c->model('Artist') );
@@ -103,11 +103,11 @@ $test->c->sql->commit;
 @ratings = $rating_data->find_by_entity_id(1);
 is( scalar(@ratings), 0 );
 
-MusicBrainz::Server::Test->prepare_raw_test_database($test->c, <<~'EOSQL');
+MusicBrainz::Server::Test->prepare_raw_test_database($test->c, <<~'SQL');
     TRUNCATE artist_rating_raw CASCADE;
     INSERT INTO artist_rating_raw (artist, editor, rating)
         VALUES (1, 11, 50), (2, 11, 60), (2, 12, 70), (1, 13, 40), (1, 14, 10);
-    EOSQL
+    SQL
 
 $test->c->sql->begin;
 $rating_data->_update_aggregate_rating(1);
@@ -142,7 +142,7 @@ test 'Test find_editor_ratings' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'EOSQL');
+    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name, comment) VALUES
             (1, 'c09150d1-1e1b-46ad-9873-cc76d0c44499', 'Test', 'Test', 'Test 1'),
             (2, 'd09150d1-1e1b-46ad-9873-cc76d0c44499', 'Test', 'Test', 'Test 2');
@@ -156,7 +156,7 @@ test 'Test find_editor_ratings' => sub {
 
         INSERT INTO artist_rating_raw (artist, editor, rating)
             VALUES (1, 11, 50), (2, 11, 60), (1, 12, 40);
-        EOSQL
+        SQL
 
     my @tests = (
         { editor_id => 11, limit => 1, offset => 0, expected_hits => 2, expected_ids => [ 2 ] },

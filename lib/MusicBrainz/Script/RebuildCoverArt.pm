@@ -42,11 +42,11 @@ sub run
 {
     my $self = shift;
 
-    die "Can't work on a read-only database (DB_READ_ONLY is set)"
+    die q{Can't work on a read-only database (DB_READ_ONLY is set)}
         if DBDefs->DB_READ_ONLY;
 
     printf STDERR "You do not have both AWS_PUBLIC and AWS_PRIVATE defined in DBDefs.\n" .
-        "You will not be able to find artwork from Amazon until these are set."
+        'You will not be able to find artwork from Amazon until these are set.'
             unless (DBDefs->AWS_PUBLIC && DBDefs->AWS_PRIVATE);
 
     $self->ensure_release_cover_art;
@@ -77,11 +77,11 @@ sub run
         $self->sql->commit;
 
         if ($art) {
-            log_debug { sprintf "Cover art for %d is %s", $release->id, $art->image_uri };
+            log_debug { sprintf 'Cover art for %d is %s', $release->id, $art->image_uri };
             $updated++;
         }
         else {
-            log_warning { sprintf "Could not find cover art for %d", $release->id };
+            log_warning { sprintf 'Could not find cover art for %d', $release->id };
         }
 
         $seen{$release->id} = 1;
@@ -92,16 +92,16 @@ sub run
     $self->sql->finish;
 
     log_notice {
-        sprintf "Examined %d (%.2f%%) cover art rows, last updated between %s and %s. ".
-                "Updated %d releases.",
+        sprintf 'Examined %d (%.2f%%) cover art rows, last updated between %s and %s. '.
+                'Updated %d releases.',
                 $seen,
                 ($seen / $total) * 100,
-                ($first // "(never updated)"), ($last // "(never updated)"),
+                ($first // '(never updated)'), ($last // '(never updated)'),
                 $updated
         };
 
     log_notice {
-        sprintf "A complete pass of all %d releases will take up to approximately %.2f days.",
+        sprintf 'A complete pass of all %d releases will take up to approximately %.2f days.',
             $total, (((($total * 2) / 60) / 60) / 24)
         };
 

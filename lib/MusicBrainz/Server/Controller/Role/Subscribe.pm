@@ -46,7 +46,7 @@ sub subscribers : Chained('load') RequireAuth {
     );
 
      $c->stash(
-        component_path => 'entity/Subscribers.js',
+        component_path => 'entity/Subscribers',
         component_props => \%props,
         current_view => 'Node',
     );

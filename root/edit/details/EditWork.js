@@ -13,6 +13,8 @@ import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
 import {commaOnlyListText}
   from '../../static/scripts/common/i18n/commaOnlyList';
+import localizeLanguageName
+  from '../../static/scripts/common/i18n/localizeLanguageName';
 import Diff from '../../static/scripts/edit/components/edit/Diff';
 import DiffSide from '../../static/scripts/edit/components/edit/DiffSide';
 import FullChangeDiff
@@ -28,7 +30,7 @@ type EditWorkEditT = {
     },
     +comment?: CompT<string | null>,
     +iswc?: CompT<string | null>,
-    +languages?: CompT<$ReadOnlyArray<string>>,
+    +languages?: CompT<$ReadOnlyArray<LanguageT>>,
     +name?: CompT<string>,
     +type?: CompT<WorkTypeT | null>,
     +work: WorkT,
@@ -39,7 +41,7 @@ type Props = {
   +edit: EditWorkEditT,
 };
 
-const localizeLanguageName = name => l_languages(name);
+const localizeLanguage = language => localizeLanguageName(language, true);
 
 const EditWork = ({edit}: Props): React.Element<'table'> => {
   const display = edit.display_data;
@@ -97,10 +99,10 @@ const EditWork = ({edit}: Props): React.Element<'table'> => {
         <Diff
           label={addColonText(l('Lyrics Languages'))}
           newText={commaOnlyListText(
-            languages.new.map(localizeLanguageName),
+            languages.new.map(localizeLanguage),
           )}
           oldText={commaOnlyListText(
-            languages.old.map(localizeLanguageName),
+            languages.old.map(localizeLanguage),
           )}
           split=", "
         />

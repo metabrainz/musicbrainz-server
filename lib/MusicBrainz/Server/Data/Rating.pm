@@ -90,7 +90,7 @@ sub load_user_ratings
     my $type = $self->type;
     my $query = "
         SELECT $type AS id, rating FROM ${type}_rating_raw
-        WHERE editor = ? AND $type IN (".placeholders(@ids).")";
+        WHERE editor = ? AND $type IN (".placeholders(@ids).')';
 
     for my $row (@{ $self->sql->select_list_of_hashes($query, $user_id, @ids) }) {
         my $obj = $id_to_obj{$row->{id}};
@@ -146,9 +146,9 @@ sub merge
 sub delete
 {
     my ($self, @entity_ids) = @_;
-    $self->c->sql->do("
-        DELETE FROM " . $self->type . "_rating_raw
-        WHERE " . $self->type . " IN (" . placeholders(@entity_ids) . ")",
+    $self->c->sql->do('
+        DELETE FROM ' . $self->type . '_rating_raw
+        WHERE ' . $self->type . ' IN (' . placeholders(@entity_ids) . ')',
         @entity_ids);
     return 1;
 }

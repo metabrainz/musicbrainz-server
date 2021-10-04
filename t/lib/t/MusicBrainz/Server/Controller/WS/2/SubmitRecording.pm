@@ -22,12 +22,12 @@ my $mech = $test->mech;
 $mech->default_header('Accept' => 'application/xml');
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
-MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
     INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
         VALUES (1, 'new_editor', '{CLEARTEXT}password', 'e1dd8fee8ee728b0ddc8027d3a3db478', 'foo@example.com', now());
     INSERT INTO recording_gid_redirect (gid, new_id)
         VALUES ('78ad6e24-dc0a-4c20-8284-db2d44d28fb9', 4223060);
-    EOSQL
+    SQL
 
 # Check OPTIONS support
 my $req = HTTP::Request->new('OPTIONS', '/ws/2/recording?client=test-1.0');

@@ -74,7 +74,7 @@ after post_insert => sub {
                     editor_id => $EDITOR_MODBOT,
                     text => $edit_note
                 }
-            );            
+            );
         }
 
         if ($label_dupe_count) {

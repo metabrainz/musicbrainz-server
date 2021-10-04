@@ -16,7 +16,7 @@ sub query
     #    E.g. If the medium had mediums: 1, 2, 3, 3, 5 then
     #    the following will *not* hold:
     #    1 + 2 + 3 + 3 + 5 = 1 + 2 + 3 + 4 + 5
-    <<~'EOSQL'
+    <<~'SQL'
     SELECT DISTINCT release.id AS release_id,
         release.name,
         row_number() OVER (ORDER BY release.name COLLATE musicbrainz)
@@ -34,7 +34,7 @@ sub query
     WHERE first_medium != 1
     OR last_medium != medium_count
     OR (medium_count * (1 + medium_count)) / 2 <> medium_pos_acc
-    EOSQL
+    SQL
 }
 
 1;

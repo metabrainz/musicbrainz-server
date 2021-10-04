@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::Report::RecordingReport',
 sub statement_timeout { '120s' }
 
 sub query {
-    "
+    '
         SELECT
             r.id AS recording_id, t.id AS track_id,
             row_number() OVER (ORDER BY r.name COLLATE musicbrainz, t.name COLLATE musicbrainz)
@@ -19,7 +19,7 @@ sub query {
             ON r.id = t.recording
         WHERE (SELECT COUNT(*) FROM track WHERE recording = r.id) = 1
           AND r.name != t.name
-    "
+    '
 }
 
 sub inflate_rows

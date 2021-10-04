@@ -10,17 +10,17 @@ sub query {
 
     my $inner_table = join(
         ' UNION ',
-        map {<<~"EOSQL"} @tables
+        map {<<~"SQL"} @tables
             SELECT DISTINCT ON (url, other_entity) -- ignore several rel types between same entity pair
                 link_type.id AS link_type_id, link_type.gid AS link_type_gid,
                 l_table.id AS rel_id, ${\$_->[1]} AS url, ${\$_->[2]} AS other_entity
             FROM link_type
             JOIN link ON link.link_type = link_type.id
             JOIN ${\$_->[0]} l_table ON l_table.link = link.id
-            EOSQL
+            SQL
     );
 
-    my $query = <<~"EOSQL";
+    my $query = <<~"SQL";
         SELECT url.id AS url_id, count(*) AS count, row_number() OVER (ORDER BY count(*) DESC, url.id DESC)
         FROM url JOIN ($inner_table) l ON l.url = url.id
         WHERE url.url NOT LIKE 'https://www.wikidata.org%' -- has its own report
@@ -32,7 +32,7 @@ sub query {
             '770ea9f4-cba0-4194-b77f-fe2740055e34') -- work license
         GROUP BY url_id
         HAVING count(*) > 1
-        EOSQL
+        SQL
 
     return $query
 }

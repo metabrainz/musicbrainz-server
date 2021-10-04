@@ -15,7 +15,7 @@ use Scalar::Util qw( blessed );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( encode_entities trim_in_place );
 
-no if $] >= 5.018, warnings => "experimental::smartmatch";
+no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 sub new {
     my ($class, $context) = @_;
@@ -56,7 +56,7 @@ sub _html_token {
 
 sub _split_text {
     my ($text, $split) = @_;
-    defined $split or confess "No split pattern";
+    defined $split or confess 'No split pattern';
     $split = "($split)" unless $split eq '';
        # the capture group becomes a separate part of the split output
     return split /$split/, $text;

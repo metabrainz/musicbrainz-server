@@ -30,7 +30,7 @@ use strict;
 package MusicBrainz::Server::PagedReport;
 
 use Storable qw( freeze thaw );
-my $intlen = length(pack "i", 0);
+my $intlen = length(pack 'i', 0);
 
 ################################################################################
 # Save
@@ -60,9 +60,9 @@ sub Print
 
     my $pos = tell $dat;
     die if $pos < 0;
-    print $dat pack("i", length($record)), $record
+    print $dat pack('i', length($record)), $record
         or die $!;
-    print $idx pack "i", $pos
+    print $idx pack 'i', $pos
         or die $!;
 
     ++$self->{NUM};
@@ -117,7 +117,7 @@ sub Seek
     } else {
         read($idx, my $idxpos, $intlen)
                 or die $!;
-        seek($dat, unpack("i", $idxpos), 0)
+        seek($dat, unpack('i', $idxpos), 0)
                 or die $!;
     }
 
@@ -137,7 +137,7 @@ sub Get
 
     read($dat, my $reclen, $intlen)
         or die $!;
-    read($dat, my $record, unpack("i", $reclen))
+    read($dat, my $record, unpack('i', $reclen))
         or die $!;
     ++$self->{CUR};
 

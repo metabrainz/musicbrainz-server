@@ -151,7 +151,7 @@ test 'Test updating artist credits' => sub {
     my $c = $test->c;
     my $mech = $test->mech;
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO editor (id, name, password, email, email_confirm_date, ha1)
             VALUES (1, 'new_editor', '{CLEARTEXT}password', 'example@example.com', '2005-10-20', 'e1dd8fee8ee728b0ddc8027d3a3db478');
         INSERT INTO artist (id, gid, name, sort_name)
@@ -161,7 +161,7 @@ test 'Test updating artist credits' => sub {
             VALUES (1, 1, 'Alternative Name');
         INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
             VALUES (1, 10, 'Alternative Name', 1, '');
-        EOSQL
+        SQL
 
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );

@@ -50,7 +50,7 @@ sub format_wikitext
         'utf-8',
         Text::WikiFormat::format(
             encode('utf-8' => $text), {}, {
-                prefix => "//wiki.musicbrainz.org/",
+                prefix => '//wiki.musicbrainz.org/',
                 extended => 1,
                 nofollow_extended => 1,
                 absolute_links => 1,
@@ -81,7 +81,7 @@ sub _display_trimmed {
 
     # shorten url's that are longer 50 characters
     my $display_url = length($url) > 50
-        ? encode_square_brackets(encode_entities(substr($url, 0, 48))) . "&#8230;"
+        ? encode_square_brackets(encode_entities(substr($url, 0, 48))) . '&#8230;'
         : $encoded_url;
 
     $encoded_url = "http://$encoded_url"

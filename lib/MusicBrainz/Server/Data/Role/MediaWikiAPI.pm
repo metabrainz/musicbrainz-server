@@ -53,7 +53,7 @@ sub _get_and_process_json
     }
 
     # decode JSON depending on the action
-    my $content = decode_json(encode("utf-8", $response->content));
+    my $content = decode_json(encode('utf-8', $response->content));
     if ($content->{query}) {
         # Wikipedia (action: query)
         $content = $content->{query};

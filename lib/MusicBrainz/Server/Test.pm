@@ -2,8 +2,8 @@ package MusicBrainz::Server::Test;
 
 use feature 'state';
 
-binmode STDOUT, ":utf8";
-binmode STDERR, ":utf8";
+binmode STDOUT, ':utf8';
+binmode STDERR, ':utf8';
 
 use DBDefs;
 use Encode qw( encode );
@@ -49,8 +49,8 @@ use Sub::Exporter -setup => {
 BEGIN {
     no warnings 'redefine';
     use DBDefs;
-    *DBDefs::WEB_SERVER = sub { "localhost" };
-    *DBDefs::WEB_SERVER_USED_IN_EMAIL = sub { "localhost" };
+    *DBDefs::WEB_SERVER = sub { 'localhost' };
+    *DBDefs::WEB_SERVER_USED_IN_EMAIL = sub { 'localhost' };
     *DBDefs::RECAPTCHA_PUBLIC_KEY = sub { undef };
     *DBDefs::RECAPTCHA_PRIVATE_KEY = sub { undef };
     *DBDefs::OAUTH2_ENFORCE_TLS = sub { 0 };
@@ -152,7 +152,7 @@ sub get_latest_edit
     my ($class, $c) = @_;
     my $ed = MusicBrainz::Server::Data::Edit->new(c => $c);
     my $sql = Sql->new($c->conn);
-    my $last_id = $sql->select_single_value("SELECT id FROM edit ORDER BY ID DESC LIMIT 1") or return;
+    my $last_id = $sql->select_single_value('SELECT id FROM edit ORDER BY ID DESC LIMIT 1') or return;
     return $ed->get_by_id($last_id);
 }
 
@@ -226,7 +226,7 @@ sub xml_ok
 {
     my ($content, $message) = @_;
 
-    $message ||= "well-formed XML";
+    $message ||= 'well-formed XML';
 
     my $parser = XML::Parser->new(Style => 'Tree');
     eval { $parser->parse($content) };
@@ -235,7 +235,7 @@ sub xml_ok
         my @lines = split /\n/, $content;
         my $line = 1;
         foreach (@lines) {
-            $Test->diag(sprintf "%03d %s", $line, $_);
+            $Test->diag(sprintf '%03d %s', $line, $_);
             $line += 1;
         }
         $Test->diag("XML::Parser error: $error");
@@ -295,7 +295,7 @@ sub schema_validator
     $version = '2.0' if $version == 2 || !$version;
 
     my $mmd_root = $ENV{'MMD_SCHEMA_ROOT'} ||
-                   Cwd::realpath( File::Basename::dirname(__FILE__) ) . "/../../../../mmd-schema";
+                   Cwd::realpath( File::Basename::dirname(__FILE__) ) . '/../../../../mmd-schema';
 
     my $rng_file = "$mmd_root/schema/musicbrainz_mmd-$version.rng";
 
@@ -307,8 +307,8 @@ sub schema_validator
 
     if ($@)
     {
-        warn "Cannot find or parse RNG schema. Set environment var MMD_SCHEMA_ROOT to point ".
-            "to the mmd-schema directory or check out the mmd-schema in parallel to ".
+        warn 'Cannot find or parse RNG schema. Set environment var MMD_SCHEMA_ROOT to point '.
+            'to the mmd-schema directory or check out the mmd-schema in parallel to '.
             "the mb_server source. No schema validation will happen.\n";
         undef $rngschema;
     }
@@ -318,11 +318,11 @@ sub schema_validator
 
         my ($xml, $message) = @_;
 
-        $message ||= "Validate against schema";
+        $message ||= 'Validate against schema';
 
       SKIP: {
 
-          skip "schema not found", 1 unless $rngschema;
+          skip 'schema not found', 1 unless $rngschema;
 
           my $doc = XML::LibXML->new()->parse_string($xml);
           eval
@@ -348,7 +348,7 @@ sub _build_ws_test_xml {
         $opts ||= {};
 
         my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
-        $mech->default_header("Accept" => "application/xml");
+        $mech->default_header('Accept' => 'application/xml');
         $Test->subtest($msg => sub {
             if (exists $opts->{username} && exists $opts->{password}) {
                 $mech->credentials('localhost:80', 'musicbrainz.org', $opts->{username}, $opts->{password});
@@ -380,7 +380,7 @@ sub _build_ws_test_json {
         $opts ||= {};
 
         my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
-        $mech->default_header("Accept" => "application/json");
+        $mech->default_header('Accept' => 'application/json');
         $Test->subtest($msg => sub {
             if (exists $opts->{username} && exists $opts->{password}) {
                 $mech->credentials('localhost:80', 'musicbrainz.org', $opts->{username}, $opts->{password});
@@ -459,7 +459,7 @@ sub commandline_override
     my ($prefix, @default_tests) = @_;
 
     my $test_re = '';
-    GetOptions("tests=s" => \$test_re);
+    GetOptions('tests=s' => \$test_re);
 
     return grep { $_ =~ /$test_re/ } @default_tests;
 }

@@ -2100,6 +2100,13 @@ msgid ""
 "string while pulling the it."
 msgstr ""
 
+#. name:mellophone 
+#: DB:instrument/description:37
+msgid ""
+"Originating in the 19th century horn-design boom, it is used mostly in "
+"outside concert and marching music"
+msgstr ""
+
 #. name:octavina 
 #: DB:instrument/description:941
 msgid ""

@@ -13,14 +13,14 @@ if ($ARGV[0])
 {
     my %db = %{ $MusicBrainz::Server::DatabaseConnectionFactory::databases{uc($ARGV[0])} };
 
-    my $port = $db{port} // "5432";
-    my $host = $db{host} // "localhost";
+    my $port = $db{port} // '5432';
+    my $host = $db{host} // 'localhost';
 
-    print "export PGHOST=" . shell_quote($host) . "\n";
-    print "export PGPORT=" . shell_quote($port) . "\n";
-    print "export PGDATABASE=" . shell_quote($db{database}) . "\n";
-    print "export PGUSER=" . shell_quote($db{username}) . "\n";
-    print "export PGPASSWORD=" . shell_quote($db{password}) . "\n" if $db{password};
+    print 'export PGHOST=' . shell_quote($host) . "\n";
+    print 'export PGPORT=' . shell_quote($port) . "\n";
+    print 'export PGDATABASE=' . shell_quote($db{database}) . "\n";
+    print 'export PGUSER=' . shell_quote($db{username}) . "\n";
+    print 'export PGPASSWORD=' . shell_quote($db{password}) . "\n" if $db{password};
 }
 else
 {

@@ -45,17 +45,17 @@ sub voter_clause {
     my $sql = 'vote.editor ';
 
     if ($self->operator eq 'subscribed') {
-        $sql .= "IN (
+        $sql .= 'IN (
              SELECT subscribed_editor
                FROM editor_subscribe_editor
               WHERE editor = ?
-        )";
+        )';
     } elsif ($self->operator eq 'not_subscribed') {
-        $sql .= "NOT IN (
+        $sql .= 'NOT IN (
              SELECT subscribed_editor
                FROM editor_subscribe_editor
               WHERE editor = ?
-        )";
+        )';
     } elsif ($self->operator eq '!=' || $self->operator eq 'not_me') {
         $sql .= '!= ?';
     } else {
@@ -84,8 +84,8 @@ sub combine_with_query {
     if (@votes && $no_vote_option) {
         $query->add_where([
             join(' OR ',
-                 sprintf($sql, "vote.vote = any(?)"),
-                 sprintf("NOT $sql", "TRUE")
+                 sprintf($sql, 'vote.vote = any(?)'),
+                 sprintf("NOT $sql", 'TRUE')
             ),
             [
                 $voter_id,
@@ -95,7 +95,7 @@ sub combine_with_query {
         ]);
     } elsif (@votes && !$no_vote_option) {
         $query->add_where([
-            sprintf($sql, "vote.vote = any(?)"),
+            sprintf($sql, 'vote.vote = any(?)'),
             [
                 $voter_id,
                 \@votes,
@@ -103,7 +103,7 @@ sub combine_with_query {
         ]);
     } elsif (!@votes && $no_vote_option) {
         $query->add_where([
-            sprintf("NOT $sql", "TRUE"),
+            sprintf("NOT $sql", 'TRUE'),
             [
                 $voter_id,
             ]

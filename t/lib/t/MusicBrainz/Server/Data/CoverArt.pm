@@ -83,13 +83,13 @@ test 'Can update release_meta for ASINs with no artwork' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO url (id, gid, url)
             VALUES (1, 'fbf96576-1c9c-4676-bb7d-7b9d3173edb8', 'http://www.amazon.co.uk/gp/product/B000057QPT');
 
         INSERT INTO link (id, link_type) VALUES (1, 77);
         INSERT INTO l_release_url (entity0, entity1, link) VALUES (1, 1, 1);
-        EOSQL
+        SQL
 
     my $release = $c->model('Release')->get_by_id(1);
     $c->model('Relationship')->load_subset([ 'url' ], $release);

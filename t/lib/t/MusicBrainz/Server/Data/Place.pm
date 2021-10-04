@@ -234,10 +234,10 @@ test q(Deleting a place that's in a collection) => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+data_place');
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO editor (id, name, password, ha1)
             VALUES (5, 'me', '{CLEARTEXT}mb', 'a152e69b4cf029912ac2dd9742d8a9fc');
-        EOSQL
+        SQL
 
     my $place = $c->model('Place')->insert({ name => 'Test123' });
 
@@ -261,10 +261,10 @@ test q(Merging a place that's in a collection) => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+data_place');
 
-    $c->sql->do(<<~'EOSQL');
+    $c->sql->do(<<~'SQL');
         INSERT INTO editor (id, name, password, ha1)
             VALUES (5, 'me', '{CLEARTEXT}mb', 'a152e69b4cf029912ac2dd9742d8a9fc');
-        EOSQL
+        SQL
 
     my $place1 = $c->model('Place')->insert({ name => 'Test123' });
     my $place2 = $c->model('Place')->insert({ name => 'Test456' });

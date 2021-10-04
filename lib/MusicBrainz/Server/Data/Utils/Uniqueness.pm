@@ -34,10 +34,10 @@ sub assert_uniqueness_conserved {
         }
 
         my $query =
-            "SELECT " . $model->_columns .
+            'SELECT ' . $model->_columns .
             ' FROM ' . $model->_table .
             " WHERE (name, comment) IN (SELECT $new_name, $new_comment)".
-            " AND " . $model->_id_column . " != ?";
+            ' AND ' . $model->_id_column . ' != ?';
 
         my ($conflict) = $model->query_to_list($query, [@params, $id]);
 

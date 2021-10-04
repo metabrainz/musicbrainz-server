@@ -47,11 +47,11 @@ sub _load_attributes
     my ($self, $data, @ids) = @_;
 
     if (@ids) {
-        my $query = "
+        my $query = '
             SELECT *
             FROM link_type_attribute_type
-            WHERE link_type IN (" . placeholders(@ids) . ")
-            ORDER BY link_type";
+            WHERE link_type IN (' . placeholders(@ids) . ')
+            ORDER BY link_type';
         for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
             my $id = $row->{link_type};
             if (exists $data->{$id}) {
@@ -97,11 +97,11 @@ around get_by_gid => sub
 sub find_by_attribute
 {
     my ($self, $attribute_id) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
+    my $query = 'SELECT ' . $self->_columns . '
+                 FROM ' . $self->_table . '
                      JOIN link_type_attribute_type ltat ON ltat.link_type = link_type.id
                  WHERE ltat.attribute_type = ?
-                 ORDER BY link_type.name COLLATE musicbrainz";
+                 ORDER BY link_type.name COLLATE musicbrainz';
 
     $self->query_to_list($query, [$attribute_id]);
 }
@@ -121,7 +121,7 @@ sub get_tree
     my $extra_condition = '';
 
     unless ($opts{get_deprecated_and_empty}) {
-        $extra_condition = <<~'EOSQL';
+        $extra_condition = <<~'SQL';
             AND (
                 is_deprecated = FALSE
                 OR
@@ -129,7 +129,7 @@ sub get_tree
                     SELECT 1 FROM link WHERE link.link_type = lt.id
                 )
             )
-            EOSQL
+            SQL
     }
 
     for my $row (@{
@@ -166,7 +166,7 @@ sub get_full_tree
     my $extra_condition = '';
 
     unless ($get_deprecated_and_empty) {
-        $extra_condition = <<~'EOSQL';
+        $extra_condition = <<~'SQL';
             WHERE (
                 is_deprecated = FALSE
                 OR
@@ -174,7 +174,7 @@ sub get_full_tree
                     SELECT 1 FROM link WHERE link.link_type = lt.id
                 )
             )
-            EOSQL
+            SQL
     }
 
     for my $row (@{
@@ -300,13 +300,13 @@ sub set_examples {
     my ($self, $id, $examples) = @_;
 
     my $link_table = $self->sql->select_single_value(
-        "SELECT 'l_' || entity_type0 || '_' || entity_type1
+        q(SELECT 'l_' || entity_type0 || '_' || entity_type1
          FROM link_type
-         WHERE id = ?",
+         WHERE id = ?),
         $id
     );
 
-    my $documentation_link_table = sprintf "documentation.%s_example",
+    my $documentation_link_table = sprintf 'documentation.%s_example',
         $link_table;
 
     $self->sql->do(

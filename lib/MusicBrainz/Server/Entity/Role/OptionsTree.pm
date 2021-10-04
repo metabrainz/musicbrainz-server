@@ -71,11 +71,11 @@ role {
 
     method sorted_children => sub {
         my ($self, $coll) = @_;
-        $coll or die "No collator given";
+        $coll or die 'No collator given';
         my $attr = $params->sort_criterion;
 
         return sort_by {
-                            (sprintf "%+012d", $_->child_order) .
+                            (sprintf '%+012d', $_->child_order) .
                             $coll->getSortKey($_->$attr)
                        }
             $self->all_children;

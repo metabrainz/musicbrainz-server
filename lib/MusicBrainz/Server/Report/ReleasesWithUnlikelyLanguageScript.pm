@@ -12,7 +12,7 @@ after _load_extra_release_info => sub {
 };
 
 sub query {
-    "
+    q{
         SELECT
             DISTINCT r.id AS release_id,
             row_number() OVER (ORDER BY ac.name COLLATE musicbrainz, r.name COLLATE musicbrainz)
@@ -32,7 +32,7 @@ sub query {
             language.iso_code_3 = 'jpn' AND 
             script.iso_code NOT IN ('Brai', 'Hira', 'Hrkt', 'Kana', 'Jpan', 'Latn', 'Qaaa') 
         ) 
-    ";
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

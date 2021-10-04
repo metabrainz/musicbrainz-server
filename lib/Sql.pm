@@ -57,7 +57,7 @@ sub finish
 sub BUILDARGS
 {
     my ($self, $conn) = @_;
-   croak "Missing required argument 'conn'" unless defined $conn;
+   croak q(Missing required argument 'conn') unless defined $conn;
     return { conn => $conn };
 }
 
@@ -77,7 +77,7 @@ sub is_in_transaction
 sub select
 {
     my ($self, $query, @params) = @_;
-    my $prepare_method = (@params ? "prepare_cached" : "prepare");
+    my $prepare_method = (@params ? 'prepare_cached' : 'prepare');
 
     return try {
         my $tt = Sql::Timer->new($query, \@params) if $self->debug;
@@ -101,7 +101,7 @@ sub do
         croak 'do called while not in transaction, or marked to auto commit';
     }
 
-    my $prepare_method = (@params ? "prepare_cached" : "prepare");
+    my $prepare_method = (@params ? 'prepare_cached' : 'prepare');
 
     $self->_auto_commit(0) if $self->_auto_commit;
     return try {
@@ -140,7 +140,7 @@ sub insert_row
             push(@expressions, $$val);
         }
         else {
-            push @expressions, "?";
+            push @expressions, '?';
             push @values, $val;
         }
     }
@@ -170,7 +170,7 @@ sub insert_many {
     }
 
     my @keys = keys %pivot or return;
-    scalar(@{$pivot{$_}}) == scalar(@{$pivot{$keys[0]}}) or die "Inconsist row list"
+    scalar(@{$pivot{$_}}) == scalar(@{$pivot{$keys[0]}}) or die 'Inconsist row list'
         for @keys ;
 
     my $query = "INSERT INTO $table (" . join(', ', @keys) . ') VALUES ' .
@@ -253,7 +253,7 @@ sub commit
     return try {
         my $tt = Sql::Timer->new('COMMIT', []) if $self->debug;
         my $rv = $self->dbh->commit;
-        cluck "Commit failed" if ($rv eq '' && !$self->quiet);
+        cluck 'Commit failed' if ($rv eq '' && !$self->quiet);
         $self->dbh->{AutoCommit} = 1;
         return $rv;
     }
@@ -277,7 +277,7 @@ sub rollback
     return try {
         my $tt = Sql::Timer->new('ROLLBACK', []) if $self->debug;
         my $rv = $self->dbh->rollback;
-        cluck "Rollback failed" if ($rv eq '' && !$self->quiet);
+        cluck 'Rollback failed' if ($rv eq '' && !$self->quiet);
         $self->dbh->{AutoCommit} = 1;
         return $rv;
     }
@@ -606,9 +606,9 @@ sub DEMOLISH
     # than $somelimit
     #return if $t < 0.1;
 
-    local $" = ", ";
+    local $" = ', ';
     my $msg = sprintf 'SQL: %8.4fs "%s" (%s)', $t,
-        $sql, join(", ", @{ $self->args });
+        $sql, join(', ', @{ $self->args });
 
     printf STDERR "sql: %s at %s line %d\n", $msg, $self->file, $self->line_number;
 }

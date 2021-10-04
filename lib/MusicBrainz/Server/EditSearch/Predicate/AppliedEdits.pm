@@ -12,7 +12,7 @@ extends 'MusicBrainz::Server::EditSearch::Predicate::ID';
 sub combine_with_query {
     my ($self, $query) = @_;
 
-    my $subquery = "(SELECT COUNT(*) FROM edit H WHERE H.editor = edit.editor AND H.status = ?)";
+    my $subquery = '(SELECT COUNT(*) FROM edit H WHERE H.editor = edit.editor AND H.status = ?)';
 
     my $sql;
     given ($self->operator) {

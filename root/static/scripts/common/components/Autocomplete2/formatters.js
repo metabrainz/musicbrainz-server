@@ -18,6 +18,7 @@ import localizeLinkAttributeTypeDescription
   from '../../i18n/localizeLinkAttributeTypeDescription';
 import localizeLinkAttributeTypeName
   from '../../i18n/localizeLinkAttributeTypeName';
+import localizeLanguageName from '../../i18n/localizeLanguageName';
 import {reduceArtistCredit} from '../../immutable-entities';
 import bracketed, {bracketedText} from '../../utility/bracketed';
 import formatDate from '../../utility/formatDate';
@@ -434,7 +435,7 @@ function formatWork(work: WorkT) {
       {languages && languages.length ? (
         showExtraInfo(
           commaOnlyListText(
-            languages.map(wl => l_languages(wl.language.name)),
+            languages.map(wl => localizeLanguageName(wl.language, true)),
           ),
           'language',
         )

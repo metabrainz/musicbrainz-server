@@ -39,7 +39,7 @@ sub logger { $logger }
 
 sub _prefix_message {
     my %args = @_;
-    return sprintf "[%s] %s", $args{level}, $args{message};
+    return sprintf '[%s] %s', $args{level}, $args{message};
 }
 
 sub _truncate_message {
@@ -80,7 +80,7 @@ sub log_assertion (&$) {
         my ($package, $filename, $line) = caller(0);
         log_error { "Failed assertion: $message ($filename:$line)" };
         log_debug {
-            "Stacktrace: " .
+            'Stacktrace: ' .
                 Devel::StackTrace->new( ignore_class => 'MusicBrainz::Server::Log' )->as_string
               }
     }

@@ -19,7 +19,7 @@ sub find_releases
 
     # Find all releases that have a cover art URL but no URL relationship
     # that would explain it.
-    my $query = "
+    my $query = q{
       SELECT r_id
       FROM (
         SELECT
@@ -34,7 +34,7 @@ sub find_releases
         GROUP BY release.id
       ) s
       WHERE NOT (url_link_types && ?);
-    ";
+      };
 
     $self->c->model('Release')->query_to_list($query, [\@url_types], sub {
         my ($model, $row) = @_;
@@ -71,7 +71,7 @@ sub run
         $self->c->model('CoverArt')->cache_cover_art($release);
         $self->sql->commit;
 
-        log_debug { sprintf "Cover art removed for %d", $release->id };
+        log_debug { sprintf 'Cover art removed for %d', $release->id };
         $removed++;
 
         $seen{$release->id} = 1;
@@ -82,7 +82,7 @@ sub run
     $self->sql->finish;
 
     log_notice {
-        sprintf "Examined %d (%.2f%%) releases, removed %d cover art urls.",
+        sprintf 'Examined %d (%.2f%%) releases, removed %d cover art urls.',
                 $seen,
                 $total != 0 ? ($seen / $total) * 100 : 100,
                 $removed

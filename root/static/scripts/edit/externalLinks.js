@@ -551,32 +551,32 @@ export class ExternalLinksEditor
     } else if (isNewOrChangedLink && isMusicBrainz(link.url)) {
       error = {
         message: l(`Links to MusicBrainz URLs are not allowed.
-                Did you mean to paste something else?`),
+                    Did you mean to paste something else?`),
         target: URLCleanup.ERROR_TARGETS.URL,
       };
     } else if (isNewOrChangedLink && isMalware(link.url)) {
       error = {
         message: l(`Links to this website are not allowed
-                because it is known to host malware.`),
+                    because it is known to host malware.`),
         target: URLCleanup.ERROR_TARGETS.URL,
       };
     } else if (isNewOrChangedLink && isShortened(link.url)) {
       error = {
         message: l(`Please don’t enter bundled/shortened URLs,
-                enter the destination URL(s) instead.`),
+                    enter the destination URL(s) instead.`),
         target: URLCleanup.ERROR_TARGETS.URL,
       };
     } else if (isNewOrChangedLink && isGoogleAmp(link.url)) {
       error = {
         message: l(`Please don’t enter Google AMP links,
-                since they are effectively an extra redirect.
-                Enter the destination URL instead.`),
+                    since they are effectively an extra redirect.
+                    Enter the destination URL instead.`),
         target: URLCleanup.ERROR_TARGETS.URL,
       };
     } else if (!link.type) {
       error = {
         message: l(`Please select a link type for the URL
-                you’ve entered.`),
+                    you’ve entered.`),
         target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
       };
     } else if (
@@ -584,7 +584,7 @@ export class ExternalLinksEditor
     ) {
       error = {
         message: l(`This relationship type is deprecated 
-                and should not be used.`),
+                    and should not be used.`),
         target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
       };
     } else if (
@@ -602,18 +602,53 @@ export class ExternalLinksEditor
           message: '',
           target: URLCleanup.ERROR_TARGETS.NONE,
         };
-        error.target = check.target ||
-          URLCleanup.ERROR_TARGETS.NONE;
+        error.target = check.target || URLCleanup.ERROR_TARGETS.NONE;
         if (error.target === URLCleanup.ERROR_TARGETS.URL) {
-          error.message = l(
-            `This URL is not allowed for the selected link type,
-            or is incorrectly formatted.`,
-          );
+          error.message = l(`This URL is not allowed
+                             for the selected link type,
+                             or is incorrectly formatted.`);
         }
-        if (error.target ===
-          URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
+        if (error.target === URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
           error.message = l(`This URL is not allowed 
-                    for the selected link type.`);
+                             for the selected link type.`);
+        }
+        if (error.target === URLCleanup.ERROR_TARGETS.ENTITY) {
+          switch (checker.entityType) {
+            case 'area':
+              error.message = l(`This URL is not allowed for areas.`);
+              break;
+            case 'artist':
+              error.message = l(`This URL is not allowed for artists.`);
+              break;
+            case 'event':
+              error.message = l(`This URL is not allowed for events.`);
+              break;
+            case 'instrument':
+              error.message = l(`This URL is not allowed for instruments.`);
+              break;
+            case 'label':
+              error.message = l(`This URL is not allowed for labels.`);
+              break;
+            case 'place':
+              error.message = l(`This URL is not allowed for places.`);
+              break;
+            case 'recording':
+              error.message = l(`This URL is not allowed for recordings.`);
+              break;
+            case 'release':
+              error.message = l(`This URL is not allowed for releases.`);
+              break;
+            case 'release_group':
+              error.message = l(`This URL is not allowed for release
+                                 groups.`);
+              break;
+            case 'series':
+              error.message = l(`This URL is not allowed for series.`);
+              break;
+            case 'work':
+              error.message = l(`This URL is not allowed for works.`);
+              break;
+          }
         }
         error.message = check.error || error.message;
       }
@@ -899,6 +934,19 @@ const ExternalLinkRelationship =
     return (
       <tr className="relationship-item" key={link.relationship}>
         <td />
+        <td className="link-actions">
+          {!props.isOnlyRelationship && !props.urlMatchesType &&
+            <RemoveButton
+              onClick={() => props.onLinkRemove(link.index)}
+              title={l('Remove Relationship')}
+            />}
+          <ExternalLinkAttributeDialog
+            onConfirm={
+              (attributes) => props.onAttributesChange(link.index, attributes)
+            }
+            relationship={link}
+          />
+        </td>
         <td>
           <div className="relationship-content">
             <label>{addColonText(l('Type'))}</label>
@@ -977,19 +1025,6 @@ const ExternalLinkRelationship =
               {link.error.message}
             </div>}
         </td>
-        <td className="link-actions" style={{minWidth: '38px'}}>
-          <ExternalLinkAttributeDialog
-            onConfirm={
-              (attributes) => props.onAttributesChange(link.index, attributes)
-            }
-            relationship={link}
-          />
-          {!props.isOnlyRelationship && !props.urlMatchesType &&
-            <RemoveButton
-              onClick={() => props.onLinkRemove(link.index)}
-              title={l('Remove Relationship')}
-            />}
-        </td>
       </tr>
     );
   };
@@ -1059,6 +1094,26 @@ export class ExternalLink extends React.Component<LinkProps> {
               {props.index + 1}
             </label>
           </td>
+          <td className="link-actions">
+            {notEmpty &&
+              <RemoveButton
+                data-index={props.index}
+                onClick={() => props.onUrlRemove()}
+                title={l('Remove Link')}
+              />}
+            {!isEmpty(props) && firstLink.submitted &&
+              <URLInputPopover
+                cleanupUrl={props.cleanupUrl}
+                /*
+                 * Randomly choose a link because relationship errors
+                 * are not displayed, thus link type doesn't matter.
+                 */
+                link={firstLink}
+                onConfirm={props.handleUrlChange}
+                validateLink={props.validateLink}
+              />
+            }
+          </td>
           <td>
             {/* Links that are not submitted will not be grouped,
               * so it's safe to check the first link only.
@@ -1111,26 +1166,6 @@ export class ExternalLink extends React.Component<LinkProps> {
               </div>
             }
           </td>
-          <td className="link-actions" style={{minWidth: '38px'}}>
-            {!isEmpty(props) && firstLink.submitted &&
-              <URLInputPopover
-                cleanupUrl={props.cleanupUrl}
-                /*
-                 * Randomly choose a link because relationship errors
-                 * are not displayed, thus link type doesn't matter.
-                 */
-                link={firstLink}
-                onConfirm={props.handleUrlChange}
-                validateLink={props.validateLink}
-              />
-            }
-            {notEmpty &&
-              <RemoveButton
-                data-index={props.index}
-                onClick={() => props.onUrlRemove()}
-                title={l('Remove Link')}
-              />}
-          </td>
         </tr>
         {notEmpty &&
           props.relationships.map((link, index) => (
@@ -1171,7 +1206,8 @@ export class ExternalLink extends React.Component<LinkProps> {
         {notEmpty && firstLink.submitted && !props.urlMatchesType &&
         <tr className="add-relationship">
           <td />
-          <td className="add-item" colSpan="4">
+          <td />
+          <td className="add-item">
             <button
               className="add-item with-label"
               onClick={() => props.onAddRelationship(props.url)}
@@ -1466,6 +1502,16 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
   const entityTypes = [sourceType, 'url'].sort().join('-');
   let initialLinks = parseRelationships(sourceData.relationships);
 
+  initialLinks.sort(function (a, b) {
+    const typeA = a.type && linkedEntities.link_type[a.type];
+    const typeB = b.type && linkedEntities.link_type[b.type];
+
+    return compare(
+      typeA ? l_relationships(typeA.link_phrase).toLowerCase() : '',
+      typeB ? l_relationships(typeB.link_phrase).toLowerCase() : '',
+    );
+  });
+
   // Terribly get seeded URLs
   if (MB.formWasPosted) {
     if (hasSessionStorage) {
@@ -1494,22 +1540,13 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
       ((Object.values(urls): any): $ReadOnlyArray<SeededUrlShape>)
     ) {
       initialLinks.push(newLinkState({
+        rawUrl: data.text || '',
         relationship: uniqueId('new-'),
         type: parseInt(data.link_type_id, 10) || null,
         url: data.text || '',
       }));
     }
   }
-
-  initialLinks.sort(function (a, b) {
-    const typeA = a.type && linkedEntities.link_type[a.type];
-    const typeB = b.type && linkedEntities.link_type[b.type];
-
-    return compare(
-      typeA ? l_relationships(typeA.link_phrase).toLowerCase() : '',
-      typeB ? l_relationships(typeB.link_phrase).toLowerCase() : '',
-    );
-  });
 
   initialLinks = initialLinks.map(function (link) {
     /*

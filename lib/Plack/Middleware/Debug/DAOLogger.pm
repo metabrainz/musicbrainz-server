@@ -21,18 +21,18 @@ sub run {
         my $sum = sum(map { $_->[1] } @call_stack);
 
         $panel->content(
-            "<p>This panel shows time spent within the data access layer. Rows ".
-            "highlighted in red indicate that time spent within this method ".
-            "deviates by more than 1 σ for all calls amongst siblings</p>".
-            "<table>".
+            '<p>This panel shows time spent within the data access layer. Rows '.
+            'highlighted in red indicate that time spent within this method '.
+            'deviates by more than 1 σ for all calls amongst siblings</p>'.
+            '<table>'.
                 '<thead><tr><th style="width: 6em">Time</th><th>Call</th></tr></thead>' .
                     render_stack(0, @call_stack) .
                         qq(<tr><th style="text-align: left" colspan="2">$sum</th></tr>).
-                            "</table>");
+                            '</table>');
 
         $panel->nav_title('Data Access');
         $panel->title('Time Spent in Data Access Objects');
-        $panel->nav_subtitle(sprintf "%.4fs", $sum);
+        $panel->nav_subtitle(sprintf '%.4fs', $sum);
     };
 }
 
@@ -55,7 +55,7 @@ sub render_stack {
             ($outlier && 'style="background: #ffcccc"');
         $content .= sprintf '<td><div style="padding-left: %dem">%.5f</div></td>', $indent, $time;
         $content .= sprintf '<td style="padding-left: %dem">%s</td>', $indent * 2, $name;
-        $content .= "</tr>";
+        $content .= '</tr>';
         $content .= render_stack($indent + 1, @$calls);
     }
 

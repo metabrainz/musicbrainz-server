@@ -5,7 +5,7 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
      'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
 sub query {
-    "
+    q{
         SELECT DISTINCT ON (r.id)
             r.id AS release_id,
             row_number() OVER (ORDER BY ac.name COLLATE musicbrainz, r.name COLLATE musicbrainz)
@@ -28,7 +28,7 @@ sub query {
               (mf.year IS NOT NULL AND date_year < mf.year)
           ) r
         JOIN artist_credit ac ON r.artist_credit = ac.id
-    ";
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

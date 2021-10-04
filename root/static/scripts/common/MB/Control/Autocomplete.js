@@ -17,6 +17,7 @@ import AddEntityDialog, {
 import {ENTITIES, MAX_RECENT_ENTITIES} from '../../constants';
 import mbEntity from '../../entity';
 import commaOnlyList from '../../i18n/commaOnlyList';
+import localizeLanguageName from '../../i18n/localizeLanguageName';
 import {reduceArtistCredit} from '../../immutable-entities';
 import MB from '../../MB';
 import {compactMap, first, groupBy, last} from '../../utility/arrays';
@@ -850,7 +851,7 @@ MB.Control.autocomplete_formatters = {
       a.prepend(
         '<span class="autocomplete-language">' +
         he.escape(commaOnlyList(
-          item.languages.map(wl => l_languages(wl.language.name)),
+          item.languages.map(wl => localizeLanguageName(wl.language, true)),
         )) + '</span>',
       );
     }

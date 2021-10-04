@@ -222,7 +222,7 @@ sub release_browse : Private
 
     if (!is_guid($id))
     {
-        $c->stash->{error} = "Invalid mbid.";
+        $c->stash->{error} = 'Invalid mbid.';
         $c->detach('bad_req');
     }
 
@@ -314,7 +314,7 @@ sub release_submit : Private
     my @submit;
     for my $node ($xp->find('/mb:metadata/mb:release-list/mb:release')->get_nodelist) {
         my $id = $xp->find('@mb:id', $node)->string_value or
-            $self->_error($c, "All releases must have an MBID present");
+            $self->_error($c, 'All releases must have an MBID present');
 
         $self->_error($c, "$id is not a valid MBID")
             unless is_guid($id);
