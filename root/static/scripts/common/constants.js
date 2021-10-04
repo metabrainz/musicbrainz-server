@@ -178,6 +178,7 @@ export const FAVICON_CLASSES = {
   'tidal.com': 'tidal',
   'tipeee.com': 'tipeee',
   'touhoudb.com': 'touhoudb',
+  'tower.jp': 'tower',
   'traxsource.com': 'traxsource',
   'triplejunearthed.com': 'triplejunearthed',
   'tunearch.org': 'tunearch',
