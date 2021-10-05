@@ -560,6 +560,13 @@ const testData = [
        input_relationship_type: 'mailorder',
        only_valid_entity_types: [],
   },
+  {
+                     input_url: 'https://gamechops.bandcamp.com/campaign/samus-chill/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'crowdfunding',
+            expected_clean_url: 'https://gamechops.bandcamp.com/campaign/samus-chill',
+       only_valid_entity_types: ['release'],
+  },
   // Bandsintown
   {
                      input_url: "https://m.bandsintown.com/MattDobberteen's50thBirthday?came_from=178",
