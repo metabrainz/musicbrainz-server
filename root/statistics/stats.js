@@ -13,6 +13,7 @@ const stats = {
   'category': {
     'artist-countries': {label: l('Artist Countries')},
     'artist-other': {label: l('Artist Types and Genders')},
+    'collection': {label: l('Collections')},
     'core-entities': {label: l('Core Entities')},
     'cover-art': {hide: true, label: l('Cover Art')},
     'edit-information': {hide: true, label: l('Edit Information')},
