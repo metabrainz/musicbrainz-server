@@ -6,6 +6,8 @@
  * http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/* eslint-disable import/no-commonjs */
+
 /*
  * This module is used to look up assets in webpack's manifest, which maps
  * asset names to their public URLs (which include a hash in the filename

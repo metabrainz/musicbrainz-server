@@ -8,6 +8,7 @@
  */
 
 /* eslint-disable max-len */
+/* eslint-disable import/no-commonjs */
 
 const DBDefs = require('../static/scripts/common/DBDefs');
 
