@@ -464,6 +464,28 @@ sub NONCE_SECRET { '' }
 # compatibility.
 sub USE_SET_DATABASE_HEADER { shift->USE_SELENIUM_HEADER }
 sub USE_SELENIUM_HEADER { 0 }
+# `DISABLE_LAST_LOGIN_UPDATE` prevents the server from updating
+# `editor.last_login_date` whenever a user logs in. This is useful in a
+# couple obscure scenarios:
+#
+#  * In t/selenium.js, we check whether any changes were made to the
+#    database after each test; if so, we run script/reset_selenium_env.sh
+#    (which is quite slow). Some tests that are otherwise read-only still
+#    require a login. By disabling the last_login_date update (which is
+#    completely useless to the tests), we avoid making any changes to the
+#    database in those cases.
+#
+#  * It's sometimes useful to connect the READWRITE database to a (read-only)
+#    standby, but *without* having DB_READ_ONLY on, so that edit pages can
+#    still be loaded. Loading an edit page first requires logging in. While
+#    it's technically possible to do that without enabling this flag, the
+#    login page will error on the last_login_date update, and break any login
+#    redirect. (The login itself will succeed, but the error message and lack
+#    of redirect is very annoying.)
+#
+# If DB_READ_ONLY is enabled, this flag is meaningless as no updates happen
+# in that case anyway.
+sub DISABLE_LAST_LOGIN_UPDATE { 0 }
 
 # Used to create search indexes dump from SolrCloud.
 sub SOLRCLOUD_COLLECTIONS_API { undef }

@@ -8,6 +8,18 @@ SIR_LOG_FILE="$MBS_ROOT"/t/selenium/.sir-amqp_watch.log
 SIR_PID_FILE="$MBS_ROOT"/t/selenium/.sir-amqp_watch.pid
 SIR_REINDEX_LOG_FILE="$MBS_ROOT"/t/selenium/.sir-reindex.log
 
+terminate_pg_backends() {
+    echo `date` : Terminating all PG backends
+    local CANCEL_QUERY=$(cat <<'SQL'
+SELECT pg_terminate_backend(pid)
+  FROM pg_stat_activity
+ WHERE usename = 'musicbrainz'
+   AND query NOT LIKE '%pg_terminate_backend%';
+SQL
+    )
+    OUTPUT=`echo "$CANCEL_QUERY" | ./admin/psql SELENIUM 2>&1` || ( echo "$OUTPUT" && exit 1 )
+}
+
 if [[ $SIR_DIR ]]; then
     # Stop sir to avoid deadlocks below.
     # TRUNCATE requires ACCESS EXCLUSIVE locks on each table.
@@ -21,23 +33,20 @@ if [[ $SIR_DIR ]]; then
         echo '' > "$SIR_PID_FILE"
     fi
 
+    terminate_pg_backends
+
     # Temporarily drop sir triggers to avoid queueing thousands of
     # pending changes to the type tables via t/sql/initial.sql.
     echo `date` : Dropping sir triggers
     OUTPUT=`./admin/psql SELENIUM <"$SIR_DIR"/sql/DropTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
     echo `date` : Purging sir queues
-    if [[ -d /etc/service/sir-queue-purger ]]; then
-        touch "$HOME"/.purge_sir_queues
-        while [[ -e "$HOME"/.purge_sir_queues ]]; do
-            sleep 1
-        done
-    else
-        OUTPUT=`./script/purge_sir_queues.sh /sir-test 2>&1` || ( echo "$OUTPUT" && exit 1 )
-    fi
+    OUTPUT=`./script/purge_sir_queues.sh /sir-test 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
     echo `date` : Purging Solr cores
     OUTPUT=`./script/purge_solr_cores.sh 2>&1` || ( echo "$OUTPUT" && exit 1 )
+else
+    terminate_pg_backends
 fi
 
 echo `date` : Truncating all tables

@@ -51,7 +51,6 @@ const chrome = require('selenium-webdriver/chrome');
 const firefox = require('selenium-webdriver/firefox');
 const webdriverProxy = require('selenium-webdriver/proxy');
 const {Key} = require('selenium-webdriver/lib/input');
-const promise = require('selenium-webdriver/lib/promise');
 const until = require('selenium-webdriver/lib/until');
 
 const DBDefs = require('../root/static/scripts/common/DBDefs');
@@ -90,44 +89,79 @@ TestCls.prototype.deepEqual2 = function (a, b, msg, extra) {
   });
 };
 
-function execFile(...args) {
-  return new Promise(function (resolve, reject) {
-    let exitCode = null;
-    let result = null;
-
-    function done() {
-      result.code = exitCode;
-      if (result.error) {
-        reject(result);
-      } else {
-        resolve(result);
-      }
+async function _retryTest(isOk) {
+  for (let i = 0; i < 3; i++) {
+    if (await isOk()) {
+      break;
+    } else {
+      await driver.sleep(3000);
     }
+  }
+}
 
-    const child = child_process.execFile(
-      ...args,
-      function (error, stdout, stderr) {
-        result = {error, stdout, stderr};
-        if (exitCode !== null) {
+TestCls.prototype.equalWithRetry = async function (a, b) {
+  let aValue;
+  await _retryTest(async () => {
+    aValue = await a();
+    return Object.is(aValue, b);
+  });
+  this.equal(aValue, b);
+};
+
+TestCls.prototype.okWithRetry = async function (isOk) {
+  let ok;
+  await _retryTest(async () => {
+    ok = await isOk();
+    return ok;
+  });
+  this.ok(ok);
+};
+
+function wrapChildProcessMethod(methodName) {
+  return (...args) => {
+    return new Promise(function (resolve, reject) {
+      let exitCode = null;
+      let result = null;
+
+      function done() {
+        result.code = exitCode;
+        if (result.error) {
+          reject(result);
+        } else {
+          resolve(result);
+        }
+      }
+
+      const child = child_process[methodName](
+        ...args,
+        function (error, stdout, stderr) {
+          result = {error, stdout, stderr};
+          if (exitCode !== null) {
+            done();
+          }
+        },
+      );
+
+      child.on('exit', function (code) {
+        exitCode = code;
+        if (result !== null) {
           done();
         }
-      },
-    );
-
-    child.on('exit', function (code) {
-      exitCode = code;
-      if (result !== null) {
-        done();
-      }
+      });
     });
-  });
+  };
 }
+
+const exec = wrapChildProcessMethod('exec');
+const execFile = wrapChildProcessMethod('execFile');
 
 const proxy = httpProxy.createProxyServer({});
 let pendingReqs = [];
+let reqsCount = 0;
 
 proxy.on('proxyReq', function (req) {
   pendingReqs.push(req);
+  reqsCount++;
 });
 
 const customProxyServer = http.createServer(function (req, res) {
@@ -240,11 +274,15 @@ async function selectOption(select, optionLocator) {
       } else {
         value = new RegExp('^\s*' + escapeRegExp(value) + '\s*$');
       }
-      option = await select.findElement(function () {
-        const options = select.findElements(webdriver.By.tagName('option'));
-        return promise.filter(options, function (option) {
-          return option.getText().then(x => value.test(x));
-        });
+      option = await select.findElement(async function () {
+        const options =
+          await select.findElements(webdriver.By.tagName('option'));
+        for (const option of options) {
+          if (value.test(await option.getText())) {
+            return option;
+          }
+        }
+        return null;
       });
       break;
 
@@ -308,6 +346,72 @@ async function writePreviousSeleniumCoverage() {
   }
 }
 
+function timePrefix(str) {
+  return `[${(new Date()).toISOString().slice(-13)}] ${str}`;
+}
+
+async function checkSirQueues(t) {
+  let failedCount = 0;
+  let retryCount = 0;
+  let indexCount = 0;
+  let deleteCount = 0;
+  let prevIndexCount = 0;
+  let prevDeleteCount = 0;
+
+  while (
+    (prevIndexCount + prevDeleteCount) === 0 ||
+    // Continue if the queues are actually decreasing.
+    (indexCount - prevIndexCount) < 0 ||
+    (deleteCount - prevDeleteCount) < 0
+  ) {
+    prevIndexCount = indexCount;
+    prevDeleteCount = deleteCount;
+
+    const result = await exec(
+      "sudo -n rabbitmqctl list_queues -p '/sir-test' -q --formatter=json",
+    );
+    const sirQueues = JSON.parse(result.stdout);
+    const messageCounts = sirQueues.reduce((map, queue) => {
+      map.set(queue.name, queue.messages);
+      return map;
+    }, new Map());
+
+    failedCount = messageCounts.get('search.failed') || 0;
+    retryCount = messageCounts.get('search.retry') || 0;
+    indexCount = messageCounts.get('search.index') || 0;
+    deleteCount = messageCounts.get('search.delete') || 0;
+
+    if (failedCount || retryCount) {
+      throw new Error(
+        'non-empty sir queues: ' +
+        `search.failed (${failedCount}), search.retry (${retryCount})`,
+      );
+    }
+
+    if (indexCount || deleteCount) {
+      t.comment(timePrefix(
+        'waiting for non-empty sir queues: ' +
+        `search.index (${indexCount}), search.delete (${deleteCount})`,
+      ));
+      await driver.sleep(5000);
+    } else {
+      return;
+    }
+  }
+
+  throw new Error(
+    'non-empty sir queues: ' +
+    `search.index (${indexCount}), search.delete (${deleteCount})`,
+  );
+}
+
+async function getSeleniumDbTupStats() {
+  const result = await execFile(
+    path.resolve(__dirname, '../script/get_selenium_tup_stats.sh'),
+  );
+  return JSON.parse(result.stdout);
+}
+
 async function handleCommandAndWait({command, target, value}, t) {
   const newCommand = command.replace(/AndWait$/, '');
 
@@ -327,11 +431,11 @@ async function handleCommand({command, target, value}, t) {
     return pendingReqs.length === 0;
   });
 
-  t.comment(
+  t.comment(timePrefix(
     command +
     ' target=' + JSON.stringify(target) +
     ' value=' + JSON.stringify(value),
-  );
+  ));
 
   let element;
   switch (command) {
@@ -350,16 +454,24 @@ async function handleCommand({command, target, value}, t) {
       const attribute = target.slice(splitAt + 1);
       element = await findElement(locator);
 
-      t.equal(await element.getAttribute(attribute), value);
+      await t.equalWithRetry(
+        async () => element.getAttribute(attribute),
+        value,
+      );
       break;
 
     case 'assertElementPresent':
-      const elements = await driver.findElements(makeLocator(target));
-      t.ok(elements.length > 0);
+      await t.okWithRetry(async () => {
+        const elements = await driver.findElements(makeLocator(target));
+        return elements.length > 0;
+      });
       break;
 
     case 'assertEval':
-      t.equal(await driver.executeScript(`return String(${target})`), value);
+      await t.equalWithRetry(
+        async () => driver.executeScript(`return String(${target})`),
+        value,
+      );
       break;
 
     case 'assertEditData':
@@ -375,24 +487,36 @@ async function handleCommand({command, target, value}, t) {
       break;
 
     case 'assertLocationMatches':
-      t.ok(new RegExp(target).test(await driver.getCurrentUrl()));
+      await t.okWithRetry(async () => {
+        return new RegExp(target).test(await driver.getCurrentUrl());
+      });
       break;
 
     case 'assertText':
-      target = await getElementText(target);
-      t.equal(target, value.trim());
+      await t.equalWithRetry(
+        async () => getElementText(target),
+        value.trim(),
+      );
       break;
 
     case 'assertTextMatches':
-      t.ok(new RegExp(value).test(await getElementText(target)));
+      await t.okWithRetry(async () => {
+        return new RegExp(value).test(await getElementText(target));
+      });
       break;
 
     case 'assertTitle':
-      t.equal(await driver.getTitle(), target);
+      await t.equalWithRetry(
+        async () => driver.getTitle(),
+        target,
+      );
       break;
 
     case 'assertValue':
-      t.equal(await findElement(target).getAttribute('value'), value);
+      await t.equalWithRetry(
+        async () => findElement(target).getAttribute('value'),
+        value,
+      );
       break;
 
     case 'check':
@@ -556,7 +680,24 @@ async function runCommands(commands, t) {
   await driver.manage().window().setRect({height: 768, width: 1024});
 
   for (let i = 0; i < commands.length; i++) {
+    let reqsCountBeforeCommand = reqsCount;
+
     await handleCommand(commands[i], t);
+
+    /*
+     * Wait for sir queues to empty before proceeding. rabbitmqctl
+     * list_queues is extremely slow (taking more than 500 ms to run on my
+     * local machine), so we try to avoid this for commands that don't have
+     * side-effects, like assertions. If no new requests have been made, we
+     * also consider the command to be side-effect free.
+     */
+    if (
+      process.env.SIR_DIR &&
+      !/^assert/.test(commands[i].command) &&
+      reqsCount > reqsCountBeforeCommand
+    ) {
+      await checkSirQueues(t);
+    }
 
     const nextCommand = i < (commands.length - 1) ? commands[i + 1] : null;
 
@@ -592,13 +733,19 @@ async function runCommands(commands, t) {
 }
 
 (async function runTests() {
-  const TEST_TIMEOUT = 200000; // 200 seconds
+  const TEST_TIMEOUT = 300000; // 300 seconds
 
-  async function cleanSeleniumDb(extraSql) {
+  async function cleanSeleniumDb(t, extraSql) {
+    const startTime = new Date();
     await execFile(
       path.resolve(__dirname, '../script/reset_selenium_env.sh'),
       extraSql ? [path.resolve(__dirname, 'sql', extraSql)] : [],
     );
+    const finishTime = new Date();
+    const elapsedTime = (finishTime - startTime) / 1000;
+    t.comment(timePrefix(
+      `cleanSeleniumDb(): took ${elapsedTime} seconds`,
+    ));
   }
 
   const loginPlan = getPlan(testPath('Log_In.json5'));
@@ -609,6 +756,8 @@ async function runCommands(commands, t) {
     : seleniumTests;
 
   customProxyServer.listen(5051);
+
+  let shouldCleanSeleniumDb = true;
 
   await testsToRun.reduce(function (accum, stest, index) {
     const {commands, plan, title} = getPlan(stest.path);
@@ -624,9 +773,20 @@ async function runCommands(commands, t) {
         const timeout = setTimeout(resolve, TEST_TIMEOUT);
 
         accum.then(async function () {
-          try {
-            await cleanSeleniumDb(stest.sql);
+          const hasExtraSql = typeof stest.sql === 'string';
 
+          if (hasExtraSql || shouldCleanSeleniumDb) {
+            await cleanSeleniumDb(t, stest.sql);
+          }
+
+          const startTime = new Date();
+
+          let didDatabaseChange = hasExtraSql;
+          const startTupStats = didDatabaseChange
+            ? null
+            : (await getSeleniumDbTupStats());
+
+          try {
             if (stest.login) {
               await runCommands(loginPlan.commands, t);
             }
@@ -644,6 +804,29 @@ async function runCommands(commands, t) {
               (error && error.stack ? error.stack : error.toString()),
             );
             throw error;
+          } finally {
+            const finishTime = new Date();
+            const elapsedTime = (finishTime - startTime) / 1000;
+            t.comment(timePrefix(
+              `${title}: took ${elapsedTime} seconds`,
+            ));
+
+            if (!didDatabaseChange) {
+              const finishTupStats = await getSeleniumDbTupStats();
+              didDatabaseChange = (
+                finishTupStats.tup_inserted > startTupStats.tup_inserted ||
+                finishTupStats.tup_updated > startTupStats.tup_updated ||
+                finishTupStats.tup_deleted > startTupStats.tup_deleted
+              );
+            }
+
+            /*
+             * Tests always run serially, one after another.
+             * The require-atomic-updates violation appears to be a false-
+             * positive from eslint.
+             */
+            // eslint-disable-next-line require-atomic-updates
+            shouldCleanSeleniumDb = didDatabaseChange;
           }
 
           t.end();

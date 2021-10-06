@@ -678,15 +678,11 @@
       target: '1500',
       value: '',
     },
-    // FIXME: Flaky test. The intent is to check that there's only one edit in
-    //        the preview list. Will likely resolve itself once the release
-    //        editor is converted to React and edit previews aren't rendered
-    //        via /ws/js/edit/preview.
-    // {
-    //   command: assertEval,
-    //   target: "window.document.getElementsByClassName('edit-list').length",
-    //   value: '1',
-    // },
+    {
+      command: 'assertEval',
+      target: "window.document.getElementsByClassName('edit-list').length",
+      value: '1',
+    },
     {
       command: 'assertText',
       target: "xpath=(//div[contains(@class, 'edit-list')]//h2)[1]",

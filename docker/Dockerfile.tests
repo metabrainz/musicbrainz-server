@@ -220,16 +220,13 @@ COPY \
     docker/musicbrainz-tests/redis.service \
     /etc/service/redis/run
 COPY \
-    docker/musicbrainz-tests/sir-queue-purger.service \
-    /etc/service/sir-queue-purger/run
-COPY \
     docker/musicbrainz-tests/solr.service \
     /etc/service/solr/run
 COPY \
     docker/musicbrainz-tests/ssssss.service \
     /etc/service/ssssss/run
 COPY \
-    docker/scripts/start_template_renderer.sh \
+    docker/musicbrainz-tests/template-renderer.service \
     /etc/service/template-renderer/run
 COPY \
     docker/musicbrainz-tests/vnu.service \
@@ -243,7 +240,6 @@ RUN chmod 755 \
         /etc/service/chrome/run \
         /etc/service/postgresql/run \
         /etc/service/redis/run \
-        /etc/service/sir-queue-purger/run \
         /etc/service/solr/run \
         /etc/service/ssssss/run \
         /etc/service/template-renderer/run \
@@ -255,12 +251,17 @@ RUN touch \
     /etc/service/chrome/down \
     /etc/service/postgresql/down \
     /etc/service/redis/down \
-    /etc/service/sir-queue-purger/down \
     /etc/service/solr/down \
     /etc/service/ssssss/down \
     /etc/service/template-renderer/down \
     /etc/service/vnu/down \
     /etc/service/website/down
+
+COPY \
+    docker/scripts/start_template_renderer.sh \
+    /usr/local/bin/
+RUN chmod 755 \
+        /usr/local/bin/start_template_renderer.sh
 
 COPY docker/scripts/install_svlogd_services.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/install_svlogd_services.sh && \
@@ -270,12 +271,15 @@ RUN chmod +x /usr/local/bin/install_svlogd_services.sh && \
         chrome \
         postgresql \
         redis \
-        sir-queue-purger \
         solr \
         ssssss \
         template-renderer \
         vnu \
         website && \
     rm /usr/local/bin/install_svlogd_services.sh
+
+# Allow the musicbrainz user execute any command with sudo.
+# Primarily needed to run rabbitmqctl.
+RUN echo 'musicbrainz ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 LABEL com.circleci.preserve-entrypoint=true
