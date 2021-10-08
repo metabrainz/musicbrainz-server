@@ -9,7 +9,7 @@
 import he from 'he';
 import $ from 'jquery';
 import ko from 'knockout';
-import * as ReactDOM from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
 
 import AddEntityDialog, {
   TITLES as ADD_NEW_ENTITY_TITLES,
@@ -495,14 +495,19 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
         label,
         action: function () {
           const containerNode = self._getAddEntityContainer()[0];
+          let root = null;
 
           const closeAndReturnFocus = () => {
-            ReactDOM.unmountComponentAtNode(containerNode);
+            if (root) {
+              root.unmount();
+              root = null;
+            }
             self.element.focus();
           };
 
+          root = ReactDOMClient.createRoot(containerNode);
           /* eslint-disable react/jsx-no-bind */
-          ReactDOM.render(
+          root.render(
             <AddEntityDialog
               callback={(item) => {
                 self.options.select(null, {item});
@@ -512,7 +517,6 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
               entityType={entity}
               name={self._value()}
             />,
-            containerNode,
           );
           /* eslint-enable react/jsx-no-bind */
         },
