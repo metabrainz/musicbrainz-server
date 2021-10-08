@@ -82,19 +82,19 @@ const POSTPROCESS_FIXLIST = [
    * "fe" is considered a lowercase word, but "Santa Fe" is very common in
    * song titles, so change that "fe" back into "Fe".
    */
-  [/(\b|^)Santa fe(\b|$)/g,        'Santa Fe'],
-  [/(\b|^)R\s*&\s*B(\b)/i,         'R&B'],
-  [/(\b|^)\[live\](\b)/i,          '(live)'],
-  [/(\b|^)Djs(\b)/i,               'DJs'],
-  [/(\b|^)imac(\b)/i,              'iMac'], // Apple products
-  [/(\b|^)ipad(\b)/i,              'iPad'],
-  [/(\b|^)iphone(\b)/i,            'iPhone'],
-  [/(\b|^)ipod(\b)/i,              'iPod'],
-  [/(\b|^)itunes(\b)/i,            'iTunes'],
-  [/(\b|^)youtube(\b)/ig,          'YouTube'],
-  [/(\s|^)Rock '?n'? Roll(\s|$)/i, "Rock 'n' Roll"],
-  [/(\b)w([/／])o(\b)/i,           'w$2o'], // w/o should be lowercase
-  [/(\b)f([.．/／])(\b)/i,         'f$2'], // f. and f/ should be lowercase
+  [/(\b|^)Santa fe(\b|$)/g,         'Santa Fe'],
+  [/(\b|^)R\s*&\s*B(\b)/ig,         'R&B'],
+  [/(\b|^)\[live\](\b)/i,           '(live)'],
+  [/(\b|^)Djs(\b)/ig,               'DJs'],
+  [/(\b|^)imac(\b)/ig,              'iMac'], // Apple products
+  [/(\b|^)ipad(\b)/ig,              'iPad'],
+  [/(\b|^)iphone(\b)/ig,            'iPhone'],
+  [/(\b|^)ipod(\b)/ig,              'iPod'],
+  [/(\b|^)itunes(\b)/ig,            'iTunes'],
+  [/(\b|^)youtube(\b)/ig,           'YouTube'],
+  [/(\s|^)Rock '?n'? Roll(\s|$)/ig, "Rock 'n' Roll"],
+  [/(\b)w([/／])o(\b)/i,            'w$2o'], // w/o should be lowercase
+  [/(\b)f([.．/／])(\b)/i,          'f$2'], // f. and f/ should be lowercase
 ];
 /* eslint-enable no-multi-spaces */
 
