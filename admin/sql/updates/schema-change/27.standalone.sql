@@ -2,6 +2,7 @@
 -- 20210702-mbs-11760.sql
 -- 20210916-mbs-11896.sql
 -- 20210924-mbs-10327.sql
+-- 20211008-mbs-11903.sql
 \\set ON_ERROR_STOP 1
 BEGIN;
 SET search_path = musicbrainz, public;
@@ -77,5 +78,28 @@ RETURNS trigger AS $$
     RETURN NEW;
   END;
 $$ LANGUAGE 'plpgsql';
+
+--------------------------------------------------------------------------------
+SELECT '20211008-mbs-11903.sql';
+
+
+CREATE OR REPLACE FUNCTION restore_collection_sub_on_public()
+RETURNS trigger AS $$
+  BEGIN
+    IF NEW.public = TRUE AND OLD.public = FALSE THEN
+      UPDATE editor_subscribe_collection sub
+         SET available = TRUE,
+             last_seen_name = NEW.name
+       WHERE sub.collection = OLD.id
+         AND sub.available = FALSE;
+    END IF;
+
+    RETURN NULL;
+  END;
+$$ LANGUAGE 'plpgsql';
+
+-- Create triggers
+CREATE TRIGGER restore_collection_sub_on_public AFTER UPDATE ON editor_collection
+    FOR EACH ROW EXECUTE PROCEDURE restore_collection_sub_on_public();
 
 COMMIT;

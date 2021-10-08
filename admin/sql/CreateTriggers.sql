@@ -52,6 +52,9 @@ CREATE TRIGGER del_collection_sub_on_delete BEFORE DELETE ON editor_collection
 CREATE TRIGGER del_collection_sub_on_private BEFORE UPDATE ON editor_collection
     FOR EACH ROW EXECUTE PROCEDURE del_collection_sub_on_private();
 
+CREATE TRIGGER restore_collection_sub_on_public AFTER UPDATE ON editor_collection
+    FOR EACH ROW EXECUTE PROCEDURE restore_collection_sub_on_public();
+
 CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON artist_alias
     FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(3);
 
