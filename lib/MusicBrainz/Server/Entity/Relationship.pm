@@ -286,7 +286,7 @@ around TO_JSON => sub {
         source_type     => $self->source_type,
         target          => $self->target->TO_JSON,
         target_type     => $self->target_type,
-        verbosePhrase   => $self->verbose_phrase,
+        verbosePhrase   => $link->type_id ? $self->verbose_phrase : '',
     };
 
     $json->{begin_date} = $link->begin_date->is_empty ? undef : partial_date_to_hash($link->begin_date);
@@ -294,12 +294,16 @@ around TO_JSON => sub {
     $json->{backward} = boolean_to_json($self->direction == $DIRECTION_BACKWARD);
 
     my $source = $self->source;
-    $self->link_entity($source->entity_type, $source->id, $source);
+    if (defined $source) {
+        $self->link_entity($source->entity_type, $source->id, $source);
+    }
 
-    $self->link_entity('link_type', $link->type_id, $link->type);
+    if (defined $link->type) {
+        $self->link_entity('link_type', $link->type_id, $link->type);
 
-    for my $ltat ($link->type->all_attributes) {
-        $self->link_entity('link_attribute_type', $ltat->type_id, $ltat->type);
+        for my $ltat ($link->type->all_attributes) {
+            $self->link_entity('link_attribute_type', $ltat->type_id, $ltat->type);
+        }
     }
 
     return $json;
