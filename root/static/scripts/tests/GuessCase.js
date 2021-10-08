@@ -413,7 +413,7 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-  t.plan(29);
+  t.plan(30);
 
   const tests = [
     {
@@ -552,6 +552,12 @@ test('BugFixes', function (t) {
       input: 'I Love My iPad, My IPod and My Iphone!',
       expected: 'I Love My iPad, My iPod and My iPhone!',
       bug: 'MBS-7421',
+      mode: 'English',
+    },
+    {
+      input: 'A story of YouTube (youtube edit)',
+      expected: 'A Story of YouTube (YouTube edit)',
+      bug: 'MBS-12017',
       mode: 'English',
     },
     {

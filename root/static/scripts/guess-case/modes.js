@@ -91,6 +91,7 @@ const POSTPROCESS_FIXLIST = [
   [/(\b|^)iphone(\b)/i,            'iPhone'],
   [/(\b|^)ipod(\b)/i,              'iPod'],
   [/(\b|^)itunes(\b)/i,            'iTunes'],
+  [/(\b|^)youtube(\b)/ig,          'YouTube'],
   [/(\s|^)Rock '?n'? Roll(\s|$)/i, "Rock 'n' Roll"],
   [/(\b)w([/／])o(\b)/i,           'w$2o'], // w/o should be lowercase
   [/(\b)f([.．/／])(\b)/i,         'f$2'], // f. and f/ should be lowercase
