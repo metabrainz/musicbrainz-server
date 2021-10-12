@@ -20,7 +20,7 @@ sub verify_artist_alias {
     my ($alias, $name, $id, $locale) = @_;
     is($alias->name, $name, "alias name: $name");
     is($alias->artist_id, $id, "artist id: $id");
-    is($alias->locale, $locale, "locale: $locale");
+    is($alias->locale, $locale, $locale ? "locale: $locale" : 'locale undef');
 }
 
 test all => sub {
