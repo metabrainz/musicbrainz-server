@@ -32,6 +32,17 @@
       target: '/artist/create',
       value: '',
     },
+    // fill required fields
+    {
+      command: 'type',
+      target: 'id=id-edit-artist.name',
+      value: 'No Age',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-artist.sort_name',
+      value: 'No Age',
+    },
     // automatic link type detection for URL
     {
       command: 'click',
@@ -238,10 +249,47 @@
       target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][3]//select[contains(@class, 'link-type')]",
       value: '',
     },
+    // Select duplicate type, check an error is given
     {
       command: 'select',
       target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][3]//select[contains(@class, 'link-type')]",
-      value: 'label=regexp:\\s*fan pages',
+      value: 'label=regexp:\\s*official homepages',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][3]//div[contains(@class, 'field-error')]",
+      value: 'This relationship already exists.',
+    },
+    {
+      command: 'assertEval',
+      target: "window.document.querySelector('button.submit.positive').disabled",
+      value: 'true',
+    },
+    // Add date to the duplicate, check error is gone
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][3]//button[contains(@class, 'edit-item')]",
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=//div[@id='external-link-attribute-dialog']//input[@id='id-period.end_date.year']",
+      value: '2021',
+    },
+    {
+      command: 'click',
+      target: "xpath=(//div[@id='external-link-attribute-dialog']//button[contains(@class, 'positive')])[1]",
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "window.document.querySelector('#external-links-editor tr.relationship-item:nth-child(3) div.field.error')",
+      value: 'null',
+    },
+    {
+      command: 'assertEval',
+      target: "window.document.querySelector('button.submit.positive').disabled",
+      value: 'false',
     },
     // Add relationship by entering the same URL
     {
@@ -399,16 +447,6 @@
       value: 'external-link-item\nrelationship-item\nexternal-link-item',
     },
     // submit the artist
-    {
-      command: 'type',
-      target: 'id=id-edit-artist.name',
-      value: 'No Age',
-    },
-    {
-      command: 'type',
-      target: 'id=id-edit-artist.sort_name',
-      value: 'No Age',
-    },
     {
       command: 'clickAndWait',
       target: 'css=button.submit.positive',

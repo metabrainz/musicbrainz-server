@@ -536,19 +536,19 @@ export class ExternalLinksEditor
     link: LinkRelationshipT | LinkStateT,
     checker?: URLCleanup.Checker,
   ): ErrorT | null {
-    const linksByTypeAndUrl = groupBy(
+    const linksByTypeUrlAndDate = groupBy(
       uniqBy(
         this.state.links.filter(link => !link.deleted),
         link => link.relationship,
       ),
-      linkTypeAndUrlString,
+      linkTypeUrlAndDateString,
     );
-    const deletedLinksByTypeAndUrl = groupBy(
+    const deletedLinksByTypeUrlAndDate = groupBy(
       uniqBy(
         this.state.links.filter(link => link.deleted),
         link => link.relationship,
       ),
-      linkTypeAndUrlString,
+      linkTypeUrlAndDateString,
     );
     let error: ErrorT | null = null;
 
@@ -632,7 +632,7 @@ export class ExternalLinksEditor
         target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
       };
     } else if (
-      (linksByTypeAndUrl.get(linkTypeAndUrlString(link)) ||
+      (linksByTypeUrlAndDate.get(linkTypeUrlAndDateString(link)) ||
         []).length > 1
     ) {
       error = {
@@ -641,7 +641,11 @@ export class ExternalLinksEditor
         target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
       };
     } else if (isNewOrChangedLink) {
-      if (deletedLinksByTypeAndUrl.get(linkTypeAndUrlString(link))?.length) {
+      if (
+        (deletedLinksByTypeUrlAndDate.get(
+          linkTypeUrlAndDateString(link),
+        )?.length)
+      ) {
         error = {
           message: l(
             `This duplicates a relationship marked for deletion.
@@ -1392,14 +1396,15 @@ function newLinkState(state: $ReadOnly<$Partial<LinkStateT>>) {
   return {...defaultLinkState, ...state};
 }
 
-function linkTypeAndUrlString(link) {
+function linkTypeUrlAndDateString(link) {
   /*
    * There's no reason why we should allow adding the same relationship
    * twice when the only difference is http vs https, so normalize this
    * for the check.
    */
   const httpUrl = link.url.replace(/^https/, 'http');
-  return (link.type || '') + '\0' + httpUrl;
+  const dateString = formatDatePeriod(link);
+  return (link.type || '') + '\0' + httpUrl + '\0' + dateString;
 }
 
 function isEmpty(link) {
