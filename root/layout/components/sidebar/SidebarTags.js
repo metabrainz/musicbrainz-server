@@ -30,7 +30,8 @@ const TagList = ({
   isGenreList = false,
   tags,
 }: TagListProps) => {
-  const links = tags ? tags.reduce((accum, t) => {
+  const upvotedTags = tags ? tags.filter(tag => tag.count > 0) : null;
+  const links = upvotedTags ? upvotedTags.reduce((accum, t) => {
     if (Boolean(t.tag.genre) === isGenreList) {
       accum.push(<TagLink key={'tag-' + t.tag.name} tag={t.tag.name} />);
     }
