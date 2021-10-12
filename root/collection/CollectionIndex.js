@@ -190,7 +190,7 @@ React.Element<typeof CollectionLayout> => {
           </>
         ) : null}
       </div>
-      <div className="">
+      <div className="collaborators">
         {collection.collaborators.length ? (
           <>
             <h2>{l('Collaborators')}</h2>
