@@ -5,8 +5,15 @@ use Moose;
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name { 'Bandcamp' }
+sub sidebar_name {
+    my $self = shift;
 
+    if ($self->url =~ m{^https://[^/]+.bandcamp.com/campaign/[^?#/]+$}i) {
+        return 'Bandcamp Campaign';
+    } else {
+        return 'Bandcamp';
+    }
+}
 sub url_is_scheme_independent { 1 }
 
 __PACKAGE__->meta->make_immutable;
