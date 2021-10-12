@@ -14,7 +14,9 @@ import {
 import {compare} from '../static/scripts/common/i18n';
 import commaList from '../static/scripts/common/i18n/commaList';
 import linkedEntities from '../static/scripts/common/linkedEntities';
-import {compareStrings} from '../static/scripts/common/utility/compare';
+import {
+  compareStrings,
+} from '../static/scripts/common/utility/compare';
 import {compareDatePeriods}
   from '../static/scripts/common/utility/compareDates';
 import {
@@ -22,6 +24,7 @@ import {
   mergeSortedArrayInto,
   sortedIndexWith,
 } from '../static/scripts/common/utility/arrays';
+import {uniqueId} from '../static/scripts/common/utility/strings';
 import {
   cmpLinkAttrs,
   getExtraAttributes,
@@ -114,25 +117,81 @@ const areDatedExtraAttributesEqual = (a, b) => (
   arraysEqual(a.attributes, b.attributes, areLinkAttrsEqual)
 );
 
-const areRelationshipTargetGroupsEqual = (a, b) => {
-  const aTracks = a.tracks;
-  const bTracks = b.tracks;
-
+const compareRelationshipTargetGroups = (
+  a: RelationshipTargetGroupT,
+  b: RelationshipTargetGroupT,
+  options: {
+    compareDatedExtraAttributesLists: boolean,
+    compareTracks: boolean,
+  },
+) => {
   return (
-    a.key === b.key &&
-    arraysEqual(
-      a.datedExtraAttributesList,
-      b.datedExtraAttributesList,
-      areDatedExtraAttributesEqual,
-    ) &&
-    ((aTracks && bTracks)
+    a.target.id === b.target.id &&
+    a.targetCredit === b.targetCredit &&
+    /*
+     * Ordered relationships are displayed as a numbered list. It doesn't
+     * make sense to group differently-numbered parts together, even if they
+     * refer to the same entity, so we include the linkOrder in the key.
+     * (As an example, there are some known cases with "part of" work
+     * relationships where a sub-work is supposed to be played twice in
+     * different orders.)
+     */
+    a.linkOrder === b.linkOrder &&
+    /*
+     * Don't merge relationships without attributes into ones that have
+     * them; that makes the ones without any completely invisible to the
+     * user.
+     */
+    a.hasAttributes === b.hasAttributes &&
+
+    (options.compareTracks ? (
+      (a.tracks == null && b.tracks == null) ||
+      (
+        a.tracks != null &&
+        b.tracks != null &&
+        areSetsEqual(a.tracks, b.tracks)
+      )
+    ) : true) &&
+
+    (options.compareDatedExtraAttributesLists
       ? arraysEqual(
-        Array.from(aTracks),
-        Array.from(bTracks),
-        (a, b) => a === b,
-      ) : true)
+        a.datedExtraAttributesList,
+        b.datedExtraAttributesList,
+        areDatedExtraAttributesEqual,
+      )
+      : true)
   );
 };
+
+const canMergeTargetGroupsByTracksOptions = {
+  compareDatedExtraAttributesLists: false,
+  compareTracks: true,
+};
+
+const canMergeTargetGroupsByTracks =
+  (a, b) => compareRelationshipTargetGroups(
+    a, b, canMergeTargetGroupsByTracksOptions,
+  );
+
+const canMergeTargetGroupsByAttributesOptions = {
+  compareDatedExtraAttributesLists: true,
+  compareTracks: false,
+};
+
+const canMergeTargetGroupsByAttributes =
+  (a, b) => compareRelationshipTargetGroups(
+    a, b, canMergeTargetGroupsByAttributesOptions,
+  );
+
+const areTargetGroupsIdenticalOptions = {
+  compareDatedExtraAttributesLists: true,
+  compareTracks: true,
+};
+
+const areTargetGroupsIdentical =
+  (a, b) => compareRelationshipTargetGroups(
+    a, b, areTargetGroupsIdenticalOptions,
+  );
 
 function displayLinkPhrase(linkTypeInfo) {
   const phrase = linkTypeInfo.phrase;
@@ -232,6 +291,32 @@ function mergeDatedExtraAttributes(pairs) {
   }
 }
 
+export function compareTrackPositions(a: TrackT, b: TrackT): number {
+  return a.position - b.position;
+}
+
+function mergeTargetGroupsByTracks(
+  targetGroups: Array<RelationshipTargetGroupT>,
+): void {
+  for (let i = 0; i < targetGroups.length; i++) {
+    for (let j = i + 1; j < targetGroups.length; j++) {
+      const targetGroup1 = targetGroups[i];
+      const targetGroup2 = targetGroups[j];
+
+      if (canMergeTargetGroupsByAttributes(targetGroup1, targetGroup2)) {
+        targetGroup1.tracks = new Set(
+          [
+            ...(targetGroup1.tracks || []),
+            ...(targetGroup2.tracks || []),
+          ].sort(compareTrackPositions),
+        );
+        targetGroups.splice(j, 1);
+        j--;
+      }
+    }
+  }
+}
+
 const getSortName = x => x.entityType === 'artist' ? x.sort_name : x.name;
 
 function targetIsOrderable(relationship: RelationshipT) {
@@ -240,6 +325,18 @@ function targetIsOrderable(relationship: RelationshipT) {
   // `backward` indicates that the relationship target is entity0
   return (linkType.orderable_direction === 1 && !backward) ||
           (linkType.orderable_direction === 2 && backward);
+}
+
+function areSetsEqual<T>(a: Set<T>, b: Set<T>): boolean {
+  if (a.size !== b.size) {
+    return false;
+  }
+  for (const value of a) {
+    if (!b.has(value)) {
+      return false;
+    }
+  }
+  return true;
 }
 
 export default function groupRelationships(
@@ -413,55 +510,45 @@ export default function groupRelationships(
       ? relationship.attributes.length > 0
       : false;
 
-    let targetGroup = phraseGroup.targetGroups.find(targetGroup => (
-      targetGroup.target.id === target.id &&
-      targetGroup.targetCredit === targetCredit &&
-      /*
-       * Ordered relationships are displayed as a numbered list. It doesn't
-       * make sense to group differently-numbered parts together, even if they
-       * refer to the same entity, so we include the linkOrder in the key.
-       * (As an example, there are some known cases with "part of" work
-       * relationships where a sub-work is supposed to be played twice in
-       * different orders.)
-       */
-      targetGroup.linkOrder === linkOrder &&
-      /*
-       * Don't merge relationships without attributes into ones that have
-       * them; that makes the ones without any completely invisible to the
-       * user.
-       */
-      targetGroup.hasAttributes === hasAttributes
-    ));
-
-    if (!targetGroup) {
-      targetGroup = ({
-        datedExtraAttributesList: [],
-        earliestDatePeriod: datePeriod,
-        editsPending: relationship.editsPending,
-        hasAttributes,
-        isOrderable,
-        key: String(target.id) + UNIT_SEP + targetCredit + UNIT_SEP +
-          (linkOrder ?? '') + UNIT_SEP +
-          (hasAttributes ? '1' : '0'),
-        linkOrder,
-        target,
-        targetCredit,
-        tracks: null,
-      }: RelationshipTargetGroupT);
-      phraseGroup.targetGroups.push(targetGroup);
-    }
-
+    let tracks = null;
     if (trackMapping) {
       const relationshipId = relationship.linkTypeID + '-' + relationship.id;
-      const tracks = trackMapping.get(relationshipId);
-      if (tracks) {
-        if (targetGroup.tracks == null) {
-          targetGroup.tracks = new Set();
-        }
-        for (const track of tracks) {
-          targetGroup.tracks.add(track);
-        }
-      }
+      /*
+       * Get the tracks this relationship appears on.
+       * (A recording or work can be linked to multiple tracks.)
+       */
+      tracks = trackMapping.get(relationshipId) || null;
+    }
+
+    let targetGroup = ({
+      datedExtraAttributesList: [],
+      earliestDatePeriod: datePeriod,
+      editsPending: relationship.editsPending,
+      hasAttributes,
+      isOrderable,
+      key: uniqueId(),
+      linkOrder,
+      target,
+      targetCredit,
+      tracks,
+    }: RelationshipTargetGroupT);
+
+    /*
+     * Ensure we're not merging target groups across different tracks yet.
+     * This will be done later, as a separate step, after attribute/date
+     * lists are combined. See `mergeTargetGroupsByTracks`.
+     */
+    const existingTargetGroup = phraseGroup.targetGroups.find(
+      (otherTargetGroup) => canMergeTargetGroupsByTracks(
+        targetGroup,
+        otherTargetGroup,
+      ),
+    );
+
+    if (existingTargetGroup) {
+      targetGroup = existingTargetGroup;
+    } else {
+      phraseGroup.targetGroups.push(targetGroup);
     }
 
     if (datePeriod !== targetGroup.earliestDatePeriod) {
@@ -499,6 +586,10 @@ export default function groupRelationships(
         datedExtraAttributesList.sort(cmpFirstDatePeriods);
       }
 
+      if (trackMapping) {
+        mergeTargetGroupsByTracks(targetGroups);
+      }
+
       targetGroups.sort(cmpRelationshipTargetGroups);
     }
 
@@ -524,7 +615,7 @@ export default function groupRelationships(
         if (relatedLinkType && arraysEqual(
           targetGroups1,
           targetGroups2,
-          areRelationshipTargetGroupsEqual,
+          areTargetGroupsIdentical,
         )) {
           // Merge editsPending flags
           for (let k = 0; k < targetGroups1.length; k++) {
