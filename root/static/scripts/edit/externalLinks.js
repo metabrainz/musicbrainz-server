@@ -1029,7 +1029,7 @@ export class ExternalLink extends React.Component<LinkProps> {
     if (index === null) {
       return;
     }
-    const target = document.getElementById(`external-links-${index}`);
+    const target = document.getElementById(`external-link-${index}`);
     if (!target) {
       return;
     }
@@ -1057,7 +1057,7 @@ export class ExternalLink extends React.Component<LinkProps> {
       <React.Fragment>
         <tr
           className="external-link-item"
-          id={`external-links-${props.index}`}
+          id={`external-link-${props.index}`}
         >
           <td>
             {faviconClass &&
@@ -1132,7 +1132,7 @@ export class ExternalLink extends React.Component<LinkProps> {
                   {
                     position: (
                       <a
-                        href={`#external-links-${props.duplicate}`}
+                        href={`#external-link-${props.duplicate}`}
                         onClick={
                           () => this.highlightDuplicate(props.duplicate)
                         }
