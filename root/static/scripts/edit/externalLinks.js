@@ -703,14 +703,7 @@ export class ExternalLinksEditor
 
             // Check duplicates and show notice
             const duplicate = links[0].submitted
-              ? false : linksGroupMap.get(url);
-            const duplicateNotice = duplicate
-              ? texp.l(
-                `Note: This link already exists 
-                 at position #{position}. 
-                 To merge, press enter or select a type.`,
-                {position: duplicate[0].urlIndex + 1},
-              ) : '';
+              ? null : linksGroupMap.get(url);
 
             let urlError: ErrorT | null = null;
             let hasError = false;
@@ -785,6 +778,7 @@ export class ExternalLinksEditor
             return (
               <ExternalLink
                 cleanupUrl={(url) => this.cleanupUrl(url)}
+                duplicate={duplicate ? duplicate[0].urlIndex : null}
                 error={urlError}
                 handleAttributesChange={
                   (index, attributes) => this.setLinkState(index, attributes)
@@ -807,7 +801,6 @@ export class ExternalLinksEditor
                 isLastLink={isLastLink}
                 isOnlyLink={linksByUrl.length === 1}
                 key={index}
-                notice={duplicateNotice}
                 onAddRelationship={(url) => this.addRelationship(url, index)}
                 onTypeBlur={
                   (linkIndex, event) => this.handleTypeBlur(
@@ -1031,6 +1024,7 @@ const ExternalLinkRelationship =
 
 type LinkProps = {
   +cleanupUrl: (string) => string,
+  +duplicate: number | null,
   +error: ErrorT | null,
   +handleAttributesChange: (number, DatePeriodRoleT) => void,
   +handleLinkRemove: (number) => void,
@@ -1040,7 +1034,6 @@ type LinkProps = {
   +index: number,
   +isLastLink: boolean,
   +isOnlyLink: boolean,
-  +notice: string,
   +onAddRelationship: (string) => void,
   +onTypeBlur: (number, SyntheticFocusEvent<HTMLSelectElement>) => void,
   +onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
@@ -1067,6 +1060,19 @@ export class ExternalLink extends React.Component<LinkProps> {
     }
   }
 
+  highlightDuplicate(index: number | null) {
+    if (index === null) {
+      return;
+    }
+    const target = document.getElementById(`external-link-${index}`);
+    if (!target) {
+      return;
+    }
+    target.scrollIntoView();
+    target.style.backgroundColor = 'yellow';
+    setTimeout(() => target.style.backgroundColor = 'initial', 1000);
+  }
+
   render(): React.Element<typeof React.Fragment> {
     const props = this.props;
     const notEmpty = props.relationships.some(link => {
@@ -1084,15 +1090,15 @@ export class ExternalLink extends React.Component<LinkProps> {
 
     return (
       <React.Fragment>
-        <tr className="external-link-item">
+        <tr
+          className="external-link-item"
+          id={`external-link-${props.index}`}
+        >
           <td>
             {faviconClass &&
             <span
               className={'favicon ' + faviconClass + '-favicon'}
             />}
-            <label>
-              {props.index + 1}
-            </label>
           </td>
           <td className="link-actions">
             {notEmpty &&
@@ -1101,7 +1107,7 @@ export class ExternalLink extends React.Component<LinkProps> {
                 onClick={() => props.onUrlRemove()}
                 title={l('Remove Link')}
               />}
-            {!isEmpty(props) && firstLink.submitted &&
+            {!isEmpty(props) &&
               <URLInputPopover
                 cleanupUrl={props.cleanupUrl}
                 /*
@@ -1149,12 +1155,28 @@ export class ExternalLink extends React.Component<LinkProps> {
                 {props.url}
               </a>
             )}
-            {props.url && props.notice &&
+            {props.url && props.duplicate !== null &&
               <div
                 className="error field-error"
                 data-visible="1"
               >
-                {props.notice}
+                {exp.l(
+                  `Note: This link already exists 
+                   at position {position}. 
+                   To merge, press enter or select a type.`,
+                  {
+                    position: (
+                      <a
+                        href={`#external-link-${props.duplicate}`}
+                        onClick={
+                          () => this.highlightDuplicate(props.duplicate)
+                        }
+                      >
+                        {`#${props.duplicate + 1}`}
+                      </a>
+                    ),
+                  },
+                )}
               </div>
             }
             {props.error &&
