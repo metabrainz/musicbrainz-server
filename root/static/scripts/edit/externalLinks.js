@@ -41,8 +41,18 @@ import type {RelationshipTypeT} from './URLCleanup';
 import validation from './validation';
 import ExternalLinkAttributeDialog
   from './components/ExternalLinkAttributeDialog';
+import {compareDatePeriods} from '../common/utility/compareDates';
 
 type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
+
+const HIGHLIGHTS = {
+  ADD: 'rel-add',
+  EDIT: 'rel-edit',
+  NONE: '',
+  REMOVE: 'rel-remove',
+};
+
+type HighlightT = $Values<typeof HIGHLIGHTS>;
 
 export type ErrorT = {
   blockMerge?: boolean,
@@ -57,37 +67,38 @@ type LinkTypeOptionT = {
   value: number,
 };
 
-export type LinkStateT = {
+export type LinkStateT = $ReadOnly<{
   ...DatePeriodRoleT,
-  pendingTypes?: $ReadOnlyArray<number>,
-  rawUrl: string,
+  +deleted: boolean,
+  +pendingTypes?: $ReadOnlyArray<number>,
+  +rawUrl: string,
   // New relationships will use a unique string ID like "new-1".
-  relationship: StrOrNum | null,
-  submitted: boolean,
-  type: number | null,
-  url: string,
-  video: boolean,
-  ...
-};
+  +relationship: StrOrNum | null,
+  +submitted: boolean,
+  +type: number | null,
+  +url: string,
+  +video: boolean,
+}>;
 
 type LinkMapT = Map<string, LinkStateT>;
 
-export type LinkRelationshipT = LinkStateT & {
-  error: ErrorT | null,
-  index: number,
-  urlIndex: number,
-  ...
-};
+export type LinkRelationshipT = $ReadOnly<{
+  ...LinkStateT,
+  +error: ErrorT | null,
+  +index: number,
+  +urlIndex: number,
+}>;
 
 type LinksEditorProps = {
   +errorObservable: (boolean) => void,
   +initialLinks: $ReadOnlyArray<LinkStateT>,
+  +isNewEntity: boolean,
   +sourceType: CoreEntityTypeT,
   +typeOptions: $ReadOnlyArray<LinkTypeOptionT>,
 };
 
 type LinksEditorState = {
-  links: $ReadOnlyArray<LinkStateT>,
+  +links: $ReadOnlyArray<LinkStateT>,
 };
 
 export class ExternalLinksEditor
@@ -116,7 +127,7 @@ export class ExternalLinksEditor
     callback?: () => void,
   ) {
     const newLinks: Array<LinkStateT> = this.state.links.concat();
-    newLinks[index] = Object.assign({}, newLinks[index], state);
+    newLinks[index] = {...newLinks[index], ...state};
     this.setState({links: newLinks}, callback);
   }
 
@@ -148,7 +159,7 @@ export class ExternalLinksEditor
           url = this.cleanupUrl(url);
         }
 
-        const newLink = Object.assign({}, newLinks[index], {url, rawUrl});
+        const newLink = {...newLinks[index], url, rawUrl};
         const checker = new URLCleanup.Checker(url, this.props.sourceType);
         const guessedType = checker.guessType();
         const possibleTypes = checker.getPossibleTypes();
@@ -356,7 +367,12 @@ export class ExternalLinksEditor
   removeLink(index: number) {
     this.setState(prevState => {
       const newLinks = prevState.links.concat();
-      newLinks.splice(index, 1);
+      const link = newLinks[index];
+      if (isPositiveInteger(link.relationship)) { // Old link, toggle deleted
+        newLinks[index] = {...link, deleted: !link.deleted};
+      } else {
+        newLinks.splice(index, 1);
+      }
       return {links: newLinks};
     });
   }
@@ -366,7 +382,14 @@ export class ExternalLinksEditor
       const newLinks = [...prevState.links];
       // Iterate from the end to avoid messing up indexes
       for (let i = indexes.length - 1; i >= 0; --i) {
-        newLinks.splice(indexes[i], 1);
+        const index = indexes[i];
+        const link = newLinks[index];
+        // Old link, toggle deleted
+        if (isPositiveInteger(link.relationship)) {
+          newLinks[index] = {...link, deleted: !link.deleted};
+        } else {
+          newLinks.splice(index, 1);
+        }
       }
       return {links: withOneEmptyLink(newLinks, -1)};
     }, () => {
@@ -389,9 +412,7 @@ export class ExternalLinksEditor
        * to maintain the order that the empty link should be at the end.
        */
       if (lastLink.url === '') {
-        links[linkCount - 1] = Object.assign(
-          {}, lastLink, {url, submitted: true},
-        );
+        links[linkCount - 1] = {...lastLink, url, submitted: true};
         return {links: withOneEmptyLink(links)};
       }
       // Otherwise create a new link with the given URL
@@ -424,7 +445,7 @@ export class ExternalLinksEditor
     } {
     const oldLinks = this.getOldLinksHash();
     const newLinks: LinkMapT = keyBy(
-      this.state.links,
+      this.state.links.filter(link => !link.deleted),
       x => String(x.relationship),
     );
 
@@ -512,7 +533,7 @@ export class ExternalLinksEditor
   }
 
   validateLink(
-    link: LinkStateT,
+    link: LinkRelationshipT | LinkStateT,
     checker?: URLCleanup.Checker,
   ): ErrorT | null {
     const linksByTypeAndUrl = groupBy(
@@ -534,7 +555,6 @@ export class ExternalLinksEditor
     const linkChanged = oldLink && link.url !== oldLink.url;
     const isNewOrChangedLink = (isNewLink || linkChanged);
     const linkTypeChanged = oldLink && +link.type !== +oldLink.type;
-    link.url = getUnicodeUrl(link.url);
 
     if (isEmpty(link)) {
       error = null;
@@ -677,6 +697,45 @@ export class ExternalLinksEditor
     });
   }
 
+  getURLHighlightType(relationships: Array<LinkRelationshipT>): HighlightT {
+    const link = relationships[0];
+    if (this.props.isNewEntity) {
+      return HIGHLIGHTS.NONE;
+    }
+    const oldLink = this.oldLinks.get(String(link.relationship));
+    const linkChanged = oldLink && link.url !== oldLink.url;
+    if (linkChanged) {
+      return HIGHLIGHTS.EDIT;
+    }
+    if (relationships.every(link => !isPositiveInteger(link.relationship))) {
+      return HIGHLIGHTS.ADD;
+    }
+    if (relationships.every(link => link.deleted)) {
+      return HIGHLIGHTS.REMOVE;
+    }
+    return HIGHLIGHTS.NONE;
+  }
+
+  getRelationshipHighlightType(link: LinkRelationshipT): HighlightT {
+    if (this.props.isNewEntity) {
+      return HIGHLIGHTS.NONE;
+    }
+    if (link.deleted) {
+      return HIGHLIGHTS.REMOVE;
+    }
+    if (!isPositiveInteger(link.relationship)) {
+      return HIGHLIGHTS.ADD;
+    }
+    const oldLink = this.oldLinks.get(String(link.relationship));
+    const linkTypeChanged = oldLink && +link.type !== +oldLink.type;
+    const datePeriodTypeChanged =
+      oldLink && compareDatePeriods(oldLink, link);
+    if (linkTypeChanged || datePeriodTypeChanged) {
+      return HIGHLIGHTS.EDIT;
+    }
+    return HIGHLIGHTS.NONE;
+  }
+
   render(): React.Element<'table'> {
     this.props.errorObservable(false);
 
@@ -720,13 +779,20 @@ export class ExternalLinksEditor
               const linkType = link.type
                 ? linkedEntities.link_type[link.type] : {};
               selectedTypes.push(linkType.gid);
-              link.url = getUnicodeUrl(link.url);
 
+              /*
+               * FIXME: Why are links validated on every render, rather than
+               * when they're modified?
+               */
               const error = this.validateLink(link, checker);
               if (error) {
                 this.props.errorObservable(true);
                 hasError = true;
                 if (error.target === URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
+                  /*
+                   * FIXME: This should be read-only! See question above.
+                   */
+                  // $FlowIgnore[cannot-write]
                   link.error = error;
                 } else {
                   canMerge = false;
@@ -783,9 +849,13 @@ export class ExternalLinksEditor
 
             return (
               <ExternalLink
+                canMerge={canMerge}
                 cleanupUrl={(url) => this.cleanupUrl(url)}
                 duplicate={duplicate ? duplicate[0].urlIndex : null}
                 error={urlError}
+                getRelationshipHighlightType={
+                  (link) => this.getRelationshipHighlightType(link)
+                }
                 handleAttributesChange={
                   (index, attributes) => this.setLinkState(index, attributes)
                 }
@@ -803,6 +873,7 @@ export class ExternalLinksEditor
                 handleUrlChange={
                   (rawUrl) => this.handleUrlChange(linkIndexes, index, rawUrl)
                 }
+                highlight={this.getURLHighlightType(links)}
                 index={index}
                 isLastLink={isLastLink}
                 isOnlyLink={linksByUrl.length === 1}
@@ -907,6 +978,7 @@ const TypeDescription =
 
 type ExternalLinkRelationshipProps = {
   +hasUrlError: boolean,
+  +highlight: HighlightT,
   +isOnlyRelationship: boolean,
   +link: LinkRelationshipT,
   +onAttributesChange: (number, DatePeriodRoleT) => void,
@@ -920,7 +992,7 @@ type ExternalLinkRelationshipProps = {
 
 const ExternalLinkRelationship =
   (props: ExternalLinkRelationshipProps): React.Element<'tr'> => {
-    const {link, hasUrlError, urlMatchesType} = props;
+    const {link, hasUrlError, highlight, urlMatchesType} = props;
     const linkType = link.type ? linkedEntities.link_type[link.type] : null;
     const backward = linkType && linkType.type1 > 'url';
 
@@ -945,7 +1017,7 @@ const ExternalLinkRelationship =
           />
         </td>
         <td>
-          <div className="relationship-content">
+          <div className={`relationship-content ${highlight}`}>
             <label>{addColonText(l('Type'))}</label>
             <label className="relationship-name">
               {/* If the URL matches its type or is just empty,
@@ -1027,14 +1099,17 @@ const ExternalLinkRelationship =
   };
 
 type LinkProps = {
+  +canMerge: boolean,
   +cleanupUrl: (string) => string,
   +duplicate: number | null,
   +error: ErrorT | null,
+  +getRelationshipHighlightType: (LinkRelationshipT) => HighlightT,
   +handleAttributesChange: (number, DatePeriodRoleT) => void,
   +handleLinkRemove: (number) => void,
   +handleLinkSubmit: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
   +handleUrlBlur: (SyntheticFocusEvent<HTMLInputElement>) => void,
   +handleUrlChange: (string) => void,
+  +highlight: HighlightT,
   +index: number,
   +isLastLink: boolean,
   +isOnlyLink: boolean,
@@ -1049,7 +1124,7 @@ type LinkProps = {
   +typeOptions: $ReadOnlyArray<LinkTypeOptionT>,
   +url: string,
   +urlMatchesType: boolean,
-  +validateLink: (LinkStateT) => ErrorT | null,
+  +validateLink: (LinkRelationshipT | LinkStateT) => ErrorT | null,
 };
 
 export class ExternalLink extends React.Component<LinkProps> {
@@ -1150,7 +1225,7 @@ export class ExternalLink extends React.Component<LinkProps> {
               />
             ) : (
               <a
-                className="url"
+                className={`url ${props.highlight}`}
                 href={props.url}
                 rel="noreferrer"
                 style={{overflowWrap: 'anywhere'}}
@@ -1165,9 +1240,12 @@ export class ExternalLink extends React.Component<LinkProps> {
                 data-visible="1"
               >
                 {exp.l(
-                  `Note: This link already exists 
-                   at position {position}. 
-                   To merge, press enter or select a type.`,
+                  props.canMerge
+                    ? `Note: This link already exists 
+                       at position {position}. 
+                       To merge, press enter or select a type.`
+                    : `Note: This link already exists 
+                       at position {position}.`,
                   {
                     position: (
                       <a
@@ -1197,6 +1275,7 @@ export class ExternalLink extends React.Component<LinkProps> {
           props.relationships.map((link, index) => (
             <ExternalLinkRelationship
               hasUrlError={props.error != null}
+              highlight={props.getRelationshipHighlightType(link)}
               isOnlyRelationship={props.relationships.length === 1}
               key={index}
               link={link}
@@ -1256,6 +1335,7 @@ const nullPartialDate: PartialDateT = {
 
 const defaultLinkState: LinkStateT = {
   begin_date: nullPartialDate,
+  deleted: false,
   end_date: nullPartialDate,
   ended: false,
   rawUrl: '',
@@ -1327,6 +1407,7 @@ export function parseRelationships(
     if (target.entityType === 'url') {
       accum.push({
         begin_date: data.begin_date || nullPartialDate,
+        deleted: false,
         end_date: data.end_date || nullPartialDate,
         ended: data.ended || false,
         rawUrl: target.name,
@@ -1351,8 +1432,11 @@ function groupLinksByUrl(
   const urlTypePairs = new Set();
   let urlIndex = 0;
   links.forEach((link, index) => {
-    const relationship: LinkRelationshipT = {
-      ...link, error: null, index, urlIndex: index,
+    const relationship = {
+      ...link,
+      error: null,
+      index,
+      urlIndex: index,
     };
     // Don't group links that are duplicates or not submitted
     const urlTypePair = `${link.url}-${link.type ?? ''}`;
@@ -1571,7 +1655,7 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
         rawUrl: data.text || '',
         relationship: uniqueId('new-'),
         type: parseInt(data.link_type_id, 10) || null,
-        url: data.text || '',
+        url: getUnicodeUrl(data.text || ''),
       }));
     }
   }
@@ -1582,10 +1666,12 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
      * existing relationship ID.
      */
     if (!isPositiveInteger(link.relationship)) {
-      return Object.assign({}, link, {
+      const url = getUnicodeUrl(link.url);
+      return {
+        ...link,
         relationship: uniqueId('new-'),
-        url: URLCleanup.cleanURL(link.url) || link.url,
-      });
+        url: URLCleanup.cleanURL(url) || url,
+      };
     }
     return link;
   });
@@ -1602,6 +1688,7 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
     <ExternalLinksEditor
       errorObservable={errorObservable}
       initialLinks={initialLinks}
+      isNewEntity={!sourceData.id}
       sourceType={sourceData.entityType}
       typeOptions={typeOptions}
     />,

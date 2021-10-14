@@ -9,20 +9,24 @@
 
 import * as React from 'react';
 import ButtonPopover from '../../common/components/ButtonPopover';
-import type {ErrorT, LinkStateT} from '../externalLinks';
+import type {
+  ErrorT,
+  LinkRelationshipT,
+  LinkStateT,
+} from '../externalLinks';
 import {ERROR_TARGETS} from '../URLCleanup';
 
 type PropsT = {
   cleanupUrl: (string) => string,
-  link: LinkStateT,
+  link: LinkRelationshipT,
   onConfirm: (string) => void,
-  validateLink: (LinkStateT) => ErrorT | null,
+  validateLink: (LinkRelationshipT | LinkStateT) => ErrorT | null,
 };
 
 const URLInputPopover = (props: PropsT): React.MixedElement => {
   const popoverButtonRef = React.useRef(null);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const [link, setLink] = React.useState<LinkStateT>(props.link);
+  const [link, setLink] = React.useState<LinkRelationshipT>(props.link);
 
   React.useEffect(() => {
     setLink(props.link);
