@@ -6,10 +6,6 @@ use MusicBrainz::Server::Translation qw( l );
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-override href_url => sub {
-    shift->url->as_string =~ s{^http:}{https:}r;
-};
-
 sub sidebar_name { l('Project Runeberg') }
 
 __PACKAGE__->meta->make_immutable;
