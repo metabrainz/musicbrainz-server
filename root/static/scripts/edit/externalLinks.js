@@ -849,6 +849,7 @@ export class ExternalLinksEditor
 
             return (
               <ExternalLink
+                canMerge={canMerge}
                 cleanupUrl={(url) => this.cleanupUrl(url)}
                 duplicate={duplicate ? duplicate[0].urlIndex : null}
                 error={urlError}
@@ -1098,6 +1099,7 @@ const ExternalLinkRelationship =
   };
 
 type LinkProps = {
+  +canMerge: boolean,
   +cleanupUrl: (string) => string,
   +duplicate: number | null,
   +error: ErrorT | null,
@@ -1238,9 +1240,12 @@ export class ExternalLink extends React.Component<LinkProps> {
                 data-visible="1"
               >
                 {exp.l(
-                  `Note: This link already exists 
-                   at position {position}. 
-                   To merge, press enter or select a type.`,
+                  props.canMerge
+                    ? `Note: This link already exists 
+                       at position {position}. 
+                       To merge, press enter or select a type.`
+                    : `Note: This link already exists 
+                       at position {position}.`,
                   {
                     position: (
                       <a
