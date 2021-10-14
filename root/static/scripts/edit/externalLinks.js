@@ -45,6 +45,7 @@ import ExternalLinkAttributeDialog
 type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
 
 export type ErrorT = {
+  blockMerge?: boolean,
   message: React$Node,
   target: ErrorTarget,
 };
@@ -179,7 +180,7 @@ export class ExternalLinksEditor
     isDuplicate: boolean,
     event: SyntheticFocusEvent<HTMLInputElement>,
     urlIndex: number,
-    error: ErrorT | null,
+    canMerge: boolean,
   ) {
     const link = {...this.state.links[index]};
     const url = event.currentTarget.value;
@@ -194,7 +195,7 @@ export class ExternalLinksEditor
      * Don't add link to list if it's empty,
      * has error, or is a duplicate without type.
      */
-    if (url !== '' && !error && (!isDuplicate || link.type)) {
+    if (url !== '' && canMerge && (!isDuplicate || link.type)) {
       link.submitted = true;
       if (isDuplicate) {
         /*
@@ -265,7 +266,7 @@ export class ExternalLinksEditor
     index: number,
     urlIndex: number,
     event: SyntheticEvent<HTMLInputElement>,
-    error: ErrorT | null,
+    canMerge: boolean,
   ) {
     const link = {...this.state.links[index]};
     const url = event.currentTarget.value;
@@ -276,7 +277,7 @@ export class ExternalLinksEditor
       link.url = unicodeUrl;
     }
     // Don't add link to list if it's empty or has error
-    if (url !== '' && !error) {
+    if (url !== '' && canMerge) {
       link.submitted = true;
       this.setLinkState(index, link, () => {
         this.submitPendingTypes(link, index);
@@ -304,7 +305,6 @@ export class ExternalLinksEditor
 
   handleTypeChange(
     index: number,
-    isDuplicate: boolean,
     event: SyntheticEvent<HTMLSelectElement>,
   ) {
     const type = +event.currentTarget.value || null;
@@ -318,9 +318,9 @@ export class ExternalLinksEditor
     event: SyntheticFocusEvent<HTMLSelectElement>,
     isDuplicate: boolean,
     urlIndex: number,
-    error: ErrorT | null,
+    canMerge: boolean,
   ) {
-    if (!isDuplicate || error) {
+    if (!isDuplicate || !canMerge) {
       return;
     }
     /*
@@ -592,6 +592,7 @@ export class ExternalLinksEditor
         []).length > 1
     ) {
       error = {
+        blockMerge: true,
         message: l('This relationship already exists.'),
         target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
       };
@@ -707,6 +708,7 @@ export class ExternalLinksEditor
 
             let urlError: ErrorT | null = null;
             let hasError = false;
+            let canMerge = true;
             const checker = new URLCleanup.Checker(
               url, this.props.sourceType,
             );
@@ -727,7 +729,11 @@ export class ExternalLinksEditor
                 if (error.target === URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
                   link.error = error;
                 } else {
+                  canMerge = false;
                   urlError = error;
+                }
+                if (error.blockMerge) {
+                  canMerge = false;
                 }
               }
             });
@@ -786,12 +792,12 @@ export class ExternalLinksEditor
                 handleLinkRemove={(index) => this.removeLink(index)}
                 handleLinkSubmit={
                   (event) => this.handleLinkSubmit(
-                    firstLinkIndex, index, event, urlError,
+                    firstLinkIndex, index, event, canMerge,
                   )
                 }
                 handleUrlBlur={
                   (event) => this.handleUrlBlur(
-                    firstLinkIndex, !!duplicate, event, index, urlError,
+                    firstLinkIndex, !!duplicate, event, index, canMerge,
                   )
                 }
                 handleUrlChange={
@@ -804,13 +810,11 @@ export class ExternalLinksEditor
                 onAddRelationship={(url) => this.addRelationship(url, index)}
                 onTypeBlur={
                   (linkIndex, event) => this.handleTypeBlur(
-                    linkIndex, event, !!duplicate, index, urlError,
+                    linkIndex, event, !!duplicate, index, canMerge,
                   )
                 }
                 onTypeChange={
-                  (index, event) => this.handleTypeChange(
-                    index, !!duplicate, event,
-                  )
+                  (index, event) => this.handleTypeChange(index, event)
                 }
                 onUrlRemove={() => this.removeLinks(linkIndexes, index)}
                 onVideoChange={
@@ -1344,16 +1348,17 @@ function groupLinksByUrl(
   links: $ReadOnlyArray<LinkStateT>,
 ): Map<string, Array<LinkRelationshipT>> {
   const map = new Map();
+  const urlTypePairs = new Set();
   let urlIndex = 0;
   links.forEach((link, index) => {
     const relationship: LinkRelationshipT = {
       ...link, error: null, index, urlIndex: index,
     };
-    /*
-     * Don't group links that are not submitted,
-     * e.g: empty links and the last link(editing)
-     */
-    const key = link.submitted ? link.url : String(link.relationship);
+    // Don't group links that are duplicates or not submitted
+    const urlTypePair = `${link.url}-${link.type ?? ''}`;
+    const key = link.submitted && !urlTypePairs.has(urlTypePair)
+      ? link.url
+      : String(link.relationship);
     const relationships = map.get(key);
     if (relationships) {
       relationship.urlIndex = relationships[0].urlIndex;
@@ -1362,6 +1367,7 @@ function groupLinksByUrl(
       relationship.urlIndex = urlIndex++;
       map.set(key, [relationship]);
     }
+    urlTypePairs.add(urlTypePair);
   });
   return map;
 }
