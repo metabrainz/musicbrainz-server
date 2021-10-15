@@ -125,6 +125,7 @@ sub SEARCH_SERVER { '127.0.0.1:8983/solr' }
 sub SEARCH_ENGINE { 'SOLR' }
 
 sub USE_SET_DATABASE_HEADER { 1 }
+sub DISABLE_LAST_LOGIN_UPDATE { 1 }
 
 # CircleCI sets `NO_PROXY=127.0.0.1,localhost` in every container,
 # so the Selenium proxy doesn't work unless we make requests against

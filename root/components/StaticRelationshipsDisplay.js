@@ -12,8 +12,9 @@ import * as React from 'react';
 import RelationshipTargetLinks from '../components/RelationshipTargetLinks';
 import {commaOnlyListText} from '../static/scripts/common/i18n/commaOnlyList';
 import {bracketedText} from '../static/scripts/common/utility/bracketed';
-import type {
-  RelationshipTargetTypeGroupT,
+import {
+  type RelationshipTargetTypeGroupT,
+  compareTrackPositions,
 } from '../utility/groupRelationships';
 
 const detailsTableStyle = Object.freeze({width: '100%'});
@@ -26,10 +27,6 @@ function formatTrackRange(range) {
     end_track: range[1].number,
     start_track: range[0].number,
   });
-}
-
-function compareTrackPositions(a: TrackT, b: TrackT) {
-  return a.position - b.position;
 }
 
 function getTrackRanges(trackSet) {

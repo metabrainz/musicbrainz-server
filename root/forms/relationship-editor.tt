@@ -82,6 +82,7 @@
 
     MB.initRelationshipEditors({
         formName: "[% form.name | js %]",
+        seededRelationships: [% closing_tag_escape(seeded_relationships) %],
         sourceData: [% closing_tag_escape(source_entity) %],
         typeInfo: [% closing_tag_escape(type_info) %],
         attrInfo: [% closing_tag_escape(attr_info) %]

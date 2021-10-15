@@ -7,8 +7,8 @@
  */
 
 import test from 'tape';
-import {arraysEqual} from '../../common/utility/arrays';
 
+import {arraysEqual} from '../../common/utility/arrays';
 import {
   LINK_TYPES,
   cleanURL,
@@ -559,6 +559,13 @@ const testData = [
     expected_relationship_type: undefined,
        input_relationship_type: 'mailorder',
        only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://gamechops.bandcamp.com/campaign/samus-chill/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'crowdfunding',
+            expected_clean_url: 'https://gamechops.bandcamp.com/campaign/samus-chill',
+       only_valid_entity_types: ['release'],
   },
   // Bandsintown
   {
@@ -2326,6 +2333,13 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'patronage',
             expected_clean_url: 'https://ko-fi.com/35MJZ8OL4IO',
+  },
+  // Ko-fi shop (not to autoselect because they could be different purchase options)
+  {
+                     input_url: 'https://ko-fi.com/s/e953259fd9',
+             input_entity_type: 'artist',
+            expected_clean_url: 'https://ko-fi.com/s/e953259fd9', // uncleaned
+    expected_relationship_type: undefined,
   },
   // laboiteauxparoles
   {

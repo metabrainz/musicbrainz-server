@@ -3,11 +3,33 @@ use JSON;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
-use MusicBrainz::Server::Constants qw( $SERIES_ORDERING_TYPE_MANUAL );
+use MusicBrainz::Server::Constants qw( $SERIES_ORDERING_TYPE_MANUAL entities_with );
 use MusicBrainz::Server::ControllerUtils::Relationship qw( merge_link_attributes );
-use MusicBrainz::Server::Data::Utils qw( model_to_type ref_to_type type_to_model trim non_empty );
+use MusicBrainz::Server::Data::Utils qw(
+    model_to_type
+    non_empty
+    ref_to_type
+    trim
+    type_to_model
+);
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Form::Utils qw( build_type_info );
+use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Validation qw(
+    is_database_row_id
+    is_non_negative_integer
+    is_guid
+);
+use aliased 'MusicBrainz::Server::Entity::Link';
+use aliased 'MusicBrainz::Server::Entity::LinkAttribute';
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
+use aliased 'MusicBrainz::Server::Entity::Relationship';
+use Readonly;
+
+Readonly our @RELATABLE_MODELS => entities_with(
+    ['mbid', 'relatable'],
+    take => 'model',
+);
 
 role {
     with 'MusicBrainz::Server::Controller::Role::RelationshipEditor';
@@ -57,6 +79,194 @@ role {
         return $entity_map;
     }
 
+    sub get_seeded_relationships {
+        my ($c, $source_type, $source) = @_;
+
+        # If the form was posted, seeded relationships (plus any
+        # modifications) will have already been saved in localStorage.
+        return [] if $c->form_posted;
+
+        my %query_params = %{$c->req->query_params};
+        return [] unless %query_params;
+
+        my $seeded_rels = {};
+        my @seeded_link_type_ids;
+        my @seeded_target_gids;
+        my @seeded_attribute_ids;
+
+        for my $param_name (keys %query_params) {
+            my ($rel_index, $field_name) =
+                ($param_name =~ /^rels\.([0-9]+)\.([0-9a-z_\.]+)$/);
+
+            next unless (defined $rel_index && defined $field_name);
+
+            my $rel = ($seeded_rels->{$rel_index} //= {});
+            my $param_value = trim($query_params{$param_name});
+
+            if ($field_name eq 'type') {
+                if (
+                    is_database_row_id($param_value) ||
+                    is_guid($param_value)
+                ) {
+                    $rel->{type} = $param_value;
+                    push @seeded_link_type_ids, $param_value;
+                }
+                next;
+            }
+
+            if ($field_name eq 'target') {
+                if (is_guid($param_value)) {
+                    $rel->{target_gid} = $param_value;
+                    push @seeded_target_gids, $param_value;
+                } else {
+                    $rel->{target_name} = $param_value;
+                }
+                next;
+            }
+
+            if ($field_name =~ /^(begin_date|end_date)$/) {
+                $rel->{$field_name} = $param_value;
+                next;
+            }
+
+            if ($field_name =~ /^(ended|backward)$/) {
+                $rel->{$field_name} = $param_value ? 1 : 0;
+                next;
+            }
+
+            if ($field_name eq 'link_order') {
+                if (is_non_negative_integer($param_value)) {
+                    $rel->{$field_name} = 0 + $param_value;
+                }
+                next;
+            }
+
+            my ($attr_index, $attr_field_name) =
+                ($field_name =~ /^attributes\.([0-9]+)\.([0-9a-z_\.]+)$/);
+
+            next unless (defined $attr_index && defined $attr_field_name);
+
+            my $attr = ($rel->{attributes}{$attr_index} //= {});
+
+            if ($attr_field_name eq 'type') {
+                if (
+                    is_database_row_id($param_value) ||
+                    is_guid($param_value)
+                ) {
+                    $attr->{type} = $param_value;
+                    push @seeded_attribute_ids, $param_value;
+                }
+                next;
+            }
+
+            if ($attr_field_name =~ /^(credited_as|text_value)$/) {
+                $attr->{$attr_field_name} = $param_value;
+            }
+        }
+
+        my $seeded_link_types = $c->model('LinkType')->get_by_any_ids(@seeded_link_type_ids);
+        my $seeded_attributes = $c->model('LinkAttributeType')->get_by_any_ids(@seeded_attribute_ids);
+        my @result;
+
+        for my $rel_index (keys %{$seeded_rels}) {
+            my $rel = $seeded_rels->{$rel_index};
+            my $link_type;
+            my $target_gid = $rel->{target_gid};
+            my $target_type;
+            my $target;
+
+            if ($rel->{type} && ($link_type = $seeded_link_types->{$rel->{type}})) {
+                my ($type0, $type1) = ($link_type->entity0_type, $link_type->entity1_type);
+                if ($source_type eq $type0) {
+                    $target_type = $type1;
+                } elsif ($source_type eq $type1) {
+                    $target_type = $type0;
+                }
+                next unless $target_type;
+                if ($target_gid) {
+                    $target = $c->model(type_to_model($target_type))->get_by_gid($target_gid)
+                }
+            }
+
+            if ($target_gid && !$target) {
+                for my $model (@RELATABLE_MODELS) {
+                    $target = $c->model($model)->get_by_gid($target_gid);
+                    if (defined $target) {
+                        $target_type = $target->entity_type;
+                        last;
+                    }
+                }
+            }
+
+            next unless $target_type;
+
+            my $backward = $source_type eq $target_type
+                ? ($rel->{backward} // 0)
+                : ($source_type lt $target_type ? 0 : 1);
+
+            $target //= $c->model(type_to_model($target_type))->_new_from_row({
+                name => $rel->{target_name} // l('[unknown]'),
+            });
+
+            my $rel_attributes = $rel->{attributes} // {};
+            my @seeded_link_attributes;
+
+            for my $attr_index (keys %{$rel_attributes}) {
+                my $attr = $rel_attributes->{$attr_index};
+
+                my $attr_type = $seeded_attributes->{$attr->{type} // ''};
+                next unless $attr_type;
+
+                push @seeded_link_attributes, LinkAttribute->new(
+                    type_gid => $attr_type->gid,
+                    type_id => $attr_type->id,
+                    type => $attr_type,
+                    $attr_type->creditable && non_empty($attr->{credited_as}) ? (credited_as => $attr->{credited_as}) : (),
+                    $attr_type->free_text ? (text_value => ($attr->{text_value} // '')) : (),
+                );
+            }
+
+            push @result, Relationship->new(
+                link => Link->new(
+                    defined $link_type ? (
+                        type_id => $link_type->id,
+                        type => $link_type,
+                    ) : (),
+                    begin_date => PartialDate->new($rel->{begin_date}),
+                    end_date   => PartialDate->new($rel->{end_date}),
+                    ended      => $rel->{ended},
+                    attributes => \@seeded_link_attributes,
+                ),
+                $backward ? (
+                    defined $source ? (
+                        entity1 => $source,
+                        entity1_id => $source->id,
+                    ) : (),
+                    entity0 => $target,
+                    defined $target->id ? (entity0_id => $target->id) : (),
+                ) : (
+                    defined $source ? (
+                        entity0 => $source,
+                        entity0_id => $source->id,
+                    ) : (),
+                    entity1 => $target,
+                    defined $target->id ? (entity1_id => $target->id) : (),
+                ),
+                entity0_credit => '',
+                entity1_credit => '',
+                defined $source ? (source => $source) : (),
+                target => $target,
+                source_type => $source_type,
+                target_type => $target_type,
+                source_credit => '',
+                target_credit => '',
+                link_order => $rel->{link_order} // 0,
+            );
+        }
+
+        return \@result;
+    }
+
     around 'edit_action' => sub {
         my ($orig, $self, $c, %opts) = @_;
 
@@ -87,13 +297,15 @@ role {
         # Grrr. release_group => release-group.
         $form_name =~ s/_/-/;
 
+        my $seeded_relationships = get_seeded_relationships($c, $source_type, $source);
         my @link_type_tree = $c->model('LinkType')->get_full_tree;
         my @link_attribute_types = $c->model('LinkAttributeType')->get_all;
 
         $c->stash(
-            source_entity   => $c->json->encode($source_entity),
-            attr_info       => $c->json->encode(\@link_attribute_types),
-            type_info       => $c->json->encode(build_type_info($c, qr/(^$source_type-|-$source_type$)/, @link_type_tree)),
+            seeded_relationships => $c->json->encode(to_json_array($seeded_relationships)),
+            source_entity => $c->json->encode($source_entity),
+            attr_info => $c->json->encode(\@link_attribute_types),
+            type_info => $c->json->encode(build_type_info($c, qr/(^$source_type-|-$source_type$)/, @link_type_tree)),
         );
 
         my $post_creation = delete $opts{post_creation};

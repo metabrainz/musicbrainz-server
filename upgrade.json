@@ -106,6 +106,7 @@
     "slave": ["20210526-a_upd_release_event.sql",
               "20210606-mbs-11682.sql"],
     "standalone": ["20210702-mbs-11760.sql",
-                   "20210916-mbs-11896.sql"]
+                   "20210916-mbs-11896.sql",
+                   "20210924-mbs-10327.sql"]
   }
 }
