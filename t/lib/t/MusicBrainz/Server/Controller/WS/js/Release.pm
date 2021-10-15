@@ -75,6 +75,7 @@ test all => sub {
         entity1_credit => '',
         entity0_id => 9496,
         entity1_id => 4525123,
+        source_id => 4525123,
         source_type => 'recording',
         target_type => 'artist'
     }, 'BoA performed vocals');
