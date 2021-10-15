@@ -278,7 +278,6 @@ sub find_by {
         push @conditions, 'editor_collection.public = true';
     }
 
-    # Since joining editor_collection_collaborator might give many rows, we select only distinct collections here
     my $query =
         'SELECT ' . $self->_columns .
         '  FROM ' . $self->_table . ' ' .
