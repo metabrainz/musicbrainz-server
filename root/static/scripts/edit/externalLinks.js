@@ -123,7 +123,7 @@ export class ExternalLinksEditor
 
   setLinkState(
     index: number,
-    state: $Shape<LinkStateT>,
+    state: $ReadOnly<$Partial<LinkStateT>>,
     callback?: () => void,
   ) {
     const newLinks: Array<LinkStateT> = this.state.links.concat();
@@ -193,7 +193,7 @@ export class ExternalLinksEditor
     urlIndex: number,
     canMerge: boolean,
   ) {
-    const link = {...this.state.links[index]};
+    const link: {...LinkStateT} = {...this.state.links[index]};
     const url = event.currentTarget.value;
     const trimmed = url.trim();
     const unicodeUrl = getUnicodeUrl(trimmed);
@@ -279,7 +279,7 @@ export class ExternalLinksEditor
     event: SyntheticEvent<HTMLInputElement>,
     canMerge: boolean,
   ) {
-    const link = {...this.state.links[index]};
+    const link: {...LinkStateT} = {...this.state.links[index]};
     const url = event.currentTarget.value;
     const trimmed = url.trim();
     const unicodeUrl = getUnicodeUrl(trimmed);
@@ -346,7 +346,7 @@ export class ExternalLinksEditor
       return;
     }
 
-    const link = {...this.state.links[index]};
+    const link: {...LinkStateT} = {...this.state.links[index]};
     if (link.url && link.type) {
       link.submitted = true;
     }
@@ -981,7 +981,7 @@ type ExternalLinkRelationshipProps = {
   +highlight: HighlightT,
   +isOnlyRelationship: boolean,
   +link: LinkRelationshipT,
-  +onAttributesChange: (number, DatePeriodRoleT) => void,
+  +onAttributesChange: (number, $ReadOnly<$Partial<LinkStateT>>) => void,
   +onLinkRemove: (number) => void,
   +onTypeBlur: (number, SyntheticFocusEvent<HTMLSelectElement>) => void,
   +onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
@@ -1104,7 +1104,7 @@ type LinkProps = {
   +duplicate: number | null,
   +error: ErrorT | null,
   +getRelationshipHighlightType: (LinkRelationshipT) => HighlightT,
-  +handleAttributesChange: (number, DatePeriodRoleT) => void,
+  +handleAttributesChange: (number, $ReadOnly<$Partial<LinkStateT>>) => void,
   +handleLinkRemove: (number) => void,
   +handleLinkSubmit: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
   +handleUrlBlur: (SyntheticFocusEvent<HTMLInputElement>) => void,
@@ -1346,7 +1346,7 @@ const defaultLinkState: LinkStateT = {
   video: false,
 };
 
-function newLinkState(state: $Shape<LinkStateT>) {
+function newLinkState(state: $ReadOnly<$Partial<LinkStateT>>) {
   return {...defaultLinkState, ...state};
 }
 
