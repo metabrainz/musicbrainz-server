@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import hydrate from '../../../../utility/hydrate';
 import filterIconUrl from '../../../images/icons/filter.png';
 import setCookie from '../utility/setCookie';
 

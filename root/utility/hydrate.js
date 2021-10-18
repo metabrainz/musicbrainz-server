@@ -90,6 +90,7 @@ if (__DEV__) {
   };
 }
 
+// Please keep the type signature in sync with root/vars.js.
 export default function hydrate<
   Config: {+$c?: CatalystContextT, ...},
   SanitizedConfig = Config,

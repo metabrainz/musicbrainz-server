@@ -22,7 +22,6 @@ import FormSubmit from '../../../../components/FormSubmit';
 import Autocomplete from '../../common/components/Autocomplete';
 import {pushCompoundField}
   from '../../edit/utility/pushField';
-import hydrate from '../../../../utility/hydrate';
 import type {CollaboratorStateT, CollectionEditFormT}
   from '../../../../collection/types';
 

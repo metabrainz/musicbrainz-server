@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import hydrate from '../../../../../utility/hydrate';
 import {SidebarProperty, SidebarProperties} from
   '../../../../../layout/components/sidebar/SidebarProperties';
 

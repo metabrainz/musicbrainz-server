@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import {compareStrings} from '../utility/compare';
-import hydrate from '../../../../utility/hydrate';
 
 export type PostParametersT = {
   +[param: string]: string | $ReadOnlyArray<string>,
