@@ -58,7 +58,7 @@
 </form>
 
 [%- guesscase_options() -%]
-[% script_manifest('event.js') %]
+[% script_manifest('event/edit.js') %]
 
 <script type="text/javascript">
   (function () {

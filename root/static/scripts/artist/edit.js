@@ -7,9 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import './artist/components/ArtistCreditRenamer';
+import typeBubble from '../edit/typeBubble';
 
-import typeBubble from './edit/typeBubble';
+import './components/ArtistCreditRenamer';
 
 const typeIdField = 'select[name=edit-artist\\.type_id]';
 typeBubble(typeIdField);
