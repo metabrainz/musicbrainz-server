@@ -1,3 +1,5 @@
+/* eslint-disable import/no-commonjs */
+
 const ignore = require('./webpack/babel-ignored');
 
 const BROWSER_TARGETS = {

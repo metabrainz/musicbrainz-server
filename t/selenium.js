@@ -6,6 +6,8 @@
  * http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/* eslint-disable import/no-commonjs */
+
 require('@babel/register');
 
 const argv = require('yargs')

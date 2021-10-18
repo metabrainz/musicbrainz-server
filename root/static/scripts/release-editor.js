@@ -1,3 +1,5 @@
+/* eslint-disable import/no-commonjs */
+
 require('./edit');
 
 require('./edit/confirmNavigationFallback');

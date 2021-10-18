@@ -1,3 +1,5 @@
+/* eslint-disable import/no-commonjs */
+
 module.exports = [
   /*
    * The modules in the negative-lookahead assertion (?!...) are exceptions

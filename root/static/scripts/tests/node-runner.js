@@ -1,3 +1,5 @@
+/* eslint-disable import/no-commonjs */
+
 var rowCount = 0;
 var timeout;
 
