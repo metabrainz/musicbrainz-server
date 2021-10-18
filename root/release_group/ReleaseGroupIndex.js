@@ -98,9 +98,11 @@ function buildReleaseStatusTable(
             <ReleaseCatnoList labels={release.labels} />
           </td>
           <td className="barcode-cell">{formatBarcode(release.barcode)}</td>
-          {$c.session?.tport
-            ? <td><TaggerIcon entity={release} /></td>
-            : null}
+          {$c.session?.tport == null ? null : (
+            <td>
+              <TaggerIcon entityType="release" gid={release.gid} />
+            </td>
+          )}
         </tr>
       ))}
     </React.Fragment>
@@ -206,6 +208,7 @@ const ReleaseGroupIndex = ({
       </>
     )}
     {manifest.js('release-group/index', {async: 'async'})}
+    {manifest.js('common/components/TaggerIcon', {async: 'async'})}
   </ReleaseGroupLayout>
 );
 

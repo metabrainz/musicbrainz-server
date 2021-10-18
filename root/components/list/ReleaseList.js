@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context';
+import manifest from '../../static/manifest';
 import Table from '../Table';
 import filterReleaseLabels
   from '../../static/scripts/common/utility/filterReleaseLabels';
@@ -57,7 +58,7 @@ const ReleaseList = ({
   showStatus = false,
   showType = false,
   sortable,
-}: Props): React.Element<typeof Table> => {
+}: Props): React.MixedElement => {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -193,7 +194,12 @@ const ReleaseList = ({
     ],
   );
 
-  return <Table columns={columns} data={releases} />;
+  return (
+    <>
+      <Table columns={columns} data={releases} />
+      {manifest.js('common/components/TaggerIcon', {async: 'async'})}
+    </>
+  );
 };
 
 export default ReleaseList;

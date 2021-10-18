@@ -745,7 +745,9 @@ export const subscriptionColumn:
 
 export const taggerColumn:
   ColumnOptions<RecordingT | ReleaseT, void> = {
-    Cell: ({row: {original}}) => <TaggerIcon entity={original} />,
+    Cell: ({row: {original}}) => (
+      <TaggerIcon entityType={original.entityType} gid={original.gid} />
+    ),
     Header: N_l('Tagger'),
     id: 'tagger',
   };

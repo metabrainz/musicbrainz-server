@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import EntityHeader from '../components/EntityHeader';
+import manifest from '../static/manifest';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
@@ -56,7 +57,12 @@ const ReleaseHeader = ({
       entity={release}
       headerClass="releaseheader"
       page={page}
-      preHeader={<TaggerIcon entity={release} />}
+      preHeader={
+        <>
+          <TaggerIcon entityType="release" gid={release.gid} />
+          {manifest.js('common/components/TaggerIcon', {async: 'async'})}
+        </>
+      }
       subHeading={subHeading}
     />
   );
