@@ -4055,6 +4055,36 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  'tower': {
+    match: [new RegExp('^(https?://)?(www\\.)?tower\\.jp', 'i')],
+    restrict: [LINK_TYPES.mailorder],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?tower\.jp\/(artist|item)\/(\d+)(?:\/.*)?$/, 'https://tower.jp/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?tower\.jp\/artist\/discography\/(\d+)(?:\/.*)?$/, 'https://tower.jp/artist/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?tower\.jp\/ec\/collection\/item\/summary\/(\d+)(?:\/.*)?$/, 'https://tower.jp/item/$1');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/tower\.jp\/(artist|item)\/\d+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.mailorder.artist:
+            return {
+              result: prefix == 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.mailorder.release:
+            return {
+              result: prefix == 'item',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'traxsource': {
     match: [new RegExp('^(https?://)?(www\\.)?traxsource\\.com', 'i')],
     restrict: [LINK_TYPES.downloadpurchase],

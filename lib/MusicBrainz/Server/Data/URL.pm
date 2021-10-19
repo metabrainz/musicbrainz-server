@@ -167,6 +167,7 @@ my %URL_SPECIALIZATIONS = (
     'Tidal'               => qr{^https?://(?:[^/]+\.)?tidal\.com/}i,
     'Tipeee'              => qr{^https?://(?:www\.)?tipeee\.com/}i,
     'TouhouDB'            => qr{^https?://(?:www\.)?touhoudb\.com/}i,
+    'Tower'               => qr{^https?://(?:www\.)?tower\.jp/}i,
     'Traxsource'          => qr{^https?://(?:www\.)?traxsource.com/}i,
     'TripleJUnearthed'    => qr{^https?://(?:www\.)?triplejunearthed\.com/}i,
     'Trove'               => qr{^https?://(?:www\.)?(?:trove\.)?nla\.gov\.au/}i,
