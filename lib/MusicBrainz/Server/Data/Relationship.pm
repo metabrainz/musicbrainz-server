@@ -552,8 +552,13 @@ sub merge_entities {
                    FROM $target_table target
                   WHERE ${table}.${entity0}_credit = ''
                     AND target.id = ${table}.${entity0}
-                    AND target.id = any(?)",
-                $source_ids
+                    AND target.id = any(?)
+                    AND target.name != (
+                        SELECT name
+                          FROM $target_table merge_target
+                         WHERE merge_target.id = ?
+                    )",
+                $source_ids, $target_id
             );
         }
 
