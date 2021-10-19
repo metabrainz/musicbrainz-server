@@ -423,7 +423,7 @@
     {
       command: 'type',
       target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: 'http://example.com/',
+      value: 'http://musicmoz.org.example/Composition/Composers/M/Mozart,_Wolfgang_Amadeus/',
     },
     {
       command: 'select',
