@@ -29,7 +29,9 @@ INSERT INTO work (id, gid, name, type, edits_pending, comment) VALUES
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES
 (1, 'editor1', '{CLEARTEXT}pass', '16a4862191803cb596ee4b16802bb7ee', 'foo@example.com', now()),
 (2, 'editor2', '{CLEARTEXT}pass', 'ba025a52cc5ff57d5d10f31874a83de6', 'foo@example.com', now()),
-(3, 'editor3', '{CLEARTEXT}pass', 'c096994132d53f3e1cde757943b10e7d', 'foo@example.com', now());
+(3, 'editor3', '{CLEARTEXT}pass', 'c096994132d53f3e1cde757943b10e7d', 'foo@example.com', now()),
+-- Reminder: Editor #4 is ModBot
+(5, 'editor5', '{CLEARTEXT}pass', '01de7bc91330d78a6d0a84033e293f15', 'foo@example.com', now());
 
 INSERT INTO editor_collection (id, gid, editor, name, public, description, type)
     VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3cd', 1, 'collection1', FALSE, '', 1),
