@@ -1,0 +1,63 @@
+.DarkThemeSwitchBtn-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-right: 8px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.ThemeIndicator-Icon {
+  display: block;
+  width: 1.2rem;
+}
+
+.ThemeIndicator-Icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+
+.SwitchBtn-Track {
+  width: 2.4rem;
+  height: 0.8rem;
+  background-color: #ebebeb;
+  border-radius: 100rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 0.2rem;
+}
+
+@media (min-width: 576px) {
+  .SwitchBtn-Track {
+    margin: 0 0.5rem;
+  }
+}
+
+.SwitchBtn {
+  width: 1.2rem;
+  height: 1.2rem;
+  border: none;
+  border-radius: 100rem;
+  background-color: #b8b8b8;
+  -webkit-transition: 200ms ease-out;
+  transition: 200ms ease-out;
+}
+
+.SwitchBtn-Active {
+  margin-left: 1.2rem;
+  background-color: #482ff7;
+}
+
+.SwitchBtn:focus {
+  outline: none;
+}

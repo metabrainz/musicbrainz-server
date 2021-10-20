@@ -82,6 +82,7 @@
     "babel-plugin-istanbul": "5.2.0",
     "buffer": "6.0.3",
     "chrome-remote-interface": "0.27.0",
+    "css-loader": "^6.4.0",
     "eslint": "7.9.0",
     "eslint-plugin-fb-flow": "0.0.2",
     "eslint-plugin-flowtype": "5.2.0",

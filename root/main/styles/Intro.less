@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400,700');
+
+.special-font {
+  font-family: 'Comfortaa', sans-serif;
+  color: var(--color);
+}
+
+.chip {
+  padding: 0 12px;
+  background-color: var(--gray-light);
+  border-radius: 100px;
+  display: inline-flex;
+  font-family: 'Comfortaa', sans-serif;
+  margin: 4px;
+  color: var(--color);
+  align-items: center;
+  height: 32px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+}
+
+.chip .icon--leadind {
+  margin: 2px 4px 0 -4px;
+}
+
+.chip .icon--trailing {
+  margin: 2px -4px 0 4px;
+}
+
+.choiceChips .chip.chip--active {
+  color: var(--background-color);
+  background-color: var(--selected-bg);
+}
+
+.chips__filter .chip.chip--active .chip--check {
+  display: block;
+}
+.intro {
+  width: 100%;
+  background: linear-gradient(to right, var(--intro-bg-first) 0%, var(--intro-bg-second) 100%);
+  margin-top: 30px;
+}
+.intro h1 {
+  margin: 0;
+  font-size: 48px;
+  font-weight: 700;
+  color: white;
+}
+.intro h2 {
+  color: #f3f3f3;
+  margin: 15px 0 0 0;
+  font-size: 26px;
+}
+
+.intro .btn-get-started span {
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+.search-margins{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.intro .btn-get-started:hover i {
+  transform: translateX(5px);
+}
+.intro .intro-img {
+  text-align: right;
+}
+.intro input[type="search"], textarea{
+  color: var(--color);
+  background: var(--search-bg);
+  border-color: #90A4AE;
+}
+.intro input[type="search"]::placeholder{
+  color: var(--hint-color);
+}
+.intro .card{
+  background: var(--main-bg);
+  color: var(--color);
+}
+
+.intro .list-group-item{
+  background: var(--main-bg);
+  color: var(--color);
+}
+
+@media (max-width: 991px) {
+  .intro {
+    padding: 40px 0 20px 0;
+  }
+  .intro .intro-img {
+    text-align: center;
+    margin-top: 80px;
+  }
+  .intro .intro-img img {
+    width: 80%;
+  }
+}
+@media (max-width: 768px) {
+  .intro {
+    text-align: center;
+  }
+  .intro h1 {
+    font-size: 32px;
+  }
+  .intro h2 {
+    font-size: 24px;
+  }
+  .intro .intro-img img {
+    width: 100%;
+  }
+}

@@ -1,0 +1,50 @@
+#supporters {
+    padding: 60px 0;
+}
+
+#supporters .supporter-logo {
+    padding: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 120px;
+}
+
+#supporters .supporter-logo:hover img {
+    filter: none;
+    transform: scale(1.1);
+}
+#supporters .supporter-logo img {
+    filter: var(--filter);
+}
+#supporters img {
+    transition: all 0.4s ease-in-out;
+}
+.section-header {
+    margin-bottom: 30px;
+    position: relative;
+    padding-bottom: 20px;
+}
+.section-header::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 60px;
+    height: 5px;
+    background: #EB743B;
+    bottom: 0;
+    left: calc(50% - 25px);
+}
+.section-header h2 {
+    font-size: 36px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--color);
+}
+
+.section-with-bg {
+    background-color: var(--main-bg);
+}

@@ -1,0 +1,216 @@
+.navbar-default {
+    transition: all .3s ease-in-out;
+    background-color: var(--main-bg);
+    padding-top: 4px;
+    padding-bottom: 4px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    color: var(--color);
+    box-shadow: 1px 2px 15px rgba(100, 100, 100, 0.3);
+}
+
+.navbar-default .nav-search {
+    color: var(--main-bg);
+    font-size: 1.5rem;
+}
+
+.navbar-default input[type="search"], textarea, .navbar-default input[type="search"]::placeholder{
+    color: var(--color);
+    background: var(--search-bg);
+}
+
+.navbar-default select, option:checked, select[multiple]:focus option:checked {
+    color: var(--color);
+    background: var(--search-bg);
+}
+
+.navbar-default.navbar-reduce {
+    box-shadow: 1px 2px 15px rgba(100, 100, 100, 0.3);
+}
+
+.navbar-default.navbar-trans, .navbar-default.navbar-reduce {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.navbar-default.navbar-trans .nav-item, .navbar-default.navbar-reduce .nav-item {
+    position: relative;
+    padding-right: 10px;
+    margin-left: 0;
+}
+
+@media (min-width: 768px) {
+    .navbar-default.navbar-trans .nav-item, .navbar-default.navbar-reduce .nav-item {
+        margin-left: 15px;
+    }
+}
+
+.navbar-default.navbar-trans .nav-link, .navbar-default.navbar-reduce .nav-link {
+    font-size: 1.1rem;
+    color: var(--color);
+    font-weight: 600;
+    letter-spacing: 0.030em;
+    transition: all 0.1s ease-in-out;
+    position: relative;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.navbar-default.navbar-trans .nav-link:before, .navbar-default.navbar-reduce .nav-link:before {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    z-index: 0;
+    background-color: var(--secondary-color);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform .2s ease-out, opacity .2s ease-out 0.3s;
+}
+
+.navbar-default.navbar-trans .nav-link:hover, .navbar-default.navbar-reduce .nav-link:hover {
+    color: var(--color);
+}
+
+.navbar-default.navbar-trans .nav-link:hover:before, .navbar-default.navbar-reduce .nav-link:hover:before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.navbar-default .dropdown .dropdown-menu {
+    border-top: 0;
+    border-left: 4px solid var(--primary-color);
+    border-right: 0;
+    border-bottom: 0;
+    transform: translate3d(0px, 40px, 0px);
+    opacity: 0;
+    background-color: var(--main-bg);
+    filter: alpha(opacity=0);
+    visibility: hidden;
+    transition: all 0.5s cubic-bezier(0.3, 0.65, 0.355, 1) 0s, opacity 0.31s ease 0s, height 0s linear 0.36s;
+    margin: 0;
+    border-radius: 0;
+    padding: 12px 0;
+}
+
+@media (min-width: 768px) {
+    .navbar-default .dropdown .dropdown-menu {
+        border-top: 4px solid var(--primary-color);
+        border-left: 0;
+        display: block;
+        position: absolute;
+        box-shadow: 0 2px rgba(17, 16, 15, 0.1), 0 2px 10px rgba(20, 19, 18, 0.1);
+    }
+}
+
+.navbar-default .dropdown .dropdown-menu .dropdown-item {
+    padding: 12px 18px;
+    transition: all 500ms ease;
+    font-weight: 600;
+    color: var(--color);
+    min-width: 220px;
+}
+
+.navbar-default .dropdown .dropdown-menu .dropdown-item:hover {
+    background-color: var(--background-color);
+    color: var(--secondary-color);
+    transition: all 500ms ease;
+}
+
+.navbar-default .dropdown .dropdown-menu .dropdown-item.active {
+    background-color: var(--background-color);
+    color: var(--primary-color);
+}
+
+.navbar-default .dropdown:hover .dropdown-menu {
+    transform: translate3d(0px, 0px, 0px);
+    visibility: visible;
+    opacity: 1;
+    filter: alpha(opacity=1);
+}
+
+.general-margins{
+    margin-left: 6px;
+}
+
+/*------/ Hamburger Navbar /------*/
+.navbar-toggler {
+    position: relative;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active {
+    outline: 0;
+}
+
+.navbar-toggler span {
+    display: block;
+    background-color: var(--color);
+    height: 3px;
+    width: 25px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    transform: rotate(0deg);
+    left: 0;
+    opacity: 1;
+}
+
+.navbar-toggle-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    padding: 10px;
+}
+
+.navbar-toggle-box i {
+    line-height: 0;
+}
+
+.navbar-toggler span:nth-child(1),
+.navbar-toggler span:nth-child(3) {
+    transition: transform .35s ease-in-out;
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(1) {
+    position: absolute;
+    left: 12px;
+    top: 10px;
+    transform: rotate(135deg);
+    opacity: 0.9;
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(2) {
+    height: 12px;
+    visibility: hidden;
+    background-color: transparent;
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(3) {
+    position: absolute;
+    left: 12px;
+    top: 10px;
+    transform: rotate(-135deg);
+    opacity: 0.9;
+}
+.nav-arrow-a {
+    text-decoration: none;
+}
+
+.nav-arrow-a .owl-arrow .owl-nav {
+    font-size: 1.8rem;
+    margin-top: -110px;
+}
+
+.nav-arrow-a .owl-arrow .owl-nav .owl-next {
+    margin-left: 15px;
+}
+
+.nav-arrow-b .owl-arrow .owl-nav {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.2rem;
+}
