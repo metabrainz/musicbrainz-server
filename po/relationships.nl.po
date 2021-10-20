@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-09-25 11:28+0000\n"
+"PO-Revision-Date: 2021-10-15 21:03+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -3600,6 +3600,10 @@ msgstr "catalogussamensteller"
 msgid "catalogues work of"
 msgstr "is een catalogus van"
 
+#: DB:link_attribute_type/name:1223
+msgid "chamber music"
+msgstr "kamermuziek"
+
 #: DB:link_type/reverse_link_phrase:735
 msgid "child of"
 msgstr "kind van"
@@ -5299,6 +5303,10 @@ msgstr "muziekonderwijs"
 msgid "music production"
 msgstr "muziekproductie"
 
+#: DB:link_attribute_type/name:1222
+msgid "music theory"
+msgstr "muziektheorie"
+
 #: DB:link_attribute_type/name:1203
 msgid "music therapy"
 msgstr "muziektherapie"
@@ -5323,6 +5331,10 @@ msgstr "muzikale relatie"
 #: DB:link_type/name:106
 msgid "musical relationships"
 msgstr "muzikale relatie"
+
+#: DB:link_attribute_type/name:1221
+msgid "musical theatre"
+msgstr "muzikaal theater"
 
 #: DB:link_attribute_type/name:1141
 msgid "musicology"
@@ -5389,6 +5401,10 @@ msgstr "online gemeenschap van"
 #: DB:link_type/long_link_phrase:660
 msgid "online data"
 msgstr "online gegevens"
+
+#: DB:link_attribute_type/name:1220
+msgid "opera"
+msgstr "opera"
 
 #: DB:link_attribute_type/name:1053
 msgid "optional"
@@ -5656,6 +5672,10 @@ msgstr "affiche"
 #: DB:link_type/reverse_link_phrase:808
 msgid "poster for"
 msgstr "affiche van"
+
+#: DB:link_attribute_type/name:1219
+msgid "postgraduate"
+msgstr "postdoctoraal"
 
 #: DB:link_type/name:845 DB:link_type/name:716 DB:link_type/name:715
 #: DB:link_type/name:956

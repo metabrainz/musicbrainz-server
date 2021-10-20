@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-09-20 09:24+0000\n"
+"PO-Revision-Date: 2021-10-15 10:38+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -3605,6 +3605,10 @@ msgstr "Katalogisierer"
 msgid "catalogues work of"
 msgstr "katalogisiert das Werk von"
 
+#: DB:link_attribute_type/name:1223
+msgid "chamber music"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:735
 msgid "child of"
 msgstr "Kind von"
@@ -5304,6 +5308,10 @@ msgstr "musikalische Ausbildung"
 msgid "music production"
 msgstr "Musikproduktion"
 
+#: DB:link_attribute_type/name:1222
+msgid "music theory"
+msgstr ""
+
 #: DB:link_attribute_type/name:1203
 msgid "music therapy"
 msgstr "Musiktherapie"
@@ -5328,6 +5336,10 @@ msgstr "musikalische Beziehung"
 #: DB:link_type/name:106
 msgid "musical relationships"
 msgstr "musikalische Zusammenhänge"
+
+#: DB:link_attribute_type/name:1221
+msgid "musical theatre"
+msgstr ""
 
 #: DB:link_attribute_type/name:1141
 msgid "musicology"
@@ -5394,6 +5406,10 @@ msgstr "Online-Community-Seite für"
 #: DB:link_type/long_link_phrase:660
 msgid "online data"
 msgstr "Onlinedaten"
+
+#: DB:link_attribute_type/name:1220
+msgid "opera"
+msgstr ""
 
 #: DB:link_attribute_type/name:1053
 msgid "optional"
@@ -5660,6 +5676,10 @@ msgstr "Poster"
 
 #: DB:link_type/reverse_link_phrase:808
 msgid "poster for"
+msgstr ""
+
+#: DB:link_attribute_type/name:1219
+msgid "postgraduate"
 msgstr ""
 
 #: DB:link_type/name:845 DB:link_type/name:716 DB:link_type/name:715

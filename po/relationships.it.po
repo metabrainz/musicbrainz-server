@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-09-20 20:34+0000\n"
+"PO-Revision-Date: 2021-10-15 18:20+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -3603,6 +3603,10 @@ msgstr "catalogatore"
 msgid "catalogues work of"
 msgstr "cataloga l'opera di"
 
+#: DB:link_attribute_type/name:1223
+msgid "chamber music"
+msgstr "musica da camera"
+
 #: DB:link_type/reverse_link_phrase:735
 msgid "child of"
 msgstr "discendente di"
@@ -5302,6 +5306,10 @@ msgstr "istruzione musicale"
 msgid "music production"
 msgstr "produzione musicale"
 
+#: DB:link_attribute_type/name:1222
+msgid "music theory"
+msgstr "teoria musicale"
+
 #: DB:link_attribute_type/name:1203
 msgid "music therapy"
 msgstr "musicoterapia"
@@ -5326,6 +5334,10 @@ msgstr "relazione musicale"
 #: DB:link_type/name:106
 msgid "musical relationships"
 msgstr "relazioni musicali"
+
+#: DB:link_attribute_type/name:1221
+msgid "musical theatre"
+msgstr "musical"
 
 #: DB:link_attribute_type/name:1141
 msgid "musicology"
@@ -5392,6 +5404,10 @@ msgstr "pagina di comunità online su"
 #: DB:link_type/long_link_phrase:660
 msgid "online data"
 msgstr "dati online"
+
+#: DB:link_attribute_type/name:1220
+msgid "opera"
+msgstr "opera"
 
 #: DB:link_attribute_type/name:1053
 msgid "optional"
@@ -5659,6 +5675,10 @@ msgstr "manifesto"
 #: DB:link_type/reverse_link_phrase:808
 msgid "poster for"
 msgstr "manifesto per"
+
+#: DB:link_attribute_type/name:1219
+msgid "postgraduate"
+msgstr "laurea magistrale/specializzazione"
 
 #: DB:link_type/name:845 DB:link_type/name:716 DB:link_type/name:715
 #: DB:link_type/name:956

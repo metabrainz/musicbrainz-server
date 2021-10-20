@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-09-20 09:24+0000\n"
+"PO-Revision-Date: 2021-10-15 10:38+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -3602,6 +3602,10 @@ msgstr "カタログ作成者"
 msgid "catalogues work of"
 msgstr "カタログ作成"
 
+#: DB:link_attribute_type/name:1223
+msgid "chamber music"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:735
 msgid "child of"
 msgstr "親"
@@ -5301,6 +5305,10 @@ msgstr "音楽教育"
 msgid "music production"
 msgstr "音楽制作"
 
+#: DB:link_attribute_type/name:1222
+msgid "music theory"
+msgstr ""
+
 #: DB:link_attribute_type/name:1203
 msgid "music therapy"
 msgstr "音楽療法"
@@ -5324,6 +5332,10 @@ msgstr ""
 
 #: DB:link_type/name:106
 msgid "musical relationships"
+msgstr ""
+
+#: DB:link_attribute_type/name:1221
+msgid "musical theatre"
 msgstr ""
 
 #: DB:link_attribute_type/name:1141
@@ -5391,6 +5403,10 @@ msgstr "次のオンラインコミュニティページ"
 #: DB:link_type/long_link_phrase:660
 msgid "online data"
 msgstr "オンラインデータ"
+
+#: DB:link_attribute_type/name:1220
+msgid "opera"
+msgstr ""
 
 #: DB:link_attribute_type/name:1053
 msgid "optional"
@@ -5658,6 +5674,10 @@ msgstr "ポスター"
 #: DB:link_type/reverse_link_phrase:808
 msgid "poster for"
 msgstr "次のポスター"
+
+#: DB:link_attribute_type/name:1219
+msgid "postgraduate"
+msgstr ""
 
 #: DB:link_type/name:845 DB:link_type/name:716 DB:link_type/name:715
 #: DB:link_type/name:956
