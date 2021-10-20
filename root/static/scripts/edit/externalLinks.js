@@ -29,6 +29,7 @@ import formatDatePeriod from '../common/utility/formatDatePeriod';
 import {hasSessionStorage} from '../common/utility/storage';
 import {uniqueId} from '../common/utility/strings';
 import {bracketedText} from '../common/utility/bracketed';
+import {compareDatePeriods} from '../common/utility/compareDates';
 import {isMalware} from '../../../url/utility/isGreyedOut';
 
 import isPositiveInteger from './utility/isPositiveInteger';
@@ -41,7 +42,6 @@ import type {RelationshipTypeT} from './URLCleanup';
 import validation from './validation';
 import ExternalLinkAttributeDialog
   from './components/ExternalLinkAttributeDialog';
-import {compareDatePeriods} from '../common/utility/compareDates';
 
 type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
 
@@ -159,7 +159,7 @@ export class ExternalLinksEditor
           url = this.cleanupUrl(url);
         }
 
-        const newLink = {...newLinks[index], url, rawUrl};
+        const newLink = {...newLinks[index], rawUrl, url};
         const checker = new URLCleanup.Checker(url, this.props.sourceType);
         const guessedType = checker.guessType();
         const possibleTypes = checker.getPossibleTypes();
@@ -412,12 +412,12 @@ export class ExternalLinksEditor
        * to maintain the order that the empty link should be at the end.
        */
       if (lastLink.url === '') {
-        links[linkCount - 1] = {...lastLink, url, submitted: true};
+        links[linkCount - 1] = {...lastLink, submitted: true, url};
         return {links: withOneEmptyLink(links)};
       }
       // Otherwise create a new link with the given URL
       const newRelationship = newLinkState({
-        url, relationship: uniqueId('new-'), submitted: true,
+        relationship: uniqueId('new-'), submitted: true, url,
       });
       return {links: prevState.links.concat([newRelationship])};
     }, () => {
