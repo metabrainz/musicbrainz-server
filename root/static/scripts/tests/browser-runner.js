@@ -1,3 +1,5 @@
+/* eslint-disable import/no-commonjs */
+
 const test = require('tape');
 
 var hadError = false;

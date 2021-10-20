@@ -202,7 +202,7 @@ const UserCollections = ({
           {viewingOwnProfile ? (
             l('You aren’t collaborating in any collections.')
           ) : (
-            exp.l('{user} isn’t collaborating in any collections.',
+            exp.l('{user} isn’t collaborating in any public collections.',
                   {user: user.name})
           )}
         </p>

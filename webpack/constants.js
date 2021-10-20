@@ -6,6 +6,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/* eslint-disable import/no-commonjs */
+
 let WEBPACK_MODE = process.env.WEBPACK_MODE;
 if (typeof WEBPACK_MODE === 'undefined') {
   if (process.env.NODE_ENV === 'production') {

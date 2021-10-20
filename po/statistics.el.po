@@ -1113,7 +1113,7 @@ msgid "Countries"
 msgstr "Χώρες"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/CoverArt.js:66
-#: ../root/statistics/StatisticsLayout.js:62 ../root/statistics/stats.js:17
+#: ../root/statistics/StatisticsLayout.js:62 ../root/statistics/stats.js:18
 msgid "Cover Art"
 msgstr "Εξώφυλλο"
 
@@ -1140,7 +1140,7 @@ msgstr ""
 #: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:37
 #: ../root/statistics/Edits.js:41 ../root/statistics/Edits.js:50
 #: ../root/statistics/Index.js:1207 ../root/statistics/StatisticsLayout.js:72
-#: ../root/statistics/stats.js:310
+#: ../root/statistics/stats.js:311
 msgid "Edits"
 msgstr "Επεξεργασίες"
 
@@ -1149,7 +1149,7 @@ msgid "Exact Values (items vs. day)"
 msgstr "Ακριβείες τιμές (αντικείμενα έναντι ημέρας)"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:77
-#: ../root/statistics/stats.js:19
+#: ../root/statistics/stats.js:20
 msgid "Formats"
 msgstr "Μορφές"
 
@@ -1188,8 +1188,8 @@ msgstr "Γράφημα ρυθμού αλλαγών"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Relationships.js:97
 #: ../root/statistics/Relationships.js:102
-#: ../root/statistics/StatisticsLayout.js:67 ../root/statistics/stats.js:23
-#: ../root/statistics/stats.js:33
+#: ../root/statistics/StatisticsLayout.js:67 ../root/statistics/stats.js:24
+#: ../root/statistics/stats.js:34
 msgid "Relationships"
 msgstr "Σχέσεις"
 
@@ -1228,19 +1228,19 @@ msgid "Country"
 msgstr "Χώρα"
 
 #: ../root/statistics/Countries.js:53 ../root/statistics/Index.js:231
-#: ../root/statistics/Index.js:235 ../root/statistics/stats.js:45
+#: ../root/statistics/Index.js:235 ../root/statistics/stats.js:46
 msgid "Artists"
 msgstr "Καλλιτέχνες"
 
 #: ../root/statistics/Countries.js:57 ../root/statistics/CoverArt.js:105
 #: ../root/statistics/Formats.js:56 ../root/statistics/Index.js:363
 #: ../root/statistics/LanguagesScripts.js:71
-#: ../root/statistics/LanguagesScripts.js:152 ../root/statistics/stats.js:669
+#: ../root/statistics/LanguagesScripts.js:152 ../root/statistics/stats.js:670
 msgid "Releases"
 msgstr "Κυκλοφορίες"
 
 #: ../root/statistics/Countries.js:61 ../root/statistics/Index.js:698
-#: ../root/statistics/Index.js:705 ../root/statistics/stats.js:501
+#: ../root/statistics/Index.js:705 ../root/statistics/stats.js:502
 msgid "Labels"
 msgstr "Δισκογραφικές εταιρείες"
 
@@ -1249,8 +1249,8 @@ msgstr "Δισκογραφικές εταιρείες"
 msgid "Total"
 msgstr "Σύνολο"
 
-#: ../root/statistics/Countries.js:87 ../root/statistics/stats.js:57
-#: ../root/statistics/stats.js:507 ../root/statistics/stats.js:675
+#: ../root/statistics/Countries.js:87 ../root/statistics/stats.js:58
+#: ../root/statistics/stats.js:508 ../root/statistics/stats.js:676
 msgid "Unknown Country"
 msgstr "Άγνωστη χώρα"
 
@@ -1405,7 +1405,7 @@ msgstr "Μορφή"
 msgid "% of total releases"
 msgstr "% από σύνολο κυκλοφοριών"
 
-#: ../root/statistics/Formats.js:58 ../root/statistics/stats.js:513
+#: ../root/statistics/Formats.js:58 ../root/statistics/stats.js:514
 msgid "Mediums"
 msgstr "Μέσα"
 
@@ -1421,7 +1421,7 @@ msgstr "Άγνωστη μορφή"
 msgid "Basic metadata"
 msgstr "Βασικά μεταδεδομένα"
 
-#: ../root/statistics/Index.js:89 ../root/statistics/stats.js:16
+#: ../root/statistics/Index.js:89 ../root/statistics/stats.js:17
 msgid "Core Entities"
 msgstr "Βασικά στοιχεία"
 
@@ -1505,7 +1505,7 @@ msgstr "Σχέσεις:"
 
 #: ../root/statistics/Index.js:167 ../root/statistics/Index.js:924
 #: ../root/statistics/Index.js:928 ../root/statistics/Index.js:931
-#: ../root/statistics/stats.js:171
+#: ../root/statistics/stats.js:16 ../root/statistics/stats.js:172
 msgid "Collections"
 msgstr "Συλλογές\nΣυλλογών"
 
@@ -1685,7 +1685,7 @@ msgstr "Άγνωστη ποιότητα δεδομένων:"
 msgid "Low Data Quality:"
 msgstr "Χαμηλή ποιότητα δεδομένων:"
 
-#: ../root/statistics/Index.js:515 ../root/statistics/stats.js:303
+#: ../root/statistics/Index.js:515 ../root/statistics/stats.js:304
 msgid "Disc IDs"
 msgstr "Disc IDs"
 
@@ -1715,7 +1715,7 @@ msgstr "Μέσα χωρίς disc IDs:"
 msgid "Mediums with at least one disc ID:"
 msgstr "Μέσα με τουλάχιστον ένα disc ID:"
 
-#: ../root/statistics/Index.js:611 ../root/statistics/stats.js:747
+#: ../root/statistics/Index.js:611 ../root/statistics/stats.js:748
 msgid "Release Groups"
 msgstr "Ομάδες κυκλοφοριών"
 
@@ -1728,7 +1728,7 @@ msgid "Secondary Types"
 msgstr "Δευτερεύοντες τύποι"
 
 #: ../root/statistics/Index.js:669 ../root/statistics/Index.js:673
-#: ../root/statistics/stats.js:651
+#: ../root/statistics/stats.js:652
 msgid "Recordings"
 msgstr "Ηχογραφήσεις"
 
@@ -1760,7 +1760,7 @@ msgid "None"
 msgstr "Κανένα"
 
 #: ../root/statistics/Index.js:726 ../root/statistics/LanguagesScripts.js:75
-#: ../root/statistics/stats.js:869
+#: ../root/statistics/stats.js:870
 msgid "Works"
 msgstr "Έργα"
 
@@ -1772,24 +1772,24 @@ msgstr ""
 msgid "Attributes"
 msgstr "Γνωρίσματα"
 
-#: ../root/statistics/Index.js:788 ../root/statistics/stats.js:39
+#: ../root/statistics/Index.js:788 ../root/statistics/stats.js:40
 msgid "Areas"
 msgstr ""
 
-#: ../root/statistics/Index.js:816 ../root/statistics/stats.js:531
+#: ../root/statistics/Index.js:816 ../root/statistics/stats.js:532
 msgid "Places"
 msgstr ""
 
-#: ../root/statistics/Index.js:844 ../root/statistics/stats.js:753
+#: ../root/statistics/Index.js:844 ../root/statistics/stats.js:754
 msgctxt "plural"
 msgid "Series"
 msgstr ""
 
-#: ../root/statistics/Index.js:866 ../root/statistics/stats.js:435
+#: ../root/statistics/Index.js:866 ../root/statistics/stats.js:436
 msgid "Instruments"
 msgstr ""
 
-#: ../root/statistics/Index.js:896 ../root/statistics/stats.js:429
+#: ../root/statistics/Index.js:896 ../root/statistics/stats.js:430
 msgid "Events"
 msgstr ""
 
@@ -1977,7 +1977,7 @@ msgstr ""
 msgid "Yesterday:"
 msgstr "Χθες:"
 
-#: ../root/statistics/Index.js:1277 ../root/statistics/stats.js:832
+#: ../root/statistics/Index.js:1277 ../root/statistics/stats.js:833
 msgid "Votes"
 msgstr "Ψήφοι"
 
@@ -2076,1025 +2076,1025 @@ msgstr "Χώρες καλλιτεχνών"
 msgid "Artist Types and Genders"
 msgstr "Είδη τύποι και φύλα "
 
-#: ../root/statistics/stats.js:18
+#: ../root/statistics/stats.js:19
 msgid "Edit Information"
 msgstr "Πληροφορίες επεξεργασίας"
 
-#: ../root/statistics/stats.js:20
+#: ../root/statistics/stats.js:21
 msgid "Label Countries"
 msgstr "Χώρες δισκογραφικών εταιρειών"
 
-#: ../root/statistics/stats.js:21
+#: ../root/statistics/stats.js:22
 msgctxt "stats category"
 msgid "Other"
 msgstr ""
 
-#: ../root/statistics/stats.js:22
+#: ../root/statistics/stats.js:23
 msgid "Ratings and Tags"
 msgstr "Βαθμολογίες και ετικέτες"
 
-#: ../root/statistics/stats.js:24
+#: ../root/statistics/stats.js:25
 msgid "Release Countries"
 msgstr "Χώρες κυκλοφορίας"
 
-#: ../root/statistics/stats.js:25
+#: ../root/statistics/stats.js:26
 msgid "Release Languages"
 msgstr "Γλώσσες κυκλοφορίας"
 
-#: ../root/statistics/stats.js:26
+#: ../root/statistics/stats.js:27
 msgid "Release Data Quality"
 msgstr "Ποιότητα δεδομένων κυκλοφορίας"
 
-#: ../root/statistics/stats.js:27
+#: ../root/statistics/stats.js:28
 msgid "Release Scripts"
 msgstr ""
 
-#: ../root/statistics/stats.js:32
+#: ../root/statistics/stats.js:33
 msgid "Count of all Relationships"
 msgstr "Πλήθος όλων των σχέσεων"
 
-#: ../root/statistics/stats.js:38
+#: ../root/statistics/stats.js:39
 msgid "Count of all areas"
 msgstr ""
 
-#: ../root/statistics/stats.js:44
+#: ../root/statistics/stats.js:45
 msgid "Count of all artists"
 msgstr "Πλήθος όλων των καλλιτεχνών"
 
-#: ../root/statistics/stats.js:50
+#: ../root/statistics/stats.js:51
 msgid "Artists with no appearances in artist credits"
 msgstr ""
 
-#: ../root/statistics/stats.js:51
+#: ../root/statistics/stats.js:52
 msgid "Artists not in ACs"
 msgstr ""
 
-#: ../root/statistics/stats.js:56
+#: ../root/statistics/stats.js:57
 msgid "Artists with no country set"
 msgstr "Καλλιτέχνες χωρίς ρυθμισμένη χώρα"
 
-#: ../root/statistics/stats.js:62
+#: ../root/statistics/stats.js:63
 msgid "Artists with gender set to female"
 msgstr "Καλλιτέχνες που είναι γυναίκες"
 
-#: ../root/statistics/stats.js:63
+#: ../root/statistics/stats.js:64
 msgid "Female Artists"
 msgstr "Γυναίκες καλλιτέχνες"
 
-#: ../root/statistics/stats.js:68
+#: ../root/statistics/stats.js:69
 msgid "Artists with gender set to male"
 msgstr "Καλλιτέχνες που είναι άντρες"
 
-#: ../root/statistics/stats.js:69
+#: ../root/statistics/stats.js:70
 msgid "Male Artists"
 msgstr "Άνδρες καλλιτέχνες"
 
-#: ../root/statistics/stats.js:74
+#: ../root/statistics/stats.js:75
 msgid "Artists with gender set to not applicable"
 msgstr ""
 
-#: ../root/statistics/stats.js:75
+#: ../root/statistics/stats.js:76
 msgid "Gender Not Applicable"
 msgstr ""
 
-#: ../root/statistics/stats.js:80
+#: ../root/statistics/stats.js:81
 msgid "Artists with gender unset (non-group artists)"
 msgstr "Καλλιτέχνες χωρίς φύλο (όχι συγκροτήματα)"
 
-#: ../root/statistics/stats.js:81
+#: ../root/statistics/stats.js:82
 msgid "Unknown-gender Artists"
 msgstr "Καλλιτέχνες αγνώστου φύλου"
 
-#: ../root/statistics/stats.js:86
+#: ../root/statistics/stats.js:87
 msgid "Artists with gender set to other"
 msgstr "Καλλιτέχνες που έχουν άλλο φύλο"
 
-#: ../root/statistics/stats.js:87
+#: ../root/statistics/stats.js:88
 msgid "Other-gender Artists"
 msgstr "Καλλιτέχνες άλλου φύλου"
 
-#: ../root/statistics/stats.js:92
+#: ../root/statistics/stats.js:93
 msgid "Artists with at least one artist credit appearance"
 msgstr ""
 
-#: ../root/statistics/stats.js:93
+#: ../root/statistics/stats.js:94
 msgid "Artists in ACs"
 msgstr ""
 
-#: ../root/statistics/stats.js:98
+#: ../root/statistics/stats.js:99
 msgid "Artists with type set to character"
 msgstr ""
 
-#: ../root/statistics/stats.js:99
+#: ../root/statistics/stats.js:100
 msgid "Characters"
 msgstr ""
 
-#: ../root/statistics/stats.js:104
+#: ../root/statistics/stats.js:105
 msgid "Artists with type set to choir"
 msgstr ""
 
-#: ../root/statistics/stats.js:105
+#: ../root/statistics/stats.js:106
 msgid "Choirs"
 msgstr ""
 
-#: ../root/statistics/stats.js:110
+#: ../root/statistics/stats.js:111
 msgid "Artists with type set to group"
 msgstr "Καλλιτέχνες που είναι συγκροτήματα"
 
-#: ../root/statistics/stats.js:111
+#: ../root/statistics/stats.js:112
 msgid "Groups"
 msgstr "Συγκροτήματα"
 
-#: ../root/statistics/stats.js:116
+#: ../root/statistics/stats.js:117
 msgid "Artists with type unset"
 msgstr "Καλλιτέχνες χωρίς ρυθμισμένο τύπο"
 
-#: ../root/statistics/stats.js:117
+#: ../root/statistics/stats.js:118
 msgid "Unknown-type Artists"
 msgstr "Καλλιτέχνες άγνωστου τύπου"
 
-#: ../root/statistics/stats.js:122
+#: ../root/statistics/stats.js:123
 msgid "Artists with type set to orchestra"
 msgstr ""
 
-#: ../root/statistics/stats.js:123
+#: ../root/statistics/stats.js:124
 msgid "Orchestras"
 msgstr ""
 
-#: ../root/statistics/stats.js:128
+#: ../root/statistics/stats.js:129
 msgid "Artists with type set to other"
 msgstr "Καλλιτέχνες άλλου τύπου"
 
-#: ../root/statistics/stats.js:129
+#: ../root/statistics/stats.js:130
 msgid "Other-type Artists"
 msgstr "Καλλιτέχνες άλλου τύπου"
 
-#: ../root/statistics/stats.js:134
+#: ../root/statistics/stats.js:135
 msgid "Artists with type set to person"
 msgstr "Καλλιτέχνες που είναι άτομα"
 
-#: ../root/statistics/stats.js:135
+#: ../root/statistics/stats.js:136
 msgid "Persons"
 msgstr "Άτομα"
 
-#: ../root/statistics/stats.js:140
+#: ../root/statistics/stats.js:141
 msgid "Count of all Artist Credits"
 msgstr ""
 
-#: ../root/statistics/stats.js:141
+#: ../root/statistics/stats.js:142
 msgid "Artist Credits"
 msgstr ""
 
-#: ../root/statistics/stats.js:146
+#: ../root/statistics/stats.js:147
 msgid "Count of all Barcodes"
 msgstr "Πλήθος όλων των barcodes"
 
-#: ../root/statistics/stats.js:147
+#: ../root/statistics/stats.js:148
 msgid "Barcodes"
 msgstr "Barcodes"
 
-#: ../root/statistics/stats.js:152
+#: ../root/statistics/stats.js:153
 msgid "Count of all CDStubs"
 msgstr ""
 
-#: ../root/statistics/stats.js:153
+#: ../root/statistics/stats.js:154
 msgid "CDStubs (all)"
 msgstr "CDStubs (όλα)"
 
-#: ../root/statistics/stats.js:158
+#: ../root/statistics/stats.js:159
 msgid "Count of all CDStubs ever submitted"
 msgstr ""
 
-#: ../root/statistics/stats.js:159
+#: ../root/statistics/stats.js:160
 msgid "CDStubs (submitted)"
 msgstr ""
 
-#: ../root/statistics/stats.js:164
+#: ../root/statistics/stats.js:165
 msgid "Count of all CDStub tracks"
 msgstr ""
 
-#: ../root/statistics/stats.js:165
+#: ../root/statistics/stats.js:166
 msgid "CDStub tracks"
 msgstr ""
 
-#: ../root/statistics/stats.js:177
+#: ../root/statistics/stats.js:178
 msgid "Collections with collaborators"
 msgstr ""
 
-#: ../root/statistics/stats.js:183
+#: ../root/statistics/stats.js:184
 msgid "Private collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:189
+#: ../root/statistics/stats.js:190
 msgid "Public collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:195
+#: ../root/statistics/stats.js:196
 msgid "Area collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:201
+#: ../root/statistics/stats.js:202
 msgid "Artist collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:207
+#: ../root/statistics/stats.js:208
 msgid "Collections of type Attending"
 msgstr ""
 
-#: ../root/statistics/stats.js:213
+#: ../root/statistics/stats.js:214
 msgid "Collections of type Event"
 msgstr ""
 
-#: ../root/statistics/stats.js:219
+#: ../root/statistics/stats.js:220
 msgid "Event collections (all types)"
 msgstr ""
 
-#: ../root/statistics/stats.js:225
+#: ../root/statistics/stats.js:226
 msgid "Instrument collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:231
+#: ../root/statistics/stats.js:232
 msgid "Label collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:237
+#: ../root/statistics/stats.js:238
 msgid "Collections of type Maybe attending"
 msgstr ""
 
-#: ../root/statistics/stats.js:243
+#: ../root/statistics/stats.js:244
 msgid "Collections of type Owned music"
 msgstr ""
 
-#: ../root/statistics/stats.js:249
+#: ../root/statistics/stats.js:250
 msgid "Place collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:255
+#: ../root/statistics/stats.js:256
 msgid "Recording collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:261
+#: ../root/statistics/stats.js:262
 msgid "Collections of type Release"
 msgstr ""
 
-#: ../root/statistics/stats.js:267
+#: ../root/statistics/stats.js:268
 msgid "Release collections (all types)"
 msgstr ""
 
-#: ../root/statistics/stats.js:273
+#: ../root/statistics/stats.js:274
 msgid "Release group collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:279
+#: ../root/statistics/stats.js:280
 msgid "Series collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:285
+#: ../root/statistics/stats.js:286
 msgid "Collections of type Wishlist"
 msgstr ""
 
-#: ../root/statistics/stats.js:291
+#: ../root/statistics/stats.js:292
 msgid "Work collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:296 ../root/statistics/stats.js:297
+#: ../root/statistics/stats.js:297 ../root/statistics/stats.js:298
 msgid "Pieces of Cover Art"
 msgstr "Κομμάτια εξωφύλλου"
 
-#: ../root/statistics/stats.js:302
+#: ../root/statistics/stats.js:303
 msgid "Count of all Disc IDs"
 msgstr ""
 
-#: ../root/statistics/stats.js:308
+#: ../root/statistics/stats.js:309
 msgid "Count of all edits"
 msgstr "Πλήθος όλων των επεξεργασιών"
 
-#: ../root/statistics/stats.js:315
+#: ../root/statistics/stats.js:316
 msgid "All edits that have been applied"
 msgstr "Όλες οι εφαρμοσμένες επεξεργασίες"
 
-#: ../root/statistics/stats.js:316
+#: ../root/statistics/stats.js:317
 msgid "Applied edits"
 msgstr "Εφαρμοσμένες επεξεργασίες"
 
-#: ../root/statistics/stats.js:321 ../root/statistics/stats.js:322
+#: ../root/statistics/stats.js:322 ../root/statistics/stats.js:323
 msgid "Cancelled edits"
 msgstr "Ακυρωμένες επεξεργασίες"
 
-#: ../root/statistics/stats.js:327
+#: ../root/statistics/stats.js:328
 msgid "All edits that have hit an error"
 msgstr "Όλες οι επεξεργασίες που παρουσίασαν κάποιο σφάλμα"
 
-#: ../root/statistics/stats.js:328
+#: ../root/statistics/stats.js:329
 msgid "Error edits"
 msgstr "Σφάλματα επεξεργασίας"
 
-#: ../root/statistics/stats.js:333
+#: ../root/statistics/stats.js:334
 msgid "Evalnochange edits"
 msgstr ""
 
-#: ../root/statistics/stats.js:334
+#: ../root/statistics/stats.js:335
 msgid "Evalnochange Edits"
 msgstr ""
 
-#: ../root/statistics/stats.js:339
+#: ../root/statistics/stats.js:340
 msgid "All edits that have failed dependency checks"
 msgstr "Όλες οι επεξεργασίες που απέτυχαν στους ελέγχους εξάρτησης"
 
-#: ../root/statistics/stats.js:340
+#: ../root/statistics/stats.js:341
 msgid "Failed edits (dependency)"
 msgstr "Αποτυχημένες επεξεργασίες (εξάρτηση)"
 
-#: ../root/statistics/stats.js:345
+#: ../root/statistics/stats.js:346
 msgid "All edits that have failed prerequisite checks"
 msgstr "Όλες οι επεξεργασίες που απέτυχαν στους ελέγχους προαπαιτούμενων"
 
-#: ../root/statistics/stats.js:346
+#: ../root/statistics/stats.js:347
 msgid "Failed edits (prerequisite)"
 msgstr "Αποτυχημένες επεξεργασίες (προαπαιτούμενα)"
 
-#: ../root/statistics/stats.js:351
+#: ../root/statistics/stats.js:352
 msgid "All edits that have failed by being voted down"
 msgstr "Όλες οι επεξεργασίες οι οποίες απέτυχαν επειδή καταψηφίστηκαν"
 
-#: ../root/statistics/stats.js:352
+#: ../root/statistics/stats.js:353
 msgid "Failed edits (voted down)"
 msgstr "Αποτυχημένες επεξεργασίες (καταψηφίστηκαν)"
 
-#: ../root/statistics/stats.js:357
+#: ../root/statistics/stats.js:358
 msgid "Count of open edits"
 msgstr "Πλήθος ανοιχτών επεξεργασιών"
 
-#: ../root/statistics/stats.js:358
+#: ../root/statistics/stats.js:359
 msgid "Open Edits"
 msgstr "Ανοιχτές επεξεργασίες"
 
-#: ../root/statistics/stats.js:363
+#: ../root/statistics/stats.js:364
 msgid "Count of edits per day"
 msgstr "Πλήθος επεξεργασιών ανά ημέρα"
 
-#: ../root/statistics/stats.js:365
+#: ../root/statistics/stats.js:366
 msgid "Edits per day"
 msgstr "Επεξεργασίες ανά ημέρα"
 
-#: ../root/statistics/stats.js:370
+#: ../root/statistics/stats.js:371
 msgid "Count of edits per week"
 msgstr ""
 
-#: ../root/statistics/stats.js:371
+#: ../root/statistics/stats.js:372
 msgid "Edits per week"
 msgstr "Επεξεργασίες ανά εβδομάδα"
 
-#: ../root/statistics/stats.js:376
+#: ../root/statistics/stats.js:377
 msgid "Count of all editors"
 msgstr ""
 
-#: ../root/statistics/stats.js:378
+#: ../root/statistics/stats.js:379
 msgid "Editors (all)"
 msgstr ""
 
-#: ../root/statistics/stats.js:384
+#: ../root/statistics/stats.js:385
 msgid "Count of active editors (editing or voting) during the last week"
 msgstr ""
 
-#: ../root/statistics/stats.js:386
+#: ../root/statistics/stats.js:387
 msgid "Active Users"
 msgstr "Ενεργοί Χρήστες"
 
-#: ../root/statistics/stats.js:391
+#: ../root/statistics/stats.js:392
 msgid "Count of deleted editors"
 msgstr ""
 
-#: ../root/statistics/stats.js:393
+#: ../root/statistics/stats.js:394
 msgid "Editors (deleted)"
 msgstr ""
 
-#: ../root/statistics/stats.js:399
+#: ../root/statistics/stats.js:400
 msgid "Count of editors who have submitted edits during the last 7 days"
 msgstr ""
 
-#: ../root/statistics/stats.js:401
+#: ../root/statistics/stats.js:402
 msgid "Active Editors"
 msgstr ""
 
-#: ../root/statistics/stats.js:406
+#: ../root/statistics/stats.js:407
 msgid "Count of non-deleted editors"
 msgstr ""
 
-#: ../root/statistics/stats.js:408
+#: ../root/statistics/stats.js:409
 msgid "Editors (valid)"
 msgstr ""
 
-#: ../root/statistics/stats.js:413
+#: ../root/statistics/stats.js:414
 msgid "Count of active editors"
 msgstr ""
 
-#: ../root/statistics/stats.js:415
+#: ../root/statistics/stats.js:416
 msgid "Editors (valid & active ever)"
 msgstr ""
 
-#: ../root/statistics/stats.js:421
+#: ../root/statistics/stats.js:422
 msgid "Count of editors who have voted on during the last 7 days"
 msgstr ""
 
-#: ../root/statistics/stats.js:423
+#: ../root/statistics/stats.js:424
 msgid "Active Voters"
 msgstr "Ενεργοί Ψηφοφόροι"
 
-#: ../root/statistics/stats.js:428
+#: ../root/statistics/stats.js:429
 msgid "Count of all events"
 msgstr ""
 
-#: ../root/statistics/stats.js:434
+#: ../root/statistics/stats.js:435
 msgid "Count of all instruments"
 msgstr ""
 
-#: ../root/statistics/stats.js:440
+#: ../root/statistics/stats.js:441
 msgid "Count of all IPIs"
 msgstr "Πλήθος όλων των IPIs"
 
-#: ../root/statistics/stats.js:441
+#: ../root/statistics/stats.js:442
 msgid "IPIs"
 msgstr "IPI"
 
-#: ../root/statistics/stats.js:446
+#: ../root/statistics/stats.js:447
 msgid "Count of all IPIs for Artists"
 msgstr "Πλήθος όλων των IPIs για καλλιτέχνες"
 
-#: ../root/statistics/stats.js:447
+#: ../root/statistics/stats.js:448
 msgid "Artist IPIs"
 msgstr "IPIs καλλιτεχνών"
 
-#: ../root/statistics/stats.js:452
+#: ../root/statistics/stats.js:453
 msgid "Count of all IPIs for Labels"
 msgstr "Πλήθος όλων των IPIs για δισκογραφικές εταιρείες"
 
-#: ../root/statistics/stats.js:453
+#: ../root/statistics/stats.js:454
 msgid "Label IPIs"
 msgstr "IPI δισκογραφικών εταιρειών"
 
-#: ../root/statistics/stats.js:458
+#: ../root/statistics/stats.js:459
 msgid "Count of all ISNIs"
 msgstr ""
 
-#: ../root/statistics/stats.js:459
+#: ../root/statistics/stats.js:460
 msgid "ISNIs"
 msgstr ""
 
-#: ../root/statistics/stats.js:464
+#: ../root/statistics/stats.js:465
 msgid "Count of all ISNIs for Artists"
 msgstr ""
 
-#: ../root/statistics/stats.js:465
+#: ../root/statistics/stats.js:466
 msgid "Artist ISNIs"
 msgstr ""
 
-#: ../root/statistics/stats.js:470
+#: ../root/statistics/stats.js:471
 msgid "Count of all ISNIs for Labels"
 msgstr ""
 
-#: ../root/statistics/stats.js:471
+#: ../root/statistics/stats.js:472
 msgid "Label ISNIs"
 msgstr ""
 
-#: ../root/statistics/stats.js:476 ../root/statistics/stats.js:482
+#: ../root/statistics/stats.js:477 ../root/statistics/stats.js:483
 msgid "Count of all ISRCs"
 msgstr "Πλήθος όλων των ISRCs"
 
-#: ../root/statistics/stats.js:477
+#: ../root/statistics/stats.js:478
 msgid "ISRCs"
 msgstr "ISRC"
 
-#: ../root/statistics/stats.js:483
+#: ../root/statistics/stats.js:484
 msgid "ISRCs (all)"
 msgstr "ISRC (όλα)"
 
-#: ../root/statistics/stats.js:488 ../root/statistics/stats.js:494
+#: ../root/statistics/stats.js:489 ../root/statistics/stats.js:495
 msgid "Count of all ISWCs"
 msgstr "Πλήθος όλων των ISWCs"
 
-#: ../root/statistics/stats.js:489
+#: ../root/statistics/stats.js:490
 msgid "ISWCs"
 msgstr "ISWC"
 
-#: ../root/statistics/stats.js:495
+#: ../root/statistics/stats.js:496
 msgid "ISWCs (all)"
 msgstr "ISWC (όλα)"
 
-#: ../root/statistics/stats.js:500
+#: ../root/statistics/stats.js:501
 msgid "Count of all labels"
 msgstr "Πλήθος όλων των δισκογραφικών εταιρειών"
 
-#: ../root/statistics/stats.js:506
+#: ../root/statistics/stats.js:507
 msgid "Labels with no country set"
 msgstr "Δισκογραφικές εταιρείες χωρίς ρυθμισμένη χώρα"
 
-#: ../root/statistics/stats.js:512
+#: ../root/statistics/stats.js:513
 msgid "Count of all mediums"
 msgstr "Πλήθος όλων των μέσων"
 
-#: ../root/statistics/stats.js:518
+#: ../root/statistics/stats.js:519
 msgid "Mediums with no format set"
 msgstr "Μέσα χωρίς ρυθμισμένη μορφή"
 
-#: ../root/statistics/stats.js:519
+#: ../root/statistics/stats.js:520
 msgid "Unknown Format (medium)"
 msgstr "Άγνωστη μορφή (μέσο)"
 
-#: ../root/statistics/stats.js:524
+#: ../root/statistics/stats.js:525
 msgid "Count of all Mediums with Disc IDs"
 msgstr ""
 
-#: ../root/statistics/stats.js:525
+#: ../root/statistics/stats.js:526
 msgid "Mediums with Disc IDs"
 msgstr ""
 
-#: ../root/statistics/stats.js:530
+#: ../root/statistics/stats.js:531
 msgid "Count of all places"
 msgstr ""
 
-#: ../root/statistics/stats.js:536
+#: ../root/statistics/stats.js:537
 msgid "Count of all Releases at Default Data Quality"
 msgstr "Πλήθος όλων των κυκλοφοριών με την προεπιλεγμένη ποιότητα δεδομένων"
 
-#: ../root/statistics/stats.js:537
+#: ../root/statistics/stats.js:538
 msgid "Default Data Quality"
 msgstr "Προεπιλεγμένη ποιότητα δεδομένων"
 
-#: ../root/statistics/stats.js:542
+#: ../root/statistics/stats.js:543
 msgid "Count of all Releases at High Data Quality"
 msgstr "Πλήθος όλων των κυκλοφοριών με υψηλή ποιότητα δεδομένων"
 
-#: ../root/statistics/stats.js:543
+#: ../root/statistics/stats.js:544
 msgid "High Data Quality"
 msgstr "Υψηλή ποιότητα δεδομένων"
 
-#: ../root/statistics/stats.js:548
+#: ../root/statistics/stats.js:549
 msgid "Count of all Releases at Low Data Quality"
 msgstr "Πλήθος όλων των κυκλοφοριών με χαμηλή ποιότητα δεδομένων"
 
-#: ../root/statistics/stats.js:549
+#: ../root/statistics/stats.js:550
 msgid "Low Data Quality"
 msgstr "Χαμηλή ποιότητα δεδομένων"
 
-#: ../root/statistics/stats.js:554
+#: ../root/statistics/stats.js:555
 msgid "Count of all Releases at Normal Data Quality"
 msgstr "Πλήθος όλων των κυκλοφοριών με κανονική ποιότητα δεδομένων"
 
-#: ../root/statistics/stats.js:555
+#: ../root/statistics/stats.js:556
 msgid "Normal Data Quality"
 msgstr "Κανονική ποιότητα δεδομένων"
 
-#: ../root/statistics/stats.js:560
+#: ../root/statistics/stats.js:561
 msgid "Count of all Releases at Unknown Data Quality"
 msgstr "Πλήθος όλων των κυκλοφοριών με άγνωστη ποιότητα δεδομένων"
 
-#: ../root/statistics/stats.js:561
+#: ../root/statistics/stats.js:562
 msgid "Unknown Data Quality"
 msgstr "Άγνωστη ποιότητα δεδομένων"
 
-#: ../root/statistics/stats.js:566
+#: ../root/statistics/stats.js:567
 msgid "Count of all Ratings"
 msgstr "Πλήθος όλων των βαθμολογιών"
 
-#: ../root/statistics/stats.js:567
+#: ../root/statistics/stats.js:568
 msgid "Ratings"
 msgstr "Βαθμολογίες"
 
-#: ../root/statistics/stats.js:572
+#: ../root/statistics/stats.js:573
 msgid "Count of all Artist Ratings"
 msgstr "Πλήθος όλων των βαθμολογιών καλλιτεχνών"
 
-#: ../root/statistics/stats.js:573
+#: ../root/statistics/stats.js:574
 msgid "Artist Ratings"
 msgstr "Βαθομολογίες καλλιτεχνών"
 
-#: ../root/statistics/stats.js:578
+#: ../root/statistics/stats.js:579
 msgid "Count of all Label Ratings"
 msgstr "Πλήθος όλων των βαθμολογιών δισκογραφικών εταιρειών"
 
-#: ../root/statistics/stats.js:579
+#: ../root/statistics/stats.js:580
 msgid "Label Ratings"
 msgstr "Βαθμολογίες δισκογραφικών εταιρειών"
 
-#: ../root/statistics/stats.js:584
+#: ../root/statistics/stats.js:585
 msgid "Count of all Place Ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:585
+#: ../root/statistics/stats.js:586
 msgid "Place Ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:590
+#: ../root/statistics/stats.js:591
 msgid "Count of all Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:591
+#: ../root/statistics/stats.js:592
 msgid "Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:596
+#: ../root/statistics/stats.js:597
 msgid "Count of all Artist Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:597
+#: ../root/statistics/stats.js:598
 msgid "Artist Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:602
+#: ../root/statistics/stats.js:603
 msgid "Count of all Label Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:603
+#: ../root/statistics/stats.js:604
 msgid "Label Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:608
+#: ../root/statistics/stats.js:609
 msgid "Count of all Place Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:609
+#: ../root/statistics/stats.js:610
 msgid "Place Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:614
+#: ../root/statistics/stats.js:615
 msgid "Count of all Recording Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:615
+#: ../root/statistics/stats.js:616
 msgid "Recording Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:620
+#: ../root/statistics/stats.js:621
 msgid "Count of all Release Group Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:621
+#: ../root/statistics/stats.js:622
 msgid "Release Group Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:626
+#: ../root/statistics/stats.js:627
 msgid "Count of all Work Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:627
+#: ../root/statistics/stats.js:628
 msgid "Work Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:632
+#: ../root/statistics/stats.js:633
 msgid "Count of all Recording Ratings"
 msgstr "Πλήθος όλων των βαθμολογιών ηχογραφήσεων"
 
-#: ../root/statistics/stats.js:633
+#: ../root/statistics/stats.js:634
 msgid "Recording Ratings"
 msgstr "Βαθμολογίες ηχογράφησης"
 
-#: ../root/statistics/stats.js:638
+#: ../root/statistics/stats.js:639
 msgid "Count of all Release Group Ratings"
 msgstr "Πλήθος όλων των βαθμολογιών ομάδων κυκλοφοριών"
 
-#: ../root/statistics/stats.js:639
+#: ../root/statistics/stats.js:640
 msgid "Release Group Ratings"
 msgstr "Βαθμολογίες ομάδας κυκλοφοριών"
 
-#: ../root/statistics/stats.js:644
+#: ../root/statistics/stats.js:645
 msgid "Count of all Work Ratings"
 msgstr "Πλήθος όλων των βαθμολογιών έργων"
 
-#: ../root/statistics/stats.js:645
+#: ../root/statistics/stats.js:646
 msgid "Work Ratings"
 msgstr "Βαθμολογίες έργου"
 
-#: ../root/statistics/stats.js:650
+#: ../root/statistics/stats.js:651
 msgid "Count of all recordings"
 msgstr "Πλήθος όλων των ηχογραφήσεων"
 
-#: ../root/statistics/stats.js:656
+#: ../root/statistics/stats.js:657
 msgid "Count of all Recordings with ISRCs"
 msgstr "Πλήθος όλων των ηχογραφήσεων με ISRC"
 
-#: ../root/statistics/stats.js:657
+#: ../root/statistics/stats.js:658
 msgid "Recordings with ISRCs"
 msgstr "Κυκλοφορίες με ISRC"
 
-#: ../root/statistics/stats.js:662
+#: ../root/statistics/stats.js:663
 msgid "Count of all standalone recordings"
 msgstr ""
 
-#: ../root/statistics/stats.js:663
+#: ../root/statistics/stats.js:664
 msgid "Standalone recordings"
 msgstr ""
 
-#: ../root/statistics/stats.js:668
+#: ../root/statistics/stats.js:669
 msgid "Count of all releases"
 msgstr "Πλήθος όλων των κυκλοφοριών"
 
-#: ../root/statistics/stats.js:674
+#: ../root/statistics/stats.js:675
 msgid "Releases with no country set"
 msgstr "Κυκλοφορίες χωρίς ρυθμισμένη χώρα"
 
-#: ../root/statistics/stats.js:680 ../root/statistics/stats.js:681
-#: ../root/statistics/stats.js:698
+#: ../root/statistics/stats.js:681 ../root/statistics/stats.js:682
+#: ../root/statistics/stats.js:699
 msgid "Releases with Amazon Cover Art"
 msgstr ""
 
-#: ../root/statistics/stats.js:686 ../root/statistics/stats.js:687
+#: ../root/statistics/stats.js:687 ../root/statistics/stats.js:688
 msgid "Releases with CAA Cover Art"
 msgstr ""
 
-#: ../root/statistics/stats.js:692 ../root/statistics/stats.js:693
+#: ../root/statistics/stats.js:693 ../root/statistics/stats.js:694
 msgid "Releases with No Cover Art"
 msgstr ""
 
-#: ../root/statistics/stats.js:699
+#: ../root/statistics/stats.js:700
 msgid "Releases with Cover Art from Relationships"
 msgstr ""
 
-#: ../root/statistics/stats.js:704
+#: ../root/statistics/stats.js:705
 msgid "Releases with a no-format medium"
 msgstr "Κυκλοφορίες με μέσο χωρίς μορφή"
 
-#: ../root/statistics/stats.js:705
+#: ../root/statistics/stats.js:706
 msgid "Unknown Format (release)"
 msgstr "Άγνωστη μορφή (κυκλοφορία)"
 
-#: ../root/statistics/stats.js:710 ../root/statistics/stats.js:711
+#: ../root/statistics/stats.js:711 ../root/statistics/stats.js:712
 msgid "Releases with Cover Art"
 msgstr "Κυκλοφορίες με εξώφυλλο"
 
-#: ../root/statistics/stats.js:716
+#: ../root/statistics/stats.js:717
 msgid "Count of all Releases with Disc IDs"
 msgstr ""
 
-#: ../root/statistics/stats.js:717
+#: ../root/statistics/stats.js:718
 msgid "Releases with Disc IDs"
 msgstr ""
 
-#: ../root/statistics/stats.js:722
+#: ../root/statistics/stats.js:723
 msgid "Releases with no language set"
 msgstr "Κυκλοφορίες χωρίς ρυθμισμένη γλώσσα"
 
-#: ../root/statistics/stats.js:723
+#: ../root/statistics/stats.js:724
 msgid "Unknown Language"
 msgstr "Άγνωστη γλώσσα"
 
-#: ../root/statistics/stats.js:728
+#: ../root/statistics/stats.js:729
 msgid "Count of all Releases not V.A."
 msgstr "Πλήθος όλων των κυκλοφοριών που δεν είναι Διαφόρων Καλλιτεχνών"
 
-#: ../root/statistics/stats.js:729
+#: ../root/statistics/stats.js:730
 msgid "Releases not VA"
 msgstr "Κυκλοφορίες όχι ΔΚ"
 
-#: ../root/statistics/stats.js:734
+#: ../root/statistics/stats.js:735
 msgid "Releases with no script set"
 msgstr ""
 
-#: ../root/statistics/stats.js:735
+#: ../root/statistics/stats.js:736
 msgid "Unknown Script"
 msgstr "Άγνωστη γραφή"
 
-#: ../root/statistics/stats.js:740
+#: ../root/statistics/stats.js:741
 msgid "Count of all Releases by Various Artists"
 msgstr "Καταμέτρηση όλων των κυκλοφοριών Διαφόρων Καλλιτεχνών"
 
-#: ../root/statistics/stats.js:741
+#: ../root/statistics/stats.js:742
 msgid "Releases (VA)"
 msgstr "Κυκλοφορίες (ΔΚ)"
 
-#: ../root/statistics/stats.js:746
+#: ../root/statistics/stats.js:747
 msgid "Count of all release groups"
 msgstr "Πλήθος όλων των ομάδων κυκλοφοριών"
 
-#: ../root/statistics/stats.js:752
+#: ../root/statistics/stats.js:753
 msgid "Count of all series"
 msgstr ""
 
-#: ../root/statistics/stats.js:758
+#: ../root/statistics/stats.js:759
 msgid "Count of all Tags"
 msgstr "Πλήθος όλων των ετικετών"
 
-#: ../root/statistics/stats.js:759
+#: ../root/statistics/stats.js:760
 msgid "Tags"
 msgstr "Ετικέτες"
 
-#: ../root/statistics/stats.js:764
+#: ../root/statistics/stats.js:765
 msgid "Count of all Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:765
+#: ../root/statistics/stats.js:766
 msgid "Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:770
+#: ../root/statistics/stats.js:771
 msgid "Count of all Area Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:771
+#: ../root/statistics/stats.js:772
 msgid "Area Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:776
+#: ../root/statistics/stats.js:777
 msgid "Count of all Artist Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:777
+#: ../root/statistics/stats.js:778
 msgid "Artist Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:782
+#: ../root/statistics/stats.js:783
 msgid "Count of all Instrument Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:783
+#: ../root/statistics/stats.js:784
 msgid "Instrument Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:788
+#: ../root/statistics/stats.js:789
 msgid "Count of all Label Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:789
+#: ../root/statistics/stats.js:790
 msgid "Label Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:794
+#: ../root/statistics/stats.js:795
 msgid "Count of all Recording Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:795
+#: ../root/statistics/stats.js:796
 msgid "Recording Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:800
+#: ../root/statistics/stats.js:801
 msgid "Count of all Release Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:801
+#: ../root/statistics/stats.js:802
 msgid "Release Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:806
+#: ../root/statistics/stats.js:807
 msgid "Count of all Release Group Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:807
+#: ../root/statistics/stats.js:808
 msgid "Release Group Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:812
+#: ../root/statistics/stats.js:813
 msgid "Count of all Series Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:813
+#: ../root/statistics/stats.js:814
 msgid "Series Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:818
+#: ../root/statistics/stats.js:819
 msgid "Count of all Work Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:819
+#: ../root/statistics/stats.js:820
 msgid "Work Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/stats.js:824
+#: ../root/statistics/stats.js:825
 msgid "Count of all Tracks"
 msgstr "Πλήθος όλων των κομματιών"
 
-#: ../root/statistics/stats.js:825
+#: ../root/statistics/stats.js:826
 msgid "Tracks"
 msgstr "Κομμάτια"
 
-#: ../root/statistics/stats.js:830
+#: ../root/statistics/stats.js:831
 msgid "Count of all votes"
 msgstr "Πλήθος όλων των ψήφων"
 
-#: ../root/statistics/stats.js:837
+#: ../root/statistics/stats.js:838
 msgid "Count of all Abstain votes"
 msgstr ""
 
-#: ../root/statistics/stats.js:838
+#: ../root/statistics/stats.js:839
 msgid "Abstentions"
 msgstr "Αποχές"
 
-#: ../root/statistics/stats.js:843
+#: ../root/statistics/stats.js:844
 msgid "Count of all No votes"
 msgstr "Καταμέτρηση όλων των αρνητικών ψήφων"
 
-#: ../root/statistics/stats.js:844
+#: ../root/statistics/stats.js:845
 msgid "No Votes"
 msgstr "Αρνητικές ψήφοι"
 
-#: ../root/statistics/stats.js:849
+#: ../root/statistics/stats.js:850
 msgid "Count of votes per day"
 msgstr "Πλήθος όλων των ψήφων ανά ημέρα"
 
-#: ../root/statistics/stats.js:851
+#: ../root/statistics/stats.js:852
 msgid "Votes per day"
 msgstr "Ψήφοι ανά ημέρα"
 
-#: ../root/statistics/stats.js:856
+#: ../root/statistics/stats.js:857
 msgid "Count of votes per week"
 msgstr "Πλήθος όλων των ψήφων ανά βδομάδα"
 
-#: ../root/statistics/stats.js:857
+#: ../root/statistics/stats.js:858
 msgid "Votes per week"
 msgstr "Ψήφοι ανά βδομάδα"
 
-#: ../root/statistics/stats.js:862
+#: ../root/statistics/stats.js:863
 msgid "Count of all Yes votes"
 msgstr "Πλήθος όλων των θετικών ψήφων"
 
-#: ../root/statistics/stats.js:863
+#: ../root/statistics/stats.js:864
 msgid "Yes Votes"
 msgstr "Θετικές ψήφοι"
 
-#: ../root/statistics/stats.js:868
+#: ../root/statistics/stats.js:869
 msgid "Count of all works"
 msgstr "Πλήθος όλων των έργων"
 
-#: ../root/statistics/stats.js:874
+#: ../root/statistics/stats.js:875
 msgid "Count of all Works with ISWCs"
 msgstr ""
 
-#: ../root/statistics/stats.js:875
+#: ../root/statistics/stats.js:876
 msgid "Works with ISWCs"
 msgstr ""
 
-#: ../root/statistics/stats.js:877
+#: ../root/statistics/stats.js:878
 msgid "/day"
 msgstr "/ημέρα"
 
-#: ../root/statistics/stats.js:886
+#: ../root/statistics/stats.js:887
 msgid "Count of all Releases with {n} Disc IDs"
 msgstr ""
 
-#: ../root/statistics/stats.js:888
+#: ../root/statistics/stats.js:889
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/stats.js:898
+#: ../root/statistics/stats.js:899
 msgid "Count of all Mediums with {n} Disc IDs"
 msgstr ""
 
-#: ../root/statistics/stats.js:900
+#: ../root/statistics/stats.js:901
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/stats.js:910
+#: ../root/statistics/stats.js:911
 msgid "Count of all Recordings with {n} Releases"
 msgstr "Πλήθος όλων των ηχογραφήσεων με {n} κυκλοφορίες"
 
-#: ../root/statistics/stats.js:912
+#: ../root/statistics/stats.js:913
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
 msgstr[0] "Ηχογραφήσεις με 1 κυκλοφορία"
 msgstr[1] "Ηχογραφήσεις με {n} κυκλοφορίες"
 
-#: ../root/statistics/stats.js:922
+#: ../root/statistics/stats.js:923
 msgid "Count of all Release Groups with {n} Releases"
 msgstr "Πλήθος όλων των ομάδων κυκλοφοριών με {n} κυκλοφορίες"
 
-#: ../root/statistics/stats.js:924
+#: ../root/statistics/stats.js:925
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
 msgstr[0] "Ομάδες κυκλοφοριών με 1 κυκλοφορία"
 msgstr[1] "Ομάδες κυκλοφοριών με {n} κυκλοφορίες"
 
-#: ../root/statistics/stats.js:966
+#: ../root/statistics/stats.js:967
 msgid "{country} artists"
 msgstr "Καλλιτέχνες από {country}"
 
-#: ../root/statistics/stats.js:973
+#: ../root/statistics/stats.js:974
 msgid "{country} labels"
 msgstr "Δισκογραφικές εταιρείες από {country}"
 
-#: ../root/statistics/stats.js:980
+#: ../root/statistics/stats.js:981
 msgid "{country} releases"
 msgstr "Κυκλοφορίες από {country}"
 
-#: ../root/statistics/stats.js:992
+#: ../root/statistics/stats.js:993
 msgid "{name} releases"
 msgstr "Κυκλοφορίες {name}"
 
-#: ../root/statistics/stats.js:999
+#: ../root/statistics/stats.js:1000
 msgid "{name} mediums"
 msgstr "Μέσα {name}"
 
-#: ../root/statistics/stats.js:1011
+#: ../root/statistics/stats.js:1012
 msgid "{language} releases"
 msgstr "Κυκλοφορίες στα {language} "
 
-#: ../root/statistics/stats.js:1018
+#: ../root/statistics/stats.js:1019
 msgid "l_{first}_{second} Relationships"
 msgstr "l_{first}_{second} σχέσεις"
 
-#: ../root/statistics/stats.js:1039
+#: ../root/statistics/stats.js:1040
 msgid "{script} releases"
 msgstr "Κυκλοφορίες με {script} "
 
