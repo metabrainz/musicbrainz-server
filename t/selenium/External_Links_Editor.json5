@@ -653,7 +653,7 @@
     {
       command: 'assertText',
       target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][3]//div[contains(@class, 'field-error')]",
-      value: 'This relationship already exists.',
+      value: 'This duplicates a relationship marked for deletion. Please keep the old relationship instead of recreating it.',
     },
     {
       command: 'click',
@@ -701,7 +701,7 @@
     {
       command: 'assertText',
       target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//div[contains(@class, 'field-error')]",
-      value: 'This relationship already exists.',
+      value: 'This duplicates a relationship marked for deletion. Please keep the old relationship instead of recreating it.',
     },
     // revert above edit
     // Open popover

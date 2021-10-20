@@ -538,7 +538,14 @@ export class ExternalLinksEditor
   ): ErrorT | null {
     const linksByTypeAndUrl = groupBy(
       uniqBy(
-        this.state.links.concat(this.props.initialLinks),
+        this.state.links.filter(link => !link.deleted),
+        link => link.relationship,
+      ),
+      linkTypeAndUrlString,
+    );
+    const deletedLinksByTypeAndUrl = groupBy(
+      uniqBy(
+        this.state.links.filter(link => link.deleted),
         link => link.relationship,
       ),
       linkTypeAndUrlString,
@@ -634,6 +641,15 @@ export class ExternalLinksEditor
         target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
       };
     } else if (isNewOrChangedLink) {
+      if (deletedLinksByTypeAndUrl.get(linkTypeAndUrlString(link))?.length) {
+        error = {
+          message: l(
+            `This duplicates a relationship marked for deletion.
+             Please keep the old relationship instead of recreating it.`,
+          ),
+          target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
+        };
+      }
       const check = checker.checkRelationship(linkType.gid);
       if (!check.result) {
         error = {
