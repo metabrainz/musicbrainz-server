@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="32px"
+   version="1.1"
+   viewBox="0 0 32 32"
+   width="32px"
+   id="svg19"
+   sodipodi:docname="night-active.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
+  <metadata
+     id="metadata23">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="715"
+     id="namedview21"
+     showgrid="false"
+     inkscape:zoom="13.656"
+     inkscape:cx="17.00174"
+     inkscape:cy="15.365815"
+     inkscape:window-x="-8"
+     inkscape:window-y="22"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="Clearly-Night"
+     inkscape:document-rotation="0" />
+  <desc
+     id="desc4" />
+  <defs
+     id="defs6" />
+  <g
+     fill="none"
+     fill-rule="evenodd"
+     id="Clearly-Night"
+     stroke="none"
+     stroke-width="1">
+    <g
+       id="g860"
+       style="fill:#65e2d9;fill-opacity:1;stroke:#65e2d9;stroke-opacity:1">
+      <path
+         d="M 12.588558,3.7676151 C 11.575787,5.6180598 11,7.7417888 11,10 c 0,7.179702 5.820298,13 13,13 1.548651,0 3.034054,-0.270794 4.411442,-0.767615 C 26.204234,26.265199 21.92149,29 17,29 9.8202982,29 4,23.179702 4,16 4,10.368949 7.5802336,5.5741063 12.588558,3.7676151 Z"
+         id="Combined-Shape"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         stroke-width="2"
+         style="stroke:#65e2d9;stroke-opacity:1;fill:#65e2d9;fill-opacity:1" />
+      <polygon
+         fill="#d8d8d8"
+         id="Star"
+         points="12.115382,6.29374 12.012236,6.1727457 12.166802,6.1354871 12.25,6 12.333198,6.1354871 12.487764,6.1727457 12.384618,6.29374 12.396946,6.4522543 12.25,6.3915458 12.103054,6.4522543 "
+         style="stroke:#65e2d9;stroke-opacity:1;fill:#65e2d9;fill-opacity:1"
+         transform="translate(4,3)" />
+      <polygon
+         fill="#d8d8d8"
+         id="polygon10"
+         points="19.461528,6.1749602 19.048944,5.690983 19.667206,5.5419483 20,5 20.332794,5.5419483 20.951056,5.690983 20.538472,6.1749602 20.587785,6.809017 20,6.566183 19.412215,6.809017 "
+         style="stroke:#65e2d9;stroke-opacity:1;fill:#65e2d9;fill-opacity:1"
+         transform="translate(4,3)" />
+      <polygon
+         fill="#d8d8d8"
+         id="polygon12"
+         points="15.230764,9.5874801 15.024472,9.3454915 15.333603,9.2709742 15.5,9 15.666397,9.2709742 15.975528,9.3454915 15.769236,9.5874801 15.793893,9.9045085 15.5,9.7830915 15.206107,9.9045085 "
+         style="stroke:#65e2d9;stroke-opacity:1;fill:#65e2d9;fill-opacity:1"
+         transform="translate(4,3)" />
+      <polygon
+         fill="#d8d8d8"
+         id="polygon14"
+         points="15.461528,2.1749602 15.048944,1.690983 15.667206,1.5419483 16,1 16.332794,1.5419483 16.951056,1.690983 16.538472,2.1749602 16.587785,2.809017 16,2.566183 15.412215,2.809017 "
+         style="stroke:#65e2d9;stroke-opacity:1;fill:#65e2d9;fill-opacity:1"
+         transform="translate(4,3)" />
+    </g>
+  </g>
+</svg>
