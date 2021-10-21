@@ -60,6 +60,15 @@ module.exports = {
       ],
     },
     {
+      test: /\.css$/,
+      type: 'asset/resource',
+      generator: {
+        filename: PRODUCTION_MODE
+          ? '[name]-[hash:7].css'
+          : '[name].css',
+      },
+    },
+    {
       test: /leaflet\.markercluster/,
       use: [
         {
