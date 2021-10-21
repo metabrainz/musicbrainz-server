@@ -50,8 +50,11 @@ module.exports = {
       /*
        * jquery and @popperjs are resolved to root/static/scripts/empty.js
        * on the server. See NormalModuleReplacementPlugin below.
+       *
+       * We don't want CSS (or any non-JS files, for that matter) to be
+       * externals -- those must be handled by a Webpack loader.
        */
-      allowlist: [/(jquery|@popperjs)/],
+      allowlist: [/(jquery|@popperjs|\.css$)/],
       modulesFromFile: true,
     }),
 
