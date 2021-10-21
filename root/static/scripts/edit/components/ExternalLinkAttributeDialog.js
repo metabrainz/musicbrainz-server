@@ -9,16 +9,12 @@
 
 import * as React from 'react';
 import mutate from 'mutate-cow';
+
 import ButtonPopover from '../../common/components/ButtonPopover';
 import type {
   LinkRelationshipT,
   LinkStateT,
 } from '../externalLinks';
-import DateRangeFieldset, {
-  partialDateFromField,
-  runReducer as runDateRangeFieldsetReducer,
-  type ActionT as DateRangeFieldsetActionT,
-} from './DateRangeFieldset';
 import {
   createCompoundField,
   createField,
@@ -28,6 +24,12 @@ import {
   hasSubfieldErrors,
 } from '../../../../utility/subfieldErrors';
 import {copyDatePeriodField} from '../utility/copyFieldData';
+
+import DateRangeFieldset, {
+  partialDateFromField,
+  runReducer as runDateRangeFieldsetReducer,
+  type ActionT as DateRangeFieldsetActionT,
+} from './DateRangeFieldset';
 
 type PropsT = {
   onConfirm: ($ReadOnly<$Partial<LinkStateT>>) => void,
@@ -64,7 +66,6 @@ const createInitialState = (props: PropsT): StateT => {
 
   const datePeriodField = {
     errors: [],
-    has_errors: false,
     field: {
       begin_date: createCompoundField(
         'period.begin_date',
@@ -84,6 +85,7 @@ const createInitialState = (props: PropsT): StateT => {
       ),
       ended: createField('period.ended', relationship.ended),
     },
+    has_errors: false,
     html_name: '',
     id: 0,
     type: 'compound_field',
@@ -139,7 +141,7 @@ const ExternalLinkAttributeDialog = (props: PropsT): React.MixedElement => {
   const hasErrors = hasSubfieldErrors(state.datePeriodField);
 
   React.useEffect(() => {
-    dispatch({type: 'update-initial-date-period', props});
+    dispatch({props, type: 'update-initial-date-period'});
   }, [props]);
 
   const dateDispatch = React.useCallback((action) => {
