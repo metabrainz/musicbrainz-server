@@ -213,7 +213,7 @@ const ExternalLinkAttributeDialog = (props: PropsT): React.MixedElement => {
                 className="positive"
                 disabled={hasErrors}
                 onClick={() => handleConfirm(closeAndReturnFocus)}
-                type="submit"
+                type="button"
               >
                 {l('Done')}
               </button>
