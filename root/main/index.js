@@ -1,8 +1,5 @@
 import React, {useCallback, useState} from 'react';
 import './colors.less';
-import 'bootstrap/dist/css/bootstrap.css';
-import "bootstrap-icons/font/bootstrap-icons.css" ;
-import "react-multi-carousel/lib/styles.css";
 import Header from './components/Home/Header/Header';
 import Footer from './components/Home/Footer/Footer';
 import ScrollToTop from './components/Utils/ScrollToTop/ScrollToTop';
@@ -13,6 +10,7 @@ import About from './components/Home/About/About';
 import Facts from './components/Home/Facts/Facts';
 import Explore from './components/Home/Explore/Explore';
 import Projects from './components/Home/Projects/Projects';
+import Head from '../layout/components/Head';
 
 function App() {
   const DARK_MODE_KEY = 'dark_mode';
@@ -41,6 +39,7 @@ function App() {
 
   return (
     <div>
+      <Head />
       <Header isDarkThemeActive={dark} switchActiveTheme={toggleDarkMode} />
       <Intro isDarkThemeActive={dark} />
       <About isDarkThemeActive={dark} />

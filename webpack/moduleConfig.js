@@ -69,6 +69,15 @@ module.exports = {
       },
     },
     {
+      test: /\.css$/,
+      type: 'asset/resource',
+      use: [
+        {
+          loader: 'css-loader',
+        },
+      ],
+    },
+    {
       test: /leaflet\.markercluster/,
       use: [
         {

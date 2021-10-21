@@ -13,6 +13,9 @@ import {CatalystContext} from '../../context';
 import * as manifest from '../../static/manifest';
 import DBDefs from '../../static/scripts/common/DBDefs';
 import commonLessUrl from '../../static/styles/common.less';
+import bootstrapUrl from 'bootstrap/dist/css/bootstrap.css';
+import bootstrapIconsUrl from 'bootstrap-icons/font/bootstrap-icons.css';
+import multiCarousel from 'react-multi-carousel/lib/styles.css';
 import iconLessUrl from '../../static/styles/icons.less';
 import noScriptLessUrl from '../../static/styles/noscript.less';
 import escapeClosingTags from '../../utility/escapeClosingTags';
@@ -83,6 +86,20 @@ const Head = ({...props}: HeadProps): React.Element<'head'> => {
 
       <link
         href={commonLessUrl}
+        rel="stylesheet"
+        type="text/css"
+      />
+      <link
+        href={bootstrapUrl}
+        rel="stylesheet"
+      />
+      <link
+        href={bootstrapIconsUrl}
+        rel="stylesheet"
+        type="text/css"
+      />
+      <link
+        href={multiCarousel}
         rel="stylesheet"
         type="text/css"
       />
