@@ -338,6 +338,23 @@
        %]
     </table>
 
+    <!-- ko if: hasUselessMediumTitle -->
+      <div class="medium-title warning">
+        [%- warning_icon %]
+        <p>
+          <strong>[% l('Warning:') | html_entity %]</strong>
+          <span id="useless-medium-title-warning" data-bind='html: uselessMediumTitleWarning()' />
+        </p>
+        <label>
+          <input id="confirm-medium-title" type="checkbox" data-bind="checked: confirmedMediumTitle" />
+          <span id="confirm-medium-title-message" data-bind="text: confirmMediumTitleMessage()" />
+        </label>
+        <p class="error field-error" style="padding-left: 1em" data-bind="showErrorWhenTabIsSwitched: hasUnconfirmedUselessMediumTitle">
+          [%~ l('If you’re sure the entered medium title is correct, confirm it above. Otherwise, please fix the data.') %]
+        </p>
+      </div>
+    <!-- /ko -->
+
     <!-- ko if: hasTooEarlyFormat -->
       <div class="warning">
         [%- warning_icon %]
