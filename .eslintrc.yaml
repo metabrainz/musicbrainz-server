@@ -187,6 +187,9 @@ rules:
   semi-spacing: [warn, {before: false, after: true}]
   semi-style: [warn, last]
   space-before-blocks: [warn, always]
+  space-before-function-paren: [warn, {anonymous: always,
+                                       named: never,
+                                       asyncArrow: always}]
   space-in-parens: [warn, never]
   space-infix-ops: [warn, {int32Hint: true}]
   space-unary-ops: [warn, {words: true, nonwords: false}]

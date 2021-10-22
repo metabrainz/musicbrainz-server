@@ -517,7 +517,7 @@ class Medium {
       return (self.hasUselessMediumTitle() && !self.confirmedMediumTitle());
     });
 
-    this.hasUnconfirmedVariousArtists = ko.computed(function() {
+    this.hasUnconfirmedVariousArtists = ko.computed(function () {
       return (self.hasVariousArtistTracks() &&
               !self.confirmedVariousArtists());
     });

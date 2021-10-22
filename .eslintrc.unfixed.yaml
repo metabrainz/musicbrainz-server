@@ -35,9 +35,6 @@ rules:
   consistent-this: [warn, self]
   operator-linebreak: [warn, after, {overrides: {?: before, :: before}}]
   sort-keys: [warn, asc, {caseSensitive: false, natural: true}]
-  space-before-function-paren: [warn, {anonymous: always,
-                                       named: never,
-                                       asyncArrow: always}]
   no-var: warn
   prefer-const: warn
   react/no-access-state-in-setstate: error
