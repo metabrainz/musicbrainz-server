@@ -178,6 +178,7 @@ rules:
   object-curly-spacing: [warn, never]
   object-property-newline: [warn, {allowAllPropertiesOnSameLine: true}]
   one-var: [warn, never]
+  operator-assignment: [warn, always]
   padded-blocks: [warn, never]
   quote-props: [warn, consistent-as-needed, {numbers: true}]
   quotes: [warn, single, {avoidEscape: true,

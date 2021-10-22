@@ -33,7 +33,6 @@ rules:
                        "N_lp",
                      ]}]
   consistent-this: [warn, self]
-  operator-assignment: [warn, always]
   operator-linebreak: [warn, after, {overrides: {?: before, :: before}}]
   sort-keys: [warn, asc, {caseSensitive: false, natural: true}]
   space-before-function-paren: [warn, {anonymous: always,
