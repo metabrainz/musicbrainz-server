@@ -14,7 +14,7 @@ import MB from '../common/MB';
 import {sortByString} from '../common/utility/arrays';
 import formatDate from '../common/utility/formatDate';
 import {hasSessionStorage} from '../common/utility/storage';
-import validation from '../edit/validation';
+import * as validation from '../edit/validation';
 
 import {ViewModel} from './common/viewModel';
 

@@ -42,7 +42,6 @@ rules:
   no-var: warn
   prefer-const: warn
   import/first: warn
-  import/no-commonjs: error
   import/order: [warn, {newlines-between: always}]
   react/no-access-state-in-setstate: error
   react/no-multi-comp: [warn, {ignoreStateless: true}]

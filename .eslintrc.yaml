@@ -220,6 +220,7 @@ rules:
   import/export: error
   import/extensions: [warn, never]
   import/newline-after-import: [warn, {count: 1}]
+  import/no-commonjs: error
   import/no-duplicates: warn
   import/no-dynamic-require: error
   import/no-unresolved: error

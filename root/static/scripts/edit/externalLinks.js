@@ -38,7 +38,7 @@ import URLInputPopover from './components/URLInputPopover';
 import {linkTypeOptions} from './forms';
 import * as URLCleanup from './URLCleanup';
 import type {RelationshipTypeT} from './URLCleanup';
-import validation from './validation';
+import * as validation from './validation';
 import ExternalLinkAttributeDialog
   from './components/ExternalLinkAttributeDialog';
 import {compareDatePeriods} from '../common/utility/compareDates';
