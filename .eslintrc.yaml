@@ -179,6 +179,7 @@ rules:
   object-property-newline: [warn, {allowAllPropertiesOnSameLine: true}]
   one-var: [warn, never]
   operator-assignment: [warn, always]
+  operator-linebreak: [warn]
   padded-blocks: [warn, never]
   quote-props: [warn, consistent-as-needed, {numbers: true}]
   quotes: [warn, single, {avoidEscape: true,

@@ -680,9 +680,9 @@ class Medium {
   tracksLoaded(data) {
     var tracks = data.tracks;
 
-    var pp = this.id ? // no ID means this medium is being reused
-      Track :
-      function (track, parent) {
+    var pp = this.id // no ID means this medium is being reused
+      ? Track
+      : function (track, parent) {
         const copy = {...track};
         delete copy.id;
         return new Track(copy, parent);
