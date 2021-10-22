@@ -43,4 +43,3 @@ rules:
   react/jsx-no-bind: [warn, {ignoreDOMComponents: true}]
   flowtype/no-types-missing-file-annotation: error
   flowtype/no-weak-types: warn
-  react-hooks/exhaustive-deps: warn
