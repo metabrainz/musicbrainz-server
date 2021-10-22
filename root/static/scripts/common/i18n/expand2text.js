@@ -7,6 +7,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {
+  l as lActual,
+  ln as lnActual,
+  lp as lpActual,
+} from '../i18n';
+
 import expand, {
   createCondSubstParser,
   createTextContentParser,
@@ -17,11 +23,6 @@ import expand, {
   type VarArgsObject,
   type VarArgsClass,
 } from './expand2';
-import {
-  l as lActual,
-  ln as lnActual,
-  lp as lpActual,
-} from '../i18n';
 
 const textContent = /^[^{}]+/;
 const condSubstThenTextContent = /^[^{}|]+/;

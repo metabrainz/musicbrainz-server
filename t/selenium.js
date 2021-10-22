@@ -10,6 +10,11 @@
 
 require('@babel/register');
 
+const child_process = require('child_process');
+const fs = require('fs');
+const http = require('http');
+const path = require('path');
+
 const argv = require('yargs')
   .option('b', {
     alias: 'browser',
@@ -38,14 +43,9 @@ const argv = require('yargs')
   .usage('Usage: $0 [-hs] [file...]')
   .help('help')
   .argv;
-
-const child_process = require('child_process');
 const defined = require('defined');
-const fs = require('fs');
-const http = require('http');
 const httpProxy = require('http-proxy');
 const JSON5 = require('json5');
-const path = require('path');
 const test = require('tape');
 const TestCls = require('tape/lib/test');
 const webdriver = require('selenium-webdriver');

@@ -225,6 +225,7 @@ rules:
   import/no-duplicates: warn
   import/no-dynamic-require: error
   import/no-unresolved: error
+  import/order: [warn, {newlines-between: always}]
 
   #######################
   # eslint-plugin-react #

@@ -10,26 +10,14 @@
 
 'use strict';
 
-const Sentry = require('@sentry/node');
-const DBDefs = require('./static/scripts/common/DBDefs');
-
-function sentryInit(config) {
-  Sentry.init({
-    dsn: config.SENTRY_DSN_PUBLIC,
-    environment: config.GIT_BRANCH,
-    release: config.GIT_SHA,
-  });
-}
-sentryInit(DBDefs);
-
 const cluster = require('cluster');
 const fs = require('fs');
 const spawnSync = require('child_process').spawnSync;
 
-const createServer = require('./server/createServer');
-const {clearRequireCache} = require('./server/utils');
-const writeCoverage = require('./utility/writeCoverage');
-
+// DBDefs is needed for yargs
+/* eslint-disable import/order */
+const Sentry = require('@sentry/node');
+const DBDefs = require('./static/scripts/common/DBDefs');
 const yargs = require('yargs')
   .option('socket', {
     alias: 's',
@@ -41,6 +29,20 @@ const yargs = require('yargs')
     default: process.env.RENDERER_WORKERS || 1,
     describe: 'Number of workers to spawn',
   });
+/* eslint-enable import/order */
+
+const createServer = require('./server/createServer');
+const {clearRequireCache} = require('./server/utils');
+const writeCoverage = require('./utility/writeCoverage');
+
+function sentryInit(config) {
+  Sentry.init({
+    dsn: config.SENTRY_DSN_PUBLIC,
+    environment: config.GIT_BRANCH,
+    release: config.GIT_SHA,
+  });
+}
+sentryInit(DBDefs);
 
 const SOCKET_PATH = yargs.argv.socket;
 const WORKER_COUNT = yargs.argv.workers;

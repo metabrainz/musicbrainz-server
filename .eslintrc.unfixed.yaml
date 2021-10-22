@@ -41,7 +41,6 @@ rules:
                                        asyncArrow: always}]
   no-var: warn
   prefer-const: warn
-  import/order: [warn, {newlines-between: always}]
   react/no-access-state-in-setstate: error
   react/no-multi-comp: [warn, {ignoreStateless: true}]
   react/no-render-return-value: warn

@@ -9,9 +9,10 @@
 
 /* eslint-disable import/no-commonjs */
 
+const path = require('path');
+
 const CDP = require('chrome-remote-interface');
 const fileUrl = require('file-url');
-const path = require('path');
 const utf8 = require('utf8');
 
 CDP((client) => {
