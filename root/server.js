@@ -14,25 +14,12 @@ const cluster = require('cluster');
 const fs = require('fs');
 const spawnSync = require('child_process').spawnSync;
 
-// DBDefs is needed for yargs
-/* eslint-disable import/order */
 const Sentry = require('@sentry/node');
-const DBDefs = require('./static/scripts/common/DBDefs');
-const yargs = require('yargs')
-  .option('socket', {
-    alias: 's',
-    default: DBDefs.RENDERER_SOCKET,
-    describe: 'UNIX socket path',
-  })
-  .option('workers', {
-    alias: 'w',
-    default: process.env.RENDERER_WORKERS || 1,
-    describe: 'Number of workers to spawn',
-  });
-/* eslint-enable import/order */
+const yargs = require('yargs');
 
 const createServer = require('./server/createServer');
 const {clearRequireCache} = require('./server/utils');
+const DBDefs = require('./static/scripts/common/DBDefs');
 const writeCoverage = require('./utility/writeCoverage');
 
 function sentryInit(config) {
@@ -43,6 +30,18 @@ function sentryInit(config) {
   });
 }
 sentryInit(DBDefs);
+
+yargs
+  .option('socket', {
+    alias: 's',
+    default: DBDefs.RENDERER_SOCKET,
+    describe: 'UNIX socket path',
+  })
+  .option('workers', {
+    alias: 'w',
+    default: process.env.RENDERER_WORKERS || 1,
+    describe: 'Number of workers to spawn',
+  });
 
 const SOCKET_PATH = yargs.argv.socket;
 const WORKER_COUNT = yargs.argv.workers;
