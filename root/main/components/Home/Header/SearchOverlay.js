@@ -1,12 +1,5 @@
-
 const SearchOverlay = props => {
-    let theme, typeCurrent;
-    if (props.isDarkThemeActive) {
-        theme = "theme-dark";
-    }
-    else {
-        theme = "theme-light";
-    }
+    let typeCurrent;
     const handleSubmit = (event) => {
         event.preventDefault();
         const query = document.getElementById('searchInput');
@@ -55,7 +48,7 @@ const SearchOverlay = props => {
         return false;
     }
     return(
-        <div className={"box-collapse " + theme}>
+        <div className={"box-collapse " + props.theme}>
             <div className="title-box-d">
                 <h3 className="title-d">Advanced Search</h3>
             </div>

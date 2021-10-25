@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import Carousel from "react-multi-carousel";
-import axios from "axios";
+import {Modal} from "react-bootstrap";
 
 const responsive = {
     desktop: {
@@ -17,18 +17,26 @@ const responsive = {
     }
 };
 
-class Intro extends React.Component {
+export default class Intro extends React.Component {
 
     state = {
         additionalTransform: 0,
         posts: [],
+        data: "Actively looking for a barcode...",
+        show: false,
     };
+    handleClose = () => {
+        this.setState({ show: false });
+    }
+    handleShow = () => {
+        this.setState({ show: true });
+    }
 
     componentDidMount() {
-        axios
-            .get(`https://itunes.apple.com/us/rss/topalbums/limit=100/json`)
+        fetch(`https://itunes.apple.com/us/rss/topalbums/limit=100/json`)
+            .then(response => response.json())
             .then(res => {
-                this.setState({ posts: res.data.feed.entry });
+                this.setState({ posts: res.feed.entry });
             });
     }
 
@@ -52,13 +60,7 @@ class Intro extends React.Component {
             {key: 15, label: 'Documentation'},
         ];
 
-        let theme, typeCurrent = "Artist";
-        if (this.props.isDarkThemeActive) {
-            theme = "theme-dark";
-        }
-        else {
-            theme = "theme-light";
-        }
+        let typeCurrent = "Artist";
 
         function onChipClick(type) {
             const indexPrev = chipData.map(e => e.label).indexOf(typeCurrent);
@@ -79,7 +81,7 @@ class Intro extends React.Component {
                 return;
             }
             let searchType;
-            if(typeCurrent==='CD Stud'){
+            if(typeCurrent==='CD Stub'){
                 searchType = "cdstub";
             }
             else if(typeCurrent === "Documentation"){
@@ -91,13 +93,14 @@ class Intro extends React.Component {
             window.open("https://musicbrainz.org/"+"search?type=" + searchType + "&query=" +query.value, "_newTab");
         }
 
+
         return (
-            <section id="intro" className={"intro d-flex align-items-center "+theme}>
+            <section id="intro" className={"intro d-flex align-items-center "+this.props.theme}>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-9 d-flex flex-column justify-content-center">
-                            <h1 data-aos="fade-up" style={{marginTop: "20px"}}>The Music Database</h1>
-                            <h2 data-aos="fade-up" data-aos-delay="400" >
+                            <h1 data-bs-aos="fade-up" style={{marginTop: "20px"}}>The Music Database</h1>
+                            <h2 data-bs-aos="fade-up" data-bs-aos-delay="400" >
                                 World&apos;s Biggest Open Source Music Database
                             </h2>
 
@@ -134,9 +137,21 @@ class Intro extends React.Component {
                                     <button type="button" className="btn btn-b-n" onClick={searchButtonClick}>
                                         <i className="fab fa-searchengin"/>
                                     </button>
-                                    <button type="button" className="btn btn-b-n">
+                                    <button type="button" className="btn btn-b-n" onClick={this.handleShow}>
                                         <i className="bi bi-upc-scan"/>
                                     </button>
+
+                                    <Modal show={this.state.show} onHide={this.handleClose}>
+                                        <Modal.Header closeButton>
+                                            <Modal.Title>Scan Barcode</Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                            <p>{this.state.data}</p>
+                                        </Modal.Footer>
+                                    </Modal>
                                 </div>
                             </div>
                             <div className="choiceChips">
@@ -184,14 +199,14 @@ class Intro extends React.Component {
                                         )
                                     }) :  <div className="card text-left mt-5" key="1">
                                         <img style={{width: '100%', height: '250px', objectFit: 'cover'}}
-                                             src="assets/img/demo.jpg" alt="Alt text"/>
+                                             src="../../../../static/images/demo.jpg" alt="Alt text"/>
                                     </div>
                                 }
                             </Carousel>
                         </div>
                         <div className={"col-lg-3 d-none d-lg-block"}>
                             <div className="card">
-                                <img className="card-img-top" src="assets/img/blogs.svg" alt="Blogs Logo"/>
+                                <img className="card-img-top" src="../../../../static/images/blogs.svg" alt="Blogs Logo"/>
                                     <div className="card-body">
                                         <h5 className="card-title text-center"><span className=" color-purple">News</span> & <span className="color-orange">Updates</span></h5>
                                     </div>
@@ -217,5 +232,3 @@ class Intro extends React.Component {
         )
     }
 }
-
-export default Intro;

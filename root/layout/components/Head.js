@@ -8,7 +8,9 @@
  */
 
 import * as React from 'react';
-
+import 'bootstrap/dist/css/bootstrap.css';
+import "bootstrap-icons/font/bootstrap-icons.css" ;
+import "react-multi-carousel/lib/styles.css";
 import {CatalystContext} from '../../context';
 import * as manifest from '../../static/manifest';
 import DBDefs from '../../static/scripts/common/DBDefs';
@@ -83,7 +85,12 @@ const Head = ({...props}: HeadProps): React.Element<'head'> => {
       <title>{getTitle(props)}</title>
 
       <CanonicalLink requestUri={$c.req.uri} />
-
+      <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous"
+      />
       <link
         href={commonLessUrl}
         rel="stylesheet"

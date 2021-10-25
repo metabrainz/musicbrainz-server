@@ -1,17 +1,7 @@
-import React from "react";
-
-function Intro(props) {
-    let theme;
-    if (props.isDarkThemeActive) {
-        theme = "dark";
-    }
-    else {
-        theme = "light";
-    }
-
+export default function FAQs(props) {
     return(
-        <section id="faq" className={"faq " + theme}>
-            <div className="container" data-aos="fade-up">
+        <section id="faq" className={"faq " + props.theme}>
+            <div className="container" data-bs-aos="fade-up">
 
                 <div className="section-title">
                     <h2>Frequently Asked Questions</h2>
@@ -20,7 +10,7 @@ function Intro(props) {
 
                 <div className="faq-list">
                     <ul>
-                        <li data-aos="fade-up" data-aos-delay="100">
+                        <li data-bs-aos="fade-up" data-bs-aos-delay="100">
                             <i className="bi bi-question-circle icon-help"/>
                             <a data-bs-toggle="collapse" className="collapsed" data-bs-target="#faq-list-1">
                                 Do I have to provide an email address?
@@ -41,7 +31,7 @@ function Intro(props) {
                             </div>
                         </li>
 
-                        <li data-aos="fade-up" data-aos-delay="200">
+                        <li data-bs-aos="fade-up" data-bs-aos-delay="200">
                             <i className="bi bi-question-circle icon-help"/>
                             <a data-bs-toggle="collapse" data-bs-target="#faq-list-2" className="collapsed">
                                 What about my privacy?
@@ -55,7 +45,7 @@ function Intro(props) {
                             </div>
                         </li>
 
-                        <li data-aos="fade-up" data-aos-delay="300">
+                        <li data-bs-aos="fade-up" data-bs-aos-delay="300">
                             <i className="bi bi-question-circle icon-help"/>
                             <a data-bs-toggle="collapse" data-bs-target="#faq-list-3" className="collapsed">
                                 How do I delete my account?
@@ -69,7 +59,7 @@ function Intro(props) {
                             </div>
                         </li>
 
-                        <li data-aos="fade-up" data-aos-delay="400">
+                        <li data-bs-aos="fade-up" data-bs-aos-delay="400">
                             <i className="bi bi-question-circle icon-help"/>
                             <a data-bs-toggle="collapse" data-bs-target="#faq-list-4" className="collapsed">
                                 Why the name MusicBrainz?
@@ -81,7 +71,7 @@ function Intro(props) {
                             </div>
                         </li>
 
-                        <li data-aos="fade-up" data-aos-delay="500">
+                        <li data-bs-aos="fade-up" data-bs-aos-delay="500">
                             <i className="bi bi-question-circle icon-help"/>
                             <a data-bs-toggle="collapse" data-bs-target="#faq-list-5" className="collapsed">
                                 Can I do whatever I want to the information in the database?
@@ -93,7 +83,7 @@ function Intro(props) {
                             </div>
                         </li>
 
-                        <li data-aos="fade-up" data-aos-delay="600">
+                        <li data-bs-aos="fade-up" data-bs-aos-delay="600">
                             <i className="bi bi-question-circle icon-help"/>
                             <a data-bs-toggle="collapse" data-bs-target="#faq-list-6" className="collapsed">
                                 How long will my edit(s) take to be approved / applied?
@@ -123,4 +113,3 @@ function Intro(props) {
         </section>
     )
 }
-export default Intro;

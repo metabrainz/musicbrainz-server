@@ -10,8 +10,8 @@ function ThemeSwitchButton(props) {
         buttonClassName = "SwitchBtn";
     }
 
-    let activeDayIcon = `assets/img/${active}-theme/icon-day.svg`;
-    let activeNightIcon = `assets/img/${active}-theme/icon-night.svg`;
+    let activeDayIcon = `../../../../static/images/${active}-theme/icon-day.svg`;
+    let activeNightIcon = `../../../../static/images/${active}-theme/icon-night.svg`;
 
     return (
         <div className="DarkThemeSwitchBtn-wrapper">

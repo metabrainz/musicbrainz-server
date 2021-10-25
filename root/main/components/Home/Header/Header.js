@@ -1,27 +1,20 @@
-import React from "react";
 import ThemeSwitchButton from "../../Utils/ThemeSwitchButton/ThemeSwitchButton";
 import SearchOverlay from "./SearchOverlay";
 
-function Header(props) {
-  let theme, typeCurrent = "Artist";
-  if (props.isDarkThemeActive) {
-    theme = "theme-dark";
-  }
-  else {
-    theme = "theme-light";
-  }
+export default function Header(props) {
+  let typeCurrent = "Artist";
 
   return (
       <>
-      <SearchOverlay isDarkThemeActive={props.isDarkThemeActive}/>
-      <nav className={"navbar navbar-default navbar-trans navbar-expand-lg fixed-top " + theme}>
+      <SearchOverlay theme={props.theme}/>
+      <nav className={"navbar navbar-default navbar-trans navbar-expand-lg fixed-top " + props.theme}>
         <div className="container">
           <button className="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDefault" aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span/>
             <span/>
             <span/>
           </button>
-          <img src="assets/img/meb-mini/musicbrainz.svg" className="d-none d-lg-block" height="36" alt="image"/>
+          <img src="../../../../static/images/meb-mini/musicbrainz.svg" className="d-none d-lg-block" height="36" alt="image"/>
           <a className="navbar-brand text-brand" href="#"><span className="color-purple">Music</span><span className="color-orange">Brainz</span></a>
 
           <div className="navbar-collapse collapse justify-content-center" id="navbarDefault">
@@ -135,7 +128,7 @@ const attach = e => {
   if(query.value.length>1){
     let searchType;
     let typeCurrent = document.getElementById("typeHeader").value;
-    if(typeCurrent==='CD Stud'){
+    if(typeCurrent==='CD Stub'){
       searchType = "cdstub";
     }
     else if(typeCurrent === "Documentation"){
@@ -150,5 +143,3 @@ const attach = e => {
   document.body.classList.add('box-collapse-open')
   document.body.classList.remove('box-collapse-closed')
 }
-
-export default Header;

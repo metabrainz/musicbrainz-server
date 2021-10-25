@@ -1,14 +1,6 @@
-import React from "react";
-
-function AppDownload(props) {
-    let theme;
-    if (props.isDarkThemeActive) {
-        theme = "theme-dark";
-    } else {
-        theme = "theme-light";
-    }
+export default function AppDownload(props) {
     return(
-        <section className={"section cta-section "+theme}>
+        <section className={"section cta-section "+props.theme}>
             <div className="container">
                 <div className="row align-items-center">
                     <div className="col-md-6 me-auto text-center text-md-start mb-5 mb-md-0">
@@ -22,7 +14,7 @@ function AppDownload(props) {
                             <i className="fab fa-android"/><span>F-Droid</span>
                         </a>
                         <a href="https://picard.musicbrainz.org" target="_blank" rel="noopener noreferrer" className="btn d-inline-flex align-items-center">
-                            <i className="fa fa-laptop"/><span>Picard</span>
+                            <i className="fa fa-laptop"/><span>PC & Mac</span>
                         </a>
                     </div>
                 </div>
@@ -30,4 +22,3 @@ function AppDownload(props) {
         </section>
     )
 }
-export default AppDownload;

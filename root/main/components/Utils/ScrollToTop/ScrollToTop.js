@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 export default class ScrollToTop extends Component {
   constructor(props) {
@@ -8,7 +8,7 @@ export default class ScrollToTop extends Component {
       hovered: false,
       styles: {
         ...props.position,
-        position: 'fixed',
+        position: "fixed",
         fontSize: props.fontSize,
         padding: props.padding,
         margin: props.margin,
@@ -19,19 +19,19 @@ export default class ScrollToTop extends Component {
         color: props.color,
         scrollBehavior: props.scrollBehavior,
         opacity: props.opacity,
-        text: props.text ? props.text : '',
+        text: props.text ? props.text : "",
         transition: props.transition,
         cursor: props.cursor,
         outline: props.outline,
-        zIndex: props.zIndex,
+        zIndex: props.zIndex
       },
-      show: false,
+      show: false
     };
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
-    const {show} = this.state;
+    window.addEventListener("scroll", this.handleScroll);
+    const { show } = this.state;
     if (!show) {
       this.hideButton();
     } else {
@@ -40,12 +40,12 @@ export default class ScrollToTop extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener("scroll", this.handleScroll);
   }
 
   handleScroll = () => {
-    this.setState({show: true});
-    const {showOnDistance} = this.props;
+    this.setState({ show: true });
+    const { showOnDistance } = this.props;
     const scrollY = window.scrollY;
 
     scrollY >= (showOnDistance >= 0 ? showOnDistance : 300)
@@ -54,51 +54,47 @@ export default class ScrollToTop extends Component {
   };
 
   handleOnClick = () => {
-    const {scrollBehavior} = this.state.styles;
+    const { scrollBehavior } = this.state.styles;
     window.scrollTo({
       top: 0,
-      behavior: scrollBehavior,
+      behavior: scrollBehavior
     });
   };
 
   handleOnHover = hovered => {
     this.setState({
       ...this.state,
-      hovered,
+      hovered
     });
   };
 
   showButton = () => {
-    if (!this.ref) {
-      return;
-    }
-    this.ref.style.display = '';
+    if (!this.ref) return;
+    this.ref.style.display = "";
   };
 
   hideButton = () => {
-    if (!this.ref) {
-      return;
-    }
-    this.ref.style.display = 'none';
+    if (!this.ref) return;
+    this.ref.style.display = "none";
   };
 
   render() {
-    const {icon, text} = this.state.styles;
+    const { icon, text } = this.state.styles;
 
     return (
       <button
-        className={`${icon ? icon : ''}`}
-        onClick={this.handleOnClick}
-        onMouseOut={() => this.handleOnHover(false)}
-        onMouseOver={() => this.handleOnHover(true)}
         ref={btn => {
           this.ref = btn;
         }}
+        onMouseOver={() => this.handleOnHover(true)}
+        onMouseOut={() => this.handleOnHover(false)}
+        onClick={this.handleOnClick}
         style={
           this.state.hovered
-            ? {...this.state.styles, ...this.props.hover}
+            ? { ...this.state.styles, ...this.props.hover }
             : this.state.styles
         }
+        className={`${icon ? icon : ""}`}
       >
         {text}
       </button>
@@ -107,31 +103,31 @@ export default class ScrollToTop extends Component {
 }
 
 ScrollToTop.defaultProps = {
-  icon: '',
+  icon: "",
   position: {
-    bottom: '0%',
-    right: '0%',
+    bottom: "0%",
+    right: "0%"
   },
-  color: 'white',
-  backgroundColor: 'black',
+  color: "white",
+  backgroundColor: "black",
   hover: {
-    color: 'white',
-    backgroundColor: 'black',
-    opacity: '0.9',
+    color: "white",
+    backgroundColor: "black",
+    opacity: "0.9"
   },
   borderRadius: 48,
-  margin: '10px',
-  fontSize: '18px',
-  padding: '12px',
-  opacity: '1',
-  border: 'none',
-  text: '',
-  cursor: 'pointer',
-  outline: 'none',
-  scrollBehavior: 'smooth',
-  transition: 'none',
+  margin: "10px",
+  fontSize: "18px",
+  padding: "12px",
+  opacity: "1",
+  border: "none",
+  text: "",
+  cursor: "pointer",
+  outline: "none",
+  scrollBehavior: "smooth",
+  transition: "none",
   showOnDistance: 300,
-  zIndex: 999,
+  zIndex: 999
 };
 
 ScrollToTop.propTypes = {
@@ -141,13 +137,13 @@ ScrollToTop.propTypes = {
   hover: PropTypes.shape({
     color: PropTypes.string,
     backgroundColor: PropTypes.string,
-    opacity: PropTypes.string,
+    opacity: PropTypes.string
   }),
   position: PropTypes.shape({
     top: PropTypes.string,
     bottom: PropTypes.string,
     left: PropTypes.string,
-    right: PropTypes.string,
+    right: PropTypes.string
   }),
   margin: PropTypes.string,
   padding: PropTypes.string,
@@ -160,5 +156,5 @@ ScrollToTop.propTypes = {
   opacity: PropTypes.string,
   borderRadius: PropTypes.number,
   showOnDistance: PropTypes.number,
-  zIndex: PropTypes.number,
+  zIndex: PropTypes.number
 };
