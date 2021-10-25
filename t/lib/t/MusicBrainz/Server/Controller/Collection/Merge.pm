@@ -2,7 +2,7 @@ package t::MusicBrainz::Server::Controller::Collection::Merge;
 use Test::Routine;
 use Test::More;
 use Test::Fatal;
-use MusicBrainz::Server::Test qw( html_ok );
+use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
 
 with 't::Mechanize', 't::Context';
 
@@ -30,6 +30,10 @@ test 'Can merge collections' => sub {
     ok($mech->uri =~ qr{/collection/f34c079d-374e-4436-9448-da92dedef3c9});
 
     $mech->content_contains('Copy of the Better Festival', 'event was moved to destination collection');
+
+    my $tx = test_xpath_html($mech->content);
+    $tx->is('count(//div[@id="content"]/div[@class="collaborators"]/p/a)',
+            '2', 'both collaborators are on the destination collection');
 
     my $merged_added = $c->sql->select_single_value(
         'SELECT added FROM editor_collection_event WHERE collection = 3 AND event = 4'

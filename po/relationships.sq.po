@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-09-20 09:24+0000\n"
+"PO-Revision-Date: 2021-10-15 10:38+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
@@ -3590,6 +3590,10 @@ msgstr ""
 msgid "catalogues work of"
 msgstr ""
 
+#: DB:link_attribute_type/name:1223
+msgid "chamber music"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:735
 msgid "child of"
 msgstr "pjellë e"
@@ -5289,6 +5293,10 @@ msgstr ""
 msgid "music production"
 msgstr ""
 
+#: DB:link_attribute_type/name:1222
+msgid "music theory"
+msgstr ""
+
 #: DB:link_attribute_type/name:1203
 msgid "music therapy"
 msgstr ""
@@ -5313,6 +5321,10 @@ msgstr "marrëdhënie muzikore"
 #: DB:link_type/name:106
 msgid "musical relationships"
 msgstr "marrëdhënie muzikore"
+
+#: DB:link_attribute_type/name:1221
+msgid "musical theatre"
+msgstr ""
 
 #: DB:link_attribute_type/name:1141
 msgid "musicology"
@@ -5379,6 +5391,10 @@ msgstr "faqe bashkësie internetore për"
 #: DB:link_type/long_link_phrase:660
 msgid "online data"
 msgstr "të dhëna internetore"
+
+#: DB:link_attribute_type/name:1220
+msgid "opera"
+msgstr ""
 
 #: DB:link_attribute_type/name:1053
 msgid "optional"
@@ -5646,6 +5662,10 @@ msgstr "afishe"
 #: DB:link_type/reverse_link_phrase:808
 msgid "poster for"
 msgstr "afishe për"
+
+#: DB:link_attribute_type/name:1219
+msgid "postgraduate"
+msgstr ""
 
 #: DB:link_type/name:845 DB:link_type/name:716 DB:link_type/name:715
 #: DB:link_type/name:956

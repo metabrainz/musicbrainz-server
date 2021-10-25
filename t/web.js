@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/* eslint-disable import/no-commonjs */
+
 const CDP = require('chrome-remote-interface');
 const fileUrl = require('file-url');
 const path = require('path');

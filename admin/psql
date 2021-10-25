@@ -62,4 +62,4 @@ if ($system) {
 
 $ENV{"PGPASSWORD"} = $db->password;
 
-exec "psql", $db->shell_args;
+exec "psql", $db->shell_args, @ARGV;

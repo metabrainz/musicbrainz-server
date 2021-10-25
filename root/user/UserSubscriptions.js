@@ -62,12 +62,48 @@ const UserSubscriptionsTable = ({
   </table>
 );
 
+type UserSubscriptionsSectionProps = {
+  +action: string,
+  +entities: $ReadOnlyArray<
+    ArtistT | CollectionT | EditorT | LabelT | SeriesT>,
+  +pager: PagerT,
+  +viewingOwnProfile: boolean,
+};
+
+const UserSubscriptionsSection = ({
+  action,
+  entities,
+  pager,
+  viewingOwnProfile,
+}: UserSubscriptionsSectionProps): React.Element<typeof PaginatedResults> => (
+  viewingOwnProfile ? (
+    <PaginatedResults pager={pager}>
+      <form action={action} method="post">
+        <UserSubscriptionsTable
+          entities={entities}
+          viewingOwnProfile={viewingOwnProfile}
+        />
+        <div className="row">
+          <FormSubmit label={l('Unsubscribe')} />
+        </div>
+      </form>
+    </PaginatedResults>
+  ) : (
+    <PaginatedResults pager={pager}>
+      <UserSubscriptionsTable
+        entities={entities}
+        viewingOwnProfile={viewingOwnProfile}
+      />
+    </PaginatedResults>
+  )
+);
+
 type UserSubscriptionsProps = {
   +$c: CatalystContextT,
   +entities: $ReadOnlyArray<
     ArtistT | CollectionT | EditorT | LabelT | SeriesT>,
+  +hiddenPrivateCollectionCount?: number,
   +pager: PagerT,
-  +privateCollectionCount?: number,
   +summary: {
     +artist: number,
     +collection: number,
@@ -77,16 +113,18 @@ type UserSubscriptionsProps = {
   },
   +type: 'artist' | 'collection' | 'editor' | 'label' | 'series',
   +user: AccountLayoutUserT,
+  +visiblePrivateCollections?: $ReadOnlyArray<CollectionT>,
 };
 
 const UserSubscriptions = ({
   $c,
   entities,
+  hiddenPrivateCollectionCount,
   pager,
-  privateCollectionCount,
   summary,
   type,
   user,
+  visiblePrivateCollections,
 }: UserSubscriptionsProps): React.Element<typeof UserAccountLayout> => {
   const action = `/account/subscriptions/${type}/remove`;
   const showSummary = summary.artist > 0 || summary.collection > 0 ||
@@ -94,6 +132,9 @@ const UserSubscriptions = ({
                       summary.series > 0;
   const title = titleByEntityType[type]();
   const viewingOwnProfile = Boolean($c.user && $c.user.id === user.id);
+  const hasPrivateSubscriptions =
+    visiblePrivateCollections?.length ||
+    hiddenPrivateCollectionCount != null && hiddenPrivateCollectionCount > 0;
 
   return (
     <UserAccountLayout
@@ -194,46 +235,49 @@ const UserSubscriptions = ({
         </>
       ) : null}
 
-      {entities.length > 0 ? (
-        viewingOwnProfile ? (
-          <PaginatedResults pager={pager}>
-            <form action={action} method="post">
-              <UserSubscriptionsTable
-                entities={entities}
-                viewingOwnProfile={viewingOwnProfile}
-              />
-              <div className="row">
-                <FormSubmit label={l('Unsubscribe')} />
-              </div>
-            </form>
-          </PaginatedResults>
-        ) : (
-          <PaginatedResults pager={pager}>
-            <UserSubscriptionsTable
-              entities={entities}
-              viewingOwnProfile={viewingOwnProfile}
-            />
-          </PaginatedResults>
-        )
-      ) : <p>{l('No subscriptions.')}</p>}
+      {entities.length ? (
+        <UserSubscriptionsSection
+          action={action}
+          entities={entities}
+          pager={pager}
+          viewingOwnProfile={viewingOwnProfile}
+        />
+      ) : hasPrivateSubscriptions
+        ? <p>{l('No public subscriptions.')}</p>
+        : <p>{l('No subscriptions.')}</p>}
 
-      {privateCollectionCount == null ? null : (
+      {visiblePrivateCollections?.length ? (
+        <>
+          <h3>{l('Private collections')}</h3>
+          <UserSubscriptionsSection
+            action={action}
+            entities={visiblePrivateCollections}
+            pager={pager}
+            viewingOwnProfile={viewingOwnProfile}
+          />
+        </>
+      ) : null}
+
+      {hiddenPrivateCollectionCount == null ? null : (
         <p>
-          {viewingOwnProfile ? (
+          {visiblePrivateCollections?.length ? (
             exp.ln(
-              'You are subscribed to {n} private collection.',
-              'You are subscribed to {n} private collections.',
-              privateCollectionCount,
-              {n: privateCollectionCount},
+              '{editor} is also subscribed to {n} other private collection.',
+              '{editor} is also subscribed to {n} other private collections.',
+              hiddenPrivateCollectionCount,
+              {
+                editor: <EditorLink editor={user} />,
+                n: hiddenPrivateCollectionCount,
+              },
             )
           ) : (
             exp.ln(
               '{editor} is subscribed to {n} private collection.',
               '{editor} is subscribed to {n} private collections.',
-              privateCollectionCount,
+              hiddenPrivateCollectionCount,
               {
                 editor: <EditorLink editor={user} />,
-                n: privateCollectionCount,
+                n: hiddenPrivateCollectionCount,
               },
             )
           )}

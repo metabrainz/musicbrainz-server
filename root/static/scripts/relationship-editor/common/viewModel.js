@@ -16,8 +16,6 @@ import localizeLinkAttributeTypeName
 import linkedEntities from '../../common/linkedEntities';
 import MB from '../../common/MB';
 import {groupBy} from '../../common/utility/arrays';
-import parseDate from '../../common/utility/parseDate';
-import request from '../../common/utility/request';
 import {hasSessionStorage} from '../../common/utility/storage';
 import {uniqueId} from '../../common/utility/strings';
 
@@ -198,13 +196,13 @@ MB.initRelationshipEditors = function (args) {
     });
   }
 
-  source.parseRelationships(sourceData.relationships);
+  source.parseRelationships(
+    (sourceData.relationships || []).concat(
+      MB.formWasPosted ? [] : (args.seededRelationships || []),
+    ),
+  );
 
   addPostedRelationships(source);
-
-  if (!MB.formWasPosted) {
-    addRelationshipsFromQueryString(source);
-  }
 
   var $content = $('#relationship-editor');
   ko.applyBindings(MB.sourceRelationshipEditor, $content[0]);
@@ -304,104 +302,6 @@ function addPostedRelationships(source) {
   }
 
   window.sessionStorage.removeItem('submittedRelationships');
-}
-
-var loadingEntities = {};
-
-function addRelationshipsFromQueryString(source) {
-  var fields = parseQueryString(window.location.search);
-
-  if (!fields.rels) {
-    return;
-  }
-
-  for (const rel of Object.values(fields.rels)) {
-    var linkType = linkedEntities.link_type[rel.type];
-    var targetIsUUID = uuidRegex.test(rel.target);
-
-    if (!linkType && !targetIsUUID) {
-      // We need at least a link type or target gid
-      continue;
-    }
-
-    var target = targetIsUUID
-      ? (MB.entityCache[rel.target] || {gid: rel.target})
-      : {name: rel.target};
-
-    if (linkType && !target.entityType) {
-      target.entityType = source.entityType === linkType.type0
-        ? linkType.type1
-        : linkType.type0;
-    }
-
-    const data = {
-      target: target,
-      linkTypeID: linkType ? linkType.id : null,
-      begin_date: parseDate(rel.begin_date || ''),
-      end_date: parseDate(rel.end_date || ''),
-      ended: !!Number(rel.ended),
-      backward: !!rel.backward,
-      linkOrder: Number(rel.link_order) || 0,
-    };
-
-    if (linkType && rel.attributes) {
-      data.attributes = rel.attributes.reduce(function (accum, attr) {
-        var attrInfo = linkedEntities.link_attribute_type[attr.type];
-
-        if (attrInfo && linkType.attributes[attrInfo.id]) {
-          accum.push({
-            type: {gid: attr.type},
-            credit: attr.credited_as,
-            textValue: attr.text_value,
-          });
-        }
-        return accum;
-      }, []);
-    }
-
-    if (target.entityType && target.name) {
-      addSubmittedRelationship(data, source);
-    } else if (targetIsUUID) {
-      var gid = rel.target;
-      var req = loadingEntities[gid];
-
-      if (!req) {
-        req = request({url: '/ws/js/entity/' + gid});
-        loadingEntities[gid] = req;
-      }
-
-      req.done(function (targetData) {
-        data.target = targetData;
-        addSubmittedRelationship(data, source);
-        delete loadingEntities[gid];
-      });
-    }
-  }
-}
-
-var uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[345][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
-
-function parseQueryString(queryString) {
-  var queryStringRegex = /(?:\\?|&)([A-z0-9\-_.]+)=([^&]+)/g;
-  var fields = {};
-  let subField;
-  let match;
-  let parts;
-
-  while ((match = queryStringRegex.exec(queryString))) {
-    subField = fields;
-    parts = match[1].split('.');
-
-    parts.forEach(function (part, index) {
-      if (index === parts.length - 1) {
-        subField[part] = decodeURIComponent(match[2]);
-      } else {
-        subField = subField[part] = subField[part] || {};
-      }
-    });
-  }
-
-  return fields;
 }
 
 function editorMayEditTypes(type0, type1) {

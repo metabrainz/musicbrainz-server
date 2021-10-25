@@ -292,6 +292,33 @@ test 'Duplicate relationships that only exist among source entities are merged' 
     is(scalar($artist->all_relationships), 1, 'one relationship remains');
 };
 
+test 'Relationship credits are added to save old name if not renaming' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+        INSERT INTO artist (id, gid, name, sort_name, comment)
+           VALUES (4, '4444031c-0e89-406e-b9f0-3d192637907b', 'Artist 3', 'Artist 3', 'same-named dupe');
+        INSERT INTO l_artist_label (id, link, entity0, entity1)
+            VALUES (1, 5, 2, 1), (2, 5, 4, 1);
+        EOSQL
+
+    $c->model('Relationship')->merge_entities('artist', 1, [2]);
+
+    # Merging 'Artist 2' into 'Artist 1' should leave a credit behind
+    my $relationship1 = $c->model('Relationship')->get_by_id('artist', 'label', 1);
+
+    is($relationship1->entity0_credit, 'Artist 2', 'old name was added as credit');
+
+    # Merging two 'Artist 3' artists should not leave a credit behind, since it's the same
+    $c->model('Relationship')->merge_entities('artist', 3, [4]);
+
+    my $relationship2 = $c->model('Relationship')->get_by_id('artist', 'label', 2);
+
+    is($relationship2->entity0_credit, '', 'no duplicate credit was added');
+};
+
 test all => sub {
 
 my $test = shift;

@@ -30,6 +30,11 @@ fi
 
 ./admin/CheckElectionVotes.pl
 
-./admin/cleanup/MergeDuplicateArtistCredits --limit 100
+# This performs a fairly heavy query and really only needs to run once
+# per day or less. Do this outside of peak hours (03:00 UTC).
+if date +%H | grep -qFx '03'
+then
+    ./admin/cleanup/MergeDuplicateArtistCredits --limit 100
+fi
 
 ./admin/RunExport

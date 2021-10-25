@@ -1,3 +1,5 @@
+/* eslint-disable import/no-commonjs */
+
 require('./common/immutable-entities');
 require('./edit/utility/linkPhrase');
 require('./entity');

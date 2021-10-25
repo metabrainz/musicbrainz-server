@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-09-12 09:32+0000\n"
+"PO-Revision-Date: 2021-10-04 16:12+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2114,6 +2114,13 @@ msgid ""
 "membrane. The instrument is held in the armpit and played by plucking the "
 "string while pulling the it."
 msgstr "De bhapang komt uit de Mewati-gemeenschap in Rahajastan in India. Het instrument wordt traditioneel gemaakt van een kalebas waar de boven- en onderkant van is afgesneden. Tussen de twee helften van de kalebas is een membraan gespannen waaraan een enkele snaar is bevestigd. Het instrument wordt bespeeld door de snaar met de hand te spannen en te tokkelen."
+
+#. name:mellophone
+#: DB:instrument/description:37
+msgid ""
+"Originating in the 19th century horn-design boom, it is used mostly in "
+"outside concert and marching music"
+msgstr "De mellofoon stamt net als veel andere hoorn-achtige instrumenten uit de 19e eeuw, en wordt vooral gebruikt voor muziek die buitenshuis wordt gespeeld, zoals fanfaremuziek."
 
 #. name:octavina
 #: DB:instrument/description:941

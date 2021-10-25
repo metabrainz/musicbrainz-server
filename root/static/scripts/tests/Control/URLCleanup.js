@@ -7,8 +7,8 @@
  */
 
 import test from 'tape';
-import {arraysEqual} from '../../common/utility/arrays';
 
+import {arraysEqual} from '../../common/utility/arrays';
 import {
   LINK_TYPES,
   cleanURL,
@@ -559,6 +559,13 @@ const testData = [
     expected_relationship_type: undefined,
        input_relationship_type: 'mailorder',
        only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://gamechops.bandcamp.com/campaign/samus-chill/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'crowdfunding',
+            expected_clean_url: 'https://gamechops.bandcamp.com/campaign/samus-chill',
+       only_valid_entity_types: ['release'],
   },
   // Bandsintown
   {
@@ -2326,6 +2333,13 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'patronage',
             expected_clean_url: 'https://ko-fi.com/35MJZ8OL4IO',
+  },
+  // Ko-fi shop (not to autoselect because they could be different purchase options)
+  {
+                     input_url: 'https://ko-fi.com/s/e953259fd9',
+             input_entity_type: 'artist',
+            expected_clean_url: 'https://ko-fi.com/s/e953259fd9', // uncleaned
+    expected_relationship_type: undefined,
   },
   // laboiteauxparoles
   {
@@ -4111,6 +4125,35 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'patronage',
             expected_clean_url: 'https://www.tipeee.com/example',
+  },
+  // Tower
+  {
+                     input_url: 'http://tower.jp/artist/1372640/%E9%87%8E%E4%B8%AD-%E3%81%BE%E3%81%95-%E9%9B%84%E4%B8%80',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://tower.jp/artist/1372640',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://tower.jp/artist/discography/280635',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://tower.jp/artist/280635',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://tower.jp/item/4458536/%E8%B6%85%E3%83%BB%E5%B0%91%E5%B9%B4%E6%8E%A2%E5%81%B5%E5%9B%A3NEO',
+             input_entity_type: 'release',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://tower.jp/item/4458536',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://tower.jp/ec/collection/item/summary/4839524',
+             input_entity_type: 'release',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://tower.jp/item/4839524',
+      only_valid_entity_types: ['release'],
   },
   // Traxsource
   {

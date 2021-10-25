@@ -1,3 +1,5 @@
+/* eslint-disable import/no-commonjs */
+
 require('./common');
 
 require('knockout-arraytransforms');

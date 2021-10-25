@@ -5,10 +5,6 @@ use Moose;
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-override href_url => sub {
-    shift->url->as_string =~ s{^http:}{https:}r;
-};
-
 # https://www.generasia.com/about/ consequently uses lower case
 sub sidebar_name { 'generasia' }
 

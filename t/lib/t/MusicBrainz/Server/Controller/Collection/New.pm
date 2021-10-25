@@ -56,4 +56,21 @@ test 'Create collection with no release set does not add release' => sub {
             'contains collection name');
 };
 
+test 'Create collection with collaborators works' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    $mech->get_ok('/collection/create');
+    # Second form is the new collection one
+    $mech->form_number(2);
+    $mech->field('edit-list.name', 'mycollection');
+    $mech->field('edit-list.description', '');
+    $mech->field('edit-list.collaborators.0.id', '3');
+    $mech->click();
+
+    my $tx = test_xpath_html($mech->content);
+    $tx->is('//div[@id="content"]/div[@class="collaborators"]/p/a', 'editor3',
+            'contains collaborator');
+};
+
 1;

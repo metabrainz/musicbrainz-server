@@ -88,7 +88,7 @@ sub _perform_login {
             $c->detach;
         }
         else {
-            unless (DBDefs->DB_READ_ONLY) {
+            unless (DBDefs->DB_READ_ONLY || DBDefs->DISABLE_LAST_LOGIN_UPDATE) {
                 if ($c->user->requires_password_rehash) {
                     $c->model('Editor')->update_password($user_name, $password);
                 } else {

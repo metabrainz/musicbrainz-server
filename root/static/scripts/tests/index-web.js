@@ -1,3 +1,5 @@
+/* eslint-disable import/no-commonjs */
+
 require('./autocomplete');
 require('./common/immutable-entities');
 require('./Control/URLCleanup');

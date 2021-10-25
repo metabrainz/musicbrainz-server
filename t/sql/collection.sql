@@ -29,7 +29,9 @@ INSERT INTO work (id, gid, name, type, edits_pending, comment) VALUES
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES
 (1, 'editor1', '{CLEARTEXT}pass', '16a4862191803cb596ee4b16802bb7ee', 'foo@example.com', now()),
 (2, 'editor2', '{CLEARTEXT}pass', 'ba025a52cc5ff57d5d10f31874a83de6', 'foo@example.com', now()),
-(3, 'editor3', '{CLEARTEXT}pass', 'c096994132d53f3e1cde757943b10e7d', 'foo@example.com', now());
+(3, 'editor3', '{CLEARTEXT}pass', 'c096994132d53f3e1cde757943b10e7d', 'foo@example.com', now()),
+-- Reminder: Editor #4 is ModBot
+(5, 'editor5', '{CLEARTEXT}pass', '01de7bc91330d78a6d0a84033e293f15', 'foo@example.com', now());
 
 INSERT INTO editor_collection (id, gid, editor, name, public, description, type)
     VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3cd', 1, 'collection1', FALSE, '', 1),
@@ -37,7 +39,11 @@ INSERT INTO editor_collection (id, gid, editor, name, public, description, type)
            (3, 'f34c079d-374e-4436-9448-da92dedef3c9', 1, 'event_collection1', FALSE, '', 4),
            (4, '24375a7a-a4bd-11e4-a92c-3b5e54a633eb', 1, 'event_collection2', FALSE, '', 4),
            (5, '24375a7a-a4bd-11e4-a92c-3b5e54a633ec', 1, 'work_collection', FALSE, '', 15),
-           (6, 'a34c079d-374e-4436-9448-da92dedef3cb', 2, 'collection2_priv', FALSE, 'Private Testy!', 1);
+           (6, 'a34c079d-374e-4436-9448-da92dedef3cb', 2, 'collection2_priv', FALSE, 'Private Testy!', 1),
+           (7, 'a34c079d-374e-4436-9448-da92dedef3ce', 2, 'collection3_priv', FALSE, 'Collab Testy!', 1);
+
+INSERT INTO editor_collection_collaborator(collection, editor)
+    VALUES (2, 1), (3, 2), (4, 2), (4, 3), (7, 1);
 
 INSERT INTO editor_collection_release (collection, release)
     VALUES (1, 1), (1, 3), (2, 2), (2, 4);
@@ -58,7 +64,8 @@ INSERT INTO editor_preference (id, editor, name, value)
 
 INSERT INTO editor_subscribe_collection (id, editor, collection, last_edit_sent, available, last_seen_name)
     VALUES (1, 2, 1, 0, FALSE, 'collection1'),
-           (2, 2, 2, 0, TRUE, NULL);
+           (2, 1, 2, 0, TRUE, NULL),
+           (3, 2, 2, 0, TRUE, NULL);
 
 INSERT INTO edit (id, editor, type, status, expire_time)
     VALUES (1, 1, 32, 1, NOW()),

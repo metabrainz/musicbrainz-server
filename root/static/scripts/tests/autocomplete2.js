@@ -1,22 +1,19 @@
 // @flow
 
-const $ = require('jquery');
-const React = require('react');
-const ReactDOM = require('react-dom');
-const {
+import $ from 'jquery';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+
+import {
   LOCATION_EDITOR_FLAG,
   RELATIONSHIP_EDITOR_FLAG,
-} = require('../../../constants');
-const {
-  default: Autocomplete2,
-  createInitialState: createInitialAutocompleteState,
-} = require('../common/components/Autocomplete2');
-const {
-  default: autocompleteReducer,
-} = require('../common/components/Autocomplete2/reducer');
-const {keyBy} = require('../common/utility/arrays');
+} from '../../../constants';
+import Autocomplete2, {createInitialState as createInitialAutocompleteState}
+  from '../common/components/Autocomplete2';
+import autocompleteReducer from '../common/components/Autocomplete2/reducer';
+import {keyBy} from '../common/utility/arrays';
 
-const {linkAttributeTypes} = require('./typeInfo');
+import {linkAttributeTypes} from './typeInfo';
 
 const attributeTypesById = keyBy(
   (linkAttributeTypes: $ReadOnlyArray<LinkAttrTypeT>),
@@ -137,8 +134,8 @@ $(function () {
             {' '}
             <select
               onChange={(event) => entityAutocompleteDispatch({
-                type: 'change-entity-type',
                 entityType: event.target.value,
+                type: 'change-entity-type',
               })}
               value={state.entityAutocomplete.entityType}
             >

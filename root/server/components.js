@@ -8,6 +8,7 @@
  */
 
 /* eslint-disable max-len */
+/* eslint-disable import/no-commonjs */
 
 const DBDefs = require('../static/scripts/common/DBDefs');
 
@@ -375,6 +376,7 @@ module.exports = {
   'edit/details/EditRecording': require('../edit/details/EditRecording'),
   'edit/details/EditRelationship': require('../edit/details/EditRelationship'),
   'edit/details/EditRelationshipAttribute': require('../edit/details/EditRelationshipAttribute'),
+  'edit/details/EditRelationshipType': require('../edit/details/EditRelationshipType'),
   'edit/details/EditRelease': require('../edit/details/EditRelease'),
   'edit/details/EditReleaseGroup': require('../edit/details/EditReleaseGroup'),
   'edit/details/EditReleaseLabel': require('../edit/details/EditReleaseLabel'),

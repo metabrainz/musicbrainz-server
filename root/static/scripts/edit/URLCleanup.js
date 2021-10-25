@@ -833,7 +833,10 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'bandcamp': {
-    match: [new RegExp('^(https?://)?([^/]+)\\.bandcamp\\.com', 'i')],
+    match: [new RegExp(
+      '^(https?://)?([^/]+)\\.bandcamp\\.com(?!/campaign/)',
+      'i',
+    )],
     restrict: [{
       ...LINK_TYPES.review,
       ...LINK_TYPES.bandcamp,
@@ -889,6 +892,23 @@ const CLEANUPS: CleanupEntries = {
           };
       }
       return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'bandcampcampaign': {
+    match: [new RegExp(
+      '^(https?://)?([^/]+)\\.bandcamp\\.com/campaign',
+      'i',
+    )],
+    restrict: [LINK_TYPES.crowdfunding],
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com\/campaign\/([^?#/]+).*$/, 'https://$1.bandcamp.com/campaign/$2');
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.crowdfunding.release:
+          return {result: /^https:\/\/[^\/]+\.bandcamp\.com\/campaign\/[^?#/]+$/.test(url)};
+      }
+      return {result: false, target: ERROR_TARGETS.ENTITY};
     },
   },
   'bandsintown': {
@@ -2425,7 +2445,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'kofi': {
-    match: [new RegExp('^(https?://)?(www\\.)?ko-fi.com/[^/?#]', 'i')],
+    match: [new RegExp('^(https?://)?(www\\.)?ko-fi\\.com/(?!s/)', 'i')],
     restrict: [LINK_TYPES.patronage],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ko-fi\.com\/([^\/?#]+).*$/, 'https://ko-fi.com/$1');
@@ -4033,6 +4053,36 @@ const CLEANUPS: CleanupEntries = {
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?tipeee\.com\/([^\/?#]+).*$/, 'https://www.tipeee.com/$1');
       return url;
+    },
+  },
+  'tower': {
+    match: [new RegExp('^(https?://)?(www\\.)?tower\\.jp', 'i')],
+    restrict: [LINK_TYPES.mailorder],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?tower\.jp\/(artist|item)\/(\d+)(?:\/.*)?$/, 'https://tower.jp/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?tower\.jp\/artist\/discography\/(\d+)(?:\/.*)?$/, 'https://tower.jp/artist/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?tower\.jp\/ec\/collection\/item\/summary\/(\d+)(?:\/.*)?$/, 'https://tower.jp/item/$1');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/tower\.jp\/(artist|item)\/\d+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.mailorder.artist:
+            return {
+              result: prefix == 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.mailorder.release:
+            return {
+              result: prefix == 'item',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'traxsource': {

@@ -100,6 +100,11 @@ test 'Private collection pages are private' => sub {
     is($mech->status, 200, 'main collection page is visible to owner');
     $mech->get('/collection/f34c079d-374e-4436-9448-da92dedef3cd/subscribers');
     is($mech->status, 200, 'subscribers page is visible to owner');
+
+    $mech->get('/collection/a34c079d-374e-4436-9448-da92dedef3ce');
+    is($mech->status, 200, 'main collection page is visible to collaborator');
+    $mech->get('/collection/a34c079d-374e-4436-9448-da92dedef3ce/subscribers');
+    is($mech->status, 200, 'subscribers page is visible to collaborator');
 };
 
 test 'Unknown collection' => sub {
