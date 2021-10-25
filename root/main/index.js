@@ -1,4 +1,7 @@
 import React, {useCallback, useState} from "react";
+import './styles/colors.less';
+import './styles/globals.less';
+import './styles/Home.less';
 import Header from './components/Home/Header/Header';
 import Footer from './components/Home/Footer/Footer';
 import ScrollToTop from "./components/Utils/ScrollToTop/ScrollToTop";

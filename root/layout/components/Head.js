@@ -15,7 +15,6 @@ import commonLessUrl from '../../static/styles/common.less';
 import iconLessUrl from '../../static/styles/icons.less';
 import noScriptLessUrl from '../../static/styles/noscript.less';
 import escapeClosingTags from '../../utility/escapeClosingTags';
-
 import globalsScript from './globalsScript';
 import FaviconLinks from './FaviconLinks';
 import MetaDescription from './MetaDescription';
@@ -84,6 +83,14 @@ const Head = ({...props}: HeadProps): React.Element<'head'> => {
           rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossorigin="anonymous"
+      />
+      <link 
+        rel="stylesheet" 
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+      />
+        <link 
+        rel="stylesheet" 
+        href="https://cdn.jsdelivr.net/npm/react-multi-carousel/lib/styles.css"
       />
       <link
         href={commonLessUrl}
