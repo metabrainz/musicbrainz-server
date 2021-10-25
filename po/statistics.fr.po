@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-09-28 18:40+0000\n"
-"Last-Translator: AO <email address hidden>\n"
+"PO-Revision-Date: 2021-10-20 09:39+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -284,7 +284,7 @@ msgstr "Collection collaboratives"
 msgid ""
 "Collection owners are now able to allow other editors to also add/remove "
 "entities from any of their collections."
-msgstr ""
+msgstr "Les propriétaires de collection ont maintenant la possibilité de permettre aux autres éditeurs d’ajouter et de supprimer des entités de leurs collections."
 
 #: DB:statistics.statistic_event/title:2008-11-24
 msgid "Collection, Ratings, CDStubs"
@@ -300,7 +300,7 @@ msgid ""
 "several of their collections into one. Additionally, it is now possible to "
 "create series of artists, and to rate places (the only entity that could be "
 "reviewed on CritiqueBrainz but not rated on MusicBrainz)."
-msgstr ""
+msgstr "Les collections peuvent maintenant être fusionnées par leur propriétaire. De plus, il est maintenant possible de créer des séries d’artistes, et d’évaluer des lieux. (C’était les seuls à pouvoir être évalués sur CritiqueBrainz mais pas sur MusicBrainz.)"
 
 #: DB:statistics.statistic_event/title:2013-08-05
 msgid "Cover Art Uploader"
@@ -592,7 +592,7 @@ msgstr "Menus/scripts client"
 
 #: DB:statistics.statistic_event/title:2021-05-18
 msgid "Mergeable collections, artist series and ratable places"
-msgstr ""
+msgstr "Collections fusionnables, séries d’artistes et lieux évaluables."
 
 #: DB:statistics.statistic_event/description:2008-04-21
 msgid "MetaBrainz accepts three students for Google Summer of Code."
@@ -1748,11 +1748,11 @@ msgstr "Vidéos :"
 #: ../root/statistics/Index.js:686
 msgctxt "recording"
 msgid "Standalone"
-msgstr ""
+msgstr "Isolé"
 
 #: ../root/statistics/Index.js:691
 msgid "With ISRCs"
-msgstr ""
+msgstr "Avec ISRC"
 
 #: ../root/statistics/Index.js:702 ../root/statistics/Index.js:730
 #: ../root/statistics/Index.js:792 ../root/statistics/Index.js:820
@@ -1775,7 +1775,7 @@ msgstr "Œuvres"
 
 #: ../root/statistics/Index.js:752
 msgid "With ISWCs"
-msgstr ""
+msgstr "Avec ISWC"
 
 #: ../root/statistics/Index.js:762
 msgid "Attributes"
@@ -1804,11 +1804,11 @@ msgstr "Événements"
 
 #: ../root/statistics/Index.js:937
 msgid "Of releases"
-msgstr ""
+msgstr "De parutions"
 
 #: ../root/statistics/Index.js:944 ../root/statistics/Index.js:977
 msgid "Generic"
-msgstr ""
+msgstr "Génériques"
 
 #: ../root/statistics/Index.js:953
 msgid "Owned music"
@@ -1820,51 +1820,51 @@ msgstr "Liste de souhaits"
 
 #: ../root/statistics/Index.js:970
 msgid "Of events"
-msgstr ""
+msgstr "D’événements"
 
 #: ../root/statistics/Index.js:986
 msgid "Of type Attending"
-msgstr ""
+msgstr "De type « Présent »"
 
 #: ../root/statistics/Index.js:995
 msgid "Of type Maybe attending"
-msgstr ""
+msgstr "De type « Peut-être présent »"
 
 #: ../root/statistics/Index.js:1006
 msgid "Of areas"
-msgstr ""
+msgstr "De régions"
 
 #: ../root/statistics/Index.js:1012
 msgid "Of artists"
-msgstr ""
+msgstr "D’artistes"
 
 #: ../root/statistics/Index.js:1018
 msgid "Of instruments"
-msgstr ""
+msgstr "D’instruments"
 
 #: ../root/statistics/Index.js:1024
 msgid "Of labels"
-msgstr ""
+msgstr "De labels"
 
 #: ../root/statistics/Index.js:1030
 msgid "Of places"
-msgstr ""
+msgstr "De lieux"
 
 #: ../root/statistics/Index.js:1036
 msgid "Of recordings"
-msgstr ""
+msgstr "D’enregistrements"
 
 #: ../root/statistics/Index.js:1042
 msgid "Of release groups"
-msgstr ""
+msgstr "De groupes de parution"
 
 #: ../root/statistics/Index.js:1048
 msgid "Of series"
-msgstr ""
+msgstr "De séries"
 
 #: ../root/statistics/Index.js:1054
 msgid "Of works"
-msgstr ""
+msgstr "D’œuvres"
 
 #: ../root/statistics/Index.js:1060
 msgid "Public"
@@ -1876,7 +1876,7 @@ msgstr "Privé"
 
 #: ../root/statistics/Index.js:1072
 msgid "With collaborators"
-msgstr ""
+msgstr "Avec collaborateurs"
 
 #: ../root/statistics/Index.js:1079
 msgid "Editors, Edits, and Votes"
@@ -2288,83 +2288,83 @@ msgstr "Pistes de l’ébauche de CD"
 
 #: ../root/statistics/stats.js:178
 msgid "Collections with collaborators"
-msgstr ""
+msgstr "Collections avec collaborateurs"
 
 #: ../root/statistics/stats.js:184
 msgid "Private collections"
-msgstr ""
+msgstr "Collections privées"
 
 #: ../root/statistics/stats.js:190
 msgid "Public collections"
-msgstr ""
+msgstr "Collections publiques"
 
 #: ../root/statistics/stats.js:196
 msgid "Area collections"
-msgstr ""
+msgstr "Collections de régions"
 
 #: ../root/statistics/stats.js:202
 msgid "Artist collections"
-msgstr ""
+msgstr "Collections d’artistes"
 
 #: ../root/statistics/stats.js:208
 msgid "Collections of type Attending"
-msgstr ""
+msgstr "Collections de type « Présent »"
 
 #: ../root/statistics/stats.js:214
 msgid "Collections of type Event"
-msgstr ""
+msgstr "Collections de type « Événement »"
 
 #: ../root/statistics/stats.js:220
 msgid "Event collections (all types)"
-msgstr ""
+msgstr "Collections d’événements (de tous types)"
 
 #: ../root/statistics/stats.js:226
 msgid "Instrument collections"
-msgstr ""
+msgstr "Collections d’instruments"
 
 #: ../root/statistics/stats.js:232
 msgid "Label collections"
-msgstr ""
+msgstr "Collections de labels"
 
 #: ../root/statistics/stats.js:238
 msgid "Collections of type Maybe attending"
-msgstr ""
+msgstr "Collections de type « Peut-être présent »"
 
 #: ../root/statistics/stats.js:244
 msgid "Collections of type Owned music"
-msgstr ""
+msgstr "Collections de type « Musique possédée »"
 
 #: ../root/statistics/stats.js:250
 msgid "Place collections"
-msgstr ""
+msgstr "Collections de lieux"
 
 #: ../root/statistics/stats.js:256
 msgid "Recording collections"
-msgstr ""
+msgstr "Collections d’enregistrements"
 
 #: ../root/statistics/stats.js:262
 msgid "Collections of type Release"
-msgstr ""
+msgstr "Collections de type « Parution »"
 
 #: ../root/statistics/stats.js:268
 msgid "Release collections (all types)"
-msgstr ""
+msgstr "Collections de parutions (de tous types)"
 
 #: ../root/statistics/stats.js:274
 msgid "Release group collections"
-msgstr ""
+msgstr "Collections de groupes de parution"
 
 #: ../root/statistics/stats.js:280
 msgid "Series collections"
-msgstr ""
+msgstr "Collections de séries"
 
 #: ../root/statistics/stats.js:286
 msgid "Collections of type Wishlist"
-msgstr ""
+msgstr "Collections de type « Liste souhaits »"
 
 #: ../root/statistics/stats.js:292
 msgid "Work collections"
-msgstr ""
+msgstr "Collections d’œuvres"
 
 #: ../root/statistics/stats.js:297 ../root/statistics/stats.js:298
 msgid "Pieces of Cover Art"
@@ -2788,11 +2788,11 @@ msgstr "Enregistrements avec ISRC"
 
 #: ../root/statistics/stats.js:663
 msgid "Count of all standalone recordings"
-msgstr ""
+msgstr "Total de tous les enregistrements isolés"
 
 #: ../root/statistics/stats.js:664
 msgid "Standalone recordings"
-msgstr ""
+msgstr "Enregistrements isolés"
 
 #: ../root/statistics/stats.js:669
 msgid "Count of all releases"
@@ -3025,11 +3025,11 @@ msgstr "Total de toutes les œuvres"
 
 #: ../root/statistics/stats.js:875
 msgid "Count of all Works with ISWCs"
-msgstr ""
+msgstr "Total de toutes les œuvres avec ISWC"
 
 #: ../root/statistics/stats.js:876
 msgid "Works with ISWCs"
-msgstr ""
+msgstr "Œuvres avec ISWC"
 
 #: ../root/statistics/stats.js:878
 msgid "/day"
