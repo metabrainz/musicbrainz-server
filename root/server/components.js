@@ -83,6 +83,7 @@ module.exports = {
   'doc/DocError': require('../doc/DocError'),
   'doc/DocPage': require('../doc/DocPage'),
   'edit/EditData': require('../edit/EditData'),
+  'edit/EditIndex': require('../edit/EditIndex'),
   'elections/Index': require('../elections/Index'),
   'elections/Nominate': require('../elections/Nominate'),
   'elections/Show': require('../elections/Show'),
