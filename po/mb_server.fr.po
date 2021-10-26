@@ -64,9 +64,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 13:37+0300\n"
-"PO-Revision-Date: 2021-10-15 10:38+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"POT-Creation-Date: 2021-10-20 08:34+0300\n"
+"PO-Revision-Date: 2021-10-20 09:11+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1998,7 +1998,7 @@ msgstr "« Masquée » devrait être utilisé pour les langues des signes et l
 
 #: ../root/components/common-macros.tt:602
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:240
-#: ../root/static/scripts/common/constants.js:281
+#: ../root/static/scripts/common/constants.js:282
 msgid "High"
 msgstr "Haute"
 
@@ -2492,7 +2492,7 @@ msgstr "Nombre de recherches"
 
 #: ../root/components/common-macros.tt:602
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:240
-#: ../root/static/scripts/common/constants.js:278
+#: ../root/static/scripts/common/constants.js:279
 msgid "Low"
 msgstr "Bas"
 
@@ -2838,8 +2838,8 @@ msgstr "Aucun des supports de cette parution ne peut être lié à cette TOC (ta
 
 #: ../root/components/common-macros.tt:602
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:240
-#: ../root/static/scripts/common/constants.js:279
 #: ../root/static/scripts/common/constants.js:280
+#: ../root/static/scripts/common/constants.js:281
 msgid "Normal"
 msgstr "Normal"
 
@@ -5799,7 +5799,7 @@ msgstr "<strong>Nous n’avons pas pu vous envoyer un courriel de vérification.
 
 #: ../lib/MusicBrainz/Server/Controller/Account/Subscriptions/Collection.pm:21
 msgid "The provided collection ID doesn’t exist."
-msgstr ""
+msgstr "L’identifiant de collection n’existe pas."
 
 #: ../lib/MusicBrainz/Server/Controller/Admin.pm:78
 msgid "User successfully edited."
@@ -7281,22 +7281,22 @@ msgid "A fluency level is required."
 msgstr "Un niveau de maîtrise est requis."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:70
-#: ../root/static/scripts/common/constants.js:289
+#: ../root/static/scripts/common/constants.js:290
 msgid "Basic"
 msgstr "De base"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:71
-#: ../root/static/scripts/common/constants.js:290
+#: ../root/static/scripts/common/constants.js:291
 msgid "Intermediate"
 msgstr "Intermédiaire"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:72
-#: ../root/static/scripts/common/constants.js:288
+#: ../root/static/scripts/common/constants.js:289
 msgid "Advanced"
 msgstr "Avancé"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:73
-#: ../root/static/scripts/common/constants.js:291
+#: ../root/static/scripts/common/constants.js:292
 msgid "Native"
 msgstr "Natif"
 
@@ -11052,7 +11052,7 @@ msgstr "Historique des modifications"
 
 #: ../root/layout/components/sidebar/CollectionSidebar.js:95
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:41
-#: ../root/user/UserSubscriptions.js:206
+#: ../root/user/UserSubscriptions.js:87
 msgid "Unsubscribe"
 msgstr "Se désabonner "
 
@@ -14564,74 +14564,74 @@ msgid ""
 "one and, if so, add that link instead."
 msgstr "Ceci est un lien vers l’ancien nom de domaine de Resident Advisor. Merci de suivre {ra_url|votre lien} et d’ajouter le lien final à la place, si approprié."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4163
+#: ../root/static/scripts/edit/URLCleanup.js:4193
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr "Cet n’est pas un profil, mais une page de documentation Twitter."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4177
+#: ../root/static/scripts/edit/URLCleanup.js:4207
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "Merci de lier au profil Twitter, pas à un tweet."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4195
+#: ../root/static/scripts/edit/URLCleanup.js:4225
 msgid "This site does not allow direct links to their images."
 msgstr "Ce site n’autorise pas les liens directs vers ses images."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4392
+#: ../root/static/scripts/edit/URLCleanup.js:4422
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr "Merci de lier à la page en « {allowed_url_pattern} » plutôt que ce lien en « {current_url_pattern} »."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4448
+#: ../root/static/scripts/edit/URLCleanup.js:4478
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether"
 " it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr "Il y a un caractère « ? » ou « # » non encodé dans cette URL. Veuillez vérifier si il est inutile et doit être supprimé ou si c’est une erreur et que l’URL est mal encodée."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4468
+#: ../root/static/scripts/edit/URLCleanup.js:4498
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr "Merci de ne pas lier directement aux pages « {unwanted_url_pattern} » de WhoSampled. À la place, liez à la page WhoSampled de l’artiste, de la piste, ou de l’album concerné."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4489
+#: ../root/static/scripts/edit/URLCleanup.js:4519
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr "Merci de lier les pages « {album_url_pattern} » de WhoSampled aux groupes de parution."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4507
+#: ../root/static/scripts/edit/URLCleanup.js:4537
 msgid "Please link WhoSampled artist pages to artists."
 msgstr "Merci de lier les pages d’artiste de WhoSampled aux artistes."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4519
+#: ../root/static/scripts/edit/URLCleanup.js:4549
 msgid "Please link WhoSampled track pages to recordings."
 msgstr "Merci de lier les pages de pistes de WhoSampled aux enregistrements."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4586
+#: ../root/static/scripts/edit/URLCleanup.js:4616
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr "Les liens vers les sections spécifiques des articles Wikipédia ne sont pas autorisés. Veuillez supprimer « {fragment} » si cela reste approprié. Voir les {url|directives}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4689
+#: ../root/static/scripts/edit/URLCleanup.js:4719
 msgid "Only video and playlist links are allowed on releases."
 msgstr "Seuls les liens vers des vidéos ou des listes de lecture sont autorisés pour les parutions."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4725
+#: ../root/static/scripts/edit/URLCleanup.js:4755
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia"
 " links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr "Wikpédia n’a normalement aucune entrée pour des parutions spécifiques, donc les liens Wikpédia sont bloqués pour les parutions. À la place, merci d’ajouter ce lien Wikpédia au groupe de parution, si approprié."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4737
+#: ../root/static/scripts/edit/URLCleanup.js:4767
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr "Wikidata n’a normalement aucune entrée pour des parutions spécifiques, donc les liens Wikidata sont bloqués pour les parutions. À la place, merci d’ajouter ce lien Wikidata au groupe de parution, si approprié."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4749
+#: ../root/static/scripts/edit/URLCleanup.js:4779
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -14640,7 +14640,7 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr "Ceci est un profil Bandcamp, pas une page de parution. Même si elle est montre une parution actuellement, cela pourrait changer quand l’artiste sortira une nouvelle parution. Merci de trouver et d’ajouter la page de parution appropriée (« {album_url_pattern} » ou « {single_url_pattern} ») à la place, et n’hésitez pas à ajouter ce profil Bandcamp à l’artiste ou au label correspondant."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4777
+#: ../root/static/scripts/edit/URLCleanup.js:4807
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases"
@@ -14649,11 +14649,11 @@ msgid ""
 "the appropriate artist or label."
 msgstr "Ceci est un profil Bandcamp, pas une page pour un enregistrement. Même si elle est montre un seul enregistrement actuellement, cela pourrait changer quand l’artiste sortira un nouvel enregistrement. Merci de trouver et d’ajouter la page appropriée pour cet enregistrement (« {single_url_pattern} ») à la place, et n’hésitez pas à ajouter ce profil Bandcamp à l’artiste ou au label correspondant."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4940
+#: ../root/static/scripts/edit/URLCleanup.js:4970
 msgid "Some relationship types are missing for this URL."
 msgstr "Certains types de relation sont manquants pour cette URL."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4957
+#: ../root/static/scripts/edit/URLCleanup.js:4987
 #: ../root/static/scripts/edit/externalLinks.js:843
 msgid "This relationship type combination is invalid."
 msgstr "Cette combinaison de types de relation est invalide."
@@ -15688,8 +15688,8 @@ msgid "You aren’t collaborating in any collections."
 msgstr "Vous ne collaborez à aucune collection."
 
 #: ../root/user/UserCollections.js:205
-msgid "{user} isn’t collaborating in any collections."
-msgstr "{user} ne collabore à aucune collection."
+msgid "{user} isn’t collaborating in any public collections."
+msgstr "{user} ne collabore à aucune collection publique."
 
 #: ../root/user/UserProfile.js:58
 msgid "Deleted User"
@@ -15954,51 +15954,59 @@ msgstr "Abonnements à des labels"
 msgid "Series Subscriptions"
 msgstr "Abonnements à des séries"
 
-#: ../root/user/UserSubscriptions.js:134
+#: ../root/user/UserSubscriptions.js:175
 msgid "{editor} is subscribed to:"
 msgstr "{editor} est abonné à :"
 
-#: ../root/user/UserSubscriptions.js:142
+#: ../root/user/UserSubscriptions.js:183
 msgid "{num} artist"
 msgid_plural "{num} artists"
 msgstr[0] "{num} artiste"
 msgstr[1] "{num} artistes"
 
-#: ../root/user/UserSubscriptions.js:153
+#: ../root/user/UserSubscriptions.js:194
 msgid "{num} collection"
 msgid_plural "{num} collections"
 msgstr[0] "{num} collection"
 msgstr[1] "{num} collections"
 
-#: ../root/user/UserSubscriptions.js:164
+#: ../root/user/UserSubscriptions.js:205
 msgid "{num} editor"
 msgid_plural "{num} editors"
 msgstr[0] "{num} éditeur"
 msgstr[1] "{num} éditeurs"
 
-#: ../root/user/UserSubscriptions.js:175
+#: ../root/user/UserSubscriptions.js:216
 msgid "{num} label"
 msgid_plural "{num} labels"
 msgstr[0] "{num} label"
 msgstr[1] "{num} labels"
 
-#: ../root/user/UserSubscriptions.js:186
+#: ../root/user/UserSubscriptions.js:227
 msgid "{num} series"
 msgid_plural "{num} series"
 msgstr[0] "{num} série"
 msgstr[1] "{num} séries"
 
-#: ../root/user/UserSubscriptions.js:218
+#: ../root/user/UserSubscriptions.js:246
+msgid "No public subscriptions."
+msgstr "Aucun abonnement public."
+
+#: ../root/user/UserSubscriptions.js:247
 msgid "No subscriptions."
 msgstr "Aucun abonnement."
 
-#: ../root/user/UserSubscriptions.js:224
-msgid "You are subscribed to {n} private collection."
-msgid_plural "You are subscribed to {n} private collections."
-msgstr[0] "Vous êtes abonné à {n} collection privée."
-msgstr[1] "Vous êtes abonné à {n} collections privées."
+#: ../root/user/UserSubscriptions.js:251
+msgid "Private collections"
+msgstr "Collections privées"
 
-#: ../root/user/UserSubscriptions.js:231
+#: ../root/user/UserSubscriptions.js:265
+msgid "{editor} is also subscribed to {n} other private collection."
+msgid_plural "{editor} is also subscribed to {n} other private collections."
+msgstr[0] "{editor} est aussi abonné à {n} autre collection privée."
+msgstr[1] "{editor} est aussi abonné à {n} autres collections privées."
+
+#: ../root/user/UserSubscriptions.js:275
 msgid "{editor} is subscribed to {n} private collection."
 msgid_plural "{editor} is subscribed to {n} private collections."
 msgstr[0] "{editor} est abonné à {n} collection privée."

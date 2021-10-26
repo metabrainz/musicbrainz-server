@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 13:37+0300\n"
-"PO-Revision-Date: 2021-10-15 10:38+0000\n"
+"POT-Creation-Date: 2021-10-20 08:34+0300\n"
+"PO-Revision-Date: 2021-10-20 05:36+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
@@ -1942,7 +1942,7 @@ msgstr "E fshehur duhet përdorur për gjuhë me shenja dhe gjuhë pa kod ISO 63
 
 #: ../root/components/common-macros.tt:602
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:240
-#: ../root/static/scripts/common/constants.js:281
+#: ../root/static/scripts/common/constants.js:282
 msgid "High"
 msgstr ""
 
@@ -2436,7 +2436,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:602
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:240
-#: ../root/static/scripts/common/constants.js:278
+#: ../root/static/scripts/common/constants.js:279
 msgid "Low"
 msgstr ""
 
@@ -2782,8 +2782,8 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:602
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:240
-#: ../root/static/scripts/common/constants.js:279
 #: ../root/static/scripts/common/constants.js:280
+#: ../root/static/scripts/common/constants.js:281
 msgid "Normal"
 msgstr "Normal"
 
@@ -7225,22 +7225,22 @@ msgid "A fluency level is required."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:70
-#: ../root/static/scripts/common/constants.js:289
+#: ../root/static/scripts/common/constants.js:290
 msgid "Basic"
 msgstr "Fillestar"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:71
-#: ../root/static/scripts/common/constants.js:290
+#: ../root/static/scripts/common/constants.js:291
 msgid "Intermediate"
 msgstr "Mesatar"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:72
-#: ../root/static/scripts/common/constants.js:288
+#: ../root/static/scripts/common/constants.js:289
 msgid "Advanced"
 msgstr "I përparuar"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:73
-#: ../root/static/scripts/common/constants.js:291
+#: ../root/static/scripts/common/constants.js:292
 msgid "Native"
 msgstr ""
 
@@ -10996,7 +10996,7 @@ msgstr "Historik përpunimi"
 
 #: ../root/layout/components/sidebar/CollectionSidebar.js:95
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:41
-#: ../root/user/UserSubscriptions.js:206
+#: ../root/user/UserSubscriptions.js:87
 msgid "Unsubscribe"
 msgstr "Shpajtohuni"
 
@@ -14508,74 +14508,74 @@ msgid ""
 "one and, if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4163
+#: ../root/static/scripts/edit/URLCleanup.js:4193
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4177
+#: ../root/static/scripts/edit/URLCleanup.js:4207
 msgid "Please link to Twitter profiles, not tweets."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4195
+#: ../root/static/scripts/edit/URLCleanup.js:4225
 msgid "This site does not allow direct links to their images."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4392
+#: ../root/static/scripts/edit/URLCleanup.js:4422
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4448
+#: ../root/static/scripts/edit/URLCleanup.js:4478
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether"
 " it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4468
+#: ../root/static/scripts/edit/URLCleanup.js:4498
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4489
+#: ../root/static/scripts/edit/URLCleanup.js:4519
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4507
+#: ../root/static/scripts/edit/URLCleanup.js:4537
 msgid "Please link WhoSampled artist pages to artists."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4519
+#: ../root/static/scripts/edit/URLCleanup.js:4549
 msgid "Please link WhoSampled track pages to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4586
+#: ../root/static/scripts/edit/URLCleanup.js:4616
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4689
+#: ../root/static/scripts/edit/URLCleanup.js:4719
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4725
+#: ../root/static/scripts/edit/URLCleanup.js:4755
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia"
 " links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4737
+#: ../root/static/scripts/edit/URLCleanup.js:4767
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4749
+#: ../root/static/scripts/edit/URLCleanup.js:4779
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -14584,7 +14584,7 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4777
+#: ../root/static/scripts/edit/URLCleanup.js:4807
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases"
@@ -14593,11 +14593,11 @@ msgid ""
 "the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4940
+#: ../root/static/scripts/edit/URLCleanup.js:4970
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4957
+#: ../root/static/scripts/edit/URLCleanup.js:4987
 #: ../root/static/scripts/edit/externalLinks.js:843
 msgid "This relationship type combination is invalid."
 msgstr ""
@@ -15632,7 +15632,7 @@ msgid "You aren’t collaborating in any collections."
 msgstr ""
 
 #: ../root/user/UserCollections.js:205
-msgid "{user} isn’t collaborating in any collections."
+msgid "{user} isn’t collaborating in any public collections."
 msgstr ""
 
 #: ../root/user/UserProfile.js:58
@@ -15898,51 +15898,59 @@ msgstr ""
 msgid "Series Subscriptions"
 msgstr ""
 
-#: ../root/user/UserSubscriptions.js:134
+#: ../root/user/UserSubscriptions.js:175
 msgid "{editor} is subscribed to:"
 msgstr "{editor} është i pajtuar te:"
 
-#: ../root/user/UserSubscriptions.js:142
+#: ../root/user/UserSubscriptions.js:183
 msgid "{num} artist"
 msgid_plural "{num} artists"
 msgstr[0] "{num} artist"
 msgstr[1] "{num} artistë"
 
-#: ../root/user/UserSubscriptions.js:153
+#: ../root/user/UserSubscriptions.js:194
 msgid "{num} collection"
 msgid_plural "{num} collections"
 msgstr[0] "{num} koleksion"
 msgstr[1] "{num} koleksione"
 
-#: ../root/user/UserSubscriptions.js:164
+#: ../root/user/UserSubscriptions.js:205
 msgid "{num} editor"
 msgid_plural "{num} editors"
 msgstr[0] "{num} përpunues"
 msgstr[1] "{num} përpunues"
 
-#: ../root/user/UserSubscriptions.js:175
+#: ../root/user/UserSubscriptions.js:216
 msgid "{num} label"
 msgid_plural "{num} labels"
 msgstr[0] "{num} etiketë"
 msgstr[1] "{num} etiketë"
 
-#: ../root/user/UserSubscriptions.js:186
+#: ../root/user/UserSubscriptions.js:227
 msgid "{num} series"
 msgid_plural "{num} series"
 msgstr[0] "{num} seri"
 msgstr[1] "{num} seri"
 
-#: ../root/user/UserSubscriptions.js:218
+#: ../root/user/UserSubscriptions.js:246
+msgid "No public subscriptions."
+msgstr ""
+
+#: ../root/user/UserSubscriptions.js:247
 msgid "No subscriptions."
 msgstr "S’ka pajtime."
 
-#: ../root/user/UserSubscriptions.js:224
-msgid "You are subscribed to {n} private collection."
-msgid_plural "You are subscribed to {n} private collections."
-msgstr[0] "Jeni pajtuar te {n} koleksion privat."
-msgstr[1] "Jeni pajtuar te {n} koleksione private."
+#: ../root/user/UserSubscriptions.js:251
+msgid "Private collections"
+msgstr ""
 
-#: ../root/user/UserSubscriptions.js:231
+#: ../root/user/UserSubscriptions.js:265
+msgid "{editor} is also subscribed to {n} other private collection."
+msgid_plural "{editor} is also subscribed to {n} other private collections."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../root/user/UserSubscriptions.js:275
 msgid "{editor} is subscribed to {n} private collection."
 msgid_plural "{editor} is subscribed to {n} private collections."
 msgstr[0] "{editor} është i pajtuar te {n} koleksion privat."

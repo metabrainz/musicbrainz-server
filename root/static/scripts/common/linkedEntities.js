@@ -50,7 +50,9 @@ export type LinkedEntitiesT = {
   link_type_tree: {
     [entityTypes: string]: $ReadOnlyArray<LinkTypeT>,
   },
-  mergeLinkedEntities: (update: ?$Shape<LinkedEntitiesT>) => void,
+  mergeLinkedEntities: (
+    update: ?$ReadOnly<$Partial<LinkedEntitiesT>>,
+  ) => void,
   place: {
     [placeId: number]: PlaceT,
   },
@@ -125,7 +127,7 @@ const linkedEntities/*: LinkedEntitiesT */ = Object.create(Object.seal({
   work:                           EMPTY_OBJECT,
   work_attribute_type:            EMPTY_OBJECT,
 
-  mergeLinkedEntities(update/*: ?$Shape<LinkedEntitiesT> */) {
+  mergeLinkedEntities(update/*: ?$ReadOnly<$Partial<LinkedEntitiesT>> */) {
     if (update) {
       for (const [type, entities] of Object.entries(update)) {
         if (hasOwnProperty.call(linkedEntities, type)) {
