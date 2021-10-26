@@ -20,6 +20,7 @@ sub edits : Chained('load') PathPart
         template => 'entity/edits.tt',
         all_edits => 1,
         refine_url_args => {
+            form_only => 'yes',
             auto_edit_filter => '',
             order => 'desc',
             negation => 0,
@@ -47,6 +48,7 @@ sub open_edits : Chained('load') PathPart
         template => 'entity/edits.tt',
         all_edits => 0,
         refine_url_args => {
+            form_only => 'yes',
             auto_edit_filter => '',
             order => 'desc',
             negation => 0,

@@ -1,4 +1,9 @@
-[% INCLUDE 'edit/list_header.tt' %]
+[%~ React.embed(c, 'edit/components/ListHeader', {
+    isSearch => boolean_to_json(search),
+    page => page,
+    refineUrlArgs => React.to_json_object(refine_url_args),
+    username => user,
+}) ~%]
 
 <div class="search-toggle c">
     <p>

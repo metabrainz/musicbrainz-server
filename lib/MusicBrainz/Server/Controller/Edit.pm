@@ -238,6 +238,7 @@ sub open : Local
     $c->stash(
         edits => $edits, # stash early in case an ISE occurs
         refine_url_args => {
+            form_only => 'yes',
             auto_edit_filter => '',
             order => 'asc',
             negation => 0,
@@ -324,6 +325,7 @@ sub subscribed : Local RequireAuth {
         edits => $edits, # stash early in case an ISE occurs
         template => 'edit/subscribed.tt',
         refine_url_args => {
+            form_only => 'yes',
             auto_edit_filter => '',
             order => 'asc',
             negation => 0,
@@ -361,6 +363,7 @@ sub subscribed_editors : Local RequireAuth {
         edits => $edits, # stash early in case an ISE occurs
         template => 'edit/subscribed-editors.tt',
         refine_url_args => {
+            form_only => 'yes',
             auto_edit_filter => '',
             order => 'asc',
             negation => 0,
