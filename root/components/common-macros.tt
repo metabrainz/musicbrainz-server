@@ -111,41 +111,6 @@ END; -%]
     END;
 END -%]
 
-[%-# Take type and return pluralized word form, avoids problems with '|% type %|s' #-%]
-[%~ MACRO get_plural_type(entity)
-    SWITCH entity;
-        CASE 'release';
-            l('releases');
-        CASE 'artist';
-            l('artists');
-        CASE 'area';
-            l('areas');
-        CASE 'event';
-            l('events');
-        CASE 'instrument';
-            l('instruments');
-        CASE 'label';
-            l('labels');
-        CASE 'place';
-            l('places');
-        CASE 'track';
-            l('tracks');
-        CASE 'recording';
-            l('recordings');
-        CASE 'release_group';
-            l('release groups');
-        CASE 'series';
-            lp('series', 'plural');
-        CASE 'editor';
-            l('editors');
-        CASE 'work';
-            l('works');
-        CASE 'url';
-            l('URLs');
-        CASE DEFAULT;
-            l('Error: Unknown Type');
-    END -%]
-
 [%~ MACRO disambiguation(entity) BLOCK -%]
     [%- IF entity.isa('MusicBrainz::Server::Entity::Event') -%]
         [%- cancelled(entity) -%]
