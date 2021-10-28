@@ -12,15 +12,8 @@ import * as React from 'react';
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink';
 
-type RemoveReleasesEditT = {
-  ...EditT,
-  +display_data: {
-    +releases: $ReadOnlyArray<ReleaseT>,
-  },
-};
-
 type Props = {
-  +edit: RemoveReleasesEditT,
+  +edit: RemoveReleasesHistoricEditT,
 };
 
 const RemoveReleases = ({edit}: Props): React.Element<'table'> => (

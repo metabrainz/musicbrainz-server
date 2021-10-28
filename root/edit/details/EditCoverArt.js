@@ -17,16 +17,6 @@ import DescriptiveLink
 import Diff from '../../static/scripts/edit/components/edit/Diff';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
 
-type EditCoverArtEditT = {
-  ...EditT,
-  +display_data: {
-    +artwork: ArtworkT,
-    +comment: CompT<string | null>,
-    +release: ReleaseT,
-    +types: CompT<$ReadOnlyArray<CoverArtTypeT>>,
-  },
-};
-
 type Props = {
   +edit: EditCoverArtEditT,
 };

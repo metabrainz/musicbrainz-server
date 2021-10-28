@@ -13,7 +13,7 @@ import {editHref} from '../utility/entityHref';
 
 type Props = {
   +content: string,
-  +edit: EditT,
+  +edit: GenericEditWithIdT,
   +subPath?: string,
 };
 

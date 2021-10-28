@@ -14,17 +14,6 @@ import CodeLink
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
 
-type AddIsrcsEditT = {
-  ...EditT,
-  +display_data: {
-    +additions: $ReadOnlyArray<{
-      +isrc: IsrcT,
-      +recording: RecordingT,
-    }>,
-    +client_version?: string,
-  },
-};
-
 type Props = {
   +edit: AddIsrcsEditT,
 };

@@ -38,24 +38,6 @@ import diffArtistCredits
 import {INSERT, DELETE} from '../../static/scripts/edit/utility/editDiff';
 import loopParity from '../../utility/loopParity';
 
-type TracklistChangesAddT = {
-  +change_type: '+',
-  +new_track: TrackWithRecordingT,
-  +old_track: null,
-};
-
-type TracklistChangesChangeT = {
-  +change_type: 'c' | 'u',
-  +new_track: TrackWithRecordingT,
-  +old_track: TrackWithRecordingT,
-};
-
-type TracklistChangesRemoveT = {
-  +change_type: '-',
-  +new_track: null,
-  +old_track: TrackWithRecordingT,
-};
-
 type TracklistChangesAddProps = {
   +change: TracklistChangesAddT,
   +changedMbids: boolean,
@@ -92,28 +74,6 @@ type CondensedTrackACsDiffProps = {
   +artistCreditChanges: $ReadOnlyArray<
     | TracklistChangesAddT
     | TracklistChangesChangeT>,
-};
-
-type EditMediumEditT = {
-  ...EditT,
-  +display_data: {
-    +artist_credit_changes?: $ReadOnlyArray<
-      | TracklistChangesAddT
-      | TracklistChangesChangeT>,
-    +changed_mbids: boolean,
-    +data_track_changes: boolean,
-    +format?: CompT<MediumFormatT | null>,
-    +medium: MediumT,
-    +name?: CompT<string>,
-    +position?: CompT<number | string>,
-    +recording_changes?: $ReadOnlyArray<
-      | TracklistChangesAddT
-      | TracklistChangesChangeT>,
-    +tracklist_changes?: $ReadOnlyArray<
-      | TracklistChangesAddT
-      | TracklistChangesChangeT
-      | TracklistChangesRemoveT>,
-  },
 };
 
 type Props = {

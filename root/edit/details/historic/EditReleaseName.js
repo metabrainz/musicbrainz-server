@@ -12,16 +12,8 @@ import * as React from 'react';
 import HistoricReleaseList from '../../components/HistoricReleaseList';
 import WordDiff from '../../../static/scripts/edit/components/edit/WordDiff';
 
-type EditReleaseNameEditT = {
-  ...EditT,
-  +display_data: {
-    +name: CompT<string>,
-    +releases: $ReadOnlyArray<ReleaseT | null>,
-  },
-};
-
 type Props = {
-  +edit: EditReleaseNameEditT,
+  +edit: EditReleaseNameHistoricEditT,
 };
 
 const EditReleaseName = ({edit}: Props): React.Element<'table'> => (

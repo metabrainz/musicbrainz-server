@@ -14,17 +14,8 @@ import HistoricReleaseList
 import ArtistCreditLink
   from '../../../static/scripts/common/components/ArtistCreditLink';
 
-type RemoveReleaseEditT = {
-  ...EditT,
-  +display_data: {
-    +artist_credit?: ArtistCreditT,
-    +name: string,
-    +releases: $ReadOnlyArray<ReleaseT>,
-  },
-};
-
 type Props = {
-  +edit: RemoveReleaseEditT,
+  +edit: RemoveReleaseHistoricEditT,
 };
 
 const RemoveRelease = ({edit}: Props): React.Element<'table'> => {

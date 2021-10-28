@@ -14,21 +14,6 @@ import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 
-type AddEventEditT = {
-  ...EditT,
-  +display_data: {
-    ...CommentRoleT,
-    ...DatePeriodRoleT,
-    +cancelled: boolean,
-    +ended: boolean,
-    +event: EventT,
-    +name: string,
-    +setlist: string,
-    +time: string | null,
-    +type: EventTypeT | null,
-  },
-};
-
 type Props = {
   +edit: AddEventEditT,
 };

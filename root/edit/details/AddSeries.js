@@ -11,17 +11,6 @@ import * as React from 'react';
 
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 
-type AddSeriesEditT = {
-  ...EditT,
-  +display_data: {
-    +comment: string,
-    +name: string,
-    +ordering_type: SeriesOrderingTypeT | null,
-    +series: SeriesT,
-    +type: SeriesTypeT | null,
-  },
-};
-
 type Props = {
   +edit: AddSeriesEditT,
 };

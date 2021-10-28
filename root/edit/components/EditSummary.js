@@ -26,7 +26,7 @@ import Vote from './Vote';
 
 type Props = {
   +$c: CatalystContextT,
-  +edit: {...EditT, +id: number},
+  +edit: GenericEditWithIdT,
   +index: number,
 };
 

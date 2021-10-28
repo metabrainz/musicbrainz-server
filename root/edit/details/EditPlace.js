@@ -19,22 +19,6 @@ import {formatCoordinates} from '../../utility/coordinates';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 
-type EditPlaceEditT = {
-  ...EditT,
-  +display_data: {
-    +address?: CompT<string>,
-    +area?: CompT<AreaT | null>,
-    +begin_date?: CompT<PartialDateT>,
-    +comment?: CompT<string>,
-    +coordinates?: CompT<CoordinatesT | null>,
-    +end_date?: CompT<PartialDateT>,
-    +ended?: CompT<boolean>,
-    +name: CompT<string>,
-    +place: PlaceT,
-    +type?: CompT<PlaceTypeT | null>,
-  },
-};
-
 type Props = {
   +edit: EditPlaceEditT,
 };

@@ -11,18 +11,8 @@ import * as React from 'react';
 
 import HistoricReleaseList from '../../components/HistoricReleaseList';
 
-type AddReleaseAnnotationEditT = {
-  ...EditT,
-  +display_data: {
-    +changelog: string,
-    +html: string,
-    +releases: $ReadOnlyArray<ReleaseT>,
-    +text: string,
-  },
-};
-
 type Props = {
-  +edit: AddReleaseAnnotationEditT,
+  +edit: AddReleaseAnnotationHistoricEditT,
 };
 
 const AddReleaseAnnotation = ({edit}: Props): React.Element<'table'> => {

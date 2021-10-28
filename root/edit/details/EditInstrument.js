@@ -16,17 +16,6 @@ import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
 
-type EditInstrumentEditT = {
-  ...EditT,
-  +display_data: {
-    +comment?: CompT<string | null>,
-    +description?: CompT<string | null>,
-    +instrument: InstrumentT,
-    +name?: CompT<string>,
-    +type?: CompT<InstrumentTypeT | null>,
-  },
-};
-
 type Props = {
   +edit: EditInstrumentEditT,
 };

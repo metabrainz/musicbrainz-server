@@ -11,14 +11,6 @@ import * as React from 'react';
 
 import WorkList from '../../components/list/WorkList';
 
-type MergeWorksEditT = {
-  ...EditT,
-  +display_data: {
-    +new: WorkT,
-    +old: $ReadOnlyArray<WorkT>,
-  },
-};
-
 type Props = {
   +edit: MergeWorksEditT,
 };

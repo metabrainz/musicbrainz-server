@@ -12,18 +12,6 @@ import * as React from 'react';
 import DescriptiveLink from
   '../../static/scripts/common/components/DescriptiveLink';
 
-type ReorderMediumsEditT = {
-  ...EditT,
-  +display_data: {
-    +mediums: $ReadOnlyArray<{
-      +new: number,
-      +old: 'new' | number,
-      +title: string,
-    }>,
-    +release: ReleaseT,
-  },
-};
-
 type Props = {
   +edit: ReorderMediumsEditT,
 };

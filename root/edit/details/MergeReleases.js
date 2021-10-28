@@ -25,38 +25,6 @@ import formatTrackLength from
 import loopParity from '../../utility/loopParity';
 import expand2react from '../../static/scripts/common/i18n/expand2react';
 
-type MergeReleasesEditT = {
-  ...EditT,
-  +display_data: {
-    +cannot_merge_recordings_reason?: {
-      +message: string,
-      +vars: {+[var: string]: string, ...},
-    },
-    +changes: $ReadOnlyArray<{
-      +mediums: $ReadOnlyArray<{
-        +id: number,
-        +new_name: string,
-        +new_position: number,
-        +old_name: string,
-        +old_position: StrOrNum,
-      }>,
-      +release: ReleaseT,
-    }>,
-    +edit_version: 1 | 2 | 3,
-    +empty_releases?: $ReadOnlyArray<ReleaseT>,
-    +merge_strategy: 'append' | 'merge',
-    +new: ReleaseT,
-    +old: $ReadOnlyArray<ReleaseT>,
-    +recording_merges?: $ReadOnlyArray<{
-      +destination: RecordingT,
-      +large_spread: boolean,
-      +medium: string,
-      +sources: $ReadOnlyArray<RecordingT>,
-      +track: string,
-    }>,
-  },
-};
-
 type Props = {
   +edit: MergeReleasesEditT,
 };

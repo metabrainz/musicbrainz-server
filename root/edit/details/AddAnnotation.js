@@ -14,19 +14,6 @@ import DescriptiveLink
 import formatEntityTypeName
   from '../../static/scripts/common/utility/formatEntityTypeName';
 
-type AnnotatedEntityTypeT = AnnotatedEntityT['entityType'];
-
-type AddAnnotationEditT = {
-  ...EditT,
-  +display_data: {
-    +changelog: string,
-    +entity_type: AnnotatedEntityTypeT,
-    [annotatedEntityType: AnnotatedEntityTypeT]: AnnotatedEntityT,
-    +html: string,
-    +text: string,
-  },
-};
-
 type Props = {
   +edit: AddAnnotationEditT,
 };

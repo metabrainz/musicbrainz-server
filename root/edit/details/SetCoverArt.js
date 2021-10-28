@@ -16,15 +16,6 @@ import ReleaseEvents
   from '../../static/scripts/common/components/ReleaseEvents';
 import commaList from '../../static/scripts/common/i18n/commaList';
 
-type SetCoverArtEditT = {
-  ...EditT,
-  +display_data: {
-    +artwork: CompT<ArtworkT>,
-    +isOldArtworkAutomatic: boolean,
-    +release_group: ReleaseGroupT,
-  },
-};
-
 type Props = {
   +edit: SetCoverArtEditT,
 };

@@ -16,20 +16,6 @@ import {formatCoordinates} from '../../utility/coordinates';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 
-type AddPlaceEditT = {
-  ...EditT,
-  +display_data: {
-    ...DatePeriodRoleT,
-    +address: string | null,
-    +area: AreaT,
-    +comment: string | null,
-    +coordinates: CoordinatesT | null,
-    +name?: string,
-    +place: PlaceT,
-    +type: PlaceTypeT | null,
-  },
-};
-
 type Props = {
   +edit: AddPlaceEditT,
 };

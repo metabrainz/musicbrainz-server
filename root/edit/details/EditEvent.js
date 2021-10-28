@@ -17,21 +17,6 @@ import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 
-type EditEventEditT = {
-  ...EditT,
-  +display_data: {
-    +begin_date?: CompT<PartialDateT | null>,
-    +cancelled?: CompT<boolean>,
-    +comment?: CompT<string | null>,
-    +end_date?: CompT<PartialDateT | null>,
-    +event: EventT,
-    +name?: CompT<string>,
-    +setlist?: CompT<string | null>,
-    +time?: CompT<string | null>,
-    +type?: CompT<EventTypeT | null>,
-  },
-};
-
 type Props = {
   +edit: EditEventEditT,
 };

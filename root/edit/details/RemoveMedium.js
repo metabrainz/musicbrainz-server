@@ -14,14 +14,6 @@ import MediumTracklist
 import MediumLink
   from '../../static/scripts/common/components/MediumLink';
 
-type RemoveMediumEditT = {
-  ...EditT,
-  +display_data: {
-    +medium: MediumT,
-    +tracks?: $ReadOnlyArray<TrackT>,
-  },
-};
-
 type Props = {
   +allowNew?: boolean,
   +edit: RemoveMediumEditT,

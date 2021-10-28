@@ -16,20 +16,8 @@ import EntityLink
 import formatTrackLength
   from '../../../static/scripts/common/utility/formatTrackLength';
 
-type AddTrackKVEditT = {
-  ...EditT,
-  +display_data: {
-    +artist?: ArtistT,
-    +length: number,
-    +name: string,
-    +position: number,
-    +recording: RecordingT,
-    +releases: $ReadOnlyArray<ReleaseT | null>,
-  },
-};
-
 type Props = {
-  +edit: AddTrackKVEditT,
+  +edit: AddTrackKVHistoricEditT,
 };
 
 const AddTrackKV = ({edit}: Props): React.Element<'table'> => {

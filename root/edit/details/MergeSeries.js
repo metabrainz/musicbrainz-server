@@ -11,14 +11,6 @@ import * as React from 'react';
 
 import SeriesList from '../../components/list/SeriesList';
 
-type MergeSeriesEditT = {
-  ...EditT,
-  +display_data: {
-    +new: SeriesT,
-    +old: $ReadOnlyArray<SeriesT>,
-  },
-};
-
 type Props = {
   +edit: MergeSeriesEditT,
 };
