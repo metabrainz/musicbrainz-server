@@ -38,11 +38,6 @@ import diffArtistCredits
 import {INSERT, DELETE} from '../../static/scripts/edit/utility/editDiff';
 import loopParity from '../../utility/loopParity';
 
-type TrackWithRecordingT = $ReadOnly<{
-  ...TrackT,
-  +recording: RecordingT,
-}>;
-
 type TracklistChangesAddT = {
   +change_type: '+',
   +new_track: TrackWithRecordingT,
