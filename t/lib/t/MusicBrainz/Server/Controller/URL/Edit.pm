@@ -21,7 +21,7 @@ test all => sub {
     $mech->get_ok('/url/9201840b-d810-4e0f-bb75-c791205f5b24/edit');
     my $response = $mech->submit_form(
         with_fields => {
-            'edit-url.url' => 'http://google.com',
+            'edit-url.url' => 'http://link.example',
         });
 
     my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
@@ -33,7 +33,7 @@ test all => sub {
             name => 'http://musicbrainz.org/'
         },
         new => {
-            url => 'http://google.com/',
+            url => 'http://link.example/',
         },
         old => {
             url => 'http://musicbrainz.org/',
@@ -44,7 +44,7 @@ test all => sub {
 
     $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
     html_ok($mech->content, '..valid xml');
-    $mech->content_contains('http://google.com', '..has new URI');
+    $mech->content_contains('http://link.example', '..has new URI');
     $mech->content_contains('http://musicbrainz.org/', '..has old URI');
 };
 

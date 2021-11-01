@@ -331,7 +331,7 @@ test 'Can submit URL relationships using actual URLs, not gids' => sub {
                 'rel-editor.rels.1.link_type' => '183',
                 'rel-editor.rels.1.action' => 'add',
                 'rel-editor.rels.1.entity.0.gid' => '745c079d-374e-4436-9448-da92dedef3ce',
-                'rel-editor.rels.1.entity.1.url' => 'http://example.com/',
+                'rel-editor.rels.1.entity.1.url' => 'http://link.example/',
             }
         );
     } $c;

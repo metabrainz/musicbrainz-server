@@ -565,7 +565,17 @@ export class ExternalLinksEditor
       };
     } else if (isNewOrChangedLink && !isValidURL(link.url)) {
       error = {
-        message: l('Enter a valid url e.g. "http://google.com/"'),
+        message: exp.l('Please enter a valid URL, such as “{example_url}”.',
+                       {example_url: <span className="url-quote">{'http://example.com/'}</span>}),
+        target: URLCleanup.ERROR_TARGETS.URL,
+      };
+    } else if (isNewOrChangedLink && isExample(link.url)) {
+      error = {
+        message: exp.l(
+          `“{example_url}” is just an example.
+          Please enter the actual link you want to add.`,
+          {example_url: <span className="url-quote">{link.url}</span>},
+        ),
         target: URLCleanup.ERROR_TARGETS.URL,
       };
     } else if (isNewOrChangedLink && isMusicBrainz(link.url)) {
@@ -1591,6 +1601,10 @@ function isShortened(url) {
 
 function isGoogleAmp(url) {
   return /^https?:\/\/([^/]+\.)?google\.[^/]+\/amp/.test(url);
+}
+
+function isExample(url) {
+  return /^https?:\/\/(?:[^/]+\.)?example\.(?:com|org|net)(?:\/.*)?$/.test(url);
 }
 
 function isMusicBrainz(url) {
