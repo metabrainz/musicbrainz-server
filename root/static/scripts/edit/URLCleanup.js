@@ -4705,6 +4705,38 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  'yesasia': {
+    match: [new RegExp(
+      '^(https?://)?(www\\.)?yesasia\\.com/',
+      'i',
+    )],
+    restrict: [LINK_TYPES.mailorder],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?yesasia\.com\//, 'https://www.yesasia.com/');
+      url = url.replace(/^(https:\/\/www\.yesasia\.com)\/(?:global\/)?(?:[^\/]*\/)?([\w.-]+)(?:en|ja|zh_CN|zh_TW)\/((?:info|list).html)(?:#.*)?$/, '$1/$2en/$3');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.yesasia\.com\/(?:[\w.-]+)en\/(info|list).html$/.exec(url);
+      if (m) {
+        const suffix = m[1];
+        switch (id) {
+          case LINK_TYPES.mailorder.artist:
+            return {
+              result: suffix === 'list',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.mailorder.release:
+            return {
+              result: suffix === 'info',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'youtube': {
     match: [new RegExp(
       '^(https?://)?(((?!music)[^/])+\\.)?(youtube\\.com/|youtu\\.be/)',

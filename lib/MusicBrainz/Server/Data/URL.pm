@@ -193,6 +193,7 @@ my %URL_SPECIALIZATIONS = (
     'Wikipedia'           => qr{^https?://([\w-]{2,})\.wikipedia\.org/wiki/}i,
     'Wikisource'          => qr{^https?://([\w-]{2,})\.wikisource\.org/wiki/}i,
     'Worldcat'            => qr{^https?://(?:www\.)?worldcat\.org/}i,
+    'YesAsia'             => qr{^https?://(?:www\.)?yesasia\.com/}i,
     'YouTube'             => qr{^https?://(?:www\.)?youtube\.com/}i,
     'YouTubeMusic'        => qr{^https?://music\.youtube\.com/}i,
     'Yunisan'             => qr{^https?://(?:www22\.)?big\.or\.jp/}i,

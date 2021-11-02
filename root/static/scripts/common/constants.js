@@ -206,6 +206,7 @@ export const FAVICON_CLASSES = {
   'www.amazon': 'amazon',
   'www.youtube.com': 'youtube',
   'www5.atwiki.jp/hmiku/': 'hmikuwiki',
+  'yesasia.com': 'yesasia',
 };
 
 export const PART_OF_SERIES_LINK_TYPES = {

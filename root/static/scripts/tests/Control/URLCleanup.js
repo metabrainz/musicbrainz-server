@@ -4838,6 +4838,21 @@ const testData = [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.worldcat.org/identities/lccn-n94-9040/',
   },
+  // YesAsia
+  {
+                     input_url: 'https://www.yesasia.com/global/twice-korea/0-aid3437787-0-bpt.47-zh_TW/list.html',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://www.yesasia.com/0-aid3437787-0-bpt.47-en/list.html',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.yesasia.com/global/twice-vol-3-formula-of-love-o-t-3-random-version-random-photo-card/1107024843-0-0-0-ja/info.html#zh_CN',
+             input_entity_type: 'release',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://www.yesasia.com/1107024843-0-0-0-en/info.html',
+       only_valid_entity_types: ['release'],
+  },
   // YouTube
   {
                      input_url: 'http://youtube.com/user/officialpsy/videos',
