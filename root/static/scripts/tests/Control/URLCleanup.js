@@ -3890,6 +3890,30 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'label', 'place', 'series'],
   },
   {
+                     input_url: 'https://soundcloud.com/psuhhoteek/lahemaa-lindude-haali-bird-voices-of-lahemaa',
+             input_entity_type: 'recording',
+limited_link_type_combinations: [
+                                  'downloadfree',
+                                  'downloadpurchase',
+                                  'streamingfree',
+                                  'streamingpaid',
+                                  ['downloadfree', 'streamingfree'],
+                                  ['downloadpurchase', 'streamingpaid'],
+                                ],
+  },
+  {
+                     input_url: 'https://soundcloud.com/bei-ping/sets/bei-ping-mafia-cd-2009',
+             input_entity_type: 'release',
+limited_link_type_combinations: [
+                                  'downloadfree',
+                                  'downloadpurchase',
+                                  'streamingfree',
+                                  'streamingpaid',
+                                  ['downloadfree', 'streamingfree'],
+                                  ['downloadpurchase', 'streamingpaid'],
+                                ],
+  },
+  {
                      input_url: 'https://soundcloud.com/tags/bug',
        input_relationship_type: 'soundcloud',
        only_valid_entity_types: [],

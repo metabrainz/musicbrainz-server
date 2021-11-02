@@ -3924,7 +3924,45 @@ const CLEANUPS: CleanupEntries = {
   },
   'soundcloud': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?soundcloud\\.com', 'i')],
-    restrict: [LINK_TYPES.soundcloud],
+    restrict: [
+      LINK_TYPES.soundcloud,
+      {
+        recording: LINK_TYPES.downloadfree.recording,
+        release: LINK_TYPES.downloadfree.release,
+      },
+      {
+        recording: LINK_TYPES.downloadpurchase.recording,
+        release: LINK_TYPES.downloadpurchase.release,
+      },
+      {
+        recording: LINK_TYPES.streamingfree.recording,
+        release: LINK_TYPES.streamingfree.release,
+      },
+      {
+        recording: LINK_TYPES.streamingpaid.recording,
+        release: LINK_TYPES.streamingpaid.release,
+      },
+      {
+        recording: [
+          LINK_TYPES.downloadfree.recording,
+          LINK_TYPES.streamingfree.recording,
+        ],
+        release: [
+          LINK_TYPES.downloadfree.release,
+          LINK_TYPES.streamingfree.release,
+        ],
+      },
+      {
+        recording: [
+          LINK_TYPES.downloadpurchase.recording,
+          LINK_TYPES.streamingpaid.recording,
+        ],
+        release: [
+          LINK_TYPES.downloadpurchase.release,
+          LINK_TYPES.streamingpaid.release,
+        ],
+      },
+    ],
     clean: function (url) {
       return url.replace(/^(https?:\/\/)?((www|m)\.)?soundcloud\.com(\/#!)?/, 'https://soundcloud.com');
     },
