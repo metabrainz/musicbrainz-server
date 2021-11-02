@@ -171,6 +171,7 @@ export const FAVICON_CLASSES = {
   'spirit-of-rock.com': 'spiritofrock',
   'spotify.com': 'spotify',
   'stage48.net': 'stage48',
+  'target.com': 'target',
   'tedcrane.com/DanceDB': 'dancedb',
   'theatricalia.com': 'theatricalia',
   'thedancegypsy.com': 'thedancegypsy',

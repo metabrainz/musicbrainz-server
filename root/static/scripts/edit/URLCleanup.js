@@ -3966,6 +3966,44 @@ const CLEANUPS: CleanupEntries = {
       };
     },
   },
+  'target': {
+    match: [new RegExp(
+      '^(https?://)?((intl|www)\\.)?target\\.com/(b|p)',
+      'i',
+    )],
+    restrict: [LINK_TYPES.mailorder],
+    clean: function (url) {
+      url = url.replace(
+        /^(?:https?:\/\/)?(?:intl\.|www\.)?target\.com\//,
+        'https://www.target.com/',
+      );
+      url = url.replace(
+        /^(https:\/\/www\.target\.com)\/(b|p)\/(?:.*\/)?([AN]-[^\/?#]+).*$/,
+        '$1/$2/$3',
+      );
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.target\.com\/(b|p)\/[AN]-\w+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.mailorder.label:
+            return {
+              result: prefix === 'b',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.mailorder.release:
+            return {
+              result: prefix === 'p',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'thesession': {
     match: [new RegExp('^(https?://)?(www\\.)?thesession\\.org', 'i')],
     restrict: [LINK_TYPES.otherdatabases],

@@ -3981,6 +3981,28 @@ const testData = [
             expected_clean_url: 'https://open.spotify.com/user/1254688529',
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
+  // Target
+  {
+                     input_url: 'https://www.target.com/b/universal-music-group/-/N-l4bvw',
+             input_entity_type: 'label',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://www.target.com/b/N-l4bvw',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'http://target.com/p/olivia-rodrigo-sour-target-exclusive-vinyl/-/A-82813217#lnk=sametab',
+             input_entity_type: 'release',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://www.target.com/p/A-82813217',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://intl.target.com/p/-/A-79228621',
+             input_entity_type: 'release',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://www.target.com/p/A-79228621',
+       only_valid_entity_types: ['release'],
+  },
   // Ted Crane
   {
                      input_url: 'http://tedcrane.com/DanceDB/DisplayIdent.com?key=DONNA_HUNT',
