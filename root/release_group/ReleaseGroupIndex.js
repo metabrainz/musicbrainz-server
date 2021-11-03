@@ -90,6 +90,10 @@ function buildReleaseStatusTable(
           <td>{release.combined_track_count || lp('-', 'missing data')}</td>
           <td>
             <ReleaseEvents events={release.events} />
+            {manifest.js(
+              'common/components/ReleaseEvents',
+              {async: 'async'},
+            )}
           </td>
           <td>
             <ReleaseLabelList labels={release.labels} />

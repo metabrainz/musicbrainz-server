@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import ReleaseLabelList from '../../components/ReleaseLabelList';
 import ReleaseCatnoList from '../../components/ReleaseCatnoList';
+import * as manifest from '../../static/manifest';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 import DescriptiveLink
@@ -89,6 +90,10 @@ function buildReleaseRow(release, index) {
           </td>
           <td>
             <ReleaseEvents events={release.events} />
+            {manifest.js(
+              'common/components/ReleaseEvents',
+              {async: 'async'},
+            )}
           </td>
           <td>
             <ReleaseLabelList labels={release.labels} />

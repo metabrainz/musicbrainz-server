@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {Artwork} from '../../components/Artwork';
+import * as manifest from '../../static/manifest';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
 import ReleaseEvents
@@ -95,6 +96,7 @@ const SetCoverArt = ({edit}: Props): React.Element<'table'> => {
           ) : l(`We are unable to display this cover art.`)}
         </td>
       </tr>
+      {manifest.js('common/components/ReleaseEvents', {async: 'async'})}
     </table>
   );
 };

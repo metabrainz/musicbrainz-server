@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import * as manifest from '../../static/manifest';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
@@ -110,6 +111,10 @@ const EditReleaseLabel = ({edit}: Props): React.Element<'table'> => {
           <th>{addColonText(l('Release events'))}</th>
           <td colSpan="2">
             <ReleaseEvents events={releaseEvents} />
+            {manifest.js(
+              'common/components/ReleaseEvents',
+              {async: 'async'},
+            )}
           </td>
         </tr>
       ) : firstDate || firstCountry ? (

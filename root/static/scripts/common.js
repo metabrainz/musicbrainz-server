@@ -39,7 +39,6 @@ require('./common/components/CommonsImage');
 require('./common/components/FingerprintTable');
 require('./common/components/WikipediaExtract');
 require('./common/MB/Control/Autocomplete');
-require('./common/components/ReleaseEvents');
 require('./common/MB/Control/SelectAll');
 require('./common/components/TagEditor');
 require('./common/components/sidebar/AcousticBrainz');

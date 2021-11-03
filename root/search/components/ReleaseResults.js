@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context';
-import manifest from '../../static/manifest';
+import * as manifest from '../../static/manifest';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
@@ -57,6 +57,10 @@ function buildResult($c, result, index) {
       </td>
       <td>
         <ReleaseEvents events={release.events} />
+        {manifest.js(
+          'common/components/ReleaseEvents',
+          {async: 'async'},
+        )}
       </td>
       <td>
         <ReleaseLabelList labels={release.labels} />

@@ -46,6 +46,7 @@ const entries = [
   'common',
   'common/components/AcoustIdCell',
   'common/components/AttributeList',
+  'common/components/ReleaseEvents',
   'common/components/TaggerIcon',
   'common/components/WorkArtists',
   'confirm-seed',

@@ -471,7 +471,15 @@ export function defineReleaseEventsColumn(
 ): ColumnOptions<ReleaseT, ?$ReadOnlyArray<ReleaseEventT>> {
   return {
     accessor: x => x.events,
-    Cell: ({cell: {value}}) => <ReleaseEvents events={value} />,
+    Cell: ({cell: {value}}) => (
+      <>
+        <ReleaseEvents events={value} />
+        {manifest.js(
+          'common/components/ReleaseEvents',
+          {async: 'async'},
+        )}
+      </>
+    ),
     Header: (props.sortable
       ? (
         <>
