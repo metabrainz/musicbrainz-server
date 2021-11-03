@@ -746,6 +746,21 @@ export class ExternalLinksEditor
     return HIGHLIGHTS.NONE;
   }
 
+  isNewOrChangedLink(link: LinkRelationshipT): boolean {
+    const isNewLink = !isPositiveInteger(link.relationship);
+
+    if (isNewLink) {
+      return true;
+    }
+
+    const oldLink = this.oldLinks.get(String(link.relationship));
+    const linkChanged = oldLink && link.url !== oldLink.url;
+    const linkTypeChanged = oldLink &&
+      +link.type !== +oldLink.type;
+
+    return Boolean(linkChanged || linkTypeChanged);
+  }
+
   render(): React.Element<'table'> {
     this.props.errorObservable(false);
 
@@ -796,8 +811,10 @@ export class ExternalLinksEditor
                */
               const error = this.validateLink(link, checker);
               if (error) {
-                this.props.errorObservable(true);
-                hasError = true;
+                if (this.isNewOrChangedLink(link)) {
+                  this.props.errorObservable(true);
+                  hasError = true;
+                }
                 if (error.target === URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
                   /*
                    * FIXME: This should be read-only! See question above.
@@ -828,15 +845,7 @@ export class ExternalLinksEditor
              * or there's a new relationship.
              */
             const shouldValidateTypeCombination =
-              links.some(link => {
-                const oldLink = this.oldLinks.get(String(link.relationship));
-                const isNewLink = !isPositiveInteger(link.relationship);
-                const linkChanged = oldLink && link.url !== oldLink.url;
-                const isNewOrChangedLink = (isNewLink || linkChanged);
-                const linkTypeChanged = oldLink &&
-                  +link.type !== +oldLink.type;
-                return isNewOrChangedLink || linkTypeChanged;
-              });
+              links.some(link => this.isNewOrChangedLink(link));
             if (check.result) {
               /*
                * Now that selected types are valid, if there's only one
