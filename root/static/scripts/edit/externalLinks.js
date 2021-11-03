@@ -603,6 +603,13 @@ export class ExternalLinksEditor
                     Enter the destination URL instead.`),
         target: URLCleanup.ERROR_TARGETS.URL,
       };
+    } else if (isNewOrChangedLink && isGoogleSearch(link.url)) {
+      error = {
+        message: l(`Please don’t enter links to search results.
+                    If you’ve found any links through your search
+                    that seem useful, do enter those instead.`),
+        target: URLCleanup.ERROR_TARGETS.URL,
+      };
     } else if (!link.type) {
       error = {
         message: l(`Please select a link type for the URL
@@ -1601,6 +1608,10 @@ function isShortened(url) {
 
 function isGoogleAmp(url) {
   return /^https?:\/\/([^/]+\.)?google\.[^/]+\/amp/.test(url);
+}
+
+function isGoogleSearch(url) {
+  return /^https?:\/\/(?:[^/?#]+\.)?google\.[^/?#]+\/search/.test(url);
 }
 
 function isExample(url) {
