@@ -778,7 +778,15 @@ export const trackColumn:
 export const workArtistsColumn:
   ColumnOptions<WorkT, $ReadOnlyArray<ArtistCreditT>> = {
     accessor: x => x.artists,
-    Cell: ({cell: {value}}) => <WorkArtists artists={value} />,
+    Cell: ({cell: {value}}) => (
+      <>
+        <WorkArtists artists={value} />
+        {manifest.js(
+          'common/components/WorkArtists',
+          {async: 'async'},
+        )}
+      </>
+    ),
     Header: N_l('Artists'),
     id: 'work-artists',
   };

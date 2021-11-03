@@ -73,6 +73,10 @@ export const WorkListRow = ({
       </td>
       <td>
         <WorkArtists artists={work.artists} />
+        {manifest.js(
+          'common/components/WorkArtists',
+          {async: 'async'},
+        )}
       </td>
       {showIswcs ? (
         <td>
