@@ -11,11 +11,14 @@ import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
 import {SanitizedCatalystContext} from '../../context';
+import manifest from '../../static/manifest';
 import Table from '../Table';
 import ReleaseGroupAppearances
   from '../../static/scripts/common/components/ReleaseGroupAppearances';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength';
+import {acoustIdsColumn}
+  from '../../static/scripts/common/utility/tableColumns';
 import {
   defineArtistCreditColumn,
   defineCheckboxColumn,
@@ -26,9 +29,7 @@ import {
   defineTextColumn,
   isrcsColumn,
   removeFromMergeColumn,
-  useAcoustIdsColumn,
 } from '../../utility/tableColumns';
-import hydrate from '../../utility/hydrate';
 
 type Props = {
   ...InstrumentCreditsAndRelTypesRoleT,
@@ -77,13 +78,8 @@ const RecordingList = ({
   showRatings = false,
   showReleaseGroups = false,
   sortable,
-}: Props): React.Element<typeof Table> => {
+}: Props): React.MixedElement => {
   const $c = React.useContext(SanitizedCatalystContext);
-
-  const acoustIdsColumn = useAcoustIdsColumn(
-    recordings,
-    showAcoustIds,
-  );
 
   const columns = React.useMemo(
     () => {
@@ -136,7 +132,7 @@ const RecordingList = ({
         artistCreditColumn,
         isrcsColumn,
         ...(showRatings ? [ratingsColumn] : []),
-        ...(acoustIdsColumn ? [acoustIdsColumn] : []),
+        ...(showAcoustIds ? [acoustIdsColumn] : []),
         lengthColumn,
         ...(releaseGroupAppearancesColumn
           ? [releaseGroupAppearancesColumn]
@@ -157,7 +153,7 @@ const RecordingList = ({
       recordings,
       releaseGroupAppearances,
       seriesItemNumbers,
-      acoustIdsColumn,
+      showAcoustIds,
       showExpandedArtistCredits,
       showInstrumentCreditsAndRelTypes,
       showRatings,
@@ -167,14 +163,14 @@ const RecordingList = ({
   );
 
   return (
-    <Table
-      columns={columns}
-      data={recordings}
-    />
+    <>
+      <Table
+        columns={columns}
+        data={recordings}
+      />
+      {manifest.js('common/components/AcoustIdCell', {async: 'async'})}
+    </>
   );
 };
 
-export default (hydrate<Props>(
-  'div.recording-list',
-  RecordingList,
-): React.AbstractComponent<Props, void>);
+export default RecordingList;

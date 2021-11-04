@@ -58,4 +58,4 @@
 </form>
 
 [%- guesscase_options() -%]
-[% script_manifest('place.js') %]
+[% script_manifest('place/edit.js') %]

@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import typeBubble from './edit/typeBubble';
+import typeBubble from '../edit/typeBubble';
 
-const typeIdField = 'select[name=edit-area\\.type_id]';
+const typeIdField = 'select[name=edit-event\\.type_id]';
 typeBubble(typeIdField);

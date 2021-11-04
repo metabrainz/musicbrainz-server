@@ -16,7 +16,6 @@ import FormRowSelect from '../../../../components/FormRowSelect';
 import FormRowText from '../../../../components/FormRowText';
 import FormRowURLLong from '../../../../components/FormRowURLLong';
 import FormSubmit from '../../../../components/FormSubmit';
-import hydrate from '../../../../utility/hydrate';
 
 export type ApplicationFormT = FormT<{
   +csrf_token: FieldT<string>,

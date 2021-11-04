@@ -82,6 +82,10 @@ declare type MergeQueueT = {
 };
 
 // root/utility/sanitizedContext.js
+declare type SanitizedCatalystSessionT = {
+  +tport?: number,
+};
+
 declare type SanitizedCatalystContextT = {
   +action: {
     +name: string,
@@ -90,6 +94,7 @@ declare type SanitizedCatalystContextT = {
   +req: {
     +uri: string,
   },
+  +session: SanitizedCatalystSessionT | null,
   +stash: {
     +current_language: string,
     +genre_map?: {+[genreName: string]: GenreT, ...},
