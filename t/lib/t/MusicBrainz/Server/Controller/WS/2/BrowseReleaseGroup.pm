@@ -101,6 +101,35 @@ ws_test 'browse singles via artist',
     <release-group-list count="0" />
 </metadata>';
 
+ws_test 'browse official release groups via artist',
+    '/release-group?artist=472bc127-8861-45e8-bc9e-31e8dd32de7a&release-group-status=website-default&inc=artist-credits+tags+ratings' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release-group-list count="1">
+        <release-group type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc" id="22b54315-6e51-350b-bb34-e6e16f7688bd">
+            <title>My Demons</title>
+            <first-release-date>2007-01-29</first-release-date>
+            <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+            <artist-credit>
+                <name-credit>
+                    <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
+                        <name>Distance</name>
+                        <sort-name>Distance</sort-name>
+                        <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
+                        <rating votes-count="1">5</rating>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <tag-list>
+                <tag count="2"><name>dubstep</name></tag>
+                <tag count="1"><name>electronic</name></tag>
+                <tag count="1"><name>grime</name></tag>
+            </tag-list>
+            <rating votes-count="1">4</rating>
+        </release-group>
+    </release-group-list>
+</metadata>';
+
 };
 
 1;
