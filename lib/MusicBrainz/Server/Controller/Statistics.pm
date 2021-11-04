@@ -68,20 +68,51 @@ sub statistics : Path('')
 sub timeline_type_data : Path('timeline/type-data') {
     my ($self, $c) = @_;
 
+    my %area_types = map { $_->id => $_ } $c->model('AreaType')->get_all;
     my @countries = $c->model('CountryArea')->get_all;
     my %countries = map { $_->country_code => $_ } @countries;
+    my %event_types = map { $_->id => $_ } $c->model('EventType')->get_all;
+    my %instrument_types = map { $_->id => $_ } $c->model('InstrumentType')->get_all;
+    my %label_types = map { $_->id => $_ } $c->model('LabelType')->get_all;
     my %languages = map { $_->iso_code_3 => $_ }
         grep { defined $_->iso_code_3 } $c->model('Language')->get_all;
     my %scripts = map { $_->iso_code => $_ } $c->model('Script')->get_all;
     my %formats = map { $_->id => $_ } $c->model('MediumFormat')->get_all;
+    my %statuses = map { $_->id => $_ } $c->model('ReleaseStatus')->get_all;
+    my %packagings = map { $_->id => $_ } $c->model('ReleasePackaging')->get_all;
+    my %place_types = map { $_->id => $_ } $c->model('PlaceType')->get_all;
+    my %release_group_types = map { $_->id => $_ } $c->model('ReleaseGroupType')->get_all;
+    my %release_group_secondary_types = map { $_->id => $_ } $c->model('ReleaseGroupSecondaryType')->get_all;
     my @rel_pairs = $c->model('Relationship')->all_pairs;
+    my %rel_types = $c->model('Relationship')->get_types_for_timeline;
+    my %series_types = map { $_->id => $_ } $c->model('SeriesType')->get_all;
+    my %work_attributes = map { $_->id => $_ } $c->model('WorkAttributeType')->get_all;
+    my %work_types = map { $_->id => $_ } $c->model('WorkType')->get_all;
+    my %edit_types;
+    for my $class (EditRegistry->get_all_classes) {
+        $edit_types{$class->edit_type} = { name => $class->edit_name };
+    }
 
     my $body = $c->json_canonical_utf8->encode({
+        areaTypes => \%area_types,
         countries => \%countries,
+        editTypes => \%edit_types,
+        eventTypes => \%event_types,
         formats => \%formats,
+        instrumentTypes => \%instrument_types,
+        labelTypes => \%label_types,
         languages => \%languages,
-        relationships => \@rel_pairs,
+        packagings => \%packagings,
+        placeTypes => \%place_types,
+        relationshipTables => \@rel_pairs,
+        relationshipTypes => \%rel_types,
+        releaseGroupTypes => \%release_group_types,
+        releaseGroupSecondaryTypes => \%release_group_secondary_types,
         scripts => \%scripts,
+        seriesTypes => \%series_types,
+        statuses => \%statuses,
+        workAttributes => \%work_attributes,
+        workTypes => \%work_types,
     });
     $c->res->body($body);
     $c->res->content_type('application/json; charset=utf-8');

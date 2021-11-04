@@ -132,9 +132,14 @@ const RecordingAppearancesTable = ({
                   <td>
                     <ReleaseCatnoList labels={release.labels} />
                   </td>
-                  {$c?.session?.tport == null
-                    ? null
-                    : <td><TaggerIcon entity={release} /></td>}
+                  {$c.session?.tport == null ? null : (
+                    <td>
+                      <TaggerIcon
+                        entityType="release"
+                        gid={release.gid}
+                      />
+                    </td>
+                  )}
                 </tr>
               );
             })}

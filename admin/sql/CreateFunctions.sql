@@ -955,6 +955,21 @@ RETURNS trigger AS $$
   END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION restore_collection_sub_on_public()
+RETURNS trigger AS $$
+  BEGIN
+    IF NEW.public = TRUE AND OLD.public = FALSE THEN
+      UPDATE editor_subscribe_collection sub
+         SET available = TRUE,
+             last_seen_name = NEW.name
+       WHERE sub.collection = OLD.id
+         AND sub.available = FALSE;
+    END IF;
+
+    RETURN NULL;
+  END;
+$$ LANGUAGE 'plpgsql';
+
 ------------------------
 -- CD Lookup
 ------------------------

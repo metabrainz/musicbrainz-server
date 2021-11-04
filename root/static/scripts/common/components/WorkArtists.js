@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import hydrate from '../../../../utility/hydrate';
 import {bracketedText} from '../utility/bracketed';
 
 import ArtistCreditLink from './ArtistCreditLink';

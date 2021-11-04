@@ -10,7 +10,10 @@
 import * as React from 'react';
 import mutate from 'mutate-cow';
 import ButtonPopover from '../../common/components/ButtonPopover';
-import type {LinkRelationshipT} from '../externalLinks';
+import type {
+  LinkRelationshipT,
+  LinkStateT,
+} from '../externalLinks';
 import DateRangeFieldset, {
   partialDateFromField,
   runReducer as runDateRangeFieldsetReducer,
@@ -27,7 +30,7 @@ import {
 import {copyDatePeriodField} from '../utility/copyFieldData';
 
 type PropsT = {
-  onConfirm: (DatePeriodRoleT) => void,
+  onConfirm: ($ReadOnly<$Partial<LinkStateT>>) => void,
   relationship: LinkRelationshipT,
 };
 

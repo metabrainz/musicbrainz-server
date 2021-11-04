@@ -10,7 +10,6 @@
 import $ from 'jquery';
 import * as React from 'react';
 
-import hydrate from '../../../../utility/hydrate';
 import ArtistCreditLink from '../../common/components/ArtistCreditLink';
 import {compare} from '../../common/i18n';
 import {reduceArtistCredit} from '../../common/immutable-entities';

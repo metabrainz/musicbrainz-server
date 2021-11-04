@@ -268,7 +268,7 @@ sub find_by {
                             EXISTS (SELECT 1 FROM editor_collection_collaborator ecc
                             WHERE ecc.collection = editor_collection.id AND ecc.editor = ?))';
         push @args, $editor_id, $editor_id;
-    } elsif (my $editor_id = $opts->{show_private_only}) {
+    } elsif ($editor_id = $opts->{show_private_only}) {
         push @conditions, 'editor_collection.public = false';
         push @conditions, 'editor_collection.editor != ?';
         push @conditions, 'NOT EXISTS (SELECT 1 FROM editor_collection_collaborator ecc

@@ -94,6 +94,7 @@ DROP FUNCTION prevent_invalid_attributes();
 DROP FUNCTION remove_unused_links();
 DROP FUNCTION remove_unused_url();
 DROP FUNCTION replace_old_sub_on_add();
+DROP FUNCTION restore_collection_sub_on_public();
 DROP FUNCTION set_recordings_first_release_dates(recording_ids INTEGER[]);
 DROP FUNCTION set_release_first_release_date(release_id INTEGER);
 DROP FUNCTION set_release_group_first_release_date(release_group_id INTEGER);

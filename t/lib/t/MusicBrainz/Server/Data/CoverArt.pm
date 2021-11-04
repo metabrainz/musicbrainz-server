@@ -41,7 +41,7 @@ test 'Parses valid cover art relationships' => sub {
 test 'Doesnt parse invalid cover art relationships' => sub {
     my $test = shift;
 
-    my $release = make_release('cover art link', 'http://www.google.com');
+    my $release = make_release('cover art link', 'http://www.link.example');
 
     $test->c->model('CoverArt')->load($release);
     ok(!$release->has_cover_art);

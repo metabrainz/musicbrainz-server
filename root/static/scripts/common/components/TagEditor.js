@@ -10,7 +10,7 @@
 import he from 'he';
 import * as React from 'react';
 
-import hydrate, {minimalEntity} from '../../../../utility/hydrate';
+import {minimalEntity} from '../../../../utility/hydrate';
 import loopParity from '../../../../utility/loopParity';
 import {unwrapNl} from '../i18n';
 import {keyBy, sortByNumber} from '../utility/arrays';

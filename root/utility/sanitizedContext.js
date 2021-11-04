@@ -19,6 +19,7 @@ const activeSanitizedEditor = require('./activeSanitizedEditor');
 function sanitizedContext(
   $c /*: CatalystContextT */,
 ) /*: SanitizedCatalystContextT */ {
+  const session = $c.session;
   const stash = $c.stash;
   const user = $c.user;
   return {
@@ -29,6 +30,9 @@ function sanitizedContext(
     req: {
       uri: $c.req.uri,
     },
+    session: session ? {
+      ...(session.tport == null ? null : {tport: session.tport}),
+    } : null,
     stash: {
       current_language: stash.current_language,
     },

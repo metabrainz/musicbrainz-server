@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import DBDefs from '../../static/scripts/common/DBDefs-client';
-import hydrate from '../../utility/hydrate';
 
 const ConfirmSeedButtons = (): React.MixedElement => (
   <>

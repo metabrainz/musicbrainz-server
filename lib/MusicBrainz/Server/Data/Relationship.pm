@@ -518,6 +518,43 @@ sub all_pairs
     return @all;
 }
 
+sub get_types_for_timeline
+{
+    my $self = shift;
+
+    my %rel_types;
+
+    for my $t ($self->all_pairs) {
+        my $table = join('_', 'l', @$t);
+        my $data = $self->sql->select_list_of_hashes(<<~"SQL", @$t);
+                SELECT link_type.id,
+                       link_type.name,
+                       link_type.parent,
+                       count(l_table.id)
+                  FROM $table l_table
+            RIGHT JOIN link ON l_table.link = link.id
+            RIGHT JOIN (SELECT *
+                          FROM link_type
+                         WHERE entity_type0 = ?
+                           AND entity_type1 = ?) link_type_filtered
+                    ON link.link_type = link_type_filtered.id
+              GROUP BY link_type_filtered.name,
+                       link_type_filtered.id,
+                       link_type_filtered.parent
+            SQL
+
+        for (@$data) {
+            $rel_types{ $table . '.' . $_->{name} } = {
+                entity0 => @$t[0],
+                entity1 => @$t[1],
+                name => $_->{name},
+            }
+        }
+    }
+
+    return %rel_types;
+}
+
 sub merge_entities {
     my ($self, $type, $target_id, $source_ids, %opts) = @_;
 

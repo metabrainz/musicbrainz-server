@@ -50,4 +50,4 @@ $(function () {
 });
 </script>
 
-[% script_manifest('series.js') %]
+[% script_manifest('series/edit.js') %]

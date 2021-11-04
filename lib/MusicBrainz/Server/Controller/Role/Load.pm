@@ -138,7 +138,10 @@ role
                 $loaded = 1;
             }
 
-            unless (defined $c->stash->{paged_link_type_group}) {
+            if (defined $c->stash->{paged_link_type_group}) {
+                # Still load URL rels since we want them for the sidebar
+                $c->model('Relationship')->load_subset(['url'], $entity);
+            } else {
                 my $types = $relationships->{subset}{$action};
                 if (!defined $types && !$loaded) {
                     $types = $relationships->{default};
