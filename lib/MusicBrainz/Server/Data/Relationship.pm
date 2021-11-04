@@ -527,9 +527,9 @@ sub get_types_for_timeline
     for my $t ($self->all_pairs) {
         my $table = join('_', 'l', @$t);
         my $data = $self->sql->select_list_of_hashes(<<~"SQL", @$t);
-                SELECT link_type.id,
-                       link_type.name,
-                       link_type.parent,
+                SELECT link_type_filtered.id,
+                       link_type_filtered.name,
+                       link_type_filtered.parent,
                        count(l_table.id)
                   FROM $table l_table
             RIGHT JOIN link ON l_table.link = link.id
