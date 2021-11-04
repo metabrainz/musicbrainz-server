@@ -11,7 +11,7 @@
 # Maurizio Corripio <email address hidden>, 2019
 # Nacho Pique, 2016
 # Nicolás Tamargo <email address hidden>, 2011-2013
-# Peter Cuevas <email address hidden>, 2017
+# Peter Cuevas H <email address hidden>, 2017
 # Pier Jose Gotta Perez <email address hidden>, 2017
 # Kevin Doncam Demian López Brante <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007

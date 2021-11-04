@@ -27,7 +27,7 @@
 # nikki, 2012
 # nikki, 2012
 # Peter Cuevas H <email address hidden>, 2016
-# Peter Cuevas <email address hidden>, 2016
+# Peter Cuevas H <email address hidden>, 2016
 # Robert Schneider <email address hidden>, 2019
 # Robert Schneider <email address hidden>, 2019
 # Stich Lilo <email address hidden>, 2020
