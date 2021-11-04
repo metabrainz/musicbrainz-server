@@ -878,6 +878,7 @@ msgid "castanets"
 msgstr ""
 
 #: DB:instrument/name:524
+msgctxt "Small four-stringed Portugesian lute"
 msgid "cavaquinho"
 msgstr ""
 
@@ -3739,6 +3740,7 @@ msgid "temür khuur"
 msgstr ""
 
 #: DB:instrument/name:657
+msgctxt "4 string tenor banjo"
 msgid "tenor banjo"
 msgstr ""
 
