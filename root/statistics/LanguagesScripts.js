@@ -10,7 +10,7 @@
 
 import * as React from 'react';
 
-import manifest from '../static/manifest';
+import * as manifest from '../static/manifest';
 import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
 import loopParity from '../utility/loopParity';
 import LinkSearchableProperty from '../components/LinkSearchableProperty';

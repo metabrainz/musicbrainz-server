@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import EntityHeader from '../components/EntityHeader';
-import manifest from '../static/manifest';
+import * as manifest from '../static/manifest';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink';
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
