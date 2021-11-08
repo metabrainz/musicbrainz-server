@@ -337,6 +337,7 @@ module.exports = {
   'edit/CannotVote': require('../edit/CannotVote'),
   'edit/NoteIsRequired': require('../edit/NoteIsRequired'),
   'edit/components/EditHeader': require('../edit/components/EditHeader'),
+  'edit/components/EditList': require('../edit/components/EditList'),
   'edit/components/EditNote': require('../edit/components/EditNote'),
   'edit/components/EditNotes': require('../edit/components/EditNotes'),
   'edit/components/EditSidebar': require('../edit/components/EditSidebar'),

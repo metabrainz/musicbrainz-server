@@ -24,5 +24,11 @@
             <span class="prefix">~</span> [% subheading %]
         </p>
     </div>
-    [% INCLUDE 'edit/list.tt' guess_search=1 %]
+    [%~ React.embed(c, 'edit/components/EditList', {
+        editCountLimit => edit_count_limit,
+        edits => React.to_json_array(edits),
+        guessSearch => 1,
+        pager => React.serialize_pager(pager),
+        refineUrlArgs => React.to_json_object(refine_url_args),
+    }) ~%]
 [% END %]

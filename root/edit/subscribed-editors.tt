@@ -1,6 +1,13 @@
 [% WRAPPER 'layout.tt' title=l('Edits by Your Subscribed Editors') full_width=1 %]
     <div id="content">
         <h1>[% l('Edits by Your Subscribed Editors') %]</h1>
-        [% INCLUDE 'edit/list.tt' guess_search=1 page='subscribed_editors' %]
+        [%~ React.embed(c, 'edit/components/EditList', {
+            editCountLimit => edit_count_limit,
+            edits => React.to_json_array(edits),
+            guessSearch => 1,
+            page => 'subscribed_editors',
+            pager => React.serialize_pager(pager),
+            refineUrlArgs => React.to_json_object(refine_url_args),
+        }) ~%]
     </div>
 [% END %]
