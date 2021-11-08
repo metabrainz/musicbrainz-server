@@ -41,41 +41,15 @@
     # We always want search != 1 when calling the paginator from this template %]
         <form action="[% c.uri_for('/edit/enter_votes') %]" method="post">
             [%~ FOREACH edit=edits ~%]
-                <div class="edit-list">
-                    [%- edit_json_obj = React.to_json_object(edit); rendered_react_template = '' -%]
+                [%- edit_json_obj = React.to_json_object(edit); rendered_react_template = '' -%]
 
-                    [%- IF edit.data.defined AND edit.edit_template_react;
-                            rendered_react_template = React.embed(c, "edit/details/${edit.edit_template_react}.js", {edit => edit_json_obj});
-                        END;
-                        edit_json_obj.delete('display_data')
-                    -%]
+                [%~ React.embed(c, 'edit/components/ListEdit', {
+                    edit => edit_json_obj,
+                    index => loop.index,
+                    voter => React.to_json_object(voter),
+                }) ~%]
 
-                    [%~ React.embed(c, "edit/components/EditHeader.js", {edit => edit_json_obj, isSummary => 1, voter = React.to_json_object(voter)}) ~%]
-
-                    <input type="hidden" value="[% edit.id %]" name="enter-vote.vote.[% loop.index %].edit_id" />
-
-                    <div class="edit-actions c[%- edit_status_class(edit) -%]">
-                        [%- React.embed(c, 'edit/components/EditSummary', {edit => edit_json_obj, index => loop.index}) -%]
-                    </div>
-
-                    <div class="edit-details">
-                        [% IF edit.data.defined %]
-                          [% IF edit.edit_template_react %]
-                            [%~ rendered_react_template ~%]
-                          [% ELSE %]
-                            [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
-                          [% END %]
-                        [% ELSE %]
-                           <p>[% l('An error occurred while loading this edit.') %]</p>
-                        [% END %]
-                    </div>
-
-                    [%~ IF c.user_exists ~%]
-                        [%- React.embed(c, 'edit/components/EditNotes', {edit => edit_json_obj, hide => 1, index => loop.index, verbose => 0}) -%]
-                    [%~ END ~%]
-                    <div class="seperator">
-                    </div>
-                </div>
+                [%- edit_json_obj.delete('display_data') -%]
             [%- END -%]
 
             <input type="hidden" name="url" value="[% c.req.uri %]" />

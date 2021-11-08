@@ -341,6 +341,7 @@ module.exports = {
   'edit/components/EditNotes': require('../edit/components/EditNotes'),
   'edit/components/EditSidebar': require('../edit/components/EditSidebar'),
   'edit/components/EditSummary': require('../edit/components/EditSummary'),
+  'edit/components/ListEdit': require('../edit/components/ListEdit'),
   'edit/components/ListHeader': require('../edit/components/ListHeader'),
   'edit/components/Vote': require('../edit/components/Vote'),
   'edit/details/AddAnnotation': require('../edit/details/AddAnnotation'),
