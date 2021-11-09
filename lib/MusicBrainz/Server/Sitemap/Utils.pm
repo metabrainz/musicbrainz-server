@@ -3,7 +3,7 @@ package MusicBrainz::Server::Sitemap::Utils;
 use base 'Exporter';
 use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::Validation qw( encode_entities );
-use List::UtilsBy qw( sort_by );
+use List::AllUtils qw( sort_by );
 use Readonly;
 
 =head1 SYNOPSIS

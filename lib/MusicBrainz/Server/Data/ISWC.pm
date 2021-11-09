@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::ISWC;
 use Moose;
 use namespace::autoclean;
 
-use List::MoreUtils qw( uniq );
+use List::AllUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw(
     object_to_ids
     placeholders
@@ -186,7 +186,7 @@ sub insert
     my ($self, @iswcs) = @_;
 
     $self->sql->do('INSERT INTO iswc (work, iswc) VALUES ' .
-                 (join ',', (('(?, ?)') x @iswcs)),
+                 (join q(,), (('(?, ?)') x @iswcs)),
              map { $_->{work_id}, $_->{iswc} } @iswcs);
 }
 

@@ -7,7 +7,7 @@ use aliased 'MusicBrainz::Server::Entity::CommonsImage';
 use JSON;
 use Encode qw( encode );
 use URI::Escape qw( uri_escape_utf8 );
-use List::Util qw( first );
+use List::AllUtils qw( first );
 
 with 'MusicBrainz::Server::Data::Role::Context';
 with 'MusicBrainz::Server::Data::Role::MediaWikiAPI';

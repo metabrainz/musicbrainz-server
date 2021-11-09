@@ -3,8 +3,7 @@ package MusicBrainz::Server::Data::Area;
 use DBDefs;
 use Moose;
 use namespace::autoclean;
-use List::AllUtils qw( any );
-use List::UtilsBy qw( partition_by );
+use List::AllUtils qw( any partition_by );
 use MusicBrainz::Server::Constants qw(
     $STATUS_OPEN
     $AREA_TYPE_COUNTRY

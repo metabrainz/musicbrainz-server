@@ -8,7 +8,7 @@ use base 'Template::Plugin';
 use MusicBrainz::Server::Translation qw( l );
 
 use Clone qw( clone );
-use List::Util qw( first );
+use List::AllUtils qw( first );
 
 use Carp;
 use HTML::Tiny;

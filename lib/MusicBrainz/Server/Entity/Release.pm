@@ -1,8 +1,7 @@
 package MusicBrainz::Server::Entity::Release;
 use Moose;
 
-use List::AllUtils qw( any );
-use List::MoreUtils qw( uniq );
+use List::AllUtils qw( any uniq );
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Translation qw( l lp );

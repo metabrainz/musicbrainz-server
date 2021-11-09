@@ -2,7 +2,7 @@ package t::MusicBrainz::Server::Data::ArtistType;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
-use List::MoreUtils qw( pairwise );
+use List::AllUtils qw( pairwise );
 
 use MusicBrainz::Server::Data::ArtistType;
 

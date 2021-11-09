@@ -24,7 +24,7 @@ EOF
     # the 'package' function thinks it's a version number if you pass it a
     # string, and we can't interpolate $model any other way than this (the rest
     # could presumably just be done with a normal block).
-    eval <<EOF;
+    eval <<EOF; ## no critic 'ProhibitStringyEval'
 package MusicBrainz::Server::EditSearch::Predicate::$model;
 use Moose;
 use MusicBrainz::Server::EditSearch::Predicate::Role::LinkedEntity;

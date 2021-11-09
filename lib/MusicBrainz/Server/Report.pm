@@ -10,7 +10,7 @@ requires 'run';
 
 sub qualified_table {
     my $self = shift;
-    return join('.', 'report', $self->table);
+    return join(q(.), 'report', $self->table);
 }
 
 sub table {

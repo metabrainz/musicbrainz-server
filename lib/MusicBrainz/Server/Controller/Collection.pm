@@ -1,8 +1,7 @@
 package MusicBrainz::Server::Controller::Collection;
 use Moose;
 use Scalar::Util qw( looks_like_number );
-use List::Util qw( first );
-use List::AllUtils qw( uniq );
+use List::AllUtils qw( first uniq );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 

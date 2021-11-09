@@ -4,7 +4,7 @@ use Test::Moose;
 use Test::More;
 use Test::Fatal;
 use Clone qw( clone );
-use List::MoreUtils qw( pairwise );
+use List::AllUtils qw( pairwise );
 
 BEGIN { use MusicBrainz::Server::Data::Edit };
 

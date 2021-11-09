@@ -606,7 +606,7 @@ sub allow_auto_edit
             ) };
 
         # If this edit adds or removes tracks, it's not an auto-edit
-        return 0 if (grep { $_->[0] ne 'c' } @changes);
+        return 0 if (any { $_->[0] ne 'c' } @changes);
 
         for my $change (@changes) {
             my (undef, $old, $new) = @$change;

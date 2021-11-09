@@ -148,7 +148,7 @@ sub _compare_tags
 {
     my ($c, $model, $gid, $expected, $desc) = @_;
 
-    my $tag_names = join ', ', sort keys %$expected;
+    my $tag_names = join q(, ), sort keys %$expected;
     $desc = "$model has tags ($tag_names)";
 
     my $entity = $c->model($model)->get_by_gid($gid);

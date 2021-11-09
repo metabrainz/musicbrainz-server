@@ -1,11 +1,19 @@
 only=1
 severity=1
 
+[BuiltinFunctions::ProhibitBooleanGrep]
+[BuiltinFunctions::ProhibitLvalueSubstr]
+[BuiltinFunctions::ProhibitShiftRef]
+[BuiltinFunctions::ProhibitStringyEval]
+allow_includes=1
+
 [CodeLayout::ProhibitHardTabs]
 [CodeLayout::ProhibitTrailingWhitespace]
 [CodeLayout::RequireConsistentNewlines]
 
 [ControlStructures::ProhibitUnreachableCode]
+
+[Modules::RequireFilenameMatchesPackage]
 
 [Subroutines::ProhibitReturnSort]
 
@@ -13,6 +21,7 @@ severity=1
 allow=refs
 
 [ValuesAndExpressions::ProhibitInterpolationOfLiterals]
+[ValuesAndExpressions::ProhibitLeadingZeros]
 [ValuesAndExpressions::ProhibitMismatchedOperators]
 [ValuesAndExpressions::ProhibitMixedBooleanOperators]
 

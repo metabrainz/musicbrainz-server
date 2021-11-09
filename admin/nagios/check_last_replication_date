@@ -1,27 +1,4 @@
 #!/usr/bin/env perl
-# vi: set ts=4 sw=4 :
-#____________________________________________________________________________
-#
-#   MusicBrainz -- the open internet music database
-#
-#   Copyright (C) 1998 Robert Kaye
-#
-#   This program is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
-#
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with this program; if not, write to the Free Software
-#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-#    This script originally by Dave Evans.
-#____________________________________________________________________________
 
 =pod
 
@@ -46,8 +23,8 @@ my $warn = 3600 * 6;
 my $crit = 3600 * 24;
 
 GetOptions(
-    "warn|w=i"  => \$warn,
-    "critical|c=i"      => \$crit,
+    'warn|w=i'  => \$warn,
+    'critical|c=i'      => \$crit,
 ) or exit 2;
 
 @ARGV == 0 or die "Usage: $0 [-w SECONDS] [-c SECONDS]\n";
@@ -61,14 +38,14 @@ if (DBDefs->REPLICATION_TYPE != DBDefs::RT_SLAVE)
 my $c = MusicBrainz::Server::Context->create_script_context;
 
 my $row = $c->sql->select_single_row_hash(
-    "
+    '
     SELECT
     (last_replication_date < NOW() - ?::INTERVAL) as warn,
     (last_replication_date < NOW() - ?::INTERVAL) as crit,
     last_replication_date,
     NOW() - last_replication_date as age
     FROM replication_control
-    ",
+    ',
     "$warn seconds",
     "$crit seconds",
 );
@@ -79,9 +56,17 @@ if (not $row)
     exit 2;
 }
 
-print ($row->{crit} ? "CRITICAL" : $row->{warn} ? "WARNING" : "OK");
-print ": ";
+print ($row->{crit} ? 'CRITICAL' : $row->{warn} ? 'WARNING' : 'OK');
+print ': ';
 print "Last replication date is $row->{last_replication_date} (age = $row->{age})\n";
 exit ($row->{crit} ? 2 : $row->{warn} ? 1 : 0);
 
-# eof
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 1998 Robert Kaye
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut

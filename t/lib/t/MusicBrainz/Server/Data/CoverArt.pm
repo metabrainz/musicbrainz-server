@@ -4,7 +4,7 @@ use Test::Moose;
 use Test::More;
 
 use DBDefs;
-use List::Util qw( first );
+use List::AllUtils qw( first );
 use LWP::UserAgent;
 use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Constants qw( :direction );

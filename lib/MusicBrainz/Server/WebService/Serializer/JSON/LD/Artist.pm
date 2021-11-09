@@ -9,7 +9,7 @@ use MusicBrainz::Server::Constants qw(
     $VOCAL_ROOT_ID
 );
 use MusicBrainz::Server::Data::Utils qw( non_empty );
-use List::MoreUtils qw( uniq );
+use List::AllUtils qw( uniq );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Genre';

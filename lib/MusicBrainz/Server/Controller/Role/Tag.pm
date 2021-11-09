@@ -1,5 +1,5 @@
 package MusicBrainz::Server::Controller::Role::Tag;
-use List::MoreUtils qw( uniq );
+use List::AllUtils qw( uniq );
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 use MusicBrainz::Server::Data::Utils qw( trim );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
@@ -56,7 +56,7 @@ sub parse_tags {
     my ($input) = @_;
 
     # make sure the list contains only unique tags
-    uniq grep { $_ } map { lc trim $_ } split ',', $input;
+    uniq grep { $_ } map { lc trim $_ } split q(,), $input;
 }
 
 sub _vote_on_tags {

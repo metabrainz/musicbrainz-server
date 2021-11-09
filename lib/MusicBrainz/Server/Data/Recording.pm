@@ -2,8 +2,7 @@ package MusicBrainz::Server::Data::Recording;
 
 use Moose;
 use namespace::autoclean;
-use List::MoreUtils qw( uniq );
-use List::UtilsBy qw( nsort_by sort_by uniq_by );
+use List::AllUtils qw( nsort_by sort_by uniq uniq_by );
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_CREATE
     $EDIT_HISTORIC_ADD_TRACK

@@ -8,7 +8,7 @@ __PACKAGE__->config(
     namespace => 'release_editor'
 );
 
-use List::UtilsBy qw( partition_by );
+use List::AllUtils qw( partition_by );
 use Try::Tiny;
 use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );

@@ -19,7 +19,7 @@ use MooseX::Types::Moose qw( ArrayRef Object Str );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json non_empty );
 use MusicBrainz::Server::Entity::Util::JSON qw( add_linked_entity to_json_object );
 use MusicBrainz::Server::Types qw( Time );
-use List::UtilsBy qw( uniq_by );
+use List::AllUtils qw( uniq_by );
 
 sub entity_type { 'event' }
 

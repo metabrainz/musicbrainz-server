@@ -7,7 +7,7 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 use DBDefs;
-use List::Util qw( min );
+use List::AllUtils qw( min );
 use Moose;
 use MusicBrainz::Script::Utils qw( log );
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );

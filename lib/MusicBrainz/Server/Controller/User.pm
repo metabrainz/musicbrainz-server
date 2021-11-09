@@ -9,7 +9,7 @@ use DBDefs;
 use Digest::SHA qw(sha1_base64);
 use Encode;
 use HTTP::Status qw( :constants );
-use List::Util 'sum';
+use List::AllUtils 'sum';
 use MusicBrainz::Server::Authentication::User;
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );

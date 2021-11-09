@@ -1,29 +1,6 @@
 #!/usr/bin/env perl
 
 use warnings;
-# vi: set ts=4 sw=4 :
-#____________________________________________________________________________
-#
-#   MusicBrainz -- the open internet music database
-#
-#   Copyright (C) 2012 Ian McEwen
-#
-#   This program is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
-#
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with this program; if not, write to the Free Software
-#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-#   $Id$
-#____________________________________________________________________________
 
 use FindBin;
 use lib "$FindBin::Bin/../../lib";
@@ -36,7 +13,7 @@ use File::Path qw( rmtree );
 use File::Copy qw( copy );
 
 my $fHelp;
-my $tmpdir = "/tmp";
+my $tmpdir = '/tmp';
 my $period = my $defperiod = 'daily';
 my $outputdir;
 my $start;
@@ -44,12 +21,12 @@ my $limit;
 my $require_previous_packet = 0;
 
 GetOptions(
-    "help"                              => \$fHelp,
-    "require-previous"                  => \$require_previous_packet,
-    "period=s"                          => \$period,
-    "start=s"                           => \$start,
-    "limit=s"                           => \$limit,
-    "output=s"                           => \$outputdir,
+    'help'                              => \$fHelp,
+    'require-previous'                  => \$require_previous_packet,
+    'period=s'                          => \$period,
+    'start=s'                           => \$start,
+    'limit=s'                           => \$limit,
+    'output=s'                           => \$outputdir,
 ) or exit 2;
 
 sub usage
@@ -109,7 +86,7 @@ if (!$start) {
 
         extract_tar($localfile, $periodcheckdir);
 
-        my $last_val = read_file("LAST_REPLICATION_SEQUENCE", $periodcheckdir);
+        my $last_val = read_file('LAST_REPLICATION_SEQUENCE', $periodcheckdir);
         if ($last_val =~ /\A(\d+)\n\z/) {
             $last_val = $1;
         }
@@ -130,7 +107,7 @@ if (!$start) {
     }
 }
 
-$start or die("No start value found");
+$start or die('No start value found');
 
 my @seq_to_use = reverse grep { $_ >= $start } @sequences;
 if ($limit) {
@@ -139,9 +116,9 @@ if ($limit) {
     @seq_to_use = @seq_to_use[0..$limit - 1];
 }
 
-die "No packets available for this period" unless scalar @seq_to_use;
+die 'No packets available for this period' unless scalar @seq_to_use;
 
-my $newpacketdir = tempdir("mb-bundle-XXXXXX", DIR => $tmpdir);
+my $newpacketdir = tempdir('mb-bundle-XXXXXX', DIR => $tmpdir);
 mkdir "$newpacketdir/mbdump" or die $!;
 
 my $schema_sequence;
@@ -149,7 +126,7 @@ my $last_replication_sequence = $start - 1;
 for my $sequence (@seq_to_use) {
     die("Replication sequence $sequence is too far from $last_replication_sequence")
         if $last_replication_sequence + 1 != $sequence;
-    my $individual_packet_dir = tempdir("replication-bundle-XXXXXX", DIR => $tmpdir);
+    my $individual_packet_dir = tempdir('replication-bundle-XXXXXX', DIR => $tmpdir);
 
     # untar the packet
     my $localfile = "$rootdir/replication-$sequence.tar.bz2";
@@ -206,12 +183,12 @@ my @tar_files = (qw(
 
 print localtime() . " : Creating packet $tar_filename\n";
 
-system { "/bin/tar" } "tar",
-    "-C", $newpacketdir,
-    "--bzip2", "--create",
-    "--verbose",
-    "--file", $tar_filename,
-    "--", @tar_files;
+system { '/bin/tar' } 'tar',
+    '-C', $newpacketdir,
+    '--bzip2', '--create',
+    '--verbose',
+    '--file', $tar_filename,
+    '--', @tar_files;
 
 $? == 0 or die "Tar returned $?";
 
@@ -233,11 +210,21 @@ sub extract_tar
 {
     my ($localfile, $dir) = @_;
     print localtime() . " : Decompressing $localfile to $dir\n";
-    system "/bin/tar",
-        "-C", $dir,
-        "--bzip2",
-        "-xvf",
+    system '/bin/tar',
+        '-C', $dir,
+        '--bzip2',
+        '-xvf',
         $localfile,
         ;
     exit $? if $?;
 }
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2012 Ian McEwen
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut

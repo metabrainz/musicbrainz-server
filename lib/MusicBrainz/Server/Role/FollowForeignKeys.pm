@@ -38,8 +38,8 @@ sub stringify_joins($) {
     join ' ', map {
         my ($lhs, $rhs) = @{$_}{qw(lhs rhs)};
 
-        my $lhs_table = $lhs->{schema} . '.' . $lhs->{table};
-        my $rhs_table = $rhs->{schema} . '.' . $rhs->{table};
+        my $lhs_table = $lhs->{schema} . q(.) . $lhs->{table};
+        my $rhs_table = $rhs->{schema} . q(.) . $rhs->{table};
 
         if ($prev_lhs_table) {
             die ('Bad join: ' . Dumper($joins))
@@ -52,8 +52,8 @@ sub stringify_joins($) {
         $aliases->{$lhs_table} = $lhs_alias;
         ++$index;
 
-        my $lhs_ident = $lhs_alias . '.' . $lhs->{column};
-        my $rhs_ident = $rhs_alias . '.' . $rhs->{column};
+        my $lhs_ident = $lhs_alias . q(.) . $lhs->{column};
+        my $rhs_ident = $rhs_alias . q(.) . $rhs->{column};
 
         "JOIN $lhs_table $lhs_alias ON $lhs_ident = $rhs_ident"
     } @{$joins};

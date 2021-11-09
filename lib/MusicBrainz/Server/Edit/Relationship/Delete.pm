@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Relationship::Delete;
 use Moose;
 use Try::Tiny;
 
-use List::MoreUtils qw( any );
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Constants qw( $CONTACT_URL $EDIT_RELATIONSHIP_DELETE );
 use MusicBrainz::Server::Data::Utils qw(
     localized_note

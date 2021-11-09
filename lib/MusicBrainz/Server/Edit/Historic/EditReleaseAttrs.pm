@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Historic::EditReleaseAttrs;
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-use List::MoreUtils qw( uniq );
+use List::AllUtils qw( uniq );
 use MusicBrainz::Server::Constants qw(
     $EDIT_HISTORIC_EDIT_RELEASE_ATTRS
 );

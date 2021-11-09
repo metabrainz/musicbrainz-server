@@ -14,7 +14,7 @@ use MusicBrainz::Server::Validation qw( is_database_row_id );
 use MusicBrainz::Server::EditSearch::Query;
 use MusicBrainz::Server::Data::Utils qw( type_to_model load_everything_for_edits );
 use MusicBrainz::Server::Translation qw( N_l );
-use List::UtilsBy qw( sort_by );
+use List::AllUtils qw( sort_by );
 
 use aliased 'MusicBrainz::Server::EditRegistry';
 
@@ -233,7 +233,7 @@ sub search : Path('/search/edits')
     $c->stash(
         edit_types => [
             map [
-                join(',', sort { $a <=> $b } map { $_->edit_type } @{ $grouped{$_} }) => $_
+                join(q(,), sort { $a <=> $b } map { $_->edit_type } @{ $grouped{$_} }) => $_
             ], sort_by { $coll->getSortKey($_) } keys %grouped
         ],
         status => status_names(),

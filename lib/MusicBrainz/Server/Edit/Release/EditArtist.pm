@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 use Data::Compare;
 
-use List::MoreUtils qw( all pairwise );
+use List::AllUtils qw( all pairwise );
 use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw(

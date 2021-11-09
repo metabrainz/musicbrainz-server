@@ -1,29 +1,6 @@
 #!/usr/bin/env perl
 
 use warnings;
-#____________________________________________________________________________
-#
-#   MusicBrainz -- the open internet music database
-#
-#   Copyright (C) 2011-2017 MetaBrainz Foundation
-#
-#   This program is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
-#
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with this program; if not, write to the Free Software
-#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-#   $Id$
-#____________________________________________________________________________
-
 use strict;
 
 use FindBin;
@@ -42,12 +19,12 @@ my $pattern = undef;
 my $column = undef;
 
 GetOptions(
-    "column|c=s"  => \$column,
-    "pattern|p=s"  => \$pattern,
-    "dry-run|d"    => \$dry_run,
-    "force|f"     => \$force,
-    "ignore-case|i"    => \$case_insensitive,
-    "verbose|v"     => \$verbose,
+    'column|c=s'  => \$column,
+    'pattern|p=s'  => \$pattern,
+    'dry-run|d'    => \$dry_run,
+    'force|f'     => \$force,
+    'ignore-case|i'    => \$case_insensitive,
+    'verbose|v'     => \$verbose,
 ) or usage();
 
 my %allowed_columns = (
@@ -121,42 +98,42 @@ my $editors = $c->sql->select_list_of_hashes("SELECT id, name, $column FROM edit
 foreach my $ed (@{$editors}) {
     my $details = $dbh->quote($ed->{name});
     if ($verbose && $column ne 'name') {
-        $details .=  " [${column}=" . $dbh->quote($ed->{$column}) . "]";
+        $details .=  " [${column}=" . $dbh->quote($ed->{$column}) . ']';
     }
 
     my $id = $ed->{id};
 
     if (!$force) {
-        my $edit_count = $c->sql->select_single_value("SELECT count(*) FROM edit WHERE editor = ?", $id);
+        my $edit_count = $c->sql->select_single_value('SELECT count(*) FROM edit WHERE editor = ?', $id);
         if ($edit_count > 0) {
-            print "Not removing account " . $details . " because it has edits.\n";
+            print 'Not removing account ' . $details . " because it has edits.\n";
             next;
         }
 
-        my $vote_count = $c->sql->select_single_value("SELECT count(*) FROM vote WHERE editor = ?", $id);
+        my $vote_count = $c->sql->select_single_value('SELECT count(*) FROM vote WHERE editor = ?', $id);
         if ($vote_count > 0) {
-            print "Not removing account " . $details . " because it has votes.\n";
+            print 'Not removing account ' . $details . " because it has votes.\n";
             next;
         }
 
-        my $oauth_token_count = $c->sql->select_single_value("SELECT count(*) FROM editor_oauth_token WHERE editor = ?", $id);
+        my $oauth_token_count = $c->sql->select_single_value('SELECT count(*) FROM editor_oauth_token WHERE editor = ?', $id);
         if ($oauth_token_count > 0) {
-            print "Not removing account " . $details . " because it has OAuth tokens.\n";
+            print 'Not removing account ' . $details . " because it has OAuth tokens.\n";
             next;
         }
     }
 
     if ($dry_run) {
-        print "removing account " . $details . " (dry run)\n";
+        print 'removing account ' . $details . " (dry run)\n";
     }
     else
     {
-        print "removing account " . $details . "\n";
+        print 'removing account ' . $details . "\n";
         eval {
             $c->model('Editor')->delete($id);
             $sql->begin;
-            $sql->do("DELETE FROM edit_note WHERE editor = ?", $id);
-            $sql->do("DELETE FROM editor WHERE id = ?", $id);
+            $sql->do('DELETE FROM edit_note WHERE editor = ?', $id);
+            $sql->do('DELETE FROM editor WHERE id = ?', $id);
             $sql->commit;
         };
         if ($@) {
@@ -164,3 +141,13 @@ foreach my $ed (@{$editors}) {
         }
     }
 }
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2011-2017 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut
