@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-10-04 13:59+0000\n"
+"PO-Revision-Date: 2021-11-04 06:08+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -157,16 +157,6 @@ msgid ""
 "is in fact a zither with a keyboard."
 msgstr "Cithare équipée d’un clavier, lui donnant l’apparence d’un mini-piano."
 
-#. name:five-string banjo
-#: DB:instrument/description:523
-msgid "A five-string banjo is a banjo with five strings."
-msgstr "Un banjo à cinq cordes."
-
-#. name:four-string banjo
-#: DB:instrument/description:656
-msgid "A four-string banjo is a banjo with four strings."
-msgstr "Un banjo à cinq cordes."
-
 #. name:gong bass drum
 #: DB:instrument/description:639
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
@@ -297,12 +287,6 @@ msgstr "Une « talkbox » est une boîte à effet qui permet au musicien de mo
 msgid ""
 "A tar is a single-headed frame drum from North Africa and the Middle East."
 msgstr "Le tar est un tambour sur cadre du Maghreb et du Moyen-Orient."
-
-#. name:tenor banjo
-#: DB:instrument/description:657
-msgid ""
-"A tenor banjo is a four-string banjo with tenor tuning, usually C G D A."
-msgstr "Un banjo ténor est un banjo à quatre cordes accordé en ténor, habituellement  Do Sol Ré La."
 
 #. name:tom-tom
 #: DB:instrument/description:462
@@ -567,11 +551,6 @@ msgid ""
 "an integral piezoelectric sensor."
 msgstr ""
 
-#. name:bass guitar
-#: DB:instrument/description:207
-msgid "Bass (modern, typically electrical, but not always)"
-msgstr "Basse (moderne, habituellement électrique, mais pas toujours)"
-
 #. name:bass
 #: DB:instrument/description:47
 msgid ""
@@ -596,6 +575,15 @@ msgstr "proche de la contrebasse, dotée de quatre cordes en métal, elle fait g
 #. name:segunda
 #: DB:instrument/description:757
 msgid "Bass member of the garifuna drum group."
+msgstr ""
+
+#. name:bass guitar
+#: DB:instrument/description:207
+msgid ""
+"Bass member of the guitar family. For the electric variant use <a "
+"href=\"/instrument/0b9d87fa-93fa-4956-8b6a-a419566cc915\">electric bass "
+"guitar</a> for the acoustic one, use <a href=\"/instrument/15861569-249d-"
+"4b24-8ce4-d0b001b1f978\">acoustic bass guitar</a>"
 msgstr ""
 
 #. name:lirone
@@ -1575,6 +1563,13 @@ msgid ""
 "Krakebs are large metal castanet-like instruments which are the primary "
 "rhythmic component of Gnawa music."
 msgstr "Les Qraqeb sont de grands instruments en métal semblables à des castagnettes et qui sont la composante rythmique principale de la musique Gnawa."
+
+#. name:four-string banjo
+#: DB:instrument/description:656
+msgid ""
+"Lacking the short drone string of its predecessor, it is usually played with"
+" a plectrum and has 22 frets."
+msgstr ""
 
 #. name:lamellaphone
 #: DB:instrument/description:632
@@ -2571,6 +2566,13 @@ msgstr ""
 msgid "Small Polish traditional fiddle."
 msgstr "Petit violon traditionnel polonais."
 
+#. name:cavaquinho
+#: DB:instrument/description:524
+msgid ""
+"Small Portuguese lute with four wire or gut strings, it has many descendants"
+" in South and Latin America."
+msgstr ""
+
 #. name:lyra viol
 #: DB:instrument/description:925
 msgid ""
@@ -2606,6 +2608,13 @@ msgid ""
 "Smallest of the kendang, it is has a special two-instrument use with the <a "
 "href=\"/instrument/14acd267-2e1b-459d-b41e-058d2c106345\">gendhing</a>.<br "
 "/> In Sunda it is known as kendhang katipung"
+msgstr ""
+
+#. name:electric bass guitar
+#: DB:instrument/description:51
+msgid ""
+"Solid body 4-stringed electric bass guitar. The most common for \"bass "
+"guitar\" and \"bass\" credits in popular (rock) music."
 msgstr ""
 
 #. name:Mark tree
@@ -3022,13 +3031,6 @@ msgid ""
 "The buzuq is a long-necked fretted lute related to the Greek bouzouki and "
 "Turkish saz which is associated with the music of Lebanon and Syria."
 msgstr "Le buzuq est un luth à long manche fretté apparenté au bouzouki grec et au saz turc, associé à la musique Libanaise et Syrienne."
-
-#. name:cavaquinho
-#: DB:instrument/description:524
-msgid ""
-"The cavaquinho is a small plucked string instrument of Portuguese origin "
-"with four wire or gut strings"
-msgstr "Le cavaquinho est un petit instrument à cordes pincées à quatre cordes ou boyaux d’origine portugaise."
 
 #. name:caxixi
 #: DB:instrument/description:489
@@ -3616,6 +3618,13 @@ msgid ""
 "The minipiano is a type of piano in which the sound producing mechanism is "
 "positioned below the keyboard, allowing an economical use of space."
 msgstr "Le minipiano est un type de piano dont le mécanisme de production du son est positionné sous le clavier, permettant une utilisation ergonomique de l’espace."
+
+#. name:five-string banjo
+#: DB:instrument/description:523
+msgid ""
+"The most common and based on the original design, its fifth string is "
+"shorter than the others, creating an uneven pitch progression."
+msgstr ""
 
 #. name:mridangam
 #: DB:instrument/description:475
@@ -4522,6 +4531,11 @@ msgstr ""
 msgid ""
 "Up to 2,5 meters long, this wooden trumpet was used for a variety of "
 "announcements like war, welcoming people and kumara planting."
+msgstr ""
+
+#. name:tenor banjo
+#: DB:instrument/description:657
+msgid "Used as rhythm accompaniment, it has a shorter neck and 17-19 frets"
 msgstr ""
 
 #. name:clapstick

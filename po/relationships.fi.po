@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-10-15 10:38+0000\n"
+"PO-Revision-Date: 2021-11-04 06:08+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -907,37 +907,37 @@ msgstr ""
 #: DB:link_type/description:358
 msgid ""
 "Points to the Wikidata page for this area, and will be used to fetch "
-"Wikipedia summaries and images"
+"Wikipedia summaries"
 msgstr ""
 
 #: DB:link_type/description:352
 msgid ""
 "Points to the Wikidata page for this artist, and will be used to fetch "
-"Wikipedia summaries and images"
+"Wikipedia summaries"
 msgstr ""
 
 #: DB:link_type/description:790
 msgid ""
 "Points to the Wikidata page for this event, and will be used to fetch "
-"Wikipedia summaries and images"
+"Wikipedia summaries"
 msgstr ""
 
 #: DB:link_type/description:733
 msgid ""
 "Points to the Wikidata page for this instrument, and will be used to fetch "
-"Wikipedia summaries and images"
+"Wikipedia summaries"
 msgstr ""
 
 #: DB:link_type/description:354
 msgid ""
 "Points to the Wikidata page for this label, and will be used to fetch "
-"Wikipedia summaries and images"
+"Wikipedia summaries"
 msgstr ""
 
 #: DB:link_type/description:594
 msgid ""
 "Points to the Wikidata page for this place, and will be used to fetch "
-"Wikipedia summaries and images"
+"Wikipedia summaries"
 msgstr ""
 
 #: DB:link_type/description:353
@@ -949,13 +949,13 @@ msgstr ""
 #: DB:link_type/description:749
 msgid ""
 "Points to the Wikidata page for this series, and will be used to fetch "
-"Wikipedia summaries and images"
+"Wikipedia summaries"
 msgstr ""
 
 #: DB:link_type/description:351
 msgid ""
 "Points to the Wikidata page for this work, and will be used to fetch "
-"Wikipedia summaries and images"
+"Wikipedia summaries"
 msgstr ""
 
 #: DB:link_type/description:89
@@ -1356,6 +1356,12 @@ msgstr ""
 #: DB:link_type/description:895
 msgid ""
 "This indicates an artist (generally a person) was the founder of a group."
+msgstr ""
+
+#: DB:link_type/description:1004
+msgid ""
+"This indicates an artist (generally a person) was the founder of an event "
+"series (generally a festival)."
 msgstr ""
 
 #: DB:link_attribute_type/description:921
@@ -3288,19 +3294,19 @@ msgstr "VIAF-tunnisteena"
 msgid "Whistling (with mouth, not a whistle)"
 msgstr ""
 
-#: DB:link_type/link_phrase:353 DB:link_type/link_phrase:354
-#: DB:link_type/link_phrase:749 DB:link_type/link_phrase:594
+#: DB:link_type/link_phrase:353 DB:link_type/link_phrase:749
+#: DB:link_type/link_phrase:594 DB:link_type/link_phrase:354
 #: DB:link_type/link_phrase:790 DB:link_type/link_phrase:352
-#: DB:link_type/link_phrase:358 DB:link_type/link_phrase:733
+#: DB:link_type/link_phrase:733 DB:link_type/link_phrase:358
 #: DB:link_type/reverse_link_phrase:351
 msgid "Wikidata"
 msgstr "Wikidata"
 
 #: DB:link_type/link_phrase:351 DB:link_type/reverse_link_phrase:353
-#: DB:link_type/reverse_link_phrase:354 DB:link_type/reverse_link_phrase:749
-#: DB:link_type/reverse_link_phrase:594 DB:link_type/reverse_link_phrase:790
-#: DB:link_type/reverse_link_phrase:352 DB:link_type/reverse_link_phrase:358
-#: DB:link_type/reverse_link_phrase:733
+#: DB:link_type/reverse_link_phrase:749 DB:link_type/reverse_link_phrase:594
+#: DB:link_type/reverse_link_phrase:354 DB:link_type/reverse_link_phrase:790
+#: DB:link_type/reverse_link_phrase:352 DB:link_type/reverse_link_phrase:733
+#: DB:link_type/reverse_link_phrase:358
 msgid "Wikidata page for"
 msgstr "Wikidata-sivuna"
 
@@ -4066,6 +4072,11 @@ msgstr "teknikot"
 msgid "eponymous"
 msgstr ""
 
+#: DB:link_type/link_phrase:1003 DB:link_type/name:1003
+#: DB:link_type/reverse_link_phrase:1003 DB:link_type/long_link_phrase:1003
+msgid "event artists"
+msgstr ""
+
 #: DB:link_attribute_type/name:425
 msgid "executive"
 msgstr ""
@@ -4091,16 +4102,17 @@ msgid "folk music"
 msgstr ""
 
 #: DB:link_type/link_phrase:832 DB:link_type/link_phrase:116
-#: DB:link_type/link_phrase:895 DB:link_type/long_link_phrase:832
-#: DB:link_type/long_link_phrase:116 DB:link_type/long_link_phrase:895
+#: DB:link_type/link_phrase:895 DB:link_type/link_phrase:1004
+#: DB:link_type/long_link_phrase:832 DB:link_type/long_link_phrase:116
+#: DB:link_type/long_link_phrase:895 DB:link_type/long_link_phrase:1004
 msgid "founded"
 msgstr "perustanut"
 
-#: DB:link_type/reverse_link_phrase:895
+#: DB:link_type/reverse_link_phrase:895 DB:link_type/reverse_link_phrase:1004
 msgid "founded by"
 msgstr ""
 
-#: DB:link_type/name:832 DB:link_type/name:895
+#: DB:link_type/name:832 DB:link_type/name:895 DB:link_type/name:1004
 msgid "founder"
 msgstr ""
 
@@ -4298,10 +4310,10 @@ msgstr "omaa SoundCloud-sivun"
 msgid "has a VGMdb page at"
 msgstr "omaa VGMdb-sivun"
 
-#: DB:link_type/long_link_phrase:353 DB:link_type/long_link_phrase:354
-#: DB:link_type/long_link_phrase:749 DB:link_type/long_link_phrase:594
+#: DB:link_type/long_link_phrase:353 DB:link_type/long_link_phrase:749
+#: DB:link_type/long_link_phrase:594 DB:link_type/long_link_phrase:354
 #: DB:link_type/long_link_phrase:790 DB:link_type/long_link_phrase:352
-#: DB:link_type/long_link_phrase:358 DB:link_type/long_link_phrase:733
+#: DB:link_type/long_link_phrase:733 DB:link_type/long_link_phrase:358
 msgid "has a Wikidata page at"
 msgstr "omaa Wikidata-sivun"
 
@@ -6609,9 +6621,9 @@ msgstr ""
 msgid "whistling"
 msgstr ""
 
-#: DB:link_type/name:351 DB:link_type/name:353 DB:link_type/name:354
-#: DB:link_type/name:749 DB:link_type/name:594 DB:link_type/name:790
-#: DB:link_type/name:352 DB:link_type/name:358 DB:link_type/name:733
+#: DB:link_type/name:351 DB:link_type/name:353 DB:link_type/name:749
+#: DB:link_type/name:594 DB:link_type/name:354 DB:link_type/name:790
+#: DB:link_type/name:352 DB:link_type/name:733 DB:link_type/name:358
 msgid "wikidata"
 msgstr ""
 
@@ -6619,6 +6631,11 @@ msgstr ""
 #: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:216
 #: DB:link_type/name:731 DB:link_type/name:89 DB:link_type/name:789
 msgid "wikipedia"
+msgstr ""
+
+#: DB:link_type/link_phrase:1002 DB:link_type/name:1002
+#: DB:link_type/reverse_link_phrase:1002 DB:link_type/long_link_phrase:1002
+msgid "work cataloguing"
 msgstr ""
 
 #: DB:link_type/name:921 DB:link_type/reverse_link_phrase:921

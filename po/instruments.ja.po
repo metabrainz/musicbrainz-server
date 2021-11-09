@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-10-04 13:59+0000\n"
+"PO-Revision-Date: 2021-11-04 06:08+0000\n"
 "Last-Translator: Shunsuke Shimizu <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -894,6 +894,7 @@ msgid "castanets"
 msgstr "カスタネット"
 
 #: DB:instrument/name:524
+msgctxt "Small four-stringed Portugesian lute"
 msgid "cavaquinho"
 msgstr "カヴァキーニョ"
 
@@ -3755,6 +3756,7 @@ msgid "temür khuur"
 msgstr "temür khuur"
 
 #: DB:instrument/name:657
+msgctxt "4 string tenor banjo"
 msgid "tenor banjo"
 msgstr "テナーバンジョー"
 

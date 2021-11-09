@@ -21,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-10-04 13:59+0000\n"
+"PO-Revision-Date: 2021-11-04 06:08+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -155,16 +155,6 @@ msgid ""
 "is in fact a zither with a keyboard."
 msgstr "Una dolceola es un instrumento musical que se asemeja a un piano en miniatura, pero que de hecho es una cítara con un teclado."
 
-#. name:five-string banjo
-#: DB:instrument/description:523
-msgid "A five-string banjo is a banjo with five strings."
-msgstr "Un banjo de cinco cuerdas es un banyo con cinco cuerdas."
-
-#. name:four-string banjo
-#: DB:instrument/description:656
-msgid "A four-string banjo is a banjo with four strings."
-msgstr "Un banjo de cuatro cuerdas es un banjo con cuatro cuerdas."
-
 #. name:gong bass drum
 #: DB:instrument/description:639
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
@@ -295,12 +285,6 @@ msgstr "Un talkbox es un dispositivo de efectos que le permite a un músico modi
 msgid ""
 "A tar is a single-headed frame drum from North Africa and the Middle East."
 msgstr "Un tar es un instrumento de percusión de un solo parche, del norte de África y Oriente Medio."
-
-#. name:tenor banjo
-#: DB:instrument/description:657
-msgid ""
-"A tenor banjo is a four-string banjo with tenor tuning, usually C G D A."
-msgstr ""
 
 #. name:tom-tom
 #: DB:instrument/description:462
@@ -565,11 +549,6 @@ msgid ""
 "an integral piezoelectric sensor."
 msgstr ""
 
-#. name:bass guitar
-#: DB:instrument/description:207
-msgid "Bass (modern, typically electrical, but not always)"
-msgstr "Bajo (moderno, típicamente eléctrico, pero no siempre)"
-
 #. name:bass
 #: DB:instrument/description:47
 msgid ""
@@ -594,6 +573,15 @@ msgstr ""
 #. name:segunda
 #: DB:instrument/description:757
 msgid "Bass member of the garifuna drum group."
+msgstr ""
+
+#. name:bass guitar
+#: DB:instrument/description:207
+msgid ""
+"Bass member of the guitar family. For the electric variant use <a "
+"href=\"/instrument/0b9d87fa-93fa-4956-8b6a-a419566cc915\">electric bass "
+"guitar</a> for the acoustic one, use <a href=\"/instrument/15861569-249d-"
+"4b24-8ce4-d0b001b1f978\">acoustic bass guitar</a>"
 msgstr ""
 
 #. name:lirone
@@ -1572,6 +1560,13 @@ msgstr ""
 msgid ""
 "Krakebs are large metal castanet-like instruments which are the primary "
 "rhythmic component of Gnawa music."
+msgstr ""
+
+#. name:four-string banjo
+#: DB:instrument/description:656
+msgid ""
+"Lacking the short drone string of its predecessor, it is usually played with"
+" a plectrum and has 22 frets."
 msgstr ""
 
 #. name:lamellaphone
@@ -2569,6 +2564,13 @@ msgstr ""
 msgid "Small Polish traditional fiddle."
 msgstr ""
 
+#. name:cavaquinho
+#: DB:instrument/description:524
+msgid ""
+"Small Portuguese lute with four wire or gut strings, it has many descendants"
+" in South and Latin America."
+msgstr ""
+
 #. name:lyra viol
 #: DB:instrument/description:925
 msgid ""
@@ -2604,6 +2606,13 @@ msgid ""
 "Smallest of the kendang, it is has a special two-instrument use with the <a "
 "href=\"/instrument/14acd267-2e1b-459d-b41e-058d2c106345\">gendhing</a>.<br "
 "/> In Sunda it is known as kendhang katipung"
+msgstr ""
+
+#. name:electric bass guitar
+#: DB:instrument/description:51
+msgid ""
+"Solid body 4-stringed electric bass guitar. The most common for \"bass "
+"guitar\" and \"bass\" credits in popular (rock) music."
 msgstr ""
 
 #. name:Mark tree
@@ -3019,13 +3028,6 @@ msgstr ""
 msgid ""
 "The buzuq is a long-necked fretted lute related to the Greek bouzouki and "
 "Turkish saz which is associated with the music of Lebanon and Syria."
-msgstr ""
-
-#. name:cavaquinho
-#: DB:instrument/description:524
-msgid ""
-"The cavaquinho is a small plucked string instrument of Portuguese origin "
-"with four wire or gut strings"
 msgstr ""
 
 #. name:caxixi
@@ -3613,6 +3615,13 @@ msgstr ""
 msgid ""
 "The minipiano is a type of piano in which the sound producing mechanism is "
 "positioned below the keyboard, allowing an economical use of space."
+msgstr ""
+
+#. name:five-string banjo
+#: DB:instrument/description:523
+msgid ""
+"The most common and based on the original design, its fifth string is "
+"shorter than the others, creating an uneven pitch progression."
 msgstr ""
 
 #. name:mridangam
@@ -4520,6 +4529,11 @@ msgstr ""
 msgid ""
 "Up to 2,5 meters long, this wooden trumpet was used for a variety of "
 "announcements like war, welcoming people and kumara planting."
+msgstr ""
+
+#. name:tenor banjo
+#: DB:instrument/description:657
+msgid "Used as rhythm accompaniment, it has a shorter neck and 17-19 frets"
 msgstr ""
 
 #. name:clapstick
