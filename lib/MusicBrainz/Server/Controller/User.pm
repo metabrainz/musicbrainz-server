@@ -546,6 +546,7 @@ sub tags : Chained('load') PathPart('tags')
 
     my $user = $c->stash->{user};
     my $show_downvoted = $c->req->params->{show_downvoted} ? 1 : 0;
+    my $order = $c->req->params->{order};
 
     if (!defined $c->user || $c->user->id != $user->id)
     {
@@ -554,7 +555,7 @@ sub tags : Chained('load') PathPart('tags')
             unless $user->preferences->public_tags;
     }
 
-    my $tags = $c->model('Editor')->get_tags($user, $show_downvoted);
+    my $tags = $c->model('Editor')->get_tags($user, $show_downvoted, $order);
     my @display_tags = map +{
         %{$_},
         tag => to_json_object($_->{tag}),
@@ -566,6 +567,7 @@ sub tags : Chained('load') PathPart('tags')
 
     my %props = (
         showDownvoted => boolean_to_json($show_downvoted),
+        sortBy => $order,
         tags => to_json_array(\@display_tags),
         genres => to_json_array(\@display_genres),
         user => $self->serialize_user($user),
