@@ -1905,13 +1905,13 @@ const CLEANUPS: CleanupEntries = {
   'gakki': {
     match: [new RegExp(
       '^(https?://)?(www\\.)?saisaibatake\\.ame-zaiku\\.com/' +
-      '(gakki|musical|musical_instrument)/',
+      '(gakki|gakki_illustration|musical|musical_instrument)/',
       'i',
     )],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
       return url.replace(
-        /^(?:https?:\/\/)?(?:www\.)?saisaibatake\.ame-zaiku\.com\/(gakki|musical|musical_instrument)\/(.*)$/,
+        /^(?:https?:\/\/)?(?:www\.)?saisaibatake\.ame-zaiku\.com\/(gakki|gakki_illustration|musical|musical_instrument)\/(.*)$/,
         'https://saisaibatake.ame-zaiku.com/$1/$2',
       );
     },
