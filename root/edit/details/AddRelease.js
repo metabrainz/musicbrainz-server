@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import * as manifest from '../../static/manifest';
 import DescriptiveLink from
   '../../static/scripts/common/components/DescriptiveLink';
 import ExpandedArtistCredit from
@@ -139,6 +140,10 @@ const AddRelease = ({allowNew, edit}: Props): React.MixedElement => {
                   abbreviated={false}
                   events={display.events}
                 />
+                {manifest.js(
+                  'common/components/ReleaseEvents',
+                  {async: 'async'},
+                )}
               </td>
             </tr>
           ) : null}

@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context';
-import manifest from '../../static/manifest';
+import * as manifest from '../../static/manifest';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import TaggerIcon from '../../static/scripts/common/components/TaggerIcon';
 import formatTrackLength
