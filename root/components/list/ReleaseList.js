@@ -197,6 +197,7 @@ const ReleaseList = ({
   return (
     <>
       <Table columns={columns} data={releases} />
+      {manifest.js('common/components/ReleaseEvents', {async: 'async'})}
       {manifest.js('common/components/TaggerIcon', {async: 'async'})}
     </>
   );

@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context';
+import * as manifest from '../../static/manifest';
 import Table from '../Table';
 import {
   defineArtistRolesColumn,
@@ -43,7 +44,7 @@ const WorkList = ({
   showRatings = false,
   sortable,
   works,
-}: Props): React.Element<typeof Table> => {
+}: Props): React.Element<typeof React.Fragment> => {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -99,7 +100,14 @@ const WorkList = ({
     ],
   );
 
-  return <Table columns={columns} data={works} />;
+  return (
+    <>
+      <Table columns={columns} data={works} />
+      {manifest.js('common/components/ArtistRoles', {async: 'async'})}
+      {manifest.js('common/components/AttributeList', {async: 'async'})}
+      {manifest.js('common/components/WorkArtists', {async: 'async'})}
+    </>
+  );
 };
 
 export default WorkList;
