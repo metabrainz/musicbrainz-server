@@ -147,6 +147,7 @@ sub show : Chained('load') PathPart('') {
         $c->model('ArtistCredit')->load(@$entities);
         $c->model('ReleaseGroupType')->load(@$entities);
         $c->model('ReleaseGroupSecondaryType')->load_for_release_groups(@$entities);
+        $c->model('ReleaseGroup')->load_has_cover_art(@$entities);
     } elsif ($entity_type eq 'event') {
         $c->model('EventType')->load(@$entities);
         $model->load_performers(@$entities);
