@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context';
 import Table from '../Table';
+import * as manifest from '../../static/manifest';
 import {commaOnlyListText}
   from '../../static/scripts/common/i18n/commaOnlyList';
 import localizeArtistRoles
@@ -56,7 +57,7 @@ const EventList = ({
   showRatings = false,
   showType = false,
   sortable,
-}: Props): React.Element<typeof Table> => {
+}: Props): React.Element<typeof React.Fragment> => {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -145,7 +146,12 @@ const EventList = ({
     ],
   );
 
-  return <Table columns={columns} data={events} />;
+  return (
+    <>
+      <Table columns={columns} data={events} />
+      {manifest.js('common/components/ArtistRoles', {async: 'async'})}
+    </>
+  );
 };
 
 export default EventList;

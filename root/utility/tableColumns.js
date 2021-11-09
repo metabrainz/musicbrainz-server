@@ -18,7 +18,6 @@ import ReleaseCatnoList from '../components/ReleaseCatnoList';
 import ReleaseLabelList from '../components/ReleaseLabelList';
 import ReleaseLanguageScript from '../components/ReleaseLanguageScript';
 import SortableTableHeader from '../components/SortableTableHeader';
-import * as manifest from '../static/manifest';
 import linkedEntities from '../static/scripts/common/linkedEntities';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink';
@@ -134,13 +133,7 @@ export function defineArtistRolesColumn<D>(
 }>> {
   return {
     Cell: ({row: {original}}) => (
-      <>
-        <ArtistRoles relations={props.getRoles(original)} />
-        {manifest.js(
-          'common/components/ArtistRoles',
-          {async: 'async'},
-        )}
-      </>
+      <ArtistRoles relations={props.getRoles(original)} />
     ),
     Header: props.title,
     id: props.columnName,
@@ -477,15 +470,7 @@ export function defineReleaseEventsColumn(
 ): ColumnOptions<ReleaseT, ?$ReadOnlyArray<ReleaseEventT>> {
   return {
     accessor: x => x.events,
-    Cell: ({cell: {value}}) => (
-      <>
-        <ReleaseEvents events={value} />
-        {manifest.js(
-          'common/components/ReleaseEvents',
-          {async: 'async'},
-        )}
-      </>
-    ),
+    Cell: ({cell: {value}}) => <ReleaseEvents events={value} />,
     Header: (props.sortable
       ? (
         <>
@@ -643,10 +628,6 @@ export const attributesColumn:
       original.attributes ? (
         <ul>
           <AttributeList attributes={original.attributes} />
-          {manifest.js(
-            'common/components/AttributeList',
-            {async: 'async'},
-          )}
         </ul>
       ) : null
     ),
@@ -792,15 +773,7 @@ export const trackColumn:
 export const workArtistsColumn:
   ColumnOptions<WorkT, $ReadOnlyArray<ArtistCreditT>> = {
     accessor: x => x.artists,
-    Cell: ({cell: {value}}) => (
-      <>
-        <WorkArtists artists={value} />
-        {manifest.js(
-          'common/components/WorkArtists',
-          {async: 'async'},
-        )}
-      </>
-    ),
+    Cell: ({cell: {value}}) => <WorkArtists artists={value} />,
     Header: N_l('Artists'),
     id: 'work-artists',
   };
