@@ -157,7 +157,7 @@ sub reorder_cover_art {
 
     $self->sql->do(
         'UPDATE cover_art_archive.cover_art SET ordering = position.ordering ' .
-        'FROM (VALUES '. (join ', ', (('(?::bigint, ?::integer)') x (keys %$positions))) . ') ' .
+        'FROM (VALUES '. (join q(, ), (('(?::bigint, ?::integer)') x (keys %$positions))) . ') ' .
         'AS position (id, ordering) WHERE cover_art.id = position.id', %$positions);
 }
 

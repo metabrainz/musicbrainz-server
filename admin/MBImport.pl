@@ -1,29 +1,6 @@
 #!/usr/bin/env perl
 
 use warnings;
-#____________________________________________________________________________
-#
-#   MusicBrainz -- the open internet music database
-#
-#   Copyright (C) 1998 Robert Kaye
-#
-#   This program is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
-#
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with this program; if not, write to the Free Software
-#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-#   $Id$
-#____________________________________________________________________________
-
 use strict;
 
 use FindBin;
@@ -38,7 +15,7 @@ use MusicBrainz::Server::Constants qw( @FULL_TABLE_LIST );
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
 my ($fHelp, $fIgnoreErrors);
-my $tmpdir = "/tmp";
+my $tmpdir = '/tmp';
 my $fProgress = -t STDOUT;
 my $fFixUTF8 = 0;
 my $skip_ensure_editor = 0;
@@ -47,14 +24,14 @@ my $delete_first = 0;
 my $database = 'MAINTENANCE';
 
 GetOptions(
-    "help|h"                    => \$fHelp,
-    "ignore-errors|i!"  => \$fIgnoreErrors,
-    "tmp-dir|t=s"               => \$tmpdir,
-    "database=s" => \$database,
-    "fix-broken-utf8"   => \$fFixUTF8,
-    "skip-editor!" => \$skip_ensure_editor,
-    "update-replication-control!" => \$update_replication_control,
-    "delete-first!" => \$delete_first
+    'help|h'                    => \$fHelp,
+    'ignore-errors|i!'  => \$fIgnoreErrors,
+    'tmp-dir|t=s'               => \$tmpdir,
+    'database=s' => \$database,
+    'fix-broken-utf8'   => \$fFixUTF8,
+    'skip-editor!' => \$skip_ensure_editor,
+    'update-replication-control!' => \$update_replication_control,
+    'delete-first!' => \$delete_first
 );
 
 sub usage
@@ -124,13 +101,13 @@ for my $arg (@ARGV)
 
     next unless $arg =~ /\.tar(?:\.(gz|bz2|xz))?$/;
 
-    my $decompress = "";
-    $decompress = "--gzip" if $1 and $1 eq "gz";
-    $decompress = "--bzip2" if $1 and $1 eq "bz2";
-    $decompress = "--xz" if $1 and $1 eq "xz";
+    my $decompress = '';
+    $decompress = '--gzip' if $1 and $1 eq 'gz';
+    $decompress = '--bzip2' if $1 and $1 eq 'bz2';
+    $decompress = '--xz' if $1 and $1 eq 'xz';
 
     use File::Temp qw( tempdir );
-    my $dir = tempdir("MBImport-XXXXXXXX", DIR => $tmpdir, CLEANUP => 1)
+    my $dir = tempdir('MBImport-XXXXXXXX', DIR => $tmpdir, CLEANUP => 1)
         or die $!;
 
     validate_tar($arg, $dir, $decompress);
@@ -150,14 +127,14 @@ for (@tar_to_extract)
 print localtime() . " : Validating snapshot\n";
 
 # We should have TIMESTAMP files, and they should all match.
-my $timestamp = read_all_and_check("TIMESTAMP") || "";
+my $timestamp = read_all_and_check('TIMESTAMP') || '';
 # Old TIMESTAMP files used to have some blurb in front
 $timestamp =~ s/^This snapshot was taken at //;
 print localtime() . " : Snapshot timestamp is $timestamp\n";
 
 # We should also have SCHEMA_SEQUENCE files, which match.  Plus they must
 # match DBDefs->DB_SCHEMA_SEQUENCE.
-my $SCHEMA_SEQUENCE = read_all_and_check("SCHEMA_SEQUENCE");
+my $SCHEMA_SEQUENCE = read_all_and_check('SCHEMA_SEQUENCE');
 if (not defined $SCHEMA_SEQUENCE)
 {
     print STDERR localtime() . " : No SCHEMA_SEQUENCE in import files - continuing anyway\n";
@@ -174,13 +151,13 @@ if (not defined $SCHEMA_SEQUENCE)
 }
 
 # We should have REPLICATION_SEQUENCE files, and they should all match too.
-my $iReplicationSequence = read_all_and_check("REPLICATION_SEQUENCE");
-$iReplicationSequence = "" if not defined $iReplicationSequence;
+my $iReplicationSequence = read_all_and_check('REPLICATION_SEQUENCE');
+$iReplicationSequence = '' if not defined $iReplicationSequence;
 print localtime() . " : This snapshot corresponds to replication sequence #$iReplicationSequence\n"
-    if $iReplicationSequence ne "";
-print localtime() . " : This snapshot does not correspond to any replication sequence"
+    if $iReplicationSequence ne '';
+print localtime() . ' : This snapshot does not correspond to any replication sequence'
     . " - you will not be able to update this database using replication\n"
-    if $iReplicationSequence eq "";
+    if $iReplicationSequence eq '';
 
 use Time::HiRes qw( gettimeofday tv_interval );
 my $t0 = [gettimeofday];
@@ -191,7 +168,7 @@ my $errors = 0;
 print localtime() . " : starting import\n";
 
 printf "%-30.30s %9s %4s %9s\n",
-    "Table", "Rows", "est%", "rows/sec",
+    'Table', 'Rows', 'est%', 'rows/sec',
     ;
 
 # Track which tables have been successfully imported
@@ -221,11 +198,11 @@ printf "Loaded %d tables (%d rows) in %d seconds\n",
 if ($update_replication_control) {
     $sql->auto_commit;
     $sql->do(
-        "UPDATE replication_control
+        'UPDATE replication_control
          SET current_replication_sequence = ?,
-         last_replication_date = ?",
-        ($iReplicationSequence eq "" ? undef : $iReplicationSequence),
-        ($iReplicationSequence eq "" ? undef : $timestamp),
+         last_replication_date = ?',
+        ($iReplicationSequence eq '' ? undef : $iReplicationSequence),
+        ($iReplicationSequence eq '' ? undef : $timestamp),
     );
 }
 
@@ -250,7 +227,7 @@ sub ImportTable
     my $p = sub {
         my ($pre, $post) = @_;
         no integer;
-        printf $pre."%-30.30s %9d %3d%% %9d".$post,
+        printf $pre.'%-30.30s %9d %3d%% %9d'.$post,
                 $table, $rows, int(100 * tell(LOAD) / $size),
                 $rows / ($interval||1);
     };
@@ -263,7 +240,7 @@ sub ImportTable
         # UTF-8 byte sequences in --fix-broken-utf8 mode.
         # in default mode, the Pg driver will take care of the UTF-8 transformation
         # and croak on any invalid UTF-8 character
-        open(LOAD, "<:bytes", $file) or die "open $file: $!";
+        open(LOAD, '<:bytes', $file) or die "open $file: $!";
 
         # If you're looking at this code because your import failed, maybe
         # with an error like this:
@@ -278,7 +255,7 @@ sub ImportTable
         my $dbh = $sql->dbh; # issues a ping, must be done before COPY
         $sql->do("COPY $table FROM stdin");
 
-        $p->("", "") if $fProgress;
+        $p->('', '') if $fProgress;
         my $t;
 
         use Encode;
@@ -288,13 +265,13 @@ sub ImportTable
                 if ($fFixUTF8) {
                         # replaces any invalid UTF-8 character with special 0xFFFD codepoint
                         # and warn on any such occurence
-                        $t = Encode::decode("UTF-8", $t, Encode::FB_DEFAULT | Encode::WARN_ON_ERR);
+                        $t = Encode::decode('UTF-8', $t, Encode::FB_DEFAULT | Encode::WARN_ON_ERR);
                 } else {
-                        $t = Encode::decode("UTF-8", $t, Encode::FB_CROAK);
+                        $t = Encode::decode('UTF-8', $t, Encode::FB_CROAK);
                 }
                 if (!$dbh->pg_putcopydata($t))
                 {
-                        print "ERROR while processing: ", $t;
+                        print 'ERROR while processing: ', $t;
                         die;
                 }
 
@@ -302,19 +279,19 @@ sub ImportTable
                 unless ($rows & 0xFFF)
                 {
                         $interval = tv_interval($t1);
-                        $p->("\r", "") if $fProgress;
+                        $p->("\r", '') if $fProgress;
                 }
         }
         $dbh->pg_putcopyend() or die;
         $interval = tv_interval($t1);
-        $p->(($fProgress ? "\r" : ""), sprintf(" %.2f sec\n", $interval));
+        $p->(($fProgress ? "\r" : ''), sprintf(" %.2f sec\n", $interval));
 
         close LOAD
                 or die $!;
 
         $sql->commit;
 
-        die "Error loading data"
+        die 'Error loading data'
                 if -f $file and empty($table);
 
         ++$tables;
@@ -442,17 +419,17 @@ sub validate_tar
     # contain all the relevant SCHEMA_SEQUENCE, TIMESTAMP files etc.
 
     my $cat_cmd = (
-        not($decompress) ? "cat"
-        : $decompress eq "--gzip" ? "gunzip"
-        : $decompress eq "--bzip2" ? "bunzip2"
-        : $decompress eq "--xz" ? "xz -d"
+        not($decompress) ? 'cat'
+        : $decompress eq '--gzip' ? 'gunzip'
+        : $decompress eq '--bzip2' ? 'bunzip2'
+        : $decompress eq '--xz' ? 'xz -d'
         : die
     );
 
     print localtime() . " : Pre-checking $tar\n";
     system "$cat_cmd < $tar | head -c 102400 | tar -C $dir -xf- 2>/dev/null";
 
-    if (open(my $fh, "<", "$dir/SCHEMA_SEQUENCE"))
+    if (open(my $fh, '<', "$dir/SCHEMA_SEQUENCE"))
     {
         my $all = do { local $/; <$fh> };
         close $fh;
@@ -472,7 +449,7 @@ sub validate_tar
 sub EnsureEditorTable {
     $sql->begin;
     $sql->do(
-        "INSERT INTO editor (id, name, password, ha1)
+        q{INSERT INTO editor (id, name, password, ha1)
              SELECT DISTINCT s.editor, 'Editor #' || s.editor::text, '', ''
              FROM (
                  SELECT editor FROM annotation
@@ -484,9 +461,17 @@ sub EnsureEditorTable {
                  SELECT editor FROM vote
              ) s
              LEFT JOIN editor ON s.editor = editor.id
-             WHERE editor.id IS NULL"
+             WHERE editor.id IS NULL}
     );
     $sql->commit;
 }
 
-# vi: set ts=4 sw=4 :
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 1998 Robert Kaye
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut

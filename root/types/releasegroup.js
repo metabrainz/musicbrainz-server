@@ -20,6 +20,7 @@ declare type ReleaseGroupT = $ReadOnly<{
   ...TypeRoleT<ReleaseGroupTypeT>,
   +cover_art?: ArtworkT,
   +firstReleaseDate: string | null,
+  +hasCoverArt: boolean,
   +l_type_name: string | null,
   +primaryAlias?: string | null,
   +release_count: number,

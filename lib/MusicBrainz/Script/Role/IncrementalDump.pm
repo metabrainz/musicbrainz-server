@@ -146,7 +146,7 @@ around should_follow_foreign_key => sub {
 
     return 0 unless $self->$orig($direction, $pk, $fk, $joins);
 
-    return 0 unless $self->should_follow_table($fk->{schema} . '.' . $fk->{table});
+    return 0 unless $self->should_follow_table($fk->{schema} . q(.) . $fk->{table});
 
     return 0 if $self->has_join($pk, $fk, $joins);
 
@@ -280,7 +280,7 @@ sub get_linked_entities($$$$) {
         if (@entity_rows) {
             $c->sql->do(
                 "INSERT INTO $dump_schema.tmp_checked_entities (id, entity_type) " .
-                'VALUES ' . (join ', ', ("(?, '$entity_type')") x scalar(@entity_rows)),
+                'VALUES ' . (join q(, ), ("(?, '$entity_type')") x scalar(@entity_rows)),
                 map { $_->{id} } @entity_rows,
             );
         }

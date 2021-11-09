@@ -25,8 +25,8 @@ my $response = $mech->submit_form(
         'edit-label.label_code' => 12345,
         'edit-label.area_id' => 221,
         'edit-label.period.begin_date.year' => 1990,
-        'edit-label.period.begin_date.month' => 01,
-        'edit-label.period.begin_date.day' => 02,
+        'edit-label.period.begin_date.month' => 1,
+        'edit-label.period.begin_date.day' => 2,
         'edit-label.period.end_date.year' => 2003,
         'edit-label.period.end_date.month' => 4,
         'edit-label.period.end_date.day' => 15,
@@ -46,8 +46,8 @@ is_deeply($edit->data, {
         comment => 'label created in controller_label.t',
         begin_date => {
             year => 1990,
-            month => 01,
-            day => 02
+            month => 1,
+            day => 2
         },
         end_date => {
             year => 2003,

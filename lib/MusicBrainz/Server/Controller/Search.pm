@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::Search;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-use List::Util qw( min max );
+use List::AllUtils qw( min max );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw( datetime_to_iso8601 model_to_type type_to_model );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
@@ -130,6 +130,7 @@ sub direct : Private
         }
         when ('release_group') {
             $c->model('ReleaseGroupType')->load(@entities);
+            $c->model('ReleaseGroup')->load_has_cover_art(@entities);
         }
         when ('release') {
             $c->model('Language')->load(@entities);

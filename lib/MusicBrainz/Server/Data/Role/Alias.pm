@@ -61,7 +61,7 @@ role
         my $type = $params->type;
         my $query =
             'WITH search (term) AS ('.
-            '    VALUES ' . join (',', ('(?)') x scalar @names) . '), ' .
+            '    VALUES ' . join (q(,), ('(?)') x scalar @names) . '), ' .
             '    entity_matches (term, entity) AS (' .
             "        SELECT term, $type FROM ${type}_alias".
             "           JOIN search ON lower(musicbrainz_unaccent(${type}_alias.name)) = lower(musicbrainz_unaccent(term))" .

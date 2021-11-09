@@ -3,7 +3,7 @@ package Plack::Middleware::Debug::DAOLogger;
 use utf8;
 
 use parent qw(Plack::Middleware::Debug::Base);
-use List::Util qw( sum );
+use List::AllUtils qw( sum );
 use Scalar::Util qw( blessed );
 use Statistics::Basic qw( stddev mean );
 use Time::HiRes qw( gettimeofday tv_interval );

@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Medium::Create;
 use Carp;
 use Clone qw( clone );
 use Moose;
+use List::AllUtils qw( any );
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw(
@@ -92,7 +93,7 @@ sub initialize {
         $tracklist = tracks_to_hash($tracklist);
         check_track_hash($tracklist);
         die 'Tracklist specifies track IDs'
-            if grep { defined $_ } map { $_->{id} } @$tracklist;
+            if any { defined $_ } map { $_->{id} } @$tracklist;
     }
     $opts{tracklist} = $tracklist;
 

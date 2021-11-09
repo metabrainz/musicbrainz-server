@@ -3,7 +3,7 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-use List::UtilsBy qw( sort_by );
+use List::AllUtils qw( sort_by );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {

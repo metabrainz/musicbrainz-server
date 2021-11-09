@@ -23,7 +23,7 @@ sub options_type
     return [
         _sort_hash_value(map {
             # edit types => edit name
-            join(',', map { $_->edit_type } @{ $grouped{$_} }) => $_
+            join(q(,), map { $_->edit_type } @{ $grouped{$_} }) => $_
         } keys %grouped)
     ];
 }

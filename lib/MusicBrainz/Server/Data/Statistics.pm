@@ -1875,8 +1875,8 @@ my %stats = (
                 );
 
                 for (@$data) {
-                    $dist{ $table . '.' . $_->{name} } = $_->{count};
-                    $dist{ $table . '.' . $_->{name} . '.inclusive' } = $_->{count};
+                    $dist{ $table . q(.) . $_->{name} } = $_->{count};
+                    $dist{ $table . q(.) . $_->{name} . '.inclusive' } = $_->{count};
                 }
                 for (@$data) {
                     my $parent = $_->{parent};
@@ -1886,7 +1886,7 @@ my %stats = (
                         my $parent_obj = $parent_obj[0] if scalar(@parent_obj) == 1;
                         die unless $parent_obj;
 
-                        $dist{ $table . '.' . $parent_obj->{name} . '.inclusive' } += $count;
+                        $dist{ $table . q(.) . $parent_obj->{name} . '.inclusive' } += $count;
 
                         $parent = $parent_obj->{parent};
                     }
@@ -2067,7 +2067,7 @@ sub recalculate_all
 
         next if $count;
 
-        my $s = join ', ', keys %notdone;
+        my $s = join q(, ), keys %notdone;
         die "Failed to solve stats dependencies: circular dependency? ($s)";
     }
 }

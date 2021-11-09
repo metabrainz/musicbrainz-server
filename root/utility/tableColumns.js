@@ -624,7 +624,13 @@ export function defineTypeColumn(
 
 export const attributesColumn:
   ColumnOptions<WorkT, $ReadOnlyArray<WorkAttributeT>> = {
-    Cell: ({row: {original}}) => <AttributeList entity={original} />,
+    Cell: ({row: {original}}) => (
+      original.attributes ? (
+        <ul>
+          <AttributeList attributes={original.attributes} />
+        </ul>
+      ) : null
+    ),
     Header: N_l('Attributes'),
     id: 'attributes',
   };

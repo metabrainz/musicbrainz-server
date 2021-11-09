@@ -1,5 +1,5 @@
 package MusicBrainz::Server::Controller::Role::RelationshipEditor;
-use List::UtilsBy qw( uniq_by );
+use List::AllUtils qw( uniq_by );
 use Moose::Role;
 
 use MusicBrainz::Server::Constants qw(
@@ -8,7 +8,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_DELETE
     $EDIT_RELATIONSHIPS_REORDER
 );
-use List::MoreUtils qw( uniq );
+use List::AllUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw(
     type_to_model
     split_relationship_by_attributes

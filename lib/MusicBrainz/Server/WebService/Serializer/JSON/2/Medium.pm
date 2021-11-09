@@ -1,7 +1,7 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Medium;
 use Moose;
 use JSON;
-use List::UtilsBy qw( nsort_by sort_by );
+use List::AllUtils qw( nsort_by sort_by );
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( number serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';

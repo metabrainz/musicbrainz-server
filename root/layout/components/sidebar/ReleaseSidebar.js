@@ -12,6 +12,7 @@ import * as ReactDOMServer from 'react-dom/server';
 
 import {QUALITY_UNKNOWN} from '../../../constants';
 import {CatalystContext} from '../../../context';
+import * as manifest from '../../../static/manifest';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
 import ReleaseEvents
   from '../../../static/scripts/common/components/ReleaseEvents';
@@ -242,6 +243,10 @@ const ReleaseSidebar = ({release}: Props): React.Element<'div'> | null => {
         <>
           <h2 className="release-events">{l('Release events')}</h2>
           <ReleaseEvents abbreviated={false} events={releaseEvents} />
+          {manifest.js(
+            'common/components/ReleaseEvents',
+            {async: 'async'},
+          )}
         </>
       ) : null}
 

@@ -815,16 +815,6 @@ END -%]
       l('{variable}:', { variable => variable });
     END -%]
 
-[%~ MACRO work_attributes_list(work) BLOCK # Converted to React at root/static/scripts/common/components/AttributeList.js -%]
-  [%- IF work.attributes %]
-    <ul>
-      [%- FOR attr=work.sorted_attributes %]
-      <li>[% attr.l_value | html %] ([% attr.type.l_name | html %])</li>
-      [%- END %]
-    </ul>
-  [%- END %]
-[%- END -%]
-
 [%~ MACRO link_type_cardinality_name(cardinality) BLOCK ~%] [% # Converted to React at root/static/scripts/common/components/Cardinality.js %]
   [%~ IF cardinality == 0; l('Few relationships');
       ELSIF cardinality == 1; l('Many relationships');

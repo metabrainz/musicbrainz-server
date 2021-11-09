@@ -1811,6 +1811,13 @@ const testData = [
        only_valid_entity_types: ['instrument'],
   },
   {
+                     input_url: 'https://saisaibatake.ame-zaiku.com/gakki_illustration/bass-string-instruments.html',
+             input_entity_type: 'instrument',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://saisaibatake.ame-zaiku.com/gakki_illustration/bass-string-instruments.html',
+       only_valid_entity_types: ['instrument'],
+  },
+  {
                      input_url: 'https://saisaibatake.ame-zaiku.com/musical_instrument/gakki_jiten_shrutibox.html',
              input_entity_type: 'instrument',
     expected_relationship_type: 'otherdatabases',

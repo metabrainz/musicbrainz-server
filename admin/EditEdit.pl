@@ -11,7 +11,7 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 my $id = $ARGV[0];
-is_positive_integer($id) or die "invalid edit id";
+is_positive_integer($id) or die 'invalid edit id';
 
 my $c = MusicBrainz::Server::Context->create_script_context(database => 'READWRITE');
 my $old_data = $c->sql->select_single_value('SELECT data FROM edit_data WHERE edit = ?', $id)

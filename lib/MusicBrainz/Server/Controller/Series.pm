@@ -99,6 +99,7 @@ sub show : PathPart('') Chained('load') {
         $c->model('ReleaseGroupType')->load(@entities);
         $c->model('ReleaseGroup')->load_meta(@entities);
         $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
+        $c->model('ReleaseGroup')->load_has_cover_art(@entities);
     }
 
     if ($series->type->item_entity_type eq 'work') {

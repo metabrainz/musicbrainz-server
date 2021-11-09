@@ -12,12 +12,13 @@ import * as React from 'react';
 import {CatalystContext} from '../../../context';
 import LinkSearchableLanguage
   from '../../../components/LinkSearchableLanguage';
+import * as manifest from '../../../static/manifest';
 import CodeLink from '../../../static/scripts/common/components/CodeLink';
+import AttributeList
+  from '../../../static/scripts/common/components/AttributeList';
 import commaOnlyList from '../../../static/scripts/common/i18n/commaOnlyList';
 import CommonsImage from
   '../../../static/scripts/common/components/CommonsImage';
-import linkedEntities from '../../../static/scripts/common/linkedEntities';
-import {kebabCase} from '../../../static/scripts/common/utility/strings';
 import ExternalLinks from '../ExternalLinks';
 
 import AnnotationLinks from './AnnotationLinks';
@@ -89,29 +90,18 @@ const WorkSidebar = ({work}: Props): React.Element<'div'> => {
                 </SidebarProperty>
               ))
             ) : null}
-
-            {attributes.length ? (
-              attributes.map((attr) => {
-                const type = linkedEntities.work_attribute_type[attr.typeID];
-                return (
-                  <SidebarProperty
-                    className={'work-attribute work-attribute-' +
-                      kebabCase(type.name)}
-                    key={attr.id}
-                    label={addColonText(
-                      lp_attributes(type.name, 'work_attribute_type'),
-                    )}
-                  >
-                    {attr.value_id == null
-                      ? attr.value
-                      : lp_attributes(
-                        attr.value, 'work_attribute_type_allowed_value',
-                      )}
-                  </SidebarProperty>
-                );
-              })
-            ) : null}
           </SidebarProperties>
+
+          {attributes.length ? (
+            <>
+              <h2 className="work-attributes">{l('Work attributes')}</h2>
+              <AttributeList attributes={attributes} isSidebar />
+              {manifest.js(
+                'common/components/AttributeList',
+                {async: 'async'},
+              )}
+            </>
+          ) : null}
         </>
       ) : null}
 

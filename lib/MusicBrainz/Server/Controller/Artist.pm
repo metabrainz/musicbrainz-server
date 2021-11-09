@@ -80,8 +80,7 @@ use MusicBrainz::Server::FilterUtils qw(
 );
 use Sql;
 
-use List::AllUtils qw( any uniq );
-use List::UtilsBy qw( sort_by );
+use List::AllUtils qw( any sort_by uniq );
 
 =head1 NAME
 
@@ -254,6 +253,8 @@ sub show : PathPart('') Chained('load')
     if ($c->user_exists) {
         $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, @$release_groups);
     }
+
+    $c->model('ReleaseGroup')->load_has_cover_art(@$release_groups);
 
     $c->model('ArtistCredit')->load(@$release_groups);
     $c->model('ArtistType')->load(map { map { $_->artist } $_->artist_credit->all_names} @$release_groups);
@@ -662,7 +663,7 @@ around _validate_merge => sub {
     return unless $self->$orig($c, $form);
     my $target = $form->field('target')->value;
     my @all = map { $_->value } $form->field('merging')->fields;
-    if (grep { is_special_artist($_) && $target != $_ } @all) {
+    if (any { is_special_artist($_) && $target != $_ } @all) {
         $form->field('target')->add_error(l('You cannot merge a special purpose artist into another artist'));
         return 0;
     }

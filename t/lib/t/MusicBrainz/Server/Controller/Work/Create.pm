@@ -3,7 +3,7 @@ use Test::Routine;
 use Test::More;
 use HTTP::Request::Common;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
-use List::UtilsBy qw( nsort_by );
+use List::AllUtils qw( nsort_by );
 
 with 't::Mechanize', 't::Context';
 

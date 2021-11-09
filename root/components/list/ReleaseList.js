@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context';
-import manifest from '../../static/manifest';
+import * as manifest from '../../static/manifest';
 import Table from '../Table';
 import filterReleaseLabels
   from '../../static/scripts/common/utility/filterReleaseLabels';
@@ -197,6 +197,7 @@ const ReleaseList = ({
   return (
     <>
       <Table columns={columns} data={releases} />
+      {manifest.js('common/components/ReleaseEvents', {async: 'async'})}
       {manifest.js('common/components/TaggerIcon', {async: 'async'})}
     </>
   );

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use MusicBrainz::Server::Edit::Historic::Base;
 
-use List::MoreUtils qw( uniq );
+use List::AllUtils qw( uniq );
 use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::Label';
 use aliased 'MusicBrainz::Server::Entity::Recording';

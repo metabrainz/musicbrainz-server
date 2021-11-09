@@ -4,7 +4,7 @@ use parent qw(Plack::Middleware::Debug::Base);
 use Scalar::Util qw( blessed );
 use Statistics::Basic qw( stddev mean );
 use Time::HiRes qw( gettimeofday tv_interval );
-use List::Util qw( sum );
+use List::AllUtils qw( sum );
 
 our %call_times;
 my $i = 0;

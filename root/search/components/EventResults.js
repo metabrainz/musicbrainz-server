@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import * as manifest from '../../static/manifest';
 import ArtistRoles from '../../static/scripts/common/components/ArtistRoles';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import EventLocations
@@ -41,6 +42,10 @@ function buildResult(result, index) {
       </td>
       <td>
         <ArtistRoles relations={event.performers} />
+        {manifest.js(
+          'common/components/ArtistRoles',
+          {async: 'async'},
+        )}
       </td>
       <td>
         <EventLocations event={event} />

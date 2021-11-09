@@ -2,8 +2,7 @@ package MusicBrainz::Server::Controller::Role::Merge;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 
-use List::AllUtils qw( any uniq );
-use List::UtilsBy qw( nsort_by );
+use List::AllUtils qw( any nsort_by uniq );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Log qw( log_assertion );
@@ -30,7 +29,7 @@ role {
         }
     );
 
-    use List::MoreUtils qw( part );
+    use List::AllUtils qw( part );
     use MusicBrainz::Server::Data::Utils qw( model_to_type );
     use MusicBrainz::Server::MergeQueue;
 

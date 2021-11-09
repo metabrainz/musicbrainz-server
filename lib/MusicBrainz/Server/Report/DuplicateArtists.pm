@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Report::DuplicateArtists;
 use Moose;
+use List::AllUtils qw( all );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 with 'MusicBrainz::Server::Report',
@@ -66,7 +67,7 @@ sub run
         my @dupes = values %$v;
 
         # Skip if all artists have comments
-        next if (grep { $_->{has_comment} } @dupes) == @dupes;
+        next if (all { $_->{has_comment} } @dupes);
 
         for my $dupe (values %$v) {
             $sql->do("INSERT INTO $qualified_table (key, artist_id, alias) VALUES (?, ?, ?)",
