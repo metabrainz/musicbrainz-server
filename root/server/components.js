@@ -85,6 +85,7 @@ module.exports = {
   'doc/DocPage': require('../doc/DocPage'),
   'edit/EditData': require('../edit/EditData'),
   'edit/EditIndex': require('../edit/EditIndex'),
+  'edit/OpenEdits': require('../edit/OpenEdits'),
   'elections/Index': require('../elections/Index'),
   'elections/Nominate': require('../elections/Nominate'),
   'elections/Show': require('../elections/Show'),

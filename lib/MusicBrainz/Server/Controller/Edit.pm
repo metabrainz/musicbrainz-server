@@ -11,9 +11,10 @@ use JSON;
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Utils qw( status_names );
 use MusicBrainz::Server::Constants qw( :quality );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Validation qw( is_database_row_id );
 use MusicBrainz::Server::EditSearch::Query;
-use MusicBrainz::Server::Entity::Util::JSON qw( to_json_hash );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_hash );
 use MusicBrainz::Server::Data::Utils qw( type_to_model load_everything_for_edits );
 use MusicBrainz::Server::Translation qw( N_l );
 use List::AllUtils qw( sort_by );
@@ -235,27 +236,37 @@ sub open : Local
         }
     });
 
-    $c->stash(
-        edits => $edits, # stash early in case an ISE occurs
-        refine_url_args => {
-            form_only => 'yes',
-            auto_edit_filter => '',
-            order => 'asc',
-            negation => 0,
-            combinator => 'and',
-            'conditions.0.field' => 'status',
-            'conditions.0.operator' => '=',
-            'conditions.0.args' => '1',
-            'conditions.1.field' => 'editor',
-            'conditions.1.operator' => 'not_me',
-            'conditions.2.field' => 'voter',
-            'conditions.2.operator' => 'me',
-            'conditions.2.args' => 'no',
-        },
-    );
+    $c->stash(edits => $edits); # stash early in case an ISE occurs
+
+    my $refine_url_args = {
+        form_only => 'yes',
+        auto_edit_filter => '',
+        order => 'asc',
+        negation => 0,
+        combinator => 'and',
+        'conditions.0.field' => 'status',
+        'conditions.0.operator' => '=',
+        'conditions.0.args' => '1',
+        'conditions.1.field' => 'editor',
+        'conditions.1.operator' => 'not_me',
+        'conditions.2.field' => 'voter',
+        'conditions.2.operator' => 'me',
+        'conditions.2.args' => 'no',
+    };
 
     load_everything_for_edits($c, $edits);
     $c->form(add_edit_note => 'EditNote');
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'edit/OpenEdits',
+        component_props => {
+            editCountLimit => $c->stash->{edit_count_limit},
+            edits => to_json_array($edits),
+            pager => serialize_pager($c->stash->{pager}),
+            refineUrlArgs => $refine_url_args,
+        },
+    );
 }
 
 sub search : Path('/search/edits')
