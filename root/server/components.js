@@ -312,6 +312,7 @@ module.exports = {
   'user/PrivilegedUsers': require('../user/PrivilegedUsers'),
   'user/ReportUser': require('../user/ReportUser'),
   'user/UserCollections': require('../user/UserCollections'),
+  'user/UserEdits': require('../user/UserEdits'),
   'user/UserMessage': require('../user/UserMessage'),
   'user/UserProfile': require('../user/UserProfile'),
   'user/UserSubscriptions': require('../user/UserSubscriptions'),
