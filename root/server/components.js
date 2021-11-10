@@ -86,6 +86,7 @@ module.exports = {
   'edit/EditData': require('../edit/EditData'),
   'edit/EditIndex': require('../edit/EditIndex'),
   'edit/OpenEdits': require('../edit/OpenEdits'),
+  'edit/SubscribedEditorEdits': require('../edit/SubscribedEditorEdits'),
   'edit/SubscribedEdits': require('../edit/SubscribedEdits'),
   'elections/Index': require('../elections/Index'),
   'elections/Nominate': require('../elections/Nominate'),
