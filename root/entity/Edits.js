@@ -21,10 +21,10 @@ import localizeTypeNameForEntity
 type Props = {
   +$c: CatalystContextT,
   +editCountLimit: number,
-  +edits: $ReadOnlyArray<{...EditT, +id: number}>,
+  +edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
   +entity: CoreEntityT | CollectionT,
   +pager: PagerT,
-  +refineUrlArgs?: {[argument: string]: string},
+  +refineUrlArgs?: {+[argument: string]: string},
   +showingOpenOnly: boolean,
   +user: UnsanitizedEditorT,
 };
@@ -91,6 +91,7 @@ const Edits = ({
         editCountLimit={editCountLimit}
         edits={edits}
         guessSearch
+        page={entityTypeClass + '_' + (showingOpenOnly ? 'open' : 'all')}
         pager={pager}
         refineUrlArgs={refineUrlArgs}
       />

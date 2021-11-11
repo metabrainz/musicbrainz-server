@@ -95,6 +95,7 @@ module.exports = {
   'entity/alias/DeleteAlias': require('../entity/alias/DeleteAlias'),
   'entity/Aliases': require('../entity/Aliases'),
   'entity/Details': require('../entity/Details'),
+  'entity/Edits': require('../entity/Edits'),
   'entity/NotFound': require('../entity/NotFound'),
   'entity/Ratings': require('../entity/Ratings'),
   'entity/Subscribers': require('../entity/Subscribers'),
