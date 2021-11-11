@@ -10,6 +10,8 @@
 import * as React from 'react';
 
 import EntityHeader from '../components/EntityHeader';
+import localizeTypeNameForEntity
+  from '../static/scripts/common/i18n/localizeTypeNameForEntity';
 
 type Props = {
   +instrument: InstrumentT,
@@ -24,9 +26,7 @@ const InstrumentHeader = ({
     entity={instrument}
     headerClass="instrumentheader"
     page={page}
-    subHeading={nonEmpty(instrument.typeName)
-      ? lp_attributes(instrument.typeName, 'instrument_type')
-      : l('instrument')}
+    subHeading={localizeTypeNameForEntity(instrument)}
   />
 );
 

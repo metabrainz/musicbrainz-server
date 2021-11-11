@@ -11,6 +11,8 @@ import * as React from 'react';
 
 import AreaContainmentLink
   from '../static/scripts/common/components/AreaContainmentLink';
+import localizeTypeNameForEntity
+  from '../static/scripts/common/i18n/localizeTypeNameForEntity';
 import EntityHeader from '../components/EntityHeader';
 
 type Props = {
@@ -22,9 +24,7 @@ const AreaHeader = ({
   area,
   page,
 }: Props): React.Element<typeof EntityHeader> => {
-  const areaType = nonEmpty(area.typeName)
-    ? lp_attributes(area.typeName, 'area_type')
-    : l('Area');
+  const areaType = localizeTypeNameForEntity(area);
   let subHeading = areaType;
   if (area.containment?.length) {
     const parentAreas = <AreaContainmentLink area={area} />;

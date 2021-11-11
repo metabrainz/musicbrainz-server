@@ -10,6 +10,8 @@
 import * as React from 'react';
 
 import EntityHeader from '../components/EntityHeader';
+import localizeTypeNameForEntity
+  from '../static/scripts/common/i18n/localizeTypeNameForEntity';
 
 type Props = {
   +artist: ArtistT,
@@ -29,9 +31,7 @@ const ArtistHeader = ({
       entity={artist}
       headerClass={headerClass}
       page={page}
-      subHeading={nonEmpty(artist.typeName)
-        ? lp_attributes(artist.typeName, 'artist_type')
-        : l('Artist')}
+      subHeading={localizeTypeNameForEntity(artist)}
     />
   );
 };
