@@ -5,6 +5,9 @@ use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( ref_to_type );
 use DBDefs;
 use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( list_or_single );
+use Readonly;
+
+Readonly our $GID_REDIRECT_LIMIT => 100;
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
@@ -21,13 +24,20 @@ around serialize => sub {
 
     my $entity_type = ref_to_type($entity);
     my $entity_url = $ENTITIES{$entity_type}{url} // $entity_type;
+    my $opts = $stash->store($entity);
 
-    if ($entity->can('all_gid_redirects') && $entity->all_gid_redirects) {
-        push(@urls, map { DBDefs->JSON_LD_ID_BASE_URI . '/' . $entity_url . '/' . $_ } $entity->all_gid_redirects);
+    if ($entity->can('all_gid_redirects')) {
+        my @gid_redirects = $entity->all_gid_redirects;
+        if (@gid_redirects && !$opts->{skip_gid_redirects}) {
+            if ($opts->{limit_gid_redirects} && scalar @gid_redirects > $GID_REDIRECT_LIMIT) {
+                @gid_redirects = @gid_redirects[0..($GID_REDIRECT_LIMIT - 1)];
+            }
+            push(@urls, map { DBDefs->JSON_LD_ID_BASE_URI . '/' . $entity_url . '/' . $_ } @gid_redirects);
+        }
     }
 
-    if ($stash->store($entity)->{identities}) {
-        my @identities = @{ $stash->store($entity)->{identities} };
+    if ($opts->{identities}) {
+        my @identities = @{ $opts->{identities} };
         push(@urls, map { DBDefs->JSON_LD_ID_BASE_URI . '/' . $entity_url . '/' . $_->gid } @identities);
     }
 
