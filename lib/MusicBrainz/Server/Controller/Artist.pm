@@ -749,7 +749,7 @@ sub split : Chained('load') Edit {
 
     if ($is_empty) {
         my %props = (
-            artist => $artist,
+            artist => $artist->TO_JSON,
             isEmpty => \1
         );
         $c->stash(

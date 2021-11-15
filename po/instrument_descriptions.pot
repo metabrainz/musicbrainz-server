@@ -302,6 +302,14 @@ msgstr ""
 msgid "Acoustic guitar without frets."
 msgstr ""
 
+#. name:cello 
+#: DB:instrument/description:60
+msgid ""
+"Also know as violoncello (the \"small large viol\"), it is the medium bass "
+"member of the modern violin family and a principal member of the symphony "
+"orchestra."
+msgstr ""
+
 #. name:diatonic button accordion 
 #: DB:instrument/description:361
 msgid ""
@@ -1114,6 +1122,14 @@ msgid ""
 "Floppy Drives configured to produce tones while reading, software is used."
 msgstr ""
 
+#. name:hardingfele 
+#: DB:instrument/description:78
+msgid ""
+"Folk-fiddle from Hardanger, Norway. It has 4 melody- and 4-5 drone-strings, "
+"it is richly decorated and used in the traditional \"halling\" folk music "
+"and dance."
+msgstr ""
+
 #. name:lira da braccio 
 #: DB:instrument/description:1016
 msgid ""
@@ -1373,6 +1389,13 @@ msgid ""
 "kacapis."
 msgstr ""
 
+#. name:Stroh violin 
+#: DB:instrument/description:451
+msgid ""
+"Instead of a wooden body, it is amplified by a metal horn resonator; its "
+"louder and more directional sound made it useful in loud areas."
+msgstr ""
+
 #. name:Indonesian rebab 
 #: DB:instrument/description:1011
 msgid ""
@@ -1443,6 +1466,15 @@ msgid ""
 "lute\""
 msgstr ""
 
+#. name:viola 
+#: DB:instrument/description:63
+msgid ""
+"It is known by many names, based on the full \"alto de viola da braccio\": "
+"\"alto\", \"bratsch (braccio)\", \"viola\", etc. <br /> It is the alto "
+"member of the modern violin family and a principal member of the symphony "
+"orchestra."
+msgstr ""
+
 #. name:yangqin 
 #: DB:instrument/description:254
 msgid ""
@@ -1486,7 +1518,7 @@ msgstr ""
 #: DB:instrument/description:48
 msgid ""
 "Known also as contrabass or upright bass, it is the largest and lowest-"
-"pitched member of the modern violin family, it is a principal member of the "
+"pitched member of the modern violin family and a principal member of the "
 "symphony orchestra."
 msgstr ""
 
@@ -2728,13 +2760,6 @@ msgid ""
 "music."
 msgstr ""
 
-#. name:Stroh violin 
-#: DB:instrument/description:451
-msgid ""
-"The Stroh violin is a violin with a metal resonator and horn rather than a "
-"wooden body."
-msgstr ""
-
 #. name:Vienna horn 
 #: DB:instrument/description:562
 msgid ""
@@ -3582,6 +3607,14 @@ msgstr ""
 msgid ""
 "The most common and based on the original design, its fifth string is "
 "shorter than the others, creating an uneven pitch progression."
+msgstr ""
+
+#. name:violin 
+#: DB:instrument/description:62
+msgid ""
+"The most famous member of the violin family, it is actually the \"small viol"
+"\". Its register is soprano and it's a principal member of the symphony "
+"orchestra."
 msgstr ""
 
 #. name:mridangam 
@@ -4847,11 +4880,6 @@ msgstr ""
 msgid ""
 "also just \"kū\", a mouthbow with a single string, struck with a light "
 "implement of bone or wood."
-msgstr ""
-
-#. name:cello 
-#: DB:instrument/description:60
-msgid "also know as violoncello"
 msgstr ""
 
 #. name:samica 

@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-10-04 13:59+0000\n"
+"PO-Revision-Date: 2021-11-09 20:20+0000\n"
 "Last-Translator: AO <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -239,6 +239,7 @@ msgid "Spanish acoustic guitar"
 msgstr "guitare acoustique espagnole"
 
 #: DB:instrument/name:451
+msgctxt "Horn-amplified violin"
 msgid "Stroh violin"
 msgstr "violon à pavillon"
 
@@ -902,6 +903,7 @@ msgid "castanets"
 msgstr "castagnettes"
 
 #: DB:instrument/name:524
+msgctxt "Small four-stringed Portugesian lute"
 msgid "cavaquinho"
 msgstr "cavaquinho"
 
@@ -915,6 +917,7 @@ msgid "celesta"
 msgstr "célesta"
 
 #: DB:instrument/name:60
+msgctxt "Small bass of modern violin family"
 msgid "cello"
 msgstr "violoncelle"
 
@@ -3763,6 +3766,7 @@ msgid "temür khuur"
 msgstr "temür khuur"
 
 #: DB:instrument/name:657
+msgctxt "4 string tenor banjo"
 msgid "tenor banjo"
 msgstr "banjo ténor"
 
@@ -4131,6 +4135,7 @@ msgid "viol family"
 msgstr "famille des violes"
 
 #: DB:instrument/name:63
+msgctxt "Alto of modern violin family"
 msgid "viola"
 msgstr "alto"
 
@@ -4154,6 +4159,7 @@ msgid "viola organista"
 msgstr "viola organista"
 
 #: DB:instrument/name:62
+msgctxt "Soprano of modern violin family"
 msgid "violin"
 msgstr "violon"
 
