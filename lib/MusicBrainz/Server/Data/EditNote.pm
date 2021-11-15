@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::EditNote;
 use Moose;
 use namespace::autoclean;
 
-use List::MoreUtils qw( uniq );
+use List::AllUtils qw( uniq );
 use MusicBrainz::Server::Entity::EditNote;
 use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Data::Utils qw(

@@ -1,8 +1,7 @@
 package MusicBrainz::Server::Controller::Collection;
 use Moose;
 use Scalar::Util qw( looks_like_number );
-use List::Util qw( first );
-use List::AllUtils qw( uniq );
+use List::AllUtils qw( first uniq );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
@@ -147,6 +146,7 @@ sub show : Chained('load') PathPart('') {
         $c->model('ArtistCredit')->load(@$entities);
         $c->model('ReleaseGroupType')->load(@$entities);
         $c->model('ReleaseGroupSecondaryType')->load_for_release_groups(@$entities);
+        $c->model('ReleaseGroup')->load_has_cover_art(@$entities);
     } elsif ($entity_type eq 'event') {
         $c->model('EventType')->load(@$entities);
         $model->load_performers(@$entities);

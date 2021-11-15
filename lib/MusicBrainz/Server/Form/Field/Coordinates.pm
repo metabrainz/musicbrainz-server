@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Form::Field::Coordinates;
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation qw( l );
-use List::Util qw( first );
+use List::AllUtils qw( first );
 use utf8;
 use MusicBrainz::Server::Validation qw( validate_coordinates );
 

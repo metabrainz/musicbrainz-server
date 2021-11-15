@@ -4,7 +4,7 @@ use Moose;
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_REMOVE_ISWC );
 use MusicBrainz::Server::Validation qw( format_iswc is_valid_iswc );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
-use List::UtilsBy qw( sort_by );
+use List::AllUtils qw( sort_by );
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 

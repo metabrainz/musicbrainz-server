@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../../../../context';
 import formatUserDate from '../../../../utility/formatUserDate';
-import hydrate from '../../../../utility/hydrate';
 import DBDefs from '../DBDefs-client';
 
 import Collapsible from './Collapsible';

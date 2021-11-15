@@ -5,17 +5,18 @@ use warnings;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
+use List::AllUtils qw ( any );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::ReportFactory;
 use POSIX qw( SIGALRM );
 $| = 1;
 
-@ARGV = "^" if not @ARGV;
+@ARGV = '^' if not @ARGV;
 my $c = MusicBrainz::Server::Context->create_script_context();
 
 my $errors = 0;
 for my $name (MusicBrainz::Server::ReportFactory->all_report_names) {
-    unless (grep { $name =~ /$_/i } @ARGV) {
+    unless (any { $name =~ /$_/i } @ARGV) {
         print localtime() . " : Not running $name\n";
         next;
     }
@@ -48,7 +49,7 @@ for my $name (MusicBrainz::Server::ReportFactory->all_report_names) {
 
         waitpid($child, 0);
         if (($? >> 8) == 42) {
-            die "Report took over 1 hour to run";
+            die 'Report took over 1 hour to run';
         }
     };
     if ($@) {

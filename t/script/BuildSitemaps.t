@@ -1,7 +1,7 @@
 use DBDefs;
 use File::Spec;
 use File::Temp qw( tempdir );
-use List::UtilsBy qw( sort_by );
+use List::AllUtils qw( sort_by );
 use String::ShellQuote;
 use Test::Deep qw( cmp_deeply );
 use Test::Routine;

@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Historic::MoveReleaseToRG;
 use Moose;
 use namespace::autoclean;
 
-use List::MoreUtils qw( uniq );
+use List::AllUtils qw( uniq );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MOVE );

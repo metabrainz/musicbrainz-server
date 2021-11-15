@@ -9,13 +9,8 @@
 
 import * as React from 'react';
 
-import hydrate from '../../../../utility/hydrate';
-import {bracketedText} from '../utility/bracketed';
-
 import ArtistCreditLink from './ArtistCreditLink';
-
-const TO_SHOW_BEFORE = 4;
-const TO_TRIGGER_COLLAPSE = TO_SHOW_BEFORE + 2;
+import CollapsibleList from './CollapsibleList';
 
 const buildWorkArtistRow = (artistCredit: ArtistCreditT) => {
   return (
@@ -29,72 +24,18 @@ type WorkArtistsProps = {
   +artists: ?$ReadOnlyArray<ArtistCreditT>,
 };
 
-const WorkArtists = ({artists}: WorkArtistsProps) => {
-  const [expanded, setExpanded] = React.useState<boolean>(false);
-
-  const expand = React.useCallback(event => {
-    event.preventDefault();
-    setExpanded(true);
-  });
-
-  const collapse = React.useCallback(event => {
-    event.preventDefault();
-    setExpanded(false);
-  });
-
-  const containerProps = {
-    'aria-label': l('Work Artists'),
-    'className': 'work-artists',
-  };
-
-  const tooManyArtists = artists
-    ? artists.length >= TO_TRIGGER_COLLAPSE
-    : false;
-
-  return (
-    (artists && artists.length) ? (
-      <>
-        {(tooManyArtists && !expanded) ? (
-          <>
-            <ul {...containerProps}>
-              {artists.slice(0, TO_SHOW_BEFORE).map(
-                artist => buildWorkArtistRow(artist),
-              )}
-              <li className="show-all" key="show-all">
-                <a
-                  href="#"
-                  onClick={expand}
-                  role="button"
-                  title={l('Show all artists')}
-                >
-                  {bracketedText(texp.l('show {n} more', {
-                    n: artists.length - TO_SHOW_BEFORE,
-                  }))}
-                </a>
-              </li>
-            </ul>
-          </>
-        ) : (
-          <ul {...containerProps}>
-            {artists.map(artist => buildWorkArtistRow(artist))}
-            {tooManyArtists && expanded ? (
-              <li className="show-less" key="show-less">
-                <a
-                  href="#"
-                  onClick={collapse}
-                  role="button"
-                  title={l('Show less artists')}
-                >
-                  {bracketedText(l('show less'))}
-                </a>
-              </li>
-            ) : null}
-          </ul>
-        )}
-      </>
-    ) : null
-  );
-};
+const WorkArtists = ({artists}: WorkArtistsProps) => (
+  <CollapsibleList
+    ariaLabel={l('Work Artists')}
+    buildRow={buildWorkArtistRow}
+    className="work-artists"
+    rows={artists}
+    showAllTitle={l('Show all artists')}
+    showLessTitle={l('Show less artists')}
+    toShowAfter={0}
+    toShowBefore={4}
+  />
+);
 
 export default (hydrate<WorkArtistsProps>(
   'div.work-artists-container',

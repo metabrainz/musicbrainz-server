@@ -55,7 +55,6 @@ requires 'IO::All'                                    => '0.54';
 requires 'JSON'                                       => '2.61';
 requires 'JSON::XS'                                   => '2.34';
 requires 'List::AllUtils'                             => '0.03';
-requires 'List::MoreUtils'                            => '0.33';
 requires 'List::UtilsBy'                              => '0.09';
 requires 'Locale::Messages'                           => '1.23';
 requires 'Log::Dispatch'                              => '2.41';

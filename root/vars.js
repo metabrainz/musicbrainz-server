@@ -26,6 +26,16 @@ declare var hasOwnProp: (
   object: interface {},
   prop: string,
 ) => boolean;
+declare var hydrate: (
+  <
+    Config: {+$c?: CatalystContextT, ...},
+    SanitizedConfig = Config,
+  >(
+    containerSelector: string,
+    Component: React$AbstractComponent<Config | SanitizedConfig, mixed>,
+    mungeProps?: (Config) => SanitizedConfig,
+  ) => React$AbstractComponent<Config, void>
+);
 declare var hyphenateTitle: (title: string, subtitle: string) => string;
 function nonEmptyFn(value: mixed): boolean %checks {
   return value !== null && value !== undefined && value !== '';

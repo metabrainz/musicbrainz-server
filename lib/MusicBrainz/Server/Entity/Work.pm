@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Entity::Work;
 
-use List::UtilsBy qw( sort_by );
+use List::AllUtils qw( sort_by );
 use Moose;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );

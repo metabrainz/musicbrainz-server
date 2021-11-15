@@ -36,6 +36,7 @@
             <td>[% medium_format_name(medium) %]</td>
             <td>
               [% React.embed(c, 'static/scripts/common/components/ReleaseEvents', {events => React.to_json_array(release.events)}) %]
+              [% script_manifest('common/components/ReleaseEvents.js', {async => 'async'}) %]
             </td>
             <td>[% release_label_list(release.labels) %]</td>
             <td>[% release_catno_list(release.labels) %]</td>

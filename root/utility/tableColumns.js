@@ -624,7 +624,13 @@ export function defineTypeColumn(
 
 export const attributesColumn:
   ColumnOptions<WorkT, $ReadOnlyArray<WorkAttributeT>> = {
-    Cell: ({row: {original}}) => <AttributeList entity={original} />,
+    Cell: ({row: {original}}) => (
+      original.attributes ? (
+        <ul>
+          <AttributeList attributes={original.attributes} />
+        </ul>
+      ) : null
+    ),
     Header: N_l('Attributes'),
     id: 'attributes',
   };
@@ -657,93 +663,6 @@ export const isrcsColumn:
     Header: N_l('ISRCs'),
     id: 'isrcs',
   };
-
-type AcoustIdTrackT = {
-  +disabled?: boolean,
-  +id: string,
-};
-
-const AcoustIdCell = ({
-  isLoading,
-  tracks,
-}: {
-  +isLoading: boolean,
-  +tracks: ?$ReadOnlyArray<AcoustIdTrackT>,
-}): React.Element<typeof React.Fragment> => (
-  <>
-    {isLoading ? (
-      <p className="loading-message">
-        {l('Loading...')}
-      </p>
-    ) : (
-      tracks?.length ? (
-        <ul>
-          {tracks.map((track) => (
-            <li key={track.id}>
-              <code>
-                <a
-                  className={'external' +
-                    (track.disabled ? ' disabled-acoustid' : '')}
-                  href={`//acoustid.org/track/${track.id}`}
-                >
-                  {track.id.slice(0, 6) + '…'}
-                </a>
-              </code>
-            </li>
-          ))}
-        </ul>
-      ) : null
-    )}
-  </>
-);
-
-export const useAcoustIdsColumn = (
-  recordings: $ReadOnlyArray<RecordingT>,
-  showAcoustIds: boolean,
-): ColumnOptions<{+gid?: string, ...}, string> | null => {
-  const [data, setData] = React.useState<{
-    +[recordingMbid: string]: $ReadOnlyArray<AcoustIdTrackT>,
-  } | null>(null);
-  const [isLoading, setLoading] = React.useState(showAcoustIds);
-
-  React.useEffect(() => {
-    if (showAcoustIds) {
-      const url = '//api.acoustid.org/v2/track/list_by_mbid' +
-        '?format=json&disabled=1&batch=1' +
-        recordings.map(x => '&mbid=' + x.gid).join('');
-
-      fetch(url)
-        .then(
-          resp => resp.json(),
-        )
-        .then((reqData) => {
-          setData(reqData.mbids.reduce((result, x) => {
-            result[x.mbid] = x.tracks;
-            return result;
-          }, {}));
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }
-  }, [recordings, showAcoustIds]);
-
-  if (!showAcoustIds) {
-    return null;
-  }
-
-  return {
-    accessor: x => x.gid ?? '',
-    Cell: ({cell: {value}}) => (
-      <AcoustIdCell
-        isLoading={isLoading}
-        tracks={data?.[value] ?? null}
-      />
-    ),
-    Header: N_l('AcoustIDs'),
-    id: 'acoustid',
-  };
-};
 
 export const iswcsColumn:
   ColumnOptions<{
@@ -832,7 +751,9 @@ export const subscriptionColumn:
 
 export const taggerColumn:
   ColumnOptions<RecordingT | ReleaseT, void> = {
-    Cell: ({row: {original}}) => <TaggerIcon entity={original} />,
+    Cell: ({row: {original}}) => (
+      <TaggerIcon entityType={original.entityType} gid={original.gid} />
+    ),
     Header: N_l('Tagger'),
     id: 'tagger',
   };

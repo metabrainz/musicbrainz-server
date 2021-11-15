@@ -2,8 +2,7 @@ package MusicBrainz::Server::Data::Vote;
 use Moose;
 use namespace::autoclean;
 
-use List::AllUtils qw( any );
-use List::Util qw( sum );
+use List::AllUtils qw( any sum );
 use Carp qw( confess );
 use MusicBrainz::Server::Data::Utils qw( map_query placeholders );
 use MusicBrainz::Server::Email;
@@ -97,7 +96,7 @@ sub enter_votes
 
         # Insert our new votes
         $query = 'INSERT INTO vote (editor, edit, vote) VALUES ';
-        $query .= join ', ', (('(?, ?, ?)') x @votes);
+        $query .= join q(, ), (('(?, ?, ?)') x @votes);
         $query .= ' RETURNING edit, vote';
         my $voted = $self->sql->select_list_of_hashes($query, map { $editor_id, $_->{edit_id}, $_->{vote} } @votes);
         my %edit_to_vote = map { $_->{edit} => $_->{vote} } @$voted;

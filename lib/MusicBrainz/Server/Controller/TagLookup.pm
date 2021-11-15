@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::TagLookup;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Form::TagLookup;
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Search qw( escape_query );
@@ -212,7 +213,7 @@ sub index : Path('')
 
     # All the fields are optional, but we shouldn't do anything unless at
     # least one of them has a value
-    return unless grep { $_ } values %$mapped_params;
+    return unless any { $_ } values %$mapped_params;
     return unless $c->form_submitted_and_valid($form, $mapped_params);
 
     $self->external($c, $form);

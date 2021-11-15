@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::ReleaseGroup;
 use Moose;
 use namespace::autoclean;
 
-use List::UtilsBy qw( partition_by );
+use List::AllUtils qw( partition_by );
 use MusicBrainz::Server::Entity::ReleaseGroup;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Release;
@@ -10,6 +10,7 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
     merge_table_attributes
+    object_to_ids
     order_by
     placeholders
 );
@@ -155,6 +156,34 @@ sub has_materialized_artist_release_group_data {
         'SELECT 1 FROM artist_release_group LIMIT 1',
     ) ? 1 : 0;
     return $has_data;
+}
+
+sub load_has_cover_art {
+    my ($self, @release_groups) = @_;
+    my %id_to_rg = object_to_ids(@release_groups);
+    my @ids = keys %id_to_rg;
+
+    return unless @ids; # nothing to do
+
+    my $query = <<~'SQL';
+        SELECT release.release_group
+          FROM release
+          JOIN cover_art_archive.cover_art ca ON ca.release = release.id
+          JOIN cover_art_archive.cover_art_type cat ON cat.id = ca.id
+          JOIN release_meta ON release_meta.id = release.id
+         WHERE release.release_group = any(?)
+           AND cat.type_id = 1
+           AND ca.mime_type != 'application/pdf'
+           AND release_meta.cover_art_presence != 'darkened'
+        SQL
+
+    my $ids_with_art = $self->sql->select_single_column_array($query, \@ids);
+
+    for my $id (@{ $ids_with_art }) {
+        for my $rg (@{ $id_to_rg{$id} }) {
+            $rg->has_cover_art(1);
+        }
+    }
 }
 
 sub pick_status_condition
@@ -716,6 +745,31 @@ sub _hash_to_row
     });
 
     return $row;
+}
+
+=method load_ids
+Load internal IDs for release group objects that only have GIDs.
+=cut
+
+sub load_ids
+{
+    my ($self, @rgs) = @_;
+
+    my @gids = map { $_->gid } @rgs;
+    return () unless @gids;
+
+    my $query = <<~'SQL';
+        SELECT gid, id
+        FROM release_group
+        WHERE gid = any(?)
+        SQL
+
+    my %map = map { $_->[0] => $_->[1] }
+        @{ $self->sql->select_list_of_lists($query, \@gids) };
+
+    for my $rg (@rgs) {
+        $rg->id($map{$rg->gid}) if exists $map{$rg->gid};
+    }
 }
 
 sub load_meta

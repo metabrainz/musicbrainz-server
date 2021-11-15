@@ -42,6 +42,7 @@ const defaultSanitizedContext = {
   req: {
     uri: '',
   },
+  session: null,
   stash: {
     current_language: 'en',
   },

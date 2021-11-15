@@ -1,3 +1,4 @@
+## no critic (RequireFilenameMatchesPackage)
 package MusicBrainz::Server::Exceptions::InvalidInput;
 use Moose;
 extends 'Throwable::Error';

@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context';
+import * as manifest from '../../static/manifest';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import TaggerIcon from '../../static/scripts/common/components/TaggerIcon';
 import formatTrackLength
@@ -51,10 +52,12 @@ const buildRecordingColumns = recording => (
   </>
 );
 
-const buildTaggerIcon = ($c, entity) => (
-  $c.session?.tport == null
-    ? null
-    : <td><TaggerIcon entity={entity} /></td>
+const buildTaggerIcon = ($c, entityType, gid) => (
+  $c.session?.tport == null ? null : (
+    <td>
+      <TaggerIcon entityType={entityType} gid={gid} />
+    </td>
+  )
 );
 
 function buildResultWithReleases($c, result) {
@@ -74,7 +77,7 @@ function buildResultWithReleases($c, result) {
         <td>
           <EntityLink entity={release} />
         </td>
-        {buildTaggerIcon($c, release)}
+        {buildTaggerIcon($c, 'release', release.gid)}
         <td>
           {extraRow.track_position + '/' + extraRow.medium_track_count}
         </td>
@@ -106,7 +109,7 @@ function buildResult($c, result) {
         >
           {buildRecordingColumns(recording)}
           <td>{l('(standalone recording)')}</td>
-          {buildTaggerIcon($c, recording)}
+          {buildTaggerIcon($c, 'recording', recording.gid)}
           <td colSpan="3">{'\u00A0'}</td>
         </tr>
       )
@@ -169,6 +172,7 @@ React.Element<typeof ResultsLayout> => {
           })}
         </p>
       ) : null}
+      {manifest.js('common/components/TaggerIcon', {async: 'async'})}
     </ResultsLayout>
   );
 };

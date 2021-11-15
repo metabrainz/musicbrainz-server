@@ -9,7 +9,7 @@ use File::Find;
 use File::Slurp qw( read_file );
 use IO::All;
 use JSON qw( decode_json );
-use List::MoreUtils qw( uniq );
+use List::AllUtils qw( uniq );
 use Path::Class qw( dir file );
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Map );

@@ -88,13 +88,13 @@ is($edit_counts->{rejected_count}, 0, 'rejected edits');
 is($edit_counts->{failed_count}, 0, 'failed edits');
 is($edit_counts->{accepted_auto_count}, 0, 'auto edits');
 
-is_deeply($editor->last_login_date, DateTime->new(year => 2013, month => 04, day => 05),
+is_deeply($editor->last_login_date, DateTime->new(year => 2013, month => 4, day => 5),
     'last login date');
 
 is_deeply($editor->email_confirmation_date, DateTime->new(year => 2005, month => 10, day => 20),
     'email confirm');
 
-is_deeply($editor->registration_date, DateTime->new(year => 1989, month => 07, day => 23),
+is_deeply($editor->registration_date, DateTime->new(year => 1989, month => 7, day => 23),
     'registration date');
 
 

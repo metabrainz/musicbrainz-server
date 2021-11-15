@@ -36,7 +36,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-10-15 10:38+0000\n"
+"PO-Revision-Date: 2021-11-04 06:08+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -928,38 +928,38 @@ msgstr "Dirige vers la page IMDb pour ce lieu."
 #: DB:link_type/description:358
 msgid ""
 "Points to the Wikidata page for this area, and will be used to fetch "
-"Wikipedia summaries and images"
-msgstr "Dirige vers la page Wikidata pour cette région, et sera utilisée pour afficher les images et les contenus Wikipédia liés."
+"Wikipedia summaries"
+msgstr ""
 
 #: DB:link_type/description:352
 msgid ""
 "Points to the Wikidata page for this artist, and will be used to fetch "
-"Wikipedia summaries and images"
-msgstr "Dirige vers la page Wikidata pour cet artiste, et sera utilisée pour afficher les images et les contenus Wikipédia liés."
+"Wikipedia summaries"
+msgstr ""
 
 #: DB:link_type/description:790
 msgid ""
 "Points to the Wikidata page for this event, and will be used to fetch "
-"Wikipedia summaries and images"
-msgstr "Dirige vers la page Wikidata pour cet événement, et sera utilisée pour afficher les images et les contenus Wikipédia liés."
+"Wikipedia summaries"
+msgstr ""
 
 #: DB:link_type/description:733
 msgid ""
 "Points to the Wikidata page for this instrument, and will be used to fetch "
-"Wikipedia summaries and images"
-msgstr "Dirige vers la page Wikidata pour cet instrument, et sera utilisée pour afficher les images et les contenus Wikipédia liés."
+"Wikipedia summaries"
+msgstr ""
 
 #: DB:link_type/description:354
 msgid ""
 "Points to the Wikidata page for this label, and will be used to fetch "
-"Wikipedia summaries and images"
-msgstr "Dirige vers la page Wikidata pour ce label, et sera utilisée pour afficher les images et les contenus Wikipédia liés."
+"Wikipedia summaries"
+msgstr ""
 
 #: DB:link_type/description:594
 msgid ""
 "Points to the Wikidata page for this place, and will be used to fetch "
-"Wikipedia summaries and images"
-msgstr "Dirige vers la page Wikidata pour ce lieu, et sera utilisée pour afficher les images et les contenus Wikipédia liés."
+"Wikipedia summaries"
+msgstr ""
 
 #: DB:link_type/description:353
 msgid ""
@@ -970,14 +970,14 @@ msgstr "Dirige vers la page Wikidata pour ce groupe de parution, et sera utilis�
 #: DB:link_type/description:749
 msgid ""
 "Points to the Wikidata page for this series, and will be used to fetch "
-"Wikipedia summaries and images"
-msgstr "Dirige vers la page Wikidata pour cette série, et sera utilisée pour afficher les images et les contenus Wikipédia liés."
+"Wikipedia summaries"
+msgstr ""
 
 #: DB:link_type/description:351
 msgid ""
 "Points to the Wikidata page for this work, and will be used to fetch "
-"Wikipedia summaries and images"
-msgstr "Dirige vers la page Wikidata pour cette œuvre, et sera utilisée pour afficher les images et les contenus Wikipédia liés."
+"Wikipedia summaries"
+msgstr ""
 
 #: DB:link_type/description:89
 msgid "Points to the Wikipedia page for this album."
@@ -1378,6 +1378,12 @@ msgstr "Ceci indique un label d’édition personnel pour un artiste. Un label d
 msgid ""
 "This indicates an artist (generally a person) was the founder of a group."
 msgstr "Cet attribut indique qu’un artiste était un membre fondateur d’un groupe."
+
+#: DB:link_type/description:1004
+msgid ""
+"This indicates an artist (generally a person) was the founder of an event "
+"series (generally a festival)."
+msgstr ""
 
 #: DB:link_attribute_type/description:921
 msgid "This indicates an artist cancelled their appearance at an event."
@@ -3309,19 +3315,19 @@ msgstr "ID VIAF pour"
 msgid "Whistling (with mouth, not a whistle)"
 msgstr "Sifflement (fait à la bouche, sans sifflet)"
 
-#: DB:link_type/link_phrase:353 DB:link_type/link_phrase:354
-#: DB:link_type/link_phrase:749 DB:link_type/link_phrase:594
+#: DB:link_type/link_phrase:353 DB:link_type/link_phrase:749
+#: DB:link_type/link_phrase:594 DB:link_type/link_phrase:354
 #: DB:link_type/link_phrase:790 DB:link_type/link_phrase:352
-#: DB:link_type/link_phrase:358 DB:link_type/link_phrase:733
+#: DB:link_type/link_phrase:733 DB:link_type/link_phrase:358
 #: DB:link_type/reverse_link_phrase:351
 msgid "Wikidata"
 msgstr "Wikidata"
 
 #: DB:link_type/link_phrase:351 DB:link_type/reverse_link_phrase:353
-#: DB:link_type/reverse_link_phrase:354 DB:link_type/reverse_link_phrase:749
-#: DB:link_type/reverse_link_phrase:594 DB:link_type/reverse_link_phrase:790
-#: DB:link_type/reverse_link_phrase:352 DB:link_type/reverse_link_phrase:358
-#: DB:link_type/reverse_link_phrase:733
+#: DB:link_type/reverse_link_phrase:749 DB:link_type/reverse_link_phrase:594
+#: DB:link_type/reverse_link_phrase:354 DB:link_type/reverse_link_phrase:790
+#: DB:link_type/reverse_link_phrase:352 DB:link_type/reverse_link_phrase:733
+#: DB:link_type/reverse_link_phrase:358
 msgid "Wikidata page for"
 msgstr "Page Wikidata pour"
 
@@ -4087,6 +4093,11 @@ msgstr "ingénieurs"
 msgid "eponymous"
 msgstr "éponyme"
 
+#: DB:link_type/link_phrase:1003 DB:link_type/name:1003
+#: DB:link_type/reverse_link_phrase:1003 DB:link_type/long_link_phrase:1003
+msgid "event artists"
+msgstr ""
+
 #: DB:link_attribute_type/name:425
 msgid "executive"
 msgstr "dirigeant"
@@ -4112,16 +4123,17 @@ msgid "folk music"
 msgstr "musique “folk” ou “populaire”"
 
 #: DB:link_type/link_phrase:832 DB:link_type/link_phrase:116
-#: DB:link_type/link_phrase:895 DB:link_type/long_link_phrase:832
-#: DB:link_type/long_link_phrase:116 DB:link_type/long_link_phrase:895
+#: DB:link_type/link_phrase:895 DB:link_type/link_phrase:1004
+#: DB:link_type/long_link_phrase:832 DB:link_type/long_link_phrase:116
+#: DB:link_type/long_link_phrase:895 DB:link_type/long_link_phrase:1004
 msgid "founded"
 msgstr "a fondé"
 
-#: DB:link_type/reverse_link_phrase:895
+#: DB:link_type/reverse_link_phrase:895 DB:link_type/reverse_link_phrase:1004
 msgid "founded by"
 msgstr "fondé par"
 
-#: DB:link_type/name:832 DB:link_type/name:895
+#: DB:link_type/name:832 DB:link_type/name:895 DB:link_type/name:1004
 msgid "founder"
 msgstr "fondateur"
 
@@ -4319,10 +4331,10 @@ msgstr "a une page SoundCloud sur"
 msgid "has a VGMdb page at"
 msgstr "a une page VGMdb sur"
 
-#: DB:link_type/long_link_phrase:353 DB:link_type/long_link_phrase:354
-#: DB:link_type/long_link_phrase:749 DB:link_type/long_link_phrase:594
+#: DB:link_type/long_link_phrase:353 DB:link_type/long_link_phrase:749
+#: DB:link_type/long_link_phrase:594 DB:link_type/long_link_phrase:354
 #: DB:link_type/long_link_phrase:790 DB:link_type/long_link_phrase:352
-#: DB:link_type/long_link_phrase:358 DB:link_type/long_link_phrase:733
+#: DB:link_type/long_link_phrase:733 DB:link_type/long_link_phrase:358
 msgid "has a Wikidata page at"
 msgstr "a une page Wikidata sur"
 
@@ -6630,9 +6642,9 @@ msgstr "était  {assistant:assistant d’}organiste à"
 msgid "whistling"
 msgstr "sifflement"
 
-#: DB:link_type/name:351 DB:link_type/name:353 DB:link_type/name:354
-#: DB:link_type/name:749 DB:link_type/name:594 DB:link_type/name:790
-#: DB:link_type/name:352 DB:link_type/name:358 DB:link_type/name:733
+#: DB:link_type/name:351 DB:link_type/name:353 DB:link_type/name:749
+#: DB:link_type/name:594 DB:link_type/name:354 DB:link_type/name:790
+#: DB:link_type/name:352 DB:link_type/name:733 DB:link_type/name:358
 msgid "wikidata"
 msgstr "wikidata"
 
@@ -6641,6 +6653,11 @@ msgstr "wikidata"
 #: DB:link_type/name:731 DB:link_type/name:89 DB:link_type/name:789
 msgid "wikipedia"
 msgstr "wikipédia"
+
+#: DB:link_type/link_phrase:1002 DB:link_type/name:1002
+#: DB:link_type/reverse_link_phrase:1002 DB:link_type/long_link_phrase:1002
+msgid "work cataloguing"
+msgstr ""
 
 #: DB:link_type/name:921 DB:link_type/reverse_link_phrase:921
 msgid "work list entry"

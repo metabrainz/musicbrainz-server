@@ -12,6 +12,7 @@ import type {ColumnOptionsNoValue} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults';
 import Table from '../../components/Table';
+import * as manifest from '../../static/manifest';
 import {
   defineArtistRolesColumn,
   defineEntityColumn,
@@ -76,6 +77,7 @@ const WorkList = <D: {+work: ?WorkT, ...}>({
   return (
     <PaginatedResults pager={pager}>
       <Table columns={columns} data={existingWorkItems} />
+      {manifest.js('common/components/ArtistRoles', {async: 'async'})}
     </PaginatedResults>
   );
 };

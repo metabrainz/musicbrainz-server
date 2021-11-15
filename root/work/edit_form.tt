@@ -107,5 +107,5 @@
 [%- guesscase_options() -%]
 
 [%- USE JSON.Escape;
-    script_manifest('work.js', {'data-args' => work_form_json.json})
+    script_manifest('work/edit.js', {'data-args' => work_form_json.json})
 -%]

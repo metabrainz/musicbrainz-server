@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import manifest from '../static/manifest';
+import * as manifest from '../static/manifest';
 import Annotation from '../static/scripts/common/components/Annotation';
 import linkedEntities from '../static/scripts/common/linkedEntities';
 import TracklistAndCredits

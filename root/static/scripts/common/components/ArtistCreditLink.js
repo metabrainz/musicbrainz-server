@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import hydrate from '../../../../utility/hydrate';
 import informationIconUrl from '../../../images/icons/information.png';
 import Tooltip from '../../edit/components/Tooltip';
 

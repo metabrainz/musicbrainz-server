@@ -43,7 +43,6 @@ import {
   createCompoundField,
   createField,
 } from '../edit/utility/createField';
-import hydrate from '../../../utility/hydrate';
 import {
   applyAllPendingErrors,
   hasSubfieldErrors,

@@ -1,3 +1,8 @@
+/*
+ * NOTE: Please don't import anything into this file unless it truly needs
+ * to run on every single page.
+ */
+
 /* eslint-disable import/no-commonjs */
 
 /* Global polyfills not provided by core-js */
@@ -34,8 +39,6 @@ require('./common/components/CommonsImage');
 require('./common/components/FingerprintTable');
 require('./common/components/WikipediaExtract');
 require('./common/MB/Control/Autocomplete');
-require('./common/components/ReleaseEvents');
-require('./common/components/WorkArtists');
 require('./common/MB/Control/SelectAll');
 require('./common/components/TagEditor');
 require('./common/components/sidebar/AcousticBrainz');
@@ -46,6 +49,5 @@ import('./common/components/Filter');
 import('./common/MB/Control/Menu');
 import('./common/MB/edit_search');
 import('./common/ratings');
-import('./common/tagger');
 import('./common/coverart');
 import('./common/banner');

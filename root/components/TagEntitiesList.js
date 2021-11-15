@@ -17,7 +17,7 @@ import TagLink, {UserTagLink}
   from '../static/scripts/common/components/TagLink';
 import expand2text from '../static/scripts/common/i18n/expand2text';
 import {formatCount} from '../statistics/utilities';
-import UserTagVoteSelection from '../user/components/UserTagVoteSelection';
+import UserTagFilters from '../user/components/UserTagFilters';
 
 type Props = {
   +$c: CatalystContextT,
@@ -134,9 +134,10 @@ const TagEntitiesList = ({
         )}
       </h2>
       {showVotesSelect ? (
-        <UserTagVoteSelection
+        <UserTagFilters
           $c={$c}
           showDownvoted={showDownvoted}
+          showVotesSelect
         />
       ) : null}
       <p>

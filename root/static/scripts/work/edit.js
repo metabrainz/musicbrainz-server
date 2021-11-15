@@ -13,18 +13,17 @@ import mutate from 'mutate-cow';
 import * as ReactDOM from 'react-dom';
 import {createStore} from 'redux';
 
-import FormRowSelectList from '../../components/FormRowSelectList';
-import subfieldErrors from '../../utility/subfieldErrors';
-
-import {groupBy} from './common/utility/arrays';
-import getScriptArgs from './common/utility/getScriptArgs';
-import {buildOptionsTree} from './edit/forms';
-import typeBubble from './edit/typeBubble';
-import {initializeBubble} from './edit/MB/Control/Bubble';
-import {createCompoundField} from './edit/utility/createField';
-import {pushCompoundField, pushField} from './edit/utility/pushField';
-import {initializeGuessCase} from './guess-case/MB/Control/GuessCase';
-import {LANGUAGE_MUL_ID, LANGUAGE_ZXX_ID} from './common/constants';
+import FormRowSelectList from '../../../components/FormRowSelectList';
+import subfieldErrors from '../../../utility/subfieldErrors';
+import {groupBy} from '../common/utility/arrays';
+import getScriptArgs from '../common/utility/getScriptArgs';
+import {buildOptionsTree} from '../edit/forms';
+import typeBubble from '../edit/typeBubble';
+import {initializeBubble} from '../edit/MB/Control/Bubble';
+import {createCompoundField} from '../edit/utility/createField';
+import {pushCompoundField, pushField} from '../edit/utility/pushField';
+import {initializeGuessCase} from '../guess-case/MB/Control/GuessCase';
+import {LANGUAGE_MUL_ID, LANGUAGE_ZXX_ID} from '../common/constants';
 
 const scriptArgs = getScriptArgs();
 

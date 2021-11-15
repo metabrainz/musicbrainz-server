@@ -1,28 +1,6 @@
 #!/usr/bin/env perl
 
 use warnings;
-#____________________________________________________________________________
-#
-#   MusicBrainz -- the open internet music database
-#
-#   Copyright (C) 1998 Robert Kaye
-#
-#   This program is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
-#
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with this program; if not, write to the Free Software
-#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-#   $Id$
-#____________________________________________________________________________
 
 use strict;
 
@@ -35,14 +13,14 @@ use DBDefs;
 use Sql;
 
 my ($fHelp, $fIgnoreErrors);
-my $tmpdir = "/tmp";
+my $tmpdir = '/tmp';
 my $database = 'READWRITE';
 
 GetOptions(
-    "help|h"            => \$fHelp,
-    "database=s"        => \$database,
-    "ignore-errors|i!"  => \$fIgnoreErrors,
-    "tmp-dir|t=s"       => \$tmpdir,
+    'help|h'            => \$fHelp,
+    'database=s'        => \$database,
+    'ignore-errors|i!'  => \$fIgnoreErrors,
+    'tmp-dir|t=s'       => \$tmpdir,
 );
 
 sub usage
@@ -84,7 +62,7 @@ for my $arg (@ARGV)
 
     next unless $arg =~ /\.tar\.(gz|bz2)$/;
 
-    my $mode = ($1 eq "gz" ? "gzip" : "bzip2");
+    my $mode = ($1 eq 'gz' ? 'gzip' : 'bzip2');
 
     my $dir = make_tmp_dir();
     print localtime() . " : tar -C $dir --$mode -xvf $arg\n";
@@ -102,7 +80,7 @@ my $errors = 0;
 print localtime() . " : starting import\n";
 
 printf "%-30.30s %9s %4s %9s\n",
-    "Table", "Rows", "est%", "rows/sec",
+    'Table', 'Rows', 'est%', 'rows/sec',
     ;
 
 ImportReplicationTables();
@@ -131,7 +109,7 @@ sub ImportTable
     my $p = sub {
         my ($pre, $post) = @_;
         no integer;
-        printf $pre."%-30.30s %9d %3d%% %9d".$post,
+        printf $pre.'%-30.30s %9d %3d%% %9d'.$post,
                 $table, $rows, int(100 * tell(LOAD) / $size),
                 $rows / ($interval||1);
     };
@@ -140,13 +118,13 @@ sub ImportTable
 
     eval
     {
-        open(LOAD, "<:encoding(utf8)", $file) or die "open $file: $!";
+        open(LOAD, '<:encoding(utf8)', $file) or die "open $file: $!";
 
         $sql->begin;
         my $dbh = $sql->dbh; # issues a ping, must be done before COPY
         $sql->do("COPY $table FROM stdin");
 
-        $p->("", "");
+        $p->('', '');
 
         while (<LOAD>)
         {
@@ -156,7 +134,7 @@ sub ImportTable
                 unless ($rows & 0xFFF)
                 {
                         $interval = tv_interval($t1);
-                        $p->("\r", "");
+                        $p->("\r", '');
                 }
         }
 
@@ -170,7 +148,7 @@ sub ImportTable
 
         $sql->commit;
 
-        die "Error loading data"
+        die 'Error loading data'
                 if -f $file and empty($table);
 
         ++$tables;
@@ -274,4 +252,12 @@ sub find_file
     }
 }
 
-# vi: set ts=4 sw=4 :
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 1998 Robert Kaye
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut

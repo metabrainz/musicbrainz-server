@@ -1,9 +1,9 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
-import MB from './common/MB';
-import {getUnicodeUrl} from './edit/externalLinks';
-import {registerEvents} from './edit/URLCleanup';
+import MB from '../common/MB';
+import {getUnicodeUrl} from '../edit/externalLinks';
+import {registerEvents} from '../edit/URLCleanup';
 
 $(function () {
   var $urlControl = $('#id-edit-url\\.url');

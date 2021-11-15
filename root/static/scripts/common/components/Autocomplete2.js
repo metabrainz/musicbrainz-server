@@ -132,6 +132,8 @@ type InitialStateT<T: EntityItemT> = {
   +width?: string,
 };
 
+const EMPTY_ITEMS: $ReadOnlyArray<ItemT<empty>> = Object.freeze([]);
+
 export function createInitialState<+T: EntityItemT>(
   initialState: InitialStateT<T>,
 ): {...StateT<T>} {
@@ -156,7 +158,7 @@ export function createInitialState<+T: EntityItemT>(
     );
   }
 
-  const state: $Shape<{...StateT<T>}> = {
+  const state: {...StateT<T>} = {
     activeUser: null,
     entityType,
     error: 0,
@@ -164,6 +166,7 @@ export function createInitialState<+T: EntityItemT>(
     indexedSearch: true,
     inputValue,
     isOpen: false,
+    items: EMPTY_ITEMS,
     page: 1,
     pendingSearch: null,
     recentItems: null,

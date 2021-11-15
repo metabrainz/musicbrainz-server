@@ -292,20 +292,35 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     );
   }
 
-  if (showCaaPresence &&
-    entity.entityType === 'release' &&
-    entity.cover_art_presence === 'present') {
-    content = (
-      <>
-        <a href={'/release/' + entity.gid + '/cover-art'}>
+  if (showCaaPresence) {
+    if (entity.entityType === 'release' &&
+        entity.cover_art_presence === 'present') {
+      content = (
+        <>
+          <a href={'/release/' + entity.gid + '/cover-art'}>
+            <span
+              className="caa-icon"
+              title={l('This release has artwork in the Cover Art Archive')}
+            />
+          </a>
+          {content}
+        </>
+      );
+    }
+
+    if (entity.entityType === 'release_group' && entity.hasCoverArt) {
+      content = (
+        <>
           <span
             className="caa-icon"
-            title={l('This release has artwork in the Cover Art Archive')}
+            title={l(
+              'This release group has artwork in the Cover Art Archive',
+            )}
           />
-        </a>
-        {content}
-      </>
-    );
+          {content}
+        </>
+      );
+    }
   }
 
   if (!subPath && entity.entityType === 'release') {

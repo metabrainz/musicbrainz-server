@@ -4,7 +4,7 @@ use MooseX::Role::Parameterized;
 use MooseX::Types::Moose qw( ArrayRef );
 use MusicBrainz::Server::Entity::Types;
 
-use List::UtilsBy qw( sort_by );
+use List::AllUtils qw( sort_by );
 
 parameter name => (
     isa => 'Str',

@@ -10,29 +10,72 @@
 import * as React from 'react';
 
 import {bracketedText} from '../utility/bracketed';
+import {kebabCase} from '../utility/strings';
+import {SidebarProperty}
+  from '../../../../layout/components/sidebar/SidebarProperties';
 
-type Props = {
-  +entity: WorkT,
-};
+import CollapsibleList from './CollapsibleList';
 
-const AttributeList = ({entity}: Props): React.Element<'ul'> | null => (
-  entity.attributes ? (
-    <ul>
-      {entity.attributes.map(attribute => (
-        <li key={attribute.id}>
-          {lp_attributes(
-            attribute.value,
-            'work_attribute_type_allowed_value',
-          )}
-          {' '}
-          {bracketedText(lp_attributes(
-            attribute.typeName,
-            'work_attribute_type',
-          ))}
-        </li>
-      ))}
-    </ul>
-  ) : null
+const buildAttributeListRow = (attribute) => (
+  <li
+    className={'work-attribute work-attribute-' +
+      kebabCase(attribute.typeName)}
+    key={attribute.id}
+  >
+    {attribute.value_id == null
+      ? attribute.value
+      : lp_attributes(
+        attribute.value, 'work_attribute_type_allowed_value',
+      )}
+    {' '}
+    {bracketedText(lp_attributes(
+      attribute.typeName,
+      'work_attribute_type',
+    ))}
+  </li>
 );
 
-export default AttributeList;
+const buildAttributeSidebarRow = (attribute) => (
+  <SidebarProperty
+    className={'work-attribute work-attribute-' +
+      kebabCase(attribute.typeName)}
+    key={attribute.id}
+    label={addColonText(
+      lp_attributes(attribute.typeName, 'work_attribute_type'),
+    )}
+  >
+    {attribute.value_id == null
+      ? attribute.value
+      : lp_attributes(
+        attribute.value, 'work_attribute_type_allowed_value',
+      )}
+  </SidebarProperty>
+);
+
+type AttributeListProps = {|
+  +attributes: ?$ReadOnlyArray<WorkAttributeT>,
+  +isSidebar?: boolean,
+|};
+
+const AttributeList = ({
+  attributes,
+  isSidebar = false,
+}: AttributeListProps) => (
+  <CollapsibleList
+    ContainerElement={isSidebar ? 'dl' : 'ul'}
+    InnerElement={isSidebar ? 'p' : 'li'}
+    ariaLabel={l('Work Attributes')}
+    buildRow={isSidebar ? buildAttributeSidebarRow : buildAttributeListRow}
+    className={isSidebar ? 'properties work-attributes' : 'work-attributes'}
+    rows={attributes}
+    showAllTitle={l('Show all attributes')}
+    showLessTitle={l('Show less attributes')}
+    toShowAfter={1}
+    toShowBefore={2}
+  />
+);
+
+export default (hydrate<AttributeListProps>(
+  'div.entity-attributes-container',
+  AttributeList,
+): React.AbstractComponent<AttributeListProps, void>);

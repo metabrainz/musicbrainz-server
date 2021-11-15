@@ -33,8 +33,7 @@ use MusicBrainz::Server::Constants qw(
     entities_with
 );
 use Scalar::Util 'weaken';
-use List::AllUtils qw( any part uniq );
-use List::UtilsBy qw( nsort_by partition_by );
+use List::AllUtils qw( any nsort_by part partition_by uniq );
 use aliased 'MusicBrainz::Server::Entity::RelationshipTargetTypeGroup';
 use aliased 'MusicBrainz::Server::Entity::RelationshipLinkTypeGroup';
 
@@ -518,6 +517,43 @@ sub all_pairs
     return @all;
 }
 
+sub get_types_for_timeline
+{
+    my $self = shift;
+
+    my %rel_types;
+
+    for my $t ($self->all_pairs) {
+        my $table = join('_', 'l', @$t);
+        my $data = $self->sql->select_list_of_hashes(<<~"SQL", @$t);
+                SELECT link_type_filtered.id,
+                       link_type_filtered.name,
+                       link_type_filtered.parent,
+                       count(l_table.id)
+                  FROM $table l_table
+            RIGHT JOIN link ON l_table.link = link.id
+            RIGHT JOIN (SELECT *
+                          FROM link_type
+                         WHERE entity_type0 = ?
+                           AND entity_type1 = ?) link_type_filtered
+                    ON link.link_type = link_type_filtered.id
+              GROUP BY link_type_filtered.name,
+                       link_type_filtered.id,
+                       link_type_filtered.parent
+            SQL
+
+        for (@$data) {
+            $rel_types{ $table . '.' . $_->{name} } = {
+                entity0 => @$t[0],
+                entity1 => @$t[1],
+                name => $_->{name},
+            }
+        }
+    }
+
+    return %rel_types;
+}
+
 sub merge_entities {
     my ($self, $type, $target_id, $source_ids, %opts) = @_;
 
@@ -535,7 +571,7 @@ sub merge_entities {
         begin_date_year begin_date_month begin_date_day
         end_date_year end_date_month end_date_day ended
     );
-    my $comma_sep_date_fields = join ', ', @date_fields;
+    my $comma_sep_date_fields = join q(, ), @date_fields;
 
     my $do_table_merge = sub {
         my ($table, $entity0, $entity1) = @_;

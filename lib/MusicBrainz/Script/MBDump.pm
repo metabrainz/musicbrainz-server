@@ -45,7 +45,7 @@ has export_dir => (
 has output_dir => (
     is => 'rw',
     isa => 'Str',
-    default => '.',
+    default => q(.),
 );
 
 has compression => (

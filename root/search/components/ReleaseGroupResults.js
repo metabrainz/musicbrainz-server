@@ -31,7 +31,7 @@ function buildResult(result, index) {
       key={releaseGroup.id}
     >
       <td>
-        <EntityLink entity={releaseGroup} />
+        <EntityLink entity={releaseGroup} showCaaPresence />
       </td>
       <td>
         <ArtistCreditLink artistCredit={releaseGroup.artistCredit} />

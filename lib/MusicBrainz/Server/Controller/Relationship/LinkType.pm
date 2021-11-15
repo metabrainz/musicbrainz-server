@@ -4,7 +4,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use Sql;
-use List::UtilsBy qw( partition_by sort_by );
+use List::AllUtils qw( partition_by sort_by );
 use MusicBrainz::Server::Data::Relationship;
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash type_to_model );
 use MusicBrainz::Server::Constants qw(

@@ -10,23 +10,19 @@
 import * as React from 'react';
 
 import CountryAbbr from '../../../../components/CountryAbbr';
-import hydrate from '../../../../utility/hydrate';
-import {bracketedText} from '../utility/bracketed';
 import formatDate from '../utility/formatDate';
 import isDateEmpty from '../utility/isDateEmpty';
 
+import CollapsibleList from './CollapsibleList';
 import EntityLink from './EntityLink';
-
-const TO_SHOW_BEFORE = 2;
-const TO_SHOW_AFTER = 1;
-const TO_TRIGGER_COLLAPSE = TO_SHOW_BEFORE + TO_SHOW_AFTER + 2;
 
 const releaseEventKey = event => (
   String(event.country ? event.country.id : '') + '\0' +
   formatDate(event.date)
 );
 
-const buildReleaseEventRow = (event, abbreviated) => {
+const buildReleaseEventRow = (event, props) => {
+  const abbreviated = !!(props?.abbreviated);
   const country = event.country;
   const hasDate = !isDateEmpty(event.date);
 
@@ -85,76 +81,19 @@ type ReleaseEventsProps = {|
 const ReleaseEvents = ({
   abbreviated = true,
   events,
-}: ReleaseEventsProps) => {
-  const [expanded, setExpanded] = React.useState<boolean>(false);
-
-  const expand = React.useCallback(event => {
-    event.preventDefault();
-    setExpanded(true);
-  });
-
-  const collapse = React.useCallback(event => {
-    event.preventDefault();
-    setExpanded(false);
-  });
-
-  const containerProps = {
-    'aria-label': l('Release events'),
-    'className': 'release-events' +
-      (abbreviated ? ' abbreviated' : ' links'),
-  };
-
-  const tooManyEvents = events
-    ? events.length >= TO_TRIGGER_COLLAPSE
-    : false;
-
-  return (
-    (events && events.length) ? (
-      <>
-        {(tooManyEvents && !expanded) ? (
-          <>
-            <ul {...containerProps}>
-              {events.slice(0, TO_SHOW_BEFORE).map(
-                event => buildReleaseEventRow(event, abbreviated),
-              )}
-              <li className="show-all" key="show-all">
-                <a
-                  href="#"
-                  onClick={expand}
-                  role="button"
-                  title={l('Show all release events')}
-                >
-                  {bracketedText(texp.l('show {n} more', {
-                    n: events.length - (TO_SHOW_BEFORE + TO_SHOW_AFTER),
-                  }))}
-                </a>
-              </li>
-              {events.slice(-TO_SHOW_AFTER).map(
-                event => buildReleaseEventRow(event, abbreviated),
-              )}
-            </ul>
-          </>
-        ) : (
-          <ul {...containerProps}>
-            {events.map(event => buildReleaseEventRow(event, abbreviated))}
-            {tooManyEvents && expanded ? (
-              <li className="show-less" key="show-less">
-                <a
-                  href="#"
-                  onClick={collapse}
-                  role="button"
-                  title={l('Show less release events')}
-                >
-                  {bracketedText(l('show less'))}
-                </a>
-              </li>
-            ) : null}
-          </ul>
-        )}
-      </>
-    ) : null
-  );
-};
+}: ReleaseEventsProps) => (
+  <CollapsibleList
+    ariaLabel={l('Release events')}
+    buildRow={buildReleaseEventRow}
+    buildRowProps={{abbreviated: abbreviated}}
+    className={'release-events' + (abbreviated ? ' abbreviated' : ' links')}
+    rows={events}
+    showAllTitle={l('Show all release events')}
+    showLessTitle={l('Show less release events')}
+    toShowAfter={1}
+    toShowBefore={2}
+  />
+);
 
 export default (hydrate<ReleaseEventsProps>(
   'div.release-events-container',

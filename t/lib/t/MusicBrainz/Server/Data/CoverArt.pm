@@ -4,7 +4,7 @@ use Test::Moose;
 use Test::More;
 
 use DBDefs;
-use List::Util qw( first );
+use List::AllUtils qw( first );
 use LWP::UserAgent;
 use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Constants qw( :direction );
@@ -32,7 +32,7 @@ test 'Parses valid cover art relationships' => sub {
     my $release = make_release('cover art link', 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg');
 
     $test->c->model('CoverArt')->load($release);
-    ok($release->has_cover_art);
+    ok($release->has_loaded_cover_art);
     is($release->cover_art->provider->name, 'archive.org');
     is($release->cover_art->image_uri, 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg');
 
@@ -41,10 +41,10 @@ test 'Parses valid cover art relationships' => sub {
 test 'Doesnt parse invalid cover art relationships' => sub {
     my $test = shift;
 
-    my $release = make_release('cover art link', 'http://www.google.com');
+    my $release = make_release('cover art link', 'http://www.link.example');
 
     $test->c->model('CoverArt')->load($release);
-    ok(!$release->has_cover_art);
+    ok(!$release->has_loaded_cover_art);
 
 };
 
@@ -57,7 +57,7 @@ test 'Handles Amazon ASINs' => sub {
     my $release = make_release('amazon asin', 'http://www.amazon.com/gp/product/B000003TA4');
 
     $test->c->model('CoverArt')->load($release);
-    ok($release->has_cover_art);
+    ok($release->has_loaded_cover_art);
     ok($test->ua->get($release->cover_art->image_uri)->is_success);
 
 };
@@ -71,7 +71,7 @@ test 'Handles Amazon ASINs for downloads' => sub {
     my $release = make_release('amazon asin', 'http://www.amazon.com/gp/product/B00544JMLA');
 
     $test->c->model('CoverArt')->load($release);
-    ok($release->has_cover_art);
+    ok($release->has_loaded_cover_art);
     ok($test->ua->get($release->cover_art->image_uri)->is_success);
 };
 

@@ -13,6 +13,7 @@ import PaginatedResults from '../components/PaginatedResults';
 import Relationships from '../components/Relationships';
 import ReleaseLabelList from '../components/ReleaseLabelList';
 import ReleaseCatnoList from '../components/ReleaseCatnoList';
+import * as manifest from '../static/manifest';
 import Annotation from '../static/scripts/common/components/Annotation';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink';
@@ -125,6 +126,10 @@ const RecordingAppearancesTable = ({
                   </td>
                   <td>
                     <ReleaseEvents events={release.events} />
+                    {manifest.js(
+                      'common/components/ReleaseEvents',
+                      {async: 'async'},
+                    )}
                   </td>
                   <td>
                     <ReleaseLabelList labels={release.labels} />
@@ -132,9 +137,14 @@ const RecordingAppearancesTable = ({
                   <td>
                     <ReleaseCatnoList labels={release.labels} />
                   </td>
-                  {$c?.session?.tport == null
-                    ? null
-                    : <td><TaggerIcon entity={release} /></td>}
+                  {$c.session?.tport == null ? null : (
+                    <td>
+                      <TaggerIcon
+                        entityType="release"
+                        gid={release.gid}
+                      />
+                    </td>
+                  )}
                 </tr>
               );
             })}

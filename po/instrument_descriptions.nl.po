@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-10-04 16:12+0000\n"
+"PO-Revision-Date: 2021-11-10 20:22+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -141,16 +141,6 @@ msgid ""
 "is in fact a zither with a keyboard."
 msgstr "Een dolceola is een muziekinstrument dat lijkt op een minipiano, maar eigenlijk een citer met een toetsenbord is."
 
-#. name:five-string banjo
-#: DB:instrument/description:523
-msgid "A five-string banjo is a banjo with five strings."
-msgstr "Een vijfsnarige banjo is een banjo met vijf snaren."
-
-#. name:four-string banjo
-#: DB:instrument/description:656
-msgid "A four-string banjo is a banjo with four strings."
-msgstr "Een viersnarige banjo is een banjo met vier snaren."
-
 #. name:gong bass drum
 #: DB:instrument/description:639
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
@@ -282,12 +272,6 @@ msgid ""
 "A tar is a single-headed frame drum from North Africa and the Middle East."
 msgstr "Een tar is een lijsttrommel met één vel uit Noord-Afrika en het Midden-Oosten."
 
-#. name:tenor banjo
-#: DB:instrument/description:657
-msgid ""
-"A tenor banjo is a four-string banjo with tenor tuning, usually C G D A."
-msgstr "Een tenorbanjo is een viersnarige banjo die als tenor is gestemd, meestal C G D A."
-
 #. name:tom-tom
 #: DB:instrument/description:462
 msgid ""
@@ -327,6 +311,14 @@ msgstr "Een houten dubbelrietinstrument met een conische boring uit de 16de en 1
 msgid "Acoustic guitar without frets."
 msgstr "Akoestische gitaar zonder fretten."
 
+#. name:cello
+#: DB:instrument/description:60
+msgid ""
+"Also know as violoncello (the \"small large viol\"), it is the medium bass "
+"member of the modern violin family and a principal member of the symphony "
+"orchestra."
+msgstr "De cello wordt ook violoncello (kleine grote altviool) genoemd. Het is het een-na-laagst klinkende lid van de moderne vioolfamilie. Het instrument is een belangrijk onderdeel van moderne symfonieorkesten."
+
 #. name:diatonic button accordion
 #: DB:instrument/description:361
 msgid ""
@@ -342,7 +334,7 @@ msgid ""
 " which a single string is suspended and attached to the membrane. <br /> For"
 " the one string lute also called \"ektar\" see <a "
 "href=\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a><br />"
-msgstr "Een ektara, ook ektar of ektara genoemd, is een snaarinstrument met een klankkast van hout of kokosnoot met een membraan aan de onderkant. De hals van gespleten bamboe zit vast aan de zijkant van de kast en er loopt één snaar van de hals naar het membraan.<br />De luit met één snaar die ook ektar wordt genoemd, kun je vinden onder <a href=\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br />"
+msgstr "Een ektara, ook ektar of ektara genoemd, is een snaarinstrument met een klankkast van hout of kokosnoot met een membraan aan de onderkant. De hals van gespleten bamboe zit vast aan de zijkant van de kast en er loopt één snaar van de hals naar het membraan.<br />De luit met één snaar die ook ektar wordt genoemd, kan je vinden onder <a href=\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br />"
 
 #. name:repeater
 #: DB:instrument/description:882
@@ -551,11 +543,6 @@ msgid ""
 "an integral piezoelectric sensor."
 msgstr "De Gravikord is gebaseerd op het polyritme van de Afrikaanse kora en kalimba en de Japanse koto. Het is een elektroakoestisch instrument bestaande uit een frame van rvs met 24 nylonsnaren en een geïntegreerde piezo-elektrische sensor."
 
-#. name:bass guitar
-#: DB:instrument/description:207
-msgid "Bass (modern, typically electrical, but not always)"
-msgstr "Een basgitaar is meestal elektrisch maar niet altijd."
-
 #. name:bass
 #: DB:instrument/description:47
 msgid ""
@@ -581,6 +568,15 @@ msgstr "De berda is een soort contrabas uit de Balkan met vier dikke metalen sna
 #: DB:instrument/description:757
 msgid "Bass member of the garifuna drum group."
 msgstr "De segunda is de bastrommel van de garifunatrommels."
+
+#. name:bass guitar
+#: DB:instrument/description:207
+msgid ""
+"Bass member of the guitar family. For the electric variant use <a "
+"href=\"/instrument/0b9d87fa-93fa-4956-8b6a-a419566cc915\">electric bass "
+"guitar</a> for the acoustic one, use <a href=\"/instrument/15861569-249d-"
+"4b24-8ce4-d0b001b1f978\">acoustic bass guitar</a>"
+msgstr "De basgitaar is de basvariant van de gitaarfamilie. Gebruik voor de elektrische variant <a href=\"/instrument/0b9d87fa-93fa-4956-8b6a-a419566cc915\">elektrische basgitaar</a> en voor de akoestische variant <a href=\"/instrument/15861569-249d-4b24-8ce4-d0b001b1f978\">akoestische basgitaar</a>."
 
 #. name:lirone
 #: DB:instrument/description:697
@@ -1136,6 +1132,14 @@ msgid ""
 "Floppy Drives configured to produce tones while reading, software is used."
 msgstr "Floppydrives die door middel van software geluiden produceren tijdens het lezen."
 
+#. name:hardingfele
+#: DB:instrument/description:78
+msgid ""
+"Folk-fiddle from Hardanger, Norway. It has 4 melody- and 4-5 drone-strings, "
+"it is richly decorated and used in the traditional \"halling\" folk music "
+"and dance."
+msgstr "De hardangerviool is een viool uit de regio Hardanger in Noorwegen met vier melodiesnaren en vier tot vijf resonantiesnaren. Het instrument is meestal rijk versierd en wordt gebruikt bij traditionele hallingmuziek en -dans."
+
 #. name:lira da braccio
 #: DB:instrument/description:1016
 msgid ""
@@ -1397,6 +1401,13 @@ msgid ""
 " kacapis."
 msgstr "De katjapi siter is een moderne variant van de katjapi. Het is geïnspireerd door westerse citers en heeft twintig snaren en een plattere klankkast."
 
+#. name:Stroh violin
+#: DB:instrument/description:451
+msgid ""
+"Instead of a wooden body, it is amplified by a metal horn resonator; its "
+"louder and more directional sound made it useful in loud areas."
+msgstr "De violofoon (ook wel strohviool, trompetviool of schaatsviool genoemd) is een viool met een metalen hoorn in plaats van een houten klankkast. Het geluid is luider en meer gericht, wat deze viool geschikt maakt voor omgevingen met veel lawaai."
+
 #. name:Indonesian rebab
 #: DB:instrument/description:1011
 msgid ""
@@ -1467,6 +1478,15 @@ msgid ""
 "lute\""
 msgstr "De yueqin heeft een korte hals met fretten en vier snaren die traditioneel van zijde, maar tegenwoordig van nylon of staal worden gemaakt. Dankzij de schijfvormige klankkast heeft het instrument de bijnamen maangitaar en maanciter."
 
+#. name:viola
+#: DB:instrument/description:63
+msgid ""
+"It is known by many names, based on the full \"alto de viola da braccio\": "
+"\"alto\", \"bratsch (braccio)\", \"viola\", etc. <br /> It is the alto "
+"member of the modern violin family and a principal member of the symphony "
+"orchestra."
+msgstr "De altviool, ook wel viola, alto of bratsche genoemd (allemaal afgeleid van de volledige Italiaanse naam ‘alto de viola da braccio’), is de alt van de moderne vioolfamilie en een belangrijk onderdeel van een symfonieorkest."
+
 #. name:yangqin
 #: DB:instrument/description:254
 msgid ""
@@ -1511,7 +1531,7 @@ msgstr "Klong that zijn grote vattrommels uit Thailand. Ze worden bespeeld met e
 #: DB:instrument/description:48
 msgid ""
 "Known also as contrabass or upright bass, it is the largest and lowest-"
-"pitched member of the modern violin family, it is a principal member of the "
+"pitched member of the modern violin family and a principal member of the "
 "symphony orchestra."
 msgstr "Een contrabas, ook wel staande bas of simpelweg bas genoemd, is het grootste en laagst klinkende lid van de moderne vioolfamilie. Het instrument is een belangrijk onderdeel van moderne symfonieorkesten."
 
@@ -1559,6 +1579,13 @@ msgid ""
 "Krakebs are large metal castanet-like instruments which are the primary "
 "rhythmic component of Gnawa music."
 msgstr "Krakebs zijn grote metalen castagnettenachtige instrumenten die vooral gebruikt worden voor de ritmische component van de Gnawamuziek."
+
+#. name:four-string banjo
+#: DB:instrument/description:656
+msgid ""
+"Lacking the short drone string of its predecessor, it is usually played with"
+" a plectrum and has 22 frets."
+msgstr "Bij de viersnarige banjo ontbreekt de bourdonsnaar. Het instrument wordt meestal met een plectrum bespeeld en heeft 22 fretten."
 
 #. name:lamellaphone
 #: DB:instrument/description:632
@@ -2555,6 +2582,13 @@ msgstr "De flabiol is een kleine Catalaanse flageolet die wordt bespeeld in het 
 msgid "Small Polish traditional fiddle."
 msgstr "Een oktawa is een kleine traditionele Poolse viool."
 
+#. name:cavaquinho
+#: DB:instrument/description:524
+msgid ""
+"Small Portuguese lute with four wire or gut strings, it has many descendants"
+" in South and Latin America."
+msgstr "De cavaquinho is een kleine Portugese luit met vier staal- of darmsnaren. In Zuid- en Latijns-Amerika zijn veel afgeleide instrumenten te vinden."
+
 #. name:lyra viol
 #: DB:instrument/description:925
 msgid ""
@@ -2591,6 +2625,13 @@ msgid ""
 "href=\"/instrument/14acd267-2e1b-459d-b41e-058d2c106345\">gendhing</a>.<br "
 "/> In Sunda it is known as kendhang katipung"
 msgstr "De kendang ketipoeng is de kleinste kendang. Het instrument wordt vaak samen met de <a href=\"/instrument/14acd267-2e1b-459d-b41e-058d2c106345\">gending</a> bespeeld.<br />In Soenda heet het instrument kendang katipoeng."
+
+#. name:electric bass guitar
+#: DB:instrument/description:51
+msgid ""
+"Solid body 4-stringed electric bass guitar. The most common for \"bass "
+"guitar\" and \"bass\" credits in popular (rock) music."
+msgstr "De elektrische basgitaar heeft vier snaren en geen holle klankkast. Als in de pop- of rockmuziek een ‘basgitaar’ of ‘bas’ wordt vermeld, gaat het meestal om dit instrument."
 
 #. name:Mark tree
 #: DB:instrument/description:637
@@ -2736,13 +2777,6 @@ msgid ""
 "The Schwyzerörgeli is a type of diatonic button accordion used in Swiss folk"
 " music."
 msgstr "Een Schwyzerörgeli is een soort diatonische knopaccordeon die wordt gebruikt voor Zwitserse volksmuziek."
-
-#. name:Stroh violin
-#: DB:instrument/description:451
-msgid ""
-"The Stroh violin is a violin with a metal resonator and horn rather than a "
-"wooden body."
-msgstr "Ook wel strohviool, trompetviool of schaatsviool. Een viool met een hoorn in plaats van een houten klankkast."
 
 #. name:Vienna horn
 #: DB:instrument/description:562
@@ -3006,13 +3040,6 @@ msgid ""
 "The buzuq is a long-necked fretted lute related to the Greek bouzouki and "
 "Turkish saz which is associated with the music of Lebanon and Syria."
 msgstr "Een buzuq is een luit met een lange hals en fretten en is gerelateerd aan de Griekse bouzouki en de Turkse saz. Hij wordt geassocieerd met muziek uit Libanon en Syrië."
-
-#. name:cavaquinho
-#: DB:instrument/description:524
-msgid ""
-"The cavaquinho is a small plucked string instrument of Portuguese origin "
-"with four wire or gut strings"
-msgstr "De cavaquinho is een klein tokkelinstrument van Portugese origine met vier snaren van draad of darm."
 
 #. name:caxixi
 #: DB:instrument/description:489
@@ -3600,6 +3627,21 @@ msgid ""
 "The minipiano is a type of piano in which the sound producing mechanism is "
 "positioned below the keyboard, allowing an economical use of space."
 msgstr "Een minipiano is een piano waarbij het mechanisme zich onder de toetsen bevindt, waardoor er efficiënt gebruik wordt gemaakt van de ruimte."
+
+#. name:five-string banjo
+#: DB:instrument/description:523
+msgid ""
+"The most common and based on the original design, its fifth string is "
+"shorter than the others, creating an uneven pitch progression."
+msgstr "De vijfsnarige banjo is de meest voorkomende variant. De vijfde snaar is korter dan de andere, wat zorgt voor een ongelijk toonverloop."
+
+#. name:violin
+#: DB:instrument/description:62
+msgid ""
+"The most famous member of the violin family, it is actually the \"small "
+"viol\". Its register is soprano and it's a principal member of the symphony "
+"orchestra."
+msgstr "De viool is het beroemdste lid van de vioolfamilie. De Italiaanse naam betekent eigenlijk ‘kleine altviool’. Het register is sopraan en het instrument is een belangrijk onderdeel van een symfonieorkest."
 
 #. name:mridangam
 #: DB:instrument/description:475
@@ -4508,6 +4550,11 @@ msgid ""
 "announcements like war, welcoming people and kumara planting."
 msgstr "Een puukaea is een houten trompet met een lengte tot 2,5 meter. Hij werd gebruikt voor verschillende aankondigen, bijvoorbeeld tijdens oorlogen, om mensen te verwelkomen en bij het planten van kumara-aardappelen."
 
+#. name:tenor banjo
+#: DB:instrument/description:657
+msgid "Used as rhythm accompaniment, it has a shorter neck and 17-19 frets"
+msgstr "De tenorbanjo wordt voor ritmische begeleiding gebruikt. Het instrument heeft een kortere hals en 17 tot 19 fretten."
+
 #. name:clapstick
 #: DB:instrument/description:955
 msgid ""
@@ -4863,11 +4910,6 @@ msgid ""
 "also just \"kū\", a mouthbow with a single string, struck with a light "
 "implement of bone or wood."
 msgstr "Een te kuu, ook wel gewoon ‘kuu’ genoemd, is een mondboog met een enkele snaar die met een klein stukje bot of hout wordt aangeslagen."
-
-#. name:cello
-#: DB:instrument/description:60
-msgid "also know as violoncello"
-msgstr "De cello (kort voor violoncello) is een strijkinstrument uit de vioolfamilie van ongeveer 120 cm lang."
 
 #. name:samica
 #: DB:instrument/description:830

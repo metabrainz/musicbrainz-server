@@ -27,7 +27,6 @@ import Autocomplete from '../../common/components/Autocomplete';
 import Warning from '../../common/components/Warning';
 import {N_lp_attributes} from '../../common/i18n/attributes';
 import {pushCompoundField} from '../../edit/utility/pushField';
-import hydrate from '../../../../utility/hydrate';
 
 // Models just what we need from root/static/scripts/common/entity.js
 type AreaClassT = {

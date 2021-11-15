@@ -5,7 +5,7 @@ use strict;
 
 use base 'Exporter';
 use Class::Load qw( load_class );
-use List::UtilsBy qw( sort_by );
+use List::AllUtils qw( any sort_by );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 
 our @EXPORT_OK = qw(
@@ -159,8 +159,8 @@ sub serialize_aliases {
             # We make sure a track AC is set (i.e. this is a recording)
             # to avoid breaking stuff that expects track artist aliases
             if (my $track_ac = $stash->{track_artist_credit}) {
-                return if (grep { $_->artist_id == $entity->id } $release_ac->all_names);
-                return if (grep { $_->artist_id == $entity->id } $track_ac->all_names);
+                return if (any { $_->artist_id == $entity->id } $release_ac->all_names);
+                return if (any { $_->artist_id == $entity->id } $track_ac->all_names);
             }
         }
     }
@@ -286,10 +286,10 @@ sub serialize_tags {
 
     if ($entity->isa('MusicBrainz::Server::Entity::Artist')) {
         if (my $release_ac = $stash->{release_artist_credit}) {
-            return if (grep { $_->artist_id == $entity->id } $release_ac->all_names);
+            return if (any { $_->artist_id == $entity->id } $release_ac->all_names);
         }
         if (my $track_ac = $stash->{track_artist_credit}) {
-            return if (grep { $_->artist_id == $entity->id } $track_ac->all_names);
+            return if (any { $_->artist_id == $entity->id } $track_ac->all_names);
         }
     }
 

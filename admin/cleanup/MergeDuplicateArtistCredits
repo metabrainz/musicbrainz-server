@@ -32,7 +32,7 @@ use FindBin;
 use lib "$FindBin::Bin/../../lib";
 
 use Getopt::Long qw( GetOptions );
-use List::MoreUtils qw( natatime );
+use List::AllUtils qw( natatime );
 use Pod::Usage qw( pod2usage );
 use MusicBrainz::Server::Constants qw(
     %ENTITIES

@@ -1,9 +1,9 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
-import {SERIES_ORDERING_TYPE_AUTOMATIC} from './common/constants';
-import MB from './common/MB';
-import initializeDuplicateChecker from './edit/check-duplicates';
+import {SERIES_ORDERING_TYPE_AUTOMATIC} from '../common/constants';
+import MB from '../common/MB';
+import initializeDuplicateChecker from '../edit/check-duplicates';
 
 $(function () {
   var $type = $('#id-edit-series\\.type_id');

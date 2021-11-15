@@ -8,7 +8,7 @@ use MusicBrainz::Server::Entity::Util::JSON qw(
     to_json_array
     to_json_object
 );
-use List::UtilsBy qw( uniq_by );
+use List::AllUtils qw( uniq_by );
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Taggable';

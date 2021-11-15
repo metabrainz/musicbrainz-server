@@ -215,6 +215,7 @@ msgid "Spanish acoustic guitar"
 msgstr ""
 
 #: DB:instrument/name:451
+msgctxt "Horn-amplified violin"
 msgid "Stroh violin"
 msgstr ""
 
@@ -878,6 +879,7 @@ msgid "castanets"
 msgstr ""
 
 #: DB:instrument/name:524
+msgctxt "Small four-stringed Portugesian lute"
 msgid "cavaquinho"
 msgstr ""
 
@@ -891,6 +893,7 @@ msgid "celesta"
 msgstr ""
 
 #: DB:instrument/name:60
+msgctxt "Small bass of modern violin family"
 msgid "cello"
 msgstr ""
 
@@ -3739,6 +3742,7 @@ msgid "temür khuur"
 msgstr ""
 
 #: DB:instrument/name:657
+msgctxt "4 string tenor banjo"
 msgid "tenor banjo"
 msgstr ""
 
@@ -3877,7 +3881,7 @@ msgid "treble recorder / alto recorder"
 msgstr ""
 
 #: DB:instrument/name:921
-msgctxt "Treble/descant member of the viol family"
+msgctxt "Treble/soprano member of the viol family"
 msgid "treble viol"
 msgstr ""
 
@@ -4107,6 +4111,7 @@ msgid "viol family"
 msgstr ""
 
 #: DB:instrument/name:63
+msgctxt "Alto of modern violin family"
 msgid "viola"
 msgstr ""
 
@@ -4130,6 +4135,7 @@ msgid "viola organista"
 msgstr ""
 
 #: DB:instrument/name:62
+msgctxt "Soprano of modern violin family"
 msgid "violin"
 msgstr ""
 

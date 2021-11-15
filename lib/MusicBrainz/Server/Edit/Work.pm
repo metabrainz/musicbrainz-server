@@ -1,5 +1,5 @@
 package MusicBrainz::Server::Edit::Work;
-use List::UtilsBy qw( partition_by );
+use List::AllUtils qw( partition_by );
 use Moose::Role;
 use namespace::autoclean;
 

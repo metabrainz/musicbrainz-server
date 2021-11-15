@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import EntityHeader from '../components/EntityHeader';
+import * as manifest from '../static/manifest';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink';
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
@@ -31,7 +32,12 @@ const RecordingHeader = ({
       entity={recording}
       headerClass="recordingheader"
       page={page}
-      preHeader={<TaggerIcon entity={recording} />}
+      preHeader={
+        <>
+          <TaggerIcon entityType="recording" gid={recording.gid} />
+          {manifest.js('common/components/TaggerIcon', {async: 'async'})}
+        </>
+      }
       subHeading={recording.video
         ? exp.l('Video by {artist}', lArgs)
         : exp.l('Recording by {artist}', lArgs)}
