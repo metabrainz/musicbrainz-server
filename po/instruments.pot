@@ -3881,7 +3881,7 @@ msgid "treble recorder / alto recorder"
 msgstr ""
 
 #: DB:instrument/name:921
-msgctxt "Treble/descant member of the viol family"
+msgctxt "Treble/soprano member of the viol family"
 msgid "treble viol"
 msgstr ""
 

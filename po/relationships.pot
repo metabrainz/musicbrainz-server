@@ -3609,6 +3609,10 @@ msgstr ""
 msgid "choir vocals"
 msgstr ""
 
+#: DB:link_attribute_type/name:1224
+msgid "choral conducting"
+msgstr ""
+
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
 msgstr ""
@@ -5453,7 +5457,7 @@ msgstr ""
 msgid "originally scheduled as"
 msgstr ""
 
-#: DB:link_attribute_type/name:1128
+#: DB:link_attribute_type/name:1225 DB:link_attribute_type/name:1128
 msgid "other"
 msgstr ""
 
