@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-11-06 13:32+0000\n"
+"PO-Revision-Date: 2021-11-13 09:50+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -317,6 +317,14 @@ msgstr "Strumento in legno ad ancia doppia e a sezione conica risalente al XVI e
 #: DB:instrument/description:539
 msgid "Acoustic guitar without frets."
 msgstr "Chitarra acustica senza tasti."
+
+#. name:cello
+#: DB:instrument/description:60
+msgid ""
+"Also know as violoncello (the \"small large viol\"), it is the medium bass "
+"member of the modern violin family and a principal member of the symphony "
+"orchestra."
+msgstr "Il membro di registro medio basso della moderna famiglia dei violini e un membro di base dell'orchestra sinfonica."
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
@@ -1131,6 +1139,14 @@ msgid ""
 "Floppy Drives configured to produce tones while reading, software is used."
 msgstr "Drive per floppy utilizzati per produrre suoni durante la lettura tramite software appositi."
 
+#. name:hardingfele
+#: DB:instrument/description:78
+msgid ""
+"Folk-fiddle from Hardanger, Norway. It has 4 melody- and 4-5 drone-strings, "
+"it is richly decorated and used in the traditional \"halling\" folk music "
+"and dance."
+msgstr "Violino folk originario dell'Hardanger, in Norvegia. Ha 4 corde melodiche e 4 o 5 corde bordone, è riccamente decorato ed è utilizzato nella musica e danza tradizionale \"halling\"."
+
 #. name:lira da braccio
 #: DB:instrument/description:1016
 msgid ""
@@ -1392,6 +1408,13 @@ msgid ""
 " kacapis."
 msgstr "Ispirato dalle cetre (zither) occidentali, ha 20 corde ed è più piatto degli altri kacapi."
 
+#. name:Stroh violin
+#: DB:instrument/description:451
+msgid ""
+"Instead of a wooden body, it is amplified by a metal horn resonator; its "
+"louder and more directional sound made it useful in loud areas."
+msgstr "Amplificato da un risuonatore in corno metallico anziché da una cassa in legno, il suo suono più forte e più direzionale lo rendeva utile in luoghi rumorosi."
+
 #. name:Indonesian rebab
 #: DB:instrument/description:1011
 msgid ""
@@ -1462,6 +1485,15 @@ msgid ""
 "lute\""
 msgstr "Ha un manico corto e dotato di tasti, con quattro corde in origine in seta, ma ora solitamente in nylon o in acciaio, e una grande cassa piatta e rotonda, che gli ha guadagnato il soprannome di \"liuto a forma di luna\"."
 
+#. name:viola
+#: DB:instrument/description:63
+msgid ""
+"It is known by many names, based on the full \"alto de viola da braccio\": "
+"\"alto\", \"bratsch (braccio)\", \"viola\", etc. <br /> It is the alto "
+"member of the modern violin family and a principal member of the symphony "
+"orchestra."
+msgstr "Conosciuta anche come \"alto\" o \"bratsch (braccio)\" in altre lingue, a partire dal nome completo \"alto di viola da braccio\". <br /> È il membro di registro alto della moderna famiglia dei violini e un membro di base dell'orchestra sinfonica."
+
 #. name:yangqin
 #: DB:instrument/description:254
 msgid ""
@@ -1506,9 +1538,9 @@ msgstr "Grandi tamburi a barile thailandesi. Sono suonati in coppia utilizzando 
 #: DB:instrument/description:48
 msgid ""
 "Known also as contrabass or upright bass, it is the largest and lowest-"
-"pitched member of the modern violin family, it is a principal member of the "
+"pitched member of the modern violin family and a principal member of the "
 "symphony orchestra."
-msgstr "Conosciuto anche come basso, è il membro più grande e di tono più grave della moderna famiglia dei violini. È un membro di base dell'orchestra sinfonica."
+msgstr "Conosciuto anche come basso, è il membro più grande e di tono più grave della moderna famiglia dei violini e un membro di base dell'orchestra sinfonica."
 
 #. name:kacapi indung
 #: DB:instrument/description:1001
@@ -2753,13 +2785,6 @@ msgid ""
 " music."
 msgstr "Tipo di fisarmonica diatonica a bottoni usato nella musica tradizionale svizzera."
 
-#. name:Stroh violin
-#: DB:instrument/description:451
-msgid ""
-"The Stroh violin is a violin with a metal resonator and horn rather than a "
-"wooden body."
-msgstr "Violino con un risuonatore e un padiglione in metallo anziché una cassa in legno."
-
 #. name:Vienna horn
 #: DB:instrument/description:562
 msgid ""
@@ -3616,6 +3641,14 @@ msgid ""
 "The most common and based on the original design, its fifth string is "
 "shorter than the others, creating an uneven pitch progression."
 msgstr "Il banjo più comune e basato sul design originale. La sua quinta corda è più corta delle altre, creando una progressione di toni disuguale."
+
+#. name:violin
+#: DB:instrument/description:62
+msgid ""
+"The most famous member of the violin family, it is actually the \"small "
+"viol\". Its register is soprano and it's a principal member of the symphony "
+"orchestra."
+msgstr "Il membro più famoso della famiglia dei violini, ha un registro soprano ed è un membro di base dell'orchestra sinfonica."
 
 #. name:mridangam
 #: DB:instrument/description:475
@@ -4884,11 +4917,6 @@ msgid ""
 "also just \"kū\", a mouthbow with a single string, struck with a light "
 "implement of bone or wood."
 msgstr "Chiamato anche solo \"kū\", è un arco a bocca con una sola corda, percosso con un pezzo leggero di osso o legno."
-
-#. name:cello
-#: DB:instrument/description:60
-msgid "also know as violoncello"
-msgstr "Conosciuto anche come \"cello\"."
 
 #. name:samica
 #: DB:instrument/description:830
