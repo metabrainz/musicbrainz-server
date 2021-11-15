@@ -47,12 +47,20 @@ const WSLink = ({
   (entityType === 'recording' || entityType === 'release_group') &&
     inc.push('releases');
   entityType === 'release' && inc.push('labels', 'discids', 'recordings');
+  const searchParams = new URLSearchParams();
+  if (inc.length) {
+    searchParams.set('inc', inc.join('+'));
+  }
+  if (isJson) {
+    searchParams.set('fmt', 'json');
+  }
   const protocol = isSecureConnection ? 'https://' : 'http://';
-  const link = '/ws/2/' + entityTypeForUrl + '/' + entityGid +
-               (inc.length ? '?inc=' : '') + inc.join('+') +
-               (isJson ? '&fmt=json' : '');
+  const urlObject = new URL(protocol + DBDefs.WEB_SERVER +
+                            '/ws/2/' + entityTypeForUrl + '/' + entityGid);
+  urlObject.search = searchParams.toString();
+
   return (
-    <a href={link}>{protocol + DBDefs.WEB_SERVER + link}</a>
+    <a href={urlObject.href}>{urlObject.href}</a>
   );
 };
 
