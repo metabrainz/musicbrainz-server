@@ -99,8 +99,9 @@ const ArtistCreditIndex = (
             {name.artist.name === name.name ? null : (
               <>
                 {' '}
-                {texp.l(
+                {texp.lp(
                   'credited as “{credit}”',
+                  'artist credit',
                   {credit: name.name},
                 )}
               </>
