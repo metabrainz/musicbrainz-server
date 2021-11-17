@@ -652,6 +652,7 @@ const seleniumTests = [
     login: true,
     sql: 'duplicate_checker.sql',
   },
+  {name: 'CD_Lookup.json5', login: true},
 ];
 
 const testPath = name => path.resolve(__dirname, 'selenium', name);
