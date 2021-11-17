@@ -2337,6 +2337,34 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  'jazzmusicarchives': {
+    match: [new RegExp('^(https?://)?(www\\.)?jazzmusicarchives\\.com', 'i')],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?jazzmusicarchives\.com\/([^#]+)(?:#.*)?$/, 'https://www.jazzmusicarchives.com/$1');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.jazzmusicarchives\.com\/(\w+)\/(?:[\w-]+\/)?[\w-]*$/.exec(url);
+      if (m) {
+        const type = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: type === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.release_group:
+            return {
+              result: type === 'album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'joysound': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?joysound\\.com/', 'i')],
     restrict: [LINK_TYPES.lyrics],
