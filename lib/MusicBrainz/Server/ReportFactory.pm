@@ -60,6 +60,7 @@ use MusicBrainz::Server::PagedReport;
     LabelsDisambiguationSameName
     LimitedEditors
     LinksWithMultipleEntities
+    MediumsWithOrderInTitle
     MediumsWithSequenceIssues
     MislinkedPseudoReleases
     MultipleASINs
@@ -154,6 +155,7 @@ use MusicBrainz::Server::Report::ISWCsWithManyWorks;
 use MusicBrainz::Server::Report::LabelsDisambiguationSameName;
 use MusicBrainz::Server::Report::LimitedEditors;
 use MusicBrainz::Server::Report::LinksWithMultipleEntities;
+use MusicBrainz::Server::Report::MediumsWithOrderInTitle;
 use MusicBrainz::Server::Report::MediumsWithSequenceIssues;
 use MusicBrainz::Server::Report::MislinkedPseudoReleases;
 use MusicBrainz::Server::Report::MultipleASINs;

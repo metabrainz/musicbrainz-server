@@ -358,6 +358,10 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
           reportName="ReleasesWithCAANoTypes"
         />
         <ReportsIndexEntry
+          content={l('Releases with mediums named after their position')}
+          reportName="MediumsWithOrderInTitle"
+        />
+        <ReportsIndexEntry
           content={l('Releases with non-sequential mediums')}
           reportName="MediumsWithSequenceIssues"
         />
