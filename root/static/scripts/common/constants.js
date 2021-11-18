@@ -172,6 +172,7 @@ export const FAVICON_CLASSES = {
   'spirit-of-rock.com': 'spiritofrock',
   'spotify.com': 'spotify',
   'stage48.net': 'stage48',
+  'target.com': 'target',
   'tedcrane.com/DanceDB': 'dancedb',
   'theatricalia.com': 'theatricalia',
   'thedancegypsy.com': 'thedancegypsy',
@@ -206,6 +207,7 @@ export const FAVICON_CLASSES = {
   'www.amazon': 'amazon',
   'www.youtube.com': 'youtube',
   'www5.atwiki.jp/hmiku/': 'hmikuwiki',
+  'yesasia.com': 'yesasia',
 };
 
 export const PART_OF_SERIES_LINK_TYPES = {
