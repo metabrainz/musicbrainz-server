@@ -5034,7 +5034,7 @@ export class Checker {
       if (type[sourceType]) {
         result.push(type[sourceType]);
       }
-      return result;
+      return result.sort();
     }, []);
   }
 }
