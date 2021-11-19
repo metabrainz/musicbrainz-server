@@ -42,11 +42,18 @@ const WSLink = ({
   const inc = [];
   const entityTypeForUrl = entityProperties.url
     ? entityProperties.url : entityType;
-  entityProperties.aliases && inc.push('aliases');
-  entityProperties.artist_credits && inc.push('artist-credits');
-  (entityType === 'recording' || entityType === 'release_group') &&
+  if (entityProperties.aliases) {
+    inc.push('aliases');
+  }
+  if (entityProperties.artist_credits) {
+    inc.push('artist-credits');
+  }
+  if (entityType === 'recording' || entityType === 'release_group') {
     inc.push('releases');
-  entityType === 'release' && inc.push('labels', 'discids', 'recordings');
+  }
+  if (entityType === 'release') {
+    inc.push('labels', 'discids', 'recordings');
+  }
   const searchParams = new URLSearchParams();
   if (inc.length) {
     searchParams.set('inc', inc.join('+'));

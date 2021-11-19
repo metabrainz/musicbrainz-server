@@ -78,18 +78,17 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
                   style={{width: '336px'}}
                   value={link.rawUrl}
                 />
-                {error &&
-                  error.target === ERROR_TARGETS.URL &&
+                {error && error.target === ERROR_TARGETS.URL ? (
                   <div
                     className="error field-error target-url"
                     data-visible="1"
                   >
                     {error.message}
                   </div>
-                }
+                ) : null}
               </td>
             </tr>
-            {link.url &&
+            {link.url ? (
               <tr>
                 <td className="section" style={{whiteSpace: 'nowrap'}}>
                   {addColonText(l('Cleaned up to'))}
@@ -107,7 +106,7 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
                     </a>)}
                 </td>
               </tr>
-            }
+            ) : null}
           </tbody>
         </table>
         <div className="buttons" style={{display: 'block', marginTop: '1em'}}>
