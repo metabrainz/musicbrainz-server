@@ -288,6 +288,7 @@ sub is_valid_partial_date
     return 1;
 }
 
+# Keep in sync with invalidEditNote in static/scripts/release-editor/init.js
 sub is_valid_edit_note
 {
     my $edit_note = shift;

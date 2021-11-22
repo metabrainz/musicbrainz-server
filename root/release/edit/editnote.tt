@@ -32,6 +32,10 @@
           [% l('You must provide an edit note when adding a release.') %]
         </p>
 
+        <p class="error field-error" data-bind="showErrorRightAway: invalidEditNote" id="useless-edit-note-error">
+          [% l('Your edit note seems to have no actual content. Please provide a note that will be helpful to your fellow editors!') %]
+        </p>
+
         [% make_votable(1) %]
       <!-- /ko -->
     </fieldset>
