@@ -126,12 +126,15 @@ const UserSubscriptions = ({
   user,
   visiblePrivateCollections,
 }: UserSubscriptionsProps): React.Element<typeof UserAccountLayout> => {
+  const viewingOwnProfile = Boolean($c.user && $c.user.id === user.id);
+  const isAdminViewingPrivate = Boolean(
+    $c.user && !viewingOwnProfile && !user.preferences.public_subscriptions,
+  );
   const action = `/account/subscriptions/${type}/remove`;
   const showSummary = summary.artist > 0 || summary.collection > 0 ||
                       summary.editor > 0 || summary.label > 0 ||
                       summary.series > 0;
   const title = titleByEntityType[type]();
-  const viewingOwnProfile = Boolean($c.user && $c.user.id === user.id);
   const hasPrivateSubscriptions =
     visiblePrivateCollections?.length ||
     hiddenPrivateCollectionCount != null && hiddenPrivateCollectionCount > 0;
@@ -144,96 +147,100 @@ const UserSubscriptions = ({
     >
       <h2>{title}</h2>
 
-      <p>
-        {'[ '}
-        <a href={`/user/${user.name}/subscriptions/artist`}>
-          {titleByEntityType.artist()}
-        </a>
-        {' | '}
-        <a href={`/user/${user.name}/subscriptions/collection`}>
-          {titleByEntityType.collection()}
-        </a>
-        {' | '}
-        <a href={`/user/${user.name}/subscriptions/label`}>
-          {titleByEntityType.label()}
-        </a>
-        {' | '}
-        <a href={`/user/${user.name}/subscriptions/series`}>
-          {titleByEntityType.series()}
-        </a>
-        {' | '}
-        <a href={`/user/${user.name}/subscriptions/editor`}>
-          {titleByEntityType.editor()}
-        </a>
-        {' ]'}
-      </p>
-
-      {showSummary ? (
+      {isAdminViewingPrivate ? null : (
         <>
           <p>
-            {exp.l(
-              '{editor} is subscribed to:',
-              {editor: <EditorLink editor={user} />},
-            )}
+            {'[ '}
+            <a href={`/user/${user.name}/subscriptions/artist`}>
+              {titleByEntityType.artist()}
+            </a>
+            {' | '}
+            <a href={`/user/${user.name}/subscriptions/collection`}>
+              {titleByEntityType.collection()}
+            </a>
+            {' | '}
+            <a href={`/user/${user.name}/subscriptions/label`}>
+              {titleByEntityType.label()}
+            </a>
+            {' | '}
+            <a href={`/user/${user.name}/subscriptions/series`}>
+              {titleByEntityType.series()}
+            </a>
+            {' | '}
+            <a href={`/user/${user.name}/subscriptions/editor`}>
+              {titleByEntityType.editor()}
+            </a>
+            {' ]'}
           </p>
-          <ul>
-            {summary.artist > 0 ? (
-              <li>
-                {exp.ln(
-                  '{num} artist',
-                  '{num} artists',
-                  summary.artist,
-                  {num: summary.artist},
-                )}
-              </li>
-            ) : null}
 
-            {summary.collection > 0 ? (
-              <li>
-                {exp.ln(
-                  '{num} collection',
-                  '{num} collections',
-                  summary.collection,
-                  {num: summary.collection},
+          {showSummary ? (
+            <>
+              <p>
+                {exp.l(
+                  '{editor} is subscribed to:',
+                  {editor: <EditorLink editor={user} />},
                 )}
-              </li>
-            ) : null}
+              </p>
+              <ul>
+                {summary.artist > 0 ? (
+                  <li>
+                    {exp.ln(
+                      '{num} artist',
+                      '{num} artists',
+                      summary.artist,
+                      {num: summary.artist},
+                    )}
+                  </li>
+                ) : null}
 
-            {summary.editor > 0 ? (
-              <li>
-                {exp.ln(
-                  '{num} editor',
-                  '{num} editors',
-                  summary.editor,
-                  {num: summary.editor},
-                )}
-              </li>
-            ) : null}
+                {summary.collection > 0 ? (
+                  <li>
+                    {exp.ln(
+                      '{num} collection',
+                      '{num} collections',
+                      summary.collection,
+                      {num: summary.collection},
+                    )}
+                  </li>
+                ) : null}
 
-            {summary.label > 0 ? (
-              <li>
-                {exp.ln(
-                  '{num} label',
-                  '{num} labels',
-                  summary.label,
-                  {num: summary.label},
-                )}
-              </li>
-            ) : null}
+                {summary.editor > 0 ? (
+                  <li>
+                    {exp.ln(
+                      '{num} editor',
+                      '{num} editors',
+                      summary.editor,
+                      {num: summary.editor},
+                    )}
+                  </li>
+                ) : null}
 
-            {summary.series > 0 ? (
-              <li>
-                {exp.ln(
-                  '{num} series',
-                  '{num} series',
-                  summary.series,
-                  {num: summary.series},
-                )}
-              </li>
-            ) : null}
-          </ul>
+                {summary.label > 0 ? (
+                  <li>
+                    {exp.ln(
+                      '{num} label',
+                      '{num} labels',
+                      summary.label,
+                      {num: summary.label},
+                    )}
+                  </li>
+                ) : null}
+
+                {summary.series > 0 ? (
+                  <li>
+                    {exp.ln(
+                      '{num} series',
+                      '{num} series',
+                      summary.series,
+                      {num: summary.series},
+                    )}
+                  </li>
+                ) : null}
+              </ul>
+            </>
+          ) : null}
         </>
-      ) : null}
+      )}
 
       {entities.length ? (
         <UserSubscriptionsSection
