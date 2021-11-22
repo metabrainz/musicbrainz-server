@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import Carousel from "react-multi-carousel";
 import {Modal} from "react-bootstrap";
 
 const responsive = {
