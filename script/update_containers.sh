@@ -103,21 +103,14 @@ do
   for service in $SERVICES
   do
     container="$service-$DEPLOY_ENV"
-    http_status=0
-    while [[ $http_status -ne 200 ]]
+    while [[ $(
+      ssh "$host" \
+        docker exec "$container" \
+          curl -I -s -o /dev/null -w "%{http_code}" 'http://localhost:5000'
+    ) -ne 200 ]]
     do
-      http_status=$(
-        ssh "$host" \
-          docker exec "$container" \
-            curl -I -s -o /dev/null -w "%{http_code}" 'http://localhost:5000'
-      )
-      if [[ $http_status -eq 200 ]]
-      then
-        break
-      else
-        echo "$host: Waiting for $container to come back up..."
-        sleep 1
-      fi
+      echo "$host: Waiting for $container to come back up..."
+      sleep 1
     done
 
     echo "$host: Bringing $container out of maintenance mode..."
