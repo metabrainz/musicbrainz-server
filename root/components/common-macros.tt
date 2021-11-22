@@ -522,7 +522,7 @@ END -%]
 END -%]
 
 [%~ MACRO tagger_icon(entity) BLOCK -%]
-    [%- React.embed(c, 'static/scripts/common/components/TaggerIcon', {entity => React.to_json_object(entity)}) -%]
+    [%- React.embed(c, 'static/scripts/common/components/TaggerIcon', {entityType => entity.entity_type, gid => entity.gid}) -%]
 [%- END -%]
 
 [%~ MACRO release_label_list(labels) BLOCK; # Converted to React at root/components/ReleaseLabelList.js
