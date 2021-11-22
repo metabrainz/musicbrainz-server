@@ -6,6 +6,7 @@ with 'MusicBrainz::Server::EditSearch::Predicate';
 sub operator_cardinality_map {
   return (
       'includes' => undef,
+      'not-includes' => undef,
   )
 }
 
@@ -19,12 +20,21 @@ sub combine_with_query {
       '%' . $_ . '%'
     } @{ $self->sql_arguments };
 
+    my $comparison;
+
+    if ($self->operator eq 'not-includes') {
+        $comparison = 'NOT ILIKE';
+    } else {
+        $comparison = 'ILIKE';
+    }
+
     $query->add_where([
-        'EXISTS (
-          SELECT TRUE FROM edit_note
-          WHERE edit_note.text ILIKE ?
-            AND edit_note.edit = edit.id
-        )',
+        "EXISTS (
+          SELECT TRUE
+            FROM edit_note
+           WHERE edit_note.text $comparison ?
+             AND edit_note.edit = edit.id
+        )",
         \@patterns,
     ]);
 };
