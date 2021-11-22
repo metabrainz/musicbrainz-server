@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-11-08 21:39+0000\n"
+"PO-Revision-Date: 2021-11-17 09:33+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2125,7 +2125,7 @@ msgstr "Landen van uitgave"
 
 #: ../root/statistics/stats.js:34
 msgid "Release Group Types"
-msgstr ""
+msgstr "Types uitgavegroepen"
 
 #: ../root/statistics/stats.js:35
 msgid "Release Languages"
@@ -2145,7 +2145,7 @@ msgstr "Schriften van de uitgave"
 
 #: ../root/statistics/stats.js:39
 msgid "Release Statuses"
-msgstr ""
+msgstr "Uitgavestatussen"
 
 #: ../root/statistics/stats.js:40
 msgid "Series Types"
@@ -2445,7 +2445,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:449
 msgid "Instruments with no type set"
-msgstr ""
+msgstr "Instrumenten zonder types"
 
 #: ../root/statistics/stats.js:454
 msgid "IPIs"
@@ -2737,7 +2737,7 @@ msgstr "Onthoudingen"
 
 #: ../root/statistics/stats.js:855
 msgid "Approvals"
-msgstr ""
+msgstr "Goedkeuringen"
 
 #: ../root/statistics/stats.js:860
 msgid "No Votes"
@@ -2757,7 +2757,7 @@ msgstr "Voorstemmen"
 
 #: ../root/statistics/stats.js:886
 msgid "Works with no attributes"
-msgstr ""
+msgstr "Composities zonder eigenschappen"
 
 #: ../root/statistics/stats.js:891
 msgid "Works with ISWCs"

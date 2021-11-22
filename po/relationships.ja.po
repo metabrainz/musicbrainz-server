@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-11-04 06:08+0000\n"
+"PO-Revision-Date: 2021-11-15 07:47+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -3624,6 +3624,10 @@ msgstr "子"
 msgid "choir vocals"
 msgstr "合唱団のボーカル"
 
+#: DB:link_attribute_type/name:1224
+msgid "choral conducting"
+msgstr ""
+
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
 msgstr "コーラスマスター"
@@ -5468,7 +5472,7 @@ msgstr "オリジナル"
 msgid "originally scheduled as"
 msgstr ""
 
-#: DB:link_attribute_type/name:1128
+#: DB:link_attribute_type/name:1225 DB:link_attribute_type/name:1128
 msgid "other"
 msgstr "その他"
 
