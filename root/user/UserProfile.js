@@ -540,6 +540,11 @@ const UserProfileStatistics = ({
   const encodedName = encodeURIComponent(user.name);
   const allAppliedCount = editStats.accepted_count +
                           editStats.accepted_auto_count;
+  const allEditsCount = allAppliedCount +
+                        editStats.rejected_count +
+                        editStats.failed_count +
+                        editStats.cancelled_count +
+                        editStats.open_count;
   const hasAddedEntities =
     Object.values(addedEntities).some((number) => number !== 0);
   const hasPublicRatings = secondaryStats.rating_count != null;
@@ -556,15 +561,22 @@ const UserProfileStatistics = ({
         <thead>
           <tr>
             <th colSpan="2">
-              {$c.user ? exp.l(
-                'Edits ({view_url|view})',
-                {view_url: `/user/${encodedName}/edits`},
-              ) : l('Edits')}
+              {l('Edits')}
             </th>
           </tr>
         </thead>
 
         <tbody>
+          <UserProfileProperty name={lp('Total', 'edit descriptor')}>
+            {$c.user ? exp.l(
+              '{count} ({view_url|view})',
+              {
+                count: formatCount($c, allEditsCount),
+                view_url: `/user/${encodedName}/edits`,
+              },
+            ) : formatCount($c, allEditsCount)}
+          </UserProfileProperty>
+
           <UserProfileProperty name={lp('Accepted', 'edit descriptor')}>
             {$c.user ? exp.l(
               '{count} ({view_url|view})',
