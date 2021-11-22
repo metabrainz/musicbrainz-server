@@ -1,4 +1,13 @@
-const Footer = props => {
+/*
+ * @flow strict-local
+ * Copyright (C) 2022 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
+
+export default function Footer(props) {
   return (
       <section className={"section-footer "+props.theme}>
         <div className="container">
@@ -119,4 +128,3 @@ const Footer = props => {
       </section>
   )
 }
-export default Footer;
