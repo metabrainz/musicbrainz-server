@@ -2247,6 +2247,21 @@ const testData = [
     expected_relationship_type: ['downloadfree', 'streamingfree'],
             expected_clean_url: 'http://www.jamendo.com/album/56372',
   },
+  // Jazz Music Archives
+  {
+                     input_url: 'http://www.jazzmusicarchives.com/artist/ron-carter#discography',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.jazzmusicarchives.com/artist/ron-carter',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://www.jazzmusicarchives.com/album/ron-carter/ron-carter-jack-dejohnette-and-gonzalo-rubalcaba-skyline#specialists-reviews',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.jazzmusicarchives.com/album/ron-carter/ron-carter-jack-dejohnette-and-gonzalo-rubalcaba-skyline',
+       only_valid_entity_types: ['release_group'],
+  },
   // JOYSOUND
   {
                      input_url: 'https://www.joysound.com/web/search/artist/5169?startIndex=20#songlist',
@@ -3988,6 +4003,28 @@ const testData = [
             expected_clean_url: 'https://open.spotify.com/user/1254688529',
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
+  // Target
+  {
+                     input_url: 'https://www.target.com/b/universal-music-group/-/N-l4bvw',
+             input_entity_type: 'label',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://www.target.com/b/N-l4bvw',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'http://target.com/p/olivia-rodrigo-sour-target-exclusive-vinyl/-/A-82813217#lnk=sametab',
+             input_entity_type: 'release',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://www.target.com/p/A-82813217',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://intl.target.com/p/-/A-79228621',
+             input_entity_type: 'release',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://www.target.com/p/A-79228621',
+       only_valid_entity_types: ['release'],
+  },
   // Ted Crane
   {
                      input_url: 'http://tedcrane.com/DanceDB/DisplayIdent.com?key=DONNA_HUNT',
@@ -4822,6 +4859,21 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.worldcat.org/identities/lccn-n94-9040/',
+  },
+  // YesAsia
+  {
+                     input_url: 'https://www.yesasia.com/global/twice-korea/0-aid3437787-0-bpt.47-zh_TW/list.html',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://www.yesasia.com/0-aid3437787-0-bpt.47-en/list.html',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.yesasia.com/global/twice-vol-3-formula-of-love-o-t-3-random-version-random-photo-card/1107024843-0-0-0-ja/info.html#zh_CN',
+             input_entity_type: 'release',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://www.yesasia.com/1107024843-0-0-0-en/info.html',
+       only_valid_entity_types: ['release'],
   },
   // YouTube
   {

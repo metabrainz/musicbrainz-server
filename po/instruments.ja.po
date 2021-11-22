@@ -15,8 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-11-09 20:20+0000\n"
-"Last-Translator: Shunsuke Shimizu <email address hidden>\n"
+"PO-Revision-Date: 2021-11-15 07:47+0000\n"
+"Last-Translator: 和田篤 <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3897,7 +3897,7 @@ msgid "treble recorder / alto recorder"
 msgstr "アルト・リコーダー"
 
 #: DB:instrument/name:921
-msgctxt "Treble/descant member of the viol family"
+msgctxt "Treble/soprano member of the viol family"
 msgid "treble viol"
 msgstr "トレブル・ヴァイオル"
 

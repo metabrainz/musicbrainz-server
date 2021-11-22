@@ -377,6 +377,7 @@
 
 [% MACRO predicate_edit_note_content(field, field_contents) WRAPPER wfield predicate="edit_note_content" %]
   [% operators([ [ 'includes', l('includes') ]
+                 [ 'not-includes', l('does not include') ]
                ], field_contents) %]
   <span class="arg">
     <input type="text" class="name" name="args.0" value="[% html_escape(field_contents.argument(0)) %]" style="width: 170px;" />

@@ -281,6 +281,14 @@ releaseEditor.init = function (options) {
     return self.action === 'add' && !self.rootField.editNote();
   };
 
+  // Keep in sync with is_valid_edit_note in Server::Validation
+  this.rootField.invalidEditNote = function () {
+    return self.action === 'add' && (
+      /^[\p{White_Space}\p{Punctuation}]+$/u.test(self.rootField.editNote()) ||
+      /^\p{ASCII}$/u.test(self.rootField.editNote())
+    );
+  };
+
   this.seed(options.seed);
 
   if (this.action === 'edit') {
@@ -418,7 +426,9 @@ releaseEditor.allowsSubmission = function () {
   return (
     !this.submissionInProgress() &&
     !validation.errorsExist() &&
-    (this.action === 'edit' || this.rootField.editNote()) &&
+    (this.action === 'edit' || !(
+      this.rootField.missingEditNote() || this.rootField.invalidEditNote()
+    )) &&
     this.allEdits().length > 0
   );
 };

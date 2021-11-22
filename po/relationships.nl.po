@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-11-04 13:40+0000\n"
+"PO-Revision-Date: 2021-11-17 09:17+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -3622,6 +3622,10 @@ msgstr "kinderen"
 msgid "choir vocals"
 msgstr "koor"
 
+#: DB:link_attribute_type/name:1224
+msgid "choral conducting"
+msgstr "koordirectie"
+
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
 msgstr "koorleider"
@@ -5466,7 +5470,7 @@ msgstr "oorspronkelijk"
 msgid "originally scheduled as"
 msgstr "oorspronkelijk gepland als"
 
-#: DB:link_attribute_type/name:1128
+#: DB:link_attribute_type/name:1225 DB:link_attribute_type/name:1128
 msgid "other"
 msgstr "overig"
 

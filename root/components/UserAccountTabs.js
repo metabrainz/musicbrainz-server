@@ -36,12 +36,14 @@ function buildTabs(
   const hasPublicTags = !userDeleted && user.preferences.public_tags;
   const hasPublicRatings = !userDeleted && user.preferences.public_ratings;
 
-  if (viewingOwnProfile || hasPublicSubscriptions) {
+  const subsRequireAdminPrivs = showAdmin && !hasPublicSubscriptions;
+  if ((showAdmin || viewingOwnProfile) || hasPublicSubscriptions) {
     tabs.push(buildTab(
       page,
       l('Subscriptions'),
-      userPath + '/subscriptions/artist',
+      userPath + '/subscriptions',
       'subscriptions',
+      subsRequireAdminPrivs ? 'private-tab requires-admin-privileges' : '',
     ));
   }
 

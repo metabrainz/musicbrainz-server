@@ -30,8 +30,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-09 22:19+0200\n"
-"PO-Revision-Date: 2021-11-10 20:34+0000\n"
+"POT-Creation-Date: 2021-11-15 09:36+0200\n"
+"PO-Revision-Date: 2021-11-17 09:09+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1056,7 +1056,7 @@ msgstr "Afsluiten"
 
 #: ../root/edit/search_macros.tt:417 ../root/edit/components/EditHeader.js:161
 msgid "Closed"
-msgstr "Afgesloten"
+msgstr "Gesloten"
 
 #: ../root/artist/split.tt:36
 msgid "Collaborators on this artist"
@@ -9116,7 +9116,7 @@ msgstr "Deze bewerking is geannuleerd."
 
 #: ../root/edit/CannotApproveEdit.js:28 ../root/edit/CannotCancelEdit.js:34
 msgid "The edit has already been closed."
-msgstr "Deze bewerking is al afgesloten."
+msgstr "Deze bewerking is al gesloten."
 
 #: ../root/edit/CannotApproveEdit.js:31
 msgid "Only {doc|auto-editors} can approve an edit."
@@ -11086,7 +11086,7 @@ msgstr "Sluit"
 #: ../root/layout/components/sidebar/PlaceSidebar.js:76
 msgctxt "place"
 msgid "Closed"
-msgstr "Afgesloten"
+msgstr "Gesloten"
 
 #: ../root/layout/components/sidebar/PlaceSidebar.js:93
 msgid "Coordinates:"
@@ -15762,7 +15762,7 @@ msgstr "(<strong>ongeverifieerd!</strong>)"
 
 #: ../root/user/UserProfile.js:202
 msgid "resend verification email"
-msgstr "verstuur de verificatie-e-mail opnieuw"
+msgstr "verstuur de verificatiemail opnieuw"
 
 #: ../root/user/UserProfile.js:210
 msgid "send email"

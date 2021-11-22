@@ -28,7 +28,10 @@ role {
 
         my $user = $c->stash->{user};
 
-        if (!defined $c->user || $c->user->id != $user->id) {
+        # Admins should have access to editor-editor subscriptions (MBS-12055)
+        if (!defined $c->user || $c->user->id != $user->id && !(
+            $type eq 'editor' && $c->user->is_account_admin
+        )) {
             $c->model('Editor')->load_preferences($user);
             $c->detach('/error_403')
                 unless $user->preferences->public_subscriptions;
