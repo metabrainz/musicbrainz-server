@@ -521,6 +521,11 @@ sub get_types_for_timeline
 {
     my $self = shift;
 
+    my $cache = $self->c->cache('statistics');
+    my $cached_types = $cache->get('types_for_timeline');
+
+    return %$cached_types if $cached_types;
+
     my %rel_types;
 
     for my $t ($self->all_pairs) {
@@ -541,6 +546,7 @@ sub get_types_for_timeline
         }
     }
 
+    $cache->set('types_for_timeline', \%rel_types, 60 * 60 * 24);
     return %rel_types;
 }
 
