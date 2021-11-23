@@ -87,8 +87,8 @@ do
       sudo -H -S -- \
         /root/docker-server-configs/scripts/set_service_maintenance.sh \
           enable \
-          "$container" \
-          5000
+          "$service" \
+          "$DEPLOY_ENV"
   done
 
   # Production value of DETERMINE_MAX_REQUEST_TIME
@@ -118,8 +118,8 @@ do
       sudo -H -S -- \
         /root/docker-server-configs/scripts/set_service_maintenance.sh \
           disable \
-          "$container" \
-          5000
+          "$service" \
+          "$DEPLOY_ENV"
   done
 done
 
