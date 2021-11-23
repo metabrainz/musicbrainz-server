@@ -12,6 +12,12 @@ If you want to manually set up MusicBrainz Server from source, read on!
 Prerequisites
 -------------
 
+0. update operationg system
+    
+    Updates information about changed packages, such as newly added packages to the repository
+    
+        sudo apt-get update
+
 1.  A Unix based operating system
 
     The MusicBrainz development team uses a variety of Linux distributions, but
