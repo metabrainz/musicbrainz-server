@@ -799,6 +799,45 @@ const CLEANUPS: CleanupEntries = {
       url = url.replace(/^(https:\/\/music\.apple\.com)\/([a-z-]{3,})\//, '$1/us/$2/');
       return url;
     },
+    validate: function (url, id) {
+      const m = /^https:\/\/music\.apple\.com\/[a-z]{2}\/([a-z-]{3,})\/[0-9]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.artist:
+          case LINK_TYPES.streamingpaid.artist:
+            if (prefix === 'artist') {
+              return {result: true};
+            }
+            return {
+              result: false,
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.label:
+          case LINK_TYPES.streamingpaid.label:
+            if (prefix === 'label') {
+              return {result: true};
+            }
+            return {
+              result: false,
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.recording:
+          case LINK_TYPES.streamingpaid.recording:
+            return {
+              result: prefix === 'music-video',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.release:
+          case LINK_TYPES.streamingpaid.release:
+            return {
+              result: prefix === 'album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
   },
   'archive': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?archive\\.org/', 'i')],
