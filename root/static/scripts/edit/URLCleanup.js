@@ -788,6 +788,11 @@ const CLEANUPS: CleanupEntries = {
   },
   'applemusic': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?music\\.apple\\.com/', 'i')],
+    restrict: [
+      LINK_TYPES.downloadpurchase,
+      LINK_TYPES.streamingpaid,
+      multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
+    ],
     clean: function (url) {
       url = url.replace(/^https?:\/\/(?:(?:beta|geo)\.)?music\.apple\.com\/([a-z]{2}\/)?(artist|album|author|label|music-video)\/(?:[^?#\/]+\/)?(?:id)?([0-9]+)(?:\?.*)?$/, 'https://music.apple.com/$1$2/$3');
       // US page is the default, add its country-code to clarify (MBS-10623)
