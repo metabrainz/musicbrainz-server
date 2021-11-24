@@ -232,6 +232,7 @@ export const LINK_TYPES: LinkTypeMap = {
   },
   streamingpaid: {
     artist: '63cc5d1f-f096-4c94-a43f-ecb32ea94161',
+    label: 'cbe05bdd-a877-4cc6-8060-7ba43a2516ef',
     recording: 'b5f3058a-666c-406f-aafb-f9249fc7b122',
     release: '320adf26-96fa-4183-9045-1f5f32f833cb',
   },
