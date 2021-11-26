@@ -317,6 +317,22 @@ sub contact : Chained('load') RequireAuth HiddenOnSlaves SecureForm
     my ($self, $c) = @_;
 
     my $editor = $c->stash->{user};
+
+    if ($c->user->is_adding_notes_disabled) {
+        $c->stash(
+            component_path  => 'user/UserMessage',
+            component_props => {
+                title    => l('Send Email'),
+                message  => l(
+                    'You are not allowed to send messages to editors.',
+                ),
+            },
+            current_view    => 'Node',
+        );
+        $c->detach;
+
+    }
+
     unless ($editor->email) {
         $c->stash(
             component_path  => 'user/UserMessage',
