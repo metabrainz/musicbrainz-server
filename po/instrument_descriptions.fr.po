@@ -1,21 +1,21 @@
 # 
 # Translators:
-# AO <email address hidden>, 2013
+# AO_LL <email address hidden>, 2013
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Benjamin Sonntag <email address hidden>, 2011
 # Idlusen <email address hidden>, 2019
 # Dibou <email address hidden>, 2012,2016
 # Dorian Soergel <email address hidden>, 2018
 # Frédéric Da Vitoria <email address hidden>, 2014
-# AO <email address hidden>, 2013,2015
-# AO <email address hidden>, 2013,2015
+# AO_LL <email address hidden>, 2013,2015
+# AO_LL <email address hidden>, 2013,2015
 # Jack, 2016
 # Jack Ruertnevel, 2016
 # Jack, 2016
 # Léonard Cardyn <email address hidden>, 2015
 # murdos <email address hidden>, 2011-2012
-# AO <email address hidden>, 2015
-# AO <email address hidden>, 2013-2015
+# AO_LL <email address hidden>, 2015
+# AO_LL <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
 # Youenn Piolet, 2015
 # yvanz, 2016-2017
@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-11-09 20:20+0000\n"
+"PO-Revision-Date: 2021-11-22 19:04+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -922,6 +922,15 @@ msgid ""
 " its front has a intricately carved soundhole and slants towards the bottom "
 "where the 5 double (sometimes triple courses) of thin steel strings are "
 "fastened with pins. The back can be rounded or flat."
+msgstr ""
+
+#. name:string synthesizer
+#: DB:instrument/description:1034
+msgid ""
+"Developed from the 1960's and used mainly in the 70-80's, it was a cheaper "
+"and more portable simplification of the mellotron, emulating string "
+"ensembles. Its later hybrid development with the electronic organ created "
+"\"polyphonic ensemble\" synthesizers."
 msgstr ""
 
 #. name:cabasa

@@ -648,10 +648,16 @@ const seleniumTests = [
   {name: 'release-editor/MBS-11114.json5', login: true},
   {name: 'release-editor/MBS-11156.json5', login: true},
   {
+    login: false,
+    name: 'release-editor/MBS-12077.json5',
+    sql: 'vision_creation_newsun.sql',
+  },
+  {
     name: 'Check_Duplicates.json5',
     login: true,
     sql: 'duplicate_checker.sql',
   },
+  {name: 'CD_Lookup.json5', login: true},
 ];
 
 const testPath = name => path.resolve(__dirname, 'selenium', name);

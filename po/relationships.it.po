@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-11-04 20:58+0000\n"
+"PO-Revision-Date: 2021-11-15 20:40+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -3625,6 +3625,10 @@ msgstr "discendenti"
 msgid "choir vocals"
 msgstr "vocali coro"
 
+#: DB:link_attribute_type/name:1224
+msgid "choral conducting"
+msgstr "direzione del coro"
+
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
 msgstr "maestro del coro"
@@ -5469,7 +5473,7 @@ msgstr "originale"
 msgid "originally scheduled as"
 msgstr "originariamente previsto come"
 
-#: DB:link_attribute_type/name:1128
+#: DB:link_attribute_type/name:1225 DB:link_attribute_type/name:1128
 msgid "other"
 msgstr "altro"
 

@@ -2337,6 +2337,34 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  'jazzmusicarchives': {
+    match: [new RegExp('^(https?://)?(www\\.)?jazzmusicarchives\\.com', 'i')],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?jazzmusicarchives\.com\/([^#]+)(?:#.*)?$/, 'https://www.jazzmusicarchives.com/$1');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.jazzmusicarchives\.com\/(\w+)\/(?:[\w-]+\/)?[\w-]*$/.exec(url);
+      if (m) {
+        const type = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: type === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.release_group:
+            return {
+              result: type === 'album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'joysound': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?joysound\\.com/', 'i')],
     restrict: [LINK_TYPES.lyrics],
@@ -3966,6 +3994,44 @@ const CLEANUPS: CleanupEntries = {
       };
     },
   },
+  'target': {
+    match: [new RegExp(
+      '^(https?://)?((intl|www)\\.)?target\\.com/(b|p)',
+      'i',
+    )],
+    restrict: [LINK_TYPES.mailorder],
+    clean: function (url) {
+      url = url.replace(
+        /^(?:https?:\/\/)?(?:intl\.|www\.)?target\.com\//,
+        'https://www.target.com/',
+      );
+      url = url.replace(
+        /^(https:\/\/www\.target\.com)\/(b|p)\/(?:.*\/)?([AN]-[^\/?#]+).*$/,
+        '$1/$2/$3',
+      );
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.target\.com\/(b|p)\/[AN]-\w+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.mailorder.label:
+            return {
+              result: prefix === 'b',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.mailorder.release:
+            return {
+              result: prefix === 'p',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'thesession': {
     match: [new RegExp('^(https?://)?(www\\.)?thesession\\.org', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
@@ -4665,6 +4731,38 @@ const CLEANUPS: CleanupEntries = {
       // oclc permalinks have no ending slash but identities ones do
       url = url.replace(/^https:\/\/www\.worldcat\.org\/(?:wc)?identities\/([^&?/]+)(?:.*)$/, 'https://www.worldcat.org/identities/$1/');
       return url;
+    },
+  },
+  'yesasia': {
+    match: [new RegExp(
+      '^(https?://)?(www\\.)?yesasia\\.com/',
+      'i',
+    )],
+    restrict: [LINK_TYPES.mailorder],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?yesasia\.com\//, 'https://www.yesasia.com/');
+      url = url.replace(/^(https:\/\/www\.yesasia\.com)\/(?:global\/)?(?:[^\/]*\/)?([\w.-]+)(?:en|ja|zh_CN|zh_TW)\/((?:info|list).html)(?:#.*)?$/, '$1/$2en/$3');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.yesasia\.com\/(?:[\w.-]+)en\/(info|list).html$/.exec(url);
+      if (m) {
+        const suffix = m[1];
+        switch (id) {
+          case LINK_TYPES.mailorder.artist:
+            return {
+              result: suffix === 'list',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.mailorder.release:
+            return {
+              result: suffix === 'info',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'youtube': {

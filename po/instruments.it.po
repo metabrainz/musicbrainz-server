@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-11-09 20:20+0000\n"
+"PO-Revision-Date: 2021-11-23 21:42+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -3538,6 +3538,11 @@ msgctxt "ensemble of 2 violins, viola, cello and a fifth string instrument"
 msgid "string quintet"
 msgstr "quintetto d'archi"
 
+#: DB:instrument/name:1034
+msgctxt "60-80's electronic string-ensemble emulator"
+msgid "string synthesizer"
+msgstr "sintetizzatore d'archi"
+
 #: DB:instrument/name:915
 msgctxt "ensemble of violin, viola and cello"
 msgid "string trio"
@@ -3896,7 +3901,7 @@ msgid "treble recorder / alto recorder"
 msgstr "flauto dolce contralto"
 
 #: DB:instrument/name:921
-msgctxt "Treble/descant member of the viol family"
+msgctxt "Treble/soprano member of the viol family"
 msgid "treble viol"
 msgstr "viola da gamba treble"
 

@@ -16,7 +16,8 @@ $(function () {
       '=': 1, '!=': 1,
     },
     edit_note_content: {
-      includes: 1,
+      'includes': 1,
+      'not-includes': 1,
     },
     voter: {
       '=': 1,

@@ -14,10 +14,20 @@ const buildTab = (
   title: string,
   path: string,
   tabPage: string,
-): React.Element<'li'> => (
-  <li className={tabPage === page ? 'sel' : null} key={tabPage}>
-    <a href={path}>{title}</a>
-  </li>
-);
+  className?: string,
+): React.Element<'li'> => {
+  const isSelected = tabPage === page;
+  const passedClass = nonEmpty(className) ? className : null;
+  const tabClass = isSelected && nonEmpty(passedClass)
+    ? 'sel ' + passedClass
+    : isSelected
+      ? 'sel'
+      : passedClass;
+  return (
+    <li className={tabClass} key={tabPage}>
+      <a href={path}>{title}</a>
+    </li>
+  );
+};
 
 export default buildTab;

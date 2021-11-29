@@ -3523,6 +3523,11 @@ msgctxt "ensemble of 2 violins, viola, cello and a fifth string instrument"
 msgid "string quintet"
 msgstr ""
 
+#: DB:instrument/name:1034
+msgctxt "60-80's electronic string-ensemble emulator"
+msgid "string synthesizer"
+msgstr ""
+
 #: DB:instrument/name:915
 msgctxt "ensemble of violin, viola and cello"
 msgid "string trio"

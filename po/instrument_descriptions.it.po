@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-11-13 09:50+0000\n"
+"PO-Revision-Date: 2021-11-23 23:59+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -914,6 +914,15 @@ msgid ""
 "where the 5 double (sometimes triple courses) of thin steel strings are "
 "fastened with pins. The back can be rounded or flat."
 msgstr "Sviluppata principalmente come uno strumento folclorico per accompagnare il canto e il ballo, sul davanti ha un foro di risonanza intagliato in modo intricato ed è inclinata verso la base, dove i 5 ordini di corde doppie (talvolta triple), sottili e in acciaio, sono fissate con pioli. Il fondo può essere arrotondato o piatto."
+
+#. name:string synthesizer
+#: DB:instrument/description:1034
+msgid ""
+"Developed from the 1960's and used mainly in the 70-80's, it was a cheaper "
+"and more portable simplification of the mellotron, emulating string "
+"ensembles. Its later hybrid development with the electronic organ created "
+"\"polyphonic ensemble\" synthesizers."
+msgstr "Sviluppato a partire dagli anni 1960 e utilizzato principalmente negli anni 1970-80, era una versione semplificata, più economica e più portatile del mellotron che imitava le ensemble d'archi. Il suo successivo sviluppo ibrido con l'organo elettronico portò ai sintetizzatori di \"ensemble polifoniche\". "
 
 #. name:cabasa
 #: DB:instrument/description:108

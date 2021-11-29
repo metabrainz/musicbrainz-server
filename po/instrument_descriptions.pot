@@ -898,6 +898,15 @@ msgid ""
 "fastened with pins. The back can be rounded or flat."
 msgstr ""
 
+#. name:string synthesizer 
+#: DB:instrument/description:1034
+msgid ""
+"Developed from the 1960's and used mainly in the 70-80's, it was a cheaper "
+"and more portable simplification of the mellotron, emulating string "
+"ensembles. Its later hybrid development with the electronic organ created "
+"\"polyphonic ensemble\" synthesizers."
+msgstr ""
+
 #. name:cabasa 
 #: DB:instrument/description:108
 msgid ""

@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-11-09 20:20+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2021-11-22 19:04+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3534,6 +3534,11 @@ msgctxt "ensemble of 2 violins, viola, cello and a fifth string instrument"
 msgid "string quintet"
 msgstr "strijkkwintet"
 
+#: DB:instrument/name:1034
+msgctxt "60-80's electronic string-ensemble emulator"
+msgid "string synthesizer"
+msgstr ""
+
 #: DB:instrument/name:915
 msgctxt "ensemble of violin, viola and cello"
 msgid "string trio"
@@ -3892,7 +3897,7 @@ msgid "treble recorder / alto recorder"
 msgstr "altblokfluit"
 
 #: DB:instrument/name:921
-msgctxt "Treble/descant member of the viol family"
+msgctxt "Treble/soprano member of the viol family"
 msgid "treble viol"
 msgstr "discantgamba"
 

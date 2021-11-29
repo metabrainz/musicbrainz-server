@@ -15,7 +15,21 @@ import EntityLink from '../../../static/scripts/common/components/EntityLink';
 import CollectionList from './CollectionList';
 
 type Props = {
-  +entity: CoreEntityT,
+  +entity: CollectableCoreEntityT,
+};
+
+const noCollectionsStrings = {
+  area: N_l('You have no area collections!'),
+  artist: N_l('You have no artist collections!'),
+  event: N_l('You have no event collections!'),
+  instrument: N_l('You have no instrument collections!'),
+  label: N_l('You have no label collections!'),
+  place: N_l('You have no place collections!'),
+  recording: N_l('You have no recording collections!'),
+  release: N_l('You have no release collections!'),
+  release_group: N_l('You have no release group collections!'),
+  series: N_l('You have no series collections!'),
+  work: N_l('You have no work collections!'),
 };
 
 const CollectionLinks = ({
@@ -35,7 +49,7 @@ const CollectionLinks = ({
       header={l('Collections')}
       ownCollections={$c.stash.own_collections}
       ownCollectionsHeader={l('My collections')}
-      ownCollectionsNoneText={l('You have no collections!')}
+      ownCollectionsNoneText={noCollectionsStrings[entity.entityType]()}
       sectionClass="collections"
       usersLink={
         <EntityLink

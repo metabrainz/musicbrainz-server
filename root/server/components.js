@@ -207,6 +207,7 @@ module.exports = {
   'report/LabelsDisambiguationSameName': require('../report/LabelsDisambiguationSameName'),
   'report/LimitedEditors': require('../report/LimitedEditors'),
   'report/LinksWithMultipleEntities': require('../report/LinksWithMultipleEntities'),
+  'report/MediumsWithOrderInTitle': require('../report/MediumsWithOrderInTitle'),
   'report/MediumsWithSequenceIssues': require('../report/MediumsWithSequenceIssues'),
   'report/MislinkedPseudoReleases': require('../report/MislinkedPseudoReleases'),
   'report/MultipleAsins': require('../report/MultipleAsins'),
