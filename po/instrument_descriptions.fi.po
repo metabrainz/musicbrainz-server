@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-11-09 20:20+0000\n"
+"PO-Revision-Date: 2021-11-22 19:04+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -910,6 +910,15 @@ msgid ""
 " its front has a intricately carved soundhole and slants towards the bottom "
 "where the 5 double (sometimes triple courses) of thin steel strings are "
 "fastened with pins. The back can be rounded or flat."
+msgstr ""
+
+#. name:string synthesizer
+#: DB:instrument/description:1034
+msgid ""
+"Developed from the 1960's and used mainly in the 70-80's, it was a cheaper "
+"and more portable simplification of the mellotron, emulating string "
+"ensembles. Its later hybrid development with the electronic organ created "
+"\"polyphonic ensemble\" synthesizers."
 msgstr ""
 
 #. name:cabasa

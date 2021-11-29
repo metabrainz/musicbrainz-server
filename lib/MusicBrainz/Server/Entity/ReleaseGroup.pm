@@ -131,7 +131,7 @@ around TO_JSON => sub {
 
     return {
         %{ $self->$orig },
-        $self->has_cover_art ? (cover_art => to_json_object($self->cover_art)) : (),
+        $self->has_loaded_cover_art ? (cover_art => to_json_object($self->cover_art)) : (),
         firstReleaseDate    => $self->first_release_date ? $self->first_release_date->format : undef,
         hasCoverArt         => boolean_to_json($self->has_cover_art),
         # TODO: remove this once Autocomplete.js can use $c and releaseGroupType.js

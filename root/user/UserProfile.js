@@ -25,6 +25,7 @@ import escapeRegExp from '../static/scripts/common/utility/escapeRegExp';
 import nonEmpty from '../static/scripts/common/utility/nonEmpty';
 import {
   isAccountAdmin,
+  isAddingNotesDisabled,
   isAutoEditor,
   isBot,
   isLocationEditor,
@@ -203,7 +204,7 @@ const UserProfileInformation = ({
                   </a>,
                 )
               ) : (
-                $c.user ? (
+                $c.user && !isAddingNotesDisabled($c.user) ? (
                   <>
                     {bracketed(
                       <a href={`/user/${encodedName}/contact`}>

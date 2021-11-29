@@ -2880,6 +2880,14 @@ msgid ""
 "ad06-98af558e99b0\">recording-work performance relationship type</a>."
 msgstr ""
 
+#: DB:link_type/description:1005
+msgid ""
+"This relationship type is used to link a label to a site where music can be "
+"legally streamed for a subscription fee, e.g. Apple Music.\n"
+"\n"
+"If the site allows free streaming, use \"free streaming\" instead."
+msgstr ""
+
 #: DB:link_type/description:997
 msgid ""
 "This relationship type is used to link a label to a site where music can be "
@@ -3560,7 +3568,7 @@ msgid "can be purchased for mail-order at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:978 DB:link_type/long_link_phrase:979
-#: DB:link_type/long_link_phrase:980
+#: DB:link_type/long_link_phrase:980 DB:link_type/long_link_phrase:1005
 msgid "can be streamed at"
 msgstr ""
 
@@ -6249,16 +6257,17 @@ msgid "stream {video} for free"
 msgstr ""
 
 #: DB:link_type/name:978 DB:link_type/name:979 DB:link_type/name:980
+#: DB:link_type/name:1005
 msgid "streaming"
 msgstr ""
 
 #: DB:link_type/link_phrase:978 DB:link_type/link_phrase:979
-#: DB:link_type/link_phrase:980
+#: DB:link_type/link_phrase:980 DB:link_type/link_phrase:1005
 msgid "streaming page"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:978 DB:link_type/reverse_link_phrase:979
-#: DB:link_type/reverse_link_phrase:980
+#: DB:link_type/reverse_link_phrase:980 DB:link_type/reverse_link_phrase:1005
 msgid "streaming page for"
 msgstr ""
 
