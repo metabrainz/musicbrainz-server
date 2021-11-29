@@ -12,7 +12,7 @@ make_temp_dir()
                         TMPDIR => 1,
                 ) or die $!;
                 print $dir;
-        '
+        ' "$@"
     ` || exit $?
     echo "Using temporary directory $TEMP_DIR"
     # Note that this only removes the directory if it's empty.  This is a
