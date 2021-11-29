@@ -1,13 +1,13 @@
 # 
 # Translators:
 # nikki, 2014
-# AO <email address hidden>, 2013
+# AO_LL <email address hidden>, 2013
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Benjamin Sonntag <email address hidden>, 2011
 # Idlusen <email address hidden>, 2019
 # Dibou <email address hidden>, 2012,2015
-# AO <email address hidden>, 2013,2015
-# AO <email address hidden>, 2013,2015
+# AO_LL <email address hidden>, 2013,2015
+# AO_LL <email address hidden>, 2013,2015
 # Laurent Hosch <email address hidden>, 2017
 # Laurent Monin <email address hidden>, 2016
 # Léonard Cardyn <email address hidden>, 2015
@@ -26,8 +26,8 @@
 # ShevAbam, 2016
 # ShevAbam, 2016
 # Steve Marsan <email address hidden>, 2021
-# AO <email address hidden>, 2015
-# AO <email address hidden>, 2013-2015
+# AO_LL <email address hidden>, 2015
+# AO_LL <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
 # Youenn Piolet, 2015
 # yvanz, 2016-2021

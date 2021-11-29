@@ -1,15 +1,15 @@
 # 
 # Translators:
-# AO <email address hidden>, 2013
+# AO_LL <email address hidden>, 2013
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Benjamin Sonntag <email address hidden>, 2011
 # Dibou <email address hidden>, 2012
-# AO <email address hidden>, 2013,2015
+# AO_LL <email address hidden>, 2013,2015
 # Laurent Monin <email address hidden>, 2014
 # Lotheric <email address hidden>, 2011
 # murdos <email address hidden>, 2011-2012
-# AO <email address hidden>, 2015
-# AO <email address hidden>, 2013-2015
+# AO_LL <email address hidden>, 2015
+# AO_LL <email address hidden>, 2013-2015
 # yvanz, 2016,2019-2021
 # yvanz, 2016
 msgid ""
