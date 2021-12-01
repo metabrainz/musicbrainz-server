@@ -223,27 +223,35 @@ Creating the database
     For normal operation, the server only needs to connect from one or two OS
     users (whoever your web server/crontabs run as), to one database (the
     MusicBrainz Database), as one PostgreSQL user. The PostgreSQL database name
-    and user name are given in DBDefs.pm (look for the `READWRITE` key).  For
-    example, if you run your web server and crontabs as "www-user", and you have
-    kept the default PostgreSQL user name ("musicbrainz"), the following
-    configuration recipe may prove useful:
+    and user name are given in DBDefs.pm (look for the `READWRITE` key).
+    
+    For example, if you run your web server and crontabs as "www-user" and you have
+    kept the default PostgreSQL user name ("musicbrainz"), you could set up that user
+    by changing your PostgreSQL configuration (the location of the PostegreSQL config
+    varies depending on your operating ystem; in Ubuntu it's usually 
+    /etc/postgresql/{version}/main/):
+    
+    1. Add this line in pg_hba.conf (Note: The order of the columns is important!):
 
-        # in pg_hba.conf (Note: The order of lines is important!):
-        local    musicbrainz_db    musicbrainz    ident    map=mb_map
+           local    musicbrainz_db    musicbrainz    ident    map=mb_map
+       
+    2. Add this line in pg_ident.conf:
 
-        # in pg_ident.conf:
-        mb_map    www-user    musicbrainz
+           mb_map    www-user    musicbrainz
 
     Alternatively, if you are running a server for development purposes and
-    don't require any special access permissions, the following configuration in
-    pg_hba.conf will suffice (make sure to insert this line before any other
+    don't require any special access permissions, only adding this line in 
+    pg_hba.conf will suffice (make sure to insert it before any other
     permissions):
 
         local   all    all    trust
 
     Note that a running PostgreSQL will pick up changes to configuration files
     only when being told so via a `HUP` signal (or by using pg_ctlcluster,
-    specifying `reload` as action).
+    specifying `reload` as action). Alternatively, in Ubuntu you can restart 
+    PostgreSQL by using:
+    
+        sudo /etc/init.d/postgresql restart
 
     You do not need to create the PostgreSQL user ("musicbrainz", or whatever
     name you configured in DBDefs.pm) yourself; the next step will do so
