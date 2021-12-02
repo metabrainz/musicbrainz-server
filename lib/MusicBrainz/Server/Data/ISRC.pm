@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::ISRC;
 use Moose;
 use namespace::autoclean;
 
-use List::MoreUtils qw( uniq );
+use List::AllUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw(
     object_to_ids
     placeholders
@@ -126,7 +126,7 @@ sub insert
     my ($self, @isrcs) = @_;
 
     $self->sql->do('INSERT INTO isrc (recording, isrc, source) VALUES ' .
-                 (join ',', (('(?, ?, ?)') x @isrcs)),
+                 (join q(,), (('(?, ?, ?)') x @isrcs)),
              map { $_->{recording_id}, $_->{isrc}, $_->{source} || undef }
                  @isrcs);
 }

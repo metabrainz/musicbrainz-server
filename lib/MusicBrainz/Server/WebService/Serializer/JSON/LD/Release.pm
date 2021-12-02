@@ -1,8 +1,7 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::LD::Release;
 use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity list_or_single artwork );
-use List::AllUtils qw( uniq );
-use List::UtilsBy qw( uniq_by );
+use List::AllUtils qw( uniq uniq_by );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Genre';
@@ -53,12 +52,30 @@ around serialize => sub {
 
         if ($entity->all_mediums) {
             my @tracks;
+            my %seen_recordings;
             for my $medium ($entity->all_mediums) {
                 if ($medium->all_tracks) {
                     for my $track ($medium->all_tracks) {
-                        if ($track->recording) {
-                            $stash->store($track->recording)->{trackNumber} = join('.', $medium->position, $track->position);
-                            push(@tracks, serialize_entity($track->recording, $inc, $stash));
+                        my $recording = $track->recording;
+                        if ($recording) {
+                            $stash->store($recording)->{trackNumber} = join(q(.), $medium->position, $track->position);
+
+                            # Limit the number of gid redirects outputted for
+                            # recordings to reduce the page size for releases
+                            # with a lot of [silence]. (The most-referenced
+                            # [silence] recording has over 2,000 gid redirects
+                            # as of November 2021.)
+                            $stash->store($recording)->{limit_gid_redirects} = 1;
+
+                            # Skip outputting gid redirects for recordings
+                            # that we've seen before.
+                            if ($seen_recordings{$recording->id}) {
+                                $stash->store($recording)->{skip_gid_redirects} = 1;
+                            } else {
+                                $seen_recordings{$recording->id} = 1;
+                            }
+
+                            push(@tracks, serialize_entity($recording, $inc, $stash));
                         }
                     }
                 }

@@ -1,0 +1,82 @@
+{
+  title: 'CD Lookup',
+  commands: [
+    {
+      command: 'open',
+      target: '/cdtoc/attach?tracks=1&toc=1+1+15104+150&tport=8000',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-filter-release.query',
+      value: '★',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'xpath=//h2[contains(text(), "Search by release")]/following-sibling::form//button[@type="submit"]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "window.document.querySelector('table.tbl').innerText",
+      value: 'Release\tArtist\tCountry/Date\tLabel\tCatalog#\tBarcode\tTagger\nRelease Group: ★ (Blackstar)\n★\tDavid Bowie\t\n\t\t\t888751738621\t\n\n\t CD 1 (show tracklist)\t',
+    },
+    {
+      command: 'assertEval',
+      target: "window.document.querySelector('a.tagger-icon').href",
+      value: 'http://127.0.0.1:8000/openalbum?id=24d4159a-99d9-425d-a7b8-1b9ec0261a33',
+    },
+    {
+      command: 'click',
+      target: 'css=input[name="medium"][value="1690850"]',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: "xpath=//button[contains(text(), 'Attach CD TOC')]",
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: "xpath=//button[contains(text(), 'Enter edit')]",
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        type: 55,
+        status: 2,
+        data: {
+          cdtoc: '1 1 15104 150',
+          release: {
+            id: 1693299,
+            name: '★',
+          },
+          entity_id: 1,
+          medium_id: '1690850',
+        }
+      },
+    },
+    {
+      command: 'open',
+      target: '/cdtoc/attach?tracks=1&toc=1+1+15104+150&tport=8000',
+      value: '',
+    },
+    {
+      command: 'assertTextMatches',
+      target: 'css=h2 + p',
+      value: 'We found discs matching the information you requested',
+    },
+    {
+      command: 'assertEval',
+      target: "window.document.querySelector('table.tbl').innerText",
+      value: 'Position\tTitle\tArtist\tFormat\tCountry/Date\tLabel\tCatalog#\tBarcode\tTagger\n1/1 (show tracklist)\t★\tDavid Bowie\tCD\t\n\t\t\t888751738621\t',
+    },
+    {
+      command: 'assertTextMatches',
+      target: 'css=table.tbl + p',
+      value: 'We used DiscID JlNvZmrMXulXHkVZC6JtM1AShZg- to look up this information.',
+    },
+  ],
+}

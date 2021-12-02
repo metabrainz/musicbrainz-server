@@ -9,7 +9,7 @@ use DBDefs;
 use Digest::SHA qw(sha1_base64);
 use Encode;
 use HTTP::Status qw( :constants );
-use List::Util 'sum';
+use List::AllUtils 'sum';
 use MusicBrainz::Server::Authentication::User;
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
@@ -317,6 +317,22 @@ sub contact : Chained('load') RequireAuth HiddenOnSlaves SecureForm
     my ($self, $c) = @_;
 
     my $editor = $c->stash->{user};
+
+    if ($c->user->is_adding_notes_disabled) {
+        $c->stash(
+            component_path  => 'user/UserMessage',
+            component_props => {
+                title    => l('Send Email'),
+                message  => l(
+                    'You are not allowed to send messages to editors.',
+                ),
+            },
+            current_view    => 'Node',
+        );
+        $c->detach;
+
+    }
+
     unless ($editor->email) {
         $c->stash(
             component_path  => 'user/UserMessage',
@@ -546,6 +562,7 @@ sub tags : Chained('load') PathPart('tags')
 
     my $user = $c->stash->{user};
     my $show_downvoted = $c->req->params->{show_downvoted} ? 1 : 0;
+    my $order = $c->req->params->{order};
 
     if (!defined $c->user || $c->user->id != $user->id)
     {
@@ -554,7 +571,7 @@ sub tags : Chained('load') PathPart('tags')
             unless $user->preferences->public_tags;
     }
 
-    my $tags = $c->model('Editor')->get_tags($user, $show_downvoted);
+    my $tags = $c->model('Editor')->get_tags($user, $show_downvoted, $order);
     my @display_tags = map +{
         %{$_},
         tag => to_json_object($_->{tag}),
@@ -566,6 +583,7 @@ sub tags : Chained('load') PathPart('tags')
 
     my %props = (
         showDownvoted => boolean_to_json($show_downvoted),
+        sortBy => $order,
         tags => to_json_array(\@display_tags),
         genres => to_json_array(\@display_genres),
         user => $self->serialize_user($user),

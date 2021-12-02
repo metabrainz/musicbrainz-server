@@ -9,40 +9,86 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../../../context';
+import {SanitizedCatalystContext} from '../../../../context';
 import taggerIconUrl from '../../../images/icons/mblookup-tagger.png';
 
-function buildTaggerLink(entity, tport: number): string {
-  const gid = entity.gid;
-  const t = Math.floor(Date.now() / 1000);
+function buildTaggerLink(
+  entityType: 'recording' | 'release',
+  gid: string,
+  tport: number,
+): string {
   let path = '';
-  if (entity.entityType === 'release') {
+  if (entityType === 'release') {
     path = 'openalbum';
-  } else if (entity.entityType === 'recording') {
+  } else if (entityType === 'recording') {
     path = 'opennat';
   }
-  return `http://127.0.0.1:${tport}/${path}?id=${gid}&t=${t}`;
+  return `http://127.0.0.1:${tport}/${path}?id=${gid}`;
 }
 
 type Props = {
-  +entity: RecordingT | ReleaseT,
+  +entityType: 'recording' | 'release',
+  +gid: string,
 };
 
-const TaggerIcon = ({entity}: Props): React.MixedElement => (
-  <CatalystContext.Consumer>
-    {$c => $c.session?.tport == null ? null : (
-      <a
-        className="tagger-icon"
-        href={buildTaggerLink(entity, $c.session.tport)}
-        title={l('Open in tagger')}
-      >
-        <img
-          alt={l('Tagger')}
-          src={taggerIconUrl}
-        />
-      </a>
-    )}
-  </CatalystContext.Consumer>
-);
+const TaggerIcon = ({
+  entityType,
+  gid,
+}: Props): React.MixedElement | null => {
+  const $c = React.useContext(SanitizedCatalystContext);
 
-export default TaggerIcon;
+  const tport = $c.session?.tport;
+  if (tport == null) {
+    return null;
+  }
+
+  const handleClick = (event: SyntheticMouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+
+    const target = event.currentTarget;
+
+    /*
+     * MBS-6785: Use the tagger iframe if window.opera exists
+     *
+     * Opera doesn't seem to allow loading localhost as an image with its
+     * security policy, so the fix for mixed-content introduced in
+     * commit 2fef85c causes the tagger button to have no effect on Opera.
+     *
+     * Conditionally branch on the 'window.opera' object, which (should)
+     * only be set if the browser is Opera. If the browser is Opera, we use
+     * an approach similar to the old iframe approach, though we do so
+     * dynamically. If window.opera does not exist, we continue to use the
+     * new Image technique.
+     */
+    if (window.opera) {
+      const iframe = document.createElement('iframe');
+      iframe.src = target.href;
+      iframe.style.display = 'none';
+      document.body?.appendChild(iframe);
+    } else {
+      const tagger = new Image();
+      tagger.src = target.href;
+    }
+  };
+
+  return (
+    <a
+      className="tagger-icon"
+      href={buildTaggerLink(entityType, gid, tport)}
+      onClick={handleClick}
+      title={l('Open in tagger')}
+    >
+      <img
+        alt={l('Tagger')}
+        src={taggerIconUrl}
+      />
+    </a>
+  );
+};
+
+export default (
+  hydrate<Props>(
+    'span.tagger-icon',
+    TaggerIcon,
+  ): React.AbstractComponent<Props, void>
+);

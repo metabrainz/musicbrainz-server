@@ -156,7 +156,7 @@ sub find_by_names
     my $query = 'SELECT ' . $self->_columns . ', search_terms.term '
         .'FROM ' . $self->_table
         . ', (VALUES '
-        .     join (',', ('(?)') x scalar(@names))
+        .     join (q(,), ('(?)') x scalar(@names))
         .    ') search_terms (term)'
         .' WHERE lower(musicbrainz_unaccent(name)) = '
         .' lower(musicbrainz_unaccent(search_terms.term));';
@@ -204,7 +204,7 @@ sub add_gid_redirects
     my ($self, %redirects) = @_;
     my $table = $self->_gid_redirect_table;
     my $query = "INSERT INTO $table (gid, new_id) VALUES " .
-                (join ', ', ('(?, ?)') x keys %redirects);
+                (join q(, ), ('(?, ?)') x keys %redirects);
     $self->sql->do($query, %redirects);
 }
 

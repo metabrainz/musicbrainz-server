@@ -1,5 +1,4 @@
 #!/usr/bin/env perl
-# vi: set ts=4 sw=4 :
 
 use warnings;
 use strict;
@@ -60,5 +59,3 @@ sub prune_dir
         }
     }
 }
-
-# eof

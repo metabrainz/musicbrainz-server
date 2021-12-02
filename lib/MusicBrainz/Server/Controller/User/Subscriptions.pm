@@ -27,7 +27,22 @@ with 'MusicBrainz::Server::Controller::User::SubscriptionsRole' => {
 sub subscriptions : Chained('/user/load') {
     my ($self, $c) = @_;
     my $user = $c->stash->{user};
-    $c->response->redirect($c->uri_for_action('/user/subscriptions/artist', [ $user->name ]));
+    $c->model('Editor')->load_preferences($user);
+
+    my $is_admin_viewing_private = defined $c->user &&
+                                   $c->user->is_account_admin &&
+                                   $c->user->id != $user->id &&
+                                   !$user->preferences->public_subscriptions;
+
+    if ($is_admin_viewing_private) {
+        $c->response->redirect(
+            $c->uri_for_action('/user/subscriptions/editor', [ $user->name ])
+        );
+    } else {
+        $c->response->redirect(
+            $c->uri_for_action('/user/subscriptions/artist', [ $user->name ])
+        );
+    }
 }
 
 1;

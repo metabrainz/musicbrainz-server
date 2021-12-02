@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::Root;
 use Digest::MD5 qw( md5_hex );
 use Moose;
 use Try::Tiny;
-use List::Util qw( max );
+use List::AllUtils qw( max );
 use Readonly;
 use URI::QueryParam;
 

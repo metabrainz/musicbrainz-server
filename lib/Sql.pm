@@ -145,8 +145,8 @@ sub insert_row
         }
     }
 
-    my $query = "INSERT INTO $table (" . join(',', @columns) .') VALUES (' .
-                join(',', @expressions) . ')';
+    my $query = "INSERT INTO $table (" . join(q(,), @columns) .') VALUES (' .
+                join(q(,), @expressions) . ')';
 
     if ($returning) {
         $query .= " RETURNING $returning";

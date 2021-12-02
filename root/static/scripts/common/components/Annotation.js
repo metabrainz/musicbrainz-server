@@ -12,7 +12,6 @@ import mutate from 'mutate-cow';
 
 import {SanitizedCatalystContext} from '../../../../context';
 import formatUserDate from '../../../../utility/formatUserDate';
-import hydrate from '../../../../utility/hydrate';
 import sanitizedEditor from '../../../../utility/sanitizedEditor';
 import entityHref from '../utility/entityHref';
 

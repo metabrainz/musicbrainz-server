@@ -156,6 +156,21 @@ test 'previewing/creating/editing a release group and release' => sub {
     @edits = capture_edits {
         post_json($mech, '/ws/js/edit/create', encode_json({
             edits => $release_edits,
+            editNote => ' .  ',
+            makeVotable => 0,
+        }));
+    } $c;
+
+    is(scalar @edits, 0, 'release not created with invalid note');
+
+    $response = from_json($mech->content);
+
+    is($response->{error}, 'editNote invalid', 'ws response says editNote invalid');
+
+
+    @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({
+            edits => $release_edits,
             editNote => 'foo',
             makeVotable => 0,
         }));

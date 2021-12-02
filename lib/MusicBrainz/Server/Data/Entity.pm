@@ -5,7 +5,7 @@ use namespace::autoclean;
 use Class::MOP;
 use Data::Dumper;
 use Devel::StackTrace;
-use List::MoreUtils qw( part uniq );
+use List::AllUtils qw( part uniq );
 use MusicBrainz::Server::Validation qw( is_guid is_database_row_id );
 use Carp qw( confess );
 

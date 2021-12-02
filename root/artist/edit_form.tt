@@ -98,7 +98,7 @@
 </form>
 
 [%- guesscase_options() -%]
-[% script_manifest('artist.js') %]
+[% script_manifest('artist/edit.js') %]
 
 <script type="text/javascript">
   (function () {

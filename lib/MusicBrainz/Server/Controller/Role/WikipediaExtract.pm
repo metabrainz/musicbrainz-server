@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Controller::Role::WikipediaExtract;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
-use List::UtilsBy qw( rev_nsort_by );
+use List::AllUtils qw( rev_nsort_by );
 use namespace::autoclean;
 
 before show => sub {

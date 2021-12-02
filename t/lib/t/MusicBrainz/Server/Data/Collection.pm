@@ -173,6 +173,23 @@ $tx->is('//div[@id="content"]/div[@class="collaborators"]/p/a', '',
 
 (undef, $hits) = $coll_data->find_by_subscribed_editor(1, 10, 0);
 is($hits, 1, 'Editor #1 is no longer subscribed to private collection they no longer collaborate on');
+
+# Checking dropped subscriptions are restored when collection is made public
+$mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cb/own_collection/edit');
+$mech->form_number(2);
+$mech->field('edit-list.public', 1);
+$mech->click();
+
+$collection2 = $test->c->model('Collection')->get_by_id(2);
+ok($collection2->{public}, 'Collection is now public again');
+
+(undef, $hits) = $coll_data->find_by_subscribed_editor(3, 10, 0);
+is($hits, 1, 'Editor #3 is subscribed to now public collection again');
+(undef, $hits) = $coll_data->find_by_subscribed_editor(2, 10, 0);
+is($hits, 1,
+   'Editor #2 is still subscribed to now public collection they own');
+(undef, $hits) = $coll_data->find_by_subscribed_editor(1, 10, 0);
+is($hits, 2, 'Editor #1 is subscribed to now public collection again');
 };
 
 1;

@@ -1,30 +1,5 @@
 #!/usr/bin/env perl
 
-use warnings;
-#____________________________________________________________________________
-#
-#   MusicBrainz -- the open internet music database
-#
-#   Copyright (C) 2002 Robert Kaye
-#   Copyright (C) 2012 MetaBrainz Foundation
-#
-#   This program is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
-#
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with this program; if not, write to the Free Software
-#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-#   $Id$
-#____________________________________________________________________________
-
 use strict;
 use warnings;
 
@@ -38,7 +13,7 @@ use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
 my $REPTYPE = DBDefs->REPLICATION_TYPE;
 
-my $psql = "psql";
+my $psql = 'psql';
 my $path_to_pending_so;
 my $databaseName = 'MAINTENANCE';
 my $fFixUTF8 = 0;
@@ -54,7 +29,7 @@ my $fQuiet = 0;
 my $fVerbose = 0;
 
 my $sqldir = "$FindBin::Bin/sql";
--d $sqldir or die "Couldn't find SQL script directory";
+-d $sqldir or die q(Couldn't find SQL script directory);
 
 {
     my $READWRITE = Databases->get('READWRITE');
@@ -70,7 +45,7 @@ sub RequireMinimumPostgreSQLVersion
     my $mb = Databases->get_connection('SYSTEM');
     my $sql = Sql->new( $mb->conn );
 
-    my $version = $sql->select_single_value("SELECT current_setting('server_version_num')");
+    my $version = $sql->select_single_value(q{SELECT current_setting('server_version_num')});
 
     if ($version < 12000) {
         die 'MusicBrainz requires PostgreSQL 12 or later';
@@ -86,23 +61,23 @@ sub RunSQLScript
     $path //= $sqldir;
 
     my $opts = $db->shell_args;
-    my $echo = ($fEcho ? "-e" : "");
+    my $echo = ($fEcho ? '-e' : '');
     my $stdout;
     my $quiet;
 
-    $ENV{"PGOPTIONS"} = "-c search_path=musicbrainz,public";
-    $ENV{"PGPASSWORD"} = $db->password;
+    $ENV{'PGOPTIONS'} = '-c search_path=musicbrainz,public';
+    $ENV{'PGPASSWORD'} = $db->password;
 
     if ($fVerbose)
     {
-        $stdout = "";
-        $quiet = "";
+        $stdout = '';
+        $quiet = '';
     }
     else
     {
-        $stdout = ">/dev/null";
-        $quiet = " --quiet ";
-        $ENV{"PGOPTIONS"} .= ' -c client_min_messages=WARNING';
+        $stdout = '>/dev/null';
+        $quiet = ' --quiet ';
+        $ENV{'PGOPTIONS'} .= ' -c client_min_messages=WARNING';
     }
 
     print "$psql $quiet $echo -f $path/$file $opts 2>&1 $stdout |\n" if $fVerbose;
@@ -110,7 +85,7 @@ sub RunSQLScript
         or die "exec '$psql': $!";
     while (<PIPE>)
     {
-        print localtime() . " : " . $_;
+        print localtime() . ' : ' . $_;
     }
     close PIPE;
 
@@ -128,16 +103,16 @@ sub InstallExtension
 {
     my ($db, $ext, $schema) = @_;
 
-    my $opts = "-U postgres " . $db->database;
-    my $echo = ($fEcho ? "-e" : "");
-    my $stdout = (!$fVerbose ? ">/dev/null" : "");
+    my $opts = '-U postgres ' . $db->database;
+    my $echo = ($fEcho ? '-e' : '');
+    my $stdout = (!$fVerbose ? '>/dev/null' : '');
 
     my $sharedir = `pg_config --sharedir`;
-    die "Cannot find pg_config on path" if !defined $sharedir or $? != 0;
+    die 'Cannot find pg_config on path' if !defined $sharedir || $? != 0;
 
     chomp($sharedir);
 
-    RunSQLScript($db, "$sharedir/contrib/$ext", "Installing $ext extension ...", "");
+    RunSQLScript($db, "$sharedir/contrib/$ext", "Installing $ext extension ...", '');
 }
 
 sub CreateReplicationFunction
@@ -181,12 +156,12 @@ sub Create
     my $sysname;
     if ($createdb eq 'MAINTENANCE' || $createdb eq 'READWRITE' || $createdb eq 'READONLY')
     {
-        $sysname = "SYSTEM";
+        $sysname = 'SYSTEM';
     }
     else
     {
-        $sysname = $createdb . "_SYSTEM";
-        $sysname = "SYSTEM" if not defined Databases->get($sysname);
+        $sysname = $createdb . '_SYSTEM';
+        $sysname = 'SYSTEM' if not defined Databases->get($sysname);
     }
 
     my $db = Databases->get($createdb);
@@ -198,9 +173,9 @@ sub Create
         my $username = $db->username;
 
         if (!($system_sql->select_single_value(
-            "SELECT 1 FROM pg_shadow WHERE usename = ?", $username)))
+            'SELECT 1 FROM pg_shadow WHERE usename = ?', $username)))
         {
-            my $passwordclause = "";
+            my $passwordclause = '';
             $passwordclause = "PASSWORD '$_'"
                 if local $_ = $db->password;
 
@@ -217,8 +192,8 @@ sub Create
     my $dbuser = $db->username;
     $system_sql->do(
         "CREATE DATABASE $dbname WITH OWNER = $dbuser ".
-        "TEMPLATE template0 ENCODING = 'UNICODE' ".
-        "LC_CTYPE='C' LC_COLLATE='C'"
+        q{TEMPLATE template0 ENCODING = 'UNICODE' }.
+        q{LC_CTYPE='C' LC_COLLATE='C'}
     );
 
     # We frequently use DateTime->now to populate 'TIMESTAMP WITH TIME ZONE'
@@ -229,7 +204,7 @@ sub Create
     $system_sql->do("ALTER DATABASE $dbname SET timezone TO 'UTC'");
 
     # Set the default search path for the READWRITE and READONLY users
-    my $search_path = "musicbrainz, public";
+    my $search_path = 'musicbrainz, public';
     my $READONLY = Databases->get('READONLY');
     my $READWRITE = Databases->get('READWRITE');
 
@@ -247,7 +222,7 @@ sub _set_search_path {
 
     $sql->auto_commit(1);
     $sql->do(
-        "ALTER USER " . $username . " SET search_path TO " . $search_path
+        'ALTER USER ' . $username . ' SET search_path TO ' . $search_path
     );
 }
 
@@ -258,7 +233,7 @@ sub CreateRelations
     my $import = shift;
 
     my $opts = $DB->shell_args;
-    $ENV{"PGPASSWORD"} = $DB->password;
+    $ENV{'PGPASSWORD'} = $DB->password;
 
     system(sprintf(qq(echo "CREATE SCHEMA %s" | $psql $opts), $_))
         for (qw(
@@ -274,116 +249,116 @@ sub CreateRelations
         ));
     die "\nFailed to create schema\n" if ($? >> 8);
 
-    RunSQLScript($SYSMB, "Extensions.sql", "Installing extensions");
-    RunSQLScript($DB, "CreateCollations.sql", "Creating collations ...");
+    RunSQLScript($SYSMB, 'Extensions.sql', 'Installing extensions');
+    RunSQLScript($DB, 'CreateCollations.sql', 'Creating collations ...');
 
-    RunSQLScript($DB, "CreateTables.sql", "Creating tables ...");
-    RunSQLScript($DB, "caa/CreateTables.sql", "Creating CAA tables ...");
-    RunSQLScript($DB, "eaa/CreateTables.sql", "Creating EAA tables ...");
-    RunSQLScript($DB, "documentation/CreateTables.sql", "Creating documentation tables ...");
-    RunSQLScript($DB, "json_dump/CreateTables.sql", "Creating json_dump tables ...");
-    RunSQLScript($DB, "report/CreateTables.sql", "Creating report tables ...");
-    RunSQLScript($DB, "sitemaps/CreateTables.sql", "Creating sitemaps tables ...");
-    RunSQLScript($DB, "statistics/CreateTables.sql", "Creating statistics tables ...");
-    RunSQLScript($DB, "wikidocs/CreateTables.sql", "Creating wikidocs tables ...");
+    RunSQLScript($DB, 'CreateTables.sql', 'Creating tables ...');
+    RunSQLScript($DB, 'caa/CreateTables.sql', 'Creating CAA tables ...');
+    RunSQLScript($DB, 'eaa/CreateTables.sql', 'Creating EAA tables ...');
+    RunSQLScript($DB, 'documentation/CreateTables.sql', 'Creating documentation tables ...');
+    RunSQLScript($DB, 'json_dump/CreateTables.sql', 'Creating json_dump tables ...');
+    RunSQLScript($DB, 'report/CreateTables.sql', 'Creating report tables ...');
+    RunSQLScript($DB, 'sitemaps/CreateTables.sql', 'Creating sitemaps tables ...');
+    RunSQLScript($DB, 'statistics/CreateTables.sql', 'Creating statistics tables ...');
+    RunSQLScript($DB, 'wikidocs/CreateTables.sql', 'Creating wikidocs tables ...');
 
     if ($import)
     {
-        local $" = " ";
-        my @opts = "--ignore-errors";
-        push @opts, "--fix-broken-utf8" if ($fFixUTF8);
+        local $" = ' ';
+        my @opts = '--ignore-errors';
+        push @opts, '--fix-broken-utf8' if ($fFixUTF8);
         push @opts, "--tmp-dir=$tmp_dir" if ($tmp_dir);
         push @opts, '--database', $databaseName;
         system($^X, "$FindBin::Bin/MBImport.pl", @opts, @$import);
         die "\nFailed to import dataset.\n" if ($? >> 8);
     } else {
-        RunSQLScript($DB, "InsertDefaultRows.sql", "Adding default rows ...");
+        RunSQLScript($DB, 'InsertDefaultRows.sql', 'Adding default rows ...');
     }
 
-    RunSQLScript($DB, "CreatePrimaryKeys.sql", "Creating primary keys ...");
-    RunSQLScript($DB, "caa/CreatePrimaryKeys.sql", "Creating CAA primary keys ...");
-    RunSQLScript($DB, "documentation/CreatePrimaryKeys.sql", "Creating documentation primary keys ...");
-    RunSQLScript($DB, "eaa/CreatePrimaryKeys.sql", "Creating EAA primary keys ...");
-    RunSQLScript($DB, "statistics/CreatePrimaryKeys.sql", "Creating statistics primary keys ...");
-    RunSQLScript($DB, "wikidocs/CreatePrimaryKeys.sql", "Creating wikidocs primary keys ...");
+    RunSQLScript($DB, 'CreatePrimaryKeys.sql', 'Creating primary keys ...');
+    RunSQLScript($DB, 'caa/CreatePrimaryKeys.sql', 'Creating CAA primary keys ...');
+    RunSQLScript($DB, 'documentation/CreatePrimaryKeys.sql', 'Creating documentation primary keys ...');
+    RunSQLScript($DB, 'eaa/CreatePrimaryKeys.sql', 'Creating EAA primary keys ...');
+    RunSQLScript($DB, 'statistics/CreatePrimaryKeys.sql', 'Creating statistics primary keys ...');
+    RunSQLScript($DB, 'wikidocs/CreatePrimaryKeys.sql', 'Creating wikidocs primary keys ...');
 
-    RunSQLScript($SYSMB, "CreateSearchConfiguration.sql", "Creating search configuration ...");
-    RunSQLScript($DB, "CreateFunctions.sql", "Creating functions ...");
-    RunSQLScript($DB, "caa/CreateFunctions.sql", "Creating CAA functions ...");
-    RunSQLScript($DB, "eaa/CreateFunctions.sql", "Creating EAA functions ...");
-    RunSQLScript($DB, "CreateSlaveOnlyFunctions.sql", "Creating slave-only functions ...")
+    RunSQLScript($SYSMB, 'CreateSearchConfiguration.sql', 'Creating search configuration ...');
+    RunSQLScript($DB, 'CreateFunctions.sql', 'Creating functions ...');
+    RunSQLScript($DB, 'caa/CreateFunctions.sql', 'Creating CAA functions ...');
+    RunSQLScript($DB, 'eaa/CreateFunctions.sql', 'Creating EAA functions ...');
+    RunSQLScript($DB, 'CreateSlaveOnlyFunctions.sql', 'Creating slave-only functions ...')
         if $REPTYPE == RT_SLAVE;
 
-    RunSQLScript($DB, "CreateIndexes.sql", "Creating indexes ...");
-    RunSQLScript($DB, "caa/CreateIndexes.sql", "Creating CAA indexes ...");
-    RunSQLScript($DB, "eaa/CreateIndexes.sql", "Creating EAA indexes ...");
-    RunSQLScript($DB, "json_dump/CreateIndexes.sql", "Creating json_dump indexes ...");
-    RunSQLScript($DB, "sitemaps/CreateIndexes.sql", "Creating sitemaps indexes ...");
-    RunSQLScript($DB, "statistics/CreateIndexes.sql", "Creating statistics indexes ...");
+    RunSQLScript($DB, 'CreateIndexes.sql', 'Creating indexes ...');
+    RunSQLScript($DB, 'caa/CreateIndexes.sql', 'Creating CAA indexes ...');
+    RunSQLScript($DB, 'eaa/CreateIndexes.sql', 'Creating EAA indexes ...');
+    RunSQLScript($DB, 'json_dump/CreateIndexes.sql', 'Creating json_dump indexes ...');
+    RunSQLScript($DB, 'sitemaps/CreateIndexes.sql', 'Creating sitemaps indexes ...');
+    RunSQLScript($DB, 'statistics/CreateIndexes.sql', 'Creating statistics indexes ...');
 
-    RunSQLScript($DB, "CreateSlaveIndexes.sql", "Creating slave-only indexes ...")
+    RunSQLScript($DB, 'CreateSlaveIndexes.sql', 'Creating slave-only indexes ...')
         if $REPTYPE == RT_SLAVE;
 
-    RunSQLScript($DB, "CreateFKConstraints.sql", "Adding foreign key constraints ...")
+    RunSQLScript($DB, 'CreateFKConstraints.sql', 'Adding foreign key constraints ...')
         unless $REPTYPE == RT_SLAVE;
 
-    RunSQLScript($DB, "caa/CreateFKConstraints.sql", "Adding CAA foreign key constraints ...")
+    RunSQLScript($DB, 'caa/CreateFKConstraints.sql', 'Adding CAA foreign key constraints ...')
         unless $REPTYPE == RT_SLAVE;
 
-    RunSQLScript($DB, "eaa/CreateFKConstraints.sql", "Adding EAA foreign key constraints ...")
+    RunSQLScript($DB, 'eaa/CreateFKConstraints.sql', 'Adding EAA foreign key constraints ...')
         unless $REPTYPE == RT_SLAVE;
 
-    RunSQLScript($DB, "caa/CreateEditFKConstraints.sql", "Adding CAA foreign key constraint to edit table...")
+    RunSQLScript($DB, 'caa/CreateEditFKConstraints.sql', 'Adding CAA foreign key constraint to edit table...')
         unless ($REPTYPE == RT_SLAVE || !HasEditData());
 
-    RunSQLScript($DB, "eaa/CreateEditFKConstraints.sql", "Adding EAA foreign key constraint to edit table...")
+    RunSQLScript($DB, 'eaa/CreateEditFKConstraints.sql', 'Adding EAA foreign key constraint to edit table...')
         unless ($REPTYPE == RT_SLAVE || !HasEditData());
 
-    RunSQLScript($DB, "sitemaps/CreateFKConstraints.sql", "Adding sitemaps foreign key constraints ...")
+    RunSQLScript($DB, 'sitemaps/CreateFKConstraints.sql', 'Adding sitemaps foreign key constraints ...')
         unless $REPTYPE == RT_SLAVE;
 
-    RunSQLScript($DB, "CreateConstraints.sql", "Adding table constraints ...")
+    RunSQLScript($DB, 'CreateConstraints.sql', 'Adding table constraints ...')
         unless $REPTYPE == RT_SLAVE;
 
-    RunSQLScript($DB, "SetSequences.sql", "Setting raw initial sequence values ...");
-    RunSQLScript($DB, "statistics/SetSequences.sql", "Setting raw initial statistics sequence values ...");
+    RunSQLScript($DB, 'SetSequences.sql', 'Setting raw initial sequence values ...');
+    RunSQLScript($DB, 'statistics/SetSequences.sql', 'Setting raw initial statistics sequence values ...');
 
-    RunSQLScript($DB, "CreateViews.sql", "Creating views ...");
-    RunSQLScript($DB, "caa/CreateViews.sql", "Creating CAA views ...");
-    RunSQLScript($DB, "eaa/CreateViews.sql", "Creating EAA views ...");
+    RunSQLScript($DB, 'CreateViews.sql', 'Creating views ...');
+    RunSQLScript($DB, 'caa/CreateViews.sql', 'Creating CAA views ...');
+    RunSQLScript($DB, 'eaa/CreateViews.sql', 'Creating EAA views ...');
 
-    RunSQLScript($DB, "CreateTriggers.sql", "Creating triggers ...")
+    RunSQLScript($DB, 'CreateTriggers.sql', 'Creating triggers ...')
         unless $REPTYPE == RT_SLAVE;
 
-    RunSQLScript($DB, "caa/CreateTriggers.sql", "Creating CAA triggers ...")
+    RunSQLScript($DB, 'caa/CreateTriggers.sql', 'Creating CAA triggers ...')
         unless $REPTYPE == RT_SLAVE;
 
-    RunSQLScript($DB, "eaa/CreateTriggers.sql", "Creating EAA triggers ...")
+    RunSQLScript($DB, 'eaa/CreateTriggers.sql', 'Creating EAA triggers ...')
         unless $REPTYPE == RT_SLAVE;
 
-    RunSQLScript($DB, "CreateSlaveOnlyTriggers.sql", "Creating slave-only triggers ...")
+    RunSQLScript($DB, 'CreateSlaveOnlyTriggers.sql', 'Creating slave-only triggers ...')
         if $REPTYPE == RT_SLAVE;
 
-    RunSQLScript($DB, "CreateSearchIndexes.sql", "Creating search indexes ...");
+    RunSQLScript($DB, 'CreateSearchIndexes.sql', 'Creating search indexes ...');
 
     if ($REPTYPE == RT_MASTER)
     {
         CreateReplicationFunction();
-        RunSQLScript($DB, "CreateReplicationTriggers.sql", "Creating replication triggers ...");
-        RunSQLScript($DB, "caa/CreateReplicationTriggers.sql", "Creating CAA replication triggers ...");
-        RunSQLScript($DB, "documentation/CreateReplicationTriggers.sql", "Creating documentation replication triggers ...");
-        RunSQLScript($DB, "eaa/CreateReplicationTriggers.sql", "Creating EAA replication triggers ...");
-        RunSQLScript($DB, "statistics/CreateReplicationTriggers.sql", "Creating statistics replication triggers ...");
-        RunSQLScript($DB, "wikidocs/CreateReplicationTriggers.sql", "Creating wikidocs replication triggers ...");
+        RunSQLScript($DB, 'CreateReplicationTriggers.sql', 'Creating replication triggers ...');
+        RunSQLScript($DB, 'caa/CreateReplicationTriggers.sql', 'Creating CAA replication triggers ...');
+        RunSQLScript($DB, 'documentation/CreateReplicationTriggers.sql', 'Creating documentation replication triggers ...');
+        RunSQLScript($DB, 'eaa/CreateReplicationTriggers.sql', 'Creating EAA replication triggers ...');
+        RunSQLScript($DB, 'statistics/CreateReplicationTriggers.sql', 'Creating statistics replication triggers ...');
+        RunSQLScript($DB, 'wikidocs/CreateReplicationTriggers.sql', 'Creating wikidocs replication triggers ...');
     }
     if ($REPTYPE == RT_MASTER || $REPTYPE == RT_SLAVE)
     {
-        RunSQLScript($DB, "ReplicationSetup.sql", "Setting up replication ...");
+        RunSQLScript($DB, 'ReplicationSetup.sql', 'Setting up replication ...');
     }
 
     print localtime() . " : Optimizing database ...\n" unless $fQuiet;
     $opts = $DB->shell_args;
-    $ENV{"PGPASSWORD"} = $DB->password;
+    $ENV{'PGPASSWORD'} = $DB->password;
     system(qq(echo "vacuum analyze" | $psql $opts));
     die "\nFailed to optimize database\n" if ($? >> 8);
 
@@ -392,8 +367,8 @@ sub CreateRelations
 
 sub GrantSelect
 {
-    my $READONLY = Databases->get("READONLY");
-    my $READWRITE = Databases->get("READWRITE");
+    my $READONLY = Databases->get('READONLY');
+    my $READWRITE = Databases->get('READWRITE');
 
     return unless $READONLY;
 
@@ -407,7 +382,7 @@ sub GrantSelect
     my $username = $READONLY->username;
     return if $username eq $READWRITE->username;
 
-    my $sth = $dbh->table_info("", "public") or die;
+    my $sth = $dbh->table_info('', 'public') or die;
     while (my $row = $sth->fetchrow_arrayref)
     {
         my $tablename = $row->[2];
@@ -426,7 +401,7 @@ sub SanityCheck
     if ($REPTYPE == RT_SLAVE)
     {
         warn "Warning: this is a slave replication server, but there is no READONLY connection defined\n"
-            unless Databases->get("READONLY");
+            unless Databases->get('READONLY');
     }
 
     if ($REPTYPE == RT_MASTER)
@@ -498,36 +473,36 @@ pass additional options to that script by using "--".  For example:
 EOF
 }
 
-my $mode = "MODE_IMPORT";
+my $mode = 'MODE_IMPORT';
 
 GetOptions(
-    "psql=s"              => \$psql,
-    "createdb"            => \$fCreateDB,
-    "database:s"          => \$databaseName,
-    "empty-database"      => sub { $mode = "MODE_NO_TABLES" },
-    "import|i"            => sub { $mode = "MODE_IMPORT" },
-    "clean|c"             => sub { $mode = "MODE_NO_DATA" },
-    "with-pending=s"      => \$path_to_pending_so,
-    "echo!"               => \$fEcho,
-    "quiet|q"             => \$fQuiet,
-    "verbose|v"           => \$fVerbose,
-    "help|h"              => \&Usage,
-    "fix-broken-utf8"     => \$fFixUTF8,
-    "install-extension=s" => \$fInstallExtension,
-    "extension-schema=s"  => \$fExtensionSchema,
-    "tmp-dir=s"           => \$tmp_dir,
-    "reptype=s"           => \$REPTYPE,
+    'psql=s'              => \$psql,
+    'createdb'            => \$fCreateDB,
+    'database:s'          => \$databaseName,
+    'empty-database'      => sub { $mode = 'MODE_NO_TABLES' },
+    'import|i'            => sub { $mode = 'MODE_IMPORT' },
+    'clean|c'             => sub { $mode = 'MODE_NO_DATA' },
+    'with-pending=s'      => \$path_to_pending_so,
+    'echo!'               => \$fEcho,
+    'quiet|q'             => \$fQuiet,
+    'verbose|v'           => \$fVerbose,
+    'help|h'              => \&Usage,
+    'fix-broken-utf8'     => \$fFixUTF8,
+    'install-extension=s' => \$fInstallExtension,
+    'extension-schema=s'  => \$fExtensionSchema,
+    'tmp-dir=s'           => \$tmp_dir,
+    'reptype=s'           => \$REPTYPE,
 ) or exit 2;
 
 my $DB = Databases->get($databaseName);
 # Register a new database connection as the system user, but to the MB
 # database
-my $SYSTEM = Databases->get("SYSTEM");
+my $SYSTEM = Databases->get('SYSTEM');
 my $SYSMB  = $SYSTEM->meta->clone_object(
     $SYSTEM,
     database => $DB->database
 );
-Databases->register_database("SYSMB", $SYSMB);
+Databases->register_database('SYSMB', $SYSMB);
 
 if ($fInstallExtension)
 {
@@ -553,19 +528,28 @@ if ($fCreateDB)
     Create($databaseName);
 }
 
-if ($mode eq "MODE_NO_TABLES") { } # nothing to do
-elsif ($mode eq "MODE_NO_DATA") { CreateRelations($DB, $SYSMB) }
-elsif ($mode eq "MODE_IMPORT") { CreateRelations($DB, $SYSMB, \@ARGV) }
+if ($mode eq 'MODE_NO_TABLES') { } # nothing to do
+elsif ($mode eq 'MODE_NO_DATA') { CreateRelations($DB, $SYSMB) }
+elsif ($mode eq 'MODE_IMPORT') { CreateRelations($DB, $SYSMB, \@ARGV) }
 
 if ($databaseName eq 'MAINTENANCE' || $databaseName eq 'READWRITE') {
     GrantSelect($databaseName);
 }
 
 END {
-    print localtime() . " : InitDb.pl "
-        . ($? == 0 ? "succeeded" : "failed")
+    print localtime() . ' : InitDb.pl '
+        . ($? == 0 ? 'succeeded' : 'failed')
         . "\n"
         if $started;
 }
 
-# vi: set ts=4 sw=4 :
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2000 Robert Kaye
+Copyright (C) 2012 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut

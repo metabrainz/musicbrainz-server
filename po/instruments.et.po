@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-10-04 13:59+0000\n"
-"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
+"PO-Revision-Date: 2021-11-22 19:04+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -222,6 +222,7 @@ msgid "Spanish acoustic guitar"
 msgstr "hispaania akustiline kitarr"
 
 #: DB:instrument/name:451
+msgctxt "Horn-amplified violin"
 msgid "Stroh violin"
 msgstr "Stroh’ viiul"
 
@@ -885,6 +886,7 @@ msgid "castanets"
 msgstr ""
 
 #: DB:instrument/name:524
+msgctxt "Small four-stringed Portugesian lute"
 msgid "cavaquinho"
 msgstr "cavaquinho"
 
@@ -898,6 +900,7 @@ msgid "celesta"
 msgstr "tšelesta"
 
 #: DB:instrument/name:60
+msgctxt "Small bass of modern violin family"
 msgid "cello"
 msgstr "tšello"
 
@@ -3527,6 +3530,11 @@ msgctxt "ensemble of 2 violins, viola, cello and a fifth string instrument"
 msgid "string quintet"
 msgstr ""
 
+#: DB:instrument/name:1034
+msgctxt "60-80's electronic string-ensemble emulator"
+msgid "string synthesizer"
+msgstr ""
+
 #: DB:instrument/name:915
 msgctxt "ensemble of violin, viola and cello"
 msgid "string trio"
@@ -3746,6 +3754,7 @@ msgid "temür khuur"
 msgstr ""
 
 #: DB:instrument/name:657
+msgctxt "4 string tenor banjo"
 msgid "tenor banjo"
 msgstr ""
 
@@ -3884,7 +3893,7 @@ msgid "treble recorder / alto recorder"
 msgstr "altplokkflööt"
 
 #: DB:instrument/name:921
-msgctxt "Treble/descant member of the viol family"
+msgctxt "Treble/soprano member of the viol family"
 msgid "treble viol"
 msgstr ""
 
@@ -4114,6 +4123,7 @@ msgid "viol family"
 msgstr ""
 
 #: DB:instrument/name:63
+msgctxt "Alto of modern violin family"
 msgid "viola"
 msgstr "vioola (altviiul)"
 
@@ -4137,6 +4147,7 @@ msgid "viola organista"
 msgstr "viola organista"
 
 #: DB:instrument/name:62
+msgctxt "Soprano of modern violin family"
 msgid "violin"
 msgstr "viiul"
 

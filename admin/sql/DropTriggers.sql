@@ -18,6 +18,7 @@ DROP TRIGGER b_upd_artist_alias ON artist_alias;
 DROP TRIGGER replace_old_sub_on_add ON editor_subscribe_collection;
 DROP TRIGGER del_collection_sub_on_delete ON editor_collection;
 DROP TRIGGER del_collection_sub_on_private ON editor_collection;
+DROP TRIGGER restore_collection_sub_on_public ON editor_collection;
 DROP TRIGGER search_hint ON artist_alias;
 DROP TRIGGER b_upd_artist_tag ON artist_tag;
 DROP TRIGGER b_upd_editor ON editor;

@@ -4,6 +4,7 @@ use Moose;
 
 use DBDefs;
 use List::AllUtils qw( any );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
@@ -73,11 +74,16 @@ has 'release_count' => (
 has 'cover_art' => (
     isa       => 'MusicBrainz::Server::Entity::Artwork::ReleaseGroup',
     is        => 'rw',
-    predicate => 'has_cover_art',
+    predicate => 'has_loaded_cover_art',
+);
+
+has 'has_cover_art' => (
+    is  => 'rw',
+    isa => 'Bool',
 );
 
 # Cannot set cover art if none of the associated releases has cover art.
-sub can_set_cover_art { return shift->has_cover_art; }
+sub can_set_cover_art { return shift->has_loaded_cover_art; }
 
 has 'review_count' => (
     is => 'rw',
@@ -125,8 +131,9 @@ around TO_JSON => sub {
 
     return {
         %{ $self->$orig },
-        $self->has_cover_art ? (cover_art => to_json_object($self->cover_art)) : (),
+        $self->has_loaded_cover_art ? (cover_art => to_json_object($self->cover_art)) : (),
         firstReleaseDate    => $self->first_release_date ? $self->first_release_date->format : undef,
+        hasCoverArt         => boolean_to_json($self->has_cover_art),
         # TODO: remove this once Autocomplete.js can use $c and releaseGroupType.js
         l_type_name         => $self->l_type_name,
         release_count       => $self->release_count,

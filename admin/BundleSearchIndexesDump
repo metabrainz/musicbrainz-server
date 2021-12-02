@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Getopt::Long qw( GetOptions );
+use List::AllUtils qw ( any );
 use Pod::Usage qw( pod2usage );
 
 ################################################################################
@@ -45,9 +46,9 @@ my $debug_flag;
 my $help_flag;
 
 GetOptions(
-    "working-dir|w=s"            => \$working_dir,
-    "debug|d"                   => \$debug_flag,
-    "help|h"                    => \$help_flag,
+    'working-dir|w=s'            => \$working_dir,
+    'debug|d'                   => \$debug_flag,
+    'help|h'                    => \$help_flag,
 );
 
 pod2usage() if $help_flag;
@@ -72,10 +73,10 @@ use MusicBrainz::Script::MBDump qw( gpg_sign );
 
 ################################################################################
 
-sub _debug { print "[debug] ", (sprintf shift, @_), "\n" if $debug_flag; }
-sub _info { print "[info] ", (sprintf shift, @_), "\n"; }
-sub _warn { warn "[warning] ", (sprintf shift, @_), "\n"; }
-sub _error { warn "[error] ", (sprintf shift, @_), "\n"; }
+sub _debug { print '[debug] ', (sprintf shift, @_), "\n" if $debug_flag; }
+sub _info { print '[info] ', (sprintf shift, @_), "\n"; }
+sub _warn { warn '[warning] ', (sprintf shift, @_), "\n"; }
+sub _error { warn '[error] ', (sprintf shift, @_), "\n"; }
 
 my $BACKUP_STAMP = $ENV{BACKUP_STAMP};
 my $COMPRESSION_LEVEL = DBDefs->SEARCH_INDEXES_DUMP_COMPRESSION_LEVEL;
@@ -125,7 +126,7 @@ for my $backup_dir (@backup_dirs)
     my $collection = $backup_dir =~ s/^backup_\d{8}-\d{6}_//r;
     my $dump_dir = $collection;
     opendir(my $bdh, "$working_dir/$backup_dir") or die $!;
-    if (grep { /^$collection$/ } @private_collections)
+    if (any { /^$collection$/ } @private_collections)
     {
         system 'rm', '-fr', "$working_dir/$backup_dir";
         next;

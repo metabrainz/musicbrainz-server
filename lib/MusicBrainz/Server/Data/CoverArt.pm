@@ -11,7 +11,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::URL';
 
 use DateTime::Format::Pg;
-use List::UtilsBy qw( rev_sort_by );
+use List::AllUtils qw( rev_sort_by );
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use MusicBrainz::Server::CoverArt;
 

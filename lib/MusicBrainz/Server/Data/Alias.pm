@@ -148,6 +148,19 @@ sub delete_entities
     return 1;
 }
 
+sub clear_primary_for_locale {
+    my ($self, $locale, $entity_id) = @_;
+    my $table = $self->table;
+    my $type = $self->type;
+
+    $self->sql->do(<<~"SQL", $locale, $entity_id);
+        UPDATE $table
+           SET primary_for_locale = FALSE
+         WHERE locale = ?
+           AND $type = ?
+        SQL
+}
+
 sub insert
 {
     my ($self, @alias_hashes) = @_;
@@ -155,15 +168,24 @@ sub insert
     my @created;
     load_class($class);
     for my $hash (@alias_hashes) {
+        my $entity_id = $hash->{$type . '_id'};
+        my $locale = $hash->{locale};
+        my $primary_for_locale = $hash->{primary_for_locale};
         my $row = {
-            $type => $hash->{$type . '_id'},
+            $type => $entity_id,
             name => $hash->{name},
-            locale => $hash->{locale},
+            locale => $locale,
             sort_name => $hash->{sort_name},
-            primary_for_locale => $hash->{primary_for_locale},
+            primary_for_locale => $primary_for_locale,
             type => $hash->{type_id},
             ended => $hash->{ended},
         };
+
+        # Clear existing primary for locale flag for the chosen locale
+        # if we are overriding them (the user chose this as primary)
+        if ($primary_for_locale) {
+            $self->clear_primary_for_locale($locale, $entity_id);
+        }
 
         add_partial_date_to_row($row, $hash->{begin_date}, 'begin_date');
         add_partial_date_to_row($row, $hash->{end_date}, 'end_date');
@@ -237,6 +259,16 @@ sub update
 
     my %row = %$alias_hash;
     delete @row{qw( begin_date end_date )};
+
+    # Clear existing primary for locale flag for the chosen locale
+    # if we are overriding them (the user chose this as primary)
+    if ($row{primary_for_locale}) {
+        # We need to load the alias because %row only contains changed values
+        my $alias = $self->get_by_id($alias_id);
+        my $locale = $row{locale} // $alias->{locale};
+        my $entity_id = $alias->{$type . '_id'};
+        $self->clear_primary_for_locale($locale, $entity_id);
+    }
 
     add_partial_date_to_row(\%row, $alias_hash->{begin_date}, 'begin_date')
         if exists $alias_hash->{begin_date};

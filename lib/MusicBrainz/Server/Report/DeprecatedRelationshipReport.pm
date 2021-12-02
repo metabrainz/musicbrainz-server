@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Report::DeprecatedRelationshipReport;
 use Moose::Role;
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Data::Relationship;
 
 with 'MusicBrainz::Server::Report::QueryReport';
@@ -32,7 +33,7 @@ sub query {
 
         # For URL relationships, ignore ended ones (that means the link is no longer
         # valid, yet being kept for history)
-        if (grep(/^$table/, @url_table_names)) {
+        if (any { $_ =~ /^$table/ } @url_table_names) {
             $query .= ' AND link.ended IS FALSE';
         }
 

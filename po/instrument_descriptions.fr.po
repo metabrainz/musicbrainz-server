@@ -1,21 +1,21 @@
 # 
 # Translators:
-# AO <email address hidden>, 2013
+# AO_LL <email address hidden>, 2013
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Benjamin Sonntag <email address hidden>, 2011
 # Idlusen <email address hidden>, 2019
 # Dibou <email address hidden>, 2012,2016
 # Dorian Soergel <email address hidden>, 2018
 # Frédéric Da Vitoria <email address hidden>, 2014
-# AO <email address hidden>, 2013,2015
-# AO <email address hidden>, 2013,2015
+# AO_LL <email address hidden>, 2013,2015
+# AO_LL <email address hidden>, 2013,2015
 # Jack, 2016
 # Jack Ruertnevel, 2016
 # Jack, 2016
 # Léonard Cardyn <email address hidden>, 2015
 # murdos <email address hidden>, 2011-2012
-# AO <email address hidden>, 2015
-# AO <email address hidden>, 2013-2015
+# AO_LL <email address hidden>, 2015
+# AO_LL <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
 # Youenn Piolet, 2015
 # yvanz, 2016-2017
@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-10-04 13:59+0000\n"
+"PO-Revision-Date: 2021-11-22 19:04+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -157,16 +157,6 @@ msgid ""
 "is in fact a zither with a keyboard."
 msgstr "Cithare équipée d’un clavier, lui donnant l’apparence d’un mini-piano."
 
-#. name:five-string banjo
-#: DB:instrument/description:523
-msgid "A five-string banjo is a banjo with five strings."
-msgstr "Un banjo à cinq cordes."
-
-#. name:four-string banjo
-#: DB:instrument/description:656
-msgid "A four-string banjo is a banjo with four strings."
-msgstr "Un banjo à cinq cordes."
-
 #. name:gong bass drum
 #: DB:instrument/description:639
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
@@ -298,12 +288,6 @@ msgid ""
 "A tar is a single-headed frame drum from North Africa and the Middle East."
 msgstr "Le tar est un tambour sur cadre du Maghreb et du Moyen-Orient."
 
-#. name:tenor banjo
-#: DB:instrument/description:657
-msgid ""
-"A tenor banjo is a four-string banjo with tenor tuning, usually C G D A."
-msgstr "Un banjo ténor est un banjo à quatre cordes accordé en ténor, habituellement  Do Sol Ré La."
-
 #. name:tom-tom
 #: DB:instrument/description:462
 msgid ""
@@ -342,6 +326,14 @@ msgstr "Un instrument en bois à anche double et perce conique du 16e et 17e si�
 #: DB:instrument/description:539
 msgid "Acoustic guitar without frets."
 msgstr "Guitare acoustique sans frette."
+
+#. name:cello
+#: DB:instrument/description:60
+msgid ""
+"Also know as violoncello (the \"small large viol\"), it is the medium bass "
+"member of the modern violin family and a principal member of the symphony "
+"orchestra."
+msgstr ""
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
@@ -567,11 +559,6 @@ msgid ""
 "an integral piezoelectric sensor."
 msgstr ""
 
-#. name:bass guitar
-#: DB:instrument/description:207
-msgid "Bass (modern, typically electrical, but not always)"
-msgstr "Basse (moderne, habituellement électrique, mais pas toujours)"
-
 #. name:bass
 #: DB:instrument/description:47
 msgid ""
@@ -596,6 +583,15 @@ msgstr "proche de la contrebasse, dotée de quatre cordes en métal, elle fait g
 #. name:segunda
 #: DB:instrument/description:757
 msgid "Bass member of the garifuna drum group."
+msgstr ""
+
+#. name:bass guitar
+#: DB:instrument/description:207
+msgid ""
+"Bass member of the guitar family. For the electric variant use <a "
+"href=\"/instrument/0b9d87fa-93fa-4956-8b6a-a419566cc915\">electric bass "
+"guitar</a> for the acoustic one, use <a href=\"/instrument/15861569-249d-"
+"4b24-8ce4-d0b001b1f978\">acoustic bass guitar</a>"
 msgstr ""
 
 #. name:lirone
@@ -928,6 +924,15 @@ msgid ""
 "fastened with pins. The back can be rounded or flat."
 msgstr ""
 
+#. name:string synthesizer
+#: DB:instrument/description:1034
+msgid ""
+"Developed from the 1960's and used mainly in the 70-80's, it was a cheaper "
+"and more portable simplification of the mellotron, emulating string "
+"ensembles. Its later hybrid development with the electronic organ created "
+"\"polyphonic ensemble\" synthesizers."
+msgstr ""
+
 #. name:cabasa
 #: DB:instrument/description:108
 msgid ""
@@ -1151,6 +1156,14 @@ msgstr "Bogues de lins remplies de graines, que l'on fait tourner pour produire 
 msgid ""
 "Floppy Drives configured to produce tones while reading, software is used."
 msgstr "Lecteurs de disquettes réglés pour produire des tonalités durant la lecture, un logiciel est utilisé."
+
+#. name:hardingfele
+#: DB:instrument/description:78
+msgid ""
+"Folk-fiddle from Hardanger, Norway. It has 4 melody- and 4-5 drone-strings, "
+"it is richly decorated and used in the traditional \"halling\" folk music "
+"and dance."
+msgstr ""
 
 #. name:lira da braccio
 #: DB:instrument/description:1016
@@ -1413,6 +1426,13 @@ msgid ""
 " kacapis."
 msgstr ""
 
+#. name:Stroh violin
+#: DB:instrument/description:451
+msgid ""
+"Instead of a wooden body, it is amplified by a metal horn resonator; its "
+"louder and more directional sound made it useful in loud areas."
+msgstr ""
+
 #. name:Indonesian rebab
 #: DB:instrument/description:1011
 msgid ""
@@ -1483,6 +1503,15 @@ msgid ""
 "lute\""
 msgstr ""
 
+#. name:viola
+#: DB:instrument/description:63
+msgid ""
+"It is known by many names, based on the full \"alto de viola da braccio\": "
+"\"alto\", \"bratsch (braccio)\", \"viola\", etc. <br /> It is the alto "
+"member of the modern violin family and a principal member of the symphony "
+"orchestra."
+msgstr ""
+
 #. name:yangqin
 #: DB:instrument/description:254
 msgid ""
@@ -1527,7 +1556,7 @@ msgstr "Les Klong sont des tambours tonneaux de Thaïlande. Ils sont joués en p
 #: DB:instrument/description:48
 msgid ""
 "Known also as contrabass or upright bass, it is the largest and lowest-"
-"pitched member of the modern violin family, it is a principal member of the "
+"pitched member of the modern violin family and a principal member of the "
 "symphony orchestra."
 msgstr ""
 
@@ -1575,6 +1604,13 @@ msgid ""
 "Krakebs are large metal castanet-like instruments which are the primary "
 "rhythmic component of Gnawa music."
 msgstr "Les Qraqeb sont de grands instruments en métal semblables à des castagnettes et qui sont la composante rythmique principale de la musique Gnawa."
+
+#. name:four-string banjo
+#: DB:instrument/description:656
+msgid ""
+"Lacking the short drone string of its predecessor, it is usually played with"
+" a plectrum and has 22 frets."
+msgstr ""
 
 #. name:lamellaphone
 #: DB:instrument/description:632
@@ -2571,6 +2607,13 @@ msgstr ""
 msgid "Small Polish traditional fiddle."
 msgstr "Petit violon traditionnel polonais."
 
+#. name:cavaquinho
+#: DB:instrument/description:524
+msgid ""
+"Small Portuguese lute with four wire or gut strings, it has many descendants"
+" in South and Latin America."
+msgstr ""
+
 #. name:lyra viol
 #: DB:instrument/description:925
 msgid ""
@@ -2606,6 +2649,13 @@ msgid ""
 "Smallest of the kendang, it is has a special two-instrument use with the <a "
 "href=\"/instrument/14acd267-2e1b-459d-b41e-058d2c106345\">gendhing</a>.<br "
 "/> In Sunda it is known as kendhang katipung"
+msgstr ""
+
+#. name:electric bass guitar
+#: DB:instrument/description:51
+msgid ""
+"Solid body 4-stringed electric bass guitar. The most common for \"bass "
+"guitar\" and \"bass\" credits in popular (rock) music."
 msgstr ""
 
 #. name:Mark tree
@@ -2752,13 +2802,6 @@ msgid ""
 "The Schwyzerörgeli is a type of diatonic button accordion used in Swiss folk"
 " music."
 msgstr "L’accordéon schwyzois est une sorte d’accordéon diatonique à boutons utilisé dans la musique folklorique suisse."
-
-#. name:Stroh violin
-#: DB:instrument/description:451
-msgid ""
-"The Stroh violin is a violin with a metal resonator and horn rather than a "
-"wooden body."
-msgstr "Le violon Stroh, avec un pavillon en métal et un cornet plutôt qu’un corps en bois."
 
 #. name:Vienna horn
 #: DB:instrument/description:562
@@ -3022,13 +3065,6 @@ msgid ""
 "The buzuq is a long-necked fretted lute related to the Greek bouzouki and "
 "Turkish saz which is associated with the music of Lebanon and Syria."
 msgstr "Le buzuq est un luth à long manche fretté apparenté au bouzouki grec et au saz turc, associé à la musique Libanaise et Syrienne."
-
-#. name:cavaquinho
-#: DB:instrument/description:524
-msgid ""
-"The cavaquinho is a small plucked string instrument of Portuguese origin "
-"with four wire or gut strings"
-msgstr "Le cavaquinho est un petit instrument à cordes pincées à quatre cordes ou boyaux d’origine portugaise."
 
 #. name:caxixi
 #: DB:instrument/description:489
@@ -3616,6 +3652,21 @@ msgid ""
 "The minipiano is a type of piano in which the sound producing mechanism is "
 "positioned below the keyboard, allowing an economical use of space."
 msgstr "Le minipiano est un type de piano dont le mécanisme de production du son est positionné sous le clavier, permettant une utilisation ergonomique de l’espace."
+
+#. name:five-string banjo
+#: DB:instrument/description:523
+msgid ""
+"The most common and based on the original design, its fifth string is "
+"shorter than the others, creating an uneven pitch progression."
+msgstr ""
+
+#. name:violin
+#: DB:instrument/description:62
+msgid ""
+"The most famous member of the violin family, it is actually the \"small "
+"viol\". Its register is soprano and it's a principal member of the symphony "
+"orchestra."
+msgstr ""
 
 #. name:mridangam
 #: DB:instrument/description:475
@@ -4524,6 +4575,11 @@ msgid ""
 "announcements like war, welcoming people and kumara planting."
 msgstr ""
 
+#. name:tenor banjo
+#: DB:instrument/description:657
+msgid "Used as rhythm accompaniment, it has a shorter neck and 17-19 frets"
+msgstr ""
+
 #. name:clapstick
 #: DB:instrument/description:955
 msgid ""
@@ -4878,11 +4934,6 @@ msgstr "Une variante de la flûte hmông, les lèvres du souffleur entourent le 
 msgid ""
 "also just \"kū\", a mouthbow with a single string, struck with a light "
 "implement of bone or wood."
-msgstr ""
-
-#. name:cello
-#: DB:instrument/description:60
-msgid "also know as violoncello"
 msgstr ""
 
 #. name:samica

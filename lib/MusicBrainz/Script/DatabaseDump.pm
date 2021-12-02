@@ -2,7 +2,7 @@ package MusicBrainz::Script::DatabaseDump;
 
 use Encode qw( encode );
 use Fcntl qw( LOCK_EX );
-use List::MoreUtils qw( natatime );
+use List::AllUtils qw( natatime );
 use Moose;
 use MusicBrainz::Script::Utils qw( log );
 use Time::HiRes qw( gettimeofday tv_interval );

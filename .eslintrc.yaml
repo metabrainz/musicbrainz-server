@@ -28,6 +28,7 @@ globals:
   addColon: readonly
   addColonText: readonly
   hasOwnProp: readonly
+  hydrate: readonly
   hyphenateTitle: readonly
   invariant: readonly
   nonEmpty: readonly

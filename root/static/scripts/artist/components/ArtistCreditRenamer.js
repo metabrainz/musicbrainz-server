@@ -10,11 +10,12 @@
 import $ from 'jquery';
 import * as React from 'react';
 
-import hydrate from '../../../../utility/hydrate';
 import ArtistCreditLink from '../../common/components/ArtistCreditLink';
+import ArtistCreditUsageLink
+  from '../../common/components/ArtistCreditUsageLink';
 import {compare} from '../../common/i18n';
 import {reduceArtistCredit} from '../../common/immutable-entities';
-import {bracketedText} from '../../common/utility/bracketed';
+import bracketed, {bracketedText} from '../../common/utility/bracketed';
 import {sortedIndexWith} from '../../common/utility/arrays';
 import diffArtistCredits from '../../edit/utility/diffArtistCredits';
 
@@ -127,6 +128,15 @@ const ArtistCreditRow = ({
         value={artistCredit.id}
       />
       <ArtistCreditLink artistCredit={artistCredit} />
+      {' '}
+      <span className="small">
+        {bracketed(
+          <ArtistCreditUsageLink
+            artistCredit={artistCredit}
+            content={l('see uses')}
+          />,
+        )}
+      </span>
     </div>
   );
 };

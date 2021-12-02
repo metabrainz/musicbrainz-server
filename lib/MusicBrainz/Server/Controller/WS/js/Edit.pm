@@ -3,7 +3,7 @@ use DBDefs;
 use File::Spec::Functions qw( catdir );
 use HTML::Entities qw( encode_entities );
 use JSON qw( encode_json );
-use List::MoreUtils qw( any );
+use List::AllUtils qw( any );
 use Moose;
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CREATE
@@ -47,6 +47,7 @@ use MusicBrainz::Server::Translation qw( comma_list comma_only_list l );
 use MusicBrainz::Server::Validation qw(
     is_database_row_id
     is_guid
+    is_valid_edit_note
     is_valid_url
     is_valid_partial_date
 );
@@ -661,6 +662,11 @@ sub submit_edits {
 
         if ($edit_type == $EDIT_RELEASE_CREATE && !$data->{editNote}) {
             $c->forward('/ws/js/detach_with_error', ['editNote required']);
+        }
+
+        if ($edit_type == $EDIT_RELEASE_CREATE &&
+            !is_valid_edit_note($data->{editNote})) {
+            $c->forward('/ws/js/detach_with_error', ['editNote invalid']);
         }
 
         unless ($edit_type ~~ $ALLOWED_EDIT_TYPES) {

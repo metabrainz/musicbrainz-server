@@ -1,5 +1,4 @@
 #!/usr/bin/env perl
-# vi: set ts=4 sw=4 :
 
 use warnings;
 use strict;
@@ -35,5 +34,3 @@ $SIG{ALRM} = 'DEFAULT';
 
 system @ARGV;
 exit($? >> 8);
-
-# eof

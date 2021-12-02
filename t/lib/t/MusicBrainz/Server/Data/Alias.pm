@@ -20,7 +20,7 @@ sub verify_artist_alias {
     my ($alias, $name, $id, $locale) = @_;
     is($alias->name, $name, "alias name: $name");
     is($alias->artist_id, $id, "artist id: $id");
-    is($alias->locale, $locale, "locale: $locale");
+    is($alias->locale, $locale, $locale ? "locale: $locale" : 'locale undef');
 }
 
 test all => sub {
@@ -92,20 +92,51 @@ test all => sub {
     is(scalar @$alias_set, 0, 'Artist #1 now has no aliases');
 
     # Test inserting new aliases
-    $artist_data->alias->insert({
+    my $alias = $artist_data->alias->insert({
                                  artist_id => 1,
                                  name => 'New alias',
                                  sort_name => 'New sort name',
                                  locale => 'en_AU',
-                                 primary_for_locale => 0,
+                                 primary_for_locale => 1,
                                  ended => 0
                                 });
-
+    my $alias_id = $alias->{id};
     $alias_set = $artist_data->alias->find_by_entity_id(1);
     is(scalar @$alias_set, 1, 'Artist #1 has a single newly inserted alias');
     verify_artist_alias($alias_set->[0], 'New alias', 1, 'en_AU');
     is($alias_set->[0]->sort_name, 'New sort name', 'sort_name');
-    is($alias_set->[0]->primary_for_locale, 0, 'primary_for_locale');
+    is($alias_set->[0]->primary_for_locale, 1, 'primary_for_locale');
+
+    # Test overriding primary for locale on insert
+    $artist_data->alias->insert({
+                                 artist_id => 1,
+                                 name => 'Newer alias',
+                                 sort_name => 'Newer sort name',
+                                 locale => 'en_AU',
+                                 primary_for_locale => 1,
+                                 ended => 0
+                                });
+    $alias_set = $artist_data->alias->find_by_entity_id(1);
+    is(scalar @$alias_set, 2, 'Artist #1 has a second newly inserted alias');
+    verify_artist_alias($alias_set->[1], 'Newer alias', 1, 'en_AU');
+    is($alias_set->[1]->sort_name, 'Newer sort name', 'sort_name');
+    is($alias_set->[1]->primary_for_locale,
+       1,
+       'new alias is primary_for_locale');
+    is($alias_set->[0]->primary_for_locale,
+       0,
+       'old alias is no longer primary_for_locale');
+
+    # Test overriding primary for locale on update
+    $artist_data->alias->update($alias_id, {primary_for_locale => 1});
+    $alias_set = $artist_data->alias->find_by_entity_id(1);
+    is(scalar @$alias_set, 2, 'Artist #1 still has two aliases');
+    is($alias_set->[1]->primary_for_locale,
+       0,
+       'new alias is no longer primary_for_locale');
+    is($alias_set->[0]->primary_for_locale,
+       1,
+       'old alias is again primary_for_locale');
 
     $test->c->sql->commit;
 

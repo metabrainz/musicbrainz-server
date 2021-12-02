@@ -70,7 +70,7 @@ sub lookup
         push @durations, $duration;
     }
 
-    my $dur_string = q('{) . join(',', @durations) . q(}');
+    my $dur_string = q('{) . join(q(,), @durations) . q(}');
 
     $self->query_to_list_limited(
             "SELECT release,

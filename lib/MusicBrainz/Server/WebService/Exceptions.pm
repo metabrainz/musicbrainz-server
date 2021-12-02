@@ -1,3 +1,4 @@
+## no critic (RequireFilenameMatchesPackage)
 package MusicBrainz::Server::WebService::Exceptions::UnknownIncParameter;
 use Moose;
 with 'Throwable';

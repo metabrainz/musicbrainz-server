@@ -197,7 +197,7 @@ around extract_property => sub {
         when ('secondary_type_ids') {
             my $type_list_gen = sub {
                 my $type = shift;
-                return [ join(',', sort @$type), $type ];
+                return [ join(q(,), sort @$type), $type ];
             };
             return (
                 $type_list_gen->( $ancestor->{secondary_type_ids} ),

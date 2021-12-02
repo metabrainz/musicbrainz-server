@@ -379,6 +379,15 @@ div.warning img.warning {
     height: 32px;
 }
 
+.error-tab, .private-tab:not(.sel) {
+    background-color: @negative-light-bg;
+    background-image: data-uri('../images/icons/warning.png');
+    background-repeat: no-repeat;
+    background-position: left 0.5em top 0.5em;
+    background-size: 16px 16px;
+}
+.error-tab a, .private-tab:not(.sel) a { padding-left: 2em !important; }
+
 #content,
 #sidebar {
     display: table-cell;

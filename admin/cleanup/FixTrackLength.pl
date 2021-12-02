@@ -1,29 +1,6 @@
 #!/usr/bin/env perl
 
 use warnings;
-# vi: set ts=4 sw=4 :
-#____________________________________________________________________________
-#
-#   MusicBrainz -- the open internet music database
-#
-#   Copyright (C) 1998 Robert Kaye
-#
-#   This program is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
-#
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with this program; if not, write to the Free Software
-#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-#   $Id$
-#____________________________________________________________________________
 
 use strict;
 use warnings;
@@ -34,6 +11,7 @@ use lib "$FindBin::Bin/../../lib";
 use aliased 'MusicBrainz::Server::Entity::Track';
 
 use DBDefs;
+use List::AllUtils qw ( any );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw(
     $EDITOR_MODBOT
@@ -49,10 +27,10 @@ my $dry_run = 0;
 my $verbose = 0;
 my $help = 0;
 GetOptions(
-    "debug!"                    => \$debug,
-    "dry-run|dryrun!"   => \$dry_run,
-    "verbose|v"                 => \$verbose,
-    "help"                              => \$help,
+    'debug!'                    => \$debug,
+    'dry-run|dryrun!'   => \$dry_run,
+    'verbose|v'                 => \$verbose,
+    'help'                              => \$help,
 ) or exit 2;
 $help = 1 if @ARGV;
 
@@ -73,16 +51,16 @@ my $c = MusicBrainz::Server::Context->create_script_context;
 # Find mediums with at least one track to fix
 print localtime() . " : Finding candidate mediums\n" if $verbose;
 my @medium_ids = @{ $c->sql->select_single_column_array(
-    "SELECT DISTINCT m.id
+    'SELECT DISTINCT m.id
        FROM medium m
        JOIN medium_cdtoc mcd ON mcd.medium = m.id
   LEFT JOIN medium_format mf ON mf.id = m.format
        JOIN track t ON t.medium = m.id
       WHERE t.length IS NULL OR t.length = 0 AND m.track_count > 0
-        AND (mf.has_discids = TRUE OR mf.has_discids IS NULL)"
+        AND (mf.has_discids = TRUE OR mf.has_discids IS NULL)'
 ) };
 printf localtime() . " : Found %d medium%s\n",
-    scalar(@medium_ids), (@medium_ids == 1 ? "" : "s")
+    scalar(@medium_ids), (@medium_ids == 1 ? '' : 's')
     if $verbose;
 
 my $tracks_fixed = 0;
@@ -112,7 +90,7 @@ for my $medium (@mediums)
     if ($debug) {
         print "TOCs:\n";
         for my $cdtoc (@cdtocs) {
-            print "  " . $cdtoc->toc . "\n";
+            print '  ' . $cdtoc->toc . "\n";
             printf "    (%s)\n", format_track_length($_->{length_time})
                 for @{ $cdtoc->track_details };
         }
@@ -131,8 +109,8 @@ for my $medium (@mediums)
         my $cdtoc = $cdtocs[0];
 
         my $cdtoc_track_count = $cdtoc->track_count;
-        my $want_tracks = join ",", 1 .. $cdtoc_track_count;
-        my $have_tracks = join ",", sort { $a<=>$b } map { $_->position }
+        my $want_tracks = join q(,), 1 .. $cdtoc_track_count;
+        my $have_tracks = join q(,), sort { $a<=>$b } map { $_->position }
             @tracks;
 
         if ($want_tracks eq $have_tracks) {
@@ -224,7 +202,7 @@ for my $medium (@mediums)
             push @skew, $sqdiff;
         }
 
-        unless (grep { $_ > 5 } @skew) {
+        unless (any { $_ > 5 } @skew) {
             # Good, the TOC track lengths agree (clearly, if there's only one
             # TOC).
             # For each track which has length already, let's see how
@@ -246,7 +224,7 @@ for my $medium (@mediums)
                     # FIXME This is a bug, and a hacky fix!
                     # I have no idea why, but load_for_mediums above sometimes
                     # doesn't actually load all tracklists...
-                    warn "A medium has lost its tracklist: " . $medium->id;
+                    warn 'A medium has lost its tracklist: ' . $medium->id;
                     $c->model('Track')->load_for_mediums($medium);
                     @tracks = $medium->all_tracks;
                     $c->model('ArtistCredit')->load(@tracks);
@@ -299,8 +277,8 @@ for my $medium (@mediums)
 
     if (keys(%c) == 1) {
         my $ideal_track_count = $cdtocs[0]->track_count;
-        my $want_tracks = join ",", 1 .. $ideal_track_count;
-        my $have_tracks = join ",", sort { $a<=>$b } map { $_->position }
+        my $want_tracks = join q(,), 1 .. $ideal_track_count;
+        my $have_tracks = join q(,), sort { $a<=>$b } map { $_->position }
             @tracks;
         print " - got tracks $have_tracks\n" if $want_tracks ne $have_tracks;
     }
@@ -311,3 +289,13 @@ for my $medium (@mediums)
 
 print localtime() . " : Fixed $tracks_fixed tracks on $mediums_fixed mediums\n";
 print localtime() . " : ($tracks_set had no previous length)\n";
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 1998 Robert Kaye
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut

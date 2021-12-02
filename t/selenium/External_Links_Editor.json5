@@ -67,7 +67,7 @@
     {
       command: 'assertText',
       target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//div[contains(@class, 'error')]",
-      value: 'Enter a valid url e.g. "http://google.com/"',
+      value: 'Please enter a valid URL, such as “http://example.com/”.',
     },
     // Don't freeze to link when there's an error
     {
@@ -95,12 +95,12 @@
     {
       command: 'sendKeys',
       target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: '//google.com',
+      value: '//example.com',
     },
     {
       command: 'assertText',
       target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//div[contains(@class, 'error')]",
-      value: 'Enter a valid url e.g. "http://google.com/"',
+      value: 'Please enter a valid URL, such as “http://example.com/”.',
     },
     {
       command: 'click',
@@ -220,7 +220,7 @@
     {
       command: 'sendKeys',
       target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: 'https://google.com',
+      value: 'https://link.example',
     },
     {
       command: 'select',
@@ -247,7 +247,7 @@
     {
       command: 'sendKeys',
       target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: 'https://google.com${KEY_ENTER}',
+      value: 'https://link.example${KEY_ENTER}',
     },
     // Pressing enter submits the link
     {
@@ -286,7 +286,7 @@
     {
       command: 'sendKeys',
       target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: 'https://google.com',
+      value: 'https://link.example',
     },
     {
       command: 'assertElementPresent',
@@ -303,7 +303,7 @@
     {
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll(\"input[type='url']\")).map(x => x.value).join('\\n')",
-      value: 'https://google.com\n',
+      value: 'https://link.example\n',
     },
     // Duplicate URL notice
     {
@@ -321,7 +321,7 @@
     {
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll(\"input[type='url']\")).map(x => x.value).join('\\n')",
-      value: 'https://google.com\n',
+      value: 'https://link.example\n',
     },
     // Automatically submitted after selecting a type and moving focus away from the type select
     {
@@ -349,7 +349,7 @@
     {
       command: 'sendKeys',
       target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: 'https://google.com',
+      value: 'https://link.example',
     },
     {
       command: 'click',
@@ -414,7 +414,7 @@
       target: 'css=button.submit.positive',
       value: '',
     },
-    // deprecated link type detection for existing links (MBS-8408)
+    // example link detection (MBS-11979)
     {
       command: 'clickAndWait',
       target: "xpath=//ul[@class='tabs']//a[descendant::text()='Edit']",
@@ -424,6 +424,28 @@
       command: 'type',
       target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
       value: 'http://example.com/',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//div[contains(@class, 'error')]",
+      value: '“http://example.com/” is just an example. Please enter the actual link you want to add.',
+    },
+    // Google search link detection (MBS-12060)
+    {
+      command: 'type',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://www.google.com/search?q=good+music&oq=good+music&aqs=chrome..69i57j46i512j0i512l2j46i512j69i60l3.1930j0j7&sourceid=chrome&ie=UTF-8',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//div[contains(@class, 'error')]",
+      value: 'Please don’t enter links to search results. If you’ve found any links through your search that seem useful, do enter those instead.',
+    },
+    // deprecated link type detection for existing links (MBS-8408)
+    {
+      command: 'type',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'http://musicmoz.org.example/Composition/Composers/M/Mozart,_Wolfgang_Amadeus/',
     },
     {
       command: 'select',

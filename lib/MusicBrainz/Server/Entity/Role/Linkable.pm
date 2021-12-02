@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Entity::Role::Linkable;
 use Moose::Role;
 
-use List::UtilsBy qw( partition_by sort_by );
+use List::AllUtils qw( partition_by sort_by );
 use MooseX::Types::Moose qw( Str );
 use MooseX::Types::Structured qw( Map Optional );
 use MusicBrainz::Server::Entity::Types;

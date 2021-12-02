@@ -60,7 +60,7 @@ test all => sub {
         area_id => 221,
         ipi_codes => [ '00407982340' ],
         isni_codes => [ '0000000106750994' ],
-        end_date => { year => 2000, month => 05 }
+        end_date => { year => 2000, month => 5 }
     });
     ok($label->{id} > 1);
 

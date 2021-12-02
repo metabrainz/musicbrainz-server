@@ -12,27 +12,51 @@ import * as React from 'react';
 import commaOnlyList from '../i18n/commaOnlyList';
 import localizeArtistRoles from '../i18n/localizeArtistRoles';
 
+import CollapsibleList from './CollapsibleList';
 import EntityLink from './EntityLink';
 
-type Props = {
-  +relations: $ReadOnlyArray<{
-    +credit: string,
-    +entity: ArtistT,
-    +roles: $ReadOnlyArray<string>,
-  }>,
+type RelationT = {
+  +credit: string,
+  +entity: ArtistT,
+  +roles: $ReadOnlyArray<string>,
 };
 
-const ArtistRoles = ({relations}: Props): React.Element<'ul'> => (
-  <ul>
-    {relations.map(r => (
-      <li key={r.entity.id}>
-        {exp.l('{artist} ({roles})', {
-          artist: <EntityLink content={r.credit} entity={r.entity} />,
-          roles: commaOnlyList(localizeArtistRoles(r.roles)),
-        })}
-      </li>
-    ))}
-  </ul>
+type ArtistRolesProps = {
+  +relations: $ReadOnlyArray<RelationT>,
+};
+
+const buildArtistRoleRow = (relation: RelationT) => {
+  return (
+    <li key={relation.entity.id + '-' + relation.credit}>
+      {exp.l('{artist} ({roles})', {
+        artist: (
+          <EntityLink
+            content={relation.credit}
+            entity={relation.entity}
+          />
+        ),
+        roles: commaOnlyList(localizeArtistRoles(relation.roles)),
+      })}
+    </li>
+  );
+};
+
+const ArtistRoles = ({
+  relations,
+}: ArtistRolesProps): React.Element<typeof CollapsibleList> => (
+  <CollapsibleList
+    ariaLabel={l('Artist Roles')}
+    buildRow={buildArtistRoleRow}
+    className="artist-roles"
+    rows={relations}
+    showAllTitle={l('Show all artists')}
+    showLessTitle={l('Show less artists')}
+    toShowAfter={0}
+    toShowBefore={4}
+  />
 );
 
-export default ArtistRoles;
+export default (hydrate<ArtistRolesProps>(
+  'div.artist-roles-container',
+  ArtistRoles,
+): React.AbstractComponent<ArtistRolesProps, void>);

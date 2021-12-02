@@ -16,7 +16,7 @@ role
         my ($self, $p) = @_;
         my $query = 'SELECT ' . $self->_columns .
             ' FROM ' . $self->_table .
-            ' ORDER BY ' . (join ', ', @{ $p->order_by });
+            ' ORDER BY ' . (join q(, ), @{ $p->order_by });
         $self->query_to_list($query);
     };
 

@@ -565,7 +565,17 @@ export class ExternalLinksEditor
       };
     } else if (isNewOrChangedLink && !isValidURL(link.url)) {
       error = {
-        message: l('Enter a valid url e.g. "http://google.com/"'),
+        message: exp.l('Please enter a valid URL, such as “{example_url}”.',
+                       {example_url: <span className="url-quote">{'http://example.com/'}</span>}),
+        target: URLCleanup.ERROR_TARGETS.URL,
+      };
+    } else if (isNewOrChangedLink && isExample(link.url)) {
+      error = {
+        message: exp.l(
+          `“{example_url}” is just an example.
+          Please enter the actual link you want to add.`,
+          {example_url: <span className="url-quote">{link.url}</span>},
+        ),
         target: URLCleanup.ERROR_TARGETS.URL,
       };
     } else if (isNewOrChangedLink && isMusicBrainz(link.url)) {
@@ -591,6 +601,13 @@ export class ExternalLinksEditor
         message: l(`Please don’t enter Google AMP links,
                     since they are effectively an extra redirect.
                     Enter the destination URL instead.`),
+        target: URLCleanup.ERROR_TARGETS.URL,
+      };
+    } else if (isNewOrChangedLink && isGoogleSearch(link.url)) {
+      error = {
+        message: l(`Please don’t enter links to search results.
+                    If you’ve found any links through your search
+                    that seem useful, do enter those instead.`),
         target: URLCleanup.ERROR_TARGETS.URL,
       };
     } else if (!link.type) {
@@ -736,6 +753,21 @@ export class ExternalLinksEditor
     return HIGHLIGHTS.NONE;
   }
 
+  isNewOrChangedLink(link: LinkRelationshipT): boolean {
+    const isNewLink = !isPositiveInteger(link.relationship);
+
+    if (isNewLink) {
+      return true;
+    }
+
+    const oldLink = this.oldLinks.get(String(link.relationship));
+    const linkChanged = oldLink && link.url !== oldLink.url;
+    const linkTypeChanged = oldLink &&
+      +link.type !== +oldLink.type;
+
+    return Boolean(linkChanged || linkTypeChanged);
+  }
+
   render(): React.Element<'table'> {
     this.props.errorObservable(false);
 
@@ -786,8 +818,10 @@ export class ExternalLinksEditor
                */
               const error = this.validateLink(link, checker);
               if (error) {
-                this.props.errorObservable(true);
-                hasError = true;
+                if (this.isNewOrChangedLink(link)) {
+                  this.props.errorObservable(true);
+                  hasError = true;
+                }
                 if (error.target === URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
                   /*
                    * FIXME: This should be read-only! See question above.
@@ -818,15 +852,7 @@ export class ExternalLinksEditor
              * or there's a new relationship.
              */
             const shouldValidateTypeCombination =
-              links.some(link => {
-                const oldLink = this.oldLinks.get(String(link.relationship));
-                const isNewLink = !isPositiveInteger(link.relationship);
-                const linkChanged = oldLink && link.url !== oldLink.url;
-                const isNewOrChangedLink = (isNewLink || linkChanged);
-                const linkTypeChanged = oldLink &&
-                  +link.type !== +oldLink.type;
-                return isNewOrChangedLink || linkTypeChanged;
-              });
+              links.some(link => this.isNewOrChangedLink(link));
             if (check.result) {
               /*
                * Now that selected types are valid, if there's only one
@@ -1591,6 +1617,14 @@ function isShortened(url) {
 
 function isGoogleAmp(url) {
   return /^https?:\/\/([^/]+\.)?google\.[^/]+\/amp/.test(url);
+}
+
+function isGoogleSearch(url) {
+  return /^https?:\/\/(?:[^/?#]+\.)?google\.[^/?#]+\/search/.test(url);
+}
+
+function isExample(url) {
+  return /^https?:\/\/(?:[^/]+\.)?example\.(?:com|org|net)(?:\/.*)?$/.test(url);
 }
 
 function isMusicBrainz(url) {

@@ -522,7 +522,7 @@ END -%]
 END -%]
 
 [%~ MACRO tagger_icon(entity) BLOCK -%]
-    [%- React.embed(c, 'static/scripts/common/components/TaggerIcon', {entity => React.to_json_object(entity)}) -%]
+    [%- React.embed(c, 'static/scripts/common/components/TaggerIcon', {entityType => entity.entity_type, gid => entity.gid}) -%]
 [%- END -%]
 
 [%~ MACRO release_label_list(labels) BLOCK; # Converted to React at root/components/ReleaseLabelList.js
@@ -814,16 +814,6 @@ END -%]
 [%~ MACRO add_colon(variable) BLOCK; # Converted to React at root/static/scripts/common/i18n.js
       l('{variable}:', { variable => variable });
     END -%]
-
-[%~ MACRO work_attributes_list(work) BLOCK # Converted to React at root/static/scripts/common/components/AttributeList.js -%]
-  [%- IF work.attributes %]
-    <ul>
-      [%- FOR attr=work.sorted_attributes %]
-      <li>[% attr.l_value | html %] ([% attr.type.l_name | html %])</li>
-      [%- END %]
-    </ul>
-  [%- END %]
-[%- END -%]
 
 [%~ MACRO link_type_cardinality_name(cardinality) BLOCK ~%] [% # Converted to React at root/static/scripts/common/components/Cardinality.js %]
   [%~ IF cardinality == 0; l('Few relationships');

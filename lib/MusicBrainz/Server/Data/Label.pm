@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::Label;
 
 use Moose;
 use namespace::autoclean;
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Data::ReleaseLabel;
@@ -206,7 +207,7 @@ sub _merge_impl
 {
     my ($self, $new_id, @old_ids) = @_;
 
-    if (grep { is_special_label($_) } @old_ids) {
+    if (any { is_special_label($_) } @old_ids) {
         confess('Attempt to merge a special purpose label into another label');
     }
 

@@ -156,7 +156,9 @@ const TracklistChangesAdd = ({
             {' '}
           </>
         ) : null}
+        {/* If no recording_id exists, it's creating a recording */}
         <EntityLink
+          allowNew={track && !track.recording.id}
           content={track.name}
           entity={track.recording}
         />

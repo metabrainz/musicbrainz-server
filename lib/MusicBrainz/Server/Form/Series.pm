@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Form::Series;
 use HTML::FormHandler::Moose;
-use List::UtilsBy qw( sort_by );
+use List::AllUtils qw( sort_by );
 use MusicBrainz::Server::Entity::SeriesOrderingType;
 use MusicBrainz::Server::Entity::SeriesType;
 use MusicBrainz::Server::Form::Utils qw( select_options_tree );

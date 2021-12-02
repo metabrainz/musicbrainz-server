@@ -1,0 +1,60 @@
+{
+  title: 'MBS-12077',
+  commands: [
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/useless_edit_note.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-username',
+      value: 'editor',
+    },
+    {
+      command: 'type',
+      target: 'id=id-password',
+      value: 'password',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=span.buttons.login > button[type="submit"]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#edit-note']",
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.getElementById('useless-edit-note-error').style.display === 'none'",
+      value: 'false',
+    },
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
+    {
+      command: 'handleAlert',
+      target: 'accept',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=span.menu-header',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'link=Log Out',
+      value: '',
+    },
+  ],
+}

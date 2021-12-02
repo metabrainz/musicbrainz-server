@@ -11,7 +11,7 @@ use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
-use List::UtilsBy 'nsort_by';
+use List::AllUtils 'nsort_by';
 use Data::Compare;
 
 use aliased 'MusicBrainz::Server::Entity::Release';
@@ -78,7 +78,7 @@ sub accept {
     my @current_ids = sort(map { $_->id } @$current);
     my @edit_ids = sort(map { $_->{id} } @{ $self->data->{old} });
 
-    if (join(',', @current_ids) ne join (',', @edit_ids))
+    if (join(q(,), @current_ids) ne join (q(,), @edit_ids))
     {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency
             ->throw('Cover art has been added or removed since this edit was created, which conflicts ' .

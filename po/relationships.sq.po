@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-10-15 10:38+0000\n"
+"PO-Revision-Date: 2021-11-15 07:47+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
@@ -895,38 +895,38 @@ msgstr "Shpie te faqja në Internet Movie Database për këtë vend."
 #: DB:link_type/description:358
 msgid ""
 "Points to the Wikidata page for this area, and will be used to fetch "
-"Wikipedia summaries and images"
-msgstr "Shpie te faqja në Wikidata për këtë zonë dhe do të përdoret për të sjellë përmbledhje dhe figura nga Wikipedia"
+"Wikipedia summaries"
+msgstr ""
 
 #: DB:link_type/description:352
 msgid ""
 "Points to the Wikidata page for this artist, and will be used to fetch "
-"Wikipedia summaries and images"
-msgstr "Shpie te faqja në Wikidata për këtë artist dhe do të përdoret për të sjellë përmbledhje dhe figura nga Wikipedia"
+"Wikipedia summaries"
+msgstr ""
 
 #: DB:link_type/description:790
 msgid ""
 "Points to the Wikidata page for this event, and will be used to fetch "
-"Wikipedia summaries and images"
-msgstr "Shpie te faqja në Wikidata për këtë veprimtari dhe do të përdoret për të sjellë përmbledhje dhe figura nga Wikipedia"
+"Wikipedia summaries"
+msgstr ""
 
 #: DB:link_type/description:733
 msgid ""
 "Points to the Wikidata page for this instrument, and will be used to fetch "
-"Wikipedia summaries and images"
-msgstr "Shpie te faqja në Wikidata për këtë instrument dhe do të përdoret për të sjellë përmbledhje dhe figura nga Wikipedia"
+"Wikipedia summaries"
+msgstr ""
 
 #: DB:link_type/description:354
 msgid ""
 "Points to the Wikidata page for this label, and will be used to fetch "
-"Wikipedia summaries and images"
-msgstr "Shpie te faqja në Wikidata për këtë etiketë diskografike dhe do të përdoret për të sjellë përmbledhje dhe figura nga Wikipedia"
+"Wikipedia summaries"
+msgstr ""
 
 #: DB:link_type/description:594
 msgid ""
 "Points to the Wikidata page for this place, and will be used to fetch "
-"Wikipedia summaries and images"
-msgstr "Shpie te faqja në Wikidata për këtë vend dhe do të përdoret për të sjellë përmbledhje dhe figura nga Wikipedia"
+"Wikipedia summaries"
+msgstr ""
 
 #: DB:link_type/description:353
 msgid ""
@@ -937,14 +937,14 @@ msgstr "Shpie te faqja në Wikidata për këtë grup hedhjesh në qarkullim dhe 
 #: DB:link_type/description:749
 msgid ""
 "Points to the Wikidata page for this series, and will be used to fetch "
-"Wikipedia summaries and images"
-msgstr "Shpie te faqja në Wikidata për këtë seri dhe do të përdoret për të sjellë përmbledhje dhe figura nga Wikipedia"
+"Wikipedia summaries"
+msgstr ""
 
 #: DB:link_type/description:351
 msgid ""
 "Points to the Wikidata page for this work, and will be used to fetch "
-"Wikipedia summaries and images"
-msgstr "Shpie te faqja në Wikidata për këtë vepër dhe do të përdoret për të sjellë përmbledhje dhe figura nga Wikipedia"
+"Wikipedia summaries"
+msgstr ""
 
 #: DB:link_type/description:89
 msgid "Points to the Wikipedia page for this album."
@@ -1344,6 +1344,12 @@ msgstr ""
 #: DB:link_type/description:895
 msgid ""
 "This indicates an artist (generally a person) was the founder of a group."
+msgstr ""
+
+#: DB:link_type/description:1004
+msgid ""
+"This indicates an artist (generally a person) was the founder of an event "
+"series (generally a festival)."
 msgstr ""
 
 #: DB:link_attribute_type/description:921
@@ -3276,19 +3282,19 @@ msgstr ""
 msgid "Whistling (with mouth, not a whistle)"
 msgstr ""
 
-#: DB:link_type/link_phrase:353 DB:link_type/link_phrase:354
-#: DB:link_type/link_phrase:749 DB:link_type/link_phrase:594
+#: DB:link_type/link_phrase:353 DB:link_type/link_phrase:749
+#: DB:link_type/link_phrase:594 DB:link_type/link_phrase:354
 #: DB:link_type/link_phrase:790 DB:link_type/link_phrase:352
-#: DB:link_type/link_phrase:358 DB:link_type/link_phrase:733
+#: DB:link_type/link_phrase:733 DB:link_type/link_phrase:358
 #: DB:link_type/reverse_link_phrase:351
 msgid "Wikidata"
 msgstr "Wikidata"
 
 #: DB:link_type/link_phrase:351 DB:link_type/reverse_link_phrase:353
-#: DB:link_type/reverse_link_phrase:354 DB:link_type/reverse_link_phrase:749
-#: DB:link_type/reverse_link_phrase:594 DB:link_type/reverse_link_phrase:790
-#: DB:link_type/reverse_link_phrase:352 DB:link_type/reverse_link_phrase:358
-#: DB:link_type/reverse_link_phrase:733
+#: DB:link_type/reverse_link_phrase:749 DB:link_type/reverse_link_phrase:594
+#: DB:link_type/reverse_link_phrase:354 DB:link_type/reverse_link_phrase:790
+#: DB:link_type/reverse_link_phrase:352 DB:link_type/reverse_link_phrase:733
+#: DB:link_type/reverse_link_phrase:358
 msgid "Wikidata page for"
 msgstr "faqe në Wikidata për"
 
@@ -3605,6 +3611,10 @@ msgstr "pjella"
 #: DB:link_attribute_type/description:13 DB:link_attribute_type/name:13
 msgid "choir vocals"
 msgstr "zëra kori"
+
+#: DB:link_attribute_type/name:1224
+msgid "choral conducting"
+msgstr ""
 
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
@@ -4054,6 +4064,11 @@ msgstr "inxhinierë"
 msgid "eponymous"
 msgstr ""
 
+#: DB:link_type/link_phrase:1003 DB:link_type/name:1003
+#: DB:link_type/reverse_link_phrase:1003 DB:link_type/long_link_phrase:1003
+msgid "event artists"
+msgstr ""
+
 #: DB:link_attribute_type/name:425
 msgid "executive"
 msgstr ""
@@ -4079,16 +4094,17 @@ msgid "folk music"
 msgstr "muzikë folk"
 
 #: DB:link_type/link_phrase:832 DB:link_type/link_phrase:116
-#: DB:link_type/link_phrase:895 DB:link_type/long_link_phrase:832
-#: DB:link_type/long_link_phrase:116 DB:link_type/long_link_phrase:895
+#: DB:link_type/link_phrase:895 DB:link_type/link_phrase:1004
+#: DB:link_type/long_link_phrase:832 DB:link_type/long_link_phrase:116
+#: DB:link_type/long_link_phrase:895 DB:link_type/long_link_phrase:1004
 msgid "founded"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:895
+#: DB:link_type/reverse_link_phrase:895 DB:link_type/reverse_link_phrase:1004
 msgid "founded by"
 msgstr "themeluar nga"
 
-#: DB:link_type/name:832 DB:link_type/name:895
+#: DB:link_type/name:832 DB:link_type/name:895 DB:link_type/name:1004
 msgid "founder"
 msgstr "themelues"
 
@@ -4286,10 +4302,10 @@ msgstr "ka një faqe në SoundCloud te"
 msgid "has a VGMdb page at"
 msgstr "ka një faqe VGMdb te"
 
-#: DB:link_type/long_link_phrase:353 DB:link_type/long_link_phrase:354
-#: DB:link_type/long_link_phrase:749 DB:link_type/long_link_phrase:594
+#: DB:link_type/long_link_phrase:353 DB:link_type/long_link_phrase:749
+#: DB:link_type/long_link_phrase:594 DB:link_type/long_link_phrase:354
 #: DB:link_type/long_link_phrase:790 DB:link_type/long_link_phrase:352
-#: DB:link_type/long_link_phrase:358 DB:link_type/long_link_phrase:733
+#: DB:link_type/long_link_phrase:733 DB:link_type/long_link_phrase:358
 msgid "has a Wikidata page at"
 msgstr "ka një faqe në Wikidata te"
 
@@ -5444,7 +5460,7 @@ msgstr "origjinali"
 msgid "originally scheduled as"
 msgstr "fillimisht e planifikuar për"
 
-#: DB:link_attribute_type/name:1128
+#: DB:link_attribute_type/name:1225 DB:link_attribute_type/name:1128
 msgid "other"
 msgstr "tjetër"
 
@@ -6597,9 +6613,9 @@ msgstr ""
 msgid "whistling"
 msgstr ""
 
-#: DB:link_type/name:351 DB:link_type/name:353 DB:link_type/name:354
-#: DB:link_type/name:749 DB:link_type/name:594 DB:link_type/name:790
-#: DB:link_type/name:352 DB:link_type/name:358 DB:link_type/name:733
+#: DB:link_type/name:351 DB:link_type/name:353 DB:link_type/name:749
+#: DB:link_type/name:594 DB:link_type/name:354 DB:link_type/name:790
+#: DB:link_type/name:352 DB:link_type/name:733 DB:link_type/name:358
 msgid "wikidata"
 msgstr "wikidata"
 
@@ -6608,6 +6624,11 @@ msgstr "wikidata"
 #: DB:link_type/name:731 DB:link_type/name:89 DB:link_type/name:789
 msgid "wikipedia"
 msgstr "wikipedia"
+
+#: DB:link_type/link_phrase:1002 DB:link_type/name:1002
+#: DB:link_type/reverse_link_phrase:1002 DB:link_type/long_link_phrase:1002
+msgid "work cataloguing"
+msgstr ""
 
 #: DB:link_type/name:921 DB:link_type/reverse_link_phrase:921
 msgid "work list entry"

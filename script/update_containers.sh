@@ -76,26 +76,51 @@ else
   HOSTS="$*"
 fi
 
-if [[ $DEPLOY_ENV == beta ]]
-then
-  pause=90
-else
-  pause=30
-fi
-
-last_host=${HOSTS/* }
-
 for host in $HOSTS
 do
+  for service in $SERVICES
+  do
+    container="$service-$DEPLOY_ENV"
+    echo "$host: Putting $container into maintenance mode..."
+
+    ssh "$host" \
+      sudo -H -S -- \
+        /root/docker-server-configs/scripts/set_service_maintenance.sh \
+          enable \
+          "$service" \
+          "$DEPLOY_ENV"
+  done
+
+  # Production value of DETERMINE_MAX_REQUEST_TIME
+  sleep 60
+
   echo "$host: Updating containers..."
   ssh "$host" \
     sudo -H -S -- \
       /root/docker-server-configs/scripts/update_services.sh \
         $DEPLOY_ENV $SERVICES
-  if [[ $host != "$last_host" ]]
-  then
-    sleep $pause
-  fi
+
+  for service in $SERVICES
+  do
+    container="$service-$DEPLOY_ENV"
+    while [[ $(
+      ssh "$host" \
+        docker exec "$container" \
+          curl -I -s -o /dev/null -w "%{http_code}" 'http://localhost:5000'
+    ) -ne 200 ]]
+    do
+      echo "$host: Waiting for $container to come back up..."
+      sleep 1
+    done
+
+    echo "$host: Bringing $container out of maintenance mode..."
+    ssh "$host" \
+      sudo -H -S -- \
+        /root/docker-server-configs/scripts/set_service_maintenance.sh \
+          disable \
+          "$service" \
+          "$DEPLOY_ENV"
+  done
 done
 
 # vi: set et sts=2 sw=2 ts=2 :

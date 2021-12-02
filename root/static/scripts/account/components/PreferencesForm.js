@@ -17,7 +17,6 @@ import FormRowSelect from '../../../../components/FormRowSelect';
 import FormSubmit from '../../../../components/FormSubmit';
 import {SanitizedCatalystContext} from '../../../../context';
 import {formatUserDateObject} from '../../../../utility/formatUserDate';
-import hydrate from '../../../../utility/hydrate';
 
 type PreferencesFormT = FormT<{
   +csrf_token: FieldT<string>,

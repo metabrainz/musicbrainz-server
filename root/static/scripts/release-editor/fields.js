@@ -7,6 +7,7 @@
  */
 
 import ko from 'knockout';
+import * as ReactDOMServer from 'react-dom/server';
 
 import mbEntity from '../common/entity';
 import {cloneObjectDeep} from '../common/utility/cloneDeep';
@@ -342,6 +343,7 @@ class Medium {
   constructor(data, release) {
     this.release = release;
     this.name = ko.observable(data.name);
+    this.originalName = data.name;
     this.position = ko.observable(data.position || 1);
     this.formatID = ko.observable(data.format_id);
     this.originalFormatID = data.format_id
@@ -445,6 +447,10 @@ class Medium {
                 self.release.earliestYear() < mediumFormatDate);
     });
     this.confirmedEarlyFormat = ko.observable(this.hasTooEarlyFormat());
+    this.hasUselessMediumTitle = ko.computed(function () {
+      return /^(Cassette|CD|Disc|DVD|SACD|Vinyl)\s*\d+/i.test(self.name());
+    });
+    this.confirmedMediumTitle = ko.observable(this.hasUselessMediumTitle());
     this.needsTrackInfo = ko.computed(function () {
       return !self.hasTrackInfo();
     });
@@ -507,6 +513,10 @@ class Medium {
       return (self.hasTooEarlyFormat() && !self.confirmedEarlyFormat());
     });
 
+    this.hasUnconfirmedUselessMediumTitle = ko.computed(function () {
+      return (self.hasUselessMediumTitle() && !self.confirmedMediumTitle());
+    });
+
     this.hasUnconfirmedVariousArtists = ko.computed(function() {
       return (self.hasVariousArtistTracks() &&
               !self.confirmedVariousArtists());
@@ -529,6 +539,14 @@ class Medium {
     this.formatID.subscribe(function (value) {
       if (value) {
         self.formatUnknownToUser(false);
+      }
+    });
+
+    this.name.subscribe(function (value) {
+      if (value === self.originalName) {
+        self.confirmedMediumTitle(true);
+      } else {
+        self.confirmedMediumTitle(false);
       }
     });
   }
@@ -724,10 +742,32 @@ class Medium {
     return l('Tracklist');
   }
 
+  confirmMediumTitleMessage() {
+    const name = this.name();
+
+    return exp.l(
+      'I confirm this medium is actually titled “{medium_title}”.',
+      {medium_title: name},
+    );
+  }
+
   canHaveDiscID() {
     var formatID = parseInt(this.formatID(), 10);
 
     return !formatID || MB.formatsWithDiscIDs.includes(formatID);
+  }
+
+  uselessMediumTitleWarning() {
+    const name = this.name();
+
+    return ReactDOMServer.renderToString(exp.l(
+      `“{matched_text}” seems to indicate medium ordering rather than
+       a medium title. If this is the case, please use the up/down arrows
+       on the right side to set the medium position instead of adding a title
+       (see {release_style|the guidelines}). Otherwise, please confirm
+       that this is the actual title using the checkbox below.`,
+      {matched_text: name, release_style: '/doc/Style/Release#Medium_title'},
+    ));
   }
 }
 
@@ -1038,6 +1078,8 @@ class Release extends mbEntity.Release {
     this.needsMediums = errorField(function () {
       return !(self.mediums().length || self.hasUnknownTracklist());
     });
+    this.hasUnconfirmedUselessMediumTitle =
+      errorField(this.mediums.any('hasUnconfirmedUselessMediumTitle'));
     this.needsFormat = errorField(this.mediums.any('needsFormat'));
     this.needsTracks = errorField(this.mediums.any('needsTracks'));
     this.needsTrackInfo = errorField(function () {

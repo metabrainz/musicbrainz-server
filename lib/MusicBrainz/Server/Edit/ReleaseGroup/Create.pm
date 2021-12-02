@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Edit::ReleaseGroup::Create;
 use Moose;
 
+use List::AllUtils qw( any );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_CREATE );
@@ -75,7 +76,7 @@ sub initialize {
     $opts{type_id} = delete $opts{primary_type_id};
 
     delete $opts{secondary_type_ids}
-        unless grep { looks_like_number($_) } @{ $opts{secondary_type_ids} // [] };
+        unless any { looks_like_number($_) } @{ $opts{secondary_type_ids} // [] };
 
     $opts{artist_credit} = clean_submitted_artist_credits($opts{artist_credit});
 

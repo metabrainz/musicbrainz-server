@@ -1,5 +1,5 @@
 package MusicBrainz::Server::Edit::Relationship;
-use List::UtilsBy qw( sort_by partition_by );
+use List::AllUtils qw( sort_by partition_by );
 use Moose::Role;
 use MusicBrainz::Server::Constants qw(
     %ENTITIES_WITH_RELATIONSHIP_CREDITS
