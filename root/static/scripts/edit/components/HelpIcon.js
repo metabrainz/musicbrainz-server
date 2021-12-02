@@ -31,11 +31,12 @@ class HelpIcon extends React.Component {
           onMouseLeave={() => this.setState({hover: false})}
           style={{verticalAlign: 'text-top'}}
         />
-        {this.state.hover &&
+        {this.state.hover ? (
           <Tooltip
             content={this.props.content}
             hoverCallback={hover => this.setState({hover})}
-          />}
+          />
+        ) : null}
       </div>
     );
   }
