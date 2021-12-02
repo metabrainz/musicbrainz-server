@@ -126,6 +126,10 @@ sub verify_email : Path('/verify-email') ForbiddenOnSlaves DenyWhenReadonly
         $c->detach;
     }
 
+    if ($editor->deleted) {
+        $c->detach('/user/not_found');
+    }
+
     $c->model('Editor')->update_email($editor, $email);
 
     if ($c->user_exists) {
