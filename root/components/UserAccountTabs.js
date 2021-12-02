@@ -23,7 +23,6 @@ function buildTabs(
   page: string,
 ): $ReadOnlyArray<React.Element<'li'>> {
   const viewingOwnProfile = Boolean($c.user && $c.user.id === user.id);
-  const showAdmin = isAccountAdmin($c.user);
 
   const userName = encodeURIComponent(user.name);
   const userPath = '/user/' + userName;
@@ -31,6 +30,7 @@ function buildTabs(
   const tabs = [buildTab(page, l('Profile'), userPath, 'index')];
 
   const userDeleted = user.deleted;
+  const showAdmin = !userDeleted && isAccountAdmin($c.user);
   const hasPublicSubscriptions =
     !userDeleted && user.preferences.public_subscriptions;
   const hasPublicTags = !userDeleted && user.preferences.public_tags;
