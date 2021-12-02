@@ -13,37 +13,8 @@ import EntityLink, {DeletedLink}
   from '../../../static/scripts/common/components/EntityLink';
 import formatDate from '../../../static/scripts/common/utility/formatDate';
 
-type OldReleaseEventCompT = {
-  +barcode: CompT<string | null>,
-  +catalog_number: CompT<string | null>,
-  +country?: CompT<AreaT>,
-  +date: CompT<PartialDateT>,
-  +format: CompT<MediumFormatT | null>,
-  +label?: CompT<LabelT>,
-  +release: ReleaseT | null,
-};
-
-type OldReleaseEventT = {
-  +barcode: string | null,
-  +catalog_number: string | null,
-  +country?: AreaT,
-  +date: PartialDateT,
-  +format: MediumFormatT | null,
-  +label?: LabelT,
-  +release: ReleaseT | null,
-};
-
-type EditReleaseEventsEditT = {
-  ...EditT,
-  +display_data: {
-    +additions: $ReadOnlyArray<OldReleaseEventT>,
-    +edits: $ReadOnlyArray<OldReleaseEventCompT>,
-    +removals: $ReadOnlyArray<OldReleaseEventT>,
-  },
-};
-
 type Props = {
-  +edit: EditReleaseEventsEditT,
+  +edit: EditReleaseEventsHistoricEditT,
 };
 
 function buildEventComp(event, key): React.Element<'tr'> {

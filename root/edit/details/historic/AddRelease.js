@@ -18,36 +18,8 @@ import formatDate
 import formatTrackLength
   from '../../../static/scripts/common/utility/formatTrackLength';
 
-type AddReleaseEditT = {
-  ...EditT,
-  +display_data: {
-    +artist: ArtistT,
-    +language: LanguageT | null,
-    +name: string,
-    +release_events: $ReadOnlyArray<{
-      +barcode: number,
-      +catalog_number: string | null,
-      +country: AreaT | null,
-      +date: PartialDateT | null,
-      +format: MediumFormatT | null,
-      +label: LabelT | null,
-    }>,
-    +releases: $ReadOnlyArray<ReleaseT | null>,
-    +script: ScriptT | null,
-    +status: ReleaseStatusT | null,
-    +tracks: $ReadOnlyArray<{
-      +artist: ArtistT,
-      +length: number | null,
-      +name: string,
-      +position: number,
-      +recording: RecordingT,
-    }>,
-    +type: ReleaseGroupTypeT | null,
-  },
-};
-
 type Props = {
-  +edit: AddReleaseEditT,
+  +edit: AddReleaseHistoricEditT,
 };
 
 const AddRelease = ({edit}: Props): React.Element<'table'> => {

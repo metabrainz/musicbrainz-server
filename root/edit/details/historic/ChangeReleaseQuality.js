@@ -13,18 +13,8 @@ import {QUALITY_NAMES} from '../../../static/scripts/common/constants';
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink';
 
-type ChangeReleaseQualityEditT = {
-  ...EditT,
-  +display_data: {
-    +changes: $ReadOnlyArray<{
-      +quality: CompT<QualityT>,
-      +releases: $ReadOnlyArray<ReleaseT>,
-    }>,
-  },
-};
-
 type Props = {
-  +edit: ChangeReleaseQualityEditT,
+  +edit: ChangeReleaseQualityHistoricEditT,
 };
 
 const ChangeReleaseQuality = ({edit}: Props): React.Element<'table'> => (

@@ -13,14 +13,6 @@ import {ENTITY_NAMES} from '../../static/scripts/common/constants';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
 
-type RemoveEntityEditT = {
-  ...EditT,
-  +display_data: {
-    +entity: CoreEntityT,
-    +entity_type: CoreEntityTypeT,
-  },
-};
-
 type Props = {
   +edit: RemoveEntityEditT,
 };

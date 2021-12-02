@@ -12,16 +12,8 @@ import * as React from 'react';
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink';
 
-type MoveReleaseToReleaseGroupT = {
-  ...EditT,
-  +display_data: {
-    +release: ReleaseT,
-    +release_group: CompT<ReleaseGroupT>,
-  },
-};
-
 type Props = {
-  +edit: MoveReleaseToReleaseGroupT,
+  +edit: MoveReleaseToReleaseGroupHistoricEditT,
 };
 
 const MoveReleaseToReleaseGroup = ({

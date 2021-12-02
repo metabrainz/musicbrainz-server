@@ -12,21 +12,8 @@ import * as React from 'react';
 import {HistoricReleaseListContent}
   from '../../components/HistoricReleaseList';
 
-type EditReleaseAttributesEditT = {
-  ...EditT,
-  +display_data: {
-    +changes: $ReadOnlyArray<{
-      +releases: $ReadOnlyArray<ReleaseT | null>,
-      +status: ReleaseStatusT | null,
-      +type: ReleaseGroupTypeT | ReleaseGroupHistoricTypeT | null,
-    }>,
-    +status: ReleaseStatusT | null,
-    +type: ReleaseGroupTypeT | ReleaseGroupHistoricTypeT | null,
-  },
-};
-
 type Props = {
-  +edit: EditReleaseAttributesEditT,
+  +edit: EditReleaseAttributesHistoricEditT,
 };
 
 function getTypeName(type) {

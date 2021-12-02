@@ -27,8 +27,19 @@ declare type EditStatusT =
   | 7 // NOVOTES
   | 9; // DELETED
 
-// MusicBrainz::Server::Edit::TO_JSON
-declare type EditT = {
+declare type EditT = CurrentEditT | HistoricEditT;
+
+// MusicBrainz::Server::Entity::EditNote::TO_JSON
+declare type EditNoteT = {
+  +editor: EditorT | null,
+  +editor_id: number,
+  +formatted_text: string,
+  +post_time: string | null,
+};
+
+
+// Reused by all other edit types
+declare type GenericEditT = {
   +auto_edit: boolean,
   +close_time: string,
   +conditions: {
@@ -55,10 +66,8 @@ declare type EditT = {
   +votes: $ReadOnlyArray<VoteT>,
 };
 
-// MusicBrainz::Server::Entity::EditNote::TO_JSON
-declare type EditNoteT = {
-  +editor: EditorT | null,
-  +editor_id: number,
-  +formatted_text: string,
-  +post_time: string | null,
-};
+declare type GenericEditWithIdT = $ReadOnly<{
+  ...GenericEditT,
+  +id: number,
+  ...
+}>;

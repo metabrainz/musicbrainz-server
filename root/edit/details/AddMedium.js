@@ -30,17 +30,6 @@ type CondensedTrackACsProps = {
   +tracks?: $ReadOnlyArray<TrackT>,
 };
 
-type AddMediumEditT = {
-  ...EditT,
-  +display_data: {
-    +format: MediumFormatT | null,
-    +name?: string,
-    +position: number | string,
-    +release?: ReleaseT,
-    +tracks?: $ReadOnlyArray<TrackT>,
-  },
-};
-
 type Props = {
   +allowNew?: boolean,
   +edit: AddMediumEditT,

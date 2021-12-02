@@ -11,14 +11,6 @@ import * as React from 'react';
 
 import LabelList from '../../components/list/LabelList';
 
-type MergeLabelsEditT = {
-  ...EditT,
-  +display_data: {
-    +new: LabelT,
-    +old: $ReadOnlyArray<LabelT>,
-  },
-};
-
 type Props = {
   +edit: MergeLabelsEditT,
 };

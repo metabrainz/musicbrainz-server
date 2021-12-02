@@ -11,14 +11,6 @@ import * as React from 'react';
 
 import {ReleaseGroupListTable} from '../../components/list/ReleaseGroupList';
 
-type MergeReleaseGroupsEditT = {
-  ...EditT,
-  +display_data: {
-    +new: ReleaseGroupT,
-    +old: $ReadOnlyArray<ReleaseGroupT>,
-  },
-};
-
 type Props = {
   +edit: MergeReleaseGroupsEditT,
 };

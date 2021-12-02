@@ -9,15 +9,8 @@
 
 import * as React from 'react';
 
-type RemoveLabelAliasEditT = {
-  ...EditT,
-  +display_data: {
-    +alias: string,
-  },
-};
-
 type Props = {
-  +edit: RemoveLabelAliasEditT,
+  +edit: RemoveLabelAliasHistoricEditT,
 };
 
 const RemoveLabelAlias = ({edit}: Props): React.Element<'table'> => (

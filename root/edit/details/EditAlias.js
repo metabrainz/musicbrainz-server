@@ -24,23 +24,6 @@ import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 
-type EditAliasEditT = $ReadOnly<{
-  ...EditT,
-  +alias: AliasT | null,
-  +display_data: {
-    +[coreEntityType: CoreEntityTypeT]: CoreEntityT,
-    +alias: CompT<string>,
-    +begin_date: CompT<PartialDateT>,
-    +end_date: CompT<PartialDateT>,
-    +ended: CompT<boolean>,
-    +entity_type: CoreEntityTypeT,
-    +locale: CompT<string | null>,
-    +primary_for_locale: CompT<boolean>,
-    +sort_name: CompT<string>,
-    +type: CompT<AliasTypeT | null>,
-  },
-}>;
-
 type Props = {
   +edit: EditAliasEditT,
 };

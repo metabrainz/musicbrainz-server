@@ -19,20 +19,6 @@ import FullChangeDiff from
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 
-type EditRelationshipAttributeEditT = {
-  ...EditT,
-  +display_data: {
-    +child_order?: CompT<number>,
-    +creditable?: CompT<boolean>,
-    +description: CompT<string | null>,
-    +free_text?: CompT<boolean>,
-    +name: CompT<string>,
-    +original_description: string | null,
-    +original_name: string,
-    +parent?: CompT<LinkAttrTypeT | null>,
-  },
-};
-
 type Props = {
   +edit: EditRelationshipAttributeEditT,
 };

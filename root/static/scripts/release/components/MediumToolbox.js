@@ -12,7 +12,6 @@ import * as React from 'react';
 import type {
   ActionT,
   CreditsModeT,
-  MediumWithRecordingsT,
 } from '../types';
 
 type PropsT = {

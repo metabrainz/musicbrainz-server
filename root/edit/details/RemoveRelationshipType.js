@@ -12,23 +12,6 @@ import * as React from 'react';
 import IntentionallyRawIcon from '../components/IntentionallyRawIcon';
 import {ENTITY_NAMES} from '../../static/scripts/common/constants';
 
-type RemoveRelationshipTypeEditT = {
-  ...EditT,
-  +display_data: {
-    +attributes: $ReadOnlyArray<{
-      ...LinkTypeAttrTypeT,
-      +typeName: string,
-    }>,
-    +description: string | null,
-    +entity0_type: CoreEntityTypeT,
-    +entity1_type: CoreEntityTypeT,
-    +link_phrase: string,
-    +long_link_phrase: string,
-    +name: string,
-    +reverse_link_phrase: string,
-  },
-};
-
 type Props = {
   +edit: RemoveRelationshipTypeEditT,
 };

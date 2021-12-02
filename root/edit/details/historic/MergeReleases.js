@@ -13,20 +13,8 @@ import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink';
 import yesNo from '../../../static/scripts/common/utility/yesNo';
 
-type MergeReleasesEditT = {
-  ...EditT,
-  +display_data: {
-    merge_attributes: boolean,
-    merge_language: boolean,
-    releases: {
-      new: $ReadOnlyArray<ReleaseT>,
-      old: $ReadOnlyArray<ReleaseT>,
-    },
-  },
-};
-
 type Props = {
-  +edit: MergeReleasesEditT,
+  +edit: MergeReleasesHistoricEditT,
 };
 
 const MergeReleases = ({edit}: Props): React.MixedElement => (

@@ -11,15 +11,6 @@ import * as React from 'react';
 
 import RecordingList from '../../components/list/RecordingList';
 
-type MergeRecordingsEditT = {
-  ...EditT,
-  +display_data: {
-    +large_spread: boolean,
-    +new: RecordingWithArtistCreditT,
-    +old: $ReadOnlyArray<RecordingWithArtistCreditT>,
-  },
-};
-
 type Props = {
   +edit: MergeRecordingsEditT,
 };

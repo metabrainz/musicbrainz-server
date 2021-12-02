@@ -23,3 +23,8 @@ declare type TrackT = $ReadOnly<{
   +position: number,
   +recording?: RecordingT,
 }>;
+
+declare type TrackWithRecordingT = $ReadOnly<{
+  ...TrackT,
+  +recording: RecordingT,
+}>;

@@ -45,15 +45,15 @@ const STATUS_NAMES = {
   [EDIT_STATUS_OPEN]:           N_l('Open'),
 };
 
-export function getEditExpireAction(edit: EditT): string {
+export function getEditExpireAction(edit: GenericEditWithIdT): string {
   return EXPIRE_ACTIONS[edit.conditions.expire_action]();
 }
 
-export function getEditStatusName(edit: EditT): string {
+export function getEditStatusName(edit: GenericEditWithIdT): string {
   return STATUS_NAMES[edit.status]();
 }
 
-export function getEditStatusDescription(edit: EditT): string {
+export function getEditStatusDescription(edit: GenericEditWithIdT): string {
   switch (edit.status) {
     case EDIT_STATUS_OPEN:
       return l('This edit is open for voting.');
@@ -91,7 +91,7 @@ export function getEditStatusDescription(edit: EditT): string {
   }
 }
 
-export function getEditStatusClass(edit: EditT): string {
+export function getEditStatusClass(edit: GenericEditWithIdT): string {
   switch (edit.status) {
     case EDIT_STATUS_OPEN:
       return 'open';
@@ -107,14 +107,14 @@ export function getEditStatusClass(edit: EditT): string {
 }
 
 export function getVotesForEditor(
-  edit: EditT,
+  edit: GenericEditWithIdT,
   editor: UnsanitizedEditorT,
 ): $ReadOnlyArray<VoteT> {
   return edit.votes.filter(v => v.editor_id === editor.id);
 }
 
 export function editorMayAddNote(
-  edit: EditT,
+  edit: GenericEditWithIdT,
   editor: ?UnsanitizedEditorT,
 ): boolean {
   return !!editor && nonEmpty(editor.email_confirmation_date) &&
@@ -122,7 +122,7 @@ export function editorMayAddNote(
 }
 
 export function editorMayApprove(
-  edit: EditT,
+  edit: GenericEditWithIdT,
   editor: ?UnsanitizedEditorT,
 ): boolean {
   const conditions = edit.conditions;
@@ -165,7 +165,7 @@ export function editorMayApprove(
 }
 
 export function editorMayCancel(
-  edit: EditT,
+  edit: GenericEditWithIdT,
   editor: ?UnsanitizedEditorT,
 ): boolean {
   return !!editor &&
@@ -173,7 +173,7 @@ export function editorMayCancel(
 }
 
 export function editorMayVote(
-  edit: EditT,
+  edit: GenericEditWithIdT,
   editor: ?UnsanitizedEditorT,
 ): boolean {
   return (
@@ -187,7 +187,7 @@ export function editorMayVote(
 }
 
 export function getLatestVoteForEditor(
-  edit: EditT,
+  edit: GenericEditWithIdT,
   editor: UnsanitizedEditorT,
 ): VoteT | null {
   const votes = getVotesForEditor(edit, editor);

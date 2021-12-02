@@ -12,21 +12,8 @@ import * as React from 'react';
 import {HistoricReleaseListContent}
   from '../../components/HistoricReleaseList';
 
-type EditReleaseLanguageEditT = {
-  ...EditT,
-  +display_data: {
-    +language: LanguageT | null,
-    +old: $ReadOnlyArray<{
-      +language: LanguageT | null,
-      +releases: $ReadOnlyArray<ReleaseT | null>,
-      +script: ScriptT | null,
-    }>,
-    +script: ScriptT | null,
-  },
-};
-
 type Props = {
-  +edit: EditReleaseLanguageEditT,
+  +edit: EditReleaseLanguageHistoricEditT,
 };
 
 const EditReleaseLanguage = ({edit}: Props): React.Element<'table'> => (

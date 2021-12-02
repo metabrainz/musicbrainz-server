@@ -28,7 +28,6 @@ import type {
   StateT,
   ActionT,
   CreditsModeT,
-  TrackWithRecordingT,
 } from '../types';
 
 import MediumTable from './MediumTable';

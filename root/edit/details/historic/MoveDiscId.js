@@ -13,17 +13,8 @@ import HistoricReleaseList from '../../components/HistoricReleaseList';
 import CDTocLink
   from '../../../static/scripts/common/components/CDTocLink';
 
-type MoveDiscIdEditT = {
-  ...EditT,
-  +display_data: {
-    +cdtoc: CDTocT,
-    +new_releases: $ReadOnlyArray<ReleaseT | null>,
-    +old_releases: $ReadOnlyArray<ReleaseT | null>,
-  },
-};
-
 type Props = {
-  +edit: MoveDiscIdEditT,
+  +edit: MoveDiscIdHistoricEditT,
 };
 
 const MoveDiscId = ({edit}: Props): React.Element<'table'> => (

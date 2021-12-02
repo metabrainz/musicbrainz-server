@@ -19,10 +19,7 @@ import ArtistCreditLink
 import EntityLink from '../../common/components/EntityLink';
 import formatTrackLength
   from '../../common/utility/formatTrackLength';
-import type {
-  CreditsModeT,
-  TrackWithRecordingT,
-} from '../types';
+import type {CreditsModeT} from '../types';
 
 type PropsT = {
   +creditsMode: CreditsModeT,

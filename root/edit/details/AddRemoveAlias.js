@@ -21,22 +21,6 @@ import locales from '../../static/scripts/common/constants/locales';
 import isolateText from '../../static/scripts/common/utility/isolateText';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 
-type AddRemoveAliasEditT = $ReadOnly<{
-  ...EditT,
-  +display_data: {
-    +[coreEntityType: CoreEntityTypeT]: CoreEntityT,
-    +alias: string,
-    +begin_date: PartialDateT,
-    +end_date: PartialDateT,
-    +ended?: boolean,
-    +entity_type: CoreEntityTypeT,
-    +locale: string | null,
-    +primary_for_locale: boolean,
-    +sort_name: string | null,
-    +type: AliasTypeT | null,
-  },
-}>;
-
 type Props = {
   edit: AddRemoveAliasEditT,
 };

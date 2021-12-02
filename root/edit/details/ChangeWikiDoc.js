@@ -11,15 +11,6 @@ import * as React from 'react';
 
 import DBDefs from '../../static/scripts/common/DBDefs';
 
-type ChangeWikiDocEditT = {
-  ...EditT,
-  +display_data: {
-    +new_version: number | null,
-    +old_version: number | null,
-    +page: string,
-  },
-};
-
 type Props = {
   +edit: ChangeWikiDocEditT,
 };
