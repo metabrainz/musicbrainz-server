@@ -54,6 +54,7 @@ ALTER TABLE edit_instrument ADD CONSTRAINT edit_instrument_pkey PRIMARY KEY (edi
 ALTER TABLE edit_label ADD CONSTRAINT edit_label_pkey PRIMARY KEY (edit, label);
 ALTER TABLE edit_mood ADD CONSTRAINT edit_mood_pkey PRIMARY KEY (edit, mood);
 ALTER TABLE edit_note ADD CONSTRAINT edit_note_pkey PRIMARY KEY (id);
+ALTER TABLE edit_note_change ADD CONSTRAINT edit_note_change_pkey PRIMARY KEY (id);
 ALTER TABLE edit_note_recipient ADD CONSTRAINT edit_note_recipient_pkey PRIMARY KEY (recipient, edit_note);
 ALTER TABLE edit_place ADD CONSTRAINT edit_place_pkey PRIMARY KEY (edit, place);
 ALTER TABLE edit_recording ADD CONSTRAINT edit_recording_pkey PRIMARY KEY (edit, recording);

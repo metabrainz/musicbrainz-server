@@ -3,6 +3,8 @@ BEGIN;
 
 CREATE TYPE cover_art_presence AS ENUM ('absent', 'present', 'darkened');
 
+CREATE TYPE edit_note_status AS ENUM ('deleted', 'edited');
+
 CREATE TYPE event_art_presence AS ENUM ('absent', 'present', 'darkened');
 
 CREATE TYPE fluency AS ENUM (

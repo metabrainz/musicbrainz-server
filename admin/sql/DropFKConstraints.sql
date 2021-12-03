@@ -98,6 +98,8 @@ ALTER TABLE edit_mood DROP CONSTRAINT IF EXISTS edit_mood_fk_edit;
 ALTER TABLE edit_mood DROP CONSTRAINT IF EXISTS edit_mood_fk_mood;
 ALTER TABLE edit_note DROP CONSTRAINT IF EXISTS edit_note_fk_editor;
 ALTER TABLE edit_note DROP CONSTRAINT IF EXISTS edit_note_fk_edit;
+ALTER TABLE edit_note_change DROP CONSTRAINT IF EXISTS edit_note_change_fk_edit_note;
+ALTER TABLE edit_note_change DROP CONSTRAINT IF EXISTS edit_note_change_fk_change_editor;
 ALTER TABLE edit_note_recipient DROP CONSTRAINT IF EXISTS edit_note_recipient_fk_recipient;
 ALTER TABLE edit_note_recipient DROP CONSTRAINT IF EXISTS edit_note_recipient_fk_edit_note;
 ALTER TABLE edit_place DROP CONSTRAINT IF EXISTS edit_place_fk_edit;

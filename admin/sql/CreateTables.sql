@@ -575,6 +575,18 @@ CREATE TABLE edit_note
     post_time            TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TABLE edit_note_change
+(
+    id                  SERIAL, -- PK
+    status              edit_note_status,
+    edit_note           INTEGER NOT NULL, -- references edit_note.id
+    change_editor       INTEGER NOT NULL, -- references editor.id
+    change_time         TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    old_note            TEXT NOT NULL,
+    new_note            TEXT NOT NULL,
+    reason              TEXT NOT NULL DEFAULT ''
+);
+
 CREATE TABLE edit_note_recipient (
     recipient           INTEGER NOT NULL, -- PK, references editor.id
     edit_note           INTEGER NOT NULL  -- PK, references edit_note.id

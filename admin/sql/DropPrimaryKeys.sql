@@ -54,6 +54,7 @@ ALTER TABLE edit_instrument DROP CONSTRAINT IF EXISTS edit_instrument_pkey;
 ALTER TABLE edit_label DROP CONSTRAINT IF EXISTS edit_label_pkey;
 ALTER TABLE edit_mood DROP CONSTRAINT IF EXISTS edit_mood_pkey;
 ALTER TABLE edit_note DROP CONSTRAINT IF EXISTS edit_note_pkey;
+ALTER TABLE edit_note_change DROP CONSTRAINT IF EXISTS edit_note_change_pkey;
 ALTER TABLE edit_note_recipient DROP CONSTRAINT IF EXISTS edit_note_recipient_pkey;
 ALTER TABLE edit_place DROP CONSTRAINT IF EXISTS edit_place_pkey;
 ALTER TABLE edit_recording DROP CONSTRAINT IF EXISTS edit_recording_pkey;

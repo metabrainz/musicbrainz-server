@@ -500,6 +500,16 @@ ALTER TABLE edit_note
    FOREIGN KEY (edit)
    REFERENCES edit(id);
 
+ALTER TABLE edit_note_change
+   ADD CONSTRAINT edit_note_change_fk_edit_note
+   FOREIGN KEY (edit_note)
+   REFERENCES edit_note(id);
+
+ALTER TABLE edit_note_change
+   ADD CONSTRAINT edit_note_change_fk_change_editor
+   FOREIGN KEY (change_editor)
+   REFERENCES editor(id);
+
 ALTER TABLE edit_note_recipient
    ADD CONSTRAINT edit_note_recipient_fk_recipient
    FOREIGN KEY (recipient)

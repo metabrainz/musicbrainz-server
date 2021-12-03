@@ -58,6 +58,7 @@ DROP TABLE edit_instrument;
 DROP TABLE edit_label;
 DROP TABLE edit_mood;
 DROP TABLE edit_note;
+DROP TABLE edit_note_change;
 DROP TABLE edit_note_recipient;
 DROP TABLE edit_place;
 DROP TABLE edit_recording;
