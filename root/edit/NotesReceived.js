@@ -56,6 +56,7 @@ const NotesReceived = ({
                     edit={edit}
                     editNote={editNote}
                     key={index}
+                    showEditControls
                   />
                 );
               })}

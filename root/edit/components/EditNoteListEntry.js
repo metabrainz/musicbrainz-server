@@ -21,6 +21,7 @@ type PropsT = {
 const EditNoteListEntry = ({
   edit,
   editNote,
+  showEditControls,
 }: PropsT): React$Element<'div'> => {
   const editTitle = texp.l(
     'Edit #{id} - {name}',
@@ -38,6 +39,7 @@ const EditNoteListEntry = ({
         edit={edit}
         editNote={editNote}
         index={0}
+        showEditControls={showEditControls}
       />
     </div>
   );

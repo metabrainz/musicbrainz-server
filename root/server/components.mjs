@@ -103,6 +103,7 @@ export default {
   'edit/CannotApproveEdit': (): Promise<mixed> => import('../edit/CannotApproveEdit.js'),
   'edit/CannotCancelEdit': (): Promise<mixed> => import('../edit/CannotCancelEdit.js'),
   'edit/CannotVote': (): Promise<mixed> => import('../edit/CannotVote.js'),
+  'edit/DeleteNote': (): Promise<mixed> => import('../edit/DeleteNote.js'),
   'edit/EditData': (): Promise<mixed> => import('../edit/EditData.js'),
   'edit/EditIndex': (): Promise<mixed> => import('../edit/EditIndex.js'),
   'edit/NoteIsRequired': (): Promise<mixed> => import('../edit/NoteIsRequired.js'),

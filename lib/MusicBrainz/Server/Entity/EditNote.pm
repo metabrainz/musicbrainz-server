@@ -47,6 +47,11 @@ has 'post_time' => (
     coerce => 1
 );
 
+has 'latest_change' => (
+    isa => 'EditNoteChange',
+    is  => 'rw',
+);
+
 my %domain_classes = (
     'attributes' => 'Attributes',
     'countries' => 'Countries',
@@ -129,12 +134,16 @@ around TO_JSON => sub {
     }
 
     my $json = $self->$orig;
+    $json->{id} = $self->id + 0;
     $json->{edit_id} = $self->edit_id + 0;
     $json->{editor_id} = $self->editor_id + 0;
     $json->{editor} = to_json_object($self->editor);
     $json->{post_time} = datetime_to_iso8601($self->post_time);
     $json->{formatted_text} = $self->editor_id == $EDITOR_MODBOT
         ? $self->localize : format_editnote($self->text);
+    $json->{latest_change} = $self->latest_change
+        ? $self->latest_change->TO_JSON
+        : undef;
 
     return $json;
 };

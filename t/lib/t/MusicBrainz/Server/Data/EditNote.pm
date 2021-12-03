@@ -28,47 +28,8 @@ with 't::Context';
 
 test all => sub {
 
-my $raw_sql = <<'RAWSQL';
-SET client_min_messages TO 'WARNING';
-TRUNCATE edit CASCADE;
-TRUNCATE edit_note CASCADE;
-
--- Test multiple edit_notes
-INSERT INTO edit (id, editor, type, status, expire_time)
-    VALUES (1, 1, 111, 1, NOW());
-
--- Test a single note
-INSERT INTO edit (id, editor, type, status, expire_time)
-    VALUES (2, 1, 111, 1, NOW());
-
--- Test no edit_notes
-INSERT INTO edit (id, editor, type, status, expire_time)
-    VALUES (3, 1, 111, 1, NOW());
-
-INSERT INTO edit_data (edit, data) SELECT generate_series(1, 3), '{ "foo": "5" }';
-
-INSERT INTO edit_note (id, editor, edit, text)
-    VALUES (1, 1, 1, 'This is a note');
-
-INSERT INTO edit_note (id, editor, edit, text)
-    VALUES (2, 2, 1, 'This is a later note');
-
-INSERT INTO edit_note (id, editor, edit, text)
-    VALUES (3, 1, 2, 'Another edit note');
-
--- Dummy edits to allow editor 2 to vote
-INSERT INTO edit (id, editor, type, status, expire_time)
-    SELECT 3 + x, 2, 111, 2, now() FROM generate_series(1, 10) x;
-INSERT INTO edit_data (edit, data)
-    SELECT 3 + x, '{}' FROM generate_series(1, 10) x;
-
-ALTER SEQUENCE edit_note_id_seq RESTART 4;
-
-RAWSQL
-
 my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+edit_note');
-MusicBrainz::Server::Test->prepare_raw_test_database($test->c, $raw_sql);
 
 use MusicBrainz::Server::EditRegistry;
 MusicBrainz::Server::EditRegistry->register_type('MockEdit');
@@ -159,6 +120,46 @@ like($email2_body, qr{'editor3' has added}, 'Email body mentions editor3');
 like($email2_body, qr{to edit #${\ $edit->id }}, 'Email body mentions "edit #"');
 like($email2_body, qr{This is my note!}, 'Email body has correct edit note text');
 
+};
+
+test 'delete_content' => sub {
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+edit_note');
+
+    my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
+    my $en_data = MusicBrainz::Server::Data::EditNote->new(c => $test->c);
+
+    note('We remove the first edit note for edit #1');
+    $en_data->delete_content(1, 1, 'Wrong URL');
+
+    my $edit = $edit_data->get_by_id(1);
+    $en_data->load_for_edits($edit);
+
+    is(@{ $edit->edit_notes }, 2, 'The edit still has two edit notes');
+    is(
+        $edit->edit_notes->[0]->text,
+        '',
+        'The note text for the first note has been blanked',
+    );
+    is(
+        $edit->edit_notes->[1]->text,
+        'This is a later note',
+        'The note text for the second note is unchanged',
+    );
+
+    note('Check the edit_note_change row contents');
+    my $row = $test->c->sql->select_single_row_hash(
+        'SELECT * FROM edit_note_change WHERE edit_note = 1',
+    );
+    is($row->{status}, 'deleted', 'The change is marked as a removal');
+    is($row->{change_editor}, 1, 'The correct change editor is listed');
+    is(
+        $row->{old_note},
+        'This is a note',
+        'The old note is stored correctly',
+    );
+    is($row->{new_note}, '', 'The new (blanked) note is stored correctly');
+    is($row->{reason}, 'Wrong URL', 'The change reason is stored correctly');
 };
 
 sub check_note {
