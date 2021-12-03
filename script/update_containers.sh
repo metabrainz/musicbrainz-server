@@ -48,47 +48,63 @@ shift
 
 SERVICES="musicbrainz-webservice musicbrainz-website"
 
-if [ $# -eq 0 ]
+LIST_METABRAINZ_HOSTS=${LIST_METABRAINZ_HOSTS:-$LIST_METABRAINZ_HOSTS_DEFAULT}
+if [ ! -x "$LIST_METABRAINZ_HOSTS" ]
 then
-  LIST_METABRAINZ_HOSTS=${LIST_METABRAINZ_HOSTS:-$LIST_METABRAINZ_HOSTS_DEFAULT}
-  if [ ! -x "$LIST_METABRAINZ_HOSTS" ]
-  then
-    echo >&2 "$SCRIPT_NAME: cannot list hosts per service/deploy env"
-    echo >&2
-    echo >&2 "Please set \$LIST_METABRAINZ_HOSTS or specify hosts list"
-    exit 69
-  fi
-
-  HOSTS=$(
-    for service in $SERVICES
-    do
-      "$LIST_METABRAINZ_HOSTS" "$service" "$DEPLOY_ENV"
-    done | sort -u
-  )
-else
-  if [ $# -eq 0 ]
-  then
-    echo >&2 "$SCRIPT_NAME: missing (space-separated) hosts list"
-    echo >&2 "$HELP"
-    exit 64
-  fi
-
-  HOSTS="$*"
+  echo >&2 "$SCRIPT_NAME: cannot list hosts per service/deploy env"
+  echo >&2
+  echo >&2 "Please set \$LIST_METABRAINZ_HOSTS or specify hosts list"
+  exit 69
 fi
+
+declare -A HOSTS_BY_SERVICE=()
+for service in $SERVICES
+do
+  HOSTS_BY_SERVICE["$service"]=$(
+    "$LIST_METABRAINZ_HOSTS" "$service" "$DEPLOY_ENV"
+  )
+done
+
+if [ $# -ne 0 ]
+then
+  selected_hosts="$*"
+  for service in $SERVICES
+  do
+    selected_hosts_for_this_service=()
+    for host in $selected_hosts
+    do
+      if echo ${HOSTS_BY_SERVICE["$service"]} | grep -Fqw "$host"
+      then
+        selected_hosts_for_this_service+=($host)
+      fi
+    done
+    HOSTS_BY_SERVICE["$service"]="${selected_hosts_for_this_service[*]}"
+  done
+fi
+
+HOSTS=$(
+  for service in $SERVICES
+  do
+    echo ${HOSTS_BY_SERVICE["$service"]}
+  done | sort -u
+)
 
 for host in $HOSTS
 do
   for service in $SERVICES
   do
-    container="$service-$DEPLOY_ENV"
-    echo "$host: Putting $container into maintenance mode..."
+    if echo ${HOSTS_BY_SERVICE["$service"]} | grep -Fqw "$host"
+    then
+      container="$service-$DEPLOY_ENV"
+      echo "$host: Putting $container into maintenance mode..."
 
-    ssh "$host" \
-      sudo -H -S -- \
-        /root/docker-server-configs/scripts/set_service_maintenance.sh \
-          enable \
-          "$service" \
-          "$DEPLOY_ENV"
+      ssh "$host" \
+        sudo -H -S -- \
+          /root/docker-server-configs/scripts/set_service_maintenance.sh \
+            enable \
+            "$service" \
+            "$DEPLOY_ENV"
+    fi
   done
 
   # Production value of DETERMINE_MAX_REQUEST_TIME
@@ -102,24 +118,27 @@ do
 
   for service in $SERVICES
   do
-    container="$service-$DEPLOY_ENV"
-    while [[ $(
-      ssh "$host" \
-        docker exec "$container" \
-          curl -I -s -o /dev/null -w "%{http_code}" 'http://localhost:5000'
-    ) -ne 200 ]]
-    do
-      echo "$host: Waiting for $container to come back up..."
-      sleep 1
-    done
+    if echo ${HOSTS_BY_SERVICE["$service"]} | grep -Fqw "$host"
+    then
+      container="$service-$DEPLOY_ENV"
+      while [[ $(
+        ssh "$host" \
+          docker exec "$container" \
+            curl -I -s -o /dev/null -w "%{http_code}" 'http://localhost:5000'
+      ) -ne 200 ]]
+      do
+        echo "$host: Waiting for $container to come back up..."
+        sleep 1
+      done
 
-    echo "$host: Bringing $container out of maintenance mode..."
-    ssh "$host" \
-      sudo -H -S -- \
-        /root/docker-server-configs/scripts/set_service_maintenance.sh \
-          disable \
-          "$service" \
-          "$DEPLOY_ENV"
+      echo "$host: Bringing $container out of maintenance mode..."
+      ssh "$host" \
+        sudo -H -S -- \
+          /root/docker-server-configs/scripts/set_service_maintenance.sh \
+            disable \
+            "$service" \
+            "$DEPLOY_ENV"
+    fi
   done
 done
 
