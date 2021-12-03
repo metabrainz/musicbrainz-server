@@ -106,6 +106,7 @@ export default {
   'edit/DeleteNote': (): Promise<mixed> => import('../edit/DeleteNote.js'),
   'edit/EditData': (): Promise<mixed> => import('../edit/EditData.js'),
   'edit/EditIndex': (): Promise<mixed> => import('../edit/EditIndex.js'),
+  'edit/ModifyNote': (): Promise<mixed> => import('../edit/ModifyNote.js'),
   'edit/NoteIsRequired': (): Promise<mixed> => import('../edit/NoteIsRequired.js'),
   'edit/NotesReceived': (): Promise<mixed> => import('../edit/NotesReceived.js'),
   'edit/OpenEdits': (): Promise<mixed> => import('../edit/OpenEdits.js'),

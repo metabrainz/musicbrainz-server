@@ -16,6 +16,7 @@ import {
 } from '../../utility/edit.js';
 
 import EditNote from './EditNote.js';
+import EditNoteHelp from './EditNoteHelp.js';
 
 type Props = {
   +edit: GenericEditWithIdT,
@@ -61,18 +62,7 @@ const EditNotes = ({
             className="add-edit-note edit-note"
             style={hide ? {display: 'none'} : {}}
           >
-            <p className="edit-note-help">
-              {exp.l(
-                `Edit notes support
-                 {doc_formatting|a limited set of wiki formatting options}.
-                 Please do always keep the {doc_coc|Code of Conduct} in mind
-                 when writing edit notes!`,
-                {
-                  doc_coc: {href: '/doc/Code_of_Conduct', target: '_blank'},
-                  doc_formatting: {href: '/doc/Edit_Note', target: '_blank'},
-                },
-              )}
-            </p>
+            <EditNoteHelp />
             <div className="edit-note-text">
               <textarea
                 className="edit-note"

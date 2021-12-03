@@ -27,14 +27,8 @@ sub _load
     return $edit_note;
 }
 
-sub delete : PathPart('delete') Chained('load') {
-    my ($self, $c) = @_;
-
-    my $form = $c->form( form => 'EditNoteDelete' );
-    my $edit_note = $c->stash->{edit_note};
-    my $edit_id = $edit_note->{edit_id};
-    my $edit = $c->model('Edit')->get_by_id($edit_id);
-    load_everything_for_edits($c, [ $edit ]);
+sub detach_if_cannot_change {
+    my ($self, $c, $edit_note, $edit) = @_;
 
     my $is_own_note = $c->user && $c->user->id == $edit_note->{editor_id};
     my $is_admin = $c->user && $c->user->is_account_admin;
@@ -111,6 +105,18 @@ sub delete : PathPart('delete') Chained('load') {
       );
       $c->detach;
     }
+}
+
+sub delete : PathPart('delete') Chained('load') {
+    my ($self, $c) = @_;
+
+    my $form = $c->form( form => 'EditNoteDelete' );
+    my $edit_note = $c->stash->{edit_note};
+    my $edit_id = $edit_note->{edit_id};
+    my $edit = $c->model('Edit')->get_by_id($edit_id);
+    load_everything_for_edits($c, [ $edit ]);
+
+    $self->detach_if_cannot_change($c, $edit_note, $edit);
 
     if ($c->form_posted_and_valid($form)) {
         if (!$form->field('cancel')->input) {
@@ -137,6 +143,57 @@ sub delete : PathPart('delete') Chained('load') {
             current_view => 'Node',
         );
     }
+}
+
+sub modify : PathPart('modify') Chained('load') {
+    my ($self, $c) = @_;
+
+    my $edit_note = $c->stash->{edit_note};
+    my $form = $c->form( form => 'EditNoteModify',
+                         init_object => { text => $edit_note->text });
+    my $edit_id = $edit_note->{edit_id};
+    my $edit = $c->model('Edit')->get_by_id($edit_id);
+    load_everything_for_edits($c, [ $edit ]);
+
+    $self->detach_if_cannot_change($c, $edit_note, $edit);
+
+    if ($c->form_posted_and_valid($form)) {
+        if ($form->field('cancel')->input) {
+            $c->response->redirect(
+                $c->uri_for_action('/edit/show', [ $edit_id ])
+            );
+            $c->detach;
+        } else {
+            my $new_note = $form->field('text')->value;
+            if ($new_note eq $edit_note->text) {
+                $form->field('text')->add_error(
+                    l('You haven’t made any changes!')
+                );
+            } else {
+                $c->model('MB')->with_transaction(sub {
+                    $c->model('EditNote')->modify_content(
+                        $edit_note->id,
+                        $c->user->id,
+                        $new_note,
+                        $form->field('reason')->value,
+                    );
+                });
+                $c->response->redirect(
+                    $c->uri_for_action('/edit/show', [ $edit_id ])
+                );
+                $c->detach;
+            }
+        }
+    }
+    $c->stash(
+        component_path => 'edit/ModifyNote',
+        component_props => {
+            edit => $edit->TO_JSON,
+            editNote => $edit_note->TO_JSON,
+            form => $form->TO_JSON,
+        },
+        current_view => 'Node',
+    );
 }
 
 1;

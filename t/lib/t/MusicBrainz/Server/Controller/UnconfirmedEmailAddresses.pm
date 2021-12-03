@@ -166,6 +166,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   'Controller::Edit::subscribed_editors',
   'Controller::EditNote::base',
   'Controller::EditNote::delete',
+  'Controller::EditNote::modify',
   'Controller::Event::alias',
   'Controller::Event::aliases',
   'Controller::Event::annotation_diff',

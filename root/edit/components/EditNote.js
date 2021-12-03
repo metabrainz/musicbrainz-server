@@ -77,11 +77,15 @@ const EditNote = ({
     lastRelevantVote.vote === EDIT_VOTE_YES
   );
 
-  // To display the appropriate message if the note has been removed
+  // To display the appropriate message if the edit note has been changed
   const isDeleted = editNote.latest_change?.status === 'deleted';
-  const deletedBySelf =
+  const isModified = editNote.latest_change?.status === 'edited';
+  const changedBySelf =
     editNote.latest_change?.change_editor_id === editNote.editor_id;
   const changeReason = editNote.latest_change?.reason;
+  const changeTime = editNote.latest_change?.change_time
+    ? formatUserDate($c, editNote.latest_change.change_time)
+    : null;
 
   /*
    * We only want to show the controls for modifying/removing a note
@@ -128,6 +132,11 @@ const EditNote = ({
           <span className="change-note-controls">
             {' '}
             <a
+              className="edit-item icon"
+              href={`/edit-note/${editNote.id}/modify`}
+              title={l('Modify edit note')}
+            />
+            <a
               className="remove-item icon"
               href={`/edit-note/${editNote.id}/delete`}
               title={l('Remove edit note')}
@@ -147,7 +156,7 @@ const EditNote = ({
       </h3>
       {isDeleted ? (
         <div className="edit-note-text deleted-note">
-          {deletedBySelf ? (
+          {changedBySelf ? (
             nonEmpty(changeReason) ? (
               texp.l(
                 `This edit note was removed by its author.
@@ -172,10 +181,53 @@ const EditNote = ({
           )}
         </div>
       ) : (
-        <div
-          className={'edit-note-text' + (isModBot ? ' modbot' : '')}
-          dangerouslySetInnerHTML={{__html: editNote.formatted_text}}
-        />
+        <>
+          <div
+            className={'edit-note-text' + (isModBot ? ' modbot' : '')}
+            dangerouslySetInnerHTML={{__html: editNote.formatted_text}}
+          />
+          {isModified ? (
+            <div className="edit-note-modified-text small">
+              {changedBySelf ? (
+                nonEmpty(changeReason) ? (
+                  texp.l(
+                    `Last modified by the note author ({time}).
+                     Reason given: “{reason}”.`,
+                    {
+                      reason: changeReason,
+                      // $FlowIgnore[incompatible-call]
+                      time: changeTime,
+                    },
+                  )
+                ) : (
+                  texp.l(
+                    'Last modified by the note author ({time}).',
+                    // $FlowIgnore[incompatible-call]
+                    {time: changeTime},
+                  )
+                )
+              ) : (
+                nonEmpty(changeReason) ? (
+                  texp.l(
+                    `Last modified by an admin ({time}).
+                     Reason given: “{reason}”.`,
+                    {
+                      reason: changeReason,
+                      // $FlowIgnore[incompatible-call]
+                      time: changeTime,
+                    },
+                  )
+                ) : (
+                  texp.l(
+                    'Last modified by an admin ({time}).',
+                    // $FlowIgnore[incompatible-call]
+                    {time: changeTime},
+                  )
+                )
+              )}
+            </div>
+          ) : null}
+        </>
       )}
     </div>
   );

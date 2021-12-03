@@ -12,8 +12,8 @@ with 't::Context', 't::Mechanize';
 
 =head1 DESCRIPTION
 
-This checks that edit notes can be deleted, and the restrictions on who
-and when can do so.
+This checks that edit notes can be deleted and modified, and the restrictions
+on who and when can do so.
 
 =cut
 
@@ -40,7 +40,7 @@ test all => sub {
         'Edit note is present',
     );
 
-    # We only expect 2 edits to be editable by editor 1
+    # We only expect 2 edits to be changeable by editor 1
     my @change_class_matches = $mech->content =~ /$change_note_classname/g;
     is(
         scalar @change_class_matches,
@@ -48,6 +48,7 @@ test all => sub {
         '2 sets of change note controls shown to normal user',
     );
 
+    # We test this with /delete but the code for rejection is the same for /modify
     $mech->get_ok('/edit-note/1/delete');
     html_ok($mech->content);
     $mech->content_contains(
@@ -69,11 +70,34 @@ test all => sub {
         'Can’t remove too old note',
     );
 
-    $mech->get_ok('/edit-note/4/delete');
+    $mech->get_ok('/edit-note/4/modify');
     html_ok($mech->content);
     $mech->content_contains(
-        'Are you sure you want to remove the following edit note',
-        'Can remove note followed by own notes only',
+        'You are modifying the following edit note',
+        'Can modify note followed by own notes only',
+    );
+
+    # Actually modify edit note 4
+    $mech->submit_form(
+        with_fields => {
+        'edit-note-modify.text' => 'Editor 1 leaves another note years later',
+        'edit-note-modify.reason' => 'Fixing typo',
+        }
+    );
+
+    $mech->get_ok('/edit/1');
+    html_ok($mech->content);
+    $mech->content_contains(
+        'Editor 1 leaves another note years later',
+        'Corrected edit note is present',
+    );
+    $mech->content_contains(
+        'Last modified by the note author',
+        'Modification message is present',
+    );
+    $mech->content_contains(
+        'Fixing typo',
+        'Modification reason is present',
     );
 
     $mech->get_ok('/edit-note/5/delete');
@@ -104,6 +128,13 @@ test all => sub {
     $mech->content_contains(
         'This note has already been removed',
         'Can’t remove already removed note',
+    );
+
+    $mech->get_ok('/edit-note/5/modify');
+    html_ok($mech->content);
+    $mech->content_contains(
+        'This note has already been removed',
+        'Can’t modify already removed note',
     );
 
     $mech->get_ok('/edit/1');

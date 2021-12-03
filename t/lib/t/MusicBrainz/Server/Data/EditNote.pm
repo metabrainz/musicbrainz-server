@@ -162,6 +162,54 @@ test 'delete_content' => sub {
     is($row->{reason}, 'Wrong URL', 'The change reason is stored correctly');
 };
 
+test 'modify_content' => sub {
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+edit_note');
+
+    my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
+    my $en_data = MusicBrainz::Server::Data::EditNote->new(c => $test->c);
+
+    note('We modify the note text for the first edit note for edit #1');
+    $en_data->modify_content(1, 1, 'Platypus', 'Best animal');
+
+    my $edit = $edit_data->get_by_id(1);
+    $en_data->load_for_edits($edit);
+
+    is(@{ $edit->edit_notes }, 2, 'The edit still has two edit notes');
+    is(
+        $edit->edit_notes->[0]->text,
+        'Platypus',
+        'The note text for the first edit note has been modified',
+    );
+    is(
+        $edit->edit_notes->[1]->text,
+        'This is a later note',
+        'The note text for the second edit note has not been modified',
+    );
+
+    note('Check the edit_note_change row contents');
+    my $row = $test->c->sql->select_single_row_hash(
+        'SELECT * FROM edit_note_change WHERE edit_note = 1',
+    );
+    is($row->{status}, 'edited', 'The change is marked as a modification');
+    is($row->{change_editor}, 1, 'The correct change editor is listed');
+    is(
+        $row->{old_note},
+        'This is a note',
+        'The old edit note is stored correctly',
+    );
+    is(
+        $row->{new_note},
+        'Platypus',
+        'The new edit note is stored correctly',
+    );
+    is(
+        $row->{reason},
+        'Best animal',
+        'The change reason is stored correctly',
+    );
+};
+
 sub check_note {
     my ($note, $class, %attrs) = @_;
     isa_ok($note, $class);

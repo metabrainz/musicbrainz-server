@@ -159,6 +159,35 @@ sub delete_content {
         SQL
 }
 
+sub modify_content {
+    my ($self, $edit_note_id, $change_editor_id, $new_content, $reason) = @_;
+
+    my @args = (
+        $edit_note_id,
+        $change_editor_id,
+        $edit_note_id,
+        $new_content,
+        $reason,
+        $new_content,
+        $edit_note_id
+    );
+
+    $self->sql->do(<<~"SQL", @args);
+        INSERT INTO edit_note_change (
+                        status, edit_note, change_editor,
+                        old_note, new_note, reason
+                    )
+             VALUES (
+                        'edited', ?, ?,
+                        (SELECT text FROM edit_note WHERE id = ?), ?, ?
+                    );
+
+        UPDATE edit_note
+           SET text = ?
+         WHERE id = ?;
+        SQL
+}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
