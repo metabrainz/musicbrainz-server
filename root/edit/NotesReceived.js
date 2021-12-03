@@ -13,14 +13,12 @@ import PaginatedResults from '../components/PaginatedResults.js';
 import {CatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
 import * as manifest from '../static/manifest.mjs';
-import EditLink from '../static/scripts/common/components/EditLink.js';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import NewNotesAlertCheckbox
   from '../static/scripts/edit/components/NewNotesAlertCheckbox.js';
-import {getEditHeaderClass} from '../utility/edit.js';
 import getRequestCookie from '../utility/getRequestCookie.mjs';
 
-import EditNote from './components/EditNote.js';
+import EditNoteListEntry from './components/EditNoteListEntry.js';
 
 type Props = {
   +editNotes: $ReadOnlyArray<EditNoteT>,
@@ -53,19 +51,12 @@ const NotesReceived = ({
             <PaginatedResults pager={pager}>
               {editNotes.map((editNote, index) => {
                 const edit = linkedEntities.edit[editNote.edit_id];
-                const editLinkText = texp.l(
-                  'Edit #{id} - {name}',
-                  {id: edit.id, name: l(edit.edit_name)},
-                );
                 return (
-                  <div className="edit-list" key={index}>
-                    <div className={getEditHeaderClass(edit)}>
-                      <h2>
-                        <EditLink content={editLinkText} edit={edit} />
-                      </h2>
-                    </div>
-                    <EditNote edit={edit} editNote={editNote} index={0} />
-                  </div>
+                  <EditNoteListEntry
+                    edit={edit}
+                    editNote={editNote}
+                    key={index}
+                  />
                 );
               })}
             </PaginatedResults>
