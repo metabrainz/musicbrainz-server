@@ -19,12 +19,11 @@ import EditLink from '../../static/scripts/common/components/EditLink.js';
 import EditorLink from '../../static/scripts/common/components/EditorLink.js';
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import {isBot} from '../../static/scripts/common/utility/privileges.js';
-import {kebabCase} from '../../static/scripts/common/utility/strings.js';
 import getVoteName from '../../static/scripts/edit/utility/getVoteName.js';
 import {
   editorMayApprove,
   editorMayCancel,
-  getEditStatusClass,
+  getEditHeaderClass,
   getLatestVoteForEditor,
 } from '../../utility/edit.js';
 import formatUserDate from '../../utility/formatUserDate.js';
@@ -117,13 +116,7 @@ const EditHeader = ({
   );
 
   return (
-    <div
-      className={
-        'edit-header' + ' ' +
-        getEditStatusClass(edit) + ' ' +
-        'edit-' + edit.edit_kind + ' ' +
-        kebabCase(edit.edit_name)}
-    >
+    <div className={getEditHeaderClass(edit)}>
       {isSummary ? (
         <>
           <div className="edit-description">
