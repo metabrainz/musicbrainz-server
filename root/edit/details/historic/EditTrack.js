@@ -13,17 +13,8 @@ import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink';
 import WordDiff from '../../../static/scripts/edit/components/edit/WordDiff';
 
-type EditTrackEditT = {
-  ...EditT,
-  +display_data: {
-    +artist?: CompT<ArtistT>,
-    +position?: CompT<number>,
-    +recording: RecordingT,
-  },
-};
-
 type Props = {
-  +edit: EditTrackEditT,
+  +edit: EditTrackHistoricEditT,
 };
 
 const EditTrack = ({edit}: Props): React.Element<'table'> => {

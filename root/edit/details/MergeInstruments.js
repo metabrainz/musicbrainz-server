@@ -11,14 +11,6 @@ import * as React from 'react';
 
 import InstrumentList from '../../components/list/InstrumentList';
 
-type MergeInstrumentsEditT = {
-  ...EditT,
-  +display_data: {
-    +new: InstrumentT,
-    +old: $ReadOnlyArray<InstrumentT>,
-  },
-};
-
 type Props = {
   +edit: MergeInstrumentsEditT,
 };

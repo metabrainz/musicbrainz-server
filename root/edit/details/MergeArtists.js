@@ -12,15 +12,6 @@ import * as React from 'react';
 import ArtistList from '../../components/list/ArtistList';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 
-type MergeArtistsEditT = {
-  ...EditT,
-  +display_data: {
-    +new: ArtistT,
-    +old: $ReadOnlyArray<ArtistT>,
-    +rename: boolean,
-  },
-};
-
 type Props = {
   +edit: MergeArtistsEditT,
 };

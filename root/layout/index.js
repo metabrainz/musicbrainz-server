@@ -168,6 +168,17 @@ const Layout = ({
 }: Props): React.Element<'html'> => {
   const $c = React.useContext(CatalystContext);
 
+  const showAlert = nonEmpty($c.stash.alert) &&
+    ($c.stash.alert_mtime ?? Infinity) > Number(
+      getRequestCookie($c.req, 'alert_dismissed_mtime', '0'),
+    );
+
+  const showNewEditNotesBanner = $c.stash.new_edit_notes /*:: === true */ &&
+    ($c.stash.new_edit_notes_mtime ?? Infinity) > Number(
+      getRequestCookie($c.req, 'new_edit_notes_dismissed_mtime', '0'),
+    ) && ($c.user?.is_limited ||
+      getRequestCookie($c.req, 'alert_new_edit_notes', 'true') !== 'false');
+
   return (
     <html lang={$c.stash.current_language_html}>
       <Head
@@ -214,17 +225,18 @@ const Layout = ({
           </div>
         ) : null}
 
-        {!getRequestCookie($c.req, 'server_details_dismissed_mtime') &&
-          <ServerDetailsBanner />}
+        {getRequestCookie($c.req, 'server_details_dismissed_mtime')
+          ? null
+          : <ServerDetailsBanner />}
 
-        {!!(nonEmpty($c.stash.alert) && ($c.stash.alert_mtime ?? Infinity) >
-          Number(getRequestCookie($c.req, 'alert_dismissed_mtime', '0'))) &&
+        {showAlert ? (
           <div className="banner warning-header">
             <p dangerouslySetInnerHTML={{__html: $c.stash.alert}} />
             <DismissBannerButton bannerName="alert" />
-          </div>}
+          </div>
+        ) : null}
 
-        {!!DBDefs.DB_READ_ONLY &&
+        {DBDefs.DB_READ_ONLY ? (
           <div className="banner server-details">
             <p>
               {l(
@@ -232,9 +244,10 @@ const Layout = ({
                  for database maintenance.`,
               )}
             </p>
-          </div>}
+          </div>
+        ) : null}
 
-        {showBirthdayBanner($c) &&
+        {showBirthdayBanner($c) ? (
           <div className="banner birthday-message">
             <p>
               <BirthdayCakes />
@@ -245,30 +258,25 @@ const Layout = ({
               <BirthdayCakes />
             </p>
             <DismissBannerButton bannerName="birthday_message" />
-          </div>}
+          </div>
+        ) : null}
 
         <AnniversaryBanner $c={$c} />
 
-        {!!($c.stash.new_edit_notes /*:: === true */ &&
-            ($c.stash.new_edit_notes_mtime ?? Infinity) >
-            Number(
-              getRequestCookie($c.req, 'new_edit_notes_dismissed_mtime', '0'),
-            ) &&
-            ($c.user?.is_limited ||
-            getRequestCookie($c.req, 'alert_new_edit_notes', 'true') !==
-            'false')) &&
-            <div className="banner new-edit-notes">
-              <p>
-                {exp.l(
-                  `{link|New notes} have been left on some of your edits.
-                   Please make sure to read them and respond if necessary.`,
-                  {link: '/edit/notes-received'},
-                )}
-              </p>
-              <DismissBannerButton bannerName="new_edit_notes" />
-            </div>}
+        {showNewEditNotesBanner ? (
+          <div className="banner new-edit-notes">
+            <p>
+              {exp.l(
+                `{link|New notes} have been left on some of your edits.
+                 Please make sure to read them and respond if necessary.`,
+                {link: '/edit/notes-received'},
+              )}
+            </p>
+            <DismissBannerButton bannerName="new_edit_notes" />
+          </div>
+        ) : null}
 
-        {!!$c.stash.makes_no_changes /*:: === true */ &&
+        {$c.stash.makes_no_changes /*:: === true */ ? (
           <div className="banner warning-header">
             <p>
               {l(
@@ -276,12 +284,14 @@ const Layout = ({
                  to the data already present.`,
               )}
             </p>
-          </div>}
+          </div>
+        ) : null}
 
-        {!!(nonEmpty($c.sessionid) && nonEmpty($c.flash.message)) &&
+        {nonEmpty($c.sessionid) && nonEmpty($c.flash.message) ? (
           <div className="banner flash">
             <p dangerouslySetInnerHTML={{__html: $c.flash.message}} />
-          </div>}
+          </div>
+        ) : null}
 
         <div
           className={(fullWidth ? 'fullwidth ' : '') +
@@ -291,9 +301,9 @@ const Layout = ({
           {children}
         </div>
 
-        {($c.session?.merger &&
-          !$c.stash.hide_merge_helper /*:: === true */) &&
-          <MergeHelper merger={$c.session.merger} />}
+        {$c.session?.merger && !$c.stash.hide_merge_helper /*:: === true */
+          ? <MergeHelper merger={$c.session.merger} />
+          : null}
 
         <Footer />
       </body>

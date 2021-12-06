@@ -48,7 +48,9 @@ function request(args, context) {
       deferred.complete = true;
     };
 
-    previousDeferred && (previousDeferred.next = later);
+    if (previousDeferred) {
+      previousDeferred.next = later;
+    }
     previousDeferred = deferred;
 
     setTimeout(later, nextAvailableTime - now);

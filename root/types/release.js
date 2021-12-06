@@ -52,3 +52,8 @@ declare type ReleaseT = $ReadOnly<{
   +status: ReleaseStatusT | null,
   +statusID: number | null,
 }>;
+
+declare type ReleaseWithMediumsT = $ReadOnly<{
+  ...ReleaseT,
+  +mediums: $ReadOnlyArray<MediumWithRecordingsT>,
+}>;

@@ -22,7 +22,7 @@ import formatUserDate from '../../utility/formatUserDate';
 import EditorTypeInfo from './EditorTypeInfo';
 
 type PropsT = {
-  +edit: $ReadOnly<{...EditT, +id: number}>,
+  +edit: GenericEditWithIdT,
   +editNote: EditNoteT,
   +index: number,
   +isOnEditPage?: boolean,

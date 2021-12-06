@@ -11,14 +11,6 @@ import * as React from 'react';
 
 import EventList from '../../components/list/EventList';
 
-type MergeEventsEditT = {
-  ...EditT,
-  +display_data: {
-    +new: EventT,
-    +old: $ReadOnlyArray<EventT>,
-  },
-};
-
 type Props = {
   +edit: MergeEventsEditT,
 };

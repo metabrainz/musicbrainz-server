@@ -19,7 +19,7 @@ import ErrorInfo from './components/ErrorInfo';
 
 type Props = {
   +$c: CatalystContextT,
-  +edits?: $ReadOnlyArray<{...EditT, +id: number}>,
+  +edits?: $ReadOnlyArray<GenericEditWithIdT>,
   +formattedErrors?: $ReadOnlyArray<string>,
   +hostname?: string,
   +useLanguages: boolean,

@@ -14,15 +14,6 @@ import DescriptiveLink
 import EntityLink
   from '../../static/scripts/common/components/EntityLink';
 
-type RemoveReleaseLabelEditT = {
-  ...EditT,
-  +display_data: {
-    +catalog_number: string,
-    +label?: LabelT,
-    +release: ReleaseT,
-  },
-};
-
 type Props = {
   +edit: RemoveReleaseLabelEditT,
 };

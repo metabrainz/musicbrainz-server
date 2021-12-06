@@ -11,21 +11,6 @@ import type {LinkedEntitiesT} from '../common/linkedEntities';
 
 export type CreditsModeT = 'bottom' | 'inline';
 
-export type TrackWithRecordingT = $ReadOnly<{
-  ...TrackT,
-  +recording: RecordingT,
-}>;
-
-export type MediumWithRecordingsT = $ReadOnly<{
-  ...MediumT,
-  +tracks?: $ReadOnlyArray<TrackWithRecordingT>,
-}>;
-
-export type ReleaseWithMediumsT = $ReadOnly<{
-  ...ReleaseT,
-  +mediums: $ReadOnlyArray<MediumWithRecordingsT>,
-}>;
-
 export type ActionT =
   | {+type: 'toggle-credits-mode'}
   | {+medium: MediumWithRecordingsT, +type: 'toggle-medium'}

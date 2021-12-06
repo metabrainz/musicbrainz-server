@@ -15,13 +15,6 @@ import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
 import linkedEntities from '../../static/scripts/common/linkedEntities';
 
-type RemoveIswcEditT = {
-  ...EditT,
-  +display_data: {
-    +iswc: IswcT,
-  },
-};
-
 type Props = {
   +edit: RemoveIswcEditT,
 };

@@ -16,7 +16,7 @@ sub query {
             JOIN release r
             ON r.id = rl.release
             JOIN artist_credit ac ON r.artist_credit = ac.id
-        WHERE rl.catalog_number ~ '^B0[0-9A-Z]{8}\$'
+        WHERE rl.catalog_number ~ '^B0[0-9A-Z]{8}$'
     }
 }
 

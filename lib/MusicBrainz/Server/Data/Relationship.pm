@@ -521,25 +521,20 @@ sub get_types_for_timeline
 {
     my $self = shift;
 
+    my $cache = $self->c->cache('statistics');
+    my $cached_types = $cache->get('types_for_timeline');
+
+    return %$cached_types if $cached_types;
+
     my %rel_types;
 
     for my $t ($self->all_pairs) {
         my $table = join('_', 'l', @$t);
-        my $data = $self->sql->select_list_of_hashes(<<~"SQL", @$t);
-                SELECT link_type_filtered.id,
-                       link_type_filtered.name,
-                       link_type_filtered.parent,
-                       count(l_table.id)
-                  FROM $table l_table
-            RIGHT JOIN link ON l_table.link = link.id
-            RIGHT JOIN (SELECT *
-                          FROM link_type
-                         WHERE entity_type0 = ?
-                           AND entity_type1 = ?) link_type_filtered
-                    ON link.link_type = link_type_filtered.id
-              GROUP BY link_type_filtered.name,
-                       link_type_filtered.id,
-                       link_type_filtered.parent
+        my $data = $self->sql->select_list_of_hashes(<<~'SQL', @$t);
+                SELECT link_type.name
+                  FROM link_type
+                 WHERE entity_type0 = ?
+                   AND entity_type1 = ?
             SQL
 
         for (@$data) {
@@ -551,6 +546,7 @@ sub get_types_for_timeline
         }
     }
 
+    $cache->set('types_for_timeline', \%rel_types, 60 * 60 * 24);
     return %rel_types;
 }
 

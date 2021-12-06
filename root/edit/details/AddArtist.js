@@ -23,24 +23,6 @@ import EntityLink from '../../static/scripts/common/components/EntityLink';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 import formatIsni from '../../utility/formatIsni';
 
-type AddArtistEditT = {
-  ...EditT,
-  +display_data: {
-    ...CommentRoleT,
-    ...DatePeriodRoleT,
-    +area: AreaT | null,
-    +artist: ArtistT,
-    +begin_area: AreaT | null,
-    +end_area: AreaT | null,
-    +gender: GenderT | null,
-    +ipi_codes: $ReadOnlyArray<string> | null,
-    +isni_codes: $ReadOnlyArray<string> | null,
-    +name: string,
-    +sort_name: string,
-    +type: ArtistTypeT | null,
-  },
-};
-
 type Props = {
   +edit: AddArtistEditT,
 };

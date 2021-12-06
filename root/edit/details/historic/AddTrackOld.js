@@ -12,18 +12,8 @@ import * as React from 'react';
 import HistoricReleaseList
   from '../../components/HistoricReleaseList';
 
-type AddTrackOldEditT = {
-  ...EditT,
-  +display_data: {
-    +artist_name?: string,
-    +name: string,
-    +position: number,
-    +releases: $ReadOnlyArray<ReleaseT | null>,
-  },
-};
-
 type Props = {
-  +edit: AddTrackOldEditT,
+  +edit: AddTrackOldHistoricEditT,
 };
 
 const AddTrackOld = ({edit}: Props): React.Element<'table'> => (

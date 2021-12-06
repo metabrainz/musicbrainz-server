@@ -14,18 +14,6 @@ import DescriptiveLink
 import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
 import Diff from '../../static/scripts/edit/components/edit/Diff';
 
-type EditBarcodesEditT = {
-  ...EditT,
-  +display_data: {
-    +client_version: string | null,
-    +submissions: $ReadOnlyArray<{
-      +new_barcode: string | null,
-      +old_barcode?: string | null,
-      +release: ReleaseT,
-    }>,
-  },
-};
-
 type Props = {
   +edit: EditBarcodesEditT,
 };

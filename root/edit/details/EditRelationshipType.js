@@ -27,34 +27,6 @@ import yesNo from '../../static/scripts/common/utility/yesNo';
 import relationshipDateText
   from '../../utility/relationshipDateText';
 
-type EditRelationshipTypeEditT = {
-  ...EditT,
-  +display_data: {
-    +attributes: CompT<$ReadOnlyArray<{
-      ...LinkTypeAttrTypeT,
-      +typeName: string,
-    }>>,
-    +child_order: CompT<number>,
-    +description?: CompT<string | null>,
-    +documentation: CompT<string | null>,
-    +entity0_cardinality?: CompT<number>,
-    +entity1_cardinality?: CompT<number>,
-    +examples: CompT<$ReadOnlyArray<{
-      +name: string,
-      +relationship: RelationshipT,
-    }>>,
-    +has_dates: CompT<boolean>,
-    +is_deprecated: CompT<boolean>,
-    +link_phrase?: CompT<string>,
-    +long_link_phrase?: CompT<string>,
-    +name: CompT<string>,
-    +orderable_direction?: CompT<number>,
-    +parent_id?: CompT<number | string>,
-    +relationship_type: LinkTypeT,
-    +reverse_link_phrase: CompT<string>,
-  },
-};
-
 type Props = {
   +edit: EditRelationshipTypeEditT,
 };

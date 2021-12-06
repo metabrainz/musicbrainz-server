@@ -16,29 +16,6 @@ import OrderableDirection
   from '../../static/scripts/common/components/OrderableDirection';
 import {ENTITY_NAMES} from '../../static/scripts/common/constants';
 
-type AddRelationshipTypeEditT = {
-  ...EditT,
-  +display_data: {
-    +attributes: $ReadOnlyArray<{
-      ...LinkTypeAttrTypeT,
-      +typeName: string,
-    }>,
-    +child_order: number,
-    +description: string | null,
-    +documentation: string | null,
-    +entity0_cardinality?: number,
-    +entity0_type: CoreEntityTypeT,
-    +entity1_cardinality?: number,
-    +entity1_type: CoreEntityTypeT,
-    +link_phrase: string,
-    +long_link_phrase: string,
-    +name: string,
-    +orderable_direction?: number,
-    +relationship_type?: LinkTypeT,
-    +reverse_link_phrase: string,
-  },
-};
-
 type Props = {
   +edit: AddRelationshipTypeEditT,
 };

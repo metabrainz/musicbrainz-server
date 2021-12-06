@@ -18,18 +18,6 @@ import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
 import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff';
 
-type EditReleaseGroupEditT = {
-  ...EditT,
-  +display_data: {
-    +artist_credit?: CompT<ArtistCreditT>,
-    +comment?: CompT<string | null>,
-    +name?: CompT<string>,
-    +release_group: ReleaseGroupT,
-    +secondary_types: CompT<string>,
-    +type?: CompT<ReleaseGroupTypeT | ReleaseGroupHistoricTypeT | null>,
-  },
-};
-
 type Props = {
   +edit: EditReleaseGroupEditT,
 };

@@ -20,6 +20,8 @@ declare type AnnotatedEntityT =
   | SeriesT
   | WorkT;
 
+declare type AnnotatedEntityTypeT = AnnotatedEntityT['entityType'];
+
 // MusicBrainz::Server::Entity::Role::Annotation::TO_JSON
 declare type AnnotationRoleT = {
   +latest_annotation?: AnnotationT,

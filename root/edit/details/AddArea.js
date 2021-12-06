@@ -16,21 +16,6 @@ import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 
-type AddAreaEditT = {
-  ...EditT,
-  +display_data: {
-    ...DatePeriodRoleT,
-    +area: AreaT,
-    +comment: string | null,
-    +iso_3166_1: $ReadOnlyArray<string>,
-    +iso_3166_2: $ReadOnlyArray<string>,
-    +iso_3166_3: $ReadOnlyArray<string>,
-    +name: string,
-    +sort_name: string | null,
-    +type: AreaTypeT | null,
-  },
-};
-
 type Props = {
   +edit: AddAreaEditT,
 };

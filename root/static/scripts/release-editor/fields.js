@@ -448,7 +448,7 @@ class Medium {
     });
     this.confirmedEarlyFormat = ko.observable(this.hasTooEarlyFormat());
     this.hasUselessMediumTitle = ko.computed(function () {
-      return /^(Cassette|CD|Disc|DVD|SACD|Vinyl)\s*\d+/i.test(self.name());
+      return /^(Cassette|CD|Dis[ck]|DVD|SACD|Vinyl)\s*\d+/i.test(self.name());
     });
     this.confirmedMediumTitle = ko.observable(this.hasUselessMediumTitle());
     this.needsTrackInfo = ko.computed(function () {

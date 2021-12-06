@@ -13,16 +13,8 @@ import {QUALITY_NAMES} from '../../../static/scripts/common/constants';
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink';
 
-type ChangeArtistQualityT = {
-  ...EditT,
-  +display_data: {
-    +artist: ArtistT,
-    +quality: CompT<QualityT>,
-  },
-};
-
 type Props = {
-  +edit: ChangeArtistQualityT,
+  +edit: ChangeArtistQualityHistoricEditT,
 };
 
 const ChangeArtistQuality = ({edit}: Props): React.Element<'table'> => {

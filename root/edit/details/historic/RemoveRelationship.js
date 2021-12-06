@@ -12,15 +12,8 @@ import * as React from 'react';
 import {HistoricRelationship}
   from '../../../static/scripts/common/components/Relationship';
 
-type RemoveRelationshipEditT = {
-  ...EditT,
-  +display_data: {
-    +relationships: $ReadOnlyArray<RelationshipT>,
-  },
-};
-
 type Props = {
-  +edit: RemoveRelationshipEditT,
+  +edit: RemoveRelationshipHistoricEditT,
 };
 
 const RemoveRelationship = ({edit}: Props): React.Element<'table'> => (

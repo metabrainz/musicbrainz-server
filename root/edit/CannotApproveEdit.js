@@ -14,7 +14,7 @@ import EditLink from '../static/scripts/common/components/EditLink';
 import {EDIT_STATUS_DELETED} from '../constants';
 
 type Props = {
-  +edit: {...EditT, +id: number},
+  +edit: GenericEditWithIdT,
 };
 
 const CannotApproveEdit = ({edit}: Props): React.Element<typeof Layout> => {

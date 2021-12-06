@@ -12,16 +12,6 @@ import * as React from 'react';
 import Relationship
   from '../../static/scripts/common/components/Relationship';
 
-type AddRelationshipEditT = {
-  ...EditT,
-  +display_data: {
-    +entity0?: CoreEntityT,
-    +entity1?: CoreEntityT,
-    +relationship: RelationshipT,
-    +unknown_attributes: boolean,
-  },
-};
-
 type Props = {
   +edit: AddRelationshipEditT,
 };
