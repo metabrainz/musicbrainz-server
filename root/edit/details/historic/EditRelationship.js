@@ -19,15 +19,8 @@ import {INSERT, DELETE} from '../../../static/scripts/edit/utility/editDiff';
 import {interpolateText}
   from '../../../static/scripts/edit/utility/linkPhrase';
 
-type EditRelationshipEditT = {
-  ...EditT,
-  +display_data: {
-    +relationship: CompT<$ReadOnlyArray<RelationshipT>>,
-  },
-};
-
 type Props = {
-  +edit: EditRelationshipEditT,
+  +edit: EditRelationshipHistoricEditT,
 };
 
 const EditRelationship = ({

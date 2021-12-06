@@ -12,17 +12,6 @@ import * as React from 'react';
 import Relationship
   from '../../static/scripts/common/components/Relationship';
 
-type ReorderRelationshipsEditT = {
-  ...EditT,
-  +display_data: {
-    +relationships: $ReadOnlyArray<{
-      +new_order: number,
-      +old_order: number,
-      +relationship: RelationshipT,
-    }>,
-  },
-};
-
 type Props = {
   +edit: ReorderRelationshipsEditT,
 };

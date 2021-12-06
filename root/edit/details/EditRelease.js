@@ -22,24 +22,6 @@ import ReleaseEventsDiff
   from '../../static/scripts/edit/components/edit/ReleaseEventsDiff';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
 
-type EditReleaseEditT = {
-  ...EditT,
-  +display_data: {
-    +artist_credit?: CompT<ArtistCreditT>,
-    +barcode?: CompT<string | null>,
-    +comment?: CompT<string | null>,
-    +events?: CompT<$ReadOnlyArray<ReleaseEventT>>,
-    +language?: CompT<LanguageT | null>,
-    +name?: CompT<string>,
-    +packaging?: CompT<ReleasePackagingT | null>,
-    +release: ReleaseT,
-    +release_group?: CompT<ReleaseGroupT>,
-    +script?: CompT<ScriptT | null>,
-    +status?: CompT<ReleaseStatusT | null>,
-    +update_tracklists?: boolean,
-  },
-};
-
 type Props = {
   +edit: EditReleaseEditT,
 };

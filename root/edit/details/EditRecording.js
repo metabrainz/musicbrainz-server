@@ -21,18 +21,6 @@ import yesNo from '../../static/scripts/common/utility/yesNo';
 import ExpandedArtistCredit from
   '../../static/scripts/common/components/ExpandedArtistCredit';
 
-type EditRecordingEditT = {
-  ...EditT,
-  +display_data: {
-    +artist_credit?: CompT<ArtistCreditT>,
-    +comment?: CompT<string | null>,
-    +length?: CompT<number | null>,
-    +name?: CompT<string>,
-    +recording: RecordingT,
-    +video?: CompT<boolean>,
-  },
-};
-
 type Props = {
   +edit: EditRecordingEditT,
 };

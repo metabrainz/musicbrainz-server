@@ -14,18 +14,6 @@ import EntityLink
   from '../../static/scripts/common/components/EntityLink';
 import expand2react from '../../static/scripts/common/i18n/expand2react';
 
-type AddInstrumentEditT = {
-  ...EditT,
-  +display_data: {
-    ...DatePeriodRoleT,
-    +comment: string | null,
-    +description: string | null,
-    +instrument: InstrumentT,
-    +name: string,
-    +type: InstrumentTypeT | null,
-  },
-};
-
 type Props = {
   +allowNew?: boolean,
   +edit: AddInstrumentEditT,

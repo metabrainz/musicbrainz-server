@@ -11,14 +11,6 @@ import * as React from 'react';
 
 import AreaList from '../../components/list/AreaList';
 
-type MergeAreasEditT = {
-  ...EditT,
-  +display_data: {
-    +new: AreaT,
-    +old: $ReadOnlyArray<AreaT>,
-  },
-};
-
 type Props = {
   +edit: MergeAreasEditT,
 };

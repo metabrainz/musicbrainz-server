@@ -14,18 +14,6 @@ import DescriptiveLink from
 import ExpandedArtistCredit from
   '../../static/scripts/common/components/ExpandedArtistCredit';
 
-type AddReleaseGroupEditT = {
-  ...EditT,
-  +display_data: {
-    +artist_credit: ArtistCreditT,
-    +comment: string,
-    +name: string,
-    +release_group: ReleaseGroupT,
-    +secondary_types: string,
-    +type: ReleaseGroupTypeT | ReleaseGroupHistoricTypeT | null,
-  },
-};
-
 type Props = {
   +allowNew?: boolean,
   +edit: AddReleaseGroupEditT,

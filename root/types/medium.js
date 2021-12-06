@@ -39,3 +39,8 @@ declare type MediumT = $ReadOnly<{
   +tracks?: $ReadOnlyArray<TrackT>,
   +tracks_pager?: PagerT,
 }>;
+
+declare type MediumWithRecordingsT = $ReadOnly<{
+  ...MediumT,
+  +tracks?: $ReadOnlyArray<TrackWithRecordingT>,
+}>;

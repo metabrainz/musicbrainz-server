@@ -15,13 +15,6 @@ import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
 import linkedEntities from '../../static/scripts/common/linkedEntities';
 
-type RemoveIsrcEditT = {
-  ...EditT,
-  +display_data: {
-    +isrc: IsrcT,
-  },
-};
-
 type Props = {
   +edit: RemoveIsrcEditT,
 };

@@ -17,17 +17,6 @@ import DiffSide from '../../static/scripts/edit/components/edit/DiffSide';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
 import {INSERT, DELETE} from '../../static/scripts/edit/utility/editDiff';
 
-type EditUrlEditT = {
-  ...EditT,
-  +display_data: {
-    +affects: number,
-    +description?: CompT<string | null>,
-    +isMerge: boolean,
-    +uri?: CompT<string>,
-    +url: UrlT,
-  },
-};
-
 type Props = {
   +edit: EditUrlEditT,
 };

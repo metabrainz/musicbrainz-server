@@ -14,20 +14,11 @@ import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink';
 import yesNo from '../../../static/scripts/common/utility/yesNo';
 
-type ChangeReleaseArtistT = {
-  ...EditT,
-  +display_data: {
-    +artist: CompT<ArtistT>,
-    +move_tracks: boolean,
-    +releases: $ReadOnlyArray<ReleaseT>,
-  },
-};
-
 type Props = {
-  +edit: ChangeReleaseArtistT,
+  +edit: MoveReleaseHistoricEditT,
 };
 
-const ChangeReleaseArtist = ({edit}: Props): React.Element<'table'> => (
+const MoveRelease = ({edit}: Props): React.Element<'table'> => (
   <table className="details edit-release">
     <HistoricReleaseList
       colSpan="2"
@@ -49,4 +40,4 @@ const ChangeReleaseArtist = ({edit}: Props): React.Element<'table'> => (
   </table>
 );
 
-export default ChangeReleaseArtist;
+export default MoveRelease;

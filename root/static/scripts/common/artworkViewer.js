@@ -132,7 +132,9 @@ $.widget('mb.artworkViewer', $.ui.dialog, {
 
   _loadImage: function (src, callback) {
     var image = document.createElement('img');
-    callback && (image.onload = callback.bind(this, image));
+    if (callback) {
+      image.onload = callback.bind(this, image);
+    }
     image.src = src;
     return image;
   },

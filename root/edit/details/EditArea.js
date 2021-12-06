@@ -20,22 +20,6 @@ import FullChangeDiff
   from '../../static/scripts/edit/components/edit/FullChangeDiff';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
 
-type EditAreaEditT = {
-  +display_data: {
-    +area: AreaT,
-    +begin_date?: CompT<PartialDateT>,
-    +comment?: CompT<string | null>,
-    +end_date?: CompT<PartialDateT>,
-    +ended?: CompT<boolean>,
-    +iso_3166_1?: CompT<$ReadOnlyArray<string> | null>,
-    +iso_3166_2?: CompT<$ReadOnlyArray<string> | null>,
-    +iso_3166_3?: CompT<$ReadOnlyArray<string> | null>,
-    +name?: CompT<string>,
-    +sort_name?: CompT<string>,
-    +type?: CompT<AreaTypeT | null>,
-  },
-};
-
 type Props = {
   +edit: EditAreaEditT,
 };

@@ -14,13 +14,6 @@ import ArtistCreditUsageLink
 import ExpandedArtistCredit from
   '../../static/scripts/common/components/ExpandedArtistCredit';
 
-type EditArtistCreditEditT = {
-  ...EditT,
-  +display_data: {
-    +artist_credit: CompT<ArtistCreditT>,
-  },
-};
-
 type Props = {
   +edit: EditArtistCreditEditT,
 };

@@ -11,14 +11,6 @@ import * as React from 'react';
 
 import PlaceList from '../../components/list/PlaceList';
 
-type MergePlacesEditT = {
-  ...EditT,
-  +display_data: {
-    +new: PlaceT,
-    +old: $ReadOnlyArray<PlaceT>,
-  },
-};
-
 type Props = {
   +edit: MergePlacesEditT,
 };

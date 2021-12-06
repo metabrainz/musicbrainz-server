@@ -61,7 +61,7 @@ const MergeHelper = ({merger}: Props): React.Element<'div'> => {
           }
         </p>
         <div className="buttons" style={{display: 'table-cell'}}>
-          {merger.ready_to_merge &&
+          {merger.ready_to_merge ? (
             <button
               className="positive"
               name="submit"
@@ -69,7 +69,8 @@ const MergeHelper = ({merger}: Props): React.Element<'div'> => {
               value="merge"
             >
               {l('Merge')}
-            </button>}
+            </button>
+          ) : null}
           <button name="submit" type="submit" value="remove">
             {l('Remove selected entities')}
           </button>

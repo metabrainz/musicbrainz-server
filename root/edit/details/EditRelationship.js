@@ -12,15 +12,6 @@ import * as React from 'react';
 import RelationshipDiff
   from '../../static/scripts/edit/components/edit/RelationshipDiff';
 
-type EditRelationshipEditT = {
-  ...EditT,
-  +display_data: {
-    +new: RelationshipT,
-    +old: RelationshipT,
-    +unknown_attributes: boolean,
-  },
-};
-
 type Props = {
   +edit: EditRelationshipEditT,
 };

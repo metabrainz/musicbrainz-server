@@ -15,22 +15,6 @@ import {commaOnlyListText} from
 import localizeLanguageName
   from '../../static/scripts/common/i18n/localizeLanguageName';
 
-type AddWorkEditT = {
-  ...EditT,
-  +display_data: {
-    +attributes?: {
-      [attributeName: string]: $ReadOnlyArray<WorkAttributeT>,
-    },
-    +comment: string,
-    +iswc: string,
-    +language?: LanguageT,
-    +languages?: $ReadOnlyArray<LanguageT>,
-    +name: string,
-    +type: WorkTypeT | null,
-    +work: WorkT,
-  },
-};
-
 type Props = {
   +edit: AddWorkEditT,
 };

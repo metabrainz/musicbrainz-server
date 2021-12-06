@@ -1021,6 +1021,9 @@ const ExternalLinkRelationship =
     const {link, hasUrlError, highlight, urlMatchesType} = props;
     const linkType = link.type ? linkedEntities.link_type[link.type] : null;
     const backward = linkType && linkType.type1 > 'url';
+    const hasDate = !isDateEmpty(link.begin_date) ||
+                    !isDateEmpty(link.end_date) ||
+                    link.ended;
 
     const showTypeSelection = (link.error || hasUrlError)
       ? true
@@ -1030,11 +1033,12 @@ const ExternalLinkRelationship =
       <tr className="relationship-item" key={link.relationship}>
         <td />
         <td className="link-actions">
-          {!props.isOnlyRelationship && !props.urlMatchesType &&
+          {!props.isOnlyRelationship && !props.urlMatchesType ? (
             <RemoveButton
               onClick={() => props.onLinkRemove(link.index)}
               title={l('Remove Relationship')}
-            />}
+            />
+          ) : null}
           <ExternalLinkAttributeDialog
             onConfirm={
               (attributes) => props.onAttributesChange(link.index, attributes)
@@ -1087,38 +1091,38 @@ const ExternalLinkRelationship =
                 hasOwnProp(
                   linkType.attributes,
                   String(VIDEO_ATTRIBUTE_ID),
-                ) &&
-                <div className="attribute-container">
-                  <label>
-                    <input
-                      checked={link.video}
-                      onChange={
-                        (event) => props.onVideoChange(link.index, event)
-                      }
-                      style={{verticalAlign: 'text-top'}}
-                      type="checkbox"
-                    />
-                    {' '}
-                    {l('video')}
-                  </label>
-                </div>}
-              {link.url && !link.error && !hasUrlError &&
-                <TypeDescription type={link.type} url={link.url} />}
-              {(
-                !isDateEmpty(link.begin_date) ||
-                !isDateEmpty(link.end_date) ||
-                link.ended
-              ) &&
+                ) ? (
+                  <div className="attribute-container">
+                    <label>
+                      <input
+                        checked={link.video}
+                        onChange={
+                          (event) => props.onVideoChange(link.index, event)
+                        }
+                        style={{verticalAlign: 'text-top'}}
+                        type="checkbox"
+                      />
+                      {' '}
+                      {l('video')}
+                    </label>
+                  </div>
+                ) : null}
+              {link.url && !link.error && !hasUrlError
+                ? <TypeDescription type={link.type} url={link.url} />
+                : null}
+              {hasDate ? (
                 <span className="date-period">
                   {' '}
                   {bracketedText(formatDatePeriod(link))}
-                </span>}
+                </span>
+              ) : null}
             </label>
           </div>
-          {link.error &&
+          {link.error ? (
             <div className="error field-error" data-visible="1">
               {link.error.message}
-            </div>}
+            </div>
+          ) : null}
         </td>
       </tr>
     );
@@ -1200,19 +1204,21 @@ export class ExternalLink extends React.Component<LinkProps> {
           id={`external-link-${props.index}`}
         >
           <td>
-            {faviconClass &&
-            <span
-              className={'favicon ' + faviconClass + '-favicon'}
-            />}
+            {faviconClass ? (
+              <span
+                className={'favicon ' + faviconClass + '-favicon'}
+              />
+            ) : null}
           </td>
           <td className="link-actions">
-            {notEmpty &&
+            {notEmpty ? (
               <RemoveButton
                 data-index={props.index}
                 onClick={() => props.onUrlRemove()}
                 title={l('Remove Link')}
-              />}
-            {!isEmpty(props) &&
+              />
+            ) : null}
+            {isEmpty(props) ? null : (
               <URLInputPopover
                 cleanupUrl={props.cleanupUrl}
                 /*
@@ -1223,7 +1229,7 @@ export class ExternalLink extends React.Component<LinkProps> {
                 onConfirm={props.handleUrlChange}
                 validateLink={props.validateLink}
               />
-            }
+            )}
           </td>
           <td>
             {/* Links that are not submitted will not be grouped,
@@ -1260,7 +1266,7 @@ export class ExternalLink extends React.Component<LinkProps> {
                 {props.url}
               </a>
             )}
-            {props.url && props.duplicate !== null &&
+            {props.url && props.duplicate !== null ? (
               <div
                 className="error field-error"
                 data-visible="1"
@@ -1286,15 +1292,15 @@ export class ExternalLink extends React.Component<LinkProps> {
                   },
                 )}
               </div>
-            }
-            {props.error &&
+            ) : null}
+            {props.error ? (
               <div
                 className={`error field-error target-${props.error.target}`}
                 data-visible="1"
               >
                 {props.error.message}
               </div>
-            }
+            ) : null}
           </td>
         </tr>
         {notEmpty &&
@@ -1334,20 +1340,21 @@ export class ExternalLink extends React.Component<LinkProps> {
           * Hide the button when link is not submitted
           * or link type is auto-selected.
           */}
-        {notEmpty && firstLink.submitted && !props.urlMatchesType &&
-        <tr className="add-relationship">
-          <td />
-          <td />
-          <td className="add-item">
-            <button
-              className="add-item with-label"
-              onClick={() => props.onAddRelationship(props.url)}
-              type="button"
-            >
-              {l('Add another relationship')}
-            </button>
-          </td>
-        </tr>}
+        {notEmpty && firstLink.submitted && !props.urlMatchesType ? (
+          <tr className="add-relationship">
+            <td />
+            <td />
+            <td className="add-item">
+              <button
+                className="add-item with-label"
+                onClick={() => props.onAddRelationship(props.url)}
+                type="button"
+              >
+                {l('Add another relationship')}
+              </button>
+            </td>
+          </tr>
+        ) : null}
       </React.Fragment>
     );
   }
