@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-11-15 07:47+0000\n"
+"PO-Revision-Date: 2021-11-29 17:59+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
@@ -2882,6 +2882,13 @@ msgid ""
 "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-ad06-98af558e99b0\">recording-work performance relationship type</a>."
 msgstr ""
 
+#: DB:link_type/description:1005
+msgid ""
+"This relationship type is used to link a label to a site where music can be legally streamed for a subscription fee, e.g. Apple Music.\n"
+"\n"
+"If the site allows free streaming, use \"free streaming\" instead."
+msgstr ""
+
 #: DB:link_type/description:997
 msgid ""
 "This relationship type is used to link a label to a site where music can be "
@@ -3563,7 +3570,7 @@ msgid "can be purchased for mail-order at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:978 DB:link_type/long_link_phrase:979
-#: DB:link_type/long_link_phrase:980
+#: DB:link_type/long_link_phrase:980 DB:link_type/long_link_phrase:1005
 msgid "can be streamed at"
 msgstr ""
 
@@ -6252,16 +6259,17 @@ msgid "stream {video} for free"
 msgstr ""
 
 #: DB:link_type/name:978 DB:link_type/name:979 DB:link_type/name:980
+#: DB:link_type/name:1005
 msgid "streaming"
 msgstr ""
 
 #: DB:link_type/link_phrase:978 DB:link_type/link_phrase:979
-#: DB:link_type/link_phrase:980
+#: DB:link_type/link_phrase:980 DB:link_type/link_phrase:1005
 msgid "streaming page"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:978 DB:link_type/reverse_link_phrase:979
-#: DB:link_type/reverse_link_phrase:980
+#: DB:link_type/reverse_link_phrase:980 DB:link_type/reverse_link_phrase:1005
 msgid "streaming page for"
 msgstr ""
 

@@ -64,8 +64,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-22 21:04+0200\n"
-"PO-Revision-Date: 2021-11-22 19:04+0000\n"
+"POT-Creation-Date: 2021-11-29 19:58+0200\n"
+"PO-Revision-Date: 2021-11-29 17:59+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -597,7 +597,7 @@ msgstr "Êtes-vous certain de vouloir supprimer {entity} de MusicBrainz ?"
 #: ../root/search/components/SearchForm.js:40
 #: ../root/static/scripts/common/constants.js:18
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:46
-#: ../root/user/UserProfile.js:41
+#: ../root/user/UserProfile.js:42
 msgid "Area"
 msgstr "Région"
 
@@ -672,7 +672,7 @@ msgstr "Régions"
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:48
 #: ../root/static/scripts/common/utility/formatSetlist.js:31
 #: ../root/static/scripts/release/components/MediumTable.js:221
-#: ../root/taglookup/Form.js:26 ../root/user/UserProfile.js:42
+#: ../root/taglookup/Form.js:26 ../root/user/UserProfile.js:43
 msgid "Artist"
 msgstr "Artiste"
 
@@ -867,7 +867,7 @@ msgstr "Voici ci-dessous des informations sur l’erreur. Si vous désirez rempl
 
 #: ../root/admin/edit_user.tt:41
 #: ../root/static/scripts/account/components/EditProfileForm.js:273
-#: ../root/user/UserProfile.js:379
+#: ../root/user/UserProfile.js:380
 msgid "Bio:"
 msgstr "Bio :"
 
@@ -1197,7 +1197,7 @@ msgstr "Pays : "
 
 #: ../root/release_group/set_cover_art.tt:67
 #: ../root/components/EntityTabs.js:116 ../root/release/CoverArt.js:57
-#: ../root/user/UserProfile.js:43
+#: ../root/user/UserProfile.js:44
 msgid "Cover Art"
 msgstr "Illustration"
 
@@ -1616,7 +1616,7 @@ msgid "Edits for {name}"
 msgstr "Modifications de {name}"
 
 #: ../root/account/register.tt:39 ../root/admin/edit_user.tt:37
-#: ../root/user/UserProfile.js:182
+#: ../root/user/UserProfile.js:183
 msgid "Email:"
 msgstr "Courriel :"
 
@@ -1712,7 +1712,7 @@ msgstr "Même une simple URL ou deux peut aider ! Pour plus de suggestions, voi
 #: ../root/search/components/SearchForm.js:48
 #: ../root/static/scripts/common/constants.js:20
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:52
-#: ../root/user/UserProfile.js:44
+#: ../root/user/UserProfile.js:45
 msgid "Event"
 msgstr "Événement"
 
@@ -1915,7 +1915,7 @@ msgstr "TOC (table des matières) complète :"
 #: ../root/artist/edit_form.tt:17
 #: ../root/layout/components/sidebar/ArtistSidebar.js:83
 #: ../root/static/scripts/account/components/EditProfileForm.js:221
-#: ../root/user/UserProfile.js:261
+#: ../root/user/UserProfile.js:262
 msgid "Gender:"
 msgstr "Genre :"
 
@@ -2281,7 +2281,7 @@ msgstr "Importer une ébauche de CD"
 #: ../root/search/components/SearchForm.js:46
 #: ../root/static/scripts/common/constants.js:22
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:54
-#: ../root/user/UserProfile.js:45
+#: ../root/user/UserProfile.js:46
 msgid "Instrument"
 msgstr "Instrument"
 
@@ -2360,7 +2360,7 @@ msgstr "Gardez à l’esprit que déselectionner ceci effacera les pistes si le 
 #: ../root/search/components/SearchForm.js:39
 #: ../root/static/scripts/common/constants.js:23
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:56
-#: ../root/user/UserProfile.js:46 ../root/utility/tableColumns.js:505
+#: ../root/user/UserProfile.js:47 ../root/utility/tableColumns.js:505
 #: ../root/utility/tableColumns.js:510
 msgid "Label"
 msgstr "Label"
@@ -3000,7 +3000,7 @@ msgstr "Mot de passe :"
 #: ../root/search/components/SearchForm.js:41
 #: ../root/static/scripts/common/constants.js:24
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:58
-#: ../root/user/UserProfile.js:47
+#: ../root/user/UserProfile.js:48
 msgid "Place"
 msgstr "Lieu"
 
@@ -3159,7 +3159,7 @@ msgstr[1] "Évaluation : {rating} étoiles"
 
 #: ../root/user/ratings_summary.tt:1 ../root/user/ratings_summary.tt:33
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:36
-#: ../root/entity/Ratings.js:38 ../root/user/UserProfile.js:804
+#: ../root/entity/Ratings.js:38 ../root/user/UserProfile.js:805
 msgid "Ratings"
 msgstr "Évaluations"
 
@@ -3187,7 +3187,7 @@ msgstr "Notes récentes laissées sur vos modifications"
 #: ../root/search/components/SearchForm.js:37
 #: ../root/static/scripts/common/constants.js:25
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:60
-#: ../root/user/UserProfile.js:48
+#: ../root/user/UserProfile.js:49
 msgid "Recording"
 msgstr "Enregistrement"
 
@@ -3308,7 +3308,7 @@ msgstr "Les relations en surbrillance <span class=\"rel-edit\">yellow</span> ser
 #: ../root/static/scripts/common/constants.js:26
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:62
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:341
-#: ../root/taglookup/Form.js:31 ../root/user/UserProfile.js:49
+#: ../root/taglookup/Form.js:31 ../root/user/UserProfile.js:50
 msgid "Release"
 msgstr "Parution"
 
@@ -3717,7 +3717,8 @@ msgstr "Envoyer"
 
 #: ../root/user/contact.tt:1 ../root/user/contact.tt:3
 #: ../lib/MusicBrainz/Server/Controller/User.pm:299
-#: ../lib/MusicBrainz/Server/Controller/User.pm:324
+#: ../lib/MusicBrainz/Server/Controller/User.pm:325
+#: ../lib/MusicBrainz/Server/Controller/User.pm:340
 #: ../root/account/LostUsername.js:43
 msgid "Send Email"
 msgstr "Envoyer un courriel"
@@ -3747,7 +3748,7 @@ msgstr "Série"
 #: ../root/series/SeriesHeader.js:29
 #: ../root/static/scripts/common/constants.js:28
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:66
-#: ../root/user/UserProfile.js:51
+#: ../root/user/UserProfile.js:52
 msgctxt "singular"
 msgid "Series"
 msgstr "Série"
@@ -4762,7 +4763,7 @@ msgid "Voter"
 msgstr "Votant"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/index.tt:23
-#: ../root/user/UserProfile.js:669
+#: ../root/user/UserProfile.js:670
 msgid "Votes"
 msgstr "Votes"
 
@@ -4878,7 +4879,7 @@ msgstr "Wiki transcluseur"
 #: ../root/search/components/SearchForm.js:38
 #: ../root/static/scripts/common/constants.js:30
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:70
-#: ../root/user/UserProfile.js:52 ../root/work/WorkHeader.js:29
+#: ../root/user/UserProfile.js:53 ../root/work/WorkHeader.js:29
 #: ../root/work/WorkLayout.js:35
 msgid "Work"
 msgstr "Œuvre"
@@ -5956,36 +5957,40 @@ msgid ""
 " address}."
 msgstr "Vous ne pouvez pas contacter d’autres utilisateurs car vous n’avez pas {url|vérifié votre adresse courriel}."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:325
+#: ../lib/MusicBrainz/Server/Controller/User.pm:327
+msgid "You are not allowed to send messages to editors."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/User.pm:341
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
 msgstr "L’éditeur nommé {name} n’a pas d’adresse courriel attaché à son compte."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:339
+#: ../lib/MusicBrainz/Server/Controller/User.pm:355
 msgid "Email Sent"
 msgstr "courriel envoyé"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:340
+#: ../lib/MusicBrainz/Server/Controller/User.pm:356
 #, perl-brace-format
 msgid ""
 "Your email has been successfully sent! Click {link|here} to continue to "
 "{user}'s profile."
 msgstr "Votre courriel a été envoyé avec succès ! Cliquez {link|ici} pour retourner au profil de {user}."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:367
+#: ../lib/MusicBrainz/Server/Controller/User.pm:383
 msgid "Your message could not be sent"
 msgstr "Votre message n’a pas pu être envoyé"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:517
+#: ../lib/MusicBrainz/Server/Controller/User.pm:533
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "'{type}' n’est pas un type d’entité qui peut avoir des évaluations."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:766
+#: ../lib/MusicBrainz/Server/Controller/User.pm:782
 msgid "An error occurred while trying to send your report."
 msgstr "Une erreur est survenue durant l’envoi de votre signalement."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:770
+#: ../lib/MusicBrainz/Server/Controller/User.pm:786
 msgid "Your report has been sent."
 msgstr "Votre signalement a été envoyé."
 
@@ -6629,7 +6634,7 @@ msgstr "Réordonner les supports"
 #: ../root/edit/details/EditReleaseGroup.js:50
 #: ../root/edit/details/SetCoverArt.js:41
 #: ../root/static/scripts/common/constants.js:27
-#: ../root/user/UserProfile.js:50
+#: ../root/user/UserProfile.js:51
 msgid "Release group"
 msgstr "Groupe de parution"
 
@@ -6746,7 +6751,7 @@ msgstr "Modifier l’alias de la série"
 msgid "Merge series"
 msgstr "Fusionner les séries"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/user/UserProfile.js:628
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/user/UserProfile.js:629
 #: ../root/utility/edit.js:45
 msgid "Open"
 msgstr "Ouverte"
@@ -6779,7 +6784,7 @@ msgstr "Pas de vote"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:279
 #: ../root/edit/details/AddEvent.js:67 ../root/edit/details/EditEvent.js:71
-#: ../root/user/UserProfile.js:618 ../root/utility/edit.js:39
+#: ../root/user/UserProfile.js:619 ../root/utility/edit.js:39
 msgid "Cancelled"
 msgstr "Annulée"
 
@@ -7902,7 +7907,7 @@ msgid "Enter a {link|POSIX regular expression}."
 msgstr "Entrez une {link|expression régulière POSIX}."
 
 #: ../root/admin/IpLookup.js:25 ../root/admin/IpLookup.js:27
-#: ../root/user/UserProfile.js:409
+#: ../root/user/UserProfile.js:410
 msgid "IP lookup"
 msgstr "Recherche par IP"
 
@@ -8545,8 +8550,8 @@ msgstr "Afficher toutes vos collections"
 msgid "See all of {editor}'s public collections"
 msgstr "Afficher toutes les collections publiques de {editor}"
 
-#: ../root/collection/CollectionIndex.js:185 ../root/user/UserProfile.js:327
-#: ../root/user/UserProfile.js:385
+#: ../root/collection/CollectionIndex.js:185 ../root/user/UserProfile.js:328
+#: ../root/user/UserProfile.js:386
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr "Ce contenu est caché pour éviter le spam. Pour le visualiser, veuillez vous {url|connecter}."
@@ -10673,7 +10678,7 @@ msgstr "Élections des auto-éditeurs"
 msgid "Privileged User Accounts"
 msgstr "Comptes utilisateur privilégié"
 
-#: ../root/layout/components/BottomMenu.js:145 ../root/user/UserProfile.js:553
+#: ../root/layout/components/BottomMenu.js:145 ../root/user/UserProfile.js:554
 msgid "Statistics"
 msgstr "Statistiques"
 
@@ -13818,7 +13823,7 @@ msgid "If you change your email address, you will be required to verify it."
 msgstr "Si vous changez votre adresse courriel, il vous sera demander de la valider."
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:229
-#: ../root/user/UserProfile.js:267
+#: ../root/user/UserProfile.js:268
 msgid "Location:"
 msgstr "Lieu :"
 
@@ -15811,246 +15816,246 @@ msgstr "Vous ne collaborez à aucune collection."
 msgid "{user} isn’t collaborating in any public collections."
 msgstr "{user} ne collabore à aucune collection publique."
 
-#: ../root/user/UserProfile.js:58
+#: ../root/user/UserProfile.js:59
 msgid "Deleted User"
 msgstr "Supprimer l’utilisateur"
 
-#: ../root/user/UserProfile.js:62
+#: ../root/user/UserProfile.js:63
 msgid "{doc|Auto-Editor}"
 msgstr "{doc|Auto-Éditeur}"
 
-#: ../root/user/UserProfile.js:67
+#: ../root/user/UserProfile.js:68
 msgid "Internal/Bot"
 msgstr "Interne/Robot"
 
-#: ../root/user/UserProfile.js:71
+#: ../root/user/UserProfile.js:72
 msgid "{doc|Relationship Editor}"
 msgstr "{doc|Éditeur de relation}"
 
-#: ../root/user/UserProfile.js:77
+#: ../root/user/UserProfile.js:78
 msgid "{doc|Transclusion Editor}"
 msgstr "{doc|Éditeur de transclusions}"
 
-#: ../root/user/UserProfile.js:83
+#: ../root/user/UserProfile.js:84
 msgid "{doc|Location Editor}"
 msgstr "{doc|Éditeur de lieu}"
 
-#: ../root/user/UserProfile.js:92
+#: ../root/user/UserProfile.js:93
 msgid ""
 "User accounts must be more than 2 weeks old, have a verified email address, "
 "and more than 10 accepted edits in order to vote on others' edits."
 msgstr "Les comptes utilisateurs doivent avoir plus de 2 semaines, une adresse de courriel vérifiée et plus de 10 modifications acceptées afin de pouvoir voter sur les modifications des autres."
 
-#: ../root/user/UserProfile.js:97
+#: ../root/user/UserProfile.js:98
 msgid "Beginner"
 msgstr "Débutant"
 
-#: ../root/user/UserProfile.js:103
+#: ../root/user/UserProfile.js:104
 msgid "Normal User"
 msgstr "Utilisateur normal"
 
-#: ../root/user/UserProfile.js:150
+#: ../root/user/UserProfile.js:151
 msgid "The Dawn of the Project"
 msgstr "L’aube du projet"
 
-#: ../root/user/UserProfile.js:152
+#: ../root/user/UserProfile.js:153
 msgid "The early days of the project"
 msgstr "Le début du projet"
 
-#: ../root/user/UserProfile.js:160
+#: ../root/user/UserProfile.js:161
 msgid ""
 "Your homepage and biography will not show until you have completed the email"
 " verification process."
 msgstr "Votre page d’accueil et votre biographie n’apparaîtront pas jusqu’à ce que vous complétiez le processus de vérification de votre adresse courriel."
 
-#: ../root/user/UserProfile.js:179
+#: ../root/user/UserProfile.js:180
 msgid "General Information"
 msgstr "Information Générale"
 
-#: ../root/user/UserProfile.js:185
+#: ../root/user/UserProfile.js:186
 msgid "(hidden)"
 msgstr "(caché)"
 
-#: ../root/user/UserProfile.js:188
+#: ../root/user/UserProfile.js:189
 msgid "(verified at {date})"
 msgstr "(vérifié le {date})"
 
-#: ../root/user/UserProfile.js:193
+#: ../root/user/UserProfile.js:194
 msgid "(<strong>unverified!</strong>)"
 msgstr "(<strong>non vérifié !</strong>)"
 
-#: ../root/user/UserProfile.js:202
+#: ../root/user/UserProfile.js:203
 msgid "resend verification email"
 msgstr "Renvoyer le courriel de vérification"
 
-#: ../root/user/UserProfile.js:210
+#: ../root/user/UserProfile.js:211
 msgid "send email"
 msgstr "envoyer un courriel"
 
-#: ../root/user/UserProfile.js:225
+#: ../root/user/UserProfile.js:226
 msgid "find all users of this email"
 msgstr "trouver tous les utilisateurs avec ce courriel"
 
-#: ../root/user/UserProfile.js:235
+#: ../root/user/UserProfile.js:236
 msgctxt "email"
 msgid "(none)"
 msgstr "(aucun)"
 
-#: ../root/user/UserProfile.js:242
+#: ../root/user/UserProfile.js:243
 msgid "User type:"
 msgstr "Type d’utilisateur :"
 
-#: ../root/user/UserProfile.js:248
+#: ../root/user/UserProfile.js:249
 msgid "nominate for auto-editor"
 msgstr "nominer à l’auto-édition"
 
-#: ../root/user/UserProfile.js:255
+#: ../root/user/UserProfile.js:256
 msgid "Age:"
 msgstr "Âge :"
 
-#: ../root/user/UserProfile.js:272
+#: ../root/user/UserProfile.js:273
 msgid "Member since:"
 msgstr "Membre depuis :"
 
-#: ../root/user/UserProfile.js:278
+#: ../root/user/UserProfile.js:279
 msgid "Last login:"
 msgstr "Dernière connexion :"
 
-#: ../root/user/UserProfile.js:281
+#: ../root/user/UserProfile.js:282
 msgid "Hasn't logged in yet"
 msgstr "Ne s’est encore jamais connecté"
 
-#: ../root/user/UserProfile.js:286
+#: ../root/user/UserProfile.js:287
 msgid "Authorized applications"
 msgstr "Applications autorisées"
 
-#: ../root/user/UserProfile.js:293 ../root/user/UserProfile.js:309
+#: ../root/user/UserProfile.js:294 ../root/user/UserProfile.js:310
 msgid "see list"
 msgstr "voir la liste"
 
-#: ../root/user/UserProfile.js:302
+#: ../root/user/UserProfile.js:303
 msgid "Developer applications"
 msgstr "Applications de développeur"
 
-#: ../root/user/UserProfile.js:319
+#: ../root/user/UserProfile.js:320
 msgid "Homepage:"
 msgstr "Page d’accueil :"
 
-#: ../root/user/UserProfile.js:337
+#: ../root/user/UserProfile.js:338
 msgid "Subscribers:"
 msgstr "Abonnés :"
 
-#: ../root/user/UserProfile.js:340
+#: ../root/user/UserProfile.js:341
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|voir la liste})"
 
-#: ../root/user/UserProfile.js:347
+#: ../root/user/UserProfile.js:348
 msgid "0"
 msgstr "0"
 
-#: ../root/user/UserProfile.js:360
+#: ../root/user/UserProfile.js:361
 msgid "unsubscribe"
 msgstr "se désabonner"
 
-#: ../root/user/UserProfile.js:369
+#: ../root/user/UserProfile.js:370
 msgid "subscribe"
 msgstr "s’abonner"
 
-#: ../root/user/UserProfile.js:395
+#: ../root/user/UserProfile.js:396
 msgid "Languages:"
 msgstr "Langues : "
 
-#: ../root/user/UserProfile.js:471 ../root/user/UserProfile.js:570
-#: ../root/user/UserProfile.js:580 ../root/user/UserProfile.js:590
-#: ../root/user/UserProfile.js:600 ../root/user/UserProfile.js:610
-#: ../root/user/UserProfile.js:620 ../root/user/UserProfile.js:630
-#: ../root/user/UserProfile.js:639 ../root/user/UserProfile.js:784
-#: ../root/user/UserProfile.js:794 ../root/user/UserProfile.js:806
+#: ../root/user/UserProfile.js:472 ../root/user/UserProfile.js:571
+#: ../root/user/UserProfile.js:581 ../root/user/UserProfile.js:591
+#: ../root/user/UserProfile.js:601 ../root/user/UserProfile.js:611
+#: ../root/user/UserProfile.js:621 ../root/user/UserProfile.js:631
+#: ../root/user/UserProfile.js:640 ../root/user/UserProfile.js:785
+#: ../root/user/UserProfile.js:795 ../root/user/UserProfile.js:807
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|voir})"
 
-#: ../root/user/UserProfile.js:560
+#: ../root/user/UserProfile.js:561
 msgid "Edits ({view_url|view})"
 msgstr "Modifications ({view_url|voir})"
 
-#: ../root/user/UserProfile.js:562
+#: ../root/user/UserProfile.js:563
 msgid "Edits"
 msgstr "Modifications"
 
-#: ../root/user/UserProfile.js:568
+#: ../root/user/UserProfile.js:569
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "Acceptée"
 
-#: ../root/user/UserProfile.js:578
+#: ../root/user/UserProfile.js:579
 msgid "Auto-edits"
 msgstr "Automatiques"
 
-#: ../root/user/UserProfile.js:588
+#: ../root/user/UserProfile.js:589
 msgid "Total applied"
 msgstr "Total appliqué"
 
-#: ../root/user/UserProfile.js:598
+#: ../root/user/UserProfile.js:599
 msgid "Voted down"
 msgstr "Rejetées par vote"
 
-#: ../root/user/UserProfile.js:608
+#: ../root/user/UserProfile.js:609
 msgid "Failed"
 msgstr "Échec"
 
-#: ../root/user/UserProfile.js:638
+#: ../root/user/UserProfile.js:639
 msgid "Last 24 hours"
 msgstr "Les dernières 24 heures"
 
-#: ../root/user/UserProfile.js:662
+#: ../root/user/UserProfile.js:663
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "Cette table affiche un résumé des votes effectués par cet éditeur."
 
-#: ../root/user/UserProfile.js:667
+#: ../root/user/UserProfile.js:668
 msgid "Votes ({view_url|view})"
 msgstr "Votes ({view_url|voir})"
 
-#: ../root/user/UserProfile.js:675
+#: ../root/user/UserProfile.js:676
 msgid "Last 28 days"
 msgstr "Les 28 derniers jours"
 
-#: ../root/user/UserProfile.js:678
+#: ../root/user/UserProfile.js:679
 msgid "Overall"
 msgstr "Global"
 
-#: ../root/user/UserProfile.js:726
+#: ../root/user/UserProfile.js:727
 msgid "This table shows a summary of entities added by this editor."
 msgstr "Cette table affiche un résumé des entités ajoutées par cet éditeur."
 
-#: ../root/user/UserProfile.js:732
+#: ../root/user/UserProfile.js:733
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr "Les modifications fraîchement appliquées peuvent n’apparaître qu’après 24h."
 
-#: ../root/user/UserProfile.js:735
+#: ../root/user/UserProfile.js:736
 msgid "Added entities"
 msgstr "Entités ajoutées"
 
-#: ../root/user/UserProfile.js:759
+#: ../root/user/UserProfile.js:760
 msgid "This user has not created any entities."
 msgstr "Cet utilisateur n’a créé aucune entité."
 
-#: ../root/user/UserProfile.js:769
+#: ../root/user/UserProfile.js:770
 msgid "This table shows a summary of secondary data added by this editor."
 msgstr "Cette table affiche un résumé des données secondaires ajoutées par cet éditeur."
 
-#: ../root/user/UserProfile.js:775
+#: ../root/user/UserProfile.js:776
 msgid "Tags and ratings"
 msgstr "Balises et évaluations"
 
-#: ../root/user/UserProfile.js:782
+#: ../root/user/UserProfile.js:783
 msgid "Tags upvoted"
 msgstr "Balises votées pour"
 
-#: ../root/user/UserProfile.js:792
+#: ../root/user/UserProfile.js:793
 msgid "Tags downvoted"
 msgstr "Balises votées contre"
 
-#: ../root/user/UserProfile.js:879
+#: ../root/user/UserProfile.js:880
 msgid "Report this user for bad behavior"
 msgstr "Signaler cet utilisateur pour mauvais comportement"
 
