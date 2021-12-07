@@ -751,16 +751,6 @@ const CLEANUPS: CleanupEntries = {
               return {result: true};
             }
             return {
-              error: exp.l(
-                `Only Apple Books “{artist_url_pattern}” pages can be added
-                 directly to artists. Please link audiobooks
-                 to the appropriate release instead.`,
-                {
-                  artist_url_pattern: (
-                    <span className="url-quote">{'/author'}</span>
-                  ),
-                },
-              ),
               result: false,
               target: ERROR_TARGETS.ENTITY,
             };
@@ -2343,16 +2333,6 @@ const CLEANUPS: CleanupEntries = {
               return {result: true};
             }
             return {
-              error: exp.l(
-                `Only iTunes “{artist_url_pattern}” pages can be added
-                 directly to artists. Please link albums, videos, etc.
-                 to the appropriate release or recording instead.`,
-                {
-                  artist_url_pattern: (
-                    <span className="url-quote">{'/artist'}</span>
-                  ),
-                },
-              ),
               result: false,
               target: ERROR_TARGETS.ENTITY,
             };
