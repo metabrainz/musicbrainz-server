@@ -11,6 +11,7 @@ our @EXPORT_OK = qw(
     add_linked_entity
     encode_with_linked_entities
     to_json_array
+    to_json_hash
     to_json_object
 );
 
@@ -19,6 +20,17 @@ sub to_json_array {
     my $reftype = reftype $arr;
     if (defined $reftype && $reftype eq 'ARRAY') {
         return [map { to_json_object($_) } @$arr]
+    }
+    return undef;
+}
+
+sub to_json_hash {
+    my $hash = shift;
+    my $reftype = reftype $hash;
+
+    if (defined $reftype && $reftype eq 'HASH') {
+        my %json_hash = map { $_ => to_json_object($hash->{$_}) } keys %$hash;
+        return \%json_hash;
     }
     return undef;
 }
