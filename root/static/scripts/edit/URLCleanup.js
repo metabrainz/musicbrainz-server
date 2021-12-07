@@ -4475,7 +4475,11 @@ const CLEANUPS: CleanupEntries = {
       '^(https?://)?([^/]+\\.)?vimeo\\.com/(?:ondemand|store/ondemand)',
       'i',
     )],
-    restrict: [LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid],
+    restrict: [
+      LINK_TYPES.downloadpurchase,
+      LINK_TYPES.streamingpaid,
+      multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
+    ],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com\/ondemand\/([^\/?#]+)(?:.*)$/, 'https://vimeo.com/ondemand/$1');
       return url;
@@ -5100,7 +5104,7 @@ export class Checker {
       if (type[sourceType]) {
         result.push(type[sourceType]);
       }
-      return result;
+      return result.sort();
     }, []);
   }
 }

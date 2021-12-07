@@ -2559,6 +2559,7 @@ const testData = [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://mainlynorfolk.info/watersons/',
        only_valid_entity_types: ['artist'],
+limited_link_type_combinations: ['otherdatabases'],
   },
   {
                      input_url: 'http://www.mainlynorfolk.info/martin.carthy/records/themoraloftheelephant.html',
@@ -2566,6 +2567,7 @@ const testData = [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://mainlynorfolk.info/martin.carthy/records/themoraloftheelephant.html',
        only_valid_entity_types: ['release'],
+limited_link_type_combinations: ['otherdatabases'],
   },
   {
                      input_url: 'https://www.mainlynorfolk.info/watersons/songs/countrylife.html',
@@ -2573,6 +2575,10 @@ const testData = [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://mainlynorfolk.info/watersons/songs/countrylife.html',
        only_valid_entity_types: ['work'],
+limited_link_type_combinations: [
+                                  'otherdatabases',
+                                  ['lyrics', 'otherdatabases'],
+                                ],
   },
   // maniadb
   {
@@ -4551,14 +4557,26 @@ const testData = [
   {
                      input_url: 'https://vimeo.com/ondemand/inconcert/193518106?autoplay=1',
             expected_clean_url: 'https://vimeo.com/ondemand/inconcert',
+             input_entity_type: 'recording',
        input_relationship_type: 'downloadpurchase',
        only_valid_entity_types: ['recording', 'release'],
+limited_link_type_combinations: [
+                                  'downloadpurchase',
+                                  'streamingpaid',
+                                  ['downloadpurchase', 'streamingpaid'],
+                                ],
   },
   {
                      input_url: 'https://vimeo.com/ondemand/inconcert#comments',
             expected_clean_url: 'https://vimeo.com/ondemand/inconcert',
+             input_entity_type: 'recording',
        input_relationship_type: 'streamingpaid',
        only_valid_entity_types: ['recording', 'release'],
+limited_link_type_combinations: [
+                                  'downloadpurchase',
+                                  'streamingpaid',
+                                  ['downloadpurchase', 'streamingpaid'],
+                                ],
   },
   {
                      input_url: 'https://vimeo.com/store/ondemand/buy/91410',
@@ -4968,6 +4986,7 @@ const relationshipTypesByUuid = Object.entries(LINK_TYPES).reduce(function (
 }, {});
 
 const previousMatchTests = [];
+const previousTypeCombinationTests = [];
 
 function doMatchSubtest(
   st,
@@ -5021,6 +5040,55 @@ function doMatchSubtest(
   previousMatchTests.push(entityType + '+' + url);
 }
 
+function doRestrictSubtest(
+  st,
+  entityType,
+  url,
+  label,
+  expectedTypeCombinations,
+) {
+  const checker = new Checker(cleanURL(url), entityType);
+  const possibleTypeCombinations = checker.getPossibleTypes();
+  let actualTypeCombinations = possibleTypeCombinations || undefined;
+  if (expectedTypeCombinations === undefined) {
+    actualTypeCombinations = undefined;
+  }
+
+  // Each combination can be just 1 relationship type, or an array of 2+ types
+  const typeCombinations = possibleTypeCombinations.map(typeSet => {
+    let typeNames;
+    if (Array.isArray(typeSet)) {
+      typeNames = typeSet.map(uuid => relationshipTypesByUuid[uuid]).sort();
+    } else {
+      typeNames = relationshipTypesByUuid[typeSet];
+    }
+    return typeNames;
+  });
+
+  if (typeCombinations.length > 0) {
+    actualTypeCombinations = typeCombinations;
+  }
+
+  const msg = 'Match ' + label + ' URL relationship type combinations for ' +
+    entityType + ' entities';
+  st.ok(
+    arraysEqual(
+      actualTypeCombinations.sort(),
+      expectedTypeCombinations.sort(),
+      (a, b) => {
+        if (Array.isArray(a) && Array.isArray(b)) {
+          return arraysEqual(a, b);
+        } else if (typeof a === typeof b) {
+          return a === b;
+        }
+        return false;
+      },
+    ),
+    msg,
+  );
+  previousTypeCombinationTests.push(entityType + '+' + url);
+}
+
 // Test the url with given relationship type combined with every entity.
 function testEntitiesOfType(relationshipType, checker) {
   let testedRules = 0;
@@ -5065,9 +5133,31 @@ testData.forEach(function (subtest, i) {
           subtest.expected_relationship_type,
         );
         tested = true;
-      } else {
+      }
+      if ('limited_link_type_combinations' in subtest) {
+        if (previousTypeCombinationTests.indexOf(
+          subtest.input_entity_type + '+' + subtest.input_url,
+        ) !== -1) {
+          st.fail(
+            'Match test is worthless: Duplication has been detected: ' +
+            JSON.stringify(subtest),
+          );
+        }
+        doRestrictSubtest(
+          st,
+          subtest.input_entity_type,
+          subtest.input_url,
+          'input',
+          subtest.limited_link_type_combinations,
+        );
+        tested = true;
+      }
+      if (!('expected_relationship_type' in subtest) &&
+          !('limited_link_type_combinations' in subtest)) {
         st.fail(
-          'Test is invalid: "input_entity_type" is specified without "expected_relationship_type".',
+          `Test is invalid: "input_entity_type" is specified without
+           "expected_relationship_type"
+           nor "limited_link_type_combinations".`,
         );
         st.end();
         return;
@@ -5075,6 +5165,13 @@ testData.forEach(function (subtest, i) {
     } else if ('expected_relationship_type' in subtest) {
       st.fail(
         'Test is invalid: "expected_relationship_type" is specified without "input_entity_type".',
+      );
+      st.end();
+      return;
+    } else if ('limited_link_type_combinations' in subtest) {
+      st.fail(
+        `Test is invalid: "limited_link_type_combinations"
+         is specified without "input_entity_type".`,
       );
       st.end();
       return;
