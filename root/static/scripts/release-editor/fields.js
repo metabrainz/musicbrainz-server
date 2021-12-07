@@ -161,7 +161,7 @@ class Track {
           length = (hours ? hours + ':' : '') + minutes + ':' + seconds;
           this.formattedLength(length);
         } else if (lengthLength == 4) {
-          minutes = minutes - 60;
+          minutes -= 60;
           hours = 1;
           length = hours + ':' + minutes + ':' + seconds;
           this.formattedLength(length);
@@ -517,7 +517,7 @@ class Medium {
       return (self.hasUselessMediumTitle() && !self.confirmedMediumTitle());
     });
 
-    this.hasUnconfirmedVariousArtists = ko.computed(function() {
+    this.hasUnconfirmedVariousArtists = ko.computed(function () {
       return (self.hasVariousArtistTracks() &&
               !self.confirmedVariousArtists());
     });
@@ -680,9 +680,9 @@ class Medium {
   tracksLoaded(data) {
     var tracks = data.tracks;
 
-    var pp = this.id ? // no ID means this medium is being reused
-      Track :
-      function (track, parent) {
+    var pp = this.id // no ID means this medium is being reused
+      ? Track
+      : function (track, parent) {
         const copy = {...track};
         delete copy.id;
         return new Track(copy, parent);

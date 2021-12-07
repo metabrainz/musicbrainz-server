@@ -8,7 +8,7 @@
 
 import test from 'tape';
 
-import validation from '../../edit/validation';
+import * as validation from '../../edit/validation';
 import fields from '../../release-editor/fields';
 import releaseEditor from '../../release-editor/viewModel';
 

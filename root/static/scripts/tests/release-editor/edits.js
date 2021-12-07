@@ -10,7 +10,7 @@ import ko from 'knockout';
 import test from 'tape';
 
 import MB from '../../common/MB';
-import validation from '../../edit/validation';
+import * as validation from '../../edit/validation';
 import '../../relationship-editor/common/viewModel';
 import fields from '../../release-editor/fields';
 import {linkTypeTree, linkAttributeTypes} from '../typeInfo';

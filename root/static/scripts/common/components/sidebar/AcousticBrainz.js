@@ -24,6 +24,19 @@ const SidebarAcousticBrainz = ({recording}: {recording: RecordingT}) => {
   const [count, setCount] = React.useState(0);
   const [data, setData] = React.useState(null);
 
+  const fetchAcousticBrainzData = React.useCallback(() => {
+    const dataUrl = '//acousticbrainz.org/api/v1/low-level?' +
+      `recording_ids=${recording.gid}&` +
+      'features=tonal.key_key;tonal.key_scale;tonal.key_strength;rhythm.bpm';
+    fetch(dataUrl).then(
+      resp => resp.json(),
+    ).then(
+      data => {
+        setData(data[recording.gid][0]);
+      },
+    );
+  }, [recording.gid]);
+
   function fetchAcousticBrainzCount() {
     const countUrl = `//acousticbrainz.org/api/v1/${recording.gid}/count`;
     fetch(countUrl).then(
@@ -38,19 +51,6 @@ const SidebarAcousticBrainz = ({recording}: {recording: RecordingT}) => {
     );
   }
 
-  function fetchAcousticBrainzData() {
-    const dataUrl = '//acousticbrainz.org/api/v1/low-level?' +
-      `recording_ids=${recording.gid}&` +
-      'features=tonal.key_key;tonal.key_scale;tonal.key_strength;rhythm.bpm';
-    fetch(dataUrl).then(
-      resp => resp.json(),
-    ).then(
-      data => {
-        setData(data[recording.gid][0]);
-      },
-    );
-  }
-
   function keyLabel(key) {
     return key.includes('#') ? KEY_LABELS[key] : key;
   }
@@ -59,7 +59,11 @@ const SidebarAcousticBrainz = ({recording}: {recording: RecordingT}) => {
     return Math.round(data.tonal.key_strength * 100) / 100;
   }
 
-  React.useEffect(fetchAcousticBrainzCount, [recording.gid]);
+  React.useEffect(
+    fetchAcousticBrainzCount,
+    [recording.gid, fetchAcousticBrainzData],
+  );
+
   return count ? (
     <>
       <h2>

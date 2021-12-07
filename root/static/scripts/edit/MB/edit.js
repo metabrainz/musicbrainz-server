@@ -111,8 +111,8 @@ import request from '../../common/utility/request';
       editData.begin_date = fields.partialDate(link.begin_date);
       editData.end_date = fields.partialDate(link.end_date);
 
-      if (editData.end_date
-        && Object.values(editData.end_date).some(nonEmpty)) {
+      if (editData.end_date &&
+        Object.values(editData.end_date).some(nonEmpty)) {
         editData.ended = true;
       } else {
         editData.ended = Boolean(value(link.ended));
