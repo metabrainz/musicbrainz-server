@@ -9,7 +9,8 @@
 
 import * as React from 'react';
 
-import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
+import {commaOnlyListText}
+  from '../../static/scripts/common/i18n/commaOnlyList';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty';
 import DescriptiveLink
@@ -67,21 +68,21 @@ const AddArea = ({edit}: Props): React.MixedElement => {
         {display.iso_3166_1 ? (
           <tr>
             <th>{addColonText(l('ISO 3166-1'))}</th>
-            <td>{commaOnlyList(display.iso_3166_1)}</td>
+            <td>{commaOnlyListText(display.iso_3166_1)}</td>
           </tr>
         ) : null}
 
         {display.iso_3166_2 ? (
           <tr>
             <th>{addColonText(l('ISO 3166-2'))}</th>
-            <td>{commaOnlyList(display.iso_3166_2)}</td>
+            <td>{commaOnlyListText(display.iso_3166_2)}</td>
           </tr>
         ) : null}
 
         {display.iso_3166_3 ? (
           <tr>
             <th>{addColonText(l('ISO 3166-3'))}</th>
-            <td>{commaOnlyList(display.iso_3166_3)}</td>
+            <td>{commaOnlyListText(display.iso_3166_3)}</td>
           </tr>
         ) : null}
 

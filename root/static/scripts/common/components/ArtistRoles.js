@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import commaOnlyList from '../i18n/commaOnlyList';
+import {commaOnlyListText} from '../i18n/commaOnlyList';
 import localizeArtistRoles from '../i18n/localizeArtistRoles';
 
 import CollapsibleList from './CollapsibleList';
@@ -35,7 +35,7 @@ const buildArtistRoleRow = (relation: RelationT) => {
             entity={relation.entity}
           />
         ),
-        roles: commaOnlyList(localizeArtistRoles(relation.roles)),
+        roles: commaOnlyListText(localizeArtistRoles(relation.roles)),
       })}
     </li>
   );
