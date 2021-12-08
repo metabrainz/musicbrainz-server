@@ -16,7 +16,7 @@ sub show : Path('/mbid') CaptureArgs(1) {
 
     if ($is_guid) {
         for my $model (entities_with('mbid', take => 'model')) {
-            my $entity = $c->model($model)->get_by_gid($gid) or next;
+            next unless $c->model($model)->get_by_gid($gid);
             $c->response->redirect(
                 $c->uri_for_action(
                     $c->controller($model)->action_for('show'),

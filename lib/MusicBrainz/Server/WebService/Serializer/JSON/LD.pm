@@ -1,6 +1,5 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::LD;
 use Moose;
-use JSON;
 
 sub serialize {
     my ($self, $entity, $inc, $stash, $toplevel) = @_;

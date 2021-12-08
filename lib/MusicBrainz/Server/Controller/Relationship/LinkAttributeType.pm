@@ -7,7 +7,6 @@ use MusicBrainz::Server::Constants qw(
     $INSTRUMENT_ROOT_ID
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
-use MusicBrainz::Server::Translation qw( l );
 
 use MusicBrainz::Server::Validation qw( is_guid );
 

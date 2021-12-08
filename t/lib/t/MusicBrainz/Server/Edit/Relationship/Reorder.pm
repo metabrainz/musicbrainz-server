@@ -1,7 +1,6 @@
 package t::MusicBrainz::Server::Edit::Relationship::Reorder;
 use Test::Routine;
 use Test::More;
-use Test::Fatal;
 
 with 't::Edit';
 with 't::Context';

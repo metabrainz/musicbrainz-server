@@ -64,7 +64,7 @@ sub create : Local Args(0) RequireAuth(wiki_transcluder) Edit SecureForm
         my $values = $form->values;
         my $page = $values->{page} =~ tr/ /_/r;
         $c->model('MB')->with_transaction(sub {
-            my $edit = $c->model('Edit')->create(
+            $c->model('Edit')->create(
                 edit_type   => $EDIT_WIKIDOC_CHANGE,
                 editor      => $c->user,
 
@@ -99,7 +99,7 @@ sub edit : Local Args(0) RequireAuth(wiki_transcluder) Edit SecureForm
     if ($c->form_posted_and_valid($form)) {
         my $values = $form->values;
         $c->model('MB')->with_transaction(sub {
-            my $edit = $c->model('Edit')->create(
+            $c->model('Edit')->create(
                 edit_type   => $EDIT_WIKIDOC_CHANGE,
                 editor      => $c->user,
 
@@ -139,7 +139,7 @@ sub delete : Local Args(0) RequireAuth(wiki_transcluder) Edit SecureForm
 
     if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {
-            my $edit = $c->model('Edit')->create(
+            $c->model('Edit')->create(
                 edit_type   => $EDIT_WIKIDOC_CHANGE,
                 editor      => $c->user,
 

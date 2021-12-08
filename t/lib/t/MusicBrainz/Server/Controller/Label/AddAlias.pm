@@ -17,7 +17,7 @@ $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/add-alias');
-my $response = $mech->submit_form(
+$mech->submit_form(
     with_fields => {
         'edit-alias.name' => 'An alias',
         'edit-alias.sort_name' => 'An alias sort name'
@@ -59,7 +59,7 @@ $mech->content_contains('An alias sort name', '..contains alias sort name');
 # A sortname isn't required (MBS-6896)
 ($edit) = capture_edits {
     $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/add-alias');
-    my $response = $mech->submit_form(
+    $mech->submit_form(
         with_fields => {
             'edit-alias.name' => 'Another alias',
         });

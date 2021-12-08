@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Entity::Tag;
 
 use Moose;
-use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 extends 'MusicBrainz::Server::Entity';

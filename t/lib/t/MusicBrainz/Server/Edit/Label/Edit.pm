@@ -29,7 +29,7 @@ $label = $c->model('Label')->get_by_id(2);
 is_unchanged($label);
 is($label->edits_pending, 1);
 
-my ($edits, $hits) = $c->model('Edit')->find({ label => $edit->label_id }, 10, 0);
+my ($edits, undef) = $c->model('Edit')->find({ label => $edit->label_id }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
 reject_edit($c, $edit);

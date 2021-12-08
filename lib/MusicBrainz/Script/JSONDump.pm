@@ -21,7 +21,6 @@ use MusicBrainz::Script::Utils qw( log retry );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::JSONLookup qw( json_lookup );
 use Readonly;
-use Try::Tiny;
 
 with 'MooseX::Getopt';
 

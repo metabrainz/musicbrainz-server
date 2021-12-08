@@ -18,7 +18,6 @@ use MusicBrainz::Server::Form::Utils qw(
     build_json
     language_options
 );
-use MusicBrainz::Server::Translation qw( l );
 use List::AllUtils qw( any );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {

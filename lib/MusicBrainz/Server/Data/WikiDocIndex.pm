@@ -8,7 +8,7 @@ use LWP::Simple qw();
 use LWP::UserAgent;
 use XML::Simple;
 use Encode qw( decode );
-use MusicBrainz::Server::Replication ':replication_type';
+use MusicBrainz::Server::Replication qw( :replication_type );
 
 with 'MusicBrainz::Server::Data::Role::Sql';
 
@@ -57,7 +57,6 @@ sub set_page_version
 {
     my ($self, $page, $version) = @_;
 
-    my $index = $self->_load_index;
     if (defined $version) {
         my $query =
             'INSERT INTO wikidocs.wikidocs_index (revision, page_name)

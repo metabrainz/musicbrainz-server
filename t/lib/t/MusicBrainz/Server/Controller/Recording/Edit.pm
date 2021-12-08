@@ -53,7 +53,7 @@ my @edits = capture_edits {
         'edit-recording.isrcs.0' => 'USS1Z9900001'
     ];
 
-    my $response = $mech->request($request);
+    $mech->request($request);
 } $c;
 
 @edits = sort_by { $_->id } @edits;
@@ -166,7 +166,7 @@ is_deeply($edit->data, {
         'edit-recording.name' => 'Dancing Queen'
     ];
 
-    my $response = $mech->request($request);
+    $mech->request($request);
 } $c;
 
 @edits = sort_by { $_->id } @edits;

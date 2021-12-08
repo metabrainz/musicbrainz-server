@@ -3,7 +3,6 @@ use utf8;
 use HTTP::Response;
 use LWP::UserAgent::Mockable;
 use Test::Routine;
-use Test::More;
 
 use MusicBrainz::Server::Test qw( html_ok );
 

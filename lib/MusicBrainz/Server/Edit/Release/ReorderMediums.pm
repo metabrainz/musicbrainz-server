@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Release::ReorderMediums;
 use utf8;
 use Moose;
 use MooseX::Types::Moose qw( ArrayRef Int Str );
-use MooseX::Types::Structured qw( Dict Map );
+use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_MEDIUMS );

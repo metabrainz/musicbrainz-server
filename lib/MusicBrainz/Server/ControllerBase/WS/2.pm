@@ -11,8 +11,6 @@ use MusicBrainz::Server::Validation qw( is_guid is_nat );
 use MusicBrainz::Server::WebService::Format;
 use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::XMLSerializer;
-use Readonly;
-use Scalar::Util qw( looks_like_number );
 use Try::Tiny;
 
 with 'MusicBrainz::Server::WebService::Format' =>
@@ -234,7 +232,6 @@ sub _ratings
 {
     my ($self, $c, $modelname, $entities, $stash) = @_;
 
-    my %map = object_to_ids(@$entities);
     my $model = $c->model($modelname);
 
     if ($c->stash->{inc}->ratings)

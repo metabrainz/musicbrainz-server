@@ -8,11 +8,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_DELETE
     $EDIT_RELATIONSHIPS_REORDER
 );
-use List::AllUtils qw( uniq );
-use MusicBrainz::Server::Data::Utils qw(
-    type_to_model
-    split_relationship_by_attributes
-);
+use MusicBrainz::Server::Data::Utils qw( split_relationship_by_attributes );
 use MusicBrainz::Server::Edit::Relationship::Edit;
 
 =method try_and_edit
@@ -34,15 +30,11 @@ sub try_and_edit {
     }
 
     my $edit;
-    $c->model('Relationship')->lock_and_do(
-        $params{link_type}->entity0_type,
-        $params{link_type}->entity1_type,
-        sub {
-            $edit = $self->_insert_edit(
-                $c, $form, edit_type => $EDIT_RELATIONSHIP_EDIT, %params
-            );
-        }
-    );
+    $c->model('MB')->with_transaction(sub {
+        $edit = $self->_insert_edit(
+            $c, $form, edit_type => $EDIT_RELATIONSHIP_EDIT, %params
+        );
+    });
     return $edit;
 }
 
@@ -67,17 +59,13 @@ sub try_and_insert {
     );
     my @relationships = split_relationship_by_attributes($attributes, \%params);
 
-    $c->model('Relationship')->lock_and_do(
-        $params{link_type}->entity0_type,
-        $params{link_type}->entity1_type,
-        sub {
-            @edits = map {
-                $self->_insert_edit(
-                    $c, $form, edit_type => $EDIT_RELATIONSHIP_CREATE, %$_
-                )
-            } @relationships
-        }
-    );
+    $c->model('MB')->with_transaction(sub {
+        @edits = map {
+            $self->_insert_edit(
+                $c, $form, edit_type => $EDIT_RELATIONSHIP_CREATE, %$_
+            )
+        } @relationships
+    });
     return @edits;
 }
 
@@ -85,18 +73,12 @@ sub delete_relationship {
     my ($self, $c, $form, %params) = @_;
 
     my $edit;
-    my $link_type = $params{relationship}->link->type;
-
-    $c->model('Relationship')->lock_and_do(
-        $link_type->entity0_type,
-        $link_type->entity1_type,
-        sub {
-            $edit = $self->_insert_edit(
-                $c, $form, edit_type => $EDIT_RELATIONSHIP_DELETE, %params
-            );
-            return 1;
-        }
-    );
+    $c->model('MB')->with_transaction(sub {
+        $edit = $self->_insert_edit(
+            $c, $form, edit_type => $EDIT_RELATIONSHIP_DELETE, %params
+        );
+        return 1;
+    });
     return $edit;
 }
 
@@ -104,19 +86,12 @@ sub reorder_relationships {
     my ($self, $c, $form, %params) = @_;
 
     my $edit;
-    my $link_type_id = $params{link_type_id};
-    my $link_type = $c->model('LinkType')->get_by_id($link_type_id);
-
-    $c->model('Relationship')->lock_and_do(
-        $link_type->entity0_type,
-        $link_type->entity1_type,
-        sub {
-            $edit = $self->_insert_edit(
-                $c, $form, edit_type => $EDIT_RELATIONSHIPS_REORDER, %params
-            );
-            return 1;
-        }
-    );
+    $c->model('MB')->with_transaction(sub {
+        $edit = $self->_insert_edit(
+            $c, $form, edit_type => $EDIT_RELATIONSHIPS_REORDER, %params
+        );
+        return 1;
+    });
     return $edit;
 }
 

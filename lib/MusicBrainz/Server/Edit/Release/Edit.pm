@@ -6,7 +6,7 @@ use MooseX::Types::Moose qw( ArrayRef Int Str Maybe );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Barcode';
-use Clone 'clone';
+use Clone qw( clone );
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CREATE
     $EDIT_RELEASE_EDIT
@@ -24,7 +24,6 @@ use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     merge_artist_credit
     merge_barcode
-    merge_partial_date
     verify_artist_credits
 );
 use MusicBrainz::Server::Entity::PartialDate;
@@ -245,7 +244,7 @@ sub _mapping
 around 'initialize' => sub
 {
     my ($orig, $self, %opts) = @_;
-    my $release = $opts{to_edit} or return;
+    return unless $opts{to_edit};
 
     $self->check_event_countries($opts{events} // []);
 

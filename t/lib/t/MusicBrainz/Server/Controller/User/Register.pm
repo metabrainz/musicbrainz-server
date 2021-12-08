@@ -2,7 +2,6 @@ package t::MusicBrainz::Server::Controller::User::Register;
 use utf8;
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
 

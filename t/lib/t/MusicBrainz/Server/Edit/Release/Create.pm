@@ -26,7 +26,7 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Release::Create');
 
 ok(defined $edit->release_id);
 
-my ($edits, $hits) = $c->model('Edit')->find({ release => $edit->release_id }, 10, 0);
+my ($edits, undef) = $c->model('Edit')->find({ release => $edit->release_id }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
 my $release = $c->model('Release')->get_by_id($edit->release_id);

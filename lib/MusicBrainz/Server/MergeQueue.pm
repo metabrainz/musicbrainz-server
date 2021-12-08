@@ -1,6 +1,6 @@
 package MusicBrainz::Server::MergeQueue;
 use Moose;
-use MusicBrainz::Server::Data::Utils qw( model_to_type boolean_to_json );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use namespace::autoclean;
 
 has 'type' => (

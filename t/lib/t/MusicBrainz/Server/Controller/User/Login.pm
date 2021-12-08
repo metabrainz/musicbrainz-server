@@ -37,7 +37,7 @@ test all => sub {
     $mech->content_contains('Incorrect username or password');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'ıaa2' } );
     is($mech->uri->path, '/user/new_editor');
-
+    $enable_ssl->DESTROY;
 };
 
 test 'https login' => sub {
@@ -54,6 +54,7 @@ test 'https login' => sub {
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
     is($mech->uri->path, '/user/new_editor');
     is($mech->uri->scheme, 'https', 'We started secure, should still be secure');
+    $enable_ssl->DESTROY;
 };
 
 test 'http login with redirects to ssl' => sub {
@@ -74,6 +75,7 @@ test 'http login with redirects to ssl' => sub {
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
     is($mech->uri->path, '/user/new_editor');
     is($mech->uri->scheme, 'https', 'We started insecure, but we have stayed on https');
+    $enable_ssl->DESTROY;
 };
 
 test 'Can login with usernames that contain the "/" character' => sub {
@@ -94,6 +96,7 @@ test 'Can login with usernames that contain the "/" character' => sub {
         with_fields => { username => 'ocharles/bot', password => 'mb' }
     );
     like($mech->uri->path, qr{/user/ocharles%2Fbot});
+    $enable_ssl->DESTROY;
 };
 
 test 'Deleted editors cannot login (even if they have a password)' => sub {
@@ -115,6 +118,7 @@ test 'Deleted editors cannot login (even if they have a password)' => sub {
     html_ok($mech->content);
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'ıaa2' } );
     $mech->content_contains('Incorrect username or password');
+    $enable_ssl->DESTROY;
 };
 
 sub enable_ssl {
@@ -122,6 +126,8 @@ sub enable_ssl {
     my $wrapper = wrap "${dbdefs}::SSL_REDIRECTS_ENABLED",
         pre => sub { $_[-1] = 1 };
 
+    # This returns a lexically scoped wrapper so the assignments are needed
+    # See https://metacpan.org/pod/Hook::LexWrap#Lexically-scoped-wrappers
     return $wrapper
 }
 

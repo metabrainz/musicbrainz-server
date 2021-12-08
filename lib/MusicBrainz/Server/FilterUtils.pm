@@ -1,7 +1,6 @@
 package MusicBrainz::Server::FilterUtils;
 
 use base 'Exporter';
-use MusicBrainz::Server::Translation qw( l );
 
 our @EXPORT_OK = qw(
     create_artist_release_groups_form

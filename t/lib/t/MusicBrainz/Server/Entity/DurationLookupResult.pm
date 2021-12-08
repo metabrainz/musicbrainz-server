@@ -1,7 +1,6 @@
 package t::MusicBrainz::Server::Entity::DurationLookupResult;
 use Test::Routine;
 use Test::Moose;
-use Test::More;
 
 BEGIN { use MusicBrainz::Server::Entity::DurationLookupResult; }
 

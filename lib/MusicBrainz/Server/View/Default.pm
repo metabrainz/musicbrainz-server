@@ -4,7 +4,6 @@ use strict;
 use base 'Catalyst::View::TT';
 use DBDefs;
 use MRO::Compat;
-use Digest::MD5 qw( md5_hex );
 use MusicBrainz::Server::Data::Utils;
 use MusicBrainz::Server::Translation;
 use MusicBrainz::Server::View::Base;

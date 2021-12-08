@@ -6,10 +6,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASEGROUP_CREATE
     $EDIT_RELEASEGROUP_EDIT
 );
-use MusicBrainz::Server::Data::Utils qw(
-    artist_credit_to_ref
-    partial_date_to_hash
-);
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
 use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_from_loaded_definition
@@ -24,7 +21,7 @@ use MusicBrainz::Server::Edit::Historic::Utils qw( get_historic_type );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
-use MooseX::Types::Moose qw( ArrayRef Maybe Str Int );
+use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 use Scalar::Util qw( looks_like_number );
 

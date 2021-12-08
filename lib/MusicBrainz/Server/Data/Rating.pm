@@ -126,10 +126,9 @@ sub merge
     my ($self, $new_id, @old_ids) = @_;
 
     my $type = $self->type;
-    my $table = $type . '_meta';
     my $table_raw = $type . '_rating_raw';
 
-    my $ratings = $self->c->sql->do(
+    $self->c->sql->do(
         "INSERT INTO $table_raw (editor, rating, $type)
              SELECT editor, max(rating), ?
                FROM delete_ratings(?, ?)
@@ -178,7 +177,6 @@ sub update
     Sql::run_in_transaction(sub {
 
         my $type = $self->type;
-        my $table = $type . '_meta';
         my $table_raw = $type . '_rating_raw';
 
         # Check if user has already rated this entity

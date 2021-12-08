@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use Clone qw(clone);
-use List::AllUtils qw( all any uniq );
+use List::AllUtils qw( all uniq );
 use MooseX::Types::Moose qw( Str Int Bool );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );

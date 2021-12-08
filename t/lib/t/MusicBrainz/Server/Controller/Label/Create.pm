@@ -18,7 +18,7 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 
 $mech->get_ok('/label/create');
 html_ok($mech->content);
-my $response = $mech->submit_form(
+$mech->submit_form(
     with_fields => {
         'edit-label.name' => 'controller label',
         'edit-label.type_id' => 4,

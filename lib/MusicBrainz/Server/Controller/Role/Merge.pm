@@ -6,7 +6,6 @@ use List::AllUtils qw( any nsort_by uniq );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Log qw( log_assertion );
-use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 parameter 'edit_type' => (
@@ -29,7 +28,6 @@ role {
         }
     );
 
-    use List::AllUtils qw( part );
     use MusicBrainz::Server::Data::Utils qw( model_to_type );
     use MusicBrainz::Server::MergeQueue;
 

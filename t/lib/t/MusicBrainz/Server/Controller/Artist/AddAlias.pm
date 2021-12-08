@@ -18,7 +18,7 @@ $mech->get('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/add-alias');
-my $response = $mech->submit_form(
+$mech->submit_form(
     with_fields => {
         'edit-alias.name' => 'An alias',
         'edit-alias.sort_name' => 'Artist, Test'
@@ -60,7 +60,7 @@ $mech->content_contains('Artist, Test', '..contains alias sort name inferred fro
 # A sortname isn't required (MBS-6896)
 ($edit) = capture_edits {
     $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/add-alias');
-    my $response = $mech->submit_form(
+    $mech->submit_form(
         with_fields => {
             'edit-alias.name' => 'Another alias',
         });

@@ -80,7 +80,6 @@ around get_by_gid => sub
 
 sub insert {
     my ($self, @entities) = @_;
-    my $class = $self->_entity_class;
 
     my $extra_data = $self->_insert_hook_prepare(\@entities);
 

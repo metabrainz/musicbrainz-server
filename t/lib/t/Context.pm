@@ -2,7 +2,7 @@ package t::Context;
 use Moose::Role;
 use namespace::autoclean;
 
-use Carp 'confess';
+use Carp qw( confess );
 use DBDefs;
 use File::Temp;
 use MusicBrainz::Server::Test;

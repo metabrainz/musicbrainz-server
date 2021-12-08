@@ -105,7 +105,6 @@ sub Get
     my ($self, $pos) = @_;
 
     my $dat = $self->{DAT};
-    my $idx = $self->{IDX};
 
     $self->Seek($pos) if defined $pos;
 

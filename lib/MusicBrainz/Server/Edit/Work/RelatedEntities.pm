@@ -13,11 +13,11 @@ around '_build_related_entities' => sub
         $self->c->model('Work')->get_by_ids($self->work_ids)
     };
 
-    my ($recordings, $recording_hits) = $self->c->model('Recording')->find_by_works([$self->work_ids]);
+    my ($recordings, undef) = $self->c->model('Recording')->find_by_works([$self->work_ids]);
 
     my @recording_ids = map { $_->id } @$recordings;
 
-    my ($releases, $release_hits) = $self->c->model('Release')->find_by_recording(\@recording_ids);
+    my ($releases, undef) = $self->c->model('Release')->find_by_recording(\@recording_ids);
 
     $self->c->model('Relationship')->load_subset([ 'artist' ], @works);
 

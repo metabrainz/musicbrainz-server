@@ -27,7 +27,7 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Test qw( capture_edits post_json );
 use Test::More;
-use Test::Deep qw( bag cmp_deeply ignore );
+use Test::Deep qw( cmp_deeply ignore );
 use Test::Routine;
 
 with 't::Mechanize', 't::Context';

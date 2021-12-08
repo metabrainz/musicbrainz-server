@@ -96,7 +96,7 @@ sub text {
 
 sub header {
     my $self = shift;
-    my $escape = sub { uri_escape_utf8(shift) };
+    my $escape = sub { uri_escape_utf8(shift) }; ## no critic 'ProhibitUnusedVarsStricter'
     return strip tt q{
 This is a notification that edits have been added for artists, labels,
 collections and editors to whom you subscribed on the MusicBrainz web site.
@@ -121,7 +121,7 @@ $CONTACT_URL
 
 sub edits_for_type {
     my ($self, $header, $subs, $type) = @_;
-    my $get_entity = sub { shift->$type };
+    my $get_entity = sub { shift->$type }; ## no critic 'ProhibitUnusedVarsStricter'
 
     return strip tt q{
 [% header %]
@@ -137,9 +137,9 @@ sub edits_for_type {
 
 sub edits_for_editors {
     my $self = shift;
-    my $subs = \@_;
+    my $subs = \@_; ## no critic 'ProhibitUnusedVarsStricter'
 
-    my $escape = sub { uri_escape_utf8(shift) };
+    my $escape = sub { uri_escape_utf8(shift) }; ## no critic 'ProhibitUnusedVarsStricter'
     return strip tt q{
 Changes by your subscribed editors:
 --------------------------------------------------------------------------------

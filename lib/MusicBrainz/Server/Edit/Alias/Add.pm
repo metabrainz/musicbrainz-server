@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Alias::Add;
 use MooseX::Role::Parameterized;
 use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
-use MusicBrainz::Server::Data::Utils qw( model_to_type non_empty boolean_to_json );
+use MusicBrainz::Server::Data::Utils qw( model_to_type boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';

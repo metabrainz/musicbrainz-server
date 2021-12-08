@@ -12,8 +12,6 @@ sub text
 {
     my ($self) = @_;
 
-    my $escape = sub { uri_escape_utf8(shift) };
-
     return strip tt <<EOF;
 This election has been cancelled by the proposer ([% self.election.proposer.name %]).
 

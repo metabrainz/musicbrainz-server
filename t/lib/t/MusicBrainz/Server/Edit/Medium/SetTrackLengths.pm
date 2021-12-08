@@ -11,7 +11,6 @@ use MusicBrainz::Server::Constants qw(
     $STATUS_FAILEDDEP
     $UNTRUSTED_FLAG
 );
-use MusicBrainz::Server::Data::Utils qw( localized_note );
 use MusicBrainz::Server::Test;
 
 test all => sub {

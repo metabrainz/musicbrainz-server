@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::WorkAttributeType;
 
 use Moose;
 use namespace::autoclean;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects hash_to_row );
+use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 use MusicBrainz::Server::Entity::WorkAttributeType;
 
 extends 'MusicBrainz::Server::Data::Entity';

@@ -122,12 +122,6 @@ sub update
 
     my %disc = %{ $results->[0] };
 
-    # get track count, excluding any pregap or data track
-    my $track_count = $self->sql->select_single_value(
-        'SELECT count(*) FROM track WHERE medium = ? AND position > 0 AND is_data_track = false',
-        $medium_id
-    );
-
     my $create_cube = 'create_cube_from_durations((
                     SELECT array(
                         SELECT t.length

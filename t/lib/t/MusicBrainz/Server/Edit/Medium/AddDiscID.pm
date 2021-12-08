@@ -1,7 +1,6 @@
 package t::MusicBrainz::Server::Edit::Medium::AddDiscID;
 use Test::Routine;
 use Test::More;
-use Test::Fatal;
 
 around run_test => sub {
     my ($orig, $test) = splice(@_, 0, 2);

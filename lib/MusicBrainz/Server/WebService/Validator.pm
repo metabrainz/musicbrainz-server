@@ -8,7 +8,6 @@ use MusicBrainz::Server::Constants qw(
     entities_with
 );
 use Class::MOP;
-use Readonly;
 
 parameter default_serialization_type => (
     is => 'ro',
@@ -164,7 +163,6 @@ sub validate_linked
     my $params = $c->req->params;
     my %acc = map { $_ => 1 } @{ $def };
 
-    my $linked;
     foreach (keys %$params)
     {
         return [$_, $params->{$_}] if (exists $acc{$_});

@@ -12,8 +12,8 @@ sub text
 {
     my ($self) = @_;
 
-    my $escape = sub { uri_escape_utf8(shift) };
-    my $timeout = $MusicBrainz::Server::Data::AutoEditorElection::VOTING_TIMEOUT;
+    my $escape = sub { uri_escape_utf8(shift) }; ## no critic 'ProhibitUnusedVarsStricter'
+    my $timeout = $MusicBrainz::Server::Data::AutoEditorElection::VOTING_TIMEOUT; ## no critic 'ProhibitUnusedVarsStricter'
 
     return strip tt <<EOF;
 Voting in this election is now open:

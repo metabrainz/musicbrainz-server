@@ -65,7 +65,7 @@ test 'Items should be ordered by relationship date' => sub {
 
     my $series = $c->model('Series')->get_by_id(4);
     $c->model('SeriesType')->load($series);
-    my ($items, $count) = $c->model('Series')->get_entities($series, 5, 0);
+    my ($items, undef) = $c->model('Series')->get_entities($series, 5, 0);
 
     is_deeply(
         [map { $_->{entity}->id } @$items],
@@ -401,7 +401,7 @@ test 'Can reorder series with multiple of the same item without conflicts (MBS-8
 
     my $series = $c->model('Series')->get_by_id(4);
     $c->model('SeriesType')->load($series);
-    my ($items, $count) = $c->model('Series')->get_entities($series, 3, 0);
+    my ($items, undef) = $c->model('Series')->get_entities($series, 3, 0);
 
     is_deeply([map { $_->{entity}->id } @$items], [1, 1]);
 };

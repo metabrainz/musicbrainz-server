@@ -6,7 +6,6 @@ use Moose;
 use Class::Load qw( load_class );
 use JSON;
 use Sql;
-use Readonly;
 use Data::Page;
 use URI::Escape qw( uri_escape_utf8 );
 use List::AllUtils qw( any partition_by );

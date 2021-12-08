@@ -11,7 +11,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_CREATE
     $UNTRUSTED_FLAG
 );
-use MusicBrainz::Server::Test qw( accept_edit reject_edit );
+use MusicBrainz::Server::Test qw( reject_edit );
 use MusicBrainz::Server::Constants qw( :edit_status );
 
 around run_test => sub {

@@ -1,7 +1,7 @@
 package t::MusicBrainz::Server::Controller::Artist::Split;
 use Test::Routine;
 use HTTP::Request::Common qw( POST );
-use MusicBrainz::Server::Test qw( capture_edits html_ok );
+use MusicBrainz::Server::Test qw( capture_edits );
 use Test::More;
 
 around run_test => sub {

@@ -9,7 +9,6 @@ with 't::Context';
 BEGIN { use MusicBrainz::Server::Edit::Recording::AddISRCs };
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_ISRCS $UNTRUSTED_FLAG $STATUS_OPEN );
-use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test all => sub {
 

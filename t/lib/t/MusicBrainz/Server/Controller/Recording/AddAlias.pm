@@ -19,7 +19,7 @@ test all => sub {
     $mech->submit_form( with_fields => { username => 'editor', password => 'password' } );
     $mech->get_ok('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/add-alias');
 
-    my $response = $mech->submit_form(
+    $mech->submit_form(
         with_fields => {
             'edit-alias.name' => 'Now that’s what I call a recording',
             'edit-alias.sort_name' => 'recording, Now that’s what I call a'
@@ -62,7 +62,7 @@ test all => sub {
     # A sortname isn't required (MBS-6896)
     ($edit) = capture_edits {
         $mech->get_ok('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/add-alias');
-        my $response = $mech->submit_form(
+        $mech->submit_form(
             with_fields => {
                 'edit-alias.name' => 'Now that’s what I call another recording',
             });

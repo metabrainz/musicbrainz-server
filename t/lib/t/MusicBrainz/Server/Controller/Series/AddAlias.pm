@@ -19,7 +19,7 @@ test all => sub {
     $mech->submit_form( with_fields => { username => 'editor', password => 'pass' } );
     $mech->get_ok('/series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d/add-alias');
 
-    my $response = $mech->submit_form(
+    $mech->submit_form(
         with_fields => {
             'edit-alias.name' => 'Now that’s what I call a series',
             'edit-alias.sort_name' => 'series, Now that’s what I call a'
@@ -62,7 +62,7 @@ test all => sub {
     # A sortname isn't required (MBS-6896)
     ($edit) = capture_edits {
         $mech->get_ok('/series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d/add-alias');
-        my $response = $mech->submit_form(
+        $mech->submit_form(
             with_fields => {
                 'edit-alias.name' => 'Now that’s what I call another series',
             });
