@@ -89,9 +89,7 @@ requires 'Sys::Hostname'                              => '1.17';
 requires 'Template::Plugin::Class'                    => '0.13';
 requires 'Template::Plugin::JavaScript'               => '0.02';
 requires 'Template::Plugin::JSON::Escape'             => '0.02';
-# Template::Toolkit == 3.008 is broken:
-# https://github.com/abw/Template2/issues/263
-requires 'Template::Toolkit'                          => '== 3.007';
+requires 'Template::Toolkit'                          => '3.009';
 requires 'Text::Diff3'                                => '0.10';
 requires 'Text::Markdown'                             => '1.000026';
 requires 'Text::Trim'                                 => '1.02';
