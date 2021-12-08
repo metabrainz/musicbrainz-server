@@ -32,7 +32,7 @@ import {
   isRelationshipEditor,
 } from '../../utility/privileges';
 import {localStorage} from '../../utility/storage';
-import bracketed from '../../utility/bracketed';
+import bracketed, {bracketedText} from '../../utility/bracketed';
 
 import '../../../../lib/jquery-ui';
 
@@ -690,7 +690,7 @@ MB.Control.autocomplete_formatters = {
 
     if (item.comment) {
       a.append('<span class="autocomplete-comment">' +
-               he.escape(bracketed(item.comment)) + '</span>');
+               he.escape(bracketedText(item.comment)) + '</span>');
     }
 
     if (item.video) {
@@ -803,12 +803,12 @@ MB.Control.autocomplete_formatters = {
 
     if (item.firstReleaseDate) {
       a.append('<span class="autocomplete-comment">' +
-               bracketed(item.firstReleaseDate) + '</span>');
+               bracketedText(item.firstReleaseDate) + '</span>');
     }
 
     if (item.comment) {
       a.append('<span class="autocomplete-comment">' +
-               he.escape(bracketed(item.comment)) + '</span>');
+               he.escape(bracketedText(item.comment)) + '</span>');
     }
 
     if (item.typeName) {
@@ -828,14 +828,14 @@ MB.Control.autocomplete_formatters = {
     if (item.comment) {
       a.append(
         '<span class="autocomplete-comment">' +
-        he.escape(bracketed(item.comment)) + '</span>',
+        he.escape(bracketedText(item.comment)) + '</span>',
       );
     }
 
     if (item.type) {
       a.append(
         ' <span class="autocomplete-comment">' +
-        he.escape(bracketed(lp_attributes(item.type.name, 'series_type'))) +
+        he.escape(bracketedText(lp_attributes(item.type.name, 'series_type'))) +
         '</span>',
       );
     }
@@ -904,7 +904,7 @@ MB.Control.autocomplete_formatters = {
 
     if (item.comment) {
       a.append('<span class="autocomplete-comment">' +
-               he.escape(bracketed(item.comment)) + '</span>');
+               he.escape(bracketedText(item.comment)) + '</span>');
     }
 
     if (item.typeName || (item.containment && item.containment.length)) {
@@ -1013,7 +1013,7 @@ MB.Control.autocomplete_formatters = {
     if (item.typeName) {
       a.append(
         ' <span class="autocomplete-comment">' +
-        he.escape(bracketed(lp_attributes(item.typeName, 'event_type'))) +
+        he.escape(bracketedText(lp_attributes(item.typeName, 'event_type'))) +
         '</span>',
       );
     }
