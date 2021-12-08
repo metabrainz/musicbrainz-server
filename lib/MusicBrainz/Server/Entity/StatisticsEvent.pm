@@ -2,7 +2,6 @@ package MusicBrainz::Server::Entity::StatisticsEvent;
 
 use Moose;
 use MooseX::Types::URI qw( Uri );
-use MooseX::Types::Moose qw( Str );
 
 has 'date' => (
     is => 'rw',

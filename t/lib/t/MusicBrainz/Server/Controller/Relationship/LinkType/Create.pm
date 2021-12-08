@@ -28,10 +28,10 @@ test 'Creating new relationship types under /relationship/artist-artist as admin
     $mech->get_ok('/relationships/artist-artist/create');
     html_ok($mech->content);
     my @edits = capture_edits {
-        my $response = $mech->submit_form(
+        $mech->submit_form(
             with_fields => {
                 'linktype.child_order' => $child_order,
-                'linktype.name' => $child_order,
+                'linktype.name' => $name,
                 'linktype.link_phrase' => $forward_lp,
                 'linktype.reverse_link_phrase' => $reverse_lp,
                 'linktype.long_link_phrase' => $long_lp,
@@ -50,6 +50,7 @@ test 'Creating new relationship types under /relationship/artist-artist as admin
     is($data->{$_->[0]}, $_->[1], 'Setting ' . $_->[0])
         for ( [ entity0_type => 'artist' ],
               [ entity1_type => 'artist' ],
+              [ name => $name ],
               [ link_phrase => $forward_lp ],
               [ long_link_phrase => $long_lp ],
               [ reverse_link_phrase => $reverse_lp ],

@@ -14,10 +14,9 @@ use MusicBrainz::Server::Constants qw( $VARTIST_GID $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
-use MusicBrainz::Server::Log qw( log_debug );
-use MusicBrainz::Server::Replication ':replication_type';
+use MusicBrainz::Server::Replication qw( :replication_type );
 use aliased 'MusicBrainz::Server::Translation';
-use MusicBrainz::Server::Translation 'l';
+use MusicBrainz::Server::Translation qw ( l );
 
 Readonly my $IP_STORE_EXPIRES => (60 * 60 * 24 * 30 * 6); # 6 months
 
@@ -445,8 +444,6 @@ and also the current user.
 sub end : ActionClass('RenderView')
 {
     my ($self, $c) = @_;
-
-    my $attrs = $c->action->attributes;
 
     $c->stash->{server_details} = {
         %{ $c->stash->{server_details} // {} },

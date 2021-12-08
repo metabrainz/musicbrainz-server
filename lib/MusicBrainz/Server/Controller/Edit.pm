@@ -12,6 +12,7 @@ use MusicBrainz::Server::Edit::Utils qw( status_names );
 use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::Validation qw( is_database_row_id );
 use MusicBrainz::Server::EditSearch::Query;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_hash );
 use MusicBrainz::Server::Data::Utils qw( type_to_model load_everything_for_edits );
 use MusicBrainz::Server::Translation qw( N_l );
 use List::AllUtils qw( sort_by );
@@ -73,10 +74,11 @@ sub data : Chained('load') RequireAuth
     my $edit = $c->stash->{edit};
 
     my $accept = $c->req->header('Accept');
+    my $decoded_raw_data = $c->json->decode($edit->raw_data);
     if ($accept eq 'application/json') {
         $c->res->content_type('application/json; charset=utf-8');
         $c->res->body($c->json_utf8->encode({
-            data => $c->json->decode($edit->raw_data),
+            data => $decoded_raw_data,
             status => $edit->status,
             type => $edit->edit_type,
         }));
@@ -86,11 +88,20 @@ sub data : Chained('load') RequireAuth
     my $related = $c->model('Edit')->get_related_entities($edit);
     my %entities;
     while (my ($type, $ids) = each %$related) {
-        $entities{$type} = $c->model(type_to_model($type))->get_by_ids(@$ids) if @$ids;
+        $entities{$type} = to_json_hash(
+            $c->model(type_to_model($type))->get_by_ids(@$ids)
+         ) if @$ids;
     }
 
-    $c->stash( related_entities => \%entities,
-               template => 'edit/data.tt' );
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'edit/EditData',
+        component_props => {
+            edit => $edit->TO_JSON,
+            rawData => $c->json->pretty->encode($decoded_raw_data),
+            relatedEntities => \%entities,
+        },
+    );
 }
 
 sub enter_votes : Local RequireAuth DenyWhenReadonly

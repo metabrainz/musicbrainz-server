@@ -84,9 +84,9 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
             ),
             action: self._searchAgain.bind(self),
           }, {
-            label: self.indexedSearch ?
-              l('Try with direct search instead.') :
-              l('Try with indexed search instead.'),
+            label: self.indexedSearch
+              ? l('Try with direct search instead.')
+              : l('Try with indexed search instead.'),
             action: self._searchAgain.bind(self, true),
 
           }]);

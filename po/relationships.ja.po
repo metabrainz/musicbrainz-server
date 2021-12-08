@@ -1284,16 +1284,16 @@ msgstr "これは、アーティストが作成する音が、不要な共振や
 msgid ""
 "This describes an engineer responsible for using a mixing console to mix a "
 "recorded track into a single piece of music suitable for release. For "
-"remixing, see <a href=\"/relationship/7950be4d-13a3-48e7-906b-"
-"5af562e39544\">remixer</a>."
+"remixing, see <a "
+"href=\"/relationship/7950be4d-13a3-48e7-906b-5af562e39544\">remixer</a>."
 msgstr "これは、ミキシングコンソールを使用して、録音されたトラックをリリースに適した単一の音楽にミキシングする責任があるエンジニアについて説明している。 リミックスについては、<a href=\"/relationship/7950be4d-13a3-48e7-906b-5af562e39544\">リミキサー</a>を参照のこと。"
 
 #: DB:link_type/description:26
 msgid ""
 "This describes an engineer responsible for using a mixing console to mix a "
 "recorded track into a single piece of music suitable for release. For "
-"remixing, see <a href=\"/relationship/ac6a86db-f757-4815-a07e-"
-"744428d2382b\">remixer</a>."
+"remixing, see <a "
+"href=\"/relationship/ac6a86db-f757-4815-a07e-744428d2382b\">remixer</a>."
 msgstr "これは、ミキシングコンソールを使用して、録音されたトラックをリリースに適した単一の音楽にミキシングする責任があるエンジニアについて説明している。 リミックスについては、<a href=\"/relationship/ac6a86db-f757-4815-a07e-744428d2382b\">リミキサー</a>を参照のこと。"
 
 #: DB:link_type/description:138 DB:link_type/description:28
@@ -1741,8 +1741,8 @@ msgstr "これは、作品をオーケストレートした人を示す。 オ�
 msgid ""
 "This indicates the person who selected the tracks and the sequence for a "
 "compilation. If the tracks are pitched or blended into each other, it is "
-"more appropriate to credit this person as a <a href=\"/relationship"
-"/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a>."
+"more appropriate to credit this person as a <a "
+"href=\"/relationship/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a>."
 msgstr "これは、編集のためにトラックとシーケンスを選択した人を示す。 トラックが互いにピッチングまたはブレンドされている場合は、この人物を<a href=\"/relationship/9162dedd-790c-446c-838e-240f877dbfe2\">DJミキサー</a>としてクレジットする方が適切である。"
 
 #: DB:link_type/description:147
@@ -1899,9 +1899,9 @@ msgstr "これは、レコーディングをAllmusic上の対応するページ�
 msgid ""
 "This is used to link a release group containing a <a "
 "href=\"/doc/Mix_Terminology#DJ_mix\">DJ-mixed</a> version of a release to "
-"the release group containing the source release. See <a href=\"/relationship"
-"/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a> for crediting the "
-"person who created the DJ-mix."
+"the release group containing the source release. See <a "
+"href=\"/relationship/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a> for"
+" crediting the person who created the DJ-mix."
 msgstr "これは、リリースの<a href=\"/doc/Mix_Terminology#DJ_mix\">DJミックスされた</a>バージョンを含むリリースグループを、ソースリリースを含むリリースグループにリンクするために使用される。 DJミックスを作成した人のクレジットについては、<a href=\"/relationship/9162dedd-790c-446c-838e-240f877dbfe2\">DJミキサー</a>を参照のこと。"
 
 #: DB:link_type/description:284

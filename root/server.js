@@ -10,8 +10,17 @@
 
 'use strict';
 
+const cluster = require('cluster');
+const fs = require('fs');
+const spawnSync = require('child_process').spawnSync;
+
 const Sentry = require('@sentry/node');
+const yargs = require('yargs');
+
+const createServer = require('./server/createServer');
+const {clearRequireCache} = require('./server/utils');
 const DBDefs = require('./static/scripts/common/DBDefs');
+const writeCoverage = require('./utility/writeCoverage');
 
 function sentryInit(config) {
   Sentry.init({
@@ -22,15 +31,7 @@ function sentryInit(config) {
 }
 sentryInit(DBDefs);
 
-const cluster = require('cluster');
-const fs = require('fs');
-const spawnSync = require('child_process').spawnSync;
-
-const createServer = require('./server/createServer');
-const {clearRequireCache} = require('./server/utils');
-const writeCoverage = require('./utility/writeCoverage');
-
-const yargs = require('yargs')
+yargs
   .option('socket', {
     alias: 's',
     default: DBDefs.RENDERER_SOCKET,

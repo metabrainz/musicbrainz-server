@@ -1,6 +1,5 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Artist;
 use Moose;
-use List::AllUtils 'sort_by';
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';

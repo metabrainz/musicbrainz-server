@@ -13,7 +13,7 @@ around '_build_related_entities' => sub
         $self->c->model('Recording')->get_by_ids($self->recording_ids)
     };
 
-    my ($releases, $hits) = $self->c->model('Release')->find_by_recording(
+    my ($releases, undef) = $self->c->model('Release')->find_by_recording(
         [ $self->recording_ids ]
     );
     my @releases = @$releases;

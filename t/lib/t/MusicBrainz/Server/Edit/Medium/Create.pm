@@ -9,7 +9,6 @@ with 't::Context';
 BEGIN { use MusicBrainz::Server::Edit::Medium::Create; }
 
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_CREATE );
-use MusicBrainz::Server::Constants qw( $STATUS_APPLIED );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';

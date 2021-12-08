@@ -1,9 +1,6 @@
 package t::MusicBrainz::Server::Controller::User::Donation;
 use Test::Routine;
-use Test::More;
-use MusicBrainz::Server::Test qw( html_ok );
 
-use FindBin qw($Bin);
 use LWP;
 use LWP::UserAgent::Mockable;
 

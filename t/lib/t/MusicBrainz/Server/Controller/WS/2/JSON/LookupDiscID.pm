@@ -2,7 +2,6 @@ package t::MusicBrainz::Server::Controller::WS::2::JSON::LookupDiscID;
 use utf8;
 use JSON;
 use Test::Routine;
-use Test::More;
 use MusicBrainz::Server::Test ws_test_json => {
     version => 2
 };

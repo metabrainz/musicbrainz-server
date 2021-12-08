@@ -27,7 +27,7 @@ around '_make_request' => sub
             shift(@$challenge); # no value
             $challenge = { @$challenge };  # make rest into a hash
 
-            my ($username, $password) = $self->credentials(
+            $self->credentials(
                 $request->uri->host.':'.$request->uri->port, $challenge->{realm});
 
             my $size = length($request->content);

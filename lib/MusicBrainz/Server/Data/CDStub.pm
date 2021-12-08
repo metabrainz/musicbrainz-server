@@ -9,8 +9,7 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
 );
 use MusicBrainz::Server::Entity::Barcode;
-use MusicBrainz::Server::Exceptions qw( BadData Duplicate );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( is_valid_barcode );
 use Readonly;
 
@@ -180,7 +179,7 @@ sub insert
             lookup_count => int(rand(10)) # FIXME - at least comment why we do this. -- aCiD2
         }, 'id');
 
-        my $cdtoc_id = $self->sql->insert_row('cdtoc_raw', {
+        $self->sql->insert_row('cdtoc_raw', {
             release => $release_id,
             discid => $cdtoc->discid,
             track_count => $cdtoc->track_count,

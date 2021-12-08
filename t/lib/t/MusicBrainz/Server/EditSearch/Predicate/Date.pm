@@ -1,7 +1,6 @@
 package t::MusicBrainz::Server::EditSearch::Predicate::Date;
 use Test::Routine;
 use Test::More;
-use Test::Deep qw( cmp_set );
 
 use aliased 'MusicBrainz::Server::EditSearch::Query';
 use aliased 'MusicBrainz::Server::EditSearch::Predicate::Date' => 'Field';

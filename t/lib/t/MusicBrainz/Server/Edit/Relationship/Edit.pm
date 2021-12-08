@@ -289,7 +289,7 @@ test 'Relationship link_order values are ignored' => sub {
     $c->model('Link')->load($rel);
     $c->model('LinkType')->load($rel->link);
 
-    my $edit = $c->model('Edit')->create(
+    $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
         relationship => $rel,
@@ -336,7 +336,7 @@ test 'Attributes are validated against the new link type, not old one (MBS-7614)
     $c->model('Link')->load($rel);
     $c->model('LinkType')->load($rel->link);
 
-    my $edit = $c->model('Edit')->create(
+    $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
         relationship => $rel,
@@ -372,7 +372,7 @@ test 'Instrument credits can be added to an existing relationship' => sub {
     $c->model('Link')->load($rel);
     $c->model('LinkType')->load($rel->link);
 
-    my $edit = $c->model('Edit')->create(
+    $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
         relationship => $rel,

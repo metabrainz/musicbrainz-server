@@ -3,17 +3,14 @@ use MooseX::Singleton;
 use namespace::autoclean -also => [qw( _expand )];
 
 use DBDefs;
-use Digest::MD5 qw( md5_hex );
 use Digest::MD5::File qw( file_md5_hex );
 use File::Find;
 use File::Slurp qw( read_file );
-use IO::All;
 use JSON qw( decode_json );
 use List::AllUtils qw( uniq );
-use Path::Class qw( dir file );
+use Path::Class qw( file );
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Map );
-use Try::Tiny;
 
 has manifest_mtime => (
     isa => Int,

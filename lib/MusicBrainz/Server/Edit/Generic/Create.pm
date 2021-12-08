@@ -4,7 +4,6 @@ use Moose;
 use MooseX::ABC;
 
 use Clone qw( clone );
-use MusicBrainz::Server::Data::Utils qw( model_to_type );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Insert';

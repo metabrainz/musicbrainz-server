@@ -7,7 +7,6 @@ use MusicBrainz::Server::Data::CountryArea;
 use MusicBrainz::Server::Data::Area;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Form::Utils qw( build_type_info );
-use MusicBrainz::Server::Translation::Statistics qw(l ln);
 use List::AllUtils qw( rev_nsort_by sort_by sum );
 use Date::Calc qw( Today Add_Delta_Days Date_to_Time );
 
@@ -200,7 +199,6 @@ sub coverart : Local
     my $release_status_stats = [];
     my $release_format_stats = [];
     my $type_stats = [];
-    my $per_release_stats = [];
 
     foreach my $stat_name
         (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {

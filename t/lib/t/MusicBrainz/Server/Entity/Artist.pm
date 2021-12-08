@@ -3,7 +3,6 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 
-use Date::Calc qw(This_Year);
 use Hook::LexWrap;
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::ArtistType;

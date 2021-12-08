@@ -1,6 +1,5 @@
 package t::MusicBrainz::Server::Controller::Area::Show;
 use Test::Routine;
-use Test::More;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
 with 't::Mechanize', 't::Context';

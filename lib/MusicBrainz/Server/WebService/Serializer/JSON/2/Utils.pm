@@ -332,8 +332,6 @@ sub serialize_tags {
 sub serialize_type {
     my ($into, $entity, $inc, $stash, $toplevel) = @_;
 
-    my $entity_type = $entity->entity_type;
-
     my $type = $entity->type;
     $into->{type} = defined $type ? $type->name : JSON::null;
     $into->{'type-id'} = defined $type ? $type->gid : JSON::null;

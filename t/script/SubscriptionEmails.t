@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Magpie::ArgumentMatcher qw( anything hash set );
+use Test::Magpie::ArgumentMatcher qw( anything hash );
 use Test::Magpie qw( mock when inspect verify );
 use Test::Routine;
 use Test::Routine::Util;

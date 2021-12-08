@@ -1,10 +1,8 @@
 package MusicBrainz::Server::Edit::Historic::EditLink;
 use Moose;
 
-use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
-use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date upgrade_type );
+use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_LINK );
-use MusicBrainz::Server::Data::Utils qw( remove_equal type_to_model );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Link';

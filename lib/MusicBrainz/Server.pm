@@ -6,14 +6,12 @@ BEGIN { extends 'Catalyst' }
 use Class::Load qw( load_class );
 use DBDefs;
 use Digest::SHA qw( sha256 );
-use Encode;
 use JSON;
 use MIME::Base64 qw( encode_base64 );
 use Moose::Util qw( does_role );
 use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
     datetime_to_iso8601
-    generate_token
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Log qw( logger );

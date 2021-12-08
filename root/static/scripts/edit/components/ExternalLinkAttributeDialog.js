@@ -9,16 +9,12 @@
 
 import * as React from 'react';
 import mutate from 'mutate-cow';
+
 import ButtonPopover from '../../common/components/ButtonPopover';
 import type {
   LinkRelationshipT,
   LinkStateT,
 } from '../externalLinks';
-import DateRangeFieldset, {
-  partialDateFromField,
-  runReducer as runDateRangeFieldsetReducer,
-  type ActionT as DateRangeFieldsetActionT,
-} from './DateRangeFieldset';
 import {
   createCompoundField,
   createField,
@@ -28,6 +24,12 @@ import {
   hasSubfieldErrors,
 } from '../../../../utility/subfieldErrors';
 import {copyDatePeriodField} from '../utility/copyFieldData';
+
+import DateRangeFieldset, {
+  partialDateFromField,
+  runReducer as runDateRangeFieldsetReducer,
+  type ActionT as DateRangeFieldsetActionT,
+} from './DateRangeFieldset';
 
 type PropsT = {
   onConfirm: ($ReadOnly<$Partial<LinkStateT>>) => void,

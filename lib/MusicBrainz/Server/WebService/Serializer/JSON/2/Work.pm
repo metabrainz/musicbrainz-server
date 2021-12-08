@@ -1,5 +1,4 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Work;
-use List::AllUtils qw( sort_by );
 use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
     serialize_type

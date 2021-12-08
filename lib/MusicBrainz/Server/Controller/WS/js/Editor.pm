@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::WS::js::Editor;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
 
-use Text::Trim 'trim';
+use Text::Trim qw( trim );
 
 my $ws_defs = Data::OptList::mkopt([
     'editor' => {

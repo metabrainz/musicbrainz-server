@@ -76,8 +76,6 @@ test 'Send with releases' => sub {
 test 'Doesnt notify on no releases' => sub {
     my $test = shift;
 
-    my @new_releases = (Release->new);
-
     when($c->model('WatchArtist'))->find_editors_to_notify
         ->then_return($acid2);
     when($c->model('WatchArtist'))->find_new_releases($acid2->id)

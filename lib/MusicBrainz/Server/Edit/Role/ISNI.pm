@@ -4,7 +4,7 @@ use Moose::Role;
 use utf8;
 
 use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT );
-use MusicBrainz::Server::Data::Utils qw( localized_note type_to_model );
+use MusicBrainz::Server::Data::Utils qw( localized_note );
 use MusicBrainz::Server::Translation qw( N_ln );
 use Set::Scalar;
 

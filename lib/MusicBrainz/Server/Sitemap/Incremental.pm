@@ -6,7 +6,6 @@ use warnings;
 use feature 'state';
 
 use Digest::SHA qw( sha1_hex );
-use File::Temp qw( tempdir );
 use JSON qw( decode_json );
 use List::AllUtils qw( partition_by );
 use Moose;

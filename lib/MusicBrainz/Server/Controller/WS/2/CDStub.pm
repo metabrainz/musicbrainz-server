@@ -3,7 +3,6 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use MusicBrainz::Server::WebService::XML::XPath;
-use Readonly;
 use Try::Tiny;
 
 my $ws_defs = Data::OptList::mkopt([

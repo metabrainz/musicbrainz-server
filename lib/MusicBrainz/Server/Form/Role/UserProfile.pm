@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::Role::UserProfile;
 use HTML::FormHandler::Moose::Role;
 use List::AllUtils qw( all any );
 use MusicBrainz::Server::Form::Utils qw( language_options select_options_tree validate_username );
-use MusicBrainz::Server::Translation qw( l ln N_l );
+use MusicBrainz::Server::Translation qw( l N_l );
 use MusicBrainz::Server::Validation qw( is_valid_url );
 
 has_field 'username' => (

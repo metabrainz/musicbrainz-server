@@ -9,9 +9,6 @@ use utf8;
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
-use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_CREATE
-                                       $EDIT_HISTORIC_ADD_TRACK
-                                       $EDIT_HISTORIC_ADD_TRACK_KV );
 
 with 't::Context';
 

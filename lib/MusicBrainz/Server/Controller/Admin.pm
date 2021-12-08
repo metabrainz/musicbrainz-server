@@ -4,7 +4,7 @@ use Try::Tiny;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
-use MusicBrainz::Server::Translation qw(l ln );
+use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 
 sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves SecureForm

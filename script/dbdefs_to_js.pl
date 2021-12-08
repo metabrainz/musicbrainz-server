@@ -10,8 +10,6 @@ use Readonly;
 
 use MusicBrainz::Server::DatabaseConnectionFactory;
 
-my ($output_path) = @ARGV;
-
 Readonly our @BOOLEAN_DEFS => qw(
     DB_READ_ONLY
     DB_STAGING_SERVER

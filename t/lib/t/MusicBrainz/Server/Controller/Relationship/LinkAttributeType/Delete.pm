@@ -3,8 +3,6 @@ use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
-use HTTP::Request::Common qw( POST );
-
 around run_test => sub {
     my ($orig, $test, @args) = @_;
     $test->c->sql->do(<<~'SQL');

@@ -4,7 +4,6 @@ use MooseX::ABC;
 use MooseX::Types::Moose qw( Int HashRef Maybe Object Str );
 
 use MusicBrainz::Server::Translation qw( l );
-use URI::Escape qw( uri_escape uri_unescape );
 
 extends 'MusicBrainz::Server::Edit';
 

@@ -4,7 +4,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use MusicBrainz::Server::Data::Utils qw( load_everything_for_edits );
-use MusicBrainz::Server::Constants ':edit_status';
+use MusicBrainz::Server::Constants qw( :edit_status );
 
 __PACKAGE__->config(
     paging_limit => 50,
@@ -216,7 +216,7 @@ sub all : Chained('/user/load') PathPart('edits') RequireAuth HiddenOnSlaves {
 
 sub votes : Chained('/user/load') PathPart('votes') RequireAuth HiddenOnSlaves {
     my ($self, $c) = @_;
-    my $edits = $self->_edits($c, sub {
+    $self->_edits($c, sub {
         return $c->model('Edit')->find_by_voter($c->stash->{user}->id, shift, shift);
     });
     $c->stash( voter => $c->stash->{user} );

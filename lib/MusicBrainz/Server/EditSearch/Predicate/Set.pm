@@ -2,8 +2,6 @@ package MusicBrainz::Server::EditSearch::Predicate::Set;
 use Moose;
 use namespace::autoclean;
 
-use MusicBrainz::Server::Data::Utils qw( placeholders );
-
 with 'MusicBrainz::Server::EditSearch::Predicate';
 
 sub operator_cardinality_map {

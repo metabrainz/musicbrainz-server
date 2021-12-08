@@ -6,8 +6,8 @@ use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 use Moose::Util::TypeConstraints;
-use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
-use MooseX::Types::Structured qw( Dict Optional );
+use MooseX::Types::Moose qw( Str Int );
+use MooseX::Types::Structured qw( Dict );
 
 use aliased 'MusicBrainz::Server::Entity::Instrument';
 

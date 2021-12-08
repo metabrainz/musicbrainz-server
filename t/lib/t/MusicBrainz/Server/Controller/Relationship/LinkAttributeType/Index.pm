@@ -1,7 +1,7 @@
 package t::MusicBrainz::Server::Controller::Relationship::LinkAttributeType::Index;
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( capture_edits html_ok test_xpath_html );
+use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
 
 around run_test => sub {
     my ($orig, $test, @args) = @_;

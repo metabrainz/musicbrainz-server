@@ -178,6 +178,8 @@ rules:
   object-curly-spacing: [warn, never]
   object-property-newline: [warn, {allowAllPropertiesOnSameLine: true}]
   one-var: [warn, never]
+  operator-assignment: [warn, always]
+  operator-linebreak: [warn]
   padded-blocks: [warn, never]
   quote-props: [warn, consistent-as-needed, {numbers: true}]
   quotes: [warn, single, {avoidEscape: true,
@@ -186,6 +188,9 @@ rules:
   semi-spacing: [warn, {before: false, after: true}]
   semi-style: [warn, last]
   space-before-blocks: [warn, always]
+  space-before-function-paren: [warn, {anonymous: always,
+                                       named: never,
+                                       asyncArrow: always}]
   space-in-parens: [warn, never]
   space-infix-ops: [warn, {int32Hint: true}]
   space-unary-ops: [warn, {words: true, nonwords: false}]
@@ -219,10 +224,13 @@ rules:
 
   import/export: error
   import/extensions: [warn, never]
+  import/first: warn
   import/newline-after-import: [warn, {count: 1}]
+  import/no-commonjs: error
   import/no-duplicates: warn
   import/no-dynamic-require: error
   import/no-unresolved: error
+  import/order: [warn, {newlines-between: always}]
 
   #######################
   # eslint-plugin-react #
@@ -346,4 +354,5 @@ rules:
   # eslint-plugin-react-hooks #
   #############################
 
+  react-hooks/exhaustive-deps: error
   react-hooks/rules-of-hooks: error

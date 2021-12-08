@@ -33,17 +33,9 @@ rules:
                        "N_lp",
                      ]}]
   consistent-this: [warn, self]
-  operator-assignment: [warn, always]
-  operator-linebreak: [warn, after, {overrides: {?: before, :: before}}]
   sort-keys: [warn, asc, {caseSensitive: false, natural: true}]
-  space-before-function-paren: [warn, {anonymous: always,
-                                       named: never,
-                                       asyncArrow: always}]
   no-var: warn
   prefer-const: warn
-  import/first: warn
-  import/no-commonjs: error
-  import/order: [warn, {newlines-between: always}]
   react/no-access-state-in-setstate: error
   react/no-multi-comp: [warn, {ignoreStateless: true}]
   react/no-render-return-value: warn
@@ -51,4 +43,3 @@ rules:
   react/jsx-no-bind: [warn, {ignoreDOMComponents: true}]
   flowtype/no-types-missing-file-annotation: error
   flowtype/no-weak-types: warn
-  react-hooks/exhaustive-deps: warn

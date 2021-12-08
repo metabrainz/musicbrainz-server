@@ -30,7 +30,7 @@ my $request = POST $mech->uri, [
     'edit-release-group.artist_credit.names.0.artist.id' => '3',
 ];
 
-my $response = $mech->request($request);
+$mech->request($request);
 ok($mech->success);
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);

@@ -60,8 +60,8 @@ test 'Entering the same edit twice is OK' => sub {
     my $second_edit = $test->_build_edit;
     accept_edit($test->c, $second_edit);
 
-    accept_edit($test->c, $test->edit);
-    is($test->edit->status, $STATUS_APPLIED);
+    accept_edit($test->c, $original_edit);
+    is($original_edit->status, $STATUS_APPLIED);
 
     my $url = $test->c->model('URL')->get_by_id(2);
     is($url->url, 'http://apple.com/');

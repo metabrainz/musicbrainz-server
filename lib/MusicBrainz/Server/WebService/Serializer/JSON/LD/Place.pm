@@ -1,6 +1,5 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::LD::Place;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Genre';

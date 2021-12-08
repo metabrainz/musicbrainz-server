@@ -19,7 +19,7 @@ test all => sub {
 
     $mech->get_ok('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/alias/1/edit');
 
-    my $response = $mech->submit_form(
+    $mech->submit_form(
         with_fields => {
             'edit-alias.name' => 'brand new alias',
             # HTML::Form doesn't understand selected=""
@@ -55,7 +55,7 @@ test all => sub {
     # A sortname isn't required (MBS-6896)
     ($edit) = capture_edits {
         $mech->get_ok('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/alias/1/edit');
-        my $response = $mech->submit_form(
+        $mech->submit_form(
             with_fields => {
                 'edit-alias.name' => 'Edit #2',
                 'edit-alias.sort_name' => '',

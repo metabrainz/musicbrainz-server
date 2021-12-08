@@ -7,7 +7,6 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_HISTORIC_EDIT_RELEASE_ATTRS
 );
 use MusicBrainz::Server::Edit::Historic::Utils qw( get_historic_type upgrade_type_and_status );
-use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 

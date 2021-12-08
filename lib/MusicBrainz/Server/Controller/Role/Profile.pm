@@ -24,7 +24,7 @@ role {
             $c->stats->profile(end => 'request');
 
             for my $stat ($c->stats->report) {
-                my ($depth, $name, $duration) = @$stat;
+                my (undef, $name, $duration) = @$stat;
                 if ($name eq 'request' && $duration > $threshold) {
                     $c->log->warn(
                         sprintf('Slow request (%.3fs): %s %s', $duration, $c->req->method, $c->req->uri)

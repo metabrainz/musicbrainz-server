@@ -1,7 +1,6 @@
 package t::MusicBrainz::Server::Data::Blog;
 use Test::Routine;
 use Test::More;
-use Test::Fatal;
 
 use FindBin qw($Bin);
 use LWP::UserAgent::Mockable;

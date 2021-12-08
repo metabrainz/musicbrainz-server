@@ -1,7 +1,6 @@
 package t::MusicBrainz::Server::Entity::EditorWatchPreferences;
 use Test::Routine;
 use Test::Moose;
-use Test::More;
 
 use MusicBrainz::Server::Entity::EditorWatchPreferences;
 

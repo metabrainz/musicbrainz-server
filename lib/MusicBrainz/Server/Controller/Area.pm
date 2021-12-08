@@ -36,7 +36,6 @@ with 'MusicBrainz::Server::Controller::Role::Collection' => {
 
 use Data::Page;
 use HTTP::Status qw( :constants );
-use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Constants qw( $EDIT_AREA_CREATE $EDIT_AREA_EDIT $EDIT_AREA_DELETE $EDIT_AREA_MERGE );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );

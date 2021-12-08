@@ -6,7 +6,7 @@ use warnings;
 use base 'Catalyst::View';
 use IO::Socket::UNIX;
 use DBDefs;
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json non_empty );
+use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::Renderer qw( send_to_renderer );
 
 sub process {

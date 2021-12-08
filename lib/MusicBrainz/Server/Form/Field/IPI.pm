@@ -9,11 +9,11 @@ extends 'HTML::FormHandler::Field::Text';
 apply ([
     {
         transform => sub { return format_ipi(shift) },
-        message => sub { 'This is not a valid IPI.' },
+        message => sub { l('This is not a valid IPI.') },
     },
     {
         check => sub { is_valid_ipi(shift) },
-        message => sub { 'This is not a valid IPI.' },
+        message => sub { l('This is not a valid IPI.') },
     }
 ]);
 

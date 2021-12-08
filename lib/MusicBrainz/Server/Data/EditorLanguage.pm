@@ -2,11 +2,8 @@ package MusicBrainz::Server::Data::EditorLanguage;
 
 use Moose;
 use namespace::autoclean;
-use List::AllUtils qw( rev_nsort_by uniq_by );
+use List::AllUtils qw( rev_nsort_by );
 use MusicBrainz::Server::Entity::EditorLanguage;
-use MusicBrainz::Server::Data::Utils qw(
-    load_subobjects
-);
 
 extends 'MusicBrainz::Server::Data::Entity';
 

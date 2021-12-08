@@ -3,8 +3,6 @@ use Test::Routine;
 use Test::More;
 use utf8;
 
-use MusicBrainz::Server::Test qw( html_ok );
-
 with 't::Context', 't::Mechanize';
 
 test 'Can rate' => sub {

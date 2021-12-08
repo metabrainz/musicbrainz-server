@@ -9,7 +9,7 @@ BEGIN { use MusicBrainz::Server::Edit::Release::Merge };
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MERGE $STATUS_APPLIED $STATUS_ERROR );
 use MusicBrainz::Server::Data::Release;
-use MusicBrainz::Server::Test qw( accept_edit reject_edit );
+use MusicBrainz::Server::Test qw( accept_edit );
 
 test all => sub {
 

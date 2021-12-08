@@ -3,11 +3,14 @@ package MusicBrainz::Server::WebService::JSONSerializer;
 use Class::Load qw( load_class );
 use Moose;
 use JSON;
-use List::AllUtils qw( any sort_by );
+use List::AllUtils qw( sort_by );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
-use MusicBrainz::Server::Data::Utils qw( non_empty ref_to_type type_to_model );
+use MusicBrainz::Server::Data::Utils qw( ref_to_type type_to_model );
 use MusicBrainz::Server::WebService::WebServiceInc;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of number serializer serialize_entity );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
+    number
+    serialize_entity
+);
 
 sub mime_type { 'application/json' }
 sub fmt { 'json' }
@@ -224,7 +227,7 @@ sub _with_primary_alias {
         for my $result (@$results) {
             my $out = $renderer->($result);
 
-            my ($primary_alias, @others) =
+            my ($primary_alias) =
                 reverse sort {
                     my $pref_a = $alias_preference{$munge_lang->($a->locale)};
                     my $pref_b = $alias_preference{$munge_lang->($b->locale)};

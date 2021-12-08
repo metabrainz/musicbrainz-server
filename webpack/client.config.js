@@ -8,9 +8,10 @@
 
 /* eslint-disable import/no-commonjs */
 
-const canonicalJson = require('canonical-json');
 const fs = require('fs');
 const path = require('path');
+
+const canonicalJson = require('canonical-json');
 const shell = require('shelljs');
 const shellQuote = require('shell-quote');
 const TerserPlugin = require('terser-webpack-plugin');

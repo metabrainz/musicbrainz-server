@@ -12,8 +12,11 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
-use MusicBrainz::Server::Data::Utils qw( model_to_type type_to_model load_everything_for_edits );
-use MusicBrainz::Server::Constants qw( :edit_status entities_with %ENTITIES );
+use MusicBrainz::Server::Data::Utils qw(
+    load_everything_for_edits
+    type_to_model
+);
+use MusicBrainz::Server::Constants qw( :edit_status entities_with );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 sub base : Chained('/') PathPart('collection') CaptureArgs(0) { }
@@ -50,7 +53,6 @@ sub own_collection : Chained('load') CaptureArgs(0) RequireAuth {
 sub collection_collaborator : Chained('load') CaptureArgs(0) RequireAuth {
     my ($self, $c) = @_;
 
-    my $collection = $c->stash->{collection};
     $c->detach('/error_403') if !$c->stash->{is_collection_collaborator};
 }
 

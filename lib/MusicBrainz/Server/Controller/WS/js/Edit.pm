@@ -3,7 +3,6 @@ use DBDefs;
 use File::Spec::Functions qw( catdir );
 use HTML::Entities qw( encode_entities );
 use JSON qw( encode_json );
-use List::AllUtils qw( any );
 use Moose;
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CREATE

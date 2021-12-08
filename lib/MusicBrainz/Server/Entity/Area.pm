@@ -1,12 +1,11 @@
 package MusicBrainz::Server::Entity::Area;
 
 use Moose;
-use MusicBrainz::Server::Constants qw( $AREA_TYPE_COUNTRY );
 use MusicBrainz::Server::Translation::Countries qw( l );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
-use List::AllUtils qw( first nsort_by );
+use List::AllUtils qw( first );
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Taggable';

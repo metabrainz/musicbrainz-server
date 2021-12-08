@@ -2,7 +2,6 @@ package MusicBrainz::Server::Form::Role::CSRFToken;
 
 use utf8;
 use HTML::FormHandler::Moose::Role;
-use MusicBrainz::Server::Data::Utils qw( generate_token );
 use MusicBrainz::Server::Translation qw( l N_l );
 
 my $error_message = N_l(

@@ -10,7 +10,7 @@ use MusicBrainz::Server::Constants qw( :edit_status :vote );
 use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality %ENTITIES entities_with );
 use MusicBrainz::Server::Data::Relationship;
 use MusicBrainz::Server::Translation::Statistics qw( l );
-use MusicBrainz::Server::Replication ':replication_type';
+use MusicBrainz::Server::Replication qw( :replication_type );
 
 use DBDefs;
 
