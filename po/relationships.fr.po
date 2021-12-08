@@ -1305,16 +1305,16 @@ msgstr "Ceci décrit un technicien devant s’assurer que les sons produits par 
 msgid ""
 "This describes an engineer responsible for using a mixing console to mix a "
 "recorded track into a single piece of music suitable for release. For "
-"remixing, see <a href=\"/relationship/7950be4d-13a3-48e7-906b-"
-"5af562e39544\">remixer</a>."
+"remixing, see <a "
+"href=\"/relationship/7950be4d-13a3-48e7-906b-5af562e39544\">remixer</a>."
 msgstr "Ceci décrit un ingénieur responsable de l’utilisation d’une console de mixage pour mélanger une piste enregistrée en une pièce musicale appropriée pour la parution. Pour le remixage, voir <a href=\"/relationship/7950be4d-13a3-48e7-906b-5af562e39544\">remixeur</a>."
 
 #: DB:link_type/description:26
 msgid ""
 "This describes an engineer responsible for using a mixing console to mix a "
 "recorded track into a single piece of music suitable for release. For "
-"remixing, see <a href=\"/relationship/ac6a86db-f757-4815-a07e-"
-"744428d2382b\">remixer</a>."
+"remixing, see <a "
+"href=\"/relationship/ac6a86db-f757-4815-a07e-744428d2382b\">remixer</a>."
 msgstr "Ceci décrit un ingénieur responsable de l’utilisation d’une console de mixage pour mélanger une piste enregistrée en une pièce musicale appropriée pour la parution. Pour le remixage, voir <a href=\"/relationship/ac6a86db-f757-4815-a07e-744428d2382b\">remixeur</a>."
 
 #: DB:link_type/description:138 DB:link_type/description:28
@@ -1762,8 +1762,8 @@ msgstr "Ceci indique la personne ayant orchestré l’œuvre. L’orchestration 
 msgid ""
 "This indicates the person who selected the tracks and the sequence for a "
 "compilation. If the tracks are pitched or blended into each other, it is "
-"more appropriate to credit this person as a <a href=\"/relationship"
-"/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a>."
+"more appropriate to credit this person as a <a "
+"href=\"/relationship/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a>."
 msgstr "Ceci indique la personne qui a choisi les pistes et la séquence pour une compilation. Si la vitesse des pistes a été modifiée ou si elles se fondent l’une en l’autre, il est plus pertinent de donner le crédit à cette personne en tant que <a href=\"/relationship/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixeur</a>."
 
 #: DB:link_type/description:147
@@ -1920,9 +1920,9 @@ msgstr "Ceci est utilisé pour relier un enregistrement à sa page correspondant
 msgid ""
 "This is used to link a release group containing a <a "
 "href=\"/doc/Mix_Terminology#DJ_mix\">DJ-mixed</a> version of a release to "
-"the release group containing the source release. See <a href=\"/relationship"
-"/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a> for crediting the "
-"person who created the DJ-mix."
+"the release group containing the source release. See <a "
+"href=\"/relationship/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a> for"
+" crediting the person who created the DJ-mix."
 msgstr "Ceci est utilisé pour relier un groupe de parution contenant une version <a href=\"/doc/Mix_Terminology#DJ_mix\">mixée par un DJ</a> d’une parution au groupe de parution contenant la parution source. Consultez <a href=\"/relationship/9162dedd-790c-446c-838e-240f877dbfe2\" DJ mixeur</a> pour créditer la personne ayant créé le DJ-mix."
 
 #: DB:link_type/description:284

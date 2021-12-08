@@ -1282,16 +1282,16 @@ msgstr "Dit geeft de technicus aan die verantwoordelijk was voor een goede gelui
 msgid ""
 "This describes an engineer responsible for using a mixing console to mix a "
 "recorded track into a single piece of music suitable for release. For "
-"remixing, see <a href=\"/relationship/7950be4d-13a3-48e7-906b-"
-"5af562e39544\">remixer</a>."
+"remixing, see <a "
+"href=\"/relationship/7950be4d-13a3-48e7-906b-5af562e39544\">remixer</a>."
 msgstr "Dit geeft de technicus aan die verantwoordelijk was voor het gebruik van het mengpaneel om een opgenomen nummer te mixen in een stuk muziek dat geschikt is om uit te geven. Zie voor remixen <a href=\"/relationship/7950be4d-13a3-48e7-906b-5af562e39544\">remixer</a>."
 
 #: DB:link_type/description:26
 msgid ""
 "This describes an engineer responsible for using a mixing console to mix a "
 "recorded track into a single piece of music suitable for release. For "
-"remixing, see <a href=\"/relationship/ac6a86db-f757-4815-a07e-"
-"744428d2382b\">remixer</a>."
+"remixing, see <a "
+"href=\"/relationship/ac6a86db-f757-4815-a07e-744428d2382b\">remixer</a>."
 msgstr "Dit geeft de technicus aan die verantwoordelijk was voor het gebruik van het mengpaneel om een opgenomen nummer te mixen in een stuk muziek dat geschikt is om uit te geven. Zie voor remixen <a href=\"/relationship/ac6a86db-f757-4815-a07e-744428d2382b\">remixer</a>."
 
 #: DB:link_type/description:138 DB:link_type/description:28
@@ -1739,8 +1739,8 @@ msgstr "Dit geeft de persoon aan die de compositie orkestreerde. Orkestratie is 
 msgid ""
 "This indicates the person who selected the tracks and the sequence for a "
 "compilation. If the tracks are pitched or blended into each other, it is "
-"more appropriate to credit this person as a <a href=\"/relationship"
-"/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a>."
+"more appropriate to credit this person as a <a "
+"href=\"/relationship/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a>."
 msgstr "Dit geeft de persoon aan die de opnames selecteerde en de volgorde van een compilatie bepaalde. Als de opnames in elkaar overlopen, kan deze persoon beter als <a href=\"/relationship/9162dedd-790c-446c-838e-240f877dbfe2\">mix-dj</a> worden beschreven."
 
 #: DB:link_type/description:147
@@ -1897,9 +1897,9 @@ msgstr "Deze relatie koppelt een opname aan zijn Allmusic-pagina."
 msgid ""
 "This is used to link a release group containing a <a "
 "href=\"/doc/Mix_Terminology#DJ_mix\">DJ-mixed</a> version of a release to "
-"the release group containing the source release. See <a href=\"/relationship"
-"/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a> for crediting the "
-"person who created the DJ-mix."
+"the release group containing the source release. See <a "
+"href=\"/relationship/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a> for"
+" crediting the person who created the DJ-mix."
 msgstr "Deze relatie wordt gebruikt om een uitgavegroep met een <a href=\"/doc/Mix_Terminology#DJ_mix\">door een dj gemixte</a> versie van een uitgave te koppelen aan de uitgavegroep met de oorspronkelijke uitgave. Zie <a href=\"/relationship/9162dedd-790c-446c-838e-240f877dbfe2\">dj-mixer</a> voor de persoon die hiervoor verantwoordelijk is."
 
 #: DB:link_type/description:284
