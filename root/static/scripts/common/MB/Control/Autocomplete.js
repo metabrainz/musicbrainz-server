@@ -713,7 +713,7 @@ MB.Control.autocomplete_formatters = {
 
       a.append(
         '<br /><span class="autocomplete-appears">' +
-        he.escape(addColon(l('appears on'))) + ' ' +
+        he.escape(addColonText(l('appears on'))) + ' ' +
         he.escape(commaOnlyList(rgs)) + '</span>',
       );
     } else if (item.appearsOn && item.appearsOn.hits === 0) {
@@ -726,7 +726,7 @@ MB.Control.autocomplete_formatters = {
     if (item.isrcs && item.isrcs.length) {
       a.append(
         '<br /><span class="autocomplete-isrcs">' +
-        he.escape(addColon(l('ISRCs'))) + ' ' +
+        he.escape(addColonText(l('ISRCs'))) + ' ' +
         he.escape(commaOnlyList(item.isrcs.map(isrc => isrc.isrc))) +
         '</span>',
       );
@@ -872,7 +872,7 @@ MB.Control.autocomplete_formatters = {
     if (item.typeName) {
       a.append(
         '<br /><span class="autocomplete-comment">' +
-        he.escape(addColon(l('Type')) + ' ' +
+        he.escape(addColonText(l('Type')) + ' ' +
         lp_attributes(item.typeName, 'work_type')) + '</span>',
       );
     }

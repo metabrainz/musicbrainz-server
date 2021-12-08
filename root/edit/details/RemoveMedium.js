@@ -25,7 +25,7 @@ const RemoveMedium = ({edit}: Props): React.Element<'table'> => {
   return (
     <table className="details remove-medium">
       <tr>
-        <th>{addColon(l('Medium'))}</th>
+        <th>{addColonText(l('Medium'))}</th>
         <td>
           <MediumLink medium={display.medium} />
         </td>

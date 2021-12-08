@@ -161,7 +161,7 @@ const EditRelease = ({edit}: Props): React.MixedElement => {
 
       {display.update_tracklists /*:: === true */ ? (
         <tr>
-          <th>{addColon(l('Note'))}</th>
+          <th>{addColonText(l('Note'))}</th>
           <td>{l('This edit also changed the track artists.')}</td>
         </tr>
       ) : null}

@@ -65,7 +65,7 @@ import formatTrackLength from './utility/formatTrackLength';
     }
 
     entityTypeLabel() {
-      return addColon(ENTITY_NAMES[this.entityType]());
+      return addColonText(ENTITY_NAMES[this.entityType]());
     }
 
     html(...args) {
