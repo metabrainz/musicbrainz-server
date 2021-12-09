@@ -52,7 +52,7 @@ const AddRelationshipType = ({
       {relType ? (
         <table className="details">
           <tr>
-            <th>{addColon(l('Relationship Type'))}</th>
+            <th>{addColonText(l('Relationship Type'))}</th>
             <td>
               <EntityLink entity={relType} />
             </td>
@@ -170,7 +170,7 @@ const AddRelationshipType = ({
               <ul>
                 {display.attributes.map((attribute, index) => (
                   <li key={'attribute-' + index}>
-                    {addColon(l_relationships(attribute.typeName))}
+                    {addColonText(l_relationships(attribute.typeName))}
                     {' '}
                     {attribute.min}
                     {'-'}

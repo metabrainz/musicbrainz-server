@@ -43,7 +43,7 @@ const FormRowSelectList = <S: {+id: number, ...}>({
   repeatable,
 }: Props<S>): React.Element<typeof FormRow> => (
   <FormRow>
-    <label>{addColon(label)}</label>
+    <label>{addColonText(label)}</label>
     <div className="form-row-select-list">
       {repeatable.field.map((subfield, index) => (
         <div className="select-list-row" key={subfield.id}>

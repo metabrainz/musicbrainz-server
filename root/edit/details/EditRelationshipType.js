@@ -45,7 +45,7 @@ function formatLongLinkPhrase(longLinkPhrase: string): string {
 function formatAttribute(attribute, index) {
   return (
     <li key={'attribute-' + index}>
-      {addColon(l_relationships(attribute.typeName))}
+      {addColonText(l_relationships(attribute.typeName))}
       {' '}
       {attribute.min}
       {'-'}
@@ -140,7 +140,7 @@ const EditRelationshipType = ({
       {relType ? (
         <table className="details">
           <tr>
-            <th>{addColon(l('Relationship Type'))}</th>
+            <th>{addColonText(l('Relationship Type'))}</th>
             <td>
               <EntityLink entity={relType} />
             </td>

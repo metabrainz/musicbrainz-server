@@ -24,7 +24,7 @@ const AddReleaseAnnotation = ({edit}: Props): React.Element<'table'> => {
         releases={display.releases}
       />
       <tr>
-        <th>{addColon(l('Text'))}</th>
+        <th>{addColonText(l('Text'))}</th>
         <td>
           {display.html
             ? (
@@ -42,7 +42,7 @@ const AddReleaseAnnotation = ({edit}: Props): React.Element<'table'> => {
       </tr>
       {display.changelog ? (
         <tr>
-          <th>{addColon(l('Summary'))}</th>
+          <th>{addColonText(l('Summary'))}</th>
           <td>
             {display.changelog}
           </td>

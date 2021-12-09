@@ -187,7 +187,7 @@ const RelationshipTypePairTree = ({
         </p>
 
         <h2>
-          {exp.l(
+          {texp.l(
             '{type0}-{type1} relationship types',
             {type0: formattedType0, type1: formattedType1},
           )}
@@ -196,7 +196,7 @@ const RelationshipTypePairTree = ({
         {isRelationshipEditor($c.user) ? (
           <p>
             <a href={'/relationships/' + type0 + '-' + type1 + '/create'}>
-              {exp.l(
+              {texp.l(
                 'Create a new {type0}-{type1} relationship',
                 {type0: formattedType0, type1: formattedType1},
               )}
@@ -230,7 +230,7 @@ const RelationshipTypePairTree = ({
           </>
         ) : (
           <p>
-            {exp.l(
+            {texp.l(
               'No {type0}-{type1} relationship types found.',
               {type0: formattedType0, type1: formattedType1},
             )}

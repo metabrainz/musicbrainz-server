@@ -11,7 +11,8 @@ import * as React from 'react';
 
 import formatEntityTypeName
   from '../../static/scripts/common/utility/formatEntityTypeName';
-import bracketed from '../../static/scripts/common/utility/bracketed';
+import bracketed, {bracketedText}
+  from '../../static/scripts/common/utility/bracketed';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
@@ -67,7 +68,7 @@ const EditAlias = ({edit}: Props): React.Element<'table'> => {
                 <>
                   {isolateText(aliasName)}
                   {' '}
-                  {bracketed(
+                  {bracketedText(
                     aliasPrimaryForLocale
                       ? texp.l('primary for {locale}',
                                {locale: locales[aliasLocale]})

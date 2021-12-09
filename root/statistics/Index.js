@@ -702,7 +702,7 @@ const Index = ({
             <th colSpan="4">{l('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColon(l('Labels'))}</th>
+            <th colSpan="2">{addColonText(l('Labels'))}</th>
             <td>{fc('label')}</td>
             <td />
           </tr>
@@ -1283,25 +1283,25 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColon(lp('Approve', 'vote'))}</th>
+            <th colSpan="3">{addColonText(lp('Approve', 'vote'))}</th>
             <td>{fc('vote.approve')}</td>
             <td>{fp('vote.approve', 'vote')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColon(lp('Yes', 'vote'))}</th>
+            <th colSpan="3">{addColonText(lp('Yes', 'vote'))}</th>
             <td>{fc('vote.yes')}</td>
             <td>{fp('vote.yes', 'vote')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColon(lp('No', 'vote'))}</th>
+            <th colSpan="3">{addColonText(lp('No', 'vote'))}</th>
             <td>{fc('vote.no')}</td>
             <td>{fp('vote.no', 'vote')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColon(lp('Abstain', 'vote'))}</th>
+            <th colSpan="3">{addColonText(lp('Abstain', 'vote'))}</th>
             <td>{fc('vote.abstain')}</td>
             <td>{fp('vote.abstain', 'vote')}</td>
           </tr>
