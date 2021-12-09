@@ -186,7 +186,7 @@ const UserProfileInformation = ({
               {viewingOwnProfile ? email : l('(hidden)')}
               {' '}
               {nonEmpty(user.email_confirmation_date) ? (
-                exp.l('(verified at {date})', {
+                texp.l('(verified at {date})', {
                   date: formatUserDate($c, user.email_confirmation_date),
                 })
               ) : (

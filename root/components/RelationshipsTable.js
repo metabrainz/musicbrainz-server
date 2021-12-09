@@ -331,7 +331,7 @@ const RelationshipsTable = ({
 
   if (pagedLinkTypeGroup /*:: && pager */) {
     const linkPhrase = getLinkPhraseForGroup(pagedLinkTypeGroup);
-    finalHeading = linkPhrase ? exp.l(
+    finalHeading = linkPhrase ? texp.l(
       '“{link_phrase}” relationships',
       {link_phrase: getLinkPhraseForGroup(pagedLinkTypeGroup)},
     ) : l('Invalid relationship type');
