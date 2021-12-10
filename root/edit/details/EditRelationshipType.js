@@ -106,7 +106,7 @@ const EditRelationshipType = ({
   const documentation = display.documentation;
   const deprecated = display.is_deprecated;
   const hasDates = display.has_dates;
-  const parentId = display.parent_id;
+  const parent = display.parent;
   const linkPhrase = display.link_phrase;
   const reverseLinkPhrase = display.reverse_link_phrase;
   const longLinkPhrase = display.long_link_phrase;
@@ -299,11 +299,11 @@ const EditRelationshipType = ({
           </tr>
         ) : null}
 
-        {parentId ? (
+        {parent ? (
           <FullChangeDiff
             label={l('Parent:')}
-            newContent={parentId.new}
-            oldContent={parentId.old}
+            newContent={parent.new ? <EntityLink entity={parent.new} /> : ''}
+            oldContent={parent.old ? <EntityLink entity={parent.old} /> : ''}
           />
         ) : null}
 
