@@ -709,30 +709,30 @@ sub privileged : Path('/privileged')
 {
     my ($self, $c) = @_;
 
-    my @bots = $c->model('Editor')->find_by_privileges($BOT_FLAG);
-    my @auto_editors = $c->model('Editor')->find_by_privileges($AUTO_EDITOR_FLAG);
-    my @transclusion_editors = $c->model('Editor')->find_by_privileges($WIKI_TRANSCLUSION_FLAG);
-    my @relationship_editors = $c->model('Editor')->find_by_privileges($RELATIONSHIP_EDITOR_FLAG);
-    my @location_editors = $c->model('Editor')->find_by_privileges($LOCATION_EDITOR_FLAG);
-    my @banner_editors = $c->model('Editor')->find_by_privileges($BANNER_EDITOR_FLAG);
-    my @account_admins = $c->model('Editor')->find_by_privileges($ACCOUNT_ADMIN_FLAG);
+    my ($bots, undef) = $c->model('Editor')->find_by_privileges($BOT_FLAG);
+    my ($auto_editors, undef) = $c->model('Editor')->find_by_privileges($AUTO_EDITOR_FLAG);
+    my ($transclusion_editors, undef) = $c->model('Editor')->find_by_privileges($WIKI_TRANSCLUSION_FLAG);
+    my ($relationship_editors, undef) = $c->model('Editor')->find_by_privileges($RELATIONSHIP_EDITOR_FLAG);
+    my ($location_editors, undef) = $c->model('Editor')->find_by_privileges($LOCATION_EDITOR_FLAG);
+    my ($banner_editors, undef) = $c->model('Editor')->find_by_privileges($BANNER_EDITOR_FLAG);
+    my ($account_admins, undef) = $c->model('Editor')->find_by_privileges($ACCOUNT_ADMIN_FLAG);
 
-    $c->model('Editor')->load_preferences(@bots);
-    $c->model('Editor')->load_preferences(@auto_editors);
-    $c->model('Editor')->load_preferences(@transclusion_editors);
-    $c->model('Editor')->load_preferences(@relationship_editors);
-    $c->model('Editor')->load_preferences(@location_editors);
-    $c->model('Editor')->load_preferences(@banner_editors);
-    $c->model('Editor')->load_preferences(@account_admins);
+    $c->model('Editor')->load_preferences(@$bots);
+    $c->model('Editor')->load_preferences(@$auto_editors);
+    $c->model('Editor')->load_preferences(@$transclusion_editors);
+    $c->model('Editor')->load_preferences(@$relationship_editors);
+    $c->model('Editor')->load_preferences(@$location_editors);
+    $c->model('Editor')->load_preferences(@$banner_editors);
+    $c->model('Editor')->load_preferences(@$account_admins);
 
     my %props = (
-        bots => to_json_array(\@bots),
-        autoEditors => to_json_array(\@auto_editors),
-        transclusionEditors => to_json_array(\@transclusion_editors),
-        relationshipEditors => to_json_array(\@relationship_editors),
-        locationEditors => to_json_array(\@location_editors),
-        bannerEditors => to_json_array(\@banner_editors),
-        accountAdmins => to_json_array(\@account_admins),
+        bots => to_json_array($bots),
+        autoEditors => to_json_array($auto_editors),
+        transclusionEditors => to_json_array($transclusion_editors),
+        relationshipEditors => to_json_array($relationship_editors),
+        locationEditors => to_json_array($location_editors),
+        bannerEditors => to_json_array($banner_editors),
+        accountAdmins => to_json_array($account_admins),
     );
 
     $c->stash(

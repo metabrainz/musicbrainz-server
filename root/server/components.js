@@ -41,6 +41,7 @@ module.exports = {
   'admin/IpLookup': require('../admin/IpLookup'),
   'admin/LockedUsernameSearch': require('../admin/LockedUsernameSearch'),
   'admin/LockedUsernameUnlock': require('../admin/LockedUsernameUnlock'),
+  'admin/PrivilegeSearch': require('../admin/PrivilegeSearch'),
   'admin/attributes/Attribute': require('../admin/attributes/Attribute'),
   'admin/attributes/CannotRemoveAttribute': require('../admin/attributes/CannotRemoveAttribute'),
   'admin/attributes/Index': require('../admin/attributes/Index'),

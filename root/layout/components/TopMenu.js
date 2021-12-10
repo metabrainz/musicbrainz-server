@@ -168,6 +168,9 @@ const AdminMenu = ({user}: UserProp) => (
             <a href="/admin/email-search">{l('Email Search')}</a>
           </li>
           <li>
+            <a href="/admin/privilege-search">{l('Privilege Search')}</a>
+          </li>
+          <li>
             <a href="/admin/locked-usernames/search">
               {l('Locked Username Search')}
             </a>
