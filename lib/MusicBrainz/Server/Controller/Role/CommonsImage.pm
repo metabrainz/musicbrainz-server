@@ -2,7 +2,6 @@ package MusicBrainz::Server::Controller::Role::CommonsImage;
 use DBDefs;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
-use List::AllUtils qw( sort_by );
 use namespace::autoclean;
 use Readonly;
 
@@ -15,7 +14,6 @@ Readonly my $WIKIDATA_PROP_LOCATOR_MAP_IMAGE => 'P242';
 after load => sub {
     my ($self, $c) = @_;
 
-    my $entity = $c->stash->{entity};
     $c->stash->{commons_image} = to_json_object($self->_get_commons_image($c, 1));
 };
 

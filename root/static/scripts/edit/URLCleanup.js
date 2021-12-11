@@ -232,6 +232,7 @@ export const LINK_TYPES: LinkTypeMap = {
   },
   streamingpaid: {
     artist: '63cc5d1f-f096-4c94-a43f-ecb32ea94161',
+    label: 'cbe05bdd-a877-4cc6-8060-7ba43a2516ef',
     recording: 'b5f3058a-666c-406f-aafb-f9249fc7b122',
     release: '320adf26-96fa-4183-9045-1f5f32f833cb',
   },
@@ -750,16 +751,6 @@ const CLEANUPS: CleanupEntries = {
               return {result: true};
             }
             return {
-              error: exp.l(
-                `Only Apple Books “{artist_url_pattern}” pages can be added
-                 directly to artists. Please link audiobooks
-                 to the appropriate release instead.`,
-                {
-                  artist_url_pattern: (
-                    <span className="url-quote">{'/author'}</span>
-                  ),
-                },
-              ),
               result: false,
               target: ERROR_TARGETS.ENTITY,
             };
@@ -787,11 +778,55 @@ const CLEANUPS: CleanupEntries = {
   },
   'applemusic': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?music\\.apple\\.com/', 'i')],
+    restrict: [
+      LINK_TYPES.downloadpurchase,
+      LINK_TYPES.streamingpaid,
+      multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
+    ],
     clean: function (url) {
       url = url.replace(/^https?:\/\/(?:(?:beta|geo)\.)?music\.apple\.com\/([a-z]{2}\/)?(artist|album|author|label|music-video)\/(?:[^?#\/]+\/)?(?:id)?([0-9]+)(?:\?.*)?$/, 'https://music.apple.com/$1$2/$3');
       // US page is the default, add its country-code to clarify (MBS-10623)
       url = url.replace(/^(https:\/\/music\.apple\.com)\/([a-z-]{3,})\//, '$1/us/$2/');
       return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/music\.apple\.com\/[a-z]{2}\/([a-z-]{3,})\/[0-9]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.artist:
+          case LINK_TYPES.streamingpaid.artist:
+            if (prefix === 'artist') {
+              return {result: true};
+            }
+            return {
+              result: false,
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.label:
+          case LINK_TYPES.streamingpaid.label:
+            if (prefix === 'label') {
+              return {result: true};
+            }
+            return {
+              result: false,
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.recording:
+          case LINK_TYPES.streamingpaid.recording:
+            return {
+              result: prefix === 'music-video',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.release:
+          case LINK_TYPES.streamingpaid.release:
+            return {
+              result: prefix === 'album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'archive': {
@@ -2298,16 +2333,6 @@ const CLEANUPS: CleanupEntries = {
               return {result: true};
             }
             return {
-              error: exp.l(
-                `Only iTunes “{artist_url_pattern}” pages can be added
-                 directly to artists. Please link albums, videos, etc.
-                 to the appropriate release or recording instead.`,
-                {
-                  artist_url_pattern: (
-                    <span className="url-quote">{'/artist'}</span>
-                  ),
-                },
-              ),
               result: false,
               target: ERROR_TARGETS.ENTITY,
             };
@@ -4475,7 +4500,11 @@ const CLEANUPS: CleanupEntries = {
       '^(https?://)?([^/]+\\.)?vimeo\\.com/(?:ondemand|store/ondemand)',
       'i',
     )],
-    restrict: [LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid],
+    restrict: [
+      LINK_TYPES.downloadpurchase,
+      LINK_TYPES.streamingpaid,
+      multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
+    ],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com\/ondemand\/([^\/?#]+)(?:.*)$/, 'https://vimeo.com/ondemand/$1');
       return url;
@@ -5100,7 +5129,7 @@ export class Checker {
       if (type[sourceType]) {
         result.push(type[sourceType]);
       }
-      return result;
+      return result.sort();
     }, []);
   }
 }

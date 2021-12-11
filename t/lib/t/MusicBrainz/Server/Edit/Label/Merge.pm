@@ -77,7 +77,6 @@ test 'Can merge labels with editors subscribed at both ends' => sub {
     my $edit = create_edit($c);
     $edit->accept;
 
-    my $label = $c->model('Label')->get_by_id(3);
     my @editors = $c->model('Label')->subscription->find_subscribed_editors(3);
 
     is(@editors, 1, '1 subscribed editor');

@@ -30,6 +30,7 @@ import {hasSessionStorage} from '../common/utility/storage';
 import {uniqueId} from '../common/utility/strings';
 import {bracketedText} from '../common/utility/bracketed';
 import {isMalware} from '../../../url/utility/isGreyedOut';
+import {compareDatePeriods} from '../common/utility/compareDates';
 
 import isPositiveInteger from './utility/isPositiveInteger';
 import HelpIcon from './components/HelpIcon';
@@ -38,10 +39,9 @@ import URLInputPopover from './components/URLInputPopover';
 import {linkTypeOptions} from './forms';
 import * as URLCleanup from './URLCleanup';
 import type {RelationshipTypeT} from './URLCleanup';
-import validation from './validation';
+import * as validation from './validation';
 import ExternalLinkAttributeDialog
   from './components/ExternalLinkAttributeDialog';
-import {compareDatePeriods} from '../common/utility/compareDates';
 
 type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
 

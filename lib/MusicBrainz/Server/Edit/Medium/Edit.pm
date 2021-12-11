@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Edit::Medium::Edit;
 use Carp;
-use Clone 'clone';
+use Clone qw( clone );
 use List::AllUtils qw( any );
 use Algorithm::Diff qw( sdiff );
 use Text::Diff3 qw( merge );
@@ -22,15 +22,14 @@ use MusicBrainz::Server::Edit::Medium::Util qw(
     tracklist_foreign_keys
 );
 use MusicBrainz::Server::Edit::Types qw(
-    ArtistCreditDefinition
     Nullable
     NullableOnPreview
 );
 use MusicBrainz::Server::Edit::Medium::Util qw( check_track_hash );
 use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits hash_artist_credit hash_artist_credit_without_join_phrases );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
-use MusicBrainz::Server::Log qw( log_assertion log_debug );
-use MusicBrainz::Server::Validation 'normalise_strings';
+use MusicBrainz::Server::Log qw( log_assertion );
+use MusicBrainz::Server::Validation qw( normalise_strings );
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Track qw( format_track_length );
 use JSON::XS;

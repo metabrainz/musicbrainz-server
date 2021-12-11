@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Form::Event;
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Form::Utils qw( select_options_tree );
-use List::AllUtils qw( sort_by );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';

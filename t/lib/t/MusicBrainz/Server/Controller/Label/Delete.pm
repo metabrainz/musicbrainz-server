@@ -18,7 +18,7 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 
 $mech->get_ok('/label/f34c079d-374e-4436-9448-da92dedef3ce/delete');
 html_ok($mech->content);
-my $response = $mech->submit_form(
+$mech->submit_form(
     with_fields => {
         'confirm.edit_note' => q(This field's required!),
     }

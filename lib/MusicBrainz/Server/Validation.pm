@@ -42,7 +42,7 @@ require Exporter;
 }
 
 use strict;
-use Carp qw( carp cluck croak );
+use Carp qw( carp );
 use List::AllUtils qw( any );
 use Encode qw( decode encode );
 use Scalar::Util qw( looks_like_number );

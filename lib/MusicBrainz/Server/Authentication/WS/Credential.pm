@@ -4,7 +4,6 @@ use parent qw/Catalyst::Authentication::Credential::HTTP/;
 use DBDefs;
 use Encode qw( decode );
 use HTTP::Status qw( HTTP_BAD_REQUEST );
-use MIME::Base64 qw( encode_base64 );
 use Try::Tiny;
 
 sub authenticate

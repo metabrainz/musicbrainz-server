@@ -5,7 +5,7 @@ use utf8;
 use Test::Deep qw( cmp_deeply ignore );
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( capture_edits html_ok );
+use MusicBrainz::Server::Test qw( capture_edits );
 
 with 't::Mechanize', 't::Context';
 

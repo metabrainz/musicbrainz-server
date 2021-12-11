@@ -2,7 +2,6 @@ package MusicBrainz::Server::Data::Statistics::ByName;
 use Moose;
 use namespace::autoclean;
 use namespace::autoclean;
-use MusicBrainz::Server::Data::Utils qw( placeholders );
 
 use MusicBrainz::Server::Entity::Statistics::ByName;
 

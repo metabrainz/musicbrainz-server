@@ -7,7 +7,6 @@ sub find_by_area
 {
     my ($self, $area_id, $limit, $offset) = @_;
     my $area_cols = $self->_area_cols;
-    my $name_column = $self->isa('MusicBrainz::Server::Data::Place') ? 'name' : 'name.name';
     my $query = 'SELECT ' . $self->_columns . '
                  FROM ' . $self->_table . '
                  WHERE ' . join(' OR ', map { $_ . ' = ?' } @$area_cols ) . '

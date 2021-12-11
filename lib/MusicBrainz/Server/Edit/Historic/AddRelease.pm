@@ -15,7 +15,6 @@ use MusicBrainz::Server::Edit::Historic::Utils qw(
     upgrade_date upgrade_id
     upgrade_type_and_status
 );
-use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );

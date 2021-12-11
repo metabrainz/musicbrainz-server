@@ -1,12 +1,9 @@
 package t::MusicBrainz::Server::Controller::UnconfirmedEmailAddresses;
 use Test::Routine;
 use Test::Deep qw( cmp_set );
-use Test::More;
 
-use HTTP::Status ':constants';
+use HTTP::Status qw( :constants );
 use Hook::LexWrap;
-use List::AllUtils 'uniq';
-use MusicBrainz::Server::Test qw( html_ok );
 use Set::Scalar;
 
 with 't::Context', 't::Mechanize';
@@ -14,10 +11,6 @@ with 't::Context', 't::Mechanize';
 my @unconfirmed_email_whitelist;
 
 test 'Paths that allow browsing without a confirmed email address' => sub {
-    my $test = shift;
-    my $c = $test->c;
-    my $mech = $test->mech;
-
     my @actions_without_edit_attribute =
         map {
             my $fqn = $_->fully_qualified_name;

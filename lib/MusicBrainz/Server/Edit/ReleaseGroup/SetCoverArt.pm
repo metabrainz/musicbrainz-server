@@ -2,12 +2,11 @@ package MusicBrainz::Server::Edit::ReleaseGroup::SetCoverArt;
 use Moose;
 use namespace::autoclean;
 
-use MooseX::Types::Moose qw( ArrayRef Int Maybe Str );
+use MooseX::Types::Moose qw( Int Maybe Str );
 use MooseX::Types::Structured qw( Dict );
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_SET_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
@@ -57,7 +56,7 @@ sub initialize {
     my $release = $opts{release} or die 'Release missing';
 
     my %old;
-    my %new = ( release_id => $opts{release}->id );
+    my %new = ( release_id => $release->id );
 
     if ($rg->cover_art && $rg->cover_art->release
         && $self->c->model('ReleaseGroup')->has_cover_art_set($rg->id))

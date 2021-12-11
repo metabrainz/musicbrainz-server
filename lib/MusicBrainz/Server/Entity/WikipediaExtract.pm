@@ -2,8 +2,6 @@ package MusicBrainz::Server::Entity::WikipediaExtract;
 
 use Moose;
 
-use URI::Escape qw( uri_escape_utf8 );
-
 has 'title' => (
     is => 'rw',
     isa => 'Str',

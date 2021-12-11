@@ -207,8 +207,7 @@ sub _aliases_url
 sub _redir_to_aliases
 {
     my ($self, $c) = @_;
-    my $action = $c->controller->action_for('aliases');
-    my $entity = $c->stash->{ $self->{entity_name} };
+
     $c->response->redirect($self->_aliases_url($c));
 }
 

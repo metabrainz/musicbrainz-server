@@ -379,14 +379,25 @@ div.warning img.warning {
     height: 32px;
 }
 
-.error-tab, .private-tab:not(.sel) {
+.ui-tabs .ui-tabs-nav li.error-tab, .private-tab:not(.sel) {
     background-color: @negative-light-bg;
     background-image: data-uri('../images/icons/warning.png');
     background-repeat: no-repeat;
-    background-position: left 0.5em top 0.5em;
     background-size: 16px 16px;
 }
-.error-tab a, .private-tab:not(.sel) a { padding-left: 2em !important; }
+
+.ui-tabs .ui-tabs-nav li.error-tab {
+    background-position: left 0.5em top 0.5em;
+}
+
+.private-tab:not(.sel) {
+    background-position: left 0.25em top 0.25em;
+}
+
+.ui-tabs .ui-tabs-nav li.error-tab a,
+.private-tab:not(.sel) a {
+    padding-left: 2em;
+}
 
 #content,
 #sidebar {

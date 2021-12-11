@@ -30,7 +30,6 @@ use Readonly;
 use Scalar::Util qw( blessed );
 use Text::Trim;
 use Time::Piece;
-use Try::Tiny;
 use URI;
 use XML::XPath;
 
@@ -231,7 +230,6 @@ sub disc_search {
 
     $query = join(' AND ', @query);
 
-    my $no_redirect = 1;
     my $response = $c->model('Search')->external_search($type, $query, $limit, $page, 1);
     my @output;
 

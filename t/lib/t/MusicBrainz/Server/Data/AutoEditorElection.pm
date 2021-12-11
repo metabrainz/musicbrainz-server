@@ -163,7 +163,6 @@ test 'Rejected' => sub {
     my $seconder1 = $c->model('Editor')->get_by_name('autoeditor2');
     my $seconder2 = $c->model('Editor')->get_by_name('autoeditor3');
     my $voter1 = $c->model('Editor')->get_by_name('autoeditor4');
-    my $voter2 = $c->model('Editor')->get_by_name('autoeditor5');
 
     my $election = $c->model('AutoEditorElection')->nominate($candidate, $proposer);
     ok( $election );
@@ -283,10 +282,6 @@ test 'Timeout' => sub {
 
     my $candidate = $c->model('Editor')->get_by_name('noob1');
     my $proposer = $c->model('Editor')->get_by_name('autoeditor1');
-    my $seconder1 = $c->model('Editor')->get_by_name('autoeditor2');
-    my $seconder2 = $c->model('Editor')->get_by_name('autoeditor3');
-    my $voter1 = $c->model('Editor')->get_by_name('autoeditor4');
-    my $voter2 = $c->model('Editor')->get_by_name('autoeditor5');
 
     my $election = $c->model('AutoEditorElection')->nominate($candidate, $proposer);
     ok( $election );
@@ -329,10 +324,6 @@ test 'Cancel' => sub {
 
     my $candidate = $c->model('Editor')->get_by_name('noob1');
     my $proposer = $c->model('Editor')->get_by_name('autoeditor1');
-    my $seconder1 = $c->model('Editor')->get_by_name('autoeditor2');
-    my $seconder2 = $c->model('Editor')->get_by_name('autoeditor3');
-    my $voter1 = $c->model('Editor')->get_by_name('autoeditor4');
-    my $voter2 = $c->model('Editor')->get_by_name('autoeditor5');
 
     my $election = $c->model('AutoEditorElection')->nominate($candidate, $proposer);
     ok( $election );

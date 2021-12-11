@@ -3,10 +3,7 @@ package MusicBrainz::Server::Form::Utils;
 use strict;
 use warnings;
 
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Translation qw( l lp );
-use Text::Trim qw( trim );
-use Unicode::ICU::Collator qw( UCOL_NUMERIC_COLLATION UCOL_ON );
 use List::AllUtils qw( sort_by );
 
 use Sub::Exporter -setup => {

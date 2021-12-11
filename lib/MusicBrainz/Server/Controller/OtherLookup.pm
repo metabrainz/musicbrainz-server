@@ -3,8 +3,6 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use Moose::Util qw( find_meta );
-use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Constants qw( entities_with );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 sub lookup_handler {

@@ -18,7 +18,7 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 
 # Test deleting aliases
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/alias/1/edit');
-my $response = $mech->submit_form(
+$mech->submit_form(
     with_fields => {
         'edit-alias.name' => 'Edited alias',
         # HTML::Form doesn't understand selected=""
@@ -51,7 +51,7 @@ $mech->text_contains('Edited alias', '..has new alias name');
 # A sortname isn't required (MBS-6896)
 ($edit) = capture_edits {
     $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/alias/1/edit');
-    my $response = $mech->submit_form(
+    $mech->submit_form(
         with_fields => {
             'edit-alias.name' => 'Edit #2',
             'edit-alias.sort_name' => '',

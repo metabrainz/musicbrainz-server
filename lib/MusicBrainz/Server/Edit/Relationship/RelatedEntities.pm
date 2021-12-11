@@ -34,7 +34,7 @@ around _build_related_entities => sub {
     unless ($self->link_type->{id} == 278) {
         my @work_gids = @{ $direct->{work} // [] };
         my @work_ids = map { $_->id } values %{ $self->c->model('Work')->get_by_any_ids(@work_gids) };
-        my ($recordings, $recording_hits) = $self->c->model('Recording')->find_by_works(\@work_ids);
+        my ($recordings, undef) = $self->c->model('Recording')->find_by_works(\@work_ids);
         @work_recording_ids = map { $_->id } @$recordings;
         push @{ $direct->{recording} }, @work_recording_ids;
     }
@@ -43,7 +43,7 @@ around _build_related_entities => sub {
     my @recording_gids = @{ $direct->{recording} // [] };
     my @recording_ids = map { $_->id } values %{ $self->c->model('Recording')->get_by_any_ids(@recording_gids) };
     push @recording_ids, @work_recording_ids;
-    my ($releases, $release_hits) = $self->c->model('Release')->find_by_recording(\@recording_ids);
+    my ($releases, undef) = $self->c->model('Release')->find_by_recording(\@recording_ids);
     push @{ $direct->{release} }, map { $_->id } @$releases;
 
     # Extract attributes from delete relationship edits

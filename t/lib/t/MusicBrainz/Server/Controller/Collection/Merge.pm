@@ -1,7 +1,6 @@
 package t::MusicBrainz::Server::Controller::Collection::Merge;
 use Test::Routine;
 use Test::More;
-use Test::Fatal;
 use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
 
 with 't::Mechanize', 't::Context';

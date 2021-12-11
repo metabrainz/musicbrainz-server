@@ -25,7 +25,7 @@ my $artist_page_regexp = qr{/artist/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9
 subtest 'Create artists with all fields' => sub {
     $mech->get_ok('/artist/create');
     html_ok($mech->content);
-    my $response = $mech->submit_form(
+    $mech->submit_form(
         with_fields => {
             'edit-artist.name' => 'controller artist',
             'edit-artist.sort_name' => 'artist, controller',
@@ -95,7 +95,7 @@ subtest 'Create artists with all fields' => sub {
 subtest 'Creating artists with only the minimal amount of fields' => sub {
     $mech->get_ok('/artist/create');
     html_ok($mech->content);
-    my $response = $mech->submit_form(
+    $mech->submit_form(
         with_fields => {
             'edit-artist.name' => 'Alice Artist',
             'edit-artist.sort_name' => 'Artist, Alice',
@@ -148,7 +148,7 @@ subtest 'MBS-10976: No ISE if only invalid characters are submitted' => sub {
 
     my $invalid = "\x{200B}\x{00AD}\x{FEFF}";
 
-    my $response = $mech->submit_form(
+    $mech->submit_form(
         with_fields => {
             'edit-artist.name' => $invalid,
             'edit-artist.sort_name' => $invalid,
@@ -171,7 +171,7 @@ subtest 'MBS-10976: Private use characters U+E000..U+F8FF are allowed' => sub {
     my $klingon = "\x{F8D3}\x{F8D4}\x{F8D5}";
     my $other_private_use = "\x{E000}\x{F8FF}";
 
-    my $response = $mech->submit_form(
+    $mech->submit_form(
         with_fields => {
             'edit-artist.name' => $klingon,
             'edit-artist.sort_name' => $other_private_use,

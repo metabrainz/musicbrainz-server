@@ -2,12 +2,9 @@ package MusicBrainz::Server::WebService::XMLSerializer;
 
 use IO::String;
 use Moose;
-use Scalar::Util 'reftype';
-use Readonly;
 use List::AllUtils qw( nsort_by sort_by );
 use MusicBrainz::Server::Constants qw( :direction $VARTIST_ID :quality %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( non_empty );
-use MusicBrainz::Server::WebService::Escape qw( xml_escape );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Validation;
 use XML::LibXML;
@@ -562,7 +559,7 @@ sub _serialize_url
 {
     my ($self, $parent_node, $url, $inc, $stash, $toplevel) = @_;
 
-    my $opts = $stash->store($url);
+    $stash->store($url);
 
     my $url_node = $parent_node->addNewChild(undef, 'url');
     $url_node->_setAttribute('id', $url->gid);

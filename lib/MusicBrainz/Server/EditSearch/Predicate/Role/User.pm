@@ -94,7 +94,7 @@ role {
     method valid => sub {
         my ($self) = @_;
 
-        my $cardinality = $self->operator_cardinality($self->operator) or return 1;
+        return 1 unless $self->operator_cardinality($self->operator);
         my @args = $self->arguments;
         return scalar(@args) == 1 && is_database_row_id($args[0]);
     }

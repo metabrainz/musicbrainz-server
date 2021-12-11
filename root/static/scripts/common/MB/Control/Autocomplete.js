@@ -16,7 +16,7 @@ import AddEntityDialog, {
 } from '../../../edit/components/AddEntityDialog';
 import {ENTITIES, MAX_RECENT_ENTITIES} from '../../constants';
 import mbEntity from '../../entity';
-import commaOnlyList from '../../i18n/commaOnlyList';
+import {commaOnlyListText} from '../../i18n/commaOnlyList';
 import localizeLanguageName from '../../i18n/localizeLanguageName';
 import {reduceArtistCredit} from '../../immutable-entities';
 import MB from '../../MB';
@@ -32,7 +32,7 @@ import {
   isRelationshipEditor,
 } from '../../utility/privileges';
 import {localStorage} from '../../utility/storage';
-import bracketed from '../../utility/bracketed';
+import {bracketedText} from '../../utility/bracketed';
 
 import '../../../../lib/jquery-ui';
 
@@ -84,9 +84,9 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
             ),
             action: self._searchAgain.bind(self),
           }, {
-            label: self.indexedSearch ?
-              l('Try with direct search instead.') :
-              l('Try with indexed search instead.'),
+            label: self.indexedSearch
+              ? l('Try with direct search instead.')
+              : l('Try with indexed search instead.'),
             action: self._searchAgain.bind(self, true),
 
           }]);
@@ -674,7 +674,8 @@ MB.Control.autocomplete_formatters = {
 
     if (comment.length) {
       a.append(' <span class="autocomplete-comment">' +
-               he.escape(bracketed(commaOnlyList(comment))) + '</span>');
+               he.escape(bracketedText(commaOnlyListText(comment))) +
+               '</span>');
     }
 
     return $('<li>').append(a).appendTo(ul);
@@ -690,7 +691,7 @@ MB.Control.autocomplete_formatters = {
 
     if (item.comment) {
       a.append('<span class="autocomplete-comment">' +
-               he.escape(bracketed(item.comment)) + '</span>');
+               he.escape(bracketedText(item.comment)) + '</span>');
     }
 
     if (item.video) {
@@ -713,8 +714,8 @@ MB.Control.autocomplete_formatters = {
 
       a.append(
         '<br /><span class="autocomplete-appears">' +
-        he.escape(addColon(l('appears on'))) + ' ' +
-        he.escape(commaOnlyList(rgs)) + '</span>',
+        he.escape(addColonText(l('appears on'))) + ' ' +
+        he.escape(commaOnlyListText(rgs)) + '</span>',
       );
     } else if (item.appearsOn && item.appearsOn.hits === 0) {
       a.append(
@@ -726,8 +727,8 @@ MB.Control.autocomplete_formatters = {
     if (item.isrcs && item.isrcs.length) {
       a.append(
         '<br /><span class="autocomplete-isrcs">' +
-        he.escape(addColon(l('ISRCs'))) + ' ' +
-        he.escape(commaOnlyList(item.isrcs.map(isrc => isrc.isrc))) +
+        he.escape(addColonText(l('ISRCs'))) + ' ' +
+        he.escape(commaOnlyListText(item.isrcs.map(isrc => isrc.isrc))) +
         '</span>',
       );
     }
@@ -803,12 +804,12 @@ MB.Control.autocomplete_formatters = {
 
     if (item.firstReleaseDate) {
       a.append('<span class="autocomplete-comment">' +
-               bracketed(item.firstReleaseDate) + '</span>');
+               bracketedText(item.firstReleaseDate) + '</span>');
     }
 
     if (item.comment) {
       a.append('<span class="autocomplete-comment">' +
-               he.escape(bracketed(item.comment)) + '</span>');
+               he.escape(bracketedText(item.comment)) + '</span>');
     }
 
     if (item.typeName) {
@@ -828,14 +829,16 @@ MB.Control.autocomplete_formatters = {
     if (item.comment) {
       a.append(
         '<span class="autocomplete-comment">' +
-        he.escape(bracketed(item.comment)) + '</span>',
+        he.escape(bracketedText(item.comment)) + '</span>',
       );
     }
 
     if (item.type) {
       a.append(
         ' <span class="autocomplete-comment">' +
-        he.escape(bracketed(lp_attributes(item.type.name, 'series_type'))) +
+        he.escape(
+          bracketedText(lp_attributes(item.type.name, 'series_type')),
+        ) +
         '</span>',
       );
     }
@@ -850,7 +853,7 @@ MB.Control.autocomplete_formatters = {
     if (item.languages && item.languages.length) {
       a.prepend(
         '<span class="autocomplete-language">' +
-        he.escape(commaOnlyList(
+        he.escape(commaOnlyListText(
           item.languages.map(wl => localizeLanguageName(wl.language, true)),
         )) + '</span>',
       );
@@ -866,13 +869,14 @@ MB.Control.autocomplete_formatters = {
 
     if (comment.length) {
       a.append(' <span class="autocomplete-comment">' +
-               he.escape(bracketed(commaOnlyList(comment))) + '</span>');
+               he.escape(bracketedText(commaOnlyListText(comment))) +
+               '</span>');
     }
 
     if (item.typeName) {
       a.append(
         '<br /><span class="autocomplete-comment">' +
-        he.escape(addColon(l('Type')) + ' ' +
+        he.escape(addColonText(l('Type')) + ' ' +
         lp_attributes(item.typeName, 'work_type')) + '</span>',
       );
     }
@@ -886,7 +890,7 @@ MB.Control.autocomplete_formatters = {
 
         a.append(
           '<br /><span class="autocomplete-comment">' +
-          prefix + ': ' + he.escape(commaOnlyList(toRender)) + '</span>',
+          prefix + ': ' + he.escape(commaOnlyListText(toRender)) + '</span>',
         );
       }
     };
@@ -904,7 +908,7 @@ MB.Control.autocomplete_formatters = {
 
     if (item.comment) {
       a.append('<span class="autocomplete-comment">' +
-               he.escape(bracketed(item.comment)) + '</span>');
+               he.escape(bracketedText(item.comment)) + '</span>');
     }
 
     if (item.typeName || (item.containment && item.containment.length)) {
@@ -916,7 +920,7 @@ MB.Control.autocomplete_formatters = {
         items.push(renderContainingAreas(item));
       }
       a.append('<br /><span class="autocomplete-comment">' +
-               he.escape(commaOnlyList(items)) + '</span>');
+               he.escape(commaOnlyListText(items)) + '</span>');
     }
 
     return $('<li>').append(a).appendTo(ul);
@@ -937,7 +941,8 @@ MB.Control.autocomplete_formatters = {
 
     if (comment.length) {
       a.append(' <span class="autocomplete-comment">' +
-               he.escape(bracketed(commaOnlyList(comment))) + '</span>');
+               he.escape(bracketedText(commaOnlyListText(comment))) +
+               '</span>');
     }
 
     var area = item.area;
@@ -953,7 +958,7 @@ MB.Control.autocomplete_formatters = {
         }
       }
       a.append('<br /><span class="autocomplete-comment">' +
-               he.escape(commaOnlyList(items)) + '</span>');
+               he.escape(commaOnlyListText(items)) + '</span>');
     }
 
     return $('<li>').append(a).appendTo(ul);
@@ -978,7 +983,8 @@ MB.Control.autocomplete_formatters = {
 
     if (comment.length) {
       a.append(' <span class="autocomplete-comment">' +
-               he.escape(bracketed(commaOnlyList(comment))) + '</span>');
+               he.escape(bracketedText(commaOnlyListText(comment))) +
+               '</span>');
     }
 
     if (item.description) {
@@ -1007,13 +1013,14 @@ MB.Control.autocomplete_formatters = {
 
     if (comment.length) {
       a.append(' <span class="autocomplete-comment">' +
-               he.escape(bracketed(commaOnlyList(comment))) + '</span>');
+               he.escape(bracketedText(commaOnlyListText(comment))) +
+               '</span>');
     }
 
     if (item.typeName) {
       a.append(
         ' <span class="autocomplete-comment">' +
-        he.escape(bracketed(lp_attributes(item.typeName, 'event_type'))) +
+        he.escape(bracketedText(lp_attributes(item.typeName, 'event_type'))) +
         '</span>',
       );
     }
@@ -1035,7 +1042,7 @@ MB.Control.autocomplete_formatters = {
 
         a.append(
           '<br /><span class="autocomplete-comment">' +
-          prefix + ': ' + he.escape(commaOnlyList(toRender)) + '</span>',
+          prefix + ': ' + he.escape(commaOnlyListText(toRender)) + '</span>',
         );
       }
     };
@@ -1072,7 +1079,7 @@ function renderContainingAreas(area) {
   if (!area.containment) {
     return '';
   }
-  return commaOnlyList(area.containment.map(x => x.name));
+  return commaOnlyListText(area.containment.map(x => x.name));
 }
 
 /*

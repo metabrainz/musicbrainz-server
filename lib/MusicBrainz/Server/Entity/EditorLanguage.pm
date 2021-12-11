@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Entity::EditorLanguage;
 use Moose;
 use namespace::autoclean;
-use MusicBrainz::Server::Translation qw( l );
 
 has 'editor_id' => (
     is => 'rw',

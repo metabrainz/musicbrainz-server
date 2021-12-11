@@ -2,7 +2,6 @@ package t::MusicBrainz::Server::Controller::Search::Indexed;
 use HTTP::Response;
 use LWP::UserAgent::Mockable;
 use Test::Routine;
-use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
@@ -10,7 +9,6 @@ with 't::Mechanize', 't::Context';
 test all => sub {
     my $test = shift;
     my $mech = $test->mech;
-    my $c = $test->c;
 
     LWP::UserAgent::Mockable->set_record_pre_callback(sub {
         my $response = HTTP::Response->new;

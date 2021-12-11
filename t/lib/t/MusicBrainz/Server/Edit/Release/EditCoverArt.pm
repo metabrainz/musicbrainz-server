@@ -10,7 +10,6 @@ BEGIN { use MusicBrainz::Server::Edit::Release::Edit };
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT_COVER_ART );
-use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test 'Editing cover art fails if the cover art no longer exists' => sub {
     my $test = shift;

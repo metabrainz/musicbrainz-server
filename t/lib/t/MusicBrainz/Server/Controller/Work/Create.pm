@@ -32,7 +32,7 @@ my @edits = capture_edits {
         'edit-work.languages.1' => '134',
     ];
 
-    my $response = $mech->request($request);
+    $mech->request($request);
 } $c;
 
 @edits = nsort_by { $_->id } @edits;

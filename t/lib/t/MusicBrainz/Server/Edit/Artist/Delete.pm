@@ -8,8 +8,11 @@ with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Artist::Delete }
 
-use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT $EDIT_ARTIST_DELETE );
-use MusicBrainz::Server::Constants ':edit_status';
+use MusicBrainz::Server::Constants qw(
+    :edit_status
+    $EDITOR_MODBOT
+    $EDIT_ARTIST_DELETE
+);
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test all => sub {

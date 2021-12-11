@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::Admin::Attributes;
 use Moose;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l );
 
 no if $] >= 5.018, warnings => 'experimental::smartmatch';
 

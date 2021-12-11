@@ -6,7 +6,6 @@ use MooseX::Types::Moose qw( ArrayRef Int Str Bool );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIPS_REORDER
-    $EXPIRE_ACCEPT
     :quality
 );
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash type_to_model );
@@ -14,7 +13,6 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash LinkAttributesArray );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw ( N_l );
-use Try::Tiny;
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkAttribute';
 use aliased 'MusicBrainz::Server::Entity::Relationship';

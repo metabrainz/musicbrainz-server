@@ -9,7 +9,6 @@ BEGIN { use MusicBrainz::Server::Edit::Work::Create }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_CREATE );
-use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 use MusicBrainz::Server::Constants qw( :edit_status );
 
 test all => sub {
@@ -24,7 +23,7 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Work::Create');
 
 ok(defined $edit->work_id);
 
-my ($edits, $hits) = $c->model('Edit')->find({ work => $edit->work_id }, 10, 0);
+my ($edits, undef) = $c->model('Edit')->find({ work => $edit->work_id }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
 my $work = $c->model('Work')->get_by_id($edit->work_id);

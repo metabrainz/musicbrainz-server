@@ -26,13 +26,11 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Constants qw(
     :direction
-    $PART_OF_AREA_LINK_TYPE
     %ENTITIES
     %ENTITIES_WITH_RELATIONSHIP_CREDITS
     @RELATABLE_ENTITIES
-    entities_with
 );
-use Scalar::Util 'weaken';
+use Scalar::Util qw( weaken );
 use List::AllUtils qw( any nsort_by part partition_by uniq );
 use aliased 'MusicBrainz::Server::Entity::RelationshipTargetTypeGroup';
 use aliased 'MusicBrainz::Server::Entity::RelationshipLinkTypeGroup';
@@ -696,7 +694,7 @@ sub merge_entities {
             join "\t", @{$_}{$entity1, qw(link_type link_order)}, @{$_->{attributes}}
         } @$relationships;
 
-        while (my ($key, $possible_dupes) = each %possible_dupes) {
+        while (my (undef, $possible_dupes) = each %possible_dupes) {
             my %definite_dupes = partition_by { join "\t", @{$_}{$entity1, 'link'} } @$possible_dupes;
 
             # Merge relationships that are exact duplicates other than credits,
@@ -752,7 +750,7 @@ sub delete_entities
     my ($self, $type, @ids) = @_;
 
     foreach my $t ($self->generate_table_list($type)) {
-        my ($table, $entity0, $entity1) = @$t;
+        my ($table, $entity0, undef) = @$t;
         $self->sql->do("
             DELETE FROM $table a
             WHERE $entity0 IN (" . placeholders(@ids) . ')
@@ -978,22 +976,6 @@ sub reorder {
         FROM pos WHERE pos.relationship = id",
         %ordering
     );
-}
-
-=method lock_and_do
-
-Lock the corresponding relationship table for $type0-$type in ROW EXCLUSIVE
-mode, and run a block of code.
-
-=cut
-
-sub lock_and_do {
-    my ($self, $type0, $type1, $code) = @_;
-
-    my ($t0, $t1) = sort($type0, $type1);
-    Sql::run_in_transaction(sub {
-        $code->();
-    }, $self->c->sql);
 }
 
 sub get_entity_link_type_counts {

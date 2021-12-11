@@ -10,7 +10,7 @@ use DBDefs;
 use List::AllUtils qw( min );
 use Moose;
 use MusicBrainz::Script::Utils qw( log );
-use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
+use MusicBrainz::Server::Constants qw( entities_with );
 use MusicBrainz::Server::Data::Relationship;
 use MusicBrainz::Server::Sitemap::Constants qw(
     $MAX_SITEMAP_SIZE

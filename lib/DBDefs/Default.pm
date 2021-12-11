@@ -6,8 +6,7 @@ package DBDefs::Default;
 
 use File::Spec::Functions qw( splitdir catdir catfile tmpdir );
 use Cwd qw( abs_path );
-use JSON qw( encode_json );
-use MusicBrainz::Server::Replication ':replication_type';
+use MusicBrainz::Server::Replication qw( :replication_type );
 use String::ShellQuote qw( shell_quote );
 
 ################################################################################

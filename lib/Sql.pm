@@ -4,7 +4,7 @@ use feature 'state';
 
 use Moose;
 use DBDefs;
-use Carp qw( cluck croak carp );
+use Carp qw( cluck croak );
 use List::AllUtils qw( any );
 use Try::Tiny;
 use utf8 ();
@@ -239,7 +239,7 @@ sub begin
     $self->dbh->{AutoCommit} = 0;
     $self->inc_transaction_depth;
     if ($self->transaction_depth == 1) {
-        my $tt = Sql::Timer->new('BEGIN', []) if $self->debug;
+        return Sql::Timer->new('BEGIN', []) if $self->debug;
     }
 }
 
@@ -444,10 +444,11 @@ sub _select_list
 
     my $sth;
     try {
-        my $tt = Sql::Timer->new($query, $params) if $self->debug;
+        # This assignment might be used by DEMOLISH
+        my $tt = Sql::Timer->new($query, $params) if $self->debug; ## no critic 'ProhibitUnusedVarsStricter'
 
         $sth = $self->dbh->prepare_cached($query);
-        my $rv = $sth->execute(@params) or croak 'Could not execute query';
+        $sth->execute(@params) or croak 'Could not execute query';
 
         my @vals;
         while (my $row = $sth->$method) {

@@ -16,7 +16,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN $VARTIST_ID );
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release_group' };
@@ -631,7 +631,7 @@ sub _insert_hook_after_each {
 
 sub update {
     my ($self, $group_id, $update) = @_;
-    my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
+
     my $row = $self->_hash_to_row($update);
     $self->sql->update_row('release_group', $row, { id => $group_id }) if %$row;
     $self->c->model('ReleaseGroupSecondaryType')->set_types($group_id, $update->{secondary_type_ids})

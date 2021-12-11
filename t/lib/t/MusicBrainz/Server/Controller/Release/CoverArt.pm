@@ -1,7 +1,6 @@
 package t::MusicBrainz::Server::Controller::Release::CoverArt;
 use DBDefs;
 use Test::Routine;
-use Test::More;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
 with 't::Mechanize', 't::Context';

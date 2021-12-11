@@ -9,7 +9,8 @@
 
 import * as React from 'react';
 
-import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
+import {commaOnlyListText}
+  from '../../static/scripts/common/i18n/commaOnlyList';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty';
 import DescriptiveLink
@@ -28,7 +29,7 @@ const AddArea = ({edit}: Props): React.MixedElement => {
     <>
       <table className="details">
         <tr>
-          <th>{addColon(l('Area'))}</th>
+          <th>{addColonText(l('Area'))}</th>
           <td>
             <DescriptiveLink
               entity={display.area}
@@ -39,68 +40,68 @@ const AddArea = ({edit}: Props): React.MixedElement => {
 
       <table className="details add-area">
         <tr>
-          <th>{addColon(l('Name'))}</th>
+          <th>{addColonText(l('Name'))}</th>
           <td>{display.name}</td>
         </tr>
 
         {nonEmpty(display.sort_name) ? (
           <tr>
-            <th>{addColon(l('Sort name'))}</th>
+            <th>{addColonText(l('Sort name'))}</th>
             <td>{display.sort_name}</td>
           </tr>
         ) : null}
 
         {nonEmpty(display.comment) ? (
           <tr>
-            <th>{addColon(l('Disambiguation'))}</th>
+            <th>{addColonText(l('Disambiguation'))}</th>
             <td>{display.comment}</td>
           </tr>
         ) : null}
 
         {areaType ? (
           <tr>
-            <th>{addColon(l('Type'))}</th>
+            <th>{addColonText(l('Type'))}</th>
             <td>{lp_attributes(areaType.name, 'area_type')}</td>
           </tr>
         ) : null}
 
         {display.iso_3166_1 ? (
           <tr>
-            <th>{addColon(l('ISO 3166-1'))}</th>
-            <td>{commaOnlyList(display.iso_3166_1)}</td>
+            <th>{addColonText(l('ISO 3166-1'))}</th>
+            <td>{commaOnlyListText(display.iso_3166_1)}</td>
           </tr>
         ) : null}
 
         {display.iso_3166_2 ? (
           <tr>
-            <th>{addColon(l('ISO 3166-2'))}</th>
-            <td>{commaOnlyList(display.iso_3166_2)}</td>
+            <th>{addColonText(l('ISO 3166-2'))}</th>
+            <td>{commaOnlyListText(display.iso_3166_2)}</td>
           </tr>
         ) : null}
 
         {display.iso_3166_3 ? (
           <tr>
-            <th>{addColon(l('ISO 3166-3'))}</th>
-            <td>{commaOnlyList(display.iso_3166_3)}</td>
+            <th>{addColonText(l('ISO 3166-3'))}</th>
+            <td>{commaOnlyListText(display.iso_3166_3)}</td>
           </tr>
         ) : null}
 
         {isDateEmpty(display.begin_date) ? null : (
           <tr>
-            <th>{addColon(l('Begin date'))}</th>
+            <th>{addColonText(l('Begin date'))}</th>
             <td>{formatDate(display.begin_date)}</td>
           </tr>
         )}
 
         {isDateEmpty(display.end_date) ? null : (
           <tr>
-            <th>{addColon(l('End date'))}</th>
+            <th>{addColonText(l('End date'))}</th>
             <td>{formatDate(display.end_date)}</td>
           </tr>
         )}
 
         <tr>
-          <th>{addColon(l('Ended'))}</th>
+          <th>{addColonText(l('Ended'))}</th>
           <td>{yesNo(display.ended)}</td>
         </tr>
       </table>

@@ -2,7 +2,7 @@ package t::MusicBrainz::Server::Data::Work;
 use Test::Routine;
 use Test::Fatal;
 use Test::More;
-use Test::Deep qw( cmp_deeply methods noclass set );
+use Test::Deep qw( cmp_deeply methods set );
 
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Data::WorkType;

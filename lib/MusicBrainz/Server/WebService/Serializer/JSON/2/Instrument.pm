@@ -1,6 +1,5 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Instrument;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of number serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 

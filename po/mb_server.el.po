@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-22 21:04+0200\n"
-"PO-Revision-Date: 2021-11-22 19:04+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"POT-Creation-Date: 2021-12-06 20:48+0200\n"
+"PO-Revision-Date: 2021-12-06 18:49+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -67,14 +67,14 @@ msgstr "Το \"YY\" είναι τα τελευταία δύο ψηφία του 
 #: ../root/cdstub/cdstub.tt:4 ../root/cdtoc/attach_confirm.tt:11
 #: ../root/release/edit/tracklist.tt:161 ../root/release/edit/tracklist.tt:427
 #: ../root/release/edit_relationships.tt:51
-#: ../root/edit/details/AddMedium.js:180
-#: ../root/edit/details/EditMedium.js:361
-#: ../root/edit/details/EditMedium.js:365
-#: ../root/edit/details/EditMedium.js:566
-#: ../root/edit/details/EditMedium.js:624
-#: ../root/edit/details/historic/AddRelease.js:118
+#: ../root/edit/details/AddMedium.js:169
+#: ../root/edit/details/EditMedium.js:316
+#: ../root/edit/details/EditMedium.js:320
+#: ../root/edit/details/EditMedium.js:521
+#: ../root/edit/details/EditMedium.js:579
+#: ../root/edit/details/historic/AddRelease.js:90
 #: ../root/recording/RecordingIndex.js:51
-#: ../root/static/scripts/release/components/MediumTable.js:218
+#: ../root/static/scripts/release/components/MediumTable.js:212
 #: ../root/utility/tableColumns.js:539
 msgid "#"
 msgstr "#"
@@ -133,7 +133,7 @@ msgstr "(ήταν το μέσο {position}: {name} στην κυκλοφορία
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
-#: ../root/release/merge.tt:16 ../root/edit/details/MergeReleases.js:261
+#: ../root/release/merge.tt:16 ../root/edit/details/MergeReleases.js:229
 #: ../root/recording/RecordingIndex.js:58
 #: ../root/release_group/ReleaseGroupIndex.js:165
 #: ../root/search/components/ReleaseResults.js:110
@@ -436,7 +436,7 @@ msgid "An error occurred while creating the works."
 msgstr ""
 
 #: ../root/edit/index.tt:19 ../root/edit/list.tt:73
-#: ../root/edit/details/historic/RemoveRelationship.js:44
+#: ../root/edit/details/historic/RemoveRelationship.js:37
 msgid "An error occurred while loading this edit."
 msgstr ""
 
@@ -542,11 +542,11 @@ msgstr ""
 #: ../root/area/AreaHeader.js:27 ../root/components/list/AreaList.js:46
 #: ../root/components/list/ArtistList.js:92
 #: ../root/components/list/LabelList.js:75
-#: ../root/components/list/PlaceList.js:71 ../root/edit/details/AddArea.js:46
-#: ../root/edit/details/AddArtist.js:103 ../root/edit/details/AddLabel.js:100
-#: ../root/edit/details/AddPlace.js:77 ../root/edit/details/EditArea.js:61
-#: ../root/edit/details/EditArtist.js:129
-#: ../root/edit/details/EditLabel.js:138 ../root/edit/details/EditPlace.js:93
+#: ../root/components/list/PlaceList.js:71 ../root/edit/details/AddArea.js:31
+#: ../root/edit/details/AddArtist.js:85 ../root/edit/details/AddLabel.js:82
+#: ../root/edit/details/AddPlace.js:63 ../root/edit/details/EditArea.js:45
+#: ../root/edit/details/EditArtist.js:110
+#: ../root/edit/details/EditLabel.js:121 ../root/edit/details/EditPlace.js:77
 #: ../root/layout/components/Search.js:37
 #: ../root/report/PlacesWithoutCoordinates.js:44
 #: ../root/search/components/ArtistResults.js:54
@@ -555,7 +555,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:40
 #: ../root/static/scripts/common/constants.js:18
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:46
-#: ../root/user/UserProfile.js:41
+#: ../root/user/UserProfile.js:42
 msgid "Area"
 msgstr ""
 
@@ -592,21 +592,21 @@ msgstr ""
 #: ../root/components/list/RecordingList.js:105
 #: ../root/components/list/ReleaseGroupList.js:96
 #: ../root/components/list/ReleaseList.js:84
-#: ../root/edit/details/AddArtist.js:60 ../root/edit/details/AddMedium.js:181
-#: ../root/edit/details/AddRelease.js:74
-#: ../root/edit/details/AddReleaseGroup.js:61
-#: ../root/edit/details/AddStandaloneRecording.js:60
-#: ../root/edit/details/EditArtist.js:77
-#: ../root/edit/details/EditMedium.js:363
-#: ../root/edit/details/EditMedium.js:367
-#: ../root/edit/details/EditRecording.js:86
-#: ../root/edit/details/EditRelease.js:83
-#: ../root/edit/details/EditReleaseGroup.js:101
-#: ../root/edit/details/MergeReleases.js:258
-#: ../root/edit/details/historic/AddRelease.js:68
-#: ../root/edit/details/historic/AddRelease.js:120
-#: ../root/edit/details/historic/AddTrackKV.js:55
-#: ../root/edit/details/historic/EditTrack.js:45 ../root/isrc/Index.js:67
+#: ../root/edit/details/AddArtist.js:42 ../root/edit/details/AddMedium.js:170
+#: ../root/edit/details/AddRelease.js:57
+#: ../root/edit/details/AddReleaseGroup.js:49
+#: ../root/edit/details/AddStandaloneRecording.js:48
+#: ../root/edit/details/EditArtist.js:58
+#: ../root/edit/details/EditMedium.js:318
+#: ../root/edit/details/EditMedium.js:322
+#: ../root/edit/details/EditRecording.js:74
+#: ../root/edit/details/EditRelease.js:65
+#: ../root/edit/details/EditReleaseGroup.js:89
+#: ../root/edit/details/MergeReleases.js:226
+#: ../root/edit/details/historic/AddRelease.js:40
+#: ../root/edit/details/historic/AddRelease.js:92
+#: ../root/edit/details/historic/AddTrackKV.js:43
+#: ../root/edit/details/historic/EditTrack.js:36 ../root/isrc/Index.js:67
 #: ../root/layout/components/Search.js:26
 #: ../root/release_group/ReleaseGroupIndex.js:162
 #: ../root/report/DuplicateArtists.js:65
@@ -629,8 +629,8 @@ msgstr ""
 #: ../root/static/scripts/common/constants.js:19
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:48
 #: ../root/static/scripts/common/utility/formatSetlist.js:31
-#: ../root/static/scripts/release/components/MediumTable.js:221
-#: ../root/taglookup/Form.js:26 ../root/user/UserProfile.js:42
+#: ../root/static/scripts/release/components/MediumTable.js:215
+#: ../root/taglookup/Form.js:26 ../root/user/UserProfile.js:43
 msgid "Artist"
 msgstr "Καλλιτέχνης"
 
@@ -656,10 +656,10 @@ msgstr "Καλλιτέχνης {n}:"
 #: ../root/release/edit/information.tt:26
 #: ../root/release/edit/tracklist.tt:110
 #: ../root/release_group/set_cover_art.tt:32
-#: ../root/edit/details/historic/ChangeArtistQuality.js:34
-#: ../root/edit/details/historic/ChangeReleaseArtist.js:35
-#: ../root/edit/details/historic/MoveRelease.js:41
-#: ../root/edit/details/historic/RemoveRelease.js:37
+#: ../root/edit/details/historic/ChangeArtistQuality.js:26
+#: ../root/edit/details/historic/ChangeReleaseArtist.js:27
+#: ../root/edit/details/historic/MoveRelease.js:32
+#: ../root/edit/details/historic/RemoveRelease.js:28
 #: ../root/layout/components/sidebar/RecordingSidebar.js:46
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:50
 #: ../root/static/scripts/edit/components/forms.js:21
@@ -737,14 +737,14 @@ msgstr ""
 #: ../root/cdtoc/attach_filter_release.tt:33 ../root/cdtoc/list.tt:13
 #: ../root/cdtoc/lookup.tt:46 ../root/release/edit/duplicates.tt:17
 #: ../root/release/merge.tt:19 ../root/components/list/ReleaseList.js:129
-#: ../root/edit/details/AddRelease.js:130
-#: ../root/edit/details/EditBarcodes.js:58
-#: ../root/edit/details/EditBarcodes.js:64
-#: ../root/edit/details/EditRelease.js:167
-#: ../root/edit/details/EditReleaseLabel.js:143
-#: ../root/edit/details/MergeReleases.js:264
-#: ../root/edit/details/historic/AddRelease.js:155
-#: ../root/edit/details/historic/EditReleaseEvents.js:138
+#: ../root/edit/details/AddRelease.js:113
+#: ../root/edit/details/EditBarcodes.js:46
+#: ../root/edit/details/EditBarcodes.js:52
+#: ../root/edit/details/EditRelease.js:149
+#: ../root/edit/details/EditReleaseLabel.js:125
+#: ../root/edit/details/MergeReleases.js:232
+#: ../root/edit/details/historic/AddRelease.js:127
+#: ../root/edit/details/historic/EditReleaseEvents.js:109
 #: ../root/otherlookup/OtherLookupForm.js:64
 #: ../root/release_group/ReleaseGroupIndex.js:168
 #: ../root/report/ReleasesSameBarcode.js:42
@@ -825,7 +825,7 @@ msgstr ""
 
 #: ../root/admin/edit_user.tt:41
 #: ../root/static/scripts/account/components/EditProfileForm.js:273
-#: ../root/user/UserProfile.js:379
+#: ../root/user/UserProfile.js:380
 msgid "Bio:"
 msgstr ""
 
@@ -918,13 +918,13 @@ msgstr "Μπορεί να εγκριθεί"
 #: ../root/collection/CollectionMerge.js:187
 #: ../root/components/ConfirmLayout.js:48 ../root/event/EventMerge.js:57
 #: ../root/instrument/InstrumentMerge.js:54 ../root/label/LabelMerge.js:54
-#: ../root/layout/components/MergeHelper.js:82 ../root/place/PlaceMerge.js:54
+#: ../root/layout/components/MergeHelper.js:83 ../root/place/PlaceMerge.js:54
 #: ../root/recording/RecordingMerge.js:70
 #: ../root/release_group/ReleaseGroupMerge.js:55
 #: ../root/series/SeriesMerge.js:54
 #: ../root/static/scripts/common/components/FilterForm.js:156
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:206
-#: ../root/static/scripts/edit/components/URLInputPopover.js:124
+#: ../root/static/scripts/edit/components/URLInputPopover.js:123
 #: ../root/work/WorkMerge.js:68
 msgid "Cancel"
 msgstr "Άκυρο"
@@ -952,10 +952,10 @@ msgstr "Ο έλεγχος captcha ήταν λανθασμένος. Δοκιμά�
 
 #: ../root/relationship/linktype/form.tt:26
 #: ../root/relationship/linktype/form.tt:31
-#: ../root/edit/details/AddRelationshipType.js:157
-#: ../root/edit/details/AddRelationshipType.js:170
-#: ../root/edit/details/EditRelationshipType.js:280
-#: ../root/edit/details/EditRelationshipType.js:290
+#: ../root/edit/details/AddRelationshipType.js:134
+#: ../root/edit/details/AddRelationshipType.js:147
+#: ../root/edit/details/EditRelationshipType.js:252
+#: ../root/edit/details/EditRelationshipType.js:262
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:119
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:127
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:94
@@ -970,7 +970,7 @@ msgstr ""
 #: ../root/cdtoc/attach_artist_releases.tt:18
 #: ../root/cdtoc/attach_filter_release.tt:32 ../root/cdtoc/list.tt:12
 #: ../root/cdtoc/lookup.tt:45 ../root/release/edit/duplicates.tt:16
-#: ../root/release/merge.tt:18 ../root/edit/details/MergeReleases.js:263
+#: ../root/release/merge.tt:18 ../root/edit/details/MergeReleases.js:231
 #: ../root/recording/RecordingIndex.js:60
 #: ../root/release_group/ReleaseGroupIndex.js:167
 #: ../root/search/components/ReleaseResults.js:112
@@ -1010,14 +1010,14 @@ msgstr "Αλλαγές"
 
 #: ../root/admin/attributes/form.tt:53
 #: ../root/admin/attributes/Attribute.js:100
-#: ../root/edit/details/AddRelationshipAttribute.js:64
-#: ../root/edit/details/EditRelationshipAttribute.js:109
+#: ../root/edit/details/AddRelationshipAttribute.js:52
+#: ../root/edit/details/EditRelationshipAttribute.js:95
 msgid "Child order"
 msgstr ""
 
 #: ../root/relationship/linkattributetype/form.tt:7
 #: ../root/relationship/linktype/form.tt:7
-#: ../root/edit/details/EditRelationshipType.js:256
+#: ../root/edit/details/EditRelationshipType.js:228
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:119
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:112
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:58
@@ -1081,9 +1081,9 @@ msgstr ""
 #: ../root/release/add_cover_art.tt:135
 #: ../root/release/reorder_cover_art.tt:19
 #: ../root/release_group/set_cover_art.tt:71
-#: ../root/edit/details/AddCoverArt.js:64
-#: ../root/edit/details/EditCoverArt.js:79
-#: ../root/edit/details/RemoveCoverArt.js:65
+#: ../root/edit/details/AddCoverArt.js:55
+#: ../root/edit/details/EditCoverArt.js:69
+#: ../root/edit/details/RemoveCoverArt.js:57
 #: ../root/release/CoverArtFields.js:92
 msgid "Comment:"
 msgstr "Σχόλιο:"
@@ -1103,8 +1103,8 @@ msgstr "Σύγκριση της έκδοσης από {user_old} στις {date_
 msgid "Confirm password:"
 msgstr "Επιβεβαίωση κωδικού πρόσβασης:"
 
-#: ../root/place/edit_form.tt:28 ../root/edit/details/AddPlace.js:83
-#: ../root/edit/details/EditPlace.js:104
+#: ../root/place/edit_form.tt:28 ../root/edit/details/AddPlace.js:69
+#: ../root/edit/details/EditPlace.js:88
 msgid "Coordinates"
 msgstr ""
 
@@ -1136,10 +1136,10 @@ msgstr ""
 #: ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
 #: ../root/cdtoc/lookup.tt:43 ../root/release/edit/duplicates.tt:14
-#: ../root/release/merge.tt:16 ../root/edit/details/EditReleaseLabel.js:132
-#: ../root/edit/details/MergeReleases.js:261
-#: ../root/edit/details/historic/AddRelease.js:152
-#: ../root/edit/details/historic/EditReleaseEvents.js:135
+#: ../root/release/merge.tt:16 ../root/edit/details/EditReleaseLabel.js:114
+#: ../root/edit/details/MergeReleases.js:229
+#: ../root/edit/details/historic/AddRelease.js:124
+#: ../root/edit/details/historic/EditReleaseEvents.js:106
 #: ../root/recording/RecordingIndex.js:58
 #: ../root/release_group/ReleaseGroupIndex.js:165
 #: ../root/search/components/ReleaseResults.js:110
@@ -1155,7 +1155,7 @@ msgstr "Χώρα:"
 
 #: ../root/release_group/set_cover_art.tt:67
 #: ../root/components/EntityTabs.js:116 ../root/release/CoverArt.js:57
-#: ../root/user/UserProfile.js:43
+#: ../root/user/UserProfile.js:44
 msgid "Cover Art"
 msgstr "Εξώφυλλο"
 
@@ -1200,16 +1200,16 @@ msgid "DD"
 msgstr ""
 
 #: ../root/release/change_quality.tt:5
-#: ../root/edit/details/ChangeReleaseQuality.js:40
-#: ../root/edit/details/historic/ChangeArtistQuality.js:40
-#: ../root/edit/details/historic/ChangeReleaseQuality.js:50
+#: ../root/edit/details/ChangeReleaseQuality.js:32
+#: ../root/edit/details/historic/ChangeArtistQuality.js:32
+#: ../root/edit/details/historic/ChangeReleaseQuality.js:40
 #: ../root/layout/components/sidebar/SidebarDataQuality.js:38
 msgid "Data Quality"
 msgstr ""
 
 #: ../root/medium/tracklist.tt:37 ../root/release/edit/tracklist.tt:442
 #: ../root/medium/MediumTracklist.js:55
-#: ../root/static/scripts/release/components/MediumTable.js:264
+#: ../root/static/scripts/release/components/MediumTable.js:258
 msgid "Data Tracks"
 msgstr ""
 
@@ -1225,10 +1225,10 @@ msgstr ""
 #: ../root/admin/statistics-events/StatisticsEventEditForm.js:35
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:30
 #: ../root/components/RelationshipsTable.js:316
-#: ../root/edit/details/EditReleaseLabel.js:124
-#: ../root/edit/details/MergeReleases.js:261
-#: ../root/edit/details/historic/AddRelease.js:151
-#: ../root/edit/details/historic/EditReleaseEvents.js:134
+#: ../root/edit/details/EditReleaseLabel.js:106
+#: ../root/edit/details/MergeReleases.js:229
+#: ../root/edit/details/historic/AddRelease.js:123
+#: ../root/edit/details/historic/EditReleaseEvents.js:105
 #: ../root/elections/ElectionVotes.js:26
 #: ../root/recording/RecordingIndex.js:58
 #: ../root/release_group/ReleaseGroupIndex.js:165
@@ -1286,17 +1286,17 @@ msgstr "Διαγραφή {e}"
 #: ../root/admin/statistics-events/StatisticsEventEditForm.js:47
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:32
 #: ../root/collection/CollectionIndex.js:180
-#: ../root/edit/details/AddInstrument.js:79
-#: ../root/edit/details/AddRelationshipAttribute.js:56
-#: ../root/edit/details/AddRelationshipType.js:96
-#: ../root/edit/details/EditInstrument.js:84
-#: ../root/edit/details/EditRelationshipAttribute.js:86
-#: ../root/edit/details/EditRelationshipAttribute.js:92
-#: ../root/edit/details/EditRelationshipType.js:211
-#: ../root/edit/details/EditRelationshipType.js:217
-#: ../root/edit/details/EditUrl.js:73
-#: ../root/edit/details/RemoveRelationshipAttribute.js:49
-#: ../root/edit/details/RemoveRelationshipType.js:68
+#: ../root/edit/details/AddInstrument.js:67
+#: ../root/edit/details/AddRelationshipAttribute.js:44
+#: ../root/edit/details/AddRelationshipType.js:73
+#: ../root/edit/details/EditInstrument.js:73
+#: ../root/edit/details/EditRelationshipAttribute.js:72
+#: ../root/edit/details/EditRelationshipAttribute.js:78
+#: ../root/edit/details/EditRelationshipType.js:183
+#: ../root/edit/details/EditRelationshipType.js:189
+#: ../root/edit/details/EditUrl.js:62
+#: ../root/edit/details/RemoveRelationshipAttribute.js:41
+#: ../root/edit/details/RemoveRelationshipType.js:51
 #: ../root/instrument/InstrumentIndex.js:35
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:107
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:96
@@ -1314,8 +1314,8 @@ msgid "Description:"
 msgstr "Περιγραφή:"
 
 #: ../root/doc/edit_type.tt:28 ../root/components/EntityTabs.js:137
-#: ../root/elections/ElectionDetails.js:25 ../root/entity/Details.js:83
-#: ../root/entity/Details.js:85
+#: ../root/elections/ElectionDetails.js:25 ../root/entity/Details.js:90
+#: ../root/entity/Details.js:92
 msgid "Details"
 msgstr "Λεπτομέρειες"
 
@@ -1329,27 +1329,27 @@ msgstr "Πέθανε:"
 #: ../root/label/edit_form.tt:13 ../root/place/edit_form.tt:13
 #: ../root/recording/edit_form.tt:33 ../root/release/edit/information.tt:252
 #: ../root/release_group/edit_form.tt:15 ../root/series/edit_form.tt:13
-#: ../root/work/edit_form.tt:13 ../root/edit/details/AddArea.js:70
-#: ../root/edit/details/AddArtist.js:82 ../root/edit/details/AddEvent.js:61
-#: ../root/edit/details/AddInstrument.js:65
-#: ../root/edit/details/AddLabel.js:74 ../root/edit/details/AddPlace.js:59
-#: ../root/edit/details/AddRelease.js:93
-#: ../root/edit/details/AddReleaseGroup.js:71
-#: ../root/edit/details/AddSeries.js:51
-#: ../root/edit/details/AddStandaloneRecording.js:67
-#: ../root/edit/details/AddWork.js:59 ../root/edit/details/EditArea.js:84
-#: ../root/edit/details/EditArtist.js:100 ../root/edit/details/EditEvent.js:64
-#: ../root/edit/details/EditInstrument.js:64
-#: ../root/edit/details/EditLabel.js:84 ../root/edit/details/EditPlace.js:70
-#: ../root/edit/details/EditRecording.js:65
-#: ../root/edit/details/EditRelease.js:111
-#: ../root/edit/details/EditReleaseGroup.js:64
-#: ../root/edit/details/EditSeries.js:61 ../root/edit/details/EditWork.js:75
+#: ../root/work/edit_form.tt:13 ../root/edit/details/AddArea.js:55
+#: ../root/edit/details/AddArtist.js:64 ../root/edit/details/AddEvent.js:46
+#: ../root/edit/details/AddInstrument.js:53
+#: ../root/edit/details/AddLabel.js:56 ../root/edit/details/AddPlace.js:45
+#: ../root/edit/details/AddRelease.js:76
+#: ../root/edit/details/AddReleaseGroup.js:59
+#: ../root/edit/details/AddSeries.js:40
+#: ../root/edit/details/AddStandaloneRecording.js:55
+#: ../root/edit/details/AddWork.js:43 ../root/edit/details/EditArea.js:68
+#: ../root/edit/details/EditArtist.js:81 ../root/edit/details/EditEvent.js:49
+#: ../root/edit/details/EditInstrument.js:53
+#: ../root/edit/details/EditLabel.js:67 ../root/edit/details/EditPlace.js:54
+#: ../root/edit/details/EditRecording.js:53
+#: ../root/edit/details/EditRelease.js:93
+#: ../root/edit/details/EditReleaseGroup.js:52
+#: ../root/edit/details/EditSeries.js:50 ../root/edit/details/EditWork.js:60
 #: ../root/genre/GenreEditForm.js:38
 msgid "Disambiguation"
 msgstr ""
 
-#: ../root/release/discids.tt:8 ../root/edit/details/SetTrackLengths.js:66
+#: ../root/release/discids.tt:8 ../root/edit/details/SetTrackLengths.js:56
 #: ../root/otherlookup/OtherLookupForm.js:114
 #: ../root/utility/tableColumns.js:181 ../root/utility/tableColumns.js:186
 msgid "Disc ID"
@@ -1367,12 +1367,12 @@ msgstr "Disc ID “<code>{discid}</code>”"
 msgid "Disc ID “{discid}”"
 msgstr "Disc ID “{discid}”"
 
-#: ../root/cdtoc/info.tt:11 ../root/edit/details/AddDiscId.js:44
-#: ../root/edit/details/MoveDiscId.js:37
-#: ../root/edit/details/RemoveDiscId.js:41
-#: ../root/edit/details/historic/AddDiscId.js:38
-#: ../root/edit/details/historic/MoveDiscId.js:32
-#: ../root/edit/details/historic/RemoveDiscId.js:33
+#: ../root/cdtoc/info.tt:11 ../root/edit/details/AddDiscId.js:36
+#: ../root/edit/details/MoveDiscId.js:28
+#: ../root/edit/details/RemoveDiscId.js:33
+#: ../root/edit/details/historic/AddDiscId.js:29
+#: ../root/edit/details/historic/MoveDiscId.js:23
+#: ../root/edit/details/historic/RemoveDiscId.js:25
 msgid "Disc ID:"
 msgstr "Disc ID:"
 
@@ -1403,7 +1403,7 @@ msgstr "Δωρεά"
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:159
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:218
 #: ../root/static/scripts/edit/components/GuessCaseOptionsPopover.js:67
-#: ../root/static/scripts/edit/components/URLInputPopover.js:135
+#: ../root/static/scripts/edit/components/URLInputPopover.js:134
 msgid "Done"
 msgstr "Εντάξει"
 
@@ -1574,7 +1574,7 @@ msgid "Edits for {name}"
 msgstr "Τροποποιήσεις για {name}"
 
 #: ../root/account/register.tt:39 ../root/admin/edit_user.tt:37
-#: ../root/user/UserProfile.js:182
+#: ../root/user/UserProfile.js:183
 msgid "Email:"
 msgstr "Email:"
 
@@ -1663,14 +1663,14 @@ msgstr ""
 #: ../root/components/common-macros.tt:569 ../root/edit/search_macros.tt:418
 #: ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:49
-#: ../root/components/list/EventList.js:75 ../root/edit/details/AddEvent.js:44
-#: ../root/edit/details/EditEvent.js:52 ../root/event/EventHeader.js:29
+#: ../root/components/list/EventList.js:75 ../root/edit/details/AddEvent.js:29
+#: ../root/edit/details/EditEvent.js:37 ../root/event/EventHeader.js:29
 #: ../root/layout/components/Search.js:29
 #: ../root/report/components/EventList.js:51
 #: ../root/search/components/SearchForm.js:48
 #: ../root/static/scripts/common/constants.js:20
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:52
-#: ../root/user/UserProfile.js:44
+#: ../root/user/UserProfile.js:45
 msgid "Event"
 msgstr "Εκδήλωση"
 
@@ -1697,7 +1697,7 @@ msgid "Events"
 msgstr ""
 
 #: ../root/relationship/linktype/form.tt:71
-#: ../root/edit/details/EditRelationshipType.js:350
+#: ../root/edit/details/EditRelationshipType.js:322
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:218
 msgid "Examples"
 msgstr ""
@@ -1781,11 +1781,11 @@ msgstr ""
 
 #: ../root/cdtoc/list.tt:9 ../root/release/edit/duplicates.tt:11
 #: ../root/release/merge.tt:14 ../root/components/list/ReleaseList.js:94
-#: ../root/edit/details/EditMedium.js:532
-#: ../root/edit/details/EditReleaseLabel.js:150
-#: ../root/edit/details/MergeReleases.js:259
-#: ../root/edit/details/historic/AddRelease.js:156
-#: ../root/edit/details/historic/EditReleaseEvents.js:139
+#: ../root/edit/details/EditMedium.js:487
+#: ../root/edit/details/EditReleaseLabel.js:132
+#: ../root/edit/details/MergeReleases.js:227
+#: ../root/edit/details/historic/AddRelease.js:128
+#: ../root/edit/details/historic/EditReleaseEvents.js:110
 #: ../root/release_group/ReleaseGroupIndex.js:163
 #: ../root/report/components/CDTocList.js:46
 #: ../root/search/components/ReleaseResults.js:108
@@ -1794,7 +1794,7 @@ msgstr "Μορφή"
 
 #: ../root/release/edit/tracklist.tt:305
 #: ../root/release_group/set_cover_art.tt:46
-#: ../root/edit/details/AddMedium.js:149
+#: ../root/edit/details/AddMedium.js:138
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:147
 msgid "Format:"
 msgstr "Μορφή:"
@@ -1873,7 +1873,7 @@ msgstr "Πλήρες TOC:"
 #: ../root/artist/edit_form.tt:17
 #: ../root/layout/components/sidebar/ArtistSidebar.js:83
 #: ../root/static/scripts/account/components/EditProfileForm.js:221
-#: ../root/user/UserProfile.js:261
+#: ../root/user/UserProfile.js:262
 msgid "Gender:"
 msgstr "Φύλο:"
 
@@ -1996,7 +1996,7 @@ msgid "ID"
 msgstr "ID"
 
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
-#: ../root/edit/details/AddArtist.js:156 ../root/edit/details/AddLabel.js:122
+#: ../root/edit/details/AddArtist.js:138 ../root/edit/details/AddLabel.js:104
 msgid "IPI code"
 msgstr "Κωδικός IPI"
 
@@ -2007,7 +2007,7 @@ msgid ""
 msgstr ""
 
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
-#: ../root/edit/details/EditArtist.js:183
+#: ../root/edit/details/EditArtist.js:164
 msgid "IPI codes:"
 msgstr "Κωδικοί IPI:"
 
@@ -2016,7 +2016,7 @@ msgid "IRC"
 msgstr ""
 
 #: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
-#: ../root/edit/details/AddArtist.js:165 ../root/edit/details/AddLabel.js:131
+#: ../root/edit/details/AddArtist.js:147 ../root/edit/details/AddLabel.js:113
 msgid "ISNI code"
 msgstr ""
 
@@ -2027,12 +2027,12 @@ msgid ""
 msgstr ""
 
 #: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
-#: ../root/edit/details/EditArtist.js:191
+#: ../root/edit/details/EditArtist.js:172
 msgid "ISNI codes:"
 msgstr ""
 
-#: ../root/area/edit_form.tt:12 ../root/edit/details/AddArea.js:84
-#: ../root/edit/details/EditArea.js:100
+#: ../root/area/edit_form.tt:12 ../root/edit/details/AddArea.js:69
+#: ../root/edit/details/EditArea.js:84
 msgid "ISO 3166-1"
 msgstr ""
 
@@ -2041,8 +2041,8 @@ msgstr ""
 msgid "ISO 3166-1:"
 msgstr ""
 
-#: ../root/area/edit_form.tt:13 ../root/edit/details/AddArea.js:91
-#: ../root/edit/details/EditArea.js:107
+#: ../root/area/edit_form.tt:13 ../root/edit/details/AddArea.js:76
+#: ../root/edit/details/EditArea.js:91
 msgid "ISO 3166-2"
 msgstr ""
 
@@ -2051,8 +2051,8 @@ msgstr ""
 msgid "ISO 3166-2:"
 msgstr ""
 
-#: ../root/area/edit_form.tt:14 ../root/edit/details/AddArea.js:98
-#: ../root/edit/details/EditArea.js:114
+#: ../root/area/edit_form.tt:14 ../root/edit/details/AddArea.js:83
+#: ../root/edit/details/EditArea.js:98
 msgid "ISO 3166-3"
 msgstr ""
 
@@ -2085,7 +2085,7 @@ msgstr ""
 msgid "ISO number"
 msgstr ""
 
-#: ../root/recording/edit_form.tt:45 ../root/edit/details/RemoveIsrc.js:36
+#: ../root/recording/edit_form.tt:45 ../root/edit/details/RemoveIsrc.js:29
 #: ../root/otherlookup/OtherLookupForm.js:74
 #: ../root/report/IsrcsWithManyRecordings.js:58
 msgid "ISRC"
@@ -2095,8 +2095,8 @@ msgstr "ISRC"
 msgid "ISRCs:"
 msgstr ""
 
-#: ../root/work/edit_form.tt:16 ../root/edit/details/AddWork.js:65
-#: ../root/edit/details/EditWork.js:82 ../root/edit/details/RemoveIswc.js:36
+#: ../root/work/edit_form.tt:16 ../root/edit/details/AddWork.js:49
+#: ../root/edit/details/EditWork.js:67 ../root/edit/details/RemoveIswc.js:29
 #: ../root/otherlookup/OtherLookupForm.js:79
 #: ../root/report/IswcsWithManyWorks.js:48
 #: ../root/search/components/WorkResults.js:53
@@ -2231,15 +2231,15 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
 #: ../root/components/list/InstrumentList.js:47
-#: ../root/edit/details/AddInstrument.js:43
-#: ../root/edit/details/EditInstrument.js:50
+#: ../root/edit/details/AddInstrument.js:31
+#: ../root/edit/details/EditInstrument.js:39
 #: ../root/instrument/InstrumentLayout.js:39
 #: ../root/layout/components/Search.js:38
 #: ../root/report/components/InstrumentList.js:44
 #: ../root/search/components/SearchForm.js:46
 #: ../root/static/scripts/common/constants.js:22
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:54
-#: ../root/user/UserProfile.js:45
+#: ../root/user/UserProfile.js:46
 msgid "Instrument"
 msgstr "Όργανο"
 
@@ -2302,12 +2302,12 @@ msgstr ""
 #: ../root/edit/search_macros.tt:418 ../root/release/edit/duplicates.tt:15
 #: ../root/release/merge.tt:17 ../lib/MusicBrainz/Server/Edit/Label.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
-#: ../root/components/list/LabelList.js:54 ../root/edit/details/AddLabel.js:51
-#: ../root/edit/details/EditLabel.js:62
-#: ../root/edit/details/EditReleaseLabel.js:70
-#: ../root/edit/details/MergeReleases.js:262
-#: ../root/edit/details/historic/AddRelease.js:153
-#: ../root/edit/details/historic/EditReleaseEvents.js:136
+#: ../root/components/list/LabelList.js:54 ../root/edit/details/AddLabel.js:33
+#: ../root/edit/details/EditLabel.js:45
+#: ../root/edit/details/EditReleaseLabel.js:52
+#: ../root/edit/details/MergeReleases.js:230
+#: ../root/edit/details/historic/AddRelease.js:125
+#: ../root/edit/details/historic/EditReleaseEvents.js:107
 #: ../root/label/LabelHeader.js:27 ../root/layout/components/Search.js:39
 #: ../root/recording/RecordingIndex.js:59
 #: ../root/release_group/ReleaseGroupIndex.js:166
@@ -2318,7 +2318,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:39
 #: ../root/static/scripts/common/constants.js:23
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:56
-#: ../root/user/UserProfile.js:46 ../root/utility/tableColumns.js:505
+#: ../root/user/UserProfile.js:47 ../root/utility/tableColumns.js:505
 #: ../root/utility/tableColumns.js:510
 msgid "Label"
 msgstr "Δισκογραφική εταιρεία"
@@ -2343,8 +2343,8 @@ msgstr "Βαθμολογίες δισκογραφικής εταιρείας"
 #: ../root/components/common-macros.tt:552
 #: ../root/release/edit/information.tt:173
 #: ../root/release_group/set_cover_art.tt:52
-#: ../root/edit/details/AddReleaseLabel.js:46
-#: ../root/edit/details/RemoveReleaseLabel.js:42
+#: ../root/edit/details/AddReleaseLabel.js:37
+#: ../root/edit/details/RemoveReleaseLabel.js:33
 msgid "Label:"
 msgstr "Δισκογαφική εταιρεία:"
 
@@ -2372,17 +2372,17 @@ msgstr ""
 #: ../root/release/edit/tracklist.tt:164 ../root/release/edit/tracklist.tt:430
 #: ../root/components/RelationshipsTable.js:321
 #: ../root/components/list/RecordingList.js:114
-#: ../root/edit/details/AddStandaloneRecording.js:73
-#: ../root/edit/details/EditMedium.js:364
-#: ../root/edit/details/EditMedium.js:368
-#: ../root/edit/details/EditRecording.js:72
-#: ../root/edit/details/historic/AddRelease.js:121
-#: ../root/edit/details/historic/AddTrackKV.js:68 ../root/isrc/Index.js:68
+#: ../root/edit/details/AddStandaloneRecording.js:61
+#: ../root/edit/details/EditMedium.js:319
+#: ../root/edit/details/EditMedium.js:323
+#: ../root/edit/details/EditRecording.js:60
+#: ../root/edit/details/historic/AddRelease.js:93
+#: ../root/edit/details/historic/AddTrackKV.js:56 ../root/isrc/Index.js:68
 #: ../root/recording/RecordingIndex.js:53
 #: ../root/report/IsrcsWithManyRecordings.js:61
 #: ../root/report/components/CDTocList.js:51
 #: ../root/search/components/RecordingResults.js:133
-#: ../root/static/scripts/release/components/MediumTable.js:224
+#: ../root/static/scripts/release/components/MediumTable.js:218
 msgid "Length"
 msgstr "Διάρκεια"
 
@@ -2416,7 +2416,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/AcoustIdCell.js:117
 #: ../root/static/scripts/common/components/FingerprintTable.js:86
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:101
-#: ../root/static/scripts/release/components/MediumTable.js:118
+#: ../root/static/scripts/release/components/MediumTable.js:112
 msgid "Loading..."
 msgstr ""
 
@@ -2434,9 +2434,9 @@ msgid "Log in"
 msgstr "Σύνδεση"
 
 #: ../root/relationship/linktype/form.tt:15
-#: ../root/edit/details/AddRelationshipType.js:143
-#: ../root/edit/details/EditRelationshipType.js:248
-#: ../root/edit/details/RemoveRelationshipType.js:123
+#: ../root/edit/details/AddRelationshipType.js:120
+#: ../root/edit/details/EditRelationshipType.js:220
+#: ../root/edit/details/RemoveRelationshipType.js:106
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:158
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:79
 msgid "Long link phrase:"
@@ -2461,7 +2461,7 @@ msgid "Low"
 msgstr "Χαμηλή"
 
 #: ../root/release/edit_relationships.tt:172
-#: ../root/edit/details/AddWork.js:83 ../root/edit/details/EditWork.js:100
+#: ../root/edit/details/AddWork.js:67 ../root/edit/details/EditWork.js:85
 #: ../root/layout/components/sidebar/WorkSidebar.js:68
 #: ../root/search/components/WorkResults.js:55
 #: ../root/static/scripts/work/edit.js:311 ../root/utility/tableColumns.js:796
@@ -2503,9 +2503,9 @@ msgstr "CDs που ταιριάζουν"
 #: ../root/cdtoc/attach_confirm.tt:7 ../root/cdtoc/lookup.tt:40
 #: ../root/cdtoc/set_durations.tt:10 ../root/components/common-macros.tt:674
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:8
-#: ../root/edit/details/EditMedium.js:507
-#: ../root/edit/details/RemoveMedium.js:36
-#: ../root/edit/details/SetTrackLengths.js:52
+#: ../root/edit/details/EditMedium.js:462
+#: ../root/edit/details/RemoveMedium.js:28
+#: ../root/edit/details/SetTrackLengths.js:42
 #: ../root/search/components/RecordingResults.js:139
 #: ../root/static/scripts/common/utility/mediumFormatName.js:14
 msgid "Medium"
@@ -2534,7 +2534,7 @@ msgstr "Διαδικασία συγχώνευσης"
 msgid "Merge Releases"
 msgstr "Συγχώνευση κυκλοφοριών"
 
-#: ../root/release/merge.tt:55 ../root/edit/details/MergeReleases.js:363
+#: ../root/release/merge.tt:55 ../root/edit/details/MergeReleases.js:331
 msgid "Merge strategy:"
 msgstr "Στρατηγική συγχώνευσης:"
 
@@ -2614,36 +2614,36 @@ msgstr "Η ψήφος μου:"
 #: ../root/admin/attributes/Script.js:44
 #: ../root/components/Aliases/ArtistCreditList.js:50
 #: ../root/components/list/RecordingList.js:96
-#: ../root/edit/details/AddArea.js:57 ../root/edit/details/AddArtist.js:71
-#: ../root/edit/details/AddEvent.js:55
-#: ../root/edit/details/AddInstrument.js:55
-#: ../root/edit/details/AddLabel.js:61 ../root/edit/details/AddPlace.js:54
-#: ../root/edit/details/AddRelationshipAttribute.js:48
-#: ../root/edit/details/AddRelationshipType.js:88
-#: ../root/edit/details/AddRelease.js:69
-#: ../root/edit/details/AddReleaseGroup.js:56
-#: ../root/edit/details/AddSeries.js:46
-#: ../root/edit/details/AddStandaloneRecording.js:56
-#: ../root/edit/details/AddWork.js:54 ../root/edit/details/EditArea.js:70
-#: ../root/edit/details/EditArtist.js:86 ../root/edit/details/EditEvent.js:57
-#: ../root/edit/details/EditInstrument.js:57
-#: ../root/edit/details/EditLabel.js:68 ../root/edit/details/EditMedium.js:524
-#: ../root/edit/details/EditPlace.js:63
-#: ../root/edit/details/EditRecording.js:58
-#: ../root/edit/details/EditRelationshipAttribute.js:67
-#: ../root/edit/details/EditRelationshipAttribute.js:76
-#: ../root/edit/details/EditRelationshipType.js:201
-#: ../root/edit/details/EditRelease.js:75
-#: ../root/edit/details/EditReleaseGroup.js:57
-#: ../root/edit/details/EditSeries.js:54 ../root/edit/details/EditWork.js:68
-#: ../root/edit/details/RemoveRelationshipAttribute.js:41
-#: ../root/edit/details/RemoveRelationshipType.js:60
-#: ../root/edit/details/historic/AddRelease.js:63
-#: ../root/edit/details/historic/AddRelease.js:119
-#: ../root/edit/details/historic/AddTrackKV.js:44
-#: ../root/edit/details/historic/AddTrackOld.js:34
-#: ../root/edit/details/historic/EditReleaseName.js:31
-#: ../root/entity/Details.js:88 ../root/genre/GenreEditForm.js:32
+#: ../root/edit/details/AddArea.js:42 ../root/edit/details/AddArtist.js:53
+#: ../root/edit/details/AddEvent.js:40
+#: ../root/edit/details/AddInstrument.js:43
+#: ../root/edit/details/AddLabel.js:43 ../root/edit/details/AddPlace.js:40
+#: ../root/edit/details/AddRelationshipAttribute.js:36
+#: ../root/edit/details/AddRelationshipType.js:65
+#: ../root/edit/details/AddRelease.js:52
+#: ../root/edit/details/AddReleaseGroup.js:44
+#: ../root/edit/details/AddSeries.js:35
+#: ../root/edit/details/AddStandaloneRecording.js:44
+#: ../root/edit/details/AddWork.js:38 ../root/edit/details/EditArea.js:54
+#: ../root/edit/details/EditArtist.js:67 ../root/edit/details/EditEvent.js:42
+#: ../root/edit/details/EditInstrument.js:46
+#: ../root/edit/details/EditLabel.js:51 ../root/edit/details/EditMedium.js:479
+#: ../root/edit/details/EditPlace.js:47
+#: ../root/edit/details/EditRecording.js:46
+#: ../root/edit/details/EditRelationshipAttribute.js:53
+#: ../root/edit/details/EditRelationshipAttribute.js:62
+#: ../root/edit/details/EditRelationshipType.js:173
+#: ../root/edit/details/EditRelease.js:57
+#: ../root/edit/details/EditReleaseGroup.js:45
+#: ../root/edit/details/EditSeries.js:43 ../root/edit/details/EditWork.js:53
+#: ../root/edit/details/RemoveRelationshipAttribute.js:33
+#: ../root/edit/details/RemoveRelationshipType.js:43
+#: ../root/edit/details/historic/AddRelease.js:35
+#: ../root/edit/details/historic/AddRelease.js:91
+#: ../root/edit/details/historic/AddTrackKV.js:32
+#: ../root/edit/details/historic/AddTrackOld.js:24
+#: ../root/edit/details/historic/EditReleaseName.js:23
+#: ../root/entity/Details.js:95 ../root/genre/GenreEditForm.js:32
 #: ../root/search/components/AnnotationResults.js:58
 #: ../root/search/components/AreaResults.js:61
 #: ../root/search/components/ArtistResults.js:50
@@ -2670,7 +2670,7 @@ msgstr "Όνομα"
 #: ../root/relationship/linktype/form.tt:12
 #: ../root/relationship/linktype/form.tt:77
 #: ../root/relationship/linktype/form.tt:107
-#: ../root/edit/details/AddMedium.js:142
+#: ../root/edit/details/AddMedium.js:131
 msgid "Name:"
 msgstr "Όνομα:"
 
@@ -2896,8 +2896,8 @@ msgid "Or..."
 msgstr "Ή..."
 
 #: ../root/relationship/linktype/form.tt:37
-#: ../root/edit/details/AddRelationshipType.js:182
-#: ../root/edit/details/EditRelationshipType.js:300
+#: ../root/edit/details/AddRelationshipType.js:159
+#: ../root/edit/details/EditRelationshipType.js:272
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:134
 msgid "Orderable direction:"
 msgstr ""
@@ -2927,14 +2927,14 @@ msgid "Page:"
 msgstr "Σελίδα:"
 
 #: ../root/admin/attributes/form.tt:50
-#: ../root/edit/details/AddRelationshipAttribute.js:69
-#: ../root/edit/details/EditRelationshipAttribute.js:101
+#: ../root/edit/details/AddRelationshipAttribute.js:57
+#: ../root/edit/details/EditRelationshipAttribute.js:87
 msgid "Parent"
 msgstr "Γονιός"
 
 #: ../root/relationship/linkattributetype/form.tt:4
 #: ../root/relationship/linktype/form.tt:4
-#: ../root/edit/details/EditRelationshipType.js:332
+#: ../root/edit/details/EditRelationshipType.js:304
 msgid "Parent:"
 msgstr "Γονιός:"
 
@@ -2950,15 +2950,15 @@ msgstr "Κωδικός πρόσβασης:"
 #: ../root/components/common-macros.tt:569 ../root/edit/search_macros.tt:418
 #: ../lib/MusicBrainz/Server/Edit/Place.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:42
-#: ../root/components/list/PlaceList.js:54 ../root/edit/details/AddPlace.js:46
-#: ../root/edit/details/EditPlace.js:58 ../root/layout/components/Search.js:40
+#: ../root/components/list/PlaceList.js:54 ../root/edit/details/AddPlace.js:32
+#: ../root/edit/details/EditPlace.js:42 ../root/layout/components/Search.js:40
 #: ../root/place/PlaceHeader.js:29
 #: ../root/report/PlacesWithoutCoordinates.js:42
 #: ../root/report/components/PlaceList.js:45
 #: ../root/search/components/SearchForm.js:41
 #: ../root/static/scripts/common/constants.js:24
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:58
-#: ../root/user/UserProfile.js:47
+#: ../root/user/UserProfile.js:48
 msgid "Place"
 msgstr ""
 
@@ -3060,11 +3060,11 @@ msgid "Please select the medium you wish to attach this CD TOC to."
 msgstr "Παρακαλούμε επιλέξτε το μέσο στο οποίο θέλετε να συνδέσετε αυτό το CD TOC."
 
 #: ../root/cdtoc/list.tt:6 ../root/release/reorder_cover_art.tt:10
-#: ../root/edit/details/EditMedium.js:516
+#: ../root/edit/details/EditMedium.js:471
 msgid "Position"
 msgstr "Θέση"
 
-#: ../root/release/add_cover_art.tt:123 ../root/edit/details/AddMedium.js:136
+#: ../root/release/add_cover_art.tt:123 ../root/edit/details/AddMedium.js:125
 msgid "Position:"
 msgstr "Θέση:"
 
@@ -3092,8 +3092,8 @@ msgstr "Προηγούμενο"
 
 #: ../root/release/edit/information.tt:91
 #: ../root/release_group/edit_form.tt:16
-#: ../root/edit/details/AddReleaseGroup.js:81
-#: ../root/edit/details/EditReleaseGroup.js:74
+#: ../root/edit/details/AddReleaseGroup.js:69
+#: ../root/edit/details/EditReleaseGroup.js:62
 msgid "Primary Type:"
 msgstr "Πρωτεύων τύπος:"
 
@@ -3117,7 +3117,7 @@ msgstr[1] "Βαθμολογήστε: {rating} αστέρια"
 
 #: ../root/user/ratings_summary.tt:1 ../root/user/ratings_summary.tt:33
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:36
-#: ../root/entity/Ratings.js:38 ../root/user/UserProfile.js:804
+#: ../root/entity/Ratings.js:38 ../root/user/UserProfile.js:817
 msgid "Ratings"
 msgstr "Βαθμολογίες"
 
@@ -3133,11 +3133,11 @@ msgstr ""
 #: ../root/release/edit_relationships.tt:53
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
-#: ../root/edit/details/AddStandaloneRecording.js:46
-#: ../root/edit/details/EditRecording.js:51
-#: ../root/edit/details/MergeReleases.js:327
-#: ../root/edit/details/RemoveIsrc.js:40
-#: ../root/edit/details/historic/EditTrack.js:37
+#: ../root/edit/details/AddStandaloneRecording.js:34
+#: ../root/edit/details/EditRecording.js:39
+#: ../root/edit/details/MergeReleases.js:295
+#: ../root/edit/details/RemoveIsrc.js:33
+#: ../root/edit/details/historic/EditTrack.js:28
 #: ../root/layout/components/Search.js:30
 #: ../root/report/IsrcsWithManyRecordings.js:60
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:56
@@ -3145,7 +3145,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:37
 #: ../root/static/scripts/common/constants.js:25
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:60
-#: ../root/user/UserProfile.js:48
+#: ../root/user/UserProfile.js:49
 msgid "Recording"
 msgstr "Ηχογράφηση"
 
@@ -3172,7 +3172,7 @@ msgstr "Ηχογράφηση:"
 #: ../root/artist_credit/ArtistCreditLayout.js:30
 #: ../root/components/EntityTabs.js:32
 #: ../root/components/TagEntitiesList.js:191
-#: ../root/edit/details/EditMedium.js:561
+#: ../root/edit/details/EditMedium.js:516
 #: ../root/instrument/InstrumentRecordings.js:36
 #: ../root/instrument/InstrumentRecordings.js:38
 #: ../root/report/ReportsIndex.js:448
@@ -3210,8 +3210,8 @@ msgid "Relationship Editor"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:418
-#: ../root/edit/details/AddRelationshipType.js:78
-#: ../root/edit/details/EditRelationshipType.js:171
+#: ../root/edit/details/AddRelationshipType.js:55
+#: ../root/edit/details/EditRelationshipType.js:143
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:41
 #: ../root/utility/tableColumns.js:725
 msgid "Relationship Type"
@@ -3245,17 +3245,17 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Release.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:37
 #: ../root/components/list/ReleaseList.js:77
-#: ../root/edit/details/AddCoverArt.js:36
-#: ../root/edit/details/AddMedium.js:126 ../root/edit/details/AddRelease.js:55
-#: ../root/edit/details/ChangeReleaseQuality.js:34
-#: ../root/edit/details/EditBarcodes.js:51
-#: ../root/edit/details/EditCoverArt.js:51
-#: ../root/edit/details/EditReleaseLabel.js:61
-#: ../root/edit/details/MergeReleases.js:257
-#: ../root/edit/details/RemoveCoverArt.js:35
-#: ../root/edit/details/ReorderCoverArt.js:45
-#: ../root/edit/details/ReorderMediums.js:39
-#: ../root/edit/details/historic/EditReleaseEvents.js:133
+#: ../root/edit/details/AddCoverArt.js:27
+#: ../root/edit/details/AddMedium.js:115 ../root/edit/details/AddRelease.js:38
+#: ../root/edit/details/ChangeReleaseQuality.js:26
+#: ../root/edit/details/EditBarcodes.js:39
+#: ../root/edit/details/EditCoverArt.js:41
+#: ../root/edit/details/EditReleaseLabel.js:43
+#: ../root/edit/details/MergeReleases.js:225
+#: ../root/edit/details/RemoveCoverArt.js:27
+#: ../root/edit/details/ReorderCoverArt.js:36
+#: ../root/edit/details/ReorderMediums.js:27
+#: ../root/edit/details/historic/EditReleaseEvents.js:104
 #: ../root/layout/components/Search.js:31
 #: ../root/release_group/ReleaseGroupIndex.js:161
 #: ../root/report/components/CDTocReleaseList.js:46
@@ -3265,8 +3265,8 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:36
 #: ../root/static/scripts/common/constants.js:26
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:62
-#: ../root/static/scripts/release/components/TracklistAndCredits.js:341
-#: ../root/taglookup/Form.js:31 ../root/user/UserProfile.js:49
+#: ../root/static/scripts/release/components/TracklistAndCredits.js:340
+#: ../root/taglookup/Form.js:31 ../root/user/UserProfile.js:50
 msgid "Release"
 msgstr "Κυκλοφορία"
 
@@ -3289,7 +3289,7 @@ msgstr "Διπλότυπες κυκλοφορίες"
 #: ../root/search/components/ReleaseGroupResults.js:62
 #: ../root/search/components/SearchForm.js:35
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:64
-#: ../root/static/scripts/release/components/TracklistAndCredits.js:348
+#: ../root/static/scripts/release/components/TracklistAndCredits.js:347
 msgid "Release Group"
 msgstr "Ομάδα κυκλοφοριών"
 
@@ -3351,8 +3351,8 @@ msgid "Release group “{name}” by {artist}"
 msgstr "Ομάδα κυκλοφοριών “{name}” από {artist}"
 
 #: ../root/components/common-macros.tt:552
-#: ../root/edit/details/historic/ChangeReleaseGroup.js:35
-#: ../root/edit/details/historic/MoveReleaseToReleaseGroup.js:38
+#: ../root/edit/details/historic/ChangeReleaseGroup.js:27
+#: ../root/edit/details/historic/MoveReleaseToReleaseGroup.js:30
 msgid "Release group:"
 msgstr "Ομάδα κυκλοφοριών:"
 
@@ -3372,10 +3372,10 @@ msgstr "Κυκλοφορία “{name}” από {artist}"
 
 #: ../root/components/common-macros.tt:552
 #: ../root/release/edit/tracklist.tt:105
-#: ../root/edit/details/AddReleaseLabel.js:37
-#: ../root/edit/details/EditRelease.js:64
-#: ../root/edit/details/RemoveReleaseLabel.js:37
-#: ../root/edit/details/historic/MoveReleaseToReleaseGroup.js:32
+#: ../root/edit/details/AddReleaseLabel.js:28
+#: ../root/edit/details/EditRelease.js:46
+#: ../root/edit/details/RemoveReleaseLabel.js:28
+#: ../root/edit/details/historic/MoveReleaseToReleaseGroup.js:24
 msgid "Release:"
 msgstr "Κυκλοφορία:"
 
@@ -3387,7 +3387,7 @@ msgstr "Κυκλοφορία:"
 #: ../root/components/EntityTabs.js:33
 #: ../root/components/TagEntitiesList.js:187
 #: ../root/components/list/ReleaseGroupList.js:108
-#: ../root/edit/details/SetTrackLengths.js:59
+#: ../root/edit/details/SetTrackLengths.js:49
 #: ../root/instrument/InstrumentReleases.js:36
 #: ../root/instrument/InstrumentReleases.js:38 ../root/label/LabelIndex.js:80
 #: ../root/report/ReportsIndex.js:246
@@ -3498,7 +3498,7 @@ msgid "Remove medium"
 msgstr "Κατάργηση μέσου"
 
 #: ../root/layout/merge-helper.tt:33
-#: ../root/layout/components/MergeHelper.js:74
+#: ../root/layout/components/MergeHelper.js:75
 msgid "Remove selected entities"
 msgstr "Κατάργηση επιλεγμένων στοιχείων"
 
@@ -3551,9 +3551,9 @@ msgid "Reveal my email address"
 msgstr "Εμφάνιση της διεύθυνσης email μου"
 
 #: ../root/relationship/linktype/form.tt:14
-#: ../root/edit/details/AddRelationshipType.js:135
-#: ../root/edit/details/EditRelationshipType.js:238
-#: ../root/edit/details/RemoveRelationshipType.js:111
+#: ../root/edit/details/AddRelationshipType.js:112
+#: ../root/edit/details/EditRelationshipType.js:210
+#: ../root/edit/details/RemoveRelationshipType.js:94
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:153
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:72
 msgid "Reverse link phrase:"
@@ -3635,8 +3635,8 @@ msgstr "Γίνεται αναζήτηση..."
 
 #: ../root/release/edit/information.tt:94
 #: ../root/release_group/edit_form.tt:17
-#: ../root/edit/details/AddReleaseGroup.js:94
-#: ../root/edit/details/EditReleaseGroup.js:93
+#: ../root/edit/details/AddReleaseGroup.js:82
+#: ../root/edit/details/EditReleaseGroup.js:81
 msgid "Secondary Types:"
 msgstr "Δευτερεύοντες τύποι:"
 
@@ -3675,7 +3675,8 @@ msgstr "Αποστολή"
 
 #: ../root/user/contact.tt:1 ../root/user/contact.tt:3
 #: ../lib/MusicBrainz/Server/Controller/User.pm:299
-#: ../lib/MusicBrainz/Server/Controller/User.pm:324
+#: ../lib/MusicBrainz/Server/Controller/User.pm:325
+#: ../lib/MusicBrainz/Server/Controller/User.pm:340
 #: ../root/account/LostUsername.js:43
 msgid "Send Email"
 msgstr "Αποστολή Email"
@@ -3705,7 +3706,7 @@ msgstr ""
 #: ../root/series/SeriesHeader.js:29
 #: ../root/static/scripts/common/constants.js:28
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:66
-#: ../root/user/UserProfile.js:51
+#: ../root/user/UserProfile.js:52
 msgctxt "singular"
 msgid "Series"
 msgstr ""
@@ -3913,7 +3914,7 @@ msgstr "Το πεδίο σχολίων λειτουργεί σαν ένα μικ
 msgid "The catalog number you have entered looks like an Amazon ASIN."
 msgstr "Ο αριθμός καταλόγου που εισάγατε μοιάζε με Amazon ASIN."
 
-#: ../root/layout.tt:90 ../root/layout/index.js:275
+#: ../root/layout.tt:90 ../root/layout/index.js:283
 msgid ""
 "The data you have submitted does not make any changes to the data already "
 "present."
@@ -3965,7 +3966,7 @@ msgid ""
 "strategy include the following, whose artists differ:"
 msgstr "Οι ηχογραφήσεις που θα συγχωνευτούν αν συνεχίσετε την τρέχουσα στρατηγική συγχώνευσης περιλαμβάνουν τις ακόλουθες, των οποίων οι καλλιτέχνες διαφέρουν:"
 
-#: ../root/layout.tt:71 ../root/layout/index.js:231
+#: ../root/layout.tt:71 ../root/layout/index.js:243
 msgid "The server is temporarily in read-only mode for database maintenance."
 msgstr ""
 
@@ -3978,8 +3979,8 @@ msgstr ""
 
 #: ../root/release/edit/recordings.tt:30
 #: ../root/release/edit_relationships.tt:80
-#: ../root/edit/details/AddMedium.js:167
-#: ../root/edit/details/RemoveMedium.js:52
+#: ../root/edit/details/AddMedium.js:156
+#: ../root/edit/details/RemoveMedium.js:44
 msgid "The tracklist for this medium is unknown."
 msgstr ""
 
@@ -4315,8 +4316,8 @@ msgid ""
 msgstr ""
 
 #: ../root/cdtoc/info.tt:37 ../root/cdtoc/info.tt:39 ../root/cdtoc/info.tt:41
-#: ../root/components/list/EventList.js:93 ../root/edit/details/AddEvent.js:94
-#: ../root/edit/details/EditEvent.js:105
+#: ../root/components/list/EventList.js:93 ../root/edit/details/AddEvent.js:79
+#: ../root/edit/details/EditEvent.js:90
 #: ../root/report/components/EventList.js:75
 #: ../root/search/components/EventResults.js:73
 msgid "Time"
@@ -4336,10 +4337,10 @@ msgstr ""
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:31
 #: ../root/components/RelationshipsTable.js:317
 #: ../root/components/list/ReleaseGroupList.js:91
-#: ../root/edit/details/EditMedium.js:362
-#: ../root/edit/details/EditMedium.js:366 ../root/isrc/Index.js:66
+#: ../root/edit/details/EditMedium.js:317
+#: ../root/edit/details/EditMedium.js:321 ../root/isrc/Index.js:66
 #: ../root/iswc/Index.js:55 ../root/recording/RecordingIndex.js:52
-#: ../root/static/scripts/release/components/MediumTable.js:219
+#: ../root/static/scripts/release/components/MediumTable.js:213
 msgid "Title"
 msgstr "Τίτλος"
 
@@ -4425,11 +4426,11 @@ msgid "Track {n}:"
 msgstr "Κομμάτι {n}:"
 
 #: ../root/cdstub/edit_form.tt:12 ../root/cdstub/index.tt:7
-#: ../root/release/edit/layout.tt:16 ../root/edit/details/AddMedium.js:157
-#: ../root/edit/details/EditMedium.js:544
-#: ../root/edit/details/RemoveMedium.js:43
+#: ../root/release/edit/layout.tt:16 ../root/edit/details/AddMedium.js:146
+#: ../root/edit/details/EditMedium.js:499
+#: ../root/edit/details/RemoveMedium.js:35
 #: ../root/static/scripts/release-editor/fields.js:742
-#: ../root/static/scripts/release/components/TracklistAndCredits.js:303
+#: ../root/static/scripts/release/components/TracklistAndCredits.js:302
 msgid "Tracklist"
 msgstr "Λίστα κομματιών"
 
@@ -4437,8 +4438,8 @@ msgstr "Λίστα κομματιών"
 #: ../root/release/merge.tt:15 ../root/artist_credit/ArtistCreditIndex.js:128
 #: ../root/artist_credit/ArtistCreditLayout.js:31
 #: ../root/components/list/ReleaseList.js:104
-#: ../root/edit/details/MergeReleases.js:260
-#: ../root/edit/details/historic/AddRelease.js:113
+#: ../root/edit/details/MergeReleases.js:228
+#: ../root/edit/details/historic/AddRelease.js:85
 #: ../root/release_group/ReleaseGroupIndex.js:164
 #: ../root/search/components/CDStubResults.js:49
 #: ../root/search/components/ReleaseResults.js:109
@@ -4475,20 +4476,20 @@ msgstr "Twitter"
 #: ../root/components/Aliases/AliasTable.js:28
 #: ../root/components/list/ReleaseGroupList.js:103
 #: ../root/components/list/ReleaseList.js:145
-#: ../root/edit/details/AddArea.js:77 ../root/edit/details/AddArtist.js:89
-#: ../root/edit/details/AddEvent.js:73
-#: ../root/edit/details/AddInstrument.js:72
-#: ../root/edit/details/AddLabel.js:107 ../root/edit/details/AddPlace.js:65
-#: ../root/edit/details/AddReleaseGroup.js:80
-#: ../root/edit/details/AddRemoveAlias.js:101
-#: ../root/edit/details/AddSeries.js:57 ../root/edit/details/AddWork.js:71
-#: ../root/edit/details/EditAlias.js:123 ../root/edit/details/EditArea.js:91
-#: ../root/edit/details/EditArtist.js:107 ../root/edit/details/EditEvent.js:78
-#: ../root/edit/details/EditInstrument.js:71
-#: ../root/edit/details/EditLabel.js:92 ../root/edit/details/EditPlace.js:77
-#: ../root/edit/details/EditReleaseGroup.js:73
-#: ../root/edit/details/EditSeries.js:68
-#: ../root/edit/details/historic/AddRelease.js:75 ../root/iswc/Index.js:58
+#: ../root/edit/details/AddArea.js:62 ../root/edit/details/AddArtist.js:71
+#: ../root/edit/details/AddEvent.js:58
+#: ../root/edit/details/AddInstrument.js:60
+#: ../root/edit/details/AddLabel.js:89 ../root/edit/details/AddPlace.js:51
+#: ../root/edit/details/AddReleaseGroup.js:68
+#: ../root/edit/details/AddRemoveAlias.js:85
+#: ../root/edit/details/AddSeries.js:46 ../root/edit/details/AddWork.js:55
+#: ../root/edit/details/EditAlias.js:106 ../root/edit/details/EditArea.js:75
+#: ../root/edit/details/EditArtist.js:88 ../root/edit/details/EditEvent.js:63
+#: ../root/edit/details/EditInstrument.js:60
+#: ../root/edit/details/EditLabel.js:75 ../root/edit/details/EditPlace.js:61
+#: ../root/edit/details/EditReleaseGroup.js:61
+#: ../root/edit/details/EditSeries.js:57
+#: ../root/edit/details/historic/AddRelease.js:47 ../root/iswc/Index.js:58
 #: ../root/release/CoverArtFields.js:55 ../root/report/DuplicateArtists.js:67
 #: ../root/report/DuplicateReleaseGroups.js:63
 #: ../root/report/IswcsWithManyWorks.js:52
@@ -4515,8 +4516,8 @@ msgstr "Twitter"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:448
 #: ../root/static/scripts/common/components/FilterForm.js:63
-#: ../root/static/scripts/edit/externalLinks.js:1047
-#: ../root/static/scripts/edit/externalLinks.js:1323
+#: ../root/static/scripts/edit/externalLinks.js:1051
+#: ../root/static/scripts/edit/externalLinks.js:1329
 #: ../root/utility/tableColumns.js:615 ../root/utility/tableColumns.js:620
 msgid "Type"
 msgstr "Τύπος"
@@ -4538,15 +4539,15 @@ msgstr "Τύπος:"
 #: ../root/release/add_cover_art.tt:135
 #: ../root/release/reorder_cover_art.tt:19
 #: ../root/release_group/set_cover_art.tt:69
-#: ../root/edit/details/AddCoverArt.js:43
-#: ../root/edit/details/EditCoverArt.js:70
-#: ../root/edit/details/RemoveCoverArt.js:42 ../root/release/CoverArt.js:86
+#: ../root/edit/details/AddCoverArt.js:34
+#: ../root/edit/details/EditCoverArt.js:60
+#: ../root/edit/details/RemoveCoverArt.js:34 ../root/release/CoverArt.js:86
 msgid "Types:"
 msgstr "Τύποι:"
 
 #: ../root/components/common-macros.tt:569
-#: ../lib/MusicBrainz/Server/Edit/URL.pm:7 ../root/edit/details/EditUrl.js:45
-#: ../root/edit/details/EditUrl.js:50
+#: ../lib/MusicBrainz/Server/Edit/URL.pm:7 ../root/edit/details/EditUrl.js:34
+#: ../root/edit/details/EditUrl.js:39
 #: ../root/otherlookup/OtherLookupForm.js:69
 #: ../root/report/BadAmazonUrls.js:39
 #: ../root/report/LinksWithMultipleEntities.js:60
@@ -4685,8 +4686,8 @@ msgid "Version:"
 msgstr "Έκδοση:"
 
 #: ../root/recording/edit_form.tt:44
-#: ../root/edit/details/AddStandaloneRecording.js:78
-#: ../root/edit/details/EditRecording.js:79
+#: ../root/edit/details/AddStandaloneRecording.js:66
+#: ../root/edit/details/EditRecording.js:67
 msgid "Video"
 msgstr ""
 
@@ -4720,7 +4721,7 @@ msgid "Voter"
 msgstr "Ψηφοφόρος"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/index.tt:23
-#: ../root/user/UserProfile.js:669
+#: ../root/user/UserProfile.js:682
 msgid "Votes"
 msgstr "Ψήφοι"
 
@@ -4772,7 +4773,7 @@ msgid "We are unable to display history for this cover art."
 msgstr ""
 
 #: ../root/edit/details/macros.tt:59 ../root/edit/components/EditArtwork.js:29
-#: ../root/edit/details/ReorderCoverArt.js:36
+#: ../root/edit/details/ReorderCoverArt.js:27
 msgid ""
 "We are unable to display history for this cover art. For a current listing "
 "of cover art, please see the {coverart|release's cover art page}."
@@ -4797,7 +4798,7 @@ msgid ""
 msgstr "Βρήκαμε δίσκους που ταιριάζουν με τις πληροφορίες που ζητήσατε, στην παρακάτω λίστα. Αν καμία από αυτές δεν είναι η κυκλοφορία που ψάχνετε, μπορείτε να αναζητήσετε χρησιμοποιώντας την παρακάτω φόρμα έτσι ώστε να συνδέσετε αυτό το δίσκο με μία άλλη κυκλοφορία του MusicBrainz."
 
 #: ../root/release/edit_relationships.tt:96
-#: ../root/static/scripts/release/components/TracklistAndCredits.js:318
+#: ../root/static/scripts/release/components/TracklistAndCredits.js:317
 msgid "We have no information about this release’s media and tracklist."
 msgstr ""
 
@@ -4828,15 +4829,15 @@ msgstr ""
 #: ../root/components/common-macros.tt:569 ../root/edit/search_macros.tt:418
 #: ../lib/MusicBrainz/Server/Edit/Work.pm:9
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:39
-#: ../root/components/list/WorkList.js:61 ../root/edit/details/AddWork.js:48
-#: ../root/edit/details/EditWork.js:61 ../root/edit/details/RemoveIswc.js:40
+#: ../root/components/list/WorkList.js:61 ../root/edit/details/AddWork.js:32
+#: ../root/edit/details/EditWork.js:46 ../root/edit/details/RemoveIswc.js:33
 #: ../root/layout/components/Search.js:34
 #: ../root/report/IswcsWithManyWorks.js:49
 #: ../root/report/components/WorkList.js:47
 #: ../root/search/components/SearchForm.js:38
 #: ../root/static/scripts/common/constants.js:30
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:70
-#: ../root/user/UserProfile.js:52 ../root/work/WorkHeader.js:29
+#: ../root/user/UserProfile.js:53 ../root/work/WorkHeader.js:29
 #: ../root/work/WorkLayout.js:35
 msgid "Work"
 msgstr "Έργο"
@@ -5068,21 +5069,21 @@ msgstr ""
 msgid "Your username will be publicly visible."
 msgstr "Το όνομα χρήστη σας θα είναι ορατό δημόσια."
 
-#: ../root/layout.tt:21 ../root/layout/index.js:197
+#: ../root/layout.tt:21 ../root/layout/index.js:208
 msgid ""
 "You’re currently not allowed to edit or vote because an admin has revoked "
 "your privileges. If you haven’t already been contacted about why, please "
 "{uri|send us a message}."
 msgstr ""
 
-#: ../root/layout.tt:17 ../root/layout/index.js:189
+#: ../root/layout.tt:17 ../root/layout/index.js:200
 msgid ""
 "You’re currently not allowed to edit, vote or leave edit notes because an "
 "admin has revoked your privileges. If you haven’t already been contacted "
 "about why, please {uri|send us a message}."
 msgstr ""
 
-#: ../root/layout.tt:25 ../root/layout/index.js:206
+#: ../root/layout.tt:25 ../root/layout/index.js:217
 msgid ""
 "You’re currently not allowed to leave edit notes because an admin has "
 "revoked your privileges. If you haven’t already been contacted about why, "
@@ -5105,8 +5106,8 @@ msgstr ""
 #: ../root/components/common-macros.tt:259
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:86
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:113
-#: ../root/edit/details/EditAlias.js:94
-#: ../root/edit/details/SetTrackLengths.js:73
+#: ../root/edit/details/EditAlias.js:77
+#: ../root/edit/details/SetTrackLengths.js:63
 #: ../root/static/scripts/common/components/EntityLink.js:41
 #: ../root/static/scripts/common/i18n/localizeLanguageName.js:15
 msgid "[removed]"
@@ -5145,7 +5146,7 @@ msgid "auto-edits"
 msgstr ""
 
 #: ../root/components/common-macros.tt:624
-#: ../root/edit/components/VoteTally.js:26
+#: ../root/edit/components/VoteTally.js:28
 msgid "automatically applied"
 msgstr "εφαρμόστηκε αυτόματα"
 
@@ -5525,7 +5526,7 @@ msgstr[1] ""
 msgid "{entity} has not been added to any collections."
 msgstr ""
 
-#: ../root/layout.tt:81 ../root/layout/index.js:263
+#: ../root/layout.tt:81 ../root/layout/index.js:270
 msgid ""
 "{link|New notes} have been left on some of your edits. Please make sure to "
 "read them and respond if necessary."
@@ -5617,7 +5618,7 @@ msgid "{variable}:"
 msgstr ""
 
 #: ../root/components/common-macros.tt:624
-#: ../root/edit/components/VoteTally.js:34
+#: ../root/edit/components/VoteTally.js:36
 msgid "{yes} yes : {no} no"
 msgstr "{yes} ναι : {no} όχι"
 
@@ -5699,7 +5700,7 @@ msgid "The verification key is missing."
 msgstr "Το κλειδί επαλήθευσης λείπει."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:99
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:270
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:274
 msgid "The checksum is invalid, please double check your email."
 msgstr "Το checksum δεν είναι έγκυρο, παρακαλούμε ελέγξτε το email σας."
 
@@ -5708,53 +5709,53 @@ msgid "Sorry, this email verification link has expired."
 msgstr "Λυπούμαστε, αυτός ο σύνδεσμος επιβεβαίωσης email έχει λήξει."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:122
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:282
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:286
 #, perl-brace-format
 msgid "The user with ID '{user_id}' could not be found."
 msgstr "Ο χρήστης με το ID '{user_id}' δε βρέθηκε."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:169
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:173
 msgid ""
 "We were unable to send login information to your email address.  Please try "
 "again, however if you continue to experience difficulty contact us at "
 "support@musicbrainz.org."
 msgstr "Δεν μπορέσαμε να στείλουμε πληροφορίες εισόδου στη διεύθυνση email σας.  Παρακαλούμε δοκιμάστε ξανά, αν ωστόσο εξακολουθείτε να αντιμετωπίζετε δυσκολία επικοινωνήστε μαζί μας στο support@musicbrainz.org."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:195
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:199
 msgid "There is no user with this username"
 msgstr "Δεν υπάρχει χρήστης με αυτό το όνομα χρήστη."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:200
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:204
 msgid "There is no user with this username and email"
 msgstr "Δεν υπάρχει χρήστης με αυτό το όνομα χρήστη και email."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:203
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:207
 msgid ""
 "We can't send a password reset email, because we have no email on record for"
 " this user."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:233
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:237
 msgid "Your password has been reset."
 msgstr "Ο κωδικός πρόσβασής σας επαναφέρθηκε."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:248
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:252
 msgid "Missing one or more required parameters."
 msgstr "Λείπει μια ή περισσότερες από τις απαιτούμενες παραμέτρους."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:259
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:263
 msgid "Sorry, this password reset link has expired."
 msgstr "Λυπούμαστε, αυτός ο σύνδεσμος επαναφοράς κωδικού έχει λήξει."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:325
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:329
 msgid "There is no user with this email"
 msgstr "Δεν υπάρχει χρήστης με αυτό το email"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:408
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:412
 msgid "Your profile has been updated."
 msgstr "Το προφίλ σας ενημερώθηκε."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:412
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:416
 #, perl-brace-format
 msgid ""
 "We have sent you a verification email to <code>{email}</code>. Please check "
@@ -5762,11 +5763,11 @@ msgid ""
 "address."
 msgstr "Σας στείλαμε μήνυμα επιβεβαίωσης στο <code>{email}</code>. Παρακαλούμε ελέγξτε τα εισερχόμενά σας και κάντε κλικ στο σύνδεσμο στο μήνυμα για να επιβεβαιώσετε τη νέα σας διεύθυνση email."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:451
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:455
 msgid "Your password has been changed."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:675
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:679
 msgid ""
 "<strong>We were unable to send a verification email to "
 "you.</strong><br/>Please confirm that you have entered a valid address by "
@@ -5914,36 +5915,40 @@ msgid ""
 " address}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:325
+#: ../lib/MusicBrainz/Server/Controller/User.pm:327
+msgid "You are not allowed to send messages to editors."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/User.pm:341
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
 msgstr "Ο χρήστης {name} δεν έχει συνδέσει κάποια διεύθυνση email με το λογαριασμό του."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:339
+#: ../lib/MusicBrainz/Server/Controller/User.pm:355
 msgid "Email Sent"
 msgstr "Email απεστάλη"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:340
+#: ../lib/MusicBrainz/Server/Controller/User.pm:356
 #, perl-brace-format
 msgid ""
 "Your email has been successfully sent! Click {link|here} to continue to "
 "{user}'s profile."
 msgstr "Το μήνυμά σας στάλθηκε επιτυχώς! Κάντε κλικ {link|εδώ} για να συνεχίσετε στο προφίλ του {user}."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:367
+#: ../lib/MusicBrainz/Server/Controller/User.pm:383
 msgid "Your message could not be sent"
 msgstr "Το μήνυμά σας δεν μπορούσε να σταλεί"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:517
+#: ../lib/MusicBrainz/Server/Controller/User.pm:533
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:766
+#: ../lib/MusicBrainz/Server/Controller/User.pm:782
 msgid "An error occurred while trying to send your report."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:770
+#: ../lib/MusicBrainz/Server/Controller/User.pm:786
 msgid "Your report has been sent."
 msgstr ""
 
@@ -6474,7 +6479,7 @@ msgid "Remove ISRC"
 msgstr "Κατάργηση ISRC"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship.pm:18
-#: ../root/edit/details/ReorderRelationships.js:33
+#: ../root/edit/details/ReorderRelationships.js:22
 msgid "Relationship"
 msgstr "Σχέση"
 
@@ -6581,13 +6586,13 @@ msgid "Reorder mediums"
 msgstr "Αναταξινόμηση μέσων"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup.pm:7
-#: ../root/edit/details/AddRelease.js:83
-#: ../root/edit/details/AddReleaseGroup.js:43
-#: ../root/edit/details/EditRelease.js:99
-#: ../root/edit/details/EditReleaseGroup.js:50
-#: ../root/edit/details/SetCoverArt.js:41
+#: ../root/edit/details/AddRelease.js:66
+#: ../root/edit/details/AddReleaseGroup.js:31
+#: ../root/edit/details/EditRelease.js:81
+#: ../root/edit/details/EditReleaseGroup.js:38
+#: ../root/edit/details/SetCoverArt.js:32
 #: ../root/static/scripts/common/constants.js:27
-#: ../root/user/UserProfile.js:50
+#: ../root/user/UserProfile.js:51
 msgid "Release group"
 msgstr "Ομάδα κυκλοφοριών"
 
@@ -6704,7 +6709,7 @@ msgstr ""
 msgid "Merge series"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/user/UserProfile.js:628
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/user/UserProfile.js:641
 #: ../root/utility/edit.js:45
 msgid "Open"
 msgstr ""
@@ -6736,8 +6741,8 @@ msgid "No votes"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:279
-#: ../root/edit/details/AddEvent.js:67 ../root/edit/details/EditEvent.js:71
-#: ../root/user/UserProfile.js:618 ../root/utility/edit.js:39
+#: ../root/edit/details/AddEvent.js:52 ../root/edit/details/EditEvent.js:56
+#: ../root/user/UserProfile.js:631 ../root/utility/edit.js:39
 msgid "Cancelled"
 msgstr "Ακυρώθηκε"
 
@@ -7201,12 +7206,12 @@ msgid "Please pick the entity you want the others merged into."
 msgstr "Παρακαλούμε επιλέξτε το στοιχείο στο οποίο θέλετε να συγχωνευθούν τα υπόλοιπα."
 
 #: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:50
-#: ../root/edit/details/MergeReleases.js:66
+#: ../root/edit/details/MergeReleases.js:34
 msgid "Append mediums to target release"
 msgstr "Προσάρτηση μέσου στην κυκλοφορία"
 
 #: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:51
-#: ../root/edit/details/MergeReleases.js:67
+#: ../root/edit/details/MergeReleases.js:35
 msgid "Merge mediums and recordings"
 msgstr "Συγχώνευση μέσων και ηχογραφήσεων"
 
@@ -7293,8 +7298,8 @@ msgid "Tag"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
-#: ../root/edit/details/AddRelationshipType.js:209
-#: ../root/edit/details/EditRelationshipType.js:342
+#: ../root/edit/details/AddRelationshipType.js:186
+#: ../root/edit/details/EditRelationshipType.js:314
 #: ../root/layout/components/BottomMenu.js:276
 #: ../root/layout/components/Search.js:53
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:75
@@ -7860,7 +7865,7 @@ msgid "Enter a {link|POSIX regular expression}."
 msgstr ""
 
 #: ../root/admin/IpLookup.js:25 ../root/admin/IpLookup.js:27
-#: ../root/user/UserProfile.js:409
+#: ../root/user/UserProfile.js:410
 msgid "IP lookup"
 msgstr ""
 
@@ -7873,8 +7878,8 @@ msgid "Disc IDs allowed"
 msgstr ""
 
 #: ../root/admin/attributes/Attribute.js:58
-#: ../root/edit/details/AddRelationshipAttribute.js:78
-#: ../root/edit/details/EditRelationshipAttribute.js:125
+#: ../root/edit/details/AddRelationshipAttribute.js:66
+#: ../root/edit/details/EditRelationshipAttribute.js:111
 msgid "Free text"
 msgstr ""
 
@@ -7883,9 +7888,9 @@ msgstr ""
 #: ../root/admin/attributes/Language.js:35
 #: ../root/admin/attributes/Script.js:36
 #: ../root/components/RelationshipsTable.js:319
-#: ../root/edit/details/AddRelationshipType.js:191
-#: ../root/edit/details/EditRelationshipType.js:312
-#: ../root/edit/details/RemoveRelationshipType.js:136
+#: ../root/edit/details/AddRelationshipType.js:168
+#: ../root/edit/details/EditRelationshipType.js:284
+#: ../root/edit/details/RemoveRelationshipType.js:119
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:165
 #: ../root/utility/tableColumns.js:634
 msgid "Attributes"
@@ -7908,9 +7913,9 @@ msgstr ""
 
 #: ../root/admin/attributes/Language.js:33
 #: ../root/admin/attributes/Language.js:36
-#: ../root/edit/details/AddRelease.js:109 ../root/edit/details/AddWork.js:77
-#: ../root/edit/details/EditRelease.js:131
-#: ../root/edit/details/historic/AddRelease.js:104 ../root/iswc/Index.js:59
+#: ../root/edit/details/AddRelease.js:92 ../root/edit/details/AddWork.js:61
+#: ../root/edit/details/EditRelease.js:113
+#: ../root/edit/details/historic/AddRelease.js:76 ../root/iswc/Index.js:59
 #: ../root/report/IswcsWithManyWorks.js:53
 #: ../root/search/components/ReleaseResults.js:114
 #: ../root/utility/tableColumns.js:526
@@ -7918,9 +7923,9 @@ msgid "Language"
 msgstr "Γλώσσα"
 
 #: ../root/admin/attributes/Script.js:34 ../root/admin/attributes/Script.js:37
-#: ../root/edit/details/AddRelease.js:116
-#: ../root/edit/details/EditRelease.js:143
-#: ../root/edit/details/historic/AddRelease.js:95
+#: ../root/edit/details/AddRelease.js:99
+#: ../root/edit/details/EditRelease.js:125
+#: ../root/edit/details/historic/AddRelease.js:67
 msgid "Script"
 msgstr ""
 
@@ -7998,7 +8003,7 @@ msgid "Current version:"
 msgstr ""
 
 #: ../root/admin/wikidoc/EditWikiDoc.js:48
-#: ../root/edit/details/ChangeWikiDoc.js:72
+#: ../root/edit/details/ChangeWikiDoc.js:63
 msgid "New version:"
 msgstr "Νέα έκδοση:"
 
@@ -8503,8 +8508,8 @@ msgstr "Δείτε όλες τις συλλογές σας"
 msgid "See all of {editor}'s public collections"
 msgstr "Δείτε όλες τις δημόσιες συλλογές του {editor}"
 
-#: ../root/collection/CollectionIndex.js:185 ../root/user/UserProfile.js:327
-#: ../root/user/UserProfile.js:385
+#: ../root/collection/CollectionIndex.js:185 ../root/user/UserProfile.js:328
+#: ../root/user/UserProfile.js:386
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
@@ -8611,17 +8616,17 @@ msgid "Are you sure you want to remove the collection {collection}?"
 msgstr "Είστε σίγουροι ότι θέλετε να καταργήσετε τη συλλογή {collection};"
 
 #: ../root/components/Aliases/AliasTable.js:24
-#: ../root/edit/details/AddRemoveAlias.js:75
-#: ../root/edit/details/EditAlias.js:81 ../root/edit/details/EditAlias.js:99
+#: ../root/edit/details/AddRemoveAlias.js:59
+#: ../root/edit/details/EditAlias.js:64 ../root/edit/details/EditAlias.js:82
 msgid "Alias"
 msgstr "Ψευδώνυμο"
 
 #: ../root/components/Aliases/AliasTable.js:25
-#: ../root/edit/details/AddArea.js:63 ../root/edit/details/AddArtist.js:76
-#: ../root/edit/details/AddLabel.js:67
-#: ../root/edit/details/AddRemoveAlias.js:81
-#: ../root/edit/details/EditAlias.js:105 ../root/edit/details/EditArea.js:77
-#: ../root/edit/details/EditArtist.js:93 ../root/edit/details/EditLabel.js:76
+#: ../root/edit/details/AddArea.js:48 ../root/edit/details/AddArtist.js:58
+#: ../root/edit/details/AddLabel.js:49
+#: ../root/edit/details/AddRemoveAlias.js:65
+#: ../root/edit/details/EditAlias.js:88 ../root/edit/details/EditArea.js:61
+#: ../root/edit/details/EditArtist.js:74 ../root/edit/details/EditLabel.js:59
 #: ../root/report/DuplicateArtists.js:66
 #: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:81
 msgid "Sort name"
@@ -8636,8 +8641,8 @@ msgid "End Date"
 msgstr "Ημερομηνία λήξης"
 
 #: ../root/components/Aliases/AliasTable.js:29
-#: ../root/edit/details/AddRemoveAlias.js:89
-#: ../root/edit/details/EditAlias.js:111
+#: ../root/edit/details/AddRemoveAlias.js:73
+#: ../root/edit/details/EditAlias.js:94
 #: ../root/static/scripts/alias/AliasEditForm.js:309
 msgid "Locale"
 msgstr "Τοπικότητα"
@@ -8834,7 +8839,7 @@ msgstr ""
 #: ../root/components/ReleaseLanguageScript.js:24
 #: ../root/components/ReleaseLanguageScript.js:30
 #: ../root/components/list/ReleaseList.js:101
-#: ../root/edit/details/MergeReleases.js:89 ../root/release/CoverArt.js:92
+#: ../root/edit/details/MergeReleases.js:57 ../root/release/CoverArt.js:92
 #: ../root/release_group/ReleaseGroupIndex.js:90
 #: ../root/search/components/ReleaseResults.js:56
 #: ../root/static/scripts/common/components/ReleaseEvents.js:51
@@ -8918,7 +8923,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../root/components/TagEntitiesList.js:195
-#: ../root/edit/details/AddSeries.js:38 ../root/edit/details/EditSeries.js:47
+#: ../root/edit/details/AddSeries.js:27 ../root/edit/details/EditSeries.js:36
 #: ../root/report/ReportsIndex.js:531
 #: ../root/report/components/SeriesList.js:44
 msgid "Series"
@@ -8936,7 +8941,7 @@ msgid_plural "See all {num} works"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/components/UserAccountTabs.js:31
+#: ../root/components/UserAccountTabs.js:30
 #: ../root/layout/components/TopMenu.js:46
 msgid "Profile"
 msgstr "Προφίλ"
@@ -8990,7 +8995,7 @@ msgid "Sort Name"
 msgstr "Όνομα ταξινόμησης"
 
 #: ../root/components/list/ArtistList.js:87
-#: ../root/edit/details/AddArtist.js:96 ../root/edit/details/EditArtist.js:116
+#: ../root/edit/details/AddArtist.js:78 ../root/edit/details/EditArtist.js:97
 #: ../root/search/components/ArtistResults.js:53
 msgid "Gender"
 msgstr ""
@@ -9015,8 +9020,8 @@ msgstr ""
 msgid "Code"
 msgstr "Κώδικας"
 
-#: ../root/components/list/PlaceList.js:66 ../root/edit/details/AddPlace.js:71
-#: ../root/edit/details/EditPlace.js:86
+#: ../root/components/list/PlaceList.js:66 ../root/edit/details/AddPlace.js:57
+#: ../root/edit/details/EditPlace.js:70
 #: ../root/report/PlacesWithoutCoordinates.js:43
 #: ../root/search/components/PlaceResults.js:63
 msgid "Address"
@@ -9027,7 +9032,7 @@ msgid "Unspecified type"
 msgstr ""
 
 #: ../root/components/list/ReleaseList.js:91
-#: ../root/edit/details/MergeReleases.js:84
+#: ../root/edit/details/MergeReleases.js:52
 #: ../root/release_group/ReleaseGroupIndex.js:89
 #: ../root/search/components/ReleaseResults.js:51
 #: ../root/static/scripts/release-editor/duplicates.js:143
@@ -9283,8 +9288,8 @@ msgid "Add Note"
 msgstr "Προσθήκη σημείωσης"
 
 #: ../root/edit/components/HistoricReleaseList.js:51
-#: ../root/edit/details/historic/ChangeReleaseQuality.js:38
-#: ../root/edit/details/historic/RemoveReleases.js:29
+#: ../root/edit/details/historic/ChangeReleaseQuality.js:28
+#: ../root/edit/details/historic/RemoveReleases.js:22
 msgid "Releases:"
 msgstr "Κυκλοφορίες:"
 
@@ -9294,608 +9299,608 @@ msgid ""
 " unformatted)."
 msgstr ""
 
-#: ../root/edit/details/AddAnnotation.js:58
-#: ../root/edit/details/historic/AddReleaseAnnotation.js:37
+#: ../root/edit/details/AddAnnotation.js:45
+#: ../root/edit/details/historic/AddReleaseAnnotation.js:27
 msgid "Text"
 msgstr ""
 
-#: ../root/edit/details/AddAnnotation.js:70
-#: ../root/edit/details/historic/AddReleaseAnnotation.js:47
+#: ../root/edit/details/AddAnnotation.js:57
+#: ../root/edit/details/historic/AddReleaseAnnotation.js:37
 msgid "This annotation is empty."
 msgstr ""
 
-#: ../root/edit/details/AddAnnotation.js:78
-#: ../root/edit/details/historic/AddReleaseAnnotation.js:55
+#: ../root/edit/details/AddAnnotation.js:65
+#: ../root/edit/details/historic/AddReleaseAnnotation.js:45
 msgid "Summary"
 msgstr ""
 
-#: ../root/edit/details/AddArea.js:105 ../root/edit/details/AddEvent.js:80
-#: ../root/edit/details/AddLabel.js:81 ../root/edit/details/AddPlace.js:89
-#: ../root/edit/details/AddRemoveAlias.js:108
-#: ../root/edit/details/EditAlias.js:129 ../root/edit/details/EditArea.js:121
-#: ../root/edit/details/EditEvent.js:89 ../root/edit/details/EditLabel.js:112
-#: ../root/edit/details/EditPlace.js:111
+#: ../root/edit/details/AddArea.js:90 ../root/edit/details/AddEvent.js:65
+#: ../root/edit/details/AddLabel.js:63 ../root/edit/details/AddPlace.js:75
+#: ../root/edit/details/AddRemoveAlias.js:92
+#: ../root/edit/details/EditAlias.js:112 ../root/edit/details/EditArea.js:105
+#: ../root/edit/details/EditEvent.js:74 ../root/edit/details/EditLabel.js:95
+#: ../root/edit/details/EditPlace.js:95
 #: ../root/report/RecordingsWithFutureDates.js:35
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:193
 msgid "Begin date"
 msgstr ""
 
-#: ../root/edit/details/AddArea.js:112 ../root/edit/details/AddEvent.js:87
-#: ../root/edit/details/AddLabel.js:88 ../root/edit/details/AddPlace.js:95
-#: ../root/edit/details/AddRemoveAlias.js:115
-#: ../root/edit/details/EditAlias.js:136 ../root/edit/details/EditArea.js:129
-#: ../root/edit/details/EditEvent.js:97 ../root/edit/details/EditLabel.js:121
-#: ../root/edit/details/EditPlace.js:119
+#: ../root/edit/details/AddArea.js:97 ../root/edit/details/AddEvent.js:72
+#: ../root/edit/details/AddLabel.js:70 ../root/edit/details/AddPlace.js:81
+#: ../root/edit/details/AddRemoveAlias.js:99
+#: ../root/edit/details/EditAlias.js:119 ../root/edit/details/EditArea.js:113
+#: ../root/edit/details/EditEvent.js:82 ../root/edit/details/EditLabel.js:104
+#: ../root/edit/details/EditPlace.js:103
 #: ../root/elections/ElectionTable/index.js:29
 #: ../root/report/RecordingsWithFutureDates.js:40
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:207
 msgid "End date"
 msgstr "Ημερομηνία λήξης"
 
-#: ../root/edit/details/AddArea.js:118 ../root/edit/details/AddArtist.js:149
-#: ../root/edit/details/AddLabel.js:94 ../root/edit/details/AddPlace.js:100
-#: ../root/edit/details/AddRemoveAlias.js:122
-#: ../root/edit/details/EditAlias.js:143 ../root/edit/details/EditArea.js:137
-#: ../root/edit/details/EditArtist.js:176
-#: ../root/edit/details/EditLabel.js:130 ../root/edit/details/EditPlace.js:127
+#: ../root/edit/details/AddArea.js:103 ../root/edit/details/AddArtist.js:131
+#: ../root/edit/details/AddLabel.js:76 ../root/edit/details/AddPlace.js:86
+#: ../root/edit/details/AddRemoveAlias.js:106
+#: ../root/edit/details/EditAlias.js:126 ../root/edit/details/EditArea.js:121
+#: ../root/edit/details/EditArtist.js:157
+#: ../root/edit/details/EditLabel.js:113 ../root/edit/details/EditPlace.js:111
 msgid "Ended"
 msgstr ""
 
-#: ../root/edit/details/AddCoverArt.js:49
-#: ../root/edit/details/RemoveCoverArt.js:48
+#: ../root/edit/details/AddCoverArt.js:40
+#: ../root/edit/details/RemoveCoverArt.js:40
 msgctxt "type"
 msgid "(none)"
 msgstr "(κανένα)"
 
-#: ../root/edit/details/AddCoverArt.js:54
-#: ../root/edit/details/EditCoverArt.js:59
-#: ../root/edit/details/RemoveCoverArt.js:54
+#: ../root/edit/details/AddCoverArt.js:45
+#: ../root/edit/details/EditCoverArt.js:49
+#: ../root/edit/details/RemoveCoverArt.js:46
 msgid "Filename:"
 msgstr "Όνομα αρχείου:"
 
-#: ../root/edit/details/AddDiscId.js:37
-#: ../root/edit/details/RemoveDiscId.js:35
+#: ../root/edit/details/AddDiscId.js:29
+#: ../root/edit/details/RemoveDiscId.js:27
 msgid "Medium:"
 msgstr "Μέσο:"
 
-#: ../root/edit/details/AddEvent.js:101 ../root/edit/details/EditEvent.js:112
+#: ../root/edit/details/AddEvent.js:86 ../root/edit/details/EditEvent.js:97
 #: ../root/event/EventIndex.js:55
 msgid "Setlist"
 msgstr ""
 
-#: ../root/edit/details/AddIsrcs.js:40 ../root/edit/details/EditBarcodes.js:40
+#: ../root/edit/details/AddIsrcs.js:29 ../root/edit/details/EditBarcodes.js:28
 msgid "Client:"
 msgstr "Πελάτης:"
 
-#: ../root/edit/details/AddIsrcs.js:41
+#: ../root/edit/details/AddIsrcs.js:30
 msgctxt "isrc client"
 msgid "(unknown)"
 msgstr "(άγνωστο)"
 
-#: ../root/edit/details/AddIsrcs.js:46 ../root/edit/details/AddIswcs.js:37
+#: ../root/edit/details/AddIsrcs.js:35 ../root/edit/details/AddIswcs.js:27
 msgid "Additions:"
 msgstr "Προσθήκες:"
 
-#: ../root/edit/details/AddIsrcs.js:52
+#: ../root/edit/details/AddIsrcs.js:41
 msgid "ISRC {isrc} to {recording}"
 msgstr "ISRC {isrc} στο {recording}"
 
-#: ../root/edit/details/AddIswcs.js:43
+#: ../root/edit/details/AddIswcs.js:33
 msgid "ISWC {iswc} to {work}"
 msgstr "ISWC {iswc} στο {work}"
 
-#: ../root/edit/details/AddLabel.js:114 ../root/edit/details/EditLabel.js:104
+#: ../root/edit/details/AddLabel.js:96 ../root/edit/details/EditLabel.js:87
 msgid "Label code"
 msgstr ""
 
-#: ../root/edit/details/AddMedium.js:175
+#: ../root/edit/details/AddMedium.js:164
 msgid "Artist Credits:"
 msgstr ""
 
-#: ../root/edit/details/AddRelationship.js:38
-#: ../root/edit/details/RemoveRelationship.js:88
+#: ../root/edit/details/AddRelationship.js:28
+#: ../root/edit/details/RemoveRelationship.js:22
 #: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:166
 msgid "Relationship:"
 msgstr "Σχέση:"
 
-#: ../root/edit/details/AddRelationship.js:49
+#: ../root/edit/details/AddRelationship.js:39
 msgid "Link order:"
 msgstr ""
 
-#: ../root/edit/details/AddRelationship.js:57
-#: ../root/edit/details/EditRelationship.js:38
+#: ../root/edit/details/AddRelationship.js:47
+#: ../root/edit/details/EditRelationship.js:29
 msgid ""
 "This relationship edit also included changes to relationship attributes "
 "which no longer exist."
 msgstr ""
 
-#: ../root/edit/details/AddRelationshipAttribute.js:74
-#: ../root/edit/details/EditRelationshipAttribute.js:117
+#: ../root/edit/details/AddRelationshipAttribute.js:62
+#: ../root/edit/details/EditRelationshipAttribute.js:103
 msgid "Creditable"
 msgstr ""
 
-#: ../root/edit/details/AddRelationshipType.js:104
-#: ../root/edit/details/RemoveRelationshipAttribute.js:57
-#: ../root/edit/details/RemoveRelationshipType.js:76
+#: ../root/edit/details/AddRelationshipType.js:81
+#: ../root/edit/details/RemoveRelationshipAttribute.js:49
+#: ../root/edit/details/RemoveRelationshipType.js:59
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:90
 msgctxt "description"
 msgid "(none)"
 msgstr "(κανένα)"
 
-#: ../root/edit/details/AddRelationshipType.js:110
-#: ../root/edit/details/AddRelationshipType.js:119
-#: ../root/edit/details/EditRelationshipType.js:178
-#: ../root/edit/details/EditRelationshipType.js:187
-#: ../root/edit/details/RemoveRelationshipType.js:82
-#: ../root/edit/details/RemoveRelationshipType.js:91
+#: ../root/edit/details/AddRelationshipType.js:87
+#: ../root/edit/details/AddRelationshipType.js:96
+#: ../root/edit/details/EditRelationshipType.js:150
+#: ../root/edit/details/EditRelationshipType.js:159
+#: ../root/edit/details/RemoveRelationshipType.js:65
+#: ../root/edit/details/RemoveRelationshipType.js:74
 msgid "Type of {entity_placeholder}"
 msgstr ""
 
-#: ../root/edit/details/AddRelationshipType.js:127
-#: ../root/edit/details/EditRelationshipType.js:228
-#: ../root/edit/details/RemoveRelationshipType.js:99
+#: ../root/edit/details/AddRelationshipType.js:104
+#: ../root/edit/details/EditRelationshipType.js:200
+#: ../root/edit/details/RemoveRelationshipType.js:82
 msgid "Link phrase:"
 msgstr "Φράση συνδέσμου:"
 
-#: ../root/edit/details/AddRelationshipType.js:150
-#: ../root/edit/details/RemoveRelationshipType.js:106
-#: ../root/edit/details/RemoveRelationshipType.js:118
-#: ../root/edit/details/RemoveRelationshipType.js:130
+#: ../root/edit/details/AddRelationshipType.js:127
+#: ../root/edit/details/RemoveRelationshipType.js:89
+#: ../root/edit/details/RemoveRelationshipType.js:101
+#: ../root/edit/details/RemoveRelationshipType.js:113
 msgctxt "link_phrase"
 msgid "(none)"
 msgstr "(κανένα)"
 
-#: ../root/edit/details/AddRelationshipType.js:217
+#: ../root/edit/details/AddRelationshipType.js:194
 msgctxt "documentation"
 msgid "(none)"
 msgstr "(κανένα)"
 
-#: ../root/edit/details/AddRelease.js:86
+#: ../root/edit/details/AddRelease.js:69
 msgid "(new release group)"
 msgstr "(νέα ομάδα κυκλοφοριών)"
 
-#: ../root/edit/details/AddRelease.js:100
-#: ../root/edit/details/EditRelease.js:119
-#: ../root/edit/details/historic/AddRelease.js:86
+#: ../root/edit/details/AddRelease.js:83
+#: ../root/edit/details/EditRelease.js:101
+#: ../root/edit/details/historic/AddRelease.js:58
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:182
 msgctxt "release status"
 msgid "Status:"
 msgstr ""
 
-#: ../root/edit/details/AddRelease.js:123
-#: ../root/edit/details/EditRelease.js:155
+#: ../root/edit/details/AddRelease.js:106
+#: ../root/edit/details/EditRelease.js:137
 msgid "Packaging"
 msgstr ""
 
-#: ../root/edit/details/AddRelease.js:137
-#: ../root/edit/details/EditReleaseLabel.js:111
+#: ../root/edit/details/AddRelease.js:120
+#: ../root/edit/details/EditReleaseLabel.js:93
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:244
 #: ../root/static/scripts/common/components/ReleaseEvents.js:86
 msgid "Release events"
 msgstr ""
 
-#: ../root/edit/details/AddReleaseLabel.js:54
-#: ../root/edit/details/RemoveReleaseLabel.js:50
+#: ../root/edit/details/AddReleaseLabel.js:45
+#: ../root/edit/details/RemoveReleaseLabel.js:41
 msgid "Catalog number:"
 msgstr "Αριθμός καταλόγου:"
 
-#: ../root/edit/details/AddRemoveAlias.js:64
-#: ../root/edit/details/EditAlias.js:69
+#: ../root/edit/details/AddRemoveAlias.js:48
+#: ../root/edit/details/EditAlias.js:52
 msgid "view all aliases"
 msgstr ""
 
-#: ../root/edit/details/AddRemoveAlias.js:93
-#: ../root/edit/details/EditAlias.js:117
+#: ../root/edit/details/AddRemoveAlias.js:77
+#: ../root/edit/details/EditAlias.js:100
 msgid "Primary for locale"
 msgstr ""
 
-#: ../root/edit/details/AddSeries.js:65 ../root/edit/details/EditSeries.js:79
+#: ../root/edit/details/AddSeries.js:54 ../root/edit/details/EditSeries.js:68
 #: ../root/layout/components/sidebar/SeriesSidebar.js:52
 #: ../root/utility/tableColumns.js:740
 msgid "Ordering Type"
 msgstr ""
 
-#: ../root/edit/details/ChangeWikiDoc.js:50
+#: ../root/edit/details/ChangeWikiDoc.js:41
 msgid "WikiDoc:"
 msgstr "WikiDoc:"
 
-#: ../root/edit/details/ChangeWikiDoc.js:59
+#: ../root/edit/details/ChangeWikiDoc.js:50
 msgid "Old version:"
 msgstr "Παλιά έκδοση:"
 
-#: ../root/edit/details/ChangeWikiDoc.js:61
+#: ../root/edit/details/ChangeWikiDoc.js:52
 msgid "New page"
 msgstr "Νέα σελίδα"
 
-#: ../root/edit/details/ChangeWikiDoc.js:74
+#: ../root/edit/details/ChangeWikiDoc.js:65
 msgid "Page removed"
 msgstr "Η σελίδα αφαιρέθηκε"
 
-#: ../root/edit/details/ChangeWikiDoc.js:86
+#: ../root/edit/details/ChangeWikiDoc.js:77
 msgid "Diff"
 msgstr ""
 
-#: ../root/edit/details/ChangeWikiDoc.js:89
+#: ../root/edit/details/ChangeWikiDoc.js:80
 msgid "View diff"
 msgstr ""
 
-#: ../root/edit/details/EditAlias.js:89
+#: ../root/edit/details/EditAlias.js:72
 msgid "primary for {locale}"
 msgstr ""
 
-#: ../root/edit/details/EditArtistCredit.js:35
+#: ../root/edit/details/EditArtistCredit.js:28
 #: ../root/report/components/ArtistCreditList.js:31
 msgid "Artist Credit"
 msgstr ""
 
-#: ../root/edit/details/EditArtistCredit.js:50
+#: ../root/edit/details/EditArtistCredit.js:43
 msgid "See all uses of the artist credit being changed."
 msgstr ""
 
-#: ../root/edit/details/EditLabel.js:150
+#: ../root/edit/details/EditLabel.js:133
 msgid "IPI codes"
 msgstr ""
 
-#: ../root/edit/details/EditLabel.js:159
+#: ../root/edit/details/EditLabel.js:142
 msgid "ISNI codes"
 msgstr ""
 
-#: ../root/edit/details/EditMedium.js:131
+#: ../root/edit/details/EditMedium.js:86
 msgid "This track's MBID will change when this edit is applied."
 msgstr ""
 
-#: ../root/edit/details/EditMedium.js:356
+#: ../root/edit/details/EditMedium.js:311
 msgid "Old Tracklist"
 msgstr ""
 
-#: ../root/edit/details/EditMedium.js:357
+#: ../root/edit/details/EditMedium.js:312
 msgid "New Tracklist"
 msgstr ""
 
-#: ../root/edit/details/EditMedium.js:552
+#: ../root/edit/details/EditMedium.js:507
 msgid "This edit changes which tracks are data tracks."
 msgstr ""
 
-#: ../root/edit/details/EditMedium.js:567
+#: ../root/edit/details/EditMedium.js:522
 msgid "Old recording"
 msgstr "Παλιά ηχογράφηση"
 
-#: ../root/edit/details/EditMedium.js:568
+#: ../root/edit/details/EditMedium.js:523
 msgid "New recording"
 msgstr "Νέα ηχογράφηση"
 
-#: ../root/edit/details/EditMedium.js:619
+#: ../root/edit/details/EditMedium.js:574
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:210
 msgid "Artist Credits"
 msgstr ""
 
-#: ../root/edit/details/EditMedium.js:625
+#: ../root/edit/details/EditMedium.js:580
 msgid "Old Artist"
 msgstr "Παλιός καλλιτέχνης"
 
-#: ../root/edit/details/EditMedium.js:626
+#: ../root/edit/details/EditMedium.js:581
 msgid "New Artist"
 msgstr "Νέος καλλιτέχνης"
 
-#: ../root/edit/details/EditRelationshipType.js:161
-#: ../root/edit/details/historic/EditRelationship.js:45
+#: ../root/edit/details/EditRelationshipType.js:133
+#: ../root/edit/details/historic/EditRelationship.js:38
 msgid ""
 "The data for this edit seems to have been damaged during the 2011 transition"
 " to the current MusicBrainz schema. The remaining data is displayed below, "
 "but might not be fully accurate."
 msgstr ""
 
-#: ../root/edit/details/EditRelationshipType.js:264
-#: ../root/edit/details/EditRelationshipType.js:272
+#: ../root/edit/details/EditRelationshipType.js:236
+#: ../root/edit/details/EditRelationshipType.js:244
 msgid "Deprecated:"
 msgstr ""
 
-#: ../root/edit/details/EditRelease.js:182
-#: ../root/edit/details/MergeReleases.js:369
-#: ../root/edit/details/SetTrackLengths.js:89
-#: ../root/edit/details/historic/MergeReleases.js:69
+#: ../root/edit/details/EditRelease.js:164
+#: ../root/edit/details/MergeReleases.js:337
+#: ../root/edit/details/SetTrackLengths.js:79
+#: ../root/edit/details/historic/MergeReleases.js:57
 #: ../root/user/ReportUser.js:116
 msgid "Note"
 msgstr ""
 
-#: ../root/edit/details/EditRelease.js:183
+#: ../root/edit/details/EditRelease.js:165
 msgid "This edit also changed the track artists."
 msgstr ""
 
-#: ../root/edit/details/EditReleaseLabel.js:97
-#: ../root/edit/details/EditReleaseLabel.js:102
-#: ../root/edit/details/historic/EditReleaseEvents.js:137
+#: ../root/edit/details/EditReleaseLabel.js:79
+#: ../root/edit/details/EditReleaseLabel.js:84
+#: ../root/edit/details/historic/EditReleaseEvents.js:108
 #: ../root/otherlookup/OtherLookupForm.js:59
 msgid "Catalog number"
 msgstr "Αριθμός καταλόγου"
 
-#: ../root/edit/details/EditUrl.js:81
+#: ../root/edit/details/EditUrl.js:70
 msgid "This change affects {num} relationship."
 msgid_plural "This change affects {num} relationships."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/edit/details/EditUrl.js:90
+#: ../root/edit/details/EditUrl.js:79
 msgid ""
 "The new URL already exists in the database. This edit will therefore merge "
 "the two URL entities."
 msgstr ""
 
-#: ../root/edit/details/EditUrl.js:93
+#: ../root/edit/details/EditUrl.js:82
 msgid "This edit was a merge."
 msgstr ""
 
-#: ../root/edit/details/EditUrl.js:97
+#: ../root/edit/details/EditUrl.js:86
 msgid "Search for the target URL."
 msgstr ""
 
-#: ../root/edit/details/EditWork.js:89
+#: ../root/edit/details/EditWork.js:74
 msgid "Work type"
 msgstr ""
 
-#: ../root/edit/details/MergeAreas.js:29
-#: ../root/edit/details/MergeArtists.js:31
-#: ../root/edit/details/MergeEvents.js:29
-#: ../root/edit/details/MergeInstruments.js:29
-#: ../root/edit/details/MergeLabels.js:29
-#: ../root/edit/details/MergePlaces.js:29
-#: ../root/edit/details/MergeRecordings.js:30
-#: ../root/edit/details/MergeReleaseGroups.js:29
-#: ../root/edit/details/MergeSeries.js:29
-#: ../root/edit/details/MergeWorks.js:29
+#: ../root/edit/details/MergeAreas.js:21
+#: ../root/edit/details/MergeArtists.js:22
+#: ../root/edit/details/MergeEvents.js:21
+#: ../root/edit/details/MergeInstruments.js:21
+#: ../root/edit/details/MergeLabels.js:21
+#: ../root/edit/details/MergePlaces.js:21
+#: ../root/edit/details/MergeRecordings.js:21
+#: ../root/edit/details/MergeReleaseGroups.js:21
+#: ../root/edit/details/MergeSeries.js:21
+#: ../root/edit/details/MergeWorks.js:21
 msgid "Merge:"
 msgstr "Συγχώνευση:"
 
-#: ../root/edit/details/MergeAreas.js:35
-#: ../root/edit/details/MergeArtists.js:37
-#: ../root/edit/details/MergeEvents.js:40
-#: ../root/edit/details/MergeInstruments.js:35
-#: ../root/edit/details/MergeLabels.js:35
-#: ../root/edit/details/MergePlaces.js:35
-#: ../root/edit/details/MergeRecordings.js:40
-#: ../root/edit/details/MergeReleaseGroups.js:35
-#: ../root/edit/details/MergeReleases.js:293
-#: ../root/edit/details/MergeReleases.js:300
-#: ../root/edit/details/MergeReleases.js:310
-#: ../root/edit/details/MergeReleases.js:328
-#: ../root/edit/details/MergeSeries.js:35
-#: ../root/edit/details/MergeWorks.js:35
+#: ../root/edit/details/MergeAreas.js:27
+#: ../root/edit/details/MergeArtists.js:28
+#: ../root/edit/details/MergeEvents.js:32
+#: ../root/edit/details/MergeInstruments.js:27
+#: ../root/edit/details/MergeLabels.js:27
+#: ../root/edit/details/MergePlaces.js:27
+#: ../root/edit/details/MergeRecordings.js:31
+#: ../root/edit/details/MergeReleaseGroups.js:27
+#: ../root/edit/details/MergeReleases.js:261
+#: ../root/edit/details/MergeReleases.js:268
+#: ../root/edit/details/MergeReleases.js:278
+#: ../root/edit/details/MergeReleases.js:296
+#: ../root/edit/details/MergeSeries.js:27
+#: ../root/edit/details/MergeWorks.js:27
 msgid "Into:"
 msgstr "Σε:"
 
-#: ../root/edit/details/MergeArtists.js:43
+#: ../root/edit/details/MergeArtists.js:34
 msgid "Rename artist and relationship credits"
 msgstr ""
 
-#: ../root/edit/details/MergeReleases.js:136
+#: ../root/edit/details/MergeReleases.js:104
 msgid "Medium {position}: {name} is now medium {new_position}: {new_name}"
 msgstr "Το μέσο {position}: {name} είναι τώρα {new_position}: {new_name}"
 
-#: ../root/edit/details/MergeReleases.js:147
+#: ../root/edit/details/MergeReleases.js:115
 msgid "Medium {position}: {name} is now medium {new_position}"
 msgstr "Το μέσο {position}: {name} είναι τώρα {new_position}"
 
-#: ../root/edit/details/MergeReleases.js:156
+#: ../root/edit/details/MergeReleases.js:124
 msgid "Medium {position} is now medium {new_position}: {new_name}"
 msgstr "Το μέσο {position} είναι τώρα {new_position}: {new_name}"
 
-#: ../root/edit/details/MergeReleases.js:167
+#: ../root/edit/details/MergeReleases.js:135
 msgid "Medium {position} is now medium {new_position}"
 msgstr "Το μέσο {position} είναι τώρα {new_position}"
 
-#: ../root/edit/details/MergeReleases.js:276
+#: ../root/edit/details/MergeReleases.js:244
 msgid "This release has no media to merge."
 msgstr ""
 
-#: ../root/edit/details/MergeReleases.js:323
+#: ../root/edit/details/MergeReleases.js:291
 msgid "Recording Merges"
 msgstr ""
 
-#: ../root/edit/details/MergeReleases.js:326
+#: ../root/edit/details/MergeReleases.js:294
 msgid "Track #"
 msgstr ""
 
-#: ../root/edit/details/MergeReleases.js:338
+#: ../root/edit/details/MergeReleases.js:306
 msgid ""
 "This edit does not store recording merge information and is closed, so no "
 "recording merge information can be shown."
 msgstr ""
 
-#: ../root/edit/details/MergeReleases.js:355
+#: ../root/edit/details/MergeReleases.js:323
 msgid "All recordings for these releases are already merged."
 msgstr ""
 
-#: ../root/edit/details/MergeReleases.js:371
+#: ../root/edit/details/MergeReleases.js:339
 msgid ""
 "The data in this edit originally came from an older version of this edit, "
 "and may not display correctly"
 msgstr "Αυτά τα δεδομένα αρχικά ήρθαν από μία παλιότερη έκδοση αυτής της επεξεργασίας, και για αυτό μπορεί να μην εμφανίζονται σωστά"
 
-#: ../root/edit/details/MoveDiscId.js:46
-#: ../root/edit/details/historic/MoveDiscId.js:41
+#: ../root/edit/details/MoveDiscId.js:37
+#: ../root/edit/details/historic/MoveDiscId.js:32
 msgid "From:"
 msgstr "Από:"
 
-#: ../root/edit/details/MoveDiscId.js:50
-#: ../root/edit/details/historic/MoveDiscId.js:45
+#: ../root/edit/details/MoveDiscId.js:41
+#: ../root/edit/details/historic/MoveDiscId.js:36
 msgid "To:"
 msgstr "Προς:"
 
-#: ../root/edit/details/ReorderCoverArt.js:52
+#: ../root/edit/details/ReorderCoverArt.js:43
 msgid "Old positions:"
 msgstr "Παλιές θέσεις:"
 
-#: ../root/edit/details/ReorderCoverArt.js:64
+#: ../root/edit/details/ReorderCoverArt.js:55
 msgid "New positions:"
 msgstr "Νέες θέσεις:"
 
-#: ../root/edit/details/ReorderMediums.js:56
+#: ../root/edit/details/ReorderMediums.js:44
 msgid "Mediums:"
 msgstr "Μέσα:"
 
-#: ../root/edit/details/ReorderMediums.js:60
+#: ../root/edit/details/ReorderMediums.js:48
 msgid "Medium <span class=\"new\">{new}</span>: {title} (new medium)"
 msgstr ""
 
-#: ../root/edit/details/ReorderMediums.js:64
+#: ../root/edit/details/ReorderMediums.js:52
 msgid ""
 "Medium <span class=\"new\">{new}</span>: {title} (moved from position <span "
 "class=\"old\">{old}</span>)"
 msgstr ""
 
-#: ../root/edit/details/ReorderMediums.js:72
+#: ../root/edit/details/ReorderMediums.js:60
 msgid "Medium <span class=\"new\">{new}</span> (new medium)"
 msgstr ""
 
-#: ../root/edit/details/ReorderMediums.js:75
+#: ../root/edit/details/ReorderMediums.js:63
 msgid ""
 "Medium <span class=\"new\">{new}</span> (moved from position <span "
 "class=\"old\">{old}</span>)"
 msgstr ""
 
-#: ../root/edit/details/ReorderRelationships.js:34
+#: ../root/edit/details/ReorderRelationships.js:23
 msgid "Old Order"
 msgstr ""
 
-#: ../root/edit/details/ReorderRelationships.js:35
+#: ../root/edit/details/ReorderRelationships.js:24
 msgid "New Order"
 msgstr ""
 
-#: ../root/edit/details/SetCoverArt.js:48
+#: ../root/edit/details/SetCoverArt.js:39
 msgid "Old cover art:"
 msgstr ""
 
-#: ../root/edit/details/SetCoverArt.js:69
+#: ../root/edit/details/SetCoverArt.js:60
 msgid ""
 "The old image was selected automatically from the earliest release in the "
 "release group."
 msgstr ""
 
-#: ../root/edit/details/SetCoverArt.js:71
-#: ../root/edit/details/SetCoverArt.js:96
+#: ../root/edit/details/SetCoverArt.js:62
+#: ../root/edit/details/SetCoverArt.js:87
 msgid "We are unable to display this cover art."
 msgstr ""
 
-#: ../root/edit/details/SetCoverArt.js:76
+#: ../root/edit/details/SetCoverArt.js:67
 msgid "New cover art:"
 msgstr ""
 
-#: ../root/edit/details/SetTrackLengths.js:78
+#: ../root/edit/details/SetTrackLengths.js:68
 msgid "Track lengths:"
 msgstr "Διάρκειες κομματιών:"
 
-#: ../root/edit/details/SetTrackLengths.js:91
+#: ../root/edit/details/SetTrackLengths.js:81
 msgid "This edit makes subsecond changes to track lengths"
 msgstr ""
 
-#: ../root/edit/details/historic/AddDiscId.js:34
+#: ../root/edit/details/historic/AddDiscId.js:25
 msgid "CD TOC:"
 msgstr "CD TOC:"
 
-#: ../root/edit/details/historic/AddRelationship.js:29
-#: ../root/edit/details/historic/RemoveRelationship.js:31
+#: ../root/edit/details/historic/AddRelationship.js:22
+#: ../root/edit/details/historic/RemoveRelationship.js:24
 msgid "Relationships:"
 msgstr "Σχέσεις:"
 
-#: ../root/edit/details/historic/AddRelease.js:146
+#: ../root/edit/details/historic/AddRelease.js:118
 msgid "Release Events:"
 msgstr "Γεγονότα κυκλοφορίας:"
 
-#: ../root/edit/details/historic/AddRelease.js:154
+#: ../root/edit/details/historic/AddRelease.js:126
 #: ../root/report/hooks/useCatNoColumn.js:26
 msgid "Catalog Number"
 msgstr "Αριθμός καταλόγου"
 
-#: ../root/edit/details/historic/AddTrackKV.js:63
-#: ../root/edit/details/historic/AddTrackOld.js:46
-#: ../root/edit/details/historic/EditTrack.js:57 ../root/taglookup/Form.js:36
+#: ../root/edit/details/historic/AddTrackKV.js:51
+#: ../root/edit/details/historic/AddTrackOld.js:36
+#: ../root/edit/details/historic/EditTrack.js:48 ../root/taglookup/Form.js:36
 msgid "Track number"
 msgstr ""
 
-#: ../root/edit/details/historic/AddTrackOld.js:40
+#: ../root/edit/details/historic/AddTrackOld.js:30
 msgid "Artist name:"
 msgstr "Όνομα καλλιτέχνη:"
 
-#: ../root/edit/details/historic/EditRelationship.js:54
+#: ../root/edit/details/historic/EditRelationship.js:47
 msgid "Old relationships:"
 msgstr "Παλιές σχέσεις:"
 
-#: ../root/edit/details/historic/EditRelationship.js:126
+#: ../root/edit/details/historic/EditRelationship.js:119
 msgid "New relationships:"
 msgstr "Νέες σχέσεις:"
 
-#: ../root/edit/details/historic/EditReleaseAttributes.js:47
-#: ../root/edit/details/historic/EditReleaseLanguage.js:35
+#: ../root/edit/details/historic/EditReleaseAttributes.js:34
+#: ../root/edit/details/historic/EditReleaseLanguage.js:22
 msgid "Old:"
 msgstr "Παλιό:"
 
-#: ../root/edit/details/historic/EditReleaseAttributes.js:54
+#: ../root/edit/details/historic/EditReleaseAttributes.js:41
 msgid "Type: {type}, status: {status}"
 msgstr "Τύπος: {type}, κατάσταση: {status}"
 
-#: ../root/edit/details/historic/EditReleaseAttributes.js:73
+#: ../root/edit/details/historic/EditReleaseAttributes.js:60
 msgid "New Type:"
 msgstr "Νέος τύπος:"
 
-#: ../root/edit/details/historic/EditReleaseAttributes.js:80
+#: ../root/edit/details/historic/EditReleaseAttributes.js:67
 msgid "New Status:"
 msgstr "Νέα κατάσταση:"
 
-#: ../root/edit/details/historic/EditReleaseEvents.js:146
+#: ../root/edit/details/historic/EditReleaseEvents.js:117
 msgid "Added"
 msgstr "Προστέθηκε"
 
-#: ../root/edit/details/historic/EditReleaseEvents.js:160
+#: ../root/edit/details/historic/EditReleaseEvents.js:131
 msgid "Removed"
 msgstr "Αφαιρέθηκε"
 
-#: ../root/edit/details/historic/EditReleaseEvents.js:174
+#: ../root/edit/details/historic/EditReleaseEvents.js:145
 msgid "Edited"
 msgstr "Έγινε επεξεργασία"
 
-#: ../root/edit/details/historic/EditReleaseLanguage.js:42
+#: ../root/edit/details/historic/EditReleaseLanguage.js:29
 msgid "Language: {language}, script: {script}"
 msgstr "Γλώσσα: {language}, γραφή: {script}"
 
-#: ../root/edit/details/historic/EditReleaseLanguage.js:63
+#: ../root/edit/details/historic/EditReleaseLanguage.js:50
 msgid "New language:"
 msgstr "Νέα γλώσσα:"
 
-#: ../root/edit/details/historic/EditReleaseLanguage.js:72
+#: ../root/edit/details/historic/EditReleaseLanguage.js:59
 msgid "New script:"
 msgstr "Νέα γραφή:"
 
-#: ../root/edit/details/historic/MergeReleases.js:36
+#: ../root/edit/details/historic/MergeReleases.js:24
 msgid "Old releases:"
 msgstr "Παλιές κυκλοφορίες:"
 
-#: ../root/edit/details/historic/MergeReleases.js:48
+#: ../root/edit/details/historic/MergeReleases.js:36
 msgid "New releases:"
 msgstr ""
 
-#: ../root/edit/details/historic/MergeReleases.js:60
+#: ../root/edit/details/historic/MergeReleases.js:48
 msgid "Merge attributes:"
 msgstr "Συγχώνευση γνωρισμάτων:"
 
-#: ../root/edit/details/historic/MergeReleases.js:64
+#: ../root/edit/details/historic/MergeReleases.js:52
 msgid "Merge language & script:"
 msgstr ""
 
-#: ../root/edit/details/historic/MergeReleases.js:71
+#: ../root/edit/details/historic/MergeReleases.js:59
 msgid ""
 "This edit was a \"Merge Releases (Various Artists)\" edit which additionally"
 " set the release artist to Various Artists."
 msgstr ""
 
-#: ../root/edit/details/historic/MoveRelease.js:37
+#: ../root/edit/details/historic/MoveRelease.js:28
 msgid "Change track artists:"
 msgstr ""
 
-#: ../root/edit/details/historic/RemoveLabelAlias.js:26
+#: ../root/edit/details/historic/RemoveLabelAlias.js:19
 msgid "Alias:"
 msgstr "Ψευδώνυμο:"
 
-#: ../root/edit/details/historic/RemoveTrack.js:34
+#: ../root/edit/details/historic/RemoveTrack.js:25
 msgid "Track:"
 msgstr "Κομμάτι:"
 
@@ -10058,33 +10063,33 @@ msgstr "Πίσω στις ψηφοφορίες"
 msgid "Votes cast"
 msgstr "Ψήφοι που ρίχτηκαν"
 
-#: ../root/entity/Details.js:95
+#: ../root/entity/Details.js:102
 msgid "{mbid|<abbr title=\"MusicBrainz Identifier\">MBID</abbr>}:"
 msgstr "{mbid|<abbr title=\"MusicBrainz Identifier\">MBID</abbr>}:"
 
-#: ../root/entity/Details.js:101
+#: ../root/entity/Details.js:108
 #: ../root/report/components/InstrumentList.js:66
 msgid "Last updated"
 msgstr ""
 
-#: ../root/entity/Details.js:105
+#: ../root/entity/Details.js:112
 msgctxt "last updated"
 msgid "(unknown)"
 msgstr "(άγνωστο)"
 
-#: ../root/entity/Details.js:109
+#: ../root/entity/Details.js:116
 msgid "Permanent link:"
 msgstr "Μόνιμος σύνδεσμος:"
 
-#: ../root/entity/Details.js:117
+#: ../root/entity/Details.js:124
 msgid "{xml_ws_docs|XML}"
 msgstr ""
 
-#: ../root/entity/Details.js:133
+#: ../root/entity/Details.js:140
 msgid "{json_ws_docs|JSON}"
 msgstr ""
 
-#: ../root/entity/Details.js:149
+#: ../root/entity/Details.js:156
 msgid "AcousticBrainz entry:"
 msgstr ""
 
@@ -10631,7 +10636,7 @@ msgstr ""
 msgid "Privileged User Accounts"
 msgstr "Προνομιούχοι λογαριασμοί χρηστών"
 
-#: ../root/layout/components/BottomMenu.js:145 ../root/user/UserProfile.js:553
+#: ../root/layout/components/BottomMenu.js:145 ../root/user/UserProfile.js:559
 msgid "Statistics"
 msgstr "Στατιστικά"
 
@@ -11226,7 +11231,7 @@ msgid "License"
 msgstr ""
 
 #: ../root/layout/components/sidebar/SidebarRating.js:25
-#: ../root/static/scripts/release/components/MediumTable.js:223
+#: ../root/static/scripts/release/components/MediumTable.js:217
 #: ../root/utility/tableColumns.js:439
 msgid "Rating"
 msgstr "Βαθμολογία"
@@ -11291,7 +11296,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/layout/index.js:242
+#: ../root/layout/index.js:255
 msgid "Happy birthday, and thanks for contributing to MusicBrainz!"
 msgstr ""
 
@@ -13776,7 +13781,7 @@ msgid "If you change your email address, you will be required to verify it."
 msgstr ""
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:229
-#: ../root/user/UserProfile.js:267
+#: ../root/user/UserProfile.js:268
 msgid "Location:"
 msgstr ""
 
@@ -14821,7 +14826,7 @@ msgid ""
 "entity from the others."
 msgstr ""
 
-#: ../root/static/scripts/edit/components/URLInputPopover.js:95
+#: ../root/static/scripts/edit/components/URLInputPopover.js:94
 msgid "Cleaned up to"
 msgstr ""
 
@@ -14942,27 +14947,27 @@ msgstr ""
 msgid "{description} ({url|more documentation})"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:1036
+#: ../root/static/scripts/edit/externalLinks.js:1039
 msgid "Remove Relationship"
 msgstr "Κατάργηση σχέσης"
 
-#: ../root/static/scripts/edit/externalLinks.js:1102
+#: ../root/static/scripts/edit/externalLinks.js:1106
 msgid "video"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:1213
+#: ../root/static/scripts/edit/externalLinks.js:1218
 msgid "Remove Link"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:1242
+#: ../root/static/scripts/edit/externalLinks.js:1248
 msgid "Add link"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:1245
+#: ../root/static/scripts/edit/externalLinks.js:1251
 msgid "Add another link"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:1347
+#: ../root/static/scripts/edit/externalLinks.js:1353
 msgid "Add another relationship"
 msgstr ""
 
@@ -15195,50 +15200,50 @@ msgstr "Το barcode που έχετε εισάγει δεν είναι έγκυ
 msgid "The barcode you entered is not a valid UPC or EAN code."
 msgstr "Το barcode που έχετε εισάγει δεν είναι έγκυρος κωδικός UPC ή EAN."
 
-#: ../root/static/scripts/release/components/MediumTable.js:148
+#: ../root/static/scripts/release/components/MediumTable.js:142
 msgid "Failed to load the medium."
 msgstr ""
 
-#: ../root/static/scripts/release/components/MediumTable.js:236
+#: ../root/static/scripts/release/components/MediumTable.js:230
 msgid ""
 "This medium has too many tracks to load at once, so it’s been paginated."
 msgstr ""
 
-#: ../root/static/scripts/release/components/MediumTable.js:290
+#: ../root/static/scripts/release/components/MediumTable.js:284
 msgid ""
 "This medium has too many tracks to load at once; currently showing "
 "{loaded_track_count} out of {total_track_count} total."
 msgstr ""
 
-#: ../root/static/scripts/release/components/MediumTable.js:307
+#: ../root/static/scripts/release/components/MediumTable.js:301
 msgid "Load all tracks..."
 msgstr ""
 
-#: ../root/static/scripts/release/components/MediumToolbox.js:44
+#: ../root/static/scripts/release/components/MediumToolbox.js:43
 msgid "Expand all mediums"
 msgstr ""
 
-#: ../root/static/scripts/release/components/MediumToolbox.js:59
+#: ../root/static/scripts/release/components/MediumToolbox.js:58
 msgid "Collapse all mediums"
 msgstr ""
 
-#: ../root/static/scripts/release/components/MediumToolbox.js:73
+#: ../root/static/scripts/release/components/MediumToolbox.js:72
 msgid "Display Credits Inline"
 msgstr ""
 
-#: ../root/static/scripts/release/components/MediumToolbox.js:74
+#: ../root/static/scripts/release/components/MediumToolbox.js:73
 msgid "Display Credits at Bottom"
 msgstr ""
 
-#: ../root/static/scripts/release/components/MediumTrackRow.js:67
+#: ../root/static/scripts/release/components/MediumTrackRow.js:64
 msgid "Recording artist:"
 msgstr ""
 
-#: ../root/static/scripts/release/components/TracklistAndCredits.js:325
+#: ../root/static/scripts/release/components/TracklistAndCredits.js:324
 msgid "Credits"
 msgstr ""
 
-#: ../root/static/scripts/release/components/TracklistAndCredits.js:331
+#: ../root/static/scripts/release/components/TracklistAndCredits.js:330
 msgid ""
 "The credits listed below may be incomplete, as some tracks/mediums haven’t "
 "been loaded yet."
@@ -15769,246 +15774,248 @@ msgstr ""
 msgid "{user} isn’t collaborating in any public collections."
 msgstr ""
 
-#: ../root/user/UserProfile.js:58
+#: ../root/user/UserProfile.js:59
 msgid "Deleted User"
 msgstr ""
 
-#: ../root/user/UserProfile.js:62
+#: ../root/user/UserProfile.js:63
 msgid "{doc|Auto-Editor}"
 msgstr ""
 
-#: ../root/user/UserProfile.js:67
+#: ../root/user/UserProfile.js:68
 msgid "Internal/Bot"
 msgstr "Εσωτερικό/Bot"
 
-#: ../root/user/UserProfile.js:71
+#: ../root/user/UserProfile.js:72
 msgid "{doc|Relationship Editor}"
 msgstr ""
 
-#: ../root/user/UserProfile.js:77
+#: ../root/user/UserProfile.js:78
 msgid "{doc|Transclusion Editor}"
 msgstr ""
 
-#: ../root/user/UserProfile.js:83
+#: ../root/user/UserProfile.js:84
 msgid "{doc|Location Editor}"
 msgstr ""
 
-#: ../root/user/UserProfile.js:92
+#: ../root/user/UserProfile.js:93
 msgid ""
 "User accounts must be more than 2 weeks old, have a verified email address, "
 "and more than 10 accepted edits in order to vote on others' edits."
 msgstr ""
 
-#: ../root/user/UserProfile.js:97
+#: ../root/user/UserProfile.js:98
 msgid "Beginner"
 msgstr ""
 
-#: ../root/user/UserProfile.js:103
+#: ../root/user/UserProfile.js:104
 msgid "Normal User"
 msgstr "Κανονικός Χρήστης"
 
-#: ../root/user/UserProfile.js:150
+#: ../root/user/UserProfile.js:151
 msgid "The Dawn of the Project"
 msgstr "Η αυγή του πρότζεκτ"
 
-#: ../root/user/UserProfile.js:152
+#: ../root/user/UserProfile.js:153
 msgid "The early days of the project"
 msgstr "Οι πρώτες μέρες του πρότζεκτ"
 
-#: ../root/user/UserProfile.js:160
+#: ../root/user/UserProfile.js:161
 msgid ""
 "Your homepage and biography will not show until you have completed the email"
 " verification process."
 msgstr ""
 
-#: ../root/user/UserProfile.js:179
+#: ../root/user/UserProfile.js:180
 msgid "General Information"
 msgstr "Γενικές πληροφορίες"
 
-#: ../root/user/UserProfile.js:185
+#: ../root/user/UserProfile.js:186
 msgid "(hidden)"
 msgstr "(κρυμμένο)"
 
-#: ../root/user/UserProfile.js:188
+#: ../root/user/UserProfile.js:189
 msgid "(verified at {date})"
 msgstr "(εγκρίθηκε στις {date})"
 
-#: ../root/user/UserProfile.js:193
+#: ../root/user/UserProfile.js:194
 msgid "(<strong>unverified!</strong>)"
 msgstr "(<strong>δεν έχει εγκριθεί!</strong>)"
 
-#: ../root/user/UserProfile.js:202
+#: ../root/user/UserProfile.js:203
 msgid "resend verification email"
 msgstr "αποστολή email επιβεβαίωσης ξανά"
 
-#: ../root/user/UserProfile.js:210
+#: ../root/user/UserProfile.js:211
 msgid "send email"
 msgstr "αποστολή email"
 
-#: ../root/user/UserProfile.js:225
+#: ../root/user/UserProfile.js:226
 msgid "find all users of this email"
 msgstr ""
 
-#: ../root/user/UserProfile.js:235
+#: ../root/user/UserProfile.js:236
 msgctxt "email"
 msgid "(none)"
 msgstr "(κανένα)"
 
-#: ../root/user/UserProfile.js:242
+#: ../root/user/UserProfile.js:243
 msgid "User type:"
 msgstr "Τύπος χρήστη:"
 
-#: ../root/user/UserProfile.js:248
+#: ../root/user/UserProfile.js:249
 msgid "nominate for auto-editor"
 msgstr ""
 
-#: ../root/user/UserProfile.js:255
+#: ../root/user/UserProfile.js:256
 msgid "Age:"
 msgstr "Ηλικία:"
 
-#: ../root/user/UserProfile.js:272
+#: ../root/user/UserProfile.js:273
 msgid "Member since:"
 msgstr "Μέλος από:"
 
-#: ../root/user/UserProfile.js:278
+#: ../root/user/UserProfile.js:279
 msgid "Last login:"
 msgstr ""
 
-#: ../root/user/UserProfile.js:281
+#: ../root/user/UserProfile.js:282
 msgid "Hasn't logged in yet"
 msgstr ""
 
-#: ../root/user/UserProfile.js:286
+#: ../root/user/UserProfile.js:287
 msgid "Authorized applications"
 msgstr ""
 
-#: ../root/user/UserProfile.js:293 ../root/user/UserProfile.js:309
+#: ../root/user/UserProfile.js:294 ../root/user/UserProfile.js:310
 msgid "see list"
 msgstr ""
 
-#: ../root/user/UserProfile.js:302
+#: ../root/user/UserProfile.js:303
 msgid "Developer applications"
 msgstr ""
 
-#: ../root/user/UserProfile.js:319
+#: ../root/user/UserProfile.js:320
 msgid "Homepage:"
 msgstr "Αρχική σελίδα:"
 
-#: ../root/user/UserProfile.js:337
+#: ../root/user/UserProfile.js:338
 msgid "Subscribers:"
 msgstr "Παρακολουθούν:"
 
-#: ../root/user/UserProfile.js:340
+#: ../root/user/UserProfile.js:341
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|προβολή λίστας})"
 
-#: ../root/user/UserProfile.js:347
+#: ../root/user/UserProfile.js:348
 msgid "0"
 msgstr "0"
 
-#: ../root/user/UserProfile.js:360
+#: ../root/user/UserProfile.js:361
 msgid "unsubscribe"
 msgstr "μη παρακολούθηση"
 
-#: ../root/user/UserProfile.js:369
+#: ../root/user/UserProfile.js:370
 msgid "subscribe"
 msgstr "παρακολούθηση"
 
-#: ../root/user/UserProfile.js:395
+#: ../root/user/UserProfile.js:396
 msgid "Languages:"
 msgstr "Γλώσσες:"
 
-#: ../root/user/UserProfile.js:471 ../root/user/UserProfile.js:570
-#: ../root/user/UserProfile.js:580 ../root/user/UserProfile.js:590
-#: ../root/user/UserProfile.js:600 ../root/user/UserProfile.js:610
-#: ../root/user/UserProfile.js:620 ../root/user/UserProfile.js:630
-#: ../root/user/UserProfile.js:639 ../root/user/UserProfile.js:784
-#: ../root/user/UserProfile.js:794 ../root/user/UserProfile.js:806
+#: ../root/user/UserProfile.js:472 ../root/user/UserProfile.js:573
+#: ../root/user/UserProfile.js:583 ../root/user/UserProfile.js:593
+#: ../root/user/UserProfile.js:603 ../root/user/UserProfile.js:613
+#: ../root/user/UserProfile.js:623 ../root/user/UserProfile.js:633
+#: ../root/user/UserProfile.js:643 ../root/user/UserProfile.js:652
+#: ../root/user/UserProfile.js:797 ../root/user/UserProfile.js:807
+#: ../root/user/UserProfile.js:819
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|προβολή})"
 
-#: ../root/user/UserProfile.js:560
-msgid "Edits ({view_url|view})"
-msgstr "Τροποποιήσεις ({view_url|προβολή})"
-
-#: ../root/user/UserProfile.js:562
+#: ../root/user/UserProfile.js:565
 msgid "Edits"
 msgstr "Τροποποιήσεις"
 
-#: ../root/user/UserProfile.js:568
+#: ../root/user/UserProfile.js:571
+msgctxt "edit descriptor"
+msgid "Total"
+msgstr "Σύνολο"
+
+#: ../root/user/UserProfile.js:581
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr ""
 
-#: ../root/user/UserProfile.js:578
+#: ../root/user/UserProfile.js:591
 msgid "Auto-edits"
 msgstr ""
 
-#: ../root/user/UserProfile.js:588
+#: ../root/user/UserProfile.js:601
 msgid "Total applied"
 msgstr ""
 
-#: ../root/user/UserProfile.js:598
+#: ../root/user/UserProfile.js:611
 msgid "Voted down"
 msgstr "Καταψηφίστηκαν"
 
-#: ../root/user/UserProfile.js:608
+#: ../root/user/UserProfile.js:621
 msgid "Failed"
 msgstr "Απέτυχε"
 
-#: ../root/user/UserProfile.js:638
+#: ../root/user/UserProfile.js:651
 msgid "Last 24 hours"
 msgstr ""
 
-#: ../root/user/UserProfile.js:662
+#: ../root/user/UserProfile.js:675
 msgid "This table shows a summary of votes cast by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:667
+#: ../root/user/UserProfile.js:680
 msgid "Votes ({view_url|view})"
 msgstr "Ψήφοι ({view_url|προβολή})"
 
-#: ../root/user/UserProfile.js:675
+#: ../root/user/UserProfile.js:688
 msgid "Last 28 days"
 msgstr "Τελευταίες 28 μέρες"
 
-#: ../root/user/UserProfile.js:678
+#: ../root/user/UserProfile.js:691
 msgid "Overall"
 msgstr "Συνολικά"
 
-#: ../root/user/UserProfile.js:726
+#: ../root/user/UserProfile.js:739
 msgid "This table shows a summary of entities added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:732
+#: ../root/user/UserProfile.js:745
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr ""
 
-#: ../root/user/UserProfile.js:735
+#: ../root/user/UserProfile.js:748
 msgid "Added entities"
 msgstr ""
 
-#: ../root/user/UserProfile.js:759
+#: ../root/user/UserProfile.js:772
 msgid "This user has not created any entities."
 msgstr ""
 
-#: ../root/user/UserProfile.js:769
+#: ../root/user/UserProfile.js:782
 msgid "This table shows a summary of secondary data added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:775
+#: ../root/user/UserProfile.js:788
 msgid "Tags and ratings"
 msgstr ""
 
-#: ../root/user/UserProfile.js:782
+#: ../root/user/UserProfile.js:795
 msgid "Tags upvoted"
 msgstr ""
 
-#: ../root/user/UserProfile.js:792
+#: ../root/user/UserProfile.js:805
 msgid "Tags downvoted"
 msgstr ""
 
-#: ../root/user/UserProfile.js:879
+#: ../root/user/UserProfile.js:892
 msgid "Report this user for bad behavior"
 msgstr ""
 

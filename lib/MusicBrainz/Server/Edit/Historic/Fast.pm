@@ -4,10 +4,8 @@ use Moose;
 
 extends 'Class::Accessor::Fast::XS';
 
-use Class::Load qw( load_class );
 use Memoize;
-use MusicBrainz::Server::Data::Utils qw( copy_escape );
-use URI::Escape qw( uri_escape uri_unescape );
+use URI::Escape qw( uri_unescape );
 
 memoize('decode_value');
 

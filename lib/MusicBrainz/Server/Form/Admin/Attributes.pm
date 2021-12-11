@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Form::Admin::Attributes;
 
 use HTML::FormHandler::Moose;
-use MusicBrainz::Server::Form::Utils qw( select_options select_options_tree );
+use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 use MusicBrainz::Server::Constants qw( entities_with );
 
 extends 'MusicBrainz::Server::Form';

@@ -3,8 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use DBDefs;
-use Encode qw( decode );
-use HTTP::Status ':constants';
+use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Release;
 use MusicBrainz::Server::Validation qw(
     is_non_negative_integer
@@ -26,7 +25,6 @@ sub xml_search
     my ($self, $resource, $args) = @_;
 
     my $query = '';
-    my $dur = 0;
     my $offset = 0;
     my $limit = 0;
     my $dismax = 'false';

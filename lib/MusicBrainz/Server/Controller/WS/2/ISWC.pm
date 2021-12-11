@@ -4,7 +4,6 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Validation qw( is_valid_iswc );
-use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
      iswc => {

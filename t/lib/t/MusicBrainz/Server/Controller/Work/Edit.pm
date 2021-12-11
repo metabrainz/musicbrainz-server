@@ -28,7 +28,7 @@ my @edits = capture_edits {
         'edit-work.name' => 'Another name',
         'edit-work.iswcs.0' => 'T-000.000.002-0'
     ];
-    my $response = $mech->request($request);
+    $mech->request($request);
 } $c;
 
 @edits = sort_by { $_->id } @edits;
@@ -118,7 +118,7 @@ test 'Editing works with attributes' => sub {
             'edit-work.attributes.1.type_id' => 1,
             'edit-work.attributes.1.value' => '13'
         ];
-        my $response = $mech->request($request);
+        $mech->request($request);
     } $c;
 
     is(@edits, 1, 'An edit was created');
@@ -236,7 +236,7 @@ test 'Editing works with multiple languages' => sub {
             'edit-work.languages.1' => '145',
             'edit-work.languages.2' => '198',
         ];
-        my $response = $mech->request($request);
+        $mech->request($request);
     } $c;
 
     is(@edits, 1, 'An edit was created');
@@ -254,7 +254,7 @@ test 'Editing works with multiple languages' => sub {
             'edit-work.name' => 'Dancing Queen',
             'edit-work.languages.0' => '145',
         ];
-        my $response = $mech->request($request);
+        $mech->request($request);
     } $c;
 
     is(@edits, 1, 'An edit was created');

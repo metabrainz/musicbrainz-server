@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Report::ReleasesWithoutVALink;
 use Moose;
-use MusicBrainz::Server::Constants qw( $VARTIST_ID );
 
 with 'MusicBrainz::Server::Report::ReleaseReport';
 

@@ -2,7 +2,7 @@ package MusicBrainz::Server::Release;
 use strict;
 use warnings;
 
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l );
 
 use constant RELEASE_ATTR_ALBUM          => 1;
 use constant RELEASE_ATTR_SINGLE         => 2;

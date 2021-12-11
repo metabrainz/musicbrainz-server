@@ -20,10 +20,14 @@ allow_includes=1
 [TestingAndDebugging::ProhibitNoStrict]
 allow=refs
 
+[TooMuchCode::ProhibitUnusedImport]
+[TooMuchCode::ProhibitUnusedInclude]
+
 [ValuesAndExpressions::ProhibitInterpolationOfLiterals]
 [ValuesAndExpressions::ProhibitLeadingZeros]
 [ValuesAndExpressions::ProhibitMismatchedOperators]
 [ValuesAndExpressions::ProhibitMixedBooleanOperators]
 
-[Variables::ProhibitUnusedVariables]
+[Variables::ProhibitUnusedVarsStricter]
+allow_unused_subroutine_arguments = 1
 [Variables::RequireLexicalLoopIterators]

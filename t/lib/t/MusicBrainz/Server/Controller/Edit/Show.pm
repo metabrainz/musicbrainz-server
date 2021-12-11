@@ -3,7 +3,7 @@ use Test::Routine;
 use Test::More;
 
 use MusicBrainz::Server::EditRegistry;
-use MusicBrainz::Server::Test qw( accept_edit html_ok );
+use MusicBrainz::Server::Test qw( html_ok );
 
 my $mock_edit_class = 1000 + int(rand(1000));
 my $hard_mock_edit_class = $mock_edit_class + 1;

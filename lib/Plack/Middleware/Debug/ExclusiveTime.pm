@@ -2,7 +2,6 @@ package Plack::Middleware::Debug::ExclusiveTime;
 use strict;
 use parent qw(Plack::Middleware::Debug::Base);
 use Scalar::Util qw( blessed );
-use Statistics::Basic qw( stddev mean );
 use Time::HiRes qw( gettimeofday tv_interval );
 use List::AllUtils qw( sum );
 

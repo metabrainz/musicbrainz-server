@@ -13,7 +13,7 @@ use MusicBrainz::Server::Edit::Utils qw( gid_or_id );
 use MusicBrainz::Server::Edit::Types qw( LinkAttributesArray PartialDateHash );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MooseX::Types::Moose qw( Int Str ArrayRef Bool );
+use MooseX::Types::Moose qw( Int Str Bool );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use MusicBrainz::Server::Entity::Relationship;

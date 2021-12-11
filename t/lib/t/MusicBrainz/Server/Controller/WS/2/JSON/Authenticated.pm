@@ -1,8 +1,6 @@
 package t::MusicBrainz::Server::Controller::WS::2::JSON::Authenticated;
 use utf8;
-use JSON;
 use Test::Routine;
-use Test::More;
 use MusicBrainz::Server::Test ws_test_json => {
     version => 2
 };
@@ -13,7 +11,6 @@ test 'lookup rating for user' => sub {
 
   my $test = shift;
   my $c = $test->c;
-  my $mech = $test->mech;
 
   MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
   MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
@@ -44,7 +41,6 @@ test 'lookup tag for user' => sub {
 
   my $test = shift;
   my $c = $test->c;
-  my $mech = $test->mech;
 
   MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
   MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');

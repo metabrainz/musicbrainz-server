@@ -109,7 +109,6 @@ test 'Can merge series with editors subscribed at both ends' => sub {
     my $edit = create_merge_edit($c);
     $edit->accept;
 
-    my $series = $c->model('Series')->get_by_id(1);
     my @editors = $c->model('Series')->subscription->find_subscribed_editors(1);
 
     is(@editors, 1, '1 subscribed editor');

@@ -259,7 +259,7 @@ my $ac = $test->c->model('ArtistCredit')->find_or_insert(
     });
 ok($artist_data->can_delete(3));
 
-my $rec = $test->c->model('Recording')->insert({
+$test->c->model('Recording')->insert({
     name => q(Love's Too Tight Too Mention),
     artist_credit => $ac,
     comment => 'Drum & bass track',

@@ -12,15 +12,13 @@ later version: http://www.gnu.org/licenses/gpl-2.0.txt
 
 use DBDefs;
 use File::Copy qw( copy );
-use List::AllUtils qw( any natatime uniq );
+use List::AllUtils qw( natatime );
 use Moose;
-use MusicBrainz::Script::Utils qw( log );
 use MusicBrainz::Script::DatabaseDump;
 use MusicBrainz::Script::EntityDump qw(
     get_core_entities
     get_core_entities_by_gids
 );
-use MusicBrainz::Server::Constants qw( entities_with );
 use MusicBrainz::Server::Context;
 use Readonly;
 

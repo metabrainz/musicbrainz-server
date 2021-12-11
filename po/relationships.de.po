@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-11-15 07:47+0000\n"
+"PO-Revision-Date: 2021-11-29 17:59+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -1287,16 +1287,16 @@ msgstr ""
 msgid ""
 "This describes an engineer responsible for using a mixing console to mix a "
 "recorded track into a single piece of music suitable for release. For "
-"remixing, see <a href=\"/relationship/7950be4d-13a3-48e7-906b-"
-"5af562e39544\">remixer</a>."
+"remixing, see <a "
+"href=\"/relationship/7950be4d-13a3-48e7-906b-5af562e39544\">remixer</a>."
 msgstr ""
 
 #: DB:link_type/description:26
 msgid ""
 "This describes an engineer responsible for using a mixing console to mix a "
 "recorded track into a single piece of music suitable for release. For "
-"remixing, see <a href=\"/relationship/ac6a86db-f757-4815-a07e-"
-"744428d2382b\">remixer</a>."
+"remixing, see <a "
+"href=\"/relationship/ac6a86db-f757-4815-a07e-744428d2382b\">remixer</a>."
 msgstr ""
 
 #: DB:link_type/description:138 DB:link_type/description:28
@@ -1744,8 +1744,8 @@ msgstr ""
 msgid ""
 "This indicates the person who selected the tracks and the sequence for a "
 "compilation. If the tracks are pitched or blended into each other, it is "
-"more appropriate to credit this person as a <a href=\"/relationship"
-"/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a>."
+"more appropriate to credit this person as a <a "
+"href=\"/relationship/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a>."
 msgstr ""
 
 #: DB:link_type/description:147
@@ -1902,9 +1902,9 @@ msgstr ""
 msgid ""
 "This is used to link a release group containing a <a "
 "href=\"/doc/Mix_Terminology#DJ_mix\">DJ-mixed</a> version of a release to "
-"the release group containing the source release. See <a href=\"/relationship"
-"/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a> for crediting the "
-"person who created the DJ-mix."
+"the release group containing the source release. See <a "
+"href=\"/relationship/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a> for"
+" crediting the person who created the DJ-mix."
 msgstr ""
 
 #: DB:link_type/description:284
@@ -2897,6 +2897,13 @@ msgid ""
 "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-ad06-98af558e99b0\">recording-work performance relationship type</a>."
 msgstr ""
 
+#: DB:link_type/description:1005
+msgid ""
+"This relationship type is used to link a label to a site where music can be legally streamed for a subscription fee, e.g. Apple Music.\n"
+"\n"
+"If the site allows free streaming, use \"free streaming\" instead."
+msgstr ""
+
 #: DB:link_type/description:997
 msgid ""
 "This relationship type is used to link a label to a site where music can be "
@@ -3578,7 +3585,7 @@ msgid "can be purchased for mail-order at"
 msgstr "kann bestellt werden unter"
 
 #: DB:link_type/long_link_phrase:978 DB:link_type/long_link_phrase:979
-#: DB:link_type/long_link_phrase:980
+#: DB:link_type/long_link_phrase:980 DB:link_type/long_link_phrase:1005
 msgid "can be streamed at"
 msgstr "kann gestreamt werden unter"
 
@@ -6267,16 +6274,17 @@ msgid "stream {video} for free"
 msgstr "{video:Video} kostenlos streamen"
 
 #: DB:link_type/name:978 DB:link_type/name:979 DB:link_type/name:980
+#: DB:link_type/name:1005
 msgid "streaming"
 msgstr "Streaming"
 
 #: DB:link_type/link_phrase:978 DB:link_type/link_phrase:979
-#: DB:link_type/link_phrase:980
+#: DB:link_type/link_phrase:980 DB:link_type/link_phrase:1005
 msgid "streaming page"
 msgstr "Streaming-Seite"
 
 #: DB:link_type/reverse_link_phrase:978 DB:link_type/reverse_link_phrase:979
-#: DB:link_type/reverse_link_phrase:980
+#: DB:link_type/reverse_link_phrase:980 DB:link_type/reverse_link_phrase:1005
 msgid "streaming page for"
 msgstr "Streaming-Seite für"
 

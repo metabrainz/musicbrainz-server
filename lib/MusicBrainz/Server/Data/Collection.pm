@@ -11,7 +11,7 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
 );
 use List::AllUtils qw( any uniq uniq_by zip );
-use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
+use MusicBrainz::Server::Constants qw( entities_with );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {

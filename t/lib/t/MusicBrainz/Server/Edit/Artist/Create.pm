@@ -45,7 +45,7 @@ test all => sub {
 
     ok(defined $edit->artist_id, 'edit should store the artist id');
 
-    my ($edits, $hits) = $c->model('Edit')->find({ artist => $edit->artist_id }, 10, 0);
+    my ($edits, undef) = $c->model('Edit')->find({ artist => $edit->artist_id }, 10, 0);
     is($edits->[0]->id, $edit->id, 'Edit IDs match between edit and ->find');
 
     my $artist = $c->model('Artist')->get_by_id($edit->artist_id);

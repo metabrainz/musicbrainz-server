@@ -80,7 +80,7 @@ test 'Inserting just a catalog number' => sub {
     };
 
     {
-        my $edit = $c->model('Edit')->create(
+        $c->model('Edit')->create(
             edit_type => $EDIT_RELEASE_ADDRELEASELABEL,
             editor_id => 1,
             release => $c->model('Release')->get_by_id(1),

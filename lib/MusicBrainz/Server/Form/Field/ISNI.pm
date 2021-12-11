@@ -9,11 +9,11 @@ extends 'HTML::FormHandler::Field::Text';
 apply ([
     {
         transform => sub { return format_isni(shift) },
-        message => sub { 'This is not a valid ISNI.' },
+        message => sub { l('This is not a valid ISNI.') },
     },
     {
         check => sub { is_valid_isni(shift) },
-        message => sub { 'This is not a valid ISNI.' },
+        message => sub { l('This is not a valid ISNI.') },
     }
 ]);
 

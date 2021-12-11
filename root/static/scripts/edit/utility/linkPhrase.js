@@ -167,10 +167,10 @@ export function cmpLinkAttrs(a: LinkAttrT, b: LinkAttrT): number {
      * Since we now know the ids are the same, we can assume
      * aRootType === bRootType below.
      */
-    (aRootType.free_text ?
-      compareStrings((a.text_value ?? ''), (b.text_value ?? '')) : 0) ||
-    (aRootType.creditable ?
-      compareStrings((a.credited_as ?? ''), (b.credited_as ?? '')) : 0)
+    (aRootType.free_text
+      ? compareStrings((a.text_value ?? ''), (b.text_value ?? '')) : 0) ||
+    (aRootType.creditable
+      ? compareStrings((a.credited_as ?? ''), (b.credited_as ?? '')) : 0)
   );
 }
 

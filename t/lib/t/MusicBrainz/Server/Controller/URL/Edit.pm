@@ -19,7 +19,7 @@ test all => sub {
 
     # Test editing urls
     $mech->get_ok('/url/9201840b-d810-4e0f-bb75-c791205f5b24/edit');
-    my $response = $mech->submit_form(
+    $mech->submit_form(
         with_fields => {
             'edit-url.url' => 'http://link.example',
         });

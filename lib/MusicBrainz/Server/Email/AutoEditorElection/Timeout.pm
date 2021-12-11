@@ -12,8 +12,7 @@ sub text
 {
     my ($self) = @_;
 
-    my $escape = sub { uri_escape_utf8(shift) };
-    my $timeout = $MusicBrainz::Server::Data::AutoEditorElection::PROPOSAL_TIMEOUT;
+    my $timeout = $MusicBrainz::Server::Data::AutoEditorElection::PROPOSAL_TIMEOUT; ## no critic 'ProhibitUnusedVarsStricter'
 
     return strip tt <<EOF;
 This election has been cancelled, because two seconders could not be

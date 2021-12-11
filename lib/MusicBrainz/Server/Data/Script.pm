@@ -4,7 +4,7 @@ use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Entity::Script;
 
-use MusicBrainz::Server::Data::Utils qw( load_subobjects hash_to_row );
+use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache';

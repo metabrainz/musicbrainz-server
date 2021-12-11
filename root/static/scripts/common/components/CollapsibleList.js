@@ -47,15 +47,15 @@ const CollapsibleList = <T>({
 }: Props<T>): React.MixedElement | null => {
   const [expanded, setExpanded] = React.useState<boolean>(false);
 
-  const expand = React.useCallback(event => {
+  const expand = event => {
     event.preventDefault();
     setExpanded(true);
-  });
+  };
 
-  const collapse = React.useCallback(event => {
+  const collapse = event => {
     event.preventDefault();
     setExpanded(false);
-  });
+  };
 
   const containerProps = {
     'aria-label': ariaLabel,

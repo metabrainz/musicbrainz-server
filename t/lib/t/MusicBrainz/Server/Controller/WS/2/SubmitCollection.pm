@@ -1,7 +1,6 @@
 package t::MusicBrainz::Server::Controller::WS::2::SubmitCollection;
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
 
@@ -10,8 +9,8 @@ use HTTP::Status qw( :constants );
 use HTTP::Request::Common qw( DELETE );
 use Test::XML::SemanticCompare;
 
-use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
-use MusicBrainz::Server::Test qw( xml_ok xml_post );
+use MusicBrainz::Server::Constants qw( %ENTITIES );
+use MusicBrainz::Server::Test qw( xml_ok );
 use MusicBrainz::Server::Test ws_test => {
     version => 2
 };
