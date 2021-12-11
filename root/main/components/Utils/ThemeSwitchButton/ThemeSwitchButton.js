@@ -7,34 +7,34 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from "react";
+import React from 'react';
 
 function ThemeSwitchButton(props) {
-    let active, buttonClassName;
-    if (props.dark) {
-        active = "dark";
-        buttonClassName = "SwitchBtn SwitchBtn-Active";
-    } else {
-        active = "light";
-        buttonClassName = "SwitchBtn";
-    }
+  let active; let buttonClassName;
+  if (props.dark) {
+    active = 'dark';
+    buttonClassName = 'SwitchBtn SwitchBtn-Active';
+  } else {
+    active = 'light';
+    buttonClassName = 'SwitchBtn';
+  }
 
-    let activeDayIcon = `../../../../static/images/${active}-theme/icon-day.svg`;
-    let activeNightIcon = `../../../../static/images/${active}-theme/icon-night.svg`;
+  let activeDayIcon = `../../../../static/images/${active}-theme/icon-day.svg`;
+  let activeNightIcon = `../../../../static/images/${active}-theme/icon-night.svg`;
 
-    return (
-        <div className="DarkThemeSwitchBtn-wrapper">
-            <picture className="ThemeIndicator-Icon">
-                <img src={activeDayIcon} alt="icon for lite theme" />
-            </picture>
-            <div className="SwitchBtn-Track" onClick={props.changeTheme}>
-                <button className={buttonClassName}/>
-            </div>
-            <picture className="ThemeIndicator-Icon">
-                <img src={activeNightIcon} alt="icon for dark theme" />
-            </picture>
-        </div>
-    );
+  return (
+    <div className="DarkThemeSwitchBtn-wrapper">
+      <picture className="ThemeIndicator-Icon">
+        <img alt="icon for lite theme" src={activeDayIcon} />
+      </picture>
+      <div className="SwitchBtn-Track" onClick={props.changeTheme}>
+        <button className={buttonClassName} />
+      </div>
+      <picture className="ThemeIndicator-Icon">
+        <img alt="icon for dark theme" src={activeNightIcon} />
+      </picture>
+    </div>
+  );
 }
 
 export default ThemeSwitchButton;
