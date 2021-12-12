@@ -25,7 +25,7 @@ import Facts from './components/Home/Facts/Facts';
 import Explore from './components/Home/Explore/Explore';
 import Projects from './components/Home/Projects/Projects';
 
-function Home() {
+export default function Home() {
   const DARK_MODE_KEY = 'dark_mode';
   const [dark, setDark] = useState(getSetting);
   let theme = dark ? 'theme-dark' : 'theme-light';
@@ -74,4 +74,3 @@ function Home() {
     </div>
   );
 }
-export default Home;

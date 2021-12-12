@@ -7,8 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React, {useState} from 'react';
+import React from 'react';
 import {Modal} from 'react-bootstrap';
+import Carousel from 'react-multi-carousel';
 
 const responsive = {
   desktop: {
@@ -114,11 +115,9 @@ export default class Intro extends React.Component {
                 <div className="row search-margins">
                   <div className="col-8 col-md-10">
                     <input
-                      type="search"
-name="query"
-                      id="searchInputMain"
                       className="form-control special-font"
-                      style={{textTransform: 'capitalize'}}
+                      id="searchInputMain"
+                      name="query"
                       onKeyPress={event => {
                         if (event.key === 'Enter') {
                           const query = document.getElementById('searchInputMain');
@@ -139,6 +138,8 @@ name="query"
                         }
                       }}
                       placeholder="Search 41,054,421 Entities"
+                      style={{textTransform: 'capitalize'}}
+                      type="search"
                     />
                   </div>
                   <div className="col-4 col-md-2">
@@ -199,18 +200,20 @@ name="query"
 
                         <div className="card text-left mt-5" key={indx}>
                           <img
-                              style={{width: '100%', height: '250px', objectFit: 'cover'}}
-                              src={artwork['im:image'][2].label} alt="Alt text"
-                            />
+                            alt="Alt text"
+                            src={artwork['im:image'][2].label}
+                            style={{width: '100%', height: '250px', objectFit: 'cover'}}
+                          />
                         </div>
 
                       );
                     }) : <div className="card text-left mt-5" key="1">
                       <img
+                        alt="Alt text"
+                        src="../../../../static/images/demo.jpg"
                         style={{width: '100%', height: '250px', objectFit: 'cover'}}
-                        src="../../../../static/images/demo.jpg" alt="Alt text"
                       />
-                    </div>
+                         </div>
                   }
                 </Carousel>
               </div>
