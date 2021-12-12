@@ -32,10 +32,10 @@ MB.CoverArt.image_error = function ($img, image) {
 
 MB.CoverArt.reorder_button = function (direction, $container) {
   return function (event) {
-    var $editimage = $(this).closest('div.editimage');
+    const $editimage = $(this).closest('div.editimage');
 
-    var $swap = $editimage[direction === 'next' ? 'next' : 'prev']();
-    var insertAfter = (direction === 'next');
+    let $swap = $editimage[direction === 'next' ? 'next' : 'prev']();
+    let insertAfter = (direction === 'next');
     if (!$swap.length) {
       // no direct neighbour, so wrap around
       $swap = $editimage.siblings()[direction === 'next'
@@ -56,7 +56,7 @@ MB.CoverArt.reorder_button = function (direction, $container) {
 };
 
 MB.CoverArt.reorder_position = function () {
-  var $container = $('div.image-position');
+  const $container = $('div.image-position');
 
   $container.sortable({
     items: '> div.thumb-position',
@@ -95,7 +95,7 @@ MB.CoverArt.reorder_position = function () {
 };
 
 MB.CoverArt.CoverArtType = function (name, id) {
-  var self = this;
+  const self = this;
   self.name = name;
   self.id = id;
   self.checked = ko.observable(false);
@@ -137,10 +137,10 @@ MB.CoverArt.upload_status_enum = {
 };
 
 MB.CoverArt.validate_file = function (file) {
-  var deferred = $.Deferred();
-  var reader = new window.FileReader();
+  const deferred = $.Deferred();
+  const reader = new window.FileReader();
   reader.addEventListener('loadend', function () {
-    var uint32view = new Uint32Array(reader.result);
+    const uint32view = new Uint32Array(reader.result);
 
     /*
      * JPEG signature is usually FF D8 FF E0 (JFIF), or FF D8 FF E1 (EXIF).
@@ -168,8 +168,8 @@ MB.CoverArt.validate_file = function (file) {
 };
 
 MB.CoverArt.file_data_uri = function (file) {
-  var deferred = $.Deferred();
-  var reader = new window.FileReader();
+  const deferred = $.Deferred();
+  const reader = new window.FileReader();
   reader.addEventListener('loadend', function () {
     deferred.resolve(reader.result);
   });
@@ -179,7 +179,7 @@ MB.CoverArt.file_data_uri = function (file) {
 };
 
 MB.CoverArt.sign_upload = function (fileUpload, gid, mimeType) {
-  var deferred = $.Deferred();
+  const deferred = $.Deferred();
 
   const data = {mime_type: mimeType};
   /* global COVER_ART_IMAGE_ID */
@@ -188,7 +188,7 @@ MB.CoverArt.sign_upload = function (fileUpload, gid, mimeType) {
     data.image_id = COVER_ART_IMAGE_ID++;
   }
 
-  var postfields = $.ajax({
+  const postfields = $.ajax({
     url: '/ws/js/cover-art-upload/' + gid,
     data,
     dataType: 'json',
@@ -212,9 +212,9 @@ MB.CoverArt.sign_upload = function (fileUpload, gid, mimeType) {
 };
 
 MB.CoverArt.upload_image = function (postfields, file) {
-  var deferred = $.Deferred();
+  const deferred = $.Deferred();
 
-  var formdata = new window.FormData();
+  const formdata = new window.FormData();
 
   $.each(postfields.formdata, function (key, val) {
     formdata.append(key, val);
@@ -222,7 +222,7 @@ MB.CoverArt.upload_image = function (postfields, file) {
 
   formdata.append('file', file);
 
-  var xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
   xhr.upload.addEventListener('progress', function (event) {
     if (event.lengthComputable) {
       deferred.notify(100 * event.loaded / event.total);
@@ -265,9 +265,9 @@ MB.CoverArt.submit_edit = function (
   mimeType,
   position,
 ) {
-  var deferred = $.Deferred();
+  const deferred = $.Deferred();
 
-  var formdata = new window.FormData();
+  const formdata = new window.FormData();
   formdata.append('add-cover-art.id', postfields.image_id);
   formdata.append('add-cover-art.nonce', postfields.nonce);
   formdata.append('add-cover-art.position', position);
@@ -284,7 +284,7 @@ MB.CoverArt.submit_edit = function (
     }
   }
 
-  var xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
   xhr.addEventListener('load', function () {
     if (xhr.status === 200) {
       deferred.resolve();
@@ -322,8 +322,8 @@ MB.CoverArt.submit_edit = function (
 };
 
 MB.CoverArt.FileUpload = function (file) {
-  var self = this;
-  var statuses = MB.CoverArt.upload_status_enum;
+  const self = this;
+  const statuses = MB.CoverArt.upload_status_enum;
 
   self.name = file.name;
   self.size = filesize(file.size, {round: 1, bits: false});
@@ -370,7 +370,7 @@ MB.CoverArt.FileUpload = function (file) {
     });
 
   self.doUpload = function (gid, position) {
-    var deferred = $.Deferred();
+    const deferred = $.Deferred();
 
     if (self.status() === 'done' || self.busy()) {
       /*
@@ -387,7 +387,7 @@ MB.CoverArt.FileUpload = function (file) {
     self.validating.done(function (mimeType) {
       self.status(statuses.signing);
 
-      var signing = MB.CoverArt.sign_upload(self, gid, mimeType);
+      const signing = MB.CoverArt.sign_upload(self, gid, mimeType);
       signing.fail(function (msg) {
         self.status(statuses.sign_error);
         deferred.reject(msg);
@@ -397,7 +397,7 @@ MB.CoverArt.FileUpload = function (file) {
         self.status(statuses.uploading);
         self.updateProgress(1, 100);
 
-        var uploading = MB.CoverArt.upload_image(postfields, self.data);
+        const uploading = MB.CoverArt.upload_image(postfields, self.data);
         uploading.progress(function (value) {
           self.updateProgress(2, value);
         });
@@ -411,7 +411,7 @@ MB.CoverArt.FileUpload = function (file) {
           self.status(statuses.submitting);
           self.updateProgress(2, 100);
 
-          var submitting = MB.CoverArt.submit_edit(
+          const submitting = MB.CoverArt.submit_edit(
             self,
             postfields,
             mimeType,
@@ -459,17 +459,17 @@ MB.CoverArt.FileUpload = function (file) {
 };
 
 MB.CoverArt.UploadProcessViewModel = function () {
-  var self = this;
+  const self = this;
   self.files_to_upload = ko.observableArray();
 
   self.addFile = function (file) {
-    var fileUpload = new MB.CoverArt.FileUpload(file);
+    const fileUpload = new MB.CoverArt.FileUpload(file);
     self.files_to_upload.push(fileUpload);
     return fileUpload;
   };
 
   self.moveFile = function (toMove, direction) {
-    var newPos = self.files_to_upload().indexOf(toMove) + direction;
+    const newPos = self.files_to_upload().indexOf(toMove) + direction;
     if (newPos < 0 || newPos >= self.files_to_upload().length) {
       return;
     }
@@ -481,7 +481,7 @@ MB.CoverArt.UploadProcessViewModel = function () {
 
 
 MB.CoverArt.process_upload_queue = function (gid, upvm, pos) {
-  var queue = upvm.files_to_upload().map(function (item) {
+  const queue = upvm.files_to_upload().map(function (item) {
     return function () {
       return item.doUpload(gid, pos++);
     };
@@ -491,14 +491,14 @@ MB.CoverArt.process_upload_queue = function (gid, upvm, pos) {
 };
 
 MB.CoverArt.add_cover_art_submit = function (gid, upvm) {
-  var pos = parseInt($('#id-add-cover-art\\.position').val(), 10);
+  const pos = parseInt($('#id-add-cover-art\\.position').val(), 10);
 
   $('.add-files.row').hide();
   $('#cover-art-position-row').hide();
   $('#content')[0].scrollIntoView();
   $('#add-cover-art-submit').prop('disabled', true);
 
-  var queue = MB.CoverArt.process_upload_queue(gid, upvm, pos);
+  const queue = MB.CoverArt.process_upload_queue(gid, upvm, pos);
 
   iteratePromises(queue)
     .done(function () {
@@ -510,15 +510,15 @@ MB.CoverArt.add_cover_art_submit = function (gid, upvm) {
 };
 
 MB.CoverArt.set_position = function () {
-  var $editimage = $('div.editimage');
+  const $editimage = $('div.editimage');
   if ($editimage.length) {
-    var position = $editimage.index() + 1;
+    const position = $editimage.index() + 1;
     $('#id-add-cover-art\\.position').val(position);
   }
 };
 
 MB.CoverArt.add_cover_art = function (gid) {
-  var upvm = new MB.CoverArt.UploadProcessViewModel();
+  const upvm = new MB.CoverArt.UploadProcessViewModel();
   ko.applyBindings(upvm);
 
   $(document).on('click', 'button.cancel-file', function (event) {
@@ -583,8 +583,8 @@ MB.CoverArt.add_cover_art = function (gid) {
  * interested in the side effects of the functions executed.
  */
 function iteratePromises(promises) {
-  var deferred = $.Deferred();
-  var failed = false;
+  const deferred = $.Deferred();
+  let failed = false;
 
   function iterate() {
     if (promises.length > 0) {

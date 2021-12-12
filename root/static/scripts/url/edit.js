@@ -6,12 +6,12 @@ import {getUnicodeUrl} from '../edit/externalLinks';
 import {registerEvents} from '../edit/URLCleanup';
 
 $(function () {
-  var $urlControl = $('#id-edit-url\\.url');
+  const $urlControl = $('#id-edit-url\\.url');
 
   registerEvents($urlControl);
 
-  var vm = MB.sourceRelationshipEditor;
-  var source = vm.source;
+  const vm = MB.sourceRelationshipEditor;
+  const source = vm.source;
   source.name = ko.observable(source.name);
 
   $urlControl.on('change', function () {

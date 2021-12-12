@@ -1,6 +1,6 @@
 /*
  * @flow strict-local
- * Copyright (C) 2022 MetaBrainz Foundation
+ * Copyright (C) 2021 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
  * and is licensed under the GPL version 2, or (at your option) any
@@ -19,8 +19,8 @@ function ThemeSwitchButton(props) {
     buttonClassName = 'SwitchBtn';
   }
 
-  let activeDayIcon = `../../../../static/images/${active}-theme/icon-day.svg`;
-  let activeNightIcon = `../../../../static/images/${active}-theme/icon-night.svg`;
+  const activeDayIcon = `../../../../static/images/${active}-theme/icon-day.svg`;
+  const activeNightIcon = `../../../../static/images/${active}-theme/icon-night.svg`;
 
   return (
     <div className="DarkThemeSwitchBtn-wrapper">

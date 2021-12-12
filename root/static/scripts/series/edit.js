@@ -6,8 +6,8 @@ import MB from '../common/MB';
 import initializeDuplicateChecker from '../edit/check-duplicates';
 
 $(function () {
-  var $type = $('#id-edit-series\\.type_id');
-  var $orderingType = $('#id-edit-series\\.ordering_type_id');
+  const $type = $('#id-edit-series\\.type_id');
+  const $orderingType = $('#id-edit-series\\.ordering_type_id');
   const $type_options = $('#id-edit-series\\.type_id > option');
 
   function updateAllowedTypes(seriesHasItems) {
@@ -46,7 +46,7 @@ $(function () {
     );
   });
 
-  var seriesHasItems = ko.computed(function () {
+  const seriesHasItems = ko.computed(function () {
     return series.getSeriesItems(MB.sourceRelationshipEditor).length > 0;
   });
 

@@ -689,7 +689,7 @@ async function runCommands(commands, t) {
   await driver.manage().window().setRect({height: 768, width: 1024});
 
   for (let i = 0; i < commands.length; i++) {
-    let reqsCountBeforeCommand = reqsCount;
+    const reqsCountBeforeCommand = reqsCount;
 
     await handleCommand(commands[i], t);
 

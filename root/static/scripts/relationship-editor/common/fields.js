@@ -34,12 +34,12 @@ import mergeDates from './mergeDates';
 
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
-var fields = RE.fields = RE.fields || {};
+const fields = RE.fields = RE.fields || {};
 
 
 class Relationship {
   constructor(data, source, parent) {
-    var self = this;
+    const self = this;
 
     this.parent = parent;
 
@@ -78,7 +78,7 @@ class Relationship {
     this.ended = ko.observable(!!data.ended);
 
     this.disableEndedCheckBox = ko.computed(function () {
-      var hasEndDate = !!formatDate(this.end_date);
+      const hasEndDate = !!formatDate(this.end_date);
       this.ended(hasEndDate || data.ended);
       return hasEndDate;
     }, this);
@@ -106,7 +106,7 @@ class Relationship {
      * upon writing, but there's already a bunch of code
      * that depends on 'attributes' being an observableArray.
      */
-    var removingInvalidAttributes = false;
+    let removingInvalidAttributes = false;
     this.attributes.subscribe(function (newAttributes) {
       if (!removingInvalidAttributes) {
         setTimeout(function () {
@@ -160,7 +160,7 @@ class Relationship {
   }
 
   target(source) {
-    var entities = this.entities();
+    const entities = this.entities();
 
     if (source === entities[0]) {
       return entities[1];
@@ -173,7 +173,7 @@ class Relationship {
   }
 
   linkTypeIDChanged() {
-    var linkType = this.getLinkType();
+    const linkType = this.getLinkType();
 
     if (!linkType) {
       return;
@@ -189,7 +189,7 @@ class Relationship {
     const attributes = this.attributes();
     let attribute;
 
-    for (var i = 0, len = attributes.length; i < len; i++) {
+    for (let i = 0, len = attributes.length; i < len; i++) {
       attribute = attributes[i];
 
       if (!typeAttributes || !typeAttributes[attribute.type.root_id]) {
@@ -205,7 +205,7 @@ class Relationship {
   }
 
   hasDates() {
-    var linkType = this.getLinkType();
+    const linkType = this.getLinkType();
     return linkType ? (linkType.has_dates !== false) : true;
   }
 
@@ -222,7 +222,7 @@ class Relationship {
   }
 
   show() {
-    var entities = this.entities();
+    const entities = this.entities();
 
     if (entities[0].relationships.indexOf(this) < 0) {
       entities[0].relationships.push(this);
@@ -234,13 +234,13 @@ class Relationship {
   }
 
   entitiesChanged(newEntities) {
-    var oldEntities = this.entities.saved;
+    const oldEntities = this.entities.saved;
 
-    var entity0 = newEntities[0];
-    var entity1 = newEntities[1];
+    const entity0 = newEntities[0];
+    const entity1 = newEntities[1];
 
-    var saved0 = oldEntities[0];
-    var saved1 = oldEntities[1];
+    const saved0 = oldEntities[0];
+    const saved1 = oldEntities[1];
 
     if (saved0 !== entity0 && saved0 !== entity1) {
       saved0.relationships.remove(this);
@@ -250,11 +250,11 @@ class Relationship {
       saved1.relationships.remove(this);
     }
 
-    var relationships0 = entity0.relationships;
-    var relationships1 = entity1.relationships;
+    const relationships0 = entity0.relationships;
+    const relationships1 = entity1.relationships;
 
-    var containedBy0 = relationships0.indexOf(this) >= 0;
-    var containedBy1 = relationships1.indexOf(this) >= 0;
+    const containedBy0 = relationships0.indexOf(this) >= 0;
+    const containedBy1 = relationships1.indexOf(this) >= 0;
 
     if (containedBy0 && !containedBy1) {
       relationships1.push(this);
@@ -273,7 +273,7 @@ class Relationship {
   }
 
   loadWorkRelationships(work) {
-    var args = {url: '/ws/js/entity/' + work.gid + '?inc=rels'};
+    const args = {url: '/ws/js/entity/' + work.gid + '?inc=rels'};
 
     request(args).done(function (data) {
       work.parseRelationships(data.relationships);
@@ -293,7 +293,7 @@ class Relationship {
       return;
     }
 
-    var entities = this.entities();
+    const entities = this.entities();
 
     entities[0].relationships.remove(this);
     entities[1].relationships.remove(this);
@@ -303,7 +303,7 @@ class Relationship {
   }
 
   getAttribute(typeGID) {
-    var attributes = this.attributes();
+    const attributes = this.attributes();
 
     for (var i = 0, linkAttribute; (linkAttribute = attributes[i]); i++) {
       if (linkAttribute.type.gid === typeGID) {
@@ -320,23 +320,23 @@ class Relationship {
   }
 
   addAttribute(typeGID) {
-    var attribute = new fields.LinkAttribute({type: {gid: typeGID}});
+    const attribute = new fields.LinkAttribute({type: {gid: typeGID}});
     this.attributes.push(attribute);
     return attribute;
   }
 
   linkTypeAttributes() {
-    var linkType = this.getLinkType();
+    const linkType = this.getLinkType();
     return linkType ? Object.values(linkType.attributes) : [];
   }
 
   attributeError(rootInfo) {
-    var min = rootInfo.min;
+    const min = rootInfo.min;
 
     if (min > 0) {
-      var rootID = rootInfo.attribute.id;
+      const rootID = rootInfo.attribute.id;
 
-      var values = this.attributes().filter(function (attribute) {
+      const values = this.attributes().filter(function (attribute) {
         return attribute.type.root_id == rootID;
       });
 
@@ -437,17 +437,17 @@ class Relationship {
   }
 
   entityIsOrdered(entity) {
-    var linkType = this.getLinkType();
+    const linkType = this.getLinkType();
     if (!linkType) {
       return false;
     }
 
-    var orderableDirection = linkType.orderable_direction;
+    const orderableDirection = linkType.orderable_direction;
     if (orderableDirection === 0) {
       return false;
     }
 
-    var entities = this.entities();
+    const entities = this.entities();
 
     if (orderableDirection === 1 && entity === entities[1]) {
       return true;
@@ -465,7 +465,7 @@ class Relationship {
       return false;
     }
 
-    var target = this.target(entity);
+    const target = this.target(entity);
 
     if (target.entityType === 'series') {
       return +target.orderingTypeID() !== SERIES_ORDERING_TYPE_AUTOMATIC;
@@ -475,13 +475,13 @@ class Relationship {
   }
 
   _moveEntity(offset) {
-    var vm = this.parent;
-    var relationships = vm.source.getRelationshipGroup(this, vm);
-    var index = relationships.indexOf(this);
-    var newIndex = index + offset;
+    const vm = this.parent;
+    const relationships = vm.source.getRelationshipGroup(this, vm);
+    const index = relationships.indexOf(this);
+    const newIndex = index + offset;
 
     if (newIndex >= 0 && newIndex <= relationships.length - 1) {
-      var other = relationships[newIndex];
+      const other = relationships[newIndex];
       relationships[newIndex] = this;
       relationships[index] = other;
 
@@ -544,9 +544,9 @@ class Relationship {
   }
 
   openEdits() {
-    var entities = this.original.entities;
-    var entity0 = mbEntity(entities[0]);
-    var entity1 = mbEntity(entities[1]);
+    const entities = this.original.entities;
+    const entity0 = mbEntity(entities[0]);
+    const entity1 = mbEntity(entities[1]);
 
     return (
       '/search/edits?auto_edit_filter=' +
@@ -574,7 +574,7 @@ class Relationship {
   }
 
   creditField(entity) {
-    var entities = this.entities();
+    const entities = this.entities();
 
     if (entity === entities[0]) {
       return this.entity0_credit;
@@ -606,7 +606,7 @@ class Relationship {
 fields.Relationship = Relationship;
 
 fields.LinkAttribute = function (data) {
-  var type = this.type = linkedEntities.link_attribute_type[data.type.gid];
+  const type = this.type = linkedEntities.link_attribute_type[data.type.gid];
 
   if (type.creditable) {
     this.creditedAs = ko.observable(ko.unwrap(data.credited_as) || '');
@@ -618,7 +618,7 @@ fields.LinkAttribute = function (data) {
 };
 
 fields.LinkAttribute.prototype.identity = function () {
-  var type = this.type;
+  const type = this.type;
 
   if (type.creditable) {
     return type.gid + '\0' + clean(this.creditedAs());
@@ -630,8 +630,8 @@ fields.LinkAttribute.prototype.identity = function () {
 };
 
 fields.LinkAttribute.prototype.toJS = function () {
-  var type = this.type;
-  var output = {type: {gid: type.gid}};
+  const type = this.type;
+  const output = {type: {gid: type.gid}};
 
   if (type.creditable) {
     output.credited_as = clean(this.creditedAs());
@@ -683,7 +683,7 @@ function attributesAreEqual(attributesA, attributesB) {
     return false;
   }
   for (var i = 0, a; (a = attributesA[i]); i++) {
-    var match = false;
+    let match = false;
 
     for (var j = i, b; (b = attributesB[j]); j++) {
       if (a.identity() === b.identity()) {
@@ -702,12 +702,12 @@ function validAttributes(relationship, attributes) {
   if (!attributes) {
     return [];
   }
-  var linkType = relationship.getLinkType();
+  const linkType = relationship.getLinkType();
   if (!linkType) {
     return [];
   }
   return attributes.filter(function (data) {
-    var attrInfo = linkedEntities.link_attribute_type[data.type.gid];
+    const attrInfo = linkedEntities.link_attribute_type[data.type.gid];
     return attrInfo && linkType.attributes[attrInfo.root_id];
   });
 }

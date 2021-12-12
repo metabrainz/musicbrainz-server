@@ -8,9 +8,9 @@
 
 import $ from 'jquery';
 
-var nextAvailableTime = new Date().getTime();
-var previousDeferred = null;
-var timeout = 1000;
+let nextAvailableTime = new Date().getTime();
+let previousDeferred = null;
+const timeout = 1000;
 
 function makeRequest(args, context, deferred) {
   deferred.jqXHR = $.ajax({dataType: 'json', ...args})
@@ -29,9 +29,9 @@ function makeRequest(args, context, deferred) {
 }
 
 function request(args, context) {
-  var deferred = $.Deferred();
-  var now = new Date().getTime();
-  var later;
+  const deferred = $.Deferred();
+  const now = new Date().getTime();
+  let later;
 
   if (nextAvailableTime - now <= 0) {
     makeRequest(args, context, deferred);
@@ -59,7 +59,7 @@ function request(args, context) {
     nextAvailableTime += timeout;
   }
 
-  var promise = deferred.promise();
+  const promise = deferred.promise();
 
   promise.abort = function () {
     if (deferred.jqXHR) {

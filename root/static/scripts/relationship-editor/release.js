@@ -19,7 +19,7 @@ import './common/entity';
 
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
-var UI = RE.UI = RE.UI || {};
+const UI = RE.UI = RE.UI || {};
 
 
 export class ReleaseViewModel extends ViewModel {
@@ -34,14 +34,14 @@ export class ReleaseViewModel extends ViewModel {
     this.submissionLoading = ko.observable(false);
     this.submissionError = ko.observable('');
 
-    var self = this;
+    const self = this;
 
     this.checkboxes = {
       recordingCount: ko.observable(0),
       workCount: ko.observable(0),
 
       recordingMessage: function () {
-        var n = this.recordingCount();
+        const n = this.recordingCount();
         return '(' + texp.ln(
           '{n} recording selected',
           '{n} recordings selected',
@@ -51,7 +51,7 @@ export class ReleaseViewModel extends ViewModel {
       },
 
       workMessage: function () {
-        var n = this.workCount();
+        const n = this.workCount();
         return '(' + texp.ln(
           '{n} work selected',
           '{n} works selected',
@@ -79,7 +79,7 @@ export class ReleaseViewModel extends ViewModel {
       if (self.redirecting) {
         return undefined;
       }
-      var $changes = $('.link-phrase')
+      const $changes = $('.link-phrase')
         .filter('.rel-edit:eq(0), .rel-add:eq(0), .rel-remove:eq(0)');
 
       if ($changes.length) {
@@ -107,7 +107,7 @@ export class ReleaseViewModel extends ViewModel {
   }
 
   getEdits(addChanged) {
-    var release = this.source;
+    const release = this.source;
 
     for (const medium of release.mediums()) {
       for (const track of medium.tracks) {
@@ -131,7 +131,7 @@ export class ReleaseViewModel extends ViewModel {
       addChanged(r, release);
     }
 
-    var rg = release.releaseGroup;
+    const rg = release.releaseGroup;
     for (const r of rg.relationships()) {
       addChanged(r, rg);
     }
@@ -140,9 +140,9 @@ export class ReleaseViewModel extends ViewModel {
   submit(data, event) {
     event.preventDefault();
 
-    var self = this;
-    var edits = [];
-    var alreadyAdded = {};
+    const self = this;
+    const edits = [];
+    const alreadyAdded = {};
 
     this.submissionLoading(true);
 
@@ -155,7 +155,7 @@ export class ReleaseViewModel extends ViewModel {
       }
       alreadyAdded[relationship.uniqueID] = true;
 
-      var editData = relationship.editData();
+      const editData = relationship.editData();
 
       if (relationship.added()) {
         edits.push(MB.edit.relationshipCreate(editData));
@@ -208,7 +208,7 @@ export class ReleaseViewModel extends ViewModel {
   }
 
   releaseLoaded(data) {
-    var release = this.source;
+    const release = this.source;
     let trackCount = 0;
 
     if (data.mediums) {
@@ -250,7 +250,7 @@ export class ReleaseViewModel extends ViewModel {
   }
 
   openBatchRecordingsDialog() {
-    var sources = UI.checkedRecordings();
+    const sources = UI.checkedRecordings();
 
     if (sources.length > 0) {
       new UI.BatchRelationshipDialog({sources: sources, viewModel: this})
@@ -259,7 +259,7 @@ export class ReleaseViewModel extends ViewModel {
   }
 
   openBatchWorksDialog() {
-    var sources = UI.checkedWorks();
+    const sources = UI.checkedWorks();
 
     if (sources.length > 0) {
       new UI.BatchRelationshipDialog({sources: sources, viewModel: this})
@@ -268,7 +268,7 @@ export class ReleaseViewModel extends ViewModel {
   }
 
   openBatchCreateWorksDialog() {
-    var sources = UI.checkedRecordings().filter(function (recording) {
+    const sources = UI.checkedRecordings().filter(function (recording) {
       return recording.performances().length === 0;
     });
 
@@ -279,8 +279,8 @@ export class ReleaseViewModel extends ViewModel {
   }
 
   openRelateToWorkDialog(track) {
-    var source = track.recording;
-    var target = new MB.entity.Work({name: source.name});
+    const source = track.recording;
+    const target = new MB.entity.Work({name: source.name});
 
     new UI.AddDialog({
       source: source,
@@ -322,8 +322,8 @@ export class ReleaseViewModel extends ViewModel {
 
 RE.ReleaseViewModel = ReleaseViewModel;
 
-var recordingCheckboxes = 'td.recording > input[type=checkbox]';
-var workCheckboxes = 'td.works > div.ar > input[type=checkbox]';
+const recordingCheckboxes = 'td.recording > input[type=checkbox]';
+const workCheckboxes = 'td.works > div.ar > input[type=checkbox]';
 
 
 UI.checkedRecordings = function () {
@@ -337,9 +337,9 @@ UI.checkedWorks = function () {
 
 
 function initCheckboxes(checkboxes) {
-  var mediumRecordingSelector = 'input.medium-recordings';
-  var mediumWorkSelector = 'input.medium-works';
-  var $tracklist = $('#tracklist tbody');
+  const mediumRecordingSelector = 'input.medium-recordings';
+  const mediumWorkSelector = 'input.medium-works';
+  const $tracklist = $('#tracklist tbody');
 
   function count($inputs) {
     return uniqBy(Array.from($inputs), ko.dataFor).length;
@@ -368,7 +368,7 @@ function initCheckboxes(checkboxes) {
   }
 
   function range(selector, counter) {
-    var lastClicked = null;
+    let lastClicked = null;
 
     $tracklist.on('click', selector, function (event) {
       const checked = this.checked;

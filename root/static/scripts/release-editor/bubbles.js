@@ -13,14 +13,14 @@ import MB from '../common/MB';
 import releaseEditor from './viewModel';
 
 function bubbleDoc(options) {
-  var bubble = new MB.Control.BubbleDoc('Information');
+  const bubble = new MB.Control.BubbleDoc('Information');
   Object.assign(bubble, options);
   return bubble;
 }
 
 releaseEditor.releaseGroupBubble = bubbleDoc({
   canBeShown: function (release) {
-    var releaseGroup = release.releaseGroup();
+    const releaseGroup = release.releaseGroup();
     return releaseGroup && releaseGroup.gid;
   },
 });
@@ -64,7 +64,7 @@ class RecordingBubble extends MB.Control.BubbleDoc {
   previousTrack(data, event, stealFocus) {
     event && event.stopPropagation();
 
-    var track = this.currentTrack().previous();
+    const track = this.currentTrack().previous();
 
     if (track) {
       /*
@@ -83,7 +83,7 @@ class RecordingBubble extends MB.Control.BubbleDoc {
   nextTrack(data, event, stealFocus) {
     event && event.stopPropagation();
 
-    var track = this.currentTrack().next();
+    const track = this.currentTrack().next();
 
     if (track) {
       this.moveToTrack(track, stealFocus === true);
@@ -106,7 +106,7 @@ class RecordingBubble extends MB.Control.BubbleDoc {
   }
 
   show(control) {
-    var track = ko.dataFor(control);
+    const track = ko.dataFor(control);
 
     if (track && !track.hasExistingRecording()) {
       releaseEditor.recordingAssociation.findRecordingSuggestions(track);

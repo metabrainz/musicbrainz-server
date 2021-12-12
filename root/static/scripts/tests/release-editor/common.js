@@ -24,13 +24,13 @@ export function setupReleaseAdd(data) {
 
 export function setupReleaseEdit() {
   releaseEditor.action = 'edit';
-  var release = new fields.Release(testRelease);
+  const release = new fields.Release(testRelease);
   releaseEditor.rootField.release(release);
   return release;
 }
 
 export function trackParserTest(t, input, expected) {
-  var result = trackParser.parse(input);
+  const result = trackParser.parse(input);
 
   function getProps(track) {
     const props = {};
@@ -44,14 +44,14 @@ export function trackParserTest(t, input, expected) {
 }
 
 export function createMediums(release) {
-  var submission = releaseEditor.orderedEditSubmissions.find(function (sub) {
+  const submission = releaseEditor.orderedEditSubmissions.find(function (sub) {
     return sub.edits === releaseEditor.edits.medium;
   });
 
   // Simulate edit submission.
-  var createEdits = submission.edits(release);
+  const createEdits = submission.edits(release);
 
-  var nextID = 666;
+  let nextID = 666;
 
   submission.callback(release, createEdits.map(function (data) {
     return {entity: {id: nextID++, position: data.position}};

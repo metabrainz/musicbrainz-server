@@ -65,7 +65,7 @@ $.widget('mb.artworkViewer', $.ui.dialog, {
     const $preview = $(link).find('img');
     this._setOption('title', $preview.attr('title'));
 
-    var index = this.$artwork.index(link);
+    const index = this.$artwork.index(link);
     this._prevImageLink = this.$artwork[index - 1];
     this._nextImageLink = this.$artwork[index + 1];
 
@@ -134,7 +134,7 @@ $.widget('mb.artworkViewer', $.ui.dialog, {
   },
 
   _loadImage: function (src, callback) {
-    var image = document.createElement('img');
+    const image = document.createElement('img');
     if (callback) {
       image.onload = callback.bind(this, image);
     }
@@ -180,13 +180,13 @@ $.widget('mb.artworkViewer', $.ui.dialog, {
      * Don't stretch the image beyond its original dimensions, and don't
      * exceed maxDialogHeight or maxDialogWidth.
      */
-    var imageHeight = maxDialogHeight - nonContentHeight;
+    let imageHeight = maxDialogHeight - nonContentHeight;
 
     if (imageElement && imageElement.height < imageHeight) {
       imageHeight = imageElement.height;
     }
 
-    var imageWidth = imageAspectRatio * imageHeight;
+    let imageWidth = imageAspectRatio * imageHeight;
 
     if (imageWidth > maxDialogWidth) {
       imageWidth = maxDialogWidth;
@@ -207,19 +207,19 @@ $.widget('mb.artworkViewer', $.ui.dialog, {
 
 
 $(function () {
-  var $activeDialog = $();
+  let $activeDialog = $();
 
   /*
    * Create separate dialogs for the sidebar and content, so that the
    * image "albums" are logically grouped.
    */
   $('#sidebar, #content').each(function (index, container) {
-    var $artwork = $('a.artwork-image', container);
+    const $artwork = $('a.artwork-image', container);
     if ($artwork.length === 0) {
       return;
     }
 
-    var $artworkViewer = $('<div>').appendTo('body')
+    const $artworkViewer = $('<div>').appendTo('body')
       .artworkViewer({$artwork: $artwork});
 
     $(container).on('click', 'a.artwork-image', function (event) {
@@ -248,7 +248,7 @@ $(function () {
       $(this).parents('.artwork-dialog').artworkViewer('close');
     })
     .on('click', '.ui-widget-overlay', function () {
-      var dialog = $activeDialog.data('mb-artworkViewer');
+      const dialog = $activeDialog.data('mb-artworkViewer');
 
       // Close the dialog when clicking on the overlay.
       if (dialog.overlay && dialog.overlay[0] === this) {
@@ -258,8 +258,8 @@ $(function () {
 
   // Adjust the dialog's size/position when the browser window is resized.
 
-  var resizeDialog = debounce(function () {
-    var dialog = $activeDialog.data('mb-artworkViewer');
+  const resizeDialog = debounce(function () {
+    const dialog = $activeDialog.data('mb-artworkViewer');
 
     if (dialog && dialog.isOpen()) {
       dialog._sizeAndPosition();

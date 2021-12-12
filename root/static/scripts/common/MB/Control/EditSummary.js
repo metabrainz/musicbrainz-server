@@ -11,7 +11,7 @@ import $ from 'jquery';
 import MB from '../../MB';
 
 MB.Control.EditSummary = function (container) {
-  var self = {};
+  const self = {};
 
   const $container = $(container);
   const $toggleEditNote = $container.find('.edit-note-toggle');

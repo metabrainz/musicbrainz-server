@@ -1,6 +1,6 @@
 /*
  * @flow strict-local
- * Copyright (C) 2022 MetaBrainz Foundation
+ * Copyright (C) 2021 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
  * and is licensed under the GPL version 2, or (at your option) any
@@ -142,7 +142,7 @@ const attach = e => {
 
   if (query.value.length > 1) {
     let searchType;
-    let typeCurrent = document.getElementById('typeHeader').value;
+    const typeCurrent = document.getElementById('typeHeader').value;
     if (typeCurrent === 'CD Stub') {
       searchType = 'cdstub';
     } else if (typeCurrent === 'Documentation') {

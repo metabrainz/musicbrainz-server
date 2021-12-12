@@ -20,7 +20,7 @@ import {ViewModel} from './common/viewModel';
 
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
-var UI = RE.UI = RE.UI || {};
+const UI = RE.UI = RE.UI || {};
 
 export class GenericEntityViewModel extends ViewModel {
   constructor(options) {
@@ -28,7 +28,7 @@ export class GenericEntityViewModel extends ViewModel {
 
     MB.sourceRelationshipEditor = this;
 
-    var source = this.source;
+    const source = this.source;
 
     this.incompleteRelationships = validation.errorField(
       source.displayableRelationships(this).any(function (r) {
@@ -38,7 +38,7 @@ export class GenericEntityViewModel extends ViewModel {
   }
 
   openAddDialog(source, event) {
-    var targetType = MB.allowedRelations[source.entityType].find(
+    const targetType = MB.allowedRelations[source.entityType].find(
       typeName => typeName !== 'url',
     );
 
@@ -60,13 +60,13 @@ export class GenericEntityViewModel extends ViewModel {
   }
 
   _sortedRelationships(relationships, source) {
-    var result = super._sortedRelationships(relationships, source);
+    const result = super._sortedRelationships(relationships, source);
 
     if (source.entityType === 'series') {
-      var sorted = ko.observableArray(result());
+      const sorted = ko.observableArray(result());
 
       ko.computed(function () {
-        var seriesType = source.type();
+        const seriesType = source.type();
         const seriesOrderingFunc = seriesType
           ? seriesOrdering[seriesType.item_entity_type]
           : undefined;
@@ -129,8 +129,8 @@ function getCatalogNumber(x) {
 ko.bindingHandlers.relationshipStyling = {
 
   update: function (element, valueAccessor) {
-    var relationship = ko.unwrap(valueAccessor());
-    var added = relationship.added();
+    const relationship = ko.unwrap(valueAccessor());
+    const added = relationship.added();
 
     $(element)
       .toggleClass('rel-add', added)
@@ -141,11 +141,11 @@ ko.bindingHandlers.relationshipStyling = {
 
 
 function addHiddenInputs(pushInput, vm, formName) {
-  var fieldPrefix = formName + '.' + vm.fieldName;
-  var relationships = vm.source.relationshipsInViewModel(vm)();
-  var index = 0;
+  const fieldPrefix = formName + '.' + vm.fieldName;
+  const relationships = vm.source.relationshipsInViewModel(vm)();
+  let index = 0;
 
-  for (var i = 0, len = relationships.length; i < len; i++) {
+  for (let i = 0, len = relationships.length; i < len; i++) {
     const relationship = relationships[i];
     const editData = relationship.editData();
     const prefix = fieldPrefix + '.' + index;
@@ -164,13 +164,13 @@ function addHiddenInputs(pushInput, vm, formName) {
 
     pushInput(prefix, 'target', relationship.target(vm.source).gid);
 
-    var changeData = MB.edit.relationshipEdit(
+    const changeData = MB.edit.relationshipEdit(
       editData,
       relationship.original,
       relationship,
     );
     changeData.attributes?.forEach(function (attribute, i) {
-      var attrPrefix = prefix + '.attributes.' + i;
+      const attrPrefix = prefix + '.attributes.' + i;
 
       pushInput(attrPrefix, 'type.gid', attribute.type.gid);
 
@@ -195,8 +195,8 @@ function addHiddenInputs(pushInput, vm, formName) {
       pushInput(prefix, 'entity1_credit', changeData.entity1_credit);
     }
 
-    var beginDate = changeData.begin_date;
-    var endDate = changeData.end_date;
+    const beginDate = changeData.begin_date;
+    const endDate = changeData.end_date;
 
     if (beginDate) {
       pushInput(prefix, 'period.begin_date.year', beginDate.year);
@@ -231,14 +231,14 @@ function addHiddenInputs(pushInput, vm, formName) {
 }
 
 export function prepareSubmission(formName) {
-  var submitted = [];
-  var vm;
-  var source = MB.sourceEntity;
-  var hiddenInputs = document.createDocumentFragment();
-  var fieldCount = 0;
+  let submitted = [];
+  let vm;
+  const source = MB.sourceEntity;
+  const hiddenInputs = document.createDocumentFragment();
+  let fieldCount = 0;
 
   function pushInput(prefix, name, value) {
-    var input = document.createElement('input');
+    const input = document.createElement('input');
     input.type = 'hidden';
     input.name = prefix + '.' + name;
     input.value = value;
@@ -257,7 +257,7 @@ export function prepareSubmission(formName) {
   if (submitted.length && hasSessionStorage) {
     window.sessionStorage.setItem('submittedRelationships', JSON.stringify(
       submitted.map(function (relationship) {
-        var data = relationship.editData();
+        const data = relationship.editData();
 
         data.target = relationship.target(source);
         data.removed = relationship.removed();

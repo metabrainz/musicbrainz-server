@@ -29,7 +29,7 @@ $.ui.dialog.prototype.options.appendTo = '#fixture';
 
 function dialogTest(name, callback) {
   test(name, function (t) {
-    var release = common.setupReleaseAdd();
+    const release = common.setupReleaseAdd();
 
     trackParser.options = {
       hasTrackNumbers: true,
@@ -41,7 +41,7 @@ function dialogTest(name, callback) {
       useTrackLengths: true,
     };
 
-    var $fixture = $('<div>')
+    const $fixture = $('<div>')
       .attr('id', 'fixture')
       .appendTo('body')
       .append(
@@ -62,7 +62,7 @@ dialogTest((
 ), function (t, release) {
   t.plan(3);
 
-  var mediums = release.mediums;
+  const mediums = release.mediums;
 
   t.ok(!mediums()[0].hasTracks(), 'first medium is empty');
 
@@ -91,7 +91,7 @@ dialogTest((
   releaseEditor.activeTabID('#tracklist');
   releaseEditor.autoOpenTheAddMediumDialog(release);
 
-  var uiDialog = $(addMediumDialog.element).data('ui-dialog');
+  const uiDialog = $(addMediumDialog.element).data('ui-dialog');
 
   t.ok(
     uiDialog.isOpen(),
@@ -124,7 +124,7 @@ dialogTest((
 ), function (t, release) {
   t.plan(3);
 
-  var medium = release.mediums()[0];
+  const medium = release.mediums()[0];
 
   medium.tracks.push(
     new fields.Track({name: '~fooo~', position: 1, length: 12345}),
@@ -140,7 +140,7 @@ dialogTest((
 
   t.ok(!medium.hasTracks(), 'medium does not have tracks');
 
-  var uiDialog = $(addMediumDialog.element).data('ui-dialog');
+  const uiDialog = $(addMediumDialog.element).data('ui-dialog');
   t.ok(!uiDialog, 'add-medium dialog is not open');
 });
 

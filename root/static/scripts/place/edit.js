@@ -24,7 +24,7 @@ initializeGuessCase('place', 'id-edit-place');
 initializeArea('span.area.autocomplete');
 initializeDuplicateChecker('place');
 
-var bubble = initializeBubble(
+const bubble = initializeBubble(
   '#coordinates-bubble',
   'input[name=edit-place\\.coordinates]',
 );
@@ -64,7 +64,7 @@ map.on('click', function (e) {
 });
 
 marker.on('dragend', function () {
-  var latlng = marker.getLatLng().wrap();
+  const latlng = marker.getLatLng().wrap();
   updateCoordinates(latlng);
 });
 
@@ -73,15 +73,15 @@ function updateCoordinates(latlng) {
   $('#id-edit-place\\.coordinates').trigger('input');
 }
 
-var coordinatesRequest;
-var coordinatesError = errorField(ko.observable(false));
+let coordinatesRequest;
+const coordinatesError = errorField(ko.observable(false));
 
 $('input[name=edit-place\\.coordinates]').on('input', function () {
   if (coordinatesRequest) {
     coordinatesRequest.abort();
     coordinatesRequest = null;
   }
-  var coordinates = $('input[name=edit-place\\.coordinates]').val();
+  const coordinates = $('input[name=edit-place\\.coordinates]').val();
   if (isBlank(coordinates)) {
     $('.coordinates-errors').css('display', 'none');
     $('input[name=edit-place\\.coordinates]').removeClass('error');
@@ -89,7 +89,7 @@ $('input[name=edit-place\\.coordinates]').on('input', function () {
       .css('background-color', 'transparent');
     coordinatesError(false);
   } else {
-    var url = '/ws/js/parse-coordinates?coordinates=' +
+    const url = '/ws/js/parse-coordinates?coordinates=' +
               encodeURIComponent(coordinates);
     coordinatesRequest = $.getJSON(url, function (data) {
       $('.coordinates-errors').css('display', 'none');

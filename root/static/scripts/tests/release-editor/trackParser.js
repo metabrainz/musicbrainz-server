@@ -41,7 +41,7 @@ parserTest('track numbers', function (t) {
     useTrackLengths: true,
   });
 
-  var input = [
+  const input = [
     'a1  Kermis         02:04',
     'a2.  Glitch        02:51',
     'a3.Afrik Slang     02:11',
@@ -75,7 +75,7 @@ parserTest((
     useTrackLengths: true,
   });
 
-  var input = [
+  const input = [
     '1. Forgotten Child    3:39    ',
     '2. Dirty Looks  4:34   ',
     '  3. Private Life  3:29  ',
@@ -105,7 +105,7 @@ parserTest((
     useTrackLengths: true,
   });
 
-  var input = [
+  const input = [
     '1. Criminology 2.5',
     '2. Love On A .45',
   ]
@@ -129,7 +129,7 @@ parserTest((
     useTrackLengths: true,
   });
 
-  var input = '\
+  const input = '\
     1 Freeman Hardy & Willis Acid\n\n\
       Written-By – James*, Jenkinson* \n\n\
     5:42\n\
@@ -154,7 +154,7 @@ parserTest('XX:XX:XX track times (MBS-3353)', function (t) {
     useTrackLengths: true,
   });
 
-  var input = '1. Love On A .45  05:22:31';
+  const input = '1. Love On A .45  05:22:31';
 
   common.trackParserTest(t, input, [
     {position: 1, name: 'Love On A .45', formattedLength: '5:22:31'},
@@ -174,13 +174,13 @@ parserTest((
 
   releaseEditor.rootField.release(new fields.Release(common.testRelease));
 
-  var release = releaseEditor.rootField.release();
-  var medium = release.mediums()[0];
+  const release = releaseEditor.rootField.release();
+  const medium = release.mediums()[0];
 
   medium.cdtocs = [];
   medium.toc(null);
 
-  var input = trackParser
+  const input = trackParser
     .mediumToString(medium)
     .split('\n')
     .reverse()
@@ -188,7 +188,7 @@ parserTest((
 
   medium.tracks(trackParser.parse(input, medium));
 
-  var tracks = medium.tracks();
+  const tracks = medium.tracks();
 
   t.equal(tracks[0].position(), 1, 'track 1 has position 1');
   t.equal(tracks[1].position(), 2, 'track 2 has position 2');
@@ -201,22 +201,22 @@ parserTest((
 
   releaseEditor.rootField.release(new fields.Release(common.testRelease));
 
-  var release = releaseEditor.rootField.release();
-  var medium = release.mediums()[0];
+  const release = releaseEditor.rootField.release();
+  const medium = release.mediums()[0];
 
   medium.cdtocs = ['1'];
 
   trackParser.options.useTrackLengths = true;
 
   // The string does not include track numbers.
-  var input = trackParser.mediumToString(medium);
+  const input = trackParser.mediumToString(medium);
 
   // Re-enable track numbers so that parsing anything fails.
   trackParser.options.hasTrackNumbers = true;
 
   medium.tracks(trackParser.parse(input, medium));
 
-  var tracks = medium.tracks();
+  const tracks = medium.tracks();
 
   t.deepEqual(
     tracks.map(x => x.length()),
@@ -237,7 +237,7 @@ parserTest((
     useTrackNumbers: true,
   });
 
-  var release = new fields.Release({
+  const release = new fields.Release({
     mediums: [{
       tracks: [{
         number: '1',
@@ -251,10 +251,10 @@ parserTest((
   releaseEditor.rootField.release(release);
 
   // Parse only numbers
-  var medium = release.mediums()[0];
+  const medium = release.mediums()[0];
   medium.tracks(trackParser.parse('A1. FOO! - BAR! (2:55)', medium));
 
-  var track = medium.tracks()[0];
+  let track = medium.tracks()[0];
   t.equal(track.number(), 'A1', 'number was used');
   t.equal(track.name(), 'foo', 'name was not used');
   t.equal(
@@ -322,7 +322,7 @@ parserTest((
 parserTest('Does not lose previous recordings (MBS-7719)', function (t) {
   t.plan(11);
 
-  var trackParser = releaseEditor.trackParser;
+  const trackParser = releaseEditor.trackParser;
 
   Object.assign(trackParser.options, {
     hasTrackNumbers: true,
@@ -330,7 +330,7 @@ parserTest('Does not lose previous recordings (MBS-7719)', function (t) {
     useTrackNames: true,
   });
 
-  var release = new fields.Release({
+  const release = new fields.Release({
     mediums: [
       {
         tracks: [
@@ -367,8 +367,8 @@ parserTest('Does not lose previous recordings (MBS-7719)', function (t) {
   });
 
   releaseEditor.rootField.release(release);
-  var medium = release.mediums()[0];
-  var oldRecordings = medium.tracks().map(x => x.recording());
+  const medium = release.mediums()[0];
+  const oldRecordings = medium.tracks().map(x => x.recording());
 
   medium.tracks(
     trackParser.parse(
@@ -378,8 +378,8 @@ parserTest('Does not lose previous recordings (MBS-7719)', function (t) {
       medium,
     ),
   );
-  var newTracks = medium.tracks();
-  var newRecordings = newTracks.map(x => x.recording());
+  let newTracks = medium.tracks();
+  let newRecordings = newTracks.map(x => x.recording());
 
   t.ok(!newTracks[0].id, 'first track has no id');
   t.ok(!newTracks[0].gid, 'first track has no gid');
@@ -441,7 +441,7 @@ parserTest('parsing fullwidth numbers', function (t) {
     useTrackLengths: true,
   });
 
-  var input = '１ Ｆｏｏ ２：３４';
+  const input = '１ Ｆｏｏ ２：３４';
 
   common.trackParserTest(t, input, [
     {position: 1, name: 'Ｆｏｏ', formattedLength: '2:34'},
@@ -453,10 +453,10 @@ parserTest((
 ), function (t) {
   t.plan(2);
 
-  var trackParser = releaseEditor.trackParser;
+  const trackParser = releaseEditor.trackParser;
   Object.assign(trackParser.options, {useTrackLengths: true});
 
-  var release = new fields.Release({
+  const release = new fields.Release({
     id: 1,
     mediums: [
       {
@@ -483,8 +483,8 @@ parserTest((
 
   releaseEditor.rootField.release(release);
 
-  var medium = release.mediums()[0];
-  var tracks = medium.tracks();
+  const medium = release.mediums()[0];
+  const tracks = medium.tracks();
 
   medium.tracks(trackParser.parse('1:23\n2:34', medium));
   t.equal(
@@ -500,10 +500,10 @@ parserTest((
 ), function (t) {
   t.plan(1);
 
-  var trackParser = releaseEditor.trackParser;
+  const trackParser = releaseEditor.trackParser;
   trackParser.options.useTrackNames = true;
 
-  var release = new fields.Release({
+  const release = new fields.Release({
     id: 1,
     mediums: [
       {
@@ -518,7 +518,7 @@ parserTest((
 
   releaseEditor.rootField.release(release);
 
-  var medium = release.mediums()[0];
+  const medium = release.mediums()[0];
   medium.tracks(
     trackParser.parse('Track B\nTrack A\nCool Bonus Vid', medium),
   );
@@ -540,7 +540,7 @@ parserTest('force number of tracks to equal CD TOC', function (t) {
 
   trackParser.options.useTrackNames = true;
 
-  var release = new fields.Release({
+  const release = new fields.Release({
     id: 1,
     mediums: [
       {
@@ -557,7 +557,7 @@ parserTest('force number of tracks to equal CD TOC', function (t) {
 
   releaseEditor.rootField.release(release);
 
-  var medium = release.mediums()[0];
+  const medium = release.mediums()[0];
   medium.tracks(trackParser.parse(
     'Track A\n' +
     'Very Different Title\n' +

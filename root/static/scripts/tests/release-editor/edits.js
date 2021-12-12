@@ -22,7 +22,7 @@ MB.relationshipEditor.exportTypeInfo(
   linkAttributeTypes,
 );
 
-var releaseEditor = MB.releaseEditor;
+const releaseEditor = MB.releaseEditor;
 MB.formatsWithDiscIDs = [1];
 
 test((
@@ -30,7 +30,7 @@ test((
 ), function (t) {
   t.plan(1);
 
-  var release = new fields.Release({
+  const release = new fields.Release({
     mediums: [
       {position: 1, tracks: [{name: 'foo'}]},
       {position: 2, tracks: [{name: 'bar'}]},
@@ -49,7 +49,7 @@ test((
 ), function (t) {
   t.plan(1);
 
-  var release = new fields.Release({name: '  Foo  oo '});
+  const release = new fields.Release({name: '  Foo  oo '});
 
   t.equal(releaseEditor.edits.releaseGroup(release)[0].name, 'Foo oo');
 });
@@ -119,7 +119,7 @@ editReleaseTest((
 ), function (t, release) {
   t.plan(1);
 
-  var releaseLabel = release.labels()[0];
+  const releaseLabel = release.labels()[0];
   releaseLabel.label(new MB.entity.Label({}));
   releaseLabel.catalogNumber('');
 
@@ -197,7 +197,7 @@ test((
 ), function (t) {
   t.plan(6);
 
-  var release = new fields.Release({
+  const release = new fields.Release({
     gid: 'f4c552ab-515e-42df-a9ee-a370867d29d1',
     mediums: [
       {id: 123, name: 'foo', position: 1},
@@ -207,8 +207,8 @@ test((
 
   releaseEditor.rootField.release(release);
 
-  var medium1 = release.mediums()[0];
-  var medium2 = release.mediums()[1];
+  const medium1 = release.mediums()[0];
+  const medium2 = release.mediums()[1];
 
   t.ok(!medium1.loaded(), 'medium 1 is not loaded');
   t.ok(!medium2.loaded(), 'medium 2 is not loaded');
@@ -267,7 +267,7 @@ test((
 test('mediumCreate edits are not given conflicting positions', function (t) {
   t.plan(2);
 
-  var release = new fields.Release({
+  const release = new fields.Release({
     gid: 'f4c552ab-515e-42df-a9ee-a370867d29d1',
     mediums: [
       {id: 123, position: 1},
@@ -277,19 +277,19 @@ test('mediumCreate edits are not given conflicting positions', function (t) {
 
   releaseEditor.rootField.release(release);
 
-  var mediums = release.mediums;
-  var medium1 = mediums()[0];
+  const mediums = release.mediums;
+  const medium1 = mediums()[0];
 
   medium1.position(4);
 
-  var newMedium1 = new fields.Medium({
+  const newMedium1 = new fields.Medium({
     name: 'foo',
     position: 1,
   });
 
   newMedium1.tracks.push(new fields.Track({}, newMedium1));
 
-  var newMedium2 = new fields.Medium({
+  const newMedium2 = new fields.Medium({
     name: 'bar',
     position: 2,
   });
@@ -297,7 +297,7 @@ test('mediumCreate edits are not given conflicting positions', function (t) {
   newMedium2.tracks.push(new fields.Track({}, newMedium2));
   mediums.push(newMedium1, newMedium2);
 
-  var mediumCreateEdits =
+  const mediumCreateEdits =
     releaseEditor.edits.medium(release).map(function (edit) {
       const editCopy = {...edit};
       // Don't care about this.
@@ -350,15 +350,15 @@ test((
 ), function (t) {
   t.plan(1);
 
-  var release = new fields.Release({
+  const release = new fields.Release({
     gid: 'f4c552ab-515e-42df-a9ee-a370867d29d1',
     mediums: [{id: 123, position: 1}],
   });
 
   releaseEditor.rootField.release(release);
 
-  var mediums = release.mediums;
-  var newMedium = new fields.Medium({position: 2});
+  const mediums = release.mediums;
+  const newMedium = new fields.Medium({position: 2});
 
   newMedium.tracks.push(new fields.Track({}, newMedium));
   mediums.push(newMedium);
@@ -391,7 +391,7 @@ test((
 ), function (t) {
   t.plan(1);
 
-  var release = new fields.Release({
+  const release = new fields.Release({
     gid: 'f4c552ab-515e-42df-a9ee-a370867d29d1',
     labels: [
       {id: 123, label: null, catalogNumber: 'foo123'},
@@ -404,12 +404,12 @@ test((
   release.labels()[0].catalogNumber('foo456');
   releaseEditor.addReleaseLabel(release);
 
-  var submission = releaseEditor.orderedEditSubmissions.find(x => (
+  const submission = releaseEditor.orderedEditSubmissions.find(x => (
     x.edits === releaseEditor.edits.releaseLabel
   ));
 
   // Simulate edit submission.
-  var edits = submission.edits(release);
+  let edits = submission.edits(release);
 
   submission.callback(release, [
     {message: 'OK'},

@@ -18,17 +18,17 @@ MB.cover_art_types_json = [
 ];
 
 function base64ToBlob(data, mime) {
-  var byteString = window.atob(data);
+  const byteString = window.atob(data);
 
-  var ia = new Uint8Array(byteString.length);
-  for (var i = 0; i < byteString.length; i++) {
+  const ia = new Uint8Array(byteString.length);
+  for (let i = 0; i < byteString.length; i++) {
     ia[i] = byteString.charCodeAt(i);
   }
 
   return new window.Blob([ia], {type: mime});
 }
 
-var testFiles = {
+const testFiles = {
   '1x1.jpg': '/9j/4AAQSkZJRgABAQIAJgAmAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQE' +
       'BAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/' +
       '2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQ' +
@@ -48,8 +48,8 @@ var testFiles = {
 };
 
 function mimeTypeTest(t, filename, expected, expectedState) {
-  var input = base64ToBlob(testFiles[filename]);
-  var promise = CoverArt.validate_file(input);
+  const input = base64ToBlob(testFiles[filename]);
+  const promise = CoverArt.validate_file(input);
 
   promise.done(function (mimeType) {
     t.equal(mimeType, expected, filename);
@@ -67,7 +67,7 @@ function mimeTypeTest(t, filename, expected, expectedState) {
 }
 
 function createFakeFile(name) {
-  var fakefile = base64ToBlob(testFiles[name]);
+  const fakefile = base64ToBlob(testFiles[name]);
   fakefile.name = name;
   return fakefile;
 }
@@ -96,7 +96,7 @@ test('multifile/ajax upload mime type', function (t) {
 test('cover art types', function (t) {
   t.plan(4);
 
-  var types = CoverArt.cover_art_types();
+  const types = CoverArt.cover_art_types();
   t.equal(types().length, 2, 'two types in observableArray');
   t.equal(types()[0].id, 'image/jpeg', 'first type is image/jpeg');
   t.equal(types()[0].checked(), false, 'jpg not checked');
@@ -112,15 +112,15 @@ test('upload queue', function (t) {
 
   t.plan(8);
 
-  var upvm = new CoverArt.UploadProcessViewModel();
+  const upvm = new CoverArt.UploadProcessViewModel();
   ko.applyBindings(upvm);
 
   t.equal(upvm.files_to_upload().length, 0, 'zero files in upload queue');
 
-  var gifFile = upvm.addFile(createFakeFile('1x1.gif'));
-  var jpgFile = upvm.addFile(createFakeFile('1x1.jpg'));
-  var pngFile = upvm.addFile(createFakeFile('1x1.png'));
-  var txtFile = upvm.addFile(createFakeFile('not an image.txt'));
+  const gifFile = upvm.addFile(createFakeFile('1x1.gif'));
+  const jpgFile = upvm.addFile(createFakeFile('1x1.jpg'));
+  const pngFile = upvm.addFile(createFakeFile('1x1.png'));
+  const txtFile = upvm.addFile(createFakeFile('not an image.txt'));
 
   t.equal(upvm.files_to_upload().length, 4, 'four files in upload queue');
 

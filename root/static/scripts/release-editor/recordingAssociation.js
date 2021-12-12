@@ -56,7 +56,7 @@ recordingAssociation.getReleaseGroupRecordings = function (
     return;
   }
 
-  var query = utils.constructLuceneField(
+  const query = utils.constructLuceneField(
     [utils.escapeLuceneValue(releaseGroup.gid)], 'rgid',
   );
 
@@ -66,7 +66,7 @@ recordingAssociation.getReleaseGroupRecordings = function (
         results, data.recordings.map(cleanRecordingData),
       );
 
-      var countSoFar = data.offset + 100;
+      const countSoFar = data.offset + 100;
 
       if (countSoFar < data.count) {
         recordingAssociation.getReleaseGroupRecordings(
@@ -91,22 +91,22 @@ recordingAssociation.getReleaseGroupRecordings = function (
 
 
 function recordingQuery(track, name) {
-  var params = {
+  const params = {
     recording: [utils.escapeLuceneValue(name)],
 
     arid: track.artistCredit().names
       .map(x => utils.escapeLuceneValue(x.artist.gid)),
   };
 
-  var titleAndArtists = utils.constructLuceneFieldConjunction(params);
-  var justTitle = utils.constructLuceneField(params.recording, 'recording');
-  var query;
+  const titleAndArtists = utils.constructLuceneFieldConjunction(params);
+  const justTitle = utils.constructLuceneField(params.recording, 'recording');
+  let query;
 
-  var duration = parseInt(track.length(), 10);
+  const duration = parseInt(track.length(), 10);
 
   if (duration) {
-    var a = duration - MAX_LENGTH_DIFFERENCE;
-    var b = duration + MAX_LENGTH_DIFFERENCE;
+    const a = duration - MAX_LENGTH_DIFFERENCE;
+    const b = duration + MAX_LENGTH_DIFFERENCE;
 
     const durationCondition =
       utils.constructLuceneField([`[${a} TO ${b}]`], 'dur');
@@ -125,12 +125,12 @@ function recordingQuery(track, name) {
 
 
 function cleanRecordingData(data) {
-  var clean = utils.cleanWebServiceData(data);
+  const clean = utils.cleanWebServiceData(data);
 
   clean.artist = reduceArtistCredit(clean.artistCredit);
   clean.video = !!data.video;
 
-  var appearsOn = uniqBy(
+  const appearsOn = uniqBy(
     data.releases?.map(function (release) {
       /*
        * The webservice doesn't include the release group title, so
@@ -157,7 +157,7 @@ function cleanRecordingData(data) {
    * not provide any appearsOn data. So now that we have it, we can add
    * it in.
    */
-  var recording = MB.entityCache[clean.gid];
+  const recording = MB.entityCache[clean.gid];
 
   if (recording && !recording.appearsOn) {
     recording.appearsOn = {...clean.appearsOn};
@@ -180,11 +180,11 @@ function searchTrackArtistRecordings(track) {
 
   track.loadingSuggestedRecordings(true);
 
-  var query = recordingQuery(track, track.name());
+  const query = recordingQuery(track, track.name());
 
   track._recordingRequest = utils.search('recording', query)
     .done(function (data) {
-      var recordings = matchAgainstRecordings(
+      const recordings = matchAgainstRecordings(
         track, data.recordings.map(cleanRecordingData),
       );
 
@@ -211,7 +211,7 @@ recordingAssociation.autocompleteHook = function (track) {
       return args;
     }
 
-    var newArgs = {
+    const newArgs = {
       url: '/ws/2/recording',
       data: {
         query: recordingQuery(track, args.data.q),
@@ -222,7 +222,7 @@ recordingAssociation.autocompleteHook = function (track) {
 
     newArgs.success = function (data) {
       // Emulate the /ws/js response format.
-      var newData = data.recordings.map(cleanRecordingData);
+      const newData = data.recordings.map(cleanRecordingData);
 
       newData.push({
         current: (data.offset / 10) + 1,
@@ -242,8 +242,8 @@ recordingAssociation.autocompleteHook = function (track) {
 
 
 function watchTrackForChanges(track) {
-  var name = track.name();
-  var length = track.length();
+  const name = track.name();
+  const length = track.length();
 
   /*
    * We don't compare any artist credit changes, but we use the track
@@ -251,7 +251,7 @@ function watchTrackForChanges(track) {
    * below but the AC is not complete, the ko.computed this is inside of
    * will re-evaluate once the user fixes the artist.
    */
-  var completeAC = isCompleteArtistCredit(track.artistCredit());
+  const completeAC = isCompleteArtistCredit(track.artistCredit());
 
   /*
    * Only proceed if we need a recording, and the track has information
@@ -261,7 +261,7 @@ function watchTrackForChanges(track) {
     return;
   }
 
-  var similarTo = function (prop) {
+  const similarTo = function (prop) {
     return (utils.similarNames(track.name[prop], name) &&
             utils.similarLengths(track.length[prop], length));
   };
@@ -304,7 +304,7 @@ recordingAssociation.findRecordingSuggestions = function (track) {
     }
   }
 
-  var recordings =
+  const recordings =
     matchAgainstRecordings(track, rgRecordings) ||
     // Or see if it still matches the current suggestion.
     matchAgainstRecordings(track, track.suggestedRecordings());
@@ -325,7 +325,7 @@ recordingAssociation.findRecordingSuggestions = function (track) {
  */
 
 function setSuggestedRecordings(track, recordings) {
-  var lastRecording = track.recording.saved;
+  const lastRecording = track.recording.saved;
 
   if (!track.hasExistingRecording() && lastRecording) {
     recordings = [...new Set([lastRecording, ...recordings])];

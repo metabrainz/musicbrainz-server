@@ -18,7 +18,7 @@ import fields from './fields';
 ko.bindingHandlers.disableBecauseDiscIDs = {
 
   update: function (element, valueAccessor, allBindings, viewModel) {
-    var disabled = ko.unwrap(valueAccessor()) && viewModel.medium.hasToc();
+    const disabled = ko.unwrap(valueAccessor()) && viewModel.medium.hasToc();
 
     $(element)
       .prop('disabled', disabled)

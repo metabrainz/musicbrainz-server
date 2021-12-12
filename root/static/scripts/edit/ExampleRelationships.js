@@ -14,7 +14,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
   let jsRoot;
 
   // Private methods
-  var searchUrl;
+  let searchUrl;
 
   ERE.init = function (config) {
     type0 = config.type0;
@@ -26,7 +26,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
 
     ERE.viewModel = new ViewModel();
 
-    var autocomplete = MB.Control.EntityAutocomplete({
+    const autocomplete = MB.Control.EntityAutocomplete({
       inputs: $('span.autocomplete'),
       entity: type0,
       setEntity: ERE.viewModel.selectedEntityType,
@@ -66,7 +66,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
   };
 
   ERE.Example = function (name, relationship) {
-    var self = this;
+    const self = this;
 
     self.name = ko.observable(name);
     self.relationship = relationship;
@@ -86,7 +86,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
         name: ko.observable(),
         relationship: ko.observable(),
         add: function () {
-          var ce = this.currentExample;
+          const ce = this.currentExample;
 
           this.examples.push(
             new ERE.Example(ce.name(), ce.relationship()),
@@ -107,7 +107,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
 
 
   const RelationshipSearcher = function () {
-    var self = this;
+    const self = this;
 
     self.query = ko.observable();
     self.error = ko.observable();
@@ -115,14 +115,14 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
     self.results = ko.observableArray();
 
     self.search = function () {
-      var possible = this.currentExample.possibleRelationships;
+      const possible = this.currentExample.possibleRelationships;
 
       request({url: searchUrl(possible.query())})
         .fail(function (jqxhr, status, error) {
           self.error('Lookup failed: ' + error);
         })
         .done(function (data) {
-          var searchResultType = data.entityType.replace('-', '_');
+          const searchResultType = data.entityType.replace('-', '_');
 
           if (!(searchResultType === type0 ||
                 searchResultType === type1)) {
@@ -132,7 +132,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
             return;
           }
 
-          var relationships = data.relationships.filter(
+          const relationships = data.relationships.filter(
             x => x.linkTypeID === linkTypeID,
           );
 

@@ -1,6 +1,6 @@
 /*
  * @flow strict-local
- * Copyright (C) 2022 MetaBrainz Foundation
+ * Copyright (C) 2021 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
  * and is licensed under the GPL version 2, or (at your option) any
@@ -9,27 +9,9 @@
 
 import React from 'react';
 import {Modal} from 'react-bootstrap';
-import Carousel from 'react-multi-carousel';
-
-const responsive = {
-  desktop: {
-    breakpoint: {max: 3000, min: 1024},
-    items: 3,
-  },
-  tablet: {
-    breakpoint: {max: 1024, min: 464},
-    items: 2,
-  },
-  mobile: {
-    breakpoint: {max: 464, min: 0},
-    items: 1,
-  },
-};
 
 export default class Intro extends React.Component {
     state = {
-      additionalTransform: 0,
-      posts: [],
       data: 'Actively looking for a barcode...',
       show: false,
     };
@@ -40,14 +22,6 @@ export default class Intro extends React.Component {
 
     handleShow = () => {
       this.setState({show: true});
-    }
-
-    componentDidMount() {
-      fetch(`https://itunes.apple.com/us/rss/topalbums/limit=100/json`)
-        .then(response => response.json())
-        .then(res => {
-          this.setState({posts: res.feed.entry});
-        });
     }
 
     render() {
@@ -136,6 +110,7 @@ export default class Intro extends React.Component {
                           window.open('https://musicbrainz.org/' + 'search?type=' + searchType + '&query=' + query.value, '_newTab');
                           return false;
                         }
+                        return false;
                       }}
                       placeholder="Search 41,054,421 Entities"
                       style={{textTransform: 'capitalize'}}
@@ -174,48 +149,6 @@ export default class Intro extends React.Component {
                     })
                   }
                 </div>
-                <Carousel
-                  additionalTransform={-this.state.additionalTransform}
-                  autoPlay
-                  autoPlaySpeed={6000}
-                  beforeChange={nextSlide => {
-                    if (nextSlide !== 0 && this.state.additionalTransform !== 150) {
-                      this.setState({additionalTransform: 150});
-                    }
-                    if (nextSlide === 0 && this.state.additionalTransform === 150) {
-                      this.setState({additionalTransform: 0});
-                    }
-                  }}
-                  containerClass="carousel-container-with-scrollbar"
-                  infinite
-                  itemClass="slider-image-item"
-                  partialVisbile={false}
-                  ref={el => (this.Carousel = el)}
-                  responsive={responsive}
-                  ssr={false}
-                >
-                  {
-                    this.state.posts ? this.state.posts.map((artwork, indx) => {
-                      return (
-
-                        <div className="card text-left mt-5" key={indx}>
-                          <img
-                            alt="Alt text"
-                            src={artwork['im:image'][2].label}
-                            style={{width: '100%', height: '250px', objectFit: 'cover'}}
-                          />
-                        </div>
-
-                      );
-                    }) : <div className="card text-left mt-5" key="1">
-                      <img
-                        alt="Alt text"
-                        src="../../../../static/images/demo.jpg"
-                        style={{width: '100%', height: '250px', objectFit: 'cover'}}
-                      />
-                         </div>
-                  }
-                </Carousel>
               </div>
               <div className="col-lg-3 d-none d-lg-block">
                 <div className="card">

@@ -16,9 +16,9 @@ import {
 test('unformatTrackLength', function (t) {
   t.plan(7);
 
-  var seconds = 1000;
-  var minutes = 60 * seconds;
-  var hours = 60 * minutes;
+  const seconds = 1000;
+  const minutes = 60 * seconds;
+  const hours = 60 * minutes;
 
   t.equal(
     unformatTrackLength('?:??'),

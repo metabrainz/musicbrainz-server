@@ -73,7 +73,7 @@ import formatTrackLength from './utility/formatTrackLength';
     }
   }
 
-  var primitiveTypes = /^(boolean|number|string)$/;
+  const primitiveTypes = /^(boolean|number|string)$/;
 
   function toJSON(result, value, key) {
     while (ko.isObservable(value)) {
@@ -103,12 +103,12 @@ import formatTrackLength from './utility/formatTrackLength';
       return data;
     }
     type = (type || data.entityType || '').replace('-', '_');
-    var entityClass = coreEntityMapping[type];
+    const entityClass = coreEntityMapping[type];
 
     if (!entityClass) {
       throw 'Unknown type of entity: ' + type;
     }
-    var entity = MB.entityCache[data.gid];
+    let entity = MB.entityCache[data.gid];
 
     if (type === 'url') {
       entity = entity || MB.entityCache[data.name];
@@ -148,7 +148,7 @@ import formatTrackLength from './utility/formatTrackLength';
     }
 
     reactElement(renderParams) {
-      var json = this.toJSON();
+      const json = this.toJSON();
 
       if (this.gid) {
         // XXX needed by the relationship editor
@@ -182,7 +182,7 @@ import formatTrackLength from './utility/formatTrackLength';
     }
 
     toJSON() {
-      var json = super.toJSON();
+      const json = super.toJSON();
 
       if (this.artistCredit) {
         json.artistCredit = ko.unwrap(this.artistCredit);
@@ -290,7 +290,7 @@ import formatTrackLength from './utility/formatTrackLength';
          * server, /ws/js...) we may have either releases or release
          * groups here. Assume the latter by default.
          */
-        var appearsOnType = this.appearsOn.entityType || 'release_group';
+        const appearsOnType = this.appearsOn.entityType || 'release_group';
 
         this.appearsOn.results = this.appearsOn.results.map(
           function (appearance) {
@@ -338,7 +338,7 @@ import formatTrackLength from './utility/formatTrackLength';
     }
 
     toJSON() {
-      var object = super.toJSON();
+      const object = super.toJSON();
 
       if (Array.isArray(this.events)) {
         object.events = cloneArrayDeep(this.events);
@@ -375,13 +375,13 @@ import formatTrackLength from './utility/formatTrackLength';
     }
 
     getSeriesItems(viewModel) {
-      var type = this.type();
+      const type = this.type();
       if (!type) {
         return [];
       }
 
-      var gid = PART_OF_SERIES_LINK_TYPES[type.item_entity_type];
-      var linkTypeID = linkedEntities.link_type[gid].id;
+      const gid = PART_OF_SERIES_LINK_TYPES[type.item_entity_type];
+      const linkTypeID = linkedEntities.link_type[gid].id;
 
       return this.displayableRelationships(viewModel)().filter(function (r) {
         return r.linkTypeID() === linkTypeID;
@@ -411,7 +411,7 @@ import formatTrackLength from './utility/formatTrackLength';
     }
 
     reactElement(renderParams) {
-      var recording = this.recording;
+      const recording = this.recording;
 
       if (!recording) {
         return super.reactElement(renderParams);
@@ -489,7 +489,7 @@ import formatTrackLength from './utility/formatTrackLength';
     }, []);
   }
 
-  var classicalRoles = /\W(baritone|cello|conductor|gamba|guitar|orch|orchestra|organ|piano|soprano|tenor|trumpet|vocals?|viola|violin): /;
+  const classicalRoles = /\W(baritone|cello|conductor|gamba|guitar|orch|orchestra|organ|piano|soprano|tenor|trumpet|vocals?|viola|violin): /;
 
   function isProbablyClassical(entity) {
     return classicalRoles.test(entity.name) ||

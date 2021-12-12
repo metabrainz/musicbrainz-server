@@ -59,7 +59,7 @@ class Track {
     this.length = ko.observable(data.length);
     this.length.original = data.length;
 
-    var release = medium && medium.release;
+    const release = medium && medium.release;
 
     if (release &&
         !data.artistCredit &&
@@ -111,7 +111,7 @@ class Track {
     this.suggestedRecordings = ko.observableArray([]);
     this.loadingSuggestedRecordings = ko.observable(false);
 
-    var recordingData = data.recording;
+    const recordingData = data.recording;
     if (recordingData) {
       if (!recordingData.artistCredit) {
         recordingData.artistCredit = this.artistCredit();
@@ -131,13 +131,13 @@ class Track {
   }
 
   recordingGID() {
-    var recording = this.recording();
+    const recording = this.recording();
     return recording ? recording.gid : null;
   }
 
   nameChanged() {
     if (!this.hasExistingRecording()) {
-      var recording = this.recording.peek();
+      const recording = this.recording.peek();
 
       recording.name = this.name();
       this.recording.notifySubscribers(recording);
@@ -145,16 +145,16 @@ class Track {
   }
 
   formattedLengthChanged(length) {
-    var lengthLength = length.length;
+    const lengthLength = length.length;
 
     // Convert stuff like 111 into 1:11
 
     if (/^\d+$/.test(length) && lengthLength >= 3 && lengthLength <= 6) {
-      var hoursLength = Math.max(0, lengthLength - 4);
+      const hoursLength = Math.max(0, lengthLength - 4);
 
-      var hours = length.slice(0, hoursLength);
-      var minutes = length.slice(hoursLength, lengthLength - 2);
-      var seconds = length.slice(-2);
+      let hours = length.slice(0, hoursLength);
+      let minutes = length.slice(hoursLength, lengthLength - 2);
+      const seconds = length.slice(-2);
 
       if (parseInt(seconds, 10) < 60) {
         if (parseInt(minutes, 10) < 60) {
@@ -169,7 +169,7 @@ class Track {
       }
     }
 
-    var newLength = utils.unformatTrackLength(length);
+    const newLength = utils.unformatTrackLength(length);
 
     /*
      * The result of `unformatTrackLength` is NaN when the length entered
@@ -183,7 +183,7 @@ class Track {
 
     this.length(newLength);
 
-    var newFormattedLength = formatTrackLength(newLength, '');
+    const newFormattedLength = formatTrackLength(newLength, '');
     if (length !== newFormattedLength) {
       this.formattedLength(newFormattedLength);
     }
@@ -200,10 +200,10 @@ class Track {
      */
     const $ = require('jquery');
 
-    var $lengthInput = $('input.track-length', '#track-row-' + this.uniqueID);
+    const $lengthInput = $('input.track-length', '#track-row-' + this.uniqueID);
     $lengthInput.attr('title', '');
 
-    var hasTooltip = !!$lengthInput.data('ui-tooltip');
+    const hasTooltip = !!$lengthInput.data('ui-tooltip');
 
     if (this.medium.hasInvalidPregapLength()) {
       $lengthInput.attr(
@@ -223,15 +223,15 @@ class Track {
   }
 
   previous() {
-    var tracks = this.medium.tracks();
-    var index = tracks.indexOf(this);
+    const tracks = this.medium.tracks();
+    const index = tracks.indexOf(this);
 
     return index > 0 ? tracks[index - 1] : null;
   }
 
   next() {
-    var tracks = this.medium.tracks();
-    var index = tracks.indexOf(this);
+    const tracks = this.medium.tracks();
+    const index = tracks.indexOf(this);
 
     return index < tracks.length - 1 ? tracks[index + 1] : null;
   }
@@ -273,7 +273,7 @@ class Track {
   setRecordingValue(value) {
     value = value || new mbEntity.Recording({name: this.name()});
 
-    var currentValue = this.recording.peek();
+    const currentValue = this.recording.peek();
     if (value.gid === currentValue.gid) {
       return;
     }
@@ -294,7 +294,7 @@ class Track {
     }
 
     if (currentValue.gid) {
-      var suggestions = this.suggestedRecordings.peek();
+      const suggestions = this.suggestedRecordings.peek();
 
       if (!suggestions.includes(currentValue)) {
         this.suggestedRecordings.unshift(currentValue);
@@ -302,7 +302,7 @@ class Track {
     }
 
     // Hints for guess-feat. functionality.
-    var release = this.medium.release;
+    const release = this.medium.release;
     if (release) {
       release.relatedArtists =
         [...new Set(release.relatedArtists.concat(value.relatedArtists))];
@@ -355,22 +355,22 @@ class Medium {
     this.showPregapTrackHelp = ko.observable(false);
     this.showDataTracksHelp = ko.observable(false);
 
-    var tracks = data.tracks;
+    const tracks = data.tracks;
     this.tracks = ko.observableArray(utils.mapChild(this, tracks, Track));
     this.tracksUnknownToUser = ko.observable(false);
     this.tracksWereUnknownToUser = false;
 
-    var self = this;
+    const self = this;
 
-    var hasPregap = ko.computed(function () {
-      var tracks = self.tracks();
+    const hasPregap = ko.computed(function () {
+      const tracks = self.tracks();
       return tracks.length > 0 && tracks[0].position() == 0;
     });
 
     this.hasPregap = ko.computed({
       read: hasPregap,
       write: function (newValue) {
-        var oldValue = hasPregap();
+        const oldValue = hasPregap();
 
         if (oldValue && !newValue) {
           const tracks = self.tracks.peek();
@@ -395,17 +395,17 @@ class Medium {
     this.audioTracks = this.tracks.reject('isDataTrack');
     this.dataTracks = this.tracks.filter('isDataTrack');
 
-    var hasDataTracks = ko.computed(function () {
+    const hasDataTracks = ko.computed(function () {
       return self.dataTracks().length > 0;
     });
 
     this.hasDataTracks = ko.computed({
       read: hasDataTracks,
       write: function (newValue) {
-        var oldValue = hasDataTracks();
+        const oldValue = hasDataTracks();
 
         if (oldValue && !newValue) {
-          var dataTracks = self.dataTracks();
+          const dataTracks = self.dataTracks();
 
           /*
            * If we have a discID, adding new normal tracks
@@ -592,15 +592,15 @@ class Medium {
 
     toc = toc.split(/\s+/);
 
-    var tocTrackCount = toc.length - 3;
-    var tracks = this.tracks();
-    var tocTracks = tracks.filter(function (t) {
+    const tocTrackCount = toc.length - 3;
+    const tracks = this.tracks();
+    let tocTracks = tracks.filter(function (t) {
       return !(t.position() == 0 || t.isDataTrack());
     });
-    var trackCount = tocTracks.length;
-    var pregapOffset = this.hasPregap() ? 0 : 1;
+    const trackCount = tocTracks.length;
+    const pregapOffset = this.hasPregap() ? 0 : 1;
 
-    var wasConsecutivelyNumbered = tracks.every(function (t, index) {
+    const wasConsecutivelyNumbered = tracks.every(function (t, index) {
       return t.number() == (index + pregapOffset);
     });
 
@@ -644,8 +644,8 @@ class Medium {
       return false;
     }
 
-    var maxLength = -Infinity;
-    var cdtocs = (this.cdtocs || []).concat(this.toc() || []);
+    let maxLength = -Infinity;
+    const cdtocs = (this.cdtocs || []).concat(this.toc() || []);
 
     for (let toc of cdtocs) {
       toc = toc.split(/\s+/);
@@ -662,14 +662,14 @@ class Medium {
   }
 
   loadTracks() {
-    var id = this.id || this.originalID;
+    const id = this.id || this.originalID;
     if (!id) {
       return;
     }
 
     this.loading(true);
 
-    var args = {
+    const args = {
       url: '/ws/js/medium/' + id,
       data: {inc: 'recordings+rels'},
     };
@@ -678,9 +678,9 @@ class Medium {
   }
 
   tracksLoaded(data) {
-    var tracks = data.tracks;
+    const tracks = data.tracks;
 
-    var pp = this.id // no ID means this medium is being reused
+    const pp = this.id // no ID means this medium is being reused
       ? Track
       : function (track, parent) {
         const copy = {...track};
@@ -690,7 +690,7 @@ class Medium {
     this.tracks(utils.mapChild(this, data.tracks, pp));
 
     if (this.release.seededTocs) {
-      var toc = this.release.seededTocs[this.position()];
+      const toc = this.release.seededTocs[this.position()];
 
       if (toc && (toc.split(/\s+/).length - 3) === tracks.length) {
         this.toc(toc);
@@ -703,8 +703,8 @@ class Medium {
      * by the user before they loaded the medium. We just need the
      * tracklist data, now that it's loaded.
      */
-    var currentEditData = mbEdit.fields.medium(this);
-    var originalEditData = this.original();
+    const currentEditData = mbEdit.fields.medium(this);
+    const originalEditData = this.original();
 
     originalEditData.tracklist = currentEditData.tracklist;
     this.original.notifySubscribers(originalEditData);
@@ -752,7 +752,7 @@ class Medium {
   }
 
   canHaveDiscID() {
-    var formatID = parseInt(this.formatID(), 10);
+    const formatID = parseInt(this.formatID(), 10);
 
     return !formatID || MB.formatsWithDiscIDs.includes(formatID);
   }
@@ -788,7 +788,7 @@ fields.ReleaseGroup = ReleaseGroup;
 
 class ReleaseEvent {
   constructor(data, release) {
-    var date = data.date || {};
+    const date = data.date || {};
 
     if (nonEmpty(date.year)) {
       date.year = fixedWidthInteger(date.year, 4);
@@ -804,15 +804,15 @@ class ReleaseEvent {
     this.release = release;
     this.isDuplicate = ko.observable(false);
 
-    var self = this;
+    const self = this;
 
     this.hasInvalidDate = ko.computed(function () {
-      var date = self.unwrapDate();
+      const date = self.unwrapDate();
       return !dates.isDateValid(date.year, date.month, date.day);
     });
 
     this.hasTooShortYear = debounceComputed(function () {
-      var date = self.unwrapDate();
+      const date = self.unwrapDate();
       return !dates.isYearFourDigits(date.year);
     });
   }
@@ -826,12 +826,12 @@ class ReleaseEvent {
   }
 
   hasAmazonDate() {
-    var date = this.unwrapDate();
+    const date = this.unwrapDate();
     return date.year == 1990 && date.month == 10 && date.day == 25;
   }
 
   hasJanuaryFirstDate() {
-    var date = this.unwrapDate();
+    const date = this.unwrapDate();
     return date.month == 1 && date.day == 1;
   }
 }
@@ -849,10 +849,10 @@ class ReleaseLabel {
     this.release = release;
     this.isDuplicate = ko.observable(false);
 
-    var self = this;
+    const self = this;
 
     this.needsLabel = ko.computed(function () {
-      var label = self.label() || {};
+      const label = self.label() || {};
       return !!(label.name && !label.gid);
     });
   }
@@ -915,7 +915,7 @@ class Barcode {
       calc += parseInt(barcode[i], 10) * this.weights[i];
     }
 
-    var digit = 10 - (calc % 10);
+    const digit = 10 - (calc % 10);
     return digit === 10 ? 0 : digit;
   }
 
@@ -942,16 +942,16 @@ class Release extends mbEntity.Release {
       MB.entityCache[data.gid] = this; // XXX HACK
     }
 
-    var self = this;
-    var errorField = validation.errorField;
-    var currentName = data.name;
+    const self = this;
+    const errorField = validation.errorField;
+    let currentName = data.name;
 
     this.gid = ko.observable(data.gid);
     this.name = ko.observable(currentName);
     this.needsName = errorField(ko.observable(!currentName));
 
     this.name.subscribe(function (newName) {
-      var releaseGroup = self.releaseGroup();
+      const releaseGroup = self.releaseGroup();
 
       if (!releaseGroup.name || (!releaseGroup.gid &&
                                         releaseGroup.name === currentName)) {
@@ -992,7 +992,7 @@ class Release extends mbEntity.Release {
     }
 
     function nonEmptyEvent(event) {
-      var date = event.unwrapDate();
+      const date = event.unwrapDate();
       return event.countryID() || date.year || date.month || date.day;
     }
 
@@ -1105,7 +1105,7 @@ class Release extends mbEntity.Release {
   }
 
   loadMedia() {
-    var mediums = this.mediums();
+    const mediums = this.mediums();
 
     if (mediums.length <= 3) {
       mediums.forEach(m => m.loadTracks());
@@ -1113,7 +1113,7 @@ class Release extends mbEntity.Release {
   }
 
   hasOneEmptyMedium() {
-    var mediums = this.mediums();
+    const mediums = this.mediums();
     return mediums.length === 1 &&
            !mediums[0].hasTracks() &&
            !mediums[0].tracksUnknownToUser();

@@ -63,18 +63,18 @@ const trackParser = releaseEditor.trackParser = {
   },
 
   parse: function (str, medium) {
-    var self = this;
+    const self = this;
 
-    var options = ko.toJS(this.options);
-    var lines = str.split('\n').filter(x => !isBlank(x));
+    const options = ko.toJS(this.options);
+    let lines = str.split('\n').filter(x => !isBlank(x));
 
-    var currentPosition = (medium && medium.hasPregap()) ? -1 : 0;
-    var currentTracks;
-    var previousTracks = [];
-    var matchedTracks = {};
-    var dataTrackPairs = [];
-    var hasTocs;
-    var releaseAC;
+    let currentPosition = (medium && medium.hasPregap()) ? -1 : 0;
+    let currentTracks;
+    let previousTracks = [];
+    const matchedTracks = {};
+    let dataTrackPairs = [];
+    let hasTocs;
+    let releaseAC;
 
     // Mediums aren't passed in for unit tests.
     if (medium) {
@@ -92,8 +92,8 @@ const trackParser = releaseEditor.trackParser = {
       }
     }
 
-    var newTracksData = $.map(lines, function (line) {
-      var data = self.parseLine(line, options);
+    const newTracksData = $.map(lines, function (line) {
+      const data = self.parseLine(line, options);
 
       /*
        * We should've parsed at least some values, otherwise something
@@ -140,8 +140,8 @@ const trackParser = releaseEditor.trackParser = {
     });
 
     sortByNumber(dataTrackPairs, x => -x.similarity).forEach((match) => {
-      var data = match.data;
-      var track = match.track;
+      const data = match.data;
+      const track = match.track;
 
       if (!data.matchedTrack && !matchedTracks[track.uniqueID]) {
         data.matchedTrack = track;
@@ -150,17 +150,17 @@ const trackParser = releaseEditor.trackParser = {
     });
 
 
-    var newTracks = newTracksData.map(function (data, index) {
-      var matchedTrack = data.matchedTrack;
-      var previousTrack = previousTracks[index];
-      var matchedTrackAC = matchedTrack && matchedTrack.artistCredit();
-      var previousTrackAC = previousTrack && previousTrack.artistCredit();
+    const newTracks = newTracksData.map(function (data, index) {
+      const matchedTrack = data.matchedTrack;
+      const previousTrack = previousTracks[index];
+      const matchedTrackAC = matchedTrack && matchedTrack.artistCredit();
+      const previousTrackAC = previousTrack && previousTrack.artistCredit();
 
       /*
        * See if we can re-use the AC from the matched track, the previous
        * track at this position, or the release.
        */
-      var matchedAC = [matchedTrackAC, previousTrackAC, releaseAC]
+      const matchedAC = [matchedTrackAC, previousTrackAC, releaseAC]
         .find(function (ac) {
           if (!ac || !isCompleteArtistCredit(ac)) {
             return false;
@@ -221,13 +221,13 @@ const trackParser = releaseEditor.trackParser = {
     if (medium) {
       currentTracks = medium.tracks.peek();
 
-      var currentTrackCount = currentTracks.length;
-      var difference = newTracks.length - currentTrackCount;
-      var oldAudioTrackCount = medium.audioTracks.peek().length;
+      const currentTrackCount = currentTracks.length;
+      let difference = newTracks.length - currentTrackCount;
+      const oldAudioTrackCount = medium.audioTracks.peek().length;
 
       // Make sure data tracks are contiguous at the end of the medium.
       if (medium.hasDataTracks()) {
-        var dataTracksEnded = false;
+        let dataTracksEnded = false;
 
         newTracks.slice(0).reverse().forEach(function (t, index) {
           /*
@@ -253,7 +253,7 @@ const trackParser = releaseEditor.trackParser = {
       }
 
       // Force a minimum number of audio tracks if there's a CDTOC.
-      var newAudioTrackCount = newTracks.reduce(function (sum, t) {
+      const newAudioTrackCount = newTracks.reduce(function (sum, t) {
         return sum + (t.isDataTrack() ? 0 : 1);
       }, 0);
 
@@ -284,17 +284,17 @@ const trackParser = releaseEditor.trackParser = {
       newTracks.forEach(function (track, index) {
         delete track.previousTrackAtThisPosition;
 
-        var previousTrack = previousTracks[index];
+        const previousTrack = previousTracks[index];
 
         /*
          * Don't save the recording that was at this position if the
          * *track* that was at this position was moved/reused.
          */
         if (previousTrack && !matchedTracks[previousTrack.uniqueID]) {
-          var previousRecording = previousTrack.recording.peek();
+          const previousRecording = previousTrack.recording.peek();
 
           if (previousRecording && previousRecording.gid) {
-            var currentRecording = track.recording.peek();
+            const currentRecording = track.recording.peek();
 
             if (currentRecording !== previousRecording) {
               track.recording.saved = previousRecording;
@@ -317,7 +317,7 @@ const trackParser = releaseEditor.trackParser = {
   },
 
   parseLine: function (line, options) {
-    var data = {};
+    const data = {};
 
     // trim only, keeping tabs and other space separators intact.
     line = line.trim();
@@ -332,7 +332,7 @@ const trackParser = releaseEditor.trackParser = {
      */
 
     // Assume the track time is at the end.
-    var match = line.match(this.trackTime);
+    let match = line.match(this.trackTime);
 
     if (match !== null) {
       if (options.useTrackLengths && match[1] !== '?:??') {
@@ -388,7 +388,7 @@ const trackParser = releaseEditor.trackParser = {
      */
 
     if (names.length > 1) {
-      var artist = names.pop();
+      const artist = names.pop();
 
       if (options.useTrackArtists) {
         data.artist = artist;
@@ -396,7 +396,7 @@ const trackParser = releaseEditor.trackParser = {
 
       if (options.useTrackNames) {
         // Use whatever's left as the name, including any separators.
-        var withoutArtist = parts.slice(0, parts.lastIndexOf(artist));
+        const withoutArtist = parts.slice(0, parts.lastIndexOf(artist));
 
         data.name = withoutArtist.join('')
           .replace(new RegExp('^' + this.separators.source), '')
@@ -434,7 +434,7 @@ const trackParser = releaseEditor.trackParser = {
   },
 
   mediumToString: function (medium) {
-    var options = ko.toJS(this.options);
+    const options = ko.toJS(this.options);
 
     return medium.tracks().reduce(function (memo, track) {
       if (options.hasTrackNumbers) {
@@ -444,7 +444,7 @@ const trackParser = releaseEditor.trackParser = {
       memo += track.name.peek() || '';
 
       if (options.hasTrackArtists) {
-        var artist = reduceArtistCredit(track.artistCredit());
+        const artist = reduceArtistCredit(track.artistCredit());
 
         if (artist) {
           memo += ' - ' + artist;
@@ -466,7 +466,7 @@ const trackParser = releaseEditor.trackParser = {
       return null;
     }
 
-    var similarity = getSimilarity(data.name, track.name.peek());
+    const similarity = getSimilarity(data.name, track.name.peek());
 
     if (similarity >= MIN_NAME_SIMILARITY) {
       return {similarity: similarity, track: track, data: data};

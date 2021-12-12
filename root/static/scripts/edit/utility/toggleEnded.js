@@ -18,7 +18,7 @@ MB.initializeToggleEnded = function (formID) {
     const wasEnded = $(ended).prop('checked');
 
     function toggleEnded() {
-      var autoEnded = $(endYear).val() != '';
+      const autoEnded = $(endYear).val() != '';
       $(ended).prop('checked', autoEnded || wasEnded);
       $(ended).prop('disabled', autoEnded);
     }

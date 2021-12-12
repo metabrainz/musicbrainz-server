@@ -29,7 +29,7 @@ import request from '../../common/utility/request';
     return clean(value(arg));
   }
   function number(arg) {
-    var num = parseInt(value(arg), 10);
+    const num = parseInt(value(arg), 10);
     return isNaN(num) ? null : num;
   }
   function array(arg, type) {
@@ -59,11 +59,11 @@ import request from '../../common/utility/request';
       }
 
       const names = ac.names.map(function (credit, index) {
-        var artist = value(credit.artist) || {};
+        const artist = value(credit.artist) || {};
         const artistName = string(artist.name);
         const creditedName = string(credit.name);
 
-        var name = {
+        const name = {
           artist: {
             name: artistName,
             id: number(artist.id),
@@ -72,7 +72,7 @@ import request from '../../common/utility/request';
           name: nonEmpty(creditedName) ? creditedName : artistName,
         };
 
-        var joinPhrase = value(credit.joinPhrase) || '';
+        const joinPhrase = value(credit.joinPhrase) || '';
 
         // Collapse whitespace, but don't strip leading/trailing.
         name.join_phrase = joinPhrase.replace(/\s{2,}/g, ' ');
@@ -90,7 +90,7 @@ import request from '../../common/utility/request';
     },
 
     externalLinkRelationship: function (link, source) {
-      var editData = {
+      const editData = {
         id: number(link.relationship),
         linkTypeID: number(link.type),
         attributes: [],
@@ -152,7 +152,7 @@ import request from '../../common/utility/request';
     },
 
     relationship: function (relationship) {
-      var data = {
+      const data = {
         id:             number(relationship.id),
         linkTypeID:     number(relationship.linkTypeID),
         entities:       array(relationship.entities, this.relationshipEntity),
@@ -187,7 +187,7 @@ import request from '../../common/utility/request';
     },
 
     relationshipEntity: function (entity) {
-      var data = {
+      const data = {
         entityType: entity.entityType,
         gid:        nullableString(entity.gid),
         name:       string(entity.name),
@@ -202,10 +202,10 @@ import request from '../../common/utility/request';
     },
 
     release: function (release) {
-      var releaseGroupID = (release.releaseGroup() || {}).id;
+      const releaseGroupID = (release.releaseGroup() || {}).id;
 
-      var events = compactMap(value(release.events), function (data) {
-        var event = {
+      const events = compactMap(value(release.events), function (data) {
+        const event = {
           date:       fields.partialDate(data.date),
           country_id: number(data.countryID),
         };
@@ -244,7 +244,7 @@ import request from '../../common/utility/request';
     },
 
     releaseLabel: function (releaseLabel) {
-      var label = value(releaseLabel.label) || {};
+      const label = value(releaseLabel.label) || {};
 
       return {
         release_label:  number(releaseLabel.id),
@@ -254,7 +254,7 @@ import request from '../../common/utility/request';
     },
 
     track: function (track) {
-      var recording = value(track.recording) || {};
+      const recording = value(track.recording) || {};
 
       return {
         id:             number(track.id),
@@ -280,10 +280,10 @@ import request from '../../common/utility/request';
 
 
   function editHash(edit) {
-    var keys = Object.keys(edit).sort();
+    const keys = Object.keys(edit).sort();
 
     function keyValue(memo, key) {
-      var value = edit[key];
+      const value = edit[key];
 
       return memo + key +
         (value && typeof value === 'object'
@@ -427,11 +427,11 @@ import request from '../../common/utility/request';
   edit.relationshipEdit = editConstructor(
     TYPES.EDIT_RELATIONSHIP_EDIT,
     function (args, orig, relationship) {
-      var newAttributes = {};
-      var origAttributes = relationship
+      const newAttributes = {};
+      const origAttributes = relationship
         ? relationship.attributes.original
         : {};
-      var changedAttributes = [];
+      const changedAttributes = [];
 
       for (const hash of args.attributes) {
         const gid = hash.type.gid;

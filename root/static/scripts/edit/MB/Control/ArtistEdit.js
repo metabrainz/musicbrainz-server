@@ -11,7 +11,7 @@ import $ from 'jquery';
 import MB from '../../../common/MB';
 
 MB.Control.ArtistEdit = function () {
-  var self = {};
+  const self = {};
 
   self.$name = $('#id-edit-artist\\.name');
   self.$begin = $('#label-id-edit-artist\\.period\\.begin_date');

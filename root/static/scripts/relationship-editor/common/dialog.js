@@ -31,9 +31,9 @@ const PART_OF_SERIES_LINK_TYPE_GIDS =
 
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
-var UI = RE.UI = RE.UI || {};
+const UI = RE.UI = RE.UI || {};
 
-var incorrectEntityForSeries = {
+const incorrectEntityForSeries = {
   recording:      l('The series you’ve selected is for recordings.'),
   release:        l('The series you’ve selected is for releases.'),
   release_group:  l('The series you’ve selected is for release groups.'),
@@ -41,14 +41,14 @@ var incorrectEntityForSeries = {
 };
 
 ko.bindingHandlers.relationshipEditorAutocomplete = (function () {
-  var dialog;
+  let dialog;
 
   function changeTarget(data) {
     if (!data || !data.gid) {
       return;
     }
-    var relationship = dialog.relationship();
-    var entities = relationship.entities().slice(0);
+    const relationship = dialog.relationship();
+    const entities = relationship.entities().slice(0);
 
     entities[dialog.backward() ? 0 : 1] = MB.entity(data);
     relationship.entities(entities);
@@ -66,7 +66,7 @@ ko.bindingHandlers.relationshipEditorAutocomplete = (function () {
             return false;
           }
 
-          var possible = dialog.targetTypeOptions();
+          const possible = dialog.targetTypeOptions();
 
           if (!possible.find(x => x.value === type)) {
             return false;
@@ -89,7 +89,7 @@ ko.bindingHandlers.relationshipEditorAutocomplete = (function () {
 
       dialog.autocomplete.currentSelection.subscribe(changeTarget);
 
-      var target = dialog.relationship().target(dialog.source);
+      const target = dialog.relationship().target(dialog.source);
 
       if (dialog instanceof UI.EditDialog) {
         dialog.autocomplete.currentSelection(target);
@@ -111,11 +111,11 @@ ko.bindingHandlers.instrumentSelect = {
     viewModel,
     bindingContext,
   ) {
-    var relationship = valueAccessor();
-    var instruments = ko.observableArray([]);
+    const relationship = valueAccessor();
+    const instruments = ko.observableArray([]);
 
     function addInstrument(instrument, linkAttribute) {
-      var observable = ko.observable(instrument);
+      const observable = ko.observable(instrument);
 
       observable.linkAttribute = ko.observable(linkAttribute);
       instruments.push(observable);
@@ -144,7 +144,7 @@ ko.bindingHandlers.instrumentSelect = {
       addInstrument(new MB.entity.Instrument({}));
     }
 
-    var vm = {
+    const vm = {
       instruments: instruments,
 
       addItem: function () {
@@ -153,13 +153,13 @@ ko.bindingHandlers.instrumentSelect = {
       },
 
       removeItem: function (item) {
-        var index = instruments.indexOf(item);
+        let index = instruments.indexOf(item);
 
         instruments.remove(item);
         relationship.attributes.remove(item.linkAttribute.peek());
 
         index = index === instruments().length ? index - 1 : index;
-        var $nextButton =
+        const $nextButton =
           $(element).find('button.remove-item:eq(' + index + ')');
 
         if ($nextButton.length) {
@@ -170,7 +170,7 @@ ko.bindingHandlers.instrumentSelect = {
       },
     };
 
-    var childBindingContext = bindingContext.createChildContext(vm);
+    const childBindingContext = bindingContext.createChildContext(vm);
     ko.applyBindingsToDescendants(childBindingContext, element);
 
     return {controlsDescendantBindings: true};
@@ -180,12 +180,12 @@ ko.bindingHandlers.instrumentSelect = {
 
 class Dialog {
   constructor(options) {
-    var self = this;
+    const self = this;
 
     this.viewModel = options.viewModel;
 
-    var source = options.source;
-    var target = options.target;
+    const source = options.source;
+    let target = options.target;
 
     if (options.relationship) {
       target = options.relationship.target(source);
@@ -236,7 +236,7 @@ class Dialog {
   open(positionBy) {
     this.viewModel.activeDialog(this);
 
-    var widget = this.widget;
+    const widget = this.widget;
 
     this.positionBy(positionBy);
 
@@ -259,15 +259,15 @@ class Dialog {
       if (this._accept) {
         this._accept.apply(this, arguments);
       }
-      for (var role in this.changeOtherRelationshipCredits) {
+      for (const role in this.changeOtherRelationshipCredits) {
         if (this.changeOtherRelationshipCredits[role]()) {
-          var vm = this.viewModel;
-          var relationship = this.relationship();
-          var target = role === 'source'
+          const vm = this.viewModel;
+          const relationship = this.relationship();
+          const target = role === 'source'
             ? this.source
             : relationship.target(this.source);
-          var targetCredit = relationship.creditField(target)();
-          var relationshipFilter = this.selectedRelationshipCredits[role]();
+          const targetCredit = relationship.creditField(target)();
+          const relationshipFilter = this.selectedRelationshipCredits[role]();
 
           /*
            * XXX HACK XXX
@@ -322,7 +322,7 @@ class Dialog {
 
   clickEvent(data, event) {
     if (!event.isDefaultPrevented()) {
-      var $menu = this.$dialog.find('.menu');
+      const $menu = this.$dialog.find('.menu');
 
       if ($menu.length) {
         $menu.data('multiselect').menuVisible(false);
@@ -337,8 +337,8 @@ class Dialog {
       return false;
     }
 
-    var nodeName = event.target.nodeName.toLowerCase();
-    var self = this;
+    const nodeName = event.target.nodeName.toLowerCase();
+    const self = this;
 
     /*
      * Firefox needs a small delay in order to allow for the change
@@ -371,7 +371,7 @@ class Dialog {
   }
 
   changeDirection() {
-    var relationship = this.relationship.peek();
+    const relationship = this.relationship.peek();
     relationship.entities(relationship.entities().slice(0).reverse());
   }
 
@@ -395,7 +395,7 @@ class Dialog {
   }
 
   linkTypeName() {
-    var linkType = this.relationship().getLinkType();
+    const linkType = this.relationship().getLinkType();
     if (!linkType) {
       return '';
     }
@@ -410,8 +410,8 @@ class Dialog {
   }
 
   linkTypeDescription() {
-    var linkType = this.relationship().getLinkType();
-    var description;
+    const linkType = this.relationship().getLinkType();
+    let description;
 
     if (linkType && linkType.description) {
       description = ReactDOMServer.renderToStaticMarkup(
@@ -432,17 +432,17 @@ class Dialog {
   }
 
   linkTypeOptions(entityTypes) {
-    var options = MB.forms.linkTypeOptions(
+    let options = MB.forms.linkTypeOptions(
       {children: linkedEntities.link_type_tree[entityTypes]},
       this.backward(),
     );
 
     if (this.source.entityType === 'series') {
-      var itemType =
+      const itemType =
         MB.seriesTypesByID[this.source.typeID()].item_entity_type;
 
       options = options.filter(function (opt) {
-        var linkType = linkedEntities.link_type[opt.value];
+        const linkType = linkedEntities.link_type[opt.value];
 
         if (PART_OF_SERIES_LINK_TYPE_GIDS.includes(linkType.gid) &&
             linkType.gid !== PART_OF_SERIES_LINK_TYPES[itemType]) {
@@ -457,16 +457,16 @@ class Dialog {
   }
 
   targetTypeOptions() {
-    var sourceType = this.source.entityType;
-    var targetTypes = MB.allowedRelations[sourceType].filter(
+    const sourceType = this.source.entityType;
+    let targetTypes = MB.allowedRelations[sourceType].filter(
       typeName => typeName !== 'url',
     );
 
     if (sourceType === 'series') {
-      var self = this;
+      const self = this;
 
       targetTypes = targetTypes.filter(function (targetType) {
-        var key = [sourceType, targetType].sort().join('-');
+        const key = [sourceType, targetType].sort().join('-');
 
         if (self.linkTypeOptions(key).length) {
           return true;
@@ -476,7 +476,7 @@ class Dialog {
       });
     }
 
-    var options = targetTypes.map(function (type) {
+    const options = targetTypes.map(function (type) {
       return {value: type, text: ENTITY_NAMES[type]()};
     });
 
@@ -492,10 +492,10 @@ class Dialog {
       return;
     }
 
-    var currentRelationship = this.relationship();
-    var currentTarget = currentRelationship.target(this.source);
+    const currentRelationship = this.relationship();
+    const currentTarget = currentRelationship.target(this.source);
 
-    var data = currentRelationship.editData();
+    const data = currentRelationship.editData();
     data.target = MB.entity({name: currentTarget.name}, newType);
 
     /*
@@ -512,12 +512,12 @@ class Dialog {
 
     delete data.entities;
 
-    var entityTypes = [this.source.entityType, newType].sort().join('-');
+    const entityTypes = [this.source.entityType, newType].sort().join('-');
     const linkTypeChildren = linkedEntities.link_type_tree[entityTypes];
     data.linkTypeID = defaultLinkType({children: linkTypeChildren});
     data.attributes = [];
 
-    var newRelationship = this.viewModel.getRelationship(data, this.source);
+    const newRelationship = this.viewModel.getRelationship(data, this.source);
 
     this.relationship(newRelationship);
 
@@ -529,7 +529,7 @@ class Dialog {
 
     currentRelationship.remove();
 
-    var ac = this.autocomplete;
+    const ac = this.autocomplete;
 
     if (ac) {
       ac.clear();
@@ -555,7 +555,7 @@ class Dialog {
       );
     } else if (this.source.entityType === 'url') {
       const url = this.source.name();
-      var checker = new URLCleanup.Checker(url, target.entityType);
+      const checker = new URLCleanup.Checker(url, target.entityType);
 
       if (checker) {
         const check = checker.checkRelationship(linkType.gid);
@@ -573,9 +573,9 @@ class Dialog {
   }
 
   targetEntityError() {
-    var relationship = this.relationship();
-    var target = relationship.target(this.source);
-    var linkType = relationship.getLinkType() || {};
+    const relationship = this.relationship();
+    const target = relationship.target(this.source);
+    const linkType = relationship.getLinkType() || {};
 
     if (!target.gid) {
       return l('Required field.');
@@ -593,15 +593,15 @@ class Dialog {
   }
 
   dateError(date) {
-    var valid = dates.isDateValid(date.year(), date.month(), date.day());
+    const valid = dates.isDateValid(date.year(), date.month(), date.day());
     return valid ? '' : l("The date you've entered is not valid.");
   }
 
   datePeriodError() {
-    var relationship = this.relationship();
+    const relationship = this.relationship();
 
-    var a = relationship.begin_date;
-    var b = relationship.end_date;
+    const a = relationship.begin_date;
+    const b = relationship.end_date;
 
     if (!this.dateError(a) && !this.dateError(b)) {
       if (!dates.isDatePeriodValid(ko.toJS(a), ko.toJS(b))) {
@@ -622,7 +622,7 @@ class Dialog {
   }
 
   hasErrors() {
-    var relationship = this.relationship();
+    const relationship = this.relationship();
 
     return this.linkTypeError() ||
            this.targetEntityError() ||
@@ -683,9 +683,9 @@ Object.assign(Dialog.prototype, {
       return;
     }
 
-    var $dialog = $('#dialog').dialog(this.uiOptions);
+    const $dialog = $('#dialog').dialog(this.uiOptions);
 
-    var widget = $dialog.data('ui-dialog');
+    const widget = $dialog.data('ui-dialog');
     widget.uiDialog.find('.ui-dialog-titlebar').remove();
 
     Object.assign(Dialog.prototype, {$dialog, widget});
@@ -769,7 +769,7 @@ export class EditDialog extends Dialog {
 
   close(cancel) {
     if (cancel !== false) {
-      var relationship = this.relationship();
+      const relationship = this.relationship();
 
       if (!deepEqual(this.originalRelationship, relationship.editData())) {
         relationship.fromJS(this.originalRelationship);
@@ -795,8 +795,8 @@ export class BatchRelationshipDialog extends Dialog {
   }
 
   _accept(callback) {
-    var vm = this.viewModel;
-    var model = {...this.relationship().editData()};
+    const vm = this.viewModel;
+    let model = {...this.relationship().editData()};
     delete model.id;
     delete model.entities;
 
@@ -834,8 +834,8 @@ export class BatchCreateWorksDialog extends BatchRelationshipDialog {
 
     this.loading(true);
 
-    var edits = this.sources.map(function (source) {
-      var editData = MB.edit.fields.work({
+    const edits = this.sources.map(function (source) {
+      const editData = MB.edit.fields.work({
         name: source.name,
         typeID: workType,
         languages: isBlank(workLang) ? [] : [workLang],
@@ -846,7 +846,7 @@ export class BatchCreateWorksDialog extends BatchRelationshipDialog {
 
     this.createEdits(edits)
       .done((data) => {
-        var works = data.edits.map(x => x.entity);
+        const works = data.edits.map(x => x.entity);
 
         super.accept(function (relationshipData) {
           relationshipData.target = MB.entity(works.shift(), 'work');
@@ -910,10 +910,10 @@ function splitByCreditableAttributes(relationship) {
     return relationships;
   }
 
-  var notCreditable = attributes.filter(x => !isCreditable(x));
+  const notCreditable = attributes.filter(x => !isCreditable(x));
 
   function split(attribute) {
-    var newRelationship = relationship.clone();
+    const newRelationship = relationship.clone();
     newRelationship.setAttributes(notCreditable.concat([attribute]));
     relationships.push(newRelationship);
   }

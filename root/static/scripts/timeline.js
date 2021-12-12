@@ -44,7 +44,7 @@ const defaultLines = [
 
 class TimelineViewModel {
   constructor() {
-    var self = this;
+    const self = this;
     self.categories = ko.observableArray([]);
     self.enabledCategories = ko.computed(function () {
       return self.categories().filter(function (category) {
@@ -74,7 +74,7 @@ class TimelineViewModel {
     };
     self.zoomArray = ko.computed({
       read: function () {
-        var parts = [self.zoom.xaxis.min(), self.zoom.xaxis.max()];
+        const parts = [self.zoom.xaxis.min(), self.zoom.xaxis.max()];
         if (self.zoom.yaxis.min() || self.zoom.yaxis.max()) {
           parts.push(self.zoom.yaxis.min());
           parts.push(self.zoom.yaxis.max());
@@ -92,7 +92,7 @@ class TimelineViewModel {
     });
     self.zoomHashPart = ko.computed({
       read: function () {
-        var parts = self.zoomArray();
+        const parts = self.zoomArray();
         if (parts.filter(Boolean).length > 0) {
           return ['g'].concat(parts).join('/');
         }
@@ -100,7 +100,7 @@ class TimelineViewModel {
       },
       write: function (part) {
         if (part) {
-          var itemFix = function (item) {
+          const itemFix = function (item) {
             return (item === 'null' ? null : parseFloat(item));
           };
           self.zoomArray(part.split('/').slice(1).map(itemFix));
@@ -131,9 +131,9 @@ class TimelineViewModel {
     });
 
     self.rateZoomY = ko.computed(function () {
-      var bounds = self.lines().reduce(function (accum, line) {
+      const bounds = self.lines().reduce(function (accum, line) {
         if (line.loaded()) {
-          var rateBounds = line.calculateRateBounds(
+          const rateBounds = line.calculateRateBounds(
             line.rateData().data,
             line.rateData().thresholds,
             {
@@ -181,7 +181,7 @@ class TimelineViewModel {
     }
 
     self.hash = debounceComputed(function () {
-      var optionParts = [];
+      const optionParts = [];
       if (self.options.rate()) {
         optionParts.push('r');
       }
@@ -191,8 +191,8 @@ class TimelineViewModel {
       if (self.zoomHashPart()) {
         optionParts.push(self.zoomHashPart());
       }
-      var categoryParts = self.categories().reduce(getHashPart, []).sort();
-      var lineParts = self.categories().reduce((accum, category) => {
+      const categoryParts = self.categories().reduce(getHashPart, []).sort();
+      const lineParts = self.categories().reduce((accum, category) => {
         if (category.enabled()) {
           accum.push(...category.lines().reduce(getHashPart, []));
         }
@@ -206,7 +206,7 @@ class TimelineViewModel {
      * with options. We only need to call _getLocationHashSettings again
      * if it's directly changed in the address bar.
      */
-    var ignoreHashChange = false;
+    let ignoreHashChange = false;
 
     self.hash.subscribe(function (newHash) {
       ignoreHashChange = true;
@@ -234,8 +234,8 @@ class TimelineViewModel {
 
   _getLocationHashSettings() {
     // XXX: reset to defaults when preference is not expressed
-    var parts = location.hash.replace(/^#/, '').split('+').filter(Boolean);
-    var self = this;
+    const parts = location.hash.replace(/^#/, '').split('+').filter(Boolean);
+    const self = this;
 
     for (const part of parts) {
       let match;
@@ -274,11 +274,11 @@ class TimelineViewModel {
   }
 
   addLine(name, usingDefaultLines) {
-    var newLine = getStat(name);
-    var category = this.categories().find(x => x.name === newLine.category);
+    const newLine = getStat(name);
+    let category = this.categories().find(x => x.name === newLine.category);
 
     if (!category) {
-      var newCategory = stats.category[newLine.category];
+      const newCategory = stats.category[newLine.category];
       category = this.addCategory(new TimelineCategory(
         newLine.category,
         newCategory.label,
@@ -295,14 +295,14 @@ class TimelineViewModel {
   }
 
   addLines(names, usingDefaultLines) {
-    var self = this;
+    const self = this;
     for (const name of names) {
       self.addLine(name, usingDefaultLines);
     }
   }
 
   loadEvents() {
-    var self = this;
+    const self = this;
     self.loadingEvents(true);
     $.ajax({
       url: '../../ws/js/events',
@@ -325,7 +325,7 @@ class TimelineViewModel {
 
 class TimelineCategory {
   constructor(name, label, enabledByDefault) {
-    var self = this;
+    const self = this;
     if (enabledByDefault === undefined) {
       enabledByDefault = false;
     }
@@ -371,7 +371,7 @@ class TimelineCategory {
 
 class TimelineLine {
   constructor(name, label, color, enabledByDefault) {
-    var self = this;
+    const self = this;
     if (enabledByDefault === undefined) {
       enabledByDefault = false;
     }
@@ -390,7 +390,7 @@ class TimelineLine {
   }
 
   loadData() {
-    var self = this;
+    const self = this;
     self.loading(true);
     $.ajax({
       url: '../../statistics/dataset/' + self.name,
@@ -420,27 +420,27 @@ class TimelineLine {
     if (!data || !data.length) {
       return {data: [], thresholds: {min: null, max: null}};
     }
-    var weekData = [];
-    var oneDay = 1000 * 60 * 60 * 24;
-    var dataPrev = data[0][1];
-    var datePrev = data[0][0];
-    var sPrev = 0;
-    var a = 0.25;
+    const weekData = [];
+    const oneDay = 1000 * 60 * 60 * 24;
+    let dataPrev = data[0][1];
+    let datePrev = data[0][0];
+    let sPrev = 0;
+    const a = 0.25;
 
-    var mean = 0;
-    var count = 0;
+    let mean = 0;
+    let count = 0;
 
     $.each(data, function (index, value) {
-      var changeValue = value[1] - dataPrev;
-      var sCurrent;
-      var days = 1;
+      let changeValue = value[1] - dataPrev;
+      let sCurrent;
+      let days = 1;
 
       if (datePrev != null && value[0] > datePrev + oneDay) {
         days = (value[0] - datePrev) / oneDay;
         changeValue /= days;
       }
 
-      for (var i = 0; i < days; i++) {
+      for (let i = 0; i < days; i++) {
         count++;
         mean += changeValue;
         sCurrent = a * changeValue + (1 - a) * sPrev;
@@ -452,12 +452,12 @@ class TimelineLine {
     });
     mean /= count;
 
-    var deviationSum = weekData.reduce(function (sum, next) {
-      var toSquare = next[1] - mean;
+    const deviationSum = weekData.reduce(function (sum, next) {
+      const toSquare = next[1] - mean;
       return sum + toSquare * toSquare;
     }, 0);
-    var standardDeviation = Math.sqrt(deviationSum / count);
-    var thresholds = {
+    const standardDeviation = Math.sqrt(deviationSum / count);
+    const thresholds = {
       max: mean + 3 * standardDeviation,
       min: mean - 3 * standardDeviation,
     };
@@ -466,7 +466,7 @@ class TimelineLine {
   }
 
   calculateRateBounds(data, thresholds, dateThresholds) {
-    var rateBounds = {min: thresholds.max, max: thresholds.min};
+    let rateBounds = {min: thresholds.max, max: thresholds.min};
     $.each(data, function (index, value) {
       if (value[1] > thresholds.min &&
           value[1] < thresholds.max &&
@@ -490,7 +490,7 @@ class TimelineLine {
 
 (function () {
   // Closure over utility functions.
-  var showTooltip = function (x, y, contents) {
+  const showTooltip = function (x, y, contents) {
     $('<div id="tooltip">' + contents + '</div>')
       .css({
         'position': 'absolute',
@@ -506,18 +506,18 @@ class TimelineLine {
       .fadeIn(200);
   };
 
-  var removeTooltip = function () {
+  const removeTooltip = function () {
     $('#tooltip').remove();
   };
 
-  var setCursor = function (type) {
+  const setCursor = function (type) {
     if (!type) {
       type = '';
     }
     $('body').css('cursor', type);
   };
 
-  var setItemTooltip = function (item, extra, fixed) {
+  const setItemTooltip = function (item, extra, fixed) {
     if (!extra) {
       extra = '';
     }
@@ -553,7 +553,7 @@ class TimelineLine {
     );
   };
 
-  var setEventTooltip = function (thisEvent, pos) {
+  const setEventTooltip = function (thisEvent, pos) {
     removeTooltip();
     setCursor('pointer');
     showTooltip(
@@ -572,10 +572,10 @@ class TimelineLine {
       viewModel,
       bindingContext,
     ) {
-      var graph = ko.unwrap(valueAccessor());
-      var previousPoint = null;
-      var currentEvent = null;
-      var reset = function () {
+      const graph = ko.unwrap(valueAccessor());
+      let previousPoint = null;
+      let currentEvent = null;
+      const reset = function () {
         removeTooltip();
         previousPoint = null;
         currentEvent = null;
@@ -595,7 +595,7 @@ class TimelineLine {
               );
             }
           } else if ($(element).data('plot').getEvent(pos)) {
-            var thisEvent = $(element).data('plot').getEvent(pos);
+            const thisEvent = $(element).data('plot').getEvent(pos);
             if (!currentEvent || thisEvent.jsDate !== currentEvent.jsDate) {
               reset();
               currentEvent = thisEvent;
@@ -615,7 +615,7 @@ class TimelineLine {
             ranges.yaxis.to = ranges.yaxis.from + 1;
           }
 
-          var zoomArr = [ranges.xaxis.from, ranges.xaxis.to];
+          const zoomArr = [ranges.xaxis.from, ranges.xaxis.to];
           if (graph === 'main' || graph === 'overview') {
             zoomArr.push(ranges.yaxis.from);
             zoomArr.push(ranges.yaxis.to);
@@ -633,7 +633,7 @@ class TimelineLine {
 
       // Resize the graph when the window size changes
       $(window).on('resize', debounce(function () {
-        var plot = $(element).data('plot');
+        const plot = $(element).data('plot');
         plot.resize();
         plot.setupGrid();
         plot.draw();
@@ -646,11 +646,11 @@ class TimelineLine {
       viewModel,
       bindingContext,
     ) {
-      var graph = ko.unwrap(valueAccessor());
+      const graph = ko.unwrap(valueAccessor());
       if (!bindingContext.$data.waitToGraph()) {
-        var lines = bindingContext.$data.lines();
+        const lines = bindingContext.$data.lines();
         // Shared options
-        var options = {
+        const options = {
           legend: {show: false},
         };
 
@@ -712,7 +712,7 @@ class TimelineLine {
           $(element).toggle(bindingContext.$data.options.rate());
         }
 
-        var plot = $.plot($(element), lines.map(function (line) {
+        const plot = $.plot($(element), lines.map(function (line) {
           let data;
           if (graph === 'main' || graph === 'overview') {
             data = line.data();
@@ -729,7 +729,7 @@ class TimelineLine {
       }
     },
   };
-})();
+}());
 
 $.ajax({
   dataType: 'json',

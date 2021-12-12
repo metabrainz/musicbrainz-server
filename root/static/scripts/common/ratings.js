@@ -11,17 +11,17 @@ import $ from 'jquery';
 import ratingTooltip from '../../../utility/ratingTooltip';
 
 $(document).on('click', 'span.star-rating a', function () {
-  var $ratingLink = $(this);
-  var url = this.href + '&json=1';
+  const $ratingLink = $(this);
+  const url = this.href + '&json=1';
 
   $.getJSON(url, function (data) {
-    var currentRatingSpan = $ratingLink.siblings('span');
-    var container = $ratingLink.parent();
+    let currentRatingSpan = $ratingLink.siblings('span');
+    const container = $ratingLink.parent();
     if (!currentRatingSpan.length) {
       currentRatingSpan = $('<span/>');
       container.prepend(currentRatingSpan);
     }
-    var rating;
+    let rating;
     if (data.rating > 0) {
       // Use the user rating
       currentRatingSpan.removeClass('current-rating');
@@ -46,11 +46,11 @@ $(document).on('click', 'span.star-rating a', function () {
     container.focus();
 
     container.children('a').each(function (i) {
-      var originalRating = 100 * (1 + i) / 5;
-      var newRating = data.rating == originalRating
+      const originalRating = 100 * (1 + i) / 5;
+      const newRating = data.rating == originalRating
         ? 0
         : originalRating;
-      var oldRatingMatch = this.href.match(/rating=(\d+)/);
+      const oldRatingMatch = this.href.match(/rating=(\d+)/);
       if (oldRatingMatch[1] != newRating) {
         this.href = this.href.replace(
           oldRatingMatch[0],

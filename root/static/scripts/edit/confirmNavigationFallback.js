@@ -18,7 +18,7 @@ MB.confirmNavigationFallback = function () {
     return;
   }
 
-  var prevented = false;
+  let prevented = false;
 
   /*
    * This catches the backspace key and asks the user whether they want to

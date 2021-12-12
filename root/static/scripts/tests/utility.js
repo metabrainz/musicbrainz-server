@@ -255,9 +255,9 @@ test('hasAge', function (t) {
 test('formatTrackLength', function (t) {
   t.plan(6);
 
-  var seconds = 1000;
-  var minutes = 60 * seconds;
-  var hours = 60 * minutes;
+  const seconds = 1000;
+  const minutes = 60 * seconds;
+  const hours = 60 * minutes;
 
   t.equal(formatTrackLength(23), '23 ms', 'formatTrackLength');
   t.equal(formatTrackLength(260586), '4:21', 'formatTrackLength');
@@ -274,7 +274,7 @@ test('formatTrackLength', function (t) {
 test('parseDate', function (t) {
   t.plan(16);
 
-  var parseDateTests = [
+  const parseDateTests = [
     {date: '', expected: {year: null, month: null, day: null}},
     {date: '0000', expected: {year: 0, month: null, day: null}},
     {date: '1999-01-02', expected: {year: 1999, month: 1, day: 2}},
@@ -322,8 +322,8 @@ test('formatDate', function (t) {
 test('formatDatePeriod', function (t) {
   t.plan(8);
 
-  var a = {year: 1999};
-  var b = {year: 2000};
+  const a = {year: 1999};
+  const b = {year: 2000};
 
   t.equal(
     formatDatePeriod({begin_date: a, end_date: a, ended: false}),
@@ -404,7 +404,7 @@ test('validDate', function (t) {
 test('validDatePeriod', function (t) {
   t.plan(8);
 
-  var tests = [
+  const tests = [
     {
       a: {},
       b: {},

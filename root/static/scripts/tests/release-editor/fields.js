@@ -28,11 +28,11 @@ fieldTest((
 ), function (t, release) {
   t.plan(2);
 
-  var releaseGroup = release.releaseGroup;
+  const releaseGroup = release.releaseGroup;
   releaseGroup().typeID(3);
   releaseGroup().secondaryTypeIDs([1, 3, 5]);
 
-  var $autocomplete = $('<input/>').val('foo');
+  const $autocomplete = $('<input/>').val('foo');
 
   ko.applyBindingsToNode($autocomplete[0], {
     autocomplete: {
@@ -59,7 +59,7 @@ fieldTest((
 ), function (t, release) {
   t.plan(6);
 
-  var mediums = release.mediums;
+  const mediums = release.mediums;
 
   mediums([
     new fields.Medium({tracks: []}),
@@ -107,7 +107,7 @@ fieldTest((
 ), function (t, release) {
   t.plan(11);
 
-  var medium = new fields.Medium({
+  const medium = new fields.Medium({
     id: 123,
     position: 1,
     format_id: 1,
@@ -123,7 +123,7 @@ fieldTest((
 
   t.ok(!medium.loaded(), 'medium is not loaded');
 
-  var original = medium.original();
+  let original = medium.original();
 
   t.equal(original.position, 1, 'original position is 1');
   t.equal(original.format_id, 1, 'original format_id is 1');
@@ -141,7 +141,7 @@ fieldTest((
   t.equal(original.format_id, 1, 'original format_id is still 1');
   t.equal(original.name, 'foo', 'original name is still foo');
 
-  var loadedTrack = original.tracklist[0];
+  const loadedTrack = original.tracklist[0];
 
   t.equal(loadedTrack.position, 1, 'loaded track position is 1');
   t.equal(loadedTrack.name, '~fooo~', 'loaded track name is ~foooo~');
@@ -153,7 +153,7 @@ fieldTest((
 ), function (t, release) {
   t.plan(1);
 
-  var medium = new fields.Medium({tracks: []}, release);
+  const medium = new fields.Medium({tracks: []}, release);
   medium.hasPregap(true);
   medium.hasDataTracks(true);
 
@@ -171,10 +171,10 @@ fieldTest((
     });
   }
 
-  var toc1 = '1 7 171327 150 22179 49905 69318 96240 121186 143398';
-  var toc2 = '1 5 180562 150 28552 55959 88371 125305';
+  const toc1 = '1 7 171327 150 22179 49905 69318 96240 121186 143398';
+  const toc2 = '1 5 180562 150 28552 55959 88371 125305';
 
-  var tocData1 = [
+  const tocData1 = [
     {length: 294000, position: 1},
     {length: 370000, position: 2},
     {length: 259000, position: 3},
@@ -184,7 +184,7 @@ fieldTest((
     {length: 372000, position: 7},
   ];
 
-  var tocData2 = [
+  const tocData2 = [
     {length: 379000, position: 1},
     {length: 365000, position: 2},
     {length: 432000, position: 3},
@@ -244,7 +244,7 @@ fieldTest((
 ), function (t, release) {
   t.plan(11);
 
-  var medium = new fields.Medium({tracks: [{}]}, release);
+  const medium = new fields.Medium({tracks: [{}]}, release);
 
   const tests = [
     {input: '5', output: '0:05'},

@@ -26,8 +26,8 @@ function cmpOptions(a, b) {
 MB.forms = {
 
   buildOptionsTree: function (root, textAttr, valueAttr) {
-    var options = [];
-    var nbsp = String.fromCharCode(160);
+    const options = [];
+    const nbsp = String.fromCharCode(160);
 
     function buildOptions(parent, indent) {
       const children = parent.children;
@@ -41,7 +41,7 @@ MB.forms = {
       let i = 0;
 
       while ((child = children[i++])) {
-        var opt = {};
+        const opt = {};
 
         opt.value = child[valueAttr];
         opt.text = nbsp.repeat(indent * 2) +
@@ -75,7 +75,7 @@ MB.forms = {
       );
     }
 
-    var options = MB.forms.buildOptionsTree(root, getText, 'id');
+    const options = MB.forms.buildOptionsTree(root, getText, 'id');
 
     for (var i = 0, len = options.length, option; i < len; i++) {
       if ((option = options[i]) && !option.data.description) {
@@ -133,7 +133,7 @@ ko.bindingHandlers.loop = {
      * For regular DOM nodes this is the same as parentNode; if parentNode
      * is a virtual element, this will be the parentNode of the comment.
      */
-    var actualParentNode = parentNode;
+    let actualParentNode = parentNode;
     while (actualParentNode.nodeType !== ELEMENT_NODE) {
       actualParentNode = actualParentNode.parentNode;
     }
@@ -146,7 +146,7 @@ ko.bindingHandlers.loop = {
       const removals = [];
 
       for (let i = 0, change, node; (change = changes[i]); i++) {
-        var status = change.status;
+        const status = change.status;
 
         if (status === 'retained') {
           continue;
@@ -159,7 +159,7 @@ ko.bindingHandlers.loop = {
 
         if (status === 'added') {
           if (change.moved === undefined) {
-            var newContext = bindingContext.createChildContext(item);
+            const newContext = bindingContext.createChildContext(item);
 
             if (!currentElements) {
               /*
@@ -233,7 +233,7 @@ ko.bindingHandlers.loop = {
          * the elements to parentNode.
          */
 
-        for (var j = change.index - 1; (prevItem = items[j]); j--) {
+        for (let j = change.index - 1; (prevItem = items[j]); j--) {
           elementsToInsertAfter = elements[prevItem[idAttribute]];
 
           /*
@@ -271,7 +271,7 @@ ko.bindingHandlers.loop = {
       }
     }
 
-    var changeSubscription =
+    const changeSubscription =
       observableArray.subscribe(update, null, 'arrayChange');
 
     function nodeDisposal() {
@@ -324,7 +324,7 @@ ko.bindingHandlers.withLabel = {
 
   update: function (element, valueAccessor, allBindings,
     viewModel, bindingContext) {
-    var name = valueAccessor() + '-' + bindingContext.$index();
+    const name = valueAccessor() + '-' + bindingContext.$index();
 
     $(element)
       .attr('id', name)

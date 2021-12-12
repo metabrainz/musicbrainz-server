@@ -48,11 +48,11 @@ FakeReleaseViewModel.prototype.loadRelease = () => undefined;
 
 FakeReleaseViewModel.prototype.relationshipClass = FakeRelationship;
 
-var fakeGID0 = 'a0ba91b0-c564-4eec-be2e-9ff071a47b59';
-var fakeGID1 = 'acb75d59-b0dc-4105-bad6-81ac8c66da4d';
-var fakeGID2 = 'c4804cb2-bf33-4394-bb5f-3fac972fa7a5';
+const fakeGID0 = 'a0ba91b0-c564-4eec-be2e-9ff071a47b59';
+const fakeGID1 = 'acb75d59-b0dc-4105-bad6-81ac8c66da4d';
+const fakeGID2 = 'c4804cb2-bf33-4394-bb5f-3fac972fa7a5';
 
-var testRelease = {
+const testRelease = {
   entityType: 'release',
   relationships: [],
   name: 'Love Me Do / I Saw Her Standing There',
@@ -135,7 +135,7 @@ function setupReleaseRelationshipEditor() {
   const testReleaseCopy = {...testRelease};
   delete testReleaseCopy.mediums;
 
-  var vm = new FakeReleaseViewModel({
+  const vm = new FakeReleaseViewModel({
     sourceData: testReleaseCopy,
   });
 
@@ -150,7 +150,7 @@ function setupGenericRelationshipEditor(options) {
 }
 
 function formData() {
-  var inputsArray = Array.from($('input[type=hidden]'));
+  const inputsArray = Array.from($('input[type=hidden]'));
   return inputsArray.reduce(function (result, input) {
     result[input.name] = input.value;
     return result;
@@ -159,7 +159,7 @@ function formData() {
 
 function relationshipEditorTest(name, callback) {
   test(name, function (t) {
-    var $fixture =
+    const $fixture =
       $('<div>')
         .attr('id', 'relationship-editor')
         .append('<div id="content"></div><div id="dialog"></div></div>')
@@ -181,21 +181,21 @@ function relationshipEditorTest(name, callback) {
 relationshipEditorTest('link phrase interpolation', function (t) {
   t.plan(6);
 
-  var vm = setupReleaseRelationshipEditor();
+  const vm = setupReleaseRelationshipEditor();
 
-  var source = MB.entity({entityType: 'recording'});
-  var target = MB.entity({entityType: 'artist'});
+  const source = MB.entity({entityType: 'recording'});
+  const target = MB.entity({entityType: 'artist'});
 
-  var relationship = vm.getRelationship({
+  const relationship = vm.getRelationship({
     target: target,
     linkTypeID: 148,
   }, source);
 
-  var entities = relationship.entities();
+  const entities = relationship.entities();
 
   // link phrase construction
 
-  var tests = [
+  const tests = [
     // test attribute interpolation
     {
       linkTypeID: 148,
@@ -255,12 +255,12 @@ relationshipEditorTest('link phrase interpolation', function (t) {
 relationshipEditorTest('merging duplicate relationships', function (t) {
   t.plan(10);
 
-  var vm = setupReleaseRelationshipEditor();
+  const vm = setupReleaseRelationshipEditor();
 
-  var source = MB.entity({entityType: 'recording', name: 'foo'});
-  var target = MB.entity({entityType: 'artist', name: 'bar'});
+  const source = MB.entity({entityType: 'recording', name: 'foo'});
+  const target = MB.entity({entityType: 'artist', name: 'bar'});
 
-  var relationship = vm.getRelationship({
+  const relationship = vm.getRelationship({
     target: target,
     linkTypeID: 148,
     attributes: ids2attrs([123, 194, 277]),
@@ -269,7 +269,7 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
     ended: false,
   }, source);
 
-  var notDuplicateRelationship1 = vm.getRelationship({
+  const notDuplicateRelationship1 = vm.getRelationship({
     target: target,
     linkTypeID: 148,
     attributes: ids2attrs([123, 194, 277]),
@@ -287,7 +287,7 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
   relationship.remove();
   notDuplicateRelationship1.remove();
 
-  var relationshipEnded = vm.getRelationship({
+  const relationshipEnded = vm.getRelationship({
     target: target,
     linkTypeID: 148,
     attributes: ids2attrs([123, 194, 277]),
@@ -296,7 +296,7 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
     ended: true,
   }, source);
 
-  var duplicateRelationship = vm.getRelationship({
+  const duplicateRelationship = vm.getRelationship({
     target: target,
     linkTypeID: 148,
     attributes: ids2attrs([123, 194, 277]),
@@ -338,7 +338,7 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
 
   t.ok(duplicateRelationship.removed(), '`removed` is true for duplicate');
 
-  var notDuplicateRelationship2 = vm.getRelationship({
+  const notDuplicateRelationship2 = vm.getRelationship({
     target: target,
     linkTypeID: 148,
     begin_date: {year: 2003},
@@ -354,7 +354,7 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
   duplicateRelationship.remove();
   notDuplicateRelationship2.remove();
 
-  var laterRelationship = vm.getRelationship({
+  const laterRelationship = vm.getRelationship({
     target: target,
     linkTypeID: 148,
     attributes: ids2attrs([123, 194, 277]),
@@ -363,7 +363,7 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
     ended: true,
   }, source);
 
-  var earlierRelationship = vm.getRelationship({
+  const earlierRelationship = vm.getRelationship({
     target: target,
     linkTypeID: 148,
     attributes: ids2attrs([123, 194, 277]),
@@ -383,7 +383,7 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
   laterRelationship.remove();
   earlierRelationship.remove();
 
-  var emptyDatesRelationship = vm.getRelationship({
+  const emptyDatesRelationship = vm.getRelationship({
     target: target,
     linkTypeID: 148,
     attributes: ids2attrs([123, 194, 277]),
@@ -392,7 +392,7 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
     ended: false,
   }, source);
 
-  var newDatedRelationship = vm.getRelationship({
+  const newDatedRelationship = vm.getRelationship({
     target: target,
     linkTypeID: 148,
     attributes: ids2attrs([123, 194, 277]),
@@ -412,7 +412,7 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
   emptyDatesRelationship.remove();
   newDatedRelationship.remove();
 
-  var emptyDatesEndedRelationship = vm.getRelationship({
+  const emptyDatesEndedRelationship = vm.getRelationship({
     target: target,
     linkTypeID: 148,
     attributes: ids2attrs([123, 194, 277]),
@@ -421,7 +421,7 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
     ended: true,
   }, source);
 
-  var newDatedNonEndedRelationship = vm.getRelationship({
+  const newDatedNonEndedRelationship = vm.getRelationship({
     target: target,
     linkTypeID: 148,
     attributes: ids2attrs([123, 194, 277]),
@@ -445,13 +445,13 @@ relationshipEditorTest('merging duplicate relationships', function (t) {
 relationshipEditorTest('dialog backwardness', function (t) {
   t.plan(8);
 
-  var vm = setupReleaseRelationshipEditor();
+  const vm = setupReleaseRelationshipEditor();
 
-  var release = MB.entity({entityType: 'release'});
-  var recording0 = MB.entity({entityType: 'recording'});
-  var recording1 = MB.entity({entityType: 'recording'});
+  const release = MB.entity({entityType: 'release'});
+  const recording0 = MB.entity({entityType: 'recording'});
+  const recording1 = MB.entity({entityType: 'recording'});
 
-  var tests = [
+  const tests = [
     {
       input: {
         source: release,
@@ -509,15 +509,15 @@ relationshipEditorTest('dialog backwardness', function (t) {
 relationshipEditorTest('AddDialog', function (t) {
   t.plan(1);
 
-  var vm = setupReleaseRelationshipEditor();
+  const vm = setupReleaseRelationshipEditor();
 
-  var source = vm.source.mediums()[0].tracks[0].recording;
-  var target = MB.entity({entityType: 'artist', gid: fakeGID0});
+  const source = vm.source.mediums()[0].tracks[0].recording;
+  const target = MB.entity({entityType: 'artist', gid: fakeGID0});
 
-  var dialog = new AddDialog(
+  const dialog = new AddDialog(
     {source: source, target: target, viewModel: vm},
   );
-  var relationship = dialog.relationship();
+  const relationship = dialog.relationship();
 
   relationship.linkTypeID(148);
   relationship.setAttributes(ids2attrs([229]));
@@ -531,18 +531,18 @@ relationshipEditorTest('AddDialog', function (t) {
 relationshipEditorTest('BatchRelationshipDialog', function (t) {
   t.plan(6);
 
-  var vm = setupReleaseRelationshipEditor();
+  const vm = setupReleaseRelationshipEditor();
 
-  var target = MB.entity({entityType: 'artist', gid: fakeGID0});
-  var recordings = vm.source.mediums()[0].tracks.map(x => x.recording);
+  const target = MB.entity({entityType: 'artist', gid: fakeGID0});
+  const recordings = vm.source.mediums()[0].tracks.map(x => x.recording);
 
-  var dialog = new BatchRelationshipDialog({
+  const dialog = new BatchRelationshipDialog({
     sources: recordings,
     target: target,
     viewModel: vm,
   });
 
-  var relationship = dialog.relationship();
+  const relationship = dialog.relationship();
   let relationships;
   let attributes;
 
@@ -583,11 +583,11 @@ relationshipEditorTest('BatchRelationshipDialog', function (t) {
 relationshipEditorTest('BatchCreateWorksDialog', function (t) {
   t.plan(2);
 
-  var vm = setupReleaseRelationshipEditor();
+  const vm = setupReleaseRelationshipEditor();
 
-  var recordings = vm.source.mediums()[0].tracks.map(x => x.recording);
+  const recordings = vm.source.mediums()[0].tracks.map(x => x.recording);
 
-  var dialog = new BatchCreateWorksDialog({
+  const dialog = new BatchCreateWorksDialog({
     sources: recordings, viewModel: vm,
   });
 
@@ -616,28 +616,28 @@ relationshipEditorTest((
 ), function (t) {
   t.plan(4);
 
-  var vm = setupReleaseRelationshipEditor();
-  var source = vm.source.mediums()[0].tracks[0].recording;
-  var target = MB.entity(
+  const vm = setupReleaseRelationshipEditor();
+  const source = vm.source.mediums()[0].tracks[0].recording;
+  const target = MB.entity(
     {entityType: 'artist', gid: fakeGID0, name: 'foo'},
   );
 
-  var relationship = vm.getRelationship({
+  const relationship = vm.getRelationship({
     target: target,
     linkTypeID: 148,
     attributes: [],
   }, source);
 
-  var dialog = new EditDialog({
+  const dialog = new EditDialog({
     relationship: relationship,
     source: source,
     viewModel: vm,
   });
 
-  var newTarget = MB.entity(
+  const newTarget = MB.entity(
     {entityType: 'artist', gid: fakeGID1, name: 'bar'},
   );
-  var dialogRelationship = dialog.relationship();
+  const dialogRelationship = dialog.relationship();
 
   dialogRelationship.entities([newTarget, source]);
   dialogRelationship.setAttributes(ids2attrs([229]));
@@ -662,17 +662,17 @@ relationshipEditorTest((
 ), function (t) {
   t.plan(2);
 
-  var vm = setupReleaseRelationshipEditor();
-  var tracks = vm.source.mediums()[0].tracks;
+  const vm = setupReleaseRelationshipEditor();
+  const tracks = vm.source.mediums()[0].tracks;
 
-  var recording0 = tracks[0].recording;
-  var recording1 = tracks[1].recording;
+  const recording0 = tracks[0].recording;
+  const recording1 = tracks[1].recording;
 
-  var dialog = new AddDialog(
+  const dialog = new AddDialog(
     {source: recording1, target: recording0, viewModel: vm},
   );
 
-  var relationship = dialog.relationship();
+  const relationship = dialog.relationship();
   relationship.linkTypeID(231);
 
   dialog.accept();
@@ -717,10 +717,10 @@ relationshipEditorTest((
 
   // Pretend the form was posted.
   MB.formWasPosted = true;
-  var vm = setupGenericRelationshipEditor({sourceData: source});
+  const vm = setupGenericRelationshipEditor({sourceData: source});
   MB.formWasPosted = false;
 
-  var entities = vm.source.relationships()[0].entities();
+  const entities = vm.source.relationships()[0].entities();
   t.equal(entities[0].gid, fakeGID1);
   t.equal(entities[1].gid, fakeGID0);
 });
@@ -730,10 +730,10 @@ relationshipEditorTest((
 ), function (t) {
   t.plan(1);
 
-  var vm = setupReleaseRelationshipEditor();
-  var recording = vm.source.mediums()[0].tracks[0].recording;
+  const vm = setupReleaseRelationshipEditor();
+  const recording = vm.source.mediums()[0].tracks[0].recording;
 
-  var relationship1 = vm.getRelationship({
+  const relationship1 = vm.getRelationship({
     target: {
       id: 102938,
       entityType: 'release',
@@ -743,7 +743,7 @@ relationshipEditorTest((
     attributes: [],
   }, recording);
 
-  var relationship2 = vm.getRelationship({
+  const relationship2 = vm.getRelationship({
     target: {
       id: 839201,
       entityType: 'work',
@@ -819,7 +819,7 @@ relationshipEditorTest((
 ), function (t) {
   t.plan(1);
 
-  var vm = setupGenericRelationshipEditor({
+  const vm = setupGenericRelationshipEditor({
     sourceData: {
       entityType: 'artist',
       name: 'The Beatles',
@@ -861,7 +861,7 @@ relationshipEditorTest((
     },
   });
 
-  var newRelationship = vm.getRelationship({
+  const newRelationship = vm.getRelationship({
     linkTypeID: 103,
     backward: true,
     ended: true,
@@ -879,7 +879,7 @@ relationshipEditorTest((
 
   newRelationship.show();
 
-  var relationships = vm.source.relationships();
+  const relationships = vm.source.relationships();
   relationships[0].begin_date.month(7);
   relationships[0].begin_date.year(1957);
   relationships[0].end_date.day(10);
@@ -936,7 +936,7 @@ relationshipEditorTest((
 ), function (t) {
   t.plan(1);
 
-  var vm = setupGenericRelationshipEditor({
+  const vm = setupGenericRelationshipEditor({
     sourceData: {
       entityType: 'series',
       name: '「神のみぞ知るセカイ」キャラクターCD',
@@ -945,7 +945,7 @@ relationshipEditorTest((
     },
   });
 
-  var newRelationship1 = vm.getRelationship({
+  const newRelationship1 = vm.getRelationship({
     linkTypeID: 742,
     backward: true,
     target: {
@@ -958,7 +958,7 @@ relationshipEditorTest((
     verbosePhrase: 'is a part of',
   }, vm.source);
 
-  var newRelationship2 = vm.getRelationship({
+  const newRelationship2 = vm.getRelationship({
     linkTypeID: 742,
     backward: true,
     target: {
@@ -971,7 +971,7 @@ relationshipEditorTest((
     verbosePhrase: 'is a part of',
   }, vm.source);
 
-  var newRelationship3 = vm.getRelationship({
+  const newRelationship3 = vm.getRelationship({
     linkTypeID: 742,
     backward: true,
     target: {
@@ -1030,7 +1030,7 @@ relationshipEditorTest((
 ), function (t) {
   t.plan(2);
 
-  var vm = setupGenericRelationshipEditor({
+  const vm = setupGenericRelationshipEditor({
     sourceData: {
       entityType: 'series',
       name: '「神のみぞ知るセカイ」キャラクターCD',
@@ -1039,13 +1039,13 @@ relationshipEditorTest((
     },
   });
 
-  var artist = MB.entity({
+  const artist = MB.entity({
     entityType: 'artist',
     name: 'Foo',
     gid: fakeGID0,
   });
 
-  var newRelationship = vm.getRelationship({
+  const newRelationship = vm.getRelationship({
     linkTypeID: 65,
     target: {
       entityType: 'release_group',
@@ -1058,7 +1058,7 @@ relationshipEditorTest((
   t.equal(artist.relationships().length, 0);
 });
 
-var loveMeDo = {
+const loveMeDo = {
   entityType: 'recording',
   name: 'Love Me Do',
   gid: '1f518811-7cf9-4bdc-a656-0958e130f312',
@@ -1084,14 +1084,14 @@ relationshipEditorTest((
 ), function (t) {
   t.plan(2);
 
-  var vm = setupGenericRelationshipEditor({
+  const vm = setupGenericRelationshipEditor({
     sourceData: cloneObjectDeep(loveMeDo),
   });
 
-  var relationship = vm.source.relationships()[0];
+  let relationship = vm.source.relationships()[0];
   t.equal(relationship.attributes().length, 1);
 
-  var dialog = new EditDialog({
+  const dialog = new EditDialog({
     relationship: relationship,
     source: vm.source,
     viewModel: vm,
@@ -1121,11 +1121,11 @@ relationshipEditorTest((
 ), function (t) {
   t.plan(2);
 
-  var vm = setupGenericRelationshipEditor({
+  const vm = setupGenericRelationshipEditor({
     sourceData: loveMeDo,
   });
 
-  var relationship = vm.source.relationships()[0];
+  const relationship = vm.source.relationships()[0];
   t.equal(relationship.attributes().length, 1);
 
   relationship.attributes.push(
@@ -1148,15 +1148,15 @@ relationshipEditorTest((
 ), function (t) {
   t.plan(1);
 
-  var sourceData = cloneObjectDeep(loveMeDo);
+  const sourceData = cloneObjectDeep(loveMeDo);
 
-  var vm = setupGenericRelationshipEditor({
+  const vm = setupGenericRelationshipEditor({
     sourceData: sourceData,
   });
 
-  var relationship = vm.source.relationships()[0];
+  const relationship = vm.source.relationships()[0];
 
-  var newRelationship = vm.getRelationship(
+  const newRelationship = vm.getRelationship(
     {...sourceData.relationships[0], linkOrder: 1},
     vm.source,
   );
@@ -1169,7 +1169,7 @@ relationshipEditorTest((
 ), function (t) {
   t.plan(1);
 
-  var beethoven = {
+  const beethoven = {
     entityType: 'artist',
     id: 1021,
     gid: '1f9df192-a621-4f54-8850-2c5373b7eac9',
@@ -1178,7 +1178,7 @@ relationshipEditorTest((
     comment: '',
   };
 
-  var compositionData = {
+  const compositionData = {
     id: 666,
     linkTypeID: 168,
     backward: true,
@@ -1189,7 +1189,7 @@ relationshipEditorTest((
     verbosePhrase: '{additional} composer',
   };
 
-  var vm = new FakeReleaseViewModel({
+  const vm = new FakeReleaseViewModel({
     sourceData: {
       entityType: 'release',
       name: '3 Great Piano Sonatas (Wilhelm Backhaus)',
@@ -1211,10 +1211,10 @@ relationshipEditorTest((
     },
   });
 
-  var relationship = vm.getRelationship(compositionData, vm.source);
+  const relationship = vm.getRelationship(compositionData, vm.source);
   relationship.begin_date.year(null);
 
-  var editData = MB.edit.relationshipEdit(
+  const editData = MB.edit.relationshipEdit(
     relationship.editData(),
     relationship.original,
     relationship,
@@ -1227,7 +1227,7 @@ relationshipEditorTest((
 ), function (t) {
   t.plan(1);
 
-  var relData = {
+  const relData = {
     id: 1,
     linkTypeID: 103,
     target: {
@@ -1239,7 +1239,7 @@ relationshipEditorTest((
     ended: true,
   };
 
-  var vm = setupGenericRelationshipEditor({
+  const vm = setupGenericRelationshipEditor({
     sourceData: {
       entityType: 'artist',
       name: 'The Beatles',
@@ -1248,7 +1248,7 @@ relationshipEditorTest((
     },
   });
 
-  var relationship = vm.getRelationship(relData, vm.source);
+  const relationship = vm.getRelationship(relData, vm.source);
   relationship.begin_date.year(null);
   relationship.ended(false);
 
@@ -1270,7 +1270,7 @@ relationshipEditorTest((
 ), function (t) {
   t.plan(1);
 
-  var relData = [
+  const relData = [
     {
       attributes:  [],
       backward: true,
@@ -1313,7 +1313,7 @@ relationshipEditorTest((
     },
   ];
 
-  var vm = setupGenericRelationshipEditor({
+  const vm = setupGenericRelationshipEditor({
     sourceData: {
       entityType: 'work',
       gid: '53abd6c3-621e-3d25-b7de-2a87d7d4fe1e',
@@ -1323,7 +1323,7 @@ relationshipEditorTest((
     },
   });
 
-  var relationship = vm.getRelationship(relData[2], vm.source);
+  const relationship = vm.getRelationship(relData[2], vm.source);
   relationship.moveEntityDown();
 
   prepareSubmission('edit-work');

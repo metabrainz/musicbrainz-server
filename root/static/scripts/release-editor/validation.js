@@ -34,9 +34,9 @@ function markTabWithErrors($panel) {
     return;
   }
   // Mark the previous tab red if it has errors.
-  var tabs = releaseEditor.uiTabs;
+  const tabs = releaseEditor.uiTabs;
 
-  var $errors = $('.field-error', $panel).filter(function () {
+  const $errors = $('.field-error', $panel).filter(function () {
     return $(this).data('visible') && $(this).text();
   });
 
@@ -83,13 +83,13 @@ ko.bindingHandlers.showMessageRightAway =
 ko.bindingHandlers.showErrorWhenTabIsSwitched = {
 
   init: showErrorHandler(function (value, $element, $panel) {
-    var alreadyVisible = $element.is(':visible');
+    const alreadyVisible = $element.is(':visible');
 
     if (!value && alreadyVisible) {
       $element.data('visible', false).hide();
     }
 
-    var $hidden = $panel.data('hiddenErrors') || $();
+    const $hidden = $panel.data('hiddenErrors') || $();
 
     $panel.data('hiddenErrors',
                 (value && !alreadyVisible)
@@ -104,15 +104,15 @@ $(function () {
      * Show errors on and mark all tabs between the one we just
      * clicked on, including the one we left.
      */
-    var oldPanel = ui.oldPanel;
-    var newPanel = ui.newPanel;
+    const oldPanel = ui.oldPanel;
+    const newPanel = ui.newPanel;
 
-    var $panels = (oldPanel.index() < newPanel.index())
+    const $panels = (oldPanel.index() < newPanel.index())
       ? oldPanel.nextUntil(newPanel).andSelf()
       : newPanel.nextUntil(oldPanel).andSelf();
 
     $panels.each(function () {
-      var $panel = $(this);
+      const $panel = $(this);
 
       ($panel.data('hiddenErrors') || $())
         .data('visible', true).show();
@@ -164,19 +164,19 @@ function searchExistingBarcode(field, barcode, releaseId) {
 // Barcode should be a valid EAN/UPC.
 
 utils.withRelease(function (release) {
-  var field = release.barcode;
+  const field = release.barcode;
 
   field.error('');
   field.message('');
   field.existing('');
 
-  var barcode = field.barcode();
+  const barcode = field.barcode();
   if (!barcode || barcode === field.original || field.confirmed()) {
     return;
   }
 
-  var checkDigitText = l('The check digit is {checkdigit}.');
-  var doubleCheckText = l('Please double-check the barcode on the release.');
+  const checkDigitText = l('The check digit is {checkdigit}.');
+  const doubleCheckText = l('Please double-check the barcode on the release.');
 
   if (barcode.length === 11) {
     field.error(

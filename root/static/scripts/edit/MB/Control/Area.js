@@ -12,7 +12,7 @@ import ko from 'knockout';
 import MB from '../../../common/MB';
 
 MB.Control.Area = function (...selectors) {
-  var bubble = new MB.Control.BubbleDoc();
+  const bubble = new MB.Control.BubbleDoc();
 
   bubble.canBeShown = function (viewModel) {
     return viewModel.area().gid;

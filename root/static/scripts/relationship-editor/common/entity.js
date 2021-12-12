@@ -49,13 +49,13 @@ coreEntityPrototype._afterCoreEntityCtor = function () {
 Object.assign(coreEntityPrototype, {
 
   parseRelationships: function (relationships) {
-    var self = this;
+    const self = this;
 
     if (!relationships || !relationships.length) {
       return;
     }
 
-    var newRelationships = compactMap(
+    const newRelationships = compactMap(
       relationships,
       data => MB.getRelationship(data, self),
     );
@@ -88,7 +88,7 @@ Object.assign(coreEntityPrototype, {
   }),
 
   groupedRelationships: cacheByID(function (vm) {
-    var self = this;
+    const self = this;
 
     function linkPhrase(relationship) {
       return relationship.groupingLinkPhrase(self);
@@ -98,14 +98,14 @@ Object.assign(coreEntityPrototype, {
       const relationships = this.values();
       const firstRelationship = relationships[0];
 
-      var dialog = new RE.UI.AddDialog({
+      const dialog = new RE.UI.AddDialog({
         source: self,
         target: MB.entity({}, firstRelationship.target(self).entityType),
         backward: isBackward(firstRelationship, self),
         viewModel: vm,
       });
 
-      var relationship = dialog.relationship();
+      const relationship = dialog.relationship();
       relationship.linkTypeID(firstRelationship.linkTypeID());
 
       const [firstAttributeSet, ...remainingAttributeSets] =
@@ -131,11 +131,11 @@ Object.assign(coreEntityPrototype, {
         group.openAddDialog = openAddDialog;
         group.canBeOrdered = ko.observable(false);
 
-        var relationships = group.values.peek();
+        const relationships = group.values.peek();
         if (!relationships.length) {
           return group;
         }
-        var linkType = relationships[0].getLinkType();
+        const linkType = relationships[0].getLinkType();
 
         if (linkType && linkType.orderable_direction > 0) {
           group.canBeOrdered = group.values.all(function (r) {
@@ -144,14 +144,14 @@ Object.assign(coreEntityPrototype, {
         }
 
         if (ko.unwrap(group.canBeOrdered)) {
-          var hasOrdering = group.values.any(function (r) {
+          const hasOrdering = group.values.any(function (r) {
             return r.linkOrder() > 0;
           });
 
           group.hasOrdering = ko.computed({
             read: hasOrdering,
             write: function (newValue) {
-              var currentValue = hasOrdering.peek();
+              const currentValue = hasOrdering.peek();
 
               if (currentValue && !newValue) {
                 for (const r of group.values.slice(0)) {
@@ -180,13 +180,13 @@ Object.assign(coreEntityPrototype, {
    */
 
   mergeRelationship: function (rel) {
-    var relationships = this.relationships();
+    const relationships = this.relationships();
 
-    for (var i = 0; i < relationships.length; i++) {
-      var other = relationships[i];
+    for (let i = 0; i < relationships.length; i++) {
+      const other = relationships[i];
 
       if (rel !== other && rel.isDuplicate(other)) {
-        var obj = {...rel.editData()};
+        const obj = {...rel.editData()};
         delete obj.id;
 
         obj.begin_date = mergeDates(rel.begin_date, other.begin_date);
@@ -236,10 +236,10 @@ function isFreeText(linkAttribute) {
 }
 
 function cacheByID(func) {
-  var cacheID = uniqueId('cache-');
+  const cacheID = uniqueId('cache-');
 
   return function (vm) {
-    var cache = this[cacheID] = this[cacheID] || {};
+    const cache = this[cacheID] = this[cacheID] || {};
     return cache[vm.uniqueID] || (cache[vm.uniqueID] = func.call(this, vm));
   };
 }

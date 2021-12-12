@@ -29,11 +29,11 @@ import './init';
 
 const WS_EDIT_RESPONSE_OK = 1;
 
-var releaseEditData = utils.withRelease(MB.edit.fields.release);
+const releaseEditData = utils.withRelease(MB.edit.fields.release);
 
-var newReleaseLabels = utils.withRelease(function (release) {
+const newReleaseLabels = utils.withRelease(function (release) {
   return release.labels().filter(function (releaseLabel) {
-    var label = releaseLabel.label();
+    const label = releaseLabel.label();
     return (label && label.id) || clean(releaseLabel.catalogNumber());
   });
 }, []);
@@ -43,14 +43,14 @@ const getReleaseLabel = x => String(x.release_label ?? '');
 releaseEditor.edits = {
 
   releaseGroup: function (release) {
-    var releaseGroup = release.releaseGroup();
-    var releaseName = clean(release.name());
-    var releaseAC = release.artistCredit();
-    var origData = MB.edit.fields.releaseGroup(releaseGroup);
-    var editData = cloneObjectDeep(origData);
+    const releaseGroup = release.releaseGroup();
+    const releaseName = clean(release.name());
+    const releaseAC = release.artistCredit();
+    const origData = MB.edit.fields.releaseGroup(releaseGroup);
+    const editData = cloneObjectDeep(origData);
 
     if (releaseGroup.gid) {
-      var dataChanged = false;
+      let dataChanged = false;
 
       if (releaseEditor.copyTitleToReleaseGroup() &&
           releaseGroup.canTakeName(releaseName)) {
@@ -81,9 +81,9 @@ releaseEditor.edits = {
       return [];
     }
 
-    var newData = releaseEditData();
-    var oldData = release.original();
-    var edits = [];
+    let newData = releaseEditData();
+    const oldData = release.original();
+    const edits = [];
 
     if (!release.gid()) {
       edits.push(MB.edit.releaseCreate(newData));
@@ -95,8 +95,8 @@ releaseEditor.edits = {
   },
 
   annotation: function (release) {
-    var editData = MB.edit.fields.annotation(release);
-    var edits = [];
+    const editData = MB.edit.fields.annotation(release);
+    const edits = [];
 
     if (editData.text !== release.annotation.original()) {
       edits.push(MB.edit.releaseAddAnnotation(editData));
@@ -105,13 +105,13 @@ releaseEditor.edits = {
   },
 
   releaseLabel: function (release) {
-    var newLabels = newReleaseLabels().map(MB.edit.fields.releaseLabel);
-    var oldLabels = release.labels.original();
+    const newLabels = newReleaseLabels().map(MB.edit.fields.releaseLabel);
+    const oldLabels = release.labels.original();
 
-    var newLabelsByID = keyBy(newLabels, getReleaseLabel);
-    var oldLabelsByID = keyBy(oldLabels, getReleaseLabel);
+    const newLabelsByID = keyBy(newLabels, getReleaseLabel);
+    const oldLabelsByID = keyBy(oldLabels, getReleaseLabel);
 
-    var edits = [];
+    const edits = [];
 
     for (let newLabel of newLabels) {
       const id = getReleaseLabel(newLabel);
@@ -151,7 +151,7 @@ releaseEditor.edits = {
   },
 
   medium: function (release) {
-    var edits = [];
+    const edits = [];
 
     /*
      * oldPositions are the original positions for all the original
@@ -161,25 +161,25 @@ releaseEditor.edits = {
      * conflicts between oldPositions/newPositions.
      */
 
-    var oldPositions = release.mediums.original().map(function (m) {
+    const oldPositions = release.mediums.original().map(function (m) {
       return m.original().position;
     });
 
-    var newMediums = release.mediums();
-    var newPositions = newMediums.map(x => x.position());
-    var tmpPositions = [];
+    const newMediums = release.mediums();
+    const newPositions = newMediums.map(x => x.position());
+    const tmpPositions = [];
 
     for (const medium of newMediums) {
       let newMediumData = MB.edit.fields.medium(medium);
       const oldMediumData = medium.original();
 
       medium.tracks().forEach(function (track, i) {
-        var trackData = newMediumData.tracklist[i];
+        const trackData = newMediumData.tracklist[i];
 
         if (track.hasExistingRecording()) {
-          var newRecording = MB.edit.fields.recording(track.recording());
+          const newRecording = MB.edit.fields.recording(track.recording());
 
-          var oldRecording = track.recording.savedEditData;
+          const oldRecording = track.recording.savedEditData;
 
           if (oldRecording) {
             if (track.updateRecordingTitle() && !isBlank(trackData.name)) {
@@ -228,10 +228,10 @@ releaseEditor.edits = {
          *      position of any moved medium, unless they swap.
          */
 
-        var newPosition = newMediumData.position;
+        const newPosition = newMediumData.position;
 
         if (oldPositions.includes(newPosition)) {
-          var lastAttempt = (last(tmpPositions) + 1) || 1;
+          let lastAttempt = (last(tmpPositions) + 1) || 1;
           var attempt;
 
           while ((attempt = lastAttempt++)) {
@@ -248,7 +248,7 @@ releaseEditor.edits = {
                * swapping with that medium.
                */
 
-              var possibleSwap = newMediums.find(
+              const possibleSwap = newMediums.find(
                 function (other) {
                   return other.position() === attempt;
                 },
@@ -287,9 +287,9 @@ releaseEditor.edits = {
   },
 
   mediumReorder: function (release) {
-    var edits = [];
-    var newOrder = [];
-    var removedMediums = {};
+    const edits = [];
+    const newOrder = [];
+    const removedMediums = {};
 
     for (const medium of release.mediums.original()) {
       if (medium.id && medium.removed) {
@@ -339,7 +339,7 @@ releaseEditor.edits = {
   },
 
   discID: function (release) {
-    var edits = [];
+    const edits = [];
 
     for (const medium of release.mediums()) {
       const toc = medium.toc();
@@ -361,7 +361,7 @@ releaseEditor.edits = {
   },
 
   externalLinks: function (release) {
-    var edits = [];
+    const edits = [];
 
     function hasVideo(relationship) {
       const attributes = relationship.attributes;
@@ -373,7 +373,7 @@ releaseEditor.edits = {
       return edits;
     }
 
-    var {
+    const {
       oldLinks,
       newLinks,
       allLinks,
@@ -424,7 +424,7 @@ releaseEditor.edits = {
 };
 
 
-var _allEdits = [
+const _allEdits = [
   'releaseGroup',
   'release',
   'releaseLabel',
@@ -474,14 +474,14 @@ releaseEditor.getEditPreviews = function () {
   }
 
   debounceComputed(function () {
-    var edits = releaseEditor.allEdits();
+    let edits = releaseEditor.allEdits();
 
     if (validation.errorsExist()) {
       refreshPreviews([]);
       return;
     }
 
-    var addedEdits = edits.filter(isNewEdit);
+    const addedEdits = edits.filter(isNewEdit);
 
     if (addedEdits.length === 0) {
       refreshPreviews(edits);
@@ -523,15 +523,15 @@ releaseEditor.submissionError = ko.observable();
 
 
 function chainEditSubmissions(release, submissions) {
-  var root = releaseEditor.rootField;
+  const root = releaseEditor.rootField;
 
-  var args = {
+  const args = {
     makeVotable: root.makeVotable(),
     editNote: root.editNote(),
   };
 
   function nextSubmission(index) {
-    var current = submissions[index++];
+    const current = submissions[index++];
 
     if (!current) {
       // We're done!
@@ -540,7 +540,7 @@ function chainEditSubmissions(release, submissions) {
       root.redirecting = true;
 
       if (releaseEditor.redirectURI) {
-        var a = document.createElement('a');
+        const a = document.createElement('a');
         a.href = releaseEditor.redirectURI;
 
         a.search += /^\?/.test(a.search) ? '&' : '?';
@@ -582,7 +582,7 @@ function chainEditSubmissions(release, submissions) {
 
 
 function submissionErrorOccurred(data) {
-  var error;
+  let error;
 
   try {
     error = JSON.parse(data.responseText).error;
@@ -608,7 +608,7 @@ releaseEditor.orderedEditSubmissions = [
     edits: releaseEditor.edits.releaseGroup,
 
     callback: function (release, edits) {
-      var edit = edits[0];
+      const edit = edits[0];
 
       /*
        * edit can be undef if the only change is RG rename
@@ -625,7 +625,7 @@ releaseEditor.orderedEditSubmissions = [
     edits: releaseEditor.edits.release,
 
     callback: function (release, edits) {
-      var entity = edits[0].entity;
+      const entity = edits[0].entity;
 
       if (entity) {
         release.gid(entity.gid);
@@ -643,7 +643,7 @@ releaseEditor.orderedEditSubmissions = [
           const labelId = label.label().id || null;
           const catalogNumber = label.catalogNumber() || null;
 
-          var newData = edits.find(({entity}) => (
+          const newData = edits.find(({entity}) => (
             entity &&
             entity.labelID === labelId &&
             entity.catalogNumber === catalogNumber
@@ -661,22 +661,22 @@ releaseEditor.orderedEditSubmissions = [
     edits: releaseEditor.edits.medium,
 
     callback: function (release, edits) {
-      var added = keyBy(
+      const added = keyBy(
         compactMap(edits, x => x.entity),
         x => String(x.position),
       );
 
-      var newMediums = release.mediums();
+      const newMediums = release.mediums();
 
       newMediums.filter(m => m.id == null).forEach(function (medium) {
-        var addedData = added.get(
+        const addedData = added.get(
           String(medium.tmpPosition || medium.position()),
         );
 
         if (addedData) {
           medium.id = addedData.id;
 
-          var currentData = MB.edit.fields.medium(medium);
+          const currentData = MB.edit.fields.medium(medium);
 
           /*
            * mediumReorder edits haven't been submitted yet, so
@@ -722,7 +722,7 @@ releaseEditor.submitEdits = function () {
   }
 
   releaseEditor.submissionInProgress(true);
-  var release = releaseEditor.rootField.release();
+  const release = releaseEditor.rootField.release();
 
   chainEditSubmissions(release, releaseEditor.orderedEditSubmissions);
 };

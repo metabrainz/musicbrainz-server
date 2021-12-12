@@ -19,17 +19,17 @@ export default function formatTrackLength(
     return milliseconds + ' ms';
   }
 
-  var oneMinute = 60;
-  var oneHour = 60 * oneMinute;
+  const oneMinute = 60;
+  const oneHour = 60 * oneMinute;
 
-  var seconds = Math.round(milliseconds / 1000.0);
-  var hours = Math.floor(seconds / oneHour);
+  let seconds = Math.round(milliseconds / 1000.0);
+  const hours = Math.floor(seconds / oneHour);
   seconds %= oneHour;
 
-  var minutes = Math.floor(seconds / oneMinute);
+  const minutes = Math.floor(seconds / oneMinute);
   seconds %= oneMinute;
 
-  var result = ('00' + seconds).slice(-2);
+  let result = ('00' + seconds).slice(-2);
 
   if (hours > 0) {
     result = hours + ':' + ('00' + minutes).slice(-2) + ':' + result;

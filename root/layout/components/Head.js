@@ -16,7 +16,6 @@ import commonLessUrl from '../../static/styles/common.less';
 import iconLessUrl from '../../static/styles/icons.less';
 import noScriptLessUrl from '../../static/styles/noscript.less';
 import escapeClosingTags from '../../utility/escapeClosingTags';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import globalsScript from './globalsScript';
 import FaviconLinks from './FaviconLinks';
@@ -123,7 +122,36 @@ const Head = ({...props}: HeadProps): React.Element<'head'> => {
         title={l('MusicBrainz: Track')}
         type="application/opensearchdescription+xml"
       />
-
+      <link
+        crossOrigin="anonymous"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+        integrity={
+          'sha384-1BmE4kWBq78iYhFldvKuhfTAU6a' +
+        'uU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3'
+        }
+        rel="stylesheet"
+      />
+      <link
+        crossOrigin="anonymous"
+        href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity={
+          'sha384-AYmEC3Yw5cVb3ZcuHtOA93w35' +
+        'dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p'
+        }
+        rel="stylesheet"
+      />
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+        rel="stylesheet"
+      />
+      <script
+        crossOrigin="anonymous"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsO
+        g+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        src="
+        https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js
+        "
+      />
       <noscript>
         <link
           href={noScriptLessUrl}

@@ -1,5 +1,5 @@
 (function ($) {
-  var options = {
+  const options = {
     musicbrainzEvents: {
       selectColor: 'rgba(170, 0, 0, 1)',
       deselectColor: 'rgba(170, 0, 0, 0.20)',
@@ -15,8 +15,8 @@
   }
 
   function getEvent(pos, plot) {
-    var plotEvent = false;
-    var options = plot.getOptions();
+    let plotEvent = false;
+    const options = plot.getOptions();
     if (options.musicbrainzEvents.enabled) {
       $.each(options.musicbrainzEvents.data, function (index, value) {
         if (((!options.xaxis.min || value.jsDate > options.xaxis.min) &&
@@ -33,7 +33,7 @@
   }
 
   function drawCrosshairLine(plot, ctx, x, color) {
-    var plotOffset = plot.getPlotOffset();
+    const plotOffset = plot.getPlotOffset();
 
     x = plot.p2c({x: x}).left;
 
@@ -60,11 +60,11 @@
     };
 
     plot.hooks.drawOverlay.push(function (plot, ctx) {
-      var options = plot.getOptions();
+      const options = plot.getOptions();
 
       if (options.musicbrainzEvents.enabled) {
         $.each(options.musicbrainzEvents.data, function (index, value) {
-          var color =
+          const color =
             (value.jsDate == options.musicbrainzEvents.currentEvent.jsDate)
               ? options.musicbrainzEvents.selectColor
               : options.musicbrainzEvents.deselectColor;
@@ -80,4 +80,4 @@
     name: 'musicbrainzEvents',
     version: '1.0',
   });
-})(jQuery);
+}(jQuery));

@@ -18,15 +18,15 @@ import MB from '../../../common/MB';
 MB.Control.initializeGuessCase = function (type, formPrefix) {
   formPrefix = formPrefix ? (formPrefix + '\\.') : '';
 
-  var $name = $('#' + formPrefix + 'name');
-  var $options = $('#guesscase-options');
+  const $name = $('#' + formPrefix + 'name');
+  const $options = $('#guesscase-options');
 
   if ($options.length && !$options.data('ui-dialog')) {
     $options.dialog({title: l('Guess Case Options'), autoOpen: false});
     ko.applyBindingsToNode($options[0], {guessCase: () => undefined});
   }
 
-  var guess = gc.entities[type];
+  const guess = gc.entities[type];
 
   function setVal($input, value) {
     $input.val(value).trigger('change');
@@ -43,12 +43,12 @@ MB.Control.initializeGuessCase = function (type, formPrefix) {
       $options.dialog('open');
     });
 
-  var $sortname = $('#' + formPrefix + 'sort_name');
-  var $artistType = $('#id-edit-artist\\.type_id');
+  const $sortname = $('#' + formPrefix + 'sort_name');
+  const $artistType = $('#id-edit-artist\\.type_id');
 
   $sortname.parent()
     .find('button.guesscase-sortname').on('click', function () {
-      var args = [$name.val()];
+      const args = [$name.val()];
 
       if (type === 'artist') {
         args.push($artistType.val() != 2 /* person */);
@@ -63,15 +63,15 @@ MB.Control.initializeGuessCase = function (type, formPrefix) {
     });
 };
 
-var guessCaseOptions = {
+const guessCaseOptions = {
   modeName: ko.observable(),
   keepUpperCase: ko.observable(),
   upperCaseRoman: ko.observable(),
 };
 
-var mode = ko.computed({
+const mode = ko.computed({
   read: function () {
-    var modeName = guessCaseOptions.modeName();
+    const modeName = guessCaseOptions.modeName();
 
     if (modeName !== gc.modeName) {
       gc.modeName = modeName;
@@ -119,10 +119,10 @@ ko.bindingHandlers.guessCase = {
       guessCaseOptions.upperCaseRoman(getBooleanCookie('guesscase_roman'));
     }
 
-    var bindings = {...guessCaseOptions};
+    const bindings = {...guessCaseOptions};
     bindings.guessCase = valueAccessor().bind(bindings);
 
-    var context = bindingContext.createChildContext(bindings);
+    const context = bindingContext.createChildContext(bindings);
     ko.applyBindingsToDescendants(context, element);
 
     return {controlsDescendantBindings: true};

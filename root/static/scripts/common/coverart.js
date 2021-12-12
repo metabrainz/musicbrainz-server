@@ -10,8 +10,8 @@ import $ from 'jquery';
 
 $(function () {
   $('.cover-art-image').each(function () {
-    var $e = $(this);
-    var thumbnailUrl = window.devicePixelRatio > 1
+    const $e = $(this);
+    const thumbnailUrl = window.devicePixelRatio > 1
       ? $e.data('large-thumbnail')
       : $e.data('small-thumbnail');
 

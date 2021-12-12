@@ -41,7 +41,7 @@ Object.assign(releaseEditor, {
 });
 
 releaseEditor.init = function (options) {
-  var self = this;
+  const self = this;
 
   $.extend(this, {
     action: options.action,
@@ -99,7 +99,7 @@ releaseEditor.init = function (options) {
     },
   );
 
-  var $pageContent = $('#release-editor').tabs({
+  const $pageContent = $('#release-editor').tabs({
 
     beforeActivate: function (event, ui) {
       /*
@@ -112,7 +112,7 @@ releaseEditor.init = function (options) {
     },
 
     activate: function (event, ui) {
-      var panel = ui.newPanel;
+      const panel = ui.newPanel;
 
       self.activeTabID(panel.selector)
         .activeTabIndex(self.uiTabs.panels.index(panel));
@@ -124,7 +124,7 @@ releaseEditor.init = function (options) {
        * now that it's visible.
        */
 
-      var $bubble = panel.find('div.bubble:visible:eq(0)');
+      const $bubble = panel.find('div.bubble:visible:eq(0)');
       if ($bubble.length) {
         const bubbleDoc = $bubble[0].bubbleDoc;
         bubbleDoc.redraw(true /* stealFocus */);
@@ -153,8 +153,8 @@ releaseEditor.init = function (options) {
    */
 
   utils.withRelease(function (release) {
-    var addingRelease = self.action === 'add';
-    var tabEnabled = addingRelease ? release.hasTracks() : true;
+    const addingRelease = self.action === 'add';
+    let tabEnabled = addingRelease ? release.hasTracks() : true;
 
     if (tabEnabled) {
       /*
@@ -165,13 +165,13 @@ releaseEditor.init = function (options) {
       tabEnabled = release.hasTrackInfo();
     }
 
-    var tabNumber = addingRelease ? 3 : 2;
+    const tabNumber = addingRelease ? 3 : 2;
     self.uiTabs[tabEnabled ? 'enable' : 'disable'](tabNumber);
 
     // When the tab is enabled, the tooltip is *disabled*
 
-    var tooltipEnabled = !tabEnabled;
-    var $tab = self.uiTabs.tabs.eq(tabNumber).find('a');
+    const tooltipEnabled = !tabEnabled;
+    const $tab = self.uiTabs.tabs.eq(tabNumber).find('a');
 
     /*
      * XXX Don't disable the tooltip twice.
@@ -186,10 +186,10 @@ releaseEditor.init = function (options) {
   // Change the track artists to match the release artist if it was changed.
 
   utils.withRelease(function (release) {
-    var tabID = self.activeTabID();
-    var releaseAC = cloneObjectDeep(release.artistCredit());
-    var savedReleaseAC = release.artistCredit.saved;
-    var releaseACChanged = !artistCreditsAreEqual(releaseAC, savedReleaseAC);
+    const tabID = self.activeTabID();
+    const releaseAC = cloneObjectDeep(release.artistCredit());
+    const savedReleaseAC = release.artistCredit.saved;
+    const releaseACChanged = !artistCreditsAreEqual(releaseAC, savedReleaseAC);
 
     if (tabID === '#tracklist' && releaseACChanged) {
       if (!hasVariousArtists(releaseAC)) {
@@ -212,7 +212,7 @@ releaseEditor.init = function (options) {
   // Update the document title to match the release title
 
   utils.withRelease(function (release) {
-    var name = clean(release.name());
+    const name = clean(release.name());
 
     if (self.action === 'add') {
       document.title = name
@@ -260,7 +260,7 @@ releaseEditor.init = function (options) {
    * Make sure the user actually wants to close the page/tab if they've made
    * any changes.
    */
-  var hasEdits = ko.computed(function () {
+  const hasEdits = ko.computed(function () {
     return releaseEditor.allEdits().length > 0;
   });
 
@@ -316,7 +316,7 @@ releaseEditor.init = function (options) {
 };
 
 releaseEditor.loadRelease = function (gid, callback) {
-  var args = {
+  const args = {
     url: '/ws/js/release/' + gid,
     data: {inc: 'rels'},
   };
@@ -338,7 +338,7 @@ releaseEditor.loadRelease = function (gid, callback) {
 releaseEditor.releaseLoaded = function (data) {
   this.loadError('');
 
-  var seed = this.seededReleaseData;
+  const seed = this.seededReleaseData;
 
   // Setup the external links editor
   setTimeout(function () {
@@ -348,7 +348,7 @@ releaseEditor.releaseLoaded = function (data) {
     );
   }, 1);
 
-  var release = new fields.Release(data);
+  const release = new fields.Release(data);
 
   if (seed) {
     this.seedRelease(release, seed);
@@ -367,8 +367,8 @@ releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
     return null;
   }
 
-  var self = this;
-  var seed = this.seededReleaseData;
+  const self = this;
+  const seed = this.seededReleaseData;
   delete this.seededReleaseData;
 
   if (seed && seed.relationships) {
@@ -399,12 +399,12 @@ releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
 };
 
 releaseEditor.autoOpenTheAddMediumDialog = function (release) {
-  var addMediumUI = $(this.addMediumDialog.element).data('ui-dialog');
-  var trackParserUI = $(this.trackParserDialog.element).data('ui-dialog');
+  const addMediumUI = $(this.addMediumDialog.element).data('ui-dialog');
+  const trackParserUI = $(this.trackParserDialog.element).data('ui-dialog');
 
   // Show the dialog if there's no non-empty disc.
   if (this.activeTabID() === '#tracklist') {
-    var dialogIsOpen = (addMediumUI && addMediumUI.isOpen()) ||
+    const dialogIsOpen = (addMediumUI && addMediumUI.isOpen()) ||
         (trackParserUI && trackParserUI.isOpen());
 
     if (!dialogIsOpen && release.hasOneEmptyMedium() &&

@@ -68,8 +68,8 @@ validationTest((
     ],
   });
 
-  var release = releaseEditor.rootField.release();
-  var events = release.events();
+  const release = releaseEditor.rootField.release();
+  const events = release.events();
 
   t.ok(events[0].isDuplicate());
   t.ok(events[1].isDuplicate());
@@ -85,8 +85,8 @@ validationTest((
 
   releaseEditor.action = 'edit';
 
-  var label1 = {name: 'Foo', id: 123};
-  var label2 = {name: 'Bar', id: 456};
+  const label1 = {name: 'Foo', id: 123};
+  const label2 = {name: 'Bar', id: 456};
 
   releaseEditor.releaseLoaded({
     labels: [
@@ -101,7 +101,7 @@ validationTest((
     ],
   });
 
-  var labels = releaseEditor.rootField.release().labels();
+  const labels = releaseEditor.rootField.release().labels();
 
   t.ok(labels[0].isDuplicate());
   t.ok(labels[1].isDuplicate());

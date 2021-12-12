@@ -85,9 +85,9 @@ RE.exportTypeInfo = function (typeInfo, attrInfo) {
   MB.allowedRelations = {};
 
   Object.keys(typeInfo).forEach(function (typeString) {
-    var types = typeString.split('-');
-    var type0 = types[0];
-    var type1 = types[1];
+    const types = typeString.split('-');
+    const type0 = types[0];
+    const type1 = types[1];
 
     if (!editorMayEditTypes(type0, type1)) {
       return;
@@ -170,7 +170,7 @@ Object.assign(ViewModel.prototype, {
 MB.initRelationshipEditors = function (args) {
   MB.relationshipEditor.exportTypeInfo(args.typeInfo, args.attrInfo);
 
-  var sourceData = args.sourceData;
+  const sourceData = args.sourceData;
 
   // XXX used by series edit form
   sourceData.gid = sourceData.gid || uniqueId('tmp-');
@@ -178,8 +178,8 @@ MB.initRelationshipEditors = function (args) {
   MB.sourceEntityGID = sourceData.gid;
   MB.sourceEntity = MB.entity(sourceData);
 
-  var source = MB.sourceEntity;
-  var vmArgs = {source: source, formName: args.formName};
+  const source = MB.sourceEntity;
+  const vmArgs = {source: source, formName: args.formName};
 
   let {vmClass} = args;
   if (!vmClass) {
@@ -188,7 +188,7 @@ MB.initRelationshipEditors = function (args) {
 
   new vmClass(vmArgs);
 
-  var externalLinksEditor = $('#external-links-editor-container')[0];
+  const externalLinksEditor = $('#external-links-editor-container')[0];
   if (externalLinksEditor) {
     MB.sourceExternalLinksEditor = MB.createExternalLinksEditor({
       sourceData: sourceData,
@@ -204,7 +204,7 @@ MB.initRelationshipEditors = function (args) {
 
   addPostedRelationships(source);
 
-  var $content = $('#relationship-editor');
+  const $content = $('#relationship-editor');
   ko.applyBindings(MB.sourceRelationshipEditor, $content[0]);
   $content.show();
 };
@@ -255,8 +255,8 @@ function getRelationshipEditor(data, source) {
     return MB.sourceRelationshipEditor;
   }
 
-  var target = data.target;
-  var linkType = linkedEntities.link_type[data.linkTypeID];
+  const target = data.target;
+  const linkType = linkedEntities.link_type[data.linkTypeID];
 
   if ((target && target.entityType === 'url') ||
       (linkType && (linkType.type0 === 'url' || linkType.type1 === 'url'))) {
@@ -275,7 +275,7 @@ function getRelationshipEditor(data, source) {
 }
 
 function addSubmittedRelationship(data, source) {
-  var relationship = MB.getRelationship(data, source);
+  const relationship = MB.getRelationship(data, source);
   if (!relationship) {
     return;
   } else if (relationship.id) {
@@ -305,7 +305,7 @@ function addPostedRelationships(source) {
 }
 
 function editorMayEditTypes(type0, type1) {
-  var types = [type0, type1].sort().join('-');
+  const types = [type0, type1].sort().join('-');
 
   if (/^area-area|area-url$/.test(types)) {
     return !!MB.userIsLocationEditor;

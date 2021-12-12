@@ -19,7 +19,7 @@ class Multiselect {
     this.$menu = $element.find('div.menu').data('multiselect', this);
     this.$items = $element.find('div.items');
 
-    var self = this;
+    const self = this;
 
     this.$menu
       .on('keydown', $.proxy(this.menuKeydown, this))
@@ -45,8 +45,8 @@ class Multiselect {
     this.menuVisible = ko.observable(false);
     this.menuVisible.subscribe(this.menuVisibleChanged, this);
 
-    var options = params.options;
-    var optionNodes = [];
+    const options = params.options;
+    const optionNodes = [];
 
     for (var i = 0, node, option; (option = options[i]); i++) {
       node = document.createElement('a');
@@ -81,17 +81,17 @@ class Multiselect {
   }
 
   updateOptions(term) {
-    var selected = this.relationship.attributes.peek();
-    var menu = this.$menu[0];
+    const selected = this.relationship.attributes.peek();
+    const menu = this.$menu[0];
 
-    var previousDisplay = menu.style.display;
+    const previousDisplay = menu.style.display;
     menu.style.display = 'none';
 
-    var optionNodes = this.optionNodes.filter(function (node) {
-      var option = node.optionData;
-      var typeGID = option.value;
+    const optionNodes = this.optionNodes.filter(function (node) {
+      const option = node.optionData;
+      const typeGID = option.value;
 
-      var visible = matchIndex(option, term) >= 0 && (
+      const visible = matchIndex(option, term) >= 0 && (
         linkedEntities.link_attribute_type[typeGID].creditable ||
                     selected.findIndex(a => a.type.gid === typeGID) < 0
       );
@@ -115,8 +115,8 @@ class Multiselect {
   deselect(event) {
     event.preventDefault();
 
-    var attribute = ko.dataFor(event.target);
-    var typeGID = attribute.type.gid;
+    const attribute = ko.dataFor(event.target);
+    const typeGID = attribute.type.gid;
 
     this.relationship.attributes.remove(attribute);
     this.menuVisible(false);
@@ -149,8 +149,8 @@ class Multiselect {
   }
 
   inputKeydown(event) {
-    var keyCode = event.keyCode;
-    var menuVisible = this.menuVisibleWithOptions();
+    const keyCode = event.keyCode;
+    const menuVisible = this.menuVisibleWithOptions();
 
     switch (keyCode) {
       case 13: // enter
@@ -178,9 +178,9 @@ class Multiselect {
   }
 
   menuKeydown(event) {
-    var keyCode = event.keyCode;
-    var activeElement = document.activeElement;
-    var menuItemActive = activeElement.parentNode === this.$menu[0];
+    const keyCode = event.keyCode;
+    const activeElement = document.activeElement;
+    const menuItemActive = activeElement.parentNode === this.$menu[0];
 
     switch (keyCode) {
       case 27: // esc

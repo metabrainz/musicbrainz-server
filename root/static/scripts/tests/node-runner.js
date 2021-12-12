@@ -1,12 +1,12 @@
 /* eslint-disable import/no-commonjs */
 
-var rowCount = 0;
-var timeout;
+let rowCount = 0;
+let timeout;
 
 require('tape').createStream().on('data', function (row) {
   console.log(row.replace(/\n$/, ''));
 
-  var lastKnownRow = ++rowCount;
+  const lastKnownRow = ++rowCount;
 
   clearTimeout(timeout);
 

@@ -36,13 +36,13 @@ class BubbleBase {
     this.target(ko.dataFor(control));
     this.visible(true);
 
-    var $bubble = this.$bubble;
+    const $bubble = this.$bubble;
 
     if (stealFocus !== false && $(control).is(':button')) {
       deferFocus(':input:first', $bubble);
     }
 
-    var activeBubble = this.activeBubbles[this.group];
+    const activeBubble = this.activeBubbles[this.group];
 
     if (activeBubble && activeBubble !== this) {
       activeBubble.hide(false);
@@ -57,14 +57,14 @@ class BubbleBase {
   hide(stealFocus) {
     this.visible(false);
 
-    var $control = $(this.control);
+    const $control = $(this.control);
     this.control = null;
 
     if (stealFocus !== false && $control.is(':button')) {
       $control.focus();
     }
 
-    var activeBubble = this.activeBubbles[this.group];
+    const activeBubble = this.activeBubbles[this.group];
 
     if (activeBubble === this) {
       this.activeBubbles[this.group] = null;
@@ -160,11 +160,11 @@ ko.bindingHandlers.bubble = {
 
   init: function (element, valueAccessor, allBindingsAccessor,
     viewModel, bindingContext) {
-    var bubble = valueAccessor();
+    const bubble = valueAccessor();
     element.bubbleDoc = bubble;
     bubble.$bubble = $(element);
 
-    var childContext = bindingContext.createChildContext(bubble);
+    const childContext = bindingContext.createChildContext(bubble);
 
     ko.applyBindingsToNode(element, {show: bubble.visible}, childContext);
     ko.applyBindingsToDescendants(childContext, element);
@@ -177,7 +177,7 @@ ko.bindingHandlers.bubble = {
 ko.bindingHandlers.controlsBubble = {
 
   init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-    var bubble = valueAccessor();
+    const bubble = valueAccessor();
 
     element.bubbleDoc = bubble;
     viewModel['bubbleControl' + bubble.group] = element;
@@ -223,7 +223,7 @@ ko.bindingHandlers.affectsBubble = {
     }
 
     let throttled = false;
-    var observer = new MutationObserver(function () {
+    const observer = new MutationObserver(function () {
       if (!throttled) {
         throttled = true;
         setTimeout(function () {
@@ -253,24 +253,24 @@ ko.bindingHandlers.affectsBubble = {
  */
 
 function bubbleControlHandler(event) {
-  var control = event.target;
-  var bubble = control.bubbleDoc;
+  const control = event.target;
+  const bubble = control.bubbleDoc;
 
   if (!bubble) {
     return undefined;
   }
 
-  var isButton = $(control).is(':button');
-  var buttonClicked = isButton && event.type === 'click';
-  var inputFocused = !isButton && event.type === 'focusin';
-  var viewModel = ko.dataFor(control);
+  const isButton = $(control).is(':button');
+  const buttonClicked = isButton && event.type === 'click';
+  const inputFocused = !isButton && event.type === 'focusin';
+  const viewModel = ko.dataFor(control);
 
   /*
    * If this is false, the bubble should already be hidden. See the
    * computed in controlsBubble.
    */
   if (bubble.canBeShown(viewModel)) {
-    var wasOpen = bubble.visible() && bubble.targetIs(viewModel);
+    const wasOpen = bubble.visible() && bubble.targetIs(viewModel);
 
     if (buttonClicked && wasOpen) {
       bubble.hide();
@@ -293,16 +293,16 @@ function bubbleKeydownHandler(event) {
     return;
   }
 
-  var $target = $(event.target);
-  var $bubble = $target.parents('div.bubble');
-  var bubbleDoc = $bubble[0].bubbleDoc;
+  const $target = $(event.target);
+  const $bubble = $target.parents('div.bubble');
+  const bubbleDoc = $bubble[0].bubbleDoc;
 
   if (!bubbleDoc) {
     return;
   }
 
-  var pressedEsc = event.which === 27;
-  var pressedEnter = event.which === 13;
+  const pressedEsc = event.which === 27;
+  const pressedEnter = event.which === 13;
 
   if (pressedEsc || (pressedEnter && $target.is(':not(:button)'))) {
     event.preventDefault();
@@ -333,7 +333,7 @@ $('body')
 MB.Control.initializeBubble = function (bubble, control, vm, canBeShown) {
   vm = vm || {};
 
-  var bubbleDoc = new BubbleDoc();
+  const bubbleDoc = new BubbleDoc();
 
   if (canBeShown) {
     bubbleDoc.canBeShown = canBeShown;

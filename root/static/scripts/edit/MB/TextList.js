@@ -13,10 +13,10 @@ import MB from '../../common/MB';
 MB.Form = (MB.Form) ? MB.Form : {};
 
 MB.Form.TextList = function (input) {
-  var template = input + '-template';
-  var self = {};
-  var $template = $('.' + template.replace(/\./g, '\\.'));
-  var counter = 0;
+  const template = input + '-template';
+  const self = {};
+  const $template = $('.' + template.replace(/\./g, '\\.'));
+  let counter = 0;
 
   self.removeEvent = function () {
     $(this).closest('div.text-list-row').remove();

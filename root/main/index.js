@@ -1,6 +1,6 @@
 /*
  * @flow strict-local
- * Copyright (C) 2022 MetaBrainz Foundation
+ * Copyright (C) 2021 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
  * and is licensed under the GPL version 2, or (at your option) any
@@ -13,9 +13,9 @@ import './styles/colors.less';
 import './styles/globals.less';
 import './styles/Home.less';
 import Head from '../layout/components/Head';
+import Footer from '../layout/components/Footer';
 
 import Header from './components/Home/Header/Header';
-import Footer from './components/Home/Footer/Footer';
 import ScrollToTop from './components/Utils/ScrollToTop/ScrollToTop';
 import Supporters from './components/Home/Supporters/Supporters';
 import Intro from './components/Home/Intro/Intro';
@@ -28,7 +28,7 @@ import Projects from './components/Home/Projects/Projects';
 export default function Home() {
   const DARK_MODE_KEY = 'dark_mode';
   const [dark, setDark] = useState(getSetting);
-  let theme = dark ? 'theme-dark' : 'theme-light';
+  const theme = dark ? 'theme-dark' : 'theme-light';
 
   function getSetting() {
     try {
@@ -40,7 +40,10 @@ export default function Home() {
 
   function updateSetting(value) {
     try {
-      window.localStorage.setItem(DARK_MODE_KEY, JSON.stringify(value === true));
+      window.localStorage.setItem(
+        DARK_MODE_KEY,
+        JSON.stringify(value === true),
+      );
     } catch (e) {}
   }
 
@@ -55,7 +58,11 @@ export default function Home() {
   return (
     <div>
       <Head />
-      <Header isDarkThemeActive={dark} switchActiveTheme={toggleDarkMode} theme={theme} />
+      <Header
+        isDarkThemeActive={dark}
+        switchActiveTheme={toggleDarkMode}
+        theme={theme}
+      />
       <Intro theme={theme} />
       <About theme={theme} />
       <Facts theme={theme} />

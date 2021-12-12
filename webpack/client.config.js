@@ -102,7 +102,7 @@ function mtime(fpath) {
 }
 
 function findNewerPo(domain, lang, bundleMtime) {
-  let srcPo = poFile.find(domain, lang);
+  const srcPo = poFile.find(domain, lang);
   const poMtime = mtime(srcPo);
   if (poMtime === null) {
     console.warn(`Warning: ${srcPo} does not exist, skipping`);

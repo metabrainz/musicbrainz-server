@@ -56,7 +56,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
     },
 
     source: function (request, response) {
-      var self = this;
+      const self = this;
 
       // always reset to first page if we're looking for something new.
       if (request.term != this.pageTerm) {
@@ -120,7 +120,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
 
     this.element.attr('placeholder', l('Type to search, or paste an MBID'));
 
-    var self = this;
+    const self = this;
 
     /*
      * The following callbacks are triggered by jQuery UI. They're defined
@@ -134,7 +134,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
     };
 
     this.options.select = function (event, data) {
-      var entity = self._dataToEntity(data.item);
+      const entity = self._dataToEntity(data.item);
 
       self.currentSelection(entity);
       self.element.trigger('lookup-performed', [entity]);
@@ -149,7 +149,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
     // End of options callbacks.
 
     this.element.on('input', function () {
-      var selection = self.currentSelection.peek();
+      const selection = self.currentSelection.peek();
 
       /*
        * XXX The condition shouldn't be necessary, because the input
@@ -173,7 +173,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
        */
       self.cancelSearch = true;
 
-      var selection = self.currentSelection.peek();
+      const selection = self.currentSelection.peek();
 
       if (selection && selection.name !== self._value()) {
         self.clear(false);
@@ -190,7 +190,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
         return;
       }
 
-      var recent = self.recentEntities();
+      const recent = self.recentEntities();
 
       if (!this.value && recent && recent.length && !self.menu.active) {
         /*
@@ -264,8 +264,8 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
   },
 
   clearSelection: function (clearAction) {
-    var name = clearAction ? '' : this._value();
-    var currentSelection = this.currentSelection.peek();
+    const name = clearAction ? '' : this._value();
+    const currentSelection = this.currentSelection.peek();
 
     /*
      * If the current entity doesn't have an id, it's already "blank" and
@@ -305,15 +305,15 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
 
   setSelection: function (data) {
     data = data || {};
-    var name = ko.unwrap(data.name) || '';
-    var hasID = !!(data.id || data.gid);
+    const name = ko.unwrap(data.name) || '';
+    const hasID = !!(data.id || data.gid);
 
     if (this._value() !== name) {
       this._value(name);
     }
 
     if (this.options.showStatus) {
-      var error = !(name || hasID || this.options.allowEmpty);
+      const error = !(name || hasID || this.options.allowEmpty);
 
       this.element
         .toggleClass('error', error)
@@ -324,10 +324,10 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
 
     if (hasID) {
       // Add/move to the top of the recent entities menu.
-      var recent = this.recentEntities();
-      var entityProperties = ENTITIES[this.entityType()];
+      const recent = this.recentEntities();
+      const entityProperties = ENTITIES[this.entityType()];
       const idProp = entityProperties.mbid ? 'gid' : 'id';
-      var duplicate = recent.find(
+      const duplicate = recent.find(
         x => x[idProp] === data[idProp],
       );
 
@@ -352,7 +352,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
 
   // Overrides $.ui.autocomplete.prototype._searchTimeout
   _searchTimeout: function (event) {
-    var newTerm = this._value();
+    let newTerm = this._value();
 
     if (isBlank(newTerm)) {
       clearTimeout(this.searching);
@@ -360,14 +360,14 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
       return;
     }
 
-    var mbidMatch = newTerm.match(this.mbidRegex);
+    const mbidMatch = newTerm.match(this.mbidRegex);
     if (mbidMatch) {
       clearTimeout(this.searching);
       this._lookupMBID(mbidMatch[0]);
       return;
     }
 
-    var oldTerm = this.term;
+    let oldTerm = this.term;
 
     /*
      * Support pressing <space> to trigger a search, but ignore it if the
@@ -395,7 +395,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
   },
 
   _lookupMBID: function (mbid) {
-    var self = this;
+    const self = this;
 
     this.close();
 
@@ -409,14 +409,14 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
       dataType: 'json',
 
       success: function (data) {
-        var currentEntityType = self.entity.replace('-', '_');
+        const currentEntityType = self.entity.replace('-', '_');
 
         if (data.entityType !== currentEntityType) {
           /*
            * Only RelateTo boxes and relationship-editor dialogs
            * support changing the entity type.
            */
-          var setEntity = self.options.setEntity;
+          const setEntity = self.options.setEntity;
 
           if (!setEntity || setEntity(data.entityType) === false) {
             self.clear();
@@ -431,9 +431,9 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
   },
 
   _lookupSuccess: function (response, data) {
-    var self = this;
-    var pager = last(data);
-    var jumpTo = this.currentResults.length;
+    const self = this;
+    const pager = last(data);
+    const jumpTo = this.currentResults.length;
 
     data = this.options.resultHook(data.slice(0, -1));
 
@@ -443,7 +443,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
      * before appending the new results (we re-add them below).
      */
 
-    var results = this.currentResults =
+    const results = this.currentResults =
       this.currentResults.filter(function (item) {
         return !item.action;
       });
@@ -526,14 +526,14 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
        * Once everything's rendered, jump to the first item that was
        * added. This makes the menu scroll after hitting "Show More."
        */
-      var menu = this.menu;
-      var $ul = menu.element;
+      const menu = this.menu;
+      const $ul = menu.element;
 
       if (menu.active) {
         menu.active.children('a').removeClass('ui-state-focus');
       }
 
-      var $item = menu.active = $ul.children('li:eq(' + jumpTo + ')');
+      const $item = menu.active = $ul.children('li:eq(' + jumpTo + ')');
       $item.children('a').addClass('ui-state-focus');
 
       if (this.currentPage > 1) {
@@ -553,8 +553,8 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
     if (item.action) {
       return this._renderAction(ul, item);
     }
-    var formatters = MB.Control.autocomplete_formatters;
-    var entityType = formatters[this.entity] ? this.entity : 'generic';
+    const formatters = MB.Control.autocomplete_formatters;
+    const entityType = formatters[this.entity] ? this.entity : 'generic';
     return formatters[entityType](ul, item);
   },
 
@@ -570,9 +570,9 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
   },
 
   recentEntities: function (newEntities) {
-    var entityType = this.entityType();
-    var recentEntities = {};
-    var storedRecentEntities = localStorage('recentAutocompleteEntities');
+    const entityType = this.entityType();
+    let recentEntities = {};
+    const storedRecentEntities = localStorage('recentAutocompleteEntities');
 
     if (storedRecentEntities) {
       try {
@@ -614,8 +614,8 @@ $.widget('ui.menu', $.ui.menu, {
    */
 
   _selectAction: function (event) {
-    var active = this.active || $(event.target).closest('.ui-menu-item');
-    var item = active.data('ui-autocomplete-item');
+    const active = this.active || $(event.target).closest('.ui-menu-item');
+    const item = active.data('ui-autocomplete-item');
 
     if (item && $.isFunction(item.action)) {
       item.action();
@@ -655,9 +655,9 @@ $.widget('ui.menu', $.ui.menu, {
 
 MB.Control.autocomplete_formatters = {
   'generic': function (ul, item) {
-    var a = $('<a>').text(item.name);
+    const a = $('<a>').text(item.name);
 
-    var comment = [];
+    const comment = [];
 
     if (item.primaryAlias && item.primaryAlias != item.name) {
       comment.push(item.primaryAlias);
@@ -682,7 +682,7 @@ MB.Control.autocomplete_formatters = {
   },
 
   'recording': function (ul, item) {
-    var a = $('<a>').text(item.name);
+    const a = $('<a>').text(item.name);
 
     if (item.length) {
       a.prepend('<span class="autocomplete-length">' +
@@ -703,7 +703,7 @@ MB.Control.autocomplete_formatters = {
              he.escape(item.artist) + '</span>');
 
     if (item.appearsOn && item.appearsOn.hits > 0) {
-      var rgs = [];
+      const rgs = [];
       $.each(item.appearsOn.results, function (idx, item) {
         rgs.push(item.name);
       });
@@ -737,14 +737,14 @@ MB.Control.autocomplete_formatters = {
   },
 
   'release': function (ul, item) {
-    var $li = this.generic(ul, item);
-    var $a = $li.children('a');
+    const $li = this.generic(ul, item);
+    const $a = $li.children('a');
 
     appendComment($a, he.escape(reduceArtistCredit(item.artistCredit)));
 
     item.events && item.events.forEach(function (event) {
-      var country = event.country;
-      var countryHTML = '';
+      const country = event.country;
+      let countryHTML = '';
 
       if (country) {
         const primaryCode = primaryAreaCode(country);
@@ -800,7 +800,7 @@ MB.Control.autocomplete_formatters = {
   },
 
   'release-group': function (ul, item) {
-    var a = $('<a>').text(item.name);
+    const a = $('<a>').text(item.name);
 
     if (item.firstReleaseDate) {
       a.append('<span class="autocomplete-comment">' +
@@ -824,7 +824,7 @@ MB.Control.autocomplete_formatters = {
   },
 
   'series': function (ul, item) {
-    var a = $('<a>').text(item.name);
+    const a = $('<a>').text(item.name);
 
     if (item.comment) {
       a.append(
@@ -847,8 +847,8 @@ MB.Control.autocomplete_formatters = {
   },
 
   'work': function (ul, item) {
-    var a = $('<a>').text(item.name);
-    var comment = [];
+    const a = $('<a>').text(item.name);
+    const comment = [];
 
     if (item.languages && item.languages.length) {
       a.prepend(
@@ -881,9 +881,9 @@ MB.Control.autocomplete_formatters = {
       );
     }
 
-    var artistRenderer = function (prefix, artists) {
+    const artistRenderer = function (prefix, artists) {
       if (artists && artists.hits > 0) {
-        var toRender = artists.results;
+        const toRender = artists.results;
         if (artists.hits > toRender.length) {
           toRender.push('...');
         }
@@ -904,7 +904,7 @@ MB.Control.autocomplete_formatters = {
   },
 
   'area': function (ul, item) {
-    var a = $('<a>').text(item.name);
+    const a = $('<a>').text(item.name);
 
     if (item.comment) {
       a.append('<span class="autocomplete-comment">' +
@@ -912,7 +912,7 @@ MB.Control.autocomplete_formatters = {
     }
 
     if (item.typeName || (item.containment && item.containment.length)) {
-      var items = [];
+      const items = [];
       if (item.typeName) {
         items.push(lp_attributes(item.typeName, 'area_type'));
       }
@@ -927,9 +927,9 @@ MB.Control.autocomplete_formatters = {
   },
 
   'place': function (ul, item) {
-    var a = $('<a>').text(item.name);
+    const a = $('<a>').text(item.name);
 
-    var comment = [];
+    const comment = [];
 
     if (item.primaryAlias && item.primaryAlias != item.name) {
       comment.push(item.primaryAlias);
@@ -945,9 +945,9 @@ MB.Control.autocomplete_formatters = {
                '</span>');
     }
 
-    var area = item.area;
+    const area = item.area;
     if (item.typeName || area) {
-      var items = [];
+      const items = [];
       if (item.typeName) {
         items.push(lp_attributes(item.typeName, 'place_type'));
       }
@@ -965,9 +965,9 @@ MB.Control.autocomplete_formatters = {
   },
 
   'instrument': function (ul, item) {
-    var a = $('<a>').text(item.name);
+    const a = $('<a>').text(item.name);
 
-    var comment = [];
+    const comment = [];
 
     if (item.primaryAlias && item.primaryAlias != item.name) {
       comment.push(item.primaryAlias);
@@ -1000,8 +1000,8 @@ MB.Control.autocomplete_formatters = {
   },
 
   'event': function (ul, item) {
-    var a = $('<a>').text(item.name);
-    var comment = [];
+    const a = $('<a>').text(item.name);
+    const comment = [];
 
     if (item.primaryAlias && item.primaryAlias != item.name) {
       comment.push(item.primaryAlias);
@@ -1033,9 +1033,9 @@ MB.Control.autocomplete_formatters = {
       );
     }
 
-    var entityRenderer = function (prefix, relatedEntities) {
+    const entityRenderer = function (prefix, relatedEntities) {
       if (relatedEntities && relatedEntities.hits > 0) {
-        var toRender = relatedEntities.results;
+        const toRender = relatedEntities.results;
         if (relatedEntities.hits > toRender.length) {
           toRender.push('...');
         }
@@ -1109,8 +1109,8 @@ function renderContainingAreas(area) {
  */
 
 MB.Control.EntityAutocomplete = function (options) {
-  var $inputs = options.inputs || $();
-  var $name = options.input || $inputs.find('input.name');
+  const $inputs = options.inputs || $();
+  const $name = options.input || $inputs.find('input.name');
 
   if (!options.entity) {
     // guess the entity from span classes.
@@ -1126,7 +1126,7 @@ MB.Control.EntityAutocomplete = function (options) {
   }
 
   $name.entitylookup(options);
-  var autocomplete = $name.data('mb-entitylookup');
+  const autocomplete = $name.data('mb-entitylookup');
 
   autocomplete.currentSelection(mbEntity({
     name: $name.val(),
@@ -1135,7 +1135,7 @@ MB.Control.EntityAutocomplete = function (options) {
   }, options.entity));
 
   autocomplete.currentSelection.subscribe(function (item) {
-    var $hidden = $inputs.find('input[type=hidden]').val('');
+    const $hidden = $inputs.find('input[type=hidden]').val('');
 
     /*
      * We need to do this manually, rather than using $.each,
@@ -1156,7 +1156,7 @@ MB.Control.EntityAutocomplete = function (options) {
 ko.bindingHandlers.autocomplete = {
 
   init: function (element, valueAccessor) {
-    var options = valueAccessor();
+    const options = valueAccessor();
 
     $(element)
       .entitylookup(options)

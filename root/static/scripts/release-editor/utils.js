@@ -35,7 +35,7 @@ utils.mapChild = function (parent, children, type) {
 
 utils.computedWith = function (callback, observable, defaultValue) {
   return ko.computed(function () {
-    var result = observable();
+    const result = observable();
     return result ? callback(result) : defaultValue;
   });
 };
@@ -57,14 +57,14 @@ export function unformatTrackLength(duration) {
     return parseInt(duration, 10);
   }
 
-  var parts = duration.replace(/[:\.]/, ':').split(':');
+  const parts = duration.replace(/[:\.]/, ':').split(':');
   if (parts[0] == '?' || parts[0] == '??' || duration === '') {
     return null;
   }
 
-  var seconds = parseInt(parts.pop(), 10);
-  var minutes = parseInt(parts.pop() || 0, 10) * 60;
-  var hours = parseInt(parts.pop() || 0, 10) * 3600;
+  const seconds = parseInt(parts.pop(), 10);
+  const minutes = parseInt(parts.pop() || 0, 10) * 60;
+  const hours = parseInt(parts.pop() || 0, 10) * 3600;
 
   return (hours + minutes + seconds) * 1000;
 }
@@ -87,7 +87,7 @@ utils.constructLuceneFieldConjunction = function (params) {
 
 
 utils.search = function (resource, query, limit, offset) {
-  var requestArgs = {
+  const requestArgs = {
     url: '/ws/2/' + resource,
     data: {
       fmt: 'json',
@@ -135,7 +135,7 @@ utils.reuseExistingMediumData = function (data) {
  */
 
 utils.cleanWebServiceData = function (data) {
-  var clean = {gid: data.id, name: data.title};
+  const clean = {gid: data.id, name: data.title};
 
   if (data.length) {
     clean.length = data.length;
@@ -207,11 +207,11 @@ utils.similarLengths = function (oldLength, newLength) {
 
 
 export function calculateDiscID(toc) {
-  var info = toc.split(/\s/);
+  const info = toc.split(/\s/);
 
-  var temp = paddedHex(info.shift(), 2) + paddedHex(info.shift(), 2);
+  let temp = paddedHex(info.shift(), 2) + paddedHex(info.shift(), 2);
 
-  for (var i = 0; i < 100; i++) {
+  for (let i = 0; i < 100; i++) {
     temp += paddedHex(info[i], 8);
   }
 
@@ -232,15 +232,15 @@ function paddedHex(str, length) {
  * For an explanation, see http://wiki.musicbrainz.org/Disc_ID_Calculation
  */
 
-var padchar = '-';
-var alpha =
+const padchar = '-';
+const alpha =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._';
 
 function base64(s) {
   let i;
   let b10;
-  var x = [];
-  var imax = s.length - s.length % 3;
+  const x = [];
+  const imax = s.length - s.length % 3;
 
   for (i = 0; i < imax; i += 3) {
     b10 = (s.charCodeAt(i) << 16) |

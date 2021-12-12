@@ -42,8 +42,8 @@ const actions = {
   },
 
   adjacentTab: function (direction) {
-    var index = this.activeTabIndex();
-    var disabled = this.uiTabs.options.disabled;
+    let index = this.activeTabIndex();
+    const disabled = this.uiTabs.options.disabled;
 
     while (index >= 0 && index < this.tabCount) {
       index += direction;
@@ -88,8 +88,8 @@ const actions = {
   },
 
   changeMediumPosition: function (medium, offset) {
-    var oldPosition = medium.position.peek();
-    var newPosition = oldPosition + offset;
+    const oldPosition = medium.position.peek();
+    const newPosition = oldPosition + offset;
 
     if (newPosition <= 0) {
       return;
@@ -97,10 +97,10 @@ const actions = {
 
     medium.position(newPosition);
 
-    var mediums = medium.release.mediums.peek();
-    var index = mediums.indexOf(medium);
-    var possibleNewIndex = index + offset;
-    var neighbor = mediums[possibleNewIndex];
+    const mediums = medium.release.mediums.peek();
+    const index = mediums.indexOf(medium);
+    const possibleNewIndex = index + offset;
+    const neighbor = mediums[possibleNewIndex];
 
     if (neighbor && newPosition === neighbor.position.peek()) {
       neighbor.position(oldPosition);
@@ -111,15 +111,15 @@ const actions = {
   },
 
   removeMedium: function (medium) {
-    var mediums = medium.release.mediums;
-    var index = mediums.indexOf(medium);
-    var position = medium.position();
+    let mediums = medium.release.mediums;
+    const index = mediums.indexOf(medium);
+    let position = medium.position();
 
     medium.removed = true;
     mediums.remove(medium);
     mediums = mediums.peek();
 
-    for (var i = index; (medium = mediums[i]); i++) {
+    for (let i = index; (medium = mediums[i]); i++) {
       if (medium.position() === position + 1) {
         medium.position(position);
       }
@@ -137,7 +137,7 @@ const actions = {
   },
 
   guessCaseMediumName: function (medium) {
-    var name = medium.name.peek();
+    const name = medium.name.peek();
 
     if (name) {
       medium.name(GuessCase.entities.release.guess(name));
@@ -145,7 +145,7 @@ const actions = {
   },
 
   moveTrackUp: function (track) {
-    var previous = track.previous();
+    const previous = track.previous();
 
     if (track.isDataTrack() && (!previous || !previous.isDataTrack())) {
       track.isDataTrack(false);
@@ -162,7 +162,7 @@ const actions = {
   },
 
   moveTrackDown: function (track) {
-    var next = track.next();
+    const next = track.next();
 
     if (!next || track.position() == 0) {
       return false;
@@ -222,12 +222,12 @@ const actions = {
   },
 
   removeTrack: function (track) {
-    var focus = track.next() || track.previous();
-    var $medium = $('#' + track.elementID).parents('.advanced-medium');
-    var medium = track.medium;
-    var tracks = medium.tracks;
-    var index = tracks.indexOf(track);
-    var offset = medium.hasPregap() ? 0 : 1;
+    const focus = track.next() || track.previous();
+    const $medium = $('#' + track.elementID).parents('.advanced-medium');
+    const medium = track.medium;
+    const tracks = medium.tracks;
+    const index = tracks.indexOf(track);
+    const offset = medium.hasPregap() ? 0 : 1;
 
     tracks.remove(track);
     releaseEditor.resetTrackPositions(tracks.peek(), index, offset, 1);
@@ -260,7 +260,7 @@ const actions = {
   },
 
   resetTrackNumbers: function (medium) {
-    var offset = medium.hasPregap() ? 0 : 1;
+    const offset = medium.hasPregap() ? 0 : 1;
 
     medium.tracks().forEach(function (track, i) {
       track.position(i + offset);
@@ -269,13 +269,13 @@ const actions = {
   },
 
   swapTitlesWithArtists: function (medium) {
-    var tracks = medium.tracks();
+    const tracks = medium.tracks();
 
-    var requireConf = tracks.some(function (track) {
+    const requireConf = tracks.some(function (track) {
       return isComplexArtistCredit(track.artistCredit());
     });
 
-    var question = l(
+    const question = l(
       'This tracklist has artist credits with information that ' +
       'will be lost if you swap artist credits with track titles. ' +
       'This cannot be undone. Do you wish to continue?',
@@ -295,9 +295,9 @@ const actions = {
   },
 
   addNewTracks: function (medium) {
-    var releaseAC = medium.release.artistCredit();
-    var defaultAC = hasVariousArtists(releaseAC) ? null : releaseAC;
-    var addTrackCount = parseInt(medium.addTrackCount(), 10) || 1;
+    const releaseAC = medium.release.artistCredit();
+    const defaultAC = hasVariousArtists(releaseAC) ? null : releaseAC;
+    const addTrackCount = parseInt(medium.addTrackCount(), 10) || 1;
 
     for (let i = 0; i < addTrackCount; i++) {
       medium.pushTrack({artistCredit: defaultAC});

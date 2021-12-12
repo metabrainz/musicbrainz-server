@@ -1,6 +1,6 @@
 /*
  * @flow strict-local
- * Copyright (C) 2022 MetaBrainz Foundation
+ * Copyright (C) 2021 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
  * and is licensed under the GPL version 2, or (at your option) any
@@ -63,11 +63,11 @@ const SearchOverlay = props => {
               <div className="form-group">
                 <label className="pb-2" htmlFor="Type">Keywords</label>
                 <input
-                  id="searchInput"
-type="search"
-style={{textTransform: 'capitalize'}}
                   className="form-control form-control-lg form-control-a"
-placeholder="Query"
+                  id="searchInput"
+                  placeholder="Query"
+                  style={{textTransform: 'capitalize'}}
+                  type="search"
                 />
               </div>
             </div>

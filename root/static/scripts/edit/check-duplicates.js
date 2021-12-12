@@ -21,21 +21,21 @@ import {unaccent} from '../common/utility/strings';
 import PossibleDuplicates from './components/PossibleDuplicates';
 import * as validation from './validation';
 
-var commentRequired = ko.observable(false);
-var commentEmpty = ko.observable(false);
+const commentRequired = ko.observable(false);
+const commentEmpty = ko.observable(false);
 
 validation.errorField(ko.computed(function () {
   return commentRequired() && commentEmpty();
 }));
 
-var needsConfirmation = ko.observable(false);
-var isConfirmed = ko.observable(false);
+const needsConfirmation = ko.observable(false);
+const isConfirmed = ko.observable(false);
 
 validation.errorField(ko.computed(function () {
   return needsConfirmation() && !isConfirmed();
 }));
 
-var requestPending = validation.errorField(ko.observable(false));
+const requestPending = validation.errorField(ko.observable(false));
 
 function renderDuplicates(name, duplicates, container) {
   needsConfirmation(true);
@@ -56,7 +56,7 @@ function unmountDuplicates(container) {
 }
 
 function sortPlaceDuplicates(duplicates) {
-  var selectedArea = ko.unwrap(getSelectedArea()) || {};
+  const selectedArea = ko.unwrap(getSelectedArea()) || {};
 
   function sharesLevel(area, level) {
     return (
@@ -66,7 +66,7 @@ function sortPlaceDuplicates(duplicates) {
   }
 
   return sortByNumber(duplicates, function (dupe) {
-    var area = dupe.area;
+    const area = dupe.area;
 
     if (!area) {
       return 0;
@@ -110,7 +110,7 @@ function getSelectedArea() {
 }
 
 function isPlaceCommentRequired(duplicates) {
-  var selectedArea = ko.unwrap(getSelectedArea()) || {};
+  const selectedArea = ko.unwrap(getSelectedArea()) || {};
 
   /*
    * We require a disambiguation comment if no area is given, or if there
@@ -142,7 +142,7 @@ function isCommentRequired(type, name, duplicates) {
 function markCommentAsRequired(input) {
   commentRequired(true);
 
-  var $parent = $(input)
+  const $parent = $(input)
     .attr('required', 'required')
     .addClass('error')
     .parent();
@@ -165,13 +165,13 @@ function markCommentAsNotRequired(input) {
 }
 
 MB.initializeDuplicateChecker = function (type) {
-  var nameInput = document.getElementById(`id-edit-${type}.name`);
-  var commentInput = document.getElementById(`id-edit-${type}.comment`);
-  var dupeContainer = document.getElementById('possible-duplicates');
-  var currentName = nameInput.value;
-  var originalName = currentName;
-  var currentDuplicates = [];
-  var promise;
+  const nameInput = document.getElementById(`id-edit-${type}.name`);
+  const commentInput = document.getElementById(`id-edit-${type}.comment`);
+  const dupeContainer = document.getElementById('possible-duplicates');
+  let currentName = nameInput.value;
+  const originalName = currentName;
+  let currentDuplicates = [];
+  let promise;
 
   const mbidLocationMatch = window.location.pathname.match(
     /[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}/,
@@ -179,7 +179,7 @@ MB.initializeDuplicateChecker = function (type) {
   const sourceEntityGID = mbidLocationMatch ? mbidLocationMatch[0] : '';
 
   function makeRequest(name, forceRequest) {
-    var nameChanged = name !== originalName;
+    const nameChanged = name !== originalName;
 
     /*
      * forceRequest only applies if name is non-empty.
@@ -199,7 +199,7 @@ MB.initializeDuplicateChecker = function (type) {
       data: $.param({type: type, name: name, mbid: sourceEntityGID}, true),
     })
       .done(function (data) {
-        var duplicates = sortDuplicates(type, data.duplicates);
+        const duplicates = sortDuplicates(type, data.duplicates);
 
         if (duplicates.length) {
           renderDuplicates(name, duplicates, dupeContainer);
@@ -232,7 +232,7 @@ MB.initializeDuplicateChecker = function (type) {
     return clean(name).toLowerCase();
   }
 
-  var handleNameChange = debounce(function (name, forceRequest) {
+  const handleNameChange = debounce(function (name, forceRequest) {
     if (forceRequest || normalize(name) !== normalize(currentName)) {
       if (promise) {
         promise.abort();

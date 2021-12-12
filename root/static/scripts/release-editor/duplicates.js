@@ -20,7 +20,7 @@ import releaseEditor from './viewModel';
 import utils from './utils';
 
 
-var releaseGroupReleases = ko.observableArray([]);
+const releaseGroupReleases = ko.observableArray([]);
 
 
 releaseEditor.similarReleases = ko.observableArray([]);
@@ -28,7 +28,7 @@ releaseEditor.baseRelease = ko.observable('');
 
 
 releaseEditor.baseRelease.subscribe(function (gid) {
-  var release = releaseEditor.rootField.release();
+  const release = releaseEditor.rootField.release();
 
   if (!gid) {
     release.mediums([new releaseEditor.fields.Medium({}, release)]);
@@ -49,17 +49,17 @@ releaseEditor.baseRelease.subscribe(function (gid) {
 
 
 releaseEditor.findReleaseDuplicates = function () {
-  var loadingFromRG = false;
+  let loadingFromRG = false;
 
   utils.withRelease(function (release) {
-    var releaseGroup = release.releaseGroup();
-    var gid = releaseGroup.gid;
+    const releaseGroup = release.releaseGroup();
+    const gid = releaseGroup.gid;
 
     if (!gid) {
       return;
     }
 
-    var url = `/ws/2/release?release-group=${gid}&inc=labels+media&fmt=json`;
+    const url = `/ws/2/release?release-group=${gid}&inc=labels+media&fmt=json`;
 
     loadingFromRG = true;
     toggleLoadingIndicator(true);
@@ -75,13 +75,13 @@ releaseEditor.findReleaseDuplicates = function () {
   });
 
   debounceComputed(utils.withRelease(function (release) {
-    var name = release.name();
+    const name = release.name();
 
     /*
      * If a release group is selected, just show the releases from
      * there without searching.
      */
-    var rgReleases = releaseGroupReleases();
+    const rgReleases = releaseGroupReleases();
 
     if (rgReleases.length > 0) {
       releaseEditor.similarReleases(rgReleases);
@@ -89,13 +89,13 @@ releaseEditor.findReleaseDuplicates = function () {
       return;
     }
 
-    var ac = release.artistCredit();
+    const ac = release.artistCredit();
 
     if (loadingFromRG || !name || !isCompleteArtistCredit(ac)) {
       return;
     }
 
-    var query = utils.constructLuceneFieldConjunction({
+    const query = utils.constructLuceneFieldConjunction({
       release: [utils.escapeLuceneValue(name)],
 
       arid: ac.names.map(
@@ -111,7 +111,7 @@ releaseEditor.findReleaseDuplicates = function () {
 
 
 function gotResults(data) {
-  var releases = data.releases.filter(function (release) {
+  const releases = data.releases.filter(function (release) {
     return parseInt(release.score, 10) >= 65;
   });
 
@@ -134,10 +134,10 @@ function toggleLoadingIndicator(show) {
 
 
 function formatReleaseData(release) {
-  var clean = new MB.entity.Release(utils.cleanWebServiceData(release));
+  const clean = new MB.entity.Release(utils.cleanWebServiceData(release));
 
-  var events = release['release-events'];
-  var labels = release['label-info'];
+  const events = release['release-events'];
+  const labels = release['label-info'];
 
   clean.formats = combinedMediumFormatName(release.media) ||
                   l('[missing media]');

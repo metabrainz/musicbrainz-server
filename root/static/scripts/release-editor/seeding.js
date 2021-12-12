@@ -18,7 +18,7 @@ releaseEditor.seedErrors = ko.observable(null);
 releaseEditor.seed = function (data) {
   data = data || {seed: {}, errors: []};
 
-  var seed = data.seed;
+  const seed = data.seed;
   this.seededReleaseData = seed;
 
   if (data.errors && data.errors.length) {
@@ -34,13 +34,13 @@ releaseEditor.seed = function (data) {
   }
 
   if (this.action === 'add') {
-    var releaseData = {};
+    const releaseData = {};
 
     if (seed.relationships) {
       releaseData.relationships = seed.relationships;
     }
 
-    var release = new fields.Release(releaseData);
+    const release = new fields.Release(releaseData);
     this.seedRelease(release, seed);
     this.rootField.release(release);
   }

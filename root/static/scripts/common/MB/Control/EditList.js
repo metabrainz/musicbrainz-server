@@ -10,19 +10,19 @@ import $ from 'jquery';
 
 import MB from '../../MB';
 
-var SELECTED_CLASS = {
+const SELECTED_CLASS = {
   '1':  'vote-yes',
   '0':  'vote-no',
   '-1': 'vote-abs',
 };
 
 MB.Control.EditList = function (container) {
-  var self = {};
+  const self = {};
 
-  var $container = $(container);
+  const $container = $(container);
 
   self.initialize = function () {
-    var $voteOptions = $container
+    const $voteOptions = $container
       .find('input[type="radio"]')
       .first()
       .parents('.voteopts')

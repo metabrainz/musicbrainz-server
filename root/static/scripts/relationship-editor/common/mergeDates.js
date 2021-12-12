@@ -14,7 +14,7 @@ function conflict(a, b, prop) {
   return nonEmpty(a[prop]) && nonEmpty(b[prop]) && a[prop] !== b[prop];
 }
 
-var unwrapInteger = x => parseIntegerOrNull(ko.unwrap(x));
+const unwrapInteger = x => parseIntegerOrNull(ko.unwrap(x));
 
 function mergeDates(a, b) {
   a = {

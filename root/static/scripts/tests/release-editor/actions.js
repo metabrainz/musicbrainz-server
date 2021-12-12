@@ -19,9 +19,9 @@ MB.mediumFormatDates = {1: 1982};
 test('removing a track should change the track numbers', function (t) {
   t.plan(3);
 
-  var release = common.setupReleaseEdit();
-  var tracks = release.mediums()[0].tracks();
-  var track2 = tracks[1];
+  const release = common.setupReleaseEdit();
+  const tracks = release.mediums()[0].tracks();
+  const track2 = tracks[1];
 
   t.equal(track2.number(), '2', 'track has number "2" before removal');
 
@@ -34,14 +34,14 @@ test('removing a track should change the track numbers', function (t) {
 test('removing a medium should change the medium positions', function (t) {
   t.plan(2);
 
-  var release = common.setupReleaseEdit();
+  const release = common.setupReleaseEdit();
 
   release.mediums.push(
     new fields.Medium(common.testMedium, release),
     new fields.Medium({tracks: [], position: 3, release: release}),
   );
 
-  var mediums = release.mediums();
+  const mediums = release.mediums();
   t.deepEqual(
     mediums.map(x => x.position()),
     [1, 2, 3],
@@ -61,10 +61,10 @@ test((
 ), function (t) {
   t.plan(4);
 
-  var release = common.setupReleaseEdit();
-  var tracks = release.mediums()[0].tracks();
-  var originalTrack1 = tracks[0];
-  var originalTrack2 = tracks[1];
+  const release = common.setupReleaseEdit();
+  const tracks = release.mediums()[0].tracks();
+  const originalTrack1 = tracks[0];
+  const originalTrack2 = tracks[1];
 
   originalTrack2.position(3);
 
