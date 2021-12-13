@@ -9,10 +9,12 @@
 /* eslint-disable import/no-commonjs */
 
 const net = require('net');
+
 const Sentry = require('@sentry/node');
 
 const DBDefs = require('../static/scripts/common/DBDefs');
 const sanitizedContext = require('../utility/sanitizedContext');
+
 const {allocBuffer} = require('./buffer');
 const {badRequest, getResponse} = require('./response');
 const {clearRequireCache} = require('./utils');

@@ -26,13 +26,11 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Constants qw(
     :direction
-    $PART_OF_AREA_LINK_TYPE
     %ENTITIES
     %ENTITIES_WITH_RELATIONSHIP_CREDITS
     @RELATABLE_ENTITIES
-    entities_with
 );
-use Scalar::Util 'weaken';
+use Scalar::Util qw( weaken );
 use List::AllUtils qw( any nsort_by part partition_by uniq );
 use aliased 'MusicBrainz::Server::Entity::RelationshipTargetTypeGroup';
 use aliased 'MusicBrainz::Server::Entity::RelationshipLinkTypeGroup';
@@ -521,25 +519,20 @@ sub get_types_for_timeline
 {
     my $self = shift;
 
+    my $cache = $self->c->cache('statistics');
+    my $cached_types = $cache->get('types_for_timeline');
+
+    return %$cached_types if $cached_types;
+
     my %rel_types;
 
     for my $t ($self->all_pairs) {
         my $table = join('_', 'l', @$t);
-        my $data = $self->sql->select_list_of_hashes(<<~"SQL", @$t);
-                SELECT link_type_filtered.id,
-                       link_type_filtered.name,
-                       link_type_filtered.parent,
-                       count(l_table.id)
-                  FROM $table l_table
-            RIGHT JOIN link ON l_table.link = link.id
-            RIGHT JOIN (SELECT *
-                          FROM link_type
-                         WHERE entity_type0 = ?
-                           AND entity_type1 = ?) link_type_filtered
-                    ON link.link_type = link_type_filtered.id
-              GROUP BY link_type_filtered.name,
-                       link_type_filtered.id,
-                       link_type_filtered.parent
+        my $data = $self->sql->select_list_of_hashes(<<~'SQL', @$t);
+                SELECT link_type.name
+                  FROM link_type
+                 WHERE entity_type0 = ?
+                   AND entity_type1 = ?
             SQL
 
         for (@$data) {
@@ -551,6 +544,7 @@ sub get_types_for_timeline
         }
     }
 
+    $cache->set('types_for_timeline', \%rel_types, 60 * 60 * 24);
     return %rel_types;
 }
 
@@ -700,7 +694,7 @@ sub merge_entities {
             join "\t", @{$_}{$entity1, qw(link_type link_order)}, @{$_->{attributes}}
         } @$relationships;
 
-        while (my ($key, $possible_dupes) = each %possible_dupes) {
+        while (my (undef, $possible_dupes) = each %possible_dupes) {
             my %definite_dupes = partition_by { join "\t", @{$_}{$entity1, 'link'} } @$possible_dupes;
 
             # Merge relationships that are exact duplicates other than credits,
@@ -756,7 +750,7 @@ sub delete_entities
     my ($self, $type, @ids) = @_;
 
     foreach my $t ($self->generate_table_list($type)) {
-        my ($table, $entity0, $entity1) = @$t;
+        my ($table, $entity0, undef) = @$t;
         $self->sql->do("
             DELETE FROM $table a
             WHERE $entity0 IN (" . placeholders(@ids) . ')
@@ -982,22 +976,6 @@ sub reorder {
         FROM pos WHERE pos.relationship = id",
         %ordering
     );
-}
-
-=method lock_and_do
-
-Lock the corresponding relationship table for $type0-$type in ROW EXCLUSIVE
-mode, and run a block of code.
-
-=cut
-
-sub lock_and_do {
-    my ($self, $type0, $type1, $code) = @_;
-
-    my ($t0, $t1) = sort($type0, $type1);
-    Sql::run_in_transaction(sub {
-        $code->();
-    }, $self->c->sql);
 }
 
 sub get_entity_link_type_counts {

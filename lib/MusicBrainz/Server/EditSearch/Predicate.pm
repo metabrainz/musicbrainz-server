@@ -1,8 +1,6 @@
 package MusicBrainz::Server::EditSearch::Predicate;
 use Moose::Role;
 
-use Carp qw( croak );
-
 use MooseX::Types::Moose qw( Any ArrayRef Str );
 use MusicBrainz::Server::EditSearch::Exceptions;
 use MusicBrainz::Server::Translation qw( l );

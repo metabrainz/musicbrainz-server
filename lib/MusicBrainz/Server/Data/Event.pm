@@ -10,7 +10,6 @@ use MusicBrainz::Server::Entity::Event;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
-    generate_gid
     get_area_containment_query
     hash_to_row
     load_subobjects

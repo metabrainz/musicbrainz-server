@@ -14,14 +14,6 @@ import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
 
-type RemoveCoverArtEditT = {
-  ...EditT,
-  +display_data: {
-    +artwork: ArtworkT,
-    +release: ReleaseT,
-  },
-};
-
 type Props = {
   +edit: RemoveCoverArtEditT,
 };

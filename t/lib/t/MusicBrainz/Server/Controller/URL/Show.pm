@@ -1,8 +1,6 @@
 package t::MusicBrainz::Server::Controller::URL::Show;
 use Test::Routine;
-use Test::More;
 use utf8;
-use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
 

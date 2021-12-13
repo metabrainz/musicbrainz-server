@@ -7,7 +7,6 @@ use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw( N_l );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
-use URI::Escape qw( uri_escape );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::WikiDoc';

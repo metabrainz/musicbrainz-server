@@ -39,7 +39,6 @@ use MusicBrainz::Server::Validation qw(
     is_positive_integer
 );
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
-use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Form::Utils qw(
     build_grouped_options
@@ -297,9 +296,6 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
     $c->model('CoverArtType')->load_for(@artwork);
 
     my $count = 1;
-    my @positions = map {
-        { id => $_->id, position => $count++ }
-    } @artwork;
 
     my $id = $c->model('CoverArtArchive')->fresh_id;
     $c->stash({

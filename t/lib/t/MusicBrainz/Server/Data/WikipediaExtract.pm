@@ -1,7 +1,6 @@
 package t::MusicBrainz::Server::Data::WikipediaExtract;
 use Test::Routine;
 use Test::More;
-use Test::Fatal;
 use utf8;
 
 use FindBin qw($Bin);

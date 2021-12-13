@@ -2,10 +2,9 @@ package MusicBrainz::Server::Data::Work;
 
 use Moose;
 use namespace::autoclean;
-use List::AllUtils qw( uniq zip );
+use List::AllUtils qw( uniq );
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Utils qw(
-    defined_hash
     hash_to_row
     load_subobjects
     merge_table_attributes

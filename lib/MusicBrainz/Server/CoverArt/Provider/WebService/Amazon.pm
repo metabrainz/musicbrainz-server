@@ -97,7 +97,7 @@ sub lookup_cover_art
 
 sub fallback_meta {
     my ($self, $uri) = @_;
-    my ($store, $asin) = parse_asin($uri);
+    my (undef, $asin) = parse_asin($uri);
     return unless $asin;
     return { amazon_asin => $asin };
 }

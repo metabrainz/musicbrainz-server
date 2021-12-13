@@ -17,7 +17,6 @@ use MusicBrainz::Server::Data::Utils qw(
     merge_table_attributes
     merge_date_period
     order_by
-    placeholders
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );

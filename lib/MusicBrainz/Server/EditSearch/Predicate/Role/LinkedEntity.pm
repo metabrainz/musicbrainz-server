@@ -3,15 +3,12 @@ use MooseX::Role::Parameterized;
 use namespace::autoclean;
 use Scalar::Util qw( looks_like_number );
 
-use MooseX::Types::Moose qw( Str );
-
 parameter type => (
     required => 1
 );
 
 role {
     my $params = shift;
-    my $type = $params->type;
 
     has name => (
         is => 'ro',

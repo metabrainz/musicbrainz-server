@@ -45,7 +45,7 @@ function generateHref(path, id, subPath, anchorPath) {
 }
 
 export function editHref(
-  edit: EditT,
+  edit: GenericEditWithIdT,
   subPath?: string,
 ): string {
   if (edit.id == null) {

@@ -3,7 +3,6 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_TRACK_KV );
-use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
@@ -45,7 +44,6 @@ sub foreign_keys
 sub build_display_data
 {
     my ($self, $loaded) = @_;
-    my @release_ids = @{ $self->data->{release_ids} };
 
     # Some lengths of -1 or 0 ms are stored, which is nonsensical
     # and probably meant as a placeholder for unknown duration

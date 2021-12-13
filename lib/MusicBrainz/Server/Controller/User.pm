@@ -6,17 +6,15 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use DateTime;
 use DBDefs;
-use Digest::SHA qw(sha1_base64);
 use Encode;
 use HTTP::Status qw( :constants );
-use List::AllUtils 'sum';
 use MusicBrainz::Server::Authentication::User;
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Log qw( log_debug );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l );
 use Try::Tiny;
 
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
@@ -393,7 +391,6 @@ sub collections : Chained('load') PathPart('collections')
     my ($self, $c) = @_;
 
     my $user = $c->stash->{user};
-    my $viewing_own_profile = $c->stash->{viewing_own_profile};
 
     my ($collections) = $c->model('Collection')->find_by({
         editor_id => $user->id,
@@ -457,9 +454,9 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     $c->stash->{subscriber_count} = $subscr_model->get_subscribed_editor_count($user->id);
     $c->stash->{votes}            = $c->model('Vote')->editor_statistics($user);
 
-    my ($tokens, $token_count) = $c->model('EditorOAuthToken')->find_granted_by_editor($user->id);
+    my (undef, $token_count) = $c->model('EditorOAuthToken')->find_granted_by_editor($user->id);
 
-    my ($applications, $application_count) = $c->model('Application')->find_by_owner($user->id);
+    my (undef, $application_count) = $c->model('Application')->find_by_owner($user->id);
 
     $c->model('Gender')->load($user);
     $c->model('EditorLanguage')->load_for_editor($user);
@@ -618,7 +615,6 @@ sub tag : Chained('load_tag') PathPart('')
     }
 
     my %tagged_entities;
-    my $tag_in_use = 0;
 
     # Determine whether this tag exists in the database
     if ($tag) {

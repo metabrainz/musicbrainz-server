@@ -14,7 +14,6 @@ use MusicBrainz::Server::Edit::Utils qw(
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Translation qw( N_l );
-use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 

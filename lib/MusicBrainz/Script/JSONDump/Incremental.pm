@@ -6,7 +6,6 @@ use feature 'state';
 
 use DBDefs;
 use File::Spec::Functions qw( catdir catfile );
-use JSON::XS;
 use Moose;
 
 use MusicBrainz::Script::Utils qw( log );
@@ -25,8 +24,6 @@ sub dump_schema { 'json_dump' }
 
 sub get_changed_documents {
     my ($self, $c, $entity_type, $ids, $update) = @_;
-
-    state $canonical_json = JSON::XS->new->canonical->utf8;
 
     my ($last_modified, $replication_sequence) =
         @{$update}{qw( last_modified replication_sequence )};

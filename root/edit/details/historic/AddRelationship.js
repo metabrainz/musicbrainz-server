@@ -12,15 +12,8 @@ import * as React from 'react';
 import {HistoricRelationship}
   from '../../../static/scripts/common/components/Relationship';
 
-type AddRelationshipEditT = {
-  ...EditT,
-  +display_data: {
-    +relationships: $ReadOnlyArray<RelationshipT>,
-  },
-};
-
 type Props = {
-  +edit: AddRelationshipEditT,
+  +edit: AddRelationshipHistoricEditT,
 };
 
 const AddRelationship = ({edit}: Props): React.Element<'table'> => (

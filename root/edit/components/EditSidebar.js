@@ -24,7 +24,7 @@ import formatUserDate from '../../utility/formatUserDate';
 
 type Props = {
   +$c: CatalystContextT,
-  +edit: {...EditT, +id: number},
+  +edit: GenericEditWithIdT,
 };
 
 const EditSidebar = ({

@@ -1,6 +1,5 @@
 package t::MusicBrainz::Server::Controller::Recording::Details;
 use Test::Routine;
-use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';

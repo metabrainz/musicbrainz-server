@@ -19,7 +19,7 @@ import request from '../common/utility/request';
 import {unaccent} from '../common/utility/strings';
 
 import PossibleDuplicates from './components/PossibleDuplicates';
-import validation from './validation';
+import * as validation from './validation';
 
 var commentRequired = ko.observable(false);
 var commentEmpty = ko.observable(false);

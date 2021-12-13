@@ -82,6 +82,7 @@ module.exports = {
   'collection/EditCollection': require('../collection/EditCollection'),
   'doc/DocError': require('../doc/DocError'),
   'doc/DocPage': require('../doc/DocPage'),
+  'edit/EditData': require('../edit/EditData'),
   'elections/Index': require('../elections/Index'),
   'elections/Nominate': require('../elections/Nominate'),
   'elections/Show': require('../elections/Show'),

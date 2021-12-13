@@ -17,24 +17,6 @@ import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 import formatIsni from '../../utility/formatIsni';
 
-type AddLabelEditT = {
-  ...EditT,
-  +display_data: {
-    +area: AreaT,
-    +begin_date: PartialDateT,
-    +comment: string,
-    +end_date: PartialDateT,
-    +ended: boolean,
-    +ipi_codes: $ReadOnlyArray<string> | null,
-    +isni_codes: $ReadOnlyArray<string> | null,
-    +label: LabelT,
-    +label_code: number | null,
-    +name: string,
-    +sort_name: string,
-    +type: LabelTypeT | null,
-  },
-};
-
 type Props = {
   +allowNew?: boolean,
   +edit: AddLabelEditT,

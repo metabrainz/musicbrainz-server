@@ -14,16 +14,6 @@ import CodeLink
 import EntityLink
   from '../../static/scripts/common/components/EntityLink';
 
-type AddIswcsEditT = {
-  ...EditT,
-  +display_data: {
-    +additions: $ReadOnlyArray<{
-      +iswc: IswcT,
-      +work: WorkT,
-    }>,
-  },
-};
-
 type Props = {
   +edit: AddIswcsEditT,
 };

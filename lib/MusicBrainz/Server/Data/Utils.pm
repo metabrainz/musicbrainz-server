@@ -13,10 +13,8 @@ use Data::Compare;
 use Data::UUID::MT;
 use Math::Random::Secure qw( irand );
 use MIME::Base64 qw( encode_base64url );
-use Digest::SHA qw( sha1_base64 );
-use Encode qw( decode encode );
 use JSON::XS;
-use List::AllUtils qw( natatime sort_by uniq zip );
+use List::AllUtils qw( natatime sort_by );
 use MusicBrainz::Server::Constants qw(
     $DARTIST_ID
     $VARTIST_ID
@@ -28,7 +26,7 @@ use MusicBrainz::Server::Constants qw(
     %ENTITIES
 );
 use Readonly;
-use Scalar::Util 'blessed';
+use Scalar::Util qw( blessed );
 use Sql;
 use Storable;
 use Text::Trim qw();
@@ -45,7 +43,6 @@ our @EXPORT_OK = qw(
     copy_escape
     coordinates_to_hash
     datetime_to_iso8601
-    defined_hash
     generate_gid
     generate_token
     get_area_containment_query
@@ -284,12 +281,6 @@ sub get_area_containment_query {
          $levels_condition
          ORDER BY ad.descendant, ad.depth ASC",
         $PART_OF_AREA_LINK_TYPE_ID);
-}
-
-sub defined_hash
-{
-    my %hash = @_;
-    return map { $_ => $hash{$_} } grep { defined $hash{$_} } keys %hash;
 }
 
 sub hash_to_row

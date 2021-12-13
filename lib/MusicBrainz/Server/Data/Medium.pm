@@ -133,7 +133,7 @@ sub update
 sub insert
 {
     my ($self, @medium_hashes) = @_;
-    my $class = $self->_entity_class;
+
     my @created;
     for my $medium_hash (@medium_hashes) {
         my $tracklist = delete $medium_hash->{tracklist};

@@ -230,7 +230,8 @@ back the actions in the browser window you have open, so doesn't require any
 headless mode. However, before running a test in this way, you must make sure
 the test database is clean and has t/sql/selenium.sql loaded into it.
 
-### Code standards
+Code standards
+--------------
 
 For our Perl, we use `Perl::Critic` to enforce certain code standards.
 The list of policies we use can be found in [.perlcriticrc](.perlcriticrc).
@@ -294,7 +295,8 @@ specify its name in an argument:
  3. Create a new template for your report in *root/report/*.
  4. Add a link to report page in *root/report/index.tt* template.
 
-### Porting TT to React
+Porting TT to React
+-------------------
 
 All the TT code resides in `root/**.tt`. Some guidelines for porting TT files
 to React/JSX:

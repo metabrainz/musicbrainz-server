@@ -5,11 +5,8 @@ use DBDefs;
 use HTTP::Date qw( str2time );
 use JSON;
 use Text::Markdown qw( markdown );
-use Text::Trim qw( trim );
 use URI;
 use MusicBrainz::Server::Data::Utils qw( non_empty );
-use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Validation qw( encode_entities );
 use aliased 'MusicBrainz::Server::Entity::CritiqueBrainz::Review';
 use aliased 'MusicBrainz::Server::Entity::CritiqueBrainz::User';
 

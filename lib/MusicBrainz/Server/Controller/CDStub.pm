@@ -5,7 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::ControllerUtils::CDTOC qw( add_dash );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
@@ -63,13 +63,13 @@ sub add : Path('add') DenyWhenReadonly
         $c->detach('/error_400');
     }
 
-    if (my $cdstub = $c->model('CDStub')->get_by_discid($toc->discid)) {
+    if ($c->model('CDStub')->get_by_discid($toc->discid)) {
         $c->response->redirect(
             $c->uri_for_action('/cdstub/show', [ $toc->discid ]));
         $c->detach;
     }
 
-    if (my $cdtoc = $c->model('CDTOC')->get_by_discid($toc->discid)) {
+    if ($c->model('CDTOC')->get_by_discid($toc->discid)) {
         $c->response->redirect(
             $c->uri_for_action('/cdtoc/show', [ $toc->discid ]));
         $c->detach;

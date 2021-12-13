@@ -63,7 +63,6 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_ARTIST_MERGE
     $EDIT_ARTIST_CREATE
     $EDIT_ARTIST_EDIT
-    $EDIT_ARTIST_DELETE
     $EDIT_ARTIST_EDITCREDIT
     $EDIT_RELATIONSHIP_DELETE
     $ARTIST_ARTIST_COLLABORATION
@@ -827,7 +826,7 @@ sub edit_credit : Chained('credit') PathPart('edit') Edit {
     my $artist = $c->stash->{artist};
     my $ac = $c->stash->{ac};
 
-    my $edit = $self->edit_action(
+    $self->edit_action(
         $c,
         form        => 'EditArtistCredit',
         type        => $EDIT_ARTIST_EDITCREDIT,

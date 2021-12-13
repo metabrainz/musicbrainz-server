@@ -13,14 +13,6 @@ import CDTocLink from '../../static/scripts/common/components/CDTocLink';
 import MediumLink
   from '../../static/scripts/common/components/MediumLink';
 
-type RemoveDiscIdEditT = {
-  ...EditT,
-  +display_data: {
-    +cdtoc: CDTocT,
-    +medium: MediumT,
-  },
-};
-
 type Props = {
   +edit: RemoveDiscIdEditT,
 };

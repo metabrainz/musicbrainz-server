@@ -1,11 +1,11 @@
 package MusicBrainz::Server::Edit::Relationship::Edit;
 use Moose;
 use Carp;
-use Clone 'clone';
+use Clone qw( clone );
 use Data::Compare;
 use List::AllUtils qw( sort_by );
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
-use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
+use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT );
 use MusicBrainz::Server::Edit::Exceptions;

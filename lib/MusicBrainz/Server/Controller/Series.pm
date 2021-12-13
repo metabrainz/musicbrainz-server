@@ -1,5 +1,4 @@
 package MusicBrainz::Server::Controller::Series;
-use JSON;
 use Moose;
 use MusicBrainz::Server::Constants qw(
     $EDIT_SERIES_CREATE

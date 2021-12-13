@@ -3,7 +3,6 @@ use Moose;
 
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
-use Moose::Util::TypeConstraints qw( subtype find_type_constraint );
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_CREATE );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
@@ -69,7 +68,7 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
 
-    my $data = {
+    {
         label      => to_json_object(($self->entity_id &&
             $loaded->{Label}{ $self->entity_id }) ||
             Label->new( name => $self->data->{name} )

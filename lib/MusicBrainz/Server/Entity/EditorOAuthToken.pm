@@ -5,7 +5,6 @@ use namespace::autoclean;
 use aliased 'DateTime' => 'DT';
 use MusicBrainz::Server::Constants qw( :access_scope );
 use MusicBrainz::Server::Types qw( DateTime );
-use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json datetime_to_iso8601 );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );

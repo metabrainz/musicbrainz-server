@@ -1,7 +1,6 @@
 package t::MusicBrainz::Server::Controller::WS::2::Authenticated;
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
 
@@ -165,8 +164,6 @@ test 'OAuth bearer' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
     MusicBrainz::Server::Test->prepare_test_database($c, '+oauth');
-
-    my $token = '';
 
     $mech->get('/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist');
     is($mech->status, 401, 'Rejected without authentication');

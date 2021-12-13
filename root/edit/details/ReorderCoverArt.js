@@ -15,15 +15,6 @@ import DescriptiveLink
 import expand2html from '../../static/scripts/common/i18n/expand2html';
 import entityHref from '../../static/scripts/common/utility/entityHref';
 
-type ReorderCoverArtEditT = {
-  ...EditT,
-  +display_data: {
-    +new: $ReadOnlyArray<ArtworkT>,
-    +old: $ReadOnlyArray<ArtworkT>,
-    +release: ReleaseT,
-  },
-};
-
 type Props = {
   +edit: ReorderCoverArtEditT,
 };

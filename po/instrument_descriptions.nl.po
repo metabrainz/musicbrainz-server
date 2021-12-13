@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-11-22 19:04+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2021-12-10 21:36+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,17 +46,19 @@ msgid ""
 " type, here the bowed lutes proper</li> </ul> <br /> <br /> Given the name "
 "cross-overs they are confused with eachother in most sources. Curiously, "
 "this cross-over confusion extends to related but separately or similarly "
-"named instruments as well, for example <a href=\"/instrument/0d766870-3021"
-"-47ce-bd51-78d2d2484e1b\">Ghijak</a> (a spikefiddle) and <a "
+"named instruments as well, for example <a "
+"href=\"/instrument/0d766870-3021-47ce-bd51-78d2d2484e1b\">Ghijak</a> (a "
+"spikefiddle) and <a "
 "href=\"/instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">Ghaychak</a> (a "
 "boat-shaped).<br /> It is, for the meantime, unknown how, if at all, these 3"
 " subtypes are related.<br /> <br /> For the spike fiddle used in gamelan, "
 "see <a href=\"/instrument/3dbbb5ff-103b-4260-8cf6-679a73a7c552\">Indonesian "
 "rebab</a>.<br /> For the plucked, boat-shaped Afghani instrument also know "
-"as kabuli rabab, see <a href=\"/instrument/7e42e637-c7b4-422c-"
-"ad56-f7fafbd961bb\">rubab</a>.<br /> For the medieval Indian plucked lute "
-"see <a href=\"/instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">Seni "
-"rebab</a>.<br /> For the medieval European pear-shaped fiddle see <a "
+"as kabuli rabab, see <a "
+"href=\"/instrument/7e42e637-c7b4-422c-ad56-f7fafbd961bb\">rubab</a>.<br /> "
+"For the medieval Indian plucked lute see <a "
+"href=\"/instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">Seni rebab</a>.<br"
+" /> For the medieval European pear-shaped fiddle see <a "
 "href=\"/instrument/3f7302e4-f10f-4905-8d71-ef61141da383\">rebec</a>."
 msgstr "De naam ‘rebab’ wordt gebruikt voor met name drie families snaarinstrumenten (gestreken en getokkeld):<br /> <ul><li>Grote, bootvormige instrumenten met een korte hals van het sarinda-type, zoals de kabuli-rebab</li> <li>Kleine spijkerluiten van het huqin-type, zoals de Indonesische rebab</li> <li>Verschillende formaten instrumenten met een peervormige klankkast en verschillende halslengtes, zoals de Kretenzische lier</li></ul><br /><br />Dankzij de soortgelijke namen worden ze in bronnen vaak door elkaar gehaald. Ook worden ze vaak verward met soortgelijke instrumenten zoals de <a href=\"/instrument/0d766870-3021-47ce-bd51-78d2d2484e1b\">ghidjak</a> (een spijkerluit) en <a href=\"/instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">queychak</a> (met bootvormige klankkast).<br />Het is nu niet bekend of de drie ondersoorten aan elkaar verwand zijn.<br /><br />Zie <a href=\"/instrument/3dbbb5ff-103b-4260-8cf6-679a73a7c552\">Indonesische rebab</a> voor de spijkerluit die in gamelan-ensembles wordt gebruikt.<br />Zie <a href=\"/instrument/7e42e637-c7b4-422c-ad56-f7fafbd961bb\">roebab</a> voor het bootvormige Afghaanse instrument kaboeli rebab.<br />Zie <a href=\"/instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">seni rebab</a> voor de middeleeuwse Indiase getokkelde luit.<br />Zie <a href=\"/instrument/3f7302e4-f10f-4905-8d71-ef61141da383\">rebec</a> voor de middeleeuwse Europese peervormige vedel."
 
@@ -68,8 +70,9 @@ msgid ""
 " out gourd, it has 6 main, 3 drone and 11-12 sympathetic strings with a "
 "sliding block of hardwood to vary pitch. Much like the North Indian <a "
 "href=\"/instrument/b4d38ac1-7f12-437c-a61a-be2796ffc559\">vichitra veena</a>"
-" is to the <a href=\"/instrument/aea9661c-cbda-4bf3-a61d-"
-"d78697472f29\">rudra veena</a>, chitra veena is to the <a "
+" is to the <a "
+"href=\"/instrument/aea9661c-cbda-4bf3-a61d-d78697472f29\">rudra veena</a>, "
+"chitra veena is to the <a "
 "href=\"/instrument/41761936-5dbc-433f-b558-a7ef14fe9b08\">Saraswati "
 "veena</a>."
 msgstr "De chitra-vina is een fretloze Zuid-Indiase luit die voor Carnatische muziek wordt gebruikt. De holle klankkast is gemaakt van nangkahout en het instrument heeft een secundaire resonator gemaakt van een uitgeholde kalebas. Het heeft zes hoofdsnaren, drie bourdonsnaren en elf tot twaalf resonantiesnaren. De toonhoogte wordt veranderd door met een hardhouten blok te schuiven."
@@ -524,8 +527,8 @@ msgid ""
 "free or struck with mallets. <br /> For the instrument often used in bell "
 "towers, see <a "
 "href=\"/instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon</a>.<br "
-"/> For the instrument used in orchestra, see <a href=\"/instrument/7d6964ff-"
-"b1f5-472b-bdd7-b53de3739ad3\">tubular bells</a>."
+"/> For the instrument used in orchestra, see <a "
+"href=\"/instrument/7d6964ff-b1f5-472b-bdd7-b53de3739ad3\">tubular bells</a>."
 msgstr "Een glockenspiel is een metallofoon die bestaat uit toetsen of staven die met een hamer worden beslagen. <br /> Zie voor het instrument in klokkentorens <a href=\"/instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon</a> en voor het instrument dat in orkesten wordt gebruikt <a href=\"/instrument/7d6964ff-b1f5-472b-bdd7-b53de3739ad3\">buisklokken</a>."
 
 #. name:baroque trumpet
@@ -574,8 +577,9 @@ msgstr "De segunda is de bastrommel van de garifunatrommels."
 msgid ""
 "Bass member of the guitar family. For the electric variant use <a "
 "href=\"/instrument/0b9d87fa-93fa-4956-8b6a-a419566cc915\">electric bass "
-"guitar</a> for the acoustic one, use <a href=\"/instrument/15861569-249d-"
-"4b24-8ce4-d0b001b1f978\">acoustic bass guitar</a>"
+"guitar</a> for the acoustic one, use <a "
+"href=\"/instrument/15861569-249d-4b24-8ce4-d0b001b1f978\">acoustic bass "
+"guitar</a>"
 msgstr "De basgitaar is de basvariant van de gitaarfamilie. Gebruik voor de elektrische variant <a href=\"/instrument/0b9d87fa-93fa-4956-8b6a-a419566cc915\">elektrische basgitaar</a> en voor de akoestische variant <a href=\"/instrument/15861569-249d-4b24-8ce4-d0b001b1f978\">akoestische basgitaar</a>."
 
 #. name:lirone
@@ -794,8 +798,9 @@ msgstr "De bonang bestaat uit bronzen gongketels met knobbels op een rijkversier
 msgid ""
 "Consisting of tuned metal bars, slates or keys struck with mallets and "
 "arranged (often on resonators of sonorous material) in various scales. "
-"Compare <a href=\"/instrument/db95a035-6a3d-"
-"44b4-8694-74ff71b61768\">xylophone</a> for the wooden bar equivalent."
+"Compare <a "
+"href=\"/instrument/db95a035-6a3d-44b4-8694-74ff71b61768\">xylophone</a> for "
+"the wooden bar equivalent."
 msgstr "Metallofonen bestaan uit gestemde metalen plaatjes, latjes of toetsen die in verschillende schalen zijn gerangschikt en met een hamer worden aangeslagen. De <a href=\"/instrument/db95a035-6a3d-44b4-8694-74ff71b61768\">xylofoon</a> is het houten equivalent."
 
 #. name:whip / slapstick
@@ -915,7 +920,7 @@ msgid ""
 "and more portable simplification of the mellotron, emulating string "
 "ensembles. Its later hybrid development with the electronic organ created "
 "\"polyphonic ensemble\" synthesizers."
-msgstr ""
+msgstr "De snaarsynthesizer werd vanaf de jaren 1960 ontwikkeld als goedkoper en draagbaarder alternatief voor de mellotron, en werd vooral in de jaren 1970 en 1980 gebruikt. Later werd de techniek gecombineerd met elektrische orgels om polyfonische synthesizers te ontwikkelen."
 
 #. name:cabasa
 #: DB:instrument/description:108
@@ -1989,8 +1994,8 @@ msgstr "De melofoon (niet te verwarren met de <a href=\"/instrument/6a539558-558
 #. name:ghijak
 #: DB:instrument/description:932
 msgid ""
-"Not to be confused with the Persian lute <a href=\"/instrument/d50ba107-4930"
-"-4e0b-8b3f-ffbea4a1ade1\">ghaychak</a>."
+"Not to be confused with the Persian lute <a "
+"href=\"/instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">ghaychak</a>."
 msgstr "Moet niet worden verward met de Perzische luit <a href=\"/instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">qeychak</a>."
 
 #. name:oboe
@@ -2031,9 +2036,9 @@ msgid ""
 "One of the two subfamilies of Indian chordophones, the North Indian stick "
 "zither used in classical Hindustani music has two (or more) large gourd "
 "sound resonators and a stick or tube body.<br /> Commonly called \"bin\", "
-"\"been\" or \"bean\", the representative is <a href=\"/instrument/aea9661c-"
-"cbda-4bf3-a61d-d78697472f29\">rudra veena</a>, and credits to just \"bin\" "
-"are usually that."
+"\"been\" or \"bean\", the representative is <a "
+"href=\"/instrument/aea9661c-cbda-4bf3-a61d-d78697472f29\">rudra veena</a>, "
+"and credits to just \"bin\" are usually that."
 msgstr "De bin is een van de twee onderfamilies Indiase snaarinstrumenten. Het zijn citers uit Noord-India met twee (of meer) grote resonatoren van kalebassen en een staaf- of buisvormige kast.<br />Het belangrijkste instrument in deze familie is de <a href=\"/instrument/aea9661c-cbda-4bf3-a61d-d78697472f29\">rudra-vina</a> en in bronnen is dat vaak het instrument dat met ‘bin’ wordt aangeduid."
 
 #. name:veena
@@ -2050,9 +2055,10 @@ msgstr "De vina is een van de twee onderfamilies Indiase snaarinstrumenten. Het 
 #. name:bonang barung
 #: DB:instrument/description:970
 msgid ""
-"One to two octaves below <a href=\"/instrument/7e024f24-f778-4942-8fba-"
-"6f33ebfb2ac6\">panerus</a>, it plays elaborate melodies and is one of the "
-"most important instruments in the ensemble."
+"One to two octaves below <a "
+"href=\"/instrument/7e024f24-f778-4942-8fba-6f33ebfb2ac6\">panerus</a>, it "
+"plays elaborate melodies and is one of the most important instruments in the"
+" ensemble."
 msgstr "De bonang baroeng is een tot twee octaven lager gestemd dan de <a href=\"/instrument/7e024f24-f778-4942-8fba-6f33ebfb2ac6\">paneroes</a>. Het instrument wordt gebruikt voor het spelen van ingewikkelde melodieën en is een van de belangrijkste leden van het ensemble."
 
 #. name:handbell
@@ -2432,8 +2438,8 @@ msgstr "De pemadé is een gangsa die lager is gestemd dan de kantilan. Het instr
 msgid ""
 "Second lowest pitched of the gangsa, it has 4 to 7 bronze keys suspended "
 "over long bamboo resonators <br /> For the sundanese bamboo xylophone also "
-"used in gamelan, see <a href=\"/instrument/6e180df5-6df9-46bb-8ebf-"
-"c576a010fb5a\">calung</a>"
+"used in gamelan, see <a "
+"href=\"/instrument/6e180df5-6df9-46bb-8ebf-c576a010fb5a\">calung</a>"
 msgstr "De djoeblag is het een-na-laagst klinkende lid van de gangsafamilie en bestaat uit vier tot zeven bronzen toetsen die boven lange klankkasten van bamboe hangen. <br />Zie voor de Soendanese xylofoon die ook in gamelanensembles wordt gebruikt de <a href=\"/instrument/6e180df5-6df9-46bb-8ebf-c576a010fb5a\">tjaloeng</a>."
 
 #. name:reyong
@@ -2527,10 +2533,10 @@ msgstr "Een akkordolia is een citer met een houten klankkast in de vorm van een 
 #. name:nadaswaram
 #: DB:instrument/description:738
 msgid ""
-"Similar to the north Indian <a href=\"/instrument/5e17d5f8-65b1-464d-"
-"9f90-47259d832507\">shahnai</a>, it has a 95 cm long hardwood body with 7 "
-"finger holes and 5 wax-fillable tuning holes and a wide flaring wooden bell;"
-" shorter variants have a metal bell."
+"Similar to the north Indian <a "
+"href=\"/instrument/5e17d5f8-65b1-464d-9f90-47259d832507\">shahnai</a>, it "
+"has a 95 cm long hardwood body with 7 finger holes and 5 wax-fillable tuning"
+" holes and a wide flaring wooden bell; shorter variants have a metal bell."
 msgstr "De nadaswaram lijkt op de Noord-Indiase <a href=\"/instrument/5e17d5f8-65b1-464d-9f90-47259d832507\">shenhai</a>. Het 95 cm lange instrument van hardhout heeft zeven vingergaten, vijf stemgaten die met was kunnen worden gevuld en een breed uitlopende houten beker. Kortere varianten hebben een metalen beker."
 
 #. name:mirliton
@@ -4411,8 +4417,8 @@ msgstr "De luit is een snaarinstrument met een klankkast in de vorm van een in d
 #. name:akete
 #: DB:instrument/description:747
 msgid ""
-"Three-parts drumset (<a href=\"/instrument/ed1628bd-8541-4874-b8ca-"
-"2cec8b4c5140\">baandu</a>, <a "
+"Three-parts drumset (<a "
+"href=\"/instrument/ed1628bd-8541-4874-b8ca-2cec8b4c5140\">baandu</a>, <a "
 "href=\"/instrument/81b68590-5c82-47a3-9790-1570ca60f711\">funde</a> and <a "
 "href=\"/instrument/30aeef52-3ebf-405e-9baa-ef6c6f3ef6d5\">kete</a>) commonly"
 " used in Burru and Nyabinghi musics."
@@ -4547,9 +4553,9 @@ msgstr "De Engelse concertina is een gelijktonige concertina met zeshoekige uite
 #: DB:instrument/description:964
 msgid ""
 "Unlike the other saron, its six-seven keys are not smooth, but bevelled or "
-"bossed, like the gendèr and the <a href=\"/instrument/73173277-b7ef-4d5e-"
-"83b2-205cd2f12488\">slenthem</a>, which has largely replaced it in the "
-"modernised gamelan."
+"bossed, like the gendèr and the <a "
+"href=\"/instrument/73173277-b7ef-4d5e-83b2-205cd2f12488\">slenthem</a>, "
+"which has largely replaced it in the modernised gamelan."
 msgstr "De slento is een in onbruik geraakt lid van de saron-familie en in tegenstelling tot de andere sarons heeft het geen gladde, maar afgeschuinde en gebobbelde toetsen. In moderne gamelan-ensembles is het instrument meestal vervangen door de <a href=\"/instrument/73173277-b7ef-4d5e-83b2-205cd2f12488\">slentem</a>."
 
 #. name:pūkaea
@@ -4622,8 +4628,8 @@ msgstr "De pakhavaj wordt gebruikt bij Hindoestaanse dhrupadmuziek. De vattromme
 msgid ""
 "Used in India during the medieval period, it had a stick-zither body with 3 "
 "strings <br /> For the the long necked lute called \"tritantri veena\" in "
-"the 19 century, see \"<a href=\"/instrument/9290b2c1-97c3-4355-a26f-"
-"c6dba89cf8ff\">sitar</a>\""
+"the 19 century, see \"<a "
+"href=\"/instrument/9290b2c1-97c3-4355-a26f-c6dba89cf8ff\">sitar</a>\""
 msgstr "De tritantri-vina is een citer met drie snaren dat vooral in India tijdens de middeleeuwen werd bespeeld.<br />Zie <a href=\"/instrument/9290b2c1-97c3-4355-a26f-c6dba89cf8ff\">sitar</a> voor de negentiende-eeuwse langhalsluit die ook tritantri-vina wordt genoemd."
 
 #. name:slenthem

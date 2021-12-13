@@ -19,24 +19,6 @@ import ReleaseEvents
 import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
 import Diff from '../../static/scripts/edit/components/edit/Diff';
 
-type EditReleaseLabelEditT = {
-  ...EditT,
-  +display_data: {
-    +barcode: string | null,
-    +catalog_number: {
-      +new?: string | null,
-      +old: string | null,
-    },
-    +combined_format?: string,
-    +events: $ReadOnlyArray<ReleaseEventT>,
-    +label: {
-      +new?: LabelT | null,
-      +old: LabelT | null,
-    },
-    +release: ReleaseT,
-  },
-};
-
 type Props = {
   +edit: EditReleaseLabelEditT,
 };

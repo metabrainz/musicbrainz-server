@@ -11,14 +11,6 @@ import * as React from 'react';
 
 import IntentionallyRawIcon from '../components/IntentionallyRawIcon';
 
-type RemoveRelationshipAttributeEditT = {
-  ...EditT,
-  +display_data: {
-    +description: string | null,
-    +name: string,
-  },
-};
-
 type Props = {
   +edit: RemoveRelationshipAttributeEditT,
 };

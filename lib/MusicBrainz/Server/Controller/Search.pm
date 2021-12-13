@@ -4,7 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use List::AllUtils qw( min max );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
-use MusicBrainz::Server::Data::Utils qw( datetime_to_iso8601 model_to_type type_to_model );
+use MusicBrainz::Server::Data::Utils qw( datetime_to_iso8601 type_to_model );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Form::Search::Query;
 use MusicBrainz::Server::Form::Search::Search;

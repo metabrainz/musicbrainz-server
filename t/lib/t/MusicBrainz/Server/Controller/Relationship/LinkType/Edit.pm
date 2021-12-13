@@ -27,7 +27,7 @@ test 'Editing an artist-artist link type' => sub {
     $mech->get_ok('/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821/edit');
     html_ok($mech->content);
     my @edits = capture_edits {
-        my $response = $mech->submit_form(
+        $mech->submit_form(
             with_fields => {
                 'linktype.name' => $new_name,
             }

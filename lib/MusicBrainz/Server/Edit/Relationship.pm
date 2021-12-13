@@ -11,7 +11,7 @@ use MusicBrainz::Server::ControllerUtils::Relationship qw(
 use MusicBrainz::Server::Data::Utils qw( non_empty sanitize );
 use namespace::autoclean;
 
-use MusicBrainz::Server::Translation 'l';
+use MusicBrainz::Server::Translation qw ( l );
 
 no if $] >= 5.018, warnings => 'experimental::smartmatch';
 

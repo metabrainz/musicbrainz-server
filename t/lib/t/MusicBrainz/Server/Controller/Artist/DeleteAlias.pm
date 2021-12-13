@@ -20,7 +20,7 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 
 # Test deleting aliases
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/alias/1/delete');
-my $response = $mech->submit_form(
+$mech->submit_form(
     with_fields => {
         'confirm.edit_note' => q(Some edit note since it's required)
     });

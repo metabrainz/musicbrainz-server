@@ -3,7 +3,7 @@ package MusicBrainz::Server::Data::MediumFormat;
 use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Entity::MediumFormat;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects hash_to_row );
+use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache';

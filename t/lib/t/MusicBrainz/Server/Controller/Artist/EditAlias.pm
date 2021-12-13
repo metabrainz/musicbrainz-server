@@ -20,7 +20,7 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 
 # Test deleting aliases
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/alias/1/edit');
-my $response = $mech->submit_form(
+$mech->submit_form(
     with_fields => {
         'edit-alias.name' => 'Edited alias'
     });
@@ -50,7 +50,7 @@ $mech->content_contains('Edited alias', '..has new alias name');
 # A sortname isn't required (MBS-6896)
 ($edit) = capture_edits {
     $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/alias/1/edit');
-    my $response = $mech->submit_form(
+    $mech->submit_form(
         with_fields => {
             'edit-alias.name' => 'Edit #2',
             'edit-alias.sort_name' => '',

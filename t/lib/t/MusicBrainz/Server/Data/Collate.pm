@@ -21,7 +21,7 @@ test all => sub {
         𐎀𐎁𐎂𐎃𐎄𐎅 漢字 /;
 
     my $rec_data = MusicBrainz::Server::Data::Recording->new(c => $test->c);
-    my ($recs, $hits) = $rec_data->find_by_artist(4, 100, 0);
+    my ($recs, undef) = $rec_data->find_by_artist(4, 100, 0);
 
     is($expected[$_], $recs->[$_]->name, "Expected recording name \#$_") for (0..20)
 };

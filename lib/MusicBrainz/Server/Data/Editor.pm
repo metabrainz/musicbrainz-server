@@ -10,7 +10,6 @@ use Authen::Passphrase::RejectAll;
 use DateTime;
 use Digest::MD5 qw( md5_hex );
 use Encode;
-use List::AllUtils qw( uniq );
 use MusicBrainz::Server::Constants qw( :edit_status entities_with );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
@@ -19,7 +18,6 @@ use MusicBrainz::Server::Data::Utils qw(
     get_area_containment_query
     hash_to_row
     load_subobjects
-    object_to_ids
     placeholders
     type_to_model
 );

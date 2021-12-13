@@ -32,7 +32,7 @@ import VoteTally from './VoteTally';
 
 type Props = {
   +$c: CatalystContextT,
-  +edit: {...EditT, +id: number},
+  +edit: GenericEditWithIdT,
   +isSummary?: boolean,
   +voter?: UnsanitizedEditorT,
 };

@@ -13,7 +13,7 @@ import Layout from '../layout';
 import EditLink from '../static/scripts/common/components/EditLink';
 
 type Props = {
-  +edit: {...EditT, +id: number},
+  +edit: GenericEditWithIdT,
 };
 
 const NoteIsRequired = ({edit}: Props): React.Element<typeof Layout> => {

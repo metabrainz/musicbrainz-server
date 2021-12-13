@@ -21,23 +21,6 @@ import DescriptiveLink from
 import {commaOnlyListText} from
   '../../static/scripts/common/i18n/commaOnlyList';
 
-type EditLabelEditT = {
-  +display_data: {
-    +area?: CompT<AreaT | null>,
-    +begin_date?: CompT<PartialDateT>,
-    +comment?: CompT<string | null>,
-    +end_date?: CompT<PartialDateT>,
-    +ended?: CompT<boolean>,
-    +ipi_codes?: CompT<$ReadOnlyArray<string> | null>,
-    +isni_codes?: CompT<$ReadOnlyArray<string> | null>,
-    +label: LabelT,
-    +label_code?: CompT<number>,
-    +name?: CompT<string>,
-    +sort_name?: CompT<string>,
-    +type?: CompT<LabelTypeT | null>,
-  },
-};
-
 type Props = {
   +edit: EditLabelEditT,
 };

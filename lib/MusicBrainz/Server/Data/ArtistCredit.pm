@@ -8,7 +8,6 @@ use Carp qw( cluck );
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
-use MusicBrainz::Server::Data::Artist qw( is_special_purpose );
 use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects type_to_model sanitize );
 use MusicBrainz::Server::Constants qw( entities_with );
 
@@ -151,7 +150,7 @@ sub find
 {
     my ($self, @artist_joinphrase) = @_;
 
-    my ($id, $name, $positions, $names, $artists, $join_phrases) =
+    my ($id) =
         $self->_find(@artist_joinphrase);
 
     return $id;

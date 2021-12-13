@@ -23,7 +23,7 @@ import {
 } from '../../utility/edit';
 
 type VoteCheckboxProps = {
-  +edit: EditT,
+  +edit: GenericEditWithIdT,
   +label: string,
   +name: string,
   +user: UnsanitizedEditorT,
@@ -59,7 +59,7 @@ const VoteCheckbox = ({
 
 type VoteProps = {
   +$c: CatalystContextT,
-  +edit: EditT,
+  +edit: GenericEditWithIdT,
   +index?: number,
   +summary?: boolean,
 };

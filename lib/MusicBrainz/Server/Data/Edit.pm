@@ -24,7 +24,6 @@ use MusicBrainz::Server::Constants qw(
     $MINIMUM_RESPONSE_PERIOD
     $LIMIT_FOR_EDIT_LISTING
     $OPEN_EDIT_DURATION
-    $QUALITY_UNKNOWN_MAPPED
     $EDITOR_MODBOT
     entities_with
     %ENTITIES );
@@ -155,7 +154,6 @@ sub find
         push @pred, "id IN ($subquery)";
     }
 
-    my @params = keys %$p;
     while (my ($param, $value) = each %$p) {
         my @values = ref($value) ? @$value : ($value);
         next unless @values;

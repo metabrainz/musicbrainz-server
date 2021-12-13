@@ -12,7 +12,6 @@ use Carp qw( confess );
 use HTML::Tiny;
 use HTML::Entities qw( decode_entities );
 use Scalar::Util qw( blessed );
-use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( encode_entities trim_in_place );
 
 no if $] >= 5.018, warnings => 'experimental::smartmatch';
@@ -26,8 +25,6 @@ sub uri_for_action {
     my $self = shift;
     return $self->{c}{STASH}{c}->uri_for_action(@_)->as_string;
 }
-
-my $TOKEN_NEW_PARA = chr(10);
 
 my %class_map = (
     '+' => 'diff-only-b',
@@ -221,7 +218,7 @@ sub diff {
         }
     };
 
-    my @compact = traverse_sequences(
+    traverse_sequences(
         \@a, \@b, {
             MATCH     => sub {
                 $flush->('MATCH');

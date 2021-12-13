@@ -1,7 +1,7 @@
 package t::MusicBrainz::Server::Controller::Collection::New;
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
+use MusicBrainz::Server::Test qw( test_xpath_html );
 use HTTP::Status qw( :constants );
 
 around run_test => sub {

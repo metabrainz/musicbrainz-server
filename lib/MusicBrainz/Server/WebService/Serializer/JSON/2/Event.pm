@@ -1,6 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Event;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( boolean serialize_entity );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( boolean );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 

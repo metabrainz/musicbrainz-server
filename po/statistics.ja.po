@@ -182,8 +182,8 @@ msgstr "Amazonのカバーアート"
 #: DB:statistics.statistic_event/description:2008-09-01
 msgid ""
 "Amazon betas <a "
-"href=\"http://web.archive.org/web/20210123164029/https://www.wired.com/2008/09"
-"/amazon-takes-on/\">SoundUnwound</a> with data from MusicBrainz."
+"href=\"http://web.archive.org/web/20210123164029/https://www.wired.com/2008/09/amazon-"
+"takes-on/\">SoundUnwound</a> with data from MusicBrainz."
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-09-01

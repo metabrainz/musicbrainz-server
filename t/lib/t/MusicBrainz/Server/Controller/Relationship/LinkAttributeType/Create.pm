@@ -60,12 +60,12 @@ test 'Can create child relationship attribute using parentid' => sub {
     html_ok($mech->content);
 
     my $parent = $test->c->model('LinkAttributeType')->get_by_gid($gid);
-    my ($parent_id, $parent_name, $name, $child_order) = (
-        $parent->id, $parent->name, '77th trombone', 1
+    my ($parent_id, $name, $child_order) = (
+        $parent->id, '77th trombone', 1
     );
 
     my @edits = capture_edits {
-        my $response = $mech->submit_form(
+        $mech->submit_form(
             with_fields => {
                 'linkattrtype.name' => $name,
                 'linkattrtype.child_order' => $child_order,

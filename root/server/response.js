@@ -12,6 +12,7 @@ const Sentry = require('@sentry/node');
 
 const getRequestCookie = require('../utility/getRequestCookie');
 const sanitizedContext = require('../utility/sanitizedContext');
+
 const {bufferFrom} = require('./buffer');
 
 function badRequest(err) {

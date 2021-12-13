@@ -75,7 +75,7 @@ sub deserialize_previous_value
 {
     my ($self, $value) = @_;
 
-    my ($name, $album_id, $is_nat, $position, $length) = split /\n/, $value;
+    my ($name, $album_id) = split /\n/, $value;
 
     return {
         name     => $name,

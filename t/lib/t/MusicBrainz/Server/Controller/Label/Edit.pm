@@ -19,7 +19,7 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/edit');
 html_ok($mech->content);
-my $response = $mech->submit_form(
+$mech->submit_form(
     with_fields => {
         'edit-label.name' => 'controller label',
         'edit-label.type_id' => 2,

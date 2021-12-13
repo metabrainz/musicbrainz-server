@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Role::ValueSet;
 use 5.10.0;
 use MooseX::Role::Parameterized;
 
-use Clone 'clone';
+use Clone qw( clone );
 use List::AllUtils qw( nsort_by uniq );
 use MusicBrainz::Server::Edit::Utils qw( merge_set );
 

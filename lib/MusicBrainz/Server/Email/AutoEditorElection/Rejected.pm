@@ -11,8 +11,6 @@ sub text
 {
     my ($self) = @_;
 
-    my $escape = sub { uri_escape_utf8(shift) };
-
     return strip tt <<EOF;
 Voting in this election is now closed: the proposal to make
 [% self.election.candidate.name %] an auto-editor was declined.

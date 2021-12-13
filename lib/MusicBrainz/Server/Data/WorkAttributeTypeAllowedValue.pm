@@ -2,7 +2,6 @@ package MusicBrainz::Server::Data::WorkAttributeTypeAllowedValue;
 
 use Moose;
 use namespace::autoclean;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 use aliased 'MusicBrainz::Server::Entity::WorkAttributeTypeAllowedValue';
 
 extends 'MusicBrainz::Server::Data::Entity';

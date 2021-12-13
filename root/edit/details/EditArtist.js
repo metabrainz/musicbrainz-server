@@ -27,25 +27,6 @@ import yesNo from '../../static/scripts/common/utility/yesNo';
 import {commaOnlyListText}
   from '../../static/scripts/common/i18n/commaOnlyList';
 
-type EditArtistEditT = {
-  +display_data: {
-    +area?: CompT<AreaT | null>,
-    +artist: ArtistT,
-    +begin_area?: CompT<AreaT | null>,
-    +begin_date?: CompT<PartialDateT>,
-    +comment?: CompT<string | null>,
-    +end_area?: CompT<AreaT | null>,
-    +end_date?: CompT<PartialDateT>,
-    +ended?: CompT<boolean>,
-    +gender?: CompT<GenderT | null>,
-    +ipi_codes?: CompT<$ReadOnlyArray<string> | null>,
-    +isni_codes?: CompT<$ReadOnlyArray<string> | null>,
-    +name?: CompT<string>,
-    +sort_name?: CompT<string>,
-    +type?: CompT<ArtistTypeT | null>,
-  },
-};
-
 type Props = {
   +edit: EditArtistEditT,
 };

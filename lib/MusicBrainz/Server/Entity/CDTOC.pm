@@ -113,10 +113,6 @@ sub new_from_toc
     $discid .= '='; # bring up to 28 characters, like the client
     $discid =~ tr[+/=][._-];
 
-    my @lengths = map {
-        ($track_offsets[$_+1-1] || $leadout_offset) - $track_offsets[$_-1]
-    } $first_track .. $last_track;
-
     return $class->new(
         discid => $discid,
         track_count => scalar @track_offsets,

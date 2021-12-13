@@ -1,7 +1,5 @@
 package t::MusicBrainz::Server::Controller::WS::2::Collection;
 use Test::Routine;
-use Test::More;
-use MusicBrainz::Server::Test qw( html_ok );
 use MusicBrainz::Server::Test::WS qw(
     ws2_test_xml
     ws2_test_xml_forbidden

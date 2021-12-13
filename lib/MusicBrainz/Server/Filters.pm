@@ -9,7 +9,7 @@ use Digest::MD5 qw( md5_hex );
 use Encode;
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Validation qw( encode_entities );
-use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
+use MusicBrainz::Server::Constants qw( entities_with );
 use Text::Trim qw( trim );
 use Text::WikiFormat;
 use Try::Tiny;
@@ -102,7 +102,6 @@ sub format_editnote
 {
     my ($html) = @_;
 
-    my $is_url = 1;
     my $server = DBDefs->WEB_SERVER;
 
     # Pre-pass the edit note to attempt to normalise any URLs

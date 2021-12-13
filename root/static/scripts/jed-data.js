@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable multiline-comment-style */
+/* eslint-disable import/no-commonjs, multiline-comment-style */
 /*::
 import type {JedOptions} from 'jed';
 

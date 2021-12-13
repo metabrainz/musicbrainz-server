@@ -5,7 +5,6 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' };
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Validation qw( is_valid_discid );
 use MusicBrainz::Server::Translation qw( l );
-use Readonly;
 
 # A duration lookup has to match within this many milliseconds
 use constant DURATION_LOOKUP_RANGE => 10000;

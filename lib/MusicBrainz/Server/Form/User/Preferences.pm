@@ -4,7 +4,7 @@ use HTML::FormHandler::Moose;
 use DateTime;
 use DateTime::TimeZone;
 
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Form';
 

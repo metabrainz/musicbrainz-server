@@ -3,7 +3,7 @@ use List::AllUtils qw( any );
 use Moose::Role;
 use namespace::autoclean;
 
-use MusicBrainz::Server::Translation 'l';
+use MusicBrainz::Server::Translation qw ( l );
 
 sub edit_category { l('Place') }
 

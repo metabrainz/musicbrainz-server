@@ -14,17 +14,8 @@ import HistoricReleaseList
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink';
 
-type RemoveTrackEditT = {
-  ...EditT,
-  +display_data: {
-    +name: string,
-    +recording: RecordingT,
-    +releases: $ReadOnlyArray<ReleaseT | null>,
-  },
-};
-
 type Props = {
-  +edit: RemoveTrackEditT,
+  +edit: RemoveTrackHistoricEditT,
 };
 
 const RemoveTrack = ({edit}: Props): React.Element<'table'> => (

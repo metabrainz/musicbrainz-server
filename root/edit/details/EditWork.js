@@ -22,21 +22,6 @@ import FullChangeDiff
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
 import {INSERT, DELETE} from '../../static/scripts/edit/utility/editDiff';
 
-type EditWorkEditT = {
-  ...EditT,
-  +display_data: {
-    +attributes?: {
-      +[attributeName: string]: CompT<$ReadOnlyArray<string>>,
-    },
-    +comment?: CompT<string | null>,
-    +iswc?: CompT<string | null>,
-    +languages?: CompT<$ReadOnlyArray<LanguageT>>,
-    +name?: CompT<string>,
-    +type?: CompT<WorkTypeT | null>,
-    +work: WorkT,
-  },
-};
-
 type Props = {
   +edit: EditWorkEditT,
 };

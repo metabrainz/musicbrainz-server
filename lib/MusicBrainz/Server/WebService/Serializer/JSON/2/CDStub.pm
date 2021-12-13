@@ -1,9 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::CDStub;
 use Moose;
 use JSON;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
-    list_of number
-);
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 

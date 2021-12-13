@@ -5,9 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 use DBDefs;
 use HTTP::Status qw( HTTP_MOVED_PERMANENTLY );
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Validation qw( is_guid );
 
 sub show : Path('')
 {

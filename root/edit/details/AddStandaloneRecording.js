@@ -16,18 +16,6 @@ import formatTrackLength from
   '../../static/scripts/common/utility/formatTrackLength';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 
-type AddStandaloneRecordingEditT = {
-  ...EditT,
-  +display_data: {
-    +artist_credit: ArtistCreditT,
-    +comment: string | null,
-    +length: number | null,
-    +name: string,
-    +recording: RecordingT,
-    +video: boolean,
-  },
-};
-
 type Props = {
   +allowNew?: boolean,
   +edit: AddStandaloneRecordingEditT,

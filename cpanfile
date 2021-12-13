@@ -51,7 +51,6 @@ requires 'HTML::FormHandler'                          => '0.40063';
 requires 'HTML::Tiny'                                 => '1.05';
 requires 'HTML::TreeBuilder::XPath'                   => '0.14';
 requires 'HTTP::Date'                                 => '6.02';
-requires 'IO::All'                                    => '0.54';
 requires 'JSON'                                       => '2.61';
 requires 'JSON::XS'                                   => '2.34';
 requires 'List::AllUtils'                             => '0.03';
@@ -90,9 +89,7 @@ requires 'Sys::Hostname'                              => '1.17';
 requires 'Template::Plugin::Class'                    => '0.13';
 requires 'Template::Plugin::JavaScript'               => '0.02';
 requires 'Template::Plugin::JSON::Escape'             => '0.02';
-# Template::Toolkit == 3.008 is broken:
-# https://github.com/abw/Template2/issues/263
-requires 'Template::Toolkit'                          => '== 3.007';
+requires 'Template::Toolkit'                          => '3.009';
 requires 'Text::Diff3'                                => '0.10';
 requires 'Text::Markdown'                             => '1.000026';
 requires 'Text::Trim'                                 => '1.02';
@@ -128,6 +125,8 @@ test_requires 'HTML::HTML5::Parser';
 test_requires 'HTML::Selector::XPath';
 test_requires 'LWP::UserAgent::Mockable';
 test_requires 'Perl::Critic';
+test_requires 'Perl::Critic::TooMuchCode';
+test_requires 'Perl::Critic::Policy::Variables::ProhibitUnusedVarsStricter';
 test_requires 'TAP::Harness::JUnit';
 test_requires 'TAP::Parser::SourceHandler::pgTAP';
 test_requires 'Test::Aggregate';

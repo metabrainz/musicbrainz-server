@@ -3,13 +3,8 @@ use Moose;
 use namespace::autoclean;
 
 use Carp;
-use List::AllUtils qw( any uniq );
-use MusicBrainz::Server::Constants qw(
-    $VARTIST_ID
-    $DARTIST_ID
-    $STATUS_OPEN
-    $ARTIST_TYPE_GROUP
-);
+use List::AllUtils qw( any );
+use MusicBrainz::Server::Constants qw( $ARTIST_TYPE_GROUP $STATUS_OPEN );
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::ArtistCredit;
@@ -18,14 +13,12 @@ use MusicBrainz::Server::Data::Utils qw(
     is_special_artist
     add_partial_date_to_row
     conditional_merge_column_query
-    defined_hash
     get_area_containment_query
     hash_to_row
     load_subobjects
     merge_table_attributes
     merge_date_period
     order_by
-    placeholders
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );

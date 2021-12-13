@@ -6,7 +6,7 @@ use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
     serialize_entity
     list_of
 );
-use List::AllUtils 'sort_by';
+use List::AllUtils qw( sort_by );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 

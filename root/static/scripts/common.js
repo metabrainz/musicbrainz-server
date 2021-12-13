@@ -5,6 +5,8 @@
 
 /* eslint-disable import/no-commonjs */
 
+import MB from './common/MB';
+
 /* Global polyfills not provided by core-js */
 require('whatwg-fetch');
 require('./common/focusin-focusout-polyfill');
@@ -13,8 +15,6 @@ require('./common/focusin-focusout-polyfill');
 require('./public-path');
 
 const DBDefs = require('./common/DBDefs-client');
-
-import MB from './common/MB';
 
 if (DBDefs.DEVELOPMENT_SERVER) {
   /*

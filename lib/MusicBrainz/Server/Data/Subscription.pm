@@ -152,7 +152,6 @@ sub get_subscriptions
 {
     my ($self, $editor_id) = @_;
     my $table = $self->table;
-    my $column = $self->column;
 
     load_class($self->active_class);
     my @subscriptions = $self->query_to_list(

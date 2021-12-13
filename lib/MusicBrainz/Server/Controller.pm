@@ -211,7 +211,7 @@ sub _search_final_page
     {
         my $middle = $min + (($max - $min) >> 1);
 
-        my ($data, $total) = $loader->($limit, ($middle - 1) * $limit);
+        my ($data, undef) = $loader->($limit, ($middle - 1) * $limit);
         if (scalar @$data > 0)
         {
             $min = $middle;

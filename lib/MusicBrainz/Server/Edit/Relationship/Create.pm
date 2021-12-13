@@ -12,7 +12,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Role::DatePeriod';
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
+use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_CREATE );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model non_empty );

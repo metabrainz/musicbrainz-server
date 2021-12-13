@@ -18,23 +18,6 @@ import ReleaseEvents
   from '../../static/scripts/common/components/ReleaseEvents';
 import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
 
-type AddReleaseEditT = {
-  ...EditT,
-  +display_data: {
-    +artist_credit: ArtistCreditT,
-    +barcode: string | null,
-    +comment: string,
-    +events?: $ReadOnlyArray<ReleaseEventT>,
-    +language: LanguageT | null,
-    +name: string,
-    +packaging: ReleasePackagingT | null,
-    +release: ReleaseT,
-    +release_group: ReleaseGroupT,
-    +script: ScriptT | null,
-    +status: ReleaseStatusT | null,
-  },
-};
-
 type Props = {
   +allowNew?: boolean,
   +edit: AddReleaseEditT,

@@ -2,16 +2,9 @@ package MusicBrainz::Server::Data::Recording;
 
 use Moose;
 use namespace::autoclean;
-use List::AllUtils qw( nsort_by sort_by uniq uniq_by );
-use MusicBrainz::Server::Constants qw(
-    $EDIT_RECORDING_CREATE
-    $EDIT_HISTORIC_ADD_TRACK
-    $EDIT_HISTORIC_ADD_TRACK_KV
-);
 use MusicBrainz::Server::Data::Track;
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::Utils qw(
-    defined_hash
     hash_to_row
     merge_boolean_attributes
     merge_table_attributes

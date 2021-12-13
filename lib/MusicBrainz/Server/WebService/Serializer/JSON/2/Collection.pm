@@ -1,10 +1,8 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Collection;
 use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
-    count_of
     list_of
     number
-    serialize_entity
 );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 

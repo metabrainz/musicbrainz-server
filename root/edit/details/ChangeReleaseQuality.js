@@ -13,14 +13,6 @@ import {QUALITY_NAMES} from '../../static/scripts/common/constants';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
 
-type ChangeReleaseQualityEditT = {
-  ...EditT,
-  +display_data: {
-    +quality: CompT<QualityT>,
-    +release: ReleaseT,
-  },
-};
-
 type Props = {
   +edit: ChangeReleaseQualityEditT,
 };

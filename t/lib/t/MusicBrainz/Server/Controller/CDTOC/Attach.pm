@@ -1,6 +1,5 @@
 package t::MusicBrainz::Server::Controller::CDTOC::Attach;
 use Test::Routine;
-use Test::More;
 
 with 't::Context', 't::Mechanize';
 

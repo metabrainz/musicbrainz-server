@@ -15,18 +15,6 @@ import localizeLinkAttributeTypeName
   from '../../static/scripts/common/i18n/localizeLinkAttributeTypeName';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 
-type AddRelationshipAttributeEditT = {
-  ...EditT,
-  +display_data: {
-    +child_order: number,
-    +creditable: boolean,
-    +description: string | null,
-    +free_text: boolean,
-    +name: string,
-    +parent?: LinkAttrTypeT,
-  },
-};
-
 type Props = {
   +edit: AddRelationshipAttributeEditT,
 };

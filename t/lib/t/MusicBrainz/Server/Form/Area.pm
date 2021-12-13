@@ -72,7 +72,6 @@ sub form_context {
 
 package t::FormContext;
 use Moose;
-use Unicode::ICU::Collator qw( UCOL_NUMERIC_COLLATION UCOL_ON );
 use MusicBrainz::Server::Translation;
 extends 'MusicBrainz::Server::Context';
 

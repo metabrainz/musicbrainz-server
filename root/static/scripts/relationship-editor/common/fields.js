@@ -263,9 +263,9 @@ class Relationship {
       relationships0.push(this);
     }
 
-    if (entity0.entityType === 'recording'
-      && entity1.entityType === 'work'
-      && saved1 !== entity1 && entity1.gid) {
+    if (entity0.entityType === 'recording' &&
+      entity1.entityType === 'work' &&
+      saved1 !== entity1 && entity1.gid) {
       this.loadWorkRelationships(entity1);
     }
 

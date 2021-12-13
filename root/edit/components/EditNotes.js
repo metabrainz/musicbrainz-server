@@ -18,7 +18,7 @@ import {
 import EditNote from './EditNote';
 
 type Props = {
-  +edit: {...EditT, +id: number},
+  +edit: GenericEditWithIdT,
   +hide?: boolean,
   +index?: number,
   +isOnEditPage?: boolean,

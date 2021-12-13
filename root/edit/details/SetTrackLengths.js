@@ -19,16 +19,6 @@ import {arraysEqual} from '../../static/scripts/common/utility/arrays';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength';
 
-type SetTrackLengthsEditT = {
-  ...EditT,
-  +display_data: {
-    +cdtoc: CDTocT | null,
-    +length: CompT<$ReadOnlyArray<number | null>>,
-    +medium?: MediumT,
-    +releases: $ReadOnlyArray<ReleaseT>,
-  },
-};
-
 type Props = {
   +edit: SetTrackLengthsEditT,
 };

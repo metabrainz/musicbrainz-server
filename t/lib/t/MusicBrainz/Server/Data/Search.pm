@@ -7,7 +7,6 @@ use HTTP::Response;
 use LWP::UserAgent::Mockable;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
-use Test::Mock::Class ':all';
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Data::Search;
 

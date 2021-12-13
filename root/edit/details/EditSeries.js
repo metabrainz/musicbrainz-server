@@ -14,17 +14,6 @@ import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
 
-type EditSeriesEditT = {
-  ...EditT,
-  +display_data: {
-    +comment?: CompT<string>,
-    +name?: CompT<string>,
-    +ordering_type?: CompT<SeriesOrderingTypeT>,
-    +series: SeriesT,
-    +type?: CompT<SeriesTypeT>,
-  },
-};
-
 type Props = {
   +edit: EditSeriesEditT,
 };

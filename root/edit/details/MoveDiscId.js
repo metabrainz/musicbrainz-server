@@ -13,15 +13,6 @@ import CDTocLink from '../../static/scripts/common/components/CDTocLink';
 import MediumLink
   from '../../static/scripts/common/components/MediumLink';
 
-type MoveDiscIdEditT = {
-  ...EditT,
-  +display_data: {
-    +medium_cdtoc: MediumCDTocT,
-    +new_medium: MediumT,
-    +old_medium: MediumT,
-  },
-};
-
 type Props = {
   +edit: MoveDiscIdEditT,
 };

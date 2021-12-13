@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Form::Field::ArtistCredit;
 use HTML::FormHandler::Moose;
-use Scalar::Util qw( looks_like_number );
 use Storable qw( dclone );
 use Text::Trim qw( );
 use JSON qw( to_json );
@@ -25,7 +24,7 @@ around 'validate_field' => sub {
     my $orig = shift;
     my $self = shift;
 
-    my $ret = $self->$orig(@_);
+    $self->$orig(@_);
 
     my $input = $self->result->input;
 

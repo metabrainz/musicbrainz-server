@@ -13,9 +13,6 @@ with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Comment';
 with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'InstrumentType' };
 
-use MooseX::Types::Structured qw( Dict );
-use MooseX::Types::Moose qw( ArrayRef Object Str );
-
 sub entity_type { 'instrument' }
 
 sub l_name {

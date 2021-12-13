@@ -14,7 +14,6 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_EDIT
     $EDIT_RELATIONSHIP_DELETE
 );
-use MusicBrainz::Server::Data::Utils qw( non_empty );
 use Try::Tiny;
 
 __PACKAGE__->config( namespace => 'relationship_editor' );

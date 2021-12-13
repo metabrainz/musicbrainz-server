@@ -160,6 +160,12 @@ test 'Test is_valid_isni' => sub {
     ok(!is_valid_isni('106750994'));
 };
 
+test 'Test format_isni' => sub {
+    is(format_isni('000000010675099 X'),
+       '000000010675099X',
+       'spaces are removed');
+};
+
 test 'Test is_freedb_id' => sub {
     ok(is_freedb_id('abcdef12'), 'Valid FreeDB ID');
     ok(is_freedb_id('ABCDEF12'), 'Valid FreeDB ID with uppercase');

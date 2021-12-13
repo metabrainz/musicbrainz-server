@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Entity::Language;
 
 use Moose;
-use MooseX::Types::Moose qw( Int Maybe Str );
 use MusicBrainz::Server::Translation::Languages qw( l );
 
 extends 'MusicBrainz::Server::Entity';

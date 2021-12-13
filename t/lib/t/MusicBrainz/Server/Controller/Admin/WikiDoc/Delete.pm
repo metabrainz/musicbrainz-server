@@ -4,8 +4,6 @@ use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
-use HTTP::Request::Common qw( POST );
-
 with 't::Mechanize', 't::Context';
 
 test 'Edit an already transcluded page' => sub {

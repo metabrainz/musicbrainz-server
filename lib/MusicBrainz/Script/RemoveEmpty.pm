@@ -18,7 +18,6 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASEGROUP_DELETE
     $EDIT_SERIES_DELETE
 );
-use MusicBrainz::Server::Log qw( log_debug log_warning log_notice );
 use MusicBrainz::Server::Data::Utils qw( localized_note type_to_model );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Translation qw( N_l );

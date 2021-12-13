@@ -22,13 +22,7 @@ import {uniqBy} from '../../common/utility/arrays';
 import pThrottle, {
   ThrottleAbortError,
 } from '../../common/utility/pThrottle';
-import type {
-  CreditsModeT,
-  MediumWithRecordingsT,
-  ReleaseWithMediumsT,
-  TrackWithRecordingT,
-  ActionT,
-} from '../types';
+import type {CreditsModeT, ActionT} from '../types';
 import linkedEntities from '../../common/linkedEntities';
 
 import MediumTrackRow from './MediumTrackRow';
