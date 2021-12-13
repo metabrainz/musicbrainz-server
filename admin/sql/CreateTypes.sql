@@ -24,4 +24,18 @@ CREATE TYPE ratable_entity_type AS ENUM (
     'work'
 );
 
+CREATE TYPE taggable_entity_type AS ENUM (
+    'area',
+    'artist',
+    'event',
+    'instrument',
+    'label',
+    'place',
+    'recording',
+    'release',
+    'release_group',
+    'series',
+    'work'
+);
+
 COMMIT;
