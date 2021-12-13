@@ -13,80 +13,134 @@ export default function Supporters(props) {
 
       <div className="container" data-bs-aos="fade-up">
         <div className="section-header">
-          <h2>Supporters</h2>
+          <h2>
+            {l(`Supporters`)}
+          </h2>
         </div>
 
-        <div className="row no-gutters supporters-wrap clearfix" data-bs-aos="zoom-in" data-bs-aos-delay="100">
+        <div
+          className="row no-gutters supporters-wrap clearfix"
+          data-bs-aos="zoom-in"
+          data-bs-aos-delay="100"
+        >
 
           <div className="col-lg-3 col-md-4 col-xs-6">
             <div className="supporter-logo">
-              <img alt="" className="img-thumbnail" src="../../../../static/images/supporters/google.svg" />
+              <img
+                alt="Google"
+                className="img-thumbnail"
+                src="../../../../static/images/supporters/google.svg"
+              />
             </div>
           </div>
 
           <div className="col-lg-3 col-md-4 col-xs-6">
             <div className="supporter-logo">
-              <img alt="" className="img-thumbnail" src="../../../../static/images/supporters/bbc.svg" />
+              <img
+                alt="BBC"
+                className="img-thumbnail"
+                src="../../../../static/images/supporters/bbc.svg"
+              />
             </div>
           </div>
 
           <div className="col-lg-3 col-md-4 col-xs-6">
             <div className="supporter-logo">
-              <img alt="" className="img-thumbnail" src="../../../../static/images/supporters/plex.svg" />
+              <img
+                alt="Plex"
+                className="img-thumbnail"
+                src="../../../../static/images/supporters/plex.svg"
+              />
             </div>
           </div>
 
           <div className="col-lg-3 col-md-4 col-xs-6">
             <div className="supporter-logo">
-              <img alt="" className="img-thumbnail" src="../../../../static/images/supporters/lastfm.svg" />
+              <img
+                alt="LastFM"
+                className="img-thumbnail"
+                src="../../../../static/images/supporters/lastfm.svg"
+              />
             </div>
           </div>
 
           <div className="col-lg-3 col-md-4 col-xs-6">
             <div className="supporter-logo">
-              <img alt="" className="img-thumbnail" src="../../../../static/images/supporters/microsoft.png" />
+              <img
+                alt="Microsoft"
+                className="img-thumbnail"
+                src="../../../../static/images/supporters/microsoft.png"
+              />
             </div>
           </div>
 
           <div className="col-lg-3 col-md-4 col-xs-6">
             <div className="supporter-logo">
-              <img alt="" className="img-thumbnail" src="../../../../static/images/supporters/pandora.png" />
+              <img
+                alt="Pandora"
+                className="img-thumbnail"
+                src="../../../../static/images/supporters/pandora.png"
+              />
             </div>
           </div>
 
           <div className="col-lg-3 col-md-4 col-xs-6">
             <div className="supporter-logo">
-              <img alt="" className="img-thumbnail" src="../../../../static/images/supporters/hubbard.png" />
+              <img
+                alt="Hubbard"
+                className="img-thumbnail"
+                src="../../../../static/images/supporters/hubbard.png"
+              />
             </div>
           </div>
 
           <div className="col-lg-3 col-md-4 col-xs-6">
             <div className="supporter-logo">
-              <img alt="" className="img-thumbnail" src="../../../../static/images/supporters/Amazon_logo.svg" />
+              <img
+                alt="Amazon"
+                className="img-thumbnail"
+                src="../../../../static/images/supporters/Amazon_logo.svg"
+              />
             </div>
           </div>
 
           <div className="col-lg-3 col-md-4 col-xs-6">
             <div className="supporter-logo">
-              <img alt="" className="img-thumbnail" src="../../../../static/images/supporters/ticketmaster.svg" />
+              <img
+                alt="Ticket Master"
+                className="img-thumbnail"
+                src="../../../../static/images/supporters/ticketmaster.svg"
+              />
             </div>
           </div>
 
           <div className="col-lg-3 col-md-4 col-xs-6">
             <div className="supporter-logo">
-              <img alt="" className="img-thumbnail" src="../../../../static/images/supporters/umg.svg" />
+              <img
+                alt="UMG"
+                className="img-thumbnail"
+                src="../../../../static/images/supporters/umg.svg"
+              />
             </div>
           </div>
 
           <div className="col-lg-3 col-md-4 col-xs-6">
             <div className="supporter-logo">
-              <img alt="" className="img-thumbnail" src="../../../../static/images/supporters/siriusxm.jpg" />
+              <img
+                alt="SiriusXM"
+                className="img-thumbnail"
+                src="../../../../static/images/supporters/siriusxm.jpg"
+              />
             </div>
           </div>
 
           <div className="col-lg-3 col-md-4 col-xs-6">
             <div className="supporter-logo">
-              <img alt="" className="img-thumbnail" src="../../../../static/images/supporters/mc.svg" />
+              <img
+                alt="MC"
+                className="img-thumbnail"
+                src="../../../../static/images/supporters/mc.svg"
+              />
             </div>
           </div>
 

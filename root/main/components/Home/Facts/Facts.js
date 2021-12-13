@@ -18,8 +18,12 @@ export default function Facts(props) {
             <div className="count-box">
               <i className="bi bi-music-note-list" />
               <div>
-                <span>1.88 M</span>
-                <p>Artists</p>
+                <span>
+                  {l(`1.88 M`)}
+                </span>
+                <p>
+                  {l(`Artists`)}
+                </p>
               </div>
             </div>
           </div>
@@ -28,8 +32,12 @@ export default function Facts(props) {
             <div className="count-box">
               <i className="bi bi-journal-richtext" />
               <div>
-                <span>3.00 M</span>
-                <p>Releases</p>
+                <span>
+                  {l(`3.00 M`)}
+                </span>
+                <p>
+                  {l(`Releases`)}
+                </p>
               </div>
             </div>
           </div>
@@ -38,8 +46,12 @@ export default function Facts(props) {
             <div className="count-box">
               <i className="bi bi-headset" />
               <div>
-                <span>35.20 M</span>
-                <p>Tracks</p>
+                <span>
+                  {l(`35.20 M`)}
+                </span>
+                <p>
+                  {l(`Tracks`)}
+                </p>
               </div>
             </div>
           </div>
@@ -48,8 +60,12 @@ export default function Facts(props) {
             <div className="count-box">
               <i className="bi bi-people" />
               <div>
-                <span>2.18 M</span>
-                <p>Editors</p>
+                <span>
+                  {l(`2.18 M`)}
+                </span>
+                <p>
+                  {l(`Editors`)}
+                </p>
               </div>
             </div>
           </div>
