@@ -30,6 +30,7 @@ import {
   isBot,
   isLocationEditor,
   isRelationshipEditor,
+  isSpammer,
   isWikiTranscluder,
 } from '../static/scripts/common/utility/privileges';
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
@@ -866,33 +867,47 @@ const UserProfile = ({
       entity={sanitizedAccountLayoutUser(user)}
       page="index"
     >
-      <UserProfileInformation
-        $c={$c}
-        applicationCount={applicationCount}
-        ipHashes={ipHashes}
-        subscribed={subscribed}
-        subscriberCount={subscriberCount}
-        tokenCount={tokenCount}
-        user={user}
-        viewingOwnProfile={viewingOwnProfile}
-      />
+      {isSpammer(user) ? (
+        <>
+          <h2>{l('Blocked Spam Account')}</h2>
+          <p>
+            {l(`This user was blocked and their profile is hidden
+                because they were deemed to be spamming.
+                If you see spam in MusicBrainz, please do let us know
+                by reporting the spammer from their user page.`)}
+          </p>
+        </>
+      ) : (
+        <>
+          <UserProfileInformation
+            $c={$c}
+            applicationCount={applicationCount}
+            ipHashes={ipHashes}
+            subscribed={subscribed}
+            subscriberCount={subscriberCount}
+            tokenCount={tokenCount}
+            user={user}
+            viewingOwnProfile={viewingOwnProfile}
+          />
 
-      <UserProfileStatistics
-        $c={$c}
-        addedEntities={addedEntities}
-        editStats={editStats}
-        secondaryStats={secondaryStats}
-        user={user}
-        votes={votes}
-      />
+          <UserProfileStatistics
+            $c={$c}
+            addedEntities={addedEntities}
+            editStats={editStats}
+            secondaryStats={secondaryStats}
+            user={user}
+            votes={votes}
+          />
 
-      {$c.user && !viewingOwnProfile && !user.deleted ? (
-        <h2 style={{clear: 'both'}}>
-          <a href={`/user/${encodedName}/report`}>
-            {l('Report this user for bad behavior')}
-          </a>
-        </h2>
-      ) : null}
+          {$c.user && !viewingOwnProfile && !user.deleted ? (
+            <h2 style={{clear: 'both'}}>
+              <a href={`/user/${encodedName}/report`}>
+                {l('Report this user for bad behavior')}
+              </a>
+            </h2>
+          ) : null}
+        </>
+      )}
     </UserAccountLayout>
   );
 };
