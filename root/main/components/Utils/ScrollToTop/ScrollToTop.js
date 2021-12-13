@@ -7,50 +7,77 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import {Component} from 'react';
 
-export default class ScrollToTop extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      hovered: false,
-      styles: {
-        ...props.position,
-        position: 'fixed',
-        fontSize: props.fontSize,
-        padding: props.padding,
-        margin: props.margin,
-        icon: props.icon,
-        backgroundColor: props.backgroundColor,
-        borderRadius: props.borderRadius,
-        border: props.border,
-        color: props.color,
-        scrollBehavior: props.scrollBehavior,
-        opacity: props.opacity,
-        text: props.text ? props.text : '',
-        transition: props.transition,
-        cursor: props.cursor,
-        outline: props.outline,
-        zIndex: props.zIndex,
-      },
-      show: false,
-    };
-  }
+export default class ScrollToTop extends Component<Props> {
+static defaultProps = {
+  backgroundColor: 'black',
+  border: 'none',
+  borderRadius: 48,
+  color: 'white',
+  cursor: 'pointer',
+  fontSize: '18px',
+  hover: {
+    backgroundColor: 'black',
+    color: 'white',
+    opacity: '0.9',
+  },
+  icon: '',
+  margin: '10px',
+  opacity: '1',
+  outline: 'none',
+  padding: '12px',
+  position: {
+    bottom: '0%',
+    right: '0%',
+  },
+  scrollBehavior: 'smooth',
+  showOnDistance: 300,
+  text: '',
+  transition: 'none',
+  zIndex: 999,
+};
 
-  componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
-    const {show} = this.state;
-    if (!show) {
-      this.hideButton();
-    } else {
-      this.showButton();
-    }
-  }
+constructor(props) {
+  super(props);
+  this.state = {
+    hovered: false,
+    styles: {
+      ...props.position,
+      position: 'fixed',
+      fontSize: props.fontSize,
+      padding: props.padding,
+      margin: props.margin,
+      icon: props.icon,
+      backgroundColor: props.backgroundColor,
+      borderRadius: props.borderRadius,
+      border: props.border,
+      color: props.color,
+      scrollBehavior: props.scrollBehavior,
+      opacity: props.opacity,
+      text: props.text ? props.text : '',
+      transition: props.transition,
+      cursor: props.cursor,
+      outline: props.outline,
+      zIndex: props.zIndex,
+    },
+    show: false,
+  };
+}
 
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
+componentDidMount() {
+  window.addEventListener('scroll', this.handleScroll);
+  const {show} = this.state;
+  if (show) {
+    this.showButton();
+  } else {
+    this.hideButton();
   }
+}
+
+componentWillUnmount() {
+  window.removeEventListener('scroll', this.handleScroll);
+}
 
   handleScroll = () => {
     this.setState({show: true});
@@ -108,6 +135,7 @@ export default class ScrollToTop extends Component {
             ? {...this.state.styles, ...this.props.hover}
             : this.state.styles
         }
+        type="button"
       >
         {text}
       </button>
@@ -115,59 +143,31 @@ export default class ScrollToTop extends Component {
   }
 }
 
-ScrollToTop.defaultProps = {
-  icon: '',
-  position: {
-    bottom: '0%',
-    right: '0%',
-  },
-  color: 'white',
-  backgroundColor: 'black',
+type Props = {
+  backgroundColor: string,
+  border: string,
+  borderRadius: number,
+  color: string,
+  cursor: string,
+  fontSize: string,
   hover: {
-    color: 'white',
-    backgroundColor: 'black',
-    opacity: '0.9',
+    backgroundColor: string,
+    color: string,
+    opacity: string,
   },
-  borderRadius: 48,
-  margin: '10px',
-  fontSize: '18px',
-  padding: '12px',
-  opacity: '1',
-  border: 'none',
-  text: '',
-  cursor: 'pointer',
-  outline: 'none',
-  scrollBehavior: 'smooth',
-  transition: 'none',
-  showOnDistance: 300,
-  zIndex: 999,
-};
-
-ScrollToTop.propTypes = {
-  icon: PropTypes.string,
-  color: PropTypes.string,
-  backgroundColor: PropTypes.string,
-  hover: PropTypes.shape({
-    color: PropTypes.string,
-    backgroundColor: PropTypes.string,
-    opacity: PropTypes.string,
-  }),
-  position: PropTypes.shape({
-    top: PropTypes.string,
-    bottom: PropTypes.string,
-    left: PropTypes.string,
-    right: PropTypes.string,
-  }),
-  margin: PropTypes.string,
-  padding: PropTypes.string,
-  transition: PropTypes.string,
-  fontSize: PropTypes.string,
-  cursor: PropTypes.string,
-  outline: PropTypes.string,
-  scrollBehavior: PropTypes.string,
-  border: PropTypes.string,
-  opacity: PropTypes.string,
-  borderRadius: PropTypes.number,
-  showOnDistance: PropTypes.number,
-  zIndex: PropTypes.number,
+  icon: string,
+  margin: string,
+  opacity: string,
+  outline: string,
+  padding: string,
+  position: {
+    bottom: string,
+    left: string,
+    right: string,
+    top: string,
+  },
+  scrollBehavior: string,
+  showOnDistance: number,
+  transition: string,
+  zIndex: number,
 };

@@ -266,7 +266,8 @@ export default function Projects(props) {
               </a>
             </p>
             <p>
-              {l(`CritiqueBrainz is a repository for Creative Commons licensed 
+              {l(`CritiqueBrainz is a repository
+              for Creative Commons licensed
               music reviews. Here you can read what other people have written 
               about an album or event and write your own review!
               `)}
@@ -322,7 +323,6 @@ export default function Projects(props) {
             </p>
           </div>
         </div>
-
       </div>
     </section>
   );

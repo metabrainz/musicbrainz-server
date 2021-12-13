@@ -51,7 +51,6 @@
     "pg": "8.3.3",
     "pg-cursor": "2.3.3",
     "po2json": "0.4.1",
-    "prop-types": "^15.7.2",
     "punycode": "2.1.1",
     "querystring": "0.2.0",
     "react": "17.0.1",
