@@ -49,6 +49,7 @@ const typeOptions = {
     {label: N_l('Instrument'), value: 'instrument'},
     {label: N_lp('Series', 'singular'), value: 'series'},
     {label: N_l('Event'), value: 'event'},
+    {label: N_l('URL'), value: 'url'},
   ],
 };
 

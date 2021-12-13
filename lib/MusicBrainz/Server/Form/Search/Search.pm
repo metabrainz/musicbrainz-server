@@ -50,6 +50,7 @@ sub options_type
         'instrument'    => l('Instrument'),
         'series'        => lp('Series', 'singular'),
         'event'         => l('Event'),
+        'url'           => l('URL'),
     );
 
     push @options, ( 'doc' => l('Documentation') ) if DBDefs->GOOGLE_CUSTOM_SEARCH;

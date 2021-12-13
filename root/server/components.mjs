@@ -325,6 +325,7 @@ export default {
   'search/components/ReleaseResults': (): Promise<mixed> => import('../search/components/ReleaseResults.js'),
   'search/components/SeriesResults': (): Promise<mixed> => import('../search/components/SeriesResults.js'),
   'search/components/TagResults': (): Promise<mixed> => import('../search/components/TagResults.js'),
+  'search/components/UrlResults': (): Promise<mixed> => import('../search/components/UrlResults.js'),
   'search/components/WorkResults': (): Promise<mixed> => import('../search/components/WorkResults.js'),
   'search/error/General': (): Promise<mixed> => import('../search/error/General.js'),
   'search/error/InternalError': (): Promise<mixed> => import('../search/error/InternalError.js'),

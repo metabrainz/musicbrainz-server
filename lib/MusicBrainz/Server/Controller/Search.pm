@@ -42,7 +42,8 @@ sub search : Path('')
         my $type = $form->field('type')->value;
 
         if ($type eq 'annotation' ||
-            $type eq 'cdstub') {
+            $type eq 'cdstub' ||
+            $type eq 'url') {
             $form->field('method')->value('indexed')
                 if $form->field('method')->value eq 'direct';
             $c->forward('external');
@@ -75,8 +76,9 @@ sub search : Path('')
                 results => to_json_array($stash->{results}),
             );
 
+            my $name_for_url = $type eq 'url' ? 'Url' : type_to_model($type);
             $c->stash(
-                component_path => 'search/components/' . type_to_model($type) . 'Results',
+                component_path => 'search/components/' . $name_for_url . 'Results',
                 component_props => \%props,
                 current_view => 'Node',
             );
