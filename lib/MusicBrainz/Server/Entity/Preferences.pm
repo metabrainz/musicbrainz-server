@@ -60,13 +60,6 @@ has 'subscriptions_email_period' => (
     lazy => 1,
 );
 
-has 'show_gravatar' => (
-    isa => 'Bool',
-    default => 0,
-    is => 'rw',
-    lazy => 1
-);
-
 sub TO_JSON {
     my ($self) = @_;
 
@@ -80,7 +73,6 @@ sub TO_JSON {
         public_ratings => boolean_to_json($self->public_ratings),
         public_subscriptions => boolean_to_json($self->public_subscriptions),
         public_tags => boolean_to_json($self->public_tags),
-        show_gravatar => boolean_to_json($self->show_gravatar),
         subscribe_to_created_artists => boolean_to_json($self->subscribe_to_created_artists),
         subscribe_to_created_labels => boolean_to_json($self->subscribe_to_created_labels),
         subscribe_to_created_series => boolean_to_json($self->subscribe_to_created_series),

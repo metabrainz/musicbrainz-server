@@ -287,7 +287,7 @@ END -%]
             CASE 'show_dates';
                 content _ bracketedWithSpace(dates);
             CASE 'avatar'; # add. parameter: avatar
-                '<img src="' _ avatar _ '" height="' _ image_size _ '" width="' _ image_size _ '" class="gravatar" alt="" />' _ content;
+                '<img src="' _ avatar _ '" height="' _ image_size _ '" width="' _ image_size _ '" class="avatar" alt="" />' _ content;
             CASE 'video';
                 '<span class="video" title="' _ html_escape(l('This recording is a video')) _ '"></span>' _ content;
         END;
@@ -446,17 +446,10 @@ END -%]
     INCLUDE _link_other_entity content=text action=action type='cdstub' default_content=cdstub.discid;
 END -%]
 
-[%~ MACRO gravatar(email) FILTER gravatar; email; END -%]
-
 [%~ MACRO link_editor(editor, action, text, size) BLOCK;
     DEFAULT action = 'profile';
     DEFAULT size = 12;
-    IF editor.preferences.show_gravatar;
-      image_url = gravatar(editor.email) _ '&amp;s=' _ size*2;
-    ELSE;
-      image_url = '//gravatar.com/avatar/placeholder?d=mm&amp;s=' _ size*2;
-    END;
-    INCLUDE _link_other_entity content=text action=action type='user' default_content=editor.name avatar=image_url image_size=size;
+    INCLUDE _link_other_entity content=text action=action type='user' default_content=editor.name avatar=editor.avatar image_size=size;
 END -%]
 
 [%~ MACRO link_edit(edit, action, text) BLOCK; # Converted to React at root/static/scripts/common/components/EditLink.js

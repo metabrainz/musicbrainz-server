@@ -66,7 +66,6 @@ __PACKAGE__->config(
             'format_wikitext' => \&MusicBrainz::Server::Filters::format_wikitext,
             'format_editnote' => \&MusicBrainz::Server::Filters::format_editnote,
             'locale' => \&MusicBrainz::Server::Filters::locale,
-            'gravatar' => \&MusicBrainz::Server::Filters::gravatar,
             'coverart_https' => \&MusicBrainz::Server::Filters::coverart_https
         },
         RECURSION => 1,
@@ -678,7 +677,6 @@ sub set_csp_headers {
         q('self'),
         'data:',
         'staticbrainz.org',
-        'gravatar.com',
     );
 
     my @csp_frame_src = ('frame-src', q('self'));
