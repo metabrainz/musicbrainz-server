@@ -5143,6 +5143,33 @@ function testEntitiesOfType(relationshipType, checker) {
   return {results, testedRules};
 }
 
+// Test whether the error message end target matches what is expected
+function testErrorObject(subtest, relationshipType, st) {
+  const actualCleanUrl = cleanURL(subtest.input_url);
+  const cleanUrl = subtest.expected_clean_url || actualCleanUrl;
+  const checker = new Checker(cleanUrl, subtest.input_entity_type);
+  const validationResult = checker.checkRelationship(
+    LINK_TYPES[relationshipType],
+    subtest.input_entity_type,
+  );
+  if (subtest.expected_error.error === undefined) {
+    st.ok(
+      validationResult.error === undefined,
+      'Default error message will be used as expected',
+    );
+  } else {
+    st.ok(
+      validationResult.error.includes(subtest.expected_error.error),
+      'Error message contains expected string',
+    );
+  }
+  st.equal(
+    validationResult.target,
+    subtest.expected_error.target,
+    'Error target matches expected target',
+  );
+}
+
 testData.forEach(function (subtest, i) {
   test('input URL [' + i + '] = ' + subtest.input_url, {}, function (st) {
     let tested = false;
@@ -5304,28 +5331,7 @@ testData.forEach(function (subtest, i) {
         st.end();
         return;
       }
-      const cleanUrl = subtest.expected_clean_url || actualCleanUrl;
-      const checker = new Checker(cleanUrl, subtest.input_entity_type);
-      const validationResult = checker.checkRelationship(
-        LINK_TYPES[relationshipType],
-        subtest.input_entity_type,
-      );
-      if (subtest.expected_error.error === undefined) {
-        st.ok(
-          validationResult.error === undefined,
-          'Default error message will be used as expected',
-        );
-      } else {
-        st.ok(
-          validationResult.error.includes(subtest.expected_error.error),
-          'Error message contains expected string',
-        );
-      }
-      st.equal(
-        validationResult.target,
-        subtest.expected_error.target,
-        'Error target matches expected target',
-      );
+      testErrorObject(subtest, relationshipType, st);
       tested = true;
     }
     if (!tested) {
