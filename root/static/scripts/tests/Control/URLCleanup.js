@@ -2290,6 +2290,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'http://www.jazzmusicarchives.com/artist/peppino-d%E2%80%99agostino',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.jazzmusicarchives.com/artist/peppino-d%E2%80%99agostino',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'http://www.jazzmusicarchives.com/album/ron-carter/ron-carter-jack-dejohnette-and-gonzalo-rubalcaba-skyline#specialists-reviews',
              input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
