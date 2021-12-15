@@ -2370,7 +2370,7 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/www\.jazzmusicarchives\.com\/(\w+)\/(?:[\w-]+\/)?[\w-]*$/.exec(url);
+      const m = /^https:\/\/www\.jazzmusicarchives\.com\/(\w+)\/(?:[\w%-]+\/)?[\w%-]*$/.exec(url);
       if (m) {
         const type = m[1];
         switch (id) {
