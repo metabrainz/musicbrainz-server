@@ -95,6 +95,7 @@ export default {
   'edit/EditData': (): Promise<mixed> => import('../edit/EditData.js'),
   'edit/EditIndex': (): Promise<mixed> => import('../edit/EditIndex.js'),
   'edit/NoteIsRequired': (): Promise<mixed> => import('../edit/NoteIsRequired.js'),
+  'edit/NotesReceived': (): Promise<mixed> => import('../edit/NotesReceived.js'),
   'edit/OpenEdits': (): Promise<mixed> => import('../edit/OpenEdits.js'),
   'edit/SubscribedEditorEdits': (): Promise<mixed> => import('../edit/SubscribedEditorEdits.js'),
   'edit/SubscribedEdits': (): Promise<mixed> => import('../edit/SubscribedEdits.js'),

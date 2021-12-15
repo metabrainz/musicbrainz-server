@@ -438,8 +438,12 @@ sub notes_received : Path('/edit/notes-received') RequireAuth {
     $c->model('Vote')->load_for_edits(map { $_->edit } @$edit_notes);
 
     $c->stash(
-        edit_notes => $edit_notes,
-        template => 'edit/notes-received.tt',
+        current_view => 'Node',
+        component_path => 'edit/NotesReceived',
+        component_props => {
+            editNotes => to_json_array($edit_notes),
+            pager => serialize_pager($c->stash->{pager}),
+        },
     );
 }
 

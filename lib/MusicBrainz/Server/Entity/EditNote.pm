@@ -124,7 +124,12 @@ sub localize {
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
+    if ($self->edit) {
+        $self->link_entity('edit', $self->edit_id, $self->edit);
+    }
+
     my $json = $self->$orig;
+    $json->{edit_id} = $self->edit_id + 0;
     $json->{editor_id} = $self->editor_id + 0;
     $json->{editor} = to_json_object($self->editor);
     $json->{post_time} = datetime_to_iso8601($self->post_time);

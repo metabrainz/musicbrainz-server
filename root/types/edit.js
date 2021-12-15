@@ -29,8 +29,11 @@ declare type EditStatusT =
 
 declare type EditT = CurrentEditT | HistoricEditT;
 
+declare type EditWithIdT = $ReadOnly<{...EditT, +id: number}>;
+
 // MusicBrainz::Server::Entity::EditNote::TO_JSON
 declare type EditNoteT = {
+  +edit_id: number,
   +editor: EditorT | null,
   +editor_id: number,
   +formatted_text: string,
