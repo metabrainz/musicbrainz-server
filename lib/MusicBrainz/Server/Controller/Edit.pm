@@ -216,6 +216,15 @@ sub cancel : Chained('load') RequireAuth DenyWhenReadonly
         $c->response->redirect($c->stash->{cancel_redirect} || $c->req->query_params->{returnto} || $c->uri_for_action('/edit/show', [ $edit->id ]));
         $c->detach;
     }
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'edit/CancelEdit',
+        component_props => {
+            edit => $edit->TO_JSON,
+            form => $form->TO_JSON
+        },
+    );
 }
 
 =head2 open
