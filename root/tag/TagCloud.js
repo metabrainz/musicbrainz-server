@@ -11,12 +11,15 @@ import * as React from 'react';
 
 import Layout from '../layout';
 import TagLink from '../static/scripts/common/components/TagLink';
+import {sortByNumber} from '../static/scripts/common/utility/arrays';
 import {formatCount} from '../statistics/utilities';
+import loopParity from '../utility/loopParity';
 
 type Props = {
   +$c: CatalystContextT,
   +genreMaxCount: number,
   +genres: $ReadOnlyArray<AggregatedTagT>,
+  +showList?: boolean,
   +tagMaxCount: number,
   +tags: $ReadOnlyArray<AggregatedTagT>,
 };
@@ -64,22 +67,56 @@ function generateTagCloud($c, tags, maxCount) {
   );
 }
 
+function generateTagList($c, tags) {
+  const sortedTags = sortByNumber(tags, tag => -tag.count);
+  return (
+    <ul className="tag-list top-tag-list">
+      {sortedTags.map((tag, index) => (
+        <li className={loopParity(index)} key={tag.tag.id}>
+          <TagLink tag={tag.tag.name} />
+          <span className="tag-vote-buttons">
+            <span className="tag-count">{formatCount($c, tag.count)}</span>
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 const TagCloud = ({
   $c,
   genreMaxCount,
   genres,
+  showList = false,
   tagMaxCount,
   tags,
 }: Props): React.Element<typeof Layout> => (
   <Layout fullWidth title={l('Tags')}>
     <div id="content">
-      <h1>{l('Genres')}</h1>
+      <h1>{l('Tags')}</h1>
+      <p>
+        {l('These are the most used genres and other tags in the database.')}
+        {' '}
+        {showList ? (
+          <a href="/tags?show_list=0">{l('Show as a cloud instead.')}</a>
+        ) : (
+          <a href="/tags?show_list=1">{l('Show as a list instead.')}</a>
+        )}
+      </p>
+
+      <h2>{l('Genres')}</h2>
       {genres.length ? (
-        generateTagCloud($c, genres, genreMaxCount)
+        showList
+          ? generateTagList($c, genres)
+          : generateTagCloud($c, genres, genreMaxCount)
+
       ) : l('No genre tags have been used yet.')}
-      <h1>{l('Other tags')}</h1>
+
+      <h2>{l('Other tags')}</h2>
       {tags.length ? (
-        generateTagCloud($c, tags, tagMaxCount)
+        showList
+          ? generateTagList($c, tags)
+          : generateTagCloud($c, tags, tagMaxCount)
       ) : l('No non-genre tags have been used yet.')}
     </div>
   </Layout>
