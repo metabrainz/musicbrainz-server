@@ -40,22 +40,34 @@ sub cloud : Path('/tags')
 {
     my ($self, $c, $name) = @_;
 
-    my $cloud = $c->model('Tag')->get_cloud(200);
-    my $hits = scalar @$cloud;
+    my $cloud = $c->model('Tag')->get_cloud();
+    my $genres = $cloud->{genres};
+    my $genre_hits = scalar @$genres;
+    my $tags = $cloud->{other_tags};
+    my $tag_hits = scalar @$tags;
 
     $c->stash(
         current_view => 'Node',
         component_path => 'tag/TagCloud',
         component_props => {
             %{$c->stash->{component_props}},
-            tagMaxCount => $hits ? $cloud->[0]->{count} + 0 : 0,
-            tags => $hits ? [
+            genreMaxCount => $genre_hits ? $genres->[0]->{count} + 0 : 0,
+            genres => $genre_hits ? [
                 map +{
                     count => $_->{count} + 0,
                     tag => to_json_object($_->{tag}),
                 },
                 sort { $a->{tag}->name cmp $b->{tag}->name }
-                @$cloud
+                @$genres
+            ] : [],
+            tagMaxCount => $tag_hits ? $tags->[0]->{count} + 0 : 0,
+            tags => $tag_hits ? [
+                map +{
+                    count => $_->{count},
+                    tag => to_json_object($_->{tag}),
+                },
+                sort { $a->{tag}->name cmp $b->{tag}->name }
+                @$tags
             ] : [],
         },
     );

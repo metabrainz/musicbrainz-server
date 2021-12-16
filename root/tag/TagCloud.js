@@ -15,6 +15,8 @@ import {formatCount} from '../statistics/utilities';
 
 type Props = {
   +$c: CatalystContextT,
+  +genreMaxCount: number,
+  +genres: $ReadOnlyArray<AggregatedTagT>,
   +tagMaxCount: number,
   +tags: $ReadOnlyArray<AggregatedTagT>,
 };
@@ -42,33 +44,43 @@ function getTagSize(count: number, tagMaxCount: number) {
   return 'tag7';
 }
 
+function generateTagCloud($c, tags, maxCount) {
+  return (
+    <ul className="tag-cloud">
+      {tags.map(({count, tag}) => (
+        <li
+          className={getTagSize(count, maxCount)}
+          key={tag.name}
+          title={texp.l(
+            "'{tag}' has been used {num} times",
+            {num: formatCount($c, count), tag: tag.name},
+          )}
+        >
+          <TagLink tag={tag.name} />
+          {' '}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 const TagCloud = ({
   $c,
+  genreMaxCount,
+  genres,
   tagMaxCount,
   tags,
 }: Props): React.Element<typeof Layout> => (
   <Layout fullWidth title={l('Tags')}>
     <div id="content">
-      <h1>{l('Tags')}</h1>
-      <p>
-        {tags.length ? (
-          <ul className="tag-cloud">
-            {tags.map(({count, tag}) => (
-              <li
-                className={getTagSize(count, tagMaxCount)}
-                key={tag.name}
-                title={texp.l(
-                  "'{tag}' has been used {num} times",
-                  {num: formatCount($c, count), tag: tag.name},
-                )}
-              >
-                <TagLink tag={tag.name} />
-                {' '}
-              </li>
-            ))}
-          </ul>
-        ) : l('The database has no tags.')}
-      </p>
+      <h1>{l('Genres')}</h1>
+      {genres.length ? (
+        generateTagCloud($c, genres, genreMaxCount)
+      ) : l('No genre tags have been used yet.')}
+      <h1>{l('Other tags')}</h1>
+      {tags.length ? (
+        generateTagCloud($c, tags, tagMaxCount)
+      ) : l('No non-genre tags have been used yet.')}
     </div>
   </Layout>
 );
