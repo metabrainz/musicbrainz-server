@@ -6,7 +6,10 @@ DO $$
 DECLARE
   empty_tag_ids INTEGER[];
 BEGIN
-  SELECT array_agg(id) FROM tag WHERE name ~ E'^\\s*$' INTO empty_tag_ids;
+  SELECT array_agg(id)
+    FROM tag
+   WHERE name ~ E'^\\s*$'
+    INTO empty_tag_ids;
 
   DELETE FROM area_tag_raw WHERE tag = any(empty_tag_ids);
   DELETE FROM artist_tag_raw WHERE tag = any(empty_tag_ids);
@@ -33,5 +36,13 @@ BEGIN
   DELETE FROM work_tag WHERE tag = any(empty_tag_ids);
 END
 $$;
+
+UPDATE tag
+   SET name = regexp_replace(btrim(name), E'\\s{2,}', ' ', 'g')
+ WHERE NOT controlled_for_whitespace(name);
+
+ALTER TABLE tag
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
+  ADD CONSTRAINT only_non_empty CHECK (name != '');
 
 COMMIT;

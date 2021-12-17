@@ -148,6 +148,10 @@ ALTER TABLE series_type ADD CONSTRAINT allowed_series_entity_type
     )
   );
 
+ALTER TABLE tag
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
+  ADD CONSTRAINT only_non_empty CHECK (name != '');
+
 ALTER TABLE work
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
   ADD CONSTRAINT only_non_empty CHECK (name != '');
