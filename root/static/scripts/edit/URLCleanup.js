@@ -821,7 +821,7 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.downloadpurchase.release:
           case LINK_TYPES.streamingpaid.release:
             return {
-              result: prefix === 'album',
+              result: prefix === 'album' || prefix === 'music-video',
               target: ERROR_TARGETS.ENTITY,
             };
         }
