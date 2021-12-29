@@ -18,9 +18,10 @@ make -C docker config
 TMP_IMG=mbs_generate_cpanfile_snapshot
 TMP_DIR=/tmp/.$TMP_IMG
 
-mkdir -p "$TMP_DIR"
+mkdir -p "$TMP_DIR/docker"
 cd "$TMP_DIR"
 
+cp "$MB_SERVER_ROOT/docker/pgdg_pubkey.txt" "$TMP_DIR/docker/"
 cp "$CPANFILE_DIR/cpanfile" "$TMP_DIR/"
 cp "$MB_SERVER_ROOT/docker/Dockerfile.cpanfile-snapshot" "$TMP_DIR/Dockerfile"
 

@@ -44,6 +44,10 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
        only_valid_entity_types: [],
+                expected_error: {
+                                  error: undefined,
+                                  target: 'url',
+                                },
   },
   // 45worlds
   {
@@ -313,6 +317,14 @@ const testData = [
        input_relationship_type: 'amazon',
        only_valid_entity_types: [],
   },
+  // amzn.to
+  {
+                     input_url: 'http://amzn.to/2n4b5k4',
+             input_entity_type: 'release',
+       input_relationship_type: 'amazon',
+    expected_relationship_type: undefined,
+       only_valid_entity_types: [],
+  },
   // Ameba
   {
                      input_url: 'https://ameblo.jp/murataayumi',
@@ -390,6 +402,14 @@ const testData = [
     expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://books.apple.com/us/audiobook/id1462355665',
        only_valid_entity_types: ['release'],
+  },
+  // apple.co
+  {
+                     input_url: 'http://apple.co/2mXDtEs',
+             input_entity_type: 'release',
+       input_relationship_type: 'downloadpurchase',
+    expected_relationship_type: undefined,
+       only_valid_entity_types: [],
   },
   // Apple Music
   {
@@ -2286,6 +2306,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'http://www.jazzmusicarchives.com/artist/peppino-d%E2%80%99agostino',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.jazzmusicarchives.com/artist/peppino-d%E2%80%99agostino',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'http://www.jazzmusicarchives.com/album/ron-carter/ron-carter-jack-dejohnette-and-gonzalo-rubalcaba-skyline#specialists-reviews',
              input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
@@ -3890,6 +3917,30 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'label', 'place', 'series'],
   },
   {
+                     input_url: 'https://soundcloud.com/psuhhoteek/lahemaa-lindude-haali-bird-voices-of-lahemaa',
+             input_entity_type: 'recording',
+limited_link_type_combinations: [
+                                  'downloadfree',
+                                  'downloadpurchase',
+                                  'streamingfree',
+                                  'streamingpaid',
+                                  ['downloadfree', 'streamingfree'],
+                                  ['downloadpurchase', 'streamingpaid'],
+                                ],
+  },
+  {
+                     input_url: 'https://soundcloud.com/bei-ping/sets/bei-ping-mafia-cd-2009',
+             input_entity_type: 'release',
+limited_link_type_combinations: [
+                                  'downloadfree',
+                                  'downloadpurchase',
+                                  'streamingfree',
+                                  'streamingpaid',
+                                  ['downloadfree', 'streamingfree'],
+                                  ['downloadpurchase', 'streamingpaid'],
+                                ],
+  },
+  {
                      input_url: 'https://soundcloud.com/tags/bug',
        input_relationship_type: 'soundcloud',
        only_valid_entity_types: [],
@@ -4856,6 +4907,10 @@ limited_link_type_combinations: [
     expected_relationship_type: undefined,
        input_relationship_type: 'discographyentry',
        only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'no entries for specific releases',
+                                  target: 'entity',
+                                },
   },
   // Wikisource
   {
@@ -5135,6 +5190,33 @@ function testEntitiesOfType(relationshipType, checker) {
   return {results, testedRules};
 }
 
+// Test whether the error message end target matches what is expected
+function testErrorObject(subtest, relationshipType, st) {
+  const actualCleanUrl = cleanURL(subtest.input_url);
+  const cleanUrl = subtest.expected_clean_url || actualCleanUrl;
+  const checker = new Checker(cleanUrl, subtest.input_entity_type);
+  const validationResult = checker.checkRelationship(
+    LINK_TYPES[relationshipType],
+    subtest.input_entity_type,
+  );
+  if (subtest.expected_error.error === undefined) {
+    st.ok(
+      validationResult.error === undefined,
+      'Default error message will be used as expected',
+    );
+  } else {
+    st.ok(
+      validationResult.error.includes(subtest.expected_error.error),
+      'Error message contains expected string',
+    );
+  }
+  st.equal(
+    validationResult.target,
+    subtest.expected_error.target,
+    'Error target matches expected target',
+  );
+}
+
 testData.forEach(function (subtest, i) {
   test('input URL [' + i + '] = ' + subtest.input_url, {}, function (st) {
     let tested = false;
@@ -5278,6 +5360,26 @@ testData.forEach(function (subtest, i) {
         );
         tested = true;
       }
+    }
+    if (subtest.expected_error) {
+      const relationshipType = subtest.input_relationship_type ||
+        subtest.expected_relationship_type;
+      if (!relationshipType) {
+        st.fail(
+          'Test is invalid: "expected_error" is specified with neither "expected_relationship_type" nor "input_relationship_type".',
+        );
+        st.end();
+        return;
+      }
+      if (!subtest.input_entity_type) {
+        st.fail(
+          'Test is invalid: "expected error" is specified without "input_entity_type".',
+        );
+        st.end();
+        return;
+      }
+      testErrorObject(subtest, relationshipType, st);
+      tested = true;
     }
     if (!tested) {
       st.fail('Test is worthless: Nothing has been actually tested.');
