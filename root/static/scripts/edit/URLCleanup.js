@@ -573,15 +573,18 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'amazon': {
-    match: [new RegExp(
-      '^(https?://)?' +
-      '(((?!music)[^/])+\.)?' +
-      '(amazon\\.(' + (
-        'ae|at|com\\.au|com\\.br|ca|cn|com|de|es|fr|in' +
-        '|it|jp|co\\.jp|com\\.mx|nl|se|sg|com\\.tr|co\\.uk'
-      ) + ')|amzn\\.com)',
-      'i',
-    )],
+    match: [
+      new RegExp(
+        '^(https?://)?' +
+        '(((?!music)[^/])+\.)?' +
+        '(amazon\\.(' + (
+          'ae|at|com\\.au|com\\.br|ca|cn|com|de|es|fr|in' +
+          '|it|jp|co\\.jp|com\\.mx|nl|se|sg|com\\.tr|co\\.uk'
+        ) + ')|amzn\\.com)',
+        'i',
+      ),
+      new RegExp('^(https?://)?([^/]+\\.)?amzn\\.to', 'i'),
+    ],
     restrict: [LINK_TYPES.amazon],
     clean: function (url) {
       /*
@@ -613,6 +616,24 @@ const CLEANUPS: CleanupEntries = {
       return '';
     },
     validate: function (url) {
+      if (/amzn\.to\//i.test(url)) {
+        return {
+          error: exp.l(
+            `This is a redirect link. Please follow {redirect_url|your link}
+             and add the link it redirects to instead.`,
+            {
+              redirect_url: {
+                href: url,
+                rel: 'noopener noreferrer',
+                target: '_blank',
+              },
+            },
+          ),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+
       // If you change this, please update the BadAmazonURLs report.
       return {
         result: /^https:\/\/www\.amazon\.(ae|at|com\.au|com\.br|ca|cn|com|de|es|fr|in|it|jp|co\.jp|com\.mx|nl|se|sg|com\.tr|co\.uk)\//.test(url),
@@ -777,7 +798,10 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'applemusic': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?music\\.apple\\.com/', 'i')],
+    match: [
+      new RegExp('^(https?://)?([^/]+\\.)?music\\.apple\\.com/', 'i'),
+      new RegExp('^(https?://)?([^/]+\\.)?apple\\.co/', 'i'),
+    ],
     restrict: [
       LINK_TYPES.downloadpurchase,
       LINK_TYPES.streamingpaid,
@@ -790,6 +814,24 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate: function (url, id) {
+      if (/^(?:https?:\/\/)?(?:[^/]+\.)?apple\.co\//i.test(url)) {
+        return {
+          error: exp.l(
+            `This is a redirect link. Please follow {redirect_url|your link}
+             and add the link it redirects to instead.`,
+            {
+              redirect_url: {
+                href: url,
+                rel: 'noopener noreferrer',
+                target: '_blank',
+              },
+            },
+          ),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+
       const m = /^https:\/\/music\.apple\.com\/[a-z]{2}\/([a-z-]{3,})\/[0-9]+$/.exec(url);
       if (m) {
         const prefix = m[1];
@@ -2370,7 +2412,7 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/www\.jazzmusicarchives\.com\/(\w+)\/(?:[\w-]+\/)?[\w-]*$/.exec(url);
+      const m = /^https:\/\/www\.jazzmusicarchives\.com\/(\w+)\/(?:[\w%-]+\/)?[\w%-]*$/.exec(url);
       if (m) {
         const type = m[1];
         switch (id) {
@@ -3924,7 +3966,45 @@ const CLEANUPS: CleanupEntries = {
   },
   'soundcloud': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?soundcloud\\.com', 'i')],
-    restrict: [LINK_TYPES.soundcloud],
+    restrict: [
+      LINK_TYPES.soundcloud,
+      {
+        recording: LINK_TYPES.downloadfree.recording,
+        release: LINK_TYPES.downloadfree.release,
+      },
+      {
+        recording: LINK_TYPES.downloadpurchase.recording,
+        release: LINK_TYPES.downloadpurchase.release,
+      },
+      {
+        recording: LINK_TYPES.streamingfree.recording,
+        release: LINK_TYPES.streamingfree.release,
+      },
+      {
+        recording: LINK_TYPES.streamingpaid.recording,
+        release: LINK_TYPES.streamingpaid.release,
+      },
+      {
+        recording: [
+          LINK_TYPES.downloadfree.recording,
+          LINK_TYPES.streamingfree.recording,
+        ],
+        release: [
+          LINK_TYPES.downloadfree.release,
+          LINK_TYPES.streamingfree.release,
+        ],
+      },
+      {
+        recording: [
+          LINK_TYPES.downloadpurchase.recording,
+          LINK_TYPES.streamingpaid.recording,
+        ],
+        release: [
+          LINK_TYPES.downloadpurchase.release,
+          LINK_TYPES.streamingpaid.release,
+        ],
+      },
+    ],
     clean: function (url) {
       return url.replace(/^(https?:\/\/)?((www|m)\.)?soundcloud\.com(\/#!)?/, 'https://soundcloud.com');
     },
