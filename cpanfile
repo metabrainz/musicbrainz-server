@@ -89,9 +89,7 @@ requires 'Sys::Hostname'                              => '1.17';
 requires 'Template::Plugin::Class'                    => '0.13';
 requires 'Template::Plugin::JavaScript'               => '0.02';
 requires 'Template::Plugin::JSON::Escape'             => '0.02';
-# Template::Toolkit == 3.008 is broken:
-# https://github.com/abw/Template2/issues/263
-requires 'Template::Toolkit'                          => '== 3.007';
+requires 'Template::Toolkit'                          => '3.009';
 requires 'Text::Diff3'                                => '0.10';
 requires 'Text::Markdown'                             => '1.000026';
 requires 'Text::Trim'                                 => '1.02';
@@ -127,8 +125,7 @@ test_requires 'HTML::HTML5::Parser';
 test_requires 'HTML::Selector::XPath';
 test_requires 'LWP::UserAgent::Mockable';
 test_requires 'Perl::Critic';
-test_requires 'Perl::Critic::Policy::TooMuchCode::ProhibitUnusedImport';
-test_requires 'Perl::Critic::Policy::TooMuchCode::ProhibitUnusedInclude';
+test_requires 'Perl::Critic::TooMuchCode';
 test_requires 'Perl::Critic::Policy::Variables::ProhibitUnusedVarsStricter';
 test_requires 'TAP::Harness::JUnit';
 test_requires 'TAP::Parser::SourceHandler::pgTAP';
