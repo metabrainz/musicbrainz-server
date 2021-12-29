@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/metabrainz/musicbrainz-server.git"
   },
-  "license": "GPL-2.0-or-later",
+  "license": "GPLv2+",
   "dependencies": {
     "@babel/core": "7.15.0",
     "@babel/plugin-proposal-class-properties": "7.14.5",
@@ -93,5 +93,5 @@
     "utf8": "2.1.2",
     "xgettext-js": "3.0.0"
   },
-  "private": false
+  "private": true
 }
