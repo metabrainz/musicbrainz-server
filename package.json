@@ -98,5 +98,5 @@
     "utf8": "2.1.2",
     "xgettext-js": "3.0.0"
   },
-  "private": false
+  "private": true
 }
