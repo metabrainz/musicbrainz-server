@@ -150,6 +150,7 @@ sub get_tags
     }
 
     my @tags;
+    $order //= '';
     if ($order eq 'count') {
         @tags = sort { $b->{count} <=> $a->{count} } values %$tags;
     } elsif ($order eq 'countdesc') {
