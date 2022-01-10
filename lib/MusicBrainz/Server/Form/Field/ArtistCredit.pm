@@ -121,7 +121,8 @@ sub json {
 
     my $artists = $c->model('Artist')->get_by_ids(map { $_->{artist}->{id} } @$names);
     for my $name (@$names) {
-        my $artist = $artists->{$name->{artist}->{id}};
+        my $id = $name->{artist}{id};
+        my $artist = defined $id ? $artists->{$id} : undef;
         $name->{artist} = $artist->TO_JSON if $artist;
         $name->{joinPhrase} = delete $name->{join_phrase};
         $name->{name} = $artist->name if $artist && !$name->{name};
