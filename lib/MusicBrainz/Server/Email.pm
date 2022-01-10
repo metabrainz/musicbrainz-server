@@ -703,7 +703,7 @@ sub _send_email
         ]
     };
 
-    $email->header_set('BCC', undef);
+    $email->header_set('BCC'); # removes the header
 
     if ($email->header('Sender')) {
         my @sender = Email::Address->parse($email->header('Sender'));
