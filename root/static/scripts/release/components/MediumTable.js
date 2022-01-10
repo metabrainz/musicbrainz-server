@@ -286,7 +286,7 @@ const MediumTable = (React.memo<PropsT>(({
                  {total_track_count} total.`,
                 {
                   loaded_track_count: loadedTrackCount,
-                  total_track_count: medium.track_count,
+                  total_track_count: medium.track_count || 0,
                 },
               )}
               {' '}
