@@ -7,7 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export default function Supporters(props) {
+import {minimalEntity} from '../../../../utility/hydrate';
+
+function Supporters(props) {
   return (
     <section className={'section-with-bg ' + props.theme} id="supporters">
 
@@ -151,3 +153,8 @@ export default function Supporters(props) {
     </section>
   );
 }
+export default (hydrate<Props>(
+  'div.supporters',
+  Supporters,
+  minimalEntity,
+));

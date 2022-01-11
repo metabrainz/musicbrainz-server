@@ -7,7 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export default function Explore(props) {
+import {minimalEntity} from '../../../../utility/hydrate';
+
+function Explore(props) {
   return (
     <section className={'services ' + props.theme} id="services">
       <div className="container">
@@ -204,3 +206,8 @@ export default function Explore(props) {
     </section>
   );
 }
+export default (hydrate<Props>(
+  'div.explore',
+  Explore,
+  minimalEntity,
+));

@@ -7,7 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export default function Facts(props) {
+import {minimalEntity} from '../../../../utility/hydrate';
+
+function Facts(props) {
   return (
     <section className={'counts ' + props.theme} id="counts">
       <div className="container" data-bs-aos="fade-up">
@@ -76,3 +78,8 @@ export default function Facts(props) {
     </section>
   );
 }
+export default (hydrate<Props>(
+  'div.facts',
+  Facts,
+  minimalEntity,
+));

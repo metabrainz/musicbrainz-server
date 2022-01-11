@@ -7,7 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export default function Projects(props) {
+import {minimalEntity} from '../../../../utility/hydrate';
+
+function Projects(props) {
   return (
     <section className={'section-bg ' + props.theme} id="features">
       <div className="container">
@@ -327,3 +329,8 @@ export default function Projects(props) {
     </section>
   );
 }
+export default (hydrate<Props>(
+  'div.projects',
+  Projects,
+  minimalEntity,
+));

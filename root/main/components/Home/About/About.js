@@ -7,7 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export default function About(props) {
+import {minimalEntity} from '../../../../utility/hydrate';
+
+function About(props) {
   return (
     <section className={'about ' + props.theme} id="about">
       <div className="container">
@@ -103,3 +105,8 @@ export default function About(props) {
     </section>
   );
 }
+export default (hydrate<Props>(
+  'div.about',
+  About,
+  minimalEntity,
+));

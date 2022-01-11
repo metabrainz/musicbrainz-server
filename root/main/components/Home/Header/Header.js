@@ -9,10 +9,11 @@
 
 import ThemeSwitchButton from
   '../../Utils/ThemeSwitchButton/ThemeSwitchButton';
+import {minimalEntity} from '../../../../utility/hydrate';
 
 import SearchOverlay from './SearchOverlay';
 
-export default function Header(props) {
+function Header(props) {
   let typeCurrent = 'Artist';
   return (
     <>
@@ -294,3 +295,8 @@ const attach = e => {
     .classList.remove('box-collapse-closed');
   return;
 };
+export default (hydrate<Props>(
+  'div.header',
+  Header,
+  minimalEntity,
+));

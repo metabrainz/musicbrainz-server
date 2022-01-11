@@ -10,7 +10,9 @@
 import React from 'react';
 import {Modal} from 'react-bootstrap';
 
-export default class Intro extends React.Component {
+import {minimalEntity} from '../../../../utility/hydrate';
+
+class Intro extends React.Component {
     state = {
       data: 'Actively looking for a barcode...',
       show: false,
@@ -190,3 +192,8 @@ export default class Intro extends React.Component {
       );
     }
 }
+export default (hydrate<Props>(
+  'div.intro',
+  Intro,
+  minimalEntity,
+): React.AbstractComponent<Props, void>);

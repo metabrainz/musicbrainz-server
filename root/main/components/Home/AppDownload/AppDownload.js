@@ -7,7 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export default function AppDownload(props) {
+import {minimalEntity} from '../../../../utility/hydrate';
+
+function AppDownload(props) {
   return (
     <section className={
       'section cta-section ' + props.theme
@@ -57,3 +59,8 @@ export default function AppDownload(props) {
     </section>
   );
 }
+export default (hydrate<Props>(
+  'div.app-download',
+  AppDownload,
+  minimalEntity,
+));
