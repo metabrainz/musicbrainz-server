@@ -3552,9 +3552,9 @@ istanbul-reports@^2.2.4:
   dependencies:
     html-escaper "^2.0.0"
 
-"jed@git://github.com/mwiencek/Jed.git#cd3f71b":
+"jed@https://github.com/mwiencek/Jed.git#cd3f71b":
   version "1.1.1"
-  resolved "git://github.com/mwiencek/Jed.git#cd3f71b7479b9c587990a0fa27ae9fdafbd9d9d9"
+  resolved "https://github.com/mwiencek/Jed.git#cd3f71b7479b9c587990a0fa27ae9fdafbd9d9d9"
 
 jest-worker@^27.0.2:
   version "27.0.6"
@@ -3674,13 +3674,13 @@ klona@^2.0.4:
   resolved "https://registry.yarnpkg.com/klona/-/klona-2.0.4.tgz#7bb1e3affb0cb8624547ef7e8f6708ea2e39dfc0"
   integrity sha512-ZRbnvdg/NxqzC7L9Uyqzf4psi1OM4Cuc+sJAkQPjO6XkQIJTNbfK2Rsmbw8fx1p2mkZdp2FZYo2+LwXYY/uwIA==
 
-"knockout-arraytransforms@git://github.com/mwiencek/knockout-arraytransforms.git#9673e91":
+"knockout-arraytransforms@https://github.com/mwiencek/knockout-arraytransforms.git#9673e91":
   version "2.1.1"
-  resolved "git://github.com/mwiencek/knockout-arraytransforms.git#9673e91a4755b92ba4eea5ca03067790dbbd997b"
+  resolved "https://github.com/mwiencek/knockout-arraytransforms.git#9673e91a4755b92ba4eea5ca03067790dbbd997b"
 
-"knockout@git://github.com/mwiencek/knockout.git#a09f077":
+"knockout@https://github.com/mwiencek/knockout.git#a09f077":
   version "3.1.0"
-  resolved "git://github.com/mwiencek/knockout.git#a09f0778844130a89af438971ad6229ab81e26b3"
+  resolved "https://github.com/mwiencek/knockout.git#a09f0778844130a89af438971ad6229ab81e26b3"
 
 lazy-cache@^1.0.3:
   version "1.0.4"
