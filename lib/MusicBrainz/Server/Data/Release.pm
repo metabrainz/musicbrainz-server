@@ -1442,36 +1442,12 @@ sub load_meta
     my $self = shift;
     my (@objs) = @_;
 
-    my %id_to_obj = map { $_->id => $_ } @objs;
-
     MusicBrainz::Server::Data::Utils::load_meta($self->c, 'release_meta', sub {
         my ($obj, $row) = @_;
         $obj->info_url($row->{info_url}) if defined $row->{info_url};
         $obj->amazon_asin($row->{amazon_asin}) if defined $row->{amazon_asin};
-        $obj->amazon_store($row->{amazon_store}) if defined $row->{amazon_store};
         $obj->cover_art_presence($row->{cover_art_presence});
     }, @objs);
-
-    if (!defined $has_release_coverart_backup) {
-        $has_release_coverart_backup = $self->sql->select_single_value(
-            q(SELECT 1 FROM pg_tables WHERE schemaname = 'musicbrainz' AND tablename = 'release_coverart_backup'),
-        ) ? 1 : 0;
-    }
-
-    if ($has_release_coverart_backup) {
-        my @ids = keys %id_to_obj;
-        if (@ids) {
-            for my $row (@{
-                $self->sql->select_list_of_hashes(
-                    'SELECT * FROM release_coverart_backup WHERE id IN ('.placeholders(@ids).')',
-                    @ids
-                )
-            }) {
-                $id_to_obj{ $row->{id} }->cover_art_url( $row->{cover_art_url} )
-                    if defined $row->{cover_art_url};
-            }
-        }
-    }
 }
 
 sub load_related_info {

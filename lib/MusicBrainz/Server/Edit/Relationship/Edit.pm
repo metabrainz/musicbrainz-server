@@ -526,61 +526,6 @@ sub accept
         $data->{relationship_id},
         $values
     );
-
-    # Determine the old link type id. Old link type might not be defined if
-    # the user didn't actually change the link type, so be careful to avoid
-    # dereferencing null.
-    my $old_link_type_id =
-        ($self->data->{old}{link_type} && $self->data->{old}{link_type}{id});
-
-    # Take the new link type id to be the link type of the new relationship
-    my $new_link_type_id = $values->{link_type_id};
-
-    # Fetch both the new and the old link types, filtering out the old link type
-    # if it's undefined.
-    my $link_types = $self->c->model('LinkType')->get_by_ids(
-        $new_link_type_id, $old_link_type_id // ());
-
-    # If the new link type can be parsed by a cover art fetcher, refresh cover
-    # art for the release at the new relationship end point.
-    my $new_link_type = $link_types->{ $values->{link_type_id} };
-    my $can_parse_new_link_type =
-        $self->c->model('CoverArt')->can_parse($new_link_type->name);
-    if ($can_parse_new_link_type) {
-        my $release = $self->c->model('Release')->get_by_id(
-            $values->{entity0_id}
-        );
-        $self->c->model('Relationship')->load_subset([ 'url' ], $release);
-        $self->c->model('CoverArt')->cache_cover_art($release);
-    }
-
-    # Determine the old link type of the relationship. If $old_link_type_id is
-    # not defined, then the relationship type has not changed so it's safe
-    # to default to $new_link_type_id.
-    my $old_link_type = $link_types->{
-        $old_link_type_id // $new_link_type_id
-    };
-
-    # If we have a cover art parser for the old link type, and the end point
-    # has changed, then we should refresh the old end point. For example,
-    # the relationship is an ASIN relationship, but the release the URL is
-    # associated with has been changed, so the old release should no longer
-    # have ASIN cover art.
-
-    my $can_parse_old_link_type =
-        $self->c->model('CoverArt')->can_parse($old_link_type->name);
-
-    my $old_entity_id_changed =
-           $self->data->{old}{entity0} && $self->data->{new}{entity0}
-        && $self->data->{old}{entity0}{id} != $self->data->{new}{entity0}{id};
-
-    if ($can_parse_old_link_type && ($old_entity_id_changed || !$can_parse_new_link_type)) {
-        my $old_release = $self->c->model('Release')->get_by_id(
-            $self->data->{old}{entity0}{id} // $self->data->{link}{entity0}{id}
-        );
-        $self->c->model('Relationship')->load_subset([ 'url' ], $old_release);
-        $self->c->model('CoverArt')->cache_cover_art($old_release);
-    }
 }
 
 before restore => sub {

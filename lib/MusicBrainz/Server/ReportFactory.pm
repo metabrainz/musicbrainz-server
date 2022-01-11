@@ -83,7 +83,6 @@ use MusicBrainz::Server::PagedReport;
     ReleaseRGDifferentName
     ReleasesSameBarcode
     ReleasesToConvert
-    ReleasesWithAmazonCoverArt
     ReleasesWithCAANoTypes
     ReleasesWithDownloadRelationships
     ReleasesWithEmptyMediums
@@ -179,7 +178,6 @@ use MusicBrainz::Server::Report::ReleaseLabelSameArtist;
 use MusicBrainz::Server::Report::ReleaseRGDifferentName;
 use MusicBrainz::Server::Report::ReleasesToConvert;
 use MusicBrainz::Server::Report::ReleasesSameBarcode;
-use MusicBrainz::Server::Report::ReleasesWithAmazonCoverArt;
 use MusicBrainz::Server::Report::ReleasesWithCAANoTypes;
 use MusicBrainz::Server::Report::ReleasesWithDownloadRelationships;
 use MusicBrainz::Server::Report::ReleasesWithEmptyMediums;

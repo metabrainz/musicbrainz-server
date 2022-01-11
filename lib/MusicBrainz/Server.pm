@@ -66,7 +66,6 @@ __PACKAGE__->config(
             'format_wikitext' => \&MusicBrainz::Server::Filters::format_wikitext,
             'format_editnote' => \&MusicBrainz::Server::Filters::format_editnote,
             'locale' => \&MusicBrainz::Server::Filters::locale,
-            'coverart_https' => \&MusicBrainz::Server::Filters::coverart_https
         },
         RECURSION => 1,
         TEMPLATE_EXTENSION => '.tt',

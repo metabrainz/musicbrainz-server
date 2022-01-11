@@ -469,43 +469,6 @@ my %stats = (
             };
         },
     },
-    'count.release.coverart.amazon' => {
-        DESC => 'Releases whose cover art comes from Amazon',
-        CALC => sub {
-            my ($self, $sql) = @_;
-
-            my $has_release_coverart_backup = $sql->select_single_value(
-                q(SELECT 1 FROM pg_tables WHERE schemaname = 'musicbrainz' AND tablename = 'release_coverart_backup'),
-            ) ? 1 : 0;
-
-            my $data = [];
-            if ($has_release_coverart_backup) {
-                $data = $sql->select_list_of_lists(<<~'SQL');
-                    SELECT (cover_art_url ~ '^https?://.*.images-amazon.com')::int AS is_amazon, COUNT(*) FROM release_coverart_backup
-                    WHERE cover_art_url IS NOT NULL
-                        AND NOT EXISTS (
-                        SELECT TRUE FROM cover_art_archive.cover_art ca
-                            JOIN cover_art_archive.cover_art_type cat ON ca.id = cat.id
-                        WHERE ca.release = release_coverart_backup.id AND cat.type_id = 1)
-                    GROUP BY is_amazon
-                    SQL
-            }
-
-            my %dist = map { @$_ } @$data;
-
-            +{
-                'count.release.coverart.amazon' => $dist{1} // 0,
-                'count.release.coverart.relationship' => $dist{0} // 0
-            };
-        },
-        NONREPLICATED => 1,
-    },
-    'count.release.coverart.relationship' => {
-        DESC => 'Releases whose cover art comes from relationships',
-        PREREQ => [qw[ count.release.coverart.amazon ]],
-        PREREQ_ONLY => 1,
-        NONREPLICATED => 1,
-    },
     'count.release.coverart.caa' => {
         DESC => 'Releases whose cover art comes from the CAA',
         SQL => 'SELECT COUNT(distinct release) FROM cover_art_archive.cover_art ca
@@ -513,15 +476,12 @@ my %stats = (
                 WHERE cat.type_id = 1',
     },
     'count.release.coverart.none' => {
-        PREREQ => [qw[ count.release count.release.coverart.amazon count.release.coverart.caa count.release.coverart.relationship ]],
+        PREREQ => [qw[ count.release count.release.coverart.caa ]],
         DESC => 'Releases with no cover art',
         CALC => sub {
             my ($self, $sql) = @_;
 
-            return $self->fetch('count.release') -
-                   ($self->fetch('count.release.coverart.amazon') +
-                    $self->fetch('count.release.coverart.caa') +
-                    $self->fetch('count.release.coverart.relationship'));
+            return $self->fetch('count.release') - $self->fetch('count.release.coverart.caa');
         },
         NONREPLICATED => 1,
     },
