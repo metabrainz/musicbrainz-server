@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context';
+import {formatCount} from '../statistics/utilities';
 
 import Paginator from './Paginator';
 
@@ -30,11 +31,8 @@ const PaginatedResults = ({
   search = false,
   total = false,
 }: Props): React.Element<typeof React.Fragment> => {
-  const paginator = (
-    <CatalystContext.Consumer>
-      {$c => <Paginator $c={$c} pageVar={pageVar} pager={pager} />}
-    </CatalystContext.Consumer>
-  );
+  const $c = React.useContext(CatalystContext);
+  const paginator = <Paginator $c={$c} pageVar={pageVar} pager={pager} />;
   return (
     <>
       {paginator}
@@ -44,7 +42,7 @@ const PaginatedResults = ({
             texp.ln(
               'Found {n} result', 'Found {n} results',
               pager.total_entries,
-              {n: Number(pager.total_entries).toLocaleString()},
+              {n: formatCount($c, Number(pager.total_entries))},
             )
           ) : (
             texp.ln(
@@ -52,7 +50,7 @@ const PaginatedResults = ({
               'Found {n} results for "{q}"',
               pager.total_entries,
               {
-                n: Number(pager.total_entries).toLocaleString(),
+                n: formatCount($c, Number(pager.total_entries)),
                 q: query,
               },
             )
