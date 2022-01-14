@@ -42,7 +42,7 @@ const PaginatedResults = ({
             texp.ln(
               'Found {n} result', 'Found {n} results',
               pager.total_entries,
-              {n: formatCount($c, Number(pager.total_entries))},
+              {n: formatCount($c, pager.total_entries)},
             )
           ) : (
             texp.ln(
@@ -50,7 +50,7 @@ const PaginatedResults = ({
               'Found {n} results for "{q}"',
               pager.total_entries,
               {
-                n: formatCount($c, Number(pager.total_entries)),
+                n: formatCount($c, pager.total_entries),
                 q: query,
               },
             )
