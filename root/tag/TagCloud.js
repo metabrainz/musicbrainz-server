@@ -11,8 +11,10 @@ import * as React from 'react';
 
 import Layout from '../layout';
 import TagLink from '../static/scripts/common/components/TagLink';
+import {formatCount} from '../statistics/utilities';
 
 type Props = {
+  +$c: CatalystContextT,
   +tagMaxCount: number,
   +tags: $ReadOnlyArray<AggregatedTagT>,
 };
@@ -41,6 +43,7 @@ function getTagSize(count: number, tagMaxCount: number) {
 }
 
 const TagCloud = ({
+  $c,
   tagMaxCount,
   tags,
 }: Props): React.Element<typeof Layout> => (
@@ -56,7 +59,7 @@ const TagCloud = ({
                 key={tag.name}
                 title={texp.l(
                   "'{tag}' has been used {num} times",
-                  {num: count.toLocaleString(), tag: tag.name},
+                  {num: formatCount($c, count), tag: tag.name},
                 )}
               >
                 <TagLink tag={tag.name} />
