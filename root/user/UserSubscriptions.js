@@ -17,6 +17,7 @@ import UserAccountLayout, {
 import EditorLink from '../static/scripts/common/components/EditorLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import loopParity from '../utility/loopParity';
+import {returnToCurrentPage} from '../utility/returnUri';
 
 const titleByEntityType = {
   artist: N_l('Artist Subscriptions'),
@@ -130,7 +131,8 @@ const UserSubscriptions = ({
   const isAdminViewingPrivate = Boolean(
     $c.user && !viewingOwnProfile && !user.preferences.public_subscriptions,
   );
-  const action = `/account/subscriptions/${type}/remove`;
+  const action = `/account/subscriptions/${type}/remove?` +
+    returnToCurrentPage($c);
   const showSummary = summary.artist > 0 || summary.collection > 0 ||
                       summary.editor > 0 || summary.label > 0 ||
                       summary.series > 0;
