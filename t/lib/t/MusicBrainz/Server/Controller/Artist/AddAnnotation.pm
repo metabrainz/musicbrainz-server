@@ -22,6 +22,23 @@ $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit_annotation');
 $mech->submit_form(
     with_fields => {
         'edit-annotation.text' => "    * Test annotation\x{0007} for an artist  \r\n\r\n\t\x{00A0}\r\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets  \t\t",
+        'edit-annotation.changelog' => 'This is a very long changelog that will indeed exceed the maximum allowed length and should trigger an error, but it did not, leading to MBS-12161. That has hopefully been fixed, so this intentionally ridiculously long changelog should now return an error as it was meant to do.',
+    });
+
+ok(
+    $mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce/edit_annotation?$},
+    'should stay on the edit_annotation page',
+);
+
+$mech->content_contains(
+    'Field should not exceed 255 characters. You entered 278',
+    '..has error',
+);
+
+$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit_annotation');
+$mech->submit_form(
+    with_fields => {
+        'edit-annotation.text' => "    * Test annotation\x{0007} for an artist  \r\n\r\n\t\x{00A0}\r\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets  \t\t",
         'edit-annotation.changelog' => 'Changelog here',
     });
 
