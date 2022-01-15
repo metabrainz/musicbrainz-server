@@ -64,7 +64,11 @@ sub show : Chained('load') PathPart('')
     load_everything_for_edits($c, [ $edit ]);
     $c->form(add_edit_note => 'EditNote');
 
-    $c->stash->{template} = 'edit/index.tt';
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'edit/EditIndex',
+        component_props => {edit => $edit->TO_JSON},
+    );
 }
 
 sub data : Chained('load') RequireAuth
