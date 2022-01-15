@@ -1814,6 +1814,7 @@ INSERT INTO editor_collection_work (collection, work) VALUES (22, 12488155);
 
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (242, 95821, 11, 't');
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (242, 95821, 34, 't');
+INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (242, 95821, 741, 'f');
 
 UPDATE medium
 SET track_count = tc.count
