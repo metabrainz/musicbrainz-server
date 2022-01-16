@@ -861,7 +861,7 @@ declare type EditRelationshipTypeEditT = $ReadOnly<{
     +long_link_phrase?: CompT<string>,
     +name: CompT<string>,
     +orderable_direction?: CompT<number>,
-    +parent_id?: CompT<number | string>,
+    +parent?: CompT<LinkTypeT | null>,
     +relationship_type: LinkTypeT,
     +reverse_link_phrase: CompT<string>,
   },

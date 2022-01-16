@@ -281,6 +281,12 @@ const testData = [
             expected_clean_url: 'https://www.amazon.se/gp/product/B08HG3BKQK',
   },
   {
+                     input_url: 'https://www.amazon.pl/gp/product/B07TJKC2DG/#customerReviews',
+             input_entity_type: 'release',
+    expected_relationship_type: 'amazon',
+            expected_clean_url: 'https://www.amazon.pl/gp/product/B07TJKC2DG',
+  },
+  {
                      input_url: 'http://www.amazon.co.uk/Kosheen/e/B000APRTKE',
             expected_clean_url: 'https://www.amazon.co.uk/-/e/B000APRTKE',
   },

@@ -1,67 +1,72 @@
 package t::MusicBrainz::Server::Controller::Edit::Open;
 use Test::Routine;
-use Test::More;
 
-use MusicBrainz::Server::EditRegistry;
+use MusicBrainz::Server::Constants qw(
+    $EDIT_ARTIST_EDIT
+    $UNTRUSTED_FLAG
+);
 use MusicBrainz::Server::Test qw( accept_edit html_ok );
 
-my $mock_edit_class = 1000 + int(rand(1000));
-
-{
-    package t::Controller::Edit::Open::FakeEdit;
-    use Moose;
-    extends 'MusicBrainz::Server::Edit';
-    sub edit_type { $mock_edit_class }
-    sub edit_name { 'Remove label alias' } # Just so it grabs an edit template
-    sub edit_kind { 'other' }
-    sub edit_category { 'Utterly Fake' }
-    sub edit_template_react { 'historic/RemoveLabelAlias' }
-    sub initialize {
-        my $self = shift;
-        $self->data({ fake => 'data' });
-    }
-};
-
-MusicBrainz::Server::EditRegistry->register_type("t::Controller::Edit::Open::$_")
-    for qw( FakeEdit );
-
-around run_test => sub {
-    my ($orig, $test, @args) = @_;
-    $test->clear_edit;
-    $test->edit;
-    $test->mech->get('/login');
-    $test->mech->submit_form( with_fields => { username => 'editor', password => 'pass' } );
-    $test->$orig(@args);
-};
-
-with 't::Edit', 't::Mechanize', 't::Context';
+with 't::Mechanize', 't::Context';
 
 test '/edit/open shows open edits' => sub {
     my $test = shift;
+    my $edit = prepare($test);
+
     $test->mech->get_ok('/edit/open', 'fetch open edits');
-    html_ok($test->mech->content);
-    $test->mech->content_contains('/edit/' . $test->edit->id);
+
+    $test->mech->content_contains('/edit/' . $edit->id);
 };
 
 test '/edit/open does not show accepted edits' => sub {
     my $test = shift;
-    accept_edit($test->c, $test->edit);
+    my $edit = prepare($test);
+
+    accept_edit($test->c, $edit);
 
     $test->mech->get_ok('/edit/open', 'fetch open edits');
     html_ok($test->mech->content);
-    $test->mech->content_lacks('/edit/' . $test->edit->id);
+    $test->mech->content_lacks('/edit/' . $edit->id);
 };
 
-has edit => (
-    is => 'ro',
-    clearer => 'clear_edit',
-    lazy => 1,
-    default => sub {
-        shift->c->model('Edit')->create(
-            editor_id => 200,
-            edit_type => $mock_edit_class
-        );
-    }
-);
+test '/edit/open does not show own edits' => sub {
+    my $test = shift;
+    my $edit = prepare($test);
+
+    $test->mech->get_ok('/login');
+    $test->mech->submit_form( with_fields => {
+        username => 'editor1',
+        password => 'pass',
+    } );
+
+    $test->mech->get_ok('/edit/open', 'fetch open edits');
+    html_ok($test->mech->content);
+    $test->mech->content_lacks('/edit/' . $edit->id);
+};
+
+sub prepare {
+    my $test = shift;
+    my $c = $test->c;
+
+    $c->sql->do(<<~'SQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (1, 'e69a970a-e916-11e0-a751-00508db50876', 'artist', 'artist');
+        INSERT INTO editor (id, name, password, email, ha1, email_confirm_date)
+            VALUES (1, 'editor1', '{CLEARTEXT}pass', 'editor1@example.com', '16a4862191803cb596ee4b16802bb7ee', now()),
+                   (2, 'editor2', '{CLEARTEXT}pass', 'editor2@example.com', 'ba025a52cc5ff57d5d10f31874a83de6', now())
+        SQL
+
+    my $edit = $test->c->model('Edit')->create(
+        editor_id => 1,
+        edit_type => $EDIT_ARTIST_EDIT,
+        to_edit => $c->model('Artist')->get_by_id(1),
+        comment => 'Changed comment',
+        ipi_codes => [],
+        isni_codes => [],
+        privileges => $UNTRUSTED_FLAG,
+    );
+
+    return $edit;
+}
 
 1;
