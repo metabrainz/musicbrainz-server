@@ -15,6 +15,7 @@ DROP TABLE area_annotation;
 DROP TABLE area_attribute;
 DROP TABLE area_attribute_type;
 DROP TABLE area_attribute_type_allowed_value;
+DROP TABLE area_containment;
 DROP TABLE area_gid_redirect;
 DROP TABLE area_tag;
 DROP TABLE area_tag_raw;

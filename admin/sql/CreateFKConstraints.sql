@@ -131,6 +131,16 @@ ALTER TABLE area_attribute_type_allowed_value
    FOREIGN KEY (parent)
    REFERENCES area_attribute_type_allowed_value(id);
 
+ALTER TABLE area_containment
+   ADD CONSTRAINT area_containment_fk_descendant
+   FOREIGN KEY (descendant)
+   REFERENCES area(id);
+
+ALTER TABLE area_containment
+   ADD CONSTRAINT area_containment_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES area(id);
+
 ALTER TABLE area_gid_redirect
    ADD CONSTRAINT area_gid_redirect_fk_new_id
    FOREIGN KEY (new_id)

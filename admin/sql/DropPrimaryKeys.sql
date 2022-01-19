@@ -15,6 +15,7 @@ ALTER TABLE area_annotation DROP CONSTRAINT IF EXISTS area_annotation_pkey;
 ALTER TABLE area_attribute DROP CONSTRAINT IF EXISTS area_attribute_pkey;
 ALTER TABLE area_attribute_type DROP CONSTRAINT IF EXISTS area_attribute_type_pkey;
 ALTER TABLE area_attribute_type_allowed_value DROP CONSTRAINT IF EXISTS area_attribute_type_allowed_value_pkey;
+ALTER TABLE area_containment DROP CONSTRAINT IF EXISTS area_containment_pkey;
 ALTER TABLE area_gid_redirect DROP CONSTRAINT IF EXISTS area_gid_redirect_pkey;
 ALTER TABLE area_tag DROP CONSTRAINT IF EXISTS area_tag_pkey;
 ALTER TABLE area_tag_raw DROP CONSTRAINT IF EXISTS area_tag_raw_pkey;

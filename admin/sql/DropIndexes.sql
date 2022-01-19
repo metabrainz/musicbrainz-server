@@ -18,6 +18,7 @@ DROP INDEX area_attribute_idx_area;
 DROP INDEX area_attribute_type_allowed_value_idx_gid;
 DROP INDEX area_attribute_type_allowed_value_idx_name;
 DROP INDEX area_attribute_type_idx_gid;
+DROP INDEX area_containment_idx_parent;
 DROP INDEX area_gid_redirect_idx_new_id;
 DROP INDEX area_idx_gid;
 DROP INDEX area_idx_name;

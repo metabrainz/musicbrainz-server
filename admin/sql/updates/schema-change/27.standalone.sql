@@ -11,6 +11,7 @@
 -- 20220314-mbs-12255-standalone.sql
 -- 20220322-mbs-12256-standalone.sql
 -- 20220408-immutable-link-tables-standalone.sql
+-- 20220408-mbs-12249-standalone.sql
 -- 20220426-mbs-12131.sql
 \set ON_ERROR_STOP 1
 BEGIN;
@@ -1095,6 +1096,29 @@ CREATE OR REPLACE TRIGGER b_upd_link_attribute_credit BEFORE UPDATE ON link_attr
 
 CREATE OR REPLACE TRIGGER b_upd_link_attribute_text_value BEFORE UPDATE ON link_attribute_text_value
     FOR EACH ROW EXECUTE PROCEDURE b_upd_link_attribute_text_value();
+
+--------------------------------------------------------------------------------
+SELECT '20220408-mbs-12249-standalone.sql';
+
+
+ALTER TABLE area_containment
+   ADD CONSTRAINT area_containment_fk_descendant
+   FOREIGN KEY (descendant)
+   REFERENCES area(id);
+
+ALTER TABLE area_containment
+   ADD CONSTRAINT area_containment_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES area(id);
+
+CREATE OR REPLACE TRIGGER a_ins_l_area_area AFTER INSERT ON l_area_area
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_l_area_area_mirror();
+
+CREATE OR REPLACE TRIGGER a_upd_l_area_area AFTER UPDATE ON l_area_area
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_l_area_area_mirror();
+
+CREATE OR REPLACE TRIGGER a_del_l_area_area AFTER DELETE ON l_area_area
+    FOR EACH ROW EXECUTE PROCEDURE a_del_l_area_area_mirror();
 
 --------------------------------------------------------------------------------
 SELECT '20220426-mbs-12131.sql';

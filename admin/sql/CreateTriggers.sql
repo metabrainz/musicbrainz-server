@@ -121,6 +121,15 @@ CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON instrument_alias
 CREATE TRIGGER b_upd_l_area_area BEFORE UPDATE ON l_area_area
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER a_ins_l_area_area AFTER INSERT ON l_area_area
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_l_area_area_mirror();
+
+CREATE TRIGGER a_upd_l_area_area AFTER UPDATE ON l_area_area
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_l_area_area_mirror();
+
+CREATE TRIGGER a_del_l_area_area AFTER DELETE ON l_area_area
+    FOR EACH ROW EXECUTE PROCEDURE a_del_l_area_area_mirror();
+
 CREATE TRIGGER b_upd_l_area_artist BEFORE UPDATE ON l_area_artist
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
