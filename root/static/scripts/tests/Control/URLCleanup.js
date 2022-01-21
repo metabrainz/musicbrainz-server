@@ -521,52 +521,52 @@ const testData = [
   {
                      input_url: 'http://music.apple.com/artist/hangry-angry-f/id444923726',
              input_entity_type: 'artist',
-            expected_clean_url: 'https://music.apple.com/us/artist/444923726',
 limited_link_type_combinations: [
                                   'downloadpurchase',
                                   'streamingpaid',
                                   ['downloadpurchase', 'streamingpaid'],
                                 ],
+            expected_clean_url: 'https://music.apple.com/us/artist/444923726',
   },
   {
                      input_url: 'https://beta.music.apple.com/ca/artist/imposs/205021452',
              input_entity_type: 'artist',
-            expected_clean_url: 'https://music.apple.com/ca/artist/205021452',
 limited_link_type_combinations: [
                                   'downloadpurchase',
                                   'streamingpaid',
                                   ['downloadpurchase', 'streamingpaid'],
                                 ],
+            expected_clean_url: 'https://music.apple.com/ca/artist/205021452',
   },
   {
                      input_url: 'https://music.apple.com/us/label/ghostly-international/1543968172',
              input_entity_type: 'label',
-            expected_clean_url: 'https://music.apple.com/us/label/1543968172',
 limited_link_type_combinations: [
                                   'downloadpurchase',
                                   'streamingpaid',
                                   ['downloadpurchase', 'streamingpaid'],
                                 ],
+            expected_clean_url: 'https://music.apple.com/us/label/1543968172',
   },
   {
                      input_url: 'https://music.apple.com/ee/music-video/black-and-yellow/539886832?uo=4&mt=5&app=music',
              input_entity_type: 'recording',
-            expected_clean_url: 'https://music.apple.com/ee/music-video/539886832',
 limited_link_type_combinations: [
                                   'downloadpurchase',
                                   'streamingpaid',
                                   ['downloadpurchase', 'streamingpaid'],
                                 ],
+            expected_clean_url: 'https://music.apple.com/ee/music-video/539886832',
   },
   {
                      input_url: 'https://music.apple.com/jp/album/uchiagehanabi-single/1263790414',
              input_entity_type: 'release',
-            expected_clean_url: 'https://music.apple.com/jp/album/1263790414',
 limited_link_type_combinations: [
                                   'downloadpurchase',
                                   'streamingpaid',
                                   ['downloadpurchase', 'streamingpaid'],
                                 ],
+            expected_clean_url: 'https://music.apple.com/jp/album/1263790414',
   },
   // (Internet) Archive
   {
@@ -2747,28 +2747,28 @@ limited_link_type_combinations: [
                      input_url: 'https://www.mainlynorfolk.info/watersons/index.html',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
+limited_link_type_combinations: ['otherdatabases'],
             expected_clean_url: 'https://mainlynorfolk.info/watersons/',
        only_valid_entity_types: ['artist'],
-limited_link_type_combinations: ['otherdatabases'],
   },
   {
                      input_url: 'http://www.mainlynorfolk.info/martin.carthy/records/themoraloftheelephant.html',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
+limited_link_type_combinations: ['otherdatabases'],
             expected_clean_url: 'https://mainlynorfolk.info/martin.carthy/records/themoraloftheelephant.html',
        only_valid_entity_types: ['release'],
-limited_link_type_combinations: ['otherdatabases'],
   },
   {
                      input_url: 'https://www.mainlynorfolk.info/watersons/songs/countrylife.html',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://mainlynorfolk.info/watersons/songs/countrylife.html',
-       only_valid_entity_types: ['work'],
 limited_link_type_combinations: [
                                   'otherdatabases',
                                   ['lyrics', 'otherdatabases'],
                                 ],
+            expected_clean_url: 'https://mainlynorfolk.info/watersons/songs/countrylife.html',
+       only_valid_entity_types: ['work'],
   },
   // maniadb
   {
@@ -4779,25 +4779,25 @@ limited_link_type_combinations: [
                      input_url: 'https://vimeo.com/ondemand/inconcert/193518106?autoplay=1',
             expected_clean_url: 'https://vimeo.com/ondemand/inconcert',
              input_entity_type: 'recording',
-       input_relationship_type: 'downloadpurchase',
-       only_valid_entity_types: ['recording', 'release'],
 limited_link_type_combinations: [
                                   'downloadpurchase',
                                   'streamingpaid',
                                   ['downloadpurchase', 'streamingpaid'],
                                 ],
+       input_relationship_type: 'downloadpurchase',
+       only_valid_entity_types: ['recording', 'release'],
   },
   {
                      input_url: 'https://vimeo.com/ondemand/inconcert#comments',
             expected_clean_url: 'https://vimeo.com/ondemand/inconcert',
              input_entity_type: 'recording',
-       input_relationship_type: 'streamingpaid',
-       only_valid_entity_types: ['recording', 'release'],
 limited_link_type_combinations: [
                                   'downloadpurchase',
                                   'streamingpaid',
                                   ['downloadpurchase', 'streamingpaid'],
                                 ],
+       input_relationship_type: 'streamingpaid',
+       only_valid_entity_types: ['recording', 'release'],
   },
   {
                      input_url: 'https://vimeo.com/store/ondemand/buy/91410',
