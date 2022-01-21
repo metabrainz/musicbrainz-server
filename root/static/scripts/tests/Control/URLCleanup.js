@@ -5305,10 +5305,11 @@ testData.forEach(function (subtest, i) {
         tested = true;
       }
       if (!('expected_relationship_type' in subtest) &&
-          !('limited_link_type_combinations' in subtest)) {
+          !('limited_link_type_combinations' in subtest) &&
+          !('expected_error' in subtest)) {
         st.fail(
           `Test is invalid: "input_entity_type" is specified without
-           "expected_relationship_type"
+           "expected_relationship_type", "expected_error"
            nor "limited_link_type_combinations".`,
         );
         st.end();
