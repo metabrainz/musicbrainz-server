@@ -198,12 +198,15 @@ sub build_page_url_from_row {
 sub should_follow_table {
     my ($self, $table) = @_;
 
-    return 0 if $table eq 'cover_art_archive.cover_art_type';
     return 0 if $table eq 'musicbrainz.cdtoc';
     return 0 if $table eq 'musicbrainz.language';
     return 0 if $table eq 'musicbrainz.medium_cdtoc';
     return 0 if $table eq 'musicbrainz.medium_index';
+    return 0 if $table eq 'musicbrainz.release_packaging';
+    return 0 if $table eq 'musicbrainz.release_status';
+    return 0 if $table eq 'musicbrainz.script';
 
+    return 0 if $table =~ /_type$/;
     return 0 if $table =~ qr'[._](tag_|tag$)';
     return 0 if $table =~ qw'_(meta|raw|gid_redirect)$';
 
