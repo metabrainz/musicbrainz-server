@@ -28,7 +28,7 @@
     "babel-loader": "8.2.2",
     "balanced-match": "0.2.0",
     "canonical-json": "0.0.4",
-    "cookie": "0.4.0",
+    "cookie": "0.4.1",
     "core-js": "3.6.5",
     "detect-node": "2.0.3",
     "filesize": "2.0.4",
