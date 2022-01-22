@@ -56,7 +56,7 @@
     "react-table": "7.3.2",
     "redux": "3.6.0",
     "shell-quote": "1.7.2",
-    "shelljs": "0.8.4",
+    "shelljs": "0.8.5",
     "sliced": "1.0.1",
     "tablesorter": "2.31.3",
     "terser-webpack-plugin": "5.1.4",
