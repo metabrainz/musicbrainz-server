@@ -467,20 +467,12 @@ sub load_for_collection {
     return unless $id; # nothing to do
 
     $self->load($collection);
-    my $query = 'SELECT ' . $self->_columns . ', ep.value AS show_gravatar
+    my $query = 'SELECT ' . $self->_columns . '
                  FROM ' . $self->_table . "
                  JOIN editor_collection_collaborator ecc ON editor.id = ecc.editor
-                 LEFT JOIN editor_preference ep ON ep.editor = editor.id AND ep.name = 'show_gravatar'
                  WHERE ecc.collection = $id
                  ORDER BY editor.name, editor.id";
-    my @collaborators = $self->query_to_list($query, undef, sub {
-        my ($model, $row) = @_;
-
-        my $collaborator = $model->_new_from_row($row);
-        $collaborator->preferences->show_gravatar($row->{show_gravatar})
-            if defined $row->{show_gravatar};
-        $collaborator;
-    });
+    my @collaborators = $self->query_to_list($query);
 
     $collection->collaborators(\@collaborators);
 }

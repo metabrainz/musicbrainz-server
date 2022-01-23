@@ -90,7 +90,7 @@ sub csp_headers_ok {
         q(frame-ancestors 'none'; ) .
         q(script-src 'self' 'nonce-[0-9A-Za-z\+/]{43}=' staticbrainz\.org; ) .
         q(style-src 'self' staticbrainz\.org; ) .
-        q(img-src 'self' data: staticbrainz\.org gravatar\.com; ) .
+        q(img-src 'self' data: staticbrainz\.org; ) .
         q(frame-src 'self');
     like($response->header('Content-Security-Policy'), qr{^$csp_pattern$});
 }

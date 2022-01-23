@@ -16,9 +16,9 @@ import sanitizedEditor from '../utility/sanitizedEditor';
 import UserAccountTabs from './UserAccountTabs';
 
 export type AccountLayoutUserT = {
+  +avatar: string,
   +deleted: boolean,
   +entityType: 'editor',
-  +gravatar: string,
   +id: number,
   +is_limited: boolean,
   +name: string,

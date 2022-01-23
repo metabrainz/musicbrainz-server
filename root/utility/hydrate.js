@@ -43,7 +43,7 @@ if (__DEV__) {
   const sanitizedEditorProps = new Set([
     'deleted',
     'entityType',
-    'gravatar',
+    'avatar',
     'id',
     'is_limited',
     'name',

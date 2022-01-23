@@ -18,7 +18,7 @@ declare type ActiveEditorPreferencesT = {
  */
 declare type ActiveEditorT = {
   ...EntityRoleT<'editor'>,
-  +gravatar: string,
+  +avatar: string,
   +has_confirmed_email_address: boolean,
   +name: string,
   +preferences: ActiveEditorPreferencesT,
@@ -33,8 +33,8 @@ declare type EditorLanguageT = {
 // MusicBrainz::Server::Entity::Editor::TO_JSON
 declare type EditorT = {
   ...EntityRoleT<'editor'>,
+  +avatar: string,
   +deleted: boolean,
-  +gravatar: string,
   +is_limited: boolean,
   +name: string,
   +privileges: number,
@@ -54,7 +54,6 @@ declare type UnsanitizedEditorPreferencesT = {
   +public_ratings: boolean,
   +public_subscriptions: boolean,
   +public_tags: boolean,
-  +show_gravatar: boolean,
   +subscribe_to_created_artists: boolean,
   +subscribe_to_created_labels: boolean,
   +subscribe_to_created_series: boolean,
@@ -67,13 +66,13 @@ declare type UnsanitizedEditorT = $ReadOnly<{
   ...EntityRoleT<'editor'>,
   +age: number | null,
   +area: AreaT | null,
+  +avatar: string,
   +biography: string | null,
   +birth_date: PartialDateT | null,
   +deleted: boolean,
   +email: string | null,
   +email_confirmation_date: string | null,
   +gender: GenderT | null,
-  +gravatar: string,
   +has_confirmed_email_address: boolean,
   +has_email_address: boolean,
   +is_charter: boolean,

@@ -22,8 +22,6 @@ has_field 'subscribe_to_created_artists' => ( type => 'Boolean' );
 has_field 'subscribe_to_created_labels' => ( type => 'Boolean' );
 has_field 'subscribe_to_created_series' => ( type => 'Boolean' );
 
-has_field 'show_gravatar' => ( type => 'Boolean' );
-
 has_field 'subscriptions_email_period' => (
     type => 'Select',
     required => 1,

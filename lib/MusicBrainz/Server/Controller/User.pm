@@ -107,7 +107,7 @@ sub serialize_user {
     return {
         deleted => boolean_to_json($user->deleted),
         entityType => 'editor',
-        gravatar => $user->gravatar,
+        avatar => $user->avatar,
         id => 0 + $user->id,
         is_limited => boolean_to_json($user->is_limited),
         name => $user->name,

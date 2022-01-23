@@ -5,12 +5,10 @@ use utf8;
 use strict;
 use warnings;
 
-use Digest::MD5 qw( md5_hex );
 use Encode;
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Validation qw( encode_entities );
 use MusicBrainz::Server::Constants qw( entities_with );
-use Text::Trim qw( trim );
 use Text::WikiFormat;
 use Try::Tiny;
 use URI::Escape;
@@ -165,11 +163,6 @@ sub locale
     catch {
         return;
     }
-}
-
-sub gravatar {
-    my $email = shift;
-    return sprintf '//gravatar.com/avatar/%s?d=mm', md5_hex(lc(trim($email)));
 }
 
 sub _amazon_https {
