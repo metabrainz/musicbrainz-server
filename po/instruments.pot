@@ -237,10 +237,6 @@ msgctxt "plastic fipple flute"
 msgid "Tonette"
 msgstr ""
 
-#: DB:instrument/name:562
-msgid "Vienna horn"
-msgstr ""
-
 #: DB:instrument/name:322
 msgid "Vietnamese guitar"
 msgstr ""
@@ -251,6 +247,10 @@ msgstr ""
 
 #: DB:instrument/name:253
 msgid "Warr guitar"
+msgstr ""
+
+#: DB:instrument/name:562
+msgid "Wiener Horn"
 msgstr ""
 
 #: DB:instrument/name:468
@@ -2537,6 +2537,7 @@ msgid "membranophone"
 msgstr ""
 
 #: DB:instrument/name:114
+msgctxt "Traditional English percussion stick"
 msgid "mendoza"
 msgstr ""
 
