@@ -174,6 +174,8 @@ sub cdtoc_tracks {
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
+    my $track_count = $self->track_count;
+
     my $data = {
         %{ $self->$orig },
         cdtocs      => [map { $_->cdtoc->toc } $self->all_cdtocs],
@@ -182,7 +184,7 @@ around TO_JSON => sub {
         name        => $self->name,
         position    => $self->position,
         release_id  => $self->release_id,
-        track_count => 0 + $self->track_count,
+        track_count => defined $track_count ? (0 + $track_count) : undef,
     };
 
     if ($self->all_tracks) {

@@ -361,9 +361,11 @@ around dispatch => sub {
     my $unset_beta = (defined $c->req->query_params->{unset_beta} &&
                       $c->req->query_params->{unset_beta} eq '1' &&
                       !DBDefs->IS_BETA);
-    my $beta_redirect = (defined $c->req->cookies->{beta} &&
-                      $c->req->cookies->{beta}->value eq 'on' &&
-                      !DBDefs->IS_BETA);
+    my $beta_cookie = $c->req->cookies->{beta};
+    my $beta_redirect = (defined $beta_cookie &&
+                         defined $beta_cookie->value &&
+                         $beta_cookie->value eq 'on' &&
+                         !DBDefs->IS_BETA);
     if ( $unset_beta ) {
         $c->res->cookies->{beta} = {
             'value' => '',

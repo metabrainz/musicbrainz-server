@@ -92,12 +92,25 @@ sub accept {
 
 sub foreign_keys {
     my ($self) = @_;
+
+    my $data = $self->data;
+    my $old_release_id = $data->{old}{release_id};
+    my $new_release_id = $data->{new}{release_id};
+
+    my $release_fks = {};
+    if (defined $old_release_id) {
+        $release_fks->{$old_release_id} = ['ArtistCredit'];
+    }
+
+    # It doesn't appear that the new release ID can ever be undef, but let's
+    # check it in case we ever allow unsetting the selected artwork.
+    if (defined $new_release_id) {
+        $release_fks->{$new_release_id} = ['ArtistCredit'];
+    }
+
     return {
-        ReleaseGroup => { $self->data->{entity}{id} => [ 'ArtistCredit' ] },
-        Release => {
-            $self->data->{old}{release_id} => [ 'ArtistCredit' ],
-            $self->data->{new}{release_id} => [ 'ArtistCredit' ],
-        }
+        ReleaseGroup => { $data->{entity}{id} => [ 'ArtistCredit' ] },
+        Release => $release_fks,
     };
 }
 
