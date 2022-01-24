@@ -125,13 +125,18 @@ const ArtistCreditBubble = ({
         </tr>
       </tbody>
     </table>
-    {(initialArtistText && entity.entityType === 'track') ? (
+    {entity.entityType === 'track' ? (
       <div>
         <label>
           <input id="change-matching-artists" type="checkbox" />
-          {texp.l('Change all artists on this release that match “{name}”', {
-            name: initialArtistText,
-          })}
+          {initialArtistText ? (
+            texp.l(
+              'Change all artists on this release that match “{name}”',
+              {name: initialArtistText},
+            )
+          ) : (
+            l('Change all artists on this release that are currently empty')
+          )}
         </label>
       </div>
     ) : null}
