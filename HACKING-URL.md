@@ -1,0 +1,214 @@
+
+Introduction
+============
+
+This file contains instructions on how to deal with feature requests for
+supporting new URL domains in MusicBrainz, or to change how they are currently
+supported.
+
+Our URL support has three main parts: cleanup, favicons and sidebar display.
+Often you will want to add all three, but in some cases you might only want
+to display the links more prominently without cleaning them up, or vice versa.
+
+Cleanup / Autoselect / Validation
+=================================
+
+Most of the handling of URLs, including all three of cleanup, autoselect and
+validation, happen on
+[`root/static/scripts/edit/URLCleanup.js`](root/static/scripts/edit/URLCleanup.js).
+
+For a new domain, you’ll generally want to add a new entry to the `CLEANUPS`
+object. Use a descriptive key (often the domain name is the most clear, but
+feel free to use the site name if it differs significantly from the domain).
+The properties for `CLEANUPS` are documented on that file. You’ll always need
+a `match` property with one or more regular expressions to actually match the
+URLs, but all the others depend on what you’re trying to do, as described
+below.
+
+Make sure to add as many tests as useful to the tests file at
+[`root/static/scripts/tests/Control/URLCleanup.js`](root/static/scripts/tests/Control/URLCleanup.js).
+For more information about how to build each test, see the comment on that
+file. You should at the very least test the main cleanup changes (add an
+original URL that has the elements to be cleaned up and make sure it gets
+cleaned up as expected), and any validation you’ve added (for example, if an
+URL should only be allowed for releases, do add a test ensuring that the
+restriction is working).
+
+Cleanup
+-------
+
+If you want to clean up and standardize the URLs to a canonical version (for
+example to avoid users adding slightly different duplicates) you’ll want a
+`clean` property. This should be a function that takes the URL string,
+modifies it (generally using regular expresions with `url.replace`) and then
+returns it. Remember to check if the site has optional URL parameters at the
+end of some URLs (often separated by ? or #); if so, you might want to remove
+them during cleanup to avoid duplication.
+
+Autoselection
+-------------
+
+Autoselection of one or more relationship types is generally done using
+the `restrict` property. This sets what are the allowed relationships or
+relationship combinations for a URL that matches the `match` pattern. In most
+cases this will be only one relationship type, or at least only one
+relationship type per entity type. In a few cases, it can be a specific *set*
+of two or more relationships. All these cases will automatically be
+autoselected for the user, since there’s only one valid possibility. In some
+cases though there will be several valid possibilities and the user will be
+left to choose the correct one (for example, a Bandcamp link can be a
+streaming page, a download page, or both, but we have no way to know without
+the user’s input).
+
+Different examples for the restrict property:
+* `[LINK_TYPES.otherdatabases]`
+
+    The `otherdatabases` type is valid for all allowed entities, and will be
+    autoselected.
+
+* `[multiple(LINK_TYPES.downloadfree, LINK_TYPES.streamingfree)]`
+
+    Both types (`downloadfree` and `streamingfree`) are always valid for all
+    allowed entities. Both will be autoselected.
+
+* `[{...LINK_TYPES.review, ...LINK_TYPES.bandcamp, work: LINK_TYPES.lyrics.work}]`
+
+    The different types here are valid for different entity types, so they
+    do not clash; there’s no entity type with more than one option. As such,
+    these will also always be autoselected. `lyrics` is also available for
+    other entities, such as artists, but we do not want to allow these here;
+    as such, we specifically pass only the work version of that relationship.
+
+* `[LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid, multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid)]`
+
+    There are three possibilities here: either only `downloadpurchase` and
+    `streamingpaid`, or both at the same time. Since there’s more than one
+    option for the same entity, nothing is autoselected here; the user will
+    be presented with a dropdown offering both allowed relationship types (but
+    none of the other, disallowed types).
+
+In cases like the last one, where `restrict` allows for multiple options,
+you can use the additional `select` property to specify that some of those
+options *always* apply, and should still be autoselected. For example, you
+could have a site that always allows to stream the music, but sometimes also
+allows a download. In that case, you could pass `select` a function that
+returns the appropriate `streamingpaid` relationship type for the entity in
+question, but not the `downloadpurchase` one.
+
+Note that `select` accepts the url and the entity type, and it returns
+a specific type + entity combination. As such, you would need to make sure you
+return `LINK_TYPES.streamingpaid.release` for releases, and so on.
+
+Validation
+----------
+
+If you want to only allow certain URL variations for different relationship
+and entity type combinations, you’ll need a `validate` property. For example,
+you can use this to specify that pages in the domain containing `/artist`
+can only be added to artists, `/label` to labels, and `/review` to release
+groups, and that the first two can be added with the “discography page”
+relationship but the third needs to use the “review” relationship.
+
+This property is a function that takes the URL and (in most cases) the ID of
+the relationship type being validated. The most common usage is to set a
+`switch` with different cases for the possible supported relationship types,
+and return whether each one is allowed or disallowed and based on what.
+In some cases you might want to block a whole URL variation (for example,
+a shortened version). In that case you can have a validation function
+without ID.
+
+The `validate` function returns a result object. This object has a mandatory
+`result` property (a boolean, often the result of a comparison between URL
+and prefix but sometimes hardcoded). It also allows for two optional
+properties: `error` is a translatable error string specific to this case
+(replaced by a default string if not present) and `target` is the level
+at which the error should be placed (one of `ERROR_TARGETS.ENTITY`,
+`ERROR_TARGETS.RELATIONSHIP` or `ERROR_TARGETS.URL`). Set the target to
+whatever is most appropriate: errors where the URL is just not acceptable
+at all should be set as `URL`, the ones where the URL would be valid for a
+different entity type but not the selected one as `ENTITY`, and the ones where
+the URL seems valid but the selected relationship is not as `RELATIONSHIP`.
+
+Supporting new relationship types
+---------------------------------
+
+If you want to use a new relationship type that has recently been added, it
+might not yet be available to use in `URLCleanup`. In that case, you’ll have
+to add an entry to the `LINK_TYPES` object.
+
+If the new relationship type is of the same kind as some already existing ones
+then you just need to add a new `entity: mbid` pair to the appropriate
+sub-object. Say there’s a new AllMusic relationship for labels: you’d add
+`label: $new_type_mbid` to the existing `allmusic` object.
+
+If the new relationship type does not match any of the existing blocks, just
+add a new one, in the same format as the existing ones: the key should be
+a sensible descriptor for the relationship type, and the value an object
+containing `entity: mbid` pairs.
+
+Entity-wide rules
+-----------------
+
+In some cases, you might not want to specifically match an URL to a
+relationship type, but just reject it completely for a particular entity type.
+For example, we have decided to completely disallow Wikipedia links to
+releases, since those generally belong on the release group but users often
+added them to releases using whatever relationship seemed the least bad fit.
+We now block those links on releases *and* provide an error message that
+explicitly asks the user to add them to the release group instead.
+
+To do this, you will want to use `entitySpecificRules`. For each entity type,
+`entitySpecificRules` will map to a function which can be used to reject
+links. The function works similarly to `validate` in `CLEANUPS`, and returns
+the same kind of error objects. If the entity type you want is not being used
+in `entitySpecificRules` yet, just add a new `entitySpecificRules.entity_type`
+function based on the existing ones.
+
+
+Favicons
+========
+
+For a favicon to be displayed by the URLs of the domain you are adding, you
+should add the file as a PNG (preferably sized 32x32, but 16x16 is also
+acceptable if that’s all you can find) to
+[`root/static/images/external-favicons`](root/static/images/external-favicons).
+Try to just extract the favicon directly from the site source code and convert
+it as needed, unless the site officially provides the files for download.
+
+For URLs to actually be mapped to the favicon you’ve added, you also
+need to add the mapping to `FAVICON_CLASSES` in
+[`root/static/scripts/common/constants.js`](root/static/scripts/common/constants.js).
+Then add the favicon to the list in
+[`root/static/styles/favicons.less`](root/static/styles/favicons.less):
+use the favicon class you added in the previous step, and pass a second
+argument `32` if the favicon file is 32x32 rather than 16x16.
+
+
+Sidebar display
+===============
+
+For a domain to be displayed on the sidebar, you’ll need to create a file in
+[`lib/MusicBrainz/Server/Entity/URL`](lib/MusicBrainz/Server/Entity/URL).
+Base your file on the existing ones, and name it after the site in question.
+
+The `sidebar_name` method most often returns a simple untranslated string,
+the name of the site. You can also return a translated string such as
+`l('Stream at YouTube Music')`, or write a more complex method that depends
+on the URL, like for [IMSLP](lib/MusicBrainz/Server/Entity/URL/IMSLP.pm).
+
+If you want the URLs to only be shown on the sidebar if they fulfil a specific
+condition, use the `show_in_external_links` method.
+
+If the URLs should be displayed in a custom way elsewhere, and not just on
+the sidebar, you can use the `pretty_name` method. This can then be passed to
+sidebar_name if you want to use the exact same name on the sidebar. See
+[`Entity::URL::ASIN`](lib/MusicBrainz/Server/Entity/URL/ASIN.pm)
+for an example.
+
+Add a method `url_is_scheme_independent { 1 }` if both HTTP and HTTPS are
+supported by the site. That way, HTTP mirrors of MusicBrainz can link to the
+HTTP version while the rest link to HTTPS.
+
+For URLs to actually be mapped to the specific URL file you created, you also
+need to add the mapping to `%URL_SPECIALIZATIONS` in
+[`MusicBrainz::Server::Data::URL`](lib/MusicBrainz/Server/Data/URL.pm).

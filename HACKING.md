@@ -275,6 +275,10 @@ or directory against all of these rules,
 You can also check these unfixed rules one by one with `check_eslint_rule`
 as indicated above.
 
+URL support (autoselection, cleanup, sidebar display, etc.)
+-------
+
+See [HACKING-URL.md](HACKING-URL.md).
 
 Reports
 -------
