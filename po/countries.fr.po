@@ -1,13 +1,13 @@
 # 
 # Translators:
-# AO_LL <email address hidden>, 2013
+# AO <email address hidden>, 2013
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Dibou <email address hidden>, 2012
 # Laurent Monin <email address hidden>, 2014
 # murdos <email address hidden>, 2011-2012
 # Paul Tremberth <email address hidden>, 2013
-# AO_LL <email address hidden>, 2014-2015
+# AO <email address hidden>, 2014-2015
 # yvanz, 2016
 msgid ""
 msgstr ""

@@ -1,14 +1,14 @@
 # 
 # Translators:
-# AO_LL <email address hidden>, 2013
+# AO <email address hidden>, 2013
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Benjamin Sonntag <email address hidden>, 2011
 # Dibou <email address hidden>, 2012
 # Laurent Monin <email address hidden>, 2016
 # murdos <email address hidden>, 2011-2012
 # Raphaël Fery <email address hidden>, 2017
-# AO_LL <email address hidden>, 2015
-# AO_LL <email address hidden>, 2014-2015
+# AO <email address hidden>, 2015
+# AO <email address hidden>, 2014-2015
 # yvanz, 2016-2021
 msgid ""
 msgstr ""
@@ -1922,7 +1922,7 @@ msgstr "Portugais"
 msgid "Prakrit languages"
 msgstr "Prâkrit, langues"
 
-#. frequency:0 iso_code_3:pro
+#. frequency:1 iso_code_3:pro
 #: DB:language/name:342
 msgid "Provençal, Old (to 1500)"
 msgstr "Occitan, Ancien (jusqu’à 1500)"
