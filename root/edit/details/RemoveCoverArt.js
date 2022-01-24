@@ -10,7 +10,8 @@
 import * as React from 'react';
 
 import EditArtwork from '../components/EditArtwork';
-import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
+import {commaOnlyListText}
+  from '../../static/scripts/common/i18n/commaOnlyList';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
 
@@ -34,7 +35,7 @@ const RemoveCoverArt = ({edit}: Props): React.Element<'table'> => {
         <th>{l('Types:')}</th>
         <td>
           {display.artwork.types?.length ? (
-            commaOnlyList(display.artwork.types.map(
+            commaOnlyListText(display.artwork.types.map(
               type => lp_attributes(type, 'cover_art_type'),
             ))
           ) : lp('(none)', 'type')}

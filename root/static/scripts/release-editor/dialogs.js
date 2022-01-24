@@ -11,7 +11,7 @@ import ko from 'knockout';
 import * as ReactDOMServer from 'react-dom/server';
 
 import {reduceArtistCredit} from '../common/immutable-entities';
-import bracketed from '../common/utility/bracketed';
+import {bracketedText} from '../common/utility/bracketed';
 import formatTrackLength from '../common/utility/formatTrackLength';
 import isBlank from '../common/utility/isBlank';
 import request from '../common/utility/request';
@@ -151,7 +151,7 @@ class SearchResult {
       entity: (
         <>
           <bdi>{this.name}</bdi>
-          {formatString ? ' ' + bracketed(formatString) : null}
+          {formatString ? ' ' + bracketedText(formatString) : null}
         </>
       ),
       artist: <bdi>{this.artist}</bdi>,

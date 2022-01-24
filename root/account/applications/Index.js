@@ -13,7 +13,8 @@ import {ACCESS_SCOPE_PERMISSIONS} from '../../constants';
 import {compare} from '../../static/scripts/common/i18n';
 import Layout from '../../layout';
 import PaginatedResults from '../../components/PaginatedResults';
-import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
+import {commaOnlyListText}
+  from '../../static/scripts/common/i18n/commaOnlyList';
 import loopParity from '../../utility/loopParity';
 
 type Props = {
@@ -71,7 +72,7 @@ function formatScopes(token: EditorOAuthTokenT) {
 
   lScopes.sort(compare);
 
-  return commaOnlyList(lScopes);
+  return commaOnlyListText(lScopes);
 }
 
 const Index = ({

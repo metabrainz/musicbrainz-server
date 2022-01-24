@@ -121,7 +121,7 @@ const RemoveRelationshipType = ({edit}: Props): React.Element<'table'> => {
             <ul>
               {display.attributes.map((attribute, index) => (
                 <li key={'attribute-' + index}>
-                  {addColon(l_relationships(attribute.typeName))}
+                  {addColonText(l_relationships(attribute.typeName))}
                   {' '}
                   {attribute.min}
                   {'-'}

@@ -11303,7 +11303,7 @@ msgstr ""
 msgid "Guya"
 msgstr ""
 
-#. frequency:0 iso_code_3:gyn 
+#. frequency:1 iso_code_3:gyn 
 #: DB:language/name:2638
 msgid "Guyanese Creole English"
 msgstr ""

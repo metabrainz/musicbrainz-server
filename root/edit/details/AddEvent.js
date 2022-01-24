@@ -26,7 +26,7 @@ const AddEvent = ({edit}: Props): React.MixedElement => {
     <>
       <table className="details">
         <tr>
-          <th>{addColon(l('Event'))}</th>
+          <th>{addColonText(l('Event'))}</th>
           <td>
             <EntityLink
               entity={display.event}
@@ -37,53 +37,53 @@ const AddEvent = ({edit}: Props): React.MixedElement => {
 
       <table className="details add-event">
         <tr>
-          <th>{addColon(l('Name'))}</th>
+          <th>{addColonText(l('Name'))}</th>
           <td>{display.name}</td>
         </tr>
 
         {display.comment ? (
           <tr>
-            <th>{addColon(l('Disambiguation'))}</th>
+            <th>{addColonText(l('Disambiguation'))}</th>
             <td>{display.comment}</td>
           </tr>
         ) : null}
 
         <tr>
-          <th>{addColon(l('Cancelled'))}</th>
+          <th>{addColonText(l('Cancelled'))}</th>
           <td>{yesNo(display.cancelled)}</td>
         </tr>
 
         {eventType ? (
           <tr>
-            <th>{addColon(l('Type'))}</th>
+            <th>{addColonText(l('Type'))}</th>
             <td>{lp_attributes(eventType.name, 'event_type')}</td>
           </tr>
         ) : null}
 
         {isDateEmpty(display.begin_date) ? null : (
           <tr>
-            <th>{addColon(l('Begin date'))}</th>
+            <th>{addColonText(l('Begin date'))}</th>
             <td>{formatDate(display.begin_date)}</td>
           </tr>
         )}
 
         {isDateEmpty(display.end_date) ? null : (
           <tr>
-            <th>{addColon(l('End date'))}</th>
+            <th>{addColonText(l('End date'))}</th>
             <td>{formatDate(display.end_date)}</td>
           </tr>
         )}
 
         {nonEmpty(display.time) ? (
           <tr>
-            <th>{addColon(l('Time'))}</th>
+            <th>{addColonText(l('Time'))}</th>
             <td>{display.time}</td>
           </tr>
         ) : null}
 
         {display.setlist ? (
           <tr>
-            <th>{addColon(l('Setlist'))}</th>
+            <th>{addColonText(l('Setlist'))}</th>
             <td>{display.setlist}</td>
           </tr>
         ) : null}

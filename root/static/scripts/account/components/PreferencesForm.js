@@ -28,7 +28,6 @@ type PreferencesFormT = FormT<{
   +public_ratings: FieldT<boolean>,
   +public_subscriptions: FieldT<boolean>,
   +public_tags: FieldT<boolean>,
-  +show_gravatar: FieldT<boolean>,
   +subscribe_to_created_artists: FieldT<boolean>,
   +subscribe_to_created_labels: FieldT<boolean>,
   +subscribe_to_created_series: FieldT<boolean>,
@@ -198,11 +197,6 @@ class PreferencesForm extends React.Component<Props, State> {
           <FormRowCheckbox
             field={field.public_ratings}
             label={l('Allow other users to see my ratings')}
-            uncontrolled
-          />
-          <FormRowCheckbox
-            field={field.show_gravatar}
-            label={l('Show my Gravatar')}
             uncontrolled
           />
         </fieldset>

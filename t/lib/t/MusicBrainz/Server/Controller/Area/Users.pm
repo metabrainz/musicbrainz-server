@@ -27,8 +27,6 @@ test 'MBS-6511: List of editors in the area' => sub {
     $test->c->sql->do(q{
         INSERT INTO editor (id, area, name, password, ha1, email)
         VALUES (666, 222, 'Editor 2', 'hunter2', '', 'hunter2@hotmail.com');
-        INSERT INTO editor_preference (id, editor, name, value)
-        VALUES (1, 666, 'show_gravatar', '1');
     });
 
     $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/users');
@@ -36,7 +34,6 @@ test 'MBS-6511: List of editors in the area' => sub {
     $mech->content_contains('There are currently 2 users in this area');
     $mech->content_contains('Editor 1');
     $mech->content_contains('Editor 2');
-    $mech->content_contains('//gravatar.com/avatar/125f744ce5589e8582fba3a7acc1d1b8?d=mm&amp;s=24');
 };
 
 1;

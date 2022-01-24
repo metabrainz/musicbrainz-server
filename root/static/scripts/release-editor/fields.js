@@ -745,7 +745,7 @@ class Medium {
   confirmMediumTitleMessage() {
     const name = this.name();
 
-    return exp.l(
+    return texp.l(
       'I confirm this medium is actually titled “{medium_title}”.',
       {medium_title: name},
     );
