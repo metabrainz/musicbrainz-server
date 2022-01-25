@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import defaultAvatarUrl from '../../../images/entity/editor.svg';
 import entityHref from '../utility/entityHref';
 import isolateText from '../utility/isolateText';
 
@@ -53,15 +54,17 @@ const EditorLink = ({
 
   return (
     <a href={entityHref(editor, subPath)}>
-      {nonEmpty(editor.avatar) ? (
-        <img
-          alt=""
-          className="avatar"
-          height={avatarSize}
-          src={editor.avatar}
-          width={avatarSize}
-        />
-      ) : null}
+      <img
+        alt=""
+        className="avatar"
+        height={avatarSize}
+        src={
+          nonEmpty(editor.avatar)
+            ? editor.avatar
+            : defaultAvatarUrl
+        }
+        width={avatarSize}
+      />
       {isolateText(content)}
     </a>
   );
