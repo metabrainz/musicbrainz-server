@@ -205,7 +205,7 @@ const TracklistAndCredits = React.memo<PropsT>((props: PropsT) => {
       (
         medium.track_count != null &&
         medium.track_count > 0 &&
-        medium.track_count >=
+        medium.track_count >
           ((getMediumTracks(loadedTracks, medium)?.length) ?? 0)
       ),
     ]),
