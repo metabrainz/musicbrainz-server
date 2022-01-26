@@ -6,6 +6,13 @@ use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
 with 't::Mechanize', 't::Context';
 
+=head2 Test description
+
+This test checks that the WikiDoc Add Page form loads, and that it correctly
+submits edits.
+
+=cut
+
 test 'Create a new transcluded page' => sub {
     my ($test) = @_;
     my $c = $test->c;
@@ -19,7 +26,10 @@ test 'Create a new transcluded page' => sub {
     $mech->get('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
-    $mech->get_ok('/admin/wikidoc/create');
+    $mech->get_ok(
+        '/admin/wikidoc/create',
+        'Transclusion editors can access the Add Page WikiDoc page',
+    );
     html_ok($mech->content);
 
     my @edits = capture_edits {
@@ -27,17 +37,26 @@ test 'Create a new transcluded page' => sub {
             with_fields => {
                 'wikidoc.page' => 'Transclusion_Testing',
                 'wikidoc.version' => 1
-            }
-        })
+            },
+        },
+        'The form returned a 2xx response code')
     } $c;
 
-    is(@edits, 1);
+    is(@edits, 1, 'The edit was entered');
 
     my $edit = shift(@edits);
     isa_ok($edit, 'MusicBrainz::Server::Edit::WikiDoc::Change');
-    is($edit->data->{page}, 'Transclusion_Testing');
-    is($edit->data->{old_version}, undef);
-    is($edit->data->{new_version}, 1);
+    is(
+        $edit->data->{page},
+        'Transclusion_Testing',
+        'The page name was stored correctly',
+    );
+    is($edit->data->{old_version}, undef, 'There is no old page version');
+    is(
+        $edit->data->{new_version},
+        1,
+        'The new page version was stored correctly',
+    );
 };
 
 1;
