@@ -11,13 +11,40 @@ test 'Edit an already transcluded page' => sub {
     my $c = $test->c;
     my $mech = $test->mech;
 
-    $c->sql->do('INSERT INTO editor (id, name, password, privs, ha1, email, email_confirm_date) VALUES (?, ?, ?, ?, ?, $$foo@example.com$$, now())',
-                1, 'new_editor', '{CLEARTEXT}password', 255, md5_hex('new_editor:musicbrainz.org:password'));
+    $c->sql->do(<<~'SQL', md5_hex('new_editor:musicbrainz.org:password'));
+        INSERT INTO editor (id,
+                            name,
+                            password,
+                            privs,
+                            ha1,
+                            email,
+                            email_confirm_date)
+             VALUES (1,
+                     'new_editor',
+                     '{CLEARTEXT}password',
+                     0,
+                     ?,
+                     $$foo@example.com$$,
+                     now())
+        SQL
 
     $c->model('WikiDocIndex')->set_page_version('Transclusion_Testing', 1);
 
     $mech->get('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    $mech->get('/admin/wikidoc/delete?page=Transclusion_Testing');
+    is(
+        $mech->status,
+        403,
+        'Non-privileged user cannot access the Remove Page WikiDoc page',
+    );
+
+    $c->sql->do(<<~'SQL');
+        UPDATE editor
+           SET privs = 255
+         WHERE id = 1
+        SQL
 
     $mech->get_ok('/admin/wikidoc/delete?page=Transclusion_Testing');
     html_ok($mech->content);
