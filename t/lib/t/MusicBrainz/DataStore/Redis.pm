@@ -62,7 +62,7 @@ test all => sub {
     ok($redis->exists('string'), 'exists returns true for existing key');
 
     $redis->delete('string');
-    ok(!$redis->exists('strings'), 'exists returns false for deleted key');
+    ok(!$redis->exists('string'), 'exists returns false for deleted key');
 
     $redis->set('int', 23);
     is($redis->get('int'), 23, 'retrieved expected integer');
