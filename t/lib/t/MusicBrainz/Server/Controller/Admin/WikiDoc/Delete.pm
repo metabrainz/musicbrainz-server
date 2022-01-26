@@ -6,7 +6,15 @@ use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
 with 't::Mechanize', 't::Context';
 
-test 'Edit an already transcluded page' => sub {
+=head2 Test description
+
+This test checks that the WikiDoc Remove Page form is blocked for users
+without the appropriate privileges, that it loads for privileged users, and
+that it correctly submits edits.
+
+=cut
+
+test 'Remove an already transcluded page' => sub {
     my ($test) = @_;
     my $c = $test->c;
     my $mech = $test->mech;
@@ -46,7 +54,10 @@ test 'Edit an already transcluded page' => sub {
          WHERE id = 1
         SQL
 
-    $mech->get_ok('/admin/wikidoc/delete?page=Transclusion_Testing');
+    $mech->get_ok(
+        '/admin/wikidoc/delete?page=Transclusion_Testing',
+        'Transclusion editors can access the Remove Page WikiDoc page',
+    );
     html_ok($mech->content);
 
     my @edits = capture_edits {
@@ -54,13 +65,21 @@ test 'Edit an already transcluded page' => sub {
         $mech->click_button(name => 'confirm.submit');
     } $c;
 
-    is(@edits, 1);
+    is(@edits, 1, 'The edit was entered');
 
     my $edit = shift(@edits);
     isa_ok($edit, 'MusicBrainz::Server::Edit::WikiDoc::Change');
-    is($edit->data->{page}, 'Transclusion_Testing');
-    is($edit->data->{old_version}, 1);
-    is($edit->data->{new_version}, undef);
+    is(
+        $edit->data->{page},
+        'Transclusion_Testing',
+        'The page name was stored correctly',
+    );
+    is(
+        $edit->data->{old_version},
+        1,
+        'The old page version was stored correctly',
+    );
+    is($edit->data->{new_version}, undef, 'There is no new page version');
 };
 
 1;
