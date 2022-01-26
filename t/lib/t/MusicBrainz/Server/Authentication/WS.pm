@@ -58,6 +58,11 @@ test 'Authenticate WS bearer' => sub {
     is(401, $test->mech->status, 'Token with dropped scope is rejected');
     $test->mech->get($path, Authorization => 'Bearer Nlaa7v15QHm9g8rUOmT3dQ');
     is(401, $test->mech->status, 'Bearer with dropped scope is rejected');
+    $test->c->sql->do(<<~'SQL');
+        UPDATE editor_oauth_token
+           SET scope = 1 + 2 + 4 + 8 + 16 + 32 + 64 + 128
+         WHERE access_token = 'Nlaa7v15QHm9g8rUOmT3dQ'
+        SQL
 
     # Expire the token
     $test->c->sql->do(<<~'SQL');
