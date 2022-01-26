@@ -9,7 +9,7 @@ use FindBin '$Bin';
 use File::Find;
 
 find(sub {
-    return unless $_ =~ /(.tt|.pm|.t)$/;
+    return unless $_ =~ /(\.tt|\.pm|\.t)$/;
     notabs_ok($File::Find::name);
 }, map { "$Bin/../../$_" } qw( lib root t ) );
 
