@@ -6,6 +6,14 @@ use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
 with 't::Mechanize', 't::Context';
 
+=head2 Test description
+
+This test checks that the WikiDoc Edit Page form is blocked for users without
+the appropriate privileges, that it loads for privileged users, and that
+it correctly submits edits.
+
+=cut
+
 test 'Edit an already transcluded page' => sub {
     my ($test) = @_;
     my $c = $test->c;
@@ -46,7 +54,10 @@ test 'Edit an already transcluded page' => sub {
          WHERE id = 1
         SQL
 
-    $mech->get_ok('/admin/wikidoc/edit?page=Transclusion_Testing');
+    $mech->get_ok(
+        '/admin/wikidoc/edit?page=Transclusion_Testing',
+        'Transclusion editors can access the Edit Page WikiDoc page',
+    );
     html_ok($mech->content);
 
     my @edits = capture_edits {
@@ -54,16 +65,29 @@ test 'Edit an already transcluded page' => sub {
             with_fields => {
                 'wikidoc.version' => 10
             }
-        })
+        },
+        'The form returned a 2xx response code')
     } $c;
 
-    is(@edits, 1);
+    is(@edits, 1, 'The edit was entered');
 
     my $edit = shift(@edits);
     isa_ok($edit, 'MusicBrainz::Server::Edit::WikiDoc::Change');
-    is($edit->data->{page}, 'Transclusion_Testing');
-    is($edit->data->{old_version}, 1);
-    is($edit->data->{new_version}, 10);
+    is(
+        $edit->data->{page},
+        'Transclusion_Testing',
+        'The page name was stored correctly',
+    );
+    is(
+        $edit->data->{old_version},
+        1,
+        'The old page version was stored correctly',
+    );
+    is(
+        $edit->data->{new_version},
+        10,
+        'The new page version was stored correctly',
+    );
 };
 
 1;
