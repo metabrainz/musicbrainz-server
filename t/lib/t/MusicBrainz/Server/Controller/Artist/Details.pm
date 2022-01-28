@@ -33,6 +33,14 @@ test 'Check details tab has all the expected data' => sub {
         '>745c079d-374e-4436-9448-da92dedef3ce</',
         'The details tab contains the MBID in plain text',
     );
+    $mech->content_contains(
+        '>2009-07-09 00:00 UTC</',
+        'The details tab contains the last updated date',
+    );
+    $mech->content_contains(
+        '/ws/2/artist/745c079d-374e-4436-9448-da92dedef3ce?',
+        'The details tab contains a WS link',
+    );
 };
 
 1;
