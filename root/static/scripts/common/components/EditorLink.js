@@ -49,17 +49,19 @@ const EditorLink = ({
   }
 
   if (!avatarSize) {
-    avatarSize = 12;
+    avatarSize = 15;
   }
+
+  const hasAvatar = nonEmpty(editor.avatar);
 
   return (
     <a href={entityHref(editor, subPath)}>
       <img
         alt=""
-        className="avatar"
+        className={'avatar' + (hasAvatar ? '' : ' no-avatar')}
         height={avatarSize}
         src={
-          nonEmpty(editor.avatar)
+          hasAvatar
             ? editor.avatar
             : defaultAvatarUrl
         }

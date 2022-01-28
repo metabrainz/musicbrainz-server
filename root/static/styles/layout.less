@@ -320,7 +320,6 @@ pre code {
 
 img.avatar {
     display: inline;
-    max-height: 1em;
     vertical-align: middle;
     border: 1px solid @light-border;
     padding: 1px;
@@ -333,6 +332,11 @@ img.avatar {
 
     h1 & {
         max-height: 3em;
+    }
+
+    &.no-avatar {
+        background: transparent;
+        border-color: transparent;
     }
 }
 
