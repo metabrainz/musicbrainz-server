@@ -6,7 +6,6 @@ use Test::More;
 use MusicBrainz::Server::Entity::Label;
 use MusicBrainz::Server::Entity::LabelType;
 use MusicBrainz::Server::Entity::LabelAlias;
-use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 use MusicBrainz::Server::Constants qw( $DLABEL_ID $NOLABEL_ID $NOLABEL_GID );
 

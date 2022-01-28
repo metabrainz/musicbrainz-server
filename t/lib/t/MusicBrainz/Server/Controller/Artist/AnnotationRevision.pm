@@ -3,8 +3,6 @@ use Test::Routine;
 
 with 't::Mechanize', 't::Context';
 
-use aliased 'MusicBrainz::Server::Entity::PartialDate';
-
 test all => sub {
 
 my $test = shift;

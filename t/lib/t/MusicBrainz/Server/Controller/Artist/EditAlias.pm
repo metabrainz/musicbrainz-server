@@ -5,8 +5,6 @@ use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
 with 't::Mechanize', 't::Context';
 
-use aliased 'MusicBrainz::Server::Entity::PartialDate';
-
 test all => sub {
 
 my $test = shift;

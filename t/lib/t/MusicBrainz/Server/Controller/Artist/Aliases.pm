@@ -4,8 +4,6 @@ use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
 with 't::Mechanize', 't::Context';
 
-use aliased 'MusicBrainz::Server::Entity::PartialDate';
-
 =head2 Test description
 
 This test checks whether artist aliases are correctly listed on the artist

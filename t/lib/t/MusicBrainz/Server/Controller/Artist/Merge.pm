@@ -5,8 +5,6 @@ use Test::XPath;
 use HTML::Selector::XPath qw( selector_to_xpath );
 use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
 
-use aliased 'MusicBrainz::Server::Entity::PartialDate';
-
 around run_test => sub {
     my $test_body = shift;
     my $test = shift;

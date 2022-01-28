@@ -5,8 +5,6 @@ use MusicBrainz::Server::Test qw( capture_edits );
 
 with 't::Mechanize', 't::Context';
 
-use aliased 'MusicBrainz::Server::Entity::PartialDate';
-
 =head2 Test description
 
 This test checks whether adding annotations for artists works, including

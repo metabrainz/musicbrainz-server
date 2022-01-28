@@ -8,8 +8,6 @@ use List::AllUtils qw( sort_by );
 
 with 't::Mechanize', 't::Context';
 
-use aliased 'MusicBrainz::Server::Entity::PartialDate';
-
 test all => sub {
 
 my $test = shift;

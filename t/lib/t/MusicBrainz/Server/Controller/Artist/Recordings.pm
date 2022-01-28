@@ -4,8 +4,6 @@ use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
 with 't::Mechanize', 't::Context';
 
-use aliased 'MusicBrainz::Server::Entity::PartialDate';
-
 test all => sub {
 
 my $test = shift;
