@@ -4,22 +4,35 @@ use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
 
-test all => sub {
+=head2 Test description
 
-my $test = shift;
-my $mech = $test->mech;
-my $c    = $test->c;
+This test checks that the artist details page contains all the expected data.
 
-MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
+=cut
 
-$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/details',
-              'fetch artist details page');
-html_ok($mech->content);
-$mech->content_contains('https://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
-                        '..has permanent link');
-$mech->content_contains('>745c079d-374e-4436-9448-da92dedef3ce</',
-                        '..has mbid in plain text');
+test 'Check details tab has all the expected data' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
 
+    MusicBrainz::Server::Test->prepare_test_database(
+        $c,
+        '+controller_artist',
+    );
+
+    $mech->get_ok(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce/details',
+        'Fetched artist details page',
+    );
+    html_ok($mech->content);
+    $mech->content_contains(
+        'https://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
+        'The details tab contains the artist permalink',
+    );
+    $mech->content_contains(
+        '>745c079d-374e-4436-9448-da92dedef3ce</',
+        'The details tab contains the MBID in plain text',
+    );
 };
 
 1;
