@@ -14,8 +14,7 @@ import PostParameters, {
 } from '../static/scripts/common/components/PostParameters';
 import Layout from '../layout';
 import * as manifest from '../static/manifest';
-
-import ConfirmSeedButtons from './components/ConfirmSeedButtons';
+import ConfirmSeedButtons from '../components/ConfirmSeedButtons';
 
 type Props = {
   +$c: CatalystContextT,

@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {minimalEntity} from '../../../../utility/hydrate';
+import {minimalEntity} from '../../utility/hydrate';
 
 function Explore(props) {
   return (
@@ -34,7 +34,7 @@ function Explore(props) {
                 <p className="card-text">
                   {l(`MusicBrainz is a
                   community-maintained open source
-                  encyclopedia of music information.              
+                  encyclopedia of music information.
                    This means that anyone — including you
                     — can help contribute to the project
                    by adding information about your
@@ -91,15 +91,15 @@ function Explore(props) {
                 <p className="card-text">
                   {l(`In 2000, Gracenote took over the free
                    CDDB project and commercialized it,
-                   essentially charging users for accessing 
-                   the very data they themselves contributed. 
-                   In response, Robert Kaye founded MusicBrainz. 
-                   The project has since grown rapidly from 
-                   a one-man operation to an international community 
-                   of enthusiasts that appreciates both           
-                   music and music metadata. Along the way, the scope 
-                   of the project has expanded from its 
-                   origins as a mere CDDB replacement to the true music 
+                   essentially charging users for accessing
+                   the very data they themselves contributed.
+                   In response, Robert Kaye founded MusicBrainz.
+                   The project has since grown rapidly from
+                   a one-man operation to an international community
+                   of enthusiasts that appreciates both
+                   music and music metadata. Along the way, the scope
+                   of the project has expanded from its
+                   origins as a mere CDDB replacement to the true music
                    encyclopedia MusicBrainz is today.
                   `)}
                 </p>
@@ -130,11 +130,11 @@ function Explore(props) {
                   Database is licensed under CC0,
                   which effectively places the data
                   into the Public Domain.
-                  The remaining data is released under the 
+                  The remaining data is released under the
                   Creative Commons Attribution-NonCommercial-ShareAlike
                   3.0 license.
-                  All our data is available for commercial licensing. 
-                  If you are interested in licensing this data for 
+                  All our data is available for commercial licensing.
+                  If you are interested in licensing this data for
                   commercial use, please contact us.
                   `)}
 

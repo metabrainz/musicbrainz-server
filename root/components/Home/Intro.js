@@ -10,7 +10,7 @@
 import React from 'react';
 import {Modal} from 'react-bootstrap';
 
-import {minimalEntity} from '../../../../utility/hydrate';
+import {minimalEntity} from '../../utility/hydrate';
 
 class Intro extends React.Component {
     state = {

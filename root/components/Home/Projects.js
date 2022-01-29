@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {minimalEntity} from '../../../../utility/hydrate';
+import {minimalEntity} from '../../utility/hydrate';
 
 function Projects(props) {
   return (
@@ -64,16 +64,16 @@ function Projects(props) {
               </a>
             </p>
             <p>
-              {l(`ListenBrainz keeps tracks of 
-              what music you listen to 
-              and provides you with insights 
-              into your listening habits. 
-              We&apos;re completely open-source 
+              {l(`ListenBrainz keeps tracks of
+              what music you listen to
+              and provides you with insights
+              into your listening habits.
+              We&apos;re completely open-source
               and publish our data as open data.
 
-              You can use ListenBrainz to track 
-              your music listening habits and 
-              share your taste with others using 
+              You can use ListenBrainz to track
+              your music listening habits and
+              share your taste with others using
               our visualizations.
               `)}
             </p>
@@ -116,17 +116,17 @@ function Projects(props) {
             </p>
             <p>
               {l(`
-              Picard can add metadata tags to 
-              your music files, based on 
-              information available from the 
+              Picard can add metadata tags to
+              your music files, based on
+              information available from the
               MusicBrainz website.
-              It can look up the metadata either 
+              It can look up the metadata either
               manually or automatically
-               based on existing information, 
+               based on existing information,
                including artist and song name,
-                disc id (for CDs), and a track’s 
-                AcoustID fingerprint and 
-                retrieve and embed coverart images 
+                disc id (for CDs), and a track’s
+                AcoustID fingerprint and
+                retrieve and embed coverart images
                 from a variety of sources.
                 `)}
             </p>
@@ -270,7 +270,7 @@ function Projects(props) {
             <p>
               {l(`CritiqueBrainz is a repository
               for Creative Commons licensed
-              music reviews. Here you can read what other people have written 
+              music reviews. Here you can read what other people have written
               about an album or event and write your own review!
               `)}
             </p>

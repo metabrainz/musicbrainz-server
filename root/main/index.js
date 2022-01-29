@@ -14,16 +14,15 @@ import './styles/globals.less';
 import './styles/Home.less';
 import Head from '../layout/components/Head';
 import Footer from '../layout/components/Footer';
-
-import Header from './components/Home/Header/Header';
-import ScrollToTop from './components/Utils/ScrollToTop/ScrollToTop';
-import Supporters from './components/Home/Supporters/Supporters';
-import Intro from './components/Home/Intro/Intro';
-import AppDownload from './components/Home/AppDownload/AppDownload';
-import About from './components/Home/About/About';
-import Facts from './components/Home/Facts/Facts';
-import Explore from './components/Home/Explore/Explore';
-import Projects from './components/Home/Projects/Projects';
+import Header from '../components/Home/Header/Header';
+import ScrollToTop from '../components/ScrollToTop';
+import Supporters from '../components/Home/Supporters/Supporters';
+import Intro from '../components/Home/Intro/Intro';
+import AppDownload from '../components/Home/AppDownload/AppDownload';
+import About from '../components/Home/About/About';
+import Facts from '../components/Home/Facts/Facts';
+import Explore from '../components/Home/Explore/Explore';
+import Projects from '../components/Home/Projects/Projects';
 
 export default function Home() {
   const DARK_MODE_KEY = 'dark_mode';

@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import DBDefs from '../../static/scripts/common/DBDefs-client';
+import DBDefs from '../static/scripts/common/DBDefs-client';
 
 const ConfirmSeedButtons = (): React.MixedElement => (
   <>

@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {minimalEntity} from '../../../../utility/hydrate';
+import {minimalEntity} from '../../utility/hydrate';
 
 function Facts(props) {
   return (
