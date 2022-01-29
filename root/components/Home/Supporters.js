@@ -19,7 +19,7 @@ export default function Supporters(props) {
                 alt="Google"
                 className="img-thumbnail"
                 height="50"
-                src="/assets/img/supporters/google.svg"
+                src="../../static/images/supporters/google.svg"
                 width="141"
               />
             </div>
@@ -31,7 +31,7 @@ export default function Supporters(props) {
                 alt="BBC"
                 className="img-thumbnail"
                 height="50"
-                src="/assets/img/supporters/bbc.svg"
+                src="../../static/images/supporters/bbc.svg"
                 width="141"
               />
             </div>
@@ -43,7 +43,7 @@ export default function Supporters(props) {
                 alt="Plex"
                 className="img-thumbnail"
                 height="50"
-                src="/assets/img/supporters/plex.svg"
+                src="../../static/images/supporters/plex.svg"
                 width="141"
               />
             </div>
@@ -55,7 +55,7 @@ export default function Supporters(props) {
                 alt="LastFM"
                 className="img-thumbnail"
                 height="50"
-                src="/assets/img/supporters/lastfm.svg"
+                src="../../static/images/supporters/lastfm.svg"
                 width="141"
               />
             </div>
@@ -67,7 +67,7 @@ export default function Supporters(props) {
                 alt="Microsoft"
                 className="img-thumbnail"
                 height="50"
-                src="/assets/img/supporters/microsoft.svg"
+                src="../../static/images/supporters/microsoft.svg"
                 width="141"
               />
             </div>
@@ -79,7 +79,7 @@ export default function Supporters(props) {
                 alt="Pandora"
                 className="img-thumbnail"
                 height="50"
-                src="/assets/img/supporters/pandora.svg"
+                src="../../static/images/supporters/pandora.svg"
                 width="141"
               />
             </div>
@@ -91,7 +91,7 @@ export default function Supporters(props) {
                 alt="Hubbard"
                 className="img-thumbnail"
                 height="50"
-                src="/assets/img/supporters/acoustid.svg"
+                src="../../static/images/supporters/acoustid.svg"
                 width="141"
               />
             </div>
@@ -103,7 +103,7 @@ export default function Supporters(props) {
                 alt="Amazon"
                 className="img-thumbnail"
                 height="50"
-                src="/assets/img/supporters/amazon.svg"
+                src="../../static/images/supporters/amazon.svg"
                 width="141"
               />
             </div>
@@ -115,7 +115,7 @@ export default function Supporters(props) {
                 alt="Ticket Master"
                 className="img-thumbnail"
                 height="50"
-                src="/assets/img/supporters/ticketmaster.svg"
+                src="../../static/images/supporters/ticketmaster.svg"
                 width="141"
               />
             </div>
@@ -127,7 +127,7 @@ export default function Supporters(props) {
                 alt="Umg"
                 className="img-thumbnail"
                 height="50"
-                src="/assets/img/supporters/umg.svg"
+                src="../../static/images/supporters/umg.svg"
                 width="141"
               />
             </div>
@@ -139,7 +139,7 @@ export default function Supporters(props) {
                 alt="SiriusXM"
                 className="img-thumbnail"
                 height="50"
-                src="/assets/img/supporters/siriusxm.svg"
+                src="../../static/images/supporters/siriusxm.svg"
                 width="141"
               />
             </div>
@@ -151,7 +151,7 @@ export default function Supporters(props) {
                 alt="MC"
                 className="img-thumbnail"
                 height="50"
-                src="/assets/img/supporters/mc.svg"
+                src="../../static/images/supporters/mc.svg"
                 width="141"
               />
             </div>

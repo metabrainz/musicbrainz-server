@@ -22,9 +22,9 @@ export default function Header(props) {
           </button>
           <img
             alt="image"
-            className="d-none d-lg-block image"
+            className="d-block image"
             height="60"
-            src={'/img/meb-mini/' + props.projectName + '.svg'}
+            src={'../../static/images/meb-mini/' + props.projectName + '.svg'}
             width="180"
           />
           <div
@@ -160,7 +160,7 @@ export default function Header(props) {
             >
               {
                 props.searchOptions.map((option) => (
-                  <option>
+                  <option key={option.id}>
                     {option}
                   </option>
                 ))

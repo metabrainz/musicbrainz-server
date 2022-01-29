@@ -102,7 +102,7 @@ class Intro extends React.Component {
                   data-bs-aos="fade-up"
                   data-bs-aos-delay="400"
                 >
-                  {l(`World&apos;s Biggest Open Source Music Database`)}
+                  {l(`World's Biggest Open Source Music Database`)}
                 </h2>
 
                 <div className="row search-margins">

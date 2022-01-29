@@ -26,7 +26,7 @@ const Blog = () => {
         alt="Blogs Logo"
         className="card-img-top"
         height="48"
-        src="/assets/img/blogs.svg"
+        src="../../static/images/blogs.svg"
         width="128"
       />
       <div className="card-body">
@@ -34,7 +34,7 @@ const Blog = () => {
           <span className=" color-purple">
             {l(`News`)}
           </span>
-          {l(`&`)}
+          {l(` & `)}
           <span className="color-orange">
             {l(`Updates`)}
           </span>
