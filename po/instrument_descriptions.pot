@@ -1316,6 +1316,14 @@ msgstr ""
 msgid "Hollow-body acoustic guitar strung with nylon-strings."
 msgstr ""
 
+#. name:mendoza 
+#: DB:instrument/description:114
+msgid ""
+"Homemade combination of a wooden pole with beer bottle tops as jingles and a "
+"hefty boot at the bottom to create thumping bass, it is often decorated with "
+"hats or hair."
+msgstr ""
+
 #. name:olifant 
 #: DB:instrument/description:888
 msgid ""
@@ -2767,13 +2775,6 @@ msgstr ""
 msgid ""
 "The Schwyzerörgeli is a type of diatonic button accordion used in Swiss folk "
 "music."
-msgstr ""
-
-#. name:Vienna horn 
-#: DB:instrument/description:562
-msgid ""
-"The Vienna horn is a type of musical horn used primarily in Vienna, Austria, "
-"for playing orchestral or classical music."
 msgstr ""
 
 #. name:Vietnamese guitar 
@@ -4620,6 +4621,11 @@ msgid ""
 "Used in both gamelan and Wayang puppet theatre, it consists of two small "
 "cymbals sets; the bottom pair affixed in a highly decorated rancak rack, "
 "their lose counterparts attached together by string."
+msgstr ""
+
+#. name:Wiener Horn 
+#: DB:instrument/description:562
+msgid "Used in classical and orchestral music, mostly by orchestras in Vienna."
 msgstr ""
 
 #. name:danso 

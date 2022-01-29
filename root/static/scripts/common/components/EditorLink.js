@@ -51,19 +51,14 @@ const EditorLink = ({
     avatarSize = 12;
   }
 
-  let gravatar;
-  if (editor.gravatar) {
-    gravatar = editor.gravatar + '&s=' + (avatarSize * 2);
-  }
-
   return (
     <a href={entityHref(editor, subPath)}>
-      {gravatar ? (
+      {nonEmpty(editor.avatar) ? (
         <img
           alt=""
-          className="gravatar"
+          className="avatar"
           height={avatarSize}
-          src={gravatar}
+          src={editor.avatar}
           width={avatarSize}
         />
       ) : null}

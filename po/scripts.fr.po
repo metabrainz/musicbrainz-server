@@ -1,12 +1,12 @@
 # 
 # Translators:
-# AO_LL <email address hidden>, 2013
+# AO <email address hidden>, 2013
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Benjamin Sonntag <email address hidden>, 2011
 # Dibou <email address hidden>, 2012
 # kmartin <email address hidden>, 2013
 # murdos <email address hidden>, 2011-2012
-# AO_LL <email address hidden>, 2015
+# AO <email address hidden>, 2015
 # yvanz, 2016
 msgid ""
 msgstr ""

@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Controller::Errors;
 
 use Catalyst::Test 'MusicBrainz::Server';
+use HTTP::Request;
 use JSON qw( decode_json );
 use Sentry::Raven;
 use Test::Deep qw( cmp_deeply );
@@ -83,6 +84,36 @@ test 'Controller error handling' => sub {
     );
 
     is($sentry_error->{tags}{git_commit}, DBDefs->GIT_SHA);
+};
+
+test 'Respond with Bad Request for "invalid session ID"' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    local $MusicBrainz::Errors::_sentry_enabled = 1;
+
+    my $sentry_ua = bless {
+        ctx_request => \&ctx_request,
+        posted_error => undef,
+    }, 'SentryUserAgent';
+
+    local $MusicBrainz::Errors::sentry = Sentry::Raven->new(
+        ua_obj => $sentry_ua,
+        sentry_dsn => 'http://user:password@localhost/sentry-test/1',
+    );
+
+    $mech->request(HTTP::Request->new('GET', '/', [
+        'Cookie' => 'musicbrainz_server_session=heheh',
+    ]));
+    is($mech->response->code, 400);
+
+    my $sentry_error = decode_json($sentry_ua->{posted_error});
+    my $exception_value = $sentry_error->{'sentry.interfaces.Exception'}{value};
+
+    is(
+        $exception_value,
+        q(Tried to set invalid session ID 'heheh'),
+    );
 };
 
 package SentryUserAgent;

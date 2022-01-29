@@ -48,10 +48,10 @@ sub cloud : Path('/tags')
         component_path => 'tag/TagCloud',
         component_props => {
             %{$c->stash->{component_props}},
-            tagMaxCount => $hits ? $cloud->[0]->{count} : 0,
+            tagMaxCount => $hits ? $cloud->[0]->{count} + 0 : 0,
             tags => $hits ? [
                 map +{
-                    count => $_->{count},
+                    count => $_->{count} + 0,
                     tag => to_json_object($_->{tag}),
                 },
                 sort { $a->{tag}->name cmp $b->{tag}->name }

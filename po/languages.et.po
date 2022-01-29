@@ -1914,7 +1914,7 @@ msgstr "portugali"
 msgid "Prakrit languages"
 msgstr "praakriti keeled"
 
-#. frequency:0 iso_code_3:pro
+#. frequency:1 iso_code_3:pro
 #: DB:language/name:342
 msgid "Provençal, Old (to 1500)"
 msgstr "vanaprovansi (aastani 1500)"

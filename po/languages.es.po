@@ -11,7 +11,7 @@
 # Maurizio Corripio <email address hidden>, 2019
 # Nacho Pique, 2016
 # Nicolás Tamargo <email address hidden>, 2011-2013
-# Peter Cuevas H <email address hidden>, 2017
+# Peter Cuevas <email address hidden>, 2017
 # Pier Jose Gotta Perez <email address hidden>, 2017
 # Kevin Doncam Demian López Brante <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007
@@ -1928,7 +1928,7 @@ msgstr "Portugués"
 msgid "Prakrit languages"
 msgstr "Prácritas, lenguas"
 
-#. frequency:0 iso_code_3:pro
+#. frequency:1 iso_code_3:pro
 #: DB:language/name:342
 msgid "Provençal, Old (to 1500)"
 msgstr "Provenzal antiguo (hasta 1500)"

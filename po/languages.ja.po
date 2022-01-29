@@ -1923,7 +1923,7 @@ msgstr "ポルトガル語"
 msgid "Prakrit languages"
 msgstr "プラークリット諸語"
 
-#. frequency:0 iso_code_3:pro
+#. frequency:1 iso_code_3:pro
 #: DB:language/name:342
 msgid "Provençal, Old (to 1500)"
 msgstr "古期プロヴァンス語（ - 1500年）"

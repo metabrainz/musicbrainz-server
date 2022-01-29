@@ -1916,7 +1916,7 @@ msgstr "Portugees"
 msgid "Prakrit languages"
 msgstr "Prakrit-talen"
 
-#. frequency:0 iso_code_3:pro
+#. frequency:1 iso_code_3:pro
 #: DB:language/name:342
 msgid "Provençal, Old (to 1500)"
 msgstr "Oudprovençaals (tot 1500)"
