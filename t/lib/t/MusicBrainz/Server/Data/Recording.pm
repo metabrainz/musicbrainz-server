@@ -120,8 +120,8 @@ $results = $appears->{1}->{results};
 is ($appears->{8}->{results}->[0]->name, 'Aerial', 'recording 8 appears on Aerial');
 is ($appears->{1}->{hits}, 4, 'recording 1 appears on four release groups');
 is (scalar @$results, 2, ' ... of which two have been returned');
-is ($results->[0]->name, 'Aerial', 'recording 1 appears on Aerial');
-is ($results->[1]->name, 'エアリアル', 'recording 1 appears on エアリアル');
+is ($results->[0]->name, 'エアリアル', 'recording 0 appears on エアリアル');
+is ($results->[1]->name, 'Aerial', 'recording 1 appears on Aerial');
 
 };
 
