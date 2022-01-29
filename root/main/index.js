@@ -14,7 +14,7 @@ import './styles/globals.less';
 import './styles/Home.less';
 import Head from '../layout/components/Head';
 import Footer from '../layout/components/Footer';
-import Header from '../components/Home/Header';
+import Header from '../layout/components/Header';
 import ScrollToTop from '../components/ScrollToTop';
 import Supporters from '../components/Home/Supporters';
 import Intro from '../components/Home/Intro';
@@ -28,6 +28,24 @@ export default function Home() {
   const DARK_MODE_KEY = 'dark_mode';
   const [dark, setDark] = useState(getSetting);
   const theme = dark ? 'theme-dark' : 'theme-light';
+  const searchOptions = [
+    'Artist',
+    'Release',
+    'Recording',
+    'Label',
+    'Work',
+    'Release Group',
+    'Area',
+    'Place',
+    'Annotation',
+    'CD Stub',
+    'Editor',
+    'Tag',
+    'Instrument',
+    'Series',
+    'Event',
+    'Documentation',
+  ];
 
   function getSetting() {
     try {
@@ -59,6 +77,8 @@ export default function Home() {
       <Head />
       <Header
         isDarkThemeActive={dark}
+        projectName="musicbrainz"
+        searchOptions={searchOptions}
         switchActiveTheme={toggleDarkMode}
         theme={theme}
       />

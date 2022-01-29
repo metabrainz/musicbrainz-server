@@ -10,8 +10,6 @@
 import React from 'react';
 import {Modal} from 'react-bootstrap';
 
-import {minimalEntity} from '../../utility/hydrate';
-
 import Blog from './Blog';
 
 class Intro extends React.Component {
@@ -217,5 +215,4 @@ class Intro extends React.Component {
 export default (hydrate<Props>(
   'div.intro',
   Intro,
-  minimalEntity,
 ): React.AbstractComponent<Props, void>);

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {minimalEntity} from '../../utility/hydrate';
-
 function About(props) {
   return (
     <section className={'about ' + props.theme} id="about">
@@ -108,5 +106,4 @@ function About(props) {
 export default (hydrate<Props>(
   'div.about',
   About,
-  minimalEntity,
-));
+): React.AbstractComponent<Props, void>);

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {minimalEntity} from '../../utility/hydrate';
-
 function Explore(props) {
   return (
     <section className={'services ' + props.theme} id="services">
@@ -209,5 +207,4 @@ function Explore(props) {
 export default (hydrate<Props>(
   'div.explore',
   Explore,
-  minimalEntity,
-));
+): React.AbstractComponent<Props, void>);

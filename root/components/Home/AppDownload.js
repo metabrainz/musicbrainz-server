@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {minimalEntity} from '../../utility/hydrate';
-
 function AppDownload(props) {
   return (
     <section className={
@@ -62,5 +60,4 @@ function AppDownload(props) {
 export default (hydrate<Props>(
   'div.app-download',
   AppDownload,
-  minimalEntity,
-));
+): React.AbstractComponent<Props, void>);
