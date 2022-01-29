@@ -12,6 +12,8 @@ import {Modal} from 'react-bootstrap';
 
 import {minimalEntity} from '../../utility/hydrate';
 
+import Blog from './Blog';
+
 class Intro extends React.Component {
     state = {
       data: 'Actively looking for a barcode...',
@@ -74,18 +76,35 @@ class Intro extends React.Component {
         } else {
           searchType = typeCurrent.replace(' ', '_').toLowerCase();
         }
-        window.open('https://musicbrainz.org/' + 'search?type=' + searchType + '&query=' + query.value, '_newTab');
+        window.open('https://musicbrainz.org/' +
+        'search?type=' +
+        searchType +
+        '&query=' +
+        query.value, '_newTab');
       }
 
-
       return (
-        <section className={'intro d-flex align-items-center ' + this.props.theme} id="intro">
+        <section
+          className={'intro d-flex align-items-center ' +
+          this.props.theme}
+          id="intro"
+        >
           <div className="container">
             <div className="row">
-              <div className="col-lg-9 d-flex flex-column justify-content-center">
-                <h1 data-bs-aos="fade-up" style={{marginTop: '20px'}}>The Music Database</h1>
-                <h2 data-bs-aos="fade-up" data-bs-aos-delay="400">
-                  World&apos;s Biggest Open Source Music Database
+              <div
+                className="col-lg-9 d-flex flex-column justify-content-center"
+              >
+                <h1
+                  data-bs-aos="fade-up"
+                  style={{marginTop: '20px'}}
+                >
+                  {l(`The Music Database`)}
+                </h1>
+                <h2
+                  data-bs-aos="fade-up"
+                  data-bs-aos-delay="400"
+                >
+                  {l(`World&apos;s Biggest Open Source Music Database`)}
                 </h2>
 
                 <div className="row search-margins">
@@ -96,7 +115,8 @@ class Intro extends React.Component {
                       name="query"
                       onKeyPress={event => {
                         if (event.key === 'Enter') {
-                          const query = document.getElementById('searchInputMain');
+                          const query = document
+                            .getElementById('searchInputMain');
                           console.log(query.value);
                           if (query.value.trim().length < 1) {
                             return false;
@@ -107,9 +127,15 @@ class Intro extends React.Component {
                           } else if (typeCurrent === 'Documentation') {
                             searchType = 'doc';
                           } else {
-                            searchType = typeCurrent.replace(' ', '_').toLowerCase();
+                            searchType = typeCurrent
+                              .replace(' ', '_')
+                              .toLowerCase();
                           }
-                          window.open('https://musicbrainz.org/' + 'search?type=' + searchType + '&query=' + query.value, '_newTab');
+                          window.open('https://musicbrainz.org/' +
+                          'search?type=' +
+                          searchType +
+                          '&query=' +
+                          query.value, '_newTab');
                           return false;
                         }
                         return false;
@@ -120,16 +146,29 @@ class Intro extends React.Component {
                     />
                   </div>
                   <div className="col-4 col-md-2">
-                    <button className="btn btn-b-n" onClick={searchButtonClick} type="button">
+                    <button
+                      className="btn btn-b-n"
+                      onClick={searchButtonClick}
+                      type="button"
+                    >
                       <i className="fab fa-searchengin" />
                     </button>
-                    <button className="btn btn-b-n" onClick={this.handleShow} type="button">
+                    <button
+                      className="btn btn-b-n"
+                      onClick={this.handleShow}
+                      type="button"
+                    >
                       <i className="bi bi-upc-scan" />
                     </button>
 
-                    <Modal onHide={this.handleClose} show={this.state.show}>
+                    <Modal
+                      onHide={this.handleClose}
+                      show={this.state.show}
+                    >
                       <Modal.Header closeButton>
-                        <Modal.Title>Scan Barcode</Modal.Title>
+                        <Modal.Title>
+                          {l(`Scan Barcode`)}
+                        </Modal.Title>
                       </Modal.Header>
                       <Modal.Body />
                       <Modal.Footer>
@@ -142,49 +181,32 @@ class Intro extends React.Component {
                   {
                     chipData.map((data) => {
                       if (data.key === 0) {
-                        return <div className="chip chip--active" id={'type' + data.key} onClick={() => onChipClick(data.label)}>{data.label}</div>;
+                        return (
+                          <div
+                            className="chip chip--active"
+                            id={'type' + data.key}
+                            onClick={() => onChipClick(data.label)}
+                          >
+                            {data.label}
+                          </div>
+                        );
                       }
                       return (
                       // eslint-disable-next-line react/jsx-key
-                        <div className="chip" id={'type' + data.key} onClick={() => onChipClick(data.label)}>{data.label}</div>
+                        <div
+                          className="chip"
+                          id={'type' + data.key}
+                          onClick={() => onChipClick(data.label)}
+                        >
+                          {data.label}
+                        </div>
                       );
                     })
                   }
                 </div>
               </div>
               <div className="col-lg-3 d-none d-lg-block">
-                <div className="card">
-                  <img alt="Blogs Logo" className="card-img-top" src="../../../../static/images/blogs.svg" />
-                  <div className="card-body">
-                    <h5 className="card-title text-center">
-                      <span className=" color-purple">News</span>
-                      {' '}
-                      &
-                      {' '}
-                      <span className="color-orange">Updates</span>
-                    </h5>
-                  </div>
-                  <ul className="list-group list-group-flush">
-                    <li className="list-group-item"><a className="card-link" href="https://blog.metabrainz.org/2021/10/07/picard-2-7-beta-1/" rel="noopener noreferrer" target="_blank">Picard 2.7 Beta 1</a></li>
-                    <li className="list-group-item"><a className="card-link" href="https://blog.metabrainz.org/2021/10/06/picard-2-6-4-released/" rel="noopener noreferrer" target="_blank">Picard 2.6.4 released</a></li>
-                    <li className="list-group-item"><a className="card-link" href="https://blog.metabrainz.org/2021/10/04/musicbrainz-server-update-2021-10-04/" rel="noopener noreferrer" target="_blank">MusicBrainz Server update, 2021-10-04</a></li>
-                    <li className="list-group-item"><a className="card-link" href="https://blog.metabrainz.org/2021/09/20/musicbrainz-server-update-2021-09-20/" rel="noopener noreferrer" target="_blank">MusicBrainz Server update, 2021-09-20</a></li>
-                    <li className="list-group-item"><a className="card-link" href="https://blog.metabrainz.org/2021/09/06/musicbrainz-server-update-2021-09-06/" rel="noopener noreferrer" target="_blank">MusicBrainz Server update, 2021-09-06</a></li>
-                    <li className="list-group-item"><a className="card-link" href="https://blog.metabrainz.org/2021/09/01/acoustic-similarity-in-acousticbrainz/" rel="noopener noreferrer" target="_blank">Acoustic similarity in AcousticBrainz</a></li>
-                    <li className="list-group-item"><a className="card-link" href="https://blog.metabrainz.org/2021/08/23/gsoc-2021-pin-recordings-and-critiquebrainz-integration-in-listenbrainz/" rel="noopener noreferrer" target="_blank">GSoC 2021: Pin Recordings and CritiqueBrainz Integration in ListenBrainz</a></li>
-                  </ul>
-                  <div className="card-body align-items-center d-flex justify-content-center">
-                    <a className="card-link" href="https://twitter.com/MusicBrainz" rel="noopener noreferrer" target="_blank">
-                      {' '}
-                      <i className="fab fa-twitter" />
-                    </a>
-                    <a className="card-link" href="https://blog.metabrainz.org" rel="noopener noreferrer" target="_blank">
-                      {' '}
-                      <i className="bi bi-rss-fill" />
-                    </a>
-                    <a className="card-link" href="https://community.metabrainz.org" rel="noopener noreferrer" target="_blank">Community Forum</a>
-                  </div>
-                </div>
+                <Blog />
               </div>
             </div>
           </div>
