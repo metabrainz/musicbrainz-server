@@ -77,6 +77,7 @@ function Projects(props) {
             </p>
           </div>
         </div>
+        <hr style={{width: '100%'}} />
 
         <div className="row content align-items-center">
           <div
@@ -130,6 +131,7 @@ function Projects(props) {
             </p>
           </div>
         </div>
+        <hr style={{width: '100%'}} />
 
         <div className="row content align-items-center">
           <div
@@ -179,6 +181,7 @@ function Projects(props) {
             </p>
           </div>
         </div>
+        <hr style={{width: '100%'}} />
 
         <div className="row content align-items-center">
           <div
@@ -233,6 +236,7 @@ function Projects(props) {
             </p>
           </div>
         </div>
+        <hr style={{width: '100%'}} />
 
         <div className="row content align-items-center">
           <div
@@ -274,6 +278,7 @@ function Projects(props) {
             </p>
           </div>
         </div>
+        <hr style={{width: '100%'}} />
 
         <div className="row content align-items-center">
           <div
@@ -324,6 +329,7 @@ function Projects(props) {
           </div>
         </div>
       </div>
+      <hr style={{width: '100%'}} />
     </section>
   );
 }
