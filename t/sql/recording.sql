@@ -18,6 +18,9 @@ INSERT INTO release (id, name, release_group, artist_credit, gid)
            (23, 'King of the Mountain', 23, 1, '785a5e34-bf47-40f2-8148-65b1ed631ac5'),
            (24, 'Brit Awards 2006', 24, 1, 'ac6e8393-2694-4e47-a5b3-82dc93477c5f');
 
+INSERT INTO release_unknown_country (release, date_year)
+     VALUES (22, 2005);
+
 INSERT INTO medium (id, release, position, format, name)
        VALUES (22, 22, 1, 1, 'A Sea of Honey'),
               (23, 23, 1, 1, ''),
