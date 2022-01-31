@@ -202,6 +202,28 @@ test 'MBS-7282: Test editing artist does not create link edits' => sub {
     );
 };
 
+test 'MBS-8322: Check URL relationship dates are not removed if not specified' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my @edits = capture_edits {
+        $mech->post_ok('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit', {
+            'edit-artist.name' => 'Test Alias',
+            'edit-artist.sort_name' => 'Kate Bush',
+            'edit-artist.url.0.relationship_id' => '1',
+            'edit-artist.url.0.link_type_id' => '183',
+            'edit-artist.url.0.text' => 'http://musicbrainz.org/',
+        });
+    } $c;
+
+    is(@edits, 0, 'No edits were entered');
+};
+
 sub prepare_test {
     my $test = shift;
 
