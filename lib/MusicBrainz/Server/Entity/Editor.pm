@@ -108,6 +108,10 @@ sub is_adding_notes_disabled {
     (shift->privileges & $ADDING_NOTES_DISABLED_FLAG) > 0;
 }
 
+sub is_spammer {
+    (shift->privileges & $SPAMMER_FLAG) > 0;
+}
+
 sub public_privileges {
     shift->privileges & $PUBLIC_PRIVILEGE_FLAGS;
 }

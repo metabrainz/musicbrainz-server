@@ -121,6 +121,39 @@ test 'Deleted editors cannot login (even if they have a password)' => sub {
     $enable_ssl->DESTROY;
 };
 
+test 'Spammer editors cannot log in' => sub {
+
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+    my $enable_ssl = enable_ssl();
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
+        INSERT INTO editor (
+                        id, name, password,
+                        privs, email, website, bio,
+                        member_since, email_confirm_date, last_login_date,
+                        ha1
+                    )
+             VALUES (
+                        5, 'SPAMVIKING', '{CLEARTEXT}SpamBaconSausageSpam',
+                        4096, 'spam@bromleycafe.com', '', 'spammy spam',
+                        '2010-03-25', '2010-03-25', now(),
+                        '1e30903480b84af674780f41ac54dfec'
+                    )
+        SQL
+
+    $mech->get_ok('https://localhost/login');
+    html_ok($mech->content);
+    $mech->submit_form( with_fields => {
+        username => 'SPAMVIKING',
+        password => 'SpamBaconSausageSpam',
+    } );
+    $mech->content_like(qr/You cannot log in .* marked as a spam account/);
+    $enable_ssl->DESTROY;
+};
+
 sub enable_ssl {
     my $dbdefs = ref(*DBDefs::SSL_REDIRECTS_ENABLED) ? 'DBDefs' : 'DBDefs::Default';
     my $wrapper = wrap "${dbdefs}::SSL_REDIRECTS_ENABLED",
