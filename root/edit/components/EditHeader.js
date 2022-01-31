@@ -130,7 +130,7 @@ const EditHeader = ({
                     <div>
                       {user ? null : (
                         <>
-                          <strong>{addColon(l('Vote tally'))}</strong>
+                          <strong>{addColonText(l('Vote tally'))}</strong>
                           {' '}
                         </>
                       )}
@@ -143,7 +143,7 @@ const EditHeader = ({
                 <td className="edit-expiration" colSpan="2">
                   {edit.is_open ? (
                     <>
-                      <strong>{addColon(l('Voting'))}</strong>
+                      <strong>{addColonText(l('Voting'))}</strong>
                       {' '}
                       <VotingPeriod
                         $c={$c}
@@ -152,13 +152,13 @@ const EditHeader = ({
                     </>
                   ) : editWasApproved ? (
                     <>
-                      <strong>{addColon(l('Approved'))}</strong>
+                      <strong>{addColonText(l('Approved'))}</strong>
                       {' '}
                       {formatUserDate($c, edit.close_time)}
                     </>
                   ) : (
                     <>
-                      <strong>{addColon(l('Closed'))}</strong>
+                      <strong>{addColonText(l('Closed'))}</strong>
                       {' '}
                       {formatUserDate($c, edit.close_time)}
                     </>

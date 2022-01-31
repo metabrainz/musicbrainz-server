@@ -47,7 +47,7 @@ const Edits = ({
       <table className="database-statistics">
         <tbody>
           <tr>
-            <th colSpan="2">{addColon(l('Edits'))}</th>
+            <th colSpan="2">{addColonText(l('Edits'))}</th>
             <td>
               {formatCount($c, stats['count.edit'])}
               {' '}

@@ -45,7 +45,7 @@ function formatLongLinkPhrase(longLinkPhrase: string): string {
 function formatAttribute(attribute, index) {
   return (
     <li key={'attribute-' + index}>
-      {addColon(l_relationships(attribute.typeName))}
+      {addColonText(l_relationships(attribute.typeName))}
       {' '}
       {attribute.min}
       {'-'}
@@ -106,7 +106,7 @@ const EditRelationshipType = ({
   const documentation = display.documentation;
   const deprecated = display.is_deprecated;
   const hasDates = display.has_dates;
-  const parentId = display.parent_id;
+  const parent = display.parent;
   const linkPhrase = display.link_phrase;
   const reverseLinkPhrase = display.reverse_link_phrase;
   const longLinkPhrase = display.long_link_phrase;
@@ -140,7 +140,7 @@ const EditRelationshipType = ({
       {relType ? (
         <table className="details">
           <tr>
-            <th>{addColon(l('Relationship Type'))}</th>
+            <th>{addColonText(l('Relationship Type'))}</th>
             <td>
               <EntityLink entity={relType} />
             </td>
@@ -299,11 +299,11 @@ const EditRelationshipType = ({
           </tr>
         ) : null}
 
-        {parentId ? (
+        {parent ? (
           <FullChangeDiff
             label={l('Parent:')}
-            newContent={parentId.new}
-            oldContent={parentId.old}
+            newContent={parent.new ? <EntityLink entity={parent.new} /> : ''}
+            oldContent={parent.old ? <EntityLink entity={parent.old} /> : ''}
           />
         ) : null}
 

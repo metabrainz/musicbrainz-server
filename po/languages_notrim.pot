@@ -11303,7 +11303,7 @@ msgstr ""
 msgid "Guya"
 msgstr ""
 
-#. frequency:0 iso_code_3:gyn 
+#. frequency:1 iso_code_3:gyn 
 #: DB:language/name:2638
 msgid "Guyanese Creole English"
 msgstr ""
@@ -34431,6 +34431,11 @@ msgstr ""
 #. frequency:0 iso_code_3:txb 
 #: DB:language/name:6737
 msgid "Tokharian B"
+msgstr ""
+
+#. frequency:1 iso_code_3:tok 
+#: DB:language/name:7845
+msgid "Toki Pona"
 msgstr ""
 
 #. frequency:0 iso_code_3:tkn 

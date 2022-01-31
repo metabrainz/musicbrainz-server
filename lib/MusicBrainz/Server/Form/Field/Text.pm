@@ -5,7 +5,7 @@ use MusicBrainz::Server::Translation qw( l );
 
 extends 'HTML::FormHandler::Field::Text';
 
-sub validate {
+after validate => sub {
     my $self = shift;
 
     my $value = $self->value;
@@ -19,7 +19,6 @@ sub validate {
         );
     }
     $self->value($trimmed);
-    return 1;
-}
+};
 
 1;

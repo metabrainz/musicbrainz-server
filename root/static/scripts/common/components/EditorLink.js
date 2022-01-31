@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import defaultAvatarUrl from '../../../images/entity/editor.svg';
 import entityHref from '../utility/entityHref';
 import isolateText from '../utility/isolateText';
 
@@ -48,25 +49,24 @@ const EditorLink = ({
   }
 
   if (!avatarSize) {
-    avatarSize = 12;
+    avatarSize = 15;
   }
 
-  let gravatar;
-  if (editor.gravatar) {
-    gravatar = editor.gravatar + '&s=' + (avatarSize * 2);
-  }
+  const hasAvatar = nonEmpty(editor.avatar);
 
   return (
     <a href={entityHref(editor, subPath)}>
-      {gravatar ? (
-        <img
-          alt=""
-          className="gravatar"
-          height={avatarSize}
-          src={gravatar}
-          width={avatarSize}
-        />
-      ) : null}
+      <img
+        alt=""
+        className={'avatar' + (hasAvatar ? '' : ' no-avatar')}
+        height={avatarSize}
+        src={
+          hasAvatar
+            ? editor.avatar
+            : defaultAvatarUrl
+        }
+        width={avatarSize}
+      />
       {isolateText(content)}
     </a>
   );

@@ -1,15 +1,10 @@
 package MusicBrainz::Server::CoverArt::Provider::WebService::Amazon;
 use Moose;
 
-use Time::HiRes qw(sleep gettimeofday tv_interval );
 use Net::Amazon::AWSSign;
-use LWP::UserAgent;
 use XML::XPath;
-use MusicBrainz::Server::Log qw( log_info );
 
 use aliased 'MusicBrainz::Server::CoverArt::Amazon' => 'CoverArt';
-
-use MusicBrainz::Server::Log qw( log_error );
 
 extends 'MusicBrainz::Server::CoverArt::Provider';
 
@@ -44,8 +39,6 @@ has '_store_map' => (
     }
 );
 
-my $last_request_time;
-
 sub _build__aws_signature
 {
     my $public  = DBDefs->AWS_PUBLIC();
@@ -71,28 +64,9 @@ sub parse_asin {
 sub lookup_cover_art
 {
     my ($self, $uri) = @_;
-    my ($store, $asin) = parse_asin($uri);
-    return unless $asin;
 
-    my $end_point = $self->get_store_api($store);
-
-    unless ($end_point) {
-        log_info { "$store does not have a known ECS end point" };
-        return;
-    }
-
-    my $url = "http://$end_point/onca/xml?" .
-                  'Service=AWSECommerceService&' .
-                  'Operation=ItemLookup&' .
-                  "ItemId=$asin&" .
-                  'Version=2011-08-01&' .
-                  'ResponseGroup=Images';
-
-    my $cover_art = $self->_lookup_coverart($url) or return;
-    $cover_art->asin($asin);
-    $cover_art->information_uri($uri);
-
-    return $cover_art;
+    # Amazon cover art support is pending removal
+    return;
 }
 
 sub fallback_meta {
@@ -100,42 +74,6 @@ sub fallback_meta {
     my (undef, $asin) = parse_asin($uri);
     return unless $asin;
     return { amazon_asin => $asin };
-}
-
-sub _lookup_coverart {
-    my ($self, $url) = @_;
-
-    $url .= '&AssociateTag=' . DBDefs->AMAZON_ASSOCIATE_TAG;
-    $url = $self->_aws_signature->addRESTSecret($url);
-
-    # Respect Amazon SLA
-    if ($last_request_time) {
-        my $i = 2 - tv_interval($last_request_time);
-        sleep($i) if $i > 0;
-    }
-    $last_request_time = [ gettimeofday ];
-
-    my $lwp = LWP::UserAgent->new;
-    $lwp->env_proxy;
-    $lwp->timeout(10);
-    $lwp->agent(DBDefs->LWP_USER_AGENT);
-    my $response = $lwp->get($url) or return;
-    if (!$response->is_success) {
-        log_error { "Failed to lookup cover art: $_" } $response->decoded_content;
-        return;
-    }
-    my $xp = XML::XPath->new( xml => $response->decoded_content );
-
-    my $image_url = $xp->find(
-        '/ItemLookupResponse/Items/Item/ImageSets/ImageSet[@Category="primary"]/LargeImage/URL'
-    )->string_value;
-
-    return unless $image_url;
-
-    return CoverArt->new(
-        provider        => $self,
-        image_uri       => $image_url,
-    );
 }
 
 no Moose;

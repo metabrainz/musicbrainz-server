@@ -35,7 +35,7 @@ function sanitizedEditor(
   return {
     deleted: editor.deleted,
     entityType: 'editor',
-    gravatar: editor.gravatar,
+    avatar: editor.avatar,
     id: editor.id,
     is_limited: editor.is_limited,
     name: editor.name,

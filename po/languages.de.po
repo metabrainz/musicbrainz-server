@@ -19,7 +19,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-08-12 16:31+0000\n"
+"PO-Revision-Date: 2022-01-24 20:52+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -932,6 +932,11 @@ msgstr "Gumatj"
 #: DB:language/name:2581
 msgid "Gupapuyngu"
 msgstr "Gupapuyngu"
+
+#. frequency:1 iso_code_3:gyn
+#: DB:language/name:2638
+msgid "Guyanese Creole English"
+msgstr ""
 
 #. frequency:1 iso_code_3:gwi
 #: DB:language/name:162
@@ -1928,7 +1933,7 @@ msgstr "Portugiesisch"
 msgid "Prakrit languages"
 msgstr "Prakrit"
 
-#. frequency:0 iso_code_3:pro
+#. frequency:1 iso_code_3:pro
 #: DB:language/name:342
 msgid "Provençal, Old (to 1500)"
 msgstr "Altokzitanisch (bis 1500)"

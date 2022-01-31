@@ -34,7 +34,7 @@ const ResultsLayout = ({
         <h1>{l('Search Results')}</h1>
         {nonEmpty(lastUpdated) ? (
           <p>
-            {exp.l(
+            {texp.l(
               'Last updated: {date}',
               {date: formatUserDate($c, lastUpdated)},
             )}

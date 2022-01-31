@@ -913,6 +913,11 @@ msgstr ""
 msgid "Gupapuyngu"
 msgstr ""
 
+#. frequency:1 iso_code_3:gyn 
+#: DB:language/name:2638
+msgid "Guyanese Creole English"
+msgstr ""
+
 #. frequency:1 iso_code_3:gwi 
 #: DB:language/name:162
 msgid "Gwich'in"
@@ -2386,6 +2391,11 @@ msgstr ""
 #. frequency:1 iso_code_3:tkl 
 #: DB:language/name:420
 msgid "Tokelau"
+msgstr ""
+
+#. frequency:1 iso_code_3:tok 
+#: DB:language/name:7845
+msgid "Toki Pona"
 msgstr ""
 
 #. frequency:1 iso_code_3:tog 

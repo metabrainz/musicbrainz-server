@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-08-12 16:31+0000\n"
+"PO-Revision-Date: 2022-01-24 20:52+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
@@ -915,6 +915,11 @@ msgstr ""
 #. frequency:1 iso_code_3:guf
 #: DB:language/name:2581
 msgid "Gupapuyngu"
+msgstr ""
+
+#. frequency:1 iso_code_3:gyn
+#: DB:language/name:2638
+msgid "Guyanese Creole English"
 msgstr ""
 
 #. frequency:1 iso_code_3:gwi
@@ -1912,7 +1917,7 @@ msgstr "Portugalisht"
 msgid "Prakrit languages"
 msgstr ""
 
-#. frequency:0 iso_code_3:pro
+#. frequency:1 iso_code_3:pro
 #: DB:language/name:342
 msgid "Provençal, Old (to 1500)"
 msgstr "Provençale, e Vjetër (deri më 1500)"

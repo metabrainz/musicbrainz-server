@@ -106,7 +106,7 @@ if (places.length) {
   places.forEach(function (place) {
     const placeType = place.typeName || l('No type');
     const placeName = place.ended
-      ? exp.l('{place_name} (closed)', {place_name: place.name})
+      ? texp.l('{place_name} (closed)', {place_name: place.name})
       : place.name;
     const icon = place.ended
       ? icons['0']

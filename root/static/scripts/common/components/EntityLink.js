@@ -131,7 +131,7 @@ const NoInfoURL = ({allowNew, url}: {+allowNew: boolean, +url: string}) => (
     {' '}
     <DeletedLink
       allowNew={allowNew}
-      name={bracketed(l('info'), {type: '[]'})}
+      name={bracketedText(l('info'), {type: '[]'})}
     />
   </>
 );

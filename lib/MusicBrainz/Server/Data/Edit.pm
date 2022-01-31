@@ -13,7 +13,7 @@ use Encode qw( decode );
 use Try::Tiny;
 use List::AllUtils qw( any uniq zip );
 use MusicBrainz::Server::Data::Editor;
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw( non_empty type_to_model );
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Constants qw(
@@ -625,7 +625,7 @@ sub load_all
         while (my ($model, $ids) = each %$edit_references) {
             $objects_to_load->{$model} ||= [];
             if (ref($ids) eq 'ARRAY') {
-                $ids = [ uniq grep { defined } @$ids ];
+                $ids = [ uniq grep { non_empty($_) } @$ids ];
             }
             $ids = Data::OptList::mkopt_hash($ids);
             while (my ($object_id, $extra_models) = each %$ids) {

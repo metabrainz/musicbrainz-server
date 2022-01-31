@@ -38,7 +38,7 @@ const TypesTable = ({table, types}: Props) => (
             <td key={'cell' + index}>
               {cellTypes ? (
                 <a href={'/relationships/' + cellTypes.join('-')}>
-                  {exp.l(
+                  {texp.l(
                     '{type0}-{type1}',
                     {
                       type0: formatEntityTypeName(cellTypes[0]),

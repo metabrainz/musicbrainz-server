@@ -199,7 +199,7 @@ msgstr "Egipcio demótico"
 msgid "Egyptian hieratic"
 msgstr "Egipcio hierático"
 
-#. frequency:1 iso_code:Egyp
+#. frequency:2 iso_code:Egyp
 #: DB:script/name:4
 msgid "Egyptian hieroglyphs"
 msgstr "Jeroglíficos egipcios"

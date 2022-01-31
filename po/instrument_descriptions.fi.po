@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-11-22 19:04+0000\n"
+"PO-Revision-Date: 2022-01-24 20:52+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -1334,6 +1334,14 @@ msgstr ""
 #. name:nylon guitar
 #: DB:instrument/description:566
 msgid "Hollow-body acoustic guitar strung with nylon-strings."
+msgstr ""
+
+#. name:mendoza
+#: DB:instrument/description:114
+msgid ""
+"Homemade combination of a wooden pole with beer bottle tops as jingles and a"
+" hefty boot at the bottom to create thumping bass, it is often decorated "
+"with hats or hair."
 msgstr ""
 
 #. name:olifant
@@ -2796,13 +2804,6 @@ msgid ""
 "The Schwyzerörgeli is a type of diatonic button accordion used in Swiss folk"
 " music."
 msgstr ""
-
-#. name:Vienna horn
-#: DB:instrument/description:562
-msgid ""
-"The Vienna horn is a type of musical horn used primarily in Vienna, Austria,"
-" for playing orchestral or classical music."
-msgstr "Wienintorvi on torvi joka käytetään pääasiassa Wienissä, Itävallassa, orkesteri tai klassisen musiikin soittamiseen. "
 
 #. name:Vietnamese guitar
 #: DB:instrument/description:322
@@ -4659,6 +4660,12 @@ msgid ""
 "Used in both gamelan and Wayang puppet theatre, it consists of two small "
 "cymbals sets; the bottom pair affixed in a highly decorated rancak rack, "
 "their lose counterparts attached together by string."
+msgstr ""
+
+#. name:Wiener Horn
+#: DB:instrument/description:562
+msgid ""
+"Used in classical and orchestral music, mostly by orchestras in Vienna."
 msgstr ""
 
 #. name:danso

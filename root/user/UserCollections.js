@@ -59,8 +59,8 @@ function formatCollaboratorNumber(
   );
 
   return isCollaborator ? (
-    exp.l('{collaborator_number} (including you)',
-          {collaborator_number: collaborators.length})
+    texp.l('{collaborator_number} (including you)',
+           {collaborator_number: collaborators.length})
   ) : (
     collaborators.length
   );
@@ -181,7 +181,7 @@ const UserCollections = ({
           {viewingOwnProfile ? (
             l('You have no collections.')
           ) : (
-            exp.l('{user} has no public collections.', {user: user.name})
+            texp.l('{user} has no public collections.', {user: user.name})
           )}
         </p>
       )}
@@ -202,8 +202,8 @@ const UserCollections = ({
           {viewingOwnProfile ? (
             l('You aren’t collaborating in any collections.')
           ) : (
-            exp.l('{user} isn’t collaborating in any public collections.',
-                  {user: user.name})
+            texp.l('{user} isn’t collaborating in any public collections.',
+                   {user: user.name})
           )}
         </p>
       )}

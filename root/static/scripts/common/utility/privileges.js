@@ -18,6 +18,7 @@ import {
   LOCATION_EDITOR_FLAG,
   MBID_SUBMITTER_FLAG,
   RELATIONSHIP_EDITOR_FLAG,
+  SPAMMER_FLAG,
   UNTRUSTED_FLAG,
   WIKI_TRANSCLUSION_FLAG,
 } from '../../../../constants';
@@ -113,6 +114,13 @@ export function isAddingNotesDisabled(editor: EditorPropT): boolean {
     return false;
   }
   return (editor.privileges & ADDING_NOTES_DISABLED_FLAG) > 0;
+}
+
+export function isSpammer(editor: EditorPropT): boolean {
+  if (editor == null) {
+    return false;
+  }
+  return (editor.privileges & SPAMMER_FLAG) > 0;
 }
 
 export function isAdmin(editor: EditorPropT): boolean {

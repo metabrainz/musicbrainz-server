@@ -12,7 +12,7 @@ import * as React from 'react';
 import {CatalystContext} from '../../context';
 import DBDefs from '../../static/scripts/common/DBDefs';
 import {DONATE_URL} from '../../constants';
-import bracketed from '../../static/scripts/common/utility/bracketed';
+import {bracketedText} from '../../static/scripts/common/utility/bracketed';
 import formatUserDate from '../../utility/formatUserDate';
 import {returnToCurrentPage} from '../../utility/returnUri';
 
@@ -71,7 +71,7 @@ const Footer = (): React.Element<'div'> => {
                 >
                   {DBDefs.GIT_BRANCH}
                   {' '}
-                  {bracketed(DBDefs.GIT_SHA)}
+                  {bracketedText(DBDefs.GIT_SHA)}
                 </span>
               ),
             })}

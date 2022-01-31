@@ -70,8 +70,8 @@ $(function () {
   }
 
   const activeUser = {
+    avatar: '',
     entityType: 'editor',
-    gravatar: '',
     has_confirmed_email_address: true,
     id: 1,
     name: 'user',

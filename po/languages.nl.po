@@ -1,13 +1,13 @@
 # 
 # Translators:
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2021
+# Maurits Meulenbelt <email address hidden>, 2013-2022
 # Nathan Follens, 2017
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-08-12 19:08+0000\n"
+"PO-Revision-Date: 2022-01-25 13:44+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -920,6 +920,11 @@ msgstr "Gumatj"
 #: DB:language/name:2581
 msgid "Gupapuyngu"
 msgstr "Gupapuyngu"
+
+#. frequency:1 iso_code_3:gyn
+#: DB:language/name:2638
+msgid "Guyanese Creole English"
+msgstr "Guyanees Creools"
 
 #. frequency:1 iso_code_3:gwi
 #: DB:language/name:162
@@ -1916,7 +1921,7 @@ msgstr "Portugees"
 msgid "Prakrit languages"
 msgstr "Prakrit-talen"
 
-#. frequency:0 iso_code_3:pro
+#. frequency:1 iso_code_3:pro
 #: DB:language/name:342
 msgid "Provençal, Old (to 1500)"
 msgstr "Oudprovençaals (tot 1500)"

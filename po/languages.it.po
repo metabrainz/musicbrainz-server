@@ -2,13 +2,13 @@
 # Translators:
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
-# Luca Salini, 2016-2021
+# Luca Salini, 2016-2022
 # Luca Salini, 2013-2015
 # Luca Salini, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-08-16 14:06+0000\n"
+"PO-Revision-Date: 2022-01-24 23:59+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -921,6 +921,11 @@ msgstr "Gumatj"
 #: DB:language/name:2581
 msgid "Gupapuyngu"
 msgstr "Gupapuyngu"
+
+#. frequency:1 iso_code_3:gyn
+#: DB:language/name:2638
+msgid "Guyanese Creole English"
+msgstr "Inglese creolo della Guyana"
 
 #. frequency:1 iso_code_3:gwi
 #: DB:language/name:162
@@ -1917,7 +1922,7 @@ msgstr "Portoghese"
 msgid "Prakrit languages"
 msgstr "Lingue pracrite"
 
-#. frequency:0 iso_code_3:pro
+#. frequency:1 iso_code_3:pro
 #: DB:language/name:342
 msgid "Provençal, Old (to 1500)"
 msgstr "Provenzale antico (fino al 1500)"

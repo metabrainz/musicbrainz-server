@@ -66,7 +66,6 @@ __PACKAGE__->config(
             'format_wikitext' => \&MusicBrainz::Server::Filters::format_wikitext,
             'format_editnote' => \&MusicBrainz::Server::Filters::format_editnote,
             'locale' => \&MusicBrainz::Server::Filters::locale,
-            'gravatar' => \&MusicBrainz::Server::Filters::gravatar,
             'coverart_https' => \&MusicBrainz::Server::Filters::coverart_https
         },
         RECURSION => 1,
@@ -362,9 +361,11 @@ around dispatch => sub {
     my $unset_beta = (defined $c->req->query_params->{unset_beta} &&
                       $c->req->query_params->{unset_beta} eq '1' &&
                       !DBDefs->IS_BETA);
-    my $beta_redirect = (defined $c->req->cookies->{beta} &&
-                      $c->req->cookies->{beta}->value eq 'on' &&
-                      !DBDefs->IS_BETA);
+    my $beta_cookie = $c->req->cookies->{beta};
+    my $beta_redirect = (defined $beta_cookie &&
+                         defined $beta_cookie->value &&
+                         $beta_cookie->value eq 'on' &&
+                         !DBDefs->IS_BETA);
     if ( $unset_beta ) {
         $c->res->cookies->{beta} = {
             'value' => '',
@@ -678,7 +679,6 @@ sub set_csp_headers {
         q('self'),
         'data:',
         'staticbrainz.org',
-        'gravatar.com',
     );
 
     my @csp_frame_src = ('frame-src', q('self'));

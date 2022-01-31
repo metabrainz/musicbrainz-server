@@ -150,6 +150,7 @@ sub get_tags
     }
 
     my @tags;
+    $order //= '';
     if ($order eq 'count') {
         @tags = sort { $b->{count} <=> $a->{count} } values %$tags;
     } elsif ($order eq 'countdesc') {
@@ -355,6 +356,10 @@ sub update_profile
 sub update_privileges {
     my ($self, $editor, $values) = @_;
 
+    # Setting Spammer should also block editing and notes
+    $values->{editing_disabled} ||= $values->{spammer};
+    $values->{adding_notes_disabled} ||= $values->{spammer};
+
     my $privs =   ($values->{auto_editor}           // 0) * $AUTO_EDITOR_FLAG
                 + ($values->{bot}                   // 0) * $BOT_FLAG
                 + ($values->{untrusted}             // 0) * $UNTRUSTED_FLAG
@@ -366,7 +371,8 @@ sub update_privileges {
                 + ($values->{mbid_submitter}        // 0) * $MBID_SUBMITTER_FLAG
                 + ($values->{account_admin}         // 0) * $ACCOUNT_ADMIN_FLAG
                 + ($values->{editing_disabled}      // 0) * $EDITING_DISABLED_FLAG
-                + ($values->{adding_notes_disabled} // 0) * $ADDING_NOTES_DISABLED_FLAG;
+                + ($values->{adding_notes_disabled} // 0) * $ADDING_NOTES_DISABLED_FLAG
+                + ($values->{spammer}               // 0) * $SPAMMER_FLAG;
 
     Sql::run_in_transaction(sub {
         $self->sql->do('UPDATE editor SET privs = ? WHERE id = ?', $privs, $editor->id);
@@ -467,20 +473,12 @@ sub load_for_collection {
     return unless $id; # nothing to do
 
     $self->load($collection);
-    my $query = 'SELECT ' . $self->_columns . ', ep.value AS show_gravatar
+    my $query = 'SELECT ' . $self->_columns . '
                  FROM ' . $self->_table . "
                  JOIN editor_collection_collaborator ecc ON editor.id = ecc.editor
-                 LEFT JOIN editor_preference ep ON ep.editor = editor.id AND ep.name = 'show_gravatar'
                  WHERE ecc.collection = $id
                  ORDER BY editor.name, editor.id";
-    my @collaborators = $self->query_to_list($query, undef, sub {
-        my ($model, $row) = @_;
-
-        my $collaborator = $model->_new_from_row($row);
-        $collaborator->preferences->show_gravatar($row->{show_gravatar})
-            if defined $row->{show_gravatar};
-        $collaborator;
-    });
+    my @collaborators = $self->query_to_list($query);
 
     $collection->collaborators(\@collaborators);
 }

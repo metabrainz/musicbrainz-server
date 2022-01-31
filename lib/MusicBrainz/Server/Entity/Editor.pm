@@ -4,7 +4,6 @@ use namespace::autoclean;
 
 use Authen::Passphrase;
 use DateTime;
-use Digest::MD5 qw( md5_hex );
 use Encode;
 use MusicBrainz::Server::Constants qw( $PASSPHRASE_BCRYPT_COST );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json datetime_to_iso8601 );
@@ -107,6 +106,10 @@ sub is_editing_enabled {
 
 sub is_adding_notes_disabled {
     (shift->privileges & $ADDING_NOTES_DISABLED_FLAG) > 0;
+}
+
+sub is_spammer {
+    (shift->privileges & $SPAMMER_FLAG) > 0;
 }
 
 sub public_privileges {
@@ -275,15 +278,13 @@ sub new_privileged {
     );
 }
 
-sub gravatar {
+# TODO: Add support for returning avatars from Discourse.
+# (This should perhaps become an attribute instead of a method,
+# and be loaded from somewhere.)
+sub avatar {
     my $self = shift;
 
-    if ($self->preferences->show_gravatar && $self->email) {
-        my $hex = md5_hex(lc $self->email);
-        return "//gravatar.com/avatar/$hex?d=mm";
-    }
-
-    return '//gravatar.com/avatar/placeholder?d=mm';
+    return '';
 }
 
 sub _unsanitized_json {
@@ -323,9 +324,9 @@ sub TO_JSON {
     my ($self) = @_;
 
     return {
+        avatar => $self->avatar,
         deleted => boolean_to_json($self->deleted),
         entityType => 'editor',
-        gravatar => $self->gravatar,
         id => $self->id,
         is_limited => boolean_to_json($self->is_limited),
         name => $self->name,

@@ -4,7 +4,8 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Constants qw( :vote );
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json datetime_to_iso8601 );
+use MusicBrainz::Server::Entity::Util::JSON qw( add_linked_entity );
 use MusicBrainz::Server::Types qw( DateTime VoteOption );
 
 extends 'MusicBrainz::Server::Entity';
@@ -57,10 +58,13 @@ sub vote_name
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
+    add_linked_entity('editor', $self->editor_id, $self->editor);
+
     my $json = $self->$orig;
     $json->{editor_id} = $self->editor_id + 0;
     $json->{superseded} = boolean_to_json($self->superseded);
     $json->{vote} = $self->vote + 0;
+    $json->{vote_time} = datetime_to_iso8601($self->vote_time);
 
     return $json;
 };

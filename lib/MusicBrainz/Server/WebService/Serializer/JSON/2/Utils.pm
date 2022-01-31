@@ -314,7 +314,9 @@ sub serialize_tags {
     if ($inc->user_tags) {
         $into->{'user-tags'} = [
             sort { $a->{name} cmp $b->{name} }
-            map +{ name => $_->tag->name }, @{ $opts->{user_tags} }
+            map +{ name => $_->tag->name },
+                grep { $_->is_upvote }
+                @{ $opts->{user_tags} }
         ];
     }
 
@@ -322,6 +324,7 @@ sub serialize_tags {
         $into->{'user-genres'} = [
             sort { $a->{name} cmp $b->{name} }
             map +{ disambiguation => $_->tag->genre->comment, id => $_->tag->genre->gid, name => $_->tag->name },
+                grep { $_->is_upvote }
                 @{ $opts->{user_genres} }
         ];
     }
