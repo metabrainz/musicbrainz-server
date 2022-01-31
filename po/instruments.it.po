@@ -7,14 +7,14 @@
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
 # Luca Panfilo <email address hidden>, 2017
-# Luca Salini, 2020-2021
+# Luca Salini, 2020-2022
 # Monica <email address hidden>, 2014
 # Luca Salini, 2012
 # Valentina Menale <email address hidden>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-11-23 21:42+0000\n"
+"PO-Revision-Date: 2022-01-24 23:58+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -252,10 +252,6 @@ msgctxt "plastic fipple flute"
 msgid "Tonette"
 msgstr "tonette"
 
-#: DB:instrument/name:562
-msgid "Vienna horn"
-msgstr "corno viennese"
-
 #: DB:instrument/name:322
 msgid "Vietnamese guitar"
 msgstr "chitarra vietnamita"
@@ -267,6 +263,10 @@ msgstr "tuba wagneriana"
 #: DB:instrument/name:253
 msgid "Warr guitar"
 msgstr "chitarra Warr"
+
+#: DB:instrument/name:562
+msgid "Wiener Horn"
+msgstr "corno viennese"
 
 #: DB:instrument/name:468
 msgid "Wurlitzer electric piano"
@@ -2552,6 +2552,7 @@ msgid "membranophone"
 msgstr "membranofono"
 
 #: DB:instrument/name:114
+msgctxt "Traditional English percussion stick"
 msgid "mendoza"
 msgstr "mendoza"
 

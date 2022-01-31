@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-11-22 19:04+0000\n"
+"PO-Revision-Date: 2022-01-24 20:52+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -256,10 +256,6 @@ msgctxt "plastic fipple flute"
 msgid "Tonette"
 msgstr "Tonette"
 
-#: DB:instrument/name:562
-msgid "Vienna horn"
-msgstr "Wiener Horn"
-
 #: DB:instrument/name:322
 msgid "Vietnamese guitar"
 msgstr "vietnamesische Gitarre"
@@ -271,6 +267,10 @@ msgstr "Wagnertuba"
 #: DB:instrument/name:253
 msgid "Warr guitar"
 msgstr "Warr Guitar"
+
+#: DB:instrument/name:562
+msgid "Wiener Horn"
+msgstr ""
 
 #: DB:instrument/name:468
 msgid "Wurlitzer electric piano"
@@ -2556,6 +2556,7 @@ msgid "membranophone"
 msgstr ""
 
 #: DB:instrument/name:114
+msgctxt "Traditional English percussion stick"
 msgid "mendoza"
 msgstr ""
 

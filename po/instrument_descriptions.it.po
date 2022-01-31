@@ -7,14 +7,14 @@
 # Fen0x F <email address hidden>, 2020
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
-# Luca Salini, 2020-2021
+# Luca Salini, 2020-2022
 # Luca Salini, 2020
 # Luca Salini, 2012
 # Valentina Menale <email address hidden>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-11-23 23:59+0000\n"
+"PO-Revision-Date: 2022-01-25 01:02+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -1338,6 +1338,14 @@ msgstr "Chitarra acustica con cassa cava e incordata con corde in budello."
 #: DB:instrument/description:566
 msgid "Hollow-body acoustic guitar strung with nylon-strings."
 msgstr "Chitarra acustica con cassa cava e incordata con corde in nylon."
+
+#. name:mendoza
+#: DB:instrument/description:114
+msgid ""
+"Homemade combination of a wooden pole with beer bottle tops as jingles and a"
+" hefty boot at the bottom to create thumping bass, it is often decorated "
+"with hats or hair."
+msgstr "Combinazione fatta in casa di un palo di legno con tappi di bottiglia di birra come sonagli e di uno stivale pesante all'estremità inferiore che crea un suono basso battente, è spesso decorato con cappelli o capelli. "
 
 #. name:olifant
 #: DB:instrument/description:888
@@ -2799,13 +2807,6 @@ msgid ""
 "The Schwyzerörgeli is a type of diatonic button accordion used in Swiss folk"
 " music."
 msgstr "Tipo di fisarmonica diatonica a bottoni usato nella musica tradizionale svizzera."
-
-#. name:Vienna horn
-#: DB:instrument/description:562
-msgid ""
-"The Vienna horn is a type of musical horn used primarily in Vienna, Austria,"
-" for playing orchestral or classical music."
-msgstr "Tipo di corno francese usato prevalentemente a Vienna nella musica orchestrale o classica."
 
 #. name:Vietnamese guitar
 #: DB:instrument/description:322
@@ -4663,6 +4664,12 @@ msgid ""
 "cymbals sets; the bottom pair affixed in a highly decorated rancak rack, "
 "their lose counterparts attached together by string."
 msgstr "Usato sia nel gamelan che nel teatro delle ombre wayang, è composto di due piccole coppie di piatti; la coppia inferiore è fissata su un telaio molto decorato (rancak), mentre i piatti superiori, staccati, sono tenuti insieme con un filo."
+
+#. name:Wiener Horn
+#: DB:instrument/description:562
+msgid ""
+"Used in classical and orchestral music, mostly by orchestras in Vienna."
+msgstr "Usato nella musica classica e orchestrale, soprattutto dalle orchestre di Vienna."
 
 #. name:danso
 #: DB:instrument/description:927
