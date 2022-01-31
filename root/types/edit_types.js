@@ -14,6 +14,7 @@ declare type AddAnnotationEditGenericT = $ReadOnly<{
     +entity_type: AnnotatedEntityTypeT,
     [annotatedEntityType: AnnotatedEntityTypeT]: AnnotatedEntityT,
     +html: string,
+    +old_annotation?: string,
     +text: string,
   },
   +edit_type: EDIT_AREA_ADD_ANNOTATION_T,

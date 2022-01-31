@@ -13,6 +13,8 @@ import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
 import formatEntityTypeName
   from '../../static/scripts/common/utility/formatEntityTypeName';
+import Diff from '../../static/scripts/edit/components/edit/Diff';
+import {addColonText} from '../../static/scripts/common/i18n/addColon';
 
 type Props = {
   +edit: AddAnnotationEditT,
@@ -21,6 +23,7 @@ type Props = {
 const AddAnnotation = ({edit}: Props): React.Element<'table'> => {
   const display = edit.display_data;
   const entityType = display.entity_type;
+  const oldAnnotation = display.old_annotation;
 
   return (
     <table
@@ -60,6 +63,13 @@ const AddAnnotation = ({edit}: Props): React.Element<'table'> => {
               )}
           </td>
         </tr>
+        {oldAnnotation == null ? null : (
+          <Diff
+            label={l(addColonText('Annotation comparison'))}
+            newText={display.text}
+            oldText={oldAnnotation}
+          />
+        )}
         {display.changelog ? (
           <tr>
             <th>{addColonText(l('Summary'))}</th>

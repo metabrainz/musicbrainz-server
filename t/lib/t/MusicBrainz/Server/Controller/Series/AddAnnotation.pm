@@ -36,7 +36,8 @@ test all => sub {
         },
         text => "    * Test annotation for a series\n\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets",
         changelog => 'And a changelog',
-        editor_id => 1
+        editor_id => 1,
+        old_annotation_id => undef,
     });
 
     $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
