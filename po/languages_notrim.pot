@@ -34433,6 +34433,11 @@ msgstr ""
 msgid "Tokharian B"
 msgstr ""
 
+#. frequency:1 iso_code_3:tok 
+#: DB:language/name:7845
+msgid "Toki Pona"
+msgstr ""
+
 #. frequency:0 iso_code_3:tkn 
 #: DB:language/name:6479
 msgid "Toku-No-Shima"
