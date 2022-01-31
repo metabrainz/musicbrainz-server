@@ -371,6 +371,11 @@ test 'Ensure grouping-only types cannot be used for relationships' => sub {
         qr{/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit$},
         q(The page hasn't changed)
     );
+
+    $mech->content_contains(
+        'is only used for grouping',
+        'The "grouping only" error is shown',
+    );
 };
 
 
