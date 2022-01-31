@@ -61,6 +61,10 @@ has_field 'adding_notes_disabled' => (
     type => 'Boolean',
 );
 
+has_field 'spammer' => (
+    type => 'Boolean',
+);
+
 1;
 
 =head1 COPYRIGHT AND LICENSE

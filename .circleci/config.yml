@@ -75,7 +75,6 @@ jobs:
               --source pgTAP \
               --source Perl \
               -I lib \
-              -j 9 \
               t/critic.t \
               t/pgtap/* \
               t/pgtap/unused-tags/* \
