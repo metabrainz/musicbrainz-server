@@ -193,7 +193,7 @@ msgstr "エジプトのデモティック"
 msgid "Egyptian hieratic"
 msgstr "エジプトのヒエラティック"
 
-#. frequency:1 iso_code:Egyp
+#. frequency:2 iso_code:Egyp
 #: DB:script/name:4
 msgid "Egyptian hieroglyphs"
 msgstr "エジプトのヒエログリフ"

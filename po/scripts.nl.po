@@ -195,7 +195,7 @@ msgstr "Demotisch Egyptisch"
 msgid "Egyptian hieratic"
 msgstr "Hiëratisch Egyptisch"
 
-#. frequency:1 iso_code:Egyp
+#. frequency:2 iso_code:Egyp
 #: DB:script/name:4
 msgid "Egyptian hieroglyphs"
 msgstr "Egyptische hiëroglyfen"

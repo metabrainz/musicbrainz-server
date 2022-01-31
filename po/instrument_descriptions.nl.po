@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-12-10 21:36+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2022-01-24 20:52+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1331,6 +1331,14 @@ msgstr "Een darmsnaargitaar is een akoestische gitaar met snaren gemaakt van dar
 #: DB:instrument/description:566
 msgid "Hollow-body acoustic guitar strung with nylon-strings."
 msgstr "Een nylongitaar is een akoestische gitaar met nylonsnaren."
+
+#. name:mendoza
+#: DB:instrument/description:114
+msgid ""
+"Homemade combination of a wooden pole with beer bottle tops as jingles and a"
+" hefty boot at the bottom to create thumping bass, it is often decorated "
+"with hats or hair."
+msgstr ""
 
 #. name:olifant
 #: DB:instrument/description:888
@@ -2792,13 +2800,6 @@ msgid ""
 "The Schwyzerörgeli is a type of diatonic button accordion used in Swiss folk"
 " music."
 msgstr "Een Schwyzerörgeli is een soort diatonische knopaccordeon die wordt gebruikt voor Zwitserse volksmuziek."
-
-#. name:Vienna horn
-#: DB:instrument/description:562
-msgid ""
-"The Vienna horn is a type of musical horn used primarily in Vienna, Austria,"
-" for playing orchestral or classical music."
-msgstr "De Weense hoorn is een type hoorn dat voornamelijk in Wenen wordt gebruikt voor het spelen van orkestrale of klassieke muziek."
 
 #. name:Vietnamese guitar
 #: DB:instrument/description:322
@@ -4656,6 +4657,12 @@ msgid ""
 "cymbals sets; the bottom pair affixed in a highly decorated rancak rack, "
 "their lose counterparts attached together by string."
 msgstr "De ketjer bestaat uit twee paar kleine bekkens. De onderste helften liggen vast op een rijk gedecoreerde kast (rantjak), de bovenste zijn los en zitten met touw aan elkaar vast."
+
+#. name:Wiener Horn
+#: DB:instrument/description:562
+msgid ""
+"Used in classical and orchestral music, mostly by orchestras in Vienna."
+msgstr ""
 
 #. name:danso
 #: DB:instrument/description:927

@@ -2393,6 +2393,11 @@ msgstr ""
 msgid "Tokelau"
 msgstr ""
 
+#. frequency:1 iso_code_3:tok 
+#: DB:language/name:7845
+msgid "Toki Pona"
+msgstr ""
+
 #. frequency:1 iso_code_3:tog 
 #: DB:language/name:424
 msgid "Tonga (Nyasa)"
