@@ -23,6 +23,7 @@ import About from '../components/Home/About';
 import Facts from '../components/Home/Facts';
 import Explore from '../components/Home/Explore';
 import Projects from '../components/Home/Projects';
+import * as manifest from '../static/manifest';
 
 export default function Home() {
   const DARK_MODE_KEY = 'dark_mode';
@@ -97,6 +98,7 @@ export default function Home() {
         margin="24px"
         position={{bottom: '12%', right: '0%'}}
       />
+      {manifest.js('main/index', {async: 'async'})}
     </div>
   );
 }

@@ -59,6 +59,7 @@ const entries = [
   'instrument/index',
   'jed-data',
   'label/index',
+  'main/index',
   'place/edit',
   'place/index',
   'place/map',
