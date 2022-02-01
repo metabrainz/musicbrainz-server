@@ -16,6 +16,7 @@ import {CONTACT_URL} from '../static/scripts/common/constants';
 import {reduceArtistCredit}
   from '../static/scripts/common/immutable-entities';
 import entityHref from '../static/scripts/common/utility/entityHref';
+import AppDownload from '../components/home/AppDownload';
 
 type BlogEntryT = {
   +title: string,
@@ -254,6 +255,11 @@ const Homepage = ({
         ))}
       </div>
     </div>
+
+    <div className="bs" id="app-download">
+      <AppDownload />
+    </div>
+
   </Layout>
 );
 
