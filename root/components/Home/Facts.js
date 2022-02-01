@@ -76,7 +76,7 @@ function Facts(props) {
     </section>
   );
 }
-export default (hydrate<Props>(
+export default (hydrate(
   'div.facts',
   Facts,
-): React.AbstractComponent<Props, void>);
+): React.AbstractComponent<{}, void>);

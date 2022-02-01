@@ -1,4 +1,6 @@
-export default function Supporters(props) {
+import React from 'react';
+
+function Supporters(props) {
   return (
     <section
       className={'section-with-bg ' + props.theme}
@@ -161,3 +163,8 @@ export default function Supporters(props) {
     </section>
   );
 }
+
+export default (hydrate(
+  'div.supporters',
+  Supporters,
+): React.AbstractComponent<{}, void>);

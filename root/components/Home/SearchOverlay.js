@@ -1,3 +1,5 @@
+import React from 'react';
+
 const SearchOverlay = props => {
   let typeCurrent;
   const handleSubmit = (event) => {
@@ -258,4 +260,7 @@ const remove = e => {
   return;
 };
 
-export default SearchOverlay;
+export default (hydrate(
+  'div.searchOverlay',
+  SearchOverlay,
+): React.AbstractComponent<{}, void>);

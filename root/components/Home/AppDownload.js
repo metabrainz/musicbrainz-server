@@ -57,7 +57,7 @@ function AppDownload(props) {
     </section>
   );
 }
-export default (hydrate<Props>(
+export default (hydrate(
   'div.app-download',
   AppDownload,
-): React.AbstractComponent<Props, void>);
+): React.AbstractComponent<{}, void>);

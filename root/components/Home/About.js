@@ -103,7 +103,7 @@ function About(props) {
     </section>
   );
 }
-export default (hydrate<Props>(
+export default (hydrate(
   'div.about',
   About,
-): React.AbstractComponent<Props, void>);
+): React.AbstractComponent<{}, void>);

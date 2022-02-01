@@ -29,6 +29,7 @@ function Projects(props) {
             `)}
           </p>
         </div>
+        <hr style={{width: '100%'}} />
 
         <div className="row content align-items-center">
           <div
@@ -333,7 +334,7 @@ function Projects(props) {
     </section>
   );
 }
-export default (hydrate<Props>(
+export default (hydrate(
   'div.projects',
   Projects,
-): React.AbstractComponent<Props, void>);
+): React.AbstractComponent<{}, void>);

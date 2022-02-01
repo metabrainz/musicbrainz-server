@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 const Blog = () => {
   const [blogDetails, setBlogDetails] = useState([{}]);
@@ -89,4 +89,7 @@ const Blog = () => {
   );
 };
 
-export default Blog;
+export default (hydrate(
+  'div.blog',
+  Blog,
+): React.AbstractComponent<{}, void>);

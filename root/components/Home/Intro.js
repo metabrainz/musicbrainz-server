@@ -212,7 +212,7 @@ class Intro extends React.Component {
       );
     }
 }
-export default (hydrate<Props>(
+export default (hydrate(
   'div.intro',
   Intro,
-): React.AbstractComponent<Props, void>);
+): React.AbstractComponent<{}, void>);

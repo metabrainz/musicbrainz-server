@@ -204,7 +204,7 @@ function Explore(props) {
     </section>
   );
 }
-export default (hydrate<Props>(
+export default (hydrate(
   'div.explore',
   Explore,
-): React.AbstractComponent<Props, void>);
+): React.AbstractComponent<{}, void>);
