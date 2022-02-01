@@ -141,20 +141,19 @@ Or all of them like this:
 ### JavaScript
 
 We have a set of JavaScript unit tests (using https://github.com/substack/tape)
-which can be run in a browser or under Node.js.
-
-To run the tests in a browser, they must be compiled first:
+which can be run in a browser. They must be compiled first:
 
     $ script/compile_resources.sh tests
 
 After compilation has finished, open
-http://localhost:5000/static/scripts/tests/all.html on your local development
+http://localhost:5000/static/scripts/tests/web.html on your local development
 server.
 
-It is more fun to be able to run those tests on the command line. This can be
-done with the following command:
+It is more fun to be able to run those tests on the command line. Provided
+your system is running a (headless) Chrome instance, this can be done with
+the following command:
 
-    $ prove -l t/js.t
+    $ node t/web.js
 
 ### Flow
 
