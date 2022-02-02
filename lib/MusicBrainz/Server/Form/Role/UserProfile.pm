@@ -15,6 +15,13 @@ has_field 'username' => (
 
 has_field 'biography' => (
     type => 'Text',
+    trim => { transform => sub {
+        my $string = shift;
+        # Not trimming starting spaces to avoid breaking list formatting,
+        # consider trimming again once this uses Markdown 
+        $string =~ s/\s+$//;
+        return $string;
+    } }
 );
 
 has_field 'website' => (
