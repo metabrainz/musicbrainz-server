@@ -4,23 +4,42 @@ use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
 
-test all => sub {
+=head2 Test description
 
-my $test = shift;
-my $mech = $test->mech;
-my $c    = $test->c;
+This test checks whether the artist releases page properly displays
+releases for the artist.
 
-MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
+=cut
 
-# Test /artist/gid/releases
-$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/releases', 'get Test Artist page');
-html_ok($mech->content);
-$mech->title_like(qr/Test Artist/, 'title has Test Artist');
-$mech->title_like(qr/releases/i, 'title indicates releases listing');
-$mech->content_contains('Test Release', 'release title');
-$mech->content_contains('2009-05-08', 'release date');
-$mech->content_contains('/release/f34c079d-374e-4436-9448-da92dedef3ce', 'has a link to the release');
+test 'Test artists releases page' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
 
+    MusicBrainz::Server::Test->prepare_test_database(
+      $c,
+      '+controller_artist',
+    );
+
+    $mech->get_ok(
+      '/artist/745c079d-374e-4436-9448-da92dedef3ce/releases',
+        'Fetched artist releases page',
+    );
+    html_ok($mech->content);
+    $mech->title_like(
+        qr/Test Artist/,
+        'The page title contains Test Artist',
+    );
+    $mech->title_like(
+        qr/releases/i,
+        'The page title indicates this is a releases listing',
+    );
+    $mech->content_contains('Test Release', 'The release name is listed');
+    $mech->content_contains('2009-05-08', 'The release date is listed');
+    $mech->content_contains(
+        '/release/f34c079d-374e-4436-9448-da92dedef3ce',
+        'A link to the release is present',
+    );
 };
 
 1;
