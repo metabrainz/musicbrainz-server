@@ -7,6 +7,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use Data::Page;
 use DBDefs;
+use JSON;
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Utils qw( status_names );
 use MusicBrainz::Server::Constants qw( :quality );
@@ -102,7 +103,7 @@ sub data : Chained('load') RequireAuth
         component_path => 'edit/EditData',
         component_props => {
             edit => $edit->TO_JSON,
-            rawData => $c->json->pretty->encode($decoded_raw_data),
+            rawData => JSON->new->canonical->pretty->encode($decoded_raw_data),
             relatedEntities => \%entities,
         },
     );
