@@ -1268,6 +1268,20 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://adp.library.ucsb.edu/index.php/mastertalent/detail/113214/Tapley_Daisy',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://adp.library.ucsb.edu/names/113214',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://adp.library.ucsb.edu/names/109217',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://adp.library.ucsb.edu/names/109217',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'https://adp.library.ucsb.edu/index.php/matrix/refer/2000308570#',
              input_entity_type: 'recording',
     expected_relationship_type: 'otherdatabases',

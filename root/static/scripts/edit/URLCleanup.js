@@ -1484,16 +1484,28 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'dahr': {
-    match: [new RegExp(
-      '^(https?://)?adp\\.library\\.ucsb\\.edu/index\\.php/' +
-      '(matrix|objects|talent)',
-      'i',
-    )],
+    match: [
+      new RegExp(
+        '^(https?://)?adp\\.library\\.ucsb\\.edu/index\\.php/' +
+        '(mastertalent|matrix|objects|talent)',
+        'i',
+      ),
+      new RegExp('^(https?://)?adp\\.library\\.ucsb\\.edu/names/', 'i'),
+    ],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?adp\.library\.ucsb\.edu\/index\.php\/([a-z]+)\/[a-z]+\/([\d]+).*$/, 'https://adp.library.ucsb.edu/index.php/$1/detail/$2');
+      url = url.replace(/^(?:https?:\/\/)?adp\.library\.ucsb\.edu\//, 'https://adp.library.ucsb.edu/');
+      url = url.replace(/^(https:\/\/adp\.library\.ucsb\.edu)\/index\.php\/([a-z]+)\/[a-z]+\/([\d]+).*$/, '$1/index.php/$2/detail/$3');
+      url = url.replace(/^(https:\/\/adp\.library\.ucsb\.edu)\/names\/([\d]+).*$/, '$1/names/$2');
+      // mastertalent URLs match 1:1 to a names permalink so we use that
+      url = url.replace(/^(https:\/\/adp\.library\.ucsb\.edu)\/index\.php\/mastertalent\/detail\/([\d]+).*$/, '$1/names/$2');
+      return url;
     },
     validate: function (url, id) {
+      const isNamesPermalink = url.match(/^https:\/\/adp\.library\.ucsb\.edu\/names\/[\d]+$/);
+      if (isNamesPermalink && id === LINK_TYPES.otherdatabases.artist) {
+        return {result: true};
+      }
       const m = /^https:\/\/adp\.library\.ucsb\.edu\/index\.php\/([a-z]+)\/detail\/[\d]+$/.exec(url);
       if (m) {
         const prefix = m[1];
