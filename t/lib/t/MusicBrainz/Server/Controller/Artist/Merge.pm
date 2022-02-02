@@ -27,6 +27,13 @@ around run_test => sub {
 
 with 't::Mechanize', 't::Context';
 
+=head2 Test description
+
+This test checks artist merges, and especially the artist credit renaming
+code.
+
+=cut
+
 test 'Do not rename artist credits' => sub {
     my $test = shift;
     my $mech = $test->mech;
@@ -39,25 +46,36 @@ test 'Do not rename artist credits' => sub {
             'merge.edit_note' => 'Some Edit Note'
         }
     );
-    ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce});
+    ok(
+        $mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce},
+        'The user is redirected to the destination artist page',
+    );
 
     my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
     isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Merge');
 
-    is_deeply($edit->data, {
-        old_entities => [ { name => 'Empty Artist', id => 4, } ],
-        new_entity => { name => 'Test Artist', id => 3, },
-        rename => 0
-    });
+    is_deeply(
+        $edit->data,
+        {
+            old_entities => [ { name => 'Empty Artist', id => 4, } ],
+            new_entity => { name => 'Test Artist', id => 3, },
+            rename => 0
+        },
+        'The edit contains the right data',
+    );
 
-    $mech->get_ok('/edit/' . $edit->id);
+    $mech->get_ok('/edit/' . $edit->id, 'Fetched the edit page');
     my $tx = test_xpath_html($mech->content);
 
     $tx->ok(selector_to_xpath('table.merge-artists'), sub {
         $_->ok(selector_to_xpath('.rename-artist-credits'), sub {
-            $_->like('./td', qr/No/, 'correct display of rename data');
-        }, 'has information about renaming artist credits');
-    }, 'should have edit data');
+            $_->like(
+                './td',
+                qr/No/,
+                'Artist credits are marked as not being renamed',
+            );
+        }, 'The artist credit rename section is present');
+    }, 'The edit contains data');
 };
 
 test 'Rename artist credits' => sub {
@@ -72,25 +90,35 @@ test 'Rename artist credits' => sub {
             'merge.edit_note' => 'Some Edit Note'
         }
     );
-    ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce});
+    ok(
+        $mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce},
+        'The user is redirected to the destination artist page',
+    );
 
     my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
     isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Merge');
 
-    is_deeply($edit->data, {
-        old_entities => [ { name => 'Empty Artist', id => 4, } ],
-        new_entity => { name => 'Test Artist', id => 3, },
-        rename => 1
-    });
-
-    $mech->get_ok('/edit/' . $edit->id);
+    is_deeply(
+        $edit->data,
+        {
+            old_entities => [ { name => 'Empty Artist', id => 4, } ],
+            new_entity => { name => 'Test Artist', id => 3, },
+            rename => 1
+        },
+        'The edit contains the right data',
+    );
+    $mech->get_ok('/edit/' . $edit->id, 'Fetched the edit page');
     my $tx = test_xpath_html($mech->content);
 
     $tx->ok(selector_to_xpath('table.merge-artists'), sub {
         $_->ok(selector_to_xpath('.rename-artist-credits'), sub {
-            $_->like('./td', qr/Yes/, 'correct display of rename data');
-        }, 'has information about renaming artist credits');
-    }, 'should have edit data');
+            $_->like(
+                './td',
+                qr/Yes/,
+                'Artist credits are marked as being renamed',
+            );
+        }, 'The artist credit rename section is present');
+    }, 'The edit contains data');
 };
 
 1;
