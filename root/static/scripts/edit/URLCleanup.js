@@ -3915,6 +3915,7 @@ const CLEANUPS: CleanupEntries = {
       switch (id) {
         case LINK_TYPES.otherdatabases.artist:
         case LINK_TYPES.otherdatabases.label:
+        case LINK_TYPES.otherdatabases.place:
           return {
             result: /^http:\/\/snaccooperative\.org\/ark:\/99166\/[a-z0-9]+$/.test(url),
             target: ERROR_TARGETS.URL,

@@ -3844,14 +3844,21 @@ limited_link_type_combinations: [
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://snaccooperative.org/ark:/99166/w6mq170x',
-       only_valid_entity_types: ['artist', 'label'],
+       only_valid_entity_types: ['artist', 'label', 'place'],
   },
   {
                      input_url: 'https://n2t.net/ark:/99166/w6mq170x',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://snaccooperative.org/ark:/99166/w6mq170x',
-       only_valid_entity_types: ['artist', 'label'],
+       only_valid_entity_types: ['artist', 'label', 'place'],
+  },
+  {
+                     input_url: 'https://snaccooperative.org/ark:/99166/w6jh8gmv',
+             input_entity_type: 'place',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://snaccooperative.org/ark:/99166/w6jh8gmv',
+       only_valid_entity_types: ['artist', 'label', 'place'],
   },
   {
                      input_url: 'http://snaccooperative.org/view/14820000',
