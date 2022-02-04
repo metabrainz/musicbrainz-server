@@ -8,142 +8,211 @@ use List::AllUtils qw( sort_by );
 
 with 't::Mechanize', 't::Context';
 
-use aliased 'MusicBrainz::Server::Entity::PartialDate';
+=head2 Test description
 
-test all => sub {
+This test checks that the artist edit form works properly, including when
+updating artist credits.
 
-my $test = shift;
-my $mech = $test->mech;
-my $c    = $test->c;
+=cut
 
-MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
+test 'Test artist editing' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
 
-# Test editing artists
-$mech->get_ok('/login');
-$mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+    MusicBrainz::Server::Test->prepare_test_database(
+        $c,
+        '+controller_artist',
+    );
 
-$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit');
-html_ok($mech->content);
-$mech->submit_form(
-    with_fields => {
-        'edit-artist.name' => 'edit artist',
-        'edit-artist.sort_name' => 'artist, controller',
-        'edit-artist.type_id' => '',
-        'edit-artist.area_id' => 222,
-        'edit-artist.gender_id' => 2,
-        'edit-artist.period.begin_date.year' => 1990,
-        'edit-artist.period.begin_date.month' => 1,
-        'edit-artist.period.begin_date.day' => 2,
-        'edit-artist.begin_area_id' => 222,
-        'edit-artist.period.end_date.year' => '',
-        'edit-artist.period.end_date.month' => '',
-        'edit-artist.period.end_date.day' => '',
-        'edit-artist.end_area_id' => 222,
-        'edit-artist.comment' => 'artist created in controller_artist.t',
-        'edit-artist.rename_artist_credit' => undef
-    }
-);
-ok($mech->success);
-ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce$}, 'should redirect to artist page via gid');
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
-my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
-isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Edit');
-cmp_deeply($edit->data, {
-        entity => {
-            id => 3,
-            gid => re('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'),
-            name => 'Test Artist'
+    $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit');
+    html_ok($mech->content);
+
+    my @edits = capture_edits {
+        $mech->submit_form_ok({
+            with_fields => {
+                'edit-artist.name' => 'edit artist',
+                'edit-artist.sort_name' => 'artist, controller',
+                'edit-artist.type_id' => '',
+                'edit-artist.area_id' => 222,
+                'edit-artist.gender_id' => 2,
+                'edit-artist.period.begin_date.year' => 1990,
+                'edit-artist.period.begin_date.month' => 1,
+                'edit-artist.period.begin_date.day' => 2,
+                'edit-artist.begin_area_id' => 222,
+                'edit-artist.period.end_date.year' => '',
+                'edit-artist.period.end_date.month' => '',
+                'edit-artist.period.end_date.day' => '',
+                'edit-artist.end_area_id' => 222,
+                'edit-artist.comment' => 'artist created in controller_artist.t',
+                'edit-artist.rename_artist_credit' => undef
+            }
         },
-        new => {
-            name => 'edit artist',
-            sort_name => 'artist, controller',
-            type_id => undef,
-            area_id => 222,
-            gender_id => 2,
-            comment => 'artist created in controller_artist.t',
-            begin_date => {
-                year => 1990,
-                month => 1,
-                day => 2
+        'The form returned a 2xx response code');
+    } $c;
+
+    ok(
+        $mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce$},
+        'The user is redirected to the artist page after entering the edit',
+    );
+
+    is(@edits, 1, 'The edit was entered');
+
+    my $edit = shift(@edits);
+
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Edit');
+    cmp_deeply(
+        $edit->data,
+        {
+            entity => {
+                id => 3,
+                gid => re('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'),
+                name => 'Test Artist'
             },
-            begin_area_id => 222,
-            end_date => {
-                year => undef,
-                month => undef,
-                day => undef,
+            new => {
+                name => 'edit artist',
+                sort_name => 'artist, controller',
+                type_id => undef,
+                area_id => 222,
+                gender_id => 2,
+                comment => 'artist created in controller_artist.t',
+                begin_date => {
+                    year => 1990,
+                    month => 1,
+                    day => 2
+                },
+                begin_area_id => 222,
+                end_date => {
+                    year => undef,
+                    month => undef,
+                    day => undef,
+                },
+                end_area_id => 222,
             },
-            end_area_id => 222,
+            old => {
+                name => 'Test Artist',
+                sort_name => 'Artist, Test',
+                type_id => 1,
+                gender_id => 1,
+                area_id => 221,
+                comment => 'Yet Another Test Artist',
+                begin_date => {
+                    year => 2008,
+                    month => 1,
+                    day => 2
+                },
+                begin_area_id => 221,
+                end_date => {
+                    year => 2009,
+                    month => 3,
+                    day => 4
+                },
+                end_area_id => 221,
+            }
         },
-        old => {
-            name => 'Test Artist',
-            sort_name => 'Artist, Test',
-            type_id => 1,
-            gender_id => 1,
-            area_id => 221,
-            comment => 'Yet Another Test Artist',
-            begin_date => {
-                year => 2008,
-                month => 1,
-                day => 2
-            },
-            begin_area_id => 221,
-            end_date => {
-                year => 2009,
-                month => 3,
-                day => 4
-            },
-            end_area_id => 221,
-        }
-    });
+        'The edit contains the right data',
+    );
 
-
-# Test display of edit data
-$mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
-html_ok($mech->content);
-$mech->text_contains('edit artist', '.. contains old artist name');
-$mech->text_contains('Test Artist', '.. contains new artist name');
-$mech->text_contains('artist, controller', '.. contains old sort name');
-$mech->text_contains('Artist, Test', '.. contains new sort name');
-$mech->text_contains('Person', '.. contains new artist type');
-$mech->text_contains('United States', '.. contains old area');
-$mech->text_contains('United Kingdom', '.. contains new area');
-$mech->text_contains('Male', '.. contains old artist gender');
-$mech->text_contains('Female', '.. contains new artist gender');
-$mech->text_contains('2008-01-02', '.. contains old begin date');
-$mech->text_contains('1990-01-02', '.. contains new begin date');
-$mech->text_contains('2009-03-04', '.. contains old end date');
-$mech->text_contains('Yet Another Test Artist',
-                      '.. contains old artist comment');
-$mech->text_contains('artist created in controller_artist.t',
-                      '.. contains new artist comment');
-
+    # Test display of edit data
+    $mech->get_ok('/edit/' . $edit->id, 'Fetched the edit page');
+    html_ok($mech->content);
+    $mech->text_contains(
+        'edit artist',
+        'The edit page contains the old artist name',
+    );
+    $mech->text_contains(
+        'Test Artist',
+        'The edit page contains the new artist name',
+    );
+    $mech->text_contains(
+        'artist, controller',
+        'The edit page contains the old sort name',
+    );
+    $mech->text_contains(
+        'Artist, Test',
+        'The edit page contains the new sort name',
+    );
+    $mech->text_contains(
+        'Person',
+        'The edit page contains the new artist type',
+    );
+    $mech->text_contains(
+        'United States',
+        'The edit page contains the old area',
+    );
+    $mech->text_contains(
+        'United Kingdom',
+        'The edit page contains the new area',
+    );
+    $mech->text_contains(
+        'Male',
+        'The edit page contains the old artist gender',
+    );
+    $mech->text_contains(
+        'Female',
+        'The edit page contains the new artist gender',
+    );
+    $mech->text_contains(
+        '2008-01-02',
+        'The edit page contains the old begin date',
+    );
+    $mech->text_contains(
+        '1990-01-02',
+        'The edit page contains the new begin date',
+    );
+    $mech->text_contains(
+        '2009-03-04',
+        'The edit page contains the old end date',
+    );
+    $mech->text_contains(
+        'Yet Another Test Artist',
+        'The edit page contains the old disambiguation',
+    );
+    $mech->text_contains(
+        'artist created in controller_artist.t',
+        'The edit page contains the new disambiguation',
+    );
 };
 
-test 'Looooooong comment' => sub {
+test 'Looooooong disambiguation' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
 
-my $test = shift;
-my $mech = $test->mech;
-my $c    = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
 
-MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
-# Test editing artists
-$mech->get_ok('/login');
-$mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+    $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit');
+    html_ok($mech->content);
 
-$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit');
-html_ok($mech->content);
-$mech->submit_form_ok({
-    with_fields => {
-        'edit-artist.name' => 'test artist',
-        'edit-artist.comment' => 'comment ' x 100,
-        'edit-artist.sort_name' => 'artist, test',
-        'edit-artist.rename_artist_credit' => undef
-    }
-});
-ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce/edit$}, 'still on the edit page');
-$mech->content_contains('Field should not exceed 255 characters', 'warning about the long comment');
+    my @edits = capture_edits {
+        $mech->submit_form_ok({
+            with_fields => {
+                'edit-artist.name' => 'test artist',
+                'edit-artist.comment' => 'comment ' x 100,
+                'edit-artist.sort_name' => 'artist, test',
+                'edit-artist.rename_artist_credit' => undef
+            }
+        },
+        'The form returned a 2xx response code');
+    } $c;
 
+    ok(
+        $mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce/edit$},
+        'The edit artist page is shown again',
+    );
+
+    is(@edits, 0, 'No edit was entered');
+
+    $mech->content_contains(
+        'Field should not exceed 255 characters',
+        'The "too long disambiguation" error is shown',
+    );
 };
 
 test 'Test updating artist credits' => sub {
@@ -172,38 +241,55 @@ test 'Test updating artist credits' => sub {
             with_fields => {
                 'edit-artist.name' => 'test artist',
                 'edit-artist.rename_artist_credit' => [ 1 ]
-            }
-        });
+            },
+        },
+        'The form returned a 2xx response code');
     } $c;
 
     @edits = sort_by { $_->id } @edits;
 
-    is(@edits, 2, 'created 2 edits');
+    is(@edits, 2, 'Two edits were entered');
     my ($edit_artist, $edit_ac) = @edits;
-    isa_ok($edit_artist, 'MusicBrainz::Server::Edit::Artist::Edit', 'created an artist edit');
-    isa_ok($edit_ac, 'MusicBrainz::Server::Edit::Artist::EditArtistCredit', 'edited an artist credit');
+    isa_ok(
+        $edit_artist,
+        'MusicBrainz::Server::Edit::Artist::Edit',
+        'Created an artist edit',
+    );
+    isa_ok(
+        $edit_ac,
+        'MusicBrainz::Server::Edit::Artist::EditArtistCredit',
+        'Edited an artist credit',
+    );
 
-    is_deeply($edit_ac->data->{new}{artist_credit}, {
-        names => [{
-            artist => {
-                name => 'Artist name',
-                id => 10,
-            },
-            name => 'test artist',
-            join_phrase => ''
-        }]
-    });
+    is_deeply(
+        $edit_ac->data->{new}{artist_credit},
+        {
+            names => [{
+                artist => {
+                    name => 'Artist name',
+                    id => 10,
+                },
+                name => 'test artist',
+                join_phrase => ''
+            }]
+        },
+        'The new artist credit contains the right data',
+    );
 
-    is_deeply($edit_ac->data->{old}{artist_credit}, {
-        names => [{
-            artist => {
-                name => 'Artist name',
-                id => 10,
-            },
-            name => 'Alternative Name',
-            join_phrase => ''
-        }]
-    });
+    is_deeply(
+        $edit_ac->data->{old}{artist_credit},
+        {
+            names => [{
+                artist => {
+                    name => 'Artist name',
+                    id => 10,
+                },
+                name => 'Alternative Name',
+                join_phrase => ''
+            }]
+        },
+        'The old artist credit contains the right data',
+    );
 };
 
 1;

@@ -7,7 +7,15 @@ use MusicBrainz::Script::RemoveEmpty;
 
 with 't::Context';
 
-test 'all' => sub {
+=head2 Test description
+
+This test checks whether the RemoveEmpty script is working as expected
+for URLS, deleting only URLs that are unused, not new,
+and have no pending edits.
+
+=cut
+
+test 'Test the RemoveEmpty script for URLs' => sub {
 
 my $test = shift;
 my $c = $test->c;
