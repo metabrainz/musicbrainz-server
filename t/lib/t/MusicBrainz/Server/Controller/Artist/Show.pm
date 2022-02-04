@@ -568,4 +568,27 @@ test 'Embedded JSON-LD for groups' => sub {
     };
 };
 
+test 'Embedded JSON-LD for an empty artist' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database(
+        $c,
+        '+controller_artist',
+    );
+
+    $mech->get_ok(
+        '/artist/60e5d080-c964-11de-8a39-0800200c9a66',
+        'Fetched the artist index page',
+    );
+
+    page_test_jsonld $mech => {
+        '@context' => 'http://schema.org',
+        '@type' => 'MusicGroup',
+        '@id' => 'http://musicbrainz.org/artist/60e5d080-c964-11de-8a39-0800200c9a66',
+        'name' => 'Empty Artist'
+    };
+};
+
 1;
