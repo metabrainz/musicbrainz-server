@@ -46,12 +46,14 @@ class ApplicationForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {form: props.form};
-    this.handleOauthRedirectURIChange =
-      this.handleOauthRedirectURIChange.bind(this);
-    this.handleOauthTypeChange = this.handleOauthTypeChange.bind(this);
+    this.handleOauthRedirectURIChangeBound =
+      (e) => this.handleOauthRedirectURIChange(e);
+    this.handleOauthTypeChangeBound =
+      (e) => this.handleOauthTypeChange(e);
   }
 
-  handleOauthRedirectURIChange: (e: SyntheticEvent<HTMLInputElement>) => void;
+  handleOauthRedirectURIChangeBound:
+    (e: SyntheticEvent<HTMLInputElement>) => void;
 
   handleOauthRedirectURIChange(e: SyntheticEvent<HTMLInputElement>) {
     const selectedOauthRedirectURI = e.currentTarget.value;
@@ -60,7 +62,7 @@ class ApplicationForm extends React.Component<Props, State> {
     }));
   }
 
-  handleOauthTypeChange: (e: SyntheticEvent<HTMLSelectElement>) => void;
+  handleOauthTypeChangeBound: (e: SyntheticEvent<HTMLSelectElement>) => void;
 
   handleOauthTypeChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedOauthType = e.currentTarget.value;
@@ -84,14 +86,14 @@ class ApplicationForm extends React.Component<Props, State> {
           field={this.state.form.field.oauth_type}
           frozen={this.props.action === 'edit'}
           label={addColonText(l('Type'))}
-          onChange={this.handleOauthTypeChange}
+          onChange={this.handleOauthTypeChangeBound}
           options={oauthTypeOptions}
           required
         />
         <FormRowURLLong
           field={this.state.form.field.oauth_redirect_uri}
           label={addColonText(l('Callback URL'))}
-          onChange={this.handleOauthRedirectURIChange}
+          onChange={this.handleOauthRedirectURIChangeBound}
           required={this.state.form.field.oauth_type.value === 'web'}
         />
         {this.state.form.field.oauth_type.value === 'web' ? null : (
