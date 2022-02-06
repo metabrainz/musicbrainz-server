@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Edit::Alias::Edit;
 use 5.10.0;
 use Moose;
-use MooseX::ABC;
 
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( Bool Int Str );
