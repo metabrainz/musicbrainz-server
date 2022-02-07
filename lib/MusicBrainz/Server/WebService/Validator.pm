@@ -319,7 +319,8 @@ role {
 
             # Check if authorization is required.
             $c->stash->{authorization_required} = $inc->{user_tags} || $inc->{user_genres} || $inc->{user_ratings} ||
-                $resource eq 'tag' || $resource eq 'rating' ||
+                $resource eq 'rating' ||
+                ($resource eq 'tag' && ($c->req->method eq 'POST' || exists $c->stash->{args}->{id})) ||
                 ($resource eq 'release' && $c->req->method eq 'POST') ||
                 ($resource eq 'recording' && $c->req->method eq 'POST');
 
