@@ -2474,6 +2474,19 @@ limited_link_type_combinations: [
                      input_url: 'http://www.lantis.jp/release-item2.php?id=326c88aa1cd230f96ef350e380a23078',
              input_entity_type: 'release',
     expected_relationship_type: 'discographyentry',
+            expected_clean_url: 'https://www.lantis.jp/release-item2.php?id=326c88aa1cd230f96ef350e380a23078',
+  },
+  {
+                     input_url: 'http://lantis.jp/release-item/LACM-14937',
+             input_entity_type: 'release',
+    expected_relationship_type: 'discographyentry',
+            expected_clean_url: 'https://www.lantis.jp/release-item/LACM-14937.html',
+  },
+  {
+                     input_url: 'https://www.lantis.jp/release-item/LACA-15193.html',
+             input_entity_type: 'release',
+    expected_relationship_type: 'discographyentry',
+            expected_clean_url: 'https://www.lantis.jp/release-item/LACA-15193.html',
   },
   // Last.fm
   {
