@@ -16,6 +16,7 @@ import {reduceArtistCredit}
   from '../static/scripts/common/immutable-entities.js';
 import entityHref from '../static/scripts/common/utility/entityHref.js';
 import AppDownload from '../components/home/AppDownload.js';
+import About from '../components/home/About.js';
 
 type BlogEntryT = {
   +title: string,
@@ -253,6 +254,9 @@ const Homepage = ({
           />
         ))}
       </div>
+    </div>
+    <div className="bs" id="about">
+      <About />
     </div>
 
     <div className="bs" id="app-download">
