@@ -84,15 +84,21 @@ test 'A matching CD stub searches for possible releases' => sub {
 
         INSERT INTO release (id, gid, name, release_group, artist_credit)
             VALUES (1, '2bcffca6-e8f5-11e0-866d-00508db50876', 'Release stub name', 1, 1),
-                   (2, '3850dad5-8010-476c-9b19-d3bab89548aa', 'Release + pregap stub name', 1, 1);
+                   (2, '3850dad5-8010-476c-9b19-d3bab89548aa', 'Release + pregap stub name', 1, 1),
+                   (3, '3850dad5-8010-476c-9b19-d3bab89548ab', 'Release stub name', 1, 1),
+                   (4, '3850dad5-8010-476c-9b19-d3bab89548ac', 'Release stub name', 1, 1);
 
         INSERT INTO medium (id, release, track_count, position)
-            VALUES (1, 1, 0, 1), (2, 2, 0, 1);
+            VALUES (1, 1, 0, 1), (2, 2, 0, 1), (3, 3, 0, 1), (4, 4, 0, 1);
 
-        INSERT INTO track (id, gid, medium, name, recording, position, number, artist_credit)
-            VALUES (1, 'c53c3e26-192e-4a9d-bd46-7682f2154d6b', 1, 'Release track', 1, 1, 1, 1),
-                   (2, '1d6aca46-d9be-4f05-b459-723afb74395d', 2, 'Pregap track', 2, 0, 0, 1),
-                   (3, 'ca94f034-48bf-4b78-a019-0f4eadd1fdbc', 2, 'Release track', 1, 1, 1, 1);
+        INSERT INTO track (id, gid, medium, name, recording, position, number, artist_credit, is_data_track)
+            VALUES (1, 'c53c3e26-192e-4a9d-bd46-7682f2154d6b', 1, 'Release track', 1, 1, 1, 1, FALSE),
+                   (2, '1d6aca46-d9be-4f05-b459-723afb74395d', 2, 'Pregap track', 2, 0, 0, 1, FALSE),
+                   (3, 'ca94f034-48bf-4b78-a019-0f4eadd1fdbc', 2, 'Release track', 1, 1, 1, 1, FALSE),
+                   (4, '1d6aca46-d9be-4f05-b459-723afb74395e', 3, 'Release track', 1, 1, 1, 1, FALSE),
+                   (5, 'ca94f034-48bf-4b78-a019-0f4eadd1fdbd', 3, 'Another release track', 2, 2, 2, 1, FALSE),
+                   (6, '1d6aca46-d9be-4f05-b459-723afb74395f', 4, 'Release track', 1, 1, 1, 1, FALSE),
+                   (7, 'ca94f034-48bf-4b78-a019-0f4eadd1fdbe', 4, 'Data track', 2, 2, 2, 1, TRUE);
 
         INSERT INTO editor (
             id, name, password, privs,
@@ -134,12 +140,22 @@ test 'A matching CD stub searches for possible releases' => sub {
         '/release/3850dad5-8010-476c-9b19-d3bab89548aa',
         'A link to the second matching release is present; pregap track does not preclude matching',
     );
+    $mech->content_lacks(
+        '/release/3850dad5-8010-476c-9b19-d3bab89548ab',
+        'A link to the release with a second standard track is not present',
+    );
+    $mech->content_contains(
+        '/release/3850dad5-8010-476c-9b19-d3bab89548ac',
+        'A link to the second matching release is present; data track does not preclude matching',
+    );
     $mech->text_contains(
         'Release + pregap stub name',
         'Matching release names are displayed',
     );
     $mech->text_contains('Artist name', 'Release artists are displayed');
     $mech->text_contains('Release track', 'Release tracks are displayed');
+    $mech->text_contains('Pregap track', 'Pregap tracks are displayed');
+    $mech->text_contains('Data track', 'Data tracks are displayed');
 };
 
 1;
