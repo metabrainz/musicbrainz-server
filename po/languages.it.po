@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-01-24 23:59+0000\n"
+"PO-Revision-Date: 2022-01-31 22:50+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -2401,6 +2401,11 @@ msgstr "Tok Pisin"
 #: DB:language/name:420
 msgid "Tokelau"
 msgstr "Tokelauano"
+
+#. frequency:1 iso_code_3:tok
+#: DB:language/name:7845
+msgid "Toki Pona"
+msgstr "Toki Pona"
 
 #. frequency:1 iso_code_3:tog
 #: DB:language/name:424

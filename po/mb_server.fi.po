@@ -31,8 +31,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-24 22:50+0200\n"
-"PO-Revision-Date: 2022-01-24 20:52+0000\n"
+"POT-Creation-Date: 2022-01-31 21:01+0200\n"
+"PO-Revision-Date: 2022-01-31 19:04+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -151,7 +151,7 @@ msgctxt "and"
 msgid "/"
 msgstr ""
 
-#: ../root/admin/edit_user.tt:21
+#: ../root/admin/edit_user.tt:24
 msgid "<abbr title=\"MusicBrainz Identifier\">MBID</abbr> submitter"
 msgstr "<abbr title=\"MusicBrainz Identifier\">MBID</abbr>-lähettäjä"
 
@@ -234,7 +234,7 @@ msgstr "Hyväksy"
 msgid "Accepted edits by {name}"
 msgstr ""
 
-#: ../root/admin/edit_user.tt:28 ../root/admin/edit_user.tt:32
+#: ../root/admin/edit_user.tt:31 ../root/admin/edit_user.tt:35
 msgid "Account admin"
 msgstr "Käyttäjätunnuksien hallinnointi"
 
@@ -411,7 +411,7 @@ msgstr "Osoite:"
 msgid "Adjust User Account Flags"
 msgstr "Säädä käyttäjätunnuksen lippuja"
 
-#: ../root/admin/edit_user.tt:20
+#: ../root/admin/edit_user.tt:23
 msgid "Administration flags"
 msgstr "Hallintoliput"
 
@@ -560,7 +560,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:40
 #: ../root/static/scripts/common/constants.js:18
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:46
-#: ../root/user/UserProfile.js:42
+#: ../root/user/UserProfile.js:43
 msgid "Area"
 msgstr "Alue"
 
@@ -635,7 +635,7 @@ msgstr "Alueet"
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:48
 #: ../root/static/scripts/common/utility/formatSetlist.js:31
 #: ../root/static/scripts/release/components/MediumTable.js:215
-#: ../root/taglookup/Form.js:26 ../root/user/UserProfile.js:43
+#: ../root/taglookup/Form.js:26 ../root/user/UserProfile.js:44
 msgid "Artist"
 msgstr "Artisti"
 
@@ -828,9 +828,9 @@ msgid ""
 " sure to include it!"
 msgstr "Alta löydät tietoja virheestä. Voit halutessasi lisätä virheraportin {bugs|virheidenseurantaamme}. Alta löytyvä tieto helpottaa vian paikallistamista, joten muistathan sisällyttää sen raporttiisi!"
 
-#: ../root/admin/edit_user.tt:41
+#: ../root/admin/edit_user.tt:44
 #: ../root/static/scripts/account/components/EditProfileForm.js:273
-#: ../root/user/UserProfile.js:380
+#: ../root/user/UserProfile.js:381
 msgid "Bio:"
 msgstr "Elämäkerta:"
 
@@ -844,7 +844,7 @@ msgstr "Blogi"
 msgid "Born:"
 msgstr "Syntymäaika:"
 
-#: ../root/admin/edit_user.tt:16 ../root/edit/search_macros.tt:392
+#: ../root/admin/edit_user.tt:20 ../root/edit/search_macros.tt:392
 msgid "Bot"
 msgstr "Botti"
 
@@ -1160,7 +1160,7 @@ msgstr "Maa:"
 
 #: ../root/release_group/set_cover_art.tt:67
 #: ../root/components/EntityTabs.js:116 ../root/release/CoverArt.js:57
-#: ../root/user/UserProfile.js:44
+#: ../root/user/UserProfile.js:45
 msgid "Cover Art"
 msgstr "Kansitaide"
 
@@ -1504,15 +1504,15 @@ msgstr "Muokkaa lisätietoja"
 msgid "Edit note:"
 msgstr "Muokkausmerkintä:"
 
-#: ../root/admin/edit_user.tt:13
+#: ../root/admin/edit_user.tt:16
 msgid "Edit notes disabled"
 msgstr ""
 
-#: ../root/admin/edit_user.tt:35
+#: ../root/admin/edit_user.tt:38
 msgid "Edit profile"
 msgstr "Muokkaa profiilia"
 
-#: ../root/admin/edit_user.tt:47
+#: ../root/admin/edit_user.tt:50
 msgid "Edit user"
 msgstr "Muokkaa käyttäjää"
 
@@ -1520,7 +1520,7 @@ msgstr "Muokkaa käyttäjää"
 msgid "Editing FAQ"
 msgstr "UKK muokkaamisesta"
 
-#: ../root/admin/edit_user.tt:12
+#: ../root/admin/edit_user.tt:15
 msgid "Editing/voting disabled"
 msgstr "Muokkaaminen/äänestäminen pois käytöstä"
 
@@ -1558,8 +1558,8 @@ msgstr "Seuraamillesi kohteille tehdyt muokkaukset"
 msgid "Edits for {name}"
 msgstr "Muokkaukset kohteelle {name}"
 
-#: ../root/account/register.tt:39 ../root/admin/edit_user.tt:37
-#: ../root/user/UserProfile.js:183
+#: ../root/account/register.tt:39 ../root/admin/edit_user.tt:40
+#: ../root/user/UserProfile.js:184
 msgid "Email:"
 msgstr "Sähköpostiosoite:"
 
@@ -1651,7 +1651,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:48
 #: ../root/static/scripts/common/constants.js:20
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:52
-#: ../root/user/UserProfile.js:45
+#: ../root/user/UserProfile.js:46
 msgid "Event"
 msgstr "Tapahtuma"
 
@@ -1854,7 +1854,7 @@ msgstr "Täysi sisällysluettelo:"
 #: ../root/artist/edit_form.tt:17
 #: ../root/layout/components/sidebar/ArtistSidebar.js:83
 #: ../root/static/scripts/account/components/EditProfileForm.js:221
-#: ../root/user/UserProfile.js:262
+#: ../root/user/UserProfile.js:263
 msgid "Gender:"
 msgstr "Sukupuoli:"
 
@@ -2220,7 +2220,7 @@ msgstr "Tuo CD-tynkä"
 #: ../root/search/components/SearchForm.js:46
 #: ../root/static/scripts/common/constants.js:22
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:54
-#: ../root/user/UserProfile.js:46
+#: ../root/user/UserProfile.js:47
 msgid "Instrument"
 msgstr "Soitin"
 
@@ -2299,7 +2299,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:39
 #: ../root/static/scripts/common/constants.js:23
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:56
-#: ../root/user/UserProfile.js:47 ../root/utility/tableColumns.js:505
+#: ../root/user/UserProfile.js:48 ../root/utility/tableColumns.js:505
 #: ../root/utility/tableColumns.js:510
 msgid "Label"
 msgstr "Levymerkki"
@@ -2721,7 +2721,7 @@ msgstr ""
 msgid "No edits were found matching your query. Please {search|try again}."
 msgstr "Kyselyysi täsmääviä muokkauksia ei löytynyt. Halutessasi {search|hae uudelleen}."
 
-#: ../root/admin/edit_user.tt:18
+#: ../root/admin/edit_user.tt:21
 msgid "No nag"
 msgstr "Ei muistuttamisia"
 
@@ -2920,7 +2920,7 @@ msgid "Parse Tracks"
 msgstr "Jäsennä kappaleet"
 
 #: ../root/account/register.tt:37 ../root/account/reset_password.tt:11
-#: ../root/user/Login.js:80
+#: ../root/user/Login.js:102
 msgid "Password:"
 msgstr "Salasana:"
 
@@ -2935,7 +2935,7 @@ msgstr "Salasana:"
 #: ../root/search/components/SearchForm.js:41
 #: ../root/static/scripts/common/constants.js:24
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:58
-#: ../root/user/UserProfile.js:48
+#: ../root/user/UserProfile.js:49
 msgid "Place"
 msgstr "Paikka"
 
@@ -3094,7 +3094,7 @@ msgstr[1] "Arvostelu: {rating} tähteä"
 
 #: ../root/user/ratings_summary.tt:1 ../root/user/ratings_summary.tt:33
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:36
-#: ../root/entity/Ratings.js:38 ../root/user/UserProfile.js:817
+#: ../root/entity/Ratings.js:38 ../root/user/UserProfile.js:818
 msgid "Ratings"
 msgstr "Arvostelut"
 
@@ -3118,7 +3118,7 @@ msgstr "Viimeaikaisia muokkausmerkintäviestejä muokkauksissasi"
 #: ../root/search/components/SearchForm.js:37
 #: ../root/static/scripts/common/constants.js:25
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:60
-#: ../root/user/UserProfile.js:49
+#: ../root/user/UserProfile.js:50
 msgid "Recording"
 msgstr "Äänite"
 
@@ -3231,7 +3231,7 @@ msgstr "<span class=\"rel-edit\">Keltaisella</span> korostettuja yhteyksiä muok
 #: ../root/static/scripts/common/constants.js:26
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:62
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:341
-#: ../root/taglookup/Form.js:31 ../root/user/UserProfile.js:50
+#: ../root/taglookup/Form.js:31 ../root/user/UserProfile.js:51
 msgid "Release"
 msgstr "Julkaisu"
 
@@ -3639,9 +3639,9 @@ msgid "Send"
 msgstr "Lähetä"
 
 #: ../root/user/contact.tt:1 ../root/user/contact.tt:3
-#: ../lib/MusicBrainz/Server/Controller/User.pm:297
-#: ../lib/MusicBrainz/Server/Controller/User.pm:323
-#: ../lib/MusicBrainz/Server/Controller/User.pm:338
+#: ../lib/MusicBrainz/Server/Controller/User.pm:302
+#: ../lib/MusicBrainz/Server/Controller/User.pm:328
+#: ../lib/MusicBrainz/Server/Controller/User.pm:343
 #: ../root/account/LostUsername.js:43
 msgid "Send Email"
 msgstr "Lähetä sähköposti"
@@ -3671,7 +3671,7 @@ msgstr "Sarjat"
 #: ../root/series/SeriesHeader.js:29
 #: ../root/static/scripts/common/constants.js:28
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:66
-#: ../root/user/UserProfile.js:52
+#: ../root/user/UserProfile.js:53
 msgctxt "singular"
 msgid "Series"
 msgstr "Sarja"
@@ -3725,7 +3725,7 @@ msgstr "Näytä {autoedit_select_block} järjestettynä {sort_select_block} site
 msgid "Similar releases"
 msgstr "Samankaltaisia julkaisuja"
 
-#: ../root/admin/edit_user.tt:38
+#: ../root/admin/edit_user.tt:41
 msgid "Skip verification"
 msgstr "Ohita varmentaminen"
 
@@ -3762,6 +3762,10 @@ msgstr "Levyn tunniste <code>{discid}</code> ei ole kelvollinen."
 #: ../root/layout/components/sidebar/ArtistSidebar.js:75
 msgid "Sort name:"
 msgstr "Lajittelunimi:"
+
+#: ../root/admin/edit_user.tt:14
+msgid "Spammer"
+msgstr ""
 
 #: ../root/artist/split.tt:1
 msgid "Split Artist"
@@ -3849,7 +3853,7 @@ msgstr "Vaihda kappaleiden ja artistien nimien paikkoja"
 msgid "Tagger"
 msgstr "Luokittelija"
 
-#: ../root/admin/edit_user.tt:15
+#: ../root/admin/edit_user.tt:19
 msgid "Technical flags"
 msgstr "Tekniset ominaisuudet"
 
@@ -4594,8 +4598,12 @@ msgstr "Käyttäjänimi: "
 msgid "User permissions"
 msgstr "Käyttöoikeudet"
 
-#: ../root/account/register.tt:30 ../root/admin/edit_user.tt:36
-#: ../root/account/LostPassword.js:44 ../root/user/Login.js:73
+#: ../root/admin/edit_user.tt:13
+msgid "User sanctions"
+msgstr ""
+
+#: ../root/account/register.tt:30 ../root/admin/edit_user.tt:39
+#: ../root/account/LostPassword.js:44 ../root/user/Login.js:95
 msgid "Username:"
 msgstr "Käyttäjänimi:"
 
@@ -4657,7 +4665,7 @@ msgid "Voter"
 msgstr "Äänestäjä"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/EditIndex.js:64
-#: ../root/user/UserProfile.js:682
+#: ../root/user/UserProfile.js:683
 msgid "Votes"
 msgstr "Äänet"
 
@@ -4731,7 +4739,7 @@ msgstr ""
 msgid "We used DiscID <code>{discid}</code> to look up this information."
 msgstr "Tiedonhakuun käytettiin DiscID:tä <code>{discid}</code>."
 
-#: ../root/admin/edit_user.tt:39
+#: ../root/admin/edit_user.tt:42
 msgid "Website:"
 msgstr "Kotisivu:"
 
@@ -4762,7 +4770,7 @@ msgstr "Wikin sisällyttäjä"
 #: ../root/search/components/SearchForm.js:38
 #: ../root/static/scripts/common/constants.js:30
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:70
-#: ../root/user/UserProfile.js:53 ../root/work/WorkHeader.js:29
+#: ../root/user/UserProfile.js:54 ../root/work/WorkHeader.js:29
 #: ../root/work/WorkLayout.js:35
 msgid "Work"
 msgstr "Teos"
@@ -5608,17 +5616,17 @@ msgstr ""
 msgid "The provided collection ID doesn’t exist."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:78
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:79
 msgid "User successfully edited."
 msgstr "Käyttäjän muokattu onnistuneesti. "
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:145
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:146
 msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr "Banneri päivitetty. Muista, että jokaisella palvelimella on oma, itsenäinen bannerinsa."
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:171
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:223
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:172
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:224
 #: ../root/static/scripts/release-editor/trackParser.js:497
 msgid "Invalid regular expression."
 msgstr ""
@@ -5738,46 +5746,46 @@ msgstr "Redis-palvelimemme tuntuu olevan kaatunut. Jotkin ominaisuudet eivät v�
 msgid "Series that have different entity types cannot be merged."
 msgstr "Sarjoja, joiden entiteetit ovat erilaisia, ei voida sulauttaa."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:298
+#: ../lib/MusicBrainz/Server/Controller/User.pm:303
 msgid ""
 "You cannot contact other users because you have not {url|verified your email"
 " address}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:325
+#: ../lib/MusicBrainz/Server/Controller/User.pm:330
 msgid "You are not allowed to send messages to editors."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:339
+#: ../lib/MusicBrainz/Server/Controller/User.pm:344
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
 msgstr "Käyttäjä {name} ei ole antanut sähköpostiosoitetta tilitietoihinsa."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:353
+#: ../lib/MusicBrainz/Server/Controller/User.pm:358
 msgid "Email Sent"
 msgstr "Sähköposti lähetetty"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:354
+#: ../lib/MusicBrainz/Server/Controller/User.pm:359
 #, perl-brace-format
 msgid ""
 "Your email has been successfully sent! Click {link|here} to continue to "
 "{user}'s profile."
 msgstr "Sähköpostisi on lähetetty onnistuneesti! Klikkaa {link|tästä} jatkaaksesi käyttäjän {user} profiiliin."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:381
+#: ../lib/MusicBrainz/Server/Controller/User.pm:386
 msgid "Your message could not be sent"
 msgstr "Viestiäsi ei voitu lähettää"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:530
+#: ../lib/MusicBrainz/Server/Controller/User.pm:535
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "'{type}' ei ole entiteetti joka tukee arvosteluja."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:778
+#: ../lib/MusicBrainz/Server/Controller/User.pm:783
 msgid "An error occurred while trying to send your report."
 msgstr "Virhe kesken ilmoituksen lähetyksen."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:782
+#: ../lib/MusicBrainz/Server/Controller/User.pm:787
 msgid "Your report has been sent."
 msgstr "Ilmoituksesi on lähetetty."
 
@@ -6421,7 +6429,7 @@ msgstr "Uudelleenjärjestä tallenteet"
 #: ../root/edit/details/EditReleaseGroup.js:38
 #: ../root/edit/details/SetCoverArt.js:32
 #: ../root/static/scripts/common/constants.js:27
-#: ../root/user/UserProfile.js:51
+#: ../root/user/UserProfile.js:52
 msgid "Release group"
 msgstr "Julkaisuryhmä"
 
@@ -6538,7 +6546,7 @@ msgstr "Muokkaa sarjan aliasta"
 msgid "Merge series"
 msgstr "Sulauta sarjat"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271 ../root/user/UserProfile.js:641
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271 ../root/user/UserProfile.js:642
 #: ../root/utility/edit.js:45
 msgid "Open"
 msgstr "Avoimet"
@@ -6571,7 +6579,7 @@ msgstr "Ei-äänet"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:278
 #: ../root/edit/details/AddEvent.js:52 ../root/edit/details/EditEvent.js:56
-#: ../root/user/UserProfile.js:631 ../root/utility/edit.js:39
+#: ../root/user/UserProfile.js:632 ../root/utility/edit.js:39
 msgid "Cancelled"
 msgstr "Peruutettu"
 
@@ -7704,7 +7712,7 @@ msgid "Enter a {link|POSIX regular expression}."
 msgstr ""
 
 #: ../root/admin/IpLookup.js:25 ../root/admin/IpLookup.js:27
-#: ../root/user/UserProfile.js:410
+#: ../root/user/UserProfile.js:411
 msgid "IP lookup"
 msgstr ""
 
@@ -8347,8 +8355,8 @@ msgstr "Näytä kaikki kokoelmasi"
 msgid "See all of {editor}'s public collections"
 msgstr "Näytä kaikki käyttäjän {editor} julkiset kokoelmat"
 
-#: ../root/collection/CollectionIndex.js:185 ../root/user/UserProfile.js:328
-#: ../root/user/UserProfile.js:386
+#: ../root/collection/CollectionIndex.js:185 ../root/user/UserProfile.js:329
+#: ../root/user/UserProfile.js:387
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr "Tämä sisältö on piilotettu roskapostin estämiseksi. Nähdäksesi se, {url|kirjaudu sisään}."
@@ -10565,7 +10573,7 @@ msgstr "Auto-editori-vaalit"
 msgid "Privileged User Accounts"
 msgstr "Erikoiskäyttäjät"
 
-#: ../root/layout/components/BottomMenu.js:145 ../root/user/UserProfile.js:559
+#: ../root/layout/components/BottomMenu.js:145 ../root/user/UserProfile.js:560
 msgid "Statistics"
 msgstr "Tilastot"
 
@@ -10845,8 +10853,8 @@ msgstr ""
 msgid "Locked Username Search"
 msgstr ""
 
-#: ../root/layout/components/TopMenu.js:194 ../root/user/Login.js:44
-#: ../root/user/Login.js:45 ../root/user/Login.js:104
+#: ../root/layout/components/TopMenu.js:194 ../root/user/Login.js:46
+#: ../root/user/Login.js:47 ../root/user/Login.js:126
 msgid "Log In"
 msgstr "Sisäänkirjaudu"
 
@@ -11286,7 +11294,7 @@ msgid ""
 "edit or add anything to the database."
 msgstr "{url|Sähköpostiosoite tulee lisätä ja vahvistaa} ennen kuin voi muokata tai lisätä mitään tietokantaan."
 
-#: ../root/main/error/Error401.js:40
+#: ../root/main/error/Error401.js:40 ../root/user/Login.js:84
 msgid ""
 "If you think this is a mistake, please contact "
 "<code>support@musicbrainz.org</code> with the name of your account."
@@ -13710,7 +13718,7 @@ msgid "If you change your email address, you will be required to verify it."
 msgstr "Jos vaihdat sähköpostiosoitteesi, sinun täytyy vahvistaa se."
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:229
-#: ../root/user/UserProfile.js:268
+#: ../root/user/UserProfile.js:269
 msgid "Location:"
 msgstr "Sijainti: "
 
@@ -14117,12 +14125,12 @@ msgstr "kuva Wikimedia Commonsista"
 msgid "{review_link|Review} by {author} on {date}"
 msgstr "{author} {review_link|arvosteli} {date}"
 
-#: ../root/static/scripts/common/components/EditorLink.js:20
+#: ../root/static/scripts/common/components/EditorLink.js:21
 msgid ""
 "This editor is missing from this server, and cannot be displayed correctly."
 msgstr "Tämä käyttäjä puuttuu palvelimelta, joten sitä ei voida näyttää kunnolla."
 
-#: ../root/static/scripts/common/components/EditorLink.js:24
+#: ../root/static/scripts/common/components/EditorLink.js:25
 msgid "[missing editor]"
 msgstr "[puuttuva käyttäjä]"
 
@@ -15458,27 +15466,32 @@ msgstr "Tietoja web-osoitteesta"
 msgid "URL Details"
 msgstr "Lisätietoja web-osoitteesta"
 
-#: ../root/user/Login.js:49
+#: ../root/user/Login.js:51
 msgid "You need to be logged in to view this page."
 msgstr "Sinun tulee sisäänkirjautua nähdeksesi tämän sivun."
 
-#: ../root/user/Login.js:55
+#: ../root/user/Login.js:57
 msgid "Don't have an account? {uri|Create one now}!"
 msgstr "Puuttuuko sinulta käyttäjätunnus? {uri|Luo käyttäjätunnus heti}!"
 
-#: ../root/user/Login.js:66
+#: ../root/user/Login.js:68
 msgid "Incorrect username or password"
 msgstr "Virheellinen käyttäjänimi tai salasana."
 
-#: ../root/user/Login.js:89
+#: ../root/user/Login.js:78
+msgid ""
+"You cannot log in because this account has been marked as a spam account."
+msgstr ""
+
+#: ../root/user/Login.js:111
 msgid "This is a development server; all passwords have been reset to \"mb\"."
 msgstr "Tämä on ohjelmistokehitykseen käytettävä palvelin; kaikki salasanat on vaihdettu salasanaan \"mb\"."
 
-#: ../root/user/Login.js:97
+#: ../root/user/Login.js:119
 msgid "Keep me logged in"
 msgstr "Pidä minut sisäänkirjautuneena."
 
-#: ../root/user/Login.js:109
+#: ../root/user/Login.js:131
 msgid "Forgot your {link1|username} or {link2|password}?"
 msgstr "Unohditko {link1|käyttäjänimesi} tai {link2|salasanasi}?"
 
@@ -15692,248 +15705,259 @@ msgstr ""
 msgid "{user} isn’t collaborating in any public collections."
 msgstr ""
 
-#: ../root/user/UserProfile.js:59
+#: ../root/user/UserProfile.js:60
 msgid "Deleted User"
 msgstr "Poistettu käyttäjä"
 
-#: ../root/user/UserProfile.js:63
+#: ../root/user/UserProfile.js:64
 msgid "{doc|Auto-Editor}"
 msgstr "{doc|Auto-editori}"
 
-#: ../root/user/UserProfile.js:68
+#: ../root/user/UserProfile.js:69
 msgid "Internal/Bot"
 msgstr "Sisäinen/botti"
 
-#: ../root/user/UserProfile.js:72
+#: ../root/user/UserProfile.js:73
 msgid "{doc|Relationship Editor}"
 msgstr "{doc|Yhteys-editori}"
 
-#: ../root/user/UserProfile.js:78
+#: ../root/user/UserProfile.js:79
 msgid "{doc|Transclusion Editor}"
 msgstr "{doc|Sisällyttäjä-editori}"
 
-#: ../root/user/UserProfile.js:84
+#: ../root/user/UserProfile.js:85
 msgid "{doc|Location Editor}"
 msgstr "{doc|Paikka-editori}"
 
-#: ../root/user/UserProfile.js:93
+#: ../root/user/UserProfile.js:94
 msgid ""
 "User accounts must be more than 2 weeks old, have a verified email address, "
 "and more than 10 accepted edits in order to vote on others' edits."
 msgstr ""
 
-#: ../root/user/UserProfile.js:98
+#: ../root/user/UserProfile.js:99
 msgid "Beginner"
 msgstr "Aloittelija"
 
-#: ../root/user/UserProfile.js:104
+#: ../root/user/UserProfile.js:105
 msgid "Normal User"
 msgstr "Normaalikäyttäjä"
 
-#: ../root/user/UserProfile.js:151
+#: ../root/user/UserProfile.js:152
 msgid "The Dawn of the Project"
 msgstr "Projektin synty"
 
-#: ../root/user/UserProfile.js:153
+#: ../root/user/UserProfile.js:154
 msgid "The early days of the project"
 msgstr "Projektin alkutaipale"
 
-#: ../root/user/UserProfile.js:161
+#: ../root/user/UserProfile.js:162
 msgid ""
 "Your homepage and biography will not show until you have completed the email"
 " verification process."
 msgstr ""
 
-#: ../root/user/UserProfile.js:180
+#: ../root/user/UserProfile.js:181
 msgid "General Information"
 msgstr "Yleistä tietoa"
 
-#: ../root/user/UserProfile.js:186
+#: ../root/user/UserProfile.js:187
 msgid "(hidden)"
 msgstr "(piilotettu)"
 
-#: ../root/user/UserProfile.js:189
+#: ../root/user/UserProfile.js:190
 msgid "(verified at {date})"
 msgstr "(vahvistuspäivämäärä {date})"
 
-#: ../root/user/UserProfile.js:194
+#: ../root/user/UserProfile.js:195
 msgid "(<strong>unverified!</strong>)"
 msgstr "(<strong>vahvistamatonEmail Address Verified!</strong>)"
 
-#: ../root/user/UserProfile.js:203
+#: ../root/user/UserProfile.js:204
 msgid "resend verification email"
 msgstr "uudelleenlähetä vahvistussähköposti"
 
-#: ../root/user/UserProfile.js:211
+#: ../root/user/UserProfile.js:212
 msgid "send email"
 msgstr "lähetä sähköposti"
 
-#: ../root/user/UserProfile.js:226
+#: ../root/user/UserProfile.js:227
 msgid "find all users of this email"
 msgstr ""
 
-#: ../root/user/UserProfile.js:236
+#: ../root/user/UserProfile.js:237
 msgctxt "email"
 msgid "(none)"
 msgstr "(ei mitään)"
 
-#: ../root/user/UserProfile.js:243
+#: ../root/user/UserProfile.js:244
 msgid "User type:"
 msgstr "Käyttäjätyyppi:"
 
-#: ../root/user/UserProfile.js:249
+#: ../root/user/UserProfile.js:250
 msgid "nominate for auto-editor"
 msgstr "ehdota auto-editoriksi"
 
-#: ../root/user/UserProfile.js:256
+#: ../root/user/UserProfile.js:257
 msgid "Age:"
 msgstr "Ikä:"
 
-#: ../root/user/UserProfile.js:273
+#: ../root/user/UserProfile.js:274
 msgid "Member since:"
 msgstr "Liittynyt jäseneksi:"
 
-#: ../root/user/UserProfile.js:279
+#: ../root/user/UserProfile.js:280
 msgid "Last login:"
 msgstr "Viimeksi sisäänkirjauduttu:"
 
-#: ../root/user/UserProfile.js:282
+#: ../root/user/UserProfile.js:283
 msgid "Hasn't logged in yet"
 msgstr "Ei ole kirjautunut vielä"
 
-#: ../root/user/UserProfile.js:287
+#: ../root/user/UserProfile.js:288
 msgid "Authorized applications"
 msgstr ""
 
-#: ../root/user/UserProfile.js:294 ../root/user/UserProfile.js:310
+#: ../root/user/UserProfile.js:295 ../root/user/UserProfile.js:311
 msgid "see list"
 msgstr ""
 
-#: ../root/user/UserProfile.js:303
+#: ../root/user/UserProfile.js:304
 msgid "Developer applications"
 msgstr ""
 
-#: ../root/user/UserProfile.js:320
+#: ../root/user/UserProfile.js:321
 msgid "Homepage:"
 msgstr "Kotisivu:"
 
-#: ../root/user/UserProfile.js:338
+#: ../root/user/UserProfile.js:339
 msgid "Subscribers:"
 msgstr "Seuraajat:"
 
-#: ../root/user/UserProfile.js:341
+#: ../root/user/UserProfile.js:342
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|näytä lista})"
 
-#: ../root/user/UserProfile.js:348
+#: ../root/user/UserProfile.js:349
 msgid "0"
 msgstr "0"
 
-#: ../root/user/UserProfile.js:361
+#: ../root/user/UserProfile.js:362
 msgid "unsubscribe"
 msgstr "Lopeta muutosten seuraaminen"
 
-#: ../root/user/UserProfile.js:370
+#: ../root/user/UserProfile.js:371
 msgid "subscribe"
 msgstr "Seuraa muutoksia"
 
-#: ../root/user/UserProfile.js:396
+#: ../root/user/UserProfile.js:397
 msgid "Languages:"
 msgstr "Kielet:"
 
-#: ../root/user/UserProfile.js:472 ../root/user/UserProfile.js:573
-#: ../root/user/UserProfile.js:583 ../root/user/UserProfile.js:593
-#: ../root/user/UserProfile.js:603 ../root/user/UserProfile.js:613
-#: ../root/user/UserProfile.js:623 ../root/user/UserProfile.js:633
-#: ../root/user/UserProfile.js:643 ../root/user/UserProfile.js:652
-#: ../root/user/UserProfile.js:797 ../root/user/UserProfile.js:807
-#: ../root/user/UserProfile.js:819
+#: ../root/user/UserProfile.js:473 ../root/user/UserProfile.js:574
+#: ../root/user/UserProfile.js:584 ../root/user/UserProfile.js:594
+#: ../root/user/UserProfile.js:604 ../root/user/UserProfile.js:614
+#: ../root/user/UserProfile.js:624 ../root/user/UserProfile.js:634
+#: ../root/user/UserProfile.js:644 ../root/user/UserProfile.js:653
+#: ../root/user/UserProfile.js:798 ../root/user/UserProfile.js:808
+#: ../root/user/UserProfile.js:820
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|näytä})"
 
-#: ../root/user/UserProfile.js:565
+#: ../root/user/UserProfile.js:566
 msgid "Edits"
 msgstr "Muokkaukset"
 
-#: ../root/user/UserProfile.js:571
+#: ../root/user/UserProfile.js:572
 msgctxt "edit descriptor"
 msgid "Total"
 msgstr "Yhteensä"
 
-#: ../root/user/UserProfile.js:581
+#: ../root/user/UserProfile.js:582
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "Hyväksytty"
 
-#: ../root/user/UserProfile.js:591
+#: ../root/user/UserProfile.js:592
 msgid "Auto-edits"
 msgstr "Automaattiset"
 
-#: ../root/user/UserProfile.js:601
+#: ../root/user/UserProfile.js:602
 msgid "Total applied"
 msgstr ""
 
-#: ../root/user/UserProfile.js:611
+#: ../root/user/UserProfile.js:612
 msgid "Voted down"
 msgstr "Kumotut"
 
-#: ../root/user/UserProfile.js:621
+#: ../root/user/UserProfile.js:622
 msgid "Failed"
 msgstr "Epäonnistuneet"
 
-#: ../root/user/UserProfile.js:651
+#: ../root/user/UserProfile.js:652
 msgid "Last 24 hours"
 msgstr "Viimeiset 24 tuntia"
 
-#: ../root/user/UserProfile.js:675
+#: ../root/user/UserProfile.js:676
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "Taulukko näyttää yhteenvedon tämän editorin antamista äänistä."
 
-#: ../root/user/UserProfile.js:680
+#: ../root/user/UserProfile.js:681
 msgid "Votes ({view_url|view})"
 msgstr "Äänet ({view_url|näytä})"
 
-#: ../root/user/UserProfile.js:688
+#: ../root/user/UserProfile.js:689
 msgid "Last 28 days"
 msgstr "Viimeiset 28 päivää"
 
-#: ../root/user/UserProfile.js:691
+#: ../root/user/UserProfile.js:692
 msgid "Overall"
 msgstr "Yhteensä"
 
-#: ../root/user/UserProfile.js:739
+#: ../root/user/UserProfile.js:740
 msgid "This table shows a summary of entities added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:745
+#: ../root/user/UserProfile.js:746
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr ""
 
-#: ../root/user/UserProfile.js:748
+#: ../root/user/UserProfile.js:749
 msgid "Added entities"
 msgstr ""
 
-#: ../root/user/UserProfile.js:772
+#: ../root/user/UserProfile.js:773
 msgid "This user has not created any entities."
 msgstr ""
 
-#: ../root/user/UserProfile.js:782
+#: ../root/user/UserProfile.js:783
 msgid "This table shows a summary of secondary data added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:788
+#: ../root/user/UserProfile.js:789
 msgid "Tags and ratings"
 msgstr ""
 
-#: ../root/user/UserProfile.js:795
+#: ../root/user/UserProfile.js:796
 msgid "Tags upvoted"
 msgstr ""
 
-#: ../root/user/UserProfile.js:805
+#: ../root/user/UserProfile.js:806
 msgid "Tags downvoted"
 msgstr ""
 
-#: ../root/user/UserProfile.js:892
+#: ../root/user/UserProfile.js:872
+msgid "Blocked Spam Account"
+msgstr ""
+
+#: ../root/user/UserProfile.js:874
+msgid ""
+"This user was blocked and their profile is hidden because they were deemed "
+"to be spamming. If you see spam in MusicBrainz, please do let us know by "
+"reporting the spammer from their user page."
+msgstr ""
+
+#: ../root/user/UserProfile.js:905
 msgid "Report this user for bad behavior"
 msgstr "Ilmoita käyttäjästä huonon käytöksen takia"
 
