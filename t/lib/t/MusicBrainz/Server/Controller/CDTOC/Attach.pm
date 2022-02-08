@@ -3,6 +3,13 @@ use Test::Routine;
 
 with 't::Context', 't::Mechanize';
 
+=head2 Test description
+
+This test checks whether release and CD stub matches are shown when a user
+tries to submit a CD TOC / disc ID to MusicBrainz.
+
+=cut
+
 test 'Logged in users can see matching CD stubs' => sub {
     my $test = shift;
     my $c = $test->c;
@@ -30,12 +37,22 @@ test 'Logged in users can see matching CD stubs' => sub {
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
-    $mech->get_ok('/cdtoc/attach?toc=1 1 171327 150');
-    $mech->text_contains('CD stub name');
-    $mech->text_contains('CD stub artist');
-    $mech->text_contains('CD stub track');
+    $mech->get_ok(
+        '/cdtoc/attach?toc=1 1 171327 150',
+        'Fetched the attach page for CD TOC matching existing CD stub',
+    );
+    $mech->text_contains(
+        'A CD Stub was found that matches the disc ID',
+        'The matching CD stub message is displayed',
+    );
+    $mech->text_contains('CD stub name', 'The CD stub name is displayed');
+    $mech->text_contains('CD stub artist', 'The CD stub artist is displayed');
+    $mech->text_contains('CD stub track', 'The CD stub track is displayed');
 
-    $mech->content_lacks('we also found the following releases');
+    $mech->text_lacks(
+        'we also found the following releases',
+        'The matching releases message is not displayed since there are none',
+    );
 };
 
 test 'A matching CD stub searches for possible releases' => sub {
@@ -59,8 +76,8 @@ test 'A matching CD stub searches for possible releases' => sub {
             VALUES (1, 'Artist name', 1, 1);
 
         INSERT INTO recording (id, gid, name, artist_credit)
-            VALUES (1, '3bcffca6-e8f5-11e0-866d-00508db50876', 'track', 1),
-                   (2, 'fe445777-685c-48e5-ab29-a6905ace4ca8', 'pregap track', 1);
+            VALUES (1, '3bcffca6-e8f5-11e0-866d-00508db50876', 'Release track', 1),
+                   (2, 'fe445777-685c-48e5-ab29-a6905ace4ca8', 'Pregap track', 1);
 
         INSERT INTO release_group (id, gid, name, artist_credit)
             VALUES (1, '1bcffca6-e8f5-11e0-866d-00508db50876', 'Release stub name', 1);
@@ -73,9 +90,9 @@ test 'A matching CD stub searches for possible releases' => sub {
             VALUES (1, 1, 0, 1), (2, 2, 0, 1);
 
         INSERT INTO track (id, gid, medium, name, recording, position, number, artist_credit)
-            VALUES (1, 'c53c3e26-192e-4a9d-bd46-7682f2154d6b', 1, 'track', 1, 1, 1, 1),
-                   (2, '1d6aca46-d9be-4f05-b459-723afb74395d', 2, 'pregap track', 2, 0, 0, 1),
-                   (3, 'ca94f034-48bf-4b78-a019-0f4eadd1fdbc', 2, 'track', 1, 1, 1, 1);
+            VALUES (1, 'c53c3e26-192e-4a9d-bd46-7682f2154d6b', 1, 'Release track', 1, 1, 1, 1),
+                   (2, '1d6aca46-d9be-4f05-b459-723afb74395d', 2, 'Pregap track', 2, 0, 0, 1),
+                   (3, 'ca94f034-48bf-4b78-a019-0f4eadd1fdbc', 2, 'Release track', 1, 1, 1, 1);
 
         INSERT INTO editor (
             id, name, password, privs,
@@ -91,12 +108,38 @@ test 'A matching CD stub searches for possible releases' => sub {
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
-    $mech->get_ok('/cdtoc/attach?toc=1 1 171327 150');
-    $mech->text_contains('found the following releases in MusicBrainz');
-    $mech->content_contains('/release/2bcffca6-e8f5-11e0-866d-00508db50876');
-    $mech->text_contains('Release stub name');
-    $mech->content_contains('/release/3850dad5-8010-476c-9b19-d3bab89548aa');
-    $mech->text_contains('Release + pregap stub name');
+    $mech->get_ok(
+        '/cdtoc/attach?toc=1 1 171327 150',
+        'Fetched the attach page for CD TOC matching existing CD stub',
+    );
+    $mech->text_contains(
+        'A CD Stub was found that matches the disc ID',
+        'The matching CD stub message is displayed',
+    );
+    $mech->text_contains(
+        'Release stub name',
+        'The CD stub name is displayed',
+    );
+    $mech->text_contains('CD stub artist', 'The CD stub artist is displayed');
+    $mech->text_contains('CD stub track', 'The CD stub track is displayed');
+    $mech->text_contains(
+        'we also found the following releases',
+        'The matching releases message is displayed',
+    );
+    $mech->content_contains(
+        '/release/2bcffca6-e8f5-11e0-866d-00508db50876',
+        'A link to the first matching release is present',
+    );
+    $mech->content_contains(
+        '/release/3850dad5-8010-476c-9b19-d3bab89548aa',
+        'A link to the second matching release is present; pregap track does not preclude matching',
+    );
+    $mech->text_contains(
+        'Release + pregap stub name',
+        'Matching release names are displayed',
+    );
+    $mech->text_contains('Artist name', 'Release artists are displayed');
+    $mech->text_contains('Release track', 'Release tracks are displayed');
 };
 
 1;
