@@ -77,8 +77,12 @@ const EmailSearch = ({
           />
         </div>
 
-        {results?.length ? (
-          <UserList users={results} />
+        {results ? (
+          results.length ? (
+            <UserList users={results} />
+          ) : (
+            <p>{l('No results found.')}</p>
+          )
         ) : null}
       </form>
     </div>

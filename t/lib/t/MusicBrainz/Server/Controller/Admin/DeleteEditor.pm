@@ -5,6 +5,14 @@ use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
 
+=head2 Test description
+
+This test checks whether admins can delete an editor account, and whether
+the editors themselves can do it. It also checks whether users are logged out
+(or not) appropriately.
+
+=cut
+
 test 'Delete account as a regular user' => sub {
 
     my $test = shift;
@@ -18,35 +26,58 @@ test 'Delete account as a regular user' => sub {
     $mech->submit_form( with_fields => { username => 'Alice', password => 'secret1' } );
 
     $second_session->get('/account/edit');
-    $second_session->content_contains('You need to be logged in to view this page', 'not logged in in second session');
+    $second_session->content_contains(
+        'You need to be logged in to view this page',
+        'Not logged in in second session',
+    );
     $second_session->get('/login');
     $second_session->submit_form( with_fields => { username => 'Alice', password => 'secret1' } );
 
     $mech->get('/');
-    $mech->content_contains('Alice', 'is logged in as regular user');
+    $mech->content_contains('Alice', 'Regular user "Alice" is logged in');
 
     $second_session->get('/');
-    $second_session->content_contains('Alice', 'is logged in in second session');
+    $second_session->content_contains(
+        'Alice',
+        'User "Alice" is logged in in second session',
+    );
 
     $mech->get('/admin/user/delete/new_editor');
-    is($mech->status(), 403, 'cannot delete foreign account');
+    is($mech->status(), 403, 'Regular user cannot delete other accounts');
 
-    $mech->get_ok('/admin/user/delete/Alice', 'can access own deletion page');
+    $mech->get_ok(
+        '/admin/user/delete/Alice',
+        'Regular user can access their own deletion page',
+    );
     html_ok($mech->content);
     $mech->submit_form( form_id => 'delete-account-form' );
 
-    is($mech->uri->path, '/user/Deleted%20Editor%20%232', q(redirected to the deleted editor's profile));
-    $mech->content_contains('Log In', 'no longer logged in');
+    is(
+        $mech->uri->path,
+        '/user/Deleted%20Editor%20%232',
+        q(Redirected to the deleted editor's profile),
+    );
+    $mech->content_contains('Log In', 'The editor is no longer logged in');
 
     $mech->get_ok('/account/edit');
     html_ok($mech->content);
-    $mech->content_contains('You need to be logged in to view this page');
+    $mech->content_contains(
+        'You need to be logged in to view this page',
+        'The editor cannot access the account edit page anymore',
+    );
 
     $second_session->get('/');
-    is($second_session->status, 500, 'restoring deleted user fails');
+    is(
+        $second_session->status,
+        500,
+        'Restoring the deleted user in the second session fails',
+    );
 
     $second_session->get_ok('/');
-    $second_session->content_contains('Log In', 'no longer logged in in second session');
+    $second_session->content_contains(
+        'Log In',
+        'The deleted user is no longer logged in from the second session',
+    );
 };
 
 test 'Delete account as an admin' => sub {
@@ -56,22 +87,32 @@ test 'Delete account as an admin' => sub {
     my $c    = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
-        UPDATE editor SET privs = 128 WHERE id = 3; -- make kuno an account admin
-        SQL
+
+    # Make kuno an account admin
+    MusicBrainz::Server::Test->prepare_test_database(
+        $c,
+        'UPDATE editor SET privs = 128 WHERE id = 3',
+    );
 
     $mech->get('/login');
     $mech->submit_form( with_fields => { username => 'kuno', password => 'byld' } );
 
     $mech->get('/');
-    $mech->content_contains('kuno', 'is logged in as admin');
+    $mech->content_contains('kuno', 'Admin user "kuno" is logged in');
 
-    $mech->get_ok('/admin/user/delete/Alice', 'can access foreign account deletion page');
+    $mech->get_ok(
+        '/admin/user/delete/Alice',
+        q(Admin can access other editor's account deletion page),
+    );
     html_ok($mech->content);
     $mech->submit_form( form_id => 'delete-account-form' );
 
-    is($mech->uri->path, '/user/Deleted%20Editor%20%232', q(redirected to the deleted editor's profile));
-    $mech->content_contains('kuno', 'still logged in');
+    is(
+        $mech->uri->path,
+        '/user/Deleted%20Editor%20%232',
+        q(Redirected to the deleted editor's profile),
+    );
+    $mech->content_contains('kuno', 'Admin user "kuno" is still logged in');
 
 };
 

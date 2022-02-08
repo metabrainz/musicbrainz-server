@@ -257,7 +257,7 @@ import formatTrackLength from './utility/formatTrackLength';
     toJSON() {
       return Object.assign(
         super.toJSON(),
-        {iso_3166_1_codes: this.iso_3166_1_codes},
+        {iso_3166_1_codes: this.iso_3166_1_codes || []},
       );
     }
 

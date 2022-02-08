@@ -153,11 +153,13 @@ sub edit_action
     $form_args{init_object} = $opts{item} if exists $opts{item};
     my $form = $c->form( form => $opts{form}, ctx => $c, %form_args );
 
-    $c->stash->{component_props}{form} = $form->TO_JSON;
     $opts{pre_validation}->($form) if exists $opts{pre_validation};
 
     if ($c->form_posted_and_valid($form, $c->req->body_params)) {
-        return if exists $opts{pre_creation} && !$opts{pre_creation}->($form);
+        if (exists $opts{pre_creation} && !$opts{pre_creation}->($form)) {
+            $c->stash->{component_props}{form} = $form->TO_JSON;
+            return;
+        }
 
         my @options = (map { $_->name => $_->value } $form->edit_fields);
         my %extra   = %{ $opts{edit_args} || {} };
@@ -183,6 +185,8 @@ sub edit_action
             }
         });
 
+        $c->stash->{component_props}{form} = $form->TO_JSON;
+
         if ($opts{redirect} && !$opts{no_redirect} &&
                 ($edit || !$c->stash->{makes_no_changes}) &&
                 !$c->stash->{needs_disambiguation} &&
@@ -198,6 +202,7 @@ sub edit_action
         $form->process( params => $merged );
         $form->clear_errors;
     }
+    $c->stash->{component_props}{form} = $form->TO_JSON;
 }
 
 sub _search_final_page

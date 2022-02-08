@@ -28,8 +28,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-24 22:50+0200\n"
-"PO-Revision-Date: 2022-01-24 23:59+0000\n"
+"POT-Creation-Date: 2022-01-31 21:01+0200\n"
+"PO-Revision-Date: 2022-01-31 23:12+0000\n"
 "Last-Translator: Luca Salini\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -148,7 +148,7 @@ msgctxt "and"
 msgid "/"
 msgstr "/"
 
-#: ../root/admin/edit_user.tt:21
+#: ../root/admin/edit_user.tt:24
 msgid "<abbr title=\"MusicBrainz Identifier\">MBID</abbr> submitter"
 msgstr "<abbr title=\"Identificatore di MusicBrainz\">MBID</abbr> submitter"
 
@@ -231,7 +231,7 @@ msgstr "Accetta"
 msgid "Accepted edits by {name}"
 msgstr "Modifiche accettate di {name}"
 
-#: ../root/admin/edit_user.tt:28 ../root/admin/edit_user.tt:32
+#: ../root/admin/edit_user.tt:31 ../root/admin/edit_user.tt:35
 msgid "Account admin"
 msgstr "Amministrazione account"
 
@@ -408,7 +408,7 @@ msgstr "Indirizzo:"
 msgid "Adjust User Account Flags"
 msgstr "Regola indicatori di account utente"
 
-#: ../root/admin/edit_user.tt:20
+#: ../root/admin/edit_user.tt:23
 msgid "Administration flags"
 msgstr "Indicatori di amministrazione"
 
@@ -557,7 +557,7 @@ msgstr "Sei sicuro di voler rimuovere {entity} da MusicBrainz?"
 #: ../root/search/components/SearchForm.js:40
 #: ../root/static/scripts/common/constants.js:18
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:46
-#: ../root/user/UserProfile.js:42
+#: ../root/user/UserProfile.js:43
 msgid "Area"
 msgstr "Area"
 
@@ -632,7 +632,7 @@ msgstr "Aree"
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:48
 #: ../root/static/scripts/common/utility/formatSetlist.js:31
 #: ../root/static/scripts/release/components/MediumTable.js:215
-#: ../root/taglookup/Form.js:26 ../root/user/UserProfile.js:43
+#: ../root/taglookup/Form.js:26 ../root/user/UserProfile.js:44
 msgid "Artist"
 msgstr "Artista"
 
@@ -825,9 +825,9 @@ msgid ""
 " sure to include it!"
 msgstr "Qui sotto trovi le informazioni sull'errore. Se desideri segnalare un bug, lo puoi fare nel nostro {bugs|bug tracker}. Queste informazioni possono essere utili, perciò assicurati di includerle!"
 
-#: ../root/admin/edit_user.tt:41
+#: ../root/admin/edit_user.tt:44
 #: ../root/static/scripts/account/components/EditProfileForm.js:273
-#: ../root/user/UserProfile.js:380
+#: ../root/user/UserProfile.js:381
 msgid "Bio:"
 msgstr "Biografia:"
 
@@ -841,7 +841,7 @@ msgstr "Blog"
 msgid "Born:"
 msgstr "Nato/a il:"
 
-#: ../root/admin/edit_user.tt:16 ../root/edit/search_macros.tt:392
+#: ../root/admin/edit_user.tt:20 ../root/edit/search_macros.tt:392
 msgid "Bot"
 msgstr "Bot"
 
@@ -1157,7 +1157,7 @@ msgstr "Paese:"
 
 #: ../root/release_group/set_cover_art.tt:67
 #: ../root/components/EntityTabs.js:116 ../root/release/CoverArt.js:57
-#: ../root/user/UserProfile.js:44
+#: ../root/user/UserProfile.js:45
 msgid "Cover Art"
 msgstr "Copertine"
 
@@ -1501,15 +1501,15 @@ msgstr "Modifica annotazione"
 msgid "Edit note:"
 msgstr "Nota di modifica:"
 
-#: ../root/admin/edit_user.tt:13
+#: ../root/admin/edit_user.tt:16
 msgid "Edit notes disabled"
 msgstr "Note di modifica disabilitate"
 
-#: ../root/admin/edit_user.tt:35
+#: ../root/admin/edit_user.tt:38
 msgid "Edit profile"
 msgstr "Modifica profilo"
 
-#: ../root/admin/edit_user.tt:47
+#: ../root/admin/edit_user.tt:50
 msgid "Edit user"
 msgstr "Modifica utente"
 
@@ -1517,7 +1517,7 @@ msgstr "Modifica utente"
 msgid "Editing FAQ"
 msgstr "Domande frequenti sulle modifiche"
 
-#: ../root/admin/edit_user.tt:12
+#: ../root/admin/edit_user.tt:15
 msgid "Editing/voting disabled"
 msgstr "Modifiche/voti disabilitati"
 
@@ -1555,8 +1555,8 @@ msgstr "Modifiche per le entità a cui sei iscritto"
 msgid "Edits for {name}"
 msgstr "Modifiche a {name}"
 
-#: ../root/account/register.tt:39 ../root/admin/edit_user.tt:37
-#: ../root/user/UserProfile.js:183
+#: ../root/account/register.tt:39 ../root/admin/edit_user.tt:40
+#: ../root/user/UserProfile.js:184
 msgid "Email:"
 msgstr "Email:"
 
@@ -1648,7 +1648,7 @@ msgstr "Anche solo fornire un link o due può essere utile! Per più suggeriment
 #: ../root/search/components/SearchForm.js:48
 #: ../root/static/scripts/common/constants.js:20
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:52
-#: ../root/user/UserProfile.js:45
+#: ../root/user/UserProfile.js:46
 msgid "Event"
 msgstr "Evento"
 
@@ -1851,7 +1851,7 @@ msgstr "TOC completo:"
 #: ../root/artist/edit_form.tt:17
 #: ../root/layout/components/sidebar/ArtistSidebar.js:83
 #: ../root/static/scripts/account/components/EditProfileForm.js:221
-#: ../root/user/UserProfile.js:262
+#: ../root/user/UserProfile.js:263
 msgid "Gender:"
 msgstr "Sesso:"
 
@@ -2217,7 +2217,7 @@ msgstr "Importa bozza CD"
 #: ../root/search/components/SearchForm.js:46
 #: ../root/static/scripts/common/constants.js:22
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:54
-#: ../root/user/UserProfile.js:46
+#: ../root/user/UserProfile.js:47
 msgid "Instrument"
 msgstr "Strumento"
 
@@ -2296,7 +2296,7 @@ msgstr "Tieni presente che deselezionare questa opzione eliminerà le tracce se 
 #: ../root/search/components/SearchForm.js:39
 #: ../root/static/scripts/common/constants.js:23
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:56
-#: ../root/user/UserProfile.js:47 ../root/utility/tableColumns.js:505
+#: ../root/user/UserProfile.js:48 ../root/utility/tableColumns.js:505
 #: ../root/utility/tableColumns.js:510
 msgid "Label"
 msgstr "Etichetta"
@@ -2718,7 +2718,7 @@ msgstr "Nessuna descrizione disponibile."
 msgid "No edits were found matching your query. Please {search|try again}."
 msgstr "Non è stata trovata nessuna modifica corrispondente alla tua ricerca. {search|Prova di nuovo}."
 
-#: ../root/admin/edit_user.tt:18
+#: ../root/admin/edit_user.tt:21
 msgid "No nag"
 msgstr "Nessuna scocciatura"
 
@@ -2917,7 +2917,7 @@ msgid "Parse Tracks"
 msgstr "Analizza tracce"
 
 #: ../root/account/register.tt:37 ../root/account/reset_password.tt:11
-#: ../root/user/Login.js:80
+#: ../root/user/Login.js:102
 msgid "Password:"
 msgstr "Password:"
 
@@ -2932,7 +2932,7 @@ msgstr "Password:"
 #: ../root/search/components/SearchForm.js:41
 #: ../root/static/scripts/common/constants.js:24
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:58
-#: ../root/user/UserProfile.js:48
+#: ../root/user/UserProfile.js:49
 msgid "Place"
 msgstr "Luogo"
 
@@ -3091,7 +3091,7 @@ msgstr[1] "Valuta: {rating} stelle"
 
 #: ../root/user/ratings_summary.tt:1 ../root/user/ratings_summary.tt:33
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:36
-#: ../root/entity/Ratings.js:38 ../root/user/UserProfile.js:817
+#: ../root/entity/Ratings.js:38 ../root/user/UserProfile.js:818
 msgid "Ratings"
 msgstr "Valutazioni"
 
@@ -3115,7 +3115,7 @@ msgstr "Note recenti lasciate sulle tue modifiche"
 #: ../root/search/components/SearchForm.js:37
 #: ../root/static/scripts/common/constants.js:25
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:60
-#: ../root/user/UserProfile.js:49
+#: ../root/user/UserProfile.js:50
 msgid "Recording"
 msgstr "Registrazione"
 
@@ -3228,7 +3228,7 @@ msgstr "Le relazioni evidenziate in <span class=\"rel-edit\">giallo</span> saran
 #: ../root/static/scripts/common/constants.js:26
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:62
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:341
-#: ../root/taglookup/Form.js:31 ../root/user/UserProfile.js:50
+#: ../root/taglookup/Form.js:31 ../root/user/UserProfile.js:51
 msgid "Release"
 msgstr "Pubblicazione"
 
@@ -3636,9 +3636,9 @@ msgid "Send"
 msgstr "Invia"
 
 #: ../root/user/contact.tt:1 ../root/user/contact.tt:3
-#: ../lib/MusicBrainz/Server/Controller/User.pm:297
-#: ../lib/MusicBrainz/Server/Controller/User.pm:323
-#: ../lib/MusicBrainz/Server/Controller/User.pm:338
+#: ../lib/MusicBrainz/Server/Controller/User.pm:302
+#: ../lib/MusicBrainz/Server/Controller/User.pm:328
+#: ../lib/MusicBrainz/Server/Controller/User.pm:343
 #: ../root/account/LostUsername.js:43
 msgid "Send Email"
 msgstr "Invia email"
@@ -3668,7 +3668,7 @@ msgstr "Serie"
 #: ../root/series/SeriesHeader.js:29
 #: ../root/static/scripts/common/constants.js:28
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:66
-#: ../root/user/UserProfile.js:52
+#: ../root/user/UserProfile.js:53
 msgctxt "singular"
 msgid "Series"
 msgstr "Serie"
@@ -3722,7 +3722,7 @@ msgstr "Mostrami le {autoedit_select_block} ordinate {sort_select_block} che {ma
 msgid "Similar releases"
 msgstr "Pubblicazioni simili"
 
-#: ../root/admin/edit_user.tt:38
+#: ../root/admin/edit_user.tt:41
 msgid "Skip verification"
 msgstr "Salta la verifica"
 
@@ -3759,6 +3759,10 @@ msgstr "Spiacenti, <code>{discid}</code> non è un ID disco valido."
 #: ../root/layout/components/sidebar/ArtistSidebar.js:75
 msgid "Sort name:"
 msgstr "Nome di ordinamento:"
+
+#: ../root/admin/edit_user.tt:14
+msgid "Spammer"
+msgstr "Spammer"
 
 #: ../root/artist/split.tt:1
 msgid "Split Artist"
@@ -3846,7 +3850,7 @@ msgstr "Inverti titoli di traccia e accreditamenti artista"
 msgid "Tagger"
 msgstr "Tagger"
 
-#: ../root/admin/edit_user.tt:15
+#: ../root/admin/edit_user.tt:19
 msgid "Technical flags"
 msgstr "Indicatori tecnici"
 
@@ -4591,8 +4595,12 @@ msgstr "Nome utente:"
 msgid "User permissions"
 msgstr "Permessi utente"
 
-#: ../root/account/register.tt:30 ../root/admin/edit_user.tt:36
-#: ../root/account/LostPassword.js:44 ../root/user/Login.js:73
+#: ../root/admin/edit_user.tt:13
+msgid "User sanctions"
+msgstr "Sanzioni utente"
+
+#: ../root/account/register.tt:30 ../root/admin/edit_user.tt:39
+#: ../root/account/LostPassword.js:44 ../root/user/Login.js:95
 msgid "Username:"
 msgstr "Nome utente:"
 
@@ -4654,7 +4662,7 @@ msgid "Voter"
 msgstr "Votante"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/EditIndex.js:64
-#: ../root/user/UserProfile.js:682
+#: ../root/user/UserProfile.js:683
 msgid "Votes"
 msgstr "Voti"
 
@@ -4728,7 +4736,7 @@ msgstr "Non abbiamo informazioni sui supporti e sull'elenco tracce di questa pub
 msgid "We used DiscID <code>{discid}</code> to look up this information."
 msgstr "Per cercare queste informazioni abbiamo usato l'ID disco <code>{discid}</code>."
 
-#: ../root/admin/edit_user.tt:39
+#: ../root/admin/edit_user.tt:42
 msgid "Website:"
 msgstr "Sito web:"
 
@@ -4759,7 +4767,7 @@ msgstr "Transclusore wiki"
 #: ../root/search/components/SearchForm.js:38
 #: ../root/static/scripts/common/constants.js:30
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:70
-#: ../root/user/UserProfile.js:53 ../root/work/WorkHeader.js:29
+#: ../root/user/UserProfile.js:54 ../root/work/WorkHeader.js:29
 #: ../root/work/WorkLayout.js:35
 msgid "Work"
 msgstr "Opera"
@@ -5605,17 +5613,17 @@ msgstr "<strong>Non è stato possibile inviarti un'email di verifica.</strong><b
 msgid "The provided collection ID doesn’t exist."
 msgstr "L'ID collezione fornito non esiste."
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:78
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:79
 msgid "User successfully edited."
 msgstr "Utente modificato con successo."
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:145
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:146
 msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr "Banner aggiornato. Ricordati che ogni server ha il suo banner indipendente dagli altri."
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:171
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:223
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:172
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:224
 #: ../root/static/scripts/release-editor/trackParser.js:497
 msgid "Invalid regular expression."
 msgstr "Espressione regolare non valida."
@@ -5735,46 +5743,46 @@ msgstr "Il nostro server Redis sembra essere inattivo; alcune funzionalità potr
 msgid "Series that have different entity types cannot be merged."
 msgstr "Le serie con tipi di entità diversi non possono essere unite."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:298
+#: ../lib/MusicBrainz/Server/Controller/User.pm:303
 msgid ""
 "You cannot contact other users because you have not {url|verified your email"
 " address}."
 msgstr "Non puoi contattare altri utenti perché non hai ancora {url|verificato il tuo indirizzo email}."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:325
+#: ../lib/MusicBrainz/Server/Controller/User.pm:330
 msgid "You are not allowed to send messages to editors."
 msgstr "Non ti è consentito inviare messaggi agli editor."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:339
+#: ../lib/MusicBrainz/Server/Controller/User.pm:344
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
 msgstr "L'editor {name} non ha nessun indirizzo email collegato al suo account."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:353
+#: ../lib/MusicBrainz/Server/Controller/User.pm:358
 msgid "Email Sent"
 msgstr "Email inviata"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:354
+#: ../lib/MusicBrainz/Server/Controller/User.pm:359
 #, perl-brace-format
 msgid ""
 "Your email has been successfully sent! Click {link|here} to continue to "
 "{user}'s profile."
 msgstr "La tua email è stata inviata con successo! Clicca {link|qui} per andare al profilo di {user}."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:381
+#: ../lib/MusicBrainz/Server/Controller/User.pm:386
 msgid "Your message could not be sent"
 msgstr "Non è stato possibile inviare il tuo messaggio"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:530
+#: ../lib/MusicBrainz/Server/Controller/User.pm:535
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "'{type}' non è un tipo di entità che può ricevere valutazioni."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:778
+#: ../lib/MusicBrainz/Server/Controller/User.pm:783
 msgid "An error occurred while trying to send your report."
 msgstr "Si è verificato un errore durante l'invio della tua segnalazione."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:782
+#: ../lib/MusicBrainz/Server/Controller/User.pm:787
 msgid "Your report has been sent."
 msgstr "La tua segnalazione è stata inviata."
 
@@ -6418,7 +6426,7 @@ msgstr "Riordina supporti"
 #: ../root/edit/details/EditReleaseGroup.js:38
 #: ../root/edit/details/SetCoverArt.js:32
 #: ../root/static/scripts/common/constants.js:27
-#: ../root/user/UserProfile.js:51
+#: ../root/user/UserProfile.js:52
 msgid "Release group"
 msgstr "Gruppo di pubblicazioni"
 
@@ -6535,7 +6543,7 @@ msgstr "Modifica alias della serie"
 msgid "Merge series"
 msgstr "Unisci serie"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271 ../root/user/UserProfile.js:641
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271 ../root/user/UserProfile.js:642
 #: ../root/utility/edit.js:45
 msgid "Open"
 msgstr "In corso"
@@ -6568,7 +6576,7 @@ msgstr "Nessun voto"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:278
 #: ../root/edit/details/AddEvent.js:52 ../root/edit/details/EditEvent.js:56
-#: ../root/user/UserProfile.js:631 ../root/utility/edit.js:39
+#: ../root/user/UserProfile.js:632 ../root/utility/edit.js:39
 msgid "Cancelled"
 msgstr "Annullate"
 
@@ -7701,7 +7709,7 @@ msgid "Enter a {link|POSIX regular expression}."
 msgstr "Inserisci un'{link|espressione regolare POSIX}."
 
 #: ../root/admin/IpLookup.js:25 ../root/admin/IpLookup.js:27
-#: ../root/user/UserProfile.js:410
+#: ../root/user/UserProfile.js:411
 msgid "IP lookup"
 msgstr "Ricerca IP"
 
@@ -8344,8 +8352,8 @@ msgstr "Visualizza tutte le tue collezioni"
 msgid "See all of {editor}'s public collections"
 msgstr "Visualizza tutte le collezioni pubbliche di {editor}"
 
-#: ../root/collection/CollectionIndex.js:185 ../root/user/UserProfile.js:328
-#: ../root/user/UserProfile.js:386
+#: ../root/collection/CollectionIndex.js:185 ../root/user/UserProfile.js:329
+#: ../root/user/UserProfile.js:387
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr "Questo contenuto è nascosto per prevenire lo spam. {url|Accedi} per visualizzarlo."
@@ -10562,7 +10570,7 @@ msgstr "Elezioni auto-editor"
 msgid "Privileged User Accounts"
 msgstr "Account utente con privilegi"
 
-#: ../root/layout/components/BottomMenu.js:145 ../root/user/UserProfile.js:559
+#: ../root/layout/components/BottomMenu.js:145 ../root/user/UserProfile.js:560
 msgid "Statistics"
 msgstr "Statistiche"
 
@@ -10842,8 +10850,8 @@ msgstr "Cerca email"
 msgid "Locked Username Search"
 msgstr "Ricerca nomi utente bloccati"
 
-#: ../root/layout/components/TopMenu.js:194 ../root/user/Login.js:44
-#: ../root/user/Login.js:45 ../root/user/Login.js:104
+#: ../root/layout/components/TopMenu.js:194 ../root/user/Login.js:46
+#: ../root/user/Login.js:47 ../root/user/Login.js:126
 msgid "Log In"
 msgstr "Accedi"
 
@@ -11283,7 +11291,7 @@ msgid ""
 "edit or add anything to the database."
 msgstr "Devi {url|aggiungere e verificare il tuo indirizzo email} prima di poter modificare o aggiungere dati al database."
 
-#: ../root/main/error/Error401.js:40
+#: ../root/main/error/Error401.js:40 ../root/user/Login.js:84
 msgid ""
 "If you think this is a mistake, please contact "
 "<code>support@musicbrainz.org</code> with the name of your account."
@@ -13707,7 +13715,7 @@ msgid "If you change your email address, you will be required to verify it."
 msgstr "Se cambi il tuo indirizzo email ti sarà richiesto di verificarlo."
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:229
-#: ../root/user/UserProfile.js:268
+#: ../root/user/UserProfile.js:269
 msgid "Location:"
 msgstr "Posizione:"
 
@@ -14114,12 +14122,12 @@ msgstr "Immagine da Wikimedia Commons"
 msgid "{review_link|Review} by {author} on {date}"
 msgstr "{review_link|Recensione} di {author} del {date}"
 
-#: ../root/static/scripts/common/components/EditorLink.js:20
+#: ../root/static/scripts/common/components/EditorLink.js:21
 msgid ""
 "This editor is missing from this server, and cannot be displayed correctly."
 msgstr "Questo editor non è presente nel server e non può essere visualizzato correttamente."
 
-#: ../root/static/scripts/common/components/EditorLink.js:24
+#: ../root/static/scripts/common/components/EditorLink.js:25
 msgid "[missing editor]"
 msgstr "[editor mancante]"
 
@@ -15455,27 +15463,32 @@ msgstr "Informazioni sull'URL"
 msgid "URL Details"
 msgstr "Dettagli dell'URL"
 
-#: ../root/user/Login.js:49
+#: ../root/user/Login.js:51
 msgid "You need to be logged in to view this page."
 msgstr "Devi effettuare l'accesso per visualizzare questa pagina."
 
-#: ../root/user/Login.js:55
+#: ../root/user/Login.js:57
 msgid "Don't have an account? {uri|Create one now}!"
 msgstr "Non hai un account? {uri|Creane uno ora}!"
 
-#: ../root/user/Login.js:66
+#: ../root/user/Login.js:68
 msgid "Incorrect username or password"
 msgstr "Nome utente o password non corretta"
 
-#: ../root/user/Login.js:89
+#: ../root/user/Login.js:78
+msgid ""
+"You cannot log in because this account has been marked as a spam account."
+msgstr "Non puoi effettuare l'accesso perché questo account è stato contrassegnato come account spam."
+
+#: ../root/user/Login.js:111
 msgid "This is a development server; all passwords have been reset to \"mb\"."
 msgstr "Questo è un server di sviluppo; tutte le password sono state reimpostate come \"mb\"."
 
-#: ../root/user/Login.js:97
+#: ../root/user/Login.js:119
 msgid "Keep me logged in"
 msgstr "Resta collegato"
 
-#: ../root/user/Login.js:109
+#: ../root/user/Login.js:131
 msgid "Forgot your {link1|username} or {link2|password}?"
 msgstr "Hai dimenticato il {link1|nome utente} o la {link2|password}?"
 
@@ -15689,248 +15702,259 @@ msgstr "Non stai collaborando ad alcuna collezione."
 msgid "{user} isn’t collaborating in any public collections."
 msgstr "{user} non sta collaborando a nessuna collezione pubblica."
 
-#: ../root/user/UserProfile.js:59
+#: ../root/user/UserProfile.js:60
 msgid "Deleted User"
 msgstr "Utente eliminato"
 
-#: ../root/user/UserProfile.js:63
+#: ../root/user/UserProfile.js:64
 msgid "{doc|Auto-Editor}"
 msgstr "{doc|Auto-editor}"
 
-#: ../root/user/UserProfile.js:68
+#: ../root/user/UserProfile.js:69
 msgid "Internal/Bot"
 msgstr "Interno/Bot"
 
-#: ../root/user/UserProfile.js:72
+#: ../root/user/UserProfile.js:73
 msgid "{doc|Relationship Editor}"
 msgstr "{doc|Editor di relazioni}"
 
-#: ../root/user/UserProfile.js:78
+#: ../root/user/UserProfile.js:79
 msgid "{doc|Transclusion Editor}"
 msgstr "{doc|Editor di transclusione}"
 
-#: ../root/user/UserProfile.js:84
+#: ../root/user/UserProfile.js:85
 msgid "{doc|Location Editor}"
 msgstr "{doc|Editor di posizioni}"
 
-#: ../root/user/UserProfile.js:93
+#: ../root/user/UserProfile.js:94
 msgid ""
 "User accounts must be more than 2 weeks old, have a verified email address, "
 "and more than 10 accepted edits in order to vote on others' edits."
 msgstr "Gli account utente devono risalire ad almeno 2 settimane fa, avere un indirizzo email verificato e più di 10 modifiche accettate per poter votare sulle modifiche altrui."
 
-#: ../root/user/UserProfile.js:98
+#: ../root/user/UserProfile.js:99
 msgid "Beginner"
 msgstr "Principiante"
 
-#: ../root/user/UserProfile.js:104
+#: ../root/user/UserProfile.js:105
 msgid "Normal User"
 msgstr "Utente normale"
 
-#: ../root/user/UserProfile.js:151
+#: ../root/user/UserProfile.js:152
 msgid "The Dawn of the Project"
 msgstr "L'alba del progetto"
 
-#: ../root/user/UserProfile.js:153
+#: ../root/user/UserProfile.js:154
 msgid "The early days of the project"
 msgstr "Gli inizi del progetto"
 
-#: ../root/user/UserProfile.js:161
+#: ../root/user/UserProfile.js:162
 msgid ""
 "Your homepage and biography will not show until you have completed the email"
 " verification process."
 msgstr "La tua homepage e la tua biografia non appariranno finché non avrai completato la verifica del tuo indirizzo email."
 
-#: ../root/user/UserProfile.js:180
+#: ../root/user/UserProfile.js:181
 msgid "General Information"
 msgstr "Informazioni generali"
 
-#: ../root/user/UserProfile.js:186
+#: ../root/user/UserProfile.js:187
 msgid "(hidden)"
 msgstr "(nascosta)"
 
-#: ../root/user/UserProfile.js:189
+#: ../root/user/UserProfile.js:190
 msgid "(verified at {date})"
 msgstr "(verificata il {date})"
 
-#: ../root/user/UserProfile.js:194
+#: ../root/user/UserProfile.js:195
 msgid "(<strong>unverified!</strong>)"
 msgstr "(<strong>non verificata!</strong>)"
 
-#: ../root/user/UserProfile.js:203
+#: ../root/user/UserProfile.js:204
 msgid "resend verification email"
 msgstr "invia di nuovo email di verifica"
 
-#: ../root/user/UserProfile.js:211
+#: ../root/user/UserProfile.js:212
 msgid "send email"
 msgstr "invia email"
 
-#: ../root/user/UserProfile.js:226
+#: ../root/user/UserProfile.js:227
 msgid "find all users of this email"
 msgstr "trova tutti gli utenti con questa email"
 
-#: ../root/user/UserProfile.js:236
+#: ../root/user/UserProfile.js:237
 msgctxt "email"
 msgid "(none)"
 msgstr "(nessuno)"
 
-#: ../root/user/UserProfile.js:243
+#: ../root/user/UserProfile.js:244
 msgid "User type:"
 msgstr "Tipo utente:"
 
-#: ../root/user/UserProfile.js:249
+#: ../root/user/UserProfile.js:250
 msgid "nominate for auto-editor"
 msgstr "nomina al ruolo di auto-editor"
 
-#: ../root/user/UserProfile.js:256
+#: ../root/user/UserProfile.js:257
 msgid "Age:"
 msgstr "Età:"
 
-#: ../root/user/UserProfile.js:273
+#: ../root/user/UserProfile.js:274
 msgid "Member since:"
 msgstr "Membro da:"
 
-#: ../root/user/UserProfile.js:279
+#: ../root/user/UserProfile.js:280
 msgid "Last login:"
 msgstr "Ultimo accesso:"
 
-#: ../root/user/UserProfile.js:282
+#: ../root/user/UserProfile.js:283
 msgid "Hasn't logged in yet"
 msgstr "Non ha ancora effettuato l'accesso"
 
-#: ../root/user/UserProfile.js:287
+#: ../root/user/UserProfile.js:288
 msgid "Authorized applications"
 msgstr "Applicazioni autorizzate"
 
-#: ../root/user/UserProfile.js:294 ../root/user/UserProfile.js:310
+#: ../root/user/UserProfile.js:295 ../root/user/UserProfile.js:311
 msgid "see list"
 msgstr "visualizza elenco"
 
-#: ../root/user/UserProfile.js:303
+#: ../root/user/UserProfile.js:304
 msgid "Developer applications"
 msgstr "Applicazioni per sviluppatori"
 
-#: ../root/user/UserProfile.js:320
+#: ../root/user/UserProfile.js:321
 msgid "Homepage:"
 msgstr "Homepage:"
 
-#: ../root/user/UserProfile.js:338
+#: ../root/user/UserProfile.js:339
 msgid "Subscribers:"
 msgstr "Iscritti:"
 
-#: ../root/user/UserProfile.js:341
+#: ../root/user/UserProfile.js:342
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|visualizza elenco})"
 
-#: ../root/user/UserProfile.js:348
+#: ../root/user/UserProfile.js:349
 msgid "0"
 msgstr "0"
 
-#: ../root/user/UserProfile.js:361
+#: ../root/user/UserProfile.js:362
 msgid "unsubscribe"
 msgstr "disiscriviti"
 
-#: ../root/user/UserProfile.js:370
+#: ../root/user/UserProfile.js:371
 msgid "subscribe"
 msgstr "iscriviti"
 
-#: ../root/user/UserProfile.js:396
+#: ../root/user/UserProfile.js:397
 msgid "Languages:"
 msgstr "Lingue:"
 
-#: ../root/user/UserProfile.js:472 ../root/user/UserProfile.js:573
-#: ../root/user/UserProfile.js:583 ../root/user/UserProfile.js:593
-#: ../root/user/UserProfile.js:603 ../root/user/UserProfile.js:613
-#: ../root/user/UserProfile.js:623 ../root/user/UserProfile.js:633
-#: ../root/user/UserProfile.js:643 ../root/user/UserProfile.js:652
-#: ../root/user/UserProfile.js:797 ../root/user/UserProfile.js:807
-#: ../root/user/UserProfile.js:819
+#: ../root/user/UserProfile.js:473 ../root/user/UserProfile.js:574
+#: ../root/user/UserProfile.js:584 ../root/user/UserProfile.js:594
+#: ../root/user/UserProfile.js:604 ../root/user/UserProfile.js:614
+#: ../root/user/UserProfile.js:624 ../root/user/UserProfile.js:634
+#: ../root/user/UserProfile.js:644 ../root/user/UserProfile.js:653
+#: ../root/user/UserProfile.js:798 ../root/user/UserProfile.js:808
+#: ../root/user/UserProfile.js:820
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|visualizza})"
 
-#: ../root/user/UserProfile.js:565
+#: ../root/user/UserProfile.js:566
 msgid "Edits"
 msgstr "Modifiche"
 
-#: ../root/user/UserProfile.js:571
+#: ../root/user/UserProfile.js:572
 msgctxt "edit descriptor"
 msgid "Total"
 msgstr "Totale"
 
-#: ../root/user/UserProfile.js:581
+#: ../root/user/UserProfile.js:582
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "Accettate"
 
-#: ../root/user/UserProfile.js:591
+#: ../root/user/UserProfile.js:592
 msgid "Auto-edits"
 msgstr "Auto-modifiche"
 
-#: ../root/user/UserProfile.js:601
+#: ../root/user/UserProfile.js:602
 msgid "Total applied"
 msgstr "Totale applicate"
 
-#: ../root/user/UserProfile.js:611
+#: ../root/user/UserProfile.js:612
 msgid "Voted down"
 msgstr "Rifiutate"
 
-#: ../root/user/UserProfile.js:621
+#: ../root/user/UserProfile.js:622
 msgid "Failed"
 msgstr "Fallite"
 
-#: ../root/user/UserProfile.js:651
+#: ../root/user/UserProfile.js:652
 msgid "Last 24 hours"
 msgstr "Ultime 24 ore"
 
-#: ../root/user/UserProfile.js:675
+#: ../root/user/UserProfile.js:676
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "Questa tabella mostra un riassunto dei voti espressi da questo editor."
 
-#: ../root/user/UserProfile.js:680
+#: ../root/user/UserProfile.js:681
 msgid "Votes ({view_url|view})"
 msgstr "Voti ({view_url|visualizza})"
 
-#: ../root/user/UserProfile.js:688
+#: ../root/user/UserProfile.js:689
 msgid "Last 28 days"
 msgstr "Ultimi 28 giorni"
 
-#: ../root/user/UserProfile.js:691
+#: ../root/user/UserProfile.js:692
 msgid "Overall"
 msgstr "Totali"
 
-#: ../root/user/UserProfile.js:739
+#: ../root/user/UserProfile.js:740
 msgid "This table shows a summary of entities added by this editor."
 msgstr "Questa tabella mostra un riassunto delle entità aggiunte da questo editor."
 
-#: ../root/user/UserProfile.js:745
+#: ../root/user/UserProfile.js:746
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr "Le modifiche applicate da poco potrebbero essere conteggiate dopo 24 ore"
 
-#: ../root/user/UserProfile.js:748
+#: ../root/user/UserProfile.js:749
 msgid "Added entities"
 msgstr "Entità aggiunte"
 
-#: ../root/user/UserProfile.js:772
+#: ../root/user/UserProfile.js:773
 msgid "This user has not created any entities."
 msgstr "Questo utente non ha creato nessuna entità."
 
-#: ../root/user/UserProfile.js:782
+#: ../root/user/UserProfile.js:783
 msgid "This table shows a summary of secondary data added by this editor."
 msgstr "Questa tabella mostra un riassunto dei dati secondari aggiunti da questo editor."
 
-#: ../root/user/UserProfile.js:788
+#: ../root/user/UserProfile.js:789
 msgid "Tags and ratings"
 msgstr "Tag e valutazioni"
 
-#: ../root/user/UserProfile.js:795
+#: ../root/user/UserProfile.js:796
 msgid "Tags upvoted"
 msgstr "Tag con voti a favore"
 
-#: ../root/user/UserProfile.js:805
+#: ../root/user/UserProfile.js:806
 msgid "Tags downvoted"
 msgstr "Tag con voti contro"
 
-#: ../root/user/UserProfile.js:892
+#: ../root/user/UserProfile.js:872
+msgid "Blocked Spam Account"
+msgstr "Account spam bloccato"
+
+#: ../root/user/UserProfile.js:874
+msgid ""
+"This user was blocked and their profile is hidden because they were deemed "
+"to be spamming. If you see spam in MusicBrainz, please do let us know by "
+"reporting the spammer from their user page."
+msgstr "Questo utente è stato bloccato e il suo profilo è nascosto perché si ritiene fosse uno spammer. Se trovi dello spam su MusicBrainz, faccelo sapere segnalando lo spammer dalla sua pagina utente."
+
+#: ../root/user/UserProfile.js:905
 msgid "Report this user for bad behavior"
 msgstr "Segnala questo utente per comportamento scorretto"
 

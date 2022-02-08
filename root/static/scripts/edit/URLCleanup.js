@@ -1484,16 +1484,28 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'dahr': {
-    match: [new RegExp(
-      '^(https?://)?adp\\.library\\.ucsb\\.edu/index\\.php/' +
-      '(matrix|objects|talent)',
-      'i',
-    )],
+    match: [
+      new RegExp(
+        '^(https?://)?adp\\.library\\.ucsb\\.edu/index\\.php/' +
+        '(mastertalent|matrix|objects|talent)',
+        'i',
+      ),
+      new RegExp('^(https?://)?adp\\.library\\.ucsb\\.edu/names/', 'i'),
+    ],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?adp\.library\.ucsb\.edu\/index\.php\/([a-z]+)\/[a-z]+\/([\d]+).*$/, 'https://adp.library.ucsb.edu/index.php/$1/detail/$2');
+      url = url.replace(/^(?:https?:\/\/)?adp\.library\.ucsb\.edu\//, 'https://adp.library.ucsb.edu/');
+      url = url.replace(/^(https:\/\/adp\.library\.ucsb\.edu)\/index\.php\/([a-z]+)\/[a-z]+\/([\d]+).*$/, '$1/index.php/$2/detail/$3');
+      url = url.replace(/^(https:\/\/adp\.library\.ucsb\.edu)\/names\/([\d]+).*$/, '$1/names/$2');
+      // mastertalent URLs match 1:1 to a names permalink so we use that
+      url = url.replace(/^(https:\/\/adp\.library\.ucsb\.edu)\/index\.php\/mastertalent\/detail\/([\d]+).*$/, '$1/names/$2');
+      return url;
     },
     validate: function (url, id) {
+      const isNamesPermalink = url.match(/^https:\/\/adp\.library\.ucsb\.edu\/names\/[\d]+$/);
+      if (isNamesPermalink && id === LINK_TYPES.otherdatabases.artist) {
+        return {result: true};
+      }
       const m = /^https:\/\/adp\.library\.ucsb\.edu\/index\.php\/([a-z]+)\/detail\/[\d]+$/.exec(url);
       if (m) {
         const prefix = m[1];
@@ -1626,11 +1638,6 @@ const CLEANUPS: CleanupEntries = {
       new RegExp(
         '^(https?://)?(www\\.)?universal-music\\.co\\.jp/' +
         '([a-z0-9-]+/)?[a-z0-9-]+/products/[a-z]{4}-[0-9]{5}/$',
-        'i',
-      ),
-      new RegExp(
-        '^(https?://)?(www\\.)?lantis\\.jp/release-item2\\.php\\?' +
-        'id=[0-9a-f]{32}$',
         'i',
       ),
       new RegExp(
@@ -2580,6 +2587,26 @@ const CLEANUPS: CleanupEntries = {
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
       }
       return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'lantis': {
+    match: [
+      new RegExp(
+        '^(https?://)?(www\\.)?lantis\\.jp/release-item2\\.php\\?' +
+        'id=[0-9a-f]{32}$',
+        'i',
+      ),
+      new RegExp(
+        '^(https?://)?(www\\.)?lantis\\.jp/release-item/' +
+        '[A-Z]+-\\d+(\\.html)?$',
+        'i',
+      ),
+    ],
+    restrict: [LINK_TYPES.discographyentry],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?lantis\.jp\//, 'https://www.lantis.jp/');
+      url = url.replace(/^(https:\/\/www\.lantis\.jp)\/release-item\/([A-Z]+-\d+)$/, '$1/release-item/$2.html');
+      return url;
     },
   },
   'lastfm': {
@@ -3915,6 +3942,7 @@ const CLEANUPS: CleanupEntries = {
       switch (id) {
         case LINK_TYPES.otherdatabases.artist:
         case LINK_TYPES.otherdatabases.label:
+        case LINK_TYPES.otherdatabases.place:
           return {
             result: /^http:\/\/snaccooperative\.org\/ark:\/99166\/[a-z0-9]+$/.test(url),
             target: ERROR_TARGETS.URL,

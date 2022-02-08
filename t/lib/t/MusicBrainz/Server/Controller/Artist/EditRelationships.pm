@@ -15,7 +15,14 @@ use MusicBrainz::Server::Test qw( capture_edits );
 
 with 't::Context', 't::Mechanize';
 
-test 'adding a relationship' => sub {
+=head2 Test description
+
+This test checks whether non-URL relationships are correctly added, removed
+and modified when editing artists, including several edge cases.
+
+=cut
+
+test 'Test adding a relationship' => sub {
     my $test = shift;
     my ($c, $mech) = ($test->c, $test->mech);
 
@@ -46,6 +53,8 @@ test 'adding a relationship' => sub {
         });
     } $c;
 
+    is(@edits, 2, 'Two edits were entered');
+
     isa_ok($edits[0], 'MusicBrainz::Server::Edit::Relationship::Create');
     isa_ok($edits[1], 'MusicBrainz::Server::Edit::Relationship::Create');
 
@@ -70,16 +79,16 @@ test 'adding a relationship' => sub {
     cmp_deeply($edits[0]->data,  {
         %edit_data,
         attributes => [$additional_attribute, $crazy_guitar]
-    });
+    }, 'The first edit contains the right data');
 
     cmp_deeply($edits[1]->data,  {
         %edit_data,
         attributes => [$additional_attribute, $string_instruments_attribute]
-    });
+    }, 'The second edit contains the right data');
 };
 
 
-test 'editing a relationship' => sub {
+test 'Test editing a relationship' => sub {
     my $test = shift;
     my ($c, $mech) = ($test->c, $test->mech);
 
@@ -88,7 +97,7 @@ test 'editing a relationship' => sub {
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
-    subtest 'change target, add end date and attribute' => sub {
+    subtest 'Change target, add end date and attribute' => sub {
         my @edits = capture_edits {
             $mech->post('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit', {
                 'edit-artist.name' => 'Test Alias',
@@ -108,7 +117,7 @@ test 'editing a relationship' => sub {
             });
         } $c;
 
-        is(scalar @edits, 1);
+        is(@edits, 1, 'One edit was entered');
         my $edit = $edits[0];
         isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
 
@@ -148,12 +157,12 @@ test 'editing a relationship' => sub {
             entity0_credit => '',
             entity1_credit => '',
             edit_version => 2,
-        });
+        }, 'The edit contains the right data');
 
-        ok !exception { $edit->accept };
+        ok !exception { $edit->accept }, 'The edit could be accepted';
     };
 
-    subtest 'remove attribute and end date' => sub {
+    subtest 'Remove attribute and end date' => sub {
         my @edits = capture_edits {
             $mech->post('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit', {
                 'edit-artist.name' => 'Test Alias',
@@ -173,7 +182,7 @@ test 'editing a relationship' => sub {
             });
         } $c;
 
-        is(scalar @edits, 1);
+        is(@edits, 1, 'One edit was entered');
         my $edit = $edits[0];
         isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
 
@@ -207,12 +216,12 @@ test 'editing a relationship' => sub {
             entity0_credit => '',
             entity1_credit => '',
             edit_version => 2,
-        });
+        }, 'The edit contains the right data');
 
-        is($edit->status, $STATUS_APPLIED);
+        is($edit->status, $STATUS_APPLIED, 'The edit was applied');
     };
 
-    subtest 'remove begin date' => sub {
+    subtest 'Remove begin date' => sub {
         my @edits = capture_edits {
             $mech->post('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit', {
                 'edit-artist.name' => 'Test Alias',
@@ -227,7 +236,7 @@ test 'editing a relationship' => sub {
             });
         } $c;
 
-        is(scalar @edits, 1);
+        is(@edits, 1, 'One edit was entered');
         my $edit = $edits[0];
         isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
 
@@ -259,12 +268,12 @@ test 'editing a relationship' => sub {
             entity0_credit => '',
             entity1_credit => '',
             edit_version => 2,
-        });
+        }, 'The edit contains the right data');
 
-        ok !exception { $edit->accept };
+        ok !exception { $edit->accept }, 'The edit could be accepted';
     };
 
-    subtest 'remove ended flag' => sub {
+    subtest 'Remove ended flag' => sub {
         my @edits = capture_edits {
             $mech->post('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit', {
                 'edit-artist.name' => 'Test Alias',
@@ -277,7 +286,7 @@ test 'editing a relationship' => sub {
             });
         } $c;
 
-        is(scalar @edits, 1);
+        is(@edits, 1, 'One edit was entered');
         my $edit = $edits[0];
         isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
 
@@ -305,14 +314,14 @@ test 'editing a relationship' => sub {
             entity0_credit => '',
             entity1_credit => '',
             edit_version => 2,
-        });
+        }, 'The edit contains the right data');
 
-        ok !exception { $edit->accept };
+        ok !exception { $edit->accept }, 'The edit could be accepted';
     };
 };
 
 
-test 'removing a relationship' => sub {
+test 'Test removing a relationship' => sub {
     my $test = shift;
     my ($c, $mech) = ($test->c, $test->mech);
 
@@ -321,7 +330,7 @@ test 'removing a relationship' => sub {
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
-    my ($edit) = capture_edits {
+    my @edits = capture_edits {
         $mech->post('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit', {
             'edit-artist.name' => 'Test Alias',
             'edit-artist.sort_name' => 'Kate Bush',
@@ -331,11 +340,13 @@ test 'removing a relationship' => sub {
         });
     } $c;
 
-    isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Delete');
+    is(@edits, 1, 'One edit was entered');
+
+    isa_ok($edits[0], 'MusicBrainz::Server::Edit::Relationship::Delete');
 };
 
 
-test 'Cannot create a relationship under a grouping relationship' => sub {
+test 'Ensure grouping-only types cannot be used for relationships' => sub {
     my $test = shift;
     my ($c, $mech) = ($test->c, $test->mech);
 
@@ -344,7 +355,7 @@ test 'Cannot create a relationship under a grouping relationship' => sub {
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
-    my ($edit) = capture_edits {
+    my @edits = capture_edits {
         $mech->post('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit', {
             'edit-artist.name' => 'Test Alias',
             'edit-artist.sort_name' => 'Kate Bush',
@@ -353,12 +364,22 @@ test 'Cannot create a relationship under a grouping relationship' => sub {
         });
     } $c;
 
-    ok(!defined $edit, 'no edits were made');
-    like($mech->uri, qr{/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit$}, q(page hasn't changed));
+    is(@edits, 0, 'No edits were entered');
+
+    like(
+        $mech->uri,
+        qr{/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit$},
+        q(The page hasn't changed)
+    );
+
+    $mech->content_contains(
+        'is only used for grouping',
+        'The "grouping only" error is shown',
+    );
 };
 
 
-test 'Duplicate relationships are ignored' => sub {
+test 'Ensure duplicate relationships are ignored' => sub {
     my $test = shift;
     my ($c, $mech) = ($test->c, $test->mech);
 
@@ -368,7 +389,7 @@ test 'Duplicate relationships are ignored' => sub {
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
     # Duplicates a relationship in admin/sql/InsertTestData.sql
-    my ($edit) = capture_edits {
+    my @edits = capture_edits {
         $mech->post('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit', {
             'edit-artist.name' => 'Test Alias',
             'edit-artist.sort_name' => 'Kate Bush',
@@ -378,11 +399,11 @@ test 'Duplicate relationships are ignored' => sub {
         });
     } $c;
 
-    ok(!defined $edit, 'no edits were made');
+    is(@edits, 0, 'No edits were entered');
 };
 
 
-test 'Duplicate link attribute types are ignored' => sub {
+test 'Ensure duplicate link attribute types are ignored' => sub {
     my $test = shift;
     my ($c, $mech) = ($test->c, $test->mech);
 
@@ -411,31 +432,13 @@ test 'Duplicate link attribute types are ignored' => sub {
         });
     } $c;
 
-    is(scalar @edits, 1);
+    is(@edits, 1, 'One edit was entered');
     isa_ok($edits[0], 'MusicBrainz::Server::Edit::Relationship::Create');
-    cmp_deeply($edits[0]->data->{attributes}, [$guitar_attribute]);
-};
-
-test 'MBS-8322: URL relationship dates are not removed if not specified' => sub {
-    my $test = shift;
-    my ($c, $mech) = ($test->c, $test->mech);
-
-    MusicBrainz::Server::Test->prepare_test_database($c);
-
-    $mech->get_ok('/login');
-    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
-
-    my @edits = capture_edits {
-        $mech->post('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit', {
-            'edit-artist.name' => 'Test Alias',
-            'edit-artist.sort_name' => 'Kate Bush',
-            'edit-artist.url.0.relationship_id' => '1',
-            'edit-artist.url.0.link_type_id' => '183',
-            'edit-artist.url.0.text' => 'http://musicbrainz.org/',
-        });
-    } $c;
-
-    is(scalar @edits, 0);
+    cmp_deeply(
+        $edits[0]->data->{attributes},
+        [$guitar_attribute],
+        'The edit stores the right attributes data',
+    );
 };
 
 1;
