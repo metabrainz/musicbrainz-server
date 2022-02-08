@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-31 21:01+0200\n"
+"POT-Creation-Date: 2022-02-08 20:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -122,11 +122,11 @@ msgstr ""
 msgid "(no other cover art)"
 msgstr ""
 
-#: ../root/release/merge.tt:87
+#: ../root/release/merge.tt:88
 msgid "(was medium {position} on release {release})"
 msgstr ""
 
-#: ../root/release/merge.tt:82
+#: ../root/release/merge.tt:83
 msgid "(was medium {position}: {name} on release {release})"
 msgstr ""
 
@@ -549,7 +549,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:40
 #: ../root/static/scripts/common/constants.js:18
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:46
-#: ../root/user/UserProfile.js:43
+#: ../root/user/UserProfile.js:44
 msgid "Area"
 msgstr ""
 
@@ -623,7 +623,7 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:48
 #: ../root/static/scripts/common/utility/formatSetlist.js:31
 #: ../root/static/scripts/release/components/MediumTable.js:215
-#: ../root/taglookup/Form.js:26 ../root/user/UserProfile.js:44
+#: ../root/taglookup/Form.js:26 ../root/user/UserProfile.js:45
 msgid "Artist"
 msgstr ""
 
@@ -816,7 +816,7 @@ msgstr ""
 
 #: ../root/admin/edit_user.tt:44
 #: ../root/static/scripts/account/components/EditProfileForm.js:273
-#: ../root/user/UserProfile.js:381
+#: ../root/user/UserProfile.js:382
 msgid "Bio:"
 msgstr ""
 
@@ -904,7 +904,7 @@ msgstr ""
 
 #: ../root/components/relationship-editor.tt:5
 #: ../root/layout/merge-helper.tt:34 ../root/release/edit/layout.tt:59
-#: ../root/release/edit/tracklist.tt:117 ../root/release/merge.tt:134
+#: ../root/release/edit/tracklist.tt:117 ../root/release/merge.tt:135
 #: ../root/area/AreaMerge.js:54 ../root/artist/ArtistMerge.js:81
 #: ../root/collection/CollectionMerge.js:187
 #: ../root/components/ConfirmLayout.js:48 ../root/event/EventMerge.js:57
@@ -1145,7 +1145,7 @@ msgstr ""
 
 #: ../root/release_group/set_cover_art.tt:67
 #: ../root/components/EntityTabs.js:116 ../root/release/CoverArt.js:57
-#: ../root/user/UserProfile.js:45
+#: ../root/user/UserProfile.js:46
 msgid "Cover Art"
 msgstr ""
 
@@ -1540,7 +1540,7 @@ msgid "Edits for {name}"
 msgstr ""
 
 #: ../root/account/register.tt:39 ../root/admin/edit_user.tt:40
-#: ../root/user/UserProfile.js:184
+#: ../root/user/UserProfile.js:185
 msgid "Email:"
 msgstr ""
 
@@ -1631,7 +1631,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:48
 #: ../root/static/scripts/common/constants.js:20
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:52
-#: ../root/user/UserProfile.js:46
+#: ../root/user/UserProfile.js:47
 msgid "Event"
 msgstr ""
 
@@ -1832,7 +1832,7 @@ msgstr ""
 #: ../root/artist/edit_form.tt:17
 #: ../root/layout/components/sidebar/ArtistSidebar.js:83
 #: ../root/static/scripts/account/components/EditProfileForm.js:221
-#: ../root/user/UserProfile.js:263
+#: ../root/user/UserProfile.js:264
 msgid "Gender:"
 msgstr ""
 
@@ -1914,8 +1914,8 @@ msgid ""
 msgstr ""
 
 #: ../root/components/common-macros.tt:560
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:255
-#: ../root/static/scripts/common/constants.js:285
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:256
+#: ../root/static/scripts/common/constants.js:286
 msgid "High"
 msgstr ""
 
@@ -2197,7 +2197,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:46
 #: ../root/static/scripts/common/constants.js:22
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:54
-#: ../root/user/UserProfile.js:47
+#: ../root/user/UserProfile.js:48
 msgid "Instrument"
 msgstr ""
 
@@ -2275,7 +2275,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:39
 #: ../root/static/scripts/common/constants.js:23
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:56
-#: ../root/user/UserProfile.js:48 ../root/utility/tableColumns.js:505
+#: ../root/user/UserProfile.js:49 ../root/utility/tableColumns.js:505
 #: ../root/utility/tableColumns.js:510
 msgid "Label"
 msgstr ""
@@ -2412,8 +2412,8 @@ msgid "Lookup count"
 msgstr ""
 
 #: ../root/components/common-macros.tt:560
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:255
-#: ../root/static/scripts/common/constants.js:282
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:256
+#: ../root/static/scripts/common/constants.js:283
 msgid "Low"
 msgstr ""
 
@@ -2437,7 +2437,7 @@ msgstr ""
 msgid "Make all edits votable."
 msgstr ""
 
-#: ../root/release/merge.tt:113
+#: ../root/release/merge.tt:114
 msgid ""
 "Make sure all mediums in the releases being merged are in the correct "
 "position. For example, to merge a medium into medium 2 of a release, it will "
@@ -2490,7 +2490,7 @@ msgstr ""
 msgid "Merge Releases"
 msgstr ""
 
-#: ../root/release/merge.tt:55 ../root/edit/details/MergeReleases.js:331
+#: ../root/release/merge.tt:56 ../root/edit/details/MergeReleases.js:331
 msgid "Merge strategy:"
 msgstr ""
 
@@ -2650,7 +2650,7 @@ msgstr ""
 msgid "New Relationship Type"
 msgstr ""
 
-#: ../root/release/merge.tt:77
+#: ../root/release/merge.tt:78
 msgid "New medium title:"
 msgstr ""
 
@@ -2658,7 +2658,7 @@ msgstr ""
 msgid "New password:"
 msgstr ""
 
-#: ../root/release/merge.tt:72
+#: ../root/release/merge.tt:73
 msgid "New position:"
 msgstr ""
 
@@ -2712,7 +2712,7 @@ msgstr ""
 msgid "No results"
 msgstr ""
 
-#: ../root/components/search.tt:43
+#: ../root/components/search.tt:43 ../root/admin/EmailSearch.js:84
 #: ../root/otherlookup/OtherLookupReleaseResults.js:34
 msgid "No results found."
 msgstr ""
@@ -2751,9 +2751,9 @@ msgid ""
 msgstr ""
 
 #: ../root/components/common-macros.tt:560
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:255
-#: ../root/static/scripts/common/constants.js:283
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:256
 #: ../root/static/scripts/common/constants.js:284
+#: ../root/static/scripts/common/constants.js:285
 msgid "Normal"
 msgstr ""
 
@@ -2908,7 +2908,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:41
 #: ../root/static/scripts/common/constants.js:24
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:58
-#: ../root/user/UserProfile.js:49
+#: ../root/user/UserProfile.js:50
 msgid "Place"
 msgstr ""
 
@@ -3065,7 +3065,7 @@ msgstr[1] ""
 
 #: ../root/user/ratings_summary.tt:1 ../root/user/ratings_summary.tt:33
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:36
-#: ../root/entity/Ratings.js:38 ../root/user/UserProfile.js:818
+#: ../root/entity/Ratings.js:38 ../root/user/UserProfile.js:819
 msgid "Ratings"
 msgstr ""
 
@@ -3089,7 +3089,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:37
 #: ../root/static/scripts/common/constants.js:25
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:60
-#: ../root/user/UserProfile.js:50
+#: ../root/user/UserProfile.js:51
 msgid "Recording"
 msgstr ""
 
@@ -3202,7 +3202,7 @@ msgstr ""
 #: ../root/static/scripts/common/constants.js:26
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:62
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:341
-#: ../root/taglookup/Form.js:31 ../root/user/UserProfile.js:51
+#: ../root/taglookup/Form.js:31 ../root/user/UserProfile.js:52
 msgid "Release"
 msgstr ""
 
@@ -3641,7 +3641,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:47 ../root/series/SeriesHeader.js:29
 #: ../root/static/scripts/common/constants.js:28
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:66
-#: ../root/user/UserProfile.js:53
+#: ../root/user/UserProfile.js:54
 msgctxt "singular"
 msgid "Series"
 msgstr ""
@@ -3880,13 +3880,13 @@ msgid ""
 "information in itself has to be free-text)."
 msgstr ""
 
-#: ../root/release/merge.tt:117
+#: ../root/release/merge.tt:118
 msgid ""
 "The recording artists do not match! Perhaps you meant to use the \"append "
 "mediums\" merge strategy?"
 msgstr ""
 
-#: ../root/release/merge.tt:118
+#: ../root/release/merge.tt:119
 msgid ""
 "The recordings that will be merged if you continue with the current merge "
 "strategy include the following, whose artists differ:"
@@ -4125,7 +4125,7 @@ msgid ""
 "date."
 msgstr ""
 
-#: ../root/release/merge.tt:110
+#: ../root/release/merge.tt:111
 msgid ""
 "This merge strategy will merge all mediums together into a single set of "
 "mediums. Recordings between mediums will also be merged, into the recordings "
@@ -4195,7 +4195,7 @@ msgid ""
 "corresponding real release with the {url|transl(iter)ation relationship}."
 msgstr ""
 
-#: ../root/release/merge.tt:112
+#: ../root/release/merge.tt:113
 msgid ""
 "This requires that corresponding mediums have the same number of tracks."
 msgstr ""
@@ -4572,7 +4572,7 @@ msgstr ""
 msgid "Username:"
 msgstr ""
 
-#: ../root/release/merge.tt:59
+#: ../root/release/merge.tt:60
 msgid ""
 "Using this merge strategy, all mediums from all releases will be used. You "
 "may specify the new order of mediums. The order does not have to be "
@@ -4629,7 +4629,7 @@ msgid "Voter"
 msgstr ""
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/EditIndex.js:64
-#: ../root/user/UserProfile.js:683
+#: ../root/user/UserProfile.js:684
 msgid "Votes"
 msgstr ""
 
@@ -4734,7 +4734,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:38
 #: ../root/static/scripts/common/constants.js:30
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:70
-#: ../root/user/UserProfile.js:54 ../root/work/WorkHeader.js:29
+#: ../root/user/UserProfile.js:55 ../root/work/WorkHeader.js:29
 #: ../root/work/WorkLayout.js:35
 msgid "Work"
 msgstr ""
@@ -5584,8 +5584,8 @@ msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:172
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:224
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:174
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:226
 #: ../root/static/scripts/release-editor/trackParser.js:497
 msgid "Invalid regular expression."
 msgstr ""
@@ -5653,7 +5653,7 @@ msgstr ""
 msgid "The provided CD TOC ID doesn’t exist."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:255
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:256
 msgid "Default"
 msgstr ""
 
@@ -6387,7 +6387,7 @@ msgstr ""
 #: ../root/edit/details/EditRelease.js:81
 #: ../root/edit/details/EditReleaseGroup.js:38
 #: ../root/edit/details/SetCoverArt.js:32
-#: ../root/static/scripts/common/constants.js:27 ../root/user/UserProfile.js:52
+#: ../root/static/scripts/common/constants.js:27 ../root/user/UserProfile.js:53
 msgid "Release group"
 msgstr ""
 
@@ -6504,7 +6504,7 @@ msgstr ""
 msgid "Merge series"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271 ../root/user/UserProfile.js:642
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271 ../root/user/UserProfile.js:643
 #: ../root/utility/edit.js:45
 msgid "Open"
 msgstr ""
@@ -6537,7 +6537,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:278
 #: ../root/edit/details/AddEvent.js:52 ../root/edit/details/EditEvent.js:56
-#: ../root/user/UserProfile.js:632 ../root/utility/edit.js:39
+#: ../root/user/UserProfile.js:633 ../root/utility/edit.js:39
 msgid "Cancelled"
 msgstr ""
 
@@ -6871,17 +6871,17 @@ msgid ""
 "You may not specify a combination of track artists and a release artist."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Collection.pm:82
+#: ../lib/MusicBrainz/Server/Form/Collection.pm:89
 msgid "The collection type must match the type of entities it contains."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Collection.pm:100
+#: ../lib/MusicBrainz/Server/Form/Collection.pm:107
 #, perl-brace-format
 msgid ""
 "To add “{editor}” as a collaborator, please select them from the dropdown."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Collection.pm:105
+#: ../lib/MusicBrainz/Server/Form/Collection.pm:112
 #, perl-brace-format
 msgid "Editor “{editor}” does not exist."
 msgstr ""
@@ -6976,7 +6976,7 @@ msgid "Not a valid time. Must be in the format MM:SS"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Field/PartialDate.pm:65
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:94
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:101
 msgid "invalid date"
 msgstr ""
 
@@ -7048,43 +7048,43 @@ msgstr ""
 msgid "You must provide an edit note"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:25
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:32
 msgid "Invalid URL format"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:56
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:63
 msgid "A language is required."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:62
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:69
 msgid "A fluency level is required."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:70
-#: ../root/static/scripts/common/constants.js:293
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:77
+#: ../root/static/scripts/common/constants.js:294
 msgid "Basic"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:71
-#: ../root/static/scripts/common/constants.js:294
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:78
+#: ../root/static/scripts/common/constants.js:295
 msgid "Intermediate"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:72
-#: ../root/static/scripts/common/constants.js:292
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
+#: ../root/static/scripts/common/constants.js:293
 msgid "Advanced"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:73
-#: ../root/static/scripts/common/constants.js:295
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
+#: ../root/static/scripts/common/constants.js:296
 msgid "Native"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:87
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:94
 msgid "You must supply a complete birth date for us to display your age."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:91
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:98
 msgid "Birth year must be after 1900"
 msgstr ""
 
@@ -7668,7 +7668,7 @@ msgid "Enter a {link|POSIX regular expression}."
 msgstr ""
 
 #: ../root/admin/IpLookup.js:25 ../root/admin/IpLookup.js:27
-#: ../root/user/UserProfile.js:411
+#: ../root/user/UserProfile.js:412
 msgid "IP lookup"
 msgstr ""
 
@@ -8311,8 +8311,8 @@ msgstr ""
 msgid "See all of {editor}'s public collections"
 msgstr ""
 
-#: ../root/collection/CollectionIndex.js:185 ../root/user/UserProfile.js:329
-#: ../root/user/UserProfile.js:387
+#: ../root/collection/CollectionIndex.js:185 ../root/user/UserProfile.js:330
+#: ../root/user/UserProfile.js:388
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
@@ -10524,7 +10524,7 @@ msgstr ""
 msgid "Privileged User Accounts"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:145 ../root/user/UserProfile.js:560
+#: ../root/layout/components/BottomMenu.js:145 ../root/user/UserProfile.js:561
 msgid "Statistics"
 msgstr ""
 
@@ -13662,7 +13662,7 @@ msgid "If you change your email address, you will be required to verify it."
 msgstr ""
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:229
-#: ../root/user/UserProfile.js:269
+#: ../root/user/UserProfile.js:270
 msgid "Location:"
 msgstr ""
 
@@ -14399,7 +14399,7 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:622
 #: ../root/static/scripts/edit/URLCleanup.js:820
-#: ../root/static/scripts/edit/URLCleanup.js:3113
+#: ../root/static/scripts/edit/URLCleanup.js:3140
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
@@ -14430,127 +14430,127 @@ msgstr ""
 msgid "Please link to the main page for the label, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1697
+#: ../root/static/scripts/edit/URLCleanup.js:1704
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2187
+#: ../root/static/scripts/edit/URLCleanup.js:2194
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2205
+#: ../root/static/scripts/edit/URLCleanup.js:2212
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2250
+#: ../root/static/scripts/edit/URLCleanup.js:2257
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2278
+#: ../root/static/scripts/edit/URLCleanup.js:2285
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2303
+#: ../root/static/scripts/edit/URLCleanup.js:2310
 msgid "This is an internal Instagram page and should not be added."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3010
+#: ../root/static/scripts/edit/URLCleanup.js:3037
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
 "adding Musixmatch links to the relevant artists and works instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3579
+#: ../root/static/scripts/edit/URLCleanup.js:3606
 msgid "Only RYM music videos can be linked to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3631
+#: ../root/static/scripts/edit/URLCleanup.js:3658
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
 "if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4364
+#: ../root/static/scripts/edit/URLCleanup.js:4392
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4378
+#: ../root/static/scripts/edit/URLCleanup.js:4406
 msgid "Please link to Twitter profiles, not tweets."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4396
+#: ../root/static/scripts/edit/URLCleanup.js:4424
 msgid "This site does not allow direct links to their images."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4597
+#: ../root/static/scripts/edit/URLCleanup.js:4625
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4653
+#: ../root/static/scripts/edit/URLCleanup.js:4681
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4673
+#: ../root/static/scripts/edit/URLCleanup.js:4701
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4694
+#: ../root/static/scripts/edit/URLCleanup.js:4722
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4712
+#: ../root/static/scripts/edit/URLCleanup.js:4740
 msgid "Please link WhoSampled artist pages to artists."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4724
+#: ../root/static/scripts/edit/URLCleanup.js:4752
 msgid "Please link WhoSampled track pages to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4791
+#: ../root/static/scripts/edit/URLCleanup.js:4819
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4926
+#: ../root/static/scripts/edit/URLCleanup.js:4954
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4962
+#: ../root/static/scripts/edit/URLCleanup.js:4990
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4974
+#: ../root/static/scripts/edit/URLCleanup.js:5002
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4986
+#: ../root/static/scripts/edit/URLCleanup.js:5014
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -14559,7 +14559,7 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5014
+#: ../root/static/scripts/edit/URLCleanup.js:5042
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases "
@@ -14568,11 +14568,11 @@ msgid ""
 "the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5177
+#: ../root/static/scripts/edit/URLCleanup.js:5205
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5194
+#: ../root/static/scripts/edit/URLCleanup.js:5222
 #: ../root/static/scripts/edit/externalLinks.js:869
 msgid "This relationship type combination is invalid."
 msgstr ""
@@ -15647,259 +15647,264 @@ msgstr ""
 msgid "{user} isn’t collaborating in any public collections."
 msgstr ""
 
-#: ../root/user/UserProfile.js:60
+#: ../root/user/UserProfile.js:61
 msgid "Deleted User"
 msgstr ""
 
-#: ../root/user/UserProfile.js:64
+#: ../root/user/UserProfile.js:65
 msgid "{doc|Auto-Editor}"
 msgstr ""
 
-#: ../root/user/UserProfile.js:69
+#: ../root/user/UserProfile.js:70
 msgid "Internal/Bot"
 msgstr ""
 
-#: ../root/user/UserProfile.js:73
+#: ../root/user/UserProfile.js:74
 msgid "{doc|Relationship Editor}"
 msgstr ""
 
-#: ../root/user/UserProfile.js:79
+#: ../root/user/UserProfile.js:80
 msgid "{doc|Transclusion Editor}"
 msgstr ""
 
-#: ../root/user/UserProfile.js:85
+#: ../root/user/UserProfile.js:86
 msgid "{doc|Location Editor}"
 msgstr ""
 
-#: ../root/user/UserProfile.js:94
+#: ../root/user/UserProfile.js:95
 msgid ""
 "User accounts must be more than 2 weeks old, have a verified email address, "
 "and more than 10 accepted edits in order to vote on others' edits."
 msgstr ""
 
-#: ../root/user/UserProfile.js:99
+#: ../root/user/UserProfile.js:100
 msgid "Beginner"
 msgstr ""
 
-#: ../root/user/UserProfile.js:105
+#: ../root/user/UserProfile.js:106
 msgid "Normal User"
 msgstr ""
 
-#: ../root/user/UserProfile.js:152
+#: ../root/user/UserProfile.js:153
 msgid "The Dawn of the Project"
 msgstr ""
 
-#: ../root/user/UserProfile.js:154
+#: ../root/user/UserProfile.js:155
 msgid "The early days of the project"
 msgstr ""
 
-#: ../root/user/UserProfile.js:162
+#: ../root/user/UserProfile.js:163
 msgid ""
 "Your homepage and biography will not show until you have completed the email "
 "verification process."
 msgstr ""
 
-#: ../root/user/UserProfile.js:181
+#: ../root/user/UserProfile.js:182
 msgid "General Information"
 msgstr ""
 
-#: ../root/user/UserProfile.js:187
+#: ../root/user/UserProfile.js:188
 msgid "(hidden)"
 msgstr ""
 
-#: ../root/user/UserProfile.js:190
+#: ../root/user/UserProfile.js:191
 msgid "(verified at {date})"
 msgstr ""
 
-#: ../root/user/UserProfile.js:195
+#: ../root/user/UserProfile.js:196
 msgid "(<strong>unverified!</strong>)"
 msgstr ""
 
-#: ../root/user/UserProfile.js:204
+#: ../root/user/UserProfile.js:205
 msgid "resend verification email"
 msgstr ""
 
-#: ../root/user/UserProfile.js:212
+#: ../root/user/UserProfile.js:213
 msgid "send email"
 msgstr ""
 
-#: ../root/user/UserProfile.js:227
+#: ../root/user/UserProfile.js:228
 msgid "find all users of this email"
 msgstr ""
 
-#: ../root/user/UserProfile.js:237
+#: ../root/user/UserProfile.js:238
 msgctxt "email"
 msgid "(none)"
 msgstr ""
 
-#: ../root/user/UserProfile.js:244
+#: ../root/user/UserProfile.js:245
 msgid "User type:"
 msgstr ""
 
-#: ../root/user/UserProfile.js:250
+#: ../root/user/UserProfile.js:251
 msgid "nominate for auto-editor"
 msgstr ""
 
-#: ../root/user/UserProfile.js:257
+#: ../root/user/UserProfile.js:258
 msgid "Age:"
 msgstr ""
 
-#: ../root/user/UserProfile.js:274
+#: ../root/user/UserProfile.js:275
 msgid "Member since:"
 msgstr ""
 
-#: ../root/user/UserProfile.js:280
+#: ../root/user/UserProfile.js:281
 msgid "Last login:"
 msgstr ""
 
-#: ../root/user/UserProfile.js:283
+#: ../root/user/UserProfile.js:284
 msgid "Hasn't logged in yet"
 msgstr ""
 
-#: ../root/user/UserProfile.js:288
+#: ../root/user/UserProfile.js:289
 msgid "Authorized applications"
 msgstr ""
 
-#: ../root/user/UserProfile.js:295 ../root/user/UserProfile.js:311
+#: ../root/user/UserProfile.js:296 ../root/user/UserProfile.js:312
 msgid "see list"
 msgstr ""
 
-#: ../root/user/UserProfile.js:304
+#: ../root/user/UserProfile.js:305
 msgid "Developer applications"
 msgstr ""
 
-#: ../root/user/UserProfile.js:321
+#: ../root/user/UserProfile.js:322
 msgid "Homepage:"
 msgstr ""
 
-#: ../root/user/UserProfile.js:339
+#: ../root/user/UserProfile.js:340
 msgid "Subscribers:"
 msgstr ""
 
-#: ../root/user/UserProfile.js:342
+#: ../root/user/UserProfile.js:343
 msgid "{count} ({url|view list})"
 msgstr ""
 
-#: ../root/user/UserProfile.js:349
+#: ../root/user/UserProfile.js:350
 msgid "0"
 msgstr ""
 
-#: ../root/user/UserProfile.js:362
+#: ../root/user/UserProfile.js:363
 msgid "unsubscribe"
 msgstr ""
 
-#: ../root/user/UserProfile.js:371
+#: ../root/user/UserProfile.js:372
 msgid "subscribe"
 msgstr ""
 
-#: ../root/user/UserProfile.js:397
+#: ../root/user/UserProfile.js:398
 msgid "Languages:"
 msgstr ""
 
-#: ../root/user/UserProfile.js:473 ../root/user/UserProfile.js:574
-#: ../root/user/UserProfile.js:584 ../root/user/UserProfile.js:594
-#: ../root/user/UserProfile.js:604 ../root/user/UserProfile.js:614
-#: ../root/user/UserProfile.js:624 ../root/user/UserProfile.js:634
-#: ../root/user/UserProfile.js:644 ../root/user/UserProfile.js:653
-#: ../root/user/UserProfile.js:798 ../root/user/UserProfile.js:808
-#: ../root/user/UserProfile.js:820
+#: ../root/user/UserProfile.js:474 ../root/user/UserProfile.js:575
+#: ../root/user/UserProfile.js:585 ../root/user/UserProfile.js:595
+#: ../root/user/UserProfile.js:605 ../root/user/UserProfile.js:615
+#: ../root/user/UserProfile.js:625 ../root/user/UserProfile.js:635
+#: ../root/user/UserProfile.js:645 ../root/user/UserProfile.js:654
+#: ../root/user/UserProfile.js:799 ../root/user/UserProfile.js:809
+#: ../root/user/UserProfile.js:821
 msgid "{count} ({view_url|view})"
 msgstr ""
 
-#: ../root/user/UserProfile.js:566
+#: ../root/user/UserProfile.js:567
 msgid "Edits"
 msgstr ""
 
-#: ../root/user/UserProfile.js:572
+#: ../root/user/UserProfile.js:573
 msgctxt "edit descriptor"
 msgid "Total"
 msgstr ""
 
-#: ../root/user/UserProfile.js:582
+#: ../root/user/UserProfile.js:583
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr ""
 
-#: ../root/user/UserProfile.js:592
+#: ../root/user/UserProfile.js:593
 msgid "Auto-edits"
 msgstr ""
 
-#: ../root/user/UserProfile.js:602
+#: ../root/user/UserProfile.js:603
 msgid "Total applied"
 msgstr ""
 
-#: ../root/user/UserProfile.js:612
+#: ../root/user/UserProfile.js:613
 msgid "Voted down"
 msgstr ""
 
-#: ../root/user/UserProfile.js:622
+#: ../root/user/UserProfile.js:623
 msgid "Failed"
 msgstr ""
 
-#: ../root/user/UserProfile.js:652
+#: ../root/user/UserProfile.js:653
 msgid "Last 24 hours"
 msgstr ""
 
-#: ../root/user/UserProfile.js:676
+#: ../root/user/UserProfile.js:677
 msgid "This table shows a summary of votes cast by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:681
+#: ../root/user/UserProfile.js:682
 msgid "Votes ({view_url|view})"
 msgstr ""
 
-#: ../root/user/UserProfile.js:689
+#: ../root/user/UserProfile.js:690
 msgid "Last 28 days"
 msgstr ""
 
-#: ../root/user/UserProfile.js:692
+#: ../root/user/UserProfile.js:693
 msgid "Overall"
 msgstr ""
 
-#: ../root/user/UserProfile.js:740
+#: ../root/user/UserProfile.js:741
 msgid "This table shows a summary of entities added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:746
+#: ../root/user/UserProfile.js:747
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr ""
 
-#: ../root/user/UserProfile.js:749
+#: ../root/user/UserProfile.js:750
 msgid "Added entities"
 msgstr ""
 
-#: ../root/user/UserProfile.js:773
+#: ../root/user/UserProfile.js:774
 msgid "This user has not created any entities."
 msgstr ""
 
-#: ../root/user/UserProfile.js:783
+#: ../root/user/UserProfile.js:784
 msgid "This table shows a summary of secondary data added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:789
+#: ../root/user/UserProfile.js:790
 msgid "Tags and ratings"
 msgstr ""
 
-#: ../root/user/UserProfile.js:796
+#: ../root/user/UserProfile.js:797
 msgid "Tags upvoted"
 msgstr ""
 
-#: ../root/user/UserProfile.js:806
+#: ../root/user/UserProfile.js:807
 msgid "Tags downvoted"
 msgstr ""
 
-#: ../root/user/UserProfile.js:872
+#: ../root/user/UserProfile.js:874
 msgid "Blocked Spam Account"
 msgstr ""
 
-#: ../root/user/UserProfile.js:874
+#: ../root/user/UserProfile.js:876
 msgid ""
 "This user was blocked and their profile is hidden because they were deemed "
 "to be spamming. If you see spam in MusicBrainz, please do let us know by "
 "reporting the spammer from their user page."
 msgstr ""
 
-#: ../root/user/UserProfile.js:905
+#: ../root/user/UserProfile.js:887
+msgid ""
+"This user is marked as a spammer and is blocked for all non-admin users."
+msgstr ""
+
+#: ../root/user/UserProfile.js:916
 msgid "Report this user for bad behavior"
 msgstr ""
 
