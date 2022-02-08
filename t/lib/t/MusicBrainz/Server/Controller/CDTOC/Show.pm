@@ -7,8 +7,8 @@ with 't::Mechanize', 't::Context';
 
 =head2 Test description
 
-This test checks whether the disc ID page displays data about the releases
-the disc ID is attached to.
+This test checks whether the disc ID page displays data about both the disc ID
+itself and the releases the disc ID is attached to.
 
 =cut
 
@@ -24,6 +24,20 @@ test 'Test disc ID page display' => sub {
         'Fetched disc ID page',
     );
     html_ok($mech->content);
+
+    $mech->text_contains(
+        '1 7 171327 150 22179 49905 69318 96240 121186 143398',
+        'The full TOC is displayed',
+    );
+    $mech->text_contains(
+        '5908ea07',
+        'The FreeDB ID for the disc ID is displayed',
+    );
+    $mech->text_contains(
+        'Total tracks:7',
+        'The number of tracks on the disc ID is displayed',
+    );
+
     $mech->content_contains(
         '/release/85455330-cae8-11de-8a39-0800200c9a66',
         'A link to the associated release is present',
