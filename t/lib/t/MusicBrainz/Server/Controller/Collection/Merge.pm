@@ -7,8 +7,9 @@ with 't::Mechanize', 't::Context';
 
 =head2 Test description
 
-This test checks whether collection merges work as intended, and makes sure
-they can't happen in ways that would cause issues (different types, users).
+This test checks whether collection merges work as intended, display the
+expected user warnings, and makes sure merges can't happen in ways
+that would cause issues (different types, users).
 
 =cut
 
@@ -32,6 +33,11 @@ test 'Can merge collections' => sub {
         'Added second collection to merge queue',
     );
 
+    $mech->content_contains(
+        'Some of these collections are public and some are private',
+        'The user is told the privacy settings differ',
+    );
+
     $mech->get_ok('/collection/merge', 'Fetched collection merge page');
     html_ok($mech->content);
     $mech->submit_form_ok(
@@ -46,6 +52,11 @@ test 'Can merge collections' => sub {
     ok(
         $mech->uri =~ qr{/collection/f34c079d-374e-4436-9448-da92dedef3c9},
         'The user is redirected to the destination collection after merging',
+    );
+
+    $mech->text_contains(
+        'Public collection by editor1',
+        'The destination collection is still public',
     );
 
     $mech->content_contains(
@@ -103,10 +114,27 @@ test 'Can only merge collections of the same type' => sub {
         'Added event collection to merge queue',
     );
 
+    $mech->content_contains(
+        'These collections are for different entity types',
+        'The user is told the types differ',
+    );
+
+    my $tx = test_xpath_html($mech->content);
+    $tx->ok(
+        '//div[@id="content"]//button[@disabled]',
+        'The submit button is disabled',
+    );
+
     $mech->submit_form(
         with_fields => {
             'merge.target' => 3,
         }
+    );
+
+    is(
+        $mech->status,
+        500,
+        'Attempting to force a merge anyway returns a 500 error',
     );
 
     $mech->content_contains(
@@ -134,7 +162,6 @@ test 'Can only merge own collections' => sub {
         '/collection/merge_queue?add-to-merge=2',
         q(Tried to add other editor's collection to merge queue),
     );
-
     is(
         $mech->status,
         403,
