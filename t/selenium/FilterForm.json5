@@ -1,0 +1,41 @@
+{
+  title: 'Test filter form',
+  commands: [
+    {
+      command: 'open',
+      target: '/artist/af4c43d3-c0e0-421e-ac64-000329af0435',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "!!document.getElementById('filter')",
+      value: 'false',
+    },
+    {
+      command: 'click',
+      target: 'link=Filter',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "!!document.getElementById('filter')",
+      value: 'true',
+    },
+    {
+      command: 'type',
+      target: 'name=filter.name',
+      value: 'Symphon',
+    },
+    {
+      command: 'click',
+      target: "css=#filter button.submit",
+      value: '',
+    },
+
+    {
+      command: 'assertLocationMatches',
+      target: '/artist/af4c43d3-c0e0-421e-ac64-000329af0435?(?:.*)filter.name=Symphon',
+      value: '',
+    },
+  ],
+}
