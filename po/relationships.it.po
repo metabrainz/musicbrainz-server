@@ -7,17 +7,18 @@
 # Gioele <email address hidden>, 2012
 # theloca95 <email address hidden>, 2015
 # leofiore <email address hidden>, 2012
-# Luca Salini, 2012,2017,2020-2021
-# Luca Salini, 2020
+# salo.rock, 2012,2017,2020-2021
+# salo.rock, 2020
 # Monica <email address hidden>, 2014
 # Nicolás Tamargo <email address hidden>, 2021
-# Luca Salini, 2014
-# Luca Salini, 2012
+# salo.rock, 2014
+# salo.rock, 2012
+# salo.rock, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-11-30 22:52+0000\n"
-"Last-Translator: Luca Salini\n"
+"PO-Revision-Date: 2022-02-08 23:26+0000\n"
+"Last-Translator: salo.rock\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2647,21 +2648,21 @@ msgstr "Questa relazione indica che una persona è stata l'insegnante o lo stude
 msgid ""
 "This relationship indicates the artist is the <a "
 "href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">phonographic"
-" copyright</a> holder for this recording."
-msgstr "Questa relazione indica che l'artista detiene i <a href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">diritti fonografici</a> per questa registrazione."
+" copyright</a> holder for this recording, usually indicated with a ℗ symbol."
+msgstr "Questa relazione indica che l'artista detiene i <a href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">diritti fonografici</a> per questa registrazione, di solito indicati con il simbolo ℗."
 
 #: DB:link_type/description:710
 msgid ""
 "This relationship indicates the artist is the <a "
 "href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">phonographic"
-" copyright</a> holder for this release."
-msgstr "Questa relazione indica che l'artista detiene i <a href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">diritti fonografici</a> per questa pubblicazione."
+" copyright</a> holder for this release, usually indicated with a ℗ symbol."
+msgstr "Questa relazione indica che l'artista detiene i <a href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">diritti fonografici</a> per questa pubblicazione, di solito indicati con il simbolo ℗."
 
 #: DB:link_type/description:709
 msgid ""
 "This relationship indicates the artist is the copyright holder for this "
-"release."
-msgstr "Questa relazione indica che l'artista detiene il copyright per questa pubblicazione."
+"release, usually indicated with a © symbol."
+msgstr "Questa relazione indica che l'artista detiene il copyright per questa pubblicazione, di solito indicato con il simbolo ©."
 
 #: DB:link_type/description:833
 msgid ""
@@ -2679,21 +2680,21 @@ msgstr "Questa relazione indica la società che è stata conceditrice di licenza
 msgid ""
 "This relationship indicates the label is the <a "
 "href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">phonographic"
-" copyright</a> holder for this recording."
-msgstr "Questa relazione indica che l'etichetta detiene i <a href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">diritti fonografici</a> per questa registrazione."
+" copyright</a> holder for this recording, usually indicated with a ℗ symbol."
+msgstr "Questa relazione indica che l'etichetta detiene i <a href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">diritti fonografici</a> per questa registrazione, di solito indicati con il simbolo ℗."
 
 #: DB:link_type/description:711
 msgid ""
 "This relationship indicates the label is the <a "
 "href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">phonographic"
-" copyright</a> holder for this release."
-msgstr "Questa relazione indica che l'etichetta detiene i <a href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">diritti fonografici</a> per questa pubblicazione."
+" copyright</a> holder for this release, usually indicated with a ℗ symbol."
+msgstr "Questa relazione indica che l'etichetta detiene i <a href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">diritti fonografici</a> per questa pubblicazione, di solito indicati con il simbolo ℗."
 
 #: DB:link_type/description:708
 msgid ""
 "This relationship indicates the label is the copyright holder for this "
-"release."
-msgstr "Questa relazione indica che l'etichetta detiene il copyright per questa pubblicazione."
+"release, usually indicated with a © symbol."
+msgstr "Questa relazione indica che l'etichetta detiene il copyright per questa pubblicazione, di solito indicato con il simbolo ©."
 
 #: DB:link_type/description:83
 msgid ""
@@ -3799,8 +3800,8 @@ msgid "copyright"
 msgstr "copyright"
 
 #: DB:link_type/reverse_link_phrase:708 DB:link_type/reverse_link_phrase:709
-msgid "copyrighted by"
-msgstr "copyright detenuto da"
+msgid "copyrighted (©) by"
+msgstr "copyright (©) detenuto da"
 
 #: DB:link_attribute_type/description:8 DB:link_attribute_type/name:8
 msgid "countertenor vocals"
@@ -4587,15 +4588,15 @@ msgstr "sito di storia"
 
 #: DB:link_type/link_phrase:708 DB:link_type/link_phrase:709
 #: DB:link_type/long_link_phrase:708 DB:link_type/long_link_phrase:709
-msgid "holds copyright for"
-msgstr "detiene il copyright per"
+msgid "holds copyright (©) for"
+msgstr "detiene il copyright (©) per"
 
-#: DB:link_type/link_phrase:869 DB:link_type/link_phrase:710
-#: DB:link_type/link_phrase:867 DB:link_type/link_phrase:711
-#: DB:link_type/long_link_phrase:869 DB:link_type/long_link_phrase:710
-#: DB:link_type/long_link_phrase:867 DB:link_type/long_link_phrase:711
-msgid "holds phonographic copyright for"
-msgstr "detiene i diritti fonografici per"
+#: DB:link_type/link_phrase:710 DB:link_type/link_phrase:711
+#: DB:link_type/link_phrase:867 DB:link_type/link_phrase:869
+#: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:711
+#: DB:link_type/long_link_phrase:867 DB:link_type/long_link_phrase:869
+msgid "holds phonographic copyright (℗) for"
+msgstr "detiene i diritti fonografici (℗) per"
 
 #: DB:link_type/name:801
 msgid "host"
@@ -5655,15 +5656,15 @@ msgstr "editore personale di"
 msgid "personal relationship"
 msgstr "relazione personale"
 
-#: DB:link_type/name:869 DB:link_type/name:710 DB:link_type/name:867
-#: DB:link_type/name:711
+#: DB:link_type/name:710 DB:link_type/name:711 DB:link_type/name:867
+#: DB:link_type/name:869
 msgid "phonographic copyright"
 msgstr "diritti fonografici"
 
-#: DB:link_type/reverse_link_phrase:869 DB:link_type/reverse_link_phrase:710
-#: DB:link_type/reverse_link_phrase:867 DB:link_type/reverse_link_phrase:711
-msgid "phonographic copyright by"
-msgstr "diritti fonografici detenuti da"
+#: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:711
+#: DB:link_type/reverse_link_phrase:867 DB:link_type/reverse_link_phrase:869
+msgid "phonographic copyright (℗) by"
+msgstr "diritti fonografici (℗) detenuti da"
 
 #: DB:link_type/name:20 DB:link_type/name:123
 msgid "photography"

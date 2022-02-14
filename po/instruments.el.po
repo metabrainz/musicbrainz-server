@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-01-24 20:52+0000\n"
+"PO-Revision-Date: 2022-02-08 18:20+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -1948,7 +1948,7 @@ msgid "hyoshigi"
 msgstr ""
 
 #: DB:instrument/name:818
-msgctxt "fipple flute from Härjedalen, sweden"
+msgctxt "fipple flute from Härjedalen, Sweden"
 msgid "härjedalspipa"
 msgstr ""
 
