@@ -5,107 +5,159 @@ use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
 with 't::Mechanize', 't::Context';
 
-test all => sub {
+=head2 Test description
 
-my $test = shift;
-my $mech = $test->mech;
-my $c    = $test->c;
+This test checks whether basic artist data is correctly listed on an artist’s
+index (main) page both on the site itself and on the JSON-LD data.
 
-MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
+=cut
 
-$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce', 'fetch artist index page');
-html_ok($mech->content);
-$mech->title_like(qr/Test Artist/, 'title has artist name');
-$mech->content_like(qr/Test Artist/, 'content has artist name');
-$mech->content_like(qr/Artist, Test/, 'content has artist sort name');
-$mech->content_like(qr/Yet Another Test Artist/, 'disambiguation comments');
-$mech->content_like(qr/2008-01-02/, 'has start date');
-$mech->content_like(qr/2009-03-04/, 'has end date');
-$mech->content_like(qr/Person/, 'has artist type');
-$mech->content_like(qr/Male/, 'has gender');
-$mech->content_like(qr/United Kingdom/, 'has area');
-$mech->content_like(qr/Test annotation 1/, 'has annotation');
-$mech->content_like(qr/More annotation/, 'displays the full annotation');
+test 'Basic artist data appears on the index page' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
 
-$mech->content_like(qr/3\.5<\/span>/s);
-$mech->content_like(qr/see all ratings/);
-$mech->content_like(qr/Last updated on 2009-07-09/);
+    MusicBrainz::Server::Test->prepare_test_database(
+        $c,
+        '+controller_artist',
+    );
 
-# Header links
-$mech->content_contains('/artist/745c079d-374e-4436-9448-da92dedef3ce/works', 'link to artist works');
-$mech->content_contains('/artist/745c079d-374e-4436-9448-da92dedef3ce/recordings', 'link to artist recordings');
+    $mech->get_ok(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce',
+        'Fetched the artist index page',
+    );
+    html_ok($mech->content);
+    $mech->title_like(
+        qr/Test Artist/,
+        'The page title contains the artist name',
+    );
+    $mech->content_like(qr/Test Artist/, 'The artist name is listed');
+    $mech->content_like(qr/Artist, Test/, 'The artist sort name is listed');
+    $mech->content_like(
+        qr/Yet Another Test Artist/,
+        'The disambiguation is listed',
+    );
+    $mech->content_like(qr/2008-01-02/, 'The artist start date is listed');
+    $mech->content_like(qr/2009-03-04/, 'The artist end date is listed');
+    $mech->content_like(qr/Person/, 'The artist type is listed');
+    $mech->content_like(qr/Male/, 'The artist gender is listed');
+    $mech->content_like(qr/United Kingdom/, 'The artist area is listed');
+    $mech->content_like(qr/Test annotation 1/, 'The annotation is shown');
+    $mech->content_like(qr/More annotation/, 'The full annotation is shown');
 
-# Basic test for release groups
-$mech->content_like(qr/Test RG 1/, 'release group 1');
-$mech->content_like(qr{/release-group/ecc33260-454c-11de-8a39-0800200c9a66}, 'release group 1');
+    $mech->content_like(qr/3\.5<\/span>/s, 'The artist rating is listed');
+    $mech->content_like(qr/see all ratings/, 'The artist name is listed');
+    $mech->content_like(
+        qr/Last updated on 2009-07-09/,
+        'The last updated date is listed',
+    );
 
-$mech->content_like(qr/Test RG 2/, 'release group 2');
-$mech->content_like(qr{/release-group/7348f3a0-454e-11de-8a39-0800200c9a66}, 'release group 2');
+    # Tab links
+    $mech->content_contains(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce/works',
+        'A link to the works page is present',
+    );
+    $mech->content_contains(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce/recordings',
+        'A link to the recordings page is present',
+    );
 
-page_test_jsonld $mech => {
-    '@type' => ['Person', 'MusicGroup'],
-    'deathDate' => '2009-03-04',
-    'deathPlace' => {
-        'name' => 'United Kingdom',
-        '@type' => 'Country',
-        '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed'
-    },
-    'birthDate' => '2008-01-02',
-    'name' => 'Test Artist',
-    'sameAs' => 'http://musicbrainz.org/artist/089302a3-dda1-4bdf-b996-c2e941b5c41f',
-    'location' => {
-        '@type' => 'Country',
-        '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
-        'name' => 'United Kingdom'
-    },
-    'alternateName' => ['Seekrit Identity'],
-    '@id' => 'http://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
-    '@context' => 'http://schema.org',
-    'birthPlace' => {
-        '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
-        '@type' => 'Country',
-        'name' => 'United Kingdom'
-    },
-    'album' => [
-        {
-            'albumProductionType' => 'http://schema.org/StudioAlbum',
-            '@type' => 'MusicAlbum',
-            '@id' => 'http://musicbrainz.org/release-group/ecc33260-454c-11de-8a39-0800200c9a66',
-            'name' => 'Test RG 1',
-            'creditedTo' => 'Test Artist',
-            'byArtist' => {
-                '@type' => ['Person', 'MusicGroup'],
-                '@id' => 'http://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
-                'name' => 'Test Artist',
-                'sameAs' => 'http://musicbrainz.org/artist/089302a3-dda1-4bdf-b996-c2e941b5c41f',
-            },
-            'albumReleaseType' => 'http://schema.org/AlbumRelease'
-        },
-        {
-            '@type' => 'MusicAlbum',
-            'albumProductionType' => 'http://schema.org/StudioAlbum',
-            '@id' => 'http://musicbrainz.org/release-group/7348f3a0-454e-11de-8a39-0800200c9a66',
-            'name' => 'Test RG 2',
-            'creditedTo' => 'Test Artist',
-            'albumReleaseType' => 'http://schema.org/AlbumRelease',
-            'byArtist' => {
-                'name' => 'Test Artist',
-                '@id' => 'http://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
-                '@type' => ['Person', 'MusicGroup'],
-                'sameAs' => 'http://musicbrainz.org/artist/089302a3-dda1-4bdf-b996-c2e941b5c41f',
-            }
-        }
-    ],
-    'performsAs' => {
-        '@id' => 'http://musicbrainz.org/artist/089302a3-dda1-4bdf-b996-c2e941b5c41f',
-        '@type' => 'MusicGroup',
-        'name' => 'Seekrit Identity',
-    },
+    # Basic test for release groups
+    $mech->content_like(qr/Test RG 1/, 'The first release group is listed');
+    $mech->content_like(
+        qr{/release-group/ecc33260-454c-11de-8a39-0800200c9a66},
+        'There is a link to the first release group',
+    );
+
+    $mech->content_like(qr/Test RG 2/, 'The second release group is listed');
+    $mech->content_like(
+        qr{/release-group/7348f3a0-454e-11de-8a39-0800200c9a66},
+        'There is a link to the secpnd release group',
+    );
+
+    $mech->get('/artist/2775611341');
+    is(
+        $mech->status(),
+        404,
+        'Trying to fetch an artist by DB ID with a too-large integer 404s',
+    );
 };
 
-$mech->get('/artist/2775611341');
-is($mech->status(), 404, 'too-large integer 404s');
+test 'Basic artist data appears on JSON-LD' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
 
+    MusicBrainz::Server::Test->prepare_test_database(
+        $c,
+        '+controller_artist',
+    );
+
+    $mech->get_ok(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce',
+        'Fetched the artist index page',
+    );
+
+    page_test_jsonld $mech => {
+        '@type' => ['Person', 'MusicGroup'],
+        'deathDate' => '2009-03-04',
+        'deathPlace' => {
+            'name' => 'United Kingdom',
+            '@type' => 'Country',
+            '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed'
+        },
+        'birthDate' => '2008-01-02',
+        'name' => 'Test Artist',
+        'sameAs' => 'http://musicbrainz.org/artist/089302a3-dda1-4bdf-b996-c2e941b5c41f',
+        'location' => {
+            '@type' => 'Country',
+            '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
+            'name' => 'United Kingdom'
+        },
+        'alternateName' => ['Seekrit Identity'],
+        '@id' => 'http://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
+        '@context' => 'http://schema.org',
+        'birthPlace' => {
+            '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
+            '@type' => 'Country',
+            'name' => 'United Kingdom'
+        },
+        'album' => [
+            {
+                'albumProductionType' => 'http://schema.org/StudioAlbum',
+                '@type' => 'MusicAlbum',
+                '@id' => 'http://musicbrainz.org/release-group/ecc33260-454c-11de-8a39-0800200c9a66',
+                'name' => 'Test RG 1',
+                'creditedTo' => 'Test Artist',
+                'byArtist' => {
+                    '@type' => ['Person', 'MusicGroup'],
+                    '@id' => 'http://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
+                    'name' => 'Test Artist',
+                    'sameAs' => 'http://musicbrainz.org/artist/089302a3-dda1-4bdf-b996-c2e941b5c41f',
+                },
+                'albumReleaseType' => 'http://schema.org/AlbumRelease'
+            },
+            {
+                '@type' => 'MusicAlbum',
+                'albumProductionType' => 'http://schema.org/StudioAlbum',
+                '@id' => 'http://musicbrainz.org/release-group/7348f3a0-454e-11de-8a39-0800200c9a66',
+                'name' => 'Test RG 2',
+                'creditedTo' => 'Test Artist',
+                'albumReleaseType' => 'http://schema.org/AlbumRelease',
+                'byArtist' => {
+                    'name' => 'Test Artist',
+                    '@id' => 'http://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
+                    '@type' => ['Person', 'MusicGroup'],
+                    'sameAs' => 'http://musicbrainz.org/artist/089302a3-dda1-4bdf-b996-c2e941b5c41f',
+                }
+            }
+        ],
+        'performsAs' => {
+            '@id' => 'http://musicbrainz.org/artist/089302a3-dda1-4bdf-b996-c2e941b5c41f',
+            '@type' => 'MusicGroup',
+            'name' => 'Seekrit Identity',
+        },
+    };
 };
 
 test 'Embedded JSON-LD `member` property' => sub {
@@ -131,7 +183,11 @@ test 'Embedded JSON-LD `member` property' => sub {
             VALUES (2, 229), (3, 125), (4, 229);
         SQL
 
-    $mech->get_ok('/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9');
+    $mech->get_ok(
+        '/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9',
+        'Fetched the group artist index page',
+    );
+
     page_test_jsonld $mech => {
         'name' => 'Group',
         '@type' => 'MusicGroup',
@@ -173,7 +229,11 @@ test 'Embedded JSON-LD `member` property' => sub {
         '@context' => 'http://schema.org'
     };
 
-    $mech->get_ok('/artist/2a62773a-cdbf-44c6-a700-50f931504054');
+    $mech->get_ok(
+        '/artist/2a62773a-cdbf-44c6-a700-50f931504054',
+        'Fetched the person artist index page',
+    );
+
     page_test_jsonld $mech => {
         'name' => 'Person A',
         '@type' => ['Person', 'MusicGroup'],
@@ -214,7 +274,11 @@ test 'Embedded JSON-LD `track` property (for artists with only recordings)' => s
                    (2, '67f09ef6-0704-4841-935c-01c5b247574c', 'R2', 1, 250000);
         SQL
 
-    $mech->get_ok('/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9');
+    $mech->get_ok(
+        '/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9',
+        'Fetched the artist index page',
+    );
+
     page_test_jsonld $mech => {
         'name' => 'Group',
         '@type' => 'MusicGroup',
@@ -257,7 +321,11 @@ test 'Embedded JSON-LD `genre` property' => sub {
             VALUES (1, 3, '2011-01-18 15:21:33.71184+00', 30);
         SQL
 
-    $mech->get_ok('/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9');
+    $mech->get_ok(
+        '/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9',
+        'Fetched the index page for artist with one genre',
+    );
+
     page_test_jsonld $mech => {
         'name' => 'Group',
         '@type' => 'MusicGroup',
@@ -271,7 +339,10 @@ test 'Embedded JSON-LD `genre` property' => sub {
             VALUES (1, 2, '2011-01-18 15:21:33.71184+00', 31);
         SQL
 
-    $mech->get_ok('/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9');
+    $mech->get_ok(
+        '/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9',
+        'Fetched the index page for artist with two genres',
+    );
     page_test_jsonld $mech => {
         'name' => 'Group',
         '@type' => 'MusicGroup',
@@ -291,7 +362,11 @@ test 'Embedded JSON-LD sameAs & performsAs' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+snoop-lion-slash-dogg');
 
-    $mech->get_ok('/artist/960db060-0ba8-4f6c-9770-49b81dc6e5ea');
+    $mech->get_ok(
+        '/artist/960db060-0ba8-4f6c-9770-49b81dc6e5ea',
+        'Fetched the artist index page',
+    );
+
     page_test_jsonld $mech => {
         '@context' => 'http://schema.org',
         '@id' => 'http://musicbrainz.org/artist/960db060-0ba8-4f6c-9770-49b81dc6e5ea',
@@ -333,7 +408,11 @@ test 'Embedded JSON-LD dates & origins for people' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+mozart');
 
-    $mech->get_ok('/artist/b972f589-fb0e-474e-b64a-803b0364fa75');
+    $mech->get_ok(
+        '/artist/b972f589-fb0e-474e-b64a-803b0364fa75',
+        'Fetched the artist index page',
+    );
+
     page_test_jsonld $mech => {
         '@context' => 'http://schema.org',
         '@id' => 'http://musicbrainz.org/artist/b972f589-fb0e-474e-b64a-803b0364fa75',
@@ -381,7 +460,11 @@ test 'Embedded JSON-LD for groups' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+the-beatles');
 
-    $mech->get_ok('/artist/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d');
+    $mech->get_ok(
+        '/artist/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d',
+        'Fetched the artist index page',
+    );
+
     page_test_jsonld $mech => {
         '@context' => 'http://schema.org',
         '@id' => 'http://musicbrainz.org/artist/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d',
@@ -482,6 +565,29 @@ test 'Embedded JSON-LD for groups' => sub {
             'https://www.imdb.com/name/nm1397313/',
             'https://www.last.fm/music/The+Beatles',
         ],
+    };
+};
+
+test 'Embedded JSON-LD for an empty artist' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database(
+        $c,
+        '+controller_artist',
+    );
+
+    $mech->get_ok(
+        '/artist/60e5d080-c964-11de-8a39-0800200c9a66',
+        'Fetched the artist index page',
+    );
+
+    page_test_jsonld $mech => {
+        '@context' => 'http://schema.org',
+        '@type' => 'MusicGroup',
+        '@id' => 'http://musicbrainz.org/artist/60e5d080-c964-11de-8a39-0800200c9a66',
+        'name' => 'Empty Artist'
     };
 };
 

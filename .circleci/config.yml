@@ -50,11 +50,6 @@ jobs:
           sudo -E -H -u musicbrainz ./node_modules/.bin/flow --quiet
           sudo -E -H -u musicbrainz ./node_modules/.bin/eslint --max-warnings 0 .
           rm /etc/service/chrome/down && sv start chrome
-          sudo -E -H -u musicbrainz carton exec -- perl \
-              -I lib \
-              t/js.t \
-              | tee >(./node_modules/.bin/tap-junit > ./junit_output/js.xml) \
-              | ./node_modules/.bin/tap-difflet
           sudo -E -H -u musicbrainz carton exec -- node \
               t/web.js \
               | tee >(./node_modules/.bin/tap-junit > ./junit_output/js_web.xml) \
@@ -75,6 +70,7 @@ jobs:
               --source pgTAP \
               --source Perl \
               -I lib \
+              t/author/* \
               t/critic.t \
               t/pgtap/* \
               t/pgtap/unused-tags/* \

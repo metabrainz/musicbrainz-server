@@ -105,7 +105,6 @@ sub add_alias : Chained('load') PathPart('add-alias') Edit
         on_creation => sub { $self->_redir_to_aliases($c) },
         pre_validation => sub {
             my $form = shift;
-            $props{form} = $form->TO_JSON;
             $props{aliasTypes} = $form->options_type_id;
             $props{locales} = $form->options_locale;
         }
@@ -143,10 +142,6 @@ sub delete_alias : Chained('alias') PathPart('delete') Edit
                 entity => $c->stash->{ $self->{entity_name} }
             },
             on_creation => sub { $self->_redir_to_aliases($c) },
-            pre_validation => sub {
-                my $form = shift;
-                $props{form} = $form->TO_JSON;
-            }
         );
     });
 }
@@ -189,7 +184,6 @@ sub edit_alias : Chained('alias') PathPart('edit') Edit
         on_creation => sub { $self->_redir_to_aliases($c) },
         pre_validation => sub {
             my $form = shift;
-            $props{form} = $form->TO_JSON;
             $props{aliasTypes} = $form->options_type_id;
             $props{locales} = $form->options_locale;
         }

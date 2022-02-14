@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-01-25 13:44+0000\n"
+"PO-Revision-Date: 2022-02-09 11:00+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2400,6 +2400,11 @@ msgstr "Tok Pisin"
 #: DB:language/name:420
 msgid "Tokelau"
 msgstr "Tokelaus"
+
+#. frequency:1 iso_code_3:tok
+#: DB:language/name:7845
+msgid "Toki Pona"
+msgstr "Toki Pona"
 
 #. frequency:1 iso_code_3:tog
 #: DB:language/name:424

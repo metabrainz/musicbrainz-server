@@ -1268,6 +1268,20 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://adp.library.ucsb.edu/index.php/mastertalent/detail/113214/Tapley_Daisy',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://adp.library.ucsb.edu/names/113214',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://adp.library.ucsb.edu/names/109217',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://adp.library.ucsb.edu/names/109217',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'https://adp.library.ucsb.edu/index.php/matrix/refer/2000308570#',
              input_entity_type: 'recording',
     expected_relationship_type: 'otherdatabases',
@@ -2460,6 +2474,19 @@ limited_link_type_combinations: [
                      input_url: 'http://www.lantis.jp/release-item2.php?id=326c88aa1cd230f96ef350e380a23078',
              input_entity_type: 'release',
     expected_relationship_type: 'discographyentry',
+            expected_clean_url: 'https://www.lantis.jp/release-item2.php?id=326c88aa1cd230f96ef350e380a23078',
+  },
+  {
+                     input_url: 'http://lantis.jp/release-item/LACM-14937',
+             input_entity_type: 'release',
+    expected_relationship_type: 'discographyentry',
+            expected_clean_url: 'https://www.lantis.jp/release-item/LACM-14937.html',
+  },
+  {
+                     input_url: 'https://www.lantis.jp/release-item/LACA-15193.html',
+             input_entity_type: 'release',
+    expected_relationship_type: 'discographyentry',
+            expected_clean_url: 'https://www.lantis.jp/release-item/LACA-15193.html',
   },
   // Last.fm
   {
@@ -3844,14 +3871,21 @@ limited_link_type_combinations: [
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://snaccooperative.org/ark:/99166/w6mq170x',
-       only_valid_entity_types: ['artist', 'label'],
+       only_valid_entity_types: ['artist', 'label', 'place'],
   },
   {
                      input_url: 'https://n2t.net/ark:/99166/w6mq170x',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://snaccooperative.org/ark:/99166/w6mq170x',
-       only_valid_entity_types: ['artist', 'label'],
+       only_valid_entity_types: ['artist', 'label', 'place'],
+  },
+  {
+                     input_url: 'https://snaccooperative.org/ark:/99166/w6jh8gmv',
+             input_entity_type: 'place',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://snaccooperative.org/ark:/99166/w6jh8gmv',
+       only_valid_entity_types: ['artist', 'label', 'place'],
   },
   {
                      input_url: 'http://snaccooperative.org/view/14820000',

@@ -4,7 +4,14 @@ use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
 
-test all => sub {
+=head2 Test description
+
+This test checks whether area tagging is working correctly. It checks both
+up- and downvoting, plus withdrawing/removing tags.
+
+=cut
+
+test 'Test area tagging (up/downvoting, withdrawing)' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
@@ -12,7 +19,10 @@ test all => sub {
 
     $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags');
     html_ok($mech->content);
-    $mech->content_contains('Nobody has tagged this yet');
+    $mech->content_contains(
+        'Nobody has tagged this yet',
+        'The "not tagged yet" message is present',
+    );
 
     # Test tagging
     $mech->get_ok('/login');
@@ -21,20 +31,24 @@ test all => sub {
     $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags/upvote?tags=Broken, Fixmeplz');
     $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags');
     html_ok($mech->content);
-    $mech->content_contains('broken');
-    $mech->content_contains('fixmeplz');
+    $mech->content_contains('broken', 'Upvoted tag "broken" is present');
+    $mech->content_contains('fixmeplz', 'Upvoted tag "fixmeplz" is present');
 
     $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags/withdraw?tags=Broken, Fixmeplz');
     $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags');
     html_ok($mech->content);
-    $mech->content_lacks('broken');
-    $mech->content_lacks('fixmeplz');
+    $mech->content_lacks('broken', 'Withdrawn tag "broken" is missing');
+    $mech->content_lacks('fixmeplz', 'Withdrawn tag "fixmeplz" is missing');
 
     $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags/downvote?tags=Broken, Fixmeplz');
     $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags');
     html_ok($mech->content);
-    $mech->content_contains('broken');
-    $mech->content_contains('fixmeplz');
+    $mech->content_contains('broken', 'Downvoted tag "broken" is present');
+    $mech->content_contains(
+        'fixmeplz',
+        'Downvoted tag "fixmeplz" is present',
+    );
+
 };
 
 1;

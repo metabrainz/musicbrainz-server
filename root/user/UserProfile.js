@@ -14,6 +14,7 @@ import UserAccountLayout, {
 } from '../components/UserAccountLayout';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
+import Warning from '../static/scripts/common/components/Warning';
 import {FLUENCY_NAMES} from '../static/scripts/common/constants';
 import {compare} from '../static/scripts/common/i18n';
 import commaList from '../static/scripts/common/i18n/commaList';
@@ -859,7 +860,8 @@ const UserProfile = ({
   votes,
   addedEntities,
 }: UserProfileProps): React.Element<typeof UserAccountLayout> => {
-  const viewingOwnProfile = !!$c.user && $c.user.id === user.id;
+  const viewingOwnProfile = $c.user != null && $c.user.id === user.id;
+  const adminViewing = $c.user != null && isAccountAdmin($c.user);
   const encodedName = encodeURIComponent(user.name);
 
   return (
@@ -867,7 +869,7 @@ const UserProfile = ({
       entity={sanitizedAccountLayoutUser(user)}
       page="index"
     >
-      {isSpammer(user) ? (
+      {isSpammer(user) && !adminViewing ? (
         <>
           <h2>{l('Blocked Spam Account')}</h2>
           <p>
@@ -879,6 +881,15 @@ const UserProfile = ({
         </>
       ) : (
         <>
+          {isSpammer(user) && adminViewing ? (
+            <Warning
+              message={
+                l(`This user is marked as a spammer and is blocked
+                   for all non-admin users.`)
+              }
+            />
+          ) : null}
+
           <UserProfileInformation
             $c={$c}
             applicationCount={applicationCount}

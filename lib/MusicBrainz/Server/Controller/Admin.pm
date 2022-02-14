@@ -160,12 +160,14 @@ sub email_search : Path('/admin/email-search') Args(0) RequireAuth(account_admin
 
     my $form = $c->form(form => 'Admin::EmailSearch');
     my @results;
+    my $searched = 0;
 
     if ($c->form_posted_and_valid($form, $c->req->body_params)) {
         try {
             @results = $c->model('Editor')->search_by_email(
                 $form->field('email')->value // '',
             );
+            $searched = 1;
         } catch {
             my $error = $_;
             if ("$error" =~ m/invalid regular expression/) {
@@ -182,7 +184,7 @@ sub email_search : Path('/admin/email-search') Args(0) RequireAuth(account_admin
         component_path => 'admin/EmailSearch',
         component_props => {
             form => $form->TO_JSON,
-            @results ? (
+            $searched ? (
                 results => [map { $c->unsanitized_editor_json($_) } @results],
             ) : (),
         },

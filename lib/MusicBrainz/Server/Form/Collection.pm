@@ -19,6 +19,13 @@ has_field 'type_id' => (
 
 has_field 'description' => (
     type => 'TextArea',
+    trim => { transform => sub {
+        my $string = shift;
+        # Not trimming starting spaces to avoid breaking list formatting,
+        # consider trimming again once this uses Markdown 
+        $string =~ s/\s+$//;
+        return $string;
+    } },
     required => 0,
     not_nullable => 1,
 );

@@ -26,32 +26,45 @@ around run_test => sub {
 
 with 't::Mechanize', 't::Context';
 
+=head2 Test description
+
+This test checks the artist split function, and whether it removes
+collaboration relationships as intended.
+
+=cut
+
 test 'Split artist remove all collaboration relationships for that artist' => sub {
     my $test = shift;
     my $c = $test->c;
 
     $c->sql->do(<<~'SQL');
-        INSERT INTO link (id, link_type) VALUES (1, 102);
-        INSERT INTO l_artist_artist (id, link, entity0, entity1) VALUES (1, 1, 11, 10);
+        INSERT INTO link (id, link_type)
+             VALUES (1, 102);
+        INSERT INTO l_artist_artist (id, link, entity0, entity1)
+             VALUES (1, 1, 11, 10);
         SQL
 
     my @edits = perform_split($test);
 
-    is(@edits, 2, 'created 2 edit');
+    is(@edits, 2, 'Two edits were created');
 
     my ($edit_ac, $del_rel) = @edits;
 
     isa_ok(
-        $edit_ac, 'MusicBrainz::Server::Edit::Artist::EditArtistCredit',
-        'First edit is an EditArtistCredit edit'
+        $edit_ac,
+        'MusicBrainz::Server::Edit::Artist::EditArtistCredit',
     );
-    is($edit_ac->editor_id, 1, 'edit created by editor #1');
+    is($edit_ac->editor_id, 1, 'The edit AC edit was created by editor #1');
 
     isa_ok(
-        $del_rel, 'MusicBrainz::Server::Edit::Relationship::Delete',
-        'Second edit is a Relationship::Delete edit'
+        $del_rel,
+        'MusicBrainz::Server::Edit::Relationship::Delete',
     );
-    is($del_rel->editor_id, 1, 'edit created by editor #1');
+    is(
+        $del_rel->editor_id,
+        1,
+        'The relationship removal edit was created by editor #1',
+    );
 };
 
 test 'Test splitting an artist' => sub {
@@ -70,41 +83,49 @@ test 'Test splitting an artist' => sub {
 
     my @edits = perform_split($test);
 
-    is(@edits, 1, 'created 1 edit');
+    is(@edits, 1, 'One edit was created');
     isa_ok($edits[0], 'MusicBrainz::Server::Edit::Artist::EditArtistCredit');
 
     my ($edit) = @edits;
-    is_deeply($edit->data->{old}{artist_credit}, {
-        names => [{
-            artist => {
+    is_deeply(
+        $edit->data->{old}{artist_credit},
+        {
+            names => [{
+                artist => {
+                    name => 'Bob & David',
+                    id => 10,
+                },
                 name => 'Bob & David',
-                id => 10,
-            },
-            name => 'Bob & David',
-            join_phrase => ''
-        }]
-    });
+                join_phrase => ''
+            }]
+        },
+        'The edit contains the old artist credit',
+    );
 
-    is_deeply($edit->data->{new}{artist_credit}, {
-        names => [
-            {
-                artist => {
+    is_deeply(
+        $edit->data->{new}{artist_credit},
+        {
+            names => [
+                {
+                    artist => {
+                        name => 'Bob',
+                        id => 11,
+                    },
                     name => 'Bob',
-                    id => 11,
+                    join_phrase => ''
                 },
-                name => 'Bob',
-                join_phrase => ''
-            },
-            {
-                artist => {
+                {
+                    artist => {
+                        name => 'David',
+                        id => 12,
+                    },
                     name => 'David',
-                    id => 12,
+                    join_phrase => ''
                 },
-                name => 'David',
-                join_phrase => ''
-            },
-        ]
-    });
+            ]
+        },
+        'The edit contains the new artist credit',
+    );
 };
 
 sub perform_split {

@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2021-11-29 17:59+0000\n"
+"PO-Revision-Date: 2022-02-08 18:20+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -2649,21 +2649,21 @@ msgstr "Diese Beziehung gibt an, dass eine Person Lehrer/Student einer anderen P
 msgid ""
 "This relationship indicates the artist is the <a "
 "href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">phonographic"
-" copyright</a> holder for this recording."
+" copyright</a> holder for this recording, usually indicated with a ℗ symbol."
 msgstr ""
 
 #: DB:link_type/description:710
 msgid ""
 "This relationship indicates the artist is the <a "
 "href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">phonographic"
-" copyright</a> holder for this release."
+" copyright</a> holder for this release, usually indicated with a ℗ symbol."
 msgstr ""
 
 #: DB:link_type/description:709
 msgid ""
 "This relationship indicates the artist is the copyright holder for this "
-"release."
-msgstr "Diese Beziehung gibt an, dass der Künstler der Inhaber der Urheberrechte für diese Veröffentlichung ist."
+"release, usually indicated with a © symbol."
+msgstr ""
 
 #: DB:link_type/description:833
 msgid ""
@@ -2681,21 +2681,21 @@ msgstr ""
 msgid ""
 "This relationship indicates the label is the <a "
 "href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">phonographic"
-" copyright</a> holder for this recording."
+" copyright</a> holder for this recording, usually indicated with a ℗ symbol."
 msgstr ""
 
 #: DB:link_type/description:711
 msgid ""
 "This relationship indicates the label is the <a "
 "href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">phonographic"
-" copyright</a> holder for this release."
+" copyright</a> holder for this release, usually indicated with a ℗ symbol."
 msgstr ""
 
 #: DB:link_type/description:708
 msgid ""
 "This relationship indicates the label is the copyright holder for this "
-"release."
-msgstr "Diese Beziehung gibt an, dass das Label der Inhaber der Urheberrechte für diese Veröffentlichung ist."
+"release, usually indicated with a © symbol."
+msgstr ""
 
 #: DB:link_type/description:83
 msgid ""
@@ -3801,8 +3801,8 @@ msgid "copyright"
 msgstr "Copyright"
 
 #: DB:link_type/reverse_link_phrase:708 DB:link_type/reverse_link_phrase:709
-msgid "copyrighted by"
-msgstr "urheberrechtlich geschützt von"
+msgid "copyrighted (©) by"
+msgstr ""
 
 #: DB:link_attribute_type/description:8 DB:link_attribute_type/name:8
 msgid "countertenor vocals"
@@ -4589,15 +4589,15 @@ msgstr "Geschichte-Seite"
 
 #: DB:link_type/link_phrase:708 DB:link_type/link_phrase:709
 #: DB:link_type/long_link_phrase:708 DB:link_type/long_link_phrase:709
-msgid "holds copyright for"
-msgstr "hält Urheberrecht an"
+msgid "holds copyright (©) for"
+msgstr ""
 
-#: DB:link_type/link_phrase:869 DB:link_type/link_phrase:710
-#: DB:link_type/link_phrase:867 DB:link_type/link_phrase:711
-#: DB:link_type/long_link_phrase:869 DB:link_type/long_link_phrase:710
-#: DB:link_type/long_link_phrase:867 DB:link_type/long_link_phrase:711
-msgid "holds phonographic copyright for"
-msgstr "hält phonographisches Urheberrecht an"
+#: DB:link_type/link_phrase:710 DB:link_type/link_phrase:711
+#: DB:link_type/link_phrase:867 DB:link_type/link_phrase:869
+#: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:711
+#: DB:link_type/long_link_phrase:867 DB:link_type/long_link_phrase:869
+msgid "holds phonographic copyright (℗) for"
+msgstr ""
 
 #: DB:link_type/name:801
 msgid "host"
@@ -5657,15 +5657,15 @@ msgstr "eigener Verlerger für"
 msgid "personal relationship"
 msgstr "persönliche Beziehung"
 
-#: DB:link_type/name:869 DB:link_type/name:710 DB:link_type/name:867
-#: DB:link_type/name:711
+#: DB:link_type/name:710 DB:link_type/name:711 DB:link_type/name:867
+#: DB:link_type/name:869
 msgid "phonographic copyright"
 msgstr "phonographisches Urheberrecht"
 
-#: DB:link_type/reverse_link_phrase:869 DB:link_type/reverse_link_phrase:710
-#: DB:link_type/reverse_link_phrase:867 DB:link_type/reverse_link_phrase:711
-msgid "phonographic copyright by"
-msgstr "phonographisches Urheberrecht von"
+#: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:711
+#: DB:link_type/reverse_link_phrase:867 DB:link_type/reverse_link_phrase:869
+msgid "phonographic copyright (℗) by"
+msgstr ""
 
 #: DB:link_type/name:20 DB:link_type/name:123
 msgid "photography"
