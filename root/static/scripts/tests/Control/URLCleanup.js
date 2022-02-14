@@ -17,7 +17,7 @@ import {
 
 /*
  * This file tests the cleanups and autoselect / restrictions defined in
- * root/static/scripts/tests/Control/URLCleanup.js
+ * root/static/scripts/edit/URLCleanup.js
  *
  * The main part of the file is the testData object, which contains
  * the expected results for all the tests. The following properties
@@ -38,11 +38,12 @@ import {
  *      and 'limited_link_type_combinations'. Forbidden if none are present.
  *
  * expected_relationship_type:
- *      The relationship type (or types) we expect the URL
- *      to get autoselected to. Either a string, such as 'downloadfree',
+ *      The relationship type (or types) we expect the URL to get
+ *      autoselected to. Either a string, such as 'downloadfree',
  *      or an array of strings, such as ['downloadfree', 'streamingfree'].
  *      Can also be set to undefined if autoselection is not supposed
- *      to happen.
+ *      to happen. Keep in mind that the strings here are the keys from the
+ *      LINK_TYPES constant in URLCLeanup, not the relationship type names.
  *
  *      Optional. If present, 'input_entity_type' is required.
  *
@@ -53,9 +54,16 @@ import {
  *      might be autoselected, while others are just available for selection
  *      to the user. To test for autoselection, also use
  *      'expected_relationship_type' alongside this.
- *      Each of the allowed combinations can be just a string
- *      or an array of strings. For example, a possible value for this
- *      property would be the following:
+ *      Each of the allowed combinations can be just a string, meaning only
+ *      one relationship is selected, or an array of strings, meaning that all
+ *      the options in the array are selected at the same time. Keep in mind
+ *      that having two different string options just means either one or the
+ *      other can be used, and if you want both to be allowed together as well
+ *      you will *also* need an array option. As above, the strings here are
+ *      keys from the LINK_TYPES constant in URLCLeanup,
+ *      not the relationship type names.
+ *      For example, a possible value for this property would be
+ *      the following, allowing 'downloadpurchase', 'streamingpaid' or both:
  *      [
  *        'downloadpurchase',
  *        'streamingpaid',
