@@ -10,6 +10,7 @@ use Readonly;
 use Log::Dispatch;
 my $logger;
 BEGIN {
+    $| = 1; # autoflush stdout
     $logger = Log::Dispatch->new(
         DBDefs->LOGGER_ARGUMENTS,
         callbacks => [\&_prefix_message, \&_truncate_message],
