@@ -40,7 +40,11 @@ sub logger { $logger }
 
 sub _prefix_message {
     my %args = @_;
-    return sprintf '[%s] %s', $args{level}, $args{message};
+    if ($args{level} eq 'info') {
+        return $args{message};
+    } else {
+        return sprintf '[%s] %s', $args{level}, $args{message};
+    }
 }
 
 sub _truncate_message {
