@@ -447,6 +447,17 @@ class Medium {
                 self.release.earliestYear() < mediumFormatDate);
     });
     this.confirmedEarlyFormat = ko.observable(this.hasTooEarlyFormat());
+    this.hasStrangeDigitalPackaging = ko.computed(function () {
+      const isFormatDigital = self.formatID() &&
+                              // "Digital Media"
+                              self.formatID().toString() === '12';
+      return !!(isFormatDigital &&
+                nonEmpty(self.release.packagingID()) &&
+                self.release.packagingID().toString() !== '7'); // "None"
+    });
+    this.confirmedStrangeDigitalPackaging = ko.observable(
+      this.hasStrangeDigitalPackaging(),
+    );
     this.hasUselessMediumTitle = ko.computed(function () {
       return /^(Cassette|CD|Dis[ck]|DVD|SACD|Vinyl)\s*\d+/i.test(self.name());
     });
@@ -511,6 +522,11 @@ class Medium {
 
     this.hasUnconfirmedEarlyFormat = ko.computed(function () {
       return (self.hasTooEarlyFormat() && !self.confirmedEarlyFormat());
+    });
+
+    this.hasUnconfirmedStrangeDigitalPackaging = ko.computed(function () {
+      return (self.hasStrangeDigitalPackaging() &&
+              !self.confirmedStrangeDigitalPackaging());
     });
 
     this.hasUnconfirmedUselessMediumTitle = ko.computed(function () {
@@ -1070,6 +1086,8 @@ class Release extends mbEntity.Release {
     this.hasInvalidFormats = errorField(this.mediums.any('hasInvalidFormat'));
     this.hasUnconfirmedEarlyFormat =
       errorField(this.mediums.any('hasUnconfirmedEarlyFormat'));
+    this.hasUnconfirmedStrangeDigitalPackaging =
+      errorField(this.mediums.any('hasUnconfirmedStrangeDigitalPackaging'));
     this.hasUnconfirmedVariousArtists = errorField(
       this.mediums.any('hasUnconfirmedVariousArtists'),
     );

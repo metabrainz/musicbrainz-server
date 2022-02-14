@@ -375,6 +375,26 @@
       </div>
     <!-- /ko -->
 
+    <!-- ko if: hasStrangeDigitalPackaging -->
+      <div class="warning">
+        [%- warning_icon %]
+        <p>
+          <strong>[% add_colon(l('Warning')) %]</strong>
+          [% l('This medium format is set to “Digital Media”, but the packaging type for this release is not “None”.') %]
+        </p>
+        <p>
+          [% l('This is almost always incorrect. Please make sure whether you actually wanted a different format (such as “USB Flash Drive” or “Music Card”) or packaging type.') %]
+        </p>
+        <label>
+          <input id="confirm-digital-packaging" type="checkbox" data-bind="checked: confirmedStrangeDigitalPackaging" />
+          [% l('I confirm this is a correct medium format/packaging combination.') %]
+        </label>
+        <p class="error field-error" style="padding-left: 1em" data-bind="showErrorWhenTabIsSwitched: hasUnconfirmedStrangeDigitalPackaging">
+          [%~ l('If you’re sure the combination of “Digital Media” and the selected packaging is correct, confirm it above. Otherwise, please fix the data.') %]
+        </p>
+      </div>
+    <!-- /ko -->
+
     <!-- ko if: loading -->
       <div class="tracklist-loading">
         <span class="loading-message">[% l('Now loading tracklist...') %]</span>
