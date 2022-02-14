@@ -1942,6 +1942,11 @@ msgctxt "medium_format"
 msgid "DVD-Audio"
 msgstr ""
 
+#: DB:medium_format/name:92
+msgctxt "medium_format"
+msgid "DVD-R Video"
+msgstr ""
+
 #: DB:medium_format/name:19
 msgctxt "medium_format"
 msgid "DVD-Video"
@@ -2025,6 +2030,16 @@ msgstr ""
 #: DB:medium_format/name:43
 msgctxt "medium_format"
 msgid "Data CD"
+msgstr ""
+
+#: DB:medium_format/name:94
+msgctxt "medium_format"
+msgid "Data DVD"
+msgstr ""
+
+#: DB:medium_format/name:93
+msgctxt "medium_format"
+msgid "Data DVD-R"
 msgstr ""
 
 #: DB:release_group_secondary_type/name:10
