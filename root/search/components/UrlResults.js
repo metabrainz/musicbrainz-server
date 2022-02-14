@@ -30,6 +30,8 @@ React.Element<typeof ResultsLayout> => {
         columnName: 'url',
         getContent: result => result.entity?.name ?? '',
         getHref: result => result.entity?.name ?? '',
+        rel: 'noopener noreferrer',
+        target: '_blank',
         title: l('URL'),
       });
       const urlEntityColumn = defineLinkColumn<SearchResultT<UrlT>>({

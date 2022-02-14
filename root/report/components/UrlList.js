@@ -43,6 +43,8 @@ const UrlList = <D: {+url: ?UrlT, ...}>({
         columnName: 'url',
         getContent: result => result.url?.name ?? '',
         getHref: result => result.url?.name ?? '',
+        rel: 'noopener noreferrer',
+        target: '_blank',
         title: l('URL'),
       });
       const urlEntityColumn = defineLinkColumn<D>({
