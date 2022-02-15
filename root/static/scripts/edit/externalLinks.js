@@ -1213,7 +1213,7 @@ export class ExternalLink extends React.Component<LinkProps> {
           <td className="link-actions">
             {notEmpty ? (
               <RemoveButton
-                data-index={props.index}
+                dataIndex={props.index}
                 onClick={() => props.onUrlRemove()}
                 title={l('Remove Link')}
               />
