@@ -39,7 +39,6 @@ rules:
   react/no-access-state-in-setstate: error
   react/no-multi-comp: [warn, {ignoreStateless: true}]
   react/no-render-return-value: warn
-  react/prefer-stateless-function: warn
   react/jsx-no-bind: [warn, {ignoreDOMComponents: true}]
   flowtype/no-types-missing-file-annotation: error
   flowtype/no-weak-types: warn
