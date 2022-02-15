@@ -167,7 +167,7 @@ class VoteButtons extends React.Component<VoteButtonsProps> {
   }
 }
 
-type TagRowProps = {
+type TagRowPropsT = {
   $c: CatalystContextT,
   callback: (VoteT) => void,
   count: number,
@@ -176,18 +176,24 @@ type TagRowProps = {
   tag: TagT,
 };
 
-class TagRow extends React.Component<TagRowProps> {
-  render() {
-    const {tag, index} = this.props;
-
-    return (
-      <li className={loopParity(index)} key={tag.name}>
-        <TagLink tag={tag.name} />
-        <VoteButtons {...this.props} />
-      </li>
-    );
-  }
-}
+const TagRow = ({
+  $c,
+  callback,
+  count,
+  currentVote,
+  index,
+  tag,
+}: TagRowPropsT): React.Element<'li'> => (
+  <li className={loopParity(index)} key={tag.name}>
+    <TagLink tag={tag.name} />
+    <VoteButtons
+      $c={$c}
+      callback={callback}
+      count={count}
+      currentVote={currentVote}
+    />
+  </li>
+);
 
 type TagEditorProps = {
   +$c: CatalystContextT,
