@@ -71,68 +71,78 @@ function splitTags(tags) {
 
 type VoteT = 1 | 0 | -1;
 
-type VoteButtonProps = {
-  activeTitle: string | () => string,
+type GenericVoteButtonPropsT = {
   callback: (VoteT) => void,
   currentVote: VoteT,
+};
+
+type VoteButtonPropsT = {
+  ...GenericVoteButtonPropsT,
+  activeTitle: string | () => string,
   text: string,
   title: string | () => string,
   vote: VoteT,
-  ...
 };
 
-class VoteButton extends React.Component<VoteButtonProps> {
-  render() {
-    const {
-      activeTitle,
-      callback,
-      currentVote,
-      text,
-      title,
-      vote,
-    } = this.props;
-    const isActive = vote === currentVote;
-    const className = 'tag-vote tag-' + VOTE_ACTIONS[vote];
-    const buttonTitle = isActive
-      ? unwrapNl(activeTitle)
-      : (currentVote === 0 ? unwrapNl(title) : l('Withdraw vote'));
+const VoteButton = ({
+  activeTitle,
+  callback,
+  currentVote,
+  text,
+  title,
+  vote,
+}: VoteButtonPropsT): React.Element<'button'> => {
+  const isActive = vote === currentVote;
+  const className = 'tag-vote tag-' + VOTE_ACTIONS[vote];
+  const buttonTitle = isActive
+    ? unwrapNl(activeTitle)
+    : (currentVote === 0 ? unwrapNl(title) : l('Withdraw vote'));
 
-    return (
-      <button
-        className={className}
-        disabled={isActive}
-        onClick={isActive
-          ? null
-          : ((...args) => callback(
-            currentVote === 0 ? vote : 0,
-            ...args,
-          ))}
-        title={buttonTitle}
-        type="button"
-      >
-        {text}
-      </button>
-    );
-  }
-}
+  return (
+    <button
+      className={className}
+      disabled={isActive}
+      onClick={isActive
+        ? null
+        : ((...args) => callback(
+          currentVote === 0 ? vote : 0,
+          ...args,
+        ))}
+      title={buttonTitle}
+      type="button"
+    >
+      {text}
+    </button>
+  );
+};
 
-class UpvoteButton extends VoteButton {
-  static defaultProps = {
-    activeTitle: N_l('You’ve upvoted this tag'),
-    text: '+',
-    title: N_l('Upvote'),
-    vote: 1,
-  }
-}
+const UpvoteButton = ({
+  callback,
+  currentVote,
+}: GenericVoteButtonPropsT): React.Element<typeof VoteButton> => (
+  <VoteButton
+    activeTitle={l('You’ve upvoted this tag')}
+    callback={callback}
+    currentVote={currentVote}
+    text="+"
+    title={l('Upvote')}
+    vote={1}
+  />
+);
 
-class DownvoteButton extends VoteButton {
-  static defaultProps = {
-    activeTitle: N_l('You’ve downvoted this tag'),
-    text: '\u2212',
-    title: N_l('Downvote'),
-    vote: -1,
-  }
-}
+const DownvoteButton = ({
+  callback,
+  currentVote,
+}: GenericVoteButtonPropsT): React.Element<typeof VoteButton> => (
+  <VoteButton
+    activeTitle={l('You’ve downvoted this tag')}
+    callback={callback}
+    currentVote={currentVote}
+    text={'\u2212'}
+    title={l('Downvote')}
+    vote={-1}
+  />
+);
 
 type VoteButtonsPropsT = {
   $c: CatalystContextT,
