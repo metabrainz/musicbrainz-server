@@ -134,38 +134,39 @@ class DownvoteButton extends VoteButton {
   }
 }
 
-type VoteButtonsProps = {
+type VoteButtonsPropsT = {
   $c: CatalystContextT,
   callback: (VoteT) => void,
   count: number,
   currentVote: VoteT,
-  ...
 };
 
-class VoteButtons extends React.Component<VoteButtonsProps> {
-  render() {
-    const currentVote = this.props.currentVote;
-    let className = '';
+const VoteButtons = ({
+  $c,
+  callback,
+  count,
+  currentVote,
+}: VoteButtonsPropsT): React.Element<'span'> => {
+  let className = '';
 
-    if (currentVote === 1) {
-      className = ' tag-upvoted';
-    } else if (currentVote === -1) {
-      className = ' tag-downvoted';
-    }
-
-    return (
-      <span className={'tag-vote-buttons' + className}>
-        {this.props.$c.user?.has_confirmed_email_address ? (
-          <>
-            <UpvoteButton {...this.props} />
-            <DownvoteButton {...this.props} />
-          </>
-        ) : null}
-        <span className="tag-count">{this.props.count}</span>
-      </span>
-    );
+  if (currentVote === 1) {
+    className = ' tag-upvoted';
+  } else if (currentVote === -1) {
+    className = ' tag-downvoted';
   }
-}
+
+  return (
+    <span className={'tag-vote-buttons' + className}>
+      {$c.user?.has_confirmed_email_address ? (
+        <>
+          <UpvoteButton callback={callback} currentVote={currentVote} />
+          <DownvoteButton callback={callback} currentVote={currentVote} />
+        </>
+      ) : null}
+      <span className="tag-count">{count}</span>
+    </span>
+  );
+};
 
 type TagRowPropsT = {
   $c: CatalystContextT,
