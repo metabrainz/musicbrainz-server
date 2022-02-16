@@ -4912,13 +4912,19 @@ const CLEANUPS: CleanupEntries = {
       url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com(?:\/#)?/, 'https://www.youtube.com');
       // YouTube /c/ user channels (/c/ is unneeded)
       url = url.replace(/^https:\/\/www\.youtube\.com\/c\//, 'https://www.youtube.com/');
+      // Drop channel subsections (/user or /channel version)
+      url = url.replace(/\/(channel|user)\/([^\/?#]+).*$/, '/$1/$2');
+      // Drop channel subsections (channel name only version)
+      url = url.replace(
+        /^https:\/\/www\.youtube\.com\/([a-zA-Z0-9_-]+)\/(?:about|channels|community|featured|playlists|videos)(?:[\/?&#].*)?$/,
+        'https://www.youtube.com/$1',
+      );
       // YouTube URL shortener
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtu\.be\/([a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?v=$1');
       // YouTube standard watch URL
       url = url.replace(/^https:\/\/www\.youtube\.com\/.*[?&](v=[a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?$1');
       // YouTube embeds
       url = url.replace(/^https:\/\/www\.youtube\.com\/(?:embed|v)\/([a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?v=$1');
-      url = url.replace(/\/user\/([^\/?#]+).*$/, '/user/$1');
       return url;
     },
     validate: function (url, id) {
