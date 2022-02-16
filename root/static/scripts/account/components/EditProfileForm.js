@@ -68,6 +68,7 @@ const genderOptions = {
   options: [
     {label: N_lp_attributes('Male', 'gender'), value: 1},
     {label: N_lp_attributes('Female', 'gender'), value: 2},
+    {label: N_lp_attributes('Non-binary', 'gender'), value: 5},
     {label: N_lp_attributes('Other', 'gender'), value: 3},
   ],
 };
