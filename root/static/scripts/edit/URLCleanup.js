@@ -4246,6 +4246,30 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'tiktok': {
+    match: [new RegExp('^(https?://)?(www\\.)?tiktok\\.com', 'i')],
+    restrict: [LINK_TYPES.socialnetwork],
+    clean: function (url) {
+      return url.replace(
+        /^(?:https?:\/\/)(?:www\.)?tiktok\.com\/@([\w.]+)(?:[\/?&#].*)?$/,
+        'https://www.tiktok.com/@$1',
+      );
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.tiktok\.com\/@[\w.]+$/.exec(url);
+      if (m) {
+        switch (id) {
+          case LINK_TYPES.socialnetwork.artist:
+          case LINK_TYPES.socialnetwork.label:
+          case LINK_TYPES.socialnetwork.place:
+          case LINK_TYPES.socialnetwork.series:
+            return {result: true};
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'tipeee': {
     match: [new RegExp('^(https?://)?(?:[^/]+\\.)?tipeee\\.com/[^/?#]', 'i')],
     restrict: [LINK_TYPES.patronage],

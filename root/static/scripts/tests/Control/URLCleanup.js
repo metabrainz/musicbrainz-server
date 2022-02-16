@@ -4284,6 +4284,21 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://tidal.com/album/58294001',
        only_valid_entity_types: ['release'],
   },
+  // TikTok
+  {
+                     input_url: 'http://tiktok.com/@otterchaosuk?is_copy_url=1&is_from_webapp=v1&q=sherzod%20ergashev%20cat&t=1640552004120',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.tiktok.com/@otterchaosuk',
+       only_valid_entity_types: ['artist', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.tiktok.com/@officialrandl',
+             input_entity_type: 'series',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.tiktok.com/@officialrandl',
+       only_valid_entity_types: ['artist', 'label', 'place', 'series'],
+  },
   // Tipeee
   {
                      input_url: 'https://www.tipeee.com/example/news',
