@@ -1,4 +1,5 @@
 /*
+ * @flow strict
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -8,18 +9,24 @@
 
 import * as React from 'react';
 
-class RemoveButton extends React.Component {
-  render() {
-    return (
-      <button
-        className="nobutton icon remove-item"
-        data-index={this.props['data-index']}
-        onClick={this.props.onClick}
-        title={this.props.title}
-        type="button"
-      />
-    );
-  }
-}
+type PropsT = {
+  dataIndex?: number,
+  onClick: (event: SyntheticEvent<HTMLInputElement>) => void,
+  title: string,
+};
+
+const RemoveButton = ({
+  dataIndex,
+  onClick,
+  title,
+}: PropsT): React.Element<'button'> => (
+  <button
+    className="nobutton icon remove-item"
+    data-index={dataIndex}
+    onClick={onClick}
+    title={title}
+    type="button"
+  />
+);
 
 export default RemoveButton;

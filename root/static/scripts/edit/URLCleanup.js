@@ -1641,11 +1641,6 @@ const CLEANUPS: CleanupEntries = {
         'i',
       ),
       new RegExp(
-        '^(https?://)?(www\\.)?lantis\\.jp/release-item2\\.php\\?' +
-        'id=[0-9a-f]{32}$',
-        'i',
-      ),
-      new RegExp(
         '^(https?://)?(www\\.)?jvcmusic\\.co\\.jp/' +
         '[a-z-]+/Discography/[A0-9-]+/[A-Z]{4}-[0-9]+\\.html$',
         'i',
@@ -2592,6 +2587,26 @@ const CLEANUPS: CleanupEntries = {
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
       }
       return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'lantis': {
+    match: [
+      new RegExp(
+        '^(https?://)?(www\\.)?lantis\\.jp/release-item2\\.php\\?' +
+        'id=[0-9a-f]{32}$',
+        'i',
+      ),
+      new RegExp(
+        '^(https?://)?(www\\.)?lantis\\.jp/release-item/' +
+        '[A-Z]+-\\d+(\\.html)?$',
+        'i',
+      ),
+    ],
+    restrict: [LINK_TYPES.discographyentry],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?lantis\.jp\//, 'https://www.lantis.jp/');
+      url = url.replace(/^(https:\/\/www\.lantis\.jp)\/release-item\/([A-Z]+-\d+)$/, '$1/release-item/$2.html');
+      return url;
     },
   },
   'lastfm': {

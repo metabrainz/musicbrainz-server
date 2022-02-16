@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-01-25 13:47+0000\n"
+"PO-Revision-Date: 2022-02-10 10:18+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -132,7 +132,7 @@ msgid ""
 "</ul>\n"
 "\n"
 "<p>Compilation should be used in addition to, not instead of, other types: for example, a various artists soundtrack using pre-released music should be marked as both a soundtrack and a compilation.</p>"
-msgstr ""
+msgstr "<p>Wat de databank van MusicBrainz betreft, worden met compilatie de volgende soorten uitgaven bedoeld:</p>\n\n<ul>\n<li>Een verzameling opnamen afkomstig uit verschillende oude bronnen (die hoeven niet per se eerder te zijn uitgebracht). Bijvoorbeeld iemands ‘grootste hits’, een terugblik of verzameling zeldzame opnames.</li>\n<li>Een verzameling nummers van verschillende artiesten, meestal rond een bepaald thema (“Songs for Lovers”), een bepaalde periode (“De hits van 1998”) of een bepaalde serie (“Café del Mar”).\n</li>\n</ul>\n\n<p>De volgende soorten uitgaven zijn in MusicBrainz geen compilaties:</p>\n\n<ul>\n<li>Een heruitgave, zelfs als er bonusnummers op staan.</li>\n<li>Een hommage-uitgave met covers door een andere artiest.</li>\n<li>Een klassieke uitgave met nieuwe opnames van composities een componist.</li>\n<li>Een gedeelde uitgave met nieuwe muziek van verschillende artiesten.</li>\n</ul>\n\n<p>Compilatie kan samen met andere types worden gebruikt. Een soundtrack met eerder uitgebrachte opnames van verschillende artiesten moet zowel het type ‘compilatie’ als het type ‘soundtrack’ hebben.</p>"
 
 #: DB:release_group_primary_type/description:2
 msgctxt "release_group_primary_type"
@@ -146,7 +146,7 @@ msgid ""
 "</ul>\n"
 "\n"
 "<p>There are other variations of the single called a \"split single\" where songs by two different artists are released on the one disc, typically vinyl.</p>"
-msgstr ""
+msgstr "<p>De definitie van een single kan afhankelijk zijn van de markt waarvoor hij is bedoeld.</p>\n\n<ul>\n<li>In de VS staat er op een single meestal één hoofdnummer, met mogelijk een aantal extra nummers of remixes van het hoofdnummer. De single is meestal genoemd naar het hoofdnummer. De single wordt vooral uitgegeven om op de radio te worden gedraaid en de verkoop van het album te stimuleren.</li>\n<li>In het Verenigd Koninkrijk, Europa en Australië zijn singles vergelijkbaar met de VS, maar worden singles soms ook als een set van twee afzonderlijke singles verkocht. Ook is er vaak een langere versie van de single die soms een “maxi-single” wordt genoemd.</li>\n<li>De Japanse markt draait veel meer om singles. De belangrijkste onderscheidende factor is over het algemeen de duur van de single en de verkoopprijs. Tot 1995 werden deze singles vaak op minicd (een kleiner schijfje van meestal 8 cm) uitgebracht. In 1995 werd de 8cm-cd uitgefaseerd en werden normale cd’s van 12 cm voor singles gebruikelijker. Ook als singles die ooit op 8 cm zijn uitgebracht nu opnieuw worden uitgebracht, is dat meestal op een 12cm-cd. Japanse singles hebben vaak instrumentale versies van de nummers, en er worden ook maxi-singles verkocht. Deze maxi-singles kunnen meer nummers dan een EP hebben, maar omdat het alternatieve versies van dezelfde twee of drie nummers is, worden ze toch als single geclassificeerd.</li>\n</ul>\n\n<p>Er zijn ook andere ‘gedeelde singles’ met nummers van twee verschillende artiesten die op één medium (meestal vinyl) worden uitgebracht.</p>"
 
 #: DB:release_group_secondary_type/description:8
 msgctxt "release_group_secondary_type"
@@ -156,7 +156,7 @@ msgid ""
 "music. A DJ-mix release requires that the recordings be modified in some "
 "manner, and the DJ who does this modification is usually (although not "
 "always) credited in a fairly prominent way."
-msgstr ""
+msgstr "Een dj-mix bestaat uit een aantal opnames die zijn aangepast om in elkaar over te vloeien, zodat ze als één continu stuk muziek klinken. Voor een dj-mix moeten de opnamen worden aangepast, en de dj die dit doet wordt meestal (maar niet altijd) prominent op de uitgave genoemd."
 
 #: DB:work_attribute_type_allowed_value/value:794
 msgctxt "work_attribute_type_allowed_value"
@@ -337,7 +337,7 @@ msgid ""
 "A promotional release mostly meant to have limited circulation and "
 "demonstrate the sound of an artist to record labels, publishers and other "
 "artists."
-msgstr ""
+msgstr "Een promotie-uitgave heeft meestal een beperkte oplage en is bedoeld om de muziek van de artiest bij platenmaatschappijen, uitgevers en andere artiesten onder de aandacht te brengen."
 
 #: DB:work_type/description:14
 msgctxt "work_type"
@@ -353,14 +353,14 @@ msgstr "Een terugkerend festival dat meestal jaarlijks op dezelfde plek wordt ge
 #: DB:release_group_secondary_type/description:7
 msgctxt "release_group_secondary_type"
 msgid "A release that primarily contains remixed material."
-msgstr ""
+msgstr "Een uitgave met vooral geremixte materialen."
 
 #: DB:release_group_secondary_type/description:6
 msgctxt "release_group_secondary_type"
 msgid ""
 "A release that was recorded live. Generally this means \"with an audience\","
 " be it in person, through the radio or in another similar way."
-msgstr ""
+msgstr "Een uitgave die live is opgenomen. Meestal betekent dit ‘met publiek’ zowel fysiek aanwezig als mensen die via de radio of anderszins tijdens de uitvoering luisteren."
 
 #: DB:place_type/description:7
 msgctxt "place_type"
@@ -455,7 +455,7 @@ msgid ""
 "game, or other medium. Video game CDs with audio tracks should be classified"
 " as soundtracks because the musical properties of the CDs are more "
 "interesting to MusicBrainz than their data properties."
-msgstr ""
+msgstr "Een soundtrack is de muziek voor een film, tv-serie, theatervoorstelling, computerspel of een ander medium. Cd’s van computerspellen met audionummers moeten als soundtracks worden ingevoerd, omdat de muzikale eigenschappen van de cd’s voor MusicBrainz interessanter zijn dan de data."
 
 #: DB:instrument_type/description:6
 msgctxt "instrument_type"
@@ -724,7 +724,7 @@ msgid ""
 " EP, in other words the tracks don't come from a previously issued release. "
 "EP is fairly difficult to define; usually it should only be assumed that a "
 "release is an EP if the artist defines it as such."
-msgstr ""
+msgstr "Een EP, wat staat voor ‘extended play’ (langere speelduur) is een uitgave die meestal qua duur tussen een single en een album inzit. Vaak staat “EP” in de titel. De nummers op een EP zijn meestal nieuw, dat wil zeggen, niet eerder uitgebracht (in tegenstelling tot een single, die meestal van een album afkomstig is). Wat een EP is, is vaak moeilijk vast te stellen; meestal kan je er alleen vanuit gaan dat een uitgave een EP is als de artiest het een EP noemt."
 
 #: DB:release_group_primary_type/description:1
 msgctxt "release_group_primary_type"
@@ -732,7 +732,7 @@ msgid ""
 "An album, perhaps better defined as a \"Long Play\" (LP) release, generally "
 "consists of previously unreleased material (unless this type is combined "
 "with secondary types which change that, such as \"Compilation\")."
-msgstr ""
+msgstr "Een album, ook een lp (‘long play’ of langspeelplaat) genoemd, bestaat meestal uit niet eerder uitgegeven materiaal (tenzij het type wordt gecombineerd met secundaire types zoals ‘compilatie’)."
 
 #: DB:release_status/description:4
 msgctxt "release_status"
@@ -763,19 +763,19 @@ msgid ""
 "An audio drama is an audio-only performance of a play (often, but not "
 "always, meant for radio). Unlike audiobooks, it usually has multiple "
 "performers rather than a main narrator."
-msgstr ""
+msgstr "Een hoorspel is een uitvoering van een toneelstuk met alleen audio (vaak, maar niet altijd, bedoeld voor de radio). In tegenstelling tot luisterboeken zijn er vaak meer mensen te horen dan alleen een verteller."
 
 #: DB:release_group_secondary_type/description:5
 msgctxt "release_group_secondary_type"
 msgid "An audiobook is a book read by a narrator without music."
-msgstr ""
+msgstr "Een luisterboek is een boek dat zonder muzikale begeleiding wordt voorgelezen."
 
 #: DB:release_group_primary_type/description:12
 msgctxt "release_group_primary_type"
 msgid ""
 "An episodic release that was originally broadcast via radio, television, or "
 "the Internet, including podcasts."
-msgstr ""
+msgstr "Een uitzending is een aflevering die oorspronkelijk via radio, televisie of het internet (zoals een podcast) is uitgezonden."
 
 #: DB:event_type/description:2
 msgctxt "event_type"
@@ -794,7 +794,7 @@ msgstr "Een individueel concert van een enkele artiest of samenwerkende artieste
 #: DB:release_group_secondary_type/description:4
 msgctxt "release_group_secondary_type"
 msgid "An interview release contains an interview, generally with an artist."
-msgstr ""
+msgstr "Een interviewuitgave bevat een interview, meestal met een artiest."
 
 #: DB:work_type/description:10
 msgctxt "work_type"
@@ -854,7 +854,7 @@ msgctxt "release_group_primary_type"
 msgid ""
 "Any release that does not fit or can't decisively be placed in any of the "
 "other categories."
-msgstr ""
+msgstr "Elke uitgave die niet (met genoeg zekerheid) in een van de andere categorieën past."
 
 #: DB:work_attribute_type_allowed_value/value:311
 msgctxt "work_attribute_type_allowed_value"
@@ -4577,7 +4577,7 @@ msgstr "Masterclass/Clinic"
 #: DB:cover_art_archive.art_type/name:15
 msgctxt "cover_art_type"
 msgid "Matrix/Runout"
-msgstr "Matrix/uitloopgroef"
+msgstr "matrix/uitloopgroef"
 
 #: DB:work_attribute_type_allowed_value/value:449
 msgctxt "work_attribute_type_allowed_value"
@@ -5685,7 +5685,7 @@ msgid ""
 "production or original vocals over top of other artists' instrumentals. They"
 " are distinct from demos in that they are designed for release directly to "
 "the public and fans; not to labels."
-msgstr ""
+msgstr "Mixtapes zijn bedoeld voor promotie (maar zijn niet per se gratis). Ze worden vaak uitgebracht om nieuwe artiesten bekendheid te geven of als reclame voor studioalbums van prominente artiesten. Ze worden soms ook uitgegeven om fans die wachten op een nieuw studioalbum betrokken te houden. Mixtapes worden vaak door rappers uitgebracht.\nMixtapes zijn vaak niet door de platenmaatschappij van de artiest goedgekeurd, er is vaak geen toestemming voor gebruikte samples en de productie- en opnamekwaliteit is vaak minder. Hoewel mixtapes vaak door een dj worden gemixt, zijn ze niet hetzelfde als commerciële dj-mixes (meestal zijn dat compilaties) en bevatten ze vaak veel nieuw materiaal, waaronder originele producties en nieuwe vocalen voor instrumentale versies van nummers van andere artiesten. Het verschil met demo’s is dat ze voor het grote publiek en fans worden uitgebracht in plaats van voor platenmaatschappijen."
 
 #: DB:work_type/name:23
 msgctxt "work_type"

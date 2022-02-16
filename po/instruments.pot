@@ -1940,7 +1940,7 @@ msgid "hyoshigi"
 msgstr ""
 
 #: DB:instrument/name:818
-msgctxt "fipple flute from Härjedalen, sweden"
+msgctxt "fipple flute from Härjedalen, Sweden"
 msgid "härjedalspipa"
 msgstr ""
 
