@@ -45,8 +45,8 @@ my $sql = $test->c->sql;
 $sql->begin;
 
 my $new_gender = $gender_data->insert({
-	name => 'Unknown',
-	gid => '181c0bf5-da60-37b0-95f8-2207a3f7f9d6',
+  name => 'Unknown',
+  gid => '181c0bf5-da60-37b0-95f8-2207a3f7f9d6',
 });
 ok(defined $new_gender, 'should return instantiated object');
 isa_ok($new_gender, 'MusicBrainz::Server::Entity::Gender');

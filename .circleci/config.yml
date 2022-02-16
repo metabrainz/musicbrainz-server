@@ -70,6 +70,7 @@ jobs:
               --source pgTAP \
               --source Perl \
               -I lib \
+              t/author/* \
               t/critic.t \
               t/pgtap/* \
               t/pgtap/unused-tags/* \

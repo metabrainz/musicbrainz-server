@@ -7,7 +7,6 @@ use Hook::LexWrap;
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::ArtistType;
 use MusicBrainz::Server::Entity::ArtistAlias;
-use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $VARTIST_GID );
 

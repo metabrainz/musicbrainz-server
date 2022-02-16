@@ -977,9 +977,7 @@ class Release extends mbEntity.Release {
     this.packagingID = ko.observable(data.packagingID);
     this.barcode = new Barcode(data.barcode);
     this.comment = ko.observable(data.comment);
-    const annotationText = data.latest_annotation
-      ? data.latest_annotation.text
-      : '';
+    const annotationText = data.latest_annotation?.text ?? '';
     this.annotation = ko.observable(annotationText);
     this.annotation.original = ko.observable(annotationText);
 

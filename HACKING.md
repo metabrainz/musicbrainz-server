@@ -166,7 +166,7 @@ To ensure all types are correct after making a change, run Flow:
     $ ./node_modules/.bin/flow
 
 Global type declarations available to all files are found in
-[root/types.js](root/types.js) and [root/vars.js](root/vars.js).
+[the root/types folder](root/types) and [root/vars.js](root/vars.js).
 The latter is for functions and variables that are auto-imported by
 Webpack's [ProvidePlugin](webpack/providePluginConfig.js).
 
@@ -221,6 +221,9 @@ command line like so:
 If you want to run specific tests under ./t/selenium/, you can specify the
 paths to them as arguments. t/selenium.js also accepts some command line flags
 which are useful for debugging and development; see `./t/selenium.js --help`.
+For example, you might want to use `-h=false -s=true` to run non-headlessly
+and leave it open when it errors, to actually see what the tests are doing and
+what the site looks like at the time.
 
 The `.html` files located under ./t/selenium/ describe the tests being run,
 and were created using the Selenium IDE plugin for Firefox. You can easily
@@ -262,6 +265,17 @@ these can be found
 but in most cases you can copy rules as-is from .eslintrc.yaml, since the YAML
 syntax is very similar.
 
+A second YAML file, [.eslintrc.unfixed.yaml](.eslintrc.unfixed.yaml), lists rules
+we want to follow but we don't yet enforce. We also have a script to check a file
+or directory against all of these rules,
+[script/check_unfixed_eslint_rules](script/check_unfixed_eslint_rules):
+
+    $ ./script/check_unfixed_eslint_rules $file_or_directory
+
+You can also check these unfixed rules one by one with `check_eslint_rule`
+as indicated above.
+
+
 Reports
 -------
 
@@ -288,11 +302,13 @@ specify its name in an argument:
 
 ### Adding a new report
 
- 1. Create new module in */lib/MusicBrainz/Server/Report/*.
- 2. Add created module into [ReportFactory.pm](https://github.com/metabrainz/musicbrainz-server/blob/master/lib/MusicBrainz/Server/ReportFactory.pm).
+ 1. Create new module in `lib/MusicBrainz/Server/Report/`.
+ 2. Add created module into [ReportFactory.pm](https://github.com/metabrainz/musicbrainz-server/blob/master/lib/MusicBrainz/Server/ReportFactory.pm)
    file (add into `@all` list and import module itself there).
- 3. Create a new template for your report in *root/report/*.
- 4. Add a link to report page in *root/report/index.tt* template.
+ 3. Create a new template for your report in `root/report/`. Follow the
+   existing examples, and remember if you need columns not on the default
+   lists you can pass them with parameters `columnsBefore` and `columnsAfter`.
+ 4. Add a new `ReportsIndexEntry` in `root/report/ReportsIndex.js`.
 
 Porting TT to React
 -------------------
@@ -313,10 +329,12 @@ to React/JSX:
  * All components must be type-annotated. We use Flow for static type checking.
    You can find documentation for it [here](https://flow.org/en/docs/).
 
- * Global types are defined in `root/types.js`. They can be used without imports.
+ * Global types are defined in in [the root/types folder](root/types).
+   They can be used without imports.
 
- * Make sure your JS files conform to our ESlint rules by running
-   `./node_modules/.bin/eslint path/to/file.js`.
+ * Make sure your JS files conform to our enforced ESlint rules by running
+   `./node_modules/.bin/eslint path/to/file.js`, and to the desired ESlint
+   rules by running `./script/check_unfixed_eslint_rules path/to/file.js`.
 
 Common instructions for porting:
 
@@ -348,7 +366,8 @@ Common instructions for porting:
     `$c` from a deeply-nested component, you can either pass it down from
     a parent component, or import the `CatalystContext`
     [React context](https://reactjs.org/docs/context.html) from
-    root/context.js and use the `CatalystContext.Consumer` component.
+    root/context.js and either use the `CatalystContext.Consumer` component
+    or use `React.useContext(CatalystContext)`.
 
  4. To communicate between the Perl and Node servers (the latter renders React
     components for us), you need to appropriately serialize the props passed
@@ -366,9 +385,16 @@ Common instructions for porting:
     };
     ```
     Where `convert_to_json` is a function that converts `$self->prop_name` to
-    its appropriate JSON representation. If `prop_name` is an entity that has
-    a `TO_JSON` method defined, it will be called automatically and you can
-    simply do `prop_name => $self->prop_name`.
+    its appropriate JSON representation.
+    
+    If `prop_name` is an entity that has a `TO_JSON` method defined, you can
+    simply do `prop_name => $self->prop_name->TO_JSON` unless you need to
+    handle undef values (in that case, see `to_json_object` below).
+    For converting most other props you'll often be able to just use
+    one of the already existing functions in
+    [Entity::Util::JSON](/lib/MusicBrainz/Server/Entity/Util/JSON.pm).
+    Before you write a custom function, make sure whether one of `to_json_array`,
+    `to_json_hash` or `to_json_object` is enough.
 
  5. Make sure that all your components are type-annotated using Flow.
 

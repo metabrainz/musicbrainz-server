@@ -5,70 +5,117 @@ use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
 with 't::Mechanize', 't::Context';
 
-test all => sub {
+=head2 Test description
 
-my $test = shift;
-my $mech = $test->mech;
-my $c    = $test->c;
+This test checks whether alias adding for artists works, including whether
+the sort name defaults to the name when not explicitly entered.
 
-MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
+=cut
 
-# Test adding aliases
-$mech->get('/login');
-$mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+test 'Test adding alias with sort name' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
 
-$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/add-alias');
-$mech->submit_form(
-    with_fields => {
-        'edit-alias.name' => 'An alias',
-        'edit-alias.sort_name' => 'Artist, Test'
-    });
+    prepare_test($test);
 
-my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
-isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::AddAlias');
-is_deeply($edit->data, {
-    locale => undef,
-    entity => {
-        id => 3,
-        name => 'Test Artist'
-    },
-    name => 'An alias',
-    sort_name => 'Artist, Test',
-    primary_for_locale => 0,
-    begin_date => {
-        year => undef,
-        month => undef,
-        day => undef
-    },
-    end_date => {
-        year => undef,
-        month => undef,
-        day => undef
-    },
-    type_id => undef,
-    ended => 0
-});
-
-$mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
-html_ok($mech->content);
-
-$mech->content_contains('Test Artist', '..contains artist name');
-$mech->content_contains('/artist/745c079d-374e-4436-9448-da92dedef3ce', '..contains artist link');
-$mech->content_contains('An alias', '..contains alias name');
-$mech->content_contains('Artist, Test', '..contains alias sort name inferred from artist');
-
-# A sortname isn't required (MBS-6896)
-($edit) = capture_edits {
     $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/add-alias');
-    $mech->submit_form(
-        with_fields => {
-            'edit-alias.name' => 'Another alias',
-        });
-} $c;
 
-isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::AddAlias');
-is($edit->data->{sort_name}, 'Another alias', 'sort_name defaults to name');
+    my @edits = capture_edits {
+        $mech->submit_form_ok({
+            with_fields => {
+                'edit-alias.name' => 'An alias',
+                'edit-alias.sort_name' => 'Artist, Test'
+            },
+        },
+        'The form returned a 2xx response code')
+    } $test->c;
 
+    is(@edits, 1, 'The edit was entered');
+
+    my $edit = shift(@edits);
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::AddAlias');
+    is_deeply(
+        $edit->data,
+        {
+            locale => undef,
+            entity => {
+                id => 3,
+                name => 'Test Artist'
+            },
+            name => 'An alias',
+            sort_name => 'Artist, Test',
+            primary_for_locale => 0,
+            begin_date => {
+                year => undef,
+                month => undef,
+                day => undef
+            },
+            end_date => {
+                year => undef,
+                month => undef,
+                day => undef
+            },
+            type_id => undef,
+            ended => 0
+        },
+        'The edit contains the right data',
+    );
+
+    $mech->get_ok('/edit/' . $edit->id, 'Fetched the edit page');
+    html_ok($mech->content);
+
+    $mech->content_contains('Test Artist', 'Edit page contains artist name');
+    $mech->content_contains(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce',
+        'Edit page contains artist link',
+    );
+    $mech->content_contains('An alias', 'Edit page contains alias name');
+    $mech->content_contains(
+        'Artist, Test',
+        'Edit page contains the selected alias sort name',
+    );
 };
+
+test 'MBS-6896: Test adding alias without sort name' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    prepare_test($test);
+
+    my @edits = capture_edits {
+        $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/add-alias');
+        $mech->submit_form_ok({
+            with_fields => {
+                'edit-alias.name' => 'Another alias',
+            }
+        },
+        'The form returned a 2xx response code')
+    } $test->c;
+
+    is(@edits, 1, 'The edit was entered');
+
+    my $edit = shift(@edits);
+
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::AddAlias');
+    is(
+        $edit->data->{sort_name},
+        'Another alias',
+        'The (not specified) sort name in the edit data defaults to the name',
+    );
+};
+
+sub prepare_test {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database(
+        $test->c,
+        '+controller_artist',
+    );
+
+    $test->mech->get('/login');
+    $test->mech->submit_form(
+        with_fields => { username => 'new_editor', password => 'password' }
+    );
+}
 
 1;
