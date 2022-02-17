@@ -37,8 +37,14 @@ test 'Test artist tagging (up/downvoting, withdrawing)' => sub {
     $mech->get_ok('/login');
     $mech->submit_form(with_fields => {username => 'new_editor', password => 'password'});
 
-    $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/tags/upvote?tags=World Music, Jazz');
-    $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/tags');
+    $mech->get_ok(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce/tags/upvote?tags=World Music, Jazz',
+        'Upvoted tags "world music" and "jazz"',
+    );
+    $mech->get_ok(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce/tags',
+        'Fetched the artist tags page again',
+    );
     html_ok($mech->content);
     $mech->content_contains(
         'world music',
@@ -46,8 +52,14 @@ test 'Test artist tagging (up/downvoting, withdrawing)' => sub {
     );
     $mech->content_contains('jazz', 'Upvoted tag "jazz" is present');
 
-    $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/tags/withdraw?tags=World Music, Jazz');
-    $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/tags');
+    $mech->get_ok(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce/tags/withdraw?tags=World Music, Jazz',
+        'Withdrew tags "world music" and "jazz"',
+    );
+    $mech->get_ok(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce/tags',
+        'Fetched the artist tags page again',
+    );
     html_ok($mech->content);
     $mech->content_lacks(
         'world music',
@@ -55,8 +67,14 @@ test 'Test artist tagging (up/downvoting, withdrawing)' => sub {
     );
     $mech->content_lacks('jazz', 'Withdrawn tag "jazz" is missing');
 
-    $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/tags/downvote?tags=World Music, Jazz');
-    $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/tags');
+    $mech->get_ok(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce/tags/downvote?tags=World Music, Jazz',
+        'Downvoted tags "world music" and "jazz"',
+    );
+    $mech->get_ok(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce/tags',
+        'Fetched the artist tags page again',
+    );
     html_ok($mech->content);
     $mech->content_contains(
         'world music',
