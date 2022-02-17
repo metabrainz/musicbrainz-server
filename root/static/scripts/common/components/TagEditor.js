@@ -237,19 +237,17 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
   debouncePendingVotes: () => void;
 
-  flushPendingVotes: (asap?: boolean) => void;
-
   genreMap: {+[genreName: string]: GenreT, ...};
 
   genreOptions: $ReadOnlyArray<{+label: string, +value: string}>;
 
-  handleSubmit: (SyntheticEvent<HTMLFormElement>) => void;
+  handleSubmitBound: (SyntheticEvent<HTMLFormElement>) => void;
 
-  onBeforeUnload: () => void;
+  onBeforeUnloadBound: () => void;
 
   pendingVotes: Map<string, PendingVoteT>;
 
-  setTagsInput: (TagsInputT) => void;
+  setTagsInputBound: (TagsInputT) => void;
 
   constructor(props: TagEditorProps) {
     super(props);
@@ -259,10 +257,9 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       tags: createInitialTagState(props.aggregatedTags, props.userTags),
     };
 
-    this.flushPendingVotes = this.flushPendingVotes.bind(this);
-    this.onBeforeUnload = this.onBeforeUnload.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.setTagsInput = this.setTagsInput.bind(this);
+    this.onBeforeUnloadBound = () => this.onBeforeUnload();
+    this.handleSubmitBound = (event) => this.handleSubmit(event);
+    this.setTagsInputBound = (input) => this.setTagsInput(input);
 
     this.genreMap = props.genreMap ?? {};
     this.genreOptions =
@@ -276,7 +273,8 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
     this.pendingVotes = new Map();
     this.debouncePendingVotes = debounce(
-      this.flushPendingVotes, VOTE_DELAY,
+      (asap) => this.flushPendingVotes(asap),
+      VOTE_DELAY,
     );
   }
 
@@ -316,11 +314,11 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
   componentDidMount() {
     require('../../../lib/jquery-ui');
-    window.addEventListener('beforeunload', this.onBeforeUnload);
+    window.addEventListener('beforeunload', this.onBeforeUnloadBound);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('beforeunload', this.onBeforeUnload);
+    window.removeEventListener('beforeunload', this.onBeforeUnloadBound);
   }
 
   createTagRows() {
@@ -618,9 +616,9 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
                   {tagdocs: '/doc/Folksonomy_Tagging'},
                 )}
               </p>
-              <form id="tag-form" onSubmit={this.handleSubmit}>
+              <form id="tag-form" onSubmit={this.handleSubmitBound}>
                 <p>
-                  <textarea cols="50" ref={this.setTagsInput} rows="5" />
+                  <textarea cols="50" ref={this.setTagsInputBound} rows="5" />
                 </p>
                 <button className="styled-button" type="submit">
                   {l('Submit tags')}
@@ -672,12 +670,12 @@ export const SidebarTagEditor = (hydrate<TagEditorProps>(
             </p>
           ) : null}
 
-          <form id="tag-form" onSubmit={this.handleSubmit}>
+          <form id="tag-form" onSubmit={this.handleSubmitBound}>
             <div style={{display: 'flex'}}>
               <input
                 className="tag-input"
                 name="tags"
-                ref={this.setTagsInput}
+                ref={this.setTagsInputBound}
                 style={{flexGrow: 2}}
                 type="text"
               />

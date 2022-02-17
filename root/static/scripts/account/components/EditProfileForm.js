@@ -86,15 +86,12 @@ class EditProfileForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {form: props.form, languageOptions: props.language_options};
-    this.handleAreaChange = this.handleAreaChange.bind(this);
-    this.handleGenderChange = this.handleGenderChange.bind(this);
-    this.handleLanguageChange = this.handleLanguageChange.bind(this);
-    this.handleFluencyChange = this.handleFluencyChange.bind(this);
-    this.removeLanguage = this.removeLanguage.bind(this);
-    this.handleLanguageAdd = this.handleLanguageAdd.bind(this);
+    this.handleAreaChangeBound = (area) => this.handleAreaChange(area);
+    this.handleGenderChangeBound = (e) => this.handleGenderChange(e);
+    this.handleLanguageAddBound = () => this.handleLanguageAdd();
   }
 
-  handleAreaChange: (area: AreaClassT) => void;
+  handleAreaChangeBound: (area: AreaClassT) => void;
 
   handleAreaChange(area: AreaClassT) {
     this.setState(prevState => mutate<State, _>(prevState, newState => {
@@ -105,7 +102,7 @@ class EditProfileForm extends React.Component<Props, State> {
     }));
   }
 
-  handleGenderChange: (e: SyntheticEvent<HTMLSelectElement>) => void;
+  handleGenderChangeBound: (e: SyntheticEvent<HTMLSelectElement>) => void;
 
   handleGenderChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedGender = e.currentTarget.value;
@@ -113,11 +110,6 @@ class EditProfileForm extends React.Component<Props, State> {
       newState.form.field.gender_id.value = parseInt(selectedGender, 10);
     }));
   }
-
-  handleLanguageChange: (
-    e: SyntheticEvent<HTMLSelectElement>,
-    languageIndex: number,
-  ) => void;
 
   handleLanguageChange(
     e: SyntheticEvent<HTMLSelectElement>,
@@ -129,11 +121,6 @@ class EditProfileForm extends React.Component<Props, State> {
       compound.field.language_id.value = selectedLanguage;
     }));
   }
-
-  handleFluencyChange: (
-    e: SyntheticEvent<HTMLSelectElement>,
-    languageIndex: number,
-  ) => void;
 
   handleFluencyChange(
     e: SyntheticEvent<HTMLSelectElement>,
@@ -154,15 +141,13 @@ class EditProfileForm extends React.Component<Props, State> {
     }));
   }
 
-  removeLanguage: (languageIndex: number) => void;
-
   removeLanguage(languageIndex: number) {
     this.setState(prevState => mutate<State, _>(prevState, newState => {
       newState.form.field.languages.field.splice(languageIndex, 1);
     }));
   }
 
-  handleLanguageAdd: () => void;
+  handleLanguageAddBound: () => void;
 
   handleLanguageAdd() {
     this.setState(prevState => mutate<State, _>(prevState, newState => {
@@ -219,7 +204,7 @@ class EditProfileForm extends React.Component<Props, State> {
           allowEmpty
           field={field.gender_id}
           label={l('Gender:')}
-          onChange={this.handleGenderChange}
+          onChange={this.handleGenderChangeBound}
           options={genderOptions}
         />
 
@@ -237,7 +222,7 @@ class EditProfileForm extends React.Component<Props, State> {
             entity="area"
             inputID={'id-' + areaField.name.html_name}
             inputName={areaField.name.html_name}
-            onChange={this.handleAreaChange}
+            onChange={this.handleAreaChangeBound}
           >
             <input
               name={field.area_id.html_name}
@@ -307,7 +292,7 @@ class EditProfileForm extends React.Component<Props, State> {
               <span className="buttons">
                 <button
                   className="another"
-                  onClick={this.handleLanguageAdd}
+                  onClick={this.handleLanguageAddBound}
                   type="button"
                 >
                   {l('Add a language')}
