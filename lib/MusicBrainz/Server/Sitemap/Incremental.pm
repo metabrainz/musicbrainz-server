@@ -11,9 +11,9 @@ use List::AllUtils qw( partition_by );
 use Moose;
 use Sql;
 
-use MusicBrainz::Script::Utils qw( log );
 use MusicBrainz::Server::Constants qw( entities_with );
 use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Log qw( log_info );
 use MusicBrainz::Server::Sitemap::Constants qw( %SITEMAP_SUFFIX_INFO );
 use MusicBrainz::Server::Sitemap::Builder;
 
@@ -92,7 +92,7 @@ sub get_changed_documents {
     # Responses should never redirect. If they do, we likely requested a page
     # number that doesn't exist.
     if ($response->previous) {
-        log("Got redirect fetching $request_url, skipping");
+        log_info { "Got redirect fetching $request_url, skipping" };
         return 0;
     }
 
@@ -116,7 +116,7 @@ sub get_changed_documents {
 
             if (defined $old_hash) {
                 if ($old_hash ne $new_hash) {
-                    log("Found change at $url");
+                    log_info { "Found change at $url" };
 
                     $c->sql->do(<<~"SQL", "\\x$new_hash", $last_modified, $replication_sequence, $row_id, $url);
                         UPDATE sitemaps.${entity_type}_lastmod
@@ -125,9 +125,9 @@ sub get_changed_documents {
                         SQL
                     return 1;
                 }
-                log("No change at $url");
+                log_info { "No change at $url" };
             } else {
-                log("Inserting lastmod entry for $url");
+                log_info { "Inserting lastmod entry for $url" };
 
                 $c->sql->do(
                     qq{INSERT INTO sitemaps.${entity_type}_lastmod (
@@ -175,7 +175,7 @@ sub get_changed_documents {
         }
     }
 
-    log("ERROR: Got response code $code fetching $request_url");
+    log_info { "ERROR: Got response code $code fetching $request_url" };
     return 0;
 }
 
@@ -285,7 +285,7 @@ sub run {
     );
 
     unless (-f $self->index_localname) {
-        log('ERROR: No sitemap index file was found');
+        log_info { 'ERROR: No sitemap index file was found' };
         exit 1;
     }
 

@@ -10,9 +10,10 @@ use File::Slurp qw( read_file );
 use HTTP::Status qw( RC_OK RC_NOT_MODIFIED );
 use JSON qw( decode_json );
 use Moose::Role;
-use MusicBrainz::Script::Utils qw( get_primary_keys log retry );
+use MusicBrainz::Script::Utils qw( get_primary_keys retry );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::dbmirror;
+use MusicBrainz::Server::Log qw( log_info );
 use MusicBrainz::Server::Replication qw( REPLICATION_ACCESS_URI );
 use MusicBrainz::Server::Replication::Packet qw(
     decompress_packet
@@ -106,7 +107,7 @@ END {
                    $saved_database &&
                    $saved_dump_schema);
 
-    log("Truncating $saved_dump_schema.tmp_checked_entities");
+    log_info { "Truncating $saved_dump_schema.tmp_checked_entities" };
     my $c = MusicBrainz::Server::Context->create_script_context(
         database => $saved_database,
         fresh_connector => 1,
@@ -203,8 +204,8 @@ sub follow_primary_key($$$$$$) {
                 $c, $pk_table, $entity_rows, $fetch_document);
             return $total_changed;
         } else {
-            log('No more linked entities found for sequence ID ' .
-                $update->{sequence_id} . " in table $pk_table");
+            log_info {'No more linked entities found for sequence ID ' .
+                      $update->{sequence_id} . " in table $pk_table" };
             return 0;
         }
     }
@@ -398,7 +399,7 @@ sub handle_replication_sequence($$) {
         }
     }
 
-    log("Removing $output_dir");
+    log_info { "Removing $output_dir" };
     rmtree($output_dir);
 
     $self->post_replication_sequence($c);
@@ -411,7 +412,7 @@ sub get_current_replication_sequence {
     my $response = $c->lwp->get("$replication_info_uri?token=" . DBDefs->REPLICATION_ACCESS_TOKEN);
 
     unless ($response->code == 200) {
-        log("ERROR: Request to $replication_info_uri returned status code " . $response->code);
+        log_info { "ERROR: Request to $replication_info_uri returned status code " . $response->code };
         exit 1;
     }
 
@@ -435,7 +436,7 @@ sub run_incremental_dump {
     );
 
     if ($control_is_empty) {
-        log("ERROR: Table $dump_schema.control is empty (has a full dump run yet?)");
+        log_info { "ERROR: Table $dump_schema.control is empty (has a full dump run yet?)" };
         exit 1;
     }
 
@@ -450,7 +451,7 @@ sub run_incremental_dump {
 
         if (defined $last_processed_seq) {
             if ($current_seq == $last_processed_seq) {
-                log('Up-to-date.');
+                log_info { 'Up-to-date.' };
                 last;
             }
         } else {
@@ -475,13 +476,13 @@ sub run_incremental_dump {
                 # usual, since that could indicate a problem.
 
                 if (($current_seq - $last_processed_seq) > 2) {
-                    log("ERROR: Table $dump_schema.tmp_checked_entities " .
-                        'is not empty, and the script is more than two ' .
-                        'replication packets behind. You should check ' .
-                        q(that a previous run of the script didn't ) .
-                        'unexpectedly die; this script will not run again ' .
-                        "until $dump_schema.tmp_checked_entities is " .
-                        'cleared.');
+                    log_info { "ERROR: Table $dump_schema.tmp_checked_entities " .
+                               'is not empty, and the script is more than two ' .
+                               'replication packets behind. You should check ' .
+                               q(that a previous run of the script didn't ) .
+                               'unexpectedly die; this script will not run again ' .
+                               "until $dump_schema.tmp_checked_entities is " .
+                               'cleared.' };
                     exit 1;
                 }
                 exit 0;
