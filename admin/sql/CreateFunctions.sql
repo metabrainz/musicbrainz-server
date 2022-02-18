@@ -1751,7 +1751,8 @@ BEGIN
         SELECT DISTINCT ON (arg.artist, rg.id)
             arg.is_track_artist,
             arg.artist,
-            bool_and(r.status IS NOT NULL AND r.status != 1),
+            -- Withdrawn releases were once official by definition
+            bool_and(r.status IS NOT NULL AND r.status != 1 AND r.status != 5),
             rg.type::SMALLINT,
             array_agg(
                 DISTINCT st.secondary_type ORDER BY st.secondary_type)
