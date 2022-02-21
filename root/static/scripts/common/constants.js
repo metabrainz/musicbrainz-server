@@ -179,6 +179,7 @@ export const FAVICON_CLASSES = {
   'thedancegypsy.com': 'thedancegypsy',
   'thesession.org': 'thesession',
   'tidal.com': 'tidal',
+  'tiktok.com': 'tiktok',
   'tipeee.com': 'tipeee',
   'touhoudb.com': 'touhoudb',
   'tower.jp': 'tower',
