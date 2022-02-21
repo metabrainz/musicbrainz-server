@@ -15,6 +15,114 @@ import {
   Checker,
 } from '../../edit/URLCleanup';
 
+/*
+ * This file tests the cleanups and autoselect / restrictions defined in
+ * root/static/scripts/edit/URLCleanup.js
+ *
+ * The main part of the file is the testData object, which contains
+ * the expected results for all the tests. The following properties
+ * are supported in testData:
+ *
+ * input_url:
+ *      The raw URL "entered by the user" (a string).
+ *
+ *      This is always mandatory.
+ *
+ * input_entity_type:
+ *      The entity type selected by the user (a string, such as 'release').
+ *      This is important because the same URL can be assigned to different
+ *      relationship types (or blocked altogether) depending on the selected
+ *      entity type.
+ *
+ *      Required by 'expected_relationship_type', 'expected_error'
+ *      and 'limited_link_type_combinations'. Forbidden if none are present.
+ *
+ * expected_relationship_type:
+ *      The relationship type (or types) we expect the URL to get
+ *      autoselected to. Either a string, such as 'downloadfree',
+ *      or an array of strings, such as ['downloadfree', 'streamingfree'].
+ *      Can also be set to undefined if autoselection is not supposed
+ *      to happen. Keep in mind that the strings here are the keys from the
+ *      LINK_TYPES constant in URLCLeanup, not the relationship type names.
+ *
+ *      Optional. If present, 'input_entity_type' is required.
+ *
+ * limited_link_type_combinations:
+ *      An array of all the possible combinations of relationship types
+ *      allowed for the entity type indicated by 'input_entity_type'. This is
+ *      different from autoselection - some relationship types in this list
+ *      might be autoselected, while others are just available for selection
+ *      to the user. To test for autoselection, also use
+ *      'expected_relationship_type' alongside this.
+ *      Each of the allowed combinations can be just a string, meaning only
+ *      one relationship is selected, or an array of strings, meaning that all
+ *      the options in the array are selected at the same time. Keep in mind
+ *      that having two different string options just means either one or the
+ *      other can be used, and if you want both to be allowed together as well
+ *      you will *also* need an array option. As above, the strings here are
+ *      keys from the LINK_TYPES constant in URLCLeanup,
+ *      not the relationship type names.
+ *      For example, a possible value for this property would be
+ *      the following, allowing 'downloadpurchase', 'streamingpaid' or both:
+ *      [
+ *        'downloadpurchase',
+ *        'streamingpaid',
+ *        ['downloadpurchase', 'streamingpaid'],
+ *      ]
+ *
+ *      Optional. If present, 'input_entity_type' is required.
+ *
+ * input_relationship_type:
+ *      The relationship type selected by the user (a string, such as
+ *      'downloadfree'). This is useful when a URL does not get autoselected,
+ *      but we want to run a test that requires a relationship type
+ *      (at the moment that's exclusively testing for
+ *      'only_valid_entity_types'). Consider also setting
+ *      'expected_relationship_type' to undefined for clarity if
+ *      autoselection is not supposed to happen.
+ *
+ *      Optional if 'only_valid_entity_types' is present, forbidden otherwise.
+ *
+ * expected_clean_url:
+ *      The URL we expect to get back from the clean function (a string).
+ *
+ *      Optional, but strongly encouraged for all URLs with a clean function.
+ *
+ * only_valid_entity_types:
+ *      An array of all the entity types the URL can be added to using the
+ *      relationship type indicated by 'expected_relationship_type' or
+ *      'input_relationship_type'. If you want to test that this URL is *not*
+ *      allowed for the given relationship type, pass an empty array ([]).
+ *
+ *      Optional. If present, one of 'expected_relationship_type' or
+ *      'input_relationship_type' is required.
+ *
+ * expected_error:
+ *      An object {error, target}. 'target' is the target level for the error,
+ *      one of 'entity', 'relationship' or 'url'. 'error' is a string to match
+ *      against the returned error message (a substring is enough, the full
+ *      error string is not needed). If the error is supposed to use the
+ *      default message for its target, set 'error' as undefined.
+ *
+ *      Optional. If present, one of 'expected_relationship_type' or
+ *      'input_relationship_type' is required, as well as 'input_entity_type'.
+ *
+ *
+ * When adding a new test or set of tests, add them under the section for
+ * the website in question. If no section exists yet, create one and add a
+ * comment header to it indicating what website it is. Sections are generally
+ * listed in alphabetical order (of the site names, not the domains).
+ *
+ *
+ * The code running the tests is at the end of the file. The tests are ran
+ * in the same general order as the properties listed above, if present:
+ *      expected_relationship_type ->
+ *      limited_link_type_combinations ->
+ *      expected_clean_url ->
+ *      only_valid_entity_types ->
+ *      expected_error
+ */
+
 /* eslint-disable indent, max-len, sort-keys */
 const testData = [
   // 45cat
@@ -421,52 +529,52 @@ const testData = [
   {
                      input_url: 'http://music.apple.com/artist/hangry-angry-f/id444923726',
              input_entity_type: 'artist',
-            expected_clean_url: 'https://music.apple.com/us/artist/444923726',
 limited_link_type_combinations: [
                                   'downloadpurchase',
                                   'streamingpaid',
                                   ['downloadpurchase', 'streamingpaid'],
                                 ],
+            expected_clean_url: 'https://music.apple.com/us/artist/444923726',
   },
   {
                      input_url: 'https://beta.music.apple.com/ca/artist/imposs/205021452',
              input_entity_type: 'artist',
-            expected_clean_url: 'https://music.apple.com/ca/artist/205021452',
 limited_link_type_combinations: [
                                   'downloadpurchase',
                                   'streamingpaid',
                                   ['downloadpurchase', 'streamingpaid'],
                                 ],
+            expected_clean_url: 'https://music.apple.com/ca/artist/205021452',
   },
   {
                      input_url: 'https://music.apple.com/us/label/ghostly-international/1543968172',
              input_entity_type: 'label',
-            expected_clean_url: 'https://music.apple.com/us/label/1543968172',
 limited_link_type_combinations: [
                                   'downloadpurchase',
                                   'streamingpaid',
                                   ['downloadpurchase', 'streamingpaid'],
                                 ],
+            expected_clean_url: 'https://music.apple.com/us/label/1543968172',
   },
   {
                      input_url: 'https://music.apple.com/ee/music-video/black-and-yellow/539886832?uo=4&mt=5&app=music',
              input_entity_type: 'recording',
-            expected_clean_url: 'https://music.apple.com/ee/music-video/539886832',
 limited_link_type_combinations: [
                                   'downloadpurchase',
                                   'streamingpaid',
                                   ['downloadpurchase', 'streamingpaid'],
                                 ],
+            expected_clean_url: 'https://music.apple.com/ee/music-video/539886832',
   },
   {
                      input_url: 'https://music.apple.com/jp/album/uchiagehanabi-single/1263790414',
              input_entity_type: 'release',
-            expected_clean_url: 'https://music.apple.com/jp/album/1263790414',
 limited_link_type_combinations: [
                                   'downloadpurchase',
                                   'streamingpaid',
                                   ['downloadpurchase', 'streamingpaid'],
                                 ],
+            expected_clean_url: 'https://music.apple.com/jp/album/1263790414',
   },
   // (Internet) Archive
   {
@@ -2654,28 +2762,28 @@ limited_link_type_combinations: [
                      input_url: 'https://www.mainlynorfolk.info/watersons/index.html',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
+limited_link_type_combinations: ['otherdatabases'],
             expected_clean_url: 'https://mainlynorfolk.info/watersons/',
        only_valid_entity_types: ['artist'],
-limited_link_type_combinations: ['otherdatabases'],
   },
   {
                      input_url: 'http://www.mainlynorfolk.info/martin.carthy/records/themoraloftheelephant.html',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
+limited_link_type_combinations: ['otherdatabases'],
             expected_clean_url: 'https://mainlynorfolk.info/martin.carthy/records/themoraloftheelephant.html',
        only_valid_entity_types: ['release'],
-limited_link_type_combinations: ['otherdatabases'],
   },
   {
                      input_url: 'https://www.mainlynorfolk.info/watersons/songs/countrylife.html',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://mainlynorfolk.info/watersons/songs/countrylife.html',
-       only_valid_entity_types: ['work'],
 limited_link_type_combinations: [
                                   'otherdatabases',
                                   ['lyrics', 'otherdatabases'],
                                 ],
+            expected_clean_url: 'https://mainlynorfolk.info/watersons/songs/countrylife.html',
+       only_valid_entity_types: ['work'],
   },
   // maniadb
   {
@@ -4701,25 +4809,25 @@ limited_link_type_combinations: [
                      input_url: 'https://vimeo.com/ondemand/inconcert/193518106?autoplay=1',
             expected_clean_url: 'https://vimeo.com/ondemand/inconcert',
              input_entity_type: 'recording',
-       input_relationship_type: 'downloadpurchase',
-       only_valid_entity_types: ['recording', 'release'],
 limited_link_type_combinations: [
                                   'downloadpurchase',
                                   'streamingpaid',
                                   ['downloadpurchase', 'streamingpaid'],
                                 ],
+       input_relationship_type: 'downloadpurchase',
+       only_valid_entity_types: ['recording', 'release'],
   },
   {
                      input_url: 'https://vimeo.com/ondemand/inconcert#comments',
             expected_clean_url: 'https://vimeo.com/ondemand/inconcert',
              input_entity_type: 'recording',
-       input_relationship_type: 'streamingpaid',
-       only_valid_entity_types: ['recording', 'release'],
 limited_link_type_combinations: [
                                   'downloadpurchase',
                                   'streamingpaid',
                                   ['downloadpurchase', 'streamingpaid'],
                                 ],
+       input_relationship_type: 'streamingpaid',
+       only_valid_entity_types: ['recording', 'release'],
   },
   {
                      input_url: 'https://vimeo.com/store/ondemand/buy/91410',
@@ -5327,10 +5435,11 @@ testData.forEach(function (subtest, i) {
         tested = true;
       }
       if (!('expected_relationship_type' in subtest) &&
-          !('limited_link_type_combinations' in subtest)) {
+          !('limited_link_type_combinations' in subtest) &&
+          !('expected_error' in subtest)) {
         st.fail(
           `Test is invalid: "input_entity_type" is specified without
-           "expected_relationship_type"
+           "expected_relationship_type", "expected_error"
            nor "limited_link_type_combinations".`,
         );
         st.end();
