@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Controller::WS::2::Authenticated;
 use Test::Routine;
 use Test::More;
+use Test::XML::SemanticCompare;
 
 with 't::Mechanize', 't::Context';
 
@@ -267,6 +268,51 @@ EOXML
     $mech->request(xml_post('/ws/2/tag?client=post.t-0.0.2', $content));
 
     _compare_tags($c, 'Recording', '581556f0-755f-11de-8a39-0800200c9a66', { 'omg' => 1 });
+};
+
+test 'Empty tag names are disallowed' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    my $mech = $test->mech;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_recording');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
+        SELECT setval('tag_id_seq', (SELECT MAX(id) FROM tag));
+        INSERT INTO editor (id, name, password, ha1)
+            VALUES (1, 'new_editor', '{CLEARTEXT}password', 'e1dd8fee8ee728b0ddc8027d3a3db478')
+        SQL
+
+    my $content = <<~'EOXML';
+        <?xml version="1.0" encoding="UTF-8"?>
+        <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+            <recording-list>
+                <recording id="581556f0-755f-11de-8a39-0800200c9a66">
+                    <user-tag-list>
+                        <user-tag><name>TAG_NAME</name></user-tag>
+                    </user-tag-list>
+                </recording>
+            </recording-list>
+        </metadata>
+        EOXML
+
+    my $error_message = <<~'EOXML';
+        <?xml version="1.0"?>
+        <error>
+            <text>The tag name cannot be empty.</text>
+            <text>For usage, please see: https://musicbrainz.org/development/mmd</text>
+        </error>
+        EOXML
+
+    $mech->default_header('Accept' => 'application/xml');
+    $mech->credentials('localhost:80', 'musicbrainz.org', 'new_editor', 'password');
+
+    $mech->request(xml_post('/ws/2/tag?client=post.t-0.0.2', $content =~ s/TAG_NAME//r));
+    is($mech->status, 400);
+    is_xml_same($mech->content, $error_message);
+
+    $mech->request(xml_post('/ws/2/tag?client=post.t-0.0.2', $content =~ s/TAG_NAME/ /r));
+    is($mech->status, 400);
+    is_xml_same($mech->content, $error_message);
 };
 
 1;
