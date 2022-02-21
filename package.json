@@ -58,6 +58,7 @@
     "shell-quote": "1.7.3",
     "shelljs": "0.8.5",
     "sliced": "1.0.1",
+    "swiper": "8.0.6",
     "tablesorter": "2.31.3",
     "terser-webpack-plugin": "5.1.4",
     "webpack": "5.50.0",

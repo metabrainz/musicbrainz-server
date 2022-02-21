@@ -1,0 +1,102 @@
+import {Swiper, SwiperSlide} from 'swiper/react';
+import {Pagination, Navigation} from 'swiper';
+
+export default function Supporters() {
+  return (
+    <div className='section-with-bg'>
+      <div className="title">
+        <h2>Supporters</h2>
+      </div>
+      <Swiper
+        loop
+        loopFillGroupWithBlank
+        modules={[Pagination, Navigation]}
+        navigation
+        slidesPerGroup={3}
+        slidesPerView={3}
+      >
+        <SwiperSlide>
+          <img
+            alt=""
+            className="slide-image"
+            height="36px"
+            src="/assets/img/supporters/google.svg"
+            width="36px"
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            alt=""
+            className="slide-image"
+            height="36px"
+            src="/assets/img/supporters/bbc.svg"
+            width="36px"
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            alt=""
+            className="slide-image"
+            height="36px"
+            src="/assets/img/supporters/microsoft.svg"
+            width="36px"
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            alt=""
+            className="slide-image"
+            height="36px"
+            src="/assets/img/supporters/amazon.svg"
+            width="36px"
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            alt=""
+            className="slide-image"
+            height="36px"
+            src="/assets/img/supporters/lastfm.svg"
+            width="36px"
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            alt=""
+            className="slide-image"
+            height="36px"
+            src="/assets/img/supporters/plex.svg"
+            width="36px"
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            alt=""
+            className="slide-image"
+            height="36px"
+            src="/assets/img/supporters/acoustid.svg"
+            width="36px"
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            alt=""
+            className="slide-image"
+            height="36px"
+            src="/assets/img/supporters/ticketmaster.svg"
+            width="36px"
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            alt=""
+            className="slide-image"
+            height="36px"
+            src="/assets/img/supporters/pandora.svg"
+            width="36px"
+          />
+        </SwiperSlide>
+      </Swiper>
+    </div>
+  );
+}
