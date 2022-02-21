@@ -2339,6 +2339,13 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.jazzmusicarchives.com/album/ron-carter/ron-carter-jack-dejohnette-and-gonzalo-rubalcaba-skyline',
        only_valid_entity_types: ['release_group'],
   },
+  {
+                     input_url: 'http://www.jazzmusicarchives.com/album/rita-marcotulli(italy)/summer',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.jazzmusicarchives.com/album/rita-marcotulli(italy)/summer',
+       only_valid_entity_types: ['release_group'],
+  },
   // JOYSOUND
   {
                      input_url: 'https://www.joysound.com/web/search/artist/5169?startIndex=20#songlist',
