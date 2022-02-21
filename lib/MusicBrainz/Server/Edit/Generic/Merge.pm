@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Edit::Generic::Merge;
 use Moose;
-use MooseX::ABC;
 
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Edit::Exceptions;
@@ -9,8 +8,14 @@ use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 
 extends 'MusicBrainz::Server::Edit';
-requires '_merge_model';
+
 with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
+
+# Sub-classes are required to implement `_merge_model`.
+#
+# N.B. This is not checked at compile-time.
+
+sub _merge_model { die 'Unimplemented' }
 
 sub edit_kind { 'merge' }
 

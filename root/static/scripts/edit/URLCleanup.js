@@ -2419,7 +2419,7 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/www\.jazzmusicarchives\.com\/(\w+)\/(?:[\w%-]+\/)?[\w%-]*$/.exec(url);
+      const m = /^https:\/\/www\.jazzmusicarchives\.com\/(\w+)\/(?:[\w%()-]+\/)?[\w%()-]*$/.exec(url);
       if (m) {
         const type = m[1];
         switch (id) {
@@ -4246,6 +4246,30 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'tiktok': {
+    match: [new RegExp('^(https?://)?(www\\.)?tiktok\\.com', 'i')],
+    restrict: [LINK_TYPES.socialnetwork],
+    clean: function (url) {
+      return url.replace(
+        /^(?:https?:\/\/)(?:www\.)?tiktok\.com\/@([\w.]+)(?:[\/?&#].*)?$/,
+        'https://www.tiktok.com/@$1',
+      );
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.tiktok\.com\/@[\w.]+$/.exec(url);
+      if (m) {
+        switch (id) {
+          case LINK_TYPES.socialnetwork.artist:
+          case LINK_TYPES.socialnetwork.label:
+          case LINK_TYPES.socialnetwork.place:
+          case LINK_TYPES.socialnetwork.series:
+            return {result: true};
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'tipeee': {
     match: [new RegExp('^(https?://)?(?:[^/]+\\.)?tipeee\\.com/[^/?#]', 'i')],
     restrict: [LINK_TYPES.patronage],
@@ -4912,13 +4936,19 @@ const CLEANUPS: CleanupEntries = {
       url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com(?:\/#)?/, 'https://www.youtube.com');
       // YouTube /c/ user channels (/c/ is unneeded)
       url = url.replace(/^https:\/\/www\.youtube\.com\/c\//, 'https://www.youtube.com/');
+      // Drop channel subsections (/user or /channel version)
+      url = url.replace(/\/(channel|user)\/([^\/?#]+).*$/, '/$1/$2');
+      // Drop channel subsections (channel name only version)
+      url = url.replace(
+        /^https:\/\/www\.youtube\.com\/([a-zA-Z0-9_-]+)\/(?:about|channels|community|featured|playlists|videos)(?:[\/?&#].*)?$/,
+        'https://www.youtube.com/$1',
+      );
       // YouTube URL shortener
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtu\.be\/([a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?v=$1');
       // YouTube standard watch URL
       url = url.replace(/^https:\/\/www\.youtube\.com\/.*[?&](v=[a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?$1');
       // YouTube embeds
       url = url.replace(/^https:\/\/www\.youtube\.com\/(?:embed|v)\/([a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?v=$1');
-      url = url.replace(/\/user\/([^\/?#]+).*$/, '/user/$1');
       return url;
     },
     validate: function (url, id) {

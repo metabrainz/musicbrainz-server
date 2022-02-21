@@ -553,12 +553,12 @@ msgid ""
 "concept as the <a href=\"/doc/Label\">record label</a>."
 msgstr ""
 
-#: DB:link_type/link_phrase:837 DB:link_type/link_phrase:840
+#: DB:link_type/link_phrase:840 DB:link_type/link_phrase:837
 #: DB:link_type/link_phrase:839 DB:link_type/link_phrase:838
 msgid "Last.fm"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:837 DB:link_type/reverse_link_phrase:840
+#: DB:link_type/reverse_link_phrase:840 DB:link_type/reverse_link_phrase:837
 #: DB:link_type/reverse_link_phrase:839 DB:link_type/reverse_link_phrase:838
 msgid "Last.fm page for"
 msgstr ""
@@ -613,6 +613,12 @@ msgstr ""
 msgid "Links a recording to the event it was recorded at."
 msgstr ""
 
+#: DB:link_type/description:1006
+msgid ""
+"Links a recording to the event series (tour, residency, etc.) it was "
+"recorded during."
+msgstr ""
+
 #: DB:link_type/description:866
 msgid "Links a recording to the place it was arranged at."
 msgstr ""
@@ -639,6 +645,18 @@ msgstr ""
 
 #: DB:link_type/description:829
 msgid "Links a recording to the place it was remixed at."
+msgstr ""
+
+#: DB:link_type/description:1008
+msgid ""
+"Links a recording, release or release group series to the event series "
+"(tour, residency, etc.) it was recorded during."
+msgstr ""
+
+#: DB:link_type/description:1007
+msgid ""
+"Links a release group to the event series (tour, residency, etc.) it was "
+"recorded during."
 msgstr ""
 
 #: DB:link_type/description:797
@@ -3735,6 +3753,10 @@ msgstr ""
 msgid "consists of"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1008
+msgid "contains music recorded during"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:83 DB:link_type/long_link_phrase:258
 msgid "contains samples from the IMDb entry at"
 msgstr ""
@@ -3745,6 +3767,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:231
 msgid "contains {additional} samples from"
+msgstr ""
+
+#: DB:link_attribute_type/name:1227
+msgid "contemporary music"
 msgstr ""
 
 #: DB:link_type/link_phrase:119 DB:link_type/name:119
@@ -4273,7 +4299,7 @@ msgstr ""
 msgid "has a Geonames page at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:837 DB:link_type/long_link_phrase:840
+#: DB:link_type/long_link_phrase:840 DB:link_type/long_link_phrase:837
 #: DB:link_type/long_link_phrase:839 DB:link_type/long_link_phrase:838
 msgid "has a Last.fm page at"
 msgstr ""
@@ -4912,7 +4938,7 @@ msgstr ""
 msgid "lacquer cut location for"
 msgstr ""
 
-#: DB:link_type/name:837 DB:link_type/name:840 DB:link_type/name:839
+#: DB:link_type/name:840 DB:link_type/name:837 DB:link_type/name:839
 #: DB:link_type/name:838
 msgid "last.fm"
 msgstr ""
@@ -5946,8 +5972,26 @@ msgstr ""
 msgid "recorded at"
 msgstr ""
 
+#: DB:link_type/link_phrase:1006 DB:link_type/link_phrase:1007
+#: DB:link_type/link_phrase:1008 DB:link_type/name:1006 DB:link_type/name:1007
+#: DB:link_type/name:1008
+msgid "recorded during"
+msgstr ""
+
 #: DB:link_type/name:698 DB:link_type/name:699
 msgid "recorded in"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1008
+msgid "recorded music series"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1006
+msgid "recorded recordings"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1007
+msgid "recorded release groups"
 msgstr ""
 
 #: DB:link_type/name:128 DB:link_type/name:36
@@ -6583,6 +6627,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:794
 msgid "was held at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1006 DB:link_type/long_link_phrase:1007
+msgid "was recorded during"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:3

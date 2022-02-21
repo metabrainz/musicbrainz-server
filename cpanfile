@@ -63,7 +63,6 @@ requires 'Method::Signatures::Simple'                 => '1.07';
 requires 'MIME::Base64'                               => '3.13';
 requires 'Module::Pluggable'                          => '5.1';
 requires 'Moose'                                      => '2.1600';
-requires 'MooseX::ABC'                                => '0.06';
 requires 'MooseX::Clone'                              => '0.05';
 requires 'MooseX::Getopt'                             => '0.59';
 requires 'MooseX::MethodAttributes'                   => '0.29';

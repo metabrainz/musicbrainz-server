@@ -322,6 +322,17 @@ const Index = ({
           </tr>
           <tr>
             <th />
+            <th>{addColonText(l('Non-binary'))}</th>
+            <td>{fc('artist.gender.nonbinary')}</td>
+            <td>
+              {_formatPercentage(
+                stats['count.artist.gender.nonbinary'],
+                nonGroupCount,
+              )}
+            </td>
+          </tr>
+          <tr>
+            <th />
             <th>{l('Other gender:')}</th>
             <td>{fc('artist.gender.other')}</td>
             <td>

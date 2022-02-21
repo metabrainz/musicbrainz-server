@@ -443,7 +443,6 @@ sub _seeded_medium
                 }
             }
             $result->{toc} = $toc;
-            $result->{cdtocs} = 1;
         }
         catch {
             push @$errors, "Invalid $field_name.toc: “$toc”.";

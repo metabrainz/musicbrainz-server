@@ -26,7 +26,7 @@ class Collapsible extends React.Component<Props, State> {
       isCollapsed: false,
       isCollapsible: false,
     };
-    this.handleToggle = this.handleToggle.bind(this);
+    this.handleToggleBound = (event) => this.handleToggle(event);
     this.containerRef = React.createRef();
   }
 
@@ -42,7 +42,7 @@ class Collapsible extends React.Component<Props, State> {
 
   containerRef: {current: null | React.ElementRef<'div'>};
 
-  handleToggle: (event: SyntheticEvent<HTMLAnchorElement>) => void;
+  handleToggleBound: (event: SyntheticEvent<HTMLAnchorElement>) => void;
 
   handleToggle(event: SyntheticEvent<HTMLAnchorElement>) {
     event.preventDefault();
@@ -71,7 +71,7 @@ class Collapsible extends React.Component<Props, State> {
             <a
               className={className + '-toggle'}
               href="#"
-              onClick={this.handleToggle}
+              onClick={this.handleToggleBound}
             >
               {isCollapsed ? l('Show more...') : l('Show less...')}
             </a>

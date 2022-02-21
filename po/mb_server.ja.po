@@ -4,6 +4,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# ​ <email address hidden>, 2022
 # nikki, 2014
 # Atsushi Nakamura <email address hidden>, 2020
 # 3832d0d0efdb299a8fecc04b951025e6_d30d94a, 2014
@@ -37,9 +38,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-08 20:18+0200\n"
-"PO-Revision-Date: 2022-02-08 18:20+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"POT-Creation-Date: 2022-02-14 10:55+0200\n"
+"PO-Revision-Date: 2022-02-20 09:35+0000\n"
+"Last-Translator: ​ <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -7609,7 +7610,7 @@ msgid ""
 "{mb_api_doc_url|MusicBrainz API}? {register_url|Register an application} to "
 "generate OAuth tokens. See our {oauth2_doc_url|OAuth documentation} for more"
 " details."
-msgstr ""
+msgstr "{mb_api_doc_url|MusicBrainz API}を使用するアプリケーションを開発したいですか？{register_url|アプリケーションを登録}して OAuth トークンを生成しましょう。詳細はこちらの{oauth2_doc_url|ドキュメント}を参照してください。"
 
 #: ../root/account/applications/Index.js:143
 msgid "OAuth Client ID"

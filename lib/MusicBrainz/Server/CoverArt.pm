@@ -13,7 +13,7 @@ has 'image_uri' => (
 );
 
 has 'provider' => (
-    isa => 'MusicBrainz::Server::CoverArt::Provider',
+    does => 'MusicBrainz::Server::CoverArt::Provider',
     is  => 'ro',
 );
 

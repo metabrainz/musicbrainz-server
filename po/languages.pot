@@ -1613,6 +1613,11 @@ msgstr ""
 msgid "Mirandese"
 msgstr ""
 
+#. frequency:1 iso_code_3:mvi 
+#: DB:language/name:4538
+msgid "Miyako"
+msgstr ""
+
 #. frequency:1 iso_code_3:moh 
 #: DB:language/name:280
 msgid "Mohawk"

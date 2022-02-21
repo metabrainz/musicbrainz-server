@@ -22093,7 +22093,7 @@ msgstr ""
 msgid "Miya"
 msgstr ""
 
-#. frequency:0 iso_code_3:mvi 
+#. frequency:1 iso_code_3:mvi 
 #: DB:language/name:4538
 msgid "Miyako"
 msgstr ""

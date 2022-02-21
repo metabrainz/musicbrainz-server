@@ -19,7 +19,7 @@ sub pretty_name
         $country = 'US' if $country eq 'com';
         $country =~ tr/a-z/A-Z/;
 
-        return "Amazon Music ($country)";
+        return "Amazon Music $country";
     }
 
     return $self->url->as_string;

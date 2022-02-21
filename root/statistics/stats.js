@@ -82,6 +82,11 @@ const stats = {
     color: '#ff0000',
     label: l('Male Artists'),
   },
+  'count.artist.gender.nonbinary': {
+    category: 'artist-other',
+    color: '#ff0000',
+    label: l('Non-binary Artists'),
+  },
   'count.artist.gender.not_applicable': {
     category: 'artist-other',
     color: '#ff0000',

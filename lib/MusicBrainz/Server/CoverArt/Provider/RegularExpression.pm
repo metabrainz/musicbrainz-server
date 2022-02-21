@@ -3,7 +3,7 @@ use Moose;
 
 use aliased 'MusicBrainz::Server::CoverArt';
 
-extends 'MusicBrainz::Server::CoverArt::Provider';
+with 'MusicBrainz::Server::CoverArt::Provider';
 
 has 'uri_expression' => (
     isa      => 'Str',
