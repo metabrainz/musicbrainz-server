@@ -31,7 +31,7 @@
 # Nikolai Prokoschenko <email address hidden>, 2011
 # nikki, 2013
 # Patrick <email address hidden>, 2015
-# Philipp Wolfer <email address hidden>, 2012,2018-2021
+# Philipp Wolfer <email address hidden>, 2012,2018-2022
 # Philipp Wolfer <email address hidden>, 2012
 # S.Brandt <email address hidden>, 2014-2016
 # Shepard, 2011
@@ -47,8 +47,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-01-24 20:52+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2022-02-17 13:08+0000\n"
+"Last-Translator: Philipp Wolfer <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1649,12 +1649,12 @@ msgstr "COMPASS-ID"
 #: DB:work_attribute_type/name:73
 msgctxt "work_attribute_type"
 msgid "COSCAP ID"
-msgstr ""
+msgstr "COSCAP-ID"
 
 #: DB:work_attribute_type/name:65
 msgctxt "work_attribute_type"
 msgid "COTT ID"
-msgstr ""
+msgstr "COTT-ID"
 
 #: DB:work_attribute_type_allowed_value/value:63
 msgctxt "work_attribute_type_allowed_value"
@@ -1959,6 +1959,11 @@ msgctxt "medium_format"
 msgid "DVD-Audio"
 msgstr "DVD-Audio"
 
+#: DB:medium_format/name:92
+msgctxt "medium_format"
+msgid "DVD-R Video"
+msgstr "DVD-R Video"
+
 #: DB:medium_format/name:19
 msgctxt "medium_format"
 msgid "DVD-Video"
@@ -2043,6 +2048,16 @@ msgstr ""
 msgctxt "medium_format"
 msgid "Data CD"
 msgstr "Daten-CD"
+
+#: DB:medium_format/name:94
+msgctxt "medium_format"
+msgid "Data DVD"
+msgstr "Daten-DVD"
+
+#: DB:medium_format/name:93
+msgctxt "medium_format"
+msgid "Data DVD-R"
+msgstr "Daten-DVD-R"
 
 #: DB:release_group_secondary_type/name:10
 msgctxt "release_group_secondary_type"
@@ -3002,7 +3017,7 @@ msgstr "HDCD"
 #: DB:work_attribute_type/name:64
 msgctxt "work_attribute_type"
 msgid "HFA ID"
-msgstr ""
+msgstr "HFA-ID"
 
 #: DB:medium_format/name:37
 msgctxt "medium_format"
@@ -3397,7 +3412,7 @@ msgstr "ID für die belgische Verwertungsgesellschaft SABAM"
 #: DB:work_attribute_type/description:61
 msgctxt "work_attribute_type"
 msgid "ID for the Bolivian rights society SOBODAYCOM"
-msgstr ""
+msgstr "ID für die bolivianische Verwertungsgesellschaft SOBODAYCOM"
 
 #: DB:work_attribute_type/description:37
 msgctxt "work_attribute_type"
@@ -3422,7 +3437,7 @@ msgstr "ID für die kanadische Verwertungsgesellschaft SODRAC"
 #: DB:work_attribute_type/description:71
 msgctxt "work_attribute_type"
 msgid "ID for the Chinese rights society MCSC"
-msgstr ""
+msgstr "ID für die chinesische Verwertungsgesellschaft MCSC"
 
 #: DB:work_attribute_type/description:39
 msgctxt "work_attribute_type"
@@ -3452,7 +3467,7 @@ msgstr "ID für die dänische Verwertungsgesellschaft KODA"
 #: DB:work_attribute_type/description:60
 msgctxt "work_attribute_type"
 msgid "ID for the Dominican rights society SGACEDOM"
-msgstr ""
+msgstr "ID für die dominikanische Verwertungsgesellschaft SGACEDOM"
 
 #: DB:work_attribute_type/description:26
 msgctxt "work_attribute_type"
@@ -3467,7 +3482,7 @@ msgstr "ID für die ecuadorianische Verwertungsgesellschaft SAYCE"
 #: DB:work_attribute_type/description:66
 msgctxt "work_attribute_type"
 msgid "ID for the Finnish rights society TEOSTO"
-msgstr ""
+msgstr "ID für die finnische Verwertungsgesellschaft TEOSTO"
 
 #: DB:work_attribute_type/description:21
 msgctxt "work_attribute_type"
@@ -3507,7 +3522,7 @@ msgstr "ID für die isländische Verwertungsgesellschaft STEF"
 #: DB:work_attribute_type/description:70
 msgctxt "work_attribute_type"
 msgid "ID for the Indian rights society IPRS"
-msgstr ""
+msgstr "ID für die indische Verwertungsgesellschaft IPRS"
 
 #: DB:work_attribute_type/description:29
 msgctxt "work_attribute_type"
@@ -3527,7 +3542,7 @@ msgstr "ID für die italienische Verwertungsgesellschaft SIAE"
 #: DB:work_attribute_type/description:69
 msgctxt "work_attribute_type"
 msgid "ID for the Jamaican rights society JACAP"
-msgstr ""
+msgstr "ID für die jamaikanische Verwertungsgesellschaft JACAP"
 
 #: DB:work_attribute_type/description:3
 msgctxt "work_attribute_type"
@@ -3607,7 +3622,7 @@ msgstr "ID für die singapurische Verwertungsgesellschaft COMPASS"
 #: DB:work_attribute_type/description:68
 msgctxt "work_attribute_type"
 msgid "ID for the South African rights society SAMRO"
-msgstr ""
+msgstr "ID für die südafrikanische Verwertungsgesellschaft SAMRO"
 
 #: DB:work_attribute_type/description:20
 msgctxt "work_attribute_type"
@@ -3632,7 +3647,7 @@ msgstr "ID für die taiwanesische Verwertungsgesellschaft MÜST"
 #: DB:work_attribute_type/description:72
 msgctxt "work_attribute_type"
 msgid "ID for the Thai rights society MCT"
-msgstr ""
+msgstr "ID für die thailändische Verwertungsgesellschaft MCT"
 
 #: DB:work_attribute_type/description:65
 msgctxt "work_attribute_type"
@@ -3692,7 +3707,7 @@ msgstr "IMRO-ID"
 #: DB:work_attribute_type/name:70
 msgctxt "work_attribute_type"
 msgid "IPRS ID"
-msgstr ""
+msgstr "IPRS-ID"
 
 #: DB:work_attribute_type/name:14
 msgctxt "work_attribute_type"
@@ -3749,7 +3764,7 @@ msgstr "Interview"
 #: DB:work_attribute_type_allowed_value/value:427
 msgctxt "work_attribute_type_allowed_value"
 msgid "Irak"
-msgstr ""
+msgstr "Irak"
 
 #: DB:work_attribute_type_allowed_value/value:428
 msgctxt "work_attribute_type_allowed_value"
@@ -3812,7 +3827,7 @@ msgstr "Insel wird für Inseln und Atolle verwendet, die keine eigenen Unterteil
 #: DB:work_attribute_type/name:69
 msgctxt "work_attribute_type"
 msgid "JACAP ID"
-msgstr ""
+msgstr "JACAP-ID"
 
 #: DB:work_attribute_type/name:3
 msgctxt "work_attribute_type"
@@ -4478,12 +4493,12 @@ msgstr "MACP-ID"
 #: DB:work_attribute_type/name:71
 msgctxt "work_attribute_type"
 msgid "MCSC ID"
-msgstr ""
+msgstr "MCSC-ID"
 
 #: DB:work_attribute_type/name:72
 msgctxt "work_attribute_type"
 msgid "MCT ID"
-msgstr ""
+msgstr "MCT-ID"
 
 #: DB:work_attribute_type_allowed_value/value:963
 msgctxt "work_attribute_type_allowed_value"
@@ -5063,7 +5078,7 @@ msgstr "Mōhanaṁ"
 #: DB:work_attribute_type/name:59
 msgctxt "work_attribute_type"
 msgid "NICAUTOR ID"
-msgstr ""
+msgstr "NICAUTOR-ID"
 
 #: DB:work_attribute_type_allowed_value/value:647
 msgctxt "work_attribute_type_allowed_value"
@@ -5423,7 +5438,7 @@ msgstr "Nīlāṁbari"
 #: DB:work_attribute_type/name:25
 msgctxt "work_attribute_type"
 msgid "OSA ID"
-msgstr ""
+msgstr "OSA-ID"
 
 #: DB:cover_art_archive.art_type/name:5
 msgctxt "cover_art_type"
@@ -6153,7 +6168,7 @@ msgstr "SACEM ID"
 #: DB:work_attribute_type/name:56
 msgctxt "work_attribute_type"
 msgid "SACIM ID"
-msgstr ""
+msgstr "SACIM-ID"
 
 #: DB:work_attribute_type/name:27
 msgctxt "work_attribute_type"
@@ -6173,7 +6188,7 @@ msgstr "SADAIC ID"
 #: DB:work_attribute_type/name:68
 msgctxt "work_attribute_type"
 msgid "SAMRO ID"
-msgstr ""
+msgstr "SAMRO-ID"
 
 #: DB:work_attribute_type/name:40
 msgctxt "work_attribute_type"
@@ -6198,7 +6213,7 @@ msgstr "SESAC-ID"
 #: DB:work_attribute_type/name:60
 msgctxt "work_attribute_type"
 msgid "SGACEDOM ID"
-msgstr ""
+msgstr "SGACEDOM-ID"
 
 #: DB:work_attribute_type/name:20
 msgctxt "work_attribute_type"
@@ -6233,7 +6248,7 @@ msgstr "SIAE-ID"
 #: DB:work_attribute_type/name:61
 msgctxt "work_attribute_type"
 msgid "SOBODAYCOM ID"
-msgstr ""
+msgstr "SOBODAYCOM-ID"
 
 #: DB:work_attribute_type/name:10
 msgctxt "work_attribute_type"
@@ -6243,7 +6258,7 @@ msgstr "SOCAN-ID"
 #: DB:work_attribute_type/name:53
 msgctxt "work_attribute_type"
 msgid "SODRAC ID"
-msgstr ""
+msgstr "SODRAC-ID"
 
 #: DB:work_attribute_type/name:35
 msgctxt "work_attribute_type"
@@ -6253,12 +6268,12 @@ msgstr "SPA-ID"
 #: DB:work_attribute_type/name:62
 msgctxt "work_attribute_type"
 msgid "SPAC ID"
-msgstr ""
+msgstr "SPAC-ID"
 
 #: DB:work_attribute_type/name:54
 msgctxt "work_attribute_type"
 msgid "STEF ID"
-msgstr ""
+msgstr "STEF-ID"
 
 #: DB:work_attribute_type/name:50
 msgctxt "work_attribute_type"
@@ -6847,12 +6862,12 @@ msgstr ""
 #: DB:work_attribute_type/name:66
 msgctxt "work_attribute_type"
 msgid "TEOSTO ID"
-msgstr ""
+msgstr "TEOSTO-ID"
 
 #: DB:work_attribute_type/name:67
 msgctxt "work_attribute_type"
 msgid "TONO ID"
-msgstr ""
+msgstr "TONO-ID"
 
 #: DB:work_attribute_type_allowed_value/value:573
 msgctxt "work_attribute_type_allowed_value"
