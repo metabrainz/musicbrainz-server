@@ -5185,6 +5185,20 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
+                     input_url: 'https://www.youtube.com/c/communitymusiclearning/about?view_as=subscriber',
+             input_entity_type: 'label',
+    expected_relationship_type: 'youtube',
+            expected_clean_url: 'https://www.youtube.com/communitymusiclearning',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.youtube.com/channel/UCKG8UEfkMG_86SaCkapjTMQ/featured?view_as=subscriber',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'youtube',
+            expected_clean_url: 'https://www.youtube.com/channel/UCKG8UEfkMG_86SaCkapjTMQ',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
                      input_url: 'http://youtu.be/UmHdefsaL6I',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
