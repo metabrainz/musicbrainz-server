@@ -1,6 +1,5 @@
 package MusicBrainz::Server::CoverArt::Provider;
-use Moose;
-use MooseX::ABC;
+use Moose::Role;
 
 has 'name' => (
     isa      => 'Str',
@@ -18,8 +17,7 @@ requires 'lookup_cover_art';
 
 sub fallback_meta { return undef; }
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
+no Moose::Role;
 
 1;
 

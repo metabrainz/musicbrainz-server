@@ -6,7 +6,7 @@ use XML::XPath;
 
 use aliased 'MusicBrainz::Server::CoverArt::Amazon' => 'CoverArt';
 
-extends 'MusicBrainz::Server::CoverArt::Provider';
+with 'MusicBrainz::Server::CoverArt::Provider';
 
 has '+link_type_name' => (
     default => 'amazon asin',
