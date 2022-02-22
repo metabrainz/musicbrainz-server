@@ -467,8 +467,14 @@ sub schema_fixup
     {
         my $parent_type = $data->{type};
         $parent_type =~ s/-/_/g;
-        my $entity_model = $self->c->model( type_to_model($parent_type) )->_entity_class;
-        $data->{parent} = $entity_model->new( { name => $data->{name}, gid => $data->{entity} });
+        my $entity_model = $self->c->model( type_to_model($parent_type) );
+        my $entity = $entity_model->get_by_gid($data->{entity});
+        $data->{parent} = defined $entity
+            ? $entity
+            : $entity_model->_entity_class->new({
+                name => $data->{name},
+                gid => $data->{entity},
+            });
         delete $data->{entity};
         delete $data->{type};
     }
