@@ -240,6 +240,7 @@ export const LINK_TYPES: LinkTypeMap = {
     artist: '0af15ab3-c615-46d6-b95b-a5fcd2a92ed9',
     event: '5d3e0348-71a8-3dc1-b847-3a8f1d5de688',
     label: '8a2d3e55-d291-4b99-87a0-c59c6b121762',
+    place: 'f11ffda6-d59a-45bf-9b07-74b08335b5fa',
     release: '6af0134a-df6a-425a-96e2-895f9cd342ba',
     work: 'bb250727-5090-4568-af7b-be8545c034bc',
   },
@@ -4581,6 +4582,11 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.vgmdb.label:
             return {
               result: prefix === 'org',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.vgmdb.place:
+            return {
+              result: prefix === 'artist',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.vgmdb.event:

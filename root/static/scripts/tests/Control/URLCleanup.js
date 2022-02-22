@@ -4709,7 +4709,14 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'vgmdb',
             expected_clean_url: 'https://vgmdb.net/artist/431',
-       only_valid_entity_types: ['artist'],
+       only_valid_entity_types: ['artist', 'place'],
+  },
+  {
+                     input_url: 'http://vgmdb.net/artist/39968',
+             input_entity_type: 'place',
+    expected_relationship_type: 'vgmdb',
+            expected_clean_url: 'https://vgmdb.net/artist/39968',
+       only_valid_entity_types: ['artist', 'place'],
   },
   {
                      input_url: 'http://vgmdb.com/event/197',
