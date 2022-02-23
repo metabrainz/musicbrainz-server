@@ -27,8 +27,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-02-14 08:55+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2022-02-21 13:46+0000\n"
+"Last-Translator: Shunsuke Shimizu <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -162,6 +162,14 @@ msgid ""
 "</ul>\n"
 "\n"
 "<p>There are other variations of the single called a \"split single\" where songs by two different artists are released on the one disc, typically vinyl.</p>"
+msgstr ""
+
+#: DB:medium_format/description:95
+msgctxt "medium_format"
+msgid ""
+"A \"digital collectible\" device, mostly used for k-pop music, that is "
+"connected to a phone via Bluetooth or headphone jack and unlocks the release"
+" for listening in a companion app for a limited period of time."
 msgstr ""
 
 #: DB:release_group_secondary_type/description:8
@@ -332,6 +340,14 @@ msgid ""
 " or a roof which can be retracted."
 msgstr "屋外スポーツイベントを開催することを主な目的とする場所で、通常は屋根のない観客のための構造物で囲まれたピッチ、または格納することができる屋根で構成される。"
 
+#: DB:release_status/description:6
+msgctxt "release_status"
+msgid ""
+"A planned official release that was cancelled before being released, but for"
+" which enough info is known to still confidently list it (e.g. it was "
+"available for preorder)."
+msgstr ""
+
 #: DB:work_type/description:28
 msgctxt "work_type"
 msgid ""
@@ -346,6 +362,15 @@ msgid ""
 "A poem is a literary piece, generally short and in verse, where words are "
 "usually chosen for their sound and for the images and ideas they suggest."
 msgstr "詩は、一般的に短く、詩のある文学作品であり、通常、言葉はその音と、彼らが提案するイメージやアイデアのために選択される。"
+
+#: DB:release_status/description:5
+msgctxt "release_status"
+msgid ""
+"A previously official release that was actively withdrawn from circulation "
+"by the artist and/or their record company after being released, whether to "
+"replace it with a new version with some changes or to just retire it "
+"altogether (e.g. because of legal issues)."
+msgstr ""
 
 #: DB:release_group_secondary_type/description:10
 msgctxt "release_group_secondary_type"
@@ -1650,6 +1675,11 @@ msgstr ""
 msgctxt "work_attribute_type_allowed_value"
 msgid "Campākali"
 msgstr ""
+
+#: DB:release_status/name:6
+msgctxt "release_status"
+msgid "Cancelled"
+msgstr "キャンセル済"
 
 #: DB:work_attribute_type_allowed_value/value:64
 msgctxt "work_attribute_type_allowed_value"
@@ -4184,6 +4214,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Khēmtāl"
 msgstr ""
 
+#: DB:medium_format/name:95
+msgctxt "medium_format"
+msgid "KiT Album"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:630
 msgctxt "work_attribute_type_allowed_value"
 msgid "Koda"
@@ -5328,6 +5363,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:490
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nişabureyn"
+msgstr ""
+
+#: DB:gender/name:5
+msgctxt "gender"
+msgid "Non-binary"
 msgstr ""
 
 #: DB:release_group_secondary_type/description:3
@@ -7500,6 +7540,11 @@ msgstr "管楽器"
 msgctxt "collection_type"
 msgid "Wishlist"
 msgstr "ほしい物リスト"
+
+#: DB:release_status/name:5
+msgctxt "release_status"
+msgid "Withdrawn"
+msgstr ""
 
 #: DB:editor_collection_type/name:15
 msgctxt "collection_type"

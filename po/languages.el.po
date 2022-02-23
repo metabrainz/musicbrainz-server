@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-01-31 19:04+0000\n"
+"PO-Revision-Date: 2022-02-21 13:46+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -1617,6 +1617,11 @@ msgstr ""
 #. frequency:1 iso_code_3:mwl
 #: DB:language/name:287
 msgid "Mirandese"
+msgstr ""
+
+#. frequency:1 iso_code_3:mvi
+#: DB:language/name:4538
+msgid "Miyako"
 msgstr ""
 
 #. frequency:1 iso_code_3:moh

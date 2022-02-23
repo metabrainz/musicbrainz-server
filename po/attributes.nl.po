@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-02-19 09:59+0000\n"
+"PO-Revision-Date: 2022-02-22 11:22+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -147,6 +147,14 @@ msgid ""
 "\n"
 "<p>There are other variations of the single called a \"split single\" where songs by two different artists are released on the one disc, typically vinyl.</p>"
 msgstr "<p>De definitie van een single kan afhankelijk zijn van de markt waarvoor hij is bedoeld.</p>\n\n<ul>\n<li>In de VS staat er op een single meestal één hoofdnummer, met mogelijk een aantal extra nummers of remixes van het hoofdnummer. De single is meestal genoemd naar het hoofdnummer. De single wordt vooral uitgegeven om op de radio te worden gedraaid en de verkoop van het album te stimuleren.</li>\n<li>In het Verenigd Koninkrijk, Europa en Australië zijn singles vergelijkbaar met de VS, maar worden singles soms ook als een set van twee afzonderlijke singles verkocht. Ook is er vaak een langere versie van de single die soms een “maxi-single” wordt genoemd.</li>\n<li>De Japanse markt draait veel meer om singles. De belangrijkste onderscheidende factor is over het algemeen de duur van de single en de verkoopprijs. Tot 1995 werden deze singles vaak op minicd (een kleiner schijfje van meestal 8 cm) uitgebracht. In 1995 werd de 8cm-cd uitgefaseerd en werden normale cd’s van 12 cm voor singles gebruikelijker. Ook als singles die ooit op 8 cm zijn uitgebracht nu opnieuw worden uitgebracht, is dat meestal op een 12cm-cd. Japanse singles hebben vaak instrumentale versies van de nummers, en er worden ook maxi-singles verkocht. Deze maxi-singles kunnen meer nummers dan een EP hebben, maar omdat het alternatieve versies van dezelfde twee of drie nummers is, worden ze toch als single geclassificeerd.</li>\n</ul>\n\n<p>Er zijn ook andere ‘gedeelde singles’ met nummers van twee verschillende artiesten die op één medium (meestal vinyl) worden uitgebracht.</p>"
+
+#: DB:medium_format/description:95
+msgctxt "medium_format"
+msgid ""
+"A \"digital collectible\" device, mostly used for k-pop music, that is "
+"connected to a phone via Bluetooth or headphone jack and unlocks the release"
+" for listening in a companion app for a limited period of time."
+msgstr "Een ‘digitaal verzamelobject’ dat via bluetooth of de 3,5mm-aansluiting met een telefoon wordt verbonden, waarna de uitgave via een bijbehorende app een beperkte tijd te beluisteren is."
 
 #: DB:release_group_secondary_type/description:8
 msgctxt "release_group_secondary_type"
@@ -316,6 +324,14 @@ msgid ""
 " or a roof which can be retracted."
 msgstr "Een plaats die als belangrijkste functie sportevenementen in de open lucht heeft. Meestal bestaat het uit een veld met daaromheen een gebouw voor toeschouwers zonder dak, of een dak dat kan worden ingetrokken."
 
+#: DB:release_status/description:6
+msgctxt "release_status"
+msgid ""
+"A planned official release that was cancelled before being released, but for"
+" which enough info is known to still confidently list it (e.g. it was "
+"available for preorder)."
+msgstr "Een geplande officiële uitgave die voor de uitgavedatum werd geannuleerd, maar waarvoor genoeg informatie is om haar toe te voegen (bijv. omdat ze al kon worden besteld)."
+
 #: DB:work_type/description:28
 msgctxt "work_type"
 msgid ""
@@ -330,6 +346,15 @@ msgid ""
 "A poem is a literary piece, generally short and in verse, where words are "
 "usually chosen for their sound and for the images and ideas they suggest."
 msgstr "Een gedicht is een vorm van literatuur, meestal kort en rijmend, waarbij de woorden meestal worden gekozen voor de klank en voor de beelden en ideeën die ze oproepen."
+
+#: DB:release_status/description:5
+msgctxt "release_status"
+msgid ""
+"A previously official release that was actively withdrawn from circulation "
+"by the artist and/or their record company after being released, whether to "
+"replace it with a new version with some changes or to just retire it "
+"altogether (e.g. because of legal issues)."
+msgstr "Een officiële uitgave die door de artiest en/of platenmaatschappij na de uitgavedatum is teruggetrokken. Dit kan gebeuren om een nieuwe versie met een paar veranderingen uit te brengen of om de uitgave helemaal te schrappen (bijv. om juridische redenen)."
 
 #: DB:release_group_secondary_type/description:10
 msgctxt "release_group_secondary_type"
@@ -1634,6 +1659,11 @@ msgstr "Campak"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Campākali"
 msgstr "Campākali"
+
+#: DB:release_status/name:6
+msgctxt "release_status"
+msgid "Cancelled"
+msgstr "Geannuleerd"
 
 #: DB:work_attribute_type_allowed_value/value:64
 msgctxt "work_attribute_type_allowed_value"
@@ -4168,6 +4198,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Khēmtāl"
 msgstr "Khēmtāl"
 
+#: DB:medium_format/name:95
+msgctxt "medium_format"
+msgid "KiT Album"
+msgstr "KiT Album"
+
 #: DB:work_attribute_type_allowed_value/value:630
 msgctxt "work_attribute_type_allowed_value"
 msgid "Koda"
@@ -5313,6 +5348,11 @@ msgstr "Nişaburek"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nişabureyn"
 msgstr "Nişabureyn"
+
+#: DB:gender/name:5
+msgctxt "gender"
+msgid "Non-binary"
+msgstr "Niet-binair"
 
 #: DB:release_group_secondary_type/description:3
 msgctxt "release_group_secondary_type"
@@ -7484,6 +7524,11 @@ msgstr "Blaasinstrument"
 msgctxt "collection_type"
 msgid "Wishlist"
 msgstr "Verlanglijst"
+
+#: DB:release_status/name:5
+msgctxt "release_status"
+msgid "Withdrawn"
+msgstr "Teruggetrokken"
 
 #: DB:editor_collection_type/name:15
 msgctxt "collection_type"

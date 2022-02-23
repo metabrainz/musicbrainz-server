@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-02-17 18:23+0000\n"
+"PO-Revision-Date: 2022-02-21 22:30+0000\n"
 "Last-Translator: salo.rock\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -148,6 +148,14 @@ msgid ""
 "\n"
 "<p>There are other variations of the single called a \"split single\" where songs by two different artists are released on the one disc, typically vinyl.</p>"
 msgstr "<p>Un singolo ha una definizione diversa a seconda del mercato in cui è pubblicato.</p>\n\n<ul>\n<li>Nel mercato statunitense, un singolo ha in genere una canzone principale ed eventualmente una manciata di tracce aggiuntive o remix della traccia principale; il singolo è intitolato di solito come la traccia principale; è pubblicato principalmente per ottenere passaggi in radio e per promuovere le vendite di una pubblicazione.</li>\n<li>Il mercato britannico (così come quello australiano ed europeo) è simile a quello statunitense, ma i singoli sono spesso pubblicati come set di due dischi, venduti separatamente. A volte hanno anche una versione più lunga del singolo (che spesso combina le tracce dei set di due dischi) che è molto simile al singolo di stile statunitense e che si definisce \"maxi singolo\". (In alcuni casi il maxi singolo è più lungo della pubblicazione da cui è tratto il singolo!)</li>\n<li>Il mercato giapponese è molto più orientato verso i singoli. Il fattore distintivo è in genere la lunghezza del singolo e di conseguenza il prezzo di vendita. Fino al 1995 era comune che questi singoli fossero pubblicati in formato mini CD, cioè un CD molto piccolo, in genere di 8 cm di diametro. Attorno al 1995 il singolo da 8 cm fu progressivamente eliminato e il CD singolo standard da 12 cm divenne più comune; in genere le riedizioni di singoli risalenti a prima del 1995 vengono pubblicate in formato 12 cm, anche se originariamente pubblicati in formato 8 cm. I singoli giapponesi includono spesso versioni strumentali delle canzoni ed esistono anche maxi singoli con versioni remixate delle canzoni, come nel Regno Unito. A volte un maxi singolo può avere più tracce di un EP, ma, trattandosi di versioni alternative delle stesse 2-3 canzoni, viene comunque classificato come singolo.</li>\n</ul>\n\n<p>Esistono anche altre variazioni dei singoli chiamate \"split single\", in cui le canzoni di due artisti diversi sono pubblicate sullo stesso disco, generalmente in vinile.</p>"
+
+#: DB:medium_format/description:95
+msgctxt "medium_format"
+msgid ""
+"A \"digital collectible\" device, mostly used for k-pop music, that is "
+"connected to a phone via Bluetooth or headphone jack and unlocks the release"
+" for listening in a companion app for a limited period of time."
+msgstr "Un dispositivo digitale collezionabile, utilizzato soprattutto per la musica K-pop, che è collegato ad un telefono via Bluetooth o spinotto delle cuffie e sblocca la pubblicazione per l'ascolto in un'app integrativa per un periodo di tempo limitato."
 
 #: DB:release_group_secondary_type/description:8
 msgctxt "release_group_secondary_type"
@@ -317,6 +325,14 @@ msgid ""
 " or a roof which can be retracted."
 msgstr "Un luogo la cui funzione principale è ospitare eventi sportivi all'aperto, solitamente costituito da un campo circondato da una struttura per gli spettatori non coperta o con tetto retrattile."
 
+#: DB:release_status/description:6
+msgctxt "release_status"
+msgid ""
+"A planned official release that was cancelled before being released, but for"
+" which enough info is known to still confidently list it (e.g. it was "
+"available for preorder)."
+msgstr "Una pubblicazione ufficiale programmata che è stata annullata prima di essere pubblicata, ma sulla quale sono disponibili abbastanza informazioni da poterla inserire con certezza (per es. era disponibile in preordine)."
+
 #: DB:work_type/description:28
 msgctxt "work_type"
 msgid ""
@@ -331,6 +347,15 @@ msgid ""
 "A poem is a literary piece, generally short and in verse, where words are "
 "usually chosen for their sound and for the images and ideas they suggest."
 msgstr "Una poesia è un brano letterario, in genere breve e in versi, in cui le parole sono solitamente scelte per il loro suono e per le immagini e le idee che evocano."
+
+#: DB:release_status/description:5
+msgctxt "release_status"
+msgid ""
+"A previously official release that was actively withdrawn from circulation "
+"by the artist and/or their record company after being released, whether to "
+"replace it with a new version with some changes or to just retire it "
+"altogether (e.g. because of legal issues)."
+msgstr "Una pubblicazione in precedenza ufficiale che è stata attivamente ritirata dalla circolazione dall'artista e/o dalla sua casa discografica dopo essere stata pubblicata, che sia per sostituirla con una nuova versione con alcuni cambiamenti o per ritirarla del tutto (per es. a causa di problemi legali)."
 
 #: DB:release_group_secondary_type/description:10
 msgctxt "release_group_secondary_type"
@@ -1635,6 +1660,11 @@ msgstr "Campak"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Campākali"
 msgstr "Campākali"
+
+#: DB:release_status/name:6
+msgctxt "release_status"
+msgid "Cancelled"
+msgstr "Annullate"
 
 #: DB:work_attribute_type_allowed_value/value:64
 msgctxt "work_attribute_type_allowed_value"
@@ -4169,6 +4199,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Khēmtāl"
 msgstr "Khēmtāl"
 
+#: DB:medium_format/name:95
+msgctxt "medium_format"
+msgid "KiT Album"
+msgstr "KiT Album"
+
 #: DB:work_attribute_type_allowed_value/value:630
 msgctxt "work_attribute_type_allowed_value"
 msgid "Koda"
@@ -5314,6 +5349,11 @@ msgstr "Nişaburek"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nişabureyn"
 msgstr "Nişabureyn"
+
+#: DB:gender/name:5
+msgctxt "gender"
+msgid "Non-binary"
+msgstr "Non binario"
 
 #: DB:release_group_secondary_type/description:3
 msgctxt "release_group_secondary_type"
@@ -7485,6 +7525,11 @@ msgstr "Strumenti ad aria"
 msgctxt "collection_type"
 msgid "Wishlist"
 msgstr "Lista desideri"
+
+#: DB:release_status/name:5
+msgctxt "release_status"
+msgid "Withdrawn"
+msgstr "Ritirata"
 
 #: DB:editor_collection_type/name:15
 msgctxt "collection_type"

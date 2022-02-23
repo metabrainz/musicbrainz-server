@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-02-09 11:00+0000\n"
+"PO-Revision-Date: 2022-02-22 11:24+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1620,6 +1620,11 @@ msgstr "Minangkabaus"
 #: DB:language/name:287
 msgid "Mirandese"
 msgstr "Mirandees"
+
+#. frequency:1 iso_code_3:mvi
+#: DB:language/name:4538
+msgid "Miyako"
+msgstr "Miyako"
 
 #. frequency:1 iso_code_3:moh
 #: DB:language/name:280
