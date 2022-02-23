@@ -4574,9 +4574,9 @@ const CLEANUPS: CleanupEntries = {
               result: prefix === 'artist' || prefix === 'org',
               target: ERROR_TARGETS.ENTITY,
             };
-          case LINK_TYPES.vgmdb.release:
+          case LINK_TYPES.vgmdb.event:
             return {
-              result: prefix === 'album',
+              result: prefix === 'event',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.vgmdb.label:
@@ -4589,9 +4589,9 @@ const CLEANUPS: CleanupEntries = {
               result: prefix === 'artist',
               target: ERROR_TARGETS.ENTITY,
             };
-          case LINK_TYPES.vgmdb.event:
+          case LINK_TYPES.vgmdb.release:
             return {
-              result: prefix === 'event',
+              result: prefix === 'album',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.vgmdb.work:
