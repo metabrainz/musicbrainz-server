@@ -6,18 +6,52 @@
         <td>
             [%- IF !search -%]
                 <a href="[% c.uri_for_action('/edit/search') %]">[% l('Search for edits') %]</a>
-                |
             [% END %]
             [%- IF refine_url_args -%]
+                |
                 [%- refine_url_args.form_only = 'yes' -%]
                 <a href="[% c.uri_for('/search/edits', refine_url_args) %]">[% l('Refine this search') %]</a>
-                |
             [%- END -%]
+            [%- IF user && page == 'user_all' -%]
+                |
+            <a href="[% c.uri_for_action('user/edits/open', [user]) %]">[% l('Open edits for {user}', { user => user }) %]</a>
+            [% END %]
+            [%- IF user && page != 'user_all' -%]
+                |
+            <a href="[% c.uri_for_action('user/edits/all', [user]) %]">[% l('All edits for {user}', { user => user }) %]</a>
+            [% END %]
+            [%- IF page == 'subscribed' && !(c.req.query_params.open == 1) -%]
+                |
+            <a href="[% c.uri_for_action('edit/subscribed', { open => 1 }) %]">[% l('Open edits for your subscribed entities') %]</a>
+            [% END %]
+            [%- IF page == 'subscribed' && c.req.query_params.open == 1 -%]
+                |
+            <a href="[% c.uri_for_action('edit/subscribed', { open => 0 }) %]">[% l('All edits for your subscribed entities') %]</a>
+            [% END %]
+            [%- IF page == 'subscribed_editors' && !(c.req.query_params.open == 1) -%]
+                |
+            <a href="[% c.uri_for_action('edit/subscribed_editors', { open => 1 }) %]">[% l('Open edits for your subscribed editors') %]</a>
+            [% END %]
+            [%- IF page == 'subscribed_editors' && c.req.query_params.open == 1 -%]
+                |
+            <a href="[% c.uri_for_action('edit/subscribed_editors', { open => 0 }) %]">[% l('All edits for your subscribed editors') %]</a>
+            [% END %]
+            [%- IF page != 'open' -%]
+                |
             <a href="[% c.uri_for('/edit/open') %]">[% l('Open edits') %]</a>
+            [% END %]
+            [%- IF c.user_exists && page != 'subscribed' -%]
             |
             <a href="[% c.uri_for_action('/edit/subscribed') %]">[% l('Subscribed entities') %]</a>
+            [% END %]
+            [%- IF c.user_exists && page != 'subscribed_editors' -%]
             |
             <a href="[% c.uri_for_action('/edit/subscribed_editors') %]">[% l('Subscribed editors') %]</a>
+            [% END %]
+            [%- IF c.user_exists -%]
+            |
+            <a href="[% c.uri_for_action('/vote/index') %]">[% l('Voting suggestions') %]</a>
+            [% END %]
         </td>
     </tr>
     <tr>
@@ -25,13 +59,11 @@
             [%- l('Help:') -%]
         </th>
         <td>
-            <a href="[% doc_link('Introduction_to_Voting') %]">[% l('Voting FAQ') %]</a>
+            <a href="[% doc_link('Introduction_to_Voting') %]">[% l('Introduction to Voting') %]</a>
             |
-            <a href="[% doc_link('Editing_FAQ') %]">[% l('Editing FAQ') %]</a>
+            <a href="[% doc_link('Introduction_to_Editing') %]">[% l('Introduction to Editing') %]</a>
             |
             <a href="[% doc_link('Style') %]">[% l('Style guidelines') %]</a>
-            |
-            <a href="[% doc_link('How_Editing_Works') %]">[% l('How editing works') %]</a>
         </td>
     </tr>
 </table>

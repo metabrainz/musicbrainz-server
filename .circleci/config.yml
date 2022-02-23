@@ -3,7 +3,7 @@ version: 2.1
 executors:
   musicbrainz-tests:
     docker:
-      - image: metabrainz/musicbrainz-tests:v-2021-12
+      - image: metabrainz/musicbrainz-tests:v-2022-02
         user: root
     working_directory: /home/musicbrainz/musicbrainz-server
 
