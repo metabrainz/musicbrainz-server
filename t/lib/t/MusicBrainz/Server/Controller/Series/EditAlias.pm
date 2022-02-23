@@ -41,15 +41,15 @@ test all => sub {
             sort_name => 'brand new alias',
         },
         old => {
-            name => 'Test Recording Series Alias',
-            sort_name => 'Test Recording Series Alias',
+            name => 'Test Series Alias',
+            sort_name => 'Test Series Alias',
         }
     });
 
     $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
     html_ok($mech->content, '..valid xml');
     $mech->text_contains('Test Recording Series', '..has series name');
-    $mech->text_contains('Test Recording Series Alias', '..has old alias name');
+    $mech->text_contains('Test Series Alias', '..has old alias name');
     $mech->text_contains('brand new alias', '..has new alias name');
 
     # A sortname isn't required (MBS-6896)

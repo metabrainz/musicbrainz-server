@@ -1,61 +1,121 @@
 package t::MusicBrainz::Server::Controller::Recording::DeleteAlias;
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( html_ok );
+use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
-with 't::Mechanize';
-with 't::Context';
+with 't::Mechanize', 't::Context';
 
-test all => sub {
+=head2 Test description
+
+This test checks that recording alias deletion works, and that it requires
+an edit note.
+
+=cut
+
+test 'Deleting an alias' => sub {
     my $test = shift;
     my $mech = $test->mech;
-    my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($c, '+tracklist');
-    MusicBrainz::Server::Test->prepare_test_database($c, '+recording');
+    prepare_test($test);
 
-    $mech->get_ok('/login');
-    $mech->submit_form( with_fields => { username => 'editor', password => 'password' } );
+    $mech->get_ok(
+        '/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/alias/1/delete',
+        'Fetched the delete alias page',
+    );
+    my @edits = capture_edits {
+        $mech->submit_form_ok({
+                with_fields => {
+                    'confirm.edit_note' =>
+                        q(Some edit note since it's required)
+                }
+            },
+            'The form returned a 2xx response code',
+        );
+    } $test->c;
 
-    $mech->get_ok('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/alias/1/delete');
+    is(@edits, 1, 'The edit was entered');
 
-    $mech->submit_form(
-        with_fields => {
-            'confirm.edit_note' => 'remove this now!'
-        }
+    my $edit = shift(@edits);
+
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::DeleteAlias');
+    is_deeply(
+        $edit->data,
+        {
+            entity => {
+                id => 1,
+                name => 'King of the Mountain'
+            },
+            alias_id  => 1,
+            name      => 'Test Recording Alias',
+            sort_name => 'Test Recording Alias',
+            begin_date => {
+                year => undef,
+                month => undef,
+                day => undef
+            },
+            end_date => {
+                year => undef,
+                month => undef,
+                day => undef
+            },
+            ended => 0,
+            type_id => 2,
+            locale => undef,
+            primary_for_locale => 0,
+        },
+        'The edit contains the right data',
     );
 
-    my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
-    isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::DeleteAlias');
-
-    is_deeply($edit->data, {
-        entity => {
-            id => 1,
-            name => 'King of the Mountain'
-        },
-        alias_id  => 1,
-        name => 'Test Recording Alias',
-        sort_name => 'Test Recording Alias',
-        begin_date => {
-            year => undef,
-            month => undef,
-            day => undef
-        },
-        end_date => {
-            year => undef,
-            month => undef,
-            day => undef
-        },
-        ended => 0,
-        type_id => 2,
-        locale => undef,
-        primary_for_locale => 0
-    });
-
-    $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
-    html_ok($mech->content, '..valid xml');
-    $mech->content_contains('King of the Mountain', '..has recording name');
-    $mech->content_contains('Test Recording Alias', '..has alias name');
+    $mech->get_ok('/edit/' . $edit->id, 'Fetched edit page');
+    html_ok($mech->content);
+    $mech->content_contains(
+        'King of the Mountain',
+        'The edit page contains the recording name',
+    );
+    $mech->content_contains(
+        'Test Recording Alias',
+        'The edit page contains the alias name',
+    );
 };
+
+test 'Edit note is required' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    prepare_test($test);
+
+    $mech->get_ok(
+        '/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/alias/1/delete',
+        'Fetched the delete alias page',
+    );
+    my @edits = capture_edits {
+        $mech->submit_form_ok({
+                with_fields => {
+                    'confirm.edit_note' => ''
+                }
+            },
+            'The form returned a 2xx response code',
+        );
+    } $test->c;
+
+    is(@edits, 0, 'No edit was entered');
+
+    $mech->content_contains(
+        'You must provide an edit note',
+        'Contains warning about edit note being required',
+    );
+};
+
+sub prepare_test {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+recording');
+
+    $test->mech->get_ok('/login');
+    $test->mech->submit_form(
+        with_fields => { username => 'editor', password => 'password' },
+    );
+}
 
 1;

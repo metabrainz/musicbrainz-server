@@ -12,20 +12,16 @@ an edit note.
 
 =cut
 
-test 'Test alias deletion' => sub {
+test 'Deleting an alias' => sub {
     my $test = shift;
     my $mech = $test->mech;
-    my $c    = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database(
-        $c,
-        '+controller_artist',
+    prepare_test($test);
+
+    $mech->get_ok(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce/alias/1/delete',
+        'Fetched the delete alias page',
     );
-
-    $mech->get_ok('/login');
-    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
-
-    $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/alias/1/delete');
     my @edits = capture_edits {
         $mech->submit_form_ok({
                 with_fields => {
@@ -35,7 +31,7 @@ test 'Test alias deletion' => sub {
             },
             'The form returned a 2xx response code',
         );
-    } $c;
+    } $test->c;
 
     is(@edits, 1, 'The edit was entered');
 
@@ -82,20 +78,16 @@ test 'Test alias deletion' => sub {
     );
 };
 
-test 'Test edit note is required' => sub {
+test 'Edit note is required' => sub {
     my $test = shift;
     my $mech = $test->mech;
-    my $c    = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database(
-        $c,
-        '+controller_artist',
+    prepare_test($test);
+
+    $mech->get_ok(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce/alias/1/delete',
+        'Fetched the delete alias page',
     );
-
-    $mech->get_ok('/login');
-    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
-
-    $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/alias/1/delete');
     my @edits = capture_edits {
         $mech->submit_form_ok({
                 with_fields => {
@@ -104,7 +96,7 @@ test 'Test edit note is required' => sub {
             },
             'The form returned a 2xx response code',
         );
-    } $c;
+    } $test->c;
 
     is(@edits, 0, 'No edit was entered');
 
@@ -113,5 +105,19 @@ test 'Test edit note is required' => sub {
         'Contains warning about edit note being required',
     );
 };
+
+sub prepare_test {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database(
+        $test->c,
+        '+controller_artist',
+    );
+
+    $test->mech->get('/login');
+    $test->mech->submit_form(
+        with_fields => { username => 'new_editor', password => 'password' }
+    );
+}
 
 1;
