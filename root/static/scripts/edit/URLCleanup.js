@@ -1034,6 +1034,27 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'bbcevents': {
+    match: [new RegExp(
+      '^(https?://)?(www\\.)?bbc\\.co\\.uk/events/',
+      'i',
+    )],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?bbc\.co\.uk\/events\/([\w]+).*$/, 'https://www.bbc.co.uk/events/$1');
+      return url;
+    },
+    validate: function (url, id) {
+      const isCorrectlyFormatted = /^https:\/\/www\.bbc\.co\.uk\/events\/[\w]+$/.test(url);
+      if (isCorrectlyFormatted) {
+        if (id === LINK_TYPES.otherdatabases.event) {
+          return {result: true};
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'bbcmusic': {
     match: [new RegExp(
       '^(https?://)?(www\\.)?bbc\\.co\\.uk/music/artists/',
