@@ -1,52 +1,80 @@
 package t::MusicBrainz::Server::Controller::CDTOC::SetDurations;
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( html_ok );
+use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
 with 't::Mechanize', 't::Context';
 
-test all => sub {
+=head2 Test description
 
-my $test = shift;
-my $mech = $test->mech;
-my $c    = $test->c;
+This test checks whether the set track lengths page for disc IDs allows
+entering edits.
 
-MusicBrainz::Server::Test->prepare_test_database($c, '+controller_cdtoc');
+=cut
 
-MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
-    INSERT INTO editor (
-        id, name, password, privs,
-        email, website, bio,
-        email_confirm_date, member_since, last_login_date, ha1
-    ) VALUES (
-        1, 'new_editor', '{CLEARTEXT}password', 0,
-        'test@editor.org', 'http://musicbrainz.org', 'biography',
-        '2005-10-20', '1989-07-23', now(), 'e1dd8fee8ee728b0ddc8027d3a3db478'
+test 'Test setting track lengths based on disc ID' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+controller_cdtoc');
+
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
+        INSERT INTO editor (
+            id, name, password, privs,
+            email, website, bio,
+            email_confirm_date, member_since, last_login_date, ha1
+        ) VALUES (
+            1, 'new_editor', '{CLEARTEXT}password', 0,
+            'test@editor.org', 'http://musicbrainz.org', 'biography',
+            '2005-10-20', '1989-07-23', now(), 'e1dd8fee8ee728b0ddc8027d3a3db478'
+        );
+        SQL
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    $mech->get_ok(
+        '/cdtoc/tLGBAiCflG8ZI6lFcOt87vXjEcI-/set-durations?medium=1',
+        'Fetched set durations for medium page',
     );
-    SQL
+    html_ok($mech->content);
 
-$mech->get_ok('/login');
-$mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+    my @edits = capture_edits {
+        $mech->submit_form_ok({
+            with_fields => {
+                'confirm.edit_note' => 'Update the durations!',
+            }
+        },
+        'The form returned a 2xx response code')
+    } $c;
 
-$mech->get_ok('/cdtoc/tLGBAiCflG8ZI6lFcOt87vXjEcI-/set-durations?medium=1');
-html_ok($mech->content);
+    is(@edits, 1, 'The edit was entered');
 
-$mech->submit_form(
-    with_fields => {
-        'confirm.edit_note' => ' ',
-    }
-);
+    my $cdtoc = $c->model('CDTOC')->get_by_discid('tLGBAiCflG8ZI6lFcOt87vXjEcI-');
 
-my $cdtoc = $c->model('CDTOC')->get_by_discid('tLGBAiCflG8ZI6lFcOt87vXjEcI-');
+    my $edit = shift(@edits);
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Medium::SetTrackLengths');
+    is(
+        $edit->data->{medium_id},
+        1,
+        'The edit data contains the right medium id',
+    );
+    is(
+        $edit->data->{cdtoc}{id},
+        $cdtoc->id,
+        'The edit data contains the right CD TOC id',
+    );
 
-my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
-isa_ok($edit, 'MusicBrainz::Server::Edit::Medium::SetTrackLengths');
-is($edit->data->{medium_id}, 1);
-is($edit->data->{cdtoc}{id}, $cdtoc->id);
-
-like($mech->uri, qr{/cdtoc/tLGBAiCflG8ZI6lFcOt87vXjEcI-$});
-$mech->content_contains('Thank you, your <a href="');
-
+    like(
+        $mech->uri,
+        qr{/cdtoc/tLGBAiCflG8ZI6lFcOt87vXjEcI-$},
+        'The user is redirected to the disc ID page',
+    );
+    $mech->content_contains(
+        'Thank you, your <a href="',
+        'The user is notified that they entered an edit',
+    );
 };
 
 1;
