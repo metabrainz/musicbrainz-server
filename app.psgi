@@ -65,6 +65,18 @@ builder {
     }
 
     enable 'Static', path => qr{^/(static/|browserconfig\.xml|favicon\.ico$)}, root => 'root';
+
+    # AccessLog is a default middleware when PLACK_ENV=development
+    # (the default) [1], but we also want it enabled in production to
+    # aid debugging.  The conditional ensures it's not enabled twice in
+    # development -- only in production when PLACK_ENV=deployment.
+    #
+    # [1] https://metacpan.org/pod/plackup#-E,-env,-the-PLACK_ENV-environment-variable.
+    enable_if {
+        my $plack_env = $ENV{PLACK_ENV};
+        defined $plack_env && $plack_env eq 'deployment'
+    } 'Plack::Middleware::AccessLog', format => 'combined';
+
     MusicBrainz::Server->psgi_app;
 };
 
