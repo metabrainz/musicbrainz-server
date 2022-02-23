@@ -774,6 +774,14 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.bandsintown.com/v/846942',
        only_valid_entity_types: ['place'],
   },
+  // BBC Events
+  {
+                     input_url: 'http://bbc.co.uk/events/edhcd4',
+             input_entity_type: 'event',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.bbc.co.uk/events/edhcd4',
+       only_valid_entity_types: ['event'],
+  },
   // BBC Music
   {
                      input_url: 'http://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042#tracks',
