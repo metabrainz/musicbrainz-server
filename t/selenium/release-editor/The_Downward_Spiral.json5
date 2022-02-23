@@ -1064,6 +1064,7 @@
           },
           editor_id: 5,
           annotation_id: 1,
+          old_annotation_id: null,
         },
       },
     },

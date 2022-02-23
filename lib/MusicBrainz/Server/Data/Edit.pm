@@ -8,6 +8,7 @@ use Carp qw( carp croak confess );
 use Data::Dumper::Concise;
 use Data::OptList;
 use DateTime;
+use DateTime::Format::Duration;
 use DateTime::Format::Pg;
 use Encode qw( decode );
 use Try::Tiny;
@@ -459,9 +460,21 @@ sub subscribed_editor_edits {
 }
 
 # The maximum time an edit can stay open in normal circumstances.
+sub _max_open_duration {
+    return $OPEN_EDIT_DURATION->clone->add_duration($MINIMUM_RESPONSE_PERIOD)->add(hours => 1);
+}
+
+sub _max_open_duration_search_format {
+    my ($self, %opts) = @_;
+    my $parser = DateTime::Format::Duration->new(
+        pattern => '%s seconds ago'
+    );
+    return $parser->format_duration($self->_max_open_duration);
+}
+
 sub _max_open_interval {
-    my $max_open_duration = $OPEN_EDIT_DURATION->clone->add_duration($MINIMUM_RESPONSE_PERIOD)->add(hours => 1);
-    return DateTime::Format::Pg->format_interval($max_open_duration);
+    my ($self, %opts) = @_;
+    return DateTime::Format::Pg->format_interval($self->_max_open_duration);
 }
 
 sub merge_entities

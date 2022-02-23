@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-02-14 08:55+0000\n"
+"PO-Revision-Date: 2022-02-21 13:46+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -140,6 +140,14 @@ msgid ""
 "</ul>\n"
 "\n"
 "<p>There are other variations of the single called a \"split single\" where songs by two different artists are released on the one disc, typically vinyl.</p>"
+msgstr ""
+
+#: DB:medium_format/description:95
+msgctxt "medium_format"
+msgid ""
+"A \"digital collectible\" device, mostly used for k-pop music, that is "
+"connected to a phone via Bluetooth or headphone jack and unlocks the release"
+" for listening in a companion app for a limited period of time."
 msgstr ""
 
 #: DB:release_group_secondary_type/description:8
@@ -310,6 +318,14 @@ msgid ""
 " or a roof which can be retracted."
 msgstr ""
 
+#: DB:release_status/description:6
+msgctxt "release_status"
+msgid ""
+"A planned official release that was cancelled before being released, but for"
+" which enough info is known to still confidently list it (e.g. it was "
+"available for preorder)."
+msgstr ""
+
 #: DB:work_type/description:28
 msgctxt "work_type"
 msgid ""
@@ -323,6 +339,15 @@ msgctxt "work_type"
 msgid ""
 "A poem is a literary piece, generally short and in verse, where words are "
 "usually chosen for their sound and for the images and ideas they suggest."
+msgstr ""
+
+#: DB:release_status/description:5
+msgctxt "release_status"
+msgid ""
+"A previously official release that was actively withdrawn from circulation "
+"by the artist and/or their record company after being released, whether to "
+"replace it with a new version with some changes or to just retire it "
+"altogether (e.g. because of legal issues)."
 msgstr ""
 
 #: DB:release_group_secondary_type/description:10
@@ -1628,6 +1653,11 @@ msgstr "Campak"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Campākali"
 msgstr "Campākali"
+
+#: DB:release_status/name:6
+msgctxt "release_status"
+msgid "Cancelled"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:64
 msgctxt "work_attribute_type_allowed_value"
@@ -4162,6 +4192,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Khēmtāl"
 msgstr "Khēmtāl"
 
+#: DB:medium_format/name:95
+msgctxt "medium_format"
+msgid "KiT Album"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:630
 msgctxt "work_attribute_type_allowed_value"
 msgid "Koda"
@@ -5307,6 +5342,11 @@ msgstr "Nişaburek"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nişabureyn"
 msgstr "Nişabureyn"
+
+#: DB:gender/name:5
+msgctxt "gender"
+msgid "Non-binary"
+msgstr ""
 
 #: DB:release_group_secondary_type/description:3
 msgctxt "release_group_secondary_type"
@@ -7478,6 +7518,11 @@ msgstr "Õhkpillid"
 msgctxt "collection_type"
 msgid "Wishlist"
 msgstr "sooviloend"
+
+#: DB:release_status/name:5
+msgctxt "release_status"
+msgid "Withdrawn"
+msgstr ""
 
 #: DB:editor_collection_type/name:15
 msgctxt "collection_type"

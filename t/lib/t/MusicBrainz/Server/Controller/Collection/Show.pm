@@ -17,45 +17,82 @@ around run_test => sub {
 
 with 't::Mechanize', 't::Context';
 
-test 'Collection view has link back to all collections (signed in)' => sub {
+=head2 Test description
+
+This test checks whether collection index pages display the expected data.
+
+=cut
+
+test 'Collection view has link back to all collections' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
-    $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cd');
+    $mech->get_ok(
+        '/collection/f34c079d-374e-4436-9448-da92dedef3cd',
+        'Fetched a collection by the logged in user'
+    );
     my $tx = test_xpath_html($mech->content);
 
-    $tx->ok('//div[@id="content"]/div/p/span[@class="small"]/a[contains(@href,"/editor1/collections")]',
-            'contains link');
-    $tx->is('//div[@id="content"]/div/p/span[@class="small"]/a', 'See all of your collections',
-            'contains correct description');
+    $tx->ok(
+        '//div[@id="content"]/div/p/span[@class="small"]/a[contains(@href,"/editor1/collections")]',
+        q(There is a link to the owner's collections page),
+    );
+    $tx->is(
+        '//div[@id="content"]/div/p/span[@class="small"]/a',
+        'See all of your collections',
+        'The link has the expected text',
+    );
+
+    $mech->get_ok(
+        '/collection/f34c079d-374e-4436-9448-da92dedef3cb',
+        'Fetched a collection by a different user'
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->ok(
+        '//div[@id="content"]/div/p/span[@class="small"]/a[contains(@href,"/editor2/collections")]',
+        q(There is a link to the owner's collections page),
+    );
+    $tx->is(
+        '//div[@id="content"]/div/p/span[@class="small"]/a',
+        q(See all of editor2's public collections),
+        'The link has the expected text',
+    );
 };
 
-test 'Collection view has link back to all collections (not yours)' => sub {
+test 'Collection descriptions are shown, but avoid spam risk' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
-    $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cb');
-    my $tx = test_xpath_html($mech->content);
-
-    $tx->ok('//div[@id="content"]/div/p/span[@class="small"]/a[contains(@href,"/editor2/collections")]',
-            'contains link');
-    $tx->is('//div[@id="content"]/div/p/span[@class="small"]/a', q(See all of editor2's public collections),
-            'contains correct description');
-};
-
-test 'Collection view includes description when there is one' => sub {
-    my $test = shift;
-    my $mech = $test->mech;
-
-    $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cb');
-    $mech->content_like(qr/Testy!/, 'collection description of beginner/limited user shows for logged-in user');
+    $mech->get_ok(
+        '/collection/f34c079d-374e-4436-9448-da92dedef3cb',
+        'Fetched collection page while logged in',
+    );
+    $mech->content_like(
+        qr/Testy!/,
+        'Collection description of beginner/limited user shows for logged in user',
+    );
 
     $mech->get('/logout');
 
-    $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cb');
+    $mech->get_ok(
+        '/collection/f34c079d-374e-4436-9448-da92dedef3cb',
+        'Fetched collection page while logged out',
+    );
+
     my $tx = test_xpath_html($mech->content);
-    $tx->not_ok('//div[@id=collection]/p[@class=deleted and starts-with(text(), "This content is hidden to prevent spam.")]',
-        'collection description of beginner/limited user hides for not-logged-in user');
+    $mech->content_unlike(
+        qr/Testy!/,
+        'Collection description of beginner/limited user hidden for logged out user',
+    );
+    $mech->content_contains(
+        'This content is hidden to prevent spam',
+        'An informative message is shown instead',
+    );
+    $tx->ok(
+        '//div[@class="description"]/p[@class="deleted"]',
+        'The description section is marked to be displayed as deleted'
+    );
 
     $test->c->sql->do(<<~"SQL");
         INSERT INTO edit (id, editor, type, status, expire_time, autoedit)
@@ -72,18 +109,26 @@ test 'Collection view includes description when there is one' => sub {
         UPDATE editor SET member_since = '2007-07-23' WHERE id = 2;
         SQL
 
-    $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cb');
-    $mech->content_like(qr/Testy!/, 'collection description of (not beginner/limited) user shows for everyone');
-};
+    $mech->get_ok(
+        '/collection/f34c079d-374e-4436-9448-da92dedef3cb',
+        'Fetched collection page while logged out, after making user non-limited',
+    );
+    $mech->content_like(
+        qr/Testy!/,
+        'Collection description of non-limited user also shows when logged out',
+    );
 
-test 'Collection view does not include description when there is none' => sub {
-    my $test = shift;
-    my $mech = $test->mech;
+    $mech->get_ok(
+        '/collection/f34c079d-374e-4436-9448-da92dedef3c9',
+        'Fetched collection page with no description',
+    );
 
-    $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cd');
     my $tx = test_xpath_html($mech->content);
-
-    $tx->not_ok('//div[@id=collection]', 'no description element');
+    $tx->is(
+        '//div[@class="description"]',
+        '',
+        'The description section has no content (is not visible)',
+    );
 
 };
 
@@ -92,27 +137,27 @@ test 'Private collection pages are private' => sub {
     my $mech = $test->mech;
 
     $mech->get('/collection/a34c079d-374e-4436-9448-da92dedef3cb');
-    is($mech->status, 403, 'main collection page is private');
+    is($mech->status, 403, 'Main collection page is private');
     $mech->get('/collection/a34c079d-374e-4436-9448-da92dedef3cb/subscribers');
-    is($mech->status, 403, 'subscribers page is private');
+    is($mech->status, 403, 'Subscribers page is private');
 
     $mech->get('/collection/f34c079d-374e-4436-9448-da92dedef3cd');
-    is($mech->status, 200, 'main collection page is visible to owner');
+    is($mech->status, 200, 'Main collection page is visible to owner');
     $mech->get('/collection/f34c079d-374e-4436-9448-da92dedef3cd/subscribers');
-    is($mech->status, 200, 'subscribers page is visible to owner');
+    is($mech->status, 200, 'Subscribers page is visible to owner');
 
     $mech->get('/collection/a34c079d-374e-4436-9448-da92dedef3ce');
-    is($mech->status, 200, 'main collection page is visible to collaborator');
+    is($mech->status, 200, 'Main collection page is visible to collaborator');
     $mech->get('/collection/a34c079d-374e-4436-9448-da92dedef3ce/subscribers');
-    is($mech->status, 200, 'subscribers page is visible to collaborator');
+    is($mech->status, 200, 'Subscribers page is visible to collaborator');
 };
 
-test 'Unknown collection' => sub {
+test 'Unknown collection fails gracefully' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
     $mech->get('/collection/f34c079d-374e-1337-1337-aaaaaaaaaaaa');
-    is($mech->status, HTTP_NOT_FOUND);
+    is($mech->status, HTTP_NOT_FOUND, 'Non-existing collection 404s');
 };
 
 1;

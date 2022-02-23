@@ -16,61 +16,165 @@ around run_test => sub {
 
 with 't::Mechanize', 't::Context';
 
+=head2 Test description
+
+This test checks collection creation, with and without seeded entities,
+including the addition of collaborators.
+
+=cut
+
+my $collection_page_regexp = qr{/collection/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})};
+
 test 'Create collection from release page adds the new release' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
-    $mech->get_ok('/release/f34c079d-374e-4436-9448-da92dedef3ce');
-    $mech->follow_link(text => 'Add to a new collection');
+    $mech->get_ok(
+        '/release/f34c079d-374e-4436-9448-da92dedef3ce',
+        'Fetched a release page',
+    );
+    $mech->follow_link_ok(
+        { text => 'Add to a new collection' },
+        'Could find and follow the "Add to new collection" link',
+    );
+    ok(
+        $mech->uri =~ qr{/collection/create\?release=1},
+        'Got to the collection create page with a seeded release id',
+    );
 
+    my $tx = test_xpath_html($mech->content);
+    $tx->ok(
+        '//select[@id="id-edit-list.type_id"]/option[@value=1]',
+        'The release collection type is available for selection',
+    );
+    $tx->not_ok(
+        '//select[@id="id-edit-list.type_id"]/option[@value=4]',
+        'The event collection type is not available for selection',
+    );
+
+    # Second form is the new collection one
     $mech->form_number(2);
     $mech->field('edit-list.name', 'Super collection');
     $mech->field('edit-list.description', '');
-    $mech->click();
+    $mech->click_ok(undef, 'Clicked the "Create collection" button');
 
-    my $tx = test_xpath_html($mech->content);
-    $tx->is('//div[@id="content"]/div/h1/a',
-            'Super collection', 'contains collection name');
-    $tx->is('count(//table[@class="tbl"]/tbody/tr)',
-            '1', 'one item in the table');
+    ok(
+        $mech->uri =~ $collection_page_regexp,
+        'The user is redirected to the collection page after creation',
+    );
 
-    $mech->get_ok('/release/f34c079d-374e-4436-9448-da92dedef3ce');
-    $mech->content_contains('Remove from Super collection');
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        '//div[@id="content"]/div/h1/a',
+        'Super collection',
+        'The header contains the entered collection name',
+    );
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '1',
+        'There one item in the collection contents table',
+    );
+    $mech->content_contains(
+        'Arrival',
+        'The release title is displayed on the collection page',
+    );
+    $mech->content_contains(
+        '/release/f34c079d-374e-4436-9448-da92dedef3ce',
+        'There is a link to the release from the collection page',
+    );
+
+    $mech->get_ok(
+        '/release/f34c079d-374e-4436-9448-da92dedef3ce',
+        'Fetched the release page again',
+    );
+    $mech->content_contains(
+        'Remove from Super collection',
+        'The release page contains a link to remove it from the collection',
+    );
 };
 
-test 'Create collection with no release set does not add release' => sub {
+test 'Create collection without any entities preselected' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
-    $mech->get_ok('/collection/create');
+    $mech->get_ok(
+        '/collection/create',
+        'Fetched the collection creation page',
+    );
+
+    my $tx = test_xpath_html($mech->content);
+    $tx->ok(
+        '//select[@id="id-edit-list.type_id"]/option[@value=1]',
+        'The release collection type is available for selection',
+    );
+    $tx->ok(
+        '//select[@id="id-edit-list.type_id"]/option[@value=4]',
+        'The event collection type is also available for selection',
+    );
+
     # Second form is the new collection one
     $mech->form_number(2);
     $mech->field('edit-list.name', 'mycollection');
     $mech->field('edit-list.description', '');
-    $mech->click();
+    $mech->click_ok(undef, 'Clicked the "Create collection" button');
 
-    $mech->content_contains('This collection is empty.');
+    ok(
+        $mech->uri =~ $collection_page_regexp,
+        'The user is redirected to the collection page after creation',
+    );
 
-    my $tx = test_xpath_html($mech->content);
-    $tx->is('//div[@id="content"]/div/h1/a', 'mycollection',
-            'contains collection name');
+    $mech->content_contains(
+        'This collection is empty.',
+        'The page indicates the collection is empty',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        '//div[@id="content"]/div/h1/a',
+        'mycollection',
+        'The header contains the entered collection name',
+    );
+    $tx->not_ok(
+        '//div[@id="content"]/div[@class="collaborators"]/h2',
+        'The collaborators section heading is missing since there are none',
+    );
 };
 
-test 'Create collection with collaborators works' => sub {
+test 'Create collection with collaborators' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
-    $mech->get_ok('/collection/create');
+    $mech->get_ok(
+        '/collection/create',
+        'Fetched the collection creation page',
+    );
+
     # Second form is the new collection one
     $mech->form_number(2);
     $mech->field('edit-list.name', 'mycollection');
     $mech->field('edit-list.description', '');
     $mech->field('edit-list.collaborators.0.id', '3');
-    $mech->click();
+    $mech->click_ok(
+        undef,
+        'Clicked the "Create collection" button after entering a collaborator',
+    );
+
+    ok(
+        $mech->uri =~ $collection_page_regexp,
+        'The user is redirected to the collection page after creation',
+    );
 
     my $tx = test_xpath_html($mech->content);
-    $tx->is('//div[@id="content"]/div[@class="collaborators"]/p/a', 'editor3',
-            'contains collaborator');
+    $tx->is(
+        '//div[@id="content"]/div[@class="collaborators"]/h2',
+        'Collaborators',
+        'The collaborators section heading is present',
+    );
+    $tx->is(
+        '//div[@id="content"]/div[@class="collaborators"]/p/a',
+        'editor3',
+        'The collaborator name is displayed',
+    );
 };
 
 1;

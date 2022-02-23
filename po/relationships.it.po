@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-02-08 23:26+0000\n"
+"PO-Revision-Date: 2022-02-21 22:43+0000\n"
 "Last-Translator: salo.rock\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -576,12 +576,12 @@ msgid ""
 "concept as the <a href=\"/doc/Label\">record label</a>."
 msgstr "Indica l'editore di quest'opera. <strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\">etichetta discografica</a>."
 
-#: DB:link_type/link_phrase:837 DB:link_type/link_phrase:840
+#: DB:link_type/link_phrase:840 DB:link_type/link_phrase:837
 #: DB:link_type/link_phrase:839 DB:link_type/link_phrase:838
 msgid "Last.fm"
 msgstr "Last.fm"
 
-#: DB:link_type/reverse_link_phrase:837 DB:link_type/reverse_link_phrase:840
+#: DB:link_type/reverse_link_phrase:840 DB:link_type/reverse_link_phrase:837
 #: DB:link_type/reverse_link_phrase:839 DB:link_type/reverse_link_phrase:838
 msgid "Last.fm page for"
 msgstr "pagina di Last.fm su"
@@ -636,6 +636,12 @@ msgstr "Collega una registrazione all'area in cui è stata remixata. Da usare so
 msgid "Links a recording to the event it was recorded at."
 msgstr "Collega una registrazione all'evento in cui è stata registrata."
 
+#: DB:link_type/description:1006
+msgid ""
+"Links a recording to the event series (tour, residency, etc.) it was "
+"recorded during."
+msgstr "Collega una registrazione alla serie di eventi (tour, residency, ecc.) durante la quale è stata registrata."
+
 #: DB:link_type/description:866
 msgid "Links a recording to the place it was arranged at."
 msgstr "Collega una registrazione al luogo in cui è stata arrangiata."
@@ -663,6 +669,18 @@ msgstr "Collega una registrazione al luogo in cui è stata registrata."
 #: DB:link_type/description:829
 msgid "Links a recording to the place it was remixed at."
 msgstr "Collega una registrazione al luogo in cui è stata remixata."
+
+#: DB:link_type/description:1008
+msgid ""
+"Links a recording, release or release group series to the event series "
+"(tour, residency, etc.) it was recorded during."
+msgstr "Collega una registrazione, pubblicazione o gruppo di pubblicazioni alla serie di eventi (tour, residency, ecc.) durante la quale è stato registrato."
+
+#: DB:link_type/description:1007
+msgid ""
+"Links a release group to the event series (tour, residency, etc.) it was "
+"recorded during."
+msgstr "Collega un gruppo di pubblicazioni alla serie di eventi (tour, residency, ecc.) durante la quale è stato registrato."
 
 #: DB:link_type/description:797
 msgid "Links a release group with a launch event for it."
@@ -3751,6 +3769,10 @@ msgstr "legato a"
 msgid "consists of"
 msgstr "consta di"
 
+#: DB:link_type/long_link_phrase:1008
+msgid "contains music recorded during"
+msgstr "contiene musica registrata durante"
+
 #: DB:link_type/long_link_phrase:83 DB:link_type/long_link_phrase:258
 msgid "contains samples from the IMDb entry at"
 msgstr "contiene campionamenti dalla voce di IMDb"
@@ -3762,6 +3784,10 @@ msgstr "contiene campionamenti {additional:aggiuntivi} da parte di"
 #: DB:link_type/long_link_phrase:231
 msgid "contains {additional} samples from"
 msgstr "contiene campionamenti {additional:aggiuntivi} da"
+
+#: DB:link_attribute_type/name:1227
+msgid "contemporary music"
+msgstr "musica coeva"
 
 #: DB:link_type/link_phrase:119 DB:link_type/name:119
 #: DB:link_type/reverse_link_phrase:119 DB:link_type/long_link_phrase:119
@@ -4289,7 +4315,7 @@ msgstr "ha la pagina di Discogs"
 msgid "has a Geonames page at"
 msgstr "ha la pagina di Geonames"
 
-#: DB:link_type/long_link_phrase:837 DB:link_type/long_link_phrase:840
+#: DB:link_type/long_link_phrase:840 DB:link_type/long_link_phrase:837
 #: DB:link_type/long_link_phrase:839 DB:link_type/long_link_phrase:838
 msgid "has a Last.fm page at"
 msgstr "ha la pagina di Last.fm"
@@ -4928,7 +4954,7 @@ msgstr "lacca o acetato incisa a"
 msgid "lacquer cut location for"
 msgstr "luogo di incisione della lacca o acetato per"
 
-#: DB:link_type/name:837 DB:link_type/name:840 DB:link_type/name:839
+#: DB:link_type/name:840 DB:link_type/name:837 DB:link_type/name:839
 #: DB:link_type/name:838
 msgid "last.fm"
 msgstr "last.fm"
@@ -5962,9 +5988,27 @@ msgstr "ricostruita da"
 msgid "recorded at"
 msgstr "registrata presso"
 
+#: DB:link_type/link_phrase:1006 DB:link_type/link_phrase:1007
+#: DB:link_type/link_phrase:1008 DB:link_type/name:1006 DB:link_type/name:1007
+#: DB:link_type/name:1008
+msgid "recorded during"
+msgstr "registrata durante"
+
 #: DB:link_type/name:698 DB:link_type/name:699
 msgid "recorded in"
 msgstr "registrata a"
+
+#: DB:link_type/reverse_link_phrase:1008
+msgid "recorded music series"
+msgstr "serie musicali registrate"
+
+#: DB:link_type/reverse_link_phrase:1006
+msgid "recorded recordings"
+msgstr "registrazioni registrate"
+
+#: DB:link_type/reverse_link_phrase:1007
+msgid "recorded release groups"
+msgstr "gruppi di pubblicazioni registrati"
 
 #: DB:link_type/name:128 DB:link_type/name:36
 msgid "recording"
@@ -6601,6 +6645,10 @@ msgstr "è stato diretto da"
 #: DB:link_type/long_link_phrase:794
 msgid "was held at"
 msgstr "si è tenuto presso"
+
+#: DB:link_type/long_link_phrase:1006 DB:link_type/long_link_phrase:1007
+msgid "was recorded during"
+msgstr "è stata registrata durante"
 
 #: DB:link_type/long_link_phrase:3
 msgid "was released in support of"

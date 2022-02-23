@@ -49,7 +49,8 @@ test 'MBS-4091: Test submitting annotation starting with list syntax' => sub {
             },
             text => "    * Test annotation for an artist\n\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets",
             changelog => 'Changelog here',
-            editor_id => 1
+            editor_id => 1,
+            old_annotation_id => 1,
         },
         'The edit contains the right data (with untrimmed initial spaces)',
     );

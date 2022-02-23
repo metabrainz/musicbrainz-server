@@ -5,38 +5,58 @@ use Hook::LexWrap;
 
 with 't::Mechanize', 't::Context';
 
-test all => sub {
+=head2 Test description
 
-my $test = shift;
-my $mech = $test->mech;
-my $c    = $test->c;
+This test checks whether the Browse CD Stubs page shows data as expected.
 
-MusicBrainz::Server::Test->prepare_raw_test_database($c, '+cdstub_raw');
+=cut
 
-{
-    # This test is dependent on the current time to generate the 'x years ago'
-    # content. I'm using a lexically scoped wrapper around Date::Calc::Today in
-    # order to 'lock' the date to 2012/01/01. -- ocharles
-    # See https://metacpan.org/pod/Hook::LexWrap#Lexically-scoped-wrappers
-    my $wrapper = wrap 'Date::Calc::Today',
-        post => sub {
-            $_[-1] = [2012, 1, 1];
-        };
+test 'Test data display on Browse CD Stubs page' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
 
-    $mech->get_ok('/cdstub/browse', 'fetch top cdstubs page');
+    MusicBrainz::Server::Test->prepare_raw_test_database($c, '+cdstub_raw');
 
-    $wrapper->DESTROY;
-}
+    {
+        # This test is dependent on the current time to generate the
+        # 'x years ago' content. I'm using a lexically scoped wrapper around
+        # Date::Calc::Today in order to 'lock' the date to 2012/01/01.
+        # See https://metacpan.org/pod/Hook::LexWrap#Lexically-scoped-wrappers
+        # -- ocharles
+        my $wrapper = wrap 'Date::Calc::Today',
+            post => sub {
+                $_[-1] = [2012, 1, 1];
+            };
+
+        $mech->get_ok('/cdstub/browse', 'Fetched the top CD stubs page');
+
+        $wrapper->DESTROY;
+    }
 
 
-html_ok($mech->content);
+    html_ok($mech->content);
 
-$mech->title_like(qr/Top CD Stubs/, 'title is correct');
-$mech->content_like(qr/Test Artist/, 'content has artist name');
-$mech->content_like(qr/YfSgiOEayqN77Irs.VNV.UNJ0Zs-/, 'content has disc id');
-$mech->content_like(qr/Added 12 years ago/, 'content has added timestamp');
-$mech->content_like(qr/last modified 11 years ago/, 'content has last modified timestamp');
-
+    $mech->title_like(
+        qr/Top CD Stubs/,
+        'The page title matches the expected one',
+    );
+    $mech->content_like(
+        qr/Test Artist/,
+        'The page contains the artist name for the one existing CD stub',
+    );
+    $mech->content_like(
+        qr/YfSgiOEayqN77Irs.VNV.UNJ0Zs-/,
+        'The page contains the disc id for the one existing CD stub',
+    );
+    $mech->content_like(
+        qr/Added 12 years ago/,
+        'The page contains the add date for the one existing CD stub',
+    );
+    $mech->content_like(
+        qr/last modified 11 years ago/,
+        'The page contains the last change date for the one existing CD stub',
+    );
 };
 
 1;

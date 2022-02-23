@@ -246,19 +246,19 @@ DISTRIBUTIONS
       Carp::Clan 5.3
       ExtUtils::MakeMaker 0
       Storable 2.21
-  CGI-4.53
-    pathname: L/LE/LEEJO/CGI-4.53.tar.gz
+  CGI-4.54
+    pathname: L/LE/LEEJO/CGI-4.54.tar.gz
     provides:
-      CGI 4.53
-      CGI::Carp 4.53
-      CGI::Cookie 4.53
-      CGI::File::Temp 4.53
+      CGI 4.54
+      CGI::Carp 4.54
+      CGI::Cookie 4.54
+      CGI::File::Temp 4.54
       CGI::HTML::Functions undef
-      CGI::MultipartBuffer 4.53
-      CGI::Pretty 4.53
-      CGI::Push 4.53
-      CGI::Util 4.53
-      Fh 4.53
+      CGI::MultipartBuffer 4.54
+      CGI::Pretty 4.54
+      CGI::Push 4.54
+      CGI::Util 4.54
+      Fh 4.54
     requirements:
       Carp 0
       Config 0
@@ -283,19 +283,15 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       Test::Exception 0
       Test::More 0
-  CGI-Simple-1.25
-    pathname: M/MA/MANWAR/CGI-Simple-1.25.tar.gz
+  CGI-Simple-1.280
+    pathname: M/MA/MANWAR/CGI-Simple-1.280.tar.gz
     provides:
-      CGI::Simple 1.25
-      CGI::Simple::Cookie 1.25
-      CGI::Simple::Standard 1.25
-      CGI::Simple::Util 1.25
+      CGI::Simple 1.280
+      CGI::Simple::Cookie 1.280
+      CGI::Simple::Standard 1.280
+      CGI::Simple::Util 1.280
     requirements:
-      File::Temp 0
-      IO::Scalar 0
-      Test::Exception 0
-      Test::More 0
-      Test::NoWarnings 0
+      ExtUtils::MakeMaker 0
   CGI-Struct-1.21
     pathname: F/FU/FULLERMD/CGI-Struct-1.21.tar.gz
     provides:
@@ -505,7 +501,7 @@ DISTRIBUTIONS
     requirements:
       Catalyst::Runtime 0
       Class::Accessor::Fast 0
-      ExtUtils::MakeMaker 7.34
+      ExtUtils::MakeMaker 7.64
       HTTP::Headers::ETag 0
       HTTP::Status 0
       List::Util 0
@@ -856,7 +852,6 @@ DISTRIBUTIONS
       Config::Any::XML undef
       Config::Any::YAML undef
     requirements:
-      Config::General 2.47
       Module::Pluggable::Object 3.6
   Config-General-2.63
     pathname: T/TL/TLINDEN/Config-General-2.63.tar.gz
@@ -870,15 +865,16 @@ DISTRIBUTIONS
       File::Spec::Functions 0
       FileHandle 0
       IO::File 0
-  Config-Tiny-2.27
-    pathname: R/RS/RSAVAGE/Config-Tiny-2.27.tgz
+  Config-Tiny-2.28
+    pathname: R/RS/RSAVAGE/Config-Tiny-2.28.tgz
     provides:
-      Config::Tiny 2.27
+      Config::Tiny 2.28
     requirements:
       ExtUtils::MakeMaker 0
-      File::Spec 3.3
+      File::Spec 3.30
       File::Temp 0.22
       Test::More 0.47
+      perl 5.008001
       strict 0
       utf8 0
   Cookie-Baker-0.11
@@ -1043,130 +1039,131 @@ DISTRIBUTIONS
       Crypt::UnixCrypt_XS 0.11
     requirements:
       ExtUtils::MakeMaker 0
-  CryptX-0.074
-    pathname: M/MI/MIK/CryptX-0.074.tar.gz
+  CryptX-0.076
+    pathname: M/MI/MIK/CryptX-0.076.tar.gz
     provides:
-      Crypt::AuthEnc 0.074
-      Crypt::AuthEnc::CCM 0.074
-      Crypt::AuthEnc::ChaCha20Poly1305 0.074
-      Crypt::AuthEnc::EAX 0.074
-      Crypt::AuthEnc::GCM 0.074
-      Crypt::AuthEnc::OCB 0.074
-      Crypt::Checksum 0.074
-      Crypt::Checksum::Adler32 0.074
-      Crypt::Checksum::CRC32 0.074
-      Crypt::Cipher 0.074
-      Crypt::Cipher::AES 0.074
-      Crypt::Cipher::Anubis 0.074
-      Crypt::Cipher::Blowfish 0.074
-      Crypt::Cipher::CAST5 0.074
-      Crypt::Cipher::Camellia 0.074
-      Crypt::Cipher::DES 0.074
-      Crypt::Cipher::DES_EDE 0.074
-      Crypt::Cipher::IDEA 0.074
-      Crypt::Cipher::KASUMI 0.074
-      Crypt::Cipher::Khazad 0.074
-      Crypt::Cipher::MULTI2 0.074
-      Crypt::Cipher::Noekeon 0.074
-      Crypt::Cipher::RC2 0.074
-      Crypt::Cipher::RC5 0.074
-      Crypt::Cipher::RC6 0.074
-      Crypt::Cipher::SAFERP 0.074
-      Crypt::Cipher::SAFER_K128 0.074
-      Crypt::Cipher::SAFER_K64 0.074
-      Crypt::Cipher::SAFER_SK128 0.074
-      Crypt::Cipher::SAFER_SK64 0.074
-      Crypt::Cipher::SEED 0.074
-      Crypt::Cipher::Serpent 0.074
-      Crypt::Cipher::Skipjack 0.074
-      Crypt::Cipher::Twofish 0.074
-      Crypt::Cipher::XTEA 0.074
-      Crypt::Digest 0.074
-      Crypt::Digest::BLAKE2b_160 0.074
-      Crypt::Digest::BLAKE2b_256 0.074
-      Crypt::Digest::BLAKE2b_384 0.074
-      Crypt::Digest::BLAKE2b_512 0.074
-      Crypt::Digest::BLAKE2s_128 0.074
-      Crypt::Digest::BLAKE2s_160 0.074
-      Crypt::Digest::BLAKE2s_224 0.074
-      Crypt::Digest::BLAKE2s_256 0.074
-      Crypt::Digest::CHAES 0.074
-      Crypt::Digest::Keccak224 0.074
-      Crypt::Digest::Keccak256 0.074
-      Crypt::Digest::Keccak384 0.074
-      Crypt::Digest::Keccak512 0.074
-      Crypt::Digest::MD2 0.074
-      Crypt::Digest::MD4 0.074
-      Crypt::Digest::MD5 0.074
-      Crypt::Digest::RIPEMD128 0.074
-      Crypt::Digest::RIPEMD160 0.074
-      Crypt::Digest::RIPEMD256 0.074
-      Crypt::Digest::RIPEMD320 0.074
-      Crypt::Digest::SHA1 0.074
-      Crypt::Digest::SHA224 0.074
-      Crypt::Digest::SHA256 0.074
-      Crypt::Digest::SHA384 0.074
-      Crypt::Digest::SHA3_224 0.074
-      Crypt::Digest::SHA3_256 0.074
-      Crypt::Digest::SHA3_384 0.074
-      Crypt::Digest::SHA3_512 0.074
-      Crypt::Digest::SHA512 0.074
-      Crypt::Digest::SHA512_224 0.074
-      Crypt::Digest::SHA512_256 0.074
-      Crypt::Digest::SHAKE 0.074
-      Crypt::Digest::Tiger192 0.074
-      Crypt::Digest::Whirlpool 0.074
-      Crypt::KeyDerivation 0.074
-      Crypt::Mac 0.074
-      Crypt::Mac::BLAKE2b 0.074
-      Crypt::Mac::BLAKE2s 0.074
-      Crypt::Mac::F9 0.074
-      Crypt::Mac::HMAC 0.074
-      Crypt::Mac::OMAC 0.074
-      Crypt::Mac::PMAC 0.074
-      Crypt::Mac::Pelican 0.074
-      Crypt::Mac::Poly1305 0.074
-      Crypt::Mac::XCBC 0.074
-      Crypt::Misc 0.074
-      Crypt::Mode 0.074
-      Crypt::Mode::CBC 0.074
-      Crypt::Mode::CFB 0.074
-      Crypt::Mode::CTR 0.074
-      Crypt::Mode::ECB 0.074
-      Crypt::Mode::OFB 0.074
-      Crypt::PK 0.074
-      Crypt::PK::DH 0.074
-      Crypt::PK::DSA 0.074
-      Crypt::PK::ECC 0.074
-      Crypt::PK::Ed25519 0.074
-      Crypt::PK::RSA 0.074
-      Crypt::PK::X25519 0.074
-      Crypt::PRNG 0.074
-      Crypt::PRNG::ChaCha20 0.074
-      Crypt::PRNG::Fortuna 0.074
-      Crypt::PRNG::RC4 0.074
-      Crypt::PRNG::Sober128 0.074
-      Crypt::PRNG::Yarrow 0.074
-      Crypt::Stream::ChaCha 0.074
-      Crypt::Stream::RC4 0.074
-      Crypt::Stream::Rabbit 0.074
-      Crypt::Stream::Salsa20 0.074
-      Crypt::Stream::Sober128 0.074
-      Crypt::Stream::Sosemanuk 0.074
-      CryptX 0.074
-      Math::BigInt::LTM 0.074
+      Crypt::AuthEnc 0.076
+      Crypt::AuthEnc::CCM 0.076
+      Crypt::AuthEnc::ChaCha20Poly1305 0.076
+      Crypt::AuthEnc::EAX 0.076
+      Crypt::AuthEnc::GCM 0.076
+      Crypt::AuthEnc::OCB 0.076
+      Crypt::Checksum 0.076
+      Crypt::Checksum::Adler32 0.076
+      Crypt::Checksum::CRC32 0.076
+      Crypt::Cipher 0.076
+      Crypt::Cipher::AES 0.076
+      Crypt::Cipher::Anubis 0.076
+      Crypt::Cipher::Blowfish 0.076
+      Crypt::Cipher::CAST5 0.076
+      Crypt::Cipher::Camellia 0.076
+      Crypt::Cipher::DES 0.076
+      Crypt::Cipher::DES_EDE 0.076
+      Crypt::Cipher::IDEA 0.076
+      Crypt::Cipher::KASUMI 0.076
+      Crypt::Cipher::Khazad 0.076
+      Crypt::Cipher::MULTI2 0.076
+      Crypt::Cipher::Noekeon 0.076
+      Crypt::Cipher::RC2 0.076
+      Crypt::Cipher::RC5 0.076
+      Crypt::Cipher::RC6 0.076
+      Crypt::Cipher::SAFERP 0.076
+      Crypt::Cipher::SAFER_K128 0.076
+      Crypt::Cipher::SAFER_K64 0.076
+      Crypt::Cipher::SAFER_SK128 0.076
+      Crypt::Cipher::SAFER_SK64 0.076
+      Crypt::Cipher::SEED 0.076
+      Crypt::Cipher::Serpent 0.076
+      Crypt::Cipher::Skipjack 0.076
+      Crypt::Cipher::Twofish 0.076
+      Crypt::Cipher::XTEA 0.076
+      Crypt::Digest 0.076
+      Crypt::Digest::BLAKE2b_160 0.076
+      Crypt::Digest::BLAKE2b_256 0.076
+      Crypt::Digest::BLAKE2b_384 0.076
+      Crypt::Digest::BLAKE2b_512 0.076
+      Crypt::Digest::BLAKE2s_128 0.076
+      Crypt::Digest::BLAKE2s_160 0.076
+      Crypt::Digest::BLAKE2s_224 0.076
+      Crypt::Digest::BLAKE2s_256 0.076
+      Crypt::Digest::CHAES 0.076
+      Crypt::Digest::Keccak224 0.076
+      Crypt::Digest::Keccak256 0.076
+      Crypt::Digest::Keccak384 0.076
+      Crypt::Digest::Keccak512 0.076
+      Crypt::Digest::MD2 0.076
+      Crypt::Digest::MD4 0.076
+      Crypt::Digest::MD5 0.076
+      Crypt::Digest::RIPEMD128 0.076
+      Crypt::Digest::RIPEMD160 0.076
+      Crypt::Digest::RIPEMD256 0.076
+      Crypt::Digest::RIPEMD320 0.076
+      Crypt::Digest::SHA1 0.076
+      Crypt::Digest::SHA224 0.076
+      Crypt::Digest::SHA256 0.076
+      Crypt::Digest::SHA384 0.076
+      Crypt::Digest::SHA3_224 0.076
+      Crypt::Digest::SHA3_256 0.076
+      Crypt::Digest::SHA3_384 0.076
+      Crypt::Digest::SHA3_512 0.076
+      Crypt::Digest::SHA512 0.076
+      Crypt::Digest::SHA512_224 0.076
+      Crypt::Digest::SHA512_256 0.076
+      Crypt::Digest::SHAKE 0.076
+      Crypt::Digest::Tiger192 0.076
+      Crypt::Digest::Whirlpool 0.076
+      Crypt::KeyDerivation 0.076
+      Crypt::Mac 0.076
+      Crypt::Mac::BLAKE2b 0.076
+      Crypt::Mac::BLAKE2s 0.076
+      Crypt::Mac::F9 0.076
+      Crypt::Mac::HMAC 0.076
+      Crypt::Mac::OMAC 0.076
+      Crypt::Mac::PMAC 0.076
+      Crypt::Mac::Pelican 0.076
+      Crypt::Mac::Poly1305 0.076
+      Crypt::Mac::XCBC 0.076
+      Crypt::Misc 0.076
+      Crypt::Mode 0.076
+      Crypt::Mode::CBC 0.076
+      Crypt::Mode::CFB 0.076
+      Crypt::Mode::CTR 0.076
+      Crypt::Mode::ECB 0.076
+      Crypt::Mode::OFB 0.076
+      Crypt::PK 0.076
+      Crypt::PK::DH 0.076
+      Crypt::PK::DSA 0.076
+      Crypt::PK::ECC 0.076
+      Crypt::PK::Ed25519 0.076
+      Crypt::PK::RSA 0.076
+      Crypt::PK::X25519 0.076
+      Crypt::PRNG 0.076
+      Crypt::PRNG::ChaCha20 0.076
+      Crypt::PRNG::Fortuna 0.076
+      Crypt::PRNG::RC4 0.076
+      Crypt::PRNG::Sober128 0.076
+      Crypt::PRNG::Yarrow 0.076
+      Crypt::Stream::ChaCha 0.076
+      Crypt::Stream::RC4 0.076
+      Crypt::Stream::Rabbit 0.076
+      Crypt::Stream::Salsa20 0.076
+      Crypt::Stream::Sober128 0.076
+      Crypt::Stream::Sosemanuk 0.076
+      CryptX 0.076
+      Math::BigInt::LTM 0.076
     requirements:
       ExtUtils::MakeMaker 0
       Math::BigInt 0
       perl 5.006
-  DBD-Pg-3.15.0
-    pathname: T/TU/TURNSTEP/DBD-Pg-3.15.0.tar.gz
+  DBD-Pg-3.15.1
+    pathname: T/TU/TURNSTEP/DBD-Pg-3.15.1.tar.gz
     provides:
-      Bundle::DBD::Pg v3.15.0
-      DBD::Pg v3.15.0
+      Bundle::DBD::Pg v3.15.1
+      DBD::Pg v3.15.1
     requirements:
       DBI 1.614
       ExtUtils::MakeMaker 6.11
+      File::Temp 0
       Test::More 0.88
       Time::HiRes 0
       version 0
@@ -1470,19 +1467,19 @@ DISTRIBUTIONS
       Bit::Vector 7.4
       Carp::Clan 6.04
       ExtUtils::MakeMaker 0
-  DateTime-1.54
-    pathname: D/DR/DROLSKY/DateTime-1.54.tar.gz
+  DateTime-1.55
+    pathname: D/DR/DROLSKY/DateTime-1.55.tar.gz
     provides:
-      DateTime 1.54
-      DateTime::Duration 1.54
-      DateTime::Helpers 1.54
-      DateTime::Infinite 1.54
-      DateTime::Infinite::Future 1.54
-      DateTime::Infinite::Past 1.54
-      DateTime::LeapSecond 1.54
-      DateTime::PP 1.54
-      DateTime::PPExtra 1.54
-      DateTime::Types 1.54
+      DateTime 1.55
+      DateTime::Duration 1.55
+      DateTime::Helpers 1.55
+      DateTime::Infinite 1.55
+      DateTime::Infinite::Future 1.55
+      DateTime::Infinite::Past 1.55
+      DateTime::LeapSecond 1.55
+      DateTime::PP 1.55
+      DateTime::PPExtra 1.55
+      DateTime::Types 1.55
     requirements:
       Carp 0
       DateTime::Locale 1.06
@@ -1529,6 +1526,20 @@ DISTRIBUTIONS
       parent 0
       strict 0
       warnings 0
+  DateTime-Format-Duration-1.04
+    pathname: E/ET/ETHER/DateTime-Format-Duration-1.04.tar.gz
+    provides:
+      DateTime::Format::Duration 1.04
+    requirements:
+      Carp 0
+      Data::Dumper 0
+      DateTime::Duration 0
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      Params::Validate 0
+      constant 0
+      perl 5.006
+      strict 0
   DateTime-Format-ISO8601-0.16
     pathname: D/DR/DROLSKY/DateTime-Format-ISO8601-0.16.tar.gz
     provides:
@@ -1548,10 +1559,10 @@ DISTRIBUTIONS
       parent 0
       strict 0
       warnings 0
-  DateTime-Format-Natural-1.12
-    pathname: S/SC/SCHUBIGER/DateTime-Format-Natural-1.12.tar.gz
+  DateTime-Format-Natural-1.13
+    pathname: S/SC/SCHUBIGER/DateTime-Format-Natural-1.13.tar.gz
     provides:
-      DateTime::Format::Natural 1.12
+      DateTime::Format::Natural 1.13
       DateTime::Format::Natural::Calc 1.44
       DateTime::Format::Natural::Compat 0.07
       DateTime::Format::Natural::Duration 0.06
@@ -1561,7 +1572,7 @@ DISTRIBUTIONS
       DateTime::Format::Natural::Formatted 0.10
       DateTime::Format::Natural::Helpers 0.06
       DateTime::Format::Natural::Lang::Base 1.08
-      DateTime::Format::Natural::Lang::EN 1.69
+      DateTime::Format::Natural::Lang::EN 1.70
       DateTime::Format::Natural::Rewrite 0.07
       DateTime::Format::Natural::Test 0.10
       DateTime::Format::Natural::Utils 0.07
@@ -2237,15 +2248,15 @@ DISTRIBUTIONS
       Time::Local 0
       strict 0
       warnings 0
-  Email-MIME-1.949
-    pathname: R/RJ/RJBS/Email-MIME-1.949.tar.gz
+  Email-MIME-1.952
+    pathname: R/RJ/RJBS/Email-MIME-1.952.tar.gz
     provides:
-      Email::MIME 1.949
-      Email::MIME::Creator 1.949
-      Email::MIME::Encode 1.949
-      Email::MIME::Header 1.949
-      Email::MIME::Header::AddressList 1.949
-      Email::MIME::Modifier 1.949
+      Email::MIME 1.952
+      Email::MIME::Creator 1.952
+      Email::MIME::Encode 1.952
+      Email::MIME::Header 1.952
+      Email::MIME::Header::AddressList 1.952
+      Email::MIME::Modifier 1.952
     requirements:
       Carp 0
       Email::Address::XS 0
@@ -2256,7 +2267,7 @@ DISTRIBUTIONS
       Email::Simple::Creator 0
       Email::Simple::Header 0
       Encode 1.9801
-      ExtUtils::MakeMaker 0
+      ExtUtils::MakeMaker 6.78
       MIME::Base64 0
       MIME::Types 1.13
       Module::Runtime 0
@@ -2509,45 +2520,45 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
-  ExtUtils-MakeMaker-7.62
-    pathname: B/BI/BINGOS/ExtUtils-MakeMaker-7.62.tar.gz
+  ExtUtils-MakeMaker-7.64
+    pathname: B/BI/BINGOS/ExtUtils-MakeMaker-7.64.tar.gz
     provides:
-      ExtUtils::Command 7.62
-      ExtUtils::Command::MM 7.62
-      ExtUtils::Liblist 7.62
-      ExtUtils::Liblist::Kid 7.62
-      ExtUtils::MM 7.62
-      ExtUtils::MM_AIX 7.62
-      ExtUtils::MM_Any 7.62
-      ExtUtils::MM_BeOS 7.62
-      ExtUtils::MM_Cygwin 7.62
-      ExtUtils::MM_DOS 7.62
-      ExtUtils::MM_Darwin 7.62
-      ExtUtils::MM_MacOS 7.62
-      ExtUtils::MM_NW5 7.62
-      ExtUtils::MM_OS2 7.62
-      ExtUtils::MM_OS390 7.62
-      ExtUtils::MM_QNX 7.62
-      ExtUtils::MM_UWIN 7.62
-      ExtUtils::MM_Unix 7.62
-      ExtUtils::MM_VMS 7.62
-      ExtUtils::MM_VOS 7.62
-      ExtUtils::MM_Win32 7.62
-      ExtUtils::MM_Win95 7.62
-      ExtUtils::MY 7.62
-      ExtUtils::MakeMaker 7.62
-      ExtUtils::MakeMaker::Config 7.62
-      ExtUtils::MakeMaker::Locale 7.62
-      ExtUtils::MakeMaker::_version 7.62
-      ExtUtils::MakeMaker::charstar 7.62
-      ExtUtils::MakeMaker::version 7.62
-      ExtUtils::MakeMaker::version::regex 7.62
-      ExtUtils::MakeMaker::version::vpp 7.62
-      ExtUtils::Mkbootstrap 7.62
-      ExtUtils::Mksymlists 7.62
-      ExtUtils::testlib 7.62
-      MM 7.62
-      MY 7.62
+      ExtUtils::Command 7.64
+      ExtUtils::Command::MM 7.64
+      ExtUtils::Liblist 7.64
+      ExtUtils::Liblist::Kid 7.64
+      ExtUtils::MM 7.64
+      ExtUtils::MM_AIX 7.64
+      ExtUtils::MM_Any 7.64
+      ExtUtils::MM_BeOS 7.64
+      ExtUtils::MM_Cygwin 7.64
+      ExtUtils::MM_DOS 7.64
+      ExtUtils::MM_Darwin 7.64
+      ExtUtils::MM_MacOS 7.64
+      ExtUtils::MM_NW5 7.64
+      ExtUtils::MM_OS2 7.64
+      ExtUtils::MM_OS390 7.64
+      ExtUtils::MM_QNX 7.64
+      ExtUtils::MM_UWIN 7.64
+      ExtUtils::MM_Unix 7.64
+      ExtUtils::MM_VMS 7.64
+      ExtUtils::MM_VOS 7.64
+      ExtUtils::MM_Win32 7.64
+      ExtUtils::MM_Win95 7.64
+      ExtUtils::MY 7.64
+      ExtUtils::MakeMaker 7.64
+      ExtUtils::MakeMaker::Config 7.64
+      ExtUtils::MakeMaker::Locale 7.64
+      ExtUtils::MakeMaker::_version 7.64
+      ExtUtils::MakeMaker::charstar 7.64
+      ExtUtils::MakeMaker::version 7.64
+      ExtUtils::MakeMaker::version::regex 7.64
+      ExtUtils::MakeMaker::version::vpp 7.64
+      ExtUtils::Mkbootstrap 7.64
+      ExtUtils::Mksymlists 7.64
+      ExtUtils::testlib 7.64
+      MM 7.64
+      MY 7.64
     requirements:
       Data::Dumper 0
       Encode 0
@@ -3016,10 +3027,10 @@ DISTRIBUTIONS
       URI::URL 0
       XSLoader 0
       strict 0
-  HTML-Selector-XPath-0.25
-    pathname: C/CO/CORION/HTML-Selector-XPath-0.25.tar.gz
+  HTML-Selector-XPath-0.26
+    pathname: C/CO/CORION/HTML-Selector-XPath-0.26.tar.gz
     provides:
-      HTML::Selector::XPath 0.25
+      HTML::Selector::XPath 0.26
     requirements:
       Carp 0
       Exporter 0
@@ -3156,19 +3167,19 @@ DISTRIBUTIONS
       perl 5.005
       strict 0
       warnings 0
-  HTTP-Message-6.35
-    pathname: O/OA/OALDERS/HTTP-Message-6.35.tar.gz
+  HTTP-Message-6.36
+    pathname: O/OA/OALDERS/HTTP-Message-6.36.tar.gz
     provides:
-      HTTP::Config 6.35
-      HTTP::Headers 6.35
-      HTTP::Headers::Auth 6.35
-      HTTP::Headers::ETag 6.35
-      HTTP::Headers::Util 6.35
-      HTTP::Message 6.35
-      HTTP::Request 6.35
-      HTTP::Request::Common 6.35
-      HTTP::Response 6.35
-      HTTP::Status 6.35
+      HTTP::Config 6.36
+      HTTP::Headers 6.36
+      HTTP::Headers::Auth 6.36
+      HTTP::Headers::ETag 6.36
+      HTTP::Headers::Util 6.36
+      HTTP::Message 6.36
+      HTTP::Request 6.36
+      HTTP::Request::Common 6.36
+      HTTP::Response 6.36
+      HTTP::Status 6.36
     requirements:
       Carp 0
       Compress::Raw::Zlib 0
@@ -3304,17 +3315,17 @@ DISTRIBUTIONS
       Exporter 5.57
       ExtUtils::MakeMaker 0
       perl 5.008
-  IO-Socket-SSL-2.072
-    pathname: S/SU/SULLR/IO-Socket-SSL-2.072.tar.gz
+  IO-Socket-SSL-2.074
+    pathname: S/SU/SULLR/IO-Socket-SSL-2.074.tar.gz
     provides:
-      IO::Socket::SSL 2.072
+      IO::Socket::SSL 2.074
       IO::Socket::SSL::Intercept 2.056
-      IO::Socket::SSL::OCSP_Cache 2.072
-      IO::Socket::SSL::OCSP_Resolver 2.072
+      IO::Socket::SSL::OCSP_Cache 2.074
+      IO::Socket::SSL::OCSP_Resolver 2.074
       IO::Socket::SSL::PublicSuffix undef
-      IO::Socket::SSL::SSL_Context 2.072
-      IO::Socket::SSL::SSL_HANDLE 2.072
-      IO::Socket::SSL::Session_Cache 2.072
+      IO::Socket::SSL::SSL_Context 2.074
+      IO::Socket::SSL::SSL_HANDLE 2.074
+      IO::Socket::SSL::Session_Cache 2.074
       IO::Socket::SSL::Utils 2.015
     requirements:
       ExtUtils::MakeMaker 0
@@ -3342,41 +3353,17 @@ DISTRIBUTIONS
       IO::String 1.08
     requirements:
       ExtUtils::MakeMaker 0
-  IO-Stringy-2.113
-    pathname: C/CA/CAPOEIRAB/IO-Stringy-2.113.tar.gz
-    provides:
-      IO::AtomicFile 2.113
-      IO::InnerFile 2.113
-      IO::Lines 2.113
-      IO::Scalar 2.113
-      IO::ScalarArray 2.113
-      IO::Stringy 2.113
-      IO::Wrap 2.113
-      IO::WrapTie 2.113
-    requirements:
-      Carp 0
-      Exporter 5.57
-      ExtUtils::MakeMaker 0
-      File::Spec 0
-      FileHandle 0
-      IO::File 0
-      IO::Handle 0
-      Symbol 0
-      overload 0
-      parent 0
-      strict 0
-      warnings 0
   IPC-Signal-1.00
     pathname: R/RO/ROSCH/IPC-Signal-1.00.tar.gz
     provides:
       IPC::Signal 1.00
     requirements:
       ExtUtils::MakeMaker 0
-  JSON-4.03
-    pathname: I/IS/ISHIGAKI/JSON-4.03.tar.gz
+  JSON-4.05
+    pathname: I/IS/ISHIGAKI/JSON-4.05.tar.gz
     provides:
-      JSON 4.03
-      JSON::Backend::PP 4.03
+      JSON 4.05
+      JSON::Backend::PP 4.05
     requirements:
       ExtUtils::MakeMaker 0
       Test::More 0
@@ -3597,10 +3584,10 @@ DISTRIBUTIONS
       File::Spec 0
       List::Util 0
       Test::More 0.47
-  MRO-Compat-0.13
-    pathname: H/HA/HAARG/MRO-Compat-0.13.tar.gz
+  MRO-Compat-0.15
+    pathname: H/HA/HAARG/MRO-Compat-0.15.tar.gz
     provides:
-      MRO::Compat 0.13
+      MRO::Compat 0.15
     requirements:
       ExtUtils::MakeMaker 0
       perl 5.006
@@ -4730,111 +4717,111 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       MIME::Base64 0
       URI::Escape 0
-  Net-DNS-1.32
-    pathname: N/NL/NLNETLABS/Net-DNS-1.32.tar.gz
+  Net-DNS-1.33
+    pathname: N/NL/NLNETLABS/Net-DNS-1.33.tar.gz
     provides:
-      Net::DNS 1.32
-      Net::DNS::Domain 1841
-      Net::DNS::DomainName 1813
-      Net::DNS::DomainName1035 1813
-      Net::DNS::DomainName2535 1813
-      Net::DNS::Header 1812
-      Net::DNS::Mailbox 1813
-      Net::DNS::Mailbox1035 1813
-      Net::DNS::Mailbox2535 1813
-      Net::DNS::Nameserver 1841
-      Net::DNS::Packet 1818
-      Net::DNS::Parameters 1841
-      Net::DNS::Question 1812
-      Net::DNS::RR 1841
-      Net::DNS::RR::A 1814
-      Net::DNS::RR::AAAA 1814
-      Net::DNS::RR::AFSDB 1814
-      Net::DNS::RR::AMTRELAY 1814
-      Net::DNS::RR::APL 1814
-      Net::DNS::RR::APL::Item 1814
-      Net::DNS::RR::CAA 1814
-      Net::DNS::RR::CDNSKEY 1814
-      Net::DNS::RR::CDS 1814
-      Net::DNS::RR::CERT 1814
-      Net::DNS::RR::CNAME 1814
-      Net::DNS::RR::CSYNC 1814
-      Net::DNS::RR::DHCID 1814
-      Net::DNS::RR::DNAME 1814
-      Net::DNS::RR::DNSKEY 1814
-      Net::DNS::RR::DS 1814
-      Net::DNS::RR::EUI48 1814
-      Net::DNS::RR::EUI64 1814
-      Net::DNS::RR::GPOS 1814
-      Net::DNS::RR::HINFO 1814
-      Net::DNS::RR::HIP 1814
-      Net::DNS::RR::HTTPS 1814
-      Net::DNS::RR::IPSECKEY 1814
-      Net::DNS::RR::ISDN 1814
-      Net::DNS::RR::KEY 1814
-      Net::DNS::RR::KX 1814
-      Net::DNS::RR::L32 1814
-      Net::DNS::RR::L64 1814
-      Net::DNS::RR::LOC 1814
-      Net::DNS::RR::LP 1814
-      Net::DNS::RR::MB 1814
-      Net::DNS::RR::MG 1814
-      Net::DNS::RR::MINFO 1814
-      Net::DNS::RR::MR 1814
-      Net::DNS::RR::MX 1814
-      Net::DNS::RR::NAPTR 1814
-      Net::DNS::RR::NID 1814
-      Net::DNS::RR::NS 1814
-      Net::DNS::RR::NSEC 1812
-      Net::DNS::RR::NSEC3 1814
-      Net::DNS::RR::NSEC3PARAM 1814
-      Net::DNS::RR::NULL 1814
-      Net::DNS::RR::OPENPGPKEY 1814
-      Net::DNS::RR::OPT 1823
-      Net::DNS::RR::OPT::CHAIN 1823
-      Net::DNS::RR::OPT::CLIENT_SUBNET 1823
-      Net::DNS::RR::OPT::COOKIE 1823
-      Net::DNS::RR::OPT::DAU 1823
-      Net::DNS::RR::OPT::DHU 1823
-      Net::DNS::RR::OPT::EXPIRE 1823
-      Net::DNS::RR::OPT::EXTENDED_ERROR 1823
-      Net::DNS::RR::OPT::KEY_TAG 1823
-      Net::DNS::RR::OPT::N3U 1823
-      Net::DNS::RR::OPT::PADDING 1823
-      Net::DNS::RR::OPT::TCP_KEEPALIVE 1823
-      Net::DNS::RR::PTR 1814
-      Net::DNS::RR::PX 1814
-      Net::DNS::RR::RP 1814
-      Net::DNS::RR::RRSIG 1819
-      Net::DNS::RR::RT 1814
-      Net::DNS::RR::SIG 1819
-      Net::DNS::RR::SMIMEA 1814
-      Net::DNS::RR::SOA 1819
-      Net::DNS::RR::SPF 1814
-      Net::DNS::RR::SRV 1814
-      Net::DNS::RR::SSHFP 1814
-      Net::DNS::RR::SVCB 1845
-      Net::DNS::RR::TKEY 1814
-      Net::DNS::RR::TLSA 1814
-      Net::DNS::RR::TSIG 1827
-      Net::DNS::RR::TXT 1840
-      Net::DNS::RR::URI 1814
-      Net::DNS::RR::X25 1814
-      Net::DNS::RR::ZONEMD 1832
-      Net::DNS::Resolver 1818
-      Net::DNS::Resolver::Base 1818
-      Net::DNS::Resolver::MSWin32 1812
-      Net::DNS::Resolver::Recurse 1811
-      Net::DNS::Resolver::UNIX 1843
-      Net::DNS::Resolver::android 1811
-      Net::DNS::Resolver::cygwin 1811
-      Net::DNS::Resolver::os2 1811
-      Net::DNS::Resolver::os390 1811
-      Net::DNS::Text 1841
-      Net::DNS::Update 1814
-      Net::DNS::ZoneFile 1841
-      Net::DNS::ZoneFile::Generator 1841
-      Net::DNS::ZoneFile::Text 1841
+      Net::DNS 1.33
+      Net::DNS::Domain 1855
+      Net::DNS::DomainName 1855
+      Net::DNS::DomainName1035 1855
+      Net::DNS::DomainName2535 1855
+      Net::DNS::Header 1855
+      Net::DNS::Mailbox 1855
+      Net::DNS::Mailbox1035 1855
+      Net::DNS::Mailbox2535 1855
+      Net::DNS::Nameserver 1860
+      Net::DNS::Packet 1855
+      Net::DNS::Parameters 1855
+      Net::DNS::Question 1855
+      Net::DNS::RR 1856
+      Net::DNS::RR::A 1857
+      Net::DNS::RR::AAAA 1857
+      Net::DNS::RR::AFSDB 1857
+      Net::DNS::RR::AMTRELAY 1855
+      Net::DNS::RR::APL 1857
+      Net::DNS::RR::APL::Item 1857
+      Net::DNS::RR::CAA 1857
+      Net::DNS::RR::CDNSKEY 1857
+      Net::DNS::RR::CDS 1857
+      Net::DNS::RR::CERT 1856
+      Net::DNS::RR::CNAME 1857
+      Net::DNS::RR::CSYNC 1857
+      Net::DNS::RR::DHCID 1857
+      Net::DNS::RR::DNAME 1857
+      Net::DNS::RR::DNSKEY 1856
+      Net::DNS::RR::DS 1856
+      Net::DNS::RR::EUI48 1857
+      Net::DNS::RR::EUI64 1857
+      Net::DNS::RR::GPOS 1857
+      Net::DNS::RR::HINFO 1857
+      Net::DNS::RR::HIP 1857
+      Net::DNS::RR::HTTPS 1857
+      Net::DNS::RR::IPSECKEY 1857
+      Net::DNS::RR::ISDN 1857
+      Net::DNS::RR::KEY 1857
+      Net::DNS::RR::KX 1857
+      Net::DNS::RR::L32 1857
+      Net::DNS::RR::L64 1857
+      Net::DNS::RR::LOC 1857
+      Net::DNS::RR::LP 1857
+      Net::DNS::RR::MB 1857
+      Net::DNS::RR::MG 1857
+      Net::DNS::RR::MINFO 1857
+      Net::DNS::RR::MR 1857
+      Net::DNS::RR::MX 1857
+      Net::DNS::RR::NAPTR 1857
+      Net::DNS::RR::NID 1857
+      Net::DNS::RR::NS 1857
+      Net::DNS::RR::NSEC 1857
+      Net::DNS::RR::NSEC3 1857
+      Net::DNS::RR::NSEC3PARAM 1857
+      Net::DNS::RR::NULL 1857
+      Net::DNS::RR::OPENPGPKEY 1857
+      Net::DNS::RR::OPT 1857
+      Net::DNS::RR::OPT::CHAIN 1857
+      Net::DNS::RR::OPT::CLIENT_SUBNET 1857
+      Net::DNS::RR::OPT::COOKIE 1857
+      Net::DNS::RR::OPT::DAU 1857
+      Net::DNS::RR::OPT::DHU 1857
+      Net::DNS::RR::OPT::EXPIRE 1857
+      Net::DNS::RR::OPT::EXTENDED_ERROR 1857
+      Net::DNS::RR::OPT::KEY_TAG 1857
+      Net::DNS::RR::OPT::N3U 1857
+      Net::DNS::RR::OPT::PADDING 1857
+      Net::DNS::RR::OPT::TCP_KEEPALIVE 1857
+      Net::DNS::RR::PTR 1857
+      Net::DNS::RR::PX 1857
+      Net::DNS::RR::RP 1857
+      Net::DNS::RR::RRSIG 1856
+      Net::DNS::RR::RT 1857
+      Net::DNS::RR::SIG 1856
+      Net::DNS::RR::SMIMEA 1857
+      Net::DNS::RR::SOA 1857
+      Net::DNS::RR::SPF 1857
+      Net::DNS::RR::SRV 1857
+      Net::DNS::RR::SSHFP 1857
+      Net::DNS::RR::SVCB 1857
+      Net::DNS::RR::TKEY 1857
+      Net::DNS::RR::TLSA 1857
+      Net::DNS::RR::TSIG 1856
+      Net::DNS::RR::TXT 1857
+      Net::DNS::RR::URI 1857
+      Net::DNS::RR::X25 1857
+      Net::DNS::RR::ZONEMD 1857
+      Net::DNS::Resolver 1855
+      Net::DNS::Resolver::Base 1855
+      Net::DNS::Resolver::MSWin32 1856
+      Net::DNS::Resolver::Recurse 1856
+      Net::DNS::Resolver::UNIX 1856
+      Net::DNS::Resolver::android 1856
+      Net::DNS::Resolver::cygwin 1856
+      Net::DNS::Resolver::os2 1856
+      Net::DNS::Resolver::os390 1856
+      Net::DNS::Text 1855
+      Net::DNS::Update 1855
+      Net::DNS::ZoneFile 1855
+      Net::DNS::ZoneFile::Generator 1855
+      Net::DNS::ZoneFile::Text 1855
     requirements:
       Carp 1.1
       Digest::HMAC 1.03
@@ -4854,13 +4841,13 @@ DISTRIBUTIONS
       Scalar::Util 1.25
       Time::Local 1.19
       perl 5.008008
-  Net-HTTP-6.21
-    pathname: O/OA/OALDERS/Net-HTTP-6.21.tar.gz
+  Net-HTTP-6.22
+    pathname: O/OA/OALDERS/Net-HTTP-6.22.tar.gz
     provides:
-      Net::HTTP 6.21
-      Net::HTTP::Methods 6.21
-      Net::HTTP::NB 6.21
-      Net::HTTPS 6.21
+      Net::HTTP 6.22
+      Net::HTTP::Methods 6.22
+      Net::HTTP::NB 6.22
+      Net::HTTPS 6.22
     requirements:
       Carp 0
       Compress::Raw::Zlib 0
@@ -4872,14 +4859,18 @@ DISTRIBUTIONS
       perl 5.006002
       strict 0
       warnings 0
-  Net-SSLeay-1.90
-    pathname: C/CH/CHRISN/Net-SSLeay-1.90.tar.gz
+  Net-SSLeay-1.92
+    pathname: C/CH/CHRISN/Net-SSLeay-1.92.tar.gz
     provides:
-      Net::SSLeay 1.90
-      Net::SSLeay::Handle 1.90
+      Net::SSLeay 1.92
+      Net::SSLeay::Handle 1.92
     requirements:
+      English 0
       ExtUtils::MakeMaker 0
+      File::Spec::Functions 0
       MIME::Base64 0
+      Text::Wrap 0
+      constant 0
       perl 5.008001
   Number-Compare-0.03
     pathname: R/RC/RCLAMP/Number-Compare-0.03.tar.gz
@@ -4943,100 +4934,100 @@ DISTRIBUTIONS
       POSIX 0
       Time::Local 0
       perl 5.008001
-  PPI-1.270
-    pathname: M/MI/MITHALDU/PPI-1.270.tar.gz
+  PPI-1.272
+    pathname: O/OA/OALDERS/PPI-1.272.tar.gz
     provides:
-      PPI 1.270
-      PPI::Cache 1.270
-      PPI::Document 1.270
-      PPI::Document::File 1.270
-      PPI::Document::Fragment 1.270
-      PPI::Document::Normalized 1.270
-      PPI::Dumper 1.270
-      PPI::Element 1.270
-      PPI::Exception 1.270
-      PPI::Exception::ParserRejection 1.270
-      PPI::Find 1.270
-      PPI::Lexer 1.270
-      PPI::Node 1.270
-      PPI::Normal 1.270
-      PPI::Normal::Standard 1.270
-      PPI::Singletons 1.270
-      PPI::Statement 1.270
-      PPI::Statement::Break 1.270
-      PPI::Statement::Compound 1.270
-      PPI::Statement::Data 1.270
-      PPI::Statement::End 1.270
-      PPI::Statement::Expression 1.270
-      PPI::Statement::Given 1.270
-      PPI::Statement::Include 1.270
-      PPI::Statement::Include::Perl6 1.270
-      PPI::Statement::Null 1.270
-      PPI::Statement::Package 1.270
-      PPI::Statement::Scheduled 1.270
-      PPI::Statement::Sub 1.270
-      PPI::Statement::Unknown 1.270
-      PPI::Statement::UnmatchedBrace 1.270
-      PPI::Statement::Variable 1.270
-      PPI::Statement::When 1.270
-      PPI::Structure 1.270
-      PPI::Structure::Block 1.270
-      PPI::Structure::Condition 1.270
-      PPI::Structure::Constructor 1.270
-      PPI::Structure::For 1.270
-      PPI::Structure::Given 1.270
-      PPI::Structure::List 1.270
-      PPI::Structure::Subscript 1.270
-      PPI::Structure::Unknown 1.270
-      PPI::Structure::When 1.270
-      PPI::Token 1.270
-      PPI::Token::ArrayIndex 1.270
-      PPI::Token::Attribute 1.270
-      PPI::Token::BOM 1.270
-      PPI::Token::Cast 1.270
-      PPI::Token::Comment 1.270
-      PPI::Token::DashedWord 1.270
-      PPI::Token::Data 1.270
-      PPI::Token::End 1.270
-      PPI::Token::HereDoc 1.270
-      PPI::Token::Label 1.270
-      PPI::Token::Magic 1.270
-      PPI::Token::Number 1.270
-      PPI::Token::Number::Binary 1.270
-      PPI::Token::Number::Exp 1.270
-      PPI::Token::Number::Float 1.270
-      PPI::Token::Number::Hex 1.270
-      PPI::Token::Number::Octal 1.270
-      PPI::Token::Number::Version 1.270
-      PPI::Token::Operator 1.270
-      PPI::Token::Pod 1.270
-      PPI::Token::Prototype 1.270
-      PPI::Token::Quote 1.270
-      PPI::Token::Quote::Double 1.270
-      PPI::Token::Quote::Interpolate 1.270
-      PPI::Token::Quote::Literal 1.270
-      PPI::Token::Quote::Single 1.270
-      PPI::Token::QuoteLike 1.270
-      PPI::Token::QuoteLike::Backtick 1.270
-      PPI::Token::QuoteLike::Command 1.270
-      PPI::Token::QuoteLike::Readline 1.270
-      PPI::Token::QuoteLike::Regexp 1.270
-      PPI::Token::QuoteLike::Words 1.270
-      PPI::Token::Regexp 1.270
-      PPI::Token::Regexp::Match 1.270
-      PPI::Token::Regexp::Substitute 1.270
-      PPI::Token::Regexp::Transliterate 1.270
-      PPI::Token::Separator 1.270
-      PPI::Token::Structure 1.270
-      PPI::Token::Symbol 1.270
-      PPI::Token::Unknown 1.270
-      PPI::Token::Whitespace 1.270
-      PPI::Token::Word 1.270
-      PPI::Tokenizer 1.270
-      PPI::Transform 1.270
-      PPI::Transform::UpdateCopyright 1.270
-      PPI::Util 1.270
-      PPI::XSAccessor 1.270
+      PPI 1.272
+      PPI::Cache 1.272
+      PPI::Document 1.272
+      PPI::Document::File 1.272
+      PPI::Document::Fragment 1.272
+      PPI::Document::Normalized 1.272
+      PPI::Dumper 1.272
+      PPI::Element 1.272
+      PPI::Exception 1.272
+      PPI::Exception::ParserRejection 1.272
+      PPI::Find 1.272
+      PPI::Lexer 1.272
+      PPI::Node 1.272
+      PPI::Normal 1.272
+      PPI::Normal::Standard 1.272
+      PPI::Singletons 1.272
+      PPI::Statement 1.272
+      PPI::Statement::Break 1.272
+      PPI::Statement::Compound 1.272
+      PPI::Statement::Data 1.272
+      PPI::Statement::End 1.272
+      PPI::Statement::Expression 1.272
+      PPI::Statement::Given 1.272
+      PPI::Statement::Include 1.272
+      PPI::Statement::Include::Perl6 1.272
+      PPI::Statement::Null 1.272
+      PPI::Statement::Package 1.272
+      PPI::Statement::Scheduled 1.272
+      PPI::Statement::Sub 1.272
+      PPI::Statement::Unknown 1.272
+      PPI::Statement::UnmatchedBrace 1.272
+      PPI::Statement::Variable 1.272
+      PPI::Statement::When 1.272
+      PPI::Structure 1.272
+      PPI::Structure::Block 1.272
+      PPI::Structure::Condition 1.272
+      PPI::Structure::Constructor 1.272
+      PPI::Structure::For 1.272
+      PPI::Structure::Given 1.272
+      PPI::Structure::List 1.272
+      PPI::Structure::Subscript 1.272
+      PPI::Structure::Unknown 1.272
+      PPI::Structure::When 1.272
+      PPI::Token 1.272
+      PPI::Token::ArrayIndex 1.272
+      PPI::Token::Attribute 1.272
+      PPI::Token::BOM 1.272
+      PPI::Token::Cast 1.272
+      PPI::Token::Comment 1.272
+      PPI::Token::DashedWord 1.272
+      PPI::Token::Data 1.272
+      PPI::Token::End 1.272
+      PPI::Token::HereDoc 1.272
+      PPI::Token::Label 1.272
+      PPI::Token::Magic 1.272
+      PPI::Token::Number 1.272
+      PPI::Token::Number::Binary 1.272
+      PPI::Token::Number::Exp 1.272
+      PPI::Token::Number::Float 1.272
+      PPI::Token::Number::Hex 1.272
+      PPI::Token::Number::Octal 1.272
+      PPI::Token::Number::Version 1.272
+      PPI::Token::Operator 1.272
+      PPI::Token::Pod 1.272
+      PPI::Token::Prototype 1.272
+      PPI::Token::Quote 1.272
+      PPI::Token::Quote::Double 1.272
+      PPI::Token::Quote::Interpolate 1.272
+      PPI::Token::Quote::Literal 1.272
+      PPI::Token::Quote::Single 1.272
+      PPI::Token::QuoteLike 1.272
+      PPI::Token::QuoteLike::Backtick 1.272
+      PPI::Token::QuoteLike::Command 1.272
+      PPI::Token::QuoteLike::Readline 1.272
+      PPI::Token::QuoteLike::Regexp 1.272
+      PPI::Token::QuoteLike::Words 1.272
+      PPI::Token::Regexp 1.272
+      PPI::Token::Regexp::Match 1.272
+      PPI::Token::Regexp::Substitute 1.272
+      PPI::Token::Regexp::Transliterate 1.272
+      PPI::Token::Separator 1.272
+      PPI::Token::Structure 1.272
+      PPI::Token::Symbol 1.272
+      PPI::Token::Unknown 1.272
+      PPI::Token::Whitespace 1.272
+      PPI::Token::Word 1.272
+      PPI::Tokenizer 1.272
+      PPI::Transform 1.272
+      PPI::Transform::UpdateCopyright 1.272
+      PPI::Util 1.272
+      PPI::XSAccessor 1.272
     requirements:
       Carp 0
       Clone 0.30
@@ -5045,13 +5036,13 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       File::Path 0
       File::Spec 0.84
-      IO::String 1.07
       List::Util 1.33
       Params::Util 1.00
       Scalar::Util 0
       Storable 2.17
       Task::Weaken 0
       constant 0
+      if 0
       overload 0
       perl 5.006
       strict 0
@@ -5388,11 +5379,11 @@ DISTRIBUTIONS
       overload 0
       parent 0
       strict 0
-  Path-Tiny-0.120
-    pathname: D/DA/DAGOLDEN/Path-Tiny-0.120.tar.gz
+  Path-Tiny-0.122
+    pathname: D/DA/DAGOLDEN/Path-Tiny-0.122.tar.gz
     provides:
-      Path::Tiny 0.120
-      Path::Tiny::Error 0.120
+      Path::Tiny 0.122
+      Path::Tiny::Error 0.122
     requirements:
       Carp 0
       Cwd 0
@@ -5738,10 +5729,10 @@ DISTRIBUTIONS
       Perl::Tidy::VerticalAligner::Line 20211029
     requirements:
       ExtUtils::MakeMaker 0
-  PerlIO-utf8_strict-0.008
-    pathname: L/LE/LEONT/PerlIO-utf8_strict-0.008.tar.gz
+  PerlIO-utf8_strict-0.009
+    pathname: L/LE/LEONT/PerlIO-utf8_strict-0.009.tar.gz
     provides:
-      PerlIO::utf8_strict 0.008
+      PerlIO::utf8_strict 0.009
     requirements:
       ExtUtils::MakeMaker 0
       XSLoader 0
@@ -6006,19 +5997,19 @@ DISTRIBUTIONS
     requirements:
       Module::Build::Tiny 0.035
       perl 5.005
-  Redis-1.998
-    pathname: D/DA/DAMS/Redis-1.998.tar.gz
+  Redis-1.999
+    pathname: D/DA/DAMS/Redis-1.999.tar.gz
     provides:
-      Redis 1.998
-      Redis::Hash 1.998
-      Redis::List 1.998
-      Redis::Sentinel 1.998
+      Redis 1.999
+      Redis::Hash 1.999
+      Redis::List 1.999
+      Redis::Sentinel 1.999
     requirements:
       ExtUtils::MakeMaker 6.63_03
       IO::Socket::Timeout 0.29
       Module::Build::Tiny 0.034
       Try::Tiny 0
-      perl 5.006
+      perl 5.010
   Role-Tiny-2.002004
     pathname: H/HA/HAARG/Role-Tiny-2.002004.tar.gz
     provides:
@@ -6460,60 +6451,60 @@ DISTRIBUTIONS
       Template 0
       Test::More 0
       Time::HiRes 0
-  Template-Toolkit-3.009
-    pathname: A/AT/ATOOMIC/Template-Toolkit-3.009.tar.gz
+  Template-Toolkit-3.010
+    pathname: A/AT/ATOOMIC/Template-Toolkit-3.010.tar.gz
     provides:
-      Template 3.009
-      Template::Base 3.009
-      Template::Config 3.009
-      Template::Constants 3.009
-      Template::Context 3.009
-      Template::Directive 3.009
-      Template::Document 3.009
-      Template::Exception 3.009
-      Template::Filters 3.009
-      Template::Grammar 3.009
-      Template::Iterator 3.009
-      Template::Monad::Assert 3.009
-      Template::Monad::Scalar 3.009
-      Template::Namespace::Constants 3.009
-      Template::Parser 3.009
-      Template::Perl 3.009
-      Template::Plugin 3.009
-      Template::Plugin::Assert 3.009
-      Template::Plugin::CGI 3.009
-      Template::Plugin::Datafile 3.009
-      Template::Plugin::Date 3.009
-      Template::Plugin::Date::Calc 3.009
-      Template::Plugin::Date::Manip 3.009
-      Template::Plugin::Directory 3.009
-      Template::Plugin::Dumper 3.009
-      Template::Plugin::File 3.009
-      Template::Plugin::Filter 3.009
-      Template::Plugin::Format 3.009
-      Template::Plugin::HTML 3.009
-      Template::Plugin::Image 3.009
-      Template::Plugin::Iterator 3.009
-      Template::Plugin::Math 3.009
-      Template::Plugin::Pod 3.009
-      Template::Plugin::Procedural 3.009
-      Template::Plugin::Scalar 3.009
-      Template::Plugin::String 3.009
-      Template::Plugin::Table 3.009
-      Template::Plugin::URL 3.009
-      Template::Plugin::View 3.009
-      Template::Plugin::Wrap 3.009
-      Template::Plugins 3.009
-      Template::Provider 3.009
-      Template::Service 3.009
-      Template::Stash 3.009
-      Template::Stash::Context 3.009
+      Template 3.010
+      Template::Base 3.010
+      Template::Config 3.010
+      Template::Constants 3.010
+      Template::Context 3.010
+      Template::Directive 3.010
+      Template::Document 3.010
+      Template::Exception 3.010
+      Template::Filters 3.010
+      Template::Grammar 3.010
+      Template::Iterator 3.010
+      Template::Monad::Assert 3.010
+      Template::Monad::Scalar 3.010
+      Template::Namespace::Constants 3.010
+      Template::Parser 3.010
+      Template::Perl 3.010
+      Template::Plugin 3.010
+      Template::Plugin::Assert 3.010
+      Template::Plugin::CGI 3.010
+      Template::Plugin::Datafile 3.010
+      Template::Plugin::Date 3.010
+      Template::Plugin::Date::Calc 3.010
+      Template::Plugin::Date::Manip 3.010
+      Template::Plugin::Directory 3.010
+      Template::Plugin::Dumper 3.010
+      Template::Plugin::File 3.010
+      Template::Plugin::Filter 3.010
+      Template::Plugin::Format 3.010
+      Template::Plugin::HTML 3.010
+      Template::Plugin::Image 3.010
+      Template::Plugin::Iterator 3.010
+      Template::Plugin::Math 3.010
+      Template::Plugin::Pod 3.010
+      Template::Plugin::Procedural 3.010
+      Template::Plugin::Scalar 3.010
+      Template::Plugin::String 3.010
+      Template::Plugin::Table 3.010
+      Template::Plugin::URL 3.010
+      Template::Plugin::View 3.010
+      Template::Plugin::Wrap 3.010
+      Template::Plugins 3.010
+      Template::Provider 3.010
+      Template::Service 3.010
+      Template::Stash 3.010
+      Template::Stash::Context 3.010
       Template::Stash::XS undef
-      Template::Test 3.009
-      Template::TieString 3.009
-      Template::Toolkit 3.009
-      Template::VMethods 3.009
-      Template::View 3.009
+      Template::Test 3.010
+      Template::TieString 3.010
+      Template::Toolkit 3.010
+      Template::VMethods 3.010
+      Template::View 3.010
     requirements:
       AppConfig 1.56
       ExtUtils::MakeMaker 0
@@ -6631,10 +6622,10 @@ DISTRIBUTIONS
       List::Util 1.09
       Scalar::Util 1.09
       Test::Builder 0
-  Test-Differences-0.68
-    pathname: D/DC/DCANTRELL/Test-Differences-0.68.tar.gz
+  Test-Differences-0.69
+    pathname: D/DC/DCANTRELL/Test-Differences-0.69.tar.gz
     provides:
-      Test::Differences 0.68
+      Test::Differences 0.69
     requirements:
       Capture::Tiny 0.24
       Data::Dumper 2.126
@@ -7934,32 +7925,32 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       File::Spec 0
       version 0.77
-  libwww-perl-6.59
-    pathname: O/OA/OALDERS/libwww-perl-6.59.tar.gz
+  libwww-perl-6.61
+    pathname: O/OA/OALDERS/libwww-perl-6.61.tar.gz
     provides:
-      LWP 6.59
-      LWP::Authen::Basic 6.59
-      LWP::Authen::Digest 6.59
-      LWP::Authen::Ntlm 6.59
-      LWP::ConnCache 6.59
-      LWP::Debug 6.59
-      LWP::Debug::TraceHTTP 6.59
-      LWP::DebugFile 6.59
-      LWP::MemberMixin 6.59
-      LWP::Protocol 6.59
-      LWP::Protocol::cpan 6.59
-      LWP::Protocol::data 6.59
-      LWP::Protocol::file 6.59
-      LWP::Protocol::ftp 6.59
-      LWP::Protocol::gopher 6.59
-      LWP::Protocol::http 6.59
-      LWP::Protocol::loopback 6.59
-      LWP::Protocol::mailto 6.59
-      LWP::Protocol::nntp 6.59
-      LWP::Protocol::nogo 6.59
-      LWP::RobotUA 6.59
-      LWP::Simple 6.59
-      LWP::UserAgent 6.59
+      LWP 6.61
+      LWP::Authen::Basic 6.61
+      LWP::Authen::Digest 6.61
+      LWP::Authen::Ntlm 6.61
+      LWP::ConnCache 6.61
+      LWP::Debug 6.61
+      LWP::Debug::TraceHTTP 6.61
+      LWP::DebugFile 6.61
+      LWP::MemberMixin 6.61
+      LWP::Protocol 6.61
+      LWP::Protocol::cpan 6.61
+      LWP::Protocol::data 6.61
+      LWP::Protocol::file 6.61
+      LWP::Protocol::ftp 6.61
+      LWP::Protocol::gopher 6.61
+      LWP::Protocol::http 6.61
+      LWP::Protocol::loopback 6.61
+      LWP::Protocol::mailto 6.61
+      LWP::Protocol::nntp 6.61
+      LWP::Protocol::nogo 6.61
+      LWP::RobotUA 6.61
+      LWP::Simple 6.61
+      LWP::UserAgent 6.61
       libwww::perl undef
     requirements:
       CPAN::Meta::Requirements 2.120620
@@ -7969,6 +7960,7 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       File::Copy 0
       File::Listing 6
+      File::Temp 0
       Getopt::Long 0
       HTML::Entities 0
       HTML::HeadParser 0
@@ -7978,7 +7970,7 @@ DISTRIBUTIONS
       HTTP::Request 6
       HTTP::Request::Common 6
       HTTP::Response 6
-      HTTP::Status 6.18
+      HTTP::Status 6.07
       IO::Select 0
       IO::Socket 0
       LWP::MediaTypes 6

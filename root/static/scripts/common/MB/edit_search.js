@@ -19,6 +19,10 @@ $(function () {
       'includes': 1,
       'not-includes': 1,
     },
+    edit_subscription: {
+      subscribed: 0,
+      not_subscribed: 0,
+    },
     voter: {
       '=': 1,
       '!=': 1,

@@ -151,16 +151,6 @@ const Details = ({
             />
           </td>
         </tr>
-        {entityType === 'recording' ? (
-          <tr>
-            <th>{l('AcousticBrainz entry:')}</th>
-            <td>
-              <a href={'https://acousticbrainz.org/' + entity.gid}>
-                {'https://acousticbrainz.org/' + entity.gid}
-              </a>
-            </td>
-          </tr>
-        ) : null}
       </table>
     </LayoutComponent>
   );

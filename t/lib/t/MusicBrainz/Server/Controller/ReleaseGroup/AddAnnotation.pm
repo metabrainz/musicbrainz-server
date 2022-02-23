@@ -31,7 +31,8 @@ is_deeply($edit->data, {
     },
     text => "    * Test annotation for a release group\n\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets",
     changelog => 'Changelog here',
-    editor_id => 1
+    editor_id => 1,
+    old_annotation_id => 5,
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');

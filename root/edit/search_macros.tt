@@ -69,6 +69,8 @@
                END;
              CASE 'MusicBrainz::Server::EditSearch::Predicate::EditNoteContent';
                predicate_edit_note_content(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::EditSubscription';
+               predicate_edit_subscription(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality';
                predicate_set(field.field_name, quality, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Date';
@@ -384,6 +386,12 @@
   </span>
 [% END %]
 
+[% MACRO predicate_edit_subscription(field, field_contents) WRAPPER wfield predicate="edit_subscription" %]
+  [% operators([ [ 'subscribed', l('is in my subscriptions') ]
+                 [ 'not_subscribed', l('is not in my subscriptions') ]
+               ], field_contents) %]
+[% END %]
+
 [% MACRO predicate_editor_flag(field, field_contents) WRAPPER wfield predicate="set" %]
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
@@ -424,6 +432,7 @@
                    [ 'vote_count', l('Vote tally') ],
                    [ 'edit_note_author', l('Edit Note Authors'), {requires_login => 1} ],
                    [ 'edit_note_content', l('Edit Note Content'), {requires_login => 1} ],
+                   [ 'edit_subscription', l('Edited entity'), {requires_login => 1} ],
                    [ 'area', l('Area') ],
                    [ 'artist', l('Artist') ],
                    [ 'event', l('Event') ],
@@ -464,6 +473,7 @@
     [% predicate_set('release_quality', quality) %]
     [% predicate_vote_count('vote_count') %]
     [% predicate_edit_notes %]
+    [% predicate_edit_subscription('edit_subscription') %]
 
     [% FOR linked_type=[ 'artist', 'label', 'series' ];
          predicate_subscription(linked_type);
