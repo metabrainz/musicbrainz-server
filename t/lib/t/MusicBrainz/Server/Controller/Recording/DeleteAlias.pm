@@ -59,7 +59,7 @@ test 'Deleting an alias' => sub {
                 day => undef
             },
             ended => 0,
-            type_id => 2,
+            type_id => 1,
             locale => undef,
             primary_for_locale => 0,
         },
