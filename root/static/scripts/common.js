@@ -41,7 +41,6 @@ require('./common/components/WikipediaExtract');
 require('./common/MB/Control/Autocomplete');
 require('./common/MB/Control/SelectAll');
 require('./common/components/TagEditor');
-require('./common/components/sidebar/AcousticBrainz');
 
 import('./common/artworkViewer');
 import('./common/dialogs');

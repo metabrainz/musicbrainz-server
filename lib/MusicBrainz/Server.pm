@@ -656,10 +656,10 @@ sub set_csp_headers {
 
     # CSP headers are generally only added where SecureForm is also used:
     # account and admin-related forms. So there's no need to account for
-    # external origins like coverartarchive.org, archive.org,
-    # acousticbrainz.org, etc. here, as those are used on entity pages which
-    # don't have a CSP. Userscripts should continue to work for the same
-    # reason: edit and entity pages are unaffected. Avoid using the
+    # external origins like coverartarchive.org, archive.org, etc. here,
+    # as those are used on entity pages which don't have a CSP.
+    # Userscripts should continue to work for the same reason:
+    # edit and entity pages are unaffected. Avoid using the
     # SecureForm attribute in those places.
     my @csp_script_src = (
         'script-src',

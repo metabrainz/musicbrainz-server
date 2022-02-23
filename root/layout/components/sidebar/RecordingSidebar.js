@@ -14,8 +14,6 @@ import ArtistCreditLink
 import CodeLink from '../../../static/scripts/common/components/CodeLink';
 import formatTrackLength
   from '../../../static/scripts/common/utility/formatTrackLength';
-import SidebarAcousticBrainz
-  from '../../../static/scripts/common/components/sidebar/AcousticBrainz';
 import ExternalLinks from '../ExternalLinks';
 
 import AnnotationLinks from './AnnotationLinks';
@@ -72,8 +70,6 @@ const RecordingSidebar = ({recording}: Props): React.Element<'div'> => {
           </SidebarProperty>
         ))}
       </SidebarProperties>
-
-      <SidebarAcousticBrainz recording={recording} />
 
       <SidebarRating entity={recording} />
 
