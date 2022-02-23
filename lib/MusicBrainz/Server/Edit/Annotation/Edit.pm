@@ -3,7 +3,7 @@ use strict;
 use Carp;
 use MooseX::Role::Parameterized;
 use MooseX::Types::Moose qw( Int Str );
-use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
@@ -38,6 +38,7 @@ role {
                 id   => Int,
                 name => Str
             ]],
+            old_annotation_id => Optional[Nullable[Int]],
         ],
     );
 
@@ -65,11 +66,21 @@ role {
     method build_display_data => sub {
         my ($self, $loaded) = @_;
 
+        my $annotation_model = $self->_annotation_model;
+        my $old_annotation_id = $self->data->{old_annotation_id};
+        my $old_annotation;
+        if (defined $old_annotation_id) {
+            $old_annotation = $old_annotation_id
+                ? $annotation_model->get_by_id($old_annotation_id)->{text}
+                : '';
+        }
+
         my $data = {
-            changelog     => $self->data->{changelog},
-            text          => $self->data->{text},
-            html          => format_wikitext($self->data->{text}),
-            entity_type   => $entity_type,
+            changelog      => $self->data->{changelog},
+            text           => $self->data->{text} || '',
+            html           => format_wikitext($self->data->{text}),
+            entity_type    => $entity_type,
+            defined $old_annotation_id ? ( old_annotation => '' . $old_annotation ) : (),
         };
 
         unless ($self->preview) {
@@ -131,9 +142,15 @@ role {
             die 'Missing entity argument' unless $self->preview;
         }
 
+        my $annotation_model = $self->_annotation_model;
+        my $latest_annotation = $annotation_model->get_latest($entity->id);
+
         $self->data({
             %opts,
             editor_id => $self->editor_id,
+            old_annotation_id => $latest_annotation
+                ? $latest_annotation->id
+                : undef,
         });
     };
 
