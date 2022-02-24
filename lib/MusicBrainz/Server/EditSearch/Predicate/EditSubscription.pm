@@ -19,8 +19,19 @@ sub operator_cardinality_map {
 sub combine_with_query {
     my ($self, $query) = @_;
 
-    $query->add_where([ <<~'SQL', [ ($self->user->id) x 14 ] ]);
-      EXISTS (
+    my $initial_exists_clause;
+    my $exists_clause;
+
+    if ($self->operator eq 'not_subscribed') {
+        $initial_exists_clause = 'NOT EXISTS';
+        $exists_clause = 'AND NOT EXISTS';
+    } else {
+        $initial_exists_clause = 'EXISTS';
+        $exists_clause = 'OR EXISTS';
+    }
+
+    $query->add_where([ <<~"SQL", [ ($self->user->id) x 14 ] ]);
+      $initial_exists_clause (
         SELECT TRUE
           FROM edit_area
          WHERE edit_area.area IN (
@@ -34,7 +45,7 @@ sub combine_with_query {
                       )
                )
            AND edit_area.edit = edit.id
-      ) OR EXISTS (
+      ) $exists_clause (
         SELECT TRUE
           FROM edit_artist
          WHERE edit_artist.artist IN (
@@ -52,7 +63,7 @@ sub combine_with_query {
                       )
                )
            AND edit_artist.edit = edit.id
-      ) OR EXISTS (
+      ) $exists_clause (
         SELECT TRUE
           FROM edit_event
          WHERE edit_event.event IN (
@@ -66,7 +77,7 @@ sub combine_with_query {
                       )
                )
            AND edit_event.edit = edit.id
-      ) OR EXISTS (
+      ) $exists_clause (
         SELECT TRUE
           FROM edit_instrument
          WHERE edit_instrument.instrument IN (
@@ -80,7 +91,7 @@ sub combine_with_query {
                       )
                )
            AND edit_instrument.edit = edit.id
-      ) OR EXISTS (
+      ) $exists_clause (
         SELECT TRUE
           FROM edit_label
          WHERE edit_label.label IN (
@@ -98,7 +109,7 @@ sub combine_with_query {
                       )
                )   
            AND edit_label.edit = edit.id
-      ) OR EXISTS (
+      ) $exists_clause (
         SELECT TRUE
           FROM edit_place
          WHERE edit_place.place IN (
@@ -112,7 +123,7 @@ sub combine_with_query {
                       )
                )
            AND edit_place.edit = edit.id
-      ) OR EXISTS (
+      ) $exists_clause (
         SELECT TRUE
           FROM edit_recording
          WHERE edit_recording.recording IN (
@@ -126,7 +137,7 @@ sub combine_with_query {
                       )
                )
            AND edit_recording.edit = edit.id
-      ) OR EXISTS (
+      ) $exists_clause (
         SELECT TRUE
           FROM edit_release
          WHERE edit_release.release IN (
@@ -140,7 +151,7 @@ sub combine_with_query {
                       )
                )
            AND edit_release.edit = edit.id
-      ) OR EXISTS (
+      ) $exists_clause (
         SELECT TRUE
           FROM edit_release_group
          WHERE edit_release_group.release_group IN (
@@ -154,7 +165,7 @@ sub combine_with_query {
                       )
                )
            AND edit_release_group.edit = edit.id
-      ) OR EXISTS (
+      ) $exists_clause (
         SELECT TRUE
           FROM edit_series
          WHERE edit_series.series IN (
@@ -172,7 +183,7 @@ sub combine_with_query {
                       )
                )
            AND edit_series.edit = edit.id
-      ) OR EXISTS (
+      ) $exists_clause (
         SELECT TRUE
           FROM edit_work
          WHERE edit_work.work IN (
