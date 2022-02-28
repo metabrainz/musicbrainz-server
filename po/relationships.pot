@@ -453,7 +453,9 @@ msgid "Indicates the area where the work had its first performance"
 msgstr ""
 
 #: DB:link_type/description:956
-msgid "Indicates the artist(s) who gave the first performance of the work"
+msgid ""
+"Indicates the artist(s) who gave the first performance of the work; this is "
+"usually mostly relevant for classical music"
 msgstr ""
 
 #: DB:link_type/description:55
@@ -553,12 +555,12 @@ msgid ""
 "concept as the <a href=\"/doc/Label\">record label</a>."
 msgstr ""
 
-#: DB:link_type/link_phrase:837 DB:link_type/link_phrase:840
+#: DB:link_type/link_phrase:840 DB:link_type/link_phrase:837
 #: DB:link_type/link_phrase:839 DB:link_type/link_phrase:838
 msgid "Last.fm"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:837 DB:link_type/reverse_link_phrase:840
+#: DB:link_type/reverse_link_phrase:840 DB:link_type/reverse_link_phrase:837
 #: DB:link_type/reverse_link_phrase:839 DB:link_type/reverse_link_phrase:838
 msgid "Last.fm page for"
 msgstr ""
@@ -613,6 +615,12 @@ msgstr ""
 msgid "Links a recording to the event it was recorded at."
 msgstr ""
 
+#: DB:link_type/description:1006
+msgid ""
+"Links a recording to the event series (tour, residency, etc.) it was "
+"recorded during."
+msgstr ""
+
 #: DB:link_type/description:866
 msgid "Links a recording to the place it was arranged at."
 msgstr ""
@@ -639,6 +647,18 @@ msgstr ""
 
 #: DB:link_type/description:829
 msgid "Links a recording to the place it was remixed at."
+msgstr ""
+
+#: DB:link_type/description:1008
+msgid ""
+"Links a recording, release or release group series to the event series "
+"(tour, residency, etc.) it was recorded during."
+msgstr ""
+
+#: DB:link_type/description:1007
+msgid ""
+"Links a release group to the event series (tour, residency, etc.) it was "
+"recorded during."
 msgstr ""
 
 #: DB:link_type/description:797
@@ -1328,6 +1348,18 @@ msgid ""
 "This indicates a personal publishing label for an artist. A personal "
 "publishing label is a small label (usually a subdivision of a larger one) "
 "that exclusively handles the rights to works by that artist."
+msgstr ""
+
+#: DB:link_type/description:1011
+msgid ""
+"This indicates a recording engineer that recorded field recordings for the "
+"recording."
+msgstr ""
+
+#: DB:link_type/description:1012
+msgid ""
+"This indicates a recording engineer that recorded field recordings for the "
+"release."
 msgstr ""
 
 #: DB:link_type/description:895
@@ -2171,6 +2203,13 @@ msgid ""
 "crowdfunding site like Kickstarter or Indiegogo."
 msgstr ""
 
+#: DB:link_type/description:1009
+msgid ""
+"This links a release that was withdrawn (usually because of having some "
+"defect, but sometimes just to change the artist credits) to a new release "
+"put out to replaced it."
+msgstr ""
+
 #: DB:link_type/description:301
 msgid "This links a release to a license under which it is available."
 msgstr ""
@@ -2635,6 +2674,11 @@ msgid ""
 "release, usually indicated with a © symbol."
 msgstr ""
 
+#: DB:link_type/description:1010
+msgid ""
+"This relationship indicates the artist that was the licensor of this release."
+msgstr ""
+
 #: DB:link_type/description:833
 msgid ""
 "This relationship indicates the company that was the licensee of this "
@@ -3003,6 +3047,13 @@ msgid ""
 "This relationship type links a label to its corresponding page at Last.fm"
 msgstr ""
 
+#: DB:link_type/description:1013
+msgid ""
+"This relationship type links a place (usually a studio) to its corresponding "
+"page at <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community "
+"project dedicated to cataloguing the music of video games and anime."
+msgstr ""
+
 #: DB:link_type/description:861
 msgid ""
 "This relationship type links a place to its corresponding page at "
@@ -3256,13 +3307,13 @@ msgstr ""
 
 #: DB:link_type/link_phrase:86 DB:link_type/link_phrase:191
 #: DB:link_type/link_phrase:210 DB:link_type/link_phrase:788
-#: DB:link_type/reverse_link_phrase:992
+#: DB:link_type/link_phrase:1013 DB:link_type/reverse_link_phrase:992
 msgid "VGMdb"
 msgstr ""
 
 #: DB:link_type/link_phrase:992 DB:link_type/reverse_link_phrase:86
 #: DB:link_type/reverse_link_phrase:191 DB:link_type/reverse_link_phrase:210
-#: DB:link_type/reverse_link_phrase:788
+#: DB:link_type/reverse_link_phrase:788 DB:link_type/reverse_link_phrase:1013
 msgid "VGMdb page for"
 msgstr ""
 
@@ -3735,6 +3786,10 @@ msgstr ""
 msgid "consists of"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1008
+msgid "contains music recorded during"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:83 DB:link_type/long_link_phrase:258
 msgid "contains samples from the IMDb entry at"
 msgstr ""
@@ -3745,6 +3800,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:231
 msgid "contains {additional} samples from"
+msgstr ""
+
+#: DB:link_attribute_type/name:1227
+msgid "contemporary music"
 msgstr ""
 
 #: DB:link_type/link_phrase:119 DB:link_type/name:119
@@ -4090,6 +4149,18 @@ msgstr ""
 msgid "fanpage"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:1011 DB:link_type/reverse_link_phrase:1012
+msgid "field recordings"
+msgstr ""
+
+#: DB:link_type/name:1011 DB:link_type/name:1012
+msgid "field recordist"
+msgstr ""
+
+#: DB:link_type/link_phrase:1011 DB:link_type/link_phrase:1012
+msgid "field recordist for"
+msgstr ""
+
 #: DB:link_type/name:238
 msgid "first track release"
 msgstr ""
@@ -4273,7 +4344,7 @@ msgstr ""
 msgid "has a Geonames page at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:837 DB:link_type/long_link_phrase:840
+#: DB:link_type/long_link_phrase:840 DB:link_type/long_link_phrase:837
 #: DB:link_type/long_link_phrase:839 DB:link_type/long_link_phrase:838
 msgid "has a Last.fm page at"
 msgstr ""
@@ -4304,6 +4375,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:86 DB:link_type/long_link_phrase:191
 #: DB:link_type/long_link_phrase:210 DB:link_type/long_link_phrase:788
+#: DB:link_type/long_link_phrase:1013
 msgid "has a VGMdb page at"
 msgstr ""
 
@@ -4912,7 +4984,7 @@ msgstr ""
 msgid "lacquer cut location for"
 msgstr ""
 
-#: DB:link_type/name:837 DB:link_type/name:840 DB:link_type/name:839
+#: DB:link_type/name:840 DB:link_type/name:837 DB:link_type/name:839
 #: DB:link_type/name:838
 msgid "last.fm"
 msgstr ""
@@ -4985,11 +5057,12 @@ msgstr ""
 msgid "license for"
 msgstr ""
 
-#: DB:link_type/link_phrase:712 DB:link_type/long_link_phrase:712
+#: DB:link_type/link_phrase:712 DB:link_type/link_phrase:1010
+#: DB:link_type/long_link_phrase:712 DB:link_type/long_link_phrase:1010
 msgid "licensed"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:712
+#: DB:link_type/reverse_link_phrase:712 DB:link_type/reverse_link_phrase:1010
 msgid "licensed from"
 msgstr ""
 
@@ -5005,7 +5078,7 @@ msgstr ""
 msgid "licensee for"
 msgstr ""
 
-#: DB:link_type/name:712
+#: DB:link_type/name:712 DB:link_type/name:1010
 msgid "licensor"
 msgstr ""
 
@@ -5946,8 +6019,30 @@ msgstr ""
 msgid "recorded at"
 msgstr ""
 
+#: DB:link_type/link_phrase:1006 DB:link_type/link_phrase:1007
+#: DB:link_type/link_phrase:1008 DB:link_type/name:1006 DB:link_type/name:1007
+#: DB:link_type/name:1008
+msgid "recorded during"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1011 DB:link_type/long_link_phrase:1012
+msgid "recorded field recordings for"
+msgstr ""
+
 #: DB:link_type/name:698 DB:link_type/name:699
 msgid "recorded in"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1008
+msgid "recorded music series"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1006
+msgid "recorded recordings"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1007
+msgid "recorded release groups"
 msgstr ""
 
 #: DB:link_type/name:128 DB:link_type/name:36
@@ -6060,6 +6155,14 @@ msgstr ""
 
 #: DB:link_type/link_phrase:202
 msgid "renamed into"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1009
+msgid "replaced"
+msgstr ""
+
+#: DB:link_type/link_phrase:1009 DB:link_type/name:1009
+msgid "replaced by"
 msgstr ""
 
 #: DB:link_type/link_phrase:836 DB:link_type/name:836
@@ -6473,7 +6576,7 @@ msgid "type of"
 msgstr ""
 
 #: DB:link_type/name:86 DB:link_type/name:191 DB:link_type/name:210
-#: DB:link_type/name:788 DB:link_type/name:992
+#: DB:link_type/name:788 DB:link_type/name:992 DB:link_type/name:1013
 msgid "vgmdb"
 msgstr ""
 
@@ -6585,12 +6688,20 @@ msgstr ""
 msgid "was held at"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1006 DB:link_type/long_link_phrase:1007
+msgid "was recorded during"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:3
 msgid "was released in support of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:202
 msgid "was renamed into"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1009
+msgid "was replaced by"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:836

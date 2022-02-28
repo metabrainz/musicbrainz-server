@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Edit::Generic::Edit;
 use Moose;
-use MooseX::ABC;
 
 use Clone qw( clone );
 
@@ -13,7 +12,17 @@ use Try::Tiny;
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
-requires 'change_fields', '_edit_model', '_conflicting_entity_path';
+
+# Sub-classes are required to implement `_edit_model` and `change_fields`.
+#
+# Sub-classes that consume `Edit::Role::CheckDuplicates` are required to
+# implement `_conflicting_entity_path`.
+#
+# N.B. This is not checked at compile-time.
+
+sub _conflicting_entity_path { die 'Unimplemented' }
+sub _edit_model { die 'Unimplemented' }
+sub change_fields { die 'Unimplemented' }
 
 sub edit_kind { 'edit' }
 
@@ -136,8 +145,6 @@ override allow_auto_edit => sub {
 
     return 1;
 };
-
-sub _conflicting_entity_path { die 'Undefined' };
 
 sub _edit_hash
 {

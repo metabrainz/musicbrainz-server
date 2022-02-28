@@ -6,6 +6,12 @@ use MusicBrainz::Server::Entity::CDTOC;
 
 with 't::Mechanize', 't::Context';
 
+=head2 Test description
+
+This test checks whether adding duplicate CDStubs is blocked as intended.
+
+=cut
+
 test 'Trying to add a CD stub where a real disc ID exists redirects' => sub {
     my $test = shift;
     my $c = $test->c;
@@ -20,10 +26,10 @@ test 'Trying to add a CD stub where a real disc ID exists redirects' => sub {
 
     $mech->get_ok(
         '/cdstub/add?toc=' . $cdtoc->toc,
-        'fetch top cdstubs page'
+        'Tried to fetch the CDStub addition page to add a known disc ID'
     );
 
-    like($mech->uri, qr{/cdtoc/$discid}, 'on /cdtoc page');
+    like($mech->uri, qr{/cdtoc/$discid}, 'Was redirected to the /cdtoc page');
 };
 
 1;

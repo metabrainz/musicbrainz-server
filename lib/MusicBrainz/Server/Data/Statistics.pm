@@ -292,6 +292,7 @@ my %stats = (
                 'count.artist.gender.female'  => $dist{2} || 0,
                 'count.artist.gender.other' => $dist{3} || 0,
                 'count.artist.gender.not_applicable' => $dist{4} || 0,
+                'count.artist.gender.nonbinary' => $dist{5} || 0,
                 'count.artist.gender.null' => $dist{null} || 0
             };
         },
@@ -305,6 +306,10 @@ my %stats = (
         PREREQ_ONLY => 1,
     },
     'count.artist.gender.not_applicable' => {
+        PREREQ => [qw[ count.artist.gender.male ]],
+        PREREQ_ONLY => 1,
+    },
+    'count.artist.gender.nonbinary' => {
         PREREQ => [qw[ count.artist.gender.male ]],
         PREREQ_ONLY => 1,
     },

@@ -34,7 +34,8 @@ is_deeply(
         },
         text => "    * Test annotation for a work\n\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets",
         changelog => 'Changelog here',
-        editor_id => 1
+        editor_id => 1,
+        old_annotation_id => 6,
     }
 );
 

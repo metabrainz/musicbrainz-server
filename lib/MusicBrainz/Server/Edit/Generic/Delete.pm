@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Edit::Generic::Delete;
 use Moose;
-use MooseX::ABC;
 
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Edit::Exceptions;
@@ -12,8 +11,14 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 
 extends 'MusicBrainz::Server::Edit';
-requires '_delete_model';
+
 with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
+
+# Sub-classes are required to implement `_delete_model`.
+#
+# N.B. This is not checked at compile-time.
+
+sub _delete_model { die 'Unimplemented' }
 
 sub edit_kind { 'remove' }
 

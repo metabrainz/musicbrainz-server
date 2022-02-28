@@ -31,7 +31,7 @@
 # Nikolai Prokoschenko <email address hidden>, 2011
 # nikki, 2013
 # Patrick <email address hidden>, 2015
-# Philipp Wolfer <email address hidden>, 2012,2018-2021
+# Philipp Wolfer <email address hidden>, 2012,2018-2022
 # Philipp Wolfer <email address hidden>, 2012
 # S.Brandt <email address hidden>, 2014-2016
 # Shepard, 2011
@@ -47,7 +47,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-01-24 20:52+0000\n"
+"PO-Revision-Date: 2022-02-23 20:03+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -182,6 +182,14 @@ msgid ""
 "</ul>\n"
 "\n"
 "<p>There are other variations of the single called a \"split single\" where songs by two different artists are released on the one disc, typically vinyl.</p>"
+msgstr ""
+
+#: DB:medium_format/description:95
+msgctxt "medium_format"
+msgid ""
+"A \"digital collectible\" device, mostly used for k-pop music, that is "
+"connected to a phone via Bluetooth or headphone jack and unlocks the release"
+" for listening in a companion app for a limited period of time."
 msgstr ""
 
 #: DB:release_group_secondary_type/description:8
@@ -352,6 +360,14 @@ msgid ""
 " or a roof which can be retracted."
 msgstr "Ein Ort, dessen wesentliche Bestimmung die Durchführung von outdoor Sportereignissen ist. Typischerweise bestehend aus einem Sportfeld umgeben von einer Infrastruktur für Zuschauer ohne Dach, oder einem Dach, das eingezogen werden kann. "
 
+#: DB:release_status/description:6
+msgctxt "release_status"
+msgid ""
+"A planned official release that was cancelled before being released, but for"
+" which enough info is known to still confidently list it (e.g. it was "
+"available for preorder)."
+msgstr ""
+
 #: DB:work_type/description:28
 msgctxt "work_type"
 msgid ""
@@ -366,6 +382,15 @@ msgid ""
 "A poem is a literary piece, generally short and in verse, where words are "
 "usually chosen for their sound and for the images and ideas they suggest."
 msgstr "Ein Gedicht ist ein relativ kurzer literarischer Text, in dem die Sprache oftmals gereimt und in Versen organisiert oder auch völlig frei eingesetzt wird, um eine künstlerische Aussage zu machen oder eine bestimmte ästhetische Wirkung zu erzielen."
+
+#: DB:release_status/description:5
+msgctxt "release_status"
+msgid ""
+"A previously official release that was actively withdrawn from circulation "
+"by the artist and/or their record company after being released, whether to "
+"replace it with a new version with some changes or to just retire it "
+"altogether (e.g. because of legal issues)."
+msgstr ""
 
 #: DB:release_group_secondary_type/description:10
 msgctxt "release_group_secondary_type"
@@ -413,6 +438,11 @@ msgstr ""
 #: DB:series_type/description:13
 msgctxt "series_type"
 msgid "A series of artists."
+msgstr ""
+
+#: DB:series_type/description:15
+msgctxt "series_type"
+msgid "A series of award ceremonies, usually one per year."
 msgstr ""
 
 #: DB:series_type/description:6
@@ -806,6 +836,14 @@ msgctxt "release_group_secondary_type"
 msgid "An audiobook is a book read by a narrator without music."
 msgstr ""
 
+#: DB:event_type/description:7
+msgctxt "event_type"
+msgid ""
+"An award ceremony is an event which is focused on the granting of prizes, "
+"but often includes musical performances in between the awarding of said "
+"prizes, especially for musical awards."
+msgstr ""
+
 #: DB:release_group_primary_type/description:12
 msgctxt "release_group_primary_type"
 msgid ""
@@ -1016,6 +1054,16 @@ msgstr "Hörbuch"
 msgctxt "series_ordering_type"
 msgid "Automatic"
 msgstr "Automatisch"
+
+#: DB:event_type/name:7
+msgctxt "event_type"
+msgid "Award ceremony"
+msgstr ""
+
+#: DB:series_type/name:15
+msgctxt "series_type"
+msgid "Award ceremony"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:694
 msgctxt "work_attribute_type_allowed_value"
@@ -1649,12 +1697,12 @@ msgstr "COMPASS-ID"
 #: DB:work_attribute_type/name:73
 msgctxt "work_attribute_type"
 msgid "COSCAP ID"
-msgstr ""
+msgstr "COSCAP-ID"
 
 #: DB:work_attribute_type/name:65
 msgctxt "work_attribute_type"
 msgid "COTT ID"
-msgstr ""
+msgstr "COTT-ID"
 
 #: DB:work_attribute_type_allowed_value/value:63
 msgctxt "work_attribute_type_allowed_value"
@@ -1669,6 +1717,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:887
 msgctxt "work_attribute_type_allowed_value"
 msgid "Campākali"
+msgstr ""
+
+#: DB:release_status/name:6
+msgctxt "release_status"
+msgid "Cancelled"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:64
@@ -1959,6 +2012,11 @@ msgctxt "medium_format"
 msgid "DVD-Audio"
 msgstr "DVD-Audio"
 
+#: DB:medium_format/name:92
+msgctxt "medium_format"
+msgid "DVD-R Video"
+msgstr "DVD-R Video"
+
 #: DB:medium_format/name:19
 msgctxt "medium_format"
 msgid "DVD-Video"
@@ -2043,6 +2101,16 @@ msgstr ""
 msgctxt "medium_format"
 msgid "Data CD"
 msgstr "Daten-CD"
+
+#: DB:medium_format/name:94
+msgctxt "medium_format"
+msgid "Data DVD"
+msgstr "Daten-DVD"
+
+#: DB:medium_format/name:93
+msgctxt "medium_format"
+msgid "Data DVD-R"
+msgstr "Daten-DVD-R"
 
 #: DB:release_group_secondary_type/name:10
 msgctxt "release_group_secondary_type"
@@ -3002,7 +3070,7 @@ msgstr "HDCD"
 #: DB:work_attribute_type/name:64
 msgctxt "work_attribute_type"
 msgid "HFA ID"
-msgstr ""
+msgstr "HFA-ID"
 
 #: DB:medium_format/name:37
 msgctxt "medium_format"
@@ -3397,7 +3465,7 @@ msgstr "ID für die belgische Verwertungsgesellschaft SABAM"
 #: DB:work_attribute_type/description:61
 msgctxt "work_attribute_type"
 msgid "ID for the Bolivian rights society SOBODAYCOM"
-msgstr ""
+msgstr "ID für die bolivianische Verwertungsgesellschaft SOBODAYCOM"
 
 #: DB:work_attribute_type/description:37
 msgctxt "work_attribute_type"
@@ -3422,7 +3490,7 @@ msgstr "ID für die kanadische Verwertungsgesellschaft SODRAC"
 #: DB:work_attribute_type/description:71
 msgctxt "work_attribute_type"
 msgid "ID for the Chinese rights society MCSC"
-msgstr ""
+msgstr "ID für die chinesische Verwertungsgesellschaft MCSC"
 
 #: DB:work_attribute_type/description:39
 msgctxt "work_attribute_type"
@@ -3452,7 +3520,7 @@ msgstr "ID für die dänische Verwertungsgesellschaft KODA"
 #: DB:work_attribute_type/description:60
 msgctxt "work_attribute_type"
 msgid "ID for the Dominican rights society SGACEDOM"
-msgstr ""
+msgstr "ID für die dominikanische Verwertungsgesellschaft SGACEDOM"
 
 #: DB:work_attribute_type/description:26
 msgctxt "work_attribute_type"
@@ -3467,7 +3535,7 @@ msgstr "ID für die ecuadorianische Verwertungsgesellschaft SAYCE"
 #: DB:work_attribute_type/description:66
 msgctxt "work_attribute_type"
 msgid "ID for the Finnish rights society TEOSTO"
-msgstr ""
+msgstr "ID für die finnische Verwertungsgesellschaft TEOSTO"
 
 #: DB:work_attribute_type/description:21
 msgctxt "work_attribute_type"
@@ -3507,7 +3575,7 @@ msgstr "ID für die isländische Verwertungsgesellschaft STEF"
 #: DB:work_attribute_type/description:70
 msgctxt "work_attribute_type"
 msgid "ID for the Indian rights society IPRS"
-msgstr ""
+msgstr "ID für die indische Verwertungsgesellschaft IPRS"
 
 #: DB:work_attribute_type/description:29
 msgctxt "work_attribute_type"
@@ -3527,7 +3595,7 @@ msgstr "ID für die italienische Verwertungsgesellschaft SIAE"
 #: DB:work_attribute_type/description:69
 msgctxt "work_attribute_type"
 msgid "ID for the Jamaican rights society JACAP"
-msgstr ""
+msgstr "ID für die jamaikanische Verwertungsgesellschaft JACAP"
 
 #: DB:work_attribute_type/description:3
 msgctxt "work_attribute_type"
@@ -3607,7 +3675,7 @@ msgstr "ID für die singapurische Verwertungsgesellschaft COMPASS"
 #: DB:work_attribute_type/description:68
 msgctxt "work_attribute_type"
 msgid "ID for the South African rights society SAMRO"
-msgstr ""
+msgstr "ID für die südafrikanische Verwertungsgesellschaft SAMRO"
 
 #: DB:work_attribute_type/description:20
 msgctxt "work_attribute_type"
@@ -3632,7 +3700,7 @@ msgstr "ID für die taiwanesische Verwertungsgesellschaft MÜST"
 #: DB:work_attribute_type/description:72
 msgctxt "work_attribute_type"
 msgid "ID for the Thai rights society MCT"
-msgstr ""
+msgstr "ID für die thailändische Verwertungsgesellschaft MCT"
 
 #: DB:work_attribute_type/description:65
 msgctxt "work_attribute_type"
@@ -3692,7 +3760,7 @@ msgstr "IMRO-ID"
 #: DB:work_attribute_type/name:70
 msgctxt "work_attribute_type"
 msgid "IPRS ID"
-msgstr ""
+msgstr "IPRS-ID"
 
 #: DB:work_attribute_type/name:14
 msgctxt "work_attribute_type"
@@ -3749,7 +3817,7 @@ msgstr "Interview"
 #: DB:work_attribute_type_allowed_value/value:427
 msgctxt "work_attribute_type_allowed_value"
 msgid "Irak"
-msgstr ""
+msgstr "Irak"
 
 #: DB:work_attribute_type_allowed_value/value:428
 msgctxt "work_attribute_type_allowed_value"
@@ -3812,7 +3880,7 @@ msgstr "Insel wird für Inseln und Atolle verwendet, die keine eigenen Unterteil
 #: DB:work_attribute_type/name:69
 msgctxt "work_attribute_type"
 msgid "JACAP ID"
-msgstr ""
+msgstr "JACAP-ID"
 
 #: DB:work_attribute_type/name:3
 msgctxt "work_attribute_type"
@@ -4189,6 +4257,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Khēmtāl"
 msgstr ""
 
+#: DB:medium_format/name:95
+msgctxt "medium_format"
+msgid "KiT Album"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:630
 msgctxt "work_attribute_type_allowed_value"
 msgid "Koda"
@@ -4478,12 +4551,12 @@ msgstr "MACP-ID"
 #: DB:work_attribute_type/name:71
 msgctxt "work_attribute_type"
 msgid "MCSC ID"
-msgstr ""
+msgstr "MCSC-ID"
 
 #: DB:work_attribute_type/name:72
 msgctxt "work_attribute_type"
 msgid "MCT ID"
-msgstr ""
+msgstr "MCT-ID"
 
 #: DB:work_attribute_type_allowed_value/value:963
 msgctxt "work_attribute_type_allowed_value"
@@ -5063,7 +5136,7 @@ msgstr "Mōhanaṁ"
 #: DB:work_attribute_type/name:59
 msgctxt "work_attribute_type"
 msgid "NICAUTOR ID"
-msgstr ""
+msgstr "NICAUTOR-ID"
 
 #: DB:work_attribute_type_allowed_value/value:647
 msgctxt "work_attribute_type_allowed_value"
@@ -5335,6 +5408,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Nişabureyn"
 msgstr "Nişabureyn"
 
+#: DB:gender/name:5
+msgctxt "gender"
+msgid "Non-binary"
+msgstr ""
+
 #: DB:release_group_secondary_type/description:3
 msgctxt "release_group_secondary_type"
 msgid "Non-music spoken word releases."
@@ -5423,7 +5501,7 @@ msgstr "Nīlāṁbari"
 #: DB:work_attribute_type/name:25
 msgctxt "work_attribute_type"
 msgid "OSA ID"
-msgstr ""
+msgstr "OSA-ID"
 
 #: DB:cover_art_archive.art_type/name:5
 msgctxt "cover_art_type"
@@ -6153,7 +6231,7 @@ msgstr "SACEM ID"
 #: DB:work_attribute_type/name:56
 msgctxt "work_attribute_type"
 msgid "SACIM ID"
-msgstr ""
+msgstr "SACIM-ID"
 
 #: DB:work_attribute_type/name:27
 msgctxt "work_attribute_type"
@@ -6173,7 +6251,7 @@ msgstr "SADAIC ID"
 #: DB:work_attribute_type/name:68
 msgctxt "work_attribute_type"
 msgid "SAMRO ID"
-msgstr ""
+msgstr "SAMRO-ID"
 
 #: DB:work_attribute_type/name:40
 msgctxt "work_attribute_type"
@@ -6198,7 +6276,7 @@ msgstr "SESAC-ID"
 #: DB:work_attribute_type/name:60
 msgctxt "work_attribute_type"
 msgid "SGACEDOM ID"
-msgstr ""
+msgstr "SGACEDOM-ID"
 
 #: DB:work_attribute_type/name:20
 msgctxt "work_attribute_type"
@@ -6233,7 +6311,7 @@ msgstr "SIAE-ID"
 #: DB:work_attribute_type/name:61
 msgctxt "work_attribute_type"
 msgid "SOBODAYCOM ID"
-msgstr ""
+msgstr "SOBODAYCOM-ID"
 
 #: DB:work_attribute_type/name:10
 msgctxt "work_attribute_type"
@@ -6243,7 +6321,7 @@ msgstr "SOCAN-ID"
 #: DB:work_attribute_type/name:53
 msgctxt "work_attribute_type"
 msgid "SODRAC ID"
-msgstr ""
+msgstr "SODRAC-ID"
 
 #: DB:work_attribute_type/name:35
 msgctxt "work_attribute_type"
@@ -6253,12 +6331,12 @@ msgstr "SPA-ID"
 #: DB:work_attribute_type/name:62
 msgctxt "work_attribute_type"
 msgid "SPAC ID"
-msgstr ""
+msgstr "SPAC-ID"
 
 #: DB:work_attribute_type/name:54
 msgctxt "work_attribute_type"
 msgid "STEF ID"
-msgstr ""
+msgstr "STEF-ID"
 
 #: DB:work_attribute_type/name:50
 msgctxt "work_attribute_type"
@@ -6847,12 +6925,12 @@ msgstr ""
 #: DB:work_attribute_type/name:66
 msgctxt "work_attribute_type"
 msgid "TEOSTO ID"
-msgstr ""
+msgstr "TEOSTO-ID"
 
 #: DB:work_attribute_type/name:67
 msgctxt "work_attribute_type"
 msgid "TONO ID"
-msgstr ""
+msgstr "TONO-ID"
 
 #: DB:work_attribute_type_allowed_value/value:573
 msgctxt "work_attribute_type_allowed_value"
@@ -7505,6 +7583,11 @@ msgstr "Blasinstrument"
 msgctxt "collection_type"
 msgid "Wishlist"
 msgstr "Wunschliste"
+
+#: DB:release_status/name:5
+msgctxt "release_status"
+msgid "Withdrawn"
+msgstr ""
 
 #: DB:editor_collection_type/name:15
 msgctxt "collection_type"

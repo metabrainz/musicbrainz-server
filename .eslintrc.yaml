@@ -269,6 +269,7 @@ rules:
   react/no-unused-state: error
   react/no-will-update-set-state: error
   react/prefer-es6-class: off
+  react/prefer-stateless-function: warn
   react/prop-types: off
   # react-in-jsx-scope is not needed now that we've enabled
   # https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html

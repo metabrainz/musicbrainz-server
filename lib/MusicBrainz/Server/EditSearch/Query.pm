@@ -23,6 +23,7 @@ use MusicBrainz::Server::EditSearch::Predicate::ReleaseCountry;
 use MusicBrainz::Server::EditSearch::Predicate::RelationshipType;
 use MusicBrainz::Server::EditSearch::Predicate::EditNoteAuthor;
 use MusicBrainz::Server::EditSearch::Predicate::EditNoteContent;
+use MusicBrainz::Server::EditSearch::Predicate::EditSubscription;
 use MusicBrainz::Server::Log qw( log_warning );
 use Try::Tiny;
 
@@ -46,6 +47,7 @@ my %field_map = (
     applied_edits => 'MusicBrainz::Server::EditSearch::Predicate::AppliedEdits',
     edit_note_author => 'MusicBrainz::Server::EditSearch::Predicate::EditNoteAuthor',
     edit_note_content => 'MusicBrainz::Server::EditSearch::Predicate::EditNoteContent',
+    edit_subscription => 'MusicBrainz::Server::EditSearch::Predicate::EditSubscription',
 
     entities_with(['mbid', 'relatable'],
         take => sub {

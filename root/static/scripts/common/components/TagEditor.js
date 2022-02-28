@@ -71,103 +71,114 @@ function splitTags(tags) {
 
 type VoteT = 1 | 0 | -1;
 
-type VoteButtonProps = {
-  activeTitle: string | () => string,
+type GenericVoteButtonPropsT = {
   callback: (VoteT) => void,
   currentVote: VoteT,
+};
+
+type VoteButtonPropsT = {
+  ...GenericVoteButtonPropsT,
+  activeTitle: string | () => string,
   text: string,
   title: string | () => string,
   vote: VoteT,
-  ...
 };
 
-class VoteButton extends React.Component<VoteButtonProps> {
-  render() {
-    const {
-      activeTitle,
-      callback,
-      currentVote,
-      text,
-      title,
-      vote,
-    } = this.props;
-    const isActive = vote === currentVote;
-    const className = 'tag-vote tag-' + VOTE_ACTIONS[vote];
-    const buttonTitle = isActive
-      ? unwrapNl(activeTitle)
-      : (currentVote === 0 ? unwrapNl(title) : l('Withdraw vote'));
+const VoteButton = ({
+  activeTitle,
+  callback,
+  currentVote,
+  text,
+  title,
+  vote,
+}: VoteButtonPropsT): React.Element<'button'> => {
+  const isActive = vote === currentVote;
+  const className = 'tag-vote tag-' + VOTE_ACTIONS[vote];
+  const buttonTitle = isActive
+    ? unwrapNl(activeTitle)
+    : (currentVote === 0 ? unwrapNl(title) : l('Withdraw vote'));
 
-    return (
-      <button
-        className={className}
-        disabled={isActive}
-        onClick={isActive
-          ? null
-          : ((...args) => callback(
-            currentVote === 0 ? vote : 0,
-            ...args,
-          ))}
-        title={buttonTitle}
-        type="button"
-      >
-        {text}
-      </button>
-    );
-  }
-}
+  return (
+    <button
+      className={className}
+      disabled={isActive}
+      onClick={isActive
+        ? null
+        : ((...args) => callback(
+          currentVote === 0 ? vote : 0,
+          ...args,
+        ))}
+      title={buttonTitle}
+      type="button"
+    >
+      {text}
+    </button>
+  );
+};
 
-class UpvoteButton extends VoteButton {
-  static defaultProps = {
-    activeTitle: N_l('You’ve upvoted this tag'),
-    text: '+',
-    title: N_l('Upvote'),
-    vote: 1,
-  }
-}
+const UpvoteButton = ({
+  callback,
+  currentVote,
+}: GenericVoteButtonPropsT): React.Element<typeof VoteButton> => (
+  <VoteButton
+    activeTitle={l('You’ve upvoted this tag')}
+    callback={callback}
+    currentVote={currentVote}
+    text="+"
+    title={l('Upvote')}
+    vote={1}
+  />
+);
 
-class DownvoteButton extends VoteButton {
-  static defaultProps = {
-    activeTitle: N_l('You’ve downvoted this tag'),
-    text: '\u2212',
-    title: N_l('Downvote'),
-    vote: -1,
-  }
-}
+const DownvoteButton = ({
+  callback,
+  currentVote,
+}: GenericVoteButtonPropsT): React.Element<typeof VoteButton> => (
+  <VoteButton
+    activeTitle={l('You’ve downvoted this tag')}
+    callback={callback}
+    currentVote={currentVote}
+    text={'\u2212'}
+    title={l('Downvote')}
+    vote={-1}
+  />
+);
 
-type VoteButtonsProps = {
+type VoteButtonsPropsT = {
   $c: CatalystContextT,
   callback: (VoteT) => void,
   count: number,
   currentVote: VoteT,
-  ...
 };
 
-class VoteButtons extends React.Component<VoteButtonsProps> {
-  render() {
-    const currentVote = this.props.currentVote;
-    let className = '';
+const VoteButtons = ({
+  $c,
+  callback,
+  count,
+  currentVote,
+}: VoteButtonsPropsT): React.Element<'span'> => {
+  let className = '';
 
-    if (currentVote === 1) {
-      className = ' tag-upvoted';
-    } else if (currentVote === -1) {
-      className = ' tag-downvoted';
-    }
-
-    return (
-      <span className={'tag-vote-buttons' + className}>
-        {this.props.$c.user?.has_confirmed_email_address ? (
-          <>
-            <UpvoteButton {...this.props} />
-            <DownvoteButton {...this.props} />
-          </>
-        ) : null}
-        <span className="tag-count">{this.props.count}</span>
-      </span>
-    );
+  if (currentVote === 1) {
+    className = ' tag-upvoted';
+  } else if (currentVote === -1) {
+    className = ' tag-downvoted';
   }
-}
 
-type TagRowProps = {
+  return (
+    <span className={'tag-vote-buttons' + className}>
+      {$c.user?.has_confirmed_email_address ? (
+        <>
+          <UpvoteButton callback={callback} currentVote={currentVote} />
+          <DownvoteButton callback={callback} currentVote={currentVote} />
+        </>
+      ) : null}
+      <span className="tag-count">{count}</span>
+    </span>
+  );
+};
+
+type TagRowPropsT = {
   $c: CatalystContextT,
   callback: (VoteT) => void,
   count: number,
@@ -176,18 +187,24 @@ type TagRowProps = {
   tag: TagT,
 };
 
-class TagRow extends React.Component<TagRowProps> {
-  render() {
-    const {tag, index} = this.props;
-
-    return (
-      <li className={loopParity(index)} key={tag.name}>
-        <TagLink tag={tag.name} />
-        <VoteButtons {...this.props} />
-      </li>
-    );
-  }
-}
+const TagRow = ({
+  $c,
+  callback,
+  count,
+  currentVote,
+  index,
+  tag,
+}: TagRowPropsT): React.Element<'li'> => (
+  <li className={loopParity(index)} key={tag.name}>
+    <TagLink tag={tag.name} />
+    <VoteButtons
+      $c={$c}
+      callback={callback}
+      count={count}
+      currentVote={currentVote}
+    />
+  </li>
+);
 
 type TagEditorProps = {
   +$c: CatalystContextT,
@@ -220,19 +237,17 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
   debouncePendingVotes: () => void;
 
-  flushPendingVotes: (asap?: boolean) => void;
-
   genreMap: {+[genreName: string]: GenreT, ...};
 
   genreOptions: $ReadOnlyArray<{+label: string, +value: string}>;
 
-  handleSubmit: (SyntheticEvent<HTMLFormElement>) => void;
+  handleSubmitBound: (SyntheticEvent<HTMLFormElement>) => void;
 
-  onBeforeUnload: () => void;
+  onBeforeUnloadBound: () => void;
 
   pendingVotes: Map<string, PendingVoteT>;
 
-  setTagsInput: (TagsInputT) => void;
+  setTagsInputBound: (TagsInputT) => void;
 
   constructor(props: TagEditorProps) {
     super(props);
@@ -242,10 +257,9 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       tags: createInitialTagState(props.aggregatedTags, props.userTags),
     };
 
-    this.flushPendingVotes = this.flushPendingVotes.bind(this);
-    this.onBeforeUnload = this.onBeforeUnload.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.setTagsInput = this.setTagsInput.bind(this);
+    this.onBeforeUnloadBound = () => this.onBeforeUnload();
+    this.handleSubmitBound = (event) => this.handleSubmit(event);
+    this.setTagsInputBound = (input) => this.setTagsInput(input);
 
     this.genreMap = props.genreMap ?? {};
     this.genreOptions =
@@ -259,7 +273,8 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
     this.pendingVotes = new Map();
     this.debouncePendingVotes = debounce(
-      this.flushPendingVotes, VOTE_DELAY,
+      (asap) => this.flushPendingVotes(asap),
+      VOTE_DELAY,
     );
   }
 
@@ -299,11 +314,11 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
   componentDidMount() {
     require('../../../lib/jquery-ui');
-    window.addEventListener('beforeunload', this.onBeforeUnload);
+    window.addEventListener('beforeunload', this.onBeforeUnloadBound);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('beforeunload', this.onBeforeUnload);
+    window.removeEventListener('beforeunload', this.onBeforeUnloadBound);
   }
 
   createTagRows() {
@@ -601,9 +616,9 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
                   {tagdocs: '/doc/Folksonomy_Tagging'},
                 )}
               </p>
-              <form id="tag-form" onSubmit={this.handleSubmit}>
+              <form id="tag-form" onSubmit={this.handleSubmitBound}>
                 <p>
-                  <textarea cols="50" ref={this.setTagsInput} rows="5" />
+                  <textarea cols="50" ref={this.setTagsInputBound} rows="5" />
                 </p>
                 <button className="styled-button" type="submit">
                   {l('Submit tags')}
@@ -655,12 +670,12 @@ export const SidebarTagEditor = (hydrate<TagEditorProps>(
             </p>
           ) : null}
 
-          <form id="tag-form" onSubmit={this.handleSubmit}>
+          <form id="tag-form" onSubmit={this.handleSubmitBound}>
             <div style={{display: 'flex'}}>
               <input
                 className="tag-input"
                 name="tags"
-                ref={this.setTagsInput}
+                ref={this.setTagsInputBound}
                 style={{flexGrow: 2}}
                 type="text"
               />

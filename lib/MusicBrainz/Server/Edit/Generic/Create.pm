@@ -1,14 +1,17 @@
 package MusicBrainz::Server::Edit::Generic::Create;
 use utf8;
 use Moose;
-use MooseX::ABC;
 
 use Clone qw( clone );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Insert';
 
-requires '_create_model';
+# Sub-classes are required to implement `_create_model`.
+#
+# N.B. This is not checked at compile-time.
+
+sub _create_model { die 'Unimplemented' }
 
 sub edit_kind { 'add' }
 

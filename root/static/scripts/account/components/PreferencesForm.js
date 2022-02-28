@@ -84,15 +84,15 @@ class PreferencesForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {form: props.form, timezoneOptions: props.timezone_options};
-    this.handleTimezoneChange = this.handleTimezoneChange.bind(this);
-    this.handleTimezoneGuess = this.handleTimezoneGuess.bind(this);
-    this.handleDateTimeFormatChange =
-      this.handleDateTimeFormatChange.bind(this);
-    this.handleSubscriptionsEmailPeriodChange =
-      this.handleSubscriptionsEmailPeriodChange.bind(this);
+    this.handleTimezoneChangeBound = (e) => this.handleTimezoneChange(e);
+    this.handleTimezoneGuessBound = () => this.handleTimezoneGuess();
+    this.handleDateTimeFormatChangeBound =
+      (e) => this.handleDateTimeFormatChange(e);
+    this.handleSubscriptionsEmailPeriodChangeBound =
+      (e) => this.handleSubscriptionsEmailPeriodChange(e);
   }
 
-  handleTimezoneChange: (e: SyntheticEvent<HTMLSelectElement>) => void;
+  handleTimezoneChangeBound: (e: SyntheticEvent<HTMLSelectElement>) => void;
 
   handleTimezoneChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedTimezone = e.currentTarget.value;
@@ -101,7 +101,7 @@ class PreferencesForm extends React.Component<Props, State> {
     }));
   }
 
-  handleTimezoneGuess: () => void;
+  handleTimezoneGuessBound: () => void;
 
   handleTimezoneGuess() {
     let maybeGuess;
@@ -123,7 +123,8 @@ class PreferencesForm extends React.Component<Props, State> {
     }
   }
 
-  handleDateTimeFormatChange: (e: SyntheticEvent<HTMLSelectElement>) => void;
+  handleDateTimeFormatChangeBound:
+    (e: SyntheticEvent<HTMLSelectElement>) => void;
 
   handleDateTimeFormatChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedDateTimeFormat = e.currentTarget.value;
@@ -132,8 +133,8 @@ class PreferencesForm extends React.Component<Props, State> {
     }));
   }
 
-  handleSubscriptionsEmailPeriodChange: (e: SyntheticEvent<HTMLSelectElement>)
-    => void;
+  handleSubscriptionsEmailPeriodChangeBound:
+    (e: SyntheticEvent<HTMLSelectElement>) => void;
 
   handleSubscriptionsEmailPeriodChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedSubscriptionsEmailPeriod = e.currentTarget.value;
@@ -158,14 +159,14 @@ class PreferencesForm extends React.Component<Props, State> {
                 {' '}
                 <button
                   className="guess-timezone icon"
-                  onClick={this.handleTimezoneGuess}
+                  onClick={this.handleTimezoneGuessBound}
                   title={l('Guess timezone')}
                   type="button"
                 />
               </>
             }
             label={l('Timezone:')}
-            onChange={this.handleTimezoneChange}
+            onChange={this.handleTimezoneChangeBound}
             options={this.state.timezoneOptions}
           />
           <SanitizedCatalystContext.Consumer>
@@ -173,7 +174,7 @@ class PreferencesForm extends React.Component<Props, State> {
               <FormRowSelect
                 field={field.datetime_format}
                 label={l('Date/time format:')}
-                onChange={this.handleDateTimeFormatChange}
+                onChange={this.handleDateTimeFormatChangeBound}
                 options={buildDateTimeFormatOptions(
                   $c,
                   field.timezone.value,
@@ -230,7 +231,7 @@ class PreferencesForm extends React.Component<Props, State> {
           <FormRowSelect
             field={field.subscriptions_email_period}
             label={l('Send me mails with edits to my subscriptions:')}
-            onChange={this.handleSubscriptionsEmailPeriodChange}
+            onChange={this.handleSubscriptionsEmailPeriodChangeBound}
             options={subscriptionsEmailPeriodOptions}
           />
         </fieldset>

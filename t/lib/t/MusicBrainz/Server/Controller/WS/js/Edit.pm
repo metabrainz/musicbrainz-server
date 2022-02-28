@@ -680,9 +680,10 @@ test 'previewing/creating/editing a release group and release' => sub {
     isa_ok($edits[0], 'MusicBrainz::Server::Edit::Release::AddAnnotation');
 
     cmp_deeply($edits[0]->data, {
-        editor_id       => 1,
-        entity          => { id => $release_id, name => 'Vision Creation Newsun' },
-        text            => "    * Test annotation in release editor\n\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets",
+        editor_id         => 1,
+        entity            => { id => $release_id, name => 'Vision Creation Newsun' },
+        old_annotation_id => undef,
+        text              => "    * Test annotation in release editor\n\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets",
     });
 };
 

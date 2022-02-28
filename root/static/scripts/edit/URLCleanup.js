@@ -240,6 +240,7 @@ export const LINK_TYPES: LinkTypeMap = {
     artist: '0af15ab3-c615-46d6-b95b-a5fcd2a92ed9',
     event: '5d3e0348-71a8-3dc1-b847-3a8f1d5de688',
     label: '8a2d3e55-d291-4b99-87a0-c59c6b121762',
+    place: 'f11ffda6-d59a-45bf-9b07-74b08335b5fa',
     release: '6af0134a-df6a-425a-96e2-895f9cd342ba',
     work: 'bb250727-5090-4568-af7b-be8545c034bc',
   },
@@ -1030,6 +1031,27 @@ const CLEANUPS: CleanupEntries = {
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'bbcevents': {
+    match: [new RegExp(
+      '^(https?://)?(www\\.)?bbc\\.co\\.uk/events/',
+      'i',
+    )],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?bbc\.co\.uk\/events\/([\w]+).*$/, 'https://www.bbc.co.uk/events/$1');
+      return url;
+    },
+    validate: function (url, id) {
+      const isCorrectlyFormatted = /^https:\/\/www\.bbc\.co\.uk\/events\/[\w]+$/.test(url);
+      if (isCorrectlyFormatted) {
+        if (id === LINK_TYPES.otherdatabases.event) {
+          return {result: true};
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },
@@ -2419,7 +2441,7 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/www\.jazzmusicarchives\.com\/(\w+)\/(?:[\w%-]+\/)?[\w%-]*$/.exec(url);
+      const m = /^https:\/\/www\.jazzmusicarchives\.com\/(\w+)\/(?:[\w%()-]+\/)?[\w%()-]*$/.exec(url);
       if (m) {
         const type = m[1];
         switch (id) {
@@ -4246,6 +4268,30 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'tiktok': {
+    match: [new RegExp('^(https?://)?(www\\.)?tiktok\\.com', 'i')],
+    restrict: [LINK_TYPES.socialnetwork],
+    clean: function (url) {
+      return url.replace(
+        /^(?:https?:\/\/)(?:www\.)?tiktok\.com\/@([\w.]+)(?:[\/?&#].*)?$/,
+        'https://www.tiktok.com/@$1',
+      );
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.tiktok\.com\/@[\w.]+$/.exec(url);
+      if (m) {
+        switch (id) {
+          case LINK_TYPES.socialnetwork.artist:
+          case LINK_TYPES.socialnetwork.label:
+          case LINK_TYPES.socialnetwork.place:
+          case LINK_TYPES.socialnetwork.series:
+            return {result: true};
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'tipeee': {
     match: [new RegExp('^(https?://)?(?:[^/]+\\.)?tipeee\\.com/[^/?#]', 'i')],
     restrict: [LINK_TYPES.patronage],
@@ -4549,9 +4595,9 @@ const CLEANUPS: CleanupEntries = {
               result: prefix === 'artist' || prefix === 'org',
               target: ERROR_TARGETS.ENTITY,
             };
-          case LINK_TYPES.vgmdb.release:
+          case LINK_TYPES.vgmdb.event:
             return {
-              result: prefix === 'album',
+              result: prefix === 'event',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.vgmdb.label:
@@ -4559,9 +4605,14 @@ const CLEANUPS: CleanupEntries = {
               result: prefix === 'org',
               target: ERROR_TARGETS.ENTITY,
             };
-          case LINK_TYPES.vgmdb.event:
+          case LINK_TYPES.vgmdb.place:
             return {
-              result: prefix === 'event',
+              result: prefix === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.vgmdb.release:
+            return {
+              result: prefix === 'album',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.vgmdb.work:
@@ -4912,13 +4963,19 @@ const CLEANUPS: CleanupEntries = {
       url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com(?:\/#)?/, 'https://www.youtube.com');
       // YouTube /c/ user channels (/c/ is unneeded)
       url = url.replace(/^https:\/\/www\.youtube\.com\/c\//, 'https://www.youtube.com/');
+      // Drop channel subsections (/user or /channel version)
+      url = url.replace(/\/(channel|user)\/([^\/?#]+).*$/, '/$1/$2');
+      // Drop channel subsections (channel name only version)
+      url = url.replace(
+        /^https:\/\/www\.youtube\.com\/([a-zA-Z0-9_-]+)\/(?:about|channels|community|featured|playlists|videos)(?:[\/?&#].*)?$/,
+        'https://www.youtube.com/$1',
+      );
       // YouTube URL shortener
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtu\.be\/([a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?v=$1');
       // YouTube standard watch URL
       url = url.replace(/^https:\/\/www\.youtube\.com\/.*[?&](v=[a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?$1');
       // YouTube embeds
       url = url.replace(/^https:\/\/www\.youtube\.com\/(?:embed|v)\/([a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?v=$1');
-      url = url.replace(/\/user\/([^\/?#]+).*$/, '/user/$1');
       return url;
     },
     validate: function (url, id) {

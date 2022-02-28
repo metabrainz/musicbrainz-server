@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Edit::Historic;
 use Moose;
-use MooseX::ABC;
 use MooseX::Types::Moose qw( Int HashRef Maybe Object Str );
 
 use MusicBrainz::Server::Translation qw( l );
