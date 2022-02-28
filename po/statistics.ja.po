@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-02-21 13:46+0000\n"
+"PO-Revision-Date: 2022-02-23 20:03+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -887,6 +887,10 @@ msgstr ""
 msgid "The AcousticBrainz project goes live"
 msgstr ""
 
+#: DB:statistics.statistic_event/title:2022-02-16
+msgid "The AcousticBrainz project is discontinued"
+msgstr ""
+
 #: DB:statistics.statistic_event/title:2011-08-03
 msgid "The Android app goes live"
 msgstr ""
@@ -1065,6 +1069,13 @@ msgstr "投票の提案"
 
 #: DB:statistics.statistic_event/title:2019-04-26
 msgid "Web service version 1 taken down"
+msgstr ""
+
+#: DB:statistics.statistic_event/description:2022-02-16
+msgid ""
+"With the AcousticBrainz project deemed to not have fulfilled its original "
+"goals, the MetaBrainz Foundation decides to stop work on it, with a view to "
+"shut down the site in 2023"
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2014-03-17

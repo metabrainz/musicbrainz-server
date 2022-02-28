@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-02-21 18:13+0000\n"
+"PO-Revision-Date: 2022-02-23 21:55+0000\n"
 "Last-Translator: salo.rock\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -886,6 +886,10 @@ msgstr "Tag, iscrizioni agli editor, aggiunta in blocco di relazioni"
 msgid "The AcousticBrainz project goes live"
 msgstr "Lancio del progetto AcousticBrainz"
 
+#: DB:statistics.statistic_event/title:2022-02-16
+msgid "The AcousticBrainz project is discontinued"
+msgstr "Il progetto AcousticBrainz viene chiuso"
+
 #: DB:statistics.statistic_event/title:2011-08-03
 msgid "The Android app goes live"
 msgstr "L'app Android viene lanciata"
@@ -1065,6 +1069,13 @@ msgstr "Suggerimenti di voto"
 #: DB:statistics.statistic_event/title:2019-04-26
 msgid "Web service version 1 taken down"
 msgstr "Web service versione 1 messo offline"
+
+#: DB:statistics.statistic_event/description:2022-02-16
+msgid ""
+"With the AcousticBrainz project deemed to not have fulfilled its original "
+"goals, the MetaBrainz Foundation decides to stop work on it, with a view to "
+"shut down the site in 2023"
+msgstr "Giudicando che il progetto AcousticBrainz non ha realizzato i suoi obiettivi originari, la MetaBrainz Foundation decide di interrompere il lavoro su di esso, con l'intenzione di chiudere il sito nel 2023"
 
 #: DB:statistics.statistic_event/title:2014-03-17
 msgid "Work attributes"

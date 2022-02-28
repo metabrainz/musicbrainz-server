@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-02-22 11:25+0000\n"
+"PO-Revision-Date: 2022-02-23 22:35+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -885,6 +885,10 @@ msgstr "Etiketten, abonnementen op redacteurs, relaties in bulk toevoegen"
 msgid "The AcousticBrainz project goes live"
 msgstr "Het AcousticBrainz-project wordt gelanceerd"
 
+#: DB:statistics.statistic_event/title:2022-02-16
+msgid "The AcousticBrainz project is discontinued"
+msgstr "Het AcousticBrainz-project wordt stopgezet"
+
 #: DB:statistics.statistic_event/title:2011-08-03
 msgid "The Android app goes live"
 msgstr "De Android-app wordt gelanceerd"
@@ -1064,6 +1068,13 @@ msgstr "Suggesties voor het stemmen"
 #: DB:statistics.statistic_event/title:2019-04-26
 msgid "Web service version 1 taken down"
 msgstr "Versie 1 van de webdienst uit de lucht gehaald"
+
+#: DB:statistics.statistic_event/description:2022-02-16
+msgid ""
+"With the AcousticBrainz project deemed to not have fulfilled its original "
+"goals, the MetaBrainz Foundation decides to stop work on it, with a view to "
+"shut down the site in 2023"
+msgstr "Omdat de doelen van het AcousticBrainz-project niet zijn gehaald, heeft de MetaBrainz Foundation besloten om het project stop te zetten; de website wordt waarschijnlijk in 2023 uit de lucht gehaald"
 
 #: DB:statistics.statistic_event/title:2014-03-17
 msgid "Work attributes"

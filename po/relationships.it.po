@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-02-21 22:43+0000\n"
+"PO-Revision-Date: 2022-02-24 13:19+0000\n"
 "Last-Translator: salo.rock\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -476,8 +476,10 @@ msgid "Indicates the area where the work had its first performance"
 msgstr "Indica l'area in cui l'opera è stata eseguita per la prima volta."
 
 #: DB:link_type/description:956
-msgid "Indicates the artist(s) who gave the first performance of the work"
-msgstr "Indica l'artista (o gli artisti) che si è esibito con quest'opera per primo"
+msgid ""
+"Indicates the artist(s) who gave the first performance of the work; this is "
+"usually mostly relevant for classical music"
+msgstr "Indica l'artista (o artisti) che ha eseguito l'opera per la prima volta; di solito è pertinente soprattutto per la musica classica."
 
 #: DB:link_type/description:55
 msgid ""
@@ -1373,6 +1375,18 @@ msgid ""
 "that exclusively handles the rights to works by that artist."
 msgstr "Indica un'etichetta editoriale personale per un artista. Un'etichetta editoriale personale è una piccola etichetta (di solito una controllata di un'etichetta più grande) che gestisce esclusivamente i diritti sulle opere di quell'artista."
 
+#: DB:link_type/description:1011
+msgid ""
+"This indicates a recording engineer that recorded field recordings for the "
+"recording."
+msgstr "Indica un tecnico di registrazione che ha registrato dei field recording per la registrazione."
+
+#: DB:link_type/description:1012
+msgid ""
+"This indicates a recording engineer that recorded field recordings for the "
+"release."
+msgstr "Indica un tecnico di registrazione che ha registrato dei field recording per la pubblicazione."
+
 #: DB:link_type/description:895
 msgid ""
 "This indicates an artist (generally a person) was the founder of a group."
@@ -2214,6 +2228,13 @@ msgid ""
 "crowdfunding site like Kickstarter or Indiegogo."
 msgstr "Collega un gruppo di pubblicazioni al progetto di crowdfunding dedicatogli su un sito come Kickstarter o Indiegogo."
 
+#: DB:link_type/description:1009
+msgid ""
+"This links a release that was withdrawn (usually because of having some "
+"defect, but sometimes just to change the artist credits) to a new release "
+"put out to replaced it."
+msgstr "Collega una pubblicazione che è stata ritirata (di solito a causa di qualche difetto, ma a volte anche solo per cambiare l'accreditamento degli artisti) alla pubblicazione edita per sostituirla."
+
 #: DB:link_type/description:301
 msgid "This links a release to a license under which it is available."
 msgstr "Collega una pubblicazione alla licenza sotto cui è disponibile."
@@ -2682,6 +2703,12 @@ msgid ""
 "release, usually indicated with a © symbol."
 msgstr "Questa relazione indica che l'artista detiene il copyright per questa pubblicazione, di solito indicato con il simbolo ©."
 
+#: DB:link_type/description:1010
+msgid ""
+"This relationship indicates the artist that was the licensor of this "
+"release."
+msgstr "Questa relazione indica l'artista che è stato conceditore di licenza per questa pubblicazione."
+
 #: DB:link_type/description:833
 msgid ""
 "This relationship indicates the company that was the licensee of this "
@@ -3033,6 +3060,13 @@ msgid ""
 "This relationship type links a label to its corresponding page at Last.fm"
 msgstr "Questo tipo di relazione collega un'etichetta alla sua pagina corrispondente su Last.fm."
 
+#: DB:link_type/description:1013
+msgid ""
+"This relationship type links a place (usually a studio) to its corresponding"
+" page at <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community "
+"project dedicated to cataloguing the music of video games and anime."
+msgstr "Questo tipo di relazione collega un luogo (solitamente uno studio) alla sua pagina corrispondente su <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb è un progetto di comunità dedito a catalogare la musica di videogiochi e anime."
+
 #: DB:link_type/description:861
 msgid ""
 "This relationship type links a place to its corresponding page at "
@@ -3290,13 +3324,13 @@ msgstr "Da usare quando l'opera sovraordinata è composta da diverse parti che s
 
 #: DB:link_type/link_phrase:86 DB:link_type/link_phrase:191
 #: DB:link_type/link_phrase:210 DB:link_type/link_phrase:788
-#: DB:link_type/reverse_link_phrase:992
+#: DB:link_type/link_phrase:1013 DB:link_type/reverse_link_phrase:992
 msgid "VGMdb"
 msgstr "VGMdb"
 
 #: DB:link_type/link_phrase:992 DB:link_type/reverse_link_phrase:86
 #: DB:link_type/reverse_link_phrase:191 DB:link_type/reverse_link_phrase:210
-#: DB:link_type/reverse_link_phrase:788
+#: DB:link_type/reverse_link_phrase:788 DB:link_type/reverse_link_phrase:1013
 msgid "VGMdb page for"
 msgstr "pagina di VGMdb su"
 
@@ -4132,6 +4166,18 @@ msgstr "pagine di fan"
 msgid "fanpage"
 msgstr "pagina di fan"
 
+#: DB:link_type/reverse_link_phrase:1011 DB:link_type/reverse_link_phrase:1012
+msgid "field recordings"
+msgstr "field recording"
+
+#: DB:link_type/name:1011 DB:link_type/name:1012
+msgid "field recordist"
+msgstr "tecnico di registrazione (field recordist)"
+
+#: DB:link_type/link_phrase:1011 DB:link_type/link_phrase:1012
+msgid "field recordist for"
+msgstr "tecnico di registrazione (field recordist) per"
+
 #: DB:link_type/name:238
 msgid "first track release"
 msgstr "prima pubblicazione della traccia"
@@ -4346,6 +4392,7 @@ msgstr "ha la pagina di SoundCloud"
 
 #: DB:link_type/long_link_phrase:86 DB:link_type/long_link_phrase:191
 #: DB:link_type/long_link_phrase:210 DB:link_type/long_link_phrase:788
+#: DB:link_type/long_link_phrase:1013
 msgid "has a VGMdb page at"
 msgstr "ha la pagina di VGMdb"
 
@@ -5027,11 +5074,12 @@ msgstr "licenza"
 msgid "license for"
 msgstr "licenza per"
 
-#: DB:link_type/link_phrase:712 DB:link_type/long_link_phrase:712
+#: DB:link_type/link_phrase:712 DB:link_type/link_phrase:1010
+#: DB:link_type/long_link_phrase:712 DB:link_type/long_link_phrase:1010
 msgid "licensed"
 msgstr "licenziata"
 
-#: DB:link_type/reverse_link_phrase:712
+#: DB:link_type/reverse_link_phrase:712 DB:link_type/reverse_link_phrase:1010
 msgid "licensed from"
 msgstr "licenziata da"
 
@@ -5047,9 +5095,9 @@ msgstr "licenziataria"
 msgid "licensee for"
 msgstr "licenziataria per"
 
-#: DB:link_type/name:712
+#: DB:link_type/name:712 DB:link_type/name:1010
 msgid "licensor"
-msgstr "conceditrice di licenza"
+msgstr "conceditore/conceditrice di licenza"
 
 #: DB:link_type/name:24
 msgid "liner notes"
@@ -5994,6 +6042,10 @@ msgstr "registrata presso"
 msgid "recorded during"
 msgstr "registrata durante"
 
+#: DB:link_type/long_link_phrase:1011 DB:link_type/long_link_phrase:1012
+msgid "recorded field recordings for"
+msgstr "ha registrato dei field recording per"
+
 #: DB:link_type/name:698 DB:link_type/name:699
 msgid "recorded in"
 msgstr "registrata a"
@@ -6121,6 +6173,14 @@ msgstr "rinominata da"
 #: DB:link_type/link_phrase:202
 msgid "renamed into"
 msgstr "rinominata in"
+
+#: DB:link_type/reverse_link_phrase:1009
+msgid "replaced"
+msgstr "ha sostituito"
+
+#: DB:link_type/link_phrase:1009 DB:link_type/name:1009
+msgid "replaced by"
+msgstr "sostituita da"
 
 #: DB:link_type/link_phrase:836 DB:link_type/name:836
 msgid "rescheduled as"
@@ -6534,7 +6594,7 @@ msgid "type of"
 msgstr "tipo di"
 
 #: DB:link_type/name:86 DB:link_type/name:191 DB:link_type/name:210
-#: DB:link_type/name:788 DB:link_type/name:992
+#: DB:link_type/name:788 DB:link_type/name:992 DB:link_type/name:1013
 msgid "vgmdb"
 msgstr "vgmdb"
 
@@ -6657,6 +6717,10 @@ msgstr "è stata pubblicata in supporto di"
 #: DB:link_type/long_link_phrase:202
 msgid "was renamed into"
 msgstr "è stata rinominata in"
+
+#: DB:link_type/long_link_phrase:1009
+msgid "was replaced by"
+msgstr "è stata sostituita da"
 
 #: DB:link_type/long_link_phrase:836
 msgid "was rescheduled as"
