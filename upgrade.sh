@@ -58,7 +58,7 @@ then
 fi
 
 ################################################################################
-# Scripts that should run on *all* nodes (master/slave/standalone)
+# Scripts that should run on *all* nodes (master/mirror/standalone)
 
 echo `date` : 'Running upgrade scripts for all nodes'
 if [ -e "$EXTENSIONS_SQL" ]
@@ -68,12 +68,12 @@ fi
 ./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.slave.sql || exit 1
 
 ################################################################################
-# Migrations that apply for only slaves
+# Migrations that apply for only mirrors
 if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
 then
     if [ -e "$SLAVE_ONLY_SQL" ]
     then
-        echo `date` : 'Running upgrade scripts for slave nodes'
+        echo `date` : 'Running upgrade scripts for mirror nodes'
         ./admin/psql "$DATABASE" < "$SLAVE_ONLY_SQL" || exit 1
     fi
 fi

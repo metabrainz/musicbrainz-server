@@ -97,9 +97,9 @@ sub DB_SCHEMA_SEQUENCE { 26 }
 # What type of server is this?
 # * RT_MASTER - This is a master replication server.  Changes are allowed, and
 #               they result in replication packets being produced.
-# * RT_SLAVE  - This is a slave replication server.  After loading a snapshot
+# * RT_SLAVE  - This is a mirror replication server.  After loading a snapshot
 #               produced by a master, the only changes allowed are those made
-#               by applying the next replication packet in turn.  If the slave
+#               by applying the next replication packet in turn.  If the mirror
 #               server is not going to be used for development work, change
 #               DB_STAGING_SERVER to 0.
 #
@@ -176,7 +176,7 @@ sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 # Server Settings
 ################################################################################
 
-# Set this to 0 if this is the master MusicBrainz server or a slave mirror.
+# Set this to 0 if this is the master MusicBrainz server or a mirror server.
 # Keeping this defined enables the banner that is shown across the top of each
 # page, as well as some testing features that are only enabled when not on
 # the live server.

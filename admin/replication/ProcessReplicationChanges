@@ -58,7 +58,7 @@ my $c = MusicBrainz::Server::Context->create_script_context(database => $databas
 
 my $sql = Sql->new($c->conn);
 my $sql2 = Sql->new($c->conn);
-my $slave = Sql->new($c->conn);
+my $mirror = Sql->new($c->conn);
 
 $sql->auto_commit;
 $sql->do('SET search_path = musicbrainz, public');
@@ -79,7 +79,7 @@ my $total_statements = $sql->select_single_value(
 
 # This loop loops through each pending transaction in the proper order.
 # The Pending row edits for that transaction will be queried from the
-# master and sent + committed to the slaves.
+# master and sent + committed to the mirrors.
 if (my $totalrows = $sql->select($query))
 {
     my @row;
@@ -130,7 +130,7 @@ if (my $totalrows = $sql->select($query))
                 ORDER BY SeqId, IsKey DESC
         };
 
-        $slave->begin;
+        $mirror->begin;
         $sql2->do("DECLARE csr NO SCROLL CURSOR FOR $query", $XID);
 
         my @row2;
@@ -143,7 +143,7 @@ if (my $totalrows = $sql->select($query))
             while (@row2 = $sql2->next_row)
             {
                 # TODO: Figure out how to handle errors here
-                if (!mirrorCommand($row2[2], $sql2, $slave, \@row2, $XID, $pull))
+                if (!mirrorCommand($row2[2], $sql2, $mirror, \@row2, $XID, $pull))
                 {
                     die "Mirror command failed.\n";
                 }
@@ -153,10 +153,10 @@ if (my $totalrows = $sql->select($query))
         $sql2->finish;
 
         $sql2->do('CLOSE csr');
-        $slave->do('DELETE FROM dbmirror_pending WHERE XID = ?', $XID);
+        $mirror->do('DELETE FROM dbmirror_pending WHERE XID = ?', $XID);
 
         print localtime() . " : COMMIT XID #$XID\n" if $debug_xact;
-        $slave->commit;
+        $mirror->commit;
 
         ++$rows;
         unless ($rows & 0x1F and time() == $lasttime)
@@ -203,7 +203,7 @@ exit;
 
 sub mirrorCommand
 {
-    my ($op, $result, $slave, $row, $transId, $pull)  = @_;
+    my ($op, $result, $mirror, $row, $transId, $pull)  = @_;
 
     my $table = $row->[1];
     $table =~ s/^"public"\.//;
@@ -214,19 +214,19 @@ sub mirrorCommand
     {
         ++$ins;
         ++$t->[0];
-        return mirrorInsert($result, $slave, $row, $transId);
+        return mirrorInsert($result, $mirror, $row, $transId);
     }
     elsif ($op eq 'd')
     {
         ++$del;
         ++$t->[2];
-        return mirrorDelete($result, $slave, $row, $transId);
+        return mirrorDelete($result, $mirror, $row, $transId);
     }
     elsif ($op eq 'u')
     {
         ++$upd;
         ++$t->[1];
-        return mirrorUpdate($result, $slave, $row, $transId, $pull);
+        return mirrorUpdate($result, $mirror, $row, $transId, $pull);
     }
     return 0;
 }
@@ -235,7 +235,7 @@ use MusicBrainz::Server::dbmirror;
 
 sub mirrorInsert
 {
-    my ($result, $slave, $row, $transId)  = @_;
+    my ($result, $mirror, $row, $transId)  = @_;
     my $seqId = $row->[0];
     my $tableName = $row->[1];
 
@@ -246,14 +246,14 @@ sub mirrorInsert
 
     print localtime() . " : INSERT INTO $tableName\n" if $short_sql;
     show_long_sql($statement, $args) if $long_sql;
-    $slave->do($statement, @$args);
+    $mirror->do($statement, @$args);
 
     return 1;
 }
 
 sub mirrorDelete
 {
-    my ($result, $slave, $row, $transId) = @_;
+    my ($result, $mirror, $row, $transId) = @_;
     my $seqId = $row->[0];
     my $tableName = $row->[1];
 
@@ -264,14 +264,14 @@ sub mirrorDelete
 
     print localtime() . " : DELETE FROM $tableName\n" if $short_sql;
     show_long_sql($statement, $args) if $long_sql;
-    $slave->do($statement, @$args);
+    $mirror->do($statement, @$args);
 
     return 1;
 }
 
 sub mirrorUpdate
 {
-    my ($result, $slave, $row, $transId, $pull) = @_;
+    my ($result, $mirror, $row, $transId, $pull) = @_;
     my $seqId = $row->[0];
     my $tableName = $row->[1];
 
@@ -290,7 +290,7 @@ sub mirrorUpdate
 
     print localtime() . " : UPDATE $tableName\n" if $short_sql;
     show_long_sql($statement, $args) if $long_sql;
-    $slave->do($statement, @$args);
+    $mirror->do($statement, @$args);
 
     return 1;
 }

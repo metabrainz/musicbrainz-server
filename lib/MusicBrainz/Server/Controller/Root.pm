@@ -369,7 +369,7 @@ sub begin : Private
         $attributes->{RequireAuth} = 1;
     }
 
-    # Returns a special 404 for areas of the site that shouldn't exist on a slave (e.g. /user pages)
+    # Returns a special 404 for areas of the site that shouldn't exist on a mirror (e.g. /user pages)
     if (exists $attributes->{HiddenOnSlaves}) {
         $c->detach('/error_mirror_404') if ($c->stash->{server_details}->{is_slave_db});
     }
@@ -452,7 +452,7 @@ sub begin : Private
 
     if (DBDefs->REPLICATION_TYPE == RT_SLAVE) {
         my $last_replication_date = $c->model('Replication')->last_replication_date;
-        defined $last_replication_date or die 'Replication info missing on a slave server';
+        defined $last_replication_date or die 'Replication info missing on a mirror server';
         $c->stash( last_replication_date => $last_replication_date );
     }
 }

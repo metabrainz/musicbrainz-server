@@ -453,7 +453,7 @@ after dispatch => sub {
     if (DBDefs->USE_SET_DATABASE_HEADER && $database) {
         no warnings 'redefine';
         # Clear the connector and database handles, so that we revert
-        # back to the default (READWRITE, or READONLY for slaves).
+        # back to the default (READWRITE, or READONLY for mirrors).
         $ctx->clear_connector;
         $ctx->clear_database;
         *DBDefs::CACHE_NAMESPACE = $ORIG_CACHE_NAMESPACE;

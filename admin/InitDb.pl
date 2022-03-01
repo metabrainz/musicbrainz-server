@@ -286,7 +286,7 @@ sub CreateRelations
     RunSQLScript($DB, 'CreateFunctions.sql', 'Creating functions ...');
     RunSQLScript($DB, 'caa/CreateFunctions.sql', 'Creating CAA functions ...');
     RunSQLScript($DB, 'eaa/CreateFunctions.sql', 'Creating EAA functions ...');
-    RunSQLScript($DB, 'CreateSlaveOnlyFunctions.sql', 'Creating slave-only functions ...')
+    RunSQLScript($DB, 'CreateSlaveOnlyFunctions.sql', 'Creating mirror-only functions ...')
         if $REPTYPE == RT_SLAVE;
 
     RunSQLScript($DB, 'CreateIndexes.sql', 'Creating indexes ...');
@@ -296,7 +296,7 @@ sub CreateRelations
     RunSQLScript($DB, 'sitemaps/CreateIndexes.sql', 'Creating sitemaps indexes ...');
     RunSQLScript($DB, 'statistics/CreateIndexes.sql', 'Creating statistics indexes ...');
 
-    RunSQLScript($DB, 'CreateSlaveIndexes.sql', 'Creating slave-only indexes ...')
+    RunSQLScript($DB, 'CreateSlaveIndexes.sql', 'Creating mirror-only indexes ...')
         if $REPTYPE == RT_SLAVE;
 
     RunSQLScript($DB, 'CreateFKConstraints.sql', 'Adding foreign key constraints ...')
@@ -336,7 +336,7 @@ sub CreateRelations
     RunSQLScript($DB, 'eaa/CreateTriggers.sql', 'Creating EAA triggers ...')
         unless $REPTYPE == RT_SLAVE;
 
-    RunSQLScript($DB, 'CreateSlaveOnlyTriggers.sql', 'Creating slave-only triggers ...')
+    RunSQLScript($DB, 'CreateSlaveOnlyTriggers.sql', 'Creating mirror-only triggers ...')
         if $REPTYPE == RT_SLAVE;
 
     RunSQLScript($DB, 'CreateSearchIndexes.sql', 'Creating search indexes ...');
@@ -400,7 +400,7 @@ sub SanityCheck
 
     if ($REPTYPE == RT_SLAVE)
     {
-        warn "Warning: this is a slave replication server, but there is no READONLY connection defined\n"
+        warn "Warning: this is a mirror replication server, but there is no READONLY connection defined\n"
             unless Databases->get('READONLY');
     }
 

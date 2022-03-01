@@ -49,7 +49,7 @@ GetOptions(
 ) or exit 2;
 
 (DBDefs->REPLICATION_TYPE == RT_SLAVE || $database =~ /^TEST/)
-    or die "This is not a slave server!\n";
+    or die "This is not a mirror server!\n";
 
 if ($database ne 'READWRITE') {
     push @process_opts, '--database=' . shell_quote($database);

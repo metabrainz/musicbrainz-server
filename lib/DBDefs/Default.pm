@@ -29,9 +29,9 @@ sub STATIC_FILES_DIR { my $self = shift; $self->MB_SERVER_ROOT . '/root/static' 
 # What type of server is this?
 # * RT_MASTER - This is a master replication server.  Changes are allowed, and
 #               they result in replication packets being produced.
-# * RT_SLAVE  - This is a slave replication server.  After loading a snapshot
+# * RT_SLAVE  - This is a mirror replication server.  After loading a snapshot
 #               produced by a master, the only changes allowed are those made
-#               by applying the next replication packet in turn.  If the slave
+#               by applying the next replication packet in turn.  If the mirror
 #               server is not going to be used for development work, change
 #               DB_STAGING_SERVER to 0.
 #
@@ -123,7 +123,7 @@ sub EMAIL_VERIFICATION_TIMEOUT { 604800 } # one week
 # Server Settings
 ################################################################################
 
-# Set this to 0 if this is the master MusicBrainz server or a slave mirror.
+# Set this to 0 if this is the master MusicBrainz server or a mirror server.
 # Keeping this defined enables the banner that is shown across the top of each
 # page, as well as some testing features that are only enabled when not on
 # the live server.
@@ -220,7 +220,7 @@ sub CACHE_MANAGER_OPTIONS {
     return \%CACHE_MANAGER_OPTIONS
 }
 
-# Sets the TTL for entities stored in Redis, in seconds. On slave servers,
+# Sets the TTL for entities stored in Redis, in seconds. On mirror servers,
 # this is set to 1 hour by default, to mitigate MBS-8726. On standalone
 # servers, this is set to 1 day; cache invalidation is already handled by the
 # server in that case, so keys may be evicted sooner, but an upper limit is

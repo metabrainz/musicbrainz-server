@@ -1,11 +1,11 @@
 \set ON_ERROR_STOP 1
 
 -- This file contains triggers that are necessary (and safe) to create
--- on slave databases. These are NOT created on master/standalone
+-- on mirror databases. These are NOT created on master/standalone
 -- databases.
 --
 -- The primary use case is to allow materialized tables to be kept
--- up-to-date on slaves without having to replicate that information.
+-- up-to-date on mirrors without having to replicate that information.
 -- Since the materialized information can be fully derived from primary
 -- table data, we avoid packet bloat this way.
 --
