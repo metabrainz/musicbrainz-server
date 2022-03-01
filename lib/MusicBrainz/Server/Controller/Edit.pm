@@ -320,6 +320,21 @@ sub subscribed : Local RequireAuth {
     $c->stash(
         edits => $edits, # stash early in case an ISE occurs
         template => 'edit/subscribed.tt',
+        refine_url_args =>
+            { auto_edit_filter => '', order => 'asc', negation => 0,
+              combinator => 'and',
+              'conditions.0.field' => 'edit_subscription',
+              'conditions.0.operator' => 'subscribed',
+              # Open edits only if requested, recent edits if not
+              'conditions.1.field' => $only_open ? 'status' : 'open_time',
+              'conditions.1.operator' => $only_open ? '=' : '>',
+              'conditions.1.args.0' => $only_open ? '1' : $c->model('Edit')->_max_open_duration_search_format,
+              'conditions.2.field' => 'editor',
+              'conditions.2.operator' => 'not_me',
+              'conditions.3.field' => 'voter',
+              'conditions.3.operator' => 'me',
+              'conditions.3.args' => 'no',
+            },
     );
 
     load_everything_for_edits($c, $edits);
