@@ -360,9 +360,11 @@ sub subscribed_editors : Local RequireAuth {
               combinator=>'and',
               'conditions.0.field' => 'editor',
               'conditions.0.operator' => 'subscribed',
-              'conditions.1.field' => 'open_time',
-              'conditions.1.operator' => '>',
-              'conditions.1.args.0' => $c->model('Edit')->_max_open_duration_search_format },
+              # Open edits only if requested, recent edits if not
+              'conditions.1.field' => $only_open ? 'status' : 'open_time',
+              'conditions.1.operator' => $only_open ? '=' : '>',
+              'conditions.1.args.0' => $only_open ? '1' : $c->model('Edit')->_max_open_duration_search_format,
+            },
     );
 
     load_everything_for_edits($c, $edits);
