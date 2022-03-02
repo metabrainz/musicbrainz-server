@@ -29,19 +29,19 @@ sub STATIC_FILES_DIR { my $self = shift; $self->MB_SERVER_ROOT . '/root/static' 
 # What type of server is this?
 # * RT_MASTER - This is a master replication server.  Changes are allowed, and
 #               they result in replication packets being produced.
-# * RT_SLAVE  - This is a mirror replication server.  After loading a snapshot
+# * RT_MIRROR - This is a mirror replication server.  After loading a snapshot
 #               produced by a master, the only changes allowed are those made
 #               by applying the next replication packet in turn.  If the mirror
 #               server is not going to be used for development work, change
 #               DB_STAGING_SERVER to 0.
 #
 #               A READONLY database connection must be configured if you
-#               choose RT_SLAVE, as well as the usual READWRITE.
+#               choose RT_MIRROR, as well as the usual READWRITE.
 # * RT_STANDALONE - This server neither generates nor uses replication
 #               packets.  Changes to the database are allowed.
 sub REPLICATION_TYPE { RT_STANDALONE }
 
-# If you plan to use the RT_SLAVE setting (replicated data from MusicBrainz' Live Data Feed)
+# If you plan to use the RT_MIRROR setting (replicated data from MusicBrainz' Live Data Feed)
 # you must sign in at https://metabrainz.org and generate an access token to access
 # the replication packets. Enter the access token below:
 # NOTE: DO NOT EXPOSE THIS ACCESS TOKEN PUBLICLY!
@@ -229,7 +229,7 @@ sub CACHE_MANAGER_OPTIONS {
 # Redis instances might be used to store sessions and cached entities, this
 # can be set to 0 if there's already a memory limit configured for Redis.
 sub ENTITY_CACHE_TTL {
-    return 3600 if shift->REPLICATION_TYPE == RT_SLAVE;
+    return 3600 if shift->REPLICATION_TYPE == RT_MIRROR;
     return 86400;
 }
 

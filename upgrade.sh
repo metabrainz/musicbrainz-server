@@ -16,7 +16,7 @@ NEW_SCHEMA_SEQUENCE=26
 OLD_SCHEMA_SEQUENCE=$((NEW_SCHEMA_SEQUENCE - 1))
 
 RT_MASTER=1
-RT_SLAVE=2
+RT_MIRROR=2
 RT_STANDALONE=3
 
 SQL_DIR='./admin/sql/updates/schema-change'
@@ -51,7 +51,7 @@ then
 
 fi
 
-if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
+if [ "$REPLICATION_TYPE" != "$RT_MIRROR" ]
 then
     echo `date` : Disabling last_updated triggers
     OUTPUT=`./admin/psql --system "$DATABASE" < ./admin/sql/DisableLastUpdatedTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
@@ -69,7 +69,7 @@ fi
 
 ################################################################################
 # Migrations that apply for only mirrors
-if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
+if [ "$REPLICATION_TYPE" = "$RT_MIRROR" ]
 then
     if [ -e "$SLAVE_ONLY_SQL" ]
     then
@@ -96,7 +96,7 @@ fi
 ################################################################################
 # Add constraints that apply only to master/standalone (FKS)
 
-if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
+if [ "$REPLICATION_TYPE" != "$RT_MIRROR" ]
 then
     echo `date` : 'Running upgrade scripts for master/standalone nodes'
     ./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.standalone.sql || exit 1

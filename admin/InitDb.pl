@@ -287,7 +287,7 @@ sub CreateRelations
     RunSQLScript($DB, 'caa/CreateFunctions.sql', 'Creating CAA functions ...');
     RunSQLScript($DB, 'eaa/CreateFunctions.sql', 'Creating EAA functions ...');
     RunSQLScript($DB, 'CreateSlaveOnlyFunctions.sql', 'Creating mirror-only functions ...')
-        if $REPTYPE == RT_SLAVE;
+        if $REPTYPE == RT_MIRROR;
 
     RunSQLScript($DB, 'CreateIndexes.sql', 'Creating indexes ...');
     RunSQLScript($DB, 'caa/CreateIndexes.sql', 'Creating CAA indexes ...');
@@ -297,28 +297,28 @@ sub CreateRelations
     RunSQLScript($DB, 'statistics/CreateIndexes.sql', 'Creating statistics indexes ...');
 
     RunSQLScript($DB, 'CreateSlaveIndexes.sql', 'Creating mirror-only indexes ...')
-        if $REPTYPE == RT_SLAVE;
+        if $REPTYPE == RT_MIRROR;
 
     RunSQLScript($DB, 'CreateFKConstraints.sql', 'Adding foreign key constraints ...')
-        unless $REPTYPE == RT_SLAVE;
+        unless $REPTYPE == RT_MIRROR;
 
     RunSQLScript($DB, 'caa/CreateFKConstraints.sql', 'Adding CAA foreign key constraints ...')
-        unless $REPTYPE == RT_SLAVE;
+        unless $REPTYPE == RT_MIRROR;
 
     RunSQLScript($DB, 'eaa/CreateFKConstraints.sql', 'Adding EAA foreign key constraints ...')
-        unless $REPTYPE == RT_SLAVE;
+        unless $REPTYPE == RT_MIRROR;
 
     RunSQLScript($DB, 'caa/CreateEditFKConstraints.sql', 'Adding CAA foreign key constraint to edit table...')
-        unless ($REPTYPE == RT_SLAVE || !HasEditData());
+        unless ($REPTYPE == RT_MIRROR || !HasEditData());
 
     RunSQLScript($DB, 'eaa/CreateEditFKConstraints.sql', 'Adding EAA foreign key constraint to edit table...')
-        unless ($REPTYPE == RT_SLAVE || !HasEditData());
+        unless ($REPTYPE == RT_MIRROR || !HasEditData());
 
     RunSQLScript($DB, 'sitemaps/CreateFKConstraints.sql', 'Adding sitemaps foreign key constraints ...')
-        unless $REPTYPE == RT_SLAVE;
+        unless $REPTYPE == RT_MIRROR;
 
     RunSQLScript($DB, 'CreateConstraints.sql', 'Adding table constraints ...')
-        unless $REPTYPE == RT_SLAVE;
+        unless $REPTYPE == RT_MIRROR;
 
     RunSQLScript($DB, 'SetSequences.sql', 'Setting raw initial sequence values ...');
     RunSQLScript($DB, 'statistics/SetSequences.sql', 'Setting raw initial statistics sequence values ...');
@@ -328,16 +328,16 @@ sub CreateRelations
     RunSQLScript($DB, 'eaa/CreateViews.sql', 'Creating EAA views ...');
 
     RunSQLScript($DB, 'CreateTriggers.sql', 'Creating triggers ...')
-        unless $REPTYPE == RT_SLAVE;
+        unless $REPTYPE == RT_MIRROR;
 
     RunSQLScript($DB, 'caa/CreateTriggers.sql', 'Creating CAA triggers ...')
-        unless $REPTYPE == RT_SLAVE;
+        unless $REPTYPE == RT_MIRROR;
 
     RunSQLScript($DB, 'eaa/CreateTriggers.sql', 'Creating EAA triggers ...')
-        unless $REPTYPE == RT_SLAVE;
+        unless $REPTYPE == RT_MIRROR;
 
     RunSQLScript($DB, 'CreateSlaveOnlyTriggers.sql', 'Creating mirror-only triggers ...')
-        if $REPTYPE == RT_SLAVE;
+        if $REPTYPE == RT_MIRROR;
 
     RunSQLScript($DB, 'CreateSearchIndexes.sql', 'Creating search indexes ...');
 
@@ -351,7 +351,7 @@ sub CreateRelations
         RunSQLScript($DB, 'statistics/CreateReplicationTriggers.sql', 'Creating statistics replication triggers ...');
         RunSQLScript($DB, 'wikidocs/CreateReplicationTriggers.sql', 'Creating wikidocs replication triggers ...');
     }
-    if ($REPTYPE == RT_MASTER || $REPTYPE == RT_SLAVE)
+    if ($REPTYPE == RT_MASTER || $REPTYPE == RT_MIRROR)
     {
         RunSQLScript($DB, 'ReplicationSetup.sql', 'Setting up replication ...');
     }
@@ -398,7 +398,7 @@ sub SanityCheck
     die "The postgres psql application must be on your path for this script to work.\n"
        if not -x $psql and (`which psql` eq '');
 
-    if ($REPTYPE == RT_SLAVE)
+    if ($REPTYPE == RT_MIRROR)
     {
         warn "Warning: this is a mirror replication server, but there is no READONLY connection defined\n"
             unless Databases->get('READONLY');

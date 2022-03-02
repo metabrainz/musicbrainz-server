@@ -233,7 +233,7 @@ export const PART_OF_SERIES_LINK_TYPES = {
 export const PROBABLY_CLASSICAL_LINK_TYPES =
   [40, 45, 46, 150, 151, 300, 759, 760];
 
-export const RT_SLAVE = 2;
+export const RT_MIRROR = 2;
 
 export const SERIES_ORDERING_ATTRIBUTE =
   'a59c5830-5ec7-38fe-9a21-c7ea54f6650a';

@@ -115,7 +115,7 @@ Server configuration
 
     Determine what type of server this will be and set `REPLICATION_TYPE` accordingly:
 
-    1.  `RT_SLAVE` (mirror server)
+    1.  `RT_MIRROR` (mirror server)
 
         A mirror server will always be in sync with the master database at
         https://musicbrainz.org/ by way of an hourly replication packet. Mirror

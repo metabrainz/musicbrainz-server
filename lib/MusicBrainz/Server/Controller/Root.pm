@@ -346,7 +346,7 @@ sub begin : Private
         server_details => {
             staging_server => DBDefs->DB_STAGING_SERVER,
             testing_features => DBDefs->DB_STAGING_TESTING_FEATURES,
-            is_slave_db    => DBDefs->REPLICATION_TYPE == RT_SLAVE,
+            is_slave_db    => DBDefs->REPLICATION_TYPE == RT_MIRROR,
             read_only      => DBDefs->DB_READ_ONLY,
             alert => $alert,
             alert_mtime => $alert_mtime,
@@ -450,7 +450,7 @@ sub begin : Private
         );
     }
 
-    if (DBDefs->REPLICATION_TYPE == RT_SLAVE) {
+    if (DBDefs->REPLICATION_TYPE == RT_MIRROR) {
         my $last_replication_date = $c->model('Replication')->last_replication_date;
         defined $last_replication_date or die 'Replication info missing on a mirror server';
         $c->stash( last_replication_date => $last_replication_date );

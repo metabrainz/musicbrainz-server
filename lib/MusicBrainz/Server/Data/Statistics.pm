@@ -2022,7 +2022,7 @@ sub recalculate {
         or warn("Unknown statistic '$statistic'"), return;
 
     return if $definition->{PREREQ_ONLY};
-    return if $definition->{NONREPLICATED} && DBDefs->REPLICATION_TYPE == RT_SLAVE;
+    return if $definition->{NONREPLICATED} && DBDefs->REPLICATION_TYPE == RT_MIRROR;
     return if $definition->{PRIVATE} && DBDefs->REPLICATION_TYPE != RT_MASTER;
 
     my $db = $definition->{DB} || 'READWRITE';
