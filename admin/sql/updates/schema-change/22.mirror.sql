@@ -7,6 +7,8 @@
 -- 20150403-drop-empty-functions.sql
 \set ON_ERROR_STOP 1
 BEGIN;
+SET search_path = musicbrainz, public;
+SET LOCAL statement_timeout = 0;
 --------------------------------------------------------------------------------
 SELECT '20150209-extend-aliases-to-more-entities.sql';
 

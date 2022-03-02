@@ -21,7 +21,7 @@ RT_STANDALONE=3
 
 SQL_DIR='./admin/sql/updates/schema-change'
 EXTENSIONS_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.extensions.sql"
-SLAVE_ONLY_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.slave_only.sql"
+MIRROR_ONLY_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.mirror_only.sql"
 
 ################################################################################
 # Assert pre-conditions
@@ -65,16 +65,16 @@ if [ -e "$EXTENSIONS_SQL" ]
 then
     ./admin/psql --system "$DATABASE" < "$EXTENSIONS_SQL" || exit 1
 fi
-./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.slave.sql || exit 1
+./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.mirror.sql || exit 1
 
 ################################################################################
 # Migrations that apply for only mirrors
 if [ "$REPLICATION_TYPE" = "$RT_MIRROR" ]
 then
-    if [ -e "$SLAVE_ONLY_SQL" ]
+    if [ -e "$MIRROR_ONLY_SQL" ]
     then
         echo `date` : 'Running upgrade scripts for mirror nodes'
-        ./admin/psql "$DATABASE" < "$SLAVE_ONLY_SQL" || exit 1
+        ./admin/psql "$DATABASE" < "$MIRROR_ONLY_SQL" || exit 1
     fi
 fi
 

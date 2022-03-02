@@ -12,6 +12,8 @@
 -- 20140429-area-view.sql
 \set ON_ERROR_STOP 1
 BEGIN;
+SET search_path = musicbrainz, public;
+SET LOCAL statement_timeout = 0;
 --------------------------------------------------------------------------------
 SELECT '20140310-dates.sql';
 
