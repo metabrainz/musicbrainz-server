@@ -346,7 +346,7 @@ sub begin : Private
         server_details => {
             staging_server => DBDefs->DB_STAGING_SERVER,
             testing_features => DBDefs->DB_STAGING_TESTING_FEATURES,
-            is_slave_db    => DBDefs->REPLICATION_TYPE == RT_MIRROR,
+            is_mirror_db    => DBDefs->REPLICATION_TYPE == RT_MIRROR,
             read_only      => DBDefs->DB_READ_ONLY,
             alert => $alert,
             alert_mtime => $alert_mtime,
@@ -371,12 +371,12 @@ sub begin : Private
 
     # Returns a special 404 for areas of the site that shouldn't exist on a mirror (e.g. /user pages)
     if (exists $attributes->{HiddenOnSlaves}) {
-        $c->detach('/error_mirror_404') if ($c->stash->{server_details}->{is_slave_db});
+        $c->detach('/error_mirror_404') if ($c->stash->{server_details}->{is_mirror_db});
     }
 
     # Anything that requires authentication isn't allowed on a mirror server (e.g. editing, registering)
     if (exists $attributes->{RequireAuth} || $attributes->{ForbiddenOnSlaves}) {
-        $c->detach('/error_mirror') if ($c->stash->{server_details}->{is_slave_db});
+        $c->detach('/error_mirror') if ($c->stash->{server_details}->{is_mirror_db});
     }
 
     if (exists $attributes->{RequireAuth})
