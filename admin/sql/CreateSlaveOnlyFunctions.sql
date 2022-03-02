@@ -2,7 +2,7 @@
 
 BEGIN;
 
-CREATE OR REPLACE FUNCTION a_ins_release_slave()
+CREATE OR REPLACE FUNCTION a_ins_release_mirror()
 RETURNS trigger AS $$
 BEGIN
     INSERT INTO artist_release_pending_update VALUES (NEW.id);
@@ -11,7 +11,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_upd_release_slave()
+CREATE OR REPLACE FUNCTION a_upd_release_mirror()
 RETURNS trigger AS $$
 BEGIN
     IF (
@@ -33,7 +33,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_del_release_slave()
+CREATE OR REPLACE FUNCTION a_del_release_mirror()
 RETURNS trigger AS $$
 BEGIN
     INSERT INTO artist_release_pending_update VALUES (OLD.id);
@@ -42,7 +42,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_ins_release_event_slave()
+CREATE OR REPLACE FUNCTION a_ins_release_event_mirror()
 RETURNS trigger AS $$
 BEGIN
     PERFORM set_release_first_release_date(NEW.release);
@@ -54,7 +54,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_upd_release_event_slave()
+CREATE OR REPLACE FUNCTION a_upd_release_event_mirror()
 RETURNS trigger AS $$
 BEGIN
     PERFORM set_release_first_release_date(OLD.release);
@@ -69,7 +69,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_del_release_event_slave()
+CREATE OR REPLACE FUNCTION a_del_release_event_mirror()
 RETURNS trigger AS $$
 BEGIN
     PERFORM set_release_first_release_date(OLD.release);
@@ -81,7 +81,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_ins_release_group_slave()
+CREATE OR REPLACE FUNCTION a_ins_release_group_mirror()
 RETURNS trigger AS $$
 BEGIN
     INSERT INTO artist_release_group_pending_update VALUES (NEW.id);
@@ -89,7 +89,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_upd_release_group_slave()
+CREATE OR REPLACE FUNCTION a_upd_release_group_mirror()
 RETURNS trigger AS $$
 BEGIN
     IF (
@@ -103,7 +103,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_del_release_group_slave()
+CREATE OR REPLACE FUNCTION a_del_release_group_mirror()
 RETURNS trigger AS $$
 BEGIN
     INSERT INTO artist_release_group_pending_update VALUES (OLD.id);
@@ -111,7 +111,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_upd_release_group_meta_slave()
+CREATE OR REPLACE FUNCTION a_upd_release_group_meta_mirror()
 RETURNS trigger AS $$
 BEGIN
     IF (
@@ -125,7 +125,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_ins_release_group_secondary_type_join_slave()
+CREATE OR REPLACE FUNCTION a_ins_release_group_secondary_type_join_mirror()
 RETURNS trigger AS $$
 BEGIN
     INSERT INTO artist_release_group_pending_update VALUES (NEW.release_group);
@@ -133,7 +133,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_del_release_group_secondary_type_join_slave()
+CREATE OR REPLACE FUNCTION a_del_release_group_secondary_type_join_mirror()
 RETURNS trigger AS $$
 BEGIN
     INSERT INTO artist_release_group_pending_update VALUES (OLD.release_group);
@@ -141,7 +141,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_ins_release_label_slave()
+CREATE OR REPLACE FUNCTION a_ins_release_label_mirror()
 RETURNS trigger AS $$
 BEGIN
     INSERT INTO artist_release_pending_update VALUES (NEW.release);
@@ -149,7 +149,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_upd_release_label_slave()
+CREATE OR REPLACE FUNCTION a_upd_release_label_mirror()
 RETURNS trigger AS $$
 BEGIN
     IF NEW.catalog_number IS DISTINCT FROM OLD.catalog_number THEN
@@ -159,7 +159,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_del_release_label_slave()
+CREATE OR REPLACE FUNCTION a_del_release_label_mirror()
 RETURNS trigger AS $$
 BEGIN
     INSERT INTO artist_release_pending_update VALUES (OLD.release);
@@ -167,7 +167,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_ins_track_slave()
+CREATE OR REPLACE FUNCTION a_ins_track_mirror()
 RETURNS trigger AS $$
 BEGIN
     PERFORM set_recordings_first_release_dates(ARRAY[NEW.recording]);
@@ -184,7 +184,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_upd_track_slave()
+CREATE OR REPLACE FUNCTION a_upd_track_mirror()
 RETURNS trigger AS $$
 BEGIN
     IF NEW.artist_credit != OLD.artist_credit THEN
@@ -205,7 +205,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_del_track_slave()
+CREATE OR REPLACE FUNCTION a_del_track_mirror()
 RETURNS trigger AS $$
 BEGIN
     PERFORM set_recordings_first_release_dates(ARRAY[OLD.recording]);

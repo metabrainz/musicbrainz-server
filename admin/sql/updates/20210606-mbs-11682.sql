@@ -9,7 +9,7 @@ DECLARE
     release_id INTEGER;
 BEGIN
     -- DO NOT modify any replicated tables in this function; it's used
-    -- by a trigger on slaves.
+    -- by a trigger on mirrors.
     WITH pending AS (
         DELETE FROM artist_release_pending_update
         RETURNING release
@@ -49,7 +49,7 @@ DECLARE
     release_group_id INTEGER;
 BEGIN
     -- DO NOT modify any replicated tables in this function; it's used
-    -- by a trigger on slaves.
+    -- by a trigger on mirrors.
     WITH pending AS (
         DELETE FROM artist_release_group_pending_update
         RETURNING release_group
