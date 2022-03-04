@@ -13,7 +13,7 @@ This test checks that the artist details page contains all the expected data.
 
 =cut
 
-test 'Check details tab has all the expected data' => sub {
+test 'Details tab has all the expected data' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
