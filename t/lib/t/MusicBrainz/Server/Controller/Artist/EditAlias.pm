@@ -25,7 +25,10 @@ test 'Editing alias' => sub {
     my @edits = capture_edits {
         $mech->submit_form(
             with_fields => {
-                'edit-alias.name' => 'Edited alias'
+                'edit-alias.name' => 'Edited alias',
+                # HTML::Form doesn't understand selected=""
+                # so we need to specifically set this
+                'edit-alias.type_id' => '1',
             });
     } $test->c;
 

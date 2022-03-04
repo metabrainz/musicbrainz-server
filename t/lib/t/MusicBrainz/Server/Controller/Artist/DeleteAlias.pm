@@ -61,7 +61,7 @@ test 'Deleting an alias' => sub {
                 day => 6
             },
             ended => 1,
-            type_id => undef
+            type_id => 1,
         },
         'The edit contains the right data',
     );

@@ -4,7 +4,14 @@ use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
 with 't::Mechanize', 't::Context';
 
-test all => sub {
+=head2 Test description
+
+This test checks whether place aliases are correctly listed on the place
+alias page, both on the site itself and on the JSON-LD data.
+
+=cut
+
+test 'Place alias appears on alias page content and on JSON-LD' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c = $test->c;
@@ -12,8 +19,14 @@ test all => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+area');
     MusicBrainz::Server::Test->prepare_test_database($c, '+place');
 
-    $mech->get_ok('/place/df9269dd-0470-4ea2-97e8-c11e46080edd/aliases', 'fetch place aliases page');
+    $mech->get_ok(
+        '/place/df9269dd-0470-4ea2-97e8-c11e46080edd/aliases',
+        'Fetched place aliases page',
+    );
     html_ok($mech->content);
+
+    $mech->text_contains('A Test Alias', 'Alias page lists the alias');
+    $mech->text_contains('Place name', 'Alias page lists the alias type');
 
     page_test_jsonld $mech => {
         'foundingDate' => '2013',
