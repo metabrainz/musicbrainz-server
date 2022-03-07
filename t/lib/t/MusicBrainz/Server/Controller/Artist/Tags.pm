@@ -12,7 +12,7 @@ up- and downvoting, plus withdrawing/removing tags.
 
 =cut
 
-test 'Test artist tagging (up/downvoting, withdrawing)' => sub {
+test 'Artist tagging (up/downvoting, withdrawing)' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
