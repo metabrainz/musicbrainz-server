@@ -12,19 +12,17 @@ page, and that private ratings are hidden.
 
 =cut
 
-test 'Test artists rating page' => sub {
+test 'Artist rating page displays the right data' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c = $test->c;
 
+    MusicBrainz::Server::Test->prepare_test_database($c);
     MusicBrainz::Server::Test->prepare_test_database(
-      $c,
-      '+controller_artist',
+        $c,
+        '+controller_ratings',
     );
-
     MusicBrainz::Server::Test->prepare_raw_test_database($c, <<~'SQL');
-        INSERT INTO artist_tag_raw (artist, editor, tag) 
-             VALUES (3, 1, 1), (3, 2, 1);
         INSERT INTO artist_rating_raw (artist, editor, rating)
              VALUES (3, 1, 20), (3, 2, 100);
         SQL
