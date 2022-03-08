@@ -6,6 +6,7 @@ our @EXPORT_OK = qw(
     create_artist_release_groups_form
     create_artist_releases_form
     create_artist_recordings_form
+    create_artist_works_form
 );
 
 sub create_artist_release_groups_form {
@@ -13,6 +14,7 @@ sub create_artist_release_groups_form {
 
     my %form_args = (
         entity_type => 'release_group',
+        secondary_types => [ $c->model('ReleaseGroupSecondaryType')->get_all ],
         types => [ $c->model('ReleaseGroupType')->get_all ],
     );
 
@@ -42,7 +44,18 @@ sub create_artist_recordings_form {
     $form_args{artist_credits} =
         $c->model('Recording')->find_artist_credits_by_artist($artist_id);
 
-    return $c->form(filter_form => 'Filter::Generic', %form_args);
+    return $c->form(filter_form => 'Filter::Recording', %form_args);
+}
+
+sub create_artist_works_form {
+    my ($c, $artist_id) = @_;
+
+    my %form_args = (
+        entity_type => 'work',
+        types => [ $c->model('WorkType')->get_all ],
+    );
+
+    return $c->form(filter_form => 'Filter::Work', %form_args);
 }
 
 1;

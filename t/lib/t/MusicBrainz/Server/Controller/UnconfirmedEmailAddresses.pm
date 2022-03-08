@@ -89,6 +89,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   'Controller::Ajax::filter_artist_recordings_form',
   'Controller::Ajax::filter_artist_release_groups_form',
   'Controller::Ajax::filter_artist_releases_form',
+  'Controller::Ajax::filter_artist_works_form',
   'Controller::Area::alias',
   'Controller::Area::aliases',
   'Controller::Area::annotation_diff',
