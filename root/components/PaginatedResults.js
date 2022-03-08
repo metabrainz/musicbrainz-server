@@ -16,6 +16,7 @@ import Paginator from './Paginator';
 
 type Props = {
   +children: React.Node,
+  +guessSearch?: boolean,
   +pager: PagerT,
   +pageVar?: 'apps_page' | 'page' | 'tokens_page',
   +query?: string,
@@ -25,6 +26,7 @@ type Props = {
 
 const PaginatedResults = ({
   children,
+  guessSearch = false,
   pager,
   pageVar,
   query,
@@ -32,7 +34,15 @@ const PaginatedResults = ({
   total = false,
 }: Props): React.Element<typeof React.Fragment> => {
   const $c = React.useContext(CatalystContext);
-  const paginator = <Paginator $c={$c} pageVar={pageVar} pager={pager} />;
+  const paginator = (
+    <Paginator
+      $c={$c}
+      guessSearch={guessSearch}
+      pageVar={pageVar}
+      pager={pager}
+    />
+  );
+
   return (
     <>
       {paginator}
