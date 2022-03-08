@@ -11,6 +11,7 @@ use MusicBrainz::Server::Test qw( commandline_override );
 my @classes = (
     't::Sql',
     't::MusicBrainz::DataStore::Redis',
+    't::MusicBrainz::DataStore::RedisMulti',
     't::MusicBrainz::Script::RebuildCoverArt',
     't::MusicBrainz::Script::RemoveEmptyURLs',
     map {
