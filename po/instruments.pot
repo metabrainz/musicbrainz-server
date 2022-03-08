@@ -1212,10 +1212,6 @@ msgstr ""
 msgid "davul"
 msgstr ""
 
-#: DB:instrument/name:469
-msgid "descant recorder / soprano recorder"
-msgstr ""
-
 #: DB:instrument/name:535
 msgid "dhol"
 msgstr ""
@@ -3093,6 +3089,7 @@ msgid "reco-reco"
 msgstr ""
 
 #: DB:instrument/name:18
+msgctxt "Family of end-blown fipple flutes"
 msgid "recorder"
 msgstr ""
 
@@ -3461,6 +3458,11 @@ msgstr ""
 
 #: DB:instrument/name:413
 msgid "soprano flute"
+msgstr ""
+
+#: DB:instrument/name:469
+msgctxt "Middle member of the end-blown fipple flute recorder family"
+msgid "soprano recorder"
 msgstr ""
 
 #: DB:instrument/name:20
