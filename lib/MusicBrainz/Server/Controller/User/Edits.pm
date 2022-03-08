@@ -33,18 +33,19 @@ sub open : Chained('/user/load') PathPart('edits/open') RequireAuth HiddenOnSlav
         }, shift, shift);
     });
     $c->stash(
-        refine_url_args =>
-            { auto_edit_filter => '',
-              order => 'desc',
-              negation => 0,
-              combinator => 'and',
-              'conditions.0.field' => 'editor',
-              'conditions.0.operator' => '=',
-              'conditions.0.name' => $c->stash->{user}->name,
-              'conditions.0.args.0' => $c->stash->{user}->id,
-              'conditions.1.field' => 'status',
-              'conditions.1.operator' => '=',
-              'conditions.1.args' => $STATUS_OPEN },
+        refine_url_args => {
+            auto_edit_filter => '',
+            order => 'desc',
+            negation => 0,
+            combinator => 'and',
+            'conditions.0.field' => 'editor',
+            'conditions.0.operator' => '=',
+            'conditions.0.name' => $c->stash->{user}->name,
+            'conditions.0.args.0' => $c->stash->{user}->id,
+            'conditions.1.field' => 'status',
+            'conditions.1.operator' => '=',
+            'conditions.1.args' => $STATUS_OPEN,
+        },
     );
 }
 
@@ -57,18 +58,19 @@ sub cancelled : Chained('/user/load') PathPart('edits/cancelled') RequireAuth Hi
         }, shift, shift);
     });
     $c->stash(
-        refine_url_args =>
-            { auto_edit_filter => '',
-              order => 'desc',
-              negation => 0,
-              combinator => 'and',
-              'conditions.0.field' => 'editor',
-              'conditions.0.operator' => '=',
-              'conditions.0.name' => $c->stash->{user}->name,
-              'conditions.0.args.0' => $c->stash->{user}->id,
-              'conditions.1.field' => 'status',
-              'conditions.1.operator' => '=',
-              'conditions.1.args' => $STATUS_DELETED },
+        refine_url_args => {
+            auto_edit_filter => '',
+            order => 'desc',
+            negation => 0,
+            combinator => 'and',
+            'conditions.0.field' => 'editor',
+            'conditions.0.operator' => '=',
+            'conditions.0.name' => $c->stash->{user}->name,
+            'conditions.0.args.0' => $c->stash->{user}->id,
+            'conditions.1.field' => 'status',
+            'conditions.1.operator' => '=',
+            'conditions.1.args' => $STATUS_DELETED,
+        },
     );
 }
 
@@ -82,18 +84,19 @@ sub accepted : Chained('/user/load') PathPart('edits/accepted') RequireAuth Hidd
         }, shift, shift);
     });
     $c->stash(
-        refine_url_args =>
-            { auto_edit_filter => 0,
-              order => 'desc',
-              negation => 0,
-              combinator => 'and',
-              'conditions.0.field' => 'editor',
-              'conditions.0.operator' => '=',
-              'conditions.0.name' => $c->stash->{user}->name,
-              'conditions.0.args.0' => $c->stash->{user}->id,
-              'conditions.1.field' => 'status',
-              'conditions.1.operator' => '=',
-              'conditions.1.args' => $STATUS_APPLIED },
+        refine_url_args => {
+            auto_edit_filter => 0,
+            order => 'desc',
+            negation => 0,
+            combinator => 'and',
+            'conditions.0.field' => 'editor',
+            'conditions.0.operator' => '=',
+            'conditions.0.name' => $c->stash->{user}->name,
+            'conditions.0.args.0' => $c->stash->{user}->id,
+            'conditions.1.field' => 'status',
+            'conditions.1.operator' => '=',
+            'conditions.1.args' => $STATUS_APPLIED,
+        },
     );
 }
 
@@ -107,20 +110,24 @@ sub failed : Chained('/user/load') PathPart('edits/failed') RequireAuth HiddenOn
         }, shift, shift);
     });
     $c->stash(
-        refine_url_args =>
-            { auto_edit_filter => '',
-              order => 'desc',
-              negation => 0,
-              combinator => 'and',
-              'conditions.0.field' => 'editor',
-              'conditions.0.operator' => '=',
-              'conditions.0.name' => $c->stash->{user}->name,
-              'conditions.0.args.0' => $c->stash->{user}->id,
-              'conditions.1.field' => 'status',
-              'conditions.1.operator' => '=',
-              'conditions.1.args' =>
-                  [ $STATUS_FAILEDDEP, $STATUS_FAILEDPREREQ,
-                    $STATUS_ERROR, $STATUS_NOVOTES ] },
+        refine_url_args => {
+            auto_edit_filter => '',
+            order => 'desc',
+            negation => 0,
+            combinator => 'and',
+            'conditions.0.field' => 'editor',
+            'conditions.0.operator' => '=',
+            'conditions.0.name' => $c->stash->{user}->name,
+            'conditions.0.args.0' => $c->stash->{user}->id,
+            'conditions.1.field' => 'status',
+            'conditions.1.operator' => '=',
+            'conditions.1.args' => [
+                $STATUS_FAILEDDEP,
+                $STATUS_FAILEDPREREQ,
+                $STATUS_ERROR,
+                $STATUS_NOVOTES,
+            ],
+        },
     );
 }
 
@@ -133,18 +140,19 @@ sub rejected : Chained('/user/load') PathPart('edits/rejected') RequireAuth Hidd
         }, shift, shift);
     });
     $c->stash(
-        refine_url_args =>
-            { auto_edit_filter => '',
-              order => 'desc',
-              negation => 0,
-              combinator => 'and',
-              'conditions.0.field' => 'editor',
-              'conditions.0.operator' => '=',
-              'conditions.0.name' => $c->stash->{user}->name,
-              'conditions.0.args.0' => $c->stash->{user}->id,
-              'conditions.1.field' => 'status',
-              'conditions.1.operator' => '=',
-              'conditions.1.args' => $STATUS_FAILEDVOTE },
+        refine_url_args => {
+            auto_edit_filter => '',
+            order => 'desc',
+            negation => 0,
+            combinator => 'and',
+            'conditions.0.field' => 'editor',
+            'conditions.0.operator' => '=',
+            'conditions.0.name' => $c->stash->{user}->name,
+            'conditions.0.args.0' => $c->stash->{user}->id,
+            'conditions.1.field' => 'status',
+            'conditions.1.operator' => '=',
+            'conditions.1.args' => $STATUS_FAILEDVOTE,
+        },
     );
 }
 
@@ -157,15 +165,16 @@ sub autoedits : Chained('/user/load') PathPart('edits/autoedits') RequireAuth Hi
         }, shift, shift);
     });
     $c->stash(
-        refine_url_args =>
-            { auto_edit_filter => 1,
-              order => 'desc',
-              negation => 0,
-              combinator => 'and',
-              'conditions.0.field' => 'editor',
-              'conditions.0.operator' => '=',
-              'conditions.0.name' => $c->stash->{user}->name,
-              'conditions.0.args.0' => $c->stash->{user}->id },
+        refine_url_args => {
+            auto_edit_filter => 1,
+            order => 'desc',
+            negation => 0,
+            combinator => 'and',
+            'conditions.0.field' => 'editor',
+            'conditions.0.operator' => '=',
+            'conditions.0.name' => $c->stash->{user}->name,
+            'conditions.0.args.0' => $c->stash->{user}->id,
+        },
     );
 }
 
@@ -178,18 +187,19 @@ sub applied : Chained('/user/load') PathPart('edits/applied') RequireAuth Hidden
         }, shift, shift);
     });
     $c->stash(
-        refine_url_args =>
-            { auto_edit_filter => '',
-              order => 'desc',
-              negation => 0,
-              combinator => 'and',
-              'conditions.0.field' => 'editor',
-              'conditions.0.operator' => '=',
-              'conditions.0.name' => $c->stash->{user}->name,
-              'conditions.0.args.0' => $c->stash->{user}->id,
-              'conditions.1.field' => 'status',
-              'conditions.1.operator' => '=',
-              'conditions.1.args' => $STATUS_APPLIED },
+        refine_url_args => {
+            auto_edit_filter => '',
+            order => 'desc',
+            negation => 0,
+            combinator => 'and',
+            'conditions.0.field' => 'editor',
+            'conditions.0.operator' => '=',
+            'conditions.0.name' => $c->stash->{user}->name,
+            'conditions.0.args.0' => $c->stash->{user}->id,
+            'conditions.1.field' => 'status',
+            'conditions.1.operator' => '=',
+            'conditions.1.args' => $STATUS_APPLIED,
+        },
     );
 }
 
@@ -201,15 +211,16 @@ sub all : Chained('/user/load') PathPart('edits') RequireAuth HiddenOnSlaves {
         }, shift, shift);
     });
     $c->stash(
-        refine_url_args =>
-            { auto_edit_filter => '',
-              order => 'desc',
-              negation => 0,
-              combinator => 'and',
-              'conditions.0.field' => 'editor',
-              'conditions.0.operator' => '=',
-              'conditions.0.name' => $c->stash->{user}->name,
-              'conditions.0.args.0' => $c->stash->{user}->id },
+        refine_url_args => {
+            auto_edit_filter => '',
+            order => 'desc',
+            negation => 0,
+            combinator => 'and',
+            'conditions.0.field' => 'editor',
+            'conditions.0.operator' => '=',
+            'conditions.0.name' => $c->stash->{user}->name,
+            'conditions.0.args.0' => $c->stash->{user}->id,
+        },
     );
 }
 
