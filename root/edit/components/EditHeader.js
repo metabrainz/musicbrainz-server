@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import {EDIT_VOTE_APPROVE} from '../../constants';
 import RequestLogin from '../../components/RequestLogin';
+import SubHeader from '../../components/SubHeader';
 import VotingPeriod from '../../components/VotingPeriod';
 import linkedEntities from '../../static/scripts/common/linkedEntities';
 import EditLink from '../../static/scripts/common/components/EditLink';
@@ -92,6 +93,28 @@ const EditHeader = ({
     (vote) => vote.vote === EDIT_VOTE_APPROVE,
   );
   const showVoteTally = latestVoteForEditor || isEditEditor || !edit.is_open;
+
+  const subHeading = user ? (
+    <>
+      {exp.l(
+        'Edit by {editor}',
+        {editor: <EditorLink editor={editEditor} />},
+      )}
+      {' '}
+      <EditorTypeInfo editor={editEditor} />
+    </>
+  ) : (
+    <>
+      {l('Editor hidden')}
+      {' '}
+      {/* Show editor type since knowing it's, say, a bot is useful */}
+      <EditorTypeInfo editor={editEditor} />
+      {' '}
+      {bracketed(
+        <RequestLogin $c={$c} text={l('log in to see who')} />,
+      )}
+    </>
+  );
 
   return (
     <div
@@ -197,30 +220,7 @@ const EditHeader = ({
         </>
       )}
 
-      <p className="subheader">
-        <span className="prefix">{'~'}</span>
-        {user ? (
-          <>
-            {exp.l(
-              'Edit by {editor}',
-              {editor: <EditorLink editor={editEditor} />},
-            )}
-            {' '}
-            <EditorTypeInfo editor={editEditor} />
-          </>
-        ) : (
-          <>
-            {l('Editor hidden')}
-            {' '}
-            {/* Show editor type since knowing it's, say, a bot is useful */}
-            <EditorTypeInfo editor={editEditor} />
-            {' '}
-            {bracketed(
-              <RequestLogin $c={$c} text={l('log in to see who')} />,
-            )}
-          </>
-        )}
-      </p>
+      <SubHeader subHeading={subHeading} />
     </div>
   );
 };

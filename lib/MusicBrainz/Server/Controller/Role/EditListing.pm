@@ -1,8 +1,17 @@
 package MusicBrainz::Server::Controller::Role::EditListing;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
-use MusicBrainz::Server::Data::Utils qw( model_to_type load_everything_for_edits );
+use MusicBrainz::Server::Data::Utils qw(
+    boolean_to_json
+    load_everything_for_edits
+    model_to_type
+);
 use MusicBrainz::Server::Constants qw( :edit_status );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
+use MusicBrainz::Server::Entity::Util::JSON qw(
+    to_json_array
+    to_json_object
+);
 
 requires '_load_paged';
 
@@ -16,18 +25,29 @@ sub edits : Chained('load') PathPart
             $c->model('Edit')->find({ $type => $entity->id }, $limit, $offset);
         }
     });
+
+    my $refine_url_args = {
+        form_only => 'yes',
+        auto_edit_filter => '',
+        order => 'desc',
+        negation => 0,
+        combinator =>'and',
+        'conditions.0.field' => model_to_type( $self->{model} ),
+        'conditions.0.operator' => '=',
+        'conditions.0.name' => $c->stash->{ $self->{entity_name} }->name,
+        'conditions.0.args.0' => $c->stash->{ $self->{entity_name} }->id,
+    };
+
     $c->stash(
-        template => 'entity/edits.tt',
-        all_edits => 1,
-        refine_url_args => {
-            auto_edit_filter => '',
-            order => 'desc',
-            negation => 0,
-            combinator => 'and',
-            'conditions.0.field' => model_to_type( $self->{model} ),
-            'conditions.0.operator' => '=',
-            'conditions.0.name' => $c->stash->{ $self->{entity_name} }->name,
-            'conditions.0.args.0' => $c->stash->{ $self->{entity_name} }->id,
+        current_view => 'Node',
+        component_path => 'entity/Edits',
+        component_props => {
+            editCountLimit => $c->stash->{edit_count_limit},
+            edits => to_json_array($c->stash->{edits}),
+            entity => to_json_object($c->stash->{ $self->{entity_name} }),
+            pager => serialize_pager($c->stash->{pager}),
+            refineUrlArgs => $refine_url_args,
+            showingOpenOnly => boolean_to_json(0),
         },
     );
 }
@@ -43,21 +63,31 @@ sub open_edits : Chained('load') PathPart
         }
     });
 
+    my $refine_url_args = {
+        form_only => 'yes',
+        auto_edit_filter => '',
+        order => 'desc',
+        negation => 0,
+        combinator=>'and',
+        'conditions.0.field' => model_to_type( $self->{model} ),
+        'conditions.0.operator' => '=',
+        'conditions.0.name' => $c->stash->{ $self->{entity_name} }->name,
+        'conditions.0.args.0' => $c->stash->{ $self->{entity_name} }->id,
+        'conditions.1.field' => 'status',
+        'conditions.1.operator' => '=',
+        'conditions.1.args' => $STATUS_OPEN,
+    };
+
     $c->stash(
-        template => 'entity/edits.tt',
-        all_edits => 0,
-        refine_url_args => {
-            auto_edit_filter => '',
-            order => 'desc',
-            negation => 0,
-            combinator => 'and',
-            'conditions.0.field' => model_to_type( $self->{model} ),
-            'conditions.0.operator' => '=',
-            'conditions.0.name' => $c->stash->{ $self->{entity_name} }->name,
-            'conditions.0.args.0' => $c->stash->{ $self->{entity_name} }->id,
-            'conditions.1.field' => 'status',
-            'conditions.1.operator' => '=',
-            'conditions.1.args' => $STATUS_OPEN,
+        current_view => 'Node',
+        component_path => 'entity/Edits',
+        component_props => {
+            editCountLimit => $c->stash->{edit_count_limit},
+            edits => to_json_array($c->stash->{edits}),
+            entity => to_json_object($c->stash->{ $self->{entity_name} }),
+            pager => serialize_pager($c->stash->{pager}),
+            refineUrlArgs => $refine_url_args,
+            showingOpenOnly => boolean_to_json(1),
         },
     );
 }
