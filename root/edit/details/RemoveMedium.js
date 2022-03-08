@@ -9,45 +9,110 @@
 
 import * as React from 'react';
 
+import {EDIT_STATUS_OPEN} from '../../constants';
 import MediumTracklist
   from '../../medium/MediumTracklist';
 import MediumLink
   from '../../static/scripts/common/components/MediumLink';
+import Warning from '../../static/scripts/common/components/Warning';
+import {
+  artistCreditsAreEqual,
+} from '../../static/scripts/common/immutable-entities';
+import {arraysEqual} from '../../static/scripts/common/utility/arrays';
 
 type Props = {
   +allowNew?: boolean,
   +edit: RemoveMediumEditT,
 };
 
-const RemoveMedium = ({edit}: Props): React.Element<'table'> => {
+const areTracksEqual = (a, b) => (
+  a.name === b.name &&
+  artistCreditsAreEqual(a.artistCredit, b.artistCredit) &&
+  a.length === b.length
+);
+
+const RemoveMedium = ({
+  edit,
+}: Props): React.Element<typeof React.Fragment> => {
   const display = edit.display_data;
+  const originalTracklist = display.tracks ?? [];
+  const currentTracklist = display.medium.tracks ?? [];
+  let showTracklistAndWarning = false;
+  let hasLengthChanges = false;
+  if (edit.status === EDIT_STATUS_OPEN) {
+    hasLengthChanges =
+      originalTracklist.length !== currentTracklist.length;
+    const areTracklistsEqual = arraysEqual(
+      originalTracklist,
+      currentTracklist,
+      areTracksEqual,
+    );
+    showTracklistAndWarning = !areTracklistsEqual;
+  }
 
   return (
-    <table className="details remove-medium">
-      <tr>
-        <th>{addColonText(l('Medium'))}</th>
-        <td>
-          <MediumLink medium={display.medium} />
-        </td>
-      </tr>
+    <>
+      {showTracklistAndWarning ? (
+        <Warning
+          message={hasLengthChanges
+            ? l(`The number of tracks on the medium being removed
+                 has changed since the removal edit was entered.
+                 Please check the changes and ensure the removal
+                 is still correct.`)
+            : l(`Some track lengths, titles or artists have changed
+                 since the removal edit was entered. Please check the changes
+                 and ensure the removal is still correct.`)
+          }
+        />
+      ) : null}
 
-      <tr>
-        <th>{addColonText(l('Tracklist'))}</th>
-        <td>
-          <table className="tbl">
-            <tbody>
-              {display.tracks?.length ? (
-                <MediumTracklist
-                  showArtists
-                  tracks={display.tracks}
-                />
-              ) : l('The tracklist for this medium is unknown.')}
-            </tbody>
-          </table>
-        </td>
-      </tr>
+      <table className="details remove-medium">
+        <tr>
+          <th>{addColonText(l('Medium'))}</th>
+          <td>
+            <MediumLink medium={display.medium} />
+          </td>
+        </tr>
 
-    </table>
+        <tr>
+          <th>
+            {showTracklistAndWarning
+              ? addColonText(l('Original tracklist'))
+              : addColonText(l('Tracklist'))}
+          </th>
+          <td>
+            <table className="tbl">
+              <tbody>
+                {originalTracklist.length ? (
+                  <MediumTracklist
+                    showArtists
+                    tracks={originalTracklist}
+                  />
+                ) : l('The tracklist for this medium is unknown.')}
+              </tbody>
+            </table>
+          </td>
+        </tr>
+
+        {showTracklistAndWarning ? (
+          <tr>
+            <th>{addColonText(l('Current tracklist'))}</th>
+            <td>
+              <table className="tbl">
+                <tbody>
+                  {currentTracklist.length ? (
+                    <MediumTracklist
+                      showArtists
+                      tracks={currentTracklist}
+                    />
+                  ) : l('The tracklist for this medium is unknown.')}
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        ) : null}
+      </table>
+    </>
   );
 };
 
