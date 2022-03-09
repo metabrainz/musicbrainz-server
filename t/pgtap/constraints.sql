@@ -40,16 +40,10 @@ SELECT throws_ok(
   'INSERT INTO label (id, gid, name, comment)
    VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings'', '' A comment'')');
 
--- Name & sortname
+-- Names
 SELECT throws_ok(
   'INSERT INTO label (id, gid, name, comment)
    VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', '' Revolution Recordings'', ''A comment'')');
-SELECT throws_ok(
-  'INSERT INTO label (id, gid, name, comment)
-   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', '' Revolution Recordings'', ''A comment'')');
-SELECT throws_ok(
-  'INSERT INTO label (id, gid, name, comment)
-   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings '', ''A comment'')');
 SELECT throws_ok(
   'INSERT INTO label (id, gid, name, comment)
    VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings '', ''A comment'')');
