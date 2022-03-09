@@ -111,7 +111,7 @@ sub delete {
 sub remove {
     my ($self, $key) = @_;
 
-    $self->delete($self->_prepare_key($key));
+    $self->delete($key);
 }
 
 sub delete_multi {
