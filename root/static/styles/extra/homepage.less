@@ -74,6 +74,75 @@
         color: @musicbrainz-orange;
     }
 }
+#explore {
+    .card {
+        background: white;
+        border-top: 4px solid white;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        height: 200px;
+        padding: 30px;
+        margin: 30px;
+        position: relative;
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .card-text {
+            color: black;
+            font-size: 16px;
+        }
+
+        &:hover {
+            .card-title {
+                a {
+                    color: @musicbrainz-orange;
+                }
+            }
+        }
+    }
+
+    .title {
+        text-align: center;
+        padding-top: 30px;
+
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            position: relative;
+            font-family: "Poppins", sans-serif;
+            color: black;
+
+            &::before {
+                content: "";
+                position: absolute;
+                display: block;
+                width: 120px;
+                height: 1px;
+                background: @medium-grey;
+                bottom: 1px;
+                left: calc(50% - 60px);
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                display: block;
+                width: 40px;
+                height: 3px;
+                background: @musicbrainz-orange;
+                bottom: 0;
+                left: calc(50% - 20px);
+            }
+        }
+    }
+}
 
 #triple {
     display: table;
