@@ -12,7 +12,6 @@ import * as React from 'react';
 
 import {ArtworkImage} from '../components/Artwork';
 import Layout from '../layout';
-import {CONTACT_URL} from '../static/scripts/common/constants';
 import {reduceArtistCredit}
   from '../static/scripts/common/immutable-entities';
 import entityHref from '../static/scripts/common/utility/entityHref';
@@ -40,81 +39,6 @@ const Homepage = ({
     title={l('MusicBrainz - The Open Music Encyclopedia')}
   >
     <div id="maincontent">
-      <div id="content">
-        <h1>{l('Welcome to MusicBrainz!')}</h1>
-
-        <p>
-          {l(
-            `MusicBrainz is an open music encyclopedia that collects
-             music metadata and makes it available to the public.`,
-          )}
-        </p>
-
-        <p>
-          {l('MusicBrainz aims to be:')}
-        </p>
-
-        <ol>
-          <li>
-            {exp.l(
-              `<strong>The ultimate source of music information</strong>
-               by allowing anyone to contribute and releasing the {doc|data}
-               under {doc2|open licenses}.`,
-              {
-                doc: '/doc/MusicBrainz_Database',
-                doc2: '/doc/About/Data_License',
-              },
-            )}
-          </li>
-          <li>
-            {exp.l(
-              `<strong>The universal lingua franca for music</strong>
-               by providing a reliable and unambiguous form of
-               {doc|music identification}, enabling both people and machines
-               to have meaningful conversations about music.`,
-              {
-                doc: '/doc/MusicBrainz_Identifier',
-              },
-            )}
-          </li>
-        </ol>
-
-        <p>
-          {exp.l(
-            `Like Wikipedia, MusicBrainz is maintained by a global community
-             of users and we want everyone &#x2014; including you &#x2014;
-             to {doc|participate and contribute}.`,
-            {
-              doc: '/doc/How_to_Contribute',
-            },
-          )}
-        </p>
-
-        <div className="linkbar">
-          {exp.l(
-            `{about|More Information} &#x2014; {faq|FAQs} &#x2014;
-             {contact|Contact Us}`,
-            {
-              about: '/doc/About',
-              contact: CONTACT_URL,
-              faq: '/doc/Frequently_Asked_Questions',
-            },
-          )}
-        </div>
-
-        <p>
-          {exp.l(
-            `MusicBrainz is operated by the {uri|MetaBrainz Foundation},
-             a California based 501(c)(3) tax-exempt non-profit corporation
-             dedicated to keeping MusicBrainz {free|free and open source}.`,
-            {
-              free: '/doc/About/Data_License',
-              uri: 'https://metabrainz.org',
-            },
-          )}
-        </p>
-      </div>
-
       <div className="sidebar">
         <div className="feature-column" id="blog-feed">
           <h2>{l('MetaBrainz Blog')}</h2>
