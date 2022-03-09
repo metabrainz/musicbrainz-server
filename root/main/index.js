@@ -17,6 +17,7 @@ import entityHref from '../static/scripts/common/utility/entityHref.js';
 import AppDownload from '../components/home/AppDownload.js';
 import About from '../components/home/About.js';
 import Facts from '../components/home/Facts.js';
+import Explore from '../components/home/Explore.js';
 
 type BlogEntryT = {
   +title: string,
@@ -186,6 +187,7 @@ const Homepage = ({
     <div className="bs" id="facts">
       <Facts />
     </div>
+    <Explore />
     <div className="bs" id="app-download">
       <AppDownload />
     </div>

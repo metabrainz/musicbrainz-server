@@ -75,6 +75,35 @@
     }
 }
 
+#explore {
+    h2 {
+        position: relative;
+        color: black;
+
+        &::before {
+            content: "";
+            position: absolute;
+            display: block;
+            width: 120px;
+            height: 1px;
+            background: @medium-grey;
+            bottom: 1px;
+            left: calc(50% - 60px);
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            display: block;
+            width: 40px;
+            height: 3px;
+            background: @musicbrainz-orange;
+            bottom: 0;
+            left: calc(50% - 20px);
+        }
+    }
+}
+
 #triple {
     display: table;
     width: 100%;
