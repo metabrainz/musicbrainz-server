@@ -2,7 +2,7 @@ package MusicBrainz::Server::Context;
 use Moose;
 
 use DBDefs;
-use MusicBrainz::DataStore::Redis;
+use MusicBrainz::DataStore::RedisMulti;
 use MusicBrainz::Server::Replication qw( :replication_type );
 use MusicBrainz::Server::CacheManager;
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory';
@@ -83,7 +83,7 @@ has store => (
     is => 'ro',
     does => 'MusicBrainz::DataStore',
     lazy => 1,
-    default => sub { MusicBrainz::DataStore::Redis->new }
+    default => sub { MusicBrainz::DataStore::RedisMulti->new }
 );
 
 # This is not the Catalyst stash, but it's used by
