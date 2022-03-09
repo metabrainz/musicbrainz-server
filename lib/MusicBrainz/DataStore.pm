@@ -1,10 +1,18 @@
 package MusicBrainz::DataStore;
 use Moose::Role;
 
-requires 'get';
-requires 'set';
-requires 'exists';
+requires 'clear';
+requires 'delete_multi';
 requires 'delete';
+requires 'disconnect';
+requires 'exists';
+requires 'get_multi';
+requires 'get';
+requires 'remove';
+requires 'set_add';
+requires 'set_members';
+requires 'set_multi';
+requires 'set';
 
 =method expire
 

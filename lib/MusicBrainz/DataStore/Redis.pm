@@ -10,12 +10,20 @@ extends 'MusicBrainz::Redis';
 
 with 'MusicBrainz::DataStore';
 
-sub BUILDARGS {
-    my ($class, %args) = @_;
+around BUILDARGS => sub {
+    my $orig = shift;
+    my $class = shift;
 
-    return \%args if %args;
-    return DBDefs->DATASTORE_REDIS_ARGS;
-}
+    if (@_) {
+        return $class->$orig(@_);
+    }
+
+    my $args = DBDefs->DATASTORE_REDIS_ARGS;
+    if (ref($args) eq 'ARRAY') {
+        die 'Use DataStore::RedisMulti to support an array in DATASTORE_REDIS_ARGS.';
+    }
+    return $class->$orig($args);
+};
 
 has '_json' => (
     is => 'ro',
