@@ -614,7 +614,7 @@ const CLEANUPS: CleanupEntries = {
         return 'https://www.amazon.' + tld + '/gp/product/' + asin;
       }
 
-      return '';
+      return url;
     },
     validate: function (url) {
       if (/amzn\.to\//i.test(url)) {
