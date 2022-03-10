@@ -5431,7 +5431,8 @@ function testErrorObject(subtest, relationshipType, st) {
     );
   } else {
     st.ok(
-      validationResult.error.includes(subtest.expected_error.error),
+      validationResult.error &&
+        validationResult.error.includes(subtest.expected_error.error),
       'Error message contains expected string',
     );
   }
