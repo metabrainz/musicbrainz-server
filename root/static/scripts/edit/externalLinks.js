@@ -1587,6 +1587,7 @@ const URL_SHORTENERS = [
   'eventlink.to',
   'fanlink.to',
   'ffm.to',
+  'found.ee',
   'fty.li',
   'fur.ly',
   'g.co',
