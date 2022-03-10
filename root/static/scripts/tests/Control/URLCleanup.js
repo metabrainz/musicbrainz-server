@@ -431,6 +431,18 @@ const testData = [
        input_relationship_type: 'amazon',
        only_valid_entity_types: [],
   },
+  {
+                     input_url: 'https://www.amazon.com/vdp/08c6c18fc7bb4822a166db4834e123f1?ref=dp_vse_rvc_0',
+             input_entity_type: 'release',
+       input_relationship_type: 'amazon',
+    expected_relationship_type: undefined,
+       only_valid_entity_types: [],
+            expected_clean_url: 'https://www.amazon.com/vdp/08c6c18fc7bb4822a166db4834e123f1?ref=dp_vse_rvc_0',
+                expected_error: {
+                                  error: 'link to a user video',
+                                  target: 'url',
+                                },
+  },
   // amzn.to
   {
                      input_url: 'http://amzn.to/2n4b5k4',

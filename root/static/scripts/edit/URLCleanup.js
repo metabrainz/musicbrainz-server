@@ -635,6 +635,17 @@ const CLEANUPS: CleanupEntries = {
         };
       }
 
+      if (/^https:\/\/www\.amazon\.[^\/]+\/vdp\//i.test(url)) {
+        return {
+          error: l(
+            `This is a link to a user video and should not be added. Please
+             add the product link instead, if relevant.`,
+          ),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+
       // If you change this, please update the BadAmazonURLs report.
       return {
         result: /^https:\/\/www\.amazon\.(ae|at|com\.au|com\.br|ca|cn|com|de|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|se|sg|com\.tr|co\.uk)\//.test(url),
