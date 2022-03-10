@@ -1,6 +1,6 @@
 /*
  * @flow strict-local
- * Copyright (C) 2015 MetaBrainz Foundation
+ * Copyright (C) 2022 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
  * and is licensed under the GPL version 2, or (at your option) any
@@ -9,88 +9,470 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context';
-import DBDefs from '../../static/scripts/common/DBDefs';
-import {DONATE_URL} from '../../constants';
-import {bracketedText} from '../../static/scripts/common/utility/bracketed';
-import formatUserDate from '../../utility/formatUserDate';
-import {returnToCurrentPage} from '../../utility/returnUri';
+const Footer = (): React.Element<'section'> => (
+  <section className="footer">
+    <div className="ms-4 me-4 mb-3 ps-4 pb-3 pe-4 border-top container">
+      <div className="row mb-4 mt-2 pt-2">
+        <div className="col-sm-12 col-md-4">
+          <h3>
+            <img
+              alt="MusicBrainz"
+              src="../../static/images/meb-logos/musicbrainz.svg"
+              width="180"
+            />
+          </h3>
+          <br />
+          <p className="fs-4">
+            {l(`MusicBrainz is an open music encyclopedia that collects
+              music metadata and makes it available to the public.`)}
+          </p>
+          <ul className="list-unstyled">
+            <li>
+              <span className="fs-4">
+                {l('Development IRC: ')}
+              </span>
+              <a
+                className="fw-bold fs-4"
+                href="https://kiwiirc.com/nextclient/irc.libera.chat/?#metabrainz"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {l('#metabrainz')}
+              </a>
+            </li>
+            <li>
+              <span className="fs-4">
+                {l('Discussion IRC: ')}
+              </span>
+              <a
+                className="fw-bold fs-4"
+                href="https://kiwiirc.com/nextclient/irc.libera.chat/?#musicbrainz"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {'#musicbrainz'}
+              </a>
+            </li>
+            <li>
+              <span className="fs-4">
+                {l('Email: ')}
+              </span>
+              <a
+                className="fw-bold fs-4"
+                href="mailto:support@metabrainz.org"
+              >
+                {l('support@metabrainz.org')}
+              </a>
+            </li>
+          </ul>
+        </div>
+        <br />
+        <div className="col-sm-12 col-md-3">
+          <h3 className="fs-2 fw-bold color-black">
+            {l('Useful Links')}
+          </h3>
+          <ul className="list-unstyled">
+            <li>
+              <img
+                alt="Arrow"
+                height="24"
+                src="../../static/images/icons/angle_double_right_icon.svg"
+                width="18"
+              />
+              <a
+                className="fw-bold fs-4"
+                href="https://metabrainz.org/donate"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {l('Donate')}
+              </a>
+            </li>
+            <li>
+              <img
+                alt="Arrow"
+                height="24"
+                src="../../static/images/icons/angle_double_right_icon.svg"
+                width="18"
+              />
+              <a
+                className="fw-bold fs-4"
+                href="https://wiki.musicbrainz.org/Main_Page"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {l('Wiki')}
+              </a>
+            </li>
+            <li>
+              <img
+                alt="Arrow"
+                height="24"
+                src="../../static/images/icons/angle_double_right_icon.svg"
+                width="18"
+              />
+              <a
+                className="fw-bold fs-4"
+                href="https://community.metabrainz.org/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {l('Community')}
+              </a>
+            </li>
+            <li>
+              <img
+                alt="Arrow"
+                height="24"
+                src="../../static/images/icons/angle_double_right_icon.svg"
+                width="18"
+              />
+              <a
+                className="fw-bold fs-4"
+                href="https://blog.metabrainz.org/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {l('Blog')}
+              </a>
+            </li>
+            <li>
+              <img
+                alt="Arrow"
+                height="24"
+                src="../../static/images/icons/angle_double_right_icon.svg"
+                width="18"
+              />
+              <a
+                className="fw-bold fs-4"
+                href="https://www.redbubble.com/people/metabrainz/shop"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {l('Shop')}
+              </a>
+            </li>
+            <li>
+              <img
+                alt="Arrow"
+                height="24"
+                src="../../static/images/icons/angle_double_right_icon.svg"
+                width="18"
+              />
+              <a
+                className="fw-bold fs-4"
+                href="https://metabrainz.org/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {l('MetaBrainz')}
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className="col-sm-12 col-md-3 section-md-t3">
+          <h3 className="fs-2 fw-bold color-black">
+            {l('Fellow Projects')}
+          </h3>
+          <ul className="list-unstyled">
+            <li>
+              <img
+                alt="Arrow"
+                height="24"
+                src="../../static/images/icons/angle_double_right_icon.svg"
+                width="18"
+              />
+              <div className="image me-1">
+                <img
+                  alt="ListenBrainz"
+                  height="24"
+                  src="../../static/images/meb-icons/ListenBrainz.svg"
+                  width="24"
+                />
+              </div>
+              <a
+                className="fw-bold fs-4"
+                href="https://listenbrainz.org/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {l('ListenBrainz')}
+              </a>
+            </li>
+            <li>
+              <img
+                alt="Arrow"
+                height="24"
+                src="../../static/images/icons/angle_double_right_icon.svg"
+                width="18"
+              />
+              <div className="image me-1">
+                <img
+                  alt="CritiqueBrainz"
+                  height="24"
+                  src="../../static/images/meb-icons/CritiqueBrainz.svg"
+                  width="24"
+                />
+              </div>
+              <a
+                className="fw-bold fs-4"
+                href="https://critiquebrainz.org/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {l('CritiqueBrainz')}
+              </a>
+            </li>
+            <li>
+              <img
+                alt="Arrow"
+                height="24"
+                src="../../static/images/icons/angle_double_right_icon.svg"
+                width="18"
+              />
+              <div className="image me-1">
+                <img
+                  alt="Picard"
+                  height="24"
+                  src="../../static/images/meb-icons/Picard.svg"
+                  width="24"
+                />
+              </div>
+              <a
+                className="fw-bold fs-4"
+                href="https://picard.musicbrainz.org/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {l('Picard')}
+              </a>
+            </li>
+            <li>
+              <img
+                alt="Arrow"
+                height="24"
+                src="../../static/images/icons/angle_double_right_icon.svg"
+                width="18"
+              />
+              <div className="image me-1">
+                <img
+                  alt="BookBrainz"
+                  height="24"
+                  src="../../static/images/meb-icons/BookBrainz.svg"
+                  width="24"
+                />
+              </div>
+              <a
+                className="fw-bold fs-4"
+                href="https://bookbrainz.org/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {l('BookBrainz')}
+              </a>
+            </li>
+            <li>
+              <img
+                alt="Arrow"
+                height="24"
+                src="../../static/images/icons/angle_double_right_icon.svg"
+                width="18"
+              />
+              <div className="image me-1">
+                <img
+                  alt="AcousticBrainz"
+                  height="24"
+                  src="../../static/images/meb-icons/AcousticBrainz.svg"
+                  width="24"
+                />
+              </div>
+              <a
+                className="fw-bold fs-4"
+                href="https://acousticbrainz.org/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {l('AcousticBrainz')}
+              </a>
+            </li>
+            <li>
+              <img
+                alt="Arrow"
+                height="24"
+                src="../../static/images/icons/angle_double_right_icon.svg"
+                width="18"
+              />
+              <div className="image me-1">
+                <img
+                  alt="CoverArtArchive"
+                  height="24"
+                  src="../../static/images/meb-icons/CoverArtArchive.svg"
+                  width="24"
+                />
+              </div>
+              <a
+                className="fw-bold fs-4"
+                href="https://coverartarchive.org"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {l('Cover Art Archive')}
+              </a>
+            </li>
 
-const Footer = (): React.Element<'div'> => {
-  const $c = React.useContext(CatalystContext);
-  const stash = $c.stash;
-  return (
-    <div id="footer">
-      <p className="left" id="footer-menu">
-        <a className="internal" href={DONATE_URL}>{l('Donate')}</a>
-        <a className="internal" href="//wiki.musicbrainz.org/">{l('Wiki')}</a>
-        <a className="internal" href="https://community.metabrainz.org/">{l('Forums')}</a>
-        <a className="internal" href="/doc/Communication/IRC">
-          {l('Chat (IRC)')}
-        </a>
-        <a className="internal" href="http://tickets.metabrainz.org/">{l('Bug Tracker')}</a>
-        <a className="internal" href="https://blog.metabrainz.org/">{l('Blog')}</a>
-        <a className="internal" href="https://twitter.com/MusicBrainz">{l('Twitter')}</a>
+          </ul>
+        </div>
+        <div className="col-sm-12 col-md-2">
+          <h3 className="fs-2 fw-bold color-black">
+            {l('Join Us')}
+          </h3>
+          <ul className="list-unstyled">
+            <li>
+              <img
+                alt="Arrow"
+                height="24"
+                src="../../static/images/icons/angle_double_right_icon.svg"
+                width="18"
+              />
+              <a
+                className="fw-bold fs-4"
+                href="https://musicbrainz.org/doc/Beginners_Guide"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {l(`Beginner's Guide`)}
+              </a>
+            </li>
+            <li>
+              <img
+                alt="Arrow"
+                height="24"
+                src="../../static/images/icons/angle_double_right_icon.svg"
+                width="18"
+              />
+              <a
+                className="fw-bold fs-4"
+                href="https://musicbrainz.org/doc/Style"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {l('Style Guidelines')}
+              </a>
+            </li>
+            <li>
+              <img
+                alt="Arrow"
+                height="24"
+                src="../../static/images/icons/angle_double_right_icon.svg"
+                width="18"
+              />
+              <a
+                className="fw-bold fs-4"
+                href="https://musicbrainz.org/doc/How_To"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {l('How Tos')}
+              </a>
+            </li>
+            <li>
+              <img
+                alt="Arrow"
+                height="24"
+                src="../../static/images/icons/angle_double_right_icon.svg"
+                width="18"
+              />
+              <a
+                className="fw-bold fs-4"
+                href="https://musicbrainz.org/doc/Frequently_Asked_Questions"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {l('FAQs')}
+              </a>
+            </li>
+            <li>
+              <img
+                alt="Arrow"
+                height="24"
+                src="../../static/images/icons/angle_double_right_icon.svg"
+                width="18"
+              />
+              <a
+                className="fw-bold fs-4"
+                href="https://musicbrainz.org/doc/MusicBrainz_Documentation"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {l('Doc Index')}
+              </a>
+            </li>
+            <li>
+              <img
+                alt="Arrow"
+                height="24"
+                src="../../static/images/icons/angle_double_right_icon.svg"
+                width="18"
+              />
+              <a
+                className="fw-bold fs-4"
+                href="https://musicbrainz.org/doc/Development"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {l('Development')}
+              </a>
+            </li>
 
-        {DBDefs.BETA_REDIRECT_HOSTNAME ? (
-          <a
-            className="internal"
-            href={
-              '/set-beta-preference?' + returnToCurrentPage($c)
-            }
-          >
-            {DBDefs.IS_BETA
-              ? l('Stop using beta site')
-              : l('Use beta site')}
-          </a>
-        ) : null}
-      </p>
-
-      <p className="right">
-        {exp.l(
-          `Brought to you by {MeB|MetaBrainz Foundation} and our
-           {spon|sponsors} and {supp|supporters}. Cover Art provided
-           by the {caa|Cover Art Archive}.`,
-          {
-            caa: '//coverartarchive.org/',
-            MeB: 'https://metabrainz.org/',
-            spon: 'https://metabrainz.org/sponsors',
-            supp: 'https://metabrainz.org/supporters',
-          },
-        )}
-
-        {DBDefs.DB_STAGING_SERVER && DBDefs.GIT_BRANCH ? (
-          <>
-            <br />
-            {exp.l('Running: {git_details}', {
-              git_details: (
-                <span
-                  className="tooltip"
-                  key="git_details"
-                  title={DBDefs.GIT_MSG}
-                >
-                  {DBDefs.GIT_BRANCH}
-                  {' '}
-                  {bracketedText(DBDefs.GIT_SHA)}
-                </span>
-              ),
-            })}
-          </>
-        ) : null}
-
-        {nonEmpty(stash.last_replication_date) ? (
-          <>
-            <br />
-            {texp.l('Last replication packet received at {datetime}', {
-              datetime: $c.user
-                ? formatUserDate($c, stash.last_replication_date)
-                : stash.last_replication_date,
-            })}
-          </>
-        ) : null}
-      </p>
+          </ul>
+        </div>
+      </div>
+      <div className="row mt-4">
+        <div className="col-md-3 border-top pt-4 d-none d-md-block fs-4">
+          <p>
+            {l('OSS Geek? ')}
+            <a
+              href="https://github.com/metabrainz/musicbrainz-server"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span>
+                {l('Contribute Here')}
+              </span>
+            </a>
+          </p>
+        </div>
+        <div className="col-md-6 border-top pt-4 text-center fs-4">
+          {l('Brought to you by')}
+          <div className="image ms-1 me-1">
+            <img
+              alt="MetaBrainz"
+              height="24"
+              src="../../static/images/meb-icons/MetaBrainz.svg"
+              width="24"
+            />
+          </div>
+          <span>
+            {l('MetaBrainz Foundation')}
+          </span>
+        </div>
+        <div className="col-md-3 border-top pt-4 d-none d-md-block fs-4">
+          <p>
+            {l('Found an Issue? ')}
+            <a
+              href="https://tickets.metabrainz.org/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span>
+                {l('Report Here')}
+              </span>
+            </a>
+          </p>
+        </div>
+      </div>
     </div>
+  </section>
   );
-};
 
 export default Footer;
