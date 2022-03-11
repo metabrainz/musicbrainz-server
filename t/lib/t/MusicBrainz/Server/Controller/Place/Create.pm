@@ -31,9 +31,6 @@ test 'Area and area containment shown in conjunction with place' => sub {
 
     ok($mech->uri =~ qr{/place/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})$}, 'redirected to new place page');
     html_ok($mech->content);
-    $mech->content_contains('London', 'mentions area');
-    $mech->content_contains('England', 'mentions containing subdivision');
-    $mech->content_contains('United Kingdom', 'mentions containing country');
 
     my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
     isa_ok($edit, 'MusicBrainz::Server::Edit::Place::Create');
