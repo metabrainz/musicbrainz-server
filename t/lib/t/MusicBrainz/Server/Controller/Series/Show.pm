@@ -21,7 +21,7 @@ test all => sub {
     $mech->title_like(qr/Test Recording Series/, 'title has series name');
     $mech->content_like(qr/Test Recording Series/, 'content has series name');
     $mech->content_like(qr/test comment 1/, 'disambiguation comments');
-    $mech->content_like(qr/Recording/, 'has series type');
+    $mech->content_like(qr/Recording series/, 'has series type');
     $mech->content_like(qr/Automatic/, 'has ordering type');
 
     # Check recordings
