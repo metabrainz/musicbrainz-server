@@ -2057,6 +2057,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'label'],
   },
   {
+                     input_url: 'https://genius.com/artists/Fantasy-studios',
+             input_entity_type: 'place',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://genius.com/artists/Fantasy-studios',
+       only_valid_entity_types: ['place'],
+  },
+  {
                      input_url: 'http://genius.com/albums/The-dream/Terius-nash-1977',
              input_entity_type: 'release_group',
     expected_relationship_type: 'lyrics',
