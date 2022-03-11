@@ -2047,7 +2047,14 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'lyrics',
             expected_clean_url: 'https://genius.com/artists/Dramatik',
-       only_valid_entity_types: ['artist'],
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+                     input_url: 'https://genius.com/artists/Universal-music-group',
+             input_entity_type: 'label',
+    expected_relationship_type: 'lyrics',
+            expected_clean_url: 'https://genius.com/artists/Universal-music-group',
+       only_valid_entity_types: ['artist', 'label'],
   },
   {
                      input_url: 'http://genius.com/albums/The-dream/Terius-nash-1977',

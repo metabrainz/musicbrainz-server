@@ -2053,6 +2053,7 @@ const CLEANUPS: CleanupEntries = {
     validate: function (url, id) {
       switch (id) {
         case LINK_TYPES.lyrics.artist:
+        case LINK_TYPES.lyrics.label:
           return {
             result: /^https:\/\/genius\.com\/artists\/[\w-]+$/.test(url),
             target: ERROR_TARGETS.ENTITY,
