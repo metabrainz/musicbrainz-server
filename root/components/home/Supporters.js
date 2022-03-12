@@ -8,12 +8,12 @@
  */
 
 import * as React from 'react';
-import {Swiper, SwiperSlide} from 'swiper/react';
-import {Pagination, Navigation} from 'swiper';
 import 'swiper/less';
 import "swiper/less/grid";
 import "swiper/less/pagination";
 import "swiper/less/navigation";
+import {Swiper, SwiperSlide} from 'swiper/react';
+import {Pagination, Navigation} from 'swiper';
 
 const Supporters = (): React.Element<'div'> => (
   <div className="section-with-bg">
@@ -30,90 +30,90 @@ const Supporters = (): React.Element<'div'> => (
     >
       <SwiperSlide>
         <img
-          alt=""
+          alt="Google"
           className="slide-image"
           height="36px"
-          src="/assets/img/supporters/google.svg"
+          src="../../static/images/supporters/google.svg"
           width="36px"
         />
       </SwiperSlide>
 
       <SwiperSlide>
         <img
-          alt=""
+          alt="BBC"
           className="slide-image"
           height="36px"
-          src="/assets/img/supporters/bbc.svg"
+          src="../../static/images/supporters/bbc.svg"
           width="36px"
         />
       </SwiperSlide>
 
       <SwiperSlide>
         <img
-          alt=""
+          alt="Microsoft"
           className="slide-image"
           height="36px"
-          src="/assets/img/supporters/microsoft.svg"
+          src="../../static/images/supporters/microsoft.svg"
           width="36px"
         />
       </SwiperSlide>
 
       <SwiperSlide>
         <img
-          alt=""
+          alt="Amazon"
           className="slide-image"
           height="36px"
-          src="/assets/img/supporters/amazon.svg"
+          src="../../static/images/supporters/amazon.svg"
           width="36px"
         />
       </SwiperSlide>
 
       <SwiperSlide>
         <img
-          alt=""
+          alt="LastFN"
           className="slide-image"
           height="36px"
-          src="/assets/img/supporters/lastfm.svg"
+          src="../../static/images/supporters/lastfm.svg"
           width="36px"
         />
       </SwiperSlide>
 
       <SwiperSlide>
         <img
-          alt=""
+          alt="Plex"
           className="slide-image"
           height="36px"
-          src="/assets/img/supporters/plex.svg"
+          src="../../static/images/supporters/plex.svg"
           width="36px"
         />
       </SwiperSlide>
 
       <SwiperSlide>
         <img
-          alt=""
+          alt="AcoustID"
           className="slide-image"
           height="36px"
-          src="/assets/img/supporters/acoustid.svg"
+          src="../../static/images/supporters/acoustid.svg"
           width="36px"
         />
       </SwiperSlide>
 
       <SwiperSlide>
         <img
-          alt=""
+          alt="TicketMaster"
           className="slide-image"
           height="36px"
-          src="/assets/img/supporters/ticketmaster.svg"
+          src="../../static/images/supporters/ticketmaster.svg"
           width="36px"
         />
       </SwiperSlide>
 
       <SwiperSlide>
         <img
-          alt=""
+          alt="Pandora"
           className="slide-image"
           height="36px"
-          src="/assets/img/supporters/pandora.svg"
+          src="../../static/images/supporters/pandora.svg"
           width="36px"
         />
       </SwiperSlide>

@@ -100,6 +100,78 @@
             background: @musicbrainz-orange;
             bottom: 0;
             left: calc(50% - 20px);
+
+        }
+    }
+}
+            
+#supporters {
+    .title {
+        text-align: center;
+        padding-top: 30px;
+
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            position: relative;
+            font-family: "Poppins", sans-serif;
+            color: black;
+
+            &::before {
+                content: "";
+                position: absolute;
+                display: block;
+                width: 120px;
+                height: 1px;
+                background: #ddd;
+                bottom: 1px;
+                left: calc(50% - 60px);
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                display: block;
+                width: 40px;
+                height: 3px;
+                background: #fdc134;
+                bottom: 0;
+                left: calc(50% - 20px);
+            }
+        }
+    }
+
+    .swiper {
+        width: 100%;
+        height: 100%;
+    }
+
+    .swiper-button-prev {
+        color: @musicbrainz-orange;
+    }
+
+    .swiper-button-next {
+        color: @musicbrainz-orange;
+    }
+
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            padding: 20px;
+            background: white;
+
+            @media (min-width: 768px) {
+                padding: 80px;
+            }
         }
     }
 }
