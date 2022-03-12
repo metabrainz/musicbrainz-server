@@ -127,50 +127,6 @@ const Homepage = ({
       </div>
     </div>
 
-    <div id="triple">
-      <div className="feature-column" id="community">
-        <h2 className="community">{l('Community')}</h2>
-        <ul>
-          <li>
-            <a href="/doc/How_to_Contribute">{l('How to Contribute')}</a>
-          </li>
-          <li>
-            <a href="https://tickets.metabrainz.org/">{l('Bug Tracker')}</a>
-          </li>
-          <li>
-            <a href="https://community.metabrainz.org/">{l('Forums')}</a>
-          </li>
-        </ul>
-      </div>
-
-      <div className="feature-column" id="products">
-        <h2 className="products">{l('MusicBrainz Database')}</h2>
-        <p>
-          <a href="/doc/MusicBrainz_Database">
-            {exp.l(
-              `The majority of the data in the
-               <strong>MusicBrainz Database</strong> is released into
-               the <strong>Public Domain</strong> and can be
-               downloaded and used <strong>for free</strong>.`,
-            )}
-          </a>
-        </p>
-      </div>
-
-      <div className="feature-column" id="developers">
-        <h2 className="developers">{l('Developers')}</h2>
-        <p>
-          <a href="/doc/Developer_Resources">
-            {exp.l(
-              `Use our <strong>XML web service</strong> or
-               <strong>development libraries</strong> to create
-               your own MusicBrainz-enabled applications.`,
-            )}
-          </a>
-        </p>
-      </div>
-    </div>
-
     <div className="feature-column" style={{clear: 'both', paddingTop: '1%'}}>
       <h2>{l('Recent Additions')}</h2>
       <div style={{height: '160px', overflow: 'hidden'}}>
