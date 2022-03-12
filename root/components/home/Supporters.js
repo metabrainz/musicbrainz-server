@@ -8,15 +8,16 @@
  */
 
 import * as React from 'react';
+import {Swiper, SwiperSlide} from 'swiper/react';
+import {Pagination, Navigation} from 'swiper';
+
 import 'swiper/less';
 import "swiper/less/grid";
 import "swiper/less/pagination";
 import "swiper/less/navigation";
-import {Swiper, SwiperSlide} from 'swiper/react';
-import {Pagination, Navigation} from 'swiper';
 
-const Supporters = (): React.Element<'div'> => (
-  <div className="section-with-bg">
+const Supporters = (): React.Element<'section'> => (
+  <section>
     <div className="title">
       <h2>Supporters</h2>
     </div>
