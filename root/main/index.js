@@ -19,6 +19,7 @@ import AppDownload from '../components/home/AppDownload';
 import About from '../components/home/About';
 import Facts from '../components/home/Facts';
 import Explore from '../components/home/Explore';
+import Supporters from '../components/home/Supporters';
 
 type BlogEntryT = {
   +title: string,
@@ -145,6 +146,11 @@ const Homepage = ({
       <Facts />
     </div>
     <Explore />
+
+    <div className="bs" id="supporters">
+      <Supporters />
+    </div>
+
     <div className="bs" id="app-download">
       <AppDownload />
     </div>
