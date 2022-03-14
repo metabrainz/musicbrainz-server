@@ -106,7 +106,8 @@
     "mirror": ["20210526-a_upd_release_event.sql",
                "20210606-mbs-11682.sql",
                "20220314-mbs-12252.sql",
-               "20220314-mbs-12253.sql"],
+               "20220314-mbs-12253.sql",
+               "20220314-mbs-12254.sql"],
     "mirror_only": ["20220302-mbs-12225-mirror_only.sql"],
     "standalone": ["20210702-mbs-11760.sql",
                    "20210916-mbs-11896.sql",
@@ -115,6 +116,7 @@
                    "20211216-mbs-12140-12141.sql",
                    "20220309-mbs-12241.sql",
                    "20220314-mbs-12252-standalone.sql",
-                   "20220314-mbs-12253-standalone.sql"]
+                   "20220314-mbs-12253-standalone.sql",
+                   "20220314-mbs-12254-standalone.sql"]
   }
 }

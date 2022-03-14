@@ -1012,6 +1012,16 @@ ALTER TABLE genre_alias
    FOREIGN KEY (genre)
    REFERENCES genre(id);
 
+ALTER TABLE genre_annotation
+   ADD CONSTRAINT genre_annotation_fk_genre
+   FOREIGN KEY (genre)
+   REFERENCES genre(id);
+
+ALTER TABLE genre_annotation
+   ADD CONSTRAINT genre_annotation_fk_annotation
+   FOREIGN KEY (annotation)
+   REFERENCES annotation(id);
+
 ALTER TABLE instrument
    ADD CONSTRAINT instrument_fk_type
    FOREIGN KEY (type)

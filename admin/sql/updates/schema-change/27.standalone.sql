@@ -7,6 +7,7 @@
 -- 20220309-mbs-12241.sql
 -- 20220314-mbs-12252-standalone.sql
 -- 20220314-mbs-12253-standalone.sql
+-- 20220314-mbs-12254-standalone.sql
 \set ON_ERROR_STOP 1
 BEGIN;
 SET search_path = musicbrainz, public;
@@ -957,5 +958,19 @@ ALTER TABLE documentation.l_genre_work_example
    ADD CONSTRAINT l_genre_work_example_fk_id
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_genre_work(id);
+
+--------------------------------------------------------------------------------
+SELECT '20220314-mbs-12254-standalone.sql';
+
+
+ALTER TABLE genre_annotation
+   ADD CONSTRAINT genre_annotation_fk_genre
+   FOREIGN KEY (genre)
+   REFERENCES genre(id);
+
+ALTER TABLE genre_annotation
+   ADD CONSTRAINT genre_annotation_fk_annotation
+   FOREIGN KEY (annotation)
+   REFERENCES annotation(id);
 
 COMMIT;

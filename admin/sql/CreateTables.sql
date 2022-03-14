@@ -963,6 +963,11 @@ CREATE TABLE genre_alias ( -- replicate (verbose)
     CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL))
 );
 
+CREATE TABLE genre_annotation ( -- replicate (verbose)
+    genre       INTEGER NOT NULL, -- PK, references genre.id
+    annotation  INTEGER NOT NULL -- PK, references annotation.id
+);
+
 CREATE TABLE instrument_type ( -- replicate
     id                  SERIAL, -- PK
     name                VARCHAR(255) NOT NULL,

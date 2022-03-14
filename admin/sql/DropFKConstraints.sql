@@ -198,6 +198,8 @@ ALTER TABLE event_tag_raw DROP CONSTRAINT IF EXISTS event_tag_raw_fk_tag;
 ALTER TABLE event_type DROP CONSTRAINT IF EXISTS event_type_fk_parent;
 ALTER TABLE gender DROP CONSTRAINT IF EXISTS gender_fk_parent;
 ALTER TABLE genre_alias DROP CONSTRAINT IF EXISTS genre_alias_fk_genre;
+ALTER TABLE genre_annotation DROP CONSTRAINT IF EXISTS genre_annotation_fk_genre;
+ALTER TABLE genre_annotation DROP CONSTRAINT IF EXISTS genre_annotation_fk_annotation;
 ALTER TABLE instrument DROP CONSTRAINT IF EXISTS instrument_fk_type;
 ALTER TABLE instrument_alias DROP CONSTRAINT IF EXISTS instrument_alias_fk_instrument;
 ALTER TABLE instrument_alias DROP CONSTRAINT IF EXISTS instrument_alias_fk_type;

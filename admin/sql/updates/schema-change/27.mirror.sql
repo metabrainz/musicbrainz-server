@@ -3,6 +3,7 @@
 -- 20210606-mbs-11682.sql
 -- 20220314-mbs-12252.sql
 -- 20220314-mbs-12253.sql
+-- 20220314-mbs-12254.sql
 \set ON_ERROR_STOP 1
 BEGIN;
 SET search_path = musicbrainz, public;
@@ -481,5 +482,16 @@ ALTER TABLE documentation.l_genre_release_group_example ADD CONSTRAINT l_genre_r
 ALTER TABLE documentation.l_genre_series_example ADD CONSTRAINT l_genre_series_example_pkey PRIMARY KEY (id);
 ALTER TABLE documentation.l_genre_url_example ADD CONSTRAINT l_genre_url_example_pkey PRIMARY KEY (id);
 ALTER TABLE documentation.l_genre_work_example ADD CONSTRAINT l_genre_work_example_pkey PRIMARY KEY (id);
+
+--------------------------------------------------------------------------------
+SELECT '20220314-mbs-12254.sql';
+
+
+CREATE TABLE genre_annotation ( -- replicate (verbose)
+    genre       INTEGER NOT NULL, -- PK, references genre.id
+    annotation  INTEGER NOT NULL -- PK, references annotation.id
+);
+
+ALTER TABLE genre_annotation ADD CONSTRAINT genre_annotation_pkey PRIMARY KEY (genre, annotation);
 
 COMMIT;
