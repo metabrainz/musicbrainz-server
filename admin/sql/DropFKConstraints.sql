@@ -85,6 +85,8 @@ ALTER TABLE edit_artist DROP CONSTRAINT IF EXISTS edit_artist_fk_artist;
 ALTER TABLE edit_data DROP CONSTRAINT IF EXISTS edit_data_fk_edit;
 ALTER TABLE edit_event DROP CONSTRAINT IF EXISTS edit_event_fk_edit;
 ALTER TABLE edit_event DROP CONSTRAINT IF EXISTS edit_event_fk_event;
+ALTER TABLE edit_genre DROP CONSTRAINT IF EXISTS edit_genre_fk_edit;
+ALTER TABLE edit_genre DROP CONSTRAINT IF EXISTS edit_genre_fk_genre;
 ALTER TABLE edit_instrument DROP CONSTRAINT IF EXISTS edit_instrument_fk_edit;
 ALTER TABLE edit_instrument DROP CONSTRAINT IF EXISTS edit_instrument_fk_instrument;
 ALTER TABLE edit_label DROP CONSTRAINT IF EXISTS edit_label_fk_edit;

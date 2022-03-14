@@ -149,6 +149,7 @@ CREATE INDEX edit_data_idx_link_type ON edit_data USING GIN (
 CREATE INDEX edit_area_idx ON edit_area (area);
 CREATE INDEX edit_artist_idx ON edit_artist (artist);
 CREATE INDEX edit_event_idx ON edit_event (event);
+CREATE INDEX edit_genre_idx ON edit_genre (genre);
 CREATE INDEX edit_instrument_idx ON edit_instrument (instrument);
 CREATE INDEX edit_label_idx ON edit_label (label);
 CREATE INDEX edit_place_idx ON edit_place (place);

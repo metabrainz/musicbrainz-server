@@ -431,6 +431,17 @@ ALTER TABLE edit_event
    REFERENCES event(id)
    ON DELETE CASCADE;
 
+ALTER TABLE edit_genre
+   ADD CONSTRAINT edit_genre_fk_edit
+   FOREIGN KEY (edit)
+   REFERENCES edit(id);
+
+ALTER TABLE edit_genre
+   ADD CONSTRAINT edit_genre_fk_genre
+   FOREIGN KEY (genre)
+   REFERENCES genre(id)
+   ON DELETE CASCADE;
+
 ALTER TABLE edit_instrument
    ADD CONSTRAINT edit_instrument_fk_edit
    FOREIGN KEY (edit)

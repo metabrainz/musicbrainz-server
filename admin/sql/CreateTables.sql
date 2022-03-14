@@ -587,6 +587,12 @@ CREATE TABLE edit_event
     event               INTEGER NOT NULL  -- PK, references event.id CASCADE
 );
 
+CREATE TABLE edit_genre
+(
+    edit                INTEGER NOT NULL, -- PK, references edit.id
+    genre               INTEGER NOT NULL  -- PK, references genre.id CASCADE
+);
+
 CREATE TABLE edit_instrument
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id

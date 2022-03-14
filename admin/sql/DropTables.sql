@@ -51,6 +51,7 @@ DROP TABLE edit_area;
 DROP TABLE edit_artist;
 DROP TABLE edit_data;
 DROP TABLE edit_event;
+DROP TABLE edit_genre;
 DROP TABLE edit_instrument;
 DROP TABLE edit_label;
 DROP TABLE edit_note;

@@ -5,6 +5,7 @@
 -- 20211008-mbs-11903.sql
 -- 20211216-mbs-12140-12141.sql
 -- 20220309-mbs-12241.sql
+-- 20220314-mbs-12252-standalone.sql
 \set ON_ERROR_STOP 1
 BEGIN;
 SET search_path = musicbrainz, public;
@@ -541,5 +542,20 @@ CREATE OR REPLACE FUNCTION controlled_for_whitespace(TEXT) RETURNS boolean AS $$
 $$ LANGUAGE SQL IMMUTABLE SET search_path = musicbrainz, public;
 
 DROP FUNCTION IF EXISTS whitespace_collapsed(TEXT);
+
+--------------------------------------------------------------------------------
+SELECT '20220314-mbs-12252-standalone.sql';
+
+
+ALTER TABLE edit_genre
+   ADD CONSTRAINT edit_genre_fk_edit
+   FOREIGN KEY (edit)
+   REFERENCES edit(id);
+
+ALTER TABLE edit_genre
+   ADD CONSTRAINT edit_genre_fk_genre
+   FOREIGN KEY (genre)
+   REFERENCES genre(id)
+   ON DELETE CASCADE;
 
 COMMIT;
