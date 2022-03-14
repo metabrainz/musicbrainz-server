@@ -107,6 +107,7 @@ ALTER TABLE event_type DROP CONSTRAINT IF EXISTS event_type_pkey;
 ALTER TABLE gender DROP CONSTRAINT IF EXISTS gender_pkey;
 ALTER TABLE genre DROP CONSTRAINT IF EXISTS genre_pkey;
 ALTER TABLE genre_alias DROP CONSTRAINT IF EXISTS genre_alias_pkey;
+ALTER TABLE genre_alias_type DROP CONSTRAINT IF EXISTS genre_alias_type_pkey;
 ALTER TABLE genre_annotation DROP CONSTRAINT IF EXISTS genre_annotation_pkey;
 ALTER TABLE instrument DROP CONSTRAINT IF EXISTS instrument_pkey;
 ALTER TABLE instrument_alias DROP CONSTRAINT IF EXISTS instrument_alias_pkey;

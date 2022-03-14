@@ -130,6 +130,7 @@ DROP INDEX event_type_idx_gid;
 DROP INDEX gender_idx_gid;
 DROP INDEX genre_alias_idx_genre;
 DROP INDEX genre_alias_idx_primary;
+DROP INDEX genre_alias_type_idx_gid;
 DROP INDEX genre_idx_gid;
 DROP INDEX genre_idx_name;
 DROP INDEX instrument_alias_idx_instrument;

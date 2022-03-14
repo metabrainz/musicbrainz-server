@@ -50,6 +50,7 @@ DROP TRIGGER reptg_event_type ON event_type;
 DROP TRIGGER reptg_gender ON gender;
 DROP TRIGGER reptg_genre ON genre;
 DROP TRIGGER reptg_genre_alias ON genre_alias;
+DROP TRIGGER reptg_genre_alias_type ON genre_alias_type;
 DROP TRIGGER reptg_genre_annotation ON genre_annotation;
 DROP TRIGGER reptg_instrument ON instrument;
 DROP TRIGGER reptg_instrument_alias ON instrument_alias;
