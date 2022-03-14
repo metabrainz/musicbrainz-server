@@ -10,11 +10,12 @@
 # salo.rock, 2020-2022
 # salo.rock, 2020
 # salo.rock, 2012
+# salo.rock, 2022
 # Valentina Menale <email address hidden>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-01-25 01:02+0000\n"
+"PO-Revision-Date: 2022-03-11 07:40+0000\n"
 "Last-Translator: salo.rock\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -136,13 +137,6 @@ msgstr "Incrocio tra un sassofono e un duduk, inventato e suonato da Alexander B
 #: DB:instrument/description:658
 msgid "A cylindrical drum is a straight-sided and generally two-headed drum."
 msgstr "Tamburo diritto unilaterale e generalmente a due punte."
-
-#. name:descant recorder / soprano recorder
-#: DB:instrument/description:469
-msgid ""
-"A descant or soprano recorder is the most common size of recorder and is "
-"often learnt by children."
-msgstr "Il flauto dolce di taglia più comune, è spesso utilizzato per l'insegnamento musicale dei bambini."
 
 #. name:dolceola
 #: DB:instrument/description:750
@@ -362,6 +356,17 @@ msgid ""
 "pedals attached to bellows with reeds. Sound is produced by playing the "
 "keyboard."
 msgstr "Conosciuto anche come organo ad ance, è grande, dall'aspetto simile ad un pianoforte verticale e ha pedali collegati a mantici con ance. Il suono è generato suonando la tastiera."
+
+#. name:soprano recorder
+#: DB:instrument/description:469
+msgid ""
+"Also known as the descant, it is the third smallest and most common member "
+"of the modern recorder family. <br /> Traditionally made of various woods, "
+"it is today often made of plastic and used to teach children music. <br /> "
+"Not to be confused with the side-blown (concerto) <a "
+"href=\"/instrument/b524b7a7-2d87-43a7-9977-8a9081ff6e0f/\">soprano "
+"flute</a>."
+msgstr "Conosciuto anche come discanto, è il più comune e terzo più piccolo membro della famiglia dei flauti dolci moderna. <br /> Realizzato tradizionalmente in diversi tipi di legno, oggi è spesso realizzato in plastica e utilizzato per l'insegnamento musicale ai bambini. <br /> Da non confondere con il <a href=\"/instrument/b524b7a7-2d87-43a7-9977-8a9081ff6e0f/\">flauto soprano</a> traverso (da concerto) a imboccatura laterale."
 
 #. name:alto viol
 #: DB:instrument/description:923
@@ -1091,6 +1096,19 @@ msgid ""
 "from a rack and beat with mallet, it is used in central Javanese gamelan and"
 " for religious signalling purposes in mosques."
 msgstr "Tamburo a barile a due punte molto grande in pelle di bufalo d'acqua. Appeso ad un telaio e percosso con una mazzuola, è usato nel gamelan di Giava Centrale e ai fini di segnale religioso nelle moschee."
+
+#. name:recorder
+#: DB:instrument/description:18
+msgid ""
+"Family of end-blown woodwind flutes with a thumb-hole and seven finger-"
+"holes, it is the most common flute in Western classical tradition. <br /> "
+"The family consists of a wide assortment of sizes:<br /> <ul> <li>garklein "
+"recorder</li> <li>sopranino recorder</li> <li>soprano recorder "
+"(descant)</li> <li>alto recorder (treble)</li> <li>tenor recorder</li> "
+"<li>bass recorder</li> <li>great bass recorder (c-bass)</li> <li>contrabass "
+"recorder</li> <li>subcontrabass recorder</li> </ul> <br /> Not to be "
+"confused with the transverse (side-blown) Western concert flute."
+msgstr "Famiglia di legni con imboccatura ad un'estremità, un foro per il pollice e sette fori di diteggiatura, è il flauto più comune nella tradizione classica occidentale. <br /> La famiglia è composta da un vasto assortimento di taglie:<br /> <ul> <li>flauto dolce sopranino in do (garklein)</li> <li>flauto dolce sopranino (in fa)</li> <li>flauto dolce soprano (discanto)</li> <li>flauto dolce contralto (treble)</li> <li>flauto dolce tenore</li> <li>flauto dolce basso (in fa)</li> <li>flauto dolce basso in do</li> <li>flauto dolce contrabbasso</li> <li>flauto dolce subcontrabbasso</li> </ul> <br /> Da non confondere con il flauto traverso (occidentale da concerto, a imboccatura laterale)."
 
 #. name:pi
 #: DB:instrument/description:667

@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-02-08 18:20+0000\n"
+"PO-Revision-Date: 2022-03-08 19:56+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
@@ -1214,10 +1214,6 @@ msgstr ""
 
 #: DB:instrument/name:411
 msgid "davul"
-msgstr ""
-
-#: DB:instrument/name:469
-msgid "descant recorder / soprano recorder"
 msgstr ""
 
 #: DB:instrument/name:535
@@ -3097,6 +3093,7 @@ msgid "reco-reco"
 msgstr ""
 
 #: DB:instrument/name:18
+msgctxt "Family of end-blown fipple flutes"
 msgid "recorder"
 msgstr ""
 
@@ -3466,6 +3463,11 @@ msgstr "klarinetë soprano"
 #: DB:instrument/name:413
 msgid "soprano flute"
 msgstr "flaut soprano"
+
+#: DB:instrument/name:469
+msgctxt "Middle member of the end-blown fipple flute recorder family"
+msgid "soprano recorder"
+msgstr ""
 
 #: DB:instrument/name:20
 msgid "soprano saxophone"

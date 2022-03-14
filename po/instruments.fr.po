@@ -23,8 +23,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-02-08 18:20+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2022-03-08 19:56+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1235,10 +1235,6 @@ msgstr "daruan"
 #: DB:instrument/name:411
 msgid "davul"
 msgstr "davul"
-
-#: DB:instrument/name:469
-msgid "descant recorder / soprano recorder"
-msgstr "flûte à bec soprano"
 
 #: DB:instrument/name:535
 msgid "dhol"
@@ -3117,8 +3113,9 @@ msgid "reco-reco"
 msgstr "reco-reco"
 
 #: DB:instrument/name:18
+msgctxt "Family of end-blown fipple flutes"
 msgid "recorder"
-msgstr "flûte à bec"
+msgstr ""
 
 #: DB:instrument/name:204
 msgctxt "Organ with free reeds"
@@ -3486,6 +3483,11 @@ msgstr "clarinette soprano"
 #: DB:instrument/name:413
 msgid "soprano flute"
 msgstr "flûte soprano"
+
+#: DB:instrument/name:469
+msgctxt "Middle member of the end-blown fipple flute recorder family"
+msgid "soprano recorder"
+msgstr ""
 
 #: DB:instrument/name:20
 msgid "soprano saxophone"
