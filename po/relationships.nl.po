@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-02-23 20:03+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2022-03-09 12:05+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -475,7 +475,7 @@ msgstr "Geeft het gebied aan waar de compositie voor het eerst werd uitgevoerd."
 msgid ""
 "Indicates the artist(s) who gave the first performance of the work; this is "
 "usually mostly relevant for classical music"
-msgstr ""
+msgstr "Deze relatie geeft aan welke artiest(en) de compositie het eerst uitvoerden; dit is vooral relevant voor klassieke muziek."
 
 #: DB:link_type/description:55
 msgid ""
@@ -1375,13 +1375,13 @@ msgstr "Dit geeft een persoonlijke uitgeverij van een artiest aan. Een persoonli
 msgid ""
 "This indicates a recording engineer that recorded field recordings for the "
 "recording."
-msgstr ""
+msgstr "Deze relatie geeft aan dat een opnametechnicus buiten geluid heeft opgenomen voor gebruik in deze opname."
 
 #: DB:link_type/description:1012
 msgid ""
 "This indicates a recording engineer that recorded field recordings for the "
 "release."
-msgstr ""
+msgstr "Deze relatie geeft aan dat een opnametechnicus buiten geluid heeft opgenomen voor gebruik op deze uitgave."
 
 #: DB:link_type/description:895
 msgid ""
@@ -2229,7 +2229,7 @@ msgid ""
 "This links a release that was withdrawn (usually because of having some "
 "defect, but sometimes just to change the artist credits) to a new release "
 "put out to replaced it."
-msgstr ""
+msgstr "Deze relatie koppelt een uitgave die is teruggetrokken (meestal omdat er een defect was, maar soms alleen om artiestvermeldingen te wijzigen) aan de uitgave die haar vervangt."
 
 #: DB:link_type/description:301
 msgid "This links a release to a license under which it is available."
@@ -2703,7 +2703,7 @@ msgstr "Deze relatie geeft aan dat de artiest de houder van het auteursrecht op 
 msgid ""
 "This relationship indicates the artist that was the licensor of this "
 "release."
-msgstr ""
+msgstr "Deze relatie geeft aan dat de artiest de licentiegever voor deze uitgave is."
 
 #: DB:link_type/description:833
 msgid ""
@@ -3061,7 +3061,7 @@ msgid ""
 "This relationship type links a place (usually a studio) to its corresponding"
 " page at <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community "
 "project dedicated to cataloguing the music of video games and anime."
-msgstr ""
+msgstr "Deze relatie koppelt een plaats (meestal een studio) aan zijn <a href=\"http://vgmdb.net/\">VGMdb</a>-pagina. VGMdb is een gemeenschappelijk project dat is toegewijd aan het catalogiseren van muziek uit computerspellen en anime."
 
 #: DB:link_type/description:861
 msgid ""
@@ -4164,15 +4164,15 @@ msgstr "fanpagina"
 
 #: DB:link_type/reverse_link_phrase:1011 DB:link_type/reverse_link_phrase:1012
 msgid "field recordings"
-msgstr ""
+msgstr "buitenopnames"
 
 #: DB:link_type/name:1011 DB:link_type/name:1012
 msgid "field recordist"
-msgstr ""
+msgstr "maker van buitenopnames"
 
 #: DB:link_type/link_phrase:1011 DB:link_type/link_phrase:1012
 msgid "field recordist for"
-msgstr ""
+msgstr "maakte buitenopnames voor"
 
 #: DB:link_type/name:238
 msgid "first track release"
@@ -6040,7 +6040,7 @@ msgstr "opgenomen tijdens"
 
 #: DB:link_type/long_link_phrase:1011 DB:link_type/long_link_phrase:1012
 msgid "recorded field recordings for"
-msgstr ""
+msgstr "maakte buiten opnames voor"
 
 #: DB:link_type/name:698 DB:link_type/name:699
 msgid "recorded in"
@@ -6172,11 +6172,11 @@ msgstr "hernoemd naar"
 
 #: DB:link_type/reverse_link_phrase:1009
 msgid "replaced"
-msgstr ""
+msgstr "verving"
 
 #: DB:link_type/link_phrase:1009 DB:link_type/name:1009
 msgid "replaced by"
-msgstr ""
+msgstr "vervangen door"
 
 #: DB:link_type/link_phrase:836 DB:link_type/name:836
 msgid "rescheduled as"
@@ -6716,7 +6716,7 @@ msgstr "werd hernoemd naar"
 
 #: DB:link_type/long_link_phrase:1009
 msgid "was replaced by"
-msgstr ""
+msgstr "werd vervangen door"
 
 #: DB:link_type/long_link_phrase:836
 msgid "was rescheduled as"
