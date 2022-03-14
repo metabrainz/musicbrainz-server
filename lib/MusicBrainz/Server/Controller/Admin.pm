@@ -5,6 +5,8 @@ use Try::Tiny;
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Constants qw( :privileges );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 
 sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves SecureForm
@@ -238,6 +240,50 @@ sub locked_username_search : Path('/admin/locked-usernames/search') Args(0) Requ
             form => $form->TO_JSON,
             @results ? (results => \@results) : (),
             showResults => boolean_to_json($show_results),
+        },
+    );
+}
+
+sub privilege_search : Path('/admin/privilege-search') Args(0) RequireAuth(account_admin) HiddenOnSlaves {
+    my ($self, $c) = @_;
+
+    my $form = $c->form(form => 'Admin::PrivilegeSearch');
+    my $results;
+
+    if ($c->form_submitted_and_valid($form)) {
+        my $values = $form->value;
+        my $privs =   ($values->{auto_editor}           // 0) * $AUTO_EDITOR_FLAG
+                    + ($values->{bot}                   // 0) * $BOT_FLAG
+                    + ($values->{untrusted}             // 0) * $UNTRUSTED_FLAG
+                    + ($values->{link_editor}           // 0) * $RELATIONSHIP_EDITOR_FLAG
+                    + ($values->{location_editor}       // 0) * $LOCATION_EDITOR_FLAG
+                    + ($values->{no_nag}                // 0) * $DONT_NAG_FLAG
+                    + ($values->{wiki_transcluder}      // 0) * $WIKI_TRANSCLUSION_FLAG
+                    + ($values->{banner_editor}         // 0) * $BANNER_EDITOR_FLAG
+                    + ($values->{mbid_submitter}        // 0) * $MBID_SUBMITTER_FLAG
+                    + ($values->{account_admin}         // 0) * $ACCOUNT_ADMIN_FLAG
+                    + ($values->{editing_disabled}      // 0) * $EDITING_DISABLED_FLAG
+                    + ($values->{adding_notes_disabled} // 0) * $ADDING_NOTES_DISABLED_FLAG
+                    + ($values->{spammer}               // 0) * $SPAMMER_FLAG;
+        $results = $self->_load_paged($c, sub {
+            $c->model('Editor')->find_by_privileges(
+                $privs,
+                $values->{show_exact},
+                shift,
+                shift
+            );
+        });
+    }
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'admin/PrivilegeSearch',
+        component_props => {
+            form => $form->TO_JSON,
+            $c->stash->{pager}
+                ?  (pager => serialize_pager($c->stash->{pager}) )
+                : (),
+            results => [map { $c->unsanitized_editor_json($_) } @$results],
         },
     );
 }

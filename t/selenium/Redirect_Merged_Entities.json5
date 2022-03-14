@@ -34,6 +34,16 @@
     },
     {
       command: 'open',
+      target: '/artist/f21a407e-3af9-4539-ab3d-c92a5230dff6/recordings?filter.cancel=1',
+      value: '',
+    },
+    {
+      command: 'assertLocationMatches',
+      target: '\\/artist\\/1155431a-d35e-4863-9ae0-e3c24eb61aa9\\/recordings\\?filter.cancel=1',
+      value: '',
+    },
+    {
+      command: 'open',
       target: '/artist/f21a407e-3af9-4539-ab3d-c92a5230dff6/alias/37382/edit',
       value: '',
     },

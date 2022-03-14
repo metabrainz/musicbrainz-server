@@ -13,6 +13,7 @@
  */
 declare type PagerT = {
   +current_page: number,
+  +entries_per_page: number,
   +first_page: 1,
   +last_page: number,
   +next_page: number | null,

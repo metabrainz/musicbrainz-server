@@ -11,6 +11,7 @@ sub serialize_pager {
 
     return {
         current_page => $pager->current_page + 0,
+        entries_per_page => $pager->entries_per_page + 0,
         first_page => 1,
         last_page => $pager->last_page + 0,
         next_page => defined $pager->next_page ? $pager->next_page + 0 : undef,

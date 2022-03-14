@@ -51,7 +51,7 @@ sub foreign_keys
     my %fk;
 
     $fk{Medium} = { $self->medium_id => [ 'MediumFormat', 'Release ArtistCredit' ] };
-    $fk{MediumFormat} = { $self->data->{format_id} => [] };
+    $fk{MediumFormat} = { $self->data->{format_id} => [] } if $self->data->{format_id};
     $fk{Release} = { $self->data->{release_id} => [qw( ArtistCredit )] };
 
     tracklist_foreign_keys(\%fk, $self->data->{tracklist});
@@ -63,9 +63,19 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
 
-    my $medium = $loaded->{Medium}{ $self->medium_id } //
+    my $format = $self->data->{format_id};
+
+    my $loaded_medium = $loaded->{Medium}{ $self->medium_id };
+    if ($loaded_medium && $self->is_open) {
+        $self->c->model('Track')->load_for_mediums($loaded_medium);
+        my @tracks = $loaded_medium->all_tracks;
+        $self->c->model('ArtistCredit')->load(@tracks);
+        $self->c->model('Recording')->load(@tracks);
+    }
+
+    my $medium = $loaded_medium //
                  Medium->new(
-                     format => $loaded->{MediumFormat}{ $self->data->{format_id} },
+                     format => $format ? $loaded->{MediumFormat}{$format} : undef,
                      name => $self->data->{name},
                      position => $self->data->{position},
                      release_id => $self->data->{release_id},

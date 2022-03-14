@@ -10,6 +10,8 @@
 import * as React from 'react';
 
 import EntityHeader from '../components/EntityHeader';
+import localizeTypeNameForEntity
+  from '../static/scripts/common/i18n/localizeTypeNameForEntity';
 
 type Props = {
   page: string,
@@ -24,9 +26,7 @@ const SeriesHeader = ({
     entity={series}
     headerClass="seriesheader"
     page={page}
-    subHeading={nonEmpty(series.typeName)
-      ? lp_attributes(series.typeName, 'series_type')
-      : lp('Series', 'singular')}
+    subHeading={localizeTypeNameForEntity(series)}
   />
 );
 

@@ -9,20 +9,24 @@ with 't::Mechanize', 't::Context';
 =head2 Test description
 
 This test checks whether non-ended areas can be added (which used to ISE, see
-MBS-8661) and, by extension, whether basic area adding works.
+MBS-8661) and, by extension, whether basic area adding works. It also ensures
+unprivileged users cannot create areas.
 
 =cut
 
-test 'MBS-8661: Adding non-ended areas' => sub {
+test 'Test adding a new (non-ended) area' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($c, '+mbs-8661');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+area_editing');
 
     $mech->get_ok('/login');
     $mech->submit_form(with_fields => { username => 'area_editor', password => 'pass' });
-    $mech->get_ok('/area/create');
+    $mech->get_ok(
+        '/area/create',
+        'Fetched the area creation page',
+    );
     my @edits = capture_edits {
         $mech->submit_form_ok({
             with_fields => { 'edit-area.name' => 'New Area' },
@@ -50,6 +54,23 @@ test 'MBS-8661: Adding non-ended areas' => sub {
             type_id => undef,
         },
         'The edit contains the right data',
+    );
+};
+
+test 'Test area creation is blocked for unprivileged users' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+area_editing');
+
+    $mech->get_ok('/login');
+    $mech->submit_form(with_fields => { username => 'boring_editor', password => 'pass' });
+    $mech->get('/area/create');
+    is(
+        $mech->status,
+        403,
+        'Trying to add an area without the right privileges gives a 403 Forbidden error',
     );
 };
 

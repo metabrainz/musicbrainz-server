@@ -10,6 +10,8 @@
 import * as React from 'react';
 
 import EntityHeader from '../components/EntityHeader';
+import localizeTypeNameForEntity
+  from '../static/scripts/common/i18n/localizeTypeNameForEntity';
 
 type Props = {
   page: string,
@@ -24,9 +26,7 @@ const PlaceHeader = ({
     entity={place}
     headerClass="placeheader"
     page={page}
-    subHeading={nonEmpty(place.typeName)
-      ? lp_attributes(place.typeName, 'place_type')
-      : l('Place')}
+    subHeading={localizeTypeNameForEntity(place)}
   />
 );
 

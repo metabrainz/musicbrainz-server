@@ -143,7 +143,9 @@ role {
         }
 
         my $annotation_model = $self->_annotation_model;
-        my $latest_annotation = $annotation_model->get_latest($entity->id);
+        my $latest_annotation = $entity
+            ? $annotation_model->get_latest($entity->id)
+            : undef;
 
         $self->data({
             %opts,
