@@ -216,6 +216,7 @@ CREATE UNIQUE INDEX iswc_idx_iswc ON iswc (iswc, work);
 CREATE UNIQUE INDEX l_area_area_idx_uniq ON l_area_area (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_area_artist_idx_uniq ON l_area_artist (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_area_event_idx_uniq ON l_area_event (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_area_genre_idx_uniq ON l_area_genre (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_area_instrument_idx_uniq ON l_area_instrument (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_area_label_idx_uniq ON l_area_label (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_area_place_idx_uniq ON l_area_place (entity0, entity1, link, link_order);
@@ -228,6 +229,7 @@ CREATE UNIQUE INDEX l_area_work_idx_uniq ON l_area_work (entity0, entity1, link,
 
 CREATE UNIQUE INDEX l_artist_artist_idx_uniq ON l_artist_artist (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_artist_event_idx_uniq ON l_artist_event (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_artist_genre_idx_uniq ON l_artist_genre (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_artist_instrument_idx_uniq ON l_artist_instrument (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_artist_label_idx_uniq ON l_artist_label (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_artist_place_idx_uniq ON l_artist_place (entity0, entity1, link, link_order);
@@ -239,6 +241,7 @@ CREATE UNIQUE INDEX l_artist_url_idx_uniq ON l_artist_url (entity0, entity1, lin
 CREATE UNIQUE INDEX l_artist_work_idx_uniq ON l_artist_work (entity0, entity1, link, link_order);
 
 CREATE UNIQUE INDEX l_event_event_idx_uniq ON l_event_event (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_event_genre_idx_uniq ON l_event_genre (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_event_instrument_idx_uniq ON l_event_instrument (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_event_label_idx_uniq ON l_event_label (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_event_place_idx_uniq ON l_event_place (entity0, entity1, link, link_order);
@@ -248,6 +251,17 @@ CREATE UNIQUE INDEX l_event_release_group_idx_uniq ON l_event_release_group (ent
 CREATE UNIQUE INDEX l_event_series_idx_uniq ON l_event_series (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_event_url_idx_uniq ON l_event_url (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_event_work_idx_uniq ON l_event_work (entity0, entity1, link, link_order);
+
+CREATE UNIQUE INDEX l_genre_genre_idx_uniq ON l_genre_genre (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_genre_instrument_idx_uniq ON l_genre_instrument (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_genre_label_idx_uniq ON l_genre_label (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_genre_place_idx_uniq ON l_genre_place (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_genre_recording_idx_uniq ON l_genre_recording (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_genre_release_idx_uniq ON l_genre_release (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_genre_release_group_idx_uniq ON l_genre_release_group (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_genre_series_idx_uniq ON l_genre_series (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_genre_url_idx_uniq ON l_genre_url (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_genre_work_idx_uniq ON l_genre_work (entity0, entity1, link, link_order);
 
 CREATE UNIQUE INDEX l_instrument_instrument_idx_uniq ON l_instrument_instrument (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_instrument_label_idx_uniq ON l_instrument_label (entity0, entity1, link, link_order);
@@ -306,6 +320,7 @@ CREATE UNIQUE INDEX l_work_work_idx_uniq ON l_work_work (entity0, entity1, link,
 CREATE INDEX l_area_area_idx_entity1 ON l_area_area (entity1);
 CREATE INDEX l_area_artist_idx_entity1 ON l_area_artist (entity1);
 CREATE INDEX l_area_event_idx_entity1 ON l_area_event (entity1);
+CREATE INDEX l_area_genre_idx_entity1 ON l_area_genre (entity1);
 CREATE INDEX l_area_instrument_idx_entity1 ON l_area_instrument (entity1);
 CREATE INDEX l_area_label_idx_entity1 ON l_area_label (entity1);
 CREATE INDEX l_area_place_idx_entity1 ON l_area_place (entity1);
@@ -318,6 +333,7 @@ CREATE INDEX l_area_work_idx_entity1 ON l_area_work (entity1);
 
 CREATE INDEX l_artist_artist_idx_entity1 ON l_artist_artist (entity1);
 CREATE INDEX l_artist_event_idx_entity1 ON l_artist_event (entity1);
+CREATE INDEX l_artist_genre_idx_entity1 ON l_artist_genre (entity1);
 CREATE INDEX l_artist_instrument_idx_entity1 ON l_artist_instrument (entity1);
 CREATE INDEX l_artist_label_idx_entity1 ON l_artist_label (entity1);
 CREATE INDEX l_artist_place_idx_entity1 ON l_artist_place (entity1);
@@ -329,6 +345,7 @@ CREATE INDEX l_artist_url_idx_entity1 ON l_artist_url (entity1);
 CREATE INDEX l_artist_work_idx_entity1 ON l_artist_work (entity1);
 
 CREATE INDEX l_event_event_idx_entity1 ON l_event_event (entity1);
+CREATE INDEX l_event_genre_idx_entity1 ON l_event_genre (entity1);
 CREATE INDEX l_event_instrument_idx_entity1 ON l_event_instrument (entity1);
 CREATE INDEX l_event_label_idx_entity1 ON l_event_label (entity1);
 CREATE INDEX l_event_place_idx_entity1 ON l_event_place (entity1);
@@ -338,6 +355,17 @@ CREATE INDEX l_event_release_group_idx_entity1 ON l_event_release_group (entity1
 CREATE INDEX l_event_series_idx_entity1 ON l_event_series (entity1);
 CREATE INDEX l_event_url_idx_entity1 ON l_event_url (entity1);
 CREATE INDEX l_event_work_idx_entity1 ON l_event_work (entity1);
+
+CREATE INDEX l_genre_genre_idx_entity1 ON l_genre_genre (entity1);
+CREATE INDEX l_genre_instrument_idx_entity1 ON l_genre_instrument (entity1);
+CREATE INDEX l_genre_label_idx_entity1 ON l_genre_label (entity1);
+CREATE INDEX l_genre_place_idx_entity1 ON l_genre_place (entity1);
+CREATE INDEX l_genre_recording_idx_entity1 ON l_genre_recording (entity1);
+CREATE INDEX l_genre_release_idx_entity1 ON l_genre_release (entity1);
+CREATE INDEX l_genre_release_group_idx_entity1 ON l_genre_release_group (entity1);
+CREATE INDEX l_genre_series_idx_entity1 ON l_genre_series (entity1);
+CREATE INDEX l_genre_url_idx_entity1 ON l_genre_url (entity1);
+CREATE INDEX l_genre_work_idx_entity1 ON l_genre_work (entity1);
 
 CREATE INDEX l_instrument_instrument_idx_entity1 ON l_instrument_instrument (entity1);
 CREATE INDEX l_instrument_label_idx_entity1 ON l_instrument_label (entity1);

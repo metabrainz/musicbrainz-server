@@ -1161,6 +1161,18 @@ CREATE TABLE l_area_event ( -- replicate
     entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
+CREATE TABLE l_area_genre ( -- replicate
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references genre.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
+);
+
 CREATE TABLE l_area_instrument ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
@@ -1293,6 +1305,18 @@ CREATE TABLE l_artist_event ( -- replicate
     entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
+CREATE TABLE l_artist_genre ( -- replicate
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references artist.id
+    entity1             INTEGER NOT NULL, -- references genre.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
+);
+
 CREATE TABLE l_artist_instrument ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
@@ -1413,6 +1437,18 @@ CREATE TABLE l_event_event ( -- replicate
     entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
+CREATE TABLE l_event_genre ( -- replicate
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references event.id
+    entity1             INTEGER NOT NULL, -- references genre.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
+);
+
 CREATE TABLE l_event_instrument ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
@@ -1526,6 +1562,126 @@ CREATE TABLE l_label_label ( -- replicate
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references label.id
     entity1             INTEGER NOT NULL, -- references label.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
+);
+
+CREATE TABLE l_genre_genre ( -- replicate
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references genre.id
+    entity1             INTEGER NOT NULL, -- references genre.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
+);
+
+CREATE TABLE l_genre_instrument ( -- replicate
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references genre.id
+    entity1             INTEGER NOT NULL, -- references instrument.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
+);
+
+CREATE TABLE l_genre_label ( -- replicate
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references genre.id
+    entity1             INTEGER NOT NULL, -- references label.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
+);
+
+CREATE TABLE l_genre_place ( -- replicate
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references genre.id
+    entity1             INTEGER NOT NULL, -- references place.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
+);
+
+CREATE TABLE l_genre_recording ( -- replicate
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references genre.id
+    entity1             INTEGER NOT NULL, -- references recording.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
+);
+
+CREATE TABLE l_genre_release ( -- replicate
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references genre.id
+    entity1             INTEGER NOT NULL, -- references release.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
+);
+
+CREATE TABLE l_genre_release_group ( -- replicate
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references genre.id
+    entity1             INTEGER NOT NULL, -- references release_group.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
+);
+
+CREATE TABLE l_genre_series ( -- replicate
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references genre.id
+    entity1             INTEGER NOT NULL, -- references series.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
+);
+
+CREATE TABLE l_genre_url ( -- replicate
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references genre.id
+    entity1             INTEGER NOT NULL, -- references url.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
+);
+
+CREATE TABLE l_genre_work ( -- replicate
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references genre.id
+    entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),

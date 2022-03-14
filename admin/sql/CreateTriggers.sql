@@ -121,6 +121,9 @@ CREATE TRIGGER b_upd_l_area_artist BEFORE UPDATE ON l_area_artist
 CREATE TRIGGER b_upd_l_area_event BEFORE UPDATE ON l_area_event
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER b_upd_l_area_genre BEFORE UPDATE ON l_area_genre
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
 CREATE TRIGGER b_upd_l_area_instrument BEFORE UPDATE ON l_area_instrument
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -151,6 +154,9 @@ CREATE TRIGGER b_upd_l_artist_artist BEFORE UPDATE ON l_artist_artist
 CREATE TRIGGER b_upd_l_artist_event BEFORE UPDATE ON l_artist_event
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER b_upd_l_artist_genre BEFORE UPDATE ON l_artist_genre
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
 CREATE TRIGGER b_upd_l_artist_instrument BEFORE UPDATE ON l_artist_instrument
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -178,6 +184,9 @@ CREATE TRIGGER b_upd_l_artist_work BEFORE UPDATE ON l_artist_work
 CREATE TRIGGER b_upd_l_event_event BEFORE UPDATE ON l_event_event
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER b_upd_l_event_genre BEFORE UPDATE ON l_event_genre
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
 CREATE TRIGGER b_upd_l_event_instrument BEFORE UPDATE ON l_event_instrument
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -200,6 +209,33 @@ CREATE TRIGGER b_upd_l_event_url BEFORE UPDATE ON l_event_url
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_upd_l_event_work BEFORE UPDATE ON l_event_work
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_genre_genre BEFORE UPDATE ON l_genre_genre
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_genre_instrument BEFORE UPDATE ON l_genre_instrument
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_genre_label BEFORE UPDATE ON l_genre_label
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_genre_place BEFORE UPDATE ON l_genre_place
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_genre_recording BEFORE UPDATE ON l_genre_recording
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_genre_release BEFORE UPDATE ON l_genre_release
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_genre_release_group BEFORE UPDATE ON l_genre_release_group
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_genre_url BEFORE UPDATE ON l_genre_url
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_genre_work BEFORE UPDATE ON l_genre_work
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_upd_l_instrument_instrument BEFORE UPDATE ON l_instrument_instrument
@@ -650,6 +686,10 @@ CREATE CONSTRAINT TRIGGER remove_unused_links
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
 CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_area_genre DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
     AFTER DELETE OR UPDATE ON l_area_label DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
@@ -683,6 +723,10 @@ CREATE CONSTRAINT TRIGGER remove_unused_links
 
 CREATE CONSTRAINT TRIGGER remove_unused_links
     AFTER DELETE OR UPDATE ON l_artist_event DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_artist_genre DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
 CREATE CONSTRAINT TRIGGER remove_unused_links
@@ -722,6 +766,10 @@ CREATE CONSTRAINT TRIGGER remove_unused_links
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
 CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_event_genre DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
     AFTER DELETE OR UPDATE ON l_event_instrument DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
@@ -751,6 +799,42 @@ CREATE CONSTRAINT TRIGGER remove_unused_links
 
 CREATE CONSTRAINT TRIGGER remove_unused_links
     AFTER DELETE OR UPDATE ON l_event_work DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_genre_genre DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_genre_instrument DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_genre_label DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_genre_place DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_genre_recording DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_genre_release DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_genre_release_group DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_genre_url DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_genre_work DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
 CREATE CONSTRAINT TRIGGER remove_unused_links
@@ -924,6 +1008,14 @@ FOR EACH ROW EXECUTE PROCEDURE remove_unused_url();
 
 CREATE CONSTRAINT TRIGGER url_gc_a_del_l_event_url
 AFTER DELETE ON l_event_url DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE remove_unused_url();
+
+CREATE CONSTRAINT TRIGGER url_gc_a_upd_l_genre_url
+AFTER UPDATE ON l_genre_url DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE remove_unused_url();
+
+CREATE CONSTRAINT TRIGGER url_gc_a_del_l_genre_url
+AFTER DELETE ON l_genre_url DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW EXECUTE PROCEDURE remove_unused_url();
 
 CREATE CONSTRAINT TRIGGER url_gc_a_upd_l_instrument_url

@@ -1329,6 +1329,8 @@ BEGIN
     EXCEPT
     SELECT entity1 FROM l_event_url
     EXCEPT
+    SELECT entity1 FROM l_genre_url
+    EXCEPT
     SELECT entity1 FROM l_instrument_url
     EXCEPT
     SELECT entity1 FROM l_label_url
