@@ -75,6 +75,15 @@ sub get_all_limited {
     $self->query_to_list_limited($query, [], $limit, $offset);
 }
 
+sub get_all_names {
+    my ($self) = @_;
+
+    $self->sql->select_single_column_array(<<~'SQL');
+        SELECT name FROM genre
+        ORDER BY name COLLATE musicbrainz ASC
+        SQL
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

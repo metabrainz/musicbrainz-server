@@ -94,10 +94,4 @@ fi
 echo `date`" : Updating cover art links"
 ./admin/RebuildCoverArtUrls.pl
 
-echo `date`": Dumping genres.txt.gz"
-./admin/DumpGenresTxt --database MAINTENANCE --output "$TEMP_DIR" --compress
-
-echo `date`": Syncing genres.txt.gz to StaticBrainz"
-./bin/rsync-staticbrainz-files rsync-staticbrainz-mb "$TEMP_DIR"/genres.txt.gz ./
-
 echo `date`" : Nightly jobs complete!"

@@ -42,6 +42,7 @@ use Sub::Exporter -setup => {
         ),
         ws_test => \&_build_ws_test,
         ws_test_json => \&_build_ws_test_json,
+        ws_test_txt => \&_build_ws_test_txt,
     ],
 };
 
@@ -334,6 +335,16 @@ sub schema_validator
     };
 }
 
+sub _set_credentials {
+    my ($mech, $opts) = @_;
+
+    if (exists $opts->{username} && exists $opts->{password}) {
+        $mech->credentials('localhost:80', 'musicbrainz.org', $opts->{username}, $opts->{password});
+    } else {
+        $mech->clear_credentials;
+    }
+}
+
 sub _build_ws_test_xml {
     my ($class, $name, $args) = @_;
     my $end_point = '/ws/' . $args->{version};
@@ -349,9 +360,7 @@ sub _build_ws_test_xml {
         my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
         $mech->default_header('Accept' => 'application/xml');
         $Test->subtest($msg => sub {
-            if (exists $opts->{username} && exists $opts->{password}) {
-                $mech->credentials('localhost:80', 'musicbrainz.org', $opts->{username}, $opts->{password});
-            }
+            _set_credentials($mech, $opts);
 
             $mech->get($end_point . $url, 'fetching');
             if ($opts->{response_code}) {
@@ -381,12 +390,7 @@ sub _build_ws_test_json {
         my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
         $mech->default_header('Accept' => 'application/json');
         $Test->subtest($msg => sub {
-            if (exists $opts->{username} && exists $opts->{password}) {
-                $mech->credentials('localhost:80', 'musicbrainz.org', $opts->{username}, $opts->{password});
-            }
-            else {
-                $mech->clear_credentials;
-            }
+            _set_credentials($mech, $opts);
 
             $Test->plan(tests => 2 + ($opts->{extra_plan} // 0));
 
@@ -401,6 +405,33 @@ sub _build_ws_test_json {
 
             my $cb = $opts->{content_cb};
             $cb->($mech->content) if $cb;
+        });
+    };
+}
+
+sub _build_ws_test_txt {
+    my ($class, $name, $args) = @_;
+    my $end_point = '/ws/' . $args->{version};
+
+    return sub {
+        my ($msg, $url, $expected, $opts) = @_;
+        $opts ||= {};
+
+        my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
+        $mech->default_header('Accept' => 'text/plain');
+        $Test->subtest($msg => sub {
+            _set_credentials($mech, $opts);
+
+            $Test->plan(tests => 2);
+
+            $mech->get($end_point . $url, 'fetching');
+            if ($opts->{response_code}) {
+                is($mech->res->code, $opts->{response_code});
+            } else {
+                ok($mech->success);
+            }
+
+            is($mech->content, $expected);
         });
     };
 }

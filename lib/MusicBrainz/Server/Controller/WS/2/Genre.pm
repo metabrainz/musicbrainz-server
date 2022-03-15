@@ -3,6 +3,7 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
+use MusicBrainz::Server::WebService::TXTSerializer;
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 
 my $ws_defs = Data::OptList::mkopt([
@@ -27,6 +28,14 @@ with 'MusicBrainz::Server::Controller::WS::2::Role::Lookup' => {
     model => 'Genre',
 };
 
+sub serializers {
+    [
+        'MusicBrainz::Server::WebService::XMLSerializer',
+        'MusicBrainz::Server::WebService::JSONSerializer',
+        'MusicBrainz::Server::WebService::TXTSerializer',
+    ]
+}
+
 sub base : Chained('root') PathPart('genre') CaptureArgs(0) { }
 
 # Nothing extra to load yet, but this is required by Role::Lookup
@@ -42,9 +51,15 @@ sub genre_all : Chained('base') PathPart('all') {
 
     my $stash = WebServiceStash->new;
 
-    my ($genres, $hits) =
-        $c->model('Genre')->get_all_limited($limit, $offset);
-    my $genre_list = $self->make_list($genres, $hits, $offset);
+    my $genre_list;
+    if ($c->stash->{args}{fmt} eq 'txt') {
+        # If fmt=txt, limit and offset are ignored.
+        $genre_list = $c->model('Genre')->get_all_names;
+    } else {
+        my ($genres, $hits) =
+            $c->model('Genre')->get_all_limited($limit, $offset);
+        $genre_list = $self->make_list($genres, $hits, $offset);
+    }
 
     $c->res->content_type(
         $c->stash->{serializer}->mime_type . '; charset=utf-8'
