@@ -5,10 +5,13 @@ use MusicBrainz::Server::WebService::JSONSerializer;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-with 'MusicBrainz::Server::WebService::Format' =>
-{
-    serializers => [ 'MusicBrainz::Server::WebService::JSONSerializer' ]
-};
+with 'MusicBrainz::Server::WebService::Format';
+
+sub serializers {
+    [
+        'MusicBrainz::Server::WebService::JSONSerializer',
+    ]
+}
 
 sub bad_req : Private
 {

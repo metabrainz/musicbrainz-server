@@ -13,13 +13,7 @@ use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::XMLSerializer;
 use Try::Tiny;
 
-with 'MusicBrainz::Server::WebService::Format' =>
-{
-    serializers => [
-        'MusicBrainz::Server::WebService::XMLSerializer',
-        'MusicBrainz::Server::WebService::JSONSerializer',
-    ]
-};
+with 'MusicBrainz::Server::WebService::Format';
 
 with 'MusicBrainz::Server::Controller::Role::Profile' => {
     threshold => DBDefs->PROFILE_WEB_SERVICE()
@@ -27,6 +21,13 @@ with 'MusicBrainz::Server::Controller::Role::Profile' => {
 
 with 'MusicBrainz::Server::Controller::Role::CORS';
 with 'MusicBrainz::Server::Controller::Role::ETags';
+
+sub serializers {
+    [
+        'MusicBrainz::Server::WebService::XMLSerializer',
+        'MusicBrainz::Server::WebService::JSONSerializer',
+    ]
+}
 
 sub bad_req : Private
 {
