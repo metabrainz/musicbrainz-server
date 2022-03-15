@@ -4,7 +4,7 @@ use warnings;
 
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( capture_edits );
+use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
 with 't::Mechanize', 't::Context';
 
@@ -25,18 +25,28 @@ test 'Editing an instrument' => sub {
       '+instrument_editing',
     );
 
-    $mech->get_ok('/login');
-    $mech->submit_form(with_fields => { username => 'instrument_editor', password => 'pass' });
+    $mech->get('/login');
+    $mech->submit_form(
+        with_fields => { username => 'instrument_editor', password => 'pass' }
+    );
+
     $mech->get_ok(
         '/instrument/945c079d-374e-4436-9448-da92dedef3cf/edit',
         'Fetched the instrument editing page',
     );
+    html_ok($mech->content);
+
     my @edits = capture_edits {
         $mech->submit_form_ok({
             with_fields => { 'edit-instrument.name' => 'ornitorrinco' },
         },
         'The form returned a 2xx response code')
     } $c;
+
+    ok(
+        $mech->uri =~ qr{/instrument/945c079d-374e-4436-9448-da92dedef3cf$},
+        'The user is redirected to the instrument page after entering the edit',
+    );
 
     is(@edits, 1, 'The edit was entered');
 
@@ -50,12 +60,24 @@ test 'Editing an instrument' => sub {
             entity => {
                 gid => '945c079d-374e-4436-9448-da92dedef3cf',
                 id => 1,
-                name => 'Minimal Instrument'
+                name => 'Minimal Instrument',
             },
             new => { name => 'ornitorrinco' },
             old => { name => 'Minimal Instrument' },
         },
         'The edit contains the right data',
+    );
+
+    # Test display of edit data
+    $mech->get_ok('/edit/' . $edit->id, 'Fetched the edit page');
+    html_ok($mech->content);
+    $mech->text_contains(
+        'Minimal Instrument',
+        'The edit page contains the old instrument name',
+    );
+    $mech->text_contains(
+        'ornitorrinco',
+        'The edit page contains the new instrument name',
     );
 };
 
@@ -69,8 +91,11 @@ test 'Instrument editing is blocked for unprivileged users' => sub {
       '+instrument_editing',
     );
 
-    $mech->get_ok('/login');
-    $mech->submit_form(with_fields => { username => 'boring_editor', password => 'pass' });
+    $mech->get('/login');
+    $mech->submit_form(
+        with_fields => { username => 'boring_editor', password => 'pass' }
+    );
+
     $mech->get('/instrument/945c079d-374e-4436-9448-da92dedef3cf/edit');
     is(
         $mech->status,
