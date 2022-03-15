@@ -12,7 +12,7 @@
 # Mihkel Tõnnov <email address hidden>, 2014
 # Mihkel Tõnnov <email address hidden>, 2015-2016
 # Mihkel Tõnnov <email address hidden>, 2018,2020
-# Nicolás Tamargo <email address hidden>, 2021
+# Nicolás Tamargo <email address hidden>, 2021-2022
 # nikki, 2012
 # nikki, 2012
 # nikki, 2012
@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-08 21:54+0200\n"
-"PO-Revision-Date: 2022-03-08 19:56+0000\n"
+"PO-Revision-Date: 2022-03-14 15:22+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -15487,7 +15487,7 @@ msgid ""
 "screen disappear for 3 months. Or even better, sign up for a recurring "
 "donation every three months to not have to think about or see this nag "
 "again."
-msgstr "Kui annetad <strong>4 $</strong>, ei tüüdata sind selle tekstiga <b>kuu aega</b>. Julgustame aga annetama 12 $,  et tüütamiskuva ei näidataks kolm kuud. Või veelgi parem, sea sisse iga kolme kuu tagant korduv annetus ja sa ei pea enam tüütamisele mõtlema ega seda nägema."
+msgstr "Kui annetad <strong>4 $</strong>, ei tüüdata sind selle tekstiga <strong>kuu aega</strong>. Julgustame aga annetama 12 $,  et tüütamiskuva ei näidataks kolm kuud. Või veelgi parem, sea sisse iga kolme kuu tagant korduv annetus ja sa ei pea enam tüütamisele mõtlema ega seda nägema."
 
 #: ../root/taglookup/Nag.js:44
 msgid "Make a donation now!"
