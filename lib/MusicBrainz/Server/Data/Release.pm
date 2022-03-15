@@ -1436,6 +1436,7 @@ sub load_ids
     }
 }
 
+my $has_release_coverart_backup = undef;
 sub load_meta
 {
     my $self = shift;
@@ -1451,16 +1452,24 @@ sub load_meta
         $obj->cover_art_presence($row->{cover_art_presence});
     }, @objs);
 
-    my @ids = keys %id_to_obj;
-    if (@ids) {
-        for my $row (@{
-            $self->sql->select_list_of_hashes(
-                'SELECT * FROM release_coverart WHERE id IN ('.placeholders(@ids).')',
-                @ids
-            )
-        }) {
-            $id_to_obj{ $row->{id} }->cover_art_url( $row->{cover_art_url} )
-                if defined $row->{cover_art_url};
+    if (!defined $has_release_coverart_backup) {
+        $has_release_coverart_backup = $self->sql->select_single_value(
+            q(SELECT 1 FROM pg_tables WHERE schemaname = 'musicbrainz' AND tablename = 'release_coverart_backup'),
+        ) ? 1 : 0;
+    }
+
+    if ($has_release_coverart_backup) {
+        my @ids = keys %id_to_obj;
+        if (@ids) {
+            for my $row (@{
+                $self->sql->select_list_of_hashes(
+                    'SELECT * FROM release_coverart_backup WHERE id IN ('.placeholders(@ids).')',
+                    @ids
+                )
+            }) {
+                $id_to_obj{ $row->{id} }->cover_art_url( $row->{cover_art_url} )
+                    if defined $row->{cover_art_url};
+            }
         }
     }
 }
