@@ -10,13 +10,13 @@ sub query {
             r.id AS release_id,
             row_number() OVER (ORDER BY ac.name COLLATE musicbrainz, r.name COLLATE musicbrainz)
         FROM (
-            SELECT release_coverart.id
-            FROM release_coverart
+            SELECT release_coverart_backup.id
+            FROM release_coverart_backup
             WHERE cover_art_url ~ '^https?://.*.images-amazon.com'
             AND NOT EXISTS (
                 SELECT TRUE FROM cover_art_archive.cover_art ca
                 JOIN cover_art_archive.cover_art_type cat ON ca.id = cat.id
-                WHERE ca.release = release_coverart.id AND cat.type_id = 1
+                WHERE ca.release = release_coverart_backup.id AND cat.type_id = 1
             )
           ) rca
         JOIN release r ON rca.id = r.id 
