@@ -197,57 +197,6 @@ test q(Editing a relationship fails if one of the entities is merged, and the
         'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
 };
 
-test 'Editing a relationship refreshes existing cover art' => sub {
-    my $test = shift;
-    my $c = $test->c;
-
-    $c->sql->do(<<~'SQL');
-        INSERT INTO artist (id, gid, name, sort_name)
-            VALUES (1, '9d0ed9ec-ebd4-40d3-80ec-af70c07c3667', 'Artist', 'Artist');
-        INSERT INTO artist_credit (id, artist_count, name) VALUES (1, 1, 'Artist');
-        INSERT INTO artist_credit_name (artist_credit, position, artist, join_phrase, name)
-            VALUES (1, 0, 1, '', 'Artist');
-
-        INSERT INTO release_group (id, name, artist_credit, gid)
-            VALUES (1, 'Release', 1, '8265e53b-94d8-4700-bcd2-c3d25dcf104d');
-        INSERT INTO release (id, gid, artist_credit, name, release_group)
-            VALUES (1, 'aa289662-5b07-425c-a3e7-bbb6898ff46d', 1, 'Release', 1),
-                   (2, '362e3ac2-5afb-4d14-95be-3b808da95121', 1, 'Release', 1);
-
-        UPDATE release_coverart
-        SET cover_art_url = 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg';
-
-        INSERT INTO url (id, gid, url)
-            VALUES (1, '24332737-b876-4d5e-9c30-e414b4570bda', 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg');
-
-        UPDATE link_type SET is_deprecated = FALSE WHERE id = 78;
-        INSERT INTO link (id, link_type) VALUES (1, 78);
-        UPDATE link_type SET is_deprecated = TRUE WHERE id = 78;
-        INSERT INTO l_release_url (id, entity0, entity1, link) VALUES (1, 1, 1, 1);
-        SQL
-
-    my $rel = $c->model('Relationship')->get_by_id('release', 'url', 1);
-    $c->model('Link')->load($rel);
-    $c->model('LinkType')->load($rel->link);
-
-    my $edit = $c->model('Edit')->create(
-        edit_type => $EDIT_RELATIONSHIP_EDIT,
-        editor_id => 1,
-        relationship => $rel,
-        entity0 => $c->model('Release')->get_by_id(2)
-    );
-
-    accept_edit($c, $edit);
-
-    my $r1 = $c->model('Release')->get_by_id(1);
-    $c->model('Release')->load_meta($r1);
-    is($r1->cover_art_url, undef);
-
-    my $r2 = $c->model('Release')->get_by_id(2);
-    $c->model('Release')->load_meta($r2);
-    is($r2->cover_art_url, 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg');
-};
-
 test 'Editing relationships fails if the underlying link type changes' => sub {
     my $test = shift;
     my $c = $test->c;
