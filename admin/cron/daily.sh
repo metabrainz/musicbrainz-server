@@ -91,7 +91,4 @@ fi
 # `date`" : Updating language frequencies"
 ./admin/SetLanguageFrequencies
 
-echo `date`" : Updating cover art links"
-./admin/RebuildCoverArtUrls.pl
-
 echo `date`" : Nightly jobs complete!"
