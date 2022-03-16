@@ -17,10 +17,13 @@ BEGIN {
 with 't::Context';
 
 sub verify_artist_alias {
-    my ($alias, $name, $id, $locale) = @_;
-    is($alias->name, $name, "alias name: $name");
-    is($alias->artist_id, $id, "artist id: $id");
-    is($alias->locale, $locale, $locale ? "locale: $locale" : 'locale undef');
+    my ($alias, $name, $id, $locale, $message) = @_;
+    ok(
+        is($alias->name, $name, "alias name: $name") &&
+        is($alias->artist_id, $id, "artist id: $id") &&
+        is($alias->locale, $locale, $locale ? "locale: $locale" : 'locale undef'),
+        $message || 'Alias data matches the expectation',
+    );
 }
 
 test all => sub {
@@ -118,14 +121,22 @@ test all => sub {
                                 });
     $alias_set = $artist_data->alias->find_by_entity_id(1);
     is(scalar @$alias_set, 2, 'Artist #1 has a second newly inserted alias');
-    verify_artist_alias($alias_set->[1], 'Newer alias', 1, 'en_AU');
-    is($alias_set->[1]->sort_name, 'Newer sort name', 'sort_name');
-    is($alias_set->[1]->primary_for_locale,
-       1,
-       'new alias is primary_for_locale');
-    is($alias_set->[0]->primary_for_locale,
-       0,
-       'old alias is no longer primary_for_locale');
+    is(
+        $alias_set->[0]->primary_for_locale,
+        1,
+        'The primary_for_locale alias sorts first',
+    );
+    verify_artist_alias(
+        $alias_set->[0],
+        'Newer alias', 1, 'en_AU',
+        'First alias is the newly inserted alias and has the expected data',
+    );
+    is($alias_set->[0]->sort_name, 'Newer sort name', 'sort_name');
+    is(
+        $alias_set->[1]->primary_for_locale,
+        0,
+        'Other (old) alias is no longer primary_for_locale',
+    );
 
     # Test overriding primary for locale on update
     $artist_data->alias->update($alias_id, {primary_for_locale => 1});
