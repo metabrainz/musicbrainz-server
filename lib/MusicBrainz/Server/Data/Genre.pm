@@ -70,7 +70,7 @@ sub get_all_limited {
 
     my $query = 'SELECT ' . $self->_columns .
                 ' FROM ' . $self->_table .
-                ' ORDER BY id';
+                ' ORDER BY name COLLATE musicbrainz';
 
     $self->query_to_list_limited($query, [], $limit, $offset);
 }
