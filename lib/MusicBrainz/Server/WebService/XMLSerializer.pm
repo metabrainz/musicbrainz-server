@@ -1284,22 +1284,9 @@ sub _serialize_tags_and_ratings
         if $opts->{tags} && $inc->{tags};
     $self->_serialize_user_tag_list($parent_node, $entity, $inc, $stash)
         if $opts->{user_tags} && $inc->{user_tags};
-    if ($opts->{genres} && $inc->{genres}) {
-        my @genre_tags = sort_by { $_->tag->name } @{$opts->{genres}};
-        my $genres = [map {$_->tag->genre} @genre_tags];
-        # Total is not used here for parity with tag-list
-        my $genre_hash = {items => $genres};
-        my %genre_counts = map { $_->tag->genre_id => $_->count } @genre_tags;
-        $self->_serialize_genre_list(
-            $parent_node,
-            $genre_hash,
-            $inc,
-            $stash,
-            0,
-            \%genre_counts,
-        );
-    }
-    $self->_serialize_user_genre_list($parent_node, $entity, $inc, $stash)
+    $self->_serialize_entity_genre_list($parent_node, $entity, $inc, $stash)
+        if $opts->{genres} && $inc->{genres};
+    $self->_serialize_entity_user_genre_list($parent_node, $entity, $inc, $stash)
         if $opts->{user_genres} && $inc->{user_genres};
     $self->_serialize_rating($parent_node, $entity, $inc, $stash)
         if $opts->{ratings} && $inc->{ratings};
@@ -1330,48 +1317,56 @@ sub _serialize_tag
     $genre_node->appendTextChild('name', $tag->tag->name);
 }
 
-sub _serialize_genre_list
+sub _serialize_entity_genre_list
 {
-    my (
-        $self,
-        $parent_node,
-        $list,
-        $inc,
-        $stash,
-        $toplevel,
-        $genre_counts
-    ) = @_;
+    my ($self, $parent_node, $entity, $inc, $stash) = @_;
 
     return if $in_relation_node;
 
+    my $opts = $stash->store($entity);
     my $list_node = $parent_node->addNewChild(undef, 'genre-list');
 
-    if ($toplevel) {
-        set_list_attributes($list_node, $list);
+    for my $aggregated_genre (@{ $opts->{genres} }) {
+        $self->_serialize_aggregated_genre($list_node, $aggregated_genre, $inc, $stash);
     }
+}
 
-    foreach my $genre (@{ $list->{items} })
-    {
-        $self->_serialize_genre(
-            $list_node,
-            $genre,
-            $inc,
-            $stash,
-            $toplevel,
-            $genre_counts->{$genre->id}
-        );
+sub _serialize_genre_list
+{
+    my ($self, $parent_node, $list, $inc, $stash, $toplevel) = @_;
+
+    my $list_node = $parent_node->addNewChild(undef, 'genre-list');
+    set_list_attributes($list_node, $list);
+
+    for my $genre (@{ $list->{items} }) {
+        $self->_serialize_genre($list_node, $genre, $inc, $stash, $toplevel);
     }
+}
+
+sub _serialize_genre_common
+{
+    my ($genre_node, $genre) = @_;
+
+    $genre_node->_setAttribute('id', $genre->gid);
+    $genre_node->appendTextChild('name', $genre->name);
+    $genre_node->appendTextChild('disambiguation', $genre->comment) if $genre->comment;
+}
+
+sub _serialize_aggregated_genre
+{
+    my ($self, $parent_node, $aggregated_genre, $inc, $stash) = @_;
+
+    my $genre_node = $parent_node->addNewChild(undef, 'genre');
+    _serialize_genre_common($genre_node, $aggregated_genre->genre);
+    $genre_node->_setAttribute('count', $aggregated_genre->count);
 }
 
 sub _serialize_genre
 {
-    my ($self, $parent_node, $genre, $inc, $stash, $toplevel, $use_count) = @_;
+    my ($self, $parent_node, $genre, $inc, $stash, $toplevel) = @_;
 
     my $genre_node = $parent_node->addNewChild(undef, 'genre');
-    $genre_node->_setAttribute('count', $use_count) if defined $use_count;
-    $genre_node->_setAttribute('id', $genre->gid);
-    $genre_node->appendTextChild('name', $genre->name);
-    $genre_node->appendTextChild('disambiguation', $genre->comment) if $genre->comment;
+    _serialize_genre_common($genre_node, $genre);
 }
 
 sub _serialize_user_tag_list
@@ -1396,27 +1391,26 @@ sub _serialize_user_tag
     }
 }
 
-sub _serialize_user_genre_list
+sub _serialize_entity_user_genre_list
 {
     my ($self, $parent_node, $entity, $inc, $stash) = @_;
 
     my $opts = $stash->store($entity);
     my $list_node = $parent_node->addNewChild(undef, 'user-genre-list');
 
-    foreach my $tag (sort_by { $_->tag->name } @{$opts->{user_genres}})
+    foreach my $user_genre (@{ $opts->{user_genres} })
     {
-        $self->_serialize_user_genre($list_node, $tag);
+        $self->_serialize_user_genre($list_node, $user_genre);
     }
 }
 
 sub _serialize_user_genre
 {
-    my ($self, $parent_node, $tag) = @_;
+    my ($self, $parent_node, $user_genre) = @_;
 
-    if ($tag->is_upvote) {
+    if ($user_genre->is_upvote) {
         my $genre_node = $parent_node->addNewChild(undef, 'user-genre');
-        $genre_node->_setAttribute('id', $tag->tag->genre->gid);
-        $genre_node->appendTextChild('name', $tag->tag->name);
+        _serialize_genre_common($genre_node, $user_genre->genre);
     }
 }
 

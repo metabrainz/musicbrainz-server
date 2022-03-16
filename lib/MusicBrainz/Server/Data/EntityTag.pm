@@ -6,9 +6,12 @@ use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
     placeholders
 );
+use MusicBrainz::Server::Entity::AggregatedGenre;
 use MusicBrainz::Server::Entity::AggregatedTag;
-use MusicBrainz::Server::Entity::UserTag;
+use MusicBrainz::Server::Entity::Genre;
 use MusicBrainz::Server::Entity::Tag;
+use MusicBrainz::Server::Entity::UserGenre;
+use MusicBrainz::Server::Entity::UserTag;
 use Sql;
 
 with 'MusicBrainz::Server::Data::Role::QueryToList';
@@ -131,19 +134,30 @@ sub find_genres_for_entities
 
     return unless scalar @ids;
 
-    my $query = 'SELECT tag.id AS tag_id, tag.name, entity_tag.count,
-                        entity_tag.' . $self->type . ' AS entity, genre.id AS genre_id
+    my $query = 'SELECT genre.id, genre.gid, genre.name, genre.comment,
+                        entity_tag.count, entity_tag.' . $self->type . ' AS entity
                  FROM ' . $self->tag_table . ' entity_tag
                  JOIN tag ON tag.id = entity_tag.tag
                  JOIN genre ON tag.name = genre.name
                  WHERE ' . $self->type . ' IN (' . placeholders(@ids) . ')
-                 ORDER BY tag.name COLLATE musicbrainz';
+                 ORDER BY genre.name COLLATE musicbrainz';
 
-    my @tags = $self->query_to_list($query, \@ids);
+    my @genres = $self->query_to_list($query, \@ids, sub {
+        my ($model, $row) = @_;
+        return MusicBrainz::Server::Entity::AggregatedGenre->new(
+            count => $row->{count},
+            entity_id => $row->{entity},
+            genre_id => $row->{id},
+            genre => MusicBrainz::Server::Entity::Genre->new(
+                id => $row->{id},
+                gid => $row->{gid},
+                name => $row->{name},
+                comment => $row->{comment},
+            ),
+        );
+    });
 
-    $self->c->model('Genre')->load(map { $_->tag } @tags);
-
-    return @tags;
+    return @genres;
 }
 
 sub find_user_genres_for_entities
@@ -154,32 +168,30 @@ sub find_user_genres_for_entities
 
     my $type = $self->type;
     my $table = $self->tag_table . '_raw';
-    my $query = "SELECT entity_tag.tag AS tag_id, $type AS entity,
-                        tag.name AS tag_name, genre.id AS genre_id,
-                        is_upvote
+    my $query = "SELECT genre.id, genre.gid, genre.name, genre.comment,
+                        $type AS entity, is_upvote
                  FROM $table entity_tag
                  JOIN tag ON tag.id = entity_tag.tag
                  JOIN genre ON tag.name = genre.name
                  WHERE editor = ?
                  AND $type IN (" . placeholders(@ids) . ')
-                 ORDER BY tag.name COLLATE musicbrainz';
+                 ORDER BY genre.name COLLATE musicbrainz';
 
     my @tags = $self->query_to_list($query, [$user_id, @ids], sub {
         my ($model, $row) = @_;
-        return MusicBrainz::Server::Entity::UserTag->new(
-            tag_id => $row->{tag_id},
-            tag => MusicBrainz::Server::Entity::Tag->new(
-                genre_id => $row->{genre_id},
-                id => $row->{tag_id},
-                name => $row->{tag_name},
+        return MusicBrainz::Server::Entity::UserGenre->new(
+            genre_id => $row->{id},
+            genre => MusicBrainz::Server::Entity::Genre->new(
+                id => $row->{id},
+                gid => $row->{gid},
+                name => $row->{name},
+                comment => $row->{comment},
             ),
             editor_id => $user_id,
             entity_id => $row->{entity},
             is_upvote => $row->{is_upvote},
         );
     });
-
-    $self->c->model('Genre')->load(map { $_->tag } @tags);
 
     return @tags;
 }
