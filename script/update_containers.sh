@@ -44,6 +44,7 @@ then
 fi
 
 DEPLOY_ENV=$1
+IMAGE_TAG=${DEPLOY_ENV/prod/production}
 shift
 
 SERVICES="musicbrainz-webservice musicbrainz-website"
@@ -91,20 +92,46 @@ HOSTS=$(
 
 for host in $HOSTS
 do
+  services_to_be_updated=()
   for service in $SERVICES
   do
     if echo ${HOSTS_BY_SERVICE["$service"]} | grep -Fqw "$host"
     then
       container="$service-$DEPLOY_ENV"
-      echo "$host: Putting $container into maintenance mode..."
-
-      ssh "$host" \
-        sudo -H -S -- \
-          /root/docker-server-configs/scripts/set_service_maintenance.sh \
-            enable \
-            "$service" \
-            "$DEPLOY_ENV"
+      echo "$host: Checking the container '$container'..."
+      if ! ssh "$host" docker container inspect "$container" &>/dev/null
+      then
+        services_to_be_updated+=($service)
+      else
+        updated_image="metabrainz/$service:$IMAGE_TAG"
+        ssh "$host" docker image pull "$updated_image" &>/dev/null
+        running_image=$(ssh "$host" \
+          docker ps --filter "name=$container" --format '{{.Image}}')
+        if [[ "$running_image" != "$updated_image" ]]
+        then
+          services_to_be_updated+=($service)
+        fi
+      fi
     fi
+  done
+
+  if [[ "${#services_to_be_updated[@]}" -eq 0 ]]
+  then
+    echo "$host: Containers are up-to-date already, skipping..."
+    continue
+  fi
+
+  for service in "${services_to_be_updated[@]}"
+  do
+    container="$service-$DEPLOY_ENV"
+    echo "$host: Putting $container into maintenance mode..."
+
+    ssh "$host" \
+      sudo -H -S -- \
+        /root/docker-server-configs/scripts/set_service_maintenance.sh \
+          enable \
+          "$service" \
+          "$DEPLOY_ENV"
   done
 
   # Production value of DETERMINE_MAX_REQUEST_TIME
@@ -114,9 +141,9 @@ do
   ssh "$host" \
     sudo -H -S -- \
       /root/docker-server-configs/scripts/update_services.sh \
-        $DEPLOY_ENV $SERVICES
+        $DEPLOY_ENV "${services_to_be_updated[@]}"
 
-  for service in $SERVICES
+  for service in "${services_to_be_updated[@]}"
   do
     if echo ${HOSTS_BY_SERVICE["$service"]} | grep -Fqw "$host"
     then
