@@ -19,12 +19,18 @@ sub pretty_name
     my $name = $self->decoded_local_part;
     $name =~ s{^/viaf/}{};
 
+    return $name;
+}
+
+sub sidebar_name
+{
+    my $self = shift;
+
+    my $name = $self->pretty_name;
     $name = "VIAF: $name";
 
     return $name;
 }
-
-sub sidebar_name { shift->pretty_name }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
