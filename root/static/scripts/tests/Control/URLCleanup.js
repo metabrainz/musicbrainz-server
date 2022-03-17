@@ -1956,6 +1956,24 @@ limited_link_type_combinations: [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://www.facebook.com/TheSullivanSees',
   },
+  {
+                     input_url: 'https://www.facebook.com/searchingforabby',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.facebook.com/searchingforabby',
+  },
+  {
+                     input_url: 'https://www.facebook.com/search/top?q=oxxxymiron',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://www.facebook.com/search/top?q=oxxxymiron',
+       input_relationship_type: 'socialnetwork',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'a link to a search result',
+                                  target: 'url',
+                                },
+  },
   // Finna.fi
   {
                      input_url: 'https://www.finna.fi/Record/viola.163990',
