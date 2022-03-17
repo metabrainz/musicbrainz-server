@@ -5288,6 +5288,24 @@ limited_link_type_combinations: [
        input_relationship_type: 'youtube',
        only_valid_entity_types: [],
   },
+  {
+                     input_url: 'https://www.youtube.com/resultsarein',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'youtube',
+            expected_clean_url: 'https://www.youtube.com/resultsarein',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.youtube.com/results?search_query=oxxxymiron',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'youtube',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'a link to a search result',
+                                  target: 'url',
+                                },
+  },
 ];
 /* eslint-enable indent, max-len, sort-keys */
 

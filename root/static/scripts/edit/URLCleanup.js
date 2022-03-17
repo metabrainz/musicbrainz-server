@@ -4991,6 +4991,13 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate: function (url, id) {
+      if (/https:\/\/www\.youtube\.com\/results\?/.test(url)) {
+        return {
+          error: noLinkToSearchMsg(),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
       switch (id) {
         case LINK_TYPES.youtube.artist:
         case LINK_TYPES.youtube.event:
