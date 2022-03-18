@@ -19,13 +19,15 @@ type Props = {
 const ReorderRelationships = ({edit}: Props): React.MixedElement => (
   <table className="details reorder-relationships">
     <tr>
-      <th className="align-left">{l('Relationship')}</th>
+      <th className="align-left wide">{l('Relationship')}</th>
       <th className="narrow">{l('Old Order')}</th>
       <th className="narrow">{l('New Order')}</th>
     </tr>
     {edit.display_data.relationships.map((reorder, index) => (
       <tr key={index}>
-        <td><Relationship relationship={reorder.relationship} /></td>
+        <td className="wide">
+          <Relationship relationship={reorder.relationship} />
+        </td>
         <td className="align-right narrow old">{reorder.old_order}</td>
         <td className="align-right narrow new">{reorder.new_order}</td>
       </tr>
