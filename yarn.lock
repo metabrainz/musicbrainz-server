@@ -1311,10 +1311,10 @@
   dependencies:
     prop-types "^15.8.1"
 
-"@metabrainz/design-system@1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@metabrainz/design-system/-/design-system-1.0.2.tgz#8abe3a64c92e0808973328efec2b3417a011c14c"
-  integrity sha512-zUdadNgLikWcAGCGbWChGnNn4XgF+ymf3HKgq6KAsrMB8Zz902LX9LwnTc/lnf9fWNwNZ+kz7fJpl7AW8N6rhw==
+"@metabrainz/design-system@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@metabrainz/design-system/-/design-system-1.0.6.tgz#fce197fc3d3f6921c7a7b3f76d20775596d9804b"
+  integrity sha512-TmbmTCx1K0RnZeLPmwXswPZhK9CtKpyeB7o/rWdTcvTK4kLHY/K1m1X7IEtlPRNr1oxJ5D/W9ji6WLlWuRh1RA==
 
 "@nicolo-ribaudo/chokidar-2@2.1.8-no-fsevents.2":
   version "2.1.8-no-fsevents.2"
