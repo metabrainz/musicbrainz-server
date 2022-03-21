@@ -65,6 +65,25 @@ sub _hash_to_row {
     return $row;
 }
 
+sub get_all_limited {
+    my ($self, $limit, $offset) = @_;
+
+    my $query = 'SELECT ' . $self->_columns .
+                ' FROM ' . $self->_table .
+                ' ORDER BY name COLLATE musicbrainz';
+
+    $self->query_to_list_limited($query, [], $limit, $offset);
+}
+
+sub get_all_names {
+    my ($self) = @_;
+
+    $self->sql->select_single_column_array(<<~'SQL');
+        SELECT name FROM genre
+        ORDER BY name COLLATE musicbrainz ASC
+        SQL
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

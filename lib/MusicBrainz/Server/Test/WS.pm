@@ -7,6 +7,7 @@ use base 'Exporter';
 use Readonly;
 use MusicBrainz::Server::Test ws_test => { version => 2 };
 use MusicBrainz::Server::Test ws_test_json => { version => 2 };
+use MusicBrainz::Server::Test ws_test_txt => { version => 2 };
 
 our @EXPORT_OK = qw(
     ws2_test_json
@@ -17,6 +18,7 @@ our @EXPORT_OK = qw(
     ws2_test_xml_invalid_mbid
     ws2_test_xml_not_found
     ws2_test_xml_unauthorized
+    ws2_test_txt
 );
 
 Readonly our $FORBIDDEN_JSON_RESPONSE => {
@@ -112,3 +114,5 @@ sub ws2_test_xml_invalid_mbid {
     $opts->{response_code} = 400;
     ws_test($msg, $url, $INVALID_MBID_XML_RESPONSE, $opts);
 }
+
+sub ws2_test_txt { ws_test_txt(@_) }

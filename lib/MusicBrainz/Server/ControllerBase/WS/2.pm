@@ -13,13 +13,7 @@ use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::XMLSerializer;
 use Try::Tiny;
 
-with 'MusicBrainz::Server::WebService::Format' =>
-{
-    serializers => [
-        'MusicBrainz::Server::WebService::XMLSerializer',
-        'MusicBrainz::Server::WebService::JSONSerializer',
-    ]
-};
+with 'MusicBrainz::Server::WebService::Format';
 
 with 'MusicBrainz::Server::Controller::Role::Profile' => {
     threshold => DBDefs->PROFILE_WEB_SERVICE()
@@ -27,6 +21,13 @@ with 'MusicBrainz::Server::Controller::Role::Profile' => {
 
 with 'MusicBrainz::Server::Controller::Role::CORS';
 with 'MusicBrainz::Server::Controller::Role::ETags';
+
+sub serializers {
+    [
+        'MusicBrainz::Server::WebService::XMLSerializer',
+        'MusicBrainz::Server::WebService::JSONSerializer',
+    ]
+}
 
 sub bad_req : Private
 {
@@ -217,13 +218,14 @@ sub _tags
 
     for my $type (@todo) {
         my $find_method = 'find_' . $type . '_for_entities';
-        my @tags = $model->tags->$find_method(
-                        ($type =~ /^user_/ ? $c->user->id : ()),
-                        map { $_->id } @$entities);
+        my @tags_or_genres = $model->tags->$find_method(
+            ($type =~ /^user_/ ? $c->user->id : ()),
+            map { $_->id } @$entities,
+        );
 
-        my %tags_by_entity = partition_by { $_->entity_id } @tags;
-        for my $id (keys %tags_by_entity) {
-            $stash->store($map{$id}->[0])->{$type} = $tags_by_entity{$id};
+        my %by_entity = partition_by { $_->entity_id } @tags_or_genres;
+        for my $id (keys %by_entity) {
+            $stash->store($map{$id}->[0])->{$type} = $by_entity{$id};
         }
     }
 }
