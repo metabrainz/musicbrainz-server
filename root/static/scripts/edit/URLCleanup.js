@@ -365,6 +365,11 @@ const linkToChannelMsg = N_l(
    recordings or releases instead.`,
 );
 
+const noLinkToSearchMsg = N_l(
+  `This is a link to a search result. Please link to any page in the results
+   that is relevant to this entity instead, if available.`,
+);
+
 const linkToVideoMsg = N_l(
   `Please link to a specific video. Add channel pages
    to the relevant artist, label, etc. instead.`,
@@ -1981,6 +1986,13 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate: function (url) {
+      if (/https:\/\/www\.facebook\.com\/search\//.test(url)) {
+        return {
+          error: noLinkToSearchMsg(),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
       if (/facebook.com\/pages\//.test(url)) {
         return {
           result: /\/pages\/[^\/?#]+\/\d+/.test(url),
@@ -4984,6 +4996,13 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate: function (url, id) {
+      if (/https:\/\/www\.youtube\.com\/results\?/.test(url)) {
+        return {
+          error: noLinkToSearchMsg(),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
       switch (id) {
         case LINK_TYPES.youtube.artist:
         case LINK_TYPES.youtube.event:

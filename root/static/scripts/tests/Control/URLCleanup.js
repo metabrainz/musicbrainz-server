@@ -1956,6 +1956,24 @@ limited_link_type_combinations: [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://www.facebook.com/TheSullivanSees',
   },
+  {
+                     input_url: 'https://www.facebook.com/searchingforabby',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.facebook.com/searchingforabby',
+  },
+  {
+                     input_url: 'https://www.facebook.com/search/top?q=oxxxymiron',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://www.facebook.com/search/top?q=oxxxymiron',
+       input_relationship_type: 'socialnetwork',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'a link to a search result',
+                                  target: 'url',
+                                },
+  },
   // Finna.fi
   {
                      input_url: 'https://www.finna.fi/Record/viola.163990',
@@ -5283,6 +5301,24 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://music.youtube.com/browse/MPREb_0bOFkwXrX2x',
        input_relationship_type: 'youtube',
        only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://www.youtube.com/resultsarein',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'youtube',
+            expected_clean_url: 'https://www.youtube.com/resultsarein',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.youtube.com/results?search_query=oxxxymiron',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'youtube',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'a link to a search result',
+                                  target: 'url',
+                                },
   },
 ];
 /* eslint-enable indent, max-len, sort-keys */
