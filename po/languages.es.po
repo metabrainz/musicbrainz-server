@@ -2,6 +2,7 @@
 # Translators:
 # Adolfo Jayme-Barrientos, 2016
 # Alexander Dupuy <email address hidden>, 2012
+# Carlos Ernesto Lugo Mejia <email address hidden>, 2022
 # Fermin Rodriguez <email address hidden>, 2018
 # 3b2b9b2970dff2223d07f096c7a072f3, 2011
 # Héctor Arroyo <email address hidden>, 2012
@@ -19,8 +20,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-02-21 13:46+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2012-05-24 19:23+0000\n"
+"Last-Translator: Carlos Ernesto Lugo Mejia <Carlostrewher@gmail.com>, 2022\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -106,7 +107,7 @@ msgstr "Algonquinas, lenguas"
 #. frequency:1 iso_code_3:alq
 #: DB:language/name:709
 msgid "Algonquin"
-msgstr ""
+msgstr "Algonquín"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:434
@@ -176,7 +177,7 @@ msgstr "Atabascanas, lenguas"
 #. frequency:1 iso_code_3:atj
 #: DB:language/name:866
 msgid "Atikamekw"
-msgstr ""
+msgstr "Atikamekw"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:29
@@ -421,7 +422,7 @@ msgstr "Okinawense central"
 #. frequency:1 iso_code_3:esu
 #: DB:language/name:2243
 msgid "Central Yupik"
-msgstr ""
+msgstr "Yupik central"
 
 #. frequency:1 iso_code_3:chg
 #: DB:language/name:75
@@ -936,7 +937,7 @@ msgstr "Gupapuyngu"
 #. frequency:1 iso_code_3:gyn
 #: DB:language/name:2638
 msgid "Guyanese Creole English"
-msgstr ""
+msgstr "Inglés criollo guyanés"
 
 #. frequency:1 iso_code_3:gwi
 #: DB:language/name:162
@@ -1071,7 +1072,7 @@ msgstr "Ingusetio"
 #. frequency:1 iso_code_3:moe
 #: DB:language/name:4369
 msgid "Innu"
-msgstr ""
+msgstr "Innu"
 
 #. frequency:1 iso_code_3:ina
 #: DB:language/name:187
@@ -1331,7 +1332,7 @@ msgstr "Cumuco"
 #. frequency:1 iso_code_3:xug
 #: DB:language/name:7421
 msgid "Kunigami"
-msgstr ""
+msgstr "Kunigami"
 
 #. frequency:1 iso_code_3:kur
 #: DB:language/name:232
@@ -1636,7 +1637,7 @@ msgstr "Mirandés"
 #. frequency:1 iso_code_3:mvi
 #: DB:language/name:4538
 msgid "Miyako"
-msgstr ""
+msgstr "Capital"
 
 #. frequency:1 iso_code_3:moh
 #: DB:language/name:280
@@ -2016,7 +2017,7 @@ msgstr "Ruso"
 #. frequency:1 iso_code_3:rue
 #: DB:language/name:5790
 msgid "Rusyn"
-msgstr ""
+msgstr "Rusyn"
 
 #. frequency:1 iso_code_3:rcf
 #: DB:language/name:5690
@@ -2301,7 +2302,7 @@ msgstr "Susu"
 #. frequency:1 iso_code_3:sva
 #: DB:language/name:6216
 msgid "Svan"
-msgstr ""
+msgstr "Cisne"
 
 #. frequency:1 iso_code_3:swa
 #: DB:language/name:402
@@ -2421,7 +2422,7 @@ msgstr "Tokelauano"
 #. frequency:1 iso_code_3:tok
 #: DB:language/name:7845
 msgid "Toki Pona"
-msgstr ""
+msgstr "Tokipona"
 
 #. frequency:1 iso_code_3:tog
 #: DB:language/name:424
@@ -2661,7 +2662,7 @@ msgstr "Yidis"
 #. frequency:1 iso_code_3:yox
 #: DB:language/name:7602
 msgid "Yoron"
-msgstr ""
+msgstr "Opinión pública"
 
 #. frequency:1 iso_code_3:yor
 #: DB:language/name:464
