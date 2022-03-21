@@ -619,7 +619,7 @@ const CLEANUPS: CleanupEntries = {
         return 'https://www.amazon.' + tld + '/gp/product/' + asin;
       }
 
-      return '';
+      return url;
     },
     validate: function (url) {
       if (/amzn\.to\//i.test(url)) {
@@ -634,6 +634,17 @@ const CLEANUPS: CleanupEntries = {
                 target: '_blank',
               },
             },
+          ),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+
+      if (/^https:\/\/www\.amazon\.[^\/]+\/vdp\//i.test(url)) {
+        return {
+          error: l(
+            `This is a link to a user video and should not be added. Please
+             add the product link instead, if relevant.`,
           ),
           result: false,
           target: ERROR_TARGETS.URL,
