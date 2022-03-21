@@ -2046,13 +2046,18 @@ const CLEANUPS: CleanupEntries = {
   },
   'genius': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?genius\\.com', 'i')],
-    restrict: [LINK_TYPES.lyrics],
+    restrict: [{
+      ...LINK_TYPES.lyrics,
+      place: LINK_TYPES.otherdatabases.place,
+    }],
     clean: function (url) {
       return url.replace(/^https?:\/\/([^/]+\.)?genius\.com/, 'https://genius.com');
     },
     validate: function (url, id) {
       switch (id) {
         case LINK_TYPES.lyrics.artist:
+        case LINK_TYPES.lyrics.label:
+        case LINK_TYPES.otherdatabases.place:
           return {
             result: /^https:\/\/genius\.com\/artists\/[\w-]+$/.test(url),
             target: ERROR_TARGETS.ENTITY,
