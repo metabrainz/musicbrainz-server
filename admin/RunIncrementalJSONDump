@@ -2,6 +2,11 @@
 
 set -o errexit
 
+if [[ -t 1 ]]
+then
+    exec 2>&1 | ts '%X %Z'
+fi
+
 exec 220>/tmp/.RunIncrementalJSONDump.lock || exit 1
 # Will be automatically released when the script exits.
 flock -n 220 || { echo "Failed to obtain lock. Another instance is running?" >&2; exit 1; }
@@ -32,10 +37,10 @@ chown "$JSON_DUMP_USER:$JSON_DUMP_GROUP" "$DUMP_DIR"
 # triggers aren't needed and could (or should) be dropped, but it's safer to
 # make sure they are fully disabled here too. Leaving them enabled would
 # certainly cause the data to become corrupted and replication to break.
-echo `date`" : Disabling all database triggers"
+echo Disabling all database triggers
 ./admin/DisableAllTriggers
 
-echo `date`" : Making incremental JSON dumps"
+echo Making incremental JSON dumps
 ./admin/DumpIncrementalJSON \
     --output-dir "$TEMP_DIR" \
     --compress \
@@ -55,7 +60,7 @@ shopt -u nullglob
 # container on another server, via ./bin/rsync-incremental-json-dumps.
 if [ "$DUMP_FILE" ]
 then
-    echo `date`" : Copying incremental json dumps to backup dir"
+    echo Copying incremental json dumps to backup dir
     chown "$JSON_DUMP_USER:$JSON_DUMP_GROUP" "$TEMP_DIR"/json-dump-*/*
     chmod "$JSON_DUMP_FILE_MODE" "$TEMP_DIR"/json-dump-*/*
     mv "$TEMP_DIR"/* "$DUMP_DIR"/

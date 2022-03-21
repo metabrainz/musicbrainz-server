@@ -6,7 +6,7 @@ use File::Path qw( make_path );
 use File::Spec::Functions qw( catfile );
 use File::Temp qw( tempdir );
 use Moose;
-use MusicBrainz::Script::Utils qw( log );
+use MusicBrainz::Server::Log qw( log_info );
 use String::ShellQuote qw( shell_quote );
 use Time::HiRes qw( gettimeofday tv_interval );
 
@@ -80,7 +80,7 @@ sub begin_dump {
     my $export_dir = tempdir(
         'mbexport-XXXXXX', DIR => $self->tmp_dir, CLEANUP => 0);
     mkdir "$export_dir/mbdump" or die $!;
-    log("Exporting to $export_dir");
+    log_info { "Exporting to $export_dir" };
     $self->export_dir($export_dir);
 
     # Write the TIMESTAMP file.
@@ -168,7 +168,7 @@ sub make_tar {
         $compress_command .= " -$compression_level" if defined $compression_level;
     }
 
-    log("Creating $tar_file");
+    log_info { "Creating $tar_file" };
     system
         'bash', '-c',
             'set -o pipefail; ' .
@@ -182,7 +182,7 @@ sub make_tar {
             ' > ' . shell_quote("$output_dir/$tar_file");
 
     $? == 0 or die "Tar returned $?";
-    log(sprintf "Tar completed in %d seconds\n", tv_interval($t0));
+    log_info { sprintf "Tar completed in %d seconds\n", tv_interval($t0) };
 
     gpg_sign("$output_dir/$tar_file");
 }
@@ -247,7 +247,7 @@ sub DEMOLISH {
         $log_output .= "Erasing $export_dir\n";
         my $quoted_dir = shell_quote($export_dir);
         $log_output .= qx(/bin/rm -rf $quoted_dir 2>&1);
-        log($log_output);
+        log_info { $log_output };
     }
 }
 

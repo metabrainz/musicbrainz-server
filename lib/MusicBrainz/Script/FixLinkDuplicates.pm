@@ -2,6 +2,7 @@ package MusicBrainz::Script::FixLinkDuplicates;
 use Moose;
 use DBDefs;
 use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Log qw( log_info );
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 with 'MooseX::Runnable';
 with 'MooseX::Getopt';
@@ -68,8 +69,9 @@ sub remove_duplicates
     my ($self, $keep_id, @remove_ids) = @_;
     my $count = 0;
 
-    printf "%s : Replace links %s with %s\n",
-        scalar localtime, join(', ', @remove_ids), $keep_id if $self->verbose;
+    log_info { sprintf 'Replace links %s with %s',
+        join(', ', @remove_ids), $keep_id
+    } if $self->verbose;
 
     my $rows = $self->c->sql->select_list_of_hashes(
         'SELECT entity_type0, entity_type1
@@ -100,7 +102,7 @@ sub remove_duplicates
 sub run {
     my ($self) = @_;
 
-    print localtime() . " : Finding duplicate rows in link table\n";
+    log_info { 'Finding duplicate rows in link table' };
 
     # The conditions where 'link' rows are duplicated is when, for the columns of 'link:
     #  * id is different
@@ -131,7 +133,7 @@ sub run {
     for my $link (@$rows)
     {
         if ($self->limit > 0 && $count >= $self->limit) {
-            print localtime() . ' : Removed limit of ' . $self->limit . ", stopping until next invocation\n";
+            log_info { 'Removed limit of ' . $self->limit . ', stopping until next invocation' };
             last;
         }
         my ($keep, @drop) = @$link;
@@ -143,19 +145,15 @@ sub run {
     }
 
     if ($self->summary) {
-        printf "%s : Found %d duplicated link%s.\n",
-            scalar localtime,
-            scalar @$rows, ((scalar @$rows)==1 ? '' : 's');
-        printf "%s : Processed %d link%s.\n",
-            scalar localtime,
-            $count, ($count==1 ? '' : 's');
-        printf "%s : Successfully removed %d duplicate%s.\n",
-            scalar localtime,
-            $removed, ($removed==1 ? '' : 's')
+        log_info { sprintf 'Found %d duplicated link%s.',
+            scalar @$rows, ((scalar @$rows)==1 ? '' : 's') };
+        log_info { sprintf 'Processed %d link%s.',
+            $count, ($count==1 ? '' : 's') };
+        log_info { sprintf 'Successfully removed %d duplicate%s.',
+            $removed, ($removed==1 ? '' : 's') }
                 if !$self->dry_run;
-        printf "%s : Touched %d row%s total.\n",
-            scalar localtime,
-            $total_row_changes, ($total_row_changes==1 ? '' : 's')
+        log_info { sprintf 'Touched %d row%s total.',
+            $total_row_changes, ($total_row_changes==1 ? '' : 's') }
                 if !$self->dry_run;
     }
 

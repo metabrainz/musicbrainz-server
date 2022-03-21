@@ -2,6 +2,11 @@
 
 set -o errexit
 
+if [[ -t 1 ]]
+then
+    exec 2>&1 | ts '%X %Z'
+fi
+
 exec 220>/tmp/.RunSearchIndexesDump.lock || exit 1
 # Will be automatically released when the script exits.
 flock -n 220 || { echo "Failed to obtain lock. Another instance is running?" >&2; exit 1; }
@@ -27,23 +32,23 @@ chown "$SEARCH_INDEXES_DUMP_USER:$SEARCH_INDEXES_DUMP_GROUP" \
     "$DUMP_DIR" \
     "$DUMP_DIR"/"$DUMP_STAMP"
 
-echo `date`" : Requesting SolrCloud backups"
+echo Requesting SolrCloud backups
 BACKUP_STAMP="$DUMP_STAMP" \
     ./admin/RequestSolrCloudBackups \
     || exit $?
 
-echo `date`" : Retrieving SolrCloud backups"
+echo Retrieving SolrCloud backups
 MBS_ADMIN_CONFIG=config.search-indexes-dump.sh \
     ./bin/rsync-solrcloud-backups "$TEMP_DIR" \
     || exit $?
 
-echo `date`" : Making a search indexes dump"
+echo Making a search indexes dump
 BACKUP_STAMP="$DUMP_STAMP" \
     ./admin/BundleSearchIndexesDump \
     --working-dir "$TEMP_DIR" \
     || exit $?
 
-echo `date`" : Copying the dump to the local FTP directory"
+echo Copying the dump to the local FTP directory
 chown "$SEARCH_INDEXES_DUMP_USER:$SEARCH_INDEXES_DUMP_GROUP" "$TEMP_DIR"/*
 chmod "$SEARCH_INDEXES_DUMP_FILE_MODE" "$TEMP_DIR"/*
 mv "$TEMP_DIR"/* "$DUMP_DIR"/"$DUMP_STAMP"/
@@ -60,8 +65,8 @@ echo "$DUMP_STAMP" > "$DUMP_DIR"/LATEST
 chmod "$SEARCH_INDEXES_DUMP_FILE_MODE" "$DUMP_DIR"/LATEST
 chown "$SEARCH_INDEXES_DUMP_USER:$SEARCH_INDEXES_DUMP_GROUP" "$DUMP_DIR"/LATEST
 
-echo `date`" : Deleting old full exports from the local FTP directory"
+echo Deleting old full exports from the local FTP directory
 ./bin/delete-old-fullexports -k -r "$DUMP_DIR"
 
-echo `date`" : Syncing the local FTP directory with the FTP server"
+echo Syncing the local FTP directory with the FTP server
 MBS_ADMIN_CONFIG=config.search-indexes-dump.sh ./bin/rsync-fullexport-files
