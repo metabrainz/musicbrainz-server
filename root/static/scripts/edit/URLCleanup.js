@@ -365,6 +365,11 @@ const linkToChannelMsg = N_l(
    recordings or releases instead.`,
 );
 
+const noLinkToSearchMsg = N_l(
+  `This is a link to a search result. Please link to any page in the results
+   that is relevant to this entity instead, if available.`,
+);
+
 const linkToVideoMsg = N_l(
   `Please link to a specific video. Add channel pages
    to the relevant artist, label, etc. instead.`,
@@ -614,7 +619,7 @@ const CLEANUPS: CleanupEntries = {
         return 'https://www.amazon.' + tld + '/gp/product/' + asin;
       }
 
-      return '';
+      return url;
     },
     validate: function (url) {
       if (/amzn\.to\//i.test(url)) {
@@ -629,6 +634,17 @@ const CLEANUPS: CleanupEntries = {
                 target: '_blank',
               },
             },
+          ),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+
+      if (/^https:\/\/www\.amazon\.[^\/]+\/vdp\//i.test(url)) {
+        return {
+          error: l(
+            `This is a link to a user video and should not be added. Please
+             add the product link instead, if relevant.`,
           ),
           result: false,
           target: ERROR_TARGETS.URL,
@@ -1981,6 +1997,13 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate: function (url) {
+      if (/https:\/\/www\.facebook\.com\/search\//.test(url)) {
+        return {
+          error: noLinkToSearchMsg(),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
       if (/facebook.com\/pages\//.test(url)) {
         return {
           result: /\/pages\/[^\/?#]+\/\d+/.test(url),
@@ -2046,13 +2069,18 @@ const CLEANUPS: CleanupEntries = {
   },
   'genius': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?genius\\.com', 'i')],
-    restrict: [LINK_TYPES.lyrics],
+    restrict: [{
+      ...LINK_TYPES.lyrics,
+      place: LINK_TYPES.otherdatabases.place,
+    }],
     clean: function (url) {
       return url.replace(/^https?:\/\/([^/]+\.)?genius\.com/, 'https://genius.com');
     },
     validate: function (url, id) {
       switch (id) {
         case LINK_TYPES.lyrics.artist:
+        case LINK_TYPES.lyrics.label:
+        case LINK_TYPES.otherdatabases.place:
           return {
             result: /^https:\/\/genius\.com\/artists\/[\w-]+$/.test(url),
             target: ERROR_TARGETS.ENTITY,
@@ -4979,6 +5007,13 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate: function (url, id) {
+      if (/https:\/\/www\.youtube\.com\/results\?/.test(url)) {
+        return {
+          error: noLinkToSearchMsg(),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
       switch (id) {
         case LINK_TYPES.youtube.artist:
         case LINK_TYPES.youtube.event:

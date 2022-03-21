@@ -18,6 +18,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASEGROUP_DELETE
     $EDIT_SERIES_DELETE
 );
+use MusicBrainz::Server::Log qw( log_info );
 use MusicBrainz::Server::Data::Utils qw( localized_note type_to_model );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Translation qw( N_l );
@@ -68,7 +69,7 @@ sub run {
         exit 1;
     }
 
-    print localtime() . " : Finding unused entities of type '$entity'\n";
+    log_info { "Finding unused entities of type '$entity'" };
 
     my $used_in_relationship = used_in_relationship($self->c, $entity => 'T.id');
     my $used_in_extra_fks = '';
@@ -109,8 +110,8 @@ sub run {
         ++$count;
 
         if ($self->dry_run) {
-            printf "%s : Need to remove $entity gid=%s name=%s\n",
-                scalar localtime, $e->id, $e->name
+            log_info { sprintf "Need to remove $entity gid=%s name=%s",
+                $e->id, $e->name }
                     if $self->verbose;
 
         }
@@ -153,12 +154,10 @@ sub run {
     }
 
     if ($self->summary) {
-        printf "%s : Found %d unused $entity%s.\n",
-            scalar localtime,
-            $count, ($count==1 ? '' : 's');
-        printf "%s : Successfully removed %d $entity%s\n",
-            scalar localtime,
-            $removed, ($removed==1 ? '' : 's')
+        log_info { sprintf "Found %d unused $entity%s.",
+            $count, ($count==1 ? '' : 's') };
+        log_info { sprintf "Successfully removed %d $entity%s",
+            $removed, ($removed==1 ? '' : 's') }
                 if !$self->dry_run;
     }
 }

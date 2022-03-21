@@ -19,6 +19,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_EDIT
 );
 use MusicBrainz::Server::Constants qw( $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Log qw( log_debug log_info log_warning );
 use MusicBrainz::Server::Track qw( format_track_length );
 
 use Getopt::Long;
@@ -49,7 +50,7 @@ EOF
 my $c = MusicBrainz::Server::Context->create_script_context;
 
 # Find mediums with at least one track to fix
-print localtime() . " : Finding candidate mediums\n" if $verbose;
+log_info { 'Finding candidate mediums' } if $verbose;
 my @medium_ids = @{ $c->sql->select_single_column_array(
     'SELECT DISTINCT m.id
        FROM medium m
@@ -59,9 +60,9 @@ my @medium_ids = @{ $c->sql->select_single_column_array(
       WHERE t.length IS NULL OR t.length = 0 AND m.track_count > 0
         AND (mf.has_discids = TRUE OR mf.has_discids IS NULL)'
 ) };
-printf localtime() . " : Found %d medium%s\n",
+log_info { sprintf 'Found %d medium%s',
     scalar(@medium_ids), (@medium_ids == 1 ? '' : 's')
-    if $verbose;
+} if $verbose;
 
 my $tracks_fixed = 0;
 my $tracks_set = 0;
@@ -76,7 +77,7 @@ my $modbot = $c->model('Editor')->get_by_id($EDITOR_MODBOT);
 
 for my $medium (@mediums)
 {
-    printf "%s : Fixing medium #%d\n", scalar(localtime), $medium->id
+    log_info { sprintf 'Fixing medium #%d', $medium->id }
         if $verbose;
 
     my @cdtocs = grep { $_->edits_pending == 0 } $c->model('MediumCDTOC')->find_by_medium($medium->id);
@@ -88,19 +89,19 @@ for my $medium (@mediums)
     my @tracks = $medium->all_tracks;
 
     if ($debug) {
-        print "TOCs:\n";
+        log_debug { 'TOCs:' };
         for my $cdtoc (@cdtocs) {
-            print '  ' . $cdtoc->toc . "\n";
-            printf "    (%s)\n", format_track_length($_->{length_time})
+            log_debug { '  ' . $cdtoc->toc };
+            log_debug { sprintf '    (%s)', format_track_length($_->{length_time}) }
                 for @{ $cdtoc->track_details };
         }
 
-        print "Tracks:\n";
-        printf "  #%02d : %10d %-8s  %12d\n",
+        log_debug { 'Tracks:' };
+        log_debug { sprintf '  #%02d : %10d %-8s  %12d',
             $_->position, $_->length || 0,
             $_->length ? format_track_length($_->length) : '',
             $_->id
-                for @tracks;
+        } for @tracks;
     }
 
     # Easy case: there is one disc ID, we have exactly the correct set of
@@ -135,9 +136,9 @@ for my $medium (@mediums)
             if ($bad == 0) {
                 # All track lengths are wrong, so we change them with a
                 # SetTrackLengths edit
-                printf "Set track durations from CDTOC #%d for medium #%d\n",
+                log_info { sprintf 'Set track durations from CDTOC #%d for medium #%d',
                     $cdtoc->id, $medium->id
-                        if $verbose;
+                } if $verbose;
 
                 unless ($dry_run) {
                     Sql::run_in_transaction(sub {
@@ -198,7 +199,7 @@ for my $medium (@mediums)
             $sqdiff /= $num_tracks;
             $sqdiff = sqrt($sqdiff) / 1000;
 
-            print "Skew for @$p = $sqdiff\n" if $debug;
+            log_debug { "Skew for @$p = $sqdiff" } if $debug;
             push @skew, $sqdiff;
         }
 
@@ -217,7 +218,7 @@ for my $medium (@mediums)
             $sqdiff /= $num_tracks;
             $sqdiff = sqrt($sqdiff) / 1000;
 
-            print "Skew for existing tracks = $sqdiff\n" if $debug;
+            log_debug { "Skew for existing tracks = $sqdiff" } if $debug;
 
             if ($sqdiff < 5) {
                 unless (@tracks) {
@@ -270,25 +271,25 @@ for my $medium (@mediums)
         }
     }
 
-    printf "Don't know what to do about medium #%d\n", $medium->id;
-    print " - multiple TOCs\n" if @cdtocs > 1 and keys(%c) == 1;
-    print " - multiple conflicting TOCs\n" if @cdtocs > 1 and keys(%c)>1;
-    print " - no TOCs with correct track count\n" if @cdtocs == 0;
+    log_warning { sprintf 'Don\'t know what to do about medium #%d', $medium->id };
+    log_warning { ' - multiple TOCs' } if @cdtocs > 1 and keys(%c) == 1;
+    log_warning { ' - multiple conflicting TOCs' } if @cdtocs > 1 and keys(%c)>1;
+    log_warning { ' - no TOCs with correct track count' } if @cdtocs == 0;
 
     if (keys(%c) == 1) {
         my $ideal_track_count = $cdtocs[0]->track_count;
         my $want_tracks = join q(,), 1 .. $ideal_track_count;
         my $have_tracks = join q(,), sort { $a<=>$b } map { $_->position }
             @tracks;
-        print " - got tracks $have_tracks\n" if $want_tracks ne $have_tracks;
+        log_warning { " - got tracks $have_tracks" } if $want_tracks ne $have_tracks;
     }
 
     my $withlength = grep { $_->length && $_->length > 0 } @tracks;
-    print " - $withlength tracks have length\n" if $withlength;
+    log_warning { " - $withlength tracks have length" } if $withlength;
 }
 
-print localtime() . " : Fixed $tracks_fixed tracks on $mediums_fixed mediums\n";
-print localtime() . " : ($tracks_set had no previous length)\n";
+log_info { "Fixed $tracks_fixed tracks on $mediums_fixed mediums" };
+log_info { "($tracks_set had no previous length)" };
 
 =head1 COPYRIGHT AND LICENSE
 

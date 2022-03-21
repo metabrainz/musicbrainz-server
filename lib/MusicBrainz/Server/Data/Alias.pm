@@ -82,6 +82,7 @@ sub find_by_entity_ids
                  FROM ' . $self->_table . "
                  WHERE $key IN (" . placeholders(@ids) . ')
                  ORDER BY locale NULLS LAST,
+                   primary_for_locale DESC, -- psql does false = 0, true = 1
                    begin_date_year NULLS LAST,
                    begin_date_month NULLS LAST,
                    begin_date_day NULLS LAST,

@@ -1,6 +1,4 @@
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-PERL_CARTON_PATH=/home/musicbrainz/carton-local
 SHELL=/bin/bash
-0 * * * * mkdir -p $HOME/log/hourly && cd $HOME/musicbrainz-server && carton exec -- admin/cron/hourly.sh > $HOME/log/hourly/$(date --utc +\%FT\%TZ).log 2>&1
-10 0 * * * mkdir -p $HOME/log/daily && cd $HOME/musicbrainz-server && carton exec -- admin/cron/daily.sh > $HOME/log/daily/$(date --utc +\%FT\%TZ).log 2>&1
-0 0 1 * * mkdir -p $HOME/log/monthly && cd $HOME/musicbrainz-server && carton exec -- admin/cron/monthly.sh > $HOME/log/monthly/$(date --utc +\%FT\%TZ).log 2>&1
+0 * * * * $HOME/musicbrainz-server/admin/run admin/cron/hourly.sh
+10 0 * * * $HOME/musicbrainz-server/admin/run admin/cron/daily.sh
+0 0 1 * * $HOME/musicbrainz-server/admin/run admin/cron/monthly.sh

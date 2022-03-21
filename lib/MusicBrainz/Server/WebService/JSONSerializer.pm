@@ -30,7 +30,11 @@ sub serialize
             my $singular = $ENTITIES{$list_type}->{url};
             my $plural   = $ENTITIES{$list_type}->{plural_url};
             my $ret = {
-                $plural => [ map { serialize_entity($_, $inc, $opts, 1) } sort_by { $_->gid } @{ $entity->{items} } ],
+                $plural => [
+                    map { serialize_entity($_, $inc, $opts, 1) }
+                    sort_by { $list_type eq 'genre' ? $_->name : $_->gid }
+                    @{ $entity->{items} }
+                ],
             };
             $ret->{$singular . '-offset'} = number($entity->{offset}) if defined($entity->{offset});
             $ret->{$singular . '-count' } = number($entity->{total}) if defined($entity->{total});

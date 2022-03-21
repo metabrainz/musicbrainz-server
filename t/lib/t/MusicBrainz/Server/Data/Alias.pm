@@ -17,10 +17,26 @@ BEGIN {
 with 't::Context';
 
 sub verify_artist_alias {
-    my ($alias, $name, $id, $locale) = @_;
-    is($alias->name, $name, "alias name: $name");
-    is($alias->artist_id, $id, "artist id: $id");
-    is($alias->locale, $locale, $locale ? "locale: $locale" : 'locale undef');
+    my ($alias, $name, $sort_name, $id, $locale, $primary_for_locale, $message) = @_;
+    ok(
+        is($alias->name, $name, "Alias name is $name") &&
+        is($alias->sort_name, $sort_name, "Alias sort name is $sort_name") &&
+        is($alias->artist_id, $id, "Artist ID for the alias is $id") &&
+        is(
+            $alias->locale,
+            $locale,
+            $locale ? "Alias locale is $locale" : 'Alias locale is undef',
+        ) &&
+        is(
+            $alias->primary_for_locale,
+            $primary_for_locale,
+            $primary_for_locale
+                ? 'Alias is marked as primary'
+                : 'Alias is not marked as primary',
+        ),
+
+        $message || 'Alias data matches the expectation',
+    );
 }
 
 test all => sub {
@@ -40,7 +56,7 @@ test all => sub {
     my $alias = $artist_data->alias->get_by_id(1);
     ok(defined $alias, 'returns an object');
     isa_ok($alias, 'MusicBrainz::Server::Entity::ArtistAlias', 'not an artist alias');
-    verify_artist_alias($alias, 'Alias 1', 1, undef);
+    verify_artist_alias($alias, 'Alias 1', 'Alias 1', 1, undef, 0);
 
     # Loading the artist from an alias
     $artist_data->load($alias);
@@ -51,8 +67,16 @@ test all => sub {
     # Find all aliases for an artist
     my $alias_set = $artist_data->alias->find_by_entity_id(1);
     is(scalar @$alias_set, 2, 'Expected number of aliases');
-    verify_artist_alias($alias_set->[0], 'Alias 2', 1, 'en_GB');
-    verify_artist_alias($alias_set->[1], 'Alias 1', 1, undef);
+    verify_artist_alias(
+        $alias_set->[0],
+        'Alias 2', 'Alias 2', 1, 'en_GB', 0,
+        'The alias with a locale sorts first and has the expected data',
+    );
+    verify_artist_alias(
+        $alias_set->[1],
+        'Alias 1', 'Alias 1', 1, undef, 0,
+        'The alias without a locale sorts last and has the expected data',
+    );
 
     # Attempt finding aliases for an artist with no aliases
     $alias_set = $artist_data->alias->find_by_entity_id(2);
@@ -78,10 +102,13 @@ test all => sub {
 
     $alias_set = $artist_data->alias->find_by_entity_id(1);
     is(scalar @$alias_set, 4, 'Expected number of aliases');
-    verify_artist_alias($alias_set->[0], 'Alias 2', 1, 'en_GB');
-    verify_artist_alias($alias_set->[1], 'Alias 1', 1, undef);
-    verify_artist_alias($alias_set->[2], 'Alias 2', 1, undef);
-    verify_artist_alias($alias_set->[3], 'Empty Artist', 1, undef);
+    verify_artist_alias($alias_set->[0], 'Alias 2', 'Alias 2', 1, 'en_GB', 0);
+    verify_artist_alias($alias_set->[1], 'Alias 1', 'Alias 1', 1, undef, 0);
+    verify_artist_alias($alias_set->[2], 'Alias 2', 'Alias 2', 1, undef, 0);
+    verify_artist_alias(
+        $alias_set->[3],
+        'Empty Artist', 'Empty Artist', 1, undef, 0,
+    );
 
     $alias_set = $artist_data->alias->find_by_entity_id(3);
     is(scalar @$alias_set, 0, 'Merged artist has no aliases');
@@ -103,9 +130,10 @@ test all => sub {
     my $alias_id = $alias->{id};
     $alias_set = $artist_data->alias->find_by_entity_id(1);
     is(scalar @$alias_set, 1, 'Artist #1 has a single newly inserted alias');
-    verify_artist_alias($alias_set->[0], 'New alias', 1, 'en_AU');
-    is($alias_set->[0]->sort_name, 'New sort name', 'sort_name');
-    is($alias_set->[0]->primary_for_locale, 1, 'primary_for_locale');
+    verify_artist_alias(
+        $alias_set->[0],
+        'New alias', 'New sort name', 1, 'en_AU', 1,
+    );
 
     # Test overriding primary for locale on insert
     $artist_data->alias->insert({
@@ -118,14 +146,16 @@ test all => sub {
                                 });
     $alias_set = $artist_data->alias->find_by_entity_id(1);
     is(scalar @$alias_set, 2, 'Artist #1 has a second newly inserted alias');
-    verify_artist_alias($alias_set->[1], 'Newer alias', 1, 'en_AU');
-    is($alias_set->[1]->sort_name, 'Newer sort name', 'sort_name');
-    is($alias_set->[1]->primary_for_locale,
-       1,
-       'new alias is primary_for_locale');
-    is($alias_set->[0]->primary_for_locale,
-       0,
-       'old alias is no longer primary_for_locale');
+    verify_artist_alias(
+        $alias_set->[0],
+        'Newer alias', 'Newer sort name', 1, 'en_AU', 1,
+        'The new (primary) alias is the newly inserted alias and has the expected data',
+    );
+    is(
+        $alias_set->[1]->primary_for_locale,
+        0,
+        'Other (old) alias is no longer primary_for_locale',
+    );
 
     # Test overriding primary for locale on update
     $artist_data->alias->update($alias_id, {primary_for_locale => 1});

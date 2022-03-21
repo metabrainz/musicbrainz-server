@@ -7,6 +7,7 @@ use lib "$FindBin::Bin/../lib";
 
 use List::AllUtils qw ( any );
 use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Log qw( log_info log_debug );
 use MusicBrainz::Server::ReportFactory;
 use POSIX qw( SIGALRM );
 $| = 1;
@@ -17,13 +18,13 @@ my $c = MusicBrainz::Server::Context->create_script_context();
 my $errors = 0;
 for my $name (MusicBrainz::Server::ReportFactory->all_report_names) {
     unless (any { $name =~ /$_/i } @ARGV) {
-        print localtime() . " : Not running $name\n";
+        log_debug { "Not running $name" };
         next;
     }
 
     my $report = MusicBrainz::Server::ReportFactory->create_report($name, $c);
 
-    print localtime() . " : Running $name\n";
+    log_info { "Running $name" };
     my $t0 = time;
     my $ONE_HOUR = 1 * 60 * 60;
     my $exit_code = eval {
@@ -59,11 +60,11 @@ for my $name (MusicBrainz::Server::ReportFactory->all_report_names) {
     }
     my $t = time() - $t0;
 
-    print localtime() . " : $name finished; time=$t\n";
+    log_info { "$name finished; time=$t" };
 }
 
-print localtime() . " : Completed with 1 error\n" if $errors == 1;
-print localtime() . " : Completed with $errors errors\n" if $errors != 1;
+log_info { 'Completed with 1 error' } if $errors == 1;
+log_info { "Completed with $errors errors" } if $errors != 1;
 
 exit($errors ? 1 : 0);
 
