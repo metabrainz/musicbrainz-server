@@ -4,7 +4,7 @@ use Moose::Util qw( find_meta );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model );
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
@@ -40,22 +40,37 @@ sub cloud : Path('/tags')
 {
     my ($self, $c, $name) = @_;
 
-    my $cloud = $c->model('Tag')->get_cloud(200);
-    my $hits = scalar @$cloud;
+    my $show_list = $c->req->params->{show_list} ? 1 : 0;
+
+    my $cloud = $c->model('Tag')->get_cloud();
+    my $genres = $cloud->{genres};
+    my $genre_hits = scalar @$genres;
+    my $tags = $cloud->{other_tags};
+    my $tag_hits = scalar @$tags;
 
     $c->stash(
         current_view => 'Node',
         component_path => 'tag/TagCloud',
         component_props => {
             %{$c->stash->{component_props}},
-            tagMaxCount => $hits ? $cloud->[0]->{count} + 0 : 0,
-            tags => $hits ? [
+            genreMaxCount => $genre_hits ? $genres->[0]->{count} + 0 : 0,
+            genres => $genre_hits ? [
                 map +{
                     count => $_->{count} + 0,
                     tag => to_json_object($_->{tag}),
                 },
                 sort { $a->{tag}->name cmp $b->{tag}->name }
-                @$cloud
+                @$genres
+            ] : [],
+            showList => boolean_to_json($show_list),
+            tagMaxCount => $tag_hits ? $tags->[0]->{count} + 0 : 0,
+            tags => $tag_hits ? [
+                map +{
+                    count => $_->{count} + 0,
+                    tag => to_json_object($_->{tag}),
+                },
+                sort { $a->{tag}->name cmp $b->{tag}->name }
+                @$tags
             ] : [],
         },
     );
