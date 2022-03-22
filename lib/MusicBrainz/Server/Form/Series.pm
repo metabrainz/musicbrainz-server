@@ -3,6 +3,7 @@ use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Entity::SeriesOrderingType;
 use MusicBrainz::Server::Entity::SeriesType;
 use MusicBrainz::Server::Form::Utils qw( select_options_tree );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -22,6 +23,7 @@ has_field 'comment' => (
 
 has_field 'type_id' => (
     type => 'Select',
+    messages => { required => N_l('A type is required.') },
     required => 1,
 );
 
