@@ -5304,14 +5304,19 @@ limited_link_type_combinations: [
              input_entity_type: 'series',
     expected_relationship_type: 'youtube',
             expected_clean_url: 'https://www.youtube.com/playlist?list=PL43OynbWaTMKSxLVnUF0HbHHiXEgAVm3Q',
-       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+       only_valid_entity_types: ['series'],
   },
   {
                      input_url: 'https://www.youtube.com/playlist?playnext=1&list=PLlmo--SLJW2SstbkGcxEOPsmFdm3u49xJ&feature=gws_kp_artist',
              input_entity_type: 'artist',
-    expected_relationship_type: 'youtube',
+    expected_relationship_type: undefined,
             expected_clean_url: 'https://www.youtube.com/playlist?list=PLlmo--SLJW2SstbkGcxEOPsmFdm3u49xJ',
-       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+       input_relationship_type: 'youtube',
+       only_valid_entity_types: ['series'],
+                expected_error: {
+                                  error: 'is a playlist link',
+                                  target: 'url',
+                                },
   },
   {
                      input_url: 'https://music.youtube.com/browse/MPREb_0bOFkwXrX2x',
