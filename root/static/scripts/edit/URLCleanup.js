@@ -5004,6 +5004,8 @@ const CLEANUPS: CleanupEntries = {
       url = url.replace(/^https:\/\/www\.youtube\.com\/.*[?&](v=[a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?$1');
       // YouTube embeds
       url = url.replace(/^https:\/\/www\.youtube\.com\/(?:embed|v)\/([a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?v=$1');
+      // YouTube playlists
+      url = url.replace(/^https:\/\/www\.youtube\.com\/playlist.*[?&](list=[a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/playlist?$1');
       return url;
     },
     validate: function (url, id) {
