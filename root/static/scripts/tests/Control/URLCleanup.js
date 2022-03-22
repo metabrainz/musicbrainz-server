@@ -5478,7 +5478,7 @@ function testErrorObject(subtest, relationshipType, st) {
   const cleanUrl = subtest.expected_clean_url || actualCleanUrl;
   const checker = new Checker(cleanUrl, subtest.input_entity_type);
   const validationResult = checker.checkRelationship(
-    LINK_TYPES[relationshipType],
+    LINK_TYPES[relationshipType][subtest.input_entity_type],
     subtest.input_entity_type,
   );
   if (subtest.expected_error.error === undefined) {
