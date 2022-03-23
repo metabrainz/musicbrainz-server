@@ -2036,6 +2036,22 @@ msgid ""
 "where artist credits can't be used."
 msgstr "Serve a indicare che un <a href=\"/doc/Artist\" title=\"Artist\">artista</a> ha collaborato su un progetto di breve durata, in quei casi in cui non è possibile usare gli accreditamenti artista."
 
+#: DB:link_type/description:1047
+msgid ""
+"This is used when a work includes a brief quotation of the lyrics of another"
+" work. In most cases the quotation is uncredited, although this is not a "
+"requirement. For a work that includes significantly more of another than "
+"just a brief quotation, consider using “based on” instead."
+msgstr "Indica che un'opera comprende una breve citazione del testo di un'altra opera. Nella maggior parte dei casi la citazione non è accreditata, ma questo non è un requisito. Se l'opera comprende una parte di un'altra opera significativamente più grande di una breve citazione, valuta la possibilità di usare piuttosto la relazione \"si basa su\"."
+
+#: DB:link_type/description:1046
+msgid ""
+"This is used when a work includes a brief quotation of the music of another "
+"work. In most cases the quotation is uncredited, although this is not a "
+"requirement. For a work that includes significantly more of another than "
+"just a brief quotation, consider using “based on” instead."
+msgstr "Indica che un'opera comprende una breve citazione della musica di un'altra opera. Nella maggior parte dei casi la citazione non è accreditata, ma questo non è un requisito. Se l'opera comprende una parte di un'altra opera significativamente più grande di una breve citazione, valuta la possibilità di usare piuttosto la relazione \"si basa su\"."
+
 #: DB:link_type/description:288
 msgid ""
 "This link points to a page for a particular release within a discography for"
@@ -5135,6 +5151,10 @@ msgstr "logo di"
 msgid "logos"
 msgstr "loghi"
 
+#: DB:link_type/name:1047
+msgid "lyrical quotation"
+msgstr "citazione del testo"
+
 #: DB:link_type/name:56 DB:link_type/name:165
 msgid "lyricist"
 msgstr "paroliere"
@@ -5153,6 +5173,10 @@ msgstr "pagina di testi"
 #: DB:link_type/reverse_link_phrase:197 DB:link_type/reverse_link_phrase:982
 msgid "lyrics page for"
 msgstr "pagina di testi di"
+
+#: DB:link_type/reverse_link_phrase:1047
+msgid "lyrics quoted on"
+msgstr "testo citato in"
 
 #: DB:link_type/name:878
 msgid "lyrics written at"
@@ -5404,6 +5428,10 @@ msgstr "istruzione musicale"
 msgid "music production"
 msgstr "produzione musicale"
 
+#: DB:link_type/reverse_link_phrase:1046
+msgid "music quoted on"
+msgstr "musica citata in"
+
 #: DB:link_attribute_type/name:1222
 msgid "music theory"
 msgstr "teoria musicale"
@@ -5423,6 +5451,10 @@ msgstr "video musicale per"
 #: DB:link_type/link_phrase:857
 msgid "music videos"
 msgstr "video musicali"
+
+#: DB:link_type/name:1046
+msgid "musical quotation"
+msgstr "citazione della musica"
 
 #: DB:link_type/link_phrase:106 DB:link_type/reverse_link_phrase:106
 #: DB:link_type/long_link_phrase:106
@@ -6017,6 +6049,14 @@ msgstr "acquistare partitura per corrispondenza"
 #: DB:link_type/name:174
 msgid "purevolume"
 msgstr "purevolume"
+
+#: DB:link_type/link_phrase:1047 DB:link_type/long_link_phrase:1047
+msgid "quotes lyrics from"
+msgstr "cita il testo di"
+
+#: DB:link_type/link_phrase:1046 DB:link_type/long_link_phrase:1046
+msgid "quotes music from"
+msgstr "cita la musica di"
 
 #: DB:link_attribute_type/name:952
 msgid "re"

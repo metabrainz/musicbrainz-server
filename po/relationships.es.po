@@ -2038,6 +2038,22 @@ msgid ""
 "where artist credits can't be used."
 msgstr ""
 
+#: DB:link_type/description:1047
+msgid ""
+"This is used when a work includes a brief quotation of the lyrics of another"
+" work. In most cases the quotation is uncredited, although this is not a "
+"requirement. For a work that includes significantly more of another than "
+"just a brief quotation, consider using “based on” instead."
+msgstr ""
+
+#: DB:link_type/description:1046
+msgid ""
+"This is used when a work includes a brief quotation of the music of another "
+"work. In most cases the quotation is uncredited, although this is not a "
+"requirement. For a work that includes significantly more of another than "
+"just a brief quotation, consider using “based on” instead."
+msgstr ""
+
 #: DB:link_type/description:288
 msgid ""
 "This link points to a page for a particular release within a discography for"
@@ -5137,6 +5153,10 @@ msgstr "logo de"
 msgid "logos"
 msgstr "logos"
 
+#: DB:link_type/name:1047
+msgid "lyrical quotation"
+msgstr ""
+
 #: DB:link_type/name:56 DB:link_type/name:165
 msgid "lyricist"
 msgstr ""
@@ -5155,6 +5175,10 @@ msgstr "página de letras"
 #: DB:link_type/reverse_link_phrase:197 DB:link_type/reverse_link_phrase:982
 msgid "lyrics page for"
 msgstr "página de letras para"
+
+#: DB:link_type/reverse_link_phrase:1047
+msgid "lyrics quoted on"
+msgstr ""
 
 #: DB:link_type/name:878
 msgid "lyrics written at"
@@ -5406,6 +5430,10 @@ msgstr ""
 msgid "music production"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:1046
+msgid "music quoted on"
+msgstr ""
+
 #: DB:link_attribute_type/name:1222
 msgid "music theory"
 msgstr ""
@@ -5425,6 +5453,10 @@ msgstr "Video Musical Para"
 #: DB:link_type/link_phrase:857
 msgid "music videos"
 msgstr "Videos Musicales"
+
+#: DB:link_type/name:1046
+msgid "musical quotation"
+msgstr ""
 
 #: DB:link_type/link_phrase:106 DB:link_type/reverse_link_phrase:106
 #: DB:link_type/long_link_phrase:106
@@ -6018,6 +6050,14 @@ msgstr ""
 
 #: DB:link_type/name:174
 msgid "purevolume"
+msgstr ""
+
+#: DB:link_type/link_phrase:1047 DB:link_type/long_link_phrase:1047
+msgid "quotes lyrics from"
+msgstr ""
+
+#: DB:link_type/link_phrase:1046 DB:link_type/long_link_phrase:1046
+msgid "quotes music from"
 msgstr ""
 
 #: DB:link_attribute_type/name:952

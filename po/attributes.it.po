@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:52+0000\n"
-"Last-Translator: salo.rock, 2022\n"
+"Last-Translator: salo.rock, 2016-2022\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -191,6 +191,15 @@ msgid ""
 "A cantata is a vocal (often choral) composition with an instrumental "
 "(usually orchestral) accompaniment, typically in several movements."
 msgstr "Una cantata è una composizione vocale (spesso corale) con un accompagnamento strumentale (solitamente orchestrale), tipicamente divisa in diversi movimenti."
+
+#: DB:medium_format/description:46
+msgctxt "medium_format"
+msgid ""
+"A card (or other similar physical support) that doesn't contain the music "
+"itself directly, but provides a code to download it digitally. Often bundled"
+" with physical releases but sometimes sold as a standalone item (especially "
+"in Asia)."
+msgstr "Un biglietto (o un altro tipo di supporto fisico simile) che non contiene direttamente la musica, ma fornisce un codice per scaricarla in formato digitale. Spesso accompagna una pubblicazione fisica, ma talvolta è venduto anche come articolo a sé stante (in modo particolare in Asia)."
 
 #: DB:work_type/description:4
 msgctxt "work_type"
@@ -2268,6 +2277,11 @@ msgstr "Divan"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Dolap"
 msgstr "Dolap"
+
+#: DB:medium_format/name:46
+msgctxt "medium_format"
+msgid "Download Card"
+msgstr "Download Card"
 
 #: DB:medium_format/name:4
 msgctxt "medium_format"
@@ -4926,11 +4940,6 @@ msgstr "Murabba"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Murabba Beste "
 msgstr "Murabba Beste "
-
-#: DB:medium_format/name:46
-msgctxt "medium_format"
-msgid "Music Card"
-msgstr "Music Card"
 
 #: DB:work_type/name:29
 msgctxt "work_type"

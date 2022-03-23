@@ -46,6 +46,7 @@ msgid "Anglo concertina"
 msgstr "concertina anglo"
 
 #: DB:instrument/name:66
+msgctxt "Folk drone zither from N. America"
 msgid "Appalachian dulcimer"
 msgstr "dulcimer des Appalaches"
 
@@ -242,10 +243,6 @@ msgstr "guitare acoustique espagnole"
 msgctxt "Horn-amplified violin"
 msgid "Stroh violin"
 msgstr "violon à pavillon"
-
-#: DB:instrument/name:691
-msgid "Swedish bagpipes"
-msgstr "säckpipa"
 
 #: DB:instrument/name:934
 msgctxt "electrically actuated lithophone"
@@ -1797,8 +1794,9 @@ msgid "guitorgan"
 msgstr "flageolet"
 
 #: DB:instrument/name:325
+msgctxt "3-stringed plucked bass-lute"
 msgid "gumbri"
-msgstr "gumbri"
+msgstr ""
 
 #: DB:instrument/name:506
 msgid "guqin"
@@ -2454,8 +2452,9 @@ msgid "liuqin"
 msgstr "liuqin"
 
 #: DB:instrument/name:398
+msgctxt "Low pitch fipple flute"
 msgid "low whistle"
-msgstr "whistle de concert"
+msgstr ""
 
 #: DB:instrument/name:83
 msgid "lute"
@@ -3633,6 +3632,11 @@ msgstr "sáo meò"
 msgid "sáo trúc"
 msgstr "sáo trúc"
 
+#: DB:instrument/name:691
+msgctxt "Historical Swedish bagpipes"
+msgid "säckpipa"
+msgstr ""
+
 #: DB:instrument/name:276
 msgid "sênh tiền"
 msgstr "sênh tiền"
@@ -3856,8 +3860,9 @@ msgid "timpani"
 msgstr "timbale classique"
 
 #: DB:instrument/name:197
+msgctxt "Simple fipple flute"
 msgid "tin whistle"
-msgstr "flûte irlandaise"
+msgstr ""
 
 #: DB:instrument/name:724
 msgid "tinya"
@@ -4243,7 +4248,7 @@ msgid "whip / slapstick"
 msgstr ""
 
 #: DB:instrument/name:274
-msgctxt "small, simple, singletoned flute"
+msgctxt "Small simple single-toned flute"
 msgid "whistle"
 msgstr "sifflet"
 
@@ -4397,6 +4402,7 @@ msgid "çevgen"
 msgstr "pavillon chinois"
 
 #: DB:instrument/name:768
+msgctxt "Hungarian percussion-viol"
 msgid "ütőgardon"
 msgstr "gardon"
 
