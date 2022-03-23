@@ -226,6 +226,15 @@ msgid ""
 "(usually orchestral) accompaniment, typically in several movements."
 msgstr "Eine Kantate ist eine Komposition für Singstimme (üblicherweise Choral) und ein Begleitinstrument. Oft in mehreren Sätzen."
 
+#: DB:medium_format/description:46
+msgctxt "medium_format"
+msgid ""
+"A card (or other similar physical support) that doesn't contain the music "
+"itself directly, but provides a code to download it digitally. Often bundled"
+" with physical releases but sometimes sold as a standalone item (especially "
+"in Asia)."
+msgstr ""
+
 #: DB:work_type/description:4
 msgctxt "work_type"
 msgid ""
@@ -2301,6 +2310,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:725
 msgctxt "work_attribute_type_allowed_value"
 msgid "Dolap"
+msgstr ""
+
+#: DB:medium_format/name:46
+msgctxt "medium_format"
+msgid "Download Card"
 msgstr ""
 
 #: DB:medium_format/name:4
@@ -4959,11 +4973,6 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:811
 msgctxt "work_attribute_type_allowed_value"
 msgid "Murabba Beste "
-msgstr ""
-
-#: DB:medium_format/name:46
-msgctxt "medium_format"
-msgid "Music Card"
 msgstr ""
 
 #: DB:work_type/name:29

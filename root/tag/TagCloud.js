@@ -11,10 +11,15 @@ import * as React from 'react';
 
 import Layout from '../layout';
 import TagLink from '../static/scripts/common/components/TagLink';
+import {sortByNumber} from '../static/scripts/common/utility/arrays';
 import {formatCount} from '../statistics/utilities';
+import loopParity from '../utility/loopParity';
 
 type Props = {
   +$c: CatalystContextT,
+  +genreMaxCount: number,
+  +genres: $ReadOnlyArray<AggregatedTagT>,
+  +showList?: boolean,
   +tagMaxCount: number,
   +tags: $ReadOnlyArray<AggregatedTagT>,
 };
@@ -42,8 +47,47 @@ function getTagSize(count: number, tagMaxCount: number) {
   return 'tag7';
 }
 
+function generateTagCloud($c, tags, maxCount) {
+  return (
+    <ul className="tag-cloud">
+      {tags.map(({count, tag}) => (
+        <li
+          className={getTagSize(count, maxCount)}
+          key={tag.name}
+          title={texp.l(
+            "'{tag}' has been used {num} times",
+            {num: formatCount($c, count), tag: tag.name},
+          )}
+        >
+          <TagLink tag={tag.name} />
+          {' '}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function generateTagList($c, tags) {
+  const sortedTags = sortByNumber(tags, tag => -tag.count);
+  return (
+    <ul className="tag-list top-tag-list">
+      {sortedTags.map((tag, index) => (
+        <li className={loopParity(index)} key={tag.tag.id}>
+          <TagLink tag={tag.tag.name} />
+          <span className="tag-vote-buttons">
+            <span className="tag-count">{formatCount($c, tag.count)}</span>
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 const TagCloud = ({
   $c,
+  genreMaxCount,
+  genres,
+  showList = false,
   tagMaxCount,
   tags,
 }: Props): React.Element<typeof Layout> => (
@@ -51,24 +95,29 @@ const TagCloud = ({
     <div id="content">
       <h1>{l('Tags')}</h1>
       <p>
-        {tags.length ? (
-          <ul className="tag-cloud">
-            {tags.map(({count, tag}) => (
-              <li
-                className={getTagSize(count, tagMaxCount)}
-                key={tag.name}
-                title={texp.l(
-                  "'{tag}' has been used {num} times",
-                  {num: formatCount($c, count), tag: tag.name},
-                )}
-              >
-                <TagLink tag={tag.name} />
-                {' '}
-              </li>
-            ))}
-          </ul>
-        ) : l('The database has no tags.')}
+        {l('These are the most used genres and other tags in the database.')}
+        {' '}
+        {showList ? (
+          <a href="/tags?show_list=0">{l('Show as a cloud instead.')}</a>
+        ) : (
+          <a href="/tags?show_list=1">{l('Show as a list instead.')}</a>
+        )}
       </p>
+
+      <h2>{l('Genres')}</h2>
+      {genres.length ? (
+        showList
+          ? generateTagList($c, genres)
+          : generateTagCloud($c, genres, genreMaxCount)
+
+      ) : l('No genre tags have been used yet.')}
+
+      <h2>{l('Other tags')}</h2>
+      {tags.length ? (
+        showList
+          ? generateTagList($c, tags)
+          : generateTagCloud($c, tags, tagMaxCount)
+      ) : l('No non-genre tags have been used yet.')}
     </div>
   </Layout>
 );

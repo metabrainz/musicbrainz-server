@@ -315,6 +315,13 @@ msgstr "Strumento in legno ad ancia doppia e a sezione conica risalente al XVI e
 msgid "Acoustic guitar without frets."
 msgstr "Chitarra acustica senza tasti."
 
+#. name:säckpipa
+#: DB:instrument/description:691
+msgid ""
+"Almost completely disappeared by the 20th century, modern revivals based on "
+"museum examples are now used by Swedish folk musicians."
+msgstr ""
+
 #. name:cello
 #: DB:instrument/description:60
 msgid ""
@@ -1347,6 +1354,15 @@ msgid ""
 "prototype, fish board (gyoban) is more obviously shaped like a fish."
 msgstr "Blocco/campana in legno altamente stilizzato, è usato per rituali religiosi. Il suo prototipo, il gyoban (tavola a forma di pesce) ha una forma che richiama un pesce in maniera più evidente."
 
+#. name:Appalachian dulcimer
+#: DB:instrument/description:66
+msgid ""
+"Historically a folk instrument from Appalachia, its elongated figure-of-"
+"eight shaped soundbox is made of various woods and often has heart-shaped "
+"sound-holes. It has 3 to 4 metal strings (including drone) and is fretted "
+"diatonically."
+msgstr ""
+
 #. name:gut guitar
 #: DB:instrument/description:567
 msgid "Hollow-body acoustic guitar strung with gut-strings."
@@ -1666,6 +1682,13 @@ msgid ""
 "weapon."
 msgstr "Tubo grande e largo con un padiglione a campana molto svasato, manipolandone la lunghezza si creano tenui armoniche superiori fluttuanti. Ha ispirato il nome dell'arma anticarro."
 
+#. name:low whistle
+#: DB:instrument/description:398
+msgid ""
+"Larger and deeper than the tin whistle, it was developed by Overton and made"
+" of aluminium."
+msgstr ""
+
 #. name:baandu
 #: DB:instrument/description:880
 msgid ""
@@ -1752,6 +1775,13 @@ msgid ""
 "Mostly used to learn how to play the pipes, but are occasionally played in "
 "their own right."
 msgstr "Assomiglia ad un flauto dolce, ma ha ance doppie e il sistema di diteggiatura della cornamusa. È usato principalmente per imparare a suonare la cornamusa, ma talvolta è suonato anche come strumento a sé stante."
+
+#. name:gumbri
+#: DB:instrument/description:325
+msgid ""
+"Lute played by Gnawa people, its camel hide covered wooden soundbox has 3 "
+"goat gut strings."
+msgstr ""
 
 #. name:marimba lumina
 #: DB:instrument/description:767
@@ -2296,6 +2326,14 @@ msgid ""
 "hands or sticks. it has the designation of \"mother\""
 msgstr "Suonato in ensemble con il kulanter, viene inclinato e percosso con le mani o con bacchette. È designato come tamburo \"madre\"."
 
+#. name:ütőgardon
+#: DB:instrument/description:768
+msgid ""
+"Played in folk music of Hungary and Transylvanian regions, its 3-4 strings "
+"are plucked or struck with a stick, and its soundbox is made of thick maple,"
+" poplar or willow wood."
+msgstr ""
+
 #. name:vichitra veena
 #: DB:instrument/description:612
 msgid ""
@@ -2572,6 +2610,20 @@ msgid ""
 " holes and a wide flaring wooden bell; shorter variants have a metal bell."
 msgstr "Simile allo <a href=\"/instrument/5e17d5f8-65b1-464d-9f90-47259d832507\">shahnai</a> dell'India settentrionale, ha un corpo in legno duro lungo 95 cm con 7 fori di diteggiatura, 5 fori di accordatura che possono essere riempiti di cera, e un ampio padiglione a campana in legno; varianti più corte possono avere un padiglione a campana in metallo."
 
+#. name:tin whistle
+#: DB:instrument/description:197
+msgid ""
+"Simple six-holed fipple flute, originally made of metal; it used to cost a "
+"penny, giving it the alternate name “penny whistle”."
+msgstr ""
+
+#. name:whistle
+#: DB:instrument/description:274
+msgid ""
+"Simple, single-toned and round-bodied whistle often used for regulation and "
+"signalling (sport, traffic, ...)."
+msgstr ""
+
 #. name:mirliton
 #: DB:instrument/description:591
 msgid ""
@@ -2737,11 +2789,6 @@ msgid ""
 "these are most often made of sonorous material: metal, wood, glass and even "
 "stone."
 msgstr "Idiofoni in cui il suono è prodotto colpendo lo strumento e facendolo vibrare nella sua interezza, senza utilizzare corde o membrane. Ne consegue che questi strumenti sono realizzati il più delle volte in materiale risonante: metallo, legno, vetro o persino pietra."
-
-#. name:Swedish bagpipes
-#: DB:instrument/description:691
-msgid "Swedish bagpipes are a type of bagpipes from Sweden."
-msgstr "Tipo di cornamusa originario della Svezia."
 
 #. name:glass harmonica
 #: DB:instrument/description:285
@@ -3383,13 +3430,6 @@ msgid ""
 "instrument with six strings which is traditionally played in mariachi "
 "groups."
 msgstr "Strumento messicano simile alla chitarra, molto grande e dalla cassa molto profonda, a sei corde e tradizionalmente suonato nei gruppi mariachi."
-
-#. name:gumbri
-#: DB:instrument/description:325
-msgid ""
-"The gumbri or sintir is a three-stringed skin-covered bass plucked lute from"
-" North Africa."
-msgstr "Detto anche sintir, è un liuto basso a corda pizzicata a tre corde e ricoperto in pelle, originario del Nordafrica."
 
 #. name:guqin
 #: DB:instrument/description:506
@@ -4322,15 +4362,6 @@ msgid ""
 "family."
 msgstr "Liuto cinese a corda pizzicata, membro di gamma tenore della famiglia dei ruan."
 
-#. name:ütőgardon
-#: DB:instrument/description:768
-msgid ""
-"The ütőgardon is a folk musical instrument played primarily in Transylvania."
-" It is similar in appearance to a cello, but played percussively like a "
-"drum. Instead of being played with a bow, its strings are plucked and beaten"
-" with a stick."
-msgstr "Strumento musicale tradizionale suonato soprattutto in Transilvania. Ha un aspetto simile a quello del violoncello ma è suonato in modo percussivo, come un tamburo. Anziché essere suonato con un archetto, le sue corde sono pizzicate e percosse con una bacchetta."
-
 #. name:đing năm
 #: DB:instrument/description:319
 msgid ""
@@ -5234,13 +5265,6 @@ msgid ""
 "often two, first and second bass. it can either have three double strings or"
 " two double strings and three single strings"
 msgstr "Secondo membro più piccolo dell'orchestra di tamburitza serbo-croata, spesso ve ne sono due, primo e secondo basso. Può avere o tre corde doppie, o due corde doppie e tre corde singole."
-
-#. name:whistle
-#: DB:instrument/description:274
-msgid ""
-"simple, often single-toned and round-bodied whistle often used for "
-"regulation (sport, traffic, ...)."
-msgstr "Strumento semplice, spesso monotonale e dal corpo arrotondato, usato comunemente per la regolamentazione (per es. in ambito sportivo, del traffico, ecc.)."
 
 #. name:härjedalspipa
 #: DB:instrument/description:818

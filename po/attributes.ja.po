@@ -206,6 +206,15 @@ msgid ""
 "(usually orchestral) accompaniment, typically in several movements."
 msgstr "カンタータは楽器(通常オーケストラ)の伴奏を伴う声楽(多くの場合は合唱)の作曲物で、通常はいくつかの楽章で構成されています。"
 
+#: DB:medium_format/description:46
+msgctxt "medium_format"
+msgid ""
+"A card (or other similar physical support) that doesn't contain the music "
+"itself directly, but provides a code to download it digitally. Often bundled"
+" with physical releases but sometimes sold as a standalone item (especially "
+"in Asia)."
+msgstr ""
+
 #: DB:work_type/description:4
 msgctxt "work_type"
 msgid ""
@@ -2281,6 +2290,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:725
 msgctxt "work_attribute_type_allowed_value"
 msgid "Dolap"
+msgstr ""
+
+#: DB:medium_format/name:46
+msgctxt "medium_format"
+msgid "Download Card"
 msgstr ""
 
 #: DB:medium_format/name:4
@@ -4940,11 +4954,6 @@ msgstr ""
 msgctxt "work_attribute_type_allowed_value"
 msgid "Murabba Beste "
 msgstr ""
-
-#: DB:medium_format/name:46
-msgctxt "medium_format"
-msgid "Music Card"
-msgstr "MUSIC CARD"
 
 #: DB:work_type/name:29
 msgctxt "work_type"

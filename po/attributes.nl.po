@@ -190,6 +190,15 @@ msgid ""
 "(usually orchestral) accompaniment, typically in several movements."
 msgstr "Een cantate is een vocale compositie (vaak voor een koor) met een instrumentale (meestal orkestrale) begeleiding, meestal in meerdere delen."
 
+#: DB:medium_format/description:46
+msgctxt "medium_format"
+msgid ""
+"A card (or other similar physical support) that doesn't contain the music "
+"itself directly, but provides a code to download it digitally. Often bundled"
+" with physical releases but sometimes sold as a standalone item (especially "
+"in Asia)."
+msgstr "Een kaart (of ander fysiek object) waar geen muziek op staat, maar wel een code waarmee de muziek kan worden gedownload. Vaak worden ze met fysieke uitgaven gebundeld, maar soms worden ze ook los verkocht (vooral in Azië)."
+
 #: DB:work_type/description:4
 msgctxt "work_type"
 msgid ""
@@ -2266,6 +2275,11 @@ msgstr "Divan"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Dolap"
 msgstr "Dolap"
+
+#: DB:medium_format/name:46
+msgctxt "medium_format"
+msgid "Download Card"
+msgstr "Downloadkaart"
 
 #: DB:medium_format/name:4
 msgctxt "medium_format"
@@ -4924,11 +4938,6 @@ msgstr "Murabba"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Murabba Beste "
 msgstr "Murabba Beste "
-
-#: DB:medium_format/name:46
-msgctxt "medium_format"
-msgid "Music Card"
-msgstr "muziekkaart"
 
 #: DB:work_type/name:29
 msgctxt "work_type"

@@ -56,20 +56,27 @@ sub load
     load_subobjects($self, 'tag', @objs);
 }
 
-sub get_cloud
+sub _get_cloud_data
 {
-    my ($self, $limit) = @_;
+    my ($self, $get_genres, $limit) = @_;
 
-    my $cache = $self->c->cache('tag');
-    my $data = $cache->get('tag_cloud');
-    return $data if defined $data;
-
-    $limit ||= 100;
+    my $condition = $get_genres
+        ? 'tag.name IN (SELECT name FROM genre) '
+        : 'tag.name NOT IN (SELECT name FROM genre) ';
 
     my $entity_tag_subqueries = join ' UNION ALL ', map {
         my $entity_type = $_;
-        "(SELECT tag, sum(count) AS count FROM ${entity_type}_tag " .
-        'GROUP BY tag ORDER BY sum(count) DESC LIMIT $1)'
+        <<~"SQL";
+            (  SELECT tag.id AS tag,
+                      sum(count) AS count
+                 FROM ${entity_type}_tag entity_tag
+                 JOIN tag ON entity_tag.tag = tag.id
+                WHERE $condition
+             GROUP BY tag.id
+             ORDER BY sum(count) DESC
+                LIMIT \$1
+            )
+            SQL
     } entities_with('tags');
 
     my $query =
@@ -80,7 +87,7 @@ sub get_cloud
         'ORDER BY summed_count ' .
         'DESC LIMIT $1';
 
-    $data = [$self->query_to_list($query, [$limit], sub {
+    return [$self->query_to_list($query, [$limit], sub {
         my ($model, $row) = @_;
 
         return {
@@ -91,8 +98,25 @@ sub get_cloud
             ),
         };
     })];
+}
 
-    $cache->set('tag_cloud', $data, $TAG_CLOUD_CACHE_TIMEOUT);
+sub get_cloud
+{
+    my ($self, $genre_limit, $tag_limit) = @_;
+
+    my $cache = $self->c->cache('tag');
+    my $data = $cache->get('tag_cloud_data');
+    return $data if defined $data;
+
+    $genre_limit ||= 200;
+    $tag_limit ||= 50;
+
+    $data = {
+        genres => $self->_get_cloud_data(1, $genre_limit),
+        other_tags => $self->_get_cloud_data(0, $tag_limit),
+    };
+
+    $cache->set('tag_cloud_data', $data, $TAG_CLOUD_CACHE_TIMEOUT);
     return $data;
 }
 

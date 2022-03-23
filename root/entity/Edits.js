@@ -90,8 +90,9 @@ const Edits = ({
         $c={$c}
         editCountLimit={editCountLimit}
         edits={edits}
+        entity={entity}
         guessSearch
-        page={entityTypeClass + '_' + (showingOpenOnly ? 'open' : 'all')}
+        page={entity.entityType + '_' + (showingOpenOnly ? 'open' : 'all')}
         pager={pager}
         refineUrlArgs={refineUrlArgs}
       />
