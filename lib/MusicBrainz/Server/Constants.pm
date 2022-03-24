@@ -824,7 +824,6 @@ Readonly our @PRIVATE_TABLE_LIST => qw(
     place_tag_raw
     recording_rating_raw
     recording_tag_raw
-    release_coverart
     release_group_rating_raw
     release_group_tag_raw
     release_tag_raw

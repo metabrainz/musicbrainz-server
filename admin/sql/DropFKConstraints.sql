@@ -671,7 +671,6 @@ ALTER TABLE release_attribute_type_allowed_value DROP CONSTRAINT IF EXISTS relea
 ALTER TABLE release_attribute_type_allowed_value DROP CONSTRAINT IF EXISTS release_attribute_type_allowed_value_fk_parent;
 ALTER TABLE release_country DROP CONSTRAINT IF EXISTS release_country_fk_release;
 ALTER TABLE release_country DROP CONSTRAINT IF EXISTS release_country_fk_country;
-ALTER TABLE release_coverart DROP CONSTRAINT IF EXISTS release_coverart_fk_id;
 ALTER TABLE release_first_release_date DROP CONSTRAINT IF EXISTS release_first_release_date_fk_release;
 ALTER TABLE release_gid_redirect DROP CONSTRAINT IF EXISTS release_gid_redirect_fk_new_id;
 ALTER TABLE release_group DROP CONSTRAINT IF EXISTS release_group_fk_artist_credit;

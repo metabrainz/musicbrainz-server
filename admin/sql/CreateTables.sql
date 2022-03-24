@@ -3501,16 +3501,7 @@ CREATE TABLE release_meta ( -- replicate (verbose)
     date_added          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     info_url            VARCHAR(255),
     amazon_asin         VARCHAR(10),
-    amazon_store        VARCHAR(20), -- unused, to be removed
     cover_art_presence  cover_art_presence NOT NULL DEFAULT 'absent'
-);
-
--- release_coverart is unused, to be removed
-CREATE TABLE release_coverart
-(
-    id                  INTEGER NOT NULL, -- PK, references release.id CASCADE
-    last_updated        TIMESTAMP WITH TIME ZONE,
-    cover_art_url       VARCHAR(255)
 );
 
 CREATE TABLE release_label ( -- replicate (verbose)

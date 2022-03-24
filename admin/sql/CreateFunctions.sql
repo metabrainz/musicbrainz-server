@@ -483,7 +483,6 @@ BEGIN
     UPDATE release_group_meta SET release_count = release_count + 1 WHERE id = NEW.release_group;
     -- add new release_meta
     INSERT INTO release_meta (id) VALUES (NEW.id);
-    INSERT INTO release_coverart (id) VALUES (NEW.id);
     INSERT INTO artist_release_pending_update VALUES (NEW.id);
     INSERT INTO artist_release_group_pending_update VALUES (NEW.release_group);
     RETURN NULL;

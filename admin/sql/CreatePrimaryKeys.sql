@@ -306,7 +306,6 @@ ALTER TABLE release_attribute ADD CONSTRAINT release_attribute_pkey PRIMARY KEY 
 ALTER TABLE release_attribute_type ADD CONSTRAINT release_attribute_type_pkey PRIMARY KEY (id);
 ALTER TABLE release_attribute_type_allowed_value ADD CONSTRAINT release_attribute_type_allowed_value_pkey PRIMARY KEY (id);
 ALTER TABLE release_country ADD CONSTRAINT release_country_pkey PRIMARY KEY (release, country);
-ALTER TABLE release_coverart ADD CONSTRAINT release_coverart_pkey PRIMARY KEY (id);
 ALTER TABLE release_first_release_date ADD CONSTRAINT release_first_release_date_pkey PRIMARY KEY (release);
 ALTER TABLE release_gid_redirect ADD CONSTRAINT release_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE release_group ADD CONSTRAINT release_group_pkey PRIMARY KEY (id);

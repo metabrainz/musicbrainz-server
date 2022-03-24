@@ -37,12 +37,6 @@ $MusicBrainz::Script::EntityDump::dump_annotations = $annotations;
 $MusicBrainz::Script::EntityDump::follow_extra_data = $extra_data;
 $MusicBrainz::Script::EntityDump::dump_ratings = $ratings;
 $MusicBrainz::Script::EntityDump::dump_tags = $tags;
-# release_coverart rows conflict with those added by the a_ins_release
-# trigger. A better alternative may be to use INSERT ... ON CONFLICT DO
-# UPDATE for these.
-@MusicBrainz::Script::EntityDump::skip_tables = qw(
-    release_coverart
-);
 
 sub quote_column {
     my ($type, $data) = @_;

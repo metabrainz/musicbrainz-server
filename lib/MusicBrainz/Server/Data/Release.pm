@@ -868,9 +868,6 @@ sub delete
     $self->remove_gid_redirects(@release_ids);
     $self->tags->delete(@release_ids);
 
-    $self->sql->do('DELETE FROM release_coverart WHERE id IN (' . placeholders(@release_ids) . ')',
-             @release_ids);
-
     $self->sql->do('DELETE FROM release_label WHERE release IN (' . placeholders(@release_ids) . ')',
              @release_ids);
 
@@ -1385,12 +1382,6 @@ sub merge
         $self->c->model('Medium')->delete($_) for @$delete_these_media;
     }
 
-    $self->sql->do(
-        'DELETE FROM release_coverart
-          WHERE id IN (' . placeholders(@old_ids) . ')',
-        @old_ids
-    );
-
     $self->_delete_and_redirect_gids('release', $new_id, @old_ids);
     return 1;
 }
@@ -1436,7 +1427,6 @@ sub load_ids
     }
 }
 
-my $has_release_coverart_backup = undef;
 sub load_meta
 {
     my $self = shift;

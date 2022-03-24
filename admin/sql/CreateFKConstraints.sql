@@ -3385,12 +3385,6 @@ ALTER TABLE release_country
    FOREIGN KEY (country)
    REFERENCES country_area(area);
 
-ALTER TABLE release_coverart
-   ADD CONSTRAINT release_coverart_fk_id
-   FOREIGN KEY (id)
-   REFERENCES release(id)
-   ON DELETE CASCADE;
-
 ALTER TABLE release_first_release_date
    ADD CONSTRAINT release_first_release_date_fk_release
    FOREIGN KEY (release)
