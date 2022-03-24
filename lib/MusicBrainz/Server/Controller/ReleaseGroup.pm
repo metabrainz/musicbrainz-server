@@ -3,7 +3,6 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 use MusicBrainz::Server::Constants qw(
-    $EDIT_RELEASEGROUP_DELETE
     $EDIT_RELEASEGROUP_EDIT
     $EDIT_RELEASEGROUP_MERGE
     $EDIT_RELEASEGROUP_CREATE
@@ -104,10 +103,6 @@ sub show : Chained('load') PathPart('') {
 after [qw( show collections details tags ratings aliases )] => sub {
     my ($self, $c) = @_;
     $self->_stash_collections($c);
-};
-
-with 'MusicBrainz::Server::Controller::Role::Delete' => {
-    edit_type      => $EDIT_RELEASEGROUP_DELETE,
 };
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
