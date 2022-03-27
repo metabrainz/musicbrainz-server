@@ -14,15 +14,19 @@ import TopMenu from './TopMenu';
 import BottomMenu from './BottomMenu';
 
 const Header = (): React.Element<'div'> => (
-  <div className="header">
-    <a className="logo" href="/" title="MusicBrainz">
-      <HeaderLogo />
-    </a>
-    <div className="right">
-      <TopMenu />
-      <BottomMenu />
+  <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <div className="container-fluid">
+      <div className="header">
+        <a className="logo" href="/" title="MusicBrainz">
+          <HeaderLogo />
+        </a>
+        <div className="right">
+          <TopMenu />
+          <BottomMenu />
+        </div>
+      </div>
     </div>
-  </div>
+  </nav>
 );
 
 export default Header;
