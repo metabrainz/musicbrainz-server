@@ -955,8 +955,8 @@ msgstr "Arazbarek"
 
 #: DB:editor_collection_type/name:7
 msgctxt "collection_type"
-msgid "Area"
-msgstr "Gebied"
+msgid "Area collection"
+msgstr "Collectie van gebieden"
 
 #: DB:area_alias_type/name:1
 msgctxt "alias_type"
@@ -968,15 +968,15 @@ msgctxt "work_type"
 msgid "Aria"
 msgstr "Aria"
 
-#: DB:editor_collection_type/name:8
-msgctxt "collection_type"
-msgid "Artist"
-msgstr "Artiest"
-
 #: DB:series_type/name:14
 msgctxt "series_type"
 msgid "Artist award"
 msgstr "Artiestenprijs"
+
+#: DB:editor_collection_type/name:8
+msgctxt "collection_type"
+msgid "Artist collection"
+msgstr "Collectie van artiesten"
 
 #: DB:artist_alias_type/name:1
 msgctxt "alias_type"
@@ -2519,8 +2519,8 @@ msgstr "Evcara"
 
 #: DB:editor_collection_type/name:4
 msgctxt "collection_type"
-msgid "Event"
-msgstr "Evenement"
+msgid "Event collection"
+msgstr "Collectie van evenementen"
 
 #: DB:event_alias_type/name:1
 msgctxt "alias_type"
@@ -3779,8 +3779,8 @@ msgstr "Indoorarena"
 
 #: DB:editor_collection_type/name:9
 msgctxt "collection_type"
-msgid "Instrument"
-msgstr "Instrument"
+msgid "Instrument collection"
+msgstr "Collectie van instrumenten"
 
 #: DB:instrument_alias_type/name:1
 msgctxt "alias_type"
@@ -4413,8 +4413,8 @@ msgstr "Kōmal riṣabh asāvēri"
 
 #: DB:editor_collection_type/name:10
 msgctxt "collection_type"
-msgid "Label"
-msgstr "Platenmaatschappij"
+msgid "Label collection"
+msgstr "Collectie van platenmaatschappijen"
 
 #: DB:label_alias_type/name:1
 msgctxt "alias_type"
@@ -5689,8 +5689,8 @@ msgstr "pianorol (notenrol)"
 
 #: DB:editor_collection_type/name:11
 msgctxt "collection_type"
-msgid "Place"
-msgstr "Plaats"
+msgid "Place collection"
+msgstr "Collectie van plaatsen"
 
 #: DB:place_alias_type/name:1
 msgctxt "alias_type"
@@ -5957,8 +5957,8 @@ msgstr "onbewerkt"
 
 #: DB:editor_collection_type/name:12
 msgctxt "collection_type"
-msgid "Recording"
-msgstr "Opnames"
+msgid "Recording collection"
+msgstr "Collectie van opnames"
 
 #: DB:recording_alias_type/name:1
 msgctxt "alias_type"
@@ -5992,13 +5992,13 @@ msgstr "Rekb-i Zavil"
 
 #: DB:editor_collection_type/name:1
 msgctxt "collection_type"
-msgid "Release"
-msgstr "Uitgave"
+msgid "Release collection"
+msgstr "Collectie van uitgaven"
 
 #: DB:editor_collection_type/name:13
 msgctxt "collection_type"
-msgid "Release group"
-msgstr "Uitgavegroepen"
+msgid "Release group collection"
+msgstr "Collectie van uitgavegroepen"
 
 #: DB:release_group_alias_type/name:1
 msgctxt "alias_type"
@@ -6504,8 +6504,8 @@ msgstr "Serbest"
 
 #: DB:editor_collection_type/name:14
 msgctxt "collection_type"
-msgid "Series"
-msgstr "Serie"
+msgid "Series collection"
+msgstr "Collectie van series"
 
 #: DB:series_alias_type/name:1
 msgctxt "alias_type"
@@ -7564,8 +7564,8 @@ msgstr "Teruggetrokken"
 
 #: DB:editor_collection_type/name:15
 msgctxt "collection_type"
-msgid "Work"
-msgstr "Composities"
+msgid "Work collection"
+msgstr "Collectie van composities"
 
 #: DB:work_alias_type/name:1
 msgctxt "alias_type"

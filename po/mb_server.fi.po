@@ -31,7 +31,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-21 13:06+0200\n"
+"POT-Creation-Date: 2022-03-23 09:31+0200\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: Nicolás Tamargo <reosarevok@gmail.com>, 2021\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
@@ -1526,11 +1526,6 @@ msgstr "Käyttäjän lippu"
 msgid "Editor “{user}”"
 msgstr "Käyttäjä \"{user}\""
 
-#: ../root/edit/subscribed.tt:1 ../root/edit/subscribed.tt:3
-#: ../root/edit/SubscribedEdits.js:31 ../root/edit/SubscribedEdits.js:33
-msgid "Edits for Your Subscribed Entities"
-msgstr "Seuraamillesi kohteille tehdyt muokkaukset"
-
 #: ../root/account/register.tt:39 ../root/admin/edit_user.tt:40
 #: ../root/user/UserProfile.js:185
 msgid "Email:"
@@ -1675,7 +1670,7 @@ msgstr "Päättymiskäytäntö"
 #: ../root/event/edit_form.tt:43 ../root/instrument/edit_form.tt:32
 #: ../root/label/edit_form.tt:41 ../root/place/edit_form.tt:37
 #: ../root/recording/edit_form.tt:51 ../root/release/edit/information.tt:262
-#: ../root/release_group/edit_form.tt:23 ../root/series/edit_form.tt:22
+#: ../root/release_group/edit_form.tt:23 ../root/series/edit_form.tt:23
 #: ../root/work/edit_form.tt:90
 msgid "External Links"
 msgstr "Ulkopuoliset linkit"
@@ -2811,7 +2806,7 @@ msgstr "Tai..."
 msgid "Orderable direction:"
 msgstr "Järjestettävä suunta:"
 
-#: ../root/series/edit_form.tt:16
+#: ../root/series/edit_form.tt:17
 msgid "Ordering Type:"
 msgstr "Järjestystapa:"
 
@@ -4386,7 +4381,7 @@ msgstr "Tyyppi"
 #: ../root/event/edit_form.tt:14 ../root/instrument/edit_form.tt:11
 #: ../root/label/edit_form.tt:15 ../root/place/edit_form.tt:15
 #: ../root/release/add_cover_art.tt:52 ../root/release/edit/information.tt:99
-#: ../root/series/edit_form.tt:15 ../root/work/edit_form.tt:14
+#: ../root/series/edit_form.tt:16 ../root/work/edit_form.tt:14
 #: ../root/layout/components/sidebar/CollectionSidebar.js:47
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:55
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:165
@@ -7090,6 +7085,10 @@ msgstr "Indeksoitu haku kehittyneemmällä hakusyntaksilla"
 msgid "Direct database search"
 msgstr "Suora tietokantahaku"
 
+#: ../lib/MusicBrainz/Server/Form/Series.pm:26
+msgid "A type is required."
+msgstr ""
+
 #: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:51
 msgid "The old password is incorrect"
 msgstr "Virheellinen vanha salasana"
@@ -8569,8 +8568,8 @@ msgstr ""
 
 #: ../root/components/EntityTabs.js:133
 #: ../root/components/UserAccountTabs.js:66 ../root/entity/Tags.js:34
-#: ../root/layout/components/BottomMenu.js:211 ../root/tag/TagCloud.js:50
-#: ../root/tag/TagCloud.js:52 ../root/user/UserTagList.js:65
+#: ../root/layout/components/BottomMenu.js:211 ../root/tag/TagCloud.js:94
+#: ../root/tag/TagCloud.js:96 ../root/user/UserTagList.js:65
 msgid "Tags"
 msgstr "Luokitukset"
 
@@ -9047,6 +9046,10 @@ msgstr "Avoimet muokkaukset"
 msgid "Edits by Your Subscribed Editors"
 msgstr "Seuraamiesi käyttäjien muokkaukset"
 
+#: ../root/edit/SubscribedEdits.js:31 ../root/edit/SubscribedEdits.js:33
+msgid "Edits for Your Subscribed Entities"
+msgstr "Seuraamillesi kohteille tehdyt muokkaukset"
+
 #: ../root/edit/components/EditArtwork.js:29
 #: ../root/edit/details/ReorderCoverArt.js:27
 msgid ""
@@ -9120,23 +9123,23 @@ msgstr ""
 msgid "Approve edit"
 msgstr "Hyväksy muokkaus"
 
-#: ../root/edit/components/EditList.js:77
+#: ../root/edit/components/EditList.js:80
 msgid "Found at least {n} edit"
 msgid_plural "Found at least {n} edits"
 msgstr[0] "{n} muokkaus löytyi"
 msgstr[1] "{n} muokkausta löytyi"
 
-#: ../root/edit/components/EditList.js:84
+#: ../root/edit/components/EditList.js:87
 msgid "Found {n} edit"
 msgid_plural "Found {n} edits"
 msgstr[0] "{n} muokkaus löytyi"
 msgstr[1] "{n} muokkausta löytyi"
 
-#: ../root/edit/components/EditList.js:112
+#: ../root/edit/components/EditList.js:115
 msgid "Submit votes & edit notes"
 msgstr ""
 
-#: ../root/edit/components/EditList.js:121
+#: ../root/edit/components/EditList.js:124
 msgid "No edits were found matching your query. Please {search|try again}."
 msgstr "Kyselyysi täsmääviä muokkauksia ei löytynyt. Halutessasi {search|hae uudelleen}."
 
@@ -9223,74 +9226,90 @@ msgid ""
 " unformatted)."
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:38
+#: ../root/edit/components/ListHeader.js:46
 msgid "Quick links:"
 msgstr "Pikalinkit:"
 
-#: ../root/edit/components/ListHeader.js:42
+#: ../root/edit/components/ListHeader.js:50
 msgid "Search for edits"
 msgstr "Etsi muokkauksia"
 
-#: ../root/edit/components/ListHeader.js:53
+#: ../root/edit/components/ListHeader.js:61
 msgid "Refine this search"
 msgstr "Uudelleenmääritä hakutermit"
 
-#: ../root/edit/components/ListHeader.js:61
+#: ../root/edit/components/ListHeader.js:69
 msgid "Open edits for {user}"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:69
+#: ../root/edit/components/ListHeader.js:77
 msgid "All edits for {user}"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:77
+#: ../root/edit/components/ListHeader.js:86
+msgid "Open edits for this collection"
+msgstr ""
+
+#: ../root/edit/components/ListHeader.js:87
+msgid "Open edits for this entity"
+msgstr ""
+
+#: ../root/edit/components/ListHeader.js:96
+msgid "All edits for this collection"
+msgstr ""
+
+#: ../root/edit/components/ListHeader.js:97
+msgid "All edits for this entity"
+msgstr ""
+
+#: ../root/edit/components/ListHeader.js:105
 msgid "Open edits for your subscribed entities"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:85
+#: ../root/edit/components/ListHeader.js:113
 msgid "All edits for your subscribed entities"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:93
+#: ../root/edit/components/ListHeader.js:121
 msgid "Open edits for your subscribed editors"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:101
+#: ../root/edit/components/ListHeader.js:129
 msgid "All edits for your subscribed editors"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:109
+#: ../root/edit/components/ListHeader.js:137
 #: ../root/layout/components/sidebar/CollectionSidebar.js:65
 #: ../root/layout/components/sidebar/EditLinks.js:41
 msgid "Open edits"
 msgstr "Avoimet muokkaukset"
 
-#: ../root/edit/components/ListHeader.js:117
+#: ../root/edit/components/ListHeader.js:145
 msgid "Subscribed entities"
 msgstr "Seuratut kohteet"
 
-#: ../root/edit/components/ListHeader.js:125
+#: ../root/edit/components/ListHeader.js:153
 msgid "Subscribed editors"
 msgstr "Seuratut käyttäjät"
 
-#: ../root/edit/components/ListHeader.js:133 ../root/vote/VotingIndex.js:46
+#: ../root/edit/components/ListHeader.js:161 ../root/vote/VotingIndex.js:46
 #: ../root/vote/VotingIndex.js:48
 msgid "Voting suggestions"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:141
+#: ../root/edit/components/ListHeader.js:169
 msgid "Help:"
 msgstr "Apua: "
 
-#: ../root/edit/components/ListHeader.js:145
+#: ../root/edit/components/ListHeader.js:173
 msgid "Introduction to Voting"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:149
+#: ../root/edit/components/ListHeader.js:177
 msgid "Introduction to Editing"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:152 ../root/main/index.js:181
+#: ../root/edit/components/ListHeader.js:180 ../root/main/index.js:181
 msgid "Style guidelines"
 msgstr "Tyyliohjeistus"
 
@@ -11280,14 +11299,14 @@ msgstr "(ei mitään)"
 #: ../root/layout/components/sidebar/SidebarTags.js:69
 #: ../root/static/scripts/common/components/TagEditor.js:533
 #: ../root/static/scripts/common/components/TagEditor.js:643
-#: ../root/user/UserTagList.js:81
+#: ../root/tag/TagCloud.js:107 ../root/user/UserTagList.js:81
 msgid "Genres"
 msgstr "Tyylilajit"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:80
 #: ../root/static/scripts/common/components/TagEditor.js:543
 #: ../root/static/scripts/common/components/TagEditor.js:653
-#: ../root/user/UserTagList.js:102
+#: ../root/tag/TagCloud.js:115 ../root/user/UserTagList.js:102
 msgid "Other tags"
 msgstr "Muut luokitukset"
 
@@ -15458,13 +15477,29 @@ msgid ""
 "apply the tag using the sidebar."
 msgstr "Mikäli aiot käyttää tätä luokitusta, {url|etsi} kohde ensin ja lisää luokitus sivupalkista."
 
-#: ../root/tag/TagCloud.js:61
+#: ../root/tag/TagCloud.js:58
 msgid "'{tag}' has been used {num} times"
 msgstr "Luokitusta \"{tag}\" on käytetty {num} kertaa"
 
-#: ../root/tag/TagCloud.js:70
-msgid "The database has no tags."
-msgstr "Tietokannasta ei löydy luokituksia."
+#: ../root/tag/TagCloud.js:98
+msgid "These are the most used genres and other tags in the database."
+msgstr ""
+
+#: ../root/tag/TagCloud.js:101
+msgid "Show as a cloud instead."
+msgstr ""
+
+#: ../root/tag/TagCloud.js:103
+msgid "Show as a list instead."
+msgstr ""
+
+#: ../root/tag/TagCloud.js:113
+msgid "No genre tags have been used yet."
+msgstr ""
+
+#: ../root/tag/TagCloud.js:120
+msgid "No non-genre tags have been used yet."
+msgstr ""
 
 #: ../root/tag/TagIndex.js:41
 msgid "This tag is associated with the genre {genre}."

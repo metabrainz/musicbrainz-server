@@ -7,16 +7,16 @@
 # Fen0x F <email address hidden>, 2020
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
-# salo.rock, 2020-2022
-# salo.rock, 2020
-# salo.rock, 2012
-# salo.rock, 2022
+# Luca Salini, 2020-2022
+# Luca Salini, 2020
+# Luca Salini, 2012
+# Luca Salini, 2022
 # Valentina Menale <email address hidden>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 19:17+0000\n"
-"Last-Translator: salo.rock, 2022\n"
+"Last-Translator: Luca Salini, 2020-2022\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -320,7 +320,7 @@ msgstr "Chitarra acustica senza tasti."
 msgid ""
 "Almost completely disappeared by the 20th century, modern revivals based on "
 "museum examples are now used by Swedish folk musicians."
-msgstr ""
+msgstr "Scomparsa quasi completamente entro il XX secolo, i suoi revival moderni basati su esemplari da museo vengono ora utilizzati da musicisti tradizionali svedesi."
 
 #. name:cello
 #: DB:instrument/description:60
@@ -1361,7 +1361,7 @@ msgid ""
 "eight shaped soundbox is made of various woods and often has heart-shaped "
 "sound-holes. It has 3 to 4 metal strings (including drone) and is fretted "
 "diatonically."
-msgstr ""
+msgstr "Storicamente uno strumento tradizionale dell'Appalachia, la sua cassa di risonanza allungata a forma di 8 è realizzata in vari legni e ha spesso dei fori di risonanza a forma di cuore. Ha 3 o 4 corde in metallo (comprese corde bordone) ed è dotato di tasti diatonici."
 
 #. name:gut guitar
 #: DB:instrument/description:567
@@ -1687,7 +1687,7 @@ msgstr "Tubo grande e largo con un padiglione a campana molto svasato, manipolan
 msgid ""
 "Larger and deeper than the tin whistle, it was developed by Overton and made"
 " of aluminium."
-msgstr ""
+msgstr "Più grande e dal tono più grave rispetto al tin whistle, fu sviluppato da Overton e realizzato in alluminio."
 
 #. name:baandu
 #: DB:instrument/description:880
@@ -1781,7 +1781,7 @@ msgstr "Assomiglia ad un flauto dolce, ma ha ance doppie e il sistema di diteggi
 msgid ""
 "Lute played by Gnawa people, its camel hide covered wooden soundbox has 3 "
 "goat gut strings."
-msgstr ""
+msgstr "Liuto suonato dagli gnawa, ha una cassa di risonanza in legno ricoperta di pelle di cammello e 3 corde in budello di capra."
 
 #. name:marimba lumina
 #: DB:instrument/description:767
@@ -2332,7 +2332,7 @@ msgid ""
 "Played in folk music of Hungary and Transylvanian regions, its 3-4 strings "
 "are plucked or struck with a stick, and its soundbox is made of thick maple,"
 " poplar or willow wood."
-msgstr ""
+msgstr "Suonato nella musica tradizionale ungherese e delle regioni transilvane, le sue 3-4 corde sono pizzicate o percosse con una bacchetta e la sua cassa di risonanza è realizzata in legno spesso di acero, pioppo o salice."
 
 #. name:vichitra veena
 #: DB:instrument/description:612
@@ -2615,14 +2615,14 @@ msgstr "Simile allo <a href=\"/instrument/5e17d5f8-65b1-464d-9f90-47259d832507\"
 msgid ""
 "Simple six-holed fipple flute, originally made of metal; it used to cost a "
 "penny, giving it the alternate name “penny whistle”."
-msgstr ""
+msgstr "Flauto dritto semplice con sei fori, originariamente realizzato in metallo; una volta costava un penny, da cui il nome alternativo di \"penny whistle\". "
 
 #. name:whistle
 #: DB:instrument/description:274
 msgid ""
 "Simple, single-toned and round-bodied whistle often used for regulation and "
 "signalling (sport, traffic, ...)."
-msgstr ""
+msgstr "Strumento semplice, monotonale e dal corpo arrotondato, spesso usato per la regolamentazione e il segnalamento (per es. in ambito sportivo, del traffico, ecc.)."
 
 #. name:mirliton
 #: DB:instrument/description:591
@@ -3347,13 +3347,6 @@ msgstr "Strumento a corda strofinata proveniente dall'India centrale e orientale
 #: DB:instrument/description:415
 msgid "The flûte d'amour is the mezzo-soprano instrument of the flute family."
 msgstr "Strumento mezzosoprano della famiglia dei flauti traversi."
-
-#. name:fourth flute
-#: DB:instrument/description:570
-msgid ""
-"The fourth flute is a recorder with a lowest note of B♭, a fourth above the "
-"treble/alto recorder."
-msgstr "Flauto dolce con nota più bassa in si bemolle, una quarta più in alto del flauto dolce contralto."
 
 #. name:fujara
 #: DB:instrument/description:571

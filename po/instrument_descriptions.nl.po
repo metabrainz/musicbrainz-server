@@ -3340,13 +3340,6 @@ msgstr "Een esraj is een strijkinstrument uit Oost- en Centraal-India en wordt m
 msgid "The flûte d'amour is the mezzo-soprano instrument of the flute family."
 msgstr "Een flûte d’amour is een dwarsfluit die qua grootte tussen de concertfluit en de altfluit in zit."
 
-#. name:fourth flute
-#: DB:instrument/description:570
-msgid ""
-"The fourth flute is a recorder with a lowest note of B♭, a fourth above the "
-"treble/alto recorder."
-msgstr "Een vierde blokfluit is een blokfluit met de laagste noot van Bes, een kwart boven de altblokfluit."
-
 #. name:fujara
 #: DB:instrument/description:571
 msgid ""

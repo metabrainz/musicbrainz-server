@@ -1553,10 +1553,6 @@ msgstr "Hammerklavier"
 msgid "four-string banjo"
 msgstr "viersaitiges Banjo"
 
-#: DB:instrument/name:570
-msgid "fourth flute"
-msgstr "Fourth-Flute"
-
 #: DB:instrument/name:344
 msgid "frame drum"
 msgstr "Rahmentrommel"

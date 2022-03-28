@@ -1541,10 +1541,6 @@ msgstr "pianoforte"
 msgid "four-string banjo"
 msgstr "4-keelne bandžo"
 
-#: DB:instrument/name:570
-msgid "fourth flute"
-msgstr ""
-
 #: DB:instrument/name:344
 msgid "frame drum"
 msgstr "raamtrumm"

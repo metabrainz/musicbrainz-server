@@ -2038,7 +2038,7 @@ msgid ""
 " work. In most cases the quotation is uncredited, although this is not a "
 "requirement. For a work that includes significantly more of another than "
 "just a brief quotation, consider using “based on” instead."
-msgstr ""
+msgstr "Deze relatie wordt gebruikt als een compositie een kort citaat van de tekst van een andere compositie bevat. Meestal wordt het citaat niet officieel vermeld, maar dat is geen vereiste voor deze relatie. Als een compositie veel meer van een andere compositie bevat dan een kort citaat, kan je beter ‘gebaseerd op’ gebruiken."
 
 #: DB:link_type/description:1046
 msgid ""
@@ -2046,7 +2046,7 @@ msgid ""
 "work. In most cases the quotation is uncredited, although this is not a "
 "requirement. For a work that includes significantly more of another than "
 "just a brief quotation, consider using “based on” instead."
-msgstr ""
+msgstr "Deze relatie wordt gebruikt als een compositie een kort citaat van de muziek van een andere compositie bevat. Meestal wordt het citaat niet officieel vermeld, maar dat is geen vereiste voor deze relatie. Als een compositie veel meer van een andere compositie bevat dan een kort citaat, kan je beter ‘gebaseerd op’ gebruiken."
 
 #: DB:link_type/description:288
 msgid ""
@@ -5149,7 +5149,7 @@ msgstr "logo’s"
 
 #: DB:link_type/name:1047
 msgid "lyrical quotation"
-msgstr ""
+msgstr "geciteerde tekst"
 
 #: DB:link_type/name:56 DB:link_type/name:165
 msgid "lyricist"
@@ -5172,7 +5172,7 @@ msgstr "tekst van"
 
 #: DB:link_type/reverse_link_phrase:1047
 msgid "lyrics quoted on"
-msgstr ""
+msgstr "tekst geciteerd in"
 
 #: DB:link_type/name:878
 msgid "lyrics written at"
@@ -5426,7 +5426,7 @@ msgstr "muziekproductie"
 
 #: DB:link_type/reverse_link_phrase:1046
 msgid "music quoted on"
-msgstr ""
+msgstr "muziek geciteerd in"
 
 #: DB:link_attribute_type/name:1222
 msgid "music theory"
@@ -5450,7 +5450,7 @@ msgstr "videoclips"
 
 #: DB:link_type/name:1046
 msgid "musical quotation"
-msgstr ""
+msgstr "geciteerde muziek"
 
 #: DB:link_type/link_phrase:106 DB:link_type/reverse_link_phrase:106
 #: DB:link_type/long_link_phrase:106
@@ -6048,11 +6048,11 @@ msgstr "PureVolume"
 
 #: DB:link_type/link_phrase:1047 DB:link_type/long_link_phrase:1047
 msgid "quotes lyrics from"
-msgstr ""
+msgstr "bevat geciteerde tekst uit"
 
 #: DB:link_type/link_phrase:1046 DB:link_type/long_link_phrase:1046
 msgid "quotes music from"
-msgstr ""
+msgstr "bevat geciteerde muziek uit"
 
 #: DB:link_attribute_type/name:952
 msgid "re"
