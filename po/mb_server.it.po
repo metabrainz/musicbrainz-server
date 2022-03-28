@@ -13,25 +13,25 @@
 # leofiore <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
 # Luca Salini <email address hidden>, 2012
-# salo.rock, 2012-2013,2016-2022
-# salo.rock, 2020
+# Luca Salini, 2012-2013,2016-2022
+# Luca Salini, 2020
 # Nicolás Tamargo <email address hidden>, 2021
 # nikki, 2012-2013
 # nikki, 2012-2013
 # nikki, 2013
 # nikki, 2012
-# salo.rock, 2012-2013
-# salo.rock, 2013-2016
-# salo.rock, 2012
-# salo.rock, 2022
+# Luca Salini, 2012-2013
+# Luca Salini, 2013-2016
+# Luca Salini, 2012
+# Luca Salini, 2022
 # yvanz, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-21 13:06+0200\n"
+"POT-Creation-Date: 2022-03-23 09:31+0200\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
-"Last-Translator: salo.rock, 2012-2013,2016-2022\n"
+"Last-Translator: Luca Salini, 2012-2013,2016-2022\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1524,11 +1524,6 @@ msgstr "Indicatori degli editor"
 msgid "Editor “{user}”"
 msgstr "Editor “{user}”"
 
-#: ../root/edit/subscribed.tt:1 ../root/edit/subscribed.tt:3
-#: ../root/edit/SubscribedEdits.js:31 ../root/edit/SubscribedEdits.js:33
-msgid "Edits for Your Subscribed Entities"
-msgstr "Modifiche alle entità a cui sei iscritto"
-
 #: ../root/account/register.tt:39 ../root/admin/edit_user.tt:40
 #: ../root/user/UserProfile.js:185
 msgid "Email:"
@@ -1673,7 +1668,7 @@ msgstr "Azione alla scadenza"
 #: ../root/event/edit_form.tt:43 ../root/instrument/edit_form.tt:32
 #: ../root/label/edit_form.tt:41 ../root/place/edit_form.tt:37
 #: ../root/recording/edit_form.tt:51 ../root/release/edit/information.tt:262
-#: ../root/release_group/edit_form.tt:23 ../root/series/edit_form.tt:22
+#: ../root/release_group/edit_form.tt:23 ../root/series/edit_form.tt:23
 #: ../root/work/edit_form.tt:90
 msgid "External Links"
 msgstr "Collegamenti esterni"
@@ -2809,7 +2804,7 @@ msgstr "O..."
 msgid "Orderable direction:"
 msgstr "Direzione ordinabile:"
 
-#: ../root/series/edit_form.tt:16
+#: ../root/series/edit_form.tt:17
 msgid "Ordering Type:"
 msgstr "Tipo di ordinamento:"
 
@@ -4384,7 +4379,7 @@ msgstr "Tipo"
 #: ../root/event/edit_form.tt:14 ../root/instrument/edit_form.tt:11
 #: ../root/label/edit_form.tt:15 ../root/place/edit_form.tt:15
 #: ../root/release/add_cover_art.tt:52 ../root/release/edit/information.tt:99
-#: ../root/series/edit_form.tt:15 ../root/work/edit_form.tt:14
+#: ../root/series/edit_form.tt:16 ../root/work/edit_form.tt:14
 #: ../root/layout/components/sidebar/CollectionSidebar.js:47
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:55
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:165
@@ -7088,6 +7083,10 @@ msgstr "Ricerca indicizzata con sintassi di ricerca avanzata"
 msgid "Direct database search"
 msgstr "Ricerca diretta nel database"
 
+#: ../lib/MusicBrainz/Server/Form/Series.pm:26
+msgid "A type is required."
+msgstr "È necessario selezionare un tipo."
+
 #: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:51
 msgid "The old password is incorrect"
 msgstr "La vecchia password non è corretta"
@@ -8567,8 +8566,8 @@ msgstr "Copertine ({num})"
 
 #: ../root/components/EntityTabs.js:133
 #: ../root/components/UserAccountTabs.js:66 ../root/entity/Tags.js:34
-#: ../root/layout/components/BottomMenu.js:211 ../root/tag/TagCloud.js:50
-#: ../root/tag/TagCloud.js:52 ../root/user/UserTagList.js:65
+#: ../root/layout/components/BottomMenu.js:211 ../root/tag/TagCloud.js:94
+#: ../root/tag/TagCloud.js:96 ../root/user/UserTagList.js:65
 msgid "Tags"
 msgstr "Tag"
 
@@ -9045,6 +9044,10 @@ msgstr "Modifiche in corso"
 msgid "Edits by Your Subscribed Editors"
 msgstr "Modifiche degli editor a cui sei iscritto"
 
+#: ../root/edit/SubscribedEdits.js:31 ../root/edit/SubscribedEdits.js:33
+msgid "Edits for Your Subscribed Entities"
+msgstr "Modifiche alle entità a cui sei iscritto"
+
 #: ../root/edit/components/EditArtwork.js:29
 #: ../root/edit/details/ReorderCoverArt.js:27
 msgid ""
@@ -9118,23 +9121,23 @@ msgstr "Approvata"
 msgid "Approve edit"
 msgstr "Approva modifica"
 
-#: ../root/edit/components/EditList.js:77
+#: ../root/edit/components/EditList.js:80
 msgid "Found at least {n} edit"
 msgid_plural "Found at least {n} edits"
 msgstr[0] "Trovata almeno {n} modifica"
 msgstr[1] "Trovate almeno {n} modifiche"
 
-#: ../root/edit/components/EditList.js:84
+#: ../root/edit/components/EditList.js:87
 msgid "Found {n} edit"
 msgid_plural "Found {n} edits"
 msgstr[0] "Trovata {n} modifica"
 msgstr[1] "Trovate almeno {n} modifiche"
 
-#: ../root/edit/components/EditList.js:112
+#: ../root/edit/components/EditList.js:115
 msgid "Submit votes & edit notes"
 msgstr "Invia voti e note di modifica"
 
-#: ../root/edit/components/EditList.js:121
+#: ../root/edit/components/EditList.js:124
 msgid "No edits were found matching your query. Please {search|try again}."
 msgstr "Non è stata trovata nessuna modifica corrispondente alla tua ricerca. {search|Prova di nuovo}."
 
@@ -9221,74 +9224,90 @@ msgid ""
 " unformatted)."
 msgstr "Questo campo è lasciato intenzionalmente come è stato inserito originariamente (non tradotto, non formattato)."
 
-#: ../root/edit/components/ListHeader.js:38
+#: ../root/edit/components/ListHeader.js:46
 msgid "Quick links:"
 msgstr "Collegamenti rapidi:"
 
-#: ../root/edit/components/ListHeader.js:42
+#: ../root/edit/components/ListHeader.js:50
 msgid "Search for edits"
 msgstr "Cerca modifiche"
 
-#: ../root/edit/components/ListHeader.js:53
+#: ../root/edit/components/ListHeader.js:61
 msgid "Refine this search"
 msgstr "Affina la ricerca"
 
-#: ../root/edit/components/ListHeader.js:61
+#: ../root/edit/components/ListHeader.js:69
 msgid "Open edits for {user}"
 msgstr "Modifiche in corso di {user}"
 
-#: ../root/edit/components/ListHeader.js:69
+#: ../root/edit/components/ListHeader.js:77
 msgid "All edits for {user}"
 msgstr "Tutte le modifiche di {user}"
 
-#: ../root/edit/components/ListHeader.js:77
+#: ../root/edit/components/ListHeader.js:86
+msgid "Open edits for this collection"
+msgstr "Modifiche in corso per questa collezione"
+
+#: ../root/edit/components/ListHeader.js:87
+msgid "Open edits for this entity"
+msgstr "Modifiche in corso per questa entità"
+
+#: ../root/edit/components/ListHeader.js:96
+msgid "All edits for this collection"
+msgstr "Tutte le modifiche per questa collezione"
+
+#: ../root/edit/components/ListHeader.js:97
+msgid "All edits for this entity"
+msgstr "Tutte le modifiche per questa entità"
+
+#: ../root/edit/components/ListHeader.js:105
 msgid "Open edits for your subscribed entities"
 msgstr "Modifiche in corso alle entità a cui sei iscritto"
 
-#: ../root/edit/components/ListHeader.js:85
+#: ../root/edit/components/ListHeader.js:113
 msgid "All edits for your subscribed entities"
 msgstr "Tutte le modifiche alle entità a cui sei iscritto"
 
-#: ../root/edit/components/ListHeader.js:93
+#: ../root/edit/components/ListHeader.js:121
 msgid "Open edits for your subscribed editors"
 msgstr "Modifiche in corso degli editor a cui sei iscritto"
 
-#: ../root/edit/components/ListHeader.js:101
+#: ../root/edit/components/ListHeader.js:129
 msgid "All edits for your subscribed editors"
 msgstr "Tutte le modifiche degli editor a cui sei iscritto"
 
-#: ../root/edit/components/ListHeader.js:109
+#: ../root/edit/components/ListHeader.js:137
 #: ../root/layout/components/sidebar/CollectionSidebar.js:65
 #: ../root/layout/components/sidebar/EditLinks.js:41
 msgid "Open edits"
 msgstr "Modifiche in corso"
 
-#: ../root/edit/components/ListHeader.js:117
+#: ../root/edit/components/ListHeader.js:145
 msgid "Subscribed entities"
 msgstr "Entità a cui sei iscritto"
 
-#: ../root/edit/components/ListHeader.js:125
+#: ../root/edit/components/ListHeader.js:153
 msgid "Subscribed editors"
 msgstr "Editor a cui sei iscritto"
 
-#: ../root/edit/components/ListHeader.js:133 ../root/vote/VotingIndex.js:46
+#: ../root/edit/components/ListHeader.js:161 ../root/vote/VotingIndex.js:46
 #: ../root/vote/VotingIndex.js:48
 msgid "Voting suggestions"
 msgstr "Suggerimenti di voto"
 
-#: ../root/edit/components/ListHeader.js:141
+#: ../root/edit/components/ListHeader.js:169
 msgid "Help:"
 msgstr "Aiuto:"
 
-#: ../root/edit/components/ListHeader.js:145
+#: ../root/edit/components/ListHeader.js:173
 msgid "Introduction to Voting"
 msgstr "Introduzione ai voti"
 
-#: ../root/edit/components/ListHeader.js:149
+#: ../root/edit/components/ListHeader.js:177
 msgid "Introduction to Editing"
 msgstr "Introduzione alle modifiche"
 
-#: ../root/edit/components/ListHeader.js:152 ../root/main/index.js:181
+#: ../root/edit/components/ListHeader.js:180 ../root/main/index.js:181
 msgid "Style guidelines"
 msgstr "Linee guida di stile"
 
@@ -11278,14 +11297,14 @@ msgstr "(nessuno)"
 #: ../root/layout/components/sidebar/SidebarTags.js:69
 #: ../root/static/scripts/common/components/TagEditor.js:533
 #: ../root/static/scripts/common/components/TagEditor.js:643
-#: ../root/user/UserTagList.js:81
+#: ../root/tag/TagCloud.js:107 ../root/user/UserTagList.js:81
 msgid "Genres"
 msgstr "Generi"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:80
 #: ../root/static/scripts/common/components/TagEditor.js:543
 #: ../root/static/scripts/common/components/TagEditor.js:653
-#: ../root/user/UserTagList.js:102
+#: ../root/tag/TagCloud.js:115 ../root/user/UserTagList.js:102
 msgid "Other tags"
 msgstr "Altri tag"
 
@@ -15456,13 +15475,29 @@ msgid ""
 "apply the tag using the sidebar."
 msgstr "Se vuoi utilizzare questo tag, per prima cosa {url|cerca} l'entità e poi inserisci il tag utilizzando la barra laterale."
 
-#: ../root/tag/TagCloud.js:61
+#: ../root/tag/TagCloud.js:58
 msgid "'{tag}' has been used {num} times"
 msgstr "'{tag}' è stato utilizzato {num} volta/e"
 
-#: ../root/tag/TagCloud.js:70
-msgid "The database has no tags."
-msgstr "Il database non ha tag."
+#: ../root/tag/TagCloud.js:98
+msgid "These are the most used genres and other tags in the database."
+msgstr "Questi sono i tag di genere e altri più utilizzati nel database."
+
+#: ../root/tag/TagCloud.js:101
+msgid "Show as a cloud instead."
+msgstr "Visualizza come nuvola."
+
+#: ../root/tag/TagCloud.js:103
+msgid "Show as a list instead."
+msgstr "Visualizza come elenco."
+
+#: ../root/tag/TagCloud.js:113
+msgid "No genre tags have been used yet."
+msgstr "Nessun tag di genere è stato ancora utilizzato."
+
+#: ../root/tag/TagCloud.js:120
+msgid "No non-genre tags have been used yet."
+msgstr "Nessun tag non di genere è stato ancora utilizzato."
 
 #: ../root/tag/TagIndex.js:41
 msgid "This tag is associated with the genre {genre}."

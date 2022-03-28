@@ -3346,13 +3346,6 @@ msgstr "Die Esraj ist eine nordindische gestrichene Schalenhalslaute mit vier bi
 msgid "The flûte d'amour is the mezzo-soprano instrument of the flute family."
 msgstr "Die flûte d'amour (Italien: Flauto d'amore) ist entweder A oder B ♭ gestimmt und ihre Grösse liegt zwischen der modernen C-Konzert Flöte und Altflöte in G."
 
-#. name:fourth flute
-#: DB:instrument/description:570
-msgid ""
-"The fourth flute is a recorder with a lowest note of B♭, a fourth above the "
-"treble/alto recorder."
-msgstr "Die Fourth-Flute ist eine Längsflöte (genauer Sopranblockflöte in b1 ), die zur Gruppe der Holzblasinstrumente gehört."
-
 #. name:fujara
 #: DB:instrument/description:571
 msgid ""

@@ -3356,13 +3356,6 @@ msgstr "L’esraj est un instrument à cordes frottées de l’Est et du centre 
 msgid "The flûte d'amour is the mezzo-soprano instrument of the flute family."
 msgstr "La flûte d’amour (aussi appelée flûte ténor) est la mezzo-soprano de la famille des flûtes."
 
-#. name:fourth flute
-#: DB:instrument/description:570
-msgid ""
-"The fourth flute is a recorder with a lowest note of B♭, a fourth above the "
-"treble/alto recorder."
-msgstr "La flûte de quatre est une flûte à bec dont la note la plus basse est un Si♭, un quart au dessus la flûte à bec alto. Aussi appelée soprano en Si♭."
-
 #. name:fujara
 #: DB:instrument/description:571
 msgid ""

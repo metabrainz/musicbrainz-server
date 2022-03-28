@@ -38,7 +38,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-21 13:06+0200\n"
+"POT-Creation-Date: 2022-03-23 09:31+0200\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: ​ <428rinsuki+transifex@gmail.com>, 2022\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
@@ -1532,11 +1532,6 @@ msgstr "フラグを編集"
 msgid "Editor “{user}”"
 msgstr "編集者 「{user}」"
 
-#: ../root/edit/subscribed.tt:1 ../root/edit/subscribed.tt:3
-#: ../root/edit/SubscribedEdits.js:31 ../root/edit/SubscribedEdits.js:33
-msgid "Edits for Your Subscribed Entities"
-msgstr "購読中の項目への編集"
-
 #: ../root/account/register.tt:39 ../root/admin/edit_user.tt:40
 #: ../root/user/UserProfile.js:185
 msgid "Email:"
@@ -1681,7 +1676,7 @@ msgstr "行動を満了"
 #: ../root/event/edit_form.tt:43 ../root/instrument/edit_form.tt:32
 #: ../root/label/edit_form.tt:41 ../root/place/edit_form.tt:37
 #: ../root/recording/edit_form.tt:51 ../root/release/edit/information.tt:262
-#: ../root/release_group/edit_form.tt:23 ../root/series/edit_form.tt:22
+#: ../root/release_group/edit_form.tt:23 ../root/series/edit_form.tt:23
 #: ../root/work/edit_form.tt:90
 msgid "External Links"
 msgstr "外部リンク"
@@ -2815,7 +2810,7 @@ msgstr ""
 msgid "Orderable direction:"
 msgstr ""
 
-#: ../root/series/edit_form.tt:16
+#: ../root/series/edit_form.tt:17
 msgid "Ordering Type:"
 msgstr "並べ替えタイプ:"
 
@@ -4389,7 +4384,7 @@ msgstr "タイプ"
 #: ../root/event/edit_form.tt:14 ../root/instrument/edit_form.tt:11
 #: ../root/label/edit_form.tt:15 ../root/place/edit_form.tt:15
 #: ../root/release/add_cover_art.tt:52 ../root/release/edit/information.tt:99
-#: ../root/series/edit_form.tt:15 ../root/work/edit_form.tt:14
+#: ../root/series/edit_form.tt:16 ../root/work/edit_form.tt:14
 #: ../root/layout/components/sidebar/CollectionSidebar.js:47
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:55
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:165
@@ -7079,6 +7074,10 @@ msgstr "高度なクエリ構文を使ったインデックス検索"
 msgid "Direct database search"
 msgstr "データベースの直接検索"
 
+#: ../lib/MusicBrainz/Server/Form/Series.pm:26
+msgid "A type is required."
+msgstr ""
+
 #: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:51
 msgid "The old password is incorrect"
 msgstr "旧パスワードが正しくありません"
@@ -8548,8 +8547,8 @@ msgstr "カバーアート({num})"
 
 #: ../root/components/EntityTabs.js:133
 #: ../root/components/UserAccountTabs.js:66 ../root/entity/Tags.js:34
-#: ../root/layout/components/BottomMenu.js:211 ../root/tag/TagCloud.js:50
-#: ../root/tag/TagCloud.js:52 ../root/user/UserTagList.js:65
+#: ../root/layout/components/BottomMenu.js:211 ../root/tag/TagCloud.js:94
+#: ../root/tag/TagCloud.js:96 ../root/user/UserTagList.js:65
 msgid "Tags"
 msgstr "タグ"
 
@@ -9013,6 +9012,10 @@ msgstr "未確定の編集"
 msgid "Edits by Your Subscribed Editors"
 msgstr "購読中の編集者による編集"
 
+#: ../root/edit/SubscribedEdits.js:31 ../root/edit/SubscribedEdits.js:33
+msgid "Edits for Your Subscribed Entities"
+msgstr "購読中の項目への編集"
+
 #: ../root/edit/components/EditArtwork.js:29
 #: ../root/edit/details/ReorderCoverArt.js:27
 msgid ""
@@ -9086,21 +9089,21 @@ msgstr ""
 msgid "Approve edit"
 msgstr "編集を承認"
 
-#: ../root/edit/components/EditList.js:77
+#: ../root/edit/components/EditList.js:80
 msgid "Found at least {n} edit"
 msgid_plural "Found at least {n} edits"
 msgstr[0] "少なくとも{n}件の編集が見つかりました"
 
-#: ../root/edit/components/EditList.js:84
+#: ../root/edit/components/EditList.js:87
 msgid "Found {n} edit"
 msgid_plural "Found {n} edits"
 msgstr[0] "{n}件の編集が見つかりました"
 
-#: ../root/edit/components/EditList.js:112
+#: ../root/edit/components/EditList.js:115
 msgid "Submit votes & edit notes"
 msgstr ""
 
-#: ../root/edit/components/EditList.js:121
+#: ../root/edit/components/EditList.js:124
 msgid "No edits were found matching your query. Please {search|try again}."
 msgstr ""
 
@@ -9186,74 +9189,90 @@ msgid ""
 " unformatted)."
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:38
+#: ../root/edit/components/ListHeader.js:46
 msgid "Quick links:"
 msgstr "クイックリンク:"
 
-#: ../root/edit/components/ListHeader.js:42
+#: ../root/edit/components/ListHeader.js:50
 msgid "Search for edits"
 msgstr "編集を検索"
 
-#: ../root/edit/components/ListHeader.js:53
+#: ../root/edit/components/ListHeader.js:61
 msgid "Refine this search"
 msgstr "検索を絞り込む"
 
-#: ../root/edit/components/ListHeader.js:61
+#: ../root/edit/components/ListHeader.js:69
 msgid "Open edits for {user}"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:69
+#: ../root/edit/components/ListHeader.js:77
 msgid "All edits for {user}"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:77
+#: ../root/edit/components/ListHeader.js:86
+msgid "Open edits for this collection"
+msgstr ""
+
+#: ../root/edit/components/ListHeader.js:87
+msgid "Open edits for this entity"
+msgstr ""
+
+#: ../root/edit/components/ListHeader.js:96
+msgid "All edits for this collection"
+msgstr ""
+
+#: ../root/edit/components/ListHeader.js:97
+msgid "All edits for this entity"
+msgstr ""
+
+#: ../root/edit/components/ListHeader.js:105
 msgid "Open edits for your subscribed entities"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:85
+#: ../root/edit/components/ListHeader.js:113
 msgid "All edits for your subscribed entities"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:93
+#: ../root/edit/components/ListHeader.js:121
 msgid "Open edits for your subscribed editors"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:101
+#: ../root/edit/components/ListHeader.js:129
 msgid "All edits for your subscribed editors"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:109
+#: ../root/edit/components/ListHeader.js:137
 #: ../root/layout/components/sidebar/CollectionSidebar.js:65
 #: ../root/layout/components/sidebar/EditLinks.js:41
 msgid "Open edits"
 msgstr "未確定の編集"
 
-#: ../root/edit/components/ListHeader.js:117
+#: ../root/edit/components/ListHeader.js:145
 msgid "Subscribed entities"
 msgstr "購読中の項目"
 
-#: ../root/edit/components/ListHeader.js:125
+#: ../root/edit/components/ListHeader.js:153
 msgid "Subscribed editors"
 msgstr "購読中の編集者"
 
-#: ../root/edit/components/ListHeader.js:133 ../root/vote/VotingIndex.js:46
+#: ../root/edit/components/ListHeader.js:161 ../root/vote/VotingIndex.js:46
 #: ../root/vote/VotingIndex.js:48
 msgid "Voting suggestions"
 msgstr "投票の提案"
 
-#: ../root/edit/components/ListHeader.js:141
+#: ../root/edit/components/ListHeader.js:169
 msgid "Help:"
 msgstr "ヘルプ:"
 
-#: ../root/edit/components/ListHeader.js:145
+#: ../root/edit/components/ListHeader.js:173
 msgid "Introduction to Voting"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:149
+#: ../root/edit/components/ListHeader.js:177
 msgid "Introduction to Editing"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:152 ../root/main/index.js:181
+#: ../root/edit/components/ListHeader.js:180 ../root/main/index.js:181
 msgid "Style guidelines"
 msgstr "スタイル指針"
 
@@ -11233,14 +11252,14 @@ msgstr "(なし)"
 #: ../root/layout/components/sidebar/SidebarTags.js:69
 #: ../root/static/scripts/common/components/TagEditor.js:533
 #: ../root/static/scripts/common/components/TagEditor.js:643
-#: ../root/user/UserTagList.js:81
+#: ../root/tag/TagCloud.js:107 ../root/user/UserTagList.js:81
 msgid "Genres"
 msgstr "ジャンル"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:80
 #: ../root/static/scripts/common/components/TagEditor.js:543
 #: ../root/static/scripts/common/components/TagEditor.js:653
-#: ../root/user/UserTagList.js:102
+#: ../root/tag/TagCloud.js:115 ../root/user/UserTagList.js:102
 msgid "Other tags"
 msgstr "その他のタグ"
 
@@ -15395,13 +15414,29 @@ msgid ""
 "apply the tag using the sidebar."
 msgstr ""
 
-#: ../root/tag/TagCloud.js:61
+#: ../root/tag/TagCloud.js:58
 msgid "'{tag}' has been used {num} times"
 msgstr "「{tag}」は{num}回使用されてます"
 
-#: ../root/tag/TagCloud.js:70
-msgid "The database has no tags."
-msgstr "データベースにタグがありません。"
+#: ../root/tag/TagCloud.js:98
+msgid "These are the most used genres and other tags in the database."
+msgstr ""
+
+#: ../root/tag/TagCloud.js:101
+msgid "Show as a cloud instead."
+msgstr ""
+
+#: ../root/tag/TagCloud.js:103
+msgid "Show as a list instead."
+msgstr ""
+
+#: ../root/tag/TagCloud.js:113
+msgid "No genre tags have been used yet."
+msgstr ""
+
+#: ../root/tag/TagCloud.js:120
+msgid "No non-genre tags have been used yet."
+msgstr ""
 
 #: ../root/tag/TagIndex.js:41
 msgid "This tag is associated with the genre {genre}."

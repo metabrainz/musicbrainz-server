@@ -1558,10 +1558,6 @@ msgstr "piano forte"
 msgid "four-string banjo"
 msgstr "banjo à quatre cordes"
 
-#: DB:instrument/name:570
-msgid "fourth flute"
-msgstr "flûte de quatre"
-
 #: DB:instrument/name:344
 msgid "frame drum"
 msgstr "tambour sur cadre"

@@ -1553,10 +1553,6 @@ msgstr "fortepiano"
 msgid "four-string banjo"
 msgstr ""
 
-#: DB:instrument/name:570
-msgid "fourth flute"
-msgstr ""
-
 #: DB:instrument/name:344
 msgid "frame drum"
 msgstr "tambor de marco"

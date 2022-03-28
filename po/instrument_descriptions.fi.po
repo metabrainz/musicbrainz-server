@@ -3344,13 +3344,6 @@ msgstr ""
 msgid "The flûte d'amour is the mezzo-soprano instrument of the flute family."
 msgstr ""
 
-#. name:fourth flute
-#: DB:instrument/description:570
-msgid ""
-"The fourth flute is a recorder with a lowest note of B♭, a fourth above the "
-"treble/alto recorder."
-msgstr ""
-
 #. name:fujara
 #: DB:instrument/description:571
 msgid ""

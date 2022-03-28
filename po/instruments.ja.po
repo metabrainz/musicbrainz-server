@@ -1550,10 +1550,6 @@ msgstr "フォルテピアノ"
 msgid "four-string banjo"
 msgstr "4弦バンジョー"
 
-#: DB:instrument/name:570
-msgid "fourth flute"
-msgstr "fourth flute"
-
 #: DB:instrument/name:344
 msgid "frame drum"
 msgstr "枠太鼓"
