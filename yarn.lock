@@ -1290,6 +1290,11 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.36.tgz#b44e52db3b6b20523e0c57ef8c42d315532cb903"
   integrity sha512-a/7BiSgobHAgBWeN7N0w+lAhInrGxksn13uK7231n2m8EDPE3BMCl9NZLTGrj9ZXfCmC6LM0QLqXidIizVQ6yg==
 
+"@fortawesome/fontawesome-common-types@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.3.0.tgz#949995a05c0d8801be7e0a594f775f1dbaa0d893"
+  integrity sha512-CA3MAZBTxVsF6SkfkHXDerkhcQs0QPofy43eFdbWJJkZiq3SfiaH1msOkac59rQaqto5EqWnASboY1dBuKen5w==
+
 "@fortawesome/fontawesome-svg-core@1.2.36":
   version "1.2.36"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.36.tgz#4f2ea6f778298e0c47c6524ce2e7fd58eb6930e3"
@@ -1304,6 +1309,13 @@
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.2.36"
 
+"@fortawesome/free-solid-svg-icons@6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-6.0.0.tgz#bed4a501b631c6cfa35c09830f7cb63ffca1589d"
+  integrity sha512-o4FZ1XbndcgeWNb8Wh0y+Hgf73CjmyOQowUSaqQCtgIIdS+XliSBSOwCl330wER+I6CGYE96hT27bHBPmzX2Gg==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.3.0"
+
 "@fortawesome/react-fontawesome@0.1.17":
   version "0.1.17"
   resolved "https://registry.yarnpkg.com/@fortawesome/react-fontawesome/-/react-fontawesome-0.1.17.tgz#06fc06cb1a721e38e5b50b4a1cb851e9b9c77d7a"
@@ -1311,10 +1323,10 @@
   dependencies:
     prop-types "^15.8.1"
 
-"@metabrainz/design-system@1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@metabrainz/design-system/-/design-system-1.0.2.tgz#8abe3a64c92e0808973328efec2b3417a011c14c"
-  integrity sha512-zUdadNgLikWcAGCGbWChGnNn4XgF+ymf3HKgq6KAsrMB8Zz902LX9LwnTc/lnf9fWNwNZ+kz7fJpl7AW8N6rhw==
+"@metabrainz/design-system@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@metabrainz/design-system/-/design-system-1.0.6.tgz#fce197fc3d3f6921c7a7b3f76d20775596d9804b"
+  integrity sha512-TmbmTCx1K0RnZeLPmwXswPZhK9CtKpyeB7o/rWdTcvTK4kLHY/K1m1X7IEtlPRNr1oxJ5D/W9ji6WLlWuRh1RA==
 
 "@nicolo-ribaudo/chokidar-2@2.1.8-no-fsevents.2":
   version "2.1.8-no-fsevents.2"
