@@ -56,7 +56,7 @@ else
   log_dir_name='occasionally'
 fi
 log_dir_path="$HOME/log/$log_dir_name"
-if [[ -d "$log_dir_path" ]]
+if ! [[ -d "$log_dir_path" ]]
 then
   echo >&2 "$SCRIPT_NAME: '$log_dir_path' doesn't exist"
   echo >&2 "Make sure to run in the appropriate container."
