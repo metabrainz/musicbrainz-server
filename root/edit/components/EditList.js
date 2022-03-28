@@ -20,6 +20,7 @@ type Props = {
   +$c: CatalystContextT,
   +editCountLimit: number,
   +edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
+  +entity?: CoreEntityT | CollectionT,
   +guessSearch?: boolean,
   +isSearch?: boolean,
   +page: string,
@@ -33,6 +34,7 @@ const EditList = ({
   $c,
   editCountLimit,
   edits,
+  entity,
   guessSearch = false,
   isSearch = false,
   page,
@@ -63,6 +65,7 @@ const EditList = ({
   return (
     <>
       <ListHeader
+        entity={entity}
         isSearch={isSearch}
         page={page}
         refineUrlArgs={refineUrlArgs}

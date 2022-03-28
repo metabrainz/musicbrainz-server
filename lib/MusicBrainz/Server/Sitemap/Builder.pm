@@ -10,9 +10,9 @@ use File::Spec;
 use Fcntl qw( :flock );
 use List::AllUtils qw( any natatime );
 use Moose;
-use MusicBrainz::Script::Utils qw( log );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Log qw( log_info );
 use MusicBrainz::Server::Sitemap::Constants qw( $MAX_SITEMAP_SIZE );
 use MusicBrainz::Server::Sitemap::Utils qw(
     serialize_sitemap
@@ -230,7 +230,7 @@ sub build_one_sitemap {
     }
 
     local $| = 1; # autoflush stdout
-    print localtime() . " : Building $filename...";
+    log_info { "Building $filename..." };
 
     my $data = serialize_sitemap(@urls);
     my $modtime = $self->current_time || DateTime::Format::W3CDTF->new->format_datetime(DateTime->now);
@@ -252,7 +252,7 @@ sub build_one_sitemap {
                 $write_sitemap = 0;
 
                 if ($old_sitemap_modtimes{$remote_filename}) {
-                    print 'using previous modtime, since file unchanged...';
+                    log_info { '(using previous modtime, since file unchanged...)' };
                     $modtime = $old_sitemap_modtimes{$remote_filename};
                 }
             }
@@ -273,7 +273,7 @@ sub build_one_sitemap {
 
     $self->add_sitemap_file($filename);
     $self->add_sitemap({ loc => $remote_filename, lastmod => $modtime });
-    print " built.\n";
+    log_info { 'Built.' };
 }
 
 =method build_one_suffix
@@ -297,7 +297,7 @@ sub build_one_suffix {
 
     # If we can fit all the paginated stuff into the main sitemap file, why not do it?
     if (@paginated_urls && scalar @base_urls + scalar @paginated_urls <= $MAX_SITEMAP_SIZE) {
-        log("Paginated plus base urls are fewer than 50k for $base_filename, combining into one...");
+        log_info { "Paginated plus base urls are fewer than 50k for $base_filename, combining into one..." };
         push(@base_urls, @paginated_urls);
         @paginated_urls = ();
     }
@@ -376,12 +376,12 @@ sub write_index {
         }
     });
 
-    log("Built index $SITEMAP_INDEX_FILENAME, deleting outdated files");
+    log_info { "Built index $SITEMAP_INDEX_FILENAME, deleting outdated files" };
 
     my @files = read_dir($self->output_dir);
     for my $file (@files) {
         unless ($self->do_not_delete($file)) {
-            log("Removing $file");
+            log_info { "Removing $file" };
             unlink File::Spec->catfile($self->output_dir, $file);
         }
     }
@@ -399,7 +399,7 @@ sub ping_search_engines($) {
 
     return unless $self->ping_enabled;
 
-    log('Pinging search engines');
+    log_info { 'Pinging search engines' };
 
     my $url = $self->web_server . '/' . $SITEMAP_INDEX_FILENAME;
     $url .= '.gz' if $self->compression_enabled;
@@ -414,7 +414,7 @@ sub ping_search_engines($) {
             my $ping_url = $prefix . uri_escape_utf8($url);
             $c->lwp->get($ping_url);
         } catch {
-            log("Failed to ping $prefix.");
+            log_info { "Failed to ping $prefix." };
         }
     }
 

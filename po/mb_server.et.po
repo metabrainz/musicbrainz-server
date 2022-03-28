@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-08 21:54+0200\n"
-"PO-Revision-Date: 2022-03-14 15:22+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"POT-Creation-Date: 2022-03-23 09:31+0200\n"
+"PO-Revision-Date: 2011-01-30 16:57+0000\n"
+"Last-Translator: Nicolás Tamargo <reosarevok@gmail.com>, 2021-2022\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1516,11 +1516,6 @@ msgstr "Toimetaja tüüp"
 msgid "Editor “{user}”"
 msgstr "Toimetaja {user}"
 
-#: ../root/edit/subscribed.tt:1 ../root/edit/subscribed.tt:3
-#: ../root/edit/SubscribedEdits.js:31 ../root/edit/SubscribedEdits.js:33
-msgid "Edits for Your Subscribed Entities"
-msgstr "Toimetused jälgitaval sisul"
-
 #: ../root/account/register.tt:39 ../root/admin/edit_user.tt:40
 #: ../root/user/UserProfile.js:185
 msgid "Email:"
@@ -1665,7 +1660,7 @@ msgstr "Aegumisel"
 #: ../root/event/edit_form.tt:43 ../root/instrument/edit_form.tt:32
 #: ../root/label/edit_form.tt:41 ../root/place/edit_form.tt:37
 #: ../root/recording/edit_form.tt:51 ../root/release/edit/information.tt:262
-#: ../root/release_group/edit_form.tt:23 ../root/series/edit_form.tt:22
+#: ../root/release_group/edit_form.tt:23 ../root/series/edit_form.tt:23
 #: ../root/work/edit_form.tt:90
 msgid "External Links"
 msgstr "Välislingid"
@@ -2801,7 +2796,7 @@ msgstr "Või..."
 msgid "Orderable direction:"
 msgstr ""
 
-#: ../root/series/edit_form.tt:16
+#: ../root/series/edit_form.tt:17
 msgid "Ordering Type:"
 msgstr "Järjestuse tüüp:"
 
@@ -4376,7 +4371,7 @@ msgstr "Tüüp"
 #: ../root/event/edit_form.tt:14 ../root/instrument/edit_form.tt:11
 #: ../root/label/edit_form.tt:15 ../root/place/edit_form.tt:15
 #: ../root/release/add_cover_art.tt:52 ../root/release/edit/information.tt:99
-#: ../root/series/edit_form.tt:15 ../root/work/edit_form.tt:14
+#: ../root/series/edit_form.tt:16 ../root/work/edit_form.tt:14
 #: ../root/layout/components/sidebar/CollectionSidebar.js:47
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:55
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:165
@@ -5362,7 +5357,7 @@ msgstr "« Tagasi"
 msgid "…"
 msgstr "…"
 
-#: ../lib/MusicBrainz/Script/RemoveEmpty.pm:137
+#: ../lib/MusicBrainz/Script/RemoveEmpty.pm:138
 msgid ""
 "This entity was automatically removed because it was empty: it had no "
 "relationships associated with it, nor (if relevant for the type of entity in"
@@ -7080,6 +7075,10 @@ msgstr "Indekseeritud otsing laiendatud päringusüntaksiga"
 msgid "Direct database search"
 msgstr "Otsing otse andmebaasist"
 
+#: ../lib/MusicBrainz/Server/Form/Series.pm:26
+msgid "A type is required."
+msgstr ""
+
 #: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:51
 msgid "The old password is incorrect"
 msgstr "Vana parool on vale."
@@ -8559,8 +8558,8 @@ msgstr "Kaanepilt ({num})"
 
 #: ../root/components/EntityTabs.js:133
 #: ../root/components/UserAccountTabs.js:66 ../root/entity/Tags.js:34
-#: ../root/layout/components/BottomMenu.js:211 ../root/tag/TagCloud.js:50
-#: ../root/tag/TagCloud.js:52 ../root/user/UserTagList.js:65
+#: ../root/layout/components/BottomMenu.js:211 ../root/tag/TagCloud.js:94
+#: ../root/tag/TagCloud.js:96 ../root/user/UserTagList.js:65
 msgid "Tags"
 msgstr "Sildid"
 
@@ -9037,6 +9036,10 @@ msgstr "Lahtised toimetused"
 msgid "Edits by Your Subscribed Editors"
 msgstr "Jälgitavate kasutajate toimetused"
 
+#: ../root/edit/SubscribedEdits.js:31 ../root/edit/SubscribedEdits.js:33
+msgid "Edits for Your Subscribed Entities"
+msgstr "Toimetused jälgitaval sisul"
+
 #: ../root/edit/components/EditArtwork.js:29
 #: ../root/edit/details/ReorderCoverArt.js:27
 msgid ""
@@ -9110,23 +9113,23 @@ msgstr ""
 msgid "Approve edit"
 msgstr "Kiida heaks"
 
-#: ../root/edit/components/EditList.js:77
+#: ../root/edit/components/EditList.js:80
 msgid "Found at least {n} edit"
 msgid_plural "Found at least {n} edits"
 msgstr[0] "Leiti vähemalt {n} toimetus"
 msgstr[1] "Leiti vähemalt {n} toimetust"
 
-#: ../root/edit/components/EditList.js:84
+#: ../root/edit/components/EditList.js:87
 msgid "Found {n} edit"
 msgid_plural "Found {n} edits"
 msgstr[0] "Leiti {n} toimetus"
 msgstr[1] "Leiti {n} toimetust"
 
-#: ../root/edit/components/EditList.js:112
+#: ../root/edit/components/EditList.js:115
 msgid "Submit votes & edit notes"
 msgstr ""
 
-#: ../root/edit/components/EditList.js:121
+#: ../root/edit/components/EditList.js:124
 msgid "No edits were found matching your query. Please {search|try again}."
 msgstr "Päringule vastavaid toimetusi ei leitud. {search|Proovi uuesti}."
 
@@ -9213,74 +9216,90 @@ msgid ""
 " unformatted)."
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:38
+#: ../root/edit/components/ListHeader.js:46
 msgid "Quick links:"
 msgstr "Kiirlingid:"
 
-#: ../root/edit/components/ListHeader.js:42
+#: ../root/edit/components/ListHeader.js:50
 msgid "Search for edits"
 msgstr "Toimetuste otsing"
 
-#: ../root/edit/components/ListHeader.js:53
+#: ../root/edit/components/ListHeader.js:61
 msgid "Refine this search"
 msgstr "Selle otsingu täpsustamine"
 
-#: ../root/edit/components/ListHeader.js:61
+#: ../root/edit/components/ListHeader.js:69
 msgid "Open edits for {user}"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:69
+#: ../root/edit/components/ListHeader.js:77
 msgid "All edits for {user}"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:77
+#: ../root/edit/components/ListHeader.js:86
+msgid "Open edits for this collection"
+msgstr ""
+
+#: ../root/edit/components/ListHeader.js:87
+msgid "Open edits for this entity"
+msgstr ""
+
+#: ../root/edit/components/ListHeader.js:96
+msgid "All edits for this collection"
+msgstr ""
+
+#: ../root/edit/components/ListHeader.js:97
+msgid "All edits for this entity"
+msgstr ""
+
+#: ../root/edit/components/ListHeader.js:105
 msgid "Open edits for your subscribed entities"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:85
+#: ../root/edit/components/ListHeader.js:113
 msgid "All edits for your subscribed entities"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:93
+#: ../root/edit/components/ListHeader.js:121
 msgid "Open edits for your subscribed editors"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:101
+#: ../root/edit/components/ListHeader.js:129
 msgid "All edits for your subscribed editors"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:109
+#: ../root/edit/components/ListHeader.js:137
 #: ../root/layout/components/sidebar/CollectionSidebar.js:65
 #: ../root/layout/components/sidebar/EditLinks.js:41
 msgid "Open edits"
 msgstr "Lahtised toimetused"
 
-#: ../root/edit/components/ListHeader.js:117
+#: ../root/edit/components/ListHeader.js:145
 msgid "Subscribed entities"
 msgstr "Jälgitav sisu"
 
-#: ../root/edit/components/ListHeader.js:125
+#: ../root/edit/components/ListHeader.js:153
 msgid "Subscribed editors"
 msgstr "Jälgitavad toimetajad"
 
-#: ../root/edit/components/ListHeader.js:133 ../root/vote/VotingIndex.js:46
+#: ../root/edit/components/ListHeader.js:161 ../root/vote/VotingIndex.js:46
 #: ../root/vote/VotingIndex.js:48
 msgid "Voting suggestions"
 msgstr "Hääletamissoovitused"
 
-#: ../root/edit/components/ListHeader.js:141
+#: ../root/edit/components/ListHeader.js:169
 msgid "Help:"
 msgstr "Abi:"
 
-#: ../root/edit/components/ListHeader.js:145
+#: ../root/edit/components/ListHeader.js:173
 msgid "Introduction to Voting"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:149
+#: ../root/edit/components/ListHeader.js:177
 msgid "Introduction to Editing"
 msgstr ""
 
-#: ../root/edit/components/ListHeader.js:152 ../root/main/index.js:181
+#: ../root/edit/components/ListHeader.js:180 ../root/main/index.js:181
 msgid "Style guidelines"
 msgstr "Stiilijuhised"
 
@@ -11270,14 +11289,14 @@ msgstr "(pole)"
 #: ../root/layout/components/sidebar/SidebarTags.js:69
 #: ../root/static/scripts/common/components/TagEditor.js:533
 #: ../root/static/scripts/common/components/TagEditor.js:643
-#: ../root/user/UserTagList.js:81
+#: ../root/tag/TagCloud.js:107 ../root/user/UserTagList.js:81
 msgid "Genres"
 msgstr "Muusikastiilid"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:80
 #: ../root/static/scripts/common/components/TagEditor.js:543
 #: ../root/static/scripts/common/components/TagEditor.js:653
-#: ../root/user/UserTagList.js:102
+#: ../root/tag/TagCloud.js:115 ../root/user/UserTagList.js:102
 msgid "Other tags"
 msgstr "Muud sildid"
 
@@ -14499,172 +14518,184 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:369
 msgid ""
+"This is a link to a search result. Please link to any page in the results "
+"that is relevant to this entity instead, if available."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:374
+msgid ""
 "Please link to a specific video. Add channel pages to the relevant artist, "
 "label, etc. instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:536
+#: ../root/static/scripts/edit/URLCleanup.js:541
 msgid ""
 "Allmusic “{album_url_pattern}” links should be added to release groups. To "
 "find the appropriate release link for this release, please check the "
 "Releases tab from {album_url|your link}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:623
-#: ../root/static/scripts/edit/URLCleanup.js:821
-#: ../root/static/scripts/edit/URLCleanup.js:3162
+#: ../root/static/scripts/edit/URLCleanup.js:628
+#: ../root/static/scripts/edit/URLCleanup.js:837
+#: ../root/static/scripts/edit/URLCleanup.js:3190
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:783
+#: ../root/static/scripts/edit/URLCleanup.js:646
+msgid ""
+"This is a link to a user video and should not be added. Please add the "
+"product link instead, if relevant."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:799
 msgid ""
 "Only Apple Books audiobooks can be added to MusicBrainz. Consider adding "
 "books to {bookbrainz_url|BookBrainz} instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:938
+#: ../root/static/scripts/edit/URLCleanup.js:954
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:950
+#: ../root/static/scripts/edit/URLCleanup.js:966
 msgid ""
 "Please link to the main page for the label, not to a specific album or "
 "track."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1172
+#: ../root/static/scripts/edit/URLCleanup.js:1188
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1174
+#: ../root/static/scripts/edit/URLCleanup.js:1190
 msgid "Please link to the main page for the label, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1726
+#: ../root/static/scripts/edit/URLCleanup.js:1742
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2216
+#: ../root/static/scripts/edit/URLCleanup.js:2244
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2234
+#: ../root/static/scripts/edit/URLCleanup.js:2262
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2279
+#: ../root/static/scripts/edit/URLCleanup.js:2307
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2307
+#: ../root/static/scripts/edit/URLCleanup.js:2335
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2332
+#: ../root/static/scripts/edit/URLCleanup.js:2360
 msgid "This is an internal Instagram page and should not be added."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3059
+#: ../root/static/scripts/edit/URLCleanup.js:3087
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider"
 " adding Musixmatch links to the relevant artists and works instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3628
+#: ../root/static/scripts/edit/URLCleanup.js:3656
 msgid "Only RYM music videos can be linked to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3680
+#: ../root/static/scripts/edit/URLCleanup.js:3708
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow "
 "{ra_url|your link}, make sure the link it redirects to is still the correct "
 "one and, if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4438
+#: ../root/static/scripts/edit/URLCleanup.js:4466
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4452
+#: ../root/static/scripts/edit/URLCleanup.js:4480
 msgid "Please link to Twitter profiles, not tweets."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4470
+#: ../root/static/scripts/edit/URLCleanup.js:4498
 msgid "This site does not allow direct links to their images."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4676
+#: ../root/static/scripts/edit/URLCleanup.js:4704
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4732
+#: ../root/static/scripts/edit/URLCleanup.js:4760
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether"
 " it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4752
+#: ../root/static/scripts/edit/URLCleanup.js:4780
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4773
+#: ../root/static/scripts/edit/URLCleanup.js:4801
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4791
+#: ../root/static/scripts/edit/URLCleanup.js:4819
 msgid "Please link WhoSampled artist pages to artists."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4803
+#: ../root/static/scripts/edit/URLCleanup.js:4831
 msgid "Please link WhoSampled track pages to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4870
+#: ../root/static/scripts/edit/URLCleanup.js:4898
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5011
+#: ../root/static/scripts/edit/URLCleanup.js:5046
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5047
+#: ../root/static/scripts/edit/URLCleanup.js:5082
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia"
 " links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5059
+#: ../root/static/scripts/edit/URLCleanup.js:5094
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5071
+#: ../root/static/scripts/edit/URLCleanup.js:5106
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -14673,7 +14704,7 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5099
+#: ../root/static/scripts/edit/URLCleanup.js:5134
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases"
@@ -14682,11 +14713,11 @@ msgid ""
 "the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5262
+#: ../root/static/scripts/edit/URLCleanup.js:5297
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5279
+#: ../root/static/scripts/edit/URLCleanup.js:5314
 #: ../root/static/scripts/edit/externalLinks.js:869
 msgid "This relationship type combination is invalid."
 msgstr ""
@@ -15436,13 +15467,29 @@ msgid ""
 "apply the tag using the sidebar."
 msgstr "Kui tahad ise seda silti kasutada, siis {url|otsi üles} soovitud olem ja pane silt külgriba kaudu."
 
-#: ../root/tag/TagCloud.js:61
+#: ../root/tag/TagCloud.js:58
 msgid "'{tag}' has been used {num} times"
 msgstr "Silti „{tag}” on kasutatud {num} korda"
 
-#: ../root/tag/TagCloud.js:70
-msgid "The database has no tags."
-msgstr "Andmebaasis pole ühtki silti."
+#: ../root/tag/TagCloud.js:98
+msgid "These are the most used genres and other tags in the database."
+msgstr ""
+
+#: ../root/tag/TagCloud.js:101
+msgid "Show as a cloud instead."
+msgstr ""
+
+#: ../root/tag/TagCloud.js:103
+msgid "Show as a list instead."
+msgstr ""
+
+#: ../root/tag/TagCloud.js:113
+msgid "No genre tags have been used yet."
+msgstr ""
+
+#: ../root/tag/TagCloud.js:120
+msgid "No non-genre tags have been used yet."
+msgstr ""
 
 #: ../root/tag/TagIndex.js:41
 msgid "This tag is associated with the genre {genre}."

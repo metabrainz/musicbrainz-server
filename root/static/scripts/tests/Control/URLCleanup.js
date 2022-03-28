@@ -431,6 +431,18 @@ const testData = [
        input_relationship_type: 'amazon',
        only_valid_entity_types: [],
   },
+  {
+                     input_url: 'https://www.amazon.com/vdp/08c6c18fc7bb4822a166db4834e123f1?ref=dp_vse_rvc_0',
+             input_entity_type: 'release',
+       input_relationship_type: 'amazon',
+    expected_relationship_type: undefined,
+       only_valid_entity_types: [],
+            expected_clean_url: 'https://www.amazon.com/vdp/08c6c18fc7bb4822a166db4834e123f1?ref=dp_vse_rvc_0',
+                expected_error: {
+                                  error: 'link to a user video',
+                                  target: 'url',
+                                },
+  },
   // amzn.to
   {
                      input_url: 'http://amzn.to/2n4b5k4',
@@ -1956,6 +1968,24 @@ limited_link_type_combinations: [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://www.facebook.com/TheSullivanSees',
   },
+  {
+                     input_url: 'https://www.facebook.com/searchingforabby',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.facebook.com/searchingforabby',
+  },
+  {
+                     input_url: 'https://www.facebook.com/search/top?q=oxxxymiron',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://www.facebook.com/search/top?q=oxxxymiron',
+       input_relationship_type: 'socialnetwork',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'a link to a search result',
+                                  target: 'url',
+                                },
+  },
   // Finna.fi
   {
                      input_url: 'https://www.finna.fi/Record/viola.163990',
@@ -2047,7 +2077,21 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'lyrics',
             expected_clean_url: 'https://genius.com/artists/Dramatik',
-       only_valid_entity_types: ['artist'],
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+                     input_url: 'https://genius.com/artists/Universal-music-group',
+             input_entity_type: 'label',
+    expected_relationship_type: 'lyrics',
+            expected_clean_url: 'https://genius.com/artists/Universal-music-group',
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+                     input_url: 'https://genius.com/artists/Fantasy-studios',
+             input_entity_type: 'place',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://genius.com/artists/Fantasy-studios',
+       only_valid_entity_types: ['place'],
   },
   {
                      input_url: 'http://genius.com/albums/The-dream/Terius-nash-1977',
@@ -5270,6 +5314,24 @@ limited_link_type_combinations: [
        input_relationship_type: 'youtube',
        only_valid_entity_types: [],
   },
+  {
+                     input_url: 'https://www.youtube.com/resultsarein',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'youtube',
+            expected_clean_url: 'https://www.youtube.com/resultsarein',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.youtube.com/results?search_query=oxxxymiron',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'youtube',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'a link to a search result',
+                                  target: 'url',
+                                },
+  },
 ];
 /* eslint-enable indent, max-len, sort-keys */
 
@@ -5419,7 +5481,8 @@ function testErrorObject(subtest, relationshipType, st) {
     );
   } else {
     st.ok(
-      validationResult.error.includes(subtest.expected_error.error),
+      validationResult.error &&
+        validationResult.error.includes(subtest.expected_error.error),
       'Error message contains expected string',
     );
   }

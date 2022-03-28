@@ -12,7 +12,8 @@
         [%- duplicate_entities_section() -%]
         [%- form_row_text_long(r, 'comment', add_colon(l('Disambiguation'))) -%]
         [%- disambiguation_error() -%]
-        [%- form_row_select(r, 'type_id', l('Type:')) -%]
+        [%# When porting this, remember no_default is equivalent to allowEmpty %]
+        [%- form_row_select(r, 'type_id', l('Type:'), undef, {no_default => 1}) -%]
         [%- form_row_select(r, 'ordering_type_id', l('Ordering Type:')) -%]
       </fieldset>
 

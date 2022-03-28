@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-02-23 20:03+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2012-05-24 18:52+0000\n"
+"Last-Translator: FULL NAME <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -181,6 +181,15 @@ msgid ""
 "A cantata is a vocal (often choral) composition with an instrumental "
 "(usually orchestral) accompaniment, typically in several movements."
 msgstr "Një kantata është një kompozim vokal (shpesh koral) me një shoqërim instrumental (zakonisht orkestër), zakonisht në disa kohë."
+
+#: DB:medium_format/description:46
+msgctxt "medium_format"
+msgid ""
+"A card (or other similar physical support) that doesn't contain the music "
+"itself directly, but provides a code to download it digitally. Often bundled"
+" with physical releases but sometimes sold as a standalone item (especially "
+"in Asia)."
+msgstr ""
 
 #: DB:work_type/description:4
 msgctxt "work_type"
@@ -938,8 +947,8 @@ msgstr ""
 
 #: DB:editor_collection_type/name:7
 msgctxt "collection_type"
-msgid "Area"
-msgstr "Zonë"
+msgid "Area collection"
+msgstr ""
 
 #: DB:area_alias_type/name:1
 msgctxt "alias_type"
@@ -951,14 +960,14 @@ msgctxt "work_type"
 msgid "Aria"
 msgstr "Arie"
 
-#: DB:editor_collection_type/name:8
-msgctxt "collection_type"
-msgid "Artist"
-msgstr "Artist"
-
 #: DB:series_type/name:14
 msgctxt "series_type"
 msgid "Artist award"
+msgstr ""
+
+#: DB:editor_collection_type/name:8
+msgctxt "collection_type"
+msgid "Artist collection"
 msgstr ""
 
 #: DB:artist_alias_type/name:1
@@ -2259,6 +2268,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Dolap"
 msgstr ""
 
+#: DB:medium_format/name:46
+msgctxt "medium_format"
+msgid "Download Card"
+msgstr ""
+
 #: DB:medium_format/name:4
 msgctxt "medium_format"
 msgid "DualDisc"
@@ -2497,8 +2511,8 @@ msgstr ""
 
 #: DB:editor_collection_type/name:4
 msgctxt "collection_type"
-msgid "Event"
-msgstr "Veprimtari"
+msgid "Event collection"
+msgstr ""
 
 #: DB:event_alias_type/name:1
 msgctxt "alias_type"
@@ -3757,8 +3771,8 @@ msgstr "Arenë brenda"
 
 #: DB:editor_collection_type/name:9
 msgctxt "collection_type"
-msgid "Instrument"
-msgstr "Instrument"
+msgid "Instrument collection"
+msgstr ""
 
 #: DB:instrument_alias_type/name:1
 msgctxt "alias_type"
@@ -4391,8 +4405,8 @@ msgstr ""
 
 #: DB:editor_collection_type/name:10
 msgctxt "collection_type"
-msgid "Label"
-msgstr "Etiketë"
+msgid "Label collection"
+msgstr ""
 
 #: DB:label_alias_type/name:1
 msgctxt "alias_type"
@@ -4915,11 +4929,6 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:811
 msgctxt "work_attribute_type_allowed_value"
 msgid "Murabba Beste "
-msgstr ""
-
-#: DB:medium_format/name:46
-msgctxt "medium_format"
-msgid "Music Card"
 msgstr ""
 
 #: DB:work_type/name:29
@@ -5672,8 +5681,8 @@ msgstr "Bobinë Pianosh"
 
 #: DB:editor_collection_type/name:11
 msgctxt "collection_type"
-msgid "Place"
-msgstr "Vend"
+msgid "Place collection"
+msgstr ""
 
 #: DB:place_alias_type/name:1
 msgctxt "alias_type"
@@ -5940,8 +5949,8 @@ msgstr "Bruto/E papërpunuar"
 
 #: DB:editor_collection_type/name:12
 msgctxt "collection_type"
-msgid "Recording"
-msgstr "Incizim"
+msgid "Recording collection"
+msgstr ""
 
 #: DB:recording_alias_type/name:1
 msgctxt "alias_type"
@@ -5975,13 +5984,13 @@ msgstr ""
 
 #: DB:editor_collection_type/name:1
 msgctxt "collection_type"
-msgid "Release"
-msgstr "Hedhje në qarkullim"
+msgid "Release collection"
+msgstr ""
 
 #: DB:editor_collection_type/name:13
 msgctxt "collection_type"
-msgid "Release group"
-msgstr "Grup hedhjeje në qarkullim"
+msgid "Release group collection"
+msgstr ""
 
 #: DB:release_group_alias_type/name:1
 msgctxt "alias_type"
@@ -6487,8 +6496,8 @@ msgstr ""
 
 #: DB:editor_collection_type/name:14
 msgctxt "collection_type"
-msgid "Series"
-msgstr "Seri"
+msgid "Series collection"
+msgstr ""
 
 #: DB:series_alias_type/name:1
 msgctxt "alias_type"
@@ -7547,8 +7556,8 @@ msgstr ""
 
 #: DB:editor_collection_type/name:15
 msgctxt "collection_type"
-msgid "Work"
-msgstr "Vepër"
+msgid "Work collection"
+msgstr ""
 
 #: DB:work_alias_type/name:1
 msgctxt "alias_type"

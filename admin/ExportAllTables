@@ -26,6 +26,7 @@ use MusicBrainz::Server::Constants qw(
     @WIKIDOCS_TABLE_LIST
     @DOCUMENTATION_TABLE_LIST
 );
+use MusicBrainz::Server::Log qw( log_info );
 
 use Getopt::Long;
 
@@ -202,7 +203,7 @@ if ($fDoReplication)
                 $iReplicationSequence,
         );
 
-        print localtime() . " : Producing replication packet #$iReplicationSequence\n";
+        log_info { "Producing replication packet #$iReplicationSequence" };
 
         # Dump 'em
         $mbdump->dump_table($_) for @replication_tables;
@@ -212,10 +213,10 @@ if ($fDoReplication)
 
         $mbdump->write_file('REPLICATION_SEQUENCE', "$iReplicationSequence\n");
     } elsif (defined $iReplicationSequence and not $fAnyReplicationData) {
-        print localtime() . " : No changes since the last replication point (#$iReplicationSequence)\n";
+        log_info { "No changes since the last replication point (#$iReplicationSequence)" };
         $mbdump->write_file('REPLICATION_SEQUENCE', "$iReplicationSequence\n");
     } else {
-        print localtime() . " : No replication data dumped - not producing a replication packet\n";
+        log_info { "No replication data dumped - not producing a replication packet" };
         $mbdump->write_file('REPLICATION_SEQUENCE', '');
     }
 } else {
@@ -304,7 +305,7 @@ sub empty_replication_tables
 
 sub optimise_replication_tables
 {
-    print localtime() . " : Optimising replication tables\n";
+    log_info { "Optimising replication tables" };
     $sql->auto_commit;
     $sql->do('VACUUM ANALYZE dbmirror_pendingdata');
     $sql->auto_commit;
@@ -336,8 +337,9 @@ sub check_tables_completeness
 
     my %exported_tables = map { $_ => 1 } @tables;
     my @not_exported_tables = grep { not exists $exported_tables{$_} } @create_tables;
-    printf "Table not exported: %s\n", $_
-        for sort @not_exported_tables;
+    for (sort @not_exported_tables) {
+        log_info { "Table not exported: %s", $_ };
+    }
 
     my @no_group_tables;
     foreach my $table (@tables) {
@@ -349,8 +351,9 @@ sub check_tables_completeness
         }
         push @no_group_tables, $table if not $included;
     }
-    printf "Table exported but not included in any tar: %s\n", $_
-        for sort @no_group_tables;
+    for (sort @no_group_tables) {
+        log_info { "Table exported but not included in any tar: %s", $_ };
+    }
 }
 
 =head1 COPYRIGHT AND LICENSE

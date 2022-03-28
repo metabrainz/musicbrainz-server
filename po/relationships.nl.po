@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-03-09 12:05+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2012-05-24 18:50+0000\n"
+"Last-Translator: Maurits Meulenbelt <mfmeulenbelt@gmail.com>, 2012-2022\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2031,6 +2031,22 @@ msgid ""
 "title=\"Artist\">artist</a> collaborated on a short-term project, for cases "
 "where artist credits can't be used."
 msgstr "Dit wordt gebruikt om aan te geven dat een <a href=\"/doc/Artist\" title=\"Artist\">artiest</a> samenwerkte in een kortdurend project, als de naam van het project niet te splitsen is in de samenwerkende artiesten."
+
+#: DB:link_type/description:1047
+msgid ""
+"This is used when a work includes a brief quotation of the lyrics of another"
+" work. In most cases the quotation is uncredited, although this is not a "
+"requirement. For a work that includes significantly more of another than "
+"just a brief quotation, consider using “based on” instead."
+msgstr "Deze relatie wordt gebruikt als een compositie een kort citaat van de tekst van een andere compositie bevat. Meestal wordt het citaat niet officieel vermeld, maar dat is geen vereiste voor deze relatie. Als een compositie veel meer van een andere compositie bevat dan een kort citaat, kan je beter ‘gebaseerd op’ gebruiken."
+
+#: DB:link_type/description:1046
+msgid ""
+"This is used when a work includes a brief quotation of the music of another "
+"work. In most cases the quotation is uncredited, although this is not a "
+"requirement. For a work that includes significantly more of another than "
+"just a brief quotation, consider using “based on” instead."
+msgstr "Deze relatie wordt gebruikt als een compositie een kort citaat van de muziek van een andere compositie bevat. Meestal wordt het citaat niet officieel vermeld, maar dat is geen vereiste voor deze relatie. Als een compositie veel meer van een andere compositie bevat dan een kort citaat, kan je beter ‘gebaseerd op’ gebruiken."
 
 #: DB:link_type/description:288
 msgid ""
@@ -5131,6 +5147,10 @@ msgstr "logo van"
 msgid "logos"
 msgstr "logo’s"
 
+#: DB:link_type/name:1047
+msgid "lyrical quotation"
+msgstr "geciteerde tekst"
+
 #: DB:link_type/name:56 DB:link_type/name:165
 msgid "lyricist"
 msgstr "tekstschrijver"
@@ -5149,6 +5169,10 @@ msgstr "tekst"
 #: DB:link_type/reverse_link_phrase:197 DB:link_type/reverse_link_phrase:982
 msgid "lyrics page for"
 msgstr "tekst van"
+
+#: DB:link_type/reverse_link_phrase:1047
+msgid "lyrics quoted on"
+msgstr "tekst geciteerd in"
 
 #: DB:link_type/name:878
 msgid "lyrics written at"
@@ -5400,6 +5424,10 @@ msgstr "muziekonderwijs"
 msgid "music production"
 msgstr "muziekproductie"
 
+#: DB:link_type/reverse_link_phrase:1046
+msgid "music quoted on"
+msgstr "muziek geciteerd in"
+
 #: DB:link_attribute_type/name:1222
 msgid "music theory"
 msgstr "muziektheorie"
@@ -5419,6 +5447,10 @@ msgstr "videoclip van"
 #: DB:link_type/link_phrase:857
 msgid "music videos"
 msgstr "videoclips"
+
+#: DB:link_type/name:1046
+msgid "musical quotation"
+msgstr "geciteerde muziek"
 
 #: DB:link_type/link_phrase:106 DB:link_type/reverse_link_phrase:106
 #: DB:link_type/long_link_phrase:106
@@ -6013,6 +6045,14 @@ msgstr "bestel bladmuziek op"
 #: DB:link_type/name:174
 msgid "purevolume"
 msgstr "PureVolume"
+
+#: DB:link_type/link_phrase:1047 DB:link_type/long_link_phrase:1047
+msgid "quotes lyrics from"
+msgstr "bevat geciteerde tekst uit"
+
+#: DB:link_type/link_phrase:1046 DB:link_type/long_link_phrase:1046
+msgid "quotes music from"
+msgstr "bevat geciteerde muziek uit"
 
 #: DB:link_attribute_type/name:952
 msgid "re"

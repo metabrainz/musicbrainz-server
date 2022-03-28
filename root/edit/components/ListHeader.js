@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow
  * Copyright (C) 2021 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -10,10 +10,12 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context';
+import ENTITIES from '../../../entities';
 import DBDefs from '../../static/scripts/common/DBDefs';
 import uriWith from '../../utility/uriWith';
 
 type Props = {
+  +entity?: CoreEntityT | CollectionT,
   +isSearch?: boolean,
   +page: string,
   +refineUrlArgs?: {+[argument: string]: string},
@@ -21,6 +23,7 @@ type Props = {
 };
 
 const ListHeader = ({
+  entity,
   isSearch = false,
   page,
   refineUrlArgs,
@@ -30,6 +33,11 @@ const ListHeader = ({
   const isSecureConnection = $c.req.secure;
   const protocol = isSecureConnection ? 'https://' : 'http://';
   const openParam = $c.req.query_params.open;
+  const entityUrlFragment = entity
+    ? ENTITIES[entity.entityType].url
+    : undefined;
+  const isEntityAllPage = !!entity && page === entity.entityType + '_all';
+  const isEntityOpenPage = !!entity && page === entity.entityType + '_open';
 
   return (
     <table className="search-help">
@@ -67,6 +75,26 @@ const ListHeader = ({
               {' | '}
               <a href={`/user/${username}/edits`}>
                 {exp.l('All edits for {user}', {user: username})}
+              </a>
+            </>
+          ) : null}
+          {entity && entityUrlFragment && isEntityAllPage ? (
+            <>
+              {' | '}
+              <a href={`/${entityUrlFragment}/${entity.gid}/open_edits`}>
+                {entity.entityType === 'collection'
+                  ? l('Open edits for this collection')
+                  : l('Open edits for this entity')}
+              </a>
+            </>
+          ) : null}
+          {entity && entityUrlFragment && isEntityOpenPage ? (
+            <>
+              {' | '}
+              <a href={`/${entityUrlFragment}/${entity.gid}/edits`}>
+                {entity.entityType === 'collection'
+                  ? l('All edits for this collection')
+                  : l('All edits for this entity')}
               </a>
             </>
           ) : null}

@@ -5,14 +5,19 @@ use warnings;
 use Data::Dumper::Concise;
 use DBDefs;
 use Devel::StackTrace;
+use POSIX qw( strftime );
 use Readonly;
 
 use Log::Dispatch;
 my $logger;
 BEGIN {
+    $| = 1; # autoflush stdout
     $logger = Log::Dispatch->new(
         DBDefs->LOGGER_ARGUMENTS,
-        callbacks => [\&_prefix_message, \&_truncate_message],
+        callbacks => [
+            -t STDOUT ? \&_prefix_message_with_timestamp : \&_prefix_message,
+            \&_truncate_message,
+        ],
     );
 }
 
@@ -39,7 +44,20 @@ sub logger { $logger }
 
 sub _prefix_message {
     my %args = @_;
-    return sprintf '[%s] %s', $args{level}, $args{message};
+    if ($args{level} eq 'info') {
+        return $args{message};
+    } else {
+        return sprintf '[%s] %s', $args{level}, $args{message};
+    }
+}
+
+sub _prefix_message_with_timestamp {
+    my %args = @_;
+    if ($args{level} eq 'info') {
+        return (strftime '%X %Z ', localtime) . $args{message};
+    } else {
+        return sprintf '%s [%s] %s', (strftime '%X %Z', localtime), $args{level}, $args{message};
+    }
 }
 
 sub _truncate_message {

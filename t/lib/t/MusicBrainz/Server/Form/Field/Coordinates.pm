@@ -142,6 +142,12 @@ test 'Coordinate validation' => sub {
             latitude => 37,
             longitude => -109
         },
+        # Test coordinate rounding
+        {
+            parse => q{-1.0005633069673305, 32.892379760742195},
+            latitude => -1.000563,
+            longitude => 32.892380
+        },
         {
             parse => q{0.00000000001, 0},
             latitude => 0,

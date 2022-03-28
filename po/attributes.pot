@@ -211,6 +211,15 @@ msgid ""
 "(usually orchestral) accompaniment, typically in several movements."
 msgstr ""
 
+#: DB:medium_format/description:46
+msgctxt "medium_format"
+msgid ""
+"A card (or other similar physical support) that doesn't contain the music "
+"itself directly, but provides a code to download it digitally. Often bundled "
+"with physical releases but sometimes sold as a standalone item (especially "
+"in Asia)."
+msgstr ""
+
 #: DB:work_type/description:4
 msgctxt "work_type"
 msgid ""
@@ -966,7 +975,7 @@ msgstr ""
 
 #: DB:editor_collection_type/name:7
 msgctxt "collection_type"
-msgid "Area"
+msgid "Area collection"
 msgstr ""
 
 #: DB:area_alias_type/name:1
@@ -979,14 +988,14 @@ msgctxt "work_type"
 msgid "Aria"
 msgstr ""
 
-#: DB:editor_collection_type/name:8
-msgctxt "collection_type"
-msgid "Artist"
-msgstr ""
-
 #: DB:series_type/name:14
 msgctxt "series_type"
 msgid "Artist award"
+msgstr ""
+
+#: DB:editor_collection_type/name:8
+msgctxt "collection_type"
+msgid "Artist collection"
 msgstr ""
 
 #: DB:artist_alias_type/name:1
@@ -2286,6 +2295,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Dolap"
 msgstr ""
 
+#: DB:medium_format/name:46
+msgctxt "medium_format"
+msgid "Download Card"
+msgstr ""
+
 #: DB:medium_format/name:4
 msgctxt "medium_format"
 msgid "DualDisc"
@@ -2524,7 +2538,7 @@ msgstr ""
 
 #: DB:editor_collection_type/name:4
 msgctxt "collection_type"
-msgid "Event"
+msgid "Event collection"
 msgstr ""
 
 #: DB:event_alias_type/name:1
@@ -3782,7 +3796,7 @@ msgstr ""
 
 #: DB:editor_collection_type/name:9
 msgctxt "collection_type"
-msgid "Instrument"
+msgid "Instrument collection"
 msgstr ""
 
 #: DB:instrument_alias_type/name:1
@@ -4416,7 +4430,7 @@ msgstr ""
 
 #: DB:editor_collection_type/name:10
 msgctxt "collection_type"
-msgid "Label"
+msgid "Label collection"
 msgstr ""
 
 #: DB:label_alias_type/name:1
@@ -4940,11 +4954,6 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:811
 msgctxt "work_attribute_type_allowed_value"
 msgid "Murabba Beste "
-msgstr ""
-
-#: DB:medium_format/name:46
-msgctxt "medium_format"
-msgid "Music Card"
 msgstr ""
 
 #: DB:work_type/name:29
@@ -5697,7 +5706,7 @@ msgstr ""
 
 #: DB:editor_collection_type/name:11
 msgctxt "collection_type"
-msgid "Place"
+msgid "Place collection"
 msgstr ""
 
 #: DB:place_alias_type/name:1
@@ -5965,7 +5974,7 @@ msgstr ""
 
 #: DB:editor_collection_type/name:12
 msgctxt "collection_type"
-msgid "Recording"
+msgid "Recording collection"
 msgstr ""
 
 #: DB:recording_alias_type/name:1
@@ -6000,12 +6009,12 @@ msgstr ""
 
 #: DB:editor_collection_type/name:1
 msgctxt "collection_type"
-msgid "Release"
+msgid "Release collection"
 msgstr ""
 
 #: DB:editor_collection_type/name:13
 msgctxt "collection_type"
-msgid "Release group"
+msgid "Release group collection"
 msgstr ""
 
 #: DB:release_group_alias_type/name:1
@@ -6512,7 +6521,7 @@ msgstr ""
 
 #: DB:editor_collection_type/name:14
 msgctxt "collection_type"
-msgid "Series"
+msgid "Series collection"
 msgstr ""
 
 #: DB:series_alias_type/name:1
@@ -7572,7 +7581,7 @@ msgstr ""
 
 #: DB:editor_collection_type/name:15
 msgctxt "collection_type"
-msgid "Work"
+msgid "Work collection"
 msgstr ""
 
 #: DB:work_alias_type/name:1

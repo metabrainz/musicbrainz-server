@@ -1,14 +1,11 @@
 package MusicBrainz::Server::WebService::Format;
 
 use HTTP::Status qw( HTTP_NOT_ACCEPTABLE );
-use MooseX::Role::Parameterized;
+use Moose::Role;
 use REST::Utils qw( best_match );
 use Class::Load qw( load_class );
 
-parameter serializers => (
-    is => 'ro',
-    isa => 'ArrayRef',
-);
+requires 'serializers';
 
 sub _instance
 {
@@ -17,53 +14,48 @@ sub _instance
     $cls->new;
 }
 
-role {
-    my $role = shift;
+sub get_serialization {
+    my ($self, $c) = @_;
 
-    method 'get_serialization' => sub
+    my @serializers = @{ $self->serializers };
+    my %formats = map { $_->fmt => $_ } @serializers;
+    my %accepted = map { $_->mime_type => $_ } @serializers;
+
+    my $fmt = $c->request->parameters->{fmt};
+
+    if (defined $fmt)
     {
-        my ($self, $c) = @_;
+        return _instance($formats{$fmt}) if $formats{$fmt};
+    }
+    else
+    {
+        # Default to application/xml when no accept header is specified.
+        # (Picard does this, http://tickets.metabrainz.org/browse/PICARD-273).
+        my $accept = $c->req->header('Accept');
 
-        my %formats = map { $_->fmt => $_ } @{ $role->serializers };
-        my %accepted = map { $_->mime_type => $_ } @{ $role->serializers };
-
-        my $fmt = $c->request->parameters->{fmt};
-
-        if (defined $fmt)
-        {
-            return _instance($formats{$fmt}) if $formats{$fmt};
-        }
-        else
-        {
-            # Default to application/xml when no accept header is specified.
-            # (Picard does this, http://tickets.metabrainz.org/browse/PICARD-273).
-            my $accept = $c->req->header('Accept');
-
-            if ((!$accept || $accept eq '*/*') && exists $accepted{'application/xml'}) {
-                $accept = 'application/xml';
-            }
-
-            my $match = best_match([ keys %accepted ], $accept);
-
-            return _instance($accepted{$match}) if $match;
+        if ((!$accept || $accept eq '*/*') && exists $accepted{'application/xml'}) {
+            $accept = 'application/xml';
         }
 
-        $c->stash->{error} = 'Invalid format. Either set an Accept header'
-            . ' (recognized mime types are '. join (' and ', sort keys %accepted)
-            . '), or include a fmt= argument in the query string (valid values'
-            . ' for fmt are '. join (' and ', sort keys %formats) . ').';
+        my $match = best_match([ keys %accepted ], $accept);
 
-        my $ser = $role->serializers->[0];
+        return _instance($accepted{$match}) if $match;
+    }
 
-        $c->res->status(HTTP_NOT_ACCEPTABLE);
-        $c->res->content_type($ser->mime_type . '; charset=utf-8');
-        $c->res->body($ser->output_error($c->stash->{error}));
-        $c->detach();
-    };
+    $c->stash->{error} = 'Invalid format. Either set an Accept header'
+        . ' (recognized mime types are '. join (' and ', sort keys %accepted)
+        . '), or include a fmt= argument in the query string (valid values'
+        . ' for fmt are '. join (' and ', sort keys %formats) . ').';
 
-};
+    my $ser = $serializers[0];
 
-no Moose;
+    $c->res->status(HTTP_NOT_ACCEPTABLE);
+    $c->res->content_type($ser->mime_type . '; charset=utf-8');
+    $c->res->body($ser->output_error($c->stash->{error}));
+    $c->detach();
+}
+
+no Moose::Role;
 1;
 
 =head1 COPYRIGHT AND LICENSE

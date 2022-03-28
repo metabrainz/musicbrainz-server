@@ -8,9 +8,9 @@ use DBDefs;
 use File::Spec::Functions qw( catdir catfile );
 use Moose;
 
-use MusicBrainz::Script::Utils qw( log );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Log qw( log_info );
 
 extends 'MusicBrainz::Script::JSONDump';
 
@@ -53,8 +53,8 @@ SQL
             $query, $replication_sequence, \@ids);
         my $changed = scalar @{$changed_ids};
 
-        log("Found $changed new or changed entities for replication " .
-            "sequence $replication_sequence in table $entity_type");
+        log_info { "Found $changed new or changed entities for replication " .
+                   "sequence $replication_sequence in table $entity_type" };
 
         if ($changed) {
             $total_changed += $changed;
@@ -195,7 +195,7 @@ sub run_impl {
                     'SELECT current_replication_sequence FROM replication_control');
 
                 if ($start_sequence != $current_replication_sequence) {
-                    log('Already reached the latest available packet');
+                    log_info { 'Already reached the latest available packet' };
                     return;
                 }
             }
@@ -206,12 +206,12 @@ sub run_impl {
                 'replication_control table.'
             ) if ($start_sequence != $current_replication_sequence);
 
-            log('Clearing the entity cache');
+            log_info { 'Clearing the entity cache' };
             $c->cache->clear;
 
-            log('Creating incremental JSON dumps for the following ' .
-                'entity types: ' .
-                join(', ', @{ $self->dumped_entity_types }));
+            log_info { 'Creating incremental JSON dumps for the following ' .
+                       'entity types: ' .
+                       join(', ', @{ $self->dumped_entity_types }) };
 
             $did_update_anything = $self->run_incremental_dump(
                 $c, $start_sequence);
@@ -232,7 +232,7 @@ sub run_impl {
             }
 
             if ($self->compression_enabled) {
-                log('Writing checksum files');
+                log_info { 'Writing checksum files' };
                 MusicBrainz::Script::MBDump::write_checksum_files('xz', $output_dir);
             }
         } else {

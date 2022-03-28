@@ -41,7 +41,7 @@ const ListEdit = ({
         value={edit.id}
       />
 
-      <div className={`edit-actions c${editStatusClass}`}>
+      <div className={`edit-actions c ${editStatusClass}`}>
         <EditSummary $c={$c} edit={edit} index={index} />
       </div>
 

@@ -2,6 +2,11 @@
 
 set -o errexit
 
+if [[ -t 1 ]]
+then
+    exec 2>&1 | ts '%X %Z'
+fi
+
 MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
 cd "$MB_SERVER_ROOT"
 
@@ -19,7 +24,7 @@ shopt -u nullglob
 # FTP directory.
 if [ "$REPLICATION_FILE" ]
 then
-    echo `date`" : Copying replication packet to backup dir"
+    echo Copying replication packet to backup dir
     chown "$BACKUP_USER:$BACKUP_GROUP" "$TEMP_DIR"/replication-*.tar.bz2
     chmod "$BACKUP_FILE_MODE" "$TEMP_DIR"/replication-*.tar.bz2
     cp -a "$TEMP_DIR"/replication-*.tar.bz2 "$BACKUP_DIR"/replication/
@@ -28,7 +33,7 @@ then
         cp -a "$TEMP_DIR"/replication-*.tar.bz2.asc "$BACKUP_DIR"/replication/
     fi
 
-    echo `date`" : Copying replication packet to FTP dir"
+    echo Copying replication packet to FTP dir
     chown "$FTP_USER:$FTP_GROUP" "$TEMP_DIR"/replication-*.tar.bz2
     chmod "$FTP_FILE_MODE" "$TEMP_DIR"/replication-*.tar.bz2
     mv "$TEMP_DIR"/replication-*.tar.bz2 "$FTP_DATA_DIR"/replication/

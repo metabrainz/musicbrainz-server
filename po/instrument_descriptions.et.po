@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-03-08 19:56+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2012-05-24 19:17+0000\n"
+"Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>, 2014\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -305,6 +305,13 @@ msgstr ""
 #: DB:instrument/description:539
 msgid "Acoustic guitar without frets."
 msgstr "akustiline kitarr ilma astmetraatide ehk krihvideta"
+
+#. name:säckpipa
+#: DB:instrument/description:691
+msgid ""
+"Almost completely disappeared by the 20th century, modern revivals based on "
+"museum examples are now used by Swedish folk musicians."
+msgstr ""
 
 #. name:cello
 #: DB:instrument/description:60
@@ -1338,6 +1345,15 @@ msgid ""
 "prototype, fish board (gyoban) is more obviously shaped like a fish."
 msgstr ""
 
+#. name:Appalachian dulcimer
+#: DB:instrument/description:66
+msgid ""
+"Historically a folk instrument from Appalachia, its elongated figure-of-"
+"eight shaped soundbox is made of various woods and often has heart-shaped "
+"sound-holes. It has 3 to 4 metal strings (including drone) and is fretted "
+"diatonically."
+msgstr ""
+
 #. name:gut guitar
 #: DB:instrument/description:567
 msgid "Hollow-body acoustic guitar strung with gut-strings."
@@ -1657,6 +1673,13 @@ msgid ""
 "weapon."
 msgstr ""
 
+#. name:low whistle
+#: DB:instrument/description:398
+msgid ""
+"Larger and deeper than the tin whistle, it was developed by Overton and made"
+" of aluminium."
+msgstr ""
+
 #. name:baandu
 #: DB:instrument/description:880
 msgid ""
@@ -1742,6 +1765,13 @@ msgid ""
 "Looks like a recorder, but with double reeds and bagpipe fingering system. "
 "Mostly used to learn how to play the pipes, but are occasionally played in "
 "their own right."
+msgstr ""
+
+#. name:gumbri
+#: DB:instrument/description:325
+msgid ""
+"Lute played by Gnawa people, its camel hide covered wooden soundbox has 3 "
+"goat gut strings."
 msgstr ""
 
 #. name:marimba lumina
@@ -2287,6 +2317,14 @@ msgid ""
 "hands or sticks. it has the designation of \"mother\""
 msgstr ""
 
+#. name:ütőgardon
+#: DB:instrument/description:768
+msgid ""
+"Played in folk music of Hungary and Transylvanian regions, its 3-4 strings "
+"are plucked or struck with a stick, and its soundbox is made of thick maple,"
+" poplar or willow wood."
+msgstr ""
+
 #. name:vichitra veena
 #: DB:instrument/description:612
 msgid ""
@@ -2563,6 +2601,20 @@ msgid ""
 " holes and a wide flaring wooden bell; shorter variants have a metal bell."
 msgstr ""
 
+#. name:tin whistle
+#: DB:instrument/description:197
+msgid ""
+"Simple six-holed fipple flute, originally made of metal; it used to cost a "
+"penny, giving it the alternate name “penny whistle”."
+msgstr ""
+
+#. name:whistle
+#: DB:instrument/description:274
+msgid ""
+"Simple, single-toned and round-bodied whistle often used for regulation and "
+"signalling (sport, traffic, ...)."
+msgstr ""
+
 #. name:mirliton
 #: DB:instrument/description:591
 msgid ""
@@ -2727,11 +2779,6 @@ msgid ""
 " it as a whole vibrates, without the use of strings or membranes. Therefore "
 "these are most often made of sonorous material: metal, wood, glass and even "
 "stone."
-msgstr ""
-
-#. name:Swedish bagpipes
-#: DB:instrument/description:691
-msgid "Swedish bagpipes are a type of bagpipes from Sweden."
 msgstr ""
 
 #. name:glass harmonica
@@ -3292,13 +3339,6 @@ msgstr ""
 msgid "The flûte d'amour is the mezzo-soprano instrument of the flute family."
 msgstr ""
 
-#. name:fourth flute
-#: DB:instrument/description:570
-msgid ""
-"The fourth flute is a recorder with a lowest note of B♭, a fourth above the "
-"treble/alto recorder."
-msgstr ""
-
 #. name:fujara
 #: DB:instrument/description:571
 msgid ""
@@ -3373,13 +3413,6 @@ msgid ""
 "The guitarrón mexicano is a very large and deep-bodied Mexican guitar-like "
 "instrument with six strings which is traditionally played in mariachi "
 "groups."
-msgstr ""
-
-#. name:gumbri
-#: DB:instrument/description:325
-msgid ""
-"The gumbri or sintir is a three-stringed skin-covered bass plucked lute from"
-" North Africa."
 msgstr ""
 
 #. name:guqin
@@ -4313,15 +4346,6 @@ msgid ""
 "family."
 msgstr ""
 
-#. name:ütőgardon
-#: DB:instrument/description:768
-msgid ""
-"The ütőgardon is a folk musical instrument played primarily in Transylvania."
-" It is similar in appearance to a cello, but played percussively like a "
-"drum. Instead of being played with a bow, its strings are plucked and beaten"
-" with a stick."
-msgstr ""
-
 #. name:đing năm
 #: DB:instrument/description:319
 msgid ""
@@ -5224,13 +5248,6 @@ msgid ""
 "second smallest member of the Serbo-Croatian tamburica orchestra, there are "
 "often two, first and second bass. it can either have three double strings or"
 " two double strings and three single strings"
-msgstr ""
-
-#. name:whistle
-#: DB:instrument/description:274
-msgid ""
-"simple, often single-toned and round-bodied whistle often used for "
-"regulation (sport, traffic, ...)."
 msgstr ""
 
 #. name:härjedalspipa

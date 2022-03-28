@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-03-08 19:56+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2012-05-24 19:17+0000\n"
+"Last-Translator: Mark Spike, 2019\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -312,6 +312,13 @@ msgstr "Ein Holzblasinstrument mit Doppelrohrblatt und Windkapsel mit konischer 
 #: DB:instrument/description:539
 msgid "Acoustic guitar without frets."
 msgstr "Eine Akustikgitarre ohne Bund."
+
+#. name:säckpipa
+#: DB:instrument/description:691
+msgid ""
+"Almost completely disappeared by the 20th century, modern revivals based on "
+"museum examples are now used by Swedish folk musicians."
+msgstr ""
 
 #. name:cello
 #: DB:instrument/description:60
@@ -1345,6 +1352,15 @@ msgid ""
 "prototype, fish board (gyoban) is more obviously shaped like a fish."
 msgstr ""
 
+#. name:Appalachian dulcimer
+#: DB:instrument/description:66
+msgid ""
+"Historically a folk instrument from Appalachia, its elongated figure-of-"
+"eight shaped soundbox is made of various woods and often has heart-shaped "
+"sound-holes. It has 3 to 4 metal strings (including drone) and is fretted "
+"diatonically."
+msgstr ""
+
 #. name:gut guitar
 #: DB:instrument/description:567
 msgid "Hollow-body acoustic guitar strung with gut-strings."
@@ -1664,6 +1680,13 @@ msgid ""
 "weapon."
 msgstr ""
 
+#. name:low whistle
+#: DB:instrument/description:398
+msgid ""
+"Larger and deeper than the tin whistle, it was developed by Overton and made"
+" of aluminium."
+msgstr ""
+
 #. name:baandu
 #: DB:instrument/description:880
 msgid ""
@@ -1750,6 +1773,13 @@ msgid ""
 "Mostly used to learn how to play the pipes, but are occasionally played in "
 "their own right."
 msgstr "Der Practice Chanter (PC) ist ein Musikinstrument, das zum Erlernen des Spiels auf der Sackpfeife, speziell der schottischen Hochlandsackpfeife verwendet wird, ähnlich einer Blockflöte."
+
+#. name:gumbri
+#: DB:instrument/description:325
+msgid ""
+"Lute played by Gnawa people, its camel hide covered wooden soundbox has 3 "
+"goat gut strings."
+msgstr ""
 
 #. name:marimba lumina
 #: DB:instrument/description:767
@@ -2294,6 +2324,14 @@ msgid ""
 "hands or sticks. it has the designation of \"mother\""
 msgstr ""
 
+#. name:ütőgardon
+#: DB:instrument/description:768
+msgid ""
+"Played in folk music of Hungary and Transylvanian regions, its 3-4 strings "
+"are plucked or struck with a stick, and its soundbox is made of thick maple,"
+" poplar or willow wood."
+msgstr ""
+
 #. name:vichitra veena
 #: DB:instrument/description:612
 msgid ""
@@ -2570,6 +2608,20 @@ msgid ""
 " holes and a wide flaring wooden bell; shorter variants have a metal bell."
 msgstr ""
 
+#. name:tin whistle
+#: DB:instrument/description:197
+msgid ""
+"Simple six-holed fipple flute, originally made of metal; it used to cost a "
+"penny, giving it the alternate name “penny whistle”."
+msgstr ""
+
+#. name:whistle
+#: DB:instrument/description:274
+msgid ""
+"Simple, single-toned and round-bodied whistle often used for regulation and "
+"signalling (sport, traffic, ...)."
+msgstr ""
+
 #. name:mirliton
 #: DB:instrument/description:591
 msgid ""
@@ -2735,11 +2787,6 @@ msgid ""
 "these are most often made of sonorous material: metal, wood, glass and even "
 "stone."
 msgstr ""
-
-#. name:Swedish bagpipes
-#: DB:instrument/description:691
-msgid "Swedish bagpipes are a type of bagpipes from Sweden."
-msgstr "Die schwedische Sackpfeife ist kleiner als die schottische Hochlandsackpfeife und wird mit dem Mund geblasen."
 
 #. name:glass harmonica
 #: DB:instrument/description:285
@@ -3299,13 +3346,6 @@ msgstr "Die Esraj ist eine nordindische gestrichene Schalenhalslaute mit vier bi
 msgid "The flûte d'amour is the mezzo-soprano instrument of the flute family."
 msgstr "Die flûte d'amour (Italien: Flauto d'amore) ist entweder A oder B ♭ gestimmt und ihre Grösse liegt zwischen der modernen C-Konzert Flöte und Altflöte in G."
 
-#. name:fourth flute
-#: DB:instrument/description:570
-msgid ""
-"The fourth flute is a recorder with a lowest note of B♭, a fourth above the "
-"treble/alto recorder."
-msgstr "Die Fourth-Flute ist eine Längsflöte (genauer Sopranblockflöte in b1 ), die zur Gruppe der Holzblasinstrumente gehört."
-
 #. name:fujara
 #: DB:instrument/description:571
 msgid ""
@@ -3381,13 +3421,6 @@ msgid ""
 "instrument with six strings which is traditionally played in mariachi "
 "groups."
 msgstr "Das Guitarrón ist ein mexikanisches Bassinstrument aus der Familie der Gitarren. Es hat üblicherweise sechs Saiten. Auffällig ist der sehr grosse Resonanzkörper, welcher auf der Rückseite bauchig gewölbt ist. Das Guitarrón hat in der Regel keine Bünde. "
-
-#. name:gumbri
-#: DB:instrument/description:325
-msgid ""
-"The gumbri or sintir is a three-stringed skin-covered bass plucked lute from"
-" North Africa."
-msgstr "Gimbri ist eine 1–1,5 Meter lange gezupfte Kastenhalslaute mit drei Saiten in Marokko, Tunesien und Algerien. Sie hat einen langen runden Hals und einen rechteckigen Korpus aus einem Stück Holz, der an der Oberseite mit einer ungegerbten Tierhaut überzogen ist. Die Saiten sind normalerweise aus Schafsdarm und werden nicht mit Wirbeln, sondern mit einem Lederband am Hals befestigt."
 
 #. name:guqin
 #: DB:instrument/description:506
@@ -4320,15 +4353,6 @@ msgid ""
 "family."
 msgstr "Die Zhongruan ist ein chinesisches Zupfinstrument mit einem geraden Hals, 24 Bünden auf dem Griffbrett und 4 Saiten. Es wird in der Regel mit einem Plektrum gespielt."
 
-#. name:ütőgardon
-#: DB:instrument/description:768
-msgid ""
-"The ütőgardon is a folk musical instrument played primarily in Transylvania."
-" It is similar in appearance to a cello, but played percussively like a "
-"drum. Instead of being played with a bow, its strings are plucked and beaten"
-" with a stick."
-msgstr ""
-
 #. name:đing năm
 #: DB:instrument/description:319
 msgid ""
@@ -5231,13 +5255,6 @@ msgid ""
 "second smallest member of the Serbo-Croatian tamburica orchestra, there are "
 "often two, first and second bass. it can either have three double strings or"
 " two double strings and three single strings"
-msgstr ""
-
-#. name:whistle
-#: DB:instrument/description:274
-msgid ""
-"simple, often single-toned and round-bodied whistle often used for "
-"regulation (sport, traffic, ...)."
 msgstr ""
 
 #. name:härjedalspipa

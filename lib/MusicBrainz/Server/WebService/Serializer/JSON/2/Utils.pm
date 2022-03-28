@@ -306,7 +306,7 @@ sub serialize_tags {
     if ($inc->genres) {
         $into->{genres} = [
             sort { $a->{name} cmp $b->{name} }
-            map +{ count => $_->count, disambiguation => $_->tag->genre->comment, id => $_->tag->genre->gid, name => $_->tag->name },
+            map +{ count => $_->count, disambiguation => $_->genre->comment, id => $_->genre->gid, name => $_->genre->name },
                 @{ $opts->{genres} }
         ];
     }
@@ -323,7 +323,7 @@ sub serialize_tags {
     if ($inc->user_genres) {
         $into->{'user-genres'} = [
             sort { $a->{name} cmp $b->{name} }
-            map +{ disambiguation => $_->tag->genre->comment, id => $_->tag->genre->gid, name => $_->tag->name },
+            map +{ disambiguation => $_->genre->comment, id => $_->genre->gid, name => $_->genre->name },
                 grep { $_->is_upvote }
                 @{ $opts->{user_genres} }
         ];
