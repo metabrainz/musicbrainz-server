@@ -116,6 +116,13 @@
       <!-- /ko -->
     </td>
   </tr>
+  <!-- ko if: isUntypedSeries() -->
+    <tr>
+      <td colspan="2">
+        [% l('To add parts to this series, please select a series type first.') %]
+      </td>
+    </tr>
+  <!-- /ko -->
 </script>
 
 <script type="text/html" id="template.dialog-date">
