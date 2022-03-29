@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-02-23 20:03+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2012-05-24 18:52+0000\n"
+"Last-Translator: Maurits Meulenbelt <mfmeulenbelt@gmail.com>, 2013-2022\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -189,6 +189,15 @@ msgid ""
 "A cantata is a vocal (often choral) composition with an instrumental "
 "(usually orchestral) accompaniment, typically in several movements."
 msgstr "Een cantate is een vocale compositie (vaak voor een koor) met een instrumentale (meestal orkestrale) begeleiding, meestal in meerdere delen."
+
+#: DB:medium_format/description:46
+msgctxt "medium_format"
+msgid ""
+"A card (or other similar physical support) that doesn't contain the music "
+"itself directly, but provides a code to download it digitally. Often bundled"
+" with physical releases but sometimes sold as a standalone item (especially "
+"in Asia)."
+msgstr "Een kaart (of ander fysiek object) waar geen muziek op staat, maar wel een code waarmee de muziek kan worden gedownload. Vaak worden ze met fysieke uitgaven gebundeld, maar soms worden ze ook los verkocht (vooral in Azië)."
 
 #: DB:work_type/description:4
 msgctxt "work_type"
@@ -407,7 +416,7 @@ msgstr "Een serie artiesten"
 #: DB:series_type/description:15
 msgctxt "series_type"
 msgid "A series of award ceremonies, usually one per year."
-msgstr ""
+msgstr "Een serie prijsuitreikingen, meestal eens per jaar."
 
 #: DB:series_type/description:6
 msgctxt "series_type"
@@ -806,7 +815,7 @@ msgid ""
 "An award ceremony is an event which is focused on the granting of prizes, "
 "but often includes musical performances in between the awarding of said "
 "prizes, especially for musical awards."
-msgstr ""
+msgstr "Een prijsuitreiking is een evenement waarvan het hoofddoel het uitreiken van prijzen is, maar waarbij vaak tussen de prijzen door muziekoptredens zijn. Dit is vooral bij muziekprijzen."
 
 #: DB:release_group_primary_type/description:12
 msgctxt "release_group_primary_type"
@@ -946,8 +955,8 @@ msgstr "Arazbarek"
 
 #: DB:editor_collection_type/name:7
 msgctxt "collection_type"
-msgid "Area"
-msgstr "Gebied"
+msgid "Area collection"
+msgstr "Collectie van gebieden"
 
 #: DB:area_alias_type/name:1
 msgctxt "alias_type"
@@ -959,15 +968,15 @@ msgctxt "work_type"
 msgid "Aria"
 msgstr "Aria"
 
-#: DB:editor_collection_type/name:8
-msgctxt "collection_type"
-msgid "Artist"
-msgstr "Artiest"
-
 #: DB:series_type/name:14
 msgctxt "series_type"
 msgid "Artist award"
 msgstr "Artiestenprijs"
+
+#: DB:editor_collection_type/name:8
+msgctxt "collection_type"
+msgid "Artist collection"
+msgstr "Collectie van artiesten"
 
 #: DB:artist_alias_type/name:1
 msgctxt "alias_type"
@@ -1022,12 +1031,12 @@ msgstr "Automatisch"
 #: DB:event_type/name:7
 msgctxt "event_type"
 msgid "Award ceremony"
-msgstr ""
+msgstr "Prijsuitreiking"
 
 #: DB:series_type/name:15
 msgctxt "series_type"
 msgid "Award ceremony"
-msgstr ""
+msgstr "Prijsuitreiking"
 
 #: DB:work_attribute_type_allowed_value/value:694
 msgctxt "work_attribute_type_allowed_value"
@@ -2267,6 +2276,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Dolap"
 msgstr "Dolap"
 
+#: DB:medium_format/name:46
+msgctxt "medium_format"
+msgid "Download Card"
+msgstr "Downloadkaart"
+
 #: DB:medium_format/name:4
 msgctxt "medium_format"
 msgid "DualDisc"
@@ -2505,8 +2519,8 @@ msgstr "Evcara"
 
 #: DB:editor_collection_type/name:4
 msgctxt "collection_type"
-msgid "Event"
-msgstr "Evenement"
+msgid "Event collection"
+msgstr "Collectie van evenementen"
 
 #: DB:event_alias_type/name:1
 msgctxt "alias_type"
@@ -3765,8 +3779,8 @@ msgstr "Indoorarena"
 
 #: DB:editor_collection_type/name:9
 msgctxt "collection_type"
-msgid "Instrument"
-msgstr "Instrument"
+msgid "Instrument collection"
+msgstr "Collectie van instrumenten"
 
 #: DB:instrument_alias_type/name:1
 msgctxt "alias_type"
@@ -4399,8 +4413,8 @@ msgstr "Kōmal riṣabh asāvēri"
 
 #: DB:editor_collection_type/name:10
 msgctxt "collection_type"
-msgid "Label"
-msgstr "Platenmaatschappij"
+msgid "Label collection"
+msgstr "Collectie van platenmaatschappijen"
 
 #: DB:label_alias_type/name:1
 msgctxt "alias_type"
@@ -4924,11 +4938,6 @@ msgstr "Murabba"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Murabba Beste "
 msgstr "Murabba Beste "
-
-#: DB:medium_format/name:46
-msgctxt "medium_format"
-msgid "Music Card"
-msgstr "muziekkaart"
 
 #: DB:work_type/name:29
 msgctxt "work_type"
@@ -5680,8 +5689,8 @@ msgstr "pianorol (notenrol)"
 
 #: DB:editor_collection_type/name:11
 msgctxt "collection_type"
-msgid "Place"
-msgstr "Plaats"
+msgid "Place collection"
+msgstr "Collectie van plaatsen"
 
 #: DB:place_alias_type/name:1
 msgctxt "alias_type"
@@ -5948,8 +5957,8 @@ msgstr "onbewerkt"
 
 #: DB:editor_collection_type/name:12
 msgctxt "collection_type"
-msgid "Recording"
-msgstr "Opnames"
+msgid "Recording collection"
+msgstr "Collectie van opnames"
 
 #: DB:recording_alias_type/name:1
 msgctxt "alias_type"
@@ -5983,13 +5992,13 @@ msgstr "Rekb-i Zavil"
 
 #: DB:editor_collection_type/name:1
 msgctxt "collection_type"
-msgid "Release"
-msgstr "Uitgave"
+msgid "Release collection"
+msgstr "Collectie van uitgaven"
 
 #: DB:editor_collection_type/name:13
 msgctxt "collection_type"
-msgid "Release group"
-msgstr "Uitgavegroepen"
+msgid "Release group collection"
+msgstr "Collectie van uitgavegroepen"
 
 #: DB:release_group_alias_type/name:1
 msgctxt "alias_type"
@@ -6495,8 +6504,8 @@ msgstr "Serbest"
 
 #: DB:editor_collection_type/name:14
 msgctxt "collection_type"
-msgid "Series"
-msgstr "Serie"
+msgid "Series collection"
+msgstr "Collectie van series"
 
 #: DB:series_alias_type/name:1
 msgctxt "alias_type"
@@ -7555,8 +7564,8 @@ msgstr "Teruggetrokken"
 
 #: DB:editor_collection_type/name:15
 msgctxt "collection_type"
-msgid "Work"
-msgstr "Composities"
+msgid "Work collection"
+msgstr "Collectie van composities"
 
 #: DB:work_alias_type/name:1
 msgctxt "alias_type"

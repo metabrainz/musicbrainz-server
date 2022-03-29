@@ -7,7 +7,15 @@ use warnings FATAL => 'all';
 use List::AllUtils qw( any );
 use MusicBrainz::Server::Data::Utils qw( get_area_containment_query placeholders );
 use MusicBrainz::Server::Constants qw( :edit_status :vote );
-use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality %ENTITIES entities_with );
+use MusicBrainz::Server::Constants qw(
+    $VARTIST_ID
+    $EDITOR_MODBOT
+    $EDITOR_FREEDB
+    $SPAMMER_FLAG
+    :quality
+    %ENTITIES
+    entities_with
+);
 use MusicBrainz::Server::Data::Relationship;
 use MusicBrainz::Server::Translation::Statistics qw( l );
 use MusicBrainz::Server::Replication qw( :replication_type );
@@ -466,15 +474,22 @@ my %stats = (
         CALC => sub {
             my ($self, $sql) = @_;
 
-            my $data = $sql->select_list_of_lists(<<~'SQL');
-                SELECT (cover_art_url ~ '^https?://.*.images-amazon.com')::int AS is_amazon, COUNT(*) FROM release_coverart
-                  WHERE cover_art_url IS NOT NULL
-                    AND NOT EXISTS (
-                      SELECT TRUE FROM cover_art_archive.cover_art ca
-                        JOIN cover_art_archive.cover_art_type cat ON ca.id = cat.id
-                      WHERE ca.release = release_coverart.id AND cat.type_id = 1)
-                GROUP BY is_amazon
-                SQL
+            my $has_release_coverart_backup = $sql->select_single_value(
+                q(SELECT 1 FROM pg_tables WHERE schemaname = 'musicbrainz' AND tablename = 'release_coverart_backup'),
+            ) ? 1 : 0;
+
+            my $data = [];
+            if ($has_release_coverart_backup) {
+                $data = $sql->select_list_of_lists(<<~'SQL');
+                    SELECT (cover_art_url ~ '^https?://.*.images-amazon.com')::int AS is_amazon, COUNT(*) FROM release_coverart_backup
+                    WHERE cover_art_url IS NOT NULL
+                        AND NOT EXISTS (
+                        SELECT TRUE FROM cover_art_archive.cover_art ca
+                            JOIN cover_art_archive.cover_art_type cat ON ca.id = cat.id
+                        WHERE ca.release = release_coverart_backup.id AND cat.type_id = 1)
+                    GROUP BY is_amazon
+                    SQL
+            }
 
             my %dist = map { @$_ } @$data;
 
@@ -698,12 +713,13 @@ my %stats = (
                 collection_editors AS (SELECT DISTINCT editor FROM editor_collection
                   WHERE ' . join(' OR ', map {
                     "EXISTS (SELECT TRUE FROM editor_collection_$_ WHERE collection=editor_collection.id LIMIT 1)"
-                  } entities_with('collections')) . ' ),
+                  } entities_with('collections')) . " ),
                 voters AS (SELECT DISTINCT editor FROM vote),
                 noters AS (SELECT DISTINCT editor FROM edit_note),
                 application_editors AS (SELECT DISTINCT owner FROM application)
                 SELECT count(id),
-                       NOT deleted AS valid,
+                       deleted AS deleted,
+                       (NOT deleted AND (privs & $SPAMMER_FLAG) = 0) AS valid,
                        email_confirm_date IS NOT NULL AS validated,
                        EXISTS (SELECT 1 FROM edit WHERE edit.editor = editor.id) AS edits,
                        tag_editors.editor IS NOT NULL as tags,
@@ -721,12 +737,12 @@ my %stats = (
                 LEFT JOIN voters ON editor.id = voters.editor
                 LEFT JOIN noters ON editor.id = noters.editor
                 LEFT JOIN application_editors ON editor.id = application_editors.owner
-                GROUP BY valid, validated, edits, tags, ratings, subscriptions, collections, votes, notes, applications');
+                GROUP BY deleted, valid, validated, edits, tags, ratings, subscriptions, collections, votes, notes, applications");
 
             my @active_markers = qw(edits tags ratings subscriptions collections votes notes applications);
             my $stats = {
                 'count.editor' => sub { return 1 },
-                'count.editor.deleted' => sub { return !shift->{valid}},
+                'count.editor.deleted' => sub { return shift->{deleted}},
                 'count.editor.valid' => sub { return shift->{valid} },
                 'count.editor.valid.inactive' => sub {
                     my $row = shift;

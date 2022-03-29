@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+
+set -e -u
+
+SCRIPT_NAME=$(basename "$0")
+
+if ((BASH_VERSINFO[0] < 4))
+then
+  echo >&2 "$SCRIPT_NAME: at least version 4 of bash is required"
+  echo >&2 "Make sure this version of bash comes first in \$PATH"
+  exit 69 # EX_UNAVAILABLE
+fi
+
+MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
+cd "$MB_SERVER_ROOT"
+
+HELP=$(cat <<EOH
+Usage: $SCRIPT_NAME <command>
+
+This script is meant to be used in production only, for both cron
+tasks and occasional run of script in the appropriate container.
+
+Run the given command with 'carton', after:
+
+1. Setting the environment variables PATH AND PERL_CARTON_PATH;
+2. Setting the current working directory to musicbrainz-server;
+3. Checking that the corresponding log subdirectory exists;
+4. Sudoing to the user 'musicbrainz' if it exists and if not current;
+5. Timestamping and redirecting the output to a file in the
+   corresponding log subdirectory. For any command other than
+   'admin/cron/*.sh', the log subdirectory will be 'occasionally'.
+EOH
+)
+
+if [[ $# -ne 0 && $1 =~ ^-*h(elp)?$ ]]
+then
+  echo "$HELP"
+  exit 0 # EX_OK
+elif [[ $# -eq 0 ]]
+then
+  echo >&2 "$SCRIPT_NAME: missing argument"
+  echo >&2 "Try '$SCRIPT_NAME help' for usage."
+  exit 64 # EX_USAGE
+fi
+
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export PERL_CARTON_PATH=/home/musicbrainz/carton-local
+
+command_full_path=$(which "$1")
+shift
+
+if [[ $command_full_path =~ admin/cron/*.sh$ ]]
+then
+  log_dir_name=$(echo "$command_full_path" | sed 's_^.*admin/cron/\(.*\)\.sh$/\1/')
+else
+  log_dir_name='occasionally'
+fi
+log_dir_path="$HOME/log/$log_dir_name"
+if ! [[ -d "$log_dir_path" ]]
+then
+  echo >&2 "$SCRIPT_NAME: '$log_dir_path' doesn't exist"
+  echo >&2 "Make sure to run in the appropriate container."
+  exit 73 # EX_CANTCREAT
+fi
+log_timestamp=$(date --utc +%FT%TZ)
+log_file_path="$log_dir_path/$log_timestamp.log"
+
+pre_command='carton exec --'
+if id -u 'musicbrainz' &>/dev/null && [[ "$(id -u -n)" != 'musicbrainz' ]]
+then
+  pre_command="sudo --preserve-env --set-home -u musicbrainz -- $pre_command"
+fi
+
+echo "Running '$*' and logging at '$log_file_path'..."
+if [[ -t 1 ]]
+then
+  exec $pre_command "$command_full_path" "$@" 2>&1 | TZ=Z ts %FT%.TZ | tee -a "$log_file_path"
+else
+  exec $pre_command "$command_full_path" "$@" 2>&1 | TZ=Z ts %FT%.TZ >> "$log_file_path"
+fi
+
+# vi: set et sts=2 sw=2 ts=2 :

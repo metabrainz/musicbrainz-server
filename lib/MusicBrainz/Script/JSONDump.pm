@@ -17,9 +17,10 @@ use List::AllUtils qw( natatime );
 use Moose;
 use MusicBrainz::Script::JSONDump::Constants qw( %DUMPED_ENTITY_TYPES );
 use MusicBrainz::Script::MBDump;
-use MusicBrainz::Script::Utils qw( log retry );
+use MusicBrainz::Script::Utils qw( retry );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::JSONLookup qw( json_lookup );
+use MusicBrainz::Server::Log qw( log_info );
 use Readonly;
 
 with 'MooseX::Getopt';
@@ -424,7 +425,7 @@ sub run {
     $c->connector->disconnect;
     rmtree($TMP_EXPORT_DIR);
 
-    log('Done');
+    log_info { 'Done' };
     return $exit_code;
 }
 

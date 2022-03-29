@@ -18,8 +18,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-02-08 18:20+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2012-05-24 18:57+0000\n"
+"Last-Translator: Jesús Heriberto López Cisneros, 2019\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,6 +41,7 @@ msgid "Anglo concertina"
 msgstr "Concertina Anglo"
 
 #: DB:instrument/name:66
+msgctxt "Folk drone zither from N. America"
 msgid "Appalachian dulcimer"
 msgstr "Dulcémele de los Apalaches"
 
@@ -237,10 +238,6 @@ msgstr "guitarra (acústica) española"
 msgctxt "Horn-amplified violin"
 msgid "Stroh violin"
 msgstr ""
-
-#: DB:instrument/name:691
-msgid "Swedish bagpipes"
-msgstr "Gaita Sueca"
 
 #: DB:instrument/name:934
 msgctxt "electrically actuated lithophone"
@@ -1231,10 +1228,6 @@ msgstr ""
 msgid "davul"
 msgstr "davul"
 
-#: DB:instrument/name:469
-msgid "descant recorder / soprano recorder"
-msgstr "flauta dulce soprano"
-
 #: DB:instrument/name:535
 msgid "dhol"
 msgstr ""
@@ -1560,10 +1553,6 @@ msgstr "fortepiano"
 msgid "four-string banjo"
 msgstr ""
 
-#: DB:instrument/name:570
-msgid "fourth flute"
-msgstr ""
-
 #: DB:instrument/name:344
 msgid "frame drum"
 msgstr "tambor de marco"
@@ -1796,6 +1785,7 @@ msgid "guitorgan"
 msgstr ""
 
 #: DB:instrument/name:325
+msgctxt "3-stringed plucked bass-lute"
 msgid "gumbri"
 msgstr ""
 
@@ -2453,6 +2443,7 @@ msgid "liuqin"
 msgstr ""
 
 #: DB:instrument/name:398
+msgctxt "Low pitch fipple flute"
 msgid "low whistle"
 msgstr ""
 
@@ -3112,8 +3103,9 @@ msgid "reco-reco"
 msgstr ""
 
 #: DB:instrument/name:18
+msgctxt "Family of end-blown fipple flutes"
 msgid "recorder"
-msgstr "flauta dulce"
+msgstr ""
 
 #: DB:instrument/name:204
 msgctxt "Organ with free reeds"
@@ -3482,6 +3474,11 @@ msgstr "clarinete soprano"
 msgid "soprano flute"
 msgstr "flauta soprano"
 
+#: DB:instrument/name:469
+msgctxt "Middle member of the end-blown fipple flute recorder family"
+msgid "soprano recorder"
+msgstr ""
+
 #: DB:instrument/name:20
 msgid "soprano saxophone"
 msgstr "saxofón soprano"
@@ -3624,6 +3621,11 @@ msgstr ""
 
 #: DB:instrument/name:199
 msgid "sáo trúc"
+msgstr ""
+
+#: DB:instrument/name:691
+msgctxt "Historical Swedish bagpipes"
+msgid "säckpipa"
 msgstr ""
 
 #: DB:instrument/name:276
@@ -3849,6 +3851,7 @@ msgid "timpani"
 msgstr "timbales (de concierto) / tímpanos"
 
 #: DB:instrument/name:197
+msgctxt "Simple fipple flute"
 msgid "tin whistle"
 msgstr ""
 
@@ -4236,7 +4239,7 @@ msgid "whip / slapstick"
 msgstr ""
 
 #: DB:instrument/name:274
-msgctxt "small, simple, singletoned flute"
+msgctxt "Small simple single-toned flute"
 msgid "whistle"
 msgstr "silbato"
 
@@ -4390,6 +4393,7 @@ msgid "çevgen"
 msgstr ""
 
 #: DB:instrument/name:768
+msgctxt "Hungarian percussion-viol"
 msgid "ütőgardon"
 msgstr ""
 

@@ -1,5 +1,3 @@
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-PERL_CARTON_PATH=/home/musicbrainz/carton-local
 SHELL=/bin/bash
-30 * * * * mkdir -p $HOME/log/hourly-json-dump && cd $HOME/musicbrainz-server && carton exec -- admin/cron/hourly-json-dump.sh > $HOME/log/hourly-json-dump/$(date --utc +\%FT\%TZ).log 2>&1
-10 0 * * * mkdir -p $HOME/log/daily-json-dump && cd $HOME/musicbrainz-server && carton exec -- admin/cron/daily-json-dump.sh > $HOME/log/daily-json-dump/$(date --utc +\%FT\%TZ).log 2>&1
+30 * * * * $HOME/musicbrainz-server/admin/run admin/cron/hourly-json-dump.sh
+10 0 * * * $HOME/musicbrainz-server/admin/run admin/cron/daily-json-dump.sh

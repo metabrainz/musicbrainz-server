@@ -2,6 +2,11 @@
 
 set -u
 
+if [[ -t 1 ]]
+then
+    exec 2>&1 | ts '%X %Z'
+fi
+
 export PATH=/usr/local/bin:$PATH
 export PERL_CARTON_PATH=~/carton-local
 

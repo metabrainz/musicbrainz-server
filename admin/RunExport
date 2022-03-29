@@ -2,6 +2,11 @@
 
 set -o errexit
 
+if [[ -t 1 ]]
+then
+    exec 2>&1 | ts '%X %Z'
+fi
+
 # This is to help with disk space monitoring - run "df" before and after
 echo "Disk space when RunExport starts:" ; df -m
 trap 'echo "Disk space when RunExport ends:" ; df -m' 0
@@ -50,7 +55,7 @@ chown "$FTP_USER:$FTP_GROUP" \
     "$FTP_DATA_DIR"/replication \
     "$FTP_DATA_DIR"/replication/{daily,weekly}
 
-echo `date`" : Making database snapshot"
+echo Making database snapshot
 ./admin/ExportAllTables \
     $EXPORT_ARG \
     --with-replication \

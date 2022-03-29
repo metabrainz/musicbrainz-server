@@ -10,9 +10,9 @@ use Moose;
 use Parallel::ForkManager 0.7.6;
 use POSIX qw( :signal_h :errno_h :sys_wait_h ceil );
 
-use MusicBrainz::Script::Utils qw( log );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Log qw( log_info );
 use Sql;
 
 extends 'MusicBrainz::Script::JSONDump';
@@ -130,14 +130,14 @@ sub run_impl {
         }
     });
 
-    log('Clearing the entity cache');
+    log_info { 'Clearing the entity cache' };
     $c->cache->clear;
 
-    log('Dumping JSON for the following entity types: ' .
-        join(', ', @dumped_entity_types));
+    log_info { 'Dumping JSON for the following entity types: ' .
+               join(', ', @dumped_entity_types) };
 
     for my $entity_type (@dumped_entity_types) {
-        log("Dumping $entity_type JSON");
+        log_info { "Dumping $entity_type JSON" };
 
         my $max_id = $entity_max_ids{$entity_type};
         my $batch_count = ceil($max_id / $WORKER_BATCH_SIZE) + 1;
@@ -155,7 +155,7 @@ sub run_impl {
 
             $new_c->connector->disconnect;
 
-            log('Dumped batch ' . ($i + 1) . "/$batch_count");
+            log_info { 'Dumped batch ' . ($i + 1) . "/$batch_count" };
             $self->pm->finish; # The child exits here.
         }
 
@@ -169,19 +169,19 @@ sub run_impl {
     }
 
     if ($self->compression_enabled) {
-        log('Writing checksum files');
+        log_info { 'Writing checksum files' };
         MusicBrainz::Script::MBDump::write_checksum_files('xz', $self->output_dir);
     }
 
-    log('Updating full_json_dump_replication_sequence to ' .
-        $dump_replication_sequence);
+    log_info { 'Updating full_json_dump_replication_sequence to ' .
+               $dump_replication_sequence };
     $c->sql->auto_commit(1);
     $c->sql->do(<<'SQL', $dump_replication_sequence);
         UPDATE json_dump.control
            SET full_json_dump_replication_sequence = ?
 SQL
 
-    log('Deleting JSON for deleted entities');
+    log_info { 'Deleting JSON for deleted entities' };
     for my $entity_type (@dumped_entity_types) {
         Sql::run_in_transaction(sub {
             $c->sql->do(qq{

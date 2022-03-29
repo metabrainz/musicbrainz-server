@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-02-09 11:04+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2012-05-24 18:57+0000\n"
+"Last-Translator: Maurits Meulenbelt <mfmeulenbelt@gmail.com>, 2012-2022\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,6 +33,7 @@ msgid "Anglo concertina"
 msgstr "Engels-Duitse concertina"
 
 #: DB:instrument/name:66
+msgctxt "Folk drone zither from N. America"
 msgid "Appalachian dulcimer"
 msgstr "dulcimer"
 
@@ -229,10 +230,6 @@ msgstr "Spaanse akoestische gitaar"
 msgctxt "Horn-amplified violin"
 msgid "Stroh violin"
 msgstr "violofoon"
-
-#: DB:instrument/name:691
-msgid "Swedish bagpipes"
-msgstr "Zweedse doedelzak"
 
 #: DB:instrument/name:934
 msgctxt "electrically actuated lithophone"
@@ -1223,10 +1220,6 @@ msgstr "daruan"
 msgid "davul"
 msgstr "davul / tupan"
 
-#: DB:instrument/name:469
-msgid "descant recorder / soprano recorder"
-msgstr "sopraanblokfluit"
-
 #: DB:instrument/name:535
 msgid "dhol"
 msgstr "dhol"
@@ -1552,10 +1545,6 @@ msgstr "fortepiano"
 msgid "four-string banjo"
 msgstr "viersnarige banjo"
 
-#: DB:instrument/name:570
-msgid "fourth flute"
-msgstr "vierde blokfluit"
-
 #: DB:instrument/name:344
 msgid "frame drum"
 msgstr "lijsttrommel"
@@ -1788,6 +1777,7 @@ msgid "guitorgan"
 msgstr "gitorgel"
 
 #: DB:instrument/name:325
+msgctxt "3-stringed plucked bass-lute"
 msgid "gumbri"
 msgstr "gimbri"
 
@@ -2445,8 +2435,9 @@ msgid "liuqin"
 msgstr "liuqin"
 
 #: DB:instrument/name:398
+msgctxt "Low pitch fipple flute"
 msgid "low whistle"
-msgstr "low whistle"
+msgstr ""
 
 #: DB:instrument/name:83
 msgid "lute"
@@ -3104,6 +3095,7 @@ msgid "reco-reco"
 msgstr "reco-reco"
 
 #: DB:instrument/name:18
+msgctxt "Family of end-blown fipple flutes"
 msgid "recorder"
 msgstr "blokfluit"
 
@@ -3474,6 +3466,11 @@ msgstr "sopraanklarinet"
 msgid "soprano flute"
 msgstr "sopraanfluit"
 
+#: DB:instrument/name:469
+msgctxt "Middle member of the end-blown fipple flute recorder family"
+msgid "soprano recorder"
+msgstr "sopraanblokfluit"
+
 #: DB:instrument/name:20
 msgid "soprano saxophone"
 msgstr "sopraansaxofoon"
@@ -3617,6 +3614,11 @@ msgstr "sáo meò"
 #: DB:instrument/name:199
 msgid "sáo trúc"
 msgstr "sáo trúc"
+
+#: DB:instrument/name:691
+msgctxt "Historical Swedish bagpipes"
+msgid "säckpipa"
+msgstr ""
 
 #: DB:instrument/name:276
 msgid "sênh tiền"
@@ -3841,8 +3843,9 @@ msgid "timpani"
 msgstr "pauk"
 
 #: DB:instrument/name:197
+msgctxt "Simple fipple flute"
 msgid "tin whistle"
-msgstr "tin whistle"
+msgstr ""
 
 #: DB:instrument/name:724
 msgid "tinya"
@@ -4228,7 +4231,7 @@ msgid "whip / slapstick"
 msgstr "zweep"
 
 #: DB:instrument/name:274
-msgctxt "small, simple, singletoned flute"
+msgctxt "Small simple single-toned flute"
 msgid "whistle"
 msgstr "fluitje"
 
@@ -4382,6 +4385,7 @@ msgid "çevgen"
 msgstr "çevgen"
 
 #: DB:instrument/name:768
+msgctxt "Hungarian percussion-viol"
 msgid "ütőgardon"
 msgstr "ütőgardon"
 

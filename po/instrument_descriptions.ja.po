@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-01-24 20:52+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2012-05-24 19:17+0000\n"
+"Last-Translator: Masuda Sunatomo <sunatomo@gmail.com>, 2021\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -132,13 +132,6 @@ msgstr "アレクサンダー・バーンが発明し演奏したサックスと
 #: DB:instrument/description:658
 msgid "A cylindrical drum is a straight-sided and generally two-headed drum."
 msgstr "シリンドリカルドラムは、側面がまっすぐで、通常は2つの頭を持つドラムです。"
-
-#. name:descant recorder / soprano recorder
-#: DB:instrument/description:469
-msgid ""
-"A descant or soprano recorder is the most common size of recorder and is "
-"often learnt by children."
-msgstr "デスカントまたはソプラノレコーダーは、レコーダーの最も一般的なサイズであり、多くの場合、子供たちによって学習されます。"
 
 #. name:dolceola
 #: DB:instrument/description:750
@@ -317,6 +310,13 @@ msgstr ""
 msgid "Acoustic guitar without frets."
 msgstr ""
 
+#. name:säckpipa
+#: DB:instrument/description:691
+msgid ""
+"Almost completely disappeared by the 20th century, modern revivals based on "
+"museum examples are now used by Swedish folk musicians."
+msgstr ""
+
 #. name:cello
 #: DB:instrument/description:60
 msgid ""
@@ -357,6 +357,17 @@ msgid ""
 "Also known as pump organ, it is large, looks like an upright piano and has "
 "pedals attached to bellows with reeds. Sound is produced by playing the "
 "keyboard."
+msgstr ""
+
+#. name:soprano recorder
+#: DB:instrument/description:469
+msgid ""
+"Also known as the descant, it is the third smallest and most common member "
+"of the modern recorder family. <br /> Traditionally made of various woods, "
+"it is today often made of plastic and used to teach children music. <br /> "
+"Not to be confused with the side-blown (concerto) <a "
+"href=\"/instrument/b524b7a7-2d87-43a7-9977-8a9081ff6e0f/\">soprano "
+"flute</a>."
 msgstr ""
 
 #. name:alto viol
@@ -1088,6 +1099,19 @@ msgid ""
 " for religious signalling purposes in mosques."
 msgstr ""
 
+#. name:recorder
+#: DB:instrument/description:18
+msgid ""
+"Family of end-blown woodwind flutes with a thumb-hole and seven finger-"
+"holes, it is the most common flute in Western classical tradition. <br /> "
+"The family consists of a wide assortment of sizes:<br /> <ul> <li>garklein "
+"recorder</li> <li>sopranino recorder</li> <li>soprano recorder "
+"(descant)</li> <li>alto recorder (treble)</li> <li>tenor recorder</li> "
+"<li>bass recorder</li> <li>great bass recorder (c-bass)</li> <li>contrabass "
+"recorder</li> <li>subcontrabass recorder</li> </ul> <br /> Not to be "
+"confused with the transverse (side-blown) Western concert flute."
+msgstr ""
+
 #. name:pi
 #: DB:instrument/description:667
 msgid "Family of quadruple reed oboes"
@@ -1323,6 +1347,15 @@ msgstr ""
 msgid ""
 "Highly stylised wooden block-bell, it is used in religious ritual. Its "
 "prototype, fish board (gyoban) is more obviously shaped like a fish."
+msgstr ""
+
+#. name:Appalachian dulcimer
+#: DB:instrument/description:66
+msgid ""
+"Historically a folk instrument from Appalachia, its elongated figure-of-"
+"eight shaped soundbox is made of various woods and often has heart-shaped "
+"sound-holes. It has 3 to 4 metal strings (including drone) and is fretted "
+"diatonically."
 msgstr ""
 
 #. name:gut guitar
@@ -1644,6 +1677,13 @@ msgid ""
 "weapon."
 msgstr ""
 
+#. name:low whistle
+#: DB:instrument/description:398
+msgid ""
+"Larger and deeper than the tin whistle, it was developed by Overton and made"
+" of aluminium."
+msgstr ""
+
 #. name:baandu
 #: DB:instrument/description:880
 msgid ""
@@ -1729,6 +1769,13 @@ msgid ""
 "Looks like a recorder, but with double reeds and bagpipe fingering system. "
 "Mostly used to learn how to play the pipes, but are occasionally played in "
 "their own right."
+msgstr ""
+
+#. name:gumbri
+#: DB:instrument/description:325
+msgid ""
+"Lute played by Gnawa people, its camel hide covered wooden soundbox has 3 "
+"goat gut strings."
 msgstr ""
 
 #. name:marimba lumina
@@ -2274,6 +2321,14 @@ msgid ""
 "hands or sticks. it has the designation of \"mother\""
 msgstr ""
 
+#. name:ütőgardon
+#: DB:instrument/description:768
+msgid ""
+"Played in folk music of Hungary and Transylvanian regions, its 3-4 strings "
+"are plucked or struck with a stick, and its soundbox is made of thick maple,"
+" poplar or willow wood."
+msgstr ""
+
 #. name:vichitra veena
 #: DB:instrument/description:612
 msgid ""
@@ -2550,6 +2605,20 @@ msgid ""
 " holes and a wide flaring wooden bell; shorter variants have a metal bell."
 msgstr ""
 
+#. name:tin whistle
+#: DB:instrument/description:197
+msgid ""
+"Simple six-holed fipple flute, originally made of metal; it used to cost a "
+"penny, giving it the alternate name “penny whistle”."
+msgstr ""
+
+#. name:whistle
+#: DB:instrument/description:274
+msgid ""
+"Simple, single-toned and round-bodied whistle often used for regulation and "
+"signalling (sport, traffic, ...)."
+msgstr ""
+
 #. name:mirliton
 #: DB:instrument/description:591
 msgid ""
@@ -2714,11 +2783,6 @@ msgid ""
 " it as a whole vibrates, without the use of strings or membranes. Therefore "
 "these are most often made of sonorous material: metal, wood, glass and even "
 "stone."
-msgstr ""
-
-#. name:Swedish bagpipes
-#: DB:instrument/description:691
-msgid "Swedish bagpipes are a type of bagpipes from Sweden."
 msgstr ""
 
 #. name:glass harmonica
@@ -3279,13 +3343,6 @@ msgstr ""
 msgid "The flûte d'amour is the mezzo-soprano instrument of the flute family."
 msgstr ""
 
-#. name:fourth flute
-#: DB:instrument/description:570
-msgid ""
-"The fourth flute is a recorder with a lowest note of B♭, a fourth above the "
-"treble/alto recorder."
-msgstr ""
-
 #. name:fujara
 #: DB:instrument/description:571
 msgid ""
@@ -3360,13 +3417,6 @@ msgid ""
 "The guitarrón mexicano is a very large and deep-bodied Mexican guitar-like "
 "instrument with six strings which is traditionally played in mariachi "
 "groups."
-msgstr ""
-
-#. name:gumbri
-#: DB:instrument/description:325
-msgid ""
-"The gumbri or sintir is a three-stringed skin-covered bass plucked lute from"
-" North Africa."
 msgstr ""
 
 #. name:guqin
@@ -4300,15 +4350,6 @@ msgid ""
 "family."
 msgstr ""
 
-#. name:ütőgardon
-#: DB:instrument/description:768
-msgid ""
-"The ütőgardon is a folk musical instrument played primarily in Transylvania."
-" It is similar in appearance to a cello, but played percussively like a "
-"drum. Instead of being played with a bow, its strings are plucked and beaten"
-" with a stick."
-msgstr ""
-
 #. name:đing năm
 #: DB:instrument/description:319
 msgid ""
@@ -5212,13 +5253,6 @@ msgid ""
 "often two, first and second bass. it can either have three double strings or"
 " two double strings and three single strings"
 msgstr ""
-
-#. name:whistle
-#: DB:instrument/description:274
-msgid ""
-"simple, often single-toned and round-bodied whistle often used for "
-"regulation (sport, traffic, ...)."
-msgstr "レギュレーション（スポーツ、交通など）目的でよく使用される、シンプルで、多くの場合、単調で丸いボディのホイッスル。"
 
 #. name:härjedalspipa
 #: DB:instrument/description:818

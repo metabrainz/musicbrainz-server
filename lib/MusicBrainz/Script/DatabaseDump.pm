@@ -4,7 +4,7 @@ use Encode qw( encode );
 use Fcntl qw( LOCK_EX );
 use List::AllUtils qw( natatime );
 use Moose;
-use MusicBrainz::Script::Utils qw( log );
+use MusicBrainz::Server::Log qw( log_info );
 use Time::HiRes qw( gettimeofday tv_interval );
 
 extends 'MusicBrainz::Script::MBDump';
@@ -89,7 +89,7 @@ around begin_dump => sub {
     $self->$orig;
 
     $| = 1;
-    printf "%-30.30s %9s %4s %9s\n", qw(Table Rows est% rows/sec);
+    log_info { sprintf "%-30.30s %9s %4s %9s\n", qw(Table Rows est% rows/sec) };
 };
 
 around make_tar => sub {
@@ -224,10 +224,10 @@ sub end_dump {
     $? == 0 or die "sync failed (rc=$?)";
     $self->sql->commit;
 
-    log(sprintf "Dumped %d tables (%d rows) in %d seconds\n",
+    log_info { sprintf "Dumped %d tables (%d rows) in %d seconds\n",
         $self->total_tables,
         $self->total_rows,
-        tv_interval([$self->start_time]));
+        tv_interval([$self->start_time]) };
 
     # We can release the lock, allowing other exports to run if they wish.
     close $self->lock_fh;

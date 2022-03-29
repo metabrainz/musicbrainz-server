@@ -1198,6 +1198,35 @@ export class ExternalLink extends React.Component<LinkProps> {
         break;
       }
     }
+    if (notEmpty && !faviconClass) {
+      const isHomepage = props.relationships.some(link => {
+        const linkType = link.type
+          ? linkedEntities.link_type[link.type]
+          : null;
+        if (linkType) {
+          return /^official (?:homepage|site)$/.test(linkType.name);
+        }
+        return false;
+      });
+      if (isHomepage) {
+        faviconClass = 'home';
+      } else {
+        const isBlog = props.relationships.some(link => {
+          const linkType = link.type
+            ? linkedEntities.link_type[link.type]
+            : null;
+          if (linkType) {
+            return /^blog$/.test(linkType.name);
+          }
+          return false;
+        });
+        if (isBlog) {
+          faviconClass = 'blog';
+        } else {
+          faviconClass = 'no';
+        }
+      }
+    }
 
     return (
       <React.Fragment>
@@ -1558,6 +1587,7 @@ const URL_SHORTENERS = [
   'eventlink.to',
   'fanlink.to',
   'ffm.to',
+  'found.ee',
   'fty.li',
   'fur.ly',
   'g.co',

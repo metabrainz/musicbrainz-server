@@ -23,7 +23,7 @@ function splitText(text, split = '') {
     split = '(' + split + ')';
   }
   // the capture group becomes a separate part of the split output
-  return text.split(new RegExp(split));
+  return text.split(new RegExp(split, 'u'));
 }
 
 type Props = {

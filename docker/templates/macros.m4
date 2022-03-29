@@ -71,6 +71,7 @@ libicu66 m4_dnl
 libpq5 m4_dnl
 libssl1.1 m4_dnl
 libxml2 m4_dnl
+moreutils m4_dnl
 perl m4_dnl
 postgresql-client-12 m4_dnl
 postgresql-server-dev-12 m4_dnl

@@ -10,6 +10,8 @@
 import * as React from 'react';
 
 import EntityHeader from '../components/EntityHeader';
+import localizeTypeNameForEntity
+  from '../static/scripts/common/i18n/localizeTypeNameForEntity';
 
 type Props = {
   +event: EventT,
@@ -24,9 +26,7 @@ const EventHeader = ({
     entity={event}
     headerClass="eventheader"
     page={page}
-    subHeading={nonEmpty(event.typeName)
-      ? lp_attributes(event.typeName, 'event_type')
-      : l('Event')}
+    subHeading={localizeTypeNameForEntity(event)}
   />
 );
 

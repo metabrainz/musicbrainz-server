@@ -1,4 +1,2 @@
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-PERL_CARTON_PATH=/home/musicbrainz/carton-local
 SHELL=/bin/bash
-10 4 * * * mkdir -p $HOME/log/daily-search-indexes-dump && cd $HOME/musicbrainz-server && carton exec -- admin/cron/daily-search-indexes-dump.sh > $HOME/log/daily-search-indexes-dump/$(date --utc +\%FT\%TZ).log 2>&1
+10 4 * * * $HOME/musicbrainz-server/admin/run admin/cron/daily-search-indexes-dump.sh

@@ -2,6 +2,11 @@
 
 set -o errexit
 
+if [[ -t 1 ]]
+then
+    exec 2>&1 | ts '%X %Z'
+fi
+
 exec 220>/tmp/.RunSampleDataDump.lock || exit 1
 # Will be automatically released when the script exits.
 flock -n 220 || { echo "Failed to obtain lock. Another instance is running?" >&2; exit 1; }
@@ -24,7 +29,7 @@ chown "$FTP_USER:$FTP_GROUP" \
     "$DUMP_DIR" \
     "$DUMP_DIR/$DUMP_STAMP"
 
-echo `date`" : Making a sample database dump"
+echo Making a sample database dump
 ./admin/DumpSampleData \
     --output-dir "$TEMP_DIR" \
     --database READWRITE \

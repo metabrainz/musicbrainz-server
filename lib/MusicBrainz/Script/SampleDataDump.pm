@@ -20,6 +20,7 @@ use MusicBrainz::Script::EntityDump qw(
     get_core_entities_by_gids
 );
 use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Log qw( log_info );
 use Readonly;
 
 with 'MooseX::Runnable';
@@ -166,7 +167,7 @@ sub run {
 
     my $total = scalar @{$sample_artist_gids};
     get_core_entities_by_gids($c, 'artist', $sample_artist_gids);
-    print "Dumped $total/$total artists\n";
+    log_info { "Dumped $total/$total artists" };
 
     my $sample_artist_ids = $c->sql->select_single_column_array(
         'SELECT id FROM artist WHERE gid = any(?)',
@@ -182,7 +183,7 @@ sub run {
 
     $total = scalar @{$standalone_recordings};
     get_core_entities($c, 'recording', $standalone_recordings);
-    print "Dumped $total/$total standalone recordings\n";
+    log_info { "Dumped $total/$total standalone recordings" };
 
     my $sample_releases = $c->sql->select_single_column_array(q{
         SELECT r.id FROM release r
@@ -209,7 +210,7 @@ sub run {
     while (my @ids = $it->()) {
         get_core_entities($c, 'release', \@ids);
         $count += scalar @ids;
-        print "Dumped $count/$total releases\n";
+        log_info { "Dumped $count/$total releases" };
     }
 
     for my $table (@DUMP_ALL) {

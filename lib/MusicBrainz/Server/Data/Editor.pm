@@ -221,12 +221,23 @@ sub find_by_area {
 
 sub find_by_privileges
 {
-    my ($self, $privs) = @_;
+    my ($self, $privs, $exact_only, $limit, $offset) = @_;
+
+    my $condition;
+    my $args;
+    if ($exact_only) {
+        $condition = 'privs = ?';
+        $args = [$privs];
+    } else {
+        $condition = '(privs & ?) = ?';
+        $args = [($privs) x 2];
+    }
+
     my $query = 'SELECT ' . $self->_columns . '
-                 FROM ' . $self->_table . '
-                 WHERE (privs & ?) > 0
-                 ORDER BY editor.name, editor.id';
-    $self->query_to_list($query, [$privs]);
+                 FROM ' . $self->_table . "
+                 WHERE $condition
+                 ORDER BY editor.name, editor.id";
+    $self->query_to_list_limited($query, $args, $limit, $offset);
 }
 
 sub find_by_subscribed_editor

@@ -14,7 +14,7 @@ make_temp_dir()
                 print $dir;
         '
     ` || exit $?
-    echo `date`" : Using temporary directory $TEMP_DIR"
+    echo "Using temporary directory $TEMP_DIR"
     # Note that this only removes the directory if it's empty.  This is a
     # trade-off; we opt to not lose any files accidentally, at the risk of perhaps
     # accumulating temporary directories over time.

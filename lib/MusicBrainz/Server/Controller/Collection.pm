@@ -13,11 +13,15 @@ with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw(
+    boolean_to_json
     load_everything_for_edits
     type_to_model
 );
 use MusicBrainz::Server::Constants qw( :edit_status entities_with );
-use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
+use MusicBrainz::Server::Entity::Util::JSON qw(
+    to_json_array
+    to_json_object
+);
 
 sub base : Chained('/') PathPart('collection') CaptureArgs(0) { }
 
@@ -187,26 +191,37 @@ sub edits : Chained('load') PathPart RequireAuth {
 
 sub open_edits : Chained('load') PathPart RequireAuth {
     my ($self, $c) = @_;
-    $self->_list_edits($c, $STATUS_OPEN);
+    $self->_list_edits($c, 1);
 }
 
 sub _list_edits {
-    my ($self, $c, $status) = @_;
+    my ($self, $c, $show_open_only) = @_;
 
-    $self->collection_collaborator($c) if !$c->stash->{collection}->public;
+    my $collection = $c->stash->{collection};
 
+    $self->collection_collaborator($c) if !$collection->public;
+
+    my $status = $show_open_only ? $STATUS_OPEN : undef;
     my $edits  = $self->_load_paged($c, sub {
         my ($limit, $offset) = @_;
-        $c->model('Edit')->find_by_collection($c->stash->{collection}->id, $limit, $offset, $status);
+        $c->model('Edit')->find_by_collection($collection->id, $limit, $offset, $status);
     });
 
-    $c->stash(  # stash early in case an ISE occurs while loading the edits
-        template => 'entity/edits.tt',
-        edits => $edits,
-        all_edits => defined $status ? 0 : 1,
-    );
+    $c->stash(edits => $edits); # stash early in case an ISE occurs while loading the edits
 
     load_everything_for_edits($c, $edits);
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'entity/Edits',
+        component_props => {
+            editCountLimit => $c->stash->{edit_count_limit},
+            edits => to_json_array($edits),
+            entity => to_json_object($collection),
+            pager => serialize_pager($c->stash->{pager}),
+            showingOpenOnly => boolean_to_json($show_open_only),
+        },
+    );
 }
 
 sub _form_to_hash {

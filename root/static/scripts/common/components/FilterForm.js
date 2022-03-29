@@ -19,11 +19,15 @@ export type FilterFormT = $ReadOnly<{
     +country_id?: ReadOnlyFieldT<number>,
     +date?: ReadOnlyFieldT<string>,
     +name: ReadOnlyFieldT<string>,
+    +role_type?: ReadOnlyFieldT<number>,
+    +secondary_type_id?: ReadOnlyFieldT<number>,
     +type_id?: ReadOnlyFieldT<number>,
   }>,
   entity_type: 'recording' | 'release' | 'release_group',
   options_artist_credit_id: SelectOptionsT,
   options_country_id: SelectOptionsT,
+  options_role_type?: SelectOptionsT,
+  options_secondary_type_id?: SelectOptionsT,
   options_type_id?: SelectOptionsT,
 }>;
 
@@ -39,6 +43,8 @@ function getSubmitText(type: string) {
       return l('Filter releases');
     case 'release_group':
       return l('Filter release groups');
+    case 'work':
+      return l('Filter works');
   }
   return '';
 }
@@ -46,11 +52,15 @@ function getSubmitText(type: string) {
 const FilterForm = ({form}: Props): React.Element<'div'> => {
   const typeIdField = form.field.type_id;
   const typeIdOptions = form.options_type_id;
+  const secondaryTypeIdField = form.field.secondary_type_id;
+  const secondaryTypeIdOptions = form.options_secondary_type_id;
   const artistCreditIdField = form.field.artist_credit_id;
   const artistCreditIdOptions = form.options_artist_credit_id;
   const countryIdOptions = form.options_country_id;
   const countryIdField = form.field.country_id;
   const dateField = form.field.date;
+  const roleTypeField = form.field.role_type;
+  const roleTypeOptions = form.options_role_type;
 
   return (
     <div id="filter">
@@ -66,6 +76,25 @@ const FilterForm = ({form}: Props): React.Element<'div'> => {
                   <SelectField
                     field={typeIdField}
                     options={{grouped: false, options: typeIdOptions}}
+                    style={{maxWidth: '40em'}}
+                    uncontrolled
+                  />
+                </td>
+              </tr>
+            ) : null}
+
+            {secondaryTypeIdField && secondaryTypeIdOptions ? (
+              <tr>
+                <td>
+                  {addColonText(l('Secondary type'))}
+                </td>
+                <td>
+                  <SelectField
+                    field={secondaryTypeIdField}
+                    options={{
+                      grouped: false,
+                      options: secondaryTypeIdOptions,
+                    }}
                     style={{maxWidth: '40em'}}
                     uncontrolled
                   />
@@ -103,6 +132,25 @@ const FilterForm = ({form}: Props): React.Element<'div'> => {
                 />
               </td>
             </tr>
+
+            {roleTypeField && roleTypeOptions ? (
+              <tr>
+                <td>
+                  {addColonText(l('Role'))}
+                </td>
+                <td>
+                  <SelectField
+                    field={roleTypeField}
+                    options={{
+                      grouped: false,
+                      options: roleTypeOptions,
+                    }}
+                    style={{maxWidth: '40em'}}
+                    uncontrolled
+                  />
+                </td>
+              </tr>
+            ) : null}
 
             {countryIdField && countryIdOptions ? (
               <tr>

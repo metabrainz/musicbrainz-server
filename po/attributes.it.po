@@ -6,15 +6,15 @@
 # Gioele  <email address hidden>, 2012
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
-# salo.rock, 2016-2022
-# salo.rock, 2013-2015
-# salo.rock, 2012
-# salo.rock, 2022
+# Luca Salini, 2016-2022
+# Luca Salini, 2013-2015
+# Luca Salini, 2012
+# Luca Salini, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-02-23 22:10+0000\n"
-"Last-Translator: salo.rock\n"
+"PO-Revision-Date: 2012-05-24 18:52+0000\n"
+"Last-Translator: Luca Salini, 2016-2022\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -191,6 +191,15 @@ msgid ""
 "A cantata is a vocal (often choral) composition with an instrumental "
 "(usually orchestral) accompaniment, typically in several movements."
 msgstr "Una cantata è una composizione vocale (spesso corale) con un accompagnamento strumentale (solitamente orchestrale), tipicamente divisa in diversi movimenti."
+
+#: DB:medium_format/description:46
+msgctxt "medium_format"
+msgid ""
+"A card (or other similar physical support) that doesn't contain the music "
+"itself directly, but provides a code to download it digitally. Often bundled"
+" with physical releases but sometimes sold as a standalone item (especially "
+"in Asia)."
+msgstr "Un biglietto (o un altro tipo di supporto fisico simile) che non contiene direttamente la musica, ma fornisce un codice per scaricarla in formato digitale. Spesso accompagna una pubblicazione fisica, ma talvolta è venduto anche come articolo a sé stante (in modo particolare in Asia)."
 
 #: DB:work_type/description:4
 msgctxt "work_type"
@@ -948,8 +957,8 @@ msgstr "Arazbarek"
 
 #: DB:editor_collection_type/name:7
 msgctxt "collection_type"
-msgid "Area"
-msgstr "Area"
+msgid "Area collection"
+msgstr "Collezione di aree"
 
 #: DB:area_alias_type/name:1
 msgctxt "alias_type"
@@ -961,15 +970,15 @@ msgctxt "work_type"
 msgid "Aria"
 msgstr "Aria"
 
-#: DB:editor_collection_type/name:8
-msgctxt "collection_type"
-msgid "Artist"
-msgstr "Artista"
-
 #: DB:series_type/name:14
 msgctxt "series_type"
 msgid "Artist award"
 msgstr "Premio per artisti"
+
+#: DB:editor_collection_type/name:8
+msgctxt "collection_type"
+msgid "Artist collection"
+msgstr "Collezione di artisti"
 
 #: DB:artist_alias_type/name:1
 msgctxt "alias_type"
@@ -2269,6 +2278,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Dolap"
 msgstr "Dolap"
 
+#: DB:medium_format/name:46
+msgctxt "medium_format"
+msgid "Download Card"
+msgstr "Download Card"
+
 #: DB:medium_format/name:4
 msgctxt "medium_format"
 msgid "DualDisc"
@@ -2507,8 +2521,8 @@ msgstr "Evcara"
 
 #: DB:editor_collection_type/name:4
 msgctxt "collection_type"
-msgid "Event"
-msgstr "Evento"
+msgid "Event collection"
+msgstr "Collezione di eventi"
 
 #: DB:event_alias_type/name:1
 msgctxt "alias_type"
@@ -3767,8 +3781,8 @@ msgstr "Arena coperta"
 
 #: DB:editor_collection_type/name:9
 msgctxt "collection_type"
-msgid "Instrument"
-msgstr "Strumento"
+msgid "Instrument collection"
+msgstr "Collezione di strumenti"
 
 #: DB:instrument_alias_type/name:1
 msgctxt "alias_type"
@@ -4401,8 +4415,8 @@ msgstr "Kōmal riṣabh asāvēri"
 
 #: DB:editor_collection_type/name:10
 msgctxt "collection_type"
-msgid "Label"
-msgstr "Etichetta"
+msgid "Label collection"
+msgstr "Collezione di etichette"
 
 #: DB:label_alias_type/name:1
 msgctxt "alias_type"
@@ -4926,11 +4940,6 @@ msgstr "Murabba"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Murabba Beste "
 msgstr "Murabba Beste "
-
-#: DB:medium_format/name:46
-msgctxt "medium_format"
-msgid "Music Card"
-msgstr "Music Card"
 
 #: DB:work_type/name:29
 msgctxt "work_type"
@@ -5682,8 +5691,8 @@ msgstr "Rullo per pianola"
 
 #: DB:editor_collection_type/name:11
 msgctxt "collection_type"
-msgid "Place"
-msgstr "Luogo"
+msgid "Place collection"
+msgstr "Collezione di luoghi"
 
 #: DB:place_alias_type/name:1
 msgctxt "alias_type"
@@ -5950,8 +5959,8 @@ msgstr "Grezza/non editata"
 
 #: DB:editor_collection_type/name:12
 msgctxt "collection_type"
-msgid "Recording"
-msgstr "Registrazione"
+msgid "Recording collection"
+msgstr "Collezione di registrazioni"
 
 #: DB:recording_alias_type/name:1
 msgctxt "alias_type"
@@ -5985,13 +5994,13 @@ msgstr "Rekb-i Zavil"
 
 #: DB:editor_collection_type/name:1
 msgctxt "collection_type"
-msgid "Release"
-msgstr "Pubblicazione"
+msgid "Release collection"
+msgstr "Collezione di pubblicazioni"
 
 #: DB:editor_collection_type/name:13
 msgctxt "collection_type"
-msgid "Release group"
-msgstr "Gruppo di pubblicazioni"
+msgid "Release group collection"
+msgstr "Collezione di gruppi di pubblicazioni"
 
 #: DB:release_group_alias_type/name:1
 msgctxt "alias_type"
@@ -6497,8 +6506,8 @@ msgstr "Serbest"
 
 #: DB:editor_collection_type/name:14
 msgctxt "collection_type"
-msgid "Series"
-msgstr "Serie"
+msgid "Series collection"
+msgstr "Collezione di serie"
 
 #: DB:series_alias_type/name:1
 msgctxt "alias_type"
@@ -7557,8 +7566,8 @@ msgstr "Ritirata"
 
 #: DB:editor_collection_type/name:15
 msgctxt "collection_type"
-msgid "Work"
-msgstr "Opera"
+msgid "Work collection"
+msgstr "Collezione di opere"
 
 #: DB:work_alias_type/name:1
 msgctxt "alias_type"

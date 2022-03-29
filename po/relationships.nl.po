@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2022-02-23 20:03+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2012-05-24 18:50+0000\n"
+"Last-Translator: Maurits Meulenbelt <mfmeulenbelt@gmail.com>, 2012-2022\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -475,7 +475,7 @@ msgstr "Geeft het gebied aan waar de compositie voor het eerst werd uitgevoerd."
 msgid ""
 "Indicates the artist(s) who gave the first performance of the work; this is "
 "usually mostly relevant for classical music"
-msgstr ""
+msgstr "Deze relatie geeft aan welke artiest(en) de compositie het eerst uitvoerden; dit is vooral relevant voor klassieke muziek."
 
 #: DB:link_type/description:55
 msgid ""
@@ -1375,13 +1375,13 @@ msgstr "Dit geeft een persoonlijke uitgeverij van een artiest aan. Een persoonli
 msgid ""
 "This indicates a recording engineer that recorded field recordings for the "
 "recording."
-msgstr ""
+msgstr "Deze relatie geeft aan dat een opnametechnicus buiten geluid heeft opgenomen voor gebruik in deze opname."
 
 #: DB:link_type/description:1012
 msgid ""
 "This indicates a recording engineer that recorded field recordings for the "
 "release."
-msgstr ""
+msgstr "Deze relatie geeft aan dat een opnametechnicus buiten geluid heeft opgenomen voor gebruik op deze uitgave."
 
 #: DB:link_type/description:895
 msgid ""
@@ -2032,6 +2032,22 @@ msgid ""
 "where artist credits can't be used."
 msgstr "Dit wordt gebruikt om aan te geven dat een <a href=\"/doc/Artist\" title=\"Artist\">artiest</a> samenwerkte in een kortdurend project, als de naam van het project niet te splitsen is in de samenwerkende artiesten."
 
+#: DB:link_type/description:1047
+msgid ""
+"This is used when a work includes a brief quotation of the lyrics of another"
+" work. In most cases the quotation is uncredited, although this is not a "
+"requirement. For a work that includes significantly more of another than "
+"just a brief quotation, consider using “based on” instead."
+msgstr "Deze relatie wordt gebruikt als een compositie een kort citaat van de tekst van een andere compositie bevat. Meestal wordt het citaat niet officieel vermeld, maar dat is geen vereiste voor deze relatie. Als een compositie veel meer van een andere compositie bevat dan een kort citaat, kan je beter ‘gebaseerd op’ gebruiken."
+
+#: DB:link_type/description:1046
+msgid ""
+"This is used when a work includes a brief quotation of the music of another "
+"work. In most cases the quotation is uncredited, although this is not a "
+"requirement. For a work that includes significantly more of another than "
+"just a brief quotation, consider using “based on” instead."
+msgstr "Deze relatie wordt gebruikt als een compositie een kort citaat van de muziek van een andere compositie bevat. Meestal wordt het citaat niet officieel vermeld, maar dat is geen vereiste voor deze relatie. Als een compositie veel meer van een andere compositie bevat dan een kort citaat, kan je beter ‘gebaseerd op’ gebruiken."
+
 #: DB:link_type/description:288
 msgid ""
 "This link points to a page for a particular release within a discography for"
@@ -2229,7 +2245,7 @@ msgid ""
 "This links a release that was withdrawn (usually because of having some "
 "defect, but sometimes just to change the artist credits) to a new release "
 "put out to replaced it."
-msgstr ""
+msgstr "Deze relatie koppelt een uitgave die is teruggetrokken (meestal omdat er een defect was, maar soms alleen om artiestvermeldingen te wijzigen) aan de uitgave die haar vervangt."
 
 #: DB:link_type/description:301
 msgid "This links a release to a license under which it is available."
@@ -2703,7 +2719,7 @@ msgstr "Deze relatie geeft aan dat de artiest de houder van het auteursrecht op 
 msgid ""
 "This relationship indicates the artist that was the licensor of this "
 "release."
-msgstr ""
+msgstr "Deze relatie geeft aan dat de artiest de licentiegever voor deze uitgave is."
 
 #: DB:link_type/description:833
 msgid ""
@@ -3061,7 +3077,7 @@ msgid ""
 "This relationship type links a place (usually a studio) to its corresponding"
 " page at <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community "
 "project dedicated to cataloguing the music of video games and anime."
-msgstr ""
+msgstr "Deze relatie koppelt een plaats (meestal een studio) aan zijn <a href=\"http://vgmdb.net/\">VGMdb</a>-pagina. VGMdb is een gemeenschappelijk project dat is toegewijd aan het catalogiseren van muziek uit computerspellen en anime."
 
 #: DB:link_type/description:861
 msgid ""
@@ -4164,15 +4180,15 @@ msgstr "fanpagina"
 
 #: DB:link_type/reverse_link_phrase:1011 DB:link_type/reverse_link_phrase:1012
 msgid "field recordings"
-msgstr ""
+msgstr "buitenopnames"
 
 #: DB:link_type/name:1011 DB:link_type/name:1012
 msgid "field recordist"
-msgstr ""
+msgstr "maker van buitenopnames"
 
 #: DB:link_type/link_phrase:1011 DB:link_type/link_phrase:1012
 msgid "field recordist for"
-msgstr ""
+msgstr "maakte buitenopnames voor"
 
 #: DB:link_type/name:238
 msgid "first track release"
@@ -5131,6 +5147,10 @@ msgstr "logo van"
 msgid "logos"
 msgstr "logo’s"
 
+#: DB:link_type/name:1047
+msgid "lyrical quotation"
+msgstr "geciteerde tekst"
+
 #: DB:link_type/name:56 DB:link_type/name:165
 msgid "lyricist"
 msgstr "tekstschrijver"
@@ -5149,6 +5169,10 @@ msgstr "tekst"
 #: DB:link_type/reverse_link_phrase:197 DB:link_type/reverse_link_phrase:982
 msgid "lyrics page for"
 msgstr "tekst van"
+
+#: DB:link_type/reverse_link_phrase:1047
+msgid "lyrics quoted on"
+msgstr "tekst geciteerd in"
 
 #: DB:link_type/name:878
 msgid "lyrics written at"
@@ -5400,6 +5424,10 @@ msgstr "muziekonderwijs"
 msgid "music production"
 msgstr "muziekproductie"
 
+#: DB:link_type/reverse_link_phrase:1046
+msgid "music quoted on"
+msgstr "muziek geciteerd in"
+
 #: DB:link_attribute_type/name:1222
 msgid "music theory"
 msgstr "muziektheorie"
@@ -5419,6 +5447,10 @@ msgstr "videoclip van"
 #: DB:link_type/link_phrase:857
 msgid "music videos"
 msgstr "videoclips"
+
+#: DB:link_type/name:1046
+msgid "musical quotation"
+msgstr "geciteerde muziek"
 
 #: DB:link_type/link_phrase:106 DB:link_type/reverse_link_phrase:106
 #: DB:link_type/long_link_phrase:106
@@ -6014,6 +6046,14 @@ msgstr "bestel bladmuziek op"
 msgid "purevolume"
 msgstr "PureVolume"
 
+#: DB:link_type/link_phrase:1047 DB:link_type/long_link_phrase:1047
+msgid "quotes lyrics from"
+msgstr "bevat geciteerde tekst uit"
+
+#: DB:link_type/link_phrase:1046 DB:link_type/long_link_phrase:1046
+msgid "quotes music from"
+msgstr "bevat geciteerde muziek uit"
+
 #: DB:link_attribute_type/name:952
 msgid "re"
 msgstr "re"
@@ -6040,7 +6080,7 @@ msgstr "opgenomen tijdens"
 
 #: DB:link_type/long_link_phrase:1011 DB:link_type/long_link_phrase:1012
 msgid "recorded field recordings for"
-msgstr ""
+msgstr "maakte buiten opnames voor"
 
 #: DB:link_type/name:698 DB:link_type/name:699
 msgid "recorded in"
@@ -6172,11 +6212,11 @@ msgstr "hernoemd naar"
 
 #: DB:link_type/reverse_link_phrase:1009
 msgid "replaced"
-msgstr ""
+msgstr "verving"
 
 #: DB:link_type/link_phrase:1009 DB:link_type/name:1009
 msgid "replaced by"
-msgstr ""
+msgstr "vervangen door"
 
 #: DB:link_type/link_phrase:836 DB:link_type/name:836
 msgid "rescheduled as"
@@ -6716,7 +6756,7 @@ msgstr "werd hernoemd naar"
 
 #: DB:link_type/long_link_phrase:1009
 msgid "was replaced by"
-msgstr ""
+msgstr "werd vervangen door"
 
 #: DB:link_type/long_link_phrase:836
 msgid "was rescheduled as"

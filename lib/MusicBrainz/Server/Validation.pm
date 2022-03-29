@@ -383,6 +383,8 @@ sub dms {
     $seconds =~ s/,/./;
 
     return
+        # Anything over 4 decimal points is more than enough precision.
+        # Google Maps uses 6, so it seems like a good thing to set the max at.
         sprintf('%.6f', ((0+$degrees) + ((0+$minutes) * 60 + (0+$seconds)) / 3600) * direction($dir))
         + 0; # remove trailing zeroes (MBS-7438)
 }

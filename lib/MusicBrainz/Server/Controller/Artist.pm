@@ -76,6 +76,7 @@ use MusicBrainz::Server::FilterUtils qw(
     create_artist_release_groups_form
     create_artist_releases_form
     create_artist_recordings_form
+    create_artist_works_form
 );
 use Sql;
 
@@ -362,17 +363,35 @@ Shows all works of an artist.
 sub works : Chained('load')
 {
     my ($self, $c) = @_;
+
+    my $artist = $c->stash->{artist};
+    my $filter = $self->process_filter($c, sub {
+            return create_artist_works_form($c, $artist->id);
+        });
+    my $has_filter = %$filter ? 1 : 0;
+
     my $works = $self->_load_paged($c, sub {
-        $c->model('Work')->find_by_artist($c->stash->{artist}->id, shift, shift);
+        $c->model('Work')->find_by_artist(
+            $c->stash->{artist}->id,
+            shift,
+            shift,
+            filter => $filter
+        );
     });
     $c->model('Work')->load_related_info(@$works);
     $c->model('Work')->load_meta(@$works);
     $c->model('Work')->rating->load_user_ratings($c->user->id, @$works) if $c->user_exists;
 
     my %props = (
-        artist       => $c->stash->{artist}->TO_JSON,
-        pager        => serialize_pager($c->stash->{pager}),
-        works        => to_json_array($works),
+        ajaxFilterFormUrl => '' . $c->uri_for_action(
+                                 '/ajax/filter_artist_works_form',
+                                 { artist_id => $artist->id }
+                             ),
+        artist            => $c->stash->{artist}->TO_JSON,
+        filterForm        => to_json_object($c->stash->{filter_form}),
+        hasFilter         => boolean_to_json($has_filter),
+        pager             => serialize_pager($c->stash->{pager}),
+        works             => to_json_array($works),
     );
 
     $c->stash(
