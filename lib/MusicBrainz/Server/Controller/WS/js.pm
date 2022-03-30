@@ -455,6 +455,14 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
                 }
             }
         } else {
+            send_message_to_sentry(
+                'Error creating CAA item bucket at ' . $bucket_uri->as_string,
+                build_request_and_user_context($c),
+                extra => {
+                    response_code => $response->code,
+                    response_content => $response->decoded_content,
+                },
+            );
             $self->_detach_with_ia_server_error($c, $response->decoded_content);
         }
     }
