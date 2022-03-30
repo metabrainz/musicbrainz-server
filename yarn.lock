@@ -1323,10 +1323,10 @@
   dependencies:
     prop-types "^15.8.1"
 
-"@metabrainz/design-system@1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@metabrainz/design-system/-/design-system-1.0.6.tgz#fce197fc3d3f6921c7a7b3f76d20775596d9804b"
-  integrity sha512-TmbmTCx1K0RnZeLPmwXswPZhK9CtKpyeB7o/rWdTcvTK4kLHY/K1m1X7IEtlPRNr1oxJ5D/W9ji6WLlWuRh1RA==
+"@metabrainz/design-system@1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@metabrainz/design-system/-/design-system-1.0.8.tgz#e32033711ba74e3fe5b4566df8d5398140aa16f3"
+  integrity sha512-6thFC7ukjmwsZASf3H6aAGAkPHssrLTdQjm9lfksGBrzglOXSbHj+TJlK211Y59/V0IAE4W8/M915EJ7F7S5kw==
 
 "@nicolo-ribaudo/chokidar-2@2.1.8-no-fsevents.2":
   version "2.1.8-no-fsevents.2"
@@ -1937,6 +1937,11 @@ binary-extensions@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.2.0.tgz#75f502eeaf9ffde42fc98829645be4ea76bd9e2d"
   integrity sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==
+
+bootstrap@5.1.3:
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.1.3.tgz#ba081b0c130f810fa70900acbc1c6d3c28fa8f34"
+  integrity sha512-fcQztozJ8jToQWXxVuEyXWW+dSo8AiXWKwiSSrKWsRB/Qt+Ewwza+JWoLKiTuQLaEPhdNAJ7+Dosc9DOIqNy7Q==
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -3616,7 +3621,7 @@ jest-worker@^27.0.2:
 jquery@1.11.2:
   version "1.11.2"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-1.11.2.tgz#30ab26857211c37caa83da0f6903155fe49bb72d"
-  integrity sha1-MKsmhXIRw3yqg9oPaQMVX+Sbty0=
+  integrity sha512-jebe4XYv2S9CZ6RPj705j6yriQHm05BOJa9urxeji7Rq1fxBOwdjYTqJsLOAE9vNwDGIOsa/WmIQv6Q1glOyWg==
 
 jquery@>=1.2.6:
   version "3.5.1"

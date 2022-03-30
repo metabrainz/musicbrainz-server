@@ -11,7 +11,7 @@ import * as React from 'react';
 
 const Explore = (): React.Element<'section'> => (
   <section className="bs" id="explore">
-    <div className="container pt-4 pb-4">
+    <div className="container-fluid pt-4 pb-4">
       <div className="text-center pt-4">
         <h2 className="mb-2 pb-2 text-uppercase fs-1 fw-bold">
           {l('Explore MusicBrainz')}

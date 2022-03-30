@@ -11,89 +11,6 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context';
 import {VARTIST_GID} from '../../static/scripts/common/constants';
-import {capitalize} from '../../static/scripts/common/utility/strings';
-import {returnToCurrentPage} from '../../utility/returnUri';
-
-function languageName(language, selected) {
-  if (!language) {
-    return '';
-  }
-
-  const {
-    id,
-    native_language: nativeLanguage,
-    native_territory: nativeTerritory,
-  } = language;
-
-  let text = `[${id}]`;
-
-  if (nativeLanguage) {
-    text = capitalize(nativeLanguage);
-
-    if (nativeTerritory) {
-      text += ' (' + capitalize(nativeTerritory) + ')';
-    }
-  }
-
-  if (selected) {
-    text += ' \u25be';
-  }
-
-  return text;
-}
-
-const LanguageLink = ({$c, language}) => (
-  <a
-    href={
-      '/set-language/' + encodeURIComponent(language.name) +
-      '?' + returnToCurrentPage($c)
-    }
-  >
-    {languageName(language, false)}
-  </a>
-);
-
-type LanguageMenuProps = {
-  +$c: CatalystContextT,
-  +currentBCP47Language: string,
-  +serverLanguages: $ReadOnlyArray<ServerLanguageT>,
-};
-
-const LanguageMenu = ({
-  $c,
-  currentBCP47Language,
-  serverLanguages,
-}: LanguageMenuProps) => (
-  <li className="language-selector" tabIndex="-1">
-    <span className="menu-header">
-      {languageName(
-        serverLanguages.find(x => x.name === currentBCP47Language),
-        true,
-      )}
-    </span>
-    <ul>
-      {serverLanguages.map(function (language, index) {
-        let inner = <LanguageLink $c={$c} language={language} />;
-
-        if (language.name === currentBCP47Language) {
-          inner = <strong>{inner}</strong>;
-        }
-
-        return <li key={index}>{inner}</li>;
-      })}
-      <li>
-        <a href={'/set-language/unset?' + returnToCurrentPage($c)}>
-          {l('(reset language)')}
-        </a>
-      </li>
-      <li className="separator">
-        <a href="https://www.transifex.com/musicbrainz/musicbrainz/">
-          {l('Help Translate')}
-        </a>
-      </li>
-    </ul>
-  </li>
-);
 
 const AboutMenu = () => (
   <li className="about" tabIndex="-1">
@@ -315,7 +232,6 @@ const DocumentationMenu = () => (
 
 const BottomMenu = (): React.Element<'div'> => {
   const $c = React.useContext(CatalystContext);
-  const serverLanguages = $c.stash.server_languages;
   return (
     <div className="bottom">
       <ul className="menu">
@@ -324,13 +240,6 @@ const BottomMenu = (): React.Element<'div'> => {
         <SearchMenu />
         {$c.user ? <EditingMenu /> : null}
         <DocumentationMenu />
-        {serverLanguages && serverLanguages.length > 1 ? (
-          <LanguageMenu
-            $c={$c}
-            currentBCP47Language={$c.stash.current_language.replace('_', '-')}
-            serverLanguages={serverLanguages}
-          />
-        ) : null}
       </ul>
     </div>
   );

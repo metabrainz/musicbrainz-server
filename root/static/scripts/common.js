@@ -33,6 +33,7 @@ window.ko = require('knockout');
 window.$ = window.jQuery = require('jquery');
 
 require('../lib/jquery.ui/ui/jquery-ui.custom');
+require('bootstrap/dist/js/bootstrap.min');
 
 require('./common/components/Annotation');
 require('./common/components/CommonsImage');
