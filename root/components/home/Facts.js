@@ -7,14 +7,18 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
+import {
+  faCompactDisc,
+  faHeadphones,
+  faMusic,
+  faUsers,
+} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faMusic, faHeadphones, faCompactDisc, faUsers}
-  from '@fortawesome/free-solid-svg-icons';
+import * as React from 'react';
 
 const Facts = (): React.Element<'section'> => (
   <section className="p-4">
-    <div className="container">
+    <div className="container-fluid">
       <div className="row">
         <div className="col-lg-3 col-md-6">
           <div className="count-box p-4">

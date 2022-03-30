@@ -7,14 +7,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
+import {faAndroid, faGooglePlay} from '@fortawesome/free-brands-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faGooglePlay, faAndroid} from '@fortawesome/free-brands-svg-icons';
+import * as React from 'react';
 
 const AppDownload = (): React.Element<'section'> => {
   return (
     <section className="download-section center">
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
           <h2 className="col-md-6">
             {l('Download our app')}
