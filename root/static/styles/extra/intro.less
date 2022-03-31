@@ -1,0 +1,59 @@
+.textarea {
+  background: @very-dark-grey;
+  color: black;
+}
+
+.chip {
+  align-items: center;
+  background-color: @light-grey;
+  border-radius: 100px;
+  border: none;
+  color: black;
+  cursor: pointer;
+  display: inline-flex;
+  height: 32px;
+  margin: 4px;
+  padding: 0 12px;
+}
+.choice-chips {
+  .chip.chip--active {
+    background-color: #213b52;
+    color: white;
+  }
+}
+.chips__filter {
+  .chip.chip--active {
+    .chip--check {
+      display: block;
+    }
+  }
+}
+.intro {
+  background: linear-gradient(to right, @musicbrainz-purple 0%, @musicbrainz-orange 100%);
+  height: 90vh;
+  width: 100%;
+
+  .slider-image-item {
+    height: 280px;
+    width: 280px;
+  }
+  input[type="search"] {
+    border-color: #90a4ae;
+    color: white;
+  }
+  .card {
+    background: @dark-grey;
+    color: white;
+    height: 80vh;
+  }
+  .list-group-item {
+    color: white;
+    border-spacing: 1em .5em;
+    padding: 6px;
+    border: 1px solid @light-grey;
+  }
+}
+.slider-image-item {
+  height: 280px;
+  width: 280px;
+}
