@@ -8,7 +8,7 @@
     },
     {
       command: 'assertEval',
-      target: "window.document.querySelector('.language-selector .menu-header').innerHTML",
+      target: "window.document.getElementById('languageDropdown').innerHTML",
       value: 'Ελληνικά (Ελλάδα) ▾',
     },
     {
@@ -18,7 +18,7 @@
     },
     {
       command: 'assertEval',
-      target: "window.document.querySelector('.language-selector .menu-header').innerHTML",
+      target: "window.document.getElementById('languageDropdown').innerHTML",
       value: 'Español (España) ▾',
     },
   ],

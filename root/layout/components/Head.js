@@ -146,6 +146,13 @@ const Head = ({...props}: HeadProps): React.Element<'head'> => {
         }),
       })}
 
+      <script
+        crossOrigin="anonymous"
+        /* eslint-disable-next-line max-len */
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      />
+
       {$c.stash.jsonld_data ? (
         <script
           dangerouslySetInnerHTML={
