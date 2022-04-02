@@ -10,6 +10,7 @@ use HTTP::Request;
 use JSON qw( encode_json decode_json );
 use List::AllUtils qw( part uniq_by );
 use MusicBrainz::Errors qw(
+    build_request_and_user_context
     capture_exceptions
     send_message_to_sentry
 );
@@ -418,6 +419,7 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
                 if (!defined $uploader) {
                     send_message_to_sentry(
                         "Undefined uploader for CAA item at $ia_metadata_uri",
+                        build_request_and_user_context($c),
                         extra => {
                             response_code => $response->code,
                             response_content => $item_metadata_content,
@@ -432,6 +434,7 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
                 if ($uploader ne 'caa@musicbrainz.org') {
                     send_message_to_sentry(
                         "Bad uploader for CAA item at $ia_metadata_uri",
+                        build_request_and_user_context($c),
                         extra => {
                             response_code => $response->code,
                             response_content => $item_metadata_content,
@@ -452,6 +455,14 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
                 }
             }
         } else {
+            send_message_to_sentry(
+                'Error creating CAA item bucket at ' . $bucket_uri->as_string,
+                build_request_and_user_context($c),
+                extra => {
+                    response_code => $response->code,
+                    response_content => $response->decoded_content,
+                },
+            );
             $self->_detach_with_ia_server_error($c, $response->decoded_content);
         }
     }

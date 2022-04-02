@@ -49,14 +49,14 @@ export PERL_CARTON_PATH=/home/musicbrainz/carton-local
 command_full_path=$(which "$1")
 shift
 
-if [[ $command_full_path =~ admin/cron/*.sh$ ]]
+if [[ $command_full_path =~ admin/cron/.*\.sh$ ]]
 then
-  log_dir_name=$(echo "$command_full_path" | sed 's_^.*admin/cron/\(.*\)\.sh$/\1/')
+  log_dir_name=$(echo "$command_full_path" | sed 's_^.*admin/cron/\(.*\)\.sh$_\1_')
 else
   log_dir_name='occasionally'
 fi
 log_dir_path="$HOME/log/$log_dir_name"
-if [[ -d "$log_dir_path" ]]
+if ! [[ -d "$log_dir_path" ]]
 then
   echo >&2 "$SCRIPT_NAME: '$log_dir_path' doesn't exist"
   echo >&2 "Make sure to run in the appropriate container."
