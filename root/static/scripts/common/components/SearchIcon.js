@@ -8,15 +8,16 @@
  */
 
 import * as React from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faSearch} from '@fortawesome/free-solid-svg-icons';
 
-import searchIconUrl from '../../../images/icons/search.svg';
-
-const SearchIcon = (): React.Element<'img'> => (
-  <img
-    alt={l('Search')}
-    className="search"
-    src={searchIconUrl}
-  />
+const SearchIcon = (): React.Element<'div'> => (
+  <div>
+    <FontAwesomeIcon
+      icon={faSearch}
+      size="lg"
+    />
+  </div>
 );
 
 export default SearchIcon;

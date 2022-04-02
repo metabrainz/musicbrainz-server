@@ -11,4 +11,5 @@ declare module '@fortawesome/free-solid-svg-icons' {
   declare export var faHeadphones: IconLookup;
   declare export var faMusic: IconLookup;
   declare export var faUsers: IconLookup;
+  declare export var faSearch: IconLookup;
 }
