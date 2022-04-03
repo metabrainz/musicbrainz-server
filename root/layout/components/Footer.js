@@ -8,10 +8,22 @@
  */
 
 import * as React from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faTwitter, faFacebook, faInstagram, faLinkedin}
+  from '@fortawesome/free-brands-svg-icons';
 
 import {capitalize} from '../../static/scripts/common/utility/strings';
 import {returnToCurrentPage} from '../../utility/returnUri';
 import {CatalystContext} from '../../context';
+import logo from '../../static/images/meb-logos/musicbrainz.svg';
+import listenbrainzLogo from '../../static/images/meb-icons/ListenBrainz.svg';
+import metabrainzLogo from '../../static/images/meb-icons/MetaBrainz.svg';
+import critiquebrainzLogo
+  from '../../static/images/meb-icons/CritiqueBrainz.svg';
+import picardLogo from '../../static/images/meb-icons/Picard.svg';
+import bookbrainzLogo from '../../static/images/meb-icons/BookBrainz.svg';
+import caaLogo from '../../static/images/meb-icons/CoverArtArchive.svg';
+import DBDefs from '../../static/scripts/common/DBDefs';
 
 function languageName(language, selected) {
   if (!language) {
@@ -63,12 +75,12 @@ const LanguageMenu = ({
   currentBCP47Language,
   serverLanguages,
 }: LanguageMenuProps) => (
-  <div className="dropdown pb-1 mb-1 dropup">
+  <div className="dropdown pb-2 ms-3 dropup">
     <button
       aria-expanded="false"
-      className="btn btn-outline-primary fs-4"
+      className="btn btn-outline-primary fs-5"
       data-bs-toggle="dropdown"
-      id="languageDropdown"
+      id="language-dropdown"
       type="button"
     >
       {languageName(
@@ -76,7 +88,7 @@ const LanguageMenu = ({
         true,
       )}
     </button>
-    <ul aria-labelledby="languageDropdown" className="dropdown-menu">
+    <ul aria-labelledby="language-dropdown" className="dropdown-menu">
       {serverLanguages.map(function (language, index) {
         let inner = <LanguageLink $c={$c} language={language} />;
 
@@ -86,19 +98,19 @@ const LanguageMenu = ({
 
         return (
           <li
-            className="nav-item dropdown fs-4"
+            className="nav-item dropdown fs-5"
             key={index}
           >
             {inner}
           </li>
         );
       })}
-      <li className="nav-item dropdown fs-4">
+      <li className="nav-item dropdown fs-5">
         <a href={'/set-language/unset?' + returnToCurrentPage($c)}>
           {l('(reset language)')}
         </a>
       </li>
-      <li className="nav-item dropdown fs-4">
+      <li className="nav-item dropdown fs-5">
         <a href="https://www.transifex.com/musicbrainz/musicbrainz/">
           {l('Help Translate')}
         </a>
@@ -112,29 +124,25 @@ const Footer = (): React.Element<'section'> => {
   const serverLanguages = $c.stash.server_languages;
 
   return (
-    <section className="footer">
+    <section className="bs footer">
       <div className="ms-4 me-4 mb-3 ps-4 pb-3 pe-4 border-top container">
         <div className="row mb-4 mt-2 pt-2">
           <div className="col-sm-12 col-md-4">
-            <h3>
+            <h3 className="ms-3">
               <img
                 alt="MusicBrainz"
-                src="../../static/images/meb-logos/musicbrainz.svg"
-                width="180"
+                src={logo}
+                width="196"
               />
             </h3>
             <br />
-            <p className="fs-4">
-              {l(`MusicBrainz is an open music encyclopedia that collects
-              music metadata and makes it available to the public.`)}
-            </p>
-            <ul className="list-unstyled">
+            <ul className="list-unstyled ms-3">
               <li>
-                <span className="fs-4">
-                  {l('Development IRC: ')}
+                <span className="fs-5">
+                  {l('Development IRC:')}
                 </span>
                 <a
-                  className="fw-bold fs-4"
+                  className="fw-bold fs-5 ms-1"
                   href="https://kiwiirc.com/nextclient/irc.libera.chat/?#metabrainz"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -143,16 +151,45 @@ const Footer = (): React.Element<'section'> => {
                 </a>
               </li>
               <li>
-                <span className="fs-4">
-                  {l('Email: ')}
+                <span className="fs-5">
+                  {l('Discussion IRC:')}
                 </span>
                 <a
-                  className="fw-bold fs-4"
-                  href="mailto:support@metabrainz.org"
+                  className="fw-bold fs-5 ms-1"
+                  href="https://kiwiirc.com/nextclient/irc.libera.chat/?#musicbrainz"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
-                  {l('support@metabrainz.org')}
+                  {l('#musicbrainz')}
                 </a>
               </li>
+              <li>
+                <span className="fs-5">
+                  {l('Forums:')}
+                </span>
+                <a
+                  className="fw-bold fs-5 ms-1"
+                  href="https://community.metabrainz.org"
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  {l('community.metabrainz.org')}
+                </a>
+              </li>
+              {DBDefs.BETA_REDIRECT_HOSTNAME ? (
+                <li>
+                  <a
+                    className="fw-bold fs-5 ms-1"
+                    href={
+                      '/set-beta-preference?' + returnToCurrentPage($c)
+                    }
+                  >
+                    {DBDefs.IS_BETA
+                      ? l('Stop using beta site')
+                      : l('Use beta site')}
+                  </a>
+                </li>
+              ) : null}
             </ul>
             {serverLanguages && serverLanguages.length > 1 ? (
               <LanguageMenu
@@ -164,132 +201,88 @@ const Footer = (): React.Element<'section'> => {
               />
             ) : null}
           </div>
-          <br />
           <div className="col-sm-12 col-md-3">
-            <h3 className="fs-2 fw-bold color-black">
-              {l('Useful Links')}
+            <h3 className="fs-3 fw-bold color-black ms-3">
+              {l('Join Us')}
             </h3>
-            <ul className="list-unstyled">
+            <ul className="list-style-type">
               <li>
-                <img
-                  alt="Arrow"
-                  height="24"
-                  src="../../static/images/icons/angle_double_right_icon.svg"
-                  width="18"
-                />
                 <a
-                  className="fw-bold fs-4"
-                  href="https://metabrainz.org/donate"
+                  className="fw-bold fs-5"
+                  href="/doc/Beginners_Guide"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  {l('Donate')}
+                  {l(`Beginner's Guide`)}
                 </a>
               </li>
               <li>
-                <img
-                  alt="Arrow"
-                  height="24"
-                  src="../../static/images/icons/angle_double_right_icon.svg"
-                  width="18"
-                />
                 <a
-                  className="fw-bold fs-4"
-                  href="https://wiki.musicbrainz.org/Main_Page"
+                  className="fw-bold fs-5"
+                  href="/doc/Style"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  {l('Wiki')}
+                  {l('Style Guidelines')}
                 </a>
               </li>
               <li>
-                <img
-                  alt="Arrow"
-                  height="24"
-                  src="../../static/images/icons/angle_double_right_icon.svg"
-                  width="18"
-                />
                 <a
-                  className="fw-bold fs-4"
-                  href="https://community.metabrainz.org/"
+                  className="fw-bold fs-5"
+                  href="/doc/How_To"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  {l('Community')}
+                  {l('How Tos')}
                 </a>
               </li>
               <li>
-                <img
-                  alt="Arrow"
-                  height="24"
-                  src="../../static/images/icons/angle_double_right_icon.svg"
-                  width="18"
-                />
                 <a
-                  className="fw-bold fs-4"
-                  href="https://blog.metabrainz.org/"
+                  className="fw-bold fs-5"
+                  href="/doc/Frequently_Asked_Questions"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  {l('Blog')}
+                  {l('FAQs')}
                 </a>
               </li>
               <li>
-                <img
-                  alt="Arrow"
-                  height="24"
-                  src="../../static/images/icons/angle_double_right_icon.svg"
-                  width="18"
-                />
                 <a
-                  className="fw-bold fs-4"
-                  href="https://www.redbubble.com/people/metabrainz/shop"
+                  className="fw-bold fs-5"
+                  href="/doc/MusicBrainz_Documentation"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  {l('Shop')}
+                  {l('Doc Index')}
                 </a>
               </li>
               <li>
-                <img
-                  alt="Arrow"
-                  height="24"
-                  src="../../static/images/icons/angle_double_right_icon.svg"
-                  width="18"
-                />
                 <a
-                  className="fw-bold fs-4"
-                  href="https://metabrainz.org/"
+                  className="fw-bold fs-5"
+                  href="/doc/Development"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  {l('MetaBrainz')}
+                  {l('Development')}
                 </a>
               </li>
             </ul>
           </div>
-          <div className="col-sm-12 col-md-3 section-md-t3">
-            <h3 className="fs-2 fw-bold color-black">
+          <div className="col-sm-12 col-md-3">
+            <h3 className="fs-3 fw-bold color-black ms-3">
               {l('Fellow Projects')}
             </h3>
-            <ul className="list-unstyled">
+            <ul className="list-style-type">
               <li>
                 <img
-                  alt="Arrow"
+                  alt="ListenBrainz"
+                  className="me-1"
                   height="24"
-                  src="../../static/images/icons/angle_double_right_icon.svg"
-                  width="18"
+                  src={listenbrainzLogo}
+                  width="24"
                 />
-                <div className="image me-1">
-                  <img
-                    alt="ListenBrainz"
-                    height="24"
-                    src="../../static/images/meb-icons/ListenBrainz.svg"
-                    width="24"
-                  />
-                </div>
                 <a
-                  className="fw-bold fs-4"
+                  className="fw-bold fs-5"
                   href="https://listenbrainz.org/"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -299,21 +292,14 @@ const Footer = (): React.Element<'section'> => {
               </li>
               <li>
                 <img
-                  alt="Arrow"
+                  alt="CritiqueBrainz"
+                  className="me-1"
                   height="24"
-                  src="../../static/images/icons/angle_double_right_icon.svg"
-                  width="18"
+                  src={critiquebrainzLogo}
+                  width="24"
                 />
-                <div className="image me-1">
-                  <img
-                    alt="CritiqueBrainz"
-                    height="24"
-                    src="../../static/images/meb-icons/CritiqueBrainz.svg"
-                    width="24"
-                  />
-                </div>
                 <a
-                  className="fw-bold fs-4"
+                  className="fw-bold fs-5"
                   href="https://critiquebrainz.org/"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -323,21 +309,14 @@ const Footer = (): React.Element<'section'> => {
               </li>
               <li>
                 <img
-                  alt="Arrow"
+                  alt="Picard"
+                  className="me-1"
                   height="24"
-                  src="../../static/images/icons/angle_double_right_icon.svg"
-                  width="18"
+                  src={picardLogo}
+                  width="24"
                 />
-                <div className="image me-1">
-                  <img
-                    alt="Picard"
-                    height="24"
-                    src="../../static/images/meb-icons/Picard.svg"
-                    width="24"
-                  />
-                </div>
                 <a
-                  className="fw-bold fs-4"
+                  className="fw-bold fs-5"
                   href="https://picard.musicbrainz.org/"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -347,21 +326,14 @@ const Footer = (): React.Element<'section'> => {
               </li>
               <li>
                 <img
-                  alt="Arrow"
+                  alt="BookBrainz"
+                  className="me-1"
                   height="24"
-                  src="../../static/images/icons/angle_double_right_icon.svg"
-                  width="18"
+                  src={bookbrainzLogo}
+                  width="24"
                 />
-                <div className="image me-1">
-                  <img
-                    alt="BookBrainz"
-                    height="24"
-                    src="../../static/images/meb-icons/BookBrainz.svg"
-                    width="24"
-                  />
-                </div>
                 <a
-                  className="fw-bold fs-4"
+                  className="fw-bold fs-5"
                   href="https://bookbrainz.org/"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -371,45 +343,14 @@ const Footer = (): React.Element<'section'> => {
               </li>
               <li>
                 <img
-                  alt="Arrow"
+                  alt="CoverArtArchive"
+                  className="me-1"
                   height="24"
-                  src="../../static/images/icons/angle_double_right_icon.svg"
-                  width="18"
+                  src={caaLogo}
+                  width="24"
                 />
-                <div className="image me-1">
-                  <img
-                    alt="AcousticBrainz"
-                    height="24"
-                    src="../../static/images/meb-icons/AcousticBrainz.svg"
-                    width="24"
-                  />
-                </div>
                 <a
-                  className="fw-bold fs-4"
-                  href="https://acousticbrainz.org/"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {l('AcousticBrainz')}
-                </a>
-              </li>
-              <li>
-                <img
-                  alt="Arrow"
-                  height="24"
-                  src="../../static/images/icons/angle_double_right_icon.svg"
-                  width="18"
-                />
-                <div className="image me-1">
-                  <img
-                    alt="CoverArtArchive"
-                    height="24"
-                    src="../../static/images/meb-icons/CoverArtArchive.svg"
-                    width="24"
-                  />
-                </div>
-                <a
-                  className="fw-bold fs-4"
+                  className="fw-bold fs-5"
                   href="https://coverartarchive.org"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -417,153 +358,165 @@ const Footer = (): React.Element<'section'> => {
                   {l('Cover Art Archive')}
                 </a>
               </li>
-
+              <li>
+                <img
+                  alt="MetaBrainz"
+                  className="me-1"
+                  height="24"
+                  src={metabrainzLogo}
+                  width="24"
+                />
+                <a
+                  className="fw-bold fs-5"
+                  href="https://metabrainz.org/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {l('MetaBrainz')}
+                </a>
+              </li>
             </ul>
           </div>
           <div className="col-sm-12 col-md-2">
-            <h3 className="fs-2 fw-bold color-black">
-              {l('Join Us')}
+            <h3 className="fs-3 fw-bold color-black ms-3">
+              {l('Useful Links')}
             </h3>
-            <ul className="list-unstyled">
+            <ul className="list-style-type">
               <li>
-                <img
-                  alt="Arrow"
-                  height="24"
-                  src="../../static/images/icons/angle_double_right_icon.svg"
-                  width="18"
-                />
                 <a
-                  className="fw-bold fs-4"
-                  href="https://musicbrainz.org/doc/Beginners_Guide"
+                  className="fw-bold fs-5"
+                  href="https://metabrainz.org/donate"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  {l(`Beginner's Guide`)}
+                  {l('Donate')}
                 </a>
               </li>
               <li>
-                <img
-                  alt="Arrow"
-                  height="24"
-                  src="../../static/images/icons/angle_double_right_icon.svg"
-                  width="18"
-                />
                 <a
-                  className="fw-bold fs-4"
-                  href="https://musicbrainz.org/doc/Style"
+                  className="fw-bold fs-5"
+                  href="https://wiki.musicbrainz.org/Main_Page"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  {l('Style Guidelines')}
+                  {l('Wiki')}
                 </a>
               </li>
               <li>
-                <img
-                  alt="Arrow"
-                  height="24"
-                  src="../../static/images/icons/angle_double_right_icon.svg"
-                  width="18"
-                />
                 <a
-                  className="fw-bold fs-4"
-                  href="https://musicbrainz.org/doc/How_To"
+                  className="fw-bold fs-5"
+                  href="https://blog.metabrainz.org/"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  {l('How Tos')}
+                  {l('Blog')}
                 </a>
               </li>
               <li>
-                <img
-                  alt="Arrow"
-                  height="24"
-                  src="../../static/images/icons/angle_double_right_icon.svg"
-                  width="18"
-                />
                 <a
-                  className="fw-bold fs-4"
-                  href="https://musicbrainz.org/doc/Frequently_Asked_Questions"
+                  className="fw-bold fs-5"
+                  href="https://www.redbubble.com/people/metabrainz/shop"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  {l('FAQs')}
+                  {l('Shop')}
                 </a>
               </li>
               <li>
-                <img
-                  alt="Arrow"
-                  height="24"
-                  src="../../static/images/icons/angle_double_right_icon.svg"
-                  width="18"
-                />
                 <a
-                  className="fw-bold fs-4"
-                  href="https://musicbrainz.org/doc/MusicBrainz_Documentation"
+                  className="fw-bold fs-5"
+                  href="https://metabrainz.org/contact"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  {l('Doc Index')}
+                  {l('Contact us')}
                 </a>
               </li>
-              <li>
-                <img
-                  alt="Arrow"
-                  height="24"
-                  src="../../static/images/icons/angle_double_right_icon.svg"
-                  width="18"
-                />
+              <li className="mt-2">
                 <a
-                  className="fw-bold fs-4"
-                  href="https://musicbrainz.org/doc/Development"
-                  rel="noopener noreferrer"
+                  aria-label="Follow us on Twitter"
+                  href="https://twitter.com/MusicBrainz"
+                  rel="noreferrer"
                   target="_blank"
                 >
-                  {l('Development')}
+                  <FontAwesomeIcon
+                    icon={faTwitter}
+                    size="lg"
+                  />
+                </a>
+                <a
+                  aria-label="Follow us on Facebook"
+                  className="ms-3"
+                  href="https://facebook.com/MusicBrainz-12390437194"
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  <FontAwesomeIcon
+                    icon={faFacebook}
+                    size="lg"
+                  />
+                </a>
+                <a
+                  aria-label="Follow us on Instagram"
+                  className="ms-3"
+                  href="https://instagram.com/metabrainz"
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  <FontAwesomeIcon
+                    icon={faInstagram}
+                    size="lg"
+                  />
+                </a>
+                <a
+                  aria-label="Follow us on LinkedIn"
+                  className="ms-3"
+                  href="https://linkedin.com/company/metabrainz"
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  <FontAwesomeIcon
+                    icon={faLinkedin}
+                    size="lg"
+                  />
                 </a>
               </li>
-
             </ul>
           </div>
         </div>
         <div className="row mt-4">
-          <div className="col-md-3 border-top pt-4 d-none d-md-block fs-4">
+          <div className="col-md-3 border-top pt-4 d-none d-md-block fs-5">
             <p>
-              {l('OSS Geek? ')}
+              {l('OSS Geek?')}
+              {' '}
               <a
                 href="https://github.com/metabrainz/musicbrainz-server"
                 rel="noopener noreferrer"
                 target="_blank"
               >
                 <span>
-                  {l('Contribute Here')}
+                  {l('Contribute here')}
                 </span>
               </a>
             </p>
           </div>
-          <div className="col-md-6 border-top pt-4 text-center fs-4">
-            {l('Brought to you by')}
-            <div className="image ms-1 me-1">
-              <img
-                alt="MetaBrainz"
-                height="24"
-                src="../../static/images/meb-icons/MetaBrainz.svg"
-                width="24"
-              />
-            </div>
-            <span>
-              {l('MetaBrainz Foundation')}
-            </span>
+          <div className="col-md-6 border-top pt-4 text-center fs-5">
+            {
+              // eslint-disable-next-line max-len
+              exp.l('Brought to you by <span id="meb-logo"/> MetaBrainz Foundation')
+            }
           </div>
-          <div className="col-md-3 border-top pt-4 d-none d-md-block fs-4">
+          <div className="col-md-3 border-top pt-4 d-none d-md-block fs-5">
             <p>
-              {l('Found an Issue? ')}
+              {l('Found an Issue?')}
               <a
+                className="ms-1"
                 href="https://tickets.metabrainz.org/"
                 rel="noopener noreferrer"
                 target="_blank"
               >
                 <span>
-                  {l('Report Here')}
+                  {l('Report it here')}
                 </span>
               </a>
             </p>

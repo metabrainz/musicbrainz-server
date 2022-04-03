@@ -21,10 +21,10 @@ import {
   isEditingDisabled,
 } from '../static/scripts/common/utility/privileges';
 
-import Footer from './components/Footer';
 import Header from './components/Header';
 import Head, {type HeadProps} from './components/Head';
 import MergeHelper from './components/MergeHelper';
+import Footer from './components/Footer';
 
 const DismissBannerButton = ({bannerName}) => (
   <button
@@ -304,10 +304,7 @@ const Layout = ({
         {$c.session?.merger && !$c.stash.hide_merge_helper /*:: === true */
           ? <MergeHelper merger={$c.session.merger} />
           : null}
-
-        <div className="bs">
-          <Footer />
-        </div>
+        <Footer />
       </body>
     </html>
   );
