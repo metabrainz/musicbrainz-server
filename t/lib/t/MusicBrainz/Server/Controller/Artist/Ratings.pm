@@ -56,7 +56,7 @@ test 'Test artists rating page' => sub {
     );
     $tx->is(
         '(//span[@class="current-rating"])[2]',
-        3.5,
+        3,
         'The average rating is shown',
     );
 
