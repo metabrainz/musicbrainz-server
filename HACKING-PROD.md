@@ -33,3 +33,23 @@ syswiki repo) and push the created image to Docker Hub:
 
 Finally, you will need to update [.circleci/config.yml](.circleci/config.yml),
 update the listed `musicbrainz-tests` image version and push the changes.
+
+Debugging CircleCI tests with SSH
+=======
+
+Sometimes a test that passes locally might fail in CircleCI. In these cases, it's useful
+to be able to run the test directly from the CircleCI command line to figure out what
+exactly is failing.
+
+CircleCI supports debugging in their containers with SSH for this case. See
+[their documentation](https://circleci.com/docs/2.0/ssh-access-jobs/).
+
+Basically, you'll want to expand the "Rerun" menu and select "Rerun job with SSH".
+Then, under "Enable SSH", you'll be told how to SSH into the container, e.g.
+
+    $ ssh -p port ip
+
+Once you are inside the container, you should navigate to the MusicBrainz server folder at
+`/home/musicbrainz/musicbrainz-server/`, and then you can run any test you want to check like this:
+
+    $ sudo -E -H -u musicbrainz carton exec -- prove -lv t/tests.t :: --tests Failing::Test
