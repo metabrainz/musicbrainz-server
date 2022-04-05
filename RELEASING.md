@@ -184,7 +184,7 @@ It has some differences with the production release process; follow these steps:
 
 2. On the git branches merge step, to update the `beta` branch with the changes from the `master` branch,
    merge `master` into `beta` (with `git merge --log=876423 --no-ff master`) and push to `beta`.
-   (Skip this, of course, if you're just deploying changes pushed directly to the `bet`a branch.)
+   (Skip this, of course, if you're just deploying changes pushed directly to the `beta` branch.)
 
 3. On the [build Docker images step](#build-docker-images),
    enter `beta` for _IMAGE_BRANCH_ when doing “Build with Parameters”.
