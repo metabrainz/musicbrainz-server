@@ -7,21 +7,12 @@ SELECT no_plan();
 -- Comments
 SELECT throws_ok(
   'INSERT INTO artist (id, gid, name, sort_name, comment)
-   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''James Blake'', ''James Blake'', ''A  comment'')');
-SELECT throws_ok(
-  'INSERT INTO artist (id, gid, name, sort_name, comment)
    VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''James Blake'', ''James Blake'', ''A comment '')');
 SELECT throws_ok(
   'INSERT INTO artist (id, gid, name, sort_name, comment)
    VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''James Blake'', ''James Blake'', '' A comment'')');
 
 -- Name & sortname
-SELECT throws_ok(
-  'INSERT INTO artist (id, gid, name, sort_name, comment)
-   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''James  Blake'', ''James Blake'', ''A comment'')');
-SELECT throws_ok(
-  'INSERT INTO artist (id, gid, name, sort_name, comment)
-   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''James Blake'', ''James  Blake'', ''A comment'')');
 SELECT throws_ok(
   'INSERT INTO artist (id, gid, name, sort_name, comment)
    VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', '' James Blake'', ''James Blake'', ''A comment'')');
@@ -44,30 +35,15 @@ SELECT lives_ok(
 -- Comments
 SELECT throws_ok(
   'INSERT INTO label (id, gid, name, comment)
-   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings'', ''A  comment'')');
-SELECT throws_ok(
-  'INSERT INTO label (id, gid, name, comment)
    VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings'', ''A comment '')');
 SELECT throws_ok(
   'INSERT INTO label (id, gid, name, comment)
    VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings'', '' A comment'')');
 
--- Name & sortname
-SELECT throws_ok(
-  'INSERT INTO label (id, gid, name, comment)
-   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution  Recordings'', ''A comment'')');
-SELECT throws_ok(
-  'INSERT INTO label (id, gid, name, comment)
-   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution  Recordings'', ''A comment'')');
+-- Names
 SELECT throws_ok(
   'INSERT INTO label (id, gid, name, comment)
    VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', '' Revolution Recordings'', ''A comment'')');
-SELECT throws_ok(
-  'INSERT INTO label (id, gid, name, comment)
-   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', '' Revolution Recordings'', ''A comment'')');
-SELECT throws_ok(
-  'INSERT INTO label (id, gid, name, comment)
-   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings '', ''A comment'')');
 SELECT throws_ok(
   'INSERT INTO label (id, gid, name, comment)
    VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings '', ''A comment'')');
@@ -83,18 +59,12 @@ INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'James Blake', 1);
 -- Comments
 SELECT throws_ok(
   'INSERT INTO release_group (id, artist_credit, gid, name, comment)
-   VALUES (1, 1, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Jurassic 5 LP'', ''A  comment'')');
-SELECT throws_ok(
-  'INSERT INTO release_group (id, artist_credit, gid, name, comment)
    VALUES (1, 1, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Jurassic 5 LP'', ''A comment '')');
 SELECT throws_ok(
   'INSERT INTO release_group (id, artist_credit, gid, name, comment)
    VALUES (1, 1, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Jurassic 5 LP'', '' A comment'')');
 
 -- Names
-SELECT throws_ok(
-  'INSERT INTO release_group (id, artist_credit, gid, name, comment)
-   VALUES (1, 1, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Jurassic 5  LP'', ''A comment'')');
 SELECT throws_ok(
   'INSERT INTO release_group (id, artist_credit, gid, name, comment)
    VALUES (1, 1, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', '' Jurassic 5 LP'', ''A comment'')');
@@ -111,18 +81,12 @@ SELECT lives_ok(
 -- Comments
 SELECT throws_ok(
   'INSERT INTO release (id, gid, name, release_group, artist_credit, comment)
-   VALUES (1, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Jurassic 5 LP'', 1, 1, ''A  comment'')');
-SELECT throws_ok(
-  'INSERT INTO release (id, gid, name, release_group, artist_credit, comment)
    VALUES (1, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Jurassic 5 LP'', 1, 1, ''A comment '')');
 SELECT throws_ok(
   'INSERT INTO release (id, gid, name, release_group, artist_credit, comment)
    VALUES (1, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Jurassic 5 LP'', 1, 1, '' A comment'')');
 
 -- Names
-SELECT throws_ok(
-  'INSERT INTO release (id, gid, name, release_group, artist_credit, comment)
-   VALUES (1, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Jurassic 5  LP'', 1, 1, ''A comment'')');
 SELECT throws_ok(
   'INSERT INTO release (id, gid, name, release_group, artist_credit, comment)
    VALUES (1, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', '' Jurassic 5 LP'', 1, 1, ''A comment'')');
@@ -139,9 +103,6 @@ SELECT lives_ok(
 
 SELECT throws_ok(
   'INSERT INTO medium (id, name, release, track_count, position)
-   VALUES (1, ''Disc  1'', 1, 0, 1)');
-SELECT throws_ok(
-  'INSERT INTO medium (id, name, release, track_count, position)
    VALUES (1, ''Disc 1 '', 1, 0, 1)');
 SELECT throws_ok(
   'INSERT INTO medium (id, name, release, track_count, position)
@@ -156,9 +117,6 @@ SELECT lives_ok(
   VALUES (1, NULL, ''FOO'')');
 SELECT throws_ok(
  'INSERT INTO release_label (release, label, catalog_number)
-  VALUES (1, 1, ''FOO  123'')');
-SELECT throws_ok(
- 'INSERT INTO release_label (release, label, catalog_number)
   VALUES (1, NULL, ''FOO '')');
 SELECT throws_ok(
  'INSERT INTO release_label (release, label, catalog_number)
@@ -168,18 +126,12 @@ SELECT throws_ok(
 -- Comments
 SELECT throws_ok(
   'INSERT INTO recording (id, artist_credit, name, gid, comment)
-   VALUES (1, 1, ''Limit To Your Love'', ''7f92cb36-3505-41d5-a8c0-b73c5cca0661'', ''Recording  Comment'')');
-SELECT throws_ok(
-  'INSERT INTO recording (id, artist_credit, name, gid, comment)
    VALUES (1, 1, ''Limit To Your Love'', ''7f92cb36-3505-41d5-a8c0-b73c5cca0661'', '' Recording Comment'')');
 SELECT throws_ok(
   'INSERT INTO recording (id, artist_credit, name, gid, comment)
    VALUES (1, 1, ''Limit To Your Love'', ''7f92cb36-3505-41d5-a8c0-b73c5cca0661'', ''Recording Comment '')');
 
 -- Names
-SELECT throws_ok(
-  'INSERT INTO recording (id, artist_credit, name, gid, comment)
-   VALUES (1, 1, ''Limit To Your  Love'', ''7f92cb36-3505-41d5-a8c0-b73c5cca0661'', ''Recording Comment'')');
 SELECT throws_ok(
   'INSERT INTO recording (id, artist_credit, name, gid, comment)
    VALUES (1, 1, '' Limit To Your Love'', ''7f92cb36-3505-41d5-a8c0-b73c5cca0661'', ''Recording Comment'')');
@@ -204,9 +156,6 @@ SELECT throws_ok(
 -- Names
 SELECT throws_ok(
   'INSERT INTO track (id, gid, medium, name, position, number, artist_credit, recording)
-   VALUES (1, ''82dd4327-03a2-4b91-aeac-cc2f5bb2ffb1'', 1, ''Limit To Your  Love'', 1, ''1'', 1, 1)');
-SELECT throws_ok(
-  'INSERT INTO track (id, gid, medium, name, position, number, artist_credit, recording)
    VALUES (1, ''82dd4327-03a2-4b91-aeac-cc2f5bb2ffb1'', 1, '' Limit To Your Love'', 1, ''1'', 1, 1)');
 SELECT throws_ok(
   'INSERT INTO track (id, gid, medium, name, position, number, artist_credit, recording)
@@ -226,18 +175,12 @@ SELECT lives_ok(
 -- Comments
 SELECT throws_ok(
   'INSERT INTO work (id, name, gid, comment)
-   VALUES (1, ''Limit To Your Love'', ''7f92cb36-3505-41d5-a8c0-b73c5cca0661'', ''Work  Comment'')');
-SELECT throws_ok(
-  'INSERT INTO work (id, name, gid, comment)
    VALUES (1, ''Limit To Your Love'', ''7f92cb36-3505-41d5-a8c0-b73c5cca0661'', '' Work Comment'')');
 SELECT throws_ok(
   'INSERT INTO work (id, name, gid, comment)
    VALUES (1, ''Limit To Your Love'', ''7f92cb36-3505-41d5-a8c0-b73c5cca0661'', ''Work Comment '')');
 
 -- Names
-SELECT throws_ok(
-  'INSERT INTO work (id, name, gid, comment)
-   VALUES (1, ''Limit To Your  Love'', ''7f92cb36-3505-41d5-a8c0-b73c5cca0661'', ''Work Comment'')');
 SELECT throws_ok(
   'INSERT INTO work (id, name, gid, comment)
    VALUES (1, '' Limit To Your Love'', ''7f92cb36-3505-41d5-a8c0-b73c5cca0661'', ''Work Comment'')');
