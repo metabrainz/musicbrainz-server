@@ -126,7 +126,7 @@ Move sub-tasks of MBS-8609 to the “React Conversion Task” section at the end
 and move other sub-tasks under the “Other Task” section (rename to just “Task”
 if there are no React conversion tasks in this release).
 
-Thanks reporters of each addressed issue at least, and every other
+Thank reporters of each addressed issue at least, and every other
 contributor/tester/translator if possible, but contractors.
 
 Once the draft has been reviewed, publish it, then update the description of the Jira version with the blog post URL.
