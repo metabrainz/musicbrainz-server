@@ -1,6 +1,5 @@
-
-Introduction
-============
+The Developer’s Guide to implementing URL handlers in the MusicBrainz Server
+============================================================================
 
 This file contains instructions on how to deal with feature requests for
 supporting new URL domains in MusicBrainz, or to change how they are currently
@@ -10,8 +9,26 @@ Our URL support has three main parts: cleanup, favicons and sidebar display.
 Often you will want to add all three, but in some cases you might only want
 to display the links more prominently without cleaning them up, or vice versa.
 
-Cleanup / Autoselect / Validation
-=================================
+Table of Contents
+-----------------
+
+<!-- toc -->
+
+- [URL editing handlers](#url-editing-handlers)
+  * [Cleanup](#cleanup)
+  * [Autoselection](#autoselection)
+  * [Validation](#validation)
+  * [Supporting new relationship types](#supporting-new-relationship-types)
+  * [Entity-wide rules](#entity-wide-rules)
+- [URL display handlers](#url-display-handlers)
+  * [Favicons](#favicons)
+  * [In-page display](#in-page-display)
+  * [Sidebar display](#sidebar-display)
+
+<!-- tocstop -->
+
+URL editing handlers
+--------------------
 
 Most of the handling of URLs, including all three of cleanup, autoselect and
 validation, happen on
@@ -34,8 +51,7 @@ cleaned up as expected), and any validation you’ve added (for example, if an
 URL should only be allowed for releases, do add a test ensuring that the
 restriction is working).
 
-Cleanup
--------
+### Cleanup
 
 If you want to clean up and standardize the URLs to a canonical version (for
 example to avoid users adding slightly different duplicates) you’ll want a
@@ -45,8 +61,7 @@ returns it. Remember to check if the site has optional URL parameters at the
 end of some URLs (often separated by ? or #); if so, you might want to remove
 them during cleanup to avoid duplication.
 
-Autoselection
--------------
+### Autoselection
 
 Autoselection of one or more relationship types is generally done using
 the `restrict` property. This sets what are the allowed relationships or
@@ -99,8 +114,7 @@ Note that `select` accepts the url and the entity type, and it returns
 a specific type + entity combination. As such, you would need to make sure you
 return `LINK_TYPES.streamingpaid.release` for releases, and so on.
 
-Validation
-----------
+### Validation
 
 If you want to only allow certain URL variations for different relationship
 and entity type combinations, you’ll need a `validate` property. For example,
@@ -129,8 +143,7 @@ at all should be set as `URL`, the ones where the URL would be valid for a
 different entity type but not the selected one as `ENTITY`, and the ones where
 the URL seems valid but the selected relationship is not as `RELATIONSHIP`.
 
-Supporting new relationship types
----------------------------------
+### Supporting new relationship types
 
 If you want to use a new relationship type that has recently been added, it
 might not yet be available to use in `URLCleanup`. In that case, you’ll have
@@ -146,8 +159,7 @@ add a new one, in the same format as the existing ones: the key should be
 a sensible descriptor for the relationship type, and the value an object
 containing `entity: mbid` pairs.
 
-Entity-wide rules
------------------
+### Entity-wide rules
 
 In some cases, you might not want to specifically match an URL to a
 relationship type, but just reject it completely for a particular entity type.
@@ -164,9 +176,10 @@ the same kind of error objects. If the entity type you want is not being used
 in `entitySpecificRules` yet, just add a new `entitySpecificRules.entity_type`
 function based on the existing ones.
 
+URL display handlers
+--------------------
 
-Favicons
-========
+### Favicons
 
 For a favicon to be displayed by the URLs of the domain you are adding, you
 should add the file as a PNG (preferably sized 32x32, but 16x16 is also
@@ -183,9 +196,9 @@ Then add the favicon to the list in
 use the favicon class you added in the previous step, and pass a second
 argument `32` if the favicon file is 32x32 rather than 16x16.
 
+### In-page display
 
-Sidebar display
-===============
+### Sidebar display
 
 For a domain to be displayed on the sidebar, you’ll need to create a file in
 [`lib/MusicBrainz/Server/Entity/URL`](lib/MusicBrainz/Server/Entity/URL).
