@@ -21,6 +21,7 @@ RT_STANDALONE=3
 
 SQL_DIR='./admin/sql/updates/schema-change'
 EXTENSIONS_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.extensions.sql"
+MASTER_ONLY_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.master_only.sql"
 MIRROR_ONLY_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.mirror_only.sql"
 
 ################################################################################
@@ -66,6 +67,17 @@ then
     ./admin/psql --system "$DATABASE" < "$EXTENSIONS_SQL" || exit 1
 fi
 ./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.mirror.sql || exit 1
+
+################################################################################
+# Migrations that apply for only masters
+if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
+then
+    if [ -e "$MASTER_ONLY_SQL" ]
+    then
+        echo `date` : 'Running upgrade scripts for master nodes'
+        ./admin/psql "$DATABASE" < "$MASTER_ONLY_SQL" || exit 1
+    fi
+fi
 
 ################################################################################
 # Migrations that apply for only mirrors
