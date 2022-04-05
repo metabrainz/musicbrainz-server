@@ -35,6 +35,7 @@ type Props =
     }>
   | $ReadOnly<{
       ...CommonProps,
+      +dispatch?: void,
       +uncontrolled: true,
     }>;
 
@@ -93,19 +94,15 @@ export function runReducer(
   }
 }
 
-const PartialDateInput = ({
-  disabled = false,
-  // $FlowIssue[prop-missing]
-  dispatch,
-  field,
-  uncontrolled = false,
-  ...inputProps
-}: Props): React.Element<'span'> => {
+const PartialDateInput = (props: Props): React.Element<'span'> => {
+  const disabled = props.disabled ?? false;
+  const field = props.field;
+
   const yearProps = {};
   const monthProps = {};
   const dayProps = {};
 
-  if (uncontrolled) {
+  if (props.uncontrolled) {
     yearProps.defaultValue = field.field.year.value;
     monthProps.defaultValue = field.field.month.value;
     dayProps.defaultValue = field.field.day.value;
@@ -114,7 +111,7 @@ const PartialDateInput = ({
       event: SyntheticEvent<HTMLInputElement>,
       fieldName: 'year' | 'month' | 'day',
     ) => {
-      dispatch({
+      props.dispatch({
         // $FlowIssue[invalid-computed-prop]
         date: {[fieldName]: event.currentTarget.value},
         type: 'set-date',
@@ -122,7 +119,7 @@ const PartialDateInput = ({
     };
 
     const handleBlur = () => {
-      dispatch({type: 'show-pending-errors'});
+      props.dispatch({type: 'show-pending-errors'});
     };
 
     yearProps.onBlur = handleBlur;
@@ -159,7 +156,6 @@ const PartialDateInput = ({
         size={4}
         type="text"
         {...yearProps}
-        {...inputProps}
       />
       {'-'}
       <input
@@ -172,7 +168,6 @@ const PartialDateInput = ({
         size={2}
         type="text"
         {...monthProps}
-        {...inputProps}
       />
       {'-'}
       <input
@@ -185,7 +180,6 @@ const PartialDateInput = ({
         size={2}
         type="text"
         {...dayProps}
-        {...inputProps}
       />
     </span>
   );
