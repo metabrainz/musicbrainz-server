@@ -61,7 +61,7 @@ process below first!), you need to start by updating the translated messages:
 
 ### Build Docker images
 
-Then, you must build new MusicBrainz Server Docker images from Jenkins, go to
+Then, you must build new MusicBrainz Server Docker images from Jenkins:
 
 1. Go to https://ci.metabrainz.org/job/musicbrainz-docker-images/
 
