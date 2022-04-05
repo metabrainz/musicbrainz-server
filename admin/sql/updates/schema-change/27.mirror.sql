@@ -9,6 +9,7 @@
 -- 20220314-mbs-12253.sql
 -- 20220314-mbs-12254.sql
 -- 20220314-mbs-12255.sql
+-- 20220328-mbs-12250-mirror.sql
 -- 20220322-mbs-12256-mirror.sql
 -- 20220324-mbs-12200.sql
 -- 20220408-immutable-link-tables.sql
@@ -1053,6 +1054,48 @@ CREATE UNIQUE INDEX genre_alias_idx_primary ON genre_alias (genre, locale) WHERE
 INSERT INTO genre_alias (id, genre, name, locale, edits_pending, last_updated, type, sort_name)
 SELECT id, genre, name, locale, edits_pending, last_updated, 1, name -- sortname = name, type = genre name
 FROM tmp_genre_alias;
+
+--------------------------------------------------------------------------------
+SELECT '20220328-mbs-12250-mirror.sql';
+
+CREATE TABLE dbmirror2.pending_keys (
+    tablename   TEXT,
+    keys        TEXT[] NOT NULL
+);
+
+ALTER TABLE dbmirror2.pending_keys
+    ADD CONSTRAINT pending_keys_pkey
+    PRIMARY KEY (tablename);
+
+CREATE TABLE dbmirror2.pending_ts (
+    xid BIGINT,
+    ts TIMESTAMP WITH TIME ZONE NOT NULL
+);
+
+ALTER TABLE dbmirror2.pending_ts
+    ADD CONSTRAINT pending_ts_pkey
+    PRIMARY KEY (xid);
+
+CREATE TABLE dbmirror2.pending_data (
+    seqid       BIGSERIAL,
+    tablename   TEXT NOT NULL CONSTRAINT tablename_exists CHECK (to_regclass(tablename) IS NOT NULL),
+    op          "char" NOT NULL CONSTRAINT op_in_diu CHECK (op IN ('d', 'i', 'u')),
+    xid         BIGINT NOT NULL,
+    olddata     JSON CONSTRAINT olddata_is_null_for_inserts CHECK ((olddata IS NULL) = (op = 'i')),
+    newdata     JSON CONSTRAINT newdata_is_null_for_deletes CHECK ((newdata IS NULL) = (op = 'd')),
+    oldctid     TID,
+    trgdepth    INTEGER
+);
+
+ALTER TABLE dbmirror2.pending_data
+    ADD CONSTRAINT pending_data_pkey
+    PRIMARY KEY (seqid);
+
+CREATE INDEX pending_data_idx_xid_seqid
+    ON dbmirror2.pending_data (xid, seqid);
+
+CREATE INDEX pending_data_idx_oldctid_xid
+    ON dbmirror2.pending_data (oldctid, xid);
 
 --------------------------------------------------------------------------------
 SELECT '20220322-mbs-12256-mirror.sql';
