@@ -57,7 +57,7 @@ process below first!), you need to start by updating the translated messages:
    [Jenkins (Selenium)](https://ci.metabrainz.org/job/musicbrainz-server/) are happy
    with this merge.
 
-2. Merge `production` to `master` and push.
+2. Merge `production` to `master` (`git merge --log=876423 --no-ff production`) and push.
 
 ### Build Docker images
 
