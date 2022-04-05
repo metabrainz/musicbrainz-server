@@ -122,8 +122,9 @@ by going to the [Releases](http://tickets.musicbrainz.org/browse/MBS#selectedTab
 selecting the version you just released,
 and clicking “Release Notes” in the top.
 
-Move sub-tasks of MBS-8609 to ending “React Conversion Task” section,
-and move other sub-tasks under “Other Task” (or just “Task” section if no React conversion task).
+Move sub-tasks of MBS-8609 to the “React Conversion Task” section at the end,
+and move other sub-tasks under the “Other Task” section (rename to just “Task”
+if there are no React conversion tasks in this release).
 
 Thanks reporters of each addressed issue at least, and every other
 contributor/tester/translator if possible, but contractors.
