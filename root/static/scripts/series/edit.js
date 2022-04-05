@@ -13,8 +13,10 @@ $(function () {
   function updateAllowedTypes(seriesHasItems) {
     $type_options.each(function () {
       const type = MB.seriesTypesByID[this.value];
-      if (seriesHasItems &&
-          type.item_entity_type !== series.type().item_entity_type) {
+      const seriesEntityType = series.type()?.item_entity_type;
+      const isTypeAllowed =
+        type && type.item_entity_type === seriesEntityType;
+      if (seriesHasItems && !isTypeAllowed) {
         this.setAttribute('disabled', 'disabled');
       } else {
         this.removeAttribute('disabled');

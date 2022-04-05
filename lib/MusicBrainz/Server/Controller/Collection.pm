@@ -1,7 +1,9 @@
 package MusicBrainz::Server::Controller::Collection;
 use Moose;
+use utf8;
 use Scalar::Util qw( looks_like_number );
 use List::AllUtils qw( first uniq );
+use MusicBrainz::Server::Translation qw( l );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
@@ -69,6 +71,11 @@ sub _do_add_or_remove {
 
     if ($entity_id) {
         my $entity = $c->model(type_to_model($entity_type))->get_by_id($entity_id);
+
+        unless ($entity) {
+            $c->stash->{message} = l('“{id}” is not a valid row ID; the entity might have been merged or deleted.', { id => $entity_id });
+            $c->detach('/error_400');
+        }
 
         $c->model('Collection')->$func_name($entity_type, $collection->id, $entity_id);
 

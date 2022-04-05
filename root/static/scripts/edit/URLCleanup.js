@@ -5004,6 +5004,8 @@ const CLEANUPS: CleanupEntries = {
       url = url.replace(/^https:\/\/www\.youtube\.com\/.*[?&](v=[a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?$1');
       // YouTube embeds
       url = url.replace(/^https:\/\/www\.youtube\.com\/(?:embed|v)\/([a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?v=$1');
+      // YouTube playlists
+      url = url.replace(/^https:\/\/www\.youtube\.com\/playlist.*[?&](list=[a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/playlist?$1');
       return url;
     },
     validate: function (url, id) {
@@ -5019,6 +5021,25 @@ const CLEANUPS: CleanupEntries = {
         case LINK_TYPES.youtube.event:
         case LINK_TYPES.youtube.label:
         case LINK_TYPES.youtube.place:
+          if (/^https:\/\/www\.youtube\.com\/playlist\?list=[a-zA-Z0-9_-]+/.test(url)) {
+            return {
+              error: l(
+                `This is a playlist link, which isn’t a video channel and is
+                 not guaranteed to be officially approved. Please link to the
+                 official channel for this entity, if it exists, instead.`,
+              ),
+              result: false,
+              target: ERROR_TARGETS.URL,
+            };
+          }
+          if (/^https:\/\/www\.youtube\.com\/watch\?v=[a-zA-Z0-9_-]+$/.test(url)) {
+            return {
+              error: linkToChannelMsg(),
+              result: false,
+              target: ERROR_TARGETS.ENTITY,
+            };
+          }
+          return {result: true};
         case LINK_TYPES.youtube.series:
           if (/^https:\/\/www\.youtube\.com\/(?!watch\?v=[a-zA-Z0-9_-])/.test(url)) {
             return {result: true};

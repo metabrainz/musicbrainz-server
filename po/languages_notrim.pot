@@ -1778,7 +1778,7 @@ msgstr ""
 msgid "Archi"
 msgstr ""
 
-#. frequency:0 iso_code_3:pka 
+#. frequency:1 iso_code_3:pka 
 #: DB:language/name:5403
 msgid "Ardhamāgadhī Prākrit"
 msgstr ""
@@ -26678,7 +26678,7 @@ msgstr ""
 msgid "Pahlavani"
 msgstr ""
 
-#. frequency:0 iso_code_3:pal 
+#. frequency:1 iso_code_3:pal 
 #: DB:language/name:328
 msgid "Pahlavi"
 msgstr ""

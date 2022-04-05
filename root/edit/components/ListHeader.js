@@ -157,7 +157,7 @@ const ListHeader = ({
           {$c.user ? (
             <>
               {' | '}
-              <a href="/vote/index">
+              <a href="/vote">
                 {l('Voting suggestions')}
               </a>
             </>
