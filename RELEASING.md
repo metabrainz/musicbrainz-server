@@ -226,7 +226,7 @@ It has some differences with the production release process; follow these steps:
 
 Unlike production and beta, test is more flexible:
 - The `test` branch is not protected and can be force-pushed,
-  even though you have to check in with other developers that may be using it.
+  but you should always check with the other developers to make sure they are not currently using it.
 - The `test.musicbrainz.org` website does not use the production database,
   which means that background tasks can be tested too
   and that potential data loss is not an issue,
