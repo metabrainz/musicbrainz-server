@@ -1302,7 +1302,10 @@ sub _serialize_tag_list
     my $opts = $stash->store($entity);
     my $list_node = $parent_node->addNewChild(undef, 'tag-list');
 
-    foreach my $tag (sort_by { $_->tag->name } @{$opts->{tags}})
+    my @tags = sort_by { $_->tag->name }
+        grep { $_->count > 0 } @{ $opts->{tags} };
+
+    foreach my $tag (@tags)
     {
         $self->_serialize_tag($list_node, $tag);
     }
