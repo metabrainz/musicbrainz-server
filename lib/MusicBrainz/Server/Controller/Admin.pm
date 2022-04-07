@@ -165,11 +165,16 @@ sub delete_users : Path('/admin/delete-users') RequireAuth(account_admin) Hidden
         my @usernames = uniq grep { $_ } map { lc trim $_ } (split /\n/, $users_string);
         my @users;
         my @incorrect_usernames;
+        my %stats;
 
         for my $username (@usernames) {
             my $user = $c->model('Editor')->get_by_name($username);
             if ($user) {
                 push @users, $user;
+                $stats{$user->id} = $c->model('Editor')->get_editor_stats(
+                    $user,
+                    1, # We want admins to always see private counts here
+                );
             } else {
                 push @incorrect_usernames, $username;
             }
@@ -190,6 +195,7 @@ sub delete_users : Path('/admin/delete-users') RequireAuth(account_admin) Hidden
                     form => $form->TO_JSON,
                     incorrectUsernames => \@incorrect_usernames,
                     postParameters => $post_params,
+                    stats => \%stats,
                     users => [map { $c->unsanitized_editor_json($_) } @users],
                 },
             );

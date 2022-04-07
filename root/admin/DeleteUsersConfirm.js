@@ -22,6 +22,7 @@ type Props = {
   +form: DeleteUsersFormT,
   +incorrectUsernames?: $ReadOnlyArray<string>,
   +postParameters: PostParametersT | null,
+  +stats?: {+[id: number]: EditorStatsT},
   +users?: $ReadOnlyArray<UnsanitizedEditorT>,
 };
 
@@ -29,6 +30,7 @@ const DeleteUsersConfirm = ({
   form,
   incorrectUsernames,
   postParameters,
+  stats,
   users,
 }: Props): React.Element<typeof Layout> => (
   <Layout fullWidth title="Confirm user deletion">
@@ -50,7 +52,7 @@ const DeleteUsersConfirm = ({
 
       {users?.length ? (
         <>
-          <UserList users={users} />
+          <UserList stats={stats} users={users} />
 
           <p>
             {'Are you sure you want to remove the users above?'}
