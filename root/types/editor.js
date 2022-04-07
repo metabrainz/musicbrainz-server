@@ -99,11 +99,13 @@ declare type EditorStatsT = {
 declare type EditorEditStatsT = {
   +accepted_auto_count: number,
   +accepted_count: number,
+  +applied_count: number,
   +cancelled_count: number,
   +failed_count: number,
   +last_day_count: number,
   +open_count: number,
   +rejected_count: number,
+  +total_count: number,
 };
 
 declare type EditorEntityStatsT = {

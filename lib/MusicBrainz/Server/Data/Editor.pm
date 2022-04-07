@@ -657,6 +657,14 @@ sub get_editor_stats {
 
     my $edit_stats = $self->various_edit_counts($editor->id);
     $edit_stats->{last_day_count} = $self->last_24h_edit_count($editor->id);
+    $edit_stats->{applied_count} = $edit_stats->{accepted_count} +
+                                   $edit_stats->{accepted_auto_count};
+    $edit_stats->{total_count} = $edit_stats->{accepted_count} +
+                                 $edit_stats->{accepted_auto_count} +
+                                 $edit_stats->{rejected_count} +
+                                 $edit_stats->{failed_count} +
+                                 $edit_stats->{cancelled_count} +
+                                 $edit_stats->{open_count};
     my $added_entities = $self->added_entities_counts($editor->id);
     my $secondary_stats = $self->secondary_counts($editor->id, $show_private);
     my $vote_stats = $self->vote_counts($editor);
