@@ -351,7 +351,7 @@ test 'Vote statistics for editor' => sub {
     MusicBrainz::Server::Test->prepare_raw_test_database($c, '+vote_stats');
 
     my $editor = $c->model('Editor')->get_by_id(1);
-    my $stats = $c->model('Vote')->editor_statistics($editor);
+    my $stats = $c->model('Editor')->vote_counts($editor);
     is_deeply($stats, [
         {
             name   => 'Yes',

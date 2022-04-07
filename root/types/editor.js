@@ -88,3 +88,53 @@ declare type UnsanitizedEditorT = $ReadOnly<{
   +registration_date: string,
   +website: string | null,
 }>;
+
+declare type EditorStatsT = {
+  +added_entities: EditorEntityStatsT,
+  +edit_stats: EditorEditStatsT,
+  +secondary_stats: EditorSecondaryStatsT,
+  +vote_stats: EditorVoteStatsT,
+};
+
+declare type EditorEditStatsT = {
+  +accepted_auto_count: number,
+  +accepted_count: number,
+  +cancelled_count: number,
+  +failed_count: number,
+  +last_day_count: number,
+  +open_count: number,
+  +rejected_count: number,
+};
+
+declare type EditorEntityStatsT = {
+  +area: number,
+  +artist: number,
+  +cover_art: number,
+  +event: number,
+  +instrument: number,
+  +label: number,
+  +place: number,
+  +recording: number,
+  +release: number,
+  +releasegroup: number,
+  +series: number,
+  +work: number,
+};
+
+declare type EditorSecondaryStatsT = {
+  +downvoted_tag_count?: number,
+  +rating_count?: number,
+  +upvoted_tag_count?: number,
+};
+
+declare type EditorVoteStatsT = Array<{
+  +all: {
+    +count: number,
+    +percentage: number,
+  },
+  +name: string,
+  +recent: {
+    +count: number,
+    +percentage: number,
+  },
+}>;

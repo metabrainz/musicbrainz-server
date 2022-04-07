@@ -10,6 +10,7 @@ use Authen::Passphrase::RejectAll;
 use DateTime;
 use Digest::MD5 qw( md5_hex );
 use Encode;
+use List::AllUtils qw( sum );
 use MusicBrainz::Server::Constants qw( :edit_status entities_with );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
@@ -18,6 +19,7 @@ use MusicBrainz::Server::Data::Utils qw(
     generate_token
     hash_to_row
     load_subobjects
+    map_query
     placeholders
     sanitize
     type_to_model
@@ -27,6 +29,7 @@ use MusicBrainz::Server::Constants qw( $PASSPHRASE_BCRYPT_COST );
 use MusicBrainz::Server::Constants qw( :create_entity $EDIT_HISTORIC_ADD_RELEASE );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_COVER_ART );
 use MusicBrainz::Server::Constants qw( :vote );
+use MusicBrainz::Server::Translation qw( l lp );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -649,6 +652,23 @@ sub subscription_summary {
     );
 }
 
+sub get_editor_stats {
+    my ($self, $editor, $show_private) = @_;
+
+    my $edit_stats = $self->various_edit_counts($editor->id);
+    $edit_stats->{last_day_count} = $self->last_24h_edit_count($editor->id);
+    my $added_entities = $self->added_entities_counts($editor->id);
+    my $secondary_stats = $self->secondary_counts($editor->id, $show_private);
+    my $vote_stats = $self->vote_counts($editor);
+
+    return {
+        added_entities => $added_entities,
+        edit_stats => $edit_stats,
+        secondary_stats => $secondary_stats,
+        vote_stats => $vote_stats,
+    };
+}
+
 sub various_edit_counts {
     my ($self, $editor_id) = @_;
     my %result = map { $_ . '_count' => 0 }
@@ -813,6 +833,81 @@ sub last_24h_edit_count
           AND open_time >= (now() - interval '1 day')};
 
     return $self->sql->select_single_value($query, $editor_id);
+}
+
+sub vote_counts
+{
+    my ($self, $editor) = @_;
+
+    my $base_query = 'SELECT vote, count(vote) AS count ' .
+        'FROM vote ' .
+        'WHERE NOT superseded AND editor = ? ';
+
+    my $q_all_votes    = $base_query . 'GROUP BY vote';
+    my $q_recent_votes = $base_query .
+        q{ AND vote_time > NOW() - INTERVAL '28 day' } .
+        ' GROUP BY vote';
+
+    my $all_votes = map_query(
+        $self->c->sql,
+        'vote' => 'count',
+        $q_all_votes,
+        $editor->id,
+    );
+    my $recent_votes = map_query(
+        $self->c->sql,
+        'vote' => 'count',
+        $q_recent_votes,
+        $editor->id,
+    );
+
+    return [
+        # Summarise for each vote type
+        $self->summarize_votes($VOTE_YES, $all_votes, $recent_votes),
+        $self->summarize_votes($VOTE_NO, $all_votes, $recent_votes),
+        $self->summarize_votes($VOTE_ABSTAIN, $all_votes, $recent_votes),
+
+        # Show Approve only if there are approves to be shown or if editor is an autoeditor
+        $all_votes->{$VOTE_APPROVE} || $editor->is_auto_editor
+            ? $self->summarize_votes($VOTE_APPROVE, $all_votes, $recent_votes)
+            : (),
+
+        # Add totals
+        {
+            name => l('Total'),
+            recent => {
+                count      => sum(values %$recent_votes) || 0,
+            },
+            all => {
+                count      => sum(values %$all_votes) || 0,
+            },
+        },
+    ];
+}
+
+sub summarize_votes
+{
+    my ($self, $vote_kind, $all_votes, $recent_votes) = @_;
+    my %names = (
+        $VOTE_ABSTAIN => lp('Abstain', 'vote'),
+        $VOTE_NO => lp('No', 'vote'),
+        $VOTE_YES => lp('Yes', 'vote'),
+        $VOTE_APPROVE => lp('Approve', 'vote'),
+    );
+
+    return (
+        {
+            name    => $names{$vote_kind},
+            recent  => {
+                count      => $recent_votes->{$vote_kind} || 0,
+                percentage => int(($recent_votes->{$vote_kind} || 0) / (sum(values %$recent_votes) || 1) * 100 + 0.5),
+            },
+            all     => {
+                count      => ($all_votes->{$vote_kind} || 0),
+                percentage => int(($all_votes->{$vote_kind} || 0) / (sum(values %$all_votes) || 1) * 100 + 0.5),
+            },
+        }
+    );
 }
 
 sub unsubscribe_to {

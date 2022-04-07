@@ -703,6 +703,7 @@ test 'Open edit and last-24-hour counts' => sub {
     );
 };
 
+
 test 'subscription_summary' => sub {
     my $test = shift;
     $test->c->sql->do(<<~'SQL');
