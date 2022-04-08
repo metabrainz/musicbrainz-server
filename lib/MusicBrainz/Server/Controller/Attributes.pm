@@ -43,7 +43,7 @@ sub index : Path('/attributes') Args(0) {
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'attributes/Index',
+        component_path => 'attributes/AttributesList',
         component_props => {
             entityTypeModels => \@entity_type_models,
             otherModels => \@other_models,
