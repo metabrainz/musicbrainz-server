@@ -10,21 +10,23 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context.mjs';
-import Layout from '../../layout/index.js';
-import {compare} from '../../static/scripts/common/i18n.js';
+import {CatalystContext} from '../context.mjs';
+import Layout from '../layout/index.js';
+import {compare} from '../static/scripts/common/i18n.js';
+import {l_admin} from '../static/scripts/common/i18n/admin.js';
 import {isRelationshipEditor}
-  from '../../static/scripts/common/utility/privileges.js';
-import loopParity from '../../utility/loopParity.js';
+  from '../static/scripts/common/utility/privileges.js';
+import loopParity from '../utility/loopParity.js';
 
 const frequencyLabels = {
-  0: N_lp('Hidden', 'language optgroup'),
-  1: N_lp('Other', 'language optgroup'),
-  2: N_lp('Frequently used', 'language optgroup'),
+  1: N_lp('Hidden', 'script frequency'),
+  2: N_lp('Other (uncommon)', 'script frequency'),
+  3: N_lp('Other', 'script frequency'),
+  4: N_lp('Frequently used', 'script frequency'),
 };
 
-component Language(
-  attributes as passedAttributes: Array<LanguageT>,
+component Script(
+  attributes as passedAttributes: Array<ScriptT>,
   model: string,
 ) {
   const attributes = [...passedAttributes];
@@ -32,10 +34,10 @@ component Language(
   const showEditSections = isRelationshipEditor($c.user);
 
   return (
-    <Layout fullWidth title={model || l('Language')}>
+    <Layout fullWidth title={model || l('Script')}>
       <h1>
-        <a href="/admin/attributes">{l('Attributes')}</a>
-        {' / ' + l('Language')}
+        <a href="/attributes">{l('Attributes')}</a>
+        {' / ' + l('Script')}
       </h1>
 
       <table className="tbl">
@@ -43,13 +45,11 @@ component Language(
           <tr>
             <th>{l('ID')}</th>
             <th>{l('Name')}</th>
-            <th>{l('ISO 639-1')}</th>
-            <th>{l('ISO 639-2/B')}</th>
-            <th>{l('ISO 639-2/T')}</th>
-            <th>{l('ISO 639-3')}</th>
+            <th>{l('ISO code')}</th>
+            <th>{l('ISO number')}</th>
             <th>{l('Frequency')}</th>
             {showEditSections ? (
-              <th>{l('Actions')}</th>
+              <th>{l_admin('Actions')}</th>
             ) : null}
           </tr>
         </thead>
@@ -60,20 +60,18 @@ component Language(
           .map((attr, index) => (
             <tr className={loopParity(index)} key={attr.id}>
               <td>{attr.id}</td>
-              <td>{l_languages(attr.name)}</td>
-              <td>{attr.iso_code_1}</td>
-              <td>{attr.iso_code_2b}</td>
-              <td>{attr.iso_code_2t}</td>
-              <td>{attr.iso_code_3}</td>
+              <td>{l_scripts(attr.name)}</td>
+              <td>{attr.iso_code}</td>
+              <td>{attr.iso_number}</td>
               <td>{frequencyLabels[attr.frequency]()}</td>
               {showEditSections ? (
                 <td>
-                  <a href={`/admin/attributes/${model}/edit/${attr.id}`}>
-                    {l('Edit')}
+                  <a href={`/attributes/${model}/edit/${attr.id}`}>
+                    {l_admin('Edit')}
                   </a>
                   {' | '}
-                  <a href={`/admin/attributes/${model}/delete/${attr.id}`}>
-                    {l('Remove')}
+                  <a href={`/attributes/${model}/delete/${attr.id}`}>
+                    {l_admin('Remove')}
                   </a>
                 </td>
               ) : null}
@@ -84,8 +82,8 @@ component Language(
       {showEditSections ? (
         <p>
           <span className="buttons">
-            <a href={`/admin/attributes/${model}/create`}>
-              {l('Add new attribute')}
+            <a href={`/attributes/${model}/create`}>
+              {l_admin('Add new attribute')}
             </a>
           </span>
         </p>
@@ -94,4 +92,4 @@ component Language(
   );
 }
 
-export default Language;
+export default Script;
