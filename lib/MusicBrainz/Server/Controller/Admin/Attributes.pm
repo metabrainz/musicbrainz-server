@@ -80,7 +80,7 @@ sub create : Chained('attribute_base') RequireAuth(account_admin) SecureForm {
         Language => 'Admin::Attributes::Language',
         Script => 'Admin::Attributes::Script',
     );
-    my $form_name = $forms{$model} // 'Admin::Attributes';
+    my $form_name = $forms{$model} // 'Admin::Attributes::Generic';
     my $form = $c->form( form => $form_name );
 
     if ($c->form_posted_and_valid($form)) {
@@ -118,7 +118,7 @@ sub edit : Chained('attribute_base') Args(1) RequireAuth(account_admin) SecureFo
         Language => 'Admin::Attributes::Language',
         Script => 'Admin::Attributes::Script',
     );
-    my $form_name = $forms{$model} // 'Admin::Attributes';
+    my $form_name = $forms{$model} // 'Admin::Attributes::Generic';
     my $form = $c->form( form => $form_name, init_object => $attr );
 
     if ($c->form_posted_and_valid($form)) {
