@@ -15,7 +15,7 @@ import loopParity from '../../utility/loopParity.js';
 
 import {type AttributeT} from './types.js';
 
-const renderAttributesHeaderAccordingToModel = (model: string) => {
+const extraHeaders = (model: string) => {
   return match (model) {
     'MediumFormat' => (
       <>
@@ -29,7 +29,7 @@ const renderAttributesHeaderAccordingToModel = (model: string) => {
   };
 };
 
-const renderAttributes = (attribute: AttributeT) => {
+const extraColumns = (attribute: AttributeT) => {
   return match (attribute) {
     {entityType: 'medium_format', const has_discids, const year, ...} => (
       <>
@@ -71,7 +71,7 @@ component Attribute(
             <th>{'MBID'}</th>
             <th>{'Child order'}</th>
             <th>{'Parent ID'}</th>
-            {renderAttributesHeaderAccordingToModel(model)}
+            {extraHeaders(model)}
             <th>{'Actions'}</th>
           </tr>
         </thead>
@@ -86,7 +86,7 @@ component Attribute(
                 <td>{attribute.gid}</td>
                 <td>{attribute.child_order}</td>
                 <td>{attribute.parent_id}</td>
-                {renderAttributes(attribute)}
+                {extraColumns(attribute)}
                 <td>
                   <a
                     href={`/admin/attributes/${model}/edit/${attribute.id}`}
