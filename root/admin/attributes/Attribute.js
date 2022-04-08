@@ -8,8 +8,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as React from 'react';
+
+import {CatalystContext} from '../../context.mjs';
 import Layout from '../../layout/index.js';
 import {compare} from '../../static/scripts/common/i18n.js';
+import {isRelationshipEditor}
+  from '../../static/scripts/common/utility/privileges.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
 import loopParity from '../../utility/loopParity.js';
 
@@ -20,17 +25,17 @@ const extraHeaders = (model: string) => {
     case 'MediumFormat': {
       return (
         <>
-          <th>{'Year'}</th>
-          <th>{'Disc IDs allowed'}</th>
+          <th>{l('Year')}</th>
+          <th>{l('Disc IDs allowed')}</th>
         </>
       );
     }
     case 'SeriesType':
     case 'CollectionType': {
-      return <th>{'Entity type'}</th>;
+      return <th>{l('Entity type')}</th>;
     }
     case 'WorkAttributeType': {
-      return <th>{'Free text'}</th>;
+      return <th>{l('Free text')}</th>;
     }
     default: return null;
   }
@@ -62,61 +67,93 @@ component Attribute(
   model: string,
 ) {
   const attributes = [...passedAttributes];
+  const $c = React.useContext(CatalystContext);
+  const showEditSections = isRelationshipEditor($c.user);
+
   return (
     <Layout fullWidth title={model}>
       <h1>
-        <a href="/admin/attributes">{'Attributes'}</a>
+        <a href="/admin/attributes">{l('Attributes')}</a>
         {' / ' + model}
       </h1>
+
       <table className="tbl">
         <thead>
           <tr>
-            <th>{'ID'}</th>
-            <th>{'Name'}</th>
-            <th>{'Description'}</th>
-            <th>{'MBID'}</th>
-            <th>{'Child order'}</th>
-            <th>{'Parent ID'}</th>
+            <th>{l('ID')}</th>
+            <th>{l('Name')}</th>
+            <th>{l('Description')}</th>
+            <th>{l('MBID')}</th>
+            {showEditSections ? (
+              <>
+                <th>{l('Child order')}</th>
+                <th>{l('Parent ID')}</th>
+              </>
+            ) : null}
             {extraHeaders(model)}
-            <th>{'Actions'}</th>
+            {showEditSections ? (
+              <th>{l('Actions')}</th>
+            ) : null}
           </tr>
         </thead>
         <tbody>
           {attributes ? attributes
             .sort((a, b) => compare(a.name, b.name))
-            .map((attribute, index) => (
-              <tr className={loopParity(index)} key={attribute.id}>
-                <td>{attribute.id}</td>
-                <td>{attribute.name}</td>
-                <td>{exp.l_admin(attribute.description)}</td>
-                <td>{attribute.gid}</td>
-                <td>{attribute.child_order}</td>
-                <td>{attribute.parent_id}</td>
-                {extraColumns(attribute)}
-                <td>
-                  <a
-                    href={`/admin/attributes/${model}/edit/${attribute.id}`}
-                  >
-                    {'Edit'}
-                  </a>
-                  {' | '}
-                  <a
-                    href={`/admin/attributes/${model}/delete/${attribute.id}`}
-                  >
-                    {'Remove'}
-                  </a>
-                </td>
-              </tr>
-            )) : null}
+            .map((attribute, index) => {
+              const context = attribute.entityType === 'release_group_type'
+                ? 'release_group_primary_type'
+                : attribute.entityType;
+              return (
+                <tr className={loopParity(index)} key={attribute.id}>
+                  <td>{attribute.id}</td>
+                  <td>{lp_attributes(attribute.name, context)}</td>
+                  <td>
+                    {nonEmpty(attribute.description)
+                      ? lp_attributes(attribute.description, context)
+                      : null}
+                  </td>
+                  <td>{attribute.gid}</td>
+                  {showEditSections ? (
+                    <>
+                      <td>{attribute.child_order}</td>
+                      <td>{attribute.parent_id}</td>
+                    </>
+                  ) : null}
+                  {extraColumns(attribute)}
+                  {showEditSections ? (
+                    <td>
+                      <a
+                        href={
+                          `/admin/attributes/${model}/edit/${attribute.id}`
+                        }
+                      >
+                        {l('Edit')}
+                      </a>
+                      {' | '}
+                      <a
+                        href={
+                          `/admin/attributes/${model}/delete/${attribute.id}`
+                        }
+                      >
+                        {l('Remove')}
+                      </a>
+                    </td>
+                  ) : null}
+                </tr>
+              );
+            }) : null}
         </tbody>
       </table>
-      <p>
-        <span className="buttons">
-          <a href={`/admin/attributes/${model}/create`}>
-            {'Add new attribute'}
-          </a>
-        </span>
-      </p>
+
+      {showEditSections ? (
+        <p>
+          <span className="buttons">
+            <a href={`/admin/attributes/${model}/create`}>
+              {l('Add new attribute')}
+            </a>
+          </span>
+        </p>
+      ) : null}
     </Layout>
   );
 }
