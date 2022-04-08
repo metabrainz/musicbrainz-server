@@ -35,7 +35,7 @@ type Props = {
   +otherModels: Array<string>,
 };
 
-const Attributes = ({
+const AttributesList = ({
   entityTypeModels,
   otherModels,
 }: Props): React$Element<typeof Layout> => (
@@ -50,4 +50,4 @@ const Attributes = ({
   </Layout>
 );
 
-export default Attributes;
+export default AttributesList;
