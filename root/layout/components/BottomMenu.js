@@ -320,6 +320,9 @@ const DocumentationMenu = () => (
         <a href="/relationships">{l('Relationship types')}</a>
       </li>
       <li>
+        <a href="/admin/attributes">{l('Entity attributes')}</a>
+      </li>
+      <li>
         <a href="/instruments">{l('Instrument list')}</a>
       </li>
       <li>

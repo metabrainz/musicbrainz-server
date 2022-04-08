@@ -16,7 +16,7 @@ type Props = {
 
 const Attributes = ({models}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title="Attributes">
-    <h1>{'Attributes'}</h1>
+    <h1>{l('Attributes')}</h1>
     <ul>
       {models.sort().map((item) => (
         <li key={item}>
