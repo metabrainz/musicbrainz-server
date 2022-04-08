@@ -7,23 +7,23 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import Layout from '../../layout/index.js';
+import Layout from '../layout/index.js';
 
 import AttributeEditForm from './AttributeEditForm.js';
 import type {CreateOrEditAttributePropsT} from './types.js';
 
-component EditAttribute(...props: CreateOrEditAttributePropsT) {
+component CreateAttribute(...props: CreateOrEditAttributePropsT) {
   return (
     <Layout
       fullWidth
-      title="Edit attribute"
+      title="New attribute"
     >
       <div id="content">
-        <h1>{'Edit attribute'}</h1>
+        <h1>{'New attribute'}</h1>
         <AttributeEditForm {...props} />
       </div>
     </Layout>
   );
 }
 
-export default EditAttribute;
+export default CreateAttribute;

@@ -10,12 +10,13 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context.mjs';
-import Layout from '../../layout/index.js';
-import {compare} from '../../static/scripts/common/i18n.js';
+import {CatalystContext} from '../context.mjs';
+import Layout from '../layout/index.js';
+import {compare} from '../static/scripts/common/i18n.js';
+import {l_admin} from '../static/scripts/common/i18n/admin.js';
 import {isRelationshipEditor}
-  from '../../static/scripts/common/utility/privileges.js';
-import loopParity from '../../utility/loopParity.js';
+  from '../static/scripts/common/utility/privileges.js';
+import loopParity from '../utility/loopParity.js';
 
 const frequencyLabels = {
   0: N_lp('Hidden', 'language optgroup'),
@@ -30,7 +31,7 @@ component Language(attributes: Array<LanguageT>, model: string) {
   return (
     <Layout fullWidth title={model || l('Language')}>
       <h1>
-        <a href="/admin/attributes">{l('Attributes')}</a>
+        <a href="/attributes">{l('Attributes')}</a>
         {' / ' + l('Language')}
       </h1>
 
@@ -45,7 +46,7 @@ component Language(attributes: Array<LanguageT>, model: string) {
             <th>{l('ISO 639-3')}</th>
             <th>{l('Frequency')}</th>
             {showEditSections ? (
-              <th>{l('Actions')}</th>
+              <th>{l_admin('Actions')}</th>
             ) : null}
           </tr>
         </thead>
@@ -64,12 +65,12 @@ component Language(attributes: Array<LanguageT>, model: string) {
               <td>{frequencyLabels[attr.frequency]()}</td>
               {showEditSections ? (
                 <td>
-                  <a href={`/admin/attributes/${model}/edit/${attr.id}`}>
-                    {l('Edit')}
+                  <a href={`/attributes/${model}/edit/${attr.id}`}>
+                    {l_admin('Edit')}
                   </a>
                   {' | '}
-                  <a href={`/admin/attributes/${model}/delete/${attr.id}`}>
-                    {l('Remove')}
+                  <a href={`/attributes/${model}/delete/${attr.id}`}>
+                    {l_admin('Remove')}
                   </a>
                 </td>
               ) : null}
@@ -80,8 +81,8 @@ component Language(attributes: Array<LanguageT>, model: string) {
       {showEditSections ? (
         <p>
           <span className="buttons">
-            <a href={`/admin/attributes/${model}/create`}>
-              {l('Add new attribute')}
+            <a href={`/attributes/${model}/create`}>
+              {l_admin('Add new attribute')}
             </a>
           </span>
         </p>

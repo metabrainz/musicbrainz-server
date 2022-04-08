@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Form::Admin::Attributes::Generic;
+package MusicBrainz::Server::Form::Attributes::Generic;
 use strict;
 use warnings;
 

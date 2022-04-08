@@ -10,13 +10,13 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context.mjs';
-import Layout from '../../layout/index.js';
-import {compare} from '../../static/scripts/common/i18n.js';
+import {CatalystContext} from '../context.mjs';
+import Layout from '../layout/index.js';
+import {compare} from '../static/scripts/common/i18n.js';
 import {isRelationshipEditor}
-  from '../../static/scripts/common/utility/privileges.js';
-import yesNo from '../../static/scripts/common/utility/yesNo.js';
-import loopParity from '../../utility/loopParity.js';
+  from '../static/scripts/common/utility/privileges.js';
+import yesNo from '../static/scripts/common/utility/yesNo.js';
+import loopParity from '../utility/loopParity.js';
 
 import {type AttributeT} from './types.js';
 
@@ -69,7 +69,7 @@ component Attribute(attributes: Array<AttributeT>, model: string) {
   return (
     <Layout fullWidth title={model}>
       <h1>
-        <a href="/admin/attributes">{l('Attributes')}</a>
+        <a href="/attributes">{l('Attributes')}</a>
         {' / ' + model}
       </h1>
 
@@ -82,13 +82,13 @@ component Attribute(attributes: Array<AttributeT>, model: string) {
             <th>{l('MBID')}</th>
             {showEditSections ? (
               <>
-                <th>{l('Child order')}</th>
-                <th>{l('Parent ID')}</th>
+                <th>{l_admin('Child order')}</th>
+                <th>{l_admin('Parent ID')}</th>
               </>
             ) : null}
             {extraHeaders(model)}
             {showEditSections ? (
-              <th>{l('Actions')}</th>
+              <th>{l_admin('Actions')}</th>
             ) : null}
           </tr>
         </thead>
@@ -120,18 +120,18 @@ component Attribute(attributes: Array<AttributeT>, model: string) {
                     <td>
                       <a
                         href={
-                          `/admin/attributes/${model}/edit/${attribute.id}`
+                          `/attributes/${model}/edit/${attribute.id}`
                         }
                       >
-                        {l('Edit')}
+                        {l_admin('Edit')}
                       </a>
                       {' | '}
                       <a
                         href={
-                          `/admin/attributes/${model}/delete/${attribute.id}`
+                          `/attributes/${model}/delete/${attribute.id}`
                         }
                       >
-                        {l('Remove')}
+                        {l_admin('Remove')}
                       </a>
                     </td>
                   ) : null}
@@ -144,8 +144,8 @@ component Attribute(attributes: Array<AttributeT>, model: string) {
       {showEditSections ? (
         <p>
           <span className="buttons">
-            <a href={`/admin/attributes/${model}/create`}>
-              {l('Add new attribute')}
+            <a href={`/attributes/${model}/create`}>
+              {l_admin('Add new attribute')}
             </a>
           </span>
         </p>
