@@ -33,7 +33,7 @@ my @models = qw(
 );
 # Missing: Alias types, WorkAttributeTypeAllowedValue
 
-sub index : Path('/admin/attributes') Args(0) RequireAuth(account_admin) {
+sub index : Path('/admin/attributes') Args(0) {
     my ($self, $c) = @_;
 
     $c->stash(
@@ -43,7 +43,7 @@ sub index : Path('/admin/attributes') Args(0) RequireAuth(account_admin) {
     );
 }
 
-sub attribute_base : Chained('/') PathPart('admin/attributes') CaptureArgs(1) RequireAuth(account_admin) {
+sub attribute_base : Chained('/') PathPart('admin/attributes') CaptureArgs(1) {
     my ($self, $c, $model) = @_;
 
     $c->detach('/error_404') unless contains_string(\@models, $model);
@@ -51,7 +51,7 @@ sub attribute_base : Chained('/') PathPart('admin/attributes') CaptureArgs(1) Re
     $c->stash->{model} = $model;
 }
 
-sub attribute_index : Chained('attribute_base') PathPart('') RequireAuth(account_admin) {
+sub attribute_index : Chained('attribute_base') PathPart('') {
     my ($self, $c) = @_;
     my $model = $c->stash->{model};
     my @attr = $c->model($model)->get_all();

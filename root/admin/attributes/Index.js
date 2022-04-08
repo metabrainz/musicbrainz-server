@@ -14,7 +14,7 @@ component Attributes(models as passedModels: Array<string>) {
   const models = [...passedModels];
   return (
     <Layout fullWidth title="Attributes">
-      <h1>{'Attributes'}</h1>
+      <h1>{l('Attributes')}</h1>
       <ul>
         {models.sort().map((item) => (
           <li key={item}>
