@@ -23,6 +23,21 @@ my @entity_type_models = qw(
     WorkType
 );
 
+my @alias_type_models = qw(
+    AreaAliasType
+    ArtistAliasType
+    EventAliasType
+    GenreAliasType
+    InstrumentAliasType
+    LabelAliasType
+    PlaceAliasType
+    RecordingAliasType
+    ReleaseAliasType
+    ReleaseGroupAliasType
+    SeriesAliasType
+    WorkAliasType
+);
+
 my @other_models = qw(
     CoverArtType
     EventArtType
@@ -35,8 +50,8 @@ my @other_models = qw(
     WorkAttributeType
 );
 
-my @all_models = (@entity_type_models, @other_models);
-# Missing: Alias types, WorkAttributeTypeAllowedValue
+my @all_models = (@entity_type_models, @alias_type_models, @other_models);
+# Missing: WorkAttributeTypeAllowedValue
 
 sub index : Path('/attributes') Args(0) {
     my ($self, $c) = @_;
@@ -45,6 +60,7 @@ sub index : Path('/attributes') Args(0) {
         current_view => 'Node',
         component_path => 'attributes/AttributesList',
         component_props => {
+            aliasTypeModels => \@alias_type_models,
             entityTypeModels => \@entity_type_models,
             otherModels => \@other_models,
         },

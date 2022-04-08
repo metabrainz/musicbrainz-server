@@ -32,6 +32,7 @@ component AttributeList(models as passedModels: Array<string>) {
 }
 
 component AttributesList(
+  aliasTypeModels: Array<string>,
   entityTypeModels: Array<string>,
   otherModels: Array<string>,
 ) {
@@ -41,6 +42,9 @@ component AttributesList(
 
       <h2>{l('Entity types')}</h2>
       <AttributeList models={entityTypeModels} />
+
+      <h2>{l('Alias types')}</h2>
+      <AttributeList models={aliasTypeModels} />
 
       <h2>{l('Other attributes')}</h2>
       <AttributeList models={otherModels} />
