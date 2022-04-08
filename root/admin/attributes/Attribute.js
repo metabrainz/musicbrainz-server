@@ -20,7 +20,7 @@ type Props = {
   +model: string,
 };
 
-const renderAttributesHeaderAccordingToModel = (model: string) => {
+const extraHeaders = (model: string) => {
   switch (model) {
     case 'MediumFormat': {
       return (
@@ -41,7 +41,7 @@ const renderAttributesHeaderAccordingToModel = (model: string) => {
   }
 };
 
-const renderAttributes = (attribute: AttributeT) => {
+const extraColumns = (attribute: AttributeT) => {
   switch (attribute.entityType) {
     case 'medium_format': {
       return (
@@ -80,7 +80,7 @@ const Attribute = ({
           <th>{'MBID'}</th>
           <th>{'Child order'}</th>
           <th>{'Parent ID'}</th>
-          {renderAttributesHeaderAccordingToModel(model)}
+          {extraHeaders(model)}
           <th>{'Actions'}</th>
         </tr>
       </thead>
@@ -95,7 +95,7 @@ const Attribute = ({
               <td>{attribute.gid}</td>
               <td>{attribute.child_order}</td>
               <td>{attribute.parent_id}</td>
-              {renderAttributes(attribute)}
+              {extraColumns(attribute)}
               <td>
                 <a href={`/admin/attributes/${model}/edit/${attribute.id}`}>
                   {'Edit'}
