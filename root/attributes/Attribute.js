@@ -11,13 +11,13 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
-import Layout from '../layout/index.js';
 import {compare} from '../static/scripts/common/i18n.js';
 import {isRelationshipEditor}
   from '../static/scripts/common/utility/privileges.js';
 import yesNo from '../static/scripts/common/utility/yesNo.js';
 import loopParity from '../utility/loopParity.js';
 
+import AttributeLayout from './AttributeLayout.js';
 import {type AttributeT} from './types.js';
 
 const extraHeaders = (model: string) => {
@@ -71,12 +71,7 @@ component Attribute(
   const showEditSections = isRelationshipEditor($c.user);
 
   return (
-    <Layout fullWidth title={model}>
-      <h1>
-        <a href="/attributes">{l('Attributes')}</a>
-        {' / ' + model}
-      </h1>
-
+    <AttributeLayout model={model} showEditSections={showEditSections}>
       <table className="tbl">
         <thead>
           <tr>
@@ -144,17 +139,7 @@ component Attribute(
             }) : null}
         </tbody>
       </table>
-
-      {showEditSections ? (
-        <p>
-          <span className="buttons">
-            <a href={`/attributes/${model}/create`}>
-              {l_admin('Add new attribute')}
-            </a>
-          </span>
-        </p>
-      ) : null}
-    </Layout>
+    </AttributeLayout>
   );
 }
 
