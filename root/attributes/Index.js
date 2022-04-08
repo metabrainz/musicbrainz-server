@@ -9,21 +9,44 @@
  */
 
 import Layout from '../layout/index.js';
+import {sortByString} from '../static/scripts/common/utility/arrays.js';
+import attributeModelName
+  from '../static/scripts/common/utility/attributeModelName.js';
 
-type Props = {
-  +models: Array<string>,
-};
+const AttributeList = ({modelList}: {modelList: Array<string>}) => {
+  const sortedModels = sortByString(
+    modelList,
+    model => attributeModelName(model),
+  );
 
-const Attributes = ({models}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title="Attributes">
-    <h1>{l('Attributes')}</h1>
+  return (
     <ul>
-      {models.sort().map((item) => (
-        <li key={item}>
-          <a href={'/attributes/' + item}>{item}</a>
+      {sortedModels.map((model) => (
+        <li key={model}>
+          <a href={'/attributes/' + model}>{attributeModelName(model)}</a>
         </li>
       ))}
     </ul>
+  );
+};
+
+type Props = {
+  +entityTypeModels: Array<string>,
+  +otherModels: Array<string>,
+};
+
+const Attributes = ({
+  entityTypeModels,
+  otherModels,
+}: Props): React$Element<typeof Layout> => (
+  <Layout fullWidth title={l('Attributes')}>
+    <h1>{l('Attributes')}</h1>
+
+    <h2>{l('Entity types')}</h2>
+    <AttributeList modelList={entityTypeModels} />
+
+    <h2>{l('Other attributes')}</h2>
+    <AttributeList modelList={otherModels} />
   </Layout>
 );
 
