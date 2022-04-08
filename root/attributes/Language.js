@@ -11,12 +11,13 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
-import Layout from '../layout/index.js';
 import {compare} from '../static/scripts/common/i18n.js';
 import {l_admin} from '../static/scripts/common/i18n/admin.js';
 import {isRelationshipEditor}
   from '../static/scripts/common/utility/privileges.js';
 import loopParity from '../utility/loopParity.js';
+
+import AttributeLayout from './AttributeLayout.js';
 
 const frequencyLabels = {
   0: N_lp('Hidden', 'language optgroup'),
@@ -33,12 +34,7 @@ component Language(
   const showEditSections = isRelationshipEditor($c.user);
 
   return (
-    <Layout fullWidth title={model || l('Language')}>
-      <h1>
-        <a href="/attributes">{l('Attributes')}</a>
-        {' / ' + l('Language')}
-      </h1>
-
+    <AttributeLayout model={model} showEditSections={showEditSections}>
       <table className="tbl">
         <thead>
           <tr>
@@ -81,17 +77,7 @@ component Language(
             </tr>
           ))}
       </table>
-
-      {showEditSections ? (
-        <p>
-          <span className="buttons">
-            <a href={`/attributes/${model}/create`}>
-              {l_admin('Add new attribute')}
-            </a>
-          </span>
-        </p>
-      ) : null}
-    </Layout>
+    </AttributeLayout>
   );
 }
 
