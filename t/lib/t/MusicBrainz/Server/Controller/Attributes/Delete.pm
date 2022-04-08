@@ -31,7 +31,10 @@ test 'Delete standard attribute (series type)' => sub {
     $test->mech->get('/logout');
     $test->mech->get('/login');
     $test->mech->submit_form(
-        with_fields => { username => 'admin', password => 'password' },
+        with_fields => {
+            username => 'relationship_editor',
+            password => 'password',
+        },
     );
 
     $mech->get('/attributes/SeriesType/delete/1');
@@ -94,7 +97,10 @@ test 'Delete language' => sub {
     $test->mech->get('/logout');
     $test->mech->get('/login');
     $test->mech->submit_form(
-        with_fields => { username => 'admin', password => 'password' },
+        with_fields => {
+            username => 'relationship_editor',
+            password => 'password',
+        },
     );
 
     $mech->get_ok('/attributes/Language/delete/120');
@@ -157,7 +163,10 @@ test 'Delete script' => sub {
     $test->mech->get('/logout');
     $test->mech->get('/login');
     $test->mech->submit_form(
-        with_fields => { username => 'admin', password => 'password' },
+        with_fields => {
+            username => 'relationship_editor',
+            password => 'password',
+        },
     );
 
     $mech->get_ok('/attributes/Script/delete/28');
