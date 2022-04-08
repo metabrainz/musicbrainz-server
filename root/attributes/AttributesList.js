@@ -31,7 +31,7 @@ component AttributeList(models as passedModels: Array<string>) {
   );
 }
 
-component Attributes(
+component AttributesList(
   entityTypeModels: Array<string>,
   otherModels: Array<string>,
 ) {
@@ -48,4 +48,4 @@ component Attributes(
   );
 }
 
-export default Attributes;
+export default AttributesList;
