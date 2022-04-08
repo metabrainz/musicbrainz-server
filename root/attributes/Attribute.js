@@ -10,14 +10,15 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context.mjs';
-import Layout from '../../layout/index.js';
-import {compare} from '../../static/scripts/common/i18n.js';
-import expand2react from '../../static/scripts/common/i18n/expand2react.js';
+import {CatalystContext} from '../context.mjs';
+import Layout from '../layout/index.js';
+import {compare} from '../static/scripts/common/i18n.js';
+import {l_admin} from '../static/scripts/common/i18n/admin.js';
+import expand2react from '../static/scripts/common/i18n/expand2react.js';
 import {isRelationshipEditor}
-  from '../../static/scripts/common/utility/privileges.js';
-import yesNo from '../../static/scripts/common/utility/yesNo.js';
-import loopParity from '../../utility/loopParity.js';
+  from '../static/scripts/common/utility/privileges.js';
+import yesNo from '../static/scripts/common/utility/yesNo.js';
+import loopParity from '../utility/loopParity.js';
 
 import {type AttributeT} from './types.js';
 
@@ -78,7 +79,7 @@ const Attribute = ({
   return (
     <Layout fullWidth title={model}>
       <h1>
-        <a href="/admin/attributes">{l('Attributes')}</a>
+        <a href="/attributes">{l('Attributes')}</a>
         {' / ' + model}
       </h1>
 
@@ -91,13 +92,13 @@ const Attribute = ({
             <th>{l('MBID')}</th>
             {showEditSections ? (
               <>
-                <th>{l('Child order')}</th>
-                <th>{l('Parent ID')}</th>
+                <th>{l_admin('Child order')}</th>
+                <th>{l_admin('Parent ID')}</th>
               </>
             ) : null}
             {extraHeaders(model)}
             {showEditSections ? (
-              <th>{l('Actions')}</th>
+              <th>{l_admin('Actions')}</th>
             ) : null}
           </tr>
         </thead>
@@ -119,18 +120,12 @@ const Attribute = ({
                 {extraColumns(attribute)}
                 {showEditSections ? (
                   <td>
-                    <a
-                      href={`/admin/attributes/${model}/edit/${attribute.id}`}
-                    >
-                      {l('Edit')}
+                    <a href={`/attributes/${model}/edit/${attribute.id}`}>
+                      {l_admin('Edit')}
                     </a>
                     {' | '}
-                    <a
-                      href={
-                        `/admin/attributes/${model}/delete/${attribute.id}`
-                      }
-                    >
-                      {l('Remove')}
+                    <a href={`/attributes/${model}/delete/${attribute.id}`}>
+                      {l_admin('Remove')}
                     </a>
                   </td>
                 ) : null}
@@ -142,8 +137,8 @@ const Attribute = ({
       {showEditSections ? (
         <p>
           <span className="buttons">
-            <a href={`/admin/attributes/${model}/create`}>
-              {l('Add new attribute')}
+            <a href={`/attributes/${model}/create`}>
+              {l_admin('Add new attribute')}
             </a>
           </span>
         </p>

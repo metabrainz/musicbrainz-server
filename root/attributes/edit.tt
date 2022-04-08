@@ -1,6 +1,6 @@
 [% WRAPPER "layout.tt" title="Edit attribute" full_width=1 %]
     <div id="content">
         <h1>[% "Edit attribute" %]</h1>
-        [% INCLUDE "admin/attributes/form.tt" %]
+        [% INCLUDE "attributes/form.tt" %]
     </div>
 [% END %]

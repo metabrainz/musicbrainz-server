@@ -8,7 +8,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import Layout from '../../layout/index.js';
+import Layout from '../layout/index.js';
 
 type Props = {
   +models: Array<string>,
@@ -20,7 +20,7 @@ const Attributes = ({models}: Props): React$Element<typeof Layout> => (
     <ul>
       {models.sort().map((item) => (
         <li key={item}>
-          <a href={'/admin/attributes/' + item}>{item}</a>
+          <a href={'/attributes/' + item}>{item}</a>
         </li>
       ))}
     </ul>

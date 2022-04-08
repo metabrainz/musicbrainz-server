@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Controller::Admin::Attributes;
+package MusicBrainz::Server::Controller::Attributes;
 use Moose;
 use MooseX::MethodAttributes;
 use namespace::autoclean;
@@ -32,17 +32,17 @@ my @models = qw(
 );
 # Missing: Alias types, WorkAttributeTypeAllowedValue
 
-sub index : Path('/admin/attributes') Args(0) {
+sub index : Path('/attributes') Args(0) {
     my ($self, $c) = @_;
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'admin/attributes/Index',
+        component_path => 'attributes/Index',
         component_props => {models => \@models},
     );
 }
 
-sub attribute_base : Chained('/') PathPart('admin/attributes') CaptureArgs(1) {
+sub attribute_base : Chained('/') PathPart('attributes') CaptureArgs(1) {
     my ($self, $c, $model) = @_;
 
     $c->detach('/error_404') unless contains_string(\@models, $model);
@@ -56,10 +56,10 @@ sub attribute_index : Chained('attribute_base') PathPart('') {
     my @attr = $c->model($model)->get_all();
 
     my %component_paths = (
-        Language => 'admin/attributes/Language',
-        Script => 'admin/attributes/Script',
+        Language => 'attributes/Language',
+        Script => 'attributes/Script',
     );
-    my $component_path = $component_paths{$model} // 'admin/attributes/Attribute';
+    my $component_path = $component_paths{$model} // 'attributes/Attribute';
 
     $c->stash(
         current_view => 'Node',
@@ -76,10 +76,10 @@ sub create : Chained('attribute_base') RequireAuth(account_admin) SecureForm {
     my $model = $c->stash->{model};
 
     my %forms = (
-        Language => 'Admin::Attributes::Language',
-        Script => 'Admin::Attributes::Script',
+        Language => 'Attributes::Language',
+        Script => 'Attributes::Script',
     );
-    my $form_name = $forms{$model} // 'Admin::Attributes::Generic';
+    my $form_name = $forms{$model} // 'Attributes::Generic';
     my $form = $c->form( form => $form_name );
 
     if ($c->form_posted_and_valid($form)) {
@@ -87,7 +87,7 @@ sub create : Chained('attribute_base') RequireAuth(account_admin) SecureForm {
             $c->model($model)->insert({ map { $_->name => $_->value } $form->edit_fields });
         });
 
-        $c->response->redirect($c->uri_for('/admin/attributes', $model));
+        $c->response->redirect($c->uri_for('/attributes', $model));
         $c->detach;
     }
 }
@@ -98,10 +98,10 @@ sub edit : Chained('attribute_base') Args(1) RequireAuth(account_admin) SecureFo
     my $attr = $c->model($model)->get_by_id($id);
 
     my %forms = (
-        Language => 'Admin::Attributes::Language',
-        Script => 'Admin::Attributes::Script',
+        Language => 'Attributes::Language',
+        Script => 'Attributes::Script',
     );
-    my $form_name = $forms{$model} // 'Admin::Attributes::Generic';
+    my $form_name = $forms{$model} // 'Attributes::Generic';
     my $form = $c->form( form => $form_name, init_object => $attr );
 
     if ($c->form_posted_and_valid($form)) {
@@ -109,7 +109,7 @@ sub edit : Chained('attribute_base') Args(1) RequireAuth(account_admin) SecureFo
             $c->model($model)->update($id, { map { $_->name => $_->value } $form->edit_fields });
         });
 
-        $c->response->redirect($c->uri_for('/admin/attributes', $model));
+        $c->response->redirect($c->uri_for('/attributes', $model));
         $c->detach;
     }
 }
@@ -131,7 +131,7 @@ sub delete : Chained('attribute_base') Args(1) RequireAuth(account_admin) Secure
 
         $c->stash(
             current_view => 'Node',
-            component_path => 'admin/attributes/CannotRemoveAttribute',
+            component_path => 'attributes/CannotRemoveAttribute',
             component_props => {message => $error_message},
         );
 
@@ -144,7 +144,7 @@ sub delete : Chained('attribute_base') Args(1) RequireAuth(account_admin) Secure
 
         $c->stash(
             current_view => 'Node',
-            component_path => 'admin/attributes/CannotRemoveAttribute',
+            component_path => 'attributes/CannotRemoveAttribute',
             component_props => {message => $error_message},
         );
 
@@ -152,7 +152,7 @@ sub delete : Chained('attribute_base') Args(1) RequireAuth(account_admin) Secure
     }
 
     $c->stash(
-        component_path  => 'admin/attributes/DeleteAttribute',
+        component_path  => 'attributes/DeleteAttribute',
         component_props => {
             attribute => $attr->TO_JSON,
             form => $form->TO_JSON,
@@ -169,7 +169,7 @@ sub delete : Chained('attribute_base') Args(1) RequireAuth(account_admin) Secure
             });
         }
 
-        $c->response->redirect($c->uri_for('/admin/attributes', $model));
+        $c->response->redirect($c->uri_for('/attributes', $model));
         $c->detach;
     }
 }
