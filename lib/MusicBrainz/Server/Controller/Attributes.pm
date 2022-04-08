@@ -9,28 +9,33 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 extends 'MusicBrainz::Server::Controller';
 
-my @models = qw(
+my @entity_type_models = qw(
     AreaType
     ArtistType
     CollectionType
-    CoverArtType
-    EventArtType
     EventType
-    Gender
     InstrumentType
     LabelType
-    Language
-    MediumFormat
     PlaceType
     ReleaseGroupType
     ReleaseGroupSecondaryType
+    SeriesType
+    WorkType
+);
+
+my @other_models = qw(
+    CoverArtType
+    EventArtType
+    Gender
+    Language
+    MediumFormat
     ReleaseStatus
     ReleasePackaging
     Script
-    SeriesType
-    WorkType
     WorkAttributeType
 );
+
+my @all_models = (@entity_type_models, @other_models);
 # Missing: Alias types, WorkAttributeTypeAllowedValue
 
 sub index : Path('/attributes') Args(0) {
@@ -39,14 +44,17 @@ sub index : Path('/attributes') Args(0) {
     $c->stash(
         current_view => 'Node',
         component_path => 'attributes/Index',
-        component_props => {models => \@models},
+        component_props => {
+            entityTypeModels => \@entity_type_models,
+            otherModels => \@other_models,
+        },
     );
 }
 
 sub attribute_base : Chained('/') PathPart('attributes') CaptureArgs(1) {
     my ($self, $c, $model) = @_;
 
-    $c->detach('/error_404') unless contains_string(\@models, $model);
+    $c->detach('/error_404') unless contains_string(\@all_models, $model);
 
     $c->stash->{model} = $model;
 }

@@ -9,19 +9,41 @@
  */
 
 import Layout from '../layout/index.js';
+import {sortByString} from '../static/scripts/common/utility/arrays.js';
+import attributeModelName
+  from '../static/scripts/common/utility/attributeModelName.js';
 
-component Attributes(models as passedModels: Array<string>) {
+component AttributeList(models as passedModels: Array<string>) {
   const models = [...passedModels];
+  const sortedModels = sortByString(
+    models,
+    model => attributeModelName(model),
+  );
+
   return (
-    <Layout fullWidth title="Attributes">
+    <ul>
+      {sortedModels.map((model) => (
+        <li key={model}>
+          <a href={'/attributes/' + model}>{attributeModelName(model)}</a>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+component Attributes(
+  entityTypeModels: Array<string>,
+  otherModels: Array<string>,
+) {
+  return (
+    <Layout fullWidth title={l('Attributes')}>
       <h1>{l('Attributes')}</h1>
-      <ul>
-        {models.sort().map((item) => (
-          <li key={item}>
-            <a href={'/attributes/' + item}>{item}</a>
-          </li>
-        ))}
-      </ul>
+
+      <h2>{l('Entity types')}</h2>
+      <AttributeList models={entityTypeModels} />
+
+      <h2>{l('Other attributes')}</h2>
+      <AttributeList models={otherModels} />
     </Layout>
   );
 }
