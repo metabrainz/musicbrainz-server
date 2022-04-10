@@ -323,7 +323,8 @@ sub construct_url_lists($$$@) {
 
         if ($suffix_info{paginated}) {
             # 100 items per page, and the first page is covered by the base.
-            my $paginated_count = ceil($id_info->{$suffix_info{paginated}} / 100) - 1;
+            my $item_count = $id_info->{ $suffix_info{paginated} } // 0;
+            my $paginated_count = ceil($item_count / 100) - 1;
 
             # Since we exclude page 1 above, this is for anything above 0.
             if ($paginated_count > 0) {
