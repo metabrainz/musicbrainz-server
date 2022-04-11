@@ -34,7 +34,7 @@ const AddAnnotation = ({edit}: Props): React.Element<'table'> => {
           <th>
             {addColonText(formatEntityTypeName(entityType))}
           </th>
-          <td>
+          <td colSpan={2}>
             <DescriptiveLink
               entity={display[entityType]}
             />
@@ -43,7 +43,7 @@ const AddAnnotation = ({edit}: Props): React.Element<'table'> => {
       ) : null}
       <tr>
         <th>{addColonText(l('Text'))}</th>
-        <td>
+        <td colSpan={2}>
           {display.html
             ? (
               <span
@@ -70,7 +70,7 @@ const AddAnnotation = ({edit}: Props): React.Element<'table'> => {
       {display.changelog ? (
         <tr>
           <th>{addColonText(l('Summary'))}</th>
-          <td>
+          <td colSpan={2}>
             {display.changelog}
           </td>
         </tr>
