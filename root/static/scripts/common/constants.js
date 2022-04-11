@@ -47,6 +47,7 @@ export const DLABEL_ID = 1;
 export const FAVICON_CLASSES = {
   '45cat.com': 'fortyfivecat',
   '45worlds.com': 'fortyfiveworlds',
+  'abc.net.au/triplejunearthed': 'triplejunearthed',
   'adp.library.ucsb.edu': 'dahr',
   'allmusic.com': 'allmusic',
   'animenewsnetwork.com': 'animenewsnetwork',

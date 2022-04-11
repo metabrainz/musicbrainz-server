@@ -4574,10 +4574,17 @@ limited_link_type_combinations: [
   },
   // triple j Unearthed
   {
-                     input_url: 'https://www.triplejunearthed.com/artist/sampa-great',
+                     input_url: 'http://www.triplejunearthed.com/artist/sampa-great',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.abc.net.au/triplejunearthed/artist/sampa-great',
   },
+  {
+                     input_url: 'http://abc.net.au/triplejunearthed/artist/sophisticated-dingo/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.abc.net.au/triplejunearthed/artist/sophisticated-dingo/',
+},
   // Tumblr
   {
                      input_url: 'http://deadmau5.tumblr.com/',
