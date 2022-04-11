@@ -21,7 +21,13 @@ sub _load_tree
 {
     my ($self, $c) = @_;
 
-    my $tree = $c->model('LinkAttributeType')->get_tree(sub { return shift->root_id != $INSTRUMENT_ROOT_ID });
+    my $tree = $c->model('LinkAttributeType')->get_tree(sub {
+        my $attribute_type = shift;
+        return (
+            $attribute_type->root_id != $INSTRUMENT_ROOT_ID ||
+            $attribute_type->id == $INSTRUMENT_ROOT_ID
+        );
+    });
     $c->stash( root => $tree );
 }
 
@@ -95,7 +101,12 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
     my ($self, $c, $gid) = @_;
 
     my $link_attr_type = $c->stash->{link_attr_type};
-    $c->detach('/error_403') if $link_attr_type->root_id == $INSTRUMENT_ROOT_ID;
+
+    my $is_instrument_child =
+        $link_attr_type->root_id == $INSTRUMENT_ROOT_ID &&
+        $link_attr_type->id != $INSTRUMENT_ROOT_ID;
+    $c->detach('/error_403') if $is_instrument_child;
+
     $self->_load_tree($c);
 
     my $form = $c->form( form => 'Admin::LinkAttributeType', init_object => $link_attr_type );
@@ -142,7 +153,12 @@ sub delete : Chained('load') RequireAuth(relationship_editor) SecureForm
     my ($self, $c, $gid) = @_;
 
     my $link_attr_type = $c->stash->{link_attr_type};
-    $c->detach('/error_403') if $link_attr_type->root_id == $INSTRUMENT_ROOT_ID;
+
+    my $is_instrument_child =
+        $link_attr_type->root_id == $INSTRUMENT_ROOT_ID &&
+        $link_attr_type->id != $INSTRUMENT_ROOT_ID;
+    $c->detach('/error_403') if $is_instrument_child;
+
     my $form = $c->form(
         form => 'SecureConfirm'
     );
