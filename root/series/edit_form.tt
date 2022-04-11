@@ -1,6 +1,6 @@
 [% script_manifest('edit.js') %]
 
-<p>[%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc => doc_link('Series'), doc_styleguide => doc_link('Style/Series')}) -%]</p>
+<p>[%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc => { href => doc_link('Series'), target => '_blank' }, doc_styleguide => { href => doc_link('Style/Series'), target => '_blank' }}) -%]</p>
 
 <form action="[% c.req.uri %]" method="post" class="edit-series">
     [%- USE r = FormRenderer(form) -%]

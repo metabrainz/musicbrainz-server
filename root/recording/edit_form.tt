@@ -14,7 +14,7 @@
 [% script_manifest('edit.js') %]
 [% script_manifest('recording/edit.js', {async => 'async'}) %]
 
-<p>[%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc => doc_link('Recording'), doc_styleguide => doc_link('Style/Recording')}) -%]</p>
+<p>[%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc => { href => doc_link('Recording'), target => '_blank' }, doc_styleguide => { href => doc_link('Style/Recording'), target => '_blank' }}) -%]</p>
 
 <form action="[% c.req.uri %]" method="post" class="edit-recording">
   [%- USE r = FormRenderer(form) -%]

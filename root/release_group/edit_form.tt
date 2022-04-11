@@ -2,7 +2,7 @@
 
 [% script_manifest('edit.js') %]
 
-<p>[%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc => doc_link('Release_Group'), doc_styleguide => doc_link('Style/Release_Group')}) -%]</p>
+<p>[%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc => { href => doc_link('Release_Group'), target => '_blank' }, doc_styleguide => { href => doc_link('Style/Release_Group'), target => '_blank' }}) -%]</p>
 
 <form action="[% c.req.uri %]" method="post">
   [%- USE r = FormRenderer(form) -%]
