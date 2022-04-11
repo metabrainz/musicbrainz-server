@@ -29,56 +29,52 @@ const AddAnnotation = ({edit}: Props): React.Element<'table'> => {
     <table
       className={`details add-${entityType}-annotation`}
     >
-      <table
-        className={`details add-${entityType}-annotation`}
-      >
-        {display[entityType] || !edit.preview /*:: === true */ ? (
-          <tr>
-            <th>
-              {addColonText(formatEntityTypeName(entityType))}
-            </th>
-            <td>
-              <DescriptiveLink
-                entity={display[entityType]}
-              />
-            </td>
-          </tr>
-        ) : null}
+      {display[entityType] || !edit.preview /*:: === true */ ? (
         <tr>
-          <th>{addColonText(l('Text'))}</th>
+          <th>
+            {addColonText(formatEntityTypeName(entityType))}
+          </th>
           <td>
-            {display.html
-              ? (
-                <span
-                  dangerouslySetInnerHTML={{__html: display.html}}
-                />
-              ) : (
-                <p>
-                  <span
-                    className="comment"
-                  >
-                    {l('This annotation is empty.')}
-                  </span>
-                </p>
-              )}
+            <DescriptiveLink
+              entity={display[entityType]}
+            />
           </td>
         </tr>
-        {oldAnnotation == null ? null : (
-          <Diff
-            label={l(addColonText('Annotation comparison'))}
-            newText={display.text}
-            oldText={oldAnnotation}
-          />
-        )}
-        {display.changelog ? (
-          <tr>
-            <th>{addColonText(l('Summary'))}</th>
-            <td>
-              {display.changelog}
-            </td>
-          </tr>
-        ) : null}
-      </table>
+      ) : null}
+      <tr>
+        <th>{addColonText(l('Text'))}</th>
+        <td>
+          {display.html
+            ? (
+              <span
+                dangerouslySetInnerHTML={{__html: display.html}}
+              />
+            ) : (
+              <p>
+                <span
+                  className="comment"
+                >
+                  {l('This annotation is empty.')}
+                </span>
+              </p>
+            )}
+        </td>
+      </tr>
+      {oldAnnotation == null ? null : (
+        <Diff
+          label={l(addColonText('Annotation comparison'))}
+          newText={display.text}
+          oldText={oldAnnotation}
+        />
+      )}
+      {display.changelog ? (
+        <tr>
+          <th>{addColonText(l('Summary'))}</th>
+          <td>
+            {display.changelog}
+          </td>
+        </tr>
+      ) : null}
     </table>
   );
 };
