@@ -65,6 +65,7 @@ const AddAnnotation = ({edit}: Props): React.Element<'table'> => {
           label={l(addColonText('Annotation comparison'))}
           newText={display.text}
           oldText={oldAnnotation}
+          split="\s+"
         />
       )}
       {display.changelog ? (
