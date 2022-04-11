@@ -69,6 +69,9 @@ const RelationshipAttributeTypeIndex = ({
   attribute,
   relationships,
 }: Props): React.Element<typeof Layout> => {
+  const isInstrumentRoot = attribute.id === 14;
+  const isInstrumentChild = attribute.root_id === 14 && !isInstrumentRoot;
+
   const childrenAttrs = attribute.children || [];
   const attrName = upperFirst(l_relationships(attribute.name));
   const title = l('Relationship Attribute') + ' / ' + attrName;
@@ -87,7 +90,7 @@ const RelationshipAttributeTypeIndex = ({
           {attrName}
         </h1>
 
-        {isRelationshipEditor($c.user) ? (
+        {isRelationshipEditor($c.user) && !isInstrumentChild ? (
           <span className="buttons" style={{float: 'right'}}>
             <a href={'/relationship-attribute/' + attribute.gid + '/edit'}>
               {l('Edit')}
@@ -140,17 +143,27 @@ const RelationshipAttributeTypeIndex = ({
         {childrenAttrs.length ? (
           <>
             <h2>{l('Possible values')}</h2>
-            <ul>
-              {childrenAttrs
-                .slice(0)
-                .sort(compareChildren)
-                .map(attribute => (
-                  <AttributeTree
-                    attribute={attribute}
-                    key={attribute.gid}
-                  />
-                ))}
-            </ul>
+            {isInstrumentRoot ? (
+              <p>
+                {exp.l(
+                  `The possible values for this relationship can be seen
+                   from the {instrument_list|instrument list}.`,
+                  {instrument_list: '/instruments'},
+                )}
+              </p>
+            ) : (
+              <ul>
+                {childrenAttrs
+                  .slice(0)
+                  .sort(compareChildren)
+                  .map(attribute => (
+                    <AttributeTree
+                      attribute={attribute}
+                      key={attribute.gid}
+                    />
+                  ))}
+              </ul>
+            )}
           </>
         ) : null}
 

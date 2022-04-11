@@ -78,7 +78,7 @@ my @DBDEFS = (
               {'domain' => 'attributes', 'table' => 'series_type', columns => ['name', 'description'], ctx => 'NULL'},
               {'domain' => 'attributes', 'table' => 'series_ordering_type', columns => ['name', 'description'], ctx => 'NULL'},
               {'domain' => 'attributes', 'table' => 'editor_collection_type', columns => ['name', 'description'], ctx => 'NULL', 'ctxtable' => 'collection_type'},
-              {'domain' => 'relationships', 'table' => 'link_attribute_type', 'columns' => ['description', 'name'], 'where' => 'root != 14'},
+              {'domain' => 'relationships', 'table' => 'link_attribute_type', 'columns' => ['description', 'name'], 'where' => 'root != 14 OR parent IS NULL'},
               {'domain' => 'relationships', 'table' => 'link_type', 'columns' => ['description', 'link_phrase', 'name', 'reverse_link_phrase', 'long_link_phrase']},
               {'domain' => 'instruments', 'table' => 'instrument', 'columns' => ['name'], 'ctx' => 'comment'},
               {'domain' => 'instrument_descriptions', 'table' => 'instrument', 'columns' => ['description'], comment => ['name']}
