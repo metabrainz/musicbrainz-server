@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Artist::AddAnnotation;
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits );
+use Time::HiRes qw( gettimeofday tv_interval );
 
 with 't::Mechanize', 't::Context';
 
@@ -92,6 +93,80 @@ test 'MBS-12161: Test submitting annotation with too long changelog' => sub {
     $mech->content_contains(
         'Field should not exceed 255 characters. You entered 278',
         'The "too long changelog" error is shown',
+    );
+};
+
+test 'MBS-12302: Test large annotation diffing' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    prepare_test($test);
+
+    my @edits = capture_edits {
+        $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit_annotation');
+        $mech->submit_form_ok({
+            with_fields => {
+                'edit-annotation.text' => 'HA HA HA',
+                'edit-annotation.changelog' => '',
+            },
+        },
+        'The form returned a 2xx response code');
+
+        $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit_annotation');
+        $mech->submit_form_ok({
+            with_fields => {
+                'edit-annotation.text' => 'HA HO HA',
+                'edit-annotation.changelog' => '',
+            },
+        },
+        'The form returned a 2xx response code');
+    } $test->c;
+
+    ok(
+        $mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce/?$},
+        'The user is redirected to the artist page after entering the edit');
+
+    is(@edits, 2, 'The edits were entered');
+
+    my $edit = pop(@edits);
+    $mech->get_ok('/edit/' . $edit->id, 'Fetched edit page');
+
+    $mech->content_contains(
+        '<th>Annotation comparison:</th>' .
+        '<td class="old">HA <span class="diff-only-a">HA</span> HA</td>' .
+        '<td class="new">HA <span class="diff-only-b">HO</span> HA</td>',
+        'Small annotation comparison uses word diffing',
+    );
+
+    my $lots_o_hes = ('HE ' x 398) . 'HE';
+
+    @edits = capture_edits {
+        $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit_annotation');
+        $mech->submit_form_ok({
+            with_fields => {
+                'edit-annotation.text' => 'HO HA HO HE ' . $lots_o_hes,
+                'edit-annotation.changelog' => '',
+            },
+        },
+        'The form returned a 2xx response code');
+    } $test->c;
+
+    my $t0 = [gettimeofday];
+
+    $edit = pop(@edits);
+    $mech->get_ok('/edit/' . $edit->id, 'Fetched edit page');
+
+    # MBS-12302: Diffs with text larger than 1024 characters fall back to
+    # (fast) character diffing.
+
+    my $interval = tv_interval($t0);
+    ok($interval < 1, 'Large Add Annotation diff took less than 1 second to load');
+
+    $mech->content_contains(
+        '<th>Annotation comparison:</th>' .
+        '<td class="old">HA HO H<span class="diff-only-a">A</span></td>' .
+        '<td class="new"><span class="diff-only-b">HO </span>HA HO H<span class="diff-only-b">E ' . $lots_o_hes . '</span></td>',
+        'Large annotation comparison uses character diffing',
     );
 };
 
