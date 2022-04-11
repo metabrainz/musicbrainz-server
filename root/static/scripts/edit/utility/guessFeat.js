@@ -202,6 +202,13 @@ function expandCredit(fullName, artists, isProbablyClassical) {
 }
 
 export default function guessFeat(entity) {
+  const name = entity.name();
+
+  if (!nonEmpty(name)) {
+    // Nothing to guess from an empty name
+    return;
+  }
+
   let relatedArtists = entity.relatedArtists;
   if (typeof relatedArtists === 'function') {
     relatedArtists = relatedArtists.call(entity);
@@ -212,7 +219,6 @@ export default function guessFeat(entity) {
     isProbablyClassical = isProbablyClassical.call(entity);
   }
 
-  const name = entity.name();
   const match = extractFeatCredits(
     name, relatedArtists, isProbablyClassical, false,
   );
