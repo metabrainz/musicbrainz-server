@@ -29,9 +29,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 09:31+0200\n"
+"POT-Creation-Date: 2022-04-05 09:59+0300\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
-"Last-Translator: Luca Salini, 2012-2013,2016-2022\n"
+"Last-Translator: Luca Salini, 2022\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -357,7 +357,7 @@ msgstr "Aggiungi una nuova registrazione"
 msgid "Add a new release"
 msgstr "Aggiungi una nuova pubblicazione"
 
-#: ../root/components/relationship-editor.tt:231
+#: ../root/components/relationship-editor.tt:238
 #: ../root/static/scripts/relationship-editor/common/viewModel.js:28
 msgid "Add another instrument"
 msgstr "Aggiungi un altro strumento"
@@ -701,7 +701,7 @@ msgstr "Associa ID disco"
 msgid "Attached to releases"
 msgstr "Associato alle pubblicazioni"
 
-#: ../root/components/relationship-editor.tt:144
+#: ../root/components/relationship-editor.tt:151
 #: ../root/relationship/linktype/form.tt:52
 msgid "Attributes:"
 msgstr "Attributi:"
@@ -799,7 +799,7 @@ msgstr "Area iniziale:"
 
 #: ../root/artist/edit_form.tt:38 ../root/components/common-macros.tt:667
 #: ../root/components/forms.tt:212
-#: ../root/components/relationship-editor.tt:159 ../root/event/edit_form.tt:33
+#: ../root/components/relationship-editor.tt:166 ../root/event/edit_form.tt:33
 #: ../root/artist/utils.js:34
 #: ../root/layout/components/sidebar/AreaSidebar.js:58
 msgid "Begin date:"
@@ -1015,11 +1015,11 @@ msgstr "Ordine dei discendenti:"
 msgid "Click Edit to edit the recording associations for this disc."
 msgstr "Clicca su Modifica per modificare le associazioni con le registrazioni di questo disco."
 
-#: ../root/components/relationship-editor.tt:243
+#: ../root/components/relationship-editor.tt:250
 msgid "Click here to choose a vocal"
 msgstr "Clicca qui per scegliere il cantato"
 
-#: ../root/components/relationship-editor.tt:242
+#: ../root/components/relationship-editor.tt:249
 msgid "Click here to choose an instrument"
 msgstr "Clicca qui per scegliere uno strumento"
 
@@ -1116,7 +1116,7 @@ msgstr "Copia l'accreditamento artista della pubblicazione al gruppo di pubblica
 msgid "Copy the release title to the release group"
 msgstr "Copia il titolo della pubblicazione al gruppo di pubblicazioni"
 
-#: ../root/components/relationship-editor.tt:129
+#: ../root/components/relationship-editor.tt:136
 msgid "Copy to end date"
 msgstr "Copia come data finale"
 
@@ -1175,7 +1175,7 @@ msgstr "Accreditato come:"
 msgid "Custom delimiter"
 msgstr "Delimitatore personalizzato"
 
-#: ../root/components/relationship-editor.tt:127
+#: ../root/components/relationship-editor.tt:134
 #: ../root/release/edit/information.tt:142
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:253
 #: ../root/components/PartialDateInput.js:184
@@ -1551,7 +1551,7 @@ msgstr "Area finale:"
 
 #: ../root/artist/edit_form.tt:51 ../root/components/common-macros.tt:671
 #: ../root/components/forms.tt:214
-#: ../root/components/relationship-editor.tt:163 ../root/event/edit_form.tt:35
+#: ../root/components/relationship-editor.tt:170 ../root/event/edit_form.tt:35
 #: ../root/artist/utils.js:65
 #: ../root/layout/components/sidebar/AreaSidebar.js:64
 msgid "End date:"
@@ -2063,7 +2063,7 @@ msgstr "Se non abbiamo ancora nel database una registrazione per questa traccia,
 msgid "If you can't find what you're looking for, you can add a new release:"
 msgstr "Se non riesci a trovare quello che stavi cercando, puoi aggiungere una nuova pubblicazione:"
 
-#: ../root/components/relationship-editor.tt:184
+#: ../root/components/relationship-editor.tt:191
 msgid ""
 "If you do not know the end date, but you know the relationship has ended and"
 " this seems like useful information to store (for example, if someone is no "
@@ -2121,7 +2121,7 @@ msgid ""
 "If you want to save an edit search for future use, you can just bookmark it!"
 msgstr "Se vuoi salvare una ricerca modifiche per riutilizzarla in futuro, puoi semplicemente aggiungerla ai preferiti!"
 
-#: ../root/components/relationship-editor.tt:183
+#: ../root/components/relationship-editor.tt:190
 msgid ""
 "If you want to set the relationship as happening on one specific date, just "
 "set the same end date and start date. You can use the arrow button to copy "
@@ -2400,7 +2400,7 @@ msgstr "Bassa"
 msgid "Lyrics Languages"
 msgstr "Lingue del testo"
 
-#: ../root/components/relationship-editor.tt:126
+#: ../root/components/relationship-editor.tt:133
 #: ../root/release/edit/information.tt:135
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:252
 #: ../root/components/PartialDateInput.js:171
@@ -3775,7 +3775,7 @@ msgid "The data you’ve seeded contained the following errors:"
 msgstr "I dati che hai fornito contengono i seguenti errori:"
 
 #: ../root/release/edit/information.tt:157
-#: ../root/static/scripts/relationship-editor/common/dialog.js:597
+#: ../root/static/scripts/relationship-editor/common/dialog.js:609
 msgid "The date you've entered is not valid."
 msgstr "La data che hai inserito non è valida."
 
@@ -3849,7 +3849,7 @@ msgstr "La funzione \"Segui artista\" non è attualmente attiva."
 
 #: ../root/components/forms.tt:201 ../root/release/edit/information.tt:158
 #: ../root/components/PartialDateInput.js:53
-#: ../root/static/scripts/relationship-editor/common/dialog.js:219
+#: ../root/static/scripts/relationship-editor/common/dialog.js:220
 msgid ""
 "The year should have four digits. If you want to enter a year earlier than "
 "1000 CE, please pad with zeros, such as “0123”."
@@ -4097,7 +4097,7 @@ msgstr "Questa registrazione è un video"
 msgid "This relationship allows setting dates"
 msgstr "Questa relazione consente di impostare delle date"
 
-#: ../root/components/relationship-editor.tt:176
+#: ../root/components/relationship-editor.tt:183
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:196
 msgid "This relationship has ended."
 msgstr "Questa relazione si è conclusa."
@@ -4212,6 +4212,10 @@ msgid ""
 "To <span class=\"rel-edit\">edit</span> a relationship, click on its name "
 "(e.g. \"composer\")."
 msgstr "Per <span class=\"rel-edit\">modificare</span> una relazione, clicca sul suo nome (per es. \"compositore\")."
+
+#: ../root/components/relationship-editor.tt:122
+msgid "To add parts to this series, please select a series type first."
+msgstr "Per aggiungere parti a questa serie devi prima selezionare un tipo di serie."
 
 #: ../root/release/edit/tracklist.tt:243
 msgid ""
@@ -4705,7 +4709,7 @@ msgstr "Opera:"
 msgid "Works"
 msgstr "Opere"
 
-#: ../root/components/relationship-editor.tt:125
+#: ../root/components/relationship-editor.tt:132
 #: ../root/release/edit/information.tt:127
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:251
 #: ../root/components/PartialDateInput.js:158
@@ -4979,8 +4983,8 @@ msgstr "di"
 msgid "cancelled"
 msgstr "cancellato"
 
-#: ../root/components/relationship-editor.tt:223
-#: ../root/components/relationship-editor.tt:268
+#: ../root/components/relationship-editor.tt:230
+#: ../root/components/relationship-editor.tt:275
 msgid "credited as"
 msgstr "accreditato come"
 
@@ -5012,15 +5016,15 @@ msgstr "prima quelle chiuse meno di recente"
 msgid "edits"
 msgstr "modifiche"
 
-#: ../root/components/relationship-editor.tt:197
+#: ../root/components/relationship-editor.tt:204
 #: ../root/utility/relationshipDateText.js:38
 msgid "ended"
 msgstr "inattivo"
 
 #: ../root/components/forms.tt:263 ../root/components/forms.tt:288
 #: ../root/components/relationship-editor.tt:112
-#: ../root/components/relationship-editor.tt:132
-#: ../root/components/relationship-editor.tt:145
+#: ../root/components/relationship-editor.tt:139
+#: ../root/components/relationship-editor.tt:152
 #: ../root/edit/search_macros.tt:191 ../root/release/edit/tracklist.tt:3
 #: ../root/release/edit/tracklist.tt:83 ../root/release/edit/tracklist.tt:316
 #: ../root/release/edit/tracklist.tt:491 ../root/release/edit/tracklist.tt:506
@@ -5589,6 +5593,12 @@ msgstr "L'ID artista fornito non è valido"
 msgid "The provided CD TOC ID doesn’t exist."
 msgstr "L'ID del CD TOC fornito non esiste."
 
+#: ../lib/MusicBrainz/Server/Controller/Collection.pm:76
+#, perl-brace-format
+msgid ""
+"“{id}” is not a valid row ID; the entity might have been merged or deleted."
+msgstr "“{id}” non è un ID di riga valido; l'entità potrebbe essere stata unita o eliminata."
+
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:284
 msgid "Default"
 msgstr "Default"
@@ -5688,26 +5698,26 @@ msgstr "La tua segnalazione è stata inviata."
 msgid "Invalid TOC"
 msgstr "TOC non valido"
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:278
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:279
 msgid ""
 "An error occurred trying to communicate with the Internet Archive servers. "
 "Please wait a few moments and try again."
 msgstr "Si è verificato un errore nel tentativo di comunicare con i server dell'Internet Archive. Attendi qualche istante e prova di nuovo."
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:292
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:293
 msgid ""
 "We’ve hit a temporary delay while trying to fetch metadata from the Internet"
 " Archive. Please wait a minute and try again."
 msgstr "Si è verificato un ritardo temporaneo nel tentativo di ottenere metadati dall'Internet Archive. Attendi un minuto e prova di nuovo."
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:409
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:410
 #: ../root/release/CoverArtDarkened.js:27
 msgid ""
 "The Cover Art Archive has had a takedown request in the past for this "
 "release, so we are unable to allow any more uploads."
 msgstr "Il Cover Art Archive ha ricevuto in passato una richiesta di rimozione per questa pubblicazione, perciò non possiamo permettere altri caricamenti."
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:444
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:447
 #, perl-brace-format
 msgid ""
 "Cover art can’t be uploaded to this release because we don’t own the "
@@ -6849,7 +6859,7 @@ msgstr "Non è stato possibile analizzare queste coordinate"
 
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:40
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:65
-#: ../root/static/scripts/relationship-editor/common/dialog.js:608
+#: ../root/static/scripts/relationship-editor/common/dialog.js:620
 msgid "The end date cannot precede the begin date."
 msgstr "La data finale non può precedere quella iniziale."
 
@@ -11935,7 +11945,7 @@ msgstr "{entity0}-{entity1}"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:76
 #: ../root/static/scripts/edit/externalLinks.js:623
-#: ../root/static/scripts/relationship-editor/common/dialog.js:554
+#: ../root/static/scripts/relationship-editor/common/dialog.js:566
 msgid "This relationship type is deprecated and should not be used."
 msgstr "Questo tipo di relazione è obsoleto e non deve essere utilizzato."
 
@@ -14534,7 +14544,7 @@ msgstr "Questo è un collegamento ad un risultato di ricerca. Aggiungi piuttosto
 msgid ""
 "Please link to a specific video. Add channel pages to the relevant artist, "
 "label, etc. instead."
-msgstr "Aggiungi un collegamento ad uno specifico video. I canali vanno collegati all'artista, etichetta, ecc. attinenti."
+msgstr "Aggiungi un collegamento ad uno specifico video. I canali vanno collegati piuttosto all'artista, etichetta, ecc. attinenti."
 
 #: ../root/static/scripts/edit/URLCleanup.js:541
 msgid ""
@@ -14685,25 +14695,32 @@ msgid ""
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr "I collegamenti a specifiche sezioni di articoli di Wikipedia non sono consentiti. Se l'articolo è comunque pertinente, rimuovi “{fragment}”. Consulta le {url|linee guida}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5046
+#: ../root/static/scripts/edit/URLCleanup.js:5027
+msgid ""
+"This is a playlist link, which isn’t a video channel and is not guaranteed "
+"to be officially approved. Please link to the official channel for this "
+"entity, if it exists, instead."
+msgstr "Questo è un collegamento ad una playlist, che non è un canale di video e non è detto che sia autorizzata in modo ufficiale. Aggiungi piuttosto un collegamento al canale ufficiale di questa entità, se esiste."
+
+#: ../root/static/scripts/edit/URLCleanup.js:5067
 msgid "Only video and playlist links are allowed on releases."
 msgstr "Solo collegamenti video e playlist sono consentiti sulle pubblicazioni."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5082
+#: ../root/static/scripts/edit/URLCleanup.js:5103
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia"
 " links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr "Wikipedia non ha solitamente voci su pubblicazioni specifiche, perciò al momento non è consentito aggiungere collegamenti a Wikipedia ad una pubblicazione. Aggiungi piuttosto questo collegamento a Wikipedia al gruppo di pubblicazioni, se pertinente."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5094
+#: ../root/static/scripts/edit/URLCleanup.js:5115
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr "Wikidata non ha solitamente voci su pubblicazioni specifiche, perciò al momento non è consentito aggiungere collegamenti a Wikidata ad una pubblicazione. Aggiungi piuttosto questo collegamento a Wikidata al gruppo di pubblicazioni, se pertinente."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5106
+#: ../root/static/scripts/edit/URLCleanup.js:5127
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -14712,7 +14729,7 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr "Questo è un profilo di Bandcamp e non una pagina per una pubblicazione specifica. Anche se in questo momento mostra questa pubblicazione, ciò potrebbe cambiare quando l'artista ne pubblicherà un'altra. Ti chiediamo perciò di trovare e aggiungere la pagina corretta per la pubblicazione (“{album_url_pattern}” o “{single_url_pattern}”). Aggiungi pure questo collegamento di profilo all'artista o all'etichetta attinente."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5134
+#: ../root/static/scripts/edit/URLCleanup.js:5155
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases"
@@ -14721,18 +14738,18 @@ msgid ""
 "the appropriate artist or label."
 msgstr "Questo è un profilo di Bandcamp e non una pagina per una registrazione specifica. Anche se in questo momento mostra una registrazione singola, ciò potrebbe cambiare quando l'artista ne pubblicherà un'altra. Ti chiediamo perciò di trovare e aggiungere la pagina corretta per la registrazione (“{album_url_pattern}” o “{single_url_pattern}”). Aggiungi pure questo collegamento di profilo all'artista o all'etichetta attinente."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5297
+#: ../root/static/scripts/edit/URLCleanup.js:5318
 msgid "Some relationship types are missing for this URL."
 msgstr "Alcuni tipi di relazione per questo URL sono mancanti."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5314
+#: ../root/static/scripts/edit/URLCleanup.js:5335
 #: ../root/static/scripts/edit/externalLinks.js:869
 msgid "This relationship type combination is invalid."
 msgstr "Questa combinazione di tipi di relazione non è valida."
 
 #: ../root/static/scripts/edit/check-duplicates.js:152
 #: ../root/static/scripts/edit/externalLinks.js:563
-#: ../root/static/scripts/relationship-editor/common/dialog.js:581
+#: ../root/static/scripts/relationship-editor/common/dialog.js:593
 msgid "Required field."
 msgstr "Campo necessario."
 
@@ -14910,7 +14927,7 @@ msgid "This relationship already exists."
 msgstr "Questa relazione è già esistente."
 
 #: ../root/static/scripts/edit/externalLinks.js:645
-#: ../root/static/scripts/relationship-editor/common/dialog.js:565
+#: ../root/static/scripts/relationship-editor/common/dialog.js:577
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
@@ -14965,7 +14982,7 @@ msgid "This URL is not allowed for works."
 msgstr "Questo URL non è consentito per le opere."
 
 #: ../root/static/scripts/edit/externalLinks.js:992
-#: ../root/static/scripts/relationship-editor/common/dialog.js:418
+#: ../root/static/scripts/relationship-editor/common/dialog.js:419
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|altra documentazione})"
 
@@ -15026,45 +15043,45 @@ msgid ""
 "language guidelines}."
 msgstr "Questa modalità gestisce il maiuscolo/minuscolo in turco per 'i' ('İ') e 'ı' ('I'). Alcune parole potrebbero aver bisogno di correzioni manuali per seguire le {url|linee guida su maiuscolo/minuscolo per il turco}."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:37
+#: ../root/static/scripts/relationship-editor/common/dialog.js:38
 msgid "The series you’ve selected is for recordings."
 msgstr "La serie che hai selezionato è una serie di registrazioni."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:38
+#: ../root/static/scripts/relationship-editor/common/dialog.js:39
 msgid "The series you’ve selected is for releases."
 msgstr "La serie che hai selezionato è una serie di pubblicazioni."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:39
+#: ../root/static/scripts/relationship-editor/common/dialog.js:40
 msgid "The series you’ve selected is for release groups."
 msgstr "La serie che hai selezionato è una serie di gruppi di pubblicazioni."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:40
+#: ../root/static/scripts/relationship-editor/common/dialog.js:41
 msgid "The series you’ve selected is for works."
 msgstr "La serie che hai selezionato è una serie di opere."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:546
+#: ../root/static/scripts/relationship-editor/common/dialog.js:558
 msgid "Please select a relationship type."
 msgstr "Seleziona un tipo di relazione."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:549
+#: ../root/static/scripts/relationship-editor/common/dialog.js:561
 msgid ""
 "Please select a subtype of the currently selected relationship type. The "
 "selected relationship type is only used for grouping subtypes."
 msgstr "Seleziona un sottotipo del tipo di relazione attualmente selezionato. Questo tipo di relazione è utilizzato solo per raggruppare altre relazioni."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:583
+#: ../root/static/scripts/relationship-editor/common/dialog.js:595
 msgid "Entities in a relationship cannot be the same."
 msgstr "Le entità in una relazione non possono essere le stesse."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:640
+#: ../root/static/scripts/relationship-editor/common/dialog.js:652
 msgid "Change credits for other {entity} relationships on the page."
 msgstr "Cambia gli accreditamenti per le altre relazioni di {entity} presenti nella pagina."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:648
+#: ../root/static/scripts/relationship-editor/common/dialog.js:660
 msgid "Only relationships to {entity_type} entities."
 msgstr "Solo relazioni con entità {entity_type}."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:656
+#: ../root/static/scripts/relationship-editor/common/dialog.js:668
 msgid "Only “{relationship_type}” relationships to {entity_type} entities."
 msgstr "Solo relazioni “{relationship_type}” con entità {entity_type}."
 

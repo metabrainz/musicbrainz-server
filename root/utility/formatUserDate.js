@@ -163,11 +163,11 @@ export function formatUserDateObject(
 
   const preferences = $c && $c.user ? $c.user.preferences : null;
   const timezone =
-    (options && options.timezone) ||
-    (preferences && preferences.timezone) ||
+    (options ? options.timezone : null) ||
+    (preferences ? preferences.timezone : null) ||
     'UTC';
   let format =
-    (options && options.format) ||
+    (options ? options.format : null) ||
     (preferences && preferences.datetime_format) ||
     '%Y-%m-%d %H:%M %Z';
 

@@ -3431,7 +3431,6 @@ const CLEANUPS: CleanupEntries = {
       new RegExp('^(https?://)?(www\\.)?spirit-of-rock\\.com', 'i'),
       new RegExp('^(https?://)?(www\\.)?tunearch\\.org', 'i'),
       new RegExp('^(https?://)?(www\\.)?videogam\\.in', 'i'),
-      new RegExp('^(https?://)?(www\\.)?triplejunearthed\\.com', 'i'),
     ],
     restrict: [LINK_TYPES.otherdatabases],
   },
@@ -4394,6 +4393,21 @@ const CLEANUPS: CleanupEntries = {
         return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'triplejunearthed': {
+    match: [
+      new RegExp(
+        '^(https?://)?(www\\.)?abc\\.net\\.au/triplejunearthed',
+        'i',
+      ),
+      new RegExp('^(https?://)?(www\\.)?triplejunearthed\\.com', 'i'),
+    ],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?triplejunearthed\.com\//, 'https://www.abc.net.au/triplejunearthed/');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?abc\.net\.au\/triplejunearthed\//, 'https://www.abc.net.au/triplejunearthed/');
+      return url;
     },
   },
   'trove': {

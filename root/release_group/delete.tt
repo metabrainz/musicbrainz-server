@@ -1,6 +1,0 @@
-[%- WRAPPER 'release_group/layout.tt' title=l('Remove Release Group') full_width=1 -%]
-    <h2>[% l('Remove Release Group ') %]</h2>
-    <p>
-       [% l('This release group will be removed automatically once it has no releases nor relationships.') -%]
-    </p>
-[%- END -%]

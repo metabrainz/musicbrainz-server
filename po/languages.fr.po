@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
-"Plural-Forms: nplurals=3; plural=(n==0 || n==1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -141,6 +141,11 @@ msgstr "Arapaho"
 #: DB:language/name:25
 msgid "Arawak"
 msgstr "Arawak"
+
+#. frequency:1 iso_code_3:pka
+#: DB:language/name:5403
+msgid "Ardhamāgadhī Prākrit"
+msgstr ""
 
 #. frequency:1 iso_code_3:hye
 #: DB:language/name:21
@@ -1852,7 +1857,7 @@ msgstr "Ossète"
 msgid "Otomian languages"
 msgstr "Otomi, langues"
 
-#. frequency:0 iso_code_3:pal
+#. frequency:1 iso_code_3:pal
 #: DB:language/name:328
 msgid "Pahlavi"
 msgstr "Pahlavi"
