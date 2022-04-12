@@ -33,6 +33,11 @@ ALTER TABLE l_area_label_example
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_area_label(id);
 
+ALTER TABLE l_area_mood_example
+   ADD CONSTRAINT l_area_mood_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_area_mood(id);
+
 ALTER TABLE l_area_place_example
    ADD CONSTRAINT l_area_place_example_fk_id
    FOREIGN KEY (id)
@@ -93,6 +98,11 @@ ALTER TABLE l_artist_label_example
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_artist_label(id);
 
+ALTER TABLE l_artist_mood_example
+   ADD CONSTRAINT l_artist_mood_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_artist_mood(id);
+
 ALTER TABLE l_artist_place_example
    ADD CONSTRAINT l_artist_place_example_fk_id
    FOREIGN KEY (id)
@@ -148,6 +158,11 @@ ALTER TABLE l_event_label_example
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_event_label(id);
 
+ALTER TABLE l_event_mood_example
+   ADD CONSTRAINT l_event_mood_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_event_mood(id);
+
 ALTER TABLE l_event_place_example
    ADD CONSTRAINT l_event_place_example_fk_id
    FOREIGN KEY (id)
@@ -198,6 +213,11 @@ ALTER TABLE l_genre_label_example
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_genre_label(id);
 
+ALTER TABLE l_genre_mood_example
+   ADD CONSTRAINT l_genre_mood_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_genre_mood(id);
+
 ALTER TABLE l_genre_place_example
    ADD CONSTRAINT l_genre_place_example_fk_id
    FOREIGN KEY (id)
@@ -243,6 +263,11 @@ ALTER TABLE l_instrument_label_example
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_instrument_label(id);
 
+ALTER TABLE l_instrument_mood_example
+   ADD CONSTRAINT l_instrument_mood_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_instrument_mood(id);
+
 ALTER TABLE l_instrument_place_example
    ADD CONSTRAINT l_instrument_place_example_fk_id
    FOREIGN KEY (id)
@@ -283,6 +308,11 @@ ALTER TABLE l_label_label_example
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_label_label(id);
 
+ALTER TABLE l_label_mood_example
+   ADD CONSTRAINT l_label_mood_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_label_mood(id);
+
 ALTER TABLE l_label_place_example
    ADD CONSTRAINT l_label_place_example_fk_id
    FOREIGN KEY (id)
@@ -317,6 +347,41 @@ ALTER TABLE l_label_work_example
    ADD CONSTRAINT l_label_work_example_fk_id
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_label_work(id);
+
+ALTER TABLE l_mood_mood_example
+   ADD CONSTRAINT l_mood_mood_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_mood_mood(id);
+
+ALTER TABLE l_mood_place_example
+   ADD CONSTRAINT l_mood_place_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_mood_place(id);
+
+ALTER TABLE l_mood_recording_example
+   ADD CONSTRAINT l_mood_recording_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_mood_recording(id);
+
+ALTER TABLE l_mood_release_example
+   ADD CONSTRAINT l_mood_release_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_mood_release(id);
+
+ALTER TABLE l_mood_release_group_example
+   ADD CONSTRAINT l_mood_release_group_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_mood_release_group(id);
+
+ALTER TABLE l_mood_url_example
+   ADD CONSTRAINT l_mood_url_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_mood_url(id);
+
+ALTER TABLE l_mood_work_example
+   ADD CONSTRAINT l_mood_work_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_mood_work(id);
 
 ALTER TABLE l_place_place_example
    ADD CONSTRAINT l_place_place_example_fk_id

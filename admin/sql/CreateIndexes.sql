@@ -156,6 +156,7 @@ CREATE INDEX edit_event_idx ON edit_event (event);
 CREATE INDEX edit_genre_idx ON edit_genre (genre);
 CREATE INDEX edit_instrument_idx ON edit_instrument (instrument);
 CREATE INDEX edit_label_idx ON edit_label (label);
+CREATE INDEX edit_mood_idx ON edit_mood (mood);
 CREATE INDEX edit_place_idx ON edit_place (place);
 CREATE INDEX edit_release_idx ON edit_release (release);
 CREATE INDEX edit_release_group_idx ON edit_release_group (release_group);
@@ -223,6 +224,7 @@ CREATE UNIQUE INDEX l_area_event_idx_uniq ON l_area_event (entity0, entity1, lin
 CREATE UNIQUE INDEX l_area_genre_idx_uniq ON l_area_genre (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_area_instrument_idx_uniq ON l_area_instrument (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_area_label_idx_uniq ON l_area_label (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_area_mood_idx_uniq ON l_area_mood (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_area_place_idx_uniq ON l_area_place (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_area_recording_idx_uniq ON l_area_recording (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_area_release_idx_uniq ON l_area_release (entity0, entity1, link, link_order);
@@ -236,6 +238,7 @@ CREATE UNIQUE INDEX l_artist_event_idx_uniq ON l_artist_event (entity0, entity1,
 CREATE UNIQUE INDEX l_artist_genre_idx_uniq ON l_artist_genre (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_artist_instrument_idx_uniq ON l_artist_instrument (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_artist_label_idx_uniq ON l_artist_label (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_artist_mood_idx_uniq ON l_artist_mood (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_artist_place_idx_uniq ON l_artist_place (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_artist_recording_idx_uniq ON l_artist_recording (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_artist_release_idx_uniq ON l_artist_release (entity0, entity1, link, link_order);
@@ -248,6 +251,7 @@ CREATE UNIQUE INDEX l_event_event_idx_uniq ON l_event_event (entity0, entity1, l
 CREATE UNIQUE INDEX l_event_genre_idx_uniq ON l_event_genre (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_event_instrument_idx_uniq ON l_event_instrument (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_event_label_idx_uniq ON l_event_label (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_event_mood_idx_uniq ON l_event_mood (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_event_place_idx_uniq ON l_event_place (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_event_recording_idx_uniq ON l_event_recording (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_event_release_idx_uniq ON l_event_release (entity0, entity1, link, link_order);
@@ -259,6 +263,7 @@ CREATE UNIQUE INDEX l_event_work_idx_uniq ON l_event_work (entity0, entity1, lin
 CREATE UNIQUE INDEX l_genre_genre_idx_uniq ON l_genre_genre (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_genre_instrument_idx_uniq ON l_genre_instrument (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_genre_label_idx_uniq ON l_genre_label (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_genre_mood_idx_uniq ON l_genre_mood (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_genre_place_idx_uniq ON l_genre_place (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_genre_recording_idx_uniq ON l_genre_recording (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_genre_release_idx_uniq ON l_genre_release (entity0, entity1, link, link_order);
@@ -269,6 +274,7 @@ CREATE UNIQUE INDEX l_genre_work_idx_uniq ON l_genre_work (entity0, entity1, lin
 
 CREATE UNIQUE INDEX l_instrument_instrument_idx_uniq ON l_instrument_instrument (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_instrument_label_idx_uniq ON l_instrument_label (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_instrument_mood_idx_uniq ON l_instrument_mood (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_instrument_place_idx_uniq ON l_instrument_place (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_instrument_recording_idx_uniq ON l_instrument_recording (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_instrument_release_idx_uniq ON l_instrument_release (entity0, entity1, link, link_order);
@@ -278,6 +284,7 @@ CREATE UNIQUE INDEX l_instrument_url_idx_uniq ON l_instrument_url (entity0, enti
 CREATE UNIQUE INDEX l_instrument_work_idx_uniq ON l_instrument_work (entity0, entity1, link, link_order);
 
 CREATE UNIQUE INDEX l_label_label_idx_uniq ON l_label_label (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_label_mood_idx_uniq ON l_label_mood (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_label_place_idx_uniq ON l_label_place (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_label_recording_idx_uniq ON l_label_recording (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_label_release_idx_uniq ON l_label_release (entity0, entity1, link, link_order);
@@ -285,6 +292,15 @@ CREATE UNIQUE INDEX l_label_release_group_idx_uniq ON l_label_release_group (ent
 CREATE UNIQUE INDEX l_label_series_idx_uniq ON l_label_series (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_label_url_idx_uniq ON l_label_url (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_label_work_idx_uniq ON l_label_work (entity0, entity1, link, link_order);
+
+CREATE UNIQUE INDEX l_mood_mood_idx_uniq ON l_mood_mood (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_mood_place_idx_uniq ON l_mood_place (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_mood_recording_idx_uniq ON l_mood_recording (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_mood_release_idx_uniq ON l_mood_release (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_mood_release_group_idx_uniq ON l_mood_release_group (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_mood_series_idx_uniq ON l_mood_series (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_mood_url_idx_uniq ON l_mood_url (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_mood_work_idx_uniq ON l_mood_work (entity0, entity1, link, link_order);
 
 CREATE UNIQUE INDEX l_place_place_idx_uniq ON l_place_place (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_place_recording_idx_uniq ON l_place_recording (entity0, entity1, link, link_order);
@@ -327,6 +343,7 @@ CREATE INDEX l_area_event_idx_entity1 ON l_area_event (entity1);
 CREATE INDEX l_area_genre_idx_entity1 ON l_area_genre (entity1);
 CREATE INDEX l_area_instrument_idx_entity1 ON l_area_instrument (entity1);
 CREATE INDEX l_area_label_idx_entity1 ON l_area_label (entity1);
+CREATE INDEX l_area_mood_idx_entity1 ON l_area_mood (entity1);
 CREATE INDEX l_area_place_idx_entity1 ON l_area_place (entity1);
 CREATE INDEX l_area_recording_idx_entity1 ON l_area_recording (entity1);
 CREATE INDEX l_area_release_idx_entity1 ON l_area_release (entity1);
@@ -340,6 +357,7 @@ CREATE INDEX l_artist_event_idx_entity1 ON l_artist_event (entity1);
 CREATE INDEX l_artist_genre_idx_entity1 ON l_artist_genre (entity1);
 CREATE INDEX l_artist_instrument_idx_entity1 ON l_artist_instrument (entity1);
 CREATE INDEX l_artist_label_idx_entity1 ON l_artist_label (entity1);
+CREATE INDEX l_artist_mood_idx_entity1 ON l_artist_mood (entity1);
 CREATE INDEX l_artist_place_idx_entity1 ON l_artist_place (entity1);
 CREATE INDEX l_artist_recording_idx_entity1 ON l_artist_recording (entity1);
 CREATE INDEX l_artist_release_idx_entity1 ON l_artist_release (entity1);
@@ -352,6 +370,7 @@ CREATE INDEX l_event_event_idx_entity1 ON l_event_event (entity1);
 CREATE INDEX l_event_genre_idx_entity1 ON l_event_genre (entity1);
 CREATE INDEX l_event_instrument_idx_entity1 ON l_event_instrument (entity1);
 CREATE INDEX l_event_label_idx_entity1 ON l_event_label (entity1);
+CREATE INDEX l_event_mood_idx_entity1 ON l_event_mood (entity1);
 CREATE INDEX l_event_place_idx_entity1 ON l_event_place (entity1);
 CREATE INDEX l_event_recording_idx_entity1 ON l_event_recording (entity1);
 CREATE INDEX l_event_release_idx_entity1 ON l_event_release (entity1);
@@ -363,6 +382,7 @@ CREATE INDEX l_event_work_idx_entity1 ON l_event_work (entity1);
 CREATE INDEX l_genre_genre_idx_entity1 ON l_genre_genre (entity1);
 CREATE INDEX l_genre_instrument_idx_entity1 ON l_genre_instrument (entity1);
 CREATE INDEX l_genre_label_idx_entity1 ON l_genre_label (entity1);
+CREATE INDEX l_genre_mood_idx_entity1 ON l_genre_mood (entity1);
 CREATE INDEX l_genre_place_idx_entity1 ON l_genre_place (entity1);
 CREATE INDEX l_genre_recording_idx_entity1 ON l_genre_recording (entity1);
 CREATE INDEX l_genre_release_idx_entity1 ON l_genre_release (entity1);
@@ -373,6 +393,7 @@ CREATE INDEX l_genre_work_idx_entity1 ON l_genre_work (entity1);
 
 CREATE INDEX l_instrument_instrument_idx_entity1 ON l_instrument_instrument (entity1);
 CREATE INDEX l_instrument_label_idx_entity1 ON l_instrument_label (entity1);
+CREATE INDEX l_instrument_mood_idx_entity1 ON l_instrument_mood (entity1);
 CREATE INDEX l_instrument_place_idx_entity1 ON l_instrument_place (entity1);
 CREATE INDEX l_instrument_recording_idx_entity1 ON l_instrument_recording (entity1);
 CREATE INDEX l_instrument_release_idx_entity1 ON l_instrument_release (entity1);
@@ -382,6 +403,7 @@ CREATE INDEX l_instrument_url_idx_entity1 ON l_instrument_url (entity1);
 CREATE INDEX l_instrument_work_idx_entity1 ON l_instrument_work (entity1);
 
 CREATE INDEX l_label_label_idx_entity1 ON l_label_label (entity1);
+CREATE INDEX l_label_mood_idx_entity1 ON l_label_mood (entity1);
 CREATE INDEX l_label_place_idx_entity1 ON l_label_place (entity1);
 CREATE INDEX l_label_recording_idx_entity1 ON l_label_recording (entity1);
 CREATE INDEX l_label_release_idx_entity1 ON l_label_release (entity1);
@@ -389,6 +411,15 @@ CREATE INDEX l_label_release_group_idx_entity1 ON l_label_release_group (entity1
 CREATE INDEX l_label_series_idx_entity1 ON l_label_series (entity1);
 CREATE INDEX l_label_url_idx_entity1 ON l_label_url (entity1);
 CREATE INDEX l_label_work_idx_entity1 ON l_label_work (entity1);
+
+CREATE INDEX l_mood_mood_idx_entity1 ON l_mood_mood (entity1);
+CREATE INDEX l_mood_place_idx_entity1 ON l_mood_place (entity1);
+CREATE INDEX l_mood_recording_idx_entity1 ON l_mood_recording (entity1);
+CREATE INDEX l_mood_release_idx_entity1 ON l_mood_release (entity1);
+CREATE INDEX l_mood_release_group_idx_entity1 ON l_mood_release_group (entity1);
+CREATE INDEX l_mood_series_idx_entity1 ON l_mood_series (entity1);
+CREATE INDEX l_mood_url_idx_entity1 ON l_mood_url (entity1);
+CREATE INDEX l_mood_work_idx_entity1 ON l_mood_work (entity1);
 
 CREATE INDEX l_place_place_idx_entity1 ON l_place_place (entity1);
 CREATE INDEX l_place_recording_idx_entity1 ON l_place_recording (entity1);
@@ -484,6 +515,14 @@ CREATE INDEX medium_cdtoc_idx_cdtoc ON medium_cdtoc (cdtoc);
 CREATE UNIQUE INDEX medium_cdtoc_idx_uniq ON medium_cdtoc (medium, cdtoc);
 
 CREATE UNIQUE INDEX medium_format_idx_gid ON medium_format (gid);
+
+CREATE UNIQUE INDEX mood_idx_gid ON mood (gid);
+CREATE UNIQUE INDEX mood_idx_name ON mood (LOWER(name));
+
+CREATE INDEX mood_alias_idx_mood ON mood_alias (mood);
+CREATE UNIQUE INDEX mood_alias_idx_primary ON mood_alias (mood, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
+
+CREATE UNIQUE INDEX mood_alias_type_idx_gid ON mood_alias_type (gid);
 
 CREATE UNIQUE INDEX place_idx_gid ON place (gid);
 CREATE INDEX place_idx_name ON place (name);
