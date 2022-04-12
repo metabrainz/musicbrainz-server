@@ -15,8 +15,15 @@ import editDiff, {
   EQUAL,
   CHANGE,
   CLASS_MAP,
+  stringEditDiff,
   type EditType,
 } from '../../utility/editDiff';
+
+/*
+ * The max string length before we fall back from generic-diff
+ * to fast-diff (which doesn't support the custom 'split' prop!).
+ */
+const FAST_DIFF_FALLBACK_LENGTH = 1024;
 
 function splitText(text, split = '') {
   if (split !== '') {
@@ -41,10 +48,23 @@ const DiffSide = ({
 }: Props): React.MixedElement | string => {
   const stack = [];
   const splitMatch = new RegExp('^(?:' + split + ')$');
-  const diffs = editDiff(
-    splitText(oldText, split),
-    splitText(newText, split),
-  );
+
+  let diffs;
+  if (
+    split === '' ||
+    oldText.length > FAST_DIFF_FALLBACK_LENGTH ||
+    newText.length > FAST_DIFF_FALLBACK_LENGTH
+  ) {
+    diffs = stringEditDiff(
+      oldText,
+      newText,
+    );
+  } else {
+    diffs = editDiff(
+      splitText(oldText, split),
+      splitText(newText, split),
+    );
+  }
 
   for (let i = 0; i < diffs.length; i++) {
     const diff = diffs[i];
@@ -56,8 +76,8 @@ const DiffSide = ({
       continue;
     }
 
-    oldText = diff.oldItems.join('');
-    newText = diff.newItems.join('');
+    oldText = diff.oldItems ? diff.oldItems.join('') : diff.oldText;
+    newText = diff.newItems ? diff.newItems.join('') : diff.newText;
 
     const sameChangeTypeAsBefore = !!(
       stack.length && stack[stack.length - 1].type === changeType
