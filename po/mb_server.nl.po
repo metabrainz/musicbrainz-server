@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 09:31+0200\n"
+"POT-Creation-Date: 2022-04-05 09:59+0300\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: Maurits Meulenbelt <mfmeulenbelt@gmail.com>, 2012-2022\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
@@ -358,7 +358,7 @@ msgstr "Nieuwe opname toevoegen"
 msgid "Add a new release"
 msgstr "Nieuwe uitgave toevoegen"
 
-#: ../root/components/relationship-editor.tt:231
+#: ../root/components/relationship-editor.tt:238
 #: ../root/static/scripts/relationship-editor/common/viewModel.js:28
 msgid "Add another instrument"
 msgstr "Nog een instrument toevoegen"
@@ -702,7 +702,7 @@ msgstr "Disc-ID toevoegen"
 msgid "Attached to releases"
 msgstr "Gekoppeld aan uitgaven"
 
-#: ../root/components/relationship-editor.tt:144
+#: ../root/components/relationship-editor.tt:151
 #: ../root/relationship/linktype/form.tt:52
 msgid "Attributes:"
 msgstr "Eigenschappen:"
@@ -800,7 +800,7 @@ msgstr "Begingebied:"
 
 #: ../root/artist/edit_form.tt:38 ../root/components/common-macros.tt:667
 #: ../root/components/forms.tt:212
-#: ../root/components/relationship-editor.tt:159 ../root/event/edit_form.tt:33
+#: ../root/components/relationship-editor.tt:166 ../root/event/edit_form.tt:33
 #: ../root/artist/utils.js:34
 #: ../root/layout/components/sidebar/AreaSidebar.js:58
 msgid "Begin date:"
@@ -1016,11 +1016,11 @@ msgstr "Volgorde van kindelementen:"
 msgid "Click Edit to edit the recording associations for this disc."
 msgstr "Klik bewerken om de gekoppelde opnames voor dit medium te wijzigen."
 
-#: ../root/components/relationship-editor.tt:243
+#: ../root/components/relationship-editor.tt:250
 msgid "Click here to choose a vocal"
 msgstr "Klik hier om een vocaal te kiezen"
 
-#: ../root/components/relationship-editor.tt:242
+#: ../root/components/relationship-editor.tt:249
 msgid "Click here to choose an instrument"
 msgstr "Klik hier om een instrument te kiezen"
 
@@ -1117,7 +1117,7 @@ msgstr "Kopieer de artiest van de uitgave naar de uitgavegroep"
 msgid "Copy the release title to the release group"
 msgstr "Kopieer de titel van de uitgave naar de uitgavegroep"
 
-#: ../root/components/relationship-editor.tt:129
+#: ../root/components/relationship-editor.tt:136
 msgid "Copy to end date"
 msgstr "Naar einddatum kopiëren"
 
@@ -1176,7 +1176,7 @@ msgstr "Vermeld als:"
 msgid "Custom delimiter"
 msgstr "Scheidingsteken"
 
-#: ../root/components/relationship-editor.tt:127
+#: ../root/components/relationship-editor.tt:134
 #: ../root/release/edit/information.tt:142
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:253
 #: ../root/components/PartialDateInput.js:184
@@ -1552,7 +1552,7 @@ msgstr "Eindgebied:"
 
 #: ../root/artist/edit_form.tt:51 ../root/components/common-macros.tt:671
 #: ../root/components/forms.tt:214
-#: ../root/components/relationship-editor.tt:163 ../root/event/edit_form.tt:35
+#: ../root/components/relationship-editor.tt:170 ../root/event/edit_form.tt:35
 #: ../root/artist/utils.js:65
 #: ../root/layout/components/sidebar/AreaSidebar.js:64
 msgid "End date:"
@@ -2064,7 +2064,7 @@ msgstr "Selecteer hieronder “Nieuwe opname toevoegen” als er nog geen opname
 msgid "If you can't find what you're looking for, you can add a new release:"
 msgstr "Je kan een nieuwe uitgave toevoegen als je niet kan vinden wat je zoekt:"
 
-#: ../root/components/relationship-editor.tt:184
+#: ../root/components/relationship-editor.tt:191
 msgid ""
 "If you do not know the end date, but you know the relationship has ended and"
 " this seems like useful information to store (for example, if someone is no "
@@ -2122,7 +2122,7 @@ msgid ""
 "If you want to save an edit search for future use, you can just bookmark it!"
 msgstr "Als je een zoekopdracht naar een bewerking voor later wil bewaren, kan je er een bladwijzer voor maken."
 
-#: ../root/components/relationship-editor.tt:183
+#: ../root/components/relationship-editor.tt:190
 msgid ""
 "If you want to set the relationship as happening on one specific date, just "
 "set the same end date and start date. You can use the arrow button to copy "
@@ -2401,7 +2401,7 @@ msgstr "Laag"
 msgid "Lyrics Languages"
 msgstr "Taal van de tekst"
 
-#: ../root/components/relationship-editor.tt:126
+#: ../root/components/relationship-editor.tt:133
 #: ../root/release/edit/information.tt:135
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:252
 #: ../root/components/PartialDateInput.js:171
@@ -3776,7 +3776,7 @@ msgid "The data you’ve seeded contained the following errors:"
 msgstr "De gegevens die je hebt ingevuld, geven de volgende foutmeldingen:"
 
 #: ../root/release/edit/information.tt:157
-#: ../root/static/scripts/relationship-editor/common/dialog.js:597
+#: ../root/static/scripts/relationship-editor/common/dialog.js:609
 msgid "The date you've entered is not valid."
 msgstr "De datum die je hebt ingevoerd, is niet geldig."
 
@@ -3850,7 +3850,7 @@ msgstr "De mogelijkheid om artiesten te volgen is nu niet actief."
 
 #: ../root/components/forms.tt:201 ../root/release/edit/information.tt:158
 #: ../root/components/PartialDateInput.js:53
-#: ../root/static/scripts/relationship-editor/common/dialog.js:219
+#: ../root/static/scripts/relationship-editor/common/dialog.js:220
 msgid ""
 "The year should have four digits. If you want to enter a year earlier than "
 "1000 CE, please pad with zeros, such as “0123”."
@@ -4098,7 +4098,7 @@ msgstr "Deze opname is een video"
 msgid "This relationship allows setting dates"
 msgstr "Deze relatie kan data hebben."
 
-#: ../root/components/relationship-editor.tt:176
+#: ../root/components/relationship-editor.tt:183
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:196
 msgid "This relationship has ended."
 msgstr "Deze relatie is beëindigd."
@@ -4213,6 +4213,10 @@ msgid ""
 "To <span class=\"rel-edit\">edit</span> a relationship, click on its name "
 "(e.g. \"composer\")."
 msgstr "Klik op de naam van een relatie (bijv. componist) om deze naam <span class=\"rel-edit\">te bewerken</span>"
+
+#: ../root/components/relationship-editor.tt:122
+msgid "To add parts to this series, please select a series type first."
+msgstr "Om delen aan deze serie toe te voegen, moet je eerst een serietype selecteren."
 
 #: ../root/release/edit/tracklist.tt:243
 msgid ""
@@ -4706,7 +4710,7 @@ msgstr "Compositie:"
 msgid "Works"
 msgstr "Composities"
 
-#: ../root/components/relationship-editor.tt:125
+#: ../root/components/relationship-editor.tt:132
 #: ../root/release/edit/information.tt:127
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:251
 #: ../root/components/PartialDateInput.js:158
@@ -4980,8 +4984,8 @@ msgstr "van"
 msgid "cancelled"
 msgstr "afgelast"
 
-#: ../root/components/relationship-editor.tt:223
-#: ../root/components/relationship-editor.tt:268
+#: ../root/components/relationship-editor.tt:230
+#: ../root/components/relationship-editor.tt:275
 msgid "credited as"
 msgstr "vermeld als"
 
@@ -5013,15 +5017,15 @@ msgstr "eerst langst geleden gesloten"
 msgid "edits"
 msgstr "bewerkingen"
 
-#: ../root/components/relationship-editor.tt:197
+#: ../root/components/relationship-editor.tt:204
 #: ../root/utility/relationshipDateText.js:38
 msgid "ended"
 msgstr "beëindigd"
 
 #: ../root/components/forms.tt:263 ../root/components/forms.tt:288
 #: ../root/components/relationship-editor.tt:112
-#: ../root/components/relationship-editor.tt:132
-#: ../root/components/relationship-editor.tt:145
+#: ../root/components/relationship-editor.tt:139
+#: ../root/components/relationship-editor.tt:152
 #: ../root/edit/search_macros.tt:191 ../root/release/edit/tracklist.tt:3
 #: ../root/release/edit/tracklist.tt:83 ../root/release/edit/tracklist.tt:316
 #: ../root/release/edit/tracklist.tt:491 ../root/release/edit/tracklist.tt:506
@@ -5590,6 +5594,12 @@ msgstr "De ingevoerde artiest-ID is niet geldig"
 msgid "The provided CD TOC ID doesn’t exist."
 msgstr "De opgegeven TOC van de cd bestaat niet."
 
+#: ../lib/MusicBrainz/Server/Controller/Collection.pm:76
+#, perl-brace-format
+msgid ""
+"“{id}” is not a valid row ID; the entity might have been merged or deleted."
+msgstr "“{id}” is geen geldige rij-ID; mogelijk is het object samengevoegd of verwijderd."
+
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:284
 msgid "Default"
 msgstr "Standaard"
@@ -5689,26 +5699,26 @@ msgstr "Je rapport is verstuurd."
 msgid "Invalid TOC"
 msgstr "Ongeldige TOC"
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:278
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:279
 msgid ""
 "An error occurred trying to communicate with the Internet Archive servers. "
 "Please wait a few moments and try again."
 msgstr "Bij de communicatie met de servers van het Internet Archive is een fout opgetreden. Wacht even en probeer het dan nog een keer."
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:292
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:293
 msgid ""
 "We’ve hit a temporary delay while trying to fetch metadata from the Internet"
 " Archive. Please wait a minute and try again."
 msgstr "Tijdens het ophalen van metadata van het Internet Archive ondervonden we een tijdelijke vertraging. Wacht een minuutje en probeer het dan opnieuw."
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:409
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:410
 #: ../root/release/CoverArtDarkened.js:27
 msgid ""
 "The Cover Art Archive has had a takedown request in the past for this "
 "release, so we are unable to allow any more uploads."
 msgstr "Het Cover Art Archive heeft in het verleden het verzoek gekregen om afbeeldingen voor deze uitgave te verwijderen, dus we kunnen ze je niet meer laten toevoegen."
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:444
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:447
 #, perl-brace-format
 msgid ""
 "Cover art can’t be uploaded to this release because we don’t own the "
@@ -6850,7 +6860,7 @@ msgstr "Deze coördinaten konden niet worden ingevoerd"
 
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:40
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:65
-#: ../root/static/scripts/relationship-editor/common/dialog.js:608
+#: ../root/static/scripts/relationship-editor/common/dialog.js:620
 msgid "The end date cannot precede the begin date."
 msgstr "De einddatum kan niet voor de begindatum zijn."
 
@@ -11936,7 +11946,7 @@ msgstr "{entity0}-{entity1}"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:76
 #: ../root/static/scripts/edit/externalLinks.js:623
-#: ../root/static/scripts/relationship-editor/common/dialog.js:554
+#: ../root/static/scripts/relationship-editor/common/dialog.js:566
 msgid "This relationship type is deprecated and should not be used."
 msgstr "Dit relatietype is verouderd en moet niet meer worden gebruikt."
 
@@ -14686,25 +14696,32 @@ msgid ""
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr "Links naar specifieke delen van Wikipedia-pagina’s zijn niet toegestaan. Verwijder ‘{fragment}’ of verwijder de link als de hele pagina niet relevant is voor dit object. Zie onze {url|richtlijnen}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5046
+#: ../root/static/scripts/edit/URLCleanup.js:5027
+msgid ""
+"This is a playlist link, which isn’t a video channel and is not guaranteed "
+"to be officially approved. Please link to the official channel for this "
+"entity, if it exists, instead."
+msgstr "Dit is een link naar een afspeellijst. Dit is geen kanaal en mogelijk niet officieel goedgekeurd. Voeg in plaats van deze link een link naar het officiële kanaal van dit object toe, als dat bestaat."
+
+#: ../root/static/scripts/edit/URLCleanup.js:5067
 msgid "Only video and playlist links are allowed on releases."
 msgstr "Alleen links naar video’s en speellijsten mogen aan uitgaven worden toegevoegd."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5082
+#: ../root/static/scripts/edit/URLCleanup.js:5103
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia"
 " links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr "Wikipedia heeft normaal gesproken geen lemma’s voor specifieke uitgaven, dus het toevoegen van Wikipedia-links aan een uitgave wordt geblokkeerd. Voeg de Wikipedia-link, als hij relevant is, toe aan de uitgavegroep."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5094
+#: ../root/static/scripts/edit/URLCleanup.js:5115
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr "Wikidata heeft normaal gesproken geen lemma’s voor specifieke uitgaven, dus het toevoegen van Wikidata-links aan een uitgave wordt geblokkeerd. Voeg de Wikidata-link, als hij relevant is, toe aan de uitgavegroep."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5106
+#: ../root/static/scripts/edit/URLCleanup.js:5127
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -14713,7 +14730,7 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr "Dit is een Bandcamp-profiel en geen pagina voor een specifieke uitgave. Zelfs als de uitgave hier nu wordt weergegeven, kan dit veranderen zodra de artiest een nieuwe uitgeeft. Voeg de juiste pagina voor de uitgave ({album_url_pattern} of {single_url_pattern}) toe. Je kan dit profiel wel aan de bijbehorende platenmaatschappij of artiest toevoegen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5134
+#: ../root/static/scripts/edit/URLCleanup.js:5155
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases"
@@ -14722,18 +14739,18 @@ msgid ""
 "the appropriate artist or label."
 msgstr "Dit is een Bandcamp-profiel en geen pagina voor een specifieke opname. Zelfs als de opname hier nu wordt weergegeven, kan dit veranderen zodra de artiest een nieuwe uitgeeft. Voeg de juiste pagina voor de opname ({single_url_pattern}) toe. Je kan dit profiel wel aan de bijbehorende platenmaatschappij of artiest toevoegen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5297
+#: ../root/static/scripts/edit/URLCleanup.js:5318
 msgid "Some relationship types are missing for this URL."
 msgstr "Voor deze URL ontbreken bepaalde relatietypes."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5314
+#: ../root/static/scripts/edit/URLCleanup.js:5335
 #: ../root/static/scripts/edit/externalLinks.js:869
 msgid "This relationship type combination is invalid."
 msgstr "Deze combinatie van relaties is ongeldig."
 
 #: ../root/static/scripts/edit/check-duplicates.js:152
 #: ../root/static/scripts/edit/externalLinks.js:563
-#: ../root/static/scripts/relationship-editor/common/dialog.js:581
+#: ../root/static/scripts/relationship-editor/common/dialog.js:593
 msgid "Required field."
 msgstr "Vereist veld."
 
@@ -14911,7 +14928,7 @@ msgid "This relationship already exists."
 msgstr "De relatie bestaat al."
 
 #: ../root/static/scripts/edit/externalLinks.js:645
-#: ../root/static/scripts/relationship-editor/common/dialog.js:565
+#: ../root/static/scripts/relationship-editor/common/dialog.js:577
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
@@ -14966,7 +14983,7 @@ msgid "This URL is not allowed for works."
 msgstr "Deze URL is voor composities niet toegestaan."
 
 #: ../root/static/scripts/edit/externalLinks.js:992
-#: ../root/static/scripts/relationship-editor/common/dialog.js:418
+#: ../root/static/scripts/relationship-editor/common/dialog.js:419
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|meer documentatie})"
 
@@ -15027,45 +15044,45 @@ msgid ""
 "language guidelines}."
 msgstr "Deze methode regelt de hoofdletters voor de Turkse ‘i’ (‘İ’) en ‘ı’ (‘I’). Sommige woorden moeten misschien handmatig worden ingesteld aan de hand van de {url|richtlijn Turks}."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:37
+#: ../root/static/scripts/relationship-editor/common/dialog.js:38
 msgid "The series you’ve selected is for recordings."
 msgstr "De serie die je hebt geselecteerd, is voor opnames."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:38
+#: ../root/static/scripts/relationship-editor/common/dialog.js:39
 msgid "The series you’ve selected is for releases."
 msgstr "De serie die je hebt geselecteerd, is voor uitgaven."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:39
+#: ../root/static/scripts/relationship-editor/common/dialog.js:40
 msgid "The series you’ve selected is for release groups."
 msgstr "De serie die je hebt geselecteerd, is voor uitgavegroepen."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:40
+#: ../root/static/scripts/relationship-editor/common/dialog.js:41
 msgid "The series you’ve selected is for works."
 msgstr "De serie die je hebt geselecteerd, is voor composities."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:546
+#: ../root/static/scripts/relationship-editor/common/dialog.js:558
 msgid "Please select a relationship type."
 msgstr "Selecteer een relatietype"
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:549
+#: ../root/static/scripts/relationship-editor/common/dialog.js:561
 msgid ""
 "Please select a subtype of the currently selected relationship type. The "
 "selected relationship type is only used for grouping subtypes."
 msgstr "Selecteer een subtype van het nu gebruikte relatietype. Het geselecteerde relatietype wordt alleen gebruikt om subtypes te groeperen."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:583
+#: ../root/static/scripts/relationship-editor/common/dialog.js:595
 msgid "Entities in a relationship cannot be the same."
 msgstr "Objecten in een relatie kunnen niet hetzelfde zijn."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:640
+#: ../root/static/scripts/relationship-editor/common/dialog.js:652
 msgid "Change credits for other {entity} relationships on the page."
 msgstr "Verander vermeldingen voor andere {entity}-relaties op de pagina."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:648
+#: ../root/static/scripts/relationship-editor/common/dialog.js:660
 msgid "Only relationships to {entity_type} entities."
 msgstr "Alleen relaties naar een {entity_type}."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:656
+#: ../root/static/scripts/relationship-editor/common/dialog.js:668
 msgid "Only “{relationship_type}” relationships to {entity_type} entities."
 msgstr "Alleen {relationship_type}relaties naar een {entity_type}."
 

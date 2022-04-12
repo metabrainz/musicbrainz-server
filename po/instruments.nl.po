@@ -2437,7 +2437,7 @@ msgstr "liuqin"
 #: DB:instrument/name:398
 msgctxt "Low pitch fipple flute"
 msgid "low whistle"
-msgstr ""
+msgstr "low whistle"
 
 #: DB:instrument/name:83
 msgid "lute"
@@ -3618,7 +3618,7 @@ msgstr "sáo trúc"
 #: DB:instrument/name:691
 msgctxt "Historical Swedish bagpipes"
 msgid "säckpipa"
-msgstr ""
+msgstr "Zweedse doedelzak"
 
 #: DB:instrument/name:276
 msgid "sênh tiền"
@@ -3845,7 +3845,7 @@ msgstr "pauk"
 #: DB:instrument/name:197
 msgctxt "Simple fipple flute"
 msgid "tin whistle"
-msgstr ""
+msgstr "tinwhistle"
 
 #: DB:instrument/name:724
 msgid "tinya"

@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
-"Plural-Forms: nplurals=3; plural=(n==0 || n==1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -1348,8 +1348,7 @@ msgstr "Par parution"
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
 msgstr[0] "avec {num} illustration :"
-msgstr[1] ""
-msgstr[2] "avec {num} illustrations :"
+msgstr[1] "avec {num} illustrations :"
 
 #: ../root/statistics/CoverArt.js:365
 msgid "with 30 or more pieces of cover art:"
@@ -1725,8 +1724,7 @@ msgstr "Parutions avec au moins un ID de disque :"
 msgid "with {num} disc ID:"
 msgid_plural "with {num} disc IDs:"
 msgstr[0] "avec {num} ID de disque :"
-msgstr[1] ""
-msgstr[2] "avec {num}ID de disque :"
+msgstr[1] "avec {num}ID de disque :"
 
 #: ../root/statistics/Index.js:573 ../root/statistics/Index.js:615
 msgid "with 10 or more disc IDs:"
@@ -2802,29 +2800,25 @@ msgstr "/jour"
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
 msgstr[0] "Parutions avec 1 ID de disque"
-msgstr[1] ""
-msgstr[2] "Parutions avec {n} ID de disque"
+msgstr[1] "Parutions avec {n} ID de disque"
 
 #: ../root/statistics/stats.js:924
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
 msgstr[0] "Support avec 1 ID de disque"
-msgstr[1] ""
-msgstr[2] "Support avec {n} ID de disque"
+msgstr[1] "Support avec {n} ID de disque"
 
 #: ../root/statistics/stats.js:935
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
 msgstr[0] "Enregistrements avec 1 parution"
-msgstr[1] ""
-msgstr[2] "Enregistrements avec {n} parutions"
+msgstr[1] "Enregistrements avec {n} parutions"
 
 #: ../root/statistics/stats.js:946
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
 msgstr[0] "Groupes de parution avec 1 parution"
-msgstr[1] ""
-msgstr[2] "Groupes de parution avec {n} parution"
+msgstr[1] "Groupes de parution avec {n} parution"
 
 #: ../root/statistics/stats.js:999
 msgid "{type} areas"
