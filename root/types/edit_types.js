@@ -722,6 +722,16 @@ declare type EditEventEditT = $ReadOnly<{
   +edit_type: EDIT_EVENT_EDIT_T,
 }>;
 
+declare type EditGenreEditT = $ReadOnly<{
+  ...GenericEditT,
+  +display_data: {
+    +comment?: CompT<string | null>,
+    +genre: GenreT,
+    +name?: CompT<string>,
+  },
+  +edit_type: EDIT_GENRE_EDIT_T,
+}>;
+
 declare type EditInstrumentEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {

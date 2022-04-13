@@ -40,6 +40,7 @@ import EditArtistCredit from '../details/EditArtistCredit';
 import EditBarcodes from '../details/EditBarcodes';
 import EditCoverArt from '../details/EditCoverArt';
 import EditEvent from '../details/EditEvent';
+import EditGenre from '../details/EditGenre';
 import EditInstrument from '../details/EditInstrument';
 import EditLabel from '../details/EditLabel';
 import EditMedium from '../details/EditMedium';
@@ -222,6 +223,8 @@ export default function getEditDetailsElement(
       return <EditCoverArt edit={edit} />;
     case EDIT_TYPES.EDIT_EVENT_EDIT:
       return <EditEvent edit={edit} />;
+    case EDIT_TYPES.EDIT_GENRE_EDIT:
+      return <EditGenre edit={edit} />;
     case EDIT_TYPES.EDIT_INSTRUMENT_EDIT:
       return <EditInstrument edit={edit} />;
     case EDIT_TYPES.EDIT_LABEL_EDIT:

@@ -32,6 +32,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Event::EditAlias
     MusicBrainz::Server::Edit::Event::Merge
     MusicBrainz::Server::Edit::Genre::Create
+    MusicBrainz::Server::Edit::Genre::Edit
     MusicBrainz::Server::Edit::Genre::Delete
     MusicBrainz::Server::Edit::Instrument::AddAlias
     MusicBrainz::Server::Edit::Instrument::DeleteAlias
