@@ -14,6 +14,7 @@ import AddArtist from '../details/AddArtist';
 import AddCoverArt from '../details/AddCoverArt';
 import AddDiscId from '../details/AddDiscId';
 import AddEvent from '../details/AddEvent';
+import AddGenre from '../details/AddGenre';
 import AddInstrument from '../details/AddInstrument';
 import AddIsrcs from '../details/AddIsrcs';
 import AddIswcs from '../details/AddIswcs';
@@ -138,6 +139,8 @@ export default function getEditDetailsElement(
       return <AddDiscId edit={edit} />;
     case EDIT_TYPES.EDIT_EVENT_CREATE:
       return <AddEvent edit={edit} />;
+    case EDIT_TYPES.EDIT_GENRE_CREATE:
+      return <AddGenre edit={edit} />;
     case EDIT_TYPES.EDIT_INSTRUMENT_CREATE:
       return <AddInstrument edit={edit} />;
     case EDIT_TYPES.EDIT_RECORDING_ADD_ISRCS:

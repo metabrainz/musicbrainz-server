@@ -9,8 +9,9 @@
 
 import * as React from 'react';
 
+import EnterEdit from '../components/EnterEdit';
+import EnterEditNote from '../components/EnterEditNote';
 import FormRowTextLong from '../components/FormRowTextLong';
-import FormSubmit from '../components/FormSubmit';
 
 import type {GenreFormT} from './types';
 
@@ -39,10 +40,8 @@ const GenreEditForm = ({
           uncontrolled
         />
       </fieldset>
-    </div>
-    <div className="row no-label">
-      {/* TODO: Replace with 'Enter edit' with MBS-10165 */}
-      <FormSubmit label={l('Submit')} />
+      <EnterEditNote field={form.field.edit_note} />
+      <EnterEdit form={form} />
     </div>
   </form>
 );

@@ -158,6 +158,16 @@ declare type AddEventEditT = $ReadOnly<{
   +edit_type: EDIT_EVENT_CREATE_T,
 }>;
 
+declare type AddGenreEditT = $ReadOnly<{
+  ...GenericEditT,
+  +display_data: {
+    ...CommentRoleT,
+    +genre: GenreT,
+    +name: string,
+  },
+  +edit_type: EDIT_GENRE_CREATE_T,
+}>;
+
 declare type AddInstrumentEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
@@ -1454,6 +1464,7 @@ declare type CurrentEditT =
   | AddCoverArtEditT
   | AddDiscIdEditT
   | AddEventEditT
+  | AddGenreEditT
   | AddInstrumentEditT
   | AddIsrcsEditT
   | AddIswcsEditT

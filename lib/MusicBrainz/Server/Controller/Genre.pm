@@ -15,6 +15,7 @@ with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 
 use MusicBrainz::Server::Constants qw(
+    $EDIT_GENRE_CREATE
     $EDIT_GENRE_DELETE
 );
 
@@ -49,27 +50,6 @@ sub _redirect_to_genre {
     $c->response->redirect($c->uri_for_action($self->action_for('show'), [ $gid ]));
 }
 
-sub create : Local RequireAuth(relationship_editor) Edit {
-    my ($self, $c) = @_;
-
-    my $form = $c->form( form => 'Genre' );
-
-    if ($c->form_posted_and_valid($form)) {
-        my %insert = $self->_form_to_hash($form);
-        my $genre = $c->model('MB')->with_transaction(sub {
-            $c->model('Genre')->insert(\%insert);
-        });
-
-        $self->_redirect_to_genre($c, $genre->{gid});
-    }
-
-    $c->stash(
-        component_path => 'genre/CreateGenre',
-        component_props => {form => $form->TO_JSON},
-        current_view => 'Node',
-    );
-}
-
 sub edit : Chained('load') RequireAuth(relationship_editor) {
     my ($self, $c) = @_;
 
@@ -98,11 +78,16 @@ sub edit : Chained('load') RequireAuth(relationship_editor) {
     );
 }
 
+with 'MusicBrainz::Server::Controller::Role::Create' => {
+    form      => 'Genre',
+    edit_type => $EDIT_GENRE_CREATE,
+};
+
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_GENRE_DELETE,
 };
 
-for my $method (qw( delete )) {
+for my $method (qw( create delete )) {
     before $method => sub {
         my ($self, $c) = @_;
         if (!$c->user->is_relationship_editor) {

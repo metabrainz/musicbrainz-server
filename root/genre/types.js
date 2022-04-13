@@ -14,5 +14,7 @@ export type GenreDeleteFormT = FormT<{
 
 export type GenreFormT = FormT<{
   +comment: ReadOnlyFieldT<string>,
+  +edit_note: ReadOnlyFieldT<string>,
+  +make_votable: ReadOnlyFieldT<boolean>,
   +name: ReadOnlyFieldT<string>,
 }>;
