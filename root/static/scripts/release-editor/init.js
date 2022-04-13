@@ -163,7 +163,7 @@ releaseEditor.init = function (options) {
        * (because there are many discs), we should still allow the
        * user to edit the recordings if that's all they want to do.
        */
-      tabEnabled = release.hasTrackInfo();
+      tabEnabled = release.hasTrackArtists() && release.hasTrackTitles();
     }
 
     var tabNumber = addingRelease ? 3 : 2;

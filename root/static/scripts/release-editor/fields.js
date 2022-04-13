@@ -313,9 +313,12 @@ class Track {
     this.recordingValue(value);
   }
 
-  hasNameAndArtist() {
-    return !isBlank(this.name()) &&
-            isCompleteArtistCredit(this.artistCredit());
+  hasArtist() {
+    return isCompleteArtistCredit(this.artistCredit());
+  }
+
+  hasTitle() {
+    return !isBlank(this.name());
   }
 
   hasVariousArtists() {
@@ -430,9 +433,13 @@ class Medium {
       return !self.tracksUnknownToUser() &&
              self.tracks().some(t => t.needsRecording());
     });
-    this.hasTrackInfo = ko.computed(function () {
+    this.hasTrackArtists = ko.computed(function () {
       return self.tracksUnknownToUser() ||
-             self.tracks().every(t => t.hasNameAndArtist());
+             self.tracks().every(t => t.hasArtist());
+    });
+    this.hasTrackTitles = ko.computed(function () {
+      return self.tracksUnknownToUser() ||
+             self.tracks().every(t => t.hasTitle());
     });
     this.hasVariousArtistTracks = ko.computed(function () {
       return !self.tracksUnknownToUser() &&
@@ -462,8 +469,11 @@ class Medium {
       return /^(Cassette|CD|Dis[ck]|DVD|SACD|Vinyl)\s*\d+/i.test(self.name());
     });
     this.confirmedMediumTitle = ko.observable(this.hasUselessMediumTitle());
-    this.needsTrackInfo = ko.computed(function () {
-      return !self.hasTrackInfo();
+    this.needsTrackArtists = ko.computed(function () {
+      return !self.hasTrackArtists();
+    });
+    this.needsTrackTitles = ko.computed(function () {
+      return !self.hasTrackTitles();
     });
 
     if (data.id != null) {
@@ -1077,7 +1087,8 @@ class Release extends mbEntity.Release {
     this.original = ko.observable(mbEdit.fields.release(this));
 
     this.loadedMediums = this.mediums.filter('loaded');
-    this.hasTrackInfo = this.loadedMediums.all('hasTrackInfo');
+    this.hasTrackArtists = this.loadedMediums.all('hasTrackArtists');
+    this.hasTrackTitles = this.loadedMediums.all('hasTrackTitles');
     this.hasTracks = this.mediums.any('hasTracks');
     this.hasUnknownTracklist = ko.observable(
       !this.mediums().length && releaseEditor.action === 'edit',
@@ -1098,8 +1109,11 @@ class Release extends mbEntity.Release {
       errorField(this.mediums.any('hasUnconfirmedUselessMediumTitle'));
     this.needsFormat = errorField(this.mediums.any('needsFormat'));
     this.needsTracks = errorField(this.mediums.any('needsTracks'));
-    this.needsTrackInfo = errorField(function () {
-      return !self.hasTrackInfo();
+    this.needsTrackArtists = errorField(function () {
+      return !self.hasTrackArtists();
+    });
+    this.needsTrackTitles = errorField(function () {
+      return !self.hasTrackTitles();
     });
     this.hasInvalidPregapLength = errorField(
       this.mediums.any('hasInvalidPregapLength'),
