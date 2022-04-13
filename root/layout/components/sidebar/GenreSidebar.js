@@ -13,6 +13,7 @@ import {CatalystContext} from '../../../context';
 import {isRelationshipEditor}
   from '../../../static/scripts/common/utility/privileges';
 
+import EditLinks from './EditLinks';
 import LastUpdated from './LastUpdated';
 import RemoveLink from './RemoveLink';
 
@@ -26,12 +27,9 @@ const GenreSidebar = ({genre}: Props): React.Element<'div'> => {
   return (
     <div id="sidebar">
       {isRelationshipEditor($c.user) ? (
-        <>
-          <h2 className="editing">{l('Editing')}</h2>
-          <ul className="links">
-            <RemoveLink entity={genre} />
-          </ul>
-        </>
+        <EditLinks entity={genre}>
+          <RemoveLink entity={genre} />
+        </EditLinks>
       ) : null}
       <LastUpdated entity={genre} />
     </div>

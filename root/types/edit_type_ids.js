@@ -143,6 +143,10 @@ declare type EDIT_EVENT_ADD_ALIAS_T = 155;
 declare type EDIT_EVENT_DELETE_ALIAS_T = 156;
 declare type EDIT_EVENT_EDIT_ALIAS_T = 157;
 
+declare type EDIT_GENRE_CREATE_T = 160;
+declare type EDIT_GENRE_EDIT_T = 161;
+declare type EDIT_GENRE_DELETE_T = 162;
+
 declare type EDIT_WIKIDOC_CHANGE_T = 120;
 
 declare type EDIT_URL_EDIT_T = 101;
