@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::Role::Delete;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
+use MusicBrainz::Server::Data::Utils qw( model_to_type );
 
 parameter 'edit_type' => (
     isa => 'Int',
@@ -38,12 +39,23 @@ role {
         my ($self, $c) = @_;
         my $entity_name = $self->{entity_name};
         my $edit_entity = $c->stash->{ $entity_name };
-        if ($self->{model} eq 'Area') {
+        my $model = $self->{model};
+        if ($model eq 'Area') {
             $c->stash(
                 is_release_country_area => $c->model('Area')->is_release_country_area($edit_entity->id)
             );
         }
-        if ($c->model($self->{model})->can_delete($edit_entity->id)) {
+
+        if ($model eq 'Genre') {
+            my $type = model_to_type($model);
+            $c->stash(
+                component_path => $type . '/Delete' . $model,
+                component_props => {entity => $edit_entity->TO_JSON},
+                current_view => 'Node',
+            );
+        }
+
+        if ($c->model($model)->can_delete($edit_entity->id)) {
             $c->stash( can_delete => 1 );
             # find a corresponding add edit and cancel instead, if applicable (MBS-1397)
             my $create_edit_type = $self->{create_edit_type};

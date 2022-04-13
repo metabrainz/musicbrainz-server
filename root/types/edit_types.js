@@ -1153,6 +1153,15 @@ declare type RemoveEventEditT = $ReadOnly<{
   +edit_type: EDIT_EVENT_DELETE_T,
 }>;
 
+declare type RemoveGenreEditT = $ReadOnly<{
+  ...GenericEditT,
+  +display_data: {
+    +entity: GenreT,
+    +entity_type: 'genre',
+  },
+  +edit_type: EDIT_GENRE_DELETE_T,
+}>;
+
 declare type RemoveInstrumentEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
@@ -1229,6 +1238,7 @@ declare type RemoveEntityEditT =
   | RemoveAreaEditT
   | RemoveArtistEditT
   | RemoveEventEditT
+  | RemoveGenreEditT
   | RemoveInstrumentEditT
   | RemoveLabelEditT
   | RemovePlaceEditT

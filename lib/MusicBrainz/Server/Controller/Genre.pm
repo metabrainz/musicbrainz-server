@@ -14,6 +14,10 @@ with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 
+use MusicBrainz::Server::Constants qw(
+    $EDIT_GENRE_DELETE
+);
+
 sub base : Chained('/') PathPart('genre') CaptureArgs(0) { }
 
 after 'load' => sub {
@@ -94,25 +98,18 @@ sub edit : Chained('load') RequireAuth(relationship_editor) {
     );
 }
 
-sub delete : Chained('load') RequireAuth(relationship_editor) {
-    my ($self, $c) = @_;
+with 'MusicBrainz::Server::Controller::Role::Delete' => {
+    edit_type      => $EDIT_GENRE_DELETE,
+};
 
-    my $genre = $c->stash->{genre};
-
-    if ($c->form_posted) {
-        $c->model('MB')->with_transaction(sub {
-            $c->model('Genre')->delete($genre->{id});
-        });
-
-        $c->response->redirect($c->uri_for_action('genre/list'));
-    }
-
-    $c->stash(
-        component_path => 'genre/DeleteGenre',
-        component_props => {genre => $genre->TO_JSON},
-        current_view => 'Node',
-    );
-}
+for my $method (qw( delete )) {
+    before $method => sub {
+        my ($self, $c) = @_;
+        if (!$c->user->is_relationship_editor) {
+            $c->detach('/error_403');
+        }
+    };
+};
 
 sub list : Path('/genres') Args(0) {
     my ($self, $c) = @_;

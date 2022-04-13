@@ -9,19 +9,23 @@
 
 import * as React from 'react';
 
-import FormSubmit from '../components/FormSubmit';
+import EnterEdit from '../components/EnterEdit';
+import EnterEditNote from '../components/EnterEditNote';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 
 import GenreLayout from './GenreLayout';
+import type {GenreDeleteFormT} from './types';
 
 type Props = {
   +$c: CatalystContextT,
-  +genre: GenreT,
+  +entity: GenreT,
+  +form: GenreDeleteFormT,
 };
 
 const DeleteGenre = ({
   $c,
-  genre,
+  entity: genre,
+  form,
 }: Props): React.Element<typeof GenreLayout> => (
   <GenreLayout
     entity={genre}
@@ -34,8 +38,10 @@ const DeleteGenre = ({
       {exp.l('Are you sure you want to remove the genre {genre}?',
              {genre: <EntityLink entity={genre} />})}
     </p>
+
     <form action={$c.req.uri} method="post">
-      <FormSubmit label={l('Remove genre')} />
+      <EnterEditNote field={form.field.edit_note} />
+      <EnterEdit form={form} />
     </form>
 
   </GenreLayout>
