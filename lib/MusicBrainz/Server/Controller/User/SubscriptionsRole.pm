@@ -19,7 +19,7 @@ role {
     $extra{consumer}->name->config(
         action => {
             $type => { Chained => '/user/load', PathPart => "subscriptions/$type",
-                      RequireAuth => undef, HiddenOnSlaves => undef }
+                      RequireAuth => undef, HiddenOnMirrors => undef }
         }
     );
 

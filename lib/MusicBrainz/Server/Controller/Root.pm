@@ -370,7 +370,7 @@ sub begin : Private
     }
 
     # Returns a special 404 for areas of the site that shouldn't exist on a mirror (e.g. /user pages)
-    if (exists $attributes->{HiddenOnSlaves}) {
+    if (exists $attributes->{HiddenOnMirrors}) {
         $c->detach('/error_mirror_404') if ($c->stash->{server_details}->{is_mirror_db});
     }
 

@@ -693,7 +693,7 @@ sub _checksum
     return sha1_base64("$email $uid $time " . DBDefs->SMTP_SECRET_CHECKSUM);
 }
 
-sub donation : Local RequireAuth HiddenOnSlaves
+sub donation : Local RequireAuth HiddenOnMirrors
 {
     my ($self, $c) = @_;
 
