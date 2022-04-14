@@ -77,8 +77,8 @@ if ($build_all || $options{release_first_release_date}) {
         $c->sql->rollback;
     } else {
         my $pending_updates_trigger = 'apply_artist_release_pending_updates';
-        if (DBDefs->REPLICATION_TYPE == RT_SLAVE) {
-            $pending_updates_trigger .= '_slave';
+        if (DBDefs->REPLICATION_TYPE == RT_MIRROR) {
+            $pending_updates_trigger .= '_mirror';
         }
         $c->sql->do("ALTER TABLE release_first_release_date DISABLE TRIGGER $pending_updates_trigger");
         $c->sql->do('TRUNCATE release_first_release_date');

@@ -76,7 +76,7 @@ SELECT results_eq(
     $$
 );
 
--- Test a_ins_release_slave_safe AFTER INSERT ON release
+-- Test a_ins_release_mirror_safe AFTER INSERT ON release
 
 SET CONSTRAINTS ALL DEFERRED;
 
@@ -109,7 +109,7 @@ SELECT results_eq(
     $$
 );
 
--- Test a_ins_track_slave_safe AFTER INSERT ON track
+-- Test a_ins_track_mirror_safe AFTER INSERT ON track
 
 SET CONSTRAINTS ALL DEFERRED;
 
@@ -168,7 +168,7 @@ SELECT results_eq(
     $$
 );
 
--- Test a_ins_release_group_slave_safe AFTER INSERT ON release_group
+-- Test a_ins_release_group_mirror_safe AFTER INSERT ON release_group
 
 SET CONSTRAINTS ALL DEFERRED;
 
@@ -204,7 +204,7 @@ SELECT results_eq(
     $$
 );
 
--- Test a_upd_release_slave_safe AFTER UPDATE ON release
+-- Test a_upd_release_mirror_safe AFTER UPDATE ON release
 
 SET CONSTRAINTS ALL DEFERRED;
 
@@ -362,7 +362,7 @@ SELECT results_eq(
     $$
 );
 
--- Test a_upd_track_slave_safe AFTER UPDATE ON track
+-- Test a_upd_track_mirror_safe AFTER UPDATE ON track
 
 SET CONSTRAINTS ALL DEFERRED;
 
@@ -435,7 +435,7 @@ SELECT results_eq(
     $$
 );
 
--- Test a_ins_release_country_slave_safe AFTER INSERT ON release_country
+-- Test a_ins_release_country_mirror_safe AFTER INSERT ON release_country
 
 SET CONSTRAINTS ALL DEFERRED;
 
@@ -477,7 +477,7 @@ SELECT results_eq(
     $$
 );
 
--- Test a_upd_release_country_slave_safe AFTER UPDATE ON release_country
+-- Test a_upd_release_country_mirror_safe AFTER UPDATE ON release_country
 
 SET CONSTRAINTS ALL DEFERRED;
 
@@ -519,7 +519,7 @@ SELECT results_eq(
     $$
 );
 
--- Test a_del_release_country_slave_safe AFTER DELETE ON release_country
+-- Test a_del_release_country_mirror_safe AFTER DELETE ON release_country
 
 SET CONSTRAINTS ALL DEFERRED;
 
@@ -558,7 +558,7 @@ SELECT results_eq(
     $$
 );
 
--- Test a_ins_release_label_slave_safe AFTER INSERT ON release_label
+-- Test a_ins_release_label_mirror_safe AFTER INSERT ON release_label
 
 SET CONSTRAINTS ALL DEFERRED;
 
@@ -602,7 +602,7 @@ SELECT results_eq(
     $$
 );
 
--- Test a_upd_release_label_slave_safe AFTER UPDATE ON release_label
+-- Test a_upd_release_label_mirror_safe AFTER UPDATE ON release_label
 
 SET CONSTRAINTS ALL DEFERRED;
 
@@ -645,7 +645,7 @@ SELECT results_eq(
     $$
 );
 
--- Test a_del_release_label_slave_safe AFTER DELETE ON release_label
+-- Test a_del_release_label_mirror_safe AFTER DELETE ON release_label
 
 SET CONSTRAINTS ALL DEFERRED;
 
@@ -687,7 +687,7 @@ SELECT results_eq(
     $$
 );
 
--- Test a_ins_release_first_release_date_slave_safe AFTER INSERT ON release_first_release_date
+-- Test a_ins_release_first_release_date_mirror_safe AFTER INSERT ON release_first_release_date
 
 SET CONSTRAINTS ALL DEFERRED;
 
@@ -766,8 +766,8 @@ SELECT results_eq(
     $$
 );
 
--- Test a_upd_release_first_release_date_slave_safe AFTER UPDATE ON release_first_release_date
--- Test a_upd_release_group_meta_slave_safe AFTER UPDATE ON release_group_meta
+-- Test a_upd_release_first_release_date_mirror_safe AFTER UPDATE ON release_first_release_date
+-- Test a_upd_release_group_meta_mirror_safe AFTER UPDATE ON release_group_meta
 
 SET CONSTRAINTS ALL DEFERRED;
 
@@ -847,7 +847,7 @@ SELECT results_eq(
     $$
 );
 
--- Test a_del_release_first_release_date_slave_safe AFTER DELETE ON release_first_release_date
+-- Test a_del_release_first_release_date_mirror_safe AFTER DELETE ON release_first_release_date
 
 SET CONSTRAINTS ALL DEFERRED;
 
@@ -924,7 +924,7 @@ SELECT results_eq(
     $$
 );
 
--- Test a_ins_release_group_secondary_type_join_slave_safe AFTER INSERT ON release_group_secondary_type_join
+-- Test a_ins_release_group_secondary_type_join_mirror_safe AFTER INSERT ON release_group_secondary_type_join
 
 SET CONSTRAINTS ALL DEFERRED;
 
@@ -971,7 +971,7 @@ SELECT results_eq(
     $$
 );
 
--- Test a_del_release_group_secondary_type_join_slave_safe AFTER DELETE ON release_group_secondary_type_join
+-- Test a_del_release_group_secondary_type_join_mirror_safe AFTER DELETE ON release_group_secondary_type_join
 
 SET CONSTRAINTS ALL DEFERRED;
 
@@ -1017,7 +1017,7 @@ SELECT results_eq(
     $$
 );
 
--- Test a_upd_release_group_slave_safe AFTER UPDATE ON release_group
+-- Test a_upd_release_group_mirror_safe AFTER UPDATE ON release_group
 
 SET CONSTRAINTS ALL DEFERRED;
 
@@ -1072,7 +1072,7 @@ SELECT results_eq(
     $$
 );
 
--- Test a_del_track_slave_safe AFTER DELETE ON track
+-- Test a_del_track_mirror_safe AFTER DELETE ON track
 
 SET CONSTRAINTS ALL DEFERRED;
 
@@ -1130,7 +1130,7 @@ SELECT results_eq(
     $$
 );
 
--- Test a_del_release_slave_safe AFTER DELETE ON release
+-- Test a_del_release_mirror_safe AFTER DELETE ON release
 
 SET CONSTRAINTS ALL DEFERRED;
 
@@ -1181,7 +1181,7 @@ SELECT results_eq(
     $$
 );
 
--- Test a_del_release_group_slave_safe AFTER DELETE ON release_group
+-- Test a_del_release_group_mirror_safe AFTER DELETE ON release_group
 
 SET CONSTRAINTS ALL DEFERRED;
 

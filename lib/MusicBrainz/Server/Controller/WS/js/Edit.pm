@@ -624,7 +624,7 @@ sub edit : Chained('/') PathPart('ws/js/edit') CaptureArgs(0) Edit {
 
     $c->res->content_type('application/json; charset=utf-8');
 
-    if ($c->stash->{server_details}->{is_slave_db} || DBDefs->DB_READ_ONLY) {
+    if ($c->stash->{server_details}->{is_mirror_db} || DBDefs->DB_READ_ONLY) {
         $c->forward('/ws/js/detach_with_error', ['this server is in read-only mode']);
     }
 

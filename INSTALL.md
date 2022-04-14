@@ -115,7 +115,7 @@ Server configuration
 
     Determine what type of server this will be and set `REPLICATION_TYPE` accordingly:
 
-    1.  `RT_SLAVE` (mirror server)
+    1.  `RT_MIRROR` (mirror server)
 
         A mirror server will always be in sync with the master database at
         https://musicbrainz.org/ by way of an hourly replication packet. Mirror
@@ -127,7 +127,7 @@ Server configuration
         If you are not setting up a mirror server for development purposes, make
         sure to set `DB_STAGING_SERVER` to 0.
 
-        If you're setting up a slave server, make sure you have something set up
+        If you're setting up a mirror server, make sure you have something set up
         for the READONLY database setting in lib/DBDefs.pm; it can just be a copy
         of what's in READWRITE if you don't need anything fancy.
 
@@ -143,7 +143,7 @@ Server configuration
 
         Almost certainly not what you want, this is what the main musicbrainz.org
         site runs on. It's different from standalone in that it's able to *produce*
-        replication packets to be applied on slaves. For more details, see
+        replication packets to be applied on mirrors. For more details, see
         INSTALL-MASTER.md
 
     The server type cannot easily be changed after data import.
@@ -329,9 +329,9 @@ Creating the database
             ./admin/BuildMaterializedTables --database=MAINTENANCE all
 
         Once this is done, the tables will be kept up-to-date automatically via
-        triggers. (This is true even on replicated slaves. Generally, triggers
-        are not created on slaves, but since these materialized tables aren't
-        replicated, we install a set of slave-only triggers to manage them.)
+        triggers. (This is true even on replicated mirrors. Generally, triggers
+        are not created on mirrors, but since these materialized tables aren't
+        replicated, we install a set of mirror-only triggers to manage them.)
 
     If this process gets interrupted or fails, you will need to manually drop the
     musicbrainz_db database in order to be able to run `./admin/InitDb.pl --createdb`

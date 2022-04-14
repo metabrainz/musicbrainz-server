@@ -16,12 +16,12 @@ NEW_SCHEMA_SEQUENCE=26
 OLD_SCHEMA_SEQUENCE=$((NEW_SCHEMA_SEQUENCE - 1))
 
 RT_MASTER=1
-RT_SLAVE=2
+RT_MIRROR=2
 RT_STANDALONE=3
 
 SQL_DIR='./admin/sql/updates/schema-change'
 EXTENSIONS_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.extensions.sql"
-SLAVE_ONLY_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.slave_only.sql"
+MIRROR_ONLY_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.mirror_only.sql"
 
 ################################################################################
 # Assert pre-conditions
@@ -51,30 +51,30 @@ then
 
 fi
 
-if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
+if [ "$REPLICATION_TYPE" != "$RT_MIRROR" ]
 then
     echo `date` : Disabling last_updated triggers
     OUTPUT=`./admin/psql --system "$DATABASE" < ./admin/sql/DisableLastUpdatedTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################
-# Scripts that should run on *all* nodes (master/slave/standalone)
+# Scripts that should run on *all* nodes (master/mirror/standalone)
 
 echo `date` : 'Running upgrade scripts for all nodes'
 if [ -e "$EXTENSIONS_SQL" ]
 then
     ./admin/psql --system "$DATABASE" < "$EXTENSIONS_SQL" || exit 1
 fi
-./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.slave.sql || exit 1
+./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.mirror.sql || exit 1
 
 ################################################################################
-# Migrations that apply for only slaves
-if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
+# Migrations that apply for only mirrors
+if [ "$REPLICATION_TYPE" = "$RT_MIRROR" ]
 then
-    if [ -e "$SLAVE_ONLY_SQL" ]
+    if [ -e "$MIRROR_ONLY_SQL" ]
     then
-        echo `date` : 'Running upgrade scripts for slave nodes'
-        ./admin/psql "$DATABASE" < "$SLAVE_ONLY_SQL" || exit 1
+        echo `date` : 'Running upgrade scripts for mirror nodes'
+        ./admin/psql "$DATABASE" < "$MIRROR_ONLY_SQL" || exit 1
     fi
 fi
 
@@ -96,7 +96,7 @@ fi
 ################################################################################
 # Add constraints that apply only to master/standalone (FKS)
 
-if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
+if [ "$REPLICATION_TYPE" != "$RT_MIRROR" ]
 then
     echo `date` : 'Running upgrade scripts for master/standalone nodes'
     ./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.standalone.sql || exit 1

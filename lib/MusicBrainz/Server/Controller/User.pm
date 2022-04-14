@@ -61,7 +61,7 @@ sub index : Private
     my ($self, $c) = @_;
 
     # Can't set an attribute on a private action; manually inserting detatch code.
-    $c->detach('/error_mirror_404') if ($c->stash->{server_details}->{is_slave_db});
+    $c->detach('/error_mirror_404') if ($c->stash->{server_details}->{is_mirror_db});
 
     $c->forward('login');
     $c->detach('/user/profile', [ $c->user->name ]);

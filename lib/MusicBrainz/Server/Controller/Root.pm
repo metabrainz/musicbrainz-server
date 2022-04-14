@@ -346,7 +346,7 @@ sub begin : Private
         server_details => {
             staging_server => DBDefs->DB_STAGING_SERVER,
             testing_features => DBDefs->DB_STAGING_TESTING_FEATURES,
-            is_slave_db    => DBDefs->REPLICATION_TYPE == RT_SLAVE,
+            is_mirror_db    => DBDefs->REPLICATION_TYPE == RT_MIRROR,
             read_only      => DBDefs->DB_READ_ONLY,
             alert => $alert,
             alert_mtime => $alert_mtime,
@@ -369,14 +369,14 @@ sub begin : Private
         $attributes->{RequireAuth} = 1;
     }
 
-    # Returns a special 404 for areas of the site that shouldn't exist on a slave (e.g. /user pages)
+    # Returns a special 404 for areas of the site that shouldn't exist on a mirror (e.g. /user pages)
     if (exists $attributes->{HiddenOnSlaves}) {
-        $c->detach('/error_mirror_404') if ($c->stash->{server_details}->{is_slave_db});
+        $c->detach('/error_mirror_404') if ($c->stash->{server_details}->{is_mirror_db});
     }
 
     # Anything that requires authentication isn't allowed on a mirror server (e.g. editing, registering)
     if (exists $attributes->{RequireAuth} || $attributes->{ForbiddenOnSlaves}) {
-        $c->detach('/error_mirror') if ($c->stash->{server_details}->{is_slave_db});
+        $c->detach('/error_mirror') if ($c->stash->{server_details}->{is_mirror_db});
     }
 
     if (exists $attributes->{RequireAuth})
@@ -450,9 +450,9 @@ sub begin : Private
         );
     }
 
-    if (DBDefs->REPLICATION_TYPE == RT_SLAVE) {
+    if (DBDefs->REPLICATION_TYPE == RT_MIRROR) {
         my $last_replication_date = $c->model('Replication')->last_replication_date;
-        defined $last_replication_date or die 'Replication info missing on a slave server';
+        defined $last_replication_date or die 'Replication info missing on a mirror server';
         $c->stash( last_replication_date => $last_replication_date );
     }
 }

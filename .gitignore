@@ -44,8 +44,9 @@
 /.cpanm
 /perl_modules
 
-# Ignore log files (created by replication slave.sh cron script)
+# Ignore log files (created by replication mirror.sh cron script)
 /.logrotate-state
+/mirror.log*
 /slave.log*
 
 # If there's at least one person using a mac

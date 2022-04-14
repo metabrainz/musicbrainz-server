@@ -5,7 +5,7 @@
 -- 20211008-mbs-11903.sql
 -- 20211216-mbs-12140-12141.sql
 -- 20220309-mbs-12241.sql
-\\set ON_ERROR_STOP 1
+\set ON_ERROR_STOP 1
 BEGIN;
 SET search_path = musicbrainz, public;
 SET LOCAL statement_timeout = 0;
