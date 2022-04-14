@@ -146,6 +146,8 @@ declare type EDIT_EVENT_EDIT_ALIAS_T = 157;
 declare type EDIT_GENRE_CREATE_T = 160;
 declare type EDIT_GENRE_EDIT_T = 161;
 declare type EDIT_GENRE_DELETE_T = 162;
+// 163 reserved for EDIT_GENRE_MERGE_T if ever implemented
+declare type EDIT_GENRE_ADD_ANNOTATION_T = 164;
 
 declare type EDIT_WIKIDOC_CHANGE_T = 120;
 
