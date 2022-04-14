@@ -38,10 +38,16 @@ sub latest_annotation : Chained('load') PathPart('annotation')
         }
     );
 
+    my %props = (
+        annotation => $annotation->TO_JSON,
+        entity => $entity->TO_JSON,
+        numberOfRevisions => scalar @$annotations,
+    );
+
     $c->stash(
-        annotation => $annotation,
-        number_of_revisions => scalar @$annotations,
-        template   => 'annotation/revision.tt'
+        component_path => 'annotation/AnnotationRevision',
+        component_props => \%props,
+        current_view => 'Node',
     );
 }
 
@@ -70,10 +76,16 @@ sub annotation_revision : Chained('load') PathPart('annotation') Args(1)
         }
     );
 
+    my %props = (
+        annotation => $annotation->TO_JSON,
+        entity => $entity->TO_JSON,
+        numberOfRevisions => scalar @$annotations,
+    );
+
     $c->stash(
-        annotation => $annotation,
-        number_of_revisions => scalar @$annotations,
-        template   => 'annotation/revision.tt'
+        component_path => 'annotation/AnnotationRevision',
+        component_props => \%props,
+        current_view => 'Node',
     );
 }
 
