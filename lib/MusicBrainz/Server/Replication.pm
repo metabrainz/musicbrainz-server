@@ -5,7 +5,7 @@ use warnings;
 
 # The possible values for DBDefs->REPLICATION_TYPE
 use constant RT_MASTER => 1;
-use constant RT_SLAVE => 2;
+use constant RT_SLAVE => 2; # deprecated in favor of RT_MIRROR
 use constant RT_MIRROR => 2;
 use constant RT_STANDALONE => 3;
 
