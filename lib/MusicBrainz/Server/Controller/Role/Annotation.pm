@@ -3,7 +3,9 @@ use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
 use MusicBrainz::Server::Constants qw( :annotation entities_with );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
+use MusicBrainz::Server::Filters qw( format_wikitext );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( is_positive_integer is_nat );
 
@@ -119,13 +121,24 @@ sub edit_annotation : Chained('load') PathPart Edit
     my $annotation_model = $c->model($model)->annotation;
     $annotation_model->load_latest($entity);
 
+    my %form_args = (
+        annotation_model => $annotation_model,
+        entity_id => $entity->id,
+    );
+    my $form = $c->form( form => 'Annotation', %form_args );
+
     $c->stash(
-        template   => 'annotation/edit.tt',
+        component_path => 'annotation/EditAnnotation',
+        component_props => {
+            entity => $entity->TO_JSON,
+            form => $form->TO_JSON,
+        },
+        current_view => 'Node',
     );
 
     $self->edit_action($c,
         form        => 'Annotation',
-        form_args   => { annotation_model => $annotation_model, entity_id => $entity->id },
+        form_args   => \%form_args,
         type        => $model_to_edit_type{$model},
         item        => $entity->latest_annotation,
         edit_args   => { entity => $entity },
@@ -139,7 +152,10 @@ sub edit_annotation : Chained('load') PathPart Edit
             my $form = shift;
 
             if ($form->field('preview')->input) {
-                $c->stash(show_preview => 1, preview => $form->field('text')->value);
+                $c->stash->{component_props}{showPreview} = boolean_to_json(1);
+                $c->stash->{component_props}{preview} = format_wikitext(
+                    $form->field('text')->value
+                );
                 return 0;
             }
             return 1;

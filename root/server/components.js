@@ -58,6 +58,7 @@ module.exports = {
   'annotation/AnnotationComparison': require('../annotation/AnnotationComparison'),
   'annotation/AnnotationHistory': require('../annotation/AnnotationHistory'),
   'annotation/AnnotationRevision': require('../annotation/AnnotationRevision'),
+  'annotation/EditAnnotation': require('../annotation/EditAnnotation'),
   'area/AreaArtists': require('../area/AreaArtists'),
   'area/AreaEvents': require('../area/AreaEvents'),
   'area/AreaIndex': require('../area/AreaIndex'),
