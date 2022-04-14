@@ -435,7 +435,7 @@ CREATE TABLE artist_release_va
     PARTITION OF artist_release FOR VALUES IN (TRUE);
 
 -- The set of triggers keeping the `artist_release` table up-to-date
--- (which can be found in admin/sql/CreateSlaveOnlyTriggers.sql) don't
+-- (which can be found in admin/sql/CreateMirrorOnlyTriggers.sql) don't
 -- update the table directly. The query to do that for a particular
 -- release can be moderately heavy if there are a lot of tracks, so it
 -- would degrade performance if identical updates to the same release
