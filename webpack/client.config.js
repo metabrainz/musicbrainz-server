@@ -37,6 +37,7 @@ const entries = [
   'account/applications/register',
   'account/edit',
   'account/preferences',
+  'annotation/AnnotationHistoryTable',
   'alias',
   'area/edit',
   'area/index',

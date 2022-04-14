@@ -2,6 +2,8 @@ package MusicBrainz::Server::Controller::Role::Annotation;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
 use MusicBrainz::Server::Constants qw( :annotation entities_with );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( is_positive_integer is_nat );
 
@@ -160,9 +162,16 @@ sub annotation_history : Chained('load') PathPart('annotations') RequireAuth
     );
 
     $c->model('Editor')->load(@$annotations);
+    my %props = (
+        annotations => to_json_array($annotations),
+        entity => $entity->TO_JSON,
+        pager => serialize_pager($c->stash->{pager}),
+    );
+
     $c->stash(
-        template => 'annotation/history.tt',
-        annotations => $annotations
+        component_path => 'annotation/AnnotationHistory',
+        component_props => \%props,
+        current_view => 'Node',
     );
 }
 
