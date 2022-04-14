@@ -171,7 +171,14 @@ sub annotation_diff : Chained('load') PathPart('annotations-differences') Requir
     my ($self, $c) = @_;
 
     my $model            = $self->{model};
+    my $entity           = $c->stash->{entity};
     my $annotation_model = $c->model($model)->annotation;
+
+    my $annotations = $self->_load_paged(
+        $c, sub {
+            $annotation_model->get_history($entity->id, @_);
+        }
+    );
 
     my $old = $c->req->query_params->{old};
     my $new = $c->req->query_params->{new};
@@ -191,10 +198,17 @@ sub annotation_diff : Chained('load') PathPart('annotations-differences') Requir
     $c->model('Editor')->load($new_annotation);
     $c->model('Editor')->load($old_annotation);
 
+    my %props = (
+        entity => $entity->TO_JSON,
+        newAnnotation => $new_annotation->TO_JSON,
+        numberOfRevisions => scalar @$annotations,
+        oldAnnotation => $old_annotation->TO_JSON,
+    );
+
     $c->stash(
-        template => 'annotation/diff.tt',
-        old => $old_annotation,
-        new => $new_annotation
+        component_path => 'annotation/AnnotationComparison',
+        component_props => \%props,
+        current_view => 'Node',
     );
 }
 

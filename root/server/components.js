@@ -55,6 +55,7 @@ module.exports = {
   'admin/wikidoc/DeleteWikiDoc': require('../admin/wikidoc/DeleteWikiDoc'),
   'admin/wikidoc/EditWikiDoc': require('../admin/wikidoc/EditWikiDoc'),
   'admin/wikidoc/WikiDocIndex': require('../admin/wikidoc/WikiDocIndex'),
+  'annotation/AnnotationComparison': require('../annotation/AnnotationComparison'),
   'annotation/AnnotationRevision': require('../annotation/AnnotationRevision'),
   'area/AreaArtists': require('../area/AreaArtists'),
   'area/AreaEvents': require('../area/AreaEvents'),
