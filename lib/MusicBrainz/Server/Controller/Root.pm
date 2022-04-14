@@ -375,7 +375,7 @@ sub begin : Private
     }
 
     # Anything that requires authentication isn't allowed on a mirror server (e.g. editing, registering)
-    if (exists $attributes->{RequireAuth} || $attributes->{ForbiddenOnSlaves}) {
+    if (exists $attributes->{RequireAuth} || $attributes->{ForbiddenOnMirrors}) {
         $c->detach('/error_mirror') if ($c->stash->{server_details}->{is_mirror_db});
     }
 

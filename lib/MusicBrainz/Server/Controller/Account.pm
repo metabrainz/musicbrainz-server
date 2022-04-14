@@ -40,7 +40,7 @@ address" emails)
 
 =cut
 
-sub verify_email : Path('/verify-email') ForbiddenOnSlaves DenyWhenReadonly
+sub verify_email : Path('/verify-email') ForbiddenOnMirrors DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
@@ -176,7 +176,7 @@ sub _send_password_reset_email
     };
 }
 
-sub lost_password : Path('/lost-password') ForbiddenOnSlaves SecureForm
+sub lost_password : Path('/lost-password') ForbiddenOnMirrors SecureForm
 {
     my ($self, $c) = @_;
 
@@ -225,7 +225,7 @@ sub lost_password : Path('/lost-password') ForbiddenOnSlaves SecureForm
     $c->detach;
 }
 
-sub reset_password : Path('/reset-password') ForbiddenOnSlaves DenyWhenReadonly SecureForm
+sub reset_password : Path('/reset-password') ForbiddenOnMirrors DenyWhenReadonly SecureForm
 {
     my ($self, $c) = @_;
 
@@ -307,7 +307,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves DenyWhenReadonly 
     $c->stash->{form} = $form;
 }
 
-sub lost_username : Path('/lost-username') ForbiddenOnSlaves SecureForm
+sub lost_username : Path('/lost-username') ForbiddenOnMirrors SecureForm
 {
     my ($self, $c) = @_;
 
@@ -537,7 +537,7 @@ new user.
 
 =cut
 
-sub register : Path('/register') ForbiddenOnSlaves RequireSSL DenyWhenReadonly SecureForm
+sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly SecureForm
 {
     my ($self, $c) = @_;
 
@@ -627,7 +627,7 @@ Send out an email allowing users to verify their email address, from the web
 
 =cut
 
-sub resend_verification : Path('/account/resend-verification') ForbiddenOnSlaves RequireAuth
+sub resend_verification : Path('/account/resend-verification') ForbiddenOnMirrors RequireAuth
 {
     my ($self, $c) = @_;
     my $editor = $c->model('Editor')->get_by_id($c->user->id);

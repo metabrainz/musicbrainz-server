@@ -183,7 +183,7 @@ sub do_login : Private
     $c->detach;
 }
 
-sub login : Path('/login') ForbiddenOnSlaves RequireSSL SecureForm
+sub login : Path('/login') ForbiddenOnMirrors RequireSSL SecureForm
 {
     my ($self, $c) = @_;
 
