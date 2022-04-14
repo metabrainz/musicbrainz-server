@@ -348,6 +348,6 @@ const AliasEditForm = ({
 };
 
 export default (hydrate<Props>(
-  'div.recording-name',
+  'div.alias-edit-form',
   AliasEditForm,
 ): React.AbstractComponent<Props, void>);
