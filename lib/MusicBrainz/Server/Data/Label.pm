@@ -10,7 +10,6 @@ use MusicBrainz::Server::Entity::Label;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
-    get_area_containment_query
     hash_to_row
     is_special_label
     load_subobjects
@@ -24,6 +23,7 @@ use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'label' };
+with 'MusicBrainz::Server::Data::Role::Area';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::IPI' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::ISNI' => { type => 'label' };
@@ -84,25 +84,6 @@ sub find_by_subscribed_editor
                  WHERE s.editor = ?
                  ORDER BY label.name COLLATE musicbrainz, label.id';
     $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
-}
-
-sub find_by_area {
-    my ($self, $area_id, $limit, $offset) = @_;
-    my (
-        $containment_query,
-        @containment_query_args,
-    ) = get_area_containment_query('$2', 'area', check_all_levels => 1);
-    my $query = 'SELECT ' . $self->_columns . '
-                 FROM ' . $self->_table . "
-                 WHERE area = \$1 OR EXISTS (
-                    SELECT 1 FROM ($containment_query) ac
-                     WHERE ac.descendant = area AND ac.parent = \$1
-                 )
-                 ORDER BY label.name COLLATE musicbrainz, label.id";
-    $self->query_to_list_limited(
-        $query, [$area_id, @containment_query_args], $limit, $offset, undef,
-        dollar_placeholders => 1,
-    );
 }
 
 sub find_by_release

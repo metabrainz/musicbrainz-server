@@ -13,7 +13,6 @@ use MusicBrainz::Server::Data::Utils qw(
     is_special_artist
     add_partial_date_to_row
     conditional_merge_column_query
-    get_area_containment_query
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -27,6 +26,7 @@ use Scalar::Util qw( looks_like_number );
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'artist' };
+with 'MusicBrainz::Server::Data::Role::Area';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::IPI' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::ISNI' => { type => 'artist' };
@@ -96,25 +96,6 @@ sub find_by_subscribed_editor
                  WHERE s.editor = ?
                  ORDER BY artist.sort_name COLLATE musicbrainz, artist.id';
     $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
-}
-
-sub find_by_area {
-    my ($self, $area_id, $limit, $offset) = @_;
-    my (
-        $containment_query,
-        @containment_query_args,
-    ) = get_area_containment_query('$2', 'any(array[area, begin_area, end_area])', check_all_levels => 1);
-    my $query = 'SELECT ' . $self->_columns . '
-                 FROM ' . $self->_table . "
-                 WHERE \$1 IN (area, begin_area, end_area) OR EXISTS (
-                    SELECT 1 FROM ($containment_query) ac
-                     WHERE ac.descendant IN (area, begin_area, end_area) AND ac.parent = \$1
-                 )
-                 ORDER BY artist.name COLLATE musicbrainz, artist.id";
-    $self->query_to_list_limited(
-        $query, [$area_id, @containment_query_args], $limit, $offset, undef,
-        dollar_placeholders => 1,
-    );
 }
 
 sub find_by_instrument {

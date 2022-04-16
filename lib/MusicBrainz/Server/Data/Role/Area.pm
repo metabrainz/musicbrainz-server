@@ -1,17 +1,37 @@
 package MusicBrainz::Server::Data::Role::Area;
 use Moose::Role;
+use MusicBrainz::Server::Data::Utils qw( get_area_containment_join );
 
 requires '_columns', '_table', '_area_cols';
 
-sub find_by_area
-{
+sub find_by_area {
     my ($self, $area_id, $limit, $offset) = @_;
-    my $area_cols = $self->_area_cols;
-    my $query = 'SELECT ' . $self->_columns . '
-                 FROM ' . $self->_table . '
-                 WHERE ' . join(' OR ', map { $_ . ' = ?' } @$area_cols ) . '
-                 ORDER BY name COLLATE musicbrainz, id';
-    $self->query_to_list_limited($query, [($area_id) x @$area_cols], $limit, $offset);
+
+    my @area_cols = @{ $self->_area_cols };
+    my $area_cols_condition = @area_cols > 1
+        ? (' IN (' . join(q(, ), @area_cols) . ')')
+        : (' = ' . $area_cols[0]);
+    my $area_containment_join = get_area_containment_join($self->sql);
+    my $table = $self->can('_find_by_area_table') ? $self->_find_by_area_table : $self->_table;
+    my $columns = $self->_columns;
+    my $order_by = $self->can('_find_by_area_order') ? $self->_find_by_area_order : 'name, id';
+
+    my $query = <<~SQL;
+        SELECT $columns
+          FROM $table
+         WHERE \$1 $area_cols_condition
+         UNION
+        SELECT $columns
+          FROM $table
+          JOIN $area_containment_join ac ON ac.descendant $area_cols_condition
+         WHERE ac.parent = \$1
+         ORDER BY $order_by
+        SQL
+
+    $self->query_to_list_limited(
+        $query, [$area_id], $limit, $offset, undef,
+        dollar_placeholders => 1,
+    );
 }
 
 no Moose::Role;

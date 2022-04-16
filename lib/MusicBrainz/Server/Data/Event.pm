@@ -10,7 +10,6 @@ use MusicBrainz::Server::Entity::Event;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
-    get_area_containment_query
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -24,6 +23,7 @@ use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'event' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'event' };
+with 'MusicBrainz::Server::Data::Role::Area';
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'event' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'event' };
@@ -45,6 +45,8 @@ sub _columns
            'event.end_date_month, event.end_date_day, event.ended, ' .
            'event.comment, event.last_updated';
 }
+
+sub _area_cols { [qw( event_area.area )] }
 
 sub _id_column
 {
@@ -186,35 +188,22 @@ sub load_areas {
                                               (map { $_->{entity}->area } $_->all_places) } @events);
 }
 
-sub find_by_area
-{
-    my ($self, $area_id, $limit, $offset) = @_;
-    my (
-        $area_containment_query,
-        @area_containment_query_args,
-    ) = get_area_containment_query('$2', 'ea.area');
-    my $query =
-        'SELECT ' . $self->_columns ."
-            FROM (
-                SELECT ea.event FROM (
-                    SELECT lae.entity1 AS event, lae.entity0 AS area
-                    FROM l_area_event lae
-                    UNION
-                    SELECT lep.entity0 AS event, p.area
-                    FROM l_event_place lep
-                    JOIN place p ON lep.entity1 = p.id
-                ) ea
-                WHERE ea.area = \$1 OR EXISTS (
-                    SELECT 1 FROM ($area_containment_query) ac
-                    WHERE ac.descendant = ea.area AND ac.parent = \$1
-                )
-            ) s, " . $self->_table . '
-          WHERE event.id = s.event
-       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, event.name COLLATE musicbrainz';
-    $self->query_to_list_limited(
-        $query, [$area_id, @area_containment_query_args], $limit, $offset, undef,
-        dollar_placeholders => 1,
-    );
+sub _find_by_area_table {
+    my $self = shift;
+    $self->_table . ' ' . <<~'SQL';
+        JOIN (
+            SELECT lae.entity1 AS event, lae.entity0 AS area
+              FROM l_area_event lae
+             UNION
+            SELECT lep.entity0 AS event, p.area
+              FROM l_event_place lep
+              JOIN place p ON lep.entity1 = p.id
+        ) event_area ON event_area.event = event.id
+        SQL
+}
+
+sub _find_by_area_order {
+    return 'begin_date_year, begin_date_month, begin_date_day, time, name, id';
 }
 
 sub find_by_artist

@@ -11,7 +11,7 @@ use MusicBrainz::Server::Entity::PartialDate;
 use Readonly;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
-    get_area_containment_query
+    get_area_containment_join
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -72,10 +72,15 @@ sub load_containment {
     @areas = grep { $_ && !defined $_->containment } @areas;
     return unless @areas;
 
-    my @results = @{ $self->sql->select_list_of_hashes(
-        get_area_containment_query('$1', 'any($2)'),
-        [map { $_->id } @areas],
-    ) };
+    my $area_containment_table = get_area_containment_join($self->sql);
+
+    my @results = @{ $self->sql->select_list_of_hashes(<<~SQL, [map { $_->id } @areas]) };
+        SELECT ac.*
+          FROM $area_containment_table ac
+          JOIN area parent_area ON parent_area.id = ac.parent
+         WHERE ac.descendant = any(\$1)
+           AND parent_area.type IN (1, 2, 3)
+        SQL
 
     my %results_by_descendant = partition_by {
         $_->{descendant}
@@ -88,6 +93,8 @@ sub load_containment {
     for my $area (@areas) {
         my @parent_ids = map {
             $_->{parent}
+        } sort {
+            $a->{depth} <=> $b->{depth}
         } @{ $results_by_descendant{$area->id} // [] };
         $area->containment([map { $parent_areas->{$_} } @parent_ids]);
     }
