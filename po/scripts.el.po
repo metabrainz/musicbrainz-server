@@ -570,10 +570,10 @@ msgstr "Αρχαία περσική"
 msgid "Old South Arabian"
 msgstr "Αρχαία νοτιοαράβικη"
 
-#. frequency:1 iso_code:Orkh
+#. frequency:2 iso_code:Orkh
 #: DB:script/name:20
-msgid "Old Turkish"
-msgstr "Αρχαία τούρκικη"
+msgid "Old Turkic"
+msgstr ""
 
 #. frequency:3 iso_code:Orya
 #: DB:script/name:54

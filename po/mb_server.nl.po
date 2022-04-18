@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-05 09:59+0300\n"
+"POT-Creation-Date: 2022-04-12 09:48+0300\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: Maurits Meulenbelt <mfmeulenbelt@gmail.com>, 2012-2022\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
@@ -562,7 +562,7 @@ msgstr "Details over het gebied"
 #: ../root/artist/edit_form.tt:20 ../root/components/common-macros.tt:510
 #: ../root/label/edit_form.tt:18 ../root/place/edit_form.tt:19
 #: ../root/layout/components/sidebar/ArtistSidebar.js:119
-#: ../root/layout/components/sidebar/LabelSidebar.js:88
+#: ../root/layout/components/sidebar/LabelSidebar.js:87
 #: ../root/layout/components/sidebar/PlaceSidebar.js:87
 msgid "Area:"
 msgstr "Gebied:"
@@ -1006,7 +1006,7 @@ msgstr "Volgorde van kindelementen"
 #: ../root/relationship/linkattributetype/form.tt:7
 #: ../root/relationship/linktype/form.tt:7
 #: ../root/edit/details/EditRelationshipType.js:228
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:119
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:122
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:112
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:58
 msgid "Child order:"
@@ -1179,7 +1179,7 @@ msgstr "Scheidingsteken"
 #: ../root/components/relationship-editor.tt:134
 #: ../root/release/edit/information.tt:142
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:253
-#: ../root/components/PartialDateInput.js:184
+#: ../root/components/PartialDateInput.js:179
 msgid "DD"
 msgstr "DD"
 
@@ -1278,7 +1278,7 @@ msgstr "Verwijder {e}"
 #: ../root/edit/details/RemoveRelationshipAttribute.js:41
 #: ../root/edit/details/RemoveRelationshipType.js:51
 #: ../root/instrument/InstrumentIndex.js:35
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:107
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:110
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:96
 #: ../root/search/components/InstrumentResults.js:52
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:88
@@ -1408,8 +1408,8 @@ msgstr "Elk nummer op MusicBrainz moet gekoppeld zijn aan een opname. Kies de pa
 #: ../root/components/Aliases/ArtistCreditList.js:78
 #: ../root/components/Aliases/ArtistCreditList.js:79
 #: ../root/components/EntityTabs.js:144
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:93
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:63
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:96
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:70
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:83
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:119
 #: ../root/release/CoverArt.js:110
@@ -1773,7 +1773,7 @@ msgstr[0] "{n} resultaat gevonden voor ‘{q}’"
 msgstr[1] "{n} resultaten gevonden voor ‘{q}’"
 
 #: ../root/components/common-macros.tt:667
-#: ../root/layout/components/sidebar/LabelSidebar.js:68
+#: ../root/layout/components/sidebar/LabelSidebar.js:67
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:73
 msgid "Founded:"
 msgstr "Opgericht:"
@@ -1883,7 +1883,7 @@ msgstr "Verborgen moet worden gebruikt voor gebarentalen en talen zonder ISO 639
 
 #: ../root/components/common-macros.tt:560
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:284
-#: ../root/static/scripts/common/constants.js:288
+#: ../root/static/scripts/common/constants.js:289
 msgid "High"
 msgstr "Hoog"
 
@@ -2265,7 +2265,7 @@ msgid "Label Details"
 msgstr "Platenmaatschappijdetails"
 
 #: ../root/label/edit_form.tt:28
-#: ../root/layout/components/sidebar/LabelSidebar.js:82
+#: ../root/layout/components/sidebar/LabelSidebar.js:81
 msgid "Label code:"
 msgstr "Platenmaatschappijcode:"
 
@@ -2389,7 +2389,7 @@ msgstr "Aantal keer opgevraagd"
 
 #: ../root/components/common-macros.tt:560
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:284
-#: ../root/static/scripts/common/constants.js:285
+#: ../root/static/scripts/common/constants.js:286
 msgid "Low"
 msgstr "Laag"
 
@@ -2404,7 +2404,7 @@ msgstr "Taal van de tekst"
 #: ../root/components/relationship-editor.tt:133
 #: ../root/release/edit/information.tt:135
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:252
-#: ../root/components/PartialDateInput.js:171
+#: ../root/components/PartialDateInput.js:167
 msgid "MM"
 msgstr "MM"
 
@@ -2727,8 +2727,8 @@ msgstr "De opgegeven TOC kan aan geen van de media van deze uitgave worden toege
 
 #: ../root/components/common-macros.tt:560
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:284
-#: ../root/static/scripts/common/constants.js:286
 #: ../root/static/scripts/common/constants.js:287
+#: ../root/static/scripts/common/constants.js:288
 msgid "Normal"
 msgstr "Normaal"
 
@@ -3289,8 +3289,8 @@ msgstr "Uitgaven"
 #: ../root/collection/DeleteCollection.js:30
 #: ../root/components/Aliases/AliasTableRow.js:66
 #: ../root/layout/components/sidebar/RemoveLink.js:34
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:99
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:69
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:102
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:76
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:86
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:124
 #: ../root/release/CoverArt.js:116
@@ -3319,7 +3319,6 @@ msgstr "Voorbeeld verwijderen"
 msgid "Remove Instrument"
 msgstr "Instrument verwijderen"
 
-#: ../root/label/delete.tt:1 ../root/label/delete.tt:2
 #: ../root/release/edit/information.tt:193
 msgid "Remove Label"
 msgstr "Platenmaatschappij verwijderen"
@@ -3351,14 +3350,6 @@ msgstr "Uitgave verwijderen"
 #: ../root/release/edit/information.tt:153
 msgid "Remove Release Event"
 msgstr "Uitgavegebeurtenis verwijderen"
-
-#: ../root/release_group/delete.tt:1
-msgid "Remove Release Group"
-msgstr "Uitgavegroep verwijderen"
-
-#: ../root/release_group/delete.tt:2
-msgid "Remove Release Group "
-msgstr "Uitgavegroep verwijderen"
 
 #: ../root/work/edit_form.tt:60
 msgid "Remove attribute"
@@ -3849,7 +3840,7 @@ msgid "The watch artist feature is currently not active."
 msgstr "De mogelijkheid om artiesten te volgen is nu niet actief."
 
 #: ../root/components/forms.tt:201 ../root/release/edit/information.tt:158
-#: ../root/components/PartialDateInput.js:53
+#: ../root/components/PartialDateInput.js:54
 #: ../root/static/scripts/relationship-editor/common/dialog.js:220
 msgid ""
 "The year should have four digits. If you want to enter a year earlier than "
@@ -4028,12 +4019,6 @@ msgstr "Dit is bijna nooit juist. Controleer of je niet een andere medium (zoals
 msgid "This is the current release group image"
 msgstr "Dit is de huidige afbeelding van de uitgavegroep"
 
-#: ../root/label/delete.tt:12
-msgid ""
-"This label cannot be removed because there are still releases, recordings "
-"and/or relationships attributed to it."
-msgstr "Deze platenmaatschappij kan niet worden verwijderd omdat er nog steeds uitgaven, opnames en/of relaties aan verbonden zijn."
-
 #: ../root/label/edit_form.tt:36
 msgid "This label has ended."
 msgstr "Deze platenmaatschappij is opgeheven."
@@ -4114,12 +4099,6 @@ msgstr "Dit relatietype heeft geen voorbeelden."
 #: ../root/release/edit/information.tt:229
 msgid "This release does not have a barcode"
 msgstr "Deze uitgave heeft geen streepjescode"
-
-#: ../root/release_group/delete.tt:4
-msgid ""
-"This release group will be removed automatically once it has no releases nor"
-" relationships."
-msgstr "Deze uitgavegroep zal automatisch worden verwijderd zodra het geen uitgaven of relaties meer heeft."
 
 #: ../root/release/discids.tt:58
 msgid "This release has no mediums that can have disc IDs."
@@ -4713,7 +4692,7 @@ msgstr "Composities"
 #: ../root/components/relationship-editor.tt:132
 #: ../root/release/edit/information.tt:127
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:251
-#: ../root/components/PartialDateInput.js:158
+#: ../root/components/PartialDateInput.js:155
 msgid "YYYY"
 msgstr "JJJJ"
 
@@ -5604,11 +5583,11 @@ msgstr "“{id}” is geen geldige rij-ID; mogelijk is het object samengevoegd o
 msgid "Default"
 msgstr "Standaard"
 
-#: ../lib/MusicBrainz/Server/Controller/Label.pm:254
+#: ../lib/MusicBrainz/Server/Controller/Label.pm:249
 msgid "You cannot merge a special purpose label into another label."
 msgstr "Je kan een speciale platenmaatschappij niet samenvoegen met een normale platenmaatschappij."
 
-#: ../lib/MusicBrainz/Server/Controller/Label.pm:259
+#: ../lib/MusicBrainz/Server/Controller/Label.pm:254
 msgid "You cannot merge into Deleted Label."
 msgstr "Je kan een platenmaatschappij niet met een verwijderde platenmaatschappij samenvoegen."
 
@@ -5966,7 +5945,7 @@ msgstr "Disc-ID toevoegen"
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddRelease.pm:22
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:31
 #: ../root/layout/components/sidebar/ArtistSidebar.js:145
-#: ../root/layout/components/sidebar/LabelSidebar.js:103
+#: ../root/layout/components/sidebar/LabelSidebar.js:102
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:70
 msgid "Add release"
 msgstr "Uitgave toevoegen"
@@ -7028,22 +7007,22 @@ msgid "A fluency level is required."
 msgstr "Een taalvaardigheidsniveau is vereist."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:77
-#: ../root/static/scripts/common/constants.js:296
+#: ../root/static/scripts/common/constants.js:297
 msgid "Basic"
 msgstr "Basis"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:78
-#: ../root/static/scripts/common/constants.js:297
+#: ../root/static/scripts/common/constants.js:298
 msgid "Intermediate"
 msgstr "Gemiddeld"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:295
+#: ../root/static/scripts/common/constants.js:296
 msgid "Advanced"
 msgstr "Gevorderd"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:298
+#: ../root/static/scripts/common/constants.js:299
 msgid "Native"
 msgstr "Moedertaal"
 
@@ -7074,8 +7053,8 @@ msgstr "Etiket"
 #: ../root/edit/details/EditRelationshipType.js:314
 #: ../root/layout/components/BottomMenu.js:276
 #: ../root/layout/components/Search.js:53
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:75
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:87
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:82
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:94
 #: ../root/search/components/SearchForm.js:53
 msgid "Documentation"
 msgstr "Documentatie"
@@ -8590,7 +8569,7 @@ msgstr "Relaties bewerken"
 msgid "as “{credit}”"
 msgstr "als “{credit}”"
 
-#: ../root/components/PartialDateInput.js:57
+#: ../root/components/PartialDateInput.js:58
 msgid "The date you've entered is not valid"
 msgstr "De datum die je hebt ingevoerd, is niet geldig"
 
@@ -9322,17 +9301,17 @@ msgstr "Hoe werkt bewerken"
 msgid "Style guidelines"
 msgstr "Stijlgids"
 
-#: ../root/edit/details/AddAnnotation.js:48
+#: ../root/edit/details/AddAnnotation.js:45
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:27
 msgid "Text"
 msgstr "Tekst"
 
-#: ../root/edit/details/AddAnnotation.js:60
+#: ../root/edit/details/AddAnnotation.js:57
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:37
 msgid "This annotation is empty."
 msgstr "Deze aantekening is leeg."
 
-#: ../root/edit/details/AddAnnotation.js:75
+#: ../root/edit/details/AddAnnotation.js:73
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:45
 msgid "Summary"
 msgstr "Samenvatting"
@@ -11151,11 +11130,11 @@ msgstr "Einddatum:"
 msgid "Instrument information"
 msgstr "Informatie over het instrument"
 
-#: ../root/layout/components/sidebar/LabelSidebar.js:59
+#: ../root/layout/components/sidebar/LabelSidebar.js:58
 msgid "Label information"
 msgstr "Informatie over de platenmaatschappij"
 
-#: ../root/layout/components/sidebar/LabelSidebar.js:74
+#: ../root/layout/components/sidebar/LabelSidebar.js:73
 msgid "Defunct:"
 msgstr "Opgeheven:"
 
@@ -11855,8 +11834,8 @@ msgid ""
 msgstr "<strong>Waarschuwing:</strong> Sommige opnames die je aan het samenvoegen bent, hebben verschillende ISRC’s. Controleer of het inderdaad dezelfde opname is voordat je doorgaat met samenvoegen."
 
 #: ../root/relationship/RelationshipsHeader.js:25
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:84
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:172
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:87
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:179
 msgid "Relationship Attributes"
 msgstr "Relatie-eigenschappen"
 
@@ -11871,62 +11850,68 @@ msgid ""
 " in use."
 msgstr "Het type relatie-eigenschap ‘{type}’ kan niet worden verwijderd, omdat het nog steeds in gebruik is."
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:74
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:77
 msgid "Relationship Attribute"
 msgstr "Relatie-eigenschap"
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:115
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:118
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:106
 msgid "ID:"
 msgstr "ID:"
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:125
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:128
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:138
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:111
 msgid "UUID:"
 msgstr "UUID:"
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:131
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:134
 msgid "Parent attribute"
 msgstr "Bovenliggende eigenschap"
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:142
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:145
 msgid "Possible values"
 msgstr "Mogelijke waarden"
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:157
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:149
+msgid ""
+"The possible values for this relationship can be seen from the "
+"{instrument_list|instrument list}."
+msgstr "Je kan de mogelijke waarden voor deze relatie vinden in de {instrument_list|instrumentenlijst}."
+
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:170
 msgid "Relationship usage"
 msgstr "Gebruik van de relatie"
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:161
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:174
 msgid "This attribute is being used by the following relationship types:"
 msgstr "Deze eigenschap wordt door de volgende relatietypes gebruikt:"
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:175
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:188
 msgid "{type0} - {type1}"
 msgstr "{type0} – {type1}"
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:192
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:205
 msgid "This attribute isn’t directly being used by any relationship types."
 msgstr "Deze eigenschap wordt niet rechtstreeks door een relatietype gebruikt."
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:46
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:47
 msgid "none"
 msgstr "geen"
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:59
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:64
 msgid "Add child"
 msgstr "Kindelement toevoegen"
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:144
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:151
 msgid "Possible values:"
 msgstr "Mogelijke waarden:"
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:163
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:170
 msgid "No relationship attributes found."
 msgstr "Geen relatie-eigenschappen gevonden."
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:178
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:185
 msgid "Create a new relationship attribute"
 msgstr "Een nieuwe relatie-eigenschap toevoegen"
 
@@ -14636,92 +14621,92 @@ msgid ""
 " adding Musixmatch links to the relevant artists and works instead."
 msgstr "Musixmatch-pagina’s met “{album_url_pattern}” passen niet goed bij MusicBrainz-uitgavegroepen, dus deze koppeling is nu niet toegestaan. Je kan Musixmatch-pagina’s wel aan relevante artiesten en composities koppelen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3656
+#: ../root/static/scripts/edit/URLCleanup.js:3655
 msgid "Only RYM music videos can be linked to recordings."
 msgstr "Alleen RYM-videoclips kunnen aan opnames worden gekoppeld."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3708
+#: ../root/static/scripts/edit/URLCleanup.js:3707
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow "
 "{ra_url|your link}, make sure the link it redirects to is still the correct "
 "one and, if so, add that link instead."
 msgstr "Dit is een link naar het oude domein van Resident Advisor. Volg {ra_url|je link} controleer of de link waarnaar wordt doorverwezen nog steeds klopt, en voeg vervolgens die link toe."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4466
+#: ../root/static/scripts/edit/URLCleanup.js:4480
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr "Dit is geen openbaar profiel, maar een documentatiepagina van Twitter."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4480
+#: ../root/static/scripts/edit/URLCleanup.js:4494
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "Voeg alleen links naar Twitter-profielen toe, en niet naar afzonderlijke berichten."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4498
+#: ../root/static/scripts/edit/URLCleanup.js:4512
 msgid "This site does not allow direct links to their images."
 msgstr "Deze website staat geen rechtstreekse links naar afbeeldingen toe."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4704
+#: ../root/static/scripts/edit/URLCleanup.js:4718
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr "Link de pagina “{allowed_url_pattern}” in plaats van deze link “{current_url_pattern}”."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4760
+#: ../root/static/scripts/edit/URLCleanup.js:4774
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether"
 " it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr "Deze URL bevat een niet-gecodeerde ‘?’ of ‘#’. Controleer de URL om te bepalen of het teken overbodig is en moet worden verwijderd, of dat de URL verkeerd is gecodeerd."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4780
+#: ../root/static/scripts/edit/URLCleanup.js:4794
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr "Je kan geen links naar WhoSampled-pagina’s met de vorm “{unwanted_url_pattern}” toevoegen. Gebruik in plaats daarvan de WhoSampled-pagina’s voor artiesten, nummers of uitgaven."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4801
+#: ../root/static/scripts/edit/URLCleanup.js:4815
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr "Je kan WhoSampled-pagina’s met de vorm “{album_url_pattern}” alleen aan uitgavegroepen koppelen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4819
+#: ../root/static/scripts/edit/URLCleanup.js:4833
 msgid "Please link WhoSampled artist pages to artists."
 msgstr "Je kan WhoSampled-pagina’s voor artiesten alleen aan artiesten toevoegen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4831
+#: ../root/static/scripts/edit/URLCleanup.js:4845
 msgid "Please link WhoSampled track pages to recordings."
 msgstr "Je kan WhoSampled-pagina’s over nummers alleen aan opnames koppelen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4898
+#: ../root/static/scripts/edit/URLCleanup.js:4912
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr "Links naar specifieke delen van Wikipedia-pagina’s zijn niet toegestaan. Verwijder ‘{fragment}’ of verwijder de link als de hele pagina niet relevant is voor dit object. Zie onze {url|richtlijnen}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5027
+#: ../root/static/scripts/edit/URLCleanup.js:5041
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
 "entity, if it exists, instead."
 msgstr "Dit is een link naar een afspeellijst. Dit is geen kanaal en mogelijk niet officieel goedgekeurd. Voeg in plaats van deze link een link naar het officiële kanaal van dit object toe, als dat bestaat."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5067
+#: ../root/static/scripts/edit/URLCleanup.js:5081
 msgid "Only video and playlist links are allowed on releases."
 msgstr "Alleen links naar video’s en speellijsten mogen aan uitgaven worden toegevoegd."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5103
+#: ../root/static/scripts/edit/URLCleanup.js:5117
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia"
 " links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr "Wikipedia heeft normaal gesproken geen lemma’s voor specifieke uitgaven, dus het toevoegen van Wikipedia-links aan een uitgave wordt geblokkeerd. Voeg de Wikipedia-link, als hij relevant is, toe aan de uitgavegroep."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5115
+#: ../root/static/scripts/edit/URLCleanup.js:5129
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr "Wikidata heeft normaal gesproken geen lemma’s voor specifieke uitgaven, dus het toevoegen van Wikidata-links aan een uitgave wordt geblokkeerd. Voeg de Wikidata-link, als hij relevant is, toe aan de uitgavegroep."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5127
+#: ../root/static/scripts/edit/URLCleanup.js:5141
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -14730,7 +14715,7 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr "Dit is een Bandcamp-profiel en geen pagina voor een specifieke uitgave. Zelfs als de uitgave hier nu wordt weergegeven, kan dit veranderen zodra de artiest een nieuwe uitgeeft. Voeg de juiste pagina voor de uitgave ({album_url_pattern} of {single_url_pattern}) toe. Je kan dit profiel wel aan de bijbehorende platenmaatschappij of artiest toevoegen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5155
+#: ../root/static/scripts/edit/URLCleanup.js:5169
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases"
@@ -14739,11 +14724,11 @@ msgid ""
 "the appropriate artist or label."
 msgstr "Dit is een Bandcamp-profiel en geen pagina voor een specifieke opname. Zelfs als de opname hier nu wordt weergegeven, kan dit veranderen zodra de artiest een nieuwe uitgeeft. Voeg de juiste pagina voor de opname ({single_url_pattern}) toe. Je kan dit profiel wel aan de bijbehorende platenmaatschappij of artiest toevoegen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5318
+#: ../root/static/scripts/edit/URLCleanup.js:5332
 msgid "Some relationship types are missing for this URL."
 msgstr "Voor deze URL ontbreken bepaalde relatietypes."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5335
+#: ../root/static/scripts/edit/URLCleanup.js:5349
 #: ../root/static/scripts/edit/externalLinks.js:869
 msgid "This relationship type combination is invalid."
 msgstr "Deze combinatie van relaties is ongeldig."
