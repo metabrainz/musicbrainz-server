@@ -25,7 +25,6 @@ import CollectionLinks from './CollectionLinks';
 import EditLinks from './EditLinks';
 import LastUpdated from './LastUpdated';
 import MergeLink from './MergeLink';
-import RemoveLink from './RemoveLink';
 import SidebarBeginDate from './SidebarBeginDate';
 import SidebarEndDate from './SidebarEndDate';
 import SidebarIpis from './SidebarIpis';
@@ -109,8 +108,6 @@ const LabelSidebar = ({label}: Props): React.Element<'div'> => {
         <AnnotationLinks entity={label} />
 
         <MergeLink entity={label} />
-
-        <RemoveLink entity={label} />
 
         <li className="separator" role="separator" />
       </EditLinks>

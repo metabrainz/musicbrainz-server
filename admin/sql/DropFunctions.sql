@@ -103,5 +103,4 @@ DROP FUNCTION simplify_search_hints();
 DROP FUNCTION track_count_matches_cdtoc(medium, int);
 DROP FUNCTION trg_delete_unused_tag();
 DROP FUNCTION trg_delete_unused_tag_ref();
-DROP FUNCTION whitespace_collapsed(TEXT);
 DROP AGGREGATE array_accum (anyelement);

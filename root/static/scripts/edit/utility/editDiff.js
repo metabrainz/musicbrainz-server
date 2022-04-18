@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import fastDiff from 'fast-diff';
 import genericDiff from 'generic-diff';
 
 const INSERT: 1 = 1;
@@ -27,6 +28,12 @@ const CLASS_MAP: {+[editType: EditType]: string} = {
   [INSERT]: 'diff-only-b',
 };
 
+const FAST_DIFF_CHANGE_TYPE_MAP = new Map([
+  [fastDiff.INSERT, INSERT],
+  [fastDiff.EQUAL, EQUAL],
+  [fastDiff.DELETE, DELETE],
+]);
+
 export {INSERT, EQUAL, DELETE, CHANGE, CLASS_MAP};
 
 type GenericEditDiff<+T> = {
@@ -35,9 +42,23 @@ type GenericEditDiff<+T> = {
   +removed: boolean,
 };
 
+/*
+ * fast-diff constants:
+ * INSERT = 1
+ * EQUAL = 0
+ * DELETE = -1
+ */
+type FastEditDiff = [-1 | 0 | 1, string];
+
 export type EditDiff<+T> = {
   +newItems: $ReadOnlyArray<T>,
   +oldItems: $ReadOnlyArray<T>,
+  +type: EditType,
+};
+
+export type StringEditDiff = {
+  +newText: string,
+  +oldText: string,
   +type: EditType,
 };
 
@@ -48,7 +69,10 @@ function getChangeType<+T>(diff: GenericEditDiff<T>) {
   return diff.added ? INSERT : DELETE;
 }
 
-// Combines adjacent (DELETE, INSERT) diffs into a single CHANGE diff.
+/*
+ * Combines adjacent (DELETE, INSERT) diffs into a single CHANGE diff.
+ * Note: for large strings, this is slow; use stringEditDiff instead!
+ */
 export default function editDiff<T>(
   oldSide: $ReadOnlyArray<T>,
   newSide: $ReadOnlyArray<T>,
@@ -93,6 +117,61 @@ export default function editDiff<T>(
     }
 
     normalized.push({newItems, oldItems, type: changeType});
+  }
+
+  return normalized;
+}
+
+export function stringEditDiff(
+  oldSide: string,
+  newSide: string,
+): $ReadOnlyArray<StringEditDiff> {
+  const diffs: $ReadOnlyArray<FastEditDiff> =
+    fastDiff(oldSide, newSide);
+  const normalized = [];
+
+  for (let i = 0; i < diffs.length; i++) {
+    const diff = diffs[i];
+
+    let changeType = FAST_DIFF_CHANGE_TYPE_MAP.get(diff[0]);
+    invariant(
+      changeType != null,
+      'fast-diff change type is null or undefined',
+    );
+
+    let nextDiff;
+    if ((i + 1) < diffs.length) {
+      nextDiff = diffs[i + 1];
+    }
+
+    let newText = '';
+    let oldText = '';
+
+    switch (changeType) {
+      case INSERT:
+        newText = diff[1];
+        break;
+
+      case EQUAL:
+        newText = diff[1];
+        oldText = diff[1];
+        break;
+
+      case DELETE:
+        oldText = diff[1];
+
+        if (nextDiff) {
+          const nextChangeType = FAST_DIFF_CHANGE_TYPE_MAP.get(nextDiff[0]);
+          if (nextChangeType === INSERT) {
+            i++; // skip next
+            changeType = CHANGE;
+            newText = nextDiff[1];
+          }
+        }
+        break;
+    }
+
+    normalized.push({oldText, newText, type: changeType});
   }
 
   return normalized;

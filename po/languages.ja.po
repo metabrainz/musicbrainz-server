@@ -143,6 +143,11 @@ msgstr "アラパホー語"
 msgid "Arawak"
 msgstr "アラワク語"
 
+#. frequency:1 iso_code_3:pka
+#: DB:language/name:5403
+msgid "Ardhamāgadhī Prākrit"
+msgstr ""
+
 #. frequency:1 iso_code_3:hye
 #: DB:language/name:21
 msgid "Armenian"
@@ -1853,7 +1858,7 @@ msgstr "オセット語"
 msgid "Otomian languages"
 msgstr "オトミ語族"
 
-#. frequency:0 iso_code_3:pal
+#. frequency:1 iso_code_3:pal
 #: DB:language/name:328
 msgid "Pahlavi"
 msgstr "パフラヴィー語"

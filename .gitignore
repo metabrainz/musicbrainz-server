@@ -68,3 +68,6 @@
 /t/selenium/.sir-amqp_watch.log
 /t/selenium/.sir-amqp_watch.pid
 /t/selenium/.sir-reindex.log
+
+# IDE configs
+.idea

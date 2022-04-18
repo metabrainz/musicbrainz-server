@@ -43,7 +43,6 @@ with 'MusicBrainz::Server::Controller::Role::Collection' => {
 use MusicBrainz::Server::Constants qw(
     $DLABEL_ID
     $EDIT_LABEL_CREATE
-    $EDIT_LABEL_DELETE
     $EDIT_LABEL_EDIT
     $EDIT_LABEL_MERGE
     $LABEL_RENAME_LINK_TYPE
@@ -217,10 +216,6 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Label',
     edit_type      => $EDIT_LABEL_EDIT,
-};
-
-with 'MusicBrainz::Server::Controller::Role::Delete' => {
-    edit_type      => $EDIT_LABEL_DELETE,
 };
 
 around edit => sub {

@@ -40,6 +40,7 @@ const AttributeDetails = ({
   attribute,
   topLevel = false,
 }: AttributeDetailsProps) => {
+  const isInstrumentRoot = attribute.id === 14;
   const childrenAttrs = attribute.children || [];
   const translatedDescription = attribute.description
     ? expand2react(l_relationships(attribute.description))
@@ -55,10 +56,16 @@ const AttributeDetails = ({
         {' '}
         {bracketedText(attribute.child_order.toString())}
         {' [ '}
-        <a href={'/relationship-attributes/create?parent=' + attribute.gid}>
-          {l('Add child')}
-        </a>
-        {' | '}
+        {isInstrumentRoot ? null : (
+          <>
+            <a
+              href={'/relationship-attributes/create?parent=' + attribute.gid}
+            >
+              {l('Add child')}
+            </a>
+            {' | '}
+          </>
+        )}
         <a href={'/relationship-attribute/' + attribute.gid + '/edit'}>
           {l('Edit')}
         </a>

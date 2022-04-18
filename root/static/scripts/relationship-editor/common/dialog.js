@@ -20,6 +20,7 @@ import linkedEntities from '../../common/linkedEntities';
 import MB from '../../common/MB';
 import * as URLCleanup from '../../edit/URLCleanup';
 import * as dates from '../../edit/utility/dates';
+import isPositiveInteger from '../../edit/utility/isPositiveInteger';
 import {stripAttributes} from '../../edit/utility/linkPhrase';
 import {groupBy} from '../../common/utility/arrays';
 import isBlank from '../../common/utility/isBlank';
@@ -431,6 +432,12 @@ class Dialog {
     });
   }
 
+  isUntypedSeries() {
+    // All types have a positive integer ID - if this does not, it's untyped
+    return this.source.entityType === 'series' &&
+           !isPositiveInteger(this.source.typeID());
+  }
+
   linkTypeOptions(entityTypes) {
     var options = MB.forms.linkTypeOptions(
       {children: linkedEntities.link_type_tree[entityTypes]},
@@ -438,14 +445,19 @@ class Dialog {
     );
 
     if (this.source.entityType === 'series') {
-      var itemType =
-        MB.seriesTypesByID[this.source.typeID()].item_entity_type;
+      const itemType = this.isUntypedSeries()
+        ? null
+        : MB.seriesTypesByID[this.source.typeID()].item_entity_type;
+
+      const allowedPartType = itemType
+        ? PART_OF_SERIES_LINK_TYPES[itemType]
+        : null;
 
       options = options.filter(function (opt) {
         var linkType = linkedEntities.link_type[opt.value];
 
         if (PART_OF_SERIES_LINK_TYPE_GIDS.includes(linkType.gid) &&
-            linkType.gid !== PART_OF_SERIES_LINK_TYPES[itemType]) {
+            (!allowedPartType || linkType.gid !== allowedPartType)) {
           return false;
         }
 

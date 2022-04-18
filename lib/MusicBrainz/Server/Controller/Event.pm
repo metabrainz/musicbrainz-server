@@ -23,7 +23,11 @@ with 'MusicBrainz::Server::Controller::Role::Collection' => {
     entity_type     => 'event'
 };
 
-use MusicBrainz::Server::Constants qw( $EDIT_EVENT_CREATE $EDIT_EVENT_DELETE $EDIT_EVENT_EDIT $EDIT_EVENT_MERGE );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_EVENT_CREATE
+    $EDIT_EVENT_EDIT
+    $EDIT_EVENT_MERGE
+);
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 use Sql;
@@ -105,10 +109,6 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Event',
     edit_type      => $EDIT_EVENT_EDIT,
-};
-
-with 'MusicBrainz::Server::Controller::Role::Delete' => {
-    edit_type      => $EDIT_EVENT_DELETE,
 };
 
 before qw( create edit ) => sub {

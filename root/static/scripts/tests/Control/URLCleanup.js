@@ -4574,10 +4574,17 @@ limited_link_type_combinations: [
   },
   // triple j Unearthed
   {
-                     input_url: 'https://www.triplejunearthed.com/artist/sampa-great',
+                     input_url: 'http://www.triplejunearthed.com/artist/sampa-great',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.abc.net.au/triplejunearthed/artist/sampa-great',
   },
+  {
+                     input_url: 'http://abc.net.au/triplejunearthed/artist/sophisticated-dingo/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.abc.net.au/triplejunearthed/artist/sophisticated-dingo/',
+},
   // Tumblr
   {
                      input_url: 'http://deadmau5.tumblr.com/',
@@ -5304,7 +5311,19 @@ limited_link_type_combinations: [
              input_entity_type: 'series',
     expected_relationship_type: 'youtube',
             expected_clean_url: 'https://www.youtube.com/playlist?list=PL43OynbWaTMKSxLVnUF0HbHHiXEgAVm3Q',
-       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+       only_valid_entity_types: ['series'],
+  },
+  {
+                     input_url: 'https://www.youtube.com/playlist?playnext=1&list=PLlmo--SLJW2SstbkGcxEOPsmFdm3u49xJ&feature=gws_kp_artist',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://www.youtube.com/playlist?list=PLlmo--SLJW2SstbkGcxEOPsmFdm3u49xJ',
+       input_relationship_type: 'youtube',
+       only_valid_entity_types: ['series'],
+                expected_error: {
+                                  error: 'is a playlist link',
+                                  target: 'url',
+                                },
   },
   {
                      input_url: 'https://music.youtube.com/browse/MPREb_0bOFkwXrX2x',
@@ -5471,7 +5490,7 @@ function testErrorObject(subtest, relationshipType, st) {
   const cleanUrl = subtest.expected_clean_url || actualCleanUrl;
   const checker = new Checker(cleanUrl, subtest.input_entity_type);
   const validationResult = checker.checkRelationship(
-    LINK_TYPES[relationshipType],
+    LINK_TYPES[relationshipType][subtest.input_entity_type],
     subtest.input_entity_type,
   );
   if (subtest.expected_error.error === undefined) {

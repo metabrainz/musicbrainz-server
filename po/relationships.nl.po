@@ -1133,6 +1133,13 @@ msgid ""
 "additional."
 msgstr "Deze eigenschap geeft aan of een bepaalde rol als normaal of aanvullend wordt beschouwd."
 
+#: DB:link_attribute_type/description:14
+msgid ""
+"This attribute describes the possible instruments that can be captured as part of a performance.\n"
+"<br/>\n"
+"Can't find an instrument? <a href=\"https://musicbrainz.org/doc/How_to_Add_Instruments\">Request it!</a>"
+msgstr "Deze eigenschap geeft aan welke instrumenten er werden bespeeld.\n<br/>\nKan je een instrument niet vinden? <a href=\"https://musicbrainz.org/doc/How_to_Add_Instruments\">Vraag het dan aan!</a>"
+
 #: DB:link_attribute_type/description:194
 msgid ""
 "This attribute indicates a 'guest' performance where the performer is not "
@@ -4744,7 +4751,7 @@ msgstr "informatiepagina"
 msgid "inspired the name of"
 msgstr "was de inspiratie voor de naam van"
 
-#: DB:link_type/name:44 DB:link_type/name:148
+#: DB:link_attribute_type/name:14 DB:link_type/name:44 DB:link_type/name:148
 msgid "instrument"
 msgstr "instrument"
 
