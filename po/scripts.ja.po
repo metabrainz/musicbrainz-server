@@ -568,10 +568,10 @@ msgstr "古代ペルシア楔形文字"
 msgid "Old South Arabian"
 msgstr "南アラビア文字"
 
-#. frequency:1 iso_code:Orkh
+#. frequency:2 iso_code:Orkh
 #: DB:script/name:20
-msgid "Old Turkish"
-msgstr "突厥文字"
+msgid "Old Turkic"
+msgstr ""
 
 #. frequency:3 iso_code:Orya
 #: DB:script/name:54

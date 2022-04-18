@@ -2,13 +2,13 @@
 # Translators:
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
-# Luca Salini, 2021
+# Luca Salini, 2021-2022
 # Luca Salini, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 19:21+0000\n"
-"Last-Translator: Luca Salini, 2021\n"
+"Last-Translator: Luca Salini, 2021-2022\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -571,9 +571,9 @@ msgstr "Persiano antico"
 msgid "Old South Arabian"
 msgstr "Arabo meridionale antico"
 
-#. frequency:1 iso_code:Orkh
+#. frequency:2 iso_code:Orkh
 #: DB:script/name:20
-msgid "Old Turkish"
+msgid "Old Turkic"
 msgstr "Turco antico"
 
 #. frequency:3 iso_code:Orya

@@ -1126,6 +1126,13 @@ msgid ""
 "additional."
 msgstr ""
 
+#: DB:link_attribute_type/description:14
+msgid ""
+"This attribute describes the possible instruments that can be captured as part of a performance.\n"
+"<br/>\n"
+"Can't find an instrument? <a href=\"https://musicbrainz.org/doc/How_to_Add_Instruments\">Request it!</a>"
+msgstr ""
+
 #: DB:link_attribute_type/description:194
 msgid ""
 "This attribute indicates a 'guest' performance where the performer is not "
@@ -4737,7 +4744,7 @@ msgstr ""
 msgid "inspired the name of"
 msgstr ""
 
-#: DB:link_type/name:44 DB:link_type/name:148
+#: DB:link_attribute_type/name:14 DB:link_type/name:44 DB:link_type/name:148
 msgid "instrument"
 msgstr ""
 

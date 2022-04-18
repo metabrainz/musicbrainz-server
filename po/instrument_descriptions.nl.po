@@ -2614,7 +2614,7 @@ msgstr "Een tinwhistle is een eenvoudige bekfluit met zes gaten, oorspronkelijk 
 msgid ""
 "Simple, single-toned and round-bodied whistle often used for regulation and "
 "signalling (sport, traffic, ...)."
-msgstr ""
+msgstr "Een eenvoudig fluitje dat maar één toon kan voortbrengen en vaak wordt gebruikt voor handhaving (bij sport of in het verkeer, enz.)."
 
 #. name:mirliton
 #: DB:instrument/description:591
