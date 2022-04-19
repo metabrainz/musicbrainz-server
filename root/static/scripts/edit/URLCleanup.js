@@ -292,6 +292,9 @@ export const LINK_TYPES: LinkTypeMap = {
     place: '22ec436d-bb65-4c83-a268-0fdb0dbd8834',
     series: 'f23802a4-36be-3751-8e4d-93422e08b3e8',
   },
+  youtubemusic: {
+    artist: '631712a0-7525-42ba-b7a3-605aa7a238c4',
+  },
 };
 
 // See https://musicbrainz.org/doc/Style/Relationships/URLs#Restricted_relationships
@@ -5376,6 +5379,117 @@ const CLEANUPS: CleanupEntries = {
             result: false,
             target: ERROR_TARGETS.ENTITY,
           };
+      }
+      return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+    },
+  },
+  'youtubemusic': {
+    match: [new RegExp('^(https?://)?music\\.youtube\\.com/', 'i')],
+    restrict: [
+      LINK_TYPES.youtubemusic,
+      {
+        recording: LINK_TYPES.streamingfree.recording,
+        release: LINK_TYPES.streamingfree.release,
+      },
+      {
+        recording: LINK_TYPES.streamingpaid.recording,
+        release: LINK_TYPES.streamingpaid.release,
+      },
+    ],
+    clean: function (url) {
+      url = url.replace(/^(https?:\/\/)?music\.youtube\.com(?:\/#)?/, 'https://music.youtube.com');
+      // Channel (artist) URL
+      url = url.replace(/\/channel\/([^\/?#]+).*$/, '/channel/$1');
+      // Video (track) URL
+      url = url.replace(/^https:\/\/music\.youtube\.com\/.*[?&](v=[a-zA-Z0-9_-]+).*$/, 'https://music.youtube.com/watch?$1');
+      // Playlist (release) URL
+      url = url.replace(/^https:\/\/music\.youtube\.com\/playlist.*[?&](list=[a-zA-Z0-9_-]+).*$/, 'https://music.youtube.com/playlist?$1');
+      return url;
+    },
+    validate: function (url, id) {
+      if (/https:\/\/music\.youtube\.com\/search\?/.test(url)) {
+        return {
+          error: noLinkToSearchMsg(),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+      switch (id) {
+        case LINK_TYPES.youtubemusic.artist:
+          if (/^https:\/\/www\.youtube\.com\/playlist\?list=[a-zA-Z0-9_-]+/.test(url)) {
+            return {
+              error: l(
+                `This is a release (playlist) link, not an artist channel.
+                 Please link to the artist channel instead.`,
+              ),
+              result: false,
+              target: ERROR_TARGETS.ENTITY,
+            };
+          }
+          if (/^https:\/\/www\.youtube\.com\/watch\?v=[a-zA-Z0-9_-]+$/.test(url)) {
+            return {
+              error: linkToChannelMsg(),
+              result: false,
+              target: ERROR_TARGETS.ENTITY,
+            };
+          }
+          return {
+            result: /^https:\/\/music\.youtube\.com\/channel\/[^\/?#]+$/.test(url),
+            target: ERROR_TARGETS.URL,
+          };
+        case LINK_TYPES.streamingfree.recording:
+        case LINK_TYPES.streamingpaid.recording:
+          if (/^https:\/\/music\.youtube\.com\/watch\?v=[a-zA-Z0-9_-]+$/.test(url)) {
+            return {result: true};
+          }
+          return {
+            error: linkToVideoMsg(),
+            result: false,
+            target: ERROR_TARGETS.ENTITY,
+          };
+        case LINK_TYPES.streamingfree.release:
+        case LINK_TYPES.streamingpaid.release:
+          if (/^https:\/\/music\.youtube\.com\/playlist\?list=[a-zA-Z0-9_-]+$/.test(url)) {
+            return {result: true};
+          }
+          if (/^https:\/\/music\.youtube\.com\/watch\?v=[a-zA-Z0-9_-]+$/.test(url)) {
+            return {
+              error: l(
+                `Please link to a specific release (playlist) link. Add track
+                (video) links to the relevant recordings instead.`,
+              ),
+              result: false,
+              target: ERROR_TARGETS.ENTITY,
+            };
+          }
+          if (/^https:\/\/music\.youtube\.com\/channel\/[^\/?#]+$/.test(url)) {
+            return {
+              error: l(
+                `Please link to a specific release (playlist) link. Add
+                 channel links to the relevant artists instead.`,
+              ),
+              result: false,
+              target: ERROR_TARGETS.ENTITY,
+            };
+          }
+          if (/^https:\/\/music\.youtube\.com\/browse\//.test(url)) {
+            return {
+              error: exp.l(
+                `This is likely a redirect link. Please follow
+                 {redirect_url|your link} and add the release (playlist)
+                 link it redirects to instead.`,
+                {
+                  redirect_url: {
+                    href: url,
+                    rel: 'noopener noreferrer',
+                    target: '_blank',
+                  },
+                },
+              ),
+              result: false,
+              target: ERROR_TARGETS.URL,
+            };
+          }
       }
       return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
     },
