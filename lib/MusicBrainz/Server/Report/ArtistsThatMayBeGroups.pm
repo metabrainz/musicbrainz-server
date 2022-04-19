@@ -20,7 +20,7 @@ sub query {<<~'SQL'}
          JOIN link ON link.id = laa.link
          JOIN link_type ON link_type.id = link.link_type
          WHERE (artist.type NOT IN (2, 5, 6) OR artist.type IS NULL)
-         AND link_type.name IN ('member of band', 'collaboration', 'conductor position', 'subgroup'))
+         AND link_type.name IN ('member of band', 'collaboration', 'conductor position', 'artistic director', 'composer-in-residence', 'subgroup')),
   SELECT possible_groups.id AS artist_id,
          row_number() OVER (ORDER BY possible_groups.name COLLATE musicbrainz, possible_groups.id)
   FROM

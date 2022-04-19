@@ -21,7 +21,7 @@ WITH groups_entity0 AS (
          JOIN link ON link.id = laa.link
          JOIN link_type ON link_type.id = link.link_type
          WHERE artist.type IS DISTINCT FROM 1
-         AND link_type.name IN ('member of band', 'collaboration', 'conductor position', 'subgroup')),
+         AND link_type.name IN ('member of band', 'collaboration', 'conductor position', 'artistic director', 'composer-in-residence', 'subgroup')),
      persons_entity0 AS (
          SELECT artist.id, artist.name FROM
          artist
@@ -29,7 +29,7 @@ WITH groups_entity0 AS (
          JOIN link ON link.id = laa.link
          JOIN link_type ON link_type.id = link.link_type
          WHERE artist.type IS DISTINCT FROM 1
-         AND link_type.name IN ('member of band', 'collaboration', 'voice actor', 'conductor position', 'is person', 'married', 'sibling', 'parent', 'involved with')),
+         AND link_type.name IN ('member of band', 'supporting musician', 'collaboration', 'voice actor', 'conductor position', 'artistic director', 'composer-in-residence', 'teacher', 'is person', 'married', 'sibling', 'parent', 'involved with')),
      persons_entity1 AS (
          SELECT artist.id, artist.name FROM
          artist
@@ -37,7 +37,7 @@ WITH groups_entity0 AS (
          JOIN link ON link.id = laa.link
          JOIN link_type ON link_type.id = link.link_type
          WHERE artist.type IS DISTINCT FROM 1
-         AND link_type.name IN ('catalogued', 'is person', 'married', 'sibling', 'parent', 'involved with')),
+         AND link_type.name IN ('teacher', 'catalogued', 'is person', 'married', 'sibling', 'parent', 'involved with')),
      artists AS (
          SELECT id, name FROM
              (SELECT * FROM persons_entity0
