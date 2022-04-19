@@ -239,7 +239,8 @@
         "edit_table": true,
         "mbid": {
             "indexable": true,
-            "multiple": false
+            "multiple": false,
+            "relatable": "overview"
         },
         "merging": false,
         "model": "Genre",

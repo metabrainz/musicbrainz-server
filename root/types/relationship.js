@@ -17,6 +17,8 @@ declare type LinkAttrT = {
   +typeName: string,
 };
 
+declare type LinkAttrTypeOptionsT = $ReadOnlyArray<LinkAttrTypeT>;
+
 declare type LinkAttrTypeT = {
   ...OptionTreeT<'link_attribute_type'>,
   +children?: $ReadOnlyArray<LinkAttrTypeT>,
@@ -32,6 +34,10 @@ declare type LinkAttrTypeT = {
 declare type LinkTypeAttrTypeT = {
   +max: number | null,
   +min: number | null,
+};
+
+declare type LinkTypeOptionsT = {
+  [entityCombination: string]: $ReadOnlyArray<LinkTypeT>,
 };
 
 declare type LinkTypeT = {

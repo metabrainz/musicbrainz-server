@@ -1710,7 +1710,11 @@ function isMusicBrainz(url) {
 type InitialOptionsT = {
   errorObservable?: (boolean) => void,
   mountPoint: Element,
-  sourceData: CoreEntityT,
+  sourceData: CoreEntityT | {
+    +entityType: CoreEntityTypeT,
+    +id?: void,
+    +relationships?: void,
+  },
 };
 
 type SeededUrlShape = {
@@ -1718,7 +1722,9 @@ type SeededUrlShape = {
   +text?: string,
 };
 
-MB.createExternalLinksEditor = function (options: InitialOptionsT) {
+export function createExternalLinksEditor(
+  options: InitialOptionsT,
+): React$Ref<typeof ExternalLinksEditor> {
   const sourceData = options.sourceData;
   const sourceType = sourceData.entityType;
   const entityTypes = [sourceType, 'url'].sort().join('-');
@@ -1809,6 +1815,6 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
     );
   });
   return externalLinksEditorRef;
-};
+}
 
-export const createExternalLinksEditor = MB.createExternalLinksEditor;
+MB.createExternalLinksEditor = createExternalLinksEditor;

@@ -315,3 +315,5 @@ function editorMayEditTypes(type0, type1) {
 
   return true;
 }
+
+export const exportTypeInfo = MB.relationshipEditor.exportTypeInfo;

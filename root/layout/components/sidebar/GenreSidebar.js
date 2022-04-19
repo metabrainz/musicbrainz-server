@@ -12,6 +12,7 @@ import * as React from 'react';
 import {CatalystContext} from '../../../context';
 import {isRelationshipEditor}
   from '../../../static/scripts/common/utility/privileges';
+import ExternalLinks from '../ExternalLinks';
 
 import AnnotationLinks from './AnnotationLinks';
 import EditLinks from './EditLinks';
@@ -27,6 +28,8 @@ const GenreSidebar = ({genre}: Props): React.Element<'div'> => {
 
   return (
     <div id="sidebar">
+      <ExternalLinks empty entity={genre} />
+
       {isRelationshipEditor($c.user) ? (
         <EditLinks entity={genre}>
           <AnnotationLinks entity={genre} />

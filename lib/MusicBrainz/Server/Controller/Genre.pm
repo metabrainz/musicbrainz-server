@@ -9,11 +9,13 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Genre',
     entity_name     => 'genre',
+    relationships   => { cardinal => ['show', 'edit'], default => ['url'] },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
+with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_GENRE_CREATE

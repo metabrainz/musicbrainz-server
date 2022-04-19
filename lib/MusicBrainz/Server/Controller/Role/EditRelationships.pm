@@ -298,13 +298,22 @@ role {
         my $seeded_relationships = get_seeded_relationships($c, $source_type, $source);
         my @link_type_tree = $c->model('LinkType')->get_full_tree;
         my @link_attribute_types = $c->model('LinkAttributeType')->get_all;
+        my $type_info = build_type_info(
+            $c,
+            qr/(^$source_type-|-$source_type$)/,
+            @link_type_tree,
+        );
 
         $c->stash(
             seeded_relationships => $c->json->encode(to_json_array($seeded_relationships)),
             source_entity => $c->json->encode($source_entity),
             attr_info => $c->json->encode(\@link_attribute_types),
-            type_info => $c->json->encode(build_type_info($c, qr/(^$source_type-|-$source_type$)/, @link_type_tree)),
+            type_info => $c->json->encode($type_info),
         );
+
+        $c->stash->{component_props}{sourceEntity} = $source_entity;
+        $c->stash->{component_props}{attrInfo} = to_json_array(\@link_attribute_types);
+        $c->stash->{component_props}{typeInfo} = $type_info;
 
         my $post_creation = delete $opts{post_creation};
 
