@@ -12,7 +12,11 @@ WITH groups_entity0 AS (
          JOIN l_artist_artist laa ON laa.entity0 = artist.id
          JOIN link ON link.id = laa.link
          JOIN link_type ON link_type.id = link.link_type
-         WHERE artist.type IS DISTINCT FROM 1
+         WHERE (
+            artist.type NOT IN (1, 4)
+            OR
+            artist.type IS NULL
+         )
          AND link_type.name IN ('subgroup')),
      groups_entity1 AS (
          SELECT artist.id, artist.name
@@ -20,7 +24,11 @@ WITH groups_entity0 AS (
          JOIN l_artist_artist laa ON laa.entity1 = artist.id
          JOIN link ON link.id = laa.link
          JOIN link_type ON link_type.id = link.link_type
-         WHERE artist.type IS DISTINCT FROM 1
+         WHERE (
+            artist.type NOT IN (1, 4)
+            OR
+            artist.type IS NULL
+         )
          AND link_type.name IN ('member of band', 'collaboration', 'conductor position', 'artistic director', 'composer-in-residence', 'subgroup')),
      persons_entity0 AS (
          SELECT artist.id, artist.name FROM
@@ -28,7 +36,11 @@ WITH groups_entity0 AS (
          JOIN l_artist_artist laa ON laa.entity0 = artist.id
          JOIN link ON link.id = laa.link
          JOIN link_type ON link_type.id = link.link_type
-         WHERE artist.type IS DISTINCT FROM 1
+         WHERE (
+            artist.type NOT IN (1, 4)
+            OR
+            artist.type IS NULL
+         )
          AND link_type.name IN ('member of band', 'supporting musician', 'collaboration', 'voice actor', 'conductor position', 'artistic director', 'composer-in-residence', 'teacher', 'is person', 'married', 'sibling', 'parent', 'involved with')),
      persons_entity1 AS (
          SELECT artist.id, artist.name FROM
@@ -36,7 +48,11 @@ WITH groups_entity0 AS (
          JOIN l_artist_artist laa ON laa.entity1 = artist.id
          JOIN link ON link.id = laa.link
          JOIN link_type ON link_type.id = link.link_type
-         WHERE artist.type IS DISTINCT FROM 1
+         WHERE (
+            artist.type NOT IN (1, 4)
+            OR
+            artist.type IS NULL
+         )
          AND link_type.name IN ('teacher', 'is person', 'married', 'sibling', 'parent', 'involved with')),
      artists AS (
          SELECT id, name FROM
