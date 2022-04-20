@@ -41,7 +41,7 @@ sub _table
 
 sub _columns
 {
-    return 'rg.id, rg.gid, rg.type AS primary_type_id, rg.name,
+    return 'rg.id, rg.gid, rg.type AS primary_type_id, rg.name COLLATE musicbrainz,
             rg.artist_credit AS artist_credit_id,
             rg.comment, rg.edits_pending, rg.last_updated,
             rgm.first_release_date_year,

@@ -37,7 +37,7 @@ Readonly my @CODE_TYPES => qw( iso_3166_1 iso_3166_2 iso_3166_3 );
 sub _type { 'area' }
 
 sub _columns {
-    return 'area.id, area.gid, area.name, area.comment, area.type, ' .
+    return 'area.id, area.gid, area.name COLLATE musicbrainz, area.comment, area.type, ' .
            'area.edits_pending, area.begin_date_year, area.begin_date_month, area.begin_date_day, ' .
            'area.end_date_year, area.end_date_month, area.end_date_day, area.ended, area.last_updated, ' .
            '(SELECT array_agg(code) FROM iso_3166_1 WHERE iso_3166_1.area = area.id) AS iso_3166_1, ' .

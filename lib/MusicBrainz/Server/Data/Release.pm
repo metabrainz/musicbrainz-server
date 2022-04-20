@@ -58,7 +58,7 @@ sub _type { 'release' }
 
 sub _columns
 {
-    return 'release.id, release.gid, release.name, release.artist_credit AS artist_credit_id,
+    return 'release.id, release.gid, release.name COLLATE musicbrainz, release.artist_credit AS artist_credit_id,
             release.release_group, release.status, release.packaging,
             release.comment, release.edits_pending, release.barcode,
             release.script, release.language, release.quality, release.last_updated';

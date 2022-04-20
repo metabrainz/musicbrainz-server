@@ -38,7 +38,7 @@ with 'MusicBrainz::Server::Data::Role::Collection';
 sub _type { 'series' }
 
 sub _columns {
-    return 'series.id, series.gid, series.name, series.comment, ' .
+    return 'series.id, series.gid, series.name COLLATE musicbrainz, series.comment, ' .
            'series.type, ordering_type, series.edits_pending, series.last_updated';
 }
 

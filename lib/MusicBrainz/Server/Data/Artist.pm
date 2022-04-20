@@ -48,7 +48,7 @@ sub _type { 'artist' }
 
 sub _columns
 {
-    return 'artist.id, artist.gid, artist.name, artist.sort_name, ' .
+    return 'artist.id, artist.gid, artist.name COLLATE musicbrainz, artist.sort_name COLLATE musicbrainz, ' .
            'artist.type, artist.area, artist.begin_area, artist.end_area, ' .
            'gender, artist.edits_pending, artist.comment, artist.last_updated, ' .
            'artist.begin_date_year, artist.begin_date_month, artist.begin_date_day, ' .

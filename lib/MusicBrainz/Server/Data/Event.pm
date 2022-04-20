@@ -39,7 +39,7 @@ sub _type {
 
 sub _columns
 {
-    return 'event.id, event.gid, event.name, event.type, event.time, event.cancelled,' .
+    return 'event.id, event.gid, event.name COLLATE musicbrainz, event.type, event.time, event.cancelled,' .
            'event.setlist, event.edits_pending, event.begin_date_year, ' .
            'event.begin_date_month, event.begin_date_day, event.end_date_year, ' .
            'event.end_date_month, event.end_date_day, event.ended, ' .

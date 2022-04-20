@@ -33,7 +33,7 @@ sub _type { 'recording' }
 
 sub _columns
 {
-    return 'recording.id, recording.gid, recording.name,
+    return 'recording.id, recording.gid, recording.name COLLATE musicbrainz,
             recording.artist_credit AS artist_credit_id,
             recording.length, recording.comment, recording.video,
             recording.edits_pending, recording.last_updated';

@@ -37,7 +37,7 @@ sub _type { 'place' }
 
 sub _columns
 {
-    return 'place.id, place.gid, place.name, place.type, place.address, place.area, place.coordinates[0] as coordinates_x, ' .
+    return 'place.id, place.gid, place.name COLLATE musicbrainz, place.type, place.address, place.area, place.coordinates[0] as coordinates_x, ' .
            'place.coordinates[1] as coordinates_y, place.edits_pending, place.begin_date_year, place.begin_date_month, place.begin_date_day, ' .
            'place.end_date_year, place.end_date_month, place.end_date_day, place.ended, place.comment, place.last_updated';
 }

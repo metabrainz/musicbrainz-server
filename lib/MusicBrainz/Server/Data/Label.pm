@@ -46,7 +46,7 @@ sub _type { 'label' }
 
 sub _columns
 {
-    return 'label.id, label.gid, label.name, ' .
+    return 'label.id, label.gid, label.name COLLATE musicbrainz, ' .
            'label.type, label.area, label.edits_pending, label.label_code, ' .
            'label.begin_date_year, label.begin_date_month, label.begin_date_day, ' .
            'label.end_date_year, label.end_date_month, label.end_date_day, label.ended, label.comment, label.last_updated';
