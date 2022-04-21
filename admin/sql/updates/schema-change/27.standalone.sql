@@ -10,6 +10,7 @@
 -- 20220314-mbs-12254-standalone.sql
 -- 20220314-mbs-12255-standalone.sql
 -- 20220322-mbs-12256-standalone.sql
+-- 20220408-immutable-link-tables-standalone.sql
 -- 20220426-mbs-12131.sql
 \set ON_ERROR_STOP 1
 BEGIN;
@@ -1072,6 +1073,28 @@ CREATE TRIGGER update_aggregate_rating_for_update AFTER UPDATE ON work_rating_ra
 
 CREATE TRIGGER update_aggregate_rating_for_delete AFTER DELETE ON work_rating_raw
     FOR EACH ROW EXECUTE PROCEDURE update_aggregate_rating_for_raw_delete('work');
+
+--------------------------------------------------------------------------------
+SELECT '20220408-immutable-link-tables-standalone.sql';
+
+
+CREATE OR REPLACE TRIGGER deny_deprecated BEFORE INSERT ON link
+    FOR EACH ROW EXECUTE PROCEDURE deny_deprecated_links();
+
+CREATE OR REPLACE TRIGGER b_upd_link BEFORE UPDATE ON link
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_link();
+
+CREATE OR REPLACE TRIGGER b_ins_link_attribute BEFORE INSERT ON link_attribute
+    FOR EACH ROW EXECUTE PROCEDURE prevent_invalid_attributes();
+
+CREATE OR REPLACE TRIGGER b_upd_link_attribute BEFORE UPDATE ON link_attribute
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_link_attribute();
+
+CREATE OR REPLACE TRIGGER b_upd_link_attribute_credit BEFORE UPDATE ON link_attribute_credit
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_link_attribute_credit();
+
+CREATE OR REPLACE TRIGGER b_upd_link_attribute_text_value BEFORE UPDATE ON link_attribute_text_value
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_link_attribute_text_value();
 
 --------------------------------------------------------------------------------
 SELECT '20220426-mbs-12131.sql';

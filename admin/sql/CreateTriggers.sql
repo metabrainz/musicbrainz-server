@@ -379,14 +379,26 @@ CREATE TRIGGER b_upd_label_tag BEFORE UPDATE ON label_tag
 CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON link
     FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
 
-CREATE TRIGGER deny_deprecated BEFORE UPDATE OR INSERT ON link
+CREATE TRIGGER deny_deprecated BEFORE INSERT ON link
     FOR EACH ROW EXECUTE PROCEDURE deny_deprecated_links();
 
 CREATE TRIGGER check_has_dates BEFORE UPDATE OR INSERT ON link
     FOR EACH ROW EXECUTE PROCEDURE check_has_dates();
 
-CREATE TRIGGER b_upd_link_attribute BEFORE UPDATE OR INSERT ON link_attribute
+CREATE TRIGGER b_upd_link BEFORE UPDATE ON link
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_link();
+
+CREATE TRIGGER b_ins_link_attribute BEFORE INSERT ON link_attribute
     FOR EACH ROW EXECUTE PROCEDURE prevent_invalid_attributes();
+
+CREATE TRIGGER b_upd_link_attribute BEFORE UPDATE ON link_attribute
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_link_attribute();
+
+CREATE TRIGGER b_upd_link_attribute_credit BEFORE UPDATE ON link_attribute_credit
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_link_attribute_credit();
+
+CREATE TRIGGER b_upd_link_attribute_text_value BEFORE UPDATE ON link_attribute_text_value
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_link_attribute_text_value();
 
 CREATE TRIGGER b_upd_link_attribute_type BEFORE UPDATE ON link_attribute_type
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
