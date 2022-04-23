@@ -5605,10 +5605,10 @@ supports-color@^8.0.0:
   dependencies:
     has-flag "^4.0.0"
 
-swiper@8.0.7:
-  version "8.0.7"
-  resolved "https://registry.yarnpkg.com/swiper/-/swiper-8.0.7.tgz#9eefe26c703e627a6dc7237c0109e172ce06e3f6"
-  integrity sha512-GHjDfxSZdupfU7LrSVOpaNaT7R1D2zxopPGBFz1UOXOtsYvVJLg0k6NvkTAD7qn0ASl5pTti82qoYwvYvIkg4g==
+swiper@^8.1.3:
+  version "8.1.3"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-8.1.3.tgz#a739a92e814073714150c69bb66a12efb0227f9d"
+  integrity sha512-S7UDkX1IRpyL3vadRUHq+YTq916d56AJZX4Whdh772Dc07PjJ+721AqBZZvLuXVPgm/v4QRvLBBjrWasMS001A==
   dependencies:
     dom7 "^4.0.4"
     ssr-window "^4.0.2"

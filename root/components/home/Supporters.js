@@ -8,18 +8,13 @@
  */
 
 import * as React from 'react';
-import {Swiper, SwiperSlide} from 'swiper/react';
+import {Swiper, SwiperSlide} from 'swiper/react/swiper-react';
 import {Pagination, Navigation} from 'swiper';
-
-import 'swiper/less';
-import "swiper/less/grid";
-import "swiper/less/pagination";
-import "swiper/less/navigation";
 
 const Supporters = (): React.Element<'section'> => (
   <section>
     <div className="title">
-      <h2>Supporters</h2>
+      <h2>{l('Supporters')}</h2>
     </div>
     <Swiper
       loop
@@ -120,7 +115,7 @@ const Supporters = (): React.Element<'section'> => (
       </SwiperSlide>
 
     </Swiper>
-  </div>
+  </section>
 );
 
 export default Supporters;
