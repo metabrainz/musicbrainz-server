@@ -13,9 +13,9 @@ import {CatalystContext} from '../../../context.mjs';
 import LinkSearchableLanguage
   from '../../../components/LinkSearchableLanguage';
 import * as manifest from '../../../static/manifest.mjs';
-import CodeLink from '../../../static/scripts/common/components/CodeLink';
 import AttributeList
   from '../../../static/scripts/common/components/AttributeList';
+import IswcList from '../../../static/scripts/common/components/IswcList';
 import commaOnlyList from '../../../static/scripts/common/i18n/commaOnlyList';
 import CommonsImage from
   '../../../static/scripts/common/components/CommonsImage';
@@ -80,15 +80,13 @@ const WorkSidebar = ({work}: Props): React.Element<'div'> => {
             ) : null}
 
             {iswcs.length ? (
-              iswcs.map((iswc) => (
-                <SidebarProperty
-                  className="iswc"
-                  key={iswc.iswc}
-                  label={l('ISWC:')}
-                >
-                  <CodeLink code={iswc} />
-                </SidebarProperty>
-              ))
+              <>
+                <IswcList isSidebar iswcs={iswcs} />
+                {manifest.js(
+                  'common/components/IswcList',
+                  {async: 'async'},
+                )}
+              </>
             ) : null}
           </SidebarProperties>
 
