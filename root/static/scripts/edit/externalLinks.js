@@ -1626,6 +1626,7 @@ const URL_SHORTENERS = [
   'push.fm',
   'rb.gy',
   'rubyurl.com',
+  'share.amuse.io',
   'smarturl.it',
   'snd.click',
   'song.link',
