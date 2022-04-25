@@ -32,6 +32,7 @@ import EventLocations
   from '../static/scripts/common/components/EventLocations';
 import ExpandedArtistCredit
   from '../static/scripts/common/components/ExpandedArtistCredit';
+import IsrcList from '../static/scripts/common/components/IsrcList';
 import RatingStars from '../static/scripts/common/components/RatingStars';
 import ReleaseEvents
   from '../static/scripts/common/components/ReleaseEvents';
@@ -650,13 +651,7 @@ export const isrcsColumn:
   }, $ReadOnlyArray<IsrcT>> = {
     accessor: x => x.isrcs,
     Cell: ({cell: {value}}) => (
-      <ul>
-        {value.map((isrc) => (
-          <li key={isrc.isrc}>
-            <CodeLink code={isrc} />
-          </li>
-        ))}
-      </ul>
+      <IsrcList isrcs={value} />
     ),
     Header: N_l('ISRCs'),
     id: 'isrcs',
