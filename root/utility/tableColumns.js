@@ -626,9 +626,7 @@ export const attributesColumn:
   ColumnOptions<WorkT, $ReadOnlyArray<WorkAttributeT>> = {
     Cell: ({row: {original}}) => (
       original.attributes ? (
-        <ul>
-          <AttributeList attributes={original.attributes} />
-        </ul>
+        <AttributeList attributes={original.attributes} />
       ) : null
     ),
     Header: N_l('Attributes'),

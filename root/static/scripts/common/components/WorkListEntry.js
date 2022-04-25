@@ -113,13 +113,13 @@ export const WorkListRow = ({
       {showAttributes ? (
         <td>
           {work.attributes ? (
-            <ul>
+            <>
               <AttributeList attributes={work.attributes} />
               {manifest.js(
                 'common/components/AttributeList',
                 {async: 'async'},
               )}
-            </ul>
+            </>
           ) : null}
         </td>
       ) : null}
