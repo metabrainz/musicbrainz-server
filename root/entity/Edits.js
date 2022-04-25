@@ -82,20 +82,22 @@ const Edits = ({
 
   return (
     <Layout fullWidth title={pageTitle}>
-      <div className={className}>
-        <h1>{pageHeading}</h1>
-        <SubHeader subHeading={pageSubHeading} />
+      <div id="content">
+        <div className={className}>
+          <h1>{pageHeading}</h1>
+          <SubHeader subHeading={pageSubHeading} />
+        </div>
+        <EditList
+          $c={$c}
+          editCountLimit={editCountLimit}
+          edits={edits}
+          entity={entity}
+          guessSearch
+          page={entity.entityType + '_' + (showingOpenOnly ? 'open' : 'all')}
+          pager={pager}
+          refineUrlArgs={refineUrlArgs}
+        />
       </div>
-      <EditList
-        $c={$c}
-        editCountLimit={editCountLimit}
-        edits={edits}
-        entity={entity}
-        guessSearch
-        page={entity.entityType + '_' + (showingOpenOnly ? 'open' : 'all')}
-        pager={pager}
-        refineUrlArgs={refineUrlArgs}
-      />
     </Layout>
   );
 };

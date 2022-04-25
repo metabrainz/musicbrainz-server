@@ -213,7 +213,7 @@ $(function () {
    * Create separate dialogs for the sidebar and content, so that the
    * image "albums" are logically grouped.
    */
-  $('#sidebar, #content, #edits').each(function (index, container) {
+  $('#sidebar, #content').each(function (index, container) {
     var $artwork = $('a.artwork-image', container);
     if ($artwork.length === 0) {
       return;
