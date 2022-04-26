@@ -457,6 +457,10 @@ const ReportsIndex = (): React$Element<typeof Layout> => {
             )}
             reportName="NonBootlegsOnBootlegLabels"
           />
+          <ReportsIndexEntry
+            content={l('Releases marked as low quality')}
+            reportName="LowQualityReleases"
+          />
         </ul>
 
         <h2>{l('Recordings')}</h2>

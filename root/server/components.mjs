@@ -255,6 +255,7 @@ export default {
   'report/LabelsDisambiguationSameName': (): Promise<mixed> => import('../report/LabelsDisambiguationSameName.js'),
   'report/LimitedEditors': (): Promise<mixed> => import('../report/LimitedEditors.js'),
   'report/LinksWithMultipleEntities': (): Promise<mixed> => import('../report/LinksWithMultipleEntities.js'),
+  'report/LowQualityReleases': (): Promise<mixed> => import('../report/LowQualityReleases.js'),
   'report/MediumsWithOrderInTitle': (): Promise<mixed> => import('../report/MediumsWithOrderInTitle.js'),
   'report/MediumsWithSequenceIssues': (): Promise<mixed> => import('../report/MediumsWithSequenceIssues.js'),
   'report/MislinkedPseudoReleases': (): Promise<mixed> => import('../report/MislinkedPseudoReleases.js'),
