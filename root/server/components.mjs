@@ -266,6 +266,7 @@ export default {
   'report/InstrumentsWithoutWikidata': (): Promise<mixed> => import('../report/InstrumentsWithoutWikidata.js'),
   'report/IsrcsWithManyRecordings': (): Promise<mixed> => import('../report/IsrcsWithManyRecordings.js'),
   'report/IswcsWithManyWorks': (): Promise<mixed> => import('../report/IswcsWithManyWorks.js'),
+  'report/KaraokePlusInstrumentalRecordings': (): Promise<mixed> => import('../report/KaraokePlusInstrumentalRecordings.js'),
   'report/LabelsDisambiguationSameName': (): Promise<mixed> => import('../report/LabelsDisambiguationSameName.js'),
   'report/LimitedEditors': (): Promise<mixed> => import('../report/LimitedEditors.js'),
   'report/LinksWithMultipleEntities': (): Promise<mixed> => import('../report/LinksWithMultipleEntities.js'),
