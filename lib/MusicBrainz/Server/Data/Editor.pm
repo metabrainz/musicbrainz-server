@@ -49,7 +49,7 @@ sub _columns
             birth_date, ha1, deleted';
 }
 
-sub _area_cols { [qw( area )] }
+sub _area_columns { [qw( area )] }
 
 sub _column_mapping
 {

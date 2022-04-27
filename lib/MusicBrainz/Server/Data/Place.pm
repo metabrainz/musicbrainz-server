@@ -65,7 +65,7 @@ sub _column_mapping
     };
 }
 
-sub _area_cols
+sub _area_columns
 {
     return ['area']
 }

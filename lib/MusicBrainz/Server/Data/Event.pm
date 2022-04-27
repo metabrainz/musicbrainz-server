@@ -46,7 +46,7 @@ sub _columns
            'event.comment, event.last_updated';
 }
 
-sub _area_cols { [qw( event_area.area )] }
+sub _area_columns { [qw( event_area.area )] }
 
 sub _id_column
 {

@@ -125,7 +125,7 @@ sub _order_by {
     return $order_by
 }
 
-sub _area_cols
+sub _area_columns
 {
     return ['area']
 }

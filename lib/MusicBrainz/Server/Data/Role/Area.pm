@@ -2,12 +2,12 @@ package MusicBrainz::Server::Data::Role::Area;
 use Moose::Role;
 use MusicBrainz::Server::Data::Utils qw( get_area_containment_join );
 
-requires '_columns', '_table', '_area_cols';
+requires '_columns', '_table', '_area_columns';
 
 sub find_by_area {
     my ($self, $area_id, $limit, $offset) = @_;
 
-    my @area_cols = @{ $self->_area_cols };
+    my @area_cols = @{ $self->_area_columns };
     my $area_cols_condition = @area_cols > 1
         ? (' IN (' . join(q(, ), @area_cols) . ')')
         : (' = ' . $area_cols[0]);
