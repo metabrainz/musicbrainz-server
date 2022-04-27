@@ -238,6 +238,10 @@ sub _area_columns
     return ['area', 'begin_area', 'end_area'];
 }
 
+sub _find_by_area_order {
+    return 'sort_name, id';
+}
+
 sub load
 {
     my ($self, @objs) = @_;
