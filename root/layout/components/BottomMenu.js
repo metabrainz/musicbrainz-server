@@ -202,13 +202,13 @@ const SearchMenu = () => (
     </span>
     <ul>
       <li>
-        <a href="/search">{l('Advanced Search (entities)')}</a>
+        <a href="/search">{l('Advanced Search')}</a>
       </li>
       <li>
-        <a href="/search/edits">{l('Advanced Search (edits)')}</a>
+        <a href="/search/edits">{l('Edit Search')}</a>
       </li>
       <li>
-        <a href="/tags">{l('Tags')}</a>
+        <a href="/tags">{l('Tag Cloud')}</a>
       </li>
       <li>
         <a href="/cdstub/browse">{l('Top CD Stubs')}</a>
