@@ -9,6 +9,7 @@
 
 import type {CowContext} from 'mutate-cow';
 
+import parseNaturalDate from '../../common/utility/parseNaturalDate.js';
 import {isDateValid, isYearFourDigits} from '../utility/dates.js';
 import {applyPendingErrors} from '../utility/subfieldErrors.js';
 
@@ -16,7 +17,11 @@ import {applyPendingErrors} from '../utility/subfieldErrors.js';
 export type ActionT =
   | {
       +type: 'set-date',
-      +date: {+year?: string, +month?: string, +day?: string},
+      +date: {
+        +year?: string,
+        +month?: string,
+        +day?: string,
+      },
     }
   | {+type: 'show-pending-errors'};
 /* eslint-enable ft-flow/sort-keys */
@@ -87,6 +92,11 @@ type DatePartPropsT = {
   value?: StrOrNum,
 };
 
+type DateParserPropsT = {
+  onBlur?: () => void,
+  onChange?: (SyntheticEvent<HTMLInputElement>) => void,
+};
+
 component PartialDateInput(
   disabled: boolean = false,
   field: PartialDateFieldT,
@@ -96,6 +106,7 @@ component PartialDateInput(
   const yearProps: DatePartPropsT = {};
   const monthProps: DatePartPropsT = {};
   const dayProps: DatePartPropsT = {};
+  const parserProps: DateParserPropsT = {};
 
   if (controlledProps.uncontrolled /*:: === true */) {
     yearProps.defaultValue = field.field.year.value;
@@ -120,6 +131,7 @@ component PartialDateInput(
     yearProps.onBlur = handleBlur;
     monthProps.onBlur = handleBlur;
     dayProps.onBlur = handleBlur;
+    parserProps.onBlur = handleBlur;
 
     yearProps.onChange = (event) => handleDateChange(
       event,
@@ -133,6 +145,14 @@ component PartialDateInput(
       event,
       'day',
     );
+
+    parserProps.onChange = (event) => {
+      const date = parseNaturalDate(event.currentTarget.value);
+      controlledProps.dispatch({
+        date,
+        type: 'set-date',
+      });
+    };
 
     yearProps.value = field.field.year.value ?? '';
     monthProps.value = field.field.month.value ?? '';
@@ -177,6 +197,21 @@ component PartialDateInput(
         type="text"
         {...dayProps}
       />
+      {controlledProps.uncontrolled /*:: === true */ ? null : (
+        <>
+          {' '}
+          <input
+            className="partial-date-parser"
+            disabled={disabled}
+            id={'id-' + field.html_name + '.partial-date-parser'}
+            name={field.html_name + '.partial-date-parser'}
+            placeholder={l('or paste a full date here')}
+            size={12}
+            type="text"
+            {...parserProps}
+          />
+        </>
+      )}
     </span>
   );
 }
