@@ -9,6 +9,7 @@
 
 
 const ymdRegex = /^\W*([0-9]{4})(?:\W+(0?[1-9]|1[0-2])(?:\W+(0?[1-9]|[12][0-9]|3[01]))?)?\W*$/;
+const cjkRegex = /^\W*([0-9]{2}|[0-9]{4})(?:(?:\u5E74|\uB144\W?)(0?[1-9]|1[0-2])(?:(?:\u6708|\uC6D4\W?)(0?[1-9]|[12][0-9]|3[01])(?:\u65E5|\uC77C)?)?)?\W*$/;
 
 function cleanDateString(
   str: string,
@@ -48,6 +49,14 @@ function cleanDateString(
     },
   );
 
+  // RoC year numbering - http://en.wikipedia.org/wiki/Minguo_calendar
+  cleanedString = cleanedString.replace(
+    /民國([0-9]{1,3})/,
+    function (match, year) {
+      return String(parseInt(year, 10) + 1911);
+    },
+  );
+
   return cleanedString;
 }
 
@@ -56,7 +65,10 @@ export function parseNaturalDate(
 ): PartialDateStringsT {
   const cleanedString = cleanDateString(str);
 
-  const match = cleanedString.match(ymdRegex) || [];
+  const match = cleanedString.match(cjkRegex) ||
+                cleanedString.match(ymdRegex) ||
+                [];
+
   return {
     /* eslint-disable sort-keys */
     year: match[1] || '',
