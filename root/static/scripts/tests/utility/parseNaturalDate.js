@@ -12,7 +12,7 @@ import test from 'tape';
 import parseNaturalDate from '../../common/utility/parseNaturalDate.js';
 
 test('parseNaturalDate', function (t) {
-  t.plan(7);
+  t.plan(10);
 
   /* eslint-disable sort-keys */
   const parseDateTests = [
@@ -28,6 +28,20 @@ test('parseNaturalDate', function (t) {
     // Y M D
     {date: '1999 01 02', expected: {year: '1999', month: '01', day: '02'}},
     {date: '1999 01', expected: {year: '1999', month: '01', day: ''}},
+
+    // Fullwidth numbers
+    {
+      date: '１９９９－０１－０２',
+      expected: {year: '1999', month: '01', day: '02'},
+    },
+    {
+      date: '１９９９-０１-０２',
+      expected: {year: '1999', month: '01', day: '02'},
+    },
+    {
+      date: '１９９９ ０１ ０２',
+      expected: {year: '1999', month: '01', day: '02'},
+    },
   ];
   /* eslint-enable sort-keys */
 
