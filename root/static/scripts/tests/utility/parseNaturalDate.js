@@ -12,7 +12,7 @@ import test from 'tape';
 import parseNaturalDate from '../../common/utility/parseNaturalDate.js';
 
 test('parseNaturalDate', function (t) {
-  t.plan(10);
+  t.plan(12);
 
   /* eslint-disable sort-keys */
   const parseDateTests = [
@@ -42,6 +42,10 @@ test('parseNaturalDate', function (t) {
       date: '１９９９ ０１ ０２',
       expected: {year: '1999', month: '01', day: '02'},
     },
+
+    // Japanese year codes
+    {date: 'O-2-25', expected: {year: '1987', month: '2', day: '25'}},
+    {date: 'D-12-10', expected: {year: '1991', month: '12', day: '10'}},
   ];
   /* eslint-enable sort-keys */
 

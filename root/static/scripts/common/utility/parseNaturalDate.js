@@ -26,6 +26,28 @@ function cleanDateString(
     },
   );
 
+  // See https://web.archive.org/web/20220330023649/https://reference.discogs.com/wiki/japanese-release-dates
+  const japaneseYearCodes = {
+    /* eslint-disable sort-keys */
+    N: '1984',
+    I: '1985',
+    H: '1986',
+    O: '1987',
+    R: '1988',
+    E: '1989',
+    C: '1990',
+    D: '1991',
+    K: '1992',
+    L: '1993',
+    /* eslint-enable sort-keys */
+  };
+  cleanedString = cleanedString.replace(
+    /([NIHORECDKL])-([0-9]{1,2}-[0-9]{1,2})/,
+    function (match, year, date) {
+      return japaneseYearCodes[year] + '-' + date;
+    },
+  );
+
   return cleanedString;
 }
 
