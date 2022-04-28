@@ -10,10 +10,31 @@
 
 const ymdRegex = /^\W*([0-9]{4})(?:\W+(0?[1-9]|1[0-2])(?:\W+(0?[1-9]|[12][0-9]|3[01]))?)?\W*$/;
 
+function cleanDateString(
+  str: string,
+): string {
+  let cleanedString = str;
+
+  // Clean fullwidth digits to standard digits
+  cleanedString = cleanedString.replace(
+    /[０-９－]/g,
+    function (fullwidthDigit) {
+      return String.fromCharCode(
+        fullwidthDigit.charCodeAt(0) -
+        ('０'.charCodeAt(0) - '0'.charCodeAt(0)),
+      );
+    },
+  );
+
+  return cleanedString;
+}
+
 export function parseNaturalDate(
   str: string,
 ): PartialDateStringsT {
-  const match = str.match(ymdRegex) || [];
+  const cleanedString = cleanDateString(str);
+
+  const match = cleanedString.match(ymdRegex) || [];
   return {
     /* eslint-disable sort-keys */
     year: match[1] || '',
