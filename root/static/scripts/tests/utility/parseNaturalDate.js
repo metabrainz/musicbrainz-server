@@ -12,7 +12,7 @@ import test from 'tape';
 import parseNaturalDate from '../../common/utility/parseNaturalDate.js';
 
 test('parseNaturalDate', function (t) {
-  t.plan(12);
+  t.plan(15);
 
   /* eslint-disable sort-keys */
   const parseDateTests = [
@@ -46,6 +46,14 @@ test('parseNaturalDate', function (t) {
     // Japanese year codes
     {date: 'O-2-25', expected: {year: '1987', month: '2', day: '25'}},
     {date: 'D-12-10', expected: {year: '1991', month: '12', day: '10'}},
+
+    // CJK dates
+    {date: '2022年4月29日', expected: {year: '2022', month: '4', day: '29'}},
+    {date: '2021년2월1일', expected: {year: '2021', month: '2', day: '1'}},
+    {
+      date: '民國99年12月31日',
+      expected: {year: '2010', month: '12', day: '31'},
+    },
   ];
   /* eslint-enable sort-keys */
 
