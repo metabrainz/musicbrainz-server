@@ -95,6 +95,9 @@ fi
 
 if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
+    echo `date` : 'Refreshing dbmirror2.column_info'
+    OUTPUT=`./admin/psql --system "$DATABASE" < ./admin/sql/dbmirror2/RefreshColumnInfo.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
     echo `date` : 'Create replication triggers (musicbrainz)'
     OUTPUT=`./admin/psql "$DATABASE" < ./admin/sql/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
