@@ -199,6 +199,14 @@ CREATE TRIGGER "reptg_genre_alias"
 AFTER INSERT OR DELETE OR UPDATE ON "genre_alias"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_genre_alias_type"
+AFTER INSERT OR DELETE OR UPDATE ON "genre_alias_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_genre_annotation"
+AFTER INSERT OR DELETE OR UPDATE ON "genre_annotation"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_instrument"
 AFTER INSERT OR DELETE OR UPDATE ON "instrument"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
@@ -271,6 +279,10 @@ CREATE TRIGGER "reptg_l_area_event"
 AFTER INSERT OR DELETE OR UPDATE ON "l_area_event"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_area_genre"
+AFTER INSERT OR DELETE OR UPDATE ON "l_area_genre"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_area_instrument"
 AFTER INSERT OR DELETE OR UPDATE ON "l_area_instrument"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -315,6 +327,10 @@ CREATE TRIGGER "reptg_l_artist_event"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_event"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_artist_genre"
+AFTER INSERT OR DELETE OR UPDATE ON "l_artist_genre"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_artist_instrument"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_instrument"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -355,6 +371,10 @@ CREATE TRIGGER "reptg_l_event_event"
 AFTER INSERT OR DELETE OR UPDATE ON "l_event_event"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_event_genre"
+AFTER INSERT OR DELETE OR UPDATE ON "l_event_genre"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_event_instrument"
 AFTER INSERT OR DELETE OR UPDATE ON "l_event_instrument"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -389,6 +409,46 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_l_event_work"
 AFTER INSERT OR DELETE OR UPDATE ON "l_event_work"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_genre_genre"
+AFTER INSERT OR DELETE OR UPDATE ON "l_genre_genre"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_genre_instrument"
+AFTER INSERT OR DELETE OR UPDATE ON "l_genre_instrument"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_genre_label"
+AFTER INSERT OR DELETE OR UPDATE ON "l_genre_label"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_genre_place"
+AFTER INSERT OR DELETE OR UPDATE ON "l_genre_place"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_genre_recording"
+AFTER INSERT OR DELETE OR UPDATE ON "l_genre_recording"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_genre_release"
+AFTER INSERT OR DELETE OR UPDATE ON "l_genre_release"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_genre_release_group"
+AFTER INSERT OR DELETE OR UPDATE ON "l_genre_release_group"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_genre_series"
+AFTER INSERT OR DELETE OR UPDATE ON "l_genre_series"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_genre_url"
+AFTER INSERT OR DELETE OR UPDATE ON "l_genre_url"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_genre_work"
+AFTER INSERT OR DELETE OR UPDATE ON "l_genre_work"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_l_instrument_instrument"
