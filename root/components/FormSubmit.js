@@ -23,7 +23,14 @@ const FormSubmit = ({
   value,
 }: Props): React.Element<'span'> => (
   <span className={'buttons' + (nonEmpty(className) ? ' ' + className : '')}>
-    <button name={name} type="submit" value={value}>{label}</button>
+    <button
+      className="btn btn-lg btn-primary w-100"
+      name={name}
+      type="submit"
+      value={value}
+    >
+      {label}
+    </button>
   </span>
 );
 

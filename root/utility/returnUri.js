@@ -10,7 +10,7 @@
 export default function returnUri(
   $c: CatalystContextT,
   path: string,
-  redirect?: string = '',
+  redirect: string = '',
 ): string {
   return path + '?returnto=' + encodeURIComponent(
     $c.req.query_params.returnto || redirect || $c.relative_uri,

@@ -18,6 +18,7 @@ import Layout from '../layout';
 import * as manifest from '../static/manifest';
 import DBDefs from '../static/scripts/common/DBDefs';
 import returnUri from '../utility/returnUri';
+import octobrainzLogo from '../static/images/meb-logos/octobrainz.png';
 
 type PropsT = {
   +$c: CatalystContextT,
@@ -44,95 +45,137 @@ const Login = ({
   postParameters,
 }: PropsT): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Log In')}>
-    <h1>{l('Log In')}</h1>
-
     {isLoginRequired ? (
       <p>
         <strong>{l('You need to be logged in to view this page.')}</strong>
       </p>
     ) : null}
 
-    <p>
-      {exp.l(
-        `Don't have an account? {uri|Create one now}!`,
-        {uri: returnUri($c, '/register')},
-      )}
-    </p>
+    <div className="bs container">
+      <div className="login row justify-content-center">
+        <div className="col-md-6 m-4">
+          <div className="card align-items-center">
+            <img
+              alt="OctoBrainz"
+              className="card-img-top image-cover"
+              height={200}
+              src={octobrainzLogo}
+            />
+            <div className="card-body">
+              <div className="card-title text-center fs-4">
+                Login to Your Account
+              </div>
+              <form action={loginAction} method="post">
+                <FormCsrfToken form={loginForm} />
 
-    <form action={loginAction} method="post">
-      <FormCsrfToken form={loginForm} />
+                {isLoginBad ? (
+                  <div className="row no-label">
+                    <span className="error">
+                      <strong>{l('Incorrect username or password')}</strong>
+                    </span>
+                  </div>
+                ) : null}
 
-      {isLoginBad ? (
-        <div className="row no-label">
-          <span className="error">
-            <strong>{l('Incorrect username or password')}</strong>
-          </span>
+                {isSpammer ? (
+                  <div className="row no-label">
+                    <span className="error">
+                      <p>
+                        <strong>
+                          {l(
+                            `You cannot log in because this account
+                                    has been marked as a spam account.`,
+                          )}
+                        </strong>
+                      </p>
+                      <p>
+                        {exp.l(
+                          `If you think this is a mistake, please contact
+                            <code>support@musicbrainz.org</code>
+                            with the name of your account.`,
+                        )}
+                      </p>
+                    </span>
+                  </div>
+                ) : null}
+
+                <span
+                  className="input-group-text box-bg"
+                  id="inputGroupPrepend"
+                >
+                  @
+                </span>
+                <FormRowText
+                  field={loginForm.field.username}
+                  label={l('Username:')}
+                  required
+                  uncontrolled
+                />
+
+                <FormRowText
+                  field={loginForm.field.password}
+                  label={l('Password:')}
+                  required
+                  type="password"
+                  uncontrolled
+                />
+
+                {(
+                  DBDefs.DB_STAGING_SERVER &&
+                      DBDefs.DB_STAGING_SERVER_SANITIZED
+                ) ? (
+                  <div className="row no-label">
+                    <span className="input-note sanitized-password-note">
+                      {l(
+                        `This is a development server;
+                                all passwords have been reset to "mb".`,
+                      )}
+                    </span>
+                  </div>
+                  ) : null}
+
+                <div className="col-6">
+                  <p className="small mb-0">
+                    {
+                      exp.l(
+                        'Forgot your {link1|username} or {link2|password}?',
+                        {
+                          link1: '/lost-username',
+                          link2: '/lost-password',
+                        },
+                      )}
+                  </p>
+                </div>
+
+                <div className="col-6">
+                  <FormRowCheckbox
+                    field={loginForm.field.remember_me}
+                    label={l('Keep me logged in')}
+                    uncontrolled
+                  />
+                </div>
+
+                {postParameters
+                  ? <PostParameters params={postParameters} />
+                  : null
+                }
+
+                <FormSubmit label={l('Log In')} />
+              </form>
+            </div>
+          </div>
+
+          <button
+            className="col-12 btn btn-primary btn-lg mb-4"
+            type="button"
+          >
+            {exp.l(
+              `{uri|Create account}`,
+              {uri: returnUri($c, '/register')},
+            )}
+          </button>
         </div>
-      ) : null}
-
-      {isSpammer ? (
-        <div className="row no-label">
-          <span className="error">
-            <p>
-              <strong>
-                {l(`You cannot log in because this account
-                    has been marked as a spam account.`)}
-              </strong>
-            </p>
-            <p>
-              {exp.l(
-                `If you think this is a mistake, please contact
-                 <code>support@musicbrainz.org</code>
-                 with the name of your account.`,
-              )}
-            </p>
-          </span>
-        </div>
-      ) : null}
-
-      <FormRowText
-        field={loginForm.field.username}
-        label={l('Username:')}
-        required
-        uncontrolled
-      />
-
-      <FormRowText
-        field={loginForm.field.password}
-        label={l('Password:')}
-        required
-        type="password"
-        uncontrolled
-      />
-
-      {(DBDefs.DB_STAGING_SERVER && DBDefs.DB_STAGING_SERVER_SANITIZED) ? (
-        <div className="row no-label">
-          <span className="input-note sanitized-password-note">
-            {l(`This is a development server;
-                all passwords have been reset to "mb".`)}
-          </span>
-        </div>
-      ) : null}
-
-      <FormRowCheckbox
-        field={loginForm.field.remember_me}
-        label={l('Keep me logged in')}
-        uncontrolled
-      />
-
-      {postParameters ? <PostParameters params={postParameters} /> : null}
-
-      <div className="row no-label">
-        <FormSubmit className="login" label={l('Log In')} />
       </div>
-    </form>
-
-    <p>
-      {exp.l('Forgot your {link1|username} or {link2|password}?', {
-        link1: '/lost-username',
-        link2: '/lost-password',
-      })}
-    </p>
+    </div>
 
     {manifest.js('user/login', {async: 'async'})}
   </Layout>
