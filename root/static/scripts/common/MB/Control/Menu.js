@@ -13,23 +13,13 @@ import MB from '../../MB';
 MB.Control.HeaderMenu = function () {
   var self = {};
 
-  function getLeft(li) {
-    var $li = $(li);
-    if ($li.hasClass('language-selector')) {
-      return '-' +
-        ($li.children('ul:eq(0)').outerWidth() - $li.outerWidth()) +
-        'px';
-    }
-    return 'auto';
-  }
-
   $('.header .menu-header').on('click', function (event) {
     event.preventDefault();
     event.stopPropagation();
     var ul = $(this).siblings('ul');
     $('.header ul.menu li ul').not(ul).css('left', '-10000px');
     var isClosing = ul.css('left') !== '-10000px';
-    ul.css('left', isClosing ? '-10000px' : getLeft(this.parentNode));
+    ul.css('left', isClosing ? '-10000px' : 'auto');
     $('.header .menu-header').parent().removeClass('fake-active');
     if (!isClosing) {
       $(this).parent().toggleClass('fake-active');

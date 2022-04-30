@@ -43,7 +43,7 @@
     },
     {
       command: 'click',
-      target: 'css=span.menu-header',
+      target: 'css=button[type=button]',
       value: '',
     },
     {
