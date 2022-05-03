@@ -2,6 +2,8 @@
 
 BEGIN;
 
+DROP TRIGGER IF EXISTS restore_collection_sub_on_public ON editor_collection;
+
 CREATE OR REPLACE FUNCTION restore_collection_sub_on_public()
 RETURNS trigger AS $$
   BEGIN
