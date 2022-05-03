@@ -1058,6 +1058,8 @@ FROM tmp_genre_alias;
 --------------------------------------------------------------------------------
 SELECT '20220328-mbs-12250-mirror.sql';
 
+CREATE SCHEMA dbmirror2;
+
 CREATE TABLE dbmirror2.pending_keys (
     tablename   TEXT,
     keys        TEXT[] NOT NULL

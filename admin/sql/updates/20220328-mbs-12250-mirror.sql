@@ -1,5 +1,7 @@
 BEGIN;
 
+CREATE SCHEMA dbmirror2;
+
 CREATE TABLE dbmirror2.pending_keys (
     tablename   TEXT,
     keys        TEXT[] NOT NULL
