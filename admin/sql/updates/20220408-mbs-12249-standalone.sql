@@ -12,13 +12,19 @@ ALTER TABLE area_containment
    FOREIGN KEY (parent)
    REFERENCES area(id);
 
-CREATE OR REPLACE TRIGGER a_ins_l_area_area AFTER INSERT ON l_area_area
+DROP TRIGGER IF EXISTS a_ins_l_area_area ON l_area_area;
+
+CREATE TRIGGER a_ins_l_area_area AFTER INSERT ON l_area_area
     FOR EACH ROW EXECUTE PROCEDURE a_ins_l_area_area_mirror();
 
-CREATE OR REPLACE TRIGGER a_upd_l_area_area AFTER UPDATE ON l_area_area
+DROP TRIGGER IF EXISTS a_upd_l_area_area ON l_area_area;
+
+CREATE TRIGGER a_upd_l_area_area AFTER UPDATE ON l_area_area
     FOR EACH ROW EXECUTE PROCEDURE a_upd_l_area_area_mirror();
 
-CREATE OR REPLACE TRIGGER a_del_l_area_area AFTER DELETE ON l_area_area
+DROP TRIGGER IF EXISTS a_del_l_area_area ON l_area_area;
+
+CREATE TRIGGER a_del_l_area_area AFTER DELETE ON l_area_area
     FOR EACH ROW EXECUTE PROCEDURE a_del_l_area_area_mirror();
 
 COMMIT;
