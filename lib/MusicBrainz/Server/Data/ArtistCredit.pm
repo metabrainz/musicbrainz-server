@@ -27,6 +27,10 @@ sub _gid_redirect_table { shift->_table . '_gid_redirect' }
 sub get_by_ids
 {
     my ($self, @ids) = @_;
+
+    @ids = grep { $self->is_valid_id($_) } @ids;
+    return {} unless @ids;
+
     my $artist_columns = $self->c->model('Artist')->_columns;
     my $query = "SELECT artist, artist_credit_name.name AS ac_name, join_phrase, artist_credit,
                 $artist_columns, ac.edits_pending AS ac_edits_pending, ac.gid AS ac_gid
