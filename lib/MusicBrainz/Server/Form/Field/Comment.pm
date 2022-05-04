@@ -6,6 +6,9 @@ extends 'HTML::FormHandler::Field::Text';
 
 has '+maxlength' => ( default => 255 );
 has '+not_nullable' => ( default => 1 );
+has '+validate_when_empty' => (
+    default => 1
+);
 
 apply ([
     {

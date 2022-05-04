@@ -35,6 +35,7 @@ test 'Test adding a relationship' => sub {
         $mech->post('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit', {
             'edit-artist.name' => 'Test Artist',
             'edit-artist.sort_name' => 'Artist, Test',
+            'edit-artist.comment' => 'Yet Another Test Artist',
             'edit-artist.type_id' => '1',
             'edit-artist.gender_id' => '1',
             'edit-artist.period.ended' => '1',
