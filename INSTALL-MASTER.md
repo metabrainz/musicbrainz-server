@@ -14,7 +14,7 @@ Still with us? Okay. Continue with the main INSTALL.md, but don't run InitDb.pl
 at all yet. First, clone [dbmirror](https://github.com/metabrainz/dbmirror) and
 build it with the makefile. Ensure that your DBDefs.pm file lists `RT_MASTER`
 in the appropriate place. Then, run InitDb (probably with a data dump, as with
-any other server setup), but including the `--pending` flag and the path to the
+any other server setup), but including the `--with-pending` flag and the path to the
 file `pending.so` created by the dbmirror build process. This should set up the
 dbmirror extension, as well as adding the replication functions and such to
 your database.
