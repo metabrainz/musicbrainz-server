@@ -95,6 +95,12 @@ Prerequisites
 
         sudo apt-get install build-essential
 
+8.  Script dependencies
+
+    In order to run one-off scripts, you’ll need the `ts` command which is provided
+    by the `moreutils` package. If needed, you can install it with the command:
+
+        sudo apt-get install moreutils
 
 Server configuration
 --------------------
