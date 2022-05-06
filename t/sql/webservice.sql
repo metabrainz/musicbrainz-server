@@ -914,9 +914,9 @@ INSERT INTO place_alias (id, place, name, locale, edits_pending, last_updated, t
 
 -- Series
 
-INSERT INTO series (id, gid, name, type, ordering_attribute, ordering_type) VALUES
-    (25, 'd977f7fd-96c9-4e3e-83b5-eb484a9e6582', 'Bach-Werke-Verzeichnis', 5, 788, 1),
-    (30, 'd977f7fd-96c9-4e3e-83b5-eb484a9e6581', 'A Release Group Series', 1, 788, 1);
+INSERT INTO series (id, gid, name, type, ordering_type) VALUES
+    (25, 'd977f7fd-96c9-4e3e-83b5-eb484a9e6582', 'Bach-Werke-Verzeichnis', 5, 1),
+    (30, 'd977f7fd-96c9-4e3e-83b5-eb484a9e6581', 'A Release Group Series', 1, 1);
 
 INSERT INTO series_alias (id, series, name, sort_name) VALUES
     (7, 25, 'BWV', 'BWV');

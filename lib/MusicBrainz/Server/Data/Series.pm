@@ -5,7 +5,6 @@ use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Constants qw(
     $SERIES_ORDERING_TYPE_AUTOMATIC
-    $SERIES_ORDERING_ATTRIBUTE
 );
 use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
@@ -126,22 +125,6 @@ sub load
     my ($self, @objs) = @_;
     load_subobjects($self, 'series', @objs);
 }
-
-sub _insert_hook_prepare {
-    my ($self) = @_;
-    return {
-        ordering_attribute_id => $self->sql->select_single_value(
-            'SELECT id FROM link_attribute_type WHERE gid = ?', $SERIES_ORDERING_ATTRIBUTE
-        ),
-    };
-}
-
-around _insert_hook_make_row => sub {
-    my ($orig, $self, $entity, $extra_data) = @_;
-    my $row = $self->$orig($entity, $extra_data);
-    $row->{ordering_attribute} = $extra_data->{ordering_attribute_id};
-    return $row;
-};
 
 sub update {
     my ($self, $series_id, $update) = @_;
