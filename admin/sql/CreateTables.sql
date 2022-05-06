@@ -672,8 +672,6 @@ CREATE TABLE old_editor_name (
     name    VARCHAR(64) NOT NULL
 );
 
-CREATE TYPE FLUENCY AS ENUM ('basic', 'intermediate', 'advanced', 'native');
-
 CREATE TABLE editor_language (
     editor   INTEGER NOT NULL,  -- PK, references editor.id
     language INTEGER NOT NULL,  -- PK, references language.id
@@ -784,8 +782,6 @@ CREATE TABLE event ( -- replicate (verbose)
         )
       )
 );
-
-CREATE TYPE event_art_presence AS ENUM ('absent', 'present', 'darkened');
 
 CREATE TABLE event_meta ( -- replicate
     id                  INTEGER NOT NULL, -- PK, references event.id CASCADE
@@ -2679,8 +2675,6 @@ CREATE TABLE editor_collection_deleted_entity (
     comment TEXT DEFAULT '' NOT NULL
 );
 
-CREATE TYPE oauth_code_challenge_method AS ENUM ('plain', 'S256');
-
 CREATE TABLE editor_oauth_token
 (
     id                      SERIAL,
@@ -3248,8 +3242,6 @@ CREATE TABLE release_gid_redirect ( -- replicate (verbose)
     new_id              INTEGER NOT NULL, -- references release.id
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
-
-CREATE TYPE cover_art_presence AS ENUM ('absent', 'present', 'darkened');
 
 CREATE TABLE release_meta ( -- replicate (verbose)
     id                  INTEGER NOT NULL, -- PK, references release.id CASCADE

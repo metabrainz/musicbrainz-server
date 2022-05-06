@@ -342,6 +342,36 @@ process_triggers('CreateTriggers.sql', 'DropTriggers.sql');
 process_triggers('CreateMirrorOnlyTriggers.sql', 'DropMirrorOnlyTriggers.sql');
 process_triggers('CreateReplicationTriggers.sql', 'DropReplicationTriggers.sql');
 
+sub process_types
+{
+    my ($infile, $outfile) = @_;
+
+    unless (-e "$dir/$infile") {
+        print "Could not find $infile, skipping\n";
+        return;
+    }
+
+    open FILE, "<$dir/$infile";
+    my $create_types_sql = do { local $/; <FILE> };
+    close FILE;
+
+    my @types;
+    while ($create_types_sql =~ m/CREATE TYPE (\w+) AS ENUM/gsi) {
+        push @types, $1;
+    }
+
+    open OUT, ">$dir/$outfile";
+    print OUT "-- Automatically generated, do not edit.\n";
+    print OUT "\\unset ON_ERROR_STOP\n\n";
+    print OUT $search_path if $search_path;
+    foreach my $type (@types) {
+        print OUT "DROP TYPE IF EXISTS $type;\n";
+    }
+    close OUT;
+}
+
+process_types('CreateTypes.sql', 'DropTypes.sql');
+
 =head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2009 Lukas Lalinsky

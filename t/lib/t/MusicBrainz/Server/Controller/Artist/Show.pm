@@ -46,7 +46,10 @@ test 'Basic artist data appears on the index page' => sub {
     $mech->content_like(qr/More annotation/, 'The full annotation is shown');
 
     $mech->content_like(qr/3\.5<\/span>/s, 'The artist rating is listed');
-    $mech->content_like(qr/see all ratings/, 'The artist name is listed');
+    $mech->content_like(
+        qr/see all ratings/,
+        'The link to see all ratings is present',
+    );
     $mech->content_like(
         qr/Last updated on 2009-07-09/,
         'The last updated date is listed',

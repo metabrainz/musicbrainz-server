@@ -17,7 +17,7 @@ INSERT INTO artist
      2008, 01, 02, 2009, 03, 04, 'Yet Another Test Artist',
      '2009-07-09');
 
-UPDATE artist_meta SET rating=70, rating_count=4 WHERE id = 3;
+UPDATE artist_meta SET rating=70, rating_count=4 WHERE id=3;
 
 INSERT INTO artist (id, gid, name, sort_name) VALUES
     (4, '60e5d080-c964-11de-8a39-0800200c9a66', 'Empty Artist', 'Empty Artist'),

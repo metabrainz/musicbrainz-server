@@ -251,6 +251,7 @@ sub CreateRelations
 
     RunSQLScript($SYSMB, 'Extensions.sql', 'Installing extensions');
     RunSQLScript($DB, 'CreateCollations.sql', 'Creating collations ...');
+    RunSQLScript($DB, 'CreateTypes.sql', 'Creating types ...');
 
     RunSQLScript($DB, 'CreateTables.sql', 'Creating tables ...');
     RunSQLScript($DB, 'caa/CreateTables.sql', 'Creating CAA tables ...');
