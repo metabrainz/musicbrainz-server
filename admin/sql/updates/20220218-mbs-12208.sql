@@ -11,9 +11,9 @@ BEGIN
     -- `rg.id = any(...)` can be over 200x slower, even with only one
     -- release group ID in the array.
     RETURN QUERY EXECUTE $SQL$
-        SELECT DISTINCT ON (arg.artist, rg.id)
-            arg.is_track_artist,
-            arg.artist,
+        SELECT DISTINCT ON (a_rg.artist, rg.id)
+            a_rg.is_track_artist,
+            a_rg.artist,
             -- Withdrawn releases were once official by definition
             bool_and(r.status IS NOT NULL AND r.status != 1 AND r.status != 5),
             rg.type::SMALLINT,
@@ -38,15 +38,15 @@ BEGIN
             JOIN medium m ON m.release = r.id
             JOIN track t ON t.medium = m.id
             JOIN artist_credit_name tacn ON tacn.artist_credit = t.artist_credit
-        ) arg
-        JOIN release_group rg ON rg.id = arg.release_group
+        ) a_rg
+        JOIN release_group rg ON rg.id = a_rg.release_group
         LEFT JOIN release r ON r.release_group = rg.id
         JOIN release_group_meta rgm ON rgm.id = rg.id
         LEFT JOIN release_group_secondary_type_join st ON st.release_group = rg.id
     $SQL$ || (CASE WHEN release_group_id IS NULL THEN '' ELSE 'WHERE rg.id = $1' END) ||
     $SQL$
-        GROUP BY arg.is_track_artist, arg.artist, rgm.id, rg.id
-        ORDER BY arg.artist, rg.id, arg.is_track_artist
+        GROUP BY a_rg.is_track_artist, a_rg.artist, rgm.id, rg.id
+        ORDER BY a_rg.artist, rg.id, a_rg.is_track_artist
     $SQL$
     USING release_group_id;
 END;
