@@ -1,7 +1,7 @@
 -- Automatically generated, do not edit.
 \unset ON_ERROR_STOP
 
-DROP FUNCTION _median(anyarray);
+DROP FUNCTION _median(INTEGER[]);
 DROP FUNCTION a_del_alternative_medium_track();
 DROP FUNCTION a_del_alternative_release_or_track();
 DROP FUNCTION a_del_instrument();
@@ -103,4 +103,3 @@ DROP FUNCTION simplify_search_hints();
 DROP FUNCTION track_count_matches_cdtoc(medium, int);
 DROP FUNCTION trg_delete_unused_tag();
 DROP FUNCTION trg_delete_unused_tag_ref();
-DROP AGGREGATE array_accum (anyelement);

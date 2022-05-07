@@ -8,9 +8,9 @@ BEGIN;
 --CREATE FUNCTION "recordchange" () RETURNS trigger AS
 --'$libdir/pending', 'recordchange' LANGUAGE C;
 
-CREATE AGGREGATE array_cat_agg(anyarray)(
+CREATE AGGREGATE array_cat_agg(int2[]) (
       sfunc       = array_cat,
-      stype       = anyarray,
+      stype       = int2[],
       initcond    = '{}'
 );
 

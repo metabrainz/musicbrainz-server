@@ -1,7 +1,7 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
-CREATE OR REPLACE FUNCTION _median(anyarray) RETURNS anyelement AS $$
+CREATE OR REPLACE FUNCTION _median(INTEGER[]) RETURNS INTEGER AS $$
   WITH q AS (
       SELECT val
       FROM unnest($1) val
@@ -15,15 +15,12 @@ CREATE OR REPLACE FUNCTION _median(anyarray) RETURNS anyelement AS $$
   OFFSET greatest(0, floor((select count(*) FROM q) / 2.0) - ((select count(*) + 1 FROM q) % 2));
 $$ LANGUAGE sql IMMUTABLE;
 
-CREATE AGGREGATE median(anyelement) (
+CREATE AGGREGATE median(INTEGER) (
   SFUNC=array_append,
-  STYPE=anyarray,
+  STYPE=INTEGER[],
   FINALFUNC=_median,
   INITCOND='{}'
 );
-
--- We may want to create a CreateAggregate.sql script, but it seems silly to do that for one aggregate
-CREATE AGGREGATE array_accum (basetype = anyelement, sfunc = array_append, stype = anyarray, initcond = '{}');
 
 -- Generates UUID version 4 (random-based)
 CREATE OR REPLACE FUNCTION generate_uuid_v4() RETURNS uuid
