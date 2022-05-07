@@ -103,8 +103,8 @@
   },
 
   "27": {
-    "mirror": ["20210526-a_upd_release_event.sql",
-               "20210406-mbs-11457.sql",
+    "mirror": ["20210406-mbs-11457.sql",
+               "20210526-a_upd_release_event.sql",
                "20210606-mbs-11682.sql",
                "20220218-mbs-12208.sql",
                "20220314-mbs-12252.sql",
