@@ -14,25 +14,9 @@ use overload
 
 extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
+with 'MusicBrainz::Server::Entity::Role::GID';
 
 sub entity_type { 'artist_credit' }
-
-has 'gid' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-has 'gid_redirects' => (
-    is => 'rw',
-    isa => 'ArrayRef[Str]',
-    default => sub { [] },
-    traits => [ 'Array' ],
-    handles => {
-        add_gid_redirect => 'push',
-        clear_gid_redirects => 'clear',
-        all_gid_redirects => 'elements',
-    }
-);
 
 has 'names' => (
     is => 'rw',
