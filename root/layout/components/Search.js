@@ -69,7 +69,7 @@ function compareTypeOptionEntries(
 }
 
 const SearchOptions = () => (
-  <select id="headerid-type" name="type">
+  <select className="form-control" id="headerid-type" name="type">
     {TYPE_OPTION_GROUPS.map((group) => (
       Object.entries(group)
         // $FlowIssue[incompatible-call]
@@ -91,13 +91,15 @@ const SearchOptions = () => (
 );
 
 const Search = (): React.Element<'form'> => (
-  <form action="/search" method="get">
+  <form action="/search" className="d-flex" method="get">
     <input
+      aria-label="Search"
+      className="form-control"
       id="headerid-query"
       name="query"
       placeholder={l('Search')}
       required
-      type="text"
+      type="search"
     />
     {' '}
     <SearchOptions />
@@ -108,7 +110,7 @@ const Search = (): React.Element<'form'> => (
       type="hidden"
       value="indexed"
     />
-    <button type="submit">
+    <button className="btn btn-primary me-4" type="submit">
       <SearchIcon />
     </button>
   </form>

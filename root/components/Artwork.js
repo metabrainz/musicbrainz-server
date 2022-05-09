@@ -40,7 +40,7 @@ export const ArtworkImage = ({
 }: Props): React.Element<typeof React.Fragment> => (
   <>
     <noscript>
-      <img src={artwork.small_ia_thumbnail} />
+      <img alt={artwork.filename} src={artwork.small_ia_thumbnail} />
     </noscript>
     <span
       className="cover-art-image"

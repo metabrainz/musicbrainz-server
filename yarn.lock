@@ -1323,10 +1323,10 @@
   dependencies:
     prop-types "^15.8.1"
 
-"@metabrainz/design-system@1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@metabrainz/design-system/-/design-system-1.0.6.tgz#fce197fc3d3f6921c7a7b3f76d20775596d9804b"
-  integrity sha512-TmbmTCx1K0RnZeLPmwXswPZhK9CtKpyeB7o/rWdTcvTK4kLHY/K1m1X7IEtlPRNr1oxJ5D/W9ji6WLlWuRh1RA==
+"@metabrainz/design-system@1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@metabrainz/design-system/-/design-system-1.0.7.tgz#5fb691f2f1328439985f85ea47e4f92421e5a46c"
+  integrity sha512-clRr9UVx6wfI4AmJhIO9KHYt5VDkCA2nrDSF/IB1iNeJC6r1cSgbBywtD5Ko4iR13X6Votbtis1+vsDMhXYRmQ==
 
 "@nicolo-ribaudo/chokidar-2@2.1.8-no-fsevents.2":
   version "2.1.8-no-fsevents.2"
@@ -4725,6 +4725,11 @@ react-is@^16.13.1, react-is@^16.8.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+
+react-multi-carousel@2.8.0:
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/react-multi-carousel/-/react-multi-carousel-2.8.0.tgz#94a74245989b74211c9fcfa02c71009a3da3f487"
+  integrity sha512-xuxQVGGiH8yWDDWgt9Z9+C+zzoACuBT740cV+6To52DYCwLlQGJIntDFLOCqMsO85Ist1x+630HA8lazb/a/tA==
 
 react-table@7.3.2:
   version "7.3.2"
