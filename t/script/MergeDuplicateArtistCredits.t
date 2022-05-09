@@ -219,6 +219,15 @@ test all => sub {
     ]);
 
     $rows = $c->sql->select_list_of_hashes(
+        'SELECT gid, new_id FROM artist_credit_gid_redirect ORDER BY new_id, gid',
+    );
+    cmp_deeply($rows, [
+        {gid => '00c418d8-5284-3068-b6ea-58519bdadaa4', new_id => 1},
+        {gid => 'cf245a11-9fd0-307b-b476-c0955948b466', new_id => 1},
+        {gid => '30fac9ce-5a5e-32bc-8f25-ddd85896d73f', new_id => 1079039},
+    ]);
+
+    $rows = $c->sql->select_list_of_hashes(
         'SELECT * FROM artist_credit_name ORDER BY artist_credit, position',
     );
     cmp_deeply($rows, [
