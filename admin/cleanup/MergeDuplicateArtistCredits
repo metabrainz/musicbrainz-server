@@ -98,6 +98,12 @@ unless (@$rows) {
     exit(0);
 }
 
+my $row_count = scalar(@$rows);
+log_info {
+    'Found duplicate artist credits to be merged into ' .
+    $row_count . ' ' . ($row_count == 1 ? 'row' : 'rows') . '.'
+};
+
 my @ac_entity_models = map { $c->model($_) }
     sort { $a cmp $b }
     entities_with('artist_credits', take => 'model');
@@ -271,7 +277,8 @@ if ($updated_entity_count) {
     if ($dry_run) {
         $c->sql->rollback;
     } else {
-        log_info { 'Committing changes.' };
+        log_info { 'Committing changes...' };
         $c->sql->commit;
+        log_info { 'Done.' };
     }
 }
