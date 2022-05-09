@@ -75,8 +75,10 @@ test 'Merging should combine ACs which are string-identical before merge (MBS-74
         SQL
 
     is($c->sql->select_single_value('SELECT count(*) FROM artist_credit'), 2, 'Two artist credits before merge');
+    is($c->sql->select_single_value('SELECT count(*) FROM artist_credit_gid_redirect'), 0, 'No artist credit MBID redirect before merge');
     $c->model('ArtistCredit')->merge_artists(2, [ 3 ]);
     is($c->sql->select_single_value('SELECT count(*) FROM artist_credit'), 1, 'One artist credit after merge');
+    is($c->sql->select_single_value('SELECT count(*) FROM artist_credit_gid_redirect'), 1, 'One artist credit MBID redirect after merge');
     is($c->sql->select_single_value('SELECT count(*) FROM artist_credit_name'), 2, 'AC after merge has two artists');
 };
 
@@ -86,6 +88,11 @@ test 'Merging updates matching names' => sub {
     my $artist_credit_data = $c->model('ArtistCredit');
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+artistcredit');
+
+    my $queen_and_david_bowie_gid = $c->sql->select_single_value(
+      'SELECT gid FROM artist_credit ac WHERE name = ?', 'Queen & David Bowie');
+    my $queen_and_bowie_gid = $c->sql->select_single_value(
+      'SELECT gid FROM artist_credit ac WHERE name = ?', 'Queen & Bowie');
 
     $c->sql->begin;
     $artist_credit_data->merge_artists(3, [ 2 ], rename => 1);
@@ -118,6 +125,12 @@ test 'Merging updates matching names' => sub {
         'SELECT name FROM artist_credit ac WHERE id=?', $artist_credit_id);
     is( $name, 'Queen & Merge', 'Name is Queen & Merge' );
 
+    my $new_id = $c->sql->select_single_value(
+        'SELECT new_id FROM artist_credit_gid_redirect WHERE gid = ?',
+        $queen_and_david_bowie_gid
+    );
+    is($new_id, $ac->id, 'Old “Queen & David Bowie” redirects to “Queen & Merge”');
+
     # The credited name "Bowie" is different from the artist name, so it's
     # left alone.
     $artist_credit_id = $c->sql->select_single_value(
@@ -146,6 +159,12 @@ test 'Merging updates matching names' => sub {
         $artist_credit_id,
     );
     is($name, 'Queen & Bowie', 'Name is Queen & Bowie');
+
+    $new_id = $c->sql->select_single_value(
+        'SELECT new_id FROM artist_credit_gid_redirect WHERE gid = ?',
+        $queen_and_bowie_gid
+    );
+    is($new_id, $ac->id, 'Old “Queen & Bowie” redirects to the new “Queen & Bowie”');
 };
 
 test 'Merging clears the cache' => sub {

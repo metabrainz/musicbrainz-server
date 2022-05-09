@@ -315,6 +315,21 @@ sub _swap_artist_credits {
         $old_credit_id
     );
 
+    $self->c->sql->do(<<~'SQL', $new_credit_id, $old_credit_id);
+        INSERT INTO artist_credit_gid_redirect
+             SELECT gid,
+                    ?::INT AS new_id,
+                    NOW() AS created
+               FROM artist_credit
+              WHERE id = ?::INT
+        SQL
+
+    $self->c->sql->do(<<~'SQL', $new_credit_id, $old_credit_id);
+        UPDATE artist_credit_gid_redirect
+           SET new_id = ?::INT
+         WHERE new_id = ?::INT
+        SQL
+
     $self->c->sql->do(
         'DELETE FROM artist_credit
          WHERE id = ?',
