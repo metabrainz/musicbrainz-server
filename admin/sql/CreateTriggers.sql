@@ -145,6 +145,9 @@ CREATE TRIGGER b_upd_l_area_instrument BEFORE UPDATE ON l_area_instrument
 CREATE TRIGGER b_upd_l_area_label BEFORE UPDATE ON l_area_label
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER b_upd_l_area_mood BEFORE UPDATE ON l_area_mood
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
 CREATE TRIGGER b_upd_l_area_place BEFORE UPDATE ON l_area_place
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -178,6 +181,9 @@ CREATE TRIGGER b_upd_l_artist_instrument BEFORE UPDATE ON l_artist_instrument
 CREATE TRIGGER b_upd_l_artist_label BEFORE UPDATE ON l_artist_label
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER b_upd_l_artist_mood BEFORE UPDATE ON l_artist_mood
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
 CREATE TRIGGER b_upd_l_artist_place BEFORE UPDATE ON l_artist_place
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -208,6 +214,9 @@ CREATE TRIGGER b_upd_l_event_instrument BEFORE UPDATE ON l_event_instrument
 CREATE TRIGGER b_upd_l_event_label BEFORE UPDATE ON l_event_label
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER b_upd_l_event_mood BEFORE UPDATE ON l_event_mood
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
 CREATE TRIGGER b_upd_l_event_place BEFORE UPDATE ON l_event_place
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -235,6 +244,9 @@ CREATE TRIGGER b_upd_l_genre_instrument BEFORE UPDATE ON l_genre_instrument
 CREATE TRIGGER b_upd_l_genre_label BEFORE UPDATE ON l_genre_label
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER b_upd_l_genre_mood BEFORE UPDATE ON l_genre_mood
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
 CREATE TRIGGER b_upd_l_genre_place BEFORE UPDATE ON l_genre_place
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -259,6 +271,9 @@ CREATE TRIGGER b_upd_l_instrument_instrument BEFORE UPDATE ON l_instrument_instr
 CREATE TRIGGER b_upd_l_instrument_label BEFORE UPDATE ON l_instrument_label
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER b_upd_l_instrument_mood BEFORE UPDATE ON l_instrument_mood
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
 CREATE TRIGGER b_upd_l_instrument_place BEFORE UPDATE ON l_instrument_place
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -280,6 +295,9 @@ CREATE TRIGGER b_upd_l_instrument_work BEFORE UPDATE ON l_instrument_work
 CREATE TRIGGER b_upd_l_label_label BEFORE UPDATE ON l_label_label
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER b_upd_l_label_mood BEFORE UPDATE ON l_label_mood
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
 CREATE TRIGGER b_upd_l_label_place BEFORE UPDATE ON l_label_place
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -296,6 +314,27 @@ CREATE TRIGGER b_upd_l_label_url BEFORE UPDATE ON l_label_url
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_upd_l_label_work BEFORE UPDATE ON l_label_work
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_mood_mood BEFORE UPDATE ON l_mood_mood
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_mood_place BEFORE UPDATE ON l_mood_place
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_mood_recording BEFORE UPDATE ON l_mood_recording
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_mood_release BEFORE UPDATE ON l_mood_release
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_mood_release_group BEFORE UPDATE ON l_mood_release_group
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_mood_url BEFORE UPDATE ON l_mood_url
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_mood_work BEFORE UPDATE ON l_mood_work
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_upd_l_place_place BEFORE UPDATE ON l_place_place
@@ -423,6 +462,18 @@ CREATE TRIGGER b_upd_medium BEFORE UPDATE ON medium
 
 CREATE TRIGGER b_upd_medium_cdtoc BEFORE UPDATE ON medium_cdtoc
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_mood BEFORE UPDATE ON mood
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON mood_alias
+    FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
+
+CREATE TRIGGER b_upd_mood_alias BEFORE UPDATE ON mood_alias
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON mood_alias
+    FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
 
 CREATE TRIGGER a_ins_place AFTER INSERT ON place
     FOR EACH ROW EXECUTE PROCEDURE a_ins_place();
@@ -721,6 +772,10 @@ CREATE CONSTRAINT TRIGGER remove_unused_links
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
 CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_area_mood DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
     AFTER DELETE OR UPDATE ON l_area_place DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
@@ -765,6 +820,10 @@ CREATE CONSTRAINT TRIGGER remove_unused_links
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
 CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_artist_mood DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
     AFTER DELETE OR UPDATE ON l_artist_place DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
@@ -805,6 +864,10 @@ CREATE CONSTRAINT TRIGGER remove_unused_links
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
 CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_event_mood DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
     AFTER DELETE OR UPDATE ON l_event_place DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
@@ -841,6 +904,10 @@ CREATE CONSTRAINT TRIGGER remove_unused_links
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
 CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_genre_mood DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
     AFTER DELETE OR UPDATE ON l_genre_place DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
@@ -873,6 +940,10 @@ CREATE CONSTRAINT TRIGGER remove_unused_links
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
 CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_instrument_mood DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
     AFTER DELETE OR UPDATE ON l_instrument_place DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
@@ -901,6 +972,10 @@ CREATE CONSTRAINT TRIGGER remove_unused_links
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
 CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_label_mood DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
     AFTER DELETE OR UPDATE ON l_label_place DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
@@ -922,6 +997,34 @@ CREATE CONSTRAINT TRIGGER remove_unused_links
 
 CREATE CONSTRAINT TRIGGER remove_unused_links
     AFTER DELETE OR UPDATE ON l_label_work DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_mood_mood DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_mood_place DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_mood_recording DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_mood_release DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_mood_release_group DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_mood_url DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_mood_work DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
 CREATE CONSTRAINT TRIGGER remove_unused_links
@@ -1059,6 +1162,14 @@ FOR EACH ROW EXECUTE PROCEDURE remove_unused_url();
 
 CREATE CONSTRAINT TRIGGER url_gc_a_del_l_label_url
 AFTER DELETE ON l_label_url DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE remove_unused_url();
+
+CREATE CONSTRAINT TRIGGER url_gc_a_upd_l_mood_url
+AFTER UPDATE ON l_mood_url DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE remove_unused_url();
+
+CREATE CONSTRAINT TRIGGER url_gc_a_del_l_mood_url
+AFTER DELETE ON l_mood_url DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW EXECUTE PROCEDURE remove_unused_url();
 
 CREATE CONSTRAINT TRIGGER url_gc_a_upd_l_place_url

@@ -291,6 +291,10 @@ CREATE TRIGGER "reptg_l_area_label"
 AFTER INSERT OR DELETE OR UPDATE ON "l_area_label"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_area_mood"
+AFTER INSERT OR DELETE OR UPDATE ON "l_area_mood"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_area_place"
 AFTER INSERT OR DELETE OR UPDATE ON "l_area_place"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -339,6 +343,10 @@ CREATE TRIGGER "reptg_l_artist_label"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_label"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_artist_mood"
+AFTER INSERT OR DELETE OR UPDATE ON "l_artist_mood"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_artist_place"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_place"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -383,6 +391,10 @@ CREATE TRIGGER "reptg_l_event_label"
 AFTER INSERT OR DELETE OR UPDATE ON "l_event_label"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_event_mood"
+AFTER INSERT OR DELETE OR UPDATE ON "l_event_mood"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_event_place"
 AFTER INSERT OR DELETE OR UPDATE ON "l_event_place"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -423,6 +435,10 @@ CREATE TRIGGER "reptg_l_genre_label"
 AFTER INSERT OR DELETE OR UPDATE ON "l_genre_label"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_genre_mood"
+AFTER INSERT OR DELETE OR UPDATE ON "l_genre_mood"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_genre_place"
 AFTER INSERT OR DELETE OR UPDATE ON "l_genre_place"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -459,6 +475,10 @@ CREATE TRIGGER "reptg_l_instrument_label"
 AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_label"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_instrument_mood"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_mood"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_instrument_place"
 AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_place"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -491,6 +511,10 @@ CREATE TRIGGER "reptg_l_label_label"
 AFTER INSERT OR DELETE OR UPDATE ON "l_label_label"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_label_mood"
+AFTER INSERT OR DELETE OR UPDATE ON "l_label_mood"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_label_place"
 AFTER INSERT OR DELETE OR UPDATE ON "l_label_place"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -517,6 +541,38 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_l_label_work"
 AFTER INSERT OR DELETE OR UPDATE ON "l_label_work"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_mood_mood"
+AFTER INSERT OR DELETE OR UPDATE ON "l_mood_mood"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_mood_place"
+AFTER INSERT OR DELETE OR UPDATE ON "l_mood_place"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_mood_recording"
+AFTER INSERT OR DELETE OR UPDATE ON "l_mood_recording"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_mood_release"
+AFTER INSERT OR DELETE OR UPDATE ON "l_mood_release"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_mood_release_group"
+AFTER INSERT OR DELETE OR UPDATE ON "l_mood_release_group"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_mood_series"
+AFTER INSERT OR DELETE OR UPDATE ON "l_mood_series"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_mood_url"
+AFTER INSERT OR DELETE OR UPDATE ON "l_mood_url"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_mood_work"
+AFTER INSERT OR DELETE OR UPDATE ON "l_mood_work"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_l_place_place"
@@ -758,6 +814,22 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 CREATE TRIGGER "reptg_medium_index"
 AFTER INSERT OR DELETE OR UPDATE ON "medium_index"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_mood"
+AFTER INSERT OR DELETE OR UPDATE ON "mood"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_mood_alias"
+AFTER INSERT OR DELETE OR UPDATE ON "mood_alias"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_mood_alias_type"
+AFTER INSERT OR DELETE OR UPDATE ON "mood_alias_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_mood_annotation"
+AFTER INSERT OR DELETE OR UPDATE ON "mood_annotation"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_orderable_link_type"
 AFTER INSERT OR DELETE OR UPDATE ON "orderable_link_type"
