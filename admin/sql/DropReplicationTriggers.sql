@@ -25,6 +25,7 @@ DROP TRIGGER reptg_artist_attribute ON artist_attribute;
 DROP TRIGGER reptg_artist_attribute_type ON artist_attribute_type;
 DROP TRIGGER reptg_artist_attribute_type_allowed_value ON artist_attribute_type_allowed_value;
 DROP TRIGGER reptg_artist_credit ON artist_credit;
+DROP TRIGGER reptg_artist_credit_gid_redirect ON artist_credit_gid_redirect;
 DROP TRIGGER reptg_artist_credit_name ON artist_credit_name;
 DROP TRIGGER reptg_artist_gid_redirect ON artist_gid_redirect;
 DROP TRIGGER reptg_artist_ipi ON artist_ipi;

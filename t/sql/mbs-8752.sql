@@ -3,8 +3,8 @@ SET client_min_messages TO 'warning';
 INSERT INTO artist (area, begin_area, begin_date_day, begin_date_month, begin_date_year, comment, edits_pending, end_area, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type) VALUES
     (NULL, NULL, 27, 9, 1947, '', 0, NULL, NULL, NULL, NULL, '0', 1, 'b134d1bf-c7c7-4427-93ac-9fdbc2b59ef1', 9113, '2015-06-21 09:12:12.187989+00', 'Meat Loaf', 'Meat Loaf', 1);
 
-INSERT INTO artist_credit (artist_count, created, id, name, ref_count) VALUES
-    (1, '2011-05-16 16:32:11.963929+00', 9113, 'Meat Loaf', 4332);
+INSERT INTO artist_credit (artist_count, created, id, name, ref_count, gid) VALUES
+    (1, '2011-05-16 16:32:11.963929+00', 9113, 'Meat Loaf', 4332, '91598d9a-e53b-38cd-9d3d-81760e51238c');
 
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES
     (9113, 9113, '', 'Meat Loaf', 0);

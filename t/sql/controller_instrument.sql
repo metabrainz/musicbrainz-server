@@ -25,8 +25,8 @@ INSERT INTO instrument_annotation (instrument, annotation)
 INSERT INTO artist (id, gid, name, sort_name)
   VALUES (396487, '77e13fe3-a607-4ede-b94e-fa66d1050797', 'Salvatore Accardo', 'Accardo, Salvatore');
 
-INSERT INTO artist_credit (id, artist_count, name)
-  VALUES (1297074, 1, 'Salvatore Accardo');
+INSERT INTO artist_credit (id, artist_count, name, gid)
+  VALUES (1297074, 1, 'Salvatore Accardo', 'c746d89b-d96d-3d6c-9214-b4bf4cd13653');
 
 INSERT INTO artist_credit_name (artist_credit, position, artist, name)
   VALUES (1297074, 0, 396487, 'Salvatore Accardo');

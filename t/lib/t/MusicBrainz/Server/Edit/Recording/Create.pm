@@ -20,7 +20,8 @@ around run_test => sub {
     MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
-        INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Name', 1);
+        INSERT INTO artist_credit (id, name, artist_count, gid)
+            VALUES (1, 'Name', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
 
         INSERT INTO release_group (id, name, type, artist_credit, gid)
             VALUES (22, 'エアリアル', 1, 1, '6169f5bc-b5ff-3348-b806-1b0f2a414217');

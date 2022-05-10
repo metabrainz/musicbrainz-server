@@ -511,6 +511,7 @@ Readonly our @CORE_TABLE_LIST => qw(
     artist_attribute_type
     artist_attribute_type_allowed_value
     artist_credit
+    artist_credit_gid_redirect
     artist_credit_name
     artist_gid_redirect
     artist_ipi

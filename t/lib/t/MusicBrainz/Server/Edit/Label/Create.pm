@@ -117,7 +117,8 @@ test q(Rejected edits are applied if the label can't be deleted) => sub {
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, '01aa077b-ea92-437a-833f-4bf617dac3e7', 'A', 'A');
 
-        INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'AC', 1);
+        INSERT INTO artist_credit (id, name, artist_count, gid)
+            VALUES (1, 'AC', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
         INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
             VALUES (1, 1, 'AC', 0, '');
 

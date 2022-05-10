@@ -99,6 +99,10 @@ CREATE TRIGGER "reptg_artist_credit"
 AFTER INSERT OR DELETE OR UPDATE ON "artist_credit"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_artist_credit_gid_redirect"
+AFTER INSERT OR DELETE OR UPDATE ON "artist_credit_gid_redirect"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_artist_credit_name"
 AFTER INSERT OR DELETE OR UPDATE ON "artist_credit_name"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');

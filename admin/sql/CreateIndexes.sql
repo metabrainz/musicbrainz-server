@@ -56,6 +56,8 @@ CREATE UNIQUE INDEX artist_attribute_type_idx_gid ON artist_attribute_type (gid)
 CREATE INDEX artist_attribute_type_allowed_value_idx_name ON artist_attribute_type_allowed_value (artist_attribute_type);
 CREATE UNIQUE INDEX artist_attribute_type_allowed_value_idx_gid ON artist_attribute_type_allowed_value (gid);
 
+CREATE UNIQUE INDEX artist_credit_idx_gid ON artist_credit (gid);
+
 CREATE INDEX artist_credit_name_idx_artist ON artist_credit_name (artist);
 
 CREATE UNIQUE INDEX artist_type_idx_gid ON artist_type (gid);
@@ -728,6 +730,7 @@ CREATE INDEX alternative_track_idx_artist_credit ON alternative_track (artist_cr
 
 CREATE INDEX area_gid_redirect_idx_new_id ON area_gid_redirect (new_id);
 CREATE INDEX artist_gid_redirect_idx_new_id ON artist_gid_redirect (new_id);
+CREATE INDEX artist_credit_gid_redirect_idx_new_id ON artist_credit_gid_redirect (new_id);
 CREATE INDEX editor_collection_gid_redirect_idx_new_id ON editor_collection_gid_redirect (new_id);
 CREATE INDEX event_gid_redirect_idx_new_id ON event_gid_redirect (new_id);
 CREATE INDEX instrument_gid_redirect_idx_new_id ON instrument_gid_redirect (new_id);

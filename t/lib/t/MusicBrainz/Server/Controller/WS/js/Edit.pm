@@ -204,6 +204,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                 editsPending => JSON::false,
                 entityType => 'artist_credit',
                 id => 101,
+                gid => ignore(),
                 names => [
                     {
                         joinPhrase => ' plus ',

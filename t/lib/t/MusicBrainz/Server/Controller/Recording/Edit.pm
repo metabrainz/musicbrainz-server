@@ -22,7 +22,8 @@ $c->sql->do(<<~'SQL');
                (4, '945c079d-374e-4436-9448-da92dedef3cf', 'ABBA', 'ABBA', 'C'),
                (5, '5441c29d-3602-4898-b1a1-b77fa23b8e50', 'ABBA', 'ABBA', 'D');
 
-    INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'ABBA', 1);
+    INSERT INTO artist_credit (id, name, artist_count, gid)
+        VALUES (1, 'ABBA', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
     INSERT INTO artist_credit_name (artist_credit, position, artist, name)
         VALUES (1, 0, 6, 'ABBA');
     INSERT INTO recording (id, gid, name, artist_credit, length)

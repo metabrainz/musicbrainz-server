@@ -1,26 +1,33 @@
-package MusicBrainz::Server::Entity::CoreEntity;
+package MusicBrainz::Server::Entity::Role::GID;
 
-use Moose;
+use Moose::Role;
 
-extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Editable';
-with 'MusicBrainz::Server::Entity::Role::GID';
-
-has 'name' => (
+has 'gid' => (
     is => 'rw',
     isa => 'Str'
+);
+
+has 'gid_redirects' => (
+    is => 'rw',
+    isa => 'ArrayRef[Str]',
+    default => sub { [] },
+    traits => [ 'Array' ],
+    handles => {
+        add_gid_redirect => 'push',
+        clear_gid_redirects => 'clear',
+        all_gid_redirects => 'elements',
+    }
 );
 
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
     my $json = $self->$orig;
-    $json->{name} = $self->name;
+    $json->{gid} = $self->gid;
     return $json;
 };
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
+no Moose::Role;
 1;
 
 =head1 COPYRIGHT AND LICENSE

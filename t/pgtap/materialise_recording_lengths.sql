@@ -8,7 +8,8 @@ SELECT no_plan();
 INSERT INTO artist (id, gid, name, sort_name)
 VALUES (1, '3aa25d1a-fe09-47d0-80b5-350d0bae40bf', 'Foo', 1);
 
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit (id, name, artist_count, gid)
+VALUES (1, 1, 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
 
 INSERT INTO release_group (id, gid, name, artist_credit)
 VALUES (1, '8c88e3ed-fe61-433f-844f-54a573bf4253', 'Foo', 1);

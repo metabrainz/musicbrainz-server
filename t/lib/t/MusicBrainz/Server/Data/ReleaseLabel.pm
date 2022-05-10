@@ -41,7 +41,8 @@ test 'Merging release labels' => sub {
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Artist', 'Artist');
 
-        INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Artist', 1);
+        INSERT INTO artist_credit (id, name, artist_count, gid)
+            VALUES (1, 'Artist', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
         INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
             VALUES (1, 1, 'Artist', 0, '');
 
@@ -93,7 +94,8 @@ test 'Release labels are intelligently merged when one release label has a catal
     MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Artist', 'Artist');
-        INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Artist', 1);
+        INSERT INTO artist_credit (id, name, artist_count, gid)
+            VALUES (1, 'Artist', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
 
         INSERT INTO release_group (id, gid, name, artist_credit, type, comment, edits_pending)
             VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 'Release', 1, 1, 'Comment', 2);
