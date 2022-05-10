@@ -698,15 +698,21 @@ sub donation : Local RequireAuth HiddenOnSlaves
     my ($self, $c) = @_;
 
     my $result = $c->model('Editor')->donation_check($c->user);
-    $c->detach('/error_500') unless $result;
+    my $check_failed = 0;
+    my $nag = 0;
 
-    # If nag is 0, don't nag - if 1 or -1 then nag
-    my $nag = $result->{nag} != 0;
+    if (defined $result) {
+        # If nag is 0, don't nag - if 1 or -1 then nag
+        $nag = $result->{nag} != 0;
+    } else {
+        $check_failed = 1;
+    }
 
     $c->stash(
         current_view => 'Node',
         component_path => 'account/Donation',
         component_props => {
+            checkFailed => boolean_to_json($check_failed),
             days => sprintf('%.0f', $result->{days}),
             nag => boolean_to_json($nag),
             user => $c->controller('User')->serialize_user($c->user),
