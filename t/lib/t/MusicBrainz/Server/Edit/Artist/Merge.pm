@@ -288,7 +288,6 @@ test 'Downvoted tags are preserved post-merge (MBS-8524)' => sub {
         INSERT INTO tag (id, name, ref_count) VALUES (1, 'electronic', 0);
         INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote)
             VALUES (3, 1, 1, FALSE);
-        INSERT INTO artist_tag (artist, count, tag) VALUES (3, -1, 1);
         SQL
 
     my $edit = create_edit($c);
