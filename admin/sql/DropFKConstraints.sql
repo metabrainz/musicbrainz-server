@@ -27,6 +27,8 @@ ALTER TABLE area_attribute DROP CONSTRAINT IF EXISTS area_attribute_fk_area_attr
 ALTER TABLE area_attribute_type DROP CONSTRAINT IF EXISTS area_attribute_type_fk_parent;
 ALTER TABLE area_attribute_type_allowed_value DROP CONSTRAINT IF EXISTS area_attribute_type_allowed_value_fk_area_attribute_type;
 ALTER TABLE area_attribute_type_allowed_value DROP CONSTRAINT IF EXISTS area_attribute_type_allowed_value_fk_parent;
+ALTER TABLE area_containment DROP CONSTRAINT IF EXISTS area_containment_fk_descendant;
+ALTER TABLE area_containment DROP CONSTRAINT IF EXISTS area_containment_fk_parent;
 ALTER TABLE area_gid_redirect DROP CONSTRAINT IF EXISTS area_gid_redirect_fk_new_id;
 ALTER TABLE area_tag DROP CONSTRAINT IF EXISTS area_tag_fk_area;
 ALTER TABLE area_tag DROP CONSTRAINT IF EXISTS area_tag_fk_tag;

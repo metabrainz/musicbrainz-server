@@ -1,6 +1,9 @@
 -- Automatically generated, do not edit.
 \unset ON_ERROR_STOP
 
+DROP TRIGGER a_ins_l_area_area_mirror ON l_area_area;
+DROP TRIGGER a_upd_l_area_area_mirror ON l_area_area;
+DROP TRIGGER a_del_l_area_area_mirror ON l_area_area;
 DROP TRIGGER a_ins_release_mirror ON release;
 DROP TRIGGER a_upd_release_mirror ON release;
 DROP TRIGGER a_del_release_mirror ON release;

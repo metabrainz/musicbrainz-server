@@ -191,6 +191,12 @@ CREATE TABLE area_attribute ( -- replicate (verbose)
     )
 );
 
+CREATE TABLE area_containment (
+    descendant          INTEGER NOT NULL, -- PK, references area.id
+    parent              INTEGER NOT NULL, -- PK, references area.id
+    depth               SMALLINT NOT NULL
+);
+
 CREATE TABLE area_tag ( -- replicate (verbose)
     area                INTEGER NOT NULL, -- PK, references area.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id

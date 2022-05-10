@@ -15,6 +15,15 @@
 
 BEGIN;
 
+CREATE TRIGGER a_ins_l_area_area_mirror AFTER INSERT ON l_area_area
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_l_area_area_mirror();
+
+CREATE TRIGGER a_upd_l_area_area_mirror AFTER UPDATE ON l_area_area
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_l_area_area_mirror();
+
+CREATE TRIGGER a_del_l_area_area_mirror AFTER DELETE ON l_area_area
+    FOR EACH ROW EXECUTE PROCEDURE a_del_l_area_area_mirror();
+
 CREATE TRIGGER a_ins_release_mirror AFTER INSERT ON release
     FOR EACH ROW EXECUTE PROCEDURE a_ins_release_mirror();
 

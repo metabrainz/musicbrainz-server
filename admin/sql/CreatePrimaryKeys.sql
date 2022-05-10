@@ -15,6 +15,7 @@ ALTER TABLE area_annotation ADD CONSTRAINT area_annotation_pkey PRIMARY KEY (are
 ALTER TABLE area_attribute ADD CONSTRAINT area_attribute_pkey PRIMARY KEY (id);
 ALTER TABLE area_attribute_type ADD CONSTRAINT area_attribute_type_pkey PRIMARY KEY (id);
 ALTER TABLE area_attribute_type_allowed_value ADD CONSTRAINT area_attribute_type_allowed_value_pkey PRIMARY KEY (id);
+ALTER TABLE area_containment ADD CONSTRAINT area_containment_pkey PRIMARY KEY (descendant, parent);
 ALTER TABLE area_gid_redirect ADD CONSTRAINT area_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE area_tag ADD CONSTRAINT area_tag_pkey PRIMARY KEY (area, tag);
 ALTER TABLE area_tag_raw ADD CONSTRAINT area_tag_raw_pkey PRIMARY KEY (area, editor, tag);

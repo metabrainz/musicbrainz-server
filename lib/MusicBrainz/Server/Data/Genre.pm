@@ -16,7 +16,7 @@ with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'genre' };
 sub _type { 'genre' }
 
 sub _columns {
-    return 'genre.id, genre.gid, genre.name,
+    return 'genre.id, genre.gid, genre.name COLLATE musicbrainz,
             genre.comment, genre.edits_pending, genre.last_updated';
 }
 

@@ -38,6 +38,7 @@ my $c = MusicBrainz::Server::Context->create_script_context(
 );
 
 my %VALID_OPTIONS = (
+    area_containment => 1,
     artist_release => 1,
     artist_release_group => 1,
     recording_first_release_date => 1,
@@ -155,11 +156,48 @@ if ($build_all || $options{artist_release_group}) {
     }
 }
 
+if ($build_all || $options{area_containment}) {
+    log_info { 'Building area_containment ...' };
+    $c->sql->begin;
+    if (
+        !$force &&
+        $c->sql->select_single_value('SELECT 1 FROM area_containment LIMIT 1')
+    ) {
+        log_info { 'Table not empty, skipping.' };
+        $c->sql->rollback;
+    } else {
+        $c->sql->do('TRUNCATE area_containment');
+        $c->sql->do(<<~'SQL');
+            INSERT INTO area_containment
+            SELECT DISTINCT ON (descendant, parent)
+                descendant,
+                parent,
+                depth
+              FROM get_area_parent_hierarchy_rows(NULL)
+             ORDER BY descendant, parent, depth
+            SQL
+        if ($cluster) {
+            $c->sql->do('CLUSTER area_containment USING area_containment_pkey');
+        }
+        $c->sql->commit;
+        log_info { 'Done.' };
+    }
+}
+
 =head1 SYNOPSIS
 
 This script will populate the requested materialized tables if they're
 empty (or --force is supplied). Currently, the following tables/options
 are supported. You may pass multiple separated by whitespace.
+
+  * area_containment
+
+    Stores the entire descendant <-> parent hierarchy for area "part of"
+    relationships. This helps the performance of containment queries in
+    both directions: determining the parents of an area, or determining
+    all the descendants of an area. The speed of the latter type of
+    query is critical for "all entities from an area"-type listings on
+    the website.
 
   * artist_release
 

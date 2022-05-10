@@ -27,6 +27,8 @@ CREATE UNIQUE INDEX area_attribute_type_idx_gid ON area_attribute_type (gid);
 CREATE INDEX area_attribute_type_allowed_value_idx_name ON area_attribute_type_allowed_value (area_attribute_type);
 CREATE UNIQUE INDEX area_attribute_type_allowed_value_idx_gid ON area_attribute_type_allowed_value (gid);
 
+CREATE INDEX area_containment_idx_parent ON area_containment (parent);
+
 CREATE INDEX area_tag_idx_tag ON area_tag (tag);
 
 CREATE INDEX area_tag_raw_idx_area ON area_tag_raw (area);

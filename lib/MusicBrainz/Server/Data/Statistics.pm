@@ -5,7 +5,7 @@ use namespace::autoclean;
 use warnings FATAL => 'all';
 
 use List::AllUtils qw( any );
-use MusicBrainz::Server::Data::Utils qw( get_area_containment_query placeholders );
+use MusicBrainz::Server::Data::Utils qw( get_area_containment_join placeholders );
 use MusicBrainz::Server::Constants qw( :edit_status :vote );
 use MusicBrainz::Server::Constants qw(
     $VARTIST_ID
@@ -940,15 +940,12 @@ my %stats = (
         CALC => sub {
             my ($self, $sql) = @_;
 
-            my (
-                $containment_query,
-                @containment_query_args,
-            ) = get_area_containment_query('$1', 'entity1');
+            my $area_containment_join = get_area_containment_join($sql);
 
             my $data = $sql->select_list_of_lists(qq{
                 SELECT COALESCE(iso.code::text, 'null'), COUNT(l.id)
                 FROM label l
-                LEFT JOIN ($containment_query) ac
+                LEFT JOIN $area_containment_join ac
                     ON l.area = ac.descendant
                     AND ac.parent IN (SELECT area FROM country_area)
                 FULL OUTER JOIN iso_3166_1 iso
@@ -958,7 +955,7 @@ my %stats = (
                         l.area
                     )
                 GROUP BY iso.code
-            }, @containment_query_args);
+            });
 
             my %dist = map { @$_ } @$data;
 
@@ -1375,15 +1372,12 @@ my %stats = (
         CALC => sub {
             my ($self, $sql) = @_;
 
-            my (
-                $containment_query,
-                @containment_query_args,
-            ) = get_area_containment_query('$1', 'entity1');
+            my $area_containment_join = get_area_containment_join($sql);
 
             my $data = $sql->select_list_of_lists(qq{
                 SELECT COALESCE(iso.code::text, 'null'), COUNT(a.id)
                 FROM artist a
-                LEFT JOIN ($containment_query) ac
+                LEFT JOIN $area_containment_join ac
                     ON a.area = ac.descendant
                     AND ac.parent IN (SELECT area FROM country_area)
                 FULL OUTER JOIN iso_3166_1 iso
@@ -1393,7 +1387,7 @@ my %stats = (
                         a.area
                     )
                 GROUP BY iso.code
-            }, @containment_query_args);
+            });
 
             my %dist = map { @$_ } @$data;
 
