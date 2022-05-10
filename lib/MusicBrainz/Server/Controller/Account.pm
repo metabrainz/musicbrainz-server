@@ -709,6 +709,7 @@ sub donation : Local RequireAuth HiddenOnSlaves
         component_props => {
             days => sprintf('%.0f', $result->{days}),
             nag => boolean_to_json($nag),
+            user => $c->controller('User')->serialize_user($c->user),
         }
     );
 }

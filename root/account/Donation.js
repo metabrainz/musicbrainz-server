@@ -9,16 +9,28 @@
 
 import * as React from 'react';
 
+import UserAccountLayout, {
+  sanitizedAccountLayoutUser,
+} from '../components/UserAccountLayout';
 import {CONTACT_URL, DONATE_URL} from '../constants';
-import StatusPage from '../components/StatusPage';
 
 type Props = {
   +days: number,
   +nag: boolean,
+  +user: UnsanitizedEditorT,
 };
 
-const Donation = ({days, nag}: Props): React.Element<typeof StatusPage> => (
-  <StatusPage title={l('Donation Check')}>
+const Donation = ({
+  days,
+  nag,
+  user,
+}: Props): React.Element<typeof UserAccountLayout> => (
+  <UserAccountLayout
+    entity={sanitizedAccountLayoutUser(user)}
+    page="donation"
+    title={l('Donation Check')}
+  >
+    <h2>{l('Donation Check')}</h2>
     {nag
       ? (
         <>
@@ -31,8 +43,8 @@ const Donation = ({days, nag}: Props): React.Element<typeof StatusPage> => (
           <p>
             {exp.l(
               `If you would like to make a donation,
-               {donate|you can do that here}. If you have donated, but
-               you are still being nagged, please {contact|contact us}.`,
+                {donate|you can do that here}. If you have donated, but
+                you are still being nagged, please {contact|contact us}.`,
               {contact: CONTACT_URL, donate: DONATE_URL},
             )}
           </p>
@@ -57,7 +69,7 @@ const Donation = ({days, nag}: Props): React.Element<typeof StatusPage> => (
             )}
         </>
       )}
-  </StatusPage>
+  </UserAccountLayout>
 );
 
 export default Donation;
