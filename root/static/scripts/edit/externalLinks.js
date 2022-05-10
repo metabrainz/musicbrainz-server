@@ -1652,6 +1652,7 @@ const URL_SHORTENERS = [
   'spoti.fi',
   'sptfy.com',
   'spread.link',
+  'streamerlinks.com',
   'streamlink.to',
   'su.pr',
   't.co',
