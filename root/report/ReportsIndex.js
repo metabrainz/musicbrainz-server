@@ -345,6 +345,13 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
         />
         <ReportsIndexEntry
           content={l(
+            `Releases that have Amazon cover art
+             but no Cover Art Archive front cover`,
+          )}
+          reportName="ReleasesWithAmazonCoverArt"
+        />
+        <ReportsIndexEntry
+          content={l(
             `Releases in the Cover Art Archive
              where no cover art piece has types`,
           )}
