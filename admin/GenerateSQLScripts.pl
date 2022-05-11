@@ -355,6 +355,7 @@ sub process_triggers
 process_triggers('CreateTriggers.sql', 'DropTriggers.sql');
 process_triggers('CreateMirrorOnlyTriggers.sql', 'DropMirrorOnlyTriggers.sql');
 process_triggers('CreateReplicationTriggers.sql', 'DropReplicationTriggers.sql');
+process_triggers('CreateReplicationTriggers2.sql', 'DropReplicationTriggers2.sql');
 
 sub process_types
 {
