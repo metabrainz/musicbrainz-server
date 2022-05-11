@@ -229,6 +229,20 @@ sub process_tables
         }
         print OUT "COMMIT;\n";
         close OUT;
+
+        open OUT, ">$dir/CreateReplicationTriggers2.sql";
+        print OUT "-- Automatically generated, do not edit.\n";
+        print OUT "\\set ON_ERROR_STOP 1\n\n";
+        print OUT $replication_search_path if $replication_search_path;
+        print OUT "BEGIN;\n\n";
+        foreach my $row (@replication_triggers) {
+            my ($table, $verbose) = @$row;
+            print OUT qq(CREATE TRIGGER reptg2_$table\n);
+            print OUT qq(AFTER INSERT OR DELETE OR UPDATE ON $table\n);
+            print OUT "FOR EACH ROW EXECUTE PROCEDURE dbmirror2.recordchange();\n\n";
+        }
+        print OUT "COMMIT;\n";
+        close OUT;
     }
 }
 
@@ -341,6 +355,7 @@ sub process_triggers
 process_triggers('CreateTriggers.sql', 'DropTriggers.sql');
 process_triggers('CreateMirrorOnlyTriggers.sql', 'DropMirrorOnlyTriggers.sql');
 process_triggers('CreateReplicationTriggers.sql', 'DropReplicationTriggers.sql');
+process_triggers('CreateReplicationTriggers2.sql', 'DropReplicationTriggers2.sql');
 
 sub process_types
 {

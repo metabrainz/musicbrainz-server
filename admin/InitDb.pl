@@ -16,6 +16,7 @@ my $REPTYPE = DBDefs->REPLICATION_TYPE;
 my $psql = 'psql';
 my $path_to_pending_so;
 my $databaseName = 'MAINTENANCE';
+my $dbmirror2 = 0;
 my $fFixUTF8 = 0;
 my $fCreateDB;
 my $fInstallExtension;
@@ -246,6 +247,7 @@ sub CreateRelations
             sitemaps
             statistics
             wikidocs
+            dbmirror2
         ));
     die "\nFailed to create schema\n" if ($? >> 8);
 
@@ -344,17 +346,32 @@ sub CreateRelations
 
     if ($REPTYPE == RT_MASTER)
     {
-        CreateReplicationFunction();
-        RunSQLScript($DB, 'CreateReplicationTriggers.sql', 'Creating replication triggers ...');
-        RunSQLScript($DB, 'caa/CreateReplicationTriggers.sql', 'Creating CAA replication triggers ...');
-        RunSQLScript($DB, 'documentation/CreateReplicationTriggers.sql', 'Creating documentation replication triggers ...');
-        RunSQLScript($DB, 'eaa/CreateReplicationTriggers.sql', 'Creating EAA replication triggers ...');
-        RunSQLScript($DB, 'statistics/CreateReplicationTriggers.sql', 'Creating statistics replication triggers ...');
-        RunSQLScript($DB, 'wikidocs/CreateReplicationTriggers.sql', 'Creating wikidocs replication triggers ...');
+        if (defined $path_to_pending_so) {
+            CreateReplicationFunction();
+            RunSQLScript($DB, 'CreateReplicationTriggers.sql', 'Creating replication triggers ...');
+            RunSQLScript($DB, 'caa/CreateReplicationTriggers.sql', 'Creating CAA replication triggers ...');
+            RunSQLScript($DB, 'documentation/CreateReplicationTriggers.sql', 'Creating documentation replication triggers ...');
+            RunSQLScript($DB, 'eaa/CreateReplicationTriggers.sql', 'Creating EAA replication triggers ...');
+            RunSQLScript($DB, 'statistics/CreateReplicationTriggers.sql', 'Creating statistics replication triggers ...');
+            RunSQLScript($DB, 'wikidocs/CreateReplicationTriggers.sql', 'Creating wikidocs replication triggers ...');
+        }
+
+        if ($dbmirror2) {
+            RunSQLScript($DB, 'dbmirror2/MasterSetup.sql', 'Creating dbmirror2 master schema ...');
+            RunSQLScript($DB, 'CreateReplicationTriggers2.sql', 'Creating dbmirror2 replication triggers ...');
+            RunSQLScript($DB, 'caa/CreateReplicationTriggers2.sql', 'Creating dbmirror2 CAA replication triggers ...');
+            RunSQLScript($DB, 'documentation/CreateReplicationTriggers2.sql', 'Creating dbmirror2 documentation replication triggers ...');
+            RunSQLScript($DB, 'eaa/CreateReplicationTriggers2.sql', 'Creating dbmirror2 EAA replication triggers ...');
+            RunSQLScript($DB, 'statistics/CreateReplicationTriggers2.sql', 'Creating dbmirror2 statistics replication triggers ...');
+            RunSQLScript($DB, 'wikidocs/CreateReplicationTriggers2.sql', 'Creating dbmirror2 wikidocs replication triggers ...');
+        }
     }
     if ($REPTYPE == RT_MASTER || $REPTYPE == RT_MIRROR)
     {
         RunSQLScript($DB, 'ReplicationSetup.sql', 'Setting up replication ...');
+        if ($dbmirror2) {
+            RunSQLScript($DB, 'dbmirror2/ReplicationSetup.sql', 'Setting up dbmirror2 replication ...');
+        }
     }
 
     print localtime() . " : Optimizing database ...\n" unless $fQuiet;
@@ -407,10 +424,13 @@ sub SanityCheck
 
     if ($REPTYPE == RT_MASTER)
     {
-        defined($path_to_pending_so) or die <<EOF;
+        (defined($path_to_pending_so) || $dbmirror2) or die <<EOF;
 Error: this is a master replication server, but you did not specify
-the path to "pending.so" (i.e. --with-pending=PATH)
+the path to "pending.so" (i.e. --with-pending=PATH) or pass --dbmirror2.
 EOF
+
+        return if $dbmirror2;
+
         if (not -f $path_to_pending_so)
         {
             warn <<EOF;
@@ -480,6 +500,7 @@ GetOptions(
     'psql=s'              => \$psql,
     'createdb'            => \$fCreateDB,
     'database:s'          => \$databaseName,
+    'dbmirror2!'          => \$dbmirror2,
     'empty-database'      => sub { $mode = 'MODE_NO_TABLES' },
     'import|i'            => sub { $mode = 'MODE_IMPORT' },
     'clean|c'             => sub { $mode = 'MODE_NO_DATA' },

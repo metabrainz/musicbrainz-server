@@ -36,9 +36,15 @@ my $database = 'READWRITE';
 
 my @tables = @FULL_TABLE_LIST;
 
-my @replication_tables = qw(
+my @dbmirror_tables = qw(
     dbmirror_pending
     dbmirror_pendingdata
+);
+
+my @dbmirror2_tables = qw(
+    dbmirror2.pending_data
+    dbmirror2.pending_keys
+    dbmirror2.pending_ts
 );
 
 my @groups = (
@@ -60,6 +66,7 @@ my $fHelp;
 my $OutputDir = q(.);
 my $tmp_dir = '/tmp';
 my $fCompress = 1;
+my $dump_dbmirror2 = DBDefs->REPLICATION_USE_DBMIRROR2;
 my $fKeepFiles = 0;
 my $fDoFullExport = 1;
 my $fDoReplication = 0;
@@ -71,6 +78,7 @@ GetOptions(
     'output-dir|d=s'            => \$OutputDir,
     'tmp-dir|t=s'               => \$tmp_dir,
     'compress|c!'               => \$fCompress,
+    'dbmirror2!'                => \$dump_dbmirror2,
     'keep-files|k!'             => \$fKeepFiles,
     'database=s'                => \$database,
     'table=s'                   => \@tablelist,
@@ -157,6 +165,11 @@ for my $table (@tables)
     $mbdump->dump_table($table);
 }
 
+my $dbmirror2_tables_exist = check_for_dbmirror2_tables();
+if ($dump_dbmirror2) {
+    $dump_dbmirror2 = 0 unless $dbmirror2_tables_exist;
+}
+
 # Get the replication control data
 
 my $iReplicationSequence = $sql->select_single_value(
@@ -166,15 +179,19 @@ my $iReplicationSequence = $sql->select_single_value(
 if ($fDoReplication)
 {
     # Is there any replication data to dump?
-    my $fAnyReplicationData = 0;
-    for my $table (@replication_tables)
-    {
-        $fAnyReplicationData = 1
-            if $sql->select_single_value("SELECT COUNT(*) FROM $table") > 0;
-    }
+    my $fAnyDBMirrorReplicationData = any {
+        $sql->select_single_value("SELECT count(*) FROM $_") > 0
+    } @dbmirror_tables;
 
-    if ($fAnyReplicationData or not $iReplicationSequence)
-    {
+    my $fAnyDBMirror2ReplicationData = $dump_dbmirror2 && any {
+        $sql->select_single_value("SELECT count(*) FROM $_") > 0
+    } @dbmirror2_tables;
+
+    if (
+        $fAnyDBMirrorReplicationData ||
+        $fAnyDBMirror2ReplicationData ||
+        !$iReplicationSequence
+    ) {
         # Are we starting replication for the first time?
         if (not defined $iReplicationSequence)
         {
@@ -206,13 +223,23 @@ if ($fDoReplication)
         log_info { "Producing replication packet #$iReplicationSequence" };
 
         # Dump 'em
-        $mbdump->dump_table($_) for @replication_tables;
+        $mbdump->dump_table($_) for @dbmirror_tables;
+
+        if ($dump_dbmirror2) {
+            # NULL columns that are useless on slaves.
+            $sql->do('UPDATE dbmirror2.pending_data SET oldctid = NULL, trgdepth = NULL');
+            $mbdump->dump_table($_) for @dbmirror2_tables;
+            $mbdump->write_file('DBMIRROR_VERSION', "2\n");
+        }
 
         # Remove the rows we just dumped
         empty_replication_tables();
 
         $mbdump->write_file('REPLICATION_SEQUENCE', "$iReplicationSequence\n");
-    } elsif (defined $iReplicationSequence and not $fAnyReplicationData) {
+    } elsif (
+        defined $iReplicationSequence &&
+        !($fAnyDBMirrorReplicationData || $fAnyDBMirror2ReplicationData)
+    ) {
         log_info { "No changes since the last replication point (#$iReplicationSequence)" };
         $mbdump->write_file('REPLICATION_SEQUENCE', "$iReplicationSequence\n");
     } else {
@@ -242,13 +269,32 @@ if ($fCompress and $fDoReplication)
 {
     my $tarfile = "replication-$iReplicationSequence.tar.bz2";
 
-    if (any { $mbdump->row_counts->{$_} } @replication_tables)
+    my $fAnyDBMirrorReplicationData = any {
+        $mbdump->row_counts->{$_}
+    } @dbmirror_tables;
+
+    my $fAnyDBMirror2ReplicationData = $dump_dbmirror2 && any {
+        $mbdump->row_counts->{$_}
+    } @dbmirror2_tables;
+
+    if ($fAnyDBMirrorReplicationData || $fAnyDBMirror2ReplicationData)
     {
         $mbdump->copy_readme() or die $!;
         # Go for the "most restrictive" license
         copy("$FindBin::Bin/COPYING-CCShareAlike",
              catfile($mbdump->export_dir, 'COPYING')) or die $!;
-        $mbdump->make_tar($tarfile, @replication_tables);
+
+        if ($fAnyDBMirrorReplicationData) {
+            $mbdump->make_tar($tarfile, @dbmirror_tables);
+        }
+
+        if ($fAnyDBMirror2ReplicationData) {
+            $mbdump->make_tar(
+                "replication-$iReplicationSequence-v2.tar.bz2",
+                'DBMIRROR_VERSION',
+                @dbmirror2_tables,
+            );
+        }
     }
     if ($fCallback) {
         system $fCallback;
@@ -298,6 +344,15 @@ sub empty_replication_tables
 {
     $sql->do('DELETE FROM dbmirror_pendingdata');
     $sql->do('DELETE FROM dbmirror_pending');
+
+    if ($dbmirror2_tables_exist) {
+        # These should be cleared even if $dump_dbmirror2 is unset in order to
+        # keep them consistent with the old dbmirror tables.
+        for my $table (@dbmirror2_tables) {
+            $sql->do("DELETE FROM $table");
+        }
+    }
+
     # As soon as we commit, the replication data is gone from the DB, so we must
     # be sure that we have a safe copy.
     $mbdump->erase_files_on_exit(0);
@@ -310,6 +365,13 @@ sub optimise_replication_tables
     $sql->do('VACUUM ANALYZE dbmirror_pendingdata');
     $sql->auto_commit;
     $sql->do('VACUUM ANALYZE dbmirror_pending');
+
+    if ($dbmirror2_tables_exist) {
+        for my $table (@dbmirror2_tables) {
+            $sql->auto_commit;
+            $sql->do("VACUUM ANALYZE $table");
+        }
+    }
 }
 
 sub parse_create_tables
@@ -354,6 +416,21 @@ sub check_tables_completeness
     for (sort @no_group_tables) {
         log_info { "Table exported but not included in any tar: %s", $_ };
     }
+}
+
+sub check_for_dbmirror2_tables {
+    for my $table (map { $_ =~ s/^[^.]+\.//r } @dbmirror2_tables) {
+        $sql->auto_commit;
+        return 0 unless $sql->select_single_value(<<~'SQL', $table);
+            SELECT EXISTS (
+                SELECT 1
+                  FROM information_schema.tables
+                 WHERE table_schema = 'dbmirror2'
+                   AND table_name = ?
+            );
+            SQL
+    }
+    return 1;
 }
 
 =head1 COPYRIGHT AND LICENSE

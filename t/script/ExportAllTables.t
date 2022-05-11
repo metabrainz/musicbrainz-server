@@ -75,6 +75,7 @@ test all => sub {
         '--output-dir', $output_dir,
         '--database', 'TEST_FULL_EXPORT',
         '--compress',
+        '--nodbmirror2',
     );
 
     my $quoted_output_dir = shell_quote($output_dir);
@@ -105,6 +106,7 @@ test all => sub {
         '--output-dir', $output_dir,
         '--database', 'TEST_FULL_EXPORT',
         '--compress',
+        '--nodbmirror2',
     );
 
     my $system_db = Databases->get('SYSTEM');
@@ -141,6 +143,7 @@ test all => sub {
         '--base-uri', 'file://' . $output_dir,
         '--database', 'TEST_FULL_EXPORT',
         '--lockfile', '/tmp/.mb-LoadReplicationChanges-TEST_FULL_EXPORT',
+        '--nodbmirror2',
     );
 
     my $c = MusicBrainz::Server::Context->create_script_context(database => 'TEST_FULL_EXPORT');

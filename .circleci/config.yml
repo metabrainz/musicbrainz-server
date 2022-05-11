@@ -78,6 +78,7 @@ jobs:
               t/script/BuildSitemaps.t \
               t/script/DumpJSON.t \
               t/script/ExportAllTables.t \
+              t/script/dbmirror2.t \
               t/tests.t \
               --harness=TAP::Harness::JUnit \
               -v
