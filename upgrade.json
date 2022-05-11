@@ -114,6 +114,7 @@
                "20220314-mbs-12254.sql",
                "20220314-mbs-12255.sql",
                "20220322-mbs-12256-mirror.sql",
+               "20220324-mbs-12200.sql",
                "20220408-immutable-link-tables.sql",
                "20220408-mbs-12249.sql",
                "20220412-mbs-12190.sql"],

@@ -10,6 +10,7 @@
 -- 20220314-mbs-12254.sql
 -- 20220314-mbs-12255.sql
 -- 20220322-mbs-12256-mirror.sql
+-- 20220324-mbs-12200.sql
 -- 20220408-immutable-link-tables.sql
 -- 20220408-mbs-12249.sql
 -- 20220412-mbs-12190.sql
@@ -1226,6 +1227,29 @@ BEGIN
   RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
+
+--------------------------------------------------------------------------------
+SELECT '20220324-mbs-12200.sql';
+
+
+-- Redefined to remove `INSERT INTO release_coverart (id) VALUES (NEW.id);`.
+CREATE OR REPLACE FUNCTION a_ins_release() RETURNS trigger AS $$
+BEGIN
+    -- increment ref_count of the name
+    PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
+    -- increment release_count of the parent release group
+    UPDATE release_group_meta SET release_count = release_count + 1 WHERE id = NEW.release_group;
+    -- add new release_meta
+    INSERT INTO release_meta (id) VALUES (NEW.id);
+    INSERT INTO artist_release_pending_update VALUES (NEW.id);
+    INSERT INTO artist_release_group_pending_update VALUES (NEW.release_group);
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+DROP TABLE release_coverart;
+
+ALTER TABLE release_meta DROP COLUMN amazon_store;
 
 --------------------------------------------------------------------------------
 SELECT '20220408-immutable-link-tables.sql';

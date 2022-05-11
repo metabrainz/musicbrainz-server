@@ -668,11 +668,6 @@ const stats = {
     color: '#ff0000',
     label: l('Releases with no country set'),
   },
-  'count.release.coverart.amazon': {
-    category: 'cover-art',
-    color: '#dd22dd',
-    label: l('Releases with Amazon Cover Art'),
-  },
   'count.release.coverart.caa': {
     category: 'cover-art',
     color: '#dd0022',
@@ -682,11 +677,6 @@ const stats = {
     category: 'cover-art',
     color: '#00dd22',
     label: l('Releases with No Cover Art'),
-  },
-  'count.release.coverart.relationship': {
-    category: 'cover-art',
-    color: '#2200dd',
-    label: l('Releases with Cover Art from Relationships'),
   },
   'count.release.format.null': {
     category: 'formats',

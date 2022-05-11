@@ -357,8 +357,6 @@ sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 # sub AWS_PRIVATE { '' }
 # sub AWS_PUBLIC { '' }
 
-# sub AMAZON_ASSOCIATE_TAG { '' }
-
 # To enable use of reCAPTCHA:
 # 1. make sure $ENV{'REMOTE_ADDR'} is the ip address of the visitor.
 # 2. replace undef with your recaptcha keys:

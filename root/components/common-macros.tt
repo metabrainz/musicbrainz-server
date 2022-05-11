@@ -75,7 +75,7 @@ END; -%]
 [%- END -%]
 
 [%- USE JavaScript -%]
-[%~ MACRO display_artwork_image(artwork, fallback, message) BLOCK -%] [% # Converted to React at root/components/Artwork.js %]
+[%~ MACRO display_artwork_image(artwork, message) BLOCK -%] [% # Converted to React at root/components/Artwork.js %]
     <noscript>
         <img src="[% artwork.small_ia_thumbnail %]" />
     </noscript>
@@ -83,33 +83,24 @@ END; -%]
     <span class="cover-art-image"
         data-small-thumbnail="[% artwork.small_ia_thumbnail %]"
         data-large-thumbnail="[% artwork.large_ia_thumbnail %]"
-        data-fallback="[% fallback %]"
         data-title="[% artwork_hover(artwork) %]"
         data-message="[% message ? message : l('Image not available yet, please try again in a few minutes.') | html %]"
     ></span>
 [% END %]
 
-[%~ MACRO display_artwork(artwork, fallback, message) BLOCK -%] [% # Converted to React at root/components/Artwork.js %]
+[%~ MACRO display_artwork(artwork, message) BLOCK -%] [% # Converted to React at root/components/Artwork.js %]
     <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]" class="[% IF artwork.mime_type == "application/pdf" %]artwork-pdf[% ELSE %]artwork-image[% END %]">
         [%~ IF artwork.mime_type == "application/pdf" ~%]
             <div title="[% l("This is a PDF file, the thumbnail may not show the entire contents of the file.") %]" class="file-format-tag">[% l("PDF file") %]</div>
         [%~ END ~%]
 
-        [% display_artwork_image(artwork, fallback, message) %]
+        [% display_artwork_image(artwork, message) %]
     </a>
 [%- END -%]
 
 [%~ MACRO display_missing_artwork BLOCK -%]
     <img src="/static/images/no-cover-art.png" title="No cover art available" />
 [%- END -%]
-
-[%~ MACRO cover_art_url(url) BLOCK; # Converted to React at root/utility/coverArtUrl.js
-    IF c.req.secure;
-        url | coverart_https;
-    ELSE;
-        url;
-    END;
-END -%]
 
 [%~ MACRO disambiguation(entity) BLOCK -%]
     [%- IF entity.isa('MusicBrainz::Server::Entity::Event') -%]

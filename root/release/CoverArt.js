@@ -13,7 +13,6 @@ import {Artwork} from '../components/Artwork';
 import RequestLogin from '../components/RequestLogin';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import {commaOnlyListText} from '../static/scripts/common/i18n/commaOnlyList';
-import entityHref from '../static/scripts/common/utility/entityHref';
 
 import ReleaseLayout from './ReleaseLayout';
 
@@ -132,23 +131,12 @@ const CoverArt = ({
           </p>
         </>
       ) : (
-        <>
-          <p>
-            {exp.l(
-              'We do not currently have any cover art for {release}.',
-              {release: <EntityLink entity={release} />},
-            )}
-          </p>
-          {nonEmpty(release.cover_art_url) ? (
-            <p>
-              {exp.l(
-                `The artwork in the sidebar is being provided
-                 by a {relationships|URL relationship}.`,
-                {relationships: entityHref(release)},
-              )}
-            </p>
-          ) : null}
-        </>
+        <p>
+          {exp.l(
+            'We do not currently have any cover art for {release}.',
+            {release: <EntityLink entity={release} />},
+          )}
+        </p>
       )}
 
       {release.may_have_cover_art /*:: === true */ ? (
