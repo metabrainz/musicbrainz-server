@@ -1202,6 +1202,8 @@ INSERT INTO genre (id, gid, name) VALUES (8, 'aac07ae0-8acf-4249-b5c0-2762b53947
 INSERT INTO genre (id, gid, name) VALUES (9, 'a2782cb6-1cd0-477c-a61d-b3f8b42dd1b3', 'house');
 INSERT INTO genre (id, gid, name) VALUES (10, '18b010d7-7d85-4445-a4a8-1889a4688308', 'glitch');
 
+INSERT INTO genre_alias (genre, id, locale, name, primary_for_locale, sort_name, type) VALUES (3, 1, 'en', 'dirt', '0', 'dirt', NULL);
+
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (242, 95821, 34, 't');
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (242, 100000001, 34, 't');
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (242, 100000002, 34, 't');

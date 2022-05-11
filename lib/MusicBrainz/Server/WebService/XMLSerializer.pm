@@ -1368,8 +1368,18 @@ sub _serialize_genre
 {
     my ($self, $parent_node, $genre, $inc, $stash, $toplevel) = @_;
 
+    my $opts = $stash->store($genre);
+
     my $genre_node = $parent_node->addNewChild(undef, 'genre');
     _serialize_genre_common($genre_node, $genre);
+
+    $self->_serialize_annotation($genre_node, $genre, $inc, $stash) if $toplevel;
+
+    $self->_serialize_alias_list($genre_node, $opts->{aliases}, $inc, $stash)
+        if ($inc->aliases && $opts->{aliases});
+
+    $self->_serialize_relation_lists($genre_node, $genre, $genre->relationships, $inc, $stash)
+        if $inc->has_rels;
 }
 
 sub _serialize_user_tag_list
