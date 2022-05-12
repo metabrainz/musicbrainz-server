@@ -127,6 +127,10 @@ CREATE TABLE artist_credit_gid_redirect ( -- replicate (verbose)
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+ALTER TABLE artist_credit_gid_redirect ADD CONSTRAINT artist_credit_gid_redirect_pkey PRIMARY KEY (gid);
+
+CREATE INDEX artist_credit_gid_redirect_idx_new_id ON artist_credit_gid_redirect (new_id);
+
 --------------------------------------------------------------------------------
 SELECT '20210526-a_upd_release_event.sql';
 
