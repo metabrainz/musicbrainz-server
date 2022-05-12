@@ -46,7 +46,8 @@ releaseEditor.labelBubble = bubbleDoc({
   },
 
   catNoLooksLikeASIN: function (catNo) {
-    return /^B00[0-9A-Z]{7}$/.test(catNo);
+    // Please keep in sync with CatNoLooksLikeASIN report
+    return /^B0(?=.*[A-Z])([0-9A-Z]{8})$/.test(catNo);
   },
 });
 
