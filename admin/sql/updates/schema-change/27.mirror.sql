@@ -1994,6 +1994,9 @@ ALTER TABLE documentation.l_mood_work_example ADD CONSTRAINT l_mood_work_example
 SELECT '20220426-mbs-12131.sql';
 
 
+DROP AGGREGATE IF EXISTS median(anyelement);
+DROP FUNCTION IF EXISTS _median(anyarray);
+
 CREATE OR REPLACE FUNCTION _median(INTEGER[]) RETURNS INTEGER AS $$
   WITH q AS (
       SELECT val
@@ -2007,8 +2010,6 @@ CREATE OR REPLACE FUNCTION _median(INTEGER[]) RETURNS INTEGER AS $$
   -- Subtracting (n + 1) % 2 creates a left bias
   OFFSET greatest(0, floor((select count(*) FROM q) / 2.0) - ((select count(*) + 1 FROM q) % 2));
 $$ LANGUAGE sql IMMUTABLE;
-
-DROP AGGREGATE IF EXISTS median(anyelement);
 
 CREATE OR REPLACE AGGREGATE median(INTEGER) (
   SFUNC=array_append,
