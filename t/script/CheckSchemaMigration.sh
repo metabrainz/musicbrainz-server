@@ -53,6 +53,7 @@ git restore --source=production -- admin/InitDb.pl
 ./admin/psql $DB2 < t/sql/initial.sql
 ./admin/psql $DB2 < admin/sql/SetSequences.sql
 git restore admin/sql
+git clean --force -- admin/sql
 git restore admin/InitDb.pl
 
 export REPLICATION_TYPE
