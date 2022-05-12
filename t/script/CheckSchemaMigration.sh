@@ -56,7 +56,7 @@ git restore admin/sql
 git restore admin/InitDb.pl
 
 export REPLICATION_TYPE
-DB_SCHEMA_SEQUENCE=25 DATABASE=$DB2 ./upgrade.sh
+DB_SCHEMA_SEQUENCE=26 DATABASE=$DB2 ./upgrade.sh
 
 DB1SCHEMA="$DB1.schema.sql"
 DB2SCHEMA="$DB2.schema.sql"
