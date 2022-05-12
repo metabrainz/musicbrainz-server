@@ -4465,6 +4465,10 @@ const CLEANUPS: CleanupEntries = {
         'https://twitter.com/',
       );
       url = url.replace(
+        /^(https:\/\/twitter\.com)\/intent\/user\/?\?screen_name=([^\/?#]+)/,
+        '$1/$2',
+      );
+      url = url.replace(
         /^(https:\/\/twitter\.com)\/@?([^\/?#]+(?:\/status\/\d+)?)(?:[\/?#].*)?$/,
         '$1/$2',
       );

@@ -4651,6 +4651,18 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://twitter.com/cirrhaniva',
   },
   {
+                     input_url: 'https://mobile.twitter.com/intent/user?screen_name=emily_doolittle',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://twitter.com/emily_doolittle',
+  },
+  {
+                     input_url: 'https://mobile.twitter.com/intent/user/?screen_name=emily_doolittle',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://twitter.com/emily_doolittle',
+  },
+  {
                      input_url: 'https://twitter.com/@UNIVERSAL_D',
              input_entity_type: 'label',
     expected_relationship_type: 'socialnetwork',
