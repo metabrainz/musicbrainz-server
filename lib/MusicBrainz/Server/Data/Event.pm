@@ -241,6 +241,10 @@ sub find_by_artist
                 push @where_args, $filter{type_id};
             }
         }
+        if (exists $filter{setlist}) {
+            push @where_query, 'event.setlist ILIKE ?';
+            push @where_args, '%' . $filter{setlist} . '%';
+        }
     }
 
     my $query =

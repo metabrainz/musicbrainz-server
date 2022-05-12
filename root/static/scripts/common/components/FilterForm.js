@@ -21,6 +21,7 @@ export type FilterFormT = $ReadOnly<{
     +name: ReadOnlyFieldT<string>,
     +role_type?: ReadOnlyFieldT<number>,
     +secondary_type_id?: ReadOnlyFieldT<number>,
+    +setlist?: ReadOnlyFieldT<string>,
     +type_id?: ReadOnlyFieldT<number>,
   }>,
   entity_type: 'recording' | 'release' | 'release_group',
@@ -63,6 +64,7 @@ const FilterForm = ({form}: Props): React.Element<'div'> => {
   const dateField = form.field.date;
   const roleTypeField = form.field.role_type;
   const roleTypeOptions = form.options_role_type;
+  const setlistField = form.field.setlist;
 
   return (
     <div id="filter">
@@ -186,6 +188,23 @@ const FilterForm = ({form}: Props): React.Element<'div'> => {
                     type="text"
                   />
                   <FieldErrors field={dateField} />
+                </td>
+              </tr>
+            ) : null}
+
+            {setlistField ? (
+              <tr>
+                <td>
+                  {addColonText(l('Setlist contains'))}
+                </td>
+                <td>
+                  <input
+                    defaultValue={setlistField.value ?? ''}
+                    name={setlistField.html_name}
+                    size="47"
+                    type="text"
+                  />
+                  <FieldErrors field={setlistField} />
                 </td>
               </tr>
             ) : null}

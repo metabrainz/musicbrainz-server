@@ -9,12 +9,17 @@ has 'types' => (
     required => 1,
 );
 
+has_field 'setlist' => (
+    type => '+MusicBrainz::Server::Form::Field::Text',
+    default => '',
+);
+
 has_field 'type_id' => (
     type => 'Select',
 );
 
 sub filter_field_names {
-    return qw/ name type_id /;
+    return qw/ name setlist type_id /;
 }
 
 sub options_type_id {
