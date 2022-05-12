@@ -356,22 +356,18 @@ sub CreateRelations
             RunSQLScript($DB, 'wikidocs/CreateReplicationTriggers.sql', 'Creating wikidocs replication triggers ...');
         }
 
-        if ($dbmirror2) {
-            RunSQLScript($DB, 'dbmirror2/MasterSetup.sql', 'Creating dbmirror2 master schema ...');
-            RunSQLScript($DB, 'CreateReplicationTriggers2.sql', 'Creating dbmirror2 replication triggers ...');
-            RunSQLScript($DB, 'caa/CreateReplicationTriggers2.sql', 'Creating dbmirror2 CAA replication triggers ...');
-            RunSQLScript($DB, 'documentation/CreateReplicationTriggers2.sql', 'Creating dbmirror2 documentation replication triggers ...');
-            RunSQLScript($DB, 'eaa/CreateReplicationTriggers2.sql', 'Creating dbmirror2 EAA replication triggers ...');
-            RunSQLScript($DB, 'statistics/CreateReplicationTriggers2.sql', 'Creating dbmirror2 statistics replication triggers ...');
-            RunSQLScript($DB, 'wikidocs/CreateReplicationTriggers2.sql', 'Creating dbmirror2 wikidocs replication triggers ...');
-        }
+        RunSQLScript($DB, 'dbmirror2/MasterSetup.sql', 'Creating dbmirror2 master schema ...');
+        RunSQLScript($DB, 'CreateReplicationTriggers2.sql', 'Creating dbmirror2 replication triggers ...');
+        RunSQLScript($DB, 'caa/CreateReplicationTriggers2.sql', 'Creating dbmirror2 CAA replication triggers ...');
+        RunSQLScript($DB, 'documentation/CreateReplicationTriggers2.sql', 'Creating dbmirror2 documentation replication triggers ...');
+        RunSQLScript($DB, 'eaa/CreateReplicationTriggers2.sql', 'Creating dbmirror2 EAA replication triggers ...');
+        RunSQLScript($DB, 'statistics/CreateReplicationTriggers2.sql', 'Creating dbmirror2 statistics replication triggers ...');
+        RunSQLScript($DB, 'wikidocs/CreateReplicationTriggers2.sql', 'Creating dbmirror2 wikidocs replication triggers ...');
     }
     if ($REPTYPE == RT_MASTER || $REPTYPE == RT_MIRROR)
     {
         RunSQLScript($DB, 'ReplicationSetup.sql', 'Setting up replication ...');
-        if ($dbmirror2) {
-            RunSQLScript($DB, 'dbmirror2/ReplicationSetup.sql', 'Setting up dbmirror2 replication ...');
-        }
+        RunSQLScript($DB, 'dbmirror2/ReplicationSetup.sql', 'Setting up dbmirror2 replication ...');
     }
 
     print localtime() . " : Optimizing database ...\n" unless $fQuiet;
