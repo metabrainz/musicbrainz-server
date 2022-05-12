@@ -77,6 +77,7 @@ DROP TRIGGER reptg_l_mood_place_example ON l_mood_place_example;
 DROP TRIGGER reptg_l_mood_recording_example ON l_mood_recording_example;
 DROP TRIGGER reptg_l_mood_release_example ON l_mood_release_example;
 DROP TRIGGER reptg_l_mood_release_group_example ON l_mood_release_group_example;
+DROP TRIGGER reptg_l_mood_series_example ON l_mood_series_example;
 DROP TRIGGER reptg_l_mood_url_example ON l_mood_url_example;
 DROP TRIGGER reptg_l_mood_work_example ON l_mood_work_example;
 DROP TRIGGER reptg_l_place_place_example ON l_place_place_example;

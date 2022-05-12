@@ -77,6 +77,7 @@ ALTER TABLE l_mood_place_example DROP CONSTRAINT IF EXISTS l_mood_place_example_
 ALTER TABLE l_mood_recording_example DROP CONSTRAINT IF EXISTS l_mood_recording_example_pkey;
 ALTER TABLE l_mood_release_example DROP CONSTRAINT IF EXISTS l_mood_release_example_pkey;
 ALTER TABLE l_mood_release_group_example DROP CONSTRAINT IF EXISTS l_mood_release_group_example_pkey;
+ALTER TABLE l_mood_series_example DROP CONSTRAINT IF EXISTS l_mood_series_example_pkey;
 ALTER TABLE l_mood_url_example DROP CONSTRAINT IF EXISTS l_mood_url_example_pkey;
 ALTER TABLE l_mood_work_example DROP CONSTRAINT IF EXISTS l_mood_work_example_pkey;
 ALTER TABLE l_place_place_example DROP CONSTRAINT IF EXISTS l_place_place_example_pkey;

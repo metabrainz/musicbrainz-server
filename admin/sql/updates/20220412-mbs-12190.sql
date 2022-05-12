@@ -385,6 +385,12 @@ CREATE TABLE documentation.l_event_mood_example ( -- replicate (verbose)
   name TEXT NOT NULL
 );
 
+CREATE TABLE documentation.l_genre_mood_example ( -- replicate (verbose)
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_genre_mood.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
 CREATE TABLE documentation.l_instrument_mood_example ( -- replicate (verbose)
   id INTEGER NOT NULL, -- PK, references musicbrainz.l_instrument_mood.id
   published BOOLEAN NOT NULL,
@@ -448,6 +454,7 @@ CREATE TABLE documentation.l_mood_work_example ( -- replicate (verbose)
 ALTER TABLE documentation.l_area_mood_example ADD CONSTRAINT l_area_mood_example_pkey PRIMARY KEY (id);
 ALTER TABLE documentation.l_artist_mood_example ADD CONSTRAINT l_artist_mood_example_pkey PRIMARY KEY (id);
 ALTER TABLE documentation.l_event_mood_example ADD CONSTRAINT l_event_mood_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_genre_mood_example ADD CONSTRAINT l_genre_mood_example_pkey PRIMARY KEY (id);
 ALTER TABLE documentation.l_instrument_mood_example ADD CONSTRAINT l_instrument_mood_example_pkey PRIMARY KEY (id);
 ALTER TABLE documentation.l_label_mood_example ADD CONSTRAINT l_label_mood_example_pkey PRIMARY KEY (id);
 ALTER TABLE documentation.l_mood_mood_example ADD CONSTRAINT l_mood_mood_example_pkey PRIMARY KEY (id);
