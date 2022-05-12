@@ -308,6 +308,9 @@ sub CreateRelations
     RunSQLScript($DB, 'caa/CreateFKConstraints.sql', 'Adding CAA foreign key constraints ...')
         unless $REPTYPE == RT_MIRROR;
 
+    RunSQLScript($DB, 'documentation/CreateFKConstraints.sql', 'Adding documentation foreign key constraints ...')
+        unless $REPTYPE == RT_MIRROR;
+
     RunSQLScript($DB, 'eaa/CreateFKConstraints.sql', 'Adding EAA foreign key constraints ...')
         unless $REPTYPE == RT_MIRROR;
 
