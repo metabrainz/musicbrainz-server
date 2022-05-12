@@ -15,7 +15,6 @@
 -- 20220408-immutable-link-tables-standalone.sql
 -- 20220408-mbs-12249-standalone.sql
 -- 20220412-mbs-12190-fks.sql
--- 20220426-mbs-12131.sql
 \set ON_ERROR_STOP 1
 BEGIN;
 SET search_path = musicbrainz, public;
@@ -1665,42 +1664,5 @@ FOR EACH ROW EXECUTE PROCEDURE remove_unused_url();
 CREATE CONSTRAINT TRIGGER url_gc_a_del_l_mood_url
 AFTER DELETE ON l_mood_url DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW EXECUTE PROCEDURE remove_unused_url();
-
---------------------------------------------------------------------------------
-SELECT '20220426-mbs-12131.sql';
-
-
-CREATE OR REPLACE FUNCTION _median(INTEGER[]) RETURNS INTEGER AS $$
-  WITH q AS (
-      SELECT val
-      FROM unnest($1) val
-      WHERE VAL IS NOT NULL
-      ORDER BY val
-  )
-  SELECT val
-  FROM q
-  LIMIT 1
-  -- Subtracting (n + 1) % 2 creates a left bias
-  OFFSET greatest(0, floor((select count(*) FROM q) / 2.0) - ((select count(*) + 1 FROM q) % 2));
-$$ LANGUAGE sql IMMUTABLE;
-
-DROP AGGREGATE IF EXISTS median(anyelement);
-
-CREATE OR REPLACE AGGREGATE median(INTEGER) (
-  SFUNC=array_append,
-  STYPE=INTEGER[],
-  FINALFUNC=_median,
-  INITCOND='{}'
-);
-
-DROP AGGREGATE IF EXISTS array_accum(anyelement);
-
-DROP AGGREGATE IF EXISTS array_cat_agg(anyarray);
-
-CREATE OR REPLACE AGGREGATE array_cat_agg(int2[]) (
-      sfunc       = array_cat,
-      stype       = int2[],
-      initcond    = '{}'
-);
 
 COMMIT;

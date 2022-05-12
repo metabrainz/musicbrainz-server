@@ -118,7 +118,8 @@
                "20220324-mbs-12200.sql",
                "20220408-immutable-link-tables.sql",
                "20220408-mbs-12249.sql",
-               "20220412-mbs-12190.sql"],
+               "20220412-mbs-12190.sql",
+               "20220426-mbs-12131.sql"],
     "mirror_only": ["20220302-mbs-12225-mirror_only.sql"],
     "master_only": ["20220328-mbs-12250-master.sql"],
     "standalone": ["20210419-mbs-11456-fks.sql",
@@ -136,7 +137,6 @@
                    "20220322-mbs-12256-standalone.sql",
                    "20220408-immutable-link-tables-standalone.sql",
                    "20220408-mbs-12249-standalone.sql",
-                   "20220412-mbs-12190-fks.sql",
-                   "20220426-mbs-12131.sql"]
+                   "20220412-mbs-12190-fks.sql"]
   }
 }
