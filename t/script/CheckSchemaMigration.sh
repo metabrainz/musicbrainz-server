@@ -27,10 +27,13 @@ fi
 
 : ${SUPERUSER:=postgres}
 : ${REPLICATION_TYPE:=2}
+# Any custom port specified via the PGPORT environment variable must also be
+# used in DBDefs.pm for MIGRATION_TEST1, MIGRATION_TEST2, and SYSTEM.
+: ${PGPORT:=5432}
 
 function drop_test_dbs() {
-    dropdb --user "$SUPERUSER" musicbrainz_test_migration_1
-    dropdb --user "$SUPERUSER" musicbrainz_test_migration_2
+    dropdb --host localhost --port "$PGPORT" --user "$SUPERUSER" musicbrainz_test_migration_1
+    dropdb --host localhost --port "$PGPORT" --user "$SUPERUSER" musicbrainz_test_migration_2
 }
 
 function cleanup() {
@@ -63,12 +66,16 @@ DB1SCHEMA="$DB1.schema.sql"
 DB2SCHEMA="$DB2.schema.sql"
 
 pg_dump \
+    --host localhost \
+    --port "$PGPORT" \
     --schema-only \
     --superuser "$SUPERUSER" \
     --dbname musicbrainz_test_migration_1 \
     --username musicbrainz > "$DB1SCHEMA"
 
 pg_dump \
+    --host localhost \
+    --port "$PGPORT" \
     --schema-only \
     --superuser "$SUPERUSER" \
     --dbname musicbrainz_test_migration_2 \
