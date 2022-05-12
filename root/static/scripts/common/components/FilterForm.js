@@ -37,6 +37,8 @@ type Props = {
 
 function getSubmitText(type: string) {
   switch (type) {
+    case 'event':
+      return l('Filter events');
     case 'recording':
       return l('Filter recordings');
     case 'release':

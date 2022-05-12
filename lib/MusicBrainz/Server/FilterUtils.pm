@@ -3,11 +3,23 @@ package MusicBrainz::Server::FilterUtils;
 use base 'Exporter';
 
 our @EXPORT_OK = qw(
+    create_artist_events_form
     create_artist_release_groups_form
     create_artist_releases_form
     create_artist_recordings_form
     create_artist_works_form
 );
+
+sub create_artist_events_form {
+    my ($c, $artist_id) = @_;
+
+    my %form_args = (
+        entity_type => 'event',
+        types => [ $c->model('EventType')->get_all ],
+    );
+
+    return $c->form(filter_form => 'Filter::Event', %form_args);
+}
 
 sub create_artist_release_groups_form {
     my ($c, $artist_id) = @_;

@@ -219,7 +219,29 @@ sub find_by_area
 
 sub find_by_artist
 {
-    my ($self, $artist_id, $limit, $offset) = @_;
+    my ($self, $artist_id, $limit, $offset, %args) = @_;
+
+    my (@where_query, @where_args);
+
+    # For the basic event query
+    push @where_query, 'event.id = s.event';
+    push @where_args, $artist_id;
+
+    if (exists $args{filter}) {
+        my %filter = %{ $args{filter} };
+        if (exists $filter{name}) {
+            push @where_query, "(mb_simple_tsvector(event.name) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR event.name = ?)";
+            push @where_args, ($filter{name}) x 2;
+        }
+        if (exists $filter{type_id}) {
+            if ($filter{type_id} eq '-1') {
+                push @where_query, 'event.type IS NULL';
+            } else {
+                push @where_query, 'event.type = ?';
+                push @where_args, $filter{type_id};
+            }
+        }
+    }
 
     my $query =
         'SELECT ' . $self->_columns .'
@@ -230,10 +252,10 @@ sub find_by_artist
                       JOIN link_type lt ON lt.id = link.link_type
                      WHERE entity0 = ?
                 ) s, ' . $self->_table .'
-          WHERE event.id = s.event
-       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, event.name COLLATE musicbrainz';
+          WHERE ' . join(' AND ', @where_query) . '
+        ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, event.name COLLATE musicbrainz';
 
-    $self->query_to_list_limited($query, [$artist_id], $limit, $offset);
+    $self->query_to_list_limited($query, \@where_args, $limit, $offset);
 }
 
 sub _order_by {
