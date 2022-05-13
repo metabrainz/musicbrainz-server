@@ -28,12 +28,4 @@ CREATE OR REPLACE AGGREGATE median(INTEGER) (
 
 DROP AGGREGATE IF EXISTS array_accum(anyelement);
 
-DROP AGGREGATE IF EXISTS array_cat_agg(anyarray);
-
-CREATE OR REPLACE AGGREGATE array_cat_agg(int2[]) (
-      sfunc       = array_cat,
-      stype       = int2[],
-      initcond    = '{}'
-);
-
 COMMIT;
