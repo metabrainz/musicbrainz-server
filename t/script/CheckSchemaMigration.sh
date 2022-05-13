@@ -30,10 +30,13 @@ fi
 # Any custom port specified via the PGPORT environment variable must also be
 # used in DBDefs.pm for MIGRATION_TEST1, MIGRATION_TEST2, and SYSTEM.
 : ${PGPORT:=5432}
+: ${KEEP_TEST_DBS:=0}
 
 function drop_test_dbs() {
-    dropdb --host localhost --port "$PGPORT" --user "$SUPERUSER" musicbrainz_test_migration_1
-    dropdb --host localhost --port "$PGPORT" --user "$SUPERUSER" musicbrainz_test_migration_2
+    if [[ "$KEEP_TEST_DBS" == "0" ]]; then
+        dropdb --host localhost --port "$PGPORT" --user "$SUPERUSER" musicbrainz_test_migration_1
+        dropdb --host localhost --port "$PGPORT" --user "$SUPERUSER" musicbrainz_test_migration_2
+    fi
 }
 
 function cleanup() {
