@@ -5,6 +5,7 @@
 -- 20210606-mbs-11682.sql
 -- 20220207-mbs-12224-mirror.sql
 -- 20220218-mbs-12208.sql
+-- 20220302-mbs-12225.sql
 -- 20220314-mbs-12252.sql
 -- 20220314-mbs-12253.sql
 -- 20220314-mbs-12254.sql
@@ -15,6 +16,7 @@
 -- 20220408-immutable-link-tables.sql
 -- 20220408-mbs-12249.sql
 -- 20220412-mbs-12190.sql
+-- 20220426-mbs-12131.sql
 \set ON_ERROR_STOP 1
 BEGIN;
 SET search_path = musicbrainz, public;
@@ -124,6 +126,10 @@ CREATE TABLE artist_credit_gid_redirect ( -- replicate (verbose)
     new_id              INTEGER NOT NULL, -- references artist_credit.id
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+
+ALTER TABLE artist_credit_gid_redirect ADD CONSTRAINT artist_credit_gid_redirect_pkey PRIMARY KEY (gid);
+
+CREATE INDEX artist_credit_gid_redirect_idx_new_id ON artist_credit_gid_redirect (new_id);
 
 --------------------------------------------------------------------------------
 SELECT '20210526-a_upd_release_event.sql';
@@ -605,6 +611,46 @@ BEGIN
 END $$;
 
 --------------------------------------------------------------------------------
+SELECT '20220302-mbs-12225.sql';
+
+
+-- The internal comment had the word "slaves" changed to "mirrors."
+-- The function is otherwise unchanged.
+CREATE OR REPLACE FUNCTION set_recordings_first_release_dates(recording_ids INTEGER[])
+RETURNS VOID AS $$
+BEGIN
+  -- DO NOT modify any replicated tables in this function; it's used
+  -- by a trigger on mirrors.
+  DELETE FROM recording_first_release_date
+  WHERE recording = ANY(recording_ids);
+
+  INSERT INTO recording_first_release_date
+  SELECT * FROM get_recording_first_release_date_rows(
+    format('track.recording = any(%L)', recording_ids)
+  );
+END;
+$$ LANGUAGE 'plpgsql' STRICT;
+
+-- The internal comment had the word "slaves" changed to "mirrors."
+-- The function is otherwise unchanged.
+CREATE OR REPLACE FUNCTION set_release_first_release_date(release_id INTEGER)
+RETURNS VOID AS $$
+BEGIN
+  -- DO NOT modify any replicated tables in this function; it's used
+  -- by a trigger on mirrors.
+  DELETE FROM release_first_release_date
+  WHERE release = release_id;
+
+  INSERT INTO release_first_release_date
+  SELECT * FROM get_release_first_release_date_rows(
+    format('release = %L', release_id)
+  );
+
+  INSERT INTO artist_release_pending_update VALUES (release_id);
+END;
+$$ LANGUAGE 'plpgsql' STRICT;
+
+--------------------------------------------------------------------------------
 SELECT '20220314-mbs-12252.sql';
 
 
@@ -1058,46 +1104,8 @@ FROM tmp_genre_alias;
 --------------------------------------------------------------------------------
 SELECT '20220328-mbs-12250-mirror.sql';
 
-CREATE SCHEMA dbmirror2;
 
-CREATE TABLE dbmirror2.pending_keys (
-    tablename   TEXT,
-    keys        TEXT[] NOT NULL
-);
-
-ALTER TABLE dbmirror2.pending_keys
-    ADD CONSTRAINT pending_keys_pkey
-    PRIMARY KEY (tablename);
-
-CREATE TABLE dbmirror2.pending_ts (
-    xid BIGINT,
-    ts TIMESTAMP WITH TIME ZONE NOT NULL
-);
-
-ALTER TABLE dbmirror2.pending_ts
-    ADD CONSTRAINT pending_ts_pkey
-    PRIMARY KEY (xid);
-
-CREATE TABLE dbmirror2.pending_data (
-    seqid       BIGSERIAL,
-    tablename   TEXT NOT NULL CONSTRAINT tablename_exists CHECK (to_regclass(tablename) IS NOT NULL),
-    op          "char" NOT NULL CONSTRAINT op_in_diu CHECK (op IN ('d', 'i', 'u')),
-    xid         BIGINT NOT NULL,
-    olddata     JSON CONSTRAINT olddata_is_null_for_inserts CHECK ((olddata IS NULL) = (op = 'i')),
-    newdata     JSON CONSTRAINT newdata_is_null_for_deletes CHECK ((newdata IS NULL) = (op = 'd')),
-    oldctid     TID,
-    trgdepth    INTEGER
-);
-
-ALTER TABLE dbmirror2.pending_data
-    ADD CONSTRAINT pending_data_pkey
-    PRIMARY KEY (seqid);
-
-CREATE INDEX pending_data_idx_xid_seqid
-    ON dbmirror2.pending_data (xid, seqid);
-
-CREATE INDEX pending_data_idx_oldctid_xid
-    ON dbmirror2.pending_data (oldctid, xid);
+CREATE SCHEMA IF NOT EXISTS dbmirror2;
 
 --------------------------------------------------------------------------------
 SELECT '20220322-mbs-12256-mirror.sql';
@@ -1915,6 +1923,12 @@ CREATE TABLE documentation.l_event_mood_example ( -- replicate (verbose)
   name TEXT NOT NULL
 );
 
+CREATE TABLE documentation.l_genre_mood_example ( -- replicate (verbose)
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_genre_mood.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
 CREATE TABLE documentation.l_instrument_mood_example ( -- replicate (verbose)
   id INTEGER NOT NULL, -- PK, references musicbrainz.l_instrument_mood.id
   published BOOLEAN NOT NULL,
@@ -1978,6 +1992,7 @@ CREATE TABLE documentation.l_mood_work_example ( -- replicate (verbose)
 ALTER TABLE documentation.l_area_mood_example ADD CONSTRAINT l_area_mood_example_pkey PRIMARY KEY (id);
 ALTER TABLE documentation.l_artist_mood_example ADD CONSTRAINT l_artist_mood_example_pkey PRIMARY KEY (id);
 ALTER TABLE documentation.l_event_mood_example ADD CONSTRAINT l_event_mood_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_genre_mood_example ADD CONSTRAINT l_genre_mood_example_pkey PRIMARY KEY (id);
 ALTER TABLE documentation.l_instrument_mood_example ADD CONSTRAINT l_instrument_mood_example_pkey PRIMARY KEY (id);
 ALTER TABLE documentation.l_label_mood_example ADD CONSTRAINT l_label_mood_example_pkey PRIMARY KEY (id);
 ALTER TABLE documentation.l_mood_mood_example ADD CONSTRAINT l_mood_mood_example_pkey PRIMARY KEY (id);
@@ -1988,5 +2003,35 @@ ALTER TABLE documentation.l_mood_release_group_example ADD CONSTRAINT l_mood_rel
 ALTER TABLE documentation.l_mood_series_example ADD CONSTRAINT l_mood_series_example_pkey PRIMARY KEY (id);
 ALTER TABLE documentation.l_mood_url_example ADD CONSTRAINT l_mood_url_example_pkey PRIMARY KEY (id);
 ALTER TABLE documentation.l_mood_work_example ADD CONSTRAINT l_mood_work_example_pkey PRIMARY KEY (id);
+
+--------------------------------------------------------------------------------
+SELECT '20220426-mbs-12131.sql';
+
+
+DROP AGGREGATE IF EXISTS median(anyelement);
+DROP FUNCTION IF EXISTS _median(anyarray);
+
+CREATE OR REPLACE FUNCTION _median(INTEGER[]) RETURNS INTEGER AS $$
+  WITH q AS (
+      SELECT val
+      FROM unnest($1) val
+      WHERE VAL IS NOT NULL
+      ORDER BY val
+  )
+  SELECT val
+  FROM q
+  LIMIT 1
+  -- Subtracting (n + 1) % 2 creates a left bias
+  OFFSET greatest(0, floor((select count(*) FROM q) / 2.0) - ((select count(*) + 1 FROM q) % 2));
+$$ LANGUAGE sql IMMUTABLE;
+
+CREATE OR REPLACE AGGREGATE median(INTEGER) (
+  SFUNC=array_append,
+  STYPE=INTEGER[],
+  FINALFUNC=_median,
+  INITCOND='{}'
+);
+
+DROP AGGREGATE IF EXISTS array_accum(anyelement);
 
 COMMIT;

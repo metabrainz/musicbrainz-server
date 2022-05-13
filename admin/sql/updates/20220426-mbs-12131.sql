@@ -2,6 +2,9 @@
 
 BEGIN;
 
+DROP AGGREGATE IF EXISTS median(anyelement);
+DROP FUNCTION IF EXISTS _median(anyarray);
+
 CREATE OR REPLACE FUNCTION _median(INTEGER[]) RETURNS INTEGER AS $$
   WITH q AS (
       SELECT val
@@ -16,8 +19,6 @@ CREATE OR REPLACE FUNCTION _median(INTEGER[]) RETURNS INTEGER AS $$
   OFFSET greatest(0, floor((select count(*) FROM q) / 2.0) - ((select count(*) + 1 FROM q) % 2));
 $$ LANGUAGE sql IMMUTABLE;
 
-DROP AGGREGATE IF EXISTS median(anyelement);
-
 CREATE OR REPLACE AGGREGATE median(INTEGER) (
   SFUNC=array_append,
   STYPE=INTEGER[],
@@ -26,13 +27,5 @@ CREATE OR REPLACE AGGREGATE median(INTEGER) (
 );
 
 DROP AGGREGATE IF EXISTS array_accum(anyelement);
-
-DROP AGGREGATE IF EXISTS array_cat_agg(anyarray);
-
-CREATE OR REPLACE AGGREGATE array_cat_agg(int2[]) (
-      sfunc       = array_cat,
-      stype       = int2[],
-      initcond    = '{}'
-);
 
 COMMIT;

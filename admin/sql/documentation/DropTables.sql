@@ -77,6 +77,7 @@ DROP TABLE l_mood_place_example;
 DROP TABLE l_mood_recording_example;
 DROP TABLE l_mood_release_example;
 DROP TABLE l_mood_release_group_example;
+DROP TABLE l_mood_series_example;
 DROP TABLE l_mood_url_example;
 DROP TABLE l_mood_work_example;
 DROP TABLE l_place_place_example;

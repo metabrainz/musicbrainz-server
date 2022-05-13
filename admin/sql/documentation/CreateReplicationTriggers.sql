@@ -301,6 +301,10 @@ CREATE TRIGGER "reptg_l_mood_release_group_example"
 AFTER INSERT OR DELETE OR UPDATE ON "l_mood_release_group_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_l_mood_series_example"
+AFTER INSERT OR DELETE OR UPDATE ON "l_mood_series_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_l_mood_url_example"
 AFTER INSERT OR DELETE OR UPDATE ON "l_mood_url_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');

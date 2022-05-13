@@ -109,6 +109,7 @@
                "20210606-mbs-11682.sql",
                "20220207-mbs-12224-mirror.sql",
                "20220218-mbs-12208.sql",
+               "20220302-mbs-12225.sql",
                "20220314-mbs-12252.sql",
                "20220314-mbs-12253.sql",
                "20220314-mbs-12254.sql",
@@ -118,9 +119,14 @@
                "20220324-mbs-12200.sql",
                "20220408-immutable-link-tables.sql",
                "20220408-mbs-12249.sql",
-               "20220412-mbs-12190.sql"],
-    "mirror_only": ["20220302-mbs-12225-mirror_only.sql"],
-    "master_only": ["20220328-mbs-12250-master.sql"],
+               "20220412-mbs-12190.sql",
+               "20220426-mbs-12131.sql"],
+    "mirror_only": ["20220302-mbs-12225-mirror_only.sql",
+                    "20220408-mbs-12249-mirror_only.sql",
+                    "20220328-mbs-12250-mirror_only.sql",
+                    "20220426-mbs-12131-master-mirror.sql"],
+    "master_only": ["20220328-mbs-12250-master.sql",
+                    "20220426-mbs-12131-master-mirror.sql"],
     "standalone": ["20210419-mbs-11456-fks.sql",
                    "20210702-mbs-11760.sql",
                    "20210916-mbs-11896.sql",
@@ -137,6 +143,6 @@
                    "20220408-immutable-link-tables-standalone.sql",
                    "20220408-mbs-12249-standalone.sql",
                    "20220412-mbs-12190-fks.sql",
-                   "20220426-mbs-12131.sql"]
+                   "20220512-mbs-12369.sql"]
   }
 }

@@ -43,11 +43,13 @@ then
 
     echo `date` : 'Drop replication triggers (musicbrainz)'
     ./admin/psql "$DATABASE" < ./admin/sql/DropReplicationTriggers.sql
+    ./admin/psql "$DATABASE" < ./admin/sql/DropReplicationTriggers2.sql
 
-    for schema in caa documentation statistics wikidocs
+    for schema in caa documentation eaa statistics wikidocs
     do
         echo `date` : "Drop replication triggers ($schema)"
         ./admin/psql "$DATABASE" < ./admin/sql/$schema/DropReplicationTriggers.sql
+        ./admin/psql "$DATABASE" < ./admin/sql/$schema/DropReplicationTriggers2.sql
     done
 
 fi
@@ -100,11 +102,13 @@ then
 
     echo `date` : 'Create replication triggers (musicbrainz)'
     OUTPUT=`./admin/psql "$DATABASE" < ./admin/sql/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    OUTPUT=`./admin/psql "$DATABASE" < ./admin/sql/CreateReplicationTriggers2.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
-    for schema in caa documentation statistics wikidocs
+    for schema in caa documentation eaa statistics wikidocs
     do
         echo `date` : "Create replication triggers ($schema)"
         OUTPUT=`./admin/psql "$DATABASE" < ./admin/sql/$schema/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+        OUTPUT=`./admin/psql "$DATABASE" < ./admin/sql/$schema/CreateReplicationTriggers2.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
     done
 fi
 

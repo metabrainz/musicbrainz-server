@@ -435,6 +435,12 @@ CREATE TABLE l_mood_release_group_example ( -- replicate (verbose)
   name TEXT NOT NULL
 );
 
+CREATE TABLE l_mood_series_example ( -- replicate (verbose)
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_mood_series.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
 CREATE TABLE l_mood_url_example ( -- replicate (verbose)
   id INTEGER NOT NULL, -- PK, references musicbrainz.l_mood_url.id
   published BOOLEAN NOT NULL,
