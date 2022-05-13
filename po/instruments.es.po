@@ -6,6 +6,7 @@
 # 3b2b9b2970dff2223d07f096c7a072f3, 2011
 # Gustavo Guillermo Scalvini Imazio <email address hidden>, 2016
 # Héctor Arroyo <email address hidden>, 2012
+# Iker Moraleda, 2022
 # Jaime Marquínez Ferrándiz, 2018
 # Jesús Heriberto López Cisneros, 2019
 # Luis zas <email address hidden>, 2017
@@ -19,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:57+0000\n"
-"Last-Translator: Jesús Heriberto López Cisneros, 2019\n"
+"Last-Translator: Iker Moraleda, 2022\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -649,7 +650,7 @@ msgstr ""
 #: DB:instrument/name:116
 msgctxt "Tuned metal cups"
 msgid "bell"
-msgstr ""
+msgstr "campana"
 
 #: DB:instrument/name:479
 msgid "bell tree"
@@ -4170,7 +4171,7 @@ msgstr "violín"
 #: DB:instrument/name:59
 msgctxt "Modern violin family"
 msgid "violin family"
-msgstr ""
+msgstr "familia de los violines"
 
 #: DB:instrument/name:898
 msgctxt "New modern streamlined family of violins"
