@@ -31,6 +31,7 @@ fi
 # used in DBDefs.pm for MIGRATION_TEST1, MIGRATION_TEST2, and SYSTEM.
 : ${PGPORT:=5432}
 : ${KEEP_TEST_DBS:=0}
+: ${PENDING_SO:='/usr/lib/postgresql/12/lib/pending.so'}
 
 function drop_test_dbs() {
     if [[ "$KEEP_TEST_DBS" == "0" ]]; then
@@ -48,14 +49,19 @@ trap cleanup EXIT
 DB1='MIGRATION_TEST1'
 DB2='MIGRATION_TEST2'
 
+WITH_PENDING_ARGS=()
+if [[ "$REPLICATION_TYPE" == "1" ]]; then
+    WITH_PENDING_ARGS+=('--with-pending' "$PENDING_SO")
+fi
+
 # DB1 is our baseline schema, created from the current branch.
-./admin/InitDb.pl --database $DB1 --createdb --clean --reptype $REPLICATION_TYPE
+./admin/InitDb.pl --database $DB1 --createdb --clean --reptype $REPLICATION_TYPE "${WITH_PENDING_ARGS[@]}"
 
 # DB2 is the schema we want to upgrade from. Here we source it
 # from the production branch.
 git restore --source=production -- admin/sql
 git restore --source=production -- admin/InitDb.pl
-./admin/InitDb.pl --database $DB2 --createdb --clean --reptype $REPLICATION_TYPE
+./admin/InitDb.pl --database $DB2 --createdb --clean --reptype $REPLICATION_TYPE "${WITH_PENDING_ARGS[@]}"
 ./admin/psql $DB2 < t/sql/initial.sql
 ./admin/psql $DB2 < admin/sql/SetSequences.sql
 git restore admin/sql
