@@ -9,7 +9,7 @@ use MusicBrainz::Server::Constants qw( :privileges );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 
-sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves SecureForm
+sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors SecureForm
 {
     my ($self, $c, $user_name) = @_;
 
@@ -90,7 +90,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves Secu
     );
 }
 
-sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves SecureForm {
+sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnMirrors SecureForm {
     my ($self, $c, $name) = @_;
 
     my $editor = $c->model('Editor')->get_by_name($name);
@@ -157,7 +157,7 @@ sub edit_banner : Path('/admin/banner/edit') Args(0) RequireAuth(banner_editor) 
     }
 }
 
-sub email_search : Path('/admin/email-search') Args(0) RequireAuth(account_admin) HiddenOnSlaves {
+sub email_search : Path('/admin/email-search') Args(0) RequireAuth(account_admin) HiddenOnMirrors {
     my ($self, $c) = @_;
 
     my $form = $c->form(form => 'Admin::EmailSearch');
@@ -193,7 +193,7 @@ sub email_search : Path('/admin/email-search') Args(0) RequireAuth(account_admin
     );
 }
 
-sub ip_lookup : Path('/admin/ip-lookup') Args(1) RequireAuth(account_admin) HiddenOnSlaves {
+sub ip_lookup : Path('/admin/ip-lookup') Args(1) RequireAuth(account_admin) HiddenOnMirrors {
     my ($self, $c, $ip_hash) = @_;
 
     my @users = $c->model('Editor')->find_by_ip($ip_hash // '');
@@ -208,7 +208,7 @@ sub ip_lookup : Path('/admin/ip-lookup') Args(1) RequireAuth(account_admin) Hidd
     );
 }
 
-sub locked_username_search : Path('/admin/locked-usernames/search') Args(0) RequireAuth(account_admin) HiddenOnSlaves {
+sub locked_username_search : Path('/admin/locked-usernames/search') Args(0) RequireAuth(account_admin) HiddenOnMirrors {
     my ($self, $c) = @_;
 
     my $form = $c->form(form => 'Admin::LockedUsernameSearch');
@@ -244,7 +244,7 @@ sub locked_username_search : Path('/admin/locked-usernames/search') Args(0) Requ
     );
 }
 
-sub privilege_search : Path('/admin/privilege-search') Args(0) RequireAuth(account_admin) HiddenOnSlaves {
+sub privilege_search : Path('/admin/privilege-search') Args(0) RequireAuth(account_admin) HiddenOnMirrors {
     my ($self, $c) = @_;
 
     my $form = $c->form(form => 'Admin::PrivilegeSearch');
@@ -288,7 +288,7 @@ sub privilege_search : Path('/admin/privilege-search') Args(0) RequireAuth(accou
     );
 }
 
-sub unlock_username : Path('/admin/locked-usernames/unlock') Args(1) RequireAuth(account_admin) HiddenOnSlaves {
+sub unlock_username : Path('/admin/locked-usernames/unlock') Args(1) RequireAuth(account_admin) HiddenOnMirrors {
     my ($self, $c, $username) = @_;
 
     my $form = $c->form(form => 'SecureConfirm');

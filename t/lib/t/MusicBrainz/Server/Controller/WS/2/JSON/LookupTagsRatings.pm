@@ -106,12 +106,12 @@ test 'artist lookups' => sub {
                 {
                     'name' => 'big beat',
                     'id' => 'aac07ae0-8acf-4249-b5c0-2762b53947a2',
-                    'count' => 3,
+                    'count' => 4,
                     'disambiguation' => ''
                 },
                 {
                     'id' => '89255676-1f14-4dd8-bbad-fca839d6aff4',
-                    'count' => 7,
+                    'count' => 8,
                     'disambiguation' => '',
                     'name' => 'electronic'
                 },
@@ -131,7 +131,7 @@ test 'artist lookups' => sub {
             'type' => 'Group',
             'tags' => [
                 {
-                    'count' => 3,
+                    'count' => 4,
                     'name' => 'big beat'
                 },
                 {
@@ -144,7 +144,7 @@ test 'artist lookups' => sub {
                 },
                 {
                     'name' => 'electronic',
-                    'count' => 7
+                    'count' => 8
                 },
                 {
                     'count' => 2,

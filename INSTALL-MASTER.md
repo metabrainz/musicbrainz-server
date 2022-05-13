@@ -2,7 +2,7 @@ Installing a master MusicBrainz server
 ======================================
 
 Before we begin: are you *absolutely sure* this is what you want? For the vast
-majority of cases, you want either slave or standalone: slave if you'll be
+majority of cases, you want either mirror or standalone: mirror if you'll be
 automatically updating from the main MusicBrainz site, and standalone if you'll
 be running otherwise. This document is only relevant if you intend to work on
 something concerning the *production* of replication packets, or if you're
@@ -31,14 +31,14 @@ replication packets and running ModBot, while `daily.sh` is for daily (or
 later) tasks, like producing full data dumps, sending subscription emails,
 cleaning up unused entities, and calculating statistics.
 
-Testing replication, slave-side
+Testing replication, mirror-side
 -------------------------------
 
 If you'd like to test replication with a different master, such as one you've
-set up, upload the packets you've created somewhere, and configure the slave to
-use this with the `--base-uri` option to LoadReplicationChanges. The
+set up, upload the packets you've created somewhere, and configure the mirror
+to use this with the `--base-uri` option to LoadReplicationChanges. The
 replication sequence values will still have to match, so you'll probably want
-to either import the slave from the same one you imported the master from
+to either import the mirror from the same one you imported the master from
 (easiest) or produce a data dump from the master and use that to import
 (harder, but tests less stuff).
 
@@ -50,5 +50,5 @@ You can also configure the GPG signing of packets and data dumps, by the
 `.asc` files created alongside the `.tar.bz2` files of replication and data
 dumps both; the latter controls the encryption of the private data dump, which
 includes the unsanitized editor table and data such as tags and ratings. If
-you're testing this slave-side as well, be sure to properly configure
+you're testing this mirror-side as well, be sure to properly configure
 `GPG_PUB_KEY` as well.

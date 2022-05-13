@@ -3,7 +3,7 @@
 =pod
 
 This is a Nagios (http://www.nagios.org/) check script to see that the
-"last_replication_date" of a slave (RT_SLAVE) MusicBrainz server is not too
+"last_replication_date" of a mirror (RT_MIRROR) MusicBrainz server is not too
 old.
 
 =cut
@@ -29,9 +29,9 @@ GetOptions(
 
 @ARGV == 0 or die "Usage: $0 [-w SECONDS] [-c SECONDS]\n";
 
-if (DBDefs->REPLICATION_TYPE != DBDefs::RT_SLAVE)
+if (DBDefs->REPLICATION_TYPE != DBDefs::RT_MIRROR)
 {
-    print "This is not a slave database!\n";
+    print "This is not a mirror database!\n";
     exit 2;
 }
 

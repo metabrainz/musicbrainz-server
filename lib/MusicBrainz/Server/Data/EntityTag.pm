@@ -232,7 +232,6 @@ sub merge {
     my ($self, $new_id, @old_ids) = @_;
 
     my $entity_type = $self->type;
-    my $assoc_table = $self->tag_table;
     my $assoc_table_raw = $self->tag_table . '_raw';
     my @ids = ($new_id, @old_ids);
 
@@ -249,24 +248,6 @@ sub merge {
             SELECT ?, s.editor, s.tag, s.is_upvote
             FROM (SELECT DISTINCT ON (editor, tag) editor, tag, is_upvote FROM deleted_tags) s
         SQL
-
-    $self->c->sql->do(
-        "DELETE FROM $assoc_table WHERE $entity_type = any(?)",
-        \@ids
-    );
-
-    my $tags = $self->c->sql->select_single_column_array(
-        "SELECT DISTINCT tag FROM $assoc_table_raw WHERE $entity_type = ?",
-        $new_id
-    );
-
-    for my $tag_id (@{$tags}) {
-        $self->c->sql->do(
-            "INSERT INTO $assoc_table ($entity_type, tag, count) VALUES (?, ?, 0)",
-            $new_id, $tag_id
-        );
-        $self->_update_count($new_id, $tag_id);
-    }
 
     return;
 }
@@ -289,28 +270,6 @@ sub clear {
     }
 }
 
-sub _update_count {
-    my ($self, $entity_id, $tag_id) = @_;
-
-    my $entity_type = $self->type;
-    my $assoc_table = $self->tag_table;
-    my $assoc_table_raw = "${assoc_table}_raw";
-
-    return $self->sql->select_single_value(
-        qq{
-            UPDATE $assoc_table SET count = (
-                SELECT sum(CASE WHEN is_upvote THEN 1 ELSE -1 END)
-                  FROM $assoc_table_raw
-                 WHERE $entity_type = \$1 AND tag = \$2
-                 GROUP BY $entity_type, tag
-            )
-            WHERE $entity_type = \$1 AND tag = \$2
-            RETURNING count
-        },
-        $entity_id, $tag_id
-    );
-}
-
 sub _vote {
     my ($self, $user_id, $entity_id, $tag_name, $is_upvote) = @_;
 
@@ -331,42 +290,17 @@ sub _vote {
             $tag_id = $sql->select_single_value('INSERT INTO tag (name) VALUES (?) RETURNING id', $tag_name);
         }
 
-        # Add raw tag associations, checking for an existing vote first
-        my $existing_vote = $sql->select_single_value(
-            "SELECT is_upvote FROM $assoc_table_raw WHERE $entity_type = ? AND tag = ? AND editor = ?",
-            $entity_id, $tag_id, $user_id
+        $sql->do(<<~"SQL", $entity_id, $tag_id, $user_id, $is_upvote);
+            INSERT INTO $assoc_table_raw ($entity_type, tag, editor, is_upvote)
+                 VALUES (?, ?, ?, ?)
+            ON CONFLICT ($entity_type, tag, editor)
+            DO UPDATE SET is_upvote = excluded.is_upvote
+            SQL
+
+        # Get the new vote count from the aggregate tag table.
+        $result->{count} = $sql->select_single_value(
+            "SELECT count FROM $assoc_table WHERE $entity_type = ? AND tag = ?", $entity_id, $tag_id
         );
-
-        if (defined $existing_vote) {
-            $sql->do(
-                "UPDATE $assoc_table_raw SET is_upvote = ? WHERE $entity_type = ? AND tag = ? AND editor = ?",
-                $is_upvote, $entity_id, $tag_id, $user_id
-            );
-        } else {
-            $sql->do(
-                "INSERT INTO $assoc_table_raw ($entity_type, tag, editor, is_upvote) VALUES (?, ?, ?, ?)",
-                $entity_id, $tag_id, $user_id, $is_upvote
-            );
-        }
-
-        # Look for the association in the aggregate tags
-        my $aggregate_exists = $sql->select_single_value(
-            "SELECT 1 FROM $assoc_table WHERE $entity_type = ? AND tag = ?", $entity_id, $tag_id
-        );
-        my $new_count = $new_vote;
-
-        if (defined $aggregate_exists) {
-            # If found, adjust the vote tally
-            $new_count = $self->_update_count($entity_id, $tag_id);
-        } else {
-            # Otherwise add it
-            $sql->do(
-                "INSERT INTO $assoc_table ($entity_type, tag, count) VALUES (?, ?, ?)",
-                $entity_id, $tag_id, $new_vote
-            );
-        }
-
-        $result->{count} = $new_count;
     }, $self->c->sql);
 
     return $result;
@@ -409,21 +343,13 @@ sub withdraw {
             return;
         }
 
-        # Delete if no raw votes are left
-        $was_deleted = $self->sql->select_single_value(
-            qq{
-                DELETE FROM $assoc_table
-                 WHERE $entity_type = \$1
-                   AND tag = \$2
-                   AND tag NOT IN (SELECT tag FROM $assoc_table_raw WHERE $entity_type = \$1)
-                RETURNING 1
-            },
-            $entity_id, $tag_id
+        # Get the new vote count from the aggregate tag table.
+        my $new_count = $sql->select_single_value(
+            "SELECT count FROM $assoc_table WHERE $entity_type = ? AND tag = ?", $entity_id, $tag_id
         );
 
-        unless ($was_deleted) {
-            # Adjust the vote tally
-            $result->{count} = $self->_update_count($entity_id, $tag_id);
+        if (defined $new_count) {
+            $result->{count} = $new_count;
         }
     }, $self->c->sql);
 

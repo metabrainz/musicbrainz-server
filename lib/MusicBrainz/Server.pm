@@ -66,7 +66,6 @@ __PACKAGE__->config(
             'format_wikitext' => \&MusicBrainz::Server::Filters::format_wikitext,
             'format_editnote' => \&MusicBrainz::Server::Filters::format_editnote,
             'locale' => \&MusicBrainz::Server::Filters::locale,
-            'coverart_https' => \&MusicBrainz::Server::Filters::coverart_https
         },
         RECURSION => 1,
         TEMPLATE_EXTENSION => '.tt',
@@ -453,7 +452,7 @@ after dispatch => sub {
     if (DBDefs->USE_SET_DATABASE_HEADER && $database) {
         no warnings 'redefine';
         # Clear the connector and database handles, so that we revert
-        # back to the default (READWRITE, or READONLY for slaves).
+        # back to the default (READWRITE, or READONLY for mirrors).
         $ctx->clear_connector;
         $ctx->clear_database;
         *DBDefs::CACHE_NAMESPACE = $ORIG_CACHE_NAMESPACE;

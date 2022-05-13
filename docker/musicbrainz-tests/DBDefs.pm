@@ -54,6 +54,20 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
         port        => 5432,
         username    => 'musicbrainz',
     },
+    TEST_DBMIRROR2_MASTER => {
+        database    => 'musicbrainz_test_dbmirror2_master',
+        host        => 'localhost',
+        password    => '',
+        port        => 5432,
+        username    => 'musicbrainz',
+    },
+    TEST_DBMIRROR2_SLAVE => {
+        database    => 'musicbrainz_test_dbmirror2_slave',
+        host        => 'localhost',
+        password    => '',
+        port        => 5432,
+        username    => 'musicbrainz',
+    },
 );
 
 sub CACHE_MANAGER_OPTIONS {
@@ -92,7 +106,7 @@ sub DATASTORE_REDIS_ARGS {
     };
 }
 
-sub DB_SCHEMA_SEQUENCE { 26 }
+sub DB_SCHEMA_SEQUENCE { 27 }
 
 sub DB_STAGING_TESTING_FEATURES { 1 }
 
@@ -110,7 +124,7 @@ sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
 sub MB_LANGUAGES { qw( de el-gr es-es et fi fr it ja nl sq en ) }
 
-sub ACTIVE_SCHEMA_SEQUENCE { 26 }
+sub ACTIVE_SCHEMA_SEQUENCE { 27 }
 
 sub PLUGIN_CACHE_OPTIONS {
     my $self = shift;
@@ -132,5 +146,7 @@ sub DISABLE_LAST_LOGIN_UPDATE { 1 }
 # a different hostname alias.
 sub WEB_SERVER { 'mbtest:5000' }
 sub STATIC_RESOURCES_LOCATION { '//mbtest:5000/static/build' }
+
+sub REPLICATION_USE_DBMIRROR2 { 1 }
 
 1;

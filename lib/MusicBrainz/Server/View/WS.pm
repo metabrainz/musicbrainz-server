@@ -30,7 +30,7 @@ sub process {
         utf8::encode($body) if utf8::is_utf8($body);
         $c->response->headers->etag(md5_hex($body));
 
-        if (DBDefs->REPLICATION_TYPE eq DBDefs->RT_SLAVE && !$c->res->headers->expires) {
+        if (DBDefs->REPLICATION_TYPE eq DBDefs->RT_MIRROR && !$c->res->headers->expires) {
             my @today = Today_and_Now(1);
             my $next_hour = Date_to_Time(
                 Add_Delta_DHMS($today[0], $today[1], $today[2], $today[3], 10, 0, 0, 1, 0, 0)

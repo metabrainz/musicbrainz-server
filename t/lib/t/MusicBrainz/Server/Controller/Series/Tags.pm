@@ -11,8 +11,8 @@ test all => sub {
     MusicBrainz::Server::Test->prepare_test_database($test->c);
 
     $test->c->sql->do(q{
-        INSERT INTO series (id, gid, name, comment, type, ordering_attribute, ordering_type)
-        VALUES (1, 'cd58b3e5-371c-484e-b3fd-4084a6861e62', 'Test', '', 4, 788, 1);
+        INSERT INTO series (id, gid, name, comment, type, ordering_type)
+        VALUES (1, 'cd58b3e5-371c-484e-b3fd-4084a6861e62', 'Test', '', 4, 1);
     });
 
     $mech->get_ok('/series/cd58b3e5-371c-484e-b3fd-4084a6861e62/tags');

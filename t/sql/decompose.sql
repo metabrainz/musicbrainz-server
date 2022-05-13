@@ -3,7 +3,8 @@ INSERT INTO artist (id, gid, name, sort_name)
            (6, '5441c29d-3602-4898-b1a1-b77fa23b8e50', 'Bob', 'Bob'),
            (7, '5f9913b0-7219-11de-8a39-0800200c9a66', 'Tom', 'Tom');
 
-INSERT INTO artist_credit (id, artist_count, name) VALUES (1, 1, 'Bob & Tom');
+INSERT INTO artist_credit (id, name, artist_count, gid)
+    VALUES (1, 'Bob & Tom', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
 INSERT INTO artist_credit_name (artist_credit, position, artist, join_phrase, name)
     VALUES (1, 0, 5, '', 'Bob & Tom');
 

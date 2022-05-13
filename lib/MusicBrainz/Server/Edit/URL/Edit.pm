@@ -104,9 +104,6 @@ around accept => sub {
     );
 
     $self->data->{entity}{id} = $new_id;
-
-    # Check for any releases that might need updating
-    $self->c->model('CoverArt')->url_updated($new_id);
 };
 
 after insert => sub {

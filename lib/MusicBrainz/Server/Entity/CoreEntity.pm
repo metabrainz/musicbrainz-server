@@ -4,23 +4,7 @@ use Moose;
 
 extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
-
-has 'gid' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-has 'gid_redirects' => (
-    is => 'rw',
-    isa => 'ArrayRef[Str]',
-    default => sub { [] },
-    traits => [ 'Array' ],
-    handles => {
-        add_gid_redirect => 'push',
-        clear_gid_redirects => 'clear',
-        all_gid_redirects => 'elements',
-    }
-);
+with 'MusicBrainz::Server::Entity::Role::GID';
 
 has 'name' => (
     is => 'rw',
@@ -31,7 +15,6 @@ around TO_JSON => sub {
     my ($orig, $self) = @_;
 
     my $json = $self->$orig;
-    $json->{gid} = $self->gid;
     $json->{name} = $self->name;
     return $json;
 };

@@ -11,15 +11,39 @@ use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
 if ($ARGV[0])
 {
-    my $db = Databases->get_connection(uc($ARGV[0]));
+    my $dbname = uc($ARGV[0]);
 
-    my $sql = Sql->new( $db->conn );
+    my $db = Databases->get($dbname);
+    die "There is no configuration in DBDefs for database $dbname"
+        unless defined $db;
 
-    my $so = $sql->select_single_value(
-        'SELECT TRUE FROM information_schema.information_schema_catalog_name WHERE catalog_name = ?',
-        $db->database->database);
-    exit 0 if $so;
-    exit 1; # E_NODATABASE
+    my $dbh = Databases->get_connection($dbname);
+    $dbh->sql->quiet(1);
+
+    eval {
+        my $so = $dbh->sql->select_single_value(<<~'SQL', $db->database);
+            SELECT TRUE
+              FROM information_schema.information_schema_catalog_name
+             WHERE catalog_name = ?
+            SQL
+        exit 0 if $so;
+    };
+
+    my $error = $@;
+
+    if (ref $error eq 'MusicBrainz::Server::Exceptions::DatabaseError') {
+        my $expected_error = 'database "' . $db->database . '" does not exist';
+        if (
+            # Note that 08006 is returned for any connection failure,
+            # not just "database [...] does not exist."
+            $error->sqlstate eq '08006' &&
+            $error->message =~ /\Q$expected_error\E$/
+        ) {
+            exit 1; # E_NODATABASE
+        }
+    }
+
+    die $error;
 }
 else
 {
@@ -29,4 +53,3 @@ else
     print "\n";
     exit 2;
 }
-

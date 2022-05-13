@@ -1,7 +1,7 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
-CREATE OR REPLACE FUNCTION _median(anyarray) RETURNS anyelement AS $$
+CREATE OR REPLACE FUNCTION _median(INTEGER[]) RETURNS INTEGER AS $$
   WITH q AS (
       SELECT val
       FROM unnest($1) val
@@ -15,15 +15,12 @@ CREATE OR REPLACE FUNCTION _median(anyarray) RETURNS anyelement AS $$
   OFFSET greatest(0, floor((select count(*) FROM q) / 2.0) - ((select count(*) + 1 FROM q) % 2));
 $$ LANGUAGE sql IMMUTABLE;
 
-CREATE AGGREGATE median(anyelement) (
+CREATE AGGREGATE median(INTEGER) (
   SFUNC=array_append,
-  STYPE=anyarray,
+  STYPE=INTEGER[],
   FINALFUNC=_median,
   INITCOND='{}'
 );
-
--- We may want to create a CreateAggregate.sql script, but it seems silly to do that for one aggregate
-CREATE AGGREGATE array_accum (basetype = anyelement, sfunc = array_append, stype = anyarray, initcond = '{}');
 
 -- Generates UUID version 4 (random-based)
 CREATE OR REPLACE FUNCTION generate_uuid_v4() RETURNS uuid
@@ -486,7 +483,6 @@ BEGIN
     UPDATE release_group_meta SET release_count = release_count + 1 WHERE id = NEW.release_group;
     -- add new release_meta
     INSERT INTO release_meta (id) VALUES (NEW.id);
-    INSERT INTO release_coverart (id) VALUES (NEW.id);
     INSERT INTO artist_release_pending_update VALUES (NEW.id);
     INSERT INTO artist_release_group_pending_update VALUES (NEW.release_group);
     RETURN NULL;
@@ -1094,7 +1090,7 @@ CREATE OR REPLACE FUNCTION set_release_first_release_date(release_id INTEGER)
 RETURNS VOID AS $$
 BEGIN
   -- DO NOT modify any replicated tables in this function; it's used
-  -- by a trigger on slaves.
+  -- by a trigger on mirrors.
   DELETE FROM release_first_release_date
   WHERE release = release_id;
 
@@ -1156,7 +1152,7 @@ CREATE OR REPLACE FUNCTION set_recordings_first_release_dates(recording_ids INTE
 RETURNS VOID AS $$
 BEGIN
   -- DO NOT modify any replicated tables in this function; it's used
-  -- by a trigger on slaves.
+  -- by a trigger on mirrors.
   DELETE FROM recording_first_release_date
   WHERE recording = ANY(recording_ids);
 
@@ -1255,6 +1251,86 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+-------------------------------------------------------------------
+-- Ratings
+-------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION update_aggregate_rating(entity_type ratable_entity_type, entity_id INTEGER)
+RETURNS VOID AS $$
+BEGIN
+  -- update the aggregate rating for the given entity_id.
+  EXECUTE format(
+    $SQL$
+      UPDATE %2$I
+         SET rating = agg.rating,
+             rating_count = nullif(agg.rating_count, 0)
+        FROM (
+          SELECT count(rating)::INTEGER AS rating_count,
+                 -- trunc(x + 0.5) is used because round() on REAL values
+                 -- rounds to the nearest even number.
+                 trunc((sum(rating)::REAL /
+                        count(rating)::REAL) +
+                       0.5::REAL)::SMALLINT AS rating
+            FROM %3$I
+           WHERE %1$I = $1
+        ) agg
+       WHERE id = $1
+    $SQL$,
+    entity_type::TEXT,
+    entity_type::TEXT || '_meta',
+    entity_type::TEXT || '_rating_raw'
+  ) USING entity_id;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION update_aggregate_rating_for_raw_insert()
+RETURNS trigger AS $$
+DECLARE
+  entity_type ratable_entity_type;
+  new_entity_id INTEGER;
+BEGIN
+  entity_type := TG_ARGV[0]::ratable_entity_type;
+  EXECUTE format('SELECT ($1).%s', entity_type::TEXT) INTO new_entity_id USING NEW;
+  PERFORM update_aggregate_rating(entity_type, new_entity_id);
+  RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION update_aggregate_rating_for_raw_update()
+RETURNS trigger AS $$
+DECLARE
+  entity_type ratable_entity_type;
+  new_entity_id INTEGER;
+  old_entity_id INTEGER;
+BEGIN
+  entity_type := TG_ARGV[0]::ratable_entity_type;
+  EXECUTE format('SELECT ($1).%s', entity_type) INTO new_entity_id USING NEW;
+  EXECUTE format('SELECT ($1).%s', entity_type) INTO old_entity_id USING OLD;
+  IF (old_entity_id = new_entity_id AND OLD.rating != NEW.rating) THEN
+    -- Case 1: only the rating changed.
+    PERFORM update_aggregate_rating(entity_type, old_entity_id);
+  ELSIF (old_entity_id != new_entity_id OR OLD.rating != NEW.rating) THEN
+    -- Case 2: the entity or rating changed.
+    PERFORM update_aggregate_rating(entity_type, old_entity_id);
+    PERFORM update_aggregate_rating(entity_type, new_entity_id);
+  END IF;
+  RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION update_aggregate_rating_for_raw_delete()
+RETURNS trigger AS $$
+DECLARE
+  entity_type ratable_entity_type;
+  old_entity_id INTEGER;
+BEGIN
+  entity_type := TG_ARGV[0]::ratable_entity_type;
+  EXECUTE format('SELECT ($1).%s', entity_type::TEXT) INTO old_entity_id USING OLD;
+  PERFORM update_aggregate_rating(entity_type, old_entity_id);
+  RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
 CREATE OR REPLACE FUNCTION delete_ratings(enttype TEXT, ids INTEGER[])
 RETURNS TABLE(editor INT, rating SMALLINT) AS $$
 DECLARE
@@ -1329,9 +1405,13 @@ BEGIN
     EXCEPT
     SELECT entity1 FROM l_event_url
     EXCEPT
+    SELECT entity1 FROM l_genre_url
+    EXCEPT
     SELECT entity1 FROM l_instrument_url
     EXCEPT
     SELECT entity1 FROM l_label_url
+    EXCEPT
+    SELECT entity1 FROM l_mood_url
     EXCEPT
     SELECT entity1 FROM l_place_url
     EXCEPT
@@ -1486,6 +1566,101 @@ CREATE OR REPLACE FUNCTION controlled_for_whitespace(TEXT) RETURNS boolean AS $$
   SELECT NOT padded_by_whitespace($1);
 $$ LANGUAGE SQL IMMUTABLE SET search_path = musicbrainz, public;
 
+CREATE OR REPLACE FUNCTION update_aggregate_tag_count(entity_type taggable_entity_type, entity_id INTEGER, tag_id INTEGER, count_change SMALLINT)
+RETURNS VOID AS $$
+BEGIN
+  -- Insert-or-update the aggregate vote count for the given (entity_id, tag_id).
+  EXECUTE format(
+    $SQL$
+      INSERT INTO %1$I AS agg (%2$I, tag, count)
+           VALUES ($1, $2, $3)
+      ON CONFLICT (%2$I, tag) DO UPDATE SET count = agg.count + $3
+    $SQL$,
+    entity_type::TEXT || '_tag',
+    entity_type::TEXT
+  ) USING entity_id, tag_id, count_change;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION delete_unused_aggregate_tag(entity_type taggable_entity_type, entity_id INTEGER, tag_id INTEGER)
+RETURNS VOID AS $$
+BEGIN
+  -- Delete the aggregate tag row for (entity_id, tag_id) if no raw tag pair
+  -- exists for the same.
+  --
+  -- Note that an aggregate vote count of 0 doesn't imply there are no raw
+  -- tags; it's a sum of all the votes, so it can also mean that there's a
+  -- downvote for every upvote.
+  EXECUTE format(
+    $SQL$
+      DELETE FROM %1$I
+            WHERE %2$I = $1
+              AND tag = $2
+              AND NOT EXISTS (SELECT 1 FROM %3$I WHERE %2$I = $1 AND tag = $2)
+    $SQL$,
+    entity_type::TEXT || '_tag',
+    entity_type::TEXT,
+    entity_type::TEXT || '_tag_raw'
+  ) USING entity_id, tag_id;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION update_tag_counts_for_raw_insert()
+RETURNS trigger AS $$
+DECLARE
+  entity_type taggable_entity_type;
+  new_entity_id INTEGER;
+BEGIN
+  entity_type := TG_ARGV[0]::taggable_entity_type;
+  EXECUTE format('SELECT ($1).%s', entity_type::TEXT) INTO new_entity_id USING NEW;
+  PERFORM update_aggregate_tag_count(entity_type, new_entity_id, NEW.tag, (CASE WHEN NEW.is_upvote THEN 1 ELSE -1 END)::SMALLINT);
+  UPDATE tag SET ref_count = ref_count + 1 WHERE id = NEW.tag;
+  RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION update_tag_counts_for_raw_update()
+RETURNS trigger AS $$
+DECLARE
+  entity_type taggable_entity_type;
+  new_entity_id INTEGER;
+  old_entity_id INTEGER;
+BEGIN
+  entity_type := TG_ARGV[0]::taggable_entity_type;
+  EXECUTE format('SELECT ($1).%s', entity_type) INTO new_entity_id USING NEW;
+  EXECUTE format('SELECT ($1).%s', entity_type) INTO old_entity_id USING OLD;
+  IF (old_entity_id = new_entity_id AND OLD.tag = NEW.tag AND OLD.is_upvote != NEW.is_upvote) THEN
+    -- Case 1: only the vote changed.
+    PERFORM update_aggregate_tag_count(entity_type, old_entity_id, OLD.tag, (CASE WHEN OLD.is_upvote THEN -2 ELSE 2 END)::SMALLINT);
+  ELSIF (old_entity_id != new_entity_id OR OLD.tag != NEW.tag OR OLD.is_upvote != NEW.is_upvote) THEN
+    -- Case 2: the entity, tag, or vote changed.
+    PERFORM update_aggregate_tag_count(entity_type, old_entity_id, OLD.tag, (CASE WHEN OLD.is_upvote THEN -1 ELSE 1 END)::SMALLINT);
+    PERFORM update_aggregate_tag_count(entity_type, new_entity_id, NEW.tag, (CASE WHEN NEW.is_upvote THEN 1 ELSE -1 END)::SMALLINT);
+    PERFORM delete_unused_aggregate_tag(entity_type, old_entity_id, OLD.tag);
+  END IF;
+  IF OLD.tag != NEW.tag THEN
+    UPDATE tag SET ref_count = ref_count - 1 WHERE id = OLD.tag;
+    UPDATE tag SET ref_count = ref_count + 1 WHERE id = NEW.tag;
+  END IF;
+  RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION update_tag_counts_for_raw_delete()
+RETURNS trigger AS $$
+DECLARE
+  entity_type taggable_entity_type;
+  old_entity_id INTEGER;
+BEGIN
+  entity_type := TG_ARGV[0]::taggable_entity_type;
+  EXECUTE format('SELECT ($1).%s', entity_type::TEXT) INTO old_entity_id USING OLD;
+  PERFORM update_aggregate_tag_count(entity_type, old_entity_id, OLD.tag, (CASE WHEN OLD.is_upvote THEN -1 ELSE 1 END)::SMALLINT);
+  PERFORM delete_unused_aggregate_tag(entity_type, old_entity_id, OLD.tag);
+  UPDATE tag SET ref_count = ref_count - 1 WHERE id = OLD.tag;
+  RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
 CREATE OR REPLACE FUNCTION delete_unused_tag(tag_id INT)
 RETURNS void AS $$
   BEGIN
@@ -1529,10 +1704,9 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION deny_deprecated_links()
 RETURNS trigger AS $$
 BEGIN
-  IF (TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND OLD.link_type <> NEW.link_type))
-    AND (SELECT is_deprecated FROM link_type WHERE id = NEW.link_type)
+  IF (SELECT is_deprecated FROM link_type WHERE id = NEW.link_type)
   THEN
-    RAISE EXCEPTION 'Attempt to create or change a relationship into a deprecated relationship type';
+    RAISE EXCEPTION 'Attempt to create a relationship with a deprecated type';
   END IF;
   RETURN NEW;
 END;
@@ -1700,7 +1874,7 @@ DECLARE
     release_id INTEGER;
 BEGIN
     -- DO NOT modify any replicated tables in this function; it's used
-    -- by a trigger on slaves.
+    -- by a trigger on mirrors.
     WITH pending AS (
         DELETE FROM artist_release_pending_update
         RETURNING release
@@ -1746,10 +1920,11 @@ BEGIN
     -- `rg.id = any(...)` can be over 200x slower, even with only one
     -- release group ID in the array.
     RETURN QUERY EXECUTE $SQL$
-        SELECT DISTINCT ON (arg.artist, rg.id)
-            arg.is_track_artist,
-            arg.artist,
-            bool_and(r.status IS NOT NULL AND r.status != 1),
+        SELECT DISTINCT ON (a_rg.artist, rg.id)
+            a_rg.is_track_artist,
+            a_rg.artist,
+            -- Withdrawn releases were once official by definition
+            bool_and(r.status IS NOT NULL AND r.status != 1 AND r.status != 5),
             rg.type::SMALLINT,
             array_agg(
                 DISTINCT st.secondary_type ORDER BY st.secondary_type)
@@ -1772,15 +1947,15 @@ BEGIN
             JOIN medium m ON m.release = r.id
             JOIN track t ON t.medium = m.id
             JOIN artist_credit_name tacn ON tacn.artist_credit = t.artist_credit
-        ) arg
-        JOIN release_group rg ON rg.id = arg.release_group
+        ) a_rg
+        JOIN release_group rg ON rg.id = a_rg.release_group
         LEFT JOIN release r ON r.release_group = rg.id
         JOIN release_group_meta rgm ON rgm.id = rg.id
         LEFT JOIN release_group_secondary_type_join st ON st.release_group = rg.id
     $SQL$ || (CASE WHEN release_group_id IS NULL THEN '' ELSE 'WHERE rg.id = $1' END) ||
     $SQL$
-        GROUP BY arg.is_track_artist, arg.artist, rgm.id, rg.id
-        ORDER BY arg.artist, rg.id, arg.is_track_artist
+        GROUP BY a_rg.is_track_artist, a_rg.artist, rgm.id, rg.id
+        ORDER BY a_rg.artist, rg.id, a_rg.is_track_artist
     $SQL$
     USING release_group_id;
 END;
@@ -1793,7 +1968,7 @@ DECLARE
     release_group_id INTEGER;
 BEGIN
     -- DO NOT modify any replicated tables in this function; it's used
-    -- by a trigger on slaves.
+    -- by a trigger on mirrors.
     WITH pending AS (
         DELETE FROM artist_release_group_pending_update
         RETURNING release_group
@@ -1825,5 +2000,219 @@ BEGIN
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
+
+-----------------------------------------------------------------------
+-- Relationship triggers
+-----------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION a_ins_l_area_area_mirror() RETURNS trigger AS $$
+DECLARE
+    part_of_area_link_type_id CONSTANT SMALLINT := 356;
+BEGIN
+    -- DO NOT modify any replicated tables in this function; it's used
+    -- by a trigger on mirrors.
+    IF (SELECT link_type FROM link WHERE id = NEW.link) = part_of_area_link_type_id THEN
+        PERFORM update_area_containment_mirror(ARRAY[NEW.entity0], ARRAY[NEW.entity1]);
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION a_upd_l_area_area_mirror() RETURNS trigger AS $$
+DECLARE
+    part_of_area_link_type_id CONSTANT SMALLINT := 356;
+    old_lt_id INTEGER;
+    new_lt_id INTEGER;
+BEGIN
+    -- DO NOT modify any replicated tables in this function; it's used
+    -- by a trigger on mirrors.
+    SELECT link_type INTO old_lt_id FROM link WHERE id = OLD.link;
+    SELECT link_type INTO new_lt_id FROM link WHERE id = NEW.link;
+    IF (
+        (
+            old_lt_id = part_of_area_link_type_id AND
+            new_lt_id = part_of_area_link_type_id AND
+            (OLD.entity0 != NEW.entity0 OR OLD.entity1 != NEW.entity1)
+        ) OR
+        (old_lt_id = part_of_area_link_type_id) != (new_lt_id = part_of_area_link_type_id)
+    ) THEN
+        PERFORM update_area_containment_mirror(ARRAY[OLD.entity0, NEW.entity0], ARRAY[OLD.entity1, NEW.entity1]);
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION a_del_l_area_area_mirror() RETURNS trigger AS $$
+DECLARE
+    part_of_area_link_type_id CONSTANT SMALLINT := 356;
+BEGIN
+    -- DO NOT modify any replicated tables in this function; it's used
+    -- by a trigger on mirrors.
+    IF (SELECT link_type FROM link WHERE id = OLD.link) = part_of_area_link_type_id THEN
+        PERFORM update_area_containment_mirror(ARRAY[OLD.entity0], ARRAY[OLD.entity1]);
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION b_upd_link() RETURNS trigger AS $$
+BEGIN
+    -- Like artist credits, links are shared across many entities
+    -- (relationships) and so are immutable: they can only be inserted
+    -- or deleted.
+    --
+    -- This helps ensure the data integrity of relationships and other
+    -- materialized tables that rely on their immutability, like
+    -- area_containment.
+    RAISE EXCEPTION 'link rows are immutable';
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION b_upd_link_attribute() RETURNS trigger AS $$
+BEGIN
+    -- Refer to b_upd_link.
+    RAISE EXCEPTION 'link_attribute rows are immutable';
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION b_upd_link_attribute_credit() RETURNS trigger AS $$
+BEGIN
+    -- Refer to b_upd_link.
+    RAISE EXCEPTION 'link_attribute_credit rows are immutable';
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION b_upd_link_attribute_text_value() RETURNS trigger AS $$
+BEGIN
+    -- Refer to b_upd_link.
+    RAISE EXCEPTION 'link_attribute_text_value rows are immutable';
+END;
+$$ LANGUAGE 'plpgsql';
+
+-----------------------------------------------------------------------
+-- Maintain musicbrainz.area_containment
+-----------------------------------------------------------------------
+
+-- Returns a set of area_containment rows that cover the entire parent
+-- hierarchy for descendant_area_ids.  If NULL is passed, the entire
+-- area_containment hierarchy is built.  (In that case, it doesn't matter
+-- whether you use this function or get_area_descendant_hierarchy_rows.)
+--
+-- Note: This function may return duplicate rows.  It's expected that the
+-- caller uses DISTINCT ON in the outer query.
+CREATE OR REPLACE FUNCTION get_area_parent_hierarchy_rows(
+    descendant_area_ids INTEGER[]
+) RETURNS SETOF area_containment AS $$
+DECLARE
+    part_of_area_link_type_id CONSTANT SMALLINT := 356;
+BEGIN
+    RETURN QUERY EXECUTE $SQL$
+        WITH RECURSIVE area_parent_hierarchy(descendant, parent, path, cycle) AS (
+            SELECT entity1, entity0, ARRAY[ROW(entity1, entity0)], FALSE
+              FROM l_area_area laa
+              JOIN link ON laa.link = link.id
+             WHERE link.link_type = $1
+    $SQL$ || (CASE WHEN descendant_area_ids IS NULL THEN '' ELSE 'AND entity1 = any($2)' END) ||
+    $SQL$
+             UNION ALL
+            SELECT descendant, entity0, path || ROW(descendant, entity0), ROW(descendant, entity0) = any(path)
+              FROM l_area_area laa
+              JOIN link ON laa.link = link.id
+              JOIN area_parent_hierarchy ON area_parent_hierarchy.parent = laa.entity1
+             WHERE link.link_type = $1
+               AND descendant != entity0
+               AND NOT cycle
+        )
+        SELECT descendant, parent, array_length(path, 1)::SMALLINT
+          FROM area_parent_hierarchy
+    $SQL$
+    USING part_of_area_link_type_id, descendant_area_ids;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Returns a set of area_containment rows that cover the entire descendant
+-- hierarchy for parent_area_ids.  If NULL is passed, the entire
+-- area_containment hierarchy is built.  (In that case, it doesn't matter
+-- whether you use this function or get_area_parent_hierarchy_rows.)
+--
+-- Note: This function may return duplicate rows.  It's expected that the
+-- caller uses DISTINCT ON in the outer query.
+CREATE OR REPLACE FUNCTION get_area_descendant_hierarchy_rows(
+    parent_area_ids INTEGER[]
+) RETURNS SETOF area_containment AS $$
+DECLARE
+    part_of_area_link_type_id CONSTANT SMALLINT := 356;
+BEGIN
+    RETURN QUERY EXECUTE $SQL$
+        WITH RECURSIVE area_descendant_hierarchy(descendant, parent, path, cycle) AS (
+            SELECT entity1, entity0, ARRAY[ROW(entity1, entity0)], FALSE
+              FROM l_area_area laa
+              JOIN link ON laa.link = link.id
+             WHERE link.link_type = $1
+    $SQL$ || (CASE WHEN parent_area_ids IS NULL THEN '' ELSE 'AND entity0 = any($2)' END) ||
+    $SQL$
+             UNION ALL
+            SELECT entity1, parent, path || ROW(entity1, parent), ROW(entity1, parent) = any(path)
+              FROM l_area_area laa
+              JOIN link ON laa.link = link.id
+              JOIN area_descendant_hierarchy ON area_descendant_hierarchy.descendant = laa.entity0
+             WHERE link.link_type = $1
+               AND parent != entity1
+               AND NOT cycle
+        )
+        SELECT descendant, parent, array_length(path, 1)::SMALLINT
+          FROM area_descendant_hierarchy
+    $SQL$
+    USING part_of_area_link_type_id, parent_area_ids;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION update_area_containment_mirror(
+    parent_ids INTEGER[], -- entity0 of area-area "part of"
+    descendant_ids INTEGER[] -- entity1
+) RETURNS VOID AS $$
+DECLARE
+    part_of_area_link_type_id CONSTANT SMALLINT := 356;
+    descendant_ids_to_update INTEGER[];
+    parent_ids_to_update INTEGER[];
+BEGIN
+    -- DO NOT modify any replicated tables in this function; it's used
+    -- by a trigger on mirrors.
+
+    SELECT array_agg(descendant)
+      INTO descendant_ids_to_update
+      FROM area_containment
+     WHERE parent = any(parent_ids);
+
+    SELECT array_agg(parent)
+      INTO parent_ids_to_update
+      FROM area_containment
+     WHERE descendant = any(descendant_ids);
+
+    -- For INSERTS/UPDATES, include the new IDs that aren't present in
+    -- area_containment yet.
+    descendant_ids_to_update := descendant_ids_to_update || descendant_ids;
+    parent_ids_to_update := parent_ids_to_update || parent_ids;
+
+    DELETE FROM area_containment
+     WHERE descendant = any(descendant_ids_to_update);
+
+    DELETE FROM area_containment
+     WHERE parent = any(parent_ids_to_update);
+
+    -- Update the parents of all descendants of parent_ids.
+    -- Update the descendants of all parents of descendant_ids.
+
+    INSERT INTO area_containment
+    SELECT DISTINCT ON (descendant, parent)
+        descendant, parent, depth
+      FROM (
+          SELECT * FROM get_area_parent_hierarchy_rows(descendant_ids_to_update)
+          UNION ALL
+          SELECT * FROM get_area_descendant_hierarchy_rows(parent_ids_to_update)
+      ) area_hierarchy
+     ORDER BY descendant, parent, depth;
+END;
+$$ LANGUAGE plpgsql;
 
 -- vi: set ts=4 sw=4 et :

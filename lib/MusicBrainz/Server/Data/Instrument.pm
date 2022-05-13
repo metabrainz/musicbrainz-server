@@ -24,7 +24,7 @@ with 'MusicBrainz::Server::Data::Role::Collection';
 sub _type { 'instrument' }
 
 sub _columns {
-    return 'instrument.id, instrument.gid, instrument.type, instrument.name,
+    return 'instrument.id, instrument.gid, instrument.type, instrument.name COLLATE musicbrainz,
             instrument.comment, instrument.description, instrument.edits_pending, instrument.last_updated';
 }
 

@@ -41,7 +41,7 @@ sub _table
 
 sub _columns
 {
-    return 'rg.id, rg.gid, rg.type AS primary_type_id, rg.name,
+    return 'rg.id, rg.gid, rg.type AS primary_type_id, rg.name COLLATE musicbrainz,
             rg.artist_credit AS artist_credit_id,
             rg.comment, rg.edits_pending, rg.last_updated,
             rgm.first_release_date_year,
@@ -298,9 +298,10 @@ sub _find_by_artist_slow
     my ($conditions, $extra_joins, $params) = _where_filter($args{filter}, 0);
 
     push @$conditions, 'acn.artist = ?';
-    # Show only RGs with official releases by default, plus all-status-less ones so people fix the status
+    # Show only RGs with official/withdrawn releases by default,
+    # plus all-status-less ones so people fix the status
     unless ($show_all) {
-        push @$conditions, q{(EXISTS (SELECT 1 FROM release WHERE release.release_group = rg.id AND release.status = '1') OR
+        push @$conditions, q{(EXISTS (SELECT 1 FROM release WHERE release.release_group = rg.id AND (release.status = '1' OR release.status = '5')) OR
                             NOT EXISTS (SELECT 1 FROM release WHERE release.release_group = rg.id AND release.status IS NOT NULL))};
        }
     push @$params, $artist_id;

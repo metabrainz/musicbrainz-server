@@ -70,7 +70,7 @@ our @EXPORT_OK = (
         $ARTIST_ARTIST_COLLABORATION
         %PART_OF_SERIES $PART_OF_AREA_LINK_TYPE $PART_OF_AREA_LINK_TYPE_ID
         $SERIES_ORDERING_TYPE_AUTOMATIC $SERIES_ORDERING_TYPE_MANUAL
-        $SERIES_ORDERING_ATTRIBUTE $LABEL_RENAME_LINK_TYPE
+        $LABEL_RENAME_LINK_TYPE
         $MAX_INITIAL_MEDIUMS $MAX_INITIAL_TRACKS
         $MAX_POSTGRES_INT $MAX_POSTGRES_BIGINT
         @FULL_TABLE_LIST
@@ -400,8 +400,6 @@ Readonly our %PART_OF_SERIES => (
     work            => 'b0d44366-cdf0-3acb-bee6-0f65a77a6ef0',
 );
 
-Readonly our $SERIES_ORDERING_ATTRIBUTE => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a';
-
 Readonly our $PART_OF_AREA_LINK_TYPE => 'de7cc874-8b1b-3a05-8272-f3834c968fb7';
 
 Readonly our $PART_OF_AREA_LINK_TYPE_ID => 356;
@@ -513,6 +511,7 @@ Readonly our @CORE_TABLE_LIST => qw(
     artist_attribute_type
     artist_attribute_type_allowed_value
     artist_credit
+    artist_credit_gid_redirect
     artist_credit_name
     artist_gid_redirect
     artist_ipi
@@ -825,7 +824,6 @@ Readonly our @PRIVATE_TABLE_LIST => qw(
     place_tag_raw
     recording_rating_raw
     recording_tag_raw
-    release_coverart
     release_group_rating_raw
     release_group_tag_raw
     release_tag_raw

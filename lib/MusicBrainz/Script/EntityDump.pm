@@ -498,7 +498,6 @@ sub releases {
             handle_rows($c, 'cover_art_archive.image_type', 'mime_type', pluck('mime_type', $cover_art_rows));
         }
         handle_rows($c, 'cover_art_archive.cover_art', $cover_art_rows);
-        handle_rows($c, 'release_coverart', 'id', $ids);
     });
 }
 

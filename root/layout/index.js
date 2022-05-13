@@ -13,7 +13,7 @@ import {CatalystContext} from '../context';
 import {age} from '../utility/age';
 import {formatUserDateObject} from '../utility/formatUserDate';
 import getRequestCookie from '../utility/getRequestCookie';
-import {RT_SLAVE} from '../static/scripts/common/constants';
+import {RT_MIRROR} from '../static/scripts/common/constants';
 import DBDefs from '../static/scripts/common/DBDefs';
 import parseDate from '../static/scripts/common/utility/parseDate';
 import {
@@ -134,7 +134,7 @@ const ServerDetailsBanner = () => {
     );
   }
 
-  if (DBDefs.REPLICATION_TYPE === RT_SLAVE) {
+  if (DBDefs.REPLICATION_TYPE === RT_MIRROR) {
     return (
       <div className="banner server-details">
         <p>

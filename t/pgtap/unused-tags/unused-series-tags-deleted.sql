@@ -4,9 +4,9 @@ SET search_path = 'musicbrainz', 'public';
 BEGIN;
 SELECT no_plan();
 
-INSERT INTO series (id, gid, name, comment, type, ordering_attribute, ordering_type)
-  VALUES (1, '82ac9811-db47-4c05-9792-83cf4208afd0', 'Series', 'Series 1', 1, 788, 1),
-         (2, '9baea67a-8d86-422d-b653-b0f6d0a93c7c', 'Series', 'Series 2', 1, 788, 1);
+INSERT INTO series (id, gid, name, comment, type, ordering_type)
+  VALUES (1, '82ac9811-db47-4c05-9792-83cf4208afd0', 'Series', 'Series 1', 1, 1),
+         (2, '9baea67a-8d86-422d-b653-b0f6d0a93c7c', 'Series', 'Series 2', 1, 1);
 
 INSERT INTO tag (id, name) VALUES (2, 'Unused tag'), (4, 'Used tag'), (5, 'Shared tag');
 INSERT INTO series_tag (series, tag, count) VALUES

@@ -27,14 +27,12 @@ function artworkHover(artwork: ArtworkT) {
 
 type Props = {
   +artwork: ArtworkT,
-  +fallback?: string,
   +hover?: string,
   +message?: string,
 };
 
 export const ArtworkImage = ({
   artwork,
-  fallback,
   hover,
   message,
 }: Props): React.Element<typeof React.Fragment> => (
@@ -44,7 +42,6 @@ export const ArtworkImage = ({
     </noscript>
     <span
       className="cover-art-image"
-      data-fallback={fallback || ''}
       data-huge-thumbnail={artwork.huge_ia_thumbnail}
       data-large-thumbnail={artwork.large_ia_thumbnail}
       data-message={nonEmpty(message)
@@ -58,7 +55,6 @@ export const ArtworkImage = ({
 
 export const Artwork = ({
   artwork,
-  fallback,
   hover,
   message,
 }: Props): React.Element<'a'> => (
@@ -82,7 +78,6 @@ export const Artwork = ({
     ) : null}
     <ArtworkImage
       artwork={artwork}
-      fallback={fallback}
       hover={hover}
       message={message}
     />

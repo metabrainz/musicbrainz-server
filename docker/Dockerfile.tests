@@ -127,7 +127,7 @@ RUN curl -sLO http://archive.apache.org/dist/lucene/solr/$SOLR_VERSION/solr-$SOL
     ./install_solr_service.sh solr-$SOLR_VERSION.tgz && \
     systemctl disable solr
 
-ENV MB_SOLR_TAG v3.4.1
+ENV MB_SOLR_TAG v3.4.2
 
 # Steps taken from https://github.com/metabrainz/mb-solr/blob/master/Dockerfile
 RUN sudo -E -H -u musicbrainz git clone --branch $MB_SOLR_TAG --depth 1 --recursive https://github.com/metabrainz/mb-solr.git && \
@@ -144,12 +144,11 @@ RUN sudo -E -H -u musicbrainz git clone --branch $MB_SOLR_TAG --depth 1 --recurs
     chown -R solr:solr /opt/solr/ && \
     cd /home/musicbrainz
 
-ENV SIR_COMMIT 0d137b9
+ENV SIR_TAG v3.0.0
 
-RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/sir.git && \
+RUN sudo -E -H -u musicbrainz git clone --branch $SIR_TAG https://github.com/metabrainz/sir.git && \
     cd sir && \
-    sudo -E -H -u musicbrainz git reset --hard $SIR_COMMIT && \
-    sudo -E -H -u musicbrainz sh -c 'virtualenv --python=python2 venv; . venv/bin/activate; pip install -r requirements.txt; pip install git+git://github.com/esnme/ultrajson.git@7d0f4fb7e911120fd09075049233b587936b0a65' && \
+    sudo -E -H -u musicbrainz sh -c 'virtualenv --python=python2 venv; . venv/bin/activate; pip install --upgrade pip; pip install -r requirements.txt; pip install typing git+https://github.com/esnme/ultrajson.git@7d0f4fb7e911120fd09075049233b587936b0a65' && \
     cd /home/musicbrainz
 
 ENV ARTWORK_INDEXER_COMMIT c8731b5
@@ -168,7 +167,7 @@ RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-re
     sudo -E -H -u musicbrainz sh -c 'python3.9 -m venv venv; . venv/bin/activate; pip install -r requirements.txt' && \
     cd /home/musicbrainz
 
-RUN curl -sLO https://chromedriver.storage.googleapis.com/90.0.4430.24/chromedriver_linux64.zip && \
+RUN curl -sLO https://chromedriver.storage.googleapis.com/101.0.4951.41/chromedriver_linux64.zip && \
     unzip chromedriver_linux64.zip -d /usr/local/bin && \
     chmod +x /usr/local/bin/chromedriver && \
     rm chromedriver_linux64.zip

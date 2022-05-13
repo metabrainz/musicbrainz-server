@@ -42,8 +42,8 @@ INSERT INTO artist_tag (artist, count, last_updated, tag) VALUES
 	(2884, 1, '2011-05-16 14:57:06.530063+00', 4667),
 	(2884, 1, '2014-07-08 17:39:36.019133+00', 40661),
 	(2884, 1, '2014-07-08 17:39:36.019133+00', 41027);
-INSERT INTO artist_credit (artist_count, created, id, name, ref_count) VALUES
-	(1, '2011-05-16 16:32:11.963929+00', 2884, 'R. Kelly', 3368);
+INSERT INTO artist_credit (artist_count, created, id, name, ref_count, gid) VALUES
+	(1, '2011-05-16 16:32:11.963929+00', 2884, 'R. Kelly', 3368, 'ae53b19f-b260-31a8-8d0a-d475c62221be');
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES
 	(2884, 2884, '', 'R. Kelly', 0);
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name, video) VALUES

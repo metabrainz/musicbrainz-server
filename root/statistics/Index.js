@@ -460,18 +460,6 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{l('Amazon:')}</th>
-            <td>{fc('release.coverart.amazon')}</td>
-            <td>{fp('release.coverart.amazon', 'release')}</td>
-          </tr>
-          <tr>
-            <th />
-            <th colSpan="2">{l('URL Relationships:')}</th>
-            <td>{fc('release.coverart.relationship')}</td>
-            <td>{fp('release.coverart.relationship', 'release')}</td>
-          </tr>
-          <tr>
-            <th />
             <th colSpan="2">{l('No front cover art:')}</th>
             <td>{fc('release.coverart.none')}</td>
             <td>{fp('release.coverart.none', 'release')}</td>

@@ -8,7 +8,8 @@ SELECT no_plan();
 INSERT INTO artist (id, gid, name, sort_name)
   VALUES (1, 'c63ecb0c-89af-4c26-928b-807402b1d701', 'Artist', 'Artist');
 
-INSERT INTO artist_credit (id, artist_count, name) VALUES (1, 1, 'Artist');
+INSERT INTO artist_credit (id, artist_count, name, gid)
+  VALUES (1, 1, 'Artist', '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
 
 INSERT INTO label (id, gid, name)
   VALUES (1, '79cde6f7-80b1-45bf-9512-568bad5a54d6', 'Label');
