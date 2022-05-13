@@ -11,6 +11,7 @@ source admin/config.sh
 : ${DB_SCHEMA_SEQUENCE:=$(perl -Ilib -e 'use DBDefs; print DBDefs->DB_SCHEMA_SEQUENCE;')}
 : ${REPLICATION_TYPE:=$(perl -Ilib -e 'use DBDefs; print DBDefs->REPLICATION_TYPE;')}
 : ${DATABASE:=MAINTENANCE}
+: ${SKIP_EXPORT:=0}
 
 NEW_SCHEMA_SEQUENCE=27
 OLD_SCHEMA_SEQUENCE=$((NEW_SCHEMA_SEQUENCE - 1))
@@ -38,8 +39,11 @@ fi
 
 if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
-    echo `date` : Export pending db changes
-    ./admin/RunExport
+    if [[ "$SKIP_EXPORT" == "0" ]]
+    then
+        echo `date` : Export pending db changes
+        ./admin/RunExport
+    fi
 
     echo `date` : 'Drop replication triggers (musicbrainz)'
     ./admin/psql "$DATABASE" < ./admin/sql/DropReplicationTriggers.sql
