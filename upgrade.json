@@ -139,6 +139,7 @@
                    "20220322-mbs-12256-standalone.sql",
                    "20220408-immutable-link-tables-standalone.sql",
                    "20220408-mbs-12249-standalone.sql",
-                   "20220412-mbs-12190-fks.sql"]
+                   "20220412-mbs-12190-fks.sql",
+                   "20220512-mbs-12369.sql"]
   }
 }
