@@ -411,6 +411,9 @@ UPDATE tag t SET ref_count = (
   (SELECT count(*) FROM work_tag_raw r WHERE r.tag = t.id)
 );
 
+-- Unused, non-replicated table that holds FKs to tag.
+TRUNCATE tag_relation;
+
 DELETE FROM tag WHERE ref_count = 0;
 
 CREATE TYPE taggable_entity_type AS ENUM (
