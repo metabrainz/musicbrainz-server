@@ -389,6 +389,10 @@ my %stats = (
             };
         },
     },
+    'count.mood' => {
+        DESC => 'Count of all moods',
+        SQL => 'SELECT COUNT(*) FROM mood',
+    },
     'count.place' => {
         DESC => 'Count of all places',
         SQL => 'SELECT COUNT(*) FROM place',

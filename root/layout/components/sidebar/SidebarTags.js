@@ -19,6 +19,7 @@ import commaOnlyList from '../../../static/scripts/common/i18n/commaOnlyList';
 type TagListProps = {
   +entity: CoreEntityT,
   +isGenreList?: boolean,
+  +isMoodList?: boolean,
   +tags: ?$ReadOnlyArray<AggregatedTagT>,
 };
 
@@ -28,6 +29,7 @@ type SidebarTagsProps = {
 
 const TagList = ({
   isGenreList = false,
+  isMoodList = false,
   tags,
 }: TagListProps) => {
   const upvotedTags = tags ? tags.filter(tag => tag.count > 0) : null;
@@ -35,10 +37,17 @@ const TagList = ({
     if (Boolean(t.tag.genre) === isGenreList) {
       accum.push(<TagLink key={'tag-' + t.tag.name} tag={t.tag.name} />);
     }
+    if (Boolean(t.tag.mood) === isMoodList) {
+      accum.push(<TagLink key={'tag-' + t.tag.name} tag={t.tag.name} />);
+    }
     return accum;
   }, []) : null;
   if (!links || !links.length) {
-    return isGenreList ? lp('(none)', 'genre') : lp('(none)', 'tag');
+    return isGenreList
+      ? lp('(none)', 'genre')
+      : isMoodList
+        ? lp('(none)', 'mood')
+        : lp('(none)', 'tag');
   }
   return commaOnlyList(links);
 };
@@ -61,6 +70,7 @@ const SidebarTags = ({
               aggregatedTags={aggregatedTags}
               entity={entity}
               genreMap={$c.stash.genre_map}
+              moodMap={$c.stash.mood_map}
               more={more}
               userTags={userTags}
             />
@@ -72,6 +82,17 @@ const SidebarTags = ({
                   <TagList
                     entity={entity}
                     isGenreList
+                    tags={aggregatedTags}
+                  />
+                </p>
+              </div>
+
+              <h2>{l('Moods')}</h2>
+              <div className="mood-list">
+                <p>
+                  <TagList
+                    entity={entity}
+                    isMoodList
                     tags={aggregatedTags}
                   />
                 </p>

@@ -1189,6 +1189,9 @@ INSERT INTO tag (id, name, ref_count) VALUES (25514, 'epitaph', 26);
 INSERT INTO tag (id, name, ref_count) VALUES (27737, 'country-jp', 188);
 INSERT INTO tag (id, name, ref_count) VALUES (29329, 'format-dvd-video', 264);
 INSERT INTO tag (id, name, ref_count) VALUES (33017, 'electronica dubstep', 14);
+INSERT INTO tag (id, name, ref_count) VALUES (33018, 'happy', 403);
+INSERT INTO tag (id, name, ref_count) VALUES (33019, 'sad', 30);
+INSERT INTO tag (id, name, ref_count) VALUES (33020, 'supercalifragilisticexpialidocious', 1);
 
 -- Genres
 INSERT INTO genre (id, gid, name) VALUES (1, '1b50083b-1afa-4778-82c8-548b309af783', 'dubstep');
@@ -1203,6 +1206,13 @@ INSERT INTO genre (id, gid, name) VALUES (9, 'a2782cb6-1cd0-477c-a61d-b3f8b42dd1
 INSERT INTO genre (id, gid, name) VALUES (10, '18b010d7-7d85-4445-a4a8-1889a4688308', 'glitch');
 
 INSERT INTO genre_alias (genre, id, locale, name, primary_for_locale, sort_name, type) VALUES (3, 1, 'en', 'dirt', '0', 'dirt', NULL);
+
+-- Moods
+INSERT INTO mood (id, gid, name) VALUES (1, '1f6e3b62-33d6-4ac0-a9dc-f5424af3e6a4', 'happy');
+INSERT INTO mood (id, gid, name) VALUES (2, '186a6a89-24de-4a3a-a92f-b7744dc7b051', 'sad');
+INSERT INTO mood (id, gid, name, comment) VALUES (3, 'e1a39f19-5f05-4944-ba2b-b037706cf586', 'supercalifragilisticexpialidocious', 'stuff');
+
+INSERT INTO mood_alias (mood, id, locale, name, primary_for_locale, sort_name, type) VALUES (3, 1, 'en', 'supercalifragilistic', '0', 'supercalifragilistic', NULL);
 
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (242, 95821, 34, 't');
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (242, 100000001, 34, 't');
@@ -1232,6 +1242,8 @@ INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (242, 1000000
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (242, 100000007, 11, 't');
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (242, 100000001, 2105, 't');
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (242, 95821, 741, 'f');
+INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (242, 95821, 33018, 't');
+INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (242, 100000007, 33019, 't');
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (9496, 100000001, 558, 't');
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (9496, 100000001, 741, 't');
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (9496, 100000001, 1354, 't');
@@ -1239,6 +1251,7 @@ INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (9496, 100000
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (9496, 100000001, 104, 't');
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (9496, 100000001, 502, 't');
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (9496, 100000001, 19, 't');
+INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (9496, 100000001, 33020, 't');
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (11545, 100000001, 237, 't');
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (11545, 100000001, 171, 't');
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (11545, 100000001, 1391, 't');
@@ -1246,12 +1259,14 @@ INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (11545, 10000
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (11545, 100000001, 559, 't');
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (11545, 100000001, 11, 't');
 INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (11545, 100000001, 1032, 't');
+INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (11545, 100000001, 33020, 't');
 
 INSERT INTO release_group_tag_raw (release_group, editor, tag, is_upvote) VALUES (326504, 100000001, 29329, 't');
 INSERT INTO release_group_tag_raw (release_group, editor, tag, is_upvote) VALUES (597897, 100000001, 11, 't');
 INSERT INTO release_group_tag_raw (release_group, editor, tag, is_upvote) VALUES (597897, 100000001, 1522, 't');
 INSERT INTO release_group_tag_raw (release_group, editor, tag, is_upvote) VALUES (597897, 100000001, 30, 't');
 INSERT INTO release_group_tag_raw (release_group, editor, tag, is_upvote) VALUES (597897, 100000002, 30, 't');
+INSERT INTO release_group_tag_raw (release_group, editor, tag, is_upvote) VALUES (597897, 100000001, 33018, 't');
 
 INSERT INTO label_tag_raw (label, editor, tag, is_upvote) VALUES (132, 100000001, 237, 't');
 INSERT INTO label_tag_raw (label, editor, tag, is_upvote) VALUES (132, 100000001, 171, 't');

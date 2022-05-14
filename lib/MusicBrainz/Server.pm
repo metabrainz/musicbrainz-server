@@ -770,6 +770,7 @@ sub TO_JSON {
         globals_script_nonce
         jsonld_data
         last_replication_date
+        mood_map
         more_tags
         new_edit_notes_mtime
         number_of_collections

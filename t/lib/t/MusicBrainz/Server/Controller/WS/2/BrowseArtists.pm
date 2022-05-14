@@ -87,6 +87,7 @@ ws2_test_xml 'browse artists via release, inc=tags+ratings',
               <tag count="1"><name>k-pop</name></tag>
               <tag count="1"><name>kpop</name></tag>
               <tag count="1"><name>pop</name></tag>
+              <tag count="1"><name>supercalifragilisticexpialidocious</name></tag>
             </tag-list>
             <rating votes-count="3">4.35</rating>
         </artist>

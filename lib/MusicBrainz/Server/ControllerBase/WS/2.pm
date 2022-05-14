@@ -214,16 +214,20 @@ sub _tags
     my %map = object_to_ids(@$entities);
     my $model = $c->model($modelname);
 
-    my @todo = grep { $c->stash->{inc}->$_ } qw( tags user_tags genres user_genres );
+    my @todo = grep { $c->stash->{inc}->$_ } qw(
+        tags user_tags
+        genres user_genres
+        moods user_moods
+    );
 
     for my $type (@todo) {
         my $find_method = 'find_' . $type . '_for_entities';
-        my @tags_or_genres = $model->tags->$find_method(
+        my @tags_or_related = $model->tags->$find_method(
             ($type =~ /^user_/ ? $c->user->id : ()),
             map { $_->id } @$entities,
         );
 
-        my %by_entity = partition_by { $_->entity_id } @tags_or_genres;
+        my %by_entity = partition_by { $_->entity_id } @tags_or_related;
         for my $id (keys %by_entity) {
             $stash->store($map{$id}->[0])->{$type} = $by_entity{$id};
         }

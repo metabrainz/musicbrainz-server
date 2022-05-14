@@ -38,6 +38,7 @@ ws_test 'browse release group via release',
                 <tag count="2"><name>dubstep</name></tag>
                 <tag count="1"><name>electronic</name></tag>
                 <tag count="1"><name>grime</name></tag>
+                <tag count="1"><name>happy</name></tag>
             </tag-list>
             <rating votes-count="1">4</rating>
         </release-group>
@@ -67,6 +68,7 @@ ws_test 'browse release group via artist',
                 <tag count="2"><name>dubstep</name></tag>
                 <tag count="1"><name>electronic</name></tag>
                 <tag count="1"><name>grime</name></tag>
+                <tag count="1"><name>happy</name></tag>
             </tag-list>
             <rating votes-count="1">4</rating>
         </release-group>

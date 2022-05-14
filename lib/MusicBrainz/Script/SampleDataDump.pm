@@ -83,6 +83,9 @@ Readonly our @DUMP_ALL => qw(
     medium_attribute_type_allowed_value
     medium_attribute_type_allowed_value_allowed_format
     medium_format
+    mood
+    mood_alias
+    mood_alias_type
     orderable_link_type
     place_alias_type
     place_attribute_type

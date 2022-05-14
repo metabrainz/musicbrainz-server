@@ -12,7 +12,9 @@ has $_ => (
 ) for (qw(
           aliases discids isrcs media puids various_artists artist_credits
           artists labels recordings releases release_groups works
-          tags genres ratings user_tags user_genres user_ratings collections user_collections
+          tags genres moods ratings
+          user_tags user_genres user_moods user_ratings
+          collections user_collections
           recording_level_rels release_group_level_rels work_level_rels rels annotation release_events
 ), map { $_ . '_rels' } @RELATABLE_ENTITIES);
 

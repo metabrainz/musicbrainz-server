@@ -28,6 +28,7 @@ export default function localizeTypeNameForEntity(
         ? lp_attributes(entity.typeName, entity.entityType + '_type')
         : formattedEntityTypeName;
     case 'genre':
+    case 'mood':
     case 'recording':
     case 'release':
     case 'url':

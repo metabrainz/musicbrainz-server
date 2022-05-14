@@ -32,7 +32,9 @@ sub serialize
             my $ret = {
                 $plural => [
                     map { serialize_entity($_, $inc, $opts, 1) }
-                    sort_by { $list_type eq 'genre' ? $_->name : $_->gid }
+                    sort_by { ($list_type eq 'genre' || $list_type eq 'mood')
+                                ? $_->name
+                                : $_->gid }
                     @{ $entity->{items} }
                 ],
             };
@@ -317,6 +319,21 @@ sub autocomplete_series {
 }
 
 sub autocomplete_genre {
+    my ($self, $results, $pager) = @_;
+
+    my $output = _with_primary_alias($results, sub {
+        shift->TO_JSON
+    });
+
+    push @$output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return encode_json($output);
+}
+
+sub autocomplete_mood {
     my ($self, $results, $pager) = @_;
 
     my $output = _with_primary_alias($results, sub {

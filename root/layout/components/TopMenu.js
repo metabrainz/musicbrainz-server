@@ -137,6 +137,9 @@ const AdminMenu = ({user}: UserProp) => (
             <a href="/genre/create">{lp('Add Genre', 'button/menu')}</a>
           </li>
           <li>
+            <a href="/mood/create">{lp('Add Mood', 'button/menu')}</a>
+          </li>
+          <li>
             <a href="/relationships">{l('Edit Relationship Types')}</a>
           </li>
         </>

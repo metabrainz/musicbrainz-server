@@ -1097,12 +1097,12 @@ test 'release lookup, relation attributes' => sub {
         };
 };
 
-test 'release lookup, related artists have no tags/genres' => sub {
+test 'release lookup, related artists have no tags/genres/moods' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
-    ws2_test_json 'release lookup, related artists have no tags/genres',
-    '/release/4f5a6b97-a09b-4893-80d1-eae1f3bfa221?inc=artists+recordings+tags+genres+artist-rels+recording-level-rels'
+    ws2_test_json 'release lookup, related artists have no tags/genres/moods',
+    '/release/4f5a6b97-a09b-4893-80d1-eae1f3bfa221?inc=artists+recordings+tags+genres+moods+artist-rels+recording-level-rels'
     => {
         'artist-credit' => [ {
             artist => {
@@ -1118,6 +1118,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                     { count => 1, name => 'electronica' },
                     { count => 1, name => 'english' },
                     { count => 1, name => 'glitch' },
+                    { count => 1, name => 'supercalifragilisticexpialidocious' },
                     { count => 1, name => 'uk' },
                     { count => 1, name => 'warp' },
                 ],
@@ -1125,6 +1126,14 @@ test 'release lookup, related artists have no tags/genres' => sub {
                     { count => 1, disambiguation => '', id => '89255676-1f14-4dd8-bbad-fca839d6aff4', name => 'electronic' },
                     { count => 1, disambiguation => '', id => '53a3cea3-17af-4421-a07a-5824b540aeb5', name => 'electronica' },
                     { count => 1, disambiguation => '', id => '18b010d7-7d85-4445-a4a8-1889a4688308', name => 'glitch' },
+                ],
+                moods => [
+                    {
+                        'id' => 'e1a39f19-5f05-4944-ba2b-b037706cf586',
+                        'name' => 'supercalifragilisticexpialidocious',
+                        'count' => 1,
+                        'disambiguation' => 'stuff'
+                    },
                 ],
             },
             joinphrase => '',
@@ -1187,6 +1196,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         ],
                         tags => [],
                         genres => [],
+                        moods => [],
                         title => 'On My Bus',
                         'first-release-date' => '1999-09-13',
                     },
@@ -1226,6 +1236,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         } ],
                         tags => [],
                         genres => [],
+                        moods => [],
                         title => 'Top & Low Rent',
                         'first-release-date' => '1999-09-13',
                     },
@@ -1265,6 +1276,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         } ],
                         tags => [],
                         genres => [],
+                        moods => [],
                         title => 'Plock',
                         'first-release-date' => '1999-09-13',
                     },
@@ -1304,6 +1316,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         } ],
                         tags => [],
                         genres => [],
+                        moods => [],
                         title => 'Marbles',
                         'first-release-date' => '1999-09-13',
                     },
@@ -1343,6 +1356,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         } ],
                         tags => [],
                         genres => [],
+                        moods => [],
                         title => 'Busy Working',
                         'first-release-date' => '1999-09-13',
                     },
@@ -1382,6 +1396,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         } ],
                         tags => [],
                         genres => [],
+                        moods => [],
                         title => 'The Greek Alphabet',
                         'first-release-date' => '1999-09-13',
                     },
@@ -1421,6 +1436,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         } ],
                         tags => [],
                         genres => [],
+                        moods => [],
                         title => 'Press a Key',
                         'first-release-date' => '1999-09-13',
                     },
@@ -1460,6 +1476,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         } ],
                         tags => [],
                         genres => [],
+                        moods => [],
                         title => 'Bibi Plone',
                         'first-release-date' => '1999-09-13',
                     },
@@ -1499,6 +1516,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         } ],
                         tags => [],
                         genres => [],
+                        moods => [],
                         title => 'Be Rude to Your School',
                         'first-release-date' => '1999-09-13',
                     },
@@ -1538,6 +1556,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         } ],
                         tags => [],
                         genres => [],
+                        moods => [],
                         title => 'Summer Plays Out',
                         'first-release-date' => '1999-09-13',
                     },
@@ -1586,6 +1605,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
         'status-id' => '4e304316-386d-3409-af2e-78857eec5cfe',
         tags => [],
         genres => [],
+        moods => [],
         'text-representation' => {
             language => 'eng',
             script => 'Latn'

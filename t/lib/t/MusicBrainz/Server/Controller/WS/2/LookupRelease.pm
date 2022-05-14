@@ -824,6 +824,9 @@ ws_test 'release lookup, related artists have no tags',
               <name>glitch</name>
             </tag>
             <tag count="1">
+              <name>supercalifragilisticexpialidocious</name>
+            </tag>
+            <tag count="1">
               <name>uk</name>
             </tag>
             <tag count="1">
@@ -1209,6 +1212,9 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
               <name>glitch</name>
             </tag>
             <tag count="1">
+              <name>supercalifragilisticexpialidocious</name>
+            </tag>
+            <tag count="1">
               <name>uk</name>
             </tag>
             <tag count="1">
@@ -1274,6 +1280,9 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                         <name>glitch</name>
                       </tag>
                       <tag count="1">
+                        <name>supercalifragilisticexpialidocious</name>
+                      </tag>
+                      <tag count="1">
                         <name>uk</name>
                       </tag>
                       <tag count="1">
@@ -1313,6 +1322,9 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                       </tag>
                       <tag count="1">
                         <name>glitch</name>
+                      </tag>
+                      <tag count="1">
+                        <name>supercalifragilisticexpialidocious</name>
                       </tag>
                       <tag count="1">
                         <name>uk</name>
@@ -1356,6 +1368,9 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                         <name>glitch</name>
                       </tag>
                       <tag count="1">
+                        <name>supercalifragilisticexpialidocious</name>
+                      </tag>
+                      <tag count="1">
                         <name>uk</name>
                       </tag>
                       <tag count="1">
@@ -1395,6 +1410,9 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                       </tag>
                       <tag count="1">
                         <name>glitch</name>
+                      </tag>
+                      <tag count="1">
+                        <name>supercalifragilisticexpialidocious</name>
                       </tag>
                       <tag count="1">
                         <name>uk</name>
@@ -1438,6 +1456,9 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                         <name>glitch</name>
                       </tag>
                       <tag count="1">
+                        <name>supercalifragilisticexpialidocious</name>
+                      </tag>
+                      <tag count="1">
                         <name>uk</name>
                       </tag>
                       <tag count="1">
@@ -1477,6 +1498,9 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                       </tag>
                       <tag count="1">
                         <name>glitch</name>
+                      </tag>
+                      <tag count="1">
+                        <name>supercalifragilisticexpialidocious</name>
                       </tag>
                       <tag count="1">
                         <name>uk</name>
@@ -1520,6 +1544,9 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                         <name>glitch</name>
                       </tag>
                       <tag count="1">
+                        <name>supercalifragilisticexpialidocious</name>
+                      </tag>
+                      <tag count="1">
                         <name>uk</name>
                       </tag>
                       <tag count="1">
@@ -1559,6 +1586,9 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                       </tag>
                       <tag count="1">
                         <name>glitch</name>
+                      </tag>
+                      <tag count="1">
+                        <name>supercalifragilisticexpialidocious</name>
                       </tag>
                       <tag count="1">
                         <name>uk</name>
@@ -1602,6 +1632,9 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                         <name>glitch</name>
                       </tag>
                       <tag count="1">
+                        <name>supercalifragilisticexpialidocious</name>
+                      </tag>
+                      <tag count="1">
                         <name>uk</name>
                       </tag>
                       <tag count="1">
@@ -1641,6 +1674,9 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                       </tag>
                       <tag count="1">
                         <name>glitch</name>
+                      </tag>
+                      <tag count="1">
+                        <name>supercalifragilisticexpialidocious</name>
                       </tag>
                       <tag count="1">
                         <name>uk</name>

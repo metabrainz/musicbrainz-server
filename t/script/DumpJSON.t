@@ -178,6 +178,7 @@ test all => sub {
             ended => JSON::false,
         },
         name => 'Blue Guy',
+        moods => [],
         rating => {
             value => undef,
             'votes-count' => 0,
@@ -247,6 +248,7 @@ EOF
         iswcs => [],
         language => undef,
         languages => [],
+        moods => [],
         rating => {
             value => undef,
             'votes-count' => 0,
@@ -404,7 +406,13 @@ EOF
     my %release1 = (
         aliases => [],
         annotation => undef,
-        'artist-credit' => $make_artist_credit->('', aliases => [], tags => [], genres => []),
+        'artist-credit' => $make_artist_credit->(
+            '',
+            aliases => [],
+            tags => [],
+            genres => [],
+            moods => [],
+        ),
         asin => undef,
         barcode => undef,
         'cover-art-archive' => {
@@ -442,6 +450,7 @@ EOF
                             id => '4293ab04-ec12-4c5e-9ffa-98ee6e833bb3',
                             isrcs => [],
                             length => undef,
+                            moods => [],
                             relations => [],
                             tags => [],
                             title => 'The Blues',
@@ -452,6 +461,7 @@ EOF
                 ],
             },
         ],
+        moods => [],
         packaging => undef,
         'packaging-id' => undef,
         quality => 'normal',
@@ -463,6 +473,7 @@ EOF
             'first-release-date' => '',
             genres => [],
             id => 'e0e39108-5a94-4736-83bb-09c1682a2ab5',
+            moods => [],
             'primary-type' => undef,
             'primary-type-id' => undef,
             'secondary-type-ids' => [],
@@ -483,11 +494,18 @@ EOF
     my %release_group1 = (
         aliases => [],
         annotation => undef,
-        'artist-credit' => $make_artist_credit->('', aliases => [], tags => [], genres => []),
+        'artist-credit' => $make_artist_credit->(
+            '',
+            aliases => [],
+            tags => [],
+            genres => [],
+            moods => [],
+        ),
         disambiguation => '',
         'first-release-date' => '',
         genres => [],
         id => 'e0e39108-5a94-4736-83bb-09c1682a2ab5',
+        moods => [],
         'primary-type' => undef,
         'primary-type-id' => undef,
         rating => {
@@ -594,11 +612,18 @@ EOF
         {
             aliases => [],
             annotation => undef,
-            'artist-credit' => $make_artist_credit->('', aliases => [], tags => [], genres => []),
+            'artist-credit' => $make_artist_credit->(
+                '',
+                aliases => [],
+                tags => [],
+                genres => [],
+                moods => [],
+            ),
             disambiguation => '',
             genres => [],
             id => '4293ab04-ec12-4c5e-9ffa-98ee6e833bb3',
             length => 238000,
+            moods => [],
             rating => {
                 value => undef,
                 'votes-count' => 0,

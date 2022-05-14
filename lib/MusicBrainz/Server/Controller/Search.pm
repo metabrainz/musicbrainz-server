@@ -191,6 +191,7 @@ sub direct : Private
         }
         when ('tag') {
             $c->model('Genre')->load(@entities);
+            $c->model('Mood')->load(@entities);
         }
     }
 

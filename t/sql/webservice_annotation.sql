@@ -8,7 +8,8 @@ INSERT INTO annotation (id, editor, text)
                (5, 1, 'this is a release group annotation'),
                (6, 1, 'this is a work annotation'),
                (7, 1, 'this is a place annotation'),
-               (8, 1, 'this is a genre annotation');
+               (8, 1, 'this is a genre annotation'),
+               (9, 1, 'this is a mood annotation');
 
 INSERT INTO artist_annotation (artist, annotation) VALUES (427385, 1);
 INSERT INTO label_annotation (label, annotation) VALUES (46, 2);
@@ -18,3 +19,4 @@ INSERT INTO release_group_annotation (release_group, annotation) VALUES (597897,
 INSERT INTO work_annotation (work, annotation) VALUES (1542684, 6);
 INSERT INTO place_annotation (place, annotation) VALUES (1, 7);
 INSERT INTO genre_annotation (genre, annotation) VALUES (3, 8);
+INSERT INTO mood_annotation (mood, annotation) VALUES (3, 9);

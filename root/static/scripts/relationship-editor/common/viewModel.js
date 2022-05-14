@@ -28,6 +28,7 @@ const addAnotherEntityLabels = {
   genre: N_l('Add another genre'),
   instrument: N_l('Add another instrument'),
   label: N_l('Add another label'),
+  mood: N_l('Add another mood'),
   place: N_l('Add another place'),
   recording: N_l('Add another recording'),
   release: N_l('Add another release'),

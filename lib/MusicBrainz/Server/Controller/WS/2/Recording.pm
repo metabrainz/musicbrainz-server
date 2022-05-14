@@ -24,7 +24,10 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          linked   => [ qw(artist release collection work) ],
                          inc      => [ qw(aliases artist-credits puids isrcs annotation
-                                          _relations tags user-tags genres user-genres ratings user-ratings
+                                          _relations tags user-tags
+                                          genres user-genres
+                                          moods user-moods
+                                          ratings user-ratings
                                           work-level-rels) ],
                          optional => [ qw(fmt limit offset) ],
      },
@@ -32,7 +35,10 @@ my $ws_defs = Data::OptList::mkopt([
                          action   => '/ws/2/recording/lookup',
                          method   => 'GET',
                          inc      => [ qw(artists releases artist-credits puids isrcs aliases
-                                          _relations tags user-tags genres user-genres ratings user-ratings
+                                          _relations tags user-tags
+                                          genres user-genres
+                                          moods user-moods
+                                          ratings user-ratings
                                           release-groups work-level-rels annotation) ],
                          optional => [ qw(fmt) ],
      },

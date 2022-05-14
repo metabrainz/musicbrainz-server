@@ -23,6 +23,8 @@ export function formatPluralEntityTypeName(typeName: string): string {
       return l('Instruments');
     case 'label':
       return l('Labels');
+    case 'mood':
+      return l('Moods');
     case 'place':
       return l('Places');
     case 'recording':
@@ -58,6 +60,8 @@ export default function formatEntityTypeName(typeName: string): string {
       return l('Instrument');
     case 'label':
       return l('Label');
+    case 'mood':
+      return l('Moods');
     case 'place':
       return l('Place');
     case 'recording':

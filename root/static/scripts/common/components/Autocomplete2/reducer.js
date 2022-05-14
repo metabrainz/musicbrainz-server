@@ -175,6 +175,7 @@ export function determineIfUserCanAddEntities<+T: EntityItemT>(
     case 'genre':
     case 'link_type':
     case 'link_attribute_type':
+    case 'mood':
       return false;
     case 'instrument':
       return isRelationshipEditor(user);

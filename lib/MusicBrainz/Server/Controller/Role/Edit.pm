@@ -36,7 +36,7 @@ role {
         my $edit_entity = $c->stash->{ $entity_name };
         my $model = $self->{model};
 
-        if ($model eq 'Genre') {
+        if ($model eq 'Genre' || $model eq 'Mood') {
             my $type = model_to_type($model);
 
             my $form = $c->form(

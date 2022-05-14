@@ -53,6 +53,7 @@ const iconClassPicker = {
   instrument: 'instrumentlink',
   label: 'labellink',
   link_type: null,
+  mood: null,
   place: 'placelink',
   recording: 'recordinglink',
   release: 'releaselink',

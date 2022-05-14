@@ -16,7 +16,7 @@ sub _type { 'tag' }
 
 sub _table
 {
-    return 'tag LEFT JOIN genre USING (name)';
+    return 'tag LEFT JOIN genre USING (name) LEFT JOIN mood USING (name)';
 }
 
 sub _id_column
@@ -26,7 +26,7 @@ sub _id_column
 
 sub _columns
 {
-    return 'tag.id, tag.name, genre.id as genre_id';
+    return 'tag.id, tag.name, genre.id as genre_id, mood.id as mood_id';
 }
 
 sub _column_mapping
@@ -35,6 +35,7 @@ sub _column_mapping
         id        => 'id',
         name      => 'name',
         genre_id  => 'genre_id',
+        mood_id  => 'mood_id',
     };
 }
 
@@ -58,11 +59,17 @@ sub load
 
 sub _get_cloud_data
 {
-    my ($self, $get_genres, $limit) = @_;
+    my ($self, $get_what, $limit) = @_;
 
-    my $condition = $get_genres
-        ? 'tag.name IN (SELECT name FROM genre) '
-        : 'tag.name NOT IN (SELECT name FROM genre) ';
+    my $condition;
+
+    if ($get_what eq 'genres') {
+        $condition = 'tag.name IN (SELECT name FROM genre) ';
+    } elsif ($get_what eq 'moods') {
+        $condition = 'tag.name IN (SELECT name FROM mood) ';
+    } else {
+        $condition = 'tag.name NOT IN (SELECT name FROM genre) AND tag.name NOT IN (SELECT name FROM mood) ';
+    }
 
     my $entity_tag_subqueries = join ' UNION ALL ', map {
         my $entity_type = $_;
@@ -102,18 +109,20 @@ sub _get_cloud_data
 
 sub get_cloud
 {
-    my ($self, $genre_limit, $tag_limit) = @_;
+    my ($self, $genre_limit, $mood_limit, $tag_limit) = @_;
 
     my $cache = $self->c->cache('tag');
     my $data = $cache->get('tag_cloud_data');
     return $data if defined $data;
 
     $genre_limit ||= 200;
+    $mood_limit ||= 50;
     $tag_limit ||= 50;
 
     $data = {
-        genres => $self->_get_cloud_data(1, $genre_limit),
-        other_tags => $self->_get_cloud_data(0, $tag_limit),
+        genres => $self->_get_cloud_data('genres', $genre_limit),
+        moods => $self->_get_cloud_data('moods', $mood_limit),
+        other_tags => $self->_get_cloud_data('tags', $tag_limit),
     };
 
     $cache->set('tag_cloud_data', $data, $TAG_CLOUD_CACHE_TIMEOUT);

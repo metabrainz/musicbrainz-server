@@ -577,17 +577,22 @@ sub tags : Chained('load') PathPart('tags')
     my @display_tags = map +{
         %{$_},
         tag => to_json_object($_->{tag}),
-    }, grep { !$_->{tag}->genre_id } @{ $tags->{tags} };
+    }, grep { !$_->{tag}->genre_id && !$_->{tag}->mood_id } @{ $tags->{tags} };
     my @display_genres = map +{
         %{$_},
         tag => to_json_object($_->{tag}),
     }, grep { $_->{tag}->genre_id } @{ $tags->{tags} };
+    my @display_moods = map +{
+        %{$_},
+        tag => to_json_object($_->{tag}),
+    }, grep { $_->{tag}->mood_id } @{ $tags->{tags} };
 
     my %props = (
         showDownvoted => boolean_to_json($show_downvoted),
         sortBy => $order,
         tags => to_json_array(\@display_tags),
         genres => to_json_array(\@display_genres),
+        moods => to_json_array(\@display_moods),
         user => $self->serialize_user($user),
     );
 

@@ -107,16 +107,20 @@ test 'lookup via toc' => sub {
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
     MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'SQL');
         INSERT INTO medium_cdtoc (medium, cdtoc) VALUES (2, 2);
-        INSERT INTO tag (id, name) VALUES (1, 'musical'), (2, 'not-used');
+        INSERT INTO tag (id, name)
+            VALUES (1, 'musical'), (2, 'not-used'), (3, 'sad');
         INSERT INTO genre (id, gid, name)
             VALUES (1, 'ff6d73e8-bf1a-431e-9911-88ae7ffcfdfb', 'musical');
-        INSERT INTO release_tag (tag, release, count) VALUES (1, 2, 2), (2, 2, 2);
+        INSERT INTO mood (id, gid, name)
+            VALUES (1, '186a6a89-24de-4a3a-a92f-b7744dc7b051', 'sad');
+        INSERT INTO release_tag (tag, release, count)
+            VALUES (1, 2, 2), (2, 2, 2), (3, 2, 1);
         SQL
     $test->c->model('DurationLookup')->update(2);
     $test->c->model('DurationLookup')->update(4);
 
     ws_test_json 'lookup via toc',
-    '/discid/aa11.sPglQ1x0cybDcDi0OsZw9Q-?toc=1 9 189343 150 6614 32287 54041 61236 88129 92729 115276 153877&cdstubs=no&inc=tags+genres' =>
+    '/discid/aa11.sPglQ1x0cybDcDi0OsZw9Q-?toc=1 9 189343 150 6614 32287 54041 61236 88129 92729 115276 153877&cdstubs=no&inc=tags+genres+moods' =>
         {
             'release-count' => 2,
             'release-offset' => 0,
@@ -167,9 +171,13 @@ test 'lookup via toc' => sub {
                     tags => [
                         { count => 2, name => 'musical' },
                         { count => 2, name => 'not-used' },
+                        { count => 1, name => 'sad' },
                     ],
                     genres => [
                         { count => 2, disambiguation => '', id => 'ff6d73e8-bf1a-431e-9911-88ae7ffcfdfb', name => 'musical' },
+                    ],
+                    moods => [
+                        { count => 1, disambiguation => '', id => '186a6a89-24de-4a3a-a92f-b7744dc7b051', name => 'sad' },
                     ],
                 },
                 {
@@ -234,6 +242,7 @@ test 'lookup via toc' => sub {
                     }],
                     tags => [],
                     genres => [],
+                    moods => [],
                 }
             ]
         };

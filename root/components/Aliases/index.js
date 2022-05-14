@@ -26,6 +26,7 @@ function canEdit($c: CatalystContextT, entityType: string) {
         return isLocationEditor($c.user);
       case 'genre':
       case 'instrument':
+      case 'mood':
         return isRelationshipEditor($c.user);
       default:
         return true;

@@ -31,6 +31,11 @@ function buildResult(result, index) {
           <EntityLink entity={tag.genre} />
         ) : null}
       </td>
+      <td>
+        {tag.mood ? (
+          <EntityLink entity={tag.mood} />
+        ) : null}
+      </td>
     </tr>
   );
 }
@@ -50,6 +55,7 @@ React.Element<typeof ResultsLayout> => (
         <>
           <th>{l('Name')}</th>
           <th>{l('Genre')}</th>
+          <th>{l('Mood')}</th>
         </>
       }
       pager={pager}

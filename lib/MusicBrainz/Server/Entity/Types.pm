@@ -2,7 +2,8 @@ package MusicBrainz::Server::Entity::Types;
 
 use Moose::Util::TypeConstraints;
 
-for my $cls (qw(AggregatedTag AggregatedGenre AliasType Annotation Application
+for my $cls (qw(AggregatedTag AggregatedGenre AggregatedMood
+                AliasType Annotation Application
                 Area AreaAlias AreaType
                 Artist ArtistAlias ArtistCredit ArtistCreditName ArtistType
                 AutoEditorElection AutoEditorElectionVote
@@ -17,6 +18,7 @@ for my $cls (qw(AggregatedTag AggregatedGenre AliasType Annotation Application
                 Link LinkAttribute LinkAttributeType LinkType LinkTypeAttribute
                 Language
                 Medium MediumCDTOC MediumFormat
+                Mood MoodAlias
                 PartialDate
                 Place PlaceAlias PlaceType
                 Recording RecordingAlias

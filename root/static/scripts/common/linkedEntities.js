@@ -53,6 +53,9 @@ export type LinkedEntitiesT = {
   mergeLinkedEntities: (
     update: ?$ReadOnly<$Partial<LinkedEntitiesT>>,
   ) => void,
+  mood: {
+    [moodId: number]: MoodT,
+  },
   place: {
     [placeId: number]: PlaceT,
   },

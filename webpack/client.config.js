@@ -62,6 +62,8 @@ const entries = [
   'instrument/index',
   'jed-data',
   'label/index',
+  'mood/components/MoodEditForm',
+  'mood/index',
   'place/edit',
   'place/index',
   'place/map',

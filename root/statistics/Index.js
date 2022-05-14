@@ -148,6 +148,10 @@ const Index = ({
             <th>{addColonText(l('Genres'))}</th>
             <td colSpan="3">{fc('genre')}</td>
           </tr>
+          <tr>
+            <th>{addColonText(l('Moods'))}</th>
+            <td colSpan="3">{fc('mood')}</td>
+          </tr>
         </tbody>
         <tbody>
           <tr className="thead">

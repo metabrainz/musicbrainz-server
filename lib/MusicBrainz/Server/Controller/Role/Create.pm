@@ -59,7 +59,7 @@ role {
         my $model = $self->config->{model};
         my $entity;
 
-        if ($model eq 'Genre') {
+        if ($model eq 'Genre' || $model eq 'Mood') {
             my $type = model_to_type($model);
             my $form = $c->form( form => $params->form );
 

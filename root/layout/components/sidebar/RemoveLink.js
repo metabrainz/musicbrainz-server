@@ -18,6 +18,7 @@ type Props = {
     | GenreT
     | InstrumentT
     | LabelT
+    | MoodT
     | RecordingT
     | ReleaseT,
 };

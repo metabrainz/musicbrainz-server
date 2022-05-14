@@ -538,6 +538,11 @@ const stats = {
     color: '#ff0000',
     label: l('Mediums with Disc IDs'),
   },
+  'count.mood': {
+    category: 'core-entities',
+    color: '#ff0000',
+    label: l('Moods'),
+  },
   'count.place': {
     category: 'core-entities',
     color: '#bc0a0a',

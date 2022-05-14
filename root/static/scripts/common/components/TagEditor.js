@@ -38,12 +38,12 @@ const cmpTags = (a, b) => (
   (b.count - a.count) || compareStrings(a.tag.name, b.tag.name)
 );
 
-function formatGenreLabel(genre) {
-  let output = he.encode(genre.name);
-  if (genre.comment) {
+function formatGenreOrMoodLabel(entity) {
+  let output = he.encode(entity.name);
+  if (entity.comment) {
     output += (
       '<span class="small"> ' +
-      he.encode(bracketedText(genre.comment)) +
+      he.encode(bracketedText(entity.comment)) +
       '</span>'
     );
   }
@@ -211,6 +211,7 @@ type TagEditorProps = {
   +aggregatedTags: $ReadOnlyArray<AggregatedTagT>,
   +entity: CoreEntityT | MinimalCoreEntityT,
   +genreMap: ?{+[genreName: string]: GenreT, ...},
+  +moodMap: ?{+[moodName: string]: MoodT, ...},
   +more: boolean,
   +userTags: $ReadOnlyArray<UserTagT>,
 };
@@ -235,13 +236,15 @@ type TagsInputT = HTMLInputElement | HTMLTextAreaElement | null;
 class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   tagsInput: TagsInputT;
 
+  autocompleteOptions: $ReadOnlyArray<{+label: string, +value: string}>;
+
   debouncePendingVotes: () => void;
 
   genreMap: {+[genreName: string]: GenreT, ...};
 
-  genreOptions: $ReadOnlyArray<{+label: string, +value: string}>;
-
   handleSubmitBound: (SyntheticEvent<HTMLFormElement>) => void;
+
+  moodMap: {+[moodName: string]: MoodT, ...};
 
   onBeforeUnloadBound: () => void;
 
@@ -262,14 +265,26 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     this.setTagsInputBound = (input) => this.setTagsInput(input);
 
     this.genreMap = props.genreMap ?? {};
-    this.genreOptions =
+    const genreOptions =
       ((Object.values(this.genreMap): any): $ReadOnlyArray<GenreT>)
         .map(genre => {
           return {
-            label: formatGenreLabel(genre),
+            label: formatGenreOrMoodLabel(genre),
             value: genre.name,
           };
         });
+
+    this.moodMap = props.moodMap ?? {};
+    const moodOptions =
+      ((Object.values(this.moodMap): any): $ReadOnlyArray<MoodT>)
+        .map(mood => {
+          return {
+            label: formatGenreOrMoodLabel(mood),
+            value: mood.name,
+          };
+        });
+
+    this.autocompleteOptions = genreOptions.concat(moodOptions);
 
     this.pendingVotes = new Map();
     this.debouncePendingVotes = debounce(
@@ -332,6 +347,12 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
       if (!this.state.positiveTagsOnly || isAlwaysVisible(t)) {
         const isGenre = hasOwnProp(this.genreMap, t.tag.name);
+        const isMood = hasOwnProp(this.moodMap, t.tag.name);
+        const index = isGenre
+          ? accum.genres.length
+          : isMood
+            ? accum.moods.length
+            : accum.tags.length;
 
         const tagRow = (
           <TagRow
@@ -339,7 +360,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
             callback={callback}
             count={t.count}
             currentVote={t.vote}
-            index={isGenre ? accum.genres.length : accum.tags.length}
+            index={index}
             key={t.tag.name}
             tag={t.tag}
           />
@@ -347,13 +368,15 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
         if (isGenre) {
           accum.genres.push(tagRow);
+        } else if (isMood) {
+          accum.moods.push(tagRow);
         } else {
           accum.tags.push(tagRow);
         }
       }
 
       return accum;
-    }, {genres: [], tags: []});
+    }, {genres: [], moods: [], tags: []});
   }
 
   getNewCount(index: number, vote: VoteT) {
@@ -413,6 +436,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     updatedUserTags.forEach(t => {
       const index = newTags.findIndex(ct => ct.tag.name === t.tag);
       const genre = this.genreMap[t.tag];
+      const mood = this.moodMap[t.tag];
 
       if (t.deleted) {
         newTags.splice(index, 1);
@@ -423,6 +447,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
             entityType: 'tag',
             genre: genre,
             id: null,
+            mood: mood,
             name: t.tag,
           },
           vote: t.vote,
@@ -486,7 +511,9 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
         const filteredTerms: $ReadOnlyArray<string> =
           sortByNumber(
             $.ui.autocomplete.filter(
-              self.genreOptions.filter(x => !previousTerms.has(x.value)),
+              self.autocompleteOptions.filter(
+                x => !previousTerms.has(x.value),
+              ),
               last,
             ).sort(),
             x => x.value.startsWith(last) ? 0 : 1,
@@ -538,6 +565,16 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
                 </ul>
               ) : (
                 <p>{l('There are no genres to show.')}</p>
+              )}
+
+              <h2>{l('Moods')}</h2>
+
+              {tagRows.moods.length ? (
+                <ul className="mood-list">
+                  {tagRows.moods}
+                </ul>
+              ) : (
+                <p>{l('There are no moods to show.')}</p>
               )}
 
               <h2>{l('Other tags')}</h2>
@@ -648,6 +685,16 @@ export const SidebarTagEditor = (hydrate<TagEditorProps>(
             </ul>
           ) : (
             <p>{lp('(none)', 'genre')}</p>
+          )}
+
+          <h2>{l('Moods')}</h2>
+
+          {tagRows.moods.length ? (
+            <ul className="mood-list">
+              {tagRows.moods}
+            </ul>
+          ) : (
+            <p>{lp('(none)', 'mood')}</p>
           )}
 
           <h2>{l('Other tags')}</h2>
