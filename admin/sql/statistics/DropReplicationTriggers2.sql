@@ -3,5 +3,5 @@
 
 SET search_path = 'statistics';
 
-DROP TRIGGER reptg2_statistic ON statistic;
-DROP TRIGGER reptg2_statistic_event ON statistic_event;
+DROP TRIGGER IF EXISTS reptg2_statistic ON statistic;
+DROP TRIGGER IF EXISTS reptg2_statistic_event ON statistic_event;

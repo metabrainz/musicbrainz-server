@@ -3,5 +3,5 @@
 
 SET search_path = 'cover_art_archive';
 
-DROP TRIGGER update_release_coverart ON cover_art_archive.cover_art;
-DROP TRIGGER resquence_cover_art ON cover_art_archive.cover_art;
+DROP TRIGGER IF EXISTS update_release_coverart ON cover_art_archive.cover_art;
+DROP TRIGGER IF EXISTS resquence_cover_art ON cover_art_archive.cover_art;

@@ -3,4 +3,4 @@
 
 SET search_path = 'wikidocs';
 
-DROP TRIGGER reptg2_wikidocs_index ON wikidocs_index;
+DROP TRIGGER IF EXISTS reptg2_wikidocs_index ON wikidocs_index;
