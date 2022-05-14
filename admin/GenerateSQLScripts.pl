@@ -347,7 +347,7 @@ sub process_triggers
     print OUT "\\unset ON_ERROR_STOP\n\n";
     print OUT $search_path if $search_path;
     foreach my $trigger (@triggers) {
-        print OUT "DROP TRIGGER $trigger->[0] ON $trigger->[1];\n";
+        print OUT "DROP TRIGGER IF EXISTS $trigger->[0] ON $trigger->[1];\n";
     }
     close OUT;
 }
