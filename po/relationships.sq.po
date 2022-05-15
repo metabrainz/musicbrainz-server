@@ -1127,7 +1127,7 @@ msgstr ""
 msgid ""
 "This attribute describes the possible instruments that can be captured as part of a performance.\n"
 "<br/>\n"
-"Can't find an instrument? <a href=\"https://musicbrainz.org/doc/How_to_Add_Instruments\">Request it!</a>"
+"Can't find an instrument? <a href=\"https://musicbrainz.org/doc/How_to_Add_Instruments\" target=\"_blank\">Request it!</a>"
 msgstr ""
 
 #: DB:link_attribute_type/description:194
@@ -1236,6 +1236,12 @@ msgid ""
 "the label <a href=\"/label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a> "
 "into <a href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music"
 " Group</a>, as Verve continued its existence thereafter as an imprint."
+msgstr ""
+
+#: DB:link_type/description:1079
+msgid ""
+"This describes a situation where an artist (generally a group) changed its "
+"name, leading to the start of a new project."
 msgstr ""
 
 #: DB:link_type/description:200
@@ -1548,6 +1554,12 @@ msgid ""
 "creative position, such as photographer or graphic designer."
 msgstr ""
 
+#: DB:link_type/description:1081
+msgid ""
+"This indicates that an artist was officially employed by a label in an "
+"artists and repertoire (A&R) position."
+msgstr ""
+
 #: DB:link_type/description:818
 msgid ""
 "This indicates that an event is made up of multiple parts (e.g. a festival "
@@ -1581,9 +1593,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:618
 msgid ""
-"This indicates that the group had multiple conductors who were led by this "
-"conductor. This may be indicated by either the title of \"principal "
-"conductor\" or \"first conductor\"."
+"This indicates that the group had multiple conductors or multiple players of"
+" the selected instrument who were led by this artist. This is often "
+"indicated by the title of \"principal conductor\" or \"first conductor\" for"
+" conductors, and by the title of \"principal [instrument]\" or "
+"\"concertmaster\" (principal violin) for instruments."
 msgstr ""
 
 #: DB:link_type/description:998 DB:link_type/description:999
@@ -1618,6 +1632,15 @@ msgstr ""
 msgid ""
 "This indicates that the recording is of a medley, of which the work is one "
 "part."
+msgstr ""
+
+#: DB:link_attribute_type/description:1261
+msgid ""
+"This indicates that this is a karaoke recording of the work. This is "
+"different from an instrumental recording in that it is actively meant to "
+"sing on top of, and as such the lyrics info is still relevant. It might "
+"still contain backing vocals and other sections that would not be present in"
+" a true instrumental recording."
 msgstr ""
 
 #: DB:link_type/description:973
@@ -2430,6 +2453,10 @@ msgid ""
 "This links an artist to an online discography of their works. The "
 "discography should provide a summary of most, if not all, releases by the "
 "artist, and be as comprehensive as possible."
+msgstr ""
+
+#: DB:link_type/description:1080
+msgid "This links an artist to its channel at YouTube Music."
 msgstr ""
 
 #: DB:link_type/description:718
@@ -3396,6 +3423,14 @@ msgstr "Wikipedia"
 msgid "Wikipedia page for"
 msgstr "faqe në Wikipedia për"
 
+#: DB:link_type/link_phrase:1080
+msgid "YouTube Music"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1080
+msgid "YouTube Music channel for"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:791 DB:link_type/reverse_link_phrase:792
 #: DB:link_type/reverse_link_phrase:193 DB:link_type/reverse_link_phrase:225
 #: DB:link_type/reverse_link_phrase:528
@@ -3494,6 +3529,10 @@ msgstr ""
 msgid "artist & repertoire support"
 msgstr ""
 
+#: DB:link_type/name:1079
+msgid "artist rename"
+msgstr ""
+
 #: DB:link_type/name:965 DB:link_type/reverse_link_phrase:965
 msgid "artistic director"
 msgstr "drejtor artistik"
@@ -3505,6 +3544,14 @@ msgstr "drejtor artistik për"
 #: DB:link_type/name:135 DB:link_type/name:62
 msgid "artists and repertoire"
 msgstr "artistë dhe repertor"
+
+#: DB:link_type/reverse_link_phrase:1081
+msgid "artists and repertoire persons"
+msgstr ""
+
+#: DB:link_type/link_phrase:1081 DB:link_type/name:1081
+msgid "artists and repertoire position"
+msgstr ""
 
 #: DB:link_type/name:993
 msgid "artwork"
@@ -4313,6 +4360,10 @@ msgstr ""
 msgid "had a recording contract with"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1081
+msgid "had an artists and repertoire position at"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
 msgstr ""
@@ -4340,6 +4391,10 @@ msgstr ""
 #: DB:link_type/long_link_phrase:311 DB:link_type/long_link_phrase:310
 #: DB:link_type/long_link_phrase:920 DB:link_type/long_link_phrase:1001
 msgid "has VIAF ID at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1080
+msgid "has YouTube Music channel at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:190
@@ -4847,7 +4902,7 @@ msgstr ""
 #: DB:link_type/long_link_phrase:278
 msgid ""
 "is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
-"recording of"
+"{karaoke} recording of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:15
@@ -4961,7 +5016,7 @@ msgstr ""
 msgid "jazz"
 msgstr ""
 
-#: DB:link_type/name:226
+#: DB:link_attribute_type/name:1261 DB:link_type/name:226
 msgid "karaoke"
 msgstr "karaoke"
 
@@ -5692,7 +5747,7 @@ msgid "patronage page for"
 msgstr ""
 
 #: DB:link_type/link_phrase:34 DB:link_type/link_phrase:122
-#: DB:link_type/name:278 DB:link_type/name:34 DB:link_type/name:122
+#: DB:link_type/name:34 DB:link_type/name:122 DB:link_type/name:278
 #: DB:link_type/reverse_link_phrase:34 DB:link_type/reverse_link_phrase:122
 #: DB:link_type/long_link_phrase:34 DB:link_type/long_link_phrase:122
 msgid "performance"
@@ -5765,7 +5820,7 @@ msgstr ""
 msgid "phonographic copyright (℗) by"
 msgstr ""
 
-#: DB:link_type/name:20 DB:link_type/name:123
+#: DB:link_type/name:123 DB:link_type/name:20
 msgid "photography"
 msgstr "fotografi"
 
@@ -6199,11 +6254,11 @@ msgstr ""
 msgid "remixes and compilations"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:202
+#: DB:link_type/reverse_link_phrase:202 DB:link_type/reverse_link_phrase:1079
 msgid "renamed from"
 msgstr ""
 
-#: DB:link_type/link_phrase:202
+#: DB:link_type/link_phrase:202 DB:link_type/link_phrase:1079
 msgid "renamed into"
 msgstr ""
 
@@ -6747,7 +6802,7 @@ msgstr ""
 msgid "was released in support of"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:202
+#: DB:link_type/long_link_phrase:202 DB:link_type/long_link_phrase:1079
 msgid "was renamed into"
 msgstr ""
 
@@ -6841,6 +6896,10 @@ msgstr "shkruar në"
 #: DB:link_type/name:225 DB:link_type/name:528
 msgid "youtube"
 msgstr "youtube"
+
+#: DB:link_type/name:1080
+msgid "youtube music"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:886
 msgid "{additional:additionally} arranged at"
@@ -7191,8 +7250,8 @@ msgstr ""
 msgid "{additional} orchestrator"
 msgstr ""
 
-#: DB:link_type/link_phrase:20 DB:link_type/link_phrase:123
-#: DB:link_type/reverse_link_phrase:20 DB:link_type/reverse_link_phrase:123
+#: DB:link_type/link_phrase:123 DB:link_type/link_phrase:20
+#: DB:link_type/reverse_link_phrase:123 DB:link_type/reverse_link_phrase:20
 msgid "{additional} photography"
 msgstr ""
 
@@ -7443,7 +7502,7 @@ msgstr "{entity1} ka një faqe në IMDb te {entity0}"
 msgid "{entity1} has lyrics available at {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:20 DB:link_type/long_link_phrase:123
+#: DB:link_type/long_link_phrase:123 DB:link_type/long_link_phrase:20
 msgid "{entity1} has {additional} photography by {entity0}"
 msgstr ""
 
@@ -7714,13 +7773,13 @@ msgstr ""
 #: DB:link_type/link_phrase:278
 msgid ""
 "{live} {medley:medley including a} {partial} {instrumental} {cover} "
-"recording of"
+"{karaoke} recording of"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:278
 msgid ""
-"{live} {medley:medleys including} {partial} {instrumental} {cover} "
-"recordings"
+"{live} {medley:medleys including} {partial} {instrumental} {cover} {karaoke}"
+" recordings"
 msgstr ""
 
 #: DB:link_type/link_phrase:109
