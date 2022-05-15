@@ -26,6 +26,11 @@
       [% l('This will also cancel all your open edits and change all of your votes on any edits currently open to Abstain.') %]
     </p>
 
+    [%# TODO: Remove this once MBS-12379 is implemented %]
+    <p>
+      [% l('Keep in mind this process might take a fairly long time if you have entered a lot of tags. If the process times out, please {contact_url|contact us}.', { contact_url => { href => 'https://metabrainz.org/contact', target => '_blank' } }) %]
+    </p>
+
     <p>[% l('Are you sure you want to delete your account? This cannot be undone!')%]</p>
     <form action="[% c.req.uri %]" method="post" id="delete-account-form">
       [% form_csrf_token(r) %]
