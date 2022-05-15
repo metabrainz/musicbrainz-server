@@ -42,7 +42,9 @@ CREATE INDEX column_info_idx
 CREATE FUNCTION dbmirror2.recordchange()
 RETURNS trigger AS $$
 DECLARE
-    tablename   TEXT;
+    -- prefixed with an underscore to disambiguate it from the column names
+    -- pending_data.tablename and pending_keys.tablename
+    _tablename  TEXT;
     keys        TEXT[];
     jsonquery   TEXT;
     olddata     JSON;
@@ -61,7 +63,7 @@ DECLARE
                     ORDER BY seqid DESC
                     FOR UPDATE;
 BEGIN
-    tablename := (
+    _tablename := (
         quote_ident(TG_TABLE_SCHEMA) || '.' || quote_ident(TG_TABLE_NAME)
     );
 
@@ -71,7 +73,7 @@ BEGIN
 
     INSERT INTO dbmirror2.pending_keys (tablename, keys)
     VALUES (
-        tablename,
+        _tablename,
         (
             SELECT array_agg(column_name)
             FROM dbmirror2.column_info
@@ -134,6 +136,7 @@ BEGIN
         SELECT seqid, trgdepth INTO oooseqid, oootrgdepth
         FROM dbmirror2.pending_data
         WHERE xid = txid_current()
+        AND tablename = _tablename
         AND oldctid = NEW.ctid;
 
         IF FOUND THEN
@@ -142,7 +145,7 @@ BEGIN
                 -- known way for operations to arrive out of order. This
                 -- warning must be investigated if it's ever logged.
                 RAISE WARNING 'oootrgdepth (%) <= pg_trigger_depth() (%) (% ON %, OLD: %, NEW: %)',
-                    oootrgdepth, pg_trigger_depth(), TG_OP, tablename, OLD, NEW;
+                    oootrgdepth, pg_trigger_depth(), TG_OP, _tablename, OLD, NEW;
             END IF;
 
             FOR pdrecord IN pdcursor (oooseqid := oooseqid) LOOP
@@ -161,7 +164,7 @@ BEGIN
         (seqid, tablename, op, xid, olddata, newdata, oldctid, trgdepth)
     VALUES (
         nextseqid,
-        tablename,
+        _tablename,
         lower(left(TG_OP, 1)),
         txid_current(),
         olddata,
