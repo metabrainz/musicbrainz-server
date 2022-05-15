@@ -270,7 +270,7 @@ Next, you can dump the schema of the production standby, import it locally to
 prod_standby_pg_host=
 prod_standby_pg_container=
 
-ssh $prod_standby_pg_host docker exec $prod_standby_pg_container sudo -E -H -u postgres \
+ssh -C $prod_standby_pg_host docker exec $prod_standby_pg_container sudo -E -H -u postgres \
   pg_dump --schema-only musicbrainz_db \
   > musicbrainz_prod_schema.dump
 
