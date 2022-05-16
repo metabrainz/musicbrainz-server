@@ -47,6 +47,7 @@ export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export PERL_CARTON_PATH=/home/musicbrainz/carton-local
 
 command_full_path=$(which "$1")
+command_verbatim=$1
 shift
 
 if [[ $command_full_path =~ admin/cron/.*\.sh$ ]]
@@ -71,7 +72,7 @@ then
   pre_command="sudo --preserve-env --set-home -u musicbrainz -- $pre_command"
 fi
 
-echo "Running '$*' and logging at '$log_file_path'..."
+echo "Running '$command_verbatim $*' and logging at '$log_file_path'..."
 if [[ -t 1 ]]
 then
   exec $pre_command "$command_full_path" "$@" 2>&1 | TZ=Z ts %FT%.TZ | tee -a "$log_file_path"
