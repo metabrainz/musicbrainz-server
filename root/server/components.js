@@ -244,6 +244,7 @@ module.exports = {
   'report/ReleasesConflictingDiscIds': require('../report/ReleasesConflictingDiscIds'),
   'report/ReleasesSameBarcode': require('../report/ReleasesSameBarcode'),
   'report/ReleasesToConvert': require('../report/ReleasesToConvert'),
+  'report/ReleasesWithAmazonCoverArt': require('../report/ReleasesWithAmazonCoverArt'),
   'report/ReleasesWithCaaNoTypes': require('../report/ReleasesWithCaaNoTypes'),
   'report/ReleasesWithDownloadRelationships': require('../report/ReleasesWithDownloadRelationships'),
   'report/ReleasesWithEmptyMediums': require('../report/ReleasesWithEmptyMediums'),
