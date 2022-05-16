@@ -2628,7 +2628,7 @@ msgstr ""
 msgid "Badyara"
 msgstr ""
 
-#. frequency:0 iso_code_3:bvd 
+#. frequency:1 iso_code_3:bvd 
 #: DB:language/name:1470
 msgid "Baeggu"
 msgstr ""

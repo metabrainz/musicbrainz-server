@@ -6,6 +6,7 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
 );
 use MusicBrainz::Server::Log qw( log_error );
+use aliased 'MusicBrainz::Server::Entity::CDTOC';
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -62,7 +63,7 @@ sub find_or_insert
 {
     my ($self, $toc) = @_;
 
-    my $cdtoc = MusicBrainz::Server::Entity::CDTOC->new_from_toc($toc);
+    my $cdtoc = CDTOC->new_from_toc($toc);
     if (!$cdtoc) {
         log_error { 'Attempt to insert invalid CDTOC; aborting '};
         return;

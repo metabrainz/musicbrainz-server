@@ -287,14 +287,6 @@ sub insert
         });
 
     $self->entity_id($relationship->id);
-
-    if ($self->c->model('CoverArt')->can_parse($link_type->name)) {
-        my $release = $self->c->model('Release')->get_by_id(
-            $self->data->{entity0}{id}
-        );
-        $self->c->model('Relationship')->load_subset([ 'url' ], $release);
-        $self->c->model('CoverArt')->cache_cover_art($release);
-    }
 }
 
 sub reject
@@ -305,16 +297,6 @@ sub reject
         $self->data->{type1},
         $self->entity_id
     );
-
-    my $link_type = $self->c->model('LinkType')->get_by_id(
-        $self->data->{link_type}{id},
-    );
-
-    if ($self->c->model('CoverArt')->can_parse($link_type->name)) {
-        my $release = $self->c->model('Release')->get_by_any_id(gid_or_id($self->data->{entity0}));
-        $self->c->model('Relationship')->load_subset([ 'url' ], $release);
-        $self->c->model('CoverArt')->cache_cover_art($release);
-    }
 }
 
 before restore => sub {

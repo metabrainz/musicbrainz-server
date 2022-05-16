@@ -118,7 +118,7 @@ sub build_display_data {
         );
 
     my $suffix = $self->data->{cover_art_mime_type}
-        ? $self->c->model('CoverArt')->image_type_suffix($self->data->{cover_art_mime_type})
+        ? $self->c->model('CoverArtArchive')->image_type_suffix($self->data->{cover_art_mime_type})
         : 'jpg';
 
     my $artwork = Artwork->new(release => $artwork_release,

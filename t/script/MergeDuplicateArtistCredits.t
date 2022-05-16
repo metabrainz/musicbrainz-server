@@ -31,12 +31,12 @@ test all => sub {
             (89559, '812d3015-2f4c-4fa7-bd7d-30ec4beb2c82', 'N.O.R.E.', 'N.O.R.E.', 1977, 9, 6, NULL, NULL, NULL, 1, NULL, 1, 'Noreaga, hip-hop artist from Queens, NY', 0, '2019-01-16 16:00:22.114503+00', 'f', NULL, NULL);
 
         INSERT INTO artist_credit VALUES
-            (1, 'Various Artists', 1, 317291, '2011-05-16 16:32:11.963929+00', 0),
-            (1033220, 'Various Artists', 1, 4215, '2012-08-12 01:20:35.977725+00', 0),
-            (1091952, 'Various Artists', 1, 105, '2012-12-08 17:05:37.270366+00', 1),
-            (1079039, '2Pac feat. Xzibit & Noreaga', 3, 2, '2012-11-12 18:45:33.408347+00', 1),
-            (1216448, '2Pac feat. Xzibit & Noreaga', 3, 1, '2013-09-14 06:42:02.852405+00', 1),
-            (163, '2Pac', 1, 5626, '2011-05-16 16:32:11.963929+00', 1);
+            (1, 'Various Artists', 1, 317291, '2011-05-16 16:32:11.963929+00', 0, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7'),
+            (1033220, 'Various Artists', 1, 4215, '2012-08-12 01:20:35.977725+00', 0, '00c418d8-5284-3068-b6ea-58519bdadaa4'),
+            (1091952, 'Various Artists', 1, 105, '2012-12-08 17:05:37.270366+00', 1, 'cf245a11-9fd0-307b-b476-c0955948b466'),
+            (1079039, '2Pac feat. Xzibit & Noreaga', 3, 2, '2012-11-12 18:45:33.408347+00', 1, 'd9191f96-fa43-30f3-85a3-6b367b4da7c0'),
+            (1216448, '2Pac feat. Xzibit & Noreaga', 3, 1, '2013-09-14 06:42:02.852405+00', 1, '30fac9ce-5a5e-32bc-8f25-ddd85896d73f'),
+            (163, '2Pac', 1, 5626, '2011-05-16 16:32:11.963929+00', 1, 'a8e3f309-a7d2-3892-9dff-2efbbe5866a3');
 
         INSERT INTO artist_credit_name VALUES
             (1, 0, 1, 'Various Artists', ''),
@@ -216,6 +216,15 @@ test all => sub {
     );
     cmp_deeply($rows, [
         {id => 15351681, artist_credit => 1079039},
+    ]);
+
+    $rows = $c->sql->select_list_of_hashes(
+        'SELECT gid, new_id FROM artist_credit_gid_redirect ORDER BY new_id, gid',
+    );
+    cmp_deeply($rows, [
+        {gid => '00c418d8-5284-3068-b6ea-58519bdadaa4', new_id => 1},
+        {gid => 'cf245a11-9fd0-307b-b476-c0955948b466', new_id => 1},
+        {gid => '30fac9ce-5a5e-32bc-8f25-ddd85896d73f', new_id => 1079039},
     ]);
 
     $rows = $c->sql->select_list_of_hashes(

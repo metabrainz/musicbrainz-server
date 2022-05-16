@@ -15,10 +15,12 @@ use Sql;
 my ($fHelp, $fIgnoreErrors);
 my $tmpdir = '/tmp';
 my $database = 'READWRITE';
+my $dbmirror2 = 0;
 
 GetOptions(
     'help|h'            => \$fHelp,
     'database=s'        => \$database,
+    'dbmirror2!'        => \$dbmirror2,
     'ignore-errors|i!'  => \$fIgnoreErrors,
     'tmp-dir|t=s'       => \$tmpdir,
 );
@@ -83,7 +85,11 @@ printf "%-30.30s %9s %4s %9s\n",
     'Table', 'Rows', 'est%', 'rows/sec',
     ;
 
-ImportReplicationTables();
+if ($dbmirror2) {
+    ImportDBMirror2ReplicationTables();
+} else {
+    ImportReplicationTables();
+}
 
 print localtime() . " : import finished\n";
 
@@ -204,6 +210,23 @@ sub ImportReplicationTables
     $sql->do('ALTER TABLE dbmirror_pendingdata ADD CONSTRAINT dbmirror_pendingdata_pkey PRIMARY KEY (SeqId, IsKey)');
     $sql->do('ALTER TABLE dbmirror_pendingdata ADD CONSTRAINT dbmirror_pendingdata_SeqId FOREIGN KEY (SeqId) REFERENCES dbmirror_pending (SeqId) ON UPDATE CASCADE ON DELETE CASCADE');
     $sql->commit;
+
+    return 1;
+}
+
+sub ImportDBMirror2ReplicationTables {
+    for my $table (qw( pending_data pending_keys pending_ts )) {
+        my $file = find_file($table);
+
+        $file or die "No data file found for $table";
+
+        my $qualified_table = "dbmirror2.$table";
+        if (!empty($qualified_table)) {
+            die "$qualified_table already contains data";
+        }
+
+        ImportTable($qualified_table, $file);
+    }
 
     return 1;
 }

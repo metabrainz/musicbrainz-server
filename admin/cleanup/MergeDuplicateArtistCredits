@@ -98,9 +98,32 @@ unless (@$rows) {
     exit(0);
 }
 
+my $row_count = scalar(@$rows);
+log_info {
+    'Found duplicate artist credits to be merged into ' .
+    $row_count . ' ' . ($row_count == 1 ? 'row' : 'rows') . '.'
+};
+
 my @ac_entity_models = map { $c->model($_) }
     sort { $a cmp $b }
     entities_with('artist_credits', take => 'model');
+
+my $insert_redirect_query = <<~'SQL';
+    INSERT INTO artist_credit_gid_redirect
+         SELECT gid,
+                ?::INT AS new_id,
+                NOW() AS created
+           FROM artist_credit
+          WHERE id = any(?::INT[])
+      RETURNING gid
+    SQL
+
+my $update_redirect_query = <<~'SQL';
+       UPDATE artist_credit_gid_redirect
+          SET new_id = ?::INT
+        WHERE new_id = any(?::INT[])
+    RETURNING gid
+    SQL
 
 my $delete_unused_ac_name_query =
     'DELETE FROM artist_credit_name ' .
@@ -167,6 +190,50 @@ for my $duplicates (@$rows) {
     );
 
     if (@$deleted_ac_ids) {
+        my $updated_ac_gid_redirects = $c->sql->select_single_column_array(
+          $update_redirect_query,
+          $orig_ac,
+          \@$deleted_ac_ids,
+        );
+
+        my $updated_redirect_count = scalar(@$updated_ac_gid_redirects);
+        if  ($updated_redirect_count == 0) {
+            log_info { "Found no GID redirect to be updated to artist_credit row $orig_ac." };
+        } else {
+            my $updated_ac_gid_redirects_display = join(', ', @$updated_ac_gid_redirects);
+            log_info {
+                "Updated the $updated_redirect_count following redirected artist credit " .
+                ($updated_redirect_count == 1 ? 'GID' : 'GIDs') .
+                " to artist_credit row $orig_ac:"
+            };
+            my $redirect_it = natatime 100, @$updated_ac_gid_redirects;
+            while (my @next_redirects = $redirect_it->()) {
+                log_info {
+                    join(', ', @next_redirects)
+                };
+            }
+      }
+
+        my $redirected_ac_gids = $c->sql->select_single_column_array(
+          $insert_redirect_query,
+          $orig_ac,
+          \@$deleted_ac_ids,
+        );
+
+        my $redirected_ac_count = scalar(@$redirected_ac_gids);
+        my $redirected_ac_gids_display = join(', ', @$redirected_ac_gids);
+        log_info {
+            "Redirected the $redirected_ac_count following artist credit " .
+            ($redirected_ac_count == 1 ? 'GID' : 'GIDs') .
+            " to artist_credit row $orig_ac:"
+        };
+        my $gid_it = natatime 100, @$redirected_ac_gids;
+        while (my @next_gids = $gid_it->()) {
+            log_info {
+                join(', ', @next_gids)
+            };
+        }
+
         $c->sql->do(
             'DELETE FROM artist_credit WHERE id = any(?)',
             $deleted_ac_ids,
@@ -210,7 +277,8 @@ if ($updated_entity_count) {
     if ($dry_run) {
         $c->sql->rollback;
     } else {
-        log_info { 'Committing changes.' };
+        log_info { 'Committing changes...' };
         $c->sql->commit;
+        log_info { 'Done.' };
     }
 }

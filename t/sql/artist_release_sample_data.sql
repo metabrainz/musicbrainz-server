@@ -19,11 +19,11 @@ INSERT INTO musicbrainz.artist (id, gid, name, sort_name, begin_date_year, begin
 	(60, 'c0b2500e-0cef-4130-869d-732b23ed9df5', 'Tori Amos', 'Amos, Tori', 1963, 8, 22, NULL, NULL, NULL, 1, 222, 2, '', 0, '2019-06-13 05:00:18.032217+00', '0', 22284, NULL),
 	(197, 'a3cb23fc-acd3-4ce0-8f36-1e5aa6a18432', 'U2', 'U2', 1976, NULL, NULL, NULL, NULL, NULL, 2, 103, NULL, 'Irish rock band', 0, '2018-01-27 02:00:25.755918+00', '0', 9622, NULL),
 	(2107, '65314b12-0e08-43fa-ba33-baaa7b874c15', 'Leonard Cohen', 'Cohen, Leonard', 1934, 9, 21, 2016, 11, 7, 1, 38, 1, '', 0, '2016-11-12 16:00:39.937967+00', '1', 8532, 7703);
-INSERT INTO musicbrainz.artist_credit (id, name, artist_count, ref_count, created, edits_pending) VALUES
-	(1, 'Various Artists', 1, 411397, '2011-05-16 16:32:11.963929+00', 0),
-	(60, 'Tori Amos', 1, 13205, '2011-05-16 16:32:11.963929+00', 0),
-	(2046742, 'Leonard Cohen feat. Tori Amos', 2, 2, '2017-08-05 21:00:27.473927+00', 0),
-	(2060761, 'U2 and Leonard Cohen', 2, 3, '2017-08-30 21:57:51.926481+00', 0);
+INSERT INTO musicbrainz.artist_credit (id, name, artist_count, gid, ref_count, created, edits_pending) VALUES
+	(1, 'Various Artists', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7', 411397, '2011-05-16 16:32:11.963929+00', 0),
+	(60, 'Tori Amos', 1, '3a7adaa9-535a-33e1-aa68-20a9ebfe2051', 13205, '2011-05-16 16:32:11.963929+00', 0),
+	(2046742, 'Leonard Cohen feat. Tori Amos', 2, '3b46eb18-00e9-3078-b278-38694bd4d33c', 2, '2017-08-05 21:00:27.473927+00', 0),
+	(2060761, 'U2 and Leonard Cohen', 2, '568fdfe4-9074-3e05-aad2-e3d19389b4a0', 3, '2017-08-30 21:57:51.926481+00', 0);
 INSERT INTO musicbrainz.artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES
 	(1, 0, 1, 'Various Artists', ''),
 	(60, 0, 60, 'Tori Amos', ''),

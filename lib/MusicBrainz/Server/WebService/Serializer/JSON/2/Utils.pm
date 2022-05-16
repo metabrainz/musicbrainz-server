@@ -299,7 +299,7 @@ sub serialize_tags {
         $into->{tags} = [
             sort { $a->{name} cmp $b->{name} }
             map +{ count => $_->count, name => $_->tag->name },
-                @{ $opts->{tags} }
+                grep { $_->count > 0 } @{ $opts->{tags} }
         ];
     }
 
@@ -307,7 +307,7 @@ sub serialize_tags {
         $into->{genres} = [
             sort { $a->{name} cmp $b->{name} }
             map +{ count => $_->count, disambiguation => $_->genre->comment, id => $_->genre->gid, name => $_->genre->name },
-                @{ $opts->{genres} }
+                grep { $_->count > 0 } @{ $opts->{genres} }
         ];
     }
 

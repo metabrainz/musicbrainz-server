@@ -229,6 +229,20 @@ sub process_tables
         }
         print OUT "COMMIT;\n";
         close OUT;
+
+        open OUT, ">$dir/CreateReplicationTriggers2.sql";
+        print OUT "-- Automatically generated, do not edit.\n";
+        print OUT "\\set ON_ERROR_STOP 1\n\n";
+        print OUT $replication_search_path if $replication_search_path;
+        print OUT "BEGIN;\n\n";
+        foreach my $row (@replication_triggers) {
+            my ($table, $verbose) = @$row;
+            print OUT qq(CREATE TRIGGER reptg2_$table\n);
+            print OUT qq(AFTER INSERT OR DELETE OR UPDATE ON $table\n);
+            print OUT "FOR EACH ROW EXECUTE PROCEDURE dbmirror2.recordchange();\n\n";
+        }
+        print OUT "COMMIT;\n";
+        close OUT;
     }
 }
 
@@ -308,7 +322,7 @@ sub process_functions
 }
 
 process_functions('CreateFunctions.sql', 'DropFunctions.sql');
-process_functions('CreateSlaveOnlyFunctions.sql', 'DropSlaveOnlyFunctions.sql');
+process_functions('CreateMirrorOnlyFunctions.sql', 'DropMirrorOnlyFunctions.sql');
 
 sub process_triggers
 {
@@ -333,14 +347,45 @@ sub process_triggers
     print OUT "\\unset ON_ERROR_STOP\n\n";
     print OUT $search_path if $search_path;
     foreach my $trigger (@triggers) {
-        print OUT "DROP TRIGGER $trigger->[0] ON $trigger->[1];\n";
+        print OUT "DROP TRIGGER IF EXISTS $trigger->[0] ON $trigger->[1];\n";
     }
     close OUT;
 }
 
 process_triggers('CreateTriggers.sql', 'DropTriggers.sql');
-process_triggers('CreateSlaveOnlyTriggers.sql', 'DropSlaveOnlyTriggers.sql');
+process_triggers('CreateMirrorOnlyTriggers.sql', 'DropMirrorOnlyTriggers.sql');
 process_triggers('CreateReplicationTriggers.sql', 'DropReplicationTriggers.sql');
+process_triggers('CreateReplicationTriggers2.sql', 'DropReplicationTriggers2.sql');
+
+sub process_types
+{
+    my ($infile, $outfile) = @_;
+
+    unless (-e "$dir/$infile") {
+        print "Could not find $infile, skipping\n";
+        return;
+    }
+
+    open FILE, "<$dir/$infile";
+    my $create_types_sql = do { local $/; <FILE> };
+    close FILE;
+
+    my @types;
+    while ($create_types_sql =~ m/CREATE TYPE (\w+) AS ENUM/gsi) {
+        push @types, $1;
+    }
+
+    open OUT, ">$dir/$outfile";
+    print OUT "-- Automatically generated, do not edit.\n";
+    print OUT "\\unset ON_ERROR_STOP\n\n";
+    print OUT $search_path if $search_path;
+    foreach my $type (@types) {
+        print OUT "DROP TYPE IF EXISTS $type;\n";
+    }
+    close OUT;
+}
+
+process_types('CreateTypes.sql', 'DropTypes.sql');
 
 =head1 COPYRIGHT AND LICENSE
 

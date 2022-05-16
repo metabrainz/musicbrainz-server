@@ -59,7 +59,7 @@ sub post_fields {
 
     my $mime_type = $opts->{mime_type} // 'image/jpeg';
     my $redirect = $opts->{redirect};
-    my $suffix = $self->c->model('CoverArt')->image_type_suffix($mime_type);
+    my $suffix = $self->c->model('CoverArtArchive')->image_type_suffix($mime_type);
 
     my $access_key = $opts->{access_key} // DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY;
     my $secret_key = $opts->{secret_key} // DBDefs->COVER_ART_ARCHIVE_SECRET_KEY;
@@ -231,6 +231,21 @@ sub exists_for_release_gid {
         'WHERE r.gid = ?',
         $release_gid,
     );
+}
+
+sub mime_types {
+    my $self = shift;
+
+    return $self->c->sql->select_list_of_hashes(
+        'SELECT mime_type, suffix FROM cover_art_archive.image_type');
+}
+
+sub image_type_suffix {
+    my ($self, $mime_type) = @_;
+
+    return $self->c->sql->select_single_value(
+        'SELECT suffix FROM cover_art_archive.image_type WHERE mime_type = ?',
+        $mime_type);
 }
 
 1;

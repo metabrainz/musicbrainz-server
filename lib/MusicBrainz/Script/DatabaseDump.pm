@@ -95,12 +95,20 @@ around begin_dump => sub {
 around make_tar => sub {
     my ($orig, $self, $tar_file, @tables) = @_;
 
-    @tables =
-        map { 'mbdump/' . ($self->table_file_mapping->{$_} // $_) }
-        grep { $self->row_counts->{$_} }
-        @tables;
+    my @files;
+    for my $table (@tables) {
+        # XXX This is not a table, but we have no other way to pass it.
+        if ($table eq 'DBMIRROR_VERSION') {
+            push @files, $table;
+            next;
+        }
+        if ($self->row_counts->{$table}) {
+            push @files,
+                ('mbdump/' . ($self->table_file_mapping->{$table} // $table));
+        }
+    }
 
-    $self->$orig($tar_file, @tables);
+    $self->$orig($tar_file, @files);
 };
 
 sub table_rowcount {
@@ -128,6 +136,11 @@ sub _open_table_file {
 
 sub dump_table {
     my ($self, $table) = @_;
+
+    my $table_noschema = $table =~ s/^[^.]+\.//r;
+    if ($table ne $table_noschema) {
+        $self->table_file_mapping->{$table} = $table_noschema;
+    }
 
     my ($dump_fh, $table_file_path) = $self->_open_table_file($table, '>');
 

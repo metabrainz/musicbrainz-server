@@ -14,6 +14,7 @@ use overload
 
 extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
+with 'MusicBrainz::Server::Entity::Role::GID';
 
 sub entity_type { 'artist_credit' }
 

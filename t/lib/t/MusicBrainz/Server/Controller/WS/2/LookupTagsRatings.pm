@@ -41,10 +41,10 @@ ws_test 'artist lookup with tags, genres, user-tags, and user-genres',
             <begin>1989</begin>
         </life-span>
         <tag-list>
-            <tag count="3"><name>big beat</name></tag>
+            <tag count="4"><name>big beat</name></tag>
             <tag count="6"><name>british</name></tag>
             <tag count="1"><name>dance and electronica</name></tag>
-            <tag count="7"><name>electronic</name></tag>
+            <tag count="8"><name>electronic</name></tag>
             <tag count="2"><name>electronica</name></tag>
             <tag count="1"><name>english</name></tag>
             <tag count="1"><name>house</name></tag>
@@ -58,8 +58,8 @@ ws_test 'artist lookup with tags, genres, user-tags, and user-genres',
             <user-tag><name>electronic</name></user-tag>
         </user-tag-list>
         <genre-list>
-            <genre count="3" id="aac07ae0-8acf-4249-b5c0-2762b53947a2"><name>big beat</name></genre>
-            <genre count="7" id="89255676-1f14-4dd8-bbad-fca839d6aff4"><name>electronic</name></genre>
+            <genre count="4" id="aac07ae0-8acf-4249-b5c0-2762b53947a2"><name>big beat</name></genre>
+            <genre count="8" id="89255676-1f14-4dd8-bbad-fca839d6aff4"><name>electronic</name></genre>
             <genre count="2" id="53a3cea3-17af-4421-a07a-5824b540aeb5"><name>electronica</name></genre>
             <genre count="1" id="a2782cb6-1cd0-477c-a61d-b3f8b42dd1b3"><name>house</name></genre>
         </genre-list>

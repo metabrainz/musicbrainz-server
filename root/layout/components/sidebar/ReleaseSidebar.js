@@ -30,7 +30,6 @@ import LinkSearchableLanguage
   from '../../../components/LinkSearchableLanguage';
 import LinkSearchableProperty
   from '../../../components/LinkSearchableProperty';
-import coverArtUrl from '../../../utility/coverArtUrl';
 import ExternalLinks from '../ExternalLinks';
 
 import AnnotationLinks from './AnnotationLinks';
@@ -67,12 +66,6 @@ const ReleaseSidebar = ({release}: Props): React.Element<'div'> | null => {
   } = release;
 
   const releaseArtwork = $c.stash.release_artwork;
-  const releaseCoverUrl = nonEmpty(release.cover_art_url)
-    ? coverArtUrl($c, release.cover_art_url)
-    : '';
-  const releaseCoverHost = releaseCoverUrl
-    ? new URL(releaseCoverUrl).host
-    : null;
   const releaseLength = release.length;
   const barcode = formatBarcode(release.barcode);
   const typeName = releaseGroup.l_type_name;
@@ -89,7 +82,6 @@ const ReleaseSidebar = ({release}: Props): React.Element<'div'> | null => {
         {release.cover_art_presence === 'present' && releaseArtwork ? (
           <Artwork
             artwork={releaseArtwork}
-            fallback={releaseCoverUrl}
             message={ReactDOMServer.renderToStaticMarkup(exp.l(
               'Front cover image failed to load correctly.' +
               '<br/>{all|View all artwork}.',
@@ -99,37 +91,19 @@ const ReleaseSidebar = ({release}: Props): React.Element<'div'> | null => {
         ) : release.cover_art_presence === 'darkened' ? (
           l(`Cover art for this release has been hidden
              by the Internet Archive because of a takedown request.`)
-        ) : releaseCoverUrl
-          /* flow-include && releaseCoverHost === true */ ? (
-            <>
-              <img src={releaseCoverUrl} />
-              <span className="cover-art-note">
-                {/(?:ssl-)?images-amazon\.com/.test(releaseCoverHost) ? (
-                  exp.l('Cover art from {cover|Amazon}', {
-                    cover: releaseCoverUrl,
-                  })
-                ) : (
-                  exp.l('Cover art from {cover|{host}}', {
-                    cover: releaseCoverUrl,
-                    host: releaseCoverHost,
-                  })
-                )}
-              </span>
-            </>
-          ) : (
-            <p className="cover-art-note" style={{textAlign: 'left'}}>
-              {release.cover_art_presence === 'present' ? (
-                <>
-                  {l('No front cover image available.')}
-                  <br />
-                  <a href={entityHref(release, 'cover-art')}>
-                    {l('View all artwork')}
-                  </a>
-                </>
-              ) : l('No cover art available.')}
-            </p>
-          )
-        }
+        ) : (
+          <p className="cover-art-note" style={{textAlign: 'left'}}>
+            {release.cover_art_presence === 'present' ? (
+              <>
+                {l('No front cover image available.')}
+                <br />
+                <a href={entityHref(release, 'cover-art')}>
+                  {l('View all artwork')}
+                </a>
+              </>
+            ) : l('No cover art available.')}
+          </p>
+        )}
       </div>
 
       <h2 className="release-information">
