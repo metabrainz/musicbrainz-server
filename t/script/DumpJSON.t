@@ -371,7 +371,7 @@ EOF
 EOF
 
     chomp ($dbmirror_pendingdata = <<"EOF");
-1\tf\t"id"='1' "name"='Blues Guy' "artist_count"='1' "ref_count"='1' "created"='2017-05-22 03:54:37.141481+00'\x{20}
+1\tf\t"id"='1' "gid"='949a7fd5-fe73-3e8f-922e-01ff4ca958f7' "name"='Blues Guy' "artist_count"='1' "ref_count"='1' "created"='2017-05-22 03:54:37.141481+00'\x{20}
 2\tf\t"artist_credit"='1' "position"='0' "artist"='1' "name"='Blues Guy' "join_phrase"=''\x{20}
 3\tf\t"id"='1' "gid"='4293ab04-ec12-4c5e-9ffa-98ee6e833bb3' "name"='The Blues' "artist_credit"='1' "length"='238000' "comment"='' "edits_pending"='0' "last_updated"='2017-05-22 03:54:37.141481+00' "video"='f'\x{20}
 4\tf\t"id"='1' "gid"='e0e39108-5a94-4736-83bb-09c1682a2ab5' "name"='Blue Hits' "artist_credit"='1' "type"= "comment"='' "edits_pending"='0' "last_updated"='2017-05-22 03:54:37.141481+00'\x{20}
@@ -522,7 +522,7 @@ EOF
 EOF
 
     chomp ($dbmirror_pendingdata = <<"EOF");
-1\tf\t"id"='2' "name"='B.G.' "artist_count"='1' "ref_count"='1' "created"='2017-05-22 04:41:37.645739+00'\x{20}
+1\tf\t"id"='2' "gid"='c44109ce-57d7-3691-84c8-37926e3d41d2' "name"='B.G.' "artist_count"='1' "ref_count"='1' "created"='2017-05-22 04:41:37.645739+00'\x{20}
 2\tf\t"artist_credit"='2' "position"='0' "artist"='1' "name"='B.G.' "join_phrase"=''\x{20}
 3\tt\t"id"='1' "recording"='1' "medium"='1' "artist_credit"='1'\x{20}
 3\tf\t"id"='1' "gid"='a5e1dc36-b61e-4dba-86fa-ec11b4f18d20' "recording"='1' "medium"='1' "position"='1' "number"='1' "name"='The Blues' "artist_credit"='2' "length"= "edits_pending"='0' "last_updated"='2017-05-22 04:41:37.645739+00' "is_data_track"='f'\x{20}

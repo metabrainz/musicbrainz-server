@@ -207,6 +207,11 @@ msgstr "Aymara"
 msgid "Azerbaijani"
 msgstr "Azero"
 
+#. frequency:1 iso_code_3:bvd
+#: DB:language/name:1470
+msgid "Baeggu"
+msgstr "Baeggu"
+
 #. frequency:1 iso_code_3:ban
 #: DB:language/name:40
 msgid "Balinese"

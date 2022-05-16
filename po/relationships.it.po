@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: Luca Salini, 2012,2017,2020-2022\n"
+"Last-Translator: Luca Salini, 2022\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1123,7 +1123,7 @@ msgstr "Permette di collegare una serie all'etichetta che la pubblica."
 
 #: DB:link_attribute_type/description:3
 msgid "This attribute describes a type of vocal performance."
-msgstr "Questo attributo descrive un tipo di esibizione vocale."
+msgstr "Questo attributo indica un tipo di esibizione vocale."
 
 #: DB:link_attribute_type/description:2
 msgid ""
@@ -1141,8 +1141,8 @@ msgstr "Questo attributo indica se uno specifico ruolo era considerato normale o
 msgid ""
 "This attribute describes the possible instruments that can be captured as part of a performance.\n"
 "<br/>\n"
-"Can't find an instrument? <a href=\"https://musicbrainz.org/doc/How_to_Add_Instruments\">Request it!</a>"
-msgstr "Questo attributo indica gli strumenti che possono essere inseriti come parte di un'esibizione.\n<br/>\nNon riesci a trovare uno strumento? <a href=\"https://musicbrainz.org/doc/How_to_Add_Instruments\">Richiedilo!</a>"
+"Can't find an instrument? <a href=\"https://musicbrainz.org/doc/How_to_Add_Instruments\" target=\"_blank\">Request it!</a>"
+msgstr "Questo attributo indica gli strumenti che possono essere inseriti come parte di un'esibizione.\n<br/>\nNon riesci a trovare uno strumento? <a href=\"https://musicbrainz.org/doc/How_to_Add_Instruments\" target=\"_blank\">Richiedilo!</a>"
 
 #: DB:link_attribute_type/description:194
 msgid ""
@@ -1250,7 +1250,13 @@ msgid ""
 "the label <a href=\"/label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a> "
 "into <a href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music"
 " Group</a>, as Verve continued its existence thereafter as an imprint."
-msgstr "Descrive la situazione in cui un'etichetta ha cambiato nome, o per ragioni puramente estetiche o a seguito di un'acquisizione/vendita/scorporo. Presta particolare attenzione nei casi in cui hanno avuto luogo complicate operazioni finanziare di fusione/scissione/ristrutturazione. Per esempio, non è una buona idea rinominare l'etichetta <a href=\"/label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a> in <a href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music Group</a>, poiché Verve ha continuato a esistere successivamente come marchio discografico."
+msgstr "Indica la situazione in cui un'etichetta ha cambiato nome, per ragioni puramente estetiche o a seguito di un'acquisizione/vendita/scorporo. Presta particolare attenzione nel caso in cui abbiano avuto luogo operazioni finanziarie complesse di fusione/scissione/ristrutturazione. Per esempio, non è una buona idea rinominare l'etichetta <a href=\"/label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a> in <a href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music Group</a>, poiché Verve ha continuato a esistere successivamente come marchio discografico."
+
+#: DB:link_type/description:1079
+msgid ""
+"This describes a situation where an artist (generally a group) changed its "
+"name, leading to the start of a new project."
+msgstr "Indica la situazione in cui un artista (di solito un gruppo) cambia nome, portando all'inizio di un nuovo progetto."
 
 #: DB:link_type/description:200
 msgid ""
@@ -1275,14 +1281,14 @@ msgid ""
 "<li>A label buys the rights to a defunct label's catalog, or buys a label (with its catalog) and dismantles it.</li>\n"
 "<li>A bootleg label reissues another label's catalog.</li>\n"
 "</ul>"
-msgstr "Descrive la situazione in cui un'etichetta rimette in vendita a suo nome il (o parte del) catalogo di un'altra etichetta. Questo può avvenire in almeno tre casi:\n<ul>\n<li>Un'etichetta acquisisce in concessione il catalogo di un'altra etichetta, per un periodo di tempo determinato e in una zona specifica del mondo.</li>\n<li>Un'etichetta compra i diritti sul catalogo di un'etichetta non più in attività, o compra un'etichetta (con il suo catalogo) e la smantella.</li>\n<li>Un'etichetta di bootleg rimette il vendita il catalogo di un'altra etichetta.</li>\n</ul>"
+msgstr "Indica la situazione in cui un'etichetta rimette in vendita a suo nome il (o parte del) catalogo di un'altra etichetta. Questo può avvenire in almeno tre casi:\n<ul>\n<li>Un'etichetta acquisisce in concessione il catalogo di un'altra etichetta, per un periodo di tempo determinato e in una zona specifica del mondo.</li>\n<li>Un'etichetta compra i diritti sul catalogo di un'etichetta non più in attività, o compra un'etichetta (con il suo catalogo) e la smantella.</li>\n<li>Un'etichetta di bootleg rimette il vendita il catalogo di un'altra etichetta.</li>\n</ul>"
 
 #: DB:link_type/description:140 DB:link_type/description:31
 msgid ""
 "This describes an engineer involved with the machines used to generate "
 "sound, such as effects processors and digital audio equipment used to modify"
 " or manipulate sound in either an analogue or digital form."
-msgstr "Descrive un tecnico che lavora con le macchine usate per generare suono, come gli effetti musicali e l'attrezzatura audio digitale utilizzata per modificare o manipolare il suono in forma analogica o digitale."
+msgstr "Indica un tecnico che lavora con le macchine usate per generare suono, come gli effetti musicali e l'attrezzatura audio digitale utilizzata per modificare o manipolare il suono in forma analogica o digitale."
 
 #: DB:link_type/description:128 DB:link_type/description:36
 msgid ""
@@ -1290,7 +1296,7 @@ msgid ""
 "tape. This can be as complex as setting up the microphones, amplifiers, and "
 "recording devices, or as simple as pressing the 'record' button on a "
 "4-track."
-msgstr "Descrive un tecnico responsabile per fissare l'esecuzione su nastro. Ciò può comportare montare i microfoni, gli amplificatori e i dispositivi di registrazione, o anche solo schiacciare il tasto \"registra\" su un registratore multitraccia."
+msgstr "Indica un tecnico responsabile per fissare l'esecuzione su nastro. Ciò può comportare montare i microfoni, gli amplificatori e i dispositivi di registrazione, o anche solo schiacciare il tasto \"registra\" su un registratore multitraccia."
 
 #: DB:link_type/description:144 DB:link_type/description:38
 msgid ""
@@ -1307,7 +1313,7 @@ msgid ""
 "This describes an engineer responsible for ensuring that the sounds that the"
 " artists make reach the microphones sounding pleasant, without unwanted "
 "resonance or noise. Sometimes known as acoustical engineering."
-msgstr "Descrive un tecnico responsabile per assicurarsi che i suoni prodotti dagli artisti raggiungano i microfoni suonando in modo gradevole, senza risonanze o rumori indesiderati. Talvolta è conosciuto anche come tecnico acustico."
+msgstr "Indica un tecnico responsabile per assicurarsi che i suoni prodotti dagli artisti raggiungano i microfoni suonando in modo gradevole, senza risonanze o rumori indesiderati. Talvolta è conosciuto anche come tecnico acustico."
 
 #: DB:link_type/description:143
 msgid ""
@@ -1315,7 +1321,7 @@ msgid ""
 "recorded track into a single piece of music suitable for release. For "
 "remixing, see <a "
 "href=\"/relationship/7950be4d-13a3-48e7-906b-5af562e39544\">remixer</a>."
-msgstr "Descrive un tecnico responsabile per l'utilizzo di una console di missaggio per mixare una traccia registrata in un solo brano musicale adatto alla pubblicazione. Per il remissaggio, utilizza <a href=\"/relationship/7950be4d-13a3-48e7-906b-5af562e39544\">remixer</a>."
+msgstr "Indica un tecnico responsabile per l'utilizzo di una console di missaggio per mixare una traccia registrata in un solo brano musicale adatto alla pubblicazione. Per il remissaggio, utilizza <a href=\"/relationship/7950be4d-13a3-48e7-906b-5af562e39544\">remixer</a>."
 
 #: DB:link_type/description:26
 msgid ""
@@ -1323,7 +1329,7 @@ msgid ""
 "recorded track into a single piece of music suitable for release. For "
 "remixing, see <a "
 "href=\"/relationship/ac6a86db-f757-4815-a07e-744428d2382b\">remixer</a>."
-msgstr "Descrive un tecnico responsabile per l'utilizzo di una console di missaggio per mixare una traccia registrata in un solo brano musicale adatto alla pubblicazione. Per il remissaggio, utilizza <a href=\"/relationship/ac6a86db-f757-4815-a07e-744428d2382b\">remixer</a>."
+msgstr "Indica un tecnico responsabile per l'utilizzo di una console di missaggio per mixare una traccia registrata in un solo brano musicale adatto alla pubblicazione. Per il remissaggio, utilizza <a href=\"/relationship/ac6a86db-f757-4815-a07e-744428d2382b\">remixer</a>."
 
 #: DB:link_type/description:138 DB:link_type/description:28
 msgid "This describes an engineer who performed a general engineering role."
@@ -1562,6 +1568,12 @@ msgid ""
 "creative position, such as photographer or graphic designer."
 msgstr "Indica che un artista è stato impiegato ufficialmente da un'etichetta in una posizione creativa, per es. come fotografo o grafico."
 
+#: DB:link_type/description:1081
+msgid ""
+"This indicates that an artist was officially employed by a label in an "
+"artists and repertoire (A&R) position."
+msgstr "Indica che un artista è stato impiegato ufficialmente da un'etichetta in una posizione di addetto artisti e repertorio (A&R)."
+
 #: DB:link_type/description:818
 msgid ""
 "This indicates that an event is made up of multiple parts (e.g. a festival "
@@ -1595,10 +1607,12 @@ msgstr "Indica che l'artista ha eseguito un ruolo non coperto da altri tipi di r
 
 #: DB:link_attribute_type/description:618
 msgid ""
-"This indicates that the group had multiple conductors who were led by this "
-"conductor. This may be indicated by either the title of \"principal "
-"conductor\" or \"first conductor\"."
-msgstr "Indica che il gruppo aveva più direttori d'orchestra diretti da questo direttore d'orchestra. Quest'ultimo potrebbe essere indicato col titolo di \"direttore d'orchestra principale\" o \"primo direttore d'orchestra\"."
+"This indicates that the group had multiple conductors or multiple players of"
+" the selected instrument who were led by this artist. This is often "
+"indicated by the title of \"principal conductor\" or \"first conductor\" for"
+" conductors, and by the title of \"principal [instrument]\" or "
+"\"concertmaster\" (principal violin) for instruments."
+msgstr "Indica che il gruppo ha avuto più direttori d'orchestra o più musicisti dello strumento selezionato che erano diretti da questo artista. Ciò è indicato spesso con il titolo di \"primo direttore d'orchestra\" o \"direttore d'orchestra principale\" per i direttori d'orchestra, e con il titolo di \"primo [strumento]\" (per esempio, primo violino) o \"[strumento] principale\" per gli strumenti."
 
 #: DB:link_type/description:998 DB:link_type/description:999
 msgid ""
@@ -1633,6 +1647,15 @@ msgid ""
 "This indicates that the recording is of a medley, of which the work is one "
 "part."
 msgstr "Indica che la registrazione è un medley, di cui l'opera è una parte."
+
+#: DB:link_attribute_type/description:1261
+msgid ""
+"This indicates that this is a karaoke recording of the work. This is "
+"different from an instrumental recording in that it is actively meant to "
+"sing on top of, and as such the lyrics info is still relevant. It might "
+"still contain backing vocals and other sections that would not be present in"
+" a true instrumental recording."
+msgstr "Indica che questa è una registrazione karaoke dell'opera. Si differenzia da una registrazione strumentale nel fatto che è realizzata appositamente per cantarci sopra, e pertanto le informazioni sui testi restano pertinenti. Potrebbe contenere parti vocali di accompagnamento e altre sezioni che non sarebbero presenti in un'autentica registrazione strumentale."
 
 #: DB:link_type/description:973
 msgid "This indicates the artist that inspired this artist’s name."
@@ -1900,7 +1923,7 @@ msgstr "Serve a collegare una registrazione <a href=\"/doc/Mix_Terminology#DJ_mi
 msgid ""
 "This is used to link a karaoke version of a song to the original song.<br/><br/>\n"
 "A karaoke version is a version of the song with the main vocals removed, designed to be used for karaoke. These are generally produced from the original masters by muting the main vocal track or by using post-processing filters to remove the vocals. Karaoke versions can be found labelled in numerous different ways other than \"karaoke\": instrumental (even if backing vocals are still present), off vocal, backing track, etc."
-msgstr "Serve a collegare la versione karaoke di una canzone alla canzone originale.<br/><br/>\nLa versione karaoke è una versione della canzone senza le parti vocali principali, progettata per essere usata per il karaoke. Le versioni karaoke sono solitamente prodotte dai master originali togliendo l'audio alla traccia vocale principale o utilizzando filtri di post-elaborazione per rimuovere le parti vocali. Le versioni karaoke possono essere etichettate in molti altri modi oltre a \"karaoke\": strumentale (anche se le parti vocali di accompagnamento sono presenti), off vocal, backing track, ecc."
+msgstr "Serve a collegare la versione karaoke di una canzone alla canzone originale.<br/><br/>\nLa versione karaoke è una versione della canzone senza le parti vocali principali, progettata per essere usata per il karaoke. Le versioni karaoke sono solitamente prodotte dai master originali togliendo l'audio alla traccia vocale principale o utilizzando filtri di post-elaborazione per rimuovere le parti vocali. È possibile trovare versioni karaoke etichettate in molti altri modi oltre a \"karaoke\": strumentale (anche se le parti vocali di accompagnamento sono presenti), off vocal, backing track, ecc."
 
 #: DB:link_type/description:213
 msgid "This is used to link a label to an image of its logo."
@@ -2445,6 +2468,10 @@ msgid ""
 "discography should provide a summary of most, if not all, releases by the "
 "artist, and be as comprehensive as possible."
 msgstr "Collega un artista ad una discografia online delle sue opere. La discografia dovrebbe fornire un riepilogo della maggior parte, se non di tutte, le pubblicazioni dell'artista, ed essere quanto più esauriente possibile."
+
+#: DB:link_type/description:1080
+msgid "This links an artist to its channel at YouTube Music."
+msgstr "Collega un artista al suo canale su YouTube Music."
 
 #: DB:link_type/description:718
 msgid "This links an artist to its page at Bandcamp."
@@ -3410,6 +3437,14 @@ msgstr "Wikipedia"
 msgid "Wikipedia page for"
 msgstr "pagina di Wikipedia su"
 
+#: DB:link_type/link_phrase:1080
+msgid "YouTube Music"
+msgstr "YouTube Music"
+
+#: DB:link_type/reverse_link_phrase:1080
+msgid "YouTube Music channel for"
+msgstr "canale YouTube Music per"
+
 #: DB:link_type/reverse_link_phrase:791 DB:link_type/reverse_link_phrase:792
 #: DB:link_type/reverse_link_phrase:193 DB:link_type/reverse_link_phrase:225
 #: DB:link_type/reverse_link_phrase:528
@@ -3508,6 +3543,10 @@ msgstr "direzione artistica"
 msgid "artist & repertoire support"
 msgstr "supporto artisti & repertorio (A&R)"
 
+#: DB:link_type/name:1079
+msgid "artist rename"
+msgstr "rinominazione dell'artista"
+
 #: DB:link_type/name:965 DB:link_type/reverse_link_phrase:965
 msgid "artistic director"
 msgstr "direttore artistico"
@@ -3519,6 +3558,14 @@ msgstr "direttore artistico di"
 #: DB:link_type/name:135 DB:link_type/name:62
 msgid "artists and repertoire"
 msgstr "artisti e repertorio (A&R)"
+
+#: DB:link_type/reverse_link_phrase:1081
+msgid "artists and repertoire persons"
+msgstr "addetti artisti e repertorio (A&R)"
+
+#: DB:link_type/link_phrase:1081 DB:link_type/name:1081
+msgid "artists and repertoire position"
+msgstr "posizione di addetto artisti e repertorio (A&R)"
 
 #: DB:link_type/name:993
 msgid "artwork"
@@ -4327,6 +4374,10 @@ msgstr "ha avuto una posizione di produttore presso"
 msgid "had a recording contract with"
 msgstr "ha avuto un contratto di registrazione con"
 
+#: DB:link_type/long_link_phrase:1081
+msgid "had an artists and repertoire position at"
+msgstr "ha avuto una posizione di addetto artisti e repertorio (A&R) presso"
+
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
 msgstr "ha avuto una posizione di tecnico presso"
@@ -4355,6 +4406,10 @@ msgstr "ha la pagina di CD Baby"
 #: DB:link_type/long_link_phrase:920 DB:link_type/long_link_phrase:1001
 msgid "has VIAF ID at"
 msgstr "ha l'ID VIAF"
+
+#: DB:link_type/long_link_phrase:1080
+msgid "has YouTube Music channel at"
+msgstr "ha un canale YouTube Music su"
 
 #: DB:link_type/long_link_phrase:190
 msgid "has a BBC Music page at"
@@ -4861,8 +4916,8 @@ msgstr "è un tributo a"
 #: DB:link_type/long_link_phrase:278
 msgid ""
 "is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
-"recording of"
-msgstr "è una registrazione {live} {medley:medley che comprende} {partial:parziale} {instrumental:strumentale} {cover} di"
+"{karaoke} recording of"
+msgstr "è una registrazione {live} {medley:medley che comprende} {partial:parziale} {instrumental:strumentale} {cover} {karaoke} di"
 
 #: DB:link_type/long_link_phrase:15
 msgid "is a {translated} {parody} cover of"
@@ -4969,13 +5024,13 @@ msgstr "è/è stato membro {eponymous:eponimo} {original:originario} {additional
 msgid ""
 "is/was {assistant:an|a} {assistant} {principal} {guest} conductor {emeritus}"
 " for"
-msgstr "è/è stato {assistant:assistente} direttore d'orchestra {principal:principale} {guest:ospite} {emeritus:emerito} per"
+msgstr "è/è stato {assistant:assistente} {principal:primo} direttore d'orchestra {guest:ospite} {emeritus:emerito} per"
 
 #: DB:link_attribute_type/name:1132
 msgid "jazz"
 msgstr "jazz"
 
-#: DB:link_type/name:226
+#: DB:link_attribute_type/name:1261 DB:link_type/name:226
 msgid "karaoke"
 msgstr "karaoke"
 
@@ -5706,7 +5761,7 @@ msgid "patronage page for"
 msgstr "pagina di patrocinio per"
 
 #: DB:link_type/link_phrase:34 DB:link_type/link_phrase:122
-#: DB:link_type/name:278 DB:link_type/name:34 DB:link_type/name:122
+#: DB:link_type/name:34 DB:link_type/name:122 DB:link_type/name:278
 #: DB:link_type/reverse_link_phrase:34 DB:link_type/reverse_link_phrase:122
 #: DB:link_type/long_link_phrase:34 DB:link_type/long_link_phrase:122
 msgid "performance"
@@ -5779,7 +5834,7 @@ msgstr "diritti fonografici"
 msgid "phonographic copyright (℗) by"
 msgstr "diritti fonografici (℗) detenuti da"
 
-#: DB:link_type/name:20 DB:link_type/name:123
+#: DB:link_type/name:123 DB:link_type/name:20
 msgid "photography"
 msgstr "fotografia"
 
@@ -5881,7 +5936,7 @@ msgstr "locale per concerti principale di"
 
 #: DB:link_attribute_type/name:618
 msgid "principal"
-msgstr "principale"
+msgstr "primo"
 
 #: DB:link_type/link_phrase:985 DB:link_type/name:985
 #: DB:link_type/long_link_phrase:985
@@ -6213,13 +6268,13 @@ msgstr "remix"
 msgid "remixes and compilations"
 msgstr "remix e raccolte"
 
-#: DB:link_type/reverse_link_phrase:202
+#: DB:link_type/reverse_link_phrase:202 DB:link_type/reverse_link_phrase:1079
 msgid "renamed from"
-msgstr "rinominata da"
+msgstr "rinominato/a da"
 
-#: DB:link_type/link_phrase:202
+#: DB:link_type/link_phrase:202 DB:link_type/link_phrase:1079
 msgid "renamed into"
-msgstr "rinominata in"
+msgstr "rinominato/a in"
 
 #: DB:link_type/reverse_link_phrase:1009
 msgid "replaced"
@@ -6761,9 +6816,9 @@ msgstr "è stata registrata durante"
 msgid "was released in support of"
 msgstr "è stata pubblicata in supporto di"
 
-#: DB:link_type/long_link_phrase:202
+#: DB:link_type/long_link_phrase:202 DB:link_type/long_link_phrase:1079
 msgid "was renamed into"
-msgstr "è stata rinominata in"
+msgstr "è stato/a rinominato/a in"
 
 #: DB:link_type/long_link_phrase:1009
 msgid "was replaced by"
@@ -6855,6 +6910,10 @@ msgstr "scritta a"
 #: DB:link_type/name:225 DB:link_type/name:528
 msgid "youtube"
 msgstr "youtube"
+
+#: DB:link_type/name:1080
+msgid "youtube music"
+msgstr "youtube music"
 
 #: DB:link_type/reverse_link_phrase:886
 msgid "{additional:additionally} arranged at"
@@ -7205,8 +7264,8 @@ msgstr "orchestra {additional:aggiunta}"
 msgid "{additional} orchestrator"
 msgstr "orchestratore {additional:aggiunto}"
 
-#: DB:link_type/link_phrase:20 DB:link_type/link_phrase:123
-#: DB:link_type/reverse_link_phrase:20 DB:link_type/reverse_link_phrase:123
+#: DB:link_type/link_phrase:123 DB:link_type/link_phrase:20
+#: DB:link_type/reverse_link_phrase:123 DB:link_type/reverse_link_phrase:20
 msgid "{additional} photography"
 msgstr "fotografia {additional:aggiuntiva}"
 
@@ -7375,11 +7434,11 @@ msgstr "{assistant:assistenti} organisti"
 
 #: DB:link_type/reverse_link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus}"
-msgstr "{assistant:assistente} direttore d'orchestra {principal:principale} {guest:ospite} {emeritus:emerito}"
+msgstr "{assistant:assistente} {principal:primo} direttore d'orchestra {guest:ospite} {emeritus:emerito}"
 
 #: DB:link_type/link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus} for"
-msgstr "{assistant:assistente} direttore d'orchestra {principal:principale} {guest:ospite} {emeritus:emerito} per"
+msgstr "{assistant:assistente} {principal:primo} direttore d'orchestra {guest:ospite} {emeritus:emerito} per"
 
 #: DB:link_type/link_phrase:1
 msgid "{bonus:bonus|next} disc"
@@ -7457,7 +7516,7 @@ msgstr "{entity1} ha una pagina di IMDb su {entity0}"
 msgid "{entity1} has lyrics available at {entity0}"
 msgstr "{entity1} ha il testo disponibile su {entity0}"
 
-#: DB:link_type/long_link_phrase:20 DB:link_type/long_link_phrase:123
+#: DB:link_type/long_link_phrase:123 DB:link_type/long_link_phrase:20
 msgid "{entity1} has {additional} photography by {entity0}"
 msgstr "{entity1} ha la fotografia {additional:aggiuntiva} da parte di {entity0}"
 
@@ -7728,14 +7787,14 @@ msgstr "tecnico di {instrument:%|strumenti} per"
 #: DB:link_type/link_phrase:278
 msgid ""
 "{live} {medley:medley including a} {partial} {instrumental} {cover} "
-"recording of"
-msgstr "registrazione {live} {medley:medley che comprende} {partial:parziale} {instrumental:strumentale} {cover} di"
+"{karaoke} recording of"
+msgstr "registrazione {live} {medley:medley che comprende} {partial:parziale} {instrumental:strumentale} {cover} {karaoke} di"
 
 #: DB:link_type/reverse_link_phrase:278
 msgid ""
-"{live} {medley:medleys including} {partial} {instrumental} {cover} "
-"recordings"
-msgstr "registrazioni {live} {medley:medley che comprendono} {partial:parziali} {instrumental:strumentali} {cover}"
+"{live} {medley:medleys including} {partial} {instrumental} {cover} {karaoke}"
+" recordings"
+msgstr "registrazioni {live} {medley:medley che comprendono} {partial:parziali} {instrumental:strumentali} {cover} {karaoke}"
 
 #: DB:link_type/link_phrase:109
 msgid "{step}children"

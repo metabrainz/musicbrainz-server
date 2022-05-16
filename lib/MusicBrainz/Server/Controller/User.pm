@@ -61,7 +61,7 @@ sub index : Private
     my ($self, $c) = @_;
 
     # Can't set an attribute on a private action; manually inserting detatch code.
-    $c->detach('/error_mirror_404') if ($c->stash->{server_details}->{is_slave_db});
+    $c->detach('/error_mirror_404') if ($c->stash->{server_details}->{is_mirror_db});
 
     $c->forward('login');
     $c->detach('/user/profile', [ $c->user->name ]);
@@ -183,7 +183,7 @@ sub do_login : Private
     $c->detach;
 }
 
-sub login : Path('/login') ForbiddenOnSlaves RequireSSL SecureForm
+sub login : Path('/login') ForbiddenOnMirrors RequireSSL SecureForm
 {
     my ($self, $c) = @_;
 
@@ -271,7 +271,7 @@ sub _renew_login_cookie
     };
 }
 
-sub base : Chained PathPart('user') CaptureArgs(0) HiddenOnSlaves { }
+sub base : Chained PathPart('user') CaptureArgs(0) HiddenOnMirrors { }
 
 sub _load
 {
@@ -315,7 +315,7 @@ Allows users to contact other users via email
 
 =cut
 
-sub contact : Chained('load') RequireAuth HiddenOnSlaves SecureForm
+sub contact : Chained('load') RequireAuth HiddenOnMirrors SecureForm
 {
     my ($self, $c) = @_;
 
@@ -448,7 +448,7 @@ sub collections : Chained('load') PathPart('collections')
     );
 }
 
-sub profile : Chained('load') PathPart('') HiddenOnSlaves
+sub profile : Chained('load') PathPart('') HiddenOnMirrors
 {
     my ($self, $c) = @_;
 
@@ -500,7 +500,7 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     );
 }
 
-sub rating_summary : Chained('load') PathPart('ratings') Args(0) HiddenOnSlaves
+sub rating_summary : Chained('load') PathPart('ratings') Args(0) HiddenOnMirrors
 {
     my ($self, $c) = @_;
 
@@ -523,7 +523,7 @@ sub rating_summary : Chained('load') PathPart('ratings') Args(0) HiddenOnSlaves
     );
 }
 
-sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnSlaves
+sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnMirrors
 {
     my ($self, $c, $type) = @_;
 
@@ -742,7 +742,7 @@ sub privileged : Path('/privileged')
     );
 }
 
-sub report : Chained('load') RequireAuth HiddenOnSlaves SecureForm {
+sub report : Chained('load') RequireAuth HiddenOnMirrors SecureForm {
     my ($self, $c) = @_;
 
     my $reporter = $c->user;

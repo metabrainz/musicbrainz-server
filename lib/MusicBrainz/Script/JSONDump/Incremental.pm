@@ -169,7 +169,8 @@ sub run_impl {
                 my @replicate_args = (
                     $load_replication_changes,
                    '--database', $self->database,
-                   '--limit', '1'
+                   '--limit', '1',
+                   '--nodbmirror2',
                 );
 
                 if ($ENV{MUSICBRAINZ_RUNNING_TESTS}) {

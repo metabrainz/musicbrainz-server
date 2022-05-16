@@ -42,11 +42,11 @@ INSERT INTO musicbrainz.artist (id, gid, name, sort_name, begin_date_year, begin
 INSERT INTO artist_alias (id, artist, name, locale, edits_pending, last_updated, type, sort_name, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, primary_for_locale, ended) VALUES
   (37382, 237981, 'Lethal B', NULL, 0, '2012-05-15 18:57:13.252186+00', NULL, 'Lethal B', NULL, NULL, NULL, NULL, NULL, NULL, 'f', 'f');
 
-INSERT INTO artist_credit (id, name, artist_count, ref_count, created, edits_pending) VALUES
-    (347, 'Nine Inch Nails', 1, 1, '2011-05-16 16:32:11.963929+00', 0),
-    (956, 'David Bowie', 1, 2, '2011-05-16 16:32:11.963929+00', 0),
-    (20211, 'Super Furry Animals', 1, 1, '2011-05-16 16:32:11.963929+00', 0),
-    (2196047, 'The David Bowie Knives', 1, 2, '2018-04-11 10:09:52.335103+00', 0);
+INSERT INTO artist_credit (id, name, artist_count, ref_count, created, edits_pending, gid) VALUES
+    (347, 'Nine Inch Nails', 1, 1, '2011-05-16 16:32:11.963929+00', 0, '19fe2154-9a0c-3ad5-a736-b46beea954d4'),
+    (956, 'David Bowie', 1, 2, '2011-05-16 16:32:11.963929+00', 0, 'c78939a9-a38a-3669-a8bf-d41a4287f304'),
+    (20211, 'Super Furry Animals', 1, 1, '2011-05-16 16:32:11.963929+00', 0, '7e2e8f13-1757-39d2-bcfd-3789540a6bf3'),
+    (2196047, 'The David Bowie Knives', 1, 2, '2018-04-11 10:09:52.335103+00', 0, '1719a726-e93e-3bec-bee0-5d465ea0e1aa');
 
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES
     (347, 0, 347, 'Nine Inch Nails', ''),
@@ -151,8 +151,8 @@ INSERT INTO medium (id, release, position, format, name, edits_pending, last_upd
 INSERT INTO release_gid_redirect (gid, new_id, created) VALUES
     ('190542dd-e12b-3a84-a95b-9640a8de8b9f', 26, '2012-04-09 20:07:05.161415+00');
 
-INSERT INTO series (id, gid, name, comment, type, ordering_attribute, ordering_type, edits_pending, last_updated) VALUES
-    (3238, 'e4ac76d6-712b-4ef5-b84a-9c37e63e05d3', 'Post Marked Stamps', '', 1, 788, 1, 0, '2015-05-19 04:24:35.787606+00');
+INSERT INTO series (id, gid, name, comment, type, ordering_type, edits_pending, last_updated) VALUES
+    (3238, 'e4ac76d6-712b-4ef5-b84a-9c37e63e05d3', 'Post Marked Stamps', '', 1, 1, 0, '2015-05-19 04:24:35.787606+00');
 
 INSERT INTO series_gid_redirect (gid, new_id, created) VALUES
     ('6d67ca4e-b217-5fe4-a48b-3d50e36e73c9', 3238, '2012-04-09 20:07:05.161415+00');

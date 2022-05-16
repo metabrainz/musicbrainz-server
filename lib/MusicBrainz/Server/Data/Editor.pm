@@ -15,7 +15,6 @@ use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
     generate_token
-    get_area_containment_query
     hash_to_row
     load_subobjects
     placeholders
@@ -28,6 +27,8 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_COVER_ART );
 use MusicBrainz::Server::Constants qw( :vote );
 
 extends 'MusicBrainz::Server::Data::Entity';
+
+with 'MusicBrainz::Server::Data::Role::Area';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_editor',
     column => 'subscribed_editor',
@@ -41,12 +42,14 @@ sub _table
 
 sub _columns
 {
-    return 'editor.id, editor.name, password, privs, email, website, bio,
+    return 'editor.id, editor.name COLLATE musicbrainz, password, privs, email, website, bio,
             member_since, email_confirm_date, last_login_date,
             EXISTS (SELECT 1 FROM edit WHERE edit.editor = editor.id AND edit.autoedit = 0 AND edit.status = ' . $STATUS_APPLIED . ' OFFSET 9) AS has_ten_accepted_edits,
             gender, area,
             birth_date, ha1, deleted';
 }
+
+sub _area_columns { [qw( area )] }
 
 sub _column_mapping
 {
@@ -198,25 +201,6 @@ sub search_by_email {
         ' ORDER BY member_since DESC LIMIT 100';
 
     $self->query_to_list($query, [$email_regexp]);
-}
-
-sub find_by_area {
-    my ($self, $area_id, $limit, $offset) = @_;
-    my (
-        $containment_query,
-        @containment_query_args,
-    ) = get_area_containment_query('$2', 'area', check_all_levels => 1);
-    my $query = 'SELECT ' . $self->_columns . '
-                 FROM ' . $self->_table . "
-                 WHERE area = \$1 OR EXISTS (
-                    SELECT 1 FROM ($containment_query) ac
-                     WHERE ac.descendant = area AND ac.parent = \$1
-                 )
-                 ORDER BY name, id";
-    $self->query_to_list_limited(
-        $query, [$area_id, @containment_query_args], $limit, $offset, undef,
-        dollar_placeholders => 1,
-    );
 }
 
 sub find_by_privileges

@@ -26,7 +26,7 @@ sub _edits {
     return $edits;
 }
 
-sub open : Chained('/user/load') PathPart('edits/open') RequireAuth HiddenOnSlaves {
+sub open : Chained('/user/load') PathPart('edits/open') RequireAuth HiddenOnMirrors {
     my ($self, $c) = @_;
     my $edits = $self->_edits($c, sub {
         return $c->model('Edit')->find({
@@ -64,7 +64,7 @@ sub open : Chained('/user/load') PathPart('edits/open') RequireAuth HiddenOnSlav
     );
 }
 
-sub cancelled : Chained('/user/load') PathPart('edits/cancelled') RequireAuth HiddenOnSlaves {
+sub cancelled : Chained('/user/load') PathPart('edits/cancelled') RequireAuth HiddenOnMirrors {
     my ($self, $c) = @_;
     my $edits = $self->_edits($c, sub {
         return $c->model('Edit')->find({
@@ -102,7 +102,7 @@ sub cancelled : Chained('/user/load') PathPart('edits/cancelled') RequireAuth Hi
     );
 }
 
-sub accepted : Chained('/user/load') PathPart('edits/accepted') RequireAuth HiddenOnSlaves {
+sub accepted : Chained('/user/load') PathPart('edits/accepted') RequireAuth HiddenOnMirrors {
     my ($self, $c) = @_;
     my $edits = $self->_edits($c, sub {
         return $c->model('Edit')->find({
@@ -141,7 +141,7 @@ sub accepted : Chained('/user/load') PathPart('edits/accepted') RequireAuth Hidd
     );
 }
 
-sub failed : Chained('/user/load') PathPart('edits/failed') RequireAuth HiddenOnSlaves {
+sub failed : Chained('/user/load') PathPart('edits/failed') RequireAuth HiddenOnMirrors {
     my ($self, $c) = @_;
     my $edits = $self->_edits($c, sub {
         return $c->model('Edit')->find({
@@ -183,7 +183,7 @@ sub failed : Chained('/user/load') PathPart('edits/failed') RequireAuth HiddenOn
     );
 }
 
-sub rejected : Chained('/user/load') PathPart('edits/rejected') RequireAuth HiddenOnSlaves {
+sub rejected : Chained('/user/load') PathPart('edits/rejected') RequireAuth HiddenOnMirrors {
     my ($self, $c) = @_;
     my $edits = $self->_edits($c, sub {
         return $c->model('Edit')->find({
@@ -221,7 +221,7 @@ sub rejected : Chained('/user/load') PathPart('edits/rejected') RequireAuth Hidd
     );
 }
 
-sub autoedits : Chained('/user/load') PathPart('edits/autoedits') RequireAuth HiddenOnSlaves {
+sub autoedits : Chained('/user/load') PathPart('edits/autoedits') RequireAuth HiddenOnMirrors {
     my ($self, $c) = @_;
     my $edits = $self->_edits($c, sub {
         return $c->model('Edit')->find({
@@ -256,7 +256,7 @@ sub autoedits : Chained('/user/load') PathPart('edits/autoedits') RequireAuth Hi
     );
 }
 
-sub applied : Chained('/user/load') PathPart('edits/applied') RequireAuth HiddenOnSlaves {
+sub applied : Chained('/user/load') PathPart('edits/applied') RequireAuth HiddenOnMirrors {
     my ($self, $c) = @_;
     my $edits = $self->_edits($c, sub {
         return $c->model('Edit')->find({
@@ -294,7 +294,7 @@ sub applied : Chained('/user/load') PathPart('edits/applied') RequireAuth Hidden
     );
 }
 
-sub all : Chained('/user/load') PathPart('edits') RequireAuth HiddenOnSlaves {
+sub all : Chained('/user/load') PathPart('edits') RequireAuth HiddenOnMirrors {
     my ($self, $c) = @_;
     my $edits = $self->_edits($c, sub {
         return $c->model('Edit')->find({
@@ -328,7 +328,7 @@ sub all : Chained('/user/load') PathPart('edits') RequireAuth HiddenOnSlaves {
     );
 }
 
-sub votes : Chained('/user/load') PathPart('votes') RequireAuth HiddenOnSlaves {
+sub votes : Chained('/user/load') PathPart('votes') RequireAuth HiddenOnMirrors {
     my ($self, $c) = @_;
     my $edits = $self->_edits($c, sub {
         return $c->model('Edit')->find_by_voter($c->stash->{user}->id, shift, shift);

@@ -8,10 +8,10 @@ INSERT INTO artist (id, gid, name, sort_name)
            (3402, '802cd1ab-d87f-4418-915f-ff716defb87d', 'Sinfonia Varsovia', 'Sinfonia Varsovia'),
            (3403, '24f1766e-9635-4d58-a4d4-9413f9f98a4c', 'Johann Sebastian Bach', 'Bach, Johann Sebastian');
 
-INSERT INTO artist_credit (id, name, artist_count)
-    VALUES (3400, 'Witold Lutosławski', 1),
-           (3401, 'Berliner Philharmoniker, Witold Lutosławski', 2),
-           (3402, 'Sinfonia Varsovia, Witold Lutosławski', 2);
+INSERT INTO artist_credit (id, name, artist_count, gid)
+    VALUES (3400, 'Witold Lutosławski', 1, 'd18b35f1-b9e2-39cf-a060-9e2f64aafc9c'),
+           (3401, 'Berliner Philharmoniker, Witold Lutosławski', 2, 'de9a2647-55e0-3d4a-a250-397175181e3f'),
+           (3402, 'Sinfonia Varsovia, Witold Lutosławski', 2, '09b2430c-3473-35de-b296-acc2aa3da00a');
 
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
     VALUES (3400, 0, 3400, 'Witold Lutosławski', ''),

@@ -21,7 +21,6 @@ use MusicBrainz::Server::Constants qw(
     $NOLABEL_ID
     $DLABEL_ID
     $INSTRUMENT_ROOT_ID
-    $PART_OF_AREA_LINK_TYPE_ID
     $VOCAL_ROOT_ID
     %ENTITIES
 );
@@ -45,7 +44,7 @@ our @EXPORT_OK = qw(
     datetime_to_iso8601
     generate_gid
     generate_token
-    get_area_containment_query
+    get_area_containment_join
     hash_structure
     hash_to_row
     is_special_artist
@@ -254,33 +253,31 @@ sub is_valid_token {
     defined $token && $token =~ /^[A-Za-z0-9_-]+$/;
 }
 
-sub get_area_containment_query {
-    my ($link_type_param, $descendant_param, %args) = @_;
+sub get_area_containment_join {
+    my ($sql) = @_;
 
-    my $levels_condition = $args{check_all_levels}
-        ? ''
-        : ' JOIN area a ON a.id = ad.parent WHERE a.type IN (1, 2, 3) ';
+    CORE::state $has_materialized_data;
 
-    return ("
-        WITH RECURSIVE area_descendants AS (
-            SELECT entity0 AS parent, entity1 AS descendant, 1 AS depth
-              FROM l_area_area laa
-              JOIN link ON laa.link = link.id
-             WHERE link.link_type = $link_type_param
-               AND entity1 = $descendant_param
-                UNION
-            SELECT entity0 AS parent, descendant, (depth + 1) AS depth
-              FROM l_area_area laa
-              JOIN link ON laa.link = link.id
-              JOIN area_descendants ON area_descendants.parent = laa.entity1
-             WHERE link.link_type = $link_type_param
-               AND entity0 != descendant
+    if (!defined $has_materialized_data) {
+        $has_materialized_data = $sql->select_single_value(
+            'SELECT 1 FROM area_containment LIMIT 1',
+        ) ? 1 : 0;
+    }
+
+    if ($has_materialized_data) {
+        return 'area_containment';
+    }
+
+    return <<~'SQL';
+        (
+            SELECT DISTINCT ON (descendant, parent)
+                descendant,
+                parent,
+                depth
+              FROM get_area_parent_hierarchy_rows(NULL)
+             ORDER BY descendant, parent, depth
         )
-        SELECT ad.descendant, ad.parent, ad.depth
-          FROM area_descendants ad
-         $levels_condition
-         ORDER BY ad.descendant, ad.depth ASC",
-        $PART_OF_AREA_LINK_TYPE_ID);
+        SQL
 }
 
 sub hash_to_row

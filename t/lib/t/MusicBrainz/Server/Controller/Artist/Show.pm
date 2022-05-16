@@ -46,7 +46,10 @@ test 'Basic artist data appears on the index page' => sub {
     $mech->content_like(qr/More annotation/, 'The full annotation is shown');
 
     $mech->content_like(qr/3\.5<\/span>/s, 'The artist rating is listed');
-    $mech->content_like(qr/see all ratings/, 'The artist name is listed');
+    $mech->content_like(
+        qr/see all ratings/,
+        'The link to see all ratings is present',
+    );
     $mech->content_like(
         qr/Last updated on 2009-07-09/,
         'The last updated date is listed',
@@ -264,7 +267,8 @@ test 'Embedded JSON-LD `track` property (for artists with only recordings)' => s
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, 'dcb48a49-b17d-49b9-aee5-4f168d8004d9', 'Group', 'Group');
 
-        INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'G.R.O.U.P.', 1);
+        INSERT INTO artist_credit (id, name, artist_count, gid)
+            VALUES (1, 'G.R.O.U.P.', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
 
         INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
             VALUES (1, 0, 1, 'G.R.O.U.P.', '');

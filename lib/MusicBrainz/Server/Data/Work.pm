@@ -40,7 +40,7 @@ sub _type { 'work' }
 sub _columns
 {
     return 'work.id, work.gid, work.type,
-            work.name, work.comment, work.edits_pending, work.last_updated';
+            work.name COLLATE musicbrainz, work.comment, work.edits_pending, work.last_updated';
 }
 
 sub _column_mapping

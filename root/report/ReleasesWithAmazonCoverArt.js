@@ -23,10 +23,10 @@ const ReleasesWithAmazonCoverArt = ({
   <ReportLayout
     canBeFiltered={canBeFiltered}
     description={l(
-      `This report shows releases which have cover art from Amazon, but have
-       no front cover in the Cover Art Archive. The use of Amazon art
-       is going to be discontinued eventually, so these releases will lose
-       their front cover unless one is added to the Cover Art Archive.`,
+      `This report shows releases which have cover art on Amazon, but have
+       no front cover in the Cover Art Archive. The use of Amazon art has been
+       discontinued since the 16th of May 2022, so these releases have no
+       front cover anymore until one is added to the Cover Art Archive.`,
     )}
     entityType="release"
     filtered={filtered}

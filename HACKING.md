@@ -232,6 +232,127 @@ back the actions in the browser window you have open, so doesn't require any
 headless mode. However, before running a test in this way, you must make sure
 the test database is clean and has t/sql/selenium.sql loaded into it.
 
+### Schema change
+
+Prior to a schema change, you'll want to test that [upgrade.sh](upgrade.sh)
+runs without errors on the previous schema version.
+Our [sample database dump](http://ftp.musicbrainz.org/pub/musicbrainz/data/sample/)
+is useful for testing this on a standalone database, but it's also important
+to test against a full backup of the production database.
+
+Given its size, a full production test can be time consuming, particularly if
+the upgrade fails and you have to restore the dump again. To help ensure any
+failures are *data-related* and not *schema-related*, it's recommended to
+dump the production schema (without data) locally, and run an upgrade against
+that first.
+
+To do this, first create an empty "musicbrainz_prod_schema" database with the
+proper roles and privileges. Configure this as `PROD_SCHEMA_CHANGE_TEST`, or
+some other name of your choice, in DBDefs.pm.
+
+```sh
+# You may require custom host/port connection parameters to your local DB.
+psql -U postgres -d template1 -c 'CREATE DATABASE musicbrainz_prod_schema;'
+# It's okay if these already exist.
+psql -U postgres -d template1 -c 'CREATE ROLE musicbrainz;'
+psql -U postgres -d template1 -c 'CREATE ROLE musicbrainz_ro;'
+psql -U postgres -d template1 -c 'CREATE ROLE caa_redirect;'
+psql -U postgres -d template1 -c 'CREATE ROLE sir;'
+psql -U postgres -d template1 -c 'GRANT CREATE ON DATABASE musicbrainz_prod_schema TO musicbrainz;'
+```
+
+Next, you can dump the schema of the production standby, import it locally to
+`musicbrainz_prod_schema`, and run upgrade.sh against
+`PROD_SCHEMA_CHANGE_TEST`:
+
+```sh
+# Set these to the current PG standby host and container name.
+prod_standby_pg_host=
+prod_standby_pg_container=
+
+ssh -C $prod_standby_pg_host docker exec $prod_standby_pg_container sudo -E -H -u postgres \
+  pg_dump --schema-only musicbrainz_db \
+  > musicbrainz_prod_schema.dump
+
+psql -U postgres -d musicbrainz_prod_schema -f musicbrainz_prod_schema.dump
+
+SKIP_EXPORT=1 REPLICATION_TYPE=1 DATABASE=PROD_SCHEMA_CHANGE_TEST ./upgrade.sh
+```
+
+While it's a good sign if the upgrade runs without errors, there's another
+important aspect of testing, which is making sure the upgrade scripts do what
+you expect. Will the upgraded DB's schema be identical to a *new* DB created
+with InitDb.pl on the same branch? A helper script,
+[CheckSchemaMigration.sh](t/script/CheckSchemaMigration.sh), exists to check
+that.
+
+Caution: do not run this script with a dirty git checkout, particularly having
+any local changes under admin/. They'll be wiped out!
+
+As a prerequisite to running this script, you must setup two new database
+configurations in DBDefs.pm:
+
+```perl
+MIGRATION_TEST1 => {
+    database    => 'musicbrainz_test_migration_1',
+    host        => 'localhost',
+    password    => '',
+    port        => 5432,
+    username    => 'musicbrainz',
+},
+MIGRATION_TEST2 => {
+    database    => 'musicbrainz_test_migration_2',
+    host        => 'localhost',
+    password    => '',
+    port        => 5432,
+    username    => 'musicbrainz',
+},
+```
+
+The definitions of these is as follows:
+
+ * `MIGRATION_TEST1` - a database containing the new schema, created via
+   InitDb.pl.
+ * `MIGRATION_TEST2` - a database upgraded from the previous schema to the
+   new one via upgrade.sh.
+
+You should leave the database names identical to above, but may need to
+adjust the host/port to point to your instance. (The host/port must also
+match the `SYSTEM` database configuration.)
+
+You may also set the following environment variables during execution of the
+script:
+
+ * `SUPERUSER` - the name of the PG superuser role to use.
+   (default: postgres)
+ * `REPLICATION_TYPE` - 1, 2, or 3 for master, mirror, or standalone
+   respectively. You should run the script three times for all three
+   replication types!
+   (default: 2)
+ * `PGPORT` - the port your local postgres is listening on.
+   (default: 5432)
+ * `KEEP_TEST_DBS` - 0 or 1, indicating whether to drop or keep the migration
+   test databases at the end; if you keep them, you'll have to drop them
+   manually before running the script again.
+   (default: 0)
+ * `PENDING_SO` - if also specifying `REPLICATION_TYPE=1` (master), this is
+   the path to dbmirror's pending.so, which will be forwarded to InitDb.pl
+   via the `--with-pending` flag.
+   (default: /usr/lib/postgresql/12/lib/pending.so)
+
+To check the migration scripts for a standalone setup with postgres running
+on port 25432, you may for example run:
+
+    $ PGPORT=25432 REPLICATION_TYPE=3 ./t/script/CheckSchemaMigration.sh
+
+(Obviously, you should run this on the new schema change branch.)
+
+If there are any differences in the schemas of `MIGRATION_TEST1` and
+`MIGRATION_TEST2`, a diff will be outputted. The schemas themselves
+are saved to `MIGRATION_TEST1.schema.sql` and `MIGRATION_TEST2.schema.sql`;
+you may inspect these afterward or diff them using another tool if you'd
+like.
+
 Code standards
 --------------
 

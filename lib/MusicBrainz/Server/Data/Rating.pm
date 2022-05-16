@@ -98,29 +98,6 @@ sub load_user_ratings
     }
 }
 
-sub _update_aggregate_rating
-{
-    my ($self, $entity_id) = @_;
-
-    my $type = $self->type;
-    my $table = $type . '_meta';
-    my $table_raw = $type . '_rating_raw';
-
-    # Update the aggregate rating
-    my $row = $self->c->sql->select_single_row_array("
-        SELECT count(rating), sum(rating)
-        FROM $table_raw WHERE $type = ?
-        GROUP BY $type", $entity_id);
-
-    my ($rating_count, $rating_sum) = defined $row ? @$row : (undef, undef);
-
-    my $rating_avg = ($rating_count ? int($rating_sum / $rating_count + 0.5) : undef);
-    $self->c->sql->do("UPDATE $table SET rating_count = ?, rating = ?
-              WHERE id = ?", $rating_count, $rating_avg, $entity_id);
-
-    return ($rating_count, $rating_sum);
-}
-
 sub merge
 {
     my ($self, $new_id, @old_ids) = @_;
@@ -135,9 +112,6 @@ sub merge
            GROUP BY editor",
         $new_id, $type, [ $new_id, @old_ids ]
     );
-
-    # Update the aggregate rating
-    $self->_update_aggregate_rating($new_id);
 
     return 1;
 }
@@ -156,22 +130,17 @@ sub clear {
     my ($self, $editor_id) = @_;
     my $type = $self->type;
     my $table = $type . '_rating_raw';
-    for my $entity_id (@{
-        $self->c->sql->select_single_column_array(
-            "DELETE FROM $table WHERE editor = ?
-             RETURNING $type",
-            $editor_id
-        )
-    }) {
-        $self->_update_aggregate_rating($entity_id);
-    }
+    $self->c->sql->do(
+        "DELETE FROM $table WHERE editor = ?",
+        $editor_id,
+    );
 }
 
 sub update
 {
     my ($self, $user_id, $entity_id, $rating) = @_;
 
-    my ($rating_count, $rating_sum);
+    my ($rating_avg, $rating_count);
 
     my $sql = $self->c->sql;
     Sql::run_in_transaction(sub {
@@ -202,12 +171,17 @@ sub update
                           VALUES (?, ?, ?)", $rating, $entity_id, $user_id);
         }
 
-        # Update the aggregate rating
-        ($rating_count, $rating_sum) = $self->_update_aggregate_rating($entity_id);
+        # Get the new aggregate rating.
+        my $meta_table = $type . '_meta';
+        my $rating_info = $sql->select_single_row_array(
+            "SELECT rating, rating_count FROM $meta_table WHERE id = ?",
+            $entity_id,
+        );
+        ($rating_avg, $rating_count) = @$rating_info;
 
     }, $self->c->sql);
 
-    return ($rating_sum, $rating_count);
+    return ($rating_avg, $rating_count);
 }
 
 no Moose;
