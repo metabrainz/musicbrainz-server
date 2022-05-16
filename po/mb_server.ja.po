@@ -38,7 +38,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-13 07:11+0000\n"
+"POT-Creation-Date: 2022-05-15 23:11+0300\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: ​ <428rinsuki+transifex@gmail.com>, 2022\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
@@ -499,7 +499,7 @@ msgid ""
 "undone!"
 msgstr "本当に{e}の情報をすべて削除しますか？元に戻すことはできません！"
 
-#: ../root/admin/delete_user.tt:29
+#: ../root/admin/delete_user.tt:34
 msgid "Are you sure you want to delete your account? This cannot be undone!"
 msgstr "本当にアカウントを削除しますか？元に戻すことはできません！"
 
@@ -1259,7 +1259,7 @@ msgstr "アカウント削除"
 msgid "Delete User"
 msgstr "ユーザーを削除"
 
-#: ../root/admin/delete_user.tt:33
+#: ../root/admin/delete_user.tt:38
 msgid "Delete my account"
 msgstr "自分のアカウントを削除"
 
@@ -2232,6 +2232,12 @@ msgid ""
 "Keep in mind that unselecting this will delete the tracks if the medium has "
 "a disc ID! If you unselect it by mistake, please readd the data tracks "
 "before submitting."
+msgstr ""
+
+#: ../root/admin/delete_user.tt:31
+msgid ""
+"Keep in mind this process might take a fairly long time if you have entered "
+"a lot of tags. If the process times out, please {contact_url|contact us}."
 msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:17

@@ -47,7 +47,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-13 07:11+0000\n"
+"POT-Creation-Date: 2022-05-15 23:11+0300\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: Nicolás Tamargo <reosarevok@gmail.com>, 2011-2013,2015-2016,2018-2019,2021\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
@@ -509,7 +509,7 @@ msgid ""
 "undone!"
 msgstr "¿Seguro que quieres eliminar toda la información sobre {e}? Esta acción no se puede cancelar más tarde."
 
-#: ../root/admin/delete_user.tt:29
+#: ../root/admin/delete_user.tt:34
 msgid "Are you sure you want to delete your account? This cannot be undone!"
 msgstr "¿Seguro que quieres eliminar tu cuenta? Esta acción no se puede cancelar más tarde."
 
@@ -1269,7 +1269,7 @@ msgstr "Eliminar cuenta"
 msgid "Delete User"
 msgstr "Eliminar usuario"
 
-#: ../root/admin/delete_user.tt:33
+#: ../root/admin/delete_user.tt:38
 msgid "Delete my account"
 msgstr "Eliminar mi cuenta"
 
@@ -2244,6 +2244,12 @@ msgid ""
 "Keep in mind that unselecting this will delete the tracks if the medium has "
 "a disc ID! If you unselect it by mistake, please readd the data tracks "
 "before submitting."
+msgstr ""
+
+#: ../root/admin/delete_user.tt:31
+msgid ""
+"Keep in mind this process might take a fairly long time if you have entered "
+"a lot of tags. If the process times out, please {contact_url|contact us}."
 msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:17
