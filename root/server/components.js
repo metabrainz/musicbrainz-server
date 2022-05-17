@@ -248,6 +248,7 @@ module.exports = {
   'report/ReleasesWithCaaNoTypes': require('../report/ReleasesWithCaaNoTypes'),
   'report/ReleasesWithDownloadRelationships': require('../report/ReleasesWithDownloadRelationships'),
   'report/ReleasesWithEmptyMediums': require('../report/ReleasesWithEmptyMediums'),
+  'report/ReleasesWithMailOrderRelationships': require('../report/ReleasesWithMailOrderRelationships'),
   'report/ReleasesWithNoMediums': require('../report/ReleasesWithNoMediums'),
   'report/ReleasesWithUnlikelyLanguageScript': require('../report/ReleasesWithUnlikelyLanguageScript'),
   'report/ReleasesWithoutVaCredit': require('../report/ReleasesWithoutVaCredit'),
