@@ -133,6 +133,8 @@ sub should_follow_primary_key($) {
     return 0 if $pk eq 'musicbrainz.artist_credit.id';
 
     # Useless joins.
+    return 0 if $pk eq 'cover_art_archive.cover_art_type.type_id';
+    return 0 if $pk eq 'event_art_archive.event_art_type.type_id';
     return 0 if $pk eq 'musicbrainz.artist_credit_name.position';
     return 0 if $pk eq 'musicbrainz.release_country.country';
     return 0 if $pk eq 'musicbrainz.release_group_secondary_type_join.secondary_type';
@@ -153,6 +155,12 @@ around should_follow_foreign_key => sub {
 
     $pk = get_ident($pk);
     $fk = get_ident($fk);
+
+    # Modifications to a release_country don't affect the country (area).
+    return 0 if (
+        $pk eq 'musicbrainz.release_country.country' &&
+        $fk eq 'musicbrainz.country_area.area'
+    );
 
     # Modifications to a release_label don't affect the label.
     return 0 if $pk eq 'musicbrainz.release_label.label' && $fk eq 'musicbrainz.label.id';
