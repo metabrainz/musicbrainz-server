@@ -97,6 +97,18 @@ then
 fi
 
 ################################################################################
+# Add constraints that apply only to master/standalone (FKS)
+
+if [ "$REPLICATION_TYPE" != "$RT_MIRROR" ]
+then
+    echo `date` : 'Running upgrade scripts for master/standalone nodes'
+    ./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.standalone.sql || exit 1
+
+    echo `date` : Enabling last_updated triggers
+    OUTPUT=`./admin/psql --system "$DATABASE" < ./admin/sql/EnableLastUpdatedTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+fi
+
+################################################################################
 # Re-enable replication
 
 if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
@@ -114,18 +126,6 @@ then
         OUTPUT=`./admin/psql "$DATABASE" < ./admin/sql/$schema/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
         OUTPUT=`./admin/psql "$DATABASE" < ./admin/sql/$schema/CreateReplicationTriggers2.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
     done
-fi
-
-################################################################################
-# Add constraints that apply only to master/standalone (FKS)
-
-if [ "$REPLICATION_TYPE" != "$RT_MIRROR" ]
-then
-    echo `date` : 'Running upgrade scripts for master/standalone nodes'
-    ./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.standalone.sql || exit 1
-
-    echo `date` : Enabling last_updated triggers
-    OUTPUT=`./admin/psql --system "$DATABASE" < ./admin/sql/EnableLastUpdatedTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################
