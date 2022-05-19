@@ -2,6 +2,10 @@
 
 use strict;
 use warnings;
+
+use FindBin '$Bin';
+use lib "$Bin/../lib";
+
 use DateTime::Locale;
 use JSON::PP;
 use MusicBrainz::Server::Constants qw( %ALIAS_LOCALES );
