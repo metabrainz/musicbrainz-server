@@ -10,7 +10,6 @@ use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     add_coordinates_to_row
-    get_area_containment_query
     hash_to_row
     load_subobjects
     order_by
@@ -37,7 +36,7 @@ sub _type { 'place' }
 
 sub _columns
 {
-    return 'place.id, place.gid, place.name, place.type, place.address, place.area, place.coordinates[0] as coordinates_x, ' .
+    return 'place.id, place.gid, place.name COLLATE musicbrainz, place.type, place.address, place.area, place.coordinates[0] as coordinates_x, ' .
            'place.coordinates[1] as coordinates_y, place.edits_pending, place.begin_date_year, place.begin_date_month, place.begin_date_day, ' .
            'place.end_date_year, place.end_date_month, place.end_date_day, place.ended, place.comment, place.last_updated';
 }
@@ -66,7 +65,7 @@ sub _column_mapping
     };
 }
 
-sub _area_cols
+sub _area_columns
 {
     return ['area']
 }
@@ -177,25 +176,6 @@ sub is_empty {
             $used_in_relationship
         )
         SQL
-}
-
-sub find_by_area {
-    my ($self, $area_id, $limit, $offset) = @_;
-    my (
-        $containment_query,
-        @containment_query_args,
-    ) = get_area_containment_query('$2', 'area', check_all_levels => 1);
-    my $query = 'SELECT ' . $self->_columns . '
-                 FROM ' . $self->_table . "
-                 WHERE area = \$1 OR EXISTS (
-                    SELECT 1 FROM ($containment_query) ac
-                     WHERE ac.descendant = area AND ac.parent = \$1
-                 )
-                 ORDER BY place.name COLLATE musicbrainz, place.id";
-    $self->query_to_list_limited(
-        $query, [$area_id, @containment_query_args], $limit, $offset, undef,
-        dollar_placeholders => 1,
-    );
 }
 
 sub _order_by {

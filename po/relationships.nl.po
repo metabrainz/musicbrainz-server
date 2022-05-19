@@ -1133,6 +1133,13 @@ msgid ""
 "additional."
 msgstr "Deze eigenschap geeft aan of een bepaalde rol als normaal of aanvullend wordt beschouwd."
 
+#: DB:link_attribute_type/description:14
+msgid ""
+"This attribute describes the possible instruments that can be captured as part of a performance.\n"
+"<br/>\n"
+"Can't find an instrument? <a href=\"https://musicbrainz.org/doc/How_to_Add_Instruments\" target=\"_blank\">Request it!</a>"
+msgstr "Deze eigenschap geeft aan welke instrumenten er werden bespeeld.\n<br/>\nKan je een instrument niet vinden? <a href=\"https://musicbrainz.org/doc/How_to_Add_Instruments\">Vraag het dan aan!</a>"
+
 #: DB:link_attribute_type/description:194
 msgid ""
 "This attribute indicates a 'guest' performance where the performer is not "
@@ -1240,6 +1247,12 @@ msgid ""
 "into <a href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music"
 " Group</a>, as Verve continued its existence thereafter as an imprint."
 msgstr "Dit beschrijft een situatie waarbij een platenmaatschappij van naam veranderde, ofwel om puur esthetische redenen, dan wel na (ver)koop of verzelfstandiging. Let goed op bij gecompliceerde samenvoegingen, splitsingen, herstructureringen of financiële operaties. Het is bijvoorbeeld geen goed idee om de platenmaatschappij <a href=\"/label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a> in <a href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music Group</a> te veranderen, omdat Verve verder ging als imprint."
+
+#: DB:link_type/description:1079
+msgid ""
+"This describes a situation where an artist (generally a group) changed its "
+"name, leading to the start of a new project."
+msgstr ""
 
 #: DB:link_type/description:200
 msgid ""
@@ -1551,6 +1564,12 @@ msgid ""
 "creative position, such as photographer or graphic designer."
 msgstr "Dit geeft aan dat een artiest officieel bij een platenmaatschappij in een creatieve rol, zoals fotograaf of grafisch ontwerper, in dienst was."
 
+#: DB:link_type/description:1081
+msgid ""
+"This indicates that an artist was officially employed by a label in an "
+"artists and repertoire (A&R) position."
+msgstr ""
+
 #: DB:link_type/description:818
 msgid ""
 "This indicates that an event is made up of multiple parts (e.g. a festival "
@@ -1584,10 +1603,12 @@ msgstr "Dit geeft aan dat een artiest een rol vervulde die niet onder andere rel
 
 #: DB:link_attribute_type/description:618
 msgid ""
-"This indicates that the group had multiple conductors who were led by this "
-"conductor. This may be indicated by either the title of \"principal "
-"conductor\" or \"first conductor\"."
-msgstr "Dit geeft aan dat de groep meerde dirigenten had die door deze dirigent werden geleid. Dit kan worden aangegeven door de titel van hoofddirigent of eerste dirigent."
+"This indicates that the group had multiple conductors or multiple players of"
+" the selected instrument who were led by this artist. This is often "
+"indicated by the title of \"principal conductor\" or \"first conductor\" for"
+" conductors, and by the title of \"principal [instrument]\" or "
+"\"concertmaster\" (principal violin) for instruments."
+msgstr ""
 
 #: DB:link_type/description:998 DB:link_type/description:999
 msgid ""
@@ -1622,6 +1643,15 @@ msgid ""
 "This indicates that the recording is of a medley, of which the work is one "
 "part."
 msgstr "Dit geeft aan dat de opname een medley is, waarvan deze compositie een deel is."
+
+#: DB:link_attribute_type/description:1261
+msgid ""
+"This indicates that this is a karaoke recording of the work. This is "
+"different from an instrumental recording in that it is actively meant to "
+"sing on top of, and as such the lyrics info is still relevant. It might "
+"still contain backing vocals and other sections that would not be present in"
+" a true instrumental recording."
+msgstr ""
 
 #: DB:link_type/description:973
 msgid "This indicates the artist that inspired this artist’s name."
@@ -2434,6 +2464,10 @@ msgid ""
 "discography should provide a summary of most, if not all, releases by the "
 "artist, and be as comprehensive as possible."
 msgstr "Deze relatie koppelt een artiest aan een online discografie van zijn werk. De discografie moet een samenvatting van de meeste, en het liefst alle uitgaven van een artiest hebben, en zo uitgebreid mogelijk zijn."
+
+#: DB:link_type/description:1080
+msgid "This links an artist to its channel at YouTube Music."
+msgstr ""
 
 #: DB:link_type/description:718
 msgid "This links an artist to its page at Bandcamp."
@@ -3399,6 +3433,14 @@ msgstr "Wikipedia"
 msgid "Wikipedia page for"
 msgstr "Wikipediapagina over"
 
+#: DB:link_type/link_phrase:1080
+msgid "YouTube Music"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1080
+msgid "YouTube Music channel for"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:791 DB:link_type/reverse_link_phrase:792
 #: DB:link_type/reverse_link_phrase:193 DB:link_type/reverse_link_phrase:225
 #: DB:link_type/reverse_link_phrase:528
@@ -3497,6 +3539,10 @@ msgstr "artistieke leiding"
 msgid "artist & repertoire support"
 msgstr "A&R-ondersteuning"
 
+#: DB:link_type/name:1079
+msgid "artist rename"
+msgstr ""
+
 #: DB:link_type/name:965 DB:link_type/reverse_link_phrase:965
 msgid "artistic director"
 msgstr "artistiek directeur"
@@ -3508,6 +3554,14 @@ msgstr "artistiek directeur van"
 #: DB:link_type/name:135 DB:link_type/name:62
 msgid "artists and repertoire"
 msgstr "artiesten en repertoire"
+
+#: DB:link_type/reverse_link_phrase:1081
+msgid "artists and repertoire persons"
+msgstr ""
+
+#: DB:link_type/link_phrase:1081 DB:link_type/name:1081
+msgid "artists and repertoire position"
+msgstr ""
 
 #: DB:link_type/name:993
 msgid "artwork"
@@ -4316,6 +4370,10 @@ msgstr "heeft een producerende functie bij"
 msgid "had a recording contract with"
 msgstr "had een platencontract met"
 
+#: DB:link_type/long_link_phrase:1081
+msgid "had an artists and repertoire position at"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
 msgstr "heeft een technische functie bij"
@@ -4344,6 +4402,10 @@ msgstr "heeft een CD Baby-pagina op"
 #: DB:link_type/long_link_phrase:920 DB:link_type/long_link_phrase:1001
 msgid "has VIAF ID at"
 msgstr "heeft een VIAF-ID op"
+
+#: DB:link_type/long_link_phrase:1080
+msgid "has YouTube Music channel at"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:190
 msgid "has a BBC Music page at"
@@ -4744,7 +4806,7 @@ msgstr "informatiepagina"
 msgid "inspired the name of"
 msgstr "was de inspiratie voor de naam van"
 
-#: DB:link_type/name:44 DB:link_type/name:148
+#: DB:link_attribute_type/name:14 DB:link_type/name:44 DB:link_type/name:148
 msgid "instrument"
 msgstr "instrument"
 
@@ -4850,8 +4912,8 @@ msgstr "is een hommage aan"
 #: DB:link_type/long_link_phrase:278
 msgid ""
 "is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
-"recording of"
-msgstr "is een {live:live-}{medley:medley met een }{partial:gedeeltelijke }{instrumental:instrumentale }{cover:cover-}opname van"
+"{karaoke} recording of"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:15
 msgid "is a {translated} {parody} cover of"
@@ -4964,7 +5026,7 @@ msgstr "is/was {assistant:assisterend} {emeritus:emeritus} {principal:hoofd}{gue
 msgid "jazz"
 msgstr "jazz"
 
-#: DB:link_type/name:226
+#: DB:link_attribute_type/name:1261 DB:link_type/name:226
 msgid "karaoke"
 msgstr "karaoke"
 
@@ -5695,7 +5757,7 @@ msgid "patronage page for"
 msgstr "pagina voor donaties voor"
 
 #: DB:link_type/link_phrase:34 DB:link_type/link_phrase:122
-#: DB:link_type/name:278 DB:link_type/name:34 DB:link_type/name:122
+#: DB:link_type/name:34 DB:link_type/name:122 DB:link_type/name:278
 #: DB:link_type/reverse_link_phrase:34 DB:link_type/reverse_link_phrase:122
 #: DB:link_type/long_link_phrase:34 DB:link_type/long_link_phrase:122
 msgid "performance"
@@ -5768,7 +5830,7 @@ msgstr "fonografisch auteursrecht"
 msgid "phonographic copyright (℗) by"
 msgstr "fonografisch auteursrecht (℗)"
 
-#: DB:link_type/name:20 DB:link_type/name:123
+#: DB:link_type/name:123 DB:link_type/name:20
 msgid "photography"
 msgstr "fotografie"
 
@@ -6202,11 +6264,11 @@ msgstr "remixes"
 msgid "remixes and compilations"
 msgstr "remixes en compilaties"
 
-#: DB:link_type/reverse_link_phrase:202
+#: DB:link_type/reverse_link_phrase:202 DB:link_type/reverse_link_phrase:1079
 msgid "renamed from"
 msgstr "hernoemd van"
 
-#: DB:link_type/link_phrase:202
+#: DB:link_type/link_phrase:202 DB:link_type/link_phrase:1079
 msgid "renamed into"
 msgstr "hernoemd naar"
 
@@ -6750,7 +6812,7 @@ msgstr "werd opgenomen tijdens"
 msgid "was released in support of"
 msgstr "werd uitgebracht als ondersteuning van"
 
-#: DB:link_type/long_link_phrase:202
+#: DB:link_type/long_link_phrase:202 DB:link_type/long_link_phrase:1079
 msgid "was renamed into"
 msgstr "werd hernoemd naar"
 
@@ -6844,6 +6906,10 @@ msgstr "geschreven in"
 #: DB:link_type/name:225 DB:link_type/name:528
 msgid "youtube"
 msgstr "YouTube"
+
+#: DB:link_type/name:1080
+msgid "youtube music"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:886
 msgid "{additional:additionally} arranged at"
@@ -7194,8 +7260,8 @@ msgstr "{additional:aanvullend} orkest"
 msgid "{additional} orchestrator"
 msgstr "{additional:aanvullend} orkestrator"
 
-#: DB:link_type/link_phrase:20 DB:link_type/link_phrase:123
-#: DB:link_type/reverse_link_phrase:20 DB:link_type/reverse_link_phrase:123
+#: DB:link_type/link_phrase:123 DB:link_type/link_phrase:20
+#: DB:link_type/reverse_link_phrase:123 DB:link_type/reverse_link_phrase:20
 msgid "{additional} photography"
 msgstr "{additional:aanvullende} fotografie"
 
@@ -7446,7 +7512,7 @@ msgstr "{entity1} heeft een IMDb-pagina op {entity0}"
 msgid "{entity1} has lyrics available at {entity0}"
 msgstr "De tekst van {entity1} is beschikbaar op {entity0}"
 
-#: DB:link_type/long_link_phrase:20 DB:link_type/long_link_phrase:123
+#: DB:link_type/long_link_phrase:123 DB:link_type/long_link_phrase:20
 msgid "{entity1} has {additional} photography by {entity0}"
 msgstr "{entity1} heeft {additional:aanvullende} foto’s door {entity0}"
 
@@ -7717,14 +7783,14 @@ msgstr "{instrument:%|instrument}technicus voor"
 #: DB:link_type/link_phrase:278
 msgid ""
 "{live} {medley:medley including a} {partial} {instrumental} {cover} "
-"recording of"
-msgstr "is een {live:live} {partial:gedeeltelijke} {instrumental:instrumentale} {medley:medley} {cover:cover-}opname van"
+"{karaoke} recording of"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:278
 msgid ""
-"{live} {medley:medleys including} {partial} {instrumental} {cover} "
-"recordings"
-msgstr "{live:live} {medley:medley met} {partial:gedeeltelijke} {instrumental:instrumentale} {cover:cover} opnames"
+"{live} {medley:medleys including} {partial} {instrumental} {cover} {karaoke}"
+" recordings"
+msgstr ""
 
 #: DB:link_type/link_phrase:109
 msgid "{step}children"

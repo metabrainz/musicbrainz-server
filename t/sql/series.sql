@@ -1,9 +1,9 @@
 SET client_min_messages TO 'WARNING';
 
-INSERT INTO series (id, gid, name, comment, type, ordering_attribute, ordering_type)
-    VALUES (1, 'a8749d0c-4a5a-4403-97c5-f6cd018f8e6d', 'Test Recording Series', 'test comment 1', 3, 788, 1),
-           (2, '2e8872b9-2745-4807-a84e-094d425ec267', 'Test Work Series', 'test comment 2', 4, 788, 2),
-           (3, 'dbb23c50-d4e4-11e3-9c1a-0800200c9a66', 'Dumb Recording Series', '', 3, 788, 1);
+INSERT INTO series (id, gid, name, comment, type, ordering_type)
+    VALUES (1, 'a8749d0c-4a5a-4403-97c5-f6cd018f8e6d', 'Test Recording Series', 'test comment 1', 3, 1),
+           (2, '2e8872b9-2745-4807-a84e-094d425ec267', 'Test Work Series', 'test comment 2', 4, 2),
+           (3, 'dbb23c50-d4e4-11e3-9c1a-0800200c9a66', 'Dumb Recording Series', '', 3, 1);
 
 INSERT INTO series_alias (id, series, name, type, sort_name) VALUES
     (1, 1, 'Test Recording Series Alias', 2, 'Test Recording Series Alias');
@@ -28,7 +28,8 @@ INSERT INTO link_attribute_text_value (link, attribute_type, text_value)
 INSERT INTO artist (id, gid, name, sort_name) VALUES
     (77, 'ac3a3195-ba87-4154-a937-bbc06aac4038', 'Some Artist', 'Some Artist');
 
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Shared Name', 1);
+INSERT INTO artist_credit (id, name, artist_count, gid)
+    VALUES (1, 'Shared Name', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
 
 INSERT INTO artist_credit_name (artist_credit, position, artist, name) VALUES
     (1, 0, 77, 'Shared Name');

@@ -109,11 +109,6 @@ MusicBrainz::Server::Test->prepare_raw_test_database($test->c, <<~'SQL');
         VALUES (1, 11, 50), (2, 11, 60), (2, 12, 70), (1, 13, 40), (1, 14, 10);
     SQL
 
-$test->c->sql->begin;
-$rating_data->_update_aggregate_rating(1);
-$rating_data->_update_aggregate_rating(2);
-$test->c->sql->commit;
-
 $artist = MusicBrainz::Server::Entity::Artist->new( id => 1 );
 $artist_data->load_meta($artist);
 is($artist->rating, 33);

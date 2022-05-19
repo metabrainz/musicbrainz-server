@@ -312,7 +312,7 @@ msgstr "Akoestische gitaar zonder fretten."
 msgid ""
 "Almost completely disappeared by the 20th century, modern revivals based on "
 "museum examples are now used by Swedish folk musicians."
-msgstr ""
+msgstr "De Zweedse doedelzak was in de 20e eeuw bijna verdwenen. Moderne varianten zijn gebaseerd op exemplaren in musea."
 
 #. name:cello
 #: DB:instrument/description:60
@@ -1353,7 +1353,7 @@ msgid ""
 "eight shaped soundbox is made of various woods and often has heart-shaped "
 "sound-holes. It has 3 to 4 metal strings (including drone) and is fretted "
 "diatonically."
-msgstr ""
+msgstr "De dulcimer is een volksinstrument uit de Appalachen met een achtvormige klankkast van verschillende houtsoorten met vaak hartvormige klankgaten. Het instrument heeft drie of vier metalen snaren (waaronder bourdonsnaren) en diatonische fretten."
 
 #. name:gut guitar
 #: DB:instrument/description:567
@@ -1679,7 +1679,7 @@ msgstr "Een bazooka is een grote wijde buis met een wijd uitlopende beker. Het u
 msgid ""
 "Larger and deeper than the tin whistle, it was developed by Overton and made"
 " of aluminium."
-msgstr ""
+msgstr "Een low whistle is groter dan een tinwhistle en heeft een lager geluid. Het aluminium instrument werd door Overton ontwikkeld."
 
 #. name:baandu
 #: DB:instrument/description:880
@@ -1773,7 +1773,7 @@ msgstr "De practice chanter ziet eruit als een blokfluit, maar met dubbelriet en
 msgid ""
 "Lute played by Gnawa people, its camel hide covered wooden soundbox has 3 "
 "goat gut strings."
-msgstr ""
+msgstr "De gimbri is een soort luit die door de Gnawa wordt bespeeld. De houten klankkast is bespannen met een kamelenhuid, en het instrument heeft drie snaren van geitendarm."
 
 #. name:marimba lumina
 #: DB:instrument/description:767
@@ -2324,7 +2324,7 @@ msgid ""
 "Played in folk music of Hungary and Transylvanian regions, its 3-4 strings "
 "are plucked or struck with a stick, and its soundbox is made of thick maple,"
 " poplar or willow wood."
-msgstr ""
+msgstr "De gardon is een volksinstrument uit Hongarije en Transsylvanië met een klankkast van dik esdoorn-, populieren- of wilgenhout en drie of vier snaren die worden getokkeld of met een stok worden aangeslagen."
 
 #. name:vichitra veena
 #: DB:instrument/description:612
@@ -2607,14 +2607,14 @@ msgstr "De nadaswaram lijkt op de Noord-Indiase <a href=\"/instrument/5e17d5f8-6
 msgid ""
 "Simple six-holed fipple flute, originally made of metal; it used to cost a "
 "penny, giving it the alternate name “penny whistle”."
-msgstr ""
+msgstr "Een tinwhistle is een eenvoudige bekfluit met zes gaten, oorspronkelijk gemaakt van blik. Omdat het vroeger een penny kostte, wordt het ook wel een ‘pennywhistle’ genoemd."
 
 #. name:whistle
 #: DB:instrument/description:274
 msgid ""
 "Simple, single-toned and round-bodied whistle often used for regulation and "
 "signalling (sport, traffic, ...)."
-msgstr ""
+msgstr "Een eenvoudig fluitje dat maar één toon kan voortbrengen en vaak wordt gebruikt voor handhaving (bij sport of in het verkeer, enz.)."
 
 #. name:mirliton
 #: DB:instrument/description:591

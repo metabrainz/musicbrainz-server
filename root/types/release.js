@@ -34,7 +34,6 @@ declare type ReleaseT = $ReadOnly<{
   +combined_format_name?: string,
   +combined_track_count?: string,
   +cover_art_presence: 'absent' | 'present' | 'darkened' | null,
-  +cover_art_url: string | null,
   +events?: $ReadOnlyArray<ReleaseEventT>,
   +labels?: $ReadOnlyArray<ReleaseLabelT>,
   +language: LanguageT | null,

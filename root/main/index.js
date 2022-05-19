@@ -174,7 +174,6 @@ const ReleaseArtwork = ({
         >
           <ArtworkImage
             artwork={artwork}
-            fallback={release.cover_art_url || ''}
             hover={releaseDescription}
           />
         </a>

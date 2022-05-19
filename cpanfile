@@ -74,7 +74,6 @@ requires 'MooseX::Types'                              => '0.41';
 requires 'MooseX::Types::Structured'                  => '0.30';
 requires 'MooseX::Types::URI'                         => '0.05';
 requires 'MRO::Compat'                                => '0.12';
-requires 'Net::Amazon::AWSSign'                       => '0.12';
 requires 'Plack'                                      => '1.0030';
 requires 'Plack::Middleware::Debug'                   => '0.16';
 requires 'Readonly'                                   => '1.04';

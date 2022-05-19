@@ -73,8 +73,8 @@ test 'Test splitting an artist' => sub {
     my $c = $test->c;
 
     $c->sql->do(<<~'SQL');
-        INSERT INTO artist_credit (id, name, artist_count)
-            VALUES (100, 'Bob & David', 1);
+        INSERT INTO artist_credit (id, name, artist_count, gid)
+            VALUES (100, 'Bob & David', 1, '71fde822-f07c-38d8-a969-9973fe775fbb');
         INSERT INTO artist_credit_name (artist_credit, position, artist, name)
             VALUES (100, 0, 10, 'Bob & David');
         INSERT INTO recording (id, gid, name, artist_credit, length)

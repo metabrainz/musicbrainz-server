@@ -29,7 +29,8 @@ test 'Test find_by_work' => sub {
             VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 'Test Artist', 'Test Artist', ''),
                    (2, '145c079d-374e-4436-9448-da92dedef3cf', 'Test Artist', 'Test Artist', 'Other test artist');
 
-        INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Test Artist', 1);
+        INSERT INTO artist_credit (id, name, artist_count, gid)
+            VALUES (1, 'Test Artist', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
         INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
             VALUES (1, 0, 1, 'Test Artist', '');
 

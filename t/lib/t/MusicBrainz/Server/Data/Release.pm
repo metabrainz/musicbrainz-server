@@ -21,7 +21,8 @@ test 'filter_barcode_changes' => sub {
     $test->c->sql->do(<<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
-        INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Name', 1);
+        INSERT INTO artist_credit (id, name, artist_count, gid)
+            VALUES (1, 'Name', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
         INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
             VALUES (1, 1, 'Name', 0, '');
 
@@ -200,7 +201,8 @@ test 'can_merge for the append strategy' => sub {
     $test->c->sql->do(<<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name)
             VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
-        INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Name', 1);
+        INSERT INTO artist_credit (id, name, artist_count, gid)
+            VALUES (1, 'Name', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
         INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
             VALUES (1, 1, 'Name', 0, '');
 

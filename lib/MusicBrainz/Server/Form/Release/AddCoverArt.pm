@@ -37,7 +37,7 @@ sub options_mime_type {
             'value' => $_->{mime_type},
             'label' => $_->{suffix},
         }
-    } @{ shift->ctx->model('CoverArt')->mime_types };
+    } @{ shift->ctx->model('CoverArtArchive')->mime_types };
 
     return \@types;
 }

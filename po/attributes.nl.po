@@ -183,6 +183,11 @@ msgid ""
 "ballet dance production."
 msgstr "Een ballet is muziek die is gecomponeerd om samen met choreografie te worden gebruikt in een balletvoorstelling."
 
+#: DB:release_packaging/description:19
+msgctxt "release_packaging"
+msgid "A box usually containing multiple discs as part of a boxed set."
+msgstr ""
+
 #: DB:work_type/description:3
 msgctxt "work_type"
 msgid ""
@@ -234,6 +239,13 @@ msgid ""
 "A grouping of related but different instruments, like the different violin-"
 "like instruments"
 msgstr "Een groep verwante maar verschillende instrumenten, zoals de verschillende violen."
+
+#: DB:release_packaging/description:55
+msgctxt "release_packaging"
+msgid ""
+"A large cardboard box often used until the mid-1990s to sell CDs in North "
+"America, so that they would fit existing vinyl racks in stores."
+msgstr "Een longbox is een grote kartonnen doos die tot midden jaren ’90 in Noord-Amerika werden gebruikt om cd’s te verkopen, zodat ze in bestaande vinylrekken in winkels zouden passen."
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
@@ -530,6 +542,14 @@ msgstr "Een symfonie is een uitgebreide compositie die bijna altijd wordt geschr
 msgctxt "release_packaging"
 msgid "A thinner jewel case, commonly used for CD singles."
 msgstr "Een dunnere variant van de jewel case, vaak gebruikt voor cd-singles."
+
+#: DB:medium_format/description:128
+msgctxt "medium_format"
+msgid ""
+"A very small optical disc in a protective case that was intended for "
+"portable listening. It did not find commercial success, but a few albums "
+"were released in the format in the early 00s."
+msgstr "DataPlay is een optisch schijfje in een beschermende cassette. Het was bedoeld als draagbaar medium, maar werd geen commercieel succes. In de vroegen jaren 2000 zijn een paar DataPlay-albums uitgebracht."
 
 #: DB:work_type/description:19
 msgctxt "work_type"
@@ -842,6 +862,11 @@ msgstr "Een individueel concert van een enkele artiest of samenwerkende artieste
 msgctxt "release_group_secondary_type"
 msgid "An interview release contains an interview, generally with an artist."
 msgstr "Een interviewuitgave bevat een interview, meestal met een artiest."
+
+#: DB:release_packaging/description:54
+msgctxt "release_packaging"
+msgid "An often decorated metal tin containing one or more CDs."
+msgstr "Een vaak versierd metalen doosje met één of meer cd’s."
 
 #: DB:work_type/description:10
 msgctxt "work_type"
@@ -2084,6 +2109,11 @@ msgstr "data-dvd"
 msgctxt "medium_format"
 msgid "Data DVD-R"
 msgstr "data-dvd-r"
+
+#: DB:medium_format/name:128
+msgctxt "medium_format"
+msgid "DataPlay"
+msgstr "DataPlay"
 
 #: DB:release_group_secondary_type/name:10
 msgctxt "release_group_secondary_type"
@@ -4521,6 +4551,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Longa"
 msgstr "Longa"
 
+#: DB:release_packaging/name:55
+msgctxt "release_packaging"
+msgid "Longbox"
+msgstr "Longbox"
+
 #: DB:work_attribute_type/name:49
 msgctxt "work_attribute_type"
 msgid "MACP ID"
@@ -4745,6 +4780,11 @@ msgstr "Mehter"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mersiye"
 msgstr "Mersiye"
+
+#: DB:release_packaging/name:54
+msgctxt "release_packaging"
+msgid "Metal Tin"
+msgstr "Metalen doosje"
 
 #: DB:work_attribute_type_allowed_value/value:745
 msgctxt "work_attribute_type_allowed_value"

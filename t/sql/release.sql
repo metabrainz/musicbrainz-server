@@ -1,7 +1,8 @@
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
 
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Name', 1);
+INSERT INTO artist_credit (id, name, artist_count, gid)
+    VALUES (1, 'Name', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
 INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
     VALUES (1, 1, 'Name', 0, '');
 
@@ -34,7 +35,8 @@ INSERT INTO release_gid_redirect (gid, new_id) VALUES ('71dc55d8-0fc6-41c1-94e0-
 INSERT INTO artist (id, gid, name, sort_name, comment)
     VALUES (2, '7a906020-72db-11de-8a39-0800200c9a66', 'Various Artists', 'Various Artists', ''),
            (3, '1a906020-72db-11de-8a39-0800200c9a66', 'Various Artists', 'Various Artists', 'Various Artists 2');
-INSERT INTO artist_credit (id, name, artist_count) VALUES (2, 'Various Artists', 1);
+INSERT INTO artist_credit (id, name, artist_count, gid)
+    VALUES (2, 'Various Artists', 1, 'c44109ce-57d7-3691-84c8-37926e3d41d2');
 INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase) VALUES (2, 2, 'Various Artists', 1, '');
 
 INSERT INTO release_group (id, gid, name, artist_credit)
@@ -96,7 +98,8 @@ INSERT INTO track (id, gid, name, artist_credit, medium, position, number, recor
            (91, 'cb6e4cd4-fa17-434f-b6ce-d1622e6f3b82', 'Another Track', 2, 91, 1, '1', 2);
 
 -- Test for searching by track artist
-INSERT INTO artist_credit (id, name, artist_count) VALUES (3, 'Various Artists', 2);
+INSERT INTO artist_credit (id, name, artist_count, gid)
+    VALUES (3, 'Various Artists', 2, '52dcd9bf-4163-3800-803e-f8e52e2fb283');
 INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
     VALUES (3, 2, 'Various Artists', 1, ''),
            (3, 3, 'Various Artists', 2, '');

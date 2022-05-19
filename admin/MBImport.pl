@@ -326,7 +326,7 @@ sub ImportAllTables
         $file or print("No data file found for '$table', skipping\n"), next;
         $imported_tables{$table} = 1;
 
-        if (DBDefs->REPLICATION_TYPE == RT_SLAVE)
+        if (DBDefs->REPLICATION_TYPE == RT_MIRROR)
         {
                 my $basetable = $table;
                 $basetable =~ s/_sanitised$//;

@@ -148,6 +148,11 @@ msgstr "Arapaho-Sprache"
 msgid "Arawak"
 msgstr "Arawak-Sprachen"
 
+#. frequency:1 iso_code_3:pka
+#: DB:language/name:5403
+msgid "Ardhamāgadhī Prākrit"
+msgstr ""
+
 #. frequency:1 iso_code_3:hye
 #: DB:language/name:21
 msgid "Armenian"
@@ -212,6 +217,11 @@ msgstr "Aymará-Sprache"
 #: DB:language/name:34
 msgid "Azerbaijani"
 msgstr "Aserbeidschanisch"
+
+#. frequency:1 iso_code_3:bvd
+#: DB:language/name:1470
+msgid "Baeggu"
+msgstr ""
 
 #. frequency:1 iso_code_3:ban
 #: DB:language/name:40
@@ -1858,7 +1868,7 @@ msgstr "Ossetisch"
 msgid "Otomian languages"
 msgstr "Otomangue-Sprachen"
 
-#. frequency:0 iso_code_3:pal
+#. frequency:1 iso_code_3:pal
 #: DB:language/name:328
 msgid "Pahlavi"
 msgstr "Mittelpersisch"

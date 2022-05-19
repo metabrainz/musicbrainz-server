@@ -16,6 +16,7 @@ my $REPTYPE = DBDefs->REPLICATION_TYPE;
 my $psql = 'psql';
 my $path_to_pending_so;
 my $databaseName = 'MAINTENANCE';
+my $dbmirror2 = 0;
 my $fFixUTF8 = 0;
 my $fCreateDB;
 my $fInstallExtension;
@@ -246,11 +247,13 @@ sub CreateRelations
             sitemaps
             statistics
             wikidocs
+            dbmirror2
         ));
     die "\nFailed to create schema\n" if ($? >> 8);
 
     RunSQLScript($SYSMB, 'Extensions.sql', 'Installing extensions');
     RunSQLScript($DB, 'CreateCollations.sql', 'Creating collations ...');
+    RunSQLScript($DB, 'CreateTypes.sql', 'Creating types ...');
 
     RunSQLScript($DB, 'CreateTables.sql', 'Creating tables ...');
     RunSQLScript($DB, 'caa/CreateTables.sql', 'Creating CAA tables ...');
@@ -286,8 +289,8 @@ sub CreateRelations
     RunSQLScript($DB, 'CreateFunctions.sql', 'Creating functions ...');
     RunSQLScript($DB, 'caa/CreateFunctions.sql', 'Creating CAA functions ...');
     RunSQLScript($DB, 'eaa/CreateFunctions.sql', 'Creating EAA functions ...');
-    RunSQLScript($DB, 'CreateSlaveOnlyFunctions.sql', 'Creating slave-only functions ...')
-        if $REPTYPE == RT_SLAVE;
+    RunSQLScript($DB, 'CreateMirrorOnlyFunctions.sql', 'Creating mirror-only functions ...')
+        if $REPTYPE == RT_MIRROR;
 
     RunSQLScript($DB, 'CreateIndexes.sql', 'Creating indexes ...');
     RunSQLScript($DB, 'caa/CreateIndexes.sql', 'Creating CAA indexes ...');
@@ -296,29 +299,32 @@ sub CreateRelations
     RunSQLScript($DB, 'sitemaps/CreateIndexes.sql', 'Creating sitemaps indexes ...');
     RunSQLScript($DB, 'statistics/CreateIndexes.sql', 'Creating statistics indexes ...');
 
-    RunSQLScript($DB, 'CreateSlaveIndexes.sql', 'Creating slave-only indexes ...')
-        if $REPTYPE == RT_SLAVE;
+    RunSQLScript($DB, 'CreateMirrorIndexes.sql', 'Creating mirror-only indexes ...')
+        if $REPTYPE == RT_MIRROR;
 
     RunSQLScript($DB, 'CreateFKConstraints.sql', 'Adding foreign key constraints ...')
-        unless $REPTYPE == RT_SLAVE;
+        unless $REPTYPE == RT_MIRROR;
 
     RunSQLScript($DB, 'caa/CreateFKConstraints.sql', 'Adding CAA foreign key constraints ...')
-        unless $REPTYPE == RT_SLAVE;
+        unless $REPTYPE == RT_MIRROR;
+
+    RunSQLScript($DB, 'documentation/CreateFKConstraints.sql', 'Adding documentation foreign key constraints ...')
+        unless $REPTYPE == RT_MIRROR;
 
     RunSQLScript($DB, 'eaa/CreateFKConstraints.sql', 'Adding EAA foreign key constraints ...')
-        unless $REPTYPE == RT_SLAVE;
+        unless $REPTYPE == RT_MIRROR;
 
     RunSQLScript($DB, 'caa/CreateEditFKConstraints.sql', 'Adding CAA foreign key constraint to edit table...')
-        unless ($REPTYPE == RT_SLAVE || !HasEditData());
+        unless ($REPTYPE == RT_MIRROR || !HasEditData());
 
     RunSQLScript($DB, 'eaa/CreateEditFKConstraints.sql', 'Adding EAA foreign key constraint to edit table...')
-        unless ($REPTYPE == RT_SLAVE || !HasEditData());
+        unless ($REPTYPE == RT_MIRROR || !HasEditData());
 
     RunSQLScript($DB, 'sitemaps/CreateFKConstraints.sql', 'Adding sitemaps foreign key constraints ...')
-        unless $REPTYPE == RT_SLAVE;
+        unless $REPTYPE == RT_MIRROR;
 
     RunSQLScript($DB, 'CreateConstraints.sql', 'Adding table constraints ...')
-        unless $REPTYPE == RT_SLAVE;
+        unless $REPTYPE == RT_MIRROR;
 
     RunSQLScript($DB, 'SetSequences.sql', 'Setting raw initial sequence values ...');
     RunSQLScript($DB, 'statistics/SetSequences.sql', 'Setting raw initial statistics sequence values ...');
@@ -328,32 +334,43 @@ sub CreateRelations
     RunSQLScript($DB, 'eaa/CreateViews.sql', 'Creating EAA views ...');
 
     RunSQLScript($DB, 'CreateTriggers.sql', 'Creating triggers ...')
-        unless $REPTYPE == RT_SLAVE;
+        unless $REPTYPE == RT_MIRROR;
 
     RunSQLScript($DB, 'caa/CreateTriggers.sql', 'Creating CAA triggers ...')
-        unless $REPTYPE == RT_SLAVE;
+        unless $REPTYPE == RT_MIRROR;
 
     RunSQLScript($DB, 'eaa/CreateTriggers.sql', 'Creating EAA triggers ...')
-        unless $REPTYPE == RT_SLAVE;
+        unless $REPTYPE == RT_MIRROR;
 
-    RunSQLScript($DB, 'CreateSlaveOnlyTriggers.sql', 'Creating slave-only triggers ...')
-        if $REPTYPE == RT_SLAVE;
+    RunSQLScript($DB, 'CreateMirrorOnlyTriggers.sql', 'Creating mirror-only triggers ...')
+        if $REPTYPE == RT_MIRROR;
 
     RunSQLScript($DB, 'CreateSearchIndexes.sql', 'Creating search indexes ...');
 
     if ($REPTYPE == RT_MASTER)
     {
-        CreateReplicationFunction();
-        RunSQLScript($DB, 'CreateReplicationTriggers.sql', 'Creating replication triggers ...');
-        RunSQLScript($DB, 'caa/CreateReplicationTriggers.sql', 'Creating CAA replication triggers ...');
-        RunSQLScript($DB, 'documentation/CreateReplicationTriggers.sql', 'Creating documentation replication triggers ...');
-        RunSQLScript($DB, 'eaa/CreateReplicationTriggers.sql', 'Creating EAA replication triggers ...');
-        RunSQLScript($DB, 'statistics/CreateReplicationTriggers.sql', 'Creating statistics replication triggers ...');
-        RunSQLScript($DB, 'wikidocs/CreateReplicationTriggers.sql', 'Creating wikidocs replication triggers ...');
+        if (defined $path_to_pending_so) {
+            CreateReplicationFunction();
+            RunSQLScript($DB, 'CreateReplicationTriggers.sql', 'Creating replication triggers ...');
+            RunSQLScript($DB, 'caa/CreateReplicationTriggers.sql', 'Creating CAA replication triggers ...');
+            RunSQLScript($DB, 'documentation/CreateReplicationTriggers.sql', 'Creating documentation replication triggers ...');
+            RunSQLScript($DB, 'eaa/CreateReplicationTriggers.sql', 'Creating EAA replication triggers ...');
+            RunSQLScript($DB, 'statistics/CreateReplicationTriggers.sql', 'Creating statistics replication triggers ...');
+            RunSQLScript($DB, 'wikidocs/CreateReplicationTriggers.sql', 'Creating wikidocs replication triggers ...');
+        }
+
+        RunSQLScript($DB, 'dbmirror2/MasterSetup.sql', 'Creating dbmirror2 master schema ...');
+        RunSQLScript($DB, 'CreateReplicationTriggers2.sql', 'Creating dbmirror2 replication triggers ...');
+        RunSQLScript($DB, 'caa/CreateReplicationTriggers2.sql', 'Creating dbmirror2 CAA replication triggers ...');
+        RunSQLScript($DB, 'documentation/CreateReplicationTriggers2.sql', 'Creating dbmirror2 documentation replication triggers ...');
+        RunSQLScript($DB, 'eaa/CreateReplicationTriggers2.sql', 'Creating dbmirror2 EAA replication triggers ...');
+        RunSQLScript($DB, 'statistics/CreateReplicationTriggers2.sql', 'Creating dbmirror2 statistics replication triggers ...');
+        RunSQLScript($DB, 'wikidocs/CreateReplicationTriggers2.sql', 'Creating dbmirror2 wikidocs replication triggers ...');
     }
-    if ($REPTYPE == RT_MASTER || $REPTYPE == RT_SLAVE)
+    if ($REPTYPE == RT_MASTER || $REPTYPE == RT_MIRROR)
     {
         RunSQLScript($DB, 'ReplicationSetup.sql', 'Setting up replication ...');
+        RunSQLScript($DB, 'dbmirror2/ReplicationSetup.sql', 'Setting up dbmirror2 replication ...');
     }
 
     print localtime() . " : Optimizing database ...\n" unless $fQuiet;
@@ -398,18 +415,21 @@ sub SanityCheck
     die "The postgres psql application must be on your path for this script to work.\n"
        if not -x $psql and (`which psql` eq '');
 
-    if ($REPTYPE == RT_SLAVE)
+    if ($REPTYPE == RT_MIRROR)
     {
-        warn "Warning: this is a slave replication server, but there is no READONLY connection defined\n"
+        warn "Warning: this is a mirror replication server, but there is no READONLY connection defined\n"
             unless Databases->get('READONLY');
     }
 
     if ($REPTYPE == RT_MASTER)
     {
-        defined($path_to_pending_so) or die <<EOF;
+        (defined($path_to_pending_so) || $dbmirror2) or die <<EOF;
 Error: this is a master replication server, but you did not specify
-the path to "pending.so" (i.e. --with-pending=PATH)
+the path to "pending.so" (i.e. --with-pending=PATH) or pass --dbmirror2.
 EOF
+
+        return if $dbmirror2;
+
         if (not -f $path_to_pending_so)
         {
             warn <<EOF;
@@ -479,6 +499,7 @@ GetOptions(
     'psql=s'              => \$psql,
     'createdb'            => \$fCreateDB,
     'database:s'          => \$databaseName,
+    'dbmirror2!'          => \$dbmirror2,
     'empty-database'      => sub { $mode = 'MODE_NO_TABLES' },
     'import|i'            => sub { $mode = 'MODE_IMPORT' },
     'clean|c'             => sub { $mode = 'MODE_NO_DATA' },

@@ -38,7 +38,8 @@ INSERT INTO editor (id, name, password, privs, email, website, bio, email_confir
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES (155, '945c079d-374e-4436-9448-da92dedef3cf', 'artist', 'artist');
 
-INSERT INTO artist_credit (id, name, artist_count) VALUES (155, 'Artist', 1);
+INSERT INTO artist_credit (id, name, artist_count, gid)
+    VALUES (155, 'Artist', 1, '2220a547-73ff-3ef4-b375-d6e1a3f59251');
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
     VALUES (155, 0, 155, 'Artist', '');
 

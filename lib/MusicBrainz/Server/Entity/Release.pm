@@ -184,7 +184,7 @@ sub combined_format_name
     return combined_medium_format_name(map { $_->l_format_name() || lp('(unknown)', 'medium format') } @mediums );
 }
 
-has [qw( cover_art_url info_url amazon_asin amazon_store )] => (
+has [qw( info_url amazon_asin )] => (
     is => 'rw',
     isa => 'Str',
 );
@@ -284,7 +284,6 @@ around TO_JSON => sub {
         statusID    => $self->status_id,
         status      => to_json_object($self->status),
         cover_art_presence => $self->cover_art_presence,
-        cover_art_url => $self->cover_art_url,
         may_have_cover_art => boolean_to_json($self->may_have_cover_art),
         may_have_discids => boolean_to_json($self->may_have_discids),
     };

@@ -569,10 +569,10 @@ msgstr "muinaispersialainen"
 msgid "Old South Arabian"
 msgstr "muinaiseteläarabialainen"
 
-#. frequency:1 iso_code:Orkh
+#. frequency:2 iso_code:Orkh
 #: DB:script/name:20
-msgid "Old Turkish"
-msgstr "orkhon"
+msgid "Old Turkic"
+msgstr ""
 
 #. frequency:3 iso_code:Orya
 #: DB:script/name:54

@@ -6,6 +6,7 @@ use warnings;
 
 use base 'Exporter';
 use Carp qw( croak );
+use CGI::Simple::Util qw( escape );
 use DBDefs;
 use Devel::StackTrace;
 use IO::File;
@@ -13,6 +14,7 @@ use Scalar::Util qw( blessed );
 use Try::Tiny;
 
 our @EXPORT_OK = qw(
+    build_request_and_user_context
     capture_exceptions
     get_error_message
     send_error_to_sentry
@@ -229,6 +231,43 @@ sub get_context {
     }
 
     return %context;
+}
+
+sub build_request_and_user_context {
+    my $c = shift;
+
+    return () unless sentry_enabled;
+
+    my $req = $c->req;
+    my $body = $req->body;
+    if (ref $body) {
+        $body = eval { local $/; seek $body, 0, 0; <$body> };
+    }
+
+    my @sentry_context;
+    push @sentry_context, Sentry::Raven->request_context(
+        $req->uri,
+        cookies => (join ';', map {
+            my $name = escape($_->name);
+            my $value = join '&', map { escape($_) } $_->value;
+            "$name=$value";
+        } values %{ $req->cookies }),
+        ($body ? (data => $body) : ()),
+        headers => {
+            map { my $value = $req->headers->header($_); ($_ => $value) }
+                $req->headers->header_field_names
+        },
+        method => $req->method,
+    );
+
+    if ($c->user_exists) {
+        push @sentry_context, Sentry::Raven->user_context(
+            id => $c->user->id,
+            username => $c->user->name,
+        );
+    }
+
+    return @sentry_context;
 }
 
 1;
