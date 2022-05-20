@@ -71,11 +71,10 @@ function compareTypeOptionEntries(
 const SearchOptions = () => (
   <select id="headerid-type" name="type">
     {TYPE_OPTION_GROUPS.map((group) => (
-      Object.entries(group)
-        // $FlowIssue[incompatible-call]
+      // $FlowIssue[incompatible-cast]
+      (Object.entries(group): Array<[string, SearchOptionValueT]>)
         .sort(compareTypeOptionEntries)
-        .map(([key: string, option: SearchOptionValueT]) => {
-          // $FlowIssue[incompatible-call]
+        .map(([key, option]) => {
           const text = localizedTypeOption(option);
           if (!text) {
             return null;
