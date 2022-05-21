@@ -66,7 +66,6 @@ const createInitialState = (props: PropsT): StateT => {
 
   const datePeriodField = {
     errors: [],
-    has_errors: false,
     field: {
       begin_date: createCompoundField(
         'period.begin_date',
@@ -86,6 +85,7 @@ const createInitialState = (props: PropsT): StateT => {
       ),
       ended: createField('period.ended', relationship.ended),
     },
+    has_errors: false,
     html_name: '',
     id: 0,
     type: 'compound_field',
@@ -141,7 +141,7 @@ const ExternalLinkAttributeDialog = (props: PropsT): React.MixedElement => {
   const hasErrors = hasSubfieldErrors(state.datePeriodField);
 
   React.useEffect(() => {
-    dispatch({type: 'update-initial-date-period', props});
+    dispatch({props, type: 'update-initial-date-period'});
   }, [props]);
 
   const dateDispatch = React.useCallback((action) => {
@@ -215,7 +215,7 @@ const ExternalLinkAttributeDialog = (props: PropsT): React.MixedElement => {
                 className="positive"
                 disabled={hasErrors}
                 onClick={() => handleConfirm(closeAndReturnFocus)}
-                type="submit"
+                type="button"
               >
                 {l('Done')}
               </button>

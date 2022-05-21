@@ -29,6 +29,7 @@ import formatDatePeriod from '../common/utility/formatDatePeriod';
 import {hasSessionStorage} from '../common/utility/storage';
 import {uniqueId} from '../common/utility/strings';
 import {bracketedText} from '../common/utility/bracketed';
+import {compareDatePeriods} from '../common/utility/compareDates';
 import {isMalware} from '../../../url/utility/isGreyedOut';
 import {compareDatePeriods} from '../common/utility/compareDates';
 
@@ -159,7 +160,7 @@ export class ExternalLinksEditor
           url = this.cleanupUrl(url);
         }
 
-        const newLink = {...newLinks[index], url, rawUrl};
+        const newLink = {...newLinks[index], rawUrl, url};
         const checker = new URLCleanup.Checker(url, this.props.sourceType);
         const guessedType = checker.guessType();
         const possibleTypes = checker.getPossibleTypes();
@@ -412,12 +413,12 @@ export class ExternalLinksEditor
        * to maintain the order that the empty link should be at the end.
        */
       if (lastLink.url === '') {
-        links[linkCount - 1] = {...lastLink, url, submitted: true};
+        links[linkCount - 1] = {...lastLink, submitted: true, url};
         return {links: withOneEmptyLink(links)};
       }
       // Otherwise create a new link with the given URL
       const newRelationship = newLinkState({
-        url, relationship: uniqueId('new-'), submitted: true,
+        relationship: uniqueId('new-'), submitted: true, url,
       });
       return {links: prevState.links.concat([newRelationship])};
     }, () => {
@@ -536,12 +537,19 @@ export class ExternalLinksEditor
     link: LinkRelationshipT | LinkStateT,
     checker?: URLCleanup.Checker,
   ): ErrorT | null {
-    const linksByTypeAndUrl = groupBy(
+    const linksByTypeUrlAndDate = groupBy(
       uniqBy(
-        this.state.links.concat(this.props.initialLinks),
+        this.state.links.filter(link => !link.deleted),
         link => link.relationship,
       ),
-      linkTypeAndUrlString,
+      linkTypeUrlAndDateString,
+    );
+    const deletedLinksByTypeUrlAndDate = groupBy(
+      uniqBy(
+        this.state.links.filter(link => link.deleted),
+        link => link.relationship,
+      ),
+      linkTypeUrlAndDateString,
     );
     let error: ErrorT | null = null;
 
@@ -625,7 +633,7 @@ export class ExternalLinksEditor
         target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
       };
     } else if (
-      (linksByTypeAndUrl.get(linkTypeAndUrlString(link)) ||
+      (linksByTypeUrlAndDate.get(linkTypeUrlAndDateString(link)) ||
         []).length > 1
     ) {
       error = {
@@ -634,6 +642,19 @@ export class ExternalLinksEditor
         target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
       };
     } else if (isNewOrChangedLink) {
+      if (
+        (deletedLinksByTypeUrlAndDate.get(
+          linkTypeUrlAndDateString(link),
+        )?.length)
+      ) {
+        error = {
+          message: l(
+            `This duplicates a relationship marked for deletion.
+             Please keep the old relationship instead of recreating it.`,
+          ),
+          target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
+        };
+      }
       const check = checker.checkRelationship(linkType.gid);
       if (!check.result) {
         error = {
@@ -1414,14 +1435,15 @@ function newLinkState(state: $ReadOnly<$Partial<LinkStateT>>) {
   return {...defaultLinkState, ...state};
 }
 
-function linkTypeAndUrlString(link) {
+function linkTypeUrlAndDateString(link) {
   /*
    * There's no reason why we should allow adding the same relationship
    * twice when the only difference is http vs https, so normalize this
    * for the check.
    */
   const httpUrl = link.url.replace(/^https/, 'http');
-  return (link.type || '') + '\0' + httpUrl;
+  const dateString = formatDatePeriod(link);
+  return (link.type || '') + '\0' + httpUrl + '\0' + dateString;
 }
 
 function isEmpty(link) {
