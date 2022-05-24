@@ -98,8 +98,8 @@ declare type RelationshipT = $ReadOnly<{
   +linkOrder: number,
   +linkTypeID: number,
   +source_id: number | null,
-  +source_type: string,
+  +source_type: CoreEntityTypeT,
   +target: CoreEntityT,
-  +target_type: string,
+  +target_type: CoreEntityTypeT,
   +verbosePhrase: string,
 }>;
