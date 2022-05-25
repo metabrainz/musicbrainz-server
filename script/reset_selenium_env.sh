@@ -52,6 +52,7 @@ fi
 echo `date` : Truncating all tables
 OUTPUT=`./admin/psql SELENIUM <./admin/sql/TruncateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql SELENIUM <./admin/sql/caa/TruncateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql SELENIUM <./admin/sql/eaa/TruncateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Inserting initial test data
 OUTPUT=`./admin/psql SELENIUM < ./t/sql/initial.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )

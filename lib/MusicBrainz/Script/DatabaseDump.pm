@@ -137,11 +137,6 @@ sub _open_table_file {
 sub dump_table {
     my ($self, $table) = @_;
 
-    my $table_noschema = $table =~ s/^[^.]+\.//r;
-    if ($table ne $table_noschema) {
-        $self->table_file_mapping->{$table} = $table_noschema;
-    }
-
     my ($dump_fh, $table_file_path) = $self->_open_table_file($table, '>');
 
     my $rows_estimate = $self->row_counts->{$table} //
