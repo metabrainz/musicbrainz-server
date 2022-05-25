@@ -3,7 +3,11 @@ use Moose;
 use Try::Tiny;
 
 use List::AllUtils qw( any );
-use MusicBrainz::Server::Constants qw( $CONTACT_URL $EDIT_RELATIONSHIP_DELETE );
+use MusicBrainz::Server::Constants qw(
+    $AMAZON_ASIN_LINK_TYPE_ID
+    $CONTACT_URL
+    $EDIT_RELATIONSHIP_DELETE
+);
 use MusicBrainz::Server::Data::Utils qw(
     localized_note
     partial_date_to_hash
@@ -266,10 +270,14 @@ sub initialize
 sub accept {
     my $self = shift;
 
+    my $data = $self->data;
+    my $relationship_data = $data->{relationship};
+    my $link_type_data = $relationship_data->{link}{type};
+
     my $relationship = $self->c->model('Relationship')->get_by_id(
-        $self->data->{relationship}{link}{type}{entity0_type},
-        $self->data->{relationship}{link}{type}{entity1_type},
-        $self->data->{relationship}{id}
+        $link_type_data->{entity0_type},
+        $link_type_data->{entity1_type},
+        $relationship_data->{id}
     ) or return;
 
     $self->c->model('Link')->load($relationship);
@@ -290,9 +298,16 @@ sub accept {
     }
 
     $self->c->model('Relationship')->delete(
-        $self->data->{relationship}{link}{type}{entity0_type},
-        $self->data->{relationship}{link}{type}{entity1_type},
-        $self->data->{relationship}{id});
+        $link_type_data->{entity0_type},
+        $link_type_data->{entity1_type},
+        $relationship_data->{id}
+    );
+
+    if ($link_type_data->{id} == $AMAZON_ASIN_LINK_TYPE_ID) {
+        $self->c->model('Release')->update_amazon_asin(
+            $relationship->entity0_id
+        );
+    }
 }
 
 before restore => sub {
