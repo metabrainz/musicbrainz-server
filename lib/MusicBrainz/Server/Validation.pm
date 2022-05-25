@@ -46,7 +46,7 @@ use Carp qw( carp );
 use List::AllUtils qw( any );
 use Encode qw( decode encode );
 use Scalar::Util qw( looks_like_number );
-use Text::Unaccent qw( unac_string_utf16 );
+use Text::Unaccent::PurePerl qw( unac_string_utf16 );
 use MusicBrainz::Server::Constants qw( $MAX_POSTGRES_INT $MAX_POSTGRES_BIGINT );
 use utf8;
 
