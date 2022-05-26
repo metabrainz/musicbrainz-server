@@ -582,6 +582,7 @@ test('formatSetlist', function (t) {
 
   t.equal(
     ReactDOMServer.renderToStaticMarkup(formatSetlist(setlist)),
+    '<!-- -->' + // empty comment added by React
     'pre-text <strong>' +
       'Artist: ' +
       '<a href="/artist/e1af2f0d-c685-4e83-a27d-b27e79787aab">artist 1</a>' +

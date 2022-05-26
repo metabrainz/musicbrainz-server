@@ -12,7 +12,7 @@ import punycode from 'punycode';
 import $ from 'jquery';
 import ko from 'knockout';
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
 
 import {
   FAVICON_CLASSES,
@@ -119,6 +119,23 @@ export class ExternalLinksEditor
       (option) => option.disabled ||
       !URLCleanup.RESTRICTED_LINK_TYPES.includes(option.data.gid),
     );
+    this.copyEditDataToReleaseEditor();
+  }
+
+  copyEditDataToReleaseEditor() {
+    const releaseEditor = MB._releaseEditor;
+    if (releaseEditor) {
+      /*
+       * `externalLinksEditData` is an observable hooked into the release
+       * editor's edit generation code.
+       */
+      // $FlowIgnore[prop-missing]
+      releaseEditor.externalLinksEditData(this.getEditData());
+    }
+  }
+
+  componentDidUpdate() {
+    this.copyEditDataToReleaseEditor();
   }
 
   setLinkState(
@@ -1757,16 +1774,19 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
   const errorObservable = options.errorObservable ||
     validation.errorField(ko.observable(false));
 
-  return ReactDOM.render(
+  const root = ReactDOMClient.createRoot(options.mountPoint);
+  const externalLinksEditorRef = React.createRef();
+  root.render(
     <ExternalLinksEditor
       errorObservable={errorObservable}
       initialLinks={initialLinks}
       isNewEntity={!sourceData.id}
+      ref={externalLinksEditorRef}
       sourceType={sourceData.entityType}
       typeOptions={typeOptions}
     />,
-    options.mountPoint,
   );
+  return externalLinksEditorRef;
 };
 
 export const createExternalLinksEditor = MB.createExternalLinksEditor;

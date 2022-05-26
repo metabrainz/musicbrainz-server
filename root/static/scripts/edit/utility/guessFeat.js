@@ -241,7 +241,7 @@ export default function guessFeat(entity) {
     names: artistCredit.concat(match.artistCredit),
   });
 
-  entity.artistCreditEditorInst && entity.artistCreditEditorInst.setState({
+  entity.artistCreditEditorInst?.current?.setState({
     artistCredit: entity.artistCredit.peek(),
   });
 }

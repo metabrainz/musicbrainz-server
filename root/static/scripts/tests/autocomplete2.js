@@ -2,7 +2,7 @@
 
 import $ from 'jquery';
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
 
 import {
   LOCATION_EDITOR_FLAG,
@@ -175,5 +175,6 @@ $(function () {
     );
   };
 
-  ReactDOM.render(<AutocompleteTest />, container);
+  const root = ReactDOMClient.createRoot(container);
+  root.render(<AutocompleteTest />);
 });
