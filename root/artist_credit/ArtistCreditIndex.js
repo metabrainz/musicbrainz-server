@@ -37,6 +37,7 @@ function buildSection(
   entityType: string,
   title: string,
   seeAllMessage: $Call<typeof N_ln, string, string>,
+  listId: string,
 ) {
   const entities = props.creditedEntities[entityType];
 
@@ -49,7 +50,7 @@ function buildSection(
   return (
     <React.Fragment key={entityType}>
       <h3>{title}</h3>
-      <ul>
+      <ul id={listId}>
         {entities.entities.map(entity => (
           <li key={entity.id}>
             {entity.entityType === 'track' ? (
@@ -88,7 +89,7 @@ const ArtistCreditIndex = (
     <p>
       {l('This artist credit is composed of the following artists:')}
     </p>
-    <ul>
+    <ul id="artist-credit-artists">
       {props.artistCredit.names.map((name, index) => (
         <li key={'name-' + index}>
           <DescriptiveLink entity={name.artist} />
@@ -113,22 +114,45 @@ const ArtistCreditIndex = (
       * we do not make a distinction other than for 1, which will never
       * show in this case.
       */}
-    {buildSection(props, 'release_group', l('Release Groups'), N_ln(
-      'See all {num} release groups',
-      'See all {num} release groups',
-    ))}
-    {buildSection(props, 'release', l('Releases'), N_ln(
-      'See all {num} releases',
-      'See all {num} releases',
-    ))}
-    {buildSection(props, 'recording', l('Recordings'), N_ln(
-      'See all {num} recordings',
-      'See all {num} recordings',
-    ))}
-    {buildSection(props, 'track', l('Tracks'), N_ln(
-      'See all {num} tracks',
-      'See all {num} tracks',
-    ))}
+    {buildSection(
+      props,
+      'release_group',
+      l('Release Groups'),
+      N_ln(
+        'See all {num} release groups',
+        'See all {num} release groups',
+      ),
+      'artist-credit-release-groups',
+    )}
+    {buildSection(
+      props,
+      'release',
+      l('Releases'), N_ln(
+        'See all {num} releases',
+        'See all {num} releases',
+      ),
+      'artist-credit-releases',
+    )}
+    {buildSection(
+      props,
+      'recording',
+      l('Recordings'),
+      N_ln(
+        'See all {num} recordings',
+        'See all {num} recordings',
+      ),
+      'artist-credit-recordings',
+    )}
+    {buildSection(
+      props,
+      'track',
+      l('Tracks'),
+      N_ln(
+        'See all {num} tracks',
+        'See all {num} tracks',
+      ),
+      'artist-credit-tracks',
+    )}
   </ArtistCreditLayout>
 );
 
