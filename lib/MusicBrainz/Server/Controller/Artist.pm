@@ -73,6 +73,7 @@ use MusicBrainz::Server::Form::Artist;
 use MusicBrainz::Server::Form::Confirm;
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::FilterUtils qw(
+    create_artist_events_form
     create_artist_release_groups_form
     create_artist_releases_form
     create_artist_recordings_form
@@ -484,8 +485,20 @@ Shows all events of an artist.
 sub events : Chained('load')
 {
     my ($self, $c) = @_;
+
+    my $artist = $c->stash->{artist};
+    my $filter = $self->process_filter($c, sub {
+        return create_artist_events_form($c, $artist->id);
+    });
+    my $has_filter = %$filter ? 1 : 0;
+
     my $events = $self->_load_paged($c, sub {
-        $c->model('Event')->find_by_artist($c->stash->{artist}->id, shift, shift);
+        $c->model('Event')->find_by_artist(
+            $artist->id,
+            shift,
+            shift,
+            filter => $filter,
+        );
     });
     $c->model('Event')->load_related_info(@$events);
     $c->model('Event')->load_areas(@$events);
@@ -493,8 +506,14 @@ sub events : Chained('load')
     $c->model('Event')->rating->load_user_ratings($c->user->id, @$events) if $c->user_exists;
 
     my %props = (
-        artist       => $c->stash->{artist}->TO_JSON,
+        ajaxFilterFormUrl => '' . $c->uri_for_action(
+                                 '/ajax/filter_artist_events_form',
+                                 { artist_id => $artist->id }
+                             ),
+        artist       => $artist->TO_JSON,
         events       => to_json_array($events),
+        filterForm => to_json_object($c->stash->{filter_form}),
+        hasFilter => boolean_to_json($has_filter),
         pager        => serialize_pager($c->stash->{pager}),
     );
 
