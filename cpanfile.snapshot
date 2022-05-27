@@ -853,6 +853,7 @@ DISTRIBUTIONS
       Config::Any::XML undef
       Config::Any::YAML undef
     requirements:
+      Config::General 2.47
       Module::Pluggable::Object 3.6
   Config-General-2.65
     pathname: T/TL/TLINDEN/Config-General-2.65.tar.gz
@@ -3358,11 +3359,11 @@ DISTRIBUTIONS
       IPC::Signal 1.00
     requirements:
       ExtUtils::MakeMaker 0
-  JSON-4.05
-    pathname: I/IS/ISHIGAKI/JSON-4.05.tar.gz
+  JSON-4.06
+    pathname: I/IS/ISHIGAKI/JSON-4.06.tar.gz
     provides:
-      JSON 4.05
-      JSON::Backend::PP 4.05
+      JSON 4.06
+      JSON::Backend::PP 4.06
     requirements:
       ExtUtils::MakeMaker 0
       Test::More 0
@@ -7007,7 +7008,7 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 6.59
       File::Temp 0
       Test::More 0
-      perl 5.00800
+      perl 5.008000
   Text-SimpleTable-2.07
     pathname: M/MR/MRAMBERG/Text-SimpleTable-2.07.tar.gz
     provides:
@@ -7023,12 +7024,13 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       perl 5.006
-  Text-Unaccent-1.08
-    pathname: L/LD/LDACHARY/Text-Unaccent-1.08.tar.gz
+  Text-Unaccent-PurePerl-0.05
+    pathname: P/PJ/PJACKLAM/Text-Unaccent-PurePerl-0.05.tar.gz
     provides:
-      Text::Unaccent 1.08
+      Text::Unaccent::PurePerl 0.05
     requirements:
       ExtUtils::MakeMaker 0
+      Test::More 0
   Text-Unidecode-1.30
     pathname: S/SB/SBURKE/Text-Unidecode-1.30.tar.gz
     provides:
@@ -7605,39 +7607,39 @@ DISTRIBUTIONS
       XML::SAX 0.15
       XML::SAX::Expat 0
       perl 5.008
-  XML-XPath-1.44
-    pathname: M/MA/MANWAR/XML-XPath-1.44.tar.gz
+  XML-XPath-1.47
+    pathname: M/MA/MANWAR/XML-XPath-1.47.tar.gz
     provides:
-      XML::XPath 1.44
-      XML::XPath::Boolean 1.44
-      XML::XPath::Builder 1.44
-      XML::XPath::Expr 1.44
-      XML::XPath::Function 1.44
-      XML::XPath::Literal 1.44
-      XML::XPath::LocationPath 1.44
-      XML::XPath::Node 1.44
-      XML::XPath::Node::Attribute 1.44
-      XML::XPath::Node::AttributeImpl 1.44
-      XML::XPath::Node::Comment 1.44
-      XML::XPath::Node::Element 1.44
-      XML::XPath::Node::Namespace 1.44
-      XML::XPath::Node::PI 1.44
-      XML::XPath::Node::Text 1.44
-      XML::XPath::NodeSet 1.44
-      XML::XPath::Number 1.44
-      XML::XPath::Parser 1.44
-      XML::XPath::PerlSAX 1.44
-      XML::XPath::Root 1.44
-      XML::XPath::Step 1.44
-      XML::XPath::Variable 1.44
-      XML::XPath::XMLParser 1.44
+      XML::XPath 1.47
+      XML::XPath::Boolean 1.47
+      XML::XPath::Builder 1.47
+      XML::XPath::Expr 1.47
+      XML::XPath::Function 1.47
+      XML::XPath::Literal 1.47
+      XML::XPath::LocationPath 1.47
+      XML::XPath::Node 1.47
+      XML::XPath::Node::Attribute 1.47
+      XML::XPath::Node::AttributeImpl 1.47
+      XML::XPath::Node::Comment 1.47
+      XML::XPath::Node::Element 1.47
+      XML::XPath::Node::Namespace 1.47
+      XML::XPath::Node::PI 1.47
+      XML::XPath::Node::Text 1.47
+      XML::XPath::NodeSet 1.47
+      XML::XPath::Number 1.47
+      XML::XPath::Parser 1.47
+      XML::XPath::PerlSAX 1.47
+      XML::XPath::Root 1.47
+      XML::XPath::Step 1.47
+      XML::XPath::Variable 1.47
+      XML::XPath::XMLParser 1.47
     requirements:
       ExtUtils::MakeMaker 0
       Path::Tiny 0.076
       Scalar::Util 1.45
       Test::More 0
       XML::Parser 2.23
-      perl 5.006
+      perl 5.008
   XML-XPathEngine-0.14
     pathname: M/MI/MIROD/XML-XPathEngine-0.14.tar.gz
     provides:
@@ -7897,32 +7899,32 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       File::Spec 0
       version 0.77
-  libwww-perl-6.65
-    pathname: O/OA/OALDERS/libwww-perl-6.65.tar.gz
+  libwww-perl-6.66
+    pathname: O/OA/OALDERS/libwww-perl-6.66.tar.gz
     provides:
-      LWP 6.65
-      LWP::Authen::Basic 6.65
-      LWP::Authen::Digest 6.65
-      LWP::Authen::Ntlm 6.65
-      LWP::ConnCache 6.65
-      LWP::Debug 6.65
-      LWP::Debug::TraceHTTP 6.65
-      LWP::DebugFile 6.65
-      LWP::MemberMixin 6.65
-      LWP::Protocol 6.65
-      LWP::Protocol::cpan 6.65
-      LWP::Protocol::data 6.65
-      LWP::Protocol::file 6.65
-      LWP::Protocol::ftp 6.65
-      LWP::Protocol::gopher 6.65
-      LWP::Protocol::http 6.65
-      LWP::Protocol::loopback 6.65
-      LWP::Protocol::mailto 6.65
-      LWP::Protocol::nntp 6.65
-      LWP::Protocol::nogo 6.65
-      LWP::RobotUA 6.65
-      LWP::Simple 6.65
-      LWP::UserAgent 6.65
+      LWP 6.66
+      LWP::Authen::Basic 6.66
+      LWP::Authen::Digest 6.66
+      LWP::Authen::Ntlm 6.66
+      LWP::ConnCache 6.66
+      LWP::Debug 6.66
+      LWP::Debug::TraceHTTP 6.66
+      LWP::DebugFile 6.66
+      LWP::MemberMixin 6.66
+      LWP::Protocol 6.66
+      LWP::Protocol::cpan 6.66
+      LWP::Protocol::data 6.66
+      LWP::Protocol::file 6.66
+      LWP::Protocol::ftp 6.66
+      LWP::Protocol::gopher 6.66
+      LWP::Protocol::http 6.66
+      LWP::Protocol::loopback 6.66
+      LWP::Protocol::mailto 6.66
+      LWP::Protocol::nntp 6.66
+      LWP::Protocol::nogo 6.66
+      LWP::RobotUA 6.66
+      LWP::Simple 6.66
+      LWP::UserAgent 6.66
     requirements:
       CPAN::Meta::Requirements 2.120620
       Digest::MD5 0
