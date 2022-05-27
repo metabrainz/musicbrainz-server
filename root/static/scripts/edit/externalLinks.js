@@ -1592,6 +1592,7 @@ const URL_SHORTENERS = [
   {host: 'amu.se', blockHost: false},
   {host: 'artist.link', blockHost: false},
   {host: 'band.link', blockHost: false},
+  {host: 'bfan.link', blockHost: true},
   {host: 'biglink.to', blockHost: false},
   {host: 'bio.link', blockHost: true},
   {host: 'bit.ly', blockHost: false},
