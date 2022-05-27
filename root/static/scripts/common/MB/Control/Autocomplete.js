@@ -822,6 +822,11 @@ MB.Control.autocomplete_formatters = {
                  artist: item.artist,
                  release_group_type: item.l_type_name,
                })) + '</span>');
+    } else {
+      a.append('<br /><span class="autocomplete-comment">' +
+               he.escape(texp.l('Release group by {artist}', {
+                 artist: item.artist,
+               })) + '</span>');
     }
 
     return $('<li>').append(a).appendTo(ul);
