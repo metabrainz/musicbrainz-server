@@ -1613,6 +1613,7 @@ const URL_SHORTENERS = [
   {host: 'gate.fm', blockHost: false},
   {host: 'geni.us', blockHost: false},
   {host: 'goo.gl', blockHost: false},
+  {host: 'hypeddit.com', blockHost: true},
   {host: 'hypel.ink', blockHost: false},
   {host: 'hyperurl.co', blockHost: false},
   {host: 'is.gd', blockHost: false},
