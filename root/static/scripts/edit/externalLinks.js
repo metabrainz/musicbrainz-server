@@ -1615,6 +1615,7 @@ const URL_SHORTENERS = [
   {host: 'goo.gl', blockHost: false},
   {host: 'hypeddit.com', blockHost: true},
   {host: 'hypel.ink', blockHost: false},
+  {host: 'hyperfollow.com', blockHost: true},
   {host: 'hyperurl.co', blockHost: false},
   {host: 'is.gd', blockHost: false},
   {host: 'kl.am', blockHost: false},
