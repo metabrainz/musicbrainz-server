@@ -4493,6 +4493,19 @@ limited_link_type_combinations: [
     expected_relationship_type: 'patronage',
             expected_clean_url: 'https://www.tipeee.com/example',
   },
+  // Tobar an Dualchais
+  {
+                     input_url: 'http://tobarandualchais.co.uk/person/5305',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.tobarandualchais.co.uk/person/5305',
+  },
+  {
+                     input_url: 'https://www.tobarandualchais.co.uk/track/39438?l=en',
+             input_entity_type: 'recording',
+    expected_relationship_type: ['otherdatabases', 'streamingfree'],
+            expected_clean_url: 'https://www.tobarandualchais.co.uk/track/39438',
+  },
   // Tower
   {
                      input_url: 'http://tower.jp/artist/1372640/%E9%87%8E%E4%B8%AD-%E3%81%BE%E3%81%95-%E9%9B%84%E4%B8%80',
