@@ -386,6 +386,10 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
           reportName="ReleasesWithDownloadRelationships"
         />
         <ReportsIndexEntry
+          content={l('Digital releases with mail order relationships')}
+          reportName="ReleasesWithMailOrderRelationships"
+        />
+        <ReportsIndexEntry
           content={l('Releases with deprecated relationships')}
           reportName="DeprecatedRelationshipReleases"
         />
