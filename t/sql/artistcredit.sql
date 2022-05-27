@@ -16,3 +16,9 @@ VALUES (1, 0, 1, 'Queen', ' & '),
        (1, 1, 2, 'David Bowie', ''),
        (2, 0, 1, 'Queen', ' & '),
        (2, 1, 2, 'Bowie', '');
+
+INSERT INTO recording (id, gid, name, artist_credit)
+    VALUES (1, '32c7e292-14f1-4080-bddf-ef852e0a4c59', 'Under Pressure', 1);
+
+INSERT INTO release_group (id, gid, name, artist_credit, type)
+    VALUES (1, 'bdaeec2d-94f1-46b5-91f3-340ec6939c66', 'Under Pressure', 1, 2);
