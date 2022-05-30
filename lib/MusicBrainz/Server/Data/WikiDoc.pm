@@ -7,7 +7,7 @@ use Readonly;
 use HTML::TreeBuilder::XPath;
 use MusicBrainz::Server::Entity::WikiDocPage;
 use MusicBrainz::Server::ExternalUtils qw( get_chunked_with_retry );
-use URI::Escape qw( uri_escape uri_unescape );
+use URI::Escape qw( uri_escape_utf8 uri_unescape );
 use Encode qw( decode );
 
 with 'MusicBrainz::Server::Data::Role::Context';
@@ -122,7 +122,7 @@ sub _load_page
     return MusicBrainz::Server::Entity::WikiDocPage->new({ canonical => 'MusicBrainz_Documentation' })
         if ($id eq '');
 
-    my $doc_url = sprintf 'http://%s/%s?action=render&redirect=no', DBDefs->WIKITRANS_SERVER, uri_escape($id);
+    my $doc_url = sprintf 'http://%s/%s?action=render&redirect=no', DBDefs->WIKITRANS_SERVER, uri_escape_utf8($id);
     if (defined $version) {
         $doc_url .= "&oldid=$version";
     }
