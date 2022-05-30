@@ -12,7 +12,7 @@ INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phra
 
 INSERT INTO url (id, gid, url) VALUES
     (1, '67ff507e-1239-40a7-9023-53621d701797', 'http://en.wikipedia.org/wiki/Artist1'),
-    (2, 'a803cfdd-b08f-4f51-893c-0784bb74a497', 'http://www.amazon.com/gp/product/Release1');
+    (2, 'a803cfdd-b08f-4f51-893c-0784bb74a497', 'http://www.amazon.com/gp/product/0000000000');
 
 INSERT INTO link (id, link_type, attribute_count)
     VALUES (1, 103, 0), (2, 179, 0), (3, 77, 0), (4, 179, 0);
@@ -31,3 +31,5 @@ INSERT INTO release (id, gid, name, artist_credit, release_group, status, packag
     VALUES (1, '80181f27-52f6-4dbd-a48b-83d64872e793', 'Release 1', 1, 1, NULL, NULL, NULL, NULL, '', '', 0);
 
 INSERT INTO l_release_url (id, link, entity0, entity1) VALUES (1, 3, 1, 2);
+
+UPDATE release_meta SET amazon_asin = '0000000000' WHERE id = 1;

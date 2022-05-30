@@ -16,6 +16,7 @@ INSERT INTO event (id, gid, name, type)
 INSERT INTO link (id, link_type, attribute_count) VALUES (1, 103, 1);
 INSERT INTO link (id, link_type, attribute_count) VALUES (2, 104, 0);
 INSERT INTO link (id, link_type, attribute_count) VALUES (3, 798, 1);
+INSERT INTO link (id, link_type, attribute_count) VALUES (4, 77, 0);
 INSERT INTO link_attribute (link, attribute_type) VALUES (1, 1);
 INSERT INTO link_attribute (link, attribute_type) VALUES (3, 830);
 INSERT INTO link_attribute_text_value (link, attribute_type, text_value) VALUES (3, 830, 'tv1');
@@ -30,3 +31,10 @@ INSERT INTO release_group (id, gid, name, artist_credit)
 INSERT INTO release (id, gid, name, artist_credit, release_group)
     VALUES (1, '7a906020-72db-11de-8a39-0800200c9a66', 'Arrival', 1, 1),
            (2, '7a906020-72db-11de-8a39-0800200c9a67', 'Arrival', 1, 1);
+
+INSERT INTO url (id, gid, url)
+     VALUES (263685, 'ee45a093-1114-4481-b3cc-8cd22cad20d8', 'https://www.amazon.com/gp/product/B00005CDNG');
+
+INSERT INTO l_release_url (id, link, entity0, entity1) VALUES (1, 4, 2, 263685);
+
+UPDATE release_meta SET amazon_asin = 'B00005CDNG' WHERE id = 2;
