@@ -2233,7 +2233,7 @@ msgstr "Vergeet niet dat de nummers worden verwijderd als je dit vakje uitvinkt 
 msgid ""
 "Keep in mind this process might take a fairly long time if you have entered "
 "a lot of tags. If the process times out, please {contact_url|contact us}."
-msgstr ""
+msgstr "Houd er rekening mee dat dit best lang kan duren als je veel etiketten hebt toegevoegd. Als het te lang duurt en wordt afgebroken, kan je {contact_url|contact met ons opnemen}."
 
 #: ../root/cdtoc/attach_artist_releases.tt:17
 #: ../root/cdtoc/attach_filter_release.tt:31 ../root/cdtoc/list.tt:11
@@ -10724,15 +10724,15 @@ msgstr "Live gegevensfeed"
 
 #: ../root/layout/components/BottomMenu.js:205
 msgid "Advanced Search"
-msgstr ""
+msgstr "Geavanceerd zoeken"
 
 #: ../root/layout/components/BottomMenu.js:208
 msgid "Edit Search"
-msgstr ""
+msgstr "Bewerkingen zoeken"
 
 #: ../root/layout/components/BottomMenu.js:211
 msgid "Tag Cloud"
-msgstr ""
+msgstr "Etikettenwolk"
 
 #: ../root/layout/components/BottomMenu.js:223
 #: ../root/layout/components/sidebar/CollectionSidebar.js:60
@@ -13153,7 +13153,7 @@ msgid ""
 " cover in the Cover Art Archive. The use of Amazon art has been discontinued"
 " since the 16th of May 2022, so these releases have no front cover anymore "
 "until one is added to the Cover Art Archive."
-msgstr ""
+msgstr "In dit rapport staan uitgaven met hoesafbeeldingen van Amazon, maar geen hoesafbeelding in het Cover Art Archive. Afbeeldingen van Amazon zijn op 16 mei 2022 afgeschaft, dus hebben die uitgaven geen afbeelding meer tot er een afbeelding aan het Cover Art Archive wordt toegevoegd."
 
 #: ../root/report/ReleasesWithAmazonCoverArt.js:35
 #: ../root/report/ReportsIndex.js:348

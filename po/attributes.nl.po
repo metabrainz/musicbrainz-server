@@ -186,7 +186,7 @@ msgstr "Een ballet is muziek die is gecomponeerd om samen met choreografie te wo
 #: DB:release_packaging/description:19
 msgctxt "release_packaging"
 msgid "A box usually containing multiple discs as part of a boxed set."
-msgstr ""
+msgstr "Een doos met meestal meerdere cd’s als onderdeel van een boxset."
 
 #: DB:work_type/description:3
 msgctxt "work_type"
