@@ -69,15 +69,6 @@ then
 fi
 ./admin/RunExport ${FULL:-}
 
-# Do any necessary packet bundling
-echo Bundling replication packets, daily
-./admin/replication/BundleReplicationPackets $FTP_DATA_DIR/replication --period daily --require-previous
-if date +%w | grep -qw '[6]'
-then
-    echo + weekly
-    ./admin/replication/BundleReplicationPackets $FTP_DATA_DIR/replication --period weekly --require-previous
-fi
-
 # Create the reports
 echo Running reports
 nice ./admin/RunReports.pl

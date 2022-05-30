@@ -71,9 +71,7 @@ $sql->auto_commit;
 $sql->do('SET search_path = musicbrainz, public');
 
 $sql->auto_commit;
-$sql->do('SET TRANSACTION ISOLATION LEVEL SERIALIZABLE');
-$sql->auto_commit;
-$sql->do('SET CONSTRAINTS ALL DEFERRED');
+$sql->do('SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE');
 
 #Obtain a list of pending transactions using ordering by our approximation
 #to the commit time.  The commit time approximation is taken to be the
@@ -158,6 +156,8 @@ if (my $totalrows = $sql->select($query))
         }
 
         $mirror->begin;
+        $mirror->do('SET CONSTRAINTS ALL DEFERRED');
+
         $sql2->do("DECLARE csr NO SCROLL CURSOR FOR $query", $XID);
 
         my @row2;
