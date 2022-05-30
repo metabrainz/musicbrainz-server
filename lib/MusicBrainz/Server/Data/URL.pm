@@ -170,6 +170,7 @@ my %URL_SPECIALIZATIONS = (
     'Tidal'               => qr{^https?://(?:[^/]+\.)?tidal\.com/}i,
     'TikTok'              => qr{^https?://(?:www\.)?tiktok\.com/}i,
     'Tipeee'              => qr{^https?://(?:www\.)?tipeee\.com/}i,
+    'TobaranDualchais'    => qr{^https?://(?:www\.)?tobarandualchais\.co\.uk/}i,
     'TouhouDB'            => qr{^https?://(?:www\.)?touhoudb\.com/}i,
     'Tower'               => qr{^https?://(?:www\.)?tower\.jp/}i,
     'Traxsource'          => qr{^https?://(?:www\.)?traxsource.com/}i,

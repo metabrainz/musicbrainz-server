@@ -183,6 +183,7 @@ export const FAVICON_CLASSES = {
   'tidal.com': 'tidal',
   'tiktok.com': 'tiktok',
   'tipeee.com': 'tipeee',
+  'tobarandualchais.co.uk': 'tobar',
   'touhoudb.com': 'touhoudb',
   'tower.jp': 'tower',
   'traxsource.com': 'traxsource',
