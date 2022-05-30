@@ -72,7 +72,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #: ../root/components/common-macros.tt:20
 msgid " ({text})"
@@ -241,6 +241,7 @@ msgid "A private collection"
 msgid_plural "{n} private collections"
 msgstr[0] "Une collection privée"
 msgstr[1] "{n} collections privées"
+msgstr[2] "{n} collections privées"
 
 #: ../root/release/edit/information.tt:23
 msgid "A release title is required."
@@ -1798,6 +1799,7 @@ msgid "Found {n} result"
 msgid_plural "Found {n} results"
 msgstr[0] "Trouvé {n} résultat"
 msgstr[1] "Trouvé {n} résultats"
+msgstr[2] "Trouvé {n} résultats"
 
 #: ../root/components/with-pager.tt:7
 #: ../root/components/PaginatedResults.js:59
@@ -1805,6 +1807,7 @@ msgid "Found {n} result for \"{q}\""
 msgid_plural "Found {n} results for \"{q}\""
 msgstr[0] "Trouvé {n} résultat pour « {q} »"
 msgstr[1] "Trouvé {n} résultats pour « {q} »"
+msgstr[2] "Trouvé {n} résultats pour « {q} »"
 
 #: ../root/components/common-macros.tt:658
 #: ../root/layout/components/sidebar/LabelSidebar.js:67
@@ -3052,6 +3055,7 @@ msgid "Rate: {rating} star"
 msgid_plural "Rate: {rating} stars"
 msgstr[0] "Évaluation : {rating} étoile"
 msgstr[1] "Évaluation : {rating} étoiles"
+msgstr[2] "Évaluation : {rating} étoiles"
 
 #: ../root/user/ratings_summary.tt:1 ../root/user/ratings_summary.tt:33
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:36
@@ -5207,6 +5211,7 @@ msgid "plus {n} other private collection"
 msgid_plural "plus {n} other private collections"
 msgstr[0] "plus {n} autre collection privée"
 msgstr[1] "plus {n} autres collections privées"
+msgstr[2] "plus {n} autres collections privées"
 
 #: ../root/edit/search_macros.tt:25
 msgid "recently closed first"
@@ -5257,6 +5262,7 @@ msgid "{artist} has no releases which have only {n} track."
 msgid_plural "{artist} has no releases which have {n} tracks."
 msgstr[0] "{artist} n’a aucune parution n’ayant que {n} piste."
 msgstr[1] "{artist} n’a aucune parution ayant {n} pistes."
+msgstr[2] "{artist} n’a aucune parution ayant {n} pistes."
 
 #: ../root/entity/collections.tt:10
 msgid "{collection} by {owner}"
@@ -5277,6 +5283,7 @@ msgid "{entity} has been added to {num} collection:"
 msgid_plural "{entity} has been added to {num} collections:"
 msgstr[0] "{entity} a été ajouté à {num} collection :"
 msgstr[1] "{entity} a été ajouté à {num} collections :"
+msgstr[2] "{entity} a été ajouté à {num} collections :"
 
 #: ../root/entity/collections.tt:23
 msgid "{entity} has not been added to any collections."
@@ -5308,24 +5315,28 @@ msgid "{num} day ago"
 msgid_plural "{num} days ago"
 msgstr[0] "il y a {num} jour"
 msgstr[1] "il y a {num} jours"
+msgstr[2] "il y a {num} jours"
 
 #: ../root/components/common-macros.tt:63 ../root/utility/age.js:164
 msgid "{num} month ago"
 msgid_plural "{num} months ago"
 msgstr[0] "il y a {num} mois"
 msgstr[1] "il y a {num} mois"
+msgstr[2] "il y a {num} mois"
 
 #: ../root/cdtoc/attach_filter_release.tt:20
 msgid "{num} release found matching your query."
 msgid_plural "{num} releases found matching your query."
 msgstr[0] "{num} parution de trouvée correspond avec votre requête."
 msgstr[1] "{num} parutions de trouvées correspondent avec votre requête."
+msgstr[2] "{num} parutions de trouvées correspondent avec votre requête."
 
 #: ../root/components/common-macros.tt:63 ../root/utility/age.js:161
 msgid "{num} year ago"
 msgid_plural "{num} years ago"
 msgstr[0] "il y a {num} an"
 msgstr[1] "il y a {num} ans"
+msgstr[2] "il y a {num} ans"
 
 #: ../root/components/common-macros.tt:228
 #: ../root/static/scripts/common/components/DescriptiveLink.js:75
@@ -5414,6 +5425,7 @@ msgid_plural ""
 "automatically accepted and applied."
 msgstr[0] "Merci, votre {edit_url|modification} ({edit_ids}) a été automatiquement acceptée et appliquée."
 msgstr[1] "Merci, vos {num_edits} {edit_url|modifications} ({edit_ids}) ont été automatiquement acceptées et appliquées."
+msgstr[2] "Merci, vos {num_edits} {edit_url|modifications} ({edit_ids}) ont été automatiquement acceptées et appliquées."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:127
 #, perl-brace-format
@@ -5425,6 +5437,7 @@ msgid_plural ""
 "into the edit queue for peer review."
 msgstr[0] "Merci, votre {edit_url|modification} ({edit_ids}) a été intégrée à la file des modifications afin d’être revue par un pair."
 msgstr[1] "Merci, vos {num_edits} {edit_url|modifications} ({edit_ids}) ont été intégrées à la file des modifications afin d’être revue par un pair."
+msgstr[2] "Merci, vos {num_edits} {edit_url|modifications} ({edit_ids}) ont été intégrées à la file des modifications afin d’être revue par un pair."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:135
 #, perl-brace-format
@@ -5438,6 +5451,7 @@ msgid_plural ""
 "automatically accepted and applied."
 msgstr[0] "Merci, votre {edit_url|modification} ({edit_ids}) a été intégrée, avec {num_open_edits} autres dans la file des modifications pour être revue par un pair, et le reste a été automatiquement accepté et appliqué."
 msgstr[1] "Merci, vos {num_edits} {edit_url|modifications} ({edit_ids}) ont été intégrées, avec {num_open_edits} autres dans la file des modifications pour être revue par un pair, et le reste a été automatiquement accepté et appliqué."
+msgstr[2] "Merci, vos {num_edits} {edit_url|modifications} ({edit_ids}) ont été intégrées, avec {num_open_edits} autres dans la file des modifications pour être revue par un pair, et le reste a été automatiquement accepté et appliqué."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:57
 msgid "The user ID is missing or is in an invalid format."
@@ -6404,6 +6418,7 @@ msgid_plural ""
 "{artist_search|all uses of this IPI}."
 msgstr[0] "L’IPI {ipi} est déjà utilisé par {artist_count} artiste. Veuillez vérifier {artist_search|les usages de cet IPI}."
 msgstr[1] "L’IPI {ipi} est déjà utilisé par {artist_count} artistes. Veuillez vérifier {artist_search|les usages de cet IPI}."
+msgstr[2] "L’IPI {ipi} est déjà utilisé par {artist_count} artistes. Veuillez vérifier {artist_search|les usages de cet IPI}."
 
 #: ../lib/MusicBrainz/Server/Edit/Role/IPI.pm:45
 #, perl-brace-format
@@ -6415,6 +6430,7 @@ msgid_plural ""
 "{label_search|all uses of this IPI}."
 msgstr[0] "L’IPI {ipi} est déjà utilisé par {label_count} label. Veuillez vérifier {label_search|les usages de cet IPI}."
 msgstr[1] "L’IPI {ipi} est déjà utilisé par {label_count} labels. Veuillez vérifier {label_search|les usages de cet IPI}."
+msgstr[2] "L’IPI {ipi} est déjà utilisé par {label_count} labels. Veuillez vérifier {label_search|les usages de cet IPI}."
 
 #: ../lib/MusicBrainz/Server/Edit/Role/ISNI.pm:39
 #, perl-brace-format
@@ -6426,6 +6442,7 @@ msgid_plural ""
 "{artist_search|all uses of this ISNI}."
 msgstr[0] "L’ISNI {isni} est déjà utilisé par {artist_count} artiste. Veuillez vérifier {artist_search|les usages de cet ISNI}."
 msgstr[1] "L’ISNI {isni} est déjà utilisé par {artist_count} artistes. Veuillez vérifier {artist_search|les usages de cet ISNI}."
+msgstr[2] "L’ISNI {isni} est déjà utilisé par {artist_count} artistes. Veuillez vérifier {artist_search|les usages de cet ISNI}."
 
 #: ../lib/MusicBrainz/Server/Edit/Role/ISNI.pm:45
 #, perl-brace-format
@@ -6437,6 +6454,7 @@ msgid_plural ""
 "{label_search|all uses of this ISNI}."
 msgstr[0] "L’ISNI {isni} est déjà utilisé par {label_count} label. Veuillez vérifier {label_search|les usages de cet ISNI}."
 msgstr[1] "L’ISNI {isni} est déjà utilisé par {label_count} labels. Veuillez vérifier {label_search|les usages de cet ISNI}."
+msgstr[2] "L’ISNI {isni} est déjà utilisé par {label_count} labels. Veuillez vérifier {label_search|les usages de cet ISNI}."
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAlias.pm:11
 msgid "Add series alias"
@@ -7954,6 +7972,7 @@ msgid "There is currently {num} user in this area."
 msgid_plural "There are currently {num} users in this area."
 msgstr[0] "Il y a actuellement {num} utilisateur dans cette région."
 msgstr[1] "Il y a actuellement {num} utilisateurs dans cette région."
+msgstr[2] "Il y a actuellement {num} utilisateurs dans cette région."
 
 #: ../root/area/AreaUsers.js:39
 msgid "There are currently no users in this area."
@@ -8243,6 +8262,7 @@ msgid "See all {num} release groups"
 msgid_plural "See all {num} release groups"
 msgstr[0] "Voir le groupe de parution"
 msgstr[1] "Voir tous les {num} groupes de parution"
+msgstr[2] "Voir tous les {num} groupes de parution"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:121
 #: ../root/components/TagEntitiesList.js:188
@@ -8250,6 +8270,7 @@ msgid "See all {num} releases"
 msgid_plural "See all {num} releases"
 msgstr[0] "Voir la parution"
 msgstr[1] "Voir toutes les {num} parutions"
+msgstr[2] "Voir toutes les {num} parutions"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:125
 #: ../root/components/TagEntitiesList.js:192
@@ -8257,12 +8278,14 @@ msgid "See all {num} recordings"
 msgid_plural "See all {num} recordings"
 msgstr[0] "Voir l’enregistrement"
 msgstr[1] "Voir tous les {num} enregistrements"
+msgstr[2] "Voir tous les {num} enregistrements"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:129
 msgid "See all {num} tracks"
 msgid_plural "See all {num} tracks"
 msgstr[0] "Voir toutes les {num} pistes"
 msgstr[1] "Voir toutes les {num} pistes"
+msgstr[2] "Voir toutes les {num} pistes"
 
 #: ../root/artist_credit/ArtistCreditLayout.js:45
 #: ../root/artist_credit/ArtistCreditLayout.js:49
@@ -8275,24 +8298,28 @@ msgid "{num} recording found"
 msgid_plural "{num} recordings found"
 msgstr[0] "{num} enregistrement de trouvé"
 msgstr[1] "{num} enregistrements de trouvés"
+msgstr[2] "{num} enregistrements de trouvés"
 
 #: ../root/artist_credit/EntityList.js:22 ../root/tag/EntityList.js:76
 msgid "{num} release found"
 msgid_plural "{num} releases found"
 msgstr[0] "{num} parution de trouvée"
 msgstr[1] "{num} parutions de trouvées"
+msgstr[2] "{num} parutions de trouvées"
 
 #: ../root/artist_credit/EntityList.js:24 ../root/tag/EntityList.js:78
 msgid "{num} release group found"
 msgid_plural "{num} release groups found"
 msgstr[0] "{num} groupe de parution de trouvé"
 msgstr[1] "{num} groupes de parution de trouvés"
+msgstr[2] "{num} groupes de parution de trouvés"
 
 #: ../root/artist_credit/EntityList.js:27
 msgid "{num} track found"
 msgid_plural "{num} tracks found"
 msgstr[0] "{num} piste trouvée"
 msgstr[1] "{num} pistes trouvées"
+msgstr[2] "{num} pistes trouvées"
 
 #: ../root/artist_credit/EntityList.js:31
 msgid "No recordings with this artist credit were found."
@@ -8563,6 +8590,7 @@ msgid_plural ""
 "also {write_link|write your own}."
 msgstr[0] "{reviews_link|{review_count} critique} est proposée sur CritiqueBrainz. Vous pouvez aussi en {write_link|write rédiger une}."
 msgstr[1] "{reviews_link|{review_count} critiques} sont proposées sur CritiqueBrainz. Vous pouvez aussi en {write_link|write rédiger une}."
+msgstr[2] "{reviews_link|{review_count} critiques} sont proposées sur CritiqueBrainz. Vous pouvez aussi en {write_link|write rédiger une}."
 
 #: ../root/components/EnterEditNote.js:31
 msgid ""
@@ -8685,6 +8713,7 @@ msgid "track {tracks}"
 msgid_plural "tracks {tracks}"
 msgstr[0] "piste {tracks}"
 msgstr[1] "pistes {tracks}"
+msgstr[2] "pistes {tracks}"
 
 #: ../root/components/TagEntitiesList.js:125
 msgid "Entities where {user} downvoted “{tag}”"
@@ -8703,42 +8732,49 @@ msgid "{num} entity found"
 msgid_plural "{num} entities found"
 msgstr[0] "{num} entité trouvée"
 msgstr[1] "{num} entités trouvées"
+msgstr[2] "{num} entités trouvées"
 
 #: ../root/components/TagEntitiesList.js:160
 msgid "See all {num} areas"
 msgid_plural "See all {num} areas"
 msgstr[0] "Voir la région"
 msgstr[1] "Voir toutes les {num} régions"
+msgstr[2] "Voir toutes les {num} régions"
 
 #: ../root/components/TagEntitiesList.js:164
 msgid "See all {num} artists"
 msgid_plural "See all {num} artists"
 msgstr[0] "Voir l’artiste"
 msgstr[1] "Voir tous les {num} artistes"
+msgstr[2] "Voir tous les {num} artistes"
 
 #: ../root/components/TagEntitiesList.js:168
 msgid "See all {num} events"
 msgid_plural "See all {num} events"
 msgstr[0] "Voir l’événement"
 msgstr[1] "Voir tous les {num} événements"
+msgstr[2] "Voir tous les {num} événements"
 
 #: ../root/components/TagEntitiesList.js:172
 msgid "See all {num} instruments"
 msgid_plural "See all {num} instruments"
 msgstr[0] "Voir l’instrument"
 msgstr[1] "Voir tous les {num} instruments"
+msgstr[2] "Voir tous les {num} instruments"
 
 #: ../root/components/TagEntitiesList.js:176
 msgid "See all {num} labels"
 msgid_plural "See all {num} labels"
 msgstr[0] "Voir le label"
 msgstr[1] "Voir tous les {num} labels"
+msgstr[2] "Voir tous les {num} labels"
 
 #: ../root/components/TagEntitiesList.js:180
 msgid "See all {num} places"
 msgid_plural "See all {num} places"
 msgstr[0] "Voir le lieu"
 msgstr[1] "Voir les {num} lieux"
+msgstr[2] "Voir les {num} lieux"
 
 #: ../root/components/TagEntitiesList.js:195
 #: ../root/edit/details/AddSeries.js:27 ../root/edit/details/EditSeries.js:36
@@ -8752,12 +8788,14 @@ msgid "See all {num} series"
 msgid_plural "See all {num} series"
 msgstr[0] "Voir la série"
 msgstr[1] "Voir toutes les {num} séries"
+msgstr[2] "Voir toutes les {num} séries"
 
 #: ../root/components/TagEntitiesList.js:200
 msgid "See all {num} works"
 msgid_plural "See all {num} works"
 msgstr[0] "Voir l’œuvre"
 msgstr[1] "Voir toutes les {num} œuvres"
+msgstr[2] "Voir toutes les {num} œuvres"
 
 #: ../root/components/UserAccountTabs.js:30
 #: ../root/layout/components/TopMenu.js:46
@@ -8788,6 +8826,7 @@ msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} days</span>"
 msgstr[0] "Finit dans <span class=\"tooltip\" title=\"{exactdate}\">{num} jour</span>"
 msgstr[1] "Finit dans <span class=\"tooltip\" title=\"{exactdate}\">{num} jours</span>"
+msgstr[2] "Finit dans <span class=\"tooltip\" title=\"{exactdate}\">{num} jours</span>"
 
 #: ../root/components/VotingPeriod.js:46
 msgid "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} hour</span>"
@@ -8795,6 +8834,7 @@ msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} hours</span>"
 msgstr[0] "Finit dans <span class=\"tooltip\" title=\"{exactdate}\">{num} heure</span>"
 msgstr[1] "Finit dans <span class=\"tooltip\" title=\"{exactdate}\">{num} heures</span>"
+msgstr[2] "Finit dans <span class=\"tooltip\" title=\"{exactdate}\">{num} heures</span>"
 
 #: ../root/components/VotingPeriod.js:55
 msgid "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} minute</span>"
@@ -8802,6 +8842,7 @@ msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} minutes</span>"
 msgstr[0] "Finit dans <span class=\"tooltip\" title=\"{exactdate}\">{num} minute</span>"
 msgstr[1] "Finit dans <span class=\"tooltip\" title=\"{exactdate}\">{num} minutes</span>"
+msgstr[2] "Finit dans <span class=\"tooltip\" title=\"{exactdate}\">{num} minutes</span>"
 
 #: ../root/components/VotingPeriod.js:63
 msgid "About to close"
@@ -9156,12 +9197,14 @@ msgid "Found at least {n} edit"
 msgid_plural "Found at least {n} edits"
 msgstr[0] "Au moins {n} modification de trouvée"
 msgstr[1] "Au moins {n} modifications de trouvées"
+msgstr[2] "Au moins {n} modifications de trouvées"
 
 #: ../root/edit/components/EditList.js:87
 msgid "Found {n} edit"
 msgid_plural "Found {n} edits"
 msgstr[0] "Trouvé {n} modification"
 msgstr[1] "Trouvé {n} modifications"
+msgstr[2] "Trouvé {n} modifications"
 
 #: ../root/edit/components/EditList.js:115
 msgid "Submit votes & edit notes"
@@ -9216,6 +9259,7 @@ msgid "1 vote"
 msgid_plural "{n} unanimous votes"
 msgstr[0] "1 vote"
 msgstr[1] "{n} votes unanimes"
+msgstr[2] "{n} votes unanimes"
 
 #: ../root/edit/components/EditSidebar.js:76
 msgid "If no votes cast"
@@ -9661,6 +9705,7 @@ msgid "This change affects {num} relationship."
 msgid_plural "This change affects {num} relationships."
 msgstr[0] "Ce changement affecte {num} relation."
 msgstr[1] "Ce changement affecte {num} relations."
+msgstr[2] "Ce changement affecte {num} relations."
 
 #: ../root/edit/details/EditUrl.js:79
 msgid ""
@@ -10411,6 +10456,7 @@ msgid "{count} private rating not listed."
 msgid_plural "{count} private ratings not listed."
 msgstr[0] "{count} évaluation privée non affichée."
 msgstr[1] "{count} évaluatons privées non affichées."
+msgstr[2] "{count} évaluatons privées non affichées."
 
 #: ../root/entity/Ratings.js:63
 msgid "Average rating:"
@@ -10430,6 +10476,7 @@ msgid_plural ""
 "There are currently {num} users subscribed to edits that you make:"
 msgstr[0] "Il n’y a {num} utilisateur abonné aux modifications que vous effectuez :"
 msgstr[1] "Il n’y a {num} utilisateurs abonnés aux modifications que vous effectuez :"
+msgstr[2] "Il n’y a {num} utilisateurs abonnés aux modifications que vous effectuez :"
 
 #: ../root/entity/Subscribers.js:79
 msgid "There is currently {num} user subscribed to edits that {user} makes:"
@@ -10437,24 +10484,28 @@ msgid_plural ""
 "There are currently {num} users subscribed to edits that {user} makes:"
 msgstr[0] "Il y a actuellement {num} utilisateur abonné aux modifications effectuées par {user} :"
 msgstr[1] "Il y a actuellement {num} utilisateurs abonnés aux modifications effectuées par {user} :"
+msgstr[2] "Il y a actuellement {num} utilisateurs abonnés aux modifications effectuées par {user} :"
 
 #: ../root/entity/Subscribers.js:92
 msgid "There is currently {num} user subscribed to {entity}:"
 msgid_plural "There are currently {num} users subscribed to {entity}:"
 msgstr[0] "Il y a actuellement {num} utilisateur abonné à {entity} :"
 msgstr[1] "Il y a actuellement {num} utilisateurs abonnés à {entity} :"
+msgstr[2] "Il y a actuellement {num} utilisateurs abonnés à {entity} :"
 
 #: ../root/entity/Subscribers.js:111
 msgid "Plus {n} other anonymous user"
 msgid_plural "Plus {n} other anonymous users"
 msgstr[0] "Plus {n} autre utilisateur anonyme"
 msgstr[1] "Plus {n} autres utilisateurs anonymes"
+msgstr[2] "Plus {n} autres utilisateurs anonymes"
 
 #: ../root/entity/Subscribers.js:121
 msgid "An anonymous user"
 msgid_plural "{n} anonymous users"
 msgstr[0] "Un utilisateur anonyme"
 msgstr[1] "{n} utilisateurs anonymes"
+msgstr[2] "{n} utilisateurs anonymes"
 
 #: ../root/entity/Subscribers.js:135
 msgid "There are currently no users subscribed to edits that you make."
@@ -10601,6 +10652,7 @@ msgid "Associated with {num} recording"
 msgid_plural "Associated with {num} recordings"
 msgstr[0] "Associé avec {num} enregistrement"
 msgstr[1] "Associé avec {num} enregistrements"
+msgstr[2] "Associé avec {num} enregistrements"
 
 #: ../root/iswc/Index.js:29 ../root/iswc/Index.js:32
 msgid "ISWC “{iswc}”"
@@ -10611,6 +10663,7 @@ msgid "Associated with {num} work"
 msgid_plural "Associated with {num} works"
 msgstr[0] "Associé à {num} œuvre"
 msgstr[1] "Associé à {num} œuvres"
+msgstr[2] "Associé à {num} œuvres"
 
 #: ../root/label/LabelIndex.js:63
 msgid "Previously known as"
@@ -11113,6 +11166,7 @@ msgid "Found in {num} user collection"
 msgid_plural "Found in {num} user collections"
 msgstr[0] "Trouvé dans {num} collection d’utilisateurs"
 msgstr[1] "Trouvé dans {num} collections d’utilisateurs"
+msgstr[2] "Trouvé dans {num} collections d’utilisateurs"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:66
 msgid "Other collections"
@@ -11363,6 +11417,7 @@ msgid_plural ""
 "thanks for contributing to MusicBrainz!"
 msgstr[0] "Vous êtes un éditeur de MusicBrainz depuis {num} an ! Joyeux anniversaire, et merci de contribuer à MusicBrainz !"
 msgstr[1] "Vous êtes un éditeur de MusicBrainz depuis {num} ans ! Joyeux anniversaire, et merci de contribuer à MusicBrainz !"
+msgstr[2] "Vous êtes un éditeur de MusicBrainz depuis {num} ans ! Joyeux anniversaire, et merci de contribuer à MusicBrainz !"
 
 #: ../root/layout/index.js:255
 msgid "Happy birthday, and thanks for contributing to MusicBrainz!"
@@ -11554,6 +11609,7 @@ msgid "Error:"
 msgid_plural "Errors:"
 msgstr[0] "Erreur :"
 msgstr[1] "Erreurs : "
+msgstr[2] "Erreurs : "
 
 #: ../root/main/error/components/ErrorInfo.js:32
 msgid "(No details about this error are available)"
@@ -12112,6 +12168,7 @@ msgid "see all versions of this release, {count} available"
 msgid_plural "see all versions of this release, {count} available"
 msgstr[0] "afficher toutes les versions de cette parution, {count} proposée"
 msgstr[1] "afficher toutes les versions de cette parution, {count} proposées"
+msgstr[2] "afficher toutes les versions de cette parution, {count} proposées"
 
 #: ../root/release/ReleaseHeader.js:38
 msgid "Release by {artist}"
@@ -13956,6 +14013,7 @@ msgid "… and {place_count} other"
 msgid_plural "… and {place_count} others"
 msgstr[0] "… et {place_count} autre"
 msgstr[1] "… et {place_count} autres"
+msgstr[2] "… et {place_count} autres"
 
 #: ../root/static/scripts/area/places-map.js:107
 msgid "No type"
@@ -14239,6 +14297,7 @@ msgid_plural ""
 "to navigate."
 msgstr[0] "1 résultat trouvé. Appuyez sur Entrée pour sélectionner, ou utiliser les flèches haut et bas pour naviguer."
 msgstr[1] "{n} résultats trouvés. Appuyez sur Entrée pour sélectionner, ou utiliser les flèches haut et bas pour naviguer."
+msgstr[2] "{n} résultats trouvés. Appuyez sur Entrée pour sélectionner, ou utiliser les flèches haut et bas pour naviguer."
 
 #: ../root/static/scripts/common/components/CollapsibleList.js:87
 msgid "show {n} more"
@@ -14357,6 +14416,7 @@ msgid "and another {num} release group"
 msgid_plural "and another {num} release groups"
 msgstr[0] "et {num} autre groupe de parution"
 msgstr[1] "et {num} autres groupes de parution"
+msgstr[2] "et {num} autres groupes de parution"
 
 #: ../root/static/scripts/common/components/TagEditor.js:99
 msgid "Withdraw vote"
@@ -15150,12 +15210,14 @@ msgid "{n} recording selected"
 msgid_plural "{n} recordings selected"
 msgstr[0] "{n} enregistrement de sélectionné"
 msgstr[1] "{n} enregistrements de sélectionnés"
+msgstr[2] "{n} enregistrements de sélectionnés"
 
 #: ../root/static/scripts/relationship-editor/release.js:56
 msgid "{n} work selected"
 msgid_plural "{n} works selected"
 msgstr[0] "{n} œuvre sélectionnée"
 msgstr[1] "{n} œuvres sélectionnées"
+msgstr[2] "{n} œuvres sélectionnées"
 
 #: ../root/static/scripts/release-editor/actions.js:279
 msgid ""
@@ -15451,48 +15513,56 @@ msgid "{num} area found"
 msgid_plural "{num} areas found"
 msgstr[0] "{num} région trouvée"
 msgstr[1] "{num} régions trouvées"
+msgstr[2] "{num} régions trouvées"
 
 #: ../root/tag/EntityList.js:70
 msgid "{num} artist found"
 msgid_plural "{num} artists found"
 msgstr[0] "{num} artiste trouvé"
 msgstr[1] "{num} artistes trouvés"
+msgstr[2] "{num} artistes trouvés"
 
 #: ../root/tag/EntityList.js:71
 msgid "{num} event found"
 msgid_plural "{num} events found"
 msgstr[0] "{num} événement trouvé"
 msgstr[1] "{num} événements trouvés"
+msgstr[2] "{num} événements trouvés"
 
 #: ../root/tag/EntityList.js:72
 msgid "{num} instrument found"
 msgid_plural "{num} instruments found"
 msgstr[0] "{num} instrument trouvé"
 msgstr[1] "{num} instruments trouvés"
+msgstr[2] "{num} instruments trouvés"
 
 #: ../root/tag/EntityList.js:73
 msgid "{num} label found"
 msgid_plural "{num} labels found"
 msgstr[0] "{num} label trouvé"
 msgstr[1] "{num} labels trouvés"
+msgstr[2] "{num} labels trouvés"
 
 #: ../root/tag/EntityList.js:74
 msgid "{num} place found"
 msgid_plural "{num} places found"
 msgstr[0] "{num} trouvé"
 msgstr[1] "{num} trouvés"
+msgstr[2] "{num} trouvés"
 
 #: ../root/tag/EntityList.js:81
 msgid "{num} series found"
 msgid_plural "{num} series found"
 msgstr[0] "{num} série trouvée"
 msgstr[1] "{num} séries trouvées"
+msgstr[2] "{num} séries trouvées"
 
 #: ../root/tag/EntityList.js:82
 msgid "{num} work found"
 msgid_plural "{num} works found"
 msgstr[0] "{num} œuvre de trouvée"
 msgstr[1] "{num} œuvres de trouvées"
+msgstr[2] "{num} œuvres de trouvées"
 
 #: ../root/tag/NotFound.js:19
 msgid "Tag Not Used"
@@ -16176,30 +16246,35 @@ msgid "{num} artist"
 msgid_plural "{num} artists"
 msgstr[0] "{num} artiste"
 msgstr[1] "{num} artistes"
+msgstr[2] "{num} artistes"
 
 #: ../root/user/UserSubscriptions.js:201
 msgid "{num} collection"
 msgid_plural "{num} collections"
 msgstr[0] "{num} collection"
 msgstr[1] "{num} collections"
+msgstr[2] "{num} collections"
 
 #: ../root/user/UserSubscriptions.js:212
 msgid "{num} editor"
 msgid_plural "{num} editors"
 msgstr[0] "{num} éditeur"
 msgstr[1] "{num} éditeurs"
+msgstr[2] "{num} éditeurs"
 
 #: ../root/user/UserSubscriptions.js:223
 msgid "{num} label"
 msgid_plural "{num} labels"
 msgstr[0] "{num} label"
 msgstr[1] "{num} labels"
+msgstr[2] "{num} labels"
 
 #: ../root/user/UserSubscriptions.js:234
 msgid "{num} series"
 msgid_plural "{num} series"
 msgstr[0] "{num} série"
 msgstr[1] "{num} séries"
+msgstr[2] "{num} séries"
 
 #: ../root/user/UserSubscriptions.js:255
 msgid "No public subscriptions."
@@ -16218,12 +16293,14 @@ msgid "{editor} is also subscribed to {n} other private collection."
 msgid_plural "{editor} is also subscribed to {n} other private collections."
 msgstr[0] "{editor} est aussi abonné à {n} autre collection privée."
 msgstr[1] "{editor} est aussi abonné à {n} autres collections privées."
+msgstr[2] "{editor} est aussi abonné à {n} autres collections privées."
 
 #: ../root/user/UserSubscriptions.js:284
 msgid "{editor} is subscribed to {n} private collection."
 msgid_plural "{editor} is subscribed to {n} private collections."
 msgstr[0] "{editor} est abonné à {n} collection privée."
 msgstr[1] "{editor} est abonné à {n} collections privées."
+msgstr[2] "{editor} est abonné à {n} collections privées."
 
 #: ../root/user/UserTagList.js:23
 msgid "Tags {user} downvoted"
@@ -16285,18 +16362,21 @@ msgid "{num} year"
 msgid_plural "{num} years"
 msgstr[0] "{num} an"
 msgstr[1] "{num} ans"
+msgstr[2] "{num} ans"
 
 #: ../root/utility/age.js:152
 msgid "{num} month"
 msgid_plural "{num} months"
 msgstr[0] "{num} mois"
 msgstr[1] "{num} mois"
+msgstr[2] "{num} mois"
 
 #: ../root/utility/age.js:154
 msgid "{num} day"
 msgid_plural "{num} days"
 msgstr[0] "{num} jour"
 msgstr[1] "{num} jours"
+msgstr[2] "{num} jours"
 
 #: ../root/utility/edit.js:33
 msgid "Accept upon closing"

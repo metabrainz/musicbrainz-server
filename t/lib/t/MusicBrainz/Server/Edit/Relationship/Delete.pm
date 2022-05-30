@@ -181,6 +181,45 @@ test 'Deleting an example relationship fails' => sub {
         'Error message mentions removing an example';
 };
 
+test 'Deleting an Amazon relationship updates the release ASIN' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_delete');
+
+    my $release;
+    my $load_release = sub {
+        $release = $c->model('Release')->get_by_id(1);
+        $c->model('Release')->load_meta($release);
+    };
+
+    $load_release->();
+
+    is(
+        $release->amazon_asin,
+        '0000000000',
+        'Release ASIN is set to start',
+    );
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_DELETE,
+        editor => $c->model('Editor')->get_by_id(1),
+        type0 => 'release',
+        type1 => 'url',
+        relationship => _get_relationship($c, 'release', 'url', 1),
+    );
+
+    accept_edit($c, $edit);
+
+    $load_release->();
+
+    is(
+        $release->amazon_asin,
+        undef,
+        'Release ASIN is unset after deleting relationship',
+    );
+};
+
 sub _get_relationship {
     my ($c, $type0, $type1, $id) = @_;
 

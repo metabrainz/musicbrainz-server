@@ -10,7 +10,7 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import mutate from 'mutate-cow';
-import * as ReactDOM from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
 import {createStore} from 'redux';
 
 import FormRowSelectList from '../../../components/FormRowSelectList';
@@ -291,15 +291,17 @@ function removeLanguage(i) {
 
 const getSelectField = field => field;
 
+const workLanguagesNode = document.getElementById('work-languages-editor');
+if (!workLanguagesNode) {
+  throw new Error('Mount point #work-languages-editor does not exist');
+}
+const workLanguagesRoot = ReactDOMClient.createRoot(workLanguagesNode);
+
 function renderWorkLanguages() {
-  const workLanguagesNode = document.getElementById('work-languages-editor');
-  if (!workLanguagesNode) {
-    throw new Error('Mount point #work-languages-editor does not exist');
-  }
   const form: WorkForm = store.getState();
   const selectedLanguageIds =
     form.field.languages.field.map(lang => String(lang.value));
-  ReactDOM.render(
+  workLanguagesRoot.render(
     <FormRowSelectList
       addId="add-language"
       addLabel={l('Add Language')}
@@ -317,7 +319,6 @@ function renderWorkLanguages() {
       removeLabel={l('Remove Language')}
       repeatable={form.field.languages}
     />,
-    workLanguagesNode,
   );
 }
 

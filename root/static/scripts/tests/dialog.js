@@ -10,7 +10,7 @@
 /* eslint-disable import/no-commonjs */
 
 const React = require('react');
-const ReactDOM = require('react-dom');
+const ReactDOMClient = require('react-dom/client');
 
 const Modal = require('../common/components/Modal').default;
 const ButtonPopover = require('../common/components/ButtonPopover').default;
@@ -151,4 +151,5 @@ const DialogTest = () => {
   );
 };
 
-ReactDOM.render(<DialogTest />, container);
+const root = ReactDOMClient.createRoot(container);
+root.render(<DialogTest />);

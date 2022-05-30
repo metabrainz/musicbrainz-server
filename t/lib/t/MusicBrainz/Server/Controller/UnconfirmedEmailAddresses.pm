@@ -86,6 +86,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   'Controller::Admin::locked_username_search',
   'Controller::Admin::privilege_search',
   'Controller::Admin::unlock_username',
+  'Controller::Ajax::filter_artist_events_form',
   'Controller::Ajax::filter_artist_recordings_form',
   'Controller::Ajax::filter_artist_release_groups_form',
   'Controller::Ajax::filter_artist_releases_form',

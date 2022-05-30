@@ -9,7 +9,7 @@
 
 import mutate from 'mutate-cow';
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
 import * as Sentry from '@sentry/browser';
 
 import {SanitizedCatalystContext} from '../context';
@@ -122,11 +122,13 @@ export default function hydrate<
           if (__DEV__) {
             checkForUnsanitizedEditorData((props: any));
           }
-          ReactDOM.hydrate(
-            <SanitizedCatalystContext.Provider value={$c}>
-              <Component $c={$c} {...props} />
-            </SanitizedCatalystContext.Provider>,
+          ReactDOMClient.hydrateRoot(
             root,
+            <React.StrictMode>
+              <SanitizedCatalystContext.Provider value={$c}>
+                <Component $c={$c} {...props} />
+              </SanitizedCatalystContext.Provider>
+            </React.StrictMode>,
           );
         }
       }

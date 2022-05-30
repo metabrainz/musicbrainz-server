@@ -11,25 +11,39 @@ import * as React from 'react';
 
 import EventList from '../components/list/EventList';
 import PaginatedResults from '../components/PaginatedResults';
+import Filter from '../static/scripts/common/components/Filter';
+import {type FilterFormT}
+  from '../static/scripts/common/components/FilterForm';
 import {returnToCurrentPage} from '../utility/returnUri';
 
 import ArtistLayout from './ArtistLayout';
 
 type Props = {
   +$c: CatalystContextT,
+  +ajaxFilterFormUrl: string,
   +artist: ArtistT,
   +events: $ReadOnlyArray<EventT>,
+  +filterForm: ?FilterFormT,
+  +hasFilter: boolean,
   +pager: PagerT,
 };
 
 const ArtistEvents = ({
   $c,
+  ajaxFilterFormUrl,
   artist,
   events,
+  filterForm,
+  hasFilter,
   pager,
 }: Props): React.Element<typeof ArtistLayout> => (
   <ArtistLayout entity={artist} page="events" title={l('Events')}>
     <h2>{l('Events')}</h2>
+
+    <Filter
+      ajaxFormUrl={ajaxFilterFormUrl}
+      initialFilterForm={filterForm}
+    />
 
     {events.length > 0 ? (
       <form
@@ -59,7 +73,9 @@ const ArtistEvents = ({
       </form>
     ) : (
       <p>
-        {l('This artist is not currently associated with any events.')}
+        {hasFilter
+          ? l('No events found that match this search.')
+          : l('This artist is not currently associated with any events.')}
       </p>
     )}
   </ArtistLayout>

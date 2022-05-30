@@ -599,10 +599,14 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit {
 
     my @artwork = @{
         $c->model('Artwork')->find_by_release($entity)
-    } or $c->detach('/error_404');
+    } or $c->detach('/error_404', [ l('This release has no artwork.') ]);
+
     $c->model('CoverArtType')->load_for(@artwork);
 
-    my $artwork = first { $_->id == $id } @artwork;
+    my $artwork = first { $_->id == $id } @artwork or $c->detach(
+        '/error_404',
+        [ l('Found no artwork with ID “{id}”.', { id => $id }) ],
+    );
 
     $c->stash({
         artwork => $artwork,

@@ -6,7 +6,6 @@ const BROWSER_TARGETS = {
   chrome: '49',
   edge: '14',
   firefox: '52',
-  ie: '11',
   safari: '9.0',
 };
 

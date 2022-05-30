@@ -9,9 +9,10 @@ use namespace::autoclean;
 use Carp qw( confess );
 use DBDefs;
 use JSON::XS;
-use List::AllUtils qw( all any part partition_by );
+use List::AllUtils qw( all any part partition_by rev_sort_by );
 use MusicBrainz::Server::Constants qw(
     :quality
+    $AMAZON_ASIN_LINK_TYPE_ID
     $EDIT_RELEASE_CREATE
     $VARTIST_ID
 );
@@ -1630,6 +1631,44 @@ sub series_ordering {
     my ($a_catalog_number) = sort map { $_->catalog_number // '' } $r1->entity0->all_labels;
     my ($b_catalog_number) = sort map { $_->catalog_number // '' } $r2->entity0->all_labels;
     return ($a_catalog_number // '') cmp ($b_catalog_number // '');
+}
+
+sub parse_asin {
+    my $uri = shift;
+    my ($asin) = $uri =~ m{^https?://(?:www.)?.*?(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i;
+    return $asin;
+}
+
+sub update_amazon_asin {
+    my ($self, $release_id) = @_;
+
+    my $release = $self->get_by_id($release_id);
+
+    $self->c->model('Relationship')->load_subset(['url'], $release);
+
+    my @ordered_relationships =
+        rev_sort_by { $_->last_updated } $release->all_relationships;
+
+    my $asin;
+    for my $relationship (@ordered_relationships) {
+        if ($relationship->link->type_id == $AMAZON_ASIN_LINK_TYPE_ID) {
+            $asin = parse_asin($relationship->entity1->url);
+            last if $asin;
+        }
+    }
+
+    my $old_asin = $self->c->sql->select_single_value(
+        'SELECT amazon_asin FROM release_meta WHERE id = ? FOR UPDATE',
+        $release->id,
+    );
+
+    if (($old_asin // '') ne ($asin // '')) {
+        $self->c->sql->update_row(
+            'release_meta',
+            { amazon_asin => $asin },
+            { id => $release->id },
+        );
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

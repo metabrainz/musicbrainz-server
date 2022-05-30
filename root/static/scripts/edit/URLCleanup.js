@@ -4327,6 +4327,46 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  'tobarandualchais': {
+    match: [new RegExp(
+      '^(https?://)?([^/]+\\.)?tobarandualchais\\.co\\.uk',
+      'i',
+    )],
+    restrict: [
+      {artist: LINK_TYPES.otherdatabases.artist},
+      {
+        recording: [
+          LINK_TYPES.otherdatabases.recording,
+          LINK_TYPES.streamingfree.recording,
+        ],
+      },
+    ],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?tobarandualchais\.co\.uk\/(person|track)\/([^\/?#]+).*$/, 'https://www.tobarandualchais.co.uk/$1/$2');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.tobarandualchais\.co\.uk\/(person|track)\/\d+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: prefix === 'person',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.recording:
+          case LINK_TYPES.streamingfree.recording:
+            return {
+              result: prefix === 'track',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'tower': {
     match: [new RegExp('^(https?://)?(www\\.)?tower\\.jp', 'i')],
     restrict: [LINK_TYPES.mailorder],
@@ -4463,6 +4503,10 @@ const CLEANUPS: CleanupEntries = {
       url = url.replace(
         /^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\//,
         'https://twitter.com/',
+      );
+      url = url.replace(
+        /^(https:\/\/twitter\.com)\/intent\/user\/?\?screen_name=([^\/?#]+)/,
+        '$1/$2',
       );
       url = url.replace(
         /^(https:\/\/twitter\.com)\/@?([^\/?#]+(?:\/status\/\d+)?)(?:[\/?#].*)?$/,

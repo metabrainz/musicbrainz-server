@@ -45,10 +45,12 @@ const ArtistCreditBubble = ({
   onNameChange,
   pasteArtistCredit,
   removeName,
+  renderCallback,
 }) => (
   <div
     className="bubble"
     onKeyDown={event => onBubbleKeyDown(done, hide, event)}
+    ref={renderCallback}
     style={{display: 'block', position: 'relative'}}
   >
     <table className="table-condensed">

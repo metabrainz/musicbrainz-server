@@ -198,7 +198,7 @@ releaseEditor.init = function (options) {
             if (reduceArtistCredit(track.artistCredit()) ===
                 reduceArtistCredit(savedReleaseAC)) {
               track.artistCredit(releaseAC);
-              track.artistCreditEditorInst.setState({
+              track.artistCreditEditorInst?.current?.setState({
                 artistCredit: track.artistCredit.peek(),
               });
             }
@@ -367,7 +367,6 @@ releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
     return null;
   }
 
-  var self = this;
   var seed = this.seededReleaseData;
   delete this.seededReleaseData;
 
@@ -381,19 +380,6 @@ releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
     mountPoint: mountPoint,
     errorObservable: this.hasInvalidLinks,
   });
-
-  /*
-   * XXX Since there's no notion of observable data in React, we need to
-   * override componentDidUpdate to watch for changes to the external links.
-   * externalLinksEditData is hooked into the edit generation code and will
-   * create corresponding edits for the new link data.
-   */
-  this.externalLinks.componentDidUpdate = function () {
-    self.externalLinksEditData(self.externalLinks.getEditData());
-  };
-
-  // Copy initial edit data
-  this.externalLinks.componentDidUpdate();
 
   return this.externalLinks;
 };
@@ -432,5 +418,7 @@ releaseEditor.allowsSubmission = function () {
     this.allEdits().length > 0
   );
 };
+
+MB._releaseEditor = releaseEditor;
 
 $(MB.confirmNavigationFallback);

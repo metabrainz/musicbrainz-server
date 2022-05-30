@@ -117,6 +117,50 @@ test 'Entities load correctly after being merged (MBS-2477)' => sub {
     is($edit->display_data->{relationship}{entity1_id}, 5);
 };
 
+test 'Adding an Amazon relationship updates the release ASIN' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $e0 = $c->model('Release')->get_by_id(1);
+    my $e1 = $c->model('URL')->get_by_id(263685);
+
+    $c->model('Release')->load_meta($e0);
+
+    is(
+        $e0->amazon_asin,
+        undef,
+        'Release ASIN is unset to start',
+    );
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_CREATE,
+        editor_id => 1,
+        type0 => 'release',
+        type1 => 'url',
+        entity0 => $e0,
+        entity1 => $e1,
+        link_type => $c->model('LinkType')->get_by_id(77),
+        begin_date => undef,
+        end_date => undef,
+        attributes => [],
+        ended => 0,
+        privileges => $UNTRUSTED_FLAG,
+    );
+
+    accept_edit($c, $edit);
+
+    $e0 = $c->model('Release')->get_by_id(1);
+    $c->model('Release')->load_meta($e0);
+
+    is(
+        $e0->amazon_asin,
+        'B00005CDNG',
+        'Release ASIN is set after adding relationship',
+    );
+};
+
 sub _create_edit {
     my ($c, %args) = @_;
 

@@ -87,6 +87,7 @@ use MusicBrainz::Server::PagedReport;
     ReleasesWithCAANoTypes
     ReleasesWithDownloadRelationships
     ReleasesWithEmptyMediums
+    ReleasesWithMailOrderRelationships
     ReleasesWithNoMediums
     ReleasesWithoutVACredit
     ReleasesWithoutVALink
@@ -183,6 +184,7 @@ use MusicBrainz::Server::Report::ReleasesWithAmazonCoverArt;
 use MusicBrainz::Server::Report::ReleasesWithCAANoTypes;
 use MusicBrainz::Server::Report::ReleasesWithDownloadRelationships;
 use MusicBrainz::Server::Report::ReleasesWithEmptyMediums;
+use MusicBrainz::Server::Report::ReleasesWithMailOrderRelationships;
 use MusicBrainz::Server::Report::ReleasesWithNoMediums;
 use MusicBrainz::Server::Report::ReleasesWithoutVACredit;
 use MusicBrainz::Server::Report::ReleasesWithoutVALink;

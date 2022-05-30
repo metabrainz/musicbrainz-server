@@ -5,7 +5,10 @@ use Moose;
 use MooseX::Types::Moose qw( Int Str Bool );
 use MooseX::Types::Structured qw( Dict Optional );
 
-use MusicBrainz::Server::Constants qw( $EDIT_URL_EDIT );
+use MusicBrainz::Server::Constants qw(
+    $AMAZON_ASIN_LINK_TYPE_ID
+    $EDIT_URL_EDIT
+);
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable );
@@ -104,6 +107,22 @@ around accept => sub {
     );
 
     $self->data->{entity}{id} = $new_id;
+
+    # Update release_meta.amazon_asin where appropriate.
+    my @release_ids = @{
+        $self->c->sql->select_single_column_array(
+            <<~'SQL',
+                SELECT lru.entity0 FROM l_release_url lru
+                  JOIN link l ON l.id = lru.link
+                 WHERE lru.entity1 = ?
+                   AND l.link_type = ?
+                SQL
+            $new_id,
+            $AMAZON_ASIN_LINK_TYPE_ID,
+        )
+    };
+
+    $self->c->model('Release')->update_amazon_asin($_) for @release_ids;
 };
 
 after insert => sub {
