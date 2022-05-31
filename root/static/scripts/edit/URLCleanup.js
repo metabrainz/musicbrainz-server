@@ -2731,7 +2731,7 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?linkedin\\.com/', 'i')],
     restrict: [LINK_TYPES.socialnetwork],
     clean: function (url) {
-      return url.replace(/^https?:\/\/([^/]+\.)?linkedin\.com/, 'https://$1linkedin.com');
+      return url.replace(/^https?:\/\/(?:[^/]+\.)?linkedin\.com\/([^?#]+).*$/, 'https://www.linkedin.com/$1');
     },
   },
   'livefans': {
