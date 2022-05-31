@@ -77,6 +77,7 @@ sub is_positive_integer
     is_integer($t) and $t > 0;
 }
 
+# Converted to JavaScript at root/static/scripts/common/utility/isDatabaseRowId.js
 sub is_database_row_id {
     my $t = shift;
 
