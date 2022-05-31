@@ -4083,7 +4083,9 @@ const CLEANUPS: CleanupEntries = {
       },
     ],
     clean: function (url) {
-      return url.replace(/^(https?:\/\/)?((www|m)\.)?soundcloud\.com(\/#!)?/, 'https://soundcloud.com');
+      url = url.replace(/^(https?:\/\/)?((www|m)\.)?soundcloud\.com(\/#!)?/, 'https://soundcloud.com');
+      url = url.replace(/^(https:\/\/soundcloud\.com\/)(?!(?:search|tags)[\/?#])([^?]+).*$/, '$1$2');
+      return url;
     },
     validate: function (url) {
       return {

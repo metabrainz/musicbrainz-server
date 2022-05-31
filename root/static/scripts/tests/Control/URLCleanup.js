@@ -4099,11 +4099,6 @@ limited_link_type_combinations: [
   },
   // SoundCloud
   {
-                     input_url: 'https://soundcloud.com/metro-luminal',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'soundcloud',
-  },
-  {
                      input_url: 'http://m.soundcloud.com/octobersveryown',
              input_entity_type: 'artist',
     expected_relationship_type: 'soundcloud',
@@ -4120,6 +4115,12 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'soundcloud',
             expected_clean_url: 'https://soundcloud.com/alisonwonderland',
+  },
+  {
+                     input_url: 'https://soundcloud.com/erin-thomson-776648435?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'soundcloud',
+            expected_clean_url: 'https://soundcloud.com/erin-thomson-776648435',
   },
   {
                      input_url: 'https://soundcloud.com/dimmakrecords',
