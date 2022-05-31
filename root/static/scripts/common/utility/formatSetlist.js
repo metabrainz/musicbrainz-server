@@ -25,18 +25,22 @@ function setlistLink(entityType, entityGid, content) {
 const linkRegExp =
   /^\[([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})(?:\|([^\]]+))?\]/i;
 
-function formatSetlistArtist(entityGid, content) {
+function formatSetlistArtist(content: string, entityGid?: string) {
   return (
     <strong>
       {addColonText(l('Artist'))}
       {' '}
-      {setlistLink('artist', entityGid, content)}
+      {nonEmpty(entityGid)
+        ? setlistLink('artist', entityGid, content)
+        : content}
     </strong>
   );
 }
 
-function formatSetlistWork(entityGid, content) {
-  return setlistLink('work', entityGid, content);
+function formatSetlistWork(content: string, entityGid?: string) {
+  return nonEmpty(entityGid)
+    ? setlistLink('work', entityGid, content)
+    : content;
 }
 
 export default function formatSetlist(
@@ -79,8 +83,10 @@ export default function formatSetlist(
 
       let match;
       let lastIndex = 0;
+      let didMatchStartingBracket = false;
 
       while ((match = startingBracketRegExp.exec(line))) {
+        didMatchStartingBracket = true;
         const textBeforeMatch = line.substring(lastIndex, match.index);
         elements.push(textBeforeMatch);
         lastIndex = match.index;
@@ -92,17 +98,28 @@ export default function formatSetlist(
           const [linkMatchText, entityGid, content] = linkMatch;
           switch (entityType) {
             case 'artist':
-              elements.push(formatSetlistArtist(entityGid, content));
+              elements.push(formatSetlistArtist(content, entityGid));
               break;
             case 'work':
-              elements.push(formatSetlistWork(entityGid, content));
+              elements.push(formatSetlistWork(content, entityGid));
               break;
           }
           lastIndex += linkMatchText.length;
         }
       }
 
-      elements.push(line.substring(lastIndex));
+      if (didMatchStartingBracket) {
+        elements.push(line.substring(lastIndex));
+      } else {
+        switch (entityType) {
+          case 'artist':
+            elements.push(formatSetlistArtist(line));
+            break;
+          case 'work':
+            elements.push(formatSetlistWork(line));
+            break;
+        }
+      }
     }
 
     elements.push(<br />);
