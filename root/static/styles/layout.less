@@ -158,6 +158,11 @@ pre code {
     margin-right: 16px;
     clear: both;
 
+    a {
+        // So menu links don't wrap (TODO: review with responsive header)
+        overflow-wrap: normal;
+    }
+
     img.logo {
         width: @logo-width;
         height: @logo-height;
