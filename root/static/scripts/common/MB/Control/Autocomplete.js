@@ -9,6 +9,7 @@
 import he from 'he';
 import $ from 'jquery';
 import ko from 'knockout';
+import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 
 import AddEntityDialog, {
@@ -507,17 +508,19 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
 
           root = ReactDOMClient.createRoot(containerNode);
           /* eslint-disable react/jsx-no-bind */
-          root.render(
-            <AddEntityDialog
-              callback={(item) => {
-                self.options.select(null, {item});
-                closeAndReturnFocus();
-              }}
-              close={closeAndReturnFocus}
-              entityType={entity}
-              name={self._value()}
-            />,
-          );
+          flushSync(() => {
+            root.render(
+              <AddEntityDialog
+                callback={(item) => {
+                  self.options.select(null, {item});
+                  closeAndReturnFocus();
+                }}
+                close={closeAndReturnFocus}
+                entityType={entity}
+                name={self._value()}
+              />,
+            );
+          });
           /* eslint-enable react/jsx-no-bind */
         },
       });

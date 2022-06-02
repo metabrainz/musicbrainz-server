@@ -9,6 +9,7 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import * as React from 'react';
+import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 import mutate from 'mutate-cow';
 
@@ -236,34 +237,36 @@ class ArtistCreditEditor extends React.Component {
       $bubble.data('react-root', bubbleRoot);
     }
 
-    bubbleRoot.render(
-      <ArtistCreditBubble
-        addName={this.addName}
-        artistCredit={this.state.artistCredit}
-        copyArtistCredit={this.copyArtistCredit}
-        done={this.done}
-        hide={this.hide}
-        initialArtistText={this.initialArtistText}
-        onNameChange={this.handleNameChange}
-        pasteArtistCredit={this.pasteArtistCredit}
-        removeName={this.removeName}
-        renderCallback={
-          show ? (() => {
-            this.positionBubble();
+    flushSync(() => {
+      bubbleRoot.render(
+        <ArtistCreditBubble
+          addName={this.addName}
+          artistCredit={this.state.artistCredit}
+          copyArtistCredit={this.copyArtistCredit}
+          done={this.done}
+          hide={this.hide}
+          initialArtistText={this.initialArtistText}
+          onNameChange={this.handleNameChange}
+          pasteArtistCredit={this.pasteArtistCredit}
+          removeName={this.removeName}
+          renderCallback={
+            show ? (() => {
+              this.positionBubble();
 
-            if (!bubbleWasVisible) {
-              $bubble.find(':input:eq(0)').focus();
-              $('#change-matching-artists').prop('checked', false);
-            }
+              if (!bubbleWasVisible) {
+                $bubble.find(':input:eq(0)').focus();
+                $('#change-matching-artists').prop('checked', false);
+              }
 
-            if (callback) {
-              callback();
-            }
-          }) : null
-        }
-        {...this.props}
-      />,
-    );
+              if (callback) {
+                callback();
+              }
+            }) : null
+          }
+          {...this.props}
+        />,
+      );
+    });
   }
 
   hide(stealFocus = true) {

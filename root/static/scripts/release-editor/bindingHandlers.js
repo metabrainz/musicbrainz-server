@@ -9,6 +9,7 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import * as React from 'react';
+import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 
 import {reduceArtistCredit} from '../common/immutable-entities';
@@ -143,9 +144,16 @@ ko.bindingHandlers.artistCreditEditor = {
     if (!entity.artistCreditEditorInst) {
       entity.artistCreditEditorInst = React.createRef();
     }
-    root.render(
-      <ArtistCreditEditor ref={entity.artistCreditEditorInst} {...props} />,
-    );
+    /*
+     * MBS-12424: Due to React v18's asynchronous method of rendering, there
+     * is a noticeable lag in displaying the artist credit editor of each
+     * track unless we flush updates immediately.
+     */
+    flushSync(() => {
+      root.render(
+        <ArtistCreditEditor ref={entity.artistCreditEditorInst} {...props} />,
+      );
+    });
   },
 };
 
