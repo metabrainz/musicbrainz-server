@@ -427,6 +427,99 @@ test 'Entity credits can be added to an existing relationship' => sub {
     });
 };
 
+test 'Editing an Amazon relationship updates the release ASIN' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my ($relationship, $release1, $release2);
+
+    my $load_data = sub {
+        $release1 = $c->model('Release')->get_by_id(1);
+        $release2 = $c->model('Release')->get_by_id(2);
+        $c->model('Release')->load_meta($release1, $release2);
+
+        $relationship = $c->model('Relationship')->get_by_id('release', 'url', 1);
+        $c->model('Link')->load($relationship);
+        $c->model('LinkType')->load($relationship->link);
+    };
+
+    $load_data->();
+
+    is($release1->amazon_asin, undef, 'Release 1 ASIN is empty to start');
+    is(
+        $release2->amazon_asin,
+        'B00005CDNG',
+        'Release 2 ASIN is set to start',
+    );
+
+    # Change the release to $release1, which should move the ASIN to
+    # that release.
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        relationship => $relationship,
+        entity0 => $release1,
+    );
+    accept_edit($c, $edit);
+
+    $load_data->();
+
+    is(
+        $release1->amazon_asin,
+        'B00005CDNG',
+        'Release 1 ASIN is set after changing relationship endpoint',
+    );
+    is(
+        $release2->amazon_asin,
+        undef,
+        'Release 2 ASIN is unset after changing relationship endpoint',
+    );
+
+    # Change the link type, which should remove the ASIN from $release1.
+    $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        relationship => $relationship,
+        link_type => $c->model('LinkType')->get_by_id(288),
+    );
+
+    $load_data->();
+
+    is(
+        $release1->amazon_asin,
+        undef,
+        'Release 1 ASIN is unset after changing relationship link type',
+    );
+    is(
+        $release2->amazon_asin,
+        undef,
+        'Release 2 ASIN is still unset after changing relationship link type',
+    );
+
+    # Change the link type back, which should restore the ASIN on $release1.
+    $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        relationship => $relationship,
+        link_type => $c->model('LinkType')->get_by_id(77),
+    );
+
+    $load_data->();
+
+    is(
+        $release1->amazon_asin,
+        'B00005CDNG',
+        'Release 1 ASIN is set after changing relationship link type back',
+    );
+    is(
+        $release2->amazon_asin,
+        undef,
+        'Release 2 ASIN is still unset after changing relationship link type back',
+    );
+};
+
 sub _create_edit {
     my ($c, %args) = @_;
 

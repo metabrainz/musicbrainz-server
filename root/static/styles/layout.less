@@ -19,6 +19,7 @@ body {
 a {
     color:@link-default;
     text-decoration: none;
+    overflow-wrap: anywhere;
 
     &:visited {
         color:@link-visited;
@@ -156,6 +157,11 @@ pre code {
     margin-left: 16px;
     margin-right: 16px;
     clear: both;
+
+    a {
+        // So menu links don't wrap (TODO: review with responsive header)
+        overflow-wrap: normal;
+    }
 
     img.logo {
         width: @logo-width;

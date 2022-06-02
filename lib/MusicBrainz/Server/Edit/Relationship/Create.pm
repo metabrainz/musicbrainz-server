@@ -14,7 +14,10 @@ with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
-use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_CREATE );
+use MusicBrainz::Server::Constants qw(
+    $AMAZON_ASIN_LINK_TYPE_ID
+    $EDIT_RELATIONSHIP_CREATE
+);
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model non_empty );
 use MusicBrainz::Server::Edit::Utils qw( gid_or_id );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
@@ -287,6 +290,12 @@ sub insert
         });
 
     $self->entity_id($relationship->id);
+
+    if ($link_type_id == $AMAZON_ASIN_LINK_TYPE_ID) {
+        $self->c->model('Release')->update_amazon_asin(
+            $self->data->{entity0}{id},
+        );
+    }
 }
 
 sub reject

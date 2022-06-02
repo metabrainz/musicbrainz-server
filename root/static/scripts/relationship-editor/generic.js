@@ -271,7 +271,7 @@ export function prepareSubmission(formName) {
     ));
   }
 
-  if ((vm = MB.sourceExternalLinksEditor)) {
+  if ((vm = MB.sourceExternalLinksEditor?.current)) {
     vm.getFormData(formName + '.url', fieldCount, pushInput);
 
     if (hasSessionStorage && vm.state.links.length) {

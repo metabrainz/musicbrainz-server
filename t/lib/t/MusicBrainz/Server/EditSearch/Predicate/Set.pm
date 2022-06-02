@@ -12,15 +12,16 @@ test 'operator BETWEEN' => sub {
         'type' =>
         {
             operator => '=',
-            args => [ 1, 2, 3, '4,5' ]
+            args => [ 1, 2, 3, 4, 5 ]
         }
     );
 
     ok(defined $field, 'did construct a field');
     isa_ok($field, 'MusicBrainz::Server::EditSearch::Predicate::Set', 'is a set field');
     is($field->operator, '=', 'handles the correct operator');
-    is($field->arguments, 4, 'has correct arguments');
-    cmp_set([$field->arguments], [1, 2, 3, '4,5'], 'has correct arguments');
+    is($field->arguments, 5, 'has correct arguments');
+    cmp_set([$field->arguments], [1, 2, 3, 4, 5], 'has correct arguments');
+    is($field->valid, 1, 'is a valid set field');
 
     my $query = Query->new( fields => [ $field ] );
     $field->combine_with_query($query);
@@ -32,6 +33,22 @@ test 'operator BETWEEN' => sub {
     my @args = @$arglist;
     cmp_set($args[0], [1, 2, 3, 4, 5]);
     is(@args, 1);
+};
+
+test 'Non-integer arguments are rejected' => sub {
+    my $test = shift;
+    my $field = Field->new_from_input(
+        'type' =>
+        {
+            operator => '=',
+            args => [ 1, 2, 3, '4,5' ]
+        }
+    );
+
+    ok(defined $field, 'did construct a field');
+    isa_ok($field, 'MusicBrainz::Server::EditSearch::Predicate::Set', 'is a set field');
+    cmp_set([$field->arguments], [1, 2, 3, '4,5'], 'has correct arguments');
+    is($field->valid, 0, 'is not a valid set field');
 };
 
 1;

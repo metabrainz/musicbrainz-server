@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -1350,6 +1350,7 @@ msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
 msgstr[0] "con 1 imagen:"
 msgstr[1] "con {num} imágenes:"
+msgstr[2] "con {num} imágenes:"
 
 #: ../root/statistics/CoverArt.js:365
 msgid "with 30 or more pieces of cover art:"
@@ -1718,6 +1719,7 @@ msgid "with {num} disc ID:"
 msgid_plural "with {num} disc IDs:"
 msgstr[0] "con {num} ID de disco:"
 msgstr[1] "con {num} IDs de disco:"
+msgstr[2] "con {num} IDs de disco:"
 
 #: ../root/statistics/Index.js:561 ../root/statistics/Index.js:603
 msgid "with 10 or more disc IDs:"
@@ -2786,24 +2788,28 @@ msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
 msgstr[0] "Publicaciones con 1 ID de disco"
 msgstr[1] "Publicaciones con {n} IDs de disco"
+msgstr[2] "Publicaciones con {n} IDs de disco"
 
 #: ../root/statistics/stats.js:914
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
 msgstr[0] "Medios con 1 ID de disco"
 msgstr[1] "Medios con {n} IDs de disco"
+msgstr[2] "Medios con {n} IDs de disco"
 
 #: ../root/statistics/stats.js:925
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #: ../root/statistics/stats.js:936
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
 msgstr[0] "Grupos de publicaciones con 1 publicación"
 msgstr[1] "Grupos de publicaciones con {n} publicaciones"
+msgstr[2] "Grupos de publicaciones con {n} publicaciones"
 
 #: ../root/statistics/stats.js:989
 msgid "{type} areas"

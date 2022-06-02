@@ -8,6 +8,7 @@ use Moose::Util::TypeConstraints qw( enum role_type );
 use MusicBrainz::Server::Constants qw( $LIMIT_FOR_EDIT_LISTING entities_with );
 use MusicBrainz::Server::EditSearch::Predicate::Date;
 use MusicBrainz::Server::EditSearch::Predicate::ID;
+use MusicBrainz::Server::EditSearch::Predicate::EditIDSet;
 use MusicBrainz::Server::EditSearch::Predicate::Set;
 use MusicBrainz::Server::EditSearch::Predicate::Entity;
 use MusicBrainz::Server::EditSearch::Predicate::Editor;
@@ -32,7 +33,7 @@ my %field_map = (
     open_time => 'MusicBrainz::Server::EditSearch::Predicate::Date',
     close_time => 'MusicBrainz::Server::EditSearch::Predicate::Date',
     expire_time => 'MusicBrainz::Server::EditSearch::Predicate::Date',
-    type => 'MusicBrainz::Server::EditSearch::Predicate::Set',
+    type => 'MusicBrainz::Server::EditSearch::Predicate::EditIDSet',
     status => 'MusicBrainz::Server::EditSearch::Predicate::Set',
     vote_count => 'MusicBrainz::Server::EditSearch::Predicate::VoteCount',
     editor => 'MusicBrainz::Server::EditSearch::Predicate::Editor',

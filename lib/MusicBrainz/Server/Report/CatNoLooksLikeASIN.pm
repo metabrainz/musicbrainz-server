@@ -16,7 +16,8 @@ sub query {
             JOIN release r
             ON r.id = rl.release
             JOIN artist_credit ac ON r.artist_credit = ac.id
-        WHERE rl.catalog_number ~ '^B0[0-9A-Z]{8}$'
+            -- Please keep in sync with catNoLooksLikeASIN on release-editor/bubbles.js
+        WHERE rl.catalog_number ~ '^B0(?=.*[A-Z])([0-9A-Z]{8})$'
     }
 }
 

@@ -12,7 +12,9 @@ import punycode from 'punycode';
 import $ from 'jquery';
 import ko from 'knockout';
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+// $FlowIgnore[missing-export]
+import {flushSync} from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
 
 import {
   FAVICON_CLASSES,
@@ -119,6 +121,23 @@ export class ExternalLinksEditor
       (option) => option.disabled ||
       !URLCleanup.RESTRICTED_LINK_TYPES.includes(option.data.gid),
     );
+    this.copyEditDataToReleaseEditor();
+  }
+
+  copyEditDataToReleaseEditor() {
+    const releaseEditor = MB._releaseEditor;
+    if (releaseEditor) {
+      /*
+       * `externalLinksEditData` is an observable hooked into the release
+       * editor's edit generation code.
+       */
+      // $FlowIgnore[prop-missing]
+      releaseEditor.externalLinksEditData(this.getEditData());
+    }
+  }
+
+  componentDidUpdate() {
+    this.copyEditDataToReleaseEditor();
   }
 
   setLinkState(
@@ -1626,6 +1645,7 @@ const URL_SHORTENERS = [
   'push.fm',
   'rb.gy',
   'rubyurl.com',
+  'share.amuse.io',
   'smarturl.it',
   'snd.click',
   'song.link',
@@ -1757,16 +1777,21 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
   const errorObservable = options.errorObservable ||
     validation.errorField(ko.observable(false));
 
-  return ReactDOM.render(
-    <ExternalLinksEditor
-      errorObservable={errorObservable}
-      initialLinks={initialLinks}
-      isNewEntity={!sourceData.id}
-      sourceType={sourceData.entityType}
-      typeOptions={typeOptions}
-    />,
-    options.mountPoint,
-  );
+  const root = ReactDOMClient.createRoot(options.mountPoint);
+  const externalLinksEditorRef = React.createRef();
+  flushSync(() => {
+    root.render(
+      <ExternalLinksEditor
+        errorObservable={errorObservable}
+        initialLinks={initialLinks}
+        isNewEntity={!sourceData.id}
+        ref={externalLinksEditorRef}
+        sourceType={sourceData.entityType}
+        typeOptions={typeOptions}
+      />,
+    );
+  });
+  return externalLinksEditorRef;
 };
 
 export const createExternalLinksEditor = MB.createExternalLinksEditor;

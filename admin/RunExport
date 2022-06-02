@@ -36,24 +36,20 @@ fi
 # export then $EXPORT_STAMP is empty, so that argument is ignored.
 
 mkdir -m "$BACKUP_DIR_MODE" -p \
-    "$BACKUP_DIR"/fullexport/ \
     "$BACKUP_DIR"/fullexport/"$EXPORT_STAMP" \
-    "$BACKUP_DIR"/replication/{daily,weekly}
+    "$BACKUP_DIR"/replication/
 chown "$BACKUP_USER:$BACKUP_GROUP" \
     "$BACKUP_DIR"/fullexport/ \
     "$BACKUP_DIR"/fullexport/"$EXPORT_STAMP" \
-    "$BACKUP_DIR"/replication \
-    "$BACKUP_DIR"/replication/{daily,weekly}
+    "$BACKUP_DIR"/replication
 
 mkdir -m "$FTP_DIR_MODE" -p \
-    "$FTP_DATA_DIR"/fullexport/ \
     "$FTP_DATA_DIR"/fullexport/"$EXPORT_STAMP" \
-    "$FTP_DATA_DIR"/replication/{daily,weekly}
+    "$FTP_DATA_DIR"/replication
 chown "$FTP_USER:$FTP_GROUP" \
     "$FTP_DATA_DIR"/fullexport/ \
     "$FTP_DATA_DIR"/fullexport/"$EXPORT_STAMP" \
-    "$FTP_DATA_DIR"/replication \
-    "$FTP_DATA_DIR"/replication/{daily,weekly}
+    "$FTP_DATA_DIR"/replication
 
 echo Making database snapshot
 ./admin/ExportAllTables \

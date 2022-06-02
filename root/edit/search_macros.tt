@@ -60,13 +60,10 @@
                predicate_id(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::VoteCount';
                predicate_vote_count(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::EditIDSet';
+               predicate_set(field.field_name, edit_types, field, 15, 1);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Set';
-               SWITCH field.field_name;
-                 CASE 'type';
-                   predicate_set(field.field_name, edit_types, field, 15, 1);
-                 CASE 'status';
-                   predicate_set(field.field_name, status, field, 8);
-               END;
+               predicate_set(field.field_name, status, field, 8);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::EditNoteContent';
                predicate_edit_note_content(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::EditSubscription';

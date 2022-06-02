@@ -156,6 +156,89 @@ test 'Test overview (release group) filtering' => sub {
     );
 };
 
+test 'Test event page filtering' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+filtering');
+
+    $mech->get_ok(
+        '/artist/dea28aa9-1086-4ffa-8739-0ccc759de1ce/events',
+        'Fetched artist events page',
+    );
+
+    my $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '4',
+        'There are four entries in the unfiltered event table',
+    );
+
+    $mech->get_ok(
+        '/artist/dea28aa9-1086-4ffa-8739-0ccc759de1ce/events?filter.name=Schnittke',
+        'Fetched artist events page with name filter "Schnittke"',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '1',
+        'There is one entry in the event table after filtering by name',
+    );
+    $tx->is(
+        '//table[@class="tbl"]/tbody/tr/td[1]',
+        'Berliner Philharmoniker plays Schnittke and Shostakovich',
+        'The entry is named "Berliner Philharmoniker plays Schnittke and Shostakovich"',
+    );
+
+    $mech->get_ok(
+        '/artist/dea28aa9-1086-4ffa-8739-0ccc759de1ce/events?filter.type_id=1',
+        'Fetched artist events page with type filter "Concert"',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '3',
+        'There are three entries in the event table after filtering by "Concert" type',
+    );
+
+    $mech->get_ok(
+        '/artist/dea28aa9-1086-4ffa-8739-0ccc759de1ce/events?filter.type_id=-1',
+        'Fetched artist events page with type filter "[none]"',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '1',
+        'There is one entry in the event table after filtering by no type',
+    );
+    $tx->is(
+        '//table[@class="tbl"]/tbody/tr/td[1]',
+        'Uncertain',
+        'The entry is named "Uncertain"',
+    );
+
+    $mech->get_ok(
+        '/artist/dea28aa9-1086-4ffa-8739-0ccc759de1ce/events?filter.setlist=world+premiere',
+        'Fetched artist events page with setlist filter "world premiere"',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '2',
+        'There are two entries in the event table after filtering by setlist',
+    );
+    $tx->is(
+        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        '[concert]',
+        'The first entry is named [concert]',
+    );
+};
+
 test 'Test recording page filtering' => sub {
     my $test = shift;
     my $mech = $test->mech;
