@@ -12,6 +12,8 @@ import punycode from 'punycode';
 import $ from 'jquery';
 import ko from 'knockout';
 import * as React from 'react';
+// $FlowIgnore[missing-export]
+import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 
 import {
@@ -1777,16 +1779,18 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
 
   const root = ReactDOMClient.createRoot(options.mountPoint);
   const externalLinksEditorRef = React.createRef();
-  root.render(
-    <ExternalLinksEditor
-      errorObservable={errorObservable}
-      initialLinks={initialLinks}
-      isNewEntity={!sourceData.id}
-      ref={externalLinksEditorRef}
-      sourceType={sourceData.entityType}
-      typeOptions={typeOptions}
-    />,
-  );
+  flushSync(() => {
+    root.render(
+      <ExternalLinksEditor
+        errorObservable={errorObservable}
+        initialLinks={initialLinks}
+        isNewEntity={!sourceData.id}
+        ref={externalLinksEditorRef}
+        sourceType={sourceData.entityType}
+        typeOptions={typeOptions}
+      />,
+    );
+  });
   return externalLinksEditorRef;
 };
 

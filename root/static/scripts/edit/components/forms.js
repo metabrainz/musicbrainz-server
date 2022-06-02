@@ -7,6 +7,7 @@
  */
 
 import ko from 'knockout';
+import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 
 import MB from '../../common/MB';
@@ -36,9 +37,11 @@ MB.initializeArtistCredit = function (form, initialArtistCredit) {
 
   const container = document.getElementById('artist-credit-editor');
   const root = ReactDOMClient.createRoot(container);
-  root.render(
-    <FormRowArtistCredit entity={source} form={form} />,
-  );
+  flushSync(() => {
+    root.render(
+      <FormRowArtistCredit entity={source} form={form} />,
+    );
+  });
 
   source.artistCredit.subscribe((artistCredit) => {
     $('table.artist-credit-editor', container)
