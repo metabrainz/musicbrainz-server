@@ -375,6 +375,12 @@ const linkToVideoMsg = N_l(
    to the relevant artist, label, etc. instead.`,
 );
 
+const linkAsLyricsMsg = N_l(
+  `This is a lyrics site. As such, links to the site should be added
+   at the release group level with the “lyrics” relationship,
+   rather than directly to any specific release.`,
+);
+
 /*
  * CLEANUPS entries have 2 to 5 of the following properties:
  *
@@ -5175,6 +5181,13 @@ entitySpecificRules.release = function (url) {
          Please add this Wikidata link to the release group instead,
          if appropriate.`,
       ),
+      result: false,
+      target: ERROR_TARGETS.ENTITY,
+    };
+  }
+  if (/^(https?:\/\/)?([^.\/]+\.)?genius\.com\//.test(url)) {
+    return {
+      error: linkAsLyricsMsg(),
       result: false,
       target: ERROR_TARGETS.ENTITY,
     };

@@ -2107,6 +2107,17 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://genius.com/The-beatles-she-loves-you-lyrics',
        only_valid_entity_types: ['work'],
   },
+  {
+                     input_url: 'http://genius.com/albums/The-dream/Terius-nash-1977',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'discographyentry',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'at the release group level',
+                                  target: 'entity',
+                                },
+  },
   // GeoNames
   {
                      input_url: 'http://www.geonames.org/6255147/asia.html',
