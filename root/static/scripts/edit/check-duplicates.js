@@ -8,6 +8,7 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
+import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 
 import MB from '../common/MB';
@@ -40,18 +41,22 @@ var requestPending = validation.errorField(ko.observable(false));
 function renderDuplicates(name, duplicates, dupeRoot) {
   needsConfirmation(true);
 
-  dupeRoot.render(
-    <PossibleDuplicates
-      duplicates={duplicates}
-      name={name}
-      onCheckboxChange={event => isConfirmed(event.target.checked)}
-    />,
-  );
+  flushSync(() => {
+    dupeRoot.render(
+      <PossibleDuplicates
+        duplicates={duplicates}
+        name={name}
+        onCheckboxChange={event => isConfirmed(event.target.checked)}
+      />,
+    );
+  });
 }
 
 function unmountDuplicates(dupeRoot) {
   needsConfirmation(false);
-  dupeRoot.render(null);
+  flushSync(() => {
+    dupeRoot.render(null);
+  });
 }
 
 function sortPlaceDuplicates(duplicates) {

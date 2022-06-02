@@ -10,6 +10,8 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import mutate from 'mutate-cow';
+// $FlowIgnore[missing-export]
+import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 import {createStore} from 'redux';
 
@@ -301,25 +303,27 @@ function renderWorkLanguages() {
   const form: WorkForm = store.getState();
   const selectedLanguageIds =
     form.field.languages.field.map(lang => String(lang.value));
-  workLanguagesRoot.render(
-    <FormRowSelectList
-      addId="add-language"
-      addLabel={l('Add Language')}
-      getSelectField={getSelectField}
-      hideAddButton={
-        selectedLanguageIds.includes(String(LANGUAGE_MUL_ID)) ||
-        selectedLanguageIds.includes(String(LANGUAGE_ZXX_ID))
-      }
-      label={l('Lyrics Languages')}
-      onAdd={addLanguage}
-      onEdit={editLanguage}
-      onRemove={removeLanguage}
-      options={workLanguageOptions}
-      removeClassName="remove-language"
-      removeLabel={l('Remove Language')}
-      repeatable={form.field.languages}
-    />,
-  );
+  flushSync(() => {
+    workLanguagesRoot.render(
+      <FormRowSelectList
+        addId="add-language"
+        addLabel={l('Add Language')}
+        getSelectField={getSelectField}
+        hideAddButton={
+          selectedLanguageIds.includes(String(LANGUAGE_MUL_ID)) ||
+          selectedLanguageIds.includes(String(LANGUAGE_ZXX_ID))
+        }
+        label={l('Lyrics Languages')}
+        onAdd={addLanguage}
+        onEdit={editLanguage}
+        onRemove={removeLanguage}
+        options={workLanguageOptions}
+        removeClassName="remove-language"
+        removeLabel={l('Remove Language')}
+        repeatable={form.field.languages}
+      />,
+    );
+  });
 }
 
 store.subscribe(renderWorkLanguages);
