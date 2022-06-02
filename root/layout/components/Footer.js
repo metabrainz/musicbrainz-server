@@ -55,9 +55,10 @@ function languageName(language, selected) {
 
 const LanguageLink = ({$c, language}) => (
   <a
+    className="dropdown-item"
     href={
       '/set-language/' + encodeURIComponent(language.name) +
-            '?' + returnToCurrentPage($c)
+      '?' + returnToCurrentPage($c)
     }
   >
     {languageName(language, false)}
@@ -97,21 +98,24 @@ const LanguageMenu = ({
         }
 
         return (
-          <li
-            className="nav-item dropdown fs-5"
-            key={index}
-          >
+          <li key={index}>
             {inner}
           </li>
         );
       })}
-      <li className="nav-item dropdown fs-5">
-        <a href={'/set-language/unset?' + returnToCurrentPage($c)}>
+      <li>
+        <a
+          className="dropdown-item"
+          href={'/set-language/unset?' + returnToCurrentPage($c)}
+        >
           {l('(reset language)')}
         </a>
       </li>
-      <li className="nav-item dropdown fs-5">
-        <a href="https://www.transifex.com/musicbrainz/musicbrainz/">
+      <li>
+        <a
+          className="dropdown-item"
+          href="https://www.transifex.com/musicbrainz/musicbrainz/"
+        >
           {l('Help Translate')}
         </a>
       </li>
