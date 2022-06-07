@@ -1,6 +1,6 @@
 [% script_manifest('edit.js') %]
 
-<p>[%- l('For more information, check the {doc_doc|documentation}.', {doc_doc => doc_link('Place')}) -%]</p>
+<p>[%- l('For more information, check the {doc_doc|documentation}.', {doc_doc => { href => doc_link('Place'), target => '_blank' }}) -%]</p>
 
 <form action="[% c.req.uri %]" method="post" class="edit-place">
     [%- USE r = FormRenderer(form) -%]

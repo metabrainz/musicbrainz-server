@@ -7,7 +7,8 @@
  */
 
 import ko from 'knockout';
-import * as ReactDOM from 'react-dom';
+import {flushSync} from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
 
 import MB from '../../common/MB';
 import FieldErrors from '../../../../components/FieldErrors';
@@ -35,10 +36,12 @@ MB.initializeArtistCredit = function (form, initialArtistCredit) {
   source.artistCredit = ko.observable(initialArtistCredit);
 
   const container = document.getElementById('artist-credit-editor');
-  ReactDOM.render(
-    <FormRowArtistCredit entity={source} form={form} />,
-    container,
-  );
+  const root = ReactDOMClient.createRoot(container);
+  flushSync(() => {
+    root.render(
+      <FormRowArtistCredit entity={source} form={form} />,
+    );
+  });
 
   source.artistCredit.subscribe((artistCredit) => {
     $('table.artist-credit-editor', container)

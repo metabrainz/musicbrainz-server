@@ -7,7 +7,10 @@ use List::AllUtils qw( sort_by );
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
-use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT );
+use MusicBrainz::Server::Constants qw(
+    $AMAZON_ASIN_LINK_TYPE_ID
+    $EDIT_RELATIONSHIP_EDIT
+);
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::LinkAttribute;
 use MusicBrainz::Server::Entity::Types;
@@ -526,6 +529,46 @@ sub accept
         $data->{relationship_id},
         $values
     );
+
+    # Determine the old link type ID. It shouldn't be defined if the user
+    # didn't change the link type.
+    my $old_link_type_id =
+        defined $data->{old}{link_type} &&
+        $data->{old}{link_type}{id};
+
+    # This is always defined; if the link type wasn't changed, it defaults to
+    # the existing link type.
+    my $new_link_type_id = $values->{link_type_id};
+
+    my $old_link_type_is_amazon_asin =
+        defined $old_link_type_id &&
+        $old_link_type_id == $AMAZON_ASIN_LINK_TYPE_ID;
+    my $new_link_type_is_amazon_asin =
+        $new_link_type_id == $AMAZON_ASIN_LINK_TYPE_ID;
+
+    if ($old_link_type_is_amazon_asin || $new_link_type_is_amazon_asin) {
+        my $link_type_changed =
+            defined $old_link_type_id &&
+            $old_link_type_id != $new_link_type_id;
+
+        my $release_changed = (
+            defined $data->{old}{entity0} &&
+            defined $data->{new}{entity0} &&
+            $data->{old}{entity0}{id} != $data->{new}{entity0}{id}
+        );
+
+        if ($link_type_changed || $release_changed) {
+            $self->c->model('Release')->update_amazon_asin(
+                $values->{entity0_id}
+            );
+        }
+
+        if ($release_changed) {
+            $self->c->model('Release')->update_amazon_asin(
+                $data->{old}{entity0}{id}
+            );
+        }
+    }
 }
 
 before restore => sub {

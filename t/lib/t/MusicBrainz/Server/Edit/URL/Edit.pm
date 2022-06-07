@@ -159,6 +159,66 @@ test 'Related entities get linked to the edit' => sub {
             'is related to the URL itself');
 };
 
+test 'Editing an Amazon URL updates the release ASIN' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'SQL');
+        TRUNCATE link CASCADE;
+        SQL
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+edit_relationship_edit');
+
+    my $relationship = $c->model('Relationship')->get_by_id('release', 'url', 1);
+    $c->model('Link')->load($relationship);
+    $c->model('LinkType')->load($relationship->link);
+
+    my $release;
+    my $load_release = sub {
+        $release = $c->model('Release')->get_by_id(2);
+        $c->model('Release')->load_meta($release);
+    };
+
+    $load_release->();
+
+    is(
+        $release->amazon_asin,
+        'B00005CDNG',
+        'Release ASIN is set to start',
+    );
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_URL_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('URL')->get_by_id(263685),
+        url => 'https://www.amazon.com/gp/product/B000000000',
+    );
+    accept_edit($c, $edit);
+
+    $load_release->();
+
+    is(
+        $release->amazon_asin,
+        'B000000000',
+        'Release ASIN is updated after editing URL',
+    );
+
+    $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_URL_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('URL')->get_by_id(263685),
+        url => 'https://www.amazon.com/gp/product/',
+    );
+    accept_edit($c, $edit);
+
+    $load_release->();
+
+    is(
+        $release->amazon_asin,
+        undef,
+        'Release ASIN is unset after editing to an invalid URL',
+    );
+};
+
 sub _build_edit {
     my ($test, $url, $url_to_edit) = @_;
     $test->c->model('Edit')->create(

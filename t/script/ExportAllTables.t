@@ -75,7 +75,6 @@ test all => sub {
         '--output-dir', $output_dir,
         '--database', 'TEST_FULL_EXPORT',
         '--compress',
-        '--nodbmirror2',
     );
 
     my $quoted_output_dir = shell_quote($output_dir);
@@ -106,7 +105,6 @@ test all => sub {
         '--output-dir', $output_dir,
         '--database', 'TEST_FULL_EXPORT',
         '--compress',
-        '--nodbmirror2',
     );
 
     my $system_db = Databases->get('SYSTEM');
@@ -131,6 +129,9 @@ test all => sub {
     );
 
     my $replication_setup = File::Spec->catfile($root, 'admin/sql/ReplicationSetup.sql');
+    system 'sh', '-c' => "$psql TEST_FULL_EXPORT < $replication_setup";
+
+    $replication_setup = File::Spec->catfile($root, 'admin/sql/dbmirror2/ReplicationSetup.sql');
     system 'sh', '-c' => "$psql TEST_FULL_EXPORT < $replication_setup";
 
     $exec_sql->(<<~"SQL");

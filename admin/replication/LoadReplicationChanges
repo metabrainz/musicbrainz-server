@@ -28,8 +28,6 @@ my $tmpdir = '/tmp';
 my $fKeepFiles = 0;
 my $limit = 0;
 my $count = 0;
-my $period = 'hourly';
-my $catchup;
 my $baseuri = REPLICATION_ACCESS_URI;
 my $lockfile = my $deflockfile = '/tmp/.mb-LoadReplicationChanges';
 my @process_opts;
@@ -44,8 +42,6 @@ GetOptions(
     'dbmirror2!'                => \$dbmirror2,
     'process-arg=s'             => \@process_opts,
     'limit=i'                   => \$limit,
-    'period=s'                  => \$period,
-    'catchup'                   => \$catchup,
     'verify-sig'                => \$fVerifySig,
     'database=s'                => \$database,
 ) or exit 2;
@@ -74,12 +70,6 @@ Usage: LoadReplicationChanges [options]
                        --process-arg=--debug-xact).  Add --process-arg=ARG
                        again to specify additional arguments.
     --limit=N          apply only N packets
-    --period=ARG       ARG can be e.g. 'daily' or 'weekly'; default 'hourly'.
-                       This will only work if you're currently in sync with
-                       these replication options.
-    --catchup          For periods other than 'hourly', apply hourly packets
-                       until in sync with available packets for the provided
-                       period
     --verify-sig       If this option is present the replication packets will
                        be verified against their signature.
     --database         database to load packets into (default: READWRITE)
@@ -121,13 +111,12 @@ my $dbh = $c->dbh;
 
 # Retrieve current_schema_sequence and current_replication_sequence
 
-my ($iSchemaSequence, $iReplicationSequence, $dtReplicationDate) = do {
+my ($iSchemaSequence, $iReplicationSequence) = do {
     my $row = $sql->select_single_row_hash('SELECT * FROM replication_control');
     $row ||= {};
     @$row{qw(
         current_schema_sequence
         current_replication_sequence
-        last_replication_date
     )};
 };
 
@@ -182,12 +171,6 @@ NEXT_PACKET:
 
 my $iNextReplicationSequence = $iReplicationSequence + 1;
 my $file = "replication-$iNextReplicationSequence.tar.bz2";
-if ($period ne 'hourly') {
-    if ($dbmirror2) {
-        die "$period packets are not supported with dbmirror2.";
-    }
-    $file = "replication-$period-$iNextReplicationSequence.tar.bz2";
-}
 if ($dbmirror2) {
     $file = "replication-$iNextReplicationSequence-v2.tar.bz2";
 }
@@ -198,19 +181,6 @@ my $localfile = "$tmpdir/$file";
 my $resp = retrieve_remote_file($url, $localfile, $fVerifySig);
 # We only understand a limited set of responses:
 # OK, not found, and the rest.
-if ($catchup && ($resp->code == RC_OK or $resp->code == RC_NOT_MODIFIED)) {
-    print localtime() . " : Caught up to packets for period '$period'. Please rerun now without --catchup.\n";
-    exit 0;
-} elsif ($catchup) {
-    print localtime() . " : Not yet caught up for period '$period'. Applying an hourly packet...\n";
-    $file = "replication-$iNextReplicationSequence.tar.bz2";
-    if ($dbmirror2) {
-        $file = "replication-$iNextReplicationSequence-v2.tar.bz2";
-    }
-    $url = "$baseuri/$file";
-    $localfile = "$tmpdir/$file";
-    $resp = retrieve_remote_file($url, $localfile, $fVerifySig);
-}
 
 if ($resp->code == RC_NOT_FOUND)
 {
@@ -272,15 +242,6 @@ unless (defined($REPLICATION_SEQUENCE) and $REPLICATION_SEQUENCE =~ /\A(\d+)\n\z
 }
 $REPLICATION_SEQUENCE = $1;
 
-my $LAST_REPLICATION_SEQUENCE = read_file('LAST_REPLICATION_SEQUENCE');
-unless (defined($LAST_REPLICATION_SEQUENCE) and $LAST_REPLICATION_SEQUENCE =~ /\A(\d+)\n\z/)
-{
-    print localtime() . " : LAST_REPLICATION_SEQUENCE file missing or malformed\n";
-    $LAST_REPLICATION_SEQUENCE = $REPLICATION_SEQUENCE;
-} else {
-    $LAST_REPLICATION_SEQUENCE = $1;
-}
-
 unless ($REPLICATION_SEQUENCE == $iNextReplicationSequence)
 {
     print localtime() . " : Oops!  Downloaded packet $file"
@@ -299,16 +260,6 @@ unless (defined($TIMESTAMP) and $TIMESTAMP =~ /\A(.*)\n\z/)
 } else {
     chomp($TIMESTAMP = $1);
     print localtime() . " : This packet was produced (or begins) at $TIMESTAMP\n";
-}
-
-my $LAST_TIMESTAMP = read_file('LAST_TIMESTAMP');
-unless (defined($LAST_TIMESTAMP) and $LAST_TIMESTAMP =~ /\A(.*)\n\z/)
-{
-    print localtime() . " : LAST_TIMESTAMP file missing or malformed, setting to TIMESTAMP\n";
-    $LAST_TIMESTAMP = $TIMESTAMP;
-} else {
-    chomp($LAST_TIMESTAMP = $1);
-    print localtime() . " : This packet covers changes until $LAST_TIMESTAMP\n";
 }
 
 my $DBMIRROR_VERSION = read_file('DBMIRROR_VERSION');
@@ -377,18 +328,16 @@ if (-x "$FindBin::Bin/hooks/post-process") {
 
 # Check that current_replication_sequence has gone up by one
 # Also last_replication_date should match TIMESTAMP
-$LAST_REPLICATION_SEQUENCE = $iReplicationSequence + 1
-    if not defined $LAST_REPLICATION_SEQUENCE;
 {
     my $row = $sql->select_single_row_hash('SELECT * FROM replication_control');
-    $row->{current_replication_sequence} == $LAST_REPLICATION_SEQUENCE
-        or die "Applied changes, but current_replication_sequence is $row->{current_replication_sequence} not $LAST_REPLICATION_SEQUENCE\n";
-    not defined($LAST_TIMESTAMP)
-        or $row->{last_replication_date} eq $LAST_TIMESTAMP
-        or warn "Applied changes, but last_replication_date is '$row->{last_replication_date}' not '$LAST_TIMESTAMP'\n";
+    if ($row->{current_replication_sequence} != $REPLICATION_SEQUENCE) {
+        die "Applied changes, but current_replication_sequence is $row->{current_replication_sequence} not $REPLICATION_SEQUENCE\n";
+    }
+    if (defined($TIMESTAMP) && $row->{last_replication_date} ne $TIMESTAMP) {
+        warn "Applied changes, but last_replication_date is '$row->{last_replication_date}' not '$TIMESTAMP'\n";
+    }
     $iReplicationSequence = $row->{current_replication_sequence};
 }
-$dtReplicationDate = $LAST_TIMESTAMP;
 
 $count += 1;
 if ($limit > 0 && $count >= $limit) {

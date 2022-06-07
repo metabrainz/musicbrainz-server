@@ -8,7 +8,9 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import * as ReactDOM from 'react-dom';
+import * as React from 'react';
+import {flushSync} from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
 
 import {reduceArtistCredit} from '../common/immutable-entities';
 import ArtistCreditEditor from '../edit/components/ArtistCreditEditor';
@@ -60,14 +62,14 @@ ko.bindingHandlers.artistCreditEditor = {
     const entity = this.currentTarget();
     const prev = entity.medium.tracks()[entity.position() - 2];
     if (prev) {
-      entity.artistCreditEditorInst.runDoneCallback();
+      entity.artistCreditEditorInst?.current?.runDoneCallback();
       /*
        * Defer until the setState calls in doneCallback finish,
        * since initialArtistText (which is set in updateBubble)
        * depends on the artist credit state.
        */
       setTimeout(() => {
-        prev.artistCreditEditorInst.updateBubble(
+        prev.artistCreditEditorInst?.current?.updateBubble(
           true,
           this.uncheckChangeMatchingArtists,
         );
@@ -79,9 +81,9 @@ ko.bindingHandlers.artistCreditEditor = {
     const entity = this.currentTarget();
     const next = entity.medium.tracks()[entity.position()];
     if (next) {
-      entity.artistCreditEditorInst.runDoneCallback();
+      entity.artistCreditEditorInst?.current?.runDoneCallback();
       setTimeout(() => {
-        next.artistCreditEditorInst.updateBubble(
+        next.artistCreditEditorInst?.current?.updateBubble(
           true,
           this.uncheckChangeMatchingArtists,
         );
@@ -107,7 +109,7 @@ ko.bindingHandlers.artistCreditEditor = {
         }
         if (initialArtistText === reduceArtistCredit(t.artistCredit.peek())) {
           t.artistCredit(artistCredit);
-          t.artistCreditEditorInst.setState({artistCredit});
+          t.artistCreditEditorInst?.current?.setState({artistCredit});
         }
       });
   },
@@ -134,8 +136,24 @@ ko.bindingHandlers.artistCreditEditor = {
       );
       props.orientation = 'left';
     }
-    entity.artistCreditEditorInst =
-      ReactDOM.render(<ArtistCreditEditor {...props} />, element);
+    let root = $(element).data('artist-credit-editor-root');
+    if (!root) {
+      root = ReactDOMClient.createRoot(element);
+      $(element).data('artist-credit-editor-root', root);
+    }
+    if (!entity.artistCreditEditorInst) {
+      entity.artistCreditEditorInst = React.createRef();
+    }
+    /*
+     * MBS-12424: Due to React v18's asynchronous method of rendering, there
+     * is a noticeable lag in displaying the artist credit editor of each
+     * track unless we flush updates immediately.
+     */
+    flushSync(() => {
+      root.render(
+        <ArtistCreditEditor ref={entity.artistCreditEditorInst} {...props} />,
+      );
+    });
   },
 };
 

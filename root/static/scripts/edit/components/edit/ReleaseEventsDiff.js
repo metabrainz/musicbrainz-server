@@ -19,7 +19,7 @@ import {
 } from '../../utility/editDiff';
 import EntityLink from '../../../common/components/EntityLink';
 
-function areReleaseCountriesEqual(a, b) {
+function areReleaseCountriesEqual(a: ReleaseEventT, b: ReleaseEventT) {
   return !!(
     !(a.country || b.country) ||
     (a.country && b.country && a.country.id === b.country.id)
@@ -39,15 +39,16 @@ const changeSide = (
 ) => {
   const sideA = type === DELETE ? oldEvent : newEvent;
   const sideB = type === DELETE ? newEvent : oldEvent;
+  const sideACountry = sideA?.country;
 
-  const countryDisplay = (sideA && sideA.country) ? (
+  const countryDisplay = (sideACountry /*:: && sideA */) ? (
     <EntityLink
       content={
         sideB && areReleaseCountriesEqual(sideA, sideB)
-          ? sideA.country.name
-          : <span className={CLASS_MAP[type]}>{sideA.country.name}</span>
+          ? sideACountry.name
+          : <span className={CLASS_MAP[type]}>{sideACountry.name}</span>
       }
-      entity={sideA.country}
+      entity={sideACountry}
     />
   ) : null;
 

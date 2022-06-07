@@ -8,7 +8,8 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
-import * as ReactDOM from 'react-dom';
+import {flushSync} from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
 
 import MB from '../common/MB';
 import {sortByNumber} from '../common/utility/arrays';
@@ -37,22 +38,25 @@ validation.errorField(ko.computed(function () {
 
 var requestPending = validation.errorField(ko.observable(false));
 
-function renderDuplicates(name, duplicates, container) {
+function renderDuplicates(name, duplicates, dupeRoot) {
   needsConfirmation(true);
 
-  ReactDOM.render(
-    <PossibleDuplicates
-      duplicates={duplicates}
-      name={name}
-      onCheckboxChange={event => isConfirmed(event.target.checked)}
-    />,
-    container,
-  );
+  flushSync(() => {
+    dupeRoot.render(
+      <PossibleDuplicates
+        duplicates={duplicates}
+        name={name}
+        onCheckboxChange={event => isConfirmed(event.target.checked)}
+      />,
+    );
+  });
 }
 
-function unmountDuplicates(container) {
+function unmountDuplicates(dupeRoot) {
   needsConfirmation(false);
-  ReactDOM.unmountComponentAtNode(container);
+  flushSync(() => {
+    dupeRoot.render(null);
+  });
 }
 
 function sortPlaceDuplicates(duplicates) {
@@ -168,6 +172,7 @@ MB.initializeDuplicateChecker = function (type) {
   var nameInput = document.getElementById(`id-edit-${type}.name`);
   var commentInput = document.getElementById(`id-edit-${type}.comment`);
   var dupeContainer = document.getElementById('possible-duplicates');
+  var dupeRoot = ReactDOMClient.createRoot(dupeContainer);
   var currentName = nameInput.value;
   var originalName = currentName;
   var currentDuplicates = [];
@@ -188,7 +193,7 @@ MB.initializeDuplicateChecker = function (type) {
      */
     if (isBlank(name) || !(nameChanged || forceRequest) ||
         (sourceEntityGID && !nameChanged)) {
-      unmountDuplicates(dupeContainer);
+      unmountDuplicates(dupeRoot);
       markCommentAsNotRequired(commentInput);
       return;
     }
@@ -202,7 +207,7 @@ MB.initializeDuplicateChecker = function (type) {
         var duplicates = sortDuplicates(type, data.duplicates);
 
         if (duplicates.length) {
-          renderDuplicates(name, duplicates, dupeContainer);
+          renderDuplicates(name, duplicates, dupeRoot);
 
           if (isBlank(commentInput.value) &&
               isCommentRequired(type, name, duplicates)) {
@@ -211,7 +216,7 @@ MB.initializeDuplicateChecker = function (type) {
             markCommentAsNotRequired(commentInput);
           }
         } else {
-          unmountDuplicates(dupeContainer);
+          unmountDuplicates(dupeRoot);
           markCommentAsNotRequired(commentInput);
         }
 

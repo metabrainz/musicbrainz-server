@@ -9,7 +9,8 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import {flushSync} from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
 import mutate from 'mutate-cow';
 
 import Autocomplete from '../../common/components/Autocomplete';
@@ -230,33 +231,42 @@ class ArtistCreditEditor extends React.Component {
       .data('target', this.props.entity)
       .data('componentInst', this);
 
-    ReactDOM.render(
-      <ArtistCreditBubble
-        addName={this.addName}
-        artistCredit={this.state.artistCredit}
-        copyArtistCredit={this.copyArtistCredit}
-        done={this.done}
-        hide={this.hide}
-        initialArtistText={this.initialArtistText}
-        onNameChange={this.handleNameChange}
-        pasteArtistCredit={this.pasteArtistCredit}
-        removeName={this.removeName}
-        {...this.props}
-      />,
-      $bubble[0],
-      show ? (() => {
-        this.positionBubble();
+    let bubbleRoot = $bubble.data('react-root');
+    if (!bubbleRoot) {
+      bubbleRoot = ReactDOMClient.createRoot($bubble[0]);
+      $bubble.data('react-root', bubbleRoot);
+    }
 
-        if (!bubbleWasVisible) {
-          $bubble.find(':input:eq(0)').focus();
-          $('#change-matching-artists').prop('checked', false);
-        }
+    flushSync(() => {
+      bubbleRoot.render(
+        <ArtistCreditBubble
+          addName={this.addName}
+          artistCredit={this.state.artistCredit}
+          copyArtistCredit={this.copyArtistCredit}
+          done={this.done}
+          hide={this.hide}
+          initialArtistText={this.initialArtistText}
+          onNameChange={this.handleNameChange}
+          pasteArtistCredit={this.pasteArtistCredit}
+          removeName={this.removeName}
+          renderCallback={
+            show ? (() => {
+              this.positionBubble();
 
-        if (callback) {
-          callback();
-        }
-      }) : null,
-    );
+              if (!bubbleWasVisible) {
+                $bubble.find(':input:eq(0)').focus();
+                $('#change-matching-artists').prop('checked', false);
+              }
+
+              if (callback) {
+                callback();
+              }
+            }) : null
+          }
+          {...this.props}
+        />,
+      );
+    });
   }
 
   hide(stealFocus = true) {
