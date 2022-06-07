@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2022
+# Maurits Meulenbelt, 2012
+# Maurits Meulenbelt, 2013-2022
 # Nathan Follens, 2017
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 19:23+0000\n"
-"Last-Translator: Maurits Meulenbelt <mfmeulenbelt@gmail.com>, 2013-2022\n"
+"Last-Translator: Maurits Meulenbelt, 2013-2022\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"

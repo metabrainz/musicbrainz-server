@@ -1864,6 +1864,12 @@ msgid ""
 "studio release group."
 msgstr ""
 
+#: DB:link_type/description:1082
+msgid ""
+"This is used to indicate that a release group is a translated version of "
+"another."
+msgstr ""
+
 #: DB:link_type/description:239
 msgid ""
 "This is used to indicate that a work is a medley of several other songs. "
@@ -4547,8 +4553,8 @@ msgid "has a setlist.fm page at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:784 DB:link_type/long_link_phrase:783
-#: DB:link_type/long_link_phrase:192 DB:link_type/long_link_phrase:218
-#: DB:link_type/long_link_phrase:429
+#: DB:link_type/long_link_phrase:218 DB:link_type/long_link_phrase:429
+#: DB:link_type/long_link_phrase:192
 msgid "has a social networking page at"
 msgstr ""
 
@@ -4586,8 +4592,8 @@ msgstr ""
 msgid "has an official homepage at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:804 DB:link_type/long_link_phrase:805
-#: DB:link_type/long_link_phrase:303 DB:link_type/long_link_phrase:304
+#: DB:link_type/long_link_phrase:804 DB:link_type/long_link_phrase:304
+#: DB:link_type/long_link_phrase:805 DB:link_type/long_link_phrase:303
 #: DB:link_type/long_link_phrase:495
 msgid "has an official video channel at"
 msgstr ""
@@ -6397,20 +6403,20 @@ msgstr ""
 msgid "single/EP which was taken from"
 msgstr ""
 
-#: DB:link_type/name:784 DB:link_type/name:783 DB:link_type/name:192
-#: DB:link_type/name:218 DB:link_type/name:429
+#: DB:link_type/name:784 DB:link_type/name:783 DB:link_type/name:218
+#: DB:link_type/name:429 DB:link_type/name:192
 msgid "social network"
 msgstr ""
 
 #: DB:link_type/link_phrase:784 DB:link_type/link_phrase:783
-#: DB:link_type/link_phrase:192 DB:link_type/link_phrase:218
-#: DB:link_type/link_phrase:429
+#: DB:link_type/link_phrase:218 DB:link_type/link_phrase:429
+#: DB:link_type/link_phrase:192
 msgid "social networking"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:784 DB:link_type/reverse_link_phrase:783
-#: DB:link_type/reverse_link_phrase:192 DB:link_type/reverse_link_phrase:218
-#: DB:link_type/reverse_link_phrase:429
+#: DB:link_type/reverse_link_phrase:218 DB:link_type/reverse_link_phrase:429
+#: DB:link_type/reverse_link_phrase:192
 msgid "social networking page for"
 msgstr ""
 
@@ -6633,6 +6639,18 @@ msgstr ""
 msgid "translated in"
 msgstr ""
 
+#: DB:link_type/name:1082
+msgid "translated version"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1082
+msgid "translated version of"
+msgstr ""
+
+#: DB:link_type/link_phrase:1082
+msgid "translated versions"
+msgstr ""
+
 #: DB:link_attribute_type/name:1018 DB:link_type/name:871 DB:link_type/name:872
 msgid "translator"
 msgstr ""
@@ -6694,15 +6712,15 @@ msgstr ""
 msgid "video appearance"
 msgstr ""
 
-#: DB:link_type/link_phrase:804 DB:link_type/link_phrase:805
-#: DB:link_type/link_phrase:303 DB:link_type/link_phrase:304
-#: DB:link_type/link_phrase:495 DB:link_type/name:804 DB:link_type/name:805
-#: DB:link_type/name:303 DB:link_type/name:304 DB:link_type/name:495
+#: DB:link_type/link_phrase:804 DB:link_type/link_phrase:304
+#: DB:link_type/link_phrase:805 DB:link_type/link_phrase:303
+#: DB:link_type/link_phrase:495 DB:link_type/name:804 DB:link_type/name:304
+#: DB:link_type/name:805 DB:link_type/name:303 DB:link_type/name:495
 msgid "video channel"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:804 DB:link_type/reverse_link_phrase:805
-#: DB:link_type/reverse_link_phrase:303 DB:link_type/reverse_link_phrase:304
+#: DB:link_type/reverse_link_phrase:804 DB:link_type/reverse_link_phrase:304
+#: DB:link_type/reverse_link_phrase:805 DB:link_type/reverse_link_phrase:303
 #: DB:link_type/reverse_link_phrase:495
 msgid "video channel for"
 msgstr ""
@@ -7525,6 +7543,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:752
 msgid "{entity1} is a traditional instrument from {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1082
+msgid "{entity1} is a translated version of {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:65 DB:link_type/long_link_phrase:970

@@ -124,6 +124,8 @@ test all => sub {
             File::Spec->catfile($output_dir, 'mbdump.tar.bz2'),
             File::Spec->catfile($output_dir, 'mbdump-derived.tar.bz2'),
             File::Spec->catfile($output_dir, 'mbdump-editor.tar.bz2'),
+            File::Spec->catfile($output_dir, 'mbdump-cover-art-archive.tar.bz2'),
+            File::Spec->catfile($output_dir, 'mbdump-event-art-archive.tar.bz2'),
     );
 
     my $replication_setup = File::Spec->catfile($root, 'admin/sql/ReplicationSetup.sql');
@@ -248,6 +250,37 @@ test all => sub {
             password => '{CLEARTEXT}mb',
             privs => 0,
             website => undef,
+        },
+    ]);
+
+    # MBS-12400: Check that non-musicbrainz-schema tables have been dumped
+    # and imported. One effect of failing to schema-qualify the dumped
+    # tables' file names might be tables like event_art_archive.art_type and
+    # cover_art_archive.art_type clobbering each other.
+
+    my $cover_art_types = $c->sql->select_list_of_hashes('SELECT * FROM cover_art_archive.art_type WHERE id = 1');
+
+    cmp_deeply($cover_art_types, [
+        {
+            id => 1,
+            name => 'Front',
+            parent => undef,
+            child_order => 0,
+            description => undef,
+            gid => 'ac337166-a2b3-340c-a0b4-e2b00f1d40a2',
+        },
+    ]);
+
+    my $event_art_types = $c->sql->select_list_of_hashes('SELECT * FROM event_art_archive.art_type WHERE id = 1');
+
+    cmp_deeply($event_art_types, [
+        {
+            id => 1,
+            name => 'Poster',
+            parent => undef,
+            child_order => 0,
+            description => undef,
+            gid => '7ced53fc-bb27-33ae-aeef-79d6e24fec3c',
         },
     ]);
 

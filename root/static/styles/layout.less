@@ -19,7 +19,6 @@ body {
 a {
     color:@link-default;
     text-decoration: none;
-    overflow-wrap: anywhere;
 
     &:visited {
         color:@link-visited;
@@ -157,11 +156,6 @@ pre code {
     margin-left: 16px;
     margin-right: 16px;
     clear: both;
-
-    a {
-        // So menu links don't wrap (TODO: review with responsive header)
-        overflow-wrap: normal;
-    }
 
     img.logo {
         width: @logo-width;
@@ -1070,6 +1064,10 @@ div.artwork { position: relative; width: 250px; }
 .homepage div.artwork img {
     max-width: 125px;
     max-height: 125px;
+}
+
+.entityheader, .url-entity-link {
+    overflow-wrap: anywhere;
 }
 
 .artwork-image, .artwork-pdf {

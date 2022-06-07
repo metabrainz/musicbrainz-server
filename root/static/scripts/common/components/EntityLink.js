@@ -127,7 +127,7 @@ const NoInfoURL = ({allowNew, url}: {+allowNew: boolean, +url: string}) => (
       >
         {isolateText(url)}
       </span>
-    ) : <a href={url}>{url}</a>}
+    ) : <a className="url-entity-link" href={url}>{url}</a>}
     {' '}
     <DeletedLink
       allowNew={allowNew}
@@ -154,6 +154,7 @@ type EntityLinkProps = {
   +subPath?: string,
 
   // ...anchorProps
+  className?: string,
   href?: string,
   title?: string,
   +target?: '_blank',
@@ -243,9 +244,15 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
   }
 
   anchorProps.href = href;
+
   if (hover) {
     anchorProps.title = hover;
   }
+
+  if (entity.entityType === 'url') {
+    anchorProps.className = 'url-entity-link';
+  }
+
   content = disableLink
     ? (
       <span
