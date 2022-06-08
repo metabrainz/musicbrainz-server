@@ -1803,20 +1803,24 @@ export function createExternalLinksEditor(
   const errorObservable = options.errorObservable ||
     validation.errorField(ko.observable(false));
 
-  const root = ReactDOMClient.createRoot(options.mountPoint);
+  const mountPoint = options.mountPoint;
+  let root = $(mountPoint).data('react-root');
+  if (!root) {
+    root = ReactDOMClient.createRoot(mountPoint);
+    $(mountPoint).data('react-root', root);
+  }
+
   const externalLinksEditorRef = React.createRef();
-  flushSync(() => {
-    root.render(
-      <ExternalLinksEditor
-        errorObservable={errorObservable}
-        initialLinks={initialLinks}
-        isNewEntity={!sourceData.id}
-        ref={externalLinksEditorRef}
-        sourceType={sourceData.entityType}
-        typeOptions={typeOptions}
-      />,
-    );
-  });
+  root.render(
+    <ExternalLinksEditor
+      errorObservable={errorObservable}
+      initialLinks={initialLinks}
+      isNewEntity={!sourceData.id}
+      ref={externalLinksEditorRef}
+      sourceType={sourceData.entityType}
+      typeOptions={typeOptions}
+    />,
+  );
   return {externalLinksEditorRef, root};
 }
 

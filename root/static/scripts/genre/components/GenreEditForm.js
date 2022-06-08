@@ -34,17 +34,24 @@ const GenreEditForm = ({
   typeInfo,
 }: Props): React.Element<'form'> => {
   const externalLinksEditorContainerRef = React.useRef(null);
+  const isMounted = React.useRef(true);
 
   const handleSubmit = () => {
     prepareSubmission('edit-genre');
   };
 
   React.useEffect(() => {
+    isMounted.current = true;
+
+    const externalLinksEditorContainer =
+      externalLinksEditorContainerRef.current;
+
     exportTypeInfo(typeInfo, attrInfo);
-    invariant(externalLinksEditorContainerRef.current != null);
+
+    invariant(externalLinksEditorContainer != null);
 
     const {externalLinksEditorRef, root} = createExternalLinksEditor({
-      mountPoint: externalLinksEditorContainerRef.current,
+      mountPoint: externalLinksEditorContainer,
       sourceData: sourceEntity,
     });
 
@@ -52,7 +59,18 @@ const GenreEditForm = ({
     MB.sourceExternalLinksEditor = externalLinksEditorRef;
 
     return () => {
-      root.unmount();
+      isMounted.current = false;
+
+      /*
+       * XXX React cannot synchronously unmount the root while a render is
+       * already in progress, so delay it via `setTimeout`.
+       */
+      setTimeout(() => {
+        if (!isMounted.current) {
+          root.unmount();
+          $(externalLinksEditorContainer).data('react-root', null);
+        }
+      }, 0);
     };
   }, [attrInfo, sourceEntity, typeInfo]);
 
