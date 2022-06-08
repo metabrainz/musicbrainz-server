@@ -12,8 +12,6 @@ import punycode from 'punycode';
 import $ from 'jquery';
 import ko from 'knockout';
 import * as React from 'react';
-// $FlowIgnore[missing-export]
-import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 
 import {
