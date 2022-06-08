@@ -41,6 +41,12 @@ const GenreEditForm = ({
     prepareSubmission('edit-genre');
   };
 
+  /*
+   * TODO: We should just be rendering <ExternalLinksEditor /> inline
+   * instead of hackishly mounting/unmounting it inside an effect. This
+   * should be possible if we can factor out functionality from
+   * `createExternalLinksEditor` and generate the props for it in advance.
+   */
   React.useEffect(() => {
     isMounted.current = true;
 
