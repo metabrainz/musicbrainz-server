@@ -34,7 +34,7 @@ const GenreEditForm = ({
   typeInfo,
 }: Props): React.Element<'form'> => {
   const externalLinksEditorContainerRef = React.useRef(null);
-  const isMounted = React.useRef(true);
+  const isMounted = React.useRef(false);
 
   const handleSubmit = () => {
     prepareSubmission('edit-genre');
