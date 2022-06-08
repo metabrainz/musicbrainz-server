@@ -36,18 +36,24 @@ const GenreEditForm = ({
   const externalLinksEditorContainerRef = React.useRef(null);
 
   const handleSubmit = () => {
-    console.log('preparing submission');
     prepareSubmission('edit-genre');
   };
 
   React.useEffect(() => {
     exportTypeInfo(typeInfo, attrInfo);
     invariant(externalLinksEditorContainerRef.current != null);
-    // $FlowIgnore
-    MB.sourceExternalLinksEditor = createExternalLinksEditor({
+
+    const {externalLinksEditorRef, root} = createExternalLinksEditor({
       mountPoint: externalLinksEditorContainerRef.current,
       sourceData: sourceEntity,
     });
+
+    // $FlowIgnore[incompatible-type]
+    MB.sourceExternalLinksEditor = externalLinksEditorRef;
+
+    return () => {
+      root.unmount();
+    };
   }, [attrInfo, sourceEntity, typeInfo]);
 
   return (

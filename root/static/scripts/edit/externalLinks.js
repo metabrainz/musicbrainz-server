@@ -1724,7 +1724,10 @@ type SeededUrlShape = {
 
 export function createExternalLinksEditor(
   options: InitialOptionsT,
-): React$Ref<typeof ExternalLinksEditor> {
+): {
+  +externalLinksEditorRef: React$Ref<typeof ExternalLinksEditor>,
+  +root: {+unmount: () => void, ...},
+} {
   const sourceData = options.sourceData;
   const sourceType = sourceData.entityType;
   const entityTypes = [sourceType, 'url'].sort().join('-');
@@ -1814,7 +1817,7 @@ export function createExternalLinksEditor(
       />,
     );
   });
-  return externalLinksEditorRef;
+  return {externalLinksEditorRef, root};
 }
 
 MB.createExternalLinksEditor = createExternalLinksEditor;
