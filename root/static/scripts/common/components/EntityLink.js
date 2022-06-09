@@ -257,6 +257,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     ? (
       <span
         className="deleted"
+        key="deleted"
         title={entity.entityType === 'url' && isGreyedOut(href)
           ? disabledLinkText()
           : null}
@@ -292,10 +293,10 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
 
   if (!subPath && entity.entityType === 'recording' && entity.video) {
     content = (
-      <>
+      <React.Fragment key="video">
         <span className="video" title={l('This recording is a video')} />
         {content}
-      </>
+      </React.Fragment>
     );
   }
 
@@ -303,7 +304,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     if (entity.entityType === 'release' &&
         entity.cover_art_presence === 'present') {
       content = (
-        <>
+        <React.Fragment key="caa">
           <a href={'/release/' + entity.gid + '/cover-art'}>
             <span
               className="caa-icon"
@@ -311,13 +312,13 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
             />
           </a>
           {content}
-        </>
+        </React.Fragment>
       );
     }
 
     if (entity.entityType === 'release_group' && entity.hasCoverArt) {
       content = (
-        <>
+        <React.Fragment key="caa">
           <span
             className="caa-icon"
             title={l(
@@ -325,7 +326,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
             )}
           />
           {content}
-        </>
+        </React.Fragment>
       );
     }
   }
@@ -346,7 +347,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
       );
     } else if (entity.quality === 0) {
       content = (
-        <>
+        <React.Fragment key="quality">
           <span
             className="low-data-quality"
             title={l(
@@ -355,7 +356,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
             )}
           />
           {content}
-        </>
+        </React.Fragment>
       );
     }
   }
