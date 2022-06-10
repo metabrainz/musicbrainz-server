@@ -8,4 +8,8 @@ declare module '@fortawesome/free-brands-svg-icons' {
 
   declare export var faGooglePlay: IconLookup;
   declare export var faAndroid: IconLookup;
+  declare export var faInstagram: IconLookup;
+  declare export var faTwitter: IconLookup;
+  declare export var faFacebook: IconLookup;
+  declare export var faLinkedin: IconLookup;
 }

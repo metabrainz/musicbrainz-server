@@ -52,7 +52,7 @@ module.exports = {
        * jquery and @popperjs are resolved to root/static/scripts/empty.js
        * on the server. See NormalModuleReplacementPlugin below.
        */
-      allowlist: [/(jquery|@popperjs)/],
+      allowlist: [/(jquery|@popperjs|swiper)/],
       modulesFromFile: true,
     }),
 
