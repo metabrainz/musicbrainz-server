@@ -2738,12 +2738,13 @@ limited_link_type_combinations: [
                      input_url: 'http://www.linkedin.com/pub/trevor-muzzy/5/282/538',
              input_entity_type: 'artist',
     expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.linkedin.com/pub/trevor-muzzy/5/282/538',
   },
   {
-                     input_url: 'http://www.linkedin.com/in/legselectric',
+                     input_url: 'http://ca.linkedin.com/in/didier-charette-0630b1b6?original_referer=https%3A%2F%2Fduckduckgo.com%2F',
              input_entity_type: 'artist',
     expected_relationship_type: 'socialnetwork',
-            expected_clean_url: 'https://www.linkedin.com/in/legselectric',
+            expected_clean_url: 'https://www.linkedin.com/in/didier-charette-0630b1b6',
   },
   // livedoor
   {
