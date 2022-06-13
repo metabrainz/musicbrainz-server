@@ -4474,9 +4474,16 @@ limited_link_type_combinations: [
   {
                      input_url: 'https://store.tidal.com/us/album/58294001',
              input_entity_type: 'release',
-    expected_relationship_type: 'streamingpaid',
-            expected_clean_url: 'https://tidal.com/album/58294001',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://store.tidal.com/album/58294001',
        only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://store.tidal.com/ee/artist/160',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://store.tidal.com/artist/160',
+       only_valid_entity_types: ['artist'],
   },
   // TikTok
   {
