@@ -1586,6 +1586,13 @@ function isValidURL(url: string) {
   return true;
 }
 
+// For shortener pages which should still be allowed as a host-only link
+const SHORTENER_ALLOWED_HOSTS = [
+  'bruit.app',
+  'distrokid.com',
+  'trac.co',
+];
+
 const URL_SHORTENERS = [
   'adf.ly',
   'album.link',
@@ -1593,7 +1600,9 @@ const URL_SHORTENERS = [
   'amu.se',
   'artist.link',
   'band.link',
+  'bfan.link',
   'biglink.to',
+  'bio.link',
   'bit.ly',
   'bitly.com',
   'backl.ink',
@@ -1613,7 +1622,9 @@ const URL_SHORTENERS = [
   'gate.fm',
   'geni.us',
   'goo.gl',
+  'hypeddit.com',
   'hypel.ink',
+  'hyperfollow.com',
   'hyperurl.co',
   'is.gd',
   'kl.am',
@@ -1654,19 +1665,25 @@ const URL_SHORTENERS = [
   'spoti.fi',
   'sptfy.com',
   'spread.link',
+  'streamerlinks.com',
   'streamlink.to',
   'su.pr',
   't.co',
   'tiny.cc',
   'tinyurl.com',
   'tourlink.to',
-  'trac.co', // Host links can be legitimate; non-root paths are aggregators
+  'trac.co',
   'u.nu',
   'unitedmasters.com',
   'untd.io',
   'vyd.co',
   'yep.it',
-].map(host => new RegExp('^https?://([^/]+\\.)?' + host + '/.+', 'i'));
+].map(shortener => new RegExp(
+  '^https?://([^/]+\\.)?' +
+  shortener +
+  (SHORTENER_ALLOWED_HOSTS.includes(shortener) ? '/.+' : ''),
+  'i',
+));
 
 function isShortened(url) {
   return URL_SHORTENERS.some(function (shortenerRegex) {
