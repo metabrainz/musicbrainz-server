@@ -7,15 +7,15 @@
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
 # Luca Panfilo <email address hidden>, 2017
-# Luca Salini, 2020-2022
+# salo.rock, 2020-2022
 # Monica <email address hidden>, 2014
-# Luca Salini, 2012
+# salo.rock, 2012
 # Valentina Menale <email address hidden>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:57+0000\n"
-"Last-Translator: Luca Salini, 2020-2022\n"
+"Last-Translator: salo.rock, 2020-2022\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -341,6 +341,7 @@ msgid "alto flute"
 msgstr "flauto contralto"
 
 #: DB:instrument/name:21
+msgctxt "Middle member of the saxophone family"
 msgid "alto saxophone"
 msgstr "sassofono contralto"
 
@@ -510,6 +511,7 @@ msgid "baritone horn"
 msgstr "flicorno baritono"
 
 #: DB:instrument/name:23
+msgctxt "Middle-Low member of the saxophone family"
 msgid "baritone saxophone"
 msgstr "sassofono baritono"
 
@@ -578,6 +580,7 @@ msgid "bass recorder"
 msgstr "flauto dolce basso"
 
 #: DB:instrument/name:444
+msgctxt "Second lowest member of the saxophone family"
 msgid "bass saxophone"
 msgstr "sassofono basso"
 
@@ -1117,6 +1120,7 @@ msgid "contrabass recorder"
 msgstr "flauto dolce contrabbasso"
 
 #: DB:instrument/name:446
+msgctxt "Largest member of the saxophone family"
 msgid "contrabass saxophone"
 msgstr "sassofono contrabbasso"
 

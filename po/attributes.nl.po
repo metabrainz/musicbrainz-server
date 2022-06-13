@@ -268,6 +268,13 @@ msgid ""
 " intended to improve the audience members' playing skills."
 msgstr "Een masterclass of clinic is een evenement waarbij een artiest een kleine tot middelgrote groep ontmoet en individueel instrueert en/of vragen beantwoordt met de bedoeling om het spelen van het publiek te verbeteren."
 
+#: DB:release_packaging/description:56
+msgctxt "release_packaging"
+msgid ""
+"A minimalistic plastic case where the back and front are kept together by a "
+"small hinge. Most commonly used for cheap promotion / DIY releases."
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:29
 msgctxt "work_attribute_type_allowed_value"
 msgid "A minor"
@@ -1838,6 +1845,11 @@ msgctxt "area_type"
 msgid ""
 "City is used for settlements of any size, including towns and villages."
 msgstr "Stad wordt gebruikt voor plaatsen van elke grootte, inclusief dorpen."
+
+#: DB:release_packaging/name:56
+msgctxt "release_packaging"
+msgid "Clamshell Case"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"

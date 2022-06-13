@@ -273,6 +273,13 @@ msgid ""
 " intended to improve the audience members' playing skills."
 msgstr "Mestariluokka tai -klinikka on tapahtuma, jossa artisti tapaa pienestä keskisuureen yleisön kanssa ja ohjeistaa heitä yksilöllisesti ja/tai vastaa kysymyksiin, joilla on tarkoitus parantaa yleisön jäsenten soittotaitoja."
 
+#: DB:release_packaging/description:56
+msgctxt "release_packaging"
+msgid ""
+"A minimalistic plastic case where the back and front are kept together by a "
+"small hinge. Most commonly used for cheap promotion / DIY releases."
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:29
 msgctxt "work_attribute_type_allowed_value"
 msgid "A minor"
@@ -1843,6 +1850,11 @@ msgctxt "area_type"
 msgid ""
 "City is used for settlements of any size, including towns and villages."
 msgstr "Kaupunkia käytetään kaikenkokoisille asutuskeskuksille kylistä alkaen."
+
+#: DB:release_packaging/name:56
+msgctxt "release_packaging"
+msgid "Clamshell Case"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"

@@ -284,6 +284,13 @@ msgid ""
 " intended to improve the audience members' playing skills."
 msgstr "マスタークラスまたはクリニックは、アーティストが中小規模の聴衆と会い、個別に指導したり、聴衆の演奏スキルを向上させることを目的とした質問をしたりするイベント。"
 
+#: DB:release_packaging/description:56
+msgctxt "release_packaging"
+msgid ""
+"A minimalistic plastic case where the back and front are kept together by a "
+"small hinge. Most commonly used for cheap promotion / DIY releases."
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:29
 msgctxt "work_attribute_type_allowed_value"
 msgid "A minor"
@@ -1854,6 +1861,11 @@ msgctxt "area_type"
 msgid ""
 "City is used for settlements of any size, including towns and villages."
 msgstr "市は、町や村も含むどんな大きさの居住地区にも用いられます。"
+
+#: DB:release_packaging/name:56
+msgctxt "release_packaging"
+msgid "Clamshell Case"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"

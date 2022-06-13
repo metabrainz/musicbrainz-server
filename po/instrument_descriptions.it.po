@@ -7,16 +7,16 @@
 # Fen0x F <email address hidden>, 2020
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
-# Luca Salini, 2020-2022
-# Luca Salini, 2020
-# Luca Salini, 2012
-# Luca Salini, 2022
+# salo.rock, 2020-2022
+# salo.rock, 2020
+# salo.rock, 2012
+# salo.rock, 2022
 # Valentina Menale <email address hidden>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 19:17+0000\n"
-"Last-Translator: Luca Salini, 2020-2022\n"
+"Last-Translator: salo.rock, 2022\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2504,6 +2504,13 @@ msgid ""
 " ornate case."
 msgstr "Secondo più acuto tra i gangsa, è più grave del kantilan ma come questo ha 10 barrette in ottone o in bronzo sospese sopra risuonatori corti in canna di bambù, disposti in un contenitore riccamente ornato."
 
+#. name:bass saxophone
+#: DB:instrument/description:444
+msgid ""
+"Second largest and lowest member of the saxophone family. It is similar to "
+"the baritone, but larger and with a longer loop near the mouthpiece."
+msgstr "Secondo membro più grande e dal tono più grave della famiglia dei sassofoni. Assomiglia al sassofono baritono, ma è più grande e ha un avvolgimento del canneggio più lungo vicino al bocchino."
+
 #. name:jublag
 #: DB:instrument/description:980
 msgid ""
@@ -2951,13 +2958,6 @@ msgid ""
 "d'amour."
 msgstr "Flauto traverso in sol, più basso in tono rispetto al flauto d'amore."
 
-#. name:alto saxophone
-#: DB:instrument/description:21
-msgid ""
-"The alto saxophone is a woodwind invented by Adolphe Sax which is between "
-"the tenor and soprano in size."
-msgstr "Strumento della famiglia dei legni inventato da Adolphe Sax, si colloca per dimensioni tra il sassofono tenore e il sassofono soprano."
-
 #. name:archlute
 #: DB:instrument/description:507
 msgid ""
@@ -3031,13 +3031,6 @@ msgid ""
 "mouthpiece which is pitched in B♭, one octave below the B♭ trumpet."
 msgstr "Ottone a pistoni con un bocchino a forma di tazza dal bordo largo, intonato in si bemolle, un'ottava al di sotto della tromba in si bemolle."
 
-#. name:baritone saxophone
-#: DB:instrument/description:23
-msgid ""
-"The baritone saxophone is the largest and lowest-pitch saxophone in wide "
-"use."
-msgstr "Il sassofono più grande e dal tono più grave tra quelli di uso comune."
-
 #. name:bass clarinet
 #: DB:instrument/description:11
 msgid ""
@@ -3065,15 +3058,6 @@ msgid ""
 "The bass oboe is a double reed woodwind instrument which is about twice the "
 "size of a regular oboe."
 msgstr "Strumento ad ancia doppia della famiglia dei legni, grande il doppio di un oboe normale."
-
-#. name:bass saxophone
-#: DB:instrument/description:444
-msgid ""
-"The bass saxophone is the second largest existing member of the saxophone "
-"family (not counting the subcontrabass tubax). It is similar in design to a "
-"baritone saxophone, but it is larger, with a longer loop near the "
-"mouthpiece."
-msgstr "Il sassofono basso è il terzo membro più grande della famiglia dei sassofoni (senza contare il subcontrabbasso tubax). Ha un design simile al sassofono baritono, ma è più grande e ha un riccio più lungo vicino al bocchino."
 
 #. name:bass trumpet
 #: DB:instrument/description:727
@@ -3645,6 +3629,14 @@ msgid ""
 "\"female\" drum."
 msgstr "Il tamburo più grande e dal tono più grave del kendang balinese. È il tamburo \"femmina\" che fa da primo strumento."
 
+#. name:contrabass saxophone
+#: DB:instrument/description:446
+msgid ""
+"The largest and lowest pitch member of the saxophone family (ignoring the "
+"subcontrabass <a "
+"href=\"/instrument/6e33958d-741f-4669-955a-5a29a99f72e1\">tubax</a>)"
+msgstr "Il membro più grande e dal tono più grave della famiglia dei sassofoni (ignorando il <a href=\"/instrument/6e33958d-741f-4669-955a-5a29a99f72e1\">tubax</a> subcontrabbasso)."
+
 #. name:lasso d'amore
 #: DB:instrument/description:144
 msgid ""
@@ -3708,6 +3700,18 @@ msgid ""
 "The most common and based on the original design, its fifth string is "
 "shorter than the others, creating an uneven pitch progression."
 msgstr "Il banjo più comune e basato sul design originale. La sua quinta corda è più corta delle altre, creando una progressione di toni disuguale."
+
+#. name:alto saxophone
+#: DB:instrument/description:21
+msgid "The most common member of the saxophone family, it is the alto member."
+msgstr "Il membro più comune della famiglia dei sassofoni, di cui è il membro contralto."
+
+#. name:baritone saxophone
+#: DB:instrument/description:23
+msgid ""
+"The most common of the lower members of the saxophone family, it is the "
+"middle-low baritone."
+msgstr "Il più comune tra i membri gravi della famiglia dei sassofoni, è il baritono medio-basso."
 
 #. name:violin
 #: DB:instrument/description:62
