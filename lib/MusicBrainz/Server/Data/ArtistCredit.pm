@@ -304,21 +304,6 @@ sub _swap_artist_credits {
 
     return if $old_credit_id == $new_credit_id;
 
-    for my $table (entities_with('artist_credits')) {
-        my $ids = $self->c->sql->select_single_column_array(
-            "UPDATE $table SET artist_credit = ?
-             WHERE artist_credit = ? RETURNING id",
-            $new_credit_id, $old_credit_id
-        );
-        $self->c->model(type_to_model($table))->_delete_from_cache(@$ids) if $table ne 'track';
-    }
-
-    $self->c->sql->do(
-        'DELETE FROM artist_credit_name
-         WHERE artist_credit = ?',
-        $old_credit_id
-    );
-
     $self->c->sql->do(<<~'SQL', $new_credit_id, $old_credit_id);
         INSERT INTO artist_credit_gid_redirect
              SELECT gid,
@@ -333,6 +318,21 @@ sub _swap_artist_credits {
            SET new_id = ?::INT
          WHERE new_id = ?::INT
         SQL
+
+    for my $table (entities_with('artist_credits')) {
+        my $ids = $self->c->sql->select_single_column_array(
+            "UPDATE $table SET artist_credit = ?
+             WHERE artist_credit = ? RETURNING id",
+            $new_credit_id, $old_credit_id
+        );
+        $self->c->model(type_to_model($table))->_delete_from_cache(@$ids) if $table ne 'track';
+    }
+
+    $self->c->sql->do(
+        'DELETE FROM artist_credit_name
+         WHERE artist_credit = ?',
+        $old_credit_id
+    );
 
     $self->c->sql->do(
         'DELETE FROM artist_credit
