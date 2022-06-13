@@ -269,6 +269,7 @@ module.exports = {
   'report/TracksWithSequenceIssues': require('../report/TracksWithSequenceIssues'),
   'report/TracksWithoutTimes': require('../report/TracksWithoutTimes'),
   'report/UnlinkedPseudoReleases': require('../report/UnlinkedPseudoReleases'),
+  'report/VideosInNonVideoMediums': require('../report/VideosInNonVideoMediums'),
   'report/WikidataLinksWithMultipleEntities': require('../report/WikidataLinksWithMultipleEntities'),
   'report/WorkSameTypeAsParent': require('../report/WorkSameTypeAsParent'),
   'search/SearchIndex': require('../search/SearchIndex'),
