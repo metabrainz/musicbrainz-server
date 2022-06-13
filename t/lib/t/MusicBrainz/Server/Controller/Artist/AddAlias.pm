@@ -12,19 +12,22 @@ the sort name defaults to the name when not explicitly entered.
 
 =cut
 
-test 'Test adding alias with sort name' => sub {
+test 'Adding alias with sort name' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
     prepare_test($test);
 
-    $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/add-alias');
+    $mech->get_ok(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce/add-alias',
+        'Fetched the add alias page',
+    );
 
     my @edits = capture_edits {
         $mech->submit_form_ok({
             with_fields => {
                 'edit-alias.name' => 'An alias',
-                'edit-alias.sort_name' => 'Artist, Test'
+                'edit-alias.sort_name' => 'Artist, Test',
             },
         },
         'The form returned a 2xx response code')
@@ -56,7 +59,7 @@ test 'Test adding alias with sort name' => sub {
                 day => undef
             },
             type_id => undef,
-            ended => 0
+            ended => 0,
         },
         'The edit contains the right data',
     );
@@ -76,14 +79,18 @@ test 'Test adding alias with sort name' => sub {
     );
 };
 
-test 'MBS-6896: Test adding alias without sort name' => sub {
+test 'MBS-6896: Adding alias without sort name defaults it to name' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
     prepare_test($test);
 
+    $mech->get_ok(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce/add-alias',
+        'Fetched the add alias page',
+    );
+
     my @edits = capture_edits {
-        $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/add-alias');
         $mech->submit_form_ok({
             with_fields => {
                 'edit-alias.name' => 'Another alias',

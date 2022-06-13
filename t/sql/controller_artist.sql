@@ -24,9 +24,9 @@ INSERT INTO artist (id, gid, name, sort_name) VALUES
     (5, '089302a3-dda1-4bdf-b996-c2e941b5c41f', 'Seekrit Identity', 'Seekrit Identity');
 
 INSERT INTO artist_alias
-    (id, name, sort_name, artist, edits_pending, begin_date_year, begin_date_month, begin_date_day,
+    (id, name, sort_name, artist, type, edits_pending, begin_date_year, begin_date_month, begin_date_day,
      end_date_year, end_date_month, end_date_day)
-    VALUES (1, 'Test Alias', 'Test Alias', 3, 2, 2000, 1, 1, 2005, 5, 6);
+    VALUES (1, 'Test Alias', 'Test Alias', 3, 1, 2, 2000, 1, 1, 2005, 5, 6);
 
 INSERT INTO artist_credit (id, name, artist_count, gid) VALUES (1, 'Test Artist', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (1, 1, 3, 'Test Artist', '');

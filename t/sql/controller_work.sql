@@ -25,9 +25,9 @@ INSERT INTO iswc (id, work, iswc)
 INSERT INTO work_gid_redirect
     VALUES ('a30a4245-a7ec-4979-8b1e-b549f2782239', 1);
 
-INSERT INTO work_alias (id, name, sort_name, work, edits_pending)
-    VALUES (1, 'WA1', 'WA1', 1, 0),
-           (2, 'WA2', 'WA2', 1, 0);
+INSERT INTO work_alias (id, name, sort_name, work, type, edits_pending)
+    VALUES (1, 'WA1', 'WA1', 1, 1, 0),
+           (2, 'WA2', 'WA2', 1, 1, 0);
 
 INSERT INTO recording (id, gid, name, artist_credit, length)
     VALUES (1, 'aeb9b50a-e14a-4330-a2e6-7c8a311a9822', 'R', 1, 300000);
