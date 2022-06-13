@@ -17,6 +17,7 @@ VALUES (1, 0, 1, 'Queen', ' & '),
        (2, 0, 1, 'Queen', ' & '),
        (2, 1, 2, 'Bowie', '');
 
+-- The recording/release group here are used to test AC merging with existing uses in Data::ArtistCredit
 INSERT INTO recording (id, gid, name, artist_credit)
     VALUES (1, '32c7e292-14f1-4080-bddf-ef852e0a4c59', 'Under Pressure', 1);
 
