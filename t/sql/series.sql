@@ -6,7 +6,7 @@ INSERT INTO series (id, gid, name, comment, type, ordering_type)
            (3, 'dbb23c50-d4e4-11e3-9c1a-0800200c9a66', 'Dumb Recording Series', '', 3, 1);
 
 INSERT INTO series_alias (id, series, name, type, sort_name) VALUES
-    (1, 1, 'Test Recording Series Alias', 2, 'Test Recording Series Alias');
+    (1, 1, 'Test Series Alias', 1, 'Test Series Alias');
 
 INSERT INTO link (id, link_type, attribute_count) VALUES
     (1, 740, 1), (2, 740, 1), (3, 740, 1), (4, 740, 1),

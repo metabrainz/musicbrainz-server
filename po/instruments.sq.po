@@ -330,6 +330,7 @@ msgid "alto flute"
 msgstr "flaut alto"
 
 #: DB:instrument/name:21
+msgctxt "Middle member of the saxophone family"
 msgid "alto saxophone"
 msgstr "saksofon alto"
 
@@ -499,6 +500,7 @@ msgid "baritone horn"
 msgstr ""
 
 #: DB:instrument/name:23
+msgctxt "Middle-Low member of the saxophone family"
 msgid "baritone saxophone"
 msgstr "saksofon bariton"
 
@@ -567,6 +569,7 @@ msgid "bass recorder"
 msgstr ""
 
 #: DB:instrument/name:444
+msgctxt "Second lowest member of the saxophone family"
 msgid "bass saxophone"
 msgstr "saksofon bas"
 
@@ -1106,6 +1109,7 @@ msgid "contrabass recorder"
 msgstr ""
 
 #: DB:instrument/name:446
+msgctxt "Largest member of the saxophone family"
 msgid "contrabass saxophone"
 msgstr "saksofon kontrabas"
 

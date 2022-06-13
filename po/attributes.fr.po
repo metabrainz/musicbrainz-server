@@ -286,6 +286,13 @@ msgid ""
 " intended to improve the audience members' playing skills."
 msgstr "Un cours de maître ou atelier est un événement durant lequel un artiste rencontre un groupe de petite ou moyenne taille pour un enseignement ou pour répondre à des questions afin d’en améliorer la technique de jeu."
 
+#: DB:release_packaging/description:56
+msgctxt "release_packaging"
+msgid ""
+"A minimalistic plastic case where the back and front are kept together by a "
+"small hinge. Most commonly used for cheap promotion / DIY releases."
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:29
 msgctxt "work_attribute_type_allowed_value"
 msgid "A minor"
@@ -1856,6 +1863,11 @@ msgctxt "area_type"
 msgid ""
 "City is used for settlements of any size, including towns and villages."
 msgstr "Ville est utilisé pour des localités de toutes les tailles, incluant les villages."
+
+#: DB:release_packaging/name:56
+msgctxt "release_packaging"
+msgid "Clamshell Case"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"

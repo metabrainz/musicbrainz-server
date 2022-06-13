@@ -228,7 +228,15 @@ if ($fDoReplication)
         if ($dump_dbmirror2) {
             # NULL columns that are useless on slaves.
             $sql->do('UPDATE dbmirror2.pending_data SET oldctid = NULL, trgdepth = NULL');
-            $mbdump->dump_table($_) for @dbmirror2_tables;
+
+            for my $table (@dbmirror2_tables) {
+                # Map the schema-qualified dbmirror2 table names to file
+                # names without the schema inside the packet.
+                my $table_noschema = $table =~ s/^dbmirror2\.//r;
+                $mbdump->table_file_mapping->{$table} = $table_noschema;
+                $mbdump->dump_table($table);
+            }
+
             $mbdump->write_file('DBMIRROR_VERSION', "2\n");
         }
 

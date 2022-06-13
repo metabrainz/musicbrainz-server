@@ -4,72 +4,131 @@ use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
 use utf8;
 
-with 't::Mechanize';
-with 't::Context';
+with 't::Mechanize', 't::Context';
 
-test all => sub {
+=head2 Test description
+
+This test checks whether alias adding for recordings works, including whether
+the sort name defaults to the name when not explicitly entered.
+
+=cut
+
+test 'Adding alias with sort name' => sub {
     my $test = shift;
     my $mech = $test->mech;
-    my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
-    MusicBrainz::Server::Test->prepare_test_database($c, '+recording');
+    prepare_test($test);
 
-    $mech->get_ok('/login');
-    $mech->submit_form( with_fields => { username => 'editor', password => 'password' } );
-    $mech->get_ok('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/add-alias');
+    $mech->get_ok(
+        '/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/add-alias',
+        'Fetched the add alias page',
+    );
 
-    $mech->submit_form(
-        with_fields => {
-            'edit-alias.name' => 'Now that’s what I call a recording',
-            'edit-alias.sort_name' => 'recording, Now that’s what I call a'
-        });
+    my @edits = capture_edits {
+        $mech->submit_form_ok({
+            with_fields => {
+                'edit-alias.name' => 'Now that’s what I call a recording',
+                'edit-alias.sort_name' => 'recording, Now that’s what I call a'
+            },
+        },
+        'The form returned a 2xx response code')
+    } $test->c;
 
-    my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+    is(@edits, 1, 'The edit was entered');
+
+    my $edit = shift(@edits);
     isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::AddAlias');
 
-    is_deeply($edit->data, {
-        entity => {
-            id => 1,
-            name => 'King of the Mountain',
+    is_deeply(
+        $edit->data,
+        {
+            entity => {
+                id => 1,
+                name => 'King of the Mountain',
+            },
+            name => 'Now that’s what I call a recording',
+            sort_name => 'recording, Now that’s what I call a',
+            locale => undef,
+            primary_for_locale => 0,
+            begin_date => {
+                year => undef,
+                month => undef,
+                day => undef
+            },
+            end_date => {
+                year => undef,
+                month => undef,
+                day => undef
+            },
+            type_id => undef,
+            ended => 0,
         },
-        name => 'Now that’s what I call a recording',
-        sort_name => 'recording, Now that’s what I call a',
-        locale => undef,
-        primary_for_locale => 0,
-        begin_date => {
-            year => undef,
-            month => undef,
-            day => undef
-        },
-        end_date => {
-            year => undef,
-            month => undef,
-            day => undef
-        },
-        type_id => undef,
-        ended => 0
-    });
+        'The edit contains the right data',
+    );
 
-    $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
-    html_ok($mech->content, '..valid xml');
+    $mech->get_ok('/edit/' . $edit->id, 'Fetched the edit page');
+    html_ok($mech->content);
 
-    $mech->content_contains('King of the Mountain', '..contains recording name');
-    $mech->content_contains('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8', '..contains recording link');
-    $mech->content_contains('Now that’s what I call a recording', '..contains alias name');
-    $mech->content_contains('recording, Now that’s what I call a', '..contains alias sort name');
+    $mech->content_contains(
+        'King of the Mountain',
+        'Edit page contains series name',
+    );
+    $mech->content_contains(
+        '/recording/54b9d183-7dab-42ba-94a3-7388a66604b8',
+        'Edit page contains series link',
+    );
+    $mech->content_contains(
+        'Now that’s what I call a recording',
+        'Edit page contains alias name',
+    );
+    $mech->content_contains(
+        'recording, Now that’s what I call a',
+        'Edit page contains the selected alias sort name',
+    );
+};
 
-    # A sortname isn't required (MBS-6896)
-    ($edit) = capture_edits {
-        $mech->get_ok('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/add-alias');
-        $mech->submit_form(
+test 'MBS-6896: Adding alias without sort name defaults it to name' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    prepare_test($test);
+
+    $mech->get_ok(
+        '/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/add-alias',
+        'Fetched the add alias page',
+    );
+
+    my @edits = capture_edits {
+        $mech->submit_form_ok({
             with_fields => {
                 'edit-alias.name' => 'Now that’s what I call another recording',
-            });
-    } $c;
+            }
+        },
+        'The form returned a 2xx response code')
+    } $test->c;
+
+    is(@edits, 1, 'The edit was entered');
+
+    my $edit = shift(@edits);
 
     isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::AddAlias');
-    is($edit->data->{sort_name}, 'Now that’s what I call another recording', 'sort_name defaults to name');
+    is(
+        $edit->data->{sort_name},
+        'Now that’s what I call another recording',
+        'The (not specified) sort name in the edit data defaults to the name',
+    );
 };
+
+sub prepare_test {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+recording');
+
+    $test->mech->get('/login');
+    $test->mech->submit_form(
+        with_fields => { username => 'editor', password => 'password' }
+    );
+}
 
 1;

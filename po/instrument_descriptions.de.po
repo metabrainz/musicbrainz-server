@@ -2502,6 +2502,13 @@ msgid ""
 " ornate case."
 msgstr ""
 
+#. name:bass saxophone
+#: DB:instrument/description:444
+msgid ""
+"Second largest and lowest member of the saxophone family. It is similar to "
+"the baritone, but larger and with a longer loop near the mouthpiece."
+msgstr ""
+
 #. name:jublag
 #: DB:instrument/description:980
 msgid ""
@@ -2949,13 +2956,6 @@ msgid ""
 "d'amour."
 msgstr "Die Altflöte ist eine Art Querflöte (in Altlage, meistens in G) und gehört zur Famile der Holzblasinstrumente. Sie besitzt eine, im Unterschied zur Längsflöte, seitlich am Rohr angebrachte Anblaskante."
 
-#. name:alto saxophone
-#: DB:instrument/description:21
-msgid ""
-"The alto saxophone is a woodwind invented by Adolphe Sax which is between "
-"the tenor and soprano in size."
-msgstr "Das Altsaxophon ist ein Saxophon der hohen Lage in Es und gehört zur Gruppe der Holzblasinstrumente. Es ist kleiner als das Tenor-, aber grösser als das Sopran-Saxophon."
-
 #. name:archlute
 #: DB:instrument/description:507
 msgid ""
@@ -3029,13 +3029,6 @@ msgid ""
 "mouthpiece which is pitched in B♭, one octave below the B♭ trumpet."
 msgstr "Das Bariton (Baryton, Baritonhorn) ist ein Blechblasinstrument mit vier oder drei Ventilen, sehr ähnlich dem Tenorhorn. Grundstimmung des Baritons ist ebenfalls Kontra-B, es ist jedoch weiter mensuriert gebaut."
 
-#. name:baritone saxophone
-#: DB:instrument/description:23
-msgid ""
-"The baritone saxophone is the largest and lowest-pitch saxophone in wide "
-"use."
-msgstr "Das Baritonsaxophon ist ein Musikinstrument aus der Familie der Holzblasinstrumente, ein Saxophon der tiefen Lage in Es. Manche Varianten haben eine Tief-A-Klappe, mit der der klingende Ton C gespielt werden kann."
-
 #. name:bass clarinet
 #: DB:instrument/description:11
 msgid ""
@@ -3063,15 +3056,6 @@ msgid ""
 "The bass oboe is a double reed woodwind instrument which is about twice the "
 "size of a regular oboe."
 msgstr "Die Baritonoboe oder Bassoboe ist ein Doppelrohrblattinstrument in der Familie der Holzblasinstrumente. Sie ist etwa doppelt so gross wie eine normale Oboe und klingt eine Oktave tiefer, also in Tenorlage."
-
-#. name:bass saxophone
-#: DB:instrument/description:444
-msgid ""
-"The bass saxophone is the second largest existing member of the saxophone "
-"family (not counting the subcontrabass tubax). It is similar in design to a "
-"baritone saxophone, but it is larger, with a longer loop near the "
-"mouthpiece."
-msgstr "Das Basssaxophon ist ein Musikinstrument aus Messing. Es gehört, anders, als sein metallischer Korpus vermuten lässt, zur Familie der Holzblasinstrumente, da sein Ton mit Hilfe eines Rohrblatts erzeugt wird."
 
 #. name:bass trumpet
 #: DB:instrument/description:727
@@ -3643,6 +3627,14 @@ msgid ""
 "\"female\" drum."
 msgstr ""
 
+#. name:contrabass saxophone
+#: DB:instrument/description:446
+msgid ""
+"The largest and lowest pitch member of the saxophone family (ignoring the "
+"subcontrabass <a "
+"href=\"/instrument/6e33958d-741f-4669-955a-5a29a99f72e1\">tubax</a>)"
+msgstr ""
+
 #. name:lasso d'amore
 #: DB:instrument/description:144
 msgid ""
@@ -3705,6 +3697,18 @@ msgstr ""
 msgid ""
 "The most common and based on the original design, its fifth string is "
 "shorter than the others, creating an uneven pitch progression."
+msgstr ""
+
+#. name:alto saxophone
+#: DB:instrument/description:21
+msgid "The most common member of the saxophone family, it is the alto member."
+msgstr ""
+
+#. name:baritone saxophone
+#: DB:instrument/description:23
+msgid ""
+"The most common of the lower members of the saxophone family, it is the "
+"middle-low baritone."
 msgstr ""
 
 #. name:violin

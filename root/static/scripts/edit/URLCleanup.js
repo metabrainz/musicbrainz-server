@@ -375,6 +375,12 @@ const linkToVideoMsg = N_l(
    to the relevant artist, label, etc. instead.`,
 );
 
+const linkAsLyricsMsg = N_l(
+  `This is a lyrics site. As such, links to the site should be added
+   at the release group level with the “lyrics” relationship,
+   rather than directly to any specific release.`,
+);
+
 /*
  * CLEANUPS entries have 2 to 5 of the following properties:
  *
@@ -2731,7 +2737,7 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?linkedin\\.com/', 'i')],
     restrict: [LINK_TYPES.socialnetwork],
     clean: function (url) {
-      return url.replace(/^https?:\/\/([^/]+\.)?linkedin\.com/, 'https://$1linkedin.com');
+      return url.replace(/^https?:\/\/(?:[^/]+\.)?linkedin\.com\/([^?#]+).*$/, 'https://www.linkedin.com/$1');
     },
   },
   'livefans': {
@@ -4083,7 +4089,9 @@ const CLEANUPS: CleanupEntries = {
       },
     ],
     clean: function (url) {
-      return url.replace(/^(https?:\/\/)?((www|m)\.)?soundcloud\.com(\/#!)?/, 'https://soundcloud.com');
+      url = url.replace(/^(https?:\/\/)?((www|m)\.)?soundcloud\.com(\/#!)?/, 'https://soundcloud.com');
+      url = url.replace(/^(https:\/\/soundcloud\.com\/)(?!(?:search|tags)[\/?#])([^?]+).*$/, '$1$2');
+      return url;
     },
     validate: function (url) {
       return {
@@ -4259,13 +4267,13 @@ const CLEANUPS: CleanupEntries = {
   'tidal': {
     match: [new RegExp(
       '^(https?://)?' +
-      '(([^/]+\\.)*(desktop|listen|stage|store|www)\\.)?tidal\\.com' +
+      '(([^/]+\\.)*(desktop|listen|stage|www)\\.)?tidal\\.com' +
       '/.*(album|artist|track|video)/',
       'i',
     )],
     restrict: [LINK_TYPES.streamingpaid],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:(?:[^\/]+\.)*(?:desktop|listen|stage|store|www)\.)?tidal\.com\/(?:#!\/)?([\w\/]+).*$/, 'https://tidal.com/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:(?:[^\/]+\.)*(?:desktop|listen|stage|www)\.)?tidal\.com\/(?:#!\/)?([\w\/]+).*$/, 'https://tidal.com/$1');
       url = url.replace(/^https:\/\/tidal\.com\/(?:[a-z]{2}\/)?(?:browse\/|store\/)?(?:[a-z]+\/\d+\/)?([a-z]+)\/(\d+)(?:\/[\w]*)?$/, 'https://tidal.com/$1/$2');
       return url;
     },
@@ -4286,6 +4294,36 @@ const CLEANUPS: CleanupEntries = {
             return {result: false, target: ERROR_TARGETS.ENTITY};
           case LINK_TYPES.streamingpaid.recording:
             if (prefix === 'track' || prefix === 'video') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'tidalstore': {
+    match: [new RegExp(
+      '^(https?://)?store\\.tidal\\.com/(?:[a-z]{2}/)?(album|artist)/',
+      'i',
+    )],
+    restrict: [LINK_TYPES.downloadpurchase],
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?store\.tidal\.com\/(?:[a-z]{2}\/)?/, 'https://store.tidal.com/');
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/store\.tidal\.com\/([a-z]+)\/\d+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.artist:
+            if (prefix === 'artist') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+          case LINK_TYPES.downloadpurchase.release:
+            if (prefix === 'album') {
               return {result: true};
             }
             return {result: false, target: ERROR_TARGETS.ENTITY};
@@ -5175,6 +5213,13 @@ entitySpecificRules.release = function (url) {
          Please add this Wikidata link to the release group instead,
          if appropriate.`,
       ),
+      result: false,
+      target: ERROR_TARGETS.ENTITY,
+    };
+  }
+  if (/^(https?:\/\/)?([^.\/]+\.)?genius\.com\//.test(url)) {
+    return {
+      error: linkAsLyricsMsg(),
       result: false,
       target: ERROR_TARGETS.ENTITY,
     };

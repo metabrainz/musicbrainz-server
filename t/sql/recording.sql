@@ -32,4 +32,4 @@ INSERT INTO track (id, gid, medium, position, number, recording, name, artist_cr
               (64, '13103972-499f-4407-b248-3d04c1afcc24', 24, 1, 1, 1, 'King of the Mountain', 1, NULL);
 
 INSERT INTO recording_alias (id, recording, name, type, sort_name) VALUES
-    (1, 1, 'Test Recording Alias', 2, 'Test Recording Alias');
+    (1, 1, 'Test Recording Alias', 1, 'Test Recording Alias');

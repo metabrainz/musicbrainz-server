@@ -63,6 +63,8 @@ INSERT INTO editor_collection_type VALUES (15, 'Work', 'work', NULL, 2, NULL, '9
 INSERT INTO event_alias_type VALUES (1, 'Event name', NULL, 0, NULL, '412aac48-424b-3052-a314-1f926e8018c8');
 INSERT INTO event_alias_type VALUES (2, 'Search hint', NULL, 0, NULL, '9b7e72d0-ef3f-3c75-908c-f94c48eb6484');
 
+INSERT INTO event_art_archive.art_type VALUES (1, 'Poster', NULL, 0, NULL, '7ced53fc-bb27-33ae-aeef-79d6e24fec3c');
+
 INSERT INTO event_type VALUES (1, 'Concert', NULL, 1, 'An individual concert by a single artist or collaboration, often with supporting artists who perform before the main act.', 'ef55e8d7-3d00-394a-8012-f5506a29ff0b');
 INSERT INTO event_type VALUES (2, 'Festival', NULL, 2, 'An event where a number of different acts perform across the course of the day. Larger festivals may be spread across multiple days.', 'b6ded574-b592-3f0e-b56e-5b5f06aa0678');
 INSERT INTO event_type VALUES (3, 'Launch event', NULL, 3, 'A party, reception or other event held specifically for the launch of a release.', 'caee15f1-f9c4-3122-821f-34ea4011ac7d');

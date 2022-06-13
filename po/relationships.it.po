@@ -7,18 +7,18 @@
 # Gioele <email address hidden>, 2012
 # theloca95 <email address hidden>, 2015
 # leofiore <email address hidden>, 2012
-# Luca Salini, 2012,2017,2020-2022
-# Luca Salini, 2020
+# salo.rock, 2012,2017,2020-2022
+# salo.rock, 2020
 # Monica <email address hidden>, 2014
 # Nicolás Tamargo <email address hidden>, 2021
-# Luca Salini, 2014
-# Luca Salini, 2012
-# Luca Salini, 2022
+# salo.rock, 2014
+# salo.rock, 2012
+# salo.rock, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: Luca Salini, 2022\n"
+"Last-Translator: salo.rock, 2022\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1887,6 +1887,12 @@ msgid ""
 "This is used to indicate that a release group is a live performance of a "
 "studio release group."
 msgstr "Serve a indicare che un gruppo di pubblicazioni è un'esibizione dal vivo di un gruppo di pubblicazioni registrato in studio."
+
+#: DB:link_type/description:1082
+msgid ""
+"This is used to indicate that a release group is a translated version of "
+"another."
+msgstr "Serve a indicare che un gruppo di pubblicazioni è una versione tradotta di un altro."
 
 #: DB:link_type/description:239
 msgid ""
@@ -4562,8 +4568,8 @@ msgid "has a setlist.fm page at"
 msgstr "ha la pagina di setlist.fm"
 
 #: DB:link_type/long_link_phrase:784 DB:link_type/long_link_phrase:783
-#: DB:link_type/long_link_phrase:192 DB:link_type/long_link_phrase:218
-#: DB:link_type/long_link_phrase:429
+#: DB:link_type/long_link_phrase:218 DB:link_type/long_link_phrase:429
+#: DB:link_type/long_link_phrase:192
 msgid "has a social networking page at"
 msgstr "ha una pagina di social network su"
 
@@ -4601,8 +4607,8 @@ msgstr "ha un canale YouTube ufficiale su"
 msgid "has an official homepage at"
 msgstr "ha la pagina ufficiale"
 
-#: DB:link_type/long_link_phrase:804 DB:link_type/long_link_phrase:805
-#: DB:link_type/long_link_phrase:303 DB:link_type/long_link_phrase:304
+#: DB:link_type/long_link_phrase:804 DB:link_type/long_link_phrase:304
+#: DB:link_type/long_link_phrase:805 DB:link_type/long_link_phrase:303
 #: DB:link_type/long_link_phrase:495
 msgid "has an official video channel at"
 msgstr "ha un canale video ufficiale su"
@@ -6412,20 +6418,20 @@ msgstr "singolo da"
 msgid "single/EP which was taken from"
 msgstr "singolo/EP tratto da"
 
-#: DB:link_type/name:784 DB:link_type/name:783 DB:link_type/name:192
-#: DB:link_type/name:218 DB:link_type/name:429
+#: DB:link_type/name:784 DB:link_type/name:783 DB:link_type/name:218
+#: DB:link_type/name:429 DB:link_type/name:192
 msgid "social network"
 msgstr "social network"
 
 #: DB:link_type/link_phrase:784 DB:link_type/link_phrase:783
-#: DB:link_type/link_phrase:192 DB:link_type/link_phrase:218
-#: DB:link_type/link_phrase:429
+#: DB:link_type/link_phrase:218 DB:link_type/link_phrase:429
+#: DB:link_type/link_phrase:192
 msgid "social networking"
 msgstr "social network"
 
 #: DB:link_type/reverse_link_phrase:784 DB:link_type/reverse_link_phrase:783
-#: DB:link_type/reverse_link_phrase:192 DB:link_type/reverse_link_phrase:218
-#: DB:link_type/reverse_link_phrase:429
+#: DB:link_type/reverse_link_phrase:218 DB:link_type/reverse_link_phrase:429
+#: DB:link_type/reverse_link_phrase:192
 msgid "social networking page for"
 msgstr "pagina di social network di"
 
@@ -6648,6 +6654,18 @@ msgstr "tradotta presso"
 msgid "translated in"
 msgstr "tradotta a"
 
+#: DB:link_type/name:1082
+msgid "translated version"
+msgstr "versione tradotta"
+
+#: DB:link_type/reverse_link_phrase:1082
+msgid "translated version of"
+msgstr "versione tradotta di"
+
+#: DB:link_type/link_phrase:1082
+msgid "translated versions"
+msgstr "versioni tradotte"
+
 #: DB:link_attribute_type/name:1018 DB:link_type/name:871
 #: DB:link_type/name:872
 msgid "translator"
@@ -6710,15 +6728,15 @@ msgstr "video"
 msgid "video appearance"
 msgstr "partecipazione in video"
 
-#: DB:link_type/link_phrase:804 DB:link_type/link_phrase:805
-#: DB:link_type/link_phrase:303 DB:link_type/link_phrase:304
-#: DB:link_type/link_phrase:495 DB:link_type/name:804 DB:link_type/name:805
-#: DB:link_type/name:303 DB:link_type/name:304 DB:link_type/name:495
+#: DB:link_type/link_phrase:804 DB:link_type/link_phrase:304
+#: DB:link_type/link_phrase:805 DB:link_type/link_phrase:303
+#: DB:link_type/link_phrase:495 DB:link_type/name:804 DB:link_type/name:304
+#: DB:link_type/name:805 DB:link_type/name:303 DB:link_type/name:495
 msgid "video channel"
 msgstr "canale video"
 
-#: DB:link_type/reverse_link_phrase:804 DB:link_type/reverse_link_phrase:805
-#: DB:link_type/reverse_link_phrase:303 DB:link_type/reverse_link_phrase:304
+#: DB:link_type/reverse_link_phrase:804 DB:link_type/reverse_link_phrase:304
+#: DB:link_type/reverse_link_phrase:805 DB:link_type/reverse_link_phrase:303
 #: DB:link_type/reverse_link_phrase:495
 msgid "video channel for"
 msgstr "canale video per"
@@ -7543,6 +7561,10 @@ msgstr "{entity1} è un tour di {entity0}"
 #: DB:link_type/long_link_phrase:752
 msgid "{entity1} is a traditional instrument from {entity0}"
 msgstr "{entity1} è uno strumento tradizionale di {entity0}"
+
+#: DB:link_type/long_link_phrase:1082
+msgid "{entity1} is a translated version of {entity0}"
+msgstr "{entity1} è una versione tradotta di {entity0}"
 
 #: DB:link_type/long_link_phrase:65 DB:link_type/long_link_phrase:970
 msgid "{entity1} is a tribute to {entity0}"

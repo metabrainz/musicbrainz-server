@@ -11,8 +11,8 @@ INSERT INTO area (id, gid, name, type) VALUES
 INSERT INTO country_area (area) VALUES ( 13), ( 81), (107), (221), (222), (241);
 INSERT INTO iso_3166_1 (area, code) VALUES ( 13, 'AU'), ( 81, 'DE'), (107, 'JP'), (221, 'GB'), (222, 'US'), (241, 'XE');
 
-INSERT INTO area_alias (id, name, sort_name, area, edits_pending)
-    VALUES (1, 'オーストラリア', 'オーストラリア', 13, 0);
+INSERT INTO area_alias (id, name, sort_name, type, area, edits_pending)
+    VALUES (1, 'オーストラリア', 'オーストラリア', 1, 13, 0);
 
 INSERT INTO link VALUES (118734, 356, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2013-05-17 20:05:50.534145+00', FALSE);
 INSERT INTO l_area_area VALUES (4892, 118734, 13, 5126, 0, '2013-05-24 20:32:44.702487+00', 0, '', '');

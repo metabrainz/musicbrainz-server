@@ -513,6 +513,10 @@ const ReportsIndex = ({$c}: Props): React.Element<typeof Layout> => (
           content={l('Recordings with dates in the future')}
           reportName="RecordingsWithFutureDates"
         />
+        <ReportsIndexEntry
+          content={l('Video recordings in non-video mediums')}
+          reportName="VideosInNonVideoMediums"
+        />
       </ul>
 
       <h2>{l('Places')}</h2>
