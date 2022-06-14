@@ -17,6 +17,8 @@ export function formatPluralEntityTypeName(typeName: string): string {
       return l('Collections');
     case 'event':
       return l('Events');
+    case 'genre':
+      return l('Genres');
     case 'instrument':
       return l('Instruments');
     case 'label':
@@ -50,6 +52,8 @@ export default function formatEntityTypeName(typeName: string): string {
       return l('Collection');
     case 'event':
       return l('Event');
+    case 'genre':
+      return l('Genre');
     case 'instrument':
       return l('Instrument');
     case 'label':

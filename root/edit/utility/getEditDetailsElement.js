@@ -14,6 +14,7 @@ import AddArtist from '../details/AddArtist';
 import AddCoverArt from '../details/AddCoverArt';
 import AddDiscId from '../details/AddDiscId';
 import AddEvent from '../details/AddEvent';
+import AddGenre from '../details/AddGenre';
 import AddInstrument from '../details/AddInstrument';
 import AddIsrcs from '../details/AddIsrcs';
 import AddIswcs from '../details/AddIswcs';
@@ -39,6 +40,7 @@ import EditArtistCredit from '../details/EditArtistCredit';
 import EditBarcodes from '../details/EditBarcodes';
 import EditCoverArt from '../details/EditCoverArt';
 import EditEvent from '../details/EditEvent';
+import EditGenre from '../details/EditGenre';
 import EditInstrument from '../details/EditInstrument';
 import EditLabel from '../details/EditLabel';
 import EditMedium from '../details/EditMedium';
@@ -138,6 +140,8 @@ export default function getEditDetailsElement(
       return <AddDiscId edit={edit} />;
     case EDIT_TYPES.EDIT_EVENT_CREATE:
       return <AddEvent edit={edit} />;
+    case EDIT_TYPES.EDIT_GENRE_CREATE:
+      return <AddGenre edit={edit} />;
     case EDIT_TYPES.EDIT_INSTRUMENT_CREATE:
       return <AddInstrument edit={edit} />;
     case EDIT_TYPES.EDIT_RECORDING_ADD_ISRCS:
@@ -219,6 +223,8 @@ export default function getEditDetailsElement(
       return <EditCoverArt edit={edit} />;
     case EDIT_TYPES.EDIT_EVENT_EDIT:
       return <EditEvent edit={edit} />;
+    case EDIT_TYPES.EDIT_GENRE_EDIT:
+      return <EditGenre edit={edit} />;
     case EDIT_TYPES.EDIT_INSTRUMENT_EDIT:
       return <EditInstrument edit={edit} />;
     case EDIT_TYPES.EDIT_LABEL_EDIT:
@@ -281,6 +287,7 @@ export default function getEditDetailsElement(
     case EDIT_TYPES.EDIT_AREA_DELETE:
     case EDIT_TYPES.EDIT_ARTIST_DELETE:
     case EDIT_TYPES.EDIT_EVENT_DELETE:
+    case EDIT_TYPES.EDIT_GENRE_DELETE:
     case EDIT_TYPES.EDIT_INSTRUMENT_DELETE:
     case EDIT_TYPES.EDIT_LABEL_DELETE:
     case EDIT_TYPES.EDIT_PLACE_DELETE:
