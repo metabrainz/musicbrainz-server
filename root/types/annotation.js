@@ -11,6 +11,7 @@ declare type AnnotatedEntityT =
   | AreaT
   | ArtistT
   | EventT
+  | GenreT
   | InstrumentT
   | LabelT
   | PlaceT

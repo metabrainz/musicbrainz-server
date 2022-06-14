@@ -229,6 +229,9 @@
         "model": "Gender"
     },
     "genre": {
+        "annotations": {
+            "edit_type": 164
+        },
         "cache": {
             "id": 333
         },

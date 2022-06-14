@@ -35,6 +35,11 @@ declare type AddEventAnnotationEditT = $ReadOnly<{
   +edit_type: EDIT_EVENT_ADD_ANNOTATION_T,
 }>;
 
+declare type AddGenreAnnotationEditT = $ReadOnly<{
+  ...AddAnnotationEditGenericT,
+  +edit_type: EDIT_GENRE_ADD_ANNOTATION_T,
+}>;
+
 declare type AddInstrumentAnnotationEditT = $ReadOnly<{
   ...AddAnnotationEditGenericT,
   +edit_type: EDIT_INSTRUMENT_ADD_ANNOTATION_T,
@@ -79,6 +84,7 @@ declare type AddAnnotationEditT =
   | AddAreaAnnotationEditT
   | AddArtistAnnotationEditT
   | AddEventAnnotationEditT
+  | AddGenreAnnotationEditT
   | AddInstrumentAnnotationEditT
   | AddLabelAnnotationEditT
   | AddPlaceAnnotationEditT

@@ -11,6 +11,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name     => 'genre',
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
+with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 
@@ -65,7 +66,7 @@ with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_GENRE_DELETE,
 };
 
-for my $method (qw( create edit delete )) {
+for my $method (qw( create edit delete edit_annotation )) {
     before $method => sub {
         my ($self, $c) = @_;
         if (!$c->user->is_relationship_editor) {
