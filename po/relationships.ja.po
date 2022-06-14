@@ -304,6 +304,10 @@ msgid ""
 "groups."
 msgstr "長期にわたって他のミュージシャンのアルバムやコンサートでのヴォーカルのサポートをしているミュージシャンを意味します。一般的には有名なソロアーティスト、場合によってはグループに適用される person-to-artist の関連です。"
 
+#: DB:link_type/description:1083
+msgid "Indicates a page with an official schedule for an event series."
+msgstr ""
+
 #: DB:link_type/description:109
 msgid "Indicates a parent-child relationship."
 msgstr "親子の関係を示します。"
@@ -469,6 +473,10 @@ msgid ""
 "Indicates that two persons were romantically involved with each other "
 "without being married."
 msgstr "二人が結婚することなく恋愛関係にあったことを示します。"
+
+#: DB:link_type/description:1085
+msgid "Indicates the area an event series was held at."
+msgstr ""
 
 #: DB:link_type/description:715
 msgid "Indicates the area where the work had its first performance"
@@ -849,6 +857,10 @@ msgstr "イベントとゲストパフォーマーとを結びつけます。ゲ
 #: DB:link_type/description:806
 msgid "Links an event to an artist that was a conductor in it."
 msgstr "イベントとその指揮者であったアーティストとを結びつけます。"
+
+#: DB:link_type/description:1084
+msgid "Links an event to an engineer or sound technician who worked on it."
+msgstr ""
 
 #: DB:link_type/description:807
 msgid "Links an event to an orchestra that performed in it."
@@ -4192,7 +4204,7 @@ msgstr "電子音楽"
 msgid "emeritus"
 msgstr ""
 
-#: DB:link_type/name:138 DB:link_type/name:28
+#: DB:link_type/name:1084 DB:link_type/name:138 DB:link_type/name:28
 msgid "engineer"
 msgstr "エンジニア"
 
@@ -4204,6 +4216,10 @@ msgstr ""
 msgid "engineer position at"
 msgstr ""
 
+#: DB:link_type/link_phrase:1084
+msgid "engineered"
+msgstr ""
+
 #: DB:link_type/name:813 DB:link_type/name:812
 msgid "engineered at"
 msgstr ""
@@ -4212,7 +4228,8 @@ msgstr ""
 msgid "engineered in"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
+#: DB:link_type/reverse_link_phrase:1084 DB:link_type/reverse_link_phrase:120
+#: DB:link_type/reverse_link_phrase:701
 msgid "engineers"
 msgstr "エンジニア"
 
@@ -4561,6 +4578,10 @@ msgstr "の画像のURLは"
 msgid "has a review page at"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1083
+msgid "has a schedule at"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:811 DB:link_type/long_link_phrase:816
 #: DB:link_type/long_link_phrase:817 DB:link_type/long_link_phrase:938
 msgid "has a setlist.fm page at"
@@ -4726,7 +4747,8 @@ msgstr "開催場所"
 msgid "held events"
 msgstr ""
 
-#: DB:link_type/name:793 DB:link_type/reverse_link_phrase:793
+#: DB:link_type/name:793 DB:link_type/name:1085
+#: DB:link_type/reverse_link_phrase:793 DB:link_type/reverse_link_phrase:1085
 msgid "held in"
 msgstr ""
 
@@ -4747,10 +4769,10 @@ msgstr ""
 msgid "holds copyright (©) for"
 msgstr ""
 
-#: DB:link_type/link_phrase:710 DB:link_type/link_phrase:711
-#: DB:link_type/link_phrase:867 DB:link_type/link_phrase:869
-#: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:711
-#: DB:link_type/long_link_phrase:867 DB:link_type/long_link_phrase:869
+#: DB:link_type/link_phrase:710 DB:link_type/link_phrase:867
+#: DB:link_type/link_phrase:869 DB:link_type/link_phrase:711
+#: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:867
+#: DB:link_type/long_link_phrase:869 DB:link_type/long_link_phrase:711
 msgid "holds phonographic copyright (℗) for"
 msgstr ""
 
@@ -5202,7 +5224,7 @@ msgstr "次のライブ演奏"
 msgid "live performances"
 msgstr "ライブ演奏"
 
-#: DB:link_type/link_phrase:995
+#: DB:link_type/link_phrase:995 DB:link_type/link_phrase:1085
 msgid "location for"
 msgstr ""
 
@@ -5829,13 +5851,13 @@ msgstr ""
 msgid "personal relationship"
 msgstr ""
 
-#: DB:link_type/name:710 DB:link_type/name:711 DB:link_type/name:867
-#: DB:link_type/name:869
+#: DB:link_type/name:710 DB:link_type/name:867 DB:link_type/name:869
+#: DB:link_type/name:711
 msgid "phonographic copyright"
 msgstr "原盤権"
 
-#: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:711
-#: DB:link_type/reverse_link_phrase:867 DB:link_type/reverse_link_phrase:869
+#: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:867
+#: DB:link_type/reverse_link_phrase:869 DB:link_type/reverse_link_phrase:711
 msgid "phonographic copyright (℗) by"
 msgstr ""
 
@@ -6056,19 +6078,19 @@ msgstr ""
 msgid "provided {additional} legal representation for"
 msgstr ""
 
-#: DB:link_type/link_phrase:206 DB:link_type/link_phrase:362
-#: DB:link_type/link_phrase:127 DB:link_type/link_phrase:32
-#: DB:link_type/link_phrase:161 DB:link_type/link_phrase:208
+#: DB:link_type/link_phrase:206 DB:link_type/link_phrase:127
+#: DB:link_type/link_phrase:32 DB:link_type/link_phrase:161
+#: DB:link_type/link_phrase:208 DB:link_type/link_phrase:362
 #: DB:link_type/name:362 DB:link_type/long_link_phrase:206
-#: DB:link_type/long_link_phrase:362 DB:link_type/long_link_phrase:127
-#: DB:link_type/long_link_phrase:32 DB:link_type/long_link_phrase:161
-#: DB:link_type/long_link_phrase:208
+#: DB:link_type/long_link_phrase:127 DB:link_type/long_link_phrase:32
+#: DB:link_type/long_link_phrase:161 DB:link_type/long_link_phrase:208
+#: DB:link_type/long_link_phrase:362
 msgid "published"
 msgstr "が音楽出版社の"
 
-#: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:362
-#: DB:link_type/reverse_link_phrase:127 DB:link_type/reverse_link_phrase:32
-#: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:208
+#: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:127
+#: DB:link_type/reverse_link_phrase:32 DB:link_type/reverse_link_phrase:161
+#: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:362
 msgid "publisher"
 msgstr "音楽出版社"
 
@@ -6363,6 +6385,14 @@ msgstr ""
 
 #: DB:link_type/name:69 DB:link_type/name:231
 msgid "samples material"
+msgstr ""
+
+#: DB:link_type/link_phrase:1083 DB:link_type/name:1083
+msgid "schedule"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1083
+msgid "schedule for"
 msgstr ""
 
 #: DB:link_type/name:308 DB:link_type/name:976 DB:link_type/name:977
@@ -6806,6 +6836,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:932
 msgid "was a supporting DJ at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1084
+msgid "was an engineer at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:807
@@ -7611,7 +7645,7 @@ msgstr ""
 msgid "{entity1} was glass mastered at {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:995
+#: DB:link_type/long_link_phrase:995 DB:link_type/long_link_phrase:1085
 msgid "{entity1} was held at {entity0}"
 msgstr ""
 
