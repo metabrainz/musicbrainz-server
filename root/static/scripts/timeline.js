@@ -495,8 +495,8 @@ class TimelineLine {
       .css({
         'position': 'absolute',
         'display': 'none',
-        'top': y + 5,
-        'left': x + 5,
+        'top': y + 16,
+        'left': x + 12,
         'border': '1px solid #fdd',
         'padding': '2px',
         'background-color': '#fee',
