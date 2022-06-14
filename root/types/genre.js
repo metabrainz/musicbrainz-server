@@ -9,6 +9,7 @@
 
 // MusicBrainz::Server::Entity::Genre::TO_JSON
 declare type GenreT = $ReadOnly<{
+  ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT<'genre'>,
   +primaryAlias?: string | null,

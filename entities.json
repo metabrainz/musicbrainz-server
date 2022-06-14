@@ -229,11 +229,14 @@
         "model": "Gender"
     },
     "genre": {
+        "annotations": {
+            "edit_type": 164
+        },
         "cache": {
             "id": 333
         },
         "disambiguation": true,
-        "edit_table": false,
+        "edit_table": true,
         "mbid": {
             "indexable": true,
             "multiple": false

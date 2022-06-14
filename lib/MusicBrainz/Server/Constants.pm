@@ -259,6 +259,12 @@ Readonly our $EDIT_EVENT_ADD_ALIAS => 155;
 Readonly our $EDIT_EVENT_DELETE_ALIAS => 156;
 Readonly our $EDIT_EVENT_EDIT_ALIAS => 157;
 
+Readonly our $EDIT_GENRE_CREATE => 160;
+Readonly our $EDIT_GENRE_EDIT => 161;
+Readonly our $EDIT_GENRE_DELETE => 162;
+# 163 reserved for EDIT_GENRE_MERGE if ever implemented
+Readonly our $EDIT_GENRE_ADD_ANNOTATION => 164;
+
 Readonly our $EDIT_WIKIDOC_CHANGE => 120;
 
 Readonly our $EDIT_URL_EDIT => 101;

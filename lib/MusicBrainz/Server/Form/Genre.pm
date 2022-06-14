@@ -2,6 +2,7 @@ package MusicBrainz::Server::Form::Genre;
 use HTML::FormHandler::Moose;
 
 extends 'MusicBrainz::Server::Form';
+with 'MusicBrainz::Server::Form::Role::Edit';
 
 has '+name' => ( default => 'edit-genre' );
 

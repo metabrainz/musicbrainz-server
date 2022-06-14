@@ -57,6 +57,7 @@ const entries = [
   'edit/notes-received',
   'event/edit',
   'event/index',
+  'genre/index',
   'instrument/index',
   'jed-data',
   'label/index',

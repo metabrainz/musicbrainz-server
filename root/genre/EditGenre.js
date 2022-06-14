@@ -15,17 +15,17 @@ import type {GenreFormT} from './types';
 
 type Props = {
   +$c: CatalystContextT,
+  +entity: GenreT,
   +form: GenreFormT,
-  +genre: GenreT,
 };
 
 const EditGenre = ({
   $c,
+  entity,
   form,
-  genre,
 }: Props): React.Element<typeof GenreLayout> => (
   <GenreLayout
-    entity={genre}
+    entity={entity}
     fullWidth
     page="edit"
     title={l('Edit genre')}
