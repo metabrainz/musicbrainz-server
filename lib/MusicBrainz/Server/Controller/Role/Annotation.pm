@@ -23,6 +23,7 @@ after 'load' => sub
     my $model = $self->{model};
 
     $c->model($model)->annotation->load_latest($entity);
+    $c->model('Editor')->load($entity->latest_annotation);
 };
 
 sub latest_annotation : Chained('load') PathPart('annotation')
@@ -43,7 +44,7 @@ sub latest_annotation : Chained('load') PathPart('annotation')
     );
 
     my %props = (
-        annotation => $annotation->TO_JSON,
+        annotation => $annotation ? $annotation->TO_JSON : undef,
         entity => $entity->TO_JSON,
         numberOfRevisions => scalar @$annotations,
     );

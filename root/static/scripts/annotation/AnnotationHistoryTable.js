@@ -21,8 +21,8 @@ type Props = {
 
 /* eslint-disable flowtype/sort-keys */
 type ActionT =
-  | {+type: 'update-new', +annotationId: number}
-  | {+type: 'update-old', +annotationId: number}
+  | {+type: 'update-new', +index: number}
+  | {+type: 'update-old', +index: number}
 ;
 /* eslint-enable flowtype/sort-keys */
 
@@ -33,10 +33,11 @@ type StateT = {
 
 type WritableStateT = {...StateT}; // this has writable properties
 
-function createInitialState(annotations) {
+function createInitialState() {
   return {
-    selectedNew: annotations[0]?.id ?? 0,
-    selectedOld: annotations[1]?.id ?? 0,
+    // These default indices are only used if canCompare is true below
+    selectedNew: 0,
+    selectedOld: 1,
   };
 }
 
@@ -44,11 +45,11 @@ function reducer(state: StateT, action: ActionT): StateT {
   const newState: WritableStateT = {...state};
   switch (action.type) {
     case 'update-new': {
-      newState.selectedNew = action.annotationId;
+      newState.selectedNew = action.index;
       break;
     }
     case 'update-old': {
-      newState.selectedOld = action.annotationId;
+      newState.selectedOld = action.index;
       break;
     }
     default: {
@@ -67,15 +68,16 @@ const AnnotationHistoryTable = ({
 
   const [state, dispatch] = React.useReducer(
     reducer,
-    createInitialState(annotations),
+    null,
+    createInitialState,
   );
 
   const handleNew = React.useCallback((event) => {
-    dispatch({annotationId: event.currentTarget.value, type: 'update-new'});
+    dispatch({index: event.currentTarget.dataset.index, type: 'update-new'});
   }, [dispatch]);
 
   const handleOld = React.useCallback((event) => {
-    dispatch({annotationId: event.currentTarget.value, type: 'update-old'});
+    dispatch({index: event.currentTarget.dataset.index, type: 'update-old'});
   }, [dispatch]);
 
   return (
@@ -101,8 +103,9 @@ const AnnotationHistoryTable = ({
                 <td>
                   <input
                     className="old"
+                    data-index={index}
                     defaultChecked={index === 1}
-                    disabled={annotation.id >= state.selectedNew}
+                    disabled={index <= state.selectedNew}
                     name="old"
                     onClick={handleOld}
                     type="radio"
@@ -112,8 +115,9 @@ const AnnotationHistoryTable = ({
                 <td>
                   <input
                     className="new"
+                    data-index={index}
                     defaultChecked={index === 0}
-                    disabled={annotation.id <= state.selectedOld}
+                    disabled={index >= state.selectedOld}
                     name="new"
                     onClick={handleNew}
                     type="radio"
