@@ -23,6 +23,7 @@ after 'load' => sub
     my $model = $self->{model};
 
     $c->model($model)->annotation->load_latest($entity);
+    $c->model('Editor')->load($entity->latest_annotation);
 };
 
 sub latest_annotation : Chained('load') PathPart('annotation')
