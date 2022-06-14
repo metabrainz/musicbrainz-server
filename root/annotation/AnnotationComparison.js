@@ -50,8 +50,8 @@ const AnnotationComparison = ({
           <p>
             <DiffSide
               filter={DELETE}
-              newText={newAnnotation.text}
-              oldText={oldAnnotation.text}
+              newText={newAnnotation.text ?? ''}
+              oldText={oldAnnotation.text ?? ''}
               split="\s+"
             />
           </p>
@@ -59,8 +59,8 @@ const AnnotationComparison = ({
           <p>
             <DiffSide
               filter={INSERT}
-              newText={newAnnotation.text}
-              oldText={oldAnnotation.text}
+              newText={newAnnotation.text ?? ''}
+              oldText={oldAnnotation.text ?? ''}
               split="\s+"
             />
           </p>
