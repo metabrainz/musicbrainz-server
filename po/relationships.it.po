@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: salo.rock, 2022\n"
+"Last-Translator: salo.rock, 2012,2017,2020-2022\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -305,6 +305,10 @@ msgid ""
 "groups."
 msgstr "Indica un musicista che ha prestato a lungo supporto vocale per un altro, su album e/o ai concerti. È una relazione persona-artista che normalmente si applica ad artisti solisti famosi, anche se a volte si può applicare ai gruppi."
 
+#: DB:link_type/description:1083
+msgid "Indicates a page with an official schedule for an event series."
+msgstr "Indica una pagina con il programma ufficiale di una serie di eventi."
+
 #: DB:link_type/description:109
 msgid "Indicates a parent-child relationship."
 msgstr "Indica un rapporto genitore-figlio."
@@ -470,6 +474,10 @@ msgid ""
 "Indicates that two persons were romantically involved with each other "
 "without being married."
 msgstr "Indica che due persone sono state in una relazione affettiva senza essere sposate."
+
+#: DB:link_type/description:1085
+msgid "Indicates the area an event series was held at."
+msgstr "Indica l'area in cui si è tenuta una serie di eventi."
 
 #: DB:link_type/description:715
 msgid "Indicates the area where the work had its first performance"
@@ -850,6 +858,10 @@ msgstr "Collega un evento ad un artista ospite. Di solito gli artisti ospiti par
 #: DB:link_type/description:806
 msgid "Links an event to an artist that was a conductor in it."
 msgstr "Collega un evento ad un artista che ne è stato direttore d'orchestra."
+
+#: DB:link_type/description:1084
+msgid "Links an event to an engineer or sound technician who worked on it."
+msgstr "Collega un evento a un tecnico (per es. del suono) che ci ha lavorato."
 
 #: DB:link_type/description:807
 msgid "Links an event to an orchestra that performed in it."
@@ -4193,7 +4205,7 @@ msgstr "musica elettronica"
 msgid "emeritus"
 msgstr "emerito"
 
-#: DB:link_type/name:138 DB:link_type/name:28
+#: DB:link_type/name:1084 DB:link_type/name:138 DB:link_type/name:28
 msgid "engineer"
 msgstr "tecnico"
 
@@ -4205,6 +4217,10 @@ msgstr "posizione di tecnico"
 msgid "engineer position at"
 msgstr "posizione di tecnico presso"
 
+#: DB:link_type/link_phrase:1084
+msgid "engineered"
+msgstr "ha lavorato come tecnico a"
+
 #: DB:link_type/name:813 DB:link_type/name:812
 msgid "engineered at"
 msgstr "lavorazione tecnica effettuata presso"
@@ -4213,7 +4229,8 @@ msgstr "lavorazione tecnica effettuata presso"
 msgid "engineered in"
 msgstr "lavorazione tecnica effettuata a"
 
-#: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
+#: DB:link_type/reverse_link_phrase:1084 DB:link_type/reverse_link_phrase:120
+#: DB:link_type/reverse_link_phrase:701
 msgid "engineers"
 msgstr "tecnici"
 
@@ -4562,6 +4579,10 @@ msgstr "ha una foto su"
 msgid "has a review page at"
 msgstr "ha una pagina di recensione su"
 
+#: DB:link_type/long_link_phrase:1083
+msgid "has a schedule at"
+msgstr "ha un programma su"
+
 #: DB:link_type/long_link_phrase:811 DB:link_type/long_link_phrase:816
 #: DB:link_type/long_link_phrase:817 DB:link_type/long_link_phrase:938
 msgid "has a setlist.fm page at"
@@ -4727,7 +4748,8 @@ msgstr "tenuto presso"
 msgid "held events"
 msgstr "ha tenuto gli eventi"
 
-#: DB:link_type/name:793 DB:link_type/reverse_link_phrase:793
+#: DB:link_type/name:793 DB:link_type/name:1085
+#: DB:link_type/reverse_link_phrase:793 DB:link_type/reverse_link_phrase:1085
 msgid "held in"
 msgstr "tenuto a"
 
@@ -4748,10 +4770,10 @@ msgstr "sito di storia"
 msgid "holds copyright (©) for"
 msgstr "detiene il copyright (©) per"
 
-#: DB:link_type/link_phrase:710 DB:link_type/link_phrase:711
-#: DB:link_type/link_phrase:867 DB:link_type/link_phrase:869
-#: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:711
-#: DB:link_type/long_link_phrase:867 DB:link_type/long_link_phrase:869
+#: DB:link_type/link_phrase:710 DB:link_type/link_phrase:867
+#: DB:link_type/link_phrase:869 DB:link_type/link_phrase:711
+#: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:867
+#: DB:link_type/long_link_phrase:869 DB:link_type/long_link_phrase:711
 msgid "holds phonographic copyright (℗) for"
 msgstr "detiene i diritti fonografici (℗) per"
 
@@ -5203,7 +5225,7 @@ msgstr "esibizione dal vivo di"
 msgid "live performances"
 msgstr "esibizioni dal vivo"
 
-#: DB:link_type/link_phrase:995
+#: DB:link_type/link_phrase:995 DB:link_type/link_phrase:1085
 msgid "location for"
 msgstr "location per"
 
@@ -5830,13 +5852,13 @@ msgstr "editore personale di"
 msgid "personal relationship"
 msgstr "relazione personale"
 
-#: DB:link_type/name:710 DB:link_type/name:711 DB:link_type/name:867
-#: DB:link_type/name:869
+#: DB:link_type/name:710 DB:link_type/name:867 DB:link_type/name:869
+#: DB:link_type/name:711
 msgid "phonographic copyright"
 msgstr "diritti fonografici"
 
-#: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:711
-#: DB:link_type/reverse_link_phrase:867 DB:link_type/reverse_link_phrase:869
+#: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:867
+#: DB:link_type/reverse_link_phrase:869 DB:link_type/reverse_link_phrase:711
 msgid "phonographic copyright (℗) by"
 msgstr "diritti fonografici (℗) detenuti da"
 
@@ -6057,19 +6079,19 @@ msgstr "ha curato le illustrazioni {additional:aggiuntive} di"
 msgid "provided {additional} legal representation for"
 msgstr "ha fornito rappresentanza legale {additional:aggiuntiva} per"
 
-#: DB:link_type/link_phrase:206 DB:link_type/link_phrase:362
-#: DB:link_type/link_phrase:127 DB:link_type/link_phrase:32
-#: DB:link_type/link_phrase:161 DB:link_type/link_phrase:208
+#: DB:link_type/link_phrase:206 DB:link_type/link_phrase:127
+#: DB:link_type/link_phrase:32 DB:link_type/link_phrase:161
+#: DB:link_type/link_phrase:208 DB:link_type/link_phrase:362
 #: DB:link_type/name:362 DB:link_type/long_link_phrase:206
-#: DB:link_type/long_link_phrase:362 DB:link_type/long_link_phrase:127
-#: DB:link_type/long_link_phrase:32 DB:link_type/long_link_phrase:161
-#: DB:link_type/long_link_phrase:208
+#: DB:link_type/long_link_phrase:127 DB:link_type/long_link_phrase:32
+#: DB:link_type/long_link_phrase:161 DB:link_type/long_link_phrase:208
+#: DB:link_type/long_link_phrase:362
 msgid "published"
 msgstr "ha edito"
 
-#: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:362
-#: DB:link_type/reverse_link_phrase:127 DB:link_type/reverse_link_phrase:32
-#: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:208
+#: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:127
+#: DB:link_type/reverse_link_phrase:32 DB:link_type/reverse_link_phrase:161
+#: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:362
 msgid "publisher"
 msgstr "editore"
 
@@ -6365,6 +6387,14 @@ msgstr "campiona dall'artista"
 #: DB:link_type/name:69 DB:link_type/name:231
 msgid "samples material"
 msgstr "campiona il materiale"
+
+#: DB:link_type/link_phrase:1083 DB:link_type/name:1083
+msgid "schedule"
+msgstr "programma"
+
+#: DB:link_type/reverse_link_phrase:1083
+msgid "schedule for"
+msgstr "programma di"
 
 #: DB:link_type/name:308 DB:link_type/name:976 DB:link_type/name:977
 #: DB:link_type/name:307 DB:link_type/name:280
@@ -6808,6 +6838,10 @@ msgstr "è stato un artista spalla a"
 #: DB:link_type/long_link_phrase:932
 msgid "was a supporting DJ at"
 msgstr "è stato un DJ spalla a"
+
+#: DB:link_type/long_link_phrase:1084
+msgid "was an engineer at"
+msgstr "ha lavorato come tecnico a"
 
 #: DB:link_type/long_link_phrase:807
 msgid "was an orchestra at"
@@ -7612,7 +7646,7 @@ msgstr "{entity1} è stata disponibile su {entity0}"
 msgid "{entity1} was glass mastered at {entity0}"
 msgstr "Il master in vetro per {entity1} è stato creato presso {entity0}"
 
-#: DB:link_type/long_link_phrase:995
+#: DB:link_type/long_link_phrase:995 DB:link_type/long_link_phrase:1085
 msgid "{entity1} was held at {entity0}"
 msgstr "{entity1} si è tenuto presso {entity0}"
 

@@ -36,5 +36,5 @@ declare type AnnotationT = {
   +html: string,
   +id: number,
   +parent: CoreEntityT | null,
-  +text: string,
+  +text: string | null,
 };

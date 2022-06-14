@@ -306,6 +306,10 @@ msgid ""
 "groups."
 msgstr "Bezeichnet einen Musiker, der einen anderen langjährig stimmlich auf Alben und/oder bei Konzerten unterstützt. Dies ist eine Person-zu-Künstler-Beziehung, die normalerweise auf bekannte Solokünstler zutrifft, obwohl sie manchmal auch auf Gruppen zutreffen kann."
 
+#: DB:link_type/description:1083
+msgid "Indicates a page with an official schedule for an event series."
+msgstr ""
+
 #: DB:link_type/description:109
 msgid "Indicates a parent-child relationship."
 msgstr "Gibt eine Eltern-Kind-Beziehung an."
@@ -471,6 +475,10 @@ msgid ""
 "Indicates that two persons were romantically involved with each other "
 "without being married."
 msgstr "Gibt an, dass zwei Personen in einer romantischen Beziehung waren, ohne verheiratet zu sein."
+
+#: DB:link_type/description:1085
+msgid "Indicates the area an event series was held at."
+msgstr ""
 
 #: DB:link_type/description:715
 msgid "Indicates the area where the work had its first performance"
@@ -850,6 +858,10 @@ msgstr ""
 
 #: DB:link_type/description:806
 msgid "Links an event to an artist that was a conductor in it."
+msgstr ""
+
+#: DB:link_type/description:1084
+msgid "Links an event to an engineer or sound technician who worked on it."
 msgstr ""
 
 #: DB:link_type/description:807
@@ -4194,7 +4206,7 @@ msgstr ""
 msgid "emeritus"
 msgstr "Emeritus"
 
-#: DB:link_type/name:138 DB:link_type/name:28
+#: DB:link_type/name:1084 DB:link_type/name:138 DB:link_type/name:28
 msgid "engineer"
 msgstr ""
 
@@ -4206,6 +4218,10 @@ msgstr "Techniker (Engineer)"
 msgid "engineer position at"
 msgstr "Techniker (Engineer) bei"
 
+#: DB:link_type/link_phrase:1084
+msgid "engineered"
+msgstr ""
+
 #: DB:link_type/name:813 DB:link_type/name:812
 msgid "engineered at"
 msgstr ""
@@ -4214,7 +4230,8 @@ msgstr ""
 msgid "engineered in"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
+#: DB:link_type/reverse_link_phrase:1084 DB:link_type/reverse_link_phrase:120
+#: DB:link_type/reverse_link_phrase:701
 msgid "engineers"
 msgstr "Techniker (Engineers)"
 
@@ -4563,6 +4580,10 @@ msgstr "hat ein Bild unter"
 msgid "has a review page at"
 msgstr "hat eine Rezension unter"
 
+#: DB:link_type/long_link_phrase:1083
+msgid "has a schedule at"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:811 DB:link_type/long_link_phrase:816
 #: DB:link_type/long_link_phrase:817 DB:link_type/long_link_phrase:938
 msgid "has a setlist.fm page at"
@@ -4728,7 +4749,8 @@ msgstr "durchgeführt bei"
 msgid "held events"
 msgstr "durchgeführte Veranstaltungen"
 
-#: DB:link_type/name:793 DB:link_type/reverse_link_phrase:793
+#: DB:link_type/name:793 DB:link_type/name:1085
+#: DB:link_type/reverse_link_phrase:793 DB:link_type/reverse_link_phrase:1085
 msgid "held in"
 msgstr "durchgeführt in"
 
@@ -4749,10 +4771,10 @@ msgstr "Geschichte-Seite"
 msgid "holds copyright (©) for"
 msgstr ""
 
-#: DB:link_type/link_phrase:710 DB:link_type/link_phrase:711
-#: DB:link_type/link_phrase:867 DB:link_type/link_phrase:869
-#: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:711
-#: DB:link_type/long_link_phrase:867 DB:link_type/long_link_phrase:869
+#: DB:link_type/link_phrase:710 DB:link_type/link_phrase:867
+#: DB:link_type/link_phrase:869 DB:link_type/link_phrase:711
+#: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:867
+#: DB:link_type/long_link_phrase:869 DB:link_type/long_link_phrase:711
 msgid "holds phonographic copyright (℗) for"
 msgstr ""
 
@@ -5204,7 +5226,7 @@ msgstr "Liveaufführung von"
 msgid "live performances"
 msgstr "Liveaufführungen"
 
-#: DB:link_type/link_phrase:995
+#: DB:link_type/link_phrase:995 DB:link_type/link_phrase:1085
 msgid "location for"
 msgstr ""
 
@@ -5831,13 +5853,13 @@ msgstr "eigener Verlerger für"
 msgid "personal relationship"
 msgstr "persönliche Beziehung"
 
-#: DB:link_type/name:710 DB:link_type/name:711 DB:link_type/name:867
-#: DB:link_type/name:869
+#: DB:link_type/name:710 DB:link_type/name:867 DB:link_type/name:869
+#: DB:link_type/name:711
 msgid "phonographic copyright"
 msgstr "phonographisches Urheberrecht"
 
-#: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:711
-#: DB:link_type/reverse_link_phrase:867 DB:link_type/reverse_link_phrase:869
+#: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:867
+#: DB:link_type/reverse_link_phrase:869 DB:link_type/reverse_link_phrase:711
 msgid "phonographic copyright (℗) by"
 msgstr ""
 
@@ -6058,19 +6080,19 @@ msgstr ""
 msgid "provided {additional} legal representation for"
 msgstr ""
 
-#: DB:link_type/link_phrase:206 DB:link_type/link_phrase:362
-#: DB:link_type/link_phrase:127 DB:link_type/link_phrase:32
-#: DB:link_type/link_phrase:161 DB:link_type/link_phrase:208
+#: DB:link_type/link_phrase:206 DB:link_type/link_phrase:127
+#: DB:link_type/link_phrase:32 DB:link_type/link_phrase:161
+#: DB:link_type/link_phrase:208 DB:link_type/link_phrase:362
 #: DB:link_type/name:362 DB:link_type/long_link_phrase:206
-#: DB:link_type/long_link_phrase:362 DB:link_type/long_link_phrase:127
-#: DB:link_type/long_link_phrase:32 DB:link_type/long_link_phrase:161
-#: DB:link_type/long_link_phrase:208
+#: DB:link_type/long_link_phrase:127 DB:link_type/long_link_phrase:32
+#: DB:link_type/long_link_phrase:161 DB:link_type/long_link_phrase:208
+#: DB:link_type/long_link_phrase:362
 msgid "published"
 msgstr "veröffentlichte"
 
-#: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:362
-#: DB:link_type/reverse_link_phrase:127 DB:link_type/reverse_link_phrase:32
-#: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:208
+#: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:127
+#: DB:link_type/reverse_link_phrase:32 DB:link_type/reverse_link_phrase:161
+#: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:362
 msgid "publisher"
 msgstr "Herausgeber"
 
@@ -6365,6 +6387,14 @@ msgstr ""
 
 #: DB:link_type/name:69 DB:link_type/name:231
 msgid "samples material"
+msgstr ""
+
+#: DB:link_type/link_phrase:1083 DB:link_type/name:1083
+msgid "schedule"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1083
+msgid "schedule for"
 msgstr ""
 
 #: DB:link_type/name:308 DB:link_type/name:976 DB:link_type/name:977
@@ -6808,6 +6838,10 @@ msgstr "war ein Vorprogramm bei"
 
 #: DB:link_type/long_link_phrase:932
 msgid "was a supporting DJ at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1084
+msgid "was an engineer at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:807
@@ -7613,7 +7647,7 @@ msgstr ""
 msgid "{entity1} was glass mastered at {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:995
+#: DB:link_type/long_link_phrase:995 DB:link_type/long_link_phrase:1085
 msgid "{entity1} was held at {entity0}"
 msgstr ""
 
