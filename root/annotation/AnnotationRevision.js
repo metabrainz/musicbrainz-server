@@ -38,6 +38,7 @@ const AnnotationRevision = ({
         entity={entity}
         numberOfRevisions={numberOfRevisions}
         showChangeLog
+        showEmpty
       />
     </LayoutComponent>
   );
