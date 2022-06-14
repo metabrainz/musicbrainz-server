@@ -139,6 +139,8 @@ export default function hydrate<
               </React.StrictMode>,
             );
           });
+          // Custom event that userscripts can listen for.
+          root.dispatchEvent(new Event('mb-hydration', {bubbles: true}));
         }
       }
     });
