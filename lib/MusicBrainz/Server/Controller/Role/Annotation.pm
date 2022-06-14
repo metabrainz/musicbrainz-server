@@ -44,7 +44,7 @@ sub latest_annotation : Chained('load') PathPart('annotation')
     );
 
     my %props = (
-        annotation => $annotation->TO_JSON,
+        annotation => $annotation ? $annotation->TO_JSON : undef,
         entity => $entity->TO_JSON,
         numberOfRevisions => scalar @$annotations,
     );

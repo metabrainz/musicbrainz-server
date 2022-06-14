@@ -13,7 +13,7 @@ import Annotation from '../static/scripts/common/components/Annotation';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent';
 
 type AnnotationRevisionProps = {
-  +annotation: AnnotationT,
+  +annotation: AnnotationT | null,
   +entity: AnnotatedEntityT,
   +numberOfRevisions: number,
 };
