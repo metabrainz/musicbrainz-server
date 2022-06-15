@@ -37,7 +37,7 @@ declare type LinkTypeAttrTypeT = {
 };
 
 declare type LinkTypeOptionsT = {
-  [entityCombination: string]: $ReadOnlyArray<LinkTypeT>,
+  +[entityCombination: string]: $ReadOnlyArray<LinkTypeT>,
 };
 
 declare type LinkTypeT = {
