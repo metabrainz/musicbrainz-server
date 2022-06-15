@@ -123,6 +123,10 @@ sub _where_filter
                 push @params, @statuses;
             }
         }
+        if (exists $filter->{status_id}) {
+            push @query, 'release.status = ?';
+            push @params, $filter->{status_id};
+        }
         if (exists $filter->{type} && $filter->{type}) {
             my @types = ref($filter->{type}) ? @{ $filter->{type} } : ( $filter->{type} );
             my %partitioned_types = partition_by {

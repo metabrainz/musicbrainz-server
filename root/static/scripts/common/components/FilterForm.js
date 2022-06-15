@@ -21,6 +21,7 @@ export type FilterFormT = $ReadOnly<{
     +role_type?: ReadOnlyFieldT<number>,
     +secondary_type_id?: ReadOnlyFieldT<number>,
     +setlist?: ReadOnlyFieldT<string>,
+    +status_id?: ReadOnlyFieldT<number>,
     +type_id?: ReadOnlyFieldT<number>,
   }>,
   entity_type: 'recording' | 'release' | 'release_group',
@@ -29,6 +30,7 @@ export type FilterFormT = $ReadOnly<{
   options_label_id?: SelectOptionsT,
   options_role_type?: SelectOptionsT,
   options_secondary_type_id?: SelectOptionsT,
+  options_status_id?: SelectOptionsT,
   options_type_id?: SelectOptionsT,
 }>;
 
@@ -66,6 +68,8 @@ const FilterForm = ({form}: Props): React$Element<'div'> => {
   const dateField = form.field.date;
   const roleTypeField = form.field.role_type;
   const roleTypeOptions = form.options_role_type;
+  const statusIdOptions = form.options_status_id;
+  const statusIdField = form.field.status_id;
   const setlistField = form.field.setlist;
 
   return (
@@ -188,6 +192,25 @@ const FilterForm = ({form}: Props): React$Element<'div'> => {
                     options={{
                       grouped: false,
                       options: countryIdOptions,
+                    }}
+                    style={{maxWidth: '40em'}}
+                    uncontrolled
+                  />
+                </td>
+              </tr>
+            ) : null}
+
+            {statusIdField && statusIdOptions ? (
+              <tr>
+                <td>
+                  {addColonText(l('Status'))}
+                </td>
+                <td>
+                  <SelectField
+                    field={statusIdField}
+                    options={{
+                      grouped: false,
+                      options: statusIdOptions,
                     }}
                     style={{maxWidth: '40em'}}
                     uncontrolled

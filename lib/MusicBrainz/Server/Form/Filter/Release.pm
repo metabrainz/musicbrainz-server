@@ -27,6 +27,12 @@ has 'labels' => (
     required => 1,
 );
 
+has 'statuses' => (
+    isa => 'ArrayRef[ReleaseStatus]',
+    is => 'ro',
+    required => 1,
+);
+
 has_field 'artist_credit_id' => (
     type => 'Select',
 );
@@ -43,8 +49,12 @@ has_field 'label_id' => (
     type => 'Select',
 );
 
+has_field 'status_id' => (
+    type => 'Select',
+);
+
 sub filter_field_names {
-    return qw/ name artist_credit_id country_id date label_id /;
+    return qw/ name artist_credit_id country_id date label_id status_id /;
 }
 
 sub options_artist_credit_id {
@@ -71,6 +81,14 @@ sub options_label_id {
     ];
 }
 
+sub options_status_id {
+    my ($self, $field) = @_;
+    return [
+        map +{ value => $_->id, label => $_->name },
+        @{ $self->statuses }
+    ];
+}
+
 sub validate_date {
     my ($self, $field) = @_;
     return unless non_empty($field->value);
@@ -85,6 +103,7 @@ around TO_JSON => sub {
     $json->{options_artist_credit_id} = $self->options_artist_credit_id;
     $json->{options_country_id} = $self->options_country_id;
     $json->{options_label_id} = $self->options_label_id;
+    $json->{options_status_id} = $self->options_status_id;
     return $json;
 };
 
