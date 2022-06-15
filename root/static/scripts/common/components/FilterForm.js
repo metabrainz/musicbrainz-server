@@ -16,6 +16,7 @@ export type FilterFormT = $ReadOnly<{
     +artist_credit_id: ReadOnlyFieldT<number>,
     +country_id?: ReadOnlyFieldT<number>,
     +date?: ReadOnlyFieldT<string>,
+    +label_id?: ReadOnlyFieldT<number>,
     +name: ReadOnlyFieldT<string>,
     +role_type?: ReadOnlyFieldT<number>,
     +secondary_type_id?: ReadOnlyFieldT<number>,
@@ -25,6 +26,7 @@ export type FilterFormT = $ReadOnly<{
   entity_type: 'recording' | 'release' | 'release_group',
   options_artist_credit_id: SelectOptionsT,
   options_country_id: SelectOptionsT,
+  options_label_id?: SelectOptionsT,
   options_role_type?: SelectOptionsT,
   options_secondary_type_id?: SelectOptionsT,
   options_type_id?: SelectOptionsT,
@@ -59,6 +61,8 @@ const FilterForm = ({form}: Props): React$Element<'div'> => {
   const artistCreditIdOptions = form.options_artist_credit_id;
   const countryIdOptions = form.options_country_id;
   const countryIdField = form.field.country_id;
+  const labelIdOptions = form.options_label_id;
+  const labelIdField = form.field.label_id;
   const dateField = form.field.date;
   const roleTypeField = form.field.role_type;
   const roleTypeOptions = form.options_role_type;
@@ -146,6 +150,25 @@ const FilterForm = ({form}: Props): React$Element<'div'> => {
                     options={{
                       grouped: false,
                       options: roleTypeOptions,
+                    }}
+                    style={{maxWidth: '40em'}}
+                    uncontrolled
+                  />
+                </td>
+              </tr>
+            ) : null}
+
+            {labelIdField && labelIdOptions ? (
+              <tr>
+                <td>
+                  {addColonText(l('Label'))}
+                </td>
+                <td>
+                  <SelectField
+                    field={labelIdField}
+                    options={{
+                      grouped: false,
+                      options: labelIdOptions,
                     }}
                     style={{maxWidth: '40em'}}
                     uncontrolled
