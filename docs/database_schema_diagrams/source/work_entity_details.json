@@ -1,0 +1,21 @@
+{
+  "tooltip": "Tables for the “work” core entity properties",
+  "_comment": "Show replicated tables used to define any work entity, beyond relationships. It can be used as an example for tables generally used to define any entity of any type. The core entity is highlighted.",
+  "tables": {
+    "annotation": [],
+    "language": [],
+    "tag": [],
+    "work": ["highlighted"],
+    "work_alias": [],
+    "work_alias_type": [],
+    "work_annotation": [],
+    "work_attribute": [],
+    "work_attribute_type": [],
+    "work_attribute_type_allowed_value": [],
+    "work_gid_redirect": [],
+    "work_language": [],
+    "work_meta": [],
+    "work_tag": [],
+    "work_type": []
+  }
+}
