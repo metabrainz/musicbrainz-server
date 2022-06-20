@@ -12,17 +12,23 @@ the sort name defaults to the name when not explicitly entered (blanked).
 
 =cut
 
-test 'Test editing alias' => sub {
+test 'Editing alias' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
     prepare_test($test);
 
+    $mech->get_ok(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce/alias/1/edit',
+        'Fetched the edit alias page',
+    );
     my @edits = capture_edits {
-        $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/alias/1/edit');
         $mech->submit_form(
             with_fields => {
-                'edit-alias.name' => 'Edited alias'
+                'edit-alias.name' => 'Edited alias',
+                # HTML::Form doesn't understand selected=""
+                # so we need to specifically set this
+                'edit-alias.type_id' => '1',
             });
     } $test->c;
 
@@ -65,14 +71,18 @@ test 'Test editing alias' => sub {
     );
 };
 
-test 'MBS-6896: Test editing alias and emptying sort name' => sub {
+test 'MBS-6896: Removing alias sort name defaults it to name' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
     prepare_test($test);
 
+    $mech->get_ok(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce/alias/1/edit',
+        'Fetched the edit alias page',
+    );
+
     my @edits = capture_edits {
-        $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/alias/1/edit');
         $mech->submit_form(
             with_fields => {
                 'edit-alias.name' => 'Edit #2',

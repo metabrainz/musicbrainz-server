@@ -11,6 +11,7 @@ declare type AnnotatedEntityT =
   | AreaT
   | ArtistT
   | EventT
+  | GenreT
   | InstrumentT
   | LabelT
   | PlaceT
@@ -35,5 +36,5 @@ declare type AnnotationT = {
   +html: string,
   +id: number,
   +parent: CoreEntityT | null,
-  +text: string,
+  +text: string | null,
 };

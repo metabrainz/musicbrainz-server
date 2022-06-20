@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Role::Create;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
+use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 
 parameter 'form' => (
@@ -57,6 +58,17 @@ role {
 
         my $model = $self->config->{model};
         my $entity;
+
+        if ($model eq 'Genre') {
+            my $type = model_to_type($model);
+            my $form = $c->form( form => $params->form );
+
+            $c->stash(
+                component_path => $type . '/Create' . $model,
+                component_props => {form => $form->TO_JSON},
+                current_view => 'Node',
+            );
+        }
 
         $self->edit_action($c,
             form        => $params->form,

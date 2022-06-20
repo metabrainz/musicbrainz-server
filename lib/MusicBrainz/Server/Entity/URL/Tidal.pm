@@ -2,10 +2,20 @@ package MusicBrainz::Server::Entity::URL::Tidal;
 
 use Moose;
 
+use MusicBrainz::Server::Translation qw( l );
+
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name { 'Tidal' };
+sub sidebar_name {
+    my $self = shift;
+
+    if ($self->url =~ m{^https://store.tidal.com/([a-z]{2})}i) {
+        return l('Purchase at Tidal');
+    } else {
+        return l('Stream at Tidal');
+    }
+};
 
 sub url_is_scheme_independent { 1 }
 

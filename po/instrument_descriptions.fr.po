@@ -2512,6 +2512,13 @@ msgid ""
 " ornate case."
 msgstr ""
 
+#. name:bass saxophone
+#: DB:instrument/description:444
+msgid ""
+"Second largest and lowest member of the saxophone family. It is similar to "
+"the baritone, but larger and with a longer loop near the mouthpiece."
+msgstr ""
+
 #. name:jublag
 #: DB:instrument/description:980
 msgid ""
@@ -2959,13 +2966,6 @@ msgid ""
 "d'amour."
 msgstr "La flûte en sol est une flûte de concert, plus grave que la flûte d’amour."
 
-#. name:alto saxophone
-#: DB:instrument/description:21
-msgid ""
-"The alto saxophone is a woodwind invented by Adolphe Sax which is between "
-"the tenor and soprano in size."
-msgstr "Le saxophone alto est un instrument à vent de la famille des bois inventé par Adolphe Sax. Il se situe entre le ténor et le soprano."
-
 #. name:archlute
 #: DB:instrument/description:507
 msgid ""
@@ -3039,13 +3039,6 @@ msgid ""
 "mouthpiece which is pitched in B♭, one octave below the B♭ trumpet."
 msgstr "Le saxhorn baryton est un instrument de musique à pistons et perce conique de la famille des cuivres. Il est en si♭, inférieur d’un octave à la trompette en si♭. "
 
-#. name:baritone saxophone
-#: DB:instrument/description:23
-msgid ""
-"The baritone saxophone is the largest and lowest-pitch saxophone in wide "
-"use."
-msgstr "Le saxophone baryton est le saxophone le plus grand et le plus grave utilisé habituellement."
-
 #. name:bass clarinet
 #: DB:instrument/description:11
 msgid ""
@@ -3073,15 +3066,6 @@ msgid ""
 "The bass oboe is a double reed woodwind instrument which is about twice the "
 "size of a regular oboe."
 msgstr "Le hautbois baryton est un instrument de musique à vent de la famille des bois, à anche double, approximativement deux fois plus grand qu’un hautbois régulier."
-
-#. name:bass saxophone
-#: DB:instrument/description:444
-msgid ""
-"The bass saxophone is the second largest existing member of the saxophone "
-"family (not counting the subcontrabass tubax). It is similar in design to a "
-"baritone saxophone, but it is larger, with a longer loop near the "
-"mouthpiece."
-msgstr "Le saxophone basse est le deuxième plus commun membre de la famille des saxophones (sans compter le tubax). Il est semblable de conception au saxophone baryton, mais ilest plus grand avec une boucle plus longue près de l’embouchure."
 
 #. name:bass trumpet
 #: DB:instrument/description:727
@@ -3653,6 +3637,14 @@ msgid ""
 "\"female\" drum."
 msgstr ""
 
+#. name:contrabass saxophone
+#: DB:instrument/description:446
+msgid ""
+"The largest and lowest pitch member of the saxophone family (ignoring the "
+"subcontrabass <a "
+"href=\"/instrument/6e33958d-741f-4669-955a-5a29a99f72e1\">tubax</a>)"
+msgstr ""
+
 #. name:lasso d'amore
 #: DB:instrument/description:144
 msgid ""
@@ -3715,6 +3707,18 @@ msgstr "Le minipiano est un type de piano dont le mécanisme de production du so
 msgid ""
 "The most common and based on the original design, its fifth string is "
 "shorter than the others, creating an uneven pitch progression."
+msgstr ""
+
+#. name:alto saxophone
+#: DB:instrument/description:21
+msgid "The most common member of the saxophone family, it is the alto member."
+msgstr ""
+
+#. name:baritone saxophone
+#: DB:instrument/description:23
+msgid ""
+"The most common of the lower members of the saxophone family, it is the "
+"middle-low baritone."
 msgstr ""
 
 #. name:violin

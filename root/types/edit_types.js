@@ -35,6 +35,11 @@ declare type AddEventAnnotationEditT = $ReadOnly<{
   +edit_type: EDIT_EVENT_ADD_ANNOTATION_T,
 }>;
 
+declare type AddGenreAnnotationEditT = $ReadOnly<{
+  ...AddAnnotationEditGenericT,
+  +edit_type: EDIT_GENRE_ADD_ANNOTATION_T,
+}>;
+
 declare type AddInstrumentAnnotationEditT = $ReadOnly<{
   ...AddAnnotationEditGenericT,
   +edit_type: EDIT_INSTRUMENT_ADD_ANNOTATION_T,
@@ -79,6 +84,7 @@ declare type AddAnnotationEditT =
   | AddAreaAnnotationEditT
   | AddArtistAnnotationEditT
   | AddEventAnnotationEditT
+  | AddGenreAnnotationEditT
   | AddInstrumentAnnotationEditT
   | AddLabelAnnotationEditT
   | AddPlaceAnnotationEditT
@@ -156,6 +162,16 @@ declare type AddEventEditT = $ReadOnly<{
     +type: EventTypeT | null,
   },
   +edit_type: EDIT_EVENT_CREATE_T,
+}>;
+
+declare type AddGenreEditT = $ReadOnly<{
+  ...GenericEditT,
+  +display_data: {
+    ...CommentRoleT,
+    +genre: GenreT,
+    +name: string,
+  },
+  +edit_type: EDIT_GENRE_CREATE_T,
 }>;
 
 declare type AddInstrumentEditT = $ReadOnly<{
@@ -712,6 +728,16 @@ declare type EditEventEditT = $ReadOnly<{
   +edit_type: EDIT_EVENT_EDIT_T,
 }>;
 
+declare type EditGenreEditT = $ReadOnly<{
+  ...GenericEditT,
+  +display_data: {
+    +comment?: CompT<string | null>,
+    +genre: GenreT,
+    +name?: CompT<string>,
+  },
+  +edit_type: EDIT_GENRE_EDIT_T,
+}>;
+
 declare type EditInstrumentEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
@@ -1153,6 +1179,15 @@ declare type RemoveEventEditT = $ReadOnly<{
   +edit_type: EDIT_EVENT_DELETE_T,
 }>;
 
+declare type RemoveGenreEditT = $ReadOnly<{
+  ...GenericEditT,
+  +display_data: {
+    +entity: GenreT,
+    +entity_type: 'genre',
+  },
+  +edit_type: EDIT_GENRE_DELETE_T,
+}>;
+
 declare type RemoveInstrumentEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
@@ -1229,6 +1264,7 @@ declare type RemoveEntityEditT =
   | RemoveAreaEditT
   | RemoveArtistEditT
   | RemoveEventEditT
+  | RemoveGenreEditT
   | RemoveInstrumentEditT
   | RemoveLabelEditT
   | RemovePlaceEditT
@@ -1444,6 +1480,7 @@ declare type CurrentEditT =
   | AddCoverArtEditT
   | AddDiscIdEditT
   | AddEventEditT
+  | AddGenreEditT
   | AddInstrumentEditT
   | AddIsrcsEditT
   | AddIswcsEditT

@@ -1,18 +1,32 @@
 package t::MusicBrainz::Server::Controller::Release::Aliases;
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
+use utf8;
 
 with 't::Mechanize', 't::Context';
 
-test all => sub {
+=head2 Test description
+
+This test checks whether release aliases are correctly listed on the release
+alias page, both on the site itself and on the JSON-LD data.
+
+=cut
+
+test 'Release alias appears on alias page content and on JSON-LD' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c);
 
-    $mech->get_ok('/release/f205627f-b70a-409d-adbe-66289b614e80/aliases', 'fetch release aliases tab');
+    $mech->get_ok(
+        '/release/f205627f-b70a-409d-adbe-66289b614e80/aliases',
+        'Fetched release aliases page',
+    );
     html_ok($mech->content);
+
+    $mech->text_contains('Ærial', 'Alias page lists the alias');
+    $mech->text_contains('Release name', 'Alias page lists the alias type');
 
     page_test_jsonld $mech => {
         'gtin14' => '0094634396028',

@@ -4,17 +4,28 @@ use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
 with 't::Mechanize', 't::Context';
 
-test all => sub {
+=head2 Test description
+
+This test checks whether label aliases are correctly listed on the label
+alias page, both on the site itself and on the JSON-LD data.
+
+=cut
+
+test 'Label alias appears on alias page content and on JSON-LD' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c);
 
-    $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/aliases', 'get label aliases');
+    $mech->get_ok(
+        '/label/46f0f4cd-8aab-4b33-b698-f459faf64190/aliases',
+        'Fetched label aliases page',
+    );
     html_ok($mech->content);
-    $mech->content_contains('Test Label Alias', 'has the label alias');
-    $mech->content_contains('Label name', 'has the label alias type');
+
+    $mech->text_contains('Test Label Alias', 'Alias page lists the alias');
+    $mech->text_contains('Label name', 'Alias page lists the alias type');
 
     page_test_jsonld $mech => {
         'foundingDate' => '1989-02-03',

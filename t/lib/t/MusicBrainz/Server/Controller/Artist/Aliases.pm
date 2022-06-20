@@ -12,7 +12,6 @@ alias page, both on the site itself and on the JSON-LD data.
 =cut
 
 test 'Artist alias appears on alias page content and on JSON-LD' => sub {
-
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
@@ -24,15 +23,17 @@ test 'Artist alias appears on alias page content and on JSON-LD' => sub {
 
     $mech->get_ok(
         '/artist/745c079d-374e-4436-9448-da92dedef3ce/aliases',
-        'Fetched artist alias page',
+        'Fetched artist aliases page',
     );
     html_ok($mech->content);
-    $mech->content_contains('Test Alias', 'Alias page lists the alias');
-    $mech->content_contains(
+
+    $mech->text_contains('Test Alias', 'Alias page lists the alias');
+    $mech->text_contains('Artist name', 'Alias page lists the alias type');
+    $mech->text_contains(
         '2000-01-01',
         'Alias page lists the alias begin date',
     );
-    $mech->content_contains(
+    $mech->text_contains(
         '2005-05-06',
         'Alias page lists the alias end date',
     );

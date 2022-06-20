@@ -2,6 +2,10 @@ package MusicBrainz::Server::Controller::Role::Annotation;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
 use MusicBrainz::Server::Constants qw( :annotation entities_with );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
+use MusicBrainz::Server::Filters qw( format_wikitext );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( is_positive_integer is_nat );
 
@@ -19,6 +23,7 @@ after 'load' => sub
     my $model = $self->{model};
 
     $c->model($model)->annotation->load_latest($entity);
+    $c->model('Editor')->load($entity->latest_annotation);
 };
 
 sub latest_annotation : Chained('load') PathPart('annotation')
@@ -38,10 +43,16 @@ sub latest_annotation : Chained('load') PathPart('annotation')
         }
     );
 
+    my %props = (
+        annotation => $annotation ? $annotation->TO_JSON : undef,
+        entity => $entity->TO_JSON,
+        numberOfRevisions => scalar @$annotations,
+    );
+
     $c->stash(
-        annotation => $annotation,
-        number_of_revisions => scalar @$annotations,
-        template   => 'annotation/revision.tt'
+        component_path => 'annotation/AnnotationRevision',
+        component_props => \%props,
+        current_view => 'Node',
     );
 }
 
@@ -70,10 +81,16 @@ sub annotation_revision : Chained('load') PathPart('annotation') Args(1)
         }
     );
 
+    my %props = (
+        annotation => $annotation->TO_JSON,
+        entity => $entity->TO_JSON,
+        numberOfRevisions => scalar @$annotations,
+    );
+
     $c->stash(
-        annotation => $annotation,
-        number_of_revisions => scalar @$annotations,
-        template   => 'annotation/revision.tt'
+        component_path => 'annotation/AnnotationRevision',
+        component_props => \%props,
+        current_view => 'Node',
     );
 }
 
@@ -105,13 +122,24 @@ sub edit_annotation : Chained('load') PathPart Edit
     my $annotation_model = $c->model($model)->annotation;
     $annotation_model->load_latest($entity);
 
+    my %form_args = (
+        annotation_model => $annotation_model,
+        entity_id => $entity->id,
+    );
+    my $form = $c->form( form => 'Annotation', %form_args );
+
     $c->stash(
-        template   => 'annotation/edit.tt',
+        component_path => 'annotation/EditAnnotation',
+        component_props => {
+            entity => $entity->TO_JSON,
+            form => $form->TO_JSON,
+        },
+        current_view => 'Node',
     );
 
     $self->edit_action($c,
         form        => 'Annotation',
-        form_args   => { annotation_model => $annotation_model, entity_id => $entity->id },
+        form_args   => \%form_args,
         type        => $model_to_edit_type{$model},
         item        => $entity->latest_annotation,
         edit_args   => { entity => $entity },
@@ -125,7 +153,10 @@ sub edit_annotation : Chained('load') PathPart Edit
             my $form = shift;
 
             if ($form->field('preview')->input) {
-                $c->stash(show_preview => 1, preview => $form->field('text')->value);
+                $c->stash->{component_props}{showPreview} = boolean_to_json(1);
+                $c->stash->{component_props}{preview} = format_wikitext(
+                    $form->field('text')->value
+                );
                 return 0;
             }
             return 1;
@@ -148,9 +179,16 @@ sub annotation_history : Chained('load') PathPart('annotations') RequireAuth
     );
 
     $c->model('Editor')->load(@$annotations);
+    my %props = (
+        annotations => to_json_array($annotations),
+        entity => $entity->TO_JSON,
+        pager => serialize_pager($c->stash->{pager}),
+    );
+
     $c->stash(
-        template => 'annotation/history.tt',
-        annotations => $annotations
+        component_path => 'annotation/AnnotationHistory',
+        component_props => \%props,
+        current_view => 'Node',
     );
 }
 
@@ -159,7 +197,14 @@ sub annotation_diff : Chained('load') PathPart('annotations-differences') Requir
     my ($self, $c) = @_;
 
     my $model            = $self->{model};
+    my $entity           = $c->stash->{entity};
     my $annotation_model = $c->model($model)->annotation;
+
+    my $annotations = $self->_load_paged(
+        $c, sub {
+            $annotation_model->get_history($entity->id, @_);
+        }
+    );
 
     my $old = $c->req->query_params->{old};
     my $new = $c->req->query_params->{new};
@@ -179,10 +224,17 @@ sub annotation_diff : Chained('load') PathPart('annotations-differences') Requir
     $c->model('Editor')->load($new_annotation);
     $c->model('Editor')->load($old_annotation);
 
+    my %props = (
+        entity => $entity->TO_JSON,
+        newAnnotation => $new_annotation->TO_JSON,
+        numberOfRevisions => scalar @$annotations,
+        oldAnnotation => $old_annotation->TO_JSON,
+    );
+
     $c->stash(
-        template => 'annotation/diff.tt',
-        old => $old_annotation,
-        new => $new_annotation
+        component_path => 'annotation/AnnotationComparison',
+        component_props => \%props,
+        current_view => 'Node',
     );
 }
 

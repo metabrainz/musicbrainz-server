@@ -123,7 +123,7 @@ test 'Collection descriptions are shown, but avoid spam risk' => sub {
         'Fetched collection page with no description',
     );
 
-    my $tx = test_xpath_html($mech->content);
+    $tx = test_xpath_html($mech->content);
     $tx->is(
         '//div[@class="description"]',
         '',

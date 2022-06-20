@@ -28,6 +28,7 @@ type Props = {
   }>,
   +numberOfRevisions: number,
   +showChangeLog?: boolean,
+  +showEmpty?: boolean,
 };
 
 type WritableProps = {
@@ -46,8 +47,9 @@ const Annotation = ({
   entity,
   numberOfRevisions,
   showChangeLog = false,
+  showEmpty = false,
 }: Props) => {
-  if (!annotation || !annotation.text) {
+  if (!annotation || (!annotation.text && !showEmpty)) {
     return null;
   }
   const latestAnnotation = entity.latest_annotation;
@@ -55,18 +57,21 @@ const Annotation = ({
     <>
       <h2 className="annotation">{l('Annotation')}</h2>
 
-      {collapse
-        ? (
-          <Collapsible
-            className="annotation"
-            html={annotation.html}
-          />
-        ) : (
-          <div
-            className="annotation-body"
-            dangerouslySetInnerHTML={{__html: annotation.html}}
-          />
-        )}
+      {(showEmpty && !annotation.text) ? (
+        <div className="annotation-body small">
+          {l('This annotation is blank.')}
+        </div>
+      ) : collapse ? (
+        <Collapsible
+          className="annotation"
+          html={annotation.html}
+        />
+      ) : (
+        <div
+          className="annotation-body"
+          dangerouslySetInnerHTML={{__html: annotation.html}}
+        />
+      )}
 
       {showChangeLog ? (
         <p>

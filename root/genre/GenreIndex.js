@@ -9,16 +9,20 @@
 
 import * as React from 'react';
 
+import Annotation from '../static/scripts/common/components/Annotation';
 import TagLink from '../static/scripts/common/components/TagLink';
+import * as manifest from '../static/manifest';
 
 import GenreLayout from './GenreLayout';
 
 type Props = {
   +genre: GenreT,
+  +numberOfRevisions: number,
 };
 
 const GenreIndex = ({
   genre,
+  numberOfRevisions,
 }: Props): React.Element<typeof GenreLayout> => (
   <GenreLayout
     entity={genre}
@@ -32,6 +36,13 @@ const GenreIndex = ({
         <td><TagLink tag={genre.name} /></td>
       </tr>
     </table>
+    <Annotation
+      annotation={genre.latest_annotation}
+      collapse
+      entity={genre}
+      numberOfRevisions={numberOfRevisions}
+    />
+    {manifest.js('genre/index', {async: 'async'})}
   </GenreLayout>
 );
 

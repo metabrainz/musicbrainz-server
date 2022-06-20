@@ -1,17 +1,18 @@
 package t::MusicBrainz::Server::Controller::Area::Aliases;
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
+use utf8;
 
 with 't::Mechanize', 't::Context';
 
 =head2 Test description
 
-This test checks whether area aliases are correctly listed in the JSON-LD
-of an area's alias page.
+This test checks whether area aliases are correctly listed on the area
+alias page, both on the site itself and on the JSON-LD data.
 
 =cut
 
-test 'Area alias appears on JSON-LD' => sub {
+test 'Area alias appears on alias page content and on JSON-LD' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c = $test->c;
@@ -23,6 +24,9 @@ test 'Area alias appears on JSON-LD' => sub {
         'Fetched area aliases page',
     );
     html_ok($mech->content);
+
+    $mech->text_contains('オーストラリア', 'Alias page lists the alias');
+    $mech->text_contains('Area name', 'Alias page lists the alias type');
 
     page_test_jsonld $mech => {
         '@id' => 'http://musicbrainz.org/area/106e0bec-b638-3b37-b731-f53d507dc00e',

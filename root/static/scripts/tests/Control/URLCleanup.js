@@ -2107,6 +2107,17 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://genius.com/The-beatles-she-loves-you-lyrics',
        only_valid_entity_types: ['work'],
   },
+  {
+                     input_url: 'http://genius.com/albums/The-dream/Terius-nash-1977',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'discographyentry',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'at the release group level',
+                                  target: 'entity',
+                                },
+  },
   // GeoNames
   {
                      input_url: 'http://www.geonames.org/6255147/asia.html',
@@ -2727,12 +2738,13 @@ limited_link_type_combinations: [
                      input_url: 'http://www.linkedin.com/pub/trevor-muzzy/5/282/538',
              input_entity_type: 'artist',
     expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.linkedin.com/pub/trevor-muzzy/5/282/538',
   },
   {
-                     input_url: 'http://www.linkedin.com/in/legselectric',
+                     input_url: 'http://ca.linkedin.com/in/didier-charette-0630b1b6?original_referer=https%3A%2F%2Fduckduckgo.com%2F',
              input_entity_type: 'artist',
     expected_relationship_type: 'socialnetwork',
-            expected_clean_url: 'https://www.linkedin.com/in/legselectric',
+            expected_clean_url: 'https://www.linkedin.com/in/didier-charette-0630b1b6',
   },
   // livedoor
   {
@@ -4099,11 +4111,6 @@ limited_link_type_combinations: [
   },
   // SoundCloud
   {
-                     input_url: 'https://soundcloud.com/metro-luminal',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'soundcloud',
-  },
-  {
                      input_url: 'http://m.soundcloud.com/octobersveryown',
              input_entity_type: 'artist',
     expected_relationship_type: 'soundcloud',
@@ -4120,6 +4127,12 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'soundcloud',
             expected_clean_url: 'https://soundcloud.com/alisonwonderland',
+  },
+  {
+                     input_url: 'https://soundcloud.com/erin-thomson-776648435?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'soundcloud',
+            expected_clean_url: 'https://soundcloud.com/erin-thomson-776648435',
   },
   {
                      input_url: 'https://soundcloud.com/dimmakrecords',
@@ -4461,9 +4474,16 @@ limited_link_type_combinations: [
   {
                      input_url: 'https://store.tidal.com/us/album/58294001',
              input_entity_type: 'release',
-    expected_relationship_type: 'streamingpaid',
-            expected_clean_url: 'https://tidal.com/album/58294001',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://store.tidal.com/album/58294001',
        only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://store.tidal.com/ee/artist/160',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://store.tidal.com/artist/160',
+       only_valid_entity_types: ['artist'],
   },
   // TikTok
   {

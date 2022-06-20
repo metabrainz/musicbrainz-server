@@ -80,12 +80,6 @@ sub build_display_data
     };
 }
 
-sub _insert_hash
-{
-    my ($self, $data) = @_;
-    return $data;
-};
-
 sub edit_template_react { 'AddArea' };
 
 __PACKAGE__->meta->make_immutable;

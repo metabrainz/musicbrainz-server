@@ -275,6 +275,41 @@ test 'MBS-10976: Private use characters U+E000..U+F8FF are allowed' => sub {
     );
 };
 
+test 'MBS-12351: Space-only disambiguations are trimmed properly' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    prepare_test($test);
+
+    $mech->get_ok('/artist/create');
+
+    my @edits = capture_edits {
+        $mech->submit_form_ok({
+            with_fields => {
+                'edit-artist.name' => 'Testy',
+                'edit-artist.sort_name' => 'Testy',
+                'edit-artist.comment' => '   ',
+            },
+        },
+        'The form returned a 2xx response code')
+    } $test->c;
+
+    ok(
+        $mech->uri =~ $artist_page_regexp,
+        'The user is redirected to the artist page after entering the edit',
+    );
+
+    is(@edits, 1, 'The edit was entered');
+
+    my $edit = shift(@edits);
+
+    is(
+        $edit->data->{comment},
+        '',
+        'The submitted comment is empty',
+    );
+};
+
 sub prepare_test {
     my $test = shift;
 

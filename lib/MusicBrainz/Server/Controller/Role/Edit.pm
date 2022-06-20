@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Role::Edit;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
+use MusicBrainz::Server::Data::Utils qw( model_to_type );
 
 parameter 'form' => (
     isa => 'Str',
@@ -33,8 +34,27 @@ role {
 
         my $entity_name = $self->{entity_name};
         my $edit_entity = $c->stash->{ $entity_name };
+        my $model = $self->{model};
 
-        $c->stash->{template} = 'entity/edit.tt';
+        if ($model eq 'Genre') {
+            my $type = model_to_type($model);
+
+            my $form = $c->form(
+                form => $params->form,
+                init_object => $edit_entity,
+            );
+
+            $c->stash(
+                component_path => $type . '/Edit' . $model,
+                component_props => {
+                    entity => $edit_entity->TO_JSON,
+                    form => $form->TO_JSON,
+                },
+                current_view => 'Node',
+            );
+        } else {
+            $c->stash->{template} = 'entity/edit.tt';
+        }
 
         return $self->edit_action($c,
             form        => $params->form,

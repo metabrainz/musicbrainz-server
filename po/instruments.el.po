@@ -334,8 +334,9 @@ msgid "alto flute"
 msgstr "άλτο φλάουτο"
 
 #: DB:instrument/name:21
+msgctxt "Middle member of the saxophone family"
 msgid "alto saxophone"
-msgstr "άλτο σαξόφωνο"
+msgstr ""
 
 #: DB:instrument/name:923
 msgctxt "Alto member of the viol family"
@@ -503,8 +504,9 @@ msgid "baritone horn"
 msgstr "βαρύτονο κόρνο"
 
 #: DB:instrument/name:23
+msgctxt "Middle-Low member of the saxophone family"
 msgid "baritone saxophone"
-msgstr "βαρύτονο σαξόφωνο"
+msgstr ""
 
 #: DB:instrument/name:917
 msgctxt "Baroque gut string guitar"
@@ -571,8 +573,9 @@ msgid "bass recorder"
 msgstr ""
 
 #: DB:instrument/name:444
+msgctxt "Second lowest member of the saxophone family"
 msgid "bass saxophone"
-msgstr "μπάσο σαξόφωνο"
+msgstr ""
 
 #: DB:instrument/name:456
 msgid "bass synthesizer"
@@ -1110,8 +1113,9 @@ msgid "contrabass recorder"
 msgstr "κοντραμπάσο φλογέρα"
 
 #: DB:instrument/name:446
+msgctxt "Largest member of the saxophone family"
 msgid "contrabass saxophone"
-msgstr "κοντραμπάσο σαξόφωνο"
+msgstr ""
 
 #: DB:instrument/name:6
 msgid "contrabassoon"
