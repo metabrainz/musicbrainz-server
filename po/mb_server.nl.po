@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-13 21:40+0300\n"
+"POT-Creation-Date: 2022-06-14 23:10+0300\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: Maurits Meulenbelt, 2012-2022\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
@@ -510,7 +510,7 @@ msgstr "Weet je zeker dat je {entity} wil verwijderen van MusicBrainz?"
 #: ../root/search/components/PlaceResults.js:64
 #: ../root/search/components/SearchForm.js:40
 #: ../root/static/scripts/common/constants.js:18
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:46
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:48
 #: ../root/user/UserProfile.js:44
 msgid "Area"
 msgstr "Gebied"
@@ -582,7 +582,7 @@ msgstr "Gebieden"
 #: ../root/search/components/ReleaseResults.js:107
 #: ../root/search/components/SearchForm.js:34
 #: ../root/static/scripts/common/constants.js:19
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:48
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:50
 #: ../root/static/scripts/common/utility/formatSetlist.js:31
 #: ../root/static/scripts/release/components/MediumTable.js:215
 #: ../root/taglookup/Form.js:26 ../root/user/UserProfile.js:45
@@ -993,7 +993,7 @@ msgstr "Medium inklappen"
 
 #: ../root/components/common-macros.tt:518
 #: ../root/collection/CollectionMerge.js:43
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:50
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:52
 #: ../root/user/UserCollections.js:93
 msgid "Collection"
 msgstr "Collectie"
@@ -1149,7 +1149,7 @@ msgstr "Datanummers"
 #: ../root/release_group/ReleaseGroupIndex.js:165
 #: ../root/search/components/EventResults.js:72
 #: ../root/search/components/ReleaseResults.js:110
-#: ../root/static/scripts/annotation/AnnotationHistoryTable.js:92
+#: ../root/static/scripts/annotation/AnnotationHistoryTable.js:94
 #: ../root/static/scripts/common/components/FilterForm.js:181
 #: ../root/utility/tableColumns.js:257 ../root/utility/tableColumns.js:262
 #: ../root/utility/tableColumns.js:484 ../root/utility/tableColumns.js:490
@@ -1247,6 +1247,7 @@ msgstr "Overleden:"
 #: ../root/release_group/edit_form.tt:15 ../root/series/edit_form.tt:13
 #: ../root/work/edit_form.tt:13 ../root/edit/details/AddArea.js:56
 #: ../root/edit/details/AddArtist.js:64 ../root/edit/details/AddEvent.js:46
+#: ../root/edit/details/AddGenre.js:43
 #: ../root/edit/details/AddInstrument.js:53
 #: ../root/edit/details/AddLabel.js:56 ../root/edit/details/AddPlace.js:45
 #: ../root/edit/details/AddRelease.js:76
@@ -1255,13 +1256,14 @@ msgstr "Overleden:"
 #: ../root/edit/details/AddStandaloneRecording.js:55
 #: ../root/edit/details/AddWork.js:43 ../root/edit/details/EditArea.js:68
 #: ../root/edit/details/EditArtist.js:81 ../root/edit/details/EditEvent.js:49
+#: ../root/edit/details/EditGenre.js:46
 #: ../root/edit/details/EditInstrument.js:53
 #: ../root/edit/details/EditLabel.js:67 ../root/edit/details/EditPlace.js:54
 #: ../root/edit/details/EditRecording.js:53
 #: ../root/edit/details/EditRelease.js:93
 #: ../root/edit/details/EditReleaseGroup.js:52
 #: ../root/edit/details/EditSeries.js:50 ../root/edit/details/EditWork.js:60
-#: ../root/genre/GenreEditForm.js:38
+#: ../root/genre/GenreEditForm.js:39
 msgid "Disambiguation"
 msgstr "Verduidelijking"
 
@@ -1440,7 +1442,7 @@ msgstr "Bewerken en stemmen uitgeschakeld"
 #: ../root/layout/components/Search.js:50
 #: ../root/report/components/EditorList.js:57
 #: ../root/search/components/SearchForm.js:44
-#: ../root/static/scripts/annotation/AnnotationHistoryTable.js:91
+#: ../root/static/scripts/annotation/AnnotationHistoryTable.js:93
 msgid "Editor"
 msgstr "Redacteur"
 
@@ -1540,7 +1542,7 @@ msgstr "Het kan al genoeg zijn om één of twee links toe te voegen. Voor meer s
 #: ../root/report/components/EventList.js:51
 #: ../root/search/components/SearchForm.js:48
 #: ../root/static/scripts/common/constants.js:20
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:52
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:54
 #: ../root/user/UserProfile.js:47
 msgid "Event"
 msgstr "Evenement"
@@ -2091,7 +2093,7 @@ msgstr "Een cd-beginnetje importeren"
 #: ../root/report/components/InstrumentList.js:44
 #: ../root/search/components/SearchForm.js:46
 #: ../root/static/scripts/common/constants.js:22
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:54
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:58
 #: ../root/user/UserProfile.js:48
 msgid "Instrument"
 msgstr "Instrument"
@@ -2107,7 +2109,7 @@ msgstr "Instrument:"
 #: ../root/components/common-macros.tt:535
 #: ../root/components/TagEntitiesList.js:171
 #: ../root/report/ReportsIndex.js:157
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:21
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:23
 #: ../root/tag/TagLayout.js:33
 msgid "Instruments"
 msgstr "Instrumenten"
@@ -2176,7 +2178,7 @@ msgstr "Houd er rekening mee dat dit best lang kan duren als je veel etiketten h
 #: ../root/search/components/ReleaseResults.js:111
 #: ../root/search/components/SearchForm.js:39
 #: ../root/static/scripts/common/constants.js:23
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:56
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:60
 #: ../root/user/UserProfile.js:49 ../root/utility/tableColumns.js:505
 #: ../root/utility/tableColumns.js:510
 msgid "Label"
@@ -2212,7 +2214,7 @@ msgstr "Platenmaatschappij:"
 #: ../root/components/TagEntitiesList.js:175
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:192
 #: ../root/report/ReportsIndex.js:172
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:23
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
 #: ../root/tag/TagLayout.js:30
 msgid "Labels"
 msgstr "Platenmaatschappijen"
@@ -2462,7 +2464,7 @@ msgstr "MusicBrainz heeft één type account voor alle gebruikers. Gebruik het b
 #: ../root/components/Aliases/ArtistCreditList.js:50
 #: ../root/components/list/RecordingList.js:96
 #: ../root/edit/details/AddArea.js:43 ../root/edit/details/AddArtist.js:53
-#: ../root/edit/details/AddEvent.js:40
+#: ../root/edit/details/AddEvent.js:40 ../root/edit/details/AddGenre.js:37
 #: ../root/edit/details/AddInstrument.js:43
 #: ../root/edit/details/AddLabel.js:43 ../root/edit/details/AddPlace.js:40
 #: ../root/edit/details/AddRelationshipAttribute.js:36
@@ -2473,6 +2475,7 @@ msgstr "MusicBrainz heeft één type account voor alle gebruikers. Gebruik het b
 #: ../root/edit/details/AddStandaloneRecording.js:44
 #: ../root/edit/details/AddWork.js:38 ../root/edit/details/EditArea.js:54
 #: ../root/edit/details/EditArtist.js:67 ../root/edit/details/EditEvent.js:42
+#: ../root/edit/details/EditGenre.js:39
 #: ../root/edit/details/EditInstrument.js:46
 #: ../root/edit/details/EditLabel.js:51 ../root/edit/details/EditMedium.js:479
 #: ../root/edit/details/EditPlace.js:47
@@ -2490,7 +2493,7 @@ msgstr "MusicBrainz heeft één type account voor alle gebruikers. Gebruik het b
 #: ../root/edit/details/historic/AddTrackKV.js:32
 #: ../root/edit/details/historic/AddTrackOld.js:24
 #: ../root/edit/details/historic/EditReleaseName.js:23
-#: ../root/entity/Details.js:95 ../root/genre/GenreEditForm.js:32
+#: ../root/entity/Details.js:95 ../root/genre/GenreEditForm.js:33
 #: ../root/search/components/AnnotationResults.js:58
 #: ../root/search/components/AreaResults.js:61
 #: ../root/search/components/ArtistResults.js:50
@@ -2769,7 +2772,7 @@ msgstr "Wachtwoord:"
 #: ../root/report/components/PlaceList.js:45
 #: ../root/search/components/SearchForm.js:41
 #: ../root/static/scripts/common/constants.js:24
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:58
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:62
 #: ../root/user/UserProfile.js:50
 msgid "Place"
 msgstr "Plaats"
@@ -2790,7 +2793,7 @@ msgstr "Plaats:"
 #: ../root/area/AreaPlaces.js:36 ../root/components/EntityTabs.js:31
 #: ../root/components/TagEntitiesList.js:179
 #: ../root/report/ReportsIndex.js:522
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:27
 #: ../root/tag/TagLayout.js:31
 msgid "Places"
 msgstr "Plaatsen"
@@ -2931,7 +2934,7 @@ msgstr "Recente notities bij mijn bewerkingen"
 #: ../root/report/components/RecordingList.js:47
 #: ../root/search/components/SearchForm.js:37
 #: ../root/static/scripts/common/constants.js:25
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:60
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:64
 #: ../root/user/UserProfile.js:51
 msgid "Recording"
 msgstr "Opname"
@@ -2963,7 +2966,7 @@ msgstr "Opname:"
 #: ../root/instrument/InstrumentRecordings.js:36
 #: ../root/instrument/InstrumentRecordings.js:38
 #: ../root/report/ReportsIndex.js:452
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:27
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:29
 #: ../root/tag/TagLayout.js:28 ../root/work/WorkIndex.js:59
 msgid "Recordings"
 msgstr "Opnames"
@@ -3035,7 +3038,7 @@ msgstr "<span class=\"rel-edit\">Geel</span>gemarkeerde relaties zullen worden b
 #: ../root/search/components/RecordingResults.js:136
 #: ../root/search/components/SearchForm.js:36
 #: ../root/static/scripts/common/constants.js:26
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:62
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:66
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:341
 #: ../root/taglookup/Form.js:31 ../root/user/UserProfile.js:52
 msgid "Release"
@@ -3060,7 +3063,7 @@ msgstr "Duplicaten van de uitgave"
 #: ../root/search/components/ReleaseGroupResults.js:62
 #: ../root/search/components/SearchForm.js:35
 #: ../root/static/scripts/common/i18n/localizeTypeNameForEntity.js:36
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:64
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:68
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:348
 msgid "Release Group"
 msgstr "Uitgavegroep"
@@ -3087,7 +3090,7 @@ msgstr "Uitgavegroep: {release_group_link}"
 #: ../root/artist_credit/ArtistCreditLayout.js:28
 #: ../root/components/TagEntitiesList.js:183
 #: ../root/components/list/RecordingList.js:61
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:31
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:33
 #: ../root/tag/TagLayout.js:26
 msgid "Release Groups"
 msgstr "Uitgavegroepen"
@@ -3163,7 +3166,7 @@ msgstr "Uitgave:"
 #: ../root/instrument/InstrumentReleases.js:36
 #: ../root/instrument/InstrumentReleases.js:38 ../root/label/LabelIndex.js:80
 #: ../root/report/ReportsIndex.js:246
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:29
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:31
 #: ../root/tag/TagLayout.js:27
 msgid "Releases"
 msgstr "Uitgaven"
@@ -3451,7 +3454,7 @@ msgid "Sentence"
 msgstr "Zin"
 
 #: ../root/components/common-macros.tt:535
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:33
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
 #: ../root/tag/TagLayout.js:34
 msgctxt "plural"
 msgid "Series"
@@ -3464,7 +3467,7 @@ msgstr "Series"
 #: ../root/layout/components/Search.js:33
 #: ../root/search/components/SearchForm.js:47
 #: ../root/static/scripts/common/constants.js:28
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:66
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:70
 #: ../root/user/UserProfile.js:54
 msgctxt "singular"
 msgid "Series"
@@ -3596,7 +3599,7 @@ msgstr "Onderwerp:"
 
 #: ../root/cdstub/edit_form.tt:24
 #: ../root/admin/statistics-events/StatisticsEventEditForm.js:58
-#: ../root/genre/GenreEditForm.js:45 ../root/oauth2/OAuth2FormPost.js:46
+#: ../root/oauth2/OAuth2FormPost.js:46
 #: ../root/user/components/UserTagFilters.js:26
 #: ../root/user/components/UserTagFilters.js:72
 msgid "Submit"
@@ -4287,7 +4290,7 @@ msgstr "Types:"
 #: ../root/report/components/ReleaseUrlList.js:36
 #: ../root/report/components/UrlList.js:43
 #: ../root/static/scripts/common/constants.js:29
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:68
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:72
 #: ../root/static/scripts/edit/components/URLInputPopover.js:73
 #: ../root/url/UrlHeader.js:31 ../root/url/UrlIndex.js:26
 msgid "URL"
@@ -4299,7 +4302,7 @@ msgid "URL:"
 msgstr "URL:"
 
 #: ../root/components/common-macros.tt:535 ../root/report/ReportsIndex.js:569
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:37
 msgid "URLs"
 msgstr "URL’s"
 
@@ -4530,7 +4533,7 @@ msgstr "Transclusieredacteur"
 #: ../root/report/components/WorkList.js:47
 #: ../root/search/components/SearchForm.js:38
 #: ../root/static/scripts/common/constants.js:30
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:70
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:74
 #: ../root/user/UserProfile.js:55 ../root/work/WorkLayout.js:35
 msgid "Work"
 msgstr "Compositie"
@@ -4561,7 +4564,7 @@ msgstr "Compositie:"
 #: ../root/components/EntityTabs.js:35
 #: ../root/components/TagEntitiesList.js:199
 #: ../root/report/ReportsIndex.js:548
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:37
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:39
 #: ../root/tag/TagLayout.js:29
 msgid "Works"
 msgstr "Composities"
@@ -5485,11 +5488,11 @@ msgstr "Deze uitgave heeft geen afbeelding."
 msgid "Found no artwork with ID “{id}”."
 msgstr "Geen afbeelding met de ID ‘{id}’ gevonden."
 
-#: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:66
+#: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:67
 msgid "The annotation revision ID must be a positive integer"
 msgstr "De ID voor de revisie van de aantekening moet een positieve integer zijn."
 
-#: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:215
+#: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:216
 msgid "The old and new annotation ids must be unique, positive integers."
 msgstr "De oude en nieuwe ID van de aantekening moeten unieke positieve integers zijn."
 
@@ -5820,6 +5823,33 @@ msgstr "Alias van dit evenement bewerken"
 #: ../root/event/EventMerge.js:31 ../root/event/EventMerge.js:33
 msgid "Merge events"
 msgstr "Evenementen samenvoegen"
+
+#: ../lib/MusicBrainz/Server/Edit/Genre.pm:7
+#: ../root/edit/details/AddGenre.js:26 ../root/edit/details/EditGenre.js:30
+#: ../root/genre/GenreHeader.js:31 ../root/search/components/TagResults.js:52
+#: ../root/static/scripts/common/constants.js:21
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:56
+#: ../root/tag/TagIndex.js:39
+msgid "Genre"
+msgstr "Genre"
+
+#: ../lib/MusicBrainz/Server/Edit/Genre/AddAnnotation.pm:11
+msgid "Add genre annotation"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:20
+msgid "Add genre"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Edit/Genre/Delete.pm:10
+#: ../root/genre/DeleteGenre.js:34 ../root/genre/DeleteGenre.js:36
+msgid "Remove genre"
+msgstr "Genre verwijderen"
+
+#: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:24
+#: ../root/genre/EditGenre.js:31
+msgid "Edit genre"
+msgstr "Genre bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/AddDiscID.pm:11
@@ -6938,7 +6968,7 @@ msgstr "De geboortedatum moet na 1900 zijn"
 #: ../root/report/hooks/useAnnotationColumns.js:28
 #: ../root/search/components/AnnotationResults.js:59
 #: ../root/search/components/SearchForm.js:42
-#: ../root/static/scripts/common/components/Annotation.js:56
+#: ../root/static/scripts/common/components/Annotation.js:58
 msgid "Annotation"
 msgstr "Aantekening"
 
@@ -7790,7 +7820,7 @@ msgstr ""
 #: ../root/annotation/EditAnnotation.js:48
 #: ../root/annotation/EditAnnotation.js:50
 #: ../root/layout/components/sidebar/AnnotationLinks.js:36
-#: ../root/static/scripts/common/components/Annotation.js:99
+#: ../root/static/scripts/common/components/Annotation.js:104
 msgid "Edit annotation"
 msgstr "Aantekening bewerken"
 
@@ -7807,7 +7837,7 @@ msgid "Preview:"
 msgstr "Voorbeeld:"
 
 #: ../root/annotation/EditAnnotation.js:81
-#: ../root/static/scripts/common/components/Annotation.js:73
+#: ../root/static/scripts/common/components/Annotation.js:78
 msgid "Changelog:"
 msgstr "Veranderingslogboek:"
 
@@ -10506,37 +10536,23 @@ msgstr "Je staat op het punt om al deze evenementen samen te voegen. Selecteer h
 msgid "Add a new genre"
 msgstr "Nieuw genre toevoegen"
 
-#: ../root/genre/DeleteGenre.js:30 ../root/genre/DeleteGenre.js:32
 #: ../root/genre/DeleteGenre.js:38
-msgid "Remove genre"
-msgstr "Genre verwijderen"
-
-#: ../root/genre/DeleteGenre.js:34
 msgid "Are you sure you want to remove the genre {genre}?"
 msgstr "Weet je zeker dat je het genre {genre} wil verwijderen?"
 
-#: ../root/genre/EditGenre.js:31
-msgid "Edit genre"
-msgstr "Genre bewerken"
-
-#: ../root/genre/GenreEditForm.js:29
+#: ../root/genre/GenreEditForm.js:30
 msgid "Genre details"
 msgstr "Details van het genre"
 
-#: ../root/genre/GenreHeader.js:31 ../root/search/components/TagResults.js:52
-#: ../root/static/scripts/common/constants.js:21 ../root/tag/TagIndex.js:39
-msgid "Genre"
-msgstr "Genre"
-
-#: ../root/genre/GenreIndex.js:26
+#: ../root/genre/GenreIndex.js:30
 msgid "Genre information"
 msgstr "Genre-informatie"
 
-#: ../root/genre/GenreIndex.js:28
+#: ../root/genre/GenreIndex.js:32
 msgid "Associated tags"
 msgstr "Gerelateerde tags"
 
-#: ../root/genre/GenreIndex.js:31
+#: ../root/genre/GenreIndex.js:35
 msgid "Primary tag"
 msgstr "Primaire tag"
 
@@ -10767,7 +10783,6 @@ msgstr "Etikettenwolk"
 #: ../root/layout/components/BottomMenu.js:223
 #: ../root/layout/components/sidebar/CollectionSidebar.js:60
 #: ../root/layout/components/sidebar/EditLinks.js:29
-#: ../root/layout/components/sidebar/GenreSidebar.js:30
 #: ../root/static/scripts/account/components/PreferencesForm.js:239
 msgid "Editing"
 msgstr "Bewerken"
@@ -10999,7 +11014,7 @@ msgid "Add annotation"
 msgstr "Aantekening toevoegen"
 
 #: ../root/layout/components/sidebar/AnnotationLinks.js:43
-#: ../root/static/scripts/common/components/Annotation.js:93
+#: ../root/static/scripts/common/components/Annotation.js:98
 msgid "View annotation history"
 msgstr "Geschiedenis van de aantekening bekijken"
 
@@ -11320,6 +11335,7 @@ msgstr "(geen)"
 #: ../root/layout/components/sidebar/SidebarTags.js:69
 #: ../root/static/scripts/common/components/TagEditor.js:533
 #: ../root/static/scripts/common/components/TagEditor.js:643
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:21
 #: ../root/tag/TagCloud.js:107 ../root/user/UserTagList.js:81
 msgid "Genres"
 msgstr "Genres"
@@ -13984,23 +14000,23 @@ msgstr "Dit is het primaire alias voor deze locatie"
 msgid "This alias is no longer current."
 msgstr "Deze alias wordt niet meer gebruikt."
 
-#: ../root/static/scripts/annotation/AnnotationHistoryTable.js:87
+#: ../root/static/scripts/annotation/AnnotationHistoryTable.js:89
 msgid "Old"
 msgstr "Oud"
 
-#: ../root/static/scripts/annotation/AnnotationHistoryTable.js:88
+#: ../root/static/scripts/annotation/AnnotationHistoryTable.js:90
 msgid "New"
 msgstr "Nieuw"
 
-#: ../root/static/scripts/annotation/AnnotationHistoryTable.js:93
+#: ../root/static/scripts/annotation/AnnotationHistoryTable.js:95
 msgid "Version History"
 msgstr "Versiegeschiedenis"
 
-#: ../root/static/scripts/annotation/AnnotationHistoryTable.js:133
+#: ../root/static/scripts/annotation/AnnotationHistoryTable.js:137
 msgid "View this version"
 msgstr "Deze versie bekijken"
 
-#: ../root/static/scripts/annotation/AnnotationHistoryTable.js:138
+#: ../root/static/scripts/annotation/AnnotationHistoryTable.js:142
 msgid "<em>no changelog specified</em>"
 msgstr "<em>geen veranderingslogboek opgegeven</em>"
 
@@ -14155,21 +14171,25 @@ msgstr "Notitie verwijderen"
 msgid "Image {current} of {total}"
 msgstr "Afbeelding {current} van {total}"
 
-#: ../root/static/scripts/common/components/Annotation.js:75
+#: ../root/static/scripts/common/components/Annotation.js:62
+msgid "This annotation is blank."
+msgstr ""
+
+#: ../root/static/scripts/common/components/Annotation.js:80
 msgid "(no changelog)"
 msgstr "(geen veranderingslogboek)"
 
-#: ../root/static/scripts/common/components/Annotation.js:85
+#: ../root/static/scripts/common/components/Annotation.js:90
 msgid "Annotation last modified by {user} on {date}."
 msgstr "Aantekening het laatst bewerkt door {user} op {date}."
 
-#: ../root/static/scripts/common/components/Annotation.js:104
+#: ../root/static/scripts/common/components/Annotation.js:109
 msgid ""
 "This is an {history|old revision} of this annotation, as edited by {user} on"
 " {date}. {current|View current revision}."
 msgstr "Dit is een {history|oude versie} van deze aantekening, zoals bewerkt door {user} op {date}. {current|Huidige versie bekijken}."
 
-#: ../root/static/scripts/common/components/Annotation.js:116
+#: ../root/static/scripts/common/components/Annotation.js:121
 msgid "Annotation last modified on {date}."
 msgstr "Aantekening het laatst bewerkt op {date}"
 
