@@ -16,12 +16,11 @@ my $test = shift;
 my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c);
-MusicBrainz::Server::Test->prepare_test_database($c, '+releasegrouptype');
-MusicBrainz::Server::Test->prepare_test_database($c, <<'SQL');
+MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
     SET client_min_messages TO warning;
     SET CONSTRAINTS ALL IMMEDIATE;
     TRUNCATE release_group CASCADE;
-SQL
+    SQL
 
 my $edit = create_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::ReleaseGroup::Create');
