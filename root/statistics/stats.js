@@ -885,6 +885,11 @@ const stats = {
     color: '#ff0000',
     label: l('Works with ISWCs'),
   },
+  'count.work.language.null': {
+    category: 'work-languages',
+    color: '#ff0000',
+    label: l('Works with no language set'),
+  },
   'count.work.type.null': {
     category: 'work-types',
     color: '#ff0000',
