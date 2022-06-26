@@ -30,13 +30,15 @@ const GenreSidebar = ({genre}: Props): React.Element<'div'> => {
     <div id="sidebar">
       <ExternalLinks empty entity={genre} />
 
-      {isRelationshipEditor($c.user) ? (
-        <EditLinks entity={genre}>
-          <AnnotationLinks entity={genre} />
+      <EditLinks entity={genre}>
+        {isRelationshipEditor($c.user) ? (
+          <>
+            <AnnotationLinks entity={genre} />
 
-          <RemoveLink entity={genre} />
-        </EditLinks>
-      ) : null}
+            <RemoveLink entity={genre} />
+          </>
+        ) : null}
+      </EditLinks>
       <LastUpdated entity={genre} />
     </div>
   );
