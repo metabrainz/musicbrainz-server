@@ -193,7 +193,7 @@ MB.initRelationshipEditors = function (args) {
     MB.sourceExternalLinksEditor = MB.createExternalLinksEditor({
       sourceData: sourceData,
       mountPoint: externalLinksEditor,
-    });
+    }).externalLinksEditorRef;
   }
 
   source.parseRelationships(
