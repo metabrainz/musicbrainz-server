@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import Relationships from '../components/Relationships';
 import Annotation from '../static/scripts/common/components/Annotation';
 import TagLink from '../static/scripts/common/components/TagLink';
 import * as manifest from '../static/manifest';
@@ -42,6 +43,7 @@ const GenreIndex = ({
       entity={genre}
       numberOfRevisions={numberOfRevisions}
     />
+    <Relationships source={genre} />
     {manifest.js('genre/index', {async: 'async'})}
   </GenreLayout>
 );

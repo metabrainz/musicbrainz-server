@@ -12,8 +12,6 @@ import punycode from 'punycode';
 import $ from 'jquery';
 import ko from 'knockout';
 import * as React from 'react';
-// $FlowIgnore[missing-export]
-import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 
 import {
@@ -1710,7 +1708,11 @@ function isMusicBrainz(url) {
 type InitialOptionsT = {
   errorObservable?: (boolean) => void,
   mountPoint: Element,
-  sourceData: CoreEntityT,
+  sourceData: CoreEntityT | {
+    +entityType: CoreEntityTypeT,
+    +id?: void,
+    +relationships?: void,
+  },
 };
 
 type SeededUrlShape = {
@@ -1718,7 +1720,12 @@ type SeededUrlShape = {
   +text?: string,
 };
 
-MB.createExternalLinksEditor = function (options: InitialOptionsT) {
+export function createExternalLinksEditor(
+  options: InitialOptionsT,
+): {
+  +externalLinksEditorRef: React$Ref<typeof ExternalLinksEditor>,
+  +root: {+unmount: () => void, ...},
+} {
   const sourceData = options.sourceData;
   const sourceType = sourceData.entityType;
   const entityTypes = [sourceType, 'url'].sort().join('-');
@@ -1794,21 +1801,25 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
   const errorObservable = options.errorObservable ||
     validation.errorField(ko.observable(false));
 
-  const root = ReactDOMClient.createRoot(options.mountPoint);
-  const externalLinksEditorRef = React.createRef();
-  flushSync(() => {
-    root.render(
-      <ExternalLinksEditor
-        errorObservable={errorObservable}
-        initialLinks={initialLinks}
-        isNewEntity={!sourceData.id}
-        ref={externalLinksEditorRef}
-        sourceType={sourceData.entityType}
-        typeOptions={typeOptions}
-      />,
-    );
-  });
-  return externalLinksEditorRef;
-};
+  const mountPoint = options.mountPoint;
+  let root = $(mountPoint).data('react-root');
+  if (!root) {
+    root = ReactDOMClient.createRoot(mountPoint);
+    $(mountPoint).data('react-root', root);
+  }
 
-export const createExternalLinksEditor = MB.createExternalLinksEditor;
+  const externalLinksEditorRef = React.createRef();
+  root.render(
+    <ExternalLinksEditor
+      errorObservable={errorObservable}
+      initialLinks={initialLinks}
+      isNewEntity={!sourceData.id}
+      ref={externalLinksEditorRef}
+      sourceType={sourceData.entityType}
+      typeOptions={typeOptions}
+    />,
+  );
+  return {externalLinksEditorRef, root};
+}
+
+MB.createExternalLinksEditor = createExternalLinksEditor;

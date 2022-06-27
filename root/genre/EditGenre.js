@@ -9,20 +9,28 @@
 
 import * as React from 'react';
 
-import GenreEditForm from './GenreEditForm';
+import * as manifest from '../static/manifest';
+import GenreEditForm from '../static/scripts/genre/components/GenreEditForm';
+
 import GenreLayout from './GenreLayout';
 import type {GenreFormT} from './types';
 
 type Props = {
   +$c: CatalystContextT,
+  +attrInfo: LinkAttrTypeOptionsT,
   +entity: GenreT,
   +form: GenreFormT,
+  +sourceEntity: GenreT,
+  +typeInfo: LinkTypeOptionsT,
 };
 
 const EditGenre = ({
   $c,
+  attrInfo,
   entity,
   form,
+  sourceEntity,
+  typeInfo,
 }: Props): React.Element<typeof GenreLayout> => (
   <GenreLayout
     entity={entity}
@@ -30,7 +38,14 @@ const EditGenre = ({
     page="edit"
     title={l('Edit genre')}
   >
-    <GenreEditForm $c={$c} form={form} />
+    <GenreEditForm
+      $c={$c}
+      attrInfo={attrInfo}
+      form={form}
+      sourceEntity={sourceEntity}
+      typeInfo={typeInfo}
+    />
+    {manifest.js('genre/components/GenreEditForm', {async: 'async'})}
   </GenreLayout>
 );
 
