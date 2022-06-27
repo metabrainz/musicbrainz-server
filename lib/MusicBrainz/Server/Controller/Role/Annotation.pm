@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Role::Annotation;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Constants qw( :annotation entities_with );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
@@ -70,7 +71,10 @@ sub annotation_revision : Chained('load') PathPart('annotation') Args(1)
     }
 
     my $annotation = $c->model($self->{model})->annotation->get_by_id($id)
-        or $c->detach('/error_404');
+        or $c->detach(
+            '/error_404',
+            [ l('Found no annotation with ID “{id}”.', { id => $id }) ],
+        );
 
     $c->model('Editor')->load($annotation);
 
@@ -80,6 +84,16 @@ sub annotation_revision : Chained('load') PathPart('annotation') Args(1)
             $annotation_model->get_history($entity->id, @_);
         }
     );
+
+    if (!(scalar @$annotations) || !(any { $id == $_->{id} } @$annotations)) {
+        $c->stash(
+            message => l(
+                'The annotation with ID “{id}” is not associated with this entity.',
+                { id => $id },
+            )
+        );
+        $c->detach('/error_400')
+    }
 
     my %props = (
         annotation => $annotation->TO_JSON,
