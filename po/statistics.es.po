@@ -10,7 +10,7 @@
 # Robert Schneider <email address hidden>, 2019
 # Roboron <email address hidden>, 2020
 # Stich Lilo <email address hidden>, 2020
-# Kevin Doncam Demian López Brante <email address hidden>, 2012
+# Kevin López Brante <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
 msgid ""

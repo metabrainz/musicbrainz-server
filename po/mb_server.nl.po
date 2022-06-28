@@ -5835,11 +5835,11 @@ msgstr "Genre"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAnnotation.pm:11
 msgid "Add genre annotation"
-msgstr ""
+msgstr "Aantekening aan het genre toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:20
 msgid "Add genre"
-msgstr ""
+msgstr "Genre toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Delete.pm:10
 #: ../root/genre/DeleteGenre.js:34 ../root/genre/DeleteGenre.js:36
@@ -6590,11 +6590,11 @@ msgstr "Stream op Spotify"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Tidal.pm:14
 msgid "Purchase at Tidal"
-msgstr ""
+msgstr "Kopen bij Tidal"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Tidal.pm:16
 msgid "Stream at Tidal"
-msgstr ""
+msgstr "Streamen met Tidal"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Weibo.pm:13
 msgid "Weibo"
@@ -7788,11 +7788,11 @@ msgstr "Vergelijking tussen aantekeningen"
 
 #: ../root/annotation/AnnotationComparison.js:49
 msgid "Old annotation"
-msgstr ""
+msgstr "Oude aantekening"
 
 #: ../root/annotation/AnnotationComparison.js:58
 msgid "New annotation"
-msgstr ""
+msgstr "Nieuwe aantekening"
 
 #: ../root/annotation/AnnotationComparison.js:71
 msgid ""
@@ -7815,7 +7815,7 @@ msgstr "Versies vergelijken"
 
 #: ../root/annotation/AnnotationHistory.js:67
 msgid "This entity has no annotation history."
-msgstr ""
+msgstr "De aantekening van dit object heeft geen geschiedenis."
 
 #: ../root/annotation/EditAnnotation.js:48
 #: ../root/annotation/EditAnnotation.js:50
@@ -7829,7 +7829,7 @@ msgid ""
 "Please note that any content submitted to MusicBrainz will be made available"
 " to the public under {open|open licenses}, do not submit any copyrighted "
 "text here!"
-msgstr ""
+msgstr "Let op dat alle informatie die aan MusicBrainz wordt toegevoegd, onder {open|open licenties} aan het publiek beschikbaar wordt gesteld. Voeg hier geen auteursrechtelijk beschermde tekst toe!"
 
 #: ../root/annotation/EditAnnotation.js:63
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:70
@@ -7868,7 +7868,7 @@ msgstr "Koppen:"
 
 #: ../root/annotation/EditAnnotation.js:113
 msgid "= Title 1 =; == Title 2 ==; === Title 3 ==="
-msgstr ""
+msgstr "= Titel 1 =; == Titel 2 ==; === Titel 3 ==="
 
 #: ../root/annotation/EditAnnotation.js:117
 msgid "Lists:"
@@ -13438,7 +13438,7 @@ msgstr "Opnames met data in de toekomst"
 #: ../root/report/ReportsIndex.js:517
 #: ../root/report/VideosInNonVideoMediums.js:42
 msgid "Video recordings in non-video mediums"
-msgstr ""
+msgstr "Video-opnames op media zonder video’s"
 
 #: ../root/report/ReportsIndex.js:530
 msgid "Places with annotations"
@@ -13583,7 +13583,7 @@ msgstr "Niet-gekoppelde pseudo-uitgaven"
 msgid ""
 "This report shows recordings marked as video, but that appear in at least "
 "one medium that does not support videos."
-msgstr ""
+msgstr "In dit rapport staan opnames die als video zijn aangemerkt, maar staat op minstens één medium dat geen video ondersteunt."
 
 #: ../root/report/VideosInNonVideoMediums.js:31
 msgid ""
@@ -13593,7 +13593,7 @@ msgid ""
 " recording, in which case the two should be split since video recordings "
 "should always be separate. If you split the recordings, consider whether it "
 "makes sense to link them with a {doc_link|music video relationship}."
-msgstr ""
+msgstr "Er zijn hier twee mogelijkheden: de opname is wel een video, maar het medium klopt niet (een cd zou bijvoorbeeld eigenlijk een VCD moeten zijn), of er wordt één opname gebruikt voor wat eigenlijk een afzonderlijke audio- en video-opname zouden moeten zijn. In dat geval moet de opname worden gesplitst, want audio- en video-opnamen moeten altijd apart worden gehouden. Als je haar splitst, moeten de audio- en video-opnames waarschijnlijk me de {doc_link|videocliprelatie} worden gekoppeld."
 
 #: ../root/report/WikidataLinksWithMultipleEntities.js:40
 msgid ""
@@ -14173,7 +14173,7 @@ msgstr "Afbeelding {current} van {total}"
 
 #: ../root/static/scripts/common/components/Annotation.js:62
 msgid "This annotation is blank."
-msgstr ""
+msgstr "Deze aantekening is leeg."
 
 #: ../root/static/scripts/common/components/Annotation.js:80
 msgid "(no changelog)"
@@ -14648,7 +14648,7 @@ msgid ""
 "This is a lyrics site. As such, links to the site should be added at the "
 "release group level with the “lyrics” relationship, rather than directly to "
 "any specific release."
-msgstr ""
+msgstr "Dit is een website met liedteksten. Links naar deze website moeten met de tekstrelatie op het niveau van de uitgavegroep worden toegevoegd in plaats van aan een specifieke uitgave."
 
 #: ../root/static/scripts/edit/URLCleanup.js:547
 msgid ""

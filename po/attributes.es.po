@@ -22,7 +22,7 @@
 # Jaime Marquínez Ferrándiz, 2019
 # Jeremias Brown <email address hidden>, 2018
 # Juan Acuña <email address hidden>, 2016
-# Kevin Doncam Demian López Brante <email address hidden>, 2016
+# Kevin López Brante <email address hidden>, 2016
 # Kevin López Brante <email address hidden>, 2015
 # Luis zas <email address hidden>, 2017
 # Marta PD <email address hidden>, 2014
@@ -33,7 +33,7 @@
 # Pier Jose Gotta Perez <email address hidden>, 2017
 # RepaNation Distributors, 2022
 # Robert Schneider <email address hidden>, 2019
-# Kevin Doncam Demian López Brante <email address hidden>, 2012
+# Kevin López Brante <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007
 #   Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012

@@ -6,7 +6,7 @@
 # 3b2b9b2970dff2223d07f096c7a072f3, 2011
 # Héctor Arroyo <email address hidden>, 2012
 # Jaime Cabrera <email address hidden>, 2017
-# Kevin Doncam Demian López Brante <email address hidden>, 2012,2016
+# Kevin López Brante <email address hidden>, 2012,2016
 # Marta PD <email address hidden>, 2014
 # Marta PD <email address hidden>, 2014
 # Maurizio Corripio <email address hidden>, 2019
@@ -14,7 +14,7 @@
 # Peter Cuevas <email address hidden>, 2020
 # Salvador Morales León <email address hidden>, 2016
 # t0n3t <email address hidden>, 2012
-# Kevin Doncam Demian López Brante <email address hidden>, 2012
+# Kevin López Brante <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
 # Yumi V <email address hidden>, 2017

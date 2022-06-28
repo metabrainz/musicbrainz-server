@@ -161,7 +161,7 @@ msgctxt "place_type"
 msgid ""
 "A (usually green) space kept available for recreation in an otherwise built "
 "and populated area."
-msgstr ""
+msgstr "Een park is een niet-bebouwd gebied in een verder bebouwd en bewoond gebied dat voor recreatie wordt gebruikt."
 
 #: DB:medium_format/description:129
 msgctxt "medium_format"
@@ -169,7 +169,7 @@ msgid ""
 "A CD that contains both audio and data in the same session. The data is "
 "often in the first track, that will have to be skipped in many audio "
 "players. Relatively common in old video game CDs."
-msgstr ""
+msgstr "Een mixedmode-cd is een cd met audio en data in dezelfde sessie. De data bevindt zich vaak in het eerste nummer, dat vaak handmatig moet worden overgeslagen, omdat de cd-speler het niet begrijpt. Deze cd’s werden nogal eens gebruikt bij oude computerspelletjes."
 
 #: DB:medium_format/description:42
 msgctxt "medium_format"
@@ -177,7 +177,7 @@ msgid ""
 "A CD that contains two sessions, one with audio and one with data. Since "
 "they are properly separated, audio players will not try to play the data "
 "session and it won't be part of the disc ID for the CD."
-msgstr ""
+msgstr "Een cd met twee sessies, een met audio en een met data. Omdat de sessies correct zijn gescheiden, proberen cd-spelers de datasessie niet af te spelen, en maakt de data-sessie geen deel van de disc-ID uit."
 
 #: DB:release_group_secondary_type/description:8
 msgctxt "release_group_secondary_type"
@@ -296,7 +296,7 @@ msgctxt "release_packaging"
 msgid ""
 "A minimalistic plastic case where the back and front are kept together by a "
 "small hinge. Most commonly used for cheap promotion / DIY releases."
-msgstr ""
+msgstr "Een minimalistisch plastic doosje waarvan de voor- en achterkant met een klein scharnier bij elkaar worden gehouden. Deze verpakking wordt vooral voor goedkope promotie- of doe-het-zelf-uitgaven gebruikt."
 
 #: DB:work_attribute_type_allowed_value/value:29
 msgctxt "work_attribute_type_allowed_value"
@@ -1564,7 +1564,7 @@ msgstr "Onofficiële (bootleg) productie"
 #: DB:cover_art_archive.art_type/name:49
 msgctxt "cover_art_type"
 msgid "Bottom"
-msgstr ""
+msgstr "onderkant"
 
 #: DB:release_packaging/name:19
 msgctxt "release_packaging"
@@ -1877,7 +1877,7 @@ msgstr "Stad wordt gebruikt voor plaatsen van elke grootte, inclusief dorpen."
 #: DB:release_packaging/name:56
 msgctxt "release_packaging"
 msgid "Clamshell Case"
-msgstr ""
+msgstr "Clamshell Case"
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
@@ -4859,7 +4859,7 @@ msgstr "Miraciye"
 #: DB:medium_format/name:129
 msgctxt "medium_format"
 msgid "Mixed Mode CD"
-msgstr ""
+msgstr "mixedmode-cd"
 
 #: DB:release_group_secondary_type/name:9
 msgctxt "release_group_secondary_type"
@@ -5689,7 +5689,7 @@ msgstr "Paras"
 #: DB:place_type/name:9
 msgctxt "place_type"
 msgid "Park"
-msgstr ""
+msgstr "Park"
 
 #: DB:work_type/name:13
 msgctxt "work_type"
@@ -7173,7 +7173,7 @@ msgid ""
 "The bottom of a box or other similar packaging (for most common six sided "
 "packaging options, the one perpendicular to and below front, back and "
 "spines)."
-msgstr ""
+msgstr "De onderkant van een doosje of vergelijkbare verpakking (bij de meest voorkomende verpakkingen met zes kanten, is dit de kant haaks op en onder de voorkant, achterkant en rug)."
 
 #: DB:work_type/description:7
 msgctxt "work_type"
@@ -7204,7 +7204,7 @@ msgid ""
 "The top of a box or other similar packaging (for most common six sided "
 "packaging options, the one perpendicular to and above front, back and "
 "spines)."
-msgstr ""
+msgstr "De bovenkant van een doosje of vergelijkbare verpakking (bij de meest voorkomende verpakkingen met zes kanten, is dit de kant haaks op en boven de voorkant, achterkant en rug)."
 
 #: DB:release_packaging/description:1
 msgctxt "release_packaging"
@@ -7336,7 +7336,7 @@ msgstr "Tiśra-jāti ēka"
 #: DB:cover_art_archive.art_type/name:48
 msgctxt "cover_art_type"
 msgid "Top"
-msgstr ""
+msgstr "bovenkant"
 
 #: DB:series_type/name:7
 msgctxt "series_type"
