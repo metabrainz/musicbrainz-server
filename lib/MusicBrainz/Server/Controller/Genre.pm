@@ -45,6 +45,7 @@ sub show : PathPart('') Chained('load') {
         component_path => 'genre/GenreIndex',
         component_props => {
             genre => $c->stash->{genre}->TO_JSON,
+            numberOfRevisions => $c->stash->{number_of_revisions},
             wikipediaExtract  => to_json_object(
                 $c->stash->{wikipedia_extract}
             ),
