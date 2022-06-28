@@ -13,7 +13,7 @@ This test ensures the full genre list at genre/all is working as intended.
 
 =cut
 
-test 'Test genre list is returned as expected' => sub {
+test 'Genre list is returned as expected' => sub {
     my $test = shift;
     my $c = $test->c;
 

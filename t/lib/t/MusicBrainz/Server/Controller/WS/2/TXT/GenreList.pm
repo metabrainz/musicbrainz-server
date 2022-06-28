@@ -14,7 +14,7 @@ txt format.
 
 =cut
 
-test 'Test genre names list is returned as expected' => sub {
+test 'Genre names list is returned as expected' => sub {
     my $test = shift;
     my $c = $test->c;
 

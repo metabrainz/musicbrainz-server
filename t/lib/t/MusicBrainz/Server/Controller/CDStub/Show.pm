@@ -12,7 +12,7 @@ shows data as expected.
 
 =cut
 
-test 'Test CD stub page display' => sub {
+test 'CD stub page contains the expected data' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;

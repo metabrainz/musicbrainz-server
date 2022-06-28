@@ -11,7 +11,7 @@ releases for the artist.
 
 =cut
 
-test 'Test artists releases page' => sub {
+test 'Artist releases page contains the expected data' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;

@@ -67,7 +67,7 @@ test 'Split artist remove all collaboration relationships for that artist' => su
     );
 };
 
-test 'Test splitting an artist' => sub {
+test 'Splitting an artist creates the right edit' => sub {
     my $test = shift;
 
     my $c = $test->c;

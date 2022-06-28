@@ -11,7 +11,7 @@ relationships for the artist, and also the expected JSON-LD data.
 
 =cut
 
-test 'Test artists relationships page' => sub {
+test 'Artist relationships page contains the expected data and JSON-LD' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;

@@ -13,7 +13,7 @@ unprivileged users cannot create instruments.
 
 =cut
 
-test 'Test adding a new instrument' => sub {
+test 'Adding a new instrument' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c = $test->c;
@@ -58,7 +58,7 @@ test 'Test adding a new instrument' => sub {
     );
 };
 
-test 'Test instrument creation is blocked for unprivileged users' => sub {
+test 'Instrument creation is blocked for unprivileged users' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c = $test->c;

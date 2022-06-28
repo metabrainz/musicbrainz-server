@@ -24,7 +24,7 @@ my $args = DBDefs->DATASTORE_REDIS_ARGS;
 $args->{database} = $args->{test_database};
 my $redis = MusicBrainz::DataStore::Redis->new(%$args);
 
-test 'Test database selected' => sub {
+test 'Database is still selected in new Redis copy' => sub {
     my $some_value = rand();
     $redis->set('26fe2bfb-73dd-4660-8946-bd14c899163b', $some_value);
 
@@ -38,7 +38,7 @@ test 'Test database selected' => sub {
     $redis->_connection->flushdb;
 };
 
-test 'Test key setting/retrieving' => sub {
+test 'Key setting/retrieving' => sub {
     is($redis->get('does-not-exist'), undef, 'Non-existent key returns undef');
 
     $redis->set('string', 'Esperándote');
@@ -65,7 +65,7 @@ test 'Test key setting/retrieving' => sub {
     $redis->_connection->flushdb;
 };
 
-test 'Test setting key expiration' => sub {
+test 'Setting key expiration' => sub {
     $redis->set('int', 23);
     is($redis->get('int'), 23, 'Retrieved expected integer');
 

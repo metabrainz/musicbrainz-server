@@ -17,7 +17,7 @@ and minimal data, plus some edge cases.
 
 my $artist_page_regexp = qr{/artist/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})};
 
-test 'Test creating artist with most fields' => sub {
+test 'Creating artist with most fields filled in' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
@@ -124,7 +124,7 @@ test 'Test creating artist with most fields' => sub {
     );
 };
 
-test 'Test creating artists with only the minimal amount of fields' => sub {
+test 'Creating artist with only the minimal amount of fields' => sub {
     my $test = shift;
     my $mech = $test->mech;
 

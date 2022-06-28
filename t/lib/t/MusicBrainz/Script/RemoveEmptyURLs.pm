@@ -15,7 +15,7 @@ and have no pending edits.
 
 =cut
 
-test 'Test the RemoveEmpty script for URLs' => sub {
+test 'The RemoveEmpty script deletes the expected URLs' => sub {
 
 my $test = shift;
 my $c = $test->c;

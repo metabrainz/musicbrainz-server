@@ -12,7 +12,7 @@ on the ISRC index page.
 
 =cut
 
-test 'Test ISRC index page' => sub {
+test 'ISRC index page contains the expected data' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
