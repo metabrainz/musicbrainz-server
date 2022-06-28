@@ -4,7 +4,10 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use List::AllUtils qw( sort_by );
-use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
+use MusicBrainz::Server::Entity::Util::JSON qw(
+    to_json_array
+    to_json_object
+);
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Genre',
@@ -16,6 +19,7 @@ with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
+with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_GENRE_CREATE
@@ -39,7 +43,12 @@ sub show : PathPart('') Chained('load') {
 
     $c->stash(
         component_path => 'genre/GenreIndex',
-        component_props => {genre => $c->stash->{genre}->TO_JSON},
+        component_props => {
+            genre => $c->stash->{genre}->TO_JSON,
+            wikipediaExtract  => to_json_object(
+                $c->stash->{wikipedia_extract}
+            ),
+        },
         current_view => 'Node',
     );
 }

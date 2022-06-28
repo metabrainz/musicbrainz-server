@@ -12,6 +12,8 @@ import * as React from 'react';
 import Relationships from '../components/Relationships';
 import Annotation from '../static/scripts/common/components/Annotation';
 import TagLink from '../static/scripts/common/components/TagLink';
+import WikipediaExtract
+  from '../static/scripts/common/components/WikipediaExtract';
 import * as manifest from '../static/manifest';
 
 import GenreLayout from './GenreLayout';
@@ -19,11 +21,13 @@ import GenreLayout from './GenreLayout';
 type Props = {
   +genre: GenreT,
   +numberOfRevisions: number,
+  +wikipediaExtract: WikipediaExtractT | null,
 };
 
 const GenreIndex = ({
   genre,
   numberOfRevisions,
+  wikipediaExtract,
 }: Props): React.Element<typeof GenreLayout> => (
   <GenreLayout
     entity={genre}
@@ -37,6 +41,10 @@ const GenreIndex = ({
         <td><TagLink tag={genre.name} /></td>
       </tr>
     </table>
+    <WikipediaExtract
+      cachedWikipediaExtract={wikipediaExtract}
+      entity={genre}
+    />
     <Annotation
       annotation={genre.latest_annotation}
       collapse
