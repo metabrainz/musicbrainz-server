@@ -11,7 +11,7 @@ both up- and downvoting, plus withdrawing/removing tags.
 
 =cut
 
-test 'Test instrument tagging (up/downvoting, withdrawing)' => sub {
+test 'Instrument tagging (up/downvoting, withdrawing)' => sub {
     my $test = shift;
     my $mech = $test->mech;
 

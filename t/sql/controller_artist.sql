@@ -43,9 +43,6 @@ INSERT INTO editor (id, name, password, privs, email, website, bio, email_confir
 
 INSERT INTO editor (id, name, password, ha1) VALUES (2, 'alice', '{CLEARTEXT}password', '343cbae85500be826a413b9b6b242669');
 
--- Alice has private ratings.
-INSERT INTO editor_preference (editor, name, value) VALUES (2, 'public_ratings', '0');
-
 INSERT INTO annotation (id, editor, text) VALUES
     (1, 1, 'Test annotation 1' || chr(10) || chr(10) || 'More annotation');
 
