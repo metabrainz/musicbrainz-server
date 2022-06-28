@@ -19,7 +19,7 @@ my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_delete');
 
-subtest 'Test edit creation/rejection' => sub {
+subtest 'Edit creation/rejection' => sub {
     my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
     is($rel->edits_pending, 0);
 
@@ -66,8 +66,7 @@ subtest 'Creating as an auto-editor still requires voting' => sub {
     is($rel->edits_pending, 1, 'relationship should have an edit pending');
 };
 
-subtest 'Test edit acception' => sub {
-    # Test accepting the edit
+subtest 'Accepting the edit' => sub {
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_DELETE,
         editor_id => 1,

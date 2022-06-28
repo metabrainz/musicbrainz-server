@@ -12,7 +12,7 @@ This test checks whether artist edits are correctly listed under both the
 
 =cut
 
-test 'Test that edits appear on the edit lists' => sub {
+test 'Edits appear on the edit lists' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;

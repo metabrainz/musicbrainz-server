@@ -11,7 +11,7 @@ up- and downvoting, plus withdrawing/removing tags.
 
 =cut
 
-test 'Test area tagging (up/downvoting, withdrawing)' => sub {
+test 'Area tagging (up/downvoting, withdrawing)' => sub {
     my $test = shift;
     my $mech = $test->mech;
 

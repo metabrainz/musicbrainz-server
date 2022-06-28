@@ -13,7 +13,7 @@
 # Nicolás Tamargo <email address hidden>, 2011-2013
 # Oscar Rivas Krucker <email address hidden>, 2015
 # Stich Lilo <email address hidden>, 2020
-# Kevin Doncam Demian López Brante <email address hidden>, 2012
+# Kevin López Brante <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
 msgid ""

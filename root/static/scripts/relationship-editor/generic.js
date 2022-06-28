@@ -285,19 +285,21 @@ export function prepareSubmission(formName) {
   $('#relationship-editor').append(hiddenInputs);
 }
 
-let submissionInProgress = false;
-$(document).on(
-  'submit',
-  '#page form:not(#relationship-editor-form)',
-  function () {
-    if (!submissionInProgress) {
-      submissionInProgress = true;
-      const formName = $('#relationship-editor').data('form-name');
-      if (formName) {
-        prepareSubmission(formName);
+if (typeof document !== 'undefined') {
+  let submissionInProgress = false;
+  $(document).on(
+    'submit',
+    '#page form:not(#relationship-editor-form)',
+    function () {
+      if (!submissionInProgress) {
+        submissionInProgress = true;
+        const formName = $('#relationship-editor').data('form-name');
+        if (formName) {
+          prepareSubmission(formName);
+        }
       }
-    }
-  },
-);
+    },
+  );
+}
 
 RE.prepareSubmission = prepareSubmission;

@@ -12,7 +12,7 @@ itself and the releases the disc ID is attached to.
 
 =cut
 
-test 'Test disc ID page display' => sub {
+test 'Disc ID page contains the expected data' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;

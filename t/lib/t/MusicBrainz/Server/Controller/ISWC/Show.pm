@@ -12,7 +12,7 @@ index page, and whether different ISWC formats all reach the same page.
 
 =cut
 
-test 'Test ISWC index page' => sub {
+test 'ISWC index page contains the expected data' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;

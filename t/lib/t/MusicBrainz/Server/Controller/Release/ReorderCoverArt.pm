@@ -6,7 +6,7 @@ use MusicBrainz::Server::Test qw( capture_edits );
 
 with 't::Context', 't::Mechanize';
 
-test 'Test reordering cover art' => sub {
+test 'Reordering cover art' => sub {
     my $test = shift;
     my $c = $test->c;
     my $mech = $test->mech;

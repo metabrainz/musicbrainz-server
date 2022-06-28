@@ -14,7 +14,7 @@ unprivileged users cannot edit areas.
 
 =cut
 
-test 'Test editing a (non-ended) area' => sub {
+test 'Editing a (non-ended) area' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c = $test->c;
@@ -55,7 +55,7 @@ test 'Test editing a (non-ended) area' => sub {
     );
 };
 
-test 'Test area editing is blocked for unprivileged users' => sub {
+test 'Area editing is blocked for unprivileged users' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c = $test->c;

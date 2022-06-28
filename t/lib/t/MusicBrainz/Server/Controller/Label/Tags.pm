@@ -5,39 +5,78 @@ use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
 
-test all => sub {
+=head2 Test description
+
+This test checks whether label tagging is working correctly. It checks both
+up- and downvoting, plus withdrawing/removing tags.
+
+=cut
+
+test 'Label tagging (up/downvoting, withdrawing)' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c);
 
-    $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/tags');
+    $mech->get_ok(
+        '/label/46f0f4cd-8aab-4b33-b698-f459faf64190/tags',
+        'Fetched the label tags page',
+    );
     html_ok($mech->content);
-    $mech->content_contains('musical');
-    ok($mech->find_link(url_regex => qr{/tag/musical}), 'content links to the "musical" tag');
+    $mech->content_contains('musical', 'The "musical" tag is present');
+    ok(
+        $mech->find_link(
+        url_regex => qr{/tag/musical}),
+        'There is a link to the "musical" tag',
+    );
 
-    # Test tagging
     $mech->get_ok('/login');
     $mech->submit_form(with_fields => {username => 'new_editor', password => 'password'});
 
-    # Test tagging
-    $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/tags/upvote?tags=British, Electronic%3F');
-    $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/tags');
+    $mech->get_ok(
+        '/label/46f0f4cd-8aab-4b33-b698-f459faf64190/tags/upvote?tags=British, Electronic%3F',
+        'Upvoted tags "british" and "electronic?"',
+    );
+    $mech->get_ok(
+        '/label/46f0f4cd-8aab-4b33-b698-f459faf64190/tags',
+        'Fetched the label tags page again',
+    );
     html_ok($mech->content);
-    $mech->content_contains('british');
-    $mech->content_contains('electronic?');
+    $mech->content_contains('british', 'Upvoted tag "british" is present');
+    $mech->content_contains(
+        'electronic?',
+        'Upvoted tag "electronic?" is present',
+    );
 
-    $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/tags/withdraw?tags=British, Electronic%3F');
-    $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/tags');
+    $mech->get_ok(
+        '/label/46f0f4cd-8aab-4b33-b698-f459faf64190/tags/withdraw?tags=British, Electronic%3F',
+        'Withdrew tags "british" and "electronic?"',
+    );
+    $mech->get_ok(
+        '/label/46f0f4cd-8aab-4b33-b698-f459faf64190/tags',
+        'Fetched the label tags page again',
+    );
     html_ok($mech->content);
-    $mech->content_lacks('british');
-    $mech->content_lacks('electronic?');
+    $mech->content_lacks('british', 'Withdrawn tag "british" is missing');
+    $mech->content_lacks(
+        'electronic?',
+        'Withdrawn tag "electronic?" is missing',
+    );
 
-    $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/tags/downvote?tags=British, Electronic%3F');
-    $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/tags');
+    $mech->get_ok(
+        '/label/46f0f4cd-8aab-4b33-b698-f459faf64190/tags/downvote?tags=British, Electronic%3F',
+        'Downvoted tags "british" and "electronic?"',
+    );
+    $mech->get_ok(
+        '/label/46f0f4cd-8aab-4b33-b698-f459faf64190/tags',
+        'Fetched the label tags page again',
+    );
     html_ok($mech->content);
-    $mech->content_contains('british');
-    $mech->content_contains('electronic?');
+    $mech->content_contains('british', 'Downvoted tag "british" is present');
+    $mech->content_contains(
+        'electronic?',
+        'Downvoted tag "electronic?" is present',
+    );
 };
 
 1;
