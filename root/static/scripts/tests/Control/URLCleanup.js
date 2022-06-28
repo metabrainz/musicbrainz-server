@@ -3642,6 +3642,13 @@ limited_link_type_combinations: [
         only_valid_entity_types: ['event'],
   },
   {
+                     input_url: 'https://rateyourmusic.com/genre/avant-prog/',
+             input_entity_type: 'genre',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://rateyourmusic.com/genre/avant-prog/',
+        only_valid_entity_types: ['genre'],
+  },
+  {
                      input_url: 'https://rateyourmusic.com/label/tzadik/',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',

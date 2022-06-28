@@ -162,6 +162,7 @@ export const LINK_TYPES: LinkTypeMap = {
   otherdatabases: {
     artist: 'd94fb61c-fa20-4e3c-a19a-71a949fb2c55',
     event: '1e06fb0b-831d-49cf-abfd-52acb5b56e05',
+    genre: '1873eeea-f2e6-4e08-a754-cc92567983ea',
     instrument: '41930af2-cb94-488d-a4f0-d232f6ef391a',
     label: '83eca2b3-5ae1-43f5-a732-56fa9a8591b1',
     place: '87a0a644-0a69-46c0-9e48-0656b8240d89',
@@ -3645,6 +3646,11 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.event:
             return {
               result: prefix === 'concert',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.genre:
+            return {
+              result: prefix === 'genre',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.label:
