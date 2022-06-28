@@ -262,6 +262,7 @@ export const LINK_TYPES: LinkTypeMap = {
     area: '85c5256f-aef1-484f-979a-42007218a1c2',
     artist: '689870a4-a1e4-4912-b17f-7b2664215698',
     event: 'b022d060-e6a8-340f-8c73-6b21b1d090b9',
+    genre: '11a13c3b-15cb-4c1c-accc-0417f7f2019b',
     instrument: '1486fccd-cf59-35e4-9399-b50e2b255877',
     label: '75d87e83-d927-4580-ba63-44dc76256f98',
     place: 'e6826618-b410-4b8d-b3b5-52e29eac5e1f',

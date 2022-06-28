@@ -5082,6 +5082,12 @@ limited_link_type_combinations: [
     expected_relationship_type: 'wikidata',
   },
   {
+                     input_url: 'https://www.wikidata.org/wiki/Q11366',
+             input_entity_type: 'genre',
+            expected_clean_url: 'https://www.wikidata.org/wiki/Q11366',
+    expected_relationship_type: 'wikidata',
+  },
+  {
                      input_url: 'http://www.example.org/not/wikidata.org',
        input_relationship_type: 'wikidata',
        only_valid_entity_types: [],
