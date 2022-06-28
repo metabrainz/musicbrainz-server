@@ -17,7 +17,7 @@ data does not enter link edits.
 
 =cut
 
-test 'Test editing external links for an artist' => sub {
+test 'Editing external links for an artist' => sub {
 
     my $test = shift;
     my $mech = $test->mech;

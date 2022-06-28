@@ -29,7 +29,7 @@ test 'Privilege search is blocked for non-admins' => sub {
     );
 };
 
-test 'Test privilege search results' => sub {
+test 'Privilege search results are correct' => sub {
     my $test = shift;
     my $mech = $test->mech;
 

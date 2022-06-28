@@ -14,7 +14,7 @@ unprivileged users cannot create areas.
 
 =cut
 
-test 'Test adding a new (non-ended) area' => sub {
+test 'Adding a new (non-ended) area' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c = $test->c;
@@ -57,7 +57,7 @@ test 'Test adding a new (non-ended) area' => sub {
     );
 };
 
-test 'Test area creation is blocked for unprivileged users' => sub {
+test 'Area creation is blocked for unprivileged users' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c = $test->c;

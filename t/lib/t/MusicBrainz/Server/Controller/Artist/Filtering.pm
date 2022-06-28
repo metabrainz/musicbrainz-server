@@ -12,7 +12,7 @@ in artist pages (RGs, recordings, works).
 
 =cut
 
-test 'Test overview (release group) filtering' => sub {
+test 'Overview (release group) filtering' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
@@ -156,7 +156,7 @@ test 'Test overview (release group) filtering' => sub {
     );
 };
 
-test 'Test event page filtering' => sub {
+test 'Event page filtering' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
@@ -239,7 +239,7 @@ test 'Test event page filtering' => sub {
     );
 };
 
-test 'Test recording page filtering' => sub {
+test 'Recording page filtering' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
@@ -293,7 +293,7 @@ test 'Test recording page filtering' => sub {
     );
 };
 
-test 'Test work page filtering' => sub {
+test 'Work page filtering' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;

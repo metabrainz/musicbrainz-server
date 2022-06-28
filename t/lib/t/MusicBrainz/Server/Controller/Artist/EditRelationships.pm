@@ -22,7 +22,7 @@ and modified when editing artists, including several edge cases.
 
 =cut
 
-test 'Test adding a relationship' => sub {
+test 'Adding a relationship' => sub {
     my $test = shift;
     my ($c, $mech) = ($test->c, $test->mech);
 
@@ -88,7 +88,7 @@ test 'Test adding a relationship' => sub {
 };
 
 
-test 'Test editing a relationship' => sub {
+test 'Editing a relationship' => sub {
     my $test = shift;
     my ($c, $mech) = ($test->c, $test->mech);
 
@@ -321,7 +321,7 @@ test 'Test editing a relationship' => sub {
 };
 
 
-test 'Test removing a relationship' => sub {
+test 'Removing a relationship' => sub {
     my $test = shift;
     my ($c, $mech) = ($test->c, $test->mech);
 

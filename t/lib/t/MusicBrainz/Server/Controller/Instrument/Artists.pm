@@ -12,7 +12,7 @@ with 't::Mechanize', 't::Context';
 
 =cut
 
-test 'Test instrument artists page' => sub {
+test 'Instrument artists page contains the expected data' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
