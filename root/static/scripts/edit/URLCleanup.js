@@ -162,6 +162,7 @@ export const LINK_TYPES: LinkTypeMap = {
   otherdatabases: {
     artist: 'd94fb61c-fa20-4e3c-a19a-71a949fb2c55',
     event: '1e06fb0b-831d-49cf-abfd-52acb5b56e05',
+    genre: '1873eeea-f2e6-4e08-a754-cc92567983ea',
     instrument: '41930af2-cb94-488d-a4f0-d232f6ef391a',
     label: '83eca2b3-5ae1-43f5-a732-56fa9a8591b1',
     place: '87a0a644-0a69-46c0-9e48-0656b8240d89',
@@ -262,6 +263,7 @@ export const LINK_TYPES: LinkTypeMap = {
     area: '85c5256f-aef1-484f-979a-42007218a1c2',
     artist: '689870a4-a1e4-4912-b17f-7b2664215698',
     event: 'b022d060-e6a8-340f-8c73-6b21b1d090b9',
+    genre: '11a13c3b-15cb-4c1c-accc-0417f7f2019b',
     instrument: '1486fccd-cf59-35e4-9399-b50e2b255877',
     label: '75d87e83-d927-4580-ba63-44dc76256f98',
     place: 'e6826618-b410-4b8d-b3b5-52e29eac5e1f',
@@ -3644,6 +3646,11 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.event:
             return {
               result: prefix === 'concert',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.genre:
+            return {
+              result: prefix === 'genre',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.label:

@@ -64,7 +64,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-14 23:10+0300\n"
+"POT-Creation-Date: 2022-06-28 10:52+0300\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: yvanz, 2016-2022\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
@@ -1298,7 +1298,7 @@ msgstr "Date de décès : "
 #: ../root/edit/details/EditRelease.js:93
 #: ../root/edit/details/EditReleaseGroup.js:52
 #: ../root/edit/details/EditSeries.js:50 ../root/edit/details/EditWork.js:60
-#: ../root/genre/GenreEditForm.js:39
+#: ../root/static/scripts/genre/components/GenreEditForm.js:102
 msgid "Disambiguation"
 msgstr "Désambiguïsation"
 
@@ -1632,6 +1632,7 @@ msgstr "Faire expirer l’action"
 #: ../root/recording/edit_form.tt:51 ../root/release/edit/information.tt:262
 #: ../root/release_group/edit_form.tt:23 ../root/series/edit_form.tt:23
 #: ../root/work/edit_form.tt:90
+#: ../root/static/scripts/genre/components/GenreEditForm.js:110
 msgid "External Links"
 msgstr "Liens externes"
 
@@ -2530,7 +2531,7 @@ msgstr "MusicBrainz n’a qu’un seul type de compte pour tous les utilisateurs
 #: ../root/edit/details/historic/AddTrackKV.js:32
 #: ../root/edit/details/historic/AddTrackOld.js:24
 #: ../root/edit/details/historic/EditReleaseName.js:23
-#: ../root/entity/Details.js:95 ../root/genre/GenreEditForm.js:33
+#: ../root/entity/Details.js:95
 #: ../root/search/components/AnnotationResults.js:58
 #: ../root/search/components/AreaResults.js:61
 #: ../root/search/components/ArtistResults.js:50
@@ -2548,6 +2549,7 @@ msgstr "MusicBrainz n’a qu’un seul type de compte pour tous les utilisateurs
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:76
 #: ../root/static/scripts/common/components/FilterForm.js:129
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:112
+#: ../root/static/scripts/genre/components/GenreEditForm.js:96
 #: ../root/user/UserSubscriptions.js:44
 msgid "Name"
 msgstr "Nom"
@@ -4287,8 +4289,8 @@ msgstr "Twitter"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:891
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:448
 #: ../root/static/scripts/common/components/FilterForm.js:77
-#: ../root/static/scripts/edit/externalLinks.js:1072
-#: ../root/static/scripts/edit/externalLinks.js:1379
+#: ../root/static/scripts/edit/externalLinks.js:1070
+#: ../root/static/scripts/edit/externalLinks.js:1377
 #: ../root/utility/tableColumns.js:615 ../root/utility/tableColumns.js:620
 msgid "Type"
 msgstr "Type"
@@ -5536,11 +5538,21 @@ msgstr ""
 msgid "Found no artwork with ID “{id}”."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:67
+#: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:68
 msgid "The annotation revision ID must be a positive integer"
 msgstr "L’ID de révision d’annotation doit être un entier positif"
 
-#: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:216
+#: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:76
+#, perl-brace-format
+msgid "Found no annotation with ID “{id}”."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:91
+#, perl-brace-format
+msgid "The annotation with ID “{id}” is not associated with this entity."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:230
 msgid "The old and new annotation ids must be unique, positive integers."
 msgstr "Les anciens et nouveaux ID d’annotation doivent être des entiers positifs."
 
@@ -5895,7 +5907,7 @@ msgid "Remove genre"
 msgstr "Enlever le genre"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:24
-#: ../root/genre/EditGenre.js:31
+#: ../root/genre/EditGenre.js:39
 msgid "Edit genre"
 msgstr "Modifier le genre"
 
@@ -10617,7 +10629,7 @@ msgid ""
 " event all others should be merged into:"
 msgstr "Vous êtes sur le point de fusionner tous ces événements en un seul événement. Veuillez choisir l’événement dans lequel vous souhaitez fusionner les autres :"
 
-#: ../root/genre/CreateGenre.js:23 ../root/genre/CreateGenre.js:25
+#: ../root/genre/CreateGenre.js:33 ../root/genre/CreateGenre.js:35
 msgid "Add a new genre"
 msgstr "Ajouter un nouveau genre"
 
@@ -10625,19 +10637,15 @@ msgstr "Ajouter un nouveau genre"
 msgid "Are you sure you want to remove the genre {genre}?"
 msgstr "Êtes-vous certain de vouloir supprimer le genre {genre} ?"
 
-#: ../root/genre/GenreEditForm.js:30
-msgid "Genre details"
-msgstr "Détails du genre"
-
-#: ../root/genre/GenreIndex.js:30
+#: ../root/genre/GenreIndex.js:31
 msgid "Genre information"
 msgstr "Informations sur le genre"
 
-#: ../root/genre/GenreIndex.js:32
+#: ../root/genre/GenreIndex.js:33
 msgid "Associated tags"
 msgstr "Tags associés"
 
-#: ../root/genre/GenreIndex.js:35
+#: ../root/genre/GenreIndex.js:36
 msgid "Primary tag"
 msgstr "Tag principal"
 
@@ -12069,7 +12077,7 @@ msgid "{entity0}-{entity1}"
 msgstr "{entity0}-{entity1}"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:76
-#: ../root/static/scripts/edit/externalLinks.js:642
+#: ../root/static/scripts/edit/externalLinks.js:640
 #: ../root/static/scripts/relationship-editor/common/dialog.js:566
 msgid "This relationship type is deprecated and should not be used."
 msgstr "Ce type de relation est obsolète et ne devrait pas être utilisé."
@@ -14941,12 +14949,12 @@ msgid "Some relationship types are missing for this URL."
 msgstr "Certains types de relation sont manquants pour cette URL."
 
 #: ../root/static/scripts/edit/URLCleanup.js:5438
-#: ../root/static/scripts/edit/externalLinks.js:888
+#: ../root/static/scripts/edit/externalLinks.js:886
 msgid "This relationship type combination is invalid."
 msgstr "Cette combinaison de types de relation est invalide."
 
 #: ../root/static/scripts/edit/check-duplicates.js:156
-#: ../root/static/scripts/edit/externalLinks.js:582
+#: ../root/static/scripts/edit/externalLinks.js:580
 #: ../root/static/scripts/relationship-editor/common/dialog.js:593
 msgid "Required field."
 msgstr "Champ requis."
@@ -15077,136 +15085,140 @@ msgstr "Événements de parution :"
 msgid "All of your changes will be lost if you leave this page."
 msgstr "Tous vos changements seront perdus si vous quittez cette page."
 
-#: ../root/static/scripts/edit/externalLinks.js:587
+#: ../root/static/scripts/edit/externalLinks.js:585
 msgid "Please enter a valid URL, such as “{example_url}”."
 msgstr "Veuillez entrer un URL valide, tel que « {example_url} »"
 
-#: ../root/static/scripts/edit/externalLinks.js:594
+#: ../root/static/scripts/edit/externalLinks.js:592
 msgid ""
 "“{example_url}” is just an example. Please enter the actual link you want to"
 " add."
 msgstr "« {example_url} » est juste un exemple. Veuillez entrer un lien que vous voulez réellement ajouter."
 
-#: ../root/static/scripts/edit/externalLinks.js:602
+#: ../root/static/scripts/edit/externalLinks.js:600
 msgid ""
 "Links to MusicBrainz URLs are not allowed. Did you mean to paste something "
 "else?"
 msgstr "Les liens vers des URL MusicBrainz ne sont pas autorisés. Vous pensiez ajouter autre chose ?"
 
-#: ../root/static/scripts/edit/externalLinks.js:608
+#: ../root/static/scripts/edit/externalLinks.js:606
 msgid ""
 "Links to this website are not allowed because it is known to host malware."
 msgstr "Les liens vers ce site Web ne sont pas permis car il est connu pour héberger des logiciels malveillants."
 
-#: ../root/static/scripts/edit/externalLinks.js:614
+#: ../root/static/scripts/edit/externalLinks.js:612
 msgid ""
 "Please don’t enter bundled/shortened URLs, enter the destination URL(s) "
 "instead."
 msgstr "Merci de ne pas entrer d’URL raccourcie, veuillez entrer l’URL (les URLs) cible(s) à la place."
 
-#: ../root/static/scripts/edit/externalLinks.js:620
+#: ../root/static/scripts/edit/externalLinks.js:618
 msgid ""
 "Please don’t enter Google AMP links, since they are effectively an extra "
 "redirect. Enter the destination URL instead."
 msgstr "Merci de ne pas entrer de lien Google AMP, car il s’agit d’une redirection. Veuillez entrer l’URL de destination à la place."
 
-#: ../root/static/scripts/edit/externalLinks.js:627
+#: ../root/static/scripts/edit/externalLinks.js:625
 msgid ""
 "Please don’t enter links to search results. If you’ve found any links "
 "through your search that seem useful, do enter those instead."
 msgstr "Veuillez ne pas entrer de lien vers des résultats de recherche. Si vous trouvez des liens utiles par cette recherche, merci de les entrer à la place."
 
-#: ../root/static/scripts/edit/externalLinks.js:634
+#: ../root/static/scripts/edit/externalLinks.js:632
 msgid "Please select a link type for the URL you’ve entered."
 msgstr "Veuillez choisir un type de lien pour l’URL que vous avez saisie."
 
-#: ../root/static/scripts/edit/externalLinks.js:652
+#: ../root/static/scripts/edit/externalLinks.js:650
 msgid "This relationship already exists."
 msgstr "Cette relation existe déjà."
 
-#: ../root/static/scripts/edit/externalLinks.js:664
+#: ../root/static/scripts/edit/externalLinks.js:662
 #: ../root/static/scripts/relationship-editor/common/dialog.js:577
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr "Cette URL n’est pas permise pour le type de lien choisi, ou elle est mal formatée."
 
-#: ../root/static/scripts/edit/externalLinks.js:669
+#: ../root/static/scripts/edit/externalLinks.js:667
 msgid "This URL is not allowed for the selected link type."
 msgstr "Cette URL n’est pas permise pour le type de lien sélectionné"
 
-#: ../root/static/scripts/edit/externalLinks.js:675
+#: ../root/static/scripts/edit/externalLinks.js:673
 msgid "This URL is not allowed for areas."
 msgstr "Cette URL n’est pas permise pour les régions."
 
-#: ../root/static/scripts/edit/externalLinks.js:678
+#: ../root/static/scripts/edit/externalLinks.js:676
 msgid "This URL is not allowed for artists."
 msgstr "Cette URL n’est pas permise pour les artistes."
 
-#: ../root/static/scripts/edit/externalLinks.js:681
+#: ../root/static/scripts/edit/externalLinks.js:679
 msgid "This URL is not allowed for events."
 msgstr "Cette URL n’est pas permise pour les événements."
 
-#: ../root/static/scripts/edit/externalLinks.js:684
+#: ../root/static/scripts/edit/externalLinks.js:682
 msgid "This URL is not allowed for instruments."
 msgstr "Cette URL n’est pas permise pour les instruments."
 
-#: ../root/static/scripts/edit/externalLinks.js:687
+#: ../root/static/scripts/edit/externalLinks.js:685
 msgid "This URL is not allowed for labels."
 msgstr "Cette URL n’est pas permise pour les labels."
 
-#: ../root/static/scripts/edit/externalLinks.js:690
+#: ../root/static/scripts/edit/externalLinks.js:688
 msgid "This URL is not allowed for places."
 msgstr "Cette URL n’est pas permise pour les lieux."
 
-#: ../root/static/scripts/edit/externalLinks.js:693
+#: ../root/static/scripts/edit/externalLinks.js:691
 msgid "This URL is not allowed for recordings."
 msgstr "Cette URL n’est pas permise pour les enregistrements."
 
-#: ../root/static/scripts/edit/externalLinks.js:696
+#: ../root/static/scripts/edit/externalLinks.js:694
 msgid "This URL is not allowed for releases."
 msgstr "Cette URL n’est pas permise pour les parutions."
 
-#: ../root/static/scripts/edit/externalLinks.js:699
+#: ../root/static/scripts/edit/externalLinks.js:697
 msgid "This URL is not allowed for release groups."
 msgstr "Cette URL n’est pas permise pour les groupes de parution."
 
-#: ../root/static/scripts/edit/externalLinks.js:703
+#: ../root/static/scripts/edit/externalLinks.js:701
 msgid "This URL is not allowed for series."
 msgstr "Cette URL n’est pas permise pour les séries."
 
-#: ../root/static/scripts/edit/externalLinks.js:706
+#: ../root/static/scripts/edit/externalLinks.js:704
 msgid "This URL is not allowed for works."
 msgstr "Cette URL n’est pas permise pour les œuvres."
 
-#: ../root/static/scripts/edit/externalLinks.js:1011
+#: ../root/static/scripts/edit/externalLinks.js:1009
 #: ../root/static/scripts/relationship-editor/common/dialog.js:419
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|plus de documentation})"
 
-#: ../root/static/scripts/edit/externalLinks.js:1060
+#: ../root/static/scripts/edit/externalLinks.js:1058
 msgid "Remove Relationship"
 msgstr "Enlever la relation"
 
-#: ../root/static/scripts/edit/externalLinks.js:1127
+#: ../root/static/scripts/edit/externalLinks.js:1125
 msgid "video"
 msgstr "vidéo"
 
-#: ../root/static/scripts/edit/externalLinks.js:1268
+#: ../root/static/scripts/edit/externalLinks.js:1266
 msgid "Remove Link"
 msgstr "Enlever un lien"
 
-#: ../root/static/scripts/edit/externalLinks.js:1298
+#: ../root/static/scripts/edit/externalLinks.js:1296
 msgid "Add link"
 msgstr "Ajouter un lien"
 
-#: ../root/static/scripts/edit/externalLinks.js:1301
+#: ../root/static/scripts/edit/externalLinks.js:1299
 msgid "Add another link"
 msgstr "Ajouter un autre lien"
 
-#: ../root/static/scripts/edit/externalLinks.js:1403
+#: ../root/static/scripts/edit/externalLinks.js:1401
 msgid "Add another relationship"
 msgstr "Ajouter une autre relation"
+
+#: ../root/static/scripts/genre/components/GenreEditForm.js:93
+msgid "Genre details"
+msgstr "Détails du genre"
 
 #: ../root/static/scripts/guess-case/MB/Control/GuessCase.js:25
 msgid "Guess Case Options"

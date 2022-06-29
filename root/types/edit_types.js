@@ -376,6 +376,11 @@ declare type AddEventAliasEditT = $ReadOnly<{
   +edit_type: EDIT_EVENT_ADD_ALIAS_T,
 }>;
 
+declare type AddGenreAliasEditT = $ReadOnly<{
+  ...AddRemoveAliasEditGenericT,
+  +edit_type: EDIT_GENRE_ADD_ALIAS_T,
+}>;
+
 declare type AddInstrumentAliasEditT = $ReadOnly<{
   ...AddRemoveAliasEditGenericT,
   +edit_type: EDIT_INSTRUMENT_ADD_ALIAS_T,
@@ -429,6 +434,11 @@ declare type RemoveArtistAliasEditT = $ReadOnly<{
 declare type RemoveEventAliasEditT = $ReadOnly<{
   ...AddRemoveAliasEditGenericT,
   +edit_type: EDIT_EVENT_DELETE_ALIAS_T,
+}>;
+
+declare type RemoveGenreAliasEditT = $ReadOnly<{
+  ...AddRemoveAliasEditGenericT,
+  +edit_type: EDIT_GENRE_DELETE_ALIAS_T,
 }>;
 
 declare type RemoveInstrumentAliasEditT = $ReadOnly<{
@@ -586,6 +596,11 @@ declare type EditArtistAliasEditT = $ReadOnly<{
 declare type EditEventAliasEditT = $ReadOnly<{
   ...EditAliasEditGenericT,
   +edit_type: EDIT_EVENT_EDIT_ALIAS_T,
+}>;
+
+declare type EditGenreAliasEditT = $ReadOnly<{
+  ...EditAliasEditGenericT,
+  +edit_type: EDIT_GENRE_EDIT_ALIAS_T,
 }>;
 
 declare type EditInstrumentAliasEditT = $ReadOnly<{
