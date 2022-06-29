@@ -264,6 +264,9 @@ Readonly our $EDIT_GENRE_EDIT => 161;
 Readonly our $EDIT_GENRE_DELETE => 162;
 # 163 reserved for EDIT_GENRE_MERGE if ever implemented
 Readonly our $EDIT_GENRE_ADD_ANNOTATION => 164;
+Readonly our $EDIT_GENRE_ADD_ALIAS => 165;
+Readonly our $EDIT_GENRE_DELETE_ALIAS => 166;
+Readonly our $EDIT_GENRE_EDIT_ALIAS => 167;
 
 Readonly our $EDIT_WIKIDOC_CHANGE => 120;
 
@@ -540,6 +543,7 @@ Readonly our @CORE_TABLE_LIST => qw(
     gender
     genre
     genre_alias
+    genre_alias_type
     instrument
     instrument_alias
     instrument_alias_type

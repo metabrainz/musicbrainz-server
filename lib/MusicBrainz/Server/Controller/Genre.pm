@@ -15,6 +15,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     relationships   => { cardinal => ['show', 'edit'], default => ['url'] },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
+with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
@@ -78,7 +79,7 @@ with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_GENRE_DELETE,
 };
 
-for my $method (qw( create edit delete edit_annotation )) {
+for my $method (qw( create edit delete add_alias edit_alias delete_alias edit_annotation )) {
     before $method => sub {
         my ($self, $c) = @_;
         if (!$c->user->is_relationship_editor) {

@@ -11,7 +11,7 @@ for my $cls (qw(AggregatedTag AggregatedGenre AliasType Annotation Application
                 CritiqueBrainz::Review CritiqueBrainz::User
                 Editor EditorOAuthToken
                 Event EventAlias EventType
-                Gender Genre
+                Gender Genre GenreAlias
                 Instrument InstrumentType
                 Label LabelAlias LabelType
                 Link LinkAttribute LinkAttributeType LinkType LinkTypeAttribute

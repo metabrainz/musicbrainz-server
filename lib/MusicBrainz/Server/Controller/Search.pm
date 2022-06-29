@@ -190,7 +190,6 @@ sub direct : Private
             $c->model('Event')->load_areas(@entities);
         }
         when ('tag') {
-            #TODO: add support for genre aliases when finishing MBS-10062
             $c->model('Genre')->load(@entities);
         }
     }
