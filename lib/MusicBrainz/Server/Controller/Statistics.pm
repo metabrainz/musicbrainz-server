@@ -247,6 +247,9 @@ sub languages_scripts : Path('languages-scripts')
     my %languages = map { $_->iso_code_3 => $_ }
         grep { defined $_->iso_code_3 } $c->model('Language')->get_all();
 
+    # Since we look at the language (not the stat) list later, we need this
+    $languages{'null'} = undef;
+
     my $script_prefix = 'count.release.script';
     my %scripts = map { $_->iso_code => $_ } $c->model('Script')->get_all();
 
