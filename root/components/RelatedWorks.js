@@ -18,6 +18,7 @@ import StaticRelationshipsDisplay from './StaticRelationshipsDisplay';
 const targetEntityTypes = [
   'area',
   'artist',
+  'event',
   'label',
   'place',
   'work',
