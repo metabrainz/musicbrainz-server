@@ -189,6 +189,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   'Controller::Genre::list',
   'Controller::Genre::open_edits',
   'Controller::Genre::show',
+  'Controller::Genre::wikipedia_extract',
   'Controller::Instrument::alias',
   'Controller::Instrument::aliases',
   'Controller::Instrument::annotation_diff',
