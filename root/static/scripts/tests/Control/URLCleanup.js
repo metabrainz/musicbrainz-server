@@ -3642,6 +3642,13 @@ limited_link_type_combinations: [
         only_valid_entity_types: ['event'],
   },
   {
+                     input_url: 'https://rateyourmusic.com/genre/avant-prog/',
+             input_entity_type: 'genre',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://rateyourmusic.com/genre/avant-prog/',
+        only_valid_entity_types: ['genre'],
+  },
+  {
                      input_url: 'https://rateyourmusic.com/label/tzadik/',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
@@ -5079,6 +5086,12 @@ limited_link_type_combinations: [
                      input_url: 'http://www.wikidata.org/entity/Q4655955',
              input_entity_type: 'artist',
             expected_clean_url: 'https://www.wikidata.org/wiki/Q4655955',
+    expected_relationship_type: 'wikidata',
+  },
+  {
+                     input_url: 'https://www.wikidata.org/wiki/Q11366',
+             input_entity_type: 'genre',
+            expected_clean_url: 'https://www.wikidata.org/wiki/Q11366',
     expected_relationship_type: 'wikidata',
   },
   {
