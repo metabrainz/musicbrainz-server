@@ -16,11 +16,13 @@ import EntityLink from '../../../static/scripts/common/components/EntityLink';
 type Props = {
   +children?: React.Node,
   +entity: CoreEntityT,
+  +requiresPrivileges?: boolean,
 };
 
 const EditLinks = ({
   children,
   entity,
+  requiresPrivileges = false,
 }: Props): React.Element<typeof React.Fragment> => {
   const $c = React.useContext(CatalystContext);
 
@@ -28,7 +30,7 @@ const EditLinks = ({
     <>
       <h2 className="editing">{l('Editing')}</h2>
       <ul className="links">
-        {$c.user ? children : (
+        {$c.user ? children : requiresPrivileges ? null : (
           <>
             <li>
               <RequestLogin $c={$c} text={l('Log in to edit')} />

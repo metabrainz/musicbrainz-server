@@ -61,7 +61,7 @@ const InstrumentSidebar = ({instrument}: Props): React.Element<'div'> => {
 
       <ExternalLinks empty entity={instrument} />
 
-      <EditLinks entity={instrument}>
+      <EditLinks entity={instrument} requiresPrivileges>
         {isRelationshipEditor($c.user) ? (
           <>
             <AnnotationLinks entity={instrument} />
