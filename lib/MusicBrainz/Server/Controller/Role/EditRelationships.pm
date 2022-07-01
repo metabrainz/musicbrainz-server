@@ -359,11 +359,14 @@ role {
         my @edits;
         my @field_values = map { $_->value } @$fields;
         my $entity_map = load_entities($c, ref_to_type($source), @field_values);
+        my $link_types_by_id = {};
         my %reordered_relationships;
 
         for my $field (@field_values) {
             my %args;
             my $link_type = $field->{link_type};
+
+            $link_types_by_id->{$link_type->id} = $link_type;
 
             if (my $period = $field->{period}) {
                 $args{begin_date} = $period->{begin_date} if $period->{begin_date};
@@ -449,9 +452,11 @@ role {
         while (my ($key, $relationship_order) = each %reordered_relationships) {
             my ($link_type_id) = split /-/, $key;
 
+            my $link_type = $link_types_by_id->{$link_type_id};
+
             push @edits, $self->reorder_relationships(
                 $c, $form,
-                link_type_id => $link_type_id,
+                link_type => $link_type,
                 relationship_order => $relationship_order,
             );
         }

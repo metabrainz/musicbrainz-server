@@ -28,7 +28,7 @@ test all => sub {
     my %edit_args = (
         edit_type => $EDIT_RELATIONSHIPS_REORDER,
         editor_id => 1,
-        link_type_id => 743,
+        link_type => $c->model('LinkType')->get_by_id(743),
         relationship_order => [
             { relationship => $rels->{1}, old_order => 1, new_order => 4 },
             { relationship => $rels->{2}, old_order => 2, new_order => 3 },

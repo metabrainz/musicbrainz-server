@@ -177,10 +177,8 @@ sub adjust_edit_pending
 sub initialize {
     my ($self, %opts) = @_;
 
-    my $link_type_id = delete $opts{link_type_id} or die 'Missing link type';
+    my $link_type = delete $opts{link_type} or die 'Missing link type';
     my $relationship_order = $opts{relationship_order} or die 'Missing relationship order';
-
-    my $lt = $self->c->model('LinkType')->get_by_id($link_type_id);
 
     $relationship_order = [ grep {
         $_->{old_order} != $_->{new_order}
@@ -193,7 +191,7 @@ sub initialize {
         my $relationship = delete $_->{relationship};
         my $link = $relationship->link;
 
-        die 'Relationship link type mismatch' if $link->type_id != $lt->id;
+        die 'Relationship link type mismatch' if $link->type_id != $link_type->id;
 
         $_->{relationship} = {
             id => $relationship->id,
@@ -213,13 +211,13 @@ sub initialize {
     }
 
     $opts{link_type} = {
-        id => $lt->id,
-        name => $lt->name,
-        link_phrase => $lt->link_phrase,
-        reverse_link_phrase => $lt->reverse_link_phrase,
-        long_link_phrase => $lt->long_link_phrase,
-        entity0_type => $lt->entity0_type,
-        entity1_type => $lt->entity1_type,
+        id => $link_type->id,
+        name => $link_type->name,
+        link_phrase => $link_type->link_phrase,
+        reverse_link_phrase => $link_type->reverse_link_phrase,
+        long_link_phrase => $link_type->long_link_phrase,
+        entity0_type => $link_type->entity0_type,
+        entity1_type => $link_type->entity1_type,
     };
 
     $opts{edit_version} = 2;
