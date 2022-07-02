@@ -772,9 +772,9 @@ sub submit_edits {
         if (defined $edit) {
             $response = { edit_type => $edit->edit_type, response => $WS_EDIT_RESPONSE_OK };
 
-            if ($edit->isa('MusicBrainz::Server::Edit::Generic::Create') &&
-                !$edit->isa('MusicBrainz::Server::Edit::Relationship::Create')) {
-
+            if ($edit->isa('MusicBrainz::Server::Edit::Relationship::Create')) {
+                $response->{relationship_id} = $edit->entity_id;
+            } elsif ($edit->isa('MusicBrainz::Server::Edit::Generic::Create')) {
                 my $model = $edit->_create_model;
                 my $entity = $created_entities->{$model}->{$edit->entity_id};
 
