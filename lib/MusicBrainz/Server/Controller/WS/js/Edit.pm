@@ -22,6 +22,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_CREATE
     $EDIT_RELATIONSHIP_EDIT
     $EDIT_RELATIONSHIP_DELETE
+    $EDIT_RELATIONSHIPS_REORDER
     $EDIT_WORK_CREATE
     $UNTRUSTED_FLAG
     $WS_EDIT_RESPONSE_OK
@@ -83,6 +84,7 @@ our $ALLOWED_EDIT_TYPES = [
     $EDIT_RELATIONSHIP_CREATE,
     $EDIT_RELATIONSHIP_EDIT,
     $EDIT_RELATIONSHIP_DELETE,
+    $EDIT_RELATIONSHIPS_REORDER,
     $EDIT_WORK_CREATE,
 ];
 
@@ -190,6 +192,24 @@ our $data_processors = {
     $EDIT_RELATIONSHIP_CREATE => \&process_relationship,
 
     $EDIT_RELATIONSHIP_EDIT => \&process_relationship,
+
+    $EDIT_RELATIONSHIPS_REORDER => sub {
+        my ($c, $loader, $data) = @_;
+
+        delete $data->{linkTypeID};
+
+        for my $ordering (@{ $data->{relationship_order} }) {
+            my $relationship = $ordering->{relationship};
+            my $new_order = delete $ordering->{link_order};
+            unless (is_database_row_id($new_order)) {
+                $c->forward('/ws/js/detach_with_error', [
+                    'EDIT_RELATIONSHIPS_REORDER: invalid link_order',
+                ]);
+            }
+            $ordering->{new_order} = $new_order;
+            $ordering->{old_order} = $relationship->link_order;
+        }
+    },
 
     $EDIT_RELEASE_REORDER_MEDIUMS => sub {
         my ($c, $loader, $data) = @_;
@@ -455,6 +475,13 @@ sub process_relationship {
     }
 }
 
+Readonly our $RELATIONSHIP_EDIT_TYPES => [
+    $EDIT_RELATIONSHIP_CREATE,
+    $EDIT_RELATIONSHIP_EDIT,
+    $EDIT_RELATIONSHIP_DELETE,
+    $EDIT_RELATIONSHIPS_REORDER,
+];
+
 sub process_edits {
     my ($c, $edits, $previewing) = @_;
 
@@ -470,13 +497,22 @@ sub process_edits {
     for my $edit (@$edits) {
         my $edit_type = $edit->{edit_type};
 
-        if ($edit_type ~~ [$EDIT_RELATIONSHIP_CREATE, $EDIT_RELATIONSHIP_EDIT, $EDIT_RELATIONSHIP_DELETE]) {
+        if ($edit_type ~~ $RELATIONSHIP_EDIT_TYPES) {
             push @link_types_to_load, $edit->{linkTypeID};
             push @relationship_edits, $edit;
         }
     }
 
     my $link_types = $c->model('LinkType')->get_by_ids(@link_types_to_load);
+
+    my $add_relationship_to_load = sub {
+        my ($link_type, $id, $edit) = @_;
+        my $type0 = $link_type->entity0_type;
+        my $type1 = $link_type->entity1_type;
+        my $relationships_for_types =
+            $relationships_to_load->{"$type0-$type1"} //= {};
+        push @{ ($relationships_for_types->{$id} //= []) }, $edit;
+    };
 
     for my $edit (@relationship_edits) {
         my $link_type = $link_types->{$edit->{linkTypeID}};
@@ -486,26 +522,41 @@ sub process_edits {
         $edit->{link_type} = $link_type;
 
         if ($edit->{edit_type} ~~ [$EDIT_RELATIONSHIP_EDIT, $EDIT_RELATIONSHIP_DELETE]) {
-            my $id = $edit->{id} or $c->forward('/ws/js/detach_with_error', ['missing relationship id']);
-
-            my $type0 = $link_type->entity0_type;
-            my $type1 = $link_type->entity1_type;
-
-            # Only one edit per relationship is supported.
-            ($relationships_to_load->{"$type0-$type1"} //= {})->{$id} = $edit;
+            my $id = $edit->{id} or
+                $c->forward('/ws/js/detach_with_error', ['missing relationship id']);
+            $add_relationship_to_load->($link_type, $id, $edit);
+        } elsif ($edit->{edit_type} == $EDIT_RELATIONSHIPS_REORDER) {
+            my $relationship_order = $edit->{relationship_order};
+            if (ref $relationship_order eq 'ARRAY') {
+                for my $ordering (@$relationship_order) {
+                    my $relationship_id = delete $ordering->{relationship_id};
+                    unless (is_database_row_id($relationship_id)) {
+                        $c->forward('/ws/js/detach_with_error', [
+                            'EDIT_RELATIONSHIPS_REORDER: missing or invalid relationship_id',
+                        ]);
+                    }
+                    $add_relationship_to_load->($link_type, $relationship_id, $ordering);
+                }
+            } else {
+                $c->forward('/ws/js/detach_with_error', [
+                    'EDIT_RELATIONSHIPS_REORDER: missing or invalid relationship_order',
+                ]);
+            }
         }
     }
 
-    while (my ($types, $edits) = each %$relationships_to_load) {
+    while (my ($types, $edits_by_relationship_id) = each %$relationships_to_load) {
         my ($type0, $type1) = split /-/, $types;
 
         my $relationships_by_id = $c->model('Relationship')->get_by_ids(
-           $type0, $type1, keys %$edits
+           $type0, $type1, keys %$edits_by_relationship_id
         );
 
-        while (my ($id, $edit) = each %$edits) {
-            unless ($edit->{relationship} = $relationships_by_id->{$id}) {
-                push @non_existent_entities, { type => 'relationship', id => $id };
+        while (my ($id, $edits) = each %$edits_by_relationship_id) {
+            for my $edit (@$edits) {
+                unless ($edit->{relationship} = $relationships_by_id->{$id}) {
+                    push @non_existent_entities, { type => 'relationship', id => $id };
+                }
             }
         }
 

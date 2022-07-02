@@ -180,20 +180,36 @@ sub initialize {
     my $link_type = delete $opts{link_type} or die 'Missing link type';
     my $relationship_order = $opts{relationship_order} or die 'Missing relationship order';
 
+    die 'Link type is unorderable'
+        unless $link_type->orderable_direction;
+
     $relationship_order = [ grep {
         $_->{old_order} != $_->{new_order}
     } @$relationship_order ];
 
+    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
+        unless @$relationship_order;
+
     my @relationships = map { $_->{relationship} } @$relationship_order;
     $self->c->model('Relationship')->load_entities(@relationships);
 
-    for (@$relationship_order) {
-        my $relationship = delete $_->{relationship};
+    my $unorderable_entity;
+
+    for my $order_item (@$relationship_order) {
+        my $relationship = delete $order_item->{relationship};
         my $link = $relationship->link;
 
         die 'Relationship link type mismatch' if $link->type_id != $link_type->id;
 
-        $_->{relationship} = {
+        if (defined $unorderable_entity) {
+            if ($unorderable_entity->id != $relationship->unorderable_entity->id) {
+                die 'Relationship unorderable entity mismatch';
+            }
+        } else {
+            $unorderable_entity = $relationship->unorderable_entity;
+        }
+
+        $order_item->{relationship} = {
             id => $relationship->id,
             begin_date => partial_date_to_hash($link->begin_date),
             end_date => partial_date_to_hash($link->end_date),

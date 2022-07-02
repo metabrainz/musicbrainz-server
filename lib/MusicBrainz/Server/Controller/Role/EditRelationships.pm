@@ -430,11 +430,8 @@ role {
                     next unless non_empty($field->{link_order});
 
                     if ($field->{link_order} != $relationship->link_order) {
-                        my $unorderable_entity = $orderable_direction == 1 ? $relationship->entity0 : $relationship->entity1;
-                        my $is_series = $unorderable_entity->isa('MusicBrainz::Server::Entity::Series');
-
-                        if (!$is_series || $unorderable_entity->ordering_type_id == $SERIES_ORDERING_TYPE_MANUAL) {
-                            my $key = join '-', $link_type->id, $unorderable_entity->id;
+                        if ($relationship->can_manually_reorder) {
+                            my $key = join '-', $link_type->id, $relationship->unorderable_entity->id;
 
                             push @{ $reordered_relationships{$key} //= [] }, {
                                 relationship => $relationship,
