@@ -302,3 +302,5 @@ export const FLUENCY_NAMES:
 
 export const LANGUAGE_MUL_ID = 284;
 export const LANGUAGE_ZXX_ID = 486;
+
+export const DISPLAY_NONE_STYLE = Object.freeze({display: 'none'});

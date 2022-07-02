@@ -37,8 +37,6 @@ export const ARIA_LIVE_STYLE: {
   width: '1px',
 });
 
-export const DISPLAY_NONE_STYLE = {display: 'none'};
-
 export const ERROR_LOOKUP: 1 = 1;
 export const ERROR_LOOKUP_TYPE: 2 = 2;
 export const ERROR_SEARCH: 3 = 3;
