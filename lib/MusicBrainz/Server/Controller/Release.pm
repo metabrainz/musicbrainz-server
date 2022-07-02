@@ -141,6 +141,44 @@ sub discids : Chained('load') {
     $c->stash( has_cdtocs => scalar(@medium_cdtocs) > 0 );
 }
 
+sub _load_mediums_limited {
+    my ($self, $c, $mediums, $paged_medium, $medium_page_number) = @_;
+
+    my @mediums = @{$mediums};
+    my $user_id = $c->user->id if $c->user_exists;
+
+    if (@mediums && !defined $paged_medium) {
+        my $medium_counter = 0;
+        my $track_counter = 0;
+        my @preloaded_mediums;
+
+        for my $medium (@mediums) {
+            $medium_counter += 1;
+            last if $medium_counter > $MAX_INITIAL_MEDIUMS;
+            $track_counter += $medium->track_count;
+            last if $track_counter > $MAX_INITIAL_TRACKS;
+            push @preloaded_mediums, $medium;
+        }
+
+        if (@preloaded_mediums) {
+            $c->model('Medium')->load_related_info($user_id, @preloaded_mediums);
+        } else {
+            # If even the first medium exceeds $MAX_INITIAL_TRACKS, page that
+            # instead of loading nothing. This is equivalent to navigating to
+            # the /disc/1 subpath, except $no_script will remain 0.
+            $paged_medium = $mediums[0];
+        }
+    }
+
+    if ($paged_medium) {
+        $c->model('Medium')->load_related_info_paged(
+            $user_id,
+            $paged_medium,
+            $medium_page_number,
+        );
+    }
+}
+
 =head2 show
 
 Display a release to the user.
@@ -191,38 +229,7 @@ sub show : Chained('load') PathPart('') {
         }
     }
 
-    my $user_id = $c->user->id if $c->user_exists;
-
-    if (@mediums && !defined $paged_medium) {
-        my $medium_counter = 0;
-        my $track_counter = 0;
-        my @preloaded_mediums;
-
-        for my $medium (@mediums) {
-            $medium_counter += 1;
-            last if $medium_counter > $MAX_INITIAL_MEDIUMS;
-            $track_counter += $medium->track_count;
-            last if $track_counter > $MAX_INITIAL_TRACKS;
-            push @preloaded_mediums, $medium;
-        }
-
-        if (@preloaded_mediums) {
-            $c->model('Medium')->load_related_info($user_id, @preloaded_mediums);
-        } else {
-            # If even the first medium exceeds $MAX_INITIAL_TRACKS, page that
-            # instead of loading nothing. This is equivalent to navigating to
-            # the /disc/1 subpath, except $no_script will remain 0.
-            $paged_medium = $mediums[0];
-        }
-    }
-
-    if ($paged_medium) {
-        $c->model('Medium')->load_related_info_paged(
-            $user_id,
-            $paged_medium,
-            $medium_page_number,
-        );
-    }
+    $self->_load_mediums_limited($c, \@mediums, $paged_medium, $medium_page_number);
 
     my $bottom_credits = $c->req->cookies->{'bottom-credits'};
     my $credits_mode = defined $bottom_credits &&
