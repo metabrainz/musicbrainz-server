@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-type Props = {
+type CommonProps = {
   +children?: React.Node,
   +disabled?: boolean,
   +form: ReadOnlyFormT<{
@@ -18,38 +18,60 @@ type Props = {
   }>,
 };
 
+type Props =
+  | $ReadOnly<{
+      ...CommonProps,
+      controlled: true,
+      onChange: (event: SyntheticEvent<HTMLInputElement>) => void,
+    }>
+  | $ReadOnly<{
+      ...CommonProps,
+      controlled?: false,
+    }>;
+
 const EnterEdit = ({
   children,
   disabled = false,
   form,
-}: Props): React.MixedElement => (
-  <>
-    <div className="row no-label">
-      <div className="auto-editor">
-        <label>
-          <input
-            className="make-votable"
-            defaultChecked={form.field.make_votable.value}
-            disabled={disabled}
-            name={form.field.make_votable.html_name}
-            type="checkbox"
-            value="1"
-          />
-          {l('Make all edits votable.')}
-        </label>
+  ...otherProps
+}: Props): React.MixedElement => {
+  const isMakeVotableChecked = form.field.make_votable.value;
+  const makeVotableProps = {};
+  if (otherProps.controlled) {
+    makeVotableProps.checked = isMakeVotableChecked;
+    makeVotableProps.onChange = otherProps.onChange;
+  } else {
+    makeVotableProps.defaultChecked = isMakeVotableChecked;
+  }
+  return (
+    <>
+      <div className="row no-label">
+        <div className="auto-editor">
+          <label>
+            <input
+              className="make-votable"
+              disabled={disabled}
+              name={form.field.make_votable.html_name}
+              type="checkbox"
+              value="1"
+              {...makeVotableProps}
+            />
+            {l('Make all edits votable.')}
+          </label>
+        </div>
       </div>
-    </div>
-    <div className="row no-label buttons">
-      <button
-        className="submit positive"
-        disabled={disabled}
-        type="submit"
-      >
-        {l('Enter edit')}
-      </button>
-      {children}
-    </div>
-  </>
-);
+      <div className="row no-label buttons">
+        <button
+          className="submit positive"
+          disabled={disabled}
+          type="submit"
+        >
+          {l('Enter edit')}
+        </button>
+        {children}
+      </div>
+    </>
+  );
+};
 
 export default EnterEdit;
