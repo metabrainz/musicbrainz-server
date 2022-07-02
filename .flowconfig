@@ -15,6 +15,7 @@
 ./root/vars.js
 
 [lints]
+unnecessary-invariant=error
 
 [options]
 autoimports=true
