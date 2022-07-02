@@ -409,7 +409,15 @@ sub process_relationship {
     delete $data->{id};
     delete $data->{linkTypeID};
     delete $data->{entities};
-    delete $data->{linkOrder};
+
+    my $link_order = delete $data->{linkOrder};
+    if (
+        is_database_row_id($link_order) &&
+        $data->{link_type}->orderable_direction &&
+        $data->{edit_type} == $EDIT_RELATIONSHIP_CREATE
+    ) {
+        $data->{link_order} = $link_order;
+    }
 
     for my $prop ('entity0', 'entity1') {
         my $entity_data = $data->{$prop};
