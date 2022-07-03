@@ -11,7 +11,7 @@ This test checks whether the Browse CD Stubs page shows data as expected.
 
 =cut
 
-test 'Test data display on Browse CD Stubs page' => sub {
+test 'Browse CD Stubs page contains the expected data' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;

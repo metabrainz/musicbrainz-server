@@ -5,39 +5,80 @@ use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
 
-test 'Can tag' => sub {
+=head2 Test description
+
+This test checks whether work tagging is working correctly. It checks both
+up- and downvoting, plus withdrawing/removing tags. It also checks that
+tagging is not allowed without a confirmed email address.
+
+=cut
+
+test 'Work tagging (up/downvoting, withdrawing)' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c);
 
-    $mech->get_ok('/work/745c079d-374e-4436-9448-da92dedef3ce/tags');
-    html_ok($mech->content);
-    $mech->content_contains('musical');
-    ok($mech->find_link(url_regex => qr{/tag/musical}), 'content links to the "musical" tag');
+    $mech->get_ok(
+        '/work/745c079d-374e-4436-9448-da92dedef3ce/tags',
+        'Fetched the work tags page',
+    );
 
-    # Test tagging
+    html_ok($mech->content);
+    $mech->content_contains('musical', 'The "musical" tag is present');
+    ok(
+        $mech->find_link(
+        url_regex => qr{/tag/musical}),
+        'There is a link to the "musical" tag',
+    );
+
     $mech->get_ok('/login');
     $mech->submit_form(with_fields => {username => 'new_editor', password => 'password'});
 
-    # Test tagging
-    $mech->get_ok('/work/745c079d-374e-4436-9448-da92dedef3ce/tags/upvote?tags=boring, classical');
-    $mech->get_ok('/work/745c079d-374e-4436-9448-da92dedef3ce/tags');
+    $mech->get_ok(
+        '/work/745c079d-374e-4436-9448-da92dedef3ce/tags/upvote?tags=boring, classical',
+        'Upvoted tags "boring" and "classical"',
+    );
+    $mech->get_ok(
+        '/work/745c079d-374e-4436-9448-da92dedef3ce/tags',
+        'Fetched the work tags page again',
+    );
     html_ok($mech->content);
-    $mech->content_contains('boring');
-    $mech->content_contains('classical');
+    $mech->content_contains('boring', 'Upvoted tag "boring" is present');
+    $mech->content_contains(
+        'classical',
+        'Upvoted tag "classical" is present',
+    );
 
-    $mech->get_ok('/work/745c079d-374e-4436-9448-da92dedef3ce/tags/withdraw?tags=boring, classical');
-    $mech->get_ok('/work/745c079d-374e-4436-9448-da92dedef3ce/tags');
+    $mech->get_ok(
+        '/work/745c079d-374e-4436-9448-da92dedef3ce/tags/withdraw?tags=boring, classical',
+        'Withdrew tags "boring" and "classical"',
+    );
+    $mech->get_ok(
+        '/work/745c079d-374e-4436-9448-da92dedef3ce/tags',
+        'Fetched the work tags page again',
+    );
     html_ok($mech->content);
-    $mech->content_lacks('boring');
-    $mech->content_lacks('classical');
+    $mech->content_lacks('boring', 'Withdrawn tag "boring" is missing');
+    $mech->content_lacks(
+        'classical',
+        'Withdrawn tag "classical" is missing',
+    );
 
-    $mech->get_ok('/work/745c079d-374e-4436-9448-da92dedef3ce/tags/downvote?tags=boring, classical');
-    $mech->get_ok('/work/745c079d-374e-4436-9448-da92dedef3ce/tags');
+    $mech->get_ok(
+        '/work/745c079d-374e-4436-9448-da92dedef3ce/tags/downvote?tags=boring, classical',
+        'Downvoted tags "boring" and "classical"',
+    );
+    $mech->get_ok(
+        '/work/745c079d-374e-4436-9448-da92dedef3ce/tags',
+        'Fetched the work tags page again',
+    );
     html_ok($mech->content);
-    $mech->content_contains('boring');
-    $mech->content_contains('classical');
+    $mech->content_contains('boring', 'Downvoted tag "boring" is present');
+    $mech->content_contains(
+        'classical',
+        'Downvoted tag "classical" is present',
+    );
 };
 
 test 'Cannot tag without a confirmed email address' => sub {
@@ -55,7 +96,6 @@ test 'Cannot tag without a confirmed email address' => sub {
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'iwannatag', password => 'password' } );
 
-    # Test tagging
     $mech->get('/work/745c079d-374e-4436-9448-da92dedef3ce/tags/upvote?tags=boring, classical');
     is ($mech->status, 401, 'Tag adding rejected without confirmed address');
 

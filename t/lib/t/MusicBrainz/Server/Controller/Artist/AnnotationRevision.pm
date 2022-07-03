@@ -10,7 +10,7 @@ and whether they display the entirety of the annotation.
 
 =cut
 
-test 'Test annotation revision pages' => sub {
+test 'Annotation revision pages display full annotation' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;

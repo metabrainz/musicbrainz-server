@@ -55,7 +55,9 @@ sub can_delete { 1 }
 sub delete {
     my ($self, $genre_id) = @_;
 
+    $self->c->model('Relationship')->delete_entities('genre', $genre_id);
     $self->annotation->delete($genre_id);
+    $self->alias->delete_entities($genre_id);
     $self->delete_returning_gids($genre_id);
     return;
 }

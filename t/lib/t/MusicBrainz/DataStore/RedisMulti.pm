@@ -49,7 +49,7 @@ test 'Databases are separate' => sub {
     $redis2->clear;
 };
 
-test 'Test key setting/retrieving' => sub {
+test 'Key setting/retrieving' => sub {
     is($redis_multi->get('does-not-exist'), undef, 'Non-existent key returns undef');
 
     $redis_multi->set('string', 'Esperándote');
@@ -111,7 +111,7 @@ test 'Test key setting/retrieving' => sub {
     $redis_multi->clear;
 };
 
-test 'Test setting key expiration' => sub {
+test 'Setting key expiration' => sub {
     $redis_multi->set('int', 23);
     $redis_multi->expire_at('int', time() + 2);
     ok($redis_multi->exists('int'), 'int still exists');

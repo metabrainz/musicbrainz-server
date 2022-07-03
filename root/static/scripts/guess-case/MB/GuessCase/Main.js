@@ -63,6 +63,10 @@ class GuessCase {
         guess: this.guess('event', 'process'),
         sortname: this.guess('event', 'guessSortName'),
       },
+      genre: {
+        guess: this.guess('genre', 'process'),
+        sortname: this.guess('genre', 'guessSortName'),
+      },
       instrument: {
         guess: this.guess('instrument', 'process'),
         sortname: this.guess('instrument', 'guessSortName'),
@@ -105,8 +109,8 @@ class GuessCase {
   // Member functions
 
   guess(handlerName: string, method: string): (string) => string {
-    if (handlerName === 'instrument') {
-      return ((inputString) => this.lowercaseInstrumentName(inputString));
+    if (handlerName === 'genre' || handlerName === 'instrument') {
+      return ((inputString) => this.lowercaseEntityName(inputString));
     }
 
     let handler;
@@ -150,8 +154,8 @@ class GuessCase {
     };
   }
 
-  // For instruments, all we need to do is lowercase the string
-  lowercaseInstrumentName(name: string): string {
+  // For genres and instruments, all we need to do is lowercase the string
+  lowercaseEntityName(name: string): string {
     return name.toLowerCase();
   }
 }

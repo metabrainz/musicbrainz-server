@@ -775,13 +775,17 @@ my %stats = (
         CALC => sub {
             my ($self, $sql) = @_;
 
-            my $data = $sql->select_list_of_lists(
-                q{SELECT COALESCE(l.iso_code_3::text, 'null'), COUNT(wl.work) AS count
-                FROM work_language wl FULL OUTER JOIN language l
-                    ON wl.language=l.id
-                WHERE l.iso_code_2t IS NOT NULL OR l.frequency > 0
-                GROUP BY l.iso_code_3},
-            );
+            my $data = $sql->select_list_of_lists(<<~'SQL');
+                         SELECT coalesce(l.iso_code_3::text, 'null'),
+                                count(w.gid) AS count
+                           FROM work w
+                      LEFT JOIN work_language wl ON wl.work=w.id
+                FULL OUTER JOIN language l ON wl.language=l.id
+                          WHERE l.iso_code_2t IS NOT NULL
+                             OR l.frequency > 0
+                             OR l.id IS NULL
+                       GROUP BY l.iso_code_3
+                SQL
 
             my %dist = map { @$_ } @$data;
 
@@ -995,13 +999,16 @@ my %stats = (
         CALC => sub {
             my ($self, $sql) = @_;
 
-            my $data = $sql->select_list_of_lists(
-                q{SELECT COALESCE(l.iso_code_3::text, 'null'), COUNT(r.gid) AS count
-                FROM release r FULL OUTER JOIN language l
-                    ON r.language=l.id
-                WHERE l.iso_code_2t IS NOT NULL OR l.frequency > 0
-                GROUP BY l.iso_code_3},
-            );
+            my $data = $sql->select_list_of_lists(<<~'SQL');
+                         SELECT coalesce(l.iso_code_3::text, 'null'),
+                                count(r.gid) AS count
+                           FROM release r
+                FULL OUTER JOIN language l ON r.language=l.id
+                          WHERE l.iso_code_2t IS NOT NULL
+                             OR l.frequency > 0
+                             OR l.id IS NULL
+                       GROUP BY l.iso_code_3
+                SQL
 
             my %dist = map { @$_ } @$data;
 

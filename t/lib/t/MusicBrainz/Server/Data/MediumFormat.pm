@@ -13,7 +13,6 @@ with 't::Context';
 test all => sub {
 
 my $test = shift;
-MusicBrainz::Server::Test->prepare_test_database($test->c, '+mediumformat');
 
 my $mf_data = MusicBrainz::Server::Data::MediumFormat->new(c => $test->c);
 

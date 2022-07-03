@@ -69,11 +69,10 @@ role {
         my $annotation_model = $self->_annotation_model;
         my $old_annotation_id = $self->data->{old_annotation_id};
         my $old_annotation;
-        if (defined $old_annotation_id) {
-            $old_annotation = $old_annotation_id
-                ? $annotation_model->get_by_id($old_annotation_id)->{text}
-                : '';
-        }
+        $old_annotation = $annotation_model->get_by_id($old_annotation_id)->{text}
+            if defined $old_annotation_id && $old_annotation_id;
+        # blank annotation text is undefined even if annotation exists
+        $old_annotation = '' if !defined $old_annotation;
 
         my $data = {
             changelog      => $self->data->{changelog},

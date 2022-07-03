@@ -11,7 +11,7 @@ recordings for the artist, both on the site itself and on the JSON-LD data.
 
 =cut
 
-test 'Test artists recording page' => sub {
+test 'Artist recordings page contains the expected data and JSON-LD' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;

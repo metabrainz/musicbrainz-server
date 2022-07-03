@@ -229,6 +229,12 @@
         "model": "Gender"
     },
     "genre": {
+        "aliases": {
+            "add_edit_type": 165,
+            "delete_edit_type": 166,
+            "edit_edit_type": 167,
+            "search_hint_type": 2
+        },
         "annotations": {
             "edit_type": 164
         },
@@ -239,7 +245,8 @@
         "edit_table": true,
         "mbid": {
             "indexable": true,
-            "multiple": false
+            "multiple": false,
+            "relatable": "overview"
         },
         "merging": false,
         "model": "Genre",
@@ -249,6 +256,13 @@
             "manual": true
         },
         "url": "genre"
+    },
+    "genre_alias_type": {
+        "cache": {
+            "id": 50
+        },
+        "model": "GenreAliasType",
+        "table": "genre_alias_type"
     },
     "instrument": {
         "aliases": {

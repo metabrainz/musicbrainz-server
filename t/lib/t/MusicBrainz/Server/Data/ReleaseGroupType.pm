@@ -13,7 +13,6 @@ with 't::Context';
 test all => sub {
 
 my $test = shift;
-MusicBrainz::Server::Test->prepare_test_database($test->c, '+releasegrouptype');
 
 my $rgt_data = MusicBrainz::Server::Data::ReleaseGroupType->new(c => $test->c);
 

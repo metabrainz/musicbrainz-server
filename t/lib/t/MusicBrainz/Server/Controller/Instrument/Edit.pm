@@ -13,7 +13,7 @@ unprivileged users cannot edit instruments.
 
 =cut
 
-test 'Test editing an instrument' => sub {
+test 'Editing an instrument' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c = $test->c;
@@ -57,7 +57,7 @@ test 'Test editing an instrument' => sub {
     );
 };
 
-test 'Test instrument editing is blocked for unprivileged users' => sub {
+test 'Instrument editing is blocked for unprivileged users' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c = $test->c;

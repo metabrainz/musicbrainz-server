@@ -7,6 +7,7 @@ extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::Comment';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
+with 'MusicBrainz::Server::Entity::Role::Linkable';
 
 sub entity_type { 'genre' }
 

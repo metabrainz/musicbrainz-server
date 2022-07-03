@@ -14,7 +14,7 @@
 # Nicolás Tamargo <email address hidden>, 2011-2013
 # Peter Cuevas <email address hidden>, 2017
 # Pier Jose Gotta Perez <email address hidden>, 2017
-# Kevin Doncam Demian López Brante <email address hidden>, 2012
+# Kevin López Brante <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
 msgid ""

@@ -13,7 +13,6 @@ with 't::Context';
 test all => sub {
 
 my $test = shift;
-MusicBrainz::Server::Test->prepare_test_database($test->c, '+releasestatus');
 
 my $lt_data = MusicBrainz::Server::Data::ReleaseStatus->new(c => $test->c);
 

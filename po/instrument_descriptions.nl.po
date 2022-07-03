@@ -2501,7 +2501,7 @@ msgstr "De pemadé is een gangsa die lager is gestemd dan de kantilan. Het instr
 msgid ""
 "Second largest and lowest member of the saxophone family. It is similar to "
 "the baritone, but larger and with a longer loop near the mouthpiece."
-msgstr ""
+msgstr "De bassaxofoon is het op een na grootste lid van de saxofoonfamilie. Hij lijkt op de baritonsaxofoon, maar hij is groter en de lus bij het mondstuk is groter."
 
 #. name:jublag
 #: DB:instrument/description:980
@@ -3627,7 +3627,7 @@ msgid ""
 "The largest and lowest pitch member of the saxophone family (ignoring the "
 "subcontrabass <a "
 "href=\"/instrument/6e33958d-741f-4669-955a-5a29a99f72e1\">tubax</a>)"
-msgstr ""
+msgstr "De contrabassaxofoon is de grootste en laagst klinkende saxofoon (als de zeldzame subcontrabassaxofoon en <a href=\"/instrument/6e33958d-741f-4669-955a-5a29a99f72e1\">tubax</a> buiten beschouwing worden gelaten)."
 
 #. name:lasso d'amore
 #: DB:instrument/description:144
@@ -3696,14 +3696,14 @@ msgstr "De vijfsnarige banjo is de meest voorkomende variant. De vijfde snaar is
 #. name:alto saxophone
 #: DB:instrument/description:21
 msgid "The most common member of the saxophone family, it is the alto member."
-msgstr ""
+msgstr "De altsaxofoon is het meest bespeelde lid van de saxofoonfamilie."
 
 #. name:baritone saxophone
 #: DB:instrument/description:23
 msgid ""
 "The most common of the lower members of the saxophone family, it is the "
 "middle-low baritone."
-msgstr ""
+msgstr "De baritonsaxofoon is het laagst klinkende lid van de saxofoonfamilie dat regelmatig wordt bespeeld."
 
 #. name:violin
 #: DB:instrument/description:62

@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: salo.rock, 2022\n"
+"Last-Translator: salo.rock, 2012,2017,2020-2022\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -962,6 +962,12 @@ msgid ""
 "Points to the Wikidata page for this event, and will be used to fetch "
 "Wikipedia summaries"
 msgstr "Indica la pagina di Wikidata su quest'evento e sarà utilizzata per recuperare riassunti da Wikipedia."
+
+#: DB:link_type/description:1087
+msgid ""
+"Points to the Wikidata page for this genre, and will be used to fetch "
+"Wikipedia summaries"
+msgstr "Indica la pagina di Wikidata su questo genere e sarà utilizzata per recuperare riassunti da Wikipedia."
 
 #: DB:link_type/description:733
 msgid ""
@@ -2573,12 +2579,12 @@ msgid ""
 " user contributed database concerned with the stories behind the songs."
 msgstr "Collega un'entità alla voce rispettiva nel database di Songfacts, un database mantenuto dagli utenti che si occupa delle storie dietro le canzoni."
 
-#: DB:link_type/description:753 DB:link_type/description:730
-#: DB:link_type/description:82 DB:link_type/description:273
-#: DB:link_type/description:222 DB:link_type/description:188
-#: DB:link_type/description:306 DB:link_type/description:561
-#: DB:link_type/description:746 DB:link_type/description:96
-#: DB:link_type/description:803
+#: DB:link_type/description:1086 DB:link_type/description:753
+#: DB:link_type/description:730 DB:link_type/description:82
+#: DB:link_type/description:273 DB:link_type/description:222
+#: DB:link_type/description:188 DB:link_type/description:306
+#: DB:link_type/description:561 DB:link_type/description:746
+#: DB:link_type/description:96 DB:link_type/description:803
 msgid ""
 "This links an entity to the equivalent entry in another database. Please "
 "respect the <a "
@@ -3435,19 +3441,19 @@ msgstr "ID VIAF per"
 msgid "Whistling (with mouth, not a whistle)"
 msgstr "Fischio (con la bocca, non con un fischietto)"
 
-#: DB:link_type/link_phrase:353 DB:link_type/link_phrase:749
-#: DB:link_type/link_phrase:594 DB:link_type/link_phrase:354
-#: DB:link_type/link_phrase:790 DB:link_type/link_phrase:352
-#: DB:link_type/link_phrase:733 DB:link_type/link_phrase:358
-#: DB:link_type/reverse_link_phrase:351
+#: DB:link_type/link_phrase:1087 DB:link_type/link_phrase:353
+#: DB:link_type/link_phrase:749 DB:link_type/link_phrase:594
+#: DB:link_type/link_phrase:354 DB:link_type/link_phrase:790
+#: DB:link_type/link_phrase:352 DB:link_type/link_phrase:733
+#: DB:link_type/link_phrase:358 DB:link_type/reverse_link_phrase:351
 msgid "Wikidata"
 msgstr "Wikidata"
 
-#: DB:link_type/link_phrase:351 DB:link_type/reverse_link_phrase:353
-#: DB:link_type/reverse_link_phrase:749 DB:link_type/reverse_link_phrase:594
-#: DB:link_type/reverse_link_phrase:354 DB:link_type/reverse_link_phrase:790
-#: DB:link_type/reverse_link_phrase:352 DB:link_type/reverse_link_phrase:733
-#: DB:link_type/reverse_link_phrase:358
+#: DB:link_type/link_phrase:351 DB:link_type/reverse_link_phrase:1087
+#: DB:link_type/reverse_link_phrase:353 DB:link_type/reverse_link_phrase:749
+#: DB:link_type/reverse_link_phrase:594 DB:link_type/reverse_link_phrase:354
+#: DB:link_type/reverse_link_phrase:790 DB:link_type/reverse_link_phrase:352
+#: DB:link_type/reverse_link_phrase:733 DB:link_type/reverse_link_phrase:358
 msgid "Wikidata page for"
 msgstr "pagina di Wikidata su"
 
@@ -4509,10 +4515,11 @@ msgstr "ha la pagina di SoundCloud"
 msgid "has a VGMdb page at"
 msgstr "ha la pagina di VGMdb"
 
-#: DB:link_type/long_link_phrase:353 DB:link_type/long_link_phrase:749
-#: DB:link_type/long_link_phrase:594 DB:link_type/long_link_phrase:354
-#: DB:link_type/long_link_phrase:790 DB:link_type/long_link_phrase:352
-#: DB:link_type/long_link_phrase:733 DB:link_type/long_link_phrase:358
+#: DB:link_type/long_link_phrase:1087 DB:link_type/long_link_phrase:353
+#: DB:link_type/long_link_phrase:749 DB:link_type/long_link_phrase:594
+#: DB:link_type/long_link_phrase:354 DB:link_type/long_link_phrase:790
+#: DB:link_type/long_link_phrase:352 DB:link_type/long_link_phrase:733
+#: DB:link_type/long_link_phrase:358
 msgid "has a Wikidata page at"
 msgstr "ha la pagina di Wikidata"
 
@@ -4568,11 +4575,11 @@ msgstr "ha un logo su"
 msgid "has a miscellaneous role on"
 msgstr "ha un ruolo a vario titolo su"
 
-#: DB:link_type/long_link_phrase:753 DB:link_type/long_link_phrase:82
-#: DB:link_type/long_link_phrase:222 DB:link_type/long_link_phrase:188
-#: DB:link_type/long_link_phrase:306 DB:link_type/long_link_phrase:561
-#: DB:link_type/long_link_phrase:746 DB:link_type/long_link_phrase:96
-#: DB:link_type/long_link_phrase:803
+#: DB:link_type/long_link_phrase:1086 DB:link_type/long_link_phrase:753
+#: DB:link_type/long_link_phrase:82 DB:link_type/long_link_phrase:222
+#: DB:link_type/long_link_phrase:188 DB:link_type/long_link_phrase:306
+#: DB:link_type/long_link_phrase:561 DB:link_type/long_link_phrase:746
+#: DB:link_type/long_link_phrase:96 DB:link_type/long_link_phrase:803
 msgid "has a page in a database at"
 msgstr "ha una pagina di database su"
 
@@ -5693,21 +5700,22 @@ msgstr "originariamente previsto come"
 msgid "other"
 msgstr "altro"
 
-#: DB:link_type/link_phrase:753 DB:link_type/link_phrase:730
-#: DB:link_type/link_phrase:82 DB:link_type/link_phrase:273
-#: DB:link_type/link_phrase:222 DB:link_type/link_phrase:188
-#: DB:link_type/link_phrase:306 DB:link_type/link_phrase:561
-#: DB:link_type/link_phrase:746 DB:link_type/link_phrase:96
-#: DB:link_type/link_phrase:803 DB:link_type/name:753 DB:link_type/name:730
+#: DB:link_type/link_phrase:1086 DB:link_type/link_phrase:753
+#: DB:link_type/link_phrase:730 DB:link_type/link_phrase:82
+#: DB:link_type/link_phrase:273 DB:link_type/link_phrase:222
+#: DB:link_type/link_phrase:188 DB:link_type/link_phrase:306
+#: DB:link_type/link_phrase:561 DB:link_type/link_phrase:746
+#: DB:link_type/link_phrase:96 DB:link_type/link_phrase:803
+#: DB:link_type/name:1086 DB:link_type/name:753 DB:link_type/name:730
 #: DB:link_type/name:82 DB:link_type/name:273 DB:link_type/name:222
 #: DB:link_type/name:188 DB:link_type/name:306 DB:link_type/name:561
 #: DB:link_type/name:746 DB:link_type/name:96 DB:link_type/name:803
-#: DB:link_type/reverse_link_phrase:753 DB:link_type/reverse_link_phrase:730
-#: DB:link_type/reverse_link_phrase:82 DB:link_type/reverse_link_phrase:273
-#: DB:link_type/reverse_link_phrase:222 DB:link_type/reverse_link_phrase:188
-#: DB:link_type/reverse_link_phrase:306 DB:link_type/reverse_link_phrase:561
-#: DB:link_type/reverse_link_phrase:746 DB:link_type/reverse_link_phrase:96
-#: DB:link_type/reverse_link_phrase:803
+#: DB:link_type/reverse_link_phrase:1086 DB:link_type/reverse_link_phrase:753
+#: DB:link_type/reverse_link_phrase:730 DB:link_type/reverse_link_phrase:82
+#: DB:link_type/reverse_link_phrase:273 DB:link_type/reverse_link_phrase:222
+#: DB:link_type/reverse_link_phrase:188 DB:link_type/reverse_link_phrase:306
+#: DB:link_type/reverse_link_phrase:561 DB:link_type/reverse_link_phrase:746
+#: DB:link_type/reverse_link_phrase:96 DB:link_type/reverse_link_phrase:803
 msgid "other databases"
 msgstr "altri database"
 
@@ -6913,9 +6921,10 @@ msgstr "è stato {assistant:assistente} organista presso"
 msgid "whistling"
 msgstr "fischio"
 
-#: DB:link_type/name:351 DB:link_type/name:353 DB:link_type/name:749
-#: DB:link_type/name:594 DB:link_type/name:354 DB:link_type/name:790
-#: DB:link_type/name:352 DB:link_type/name:733 DB:link_type/name:358
+#: DB:link_type/name:1087 DB:link_type/name:351 DB:link_type/name:353
+#: DB:link_type/name:749 DB:link_type/name:594 DB:link_type/name:354
+#: DB:link_type/name:790 DB:link_type/name:352 DB:link_type/name:733
+#: DB:link_type/name:358
 msgid "wikidata"
 msgstr "wikidata"
 

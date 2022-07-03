@@ -12,7 +12,7 @@ entering edits.
 
 =cut
 
-test 'Test setting track lengths based on disc ID' => sub {
+test 'Setting track lengths based on disc ID' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
