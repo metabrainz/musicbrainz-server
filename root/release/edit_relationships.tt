@@ -275,7 +275,7 @@
           [% closing_tag_escape(type_info) %],
           [% closing_tag_escape(attr_info) %]
         );
-        new RE.ReleaseViewModel({ sourceData: [% closing_tag_escape(source_entity) %] });
+        new RE.ReleaseViewModel();
 
         MB.confirmNavigationFallback();
       });

@@ -10,6 +10,7 @@ import ko from 'knockout';
 import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 
+import '../../common/entity.js';
 import MB from '../../common/MB.js';
 
 import ArtistCreditEditor from './ArtistCreditEditor.js';

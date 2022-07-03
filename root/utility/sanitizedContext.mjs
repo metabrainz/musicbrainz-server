@@ -35,6 +35,11 @@ export default function sanitizedContext(
     stash: {
       current_language: stash.current_language,
       server_languages: stash.server_languages,
+      ...(
+        stash.source_entity == null
+          ? null
+          : {source_entity: stash.source_entity}
+      ),
     },
     user: user ? activeSanitizedEditor(user) : null,
   };

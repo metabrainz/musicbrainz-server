@@ -39,7 +39,7 @@ use MusicBrainz::Server::Validation qw(
     is_positive_integer
 );
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
-use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Form::Utils qw(
     build_grouped_options
     select_options
@@ -734,7 +734,7 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit {
     $c->stash(
         work_types      => select_options($c, 'WorkType'),
         work_languages  => build_grouped_options($c, language_options($c, 'work')),
-        source_entity   => $c->json->encode($release),
+        source_entity   => to_json_object($release),
         attr_info       => $c->json->encode(\@link_attribute_types),
         type_info       => $c->json->encode(build_type_info($c, qr/(recording|work|release)/, @link_type_tree)),
     );

@@ -89,7 +89,6 @@
 
     MB.releaseEditor.init({
     [%- IF release.gid %]
-      release: [% closing_tag_escape(release_json) %],
       action: "edit",
     [%- ELSE %]
       action: "add",

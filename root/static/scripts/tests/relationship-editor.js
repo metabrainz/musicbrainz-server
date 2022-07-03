@@ -135,15 +135,31 @@ function setupReleaseRelationshipEditor() {
   const testReleaseCopy = {...testRelease};
   delete testReleaseCopy.mediums;
 
-  var vm = new FakeReleaseViewModel({
-    sourceData: testReleaseCopy,
-  });
+  window[GLOBAL_JS_NAMESPACE] = {
+    $c: {
+      stash: {
+        source_entity: testReleaseCopy,
+      },
+    },
+  };
+
+  MB._sourceEntityInstance = null;
+
+  var vm = new FakeReleaseViewModel();
 
   vm.releaseLoaded(testRelease);
   return vm;
 }
 
 function setupGenericRelationshipEditor(options) {
+  window[GLOBAL_JS_NAMESPACE] = {
+    $c: {
+      stash: {
+        source_entity: options.sourceData,
+      },
+    },
+  };
+  MB._sourceEntityInstance = null;
   options.vmClass = FakeGenericEntityViewModel;
   MB.initRelationshipEditors(options);
   return MB.sourceRelationshipEditor;
@@ -1189,27 +1205,35 @@ relationshipEditorTest((
     verbosePhrase: '{additional} composer',
   };
 
-  var vm = new FakeReleaseViewModel({
-    sourceData: {
-      entityType: 'release',
-      name: '3 Great Piano Sonatas (Wilhelm Backhaus)',
-      gid: 'b01c805e-0d25-45ad-9ddb-785658fe56ce',
-      relationships: [compositionData],
-      artistCredit: {names: [{artist: beethoven, joinPhrase: ''}]},
-      mediums: [],
-      releaseGroup: {
-        entityType: 'release_group',
-        id: 188961,
-        gid: 'd0dd466b-3385-356b-bdf0-856737c6baf7',
-        name: '3 Great Piano Sonatas',
-        artistCredit: {
-          names: [
-            {artist: beethoven, joinPhrase: '; ', name: 'Beethoven'},
-          ],
+  window[GLOBAL_JS_NAMESPACE] = {
+    $c: {
+      stash: {
+        source_entity: {
+          entityType: 'release',
+          name: '3 Great Piano Sonatas (Wilhelm Backhaus)',
+          gid: 'b01c805e-0d25-45ad-9ddb-785658fe56ce',
+          relationships: [compositionData],
+          artistCredit: {names: [{artist: beethoven, joinPhrase: ''}]},
+          mediums: [],
+          releaseGroup: {
+            entityType: 'release_group',
+            id: 188961,
+            gid: 'd0dd466b-3385-356b-bdf0-856737c6baf7',
+            name: '3 Great Piano Sonatas',
+            artistCredit: {
+              names: [
+                {artist: beethoven, joinPhrase: '; ', name: 'Beethoven'},
+              ],
+            },
+          },
         },
       },
     },
-  });
+  };
+
+  MB._sourceEntityInstance = null;
+
+  var vm = new FakeReleaseViewModel();
 
   var relationship = vm.getRelationship(compositionData, vm.source);
   relationship.begin_date.year(null);

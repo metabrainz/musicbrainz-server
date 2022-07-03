@@ -780,6 +780,7 @@ sub TO_JSON {
         release_cdtoc_count
         server_details
         server_languages
+        source_entity
         subscribed
         to_merge
         top_tags

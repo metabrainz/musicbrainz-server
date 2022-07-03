@@ -19,14 +19,12 @@ import type {GenreFormT} from './types.js';
 type Props = {
   +attrInfo: LinkAttrTypeOptionsT,
   +form: GenreFormT,
-  +sourceEntity: {entityType: 'genre'},
   +typeInfo: LinkTypeOptionsT,
 };
 
 const CreateGenre = ({
   attrInfo,
   form,
-  sourceEntity,
   typeInfo,
 }: Props): React.Element<typeof Layout> => (
   <Layout fullWidth title={l('Add a new genre')}>
@@ -35,7 +33,6 @@ const CreateGenre = ({
       <GenreEditForm
         attrInfo={attrInfo}
         form={form}
-        sourceEntity={sourceEntity}
         typeInfo={typeInfo}
       />
     </div>

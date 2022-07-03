@@ -11,6 +11,7 @@ import ko from 'knockout';
 
 import MB from '../common/MB.js';
 import {uniqBy} from '../common/utility/arrays.js';
+import {getSourceEntityData} from '../common/utility/catalyst.js';
 import request from '../common/utility/request.js';
 
 import {ViewModel} from './common/viewModel.js';
@@ -23,8 +24,10 @@ var UI = RE.UI = RE.UI || {};
 
 
 export class ReleaseViewModel extends ViewModel {
-  constructor(options) {
-    super(options);
+  constructor() {
+    super({
+      source: MB.getSourceEntityInstance(),
+    });
 
     MB.releaseRelationshipEditor = this;
 
@@ -61,11 +64,12 @@ export class ReleaseViewModel extends ViewModel {
       },
     };
 
-    this.source = MB.entity(options.sourceData);
-    this.source.parseRelationships(options.sourceData.relationships);
+    const sourceData = getSourceEntityData();
+
+    this.source.parseRelationships(sourceData.relationships);
 
     this.source.releaseGroup.parseRelationships(
-      options.sourceData.releaseGroup.relationships,
+      sourceData.releaseGroup.relationships,
     );
 
     this.source.mediums = ko.observableArray([]);

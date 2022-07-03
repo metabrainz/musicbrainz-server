@@ -9,6 +9,7 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
+import '../../common/entity.js';
 import localizeLinkAttributeTypeDescription
   from '../../common/i18n/localizeLinkAttributeTypeDescription.js';
 import localizeLinkAttributeTypeName
@@ -16,6 +17,7 @@ import localizeLinkAttributeTypeName
 import linkedEntities from '../../common/linkedEntities.mjs';
 import MB from '../../common/MB.js';
 import {groupBy} from '../../common/utility/arrays.js';
+import {getSourceEntityData} from '../../common/utility/catalyst.js';
 import {hasSessionStorage} from '../../common/utility/storage.js';
 import {uniqueId} from '../../common/utility/strings.js';
 
@@ -171,15 +173,15 @@ Object.assign(ViewModel.prototype, {
 MB.initRelationshipEditors = function (args) {
   MB.relationshipEditor.exportTypeInfo(args.typeInfo, args.attrInfo);
 
-  var sourceData = args.sourceData;
+  var sourceData = getSourceEntityData();
+  var source = MB.getSourceEntityInstance();
+
+  MB.sourceEntity = source;
 
   // XXX used by series edit form
-  sourceData.gid = sourceData.gid || uniqueId('tmp-');
-  sourceData.uniqueID = sourceData.id || 'source';
-  MB.sourceEntityGID = sourceData.gid;
-  MB.sourceEntity = MB.entity(sourceData);
+  source.gid = sourceData.gid || uniqueId('tmp-');
+  source.uniqueID = sourceData.id || 'source';
 
-  var source = MB.sourceEntity;
   var vmArgs = {source: source, formName: args.formName};
 
   let {vmClass} = args;

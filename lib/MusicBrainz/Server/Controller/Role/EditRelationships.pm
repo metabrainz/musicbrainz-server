@@ -306,12 +306,11 @@ role {
 
         $c->stash(
             seeded_relationships => $c->json->encode(to_json_array($seeded_relationships)),
-            source_entity => $c->json->encode($source_entity),
+            source_entity => $source_entity,
             attr_info => $c->json->encode(\@link_attribute_types),
             type_info => $c->json->encode($type_info),
         );
 
-        $c->stash->{component_props}{sourceEntity} = $source_entity;
         $c->stash->{component_props}{attrInfo} = to_json_array(\@link_attribute_types);
         $c->stash->{component_props}{typeInfo} = $type_info;
 

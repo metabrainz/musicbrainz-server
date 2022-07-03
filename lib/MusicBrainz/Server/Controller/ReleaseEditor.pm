@@ -12,6 +12,7 @@ use Try::Tiny;
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MusicBrainz::Server::Track qw( unformat_track_length );
 use MusicBrainz::Server::Data::Utils qw( non_empty sanitize trim );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Form::Utils qw(
     language_options
     script_options
@@ -50,6 +51,7 @@ sub _init_release_editor
         statuses            => select_options_tree($c, 'ReleaseStatus'),
         languages           => build_grouped_options($c, language_options($c)),
         scripts             => build_grouped_options($c, script_options($c)),
+        source_entity       => to_json_object($c->stash->{release}),
         packagings          => select_options_tree($c, 'ReleasePackaging'),
         countries           => select_options($c, 'CountryArea'),
         formats             => select_options_tree($c, 'MediumFormat'),
@@ -77,7 +79,6 @@ sub edit : Chained('/release/load') PathPart('edit') Edit RequireAuth
     $self->_init_release_editor(
         $c,
         return_to => $c->uri_for_action('/release/show', [ $release->gid ]),
-        release_json => $c->json->encode($release),
     );
 }
 
