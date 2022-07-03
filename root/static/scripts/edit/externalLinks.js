@@ -91,11 +91,13 @@ export type LinkRelationshipT = $ReadOnly<{
 }>;
 
 type LinksEditorProps = {
-  +errorObservable: (boolean) => void,
-  +initialLinks: $ReadOnlyArray<LinkStateT>,
+  +errorObservable?: (boolean) => void,
   +isNewEntity: boolean,
-  +sourceType: CoreEntityTypeT,
-  +typeOptions: $ReadOnlyArray<LinkTypeOptionT>,
+  +sourceData: CoreEntityT | {
+    +entityType: CoreEntityTypeT,
+    +id?: void,
+    +relationships?: void,
+  },
 };
 
 type LinksEditorState = {
@@ -110,16 +112,104 @@ export class ExternalLinksEditor
 
   oldLinks: LinkMapT;
 
+  +errorObservable: (boolean) => void;
+
+  +initialLinks: $ReadOnlyArray<LinkStateT>;
+
+  +sourceType: CoreEntityTypeT;
+
+  +typeOptions: $ReadOnlyArray<LinkTypeOptionT>;
+
   constructor(props: LinksEditorProps) {
     super(props);
-    this.state = {links: withOneEmptyLink(props.initialLinks)};
+
+    const sourceData = props.sourceData;
+    const sourceType = sourceData.entityType;
+    const entityTypes = [sourceType, 'url'].sort().join('-');
+    let initialLinks = parseRelationships(sourceData.relationships);
+
+    initialLinks.sort(function (a, b) {
+      const typeA = a.type && linkedEntities.link_type[a.type];
+      const typeB = b.type && linkedEntities.link_type[b.type];
+
+      return compare(
+        typeA ? l_relationships(typeA.link_phrase).toLowerCase() : '',
+        typeB ? l_relationships(typeB.link_phrase).toLowerCase() : '',
+      );
+    });
+
+    if (typeof window !== 'undefined') {
+      // Terribly get seeded URLs
+      if (MB.formWasPosted) {
+        if (hasSessionStorage) {
+          const submittedLinks =
+            window.sessionStorage.getItem('submittedLinks');
+          if (submittedLinks) {
+            initialLinks = JSON.parse(submittedLinks)
+              .filter(l => !isEmpty(l)).map(newLinkState);
+          }
+        }
+      } else {
+        const seededLinkRegex = new RegExp(
+          '(?:\\?|&)edit-' + sourceType +
+            '\\.url\\.([0-9]+)\\.(text|link_type_id)=([^&]+)',
+          'g',
+        );
+        const urls = {};
+        let match;
+
+        while ((match = seededLinkRegex.exec(window.location.search))) {
+          const [/* unused */, index, key, value] = match;
+          (urls[index] = urls[index] || {})[key] = decodeURIComponent(value);
+        }
+
+        for (
+          const data of
+          ((Object.values(urls): any): $ReadOnlyArray<SeededUrlShape>)
+        ) {
+          initialLinks.push(newLinkState({
+            rawUrl: data.text || '',
+            relationship: uniqueId('new-'),
+            type: parseInt(data.link_type_id, 10) || null,
+            url: getUnicodeUrl(data.text || ''),
+          }));
+        }
+      }
+    }
+
+    initialLinks = initialLinks.map(function (link) {
+      /*
+       * Only run the URL cleanup on seeded URLs, i.e. URLs that don't have an
+       * existing relationship ID.
+       */
+      if (!isPositiveInteger(link.relationship)) {
+        const url = getUnicodeUrl(link.url);
+        return {
+          ...link,
+          relationship: uniqueId('new-'),
+          url: URLCleanup.cleanURL(url) || url,
+        };
+      }
+      return link;
+    });
+
+    this.typeOptions = linkTypeOptions(
+      {children: linkedEntities.link_type_tree[entityTypes]},
+      /^url-/.test(entityTypes),
+    );
+
+    this.sourceType = sourceType;
+    this.initialLinks = initialLinks;
+    this.state = {links: withOneEmptyLink(initialLinks)};
     this.tableRef = React.createRef();
     this.oldLinks = this.getOldLinksHash();
-    this.generalLinkTypes = props.typeOptions.filter(
+    this.generalLinkTypes = this.typeOptions.filter(
       // Keep disabled options for grouping
       (option) => option.disabled ||
       !URLCleanup.RESTRICTED_LINK_TYPES.includes(option.data.gid),
     );
+    this.errorObservable = props.errorObservable ||
+      validation.errorField(ko.observable(false));
     this.copyEditDataToReleaseEditor();
   }
 
@@ -178,7 +268,7 @@ export class ExternalLinksEditor
         }
 
         const newLink = {...newLinks[index], url, rawUrl};
-        const checker = new URLCleanup.Checker(url, this.props.sourceType);
+        const checker = new URLCleanup.Checker(url, this.sourceType);
         const guessedType = checker.guessType();
         const possibleTypes = checker.getPossibleTypes();
         const typeOptions = this.filterTypeOptions(possibleTypes);
@@ -450,7 +540,7 @@ export class ExternalLinksEditor
 
   getOldLinksHash(): LinkMapT {
     return keyBy<LinkStateT, string>(
-      this.props.initialLinks
+      this.initialLinks
         .filter(link => isPositiveInteger(link.relationship)),
       x => String(x.relationship),
     );
@@ -480,7 +570,7 @@ export class ExternalLinksEditor
     pushInput: (string, string, string) => void,
   ) {
     let index = 0;
-    const backward = this.props.sourceType > 'url';
+    const backward = this.sourceType > 'url';
     const {oldLinks, newLinks, allLinks} = this.getEditData();
 
     for (const [relationship, link] of allLinks) {
@@ -556,7 +646,7 @@ export class ExternalLinksEditor
   ): ErrorT | null {
     const linksByTypeAndUrl = groupBy(
       uniqBy(
-        this.state.links.concat(this.props.initialLinks),
+        this.state.links.concat(this.initialLinks),
         link => link.relationship,
       ),
       linkTypeAndUrlString,
@@ -567,7 +657,7 @@ export class ExternalLinksEditor
       ? linkedEntities.link_type[link.type] : {};
     // Use existing checker if possible, otherwise create a new one
     checker = checker ||
-      new URLCleanup.Checker(link.url, this.props.sourceType);
+      new URLCleanup.Checker(link.url, this.sourceType);
     const oldLink = this.oldLinks.get(String(link.relationship));
     const isNewLink = !isPositiveInteger(link.relationship);
     const linkChanged = oldLink && link.url !== oldLink.url;
@@ -718,7 +808,7 @@ export class ExternalLinksEditor
     if (!possibleTypes) {
       return this.generalLinkTypes;
     }
-    return this.props.typeOptions.filter((option) => {
+    return this.typeOptions.filter((option) => {
       // Keep disabled options for grouping
       if (option.disabled) {
         return true;
@@ -787,7 +877,7 @@ export class ExternalLinksEditor
   }
 
   render(): React.Element<'table'> {
-    this.props.errorObservable(false);
+    this.errorObservable(false);
 
     const linksArray = this.state.links;
     const linksGroupMap = groupLinksByUrl(linksArray);
@@ -819,7 +909,7 @@ export class ExternalLinksEditor
             let hasError = false;
             let canMerge = true;
             const checker = new URLCleanup.Checker(
-              url, this.props.sourceType,
+              url, this.sourceType,
             );
             const possibleTypes = checker.getPossibleTypes();
             const selectedTypes = [];
@@ -837,7 +927,7 @@ export class ExternalLinksEditor
               const error = this.validateLink(link, checker);
               if (error) {
                 if (this.isNewOrChangedLink(link)) {
-                  this.props.errorObservable(true);
+                  this.errorObservable(true);
                   hasError = true;
                 }
                 if (error.target === URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
@@ -881,7 +971,7 @@ export class ExternalLinksEditor
               links[0].submitted &&
               selectedTypes.length > 0 &&
               !hasError) {
-              this.props.errorObservable(true);
+              this.errorObservable(true);
               urlError = {
                 message: check.error ||
                     l('This relationship type combination is invalid.'),
@@ -1627,96 +1717,19 @@ export function createExternalLinksEditor(
   +root: {+unmount: () => void, ...},
 } {
   const sourceData = options.sourceData;
-  const sourceType = sourceData.entityType;
-  const entityTypes = [sourceType, 'url'].sort().join('-');
-  let initialLinks = parseRelationships(sourceData.relationships);
-
-  initialLinks.sort(function (a, b) {
-    const typeA = a.type && linkedEntities.link_type[a.type];
-    const typeB = b.type && linkedEntities.link_type[b.type];
-
-    return compare(
-      typeA ? l_relationships(typeA.link_phrase).toLowerCase() : '',
-      typeB ? l_relationships(typeB.link_phrase).toLowerCase() : '',
-    );
-  });
-
-  // Terribly get seeded URLs
-  if (MB.formWasPosted) {
-    if (hasSessionStorage) {
-      const submittedLinks = window.sessionStorage.getItem('submittedLinks');
-      if (submittedLinks) {
-        initialLinks = JSON.parse(submittedLinks)
-          .filter(l => !isEmpty(l)).map(newLinkState);
-      }
-    }
-  } else {
-    const seededLinkRegex = new RegExp(
-      '(?:\\?|&)edit-' + sourceType +
-        '\\.url\\.([0-9]+)\\.(text|link_type_id)=([^&]+)',
-      'g',
-    );
-    const urls = {};
-    let match;
-
-    while ((match = seededLinkRegex.exec(window.location.search))) {
-      const [/* unused */, index, key, value] = match;
-      (urls[index] = urls[index] || {})[key] = decodeURIComponent(value);
-    }
-
-    for (
-      const data of
-      ((Object.values(urls): any): $ReadOnlyArray<SeededUrlShape>)
-    ) {
-      initialLinks.push(newLinkState({
-        rawUrl: data.text || '',
-        relationship: uniqueId('new-'),
-        type: parseInt(data.link_type_id, 10) || null,
-        url: getUnicodeUrl(data.text || ''),
-      }));
-    }
-  }
-
-  initialLinks = initialLinks.map(function (link) {
-    /*
-     * Only run the URL cleanup on seeded URLs, i.e. URLs that don't have an
-     * existing relationship ID.
-     */
-    if (!isPositiveInteger(link.relationship)) {
-      const url = getUnicodeUrl(link.url);
-      return {
-        ...link,
-        relationship: uniqueId('new-'),
-        url: URLCleanup.cleanURL(url) || url,
-      };
-    }
-    return link;
-  });
-
-  const typeOptions = linkTypeOptions(
-    {children: linkedEntities.link_type_tree[entityTypes]},
-    /^url-/.test(entityTypes),
-  );
-
-  const errorObservable = options.errorObservable ||
-    validation.errorField(ko.observable(false));
-
   const mountPoint = options.mountPoint;
   let root = $(mountPoint).data('react-root');
   if (!root) {
     root = ReactDOMClient.createRoot(mountPoint);
     $(mountPoint).data('react-root', root);
   }
-
   const externalLinksEditorRef = React.createRef();
   root.render(
     <ExternalLinksEditor
-      errorObservable={errorObservable}
-      initialLinks={initialLinks}
+      errorObservable={options.errorObservable}
       isNewEntity={!sourceData.id}
       ref={externalLinksEditorRef}
-      sourceType={sourceData.entityType}
-      typeOptions={typeOptions}
+      sourceData={sourceData}
     />,
   );
   return {externalLinksEditorRef, root};
