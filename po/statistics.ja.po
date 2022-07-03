@@ -2767,138 +2767,142 @@ msgid "Works with ISWCs"
 msgstr ""
 
 #: ../root/statistics/stats.js:891
+msgid "Works with no language set"
+msgstr ""
+
+#: ../root/statistics/stats.js:896
 msgid "Works with no type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:893
+#: ../root/statistics/stats.js:898
 msgid "/day"
 msgstr ""
 
-#: ../root/statistics/stats.js:903
+#: ../root/statistics/stats.js:908
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
 msgstr[0] ""
 
-#: ../root/statistics/stats.js:914
+#: ../root/statistics/stats.js:919
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
 msgstr[0] ""
 
-#: ../root/statistics/stats.js:925
+#: ../root/statistics/stats.js:930
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
 msgstr[0] ""
 
-#: ../root/statistics/stats.js:936
+#: ../root/statistics/stats.js:941
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
 msgstr[0] ""
 
-#: ../root/statistics/stats.js:989
+#: ../root/statistics/stats.js:994
 msgid "{type} areas"
 msgstr ""
 
-#: ../root/statistics/stats.js:1001
+#: ../root/statistics/stats.js:1006
 msgid "{country} artists"
 msgstr ""
 
-#: ../root/statistics/stats.js:1007
+#: ../root/statistics/stats.js:1012
 msgid "{country} labels"
 msgstr ""
 
-#: ../root/statistics/stats.js:1013
+#: ../root/statistics/stats.js:1018
 msgid "{country} releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:1024
+#: ../root/statistics/stats.js:1029
 msgid "{type} edits"
 msgstr ""
 
-#: ../root/statistics/stats.js:1035
+#: ../root/statistics/stats.js:1040
 msgid "{type} events"
 msgstr ""
 
-#: ../root/statistics/stats.js:1046
+#: ../root/statistics/stats.js:1051
 msgid "{name} releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:1052
+#: ../root/statistics/stats.js:1057
 msgid "{name} mediums"
 msgstr ""
 
-#: ../root/statistics/stats.js:1059
+#: ../root/statistics/stats.js:1064
 msgid "Releases with a medium of format “{format}” that have cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:1072
+#: ../root/statistics/stats.js:1077
 msgid "{type} instruments"
 msgstr ""
 
-#: ../root/statistics/stats.js:1083
+#: ../root/statistics/stats.js:1088
 msgid "{type} labels"
 msgstr ""
 
-#: ../root/statistics/stats.js:1094
+#: ../root/statistics/stats.js:1099
 msgid "{language} releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:1100
+#: ../root/statistics/stats.js:1105
 msgid "{language} works"
 msgstr ""
 
-#: ../root/statistics/stats.js:1112
+#: ../root/statistics/stats.js:1117
 msgid "Releases with packaging “{packaging}”"
 msgstr ""
 
-#: ../root/statistics/stats.js:1125
+#: ../root/statistics/stats.js:1130
 msgid "{type} places"
 msgstr ""
 
-#: ../root/statistics/stats.js:1133
+#: ../root/statistics/stats.js:1138
 msgid "{first_entity_type}-{second_entity_type} Relationships"
 msgstr ""
 
-#: ../root/statistics/stats.js:1152
+#: ../root/statistics/stats.js:1157
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships"
 msgstr ""
 
-#: ../root/statistics/stats.js:1168
+#: ../root/statistics/stats.js:1173
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships including child relationship types"
 msgstr ""
 
-#: ../root/statistics/stats.js:1191 ../root/statistics/stats.js:1211
+#: ../root/statistics/stats.js:1196 ../root/statistics/stats.js:1216
 msgid "{type} release groups"
 msgstr ""
 
-#: ../root/statistics/stats.js:1198
+#: ../root/statistics/stats.js:1203
 msgid "Releases in groups of type “{type}” with cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:1222
+#: ../root/statistics/stats.js:1227
 msgid "{script} releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:1233
+#: ../root/statistics/stats.js:1238
 msgid "{type} series"
 msgstr ""
 
-#: ../root/statistics/stats.js:1244
+#: ../root/statistics/stats.js:1249
 msgid "{status} releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:1251
+#: ../root/statistics/stats.js:1256
 msgid "Releases of status “{status}” with cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:1268
+#: ../root/statistics/stats.js:1273
 msgid "Works with attribute “{attribute}”"
 msgstr ""
 
-#: ../root/statistics/stats.js:1281
+#: ../root/statistics/stats.js:1286
 msgid "{type} works"
 msgstr ""
 
