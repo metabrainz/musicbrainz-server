@@ -11,6 +11,12 @@ import ENTITIES from '../../../../entities.mjs';
 
 export {ENTITIES};
 
+export const EMPTY_PARTIAL_DATE: PartialDateT = Object.freeze({
+  day: null,
+  month: null,
+  year: null,
+});
+
 export const ENTITY_NAMES: {
   +[entityType: CoreEntityTypeT]: () => string,
   ...
