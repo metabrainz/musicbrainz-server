@@ -58,8 +58,6 @@ const pThrottle = <
 }: ThrottleOptionsT): (
   ((...A) => R | Promise<R>) => ((...A) => ThrottleResultT<R>)
 ) => {
-  const queue: Map<TimeoutID, (mixed) => void> = new Map();
-
   let currentTick = 0;
   let activeCount = 0;
 
@@ -99,12 +97,9 @@ const pThrottle = <
             } else {
               resolve(function_.apply(this, args));
             }
-            queue.delete(timeout);
           };
 
           timeout = setTimeout(execute, getDelay());
-
-          queue.set(timeout, reject);
         }),
       };
     };
