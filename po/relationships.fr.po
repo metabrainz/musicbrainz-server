@@ -983,6 +983,12 @@ msgid ""
 "Wikipedia summaries"
 msgstr ""
 
+#: DB:link_type/description:1087
+msgid ""
+"Points to the Wikidata page for this genre, and will be used to fetch "
+"Wikipedia summaries"
+msgstr ""
+
 #: DB:link_type/description:733
 msgid ""
 "Points to the Wikidata page for this instrument, and will be used to fetch "
@@ -2593,12 +2599,12 @@ msgid ""
 " user contributed database concerned with the stories behind the songs."
 msgstr "Ceci relie une entité à la liste appropriée de la base de données Songfacts, une base de données auxquels les utilisateurs contribuent, se préoccupant des histoires derrière les chansons."
 
-#: DB:link_type/description:753 DB:link_type/description:730
-#: DB:link_type/description:82 DB:link_type/description:273
-#: DB:link_type/description:222 DB:link_type/description:188
-#: DB:link_type/description:306 DB:link_type/description:561
-#: DB:link_type/description:746 DB:link_type/description:96
-#: DB:link_type/description:803
+#: DB:link_type/description:1086 DB:link_type/description:753
+#: DB:link_type/description:730 DB:link_type/description:82
+#: DB:link_type/description:273 DB:link_type/description:222
+#: DB:link_type/description:188 DB:link_type/description:306
+#: DB:link_type/description:561 DB:link_type/description:746
+#: DB:link_type/description:96 DB:link_type/description:803
 msgid ""
 "This links an entity to the equivalent entry in another database. Please "
 "respect the <a "
@@ -3278,6 +3284,10 @@ msgid ""
 "setlist.fm"
 msgstr "Ce type de relation relie un événement à sa page correspondante sur setlist.fm"
 
+#: DB:link_type/description:1088
+msgid "This relationship type links genres to the areas they originate from."
+msgstr ""
+
 #: DB:link_type/description:752
 msgid ""
 "This relationship type links instruments to the areas they originate from."
@@ -3455,19 +3465,19 @@ msgstr "ID VIAF pour"
 msgid "Whistling (with mouth, not a whistle)"
 msgstr "Sifflement (fait à la bouche, sans sifflet)"
 
-#: DB:link_type/link_phrase:353 DB:link_type/link_phrase:749
-#: DB:link_type/link_phrase:594 DB:link_type/link_phrase:354
-#: DB:link_type/link_phrase:790 DB:link_type/link_phrase:352
-#: DB:link_type/link_phrase:733 DB:link_type/link_phrase:358
-#: DB:link_type/reverse_link_phrase:351
+#: DB:link_type/link_phrase:1087 DB:link_type/link_phrase:353
+#: DB:link_type/link_phrase:749 DB:link_type/link_phrase:594
+#: DB:link_type/link_phrase:354 DB:link_type/link_phrase:790
+#: DB:link_type/link_phrase:352 DB:link_type/link_phrase:733
+#: DB:link_type/link_phrase:358 DB:link_type/reverse_link_phrase:351
 msgid "Wikidata"
 msgstr "Wikidata"
 
-#: DB:link_type/link_phrase:351 DB:link_type/reverse_link_phrase:353
-#: DB:link_type/reverse_link_phrase:749 DB:link_type/reverse_link_phrase:594
-#: DB:link_type/reverse_link_phrase:354 DB:link_type/reverse_link_phrase:790
-#: DB:link_type/reverse_link_phrase:352 DB:link_type/reverse_link_phrase:733
-#: DB:link_type/reverse_link_phrase:358
+#: DB:link_type/link_phrase:351 DB:link_type/reverse_link_phrase:1087
+#: DB:link_type/reverse_link_phrase:353 DB:link_type/reverse_link_phrase:749
+#: DB:link_type/reverse_link_phrase:594 DB:link_type/reverse_link_phrase:354
+#: DB:link_type/reverse_link_phrase:790 DB:link_type/reverse_link_phrase:352
+#: DB:link_type/reverse_link_phrase:733 DB:link_type/reverse_link_phrase:358
 msgid "Wikidata page for"
 msgstr "Page Wikidata pour"
 
@@ -4352,9 +4362,17 @@ msgstr "page de diffusion {video:vidéo} gratuite en flux continu pour"
 msgid "free streaming"
 msgstr "diffusion gratuite en flux continu"
 
-#: DB:link_type/reverse_link_phrase:752
+#: DB:link_type/reverse_link_phrase:1088 DB:link_type/reverse_link_phrase:752
 msgid "from"
 msgstr "de"
+
+#: DB:link_type/name:1088
+msgid "genre origin"
+msgstr ""
+
+#: DB:link_type/link_phrase:1088
+msgid "genres"
+msgstr ""
 
 #: DB:link_type/name:934 DB:link_type/name:713
 msgid "geonames"
@@ -4529,10 +4547,11 @@ msgstr "a une page SoundCloud sur"
 msgid "has a VGMdb page at"
 msgstr "a une page VGMdb sur"
 
-#: DB:link_type/long_link_phrase:353 DB:link_type/long_link_phrase:749
-#: DB:link_type/long_link_phrase:594 DB:link_type/long_link_phrase:354
-#: DB:link_type/long_link_phrase:790 DB:link_type/long_link_phrase:352
-#: DB:link_type/long_link_phrase:733 DB:link_type/long_link_phrase:358
+#: DB:link_type/long_link_phrase:1087 DB:link_type/long_link_phrase:353
+#: DB:link_type/long_link_phrase:749 DB:link_type/long_link_phrase:594
+#: DB:link_type/long_link_phrase:354 DB:link_type/long_link_phrase:790
+#: DB:link_type/long_link_phrase:352 DB:link_type/long_link_phrase:733
+#: DB:link_type/long_link_phrase:358
 msgid "has a Wikidata page at"
 msgstr "a une page Wikidata sur"
 
@@ -4588,11 +4607,11 @@ msgstr "a un logo à"
 msgid "has a miscellaneous role on"
 msgstr "a un rôle divers sur"
 
-#: DB:link_type/long_link_phrase:753 DB:link_type/long_link_phrase:82
-#: DB:link_type/long_link_phrase:222 DB:link_type/long_link_phrase:188
-#: DB:link_type/long_link_phrase:306 DB:link_type/long_link_phrase:561
-#: DB:link_type/long_link_phrase:746 DB:link_type/long_link_phrase:96
-#: DB:link_type/long_link_phrase:803
+#: DB:link_type/long_link_phrase:1086 DB:link_type/long_link_phrase:753
+#: DB:link_type/long_link_phrase:82 DB:link_type/long_link_phrase:222
+#: DB:link_type/long_link_phrase:188 DB:link_type/long_link_phrase:306
+#: DB:link_type/long_link_phrase:561 DB:link_type/long_link_phrase:746
+#: DB:link_type/long_link_phrase:96 DB:link_type/long_link_phrase:803
 msgid "has a page in a database at"
 msgstr "a une page dans une base de données sur"
 
@@ -5713,21 +5732,22 @@ msgstr "programmé originalement comme"
 msgid "other"
 msgstr "autre"
 
-#: DB:link_type/link_phrase:753 DB:link_type/link_phrase:730
-#: DB:link_type/link_phrase:82 DB:link_type/link_phrase:273
-#: DB:link_type/link_phrase:222 DB:link_type/link_phrase:188
-#: DB:link_type/link_phrase:306 DB:link_type/link_phrase:561
-#: DB:link_type/link_phrase:746 DB:link_type/link_phrase:96
-#: DB:link_type/link_phrase:803 DB:link_type/name:753 DB:link_type/name:730
+#: DB:link_type/link_phrase:1086 DB:link_type/link_phrase:753
+#: DB:link_type/link_phrase:730 DB:link_type/link_phrase:82
+#: DB:link_type/link_phrase:273 DB:link_type/link_phrase:222
+#: DB:link_type/link_phrase:188 DB:link_type/link_phrase:306
+#: DB:link_type/link_phrase:561 DB:link_type/link_phrase:746
+#: DB:link_type/link_phrase:96 DB:link_type/link_phrase:803
+#: DB:link_type/name:1086 DB:link_type/name:753 DB:link_type/name:730
 #: DB:link_type/name:82 DB:link_type/name:273 DB:link_type/name:222
 #: DB:link_type/name:188 DB:link_type/name:306 DB:link_type/name:561
 #: DB:link_type/name:746 DB:link_type/name:96 DB:link_type/name:803
-#: DB:link_type/reverse_link_phrase:753 DB:link_type/reverse_link_phrase:730
-#: DB:link_type/reverse_link_phrase:82 DB:link_type/reverse_link_phrase:273
-#: DB:link_type/reverse_link_phrase:222 DB:link_type/reverse_link_phrase:188
-#: DB:link_type/reverse_link_phrase:306 DB:link_type/reverse_link_phrase:561
-#: DB:link_type/reverse_link_phrase:746 DB:link_type/reverse_link_phrase:96
-#: DB:link_type/reverse_link_phrase:803
+#: DB:link_type/reverse_link_phrase:1086 DB:link_type/reverse_link_phrase:753
+#: DB:link_type/reverse_link_phrase:730 DB:link_type/reverse_link_phrase:82
+#: DB:link_type/reverse_link_phrase:273 DB:link_type/reverse_link_phrase:222
+#: DB:link_type/reverse_link_phrase:188 DB:link_type/reverse_link_phrase:306
+#: DB:link_type/reverse_link_phrase:561 DB:link_type/reverse_link_phrase:746
+#: DB:link_type/reverse_link_phrase:96 DB:link_type/reverse_link_phrase:803
 msgid "other databases"
 msgstr "autres bases de données"
 
@@ -6933,9 +6953,10 @@ msgstr "était  {assistant:assistant d’}organiste à"
 msgid "whistling"
 msgstr "sifflement"
 
-#: DB:link_type/name:351 DB:link_type/name:353 DB:link_type/name:749
-#: DB:link_type/name:594 DB:link_type/name:354 DB:link_type/name:790
-#: DB:link_type/name:352 DB:link_type/name:733 DB:link_type/name:358
+#: DB:link_type/name:1087 DB:link_type/name:351 DB:link_type/name:353
+#: DB:link_type/name:749 DB:link_type/name:594 DB:link_type/name:354
+#: DB:link_type/name:790 DB:link_type/name:352 DB:link_type/name:733
+#: DB:link_type/name:358
 msgid "wikidata"
 msgstr "wikidata"
 
@@ -7611,6 +7632,10 @@ msgstr "{entity1} a inventé {entity0}"
 #: DB:link_type/long_link_phrase:915
 msgid "{entity1} is a feed for podcast {entity0}"
 msgstr "{entity1} est un flux de baladodiffusion de {entity0}"
+
+#: DB:link_type/long_link_phrase:1088
+msgid "{entity1} is a genre from {entity0}"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:743
 msgid "{entity1} is a part of  {entity0}"
