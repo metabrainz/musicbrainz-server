@@ -7,18 +7,16 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
+import Jed from 'jed';
 
-const Jed = require('jed');
+import jedData from '../static/scripts/jed-data.js';
 
-const jedData = require('../static/scripts/jed-data');
+import * as poFile from './gettext/poFile.js';
 
-const poFile = require('./gettext/poFile');
-
-const jedInstance/*: Jed */ = new Jed(jedData.en);
+export const jedInstance/*: Jed */ = new Jed(jedData.en);
 jedInstance.locale = 'en';
 
-exports.setLocale = function (locale /*: string */) {
+export function setLocale(locale /*: string */) {
   let options = jedData[locale];
 
   if (!options) {
@@ -33,9 +31,9 @@ exports.setLocale = function (locale /*: string */) {
 
   jedInstance.locale = locale;
   jedInstance.options = options;
-};
+}
 
-exports.loadDomain = function (domain /*: string */) {
+export function loadDomain(domain /*: string */) {
   const locale = jedInstance.locale;
   const localeData = jedInstance.options.locale_data;
 
@@ -50,16 +48,14 @@ exports.loadDomain = function (domain /*: string */) {
       localeData[domain] = jedData.en.locale_data[domain];
     }
   }
-};
+}
 
-exports.jedInstance = jedInstance;
-
-exports.dgettext = (
+export const dgettext = (
   domain/*: string */,
   key/*: string */,
 )/*: string */ => jedInstance.dgettext(domain, key);
 
-exports.dngettext = (
+export const dngettext = (
   domain/*: string */,
   singularKey/*: string */,
   pluralKey/*: string */,
@@ -71,7 +67,7 @@ exports.dngettext = (
   value,
 );
 
-exports.dpgettext = (
+export const dpgettext = (
   domain/*: string */,
   context/*: string */,
   key/*: string */,

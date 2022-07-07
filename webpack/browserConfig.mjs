@@ -14,6 +14,7 @@ import {
   MB_SERVER_ROOT,
 } from '../root/static/scripts/common/DBDefs.js';
 
+import {SCRIPTS_DIR} from './constants.mjs';
 import definePluginConfig from './definePluginConfig.mjs';
 
 export default {
@@ -21,11 +22,6 @@ export default {
 
   plugins: [
     new webpack.DefinePlugin(definePluginConfig),
-
-    new webpack.IgnorePlugin({
-      resourceRegExp: /\/server\/gettext$/,
-      contextRegExp: /\/root\/static\/scripts\/common\/i18n$/,
-    }),
 
     /*
      * Modules that run in the browser must use DBDefs-client.
@@ -45,6 +41,11 @@ export default {
     new webpack.NormalModuleReplacementPlugin(
       /\/root\/static\/scripts\/common\/DBDefs-client\.js$/,
       './DBDefs-client-browser.js',
+    ),
+
+    new webpack.NormalModuleReplacementPlugin(
+      /\/root\/server\/gettext\.mjs$/,
+      path.resolve(SCRIPTS_DIR, 'empty.js'),
     ),
   ],
 

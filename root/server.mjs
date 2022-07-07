@@ -6,20 +6,16 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
+import cluster from 'cluster';
+import fs from 'fs';
+import {spawnSync} from 'child_process';
 
-'use strict';
+import Sentry from '@sentry/node';
 
-const cluster = require('cluster');
-const fs = require('fs');
-const spawnSync = require('child_process').spawnSync;
-
-const Sentry = require('@sentry/node');
-
-const createServer = require('./server/createServer');
-const DBDefs = require('./static/scripts/common/DBDefs');
-const nonEmpty = require('./static/scripts/common/utility/nonEmpty').default;
-const writeCoverage = require('./utility/writeCoverage');
+import createServer from './server/createServer.mjs';
+import * as DBDefs from './static/scripts/common/DBDefs.js';
+import nonEmpty from './static/scripts/common/utility/nonEmpty.js';
+import writeCoverage from './utility/writeCoverage.js';
 
 function sentryInit(config) {
   Sentry.init({
@@ -94,7 +90,7 @@ if (cluster.isMaster) {
     forkWorker();
   }
 
-  console.log(`server.js listening on ${SOCKET_PATH} (pid ${process.pid})`);
+  console.log(`server.mjs listening on ${SOCKET_PATH} (pid ${process.pid})`);
 
   function killWorker(worker) {
     if (!worker.isDead()) {

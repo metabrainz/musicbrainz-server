@@ -6,20 +6,21 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
+import * as React from 'react';
+import * as ReactDOMServer from 'react-dom/server';
+import Sentry from '@sentry/node';
 
-const Sentry = require('@sentry/node');
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
+import {
+  CatalystContext,
+  SanitizedCatalystContext,
+} from '../context.js';
+import getRequestCookie from '../utility/getRequestCookie.js';
+import sanitizedContext from '../utility/sanitizedContext.js';
 
-const {CatalystContext, SanitizedCatalystContext} = require('../context');
-const getRequestCookie = require('../utility/getRequestCookie');
-const sanitizedContext = require('../utility/sanitizedContext');
+import components from './components.mjs';
+import * as gettext from './gettext.mjs';
 
-const components = require('./components');
-const gettext = require('./gettext');
-
-function badRequest(err) {
+export function badRequest(err) {
   return Buffer.from(JSON.stringify({
     body: err.stack,
     content_type: 'text/plain',
@@ -27,13 +28,9 @@ function badRequest(err) {
   }));
 }
 
-function getExport(object) {
-  return object.default || object;
-}
-
 const jsExt = /\.js$/;
 
-function getResponse(requestBody, context) {
+export async function getResponse(requestBody, context) {
   let status = null;
   let response;
 
@@ -55,14 +52,14 @@ function getResponse(requestBody, context) {
   if (!componentModule) {
     console.warn(
       'warning: component ' + JSON.stringify(componentPath) +
-      ' is missing from root/server/components.js or invalid',
+      ' is missing from root/server/components.mjs or invalid',
     );
   }
 
-  let Page = componentModule ? getExport(componentModule) : undefined;
+  let Page = componentModule ? (await componentModule()).default : undefined;
   if (Page === undefined) {
     try {
-      Page = getExport(components['main/error/404']);
+      Page = (await components['main/error/404']()).default;
       status = 404;
     } catch (err) {
       Sentry.captureException(err);
@@ -99,6 +96,3 @@ function getResponse(requestBody, context) {
     status,
   }));
 }
-
-exports.badRequest = badRequest;
-exports.getResponse = getResponse;

@@ -35,7 +35,7 @@ export default {
 
   entry: {
     server: {
-      import: path.resolve(ROOT_DIR, 'server'),
+      import: path.resolve(ROOT_DIR, 'server.mjs'),
       /*
        * This prevents code-splitting of async imports into separate chunks.
        * We can't allow that for the server, because Webpack will duplicate

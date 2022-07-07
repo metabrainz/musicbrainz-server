@@ -6,19 +6,17 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
+import net from 'net';
 
-const net = require('net');
+import Sentry from '@sentry/node';
 
-const Sentry = require('@sentry/node');
-
-const {
+import {
   mergeLinkedEntities,
   setLinkedEntities,
-} = require('../static/scripts/common/linkedEntities');
-const sanitizedContext = require('../utility/sanitizedContext');
+} from '../static/scripts/common/linkedEntities.js';
+import sanitizedContext from '../utility/sanitizedContext.js';
 
-const {badRequest, getResponse} = require('./response');
+import {badRequest, getResponse} from './response.mjs';
 
 const connectionListener = function (socket) {
   let expectedBytes = 0;
@@ -73,7 +71,9 @@ const connectionListener = function (socket) {
       } else {
         // Merge new linked entities into current ones.
         mergeLinkedEntities(requestBody.linked_entities);
-        writeResponse(socket, getResponse(requestBody, context));
+        getResponse(requestBody, context).then(function (body) {
+          writeResponse(socket, body);
+        });
       }
 
       if (overflow) {
@@ -96,7 +96,7 @@ function writeResponse(socket, body) {
 }
 
 function listenCallback() {
-  console.log(`server.js worker started (pid ${process.pid})`);
+  console.log(`server.mjs worker started (pid ${process.pid})`);
 }
 
 function createServer(fdOrSocketPath) {
@@ -107,4 +107,4 @@ function createServer(fdOrSocketPath) {
   );
 }
 
-module.exports = createServer;
+export default createServer;

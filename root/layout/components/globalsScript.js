@@ -37,7 +37,7 @@ import sanitizedContext from '../../utility/sanitizedContext';
  *   to DBDefs-client-browser.js, which reads from this global script.
  *
  *   CLIENT_DBDEFS_CODE below is a const for the lifetime of the module;
- *   modules, including this one, are reloaded when root/server.js receives
+ *   modules, including this one, are reloaded when root/server.mjs receives
  *   a SIGHUP.
  *
  * "$c"
