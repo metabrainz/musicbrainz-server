@@ -8494,12 +8494,12 @@ msgstr ""
 msgid "see uses"
 msgstr ""
 
-#: ../root/components/Aliases/index.js:47 ../root/components/EntityTabs.js:129
+#: ../root/components/Aliases/index.js:48 ../root/components/EntityTabs.js:129
 #: ../root/entity/Aliases.js:36
 msgid "Aliases"
 msgstr ""
 
-#: ../root/components/Aliases/index.js:50
+#: ../root/components/Aliases/index.js:51
 #: ../root/static/scripts/alias/AliasEditForm.js:273
 msgid ""
 "An alias is an alternate name for an entity. They typically contain common "
@@ -8507,11 +8507,11 @@ msgid ""
 "results. View the {doc|alias documentation} for more details."
 msgstr ""
 
-#: ../root/components/Aliases/index.js:65
+#: ../root/components/Aliases/index.js:66
 msgid "{entity} has no aliases."
 msgstr ""
 
-#: ../root/components/Aliases/index.js:73
+#: ../root/components/Aliases/index.js:74
 msgid "Add a new alias"
 msgstr ""
 
