@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-03 21:06+0300\n"
+"POT-Creation-Date: 2022-07-07 10:01+0300\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: FULL NAME <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
@@ -323,7 +323,7 @@ msgid "Add a new release"
 msgstr "Shtoni hedhje të re në qarkullim"
 
 #: ../root/components/relationship-editor.tt:238
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:28
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:29
 msgid "Add another instrument"
 msgstr "Shtoni instrument tjetër"
 
@@ -8513,12 +8513,12 @@ msgstr ""
 msgid "see uses"
 msgstr ""
 
-#: ../root/components/Aliases/index.js:48 ../root/components/EntityTabs.js:129
+#: ../root/components/Aliases/index.js:47 ../root/components/EntityTabs.js:129
 #: ../root/entity/Aliases.js:36
 msgid "Aliases"
 msgstr "Aliase"
 
-#: ../root/components/Aliases/index.js:51
+#: ../root/components/Aliases/index.js:50
 #: ../root/static/scripts/alias/AliasEditForm.js:273
 msgid ""
 "An alias is an alternate name for an entity. They typically contain common "
@@ -8526,11 +8526,11 @@ msgid ""
 "results. View the {doc|alias documentation} for more details."
 msgstr ""
 
-#: ../root/components/Aliases/index.js:66
+#: ../root/components/Aliases/index.js:65
 msgid "{entity} has no aliases."
 msgstr "{entity} s’ka aliase."
 
-#: ../root/components/Aliases/index.js:74
+#: ../root/components/Aliases/index.js:73
 msgid "Add a new alias"
 msgstr "Shtoni alias të ri"
 
@@ -9336,7 +9336,7 @@ msgstr ""
 
 #: ../root/edit/components/ListHeader.js:137
 #: ../root/layout/components/sidebar/CollectionSidebar.js:65
-#: ../root/layout/components/sidebar/EditLinks.js:41
+#: ../root/layout/components/sidebar/EditLinks.js:43
 msgid "Open edits"
 msgstr "Hapni përpunime"
 
@@ -9374,12 +9374,12 @@ msgstr "Udhëzime stili"
 msgid "Text"
 msgstr "Tekst"
 
-#: ../root/edit/details/AddAnnotation.js:57
+#: ../root/edit/details/AddAnnotation.js:58
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:37
 msgid "This annotation is empty."
 msgstr "Ky shënim është i zbrazët."
 
-#: ../root/edit/details/AddAnnotation.js:73
+#: ../root/edit/details/AddAnnotation.js:74
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:45
 msgid "Summary"
 msgstr "Përmbledhje"
@@ -10780,7 +10780,7 @@ msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:223
 #: ../root/layout/components/sidebar/CollectionSidebar.js:60
-#: ../root/layout/components/sidebar/EditLinks.js:29
+#: ../root/layout/components/sidebar/EditLinks.js:31
 #: ../root/static/scripts/account/components/PreferencesForm.js:239
 msgid "Editing"
 msgstr ""
@@ -11149,7 +11149,7 @@ msgid "Number of entities"
 msgstr ""
 
 #: ../root/layout/components/sidebar/CollectionSidebar.js:72
-#: ../root/layout/components/sidebar/EditLinks.js:48
+#: ../root/layout/components/sidebar/EditLinks.js:50
 msgid "Editing history"
 msgstr "Historik përpunimi"
 
@@ -11164,7 +11164,7 @@ msgstr "Shpajtohuni"
 msgid "Subscribe"
 msgstr "Pajtohuni"
 
-#: ../root/layout/components/sidebar/EditLinks.js:34
+#: ../root/layout/components/sidebar/EditLinks.js:36
 msgid "Log in to edit"
 msgstr "Hyni që të përpunoni"
 
@@ -14543,19 +14543,19 @@ msgstr ""
 msgid "Work Artists"
 msgstr ""
 
-#: ../root/static/scripts/common/entity.js:239
+#: ../root/static/scripts/common/entity.js:243
 msgid "You selected {label}."
 msgstr "Përzgjodhët {label}."
 
-#: ../root/static/scripts/common/entity.js:245
+#: ../root/static/scripts/common/entity.js:249
 msgid "Label code: {code}"
 msgstr ""
 
-#: ../root/static/scripts/common/entity.js:267
+#: ../root/static/scripts/common/entity.js:271
 msgid "You selected {area}."
 msgstr "Përzgjodhët {area}."
 
-#: ../root/static/scripts/common/entity.js:360
+#: ../root/static/scripts/common/entity.js:364
 msgid "You selected {releasegroup}."
 msgstr "Përzgjodhët {releasegroup}."
 
@@ -15207,31 +15207,35 @@ msgstr "Shtoni artist tjetër"
 msgid "Add another event"
 msgstr "Shtoni veprimtari tjetër"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:29
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:28
+msgid "Add another genre"
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:30
 msgid "Add another label"
 msgstr "Shtoni etiketë tjetër"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:30
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:31
 msgid "Add another place"
 msgstr "Shtoni vend tjetër"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:31
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:32
 msgid "Add another recording"
 msgstr "Shtoni incizim tjetër"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:32
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:33
 msgid "Add another release"
 msgstr "Shtoni tjetër hedhje në qarkullim"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:33
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:34
 msgid "Add another release group"
 msgstr "Shtoni tjetër grup hedhjesh në qarkullim"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:34
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:35
 msgid "Add another series"
 msgstr "Shtoni seri të tjera"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:35
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:36
 msgid "Add another work"
 msgstr "Shtoni vepër tjetër"
 

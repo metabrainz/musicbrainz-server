@@ -64,7 +64,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-03 21:06+0300\n"
+"POT-Creation-Date: 2022-07-07 10:01+0300\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: yvanz, 2016-2022\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
@@ -380,7 +380,7 @@ msgid "Add a new release"
 msgstr "Ajouter une parution"
 
 #: ../root/components/relationship-editor.tt:238
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:28
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:29
 msgid "Add another instrument"
 msgstr "Ajouter un autre instrument"
 
@@ -8596,12 +8596,12 @@ msgstr "Voici une liste de tous les crédits reçu par {artist} dans la base de 
 msgid "see uses"
 msgstr "voir les usages"
 
-#: ../root/components/Aliases/index.js:48 ../root/components/EntityTabs.js:129
+#: ../root/components/Aliases/index.js:47 ../root/components/EntityTabs.js:129
 #: ../root/entity/Aliases.js:36
 msgid "Aliases"
 msgstr "Alias"
 
-#: ../root/components/Aliases/index.js:51
+#: ../root/components/Aliases/index.js:50
 #: ../root/static/scripts/alias/AliasEditForm.js:273
 msgid ""
 "An alias is an alternate name for an entity. They typically contain common "
@@ -8609,11 +8609,11 @@ msgid ""
 "results. View the {doc|alias documentation} for more details."
 msgstr "Un alias est un nom alternatif pour une entité. Il contient habituellement des erreurs d’orthographe ou des variations du nom. Il est aussi utilisé pour améliorer les résultats de recherche. Consultez la {doc|documentation sur les alias} pour plus de détails."
 
-#: ../root/components/Aliases/index.js:66
+#: ../root/components/Aliases/index.js:65
 msgid "{entity} has no aliases."
 msgstr "{entity} n’a pas d’alias."
 
-#: ../root/components/Aliases/index.js:74
+#: ../root/components/Aliases/index.js:73
 msgid "Add a new alias"
 msgstr "Ajouter un nouveau alias"
 
@@ -9436,7 +9436,7 @@ msgstr "Toutes les modifications par les éditeurs auxquels vous êtes abonné"
 
 #: ../root/edit/components/ListHeader.js:137
 #: ../root/layout/components/sidebar/CollectionSidebar.js:65
-#: ../root/layout/components/sidebar/EditLinks.js:41
+#: ../root/layout/components/sidebar/EditLinks.js:43
 msgid "Open edits"
 msgstr "Modifications en attente"
 
@@ -9474,12 +9474,12 @@ msgstr "Directives de style"
 msgid "Text"
 msgstr "Texte"
 
-#: ../root/edit/details/AddAnnotation.js:57
+#: ../root/edit/details/AddAnnotation.js:58
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:37
 msgid "This annotation is empty."
 msgstr "Cette annotation est vide."
 
-#: ../root/edit/details/AddAnnotation.js:73
+#: ../root/edit/details/AddAnnotation.js:74
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:45
 msgid "Summary"
 msgstr "Résumé"
@@ -10889,7 +10889,7 @@ msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:223
 #: ../root/layout/components/sidebar/CollectionSidebar.js:60
-#: ../root/layout/components/sidebar/EditLinks.js:29
+#: ../root/layout/components/sidebar/EditLinks.js:31
 #: ../root/static/scripts/account/components/PreferencesForm.js:239
 msgid "Editing"
 msgstr "Modification"
@@ -11259,7 +11259,7 @@ msgid "Number of entities"
 msgstr "Nombre d’entités"
 
 #: ../root/layout/components/sidebar/CollectionSidebar.js:72
-#: ../root/layout/components/sidebar/EditLinks.js:48
+#: ../root/layout/components/sidebar/EditLinks.js:50
 msgid "Editing history"
 msgstr "Historique des modifications"
 
@@ -11274,7 +11274,7 @@ msgstr "Se désabonner "
 msgid "Subscribe"
 msgstr "S’abonner"
 
-#: ../root/layout/components/sidebar/EditLinks.js:34
+#: ../root/layout/components/sidebar/EditLinks.js:36
 msgid "Log in to edit"
 msgstr "Connectez-vous pour modifier"
 
@@ -14659,19 +14659,19 @@ msgstr "Le contenu Wikipédia est fourni selon les modalités de la {license_lin
 msgid "Work Artists"
 msgstr "Artistes de l’œuvre"
 
-#: ../root/static/scripts/common/entity.js:239
+#: ../root/static/scripts/common/entity.js:243
 msgid "You selected {label}."
 msgstr "Vous avez sélectionné {label}."
 
-#: ../root/static/scripts/common/entity.js:245
+#: ../root/static/scripts/common/entity.js:249
 msgid "Label code: {code}"
 msgstr "Code du label : {code}"
 
-#: ../root/static/scripts/common/entity.js:267
+#: ../root/static/scripts/common/entity.js:271
 msgid "You selected {area}."
 msgstr "Vous avez choisi {area}."
 
-#: ../root/static/scripts/common/entity.js:360
+#: ../root/static/scripts/common/entity.js:364
 msgid "You selected {releasegroup}."
 msgstr "Vous avez sélectionné {releasegroup}."
 
@@ -15323,31 +15323,35 @@ msgstr "Ajouter un autre artiste"
 msgid "Add another event"
 msgstr "Ajouter un autre événement"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:29
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:28
+msgid "Add another genre"
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:30
 msgid "Add another label"
 msgstr "Ajouter un autre label"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:30
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:31
 msgid "Add another place"
 msgstr "Ajouter un autre lieu"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:31
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:32
 msgid "Add another recording"
 msgstr "Ajouter un autre enregistrement"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:32
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:33
 msgid "Add another release"
 msgstr "Ajouter une autre parution"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:33
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:34
 msgid "Add another release group"
 msgstr "Ajouter un autre groupe de parution"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:34
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:35
 msgid "Add another series"
 msgstr "Ajouter une autre série"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:35
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:36
 msgid "Add another work"
 msgstr "Ajouter une autre œuvre"
 
