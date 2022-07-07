@@ -143,3 +143,65 @@ test('non-required attributes are stripped with forGrouping', function (t) {
   );
   t.deepEqual(result, ['instrumental recordings', []]);
 });
+
+test('MBS-6129: Interpolating link phrases containing %', function (t) {
+  t.plan(2);
+
+  /*
+   * Note: The current vocal link type uses `{vocal} {vocal:|vocals}`
+   * instead, which is why we're defining our own.
+   */
+  mergeLinkedEntities({
+    link_type: {
+      [10001]: {
+        attributes: {
+          [3]: {
+            max: null,
+            min: 0,
+          },
+        },
+        cardinality0: 0,
+        cardinality1: 0,
+        child_order: 0,
+        deprecated: false,
+        description: '',
+        entityType: 'link_type',
+        gid: 'd4013546-019d-4c59-8206-e0a6dec5d03a',
+        has_dates: true,
+        id: 10001,
+        link_phrase: '{vocal:%|vocals}',
+        long_link_phrase: '{vocal:%|vocals}',
+        name: 'vocal',
+        orderable_direction: 0,
+        parent_id: null,
+        reverse_link_phrase: '{vocal:%|vocals}',
+        type0: 'artist',
+        type1: 'artist',
+      },
+    },
+  });
+
+  const leadVocalsAttribute = {
+    type: {
+      gid: '8e2a3255-87c2-4809-a174-98cb3704f1a5',
+    },
+    typeID: 4,
+    typeName: 'lead vocals',
+  };
+
+  let result = getPhraseAndExtraAttributesText(
+    linkedEntities.link_type[10001],
+    [],
+    'link_phrase',
+    true, /* forGrouping */
+  );
+  t.deepEqual(result, ['vocals', []]);
+
+  result = getPhraseAndExtraAttributesText(
+    linkedEntities.link_type[10001],
+    [leadVocalsAttribute],
+    'link_phrase',
+    true, /* forGrouping */
+  );
+  t.deepEqual(result, ['lead vocals', []]);
+});

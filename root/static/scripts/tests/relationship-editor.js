@@ -229,17 +229,6 @@ relationshipEditorTest('link phrase interpolation', function (t) {
       expected: 'contains additional samples by',
       expectedExtra: 'strings, guitars, lyre and plucked string instruments',
     },
-    // MBS-6129
-    {
-      linkTypeID: 149,
-      attributes: ids2attrs([4]),
-      expected: 'lead vocals',
-    },
-    {
-      linkTypeID: 149,
-      attributes: ids2attrs([]),
-      expected: 'vocals',
-    },
   ];
 
   for (const test of tests) {
