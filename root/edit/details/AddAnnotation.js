@@ -47,6 +47,7 @@ const AddAnnotation = ({edit}: Props): React.Element<'table'> => {
           {display.html
             ? (
               <span
+                className="annotation-body"
                 dangerouslySetInnerHTML={{__html: display.html}}
               />
             ) : (
