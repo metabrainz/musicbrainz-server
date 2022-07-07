@@ -868,6 +868,7 @@ INSERT INTO medium_format VALUES (59, 'VHD', 13, 0, 1983, false, 'Video High Den
 INSERT INTO medium_format VALUES (60, 'CED', 13, 0, 1981, false, 'The Capacitance Electronic Disc (CED) is an analog video disc playback system developed by RCA, in which video and audio could be played back on a TV set using a special needle and high-density groove system similar to phonograph records.', '38910592-1be4-371d-b34d-2df852c8b9ea');
 INSERT INTO medium_format VALUES (61, 'Copy Control CD', 1, 0, NULL, true, 'Copy Control CD (CCCD) is an umbrella term for CDs released circa 2001-2006 containing software that is ostensibly designed to prevent the CD from being ripped. There are a number of software variants: the most well-known are Macrovision''s Cactus Data Shield (CDS) and SunnComm''s MediaMax.', '1a648190-5c75-3b74-b8c5-8150c97af0f5');
 
+INSERT INTO orderable_link_type VALUES (278, 1);
 INSERT INTO orderable_link_type VALUES (281, 1);
 INSERT INTO orderable_link_type VALUES (740, 2);
 INSERT INTO orderable_link_type VALUES (741, 2);

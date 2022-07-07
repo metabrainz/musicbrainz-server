@@ -804,6 +804,7 @@ relationshipEditorTest((
       {
         edit_type: 90,
         linkTypeID: 278,
+        linkOrder: 0,
         entities: [
           {
             entityType: 'recording',
@@ -822,7 +823,7 @@ relationshipEditorTest((
         begin_date: {year: null, month: null, day: null},
         end_date: {year: null, month: null, day: null},
         ended: false,
-        hash: '02435f0bff45272e4d3a3ff6fe134ae2445aa49f',
+        hash: 'fbb1aeb6a65bcae19d309b8bd27db78496507ac3',
       },
     ]);
   };

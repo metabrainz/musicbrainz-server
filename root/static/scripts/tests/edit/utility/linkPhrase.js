@@ -12,9 +12,18 @@ import test from 'tape';
 import linkedEntities, {
   mergeLinkedEntities,
 } from '../../../common/linkedEntities.mjs';
+import MB from '../../../common/MB.js';
 import {
   getPhraseAndExtraAttributesText,
 } from '../../../edit/utility/linkPhrase.js';
+import '../../../relationship-editor/common/viewModel.js';
+import {linkTypeTree, linkAttributeTypes} from '../../typeInfo.js';
+
+// $FlowIgnore[prop-missing]
+MB.relationshipEditor.exportTypeInfo(
+  linkTypeTree,
+  linkAttributeTypes,
+);
 
 test('required attributes are left with forGrouping', function (t) {
   t.plan(1);
@@ -98,4 +107,39 @@ test('required attributes are left with forGrouping', function (t) {
   );
 
   t.deepEqual(result, ['supporting guitar for', []]);
+});
+
+
+test('non-required attributes are stripped with forGrouping', function (t) {
+  t.plan(2);
+
+  const instrumentalAttribute = {
+    type: {
+      gid: 'c031ed4f-c9bb-4394-8cf5-e8ce4db512ae',
+    },
+    typeID: 580,
+    typeName: 'instrumental',
+  };
+
+  /*
+   * "recording of" has an orderable direction of 1, so the instrumental
+   * attribute should be stripped from link_phrase but not
+   * reverse_link_phrase.
+   */
+
+  let result = getPhraseAndExtraAttributesText(
+    linkedEntities.link_type[278],
+    [instrumentalAttribute],
+    'link_phrase',
+    true, /* forGrouping */
+  );
+  t.deepEqual(result, ['recording of', [instrumentalAttribute]]);
+
+  result = getPhraseAndExtraAttributesText(
+    linkedEntities.link_type[278],
+    [instrumentalAttribute],
+    'reverse_link_phrase',
+    true, /* forGrouping */
+  );
+  t.deepEqual(result, ['instrumental recordings', []]);
 });
