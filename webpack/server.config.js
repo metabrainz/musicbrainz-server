@@ -51,8 +51,11 @@ module.exports = {
       /*
        * jquery and @popperjs are resolved to root/static/scripts/empty.js
        * on the server. See NormalModuleReplacementPlugin below.
+       *
+       * mutate-cow is allowed because it's published as an ES module, which
+       * must be converted to CommonJS.
        */
-      allowlist: [/(jquery|@popperjs)/],
+      allowlist: [/(jquery|@popperjs|mutate-cow)/],
       modulesFromFile: true,
     }),
 
