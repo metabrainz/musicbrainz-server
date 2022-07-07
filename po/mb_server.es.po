@@ -47,7 +47,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-29 19:21+0300\n"
+"POT-Creation-Date: 2022-07-07 10:01+0300\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: Nicolás Tamargo <reosarevok@gmail.com>, 2011-2013,2015-2016,2018-2019,2021\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
@@ -363,7 +363,7 @@ msgid "Add a new release"
 msgstr "Añadir una nueva publicación"
 
 #: ../root/components/relationship-editor.tt:238
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:28
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:29
 msgid "Add another instrument"
 msgstr "Agregar otro instrumento"
 
@@ -9419,7 +9419,7 @@ msgstr ""
 
 #: ../root/edit/components/ListHeader.js:137
 #: ../root/layout/components/sidebar/CollectionSidebar.js:65
-#: ../root/layout/components/sidebar/EditLinks.js:41
+#: ../root/layout/components/sidebar/EditLinks.js:43
 msgid "Open edits"
 msgstr "Ediciones pendientes"
 
@@ -9457,12 +9457,12 @@ msgstr "Convenciones de estilo"
 msgid "Text"
 msgstr "Texto"
 
-#: ../root/edit/details/AddAnnotation.js:57
+#: ../root/edit/details/AddAnnotation.js:58
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:37
 msgid "This annotation is empty."
 msgstr "Esta anotación está vacia."
 
-#: ../root/edit/details/AddAnnotation.js:73
+#: ../root/edit/details/AddAnnotation.js:74
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:45
 msgid "Summary"
 msgstr "Resumen"
@@ -10872,7 +10872,7 @@ msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:223
 #: ../root/layout/components/sidebar/CollectionSidebar.js:60
-#: ../root/layout/components/sidebar/EditLinks.js:29
+#: ../root/layout/components/sidebar/EditLinks.js:31
 #: ../root/static/scripts/account/components/PreferencesForm.js:239
 msgid "Editing"
 msgstr "Editar"
@@ -11242,7 +11242,7 @@ msgid "Number of entities"
 msgstr ""
 
 #: ../root/layout/components/sidebar/CollectionSidebar.js:72
-#: ../root/layout/components/sidebar/EditLinks.js:48
+#: ../root/layout/components/sidebar/EditLinks.js:50
 msgid "Editing history"
 msgstr "Historial de ediciones"
 
@@ -11257,7 +11257,7 @@ msgstr "Desuscribirse"
 msgid "Subscribe"
 msgstr "Suscribirse"
 
-#: ../root/layout/components/sidebar/EditLinks.js:34
+#: ../root/layout/components/sidebar/EditLinks.js:36
 msgid "Log in to edit"
 msgstr "Entra para editar"
 
@@ -14642,19 +14642,19 @@ msgstr ""
 msgid "Work Artists"
 msgstr ""
 
-#: ../root/static/scripts/common/entity.js:239
+#: ../root/static/scripts/common/entity.js:243
 msgid "You selected {label}."
 msgstr "Has seleccionado {label}."
 
-#: ../root/static/scripts/common/entity.js:245
+#: ../root/static/scripts/common/entity.js:249
 msgid "Label code: {code}"
 msgstr ""
 
-#: ../root/static/scripts/common/entity.js:267
+#: ../root/static/scripts/common/entity.js:271
 msgid "You selected {area}."
 msgstr "Ha seleccionado {area}."
 
-#: ../root/static/scripts/common/entity.js:360
+#: ../root/static/scripts/common/entity.js:364
 msgid "You selected {releasegroup}."
 msgstr "Has seleccionado {releasegroup}."
 
@@ -15306,31 +15306,35 @@ msgstr "Agregar otro artista"
 msgid "Add another event"
 msgstr "Agregar otro evento"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:29
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:28
+msgid "Add another genre"
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:30
 msgid "Add another label"
 msgstr "Añadir otro sello"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:30
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:31
 msgid "Add another place"
 msgstr "Agregar otro lugar"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:31
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:32
 msgid "Add another recording"
 msgstr "Añadir otra grabación"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:32
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:33
 msgid "Add another release"
 msgstr "Agregar otro lanzamiento"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:33
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:34
 msgid "Add another release group"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:34
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:35
 msgid "Add another series"
 msgstr "Agregar otra serie"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:35
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:36
 msgid "Add another work"
 msgstr "Añadir otra pieza"
 

@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-29 19:21+0300\n"
+"POT-Creation-Date: 2022-07-07 10:01+0300\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: Maurits Meulenbelt, 2012-2022\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
@@ -345,7 +345,7 @@ msgid "Add a new release"
 msgstr "Nieuwe uitgave toevoegen"
 
 #: ../root/components/relationship-editor.tt:238
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:28
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:29
 msgid "Add another instrument"
 msgstr "Nog een instrument toevoegen"
 
@@ -9358,7 +9358,7 @@ msgstr "Alle bewerkingen van redacteurs waarop je bent geabonneerd"
 
 #: ../root/edit/components/ListHeader.js:137
 #: ../root/layout/components/sidebar/CollectionSidebar.js:65
-#: ../root/layout/components/sidebar/EditLinks.js:41
+#: ../root/layout/components/sidebar/EditLinks.js:43
 msgid "Open edits"
 msgstr "Open bewerkingen"
 
@@ -9396,12 +9396,12 @@ msgstr "Stijlgids"
 msgid "Text"
 msgstr "Tekst"
 
-#: ../root/edit/details/AddAnnotation.js:57
+#: ../root/edit/details/AddAnnotation.js:58
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:37
 msgid "This annotation is empty."
 msgstr "Deze aantekening is leeg."
 
-#: ../root/edit/details/AddAnnotation.js:73
+#: ../root/edit/details/AddAnnotation.js:74
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:45
 msgid "Summary"
 msgstr "Samenvatting"
@@ -10802,7 +10802,7 @@ msgstr "Etikettenwolk"
 
 #: ../root/layout/components/BottomMenu.js:223
 #: ../root/layout/components/sidebar/CollectionSidebar.js:60
-#: ../root/layout/components/sidebar/EditLinks.js:29
+#: ../root/layout/components/sidebar/EditLinks.js:31
 #: ../root/static/scripts/account/components/PreferencesForm.js:239
 msgid "Editing"
 msgstr "Bewerken"
@@ -11171,7 +11171,7 @@ msgid "Number of entities"
 msgstr "Aantal objecten"
 
 #: ../root/layout/components/sidebar/CollectionSidebar.js:72
-#: ../root/layout/components/sidebar/EditLinks.js:48
+#: ../root/layout/components/sidebar/EditLinks.js:50
 msgid "Editing history"
 msgstr "Alle bewerkingen"
 
@@ -11186,7 +11186,7 @@ msgstr "Abonnement opzeggen"
 msgid "Subscribe"
 msgstr "Abonneren"
 
-#: ../root/layout/components/sidebar/EditLinks.js:34
+#: ../root/layout/components/sidebar/EditLinks.js:36
 msgid "Log in to edit"
 msgstr "Meld je aan om te bewerken"
 
@@ -14565,19 +14565,19 @@ msgstr "Inhoud van Wikipedia wordt verstrekt onder voorwaarde van de {license_li
 msgid "Work Artists"
 msgstr "Uitvoerend artiesten"
 
-#: ../root/static/scripts/common/entity.js:239
+#: ../root/static/scripts/common/entity.js:243
 msgid "You selected {label}."
 msgstr "Je hebt {label} geselecteerd."
 
-#: ../root/static/scripts/common/entity.js:245
+#: ../root/static/scripts/common/entity.js:249
 msgid "Label code: {code}"
 msgstr "Platenmaatschappijcode: {code}"
 
-#: ../root/static/scripts/common/entity.js:267
+#: ../root/static/scripts/common/entity.js:271
 msgid "You selected {area}."
 msgstr "Je hebt {area} geselecteerd."
 
-#: ../root/static/scripts/common/entity.js:360
+#: ../root/static/scripts/common/entity.js:364
 msgid "You selected {releasegroup}."
 msgstr "Je hebt {releasegroup} geselecteerd."
 
@@ -15229,31 +15229,35 @@ msgstr "Nog een artiest toevoegen"
 msgid "Add another event"
 msgstr "Nog een evenement toevoegen"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:29
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:28
+msgid "Add another genre"
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:30
 msgid "Add another label"
 msgstr "Nog een platenmaatschappij toevoegen"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:30
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:31
 msgid "Add another place"
 msgstr "Nog een plaats toevoegen"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:31
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:32
 msgid "Add another recording"
 msgstr "Nog een opname toevoegen"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:32
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:33
 msgid "Add another release"
 msgstr "Nog een uitgave toevoegen"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:33
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:34
 msgid "Add another release group"
 msgstr "Nog een uitgavegroep toevoegen"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:34
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:35
 msgid "Add another series"
 msgstr "Nog een serie toevoegen"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:35
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:36
 msgid "Add another work"
 msgstr "Nog een compositie toevoegen"
 

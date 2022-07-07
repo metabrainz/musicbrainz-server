@@ -31,7 +31,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-29 19:21+0300\n"
+"POT-Creation-Date: 2022-07-07 10:01+0300\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: Nicolás Tamargo <reosarevok@gmail.com>, 2021\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
@@ -346,7 +346,7 @@ msgid "Add a new release"
 msgstr "Lisää uusi julkaisu"
 
 #: ../root/components/relationship-editor.tt:238
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:28
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:29
 msgid "Add another instrument"
 msgstr "Lisää toinen soitin"
 
@@ -9359,7 +9359,7 @@ msgstr ""
 
 #: ../root/edit/components/ListHeader.js:137
 #: ../root/layout/components/sidebar/CollectionSidebar.js:65
-#: ../root/layout/components/sidebar/EditLinks.js:41
+#: ../root/layout/components/sidebar/EditLinks.js:43
 msgid "Open edits"
 msgstr "Avoimet muokkaukset"
 
@@ -9397,12 +9397,12 @@ msgstr "Tyyliohjeistus"
 msgid "Text"
 msgstr "Teksti"
 
-#: ../root/edit/details/AddAnnotation.js:57
+#: ../root/edit/details/AddAnnotation.js:58
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:37
 msgid "This annotation is empty."
 msgstr "Tämä lisätietokenttä on tyhjä."
 
-#: ../root/edit/details/AddAnnotation.js:73
+#: ../root/edit/details/AddAnnotation.js:74
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:45
 msgid "Summary"
 msgstr "Yhteenveto"
@@ -10803,7 +10803,7 @@ msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:223
 #: ../root/layout/components/sidebar/CollectionSidebar.js:60
-#: ../root/layout/components/sidebar/EditLinks.js:29
+#: ../root/layout/components/sidebar/EditLinks.js:31
 #: ../root/static/scripts/account/components/PreferencesForm.js:239
 msgid "Editing"
 msgstr "Muokkaaminen"
@@ -11172,7 +11172,7 @@ msgid "Number of entities"
 msgstr ""
 
 #: ../root/layout/components/sidebar/CollectionSidebar.js:72
-#: ../root/layout/components/sidebar/EditLinks.js:48
+#: ../root/layout/components/sidebar/EditLinks.js:50
 msgid "Editing history"
 msgstr "Muokkaushistoria"
 
@@ -11187,7 +11187,7 @@ msgstr "Lopeta seuraaminen"
 msgid "Subscribe"
 msgstr "Seuraa"
 
-#: ../root/layout/components/sidebar/EditLinks.js:34
+#: ../root/layout/components/sidebar/EditLinks.js:36
 msgid "Log in to edit"
 msgstr "Sisäänkirjaudu muokataksesi"
 
@@ -14566,19 +14566,19 @@ msgstr "Wikipedian sisältö annettu käyttöön {license_link|Creative Commons 
 msgid "Work Artists"
 msgstr ""
 
-#: ../root/static/scripts/common/entity.js:239
+#: ../root/static/scripts/common/entity.js:243
 msgid "You selected {label}."
 msgstr "Valitsit levymerkin {label}."
 
-#: ../root/static/scripts/common/entity.js:245
+#: ../root/static/scripts/common/entity.js:249
 msgid "Label code: {code}"
 msgstr ""
 
-#: ../root/static/scripts/common/entity.js:267
+#: ../root/static/scripts/common/entity.js:271
 msgid "You selected {area}."
 msgstr "Valitsit alueen {area}."
 
-#: ../root/static/scripts/common/entity.js:360
+#: ../root/static/scripts/common/entity.js:364
 msgid "You selected {releasegroup}."
 msgstr "Valitsit julkaisuryhmän {releasegroup}."
 
@@ -15230,31 +15230,35 @@ msgstr "Lisää toinen artisti"
 msgid "Add another event"
 msgstr "Lisää toinen tapahtuma"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:29
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:28
+msgid "Add another genre"
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:30
 msgid "Add another label"
 msgstr "Lisää toinen levymerkki"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:30
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:31
 msgid "Add another place"
 msgstr "Lisää toinen paikka"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:31
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:32
 msgid "Add another recording"
 msgstr "Lisää toinen äänite"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:32
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:33
 msgid "Add another release"
 msgstr "Lisää toinen julkaisu"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:33
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:34
 msgid "Add another release group"
 msgstr "Lisää toinen julkaisuryhmä"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:34
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:35
 msgid "Add another series"
 msgstr "Lisää toinen sarja"
 
-#: ../root/static/scripts/relationship-editor/common/viewModel.js:35
+#: ../root/static/scripts/relationship-editor/common/viewModel.js:36
 msgid "Add another work"
 msgstr "Lisää toinen teos"
 

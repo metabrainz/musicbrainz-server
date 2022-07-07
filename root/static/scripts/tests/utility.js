@@ -592,14 +592,18 @@ test('formatSetlist', function (t) {
     '</strong> post-text<br/><br/>' +
     'e <a href="/work/b831b5a4-e1a9-4516-bb50-b6eed446fc9b">work 1</a> ' +
       '[not a link]<br/>' +
-    'plain text artist<br/>' +
+    '<strong>Artist: ' +
+    'plain text artist' +
+    '</strong><br/>' +
     '<span class="comment">' +
       'comment [b831b5a4-e1a9-4516-bb50-b6eed446fc9b|not a link]' +
     '</span><br/>' +
     '<span class="comment">' +
       'comment &lt;a href=&quot;#&quot;&gt;also not a link&lt;/a&gt;' +
     '</span><br/>' +
-    'nor a link &lt;a href=&quot;#&quot;&gt;here&lt;/a&gt;<br/>' +
+    '<strong>Artist: ' +
+    'nor a link &lt;a href=&quot;#&quot;&gt;here&lt;/a&gt;' +
+    '</strong><br/>' +
     'plain text work<br/><br/><br/>',
   );
 });

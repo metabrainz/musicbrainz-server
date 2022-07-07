@@ -25,6 +25,7 @@ const addAnotherEntityLabels = {
   area: N_l('Add another area'),
   artist: N_l('Add another artist'),
   event: N_l('Add another event'),
+  genre: N_l('Add another genre'),
   instrument: N_l('Add another instrument'),
   label: N_l('Add another label'),
   place: N_l('Add another place'),

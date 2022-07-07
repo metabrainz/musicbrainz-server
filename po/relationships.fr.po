@@ -3284,6 +3284,10 @@ msgid ""
 "setlist.fm"
 msgstr "Ce type de relation relie un événement à sa page correspondante sur setlist.fm"
 
+#: DB:link_type/description:1088
+msgid "This relationship type links genres to the areas they originate from."
+msgstr ""
+
 #: DB:link_type/description:752
 msgid ""
 "This relationship type links instruments to the areas they originate from."
@@ -4358,9 +4362,17 @@ msgstr "page de diffusion {video:vidéo} gratuite en flux continu pour"
 msgid "free streaming"
 msgstr "diffusion gratuite en flux continu"
 
-#: DB:link_type/reverse_link_phrase:752
+#: DB:link_type/reverse_link_phrase:1088 DB:link_type/reverse_link_phrase:752
 msgid "from"
 msgstr "de"
+
+#: DB:link_type/name:1088
+msgid "genre origin"
+msgstr ""
+
+#: DB:link_type/link_phrase:1088
+msgid "genres"
+msgstr ""
 
 #: DB:link_type/name:934 DB:link_type/name:713
 msgid "geonames"
@@ -7620,6 +7632,10 @@ msgstr "{entity1} a inventé {entity0}"
 #: DB:link_type/long_link_phrase:915
 msgid "{entity1} is a feed for podcast {entity0}"
 msgstr "{entity1} est un flux de baladodiffusion de {entity0}"
+
+#: DB:link_type/long_link_phrase:1088
+msgid "{entity1} is a genre from {entity0}"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:743
 msgid "{entity1} is a part of  {entity0}"

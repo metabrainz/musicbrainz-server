@@ -3263,6 +3263,10 @@ msgid ""
 "setlist.fm"
 msgstr "この関係タイプは、イベントを対応するsetlist.fmページへリンクします。"
 
+#: DB:link_type/description:1088
+msgid "This relationship type links genres to the areas they originate from."
+msgstr ""
+
 #: DB:link_type/description:752
 msgid ""
 "This relationship type links instruments to the areas they originate from."
@@ -4337,8 +4341,16 @@ msgstr "{video}の無料楽曲配信ページ"
 msgid "free streaming"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:752
+#: DB:link_type/reverse_link_phrase:1088 DB:link_type/reverse_link_phrase:752
 msgid "from"
+msgstr ""
+
+#: DB:link_type/name:1088
+msgid "genre origin"
+msgstr ""
+
+#: DB:link_type/link_phrase:1088
+msgid "genres"
 msgstr ""
 
 #: DB:link_type/name:934 DB:link_type/name:713
@@ -7598,6 +7610,10 @@ msgstr "{entity1}は{entity0}によって発明されました"
 
 #: DB:link_type/long_link_phrase:915
 msgid "{entity1} is a feed for podcast {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1088
+msgid "{entity1} is a genre from {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:743
