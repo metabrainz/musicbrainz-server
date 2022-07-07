@@ -61,7 +61,7 @@
     "sliced": "1.0.1",
     "tablesorter": "2.31.3",
     "terser-webpack-plugin": "5.1.4",
-    "webpack": "5.50.0",
+    "webpack": "5.73.0",
     "webpack-node-externals": "3.0.0",
     "whatwg-fetch": "3.4.0",
     "yargs": "3.10.0"
