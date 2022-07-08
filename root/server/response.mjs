@@ -13,7 +13,7 @@ import Sentry from '@sentry/node';
 import {
   CatalystContext,
   SanitizedCatalystContext,
-} from '../context.js';
+} from '../context.mjs';
 import getRequestCookie from '../utility/getRequestCookie.js';
 import sanitizedContext from '../utility/sanitizedContext.mjs';
 

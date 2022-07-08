@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {SanitizedCatalystContext} from '../../../../context';
+import {SanitizedCatalystContext} from '../../../../context.mjs';
 import formatUserDate from '../../../../utility/formatUserDate';
 import DBDefs from '../DBDefs-client';
 

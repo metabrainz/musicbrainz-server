@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {SanitizedCatalystContext} from '../context';
+import {SanitizedCatalystContext} from '../context.mjs';
 import ratingTooltip from '../utility/ratingTooltip';
 import {returnToCurrentPage} from '../utility/returnUri';
 

@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../../context';
+import {CatalystContext} from '../../../context.mjs';
 import typeof EntityLink
   from '../../../static/scripts/common/components/EntityLink';
 import entityHref from '../../../static/scripts/common/utility/entityHref';

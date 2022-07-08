@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context.js';
+import {CatalystContext} from '../../context.mjs';
 import DBDefs from '../../static/scripts/common/DBDefs-client.js';
 import escapeClosingTags from '../../utility/escapeClosingTags.js';
 import sanitizedContext from '../../utility/sanitizedContext.mjs';

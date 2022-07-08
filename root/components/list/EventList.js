@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context';
+import {CatalystContext} from '../../context.mjs';
 import Table from '../Table';
 import * as manifest from '../../static/manifest.mjs';
 import {commaOnlyListText}

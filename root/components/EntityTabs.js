@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../context';
+import {CatalystContext} from '../context.mjs';
 import {ENTITIES} from '../static/scripts/common/constants';
 import isSpecialPurpose
   from '../static/scripts/common/utility/isSpecialPurpose';

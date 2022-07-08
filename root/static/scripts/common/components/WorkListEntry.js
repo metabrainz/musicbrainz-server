@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import localizeLanguageName from '../i18n/localizeLanguageName';
-import {CatalystContext} from '../../../../context';
+import {CatalystContext} from '../../../../context.mjs';
 import * as manifest from '../../../manifest.mjs';
 import RatingStars from '../../../../components/RatingStars';
 import loopParity from '../../../../utility/loopParity';

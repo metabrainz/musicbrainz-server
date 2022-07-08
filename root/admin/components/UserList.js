@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context';
+import {CatalystContext} from '../../context.mjs';
 import EditorLink from '../../static/scripts/common/components/EditorLink';
 import bracketed from '../../static/scripts/common/utility/bracketed';
 import formatUserDate from '../../utility/formatUserDate';

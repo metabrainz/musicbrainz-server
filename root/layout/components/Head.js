@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context';
+import {CatalystContext} from '../../context.mjs';
 import * as manifest from '../../static/manifest.mjs';
 import DBDefs from '../../static/scripts/common/DBDefs';
 import commonLessUrl from '../../static/styles/common.less';

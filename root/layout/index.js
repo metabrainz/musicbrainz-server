@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../context';
+import {CatalystContext} from '../context.mjs';
 import {age} from '../utility/age';
 import {formatUserDateObject} from '../utility/formatUserDate';
 import getRequestCookie from '../utility/getRequestCookie';

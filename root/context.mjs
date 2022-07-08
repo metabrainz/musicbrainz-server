@@ -7,11 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-// NOTE: Don't convert to an ES module; this is used by root/server.js.
-/* eslint-disable import/no-commonjs */
-
-const React = require('react');
-/*:: import type {ComponentType} from 'react'; */
+import * as React from 'react';
+import type {ComponentType} from 'react';
 
 const defaultContext = {
   action: {
@@ -49,16 +46,12 @@ const defaultSanitizedContext = {
   user: null,
 };
 
-const CatalystContext/*: React$Context<CatalystContextT> */ =
-  React.createContext/*:: <CatalystContextT> */(defaultContext);
+export const CatalystContext: React$Context<CatalystContextT> =
+  React.createContext<CatalystContextT>(defaultContext);
 
-exports.CatalystContext = CatalystContext;
+type SCC = React$Context<SanitizedCatalystContextT>;
 
-/*:: type SCC = React$Context<SanitizedCatalystContextT>; */
-
-const SanitizedCatalystContext/*: SCC */ =
-  React.createContext/*:: <SanitizedCatalystContextT> */(
+export const SanitizedCatalystContext: SCC =
+  React.createContext<SanitizedCatalystContextT>(
     defaultSanitizedContext,
   );
-
-exports.SanitizedCatalystContext = SanitizedCatalystContext;

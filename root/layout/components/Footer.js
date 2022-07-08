@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context';
+import {CatalystContext} from '../../context.mjs';
 import DBDefs from '../../static/scripts/common/DBDefs';
 import {DONATE_URL} from '../../constants';
 import {bracketedText} from '../../static/scripts/common/utility/bracketed';

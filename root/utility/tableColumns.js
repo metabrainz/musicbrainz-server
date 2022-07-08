@@ -10,7 +10,7 @@
 import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
-import {CatalystContext} from '../context';
+import {CatalystContext} from '../context.mjs';
 import ENTITIES from '../../entities';
 import InstrumentRelTypes from '../components/InstrumentRelTypes';
 import RatingStars from '../components/RatingStars';

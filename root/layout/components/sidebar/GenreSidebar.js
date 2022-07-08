@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../../context';
+import {CatalystContext} from '../../../context.mjs';
 import {isRelationshipEditor}
   from '../../../static/scripts/common/utility/privileges';
 import ExternalLinks from '../ExternalLinks';

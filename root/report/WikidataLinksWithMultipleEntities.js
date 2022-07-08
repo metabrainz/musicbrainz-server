@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import PaginatedResults from '../components/PaginatedResults';
-import {CatalystContext} from '../context';
+import {CatalystContext} from '../context.mjs';
 import {formatCount} from '../statistics/utilities';
 import loopParity from '../utility/loopParity';
 

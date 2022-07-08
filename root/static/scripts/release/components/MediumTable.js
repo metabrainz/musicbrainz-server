@@ -11,7 +11,7 @@ import * as React from 'react';
 import {captureException} from '@sentry/browser';
 
 import Paginator from '../../../../components/Paginator';
-import {CatalystContext} from '../../../../context';
+import {CatalystContext} from '../../../../context.mjs';
 import mediumHasMultipleArtists
   from '../../../../utility/mediumHasMultipleArtists';
 import DataTrackIcon

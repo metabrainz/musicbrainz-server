@@ -487,7 +487,7 @@ Common instructions for porting:
     `$c` from a deeply-nested component, you can either pass it down from
     a parent component, or import the `CatalystContext`
     [React context](https://reactjs.org/docs/context.html) from
-    root/context.js and either use the `CatalystContext.Consumer` component
+    root/context.mjs and either use the `CatalystContext.Consumer` component
     or use `React.useContext(CatalystContext)`.
 
  4. To communicate between the Perl and Node servers (the latter renders React
