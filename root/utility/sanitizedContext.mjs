@@ -7,18 +7,15 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-// NOTE: Don't convert to an ES module; this is used by root/server.js.
-/* eslint-disable import/no-commonjs */
-
-const activeSanitizedEditor = require('./activeSanitizedEditor');
+import activeSanitizedEditor from './activeSanitizedEditor.js';
 
 /*
  * Returns a sanitized $c, with private or sensitive data removed, suitable
  * for embedding into server-generated markup.
  */
-function sanitizedContext(
-  $c /*: CatalystContextT */,
-) /*: SanitizedCatalystContextT */ {
+export default function sanitizedContext(
+  $c: CatalystContextT,
+): SanitizedCatalystContextT {
   const session = $c.session;
   const stash = $c.stash;
   const user = $c.user;
@@ -39,5 +36,3 @@ function sanitizedContext(
     user: user ? activeSanitizedEditor(user) : null,
   };
 }
-
-module.exports = sanitizedContext;

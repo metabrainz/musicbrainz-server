@@ -15,7 +15,7 @@ import {
   SanitizedCatalystContext,
 } from '../context.js';
 import getRequestCookie from '../utility/getRequestCookie.js';
-import sanitizedContext from '../utility/sanitizedContext.js';
+import sanitizedContext from '../utility/sanitizedContext.mjs';
 
 import components from './components.mjs';
 import * as gettext from './gettext.mjs';

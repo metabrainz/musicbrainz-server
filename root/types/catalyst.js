@@ -81,7 +81,7 @@ declare type MergeQueueT = {
   +type: CoreEntityTypeT,
 };
 
-// root/utility/sanitizedContext.js
+// root/utility/sanitizedContext.mjs
 declare type SanitizedCatalystSessionT = {
   +tport?: number,
 };

@@ -14,7 +14,7 @@ import {
   mergeLinkedEntities,
   setLinkedEntities,
 } from '../static/scripts/common/linkedEntities.js';
-import sanitizedContext from '../utility/sanitizedContext.js';
+import sanitizedContext from '../utility/sanitizedContext.mjs';
 
 import {badRequest, getResponse} from './response.mjs';
 
