@@ -17,6 +17,9 @@ import EntityLink, {DeletedLink} from './EntityLink.js';
 type Props = {
   +artistCredit: ArtistCreditT,
   +showDeleted?: boolean,
+  +showDisambiguation?: boolean,
+  +showEditsPending?: boolean,
+  +showIcon?: boolean,
   +target?: '_blank',
 };
 
@@ -69,6 +72,9 @@ export const MpIcon = (hydrate<MpIconProps>('span.ac-mp', (
 const ArtistCreditLink = ({
   artistCredit,
   showDeleted = true,
+  showDisambiguation = true,
+  showEditsPending = true,
+  showIcon = false,
   ...props
 }: Props): React.Element<'span'> | Array<React.Node> => {
   const names = artistCredit.names;
@@ -83,7 +89,9 @@ const ArtistCreditLink = ({
           entity={artist}
           key={`${artist.id}-${i}`}
           showDeleted={showDeleted}
-          showEditsPending={!artistCredit.editsPending}
+          showDisambiguation={showDisambiguation}
+          showEditsPending={showEditsPending && !artistCredit.editsPending}
+          showIcon={showIcon}
           target={props.target}
         />,
       );
@@ -98,7 +106,7 @@ const ArtistCreditLink = ({
     }
     parts.push(credit.joinPhrase);
   }
-  if (artistCredit.editsPending /*:: === true */) {
+  if (showEditsPending && artistCredit.editsPending /*:: === true */) {
     return (
       <span className="mp">
         {parts}
