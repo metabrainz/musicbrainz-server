@@ -287,6 +287,20 @@ const testData = [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://www.allmusic.com/genre/electronic-ma0000002572/albums',
+             input_entity_type: 'genre',
+    expected_relationship_type: 'allmusic',
+            expected_clean_url: 'https://www.allmusic.com/genre/ma0000002572',
+       only_valid_entity_types: ['genre'],
+  },
+  {
+                     input_url: 'https://www.allmusic.com/style/dark-ambient-ma0000011972',
+             input_entity_type: 'genre',
+    expected_relationship_type: 'allmusic',
+            expected_clean_url: 'https://www.allmusic.com/style/ma0000011972',
+       only_valid_entity_types: ['genre'],
+  },
+  {
                      input_url: 'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
              input_entity_type: 'recording',
     expected_relationship_type: 'allmusic',

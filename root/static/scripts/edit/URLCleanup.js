@@ -31,6 +31,7 @@ export type RelationshipTypeT =
 export const LINK_TYPES: LinkTypeMap = {
   allmusic: {
     artist: '6b3e3c85-0002-4f34-aca6-80ace0d7e846',
+    genre: '6da144de-911b-49c5-81eb-bd8303b3f6b4',
     recording: '54482490-5ff1-4b1c-9382-b4d0ef8e0eac',
     release: '90ff18ad-3e9d-4472-a3d1-71d4df7e8484',
     release_group: 'a50a1d20-2b20-4d2c-9a29-eb771dd78386',
@@ -526,7 +527,7 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?allmusic\\.com', 'i')],
     restrict: [LINK_TYPES.allmusic],
     clean: function (url) {
-      return url.replace(/^https?:\/\/(?:[^.]+\.)?allmusic\.com\/(artist|album(?:\/release)?|composition|song|performance)\/(?:[^\/]*-)?((?:mn|mw|mc|mt|mq|mr)[0-9]+).*/, 'https://www.allmusic.com/$1/$2');
+      return url.replace(/^https?:\/\/(?:[^.]+\.)?allmusic\.com\/(artist|album(?:\/release)?|composition|genre|song|style|performance)\/(?:[^\/]*-)?((?:ma|mn|mw|mc|mt|mq|mr)[0-9]+).*/, 'https://www.allmusic.com/$1/$2');
     },
     validate: function (url, id) {
       const m = /^https:\/\/www\.allmusic\.com\/([a-z\/]+)[0-9]{10}$/.exec(url);
@@ -536,6 +537,11 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.allmusic.artist:
             return {
               result: prefix === 'artist/mn',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.allmusic.genre:
+            return {
+              result: prefix === 'genre/ma' || prefix === 'style/ma',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.allmusic.recording:
