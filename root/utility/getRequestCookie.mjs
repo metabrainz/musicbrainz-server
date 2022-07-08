@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import parseCookie from '../static/scripts/common/utility/parseCookie.js';
+import parseCookie from '../static/scripts/common/utility/parseCookie.mjs';
 
 export default function getRequestCookie(
   req /*: CatalystRequestContextT */,

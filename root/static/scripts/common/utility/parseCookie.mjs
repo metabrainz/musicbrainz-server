@@ -8,18 +8,16 @@
  */
 
 /*
- * NOTE: Don't convert to an ES module; this is used by root/server.js.
- * Don't use any magic variables (like `hasOwnProp`) from the ProvidePlugin
- * either.
+ * NOTE: This is used by root/server.mjs.
+ * Don't use any magic variables (like `hasOwnProp`) from the ProvidePlugin.
  */
-/* eslint-disable import/no-commonjs */
 
-const {parse} = require('cookie');
+import {parse} from 'cookie';
 
 // $FlowIgnore[method-unbinding]
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
-function parseCookie(
+export default function parseCookie(
   cookie /*: mixed */,
   name /*: string */,
   defaultValue /*: string */ = '',
@@ -32,5 +30,3 @@ function parseCookie(
   }
   return defaultValue;
 }
-
-module.exports = parseCookie;
