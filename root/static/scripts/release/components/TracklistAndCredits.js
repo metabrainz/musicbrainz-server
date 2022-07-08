@@ -21,7 +21,9 @@ import MediumDescription
   from '../../common/components/MediumDescription';
 import WarningIcon from '../../common/components/WarningIcon';
 import {l} from '../../common/i18n';
-import linkedEntities from '../../common/linkedEntities';
+import {
+  mergeLinkedEntities,
+} from '../../common/linkedEntities.mjs';
 import setCookie from '../../common/utility/setCookie';
 import type {
   PropsT,
@@ -182,7 +184,7 @@ const TracklistAndCredits = React.memo<PropsT>((props: PropsT) => {
 
   const setLinkedEntitiesRef = React.useRef(false);
   if (!setLinkedEntitiesRef.current) {
-    linkedEntities.mergeLinkedEntities(initialLinkedEntities);
+    mergeLinkedEntities(initialLinkedEntities);
     setLinkedEntitiesRef.current = true;
   }
 

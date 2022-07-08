@@ -19,7 +19,7 @@ import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import ReleaseEvents from '../static/scripts/common/components/ReleaseEvents';
-import linkedEntities from '../static/scripts/common/linkedEntities';
+import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import isolateText from '../static/scripts/common/utility/isolateText';
 import formatTrackLength
   from '../static/scripts/common/utility/formatTrackLength';

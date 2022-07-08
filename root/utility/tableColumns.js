@@ -18,7 +18,7 @@ import ReleaseCatnoList from '../components/ReleaseCatnoList';
 import ReleaseLabelList from '../components/ReleaseLabelList';
 import ReleaseLanguageScript from '../components/ReleaseLanguageScript';
 import SortableTableHeader from '../components/SortableTableHeader';
-import linkedEntities from '../static/scripts/common/linkedEntities';
+import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink';
 import ArtistRoles

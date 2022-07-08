@@ -13,7 +13,7 @@ import Sentry from '@sentry/node';
 import {
   mergeLinkedEntities,
   setLinkedEntities,
-} from '../static/scripts/common/linkedEntities.js';
+} from '../static/scripts/common/linkedEntities.mjs';
 import sanitizedContext from '../utility/sanitizedContext.mjs';
 
 import {badRequest, getResponse} from './response.mjs';

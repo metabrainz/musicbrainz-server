@@ -10,7 +10,7 @@
 import * as Sentry from '@sentry/browser';
 
 import {MAX_RECENT_ENTITIES} from '../../constants';
-import linkedEntities from '../../linkedEntities';
+import linkedEntities from '../../linkedEntities.mjs';
 import {localStorage} from '../../utility/storage';
 
 import type {

@@ -18,7 +18,7 @@ import {
   expand2reactWithVarArgsInstance,
   hooks as expand2reactHooks,
 } from '../../../common/i18n/expand2react';
-import linkedEntities from '../../../common/linkedEntities';
+import linkedEntities from '../../../common/linkedEntities.mjs';
 import {keyBy} from '../../../common/utility/arrays';
 import bracketed from '../../../common/utility/bracketed';
 import displayLinkAttribute, {displayLinkAttributes}

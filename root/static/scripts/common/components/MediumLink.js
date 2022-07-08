@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import linkedEntities from '../linkedEntities';
+import linkedEntities from '../linkedEntities.mjs';
 
 import DescriptiveLink from './DescriptiveLink';
 import MediumDescription from './MediumDescription';

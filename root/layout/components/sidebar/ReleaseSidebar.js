@@ -16,7 +16,8 @@ import * as manifest from '../../../static/manifest.mjs';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
 import ReleaseEvents
   from '../../../static/scripts/common/components/ReleaseEvents';
-import linkedEntities from '../../../static/scripts/common/linkedEntities';
+import linkedEntities
+  from '../../../static/scripts/common/linkedEntities.mjs';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
 import formatBarcode
   from '../../../static/scripts/common/utility/formatBarcode';

@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import * as manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation';
-import linkedEntities from '../static/scripts/common/linkedEntities';
+import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import TracklistAndCredits
   from '../static/scripts/release/components/TracklistAndCredits';
 import type {CreditsModeT} from '../static/scripts/release/types';

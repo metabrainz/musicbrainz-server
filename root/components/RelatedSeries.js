@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import EntityLink from '../static/scripts/common/components/EntityLink';
-import linkedEntities from '../static/scripts/common/linkedEntities';
+import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import groupRelationships from '../utility/groupRelationships';
 
 import {isNotSeriesPart} from './Relationships';

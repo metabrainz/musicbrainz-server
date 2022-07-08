@@ -10,7 +10,7 @@ import $ from 'jquery';
 import ko from 'knockout';
 import test from 'tape';
 
-import linkedEntities from '../common/linkedEntities';
+import linkedEntities from '../common/linkedEntities.mjs';
 import MB from '../common/MB';
 import {cloneObjectDeep} from '../common/utility/cloneDeep';
 import fields from '../relationship-editor/common/fields';

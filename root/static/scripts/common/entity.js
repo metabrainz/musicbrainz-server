@@ -25,7 +25,7 @@ import {
   artistCreditsAreEqual,
   isCompleteArtistCredit,
 } from './immutable-entities';
-import linkedEntities from './linkedEntities';
+import linkedEntities from './linkedEntities.mjs';
 import MB from './MB';
 import {bracketedText} from './utility/bracketed';
 import clean from './utility/clean';
