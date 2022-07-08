@@ -7,9 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-// NOTE: Don't convert to an ES module; this is used by root/server.js.
-/* eslint-disable import/no-commonjs */
-
 // If you update this, also update $PUBLIC_PRIVILEGE_FLAGS in Constants.pm
 const publicFlags = 1 & // AUTO_EDITOR_FLAG
                     2 & // BOT_FLAG
@@ -23,7 +20,7 @@ function sanitizePrivileges(privileges /*: number */) /*: number */ {
   return (privileges & publicFlags);
 }
 
-function sanitizedEditor(
+export default function sanitizedEditor(
   editor /*: UnsanitizedEditorT | EditorT */,
 ) /*: EditorT */ {
   /*
@@ -42,5 +39,3 @@ function sanitizedEditor(
     privileges: sanitizePrivileges(editor.privileges),
   };
 }
-
-module.exports = sanitizedEditor;
