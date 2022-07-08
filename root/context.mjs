@@ -8,7 +8,6 @@
  */
 
 import * as React from 'react';
-import type {ComponentType} from 'react';
 
 const defaultContext = {
   action: {
