@@ -6,22 +6,24 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
+import fs from 'fs';
+import path from 'path';
 
-const fs = require('fs');
-const path = require('path');
+import po2json from 'po2json';
 
-const po2json = require('po2json');
+import {
+  MB_SERVER_ROOT,
+} from '../../static/scripts/common/DBDefs.js';
 
 const LOCALE_EXT = new RegExp('_[a-zA-Z]+\\.po$');
-const PO_DIR = path.resolve(__dirname, '../../../po');
+const PO_DIR = path.resolve(MB_SERVER_ROOT, 'po');
 
-exports.path = function (domain, locale) {
+function getPath(domain, locale) {
   return path.resolve(PO_DIR, `${domain}.${locale}.po`);
-};
+}
 
-exports.find = function (domain, locale) {
-  let fpath = exports.path(domain, locale);
+export function find(domain, locale) {
+  let fpath = getPath(domain, locale);
 
   try {
     fs.statSync(fpath);
@@ -38,12 +40,12 @@ exports.find = function (domain, locale) {
   }
 
   return fpath;
-};
+}
 
-exports.loadFromPath = function (fpath, domain) {
+export function loadFromPath(fpath, domain) {
   return po2json.parseFileSync(fpath, {format: 'jed1.x', domain});
-};
+}
 
-exports.load = function (name, locale, domain = name) {
-  return exports.loadFromPath(exports.find(name, locale), domain);
-};
+export function load(name, locale, domain = name) {
+  return loadFromPath(find(name, locale), domain);
+}

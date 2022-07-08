@@ -15,7 +15,7 @@ import shellQuote from 'shell-quote';
 import TerserPlugin from 'terser-webpack-plugin';
 import webpack from 'webpack';
 
-import * as poFile from '../root/server/gettext/poFile.js';
+import * as poFile from '../root/server/gettext/poFile.mjs';
 import {
   MB_SERVER_ROOT,
 } from '../root/static/scripts/common/DBDefs.js';

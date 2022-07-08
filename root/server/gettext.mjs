@@ -11,7 +11,7 @@ import Jed from 'jed';
 
 import jedData from '../static/scripts/jed-data.js';
 
-import * as poFile from './gettext/poFile.js';
+import * as poFile from './gettext/poFile.mjs';
 
 export const jedInstance/*: Jed */ = new Jed(jedData.en);
 jedInstance.locale = 'en';
