@@ -9,7 +9,7 @@
 
 import Jed from 'jed';
 
-import jedData from '../static/scripts/jed-data.js';
+import jedData from '../static/scripts/jed-data.mjs';
 
 import * as poFile from './gettext/poFile.mjs';
 

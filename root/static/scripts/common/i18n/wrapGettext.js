@@ -11,7 +11,7 @@ import isNodeJS from 'detect-node';
 import Jed from 'jed';
 
 import * as serverGettext from '../../../../server/gettext.mjs';
-import jedData from '../../jed-data';
+import jedData from '../../jed-data.mjs';
 
 import cleanMsgid from './cleanMsgid';
 

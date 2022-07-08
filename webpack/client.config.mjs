@@ -21,7 +21,7 @@ import {
 } from '../root/static/scripts/common/DBDefs.mjs';
 import {cloneObjectDeep}
   from '../root/static/scripts/common/utility/cloneDeep.mjs';
-import jedDataTemplate from '../root/static/scripts/jed-data.js';
+import jedDataTemplate from '../root/static/scripts/jed-data.mjs';
 
 import browserConfig from './browserConfig.mjs';
 import cacheConfig from './cacheConfig.mjs';
@@ -35,6 +35,8 @@ import {
 } from './constants.mjs';
 import moduleConfig from './moduleConfig.mjs';
 import providePluginConfig from './providePluginConfig.mjs';
+
+const jsExt = /\.[cm]?js$/;
 
 const entries = [
   'account/applications/register',
@@ -63,7 +65,7 @@ const entries = [
   'genre/components/GenreEditForm',
   'genre/index',
   'instrument/index',
-  'jed-data',
+  'jed-data.mjs',
   'label/index',
   'place/edit',
   'place/index',
@@ -84,7 +86,16 @@ const entries = [
   'work/edit',
   'work/index',
 ].reduce((accum, name) => {
-  accum[name] = path.resolve(SCRIPTS_DIR, `${name}.js`);
+  let nameWithExt;
+  let nameWithoutExt;
+  if (jsExt.test(name)) {
+    nameWithExt = name;
+    nameWithoutExt = name.replace(jsExt, '');
+  } else {
+    nameWithExt = `${name}.js`;
+    nameWithoutExt = name;
+  }
+  accum[nameWithoutExt] = path.resolve(SCRIPTS_DIR, nameWithExt);
   return accum;
 }, {});
 
@@ -202,9 +213,9 @@ MB_LANGUAGES.forEach(function (lang) {
 
   if (loadedNewPoData) {
     const source = (
-      'var jedData = require(' +
-      JSON.stringify(path.resolve(SCRIPTS_DIR, 'jed-data')) + ');\n' +
-      'var locale = ' + JSON.stringify(lang) + ';\n' +
+      'import jedData from ' +
+      JSON.stringify(path.resolve(SCRIPTS_DIR, 'jed-data.mjs')) + ';\n' +
+      'const locale = ' + JSON.stringify(lang) + ';\n' +
       // https://v8.dev/blog/cost-of-javascript-2019#json
       'jedData[locale] = JSON.parse(\'' +
       canonicalJson(langJedData)
