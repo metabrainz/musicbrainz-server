@@ -12,11 +12,13 @@ const net = require('net');
 
 const Sentry = require('@sentry/node');
 
-const DBDefs = require('../static/scripts/common/DBDefs');
+const {
+  mergeLinkedEntities,
+  setLinkedEntities,
+} = require('../static/scripts/common/linkedEntities');
 const sanitizedContext = require('../utility/sanitizedContext');
 
 const {badRequest, getResponse} = require('./response');
-const {clearRequireCache} = require('./utils');
 
 const connectionListener = function (socket) {
   let expectedBytes = 0;
@@ -62,22 +64,13 @@ const connectionListener = function (socket) {
       }
 
       if (requestBody.begin) {
-        if (DBDefs.DEVELOPMENT_SERVER) {
-          clearRequireCache();
-        }
-
         context = requestBody.context;
         context.toJSON = () => sanitizedContext(context);
-
-        const {setLinkedEntities} =
-          require('../static/scripts/common/linkedEntities');
         setLinkedEntities(requestBody.linked_entities);
       } else if (requestBody.finish) {
         socket.end();
         socket.destroy();
       } else {
-        const {mergeLinkedEntities} =
-          require('../static/scripts/common/linkedEntities');
         // Merge new linked entities into current ones.
         mergeLinkedEntities(requestBody.linked_entities);
         writeResponse(socket, getResponse(requestBody, context));

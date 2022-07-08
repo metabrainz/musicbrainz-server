@@ -9,9 +9,15 @@
 /* eslint-disable import/no-commonjs */
 
 const Sentry = require('@sentry/node');
+const React = require('react');
+const ReactDOMServer = require('react-dom/server');
 
+const {CatalystContext, SanitizedCatalystContext} = require('../context');
+const components = require('../static/build/server-components');
 const getRequestCookie = require('../utility/getRequestCookie');
 const sanitizedContext = require('../utility/sanitizedContext');
+
+const gettext = require('./gettext');
 
 function badRequest(err) {
   return Buffer.from(JSON.stringify({
@@ -36,26 +42,10 @@ function getResponse(requestBody, context) {
     Sentry.setUser({id: user.id, username: user.name});
   }
 
-  let components;
-  try {
-    /*
-     * N.B. This *must* be required in the same process
-     * that serves the request.
-     * Do not move to the top of the file.
-     */
-    components = require('../static/build/server-components');
-  } catch (err) {
-    Sentry.captureException(err);
-    return badRequest(err);
-  }
-
   /*
    * Set the current translations to be used for this request based on the
    * given 'lang' cookie.
-   * N.B. This *must* be required in the same process that serves the request.
-   * Do not move to the top of the file.
    */
-  const gettext = require('./gettext');
   const bcp47Locale = getRequestCookie(context.req, 'lang') || 'en';
   gettext.setLocale(bcp47Locale.replace('-', '_'));
 
@@ -81,17 +71,6 @@ function getResponse(requestBody, context) {
   }
 
   try {
-    /*
-     * N.B. These *must* be required in the same process that serves
-     * the request, in order for the in-memory React and
-     * CatalystContext instances to be shared with
-     * ../static/build/server-components, required above.
-     * Do not move to the top of the file.
-     */
-    const React = require('react');
-    const ReactDOMServer = require('react-dom/server');
-    const {CatalystContext, SanitizedCatalystContext} = require('../context');
-
     let props = requestBody.props;
     if (props == null) {
       props = {};

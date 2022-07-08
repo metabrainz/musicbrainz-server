@@ -18,7 +18,6 @@ const Sentry = require('@sentry/node');
 const yargs = require('yargs');
 
 const createServer = require('./server/createServer');
-const {clearRequireCache} = require('./server/utils');
 const DBDefs = require('./static/scripts/common/DBDefs');
 const writeCoverage = require('./utility/writeCoverage');
 
@@ -123,8 +122,6 @@ if (cluster.isMaster) {
   let hupAction = null;
   function hup() {
     console.info('master received SIGHUP; restarting workers');
-
-    clearRequireCache();
 
     Sentry.close().then(function () {
       sentryInit(require('./static/scripts/common/DBDefs'));
