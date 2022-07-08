@@ -87,6 +87,7 @@ export const LINK_TYPES: LinkTypeMap = {
   },
   discogs: {
     artist: '04a5b104-a4c2-4bac-99a1-7b837c37d9e4',
+    genre: '4c8510c9-1dc2-49b9-9693-27bdc5cc8311',
     label: '5b987f87-25bc-4a2d-b3f1-3618795b8207',
     place: '1c140ac8-8dc2-449e-92cb-52c90d525640',
     release: '4a78823c-1c53-4176-a5f3-58026c76f2bc',
@@ -1713,18 +1714,23 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.discogs],
     clean: function (url) {
       url = url.replace(/\/viewimages\?release=([0-9]*)/, '/release/$1');
-      url = url.replace(/^https?:\/\/(?:[^.]+\.)?discogs\.com\/(?:.*\/)?(user\/[^\/#?]+|(?:composition\/[^-]+-[^-]+-[^-]+-[^-]+-[^-]+)|(?:artist|release|master(?:\/view)?|label)\/[0-9]+)(?:[\/#?-].*)?$/, 'https://www.discogs.com/$1');
+      url = url.replace(/^https?:\/\/(?:[^.]+\.)?discogs\.com\/(?:.*\/)?((?:genre|style|user)\/[^\/#?]+|(?:composition\/[^-]+-[^-]+-[^-]+-[^-]+-[^-]+)|(?:artist|release|master(?:\/view)?|label)\/[0-9]+)(?:[\/#?-].*)?$/, 'https://www.discogs.com/$1');
       url = url.replace(/^(https:\/\/www\.discogs\.com\/master)\/view\/([0-9]+)$/, '$1/$2');
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/www\.discogs\.com\/(?:(artist|label|master|release)\/[1-9][0-9]*|(user)\/.+|(composition)\/(?:[^-]*-){4}[^-]*)$/.exec(url);
+      const m = /^https:\/\/www\.discogs\.com\/(?:(artist|label|master|release)\/[1-9][0-9]*|(genre|style|user)\/.+|(composition)\/(?:[^-]*-){4}[^-]*)$/.exec(url);
       if (m) {
         const prefix = m[1] || m[2] || m[3];
         switch (id) {
           case LINK_TYPES.discogs.artist:
             return {
               result: prefix === 'artist' || prefix === 'user',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.discogs.genre:
+            return {
+              result: prefix === 'genre' || prefix === 'style',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.discogs.label:

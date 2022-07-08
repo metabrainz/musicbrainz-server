@@ -1603,6 +1603,20 @@ limited_link_type_combinations: [
     expected_relationship_type: 'discogs',
             expected_clean_url: 'https://www.discogs.com/composition/27b17569-3e40-40b5-9819-409794c2d5d9',
   },
+  {
+                     input_url: 'https://www.discogs.com/genre/funk+%252F+soul',
+             input_entity_type: 'genre',
+    expected_relationship_type: 'discogs',
+            expected_clean_url: 'https://www.discogs.com/genre/funk+%252F+soul',
+       only_valid_entity_types: ['genre'],
+  },
+  {
+                     input_url: 'https://www.discogs.com/style/hardcore+hip-hop',
+             input_entity_type: 'genre',
+    expected_relationship_type: 'discogs',
+            expected_clean_url: 'https://www.discogs.com/style/hardcore+hip-hop',
+       only_valid_entity_types: ['genre'],
+  },
   // DNB
   {
                      input_url: 'https://portal.dnb.de/opac.htm?method=simpleSearch&cqlMode=true&query=nid%3D129802433',
