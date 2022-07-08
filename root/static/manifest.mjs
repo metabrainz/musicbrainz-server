@@ -24,7 +24,7 @@ import * as React from 'react';
 import {
   MB_SERVER_ROOT,
   STATIC_RESOURCES_LOCATION,
-} from './scripts/common/DBDefs.js';
+} from './scripts/common/DBDefs.mjs';
 
 let revManifest;
 

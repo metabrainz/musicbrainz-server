@@ -12,7 +12,7 @@ import pg from 'pg';
 import Cursor from 'pg-cursor';
 import yargs from 'yargs';
 
-import * as DBDefs from '../root/static/scripts/common/DBDefs.js';
+import * as DBDefs from '../root/static/scripts/common/DBDefs.mjs';
 import {generateFlowType} from '../root/utility/generateFlowType.js';
 
 yargs

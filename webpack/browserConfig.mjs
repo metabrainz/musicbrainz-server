@@ -12,7 +12,7 @@ import webpack from 'webpack';
 
 import {
   MB_SERVER_ROOT,
-} from '../root/static/scripts/common/DBDefs.js';
+} from '../root/static/scripts/common/DBDefs.mjs';
 
 import {SCRIPTS_DIR} from './constants.mjs';
 import definePluginConfig from './definePluginConfig.mjs';
@@ -25,10 +25,10 @@ export default {
 
     /*
      * Modules that run in the browser must use DBDefs-client.
-     * Any attempt at importing the server DBDefs.js, which can
+     * Any attempt at importing the server DBDefs.mjs, which can
      * contain sensitive info, is ignored.
      *
-     * On the server, files that import DBDefs-client.js will
+     * On the server, files that import DBDefs-client.mjs will
      * import that file directly. In the browser, we map
      * DBDefs-client to DBDefs-client-browser (below), which
      * fetches the DBDefs values from a global variable at runtime.
@@ -39,8 +39,8 @@ export default {
     }),
 
     new webpack.NormalModuleReplacementPlugin(
-      /\/root\/static\/scripts\/common\/DBDefs-client\.js$/,
-      './DBDefs-client-browser.js',
+      /\/root\/static\/scripts\/common\/DBDefs-client\.mjs$/,
+      './DBDefs-client-browser.mjs',
     ),
 
     new webpack.NormalModuleReplacementPlugin(

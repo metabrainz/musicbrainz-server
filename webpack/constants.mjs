@@ -10,7 +10,7 @@ import path from 'path';
 
 import {
   MB_SERVER_ROOT,
-} from '../root/static/scripts/common/DBDefs.js';
+} from '../root/static/scripts/common/DBDefs.mjs';
 
 export const PO_DIR = path.resolve(MB_SERVER_ROOT, 'po');
 export const ROOT_DIR = path.resolve(MB_SERVER_ROOT, 'root');

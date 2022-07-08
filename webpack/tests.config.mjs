@@ -13,7 +13,7 @@ import webpack from 'webpack';
 
 import {
   MB_SERVER_ROOT,
-} from '../root/static/scripts/common/DBDefs.js';
+} from '../root/static/scripts/common/DBDefs.mjs';
 
 import browserConfig from './browserConfig.mjs';
 import {

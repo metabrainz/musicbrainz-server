@@ -132,21 +132,32 @@ my $json = JSON->new->allow_nonref->ascii->canonical;
 my $server_code = "// \@flow strict\n";
 my $client_code = "// \@flow strict\n";
 
+my (@all_client_defs, @all_server_defs);
+
 for my $conversion (@conversions) {
     my ($defs, $convert, $flowtype) = @{$conversion}{qw(defs convert flowtype)};
 
     for my $def (@$defs) {
         my @raw_value = get_value($def);
         my $json_value = $json->encode(${$convert->(@raw_value)});
-        my $line = "exports.$def = ($json_value/*: $flowtype */);\n";
+        my $line = "export const $def/*: $flowtype */ = $json_value;\n";
         $server_code .= $line;
-        $client_code .= $line if $CLIENT_DEFS{$def};
+        push @all_server_defs, $def;
+        if ($CLIENT_DEFS{$def}) {
+            $client_code .= $line;
+            push @all_client_defs, $def;
+        }
     }
 }
 
+# Continue to allow importing as `import DBDefs from ...` by providing a
+# default export.
+$server_code .= 'export default {' . (join q(, ), @all_server_defs) . "};\n";
+$client_code .= 'export default {' . (join q(, ), @all_client_defs) . "};\n";
+
 my $common_dir = "$FindBin::Bin/../root/static/scripts/common";
-my $server_js_path = "$common_dir/DBDefs.js";
-my $client_js_path = "$common_dir/DBDefs-client.js";
+my $server_js_path = "$common_dir/DBDefs.mjs";
+my $client_js_path = "$common_dir/DBDefs-client.mjs";
 
 open(my $fh, '>', $server_js_path);
 print $fh $server_code;

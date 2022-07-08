@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
-import DBDefs from '../static/scripts/common/DBDefs';
+import DBDefs from '../static/scripts/common/DBDefs.mjs';
 import {isAccountAdmin} from '../static/scripts/common/utility/privileges';
 import buildTab from '../utility/buildTab';
 

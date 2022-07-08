@@ -11,7 +11,7 @@
 
 import {
   STATIC_RESOURCES_LOCATION,
-} from '../static/scripts/common/DBDefs.js';
+} from '../static/scripts/common/DBDefs.mjs';
 
 __webpack_public_path__ = STATIC_RESOURCES_LOCATION + '/';
 

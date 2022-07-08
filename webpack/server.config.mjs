@@ -13,7 +13,7 @@ import nodeExternals from 'webpack-node-externals';
 
 import {
   MB_SERVER_ROOT,
-} from '../root/static/scripts/common/DBDefs.js';
+} from '../root/static/scripts/common/DBDefs.mjs';
 
 import cacheConfig from './cacheConfig.mjs';
 import {

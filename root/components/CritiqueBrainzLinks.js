@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import DBDefs from '../static/scripts/common/DBDefs-client';
+import DBDefs from '../static/scripts/common/DBDefs-client.mjs';
 
 const seeReviewsHref = (releaseGroup) => (
   DBDefs.CRITIQUEBRAINZ_SERVER +

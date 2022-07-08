@@ -8,11 +8,11 @@
 
 /*
  * window[GLOBAL_JS_NAMESPACE].DBDefs contains the values exported by
- * DBDefs-client.js.
+ * DBDefs-client.mjs.
  * See root/layout/components/globalsScript.mjs for more info.
  *
  * This file should not be imported directly. It's substituted for
- * ./DBDefs-client.js via the NormalModuleReplacementPlugin in
+ * ./DBDefs-client.mjs via the NormalModuleReplacementPlugin in
  * webpack/browserConfig.js.
  */
 

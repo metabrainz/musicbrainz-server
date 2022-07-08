@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import ENTITIES from '../../../entities';
-import DBDefs from '../../static/scripts/common/DBDefs';
+import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import uriWith from '../../utility/uriWith';
 
 type Props = {

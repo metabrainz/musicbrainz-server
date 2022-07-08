@@ -13,7 +13,7 @@ import {spawnSync} from 'child_process';
 import Sentry from '@sentry/node';
 
 import createServer from './server/createServer.mjs';
-import * as DBDefs from './static/scripts/common/DBDefs.js';
+import * as DBDefs from './static/scripts/common/DBDefs.mjs';
 import nonEmpty from './static/scripts/common/utility/nonEmpty.js';
 import writeCoverage from './utility/writeCoverage.mjs';
 

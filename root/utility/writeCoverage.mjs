@@ -10,7 +10,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import * as DBDefs from '../static/scripts/common/DBDefs.js';
+import * as DBDefs from '../static/scripts/common/DBDefs.mjs';
 
 const COVERAGE_DIR = path.resolve(DBDefs.MB_SERVER_ROOT, '.nyc_output');
 

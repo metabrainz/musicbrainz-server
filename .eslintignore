@@ -7,6 +7,8 @@ perl_modules/**/*.js
 root/static/build/**/*.js
 root/static/lib/**/*.js
 root/static/scripts/common/DBDefs-client.js
+root/static/scripts/common/DBDefs-client.mjs
 root/static/scripts/common/DBDefs.js
+root/static/scripts/common/DBDefs.mjs
 root/static/scripts/tests/typeInfo.js
 t/selenium.js

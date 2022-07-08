@@ -12,7 +12,7 @@ import * as React from 'react';
 import Layout from '../layout';
 import FormSubmit from '../components/FormSubmit';
 import RequestLogin from '../components/RequestLogin';
-import DBDefs from '../static/scripts/common/DBDefs';
+import DBDefs from '../static/scripts/common/DBDefs.mjs';
 import linkedEntities from '../static/scripts/common/linkedEntities';
 import EditLink from '../static/scripts/common/components/EditLink';
 import EditorLink from '../static/scripts/common/components/EditorLink';

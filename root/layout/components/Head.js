@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import * as manifest from '../../static/manifest.mjs';
-import DBDefs from '../../static/scripts/common/DBDefs';
+import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import commonLessUrl from '../../static/styles/common.less';
 import iconLessUrl from '../../static/styles/icons.less';
 import noScriptLessUrl from '../../static/styles/noscript.less';

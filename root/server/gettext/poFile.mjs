@@ -13,7 +13,7 @@ import po2json from 'po2json';
 
 import {
   MB_SERVER_ROOT,
-} from '../../static/scripts/common/DBDefs.js';
+} from '../../static/scripts/common/DBDefs.mjs';
 
 const LOCALE_EXT = new RegExp('_[a-zA-Z]+\\.po$');
 const PO_DIR = path.resolve(MB_SERVER_ROOT, 'po');

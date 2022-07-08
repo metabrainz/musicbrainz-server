@@ -18,7 +18,7 @@ import webpack from 'webpack';
 import * as poFile from '../root/server/gettext/poFile.mjs';
 import {
   MB_SERVER_ROOT,
-} from '../root/static/scripts/common/DBDefs.js';
+} from '../root/static/scripts/common/DBDefs.mjs';
 import {cloneObjectDeep}
   from '../root/static/scripts/common/utility/cloneDeep.js';
 import jedDataTemplate from '../root/static/scripts/jed-data.js';

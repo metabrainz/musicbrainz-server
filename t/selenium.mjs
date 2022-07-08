@@ -24,7 +24,7 @@ import {Key} from 'selenium-webdriver/lib/input.js';
 import until from 'selenium-webdriver/lib/until.js';
 import yargs from 'yargs';
 
-import DBDefs from '../root/static/scripts/common/DBDefs.js';
+import * as DBDefs from '../root/static/scripts/common/DBDefs.mjs';
 import deepEqual from '../root/static/scripts/common/utility/deepEqual.js';
 import escapeRegExp from '../root/static/scripts/common/utility/escapeRegExp.mjs';
 import writeCoverage from '../root/utility/writeCoverage.mjs';
