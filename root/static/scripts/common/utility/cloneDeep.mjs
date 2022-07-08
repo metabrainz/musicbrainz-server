@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
 /* eslint-disable multiline-comment-style */
 
 function _cloneDeep/*:: <+T> */(
@@ -40,7 +39,7 @@ function _cloneArrayDeep/*:: <+T> */(
   return clone;
 }
 
-function cloneArrayDeep/*:: <+T> */(
+export function cloneArrayDeep/*:: <+T> */(
   array/*: $ReadOnlyArray<T> */,
 )/*: $ReadOnlyArray<T> */ {
   return _cloneArrayDeep/*:: <T> */(array, new WeakMap());
@@ -67,11 +66,8 @@ function _cloneObjectDeep/*:: <+T: {...}> */(
   return clone;
 }
 
-function cloneObjectDeep/*:: <+T: {...}> */(
+export function cloneObjectDeep/*:: <+T: {...}> */(
   object/*: T */,
 )/*: T */ {
   return _cloneObjectDeep/*:: <T> */(object, new WeakMap());
 }
-
-exports.cloneArrayDeep = cloneArrayDeep;
-exports.cloneObjectDeep = cloneObjectDeep;

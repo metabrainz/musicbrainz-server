@@ -13,7 +13,7 @@ import {MIN_NAME_SIMILARITY} from '../../common/constants';
 import MB from '../../common/MB';
 import {last} from '../../common/utility/arrays';
 import clean from '../../common/utility/clean';
-import {cloneArrayDeep} from '../../common/utility/cloneDeep';
+import {cloneArrayDeep} from '../../common/utility/cloneDeep.mjs';
 
 import {
   fromFullwidthLatin,

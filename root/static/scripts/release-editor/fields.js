@@ -10,7 +10,7 @@ import ko from 'knockout';
 import * as ReactDOMServer from 'react-dom/server';
 
 import mbEntity from '../common/entity';
-import {cloneObjectDeep} from '../common/utility/cloneDeep';
+import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
 import releaseLabelKey from '../common/utility/releaseLabelKey';
 import {
   artistCreditsAreEqual,

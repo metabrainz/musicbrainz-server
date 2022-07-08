@@ -20,7 +20,7 @@ import {
   MB_SERVER_ROOT,
 } from '../root/static/scripts/common/DBDefs.mjs';
 import {cloneObjectDeep}
-  from '../root/static/scripts/common/utility/cloneDeep.js';
+  from '../root/static/scripts/common/utility/cloneDeep.mjs';
 import jedDataTemplate from '../root/static/scripts/jed-data.js';
 
 import browserConfig from './browserConfig.mjs';

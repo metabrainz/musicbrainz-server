@@ -29,7 +29,7 @@ import linkedEntities from './linkedEntities.mjs';
 import MB from './MB';
 import {bracketedText} from './utility/bracketed';
 import clean from './utility/clean';
-import {cloneArrayDeep, cloneObjectDeep} from './utility/cloneDeep';
+import {cloneArrayDeep, cloneObjectDeep} from './utility/cloneDeep.mjs';
 import formatTrackLength from './utility/formatTrackLength';
 
 (function () {
