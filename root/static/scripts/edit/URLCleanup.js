@@ -42,6 +42,7 @@ export const LINK_TYPES: LinkTypeMap = {
   },
   bandcamp: {
     artist: 'c550166e-0548-4a18-b1d4-e2ae423a3e88',
+    genre: 'ad28869f-0f9e-4bd5-b786-70125cc69c3c',
     label: 'c535de4c-a112-4974-b138-5e0daa56eab5',
   },
   bandsintown: {
@@ -943,7 +944,7 @@ const CLEANUPS: CleanupEntries = {
   },
   'bandcamp': {
     match: [new RegExp(
-      '^(https?://)?([^/]+)\\.bandcamp\\.com(?!/campaign/)',
+      '^(https?://)?([^/]+\\.)?bandcamp\\.com(?!/campaign/)',
       'i',
     )],
     restrict: [{
@@ -952,7 +953,7 @@ const CLEANUPS: CleanupEntries = {
       work: LINK_TYPES.lyrics.work,
     }],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/([^?#]*))?.*$/, 'https://$1.bandcamp.com/$2');
+      url = url.replace(/^(?:https?:\/\/)?([^\/]+\.)?bandcamp\.com(?:\/([^?#]*))?.*$/, 'https://$1bandcamp.com/$2');
       if (/^https:\/\/daily\.bandcamp\.com/.test(url)) {
         url = url.replace(/^https:\/\/daily\.bandcamp\.com\/(\d+\/\d+\/\d+\/[\w-]+)(?:\/.*)?$/, 'https://daily.bandcamp.com/$1/');
       } else {
@@ -974,6 +975,11 @@ const CLEANUPS: CleanupEntries = {
             };
           }
           return {result: /^https:\/\/[^\/]+\.bandcamp\.com\/$/.test(url)};
+        case LINK_TYPES.bandcamp.genre:
+          return {
+            result: /^https:\/\/bandcamp\.com\/tag\/[\w-]+$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
         case LINK_TYPES.bandcamp.label:
           if (/^https:\/\/[^\/]+\.bandcamp\.com\/(album|track)/.test(url)) {
             return {
