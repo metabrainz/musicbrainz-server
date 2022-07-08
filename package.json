@@ -88,6 +88,7 @@
     "process": "0.11.10",
     "selenium-webdriver": "4.0.0-alpha.5",
     "stream-browserify": "3.0.0",
+    "sucrase": "3.23.0",
     "tap-difflet": "0.7.2",
     "tap-junit": "3.1.0",
     "tape": "4.7.0",
