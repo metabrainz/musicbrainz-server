@@ -13,7 +13,7 @@ import PostParameters, {
   type PostParametersT,
 } from '../static/scripts/common/components/PostParameters';
 import Layout from '../layout';
-import * as manifest from '../static/manifest';
+import * as manifest from '../static/manifest.mjs';
 
 import ConfirmSeedButtons from './components/ConfirmSeedButtons';
 

@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context';
-import * as manifest from '../../static/manifest';
+import * as manifest from '../../static/manifest.mjs';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 import EntityLink from '../../static/scripts/common/components/EntityLink';

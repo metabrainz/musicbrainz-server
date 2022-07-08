@@ -12,7 +12,7 @@ import type {ColumnOptionsNoValue} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults';
 import Table from '../../components/Table';
-import * as manifest from '../../static/manifest';
+import * as manifest from '../../static/manifest.mjs';
 import {
   defineArtistRolesColumn,
   defineEntityColumn,

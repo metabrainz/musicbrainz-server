@@ -13,7 +13,7 @@ import PaginatedResults from '../components/PaginatedResults';
 import Relationships from '../components/Relationships';
 import ReleaseLabelList from '../components/ReleaseLabelList';
 import ReleaseCatnoList from '../components/ReleaseCatnoList';
-import * as manifest from '../static/manifest';
+import * as manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink';

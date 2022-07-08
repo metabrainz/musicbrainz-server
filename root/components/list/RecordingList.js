@@ -11,7 +11,7 @@ import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
 import {SanitizedCatalystContext} from '../../context';
-import * as manifest from '../../static/manifest';
+import * as manifest from '../../static/manifest.mjs';
 import Table from '../Table';
 import ReleaseGroupAppearances
   from '../../static/scripts/common/components/ReleaseGroupAppearances';

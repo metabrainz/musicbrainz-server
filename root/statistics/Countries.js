@@ -10,7 +10,7 @@
 
 import * as React from 'react';
 
-import * as manifest from '../static/manifest';
+import * as manifest from '../static/manifest.mjs';
 import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import loopParity from '../utility/loopParity';

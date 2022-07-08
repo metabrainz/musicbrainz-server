@@ -14,7 +14,7 @@ import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract';
 import expand2react from '../static/scripts/common/i18n/expand2react';
 import Relationships from '../components/Relationships';
-import * as manifest from '../static/manifest';
+import * as manifest from '../static/manifest.mjs';
 
 import InstrumentLayout from './InstrumentLayout';
 

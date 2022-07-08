@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import PlaceList from '../components/list/PlaceList';
 import PaginatedResults from '../components/PaginatedResults';
-import * as manifest from '../static/manifest';
+import * as manifest from '../static/manifest.mjs';
 import DBDefs from '../static/scripts/common/DBDefs-client';
 import {returnToCurrentPage} from '../utility/returnUri';
 

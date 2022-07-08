@@ -12,7 +12,7 @@ import * as ReactDOMServer from 'react-dom/server';
 
 import {QUALITY_UNKNOWN} from '../../../constants';
 import {CatalystContext} from '../../../context';
-import * as manifest from '../../../static/manifest';
+import * as manifest from '../../../static/manifest.mjs';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
 import ReleaseEvents
   from '../../../static/scripts/common/components/ReleaseEvents';

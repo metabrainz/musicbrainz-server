@@ -12,7 +12,7 @@ import * as React from 'react';
 import {CatalystContext} from '../../../context';
 import LinkSearchableLanguage
   from '../../../components/LinkSearchableLanguage';
-import * as manifest from '../../../static/manifest';
+import * as manifest from '../../../static/manifest.mjs';
 import CodeLink from '../../../static/scripts/common/components/CodeLink';
 import AttributeList
   from '../../../static/scripts/common/components/AttributeList';

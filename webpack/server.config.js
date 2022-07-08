@@ -29,7 +29,6 @@ const providePluginConfig = require('./providePluginConfig');
 const externals = [
   'root/context',
   'root/server/gettext',
-  'root/static/build/rev-manifest',
   'root/static/scripts/common/DBDefs',
   'root/static/scripts/common/DBDefs-client',
   'root/static/scripts/common/linkedEntities',

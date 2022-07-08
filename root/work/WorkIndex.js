@@ -15,7 +15,7 @@ import WikipediaExtract
 import CleanupBanner from '../components/CleanupBanner';
 import Relationships from '../components/Relationships';
 import RelationshipsTable from '../components/RelationshipsTable';
-import * as manifest from '../static/manifest';
+import * as manifest from '../static/manifest.mjs';
 
 import WorkLayout from './WorkLayout';
 

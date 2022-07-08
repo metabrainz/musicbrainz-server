@@ -6,8 +6,6 @@
  * http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
-
 /*
  * This module is used to look up assets in webpack's manifest, which maps
  * asset names to their public URLs (which include a hash in the filename
@@ -17,16 +15,29 @@
  * there. The actual manifest file (./build/rev-manifest) doesn't exist
  * until after the client scripts are bundled.
  */
-const React = require('react');
 
-// $FlowIgnore[cannot-resolve-module]
-const revManifest = require('./build/rev-manifest');
-const DBDefs = require('./scripts/common/DBDefs');
+import fs from 'fs';
+import path from 'path';
+
+import * as React from 'react';
+
+import {
+  MB_SERVER_ROOT,
+  STATIC_RESOURCES_LOCATION,
+} from './scripts/common/DBDefs.js';
+
+let revManifest;
 
 function pathTo(manifest) {
+  if (revManifest == null) {
+    revManifest = JSON.parse(fs.readFileSync(
+      path.resolve(MB_SERVER_ROOT, 'root/static/build/rev-manifest.json'),
+    ).toString());
+  }
+
   manifest = manifest.replace(/^\//, '');
 
-  const publicPath = DBDefs.STATIC_RESOURCES_LOCATION + '/' +
+  const publicPath = STATIC_RESOURCES_LOCATION + '/' +
     revManifest[manifest];
 
   if (!publicPath) {
@@ -37,7 +48,7 @@ function pathTo(manifest) {
 }
 
 const jsExt = /\.js(?:on)?$/;
-function js(
+export function js(
   manifest: string,
   extraAttrs?: {+'async'?: 'async', +'data-args'?: mixed} | null = null,
 ): React.Element<'script'> {
@@ -53,5 +64,3 @@ function js(
     />
   );
 }
-
-exports.js = js;
