@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import activeSanitizedEditor from './activeSanitizedEditor.js';
+import activeSanitizedEditor from './activeSanitizedEditor.mjs';
 
 /*
  * Returns a sanitized $c, with private or sensitive data removed, suitable

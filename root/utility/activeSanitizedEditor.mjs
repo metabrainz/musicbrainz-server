@@ -7,12 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-// NOTE: Don't convert to an ES module; this is used by root/server.js.
-/* eslint-disable import/no-commonjs */
-
-function activeSanitizedEditor(
-  editor /*: UnsanitizedEditorT */,
-) /*: ActiveEditorT */ {
+export default function activeSanitizedEditor(
+  editor: UnsanitizedEditorT,
+): ActiveEditorT {
   return {
     entityType: 'editor',
     avatar: editor.avatar,
@@ -26,5 +23,3 @@ function activeSanitizedEditor(
     privileges: editor.privileges,
   };
 }
-
-module.exports = activeSanitizedEditor;
