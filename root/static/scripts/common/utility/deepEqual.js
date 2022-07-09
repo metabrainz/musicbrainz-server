@@ -8,7 +8,7 @@
  */
 
 /*
- * Note: This module is used by t/selenium.js.
+ * Note: This module is used by t/selenium.mjs.
  */
 /* eslint-disable import/no-commonjs */
 

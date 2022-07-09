@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!./bin/sucrase-node
 /*
  * This file is part of MusicBrainz, the open internet music database.
  * Copyright (C) 2017 MetaBrainz Foundation
@@ -6,16 +6,30 @@
  * http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
+import child_process from 'child_process';
+import fs from 'fs';
+import http from 'http';
+import path from 'path';
 
-require('@babel/register');
+import defined from 'defined';
+import httpProxy from 'http-proxy';
+import JSON5 from 'json5';
+import test from 'tape';
+import TestCls from 'tape/lib/test.js';
+import webdriver from 'selenium-webdriver';
+import chrome from 'selenium-webdriver/chrome.js';
+import firefox from 'selenium-webdriver/firefox.js';
+import webdriverProxy from 'selenium-webdriver/proxy.js';
+import {Key} from 'selenium-webdriver/lib/input.js';
+import until from 'selenium-webdriver/lib/until.js';
+import yargs from 'yargs';
 
-const child_process = require('child_process');
-const fs = require('fs');
-const http = require('http');
-const path = require('path');
+import DBDefs from '../root/static/scripts/common/DBDefs.js';
+import deepEqual from '../root/static/scripts/common/utility/deepEqual.js';
+import escapeRegExp from '../root/static/scripts/common/utility/escapeRegExp.mjs';
+import writeCoverage from '../root/utility/writeCoverage.js';
 
-const argv = require('yargs')
+const argv = yargs
   .option('b', {
     alias: 'browser',
     default: 'chrome',
@@ -43,23 +57,6 @@ const argv = require('yargs')
   .usage('Usage: $0 [-hs] [file...]')
   .help('help')
   .argv;
-const defined = require('defined');
-const httpProxy = require('http-proxy');
-const JSON5 = require('json5');
-const test = require('tape');
-const TestCls = require('tape/lib/test');
-const webdriver = require('selenium-webdriver');
-const chrome = require('selenium-webdriver/chrome');
-const firefox = require('selenium-webdriver/firefox');
-const webdriverProxy = require('selenium-webdriver/proxy');
-const {Key} = require('selenium-webdriver/lib/input');
-const until = require('selenium-webdriver/lib/until');
-
-const DBDefs = require('../root/static/scripts/common/DBDefs');
-const deepEqual = require('../root/static/scripts/common/utility/deepEqual');
-const escapeRegExp =
-  require('../root/static/scripts/common/utility/escapeRegExp.mjs').default;
-const writeCoverage = require('../root/utility/writeCoverage');
 
 function compareEditDataValues(actualValue, expectedValue) {
   if (expectedValue === '$$__IGNORE__$$') {
@@ -409,7 +406,7 @@ async function checkSirQueues(t) {
 
 async function getSeleniumDbTupStats() {
   const result = await execFile(
-    path.resolve(__dirname, '../script/get_selenium_tup_stats.sh'),
+    path.resolve(DBDefs.MB_SERVER_ROOT, 'script/get_selenium_tup_stats.sh'),
   );
   return JSON.parse(result.stdout);
 }
@@ -661,7 +658,7 @@ const seleniumTests = [
   {name: 'FilterForm.json5', sql: 'filtering.sql'},
 ];
 
-const testPath = name => path.resolve(__dirname, 'selenium', name);
+const testPath = name => path.resolve(DBDefs.MB_SERVER_ROOT, 't/selenium', name);
 
 seleniumTests.forEach(x => {
   x.path = testPath(x.name);
@@ -748,8 +745,8 @@ async function runCommands(commands, t) {
   async function cleanSeleniumDb(t, extraSql) {
     const startTime = new Date();
     await execFile(
-      path.resolve(__dirname, '../script/reset_selenium_env.sh'),
-      extraSql ? [path.resolve(__dirname, 'sql', extraSql)] : [],
+      path.resolve(DBDefs.MB_SERVER_ROOT, 'script/reset_selenium_env.sh'),
+      extraSql ? [path.resolve(DBDefs.MB_SERVER_ROOT, 't/sql', extraSql)] : [],
     );
     const finishTime = new Date();
     const elapsedTime = (finishTime - startTime) / 1000;

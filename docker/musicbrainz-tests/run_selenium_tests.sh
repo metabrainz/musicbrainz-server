@@ -66,7 +66,7 @@ sleep 10
 
 sudo -E -H -u musicbrainz mkdir -p junit_output
 
-sudo -E -H -u musicbrainz carton exec -- ./t/selenium.js \
+sudo -E -H -u musicbrainz carton exec -- ./bin/sucrase-node t/selenium.mjs \
      | tee >(./node_modules/.bin/tap-junit > ./junit_output/selenium.xml) \
      | ./node_modules/.bin/tap-difflet
 
