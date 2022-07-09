@@ -12,7 +12,7 @@ import * as React from 'react';
 import {CatalystContext} from '../context.mjs';
 import {age} from '../utility/age';
 import {formatUserDateObject} from '../utility/formatUserDate';
-import getRequestCookie from '../utility/getRequestCookie';
+import getRequestCookie from '../utility/getRequestCookie.mjs';
 import {RT_MIRROR} from '../static/scripts/common/constants';
 import DBDefs from '../static/scripts/common/DBDefs.mjs';
 import parseDate from '../static/scripts/common/utility/parseDate';
