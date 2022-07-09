@@ -216,11 +216,11 @@ These are a bit more involved to set up:
 With the above prerequisites out of the way, the tests can be run from the
 command line like so:
 
-    $ ./bin/sucrase-node t/selenium.mjs
+    $ ./t/selenium.js
 
 If you want to run specific tests under ./t/selenium/, you can specify the
 paths to them as arguments. t/selenium.mjs also accepts some command line flags
-which are useful for debugging and development; see `./bin/sucrase-node t/selenium.mjs --help`.
+which are useful for debugging and development; see `./t/selenium.js --help`.
 For example, you might want to use `-h=false -s=true` to run non-headlessly
 and leave it open when it errors, to actually see what the tests are doing and
 what the site looks like at the time.
