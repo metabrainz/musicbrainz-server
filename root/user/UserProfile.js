@@ -22,7 +22,7 @@ import expand2react from '../static/scripts/common/i18n/expand2react';
 import bracketed, {bracketedText}
   from '../static/scripts/common/utility/bracketed';
 import * as TYPES from '../static/scripts/common/constants/editTypes';
-import escapeRegExp from '../static/scripts/common/utility/escapeRegExp';
+import escapeRegExp from '../static/scripts/common/utility/escapeRegExp.mjs';
 import nonEmpty from '../static/scripts/common/utility/nonEmpty';
 import {
   isAccountAdmin,

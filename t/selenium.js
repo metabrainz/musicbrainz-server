@@ -58,7 +58,7 @@ const until = require('selenium-webdriver/lib/until');
 const DBDefs = require('../root/static/scripts/common/DBDefs');
 const deepEqual = require('../root/static/scripts/common/utility/deepEqual');
 const escapeRegExp =
-  require('../root/static/scripts/common/utility/escapeRegExp').default;
+  require('../root/static/scripts/common/utility/escapeRegExp.mjs').default;
 const writeCoverage = require('../root/utility/writeCoverage');
 
 function compareEditDataValues(actualValue, expectedValue) {
