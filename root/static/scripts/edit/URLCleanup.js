@@ -31,6 +31,7 @@ export type RelationshipTypeT =
 export const LINK_TYPES: LinkTypeMap = {
   allmusic: {
     artist: '6b3e3c85-0002-4f34-aca6-80ace0d7e846',
+    genre: '6da144de-911b-49c5-81eb-bd8303b3f6b4',
     recording: '54482490-5ff1-4b1c-9382-b4d0ef8e0eac',
     release: '90ff18ad-3e9d-4472-a3d1-71d4df7e8484',
     release_group: 'a50a1d20-2b20-4d2c-9a29-eb771dd78386',
@@ -41,6 +42,7 @@ export const LINK_TYPES: LinkTypeMap = {
   },
   bandcamp: {
     artist: 'c550166e-0548-4a18-b1d4-e2ae423a3e88',
+    genre: 'ad28869f-0f9e-4bd5-b786-70125cc69c3c',
     label: 'c535de4c-a112-4974-b138-5e0daa56eab5',
   },
   bandsintown: {
@@ -87,6 +89,7 @@ export const LINK_TYPES: LinkTypeMap = {
   },
   discogs: {
     artist: '04a5b104-a4c2-4bac-99a1-7b837c37d9e4',
+    genre: '4c8510c9-1dc2-49b9-9693-27bdc5cc8311',
     label: '5b987f87-25bc-4a2d-b3f1-3618795b8207',
     place: '1c140ac8-8dc2-449e-92cb-52c90d525640',
     release: '4a78823c-1c53-4176-a5f3-58026c76f2bc',
@@ -525,7 +528,7 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?allmusic\\.com', 'i')],
     restrict: [LINK_TYPES.allmusic],
     clean: function (url) {
-      return url.replace(/^https?:\/\/(?:[^.]+\.)?allmusic\.com\/(artist|album(?:\/release)?|composition|song|performance)\/(?:[^\/]*-)?((?:mn|mw|mc|mt|mq|mr)[0-9]+).*/, 'https://www.allmusic.com/$1/$2');
+      return url.replace(/^https?:\/\/(?:[^.]+\.)?allmusic\.com\/(artist|album(?:\/release)?|composition|genre|song|style|performance)\/(?:[^\/]*-)?((?:ma|mn|mw|mc|mt|mq|mr)[0-9]+).*/, 'https://www.allmusic.com/$1/$2');
     },
     validate: function (url, id) {
       const m = /^https:\/\/www\.allmusic\.com\/([a-z\/]+)[0-9]{10}$/.exec(url);
@@ -535,6 +538,11 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.allmusic.artist:
             return {
               result: prefix === 'artist/mn',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.allmusic.genre:
+            return {
+              result: prefix === 'genre/ma' || prefix === 'style/ma',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.allmusic.recording:
@@ -936,7 +944,7 @@ const CLEANUPS: CleanupEntries = {
   },
   'bandcamp': {
     match: [new RegExp(
-      '^(https?://)?([^/]+)\\.bandcamp\\.com(?!/campaign/)',
+      '^(https?://)?([^/]+\\.)?bandcamp\\.com(?!/campaign/)',
       'i',
     )],
     restrict: [{
@@ -945,7 +953,7 @@ const CLEANUPS: CleanupEntries = {
       work: LINK_TYPES.lyrics.work,
     }],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/([^?#]*))?.*$/, 'https://$1.bandcamp.com/$2');
+      url = url.replace(/^(?:https?:\/\/)?([^\/]+\.)?bandcamp\.com(?:\/([^?#]*))?.*$/, 'https://$1bandcamp.com/$2');
       if (/^https:\/\/daily\.bandcamp\.com/.test(url)) {
         url = url.replace(/^https:\/\/daily\.bandcamp\.com\/(\d+\/\d+\/\d+\/[\w-]+)(?:\/.*)?$/, 'https://daily.bandcamp.com/$1/');
       } else {
@@ -967,6 +975,11 @@ const CLEANUPS: CleanupEntries = {
             };
           }
           return {result: /^https:\/\/[^\/]+\.bandcamp\.com\/$/.test(url)};
+        case LINK_TYPES.bandcamp.genre:
+          return {
+            result: /^https:\/\/bandcamp\.com\/tag\/[\w-]+$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
         case LINK_TYPES.bandcamp.label:
           if (/^https:\/\/[^\/]+\.bandcamp\.com\/(album|track)/.test(url)) {
             return {
@@ -1713,18 +1726,23 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.discogs],
     clean: function (url) {
       url = url.replace(/\/viewimages\?release=([0-9]*)/, '/release/$1');
-      url = url.replace(/^https?:\/\/(?:[^.]+\.)?discogs\.com\/(?:.*\/)?(user\/[^\/#?]+|(?:composition\/[^-]+-[^-]+-[^-]+-[^-]+-[^-]+)|(?:artist|release|master(?:\/view)?|label)\/[0-9]+)(?:[\/#?-].*)?$/, 'https://www.discogs.com/$1');
+      url = url.replace(/^https?:\/\/(?:[^.]+\.)?discogs\.com\/(?:.*\/)?((?:genre|style|user)\/[^\/#?]+|(?:composition\/[^-]+-[^-]+-[^-]+-[^-]+-[^-]+)|(?:artist|release|master(?:\/view)?|label)\/[0-9]+)(?:[\/#?-].*)?$/, 'https://www.discogs.com/$1');
       url = url.replace(/^(https:\/\/www\.discogs\.com\/master)\/view\/([0-9]+)$/, '$1/$2');
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/www\.discogs\.com\/(?:(artist|label|master|release)\/[1-9][0-9]*|(user)\/.+|(composition)\/(?:[^-]*-){4}[^-]*)$/.exec(url);
+      const m = /^https:\/\/www\.discogs\.com\/(?:(artist|label|master|release)\/[1-9][0-9]*|(genre|style|user)\/.+|(composition)\/(?:[^-]*-){4}[^-]*)$/.exec(url);
       if (m) {
         const prefix = m[1] || m[2] || m[3];
         switch (id) {
           case LINK_TYPES.discogs.artist:
             return {
               result: prefix === 'artist' || prefix === 'user',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.discogs.genre:
+            return {
+              result: prefix === 'genre' || prefix === 'style',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.discogs.label:

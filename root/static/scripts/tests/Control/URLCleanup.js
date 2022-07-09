@@ -287,6 +287,20 @@ const testData = [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://www.allmusic.com/genre/electronic-ma0000002572/albums',
+             input_entity_type: 'genre',
+    expected_relationship_type: 'allmusic',
+            expected_clean_url: 'https://www.allmusic.com/genre/ma0000002572',
+       only_valid_entity_types: ['genre'],
+  },
+  {
+                     input_url: 'https://www.allmusic.com/style/dark-ambient-ma0000011972',
+             input_entity_type: 'genre',
+    expected_relationship_type: 'allmusic',
+            expected_clean_url: 'https://www.allmusic.com/style/ma0000011972',
+       only_valid_entity_types: ['genre'],
+  },
+  {
                      input_url: 'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
              input_entity_type: 'recording',
     expected_relationship_type: 'allmusic',
@@ -669,6 +683,13 @@ limited_link_type_combinations: [
     expected_relationship_type: 'bandcamp',
             expected_clean_url: 'https://idiotsikker.bandcamp.com/',
        only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+                     input_url: 'https://bandcamp.com/tag/ambient-noise-wall?tab=highlights',
+             input_entity_type: 'genre',
+    expected_relationship_type: 'bandcamp',
+            expected_clean_url: 'https://bandcamp.com/tag/ambient-noise-wall',
+       only_valid_entity_types: ['genre'],
   },
   {
                      input_url: 'https://andrewhuang.bandcamp.com/track/boom-box/?test',
@@ -1602,6 +1623,20 @@ limited_link_type_combinations: [
              input_entity_type: 'work',
     expected_relationship_type: 'discogs',
             expected_clean_url: 'https://www.discogs.com/composition/27b17569-3e40-40b5-9819-409794c2d5d9',
+  },
+  {
+                     input_url: 'https://www.discogs.com/genre/funk+%252F+soul',
+             input_entity_type: 'genre',
+    expected_relationship_type: 'discogs',
+            expected_clean_url: 'https://www.discogs.com/genre/funk+%252F+soul',
+       only_valid_entity_types: ['genre'],
+  },
+  {
+                     input_url: 'https://www.discogs.com/style/hardcore+hip-hop',
+             input_entity_type: 'genre',
+    expected_relationship_type: 'discogs',
+            expected_clean_url: 'https://www.discogs.com/style/hardcore+hip-hop',
+       only_valid_entity_types: ['genre'],
   },
   // DNB
   {
