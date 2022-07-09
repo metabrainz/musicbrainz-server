@@ -6,15 +6,17 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
+import path from 'path';
 
-const path = require('path');
+import webpack from 'webpack';
 
-const webpack = require('webpack');
+import {
+  MB_SERVER_ROOT,
+} from '../root/static/scripts/common/DBDefs.js';
 
-const definePluginConfig = require('./definePluginConfig');
+import definePluginConfig from './definePluginConfig.mjs';
 
-module.exports = {
+export default {
   node: false,
 
   plugins: [
@@ -52,7 +54,7 @@ module.exports = {
        * Needed to convince jQuery plugins not to load their own
        * copy of jQuery.
        */
-      jquery$: path.resolve(__dirname, '../node_modules/jquery'),
+      jquery$: path.resolve(MB_SERVER_ROOT, 'node_modules/jquery'),
     },
   },
 

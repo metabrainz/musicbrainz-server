@@ -6,12 +6,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
+import CleanCSSPlugin from 'less-plugin-clean-css';
 
-const CleanCSSPlugin = require('less-plugin-clean-css');
-
-const ignore = require('./babel-ignored.cjs');
-const {PRODUCTION_MODE} = require('./constants');
+import ignore from './babel-ignored.cjs';
+import {PRODUCTION_MODE} from './constants.mjs';
 
 const lessOptions = {};
 
@@ -21,7 +19,7 @@ if (PRODUCTION_MODE) {
   ];
 }
 
-module.exports = {
+export default {
   noParse: /^(jquery|knockout)$/,
 
   rules: [

@@ -6,13 +6,16 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
+import path from 'path';
 
-const path = require('path');
+import {
+  MB_SERVER_ROOT,
+} from '../root/static/scripts/common/DBDefs.js';
 
-const {GETTEXT_DOMAINS} = require('./constants');
+import {GETTEXT_DOMAINS} from './constants.mjs';
 
-const commonPath = path.resolve(__dirname, '../root/static/scripts/common/');
+const commonPath =
+  path.resolve(MB_SERVER_ROOT, 'root/static/scripts/common/');
 const i18nPath = path.resolve(commonPath, 'i18n');
 const addColonPath = path.resolve(i18nPath, 'addColon');
 const hyphenateTitlePath = path.resolve(i18nPath, 'hyphenateTitle');
@@ -20,10 +23,10 @@ const expandPath = path.resolve(i18nPath, 'expand2react');
 const expandTextPath = path.resolve(i18nPath, 'expand2text');
 const hasOwnPropPath = path.resolve(commonPath, 'utility/hasOwnProp');
 const nonEmptyPath = path.resolve(commonPath, 'utility/nonEmpty');
-const hydratePath = path.resolve(__dirname, '../root/utility/hydrate');
-const invariantPath = path.resolve(__dirname, '../root/utility/invariant');
+const hydratePath = path.resolve(MB_SERVER_ROOT, 'root/utility/hydrate');
+const invariantPath = path.resolve(MB_SERVER_ROOT, 'root/utility/invariant');
 
-module.exports = {
+const providePluginConfig = {
   'addColon': [addColonPath, 'default'],
   'addColonText': [addColonPath, 'addColonText'],
   'hasOwnProp': [hasOwnPropPath, 'default'],
@@ -56,6 +59,8 @@ GETTEXT_DOMAINS.forEach(domain => {
   const domainPath = path.resolve(i18nPath, domain);
   ['l', 'ln', 'lp'].forEach(func => {
     const domainFunc = func + '_' + domain;
-    module.exports[domainFunc] = [domainPath, domainFunc];
+    providePluginConfig[domainFunc] = [domainPath, domainFunc];
   });
 });
+
+export default providePluginConfig;

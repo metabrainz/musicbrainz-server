@@ -6,32 +6,30 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
+import fs from 'fs';
+import path from 'path';
 
-const fs = require('fs');
-const path = require('path');
+import canonicalJson from 'canonical-json';
+import shell from 'shelljs';
+import shellQuote from 'shell-quote';
+import TerserPlugin from 'terser-webpack-plugin';
+import webpack from 'webpack';
 
-const canonicalJson = require('canonical-json');
-const shell = require('shelljs');
-const shellQuote = require('shell-quote');
-const TerserPlugin = require('terser-webpack-plugin');
-const webpack = require('webpack');
+import * as poFile from '../root/server/gettext/poFile.js';
+import {cloneObjectDeep}
+  from '../root/static/scripts/common/utility/cloneDeep.js';
+import jedDataTemplate from '../root/static/scripts/jed-data.js';
 
-const poFile = require('../root/server/gettext/poFile');
-const {cloneObjectDeep} =
-  require('../root/static/scripts/common/utility/cloneDeep');
-const jedDataTemplate = require('../root/static/scripts/jed-data');
-
-const browserConfig = require('./browserConfig');
-const cacheConfig = require('./cacheConfig');
-const {
+import browserConfig from './browserConfig.mjs';
+import cacheConfig from './cacheConfig.mjs';
+import {
   dirs,
   GETTEXT_DOMAINS,
   PRODUCTION_MODE,
   WEBPACK_MODE,
-} = require('./constants');
-const moduleConfig = require('./moduleConfig');
-const providePluginConfig = require('./providePluginConfig');
+} from './constants.mjs';
+import moduleConfig from './moduleConfig.mjs';
+import providePluginConfig from './providePluginConfig.mjs';
 
 const entries = [
   'account/applications/register',
@@ -238,7 +236,7 @@ if (String(process.env.NO_PROGRESS) !== '1') {
   );
 }
 
-module.exports = {
+export default {
   cache: cacheConfig,
 
   context: dirs.CHECKOUT,

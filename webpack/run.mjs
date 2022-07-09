@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /*
  * Copyright (C) 2020 MetaBrainz Foundation
  *
@@ -7,16 +6,23 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
+import fs from 'fs';
+import path from 'path';
 
-const fs = require('fs');
-const path = require('path');
+import webpack from 'webpack';
 
-const webpack = require('webpack');
+import {dirs} from './constants.mjs';
+import clientConfig from './client.config.mjs';
+import serverConfig from './server.config.mjs';
+import testsConfig from './tests.config.mjs';
 
-const {dirs} = require('./constants');
+const configMap = new Map([
+  ['client', clientConfig],
+  ['server', serverConfig],
+  ['tests', testsConfig],
+]);
 
-const validConfigNames = ['client', 'server', 'tests'];
+const validConfigNames = Array.from(configMap.keys());
 
 const configNames = process.argv
   .slice(2)
@@ -35,9 +41,7 @@ const configNames = process.argv
     validConfigNames.indexOf(b)
   ));
 
-const configObjects =
-  /* eslint-disable-next-line import/no-dynamic-require */
-  configNames.flatMap(x => require('./' + x + '.config'));
+const configObjects = configNames.map(name => configMap.get(name));
 
 const revManifestJson = {};
 

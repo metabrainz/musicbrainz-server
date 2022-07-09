@@ -6,20 +6,18 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
+import path from 'path';
 
-const path = require('path');
+import {WEBPACK_MODE} from './constants.mjs';
+import dirs from './dirs.mjs';
 
-const constants = require('./constants');
-const dirs = require('./dirs');
-
-module.exports = {
+export default {
   type: 'filesystem',
   buildDependencies: {
     config: [path.resolve(dirs.CHECKOUT, 'webpack') + path.sep],
   },
   version: (
-    constants.WEBPACK_MODE + '-' +
+    WEBPACK_MODE + '-' +
     String(process.env.NODE_ENV) + '-' +
     String(process.env.MUSICBRAINZ_RUNNING_TESTS)
   ),

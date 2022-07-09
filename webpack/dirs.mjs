@@ -6,22 +6,23 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
+import path from 'path';
 
-const path = require('path');
+import {
+  MB_SERVER_ROOT,
+} from '../root/static/scripts/common/DBDefs.js';
 
-const CHECKOUT_DIR = path.resolve(__dirname, '..');
-const PO_DIR = path.resolve(CHECKOUT_DIR, 'po');
-const ROOT_DIR = path.resolve(CHECKOUT_DIR, 'root');
+const PO_DIR = path.resolve(MB_SERVER_ROOT, 'po');
+const ROOT_DIR = path.resolve(MB_SERVER_ROOT, 'root');
 const STATIC_DIR = path.resolve(ROOT_DIR, 'static');
 const BUILD_DIR = process.env.MBS_STATIC_BUILD_DIR ||
                   path.resolve(STATIC_DIR, 'build');
 const SCRIPTS_DIR = path.resolve(STATIC_DIR, 'scripts');
 const IMAGES_DIR = path.resolve(STATIC_DIR, 'images');
 
-module.exports = {
+export default {
   BUILD: BUILD_DIR,
-  CHECKOUT: CHECKOUT_DIR,
+  CHECKOUT: MB_SERVER_ROOT,
   IMAGES: IMAGES_DIR,
   PO: PO_DIR,
   ROOT: ROOT_DIR,

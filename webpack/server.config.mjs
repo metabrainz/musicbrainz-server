@@ -6,21 +6,19 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
+import path from 'path';
 
-const path = require('path');
+import webpack from 'webpack';
+import nodeExternals from 'webpack-node-externals';
 
-const webpack = require('webpack');
-const nodeExternals = require('webpack-node-externals');
-
-const cacheConfig = require('./cacheConfig');
-const {
+import cacheConfig from './cacheConfig.mjs';
+import {
   dirs,
   WEBPACK_MODE,
-} = require('./constants');
-const moduleConfig = require('./moduleConfig');
-const definePluginConfig = require('./definePluginConfig');
-const providePluginConfig = require('./providePluginConfig');
+} from './constants.mjs';
+import moduleConfig from './moduleConfig.mjs';
+import definePluginConfig from './definePluginConfig.mjs';
+import providePluginConfig from './providePluginConfig.mjs';
 
 /*
  * Components must use the same context, gettext, and linkedEntities
@@ -34,7 +32,7 @@ const externals = [
   'root/static/scripts/common/linkedEntities',
 ];
 
-module.exports = {
+export default {
   cache: cacheConfig,
 
   context: dirs.CHECKOUT,
@@ -106,12 +104,6 @@ module.exports = {
         : [new webpack.ProgressPlugin({activeModules: true})]
     ),
   ],
-
-  resolve: {
-    alias: {
-      DBDefs$: path.resolve(dirs.SCRIPTS, 'common', 'DBDefs.js'),
-    },
-  },
 
   target: 'node',
 };

@@ -6,19 +6,17 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
+import {createRequire} from 'module';
+import path from 'path';
 
-const path = require('path');
+import webpack from 'webpack';
 
-const webpack = require('webpack');
+import browserConfig from './browserConfig.mjs';
+import dirs from './dirs.mjs';
+import moduleConfig from './moduleConfig.mjs';
+import providePluginConfig from './providePluginConfig.mjs';
 
-const browserConfig = require('./browserConfig');
-const dirs = require('./dirs');
-const moduleConfig = require('./moduleConfig');
-const providePluginConfig = require('./providePluginConfig');
-
-process.env.MUSICBRAINZ_RUNNING_TESTS = true;
-process.env.NODE_ENV = 'test';
+const require = createRequire(import.meta.url);
 
 const webTestsConfig = {
   context: dirs.CHECKOUT,
@@ -65,6 +63,4 @@ const webTestsConfig = {
   },
 };
 
-module.exports = [
-  webTestsConfig,
-];
+export default webTestsConfig;

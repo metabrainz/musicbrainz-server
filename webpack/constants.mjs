@@ -6,7 +6,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
+import dirs from './dirs.mjs';
 
 let WEBPACK_MODE = process.env.WEBPACK_MODE;
 if (typeof WEBPACK_MODE === 'undefined') {
@@ -17,19 +17,18 @@ if (typeof WEBPACK_MODE === 'undefined') {
   }
 }
 
-module.exports = {
-  dirs: require('./dirs'),
-  GETTEXT_DOMAINS: [
-    'attributes',
-    'countries',
-    'instrument_descriptions',
-    'instruments',
-    'languages',
-    'mb_server',
-    'relationships',
-    'scripts',
-    'statistics',
-  ],
-  PRODUCTION_MODE: WEBPACK_MODE === 'production',
-  WEBPACK_MODE: WEBPACK_MODE,
-};
+export {dirs, WEBPACK_MODE};
+
+export const GETTEXT_DOMAINS = [
+  'attributes',
+  'countries',
+  'instrument_descriptions',
+  'instruments',
+  'languages',
+  'mb_server',
+  'relationships',
+  'scripts',
+  'statistics',
+];
+
+export const PRODUCTION_MODE = WEBPACK_MODE === 'production';

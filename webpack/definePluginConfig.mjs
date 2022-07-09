@@ -6,13 +6,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
-
-const {WEBPACK_MODE} = require('./constants');
+import {WEBPACK_MODE} from './constants.mjs';
 
 const GLOBAL_JS_NAMESPACE = '__MB__';
 
-module.exports = {
+export default {
   /*
    * Use `__DEV__` to conditionalize code that should run during
    * testing/development only. Will be eliminated as dead code by
