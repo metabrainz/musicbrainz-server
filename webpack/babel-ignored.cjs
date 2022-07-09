@@ -1,5 +1,7 @@
 /* eslint-disable import/no-commonjs */
 
+// Note: This file is CommonJS because ESLint doesn't support async parsers.
+
 module.exports = [
   /*
    * The modules in the negative-lookahead assertion (?!...) are exceptions

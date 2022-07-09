@@ -10,7 +10,7 @@
 
 const CleanCSSPlugin = require('less-plugin-clean-css');
 
-const ignore = require('./babel-ignored');
+const ignore = require('./babel-ignored.cjs');
 const {PRODUCTION_MODE} = require('./constants');
 
 const lessOptions = {};

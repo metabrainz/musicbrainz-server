@@ -1,6 +1,8 @@
 /* eslint-disable import/no-commonjs */
 
-const ignore = require('./webpack/babel-ignored');
+// Note: This file is CommonJS because ESLint doesn't support async parsers.
+
+const ignore = require('./webpack/babel-ignored.cjs');
 
 const BROWSER_TARGETS = {
   chrome: '49',
