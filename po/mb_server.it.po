@@ -15290,7 +15290,7 @@ msgstr "Aggiungi un altro evento"
 
 #: ../root/static/scripts/relationship-editor/common/viewModel.js:28
 msgid "Add another genre"
-msgstr ""
+msgstr "Aggiungi un altro genere"
 
 #: ../root/static/scripts/relationship-editor/common/viewModel.js:30
 msgid "Add another label"
