@@ -15,7 +15,7 @@ import Sentry from '@sentry/node';
 import createServer from './server/createServer.mjs';
 import * as DBDefs from './static/scripts/common/DBDefs.js';
 import nonEmpty from './static/scripts/common/utility/nonEmpty.js';
-import writeCoverage from './utility/writeCoverage.js';
+import writeCoverage from './utility/writeCoverage.mjs';
 
 function sentryInit(config) {
   Sentry.init({

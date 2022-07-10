@@ -27,7 +27,7 @@ import yargs from 'yargs';
 import DBDefs from '../root/static/scripts/common/DBDefs.js';
 import deepEqual from '../root/static/scripts/common/utility/deepEqual.js';
 import escapeRegExp from '../root/static/scripts/common/utility/escapeRegExp.mjs';
-import writeCoverage from '../root/utility/writeCoverage.js';
+import writeCoverage from '../root/utility/writeCoverage.mjs';
 
 const argv = yargs
   .option('b', {

@@ -7,12 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
+import fs from 'fs';
+import path from 'path';
 
-const fs = require('fs');
-const path = require('path');
-
-const DBDefs = require('../static/scripts/common/DBDefs');
+import * as DBDefs from '../static/scripts/common/DBDefs.js';
 
 const COVERAGE_DIR = path.resolve(DBDefs.MB_SERVER_ROOT, '.nyc_output');
 
@@ -20,7 +18,7 @@ if (!fs.existsSync(COVERAGE_DIR)) {
   fs.mkdirSync(COVERAGE_DIR);
 }
 
-function writeCoverage(
+export default function writeCoverage(
   fileName /*: string */,
   coverageString /*: string */,
 ) {
@@ -47,5 +45,3 @@ function writeCoverage(
     },
   );
 }
-
-module.exports = writeCoverage;
