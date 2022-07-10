@@ -99,11 +99,11 @@ function listenCallback() {
   console.log(`server.js worker started (pid ${process.pid})`);
 }
 
-function createServer(socketPath) {
+function createServer(fdOrSocketPath) {
   return (
     net
       .createServer({allowHalfOpen: true}, connectionListener)
-      .listen(socketPath, listenCallback)
+      .listen(fdOrSocketPath, listenCallback)
   );
 }
 

@@ -13,10 +13,10 @@ const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 
 const {CatalystContext, SanitizedCatalystContext} = require('../context');
-const components = require('../static/build/server-components');
 const getRequestCookie = require('../utility/getRequestCookie');
 const sanitizedContext = require('../utility/sanitizedContext');
 
+const components = require('./components');
 const gettext = require('./gettext');
 
 function badRequest(err) {

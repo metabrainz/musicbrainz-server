@@ -12,7 +12,9 @@
 const fs = require('fs');
 const path = require('path');
 
-const COVERAGE_DIR = path.resolve(__dirname, '../../.nyc_output');
+const DBDefs = require('../static/scripts/common/DBDefs');
+
+const COVERAGE_DIR = path.resolve(DBDefs.MB_SERVER_ROOT, '.nyc_output');
 
 if (!fs.existsSync(COVERAGE_DIR)) {
   fs.mkdirSync(COVERAGE_DIR);

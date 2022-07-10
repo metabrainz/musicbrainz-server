@@ -26,18 +26,6 @@ import moduleConfig from './moduleConfig.mjs';
 import definePluginConfig from './definePluginConfig.mjs';
 import providePluginConfig from './providePluginConfig.mjs';
 
-/*
- * Components must use the same context, gettext, and linkedEntities
- * instances created in the server process, so those must be externals.
- */
-const externals = [
-  'root/context',
-  'root/server/gettext',
-  'root/static/scripts/common/DBDefs',
-  'root/static/scripts/common/DBDefs-client',
-  'root/static/scripts/common/linkedEntities',
-];
-
 export default {
   cache: cacheConfig,
 
@@ -46,7 +34,16 @@ export default {
   devtool: false,
 
   entry: {
-    'server-components': path.resolve(ROOT_DIR, 'server/components'),
+    server: {
+      import: path.resolve(ROOT_DIR, 'server'),
+      /*
+       * This prevents code-splitting of async imports into separate chunks.
+       * We can't allow that for the server, because Webpack will duplicate
+       * certain modules that must be shared into each chunk (context,
+       * gettext, DBDefs, linkedEntities, ...).
+       */
+      chunkLoading: false,
+    },
   },
 
   externals: [
@@ -61,26 +58,6 @@ export default {
       allowlist: [/(jquery|@popperjs|mutate-cow)/],
       modulesFromFile: true,
     }),
-
-    function ({context, request}, callback) {
-      const resolvedRequest = path.resolve(context, request);
-      const requestFromCheckout = path.relative(
-        MB_SERVER_ROOT,
-        resolvedRequest,
-      );
-      if (externals.includes(requestFromCheckout)) {
-        /*
-         * Output a path relative to the build dir, since that's where
-         * the server-components bundle will be.
-         */
-        callback(
-          null,
-          'commonjs ./' + path.relative(BUILD_DIR, resolvedRequest),
-        );
-        return;
-      }
-      callback();
-    },
   ],
 
   mode: WEBPACK_MODE,

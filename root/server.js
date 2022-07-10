@@ -15,10 +15,10 @@ const fs = require('fs');
 const spawnSync = require('child_process').spawnSync;
 
 const Sentry = require('@sentry/node');
-const yargs = require('yargs');
 
 const createServer = require('./server/createServer');
 const DBDefs = require('./static/scripts/common/DBDefs');
+const nonEmpty = require('./static/scripts/common/utility/nonEmpty').default;
 const writeCoverage = require('./utility/writeCoverage');
 
 function sentryInit(config) {
@@ -30,24 +30,32 @@ function sentryInit(config) {
 }
 sentryInit(DBDefs);
 
-yargs
-  .option('socket', {
-    alias: 's',
-    default: DBDefs.RENDERER_SOCKET,
-    describe: 'UNIX socket path',
-  })
-  .option('workers', {
-    alias: 'w',
-    default: process.env.RENDERER_WORKERS || 1,
-    describe: 'Number of workers to spawn',
-  });
-
-const SOCKET_PATH = yargs.argv.socket;
-const WORKER_COUNT = yargs.argv.workers;
+const WORKER_COUNT = parseInt(process.env.RENDERER_WORKERS, 10) || 1;
 const DISCONNECT_TIMEOUT = 10000;
+const SERVER_STARTER_PORT = process.env.SERVER_STARTER_PORT;
+
+let SERVER_STARTER_FD = null;
+let SOCKET_PATH = null;
+
+if (nonEmpty(SERVER_STARTER_PORT)) {
+  const fdMatch = SERVER_STARTER_PORT.match(/=([0-9]+)$/);
+  const fd = fdMatch ? parseInt(fdMatch[1], 10) : NaN;
+  if (Number.isNaN(fd)) {
+    throw new Error(
+      'Invalid file descriptor in SERVER_STARTER_PORT: ' +
+      JSON.stringify(SERVER_STARTER_PORT),
+    );
+  }
+  SERVER_STARTER_FD = fd;
+} else {
+  SOCKET_PATH = process.env.RENDERER_SOCKET;
+  if (!nonEmpty(SOCKET_PATH)) {
+    SOCKET_PATH = DBDefs.RENDERER_SOCKET;
+  }
+}
 
 if (cluster.isMaster) {
-  if (fs.existsSync(SOCKET_PATH)) {
+  if (SOCKET_PATH != null && fs.existsSync(SOCKET_PATH)) {
     if (spawnSync('lsof', [SOCKET_PATH]).status) {
       fs.unlinkSync(SOCKET_PATH);
     } else {
@@ -98,13 +106,6 @@ if (cluster.isMaster) {
     }
   }
 
-  function disconnectWorker(worker) {
-    if (worker.isConnected()) {
-      worker.disconnect();
-      setTimeout(() => killWorker(worker), DISCONNECT_TIMEOUT);
-    }
-  }
-
   function cleanup() {
     const timeout = setTimeout(() => {
       for (const id in cluster.workers) {
@@ -119,50 +120,16 @@ if (cluster.isMaster) {
     });
   }
 
-  let hupAction = null;
-  function hup() {
-    console.info('master received SIGHUP; restarting workers');
-
-    Sentry.close().then(function () {
-      sentryInit(require('./static/scripts/common/DBDefs'));
-    });
-
-    let oldWorkers;
-    let initialTimeout = 0;
-
-    if (hupAction) {
-      clearTimeout(hupAction);
-      initialTimeout = 2000;
-    }
-
-    function killNext() {
-      if (!oldWorkers) {
-        oldWorkers = Object.values(cluster.workers);
-      }
-      const oldWorker = oldWorkers.pop();
-      if (oldWorker) {
-        const doKill = function () {
-          disconnectWorker(oldWorker);
-          hupAction = setTimeout(killNext, 1000);
-        };
-        if (!forkWorker(doKill)) {
-          doKill();
-        }
-      } else {
-        hupAction = null;
-      }
-    }
-
-    hupAction = setTimeout(killNext, initialTimeout);
-  }
-
   process.on('SIGINT', cleanup);
   process.on('SIGTERM', cleanup);
-  process.on('SIGHUP', hup);
 } else {
-  createServer(SOCKET_PATH);
+  if (SERVER_STARTER_FD == null) {
+    createServer(SOCKET_PATH);
+  } else {
+    createServer({fd: SERVER_STARTER_FD});
+  }
 
-  process.on('beforeExit', function () {
+  cluster.worker.on('disconnect', function () {
     const coverage = global.__coverage__;
     if (coverage) {
       writeCoverage(
