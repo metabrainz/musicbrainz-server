@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context';
-import DBDefs from '../../static/scripts/common/DBDefs-client';
-import escapeClosingTags from '../../utility/escapeClosingTags';
-import sanitizedContext from '../../utility/sanitizedContext';
+import {CatalystContext} from '../../context.js';
+import DBDefs from '../../static/scripts/common/DBDefs-client.js';
+import escapeClosingTags from '../../utility/escapeClosingTags.js';
+import sanitizedContext from '../../utility/sanitizedContext.js';
 
 /*
  * window.__MB__ (GLOBAL_JS_NAMESPACE) is defined as a non-configurable,

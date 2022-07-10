@@ -9,7 +9,7 @@
 /*
  * window[GLOBAL_JS_NAMESPACE].DBDefs contains the values exported by
  * DBDefs-client.js.
- * See root/layout/components/globalsScript.js for more info.
+ * See root/layout/components/globalsScript.mjs for more info.
  *
  * This file should not be imported directly. It's substituted for
  * ./DBDefs-client.js via the NormalModuleReplacementPlugin in

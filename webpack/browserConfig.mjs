@@ -32,7 +32,7 @@ export default {
      * import that file directly. In the browser, we map
      * DBDefs-client to DBDefs-client-browser (below), which
      * fetches the DBDefs values from a global variable at runtime.
-     * See root/layout/components/globalsScript.js for more info.
+     * See root/layout/components/globalsScript.mjs for more info.
      */
     new webpack.IgnorePlugin({
       resourceRegExp: /\/DBDefs$/,

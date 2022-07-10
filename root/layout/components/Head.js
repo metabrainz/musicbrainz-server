@@ -17,7 +17,7 @@ import iconLessUrl from '../../static/styles/icons.less';
 import noScriptLessUrl from '../../static/styles/noscript.less';
 import escapeClosingTags from '../../utility/escapeClosingTags';
 
-import globalsScript from './globalsScript';
+import globalsScript from './globalsScript.mjs';
 import FaviconLinks from './FaviconLinks';
 import MetaDescription from './MetaDescription';
 
