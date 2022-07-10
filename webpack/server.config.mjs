@@ -88,5 +88,5 @@ export default {
     ),
   ],
 
-  target: 'node',
+  target: 'node16.0',
 };
