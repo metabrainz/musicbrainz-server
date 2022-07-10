@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!./bin/sucrase-node
 /*
  * @flow
  * Copyright (C) 2020 MetaBrainz Foundation
@@ -8,19 +8,19 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
+import pg from 'pg';
+import Cursor from 'pg-cursor';
+import yargs from 'yargs';
 
-const pg = require('pg');
-const Cursor = require('pg-cursor');
-const yargs = require('yargs')
+import * as DBDefs from '../root/static/scripts/common/DBDefs.js';
+import {generateFlowType} from '../root/utility/generateFlowType.js';
+
+yargs
   .option('edit-type', {
     describe: 'Specifies the edit type number to generate a Flow type for.',
     type: 'number',
   })
   .required('edit-type');
-
-const DBDefs = require('../root/static/scripts/common/DBDefs');
-const {generateFlowType} = require('../root/utility/generateFlowType');
 
 (async function () {
   const pgClient = new pg.Client(DBDefs.DATABASES.PROD_STANDBY);
