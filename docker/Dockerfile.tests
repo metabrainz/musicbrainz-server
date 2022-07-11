@@ -167,7 +167,7 @@ RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-re
     sudo -E -H -u musicbrainz sh -c 'python3.9 -m venv venv; . venv/bin/activate; pip install -r requirements.txt' && \
     cd /home/musicbrainz
 
-RUN curl -sLO https://chromedriver.storage.googleapis.com/101.0.4951.41/chromedriver_linux64.zip && \
+RUN curl -sLO https://chromedriver.storage.googleapis.com/103.0.5060.53/chromedriver_linux64.zip && \
     unzip chromedriver_linux64.zip -d /usr/local/bin && \
     chmod +x /usr/local/bin/chromedriver && \
     rm chromedriver_linux64.zip
