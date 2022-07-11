@@ -21,14 +21,14 @@ RUN apt-get update && \
     echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     curl -sLO https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-    curl -sLO https://deb.nodesource.com/node_16.x/pool/main/n/nodejs/nodejs_16.1.0-deb-1nodesource1_amd64.deb && \
+    curl -sLO https://deb.nodesource.com/node_16.x/pool/main/n/nodejs/nodejs_16.16.0-deb-1nodesource1_amd64.deb && \
     apt-get update && \
     apt-get install \
         --no-install-recommends \
         --no-install-suggests \
         -y \
         ./google-chrome-stable_current_amd64.deb \
-        ./nodejs_16.1.0-deb-1nodesource1_amd64.deb \
+        ./nodejs_16.16.0-deb-1nodesource1_amd64.deb \
         build-essential \
         bzip2 \
         gcc \
@@ -94,7 +94,7 @@ RUN apt-get update && \
         python3.9-venv && \
     rm -rf /var/lib/apt/lists/* && \
     rm google-chrome-stable_current_amd64.deb && \
-    rm nodejs_16.1.0-deb-1nodesource1_amd64.deb && \
+    rm nodejs_16.16.0-deb-1nodesource1_amd64.deb && \
     update-java-alternatives -s java-1.8.0-openjdk-amd64 && \
     systemctl disable rabbitmq-server
 
