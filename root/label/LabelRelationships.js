@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import Relationships from '../components/Relationships';
 import RelationshipsTable from '../components/RelationshipsTable';
+import Relationships from '../static/scripts/common/components/Relationships';
 
 import LabelLayout from './LabelLayout';
 

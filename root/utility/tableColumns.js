@@ -13,7 +13,6 @@ import type {ColumnOptions} from 'react-table';
 import {CatalystContext} from '../context.mjs';
 import ENTITIES from '../../entities';
 import InstrumentRelTypes from '../components/InstrumentRelTypes';
-import RatingStars from '../components/RatingStars';
 import ReleaseCatnoList from '../components/ReleaseCatnoList';
 import ReleaseLabelList from '../components/ReleaseLabelList';
 import ReleaseLanguageScript from '../components/ReleaseLanguageScript';
@@ -33,6 +32,7 @@ import EventLocations
   from '../static/scripts/common/components/EventLocations';
 import ExpandedArtistCredit
   from '../static/scripts/common/components/ExpandedArtistCredit';
+import RatingStars from '../static/scripts/common/components/RatingStars';
 import ReleaseEvents
   from '../static/scripts/common/components/ReleaseEvents';
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon';

@@ -9,13 +9,13 @@
 
 import * as React from 'react';
 
+import Layout from '../layout';
+import * as manifest from '../static/manifest.mjs';
+import ConfirmSeedButtons
+  from '../static/scripts/main/components/ConfirmSeedButtons';
 import PostParameters, {
   type PostParametersT,
 } from '../static/scripts/common/components/PostParameters';
-import Layout from '../layout';
-import * as manifest from '../static/manifest.mjs';
-
-import ConfirmSeedButtons from './components/ConfirmSeedButtons';
 
 type Props = {
   +$c: CatalystContextT,

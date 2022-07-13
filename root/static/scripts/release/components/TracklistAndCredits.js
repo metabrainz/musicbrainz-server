@@ -11,14 +11,14 @@ import * as React from 'react';
 
 import {isIrrelevantLinkType}
   from '../../../../components/GroupedTrackRelationships';
-import Relationships from '../../../../components/Relationships';
-import StaticRelationshipsDisplay
-  from '../../../../components/StaticRelationshipsDisplay';
 import groupRelationships, {
   type RelationshipTargetTypeGroupT,
 } from '../../../../utility/groupRelationships';
 import MediumDescription
   from '../../common/components/MediumDescription';
+import Relationships from '../../common/components/Relationships';
+import StaticRelationshipsDisplay
+  from '../../common/components/StaticRelationshipsDisplay';
 import WarningIcon from '../../common/components/WarningIcon';
 import {l} from '../../common/i18n';
 import {

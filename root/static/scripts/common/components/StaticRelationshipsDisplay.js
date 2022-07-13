@@ -9,13 +9,14 @@
 
 import * as React from 'react';
 
-import RelationshipTargetLinks from '../components/RelationshipTargetLinks';
-import {commaOnlyListText} from '../static/scripts/common/i18n/commaOnlyList';
-import {bracketedText} from '../static/scripts/common/utility/bracketed';
+import RelationshipTargetLinks
+  from '../../../../components/RelationshipTargetLinks';
 import {
   type RelationshipTargetTypeGroupT,
   compareTrackPositions,
-} from '../utility/groupRelationships';
+} from '../../../../utility/groupRelationships';
+import {commaOnlyListText} from '../i18n/commaOnlyList';
+import {bracketedText} from '../utility/bracketed';
 
 const detailsTableStyle = Object.freeze({width: '100%'});
 

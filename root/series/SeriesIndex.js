@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import Annotation from '../static/scripts/common/components/Annotation';
+import Relationships from '../static/scripts/common/components/Relationships';
 import ArtistList from '../components/list/ArtistList';
 import EventList from '../components/list/EventList';
 import RecordingList from '../components/list/RecordingList';
@@ -22,7 +23,6 @@ import WikipediaExtract
 import {formatPluralEntityTypeName}
   from '../static/scripts/common/utility/formatEntityTypeName';
 import CleanupBanner from '../components/CleanupBanner';
-import Relationships from '../components/Relationships';
 import * as manifest from '../static/manifest.mjs';
 
 import SeriesLayout from './SeriesLayout';

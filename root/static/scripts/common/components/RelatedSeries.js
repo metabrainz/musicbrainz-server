@@ -9,16 +9,24 @@
 
 import * as React from 'react';
 
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
-import groupRelationships from '../utility/groupRelationships';
+import groupRelationships from '../../../../utility/groupRelationships';
+import {PART_OF_SERIES_LINK_TYPES} from '../constants';
+import linkedEntities from '../linkedEntities.mjs';
 
-import {isNotSeriesPart} from './Relationships';
+import EntityLink from './EntityLink';
 import StaticRelationshipsDisplay from './StaticRelationshipsDisplay';
 
 type Props = {
   +seriesIds: $ReadOnlyArray<number>,
 };
+
+const seriesPartLinkTypes = new Set(
+  Object.values(PART_OF_SERIES_LINK_TYPES),
+);
+
+export function isNotSeriesPart(r: RelationshipT): boolean {
+  return !seriesPartLinkTypes.has(linkedEntities.link_type[r.linkTypeID].gid);
+}
 
 const RelatedSeries = ({seriesIds}: Props): React.MixedElement => {
   const createArgs = [

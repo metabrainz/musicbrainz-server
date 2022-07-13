@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import {SanitizedCatalystContext} from '../context.mjs';
+import {SanitizedCatalystContext} from '../../../../context.mjs';
+import {returnToCurrentPage} from '../../../../utility/returnUri';
 import ratingTooltip from '../utility/ratingTooltip';
-import {returnToCurrentPage} from '../utility/returnUri';
 
 const ratingURL = (
   $c: SanitizedCatalystContextT,

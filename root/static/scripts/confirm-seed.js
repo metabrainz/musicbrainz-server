@@ -8,4 +8,4 @@
  */
 
 import './common/components/PostParameters';
-import '../../main/components/ConfirmSeedButtons';
+import './main/components/ConfirmSeedButtons';

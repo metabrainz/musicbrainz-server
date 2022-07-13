@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import Relationships from '../components/Relationships';
 import Annotation from '../static/scripts/common/components/Annotation';
+import Relationships from '../static/scripts/common/components/Relationships';
 import TagLink from '../static/scripts/common/components/TagLink';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract';
