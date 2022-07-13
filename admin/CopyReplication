@@ -12,35 +12,110 @@ cd "$MB_SERVER_ROOT"
 
 source admin/config.sh
 
-TEMP_DIR=$1 ; shift
+TEMP_DIR="$1" ; shift
 
-# Was a replication packet created?
+cd "$TEMP_DIR"
+
+set_backup_permissions() {
+    chown "$BACKUP_USER:$BACKUP_GROUP" "$1"
+    chmod "$2" "$1"
+}
+
+set_ftp_permissions() {
+    chown "$FTP_USER:$FTP_GROUP" "$1"
+    chmod "$2" "$1"
+}
+
+create_backup_subdir() {
+    local subdir="$BACKUP_DIR"/"$1"
+    if [ ! -d "$subdir" ]
+    then
+        mkdir -p "$subdir"
+        set_backup_permissions "$subdir" "$BACKUP_DIR_MODE"
+    fi
+}
+
+create_ftp_subdir() {
+    local subdir="$FTP_DATA_DIR"/"$1"
+    if [ ! -d "$subdir" ]
+    then
+        mkdir -p "$subdir"
+        set_ftp_permissions "$subdir" "$FTP_DIR_MODE"
+    fi
+}
+
 shopt -s nullglob
-REPLICATION_FILE=`echo -n "$TEMP_DIR"/replication-*.tar.bz2`
-REPLICATION_FILE_ASC=`echo -n "$TEMP_DIR"/replication-*.tar.bz2.asc`
+declare -a new_packets=(replication-*.tar.bz2)
 shopt -u nullglob
 
 # Replication data, if any, goes to both the backup directory and the
 # FTP directory.
-if [ "$REPLICATION_FILE" ]
-then
-    echo Copying replication packet to backup dir
-    chown "$BACKUP_USER:$BACKUP_GROUP" "$TEMP_DIR"/replication-*.tar.bz2
-    chmod "$BACKUP_FILE_MODE" "$TEMP_DIR"/replication-*.tar.bz2
-    cp -a "$TEMP_DIR"/replication-*.tar.bz2 "$BACKUP_DIR"/replication/
-    if [ "$REPLICATION_FILE_ASC" ]
+for packet in "${new_packets[@]}"
+do
+    read packet_number packet_version <<<$(
+        basename "$packet" .tar.bz2 \
+        | sed -n 's/^replication-\([0-9]\+\)-\?\(v2\)\?$/\1 \2/p'
+    )
+
+    if [ -z "$packet_version" ]
     then
-        cp -a "$TEMP_DIR"/replication-*.tar.bz2.asc "$BACKUP_DIR"/replication/
+        packet_version='v1'
     fi
 
-    echo Copying replication packet to FTP dir
-    chown "$FTP_USER:$FTP_GROUP" "$TEMP_DIR"/replication-*.tar.bz2
-    chmod "$FTP_FILE_MODE" "$TEMP_DIR"/replication-*.tar.bz2
-    mv "$TEMP_DIR"/replication-*.tar.bz2 "$FTP_DATA_DIR"/replication/
-    if [ "$REPLICATION_FILE_ASC" ]
-    then
-        mv "$TEMP_DIR"/replication-*.tar.bz2.asc "$FTP_DATA_DIR"/replication/
-    fi
-fi
+    subdir='replication'
+    create_backup_subdir "$subdir"
+    create_ftp_subdir "$subdir"
 
-# eof
+    # dbmirror packets go under replication/v1.
+    # dbmirror2 packets go under replication/v2.
+    subdir+="/$packet_version"
+    create_backup_subdir "$subdir"
+    create_ftp_subdir "$subdir"
+
+    # Within v1/v2, packets go into nested subdirs based on their
+    # leading three digits.
+
+    if [[ $packet_number =~ ^[0-9]{3,}$ ]]
+    then
+        for (( i=0; i<3; i++ ))
+        do
+            digit="${packet_number:$i:1}"
+            subdir+="/$digit"
+            create_backup_subdir "$subdir"
+            create_ftp_subdir "$subdir"
+        done
+    else
+        echo >&2 "$0: Failed to read the number of packet '$packet'"
+        exit 65 # EX_DATAERR
+    fi
+
+    echo "Copying $packet to backup dir"
+
+    set_backup_permissions "$packet" "$BACKUP_FILE_MODE"
+    cp -a "$packet" "$BACKUP_DIR"/"$subdir"/
+
+    packet_asc="$packet".asc
+
+    if [ -f "$packet_asc" ]
+    then
+        echo "Copying $packet_asc to backup dir"
+        set_backup_permissions "$packet_asc" "$BACKUP_FILE_MODE"
+        cp -a "$packet_asc" "$BACKUP_DIR"/"$subdir"/
+    fi
+
+    echo "Copying $packet to FTP dir"
+
+    set_ftp_permissions "$packet" "$FTP_FILE_MODE"
+    # The packet is copied to replication/ too until the metabrainz.org
+    # code supports fetching packets from the subdirs.
+    mv "$packet" "$FTP_DATA_DIR"/replication/
+    ln --physical "$FTP_DATA_DIR"/replication/"$packet" "$FTP_DATA_DIR"/"$subdir"/"$packet"
+
+    if [ -f "$packet_asc" ]
+    then
+        echo "Copying $packet_asc to FTP dir"
+        set_ftp_permissions "$packet_asc" "$FTP_FILE_MODE"
+        mv "$packet_asc" "$FTP_DATA_DIR"/replication/
+        ln --physical "$FTP_DATA_DIR"/replication/"$packet_asc" "$FTP_DATA_DIR"/"$subdir"/"$packet_asc"
+    fi
+done
