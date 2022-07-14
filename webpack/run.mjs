@@ -11,7 +11,7 @@ import path from 'path';
 
 import webpack from 'webpack';
 
-import {dirs} from './constants.mjs';
+import {BUILD_DIR} from './constants.mjs';
 import clientConfig from './client.config.mjs';
 import serverConfig from './server.config.mjs';
 import testsConfig from './tests.config.mjs';
@@ -65,7 +65,7 @@ function webpackCallback(err, stats) {
       revManifestJson[key] = value;
     }
     fs.writeFileSync(
-      path.resolve(dirs.BUILD, 'rev-manifest.json'),
+      path.resolve(BUILD_DIR, 'rev-manifest.json'),
       JSON.stringify(revManifestJson),
     );
   }

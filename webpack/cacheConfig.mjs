@@ -8,13 +8,16 @@
 
 import path from 'path';
 
+import {
+  MB_SERVER_ROOT,
+} from '../root/static/scripts/common/DBDefs.js';
+
 import {WEBPACK_MODE} from './constants.mjs';
-import dirs from './dirs.mjs';
 
 export default {
   type: 'filesystem',
   buildDependencies: {
-    config: [path.resolve(dirs.CHECKOUT, 'webpack') + path.sep],
+    config: [path.resolve(MB_SERVER_ROOT, 'webpack') + path.sep],
   },
   version: (
     WEBPACK_MODE + '-' +

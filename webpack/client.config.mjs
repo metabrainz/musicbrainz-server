@@ -16,6 +16,9 @@ import TerserPlugin from 'terser-webpack-plugin';
 import webpack from 'webpack';
 
 import * as poFile from '../root/server/gettext/poFile.js';
+import {
+  MB_SERVER_ROOT,
+} from '../root/static/scripts/common/DBDefs.js';
 import {cloneObjectDeep}
   from '../root/static/scripts/common/utility/cloneDeep.js';
 import jedDataTemplate from '../root/static/scripts/jed-data.js';
@@ -23,9 +26,11 @@ import jedDataTemplate from '../root/static/scripts/jed-data.js';
 import browserConfig from './browserConfig.mjs';
 import cacheConfig from './cacheConfig.mjs';
 import {
-  dirs,
+  BUILD_DIR,
   GETTEXT_DOMAINS,
+  PO_DIR,
   PRODUCTION_MODE,
+  SCRIPTS_DIR,
   WEBPACK_MODE,
 } from './constants.mjs';
 import moduleConfig from './moduleConfig.mjs';
@@ -79,7 +84,7 @@ const entries = [
   'work/edit',
   'work/index',
 ].reduce((accum, name) => {
-  accum[name] = path.resolve(dirs.SCRIPTS, `${name}.js`);
+  accum[name] = path.resolve(SCRIPTS_DIR, `${name}.js`);
   return accum;
 }, {});
 
@@ -125,7 +130,7 @@ function createJsPo(srcPo, lang) {
    * The '*' cannot match path separators, so we must generate a list of
    * possible terminal paths.
    */
-  const scriptsDir = shellQuote.quote([dirs.SCRIPTS]);
+  const scriptsDir = shellQuote.quote([SCRIPTS_DIR]);
   const nestedDirs = shell.exec(
     `find ${scriptsDir} -type d`,
     {silent: true},
@@ -134,12 +139,12 @@ function createJsPo(srcPo, lang) {
     .filter(Boolean)
     .map(dir => (
       '-N ' +
-      shellQuote.quote(['..' + dir.replace(dirs.CHECKOUT, '') + '/*.js'])))
+      shellQuote.quote(['..' + dir.replace(MB_SERVER_ROOT, '') + '/*.js'])))
     .join(' ');
 
   srcPo = shellQuote.quote([srcPo]);
   const tmpPo = shellQuote.quote(
-    [path.resolve(dirs.PO, `javascript.${lang}.po`)],
+    [path.resolve(PO_DIR, `javascript.${lang}.po`)],
   );
 
   /*
@@ -169,7 +174,7 @@ function loadNewerPo(domain, lang, bundleMtime) {
 }
 
 const MB_LANGUAGES = shell.exec(
-  `find ${shellQuote.quote([dirs.PO])} -type f -name 'mb_server*.po'`,
+  `find ${shellQuote.quote([PO_DIR])} -type f -name 'mb_server*.po'`,
   {silent: true},
 ).stdout.split('\n').reduce((accum, filePath) => {
   const lang = filePath.replace(/^.*\/mb_server\.([A-z_]+)\.po$/, '$1');
@@ -182,7 +187,7 @@ const MB_LANGUAGES = shell.exec(
 MB_LANGUAGES.forEach(function (lang) {
   const langJedData = cloneObjectDeep(jedDataTemplate.en);
   const fileName = `jed-${lang}`;
-  const filePath = path.resolve(dirs.BUILD, `${fileName}.source.js`);
+  const filePath = path.resolve(BUILD_DIR, `${fileName}.source.js`);
   const fileMtime = mtime(filePath);
   let loadedNewPoData = false;
 
@@ -198,7 +203,7 @@ MB_LANGUAGES.forEach(function (lang) {
   if (loadedNewPoData) {
     const source = (
       'var jedData = require(' +
-      JSON.stringify(path.resolve(dirs.SCRIPTS, 'jed-data')) + ');\n' +
+      JSON.stringify(path.resolve(SCRIPTS_DIR, 'jed-data')) + ');\n' +
       'var locale = ' + JSON.stringify(lang) + ';\n' +
       // https://v8.dev/blog/cost-of-javascript-2019#json
       'jedData[locale] = JSON.parse(\'' +
@@ -239,7 +244,7 @@ if (String(process.env.NO_PROGRESS) !== '1') {
 export default {
   cache: cacheConfig,
 
-  context: dirs.CHECKOUT,
+  context: MB_SERVER_ROOT,
 
   devtool: 'source-map',
 
@@ -285,7 +290,7 @@ export default {
         ? '[name]-[chunkhash:7].js'
         : '[name].js'
     ),
-    path: dirs.BUILD,
+    path: BUILD_DIR,
   },
 
   plugins,

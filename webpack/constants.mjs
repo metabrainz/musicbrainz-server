@@ -6,7 +6,19 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import dirs from './dirs.mjs';
+import path from 'path';
+
+import {
+  MB_SERVER_ROOT,
+} from '../root/static/scripts/common/DBDefs.js';
+
+export const PO_DIR = path.resolve(MB_SERVER_ROOT, 'po');
+export const ROOT_DIR = path.resolve(MB_SERVER_ROOT, 'root');
+export const STATIC_DIR = path.resolve(ROOT_DIR, 'static');
+export const BUILD_DIR = process.env.MBS_STATIC_BUILD_DIR ||
+                         path.resolve(STATIC_DIR, 'build');
+export const SCRIPTS_DIR = path.resolve(STATIC_DIR, 'scripts');
+export const IMAGES_DIR = path.resolve(STATIC_DIR, 'images');
 
 let WEBPACK_MODE = process.env.WEBPACK_MODE;
 if (typeof WEBPACK_MODE === 'undefined') {
@@ -17,7 +29,7 @@ if (typeof WEBPACK_MODE === 'undefined') {
   }
 }
 
-export {dirs, WEBPACK_MODE};
+export {WEBPACK_MODE};
 
 export const GETTEXT_DOMAINS = [
   'attributes',

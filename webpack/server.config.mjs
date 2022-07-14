@@ -11,9 +11,15 @@ import path from 'path';
 import webpack from 'webpack';
 import nodeExternals from 'webpack-node-externals';
 
+import {
+  MB_SERVER_ROOT,
+} from '../root/static/scripts/common/DBDefs.js';
+
 import cacheConfig from './cacheConfig.mjs';
 import {
-  dirs,
+  BUILD_DIR,
+  ROOT_DIR,
+  SCRIPTS_DIR,
   WEBPACK_MODE,
 } from './constants.mjs';
 import moduleConfig from './moduleConfig.mjs';
@@ -35,12 +41,12 @@ const externals = [
 export default {
   cache: cacheConfig,
 
-  context: dirs.CHECKOUT,
+  context: MB_SERVER_ROOT,
 
   devtool: false,
 
   entry: {
-    'server-components': path.resolve(dirs.ROOT, 'server/components'),
+    'server-components': path.resolve(ROOT_DIR, 'server/components'),
   },
 
   externals: [
@@ -59,7 +65,7 @@ export default {
     function ({context, request}, callback) {
       const resolvedRequest = path.resolve(context, request);
       const requestFromCheckout = path.relative(
-        dirs.CHECKOUT,
+        MB_SERVER_ROOT,
         resolvedRequest,
       );
       if (externals.includes(requestFromCheckout)) {
@@ -69,7 +75,7 @@ export default {
          */
         callback(
           null,
-          'commonjs ./' + path.relative(dirs.BUILD, resolvedRequest),
+          'commonjs ./' + path.relative(BUILD_DIR, resolvedRequest),
         );
         return;
       }
@@ -88,13 +94,13 @@ export default {
   output: {
     filename: '[name].js',
     libraryTarget: 'commonjs2',
-    path: dirs.BUILD,
+    path: BUILD_DIR,
   },
 
   plugins: [
     new webpack.NormalModuleReplacementPlugin(
       /(jquery|@popperjs)/,
-      path.resolve(dirs.SCRIPTS, 'empty.js'),
+      path.resolve(SCRIPTS_DIR, 'empty.js'),
     ),
     new webpack.DefinePlugin(definePluginConfig),
     new webpack.ProvidePlugin(providePluginConfig),

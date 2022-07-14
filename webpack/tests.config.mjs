@@ -11,22 +11,29 @@ import path from 'path';
 
 import webpack from 'webpack';
 
+import {
+  MB_SERVER_ROOT,
+} from '../root/static/scripts/common/DBDefs.js';
+
 import browserConfig from './browserConfig.mjs';
-import dirs from './dirs.mjs';
+import {
+  BUILD_DIR,
+  SCRIPTS_DIR,
+} from './constants.mjs';
 import moduleConfig from './moduleConfig.mjs';
 import providePluginConfig from './providePluginConfig.mjs';
 
 const require = createRequire(import.meta.url);
 
 const webTestsConfig = {
-  context: dirs.CHECKOUT,
+  context: MB_SERVER_ROOT,
 
   devtool: 'source-map',
 
   entry: {
-    'autocomplete2': path.resolve(dirs.SCRIPTS, 'tests', 'autocomplete2.js'),
-    'dialog-test': path.resolve(dirs.SCRIPTS, 'tests', 'dialog.js'),
-    'web-tests': path.resolve(dirs.SCRIPTS, 'tests', 'browser-runner.js'),
+    'autocomplete2': path.resolve(SCRIPTS_DIR, 'tests', 'autocomplete2.js'),
+    'dialog-test': path.resolve(SCRIPTS_DIR, 'tests', 'dialog.js'),
+    'web-tests': path.resolve(SCRIPTS_DIR, 'tests', 'browser-runner.js'),
   },
 
   mode: 'development',
@@ -41,14 +48,14 @@ const webTestsConfig = {
 
   output: {
     filename: '[name].js',
-    path: dirs.BUILD,
+    path: BUILD_DIR,
   },
 
   plugins: [
     ...browserConfig.plugins,
     new webpack.ProvidePlugin({
       ...providePluginConfig,
-      process: path.resolve(dirs.CHECKOUT, 'node_modules/process'),
+      process: path.resolve(MB_SERVER_ROOT, 'node_modules/process'),
     }),
   ],
 
