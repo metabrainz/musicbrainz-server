@@ -1808,6 +1808,13 @@ msgid ""
 "rhythmic accompaniment in Yakshagana."
 msgstr "Le maddale est un tambour à deux têtes du Karnataka en Inde. C’est l’accompagnement rythmique de base du Yakshagana."
 
+#. name:afoxé
+#: DB:instrument/description:717
+msgid ""
+"Made of a gourd wrapped in a beaded net, it is used in Brazilian afoxé "
+"music."
+msgstr ""
+
 #. name:żummara
 #: DB:instrument/description:592
 msgid ""
@@ -2914,13 +2921,6 @@ msgid ""
 "keyboard & buttons."
 msgstr "L’accordéon est un instrument rectangulaire à soufflet et anches libres avec un clavier ou des boutons."
 
-#. name:afoxé
-#: DB:instrument/description:717
-msgid ""
-"The afoxé is a Brazilian instrument typically consisting of a gourd wrapped "
-"in a beaded net."
-msgstr "L’afoxé est instrument brésilien typique composé d’une gourde recouvert d’un filet de perles."
-
 #. name:agogô
 #: DB:instrument/description:487
 msgid ""
@@ -3525,15 +3525,6 @@ msgstr "Le kartal est un instrument de percussion avec des clochettes, joué ave
 msgid ""
 "The kaval is a chromatic end-blown flute from the Balkans and Anatolia."
 msgstr "Le kaval est une flûte oblique chromatique à embouchure des Balkans et d’Anatolie."
-
-#. name:khene
-#: DB:instrument/description:611
-msgid ""
-"The khene is a mouth organ from Laos and north-east Thailand which is also "
-"used by some ethnic minority groups in Vietnam. It typically consists of 14 "
-"bamboo pipes arranged into two rows which are connected to a small, "
-"hollowed-out hardwood windchest."
-msgstr "Le khên est un orgue à bouche du Laos et du Nord-Est de la Thaïlande qui est aussi utilisé par quelques groupes ethniques minoritaires du Vietnam. Il est habituellement composé de 14 tuyaux de bambou organisés en deux rangées qui sont connectés par un petit réservoir creux en bois dur."
 
 #. name:khong wong
 #: DB:instrument/description:621
@@ -4506,6 +4497,14 @@ msgid ""
 "the oldest, a one piece bridge-less psaltery with 5 to 20 originally "
 "horsehair, later metal, strings and a modern \"Concert\" box-zither variant "
 "with a switch mechanism to alter the up to 40 strings sharps and flats."
+msgstr ""
+
+#. name:khene
+#: DB:instrument/description:611
+msgid ""
+"Traditional instrument from Laos, it is also used in Thailand and even "
+"Vietnam. it consists of 14 bamboo pipes with a small hollowed hardwood "
+"soundbox."
 msgstr ""
 
 #. name:taonga pūoro

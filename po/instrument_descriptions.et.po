@@ -1791,6 +1791,13 @@ msgid ""
 "rhythmic accompaniment in Yakshagana."
 msgstr ""
 
+#. name:afoxé
+#: DB:instrument/description:717
+msgid ""
+"Made of a gourd wrapped in a beaded net, it is used in Brazilian afoxé "
+"music."
+msgstr ""
+
 #. name:żummara
 #: DB:instrument/description:592
 msgid ""
@@ -2897,13 +2904,6 @@ msgid ""
 "keyboard & buttons."
 msgstr ""
 
-#. name:afoxé
-#: DB:instrument/description:717
-msgid ""
-"The afoxé is a Brazilian instrument typically consisting of a gourd wrapped "
-"in a beaded net."
-msgstr ""
-
 #. name:agogô
 #: DB:instrument/description:487
 msgid ""
@@ -3507,15 +3507,6 @@ msgstr ""
 #: DB:instrument/description:458
 msgid ""
 "The kaval is a chromatic end-blown flute from the Balkans and Anatolia."
-msgstr ""
-
-#. name:khene
-#: DB:instrument/description:611
-msgid ""
-"The khene is a mouth organ from Laos and north-east Thailand which is also "
-"used by some ethnic minority groups in Vietnam. It typically consists of 14 "
-"bamboo pipes arranged into two rows which are connected to a small, "
-"hollowed-out hardwood windchest."
 msgstr ""
 
 #. name:khong wong
@@ -4489,6 +4480,14 @@ msgid ""
 "the oldest, a one piece bridge-less psaltery with 5 to 20 originally "
 "horsehair, later metal, strings and a modern \"Concert\" box-zither variant "
 "with a switch mechanism to alter the up to 40 strings sharps and flats."
+msgstr ""
+
+#. name:khene
+#: DB:instrument/description:611
+msgid ""
+"Traditional instrument from Laos, it is also used in Thailand and even "
+"Vietnam. it consists of 14 bamboo pipes with a small hollowed hardwood "
+"soundbox."
 msgstr ""
 
 #. name:taonga pūoro

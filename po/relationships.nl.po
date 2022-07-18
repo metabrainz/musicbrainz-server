@@ -75,13 +75,13 @@ msgstr "ASIN"
 
 #: DB:link_type/link_phrase:755 DB:link_type/link_phrase:284
 #: DB:link_type/link_phrase:283 DB:link_type/link_phrase:285
-#: DB:link_type/reverse_link_phrase:286
+#: DB:link_type/link_phrase:1093 DB:link_type/reverse_link_phrase:286
 msgid "Allmusic"
 msgstr "Allmusic"
 
 #: DB:link_type/link_phrase:286 DB:link_type/reverse_link_phrase:755
 #: DB:link_type/reverse_link_phrase:284 DB:link_type/reverse_link_phrase:283
-#: DB:link_type/reverse_link_phrase:285
+#: DB:link_type/reverse_link_phrase:285 DB:link_type/reverse_link_phrase:1093
 msgid "Allmusic page for"
 msgstr "Allmusicpagina over"
 
@@ -97,11 +97,13 @@ msgstr "BBC Music-pagina"
 msgid "BBC Music page for"
 msgstr "BBC Music-pagina over"
 
-#: DB:link_type/link_phrase:718 DB:link_type/link_phrase:719
+#: DB:link_type/link_phrase:1092 DB:link_type/link_phrase:718
+#: DB:link_type/link_phrase:719
 msgid "Bandcamp"
 msgstr "Bandcamp"
 
-#: DB:link_type/reverse_link_phrase:718 DB:link_type/reverse_link_phrase:719
+#: DB:link_type/reverse_link_phrase:1092 DB:link_type/reverse_link_phrase:718
+#: DB:link_type/reverse_link_phrase:719
 msgid "Bandcamp page for"
 msgstr "Bandcamppagina van"
 
@@ -210,17 +212,17 @@ msgstr "Geeft aan dat een compositie een anthem van een gebied is of was"
 msgid "Designates that one area is contained by another."
 msgstr "Geeft aan dat een gebied deel uitmaakt van een ander gebied."
 
-#: DB:link_type/link_phrase:180 DB:link_type/link_phrase:76
-#: DB:link_type/link_phrase:217 DB:link_type/link_phrase:90
-#: DB:link_type/link_phrase:747 DB:link_type/link_phrase:705
-#: DB:link_type/reverse_link_phrase:971
+#: DB:link_type/link_phrase:1089 DB:link_type/link_phrase:180
+#: DB:link_type/link_phrase:76 DB:link_type/link_phrase:217
+#: DB:link_type/link_phrase:90 DB:link_type/link_phrase:747
+#: DB:link_type/link_phrase:705 DB:link_type/reverse_link_phrase:971
 msgid "Discogs"
 msgstr "Discogs"
 
-#: DB:link_type/link_phrase:971 DB:link_type/reverse_link_phrase:180
-#: DB:link_type/reverse_link_phrase:76 DB:link_type/reverse_link_phrase:217
-#: DB:link_type/reverse_link_phrase:90 DB:link_type/reverse_link_phrase:747
-#: DB:link_type/reverse_link_phrase:705
+#: DB:link_type/link_phrase:971 DB:link_type/reverse_link_phrase:1089
+#: DB:link_type/reverse_link_phrase:180 DB:link_type/reverse_link_phrase:76
+#: DB:link_type/reverse_link_phrase:217 DB:link_type/reverse_link_phrase:90
+#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:705
 msgid "Discogs page for"
 msgstr "Discogspagina over"
 
@@ -1948,6 +1950,10 @@ msgid ""
 " crediting the person who created the DJ-mix."
 msgstr "Dit wordt gebruikt om een <a href=\"/doc/Mix_Terminology#DJ_mix\">door een dj gemixte</a> opname aan elk van de oorspronkelijke opnames te koppelen. Zie <a href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">dj-mixer</a> voor de persoon die hiervoor verantwoordelijk is."
 
+#: DB:link_type/description:1093
+msgid "This is used to link a genre to its corresponding page on Allmusic."
+msgstr "Deze relatie koppelt een genre aan zijn Allmusic-pagina"
+
 #: DB:link_type/description:226
 msgid ""
 "This is used to link a karaoke version of a song to the original song.<br/><br/>\n"
@@ -2043,6 +2049,10 @@ msgstr "Deze relatie koppelt een artiest aan zijn primaire concertzaal."
 #: DB:link_type/description:180
 msgid "This is used to link the Discogs page for this artist."
 msgstr "Deze relatie koppelt de artiest aan zijn Discogs-pagina."
+
+#: DB:link_type/description:1089
+msgid "This is used to link the Discogs page for this genre/style."
+msgstr "Deze relatie koppelt een genre/stijl aan zijn Discogs-pagina."
 
 #: DB:link_type/description:217
 msgid "This is used to link the Discogs page for this label."
@@ -2155,6 +2165,10 @@ msgid ""
 "This links a concert tour with a release group (generally an album) the tour"
 " is connected with."
 msgstr "Deze relatie koppelt een tournee aan een gerelateerde uitgavegroep (meestal een album)."
+
+#: DB:link_type/description:1092
+msgid "This links a genre to its page at Bandcamp."
+msgstr "Deze relatie koppelt een genre aan zijn Bandcamp-pagina."
 
 #: DB:link_type/description:855
 msgid ""
@@ -3264,6 +3278,12 @@ msgstr "Deze relatie koppelt een evenement aan zijn setlist.fm-pagina."
 msgid "This relationship type links genres to the areas they originate from."
 msgstr "Deze relatie koppelt genres aan de gebieden waaruit ze afkomstig zijn."
 
+#: DB:link_type/description:1090
+msgid ""
+"This relationship type links instruments to genres they are commonly used "
+"in."
+msgstr "Deze relatie koppelt instrumenten aan de genres waarvoor ze vaak worden gebruikt."
+
 #: DB:link_type/description:752
 msgid ""
 "This relationship type links instruments to the areas they originate from."
@@ -3502,7 +3522,7 @@ msgid "additional"
 msgstr "aanvullend"
 
 #: DB:link_type/name:755 DB:link_type/name:284 DB:link_type/name:283
-#: DB:link_type/name:285 DB:link_type/name:286
+#: DB:link_type/name:285 DB:link_type/name:286 DB:link_type/name:1093
 msgid "allmusic"
 msgstr "Allmusic"
 
@@ -3619,6 +3639,10 @@ msgstr "geassocieerd"
 msgid "associated groups"
 msgstr "geassocieerde groepen"
 
+#: DB:link_type/name:1090
+msgid "associated instrument"
+msgstr "karakteristiek instrument"
+
 #: DB:link_type/reverse_link_phrase:11
 msgid "associated singles/EPs"
 msgstr "geassocieerde singles/EP’s"
@@ -3651,7 +3675,7 @@ msgstr "achtergrondvocalen"
 msgid "balance"
 msgstr "balans"
 
-#: DB:link_type/name:718 DB:link_type/name:719
+#: DB:link_type/name:1092 DB:link_type/name:718 DB:link_type/name:719
 msgid "bandcamp"
 msgstr "Bandcamp"
 
@@ -4113,9 +4137,9 @@ msgstr "discografie van"
 msgid "discography pages"
 msgstr "discografie"
 
-#: DB:link_type/name:180 DB:link_type/name:76 DB:link_type/name:217
-#: DB:link_type/name:90 DB:link_type/name:747 DB:link_type/name:705
-#: DB:link_type/name:971
+#: DB:link_type/name:1089 DB:link_type/name:180 DB:link_type/name:76
+#: DB:link_type/name:217 DB:link_type/name:90 DB:link_type/name:747
+#: DB:link_type/name:705 DB:link_type/name:971
 msgid "discogs"
 msgstr "Discogs"
 
@@ -4355,13 +4379,14 @@ msgid "geonames"
 msgstr "Geonames"
 
 #: DB:link_type/link_phrase:957 DB:link_type/link_phrase:257
-#: DB:link_type/link_phrase:73 DB:link_type/link_phrase:187
-#: DB:link_type/name:957 DB:link_type/name:257 DB:link_type/name:73
-#: DB:link_type/name:187 DB:link_type/reverse_link_phrase:957
-#: DB:link_type/reverse_link_phrase:257 DB:link_type/reverse_link_phrase:73
+#: DB:link_type/link_phrase:73 DB:link_type/link_phrase:1091
+#: DB:link_type/link_phrase:187 DB:link_type/name:957 DB:link_type/name:257
+#: DB:link_type/name:73 DB:link_type/name:1091 DB:link_type/name:187
+#: DB:link_type/reverse_link_phrase:957 DB:link_type/reverse_link_phrase:257
+#: DB:link_type/reverse_link_phrase:73 DB:link_type/reverse_link_phrase:1091
 #: DB:link_type/reverse_link_phrase:187 DB:link_type/long_link_phrase:957
 #: DB:link_type/long_link_phrase:257 DB:link_type/long_link_phrase:73
-#: DB:link_type/long_link_phrase:187
+#: DB:link_type/long_link_phrase:1091 DB:link_type/long_link_phrase:187
 msgid "get the music"
 msgstr "verkrijg de muziek"
 
@@ -4443,7 +4468,8 @@ msgstr "half"
 msgid "has Amazon ASIN"
 msgstr "heeft Amazon-ASIN"
 
-#: DB:link_type/long_link_phrase:718 DB:link_type/long_link_phrase:719
+#: DB:link_type/long_link_phrase:1092 DB:link_type/long_link_phrase:718
+#: DB:link_type/long_link_phrase:719
 msgid "has Bandcamp page at"
 msgstr "heeft een Bandcamppagina op"
 
@@ -4478,9 +4504,10 @@ msgstr "heeft een BookBrainz-pagina op"
 msgid "has a CPDL page at"
 msgstr "heeft een CPDL-pagina op"
 
-#: DB:link_type/long_link_phrase:180 DB:link_type/long_link_phrase:76
-#: DB:link_type/long_link_phrase:217 DB:link_type/long_link_phrase:90
-#: DB:link_type/long_link_phrase:747 DB:link_type/long_link_phrase:705
+#: DB:link_type/long_link_phrase:1089 DB:link_type/long_link_phrase:180
+#: DB:link_type/long_link_phrase:76 DB:link_type/long_link_phrase:217
+#: DB:link_type/long_link_phrase:90 DB:link_type/long_link_phrase:747
+#: DB:link_type/long_link_phrase:705
 msgid "has a Discogs page at"
 msgstr "heeft een Discogspagina op"
 
@@ -4627,6 +4654,7 @@ msgstr "heeft een eigen website op"
 
 #: DB:link_type/long_link_phrase:755 DB:link_type/long_link_phrase:284
 #: DB:link_type/long_link_phrase:283 DB:link_type/long_link_phrase:285
+#: DB:link_type/long_link_phrase:1093
 msgid "has an Allmusic page at"
 msgstr "heeft een Allmusicpagina op"
 
@@ -6771,6 +6799,14 @@ msgstr "hommage aan"
 msgid "type of"
 msgstr "type"
 
+#: DB:link_type/reverse_link_phrase:1090
+msgid "used in"
+msgstr "gebruikt voor"
+
+#: DB:link_type/link_phrase:1090
+msgid "used instruments"
+msgstr "vaak gebruikte instrumenten"
+
 #: DB:link_type/name:86 DB:link_type/name:191 DB:link_type/name:210
 #: DB:link_type/name:788 DB:link_type/name:992 DB:link_type/name:1013
 msgid "vgmdb"
@@ -7604,6 +7640,10 @@ msgstr "{entity1} heeft {additional:aanvullende} foto’s door {entity0}"
 #: DB:link_type/long_link_phrase:918
 msgid "{entity1} invented {entity0}"
 msgstr "{entity1} vond {entity0} uit"
+
+#: DB:link_type/long_link_phrase:1090
+msgid "{entity1} is a commonly used in {entity0}"
+msgstr "{entity1} wordt vaak gebruikt voor {entity0}"
 
 #: DB:link_type/long_link_phrase:915
 msgid "{entity1} is a feed for podcast {entity0}"

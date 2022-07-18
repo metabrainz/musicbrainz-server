@@ -308,6 +308,7 @@ msgid "aeolian harp"
 msgstr "harpe éolienne"
 
 #: DB:instrument/name:717
+msgctxt "Brazillian rattle-gourd"
 msgid "afoxé"
 msgstr "afoxé"
 
@@ -2228,6 +2229,7 @@ msgid "keytar"
 msgstr "keytar"
 
 #: DB:instrument/name:611
+msgctxt "Traditional bamboo mouth organ"
 msgid "khene"
 msgstr "khên"
 
