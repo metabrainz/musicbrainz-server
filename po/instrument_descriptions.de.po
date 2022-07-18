@@ -1798,6 +1798,13 @@ msgid ""
 "rhythmic accompaniment in Yakshagana."
 msgstr "Die Maddale ist eine zweifellige Doppelkonustrommel, die vor allem in der religiösen Volksmusik in den südindischen Bundesstaaten Karnataka, Kerala und Tamil Nadu mit den Händen gespielt wird."
 
+#. name:afoxé
+#: DB:instrument/description:717
+msgid ""
+"Made of a gourd wrapped in a beaded net, it is used in Brazilian afoxé "
+"music."
+msgstr ""
+
 #. name:żummara
 #: DB:instrument/description:592
 msgid ""
@@ -2904,13 +2911,6 @@ msgid ""
 "keyboard & buttons."
 msgstr "Das Akkordeon ist ein Handzuginstrument, bei dem der Ton durch freischwingende, durchschlagende Zungen erzeugt wird. Es besteht aus zwei Teilen (Diskant und Bass), die durch einen Balg miteinander verbunden sind. Unterscheidungsmerkmal ist die Tastenbelegung im Diskant."
 
-#. name:afoxé
-#: DB:instrument/description:717
-msgid ""
-"The afoxé is a Brazilian instrument typically consisting of a gourd wrapped "
-"in a beaded net."
-msgstr "Afoxé bezeichnet in der brasilianischen Musik eine Gefässrassel. Sie besteht aus einer Kalebasse (einer entleerten, trockenen und harten Kürbisfrucht), um die ein Netz mit Perlen oder Kaurischnecken gespannt ist. Das Afoxé gibt den Rhythmus der Musik vor."
-
 #. name:agogô
 #: DB:instrument/description:487
 msgid ""
@@ -3515,15 +3515,6 @@ msgstr "Der Khartal (oder Kartal) sind paarweise gespielte Handklapper aus Bambu
 msgid ""
 "The kaval is a chromatic end-blown flute from the Balkans and Anatolia."
 msgstr "Der(!) Kaval ist eine lange endgeblasene Flöte mit zylindrischer Bohrung aus Holz. Er(!) ist auf dem Balkan verbreitet und gilt als das Nationalinstrument Bulgariens und Mazedoniens."
-
-#. name:khene
-#: DB:instrument/description:611
-msgid ""
-"The khene is a mouth organ from Laos and north-east Thailand which is also "
-"used by some ethnic minority groups in Vietnam. It typically consists of 14 "
-"bamboo pipes arranged into two rows which are connected to a small, "
-"hollowed-out hardwood windchest."
-msgstr "Die Khaen (auch kaen, khène oder khen) ist ein Holzblasinstrument und gehört zur Gruppe der asiatischen Mundorgeln. Es ist ein Durchschlagzungeninstrument, dessen Pfeifen mit einem kleinen hölzernen Reservoir verbunden sind, in das Luft geblasen wird."
 
 #. name:khong wong
 #: DB:instrument/description:621
@@ -4496,6 +4487,14 @@ msgid ""
 "the oldest, a one piece bridge-less psaltery with 5 to 20 originally "
 "horsehair, later metal, strings and a modern \"Concert\" box-zither variant "
 "with a switch mechanism to alter the up to 40 strings sharps and flats."
+msgstr ""
+
+#. name:khene
+#: DB:instrument/description:611
+msgid ""
+"Traditional instrument from Laos, it is also used in Thailand and even "
+"Vietnam. it consists of 14 bamboo pipes with a small hollowed hardwood "
+"soundbox."
 msgstr ""
 
 #. name:taonga pūoro

@@ -225,6 +225,10 @@ import formatTrackLength from './utility/formatTrackLength';
 
   Event.prototype.entityType = 'event';
 
+  class Genre extends CoreEntity {}
+
+  Genre.prototype.entityType = 'genre';
+
   class Instrument extends CoreEntity {}
 
   Instrument.prototype.entityType = 'instrument';
@@ -506,6 +510,7 @@ import formatTrackLength from './utility/formatTrackLength';
   var coreEntityMapping = {
     artist:        Artist,
     event:         Event,
+    genre:         Genre,
     instrument:    Instrument,
     label:         Label,
     area:          Area,

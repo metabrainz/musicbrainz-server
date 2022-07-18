@@ -69,13 +69,13 @@ msgstr "ASIN"
 
 #: DB:link_type/link_phrase:755 DB:link_type/link_phrase:284
 #: DB:link_type/link_phrase:283 DB:link_type/link_phrase:285
-#: DB:link_type/reverse_link_phrase:286
+#: DB:link_type/link_phrase:1093 DB:link_type/reverse_link_phrase:286
 msgid "Allmusic"
 msgstr "Allmusic"
 
 #: DB:link_type/link_phrase:286 DB:link_type/reverse_link_phrase:755
 #: DB:link_type/reverse_link_phrase:284 DB:link_type/reverse_link_phrase:283
-#: DB:link_type/reverse_link_phrase:285
+#: DB:link_type/reverse_link_phrase:285 DB:link_type/reverse_link_phrase:1093
 msgid "Allmusic page for"
 msgstr ""
 
@@ -91,11 +91,13 @@ msgstr ""
 msgid "BBC Music page for"
 msgstr ""
 
-#: DB:link_type/link_phrase:718 DB:link_type/link_phrase:719
+#: DB:link_type/link_phrase:1092 DB:link_type/link_phrase:718
+#: DB:link_type/link_phrase:719
 msgid "Bandcamp"
 msgstr "Bandcamp"
 
-#: DB:link_type/reverse_link_phrase:718 DB:link_type/reverse_link_phrase:719
+#: DB:link_type/reverse_link_phrase:1092 DB:link_type/reverse_link_phrase:718
+#: DB:link_type/reverse_link_phrase:719
 msgid "Bandcamp page for"
 msgstr ""
 
@@ -204,17 +206,17 @@ msgstr ""
 msgid "Designates that one area is contained by another."
 msgstr ""
 
-#: DB:link_type/link_phrase:180 DB:link_type/link_phrase:76
-#: DB:link_type/link_phrase:217 DB:link_type/link_phrase:90
-#: DB:link_type/link_phrase:747 DB:link_type/link_phrase:705
-#: DB:link_type/reverse_link_phrase:971
+#: DB:link_type/link_phrase:1089 DB:link_type/link_phrase:180
+#: DB:link_type/link_phrase:76 DB:link_type/link_phrase:217
+#: DB:link_type/link_phrase:90 DB:link_type/link_phrase:747
+#: DB:link_type/link_phrase:705 DB:link_type/reverse_link_phrase:971
 msgid "Discogs"
 msgstr "Discogs"
 
-#: DB:link_type/link_phrase:971 DB:link_type/reverse_link_phrase:180
-#: DB:link_type/reverse_link_phrase:76 DB:link_type/reverse_link_phrase:217
-#: DB:link_type/reverse_link_phrase:90 DB:link_type/reverse_link_phrase:747
-#: DB:link_type/reverse_link_phrase:705
+#: DB:link_type/link_phrase:971 DB:link_type/reverse_link_phrase:1089
+#: DB:link_type/reverse_link_phrase:180 DB:link_type/reverse_link_phrase:76
+#: DB:link_type/reverse_link_phrase:217 DB:link_type/reverse_link_phrase:90
+#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:705
 msgid "Discogs page for"
 msgstr ""
 
@@ -1942,6 +1944,10 @@ msgid ""
 " crediting the person who created the DJ-mix."
 msgstr ""
 
+#: DB:link_type/description:1093
+msgid "This is used to link a genre to its corresponding page on Allmusic."
+msgstr ""
+
 #: DB:link_type/description:226
 msgid ""
 "This is used to link a karaoke version of a song to the original song.<br/><br/>\n"
@@ -2036,6 +2042,10 @@ msgstr ""
 
 #: DB:link_type/description:180
 msgid "This is used to link the Discogs page for this artist."
+msgstr ""
+
+#: DB:link_type/description:1089
+msgid "This is used to link the Discogs page for this genre/style."
 msgstr ""
 
 #: DB:link_type/description:217
@@ -2148,6 +2158,10 @@ msgstr ""
 msgid ""
 "This links a concert tour with a release group (generally an album) the tour"
 " is connected with."
+msgstr ""
+
+#: DB:link_type/description:1092
+msgid "This links a genre to its page at Bandcamp."
 msgstr ""
 
 #: DB:link_type/description:855
@@ -3254,6 +3268,16 @@ msgid ""
 "setlist.fm"
 msgstr ""
 
+#: DB:link_type/description:1088
+msgid "This relationship type links genres to the areas they originate from."
+msgstr ""
+
+#: DB:link_type/description:1090
+msgid ""
+"This relationship type links instruments to genres they are commonly used "
+"in."
+msgstr ""
+
 #: DB:link_type/description:752
 msgid ""
 "This relationship type links instruments to the areas they originate from."
@@ -3492,7 +3516,7 @@ msgid "additional"
 msgstr "täiendav"
 
 #: DB:link_type/name:755 DB:link_type/name:284 DB:link_type/name:283
-#: DB:link_type/name:285 DB:link_type/name:286
+#: DB:link_type/name:285 DB:link_type/name:286 DB:link_type/name:1093
 msgid "allmusic"
 msgstr ""
 
@@ -3609,6 +3633,10 @@ msgstr ""
 msgid "associated groups"
 msgstr ""
 
+#: DB:link_type/name:1090
+msgid "associated instrument"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:11
 msgid "associated singles/EPs"
 msgstr ""
@@ -3641,7 +3669,7 @@ msgstr ""
 msgid "balance"
 msgstr ""
 
-#: DB:link_type/name:718 DB:link_type/name:719
+#: DB:link_type/name:1092 DB:link_type/name:718 DB:link_type/name:719
 msgid "bandcamp"
 msgstr ""
 
@@ -4103,9 +4131,9 @@ msgstr ""
 msgid "discography pages"
 msgstr "Diskograafialehed"
 
-#: DB:link_type/name:180 DB:link_type/name:76 DB:link_type/name:217
-#: DB:link_type/name:90 DB:link_type/name:747 DB:link_type/name:705
-#: DB:link_type/name:971
+#: DB:link_type/name:1089 DB:link_type/name:180 DB:link_type/name:76
+#: DB:link_type/name:217 DB:link_type/name:90 DB:link_type/name:747
+#: DB:link_type/name:705 DB:link_type/name:971
 msgid "discogs"
 msgstr ""
 
@@ -4328,22 +4356,31 @@ msgstr ""
 msgid "free streaming"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:752
+#: DB:link_type/reverse_link_phrase:1088 DB:link_type/reverse_link_phrase:752
 msgid "from"
 msgstr "Päritolu"
+
+#: DB:link_type/name:1088
+msgid "genre origin"
+msgstr ""
+
+#: DB:link_type/link_phrase:1088
+msgid "genres"
+msgstr ""
 
 #: DB:link_type/name:934 DB:link_type/name:713
 msgid "geonames"
 msgstr ""
 
 #: DB:link_type/link_phrase:957 DB:link_type/link_phrase:257
-#: DB:link_type/link_phrase:73 DB:link_type/link_phrase:187
-#: DB:link_type/name:957 DB:link_type/name:257 DB:link_type/name:73
-#: DB:link_type/name:187 DB:link_type/reverse_link_phrase:957
-#: DB:link_type/reverse_link_phrase:257 DB:link_type/reverse_link_phrase:73
+#: DB:link_type/link_phrase:73 DB:link_type/link_phrase:1091
+#: DB:link_type/link_phrase:187 DB:link_type/name:957 DB:link_type/name:257
+#: DB:link_type/name:73 DB:link_type/name:1091 DB:link_type/name:187
+#: DB:link_type/reverse_link_phrase:957 DB:link_type/reverse_link_phrase:257
+#: DB:link_type/reverse_link_phrase:73 DB:link_type/reverse_link_phrase:1091
 #: DB:link_type/reverse_link_phrase:187 DB:link_type/long_link_phrase:957
 #: DB:link_type/long_link_phrase:257 DB:link_type/long_link_phrase:73
-#: DB:link_type/long_link_phrase:187
+#: DB:link_type/long_link_phrase:1091 DB:link_type/long_link_phrase:187
 msgid "get the music"
 msgstr ""
 
@@ -4425,7 +4462,8 @@ msgstr ""
 msgid "has Amazon ASIN"
 msgstr "evib Amazoni ASIN-i"
 
-#: DB:link_type/long_link_phrase:718 DB:link_type/long_link_phrase:719
+#: DB:link_type/long_link_phrase:1092 DB:link_type/long_link_phrase:718
+#: DB:link_type/long_link_phrase:719
 msgid "has Bandcamp page at"
 msgstr ""
 
@@ -4460,9 +4498,10 @@ msgstr ""
 msgid "has a CPDL page at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:180 DB:link_type/long_link_phrase:76
-#: DB:link_type/long_link_phrase:217 DB:link_type/long_link_phrase:90
-#: DB:link_type/long_link_phrase:747 DB:link_type/long_link_phrase:705
+#: DB:link_type/long_link_phrase:1089 DB:link_type/long_link_phrase:180
+#: DB:link_type/long_link_phrase:76 DB:link_type/long_link_phrase:217
+#: DB:link_type/long_link_phrase:90 DB:link_type/long_link_phrase:747
+#: DB:link_type/long_link_phrase:705
 msgid "has a Discogs page at"
 msgstr "evib Discogsi lehte"
 
@@ -4609,6 +4648,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:755 DB:link_type/long_link_phrase:284
 #: DB:link_type/long_link_phrase:283 DB:link_type/long_link_phrase:285
+#: DB:link_type/long_link_phrase:1093
 msgid "has an Allmusic page at"
 msgstr "evib Allmusicu lehte"
 
@@ -6753,6 +6793,14 @@ msgstr ""
 msgid "type of"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:1090
+msgid "used in"
+msgstr ""
+
+#: DB:link_type/link_phrase:1090
+msgid "used instruments"
+msgstr ""
+
 #: DB:link_type/name:86 DB:link_type/name:191 DB:link_type/name:210
 #: DB:link_type/name:788 DB:link_type/name:992 DB:link_type/name:1013
 msgid "vgmdb"
@@ -7587,8 +7635,16 @@ msgstr ""
 msgid "{entity1} invented {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1090
+msgid "{entity1} is a commonly used in {entity0}"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:915
 msgid "{entity1} is a feed for podcast {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1088
+msgid "{entity1} is a genre from {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:743

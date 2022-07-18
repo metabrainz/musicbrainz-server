@@ -1800,6 +1800,13 @@ msgid ""
 "rhythmic accompaniment in Yakshagana."
 msgstr "Tamburo a due punte originario dello stato indiano del Karnataka. È l'accompagnamento ritmico principale nel Yakshagana."
 
+#. name:afoxé
+#: DB:instrument/description:717
+msgid ""
+"Made of a gourd wrapped in a beaded net, it is used in Brazilian afoxé "
+"music."
+msgstr "Realizzato con una zucca avvolta in una rete decorata con perline, è usato nella musica afoxé brasiliana."
+
 #. name:żummara
 #: DB:instrument/description:592
 msgid ""
@@ -2906,13 +2913,6 @@ msgid ""
 "keyboard & buttons."
 msgstr "Strumento rettangolare ad ancia libera azionato da un mantice, con tastiera e bottoni."
 
-#. name:afoxé
-#: DB:instrument/description:717
-msgid ""
-"The afoxé is a Brazilian instrument typically consisting of a gourd wrapped "
-"in a beaded net."
-msgstr "Strumento brasiliano solitamente composto da una zucca a fiasco avvolta in una rete decorata con perline."
-
 #. name:agogô
 #: DB:instrument/description:487
 msgid ""
@@ -3517,15 +3517,6 @@ msgstr "Strumento a percussione indiano con sonagli, suonato con le mani e usato
 msgid ""
 "The kaval is a chromatic end-blown flute from the Balkans and Anatolia."
 msgstr "Flauto cromatico con imboccatura a un'estremità originario dei Balcani e dell'Anatolia."
-
-#. name:khene
-#: DB:instrument/description:611
-msgid ""
-"The khene is a mouth organ from Laos and north-east Thailand which is also "
-"used by some ethnic minority groups in Vietnam. It typically consists of 14 "
-"bamboo pipes arranged into two rows which are connected to a small, "
-"hollowed-out hardwood windchest."
-msgstr "Organo a bocca proveniente da Laos e Thailandia nordorientale, usato anche da alcune minoranze etniche del Vietnam. È solitamente composto da 14 canne di bambù disposte su due file e connesse ad un piccolo somiere cavo in legno duro."
 
 #. name:khong wong
 #: DB:instrument/description:621
@@ -4499,6 +4490,14 @@ msgid ""
 "horsehair, later metal, strings and a modern \"Concert\" box-zither variant "
 "with a switch mechanism to alter the up to 40 strings sharps and flats."
 msgstr "Salterio tradizionale e mitologico finlandese, esiste in due versioni: la più antica, un salterio composto da un unico pezzo, senza ponti e con 5-20 corde, originariamente in crine di cavallo e poi in metallo; e una variante moderna \"da concerto\", un salterio a cassa con un meccanismo di leve per eseguire alterazioni (diesis e bemolle) sulle corde, che possono essere fino a 40."
+
+#. name:khene
+#: DB:instrument/description:611
+msgid ""
+"Traditional instrument from Laos, it is also used in Thailand and even "
+"Vietnam. it consists of 14 bamboo pipes with a small hollowed hardwood "
+"soundbox."
+msgstr "Strumento tradizionale originario del Laos, è usato anche in Thailandia e in Vietnam. È composto da 14 canne di bambù con una piccola cassa di risonanza cava in legno duro."
 
 #. name:taonga pūoro
 #: DB:instrument/description:781
