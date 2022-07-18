@@ -3,6 +3,7 @@
 # reneweesp <email address hidden>, 2017-2019
 # Maurits Meulenbelt, 2012
 # Maurits Meulenbelt, 2012-2022
+# Nicolás Tamargo <email address hidden>, 2022
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
@@ -947,7 +948,7 @@ msgid ""
 "href=\"/instrument/1975ee04-30de-4835-9656-102ccd49c0c7\">taishogoto</a>, it"
 " is made of wood, often an integral case. It has two courses of strings; "
 "drone and melody strings operated by buttons or keys."
-msgstr "De bulbul tarang is ontwikkeld uit de Japanse </a>taishogoto</a>. Het instrument is gemaakt van hout en de bourdon- en melodiesnaren worden met knoppen of toetsen bespeeld."
+msgstr "De bulbul tarang is ontwikkeld uit de Japanse <a href=\"/instrument/1975ee04-30de-4835-9656-102ccd49c0c7\">taishogoto</a>. Het instrument is gemaakt van hout en de bourdon- en melodiesnaren worden met knoppen of toetsen bespeeld."
 
 #. name:violin family
 #: DB:instrument/description:59
@@ -1791,6 +1792,13 @@ msgid ""
 "Maddale is a double-headed drum from Karnataka, India. It is the primary "
 "rhythmic accompaniment in Yakshagana."
 msgstr "De maddale is een tweevellige trommel uit Karnata, India. Samen met de chande zorgt de maddale voor ritmische begeleiding in Yakshagana."
+
+#. name:afoxé
+#: DB:instrument/description:717
+msgid ""
+"Made of a gourd wrapped in a beaded net, it is used in Brazilian afoxé "
+"music."
+msgstr "Een afoxé bestaat uit een kalebas die in een net met kralen is gewikkeld. Het wordt bespeeld in de gelijknamige muziek."
 
 #. name:żummara
 #: DB:instrument/description:592
@@ -2898,13 +2906,6 @@ msgid ""
 "keyboard & buttons."
 msgstr "Een accordeon is een rechthoekig instrument met doorslaande tong dat wordt aangedreven door een balg en met een toetsenbord en knoppen wordt bespeeld."
 
-#. name:afoxé
-#: DB:instrument/description:717
-msgid ""
-"The afoxé is a Brazilian instrument typically consisting of a gourd wrapped "
-"in a beaded net."
-msgstr "Een afoxé is een Braziliaans instrument dat bestaat uit een kalebas in een net met kralen."
-
 #. name:agogô
 #: DB:instrument/description:487
 msgid ""
@@ -3509,15 +3510,6 @@ msgstr "De kartal of karthal is een Indiaas percussie-instrument met belletjes e
 msgid ""
 "The kaval is a chromatic end-blown flute from the Balkans and Anatolia."
 msgstr "Een kaval is een houtblazer die op het platteland van de Balkan en Turkije veel wordt gebruikt."
-
-#. name:khene
-#: DB:instrument/description:611
-msgid ""
-"The khene is a mouth organ from Laos and north-east Thailand which is also "
-"used by some ethnic minority groups in Vietnam. It typically consists of 14 "
-"bamboo pipes arranged into two rows which are connected to a small, "
-"hollowed-out hardwood windchest."
-msgstr "De khene is een mondorgel uit Laos en Noordoost-Thailand en wordt ook gebruikt door sommige etnische minderheden in Vietnam. Hij bestaat meestal uit veertien bamboebuizen die in twee rijen worden opgesteld en met een kleine uitgeholde windkast worden verbonden."
 
 #. name:khong wong
 #: DB:instrument/description:621
@@ -4491,6 +4483,14 @@ msgid ""
 "horsehair, later metal, strings and a modern \"Concert\" box-zither variant "
 "with a switch mechanism to alter the up to 40 strings sharps and flats."
 msgstr "De kantele is een traditioneel en mythologisch Fins psalterium. Er zijn twee varianten: de oudste variant bestaat uit een deel, heeft geen brug en vijf tot twintig snaren, oorspronkelijk van paardenhaar en later van metaal. De moderne ‘concertkantele’ heeft tot veertig snaren en een schakelmechanisme om de stamtonen te verhogen of te verlagen."
+
+#. name:khene
+#: DB:instrument/description:611
+msgid ""
+"Traditional instrument from Laos, it is also used in Thailand and even "
+"Vietnam. it consists of 14 bamboo pipes with a small hollowed hardwood "
+"soundbox."
+msgstr "De khaen is een traditioneel instrument uit Laos, dat ook in Thailand en Vietnam wordt bespeeld. Het bestaat uit veertien bamboebuizen en een kleine klankkast van hardhout."
 
 #. name:taonga pūoro
 #: DB:instrument/description:781
