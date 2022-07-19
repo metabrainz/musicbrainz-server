@@ -32,13 +32,16 @@ function isElementVisible(element: HTMLElement) {
  */
 let IS_ANCHOR_TABBABLE = true;
 
-function isElementTabbable(element: HTMLElement) {
+export function isElementTabbable(
+  element: HTMLElement,
+  skipAnchors?: ?boolean,
+): boolean {
   if (!isElementVisible(element)) {
     return false;
   }
   switch (element.nodeName) {
     case 'A':
-      if (!IS_ANCHOR_TABBABLE) {
+      if (!IS_ANCHOR_TABBABLE || (skipAnchors ?? false)) {
         return false;
       }
       // $FlowIssue[prop-missing]
@@ -137,6 +140,7 @@ export function findTabbableElement(
   startingElement: Element | null,
   elementGetter: (HTMLElement, Element | null) => Element | null,
   includeStartingElement?: boolean = false,
+  skipAnchors?: ?boolean,
 ): HTMLElement | null {
   if (startingElement === containerElement) {
     return null;
@@ -154,7 +158,7 @@ export function findTabbableElement(
   while (currentElement) {
     const thisElement = currentElement;
     if (thisElement instanceof HTMLElement) {
-      if (isElementTabbable(thisElement)) {
+      if (isElementTabbable(thisElement, skipAnchors)) {
         return thisElement;
       }
     }
@@ -166,12 +170,14 @@ export function findTabbableElement(
 
 export function findFirstTabbableElement(
   container: HTMLElement,
+  skipAnchors?: ?boolean,
 ): HTMLElement | null {
   return findTabbableElement(
     container,
     container.firstElementChild ?? null,
     getNextElement,
     true,
+    skipAnchors,
   );
 }
 

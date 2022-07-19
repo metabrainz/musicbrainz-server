@@ -87,7 +87,10 @@ const Dialog = ({
      * the <select> options list.
      */
     const tid = setTimeout(() => {
-      const toFocus = findFirstTabbableElement(dialogNode);
+      const toFocus = findFirstTabbableElement(
+        dialogNode,
+        true, /* skipAnchors */
+      );
       if (toFocus) {
         toFocus.focus();
       }
