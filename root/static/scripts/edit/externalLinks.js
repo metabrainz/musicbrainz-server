@@ -653,10 +653,10 @@ export class ExternalLinksEditor
     } else if (isNewOrChangedLink) {
       const check = checker.checkRelationship(linkType.gid);
       if (!check.result) {
-        error = {
+        error = ({
           message: '',
           target: URLCleanup.ERROR_TARGETS.NONE,
-        };
+        }: ErrorT);
         error.target = check.target || URLCleanup.ERROR_TARGETS.NONE;
         if (error.target === URLCleanup.ERROR_TARGETS.URL) {
           error.message = l(`This URL is not allowed
