@@ -266,7 +266,7 @@ sub core_entity {
         handle_rows($c, "${entity_type}_meta", 'id', $ids);
     }
 
-    if ($dump_gid_redirects) {
+    if ($dump_gid_redirects && $entity_properties->{mbid}{multiple}) {
         handle_rows($c, "${entity_type}_gid_redirect", 'new_id', $ids);
     }
 
