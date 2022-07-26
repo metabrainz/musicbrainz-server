@@ -1,0 +1,158 @@
+// Automatically generated, do not edit.
+// - Database schema sequence: 27
+digraph series_entity_details {
+    tooltip = "Tables for the “series” core entity type properties"
+    graph [
+        bgcolor = "#cb75ab:#f0976c"
+        concentrate = true
+        gradientangle = 330
+        pack = true
+        rankdir = "LR"
+    ];
+    node [
+        shape = plain
+    ];
+
+    // Tables
+    "annotation" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">annotation</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="editor"><font point-size="14">editor</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="text"><font point-size="14">text</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="changelog"><font point-size="14">changelog</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="created"><font point-size="14">created</font></td></tr>
+            </table>
+        >
+    ];
+    "series" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#eeeeeebb"><font point-size="17">series</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="comment"><font point-size="14">comment</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="type"><font point-size="14">type</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="ordering_type"><font point-size="14">ordering_type</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="edits_pending"><font point-size="14">edits_pending</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="last_updated"><font point-size="14">last_updated</font></td></tr>
+            </table>
+        >
+    ];
+    "series_alias" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">series_alias</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="series"><font point-size="14">series</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="locale"><font point-size="14">locale</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="edits_pending"><font point-size="14">edits_pending</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="last_updated"><font point-size="14">last_updated</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="type"><font point-size="14">type</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="sort_name"><font point-size="14">sort_name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_year"><font point-size="14">begin_date_year</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_month"><font point-size="14">begin_date_month</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_day"><font point-size="14">begin_date_day</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_year"><font point-size="14">end_date_year</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_month"><font point-size="14">end_date_month</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_day"><font point-size="14">end_date_day</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="primary_for_locale"><font point-size="14">primary_for_locale</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="ended"><font point-size="14">ended</font></td></tr>
+            </table>
+        >
+    ];
+    "series_alias_type" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">series_alias_type</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="parent"><font point-size="14">parent</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="child_order"><font point-size="14">child_order</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="description"><font point-size="14">description</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+            </table>
+        >
+    ];
+    "series_annotation" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">series_annotation</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="series"><font point-size="14"><u>series</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="annotation"><font point-size="14"><u>annotation</u></font></td></tr>
+            </table>
+        >
+    ];
+    "series_gid_redirect" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">series_gid_redirect</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="gid"><font point-size="14"><u>gid</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="new_id"><font point-size="14">new_id</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="created"><font point-size="14">created</font></td></tr>
+            </table>
+        >
+    ];
+    "series_ordering_type" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">series_ordering_type</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="parent"><font point-size="14">parent</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="child_order"><font point-size="14">child_order</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="description"><font point-size="14">description</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+            </table>
+        >
+    ];
+    "series_tag" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">series_tag</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="series"><font point-size="14"><u>series</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="tag"><font point-size="14"><u>tag</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="count"><font point-size="14">count</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="last_updated"><font point-size="14">last_updated</font></td></tr>
+            </table>
+        >
+    ];
+    "series_type" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">series_type</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="entity_type"><font point-size="14">entity_type</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="parent"><font point-size="14">parent</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="child_order"><font point-size="14">child_order</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="description"><font point-size="14">description</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+            </table>
+        >
+    ];
+    "tag" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">tag</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="ref_count"><font point-size="14">ref_count</font></td></tr>
+            </table>
+        >
+    ];
+
+    // References
+    "series":"type" -> "series_type":"id"
+    "series":"ordering_type" -> "series_ordering_type":"id"
+    "series_alias":"series" -> "series":"id"
+    "series_alias":"type" -> "series_alias_type":"id"
+    "series_annotation":"series" -> "series":"id"
+    "series_annotation":"annotation" -> "annotation":"id"
+    "series_gid_redirect":"new_id" -> "series":"id"
+    "series_tag":"series" -> "series":"id"
+    "series_tag":"tag" -> "tag":"id"
+}

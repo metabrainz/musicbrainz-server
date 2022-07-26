@@ -1,0 +1,15 @@
+{
+  "tooltip": "Tables for the “instrument” core entity type properties",
+  "_comment": "Show replicated tables used to define any instrument entity, beyond relationships. The main table is highlighted.",
+  "tables": {
+    "annotation": [],
+    "instrument": ["highlighted"],
+    "instrument_alias": [],
+    "instrument_alias_type": [],
+    "instrument_annotation": [],
+    "instrument_gid_redirect": [],
+    "instrument_tag": [],
+    "instrument_type": [],
+    "tag": []
+  }
+}

@@ -1,0 +1,243 @@
+// Automatically generated, do not edit.
+// - Database schema sequence: 27
+digraph artist_entity_details {
+    tooltip = "Tables for the “artist” core entity type properties"
+    graph [
+        bgcolor = "#cb75ab:#f0976c"
+        concentrate = true
+        gradientangle = 330
+        pack = true
+        rankdir = "LR"
+    ];
+    node [
+        shape = plain
+    ];
+
+    // Tables
+    "annotation" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">annotation</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="editor"><font point-size="14">editor</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="text"><font point-size="14">text</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="changelog"><font point-size="14">changelog</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="created"><font point-size="14">created</font></td></tr>
+            </table>
+        >
+    ];
+    "area" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">area</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+            </table>
+        >
+    ];
+    "artist" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#eeeeeebb"><font point-size="17">artist</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="sort_name"><font point-size="14">sort_name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_year"><font point-size="14">begin_date_year</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_month"><font point-size="14">begin_date_month</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_day"><font point-size="14">begin_date_day</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_year"><font point-size="14">end_date_year</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_month"><font point-size="14">end_date_month</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_day"><font point-size="14">end_date_day</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="type"><font point-size="14">type</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="area"><font point-size="14">area</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="gender"><font point-size="14">gender</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="comment"><font point-size="14">comment</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="edits_pending"><font point-size="14">edits_pending</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="last_updated"><font point-size="14">last_updated</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="ended"><font point-size="14">ended</font></td></tr>
+            </table>
+        >
+    ];
+    "artist_alias" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_alias</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="artist"><font point-size="14">artist</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="locale"><font point-size="14">locale</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="edits_pending"><font point-size="14">edits_pending</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="last_updated"><font point-size="14">last_updated</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="type"><font point-size="14">type</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="sort_name"><font point-size="14">sort_name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_year"><font point-size="14">begin_date_year</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_month"><font point-size="14">begin_date_month</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_day"><font point-size="14">begin_date_day</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_year"><font point-size="14">end_date_year</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_month"><font point-size="14">end_date_month</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_day"><font point-size="14">end_date_day</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="primary_for_locale"><font point-size="14">primary_for_locale</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="ended"><font point-size="14">ended</font></td></tr>
+            </table>
+        >
+    ];
+    "artist_alias_type" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_alias_type</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="parent"><font point-size="14">parent</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="child_order"><font point-size="14">child_order</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="description"><font point-size="14">description</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+            </table>
+        >
+    ];
+    "artist_annotation" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_annotation</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="artist"><font point-size="14"><u>artist</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="annotation"><font point-size="14"><u>annotation</u></font></td></tr>
+            </table>
+        >
+    ];
+    "artist_gid_redirect" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_gid_redirect</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="gid"><font point-size="14"><u>gid</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="new_id"><font point-size="14">new_id</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="created"><font point-size="14">created</font></td></tr>
+            </table>
+        >
+    ];
+    "artist_ipi" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_ipi</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="artist"><font point-size="14"><u>artist</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="ipi"><font point-size="14"><u>ipi</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="edits_pending"><font point-size="14">edits_pending</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="created"><font point-size="14">created</font></td></tr>
+            </table>
+        >
+    ];
+    "artist_isni" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_isni</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="artist"><font point-size="14"><u>artist</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="isni"><font point-size="14"><u>isni</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="edits_pending"><font point-size="14">edits_pending</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="created"><font point-size="14">created</font></td></tr>
+            </table>
+        >
+    ];
+    "artist_meta" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_meta</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="rating"><font point-size="14">rating</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="rating_count"><font point-size="14">rating_count</font></td></tr>
+            </table>
+        >
+    ];
+    "artist_release" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_release (m)</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="is_track_artist"><font point-size="14">is_track_artist</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="artist"><font point-size="14">artist</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="first_release_date"><font point-size="14">first_release_date</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="catalog_numbers"><font point-size="14">catalog_numbers</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="country_code"><font point-size="14">country_code</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="barcode"><font point-size="14">barcode</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="sort_character"><font point-size="14">sort_character</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="release"><font point-size="14">release</font></td></tr>
+            </table>
+        >
+    ];
+    "artist_release_group" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_release_group (m)</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="is_track_artist"><font point-size="14">is_track_artist</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="artist"><font point-size="14">artist</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="unofficial"><font point-size="14">unofficial</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="primary_type"><font point-size="14">primary_type</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="secondary_types"><font point-size="14">secondary_types</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="first_release_date"><font point-size="14">first_release_date</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="sort_character"><font point-size="14">sort_character</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="release_group"><font point-size="14">release_group</font></td></tr>
+            </table>
+        >
+    ];
+    "artist_tag" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_tag</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="artist"><font point-size="14"><u>artist</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="tag"><font point-size="14"><u>tag</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="count"><font point-size="14">count</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="last_updated"><font point-size="14">last_updated</font></td></tr>
+            </table>
+        >
+    ];
+    "artist_type" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_type</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="parent"><font point-size="14">parent</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="child_order"><font point-size="14">child_order</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="description"><font point-size="14">description</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+            </table>
+        >
+    ];
+    "gender" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">gender</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="parent"><font point-size="14">parent</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="child_order"><font point-size="14">child_order</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="description"><font point-size="14">description</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+            </table>
+        >
+    ];
+    "tag" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">tag</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="ref_count"><font point-size="14">ref_count</font></td></tr>
+            </table>
+        >
+    ];
+
+    // References
+    "artist":"type" -> "artist_type":"id"
+    "artist":"area" -> "area":"id"
+    "artist":"gender" -> "gender":"id"
+    "artist_alias":"artist" -> "artist":"id"
+    "artist_alias":"type" -> "artist_alias_type":"id"
+    "artist_annotation":"artist" -> "artist":"id"
+    "artist_annotation":"annotation" -> "annotation":"id"
+    "artist_gid_redirect":"new_id" -> "artist":"id"
+    "artist_ipi":"artist" -> "artist":"id"
+    "artist_isni":"artist" -> "artist":"id"
+    "artist_meta":"id" -> "artist":"id"
+    "artist_release":"artist" -> "artist":"id"
+    "artist_release_group":"artist" -> "artist":"id"
+    "artist_tag":"artist" -> "artist":"id"
+    "artist_tag":"tag" -> "tag":"id"
+}
