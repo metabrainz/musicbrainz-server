@@ -1,0 +1,19 @@
+{
+  "tooltip": "Tables for the “label” core entity type properties",
+  "_comment": "Show replicated tables used to define any label entity, beyond relationships. The main table is highlighted.",
+  "tables": {
+    "annotation": [],
+    "area": ["shortened"],
+    "label": ["highlighted"],
+    "label_alias": [],
+    "label_alias_type": [],
+    "label_annotation": [],
+    "label_gid_redirect": [],
+    "label_ipi": [],
+    "label_isni": [],
+    "label_meta": [],
+    "label_tag": [],
+    "label_type": [],
+    "tag": []
+  }
+}

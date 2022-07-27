@@ -1,0 +1,19 @@
+{
+  "tooltip": "Tables for the “recording” core entity type properties",
+  "_comment": "Show replicated and materialized tables used to define any recording entity, beyond relationships. The main table is highlighted.",
+  "tables": {
+    "annotation": [],
+    "artist": ["shortened"],
+    "artist_credit": [],
+    "artist_credit_name": [],
+    "recording": ["highlighted"],
+    "recording_alias": [],
+    "recording_alias_type": [],
+    "recording_annotation": [],
+    "recording_first_release_date": ["materialized"],
+    "recording_gid_redirect": [],
+    "recording_meta": [],
+    "recording_tag": [],
+    "tag": []
+  }
+}

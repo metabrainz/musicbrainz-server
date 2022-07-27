@@ -1,0 +1,16 @@
+{
+  "tooltip": "Tables for the “event” core entity type properties",
+  "_comment": "Show replicated tables used to define any event entity, beyond relationships. The main table is highlighted.",
+  "tables": {
+    "annotation": [],
+    "event": ["highlighted"],
+    "event_alias": [],
+    "event_alias_type": [],
+    "event_annotation": [],
+    "event_gid_redirect": [],
+    "event_meta": [],
+    "event_tag": [],
+    "event_type": [],
+    "tag": []
+  }
+}

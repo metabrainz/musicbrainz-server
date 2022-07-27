@@ -1,0 +1,11 @@
+{
+  "tooltip": "Tables for the “genre” core entity type properties",
+  "_comment": "Show replicated tables used to define any genre entity, beyond relationships. The main table is highlighted.",
+  "tables": {
+    "annotation": [],
+    "genre": ["highlighted"],
+    "genre_alias": [],
+    "genre_alias_type": [],
+    "genre_annotation": []
+  }
+}

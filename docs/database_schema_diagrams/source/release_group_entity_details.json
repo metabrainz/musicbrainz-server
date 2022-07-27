@@ -1,0 +1,22 @@
+{
+  "tooltip": "Tables for the “release_group” core entity type properties",
+  "_comment": "Show replicated and materialized tables used to define any release group entity, beyond relationships. The main table is highlighted.",
+  "tables": {
+    "annotation": [],
+    "artist": ["shortened"],
+    "artist_credit": [],
+    "artist_credit_name": [],
+    "artist_release_group": ["materialized"],
+    "release_group": ["highlighted"],
+    "release_group_alias": [],
+    "release_group_alias_type": [],
+    "release_group_annotation": [],
+    "release_group_gid_redirect": [],
+    "release_group_meta": [],
+    "release_group_tag": [],
+    "release_group_primary_type": [],
+    "release_group_secondary_type": [],
+    "release_group_secondary_type_join": [],
+    "tag": []
+  }
+}

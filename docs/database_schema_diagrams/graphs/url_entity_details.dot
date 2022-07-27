@@ -1,0 +1,42 @@
+// Automatically generated, do not edit.
+// - Database schema sequence: 27
+digraph url_entity_details {
+    tooltip = "Tables for the “url” core entity type properties"
+    graph [
+        bgcolor = "#cb75ab:#f0976c"
+        concentrate = true
+        gradientangle = 330
+        pack = true
+        rankdir = "LR"
+    ];
+    node [
+        shape = plain
+    ];
+
+    // Tables
+    "url" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#eeeeeebb"><font point-size="17">url</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="url"><font point-size="14">url</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="edits_pending"><font point-size="14">edits_pending</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="last_updated"><font point-size="14">last_updated</font></td></tr>
+            </table>
+        >
+    ];
+    "url_gid_redirect" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">url_gid_redirect</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="gid"><font point-size="14"><u>gid</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="new_id"><font point-size="14">new_id</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="created"><font point-size="14">created</font></td></tr>
+            </table>
+        >
+    ];
+
+    // References
+    "url_gid_redirect":"new_id" -> "url":"id"
+}
