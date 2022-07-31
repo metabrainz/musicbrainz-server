@@ -318,7 +318,7 @@ role {
             }
 
             # Check if authorization is required.
-            $c->stash->{authorization_required} = $inc->{user_tags} || $inc->{user_genres} || $inc->{user_ratings} ||
+            $c->stash->{authorization_required} = $inc->{user_tags} || $inc->{user_genres} || $inc->{user_moods} || $inc->{user_ratings} ||
                 $resource eq 'rating' ||
                 ($resource eq 'tag' && ($c->req->method eq 'POST' || exists $c->stash->{args}->{id})) ||
                 ($resource eq 'release' && $c->req->method eq 'POST') ||
@@ -326,7 +326,7 @@ role {
 
             # Check authorization scope.
             my $scope = 0;
-            $scope |= $ACCESS_SCOPE_TAG if $inc->{user_tags} || $inc->{user_genres} || $resource eq 'tag';
+            $scope |= $ACCESS_SCOPE_TAG if $inc->{user_tags} || $inc->{user_genres} || $inc->{user_moods} || $resource eq 'tag';
             $scope |= $ACCESS_SCOPE_RATING if $inc->{user_ratings} || $resource eq 'rating';
             $c->stash->{authorization_scope} = $scope;
 

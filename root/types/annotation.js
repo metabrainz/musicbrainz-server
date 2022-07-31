@@ -14,6 +14,7 @@ declare type AnnotatedEntityT =
   | GenreT
   | InstrumentT
   | LabelT
+  | MoodT
   | PlaceT
   | RecordingT
   | ReleaseGroupT

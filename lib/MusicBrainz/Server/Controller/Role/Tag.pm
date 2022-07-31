@@ -22,8 +22,12 @@ after load => sub {
     $c->model('Genre')->load(map { $_->tag } (@tags, @user_tags));
     my %genre_map = map { $_->name => $_->TO_JSON } $c->model('Genre')->get_all;
 
+    $c->model('Mood')->load(map { $_->tag } (@tags, @user_tags));
+    my %mood_map = map { $_->name => $_->TO_JSON } $c->model('Mood')->get_all;
+
     $c->stash(
         genre_map => \%genre_map,
+        mood_map => \%mood_map,
         top_tags => to_json_array(\@tags),
         more_tags => $count > @tags,
         user_tags => to_json_array(\@user_tags),
@@ -37,6 +41,7 @@ sub tags : Chained('load') PathPart('tags') {
     my $entity = $c->stash->{$self->{entity_name}};
     my @tags = $c->model($self->{model})->tags->find_tags($entity->id);
     $c->model('Genre')->load(map { $_->tag } @tags);
+    $c->model('Mood')->load(map { $_->tag } @tags);
 
     my %props = (
         entity        => $entity->TO_JSON,

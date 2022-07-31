@@ -21,7 +21,7 @@ our @EXPORT_OK = qw(
 );
 
 our $hide_aliases = 0;
-our $hide_tags_and_genres = 0;
+our $hide_tags_and_related = 0;
 our $force_ratings = 0;
 
 my %serializers =
@@ -45,6 +45,7 @@ my %serializers =
         Label
         Place
         Medium
+        Mood
         Recording
         Relationship
         Release
@@ -264,7 +265,7 @@ sub serialize_relationships {
          $inc->has_rels &&
          $entity->has_loaded_relationships);
 
-    local $hide_tags_and_genres = 1;
+    local $hide_tags_and_related = 1;
     local $hide_aliases = 1;
 
     my @relationships =
@@ -278,11 +279,11 @@ sub serialize_relationships {
 sub serialize_tags {
     my ($into, $entity, $inc, $stash, $toplevel) = @_;
 
-    return if $hide_tags_and_genres;
+    return if $hide_tags_and_related;
 
     return unless
         (defined $inc &&
-         ($inc->tags || $inc->user_tags || $inc->genres || $inc->user_genres));
+         ($inc->tags || $inc->user_tags || $inc->genres || $inc->user_genres || $inc->moods || $inc->user_moods));
 
     if ($entity->isa('MusicBrainz::Server::Entity::Artist')) {
         if (my $release_ac = $stash->{release_artist_credit}) {
@@ -311,6 +312,14 @@ sub serialize_tags {
         ];
     }
 
+    if ($inc->moods) {
+        $into->{moods} = [
+            sort { $a->{name} cmp $b->{name} }
+            map +{ count => $_->count, disambiguation => $_->mood->comment, id => $_->mood->gid, name => $_->mood->name },
+                @{ $opts->{moods} }
+        ];
+    }
+
     if ($inc->user_tags) {
         $into->{'user-tags'} = [
             sort { $a->{name} cmp $b->{name} }
@@ -326,6 +335,15 @@ sub serialize_tags {
             map +{ disambiguation => $_->genre->comment, id => $_->genre->gid, name => $_->genre->name },
                 grep { $_->is_upvote }
                 @{ $opts->{user_genres} }
+        ];
+    }
+
+    if ($inc->user_moods) {
+        $into->{'user-moods'} = [
+            sort { $a->{name} cmp $b->{name} }
+            map +{ disambiguation => $_->mood->comment, id => $_->mood->gid, name => $_->mood->name },
+                grep { $_->is_upvote }
+                @{ $opts->{user_moods} }
         ];
     }
 

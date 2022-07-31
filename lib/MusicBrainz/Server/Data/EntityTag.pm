@@ -7,10 +7,13 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
 );
 use MusicBrainz::Server::Entity::AggregatedGenre;
+use MusicBrainz::Server::Entity::AggregatedMood;
 use MusicBrainz::Server::Entity::AggregatedTag;
 use MusicBrainz::Server::Entity::Genre;
+use MusicBrainz::Server::Entity::Mood;
 use MusicBrainz::Server::Entity::Tag;
 use MusicBrainz::Server::Entity::UserGenre;
+use MusicBrainz::Server::Entity::UserMood;
 use MusicBrainz::Server::Entity::UserTag;
 use Sql;
 
@@ -32,10 +35,12 @@ sub find_tags {
     my ($self, $entity_id) = @_;
 
     my $query = 'SELECT tag.name, entity_tag.count,
-                        tag.id AS tag_id, genre.id AS genre_id
+                        tag.id AS tag_id,
+                        genre.id AS genre_id, mood.id AS mood_id
                  FROM ' . $self->tag_table . ' entity_tag
                  JOIN tag ON tag.id = entity_tag.tag
                  LEFT JOIN genre ON tag.name = genre.name
+                 LEFT JOIN mood ON tag.name = mood.name
                  WHERE ' . $self->type . ' = ?
                  ORDER BY entity_tag.count DESC, tag.name COLLATE musicbrainz';
 
@@ -57,7 +62,7 @@ sub find_top_tags
     my $query = '
         SELECT name, count, tag_id, genre_id FROM ((
             SELECT tag.name, entity_tag.count,
-                tag.id AS tag_id, genre.id AS genre_id
+                tag.id AS tag_id, genre.id AS genre_id, NULL AS mood_id
             FROM ' . $self->tag_table . ' entity_tag
             JOIN tag ON tag.id = entity_tag.tag
             JOIN genre ON tag.name = genre.name
@@ -66,19 +71,32 @@ sub find_top_tags
             LIMIT ?
         ) UNION (
             SELECT tag.name, entity_tag.count,
-                tag.id AS tag_id, NULL AS genre_id
+                tag.id AS tag_id, NULL AS genre_id, mood.id AS mood_id
+            FROM ' . $self->tag_table . ' entity_tag
+            JOIN tag ON tag.id = entity_tag.tag
+            JOIN mood ON tag.name = mood.name
+            WHERE ' .  $self->type . ' = ?   
+            ORDER BY entity_tag.count DESC, tag.name COLLATE musicbrainz
+            LIMIT ?       
+        ) UNION (
+            SELECT tag.name, entity_tag.count,
+                tag.id AS tag_id, NULL AS genre_id, NULL AS mood_id
             FROM ' . $self->tag_table . ' entity_tag
             JOIN tag ON tag.id = entity_tag.tag
             WHERE ' .  $self->type . ' = ?   
             AND NOT EXISTS (
                 SELECT 1 FROM genre
                 WHERE genre.name = tag.name
-            )  
+            )
+            AND NOT EXISTS (
+                SELECT 1 FROM mood
+                WHERE mood.name = tag.name
+            )
             ORDER BY entity_tag.count DESC, tag.name COLLATE musicbrainz
             LIMIT ?       
         )) top_tags
         ORDER BY count DESC, name COLLATE musicbrainz';
-    $self->query_to_list($query, [$entity_id, $limit, $entity_id, $limit]);
+    $self->query_to_list($query, [$entity_id, $limit, $entity_id, $limit, $entity_id, $limit]);
 }
 
 sub find_tags_for_entities
@@ -196,6 +214,74 @@ sub find_user_genres_for_entities
     return @tags;
 }
 
+sub find_moods_for_entities
+{
+    my ($self, @ids) = @_;
+
+    return unless scalar @ids;
+
+    my $query = 'SELECT mood.id, mood.gid, mood.name, mood.comment,
+                        entity_tag.count, entity_tag.' . $self->type . ' AS entity
+                 FROM ' . $self->tag_table . ' entity_tag
+                 JOIN tag ON tag.id = entity_tag.tag
+                 JOIN mood ON tag.name = mood.name
+                 WHERE ' . $self->type . ' IN (' . placeholders(@ids) . ')
+                 ORDER BY mood.name COLLATE musicbrainz';
+
+    my @moods = $self->query_to_list($query, \@ids, sub {
+        my ($model, $row) = @_;
+        return MusicBrainz::Server::Entity::AggregatedMood->new(
+            count => $row->{count},
+            entity_id => $row->{entity},
+            mood_id => $row->{id},
+            mood => MusicBrainz::Server::Entity::Mood->new(
+                id => $row->{id},
+                gid => $row->{gid},
+                name => $row->{name},
+                comment => $row->{comment},
+            ),
+        );
+    });
+
+    return @moods;
+}
+
+sub find_user_moods_for_entities
+{
+    my ($self, $user_id, @ids) = @_;
+
+    return unless scalar @ids;
+
+    my $type = $self->type;
+    my $table = $self->tag_table . '_raw';
+    my $query = "SELECT mood.id, mood.gid, mood.name, mood.comment,
+                        $type AS entity, is_upvote
+                 FROM $table entity_tag
+                 JOIN tag ON tag.id = entity_tag.tag
+                 JOIN mood ON tag.name = mood.name
+                 WHERE editor = ?
+                 AND $type IN (" . placeholders(@ids) . ')
+                 ORDER BY mood.name COLLATE musicbrainz';
+
+    my @tags = $self->query_to_list($query, [$user_id, @ids], sub {
+        my ($model, $row) = @_;
+        return MusicBrainz::Server::Entity::UserMood->new(
+            mood_id => $row->{id},
+            mood => MusicBrainz::Server::Entity::Mood->new(
+                id => $row->{id},
+                gid => $row->{gid},
+                name => $row->{name},
+                comment => $row->{comment},
+            ),
+            editor_id => $user_id,
+            entity_id => $row->{entity},
+            is_upvote => $row->{is_upvote},
+        );
+    });
+
+    return @tags;
+}
+
 sub _new_from_row
 {
     my ($self, $row) = @_;
@@ -204,6 +290,7 @@ sub _new_from_row
         count => $row->{count},
         tag => MusicBrainz::Server::Entity::Tag->new(
             genre_id => $row->{genre_id},
+            mood_id => $row->{mood_id},
             id => $row->{tag_id},
             name => $row->{name},
         ),
@@ -365,11 +452,13 @@ sub find_user_tags {
     my $table_raw = "${table}_raw";
 
     my $query = qq{
-        SELECT tag AS tag_id, tag.name AS tag_name, genre.id AS genre_id, is_upvote,
+        SELECT tag AS tag_id, tag.name AS tag_name,
+               genre.id AS genre_id, mood.id AS mood_id, is_upvote,
                count AS aggregate_count FROM $table_raw
         JOIN $table USING (tag, $type)
         JOIN tag ON tag.id = $table.tag
         LEFT JOIN genre ON genre.name = tag.name
+        LEFT JOIN mood ON mood.name = tag.name
         WHERE editor = ? AND $type = ?
         ORDER BY tag.name COLLATE musicbrainz
     };
@@ -379,6 +468,7 @@ sub find_user_tags {
         return MusicBrainz::Server::Entity::UserTag->new(
             tag => MusicBrainz::Server::Entity::Tag->new(
                 genre_id => $row->{genre_id},
+                mood_id => $row->{mood_id},
                 name => $row->{tag_name},
                 id => $row->{tag_id}
             ),

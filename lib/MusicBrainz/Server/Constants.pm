@@ -268,6 +268,15 @@ Readonly our $EDIT_GENRE_ADD_ALIAS => 165;
 Readonly our $EDIT_GENRE_DELETE_ALIAS => 166;
 Readonly our $EDIT_GENRE_EDIT_ALIAS => 167;
 
+Readonly our $EDIT_MOOD_CREATE => 170;
+Readonly our $EDIT_MOOD_EDIT => 171;
+Readonly our $EDIT_MOOD_DELETE => 172;
+# 173 reserved for EDIT_MOOD_MERGE if ever implemented
+Readonly our $EDIT_MOOD_ADD_ANNOTATION => 174;
+Readonly our $EDIT_MOOD_ADD_ALIAS => 175;
+Readonly our $EDIT_MOOD_DELETE_ALIAS => 176;
+Readonly our $EDIT_MOOD_EDIT_ALIAS => 177;
+
 Readonly our $EDIT_WIKIDOC_CHANGE => 120;
 
 Readonly our $EDIT_URL_EDIT => 101;
@@ -663,6 +672,9 @@ Readonly our @CORE_TABLE_LIST => qw(
     medium_attribute_type_allowed_value_allowed_format
     medium_cdtoc
     medium_format
+    mood
+    mood_alias
+    mood_alias_type
     orderable_link_type
     place
     place_alias

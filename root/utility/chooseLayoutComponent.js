@@ -14,6 +14,7 @@ import EventLayout from '../event/EventLayout';
 import GenreLayout from '../genre/GenreLayout';
 import InstrumentLayout from '../instrument/InstrumentLayout';
 import LabelLayout from '../label/LabelLayout';
+import MoodLayout from '../mood/MoodLayout';
 import PlaceLayout from '../place/PlaceLayout';
 import RecordingLayout from '../recording/RecordingLayout';
 import ReleaseGroupLayout from '../release_group/ReleaseGroupLayout';
@@ -31,6 +32,7 @@ const layoutPicker = {
   genre: GenreLayout,
   instrument: InstrumentLayout,
   label: LabelLayout,
+  mood: MoodLayout,
   place: PlaceLayout,
   recording: RecordingLayout,
   release: ReleaseLayout,

@@ -9,8 +9,7 @@ use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 my $ws_defs = Data::OptList::mkopt([
     genre => {
         method   => 'GET',
-        # TODO: Add include when implementing MBS-10062
-        # inc      => [ qw(aliases) ],
+        inc      => [ qw( aliases annotation _relations ) ],
         optional => [ qw(fmt limit offset) ],
     },
     genre => {
@@ -39,7 +38,26 @@ sub serializers {
 sub base : Chained('root') PathPart('genre') CaptureArgs(0) { }
 
 # Nothing extra to load yet, but this is required by Role::Lookup
-sub genre_toplevel {}
+sub genre_toplevel {
+    my ($self, $c, $stash, $genres) = @_;
+
+    my $inc = $c->stash->{inc};
+    my @genres = @{$genres};
+
+    $c->model('Genre')->annotation->load_latest(@genres)
+        if $inc->annotation;
+
+    if ($inc->aliases) {
+        my $aliases = $c->model('Genre')->alias->find_by_entity_ids(
+            map { $_->id } @genres
+        );
+        for (@genres) {
+            $stash->store($_)->{aliases} = $aliases->{$_->id};
+        }
+    }
+
+    $self->load_relationships($c, $stash, @genres);
+}
 
 sub genre_all : Chained('base') PathPart('all') {
     my ($self, $c) = @_;
@@ -58,6 +76,9 @@ sub genre_all : Chained('base') PathPart('all') {
     } else {
         my ($genres, $hits) =
             $c->model('Genre')->get_all_limited($limit, $offset);
+
+        $self->genre_toplevel($c, $stash, $genres);
+
         $genre_list = $self->make_list($genres, $hits, $offset);
     }
 

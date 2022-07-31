@@ -42,7 +42,8 @@ declare type CollectableCoreEntityT =
 
 declare type NonUrlCoreEntityT =
   | CollectableCoreEntityT
-  | GenreT;
+  | GenreT
+  | MoodT;
 
 declare type CoreEntityT =
   | NonUrlCoreEntityT
@@ -55,6 +56,7 @@ declare type CoreEntityTypeT =
   | 'genre'
   | 'instrument'
   | 'label'
+  | 'mood'
   | 'place'
   | 'recording'
   | 'release_group'

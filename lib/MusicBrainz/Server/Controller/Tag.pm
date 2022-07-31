@@ -23,6 +23,9 @@ sub _load
     if ($tag && $tag->genre_id) {
         $c->model('Genre')->load($tag);
     }
+    if ($tag && $tag->mood_id) {
+        $c->model('Mood')->load($tag);
+    }
     return $tag;
 }
 
@@ -45,6 +48,8 @@ sub cloud : Path('/tags')
     my $cloud = $c->model('Tag')->get_cloud();
     my $genres = $cloud->{genres};
     my $genre_hits = scalar @$genres;
+    my $moods = $cloud->{moods};
+    my $mood_hits = scalar @$moods;
     my $tags = $cloud->{other_tags};
     my $tag_hits = scalar @$tags;
 
@@ -61,6 +66,15 @@ sub cloud : Path('/tags')
                 },
                 sort { $a->{tag}->name cmp $b->{tag}->name }
                 @$genres
+            ] : [],
+            moodMaxCount => $mood_hits ? $moods->[0]->{count} + 0 : 0,
+            moods => $mood_hits ? [
+                map +{
+                    count => $_->{count} + 0,
+                    tag => to_json_object($_->{tag}),
+                },
+                sort { $a->{tag}->name cmp $b->{tag}->name }
+                @$moods
             ] : [],
             showList => boolean_to_json($show_list),
             tagMaxCount => $tag_hits ? $tags->[0]->{count} + 0 : 0,

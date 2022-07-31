@@ -14,7 +14,10 @@ my $ws_defs = Data::OptList::mkopt([
      event => {
                          method   => 'GET',
                          inc      => [ qw(aliases annotation _relations
-                                          tags user-tags genres user-genres ratings user-ratings) ],
+                                          tags user-tags
+                                          genres user-genres
+                                          moods user-moods
+                                          ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
                          linked   => [ qw( area artist place collection ) ]
      },
@@ -22,7 +25,10 @@ my $ws_defs = Data::OptList::mkopt([
                          action   => '/ws/2/event/lookup',
                          method   => 'GET',
                          inc      => [ qw(aliases annotation _relations
-                                          tags user-tags genres user-genres ratings user-ratings) ],
+                                          tags user-tags
+                                          genres user-genres
+                                          moods user-moods
+                                          ratings user-ratings) ],
                          optional => [ qw(fmt) ],
      },
 ]);

@@ -1288,6 +1288,10 @@ sub _serialize_tags_and_ratings
         if $opts->{genres} && $inc->{genres};
     $self->_serialize_entity_user_genre_list($parent_node, $entity, $inc, $stash)
         if $opts->{user_genres} && $inc->{user_genres};
+    $self->_serialize_entity_mood_list($parent_node, $entity, $inc, $stash)
+        if $opts->{moods} && $inc->{moods};
+    $self->_serialize_entity_user_mood_list($parent_node, $entity, $inc, $stash)
+        if $opts->{user_moods} && $inc->{user_moods};
     $self->_serialize_rating($parent_node, $entity, $inc, $stash)
         if $opts->{ratings} && $inc->{ratings};
     $self->_serialize_user_rating($parent_node, $entity, $inc, $stash)
@@ -1368,8 +1372,80 @@ sub _serialize_genre
 {
     my ($self, $parent_node, $genre, $inc, $stash, $toplevel) = @_;
 
+    my $opts = $stash->store($genre);
+
     my $genre_node = $parent_node->addNewChild(undef, 'genre');
     _serialize_genre_common($genre_node, $genre);
+
+    $self->_serialize_annotation($genre_node, $genre, $inc, $stash) if $toplevel;
+
+    $self->_serialize_alias_list($genre_node, $opts->{aliases}, $inc, $stash)
+        if ($inc->aliases && $opts->{aliases});
+
+    $self->_serialize_relation_lists($genre_node, $genre, $genre->relationships, $inc, $stash)
+        if $inc->has_rels;
+}
+
+sub _serialize_entity_mood_list
+{
+    my ($self, $parent_node, $entity, $inc, $stash) = @_;
+
+    return if $in_relation_node;
+
+    my $opts = $stash->store($entity);
+    my $list_node = $parent_node->addNewChild(undef, 'mood-list');
+
+    for my $aggregated_mood (@{ $opts->{moods} }) {
+        $self->_serialize_aggregated_mood($list_node, $aggregated_mood, $inc, $stash);
+    }
+}
+
+sub _serialize_mood_list
+{
+    my ($self, $parent_node, $list, $inc, $stash, $toplevel) = @_;
+
+    my $list_node = $parent_node->addNewChild(undef, 'mood-list');
+    set_list_attributes($list_node, $list);
+
+    for my $mood (@{ $list->{items} }) {
+        $self->_serialize_mood($list_node, $mood, $inc, $stash, $toplevel);
+    }
+}
+
+sub _serialize_mood_common
+{
+    my ($mood_node, $mood) = @_;
+
+    $mood_node->_setAttribute('id', $mood->gid);
+    $mood_node->appendTextChild('name', $mood->name);
+    $mood_node->appendTextChild('disambiguation', $mood->comment) if $mood->comment;
+}
+
+sub _serialize_aggregated_mood
+{
+    my ($self, $parent_node, $aggregated_mood, $inc, $stash) = @_;
+
+    my $mood_node = $parent_node->addNewChild(undef, 'mood');
+    _serialize_mood_common($mood_node, $aggregated_mood->mood);
+    $mood_node->_setAttribute('count', $aggregated_mood->count);
+}
+
+sub _serialize_mood
+{
+    my ($self, $parent_node, $mood, $inc, $stash, $toplevel) = @_;
+
+    my $opts = $stash->store($mood);
+
+    my $mood_node = $parent_node->addNewChild(undef, 'mood');
+    _serialize_mood_common($mood_node, $mood);
+
+    $self->_serialize_annotation($mood_node, $mood, $inc, $stash) if $toplevel;
+
+    $self->_serialize_alias_list($mood_node, $opts->{aliases}, $inc, $stash)
+        if ($inc->aliases && $opts->{aliases});
+
+    $self->_serialize_relation_lists($mood_node, $mood, $mood->relationships, $inc, $stash)
+        if $inc->has_rels;
 }
 
 sub _serialize_user_tag_list
@@ -1414,6 +1490,29 @@ sub _serialize_user_genre
     if ($user_genre->is_upvote) {
         my $genre_node = $parent_node->addNewChild(undef, 'user-genre');
         _serialize_genre_common($genre_node, $user_genre->genre);
+    }
+}
+
+sub _serialize_entity_user_mood_list
+{
+    my ($self, $parent_node, $entity, $inc, $stash) = @_;
+
+    my $opts = $stash->store($entity);
+    my $list_node = $parent_node->addNewChild(undef, 'user-mood-list');
+
+    foreach my $user_mood (@{ $opts->{user_moods} })
+    {
+        $self->_serialize_user_mood($list_node, $user_mood);
+    }
+}
+
+sub _serialize_user_mood
+{
+    my ($self, $parent_node, $user_mood) = @_;
+
+    if ($user_mood->is_upvote) {
+        my $mood_node = $parent_node->addNewChild(undef, 'user-mood');
+        _serialize_mood_common($mood_node, $user_mood->mood);
     }
 }
 

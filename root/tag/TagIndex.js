@@ -32,6 +32,8 @@ type Props = {
 
 const TagIndex = (props: Props): React.Element<typeof TagLayout> => {
   const genre = props.tag.genre;
+  const mood = props.tag.mood;
+
   return (
     <TagLayout page="" tag={props.tag}>
       {genre ? (
@@ -40,6 +42,15 @@ const TagIndex = (props: Props): React.Element<typeof TagLayout> => {
           <p>
             {exp.l('This tag is associated with the genre {genre}.',
                    {genre: <EntityLink entity={genre} />})}
+          </p>
+        </>
+      ) : null}
+      {mood ? (
+        <>
+          <h2>{l('Mood')}</h2>
+          <p>
+            {exp.l('This tag is associated with the mood {mood}.',
+                   {mood: <EntityLink entity={mood} />})}
           </p>
         </>
       ) : null}

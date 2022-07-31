@@ -26,7 +26,10 @@ my $ws_defs = Data::OptList::mkopt([
                                           recording release-group track
                                           collection) ],
                          inc      => [ qw(aliases artist-credits labels recordings discids
-                                          tags user-tags genres user-genres ratings user-ratings
+                                          tags user-tags
+                                          genres user-genres
+                                          moods user-moods
+                                          ratings user-ratings
                                           release-groups media recording-level-rels
                                           release-group-level-rels work-level-rels
                                           _relations annotation) ],
@@ -36,7 +39,11 @@ my $ws_defs = Data::OptList::mkopt([
                          action   => '/ws/2/release/lookup',
                          method   => 'GET',
                          inc      => [ qw(artists labels recordings release-groups aliases
-                                          tags user-tags genres user-genres ratings user-ratings collections user-collections
+                                          tags user-tags
+                                          genres user-genres
+                                          moods user-moods
+                                          ratings user-ratings
+                                          collections user-collections
                                           artist-credits discids media recording-level-rels
                                           release-group-level-rels work-level-rels
                                           _relations annotation) ],

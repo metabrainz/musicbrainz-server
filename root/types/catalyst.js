@@ -58,6 +58,7 @@ declare type CatalystStashT = {
   +jsonld_data?: {...},
   +last_replication_date?: string,
   +makes_no_changes?: boolean,
+  +mood_map?: {+[moodName: string]: MoodT, ...},
   +more_tags?: boolean,
   +new_edit_notes?: boolean,
   +new_edit_notes_mtime?: number | null,
@@ -98,6 +99,7 @@ declare type SanitizedCatalystContextT = {
   +stash: {
     +current_language: string,
     +genre_map?: {+[genreName: string]: GenreT, ...},
+    +mood_map?: {+[moodName: string]: MoodT, ...},
   },
   +user: ActiveEditorT | null,
 };

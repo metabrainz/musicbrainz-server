@@ -48,6 +48,7 @@ export function getTagListUrl(
 type Props = {
   +$c: CatalystContextT,
   +genres: $ReadOnlyArray<UserTagT>,
+  +moods: $ReadOnlyArray<UserTagT>,
   +showDownvoted?: boolean,
   +sortBy?: 'count' | 'countdesc' | 'name',
   +tags: $ReadOnlyArray<UserTagT>,
@@ -57,6 +58,7 @@ type Props = {
 const UserTagList = ({
   $c,
   genres,
+  moods,
   showDownvoted = false,
   sortBy,
   tags,
@@ -76,7 +78,7 @@ const UserTagList = ({
     />
 
     <div id="all-tags">
-      {(genres.length > 0 || tags.length > 0) ? (
+      {(genres.length > 0 || moods.length > 0 || tags.length > 0) ? (
         <>
           <h3>{l('Genres')}</h3>
 
@@ -97,6 +99,27 @@ const UserTagList = ({
                 ))}
               </ul>
             ) : <p>{l('There are no genres to show.')}</p>}
+          </div>
+
+          <h3>{l('Moods')}</h3>
+
+          <div id="moods">
+            {moods.length > 0 ? (
+              <ul className="mood-list">
+                {moods.map((tag, index) => (
+                  <li className={loopParity(index)} key={tag.tag.id}>
+                    <UserTagLink
+                      showDownvoted={showDownvoted}
+                      tag={tag.tag.name}
+                      username={user.name}
+                    />
+                    <span className="tag-vote-buttons">
+                      <span className="tag-count">{tag.count}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : <p>{l('There are no moods to show.')}</p>}
           </div>
 
           <h3>{l('Other tags')}</h3>

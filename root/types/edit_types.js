@@ -50,6 +50,11 @@ declare type AddLabelAnnotationEditT = $ReadOnly<{
   +edit_type: EDIT_LABEL_ADD_ANNOTATION_T,
 }>;
 
+declare type AddMoodAnnotationEditT = $ReadOnly<{
+  ...AddAnnotationEditGenericT,
+  +edit_type: EDIT_MOOD_ADD_ANNOTATION_T,
+}>;
+
 declare type AddPlaceAnnotationEditT = $ReadOnly<{
   ...AddAnnotationEditGenericT,
   +edit_type: EDIT_PLACE_ADD_ANNOTATION_T,
@@ -87,6 +92,7 @@ declare type AddAnnotationEditT =
   | AddGenreAnnotationEditT
   | AddInstrumentAnnotationEditT
   | AddLabelAnnotationEditT
+  | AddMoodAnnotationEditT
   | AddPlaceAnnotationEditT
   | AddRecordingAnnotationEditT
   | AddReleaseGroupAnnotationEditT
@@ -241,6 +247,16 @@ declare type AddMediumEditT = $ReadOnly<{
   +edit_type: EDIT_MEDIUM_CREATE_T,
 }>;
 
+declare type AddMoodEditT = $ReadOnly<{
+  ...GenericEditT,
+  +display_data: {
+    ...CommentRoleT,
+    +mood: MoodT,
+    +name: string,
+  },
+  +edit_type: EDIT_MOOD_CREATE_T,
+}>;
+
 declare type AddPlaceEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
@@ -391,6 +407,11 @@ declare type AddLabelAliasEditT = $ReadOnly<{
   +edit_type: EDIT_LABEL_ADD_ALIAS_T,
 }>;
 
+declare type AddMoodAliasEditT = $ReadOnly<{
+  ...AddRemoveAliasEditGenericT,
+  +edit_type: EDIT_MOOD_ADD_ALIAS_T,
+}>;
+
 declare type AddPlaceAliasEditT = $ReadOnly<{
   ...AddRemoveAliasEditGenericT,
   +edit_type: EDIT_PLACE_ADD_ALIAS_T,
@@ -449,6 +470,11 @@ declare type RemoveInstrumentAliasEditT = $ReadOnly<{
 declare type RemoveLabelAliasEditT = $ReadOnly<{
   ...AddRemoveAliasEditGenericT,
   +edit_type: EDIT_LABEL_DELETE_ALIAS_T,
+}>;
+
+declare type RemoveMoodAliasEditT = $ReadOnly<{
+  ...AddRemoveAliasEditGenericT,
+  +edit_type: EDIT_MOOD_DELETE_ALIAS_T,
 }>;
 
 declare type RemovePlaceAliasEditT = $ReadOnly<{
@@ -611,6 +637,11 @@ declare type EditInstrumentAliasEditT = $ReadOnly<{
 declare type EditLabelAliasEditT = $ReadOnly<{
   ...EditAliasEditGenericT,
   +edit_type: EDIT_LABEL_EDIT_ALIAS_T,
+}>;
+
+declare type EditMoodAliasEditT = $ReadOnly<{
+  ...EditAliasEditGenericT,
+  +edit_type: EDIT_MOOD_EDIT_ALIAS_T,
 }>;
 
 declare type EditPlaceAliasEditT = $ReadOnly<{
@@ -805,6 +836,16 @@ declare type EditMediumEditT = $ReadOnly<{
       | TracklistChangesRemoveT>,
   },
   +edit_type: EDIT_MEDIUM_EDIT_T,
+}>;
+
+declare type EditMoodEditT = $ReadOnly<{
+  ...GenericEditT,
+  +display_data: {
+    +comment?: CompT<string | null>,
+    +mood: MoodT,
+    +name?: CompT<string>,
+  },
+  +edit_type: EDIT_MOOD_EDIT_T,
 }>;
 
 declare type EditPlaceEditT = $ReadOnly<{
@@ -1221,6 +1262,15 @@ declare type RemoveLabelEditT = $ReadOnly<{
   +edit_type: EDIT_LABEL_DELETE_T,
 }>;
 
+declare type RemoveMoodEditT = $ReadOnly<{
+  ...GenericEditT,
+  +display_data: {
+    +entity: MoodT,
+    +entity_type: 'mood',
+  },
+  +edit_type: EDIT_MOOD_DELETE_T,
+}>;
+
 declare type RemovePlaceEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
@@ -1282,6 +1332,7 @@ declare type RemoveEntityEditT =
   | RemoveGenreEditT
   | RemoveInstrumentEditT
   | RemoveLabelEditT
+  | RemoveMoodEditT
   | RemovePlaceEditT
   | RemoveRecordingEditT
   | RemoveReleaseGroupEditT
@@ -1501,6 +1552,7 @@ declare type CurrentEditT =
   | AddIswcsEditT
   | AddLabelEditT
   | AddMediumEditT
+  | AddMoodEditT
   | AddPlaceEditT
   | AddRelationshipEditT
   | AddRelationshipAttributeEditT

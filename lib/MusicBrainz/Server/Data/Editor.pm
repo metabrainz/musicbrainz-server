@@ -677,6 +677,7 @@ sub added_entities_counts {
                 WHEN type = ? THEN 'genre'
                 WHEN type = ? THEN 'instrument'
                 WHEN type = ? THEN 'label'
+                WHEN type = ? THEN 'mood'
                 WHEN type = ? THEN 'place'
                 WHEN type = ? THEN 'recording'
                 WHEN type = ? THEN 'releasegroup'
@@ -692,7 +693,7 @@ sub added_entities_counts {
     my @params = ($EDIT_ARTIST_CREATE, $EDIT_RELEASE_CREATE,
         $EDIT_HISTORIC_ADD_RELEASE, $EDIT_AREA_CREATE, $EDIT_RELEASE_ADD_COVER_ART,
         $EDIT_EVENT_CREATE, $EDIT_GENRE_CREATE, $EDIT_INSTRUMENT_CREATE, $EDIT_LABEL_CREATE,
-        $EDIT_PLACE_CREATE, $EDIT_RECORDING_CREATE, $EDIT_RELEASEGROUP_CREATE,
+        $EDIT_MOOD_CREATE, $EDIT_PLACE_CREATE, $EDIT_RECORDING_CREATE, $EDIT_RELEASEGROUP_CREATE,
         $EDIT_SERIES_CREATE, $EDIT_WORK_CREATE, $STATUS_APPLIED);
     my $rows = $self->sql->select_list_of_lists($query, @params, $editor_id);
 

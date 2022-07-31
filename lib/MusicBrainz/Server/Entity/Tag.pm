@@ -20,6 +20,16 @@ has 'genre' => (
     isa => 'Maybe[Genre]'
 );
 
+has 'mood_id' => (
+    is => 'rw',
+    isa => 'Maybe[Int]'
+);
+
+has 'mood' => (
+    is => 'rw',
+    isa => 'Maybe[Mood]'
+);
+
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
@@ -29,6 +39,10 @@ around TO_JSON => sub {
 
     if ($self->genre) {
         $json->{genre} = to_json_object($self->genre);
+    }
+
+    if ($self->mood) {
+        $json->{mood} = to_json_object($self->mood);
     }
 
     return $json;

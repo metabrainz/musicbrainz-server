@@ -129,6 +129,7 @@ export type EntityItemT =
   | LabelT
   | LinkAttrTypeT
   | LinkTypeT
+  | MoodT
   | PlaceT
   | RecordingT
   | ReleaseGroupT

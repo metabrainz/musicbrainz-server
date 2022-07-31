@@ -13,8 +13,8 @@ test 'artist lookups' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
-    ws_test_json 'artist lookup with tags, genres and ratings',
-        '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=tags+genres+ratings' => {
+    ws_test_json 'artist lookup with tags, genres, moods and ratings',
+        '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=tags+genres+moods+ratings' => {
             'isnis' => [],
             'name' => 'BoA',
             'begin_area' => JSON::null,
@@ -50,6 +50,14 @@ test 'artist lookups' => sub {
                     'disambiguation' => ''
                 }
             ],
+            'moods' => [
+                {
+                    'id' => 'e1a39f19-5f05-4944-ba2b-b037706cf586',
+                    'name' => 'supercalifragilisticexpialidocious',
+                    'count' => 1,
+                    'disambiguation' => 'stuff'
+                },
+            ],
             'area' => JSON::null,
             'sort-name' => 'BoA',
             'gender' => JSON::null,
@@ -84,6 +92,10 @@ test 'artist lookups' => sub {
                 {
                     'name' => 'pop',
                     'count' => 1
+                },
+                {
+                    'name' => 'supercalifragilisticexpialidocious',
+                    'count' => 1
                 }
             ],
             'disambiguation' => '',
@@ -92,8 +104,8 @@ test 'artist lookups' => sub {
             'country' => JSON::null
         };
 
-    ws_test_json 'artist lookup with tags, genres, user-tags, and user-genres',
-        '/artist/1946a82a-f927-40c2-8235-38d64f50d043?inc=tags+genres+user-tags+user-genres' => {
+    ws_test_json 'artist lookup with tags, genres, moods, user-tags, user-genres and user-moods',
+        '/artist/1946a82a-f927-40c2-8235-38d64f50d043?inc=tags+genres+moods+user-tags+user-genres+user-moods' => {
             'gender-id' => JSON::null,
             'sort-name' => 'Chemical Brothers, The',
             'begin-area' => JSON::null,
@@ -128,6 +140,20 @@ test 'artist lookups' => sub {
                     'id' => 'a2782cb6-1cd0-477c-a61d-b3f8b42dd1b3'
                 }
             ],
+            moods => [
+                {
+                    'id' => '1f6e3b62-33d6-4ac0-a9dc-f5424af3e6a4',
+                    'count' => 1,
+                    'disambiguation' => '',
+                    'name' => 'happy'
+                },
+                {
+                    'name' => 'sad',
+                    'disambiguation' => '',
+                    'count' => 1,
+                    'id' => '186a6a89-24de-4a3a-a92f-b7744dc7b051'
+                }
+            ],
             'type' => 'Group',
             'tags' => [
                 {
@@ -155,12 +181,20 @@ test 'artist lookups' => sub {
                     'name' => 'english'
                 },
                 {
+                    'count' => 1,
+                    'name' => 'happy'
+                },
+                {
                     'name' => 'house',
                     'count' => 1
                 },
                 {
                     'count' => 1,
                     'name' => 'manchester'
+                },
+                {
+                    'name' => 'sad',
+                    'count' => 1
                 },
                 {
                     'count' => 1,
@@ -183,6 +217,9 @@ test 'artist lookups' => sub {
                 },
                 {
                     'name' => 'electronic'
+                },
+                {
+                    'name' => 'happy'
                 }
             ],
             'user-genres' => [
@@ -197,6 +234,13 @@ test 'artist lookups' => sub {
                     'name' => 'electronic'
                 }
             ],
+            'user-moods' => [
+                {
+                    'name' => 'happy',
+                    'disambiguation' => '',
+                    'id' => '1f6e3b62-33d6-4ac0-a9dc-f5424af3e6a4'
+                }
+            ],
             'id' => '1946a82a-f927-40c2-8235-38d64f50d043',
             'ipis' => [],
             'area' => JSON::null,
@@ -209,8 +253,8 @@ test 'artist lookups' => sub {
             'country' => JSON::null
         },  { username => 'the-anti-kuno', password => 'notreally' };
 
-    ws_test_json 'artist lookup with release-groups, tags, genres and ratings',
-        '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=release-groups+tags+genres+ratings' => {
+    ws_test_json 'artist lookup with release-groups, tags, genres, moods and ratings',
+        '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=release-groups+tags+genres+moods+ratings' => {
             'begin-area' => JSON::null,
             'tags' => [
                 {
@@ -240,6 +284,10 @@ test 'artist lookups' => sub {
                 {
                     'count' => 1,
                     'name' => 'pop'
+                },
+                {
+                    'count' => 1,
+                    'name' => 'supercalifragilisticexpialidocious'
                 }
             ],
             'gender' => JSON::null,
@@ -276,6 +324,14 @@ test 'artist lookups' => sub {
                     'count' => 1
                 }
             ],
+            'moods' => [
+                {
+                    'id' => 'e1a39f19-5f05-4944-ba2b-b037706cf586',
+                    'name' => 'supercalifragilisticexpialidocious',
+                    'count' => 1,
+                    'disambiguation' => 'stuff'
+                },
+            ],
             'type' => 'Person',
             'id' => 'a16d1433-ba89-4f72-a47b-a370add0bb55',
             'end-area' => JSON::null,
@@ -295,6 +351,7 @@ test 'artist lookups' => sub {
                     'id' => '23f421e7-431e-3e1d-bcbf-b91f5f7c5e2c',
                     'first-release-date' => '2004-01-15',
                     'genres' => [],
+                    'moods' => [],
                     'disambiguation' => '',
                     'secondary-type-ids' => [],
                     'tags' => [

@@ -18,6 +18,7 @@ declare type TagT = {
   +entityType: 'tag',
   +genre?: GenreT,
   +id: number | null,
+  +mood?: MoodT,
   +name: string,
 };
 

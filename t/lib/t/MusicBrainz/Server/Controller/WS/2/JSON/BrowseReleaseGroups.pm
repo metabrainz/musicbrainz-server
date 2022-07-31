@@ -13,7 +13,7 @@ test 'browse release group via release' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse release group via release',
-    '/release-group?release=adcf7b48-086e-48ee-b420-1001f88d672f&inc=artist-credits+tags+genres+ratings' =>
+    '/release-group?release=adcf7b48-086e-48ee-b420-1001f88d672f&inc=artist-credits+tags+genres+moods+ratings' =>
         {
             'release-group-offset' => 0,
             'release-group-count' => 1,
@@ -36,6 +36,7 @@ test 'browse release group via release' => sub {
                                 disambiguation => 'UK dubstep artist Greg Sanders',
                                 tags => [],
                                 genres => [],
+                                moods => [],
                                 'type' => 'Person',
                                 'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
                             },
@@ -44,11 +45,16 @@ test 'browse release group via release' => sub {
                     tags => [
                         { count => 2, name => 'dubstep' },
                         { count => 1, name => 'electronic' },
-                        { count => 1, name => 'grime' }],
+                        { count => 1, name => 'grime' },
+                        { count => 1, name => 'happy' },
+                    ],
                     genres => [
                         { count => 2, disambiguation => '', id => '1b50083b-1afa-4778-82c8-548b309af783', name => 'dubstep' },
                         { count => 1, disambiguation => '', id => '89255676-1f14-4dd8-bbad-fca839d6aff4', name => 'electronic' },
                         { count => 1, disambiguation => 'stuff', id => '51cfaac4-6696-480b-8f1b-27cfc789109c', name => 'grime' }],
+                    moods => [
+                        { count => 1, disambiguation => '', id => '1f6e3b62-33d6-4ac0-a9dc-f5424af3e6a4', name => 'happy' },
+                    ],
                     'rating' => { 'votes-count' => 1, 'value' => 4 },
                     disambiguation => '',
                 }]
@@ -60,7 +66,7 @@ test 'browse release group via artist' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse release group via artist',
-    '/release-group?artist=472bc127-8861-45e8-bc9e-31e8dd32de7a&inc=artist-credits+tags+genres+ratings' =>
+    '/release-group?artist=472bc127-8861-45e8-bc9e-31e8dd32de7a&inc=artist-credits+tags+genres+moods+ratings' =>
         {
             'release-group-count' => 2,
             'release-group-offset' => 0,
@@ -83,6 +89,7 @@ test 'browse release group via artist' => sub {
                                 disambiguation => 'UK dubstep artist Greg Sanders',
                                 tags => [],
                                 genres => [],
+                                moods => [],
                                 'type' => 'Person',
                                 'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
                             },
@@ -91,11 +98,16 @@ test 'browse release group via artist' => sub {
                     tags => [
                         { count => 2, name => 'dubstep' },
                         { count => 1, name => 'electronic' },
-                        { count => 1, name => 'grime' }],
+                        { count => 1, name => 'grime' },
+                        { count => 1, name => 'happy' },
+                    ],
                     genres => [
                         { count => 2, disambiguation => '', id => '1b50083b-1afa-4778-82c8-548b309af783', name => 'dubstep' },
                         { count => 1, disambiguation => '', id => '89255676-1f14-4dd8-bbad-fca839d6aff4', name => 'electronic' },
                         { count => 1, disambiguation => 'stuff', id => '51cfaac4-6696-480b-8f1b-27cfc789109c', name => 'grime' }],
+                    moods => [
+                        { count => 1, disambiguation => '', id => '1f6e3b62-33d6-4ac0-a9dc-f5424af3e6a4', name => 'happy' },
+                    ],
                     'rating' => { 'votes-count' => 1, 'value' => 4 },
                     disambiguation => '',
                 },
@@ -117,6 +129,7 @@ test 'browse release group via artist' => sub {
                                 disambiguation => 'UK dubstep artist Greg Sanders',
                                 tags => [],
                                 genres => [],
+                                moods => [],
                                 'type' => 'Person',
                                 'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
                             },
@@ -124,6 +137,7 @@ test 'browse release group via artist' => sub {
                         }],
                     tags => [ ],
                     genres => [ ],
+                    moods => [ ],
                     'rating' => { 'votes-count' => 0, 'value' => JSON::null },
                     disambiguation => '',
                 }]

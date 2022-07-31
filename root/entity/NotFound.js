@@ -125,6 +125,15 @@ const notFoundPages = {
     args: defaultSearchArgs,
     footer: null,
   },
+  'mood': {
+    title: N_l('Mood Not Found'),
+    message: N_l(
+      `Sorry, we could not find a mood with that MusicBrainz ID.
+       You can see all available mood on our {mood_list|mood list}.`,
+    ),
+    args: {mood_list: '/moods'},
+    footer: null,
+  },
   'otherlookup': {
     title: N_l('Entity Not Found'),
     message: N_l(

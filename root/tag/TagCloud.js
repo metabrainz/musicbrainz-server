@@ -19,6 +19,8 @@ type Props = {
   +$c: CatalystContextT,
   +genreMaxCount: number,
   +genres: $ReadOnlyArray<AggregatedTagT>,
+  +moodMaxCount: number,
+  +moods: $ReadOnlyArray<AggregatedTagT>,
   +showList?: boolean,
   +tagMaxCount: number,
   +tags: $ReadOnlyArray<AggregatedTagT>,
@@ -87,6 +89,8 @@ const TagCloud = ({
   $c,
   genreMaxCount,
   genres,
+  moodMaxCount,
+  moods,
   showList = false,
   tagMaxCount,
   tags,
@@ -95,7 +99,8 @@ const TagCloud = ({
     <div id="content">
       <h1>{l('Tags')}</h1>
       <p>
-        {l('These are the most used genres and other tags in the database.')}
+        {l(`These are the most used genres, moods
+            and other tags in the database.`)}
         {' '}
         {showList ? (
           <a href="/tags?show_list=0">{l('Show as a cloud instead.')}</a>
@@ -112,12 +117,20 @@ const TagCloud = ({
 
       ) : l('No genre tags have been used yet.')}
 
+      <h2>{l('Moods')}</h2>
+      {moods.length ? (
+        showList
+          ? generateTagList($c, moods)
+          : generateTagCloud($c, moods, moodMaxCount)
+
+      ) : l('No mood tags have been used yet.')}
+
       <h2>{l('Other tags')}</h2>
       {tags.length ? (
         showList
           ? generateTagList($c, tags)
           : generateTagCloud($c, tags, tagMaxCount)
-      ) : l('No non-genre tags have been used yet.')}
+      ) : l('No other tags have been used yet.')}
     </div>
   </Layout>
 );

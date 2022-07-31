@@ -64,6 +64,7 @@ function showEditTab(
       return !isSpecialPurpose(entity);
     case 'genre':
     case 'instrument':
+    case 'mood':
       return isRelationshipEditor(user);
     case 'label':
       return !isSpecialPurpose(entity);

@@ -118,12 +118,12 @@ test 'browse artists via recording' => sub {
         };
 };
 
-test 'browse artists via release, inc=tags+genres+ratings' => sub {
+test 'browse artists via release, inc=tags+genres+moods+ratings' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
-    ws_test_json 'browse artists via release, inc=tags+genres+ratings',
-    '/artist?release=aff4a693-5970-4e2e-bd46-e2ee49c22de7&inc=tags+genres+ratings' =>
+    ws_test_json 'browse artists via release, inc=tags+genres+moods+ratings',
+    '/artist?release=aff4a693-5970-4e2e-bd46-e2ee49c22de7&inc=tags+genres+moods+ratings' =>
         {
             'artist-offset' => 0,
             'artist-count' => 3,
@@ -149,6 +149,7 @@ test 'browse artists via release, inc=tags+genres+ratings' => sub {
                     rating => { 'votes-count' => 3, 'value' => 3 },
                     tags => [],
                     genres => [],
+                    moods => [],
                     ipis => [],
                     isnis => [],
                     gender => JSON::null,
@@ -175,6 +176,7 @@ test 'browse artists via release, inc=tags+genres+ratings' => sub {
                     rating => { 'votes-count' => 0, 'value' => JSON::null },
                     tags => [],
                     genres => [],
+                    moods => [],
                     ipis => [],
                     isnis => [],
                     gender => JSON::null,
@@ -207,12 +209,21 @@ test 'browse artists via release, inc=tags+genres+ratings' => sub {
                         { count => 1, name => 'k-pop' },
                         { count => 1, name => 'kpop' },
                         { count => 1, name => 'pop' },
-                        ],
+                        { count => 1, name => 'supercalifragilisticexpialidocious' },
+                    ],
                     genres => [
                         { count => 1, disambiguation => '', id => 'eba7715e-ee26-4989-8d49-9db382955419', name => 'j-pop' },
                         { count => 1, disambiguation => '', id => 'b74b3b6c-0700-46b1-aa55-1f2869a3bd1a', name => 'k-pop' },
                         { count => 1, disambiguation => '', id => '911c7bbb-172d-4df8-9478-dbff4296e791', name => 'pop' },
                         ],
+                    moods => [
+                        {
+                            count => 1,
+                            disambiguation => 'stuff',
+                            id => 'e1a39f19-5f05-4944-ba2b-b037706cf586',
+                            name => 'supercalifragilisticexpialidocious',
+                        },
+                    ],
                     ipis => [],
                     isnis => [],
                     gender => JSON::null,

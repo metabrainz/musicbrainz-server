@@ -271,9 +271,8 @@ sub search
         $hard_search_limit = $offset * 2;
     }
 
-    elsif ($type eq 'genre') {
-
-        $query = q{
+    elsif ($type ~~ [qw(genre mood)]) {
+        $query = "
             SELECT
                 entity.id,
                 entity.gid,
@@ -283,19 +282,19 @@ sub search
             FROM
                 (
                     SELECT name, ts_rank_cd(mb_simple_tsvector(name), query, 2) AS rank
-                    FROM genre,
+                    FROM ${type},
                         plainto_tsquery('mb_simple', mb_lower(?)) AS query
                     WHERE mb_simple_tsvector(name) @@ query
                     ORDER BY rank DESC
                 ) AS r
-                JOIN genre AS entity ON r.name = entity.name
+                JOIN ${type} AS entity ON r.name = entity.name
             GROUP BY
                 entity.id, entity.gid, entity.name, entity.comment
             ORDER BY
                 rank DESC, entity.name, entity.gid
             OFFSET
                 ?
-            };
+            ";
 
         $use_hard_search_limit = 0;
     }
@@ -304,7 +303,9 @@ sub search
         $query = q{
             SELECT tag.id, tag.name, genre.id AS genre_id,
                    ts_rank_cd(mb_simple_tsvector(tag.name), query, 2) AS rank
-            FROM tag LEFT JOIN genre USING (name), plainto_tsquery('mb_simple', mb_lower(?)) AS query
+            FROM tag
+            LEFT JOIN genre USING (name)
+            LEFT JOIN mood USING (name), plainto_tsquery('mb_simple', mb_lower(?)) AS query
             WHERE mb_simple_tsvector(tag.name) @@ query
             ORDER BY rank DESC, tag.name
             OFFSET ?

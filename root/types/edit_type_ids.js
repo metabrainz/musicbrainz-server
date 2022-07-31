@@ -152,6 +152,15 @@ declare type EDIT_GENRE_ADD_ALIAS_T = 165;
 declare type EDIT_GENRE_DELETE_ALIAS_T = 166;
 declare type EDIT_GENRE_EDIT_ALIAS_T = 167;
 
+declare type EDIT_MOOD_CREATE_T = 170;
+declare type EDIT_MOOD_EDIT_T = 171;
+declare type EDIT_MOOD_DELETE_T = 172;
+// 173 reserved for EDIT_MOOD_MERGE_T if ever implemented
+declare type EDIT_MOOD_ADD_ANNOTATION_T = 174;
+declare type EDIT_MOOD_ADD_ALIAS_T = 175;
+declare type EDIT_MOOD_DELETE_ALIAS_T = 176;
+declare type EDIT_MOOD_EDIT_ALIAS_T = 177;
+
 declare type EDIT_WIKIDOC_CHANGE_T = 120;
 
 declare type EDIT_URL_EDIT_T = 101;

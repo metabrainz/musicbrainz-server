@@ -20,6 +20,7 @@ import AddIsrcs from '../details/AddIsrcs';
 import AddIswcs from '../details/AddIswcs';
 import AddLabel from '../details/AddLabel';
 import AddMedium from '../details/AddMedium';
+import AddMood from '../details/AddMood';
 import AddPlace from '../details/AddPlace';
 import AddRelationship from '../details/AddRelationship';
 import AddRelationshipAttribute from '../details/AddRelationshipAttribute';
@@ -44,6 +45,7 @@ import EditGenre from '../details/EditGenre';
 import EditInstrument from '../details/EditInstrument';
 import EditLabel from '../details/EditLabel';
 import EditMedium from '../details/EditMedium';
+import EditMood from '../details/EditMood';
 import EditPlace from '../details/EditPlace';
 import EditRecording from '../details/EditRecording';
 import EditRelationship from '../details/EditRelationship';
@@ -124,6 +126,7 @@ export default function getEditDetailsElement(
     case EDIT_TYPES.EDIT_GENRE_ADD_ANNOTATION:
     case EDIT_TYPES.EDIT_INSTRUMENT_ADD_ANNOTATION:
     case EDIT_TYPES.EDIT_LABEL_ADD_ANNOTATION:
+    case EDIT_TYPES.EDIT_MOOD_ADD_ANNOTATION:
     case EDIT_TYPES.EDIT_PLACE_ADD_ANNOTATION:
     case EDIT_TYPES.EDIT_RECORDING_ADD_ANNOTATION:
     case EDIT_TYPES.EDIT_RELEASEGROUP_ADD_ANNOTATION:
@@ -153,6 +156,8 @@ export default function getEditDetailsElement(
       return <AddLabel edit={edit} />;
     case EDIT_TYPES.EDIT_MEDIUM_CREATE:
       return <AddMedium edit={edit} />;
+    case EDIT_TYPES.EDIT_MOOD_CREATE:
+      return <AddMood edit={edit} />;
     case EDIT_TYPES.EDIT_PLACE_CREATE:
       return <AddPlace edit={edit} />;
     case EDIT_TYPES.EDIT_RELATIONSHIP_CREATE:
@@ -179,6 +184,8 @@ export default function getEditDetailsElement(
     case EDIT_TYPES.EDIT_INSTRUMENT_DELETE_ALIAS:
     case EDIT_TYPES.EDIT_LABEL_ADD_ALIAS:
     case EDIT_TYPES.EDIT_LABEL_DELETE_ALIAS:
+    case EDIT_TYPES.EDIT_MOOD_ADD_ALIAS:
+    case EDIT_TYPES.EDIT_MOOD_DELETE_ALIAS:
     case EDIT_TYPES.EDIT_PLACE_ADD_ALIAS:
     case EDIT_TYPES.EDIT_PLACE_DELETE_ALIAS:
     case EDIT_TYPES.EDIT_RECORDING_ADD_ALIAS:
@@ -208,6 +215,7 @@ export default function getEditDetailsElement(
     case EDIT_TYPES.EDIT_GENRE_EDIT_ALIAS:
     case EDIT_TYPES.EDIT_INSTRUMENT_EDIT_ALIAS:
     case EDIT_TYPES.EDIT_LABEL_EDIT_ALIAS:
+    case EDIT_TYPES.EDIT_MOOD_EDIT_ALIAS:
     case EDIT_TYPES.EDIT_PLACE_EDIT_ALIAS:
     case EDIT_TYPES.EDIT_RECORDING_EDIT_ALIAS:
     case EDIT_TYPES.EDIT_RELEASEGROUP_EDIT_ALIAS:
@@ -235,6 +243,8 @@ export default function getEditDetailsElement(
       return <EditLabel edit={edit} />;
     case EDIT_TYPES.EDIT_MEDIUM_EDIT:
       return <EditMedium edit={edit} />;
+    case EDIT_TYPES.EDIT_MOOD_EDIT:
+      return <EditMood edit={edit} />;
     case EDIT_TYPES.EDIT_PLACE_EDIT:
       return <EditPlace edit={edit} />;
     case EDIT_TYPES.EDIT_HISTORIC_EDIT_TRACK_LENGTH:
@@ -294,6 +304,7 @@ export default function getEditDetailsElement(
     case EDIT_TYPES.EDIT_GENRE_DELETE:
     case EDIT_TYPES.EDIT_INSTRUMENT_DELETE:
     case EDIT_TYPES.EDIT_LABEL_DELETE:
+    case EDIT_TYPES.EDIT_MOOD_DELETE:
     case EDIT_TYPES.EDIT_PLACE_DELETE:
     case EDIT_TYPES.EDIT_RECORDING_DELETE:
     case EDIT_TYPES.EDIT_RELEASEGROUP_DELETE:

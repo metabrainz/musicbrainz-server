@@ -15,8 +15,8 @@ my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
-ws_test 'artist lookup with tags, genres and ratings',
-    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=tags+genres+ratings' =>
+ws_test 'artist lookup with tags, genres, moods and ratings',
+    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=tags+genres+moods+ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
@@ -24,14 +24,45 @@ ws_test 'artist lookup with tags, genres and ratings',
         <life-span>
             <begin>1986-11-05</begin>
         </life-span>
-        <tag-list><tag count="1"><name>c-pop</name></tag><tag count="1"><name>j-pop</name></tag><tag count="1"><name>japanese</name></tag><tag count="1"><name>jpop</name></tag><tag count="1"><name>k-pop</name></tag><tag count="1"><name>kpop</name></tag><tag count="1"><name>pop</name></tag></tag-list>
+        <tag-list>
+            <tag count="1">
+                <name>c-pop</name>
+            </tag>
+            <tag count="1">
+                <name>j-pop</name>
+            </tag>
+            <tag count="1">
+                <name>japanese</name>
+            </tag>
+            <tag count="1">
+                <name>jpop</name>
+            </tag>
+            <tag count="1">
+                <name>k-pop</name>
+            </tag>
+            <tag count="1">
+                <name>kpop</name>
+            </tag>
+            <tag count="1">
+                <name>pop</name>
+            </tag>
+            <tag count="1">
+                <name>supercalifragilisticexpialidocious</name>
+            </tag>
+        </tag-list>
         <genre-list><genre count="1" id="eba7715e-ee26-4989-8d49-9db382955419"><name>j-pop</name></genre><genre count="1" id="b74b3b6c-0700-46b1-aa55-1f2869a3bd1a"><name>k-pop</name></genre><genre count="1" id="911c7bbb-172d-4df8-9478-dbff4296e791"><name>pop</name></genre></genre-list>
+        <mood-list>
+            <mood count="1" id="e1a39f19-5f05-4944-ba2b-b037706cf586">
+                <name>supercalifragilisticexpialidocious</name>
+                <disambiguation>stuff</disambiguation>
+            </mood>
+        </mood-list>
         <rating votes-count="3">4.35</rating>
     </artist>
 </metadata>';
 
-ws_test 'artist lookup with tags, genres, user-tags, and user-genres',
-    '/artist/1946a82a-f927-40c2-8235-38d64f50d043?inc=tags+genres+user-tags+user-genres' =>
+ws_test 'artist lookup with tags, genres, moods, user-tags, user-genres and user-moods',
+    '/artist/1946a82a-f927-40c2-8235-38d64f50d043?inc=tags+genres+moods+user-tags+user-genres+user-moods' =>
     '<?xml version="1.0"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist type="Group" id="1946a82a-f927-40c2-8235-38d64f50d043" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
@@ -47,8 +78,10 @@ ws_test 'artist lookup with tags, genres, user-tags, and user-genres',
             <tag count="8"><name>electronic</name></tag>
             <tag count="2"><name>electronica</name></tag>
             <tag count="1"><name>english</name></tag>
+            <tag count="1"><name>happy</name></tag>
             <tag count="1"><name>house</name></tag>
             <tag count="1"><name>manchester</name></tag>
+            <tag count="1"><name>sad</name></tag>
             <tag count="1"><name>trip-hop</name></tag>
             <tag count="1"><name>uk</name></tag>
             <tag count="1"><name>united kingdom</name></tag>
@@ -56,6 +89,7 @@ ws_test 'artist lookup with tags, genres, user-tags, and user-genres',
         <user-tag-list>
             <user-tag><name>big beat</name></user-tag>
             <user-tag><name>electronic</name></user-tag>
+            <user-tag><name>happy</name></user-tag>
         </user-tag-list>
         <genre-list>
             <genre count="4" id="aac07ae0-8acf-4249-b5c0-2762b53947a2"><name>big beat</name></genre>
@@ -67,11 +101,18 @@ ws_test 'artist lookup with tags, genres, user-tags, and user-genres',
             <user-genre id="aac07ae0-8acf-4249-b5c0-2762b53947a2"><name>big beat</name></user-genre>
             <user-genre id="89255676-1f14-4dd8-bbad-fca839d6aff4"><name>electronic</name></user-genre>
         </user-genre-list>
+        <mood-list>
+            <mood count="1" id="1f6e3b62-33d6-4ac0-a9dc-f5424af3e6a4"><name>happy</name></mood>
+            <mood count="1" id="186a6a89-24de-4a3a-a92f-b7744dc7b051"><name>sad</name></mood>
+        </mood-list>
+        <user-mood-list>
+            <user-mood id="1f6e3b62-33d6-4ac0-a9dc-f5424af3e6a4"><name>happy</name></user-mood>
+        </user-mood-list>
     </artist>
 </metadata>', { username => 'the-anti-kuno', password => 'notreally' };
 
-ws_test 'recording lookup with tags and ratings',
-    '/recording/7a356856-9483-42c2-bed9-dc07cb555952?inc=tags+genres+ratings' =>
+ws_test 'recording lookup with tags, genres, moods and ratings',
+    '/recording/7a356856-9483-42c2-bed9-dc07cb555952?inc=tags+genres+moods+ratings' =>
     '<?xml version="1.0"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording id="7a356856-9483-42c2-bed9-dc07cb555952">
@@ -91,8 +132,8 @@ ws_test 'recording lookup with tags and ratings',
     </recording>
 </metadata>';
 
-ws_test 'label lookup with tags, genres and ratings',
-    '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=tags+genres+ratings' =>
+ws_test 'label lookup with tags, genres, moods and ratings',
+    '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=tags+genres+moods+ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <label type="Original Production" type-id="7aaa37fe-2def-3476-b359-80245850062d" id="b4edce40-090f-4956-b82a-5d9d285da40b">
@@ -117,8 +158,8 @@ ws_test 'label lookup with tags, genres and ratings',
     </label>
 </metadata>';
 
-ws_test 'release group lookup with tags, genres and ratings',
-    '/release-group/22b54315-6e51-350b-bb34-e6e16f7688bd?inc=tags+genres+ratings' =>
+ws_test 'release group lookup with tags, genres, moods and ratings',
+    '/release-group/22b54315-6e51-350b-bb34-e6e16f7688bd?inc=tags+genres+moods+ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-group type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc" id="22b54315-6e51-350b-bb34-e6e16f7688bd">
@@ -135,6 +176,9 @@ ws_test 'release group lookup with tags, genres and ratings',
             <tag count="1">
                 <name>grime</name>
             </tag>
+            <tag count="1">
+                <name>happy</name>
+            </tag>
         </tag-list>
         <genre-list>
             <genre count="2" id="1b50083b-1afa-4778-82c8-548b309af783">
@@ -148,12 +192,17 @@ ws_test 'release group lookup with tags, genres and ratings',
                 <disambiguation>stuff</disambiguation>
             </genre>
         </genre-list>
+        <mood-list>
+            <mood count="1" id="1f6e3b62-33d6-4ac0-a9dc-f5424af3e6a4">
+                <name>happy</name>
+            </mood>
+        </mood-list>
         <rating votes-count="1">4</rating>
     </release-group>
 </metadata>';
 
-ws_test 'artist lookup with release-groups, tags, genres and ratings',
-    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=release-groups+tags+genres+ratings' =>
+ws_test 'artist lookup with release-groups, tags, genres, moods and ratings',
+    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=release-groups+tags+genres+moods+ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
@@ -171,14 +220,45 @@ ws_test 'artist lookup with release-groups, tags, genres and ratings',
                 </tag-list>
             </release-group>
         </release-group-list>
-        <tag-list><tag count="1"><name>c-pop</name></tag><tag count="1"><name>j-pop</name></tag><tag count="1"><name>japanese</name></tag><tag count="1"><name>jpop</name></tag><tag count="1"><name>k-pop</name></tag><tag count="1"><name>kpop</name></tag><tag count="1"><name>pop</name></tag></tag-list>
+        <tag-list>
+            <tag count="1">
+                <name>c-pop</name>
+            </tag>
+            <tag count="1">
+                <name>j-pop</name>
+            </tag>
+            <tag count="1">
+                <name>japanese</name>
+            </tag>
+            <tag count="1">
+                <name>jpop</name>
+            </tag>
+            <tag count="1">
+                <name>k-pop</name>
+            </tag>
+            <tag count="1">
+                <name>kpop</name>
+            </tag>
+            <tag count="1">
+                <name>pop</name>
+            </tag>
+            <tag count="1">
+                <name>supercalifragilisticexpialidocious</name>
+            </tag>
+        </tag-list>
         <genre-list><genre count="1" id="eba7715e-ee26-4989-8d49-9db382955419"><name>j-pop</name></genre><genre count="1" id="b74b3b6c-0700-46b1-aa55-1f2869a3bd1a"><name>k-pop</name></genre><genre count="1" id="911c7bbb-172d-4df8-9478-dbff4296e791"><name>pop</name></genre></genre-list>
+        <mood-list>
+            <mood count="1" id="e1a39f19-5f05-4944-ba2b-b037706cf586">
+                <name>supercalifragilisticexpialidocious</name>
+                <disambiguation>stuff</disambiguation>
+            </mood>
+        </mood-list>
         <rating votes-count="3">4.35</rating>
     </artist>
 </metadata>';
 
-ws_test 'release lookup with release-groups, tags, genres and ratings',
-    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?inc=release-groups+tags+genres+ratings' =>
+ws_test 'release lookup with release-groups, tags, genres, moods and ratings',
+    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?inc=release-groups+tags+genres+moods+ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
@@ -193,8 +273,26 @@ ws_test 'release lookup with release-groups, tags, genres and ratings',
             <title>My Demons</title>
             <first-release-date>2007-01-29</first-release-date>
             <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
-            <tag-list><tag count="2"><name>dubstep</name></tag><tag count="1"><name>electronic</name></tag><tag count="1"><name>grime</name></tag></tag-list>
+            <tag-list>
+                <tag count="2">
+                    <name>dubstep</name>
+                </tag>
+                <tag count="1">
+                    <name>electronic</name>
+                </tag>
+                <tag count="1">
+                    <name>grime</name>
+                </tag>
+                <tag count="1">
+                    <name>happy</name>
+                </tag>
+            </tag-list>
             <genre-list><genre count="2" id="1b50083b-1afa-4778-82c8-548b309af783"><name>dubstep</name></genre><genre count="1" id="89255676-1f14-4dd8-bbad-fca839d6aff4"><name>electronic</name></genre><genre count="1" id="51cfaac4-6696-480b-8f1b-27cfc789109c"><name>grime</name><disambiguation>stuff</disambiguation></genre></genre-list>
+            <mood-list>
+                <mood count="1" id="1f6e3b62-33d6-4ac0-a9dc-f5424af3e6a4">
+                    <name>happy</name>
+                </mood>
+            </mood-list>
             <rating votes-count="1">4</rating>
         </release-group>
         <date>2007-01-29</date>

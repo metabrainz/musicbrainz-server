@@ -257,6 +257,10 @@ import formatTrackLength from './utility/formatTrackLength';
 
   Label.prototype.entityType = 'label';
 
+  class Mood extends CoreEntity {}
+
+  Mood.prototype.entityType = 'mood';
+
   class Area extends CoreEntity {
     toJSON() {
       return Object.assign(
@@ -469,9 +473,11 @@ import formatTrackLength from './utility/formatTrackLength';
   MB.entity.Editor = Editor;
   MB.entity.Entity = Entity;
   MB.entity.Event = Event;
+  MB.entity.Genre = Genre;
   MB.entity.Instrument = Instrument;
   MB.entity.Label = Label;
   MB.entity.Medium = Medium;
+  MB.entity.Mood = Mood;
   MB.entity.Place = Place;
   MB.entity.Recording = Recording;
   MB.entity.Release = Release;
@@ -513,6 +519,7 @@ import formatTrackLength from './utility/formatTrackLength';
     genre:         Genre,
     instrument:    Instrument,
     label:         Label,
+    mood:          Mood,
     area:          Area,
     place:         Place,
     recording:     Recording,

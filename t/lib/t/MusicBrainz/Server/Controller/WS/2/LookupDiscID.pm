@@ -20,10 +20,14 @@ $mech->default_header('Accept' => 'application/xml');
 MusicBrainz::Server::Test->prepare_test_database($c, '+tracklist');
 MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
     INSERT INTO medium_cdtoc (medium, cdtoc) VALUES (2, 2);
-    INSERT INTO tag (id, name) VALUES (1, 'musical'), (2, 'not-used');
+    INSERT INTO tag (id, name)
+        VALUES (1, 'musical'), (2, 'not-used'), (3, 'super sad');
     INSERT INTO genre (id, gid, name)
         VALUES (1, 'ff6d73e8-bf1a-431e-9911-88ae7ffcfdfb', 'musical');
-    INSERT INTO release_tag (tag, release, count) VALUES (1, 2, 2), (2, 2, 2);
+    INSERT INTO mood (id, gid, name)
+        VALUES (1, 'ff6d73e8-bf1a-431e-9911-88ae7ffcfdfa', 'super sad');
+    INSERT INTO release_tag (tag, release, count)
+        VALUES (1, 2, 2), (2, 2, 2), (3, 2, 2);
     SQL
 
 ws_test 'direct disc id lookup',
@@ -98,7 +102,7 @@ ws_test 'direct disc id lookup',
 $c->model('DurationLookup')->update(2);
 $c->model('DurationLookup')->update(4);
 ws_test 'lookup via toc',
-    '/discid/aa11.sPglQ1x0cybDcDi0OsZw9Q-?toc=1 9 189343 150 6614 32287 54041 61236 88129 92729 115276 153877&cdstubs=no&inc=tags+genres' =>
+    '/discid/aa11.sPglQ1x0cybDcDi0OsZw9Q-?toc=1 9 189343 150 6614 32287 54041 61236 88129 92729 115276 153877&cdstubs=no&inc=tags+genres+moods' =>
     '<?xml version="1.0"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
   <release-list count="2">
@@ -185,12 +189,20 @@ ws_test 'lookup via toc',
           <name>musical</name>
         </genre>
       </genre-list>
+      <mood-list>
+        <mood count="2" id="ff6d73e8-bf1a-431e-9911-88ae7ffcfdfa">
+          <name>super sad</name>
+        </mood>
+      </mood-list>
       <tag-list>
         <tag count="2">
           <name>musical</name>
         </tag>
         <tag count="2">
           <name>not-used</name>
+        </tag>
+        <tag count="2">
+          <name>super sad</name>
         </tag>
       </tag-list>
     </release>

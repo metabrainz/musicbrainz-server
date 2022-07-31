@@ -425,6 +425,42 @@
         },
         "model": "MediumFormat"
     },
+    "mood": {
+        "aliases": {
+            "add_edit_type": 175,
+            "delete_edit_type": 176,
+            "edit_edit_type": 177,
+            "search_hint_type": 2
+        },
+        "annotations": {
+            "edit_type": 174
+        },
+        "cache": {
+            "id": 334
+        },
+        "disambiguation": true,
+        "edit_table": true,
+        "mbid": {
+            "indexable": true,
+            "multiple": false,
+            "relatable": "overview"
+        },
+        "merging": false,
+        "model": "Mood",
+        "plural": "moods",
+        "plural_url": "moods",
+        "removal": {
+            "manual": true
+        },
+        "url": "mood"
+    },
+    "mood_alias_type": {
+        "cache": {
+            "id": 51
+        },
+        "model": "MoodAliasType",
+        "table": "mood_alias_type"
+    },
     "place": {
         "aliases": {
             "add_edit_type": 66,
