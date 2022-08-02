@@ -13,7 +13,7 @@ import ListEdit from '../components/ListEdit';
 import ListHeader from '../components/ListHeader';
 import FormSubmit from '../../components/FormSubmit';
 import PaginatedResults from '../../components/PaginatedResults';
-import * as manifest from '../../static/manifest';
+import * as manifest from '../../static/manifest.mjs';
 import {isAutoEditor} from '../../static/scripts/common/utility/privileges';
 
 type Props = {

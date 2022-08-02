@@ -105,7 +105,10 @@ if [[ "$BUILD_TESTS" == "1" ]]; then
     fi
 fi
 
-"$MB_SERVER_ROOT"/webpack/run.js $RUN_ARGS &
+"$MB_SERVER_ROOT"/bin/sucrase-node \
+    "$MB_SERVER_ROOT"/webpack/run.mjs \
+    $RUN_ARGS &
+
 check_trap_jobs
 
 if [[ "$WATCH_MODE" == "1" ]]; then wait; fi

@@ -29,7 +29,7 @@ import ReleaseEvents from '../static/scripts/common/components/ReleaseEvents';
 import ReleaseLabelList from '../components/ReleaseLabelList';
 import ReleaseCatnoList from '../components/ReleaseCatnoList';
 import formatBarcode from '../static/scripts/common/utility/formatBarcode';
-import * as manifest from '../static/manifest';
+import * as manifest from '../static/manifest.mjs';
 import releaseGroupType from '../utility/releaseGroupType';
 import {returnToCurrentPage} from '../utility/returnUri';
 

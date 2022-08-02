@@ -12,7 +12,7 @@ import commaList, {commaListText} from '../i18n/commaList';
 import {type VarArgsObject} from '../i18n/expand2';
 import localizeLinkAttributeTypeName
   from '../i18n/localizeLinkAttributeTypeName';
-import linkedEntities from '../linkedEntities';
+import linkedEntities from '../linkedEntities.mjs';
 import clean from '../utility/clean';
 
 function _displayLinkAttribute<T>(

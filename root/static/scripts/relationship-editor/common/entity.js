@@ -11,7 +11,7 @@ import ko from 'knockout';
 import 'knockout-arraytransforms';
 
 import {compare} from '../../common/i18n';
-import linkedEntities from '../../common/linkedEntities';
+import linkedEntities from '../../common/linkedEntities.mjs';
 import MB from '../../common/MB';
 import {compactMap, sortByString} from '../../common/utility/arrays';
 import {uniqueId} from '../../common/utility/strings';

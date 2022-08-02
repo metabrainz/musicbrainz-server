@@ -21,7 +21,7 @@ import FormRowTextArea from '../../../../components/FormRowTextArea';
 import FormRowURLLong from '../../../../components/FormRowURLLong';
 import FormSubmit from '../../../../components/FormSubmit';
 import SelectField from '../../../../components/SelectField';
-import DBDefs from '../../common/DBDefs-client';
+import DBDefs from '../../common/DBDefs-client.mjs';
 import {FLUENCY_NAMES} from '../../common/constants';
 import Autocomplete from '../../common/components/Autocomplete';
 import Warning from '../../common/components/Warning';

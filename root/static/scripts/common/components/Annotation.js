@@ -10,9 +10,9 @@
 import * as React from 'react';
 import mutate from 'mutate-cow';
 
-import {SanitizedCatalystContext} from '../../../../context';
+import {SanitizedCatalystContext} from '../../../../context.mjs';
 import formatUserDate from '../../../../utility/formatUserDate';
-import sanitizedEditor from '../../../../utility/sanitizedEditor';
+import sanitizedEditor from '../../../../utility/sanitizedEditor.mjs';
 import entityHref from '../utility/entityHref';
 
 import Collapsible from './Collapsible';

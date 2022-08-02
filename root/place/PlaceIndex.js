@@ -14,7 +14,7 @@ import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract';
 import CleanupBanner from '../components/CleanupBanner';
 import Relationships from '../components/Relationships';
-import * as manifest from '../static/manifest';
+import * as manifest from '../static/manifest.mjs';
 
 import PlaceLayout from './PlaceLayout';
 

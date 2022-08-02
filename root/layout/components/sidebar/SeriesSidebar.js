@@ -9,10 +9,11 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../../context';
+import {CatalystContext} from '../../../context.mjs';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage';
-import linkedEntities from '../../../static/scripts/common/linkedEntities';
+import linkedEntities
+  from '../../../static/scripts/common/linkedEntities.mjs';
 import ExternalLinks from '../ExternalLinks';
 
 import AnnotationLinks from './AnnotationLinks';

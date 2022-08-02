@@ -16,7 +16,7 @@ import {
 } from '../common/immutable-entities';
 import MB from '../common/MB';
 import clean from '../common/utility/clean';
-import {cloneObjectDeep} from '../common/utility/cloneDeep';
+import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
 import request from '../common/utility/request';
 import * as externalLinks from '../edit/externalLinks';
 import * as validation from '../edit/validation';

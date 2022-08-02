@@ -14,7 +14,7 @@ import Annotation from '../static/scripts/common/components/Annotation';
 import TagLink from '../static/scripts/common/components/TagLink';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract';
-import * as manifest from '../static/manifest';
+import * as manifest from '../static/manifest.mjs';
 
 import GenreLayout from './GenreLayout';
 

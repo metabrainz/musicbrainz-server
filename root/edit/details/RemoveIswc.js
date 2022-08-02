@@ -13,7 +13,7 @@ import CodeLink
   from '../../static/scripts/common/components/CodeLink';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
-import linkedEntities from '../../static/scripts/common/linkedEntities';
+import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 
 type Props = {
   +edit: RemoveIswcEditT,

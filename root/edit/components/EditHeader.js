@@ -13,7 +13,7 @@ import {EDIT_VOTE_APPROVE} from '../../constants';
 import RequestLogin from '../../components/RequestLogin';
 import SubHeader from '../../components/SubHeader';
 import VotingPeriod from '../../components/VotingPeriod';
-import linkedEntities from '../../static/scripts/common/linkedEntities';
+import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 import EditLink from '../../static/scripts/common/components/EditLink';
 import EditorLink from '../../static/scripts/common/components/EditorLink';
 import bracketed from '../../static/scripts/common/utility/bracketed';

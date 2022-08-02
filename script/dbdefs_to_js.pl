@@ -68,18 +68,22 @@ my @conversions = (
     {
         defs => \@BOOLEAN_DEFS,
         convert => sub { shift ? \\1 : \\0 },
+        flowtype => 'boolean',
     },
     {
         defs => \@NUMBER_DEFS,
-        convert => sub { \(0 + shift) },
+        convert => sub { \(0 + (shift // 0)) },
+        flowtype => 'number',
     },
     {
         defs => \@STRING_DEFS,
-        convert => sub { \('' . shift) },
+        convert => sub { \('' . (shift // '')) },
+        flowtype => 'string',
     },
     {
         defs => \@QW_STRING_DEFS,
-        convert => sub { \[map { '' . $_ } @_] },
+        convert => sub { \[map { '' . ($_ // '') } @_] },
+        flowtype => '$ReadOnlyArray<string>',
     },
     {
         defs => ['DATABASES'],
@@ -89,16 +93,27 @@ my @conversions = (
             my %conversion = map {
                 my $db = $databases->{$_};
                 ($_ => {
-                    user => $db->username,
-                    password => $db->password,
-                    database => $db->database,
-                    host => $db->host,
-                    port => $db->port,
+                    user => '' . ($db->username // ''),
+                    password => '' . ($db->password // ''),
+                    database => '' . ($db->database // ''),
+                    host => '' . ($db->host // ''),
+                    port => 0 + ($db->port // 0),
                 })
             } keys %{$databases};
 
             return \\%conversion;
         },
+        flowtype => (
+            '{' .
+                '+[name: string]: {' .
+                    '+database: string, ' .
+                    '+host: string, ' .
+                    '+password: string, ' .
+                    '+port: number, '.
+                    '+user: string'.
+                '}' .
+            '}'
+        ),
     }
 );
 
@@ -114,36 +129,40 @@ sub get_value {
 }
 
 my $json = JSON->new->allow_nonref->ascii->canonical;
-my $server_code = '';
-my $client_code = '';
+my $server_code = "// \@flow strict\n";
+my $client_code = "// \@flow strict\n";
+
+my (@all_client_defs, @all_server_defs);
 
 for my $conversion (@conversions) {
-    my ($defs, $convert) = @{$conversion}{qw(defs convert)};
+    my ($defs, $convert, $flowtype) = @{$conversion}{qw(defs convert flowtype)};
 
     for my $def (@$defs) {
         my @raw_value = get_value($def);
-        my $json_value = \undef;
-
-        if (defined $raw_value[0]) {
-            $json_value = $convert->(@raw_value);
-        }
-
-        $json_value = $json->encode(${$json_value});
-
-        my $line = "exports.$def = $json_value;\n";
+        my $json_value = $json->encode(${$convert->(@raw_value)});
+        my $line = "export const $def/*: $flowtype */ = $json_value;\n";
         $server_code .= $line;
-        $client_code .= $line if $CLIENT_DEFS{$def};
+        push @all_server_defs, $def;
+        if ($CLIENT_DEFS{$def}) {
+            $client_code .= $line;
+            push @all_client_defs, $def;
+        }
     }
 }
 
+# Continue to allow importing as `import DBDefs from ...` by providing a
+# default export.
+$server_code .= 'export default {' . (join q(, ), @all_server_defs) . "};\n";
+$client_code .= 'export default {' . (join q(, ), @all_client_defs) . "};\n";
+
 my $common_dir = "$FindBin::Bin/../root/static/scripts/common";
-my $server_js_path = "$common_dir/DBDefs.js";
-my $client_json_path = "$common_dir/DBDefs-client-values.js";
+my $server_js_path = "$common_dir/DBDefs.mjs";
+my $client_js_path = "$common_dir/DBDefs-client.mjs";
 
 open(my $fh, '>', $server_js_path);
 print $fh $server_code;
 close $fh;
 
-open($fh, '>', $client_json_path);
+open($fh, '>', $client_js_path);
 print $fh $client_code;
 close $fh;

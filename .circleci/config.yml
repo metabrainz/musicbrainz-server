@@ -3,7 +3,7 @@ version: 2.1
 executors:
   musicbrainz-tests:
     docker:
-      - image: metabrainz/musicbrainz-tests:v-2022-05.5
+      - image: metabrainz/musicbrainz-tests:v-2022-07
         user: root
     working_directory: /home/musicbrainz/musicbrainz-server
 
@@ -45,7 +45,7 @@ jobs:
           rm /etc/service/{postgresql,redis}/down && sv start postgresql redis
           sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh
           sudo -E -H -u musicbrainz make -C po all_quiet deploy
-          NODE_ENV=test WEBPACK_MODE=development NO_PROGRESS=1 sudo -E -H -u musicbrainz carton exec -- \
+          MUSICBRAINZ_RUNNING_TESTS=1 NODE_ENV=test WEBPACK_MODE=development NO_PROGRESS=1 sudo -E -H -u musicbrainz carton exec -- \
               ./script/compile_resources.sh client server web-tests
           sudo -E -H -u musicbrainz ./node_modules/.bin/flow --quiet
           sudo -E -H -u musicbrainz ./node_modules/.bin/eslint --max-warnings 0 .

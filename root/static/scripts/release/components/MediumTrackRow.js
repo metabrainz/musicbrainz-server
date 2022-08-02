@@ -12,7 +12,7 @@ import * as React from 'react';
 import GroupedTrackRelationships
   from '../../../../components/GroupedTrackRelationships';
 import RatingStars from '../../../../components/RatingStars';
-import {SanitizedCatalystContext} from '../../../../context';
+import {SanitizedCatalystContext} from '../../../../context.mjs';
 import loopParity from '../../../../utility/loopParity';
 import ArtistCreditLink
   from '../../common/components/ArtistCreditLink';

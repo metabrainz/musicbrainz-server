@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context';
-import * as manifest from '../../static/manifest';
+import {CatalystContext} from '../../context.mjs';
+import * as manifest from '../../static/manifest.mjs';
 import Table from '../Table';
 import {
   defineArtistRolesColumn,

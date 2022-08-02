@@ -21,7 +21,7 @@ import {
 } from '../common/constants';
 import {compare, l} from '../common/i18n';
 import expand2react from '../common/i18n/expand2react';
-import linkedEntities from '../common/linkedEntities';
+import linkedEntities from '../common/linkedEntities.mjs';
 import MB from '../common/MB';
 import {groupBy, keyBy, uniqBy} from '../common/utility/arrays';
 import isDateEmpty from '../common/utility/isDateEmpty';

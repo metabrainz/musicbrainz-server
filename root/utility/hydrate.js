@@ -14,7 +14,7 @@ import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 import * as Sentry from '@sentry/browser';
 
-import {SanitizedCatalystContext} from '../context';
+import {SanitizedCatalystContext} from '../context.mjs';
 
 import escapeClosingTags from './escapeClosingTags';
 

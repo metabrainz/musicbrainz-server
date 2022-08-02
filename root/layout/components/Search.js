@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import SearchIcon from '../../static/scripts/common/components/SearchIcon';
-import DBDefs from '../../static/scripts/common/DBDefs';
+import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import {compare} from '../../static/scripts/common/i18n';
 
 type SearchOptionValueT =

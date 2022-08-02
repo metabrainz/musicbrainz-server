@@ -5,6 +5,7 @@
 
 /* eslint-disable import/no-commonjs */
 
+import {DEVELOPMENT_SERVER} from './common/DBDefs-client.mjs';
 import MB from './common/MB';
 
 /* Global polyfills not provided by core-js */
@@ -14,9 +15,7 @@ require('./common/focusin-focusout-polyfill');
 
 require('./public-path');
 
-const DBDefs = require('./common/DBDefs-client');
-
-if (DBDefs.DEVELOPMENT_SERVER) {
+if (DEVELOPMENT_SERVER) {
   /*
    * Used by the Selenium tests under /t/selenium/ to make sure that no errors
    * occurred on the page.

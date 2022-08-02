@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import {PART_OF_SERIES_LINK_TYPES} from '../static/scripts/common/constants';
 import EntityLink from '../static/scripts/common/components/EntityLink';
-import linkedEntities from '../static/scripts/common/linkedEntities';
+import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import groupRelationships, {type RelationshipTargetTypeGroupT}
   from '../utility/groupRelationships';
 

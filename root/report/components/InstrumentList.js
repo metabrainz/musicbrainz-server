@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context';
+import {CatalystContext} from '../../context.mjs';
 import PaginatedResults from '../../components/PaginatedResults';
 import Table from '../../components/Table';
 import {

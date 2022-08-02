@@ -13,7 +13,7 @@ import localizeLinkAttributeTypeDescription
   from '../../common/i18n/localizeLinkAttributeTypeDescription';
 import localizeLinkAttributeTypeName
   from '../../common/i18n/localizeLinkAttributeTypeName';
-import linkedEntities from '../../common/linkedEntities';
+import linkedEntities from '../../common/linkedEntities.mjs';
 import MB from '../../common/MB';
 import {groupBy} from '../../common/utility/arrays';
 import {hasSessionStorage} from '../../common/utility/storage';

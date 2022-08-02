@@ -17,7 +17,7 @@ import {
   expand2reactWithVarArgsInstance,
 } from '../../common/i18n/expand2react';
 import {expand2textWithVarArgsClass} from '../../common/i18n/expand2text';
-import linkedEntities from '../../common/linkedEntities';
+import linkedEntities from '../../common/linkedEntities.mjs';
 import clean from '../../common/utility/clean';
 import {compareStrings} from '../../common/utility/compare';
 import displayLinkAttribute, {displayLinkAttributeText}

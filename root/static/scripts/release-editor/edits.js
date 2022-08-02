@@ -15,7 +15,7 @@ import {reduceArtistCredit} from '../common/immutable-entities';
 import MB from '../common/MB';
 import {compactMap, keyBy, last} from '../common/utility/arrays';
 import clean from '../common/utility/clean';
-import {cloneObjectDeep} from '../common/utility/cloneDeep';
+import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
 import {debounceComputed} from '../common/utility/debounce';
 import deepEqual from '../common/utility/deepEqual';
 import isBlank from '../common/utility/isBlank';

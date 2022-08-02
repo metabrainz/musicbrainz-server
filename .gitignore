@@ -12,8 +12,10 @@
 /root/static/images/leaflet/marker-icon-2x.png
 /root/static/images/leaflet/marker-icon.png
 /root/static/images/leaflet/marker-shadow.png
+/root/static/scripts/common/DBDefs-client.js
+/root/static/scripts/common/DBDefs-client.mjs
 /root/static/scripts/common/DBDefs.js
-/root/static/scripts/common/DBDefs-client-values.js
+/root/static/scripts/common/DBDefs.mjs
 /root/static/scripts/tests/typeInfo.js
 /blib
 /junit_output*

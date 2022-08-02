@@ -392,7 +392,7 @@ sub SENTRY_DSN_PUBLIC { undef }
 sub HTML_VALIDATOR { 'http://validator.w3.org/nu/?out=json' }
 # sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
-# We use a small Node.js server (root/server.js) to render React.js
+# We use a small Node.js server (root/server.mjs) to render React.js
 # templates. RENDERER_SOCKET configures the local (UNIX) socket path it
 # listens on.
 #
@@ -404,7 +404,7 @@ sub RENDERER_SOCKET {
     catfile(tmpdir, 'musicbrainz-template-renderer.socket')
 }
 # If FORK_RENDERER is set to a true value, MusicBrainz Server will fork and
-# exec root/server.js automatically. TERM signals received by plackup will
+# exec root/server.mjs automatically. TERM signals received by plackup will
 # also be passed along to the renderer. Otherwise, it is assumed that the
 # renderer was run manually and is already listening on RENDERER_SOCKET.
 #
@@ -447,7 +447,7 @@ sub USE_SELENIUM_HEADER { 0 }
 # `editor.last_login_date` whenever a user logs in. This is useful in a
 # couple obscure scenarios:
 #
-#  * In t/selenium.js, we check whether any changes were made to the
+#  * In t/selenium.mjs, we check whether any changes were made to the
 #    database after each test; if so, we run script/reset_selenium_env.sh
 #    (which is quite slow). Some tests that are otherwise read-only still
 #    require a login. By disabling the last_login_date update (which is

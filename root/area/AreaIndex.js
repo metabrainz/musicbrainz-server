@@ -13,7 +13,7 @@ import Annotation from '../static/scripts/common/components/Annotation';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract';
 import Relationships from '../components/Relationships';
-import * as manifest from '../static/manifest';
+import * as manifest from '../static/manifest.mjs';
 
 import AreaLayout from './AreaLayout';
 

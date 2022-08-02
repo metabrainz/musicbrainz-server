@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import Layout from '../../layout';
 import expand2react from '../../static/scripts/common/i18n/expand2react';
-import linkedEntities from '../../static/scripts/common/linkedEntities';
+import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 import bracketed, {bracketedText}
   from '../../static/scripts/common/utility/bracketed';
 import formatEntityTypeName

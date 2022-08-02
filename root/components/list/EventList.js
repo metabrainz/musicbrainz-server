@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context';
+import {CatalystContext} from '../../context.mjs';
 import Table from '../Table';
-import * as manifest from '../../static/manifest';
+import * as manifest from '../../static/manifest.mjs';
 import {commaOnlyListText}
   from '../../static/scripts/common/i18n/commaOnlyList';
 import localizeArtistRoles

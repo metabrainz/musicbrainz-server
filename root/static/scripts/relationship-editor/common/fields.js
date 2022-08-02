@@ -14,7 +14,7 @@ import {
 } from '../../common/constants';
 import localizeLinkAttributeTypeName
   from '../../common/i18n/localizeLinkAttributeTypeName';
-import linkedEntities from '../../common/linkedEntities';
+import linkedEntities from '../../common/linkedEntities.mjs';
 import mbEntity from '../../common/entity';
 import MB from '../../common/MB';
 import clean from '../../common/utility/clean';
