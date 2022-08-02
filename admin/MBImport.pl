@@ -22,6 +22,7 @@ my $skip_ensure_editor = 0;
 my $update_replication_control = 1;
 my $delete_first = 0;
 my $database = 'MAINTENANCE';
+my $import_tables = [@FULL_TABLE_LIST];
 
 GetOptions(
     'help|h'                    => \$fHelp,
@@ -31,7 +32,8 @@ GetOptions(
     'fix-broken-utf8'   => \$fFixUTF8,
     'skip-editor!' => \$skip_ensure_editor,
     'update-replication-control!' => \$update_replication_control,
-    'delete-first!' => \$delete_first
+    'delete-first!' => \$delete_first,
+    'table=s@' => \$import_tables,
 );
 
 sub usage
@@ -52,6 +54,9 @@ Usage: MBImport.pl [options] FILE ...
                           internal and is only be set by MusicBrainz scripts
         --delete-first    If set, will delete from non-empty tables immediately
                           before importing
+        --table           import only the specified table
+                          (can use multiple times to specify multiple tables)
+                          (default: all tables)
 
 FILE can be any of: a regular file in Postgres "copy" format (as produced
 by ExportAllTables --nocompress); a gzip'd or bzip2'd tar file of Postgres
@@ -321,7 +326,7 @@ sub empty
 
 sub ImportAllTables
 {
-    for my $table (@FULL_TABLE_LIST) {
+    for my $table (@$import_tables) {
         my $file = (find_file($table))[0];
         $file or print("No data file found for '$table', skipping\n"), next;
         $imported_tables{$table} = 1;
