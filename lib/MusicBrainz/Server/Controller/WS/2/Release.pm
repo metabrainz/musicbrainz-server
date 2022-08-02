@@ -8,7 +8,7 @@ use MusicBrainz::Server::Constants qw(
     $ACCESS_SCOPE_SUBMIT_BARCODE
     $EDIT_RELEASE_EDIT_BARCODES
 );
-use List::AllUtils qw( partition_by uniq uniq_by );
+use List::AllUtils qw( natatime partition_by uniq uniq_by );
 use MusicBrainz::Server::WebService::XML::XPath;
 use MusicBrainz::Server::Validation qw( is_guid is_valid_ean );
 use Readonly;
@@ -153,7 +153,9 @@ sub release_toplevel {
         # number of recordings (audiobooks) will almost always timeout, driving up
         # server load average for nothing. Ideally we can remove this limit as soon as
         # we resolve the performance issues we have.
-        my $max_recording_relationships = 500;
+        my $max_recording_relationships = 500 * (
+            $stash->_data->{_json_dump} ? 'inf' : 1
+        );
 
         if ($inc->recording_level_rels && @recordings <= $max_recording_relationships) {
             push @rels_entities, @recordings;
@@ -209,7 +211,10 @@ sub release_toplevel {
         $self->linked_artists($c, $stash, \@artists);
     }
 
-    $self->load_relationships($c, $stash, @rels_entities);
+    my $it = natatime 500, @rels_entities;
+    while (my @rels_entities_subset = $it->()) {
+        $self->load_relationships($c, $stash, @rels_entities_subset);
+    }
 }
 
 sub release_browse : Private

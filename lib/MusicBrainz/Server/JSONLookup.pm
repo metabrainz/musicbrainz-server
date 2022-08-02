@@ -28,6 +28,7 @@ sub json_lookup {
     # of this module. To lookup entity JSON without going through Catalyst.
     $c->stash({ inc => $inc });
     my $stash = WebServiceStash->new;
+    $stash->_data->{_json_dump} = 1;
 
     my $model = $ENTITIES{$entity_type}{model};
     my @entities = values %{ $c->model($model)->get_by_ids(@{$ids}) };
