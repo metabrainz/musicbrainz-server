@@ -77,7 +77,7 @@ our $TMP_EXPORT_DIR = tempdir(
     CLEANUP => 0,
 );
 
-Readonly our $BATCH_SIZE => 500;
+Readonly our $BATCH_SIZE => 100;
 
 sub create_json_dump {
     my ($self, $c, $table_name, %mbdump_options) = @_;
