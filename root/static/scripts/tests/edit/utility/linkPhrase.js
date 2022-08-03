@@ -9,7 +9,9 @@
 
 import test from 'tape';
 
-import linkedEntities from '../../../common/linkedEntities';
+import linkedEntities, {
+  mergeLinkedEntities,
+} from '../../../common/linkedEntities.mjs';
 import {
   getPhraseAndExtraAttributesText,
 } from '../../../edit/utility/linkPhrase';
@@ -21,7 +23,7 @@ test('required attributes are left with forGrouping', function (t) {
    * Note: There are currently no orderable link types with any
    * required attributes, so we're adding a fake one here.
    */
-  linkedEntities.mergeLinkedEntities({
+  mergeLinkedEntities({
     link_type: {
       [10000]: {
         attributes: {

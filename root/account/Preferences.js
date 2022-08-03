@@ -16,7 +16,7 @@ import PreferencesForm
   from '../static/scripts/account/components/PreferencesForm';
 import type {PreferencesFormPropsT}
   from '../static/scripts/account/components/PreferencesForm';
-import * as manifest from '../static/manifest';
+import * as manifest from '../static/manifest.mjs';
 
 type Props = {
   ...PreferencesFormPropsT,

@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context';
-import DBDefs from '../../static/scripts/common/DBDefs';
+import {CatalystContext} from '../../context.mjs';
+import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import {DONATE_URL} from '../../constants';
 import {bracketedText} from '../../static/scripts/common/utility/bracketed';
 import formatUserDate from '../../utility/formatUserDate';

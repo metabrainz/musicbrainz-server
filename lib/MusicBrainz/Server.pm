@@ -412,7 +412,7 @@ before dispatch => sub {
     my $ctx = $self->model('MB')->context;
 
     # The mb-set-database header is added by:
-    #  1) the http proxy in t/selenium.js
+    #  1) the http proxy in t/selenium.mjs
     #  2) make_jsonld_request in
     #     lib/MusicBrainz/Server/Sitemap/Incremental.pm
     # and instructs us to use the specified database instead of

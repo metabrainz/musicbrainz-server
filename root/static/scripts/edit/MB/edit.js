@@ -11,7 +11,7 @@ import ko from 'knockout';
 import {hex_sha1 as hexSha1} from '../../../lib/sha1/sha1';
 import {VIDEO_ATTRIBUTE_GID} from '../../common/constants';
 import * as TYPES from '../../common/constants/editTypes';
-import linkedEntities from '../../common/linkedEntities';
+import linkedEntities from '../../common/linkedEntities.mjs';
 import MB from '../../common/MB';
 import {compactMap, sortByNumber} from '../../common/utility/arrays';
 import clean from '../../common/utility/clean';

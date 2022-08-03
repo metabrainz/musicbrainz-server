@@ -15,8 +15,8 @@ import PostParameters, {
   type PostParametersT,
 } from '../static/scripts/common/components/PostParameters';
 import Layout from '../layout';
-import * as manifest from '../static/manifest';
-import DBDefs from '../static/scripts/common/DBDefs';
+import * as manifest from '../static/manifest.mjs';
+import DBDefs from '../static/scripts/common/DBDefs.mjs';
 import returnUri from '../utility/returnUri';
 
 type PropsT = {

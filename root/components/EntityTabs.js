@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../context';
+import {CatalystContext} from '../context.mjs';
 import {ENTITIES} from '../static/scripts/common/constants';
 import isSpecialPurpose
   from '../static/scripts/common/utility/isSpecialPurpose';
@@ -131,6 +131,13 @@ function buildLinks(
 
   if (entityProperties.tags) {
     links.push(buildLink(l('Tags'), entity, 'tags', page));
+  }
+
+  if (entityProperties.ratings || entityProperties.reviews) {
+    const ratingsTabTitle = entityProperties.reviews
+      ? l('Reviews')
+      : l('Ratings');
+    links.push(buildLink(ratingsTabTitle, entity, 'ratings', page));
   }
 
   if (!entityProperties.mbid.no_details) {

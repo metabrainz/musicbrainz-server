@@ -11,12 +11,12 @@ import * as React from 'react';
 
 import GroupedTrackRelationships
   from '../../../../components/GroupedTrackRelationships';
-import RatingStars from '../../../../components/RatingStars';
-import {SanitizedCatalystContext} from '../../../../context';
+import {SanitizedCatalystContext} from '../../../../context.mjs';
 import loopParity from '../../../../utility/loopParity';
 import ArtistCreditLink
   from '../../common/components/ArtistCreditLink';
 import EntityLink from '../../common/components/EntityLink';
+import RatingStars from '../../common/components/RatingStars';
 import formatTrackLength
   from '../../common/utility/formatTrackLength';
 import type {CreditsModeT} from '../types';

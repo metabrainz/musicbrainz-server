@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import * as manifest from '../../static/manifest';
+import * as manifest from '../../static/manifest.mjs';
 import DescriptiveLink from
   '../../static/scripts/common/components/DescriptiveLink';
 import ExpandedArtistCredit from

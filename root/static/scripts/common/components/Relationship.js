@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import linkedEntities from '../linkedEntities';
+import linkedEntities from '../linkedEntities.mjs';
 import bracketed from '../utility/bracketed';
 import {displayLinkAttributes}
   from '../utility/displayLinkAttribute';

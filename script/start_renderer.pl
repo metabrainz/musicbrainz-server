@@ -6,9 +6,10 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 use POSIX qw( setsid );
 use Getopt::Long;
+use DBDefs;
 
 my $daemonize = 0;
-my $socket;
+my $socket = DBDefs->RENDERER_SOCKET;
 my $workers;
 GetOptions(
     'daemonize' => \$daemonize,
@@ -39,9 +40,33 @@ if ($child) {
     };
     wait;
 } else {
-    my @argv;
-    push @argv, ('--socket', $socket) if $socket;
-    push @argv, ('--workers', $workers) if $workers;
+    $ENV{RENDERER_WORKERS} = $workers if $workers;
+
     chdir qq($FindBin::Bin/../);
-    exec 'node', 'root/server.js', @argv;
+
+    my $server_build = 'root/static/build/server.js';
+
+    unless (-f $server_build) {
+        die "$server_build not found. (Did you run ./script/compile_resources.sh?)"
+    }
+
+    if (DBDefs->DEVELOPMENT_SERVER) {
+        $ENV{RENDERER_SOCKET} = $socket;
+
+        exec 'node_modules/.bin/nodemon',
+            '--watch', $server_build,
+            '--signal', 'SIGTERM',
+            '--delay', '500ms',
+            '--exec', 'node',
+            $server_build,
+    } else {
+        eval('use Server::Starter;');
+        if ($@) {
+            die (
+                'The CPAN package Server::Starter must be installed ' .
+                'in production environments.'
+            );
+        }
+        exec 'start_server', '--path', $socket, 'node', $server_build;
+    }
 }

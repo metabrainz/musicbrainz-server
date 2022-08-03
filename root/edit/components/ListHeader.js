@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context';
+import {CatalystContext} from '../../context.mjs';
 import ENTITIES from '../../../entities';
-import DBDefs from '../../static/scripts/common/DBDefs';
+import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import uriWith from '../../utility/uriWith';
 
 type Props = {
@@ -46,9 +46,82 @@ const ListHeader = ({
           {l('Quick links:')}
         </th>
         <td>
-          {isSearch ? null : (
-            <a href="/search/edits">{l('Search for edits')}</a>
-          )}
+          {nonEmpty(username) && page === 'user_all' ? (
+            <>
+              <a href={`/user/${username}/edits/open`}>
+                <strong>
+                  {exp.l('Open edits for {user}', {user: username})}
+                </strong>
+              </a>
+            </>
+          ) : null}
+          {nonEmpty(username) && page !== 'user_all' ? (
+            <>
+              <a href={`/user/${username}/edits`}>
+                <strong>
+                  {exp.l('All edits for {user}', {user: username})}
+                </strong>
+              </a>
+            </>
+          ) : null}
+          {entity && entityUrlFragment && isEntityAllPage ? (
+            <>
+              <a href={`/${entityUrlFragment}/${entity.gid}/open_edits`}>
+                <strong>
+                  {entity.entityType === 'collection'
+                    ? l('Open edits for this collection')
+                    : l('Open edits for this entity')}
+                </strong>
+              </a>
+            </>
+          ) : null}
+          {entity && entityUrlFragment && isEntityOpenPage ? (
+            <>
+              <a href={`/${entityUrlFragment}/${entity.gid}/edits`}>
+                <strong>
+                  {entity.entityType === 'collection'
+                    ? l('All edits for this collection')
+                    : l('All edits for this entity')}
+                </strong>
+              </a>
+            </>
+          ) : null}
+          {page === 'subscribed' && !(openParam === '1') ? (
+            <>
+              <a href="/edit/subscribed?open=1">
+                <strong>
+                  {l('Open edits for your subscribed entities')}
+                </strong>
+              </a>
+            </>
+          ) : null}
+          {page === 'subscribed' && openParam === '1' ? (
+            <>
+              <a href="/edit/subscribed?open=0">
+                <strong>
+                  {l('All edits for your subscribed entities')}
+                </strong>
+              </a>
+            </>
+          ) : null}
+          {page === 'subscribed_editors' && !(openParam === '1') ? (
+            <>
+              <a href="/edit/subscribed_editors?open=1">
+                <strong>
+                  {l('Open edits for your subscribed editors')}
+                </strong>
+              </a>
+            </>
+          ) : null}
+          {page === 'subscribed_editors' && openParam === '1' ? (
+            <>
+              <a href="/edit/subscribed_editors?open=0">
+                <strong>
+                  {l('All edits for your subscribed editors')}
+                </strong>
+              </a>
+            </>
+          ) : null}
           {refineUrlArgs ? (
             <>
               {' | '}
@@ -58,86 +131,12 @@ const ListHeader = ({
                   refineUrlArgs,
                 )}
               >
-                {l('Refine this search')}
+                <strong>
+                  {l('Refine this search')}
+                </strong>
               </a>
             </>
           ) : null}
-          {nonEmpty(username) && page === 'user_all' ? (
-            <>
-              {' | '}
-              <a href={`/user/${username}/edits/open`}>
-                {exp.l('Open edits for {user}', {user: username})}
-              </a>
-            </>
-          ) : null}
-          {nonEmpty(username) && page !== 'user_all' ? (
-            <>
-              {' | '}
-              <a href={`/user/${username}/edits`}>
-                {exp.l('All edits for {user}', {user: username})}
-              </a>
-            </>
-          ) : null}
-          {entity && entityUrlFragment && isEntityAllPage ? (
-            <>
-              {' | '}
-              <a href={`/${entityUrlFragment}/${entity.gid}/open_edits`}>
-                {entity.entityType === 'collection'
-                  ? l('Open edits for this collection')
-                  : l('Open edits for this entity')}
-              </a>
-            </>
-          ) : null}
-          {entity && entityUrlFragment && isEntityOpenPage ? (
-            <>
-              {' | '}
-              <a href={`/${entityUrlFragment}/${entity.gid}/edits`}>
-                {entity.entityType === 'collection'
-                  ? l('All edits for this collection')
-                  : l('All edits for this entity')}
-              </a>
-            </>
-          ) : null}
-          {page === 'subscribed' && !(openParam === '1') ? (
-            <>
-              {' | '}
-              <a href="/edit/subscribed?open=1">
-                {l('Open edits for your subscribed entities')}
-              </a>
-            </>
-          ) : null}
-          {page === 'subscribed' && openParam === '1' ? (
-            <>
-              {' | '}
-              <a href="/edit/subscribed?open=0">
-                {l('All edits for your subscribed entities')}
-              </a>
-            </>
-          ) : null}
-          {page === 'subscribed_editors' && !(openParam === '1') ? (
-            <>
-              {' | '}
-              <a href="/edit/subscribed_editors?open=1">
-                {l('Open edits for your subscribed editors')}
-              </a>
-            </>
-          ) : null}
-          {page === 'subscribed_editors' && openParam === '1' ? (
-            <>
-              {' | '}
-              <a href="/edit/subscribed_editors?open=0">
-                {l('All edits for your subscribed editors')}
-              </a>
-            </>
-          ) : null}
-          {page === 'open' ? null : (
-            <>
-              {' | '}
-              <a href="/edit/open">
-                {l('Open edits')}
-              </a>
-            </>
-          )}
           {$c.user && page !== 'subscribed' ? (
             <>
               {' | '}
@@ -154,6 +153,14 @@ const ListHeader = ({
               </a>
             </>
           ) : null}
+          {page === 'open' ? null : (
+            <>
+              {' | '}
+              <a href="/edit/open">
+                {l('Open edits')}
+              </a>
+            </>
+          )}
           {$c.user ? (
             <>
               {' | '}
@@ -162,6 +169,14 @@ const ListHeader = ({
               </a>
             </>
           ) : null}
+          {isSearch ? null : (
+            <>
+              {' | '}
+              <a href="/search/edits">
+                {l('Search for edits')}
+              </a>
+            </>
+          )}
         </td>
       </tr>
       <tr>

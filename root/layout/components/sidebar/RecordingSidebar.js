@@ -9,11 +9,12 @@
 
 import * as React from 'react';
 
+import * as manifest from '../../../static/manifest.mjs';
 import ArtistCreditLink
   from '../../../static/scripts/common/components/ArtistCreditLink';
-import CodeLink from '../../../static/scripts/common/components/CodeLink';
 import formatTrackLength
   from '../../../static/scripts/common/utility/formatTrackLength';
+import IsrcList from '../../../static/scripts/common/components/IsrcList';
 import ExternalLinks from '../ExternalLinks';
 
 import AnnotationLinks from './AnnotationLinks';
@@ -60,15 +61,16 @@ const RecordingSidebar = ({recording}: Props): React.Element<'div'> => {
           </SidebarProperty>
         )}
 
-        {recording.isrcs.map(isrc => (
-          <SidebarProperty
-            className="isrc"
-            key={'isrc-' + isrc.isrc}
-            label={l('ISRC:')}
-          >
-            <CodeLink code={isrc} />
-          </SidebarProperty>
-        ))}
+        {recording.isrcs.length ? (
+          <>
+            <IsrcList isSidebar isrcs={recording.isrcs} />
+            {manifest.js(
+              'common/components/IsrcList',
+              {async: 'async'},
+            )}
+          </>
+        ) : null}
+
       </SidebarProperties>
 
       <SidebarRating entity={recording} />

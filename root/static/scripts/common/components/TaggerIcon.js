@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {SanitizedCatalystContext} from '../../../../context';
+import {SanitizedCatalystContext} from '../../../../context.mjs';
 import taggerIconUrl from '../../../images/icons/mblookup-tagger.png';
 
 function buildTaggerLink(

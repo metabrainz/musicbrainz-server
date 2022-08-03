@@ -1,0 +1,143 @@
+// Automatically generated, do not edit.
+// - Database schema sequence: 27
+digraph instrument_entity_details {
+    tooltip = "Tables for the “instrument” core entity type properties"
+    graph [
+        bgcolor = "#cb75ab:#f0976c"
+        concentrate = true
+        gradientangle = 330
+        pack = true
+        rankdir = "LR"
+    ];
+    node [
+        shape = plain
+    ];
+
+    // Tables
+    "annotation" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">annotation</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="editor"><font point-size="14">editor</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="text"><font point-size="14">text</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="changelog"><font point-size="14">changelog</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="created"><font point-size="14">created</font></td></tr>
+            </table>
+        >
+    ];
+    "instrument" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#eeeeeebb"><font point-size="17">instrument</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="type"><font point-size="14">type</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="edits_pending"><font point-size="14">edits_pending</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="last_updated"><font point-size="14">last_updated</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="comment"><font point-size="14">comment</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="description"><font point-size="14">description</font></td></tr>
+            </table>
+        >
+    ];
+    "instrument_alias" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">instrument_alias</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="instrument"><font point-size="14">instrument</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="locale"><font point-size="14">locale</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="edits_pending"><font point-size="14">edits_pending</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="last_updated"><font point-size="14">last_updated</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="type"><font point-size="14">type</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="sort_name"><font point-size="14">sort_name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_year"><font point-size="14">begin_date_year</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_month"><font point-size="14">begin_date_month</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_day"><font point-size="14">begin_date_day</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_year"><font point-size="14">end_date_year</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_month"><font point-size="14">end_date_month</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_day"><font point-size="14">end_date_day</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="primary_for_locale"><font point-size="14">primary_for_locale</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="ended"><font point-size="14">ended</font></td></tr>
+            </table>
+        >
+    ];
+    "instrument_alias_type" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">instrument_alias_type</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="parent"><font point-size="14">parent</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="child_order"><font point-size="14">child_order</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="description"><font point-size="14">description</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+            </table>
+        >
+    ];
+    "instrument_annotation" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">instrument_annotation</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="instrument"><font point-size="14"><u>instrument</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="annotation"><font point-size="14"><u>annotation</u></font></td></tr>
+            </table>
+        >
+    ];
+    "instrument_gid_redirect" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">instrument_gid_redirect</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="gid"><font point-size="14"><u>gid</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="new_id"><font point-size="14">new_id</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="created"><font point-size="14">created</font></td></tr>
+            </table>
+        >
+    ];
+    "instrument_tag" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">instrument_tag</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="instrument"><font point-size="14"><u>instrument</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="tag"><font point-size="14"><u>tag</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="count"><font point-size="14">count</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="last_updated"><font point-size="14">last_updated</font></td></tr>
+            </table>
+        >
+    ];
+    "instrument_type" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">instrument_type</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="parent"><font point-size="14">parent</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="child_order"><font point-size="14">child_order</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="description"><font point-size="14">description</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+            </table>
+        >
+    ];
+    "tag" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">tag</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="ref_count"><font point-size="14">ref_count</font></td></tr>
+            </table>
+        >
+    ];
+
+    // References
+    "instrument":"type" -> "instrument_type":"id"
+    "instrument_alias":"instrument" -> "instrument":"id"
+    "instrument_alias":"type" -> "instrument_alias_type":"id"
+    "instrument_annotation":"instrument" -> "instrument":"id"
+    "instrument_annotation":"annotation" -> "annotation":"id"
+    "instrument_gid_redirect":"new_id" -> "instrument":"id"
+    "instrument_tag":"instrument" -> "instrument":"id"
+    "instrument_tag":"tag" -> "tag":"id"
+}

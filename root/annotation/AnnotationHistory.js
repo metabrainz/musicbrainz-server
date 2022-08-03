@@ -12,7 +12,7 @@ import * as React from 'react';
 import ENTITIES from '../../entities';
 import FormSubmit from '../components/FormSubmit';
 import PaginatedResults from '../components/PaginatedResults';
-import * as manifest from '../static/manifest';
+import * as manifest from '../static/manifest.mjs';
 import AnnotationHistoryTable
   from '../static/scripts/annotation/AnnotationHistoryTable';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent';

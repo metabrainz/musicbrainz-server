@@ -1,0 +1,22 @@
+{
+  "tooltip": "Tables for the “artist” core entity type properties",
+  "_comment": "Show replicated and materialized tables used to define any artist entity, beyond relationships. The main table is highlighted.",
+  "tables": {
+    "annotation": [],
+    "area": ["shortened"],
+    "artist": ["highlighted"],
+    "artist_alias": [],
+    "artist_alias_type": [],
+    "artist_annotation": [],
+    "artist_gid_redirect": [],
+    "artist_ipi": [],
+    "artist_isni": [],
+    "artist_meta": [],
+    "artist_release": ["materialized"],
+    "artist_release_group": ["materialized"],
+    "artist_tag": [],
+    "artist_type": [],
+    "gender": [],
+    "tag": []
+  }
+}

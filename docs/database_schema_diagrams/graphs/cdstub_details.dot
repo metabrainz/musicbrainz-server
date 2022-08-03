@@ -1,0 +1,63 @@
+// Automatically generated, do not edit.
+// - Database schema sequence: 27
+digraph cdstub_details {
+    tooltip = "Tables for CD stub"
+    graph [
+        bgcolor = "#cb75ab:#f0976c"
+        concentrate = true
+        gradientangle = 330
+        pack = true
+        rankdir = "LR"
+    ];
+    node [
+        shape = plain
+    ];
+
+    // Tables
+    "cdtoc_raw" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">cdtoc_raw</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="release"><font point-size="14">release</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="discid"><font point-size="14">discid</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="track_count"><font point-size="14">track_count</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="leadout_offset"><font point-size="14">leadout_offset</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="track_offset"><font point-size="14">track_offset</font></td></tr>
+            </table>
+        >
+    ];
+    "release_raw" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#eeeeeebb"><font point-size="17">release_raw</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="title"><font point-size="14">title</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="artist"><font point-size="14">artist</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="added"><font point-size="14">added</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="last_modified"><font point-size="14">last_modified</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="lookup_count"><font point-size="14">lookup_count</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="modify_count"><font point-size="14">modify_count</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="source"><font point-size="14">source</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="barcode"><font point-size="14">barcode</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="comment"><font point-size="14">comment</font></td></tr>
+            </table>
+        >
+    ];
+    "track_raw" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">track_raw</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="release"><font point-size="14">release</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="title"><font point-size="14">title</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="artist"><font point-size="14">artist</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="sequence"><font point-size="14">sequence</font></td></tr>
+            </table>
+        >
+    ];
+
+    // References
+    "cdtoc_raw":"release" -> "release_raw":"id"
+    "track_raw":"release" -> "release_raw":"id"
+}

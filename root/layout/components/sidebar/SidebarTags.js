@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../../context';
+import {CatalystContext} from '../../../context.mjs';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
 import {SidebarTagEditor}
   from '../../../static/scripts/common/components/TagEditor';

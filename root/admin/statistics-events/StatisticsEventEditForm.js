@@ -12,7 +12,7 @@ import * as React from 'react';
 import FormCsrfToken from '../../components/FormCsrfToken';
 import FormRowTextLong from '../../components/FormRowTextLong';
 import FormSubmit from '../../components/FormSubmit';
-import {CatalystContext} from '../../context';
+import {CatalystContext} from '../../context.mjs';
 
 import type {StatisticsEventFormT} from './types';
 

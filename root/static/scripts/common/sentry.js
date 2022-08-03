@@ -8,7 +8,7 @@
 
 import * as Sentry from '@sentry/browser';
 
-import DBDefs from './DBDefs-client';
+import DBDefs from './DBDefs-client.mjs';
 import getScriptArgs from './utility/getScriptArgs';
 
 const {user} = getScriptArgs();

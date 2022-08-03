@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import commaList from '../static/scripts/common/i18n/commaList';
-import linkedEntities from '../static/scripts/common/linkedEntities';
+import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import {bracketedText} from '../static/scripts/common/utility/bracketed';
 import {interpolate} from '../static/scripts/edit/utility/linkPhrase';
 import groupRelationships, {

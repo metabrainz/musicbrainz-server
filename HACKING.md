@@ -173,7 +173,7 @@ Webpack's [ProvidePlugin](webpack/providePluginConfig.js).
 We have a couple of scripts you may find useful that generate Flow object
 types based on JSON data:
 
- * `./script/generate_edit_data_flow_type.js --edit-type $EDIT_TYPE_ID`
+ * `./script/generate_edit_data_flow_type.mjs --edit-type $EDIT_TYPE_ID`
    will generate an object type to represent the edit data of `$EDIT_TYPE_ID`.
    However, this requires having a `PROD_STANDBY` database configured in
    DBDefs.pm, as it uses production data to ensure a correct type.
@@ -219,7 +219,7 @@ command line like so:
     $ ./t/selenium.js
 
 If you want to run specific tests under ./t/selenium/, you can specify the
-paths to them as arguments. t/selenium.js also accepts some command line flags
+paths to them as arguments. t/selenium.mjs also accepts some command line flags
 which are useful for debugging and development; see `./t/selenium.js --help`.
 For example, you might want to use `-h=false -s=true` to run non-headlessly
 and leave it open when it errors, to actually see what the tests are doing and
@@ -487,7 +487,7 @@ Common instructions for porting:
     `$c` from a deeply-nested component, you can either pass it down from
     a parent component, or import the `CatalystContext`
     [React context](https://reactjs.org/docs/context.html) from
-    root/context.js and either use the `CatalystContext.Consumer` component
+    root/context.mjs and either use the `CatalystContext.Consumer` component
     or use `React.useContext(CatalystContext)`.
 
  4. To communicate between the Perl and Node servers (the latter renders React

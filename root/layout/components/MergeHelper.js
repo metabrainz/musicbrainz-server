@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context';
+import {CatalystContext} from '../../context.mjs';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
 import {returnToCurrentPage} from '../../utility/returnUri';

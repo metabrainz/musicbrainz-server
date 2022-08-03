@@ -1,0 +1,31 @@
+{
+  "tooltip": "Tables for the “release” core entity type properties",
+  "_comment": "Show replicated and materialized tables used to define any release entity, beyond relationships. The main table is highlighted.",
+  "tables": {
+    "annotation": [],
+    "area": ["shortened"],
+    "artist": ["shortened"],
+    "artist_credit": [],
+    "artist_credit_name": [],
+    "artist_release": ["materialized"],
+    "country_area": [],
+    "label": ["shortened"],
+    "language": [],
+    "release": ["highlighted"],
+    "release_alias": [],
+    "release_alias_type": [],
+    "release_annotation": [],
+    "release_country": [],
+    "release_first_release_date": ["materialized"],
+    "release_gid_redirect": [],
+    "release_group": [],
+    "release_label": [],
+    "release_meta": [],
+    "release_packaging": [],
+    "release_status": [],
+    "release_tag": [],
+    "release_unknown_country": [],
+    "script": [],
+    "tag": []
+  }
+}

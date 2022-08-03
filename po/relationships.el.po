@@ -7634,10 +7634,6 @@ msgstr ""
 msgid "{entity1} invented {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:1090
-msgid "{entity1} is a commonly used in {entity0}"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:915
 msgid "{entity1} is a feed for podcast {entity0}"
 msgstr ""
@@ -7668,6 +7664,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:65 DB:link_type/long_link_phrase:970
 msgid "{entity1} is a tribute to {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1090
+msgid "{entity1} is commonly used in {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:983 DB:link_type/long_link_phrase:846

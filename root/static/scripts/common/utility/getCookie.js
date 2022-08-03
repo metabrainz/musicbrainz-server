@@ -9,7 +9,7 @@
 
 import isNodeJS from 'detect-node';
 
-import parseCookie from './parseCookie';
+import parseCookie from './parseCookie.mjs';
 import _cookies from './_cookies';
 
 let defaultExport: (name: string, defaultValue?: string) => string =

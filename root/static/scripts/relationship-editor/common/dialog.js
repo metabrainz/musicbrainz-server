@@ -16,7 +16,7 @@ import {ENTITY_NAMES, PART_OF_SERIES_LINK_TYPES}
   from '../../common/constants';
 import {compare} from '../../common/i18n';
 import expand2react from '../../common/i18n/expand2react';
-import linkedEntities from '../../common/linkedEntities';
+import linkedEntities from '../../common/linkedEntities.mjs';
 import MB from '../../common/MB';
 import * as URLCleanup from '../../edit/URLCleanup';
 import * as dates from '../../edit/utility/dates';

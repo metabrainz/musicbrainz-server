@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import Layout from '../layout';
-import * as manifest from '../static/manifest';
+import * as manifest from '../static/manifest.mjs';
 import GenreEditForm from '../static/scripts/genre/components/GenreEditForm';
 
 import type {GenreFormT} from './types';

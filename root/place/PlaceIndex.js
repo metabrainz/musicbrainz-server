@@ -10,11 +10,11 @@
 import * as React from 'react';
 
 import Annotation from '../static/scripts/common/components/Annotation';
+import Relationships from '../static/scripts/common/components/Relationships';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract';
 import CleanupBanner from '../components/CleanupBanner';
-import Relationships from '../components/Relationships';
-import * as manifest from '../static/manifest';
+import * as manifest from '../static/manifest.mjs';
 
 import PlaceLayout from './PlaceLayout';
 

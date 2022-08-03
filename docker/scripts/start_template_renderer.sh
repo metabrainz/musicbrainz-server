@@ -7,4 +7,4 @@ MBS_ROOT=$MBS_HOME/musicbrainz-server
 
 cd "$MBS_ROOT"
 
-exec sudo -E -H -u musicbrainz node root/server.js
+exec sudo -E -H -u musicbrainz carton exec -- ./script/start_renderer.pl

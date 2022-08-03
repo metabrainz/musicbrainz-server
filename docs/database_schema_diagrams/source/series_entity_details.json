@@ -1,0 +1,16 @@
+{
+  "tooltip": "Tables for the “series” core entity type properties",
+  "_comment": "Show replicated tables used to define any series entity, beyond relationships. The main table is highlighted.",
+  "tables": {
+    "annotation": [],
+    "tag": [],
+    "series": ["highlighted"],
+    "series_alias": [],
+    "series_alias_type": [],
+    "series_annotation": [],
+    "series_gid_redirect": [],
+    "series_ordering_type": [],
+    "series_tag": [],
+    "series_type": []
+  }
+}

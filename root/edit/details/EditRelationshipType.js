@@ -18,7 +18,7 @@ import OrderableDirection
   from '../../static/scripts/common/components/OrderableDirection';
 import Warning from '../../static/scripts/common/components/Warning';
 import {ENTITY_NAMES} from '../../static/scripts/common/constants';
-import linkedEntities from '../../static/scripts/common/linkedEntities';
+import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';

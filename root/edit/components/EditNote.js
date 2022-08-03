@@ -14,7 +14,7 @@ import {
   EDIT_VOTE_NO,
   EDIT_VOTE_YES,
 } from '../../constants';
-import {CatalystContext} from '../../context';
+import {CatalystContext} from '../../context.mjs';
 import EditorLink from '../../static/scripts/common/components/EditorLink';
 import getVoteName from '../../static/scripts/edit/utility/getVoteName';
 import formatUserDate from '../../utility/formatUserDate';

@@ -69,17 +69,24 @@ role {
         my $annotation_model = $self->_annotation_model;
         my $old_annotation_id = $self->data->{old_annotation_id};
         my $old_annotation;
-        $old_annotation = $annotation_model->get_by_id($old_annotation_id)->{text}
+        my $old_annotation_text;
+
+        $old_annotation = $annotation_model->get_by_id($old_annotation_id)
             if defined $old_annotation_id && $old_annotation_id;
-        # blank annotation text is undefined even if annotation exists
-        $old_annotation = '' if !defined $old_annotation;
+
+        # If the annotated entity has been deleted, the annotation is gone
+        if (defined $old_annotation) {
+            $old_annotation_text = $old_annotation->{text};
+            # blank annotation text is undefined even if annotation exists
+            $old_annotation_text = '' if !defined $old_annotation_text;
+        }
 
         my $data = {
             changelog      => $self->data->{changelog},
             text           => $self->data->{text} || '',
             html           => format_wikitext($self->data->{text}),
             entity_type    => $entity_type,
-            defined $old_annotation_id ? ( old_annotation => '' . $old_annotation ) : (),
+            defined $old_annotation ? ( old_annotation => '' . $old_annotation_text ) : (),
         };
 
         unless ($self->preview) {

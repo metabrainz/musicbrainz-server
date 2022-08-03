@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../../context';
+import {CatalystContext} from '../../../context.mjs';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
 import returnUri from '../../../utility/returnUri';
 

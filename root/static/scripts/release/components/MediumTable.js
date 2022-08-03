@@ -11,7 +11,7 @@ import * as React from 'react';
 import {captureException} from '@sentry/browser';
 
 import Paginator from '../../../../components/Paginator';
-import {CatalystContext} from '../../../../context';
+import {CatalystContext} from '../../../../context.mjs';
 import mediumHasMultipleArtists
   from '../../../../utility/mediumHasMultipleArtists';
 import DataTrackIcon
@@ -23,7 +23,9 @@ import pThrottle, {
   ThrottleAbortError,
 } from '../../common/utility/pThrottle';
 import type {CreditsModeT, ActionT} from '../types';
-import linkedEntities from '../../common/linkedEntities';
+import {
+  mergeLinkedEntities,
+} from '../../common/linkedEntities.mjs';
 
 import MediumTrackRow from './MediumTrackRow';
 
@@ -122,7 +124,7 @@ const MediumTable = (React.memo<PropsT>(({
           const pager = result.pager;
           pagerRef.current = pager;
 
-          linkedEntities.mergeLinkedEntities(result.linked_entities);
+          mergeLinkedEntities(result.linked_entities);
 
           dispatch({
             medium,

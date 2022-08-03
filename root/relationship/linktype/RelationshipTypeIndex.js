@@ -16,7 +16,7 @@ import OrderableDirection
   from '../../static/scripts/common/components/OrderableDirection';
 import Relationship
   from '../../static/scripts/common/components/Relationship';
-import linkedEntities from '../../static/scripts/common/linkedEntities';
+import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 import {compare} from '../../static/scripts/common/i18n';
 import expand2react from '../../static/scripts/common/i18n/expand2react';
 import localizeLinkAttributeTypeName

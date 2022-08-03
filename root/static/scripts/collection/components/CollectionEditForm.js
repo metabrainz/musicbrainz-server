@@ -10,7 +10,7 @@
 import mutate from 'mutate-cow';
 import * as React from 'react';
 
-import {SanitizedCatalystContext} from '../../../../context';
+import {SanitizedCatalystContext} from '../../../../context.mjs';
 import FieldErrors from '../../../../components/FieldErrors';
 import FormRow from '../../../../components/FormRow';
 import FormLabel from '../../../../components/FormLabel';

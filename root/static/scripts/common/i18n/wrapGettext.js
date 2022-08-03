@@ -10,15 +10,15 @@
 import isNodeJS from 'detect-node';
 import Jed from 'jed';
 
+import * as serverGettext from '../../../../server/gettext.mjs';
+import jedData from '../../jed-data.mjs';
+
 import cleanMsgid from './cleanMsgid';
 
 let gettext;
-let serverGettext;
 if (isNodeJS) {
-  gettext = require('../../../../server/gettext');
-  serverGettext = gettext;
+  gettext = serverGettext;
 } else {
-  const jedData = require('../../jed-data');
   // jedData contains all domains used by the client.
   gettext = new Jed(jedData[jedData.locale]);
 }
@@ -34,8 +34,11 @@ if (isNodeJS) {
  */
 
 function tryLoadDomain(domain) {
-  if (serverGettext &&
-      !serverGettext.jedInstance.options.locale_data[domain]) {
+  const jedInstance = serverGettext.jedInstance;
+  if (
+    jedInstance != null &&
+    !jedInstance.options.locale_data[domain]
+  ) {
     serverGettext.loadDomain(domain);
   }
 }

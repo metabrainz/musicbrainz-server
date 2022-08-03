@@ -9,5 +9,7 @@ lib/DBDefs.pm.bak
 node_modules/
 perl_modules/
 root/static/build/
+root/static/scripts/common/DBDefs-client.js
+root/static/scripts/common/DBDefs-client.mjs
 root/static/scripts/common/DBDefs.js
-root/static/scripts/common/DBDefs-client-values.js
+root/static/scripts/common/DBDefs.mjs

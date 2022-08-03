@@ -10,7 +10,7 @@
 import * as Sentry from '@sentry/browser';
 
 import {MAX_RECENT_ENTITIES} from '../../constants';
-import linkedEntities from '../../linkedEntities';
+import linkedEntities from '../../linkedEntities.mjs';
 import {localStorage} from '../../utility/storage';
 
 import type {
@@ -29,8 +29,8 @@ import type {
  */
 type RecentEntitiesT = {[entityTypeKey: string]: mixed};
 
-type WsJsEntitiesDataT = {
-  +results: {+[id: string]: ?EntityItemT},
+type WsJsEntitiesDataT<+T: EntityItemT> = {
+  +results: {+[id: string]: ?T},
 };
 
 function _getStoredMap(): RecentEntitiesT {
@@ -141,7 +141,7 @@ export async function getOrFetchRecentItems<+T: EntityItemT>(
   key?: string = entityType,
 ): Promise<$ReadOnlyArray<OptionItemT<T>>> {
   const ids = _getRecentEntityIds(key);
-  const cachedList = [...getRecentItems(key)];
+  const cachedList: Array<OptionItemT<T>> = [...getRecentItems<T>(key)];
 
   _recentItemsCache.set(key, cachedList);
 
@@ -155,11 +155,10 @@ export async function getOrFetchRecentItems<+T: EntityItemT>(
   if (ids.size) {
     // Convert ids to an array since we delete in the loop.
     for (const id of Array.from(ids)) {
-      const entity: ?EntityItemT = linkedEntities[entityType]?.[id];
+      const entity: ?T = linkedEntities[entityType]?.[id];
       if (entity) {
         cachedList.push({
-          // $FlowIgnore[incompatible-call]
-          entity,
+          entity: entity,
           id: String(entity.id) + '-recent',
           name: entity.name,
           type: 'option',
@@ -180,7 +179,7 @@ export async function getOrFetchRecentItems<+T: EntityItemT>(
         return null;
       }
       return resp.json();
-    }).then((data: WsJsEntitiesDataT | null) => {
+    }).then((data: WsJsEntitiesDataT<T> | null) => {
       if (!data) {
         return cachedList;
       }
@@ -188,10 +187,9 @@ export async function getOrFetchRecentItems<+T: EntityItemT>(
       const results = data.results;
 
       for (const id of ids) {
-        const entity = results[id];
+        const entity: ?T = results[id];
         if (entity && entity.entityType === entityType) {
           cachedList.push({
-            // $FlowIgnore[incompatible-return]
             entity,
             id: String(entity.id) + '-recent',
             name: entity.name,
@@ -208,13 +206,13 @@ export async function getOrFetchRecentItems<+T: EntityItemT>(
 }
 
 export function pushRecentItem<+T: EntityItemT>(
-  item: OptionItemT<EntityItemT>,
+  item: OptionItemT<T>,
   key?: string = item.entity.entityType,
 ): $ReadOnlyArray<OptionItemT<T>> {
   const entity = item.entity;
   const entityId = _getGidOrId(entity);
 
-  const cachedList = [...getRecentItems(key)];
+  const cachedList: Array<OptionItemT<T>> = [...getRecentItems(key)];
   _recentItemsCache.set(key, cachedList);
 
   if (entityId == null) {

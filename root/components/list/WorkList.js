@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context';
-import * as manifest from '../../static/manifest';
+import {CatalystContext} from '../../context.mjs';
+import * as manifest from '../../static/manifest.mjs';
 import Table from '../Table';
 import {
   defineArtistRolesColumn,
@@ -105,6 +105,7 @@ const WorkList = ({
       <Table columns={columns} data={works} />
       {manifest.js('common/components/ArtistRoles', {async: 'async'})}
       {manifest.js('common/components/AttributeList', {async: 'async'})}
+      {manifest.js('common/components/IswcList', {async: 'async'})}
       {manifest.js('common/components/WorkArtists', {async: 'async'})}
     </>
   );

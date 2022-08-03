@@ -1,0 +1,145 @@
+// Automatically generated, do not edit.
+// - Database schema sequence: 27
+digraph relationship_details {
+    tooltip = "Tables for relationship properties"
+    graph [
+        bgcolor = "#cb75ab:#f0976c"
+        concentrate = true
+        gradientangle = 330
+        pack = true
+        rankdir = "LR"
+    ];
+    node [
+        shape = plain
+    ];
+
+    // Tables
+    "link" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#eeeeeebb"><font point-size="17">link</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="link_type"><font point-size="14">link_type</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_year"><font point-size="14">begin_date_year</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_month"><font point-size="14">begin_date_month</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_day"><font point-size="14">begin_date_day</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_year"><font point-size="14">end_date_year</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_month"><font point-size="14">end_date_month</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_day"><font point-size="14">end_date_day</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="attribute_count"><font point-size="14">attribute_count</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="created"><font point-size="14">created</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="ended"><font point-size="14">ended</font></td></tr>
+            </table>
+        >
+    ];
+    "link_attribute" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#eeeeeebb"><font point-size="17">link_attribute</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="link"><font point-size="14"><u>link</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="attribute_type"><font point-size="14"><u>attribute_type</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="created"><font point-size="14">created</font></td></tr>
+            </table>
+        >
+    ];
+    "link_attribute_credit" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#eeeeeebb"><font point-size="17">link_attribute_credit</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="link"><font point-size="14"><u>link</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="attribute_type"><font point-size="14"><u>attribute_type</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="credited_as"><font point-size="14">credited_as</font></td></tr>
+            </table>
+        >
+    ];
+    "link_attribute_text_value" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#eeeeeebb"><font point-size="17">link_attribute_text_value</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="link"><font point-size="14"><u>link</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="attribute_type"><font point-size="14"><u>attribute_type</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="text_value"><font point-size="14">text_value</font></td></tr>
+            </table>
+        >
+    ];
+    "link_attribute_type" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">link_attribute_type</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="parent"><font point-size="14">parent</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="root"><font point-size="14">root</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="child_order"><font point-size="14">child_order</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="description"><font point-size="14">description</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="last_updated"><font point-size="14">last_updated</font></td></tr>
+            </table>
+        >
+    ];
+    "link_creditable_attribute_type" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">link_creditable_attribute_type</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="attribute_type"><font point-size="14"><u>attribute_type</u></font></td></tr>
+            </table>
+        >
+    ];
+    "link_text_attribute_type" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">link_text_attribute_type</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="attribute_type"><font point-size="14"><u>attribute_type</u></font></td></tr>
+            </table>
+        >
+    ];
+    "link_type" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">link_type</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="parent"><font point-size="14">parent</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="child_order"><font point-size="14">child_order</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="entity_type0"><font point-size="14">entity_type0</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="entity_type1"><font point-size="14">entity_type1</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="description"><font point-size="14">description</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="link_phrase"><font point-size="14">link_phrase</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="reverse_link_phrase"><font point-size="14">reverse_link_phrase</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="long_link_phrase"><font point-size="14">long_link_phrase</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="priority"><font point-size="14">priority</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="last_updated"><font point-size="14">last_updated</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="is_deprecated"><font point-size="14">is_deprecated</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="has_dates"><font point-size="14">has_dates</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="entity0_cardinality"><font point-size="14">entity0_cardinality</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="entity1_cardinality"><font point-size="14">entity1_cardinality</font></td></tr>
+            </table>
+        >
+    ];
+    "link_type_attribute_type" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">link_type_attribute_type</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="link_type"><font point-size="14"><u>link_type</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="attribute_type"><font point-size="14"><u>attribute_type</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="min"><font point-size="14">min</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="max"><font point-size="14">max</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="last_updated"><font point-size="14">last_updated</font></td></tr>
+            </table>
+        >
+    ];
+
+    // References
+    "link":"link_type" -> "link_type":"id"
+    "link_attribute":"link" -> "link":"id"
+    "link_attribute":"attribute_type" -> "link_attribute_type":"id"
+    "link_attribute_credit":"link" -> "link":"id"
+    "link_attribute_credit":"attribute_type" -> "link_creditable_attribute_type":"attribute_type"
+    "link_attribute_text_value":"link" -> "link":"id"
+    "link_attribute_text_value":"attribute_type" -> "link_text_attribute_type":"attribute_type"
+    "link_creditable_attribute_type":"attribute_type" -> "link_attribute_type":"id"
+    "link_text_attribute_type":"attribute_type" -> "link_attribute_type":"id"
+    "link_type_attribute_type":"link_type" -> "link_type":"id"
+    "link_type_attribute_type":"attribute_type" -> "link_attribute_type":"id"
+}

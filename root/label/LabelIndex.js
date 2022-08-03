@@ -20,7 +20,7 @@ import WikipediaExtract
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
 import ReleaseList from '../components/list/ReleaseList';
 import RelatedEntitiesDisplay from '../components/RelatedEntitiesDisplay';
-import * as manifest from '../static/manifest';
+import * as manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation';
 import {returnToCurrentPage} from '../utility/returnUri';
 

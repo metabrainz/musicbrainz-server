@@ -25,7 +25,7 @@ import RecordingList from '../components/list/RecordingList';
 import ReleaseGroupList from '../components/list/ReleaseGroupList';
 import PaginatedResults from '../components/PaginatedResults';
 import RelatedEntitiesDisplay from '../components/RelatedEntitiesDisplay';
-import * as manifest from '../static/manifest';
+import * as manifest from '../static/manifest.mjs';
 import entityHref from '../static/scripts/common/utility/entityHref';
 import {returnToCurrentPage} from '../utility/returnUri';
 

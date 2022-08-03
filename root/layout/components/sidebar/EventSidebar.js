@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../../context';
+import {CatalystContext} from '../../../context.mjs';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage';
 import isDateEmpty from '../../../static/scripts/common/utility/isDateEmpty';

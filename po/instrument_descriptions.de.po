@@ -548,6 +548,13 @@ msgid ""
 "href=\"/instrument/7d6964ff-b1f5-472b-bdd7-b53de3739ad3\">tubular bells</a>."
 msgstr ""
 
+#. name:violoncello piccolo
+#: DB:instrument/description:693
+msgid ""
+"Baroque string instrument sized between the viola and cello, it typically "
+"has five strings."
+msgstr ""
+
 #. name:baroque trumpet
 #: DB:instrument/description:521
 msgid ""
@@ -1283,11 +1290,6 @@ msgstr ""
 msgid "German/Bohemian harp"
 msgstr "Deutsche/böhmische Harfe"
 
-#. name:ghatam
-#: DB:instrument/description:331
-msgid "Ghatam, a South Indian Carnatic music percussion instrument"
-msgstr "Die Ghatam ist ein aus rotem Ton gebrannter Tontopf, der in der südindischen Musik als Perkussionsinstrument verwendet wird."
-
 #. name:goblet drum
 #: DB:instrument/description:268
 msgid "Goblet drums are single-headed drums with a goblet shaped body."
@@ -1366,9 +1368,14 @@ msgstr ""
 msgid "Hollow-body acoustic guitar strung with gut-strings."
 msgstr ""
 
-#. name:nylon guitar
+#. name:nylon acoustic guitar
 #: DB:instrument/description:566
 msgid "Hollow-body acoustic guitar strung with nylon-strings."
+msgstr ""
+
+#. name:steel-string acoustic guitar
+#: DB:instrument/description:653
+msgid "Hollow-body acoustic guitar strung with steel strings."
 msgstr ""
 
 #. name:mendoza
@@ -1537,6 +1544,11 @@ msgid ""
 "It has a short fretted neck originally with four silk but now usually nylon "
 "or steel strings, and large flat round body, earning it the nickname \"moon "
 "lute\""
+msgstr ""
+
+#. name:sho
+#: DB:instrument/description:192
+msgid "It is based on the Chinese sheng, but is smaller"
 msgstr ""
 
 #. name:viola
@@ -2476,6 +2488,11 @@ msgid ""
 "3 melody strings, 3 drone strings and 11/12 resonance strings."
 msgstr ""
 
+#. name:gittern
+#: DB:instrument/description:802
+msgid "Round-backed lute ancestral to the guitar"
+msgstr ""
+
 #. name:ruan
 #: DB:instrument/description:545
 msgid "Ruan is a family of Chinese plucked lutes."
@@ -2863,13 +2880,6 @@ msgid ""
 "The Paraguayan harp is a 32-48-string diatonic harp used in Paraguay and "
 "Venezuela."
 msgstr "Die typische Paraguay-Harfe gehört zu den Chordophonen, genauer zu den Zupfinstrumenten. Sie hat 36 Saiten und ist etwa 150 cm hoch, der Abstand zwischen den Saiten beträgt etwa einen Zentimeter. Die Schallöffnungen befinden sich auf der Rückseite des Instrumentes."
-
-#. name:Portuguese guitar
-#: DB:instrument/description:647
-msgid ""
-"The Portuguese guitar is a plucked string instrument associated with fado. "
-"It has twelve steel strings, strung in six courses."
-msgstr "Die portugiesische Gitarre ist eine Cister, ein Saiten- und Zupfinstrument aus der Familie der Kastenhalslauten."
 
 #. name:Reactable
 #: DB:instrument/description:576
@@ -3441,13 +3451,6 @@ msgid ""
 " Monogatari."
 msgstr "Die Heike Biwa ist eine Knickhalslaute mit erhabenen Bünden, die 4 Saiten hat und mit einem Holz- oder Elfenbeinplektron geschlagen wird."
 
-#. name:hichiriki
-#: DB:instrument/description:616
-msgid ""
-"The hichiriki is a double reed Japanese flute used as one of two main "
-"melodic instruments in Japanese gagaku music."
-msgstr "Die Hichiriki ist ein japanisches Blasinstrument mit doppeltem Rohrblatt, das vor allem für die elegante höfische Gagaku-Musik eingesetzt wird."
-
 #. name:hotchiku
 #: DB:instrument/description:709
 msgid "The hotchiku is a Japanese end-blown bamboo flute."
@@ -3497,11 +3500,6 @@ msgid ""
 "The jouhikko is a traditional, 2 or 3 stringed bowed lyre, from Finland and "
 "Karelia."
 msgstr "Die Jouhikko ist die seltene Form einer zwei- oder dreisaitigen, mit einem Bogen gestrichenen Leier, die in der Volksmusik in Finnland gespielt wird."
-
-#. name:kanjira
-#: DB:instrument/description:474
-msgid "The kanjira is a South Indian frame drum."
-msgstr "Die Kanjira ist eine kleine Rahmentrommel aus Südindien mit einem einzelnen Schellenpaar. Sie ähnelt dem westlichen Tamburin, im Unterschied zu diesem wird jedoch bei der Kanjira seltener von den Schellen Gebrauch gemacht. An einer Stelle des Rahmens sind drei oder vier Schellen flexibel befestigt."
 
 #. name:kartal
 #: DB:instrument/description:534
@@ -3896,11 +3894,6 @@ msgstr "Der Rondador ist eine ecuadorianische Panflöte, die als Nationalmusikin
 msgid "The rototom is a drum which has no shell and is tuned by rotating."
 msgstr "Eine Rototom ist eine Trommel ohne Kessel. Sie besteht aus einem drehbaren Spannreifen aus Metall, der ein einzelnes Fell spannt, wobei man durch Drehen dieses Spannreifens die Fellspannung und damit den Klang verändern kann. Gespielt wird die Rototom mit Schlagzeugstöcken."
 
-#. name:ryuteki
-#: DB:instrument/description:617
-msgid "The ryuteki is a Japanese transverse flute used in gagaku."
-msgstr "Die Ryūteki ist eine japanische Querflöte aus Bambus, die in der höfischen Gagaku-Musik zusammen mit dem Doppelrohrblattinstrument hichiriki die Hauptmelodie spielt. Die ryūteki wird horizontal gehalten, hat 7 Löcher, eine Länge von 40 cm und einen Innendurchmesser von 1,3 cm."
-
 #. name:sabar
 #: DB:instrument/description:646
 msgid ""
@@ -3974,20 +3967,6 @@ msgstr "Die Sor u (auch So u, englische Umschriften saw u, saw oo) ist eine zwei
 msgid "The saz is a long-necked fretted lute"
 msgstr "Saz bezeichnet eine Gruppe von Langhalslauten, die vom Balkan bis Afghanistan verbreitet sind und unter anderem in der Musik der Türkei, der kurdischen, iranischen, armenischen, aserbaidschanischen und afghanischen Musik gespielt werden."
 
-#. name:shakuhachi
-#: DB:instrument/description:173
-msgid "The shakuhachi is a Japanese end-blown flute."
-msgstr "Die shakuhachi ist eine japanische Bambuslängsflöte, die sich zu einem Meditationsinstrument zenbuddhistischer Mönche entwickelte. Ihr weicher, geräuschhafter Klang gilt heute als typisch für die traditionelle klassische Musik Japans."
-
-#. name:shamisen
-#: DB:instrument/description:87
-msgid ""
-"The shamisen, samisen or sangen is a three-stringed instrument from Japan "
-"which is played with a large triangular-shaped plectrum called a bachi. The "
-"body traditionally uses cat or dog skin, unlike the Chinese sanxian and "
-"Okinawan sanshin."
-msgstr "Die Samisen (auch Schamisen) ist ein dreisaitiges, gezupftes Lauteninstrument mit einem langen Hals und einem relativ kleinen Korpus. Es gehört neben der nōkan, der shakuhachi, der tsuzumi, der biwa und dem koto zu den traditionellen Musikinstrumenten Japans."
-
 #. name:sheng
 #: DB:instrument/description:45
 msgid ""
@@ -4009,11 +3988,6 @@ msgid ""
 "has a higher pitch than a normal taiko."
 msgstr "Die shime-Daiko ist eine kleine japanische Trommel. Sie hat einen kurzen, aber breiten Körper, wird mit Tierhautfellen auf ihrer oberen und unteren Seite bespannt."
 
-#. name:shinobue
-#: DB:instrument/description:470
-msgid "The shinobue is a high-pitched transverse bamboo flute from Japan."
-msgstr "Die Shinobue ist eine japanische Querflöte mit einem hohen Ton."
-
 #. name:shruti box
 #: DB:instrument/description:443
 msgid ""
@@ -4025,13 +3999,6 @@ msgstr "Die Shrutibox (auch surpeti, swar-peti) ist ein Musikinstrument, das in 
 #: DB:instrument/description:593
 msgid "The shudraga is a Mongolian fretless lute with three strings."
 msgstr "Die Shudraga ist ein mongolisches, 3-saitiges Streichinstrument. In Japan bekannt als Shamisen, in China als Sanxian."
-
-#. name:sho
-#: DB:instrument/description:192
-msgid ""
-"The shō is a Japanese free reed instrument modelled on the Chinese sheng, "
-"although the shō tends to be smaller in size."
-msgstr "Die Shō ist eine Mundorgel, die in der höfischen japanischen Musik (gagaku) gespielt wird. Das Durchschlagzungeninstrument besitzt 17 kurze Bambuspfeifen, die mit einem Ende in einer hölzernen Windkammer stecken, in die durch ein kurzes Mundstück Luft geblasen wird."
 
 #. name:siku
 #: DB:instrument/description:569
@@ -4059,13 +4026,6 @@ msgid ""
 "The spilåpipa is a Swedish fipple flute with eight finger-holes on the top, "
 "but no thumb-holes. It has a modal tuning."
 msgstr "Die spilåpipa (oder spelpipa, spälapipa, låtapipa) ist ein Blockflöten-Typ aus Schweden. Das Instrument verfügt über acht Fingerlöcher, aber kein Daumenloch."
-
-#. name:steel-string guitar
-#: DB:instrument/description:653
-msgid ""
-"The steel-string guitar is a modern form of acoustic guitar that is strung "
-"with steel strings."
-msgstr "Bei der Westerngitarre sind die Saiten im Kern aus Stahl und haben eine wesentlich höhere Saitenspannung als Nylonsaiten. Der Hals ist ähnlich wie bei einer E-Gitarre meist schmal und enthält – wie bei fast allen Stahlsaitengitarren – häufig einen Halsspannstab, um den Zug der Stahlsaiten auszugleichen. Eine Westerngitarre hat in der Regel 6 Saiten (selten auch 7 oder 12). Der Korpus ist heute grösser als bei der klassischen Gitarre."
 
 #. name:suka
 #: DB:instrument/description:730
@@ -4249,13 +4209,6 @@ msgstr "Die Ukulele ist ein gitarrenähnliches Zupfinstrument, das normalerweise
 msgid "The valiha is a bamboo tube zither from Madagascar"
 msgstr "Die Valiha oder Bambuszither ist ein madagassisches Saiteninstrument in Form einer Röhrenzither."
 
-#. name:venu
-#: DB:instrument/description:418
-msgid ""
-"The venu is a bamboo transverse flute used in the Carnatic music of South "
-"India."
-msgstr "Die Venu ist eine kleine, südindische Bambusflöte."
-
 #. name:violino piccolo
 #: DB:instrument/description:661
 msgid ""
@@ -4263,13 +4216,6 @@ msgid ""
 "examples are similar to a child's size violin in size and are tuned a third "
 "or a fourth higher."
 msgstr "Der Violino piccolo (auch Diskantgeige, Quartgeige oder Violino alla francese) ist eine Geigenvariante, die eine Terz oder Quarte über der Normalstimmung der Violine steht. Korpus und Mensur sind entsprechend kleiner dimensioniert."
-
-#. name:violoncello piccolo
-#: DB:instrument/description:693
-msgid ""
-"The violoncello piccolo is a Baroque string instrument which is between the "
-"viola and cello in size and typically has five strings."
-msgstr "Der Begriff Violoncello piccolo bezeichnete im Barock ein fünfsaitiges Violinstrument in Armhaltung. Dieses von der Bratsche abgeleitete Instrument wird heute meist \"Viola pomposa\" benannt, das Violoncello piccolo meint heute hingegen ein fünfsaitiges Violoncello in Kniehaltung."
 
 #. name:virginal
 #: DB:instrument/description:509
@@ -4714,6 +4660,11 @@ msgid ""
 "Used in classical and orchestral music, mostly by orchestras in Vienna."
 msgstr ""
 
+#. name:Portuguese guitar
+#: DB:instrument/description:647
+msgid "Used in fado, it has twelve steel strings, strung in six courses."
+msgstr ""
+
 #. name:danso
 #: DB:instrument/description:927
 msgid ""
@@ -4740,6 +4691,21 @@ msgstr ""
 #. name:viola caipira
 #: DB:instrument/description:660
 msgid "Used in folk-music, It has ten steel strings in five courses."
+msgstr ""
+
+#. name:hichiriki
+#: DB:instrument/description:616
+msgid "Used in gagaku, it is a double reed flute"
+msgstr ""
+
+#. name:ryuteki
+#: DB:instrument/description:617
+msgid "Used in gagaku, it is a transverse flute"
+msgstr ""
+
+#. name:kagurabue
+#: DB:instrument/description:849
+msgid "Used in gagaku, this traditional bamboo flute has six holes."
 msgstr ""
 
 #. name:kendang
@@ -4947,14 +4913,17 @@ msgid ""
 "small hole (guxin)."
 msgstr ""
 
+#. name:rebec
+#: DB:instrument/description:206
+msgid ""
+"With a pear shaped body made from a single piece of wood, this medieval "
+"bowed string instrument originated as a Byzantian lyra-like variant of the "
+"Arabic rebab and was a possible influence to the violin."
+msgstr ""
+
 #. name:pang gu ly hu hmông
 #: DB:instrument/description:315
 msgid "a kind of a \"slide whistle\" form. Hmông flute"
-msgstr ""
-
-#. name:gittern
-#: DB:instrument/description:802
-msgid "a medieval round-backed string instrument ancestral to the guitar"
 msgstr ""
 
 #. name:chirimía
@@ -5213,14 +5182,6 @@ msgid ""
 "Martenot's."
 msgstr ""
 
-#. name:rebec
-#: DB:instrument/description:206
-msgid ""
-"pear shaped body made from a single piece of wood, this medieval bowed "
-"string-instrument originated as a Byzantian lyra like variant of the Arabic "
-"Rebab and was a possible influence to the violin."
-msgstr ""
-
 #. name:vuvuzela
 #: DB:instrument/description:877
 msgid "plastic horn often used at football matches in South Africa"
@@ -5319,11 +5280,6 @@ msgid ""
 "ti bwa, percussion instrument made of a piece of bamboo laid horizontally "
 "and beaten with sticks"
 msgstr "Die ti bwa ist ein Schlaginstrument aus einem Stück Bambus horizontal auf den Boden gelegt und mit Stöcken geschlagen."
-
-#. name:kagurabue
-#: DB:instrument/description:849
-msgid "traditional six holed bamboo flute used in Gagaku no Kagaku"
-msgstr ""
 
 #. name:trắng jâu
 #: DB:instrument/description:314
