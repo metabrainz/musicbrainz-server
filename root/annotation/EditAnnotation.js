@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import EnterEditNote from '../components/EnterEditNote';
 import EnterEdit from '../components/EnterEdit';
 import FormRowText from '../components/FormRowText';
 import FormRowTextArea from '../components/FormRowTextArea';
@@ -82,6 +83,8 @@ const EditAnnotation = ({
           size={50}
           uncontrolled
         />
+
+        <EnterEditNote field={form.field.edit_note} />
 
         <EnterEdit form={form}>
           <button
