@@ -212,10 +212,6 @@ msgstr ""
 msgid "Serbo-Croatian tamburica orchestra"
 msgstr ""
 
-#: DB:instrument/name:157
-msgid "Spanish acoustic guitar"
-msgstr ""
-
 #: DB:instrument/name:451
 msgctxt "Horn-amplified violin"
 msgid "Stroh violin"
@@ -1313,6 +1309,7 @@ msgid "dramyin"
 msgstr ""
 
 #: DB:instrument/name:120
+msgctxt "drum programming"
 msgid "drum machine"
 msgstr ""
 
@@ -1784,6 +1781,11 @@ msgstr ""
 #: DB:instrument/name:423
 msgctxt "Traditional Russian plucked psaltery"
 msgid "gusli"
+msgstr ""
+
+#: DB:instrument/name:567
+msgctxt "gut-stringed acoustic guitar"
+msgid "gut guitar"
 msgstr ""
 
 #: DB:instrument/name:452
@@ -3141,11 +3143,6 @@ msgstr ""
 
 #: DB:instrument/name:329
 msgid "riq"
-msgstr ""
-
-#: DB:instrument/name:567
-msgctxt "Romantic era gut-stringed acoustic guitar"
-msgid "romantic guitar"
 msgstr ""
 
 #: DB:instrument/name:568

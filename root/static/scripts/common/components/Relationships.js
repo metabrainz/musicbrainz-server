@@ -9,13 +9,12 @@
 
 import * as React from 'react';
 
-import {PART_OF_SERIES_LINK_TYPES} from '../static/scripts/common/constants';
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
-import groupRelationships, {type RelationshipTargetTypeGroupT}
-  from '../utility/groupRelationships';
+import groupRelationships, {
+  type RelationshipTargetTypeGroupT,
+} from '../../../../utility/groupRelationships';
 
-import RelatedSeries from './RelatedSeries';
+import EntityLink from './EntityLink';
+import RelatedSeries, {isNotSeriesPart} from './RelatedSeries';
 import RelatedWorks from './RelatedWorks';
 import StaticRelationshipsDisplay from './StaticRelationshipsDisplay';
 
@@ -57,14 +56,6 @@ const displayTargets: DisplayTargets = {
     'event',
   ],
 };
-
-const seriesPartLinkTypes = new Set(
-  Object.values(PART_OF_SERIES_LINK_TYPES),
-);
-
-export function isNotSeriesPart(r: RelationshipT): boolean {
-  return !seriesPartLinkTypes.has(linkedEntities.link_type[r.linkTypeID].gid);
-}
 
 type PropsT = {
   +noRelationshipsHeading?: boolean,

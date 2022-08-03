@@ -12,13 +12,13 @@ import * as React from 'react';
 import localizeLanguageName from '../i18n/localizeLanguageName';
 import {CatalystContext} from '../../../../context.mjs';
 import * as manifest from '../../../manifest.mjs';
-import RatingStars from '../../../../components/RatingStars';
 import loopParity from '../../../../utility/loopParity';
 
 import ArtistRoles from './ArtistRoles';
 import AttributeList from './AttributeList';
 import CodeLink from './CodeLink';
 import EntityLink from './EntityLink';
+import RatingStars from './RatingStars';
 import WorkArtists from './WorkArtists';
 
 type WorkListRowProps = {

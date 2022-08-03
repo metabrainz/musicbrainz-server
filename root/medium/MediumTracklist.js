@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import RatingStars from '../components/RatingStars';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink';
 import EntityLink, {DeletedLink}
@@ -18,6 +17,7 @@ import DataTrackIcon
   from '../static/scripts/common/components/DataTrackIcon';
 import PregapTrackIcon
   from '../static/scripts/common/components/PregapTrackIcon';
+import RatingStars from '../static/scripts/common/components/RatingStars';
 import formatTrackLength
   from '../static/scripts/common/utility/formatTrackLength';
 import loopParity from '../utility/loopParity';

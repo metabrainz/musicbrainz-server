@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
-import groupRelationships from '../utility/groupRelationships';
+import groupRelationships from '../../../../utility/groupRelationships';
+import linkedEntities from '../linkedEntities.mjs';
 
+import EntityLink from './EntityLink';
 import StaticRelationshipsDisplay from './StaticRelationshipsDisplay';
 
 const targetEntityTypes = [

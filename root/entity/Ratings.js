@@ -9,10 +9,12 @@
 
 import * as React from 'react';
 
-import {StaticRatingStars} from '../components/RatingStars';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent';
 import EditorLink from '../static/scripts/common/components/EditorLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
+import {
+  StaticRatingStars,
+} from '../static/scripts/common/components/RatingStars';
 
 type Props = {
   +entity: RatableT,

@@ -14,7 +14,6 @@ import InstrumentRelTypes
   from '../../../../components/InstrumentRelTypes';
 import RemoveFromMergeTableCell
   from '../../../../components/RemoveFromMergeTableCell';
-import RatingStars from '../../../../components/RatingStars';
 import loopParity from '../../../../utility/loopParity';
 import formatDate from '../utility/formatDate';
 import formatEndDate from '../utility/formatEndDate';
@@ -22,6 +21,7 @@ import renderMergeCheckboxElement
   from '../utility/renderMergeCheckboxElement';
 
 import DescriptiveLink from './DescriptiveLink';
+import RatingStars from './RatingStars';
 
 type ArtistListRowProps = {
   ...InstrumentCreditsAndRelTypesRoleT,
