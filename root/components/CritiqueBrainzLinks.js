@@ -1,5 +1,5 @@
 /*
- * @flow strict
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -8,36 +8,43 @@
  */
 
 import DBDefs from '../static/scripts/common/DBDefs-client.mjs';
+import EntityLink from '../static/scripts/common/components/EntityLink';
 
-const seeReviewsHref = (releaseGroup) => (
-  DBDefs.CRITIQUEBRAINZ_SERVER +
-  '/release-group/' +
-  releaseGroup.gid
-);
+const seeReviewsHref = (entity) => {
+  const reviewUrlEntity = entity.entityType === 'release_group'
+    ? 'release-group'
+    : entity.entityType;
+  return (
+    DBDefs.CRITIQUEBRAINZ_SERVER +
+    `/${reviewUrlEntity}/` +
+    entity.gid
+  );
+};
 
-const writeReviewLink = (releaseGroup) => (
+const writeReviewLink = (entity) => (
   DBDefs.CRITIQUEBRAINZ_SERVER +
-  '/review/write?release_group=' +
-  releaseGroup.gid
+  `/review/write?${entity.entityType}=` +
+  entity.gid
 );
 
 type Props = {
-  +releaseGroup: ReleaseGroupT,
+  +entity: ReviewableT,
 };
 
-const CritiqueBrainzLinks = ({
-  releaseGroup,
-}: Props): null | Expand2ReactOutput => {
-  const reviewCount = releaseGroup.review_count;
+const CritiqueBrainzLinks = ({entity}: Props): null | Expand2ReactOutput => {
+  const reviewCount = entity.review_count;
 
   if (reviewCount == null) {
-    return null;
+    return l('An error occurred when loading reviews.');
   }
   if (reviewCount === 0) {
     return exp.l(
-      `No one has reviewed this release group yet.
+      `No one has reviewed {entity} yet.
        Be the first to {write_link|write a review}.`,
-      {write_link: writeReviewLink(releaseGroup)},
+      {
+        entity: <EntityLink entity={entity} />,
+        write_link: writeReviewLink(entity),
+      },
     );
   }
   return exp.ln(
@@ -48,8 +55,8 @@ const CritiqueBrainzLinks = ({
     reviewCount,
     {
       review_count: reviewCount,
-      reviews_link: seeReviewsHref(releaseGroup),
-      write_link: writeReviewLink(releaseGroup),
+      reviews_link: seeReviewsHref(entity),
+      write_link: writeReviewLink(entity),
     },
   );
 };

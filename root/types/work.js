@@ -13,6 +13,7 @@ declare type WorkT = $ReadOnly<{
   ...CommentRoleT,
   ...CoreEntityRoleT<'work'>,
   ...RatableRoleT,
+  ...ReviewableRoleT,
   ...TypeRoleT<WorkTypeT>,
   +artists: $ReadOnlyArray<ArtistCreditT>,
   +attributes: $ReadOnlyArray<WorkAttributeT>,

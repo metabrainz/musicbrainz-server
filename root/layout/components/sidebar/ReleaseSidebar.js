@@ -236,7 +236,7 @@ const ReleaseSidebar = ({release}: Props): React.Element<'div'> | null => {
             {l('Release group reviews')}
           </h2>
           <p>
-            <CritiqueBrainzLinks releaseGroup={releaseGroup} />
+            <CritiqueBrainzLinks entity={releaseGroup} />
           </p>
         </>
       )}
