@@ -2,6 +2,168 @@
 
 BEGIN;
 
+DELETE FROM area_tag a WHERE NOT EXISTS (
+    SELECT 1
+      FROM area_tag_raw r
+     WHERE r.area = a.area AND r.tag = a.tag
+);
+
+UPDATE area_tag a SET count = (
+    SELECT sum(CASE WHEN is_upvote THEN 1 ELSE -1 END)
+      FROM area_tag_raw r
+     WHERE r.area = a.area AND r.tag = a.tag
+  GROUP BY r.area, r.tag
+);
+
+DELETE FROM artist_tag a WHERE NOT EXISTS (
+    SELECT 1
+      FROM artist_tag_raw r
+     WHERE r.artist = a.artist AND r.tag = a.tag
+);
+
+UPDATE artist_tag a SET count = (
+    SELECT sum(CASE WHEN is_upvote THEN 1 ELSE -1 END)
+      FROM artist_tag_raw r
+     WHERE r.artist = a.artist AND r.tag = a.tag
+  GROUP BY r.artist, r.tag
+);
+
+DELETE FROM event_tag a WHERE NOT EXISTS (
+    SELECT 1
+      FROM event_tag_raw r
+     WHERE r.event = a.event AND r.tag = a.tag
+);
+
+UPDATE event_tag a SET count = (
+    SELECT sum(CASE WHEN is_upvote THEN 1 ELSE -1 END)
+      FROM event_tag_raw r
+     WHERE r.event = a.event AND r.tag = a.tag
+  GROUP BY r.event, r.tag
+);
+
+DELETE FROM instrument_tag a WHERE NOT EXISTS (
+    SELECT 1
+      FROM instrument_tag_raw r
+     WHERE r.instrument = a.instrument AND r.tag = a.tag
+);
+
+UPDATE instrument_tag a SET count = (
+    SELECT sum(CASE WHEN is_upvote THEN 1 ELSE -1 END)
+      FROM instrument_tag_raw r
+     WHERE r.instrument = a.instrument AND r.tag = a.tag
+  GROUP BY r.instrument, r.tag
+);
+
+DELETE FROM label_tag a WHERE NOT EXISTS (
+    SELECT 1
+      FROM label_tag_raw r
+     WHERE r.label = a.label AND r.tag = a.tag
+);
+
+UPDATE label_tag a SET count = (
+    SELECT sum(CASE WHEN is_upvote THEN 1 ELSE -1 END)
+      FROM label_tag_raw r
+     WHERE r.label = a.label AND r.tag = a.tag
+  GROUP BY r.label, r.tag
+);
+
+DELETE FROM place_tag a WHERE NOT EXISTS (
+    SELECT 1
+      FROM place_tag_raw r
+     WHERE r.place = a.place AND r.tag = a.tag
+);
+
+UPDATE place_tag a SET count = (
+    SELECT sum(CASE WHEN is_upvote THEN 1 ELSE -1 END)
+      FROM place_tag_raw r
+     WHERE r.place = a.place AND r.tag = a.tag
+  GROUP BY r.place, r.tag
+);
+
+DELETE FROM recording_tag a WHERE NOT EXISTS (
+    SELECT 1
+      FROM recording_tag_raw r
+     WHERE r.recording = a.recording AND r.tag = a.tag
+);
+
+UPDATE recording_tag a SET count = (
+    SELECT sum(CASE WHEN is_upvote THEN 1 ELSE -1 END)
+      FROM recording_tag_raw r
+     WHERE r.recording = a.recording AND r.tag = a.tag
+  GROUP BY r.recording, r.tag
+);
+
+DELETE FROM release_tag a WHERE NOT EXISTS (
+    SELECT 1
+      FROM release_tag_raw r
+     WHERE r.release = a.release AND r.tag = a.tag
+);
+
+UPDATE release_tag a SET count = (
+    SELECT sum(CASE WHEN is_upvote THEN 1 ELSE -1 END)
+      FROM release_tag_raw r
+     WHERE r.release = a.release AND r.tag = a.tag
+  GROUP BY r.release, r.tag
+);
+
+DELETE FROM release_group_tag a WHERE NOT EXISTS (
+    SELECT 1
+      FROM release_group_tag_raw r
+     WHERE r.release_group = a.release_group AND r.tag = a.tag
+);
+
+UPDATE release_group_tag a SET count = (
+    SELECT sum(CASE WHEN is_upvote THEN 1 ELSE -1 END)
+      FROM release_group_tag_raw r
+     WHERE r.release_group = a.release_group AND r.tag = a.tag
+  GROUP BY r.release_group, r.tag
+);
+
+DELETE FROM series_tag a WHERE NOT EXISTS (
+    SELECT 1
+      FROM series_tag_raw r
+     WHERE r.series = a.series AND r.tag = a.tag
+);
+
+UPDATE series_tag a SET count = (
+    SELECT sum(CASE WHEN is_upvote THEN 1 ELSE -1 END)
+      FROM series_tag_raw r
+     WHERE r.series = a.series AND r.tag = a.tag
+  GROUP BY r.series, r.tag
+);
+
+DELETE FROM work_tag a WHERE NOT EXISTS (
+    SELECT 1
+      FROM work_tag_raw r
+     WHERE r.work = a.work AND r.tag = a.tag
+);
+
+UPDATE work_tag a SET count = (
+    SELECT sum(CASE WHEN is_upvote THEN 1 ELSE -1 END)
+      FROM work_tag_raw r
+     WHERE r.work = a.work AND r.tag = a.tag
+  GROUP BY r.work, r.tag
+);
+
+UPDATE tag t SET ref_count = (
+  (SELECT count(*) FROM area_tag_raw r WHERE r.tag = t.id) +
+  (SELECT count(*) FROM artist_tag_raw r WHERE r.tag = t.id) +
+  (SELECT count(*) FROM event_tag_raw r WHERE r.tag = t.id) +
+  (SELECT count(*) FROM instrument_tag_raw r WHERE r.tag = t.id) +
+  (SELECT count(*) FROM label_tag_raw r WHERE r.tag = t.id) +
+  (SELECT count(*) FROM place_tag_raw r WHERE r.tag = t.id) +
+  (SELECT count(*) FROM recording_tag_raw r WHERE r.tag = t.id) +
+  (SELECT count(*) FROM release_tag_raw r WHERE r.tag = t.id) +
+  (SELECT count(*) FROM release_group_tag_raw r WHERE r.tag = t.id) +
+  (SELECT count(*) FROM series_tag_raw r WHERE r.tag = t.id) +
+  (SELECT count(*) FROM work_tag_raw r WHERE r.tag = t.id)
+);
+
+-- Unused, non-replicated table that holds FKs to tag.
+TRUNCATE tag_relation;
+
+DELETE FROM tag WHERE ref_count = 0;
+
 CREATE TRIGGER update_counts_for_insert AFTER INSERT ON area_tag_raw
     FOR EACH ROW EXECUTE PROCEDURE update_tag_counts_for_raw_insert('area');
 

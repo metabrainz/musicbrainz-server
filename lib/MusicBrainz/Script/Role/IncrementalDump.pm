@@ -127,6 +127,11 @@ sub should_fetch_document($$) {
 sub should_follow_primary_key($) {
     my $pk = shift;
 
+    # Tag tables currently generate too many updates to process
+    # efficiently.
+    return 0 if $pk eq 'musicbrainz.tag.id';
+    return 0 if $pk =~ /_tag/;
+
     # Nothing in mbserver should update an artist_credit row on its own; we
     # treat them as immutable using a find_or_insert method. (It's possible
     # an upgrade script changed them, but that's unlikely.)
