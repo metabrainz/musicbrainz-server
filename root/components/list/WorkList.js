@@ -105,6 +105,7 @@ const WorkList = ({
       <Table columns={columns} data={works} />
       {manifest.js('common/components/ArtistRoles', {async: 'async'})}
       {manifest.js('common/components/AttributeList', {async: 'async'})}
+      {manifest.js('common/components/IswcList', {async: 'async'})}
       {manifest.js('common/components/WorkArtists', {async: 'async'})}
     </>
   );

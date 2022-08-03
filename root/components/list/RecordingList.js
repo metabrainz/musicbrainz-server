@@ -169,6 +169,7 @@ const RecordingList = ({
         data={recordings}
       />
       {manifest.js('common/components/AcoustIdCell', {async: 'async'})}
+      {manifest.js('common/components/IsrcList', {async: 'async'})}
     </>
   );
 };

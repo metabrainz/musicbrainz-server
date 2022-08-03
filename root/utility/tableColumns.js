@@ -24,7 +24,6 @@ import ArtistRoles
   from '../static/scripts/common/components/ArtistRoles';
 import AttributeList from '../static/scripts/common/components/AttributeList';
 import CDTocLink from '../static/scripts/common/components/CDTocLink';
-import CodeLink from '../static/scripts/common/components/CodeLink';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
@@ -32,6 +31,8 @@ import EventLocations
   from '../static/scripts/common/components/EventLocations';
 import ExpandedArtistCredit
   from '../static/scripts/common/components/ExpandedArtistCredit';
+import IsrcList from '../static/scripts/common/components/IsrcList';
+import IswcList from '../static/scripts/common/components/IswcList';
 import RatingStars from '../static/scripts/common/components/RatingStars';
 import ReleaseEvents
   from '../static/scripts/common/components/ReleaseEvents';
@@ -626,9 +627,7 @@ export const attributesColumn:
   ColumnOptions<WorkT, $ReadOnlyArray<WorkAttributeT>> = {
     Cell: ({row: {original}}) => (
       original.attributes ? (
-        <ul>
-          <AttributeList attributes={original.attributes} />
-        </ul>
+        <AttributeList attributes={original.attributes} />
       ) : null
     ),
     Header: N_l('Attributes'),
@@ -652,13 +651,7 @@ export const isrcsColumn:
   }, $ReadOnlyArray<IsrcT>> = {
     accessor: x => x.isrcs,
     Cell: ({cell: {value}}) => (
-      <ul>
-        {value.map((isrc) => (
-          <li key={isrc.isrc}>
-            <CodeLink code={isrc} />
-          </li>
-        ))}
-      </ul>
+      <IsrcList isrcs={value} />
     ),
     Header: N_l('ISRCs'),
     id: 'isrcs',
@@ -671,13 +664,7 @@ export const iswcsColumn:
   }, $ReadOnlyArray<IswcT>> = {
     accessor: x => x.iswcs,
     Cell: ({cell: {value}}) => (
-      <ul>
-        {value.map((iswc) => (
-          <li key={iswc.iswc}>
-            <CodeLink code={iswc} />
-          </li>
-        ))}
-      </ul>
+      <IswcList iswcs={value} />
     ),
     cellProps: {className: 'iswc'},
     Header: N_l('ISWC'),

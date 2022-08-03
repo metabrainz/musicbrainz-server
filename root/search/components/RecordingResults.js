@@ -12,6 +12,7 @@ import * as React from 'react';
 import {CatalystContext} from '../../context.mjs';
 import * as manifest from '../../static/manifest.mjs';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
+import IsrcList from '../../static/scripts/common/components/IsrcList';
 import TaggerIcon from '../../static/scripts/common/components/TaggerIcon';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength';
@@ -24,7 +25,6 @@ import type {
 } from '../types';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
-import CodeLink from '../../static/scripts/common/components/CodeLink';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
@@ -41,13 +41,11 @@ const buildRecordingColumns = recording => (
       <ArtistCreditLink artistCredit={recording.artistCredit} />
     </td>
     <td>
-      <ul>
-        {recording.isrcs.map(isrc => (
-          <li key={isrc.isrc}>
-            <CodeLink code={isrc} />
-          </li>
-        ))}
-      </ul>
+      <IsrcList isrcs={recording.isrcs} />
+      {manifest.js(
+        'common/components/IsrcList',
+        {async: 'async'},
+      )}
     </td>
   </>
 );
