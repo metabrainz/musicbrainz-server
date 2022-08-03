@@ -6,7 +6,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {createRequire} from 'module';
 import path from 'path';
 
 import webpack from 'webpack';
@@ -22,8 +21,6 @@ import {
 } from './constants.mjs';
 import moduleConfig from './moduleConfig.mjs';
 import providePluginConfig from './providePluginConfig.mjs';
-
-const require = createRequire(import.meta.url);
 
 const webTestsConfig = {
   context: MB_SERVER_ROOT,
@@ -62,10 +59,10 @@ const webTestsConfig = {
   resolve: {
     ...browserConfig.resolve,
     fallback: {
-      buffer: require.resolve('buffer'),
+      buffer: path.resolve(MB_SERVER_ROOT, 'node_modules/buffer'),
       fs: false,
-      path: require.resolve('path-browserify'),
-      stream: require.resolve('stream-browserify'),
+      path: path.resolve(MB_SERVER_ROOT, 'node_modules/path-browserify'),
+      stream: path.resolve(MB_SERVER_ROOT, 'node_modules/stream-browserify'),
     },
   },
 };
