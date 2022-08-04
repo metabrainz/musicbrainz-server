@@ -60,7 +60,10 @@ const allowedDateTimeFormats = [
   '%m.%d.%Y %H:%M',
 ];
 
-function buildDateTimeFormatOptions($c, timezone) {
+function buildDateTimeFormatOptions(
+  $c: SanitizedCatalystContextT,
+  timezone: string,
+) {
   const hereAndNow = new Date();
   return {
     grouped: false,

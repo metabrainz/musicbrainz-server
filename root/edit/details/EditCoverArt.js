@@ -21,7 +21,7 @@ type Props = {
   +edit: EditCoverArtEditT,
 };
 
-function displayCoverArtTypes(types) {
+function displayCoverArtTypes(types: $ReadOnlyArray<CoverArtTypeT>) {
   if (types?.length) {
     return commaOnlyListText(types.map(
       type => lp_attributes(type.name, 'cover_art_type'),

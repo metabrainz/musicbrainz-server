@@ -63,7 +63,10 @@ type ActionT =
 
 const MARGIN_1EM = {margin: '1em'};
 
-function compareArtistCredits(ac1, ac2) {
+function compareArtistCredits(
+  ac1: ArtistCreditWithIdT,
+  ac2: ArtistCreditWithIdT,
+) {
   return compare(
     reduceArtistCredit(ac1),
     reduceArtistCredit(ac2),

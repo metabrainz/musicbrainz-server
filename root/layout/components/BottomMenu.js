@@ -14,7 +14,10 @@ import {VARTIST_GID} from '../../static/scripts/common/constants';
 import {capitalize} from '../../static/scripts/common/utility/strings';
 import {returnToCurrentPage} from '../../utility/returnUri';
 
-function languageName(language, selected) {
+function languageName(
+  language: ?ServerLanguageT,
+  selected: boolean,
+) {
   if (!language) {
     return '';
   }
@@ -42,7 +45,15 @@ function languageName(language, selected) {
   return text;
 }
 
-const LanguageLink = ({$c, language}) => (
+type LanguageLinkPropsT = {
+  +$c: CatalystContextT,
+  language: ServerLanguageT,
+};
+
+const LanguageLink = ({
+  $c,
+  language,
+}: LanguageLinkPropsT) => (
   <a
     href={
       '/set-language/' + encodeURIComponent(language.name) +

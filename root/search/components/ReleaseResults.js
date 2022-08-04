@@ -27,12 +27,17 @@ import ReleaseLanguageScript from '../../components/ReleaseLanguageScript';
 import type {
   InlineResultsPropsWithContextT,
   ResultsPropsWithContextT,
+  SearchResultT,
 } from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
-function buildResult($c, result, index) {
+function buildResult(
+  $c: CatalystContextT,
+  result: SearchResultT<ReleaseT>,
+  index: number,
+) {
   const release = result.entity;
   const score = result.score;
   const typeName = release.releaseGroup?.typeName;

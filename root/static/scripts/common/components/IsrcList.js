@@ -15,13 +15,13 @@ import {SidebarProperty}
 import CodeLink from './CodeLink';
 import CollapsibleList from './CollapsibleList';
 
-const buildIsrcListRow = (isrc) => (
+const buildIsrcListRow = (isrc: IsrcT) => (
   <li className="isrc" key={isrc.isrc}>
     <CodeLink code={isrc} />
   </li>
 );
 
-const buildIsrcSidebarRow = (isrc) => (
+const buildIsrcSidebarRow = (isrc: IsrcT) => (
   <SidebarProperty
     className="isrc"
     key={isrc.isrc}

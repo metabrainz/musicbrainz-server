@@ -16,12 +16,13 @@ import {isEditingEnabled}
 import type {
   InlineResultsPropsWithContextT,
   ResultsPropsWithContextT,
+  SearchResultT,
 } from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
-function buildResult(result, index) {
+function buildResult(result: SearchResultT<ArtistT>, index: number) {
   const artist = result.entity;
   const score = result.score;
 

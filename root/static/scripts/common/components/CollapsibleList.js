@@ -13,7 +13,7 @@ import {SidebarProperty}
   from '../../../../layout/components/sidebar/SidebarProperties';
 import {bracketedText} from '../utility/bracketed';
 
-type BuildRowPropsT = {
+export type BuildRowPropsT = {
   abbreviated?: boolean,
 };
 
@@ -47,12 +47,12 @@ const CollapsibleList = <T>({
 }: Props<T>): React.MixedElement | null => {
   const [expanded, setExpanded] = React.useState<boolean>(false);
 
-  const expand = event => {
+  const expand = (event: SyntheticMouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     setExpanded(true);
   };
 
-  const collapse = event => {
+  const collapse = (event: SyntheticMouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     setExpanded(false);
   };

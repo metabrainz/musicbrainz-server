@@ -11,7 +11,7 @@ import commaOnlyList from '../../common/i18n/commaOnlyList';
 
 import EntityLink from './EntityLink';
 
-const makeLink = (x, i) => <EntityLink entity={x} key={i} />;
+const makeLink = (x: AreaT, i: number) => <EntityLink entity={x} key={i} />;
 
 type Props = {
   +area: AreaT,

@@ -23,11 +23,11 @@ type Props = {
   +title: string,
 };
 
-const authorHref = author => (
+const authorHref = (author: CritiqueBrainzUserT) => (
   DBDefs.CRITIQUEBRAINZ_SERVER + '/user/' + author.id
 );
 
-const reviewHref = review => (
+const reviewHref = (review: CritiqueBrainzReviewT) => (
   DBDefs.CRITIQUEBRAINZ_SERVER + '/review/' + review.id
 );
 

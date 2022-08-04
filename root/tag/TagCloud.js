@@ -47,7 +47,11 @@ function getTagSize(count: number, tagMaxCount: number) {
   return 'tag7';
 }
 
-function generateTagCloud($c, tags, maxCount) {
+function generateTagCloud(
+  $c: CatalystContextT,
+  tags: $ReadOnlyArray<AggregatedTagT>,
+  maxCount: number,
+) {
   return (
     <ul className="tag-cloud">
       {tags.map(({count, tag}) => (
@@ -67,7 +71,10 @@ function generateTagCloud($c, tags, maxCount) {
   );
 }
 
-function generateTagList($c, tags) {
+function generateTagList(
+  $c: CatalystContextT,
+  tags: $ReadOnlyArray<AggregatedTagT>,
+) {
   const sortedTags = sortByNumber(tags, tag => -tag.count);
   return (
     <ul className="tag-list top-tag-list">

@@ -13,12 +13,12 @@ import EntityLink from '../../static/scripts/common/components/EntityLink';
 import formatEntityTypeName
   from '../../static/scripts/common/utility/formatEntityTypeName';
 import loopParity from '../../utility/loopParity';
-import type {ResultsPropsT} from '../types';
+import type {ResultsPropsT, SearchResultT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
-function buildResult(result, index) {
+function buildResult(result: SearchResultT<AnnotationT>, index: number) {
   const annotation = result.entity;
   const score = result.score;
 

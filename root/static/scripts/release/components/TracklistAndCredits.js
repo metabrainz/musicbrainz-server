@@ -95,14 +95,20 @@ function createInitialState(creditsMode: CreditsModeT) {
   };
 }
 
-function isMediumExpanded(expandedMediums, medium) {
+function isMediumExpanded(
+  expandedMediums: Map<number, boolean>,
+  medium: MediumWithRecordingsT,
+) {
   const expanded = expandedMediums.get(medium.position);
   return expanded == null
     ? (medium.tracks != null)
     : expanded;
 }
 
-function getMediumTracks(loadedTracks, medium) {
+function getMediumTracks(
+  loadedTracks: Map<number, $ReadOnlyArray<TrackWithRecordingT>>,
+  medium: MediumWithRecordingsT,
+) {
   return loadedTracks.get(medium.position) ?? medium.tracks ?? null;
 }
 
@@ -124,7 +130,10 @@ function getCombinedTrackRelationships(
   // Maps relationships to the tracks they're associated with.
   const trackMapping = new Map<string, Set<TrackT>>();
 
-  const pushRelationship = (relationship, track) => {
+  const pushRelationship = (
+    relationship: RelationshipT,
+    track: TrackWithRecordingT,
+  ) => {
     const relationshipId = relationship.linkTypeID + '-' + relationship.id;
 
     const associatedTracks = trackMapping.get(relationshipId);

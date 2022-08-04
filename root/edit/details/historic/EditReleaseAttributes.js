@@ -16,7 +16,9 @@ type Props = {
   +edit: EditReleaseAttributesHistoricEditT,
 };
 
-function getTypeName(type) {
+function getTypeName(
+  type: ReleaseGroupTypeT | ReleaseGroupHistoricTypeT | null,
+) {
   return type ? (
     type.historic ? lp_attributes(
       type.name,

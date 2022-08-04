@@ -32,11 +32,14 @@ import type {
 
 const nonLatinRegExp = /[^\u0000-\u02ff\u1E00-\u1EFF\u2000-\u207F]/;
 
-function isNonLatin(str) {
+function isNonLatin(str: string) {
   return nonLatinRegExp.test(str);
 }
 
-function showExtraInfo(children, className = 'comment') {
+function showExtraInfo(
+  children: React.Node,
+  className?: string = 'comment',
+) {
   return (
     <span className={`autocomplete-${className}`}>
       {children}
@@ -44,11 +47,14 @@ function showExtraInfo(children, className = 'comment') {
   );
 }
 
-function showBracketedTextInfo(comment) {
+function showBracketedTextInfo(comment: ?string) {
   return nonEmpty(comment) ? showExtraInfo(bracketedText(comment)) : null;
 }
 
-function showExtraInfoLine(children, className = 'comment') {
+function showExtraInfoLine(
+  children: React.Node,
+  className?: string = 'comment',
+) {
   return (
     <>
       <br />
@@ -104,21 +110,29 @@ function formatArtist(artist: ArtistT) {
     !nonEmpty(artist.primaryAlias) &&
     isNonLatin(artist.name)
   ) {
-    extraInfo = (info) => {
+    extraInfo = (info: Array<string>) => {
       info.unshift(sortName);
     };
   }
   return formatGeneric(artist, extraInfo);
 }
 
-function showLabeledTextList(label, items, className = 'comment') {
+function showLabeledTextList(
+  label: string,
+  items: $ReadOnlyArray<string>,
+  className?: string = 'comment',
+) {
   return showExtraInfoLine(
     addColonText(label) + ' ' + commaOnlyListText(items),
     className,
   );
 }
 
-function showRelatedEntities(label, entities, className = 'comment') {
+function showRelatedEntities(
+  label: string,
+  entities: ?AppearancesT<string>,
+  className?: string = 'comment',
+) {
   if (entities && entities.hits > 0) {
     let toRender = entities.results;
 
@@ -131,9 +145,9 @@ function showRelatedEntities(label, entities, className = 'comment') {
   return null;
 }
 
-const getName = item => item.name;
+const getName = (item: {+name: string, ...}) => item.name;
 
-function pushContainmentInfo(area, extraInfo) {
+function pushContainmentInfo(area: AreaT, extraInfo: Array<string>) {
   const containment = area.containment;
   if (containment && containment.length) {
     extraInfo.push(...containment.map(getName));

@@ -49,7 +49,10 @@ const CollectionEditForm = ({collectionTypes, form}: Props) => {
     }));
   }
 
-  function handleCollaboratorChange(newCollaborator, index) {
+  function handleCollaboratorChange(
+    newCollaborator: EditorT,
+    index: number,
+  ) {
     setCollaborators(mutate<CollaboratorStateT, _>(collaborators, copy => {
       copy.field[index].field.id.value = newCollaborator.id;
       copy.field[index].field.name.value = newCollaborator.name;
@@ -113,7 +116,9 @@ const CollectionEditForm = ({collectionTypes, form}: Props) => {
                       entity="editor"
                       inputID={'id-' + collaborator.html_name}
                       inputName={collaborator.field.name.html_name}
-                      onChange={(c) => handleCollaboratorChange(c, index)}
+                      onChange={(
+                        c: EditorT,
+                      ) => handleCollaboratorChange(c, index)}
                     >
                       <input
                         name={collaborator.field.id.html_name}

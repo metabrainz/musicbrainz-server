@@ -7,11 +7,17 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {useTable, type Row} from 'react-table';
+import {
+  useTable,
+  type Cell,
+  type ColumnInstance,
+  type HeaderGroup,
+  type Row,
+} from 'react-table';
 
 import loopParity from '../utility/loopParity';
 
-const renderTableHeaderCell = (column) => (
+const renderTableHeaderCell = (column: ColumnInstance) => (
   <th
     {...column.getHeaderProps(column.headerProps)}
   >
@@ -19,13 +25,13 @@ const renderTableHeaderCell = (column) => (
   </th>
 );
 
-const renderTableHeaderRow = (headerGroup) => (
+const renderTableHeaderRow = (headerGroup: HeaderGroup) => (
   <tr {...headerGroup.getHeaderGroupProps()}>
     {headerGroup.headers.map(renderTableHeaderCell)}
   </tr>
 );
 
-const renderTableCell = (cell) => (
+const renderTableCell = (cell: Cell<mixed>) => (
   <td {...cell.getCellProps(cell.column.cellProps)}>
     {cell.render('Cell')}
   </td>

@@ -93,7 +93,7 @@ function doSearch<T: EntityItemT>(
   searchXhr.send();
 }
 
-function handleItemMouseDown(event) {
+function handleItemMouseDown(event: SyntheticMouseEvent<HTMLLIElement>) {
   event.preventDefault();
 }
 
@@ -352,7 +352,10 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
     beginLookupOrSearch(inputValue, newCleanInputValue);
   }
 
-  function beginLookupOrSearch(oldInputValue, newCleanInputValue) {
+  function beginLookupOrSearch(
+    oldInputValue: string,
+    newCleanInputValue: string,
+  ) {
     const mbidMatch = newCleanInputValue.match(MBID_REGEXP);
     if (mbidMatch) {
       /*

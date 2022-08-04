@@ -58,7 +58,7 @@ const Index = ({
     stats['count.artist.type.other'];
 
   // formatCount shortcut (with timeline link)
-  const fc = (a) => (
+  const fc = (a: string) => (
     <>
       {formatCount($c, stats['count.' + a])}
       {' '}
@@ -67,7 +67,7 @@ const Index = ({
   );
 
   // formatPercentage shortcut
-  const fp = (a, b) => (
+  const fp = (a: string, b: string) => (
     formatPercentage($c, stats['count.' + a] / stats['count.' + b], 1)
   );
 
@@ -75,7 +75,8 @@ const Index = ({
    * Long-form for cases where `a` or `b` aren't keys in `stats`,
    * but so `$c` and `digits` still don't need to be provided.
    */
-  const _formatPercentage = (a, b) => formatPercentage($c, a / b, 1);
+  const _formatPercentage =
+    (a: number, b: number) => formatPercentage($c, a / b, 1);
 
   return (
     <StatisticsLayout fullWidth page="index" title={l('Overview')}>

@@ -13,12 +13,15 @@ import WorkListEntry
   from '../../static/scripts/common/components/WorkListEntry';
 import {isEditingEnabled}
   from '../../static/scripts/common/utility/privileges';
-import type {ResultsPropsWithContextT} from '../types';
+import type {ResultsPropsWithContextT, SearchResultT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
-function buildResult(result, index) {
+function buildResult(
+  result: SearchResultT<WorkT>,
+  index: number,
+) {
   const work = result.entity;
   const score = result.score;
 

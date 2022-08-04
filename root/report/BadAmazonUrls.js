@@ -8,6 +8,7 @@
  */
 
 import * as React from 'react';
+import type {CellRenderProps} from 'react-table';
 
 import EntityLink from '../static/scripts/common/components/EntityLink';
 
@@ -23,7 +24,7 @@ const BadAmazonUrls = ({
   pager,
 }: ReportDataT<ReportReleaseUrlT>): React.Element<typeof ReportLayout> => {
   const urlColumn = {
-    Cell: ({row: {original}}) => {
+    Cell: ({row: {original}}: CellRenderProps<ReportReleaseUrlT, empty>) => {
       const url = original.url;
       return (
         url ? (

@@ -103,7 +103,7 @@ const blankDatePeriod = {
   type: 'compound_field',
 };
 
-function createInitialState(form, searchHintType) {
+function createInitialState(form: AliasEditFormT, searchHintType: number) {
   return {
     form,
     guessCaseOptions: createGuessCaseOptionsState(),
@@ -252,14 +252,14 @@ const AliasEditForm = ({
   const hasErrors = missingRequired || hasSubfieldErrors(state.form);
 
   // Ensure errors are shown if the user tries to submit with Enter
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: SyntheticKeyboardEvent<HTMLFormElement>) => {
     if (event.key === 'Enter' && hasErrors) {
       dispatch({type: 'show-all-pending-errors'});
       event.preventDefault();
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     if (hasErrors) {
       dispatch({type: 'show-all-pending-errors'});
       event.preventDefault();

@@ -16,7 +16,9 @@ type TargetRefsT = Map<{+current: HTMLElement | null}, ActionFnT>;
 // Actions by event type name.
 const EVENTS = new Map<string, TargetRefsT>();
 
-function setupEventHandler(eventType) {
+function setupEventHandler(
+  eventType: FocusEventTypes | KeyboardEventTypes | MouseEventTypes,
+) {
   const cachedTargetActions = EVENTS.get(eventType);
   if (cachedTargetActions) {
     return cachedTargetActions;

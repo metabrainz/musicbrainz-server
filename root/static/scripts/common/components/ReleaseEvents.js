@@ -13,15 +13,20 @@ import CountryAbbr from '../../../../components/CountryAbbr';
 import formatDate from '../utility/formatDate';
 import isDateEmpty from '../utility/isDateEmpty';
 
-import CollapsibleList from './CollapsibleList';
+import CollapsibleList, {
+  type BuildRowPropsT,
+} from './CollapsibleList';
 import EntityLink from './EntityLink';
 
-const releaseEventKey = event => (
+const releaseEventKey = (event: ReleaseEventT) => (
   String(event.country ? event.country.id : '') + '\0' +
   formatDate(event.date)
 );
 
-const buildReleaseEventRow = (event, props) => {
+const buildReleaseEventRow = (
+  event: ReleaseEventT,
+  props: ?BuildRowPropsT,
+) => {
   const abbreviated = !!(props?.abbreviated);
   const country = event.country;
   const hasDate = !isDateEmpty(event.date);

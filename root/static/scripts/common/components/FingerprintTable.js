@@ -10,15 +10,26 @@
 import * as React from 'react';
 
 import loopParity from '../../../../utility/loopParity';
+import {compareStrings} from '../utility/compare';
 
-function orderTracks(a, b) {
-  if (a.disabled && !b.disabled) {
+type AcoustIdTrackT = {
+  +disabled?: boolean,
+  +id: string,
+};
+
+type AcoustIdListResponseT = {
+  +status: string,
+  +tracks: Array<AcoustIdTrackT>,
+};
+
+function orderTracks(a: AcoustIdTrackT, b: AcoustIdTrackT) {
+  if (a.disabled === true && b.disabled !== true) {
     return 1;
   }
-  if (!a.disabled && b.disabled) {
+  if (a.disabled !== true && b.disabled === true) {
     return -1;
   }
-  return a.id - b.id;
+  return compareStrings(a.id, b.id);
 }
 
 const FingerprintTable = ({recording}: {recording: RecordingT}) => {
@@ -35,7 +46,7 @@ const FingerprintTable = ({recording}: {recording: RecordingT}) => {
         return response.json();
       },
     ).then(
-      function (data) {
+      function (data: AcoustIdListResponseT) {
         data.tracks.sort(orderTracks);
         setTracks(data.tracks);
         setIsLoaded(true);
@@ -59,7 +70,7 @@ const FingerprintTable = ({recording}: {recording: RecordingT}) => {
                 <code>
                   <a
                     className={'external' +
-                      (track.disabled ? ' disabled-acoustid' : '')}
+                      (track.disabled === true ? ' disabled-acoustid' : '')}
                     href={`//acoustid.org/track/${track.id}`}
                   >
                     {track.id}
@@ -72,9 +83,9 @@ const FingerprintTable = ({recording}: {recording: RecordingT}) => {
                   href={
                     '//acoustid.org/edit/toggle-track-mbid' +
                     `?track_gid=${track.id}&mbid=${recording.gid}` +
-                    `&state=${track.disabled ? '0' : '1'}`}
+                    `&state=${track.disabled === true ? '0' : '1'}`}
                 >
-                  {track.disabled ? l('Link') : l('Unlink')}
+                  {track.disabled === true ? l('Link') : l('Unlink')}
                 </a>
               </td>
             </tr>

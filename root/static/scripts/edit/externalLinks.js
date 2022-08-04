@@ -1431,7 +1431,7 @@ function newLinkState(state: $ReadOnly<$Partial<LinkStateT>>) {
   return {...defaultLinkState, ...state};
 }
 
-function linkTypeAndUrlString(link) {
+function linkTypeAndUrlString(link: LinkStateT | LinkRelationshipT) {
   /*
    * There's no reason why we should allow adding the same relationship
    * twice when the only difference is http vs https, so normalize this
@@ -1441,11 +1441,14 @@ function linkTypeAndUrlString(link) {
   return (link.type || '') + '\0' + httpUrl;
 }
 
-function isEmpty(link) {
+function isEmpty(link: LinkStateT | LinkRelationshipT | LinkProps) {
   return !(link.type || link.url);
 }
 
-function withOneEmptyLink(links, dontRemove) {
+function withOneEmptyLink(
+  links: $ReadOnlyArray<LinkStateT>,
+  dontRemove?: number,
+) {
   let emptyCount = 0;
   let canRemoveCount = 0;
   const canRemove = {};
@@ -1468,7 +1471,8 @@ function withOneEmptyLink(links, dontRemove) {
   return links;
 }
 
-const isVideoAttribute = attr => attr.type.gid === VIDEO_ATTRIBUTE_GID;
+const isVideoAttribute =
+  (attr: LinkAttrT) => attr.type.gid === VIDEO_ATTRIBUTE_GID;
 
 export function parseRelationships(
   relationships?: $ReadOnlyArray<RelationshipT | {
@@ -1683,25 +1687,25 @@ const URL_SHORTENERS = [
   'i',
 ));
 
-function isShortened(url) {
+function isShortened(url: string) {
   return URL_SHORTENERS.some(function (shortenerRegex) {
     return url.match(shortenerRegex) !== null;
   });
 }
 
-function isGoogleAmp(url) {
+function isGoogleAmp(url: string) {
   return /^https?:\/\/([^/]+\.)?google\.[^/]+\/amp/.test(url);
 }
 
-function isGoogleSearch(url) {
+function isGoogleSearch(url: string) {
   return /^https?:\/\/(?:[^/?#]+\.)?google\.[^/?#]+\/search/.test(url);
 }
 
-function isExample(url) {
+function isExample(url: string) {
   return /^https?:\/\/(?:[^/]+\.)?example\.(?:com|org|net)(?:\/.*)?$/.test(url);
 }
 
-function isMusicBrainz(url) {
+function isMusicBrainz(url: string) {
   return /^https?:\/\/([^/]+\.)?musicbrainz\.org/.test(url);
 }
 

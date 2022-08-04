@@ -14,7 +14,11 @@ import {type AnyFieldT} from '../utility/iterSubfields';
 import subfieldErrors from '../utility/subfieldErrors';
 
 // FIXME: Use expandable object instead of HTML string for safety (MBS-10632)
-const buildErrorListItem = (error, hasHtmlErrors = false, index) => {
+const buildErrorListItem = (
+  error: string,
+  hasHtmlErrors: boolean = false,
+  index: number,
+) => {
   if (hasHtmlErrors) {
     return (
       <li key={index}>{expand2react(error)}</li>

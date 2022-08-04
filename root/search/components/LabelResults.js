@@ -16,12 +16,12 @@ import {isEditingEnabled}
   from '../../static/scripts/common/utility/privileges';
 import formatLabelCode from '../../utility/formatLabelCode';
 import loopParity from '../../utility/loopParity';
-import type {ResultsPropsWithContextT} from '../types';
+import type {ResultsPropsWithContextT, SearchResultT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
-function buildResult(result, index) {
+function buildResult(result: SearchResultT<LabelT>, index: number) {
   const label = result.entity;
   const score = result.score;
 

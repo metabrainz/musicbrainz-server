@@ -9,7 +9,11 @@
 
 import * as React from 'react';
 
-function setlistLink(entityType, entityGid, content) {
+function setlistLink(
+  entityType: string,
+  entityGid: string,
+  content: string,
+) {
   let formattedContent = content;
   if (!nonEmpty(formattedContent)) {
     formattedContent = entityType + ':' + entityGid;

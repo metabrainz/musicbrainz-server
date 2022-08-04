@@ -34,7 +34,7 @@ const Modal = (props: PropsT): React.Portal => {
 
   const activeElementRef = React.useRef<HTMLElement | null>(null);
 
-  const returnFocusToDialog = (event) => {
+  const returnFocusToDialog = (event: Event) => {
     const dialogNode = getElementFromRef(dialogRef);
     event.preventDefault();
     const activeElement = activeElementRef.current ?? dialogNode;

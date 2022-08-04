@@ -16,7 +16,7 @@ import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 import {uniqBy} from '../../static/scripts/common/utility/arrays';
 import isDisabledLink from '../../utility/isDisabledLink';
 
-function faviconClass(urlEntity) {
+function faviconClass(urlEntity: UrlT) {
   let matchingClass;
   const urlObject = new URL(urlEntity.name);
 

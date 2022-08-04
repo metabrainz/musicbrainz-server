@@ -20,7 +20,7 @@ import {bracketedText} from '../utility/bracketed';
 
 const detailsTableStyle = Object.freeze({width: '100%'});
 
-function formatTrackRange(range) {
+function formatTrackRange(range: [TrackT, TrackT | null]) {
   if (range[1] == null) {
     return range[0].number;
   }
@@ -30,7 +30,7 @@ function formatTrackRange(range) {
   });
 }
 
-function getTrackRanges(trackSet) {
+function getTrackRanges(trackSet: Set<TrackT>) {
   const tracks = [...trackSet].sort(compareTrackPositions);
 
   let range: [TrackT, TrackT | null] = [tracks[0], null];

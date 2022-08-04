@@ -16,7 +16,7 @@ import {SidebarProperty}
 
 import CollapsibleList from './CollapsibleList';
 
-const buildAttributeListRow = (attribute) => (
+const buildAttributeListRow = (attribute: WorkAttributeT) => (
   <li
     className={'work-attribute work-attribute-' +
       kebabCase(attribute.typeName)}
@@ -35,7 +35,7 @@ const buildAttributeListRow = (attribute) => (
   </li>
 );
 
-const buildAttributeSidebarRow = (attribute) => (
+const buildAttributeSidebarRow = (attribute: WorkAttributeT) => (
   <SidebarProperty
     className={'work-attribute work-attribute-' +
       kebabCase(attribute.typeName)}

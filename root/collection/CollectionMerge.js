@@ -32,10 +32,15 @@ type Props = {
   +typesDiffer?: boolean,
 };
 
+type CollectionMergeTablePropsT = {
+  +collections: $ReadOnlyArray<CollectionT>,
+  +form: MergeFormT,
+};
+
 const CollectionMergeTable = ({
   collections,
   form,
-}) => {
+}: CollectionMergeTablePropsT) => {
   const columns = React.useMemo(
     () => {
       const checkboxColumn = defineCheckboxColumn({mergeForm: form});

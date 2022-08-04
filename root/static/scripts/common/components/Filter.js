@@ -35,7 +35,7 @@ const Filter = ({ajaxFormUrl, initialFilterForm}: Props) => {
     setCookie('filter', '');
   }
 
-  function onButtonClick(event) {
+  function onButtonClick(event: SyntheticMouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
 
     if (filterForm) {

@@ -10,7 +10,7 @@
 
 import getDaysInMonth from './getDaysInMonth';
 
-function timestamp(date) {
+function timestamp(date: PartialDateT) {
   return Date.UTC(
     (date.year ?? 1),
     (date.month ?? 1) - 1,

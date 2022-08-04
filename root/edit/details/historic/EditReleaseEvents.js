@@ -17,7 +17,10 @@ type Props = {
   +edit: EditReleaseEventsHistoricEditT,
 };
 
-function buildEventComp(event, key): React.Element<'tr'> {
+function buildEventComp(
+  event: OldReleaseEventCompT,
+  key: string,
+): React.Element<'tr'> {
   return (
     <tr key={key}>
       <td>
@@ -71,7 +74,10 @@ function buildEventComp(event, key): React.Element<'tr'> {
   );
 }
 
-function buildEvent(event, key): React.Element<'tr'> {
+function buildEvent(
+  event: OldReleaseEventT,
+  key: string,
+): React.Element<'tr'> {
   return (
     <tr key={key}>
       <td>

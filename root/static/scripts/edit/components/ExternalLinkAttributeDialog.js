@@ -148,14 +148,14 @@ const ExternalLinkAttributeDialog = (props: PropsT): React.MixedElement => {
     dispatch({action, type: 'update-date-period'});
   }, [dispatch]);
 
-  const onToggle = (open) => {
+  const onToggle = (open: boolean) => {
     if (open) {
       dispatch({type: 'reset'});
     }
     setOpen(open);
   };
 
-  const handleConfirm = (closeAndReturnFocus) => {
+  const handleConfirm = (closeAndReturnFocus: () => void) => {
     if (hasErrors) {
       return;
     }
@@ -169,14 +169,14 @@ const ExternalLinkAttributeDialog = (props: PropsT): React.MixedElement => {
   };
 
   // Ensure errors are shown if the user tries to submit with Enter
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: SyntheticKeyboardEvent<HTMLFormElement>) => {
     if (event.key === 'Enter' && hasErrors) {
       dispatch({type: 'show-all-pending-errors'});
       event.preventDefault();
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     if (hasErrors) {
       dispatch({type: 'show-all-pending-errors'});
       event.preventDefault();
@@ -184,7 +184,7 @@ const ExternalLinkAttributeDialog = (props: PropsT): React.MixedElement => {
   };
 
   const buildPopoverChildren =
-    (closeAndReturnFocus): React.Element<'form'> => {
+    (closeAndReturnFocus: () => void): React.Element<'form'> => {
       return (
         <form
           className="external-link-attribute-dialog"

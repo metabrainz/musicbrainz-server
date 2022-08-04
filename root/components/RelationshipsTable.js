@@ -40,7 +40,7 @@ type Props = {
 const generalTypesList = ['recording', 'release', 'release_group', 'work'];
 const recordingOnlyTypesList = ['recording'];
 
-const pickAppearancesTypes = (entityType) => {
+const pickAppearancesTypes = (entityType: CoreEntityTypeT) => {
   switch (entityType) {
     case 'area':
     case 'artist':
@@ -55,7 +55,7 @@ const pickAppearancesTypes = (entityType) => {
   }
 };
 
-const getLinkPhraseForGroup = (linkTypeGroup) => (
+const getLinkPhraseForGroup = (linkTypeGroup: PagedLinkTypeGroupT) => (
   interpolateText(
     linkedEntities.link_type[linkTypeGroup.link_type_id],
     [],
@@ -70,7 +70,7 @@ const getLinkPhraseForGroup = (linkTypeGroup) => (
  * Matches $DIRECTION_FORWARD and $DIRECTION_BACKWARD from
  * lib/MusicBrainz/Server/Constants.pm.
  */
-const getDirectionInteger = (backward) => {
+const getDirectionInteger = (backward: boolean) => {
   return backward ? 2 : 1;
 };
 
@@ -95,10 +95,20 @@ const RelationshipsTable = ({
   let columnsCount = 1;
   let totalRelationships = 0;
 
+  type PagedLinkTypeGroupWithPhraseT = $ReadOnly<{
+    ...PagedLinkTypeGroupT,
+    +phrase: string,
+  }>;
+
+  type RelationshipsTableGroupPropsT = {
+    +group: PagedLinkTypeGroupWithPhraseT,
+    +relationshipRows: $ReadOnlyArray<React.MixedElement>,
+  };
+
   const RelationshipsTableGroup = ({
     group,
     relationshipRows,
-  }) => {
+  }: RelationshipsTableGroupPropsT) => {
     const isLimited = (
       group.total_relationships >
       (group.offset + group.relationships.length)
@@ -137,13 +147,21 @@ const RelationshipsTable = ({
     );
   };
 
+  type RelationshipsTableRowPropsT = {
+    +artistCredit: ?ArtistCreditT,
+    +index: number,
+    +relationship: RelationshipT,
+    +sourceCredit: string,
+    +targetCredit: string,
+  };
+
   const RelationshipsTableRow = ({
     artistCredit,
     index,
     relationship,
     sourceCredit,
     targetCredit,
-  }) => {
+  }: RelationshipsTableRowPropsT) => {
     return (
       <tr className={loopParity(index)} key={relationship.id}>
         <td>{formatDatePeriod(relationship)}</td>
@@ -198,11 +216,11 @@ const RelationshipsTable = ({
     );
   };
 
-  const tableRows = [];
+  const tableRows: Array<React.MixedElement> = [];
 
   const getRelationshipRows = (
-    linkTypeGroup,
-    rows,
+    linkTypeGroup: PagedLinkTypeGroupT | PagedLinkTypeGroupWithPhraseT,
+    rows: Array<React.MixedElement>,
   ) => {
     let index = 0;
 
@@ -285,7 +303,7 @@ const RelationshipsTable = ({
         .sort((a, b) => compare(a.phrase, b.phrase));
 
       for (const linkTypeGroup of linkTypeGroups) {
-        const relationshipRows = [];
+        const relationshipRows: Array<React.MixedElement> = [];
         getRelationshipRows(linkTypeGroup, relationshipRows);
 
         tableRows.push(

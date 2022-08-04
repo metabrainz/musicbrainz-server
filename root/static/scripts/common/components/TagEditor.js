@@ -34,11 +34,11 @@ const VOTE_ACTIONS = {
  */
 const VOTE_DELAY = 1000;
 
-const cmpTags = (a, b) => (
+const cmpTags = (a: UserTagT, b: UserTagT) => (
   (b.count - a.count) || compareStrings(a.tag.name, b.tag.name)
 );
 
-function formatGenreLabel(genre) {
+function formatGenreLabel(genre: GenreT) {
   let output: string = he.encode(genre.name);
   if (genre.comment) {
     output += (
@@ -50,16 +50,16 @@ function formatGenreLabel(genre) {
   return output;
 }
 
-function getTagsPath(entity) {
+function getTagsPath(entity: CoreEntityT | MinimalCoreEntityT) {
   const type = entity.entityType.replace('_', '-');
   return `/${type}/${entity.gid}/tags`;
 }
 
-function isAlwaysVisible(tag) {
+function isAlwaysVisible(tag: UserTagT) {
   return tag.vote > 0 || (tag.vote === 0 && tag.count > 0);
 }
 
-function splitTags(tags) {
+function splitTags(tags: string) {
   return (
     tags
       .trim()
@@ -104,10 +104,7 @@ const VoteButton = ({
       disabled={isActive}
       onClick={isActive
         ? null
-        : ((...args) => callback(
-          currentVote === 0 ? vote : 0,
-          ...args,
-        ))}
+        : () => callback(currentVote === 0 ? vote : 0)}
       title={buttonTitle}
       type="button"
     >
@@ -293,7 +290,9 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     let doRequest;
     if (asap) {
       const $ = require('jquery');
-      doRequest = args => $.ajax({...args, dataType: 'json'});
+      doRequest = (
+        args: {+url: string},
+      ) => $.ajax({...args, dataType: 'json'});
     } else {
       doRequest = require('../utility/request').default;
     }
@@ -325,7 +324,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     const tags = this.state.tags;
 
     return tags.reduce((accum, t, index) => {
-      const callback = newVote => {
+      const callback = (newVote: VoteT) => {
         this.updateVote(index, newVote);
         this.addPendingVote(t.tag, newVote, index);
       };

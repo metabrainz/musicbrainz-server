@@ -443,16 +443,16 @@ const UserEditsProperty = ({
   user,
 }: UserEditsPropertyProps) => {
   const encodedName = encodeURIComponent(user.name);
-  const createEditTypes = entityType === 'cover_art'
-    ? TYPES.EDIT_RELEASE_ADD_COVER_ART
+  const createEditTypes: string = entityType === 'cover_art'
+    ? String(TYPES.EDIT_RELEASE_ADD_COVER_ART)
     : entityType === 'release' ? (
       // Also list historical edits
       [
         TYPES.EDIT_RELEASE_CREATE,
         TYPES.EDIT_HISTORIC_ADD_RELEASE,
       ].join(',')
-    ) : TYPES[`EDIT_${entityType.toUpperCase()}_CREATE`];
-  const searchEditsURL = (createEditTypes => (
+    ) : String(TYPES[`EDIT_${entityType.toUpperCase()}_CREATE`]);
+  const searchEditsURL = ((createEditTypes: string) => (
     '/search/edits' +
     '?auto_edit_filter=' +
     '&conditions.0.field=editor' +

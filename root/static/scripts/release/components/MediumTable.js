@@ -173,7 +173,7 @@ const MediumTable = (React.memo<PropsT>(({
     loadMoreTracks,
   ]);
 
-  function toggleMedium(event) {
+  function toggleMedium(event: SyntheticMouseEvent<HTMLAnchorElement>) {
     // Prevent the browser from following the link.
     event.preventDefault();
     dispatch({medium, type: 'toggle-medium'});

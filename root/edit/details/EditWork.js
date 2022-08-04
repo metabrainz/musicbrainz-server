@@ -26,7 +26,8 @@ type Props = {
   +edit: EditWorkEditT,
 };
 
-const localizeLanguage = language => localizeLanguageName(language, true);
+const localizeLanguage =
+  (language: LanguageT) => localizeLanguageName(language, true);
 
 const EditWork = ({edit}: Props): React.Element<'table'> => {
   const display = edit.display_data;

@@ -12,12 +12,15 @@ import * as React from 'react';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import TagLink from '../../static/scripts/common/components/TagLink';
 import loopParity from '../../utility/loopParity';
-import type {ResultsPropsT} from '../types';
+import type {ResultsPropsT, SearchResultT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
-function buildResult(result, index) {
+function buildResult(
+  result: SearchResultT<TagT>,
+  index: number,
+) {
   const tag = result.entity;
   const score = result.score;
 

@@ -43,9 +43,9 @@ type Props = {
 };
 
 function buildReleaseStatusTable(
-  $c,
-  releaseStatusGroup,
-  releaseGroupCreditId,
+  $c: CatalystContextT,
+  releaseStatusGroup: $ReadOnlyArray<ReleaseT>,
+  releaseGroupCreditId: number | void,
 ) {
   const status = releaseStatusGroup[0].status;
   return (

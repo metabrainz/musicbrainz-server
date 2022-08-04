@@ -166,7 +166,7 @@ class WorkAttribute {
     });
   }
 
-  allowsFreeText(typeID) {
+  allowsFreeText(typeID: number | null) {
     return !typeID ||
       this.parent.attributeTypesByID[typeID].free_text;
   }
@@ -241,7 +241,10 @@ class ViewModel {
   }
 }
 
-function byID(result, parent) {
+function byID(
+  result: {[id: StrOrNum]: WorkAttributeTypeTreeT},
+  parent: WorkAttributeTypeTreeT,
+) {
   result[parent.id] = parent;
   if (parent.children) {
     parent.children.reduce(byID, result);
@@ -276,7 +279,7 @@ function addLanguage() {
   store.dispatch({type: 'ADD_LANGUAGE'});
 }
 
-function editLanguage(i, languageId) {
+function editLanguage(i: number, languageId: string) {
   store.dispatch({
     index: i,
     languageId: languageId,
@@ -284,14 +287,14 @@ function editLanguage(i, languageId) {
   });
 }
 
-function removeLanguage(i) {
+function removeLanguage(i: number) {
   store.dispatch({
     index: i,
     type: 'REMOVE_LANGUAGE',
   });
 }
 
-const getSelectField = field => field;
+const getSelectField = (field: ReadOnlyFieldT<?number>) => field;
 
 const workLanguagesNode = document.getElementById('work-languages-editor');
 if (!workLanguagesNode) {

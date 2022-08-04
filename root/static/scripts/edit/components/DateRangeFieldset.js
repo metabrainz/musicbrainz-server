@@ -68,7 +68,11 @@ function validateDatePeriod(state: WritableStateT) {
   state.pendingErrors = pendingErrors;
 }
 
-function runDateFieldReducer(dateField, action, state) {
+function runDateFieldReducer(
+  dateField: WritablePartialDateFieldT,
+  action: FormRowPartialDateActionT,
+  state: WritableStateT,
+) {
   runFormRowPartialDateReducer(
     dateField,
     action,

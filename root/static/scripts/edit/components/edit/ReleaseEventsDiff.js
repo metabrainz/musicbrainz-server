@@ -26,11 +26,11 @@ function areReleaseCountriesEqual(a: ReleaseEventT, b: ReleaseEventT) {
   );
 }
 
-function areReleaseDatesEqual(a, b) {
+function areReleaseDatesEqual(a: ReleaseEventT, b: ReleaseEventT) {
   return formatDate(a.date) === formatDate(b.date);
 }
 
-const getCountryId = x => String(x.country?.id ?? null);
+const getCountryId = (x: ReleaseEventT) => String(x.country?.id ?? null);
 
 const changeSide = (
   oldEvent: ?ReleaseEventT,
