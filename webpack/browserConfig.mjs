@@ -33,12 +33,12 @@ export default {
      * See root/layout/components/globalsScript.mjs for more info.
      */
     new webpack.IgnorePlugin({
-      resourceRegExp: /\/DBDefs$/,
+      resourceRegExp: /\/DBDefs\.mjs$/,
     }),
 
     new webpack.NormalModuleReplacementPlugin(
-      /\/root\/static\/scripts\/common\/DBDefs-client\.mjs$/,
-      './DBDefs-client-browser.mjs',
+      /\/DBDefs-client\.mjs$/,
+      path.resolve(SCRIPTS_DIR, 'common/DBDefs-client-browser.mjs'),
     ),
 
     new webpack.NormalModuleReplacementPlugin(
