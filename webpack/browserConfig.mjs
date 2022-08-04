@@ -10,9 +10,7 @@ import path from 'path';
 
 import webpack from 'webpack';
 
-import {
-  MB_SERVER_ROOT,
-} from '../root/static/scripts/common/DBDefs.mjs';
+import MB_SERVER_ROOT from '../root/utility/serverRootDir.mjs';
 
 import {SCRIPTS_DIR} from './constants.mjs';
 import definePluginConfig from './definePluginConfig.mjs';
