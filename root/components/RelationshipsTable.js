@@ -326,7 +326,7 @@ const RelationshipsTable = ({
       </tbody>
     </table>
   );
-  let pageContent = tableElement;
+  let pageContent: React.MixedElement = tableElement;
   let finalHeading = heading;
 
   if (pagedLinkTypeGroup /*:: && pager */) {

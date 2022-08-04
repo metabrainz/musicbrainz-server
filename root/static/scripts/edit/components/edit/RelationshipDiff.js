@@ -118,8 +118,10 @@ const RelationshipDiff = ({
     />
   );
 
-  let [oldPhrase, oldExtraAttributes] = ['', []];
-  let [newPhrase, newExtraAttributes] = ['', []];
+  let oldPhrase: Expand2ReactOutput = '';
+  let oldExtraAttributes: Array<LinkAttrT> = [];
+  let newPhrase: Expand2ReactOutput = '';
+  let newExtraAttributes: Array<LinkAttrT> = [];
 
   try {
     if (oldLinkType !== newLinkType) {

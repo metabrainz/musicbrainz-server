@@ -25,8 +25,8 @@ const ReleaseGroupUrlList = ({
   items,
   pager,
 }: Props): React.Element<typeof PaginatedResults> => {
-  let lastGID = 0;
-  let currentGID = 0;
+  let lastGID: string = '';
+  let currentGID: string = '';
 
   return (
     <PaginatedResults pager={pager}>

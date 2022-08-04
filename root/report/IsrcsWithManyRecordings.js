@@ -27,8 +27,8 @@ const IsrcsWithManyRecordings = ({
   items,
   pager,
 }: ReportDataT<ReportIsrcT>): React.Element<typeof ReportLayout> => {
-  let lastIsrc = 0;
-  let currentIsrc = 0;
+  let lastIsrc: string = '';
+  let currentIsrc: string = '';
 
   return (
     <ReportLayout

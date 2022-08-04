@@ -328,7 +328,7 @@ export function titleStringByMode(
    * -- http://bugs.musicbrainz.org/ticket/40
    */
   const opos = output.getLength();
-  let wordBefore = '';
+  let wordBefore: string | null = '';
   if (opos > 1) {
     wordBefore = output.getWordAtIndex(opos - 2);
   }

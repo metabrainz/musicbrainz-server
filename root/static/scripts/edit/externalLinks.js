@@ -1003,7 +1003,7 @@ type TypeDescriptionProps = {
 const TypeDescription =
   (props: TypeDescriptionProps): React.Element<typeof HelpIcon> => {
     const linkType = props.type ? linkedEntities.link_type[props.type] : null;
-    let typeDescription = '';
+    let typeDescription: Expand2ReactOutput = '';
 
     if (linkType && linkType.description) {
       typeDescription = exp.l('{description} ({url|more documentation})', {

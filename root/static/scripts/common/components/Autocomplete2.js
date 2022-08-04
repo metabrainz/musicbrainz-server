@@ -213,7 +213,10 @@ const AutocompleteItem = React.memo(<+T: EntityItemT>({
     invariant(item.level == null || item.level >= 0);
   }
 
-  let style = (item.level && item.level > 0)
+  let style: ?{
+    +paddingLeft?: string,
+    +textAlign?: string,
+  } = (item.level && item.level > 0)
     ? {paddingLeft: String(4 + (item.level * 8)) + 'px'}
     : null;
 

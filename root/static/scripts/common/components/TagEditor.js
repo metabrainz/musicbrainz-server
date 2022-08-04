@@ -39,7 +39,7 @@ const cmpTags = (a, b) => (
 );
 
 function formatGenreLabel(genre) {
-  let output = he.encode(genre.name);
+  let output: string = he.encode(genre.name);
   if (genre.comment) {
     output += (
       '<span class="small"> ' +

@@ -46,7 +46,7 @@ const ExternalLink = ({
   text,
   url,
 }: ExternalLinkProps) => {
-  let element = (
+  let element: Expand2ReactOutput = (
     <a href={url.href_url}>
       {nonEmpty(text) ? text : url.sidebar_name}
     </a>

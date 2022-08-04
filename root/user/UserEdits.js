@@ -35,7 +35,7 @@ const UserEdits = ({
   const titleParam = {name: user.name};
   const headingParam = {name: <EditorLink editor={user} />};
   let pageTitle = '';
-  let pageHeading = '';
+  let pageHeading: Expand2ReactOutput = '';
 
   switch ($c.action.name) {
     case 'votes':
