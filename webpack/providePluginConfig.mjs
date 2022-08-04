@@ -8,9 +8,7 @@
 
 import path from 'path';
 
-import {
-  MB_SERVER_ROOT,
-} from '../root/static/scripts/common/DBDefs.mjs';
+import MB_SERVER_ROOT from '../root/utility/serverRootDir.mjs';
 
 import {GETTEXT_DOMAINS} from './constants.mjs';
 

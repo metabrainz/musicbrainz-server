@@ -11,9 +11,7 @@ import path from 'path';
 import webpack from 'webpack';
 import nodeExternals from 'webpack-node-externals';
 
-import {
-  MB_SERVER_ROOT,
-} from '../root/static/scripts/common/DBDefs.mjs';
+import MB_SERVER_ROOT from '../root/utility/serverRootDir.mjs';
 
 import cacheConfig from './cacheConfig.mjs';
 import {

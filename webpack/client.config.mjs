@@ -16,12 +16,10 @@ import TerserPlugin from 'terser-webpack-plugin';
 import webpack from 'webpack';
 
 import * as poFile from '../root/server/gettext/poFile.mjs';
-import {
-  MB_SERVER_ROOT,
-} from '../root/static/scripts/common/DBDefs.mjs';
 import {cloneObjectDeep}
   from '../root/static/scripts/common/utility/cloneDeep.mjs';
 import jedDataTemplate from '../root/static/scripts/jed-data.mjs';
+import MB_SERVER_ROOT from '../root/utility/serverRootDir.mjs';
 
 import browserConfig from './browserConfig.mjs';
 import cacheConfig from './cacheConfig.mjs';
