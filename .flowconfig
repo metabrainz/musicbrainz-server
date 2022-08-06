@@ -21,6 +21,7 @@ autoimports=true
 exact_by_default=true
 experimental.enforce_local_inference_annotations=true
 experimental.enforce_this_annotations=true
+experimental.enforce_class_annotations=true
 format.bracket_spacing=false
 format.single_quotes=true
 inference_mode=constrain_writes

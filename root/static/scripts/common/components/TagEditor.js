@@ -320,7 +320,10 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     window.removeEventListener('beforeunload', this.onBeforeUnloadBound);
   }
 
-  createTagRows() {
+  createTagRows(): {
+    +genres: $ReadOnlyArray<React.MixedElement>,
+    +tags: $ReadOnlyArray<React.MixedElement>,
+    } {
     const tags = this.state.tags;
 
     return tags.reduce((accum, t, index) => {
@@ -355,7 +358,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     }, {genres: [], tags: []});
   }
 
-  getNewCount(index: number, vote: VoteT) {
+  getNewCount(index: number, vote: VoteT): number {
     const current = this.state.tags[index];
 
     if (!current) {

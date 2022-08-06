@@ -38,7 +38,7 @@ class WikipediaExtract extends React.Component<Props, State> {
     }
   }
 
-  render() {
+  render(): React.MixedElement | null {
     const {wikipediaExtract} = this.state;
     return wikipediaExtract ? (
       <>

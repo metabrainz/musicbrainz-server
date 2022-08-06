@@ -166,12 +166,12 @@ class WorkAttribute {
     });
   }
 
-  allowsFreeText(typeID: number | null) {
+  allowsFreeText(typeID: number | null): boolean {
     return !typeID ||
       this.parent.attributeTypesByID[typeID].free_text;
   }
 
-  isGroupingType() {
+  isGroupingType(): boolean {
     return !this.allowsFreeText(this.typeID()) &&
            this.allowedValues().length === 0;
   }

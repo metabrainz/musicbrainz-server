@@ -43,7 +43,7 @@ class TypeInfo {
     this.primitive = 0;
   }
 
-  printTypeInfo(indentation/*: string */) {
+  printTypeInfo(indentation/*: string */)/*: string */ {
     const types = [];
     if ((this.primitive & TYPE_STRING) === TYPE_STRING) {
       types.push('string');
@@ -83,7 +83,7 @@ class TypeInfo {
     return types.join(' | ');
   }
 
-  processTypes(data/*: mixed */) {
+  processTypes(data/*: mixed */)/*: void */ {
     this.count++;
     if (this.isEditDataTypeInfo && data == null) {
       throw new Error('data should not be null');
