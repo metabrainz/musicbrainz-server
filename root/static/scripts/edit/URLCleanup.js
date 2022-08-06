@@ -5510,7 +5510,7 @@ export function registerEvents($url: typeof $) {
   }
 
   $url.on('input', urlChanged)
-    .on('blur', function () {
+    .on('blur', function (this: HTMLInputElement) {
       this.value = this.value.trim();
     })
     .parents('form')

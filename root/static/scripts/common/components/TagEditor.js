@@ -464,7 +464,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
         return false;
       },
 
-      select: function (event, ui) {
+      select: function (this: HTMLInputElement, event, ui) {
         const terms = splitTags(this.value);
         terms.pop();
         terms.push(ui.item.value, '');
