@@ -39,7 +39,7 @@ import venueMarkerIconUrl
 import venueMarkerIcon2xUrl
   from '../../images/leaflet/venue-marker-icon-2x.png';
 
-import DBDefs from './DBDefs-client';
+import DBDefs from './DBDefs-client.mjs';
 
 const iconsUrls = {
   'arena-marker-icon.png': arenaMarkerIconUrl,

@@ -13,14 +13,16 @@ use aliased 'MusicBrainz::Server::Entity::CritiqueBrainz::User';
 with 'MusicBrainz::Server::Data::Role::Context';
 
 sub load_display_reviews {
-    my ($self, $release_group) = @_;
+    my ($self, $entity) = @_;
 
     my $url = URI->new(DBDefs->CRITIQUEBRAINZ_SERVER . '/ws/1/review/');
 
     my %params = (
-        release_group => $release_group->gid,
+        entity_id => $entity->gid,
+        entity_type => $entity->entity_type,
         offset => 0,
         limit => 1,
+        review_type => 'review', # Get only text reviews, not bare ratings
         sort => 'published_on'
     );
 
@@ -29,17 +31,17 @@ sub load_display_reviews {
     my $content = $self->_get_review($url->as_string);
     return unless $content;
 
-    $release_group->review_count($content->{count});
-    $release_group->most_recent_review(_parse_review(@{ $content->{reviews} // [] }));
+    $entity->review_count($content->{count});
+    $entity->most_recent_review(_parse_review(@{ $content->{reviews} // [] }));
 
-    if ($release_group->review_count > 1) {
+    if ($entity->review_count > 1) {
         $params{sort} = 'rating';
         $url->query_form(%params);
 
         $content = $self->_get_review($url->as_string);
         return unless $content;
 
-        $release_group->most_popular_review(_parse_review(@{ $content->{reviews} // [] }));
+        $entity->most_popular_review(_parse_review(@{ $content->{reviews} // [] }));
     }
 }
 
@@ -62,7 +64,9 @@ sub _parse_review {
         id => $data->{id},
         created => DateTime->from_epoch(epoch => str2time($data->{created})),
         body => non_empty($data->{text}) ? markdown($data->{text}) : '',
-        author => User->new(id => $data->{user}{id}, name => $data->{user}{display_name})
+        author => User->new(id => $data->{user}{id}, name => $data->{user}{display_name}),
+        # CB rates 1-5, massage for parity with MB ratings
+        rating => $data->{rating} ? $data->{rating} * 20 : undef,
     );
 }
 

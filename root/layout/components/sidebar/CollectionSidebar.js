@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../../context';
+import {CatalystContext} from '../../../context.mjs';
 import EditorLink from '../../../static/scripts/common/components/EditorLink';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
 import {formatCount} from '../../../statistics/utilities';

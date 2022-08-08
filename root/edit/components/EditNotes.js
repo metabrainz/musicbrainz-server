@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context';
-import DBDefs from '../../static/scripts/common/DBDefs';
+import {CatalystContext} from '../../context.mjs';
+import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import {
   editorMayAddNote,
 } from '../../utility/edit';

@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import {ENTITIES} from '../static/scripts/common/constants';
-import DBDefs from '../static/scripts/common/DBDefs';
+import DBDefs from '../static/scripts/common/DBDefs.mjs';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent';
 import formatUserDate from '../utility/formatUserDate';

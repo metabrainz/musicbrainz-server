@@ -9,23 +9,14 @@
 
 import * as React from 'react';
 
-import {SanitizedCatalystContext} from '../../../../context';
+import {SanitizedCatalystContext} from '../../../../context.mjs';
 import formatUserDate from '../../../../utility/formatUserDate';
-import DBDefs from '../DBDefs-client';
+import hydrate from '../../../../utility/hydrate';
+import bracketed from '../utility/bracketed';
+import {StaticRatingStars} from '../components/RatingStars';
+import DBDefs from '../DBDefs-client.mjs';
 
 import Collapsible from './Collapsible';
-
-export type CritiqueBrainzUserT = {
-  +id: string,
-  +name: string,
-};
-
-export type CritiqueBrainzReviewT = {
-  +author: CritiqueBrainzUserT,
-  +body: string,
-  +created: string,
-  +id: string,
-};
 
 type Props = {
   +review: CritiqueBrainzReviewT,
@@ -55,6 +46,14 @@ const CritiqueBrainzReview = ({review, title}: Props) => (
           review_link: {href: reviewHref(review), key: 'review_link'},
         })}
       </SanitizedCatalystContext.Consumer>
+      {review.rating == null ? null : (
+        <>
+          {' '}
+          {bracketed(
+            <StaticRatingStars rating={review.rating} />,
+          )}
+        </>
+      )}
     </p>
     <Collapsible className="review" html={review.body} />
   </>

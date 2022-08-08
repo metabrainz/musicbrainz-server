@@ -43,7 +43,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 #       port            => '',
     },
     # How to connect to a Selenium test database. This database is created
-    # (and dropped) automatically by t/selenium.js, and uses the TEST
+    # (and dropped) automatically by t/selenium.mjs, and uses the TEST
     # database above as a template.
     SELENIUM => {
         database    => 'musicbrainz_selenium',

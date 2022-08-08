@@ -15,7 +15,7 @@ import FormRow from '../../../../components/FormRow';
 import FormRowCheckbox from '../../../../components/FormRowCheckbox';
 import FormRowSelect from '../../../../components/FormRowSelect';
 import FormSubmit from '../../../../components/FormSubmit';
-import {SanitizedCatalystContext} from '../../../../context';
+import {SanitizedCatalystContext} from '../../../../context.mjs';
 import {formatUserDateObject} from '../../../../utility/formatUserDate';
 
 type PreferencesFormT = FormT<{

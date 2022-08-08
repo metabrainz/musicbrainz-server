@@ -607,7 +607,7 @@ END -%]
     </noscript>
 [%~ END ~%]
 
-[%~ MACRO script_manifest(manifest, extra_attrs) BLOCK # Converted to React at root/static/manifest.js
+[%~ MACRO script_manifest(manifest, extra_attrs) BLOCK # Converted to React at root/static/manifest.mjs
 ~%]
   [%~ attr_string = '';
       FOREACH attr IN extra_attrs;

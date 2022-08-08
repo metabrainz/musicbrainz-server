@@ -1340,7 +1340,7 @@ msgid ""
 "diatonically."
 msgstr ""
 
-#. name:romantic guitar 
+#. name:gut guitar 
 #: DB:instrument/description:567
 msgid "Hollow-body acoustic guitar strung with gut-strings."
 msgstr ""

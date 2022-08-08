@@ -7641,10 +7641,6 @@ msgstr "{entity1} heeft {additional:aanvullende} foto’s door {entity0}"
 msgid "{entity1} invented {entity0}"
 msgstr "{entity1} vond {entity0} uit"
 
-#: DB:link_type/long_link_phrase:1090
-msgid "{entity1} is a commonly used in {entity0}"
-msgstr "{entity1} wordt vaak gebruikt voor {entity0}"
-
 #: DB:link_type/long_link_phrase:915
 msgid "{entity1} is a feed for podcast {entity0}"
 msgstr "de {entity0}-podcast kan op {entity1} worden gevonden."
@@ -7676,6 +7672,10 @@ msgstr "{entity1} is een vertaalde versie van {entity0}"
 #: DB:link_type/long_link_phrase:65 DB:link_type/long_link_phrase:970
 msgid "{entity1} is a tribute to {entity0}"
 msgstr "{entity1} is een eerbetoon aan {entity0}"
+
+#: DB:link_type/long_link_phrase:1090
+msgid "{entity1} is commonly used in {entity0}"
+msgstr "{entity1} wordt vaak gebruikt voor {entity0}"
 
 #: DB:link_type/long_link_phrase:983 DB:link_type/long_link_phrase:846
 #: DB:link_type/long_link_phrase:922 DB:link_type/long_link_phrase:914

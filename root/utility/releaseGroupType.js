@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import linkedEntities from '../static/scripts/common/linkedEntities';
+import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 
 export default function releaseGroupType(
   releaseGroup: ReleaseGroupT,

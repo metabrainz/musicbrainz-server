@@ -14,6 +14,7 @@ declare type EventT = $ReadOnly<{
   ...CoreEntityRoleT<'event'>,
   ...DatePeriodRoleT,
   ...RatableRoleT,
+  ...ReviewableRoleT,
   ...TypeRoleT<EventTypeT>,
   +areas: $ReadOnlyArray<{
     +credit: string,

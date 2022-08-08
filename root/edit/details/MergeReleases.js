@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import ReleaseLabelList from '../../components/ReleaseLabelList';
 import ReleaseCatnoList from '../../components/ReleaseCatnoList';
-import * as manifest from '../../static/manifest';
+import * as manifest from '../../static/manifest.mjs';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 import DescriptiveLink

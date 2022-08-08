@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import Relationships from '../components/Relationships';
+import Relationships from '../static/scripts/common/components/Relationships';
 
 import UrlLayout from './UrlLayout';
 import isGreyedOut from './utility/isGreyedOut';

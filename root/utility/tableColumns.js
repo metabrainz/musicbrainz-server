@@ -10,22 +10,20 @@
 import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
-import {CatalystContext} from '../context';
+import {CatalystContext} from '../context.mjs';
 import ENTITIES from '../../entities';
 import InstrumentRelTypes from '../components/InstrumentRelTypes';
-import RatingStars from '../components/RatingStars';
 import ReleaseCatnoList from '../components/ReleaseCatnoList';
 import ReleaseLabelList from '../components/ReleaseLabelList';
 import ReleaseLanguageScript from '../components/ReleaseLanguageScript';
 import SortableTableHeader from '../components/SortableTableHeader';
-import linkedEntities from '../static/scripts/common/linkedEntities';
+import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink';
 import ArtistRoles
   from '../static/scripts/common/components/ArtistRoles';
 import AttributeList from '../static/scripts/common/components/AttributeList';
 import CDTocLink from '../static/scripts/common/components/CDTocLink';
-import CodeLink from '../static/scripts/common/components/CodeLink';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
@@ -33,6 +31,9 @@ import EventLocations
   from '../static/scripts/common/components/EventLocations';
 import ExpandedArtistCredit
   from '../static/scripts/common/components/ExpandedArtistCredit';
+import IsrcList from '../static/scripts/common/components/IsrcList';
+import IswcList from '../static/scripts/common/components/IswcList';
+import RatingStars from '../static/scripts/common/components/RatingStars';
 import ReleaseEvents
   from '../static/scripts/common/components/ReleaseEvents';
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
@@ -626,9 +627,7 @@ export const attributesColumn:
   ColumnOptions<WorkT, $ReadOnlyArray<WorkAttributeT>> = {
     Cell: ({row: {original}}) => (
       original.attributes ? (
-        <ul>
-          <AttributeList attributes={original.attributes} />
-        </ul>
+        <AttributeList attributes={original.attributes} />
       ) : null
     ),
     Header: N_l('Attributes'),
@@ -652,13 +651,7 @@ export const isrcsColumn:
   }, $ReadOnlyArray<IsrcT>> = {
     accessor: x => x.isrcs,
     Cell: ({cell: {value}}) => (
-      <ul>
-        {value.map((isrc) => (
-          <li key={isrc.isrc}>
-            <CodeLink code={isrc} />
-          </li>
-        ))}
-      </ul>
+      <IsrcList isrcs={value} />
     ),
     Header: N_l('ISRCs'),
     id: 'isrcs',
@@ -671,13 +664,7 @@ export const iswcsColumn:
   }, $ReadOnlyArray<IswcT>> = {
     accessor: x => x.iswcs,
     Cell: ({cell: {value}}) => (
-      <ul>
-        {value.map((iswc) => (
-          <li key={iswc.iswc}>
-            <CodeLink code={iswc} />
-          </li>
-        ))}
-      </ul>
+      <IswcList iswcs={value} />
     ),
     cellProps: {className: 'iswc'},
     Header: N_l('ISWC'),

@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context';
+import {CatalystContext} from '../../context.mjs';
 import Layout from '../../layout';
 import expand2text from '../../static/scripts/common/i18n/expand2text';
 import formatUserDate from '../../utility/formatUserDate';

@@ -83,6 +83,8 @@ sub handle_update_path($$$$) {
 sub should_follow_table($) {
     my ($self, $table) = @_;
 
+    return 0 if $table =~ /^documentation\./;
+
     return 0 if $table eq 'musicbrainz.area_type';
     return 0 if $table eq 'musicbrainz.artist_type';
     return 0 if $table eq 'musicbrainz.cdtoc';

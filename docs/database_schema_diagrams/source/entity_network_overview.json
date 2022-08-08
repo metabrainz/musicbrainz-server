@@ -1,0 +1,26 @@
+{
+  "tooltip": "Overview of tables connecting entities",
+  "_comment": "Show core entity tables and unique tables connecting these; That is beyond relationship. Core entities are highlighted. All tables are shortened to focus on foreign key constraints.",
+  "tables": {
+    "area": ["highlighted","shortened"],
+    "artist": ["highlighted","shortened"],
+    "artist_credit": ["shortened"],
+    "artist_credit_name": ["shortened"],
+    "country_area": ["shortened"],
+    "event": ["highlighted","shortened"],
+    "genre": ["highlighted","shortened"],
+    "instrument": ["highlighted","shortened"],
+    "label": ["highlighted","shortened"],
+    "medium": ["shortened"],
+    "place": ["highlighted","shortened"],
+    "recording": ["highlighted","shortened"],
+    "release": ["highlighted","shortened"],
+    "release_country": ["shortened"],
+    "release_group": ["highlighted","shortened"],
+    "release_label": ["shortened"],
+    "series": ["highlighted","shortened"],
+    "track": ["shortened"],
+    "url": ["highlighted","shortened"],
+    "work": ["highlighted","shortened"]
+  }
+}

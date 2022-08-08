@@ -13,7 +13,7 @@ import {
   EDIT_STATUS_OPEN,
   EDIT_STATUS_APPLIED,
 } from '../../constants';
-import DBDefs from '../../static/scripts/common/DBDefs';
+import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import {
   editorMayAddNote,
   editorMayApprove,

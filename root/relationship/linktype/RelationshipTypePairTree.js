@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import Layout from '../../layout';
-import * as manifest from '../../static/manifest';
+import * as manifest from '../../static/manifest.mjs';
 import Cardinality from '../../static/scripts/common/components/Cardinality';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import expand2react from '../../static/scripts/common/i18n/expand2react';

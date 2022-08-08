@@ -12,7 +12,7 @@ import * as React from 'react';
 import UserAccountLayout, {
   sanitizedAccountLayoutUser,
 } from '../components/UserAccountLayout';
-import * as manifest from '../static/manifest';
+import * as manifest from '../static/manifest.mjs';
 import EditProfileForm
   from '../static/scripts/account/components/EditProfileForm';
 import type {EditProfileFormPropsT}

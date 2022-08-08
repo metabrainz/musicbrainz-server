@@ -9,23 +9,36 @@
 
 import * as React from 'react';
 
-import {StaticRatingStars} from '../components/RatingStars';
+import CritiqueBrainzLinks from '../components/CritiqueBrainzLinks';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent';
+import * as manifest from '../static/manifest.mjs';
+import {ENTITIES} from '../static/scripts/common/constants';
+import CritiqueBrainzReview
+  from '../static/scripts/common/components/CritiqueBrainzReview';
 import EditorLink from '../static/scripts/common/components/EditorLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
+import {
+  StaticRatingStars,
+} from '../static/scripts/common/components/RatingStars';
 
 type Props = {
-  +entity: RatableT,
+  +$c: CatalystContextT,
+  +entity: RatableT | ReviewableT,
+  +mostPopularReview: CritiqueBrainzReviewT,
+  +mostRecentReview: CritiqueBrainzReviewT,
   +privateRatingCount: number,
   +publicRatings: $ReadOnlyArray<RatingT>,
 };
 
 const Ratings = ({
   entity,
+  mostPopularReview,
+  mostRecentReview,
   privateRatingCount,
   publicRatings,
 }: Props): React.MixedElement => {
   const entityType = entity.entityType;
+  const entityProperties = ENTITIES[entity.entityType];
   const LayoutComponent = chooseLayoutComponent(entityType);
   const hasRatings = publicRatings.length || privateRatingCount > 0;
 
@@ -33,43 +46,73 @@ const Ratings = ({
     <LayoutComponent
       entity={entity}
       page="ratings"
-      title={l('Ratings')}
+      title={l('Reviews')}
     >
-      <h2>{l('Ratings')}</h2>
-
-      {hasRatings ? (
+      {entityProperties.ratings ? (
         <>
-          {publicRatings.length ? (
-            <ul>
-              {publicRatings.map(rating => (
-                <li key={rating.editor.id}>
-                  <StaticRatingStars rating={rating.rating} />
-                  {' - '}
-                  <EditorLink editor={rating.editor} />
-                </li>
-              ))}
-            </ul>
-          ) : null}
-          {privateRatingCount > 0 ? (
+          <h2>{l('Ratings')}</h2>
+
+          {hasRatings ? (
+            <>
+              {publicRatings.length ? (
+                <ul>
+                  {publicRatings.map(rating => (
+                    <li key={rating.editor.id}>
+                      <StaticRatingStars rating={rating.rating} />
+                      {' - '}
+                      <EditorLink editor={rating.editor} />
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+              {privateRatingCount > 0 ? (
+                <p>
+                  {exp.ln(
+                    '{count} private rating not listed.',
+                    '{count} private ratings not listed.',
+                    privateRatingCount,
+                    {count: privateRatingCount},
+                  )}
+                </p>
+              ) : null}
+              {l('Average rating:')}
+              {' '}
+              {/* $FlowIgnore[prop-missing] we know it has ratings */}
+              <StaticRatingStars rating={entity.rating} />
+            </>
+          ) : (
             <p>
-              {exp.ln(
-                '{count} private rating not listed.',
-                '{count} private ratings not listed.',
-                privateRatingCount,
-                {count: privateRatingCount},
-              )}
+              {exp.l('{link} has no ratings.',
+                     {link: <EntityLink entity={entity} />})}
             </p>
-          ) : null}
-          {l('Average rating:')}
-          {' '}
-          <StaticRatingStars rating={entity.rating} />
+          )}
         </>
-      ) : (
-        <p>
-          {exp.l('{link} has no ratings.',
-                 {link: <EntityLink entity={entity} />})}
-        </p>
-      )}
+      ) : null}
+
+      {entityProperties.reviews ? (
+        <>
+          <h2>{l('Reviews')}</h2>
+
+          {/* $FlowIgnore[incompatible-type] we know it has reviews */}
+          <CritiqueBrainzLinks entity={entity} />
+          <div id="critiquebrainz-reviews">
+            {mostRecentReview ? (
+              <CritiqueBrainzReview
+                review={mostRecentReview}
+                title={l('Most Recent')}
+              />
+            ) : null}
+            {mostPopularReview &&
+              mostPopularReview.id !== mostRecentReview.id ? (
+                <CritiqueBrainzReview
+                  review={mostPopularReview}
+                  title={l('Most Popular')}
+                />
+              ) : null}
+          </div>
+        </>
+      ) : null}
+      {manifest.js('reviews')}
     </LayoutComponent>
   );
 };

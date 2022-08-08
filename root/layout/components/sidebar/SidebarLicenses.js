@@ -34,7 +34,8 @@ import ccSamplingIconUrl
 import ccSamplingPlusIconUrl
   from '../../../static/images/licenses/CCSamplingPlus.png';
 import {compare} from '../../../static/scripts/common/i18n';
-import linkedEntities from '../../../static/scripts/common/linkedEntities';
+import linkedEntities
+  from '../../../static/scripts/common/linkedEntities.mjs';
 
 const LICENSE_CLASSES = {
   ArtLibre: {

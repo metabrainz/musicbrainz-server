@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import DBDefs from '../../static/scripts/common/DBDefs';
+import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 
 type Props = {
   +edit: ChangeWikiDocEditT,

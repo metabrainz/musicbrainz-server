@@ -13,7 +13,7 @@ import {
 } from '../static/scripts/common/constants';
 import {compare} from '../static/scripts/common/i18n';
 import commaList from '../static/scripts/common/i18n/commaList';
-import linkedEntities from '../static/scripts/common/linkedEntities';
+import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import {
   compareStrings,
 } from '../static/scripts/common/utility/compare';

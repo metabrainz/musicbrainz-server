@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import type {LinkedEntitiesT} from '../common/linkedEntities';
+import type {LinkedEntitiesT} from '../common/linkedEntities.mjs';
 
 export type CreditsModeT = 'bottom' | 'inline';
 

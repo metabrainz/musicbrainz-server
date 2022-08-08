@@ -9,7 +9,8 @@
 
 import * as React from 'react';
 
-import linkedEntities from '../../../static/scripts/common/linkedEntities';
+import linkedEntities
+  from '../../../static/scripts/common/linkedEntities.mjs';
 
 import {SidebarProperty} from './SidebarProperties';
 

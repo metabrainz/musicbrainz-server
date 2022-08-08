@@ -12,7 +12,7 @@ import * as React from 'react';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import {FAVICON_CLASSES} from '../../static/scripts/common/constants';
 import {compare, l} from '../../static/scripts/common/i18n';
-import linkedEntities from '../../static/scripts/common/linkedEntities';
+import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 import {uniqBy} from '../../static/scripts/common/utility/arrays';
 import isDisabledLink from '../../utility/isDisabledLink';
 

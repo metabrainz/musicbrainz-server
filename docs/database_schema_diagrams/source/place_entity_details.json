@@ -1,0 +1,17 @@
+{
+  "tooltip": "Tables for the “place” core entity type properties",
+  "_comment": "Show replicated tables used to define any place entity, beyond relationships. The main table is highlighted.",
+  "tables": {
+    "annotation": [],
+    "area": ["shortened"],
+    "place": ["highlighted"],
+    "place_alias": [],
+    "place_alias_type": [],
+    "place_annotation": [],
+    "place_gid_redirect": [],
+    "place_meta": [],
+    "place_tag": [],
+    "place_type": [],
+    "tag": []
+  }
+}

@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import Layout from '../../layout';
-import {GOOGLE_CUSTOM_SEARCH} from '../../static/scripts/common/DBDefs';
+import {GOOGLE_CUSTOM_SEARCH} from '../../static/scripts/common/DBDefs.mjs';
 
 const DocResults = (): React.Element<typeof Layout> => (
   <Layout fullWidth title={l('Documentation Search')}>

@@ -13,7 +13,7 @@ m4_define(`apt_purge', `apt-get purge --auto-remove -y $1')
 
 m4_define(`sudo_mb', `sudo -E -H -u musicbrainz $1')
 
-m4_define(`NODEJS_DEB', `nodejs_16.1.0-deb-1nodesource1_amd64.deb')
+m4_define(`NODEJS_DEB', `nodejs_16.16.0-deb-1nodesource1_amd64.deb')
 
 m4_define(
     `install_javascript',
@@ -29,7 +29,7 @@ RUN apt-key add /tmp/yarn_pubkey.txt && \
     dpkg -i NODEJS_DEB && \
     cd - && \
     sudo_mb(``yarn install$1'')
-copy_mb(``babel.config.js ./'')')
+copy_mb(``babel.config.cjs ./'')')
 
 m4_define(
     `install_javascript_and_templates',
@@ -41,7 +41,7 @@ copy_mb(``script/compile_resources.sh script/dbdefs_to_js.pl script/start_render
 copy_mb(``webpack/ webpack/'')
 
 ENV NODE_ENV production
-RUN sudo_mb(``carton exec -- ./script/compile_resources.sh'')
+RUN sudo_mb(``carton exec -- ./script/compile_resources.sh client'')
 RUN chown_mb(``/tmp/ttc'')')
 
 m4_define(

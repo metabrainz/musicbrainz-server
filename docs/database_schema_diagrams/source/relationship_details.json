@@ -1,0 +1,15 @@
+{
+  "tooltip": "Tables for relationship properties",
+  "_comment": "Show tables for the detailed representation of a link. Main tables are highlighted.",
+  "tables": {
+    "link": ["highlighted"],
+    "link_attribute": ["highlighted"],
+    "link_attribute_credit": ["highlighted"],
+    "link_attribute_text_value": ["highlighted"],
+    "link_attribute_type": [],
+    "link_creditable_attribute_type": [],
+    "link_text_attribute_type": [],
+    "link_type": [],
+    "link_type_attribute_type": []
+  }
+}

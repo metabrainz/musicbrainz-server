@@ -20,6 +20,7 @@ declare type PlaceT = $ReadOnly<{
   ...CoreEntityRoleT<'place'>,
   ...DatePeriodRoleT,
   ...RatableRoleT,
+  ...ReviewableRoleT,
   ...TypeRoleT<PlaceTypeT>,
   +address: string,
   +area: AreaT | null,

@@ -8,4 +8,6 @@
  */
 const noop = () => undefined;
 export const createPopper = noop;
+export const jedInstance = undefined;
+export const loadDomain = noop;
 export default {};

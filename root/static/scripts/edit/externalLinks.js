@@ -21,7 +21,7 @@ import {
 } from '../common/constants';
 import {compare, l} from '../common/i18n';
 import expand2react from '../common/i18n/expand2react';
-import linkedEntities from '../common/linkedEntities';
+import linkedEntities from '../common/linkedEntities.mjs';
 import MB from '../common/MB';
 import {groupBy, keyBy, uniqBy} from '../common/utility/arrays';
 import isDateEmpty from '../common/utility/isDateEmpty';
@@ -653,10 +653,10 @@ export class ExternalLinksEditor
     } else if (isNewOrChangedLink) {
       const check = checker.checkRelationship(linkType.gid);
       if (!check.result) {
-        error = {
+        error = ({
           message: '',
           target: URLCleanup.ERROR_TARGETS.NONE,
-        };
+        }: ErrorT);
         error.target = check.target || URLCleanup.ERROR_TARGETS.NONE;
         if (error.target === URLCleanup.ERROR_TARGETS.URL) {
           error.message = l(`This URL is not allowed

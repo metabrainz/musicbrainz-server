@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import * as manifest from '../../static/manifest';
+import * as manifest from '../../static/manifest.mjs';
 import ArtistRoles from '../../static/scripts/common/components/ArtistRoles';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import EventLocations

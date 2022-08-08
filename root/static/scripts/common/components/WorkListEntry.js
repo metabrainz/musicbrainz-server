@@ -10,15 +10,15 @@
 import * as React from 'react';
 
 import localizeLanguageName from '../i18n/localizeLanguageName';
-import {CatalystContext} from '../../../../context';
-import * as manifest from '../../../manifest';
-import RatingStars from '../../../../components/RatingStars';
+import {CatalystContext} from '../../../../context.mjs';
+import * as manifest from '../../../manifest.mjs';
 import loopParity from '../../../../utility/loopParity';
 
 import ArtistRoles from './ArtistRoles';
 import AttributeList from './AttributeList';
-import CodeLink from './CodeLink';
 import EntityLink from './EntityLink';
+import IswcList from './IswcList';
+import RatingStars from './RatingStars';
 import WorkArtists from './WorkArtists';
 
 type WorkListRowProps = {
@@ -84,13 +84,11 @@ export const WorkListRow = ({
       </td>
       {showIswcs ? (
         <td>
-          <ul>
-            {work.iswcs.map((iswc, i) => (
-              <li key={i}>
-                <CodeLink code={iswc} />
-              </li>
-            ))}
-          </ul>
+          <IswcList iswcs={work.iswcs} />
+          {manifest.js(
+            'common/components/ArtistRoles',
+            {async: 'async'},
+          )}
         </td>
       ) : null}
       <td>
@@ -113,13 +111,13 @@ export const WorkListRow = ({
       {showAttributes ? (
         <td>
           {work.attributes ? (
-            <ul>
+            <>
               <AttributeList attributes={work.attributes} />
               {manifest.js(
                 'common/components/AttributeList',
                 {async: 'async'},
               )}
-            </ul>
+            </>
           ) : null}
         </td>
       ) : null}

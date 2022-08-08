@@ -1,0 +1,238 @@
+// Automatically generated, do not edit.
+// - Database schema sequence: 27
+digraph release_group_entity_details {
+    tooltip = "Tables for the “release_group” core entity type properties"
+    graph [
+        bgcolor = "#cb75ab:#f0976c"
+        concentrate = true
+        gradientangle = 330
+        pack = true
+        rankdir = "LR"
+    ];
+    node [
+        shape = plain
+    ];
+
+    // Tables
+    "annotation" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">annotation</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="editor"><font point-size="14">editor</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="text"><font point-size="14">text</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="changelog"><font point-size="14">changelog</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="created"><font point-size="14">created</font></td></tr>
+            </table>
+        >
+    ];
+    "artist" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+            </table>
+        >
+    ];
+    "artist_credit" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_credit</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="artist_count"><font point-size="14">artist_count</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="ref_count"><font point-size="14">ref_count</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="created"><font point-size="14">created</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="edits_pending"><font point-size="14">edits_pending</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+            </table>
+        >
+    ];
+    "artist_credit_name" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_credit_name</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="artist_credit"><font point-size="14"><u>artist_credit</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="position"><font point-size="14"><u>position</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="artist"><font point-size="14">artist</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="join_phrase"><font point-size="14">join_phrase</font></td></tr>
+            </table>
+        >
+    ];
+    "artist_release_group" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_release_group (m)</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="is_track_artist"><font point-size="14">is_track_artist</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="artist"><font point-size="14">artist</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="unofficial"><font point-size="14">unofficial</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="primary_type"><font point-size="14">primary_type</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="secondary_types"><font point-size="14">secondary_types</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="first_release_date"><font point-size="14">first_release_date</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="sort_character"><font point-size="14">sort_character</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="release_group"><font point-size="14">release_group</font></td></tr>
+            </table>
+        >
+    ];
+    "release_group" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#eeeeeebb"><font point-size="17">release_group</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="artist_credit"><font point-size="14">artist_credit</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="type"><font point-size="14">type</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="comment"><font point-size="14">comment</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="edits_pending"><font point-size="14">edits_pending</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="last_updated"><font point-size="14">last_updated</font></td></tr>
+            </table>
+        >
+    ];
+    "release_group_alias" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_alias</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="release_group"><font point-size="14">release_group</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="locale"><font point-size="14">locale</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="edits_pending"><font point-size="14">edits_pending</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="last_updated"><font point-size="14">last_updated</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="type"><font point-size="14">type</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="sort_name"><font point-size="14">sort_name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_year"><font point-size="14">begin_date_year</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_month"><font point-size="14">begin_date_month</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_day"><font point-size="14">begin_date_day</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_year"><font point-size="14">end_date_year</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_month"><font point-size="14">end_date_month</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_day"><font point-size="14">end_date_day</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="primary_for_locale"><font point-size="14">primary_for_locale</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="ended"><font point-size="14">ended</font></td></tr>
+            </table>
+        >
+    ];
+    "release_group_alias_type" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_alias_type</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="parent"><font point-size="14">parent</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="child_order"><font point-size="14">child_order</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="description"><font point-size="14">description</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+            </table>
+        >
+    ];
+    "release_group_annotation" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_annotation</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="release_group"><font point-size="14"><u>release_group</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="annotation"><font point-size="14"><u>annotation</u></font></td></tr>
+            </table>
+        >
+    ];
+    "release_group_gid_redirect" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_gid_redirect</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="gid"><font point-size="14"><u>gid</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="new_id"><font point-size="14">new_id</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="created"><font point-size="14">created</font></td></tr>
+            </table>
+        >
+    ];
+    "release_group_meta" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_meta</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="release_count"><font point-size="14">release_count</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="first_release_date_year"><font point-size="14">first_release_date_year</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="first_release_date_month"><font point-size="14">first_release_date_month</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="first_release_date_day"><font point-size="14">first_release_date_day</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="rating"><font point-size="14">rating</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="rating_count"><font point-size="14">rating_count</font></td></tr>
+            </table>
+        >
+    ];
+    "release_group_primary_type" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_primary_type</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="parent"><font point-size="14">parent</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="child_order"><font point-size="14">child_order</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="description"><font point-size="14">description</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+            </table>
+        >
+    ];
+    "release_group_secondary_type" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_secondary_type</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="parent"><font point-size="14">parent</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="child_order"><font point-size="14">child_order</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="description"><font point-size="14">description</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+            </table>
+        >
+    ];
+    "release_group_secondary_type_join" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_secondary_type_join</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="release_group"><font point-size="14"><u>release_group</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="secondary_type"><font point-size="14"><u>secondary_type</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="created"><font point-size="14">created</font></td></tr>
+            </table>
+        >
+    ];
+    "release_group_tag" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_tag</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="release_group"><font point-size="14"><u>release_group</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="tag"><font point-size="14"><u>tag</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="count"><font point-size="14">count</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="last_updated"><font point-size="14">last_updated</font></td></tr>
+            </table>
+        >
+    ];
+    "tag" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">tag</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="ref_count"><font point-size="14">ref_count</font></td></tr>
+            </table>
+        >
+    ];
+
+    // References
+    "artist_credit_name":"artist_credit" -> "artist_credit":"id"
+    "artist_credit_name":"artist" -> "artist":"id"
+    "artist_release_group":"artist" -> "artist":"id"
+    "artist_release_group":"release_group" -> "release_group":"id"
+    "release_group":"artist_credit" -> "artist_credit":"id"
+    "release_group":"type" -> "release_group_primary_type":"id"
+    "release_group_alias":"release_group" -> "release_group":"id"
+    "release_group_alias":"type" -> "release_group_alias_type":"id"
+    "release_group_annotation":"release_group" -> "release_group":"id"
+    "release_group_annotation":"annotation" -> "annotation":"id"
+    "release_group_gid_redirect":"new_id" -> "release_group":"id"
+    "release_group_meta":"id" -> "release_group":"id"
+    "release_group_secondary_type_join":"release_group" -> "release_group":"id"
+    "release_group_secondary_type_join":"secondary_type" -> "release_group_secondary_type":"id"
+    "release_group_tag":"release_group" -> "release_group":"id"
+    "release_group_tag":"tag" -> "tag":"id"
+}

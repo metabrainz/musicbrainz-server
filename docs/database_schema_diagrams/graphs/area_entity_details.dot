@@ -1,0 +1,169 @@
+// Automatically generated, do not edit.
+// - Database schema sequence: 27
+digraph area_entity_details {
+    tooltip = "Tables for the “area” core entity type properties"
+    graph [
+        bgcolor = "#cb75ab:#f0976c"
+        concentrate = true
+        gradientangle = 330
+        pack = true
+        rankdir = "LR"
+    ];
+    node [
+        shape = plain
+    ];
+
+    // Tables
+    "annotation" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">annotation</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="editor"><font point-size="14">editor</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="text"><font point-size="14">text</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="changelog"><font point-size="14">changelog</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="created"><font point-size="14">created</font></td></tr>
+            </table>
+        >
+    ];
+    "area" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#eeeeeebb"><font point-size="17">area</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="type"><font point-size="14">type</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="edits_pending"><font point-size="14">edits_pending</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="last_updated"><font point-size="14">last_updated</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_year"><font point-size="14">begin_date_year</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_month"><font point-size="14">begin_date_month</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_day"><font point-size="14">begin_date_day</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_year"><font point-size="14">end_date_year</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_month"><font point-size="14">end_date_month</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_day"><font point-size="14">end_date_day</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="ended"><font point-size="14">ended</font></td></tr>
+            </table>
+        >
+    ];
+    "area_alias" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">area_alias</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="area"><font point-size="14">area</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="locale"><font point-size="14">locale</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="edits_pending"><font point-size="14">edits_pending</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="last_updated"><font point-size="14">last_updated</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="type"><font point-size="14">type</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="sort_name"><font point-size="14">sort_name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_year"><font point-size="14">begin_date_year</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_month"><font point-size="14">begin_date_month</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="begin_date_day"><font point-size="14">begin_date_day</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_year"><font point-size="14">end_date_year</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_month"><font point-size="14">end_date_month</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="end_date_day"><font point-size="14">end_date_day</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="primary_for_locale"><font point-size="14">primary_for_locale</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="ended"><font point-size="14">ended</font></td></tr>
+            </table>
+        >
+    ];
+    "area_alias_type" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">area_alias_type</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="parent"><font point-size="14">parent</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="child_order"><font point-size="14">child_order</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="description"><font point-size="14">description</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+            </table>
+        >
+    ];
+    "area_annotation" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">area_annotation</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="area"><font point-size="14"><u>area</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="annotation"><font point-size="14"><u>annotation</u></font></td></tr>
+            </table>
+        >
+    ];
+    "area_containment" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">area_containment (m)</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="descendant"><font point-size="14"><u>descendant</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="parent"><font point-size="14"><u>parent</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="depth"><font point-size="14">depth</font></td></tr>
+            </table>
+        >
+    ];
+    "area_gid_redirect" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">area_gid_redirect</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="gid"><font point-size="14"><u>gid</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="new_id"><font point-size="14">new_id</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="created"><font point-size="14">created</font></td></tr>
+            </table>
+        >
+    ];
+    "area_tag" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">area_tag</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="area"><font point-size="14"><u>area</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="tag"><font point-size="14"><u>tag</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="count"><font point-size="14">count</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="last_updated"><font point-size="14">last_updated</font></td></tr>
+            </table>
+        >
+    ];
+    "area_type" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">area_type</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="parent"><font point-size="14">parent</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="child_order"><font point-size="14">child_order</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="description"><font point-size="14">description</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+            </table>
+        >
+    ];
+    "country_area" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">country_area</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="area"><font point-size="14"><u>area</u></font></td></tr>
+            </table>
+        >
+    ];
+    "tag" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">tag</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="ref_count"><font point-size="14">ref_count</font></td></tr>
+            </table>
+        >
+    ];
+
+    // References
+    "area":"type" -> "area_type":"id"
+    "area_alias":"area" -> "area":"id"
+    "area_alias":"type" -> "area_alias_type":"id"
+    "area_annotation":"area" -> "area":"id"
+    "area_annotation":"annotation" -> "annotation":"id"
+    "area_containment":"descendant" -> "area":"id"
+    "area_containment":"parent" -> "area":"id"
+    "area_gid_redirect":"new_id" -> "area":"id"
+    "area_tag":"area" -> "area":"id"
+    "area_tag":"tag" -> "tag":"id"
+    "country_area":"area" -> "area":"id"
+}

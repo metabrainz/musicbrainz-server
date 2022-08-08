@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import * as manifest from '../static/manifest';
-import DBDefs from '../static/scripts/common/DBDefs-client';
+import * as manifest from '../static/manifest.mjs';
+import DBDefs from '../static/scripts/common/DBDefs-client.mjs';
 
 import PlaceLayout from './PlaceLayout';
 
