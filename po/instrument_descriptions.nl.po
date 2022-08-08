@@ -548,7 +548,7 @@ msgstr "Een glockenspiel is een metallofoon die bestaat uit toetsen of staven di
 msgid ""
 "Baroque string instrument sized between the viola and cello, it typically "
 "has five strings."
-msgstr ""
+msgstr "Een violoncello piccolo is een snaarinstrument uit de barok met vijf snaren. Het formaat ligt tussen de altviool en de cello."
 
 #. name:baroque trumpet
 #: DB:instrument/description:521
@@ -1371,7 +1371,7 @@ msgstr "Een nylongitaar is een akoestische gitaar met nylonsnaren."
 #. name:steel-string acoustic guitar
 #: DB:instrument/description:653
 msgid "Hollow-body acoustic guitar strung with steel strings."
-msgstr ""
+msgstr "Een staalsnarige gitaar is een akoestische gitaar met stalen snaren."
 
 #. name:mendoza
 #: DB:instrument/description:114
@@ -1544,7 +1544,7 @@ msgstr "De yueqin heeft een korte hals met fretten en vier snaren die traditione
 #. name:sho
 #: DB:instrument/description:192
 msgid "It is based on the Chinese sheng, but is smaller"
-msgstr ""
+msgstr "De sho is gebaseerd op de Chinese Sheng, maar is kleiner"
 
 #. name:viola
 #: DB:instrument/description:63

@@ -1322,7 +1322,7 @@ msgstr "dramyen"
 #: DB:instrument/name:120
 msgctxt "drum programming"
 msgid "drum machine"
-msgstr ""
+msgstr "drumcomputer"
 
 #: DB:instrument/name:101
 msgctxt "Set of drums in modern music"
@@ -1662,7 +1662,7 @@ msgstr "geomungo"
 #: DB:instrument/name:331
 msgctxt "South Indian Carnatic percussion"
 msgid "ghatam"
-msgstr ""
+msgstr "ghatam"
 
 #: DB:instrument/name:931
 msgctxt "Persian double-chambered bowl lute"
@@ -2057,7 +2057,7 @@ msgstr "kamānche"
 #: DB:instrument/name:474
 msgctxt "South Indian frame drum."
 msgid "kanjira"
-msgstr ""
+msgstr "kanjira"
 
 #: DB:instrument/name:422
 msgctxt "Traditional Lithuanian plucked psaltery"
@@ -2694,7 +2694,7 @@ msgstr "nyckelharpa / sleutelharp"
 #: DB:instrument/name:566
 msgctxt "Modern nylon-stringed acoustic guitar"
 msgid "nylon acoustic guitar"
-msgstr ""
+msgstr "akoestische nylonsnarige gitaar"
 
 #: DB:instrument/name:8
 msgid "oboe"
@@ -3346,7 +3346,7 @@ msgstr "shakers"
 #: DB:instrument/name:173
 msgctxt "Japanese end-blown flute"
 msgid "shakuhachi"
-msgstr ""
+msgstr "shakuhachi"
 
 #: DB:instrument/name:87
 msgid "shamisen"
@@ -3380,12 +3380,12 @@ msgstr "shime-daiko"
 #: DB:instrument/name:470
 msgctxt "Japanese high-pitched transverse flute"
 msgid "shinobue"
-msgstr ""
+msgstr "shinobue"
 
 #: DB:instrument/name:192
 msgctxt "Japanese free reed flute"
 msgid "sho"
-msgstr ""
+msgstr "sho"
 
 #: DB:instrument/name:39
 msgctxt "Ram's horn natural brass"
@@ -3523,7 +3523,7 @@ msgstr "Hawaï-gitaar"
 #: DB:instrument/name:653
 msgctxt "Modern acoustic steel string guitar"
 msgid "steel-string acoustic guitar"
-msgstr ""
+msgstr "akoestische staalsnarige gitaar"
 
 #: DB:instrument/name:273
 msgid "steelpan"
@@ -4098,7 +4098,7 @@ msgstr "vina"
 #: DB:instrument/name:418
 msgctxt "South Indian transverse bamboo flute"
 msgid "venu"
-msgstr ""
+msgstr "venu"
 
 #: DB:instrument/name:650
 msgid "vessel flute"
