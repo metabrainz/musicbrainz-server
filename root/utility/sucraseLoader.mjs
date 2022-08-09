@@ -34,12 +34,16 @@ const sucraseOptions = Object.freeze({
   transforms: ['jsx', 'flow'],
 });
 
+export function runSucraseTransform(rawSource) {
+  return sucraseTransform(rawSource.toString(), sucraseOptions).code;
+}
+
 export async function load(url, context, defaultLoad) {
   if (await isModule(url)) {
     const {source: rawSource} = await defaultLoad(url, {format: 'module'});
     return {
       format: 'module',
-      source: sucraseTransform(rawSource.toString(), sucraseOptions).code,
+      source: runSucraseTransform(rawSource),
     };
   }
   return defaultLoad(url, context, defaultLoad);
@@ -55,7 +59,7 @@ globalThis.React = require('react');\
 `;
 }
 
-async function isModule(url) {
+export async function isModule(url) {
   const ext = extname(url);
   if (ext === '.cjs') {
     return false;
