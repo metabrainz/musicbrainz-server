@@ -117,8 +117,8 @@ const CollectionEditForm = ({collectionTypes, form}: Props) => {
                       inputID={'id-' + collaborator.html_name}
                       inputName={collaborator.field.name.html_name}
                       onChange={(
-                        c: EditorT,
-                      ) => handleCollaboratorChange(c, index)}
+                        collaborator: EditorT,
+                      ) => handleCollaboratorChange(collaborator, index)}
                     >
                       <input
                         name={collaborator.field.id.html_name}
