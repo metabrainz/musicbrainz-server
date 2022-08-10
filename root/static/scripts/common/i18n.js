@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as wrapGettext from './i18n/wrapGettext';
+import * as wrapGettext from './i18n/wrapGettext.js';
 
 export const l: (string) => string =
   wrapGettext.dgettext('mb_server');

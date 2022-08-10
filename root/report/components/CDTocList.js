@@ -9,15 +9,15 @@
 
 import * as React from 'react';
 
-import PaginatedResults from '../../components/PaginatedResults';
-import Table from '../../components/Table';
+import PaginatedResults from '../../components/PaginatedResults.js';
+import Table from '../../components/Table.js';
 import {
   defineCDTocColumn,
   defineTextColumn,
-} from '../../utility/tableColumns';
+} from '../../utility/tableColumns.js';
 import formatTrackLength
-  from '../../static/scripts/common/utility/formatTrackLength';
-import type {ReportCDTocT} from '../types';
+  from '../../static/scripts/common/utility/formatTrackLength.js';
+import type {ReportCDTocT} from '../types.js';
 
 type Props = {
   +items: $ReadOnlyArray<ReportCDTocT>,

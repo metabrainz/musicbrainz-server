@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import FormRowText from '../../../../components/FormRowText';
-import GuessCase from '../../guess-case/MB/GuessCase/Main';
-import {ARTIST_TYPE_PERSON} from '../../common/constants';
+import FormRowText from '../../../../components/FormRowText.js';
+import GuessCase from '../../guess-case/MB/GuessCase/Main.js';
+import {ARTIST_TYPE_PERSON} from '../../common/constants.js';
 
 type SortNamedEntityT = {
   +entityType: CoreEntityTypeT,

@@ -9,11 +9,11 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
-import {compare} from '../common/i18n';
-import MB from '../common/MB';
-import {last} from '../common/utility/arrays';
-import debounce from '../common/utility/debounce';
-import {stripAttributes} from '../edit/utility/linkPhrase';
+import {compare} from '../common/i18n.js';
+import MB from '../common/MB.js';
+import {last} from '../common/utility/arrays.js';
+import debounce from '../common/utility/debounce.js';
+import {stripAttributes} from '../edit/utility/linkPhrase.js';
 
 function cmpOptions(a, b) {
   return (a.data.child_order - b.data.child_order) ||

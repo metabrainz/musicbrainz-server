@@ -10,7 +10,7 @@
 import {
   EDIT_VOTE_YES,
   EDIT_VOTE_NO,
-} from '../../constants';
+} from '../../constants.js';
 
 function countVotes(
   votes: $ReadOnlyArray<VoteT>,

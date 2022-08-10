@@ -9,17 +9,17 @@
 
 import {
   TITLES as ADD_NEW_ENTITY_TITLES,
-} from '../../../edit/components/AddEntityDialog';
-import {unwrapNl} from '../../i18n';
+} from '../../../edit/components/AddEntityDialog.js';
+import {unwrapNl} from '../../i18n.js';
 import {
   isLocationEditor,
   isRelationshipEditor,
-} from '../../utility/privileges';
+} from '../../utility/privileges.js';
 
 import {
   OPEN_ADD_ENTITY_DIALOG,
   SEARCH_AGAIN,
-} from './actions';
+} from './actions.js';
 import {
   CLEAR_RECENT_ITEMS,
   ERROR_LOOKUP,
@@ -29,18 +29,18 @@ import {
   MENU_ITEMS,
   PAGE_SIZE,
   RECENT_ITEMS_HEADER,
-} from './constants';
+} from './constants.js';
 import type {
   ActionT,
   EntityItemT,
   ItemT,
   SearchActionT,
   StateT,
-} from './types';
+} from './types.js';
 import {
   clearRecentItems,
   pushRecentItem,
-} from './recentItems';
+} from './recentItems.js';
 
 function initSearch<+T: EntityItemT>(
   state: {...StateT<T>},

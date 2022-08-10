@@ -10,8 +10,8 @@
 import * as React from 'react';
 
 import {SidebarProperty}
-  from '../../../../layout/components/sidebar/SidebarProperties';
-import {bracketedText} from '../utility/bracketed';
+  from '../../../../layout/components/sidebar/SidebarProperties.js';
+import {bracketedText} from '../utility/bracketed.js';
 
 export type BuildRowPropsT = {
   abbreviated?: boolean,

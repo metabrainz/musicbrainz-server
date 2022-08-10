@@ -9,21 +9,21 @@
 import $ from 'jquery';
 import test from 'tape';
 
-import '../../../lib/jquery-ui';
+import '../../../lib/jquery-ui.js';
 
 import {
   addMediumDialog,
   mediumSearchTab,
   trackParserDialog,
-} from '../../release-editor/dialogs';
-import edits from '../../release-editor/edits';
-import fields from '../../release-editor/fields';
-import trackParser from '../../release-editor/trackParser';
-import releaseEditor from '../../release-editor/viewModel';
+} from '../../release-editor/dialogs.js';
+import edits from '../../release-editor/edits.js';
+import fields from '../../release-editor/fields.js';
+import trackParser from '../../release-editor/trackParser.js';
+import releaseEditor from '../../release-editor/viewModel.js';
 
-import * as common from './common';
+import * as common from './common.js';
 
-import '../../release-editor/init';
+import '../../release-editor/init.js';
 
 $.ui.dialog.prototype.options.appendTo = '#fixture';
 

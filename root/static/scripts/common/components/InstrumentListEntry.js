@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import loopParity from '../../../../utility/loopParity';
-import expand2react from '../i18n/expand2react';
+import loopParity from '../../../../utility/loopParity.js';
+import expand2react from '../i18n/expand2react.js';
 
-import DescriptiveLink from './DescriptiveLink';
+import DescriptiveLink from './DescriptiveLink.js';
 
 type InstrumentListRowProps = {
   +$c: CatalystContextT,

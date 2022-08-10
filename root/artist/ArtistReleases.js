@@ -9,15 +9,15 @@
 
 import * as React from 'react';
 
-import FormSubmit from '../components/FormSubmit';
-import ReleaseList from '../components/list/ReleaseList';
-import PaginatedResults from '../components/PaginatedResults';
-import Filter from '../static/scripts/common/components/Filter';
+import FormSubmit from '../components/FormSubmit.js';
+import ReleaseList from '../components/list/ReleaseList.js';
+import PaginatedResults from '../components/PaginatedResults.js';
+import Filter from '../static/scripts/common/components/Filter.js';
 import {type FilterFormT}
-  from '../static/scripts/common/components/FilterForm';
-import {returnToCurrentPage} from '../utility/returnUri';
+  from '../static/scripts/common/components/FilterForm.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
-import ArtistLayout from './ArtistLayout';
+import ArtistLayout from './ArtistLayout.js';
 
 type Props = {
   +$c: CatalystContextT,

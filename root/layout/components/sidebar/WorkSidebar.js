@@ -11,26 +11,27 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
 import LinkSearchableLanguage
-  from '../../../components/LinkSearchableLanguage';
+  from '../../../components/LinkSearchableLanguage.js';
 import * as manifest from '../../../static/manifest.mjs';
 import AttributeList
-  from '../../../static/scripts/common/components/AttributeList';
-import IswcList from '../../../static/scripts/common/components/IswcList';
-import commaOnlyList from '../../../static/scripts/common/i18n/commaOnlyList';
+  from '../../../static/scripts/common/components/AttributeList.js';
+import IswcList from '../../../static/scripts/common/components/IswcList.js';
+import commaOnlyList
+  from '../../../static/scripts/common/i18n/commaOnlyList.js';
 import CommonsImage from
-  '../../../static/scripts/common/components/CommonsImage';
-import ExternalLinks from '../ExternalLinks';
+  '../../../static/scripts/common/components/CommonsImage.js';
+import ExternalLinks from '../ExternalLinks.js';
 
-import AnnotationLinks from './AnnotationLinks';
-import CollectionLinks from './CollectionLinks';
-import EditLinks from './EditLinks';
-import LastUpdated from './LastUpdated';
-import MergeLink from './MergeLink';
-import SidebarLicenses from './SidebarLicenses';
-import {SidebarProperty, SidebarProperties} from './SidebarProperties';
-import SidebarRating from './SidebarRating';
-import SidebarTags from './SidebarTags';
-import SidebarType from './SidebarType';
+import AnnotationLinks from './AnnotationLinks.js';
+import CollectionLinks from './CollectionLinks.js';
+import EditLinks from './EditLinks.js';
+import LastUpdated from './LastUpdated.js';
+import MergeLink from './MergeLink.js';
+import SidebarLicenses from './SidebarLicenses.js';
+import {SidebarProperty, SidebarProperties} from './SidebarProperties.js';
+import SidebarRating from './SidebarRating.js';
+import SidebarTags from './SidebarTags.js';
+import SidebarType from './SidebarType.js';
 
 type Props = {
   +work: WorkT,

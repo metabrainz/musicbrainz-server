@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import FormRow from '../components/FormRow';
-import FormRowTextLong from '../components/FormRowTextLong';
-import {unwrapNl} from '../static/scripts/common/i18n';
+import FormRow from '../components/FormRow.js';
+import FormRowTextLong from '../components/FormRowTextLong.js';
+import {unwrapNl} from '../static/scripts/common/i18n.js';
 
 type Props = {
   +form: FormT<{

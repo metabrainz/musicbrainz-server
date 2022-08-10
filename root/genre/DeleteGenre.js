@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import EnterEdit from '../components/EnterEdit';
-import EnterEditNote from '../components/EnterEditNote';
-import EntityLink from '../static/scripts/common/components/EntityLink';
+import EnterEdit from '../components/EnterEdit.js';
+import EnterEditNote from '../components/EnterEditNote.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
-import GenreLayout from './GenreLayout';
-import type {GenreDeleteFormT} from './types';
+import GenreLayout from './GenreLayout.js';
+import type {GenreDeleteFormT} from './types.js';
 
 type Props = {
   +$c: CatalystContextT,

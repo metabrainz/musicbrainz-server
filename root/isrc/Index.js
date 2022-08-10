@@ -9,15 +9,15 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
+import Layout from '../layout/index.js';
 import ArtistCreditLink
-  from '../static/scripts/common/components/ArtistCreditLink';
-import CodeLink from '../static/scripts/common/components/CodeLink';
-import EntityLink from '../static/scripts/common/components/EntityLink';
+  from '../static/scripts/common/components/ArtistCreditLink.js';
+import CodeLink from '../static/scripts/common/components/CodeLink.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import formatTrackLength
-  from '../static/scripts/common/utility/formatTrackLength';
-import loopParity from '../utility/loopParity';
-import {returnToCurrentPage} from '../utility/returnUri';
+  from '../static/scripts/common/utility/formatTrackLength.js';
+import loopParity from '../utility/loopParity.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 type PropsT = {
   +$c: CatalystContextT,

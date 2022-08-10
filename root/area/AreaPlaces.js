@@ -9,13 +9,13 @@
 
 import * as React from 'react';
 
-import PlaceList from '../components/list/PlaceList';
-import PaginatedResults from '../components/PaginatedResults';
+import PlaceList from '../components/list/PlaceList.js';
+import PaginatedResults from '../components/PaginatedResults.js';
 import * as manifest from '../static/manifest.mjs';
 import DBDefs from '../static/scripts/common/DBDefs-client.mjs';
-import {returnToCurrentPage} from '../utility/returnUri';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
-import AreaLayout from './AreaLayout';
+import AreaLayout from './AreaLayout.js';
 
 type Props = {
   +$c: CatalystContextT,

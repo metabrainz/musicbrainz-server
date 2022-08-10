@@ -11,12 +11,12 @@ import * as React from 'react';
 
 import UserAccountLayout, {
   sanitizedAccountLayoutUser,
-} from '../components/UserAccountLayout';
+} from '../components/UserAccountLayout.js';
 import * as manifest from '../static/manifest.mjs';
 import EditProfileForm
-  from '../static/scripts/account/components/EditProfileForm';
+  from '../static/scripts/account/components/EditProfileForm.js';
 import type {EditProfileFormPropsT}
-  from '../static/scripts/account/components/EditProfileForm';
+  from '../static/scripts/account/components/EditProfileForm.js';
 
 type Props = {
   ...EditProfileFormPropsT,

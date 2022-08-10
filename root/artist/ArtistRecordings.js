@@ -9,16 +9,16 @@
 
 import * as React from 'react';
 
-import FormSubmit from '../components/FormSubmit';
-import RecordingList from '../components/list/RecordingList';
-import PaginatedResults from '../components/PaginatedResults';
-import Filter from '../static/scripts/common/components/Filter';
+import FormSubmit from '../components/FormSubmit.js';
+import RecordingList from '../components/list/RecordingList.js';
+import PaginatedResults from '../components/PaginatedResults.js';
+import Filter from '../static/scripts/common/components/Filter.js';
 import {type FilterFormT}
-  from '../static/scripts/common/components/FilterForm';
-import bracketed from '../static/scripts/common/utility/bracketed';
-import {returnToCurrentPage} from '../utility/returnUri';
+  from '../static/scripts/common/components/FilterForm.js';
+import bracketed from '../static/scripts/common/utility/bracketed.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
-import ArtistLayout from './ArtistLayout';
+import ArtistLayout from './ArtistLayout.js';
 
 type FooterSwitchProps = {
   +artist: ArtistT,

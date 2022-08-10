@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
-import {formatCount} from '../statistics/utilities';
+import {formatCount} from '../statistics/utilities.js';
 
-import Paginator from './Paginator';
+import Paginator from './Paginator.js';
 
 type Props = {
   +children: React.Node,

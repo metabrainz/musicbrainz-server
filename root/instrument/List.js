@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import expand2react from '../static/scripts/common/i18n/expand2react';
+import Layout from '../layout/index.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import expand2react from '../static/scripts/common/i18n/expand2react.js';
 
 type PropsT = {
   +instrument_types: $ReadOnlyArray<InstrumentTypeT>,

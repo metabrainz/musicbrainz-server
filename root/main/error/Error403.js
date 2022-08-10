@@ -9,9 +9,10 @@
 
 import * as React from 'react';
 
-import bugTrackerURL from '../../static/scripts/common/utility/bugTrackerURL';
+import bugTrackerURL
+  from '../../static/scripts/common/utility/bugTrackerURL.js';
 
-import ErrorLayout from './ErrorLayout';
+import ErrorLayout from './ErrorLayout.js';
 
 type Props = {
   +$c: CatalystContextT,

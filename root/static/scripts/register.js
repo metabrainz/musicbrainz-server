@@ -9,7 +9,7 @@
 
 import $ from 'jquery';
 
-import debounce from './common/utility/debounce';
+import debounce from './common/utility/debounce.js';
 
 $(function () {
   function warnAboutEmailAsUsername() {

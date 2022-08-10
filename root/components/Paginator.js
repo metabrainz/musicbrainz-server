@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import mapRange from '../static/scripts/common/utility/mapRange';
-import uriWith from '../utility/uriWith';
+import mapRange from '../static/scripts/common/utility/mapRange.js';
+import uriWith from '../utility/uriWith.js';
 
 type PageQueryParam = 'apps_page' | 'page' | 'tokens_page';
 type PageQueryObject = {[pageVar: PageQueryParam]: number, ...};

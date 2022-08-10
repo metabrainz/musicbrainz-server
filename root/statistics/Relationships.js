@@ -9,13 +9,13 @@
 
 import * as React from 'react';
 
-import {compare} from '../static/scripts/common/i18n';
-import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
+import {compare} from '../static/scripts/common/i18n.js';
+import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
 import formatEntityTypeName
-  from '../static/scripts/common/utility/formatEntityTypeName';
+  from '../static/scripts/common/utility/formatEntityTypeName.js';
 
-import {formatCount, formatPercentage, TimelineLink} from './utilities';
-import StatisticsLayout from './StatisticsLayout';
+import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
+import StatisticsLayout from './StatisticsLayout.js';
 
 export type RelationshipsStatsT = {
   +$c: CatalystContextT,

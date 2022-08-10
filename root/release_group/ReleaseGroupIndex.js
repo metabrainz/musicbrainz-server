@@ -9,28 +9,30 @@
 
 import * as React from 'react';
 
-import Annotation from '../static/scripts/common/components/Annotation';
-import Relationships from '../static/scripts/common/components/Relationships';
+import Annotation from '../static/scripts/common/components/Annotation.js';
+import Relationships
+  from '../static/scripts/common/components/Relationships.js';
 import WikipediaExtract
-  from '../static/scripts/common/components/WikipediaExtract';
-import PaginatedResults from '../components/PaginatedResults';
-import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
-import loopParity from '../utility/loopParity';
+  from '../static/scripts/common/components/WikipediaExtract.js';
+import PaginatedResults from '../components/PaginatedResults.js';
+import TaggerIcon from '../static/scripts/common/components/TaggerIcon.js';
+import loopParity from '../utility/loopParity.js';
 import ArtistCreditLink
-  from '../static/scripts/common/components/ArtistCreditLink';
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import CleanupBanner from '../components/CleanupBanner';
-import FormRow from '../components/FormRow';
-import FormSubmit from '../components/FormSubmit';
-import ReleaseEvents from '../static/scripts/common/components/ReleaseEvents';
-import ReleaseLabelList from '../components/ReleaseLabelList';
-import ReleaseCatnoList from '../components/ReleaseCatnoList';
-import formatBarcode from '../static/scripts/common/utility/formatBarcode';
+  from '../static/scripts/common/components/ArtistCreditLink.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import CleanupBanner from '../components/CleanupBanner.js';
+import FormRow from '../components/FormRow.js';
+import FormSubmit from '../components/FormSubmit.js';
+import ReleaseEvents
+  from '../static/scripts/common/components/ReleaseEvents.js';
+import ReleaseLabelList from '../components/ReleaseLabelList.js';
+import ReleaseCatnoList from '../components/ReleaseCatnoList.js';
+import formatBarcode from '../static/scripts/common/utility/formatBarcode.js';
 import * as manifest from '../static/manifest.mjs';
-import releaseGroupType from '../utility/releaseGroupType';
-import {returnToCurrentPage} from '../utility/returnUri';
+import releaseGroupType from '../utility/releaseGroupType.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
-import ReleaseGroupLayout from './ReleaseGroupLayout';
+import ReleaseGroupLayout from './ReleaseGroupLayout.js';
 
 type Props = {
   +$c: CatalystContextT,

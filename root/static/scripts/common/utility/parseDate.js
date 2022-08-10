@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import parseIntegerOrNull from './parseIntegerOrNull';
+import parseIntegerOrNull from './parseIntegerOrNull.js';
 
 const dateRegex = /^(\d{4}|\?{4}|-)(?:-(\d{2}|\?{2}|-)(?:-(\d{2}|\?{2}|-))?)?$/;
 

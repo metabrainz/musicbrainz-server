@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
+import Layout from '../layout/index.js';
 
-import FormCsrfToken from './FormCsrfToken';
+import FormCsrfToken from './FormCsrfToken.js';
 
 type Props = {
   +action?: string,

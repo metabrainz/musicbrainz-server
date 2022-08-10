@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import useEventTrap from './useEventTrap';
+import useEventTrap from './useEventTrap.js';
 
 export default function useOutsideClickEffect<T: HTMLElement>(
   targetRef: {current: T | null},

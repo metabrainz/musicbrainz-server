@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-import MB from '../MB';
+import MB from '../MB.js';
 
 $(function () {
   /* eslint-disable sort-keys */

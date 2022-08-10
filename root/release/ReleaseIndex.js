@@ -10,13 +10,13 @@
 import * as React from 'react';
 
 import * as manifest from '../static/manifest.mjs';
-import Annotation from '../static/scripts/common/components/Annotation';
+import Annotation from '../static/scripts/common/components/Annotation.js';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import TracklistAndCredits
-  from '../static/scripts/release/components/TracklistAndCredits';
-import type {CreditsModeT} from '../static/scripts/release/types';
+  from '../static/scripts/release/components/TracklistAndCredits.js';
+import type {CreditsModeT} from '../static/scripts/release/types.js';
 
-import ReleaseLayout from './ReleaseLayout';
+import ReleaseLayout from './ReleaseLayout.js';
 
 type PropsT = {
   +creditsMode: CreditsModeT,

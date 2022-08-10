@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import EntityLink from '../../static/scripts/common/components/EntityLink';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import ExpandedArtistCredit from
-  '../../static/scripts/common/components/ExpandedArtistCredit';
+  '../../static/scripts/common/components/ExpandedArtistCredit.js';
 import formatTrackLength from
-  '../../static/scripts/common/utility/formatTrackLength';
-import yesNo from '../../static/scripts/common/utility/yesNo';
+  '../../static/scripts/common/utility/formatTrackLength.js';
+import yesNo from '../../static/scripts/common/utility/yesNo.js';
 
 type Props = {
   +allowNew?: boolean,

@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import returnUri from '../utility/returnUri';
+import returnUri from '../utility/returnUri.js';
 
 type Props = {+$c: CatalystContextT, text?: string};
 

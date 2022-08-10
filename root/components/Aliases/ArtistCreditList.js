@@ -10,12 +10,12 @@
 import * as React from 'react';
 
 import ArtistCreditLink
-  from '../../static/scripts/common/components/ArtistCreditLink';
+  from '../../static/scripts/common/components/ArtistCreditLink.js';
 import ArtistCreditUsageLink
-  from '../../static/scripts/common/components/ArtistCreditUsageLink';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import bracketed from '../../static/scripts/common/utility/bracketed';
-import loopParity from '../../utility/loopParity';
+  from '../../static/scripts/common/components/ArtistCreditUsageLink.js';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
+import bracketed from '../../static/scripts/common/utility/bracketed.js';
+import loopParity from '../../utility/loopParity.js';
 
 type Props = {
   +$c: CatalystContextT,

@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import PlaceList from '../../components/list/PlaceList';
+import PlaceList from '../../components/list/PlaceList.js';
 
 type Props = {
   +edit: MergePlacesEditT,

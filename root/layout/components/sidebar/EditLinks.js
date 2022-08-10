@@ -10,8 +10,9 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
-import RequestLogin from '../../../components/RequestLogin';
-import EntityLink from '../../../static/scripts/common/components/EntityLink';
+import RequestLogin from '../../../components/RequestLogin.js';
+import EntityLink
+  from '../../../static/scripts/common/components/EntityLink.js';
 
 type Props = {
   +children?: React.Node,

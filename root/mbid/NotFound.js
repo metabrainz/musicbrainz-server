@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import NotFound from '../components/NotFound';
+import NotFound from '../components/NotFound.js';
 
 type Props = {
   +isGuid: boolean,

@@ -10,13 +10,13 @@
 import * as React from 'react';
 
 import RelationshipTargetLinks
-  from '../../../../components/RelationshipTargetLinks';
+  from '../../../../components/RelationshipTargetLinks.js';
 import {
   type RelationshipTargetTypeGroupT,
   compareTrackPositions,
-} from '../../../../utility/groupRelationships';
-import {commaOnlyListText} from '../i18n/commaOnlyList';
-import {bracketedText} from '../utility/bracketed';
+} from '../../../../utility/groupRelationships.js';
+import {commaOnlyListText} from '../i18n/commaOnlyList.js';
+import {bracketedText} from '../utility/bracketed.js';
 
 const detailsTableStyle = Object.freeze({width: '100%'});
 

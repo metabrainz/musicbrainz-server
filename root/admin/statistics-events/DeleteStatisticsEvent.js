@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import Layout from '../../layout';
-import FormSubmit from '../../components/FormSubmit';
-import expand2react from '../../static/scripts/common/i18n/expand2react';
+import Layout from '../../layout/index.js';
+import FormSubmit from '../../components/FormSubmit.js';
+import expand2react from '../../static/scripts/common/i18n/expand2react.js';
 
-import type {StatisticsEventT} from './types';
+import type {StatisticsEventT} from './types.js';
 
 type PropsT = {
   +$c: CatalystContextT,

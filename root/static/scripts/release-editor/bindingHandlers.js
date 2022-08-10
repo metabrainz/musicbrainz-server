@@ -12,10 +12,10 @@ import * as React from 'react';
 import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 
-import {reduceArtistCredit} from '../common/immutable-entities';
-import ArtistCreditEditor from '../edit/components/ArtistCreditEditor';
+import {reduceArtistCredit} from '../common/immutable-entities.js';
+import ArtistCreditEditor from '../edit/components/ArtistCreditEditor.js';
 
-import fields from './fields';
+import fields from './fields.js';
 
 ko.bindingHandlers.disableBecauseDiscIDs = {
 

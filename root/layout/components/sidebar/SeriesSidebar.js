@@ -11,21 +11,21 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
 import CommonsImage
-  from '../../../static/scripts/common/components/CommonsImage';
+  from '../../../static/scripts/common/components/CommonsImage.js';
 import linkedEntities
   from '../../../static/scripts/common/linkedEntities.mjs';
-import ExternalLinks from '../ExternalLinks';
+import ExternalLinks from '../ExternalLinks.js';
 
-import AnnotationLinks from './AnnotationLinks';
-import CollectionLinks from './CollectionLinks';
-import EditLinks from './EditLinks';
-import LastUpdated from './LastUpdated';
-import MergeLink from './MergeLink';
-import SidebarLicenses from './SidebarLicenses';
-import {SidebarProperty, SidebarProperties} from './SidebarProperties';
-import SidebarTags from './SidebarTags';
-import SidebarType from './SidebarType';
-import SubscriptionLinks from './SubscriptionLinks';
+import AnnotationLinks from './AnnotationLinks.js';
+import CollectionLinks from './CollectionLinks.js';
+import EditLinks from './EditLinks.js';
+import LastUpdated from './LastUpdated.js';
+import MergeLink from './MergeLink.js';
+import SidebarLicenses from './SidebarLicenses.js';
+import {SidebarProperty, SidebarProperties} from './SidebarProperties.js';
+import SidebarTags from './SidebarTags.js';
+import SidebarType from './SidebarType.js';
+import SubscriptionLinks from './SubscriptionLinks.js';
 
 type Props = {
   +series: SeriesT,

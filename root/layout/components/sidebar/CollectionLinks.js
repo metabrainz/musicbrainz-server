@@ -10,9 +10,10 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
-import EntityLink from '../../../static/scripts/common/components/EntityLink';
+import EntityLink
+  from '../../../static/scripts/common/components/EntityLink.js';
 
-import CollectionList from './CollectionList';
+import CollectionList from './CollectionList.js';
 
 type Props = {
   +entity: CollectableCoreEntityT,

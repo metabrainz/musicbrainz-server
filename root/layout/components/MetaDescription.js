@@ -9,11 +9,12 @@
 
 import * as React from 'react';
 
-import {artistBeginLabel, artistEndLabel} from '../../artist/utils';
-import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
-import formatDate from '../../static/scripts/common/utility/formatDate';
+import {artistBeginLabel, artistEndLabel} from '../../artist/utils.js';
+import formatBarcode
+  from '../../static/scripts/common/utility/formatBarcode.js';
+import formatDate from '../../static/scripts/common/utility/formatDate.js';
 import formatTrackLength
-  from '../../static/scripts/common/utility/formatTrackLength';
+  from '../../static/scripts/common/utility/formatTrackLength.js';
 
 function entityDescription(entity: CoreEntityT) {
   const desc = [];

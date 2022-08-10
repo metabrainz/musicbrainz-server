@@ -9,13 +9,13 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
-import MB from '../common/MB';
-import {uniqBy} from '../common/utility/arrays';
-import request from '../common/utility/request';
+import MB from '../common/MB.js';
+import {uniqBy} from '../common/utility/arrays.js';
+import request from '../common/utility/request.js';
 
-import {ViewModel} from './common/viewModel';
+import {ViewModel} from './common/viewModel.js';
 
-import './common/entity';
+import './common/entity.js';
 
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 

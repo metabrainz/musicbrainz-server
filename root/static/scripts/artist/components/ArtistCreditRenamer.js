@@ -10,14 +10,14 @@
 import $ from 'jquery';
 import * as React from 'react';
 
-import ArtistCreditLink from '../../common/components/ArtistCreditLink';
+import ArtistCreditLink from '../../common/components/ArtistCreditLink.js';
 import ArtistCreditUsageLink
-  from '../../common/components/ArtistCreditUsageLink';
-import {compare} from '../../common/i18n';
-import {reduceArtistCredit} from '../../common/immutable-entities';
-import bracketed, {bracketedText} from '../../common/utility/bracketed';
-import {sortedIndexWith} from '../../common/utility/arrays';
-import diffArtistCredits from '../../edit/utility/diffArtistCredits';
+  from '../../common/components/ArtistCreditUsageLink.js';
+import {compare} from '../../common/i18n.js';
+import {reduceArtistCredit} from '../../common/immutable-entities.js';
+import bracketed, {bracketedText} from '../../common/utility/bracketed.js';
+import {sortedIndexWith} from '../../common/utility/arrays.js';
+import diffArtistCredits from '../../edit/utility/diffArtistCredits.js';
 
 type ArtistCreditWithIdT = $ReadOnly<{
   ...ArtistCreditT,

@@ -10,8 +10,8 @@
 
 import * as React from 'react';
 
-import EditorLink from '../../static/scripts/common/components/EditorLink';
-import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
+import EditorLink from '../../static/scripts/common/components/EditorLink.js';
+import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList.js';
 
 type Props = {
   +editors: $ReadOnlyArray<EditorT>,

@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import ArtistList from '../components/list/ArtistList';
-import PaginatedResults from '../components/PaginatedResults';
-import {returnToCurrentPage} from '../utility/returnUri';
+import ArtistList from '../components/list/ArtistList.js';
+import PaginatedResults from '../components/PaginatedResults.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
-import AreaLayout from './AreaLayout';
+import AreaLayout from './AreaLayout.js';
 
 type Props = {
   +$c: CatalystContextT,

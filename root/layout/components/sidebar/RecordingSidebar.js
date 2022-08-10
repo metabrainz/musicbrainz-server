@@ -11,22 +11,22 @@ import * as React from 'react';
 
 import * as manifest from '../../../static/manifest.mjs';
 import ArtistCreditLink
-  from '../../../static/scripts/common/components/ArtistCreditLink';
+  from '../../../static/scripts/common/components/ArtistCreditLink.js';
 import formatTrackLength
-  from '../../../static/scripts/common/utility/formatTrackLength';
-import IsrcList from '../../../static/scripts/common/components/IsrcList';
-import ExternalLinks from '../ExternalLinks';
+  from '../../../static/scripts/common/utility/formatTrackLength.js';
+import IsrcList from '../../../static/scripts/common/components/IsrcList.js';
+import ExternalLinks from '../ExternalLinks.js';
 
-import AnnotationLinks from './AnnotationLinks';
-import CollectionLinks from './CollectionLinks';
-import EditLinks from './EditLinks';
-import LastUpdated from './LastUpdated';
-import MergeLink from './MergeLink';
-import RemoveLink from './RemoveLink';
-import SidebarLicenses from './SidebarLicenses';
-import {SidebarProperty, SidebarProperties} from './SidebarProperties';
-import SidebarRating from './SidebarRating';
-import SidebarTags from './SidebarTags';
+import AnnotationLinks from './AnnotationLinks.js';
+import CollectionLinks from './CollectionLinks.js';
+import EditLinks from './EditLinks.js';
+import LastUpdated from './LastUpdated.js';
+import MergeLink from './MergeLink.js';
+import RemoveLink from './RemoveLink.js';
+import SidebarLicenses from './SidebarLicenses.js';
+import {SidebarProperty, SidebarProperties} from './SidebarProperties.js';
+import SidebarRating from './SidebarRating.js';
+import SidebarTags from './SidebarTags.js';
 
 type Props = {
   +recording: RecordingWithArtistCreditT,

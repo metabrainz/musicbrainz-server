@@ -10,13 +10,13 @@
 import * as React from 'react';
 
 import InstrumentListEntry
-  from '../../static/scripts/common/components/InstrumentListEntry';
+  from '../../static/scripts/common/components/InstrumentListEntry.js';
 import {isRelationshipEditor}
-  from '../../static/scripts/common/utility/privileges';
-import type {ResultsPropsWithContextT, SearchResultT} from '../types';
+  from '../../static/scripts/common/utility/privileges.js';
+import type {ResultsPropsWithContextT, SearchResultT} from '../types.js';
 
-import PaginatedSearchResults from './PaginatedSearchResults';
-import ResultsLayout from './ResultsLayout';
+import PaginatedSearchResults from './PaginatedSearchResults.js';
+import ResultsLayout from './ResultsLayout.js';
 
 function buildResult(
   $c: CatalystContextT,

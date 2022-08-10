@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import FormCsrfToken from '../../components/FormCsrfToken';
-import FormRowTextLong from '../../components/FormRowTextLong';
-import FormSubmit from '../../components/FormSubmit';
+import FormCsrfToken from '../../components/FormCsrfToken.js';
+import FormRowTextLong from '../../components/FormRowTextLong.js';
+import FormSubmit from '../../components/FormSubmit.js';
 import {CatalystContext} from '../../context.mjs';
 
-import type {StatisticsEventFormT} from './types';
+import type {StatisticsEventFormT} from './types.js';
 
 type PropsT = {
   +form: StatisticsEventFormT,

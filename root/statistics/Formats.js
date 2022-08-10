@@ -10,12 +10,12 @@
 
 import * as React from 'react';
 
-import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
-import loopParity from '../utility/loopParity';
-import LinkSearchableProperty from '../components/LinkSearchableProperty';
+import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
+import loopParity from '../utility/loopParity.js';
+import LinkSearchableProperty from '../components/LinkSearchableProperty.js';
 
-import {formatCount, formatPercentage, TimelineLink} from './utilities';
-import StatisticsLayout from './StatisticsLayout';
+import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
+import StatisticsLayout from './StatisticsLayout.js';
 
 type FormatsStatsT = {
   +$c: CatalystContextT,

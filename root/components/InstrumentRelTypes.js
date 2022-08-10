@@ -7,8 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {commaOnlyListText} from '../static/scripts/common/i18n/commaOnlyList';
-import {bracketedText} from '../static/scripts/common/utility/bracketed';
+import {commaOnlyListText}
+  from '../static/scripts/common/i18n/commaOnlyList.js';
+import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
 
 type Props = {
   ...InstrumentCreditsAndRelTypesRoleT,

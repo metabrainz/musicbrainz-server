@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import uriWith from '../utility/uriWith';
+import uriWith from '../utility/uriWith.js';
 
 type Props = {
   +$c: CatalystContextT,

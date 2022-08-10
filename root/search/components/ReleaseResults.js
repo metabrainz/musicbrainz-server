@@ -12,26 +12,27 @@ import * as React from 'react';
 import {CatalystContext} from '../../context.mjs';
 import * as manifest from '../../static/manifest.mjs';
 import ArtistCreditLink
-  from '../../static/scripts/common/components/ArtistCreditLink';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
+  from '../../static/scripts/common/components/ArtistCreditLink.js';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import ReleaseEvents
-  from '../../static/scripts/common/components/ReleaseEvents';
-import TaggerIcon from '../../static/scripts/common/components/TaggerIcon';
-import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
+  from '../../static/scripts/common/components/ReleaseEvents.js';
+import TaggerIcon from '../../static/scripts/common/components/TaggerIcon.js';
+import formatBarcode
+  from '../../static/scripts/common/utility/formatBarcode.js';
 import {isEditingEnabled}
-  from '../../static/scripts/common/utility/privileges';
-import loopParity from '../../utility/loopParity';
-import ReleaseCatnoList from '../../components/ReleaseCatnoList';
-import ReleaseLabelList from '../../components/ReleaseLabelList';
-import ReleaseLanguageScript from '../../components/ReleaseLanguageScript';
+  from '../../static/scripts/common/utility/privileges.js';
+import loopParity from '../../utility/loopParity.js';
+import ReleaseCatnoList from '../../components/ReleaseCatnoList.js';
+import ReleaseLabelList from '../../components/ReleaseLabelList.js';
+import ReleaseLanguageScript from '../../components/ReleaseLanguageScript.js';
 import type {
   InlineResultsPropsWithContextT,
   ResultsPropsWithContextT,
   SearchResultT,
-} from '../types';
+} from '../types.js';
 
-import PaginatedSearchResults from './PaginatedSearchResults';
-import ResultsLayout from './ResultsLayout';
+import PaginatedSearchResults from './PaginatedSearchResults.js';
+import ResultsLayout from './ResultsLayout.js';
 
 function buildResult(
   $c: CatalystContextT,

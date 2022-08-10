@@ -7,8 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {formatUserDateObject} from '../utility/formatUserDate';
-import parseIsoDate from '../utility/parseIsoDate';
+import {formatUserDateObject} from '../utility/formatUserDate.js';
+import parseIsoDate from '../utility/parseIsoDate.js';
 
 type PropsT = {
   +$c: CatalystContextT,

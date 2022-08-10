@@ -223,6 +223,7 @@ rules:
   ########################
 
   import/export: error
+  import/extensions: [error, ignorePackages]
   import/first: warn
   import/newline-after-import: [warn, {count: 1}]
   import/no-commonjs: error

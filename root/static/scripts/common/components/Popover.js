@@ -7,18 +7,18 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import arrow from '@popperjs/core/lib/modifiers/arrow';
-import flip from '@popperjs/core/lib/modifiers/flip';
-import offset from '@popperjs/core/lib/modifiers/offset';
-import preventOverflow from '@popperjs/core/lib/modifiers/preventOverflow';
-import {createPopper} from '@popperjs/core/lib/popper-lite';
+import arrow from '@popperjs/core/lib/modifiers/arrow.js';
+import flip from '@popperjs/core/lib/modifiers/flip.js';
+import offset from '@popperjs/core/lib/modifiers/offset.js';
+import preventOverflow from '@popperjs/core/lib/modifiers/preventOverflow.js';
+import {createPopper} from '@popperjs/core/lib/popper-lite.js';
 import * as React from 'react';
 import {createPortal} from 'react-dom';
 
 import Dialog, {
   getDialogRootNode,
   getElementFromRef,
-} from './Dialog';
+} from './Dialog.js';
 
 const POPPER_OPTIONS = {
   modifiers: [

@@ -10,12 +10,12 @@
 
 import * as React from 'react';
 
-import chooseLayoutComponent from '../../utility/chooseLayoutComponent';
+import chooseLayoutComponent from '../../utility/chooseLayoutComponent.js';
 import * as manifest from '../../static/manifest.mjs';
-import AliasEditForm from '../../static/scripts/alias/AliasEditForm';
-import {ENTITIES} from '../../static/scripts/common/constants';
+import AliasEditForm from '../../static/scripts/alias/AliasEditForm.js';
+import {ENTITIES} from '../../static/scripts/common/constants.js';
 
-import type {AliasEditFormT} from './types';
+import type {AliasEditFormT} from './types.js';
 
 type Props = {
   +$c: CatalystContextT,

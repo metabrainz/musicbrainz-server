@@ -10,12 +10,12 @@
 import * as React from 'react';
 
 import sortByEntityName
-  from '../static/scripts/common/utility/sortByEntityName';
-import EnterEdit from '../components/EnterEdit';
-import EnterEditNote from '../components/EnterEditNote';
-import FieldErrors from '../components/FieldErrors';
-import PlaceList from '../components/list/PlaceList';
-import Layout from '../layout';
+  from '../static/scripts/common/utility/sortByEntityName.js';
+import EnterEdit from '../components/EnterEdit.js';
+import EnterEditNote from '../components/EnterEditNote.js';
+import FieldErrors from '../components/FieldErrors.js';
+import PlaceList from '../components/list/PlaceList.js';
+import Layout from '../layout/index.js';
 
 type Props = {
   +$c: CatalystContextT,

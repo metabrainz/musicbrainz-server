@@ -10,7 +10,7 @@
 import {
   isAutoEditor,
   isBot,
-} from '../static/scripts/common/utility/privileges';
+} from '../static/scripts/common/utility/privileges.js';
 
 export function isInvolved(
   election: AutoEditorElectionT,

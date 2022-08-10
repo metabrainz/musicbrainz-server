@@ -11,12 +11,12 @@ import * as React from 'react';
 
 import groupRelationships, {
   type RelationshipTargetTypeGroupT,
-} from '../../../../utility/groupRelationships';
+} from '../../../../utility/groupRelationships.js';
 
-import EntityLink from './EntityLink';
-import RelatedSeries, {isNotSeriesPart} from './RelatedSeries';
-import RelatedWorks from './RelatedWorks';
-import StaticRelationshipsDisplay from './StaticRelationshipsDisplay';
+import EntityLink from './EntityLink.js';
+import RelatedSeries, {isNotSeriesPart} from './RelatedSeries.js';
+import RelatedWorks from './RelatedWorks.js';
+import StaticRelationshipsDisplay from './StaticRelationshipsDisplay.js';
 
 type DisplayTargets = {
   +[coreEntityType: CoreEntityTypeT]: ?$ReadOnlyArray<CoreEntityTypeT>,

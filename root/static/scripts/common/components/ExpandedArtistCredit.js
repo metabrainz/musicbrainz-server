@@ -8,10 +8,10 @@
 
 import * as React from 'react';
 
-import commaOnlyList from '../i18n/commaOnlyList';
+import commaOnlyList from '../i18n/commaOnlyList.js';
 
-import ArtistCreditLink from './ArtistCreditLink';
-import DescriptiveLink from './DescriptiveLink';
+import ArtistCreditLink from './ArtistCreditLink.js';
+import DescriptiveLink from './DescriptiveLink.js';
 
 type Props = {
   +artistCredit: ArtistCreditT,

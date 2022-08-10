@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import EntityHeader from '../components/EntityHeader';
+import EntityHeader from '../components/EntityHeader.js';
 import localizeTypeNameForEntity
-  from '../static/scripts/common/i18n/localizeTypeNameForEntity';
+  from '../static/scripts/common/i18n/localizeTypeNameForEntity.js';
 
 type Props = {
   +artist: ArtistT,

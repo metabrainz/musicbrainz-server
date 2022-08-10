@@ -9,24 +9,26 @@
 
 import * as React from 'react';
 
-import PaginatedResults from '../components/PaginatedResults';
-import ReleaseLabelList from '../components/ReleaseLabelList';
-import ReleaseCatnoList from '../components/ReleaseCatnoList';
+import PaginatedResults from '../components/PaginatedResults.js';
+import ReleaseLabelList from '../components/ReleaseLabelList.js';
+import ReleaseCatnoList from '../components/ReleaseCatnoList.js';
 import * as manifest from '../static/manifest.mjs';
-import Annotation from '../static/scripts/common/components/Annotation';
+import Annotation from '../static/scripts/common/components/Annotation.js';
 import ArtistCreditLink
-  from '../static/scripts/common/components/ArtistCreditLink';
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import Relationships from '../static/scripts/common/components/Relationships';
-import ReleaseEvents from '../static/scripts/common/components/ReleaseEvents';
+  from '../static/scripts/common/components/ArtistCreditLink.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import Relationships
+  from '../static/scripts/common/components/Relationships.js';
+import ReleaseEvents
+  from '../static/scripts/common/components/ReleaseEvents.js';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
-import isolateText from '../static/scripts/common/utility/isolateText';
+import isolateText from '../static/scripts/common/utility/isolateText.js';
 import formatTrackLength
-  from '../static/scripts/common/utility/formatTrackLength';
-import loopParity from '../utility/loopParity';
-import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
+  from '../static/scripts/common/utility/formatTrackLength.js';
+import loopParity from '../utility/loopParity.js';
+import TaggerIcon from '../static/scripts/common/components/TaggerIcon.js';
 
-import RecordingLayout from './RecordingLayout';
+import RecordingLayout from './RecordingLayout.js';
 
 type Props = {
   +$c: CatalystContextT,

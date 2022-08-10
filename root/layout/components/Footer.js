@@ -11,10 +11,11 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';
-import {DONATE_URL} from '../../constants';
-import {bracketedText} from '../../static/scripts/common/utility/bracketed';
-import formatUserDate from '../../utility/formatUserDate';
-import {returnToCurrentPage} from '../../utility/returnUri';
+import {DONATE_URL} from '../../constants.js';
+import {bracketedText}
+  from '../../static/scripts/common/utility/bracketed.js';
+import formatUserDate from '../../utility/formatUserDate.js';
+import {returnToCurrentPage} from '../../utility/returnUri.js';
 
 const Footer = (): React.Element<'div'> => {
   const $c = React.useContext(CatalystContext);

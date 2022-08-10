@@ -9,23 +9,24 @@
 
 import * as React from 'react';
 
-import IntentionallyRawIcon from '../components/IntentionallyRawIcon';
-import Cardinality from '../../static/scripts/common/components/Cardinality';
+import IntentionallyRawIcon from '../components/IntentionallyRawIcon.js';
+import Cardinality
+  from '../../static/scripts/common/components/Cardinality.js';
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import OrderableDirection
-  from '../../static/scripts/common/components/OrderableDirection';
-import Warning from '../../static/scripts/common/components/Warning';
-import {ENTITY_NAMES} from '../../static/scripts/common/constants';
+  from '../../static/scripts/common/components/OrderableDirection.js';
+import Warning from '../../static/scripts/common/components/Warning.js';
+import {ENTITY_NAMES} from '../../static/scripts/common/constants.js';
 import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 import FullChangeDiff from
-  '../../static/scripts/edit/components/edit/FullChangeDiff';
-import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
-import expand2react from '../../static/scripts/common/i18n/expand2react';
-import yesNo from '../../static/scripts/common/utility/yesNo';
+  '../../static/scripts/edit/components/edit/FullChangeDiff.js';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
+import expand2react from '../../static/scripts/common/i18n/expand2react.js';
+import yesNo from '../../static/scripts/common/utility/yesNo.js';
 import relationshipDateText
-  from '../../utility/relationshipDateText';
+  from '../../utility/relationshipDateText.js';
 
 type Props = {
   +edit: EditRelationshipTypeEditT,

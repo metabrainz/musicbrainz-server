@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import ArtistLayout from './ArtistLayout';
+import ArtistLayout from './ArtistLayout.js';
 
 type Props = {
   +artist: ArtistT,

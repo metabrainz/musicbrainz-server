@@ -7,8 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {compare} from '../i18n';
-import getSortName from '../../../../utility/getSortName';
+import {compare} from '../i18n.js';
+import getSortName from '../../../../utility/getSortName.js';
 
 function compareEntities(a: CoreEntityT, b: CoreEntityT): number {
   return compare(getSortName(a), getSortName(b)) || (a.id - b.id);

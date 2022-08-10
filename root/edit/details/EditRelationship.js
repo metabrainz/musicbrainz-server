@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import RelationshipDiff
-  from '../../static/scripts/edit/components/edit/RelationshipDiff';
+  from '../../static/scripts/edit/components/edit/RelationshipDiff.js';
 
 type Props = {
   +edit: EditRelationshipEditT,

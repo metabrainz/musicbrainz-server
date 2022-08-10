@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import loopParity from '../../../../utility/loopParity';
-import {compareStrings} from '../utility/compare';
+import loopParity from '../../../../utility/loopParity.js';
+import {compareStrings} from '../utility/compare.js';
 
 type AcoustIdTrackT = {
   +disabled?: boolean,

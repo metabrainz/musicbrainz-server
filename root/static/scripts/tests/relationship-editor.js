@@ -11,23 +11,23 @@ import ko from 'knockout';
 import test from 'tape';
 
 import linkedEntities from '../common/linkedEntities.mjs';
-import MB from '../common/MB';
+import MB from '../common/MB.js';
 import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
-import fields from '../relationship-editor/common/fields';
+import fields from '../relationship-editor/common/fields.js';
 import {
   AddDialog,
   BatchCreateWorksDialog,
   BatchRelationshipDialog,
   EditDialog,
-} from '../relationship-editor/common/dialog';
+} from '../relationship-editor/common/dialog.js';
 import {
   GenericEntityViewModel,
   prepareSubmission,
-} from '../relationship-editor/generic';
-import {ReleaseViewModel} from '../relationship-editor/release';
-import '../relationship-editor/common/viewModel';
+} from '../relationship-editor/generic.js';
+import {ReleaseViewModel} from '../relationship-editor/release.js';
+import '../relationship-editor/common/viewModel.js';
 
-import {linkTypeTree, linkAttributeTypes} from './typeInfo';
+import {linkTypeTree, linkAttributeTypes} from './typeInfo.js';
 
 MB.relationshipEditor.exportTypeInfo(
   linkTypeTree,

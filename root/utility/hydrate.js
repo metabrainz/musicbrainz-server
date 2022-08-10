@@ -16,7 +16,7 @@ import * as Sentry from '@sentry/browser';
 
 import {SanitizedCatalystContext} from '../context.mjs';
 
-import escapeClosingTags from './escapeClosingTags';
+import escapeClosingTags from './escapeClosingTags.js';
 
 type PropsDataT =
   | StrOrNum

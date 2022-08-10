@@ -10,17 +10,17 @@
 import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
-import Table from '../components/Table';
+import Table from '../components/Table.js';
 import UserAccountLayout, {type AccountLayoutUserT}
-  from '../components/UserAccountLayout';
+  from '../components/UserAccountLayout.js';
 import {formatPluralEntityTypeName}
-  from '../static/scripts/common/utility/formatEntityTypeName';
+  from '../static/scripts/common/utility/formatEntityTypeName.js';
 import {
   defineNameColumn,
   defineTypeColumn,
   subscriptionColumn,
   defineActionsColumn,
-} from '../utility/tableColumns';
+} from '../utility/tableColumns.js';
 
 type Props = {
   +$c: CatalystContextT,

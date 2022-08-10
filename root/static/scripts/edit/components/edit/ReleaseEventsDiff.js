@@ -9,15 +9,15 @@
 
 import * as React from 'react';
 
-import {l} from '../../../common/i18n';
-import {keyBy} from '../../../common/utility/arrays';
-import formatDate from '../../../common/utility/formatDate';
+import {l} from '../../../common/i18n.js';
+import {keyBy} from '../../../common/utility/arrays.js';
+import formatDate from '../../../common/utility/formatDate.js';
 import {
   INSERT,
   DELETE,
   CLASS_MAP,
-} from '../../utility/editDiff';
-import EntityLink from '../../../common/components/EntityLink';
+} from '../../utility/editDiff.js';
+import EntityLink from '../../../common/components/EntityLink.js';
 
 function areReleaseCountriesEqual(a: ReleaseEventT, b: ReleaseEventT) {
   return !!(

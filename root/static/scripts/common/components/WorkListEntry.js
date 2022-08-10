@@ -9,17 +9,17 @@
 
 import * as React from 'react';
 
-import localizeLanguageName from '../i18n/localizeLanguageName';
+import localizeLanguageName from '../i18n/localizeLanguageName.js';
 import {CatalystContext} from '../../../../context.mjs';
 import * as manifest from '../../../manifest.mjs';
-import loopParity from '../../../../utility/loopParity';
+import loopParity from '../../../../utility/loopParity.js';
 
-import ArtistRoles from './ArtistRoles';
-import AttributeList from './AttributeList';
-import EntityLink from './EntityLink';
-import IswcList from './IswcList';
-import RatingStars from './RatingStars';
-import WorkArtists from './WorkArtists';
+import ArtistRoles from './ArtistRoles.js';
+import AttributeList from './AttributeList.js';
+import EntityLink from './EntityLink.js';
+import IswcList from './IswcList.js';
+import RatingStars from './RatingStars.js';
+import WorkArtists from './WorkArtists.js';
 
 type WorkListRowProps = {
   ...SeriesItemNumbersRoleT,

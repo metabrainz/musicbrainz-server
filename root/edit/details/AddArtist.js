@@ -14,14 +14,14 @@ import {
   artistBeginLabel,
   artistEndAreaLabel,
   artistEndLabel,
-} from '../../artist/utils';
-import formatDate from '../../static/scripts/common/utility/formatDate';
-import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty';
+} from '../../artist/utils.js';
+import formatDate from '../../static/scripts/common/utility/formatDate.js';
+import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty.js';
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import yesNo from '../../static/scripts/common/utility/yesNo';
-import formatIsni from '../../utility/formatIsni';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
+import yesNo from '../../static/scripts/common/utility/yesNo.js';
+import formatIsni from '../../utility/formatIsni.js';
 
 type Props = {
   +edit: AddArtistEditT,

@@ -9,12 +9,13 @@
 
 import * as React from 'react';
 
-import ListEdit from '../components/ListEdit';
-import ListHeader from '../components/ListHeader';
-import FormSubmit from '../../components/FormSubmit';
-import PaginatedResults from '../../components/PaginatedResults';
+import ListEdit from '../components/ListEdit.js';
+import ListHeader from '../components/ListHeader.js';
+import FormSubmit from '../../components/FormSubmit.js';
+import PaginatedResults from '../../components/PaginatedResults.js';
 import * as manifest from '../../static/manifest.mjs';
-import {isAutoEditor} from '../../static/scripts/common/utility/privileges';
+import {isAutoEditor}
+  from '../../static/scripts/common/utility/privileges.js';
 
 type Props = {
   +$c: CatalystContextT,

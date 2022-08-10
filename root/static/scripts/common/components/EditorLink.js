@@ -10,8 +10,8 @@
 import * as React from 'react';
 
 import defaultAvatarUrl from '../../../images/entity/editor.svg';
-import entityHref from '../utility/entityHref';
-import isolateText from '../utility/isolateText';
+import entityHref from '../utility/entityHref.js';
+import isolateText from '../utility/isolateText.js';
 
 const MissingEditorLink = (): React.Element<'span'> => {
   return (

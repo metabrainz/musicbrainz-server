@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import chooseLayoutComponent from '../utility/chooseLayoutComponent';
-import AliasesComponent from '../components/Aliases';
-import ArtistCreditList from '../components/Aliases/ArtistCreditList';
+import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
+import AliasesComponent from '../components/Aliases/index.js';
+import ArtistCreditList from '../components/Aliases/ArtistCreditList.js';
 
 type Props = {
   +$c: CatalystContextT,

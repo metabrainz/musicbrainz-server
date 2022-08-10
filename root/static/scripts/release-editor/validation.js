@@ -10,13 +10,13 @@ import $ from 'jquery';
 import ko from 'knockout';
 import * as ReactDOMServer from 'react-dom/server';
 
-import MB from '../common/MB';
-import DescriptiveLink from '../common/components/DescriptiveLink';
-import expand2text from '../common/i18n/expand2text';
-import {errorsExist} from '../edit/validation';
+import MB from '../common/MB.js';
+import DescriptiveLink from '../common/components/DescriptiveLink.js';
+import expand2text from '../common/i18n/expand2text.js';
+import {errorsExist} from '../edit/validation.js';
 
-import utils from './utils';
-import releaseEditor from './viewModel';
+import utils from './utils.js';
+import releaseEditor from './viewModel.js';
 
 const validation = {};
 

@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import ArtistCreditLink from './ArtistCreditLink';
-import CollapsibleList from './CollapsibleList';
+import ArtistCreditLink from './ArtistCreditLink.js';
+import CollapsibleList from './CollapsibleList.js';
 
 const buildWorkArtistRow = (artistCredit: ArtistCreditT) => {
   return (

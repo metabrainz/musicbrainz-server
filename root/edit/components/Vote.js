@@ -9,18 +9,18 @@
 
 import * as React from 'react';
 
-import FormSubmit from '../../components/FormSubmit';
+import FormSubmit from '../../components/FormSubmit.js';
 import {
   EDIT_VOTE_NONE,
   EDIT_VOTE_ABSTAIN,
   EDIT_VOTE_NO,
   EDIT_VOTE_YES,
-} from '../../constants';
+} from '../../constants.js';
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import {
   editorMayVote,
   getLatestVoteForEditor,
-} from '../../utility/edit';
+} from '../../utility/edit.js';
 
 type VoteCheckboxProps = {
   +edit: GenericEditWithIdT,

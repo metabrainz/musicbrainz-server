@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import chooseLayoutComponent from '../../utility/chooseLayoutComponent';
-import EnterEdit from '../../components/EnterEdit';
-import EnterEditNote from '../../components/EnterEditNote';
+import chooseLayoutComponent from '../../utility/chooseLayoutComponent.js';
+import EnterEdit from '../../components/EnterEdit.js';
+import EnterEditNote from '../../components/EnterEditNote.js';
 
-import type {AliasDeleteFormT} from './types';
+import type {AliasDeleteFormT} from './types.js';
 
 type Props = {
   +$c: CatalystContextT,

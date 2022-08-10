@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import FormRowCheckbox from '../components/FormRowCheckbox';
-import FormSubmit from '../components/FormSubmit';
-import PaginatedResults from '../components/PaginatedResults';
-import Layout from '../layout';
+import FormRowCheckbox from '../components/FormRowCheckbox.js';
+import FormSubmit from '../components/FormSubmit.js';
+import PaginatedResults from '../components/PaginatedResults.js';
+import Layout from '../layout/index.js';
 
-import UserList from './components/UserList';
+import UserList from './components/UserList.js';
 
 type Props = {
   +form: FormT<{

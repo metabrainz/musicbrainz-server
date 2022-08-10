@@ -9,8 +9,9 @@
 
 import * as React from 'react';
 
-import HistoricReleaseList from '../../components/HistoricReleaseList';
-import WordDiff from '../../../static/scripts/edit/components/edit/WordDiff';
+import HistoricReleaseList from '../../components/HistoricReleaseList.js';
+import WordDiff
+  from '../../../static/scripts/edit/components/edit/WordDiff.js';
 
 type Props = {
   +edit: EditReleaseNameHistoricEditT,

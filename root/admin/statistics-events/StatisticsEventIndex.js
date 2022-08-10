@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import Layout from '../../layout';
-import expand2react from '../../static/scripts/common/i18n/expand2react';
-import loopParity from '../../utility/loopParity';
+import Layout from '../../layout/index.js';
+import expand2react from '../../static/scripts/common/i18n/expand2react.js';
+import loopParity from '../../utility/loopParity.js';
 
-import type {StatisticsEventT} from './types';
+import type {StatisticsEventT} from './types.js';
 
 type PropsT = {
   +events: Array<StatisticsEventT>,

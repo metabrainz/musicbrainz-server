@@ -10,16 +10,16 @@
 import he from 'he';
 import * as React from 'react';
 
-import {minimalEntity} from '../../../../utility/hydrate';
-import loopParity from '../../../../utility/loopParity';
-import {unwrapNl} from '../i18n';
-import {keyBy, sortByNumber} from '../utility/arrays';
-import bracketed, {bracketedText} from '../utility/bracketed';
-import {compareStrings} from '../utility/compare';
-import debounce from '../utility/debounce';
-import isBlank from '../utility/isBlank';
+import {minimalEntity} from '../../../../utility/hydrate.js';
+import loopParity from '../../../../utility/loopParity.js';
+import {unwrapNl} from '../i18n.js';
+import {keyBy, sortByNumber} from '../utility/arrays.js';
+import bracketed, {bracketedText} from '../utility/bracketed.js';
+import {compareStrings} from '../utility/compare.js';
+import debounce from '../utility/debounce.js';
+import isBlank from '../utility/isBlank.js';
 
-import TagLink from './TagLink';
+import TagLink from './TagLink.js';
 
 const VOTE_ACTIONS = {
   '-1': 'downvote',

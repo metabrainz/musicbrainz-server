@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
-import {VARTIST_GID} from '../../static/scripts/common/constants';
-import {capitalize} from '../../static/scripts/common/utility/strings';
-import {returnToCurrentPage} from '../../utility/returnUri';
+import {VARTIST_GID} from '../../static/scripts/common/constants.js';
+import {capitalize} from '../../static/scripts/common/utility/strings.js';
+import {returnToCurrentPage} from '../../utility/returnUri.js';
 
 function languageName(
   language: ?ServerLanguageT,

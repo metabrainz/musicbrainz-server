@@ -13,7 +13,7 @@ import {
   EDIT_VOTE_YES,
   EDIT_VOTE_NO,
   EDIT_VOTE_NONE,
-} from '../../../../constants';
+} from '../../../../constants.js';
 
 export default function getVoteName(
   vote: VoteOptionT,

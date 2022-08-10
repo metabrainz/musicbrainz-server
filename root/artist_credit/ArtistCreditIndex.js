@@ -9,17 +9,17 @@
 
 import * as React from 'react';
 
-import ENTITIES from '../../entities';
+import ENTITIES from '../../entities.json';
 import ArtistCreditUsageLink
-  from '../static/scripts/common/components/ArtistCreditUsageLink';
+  from '../static/scripts/common/components/ArtistCreditUsageLink.js';
 import DescriptiveLink
-  from '../static/scripts/common/components/DescriptiveLink';
+  from '../static/scripts/common/components/DescriptiveLink.js';
 import EntityLink
-  from '../static/scripts/common/components/EntityLink';
-import expand2text from '../static/scripts/common/i18n/expand2text';
-import {formatCount} from '../statistics/utilities';
+  from '../static/scripts/common/components/EntityLink.js';
+import expand2text from '../static/scripts/common/i18n/expand2text.js';
+import {formatCount} from '../statistics/utilities.js';
 
-import ArtistCreditLayout from './ArtistCreditLayout';
+import ArtistCreditLayout from './ArtistCreditLayout.js';
 
 type Props = {
   +$c: CatalystContextT,

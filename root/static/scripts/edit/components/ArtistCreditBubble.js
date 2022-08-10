@@ -8,12 +8,12 @@
 
 import $ from 'jquery';
 
-import ArtistCreditLink from '../../common/components/ArtistCreditLink';
-import DescriptiveLink from '../../common/components/DescriptiveLink';
-import {reduceArtistCredit} from '../../common/immutable-entities';
-import clean from '../../common/utility/clean';
+import ArtistCreditLink from '../../common/components/ArtistCreditLink.js';
+import DescriptiveLink from '../../common/components/DescriptiveLink.js';
+import {reduceArtistCredit} from '../../common/immutable-entities.js';
+import clean from '../../common/utility/clean.js';
 
-import ArtistCreditNameEditor from './ArtistCreditNameEditor';
+import ArtistCreditNameEditor from './ArtistCreditNameEditor.js';
 
 
 function onBubbleKeyDown(done, hide, event) {

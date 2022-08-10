@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import formatIsni from '../../../utility/formatIsni';
+import formatIsni from '../../../utility/formatIsni.js';
 
-import {SidebarProperty} from './SidebarProperties';
+import {SidebarProperty} from './SidebarProperties.js';
 
 const isniUrl = 'http://www.isni.org/';
 

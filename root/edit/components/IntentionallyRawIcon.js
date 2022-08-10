@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import InformationIcon
-  from '../../static/scripts/edit/components/InformationIcon';
+  from '../../static/scripts/edit/components/InformationIcon.js';
 
 const IntentionallyRawIcon =
   (): React.Element<typeof InformationIcon> => (

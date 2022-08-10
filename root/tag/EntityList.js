@@ -9,17 +9,17 @@
 
 import * as React from 'react';
 
-import PaginatedResults from '../components/PaginatedResults';
-import type {AccountLayoutUserT} from '../components/UserAccountLayout';
+import PaginatedResults from '../components/PaginatedResults.js';
+import type {AccountLayoutUserT} from '../components/UserAccountLayout.js';
 import DescriptiveLink
-  from '../static/scripts/common/components/DescriptiveLink';
-import TagLink from '../static/scripts/common/components/TagLink';
-import expand2react from '../static/scripts/common/i18n/expand2react';
-import expand2text from '../static/scripts/common/i18n/expand2text';
-import {formatCount} from '../statistics/utilities';
-import UserTagFilters from '../user/components/UserTagFilters';
+  from '../static/scripts/common/components/DescriptiveLink.js';
+import TagLink from '../static/scripts/common/components/TagLink.js';
+import expand2react from '../static/scripts/common/i18n/expand2react.js';
+import expand2text from '../static/scripts/common/i18n/expand2text.js';
+import {formatCount} from '../statistics/utilities.js';
+import UserTagFilters from '../user/components/UserTagFilters.js';
 
-import TagLayout from './TagLayout';
+import TagLayout from './TagLayout.js';
 
 const upvotedHeadingText: {+[entity: string]: () => string} = {
   area: N_l('Areas tagged as “{tag}”'),

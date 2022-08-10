@@ -10,8 +10,8 @@
 import * as React from 'react';
 
 import EntityLink, {DeletedLink}
-  from '../../../static/scripts/common/components/EntityLink';
-import formatDate from '../../../static/scripts/common/utility/formatDate';
+  from '../../../static/scripts/common/components/EntityLink.js';
+import formatDate from '../../../static/scripts/common/utility/formatDate.js';
 
 type Props = {
   +edit: EditReleaseEventsHistoricEditT,

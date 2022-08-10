@@ -9,24 +9,24 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
-import {MIN_NAME_SIMILARITY} from '../common/constants';
+import {MIN_NAME_SIMILARITY} from '../common/constants.js';
 import {
   hasVariousArtists,
   isCompleteArtistCredit,
   reduceArtistCredit,
-} from '../common/immutable-entities';
-import {compactMap, sortByNumber} from '../common/utility/arrays';
-import clean from '../common/utility/clean';
-import {debounceComputed} from '../common/utility/debounce';
-import isBlank from '../common/utility/isBlank';
-import getCookie from '../common/utility/getCookie';
-import setCookie from '../common/utility/setCookie';
-import {fromFullwidthLatin} from '../edit/utility/fullwidthLatin';
-import getSimilarity from '../edit/utility/similarity';
+} from '../common/immutable-entities.js';
+import {compactMap, sortByNumber} from '../common/utility/arrays.js';
+import clean from '../common/utility/clean.js';
+import {debounceComputed} from '../common/utility/debounce.js';
+import isBlank from '../common/utility/isBlank.js';
+import getCookie from '../common/utility/getCookie.js';
+import setCookie from '../common/utility/setCookie.js';
+import {fromFullwidthLatin} from '../edit/utility/fullwidthLatin.js';
+import getSimilarity from '../edit/utility/similarity.js';
 
-import fields from './fields';
-import utils from './utils';
-import releaseEditor from './viewModel';
+import fields from './fields.js';
+import utils from './utils.js';
+import releaseEditor from './viewModel.js';
 
 const trackParser = releaseEditor.trackParser = {
 

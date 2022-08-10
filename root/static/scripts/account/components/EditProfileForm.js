@@ -10,23 +10,23 @@
 import mutate from 'mutate-cow';
 import * as React from 'react';
 
-import FieldErrors from '../../../../components/FieldErrors';
-import FormCsrfToken from '../../../../components/FormCsrfToken';
-import FormLabel from '../../../../components/FormLabel';
-import FormRow from '../../../../components/FormRow';
-import FormRowEmailLong from '../../../../components/FormRowEmailLong';
-import FormRowPartialDate from '../../../../components/FormRowPartialDate';
-import FormRowSelect from '../../../../components/FormRowSelect';
-import FormRowTextArea from '../../../../components/FormRowTextArea';
-import FormRowURLLong from '../../../../components/FormRowURLLong';
-import FormSubmit from '../../../../components/FormSubmit';
-import SelectField from '../../../../components/SelectField';
+import FieldErrors from '../../../../components/FieldErrors.js';
+import FormCsrfToken from '../../../../components/FormCsrfToken.js';
+import FormLabel from '../../../../components/FormLabel.js';
+import FormRow from '../../../../components/FormRow.js';
+import FormRowEmailLong from '../../../../components/FormRowEmailLong.js';
+import FormRowPartialDate from '../../../../components/FormRowPartialDate.js';
+import FormRowSelect from '../../../../components/FormRowSelect.js';
+import FormRowTextArea from '../../../../components/FormRowTextArea.js';
+import FormRowURLLong from '../../../../components/FormRowURLLong.js';
+import FormSubmit from '../../../../components/FormSubmit.js';
+import SelectField from '../../../../components/SelectField.js';
 import DBDefs from '../../common/DBDefs-client.mjs';
-import {FLUENCY_NAMES} from '../../common/constants';
-import Autocomplete from '../../common/components/Autocomplete';
-import Warning from '../../common/components/Warning';
-import {N_lp_attributes} from '../../common/i18n/attributes';
-import {pushCompoundField} from '../../edit/utility/pushField';
+import {FLUENCY_NAMES} from '../../common/constants.js';
+import Autocomplete from '../../common/components/Autocomplete.js';
+import Warning from '../../common/components/Warning.js';
+import {N_lp_attributes} from '../../common/i18n/attributes.js';
+import {pushCompoundField} from '../../edit/utility/pushField.js';
 
 // Models just what we need from root/static/scripts/common/entity.js
 type AreaClassT = {

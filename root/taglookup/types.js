@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {type SearchResultT} from '../search/types';
+import {type SearchResultT} from '../search/types.js';
 
 export type TagLookupPropsT = {
   +form: TagLookupFormT,

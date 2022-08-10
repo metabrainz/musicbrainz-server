@@ -10,9 +10,9 @@
 import * as React from 'react';
 import type {CellRenderProps} from 'react-table';
 
-import ReleaseList from './components/ReleaseList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportReleaseLabelT} from './types';
+import ReleaseList from './components/ReleaseList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportReleaseLabelT} from './types.js';
 
 const ReleaseLabelSameArtist = ({
   canBeFiltered,

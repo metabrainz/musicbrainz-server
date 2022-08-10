@@ -10,26 +10,26 @@
 import * as React from 'react';
 import mutate from 'mutate-cow';
 
-import ButtonPopover from '../../common/components/ButtonPopover';
+import ButtonPopover from '../../common/components/ButtonPopover.js';
 import type {
   LinkRelationshipT,
   LinkStateT,
-} from '../externalLinks';
+} from '../externalLinks.js';
 import {
   createCompoundField,
   createField,
-} from '../../edit/utility/createField';
+} from '../../edit/utility/createField.js';
 import {
   applyAllPendingErrors,
   hasSubfieldErrors,
-} from '../../../../utility/subfieldErrors';
-import {copyDatePeriodField} from '../utility/copyFieldData';
+} from '../../../../utility/subfieldErrors.js';
+import {copyDatePeriodField} from '../utility/copyFieldData.js';
 
 import DateRangeFieldset, {
   partialDateFromField,
   runReducer as runDateRangeFieldsetReducer,
   type ActionT as DateRangeFieldsetActionT,
-} from './DateRangeFieldset';
+} from './DateRangeFieldset.js';
 
 type PropsT = {
   onConfirm: ($ReadOnly<$Partial<LinkStateT>>) => void,

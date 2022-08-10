@@ -10,26 +10,26 @@
 import * as React from 'react';
 
 import relationshipDateText
-  from '../../../../../utility/relationshipDateText';
-import {INSERT, DELETE} from '../../utility/editDiff';
-import DescriptiveLink from '../../../common/components/DescriptiveLink';
-import commaList from '../../../common/i18n/commaList';
+  from '../../../../../utility/relationshipDateText.js';
+import {INSERT, DELETE} from '../../utility/editDiff.js';
+import DescriptiveLink from '../../../common/components/DescriptiveLink.js';
+import commaList from '../../../common/i18n/commaList.js';
 import {
   expand2reactWithVarArgsInstance,
   hooks as expand2reactHooks,
-} from '../../../common/i18n/expand2react';
+} from '../../../common/i18n/expand2react.js';
 import linkedEntities from '../../../common/linkedEntities.mjs';
-import {keyBy} from '../../../common/utility/arrays';
-import bracketed from '../../../common/utility/bracketed';
+import {keyBy} from '../../../common/utility/arrays.js';
+import bracketed from '../../../common/utility/bracketed.js';
 import displayLinkAttribute, {displayLinkAttributes}
-  from '../../../common/utility/displayLinkAttribute';
-import isDisabledLink from '../../../../../utility/isDisabledLink';
+  from '../../../common/utility/displayLinkAttribute.js';
+import isDisabledLink from '../../../../../utility/isDisabledLink.js';
 import {
   getPhraseAndExtraAttributes,
   type LinkPhraseI18n,
-} from '../../utility/linkPhrase';
+} from '../../utility/linkPhrase.js';
 
-import DiffSide from './DiffSide';
+import DiffSide from './DiffSide.js';
 
 const diffOnlyA = (
   content: Expand2ReactOutput,

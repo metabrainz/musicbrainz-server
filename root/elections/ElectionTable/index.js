@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import Rows from './ElectionTableRows';
+import Rows from './ElectionTableRows.js';
 
 type PropsT = {
   +$c: CatalystContextT,

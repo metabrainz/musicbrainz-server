@@ -8,7 +8,7 @@
  */
 
 import DBDefs from '../static/scripts/common/DBDefs-client.mjs';
-import EntityLink from '../static/scripts/common/components/EntityLink';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
 const seeReviewsHref = (entity: ReviewableT) => {
   const reviewUrlEntity = entity.entityType === 'release_group'

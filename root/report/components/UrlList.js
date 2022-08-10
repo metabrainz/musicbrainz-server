@@ -10,9 +10,9 @@
 import * as React from 'react';
 import type {ColumnOptionsNoValue} from 'react-table';
 
-import PaginatedResults from '../../components/PaginatedResults';
-import Table from '../../components/Table';
-import {defineLinkColumn} from '../../utility/tableColumns';
+import PaginatedResults from '../../components/PaginatedResults.js';
+import Table from '../../components/Table.js';
+import {defineLinkColumn} from '../../utility/tableColumns.js';
 
 type Props<D: {+url: ?UrlT, ...}> = {
   +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,

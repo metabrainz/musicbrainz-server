@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import FingerprintTable
-  from '../static/scripts/common/components/FingerprintTable';
+  from '../static/scripts/common/components/FingerprintTable.js';
 
-import RecordingLayout from './RecordingLayout';
+import RecordingLayout from './RecordingLayout.js';
 
 type Props = {
   +recording: RecordingWithArtistCreditT,

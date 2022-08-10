@@ -15,7 +15,7 @@ import {
   type Row,
 } from 'react-table';
 
-import loopParity from '../utility/loopParity';
+import loopParity from '../utility/loopParity.js';
 
 const renderTableHeaderCell = (column: ColumnInstance) => (
   <th

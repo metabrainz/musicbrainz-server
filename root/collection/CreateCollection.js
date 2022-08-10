@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
+import Layout from '../layout/index.js';
 import * as manifest from '../static/manifest.mjs';
 import CollectionEditForm
-  from '../static/scripts/collection/components/CollectionEditForm';
+  from '../static/scripts/collection/components/CollectionEditForm.js';
 
-import type {CollectionEditFormT} from './types';
+import type {CollectionEditFormT} from './types.js';
 
 type Props = {
   +collectionTypes: SelectOptionsT,

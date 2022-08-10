@@ -10,11 +10,11 @@
 
 import * as React from 'react';
 
-import Layout from '../../layout';
-import {compare} from '../../static/scripts/common/i18n';
-import expand2react from '../../static/scripts/common/i18n/expand2react';
-import yesNo from '../../static/scripts/common/utility/yesNo';
-import loopParity from '../../utility/loopParity';
+import Layout from '../../layout/index.js';
+import {compare} from '../../static/scripts/common/i18n.js';
+import expand2react from '../../static/scripts/common/i18n/expand2react.js';
+import yesNo from '../../static/scripts/common/utility/yesNo.js';
+import loopParity from '../../utility/loopParity.js';
 
 type AttributeT =
   | AreaTypeT

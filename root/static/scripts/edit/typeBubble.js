@@ -9,7 +9,7 @@
 
 import $ from 'jquery';
 
-import {initializeBubble} from '../edit/MB/Control/Bubble';
+import {initializeBubble} from '../edit/MB/Control/Bubble.js';
 
 export default function typeBubble(typeIdField: string): void {
   initializeBubble('#type-bubble', typeIdField);

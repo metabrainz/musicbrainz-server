@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import EditorLink from '../static/scripts/common/components/EditorLink';
-import bracketed from '../static/scripts/common/utility/bracketed';
-import formatUserDate from '../utility/formatUserDate';
-import {votesVisible} from '../utility/voting';
-import VotingPeriod from '../components/VotingPeriod';
+import EditorLink from '../static/scripts/common/components/EditorLink.js';
+import bracketed from '../static/scripts/common/utility/bracketed.js';
+import formatUserDate from '../utility/formatUserDate.js';
+import {votesVisible} from '../utility/voting.js';
+import VotingPeriod from '../components/VotingPeriod.js';
 
 type PropsT = {
   +$c: CatalystContextT,

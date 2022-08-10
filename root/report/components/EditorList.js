@@ -10,14 +10,14 @@
 import * as React from 'react';
 import type {CellRenderProps} from 'react-table';
 
-import PaginatedResults from '../../components/PaginatedResults';
-import Table from '../../components/Table';
-import EditorLink from '../../static/scripts/common/components/EditorLink';
-import bracketed from '../../static/scripts/common/utility/bracketed';
+import PaginatedResults from '../../components/PaginatedResults.js';
+import Table from '../../components/Table.js';
+import EditorLink from '../../static/scripts/common/components/EditorLink.js';
+import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import {
   defineTextColumn,
-} from '../../utility/tableColumns';
-import type {ReportEditorT} from '../types';
+} from '../../utility/tableColumns.js';
+import type {ReportEditorT} from '../types.js';
 
 type Props = {
   +items: $ReadOnlyArray<ReportEditorT>,

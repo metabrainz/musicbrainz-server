@@ -10,24 +10,24 @@
 import * as React from 'react';
 import {captureException} from '@sentry/browser';
 
-import Paginator from '../../../../components/Paginator';
+import Paginator from '../../../../components/Paginator.js';
 import {CatalystContext} from '../../../../context.mjs';
 import mediumHasMultipleArtists
-  from '../../../../utility/mediumHasMultipleArtists';
+  from '../../../../utility/mediumHasMultipleArtists.js';
 import DataTrackIcon
-  from '../../common/components/DataTrackIcon';
+  from '../../common/components/DataTrackIcon.js';
 import MediumDescription
-  from '../../common/components/MediumDescription';
-import {uniqBy} from '../../common/utility/arrays';
+  from '../../common/components/MediumDescription.js';
+import {uniqBy} from '../../common/utility/arrays.js';
 import pThrottle, {
   ThrottleAbortError,
-} from '../../common/utility/pThrottle';
-import type {CreditsModeT, ActionT} from '../types';
+} from '../../common/utility/pThrottle.js';
+import type {CreditsModeT, ActionT} from '../types.js';
 import {
   mergeLinkedEntities,
 } from '../../common/linkedEntities.mjs';
 
-import MediumTrackRow from './MediumTrackRow';
+import MediumTrackRow from './MediumTrackRow.js';
 
 type PropsT = {
   +creditsMode: CreditsModeT,

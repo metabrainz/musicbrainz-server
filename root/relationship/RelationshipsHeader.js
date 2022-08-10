@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import Tabs from '../components/Tabs';
-import buildTab from '../utility/buildTab';
+import Tabs from '../components/Tabs.js';
+import buildTab from '../utility/buildTab.js';
 
 const RelationshipTabs = ({page}: {page?: string}) => (
   <>

@@ -10,16 +10,16 @@
 
 import * as ReactDOMServer from 'react-dom/server';
 
-import getBooleanCookie from '../common/utility/getBooleanCookie';
-import {capitalize} from '../common/utility/strings';
+import getBooleanCookie from '../common/utility/getBooleanCookie.js';
+import {capitalize} from '../common/utility/strings.js';
 
-import type {GuessCaseModeT} from './types';
+import type {GuessCaseModeT} from './types.js';
 import {
   isPrepBracketWord,
   isPrepBracketSingleWord,
   turkishUpperCase,
   turkishLowerCase,
-} from './utils';
+} from './utils.js';
 
 /*
  * Words which are always written lowercase.

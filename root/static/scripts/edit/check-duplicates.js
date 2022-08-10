@@ -11,16 +11,16 @@ import ko from 'knockout';
 import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 
-import MB from '../common/MB';
-import {sortByNumber} from '../common/utility/arrays';
-import clean from '../common/utility/clean';
-import debounce from '../common/utility/debounce';
-import isBlank from '../common/utility/isBlank';
-import request from '../common/utility/request';
-import {unaccent} from '../common/utility/strings';
+import MB from '../common/MB.js';
+import {sortByNumber} from '../common/utility/arrays.js';
+import clean from '../common/utility/clean.js';
+import debounce from '../common/utility/debounce.js';
+import isBlank from '../common/utility/isBlank.js';
+import request from '../common/utility/request.js';
+import {unaccent} from '../common/utility/strings.js';
 
-import PossibleDuplicates from './components/PossibleDuplicates';
-import * as validation from './validation';
+import PossibleDuplicates from './components/PossibleDuplicates.js';
+import * as validation from './validation.js';
 
 var commentRequired = ko.observable(false);
 var commentEmpty = ko.observable(false);

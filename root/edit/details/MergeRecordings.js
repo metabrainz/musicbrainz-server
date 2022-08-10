@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import RecordingList from '../../components/list/RecordingList';
+import RecordingList from '../../components/list/RecordingList.js';
 
 type Props = {
   +edit: MergeRecordingsEditT,

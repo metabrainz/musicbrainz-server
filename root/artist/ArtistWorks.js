@@ -9,14 +9,14 @@
 
 import * as React from 'react';
 
-import WorkList from '../components/list/WorkList';
-import PaginatedResults from '../components/PaginatedResults';
-import Filter from '../static/scripts/common/components/Filter';
+import WorkList from '../components/list/WorkList.js';
+import PaginatedResults from '../components/PaginatedResults.js';
+import Filter from '../static/scripts/common/components/Filter.js';
 import {type FilterFormT}
-  from '../static/scripts/common/components/FilterForm';
-import {returnToCurrentPage} from '../utility/returnUri';
+  from '../static/scripts/common/components/FilterForm.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
-import ArtistLayout from './ArtistLayout';
+import ArtistLayout from './ArtistLayout.js';
 
 type Props = {
   +$c: CatalystContextT,

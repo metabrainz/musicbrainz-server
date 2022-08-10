@@ -10,11 +10,11 @@
 import * as React from 'react';
 import type {ColumnOptionsNoValue} from 'react-table';
 
-import PaginatedResults from '../../components/PaginatedResults';
-import Table from '../../components/Table';
+import PaginatedResults from '../../components/PaginatedResults.js';
+import Table from '../../components/Table.js';
 import {
   defineEntityColumn,
-} from '../../utility/tableColumns';
+} from '../../utility/tableColumns.js';
 
 type Props<D: {+label: ?LabelT, ...}> = {
   +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,

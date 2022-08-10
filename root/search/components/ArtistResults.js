@@ -10,17 +10,17 @@
 import * as React from 'react';
 
 import ArtistListEntry
-  from '../../static/scripts/common/components/ArtistListEntry';
+  from '../../static/scripts/common/components/ArtistListEntry.js';
 import {isEditingEnabled}
-  from '../../static/scripts/common/utility/privileges';
+  from '../../static/scripts/common/utility/privileges.js';
 import type {
   InlineResultsPropsWithContextT,
   ResultsPropsWithContextT,
   SearchResultT,
-} from '../types';
+} from '../types.js';
 
-import PaginatedSearchResults from './PaginatedSearchResults';
-import ResultsLayout from './ResultsLayout';
+import PaginatedSearchResults from './PaginatedSearchResults.js';
+import ResultsLayout from './ResultsLayout.js';
 
 function buildResult(result: SearchResultT<ArtistT>, index: number) {
   const artist = result.entity;

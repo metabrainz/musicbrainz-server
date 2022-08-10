@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import {ANNOTATION_REPORT_TEXT} from './constants';
-import ArtistList from './components/ArtistList';
-import ReportLayout from './components/ReportLayout';
-import useAnnotationColumns from './hooks/useAnnotationColumns';
-import type {ReportArtistAnnotationT, ReportDataT} from './types';
+import {ANNOTATION_REPORT_TEXT} from './constants.js';
+import ArtistList from './components/ArtistList.js';
+import ReportLayout from './components/ReportLayout.js';
+import useAnnotationColumns from './hooks/useAnnotationColumns.js';
+import type {ReportArtistAnnotationT, ReportDataT} from './types.js';
 
 const AnnotationsArtists = ({
   canBeFiltered,

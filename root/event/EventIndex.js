@@ -9,15 +9,16 @@
 
 import * as React from 'react';
 
-import Annotation from '../static/scripts/common/components/Annotation';
-import Relationships from '../static/scripts/common/components/Relationships';
+import Annotation from '../static/scripts/common/components/Annotation.js';
+import Relationships
+  from '../static/scripts/common/components/Relationships.js';
 import WikipediaExtract
-  from '../static/scripts/common/components/WikipediaExtract';
-import formatSetlist from '../static/scripts/common/utility/formatSetlist';
-import CleanupBanner from '../components/CleanupBanner';
+  from '../static/scripts/common/components/WikipediaExtract.js';
+import formatSetlist from '../static/scripts/common/utility/formatSetlist.js';
+import CleanupBanner from '../components/CleanupBanner.js';
 import * as manifest from '../static/manifest.mjs';
 
-import EventLayout from './EventLayout';
+import EventLayout from './EventLayout.js';
 
 type Props = {
   +eligibleForCleanup: boolean,

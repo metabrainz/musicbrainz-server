@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import InstrumentList from '../../components/list/InstrumentList';
+import InstrumentList from '../../components/list/InstrumentList.js';
 
 type Props = {
   +edit: MergeInstrumentsEditT,

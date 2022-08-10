@@ -9,10 +9,12 @@
 
 import * as React from 'react';
 
-import RelationshipsTable from '../components/RelationshipsTable';
-import Relationships from '../static/scripts/common/components/Relationships';
+import RelationshipsTable from '../components/RelationshipsTable.js';
+import Relationships
+  from '../static/scripts/common/components/Relationships.js';
 
-import ArtistLayout from './ArtistLayout';
+
+import ArtistLayout from './ArtistLayout.js';
 
 type Props = {
   +$c: CatalystContextT,

@@ -10,12 +10,12 @@ import $ from 'jquery';
 import ko from 'knockout';
 import test from 'tape';
 
-import {last} from '../../common/utility/arrays';
-import fields from '../../release-editor/fields';
+import {last} from '../../common/utility/arrays.js';
+import fields from '../../release-editor/fields.js';
 
-import * as common from './common';
+import * as common from './common.js';
 
-import '../../common/MB/Control/Autocomplete';
+import '../../common/MB/Control/Autocomplete.js';
 
 function fieldTest(name, callback) {
   test(name, function (t) {

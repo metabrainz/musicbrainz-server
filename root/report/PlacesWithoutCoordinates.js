@@ -9,14 +9,14 @@
 
 import * as React from 'react';
 
-import PaginatedResults from '../components/PaginatedResults';
-import loopParity from '../utility/loopParity';
+import PaginatedResults from '../components/PaginatedResults.js';
+import loopParity from '../utility/loopParity.js';
 import DescriptiveLink
-  from '../static/scripts/common/components/DescriptiveLink';
-import EntityLink from '../static/scripts/common/components/EntityLink';
+  from '../static/scripts/common/components/DescriptiveLink.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportPlaceRelationshipT} from './types';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportPlaceRelationshipT} from './types.js';
 
 const PlacesWithoutCoordinates = ({
   canBeFiltered,

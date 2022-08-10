@@ -9,22 +9,22 @@
 
 import * as React from 'react';
 
-import CleanupBanner from '../components/CleanupBanner';
-import FormRow from '../components/FormRow';
-import FormSubmit from '../components/FormSubmit';
-import PaginatedResults from '../components/PaginatedResults';
+import CleanupBanner from '../components/CleanupBanner.js';
+import FormRow from '../components/FormRow.js';
+import FormSubmit from '../components/FormSubmit.js';
+import PaginatedResults from '../components/PaginatedResults.js';
 import DescriptiveLink
-  from '../static/scripts/common/components/DescriptiveLink';
+  from '../static/scripts/common/components/DescriptiveLink.js';
 import WikipediaExtract
-  from '../static/scripts/common/components/WikipediaExtract';
-import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
-import ReleaseList from '../components/list/ReleaseList';
-import RelatedEntitiesDisplay from '../components/RelatedEntitiesDisplay';
+  from '../static/scripts/common/components/WikipediaExtract.js';
+import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList.js';
+import ReleaseList from '../components/list/ReleaseList.js';
+import RelatedEntitiesDisplay from '../components/RelatedEntitiesDisplay.js';
 import * as manifest from '../static/manifest.mjs';
-import Annotation from '../static/scripts/common/components/Annotation';
-import {returnToCurrentPage} from '../utility/returnUri';
+import Annotation from '../static/scripts/common/components/Annotation.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
-import LabelLayout from './LabelLayout';
+import LabelLayout from './LabelLayout.js';
 
 type Props = {
   +$c: CatalystContextT,

@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
+import Layout from '../layout/index.js';
 
-import OtherLookupForm from './OtherLookupForm';
-import type {OtherLookupFormT} from './types';
+import OtherLookupForm from './OtherLookupForm.js';
+import type {OtherLookupFormT} from './types.js';
 
 type Props = {
   +form: OtherLookupFormT,

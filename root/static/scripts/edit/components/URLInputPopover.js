@@ -9,13 +9,13 @@
 
 import * as React from 'react';
 
-import ButtonPopover from '../../common/components/ButtonPopover';
+import ButtonPopover from '../../common/components/ButtonPopover.js';
 import type {
   ErrorT,
   LinkRelationshipT,
   LinkStateT,
-} from '../externalLinks';
-import {ERROR_TARGETS} from '../URLCleanup';
+} from '../externalLinks.js';
+import {ERROR_TARGETS} from '../URLCleanup.js';
 
 type PropsT = {
   cleanupUrl: (string) => string,

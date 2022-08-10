@@ -11,11 +11,11 @@ import * as React from 'react';
 
 import UserAccountLayout, {
   sanitizedAccountLayoutUser,
-} from '../components/UserAccountLayout';
+} from '../components/UserAccountLayout.js';
 import PreferencesForm
-  from '../static/scripts/account/components/PreferencesForm';
+  from '../static/scripts/account/components/PreferencesForm.js';
 import type {PreferencesFormPropsT}
-  from '../static/scripts/account/components/PreferencesForm';
+  from '../static/scripts/account/components/PreferencesForm.js';
 import * as manifest from '../static/manifest.mjs';
 
 type Props = {

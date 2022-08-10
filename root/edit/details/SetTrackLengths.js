@@ -10,14 +10,14 @@
 import * as React from 'react';
 
 import {HistoricReleaseListContent}
-  from '../components/HistoricReleaseList';
-import TrackDurationChanges from '../components/TrackDurationChanges';
-import CDTocLink from '../../static/scripts/common/components/CDTocLink';
+  from '../components/HistoricReleaseList.js';
+import TrackDurationChanges from '../components/TrackDurationChanges.js';
+import CDTocLink from '../../static/scripts/common/components/CDTocLink.js';
 import MediumLink
-  from '../../static/scripts/common/components/MediumLink';
-import {arraysEqual} from '../../static/scripts/common/utility/arrays';
+  from '../../static/scripts/common/components/MediumLink.js';
+import {arraysEqual} from '../../static/scripts/common/utility/arrays.js';
 import formatTrackLength
-  from '../../static/scripts/common/utility/formatTrackLength';
+  from '../../static/scripts/common/utility/formatTrackLength.js';
 
 type Props = {
   +edit: SetTrackLengthsEditT,

@@ -8,7 +8,7 @@
 
 import test from 'tape';
 
-import mbEntity from '../common/entity';
+import mbEntity from '../common/entity.js';
 
 test('CoreEntity', function (t) {
   t.plan(2);

@@ -8,16 +8,16 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import getCookie from '../../../common/utility/getCookie';
-import * as flags from '../../flags';
+import getCookie from '../../../common/utility/getCookie.js';
+import * as flags from '../../flags.js';
 
-import GuessCaseAreaHandler from './Handler/Area';
-import GuessCaseArtistHandler from './Handler/Artist';
-import GuessCaseLabelHandler from './Handler/Label';
-import GuessCasePlaceHandler from './Handler/Place';
-import GuessCaseReleaseHandler from './Handler/Release';
-import GuessCaseTrackHandler from './Handler/Track';
-import GuessCaseWorkHandler from './Handler/Work';
+import GuessCaseAreaHandler from './Handler/Area.js';
+import GuessCaseArtistHandler from './Handler/Artist.js';
+import GuessCaseLabelHandler from './Handler/Label.js';
+import GuessCasePlaceHandler from './Handler/Place.js';
+import GuessCaseReleaseHandler from './Handler/Release.js';
+import GuessCaseTrackHandler from './Handler/Track.js';
+import GuessCaseWorkHandler from './Handler/Work.js';
 
 // Main class of the GC functionality
 class GuessCase {

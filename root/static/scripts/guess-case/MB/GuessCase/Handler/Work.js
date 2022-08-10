@@ -8,12 +8,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as flags from '../../../flags';
-import * as modes from '../../../modes';
-import input from '../Input';
-import gc from '../Main';
+import * as flags from '../../../flags.js';
+import * as modes from '../../../modes.js';
+import input from '../Input.js';
+import gc from '../Main.js';
 
-import GuessCaseHandler from './Base';
+import GuessCaseHandler from './Base.js';
 
 // Work specific GuessCase functionality
 class GuessCaseWorkHandler extends GuessCaseHandler {

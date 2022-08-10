@@ -9,24 +9,24 @@
 
 import * as React from 'react';
 
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import loopParity from '../utility/loopParity';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import loopParity from '../utility/loopParity.js';
 import ArtistCreditLink
-  from '../static/scripts/common/components/ArtistCreditLink';
-import {compare} from '../static/scripts/common/i18n';
-import commaList from '../static/scripts/common/i18n/commaList';
+  from '../static/scripts/common/components/ArtistCreditLink.js';
+import {compare} from '../static/scripts/common/i18n.js';
+import commaList from '../static/scripts/common/i18n/commaList.js';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import formatDatePeriod
-  from '../static/scripts/common/utility/formatDatePeriod';
+  from '../static/scripts/common/utility/formatDatePeriod.js';
 import formatTrackLength
-  from '../static/scripts/common/utility/formatTrackLength';
+  from '../static/scripts/common/utility/formatTrackLength.js';
 import displayLinkAttribute
-  from '../static/scripts/common/utility/displayLinkAttribute';
-import {interpolateText} from '../static/scripts/edit/utility/linkPhrase';
-import {formatCount} from '../statistics/utilities';
-import uriWith from '../utility/uriWith';
+  from '../static/scripts/common/utility/displayLinkAttribute.js';
+import {interpolateText} from '../static/scripts/edit/utility/linkPhrase.js';
+import {formatCount} from '../statistics/utilities.js';
+import uriWith from '../utility/uriWith.js';
 
-import PaginatedResults from './PaginatedResults';
+import PaginatedResults from './PaginatedResults.js';
 
 type Props = {
   +$c: CatalystContextT,

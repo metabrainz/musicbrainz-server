@@ -9,24 +9,24 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import FormSubmit from '../components/FormSubmit';
-import RequestLogin from '../components/RequestLogin';
+import Layout from '../layout/index.js';
+import FormSubmit from '../components/FormSubmit.js';
+import RequestLogin from '../components/RequestLogin.js';
 import DBDefs from '../static/scripts/common/DBDefs.mjs';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
-import EditLink from '../static/scripts/common/components/EditLink';
-import EditorLink from '../static/scripts/common/components/EditorLink';
-import getVoteName from '../static/scripts/edit/utility/getVoteName';
+import EditLink from '../static/scripts/common/components/EditLink.js';
+import EditorLink from '../static/scripts/common/components/EditorLink.js';
+import getVoteName from '../static/scripts/edit/utility/getVoteName.js';
 import {editorMayAddNote, editorMayVote}
-  from '../utility/edit';
-import formatUserDate from '../utility/formatUserDate';
+  from '../utility/edit.js';
+import formatUserDate from '../utility/formatUserDate.js';
 
-import EditHeader from './components/EditHeader';
-import EditNotes from './components/EditNotes';
-import EditSidebar from './components/EditSidebar';
-import Vote from './components/Vote';
-import VoteTally from './components/VoteTally';
-import getEditDetailsElement from './utility/getEditDetailsElement';
+import EditHeader from './components/EditHeader.js';
+import EditNotes from './components/EditNotes.js';
+import EditSidebar from './components/EditSidebar.js';
+import Vote from './components/Vote.js';
+import VoteTally from './components/VoteTally.js';
+import getEditDetailsElement from './utility/getEditDetailsElement.js';
 
 type Props = {
   +$c: CatalystContextT,

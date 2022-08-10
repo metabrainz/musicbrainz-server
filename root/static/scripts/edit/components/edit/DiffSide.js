@@ -17,7 +17,7 @@ import editDiff, {
   CLASS_MAP,
   stringEditDiff,
   type EditType,
-} from '../../utility/editDiff';
+} from '../../utility/editDiff.js';
 
 /*
  * The max string length before we fall back from generic-diff

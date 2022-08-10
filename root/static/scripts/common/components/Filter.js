@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import filterIconUrl from '../../../images/icons/filter.png';
-import setCookie from '../utility/setCookie';
+import setCookie from '../utility/setCookie.js';
 
-import FilterForm, {type FilterFormT} from './FilterForm';
+import FilterForm, {type FilterFormT} from './FilterForm.js';
 
 type Props = {
   +ajaxFormUrl: string,

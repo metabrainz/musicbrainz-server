@@ -10,9 +10,9 @@
 import ko from 'knockout';
 import * as React from 'react';
 
-import AreaWithContainmentLink from './AreaWithContainmentLink';
-import ArtistCreditLink from './ArtistCreditLink';
-import EntityLink from './EntityLink';
+import AreaWithContainmentLink from './AreaWithContainmentLink.js';
+import ArtistCreditLink from './ArtistCreditLink.js';
+import EntityLink from './EntityLink.js';
 
 type DescriptiveLinkProps = {
   +allowNew?: boolean,

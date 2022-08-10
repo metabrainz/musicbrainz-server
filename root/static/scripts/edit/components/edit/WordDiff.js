@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import Diff, {type DiffProps} from './Diff';
+import Diff, {type DiffProps} from './Diff.js';
 
 const WordDiff = ({
   extraNew,

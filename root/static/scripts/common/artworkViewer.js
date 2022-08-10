@@ -8,7 +8,7 @@
 
 import $ from 'jquery';
 
-import debounce from './utility/debounce';
+import debounce from './utility/debounce.js';
 
 $.widget('mb.artworkViewer', $.ui.dialog, {
 

@@ -9,13 +9,13 @@
 
 import * as React from 'react';
 
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import TagLink from '../../static/scripts/common/components/TagLink';
-import loopParity from '../../utility/loopParity';
-import type {ResultsPropsT, SearchResultT} from '../types';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
+import TagLink from '../../static/scripts/common/components/TagLink.js';
+import loopParity from '../../utility/loopParity.js';
+import type {ResultsPropsT, SearchResultT} from '../types.js';
 
-import PaginatedSearchResults from './PaginatedSearchResults';
-import ResultsLayout from './ResultsLayout';
+import PaginatedSearchResults from './PaginatedSearchResults.js';
+import ResultsLayout from './ResultsLayout.js';
 
 function buildResult(
   result: SearchResultT<TagT>,

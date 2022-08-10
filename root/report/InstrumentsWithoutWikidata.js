@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import InstrumentList from './components/InstrumentList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportInstrumentT} from './types';
+import InstrumentList from './components/InstrumentList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportInstrumentT} from './types.js';
 
 const InstrumentsWithoutWikidata = ({
   canBeFiltered,

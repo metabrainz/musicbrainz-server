@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
+import Layout from '../layout/index.js';
 
-import UserInlineList from './components/UserInlineList';
+import UserInlineList from './components/UserInlineList.js';
 
 type Props = {
   +accountAdmins: $ReadOnlyArray<EditorT>,

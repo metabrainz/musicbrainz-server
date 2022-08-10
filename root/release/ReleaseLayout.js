@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import ReleaseSidebar from '../layout/components/sidebar/ReleaseSidebar';
+import Layout from '../layout/index.js';
+import ReleaseSidebar from '../layout/components/sidebar/ReleaseSidebar.js';
 import {reduceArtistCredit}
-  from '../static/scripts/common/immutable-entities';
+  from '../static/scripts/common/immutable-entities.js';
 
-import ReleaseHeader from './ReleaseHeader';
+import ReleaseHeader from './ReleaseHeader.js';
 
 type Props = {
   +children: React.Node,

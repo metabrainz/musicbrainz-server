@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import {commaOnlyListText} from '../i18n/commaOnlyList';
-import localizeArtistRoles from '../i18n/localizeArtistRoles';
+import {commaOnlyListText} from '../i18n/commaOnlyList.js';
+import localizeArtistRoles from '../i18n/localizeArtistRoles.js';
 
-import CollapsibleList from './CollapsibleList';
-import EntityLink from './EntityLink';
+import CollapsibleList from './CollapsibleList.js';
+import EntityLink from './EntityLink.js';
 
 type RelationT = {
   +credit: string,

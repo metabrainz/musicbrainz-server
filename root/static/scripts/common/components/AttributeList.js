@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import {bracketedText} from '../utility/bracketed';
-import {kebabCase} from '../utility/strings';
+import {bracketedText} from '../utility/bracketed.js';
+import {kebabCase} from '../utility/strings.js';
 import {SidebarProperty}
-  from '../../../../layout/components/sidebar/SidebarProperties';
+  from '../../../../layout/components/sidebar/SidebarProperties.js';
 
-import CollapsibleList from './CollapsibleList';
+import CollapsibleList from './CollapsibleList.js';
 
 const buildAttributeListRow = (attribute: WorkAttributeT) => (
   <li

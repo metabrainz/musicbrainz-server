@@ -10,14 +10,14 @@
 import * as React from 'react';
 
 import MediumTracklist
-  from '../../medium/MediumTracklist';
+  from '../../medium/MediumTracklist.js';
 import {artistCreditsAreEqual}
-  from '../../static/scripts/common/immutable-entities';
+  from '../../static/scripts/common/immutable-entities.js';
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
 import ExpandedArtistCredit
-  from '../../static/scripts/common/components/ExpandedArtistCredit';
-import loopParity from '../../utility/loopParity';
+  from '../../static/scripts/common/components/ExpandedArtistCredit.js';
+import loopParity from '../../utility/loopParity.js';
 
 type CondensedTrackACsRowProps = {
   +artistCredit: ArtistCreditT,

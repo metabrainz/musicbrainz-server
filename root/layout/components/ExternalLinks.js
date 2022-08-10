@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import {FAVICON_CLASSES} from '../../static/scripts/common/constants';
-import {compare, l} from '../../static/scripts/common/i18n';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
+import {FAVICON_CLASSES} from '../../static/scripts/common/constants.js';
+import {compare, l} from '../../static/scripts/common/i18n.js';
 import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
-import {uniqBy} from '../../static/scripts/common/utility/arrays';
-import isDisabledLink from '../../utility/isDisabledLink';
+import {uniqBy} from '../../static/scripts/common/utility/arrays.js';
+import isDisabledLink from '../../utility/isDisabledLink.js';
 
 function faviconClass(urlEntity: UrlT) {
   let matchingClass;

@@ -8,9 +8,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as utils from '../../utils';
+import * as utils from '../../utils.js';
 
-import gc from './Main';
+import gc from './Main.js';
 
 /*
  * Holds the input variables

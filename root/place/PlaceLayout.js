@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import PlaceSidebar from '../layout/components/sidebar/PlaceSidebar';
+import Layout from '../layout/index.js';
+import PlaceSidebar from '../layout/components/sidebar/PlaceSidebar.js';
 
-import PlaceHeader from './PlaceHeader';
+import PlaceHeader from './PlaceHeader.js';
 
 type Props = {
   +children: React.Node,

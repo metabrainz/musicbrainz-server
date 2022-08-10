@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import EntityLink from '../../static/scripts/common/components/EntityLink';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import {commaOnlyListText} from
-  '../../static/scripts/common/i18n/commaOnlyList';
+  '../../static/scripts/common/i18n/commaOnlyList.js';
 import localizeLanguageName
-  from '../../static/scripts/common/i18n/localizeLanguageName';
+  from '../../static/scripts/common/i18n/localizeLanguageName.js';
 
 type Props = {
   +edit: AddWorkEditT,

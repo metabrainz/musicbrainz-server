@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
-import {returnToCurrentPage} from '../../../utility/returnUri';
+import {returnToCurrentPage} from '../../../utility/returnUri.js';
 
 type Props = {
   +entity: CoreEntityT | CollectionT,

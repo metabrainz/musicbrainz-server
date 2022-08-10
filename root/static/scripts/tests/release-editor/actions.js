@@ -8,11 +8,11 @@
 
 import test from 'tape';
 
-import MB from '../../common/MB';
-import actions from '../../release-editor/actions';
-import fields from '../../release-editor/fields';
+import MB from '../../common/MB.js';
+import actions from '../../release-editor/actions.js';
+import fields from '../../release-editor/fields.js';
 
-import * as common from './common';
+import * as common from './common.js';
 
 MB.mediumFormatDates = {1: 1982};
 

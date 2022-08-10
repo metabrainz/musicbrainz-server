@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import FieldErrors from './FieldErrors';
-import FormRow from './FormRow';
-import FormLabel from './FormLabel';
+import FieldErrors from './FieldErrors.js';
+import FormRow from './FormRow.js';
+import FormLabel from './FormLabel.js';
 
 type InputOnChange = (SyntheticKeyboardEvent<HTMLInputElement>) => void;
 

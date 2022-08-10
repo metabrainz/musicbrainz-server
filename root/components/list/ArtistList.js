@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
-import Table from '../Table';
+import Table from '../Table.js';
 import {
   defineCheckboxColumn,
   defineNameColumn,
@@ -23,7 +23,7 @@ import {
   defineRatingsColumn,
   defineSeriesNumberColumn,
   removeFromMergeColumn,
-} from '../../utility/tableColumns';
+} from '../../utility/tableColumns.js';
 
 type Props = {
   ...InstrumentCreditsAndRelTypesRoleT,

@@ -10,40 +10,41 @@
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
-import {QUALITY_UNKNOWN} from '../../../constants';
+import {QUALITY_UNKNOWN} from '../../../constants.js';
 import {CatalystContext} from '../../../context.mjs';
 import * as manifest from '../../../static/manifest.mjs';
-import EntityLink from '../../../static/scripts/common/components/EntityLink';
+import EntityLink
+  from '../../../static/scripts/common/components/EntityLink.js';
 import ReleaseEvents
-  from '../../../static/scripts/common/components/ReleaseEvents';
+  from '../../../static/scripts/common/components/ReleaseEvents.js';
 import linkedEntities
   from '../../../static/scripts/common/linkedEntities.mjs';
-import entityHref from '../../../static/scripts/common/utility/entityHref';
+import entityHref from '../../../static/scripts/common/utility/entityHref.js';
 import formatBarcode
-  from '../../../static/scripts/common/utility/formatBarcode';
+  from '../../../static/scripts/common/utility/formatBarcode.js';
 import formatTrackLength
-  from '../../../static/scripts/common/utility/formatTrackLength';
+  from '../../../static/scripts/common/utility/formatTrackLength.js';
 import releaseLabelKey
-  from '../../../static/scripts/common/utility/releaseLabelKey';
-import {Artwork} from '../../../components/Artwork';
-import CritiqueBrainzLinks from '../../../components/CritiqueBrainzLinks';
+  from '../../../static/scripts/common/utility/releaseLabelKey.js';
+import {Artwork} from '../../../components/Artwork.js';
+import CritiqueBrainzLinks from '../../../components/CritiqueBrainzLinks.js';
 import LinkSearchableLanguage
-  from '../../../components/LinkSearchableLanguage';
+  from '../../../components/LinkSearchableLanguage.js';
 import LinkSearchableProperty
-  from '../../../components/LinkSearchableProperty';
-import ExternalLinks from '../ExternalLinks';
+  from '../../../components/LinkSearchableProperty.js';
+import ExternalLinks from '../ExternalLinks.js';
 
-import AnnotationLinks from './AnnotationLinks';
-import CollectionLinks from './CollectionLinks';
-import EditLinks from './EditLinks';
-import LastUpdated from './LastUpdated';
-import MergeLink from './MergeLink';
-import RemoveLink from './RemoveLink';
-import SidebarDataQuality from './SidebarDataQuality';
-import SidebarLicenses from './SidebarLicenses';
-import {SidebarProperty, SidebarProperties} from './SidebarProperties';
-import SidebarRating from './SidebarRating';
-import SidebarTags from './SidebarTags';
+import AnnotationLinks from './AnnotationLinks.js';
+import CollectionLinks from './CollectionLinks.js';
+import EditLinks from './EditLinks.js';
+import LastUpdated from './LastUpdated.js';
+import MergeLink from './MergeLink.js';
+import RemoveLink from './RemoveLink.js';
+import SidebarDataQuality from './SidebarDataQuality.js';
+import SidebarLicenses from './SidebarLicenses.js';
+import {SidebarProperty, SidebarProperties} from './SidebarProperties.js';
+import SidebarRating from './SidebarRating.js';
+import SidebarTags from './SidebarTags.js';
 
 type Props = {
   +release: ReleaseT,

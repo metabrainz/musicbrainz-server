@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import entityHref from '../utility/entityHref';
+import entityHref from '../utility/entityHref.js';
 
 type Props = {
   +cdstub: CDStubT,

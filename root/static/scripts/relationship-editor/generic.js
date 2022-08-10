@@ -9,14 +9,14 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
-import {SERIES_ORDERING_TYPE_AUTOMATIC} from '../common/constants';
-import MB from '../common/MB';
-import {sortByString} from '../common/utility/arrays';
-import formatDate from '../common/utility/formatDate';
-import {hasSessionStorage} from '../common/utility/storage';
-import * as validation from '../edit/validation';
+import {SERIES_ORDERING_TYPE_AUTOMATIC} from '../common/constants.js';
+import MB from '../common/MB.js';
+import {sortByString} from '../common/utility/arrays.js';
+import formatDate from '../common/utility/formatDate.js';
+import {hasSessionStorage} from '../common/utility/storage.js';
+import * as validation from '../edit/validation.js';
 
-import {ViewModel} from './common/viewModel';
+import {ViewModel} from './common/viewModel.js';
 
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 

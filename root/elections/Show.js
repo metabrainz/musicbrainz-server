@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
+import Layout from '../layout/index.js';
 
-import ElectionDetails from './ElectionDetails';
-import ElectionVotes from './ElectionVotes';
-import ElectionVoting from './ElectionVoting';
+import ElectionDetails from './ElectionDetails.js';
+import ElectionVotes from './ElectionVotes.js';
+import ElectionVoting from './ElectionVoting.js';
 
 type Props = {
   +$c: CatalystContextT,

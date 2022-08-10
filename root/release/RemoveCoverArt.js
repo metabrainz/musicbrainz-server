@@ -9,14 +9,14 @@
 
 import * as React from 'react';
 
-import {Artwork} from '../components/Artwork';
-import EnterEdit from '../components/EnterEdit';
-import EnterEditNote from '../components/EnterEditNote';
+import {Artwork} from '../components/Artwork.js';
+import EnterEdit from '../components/EnterEdit.js';
+import EnterEditNote from '../components/EnterEditNote.js';
 import ArtistCreditLink
-  from '../static/scripts/common/components/ArtistCreditLink';
-import EntityLink from '../static/scripts/common/components/EntityLink';
+  from '../static/scripts/common/components/ArtistCreditLink.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
-import ReleaseLayout from './ReleaseLayout';
+import ReleaseLayout from './ReleaseLayout.js';
 
 type Props = {
   +$c: CatalystContextT,

@@ -7,20 +7,20 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import AreaLayout from '../area/AreaLayout';
-import ArtistLayout from '../artist/ArtistLayout';
-import CollectionLayout from '../collection/CollectionLayout';
-import EventLayout from '../event/EventLayout';
-import GenreLayout from '../genre/GenreLayout';
-import InstrumentLayout from '../instrument/InstrumentLayout';
-import LabelLayout from '../label/LabelLayout';
-import PlaceLayout from '../place/PlaceLayout';
-import RecordingLayout from '../recording/RecordingLayout';
-import ReleaseGroupLayout from '../release_group/ReleaseGroupLayout';
-import ReleaseLayout from '../release/ReleaseLayout';
-import SeriesLayout from '../series/SeriesLayout';
-import UserAccountLayout from '../components/UserAccountLayout';
-import WorkLayout from '../work/WorkLayout';
+import AreaLayout from '../area/AreaLayout.js';
+import ArtistLayout from '../artist/ArtistLayout.js';
+import CollectionLayout from '../collection/CollectionLayout.js';
+import EventLayout from '../event/EventLayout.js';
+import GenreLayout from '../genre/GenreLayout.js';
+import InstrumentLayout from '../instrument/InstrumentLayout.js';
+import LabelLayout from '../label/LabelLayout.js';
+import PlaceLayout from '../place/PlaceLayout.js';
+import RecordingLayout from '../recording/RecordingLayout.js';
+import ReleaseGroupLayout from '../release_group/ReleaseGroupLayout.js';
+import ReleaseLayout from '../release/ReleaseLayout.js';
+import SeriesLayout from '../series/SeriesLayout.js';
+import UserAccountLayout from '../components/UserAccountLayout.js';
+import WorkLayout from '../work/WorkLayout.js';
 
 const layoutPicker = {
   area: AreaLayout,

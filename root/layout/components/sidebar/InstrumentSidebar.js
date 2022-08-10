@@ -11,23 +11,23 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
 import CommonsImage
-  from '../../../static/scripts/common/components/CommonsImage';
+  from '../../../static/scripts/common/components/CommonsImage.js';
 import IrombookImage
-  from '../../../static/scripts/common/components/IrombookImage';
+  from '../../../static/scripts/common/components/IrombookImage.js';
 import {isRelationshipEditor}
-  from '../../../static/scripts/common/utility/privileges';
-import ExternalLinks from '../ExternalLinks';
+  from '../../../static/scripts/common/utility/privileges.js';
+import ExternalLinks from '../ExternalLinks.js';
 
-import AnnotationLinks from './AnnotationLinks';
-import CollectionLinks from './CollectionLinks';
-import EditLinks from './EditLinks';
-import LastUpdated from './LastUpdated';
-import MergeLink from './MergeLink';
-import RemoveLink from './RemoveLink';
-import SidebarLicenses from './SidebarLicenses';
-import {SidebarProperties} from './SidebarProperties';
-import SidebarTags from './SidebarTags';
-import SidebarType from './SidebarType';
+import AnnotationLinks from './AnnotationLinks.js';
+import CollectionLinks from './CollectionLinks.js';
+import EditLinks from './EditLinks.js';
+import LastUpdated from './LastUpdated.js';
+import MergeLink from './MergeLink.js';
+import RemoveLink from './RemoveLink.js';
+import SidebarLicenses from './SidebarLicenses.js';
+import {SidebarProperties} from './SidebarProperties.js';
+import SidebarTags from './SidebarTags.js';
+import SidebarType from './SidebarType.js';
 
 type Props = {
   +instrument: InstrumentT,

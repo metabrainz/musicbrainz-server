@@ -9,7 +9,7 @@
 
 import ko from 'knockout';
 
-import {ENTITIES} from '../constants';
+import {ENTITIES} from '../constants.js';
 
 const leadingSlash = /^\/?(.*)/;
 
