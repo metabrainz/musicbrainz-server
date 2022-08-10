@@ -25,7 +25,7 @@ import editDiff, {
  */
 const FAST_DIFF_FALLBACK_LENGTH = 1024;
 
-function splitText(text, split = '') {
+function splitText(text: string, split: string = '') {
   if (split !== '') {
     split = '(' + split + ')';
   }

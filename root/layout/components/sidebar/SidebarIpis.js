@@ -12,7 +12,7 @@ import * as React from 'react';
 
 import {SidebarProperty} from './SidebarProperties';
 
-const buildSidebarIpi = (ipi) => (
+const buildSidebarIpi = (ipi: IpiCodeT) => (
   <SidebarProperty
     className="ipi-code"
     key={'ipi-code-' + ipi.ipi}

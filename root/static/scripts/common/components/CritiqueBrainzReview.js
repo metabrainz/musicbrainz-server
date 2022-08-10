@@ -23,11 +23,11 @@ type Props = {
   +title: string,
 };
 
-const authorHref = author => (
+const authorHref = (author: CritiqueBrainzUserT) => (
   DBDefs.CRITIQUEBRAINZ_SERVER + '/user/' + author.id
 );
 
-const reviewHref = review => (
+const reviewHref = (review: CritiqueBrainzReviewT) => (
   DBDefs.CRITIQUEBRAINZ_SERVER + '/review/' + review.id
 );
 
@@ -59,7 +59,7 @@ const CritiqueBrainzReview = ({review, title}: Props) => (
   </>
 );
 
-export default (hydrate<Props>(
+export default (hydrate<Props, Props>(
   'div.critiquebrainz-review',
   CritiqueBrainzReview,
 ): React.AbstractComponent<Props, void>);

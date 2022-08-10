@@ -15,22 +15,22 @@ import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength';
 
-function entityDescription(entity) {
+function entityDescription(entity: CoreEntityT) {
   const desc = [];
-  if (entity.comment) {
+  if (nonEmpty(entity.comment)) {
     desc.push(entity.comment);
   }
   return desc;
 }
 
-function pushTypeName(desc, entity) {
+function pushTypeName(desc: Array<string>, entity: CoreEntityT) {
   const typeName = entity.typeName;
   if (nonEmpty(typeName)) {
     desc.push('Type: ' + typeName);
   }
 }
 
-function artistDescription(artist) {
+function artistDescription(artist: ArtistT) {
   const desc = entityDescription(artist);
   pushTypeName(desc, artist);
   const beginDate = formatDate(artist.begin_date);
@@ -60,7 +60,7 @@ function artistDescription(artist) {
   return desc;
 }
 
-function eventDescription(event) {
+function eventDescription(event: EventT) {
   const desc = entityDescription(event);
   pushTypeName(desc, event);
   const beginDate = formatDate(event.begin_date);
@@ -77,7 +77,7 @@ function eventDescription(event) {
   return desc;
 }
 
-function instrumentDescription(instrument) {
+function instrumentDescription(instrument: InstrumentT) {
   const desc = entityDescription(instrument);
   pushTypeName(desc, instrument);
   if (instrument.description) {
@@ -86,7 +86,7 @@ function instrumentDescription(instrument) {
   return desc;
 }
 
-function labelDescription(label) {
+function labelDescription(label: LabelT) {
   const desc = entityDescription(label);
   pushTypeName(desc, label);
   const beginDate = formatDate(label.begin_date);
@@ -107,7 +107,7 @@ function labelDescription(label) {
   return desc;
 }
 
-function placeDescription(place) {
+function placeDescription(place: PlaceT) {
   const desc = entityDescription(place);
   pushTypeName(desc, place);
   const beginDate = formatDate(place.begin_date);
@@ -121,7 +121,7 @@ function placeDescription(place) {
   return desc;
 }
 
-function releaseDescription(release) {
+function releaseDescription(release: ReleaseT) {
   const desc = entityDescription(release);
   const combinedFormatName = release.combined_format_name;
   if (nonEmpty(combinedFormatName)) {
@@ -155,13 +155,14 @@ function releaseDescription(release) {
   return desc;
 }
 
-const getLanguageName = wl => wl.language.name;
+const getLanguageName = (wl: WorkLanguageT) => wl.language.name;
 
-const getEntityName = x => x.entity.name;
+const getEntityName =
+  (x: {+entity: CoreEntityT, ...}): string => x.entity.name;
 
-const getIswc = x => x.iswc;
+const getIswc = (x: IswcT) => x.iswc;
 
-function workDescription(work) {
+function workDescription(work: WorkT) {
   const desc = entityDescription(work);
   pushTypeName(desc, work);
   if (work.languages.length) {

@@ -28,7 +28,7 @@ import {
 
 let revManifest;
 
-function pathTo(manifest) {
+function pathTo(manifest: string) {
   if (revManifest == null) {
     revManifest = JSON.parse(fs.readFileSync(
       path.resolve(MB_SERVER_ROOT, 'root/static/build/rev-manifest.json'),

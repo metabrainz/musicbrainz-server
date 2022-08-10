@@ -25,7 +25,7 @@ type Props = {
   +edit: RemoveMediumEditT,
 };
 
-const areTracksEqual = (a, b) => (
+const areTracksEqual = (a: TrackT, b: TrackT) => (
   a.name === b.name &&
   artistCreditsAreEqual(a.artistCredit, b.artistCredit) &&
   a.length === b.length

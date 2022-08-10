@@ -60,7 +60,10 @@ const allowedDateTimeFormats = [
   '%m.%d.%Y %H:%M',
 ];
 
-function buildDateTimeFormatOptions($c, timezone) {
+function buildDateTimeFormatOptions(
+  $c: SanitizedCatalystContextT,
+  timezone: string,
+) {
   const hereAndNow = new Date();
   return {
     grouped: false,
@@ -144,7 +147,7 @@ class PreferencesForm extends React.Component<Props, State> {
     }));
   }
 
-  render() {
+  render(): React.Element<'form'> {
     const field = this.state.form.field;
     return (
       <form method="post">

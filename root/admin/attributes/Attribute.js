@@ -40,7 +40,7 @@ type Props = {
   +model: string,
 };
 
-const renderAttributesHeaderAccordingToModel = (model) => {
+const renderAttributesHeaderAccordingToModel = (model: string) => {
   switch (model) {
     case 'MediumFormat': {
       return (
@@ -61,7 +61,7 @@ const renderAttributesHeaderAccordingToModel = (model) => {
   }
 };
 
-const renderAttributes = (attribute) => {
+const renderAttributes = (attribute: AttributeT) => {
   switch (attribute.entityType) {
     case 'medium_format': {
       return (

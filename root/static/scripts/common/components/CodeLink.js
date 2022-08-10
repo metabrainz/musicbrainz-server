@@ -16,7 +16,7 @@ type Props = {
 };
 
 const CodeLink = ({code}: Props): React.MixedElement=> {
-  let link = (
+  let link: React.MixedElement = (
     <a href={entityHref(code)}>
       <bdi>
         {/* $FlowIssue[prop-missing] */}

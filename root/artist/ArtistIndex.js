@@ -76,7 +76,12 @@ const FooterSwitch = ({
 }: FooterSwitchProps): React.Element<'p' | typeof React.Fragment> => {
   const artistLink = entityHref(artist);
 
-  function buildLinks(showDefault, showAll, showVA, showAllVA) {
+  function buildLinks(
+    showDefault: boolean,
+    showAll: boolean,
+    showVA: boolean,
+    showAllVA: boolean,
+  ) {
     const links = [];
     if (showDefault) {
       links.push(

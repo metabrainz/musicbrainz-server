@@ -71,7 +71,7 @@ class ApplicationForm extends React.Component<Props, State> {
     }));
   }
 
-  render() {
+  render(): React.Element<'form'> {
     return (
       <form method="post">
         <FormCsrfToken form={this.state.form} />

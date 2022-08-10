@@ -18,12 +18,12 @@ import primaryAreaCode
 import {isLocationEditor}
   from '../../static/scripts/common/utility/privileges';
 import loopParity from '../../utility/loopParity';
-import type {ResultsPropsWithContextT} from '../types';
+import type {ResultsPropsWithContextT, SearchResultT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
-function buildResult(result, index) {
+function buildResult(result: SearchResultT<AreaT>, index: number) {
   const area = result.entity;
   const score = result.score;
 

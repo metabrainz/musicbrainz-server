@@ -28,11 +28,11 @@ type PropsT = {
   +isOnEditPage?: boolean,
 };
 
-function returnNoteAnchor(edit, index) {
+function returnNoteAnchor(edit: GenericEditWithIdT, index: number) {
   return `note-${edit.id}-${index + 1}`;
 }
 
-function returnVoteClass(vote, isOwner) {
+function returnVoteClass(vote: ?VoteT, isOwner: boolean) {
   let className = '';
 
   if (vote) {

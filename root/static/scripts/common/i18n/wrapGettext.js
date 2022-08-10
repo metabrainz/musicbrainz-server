@@ -33,7 +33,7 @@ if (isNodeJS) {
  * transformation here.
  */
 
-function tryLoadDomain(domain) {
+function tryLoadDomain(domain: GettextDomainT) {
   const jedInstance = serverGettext.jedInstance;
   if (
     jedInstance != null &&

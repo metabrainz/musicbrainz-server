@@ -49,7 +49,8 @@ type Props = {
 };
 
 function defineReleaseGroupAppearancesColumn(
-  releaseGroupAppearances,
+  releaseGroupAppearances:
+    ReleaseGroupAppearancesRoleT['releaseGroupAppearances'] | void,
 ): ColumnOptions<RecordingT, ReleaseGroupAppearancesT> {
   return {
     Cell: ({row: {original}}) => releaseGroupAppearances &&

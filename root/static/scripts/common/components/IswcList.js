@@ -15,13 +15,13 @@ import {SidebarProperty}
 import CodeLink from './CodeLink';
 import CollapsibleList from './CollapsibleList';
 
-const buildIswcListRow = (iswc) => (
+const buildIswcListRow = (iswc: IswcT) => (
   <li className="iswc" key={iswc.iswc}>
     <CodeLink code={iswc} />
   </li>
 );
 
-const buildIswcSidebarRow = (iswc) => (
+const buildIswcSidebarRow = (iswc: IswcT) => (
   <SidebarProperty
     className="iswc"
     key={iswc.iswc}

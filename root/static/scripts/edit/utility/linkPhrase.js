@@ -176,7 +176,7 @@ export function cmpLinkAttrs(a: LinkAttrT, b: LinkAttrT): number {
 
 const requiredAttributesCache: {
   __proto__: null,
-  [linkTypeId: number]: {+[attributeName: string]: LinkAttrT, ...},
+  [linkTypeId: number]: {+[attributeName: string]: LinkAttrs},
   ...
 } = Object.create(null);
 
@@ -184,15 +184,15 @@ function _getRequiredAttributes(
   linkType: LinkTypeT,
   attributesByRootName: ?LinkAttrsByRootName,
 ) {
-  let required = requiredAttributesCache[linkType.id];
-  if (required) {
-    return required;
+  const cached = requiredAttributesCache[linkType.id];
+  if (cached) {
+    return cached;
   }
+  const required: LinkAttrsByRootName = {};
   for (const typeId of Object.keys(linkType.attributes)) {
     const {min} = linkType.attributes[Number(typeId)];
     if (min) {
       const attribute = linkedEntities.link_attribute_type[Number(typeId)];
-      required = required || {};
       required[attribute.name] = attributesByRootName ? (
         attributesByRootName[attribute.name]
       ) : {

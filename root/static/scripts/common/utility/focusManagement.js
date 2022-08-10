@@ -8,7 +8,7 @@
  */
 
 function isElementVisible(element: HTMLElement) {
-  let currentElement = element;
+  let currentElement: ?(Element | HTMLElement) = element;
   while (currentElement) {
     const style = currentElement instanceof HTMLElement
       ? currentElement.style

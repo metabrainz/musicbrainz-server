@@ -18,7 +18,10 @@ const buildOption = (option: SelectOptionT, index: number) => (
   </option>
 );
 
-const buildOptGroup = (optgroup, index) => (
+const buildOptGroup = (
+  optgroup: {+optgroup: string, +options: SelectOptionsT},
+  index: number,
+) => (
   <optgroup key={index} label={optgroup.optgroup}>
     {optgroup.options.map(buildOption)}
   </optgroup>

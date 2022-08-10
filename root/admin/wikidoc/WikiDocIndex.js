@@ -8,6 +8,7 @@
  */
 
 import * as React from 'react';
+import type {CellRenderProps} from 'react-table';
 
 import Layout from '../../layout';
 import Table from '../../components/Table';
@@ -34,17 +35,17 @@ const WikiDocTable = ({
   const columns = React.useMemo(
     () => {
       const nameColumn = {
-        Cell: ({cell: {value}}) => (
+        Cell: ({cell: {value}}: CellRenderProps<WikiDocT, string>) => (
           <a href={'/doc/' + encodeURIComponent(value)}>{value}</a>
         ),
         Header: N_l('Page name'),
-        accessor: x => x.id,
+        accessor: (x: WikiDocT) => x.id,
         cellProps: {className: 'title'},
         id: 'name',
       };
       const transcludedVersionColumn = {
         Header: N_l('Transcluded version'),
-        accessor: x => x.version,
+        accessor: (x: WikiDocT) => x.version,
         cellProps: {
           className: 'c transcluded-version',
           style: (updatesRequired && isWikiTranscluder($c.user))
@@ -55,7 +56,7 @@ const WikiDocTable = ({
         id: 'transcluded-version',
       };
       const wikiVersionColumn = {
-        Cell: ({row: {original}}) => (
+        Cell: ({row: {original}}: CellRenderProps<WikiDocT, number>) => (
           <>
             {original.wiki_version === original.version ? null : (
               <>
@@ -87,12 +88,12 @@ const WikiDocTable = ({
           </>
         ),
         Header: N_l('Wiki version'),
-        accessor: x => x.wiki_version,
+        accessor: (x: WikiDocT) => x.wiki_version,
         headerProps: {className: 'c'},
         id: 'wiki-version',
       };
       const actionsColumn = {
-        Cell: ({row: {original}}) => (
+        Cell: ({row: {original}}: CellRenderProps<WikiDocT, string>) => (
           <>
             <a href={'/admin/wikidoc/edit' +
                      '?page=' + encodeURIComponent(original.id) +
@@ -115,7 +116,7 @@ const WikiDocTable = ({
           </>
         ),
         Header: l('Actions'),
-        accessor: x => x.id,
+        accessor: (x: WikiDocT) => x.id,
         cellProps: {className: 'actions c'},
         headerProps: {className: 'c'},
         id: 'actions',

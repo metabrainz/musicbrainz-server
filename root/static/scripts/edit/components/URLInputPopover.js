@@ -56,12 +56,12 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
   };
 
   const buildPopoverChildren = (
-    closeAndReturnFocus,
+    closeAndReturnFocus: () => void,
   ) => {
     const error = props.validateLink(link);
     return (
       <form
-        onSubmit={(event) => {
+        onSubmit={(event: SyntheticEvent<HTMLFormElement>) => {
           event.preventDefault();
           handleConfirm(closeAndReturnFocus);
         }}

@@ -93,7 +93,7 @@ function doSearch<T: EntityItemT>(
   searchXhr.send();
 }
 
-function handleItemMouseDown(event) {
+function handleItemMouseDown(event: SyntheticMouseEvent<HTMLLIElement>) {
   event.preventDefault();
 }
 
@@ -213,7 +213,10 @@ const AutocompleteItem = React.memo(<+T: EntityItemT>({
     invariant(item.level == null || item.level >= 0);
   }
 
-  let style = (item.level && item.level > 0)
+  let style: ?{
+    +paddingLeft?: string,
+    +textAlign?: string,
+  } = (item.level && item.level > 0)
     ? {paddingLeft: String(4 + (item.level * 8)) + 'px'}
     : null;
 
@@ -349,7 +352,10 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
     beginLookupOrSearch(inputValue, newCleanInputValue);
   }
 
-  function beginLookupOrSearch(oldInputValue, newCleanInputValue) {
+  function beginLookupOrSearch(
+    oldInputValue: string,
+    newCleanInputValue: string,
+  ) {
     const mbidMatch = newCleanInputValue.match(MBID_REGEXP);
     if (mbidMatch) {
       /*

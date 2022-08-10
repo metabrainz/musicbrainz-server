@@ -95,11 +95,17 @@ if (__DEV__) {
 // Please keep the type signature in sync with root/vars.js.
 export default function hydrate<
   Config: {+$c?: CatalystContextT, ...},
-  SanitizedConfig = Config,
+  /* eslint-disable indent */
+  SanitizedConfig: {+$c?: SanitizedCatalystContextT, ...} = {
+    ...$Diff<Config, {$c?: CatalystContextT}>,
+    +$c?: SanitizedCatalystContextT,
+    ...
+  },
+  /* eslint-enable indent */
 >(
   containerSelector: string,
   Component: React.AbstractComponent<Config | SanitizedConfig>,
-  mungeProps?: (Config) => SanitizedConfig,
+  mungeProps?: ({...Config, ...}) => SanitizedConfig,
 ): React.AbstractComponent<Config, void> {
   const [containerTag, ...classes] = containerSelector.split('.');
   if (typeof document !== 'undefined') {
@@ -146,18 +152,23 @@ export default function hydrate<
     });
   }
   return (props: Config) => {
-    let dataProps = {...props};
+    const dataProps: {...Config, ...} = {...props};
     if (dataProps.$c) {
       delete dataProps.$c;
     }
+    let sanitizedDataProps: ?SanitizedConfig;
     if (mungeProps) {
-      dataProps = mungeProps(dataProps);
+      sanitizedDataProps = mungeProps(dataProps);
     }
     return (
       <>
         <script
           dangerouslySetInnerHTML={{
-            __html: escapeClosingTags(JSON.stringify(dataProps) ?? ''),
+            __html: escapeClosingTags(
+              JSON.stringify(
+                ((sanitizedDataProps ?? dataProps): Config | SanitizedConfig),
+              ) ?? '',
+            ),
           }}
           type="application/json"
         />

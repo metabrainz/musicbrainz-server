@@ -82,24 +82,28 @@ const GuessCaseOptions = ({
   modeName,
   upperCaseRoman,
 }: PropsT): React.Element<'div'> => {
-  function handleModeChange(event) {
-    const newModeName = event.target.value;
+  function handleModeChange(event: SyntheticEvent<HTMLSelectElement>) {
+    const newModeName = event.currentTarget.value;
 
     if (newModeName !== gc.modeName) {
       dispatch({modeName: newModeName, type: 'set-mode'});
     }
   }
 
-  function handleKeepUpperCaseChanged(event) {
+  function handleKeepUpperCaseChanged(
+    event: SyntheticEvent<HTMLInputElement>,
+  ) {
     dispatch({
-      enabled: event.target.checked,
+      enabled: event.currentTarget.checked,
       type: 'set-keep-upper-case',
     });
   }
 
-  function handleUpperCaseRomanChanged(event) {
+  function handleUpperCaseRomanChanged(
+    event: SyntheticEvent<HTMLInputElement>,
+  ) {
     dispatch({
-      enabled: event.target.checked,
+      enabled: event.currentTarget.checked,
       type: 'set-upper-case-roman',
     });
   }

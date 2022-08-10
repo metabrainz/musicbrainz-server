@@ -13,12 +13,16 @@ import InstrumentListEntry
   from '../../static/scripts/common/components/InstrumentListEntry';
 import {isRelationshipEditor}
   from '../../static/scripts/common/utility/privileges';
-import type {ResultsPropsWithContextT} from '../types';
+import type {ResultsPropsWithContextT, SearchResultT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
-function buildResult($c, result, index) {
+function buildResult(
+  $c: CatalystContextT,
+  result: SearchResultT<InstrumentT>,
+  index: number,
+) {
   const instrument = result.entity;
   const score = result.score;
 

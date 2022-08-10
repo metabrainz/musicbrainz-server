@@ -84,7 +84,7 @@ const RelationshipTargetLinks = ({
   const datesAndAttributes = semicolonOnlyList(
     relationship.datedExtraAttributesList.map(displayDatedExtraAttributes),
   );
-  let result = (
+  let result: React.MixedElement = (
     <>
       {link}
       {datesAndAttributes ? (

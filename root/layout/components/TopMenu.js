@@ -23,7 +23,7 @@ import {
 
 import Search from './Search';
 
-function userLink(userName, path) {
+function userLink(userName: string, path: string) {
   return `/user/${encodeURIComponent(userName)}${path}`;
 }
 

@@ -21,7 +21,7 @@ type PropsT = {
   },
 };
 
-const Instrument = ({instrument}) => (
+const Instrument = ({instrument}: {+instrument: InstrumentT}) => (
   <li>
     <EntityLink entity={instrument} />
     {instrument.description

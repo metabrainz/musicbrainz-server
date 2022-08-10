@@ -8,6 +8,7 @@
  */
 
 import * as React from 'react';
+import type {CellRenderProps} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults';
 import Table from '../../components/Table';
@@ -37,13 +38,15 @@ const EditorList = ({
   const columns = React.useMemo(
     () => {
       const nameColumn = {
-        Cell: ({row: {original}}) => {
+        Cell: ({
+          row: {original},
+        }: CellRenderProps<ReportEditorT, ?EditorT>) => {
           const editor = original.editor;
           return (
             <>
               <EditorLink editor={editor} />
               {' '}
-              {bracketed(
+              {editor == null ? null : bracketed(
                 <a
                   href={'/admin/user/delete/' +
                   encodeURIComponent(editor.name)}

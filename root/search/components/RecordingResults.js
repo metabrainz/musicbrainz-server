@@ -22,6 +22,7 @@ import loopParity from '../../utility/loopParity';
 import type {
   InlineResultsPropsWithContextT,
   ResultsPropsWithContextT,
+  SearchResultT,
 } from '../types';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
@@ -31,7 +32,7 @@ import ResultsLayout from './ResultsLayout';
 
 let linenum = 0;
 
-const buildRecordingColumns = recording => (
+const buildRecordingColumns = (recording: RecordingWithArtistCreditT) => (
   <>
     <td>
       <EntityLink entity={recording} />
@@ -50,7 +51,11 @@ const buildRecordingColumns = recording => (
   </>
 );
 
-const buildTaggerIcon = ($c, entityType, gid) => (
+const buildTaggerIcon = (
+  $c: CatalystContextT,
+  entityType: 'recording' | 'release',
+  gid: string,
+) => (
   $c.session?.tport == null ? null : (
     <td>
       <TaggerIcon entityType={entityType} gid={gid} />
@@ -58,7 +63,10 @@ const buildTaggerIcon = ($c, entityType, gid) => (
   )
 );
 
-function buildResultWithReleases($c, result) {
+function buildResultWithReleases(
+  $c: CatalystContextT,
+  result: SearchResultT<RecordingWithArtistCreditT>,
+) {
   const recording = result.entity;
   const score = result.score;
 
@@ -92,7 +100,10 @@ function buildResultWithReleases($c, result) {
   });
 }
 
-function buildResult($c, result) {
+function buildResult(
+  $c: CatalystContextT,
+  result: SearchResultT<RecordingWithArtistCreditT>,
+) {
   const recording = result.entity;
   const score = result.score;
 

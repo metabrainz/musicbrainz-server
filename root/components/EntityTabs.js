@@ -37,11 +37,11 @@ const tabLinkNames = {
 
 const buildLink = (
   content: string,
-  entity,
-  subPath,
-  page,
-  disabled = false,
-  pageName = subPath,
+  entity: CoreEntityT,
+  subPath: string,
+  page: ?string,
+  disabled?: boolean = false,
+  pageName?: string = subPath,
 ) => (
   <EntityTabLink
     content={content}

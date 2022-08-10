@@ -26,7 +26,7 @@ import Header from './components/Header';
 import Head, {type HeadProps} from './components/Head';
 import MergeHelper from './components/MergeHelper';
 
-const DismissBannerButton = ({bannerName}) => (
+const DismissBannerButton = ({bannerName}: {+bannerName: string}) => (
   <button
     className="dismiss-banner remove-item icon"
     data-banner-name={bannerName}
@@ -42,7 +42,7 @@ const BirthdayCakes = () => (
   </span>
 );
 
-function showBirthdayBanner($c) {
+function showBirthdayBanner($c: CatalystContextT) {
   const birthDate = $c.user ? $c.user.birth_date : null;
   if (!birthDate) {
     return false;
@@ -55,7 +55,7 @@ function showBirthdayBanner($c) {
          !getRequestCookie($c.req, 'birthday_message_dismissed_mtime');
 }
 
-const AnniversaryBanner = ({$c}) => {
+const AnniversaryBanner = ({$c}: {+$c: CatalystContextT}) => {
   const registrationDate = $c.user ? $c.user.registration_date : null;
   if (registrationDate == null) {
     return null;

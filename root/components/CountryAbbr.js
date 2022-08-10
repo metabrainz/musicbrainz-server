@@ -31,7 +31,7 @@ const CountryAbbr = ({
   const combinedClass =
     ('flag flag-' + primaryCode) +
     (nonEmpty(className) ? (' ' + className) : '');
-  let content = (
+  let content: React.MixedElement = (
     <abbr title={l_countries(country.name)}>
       {primaryCode}
     </abbr>

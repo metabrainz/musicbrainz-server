@@ -25,7 +25,7 @@ const AreaHeader = ({
   page,
 }: Props): React.Element<typeof EntityHeader> => {
   const areaType = localizeTypeNameForEntity(area);
-  let subHeading = areaType;
+  let subHeading: Expand2ReactOutput = areaType;
   if (area.containment?.length) {
     const parentAreas = <AreaContainmentLink area={area} />;
     subHeading = exp.l('{area_type} in {parent_areas}', {

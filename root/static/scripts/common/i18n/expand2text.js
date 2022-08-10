@@ -67,7 +67,7 @@ const rootParsers = [
   parseCondSubst,
 ];
 
-function parseRoot(args) {
+function parseRoot(args: VarArgsClass<StrOrNum>) {
   return parseContinuousString<StrOrNum>(rootParsers, args);
 }
 

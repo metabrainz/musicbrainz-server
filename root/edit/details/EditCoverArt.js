@@ -21,19 +21,19 @@ type Props = {
   +edit: EditCoverArtEditT,
 };
 
+function displayCoverArtTypes(types: $ReadOnlyArray<CoverArtTypeT>) {
+  if (types?.length) {
+    return commaOnlyListText(types.map(
+      type => lp_attributes(type.name, 'cover_art_type'),
+    ));
+  }
+  return '';
+}
+
 const EditCoverArt = ({edit}: Props): React.Element<'table'> => {
   const display = edit.display_data;
   const comment = display.comment;
   const types = display.types;
-
-  function displayCoverArtTypes(types) {
-    if (types?.length) {
-      return commaOnlyListText(types.map(
-        type => lp_attributes(type.name, 'cover_art_type'),
-      ));
-    }
-    return '';
-  }
 
   return (
     <table className="details remove-cover-art">

@@ -13,7 +13,7 @@ import {initializeBubble} from '../edit/MB/Control/Bubble';
 
 export default function typeBubble(typeIdField: string): void {
   initializeBubble('#type-bubble', typeIdField);
-  $(typeIdField).on('change', function () {
+  $(typeIdField).on('change', function (this: HTMLSelectElement) {
     if (this.value.match(/\S/g)) {
       $('#type-bubble-default').hide();
       $('.type-bubble-description').hide();

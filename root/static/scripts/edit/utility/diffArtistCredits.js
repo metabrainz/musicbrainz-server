@@ -20,7 +20,10 @@ import editDiff, {
   CLASS_MAP,
 } from './editDiff';
 
-function areArtistCreditNamesEqual(a, b) {
+function areArtistCreditNamesEqual(
+  a: ArtistCreditNameT,
+  b: ArtistCreditNameT,
+) {
   return (
     a.artist.id === b.artist.id &&
     a.name === b.name &&

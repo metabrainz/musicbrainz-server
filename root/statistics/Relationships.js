@@ -29,12 +29,21 @@ declare type RelationshipTypeT = {
   +tree: {[entityTypes: string]: Array<LinkTypeT>},
 };
 
-function comparePhrases(a, b) {
+function comparePhrases(a: LinkTypeT, b: LinkTypeT) {
   return compare(
     l_relationships(a.long_link_phrase),
     l_relationships(b.long_link_phrase),
   );
 }
+
+type TypeRowsPropsT = {
+  +$c: CatalystContextT,
+  +base: string,
+  +indent: number,
+  +parent: string,
+  +stats: { [statName: string]: number },
+  +type: LinkTypeT,
+};
 
 const TypeRows = ({
   $c,
@@ -43,7 +52,7 @@ const TypeRows = ({
   parent,
   stats,
   type,
-}) => {
+}: TypeRowsPropsT) => {
   return (
     <>
       <tr>

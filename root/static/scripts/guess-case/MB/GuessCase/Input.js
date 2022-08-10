@@ -177,7 +177,7 @@ class GuessCaseInput {
     input = input.replace(/\s\s*/g, ' '); // compress whitespace:
     const chars = input.split('');
     const splitwords = [];
-    let word = [];
+    let word: Array<string> = [];
     if (!gc.regexes.SPLITWORDSANDPUNCTUATION) {
       gc.regexes.SPLITWORDSANDPUNCTUATION = /[^!¿¡\"%&'´`‘’‹›“”„“«»()\[\]\{\}\*\+‐\-,\.\/:;<=>\?\s#]/;
     }

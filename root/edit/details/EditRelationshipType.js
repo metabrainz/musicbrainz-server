@@ -42,7 +42,10 @@ function formatLongLinkPhrase(longLinkPhrase: string): string {
   return formattedPhrase;
 }
 
-function formatAttribute(attribute, index) {
+function formatAttribute(
+  attribute: EditRelationshipTypeEditDisplayAttributeT,
+  index: number,
+) {
   return (
     <li key={'attribute-' + index}>
       {addColonText(l_relationships(attribute.typeName))}
@@ -54,7 +57,10 @@ function formatAttribute(attribute, index) {
   );
 }
 
-function formatExample(example, index) {
+function formatExample(
+  example: EditRelationshipTypeEditDisplayExampleT,
+  index: number,
+) {
   const sourceId = example.relationship.source_id;
   const sourceType = example.relationship.source_type;
   const source = linkedEntities[sourceType][sourceId];

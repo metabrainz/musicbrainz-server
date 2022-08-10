@@ -29,11 +29,13 @@ type Props = {
   +user: AccountLayoutUserT,
 };
 
+type CollectionWithSubscribedT = $ReadOnly<{
+  ...CollectionT,
+  subscribed: boolean,
+}>;
+
 type CollectionListT = {
-  +[entityType: string]: $ReadOnlyArray<$ReadOnly<{
-    ...CollectionT,
-    subscribed: boolean,
-  }>>,
+  +[entityType: string]: $ReadOnlyArray<CollectionWithSubscribedT>,
 };
 
 const collectionsListTitles = {
@@ -78,13 +80,21 @@ function formatPrivacy(
   );
 }
 
+type CollectionsEntityTypeSectionPropsT = {
+  +activeUserId: number | void,
+  +collections: $ReadOnlyArray<CollectionWithSubscribedT>,
+  +isCollaborative: boolean,
+  +type: string,
+  +user: AccountLayoutUserT,
+};
+
 const CollectionsEntityTypeSection = ({
   activeUserId,
-  isCollaborative,
   collections,
+  isCollaborative,
   type,
   user,
-}) => {
+}: CollectionsEntityTypeSectionPropsT) => {
   const columns = React.useMemo(
     () => {
       const viewingOwnProfile =

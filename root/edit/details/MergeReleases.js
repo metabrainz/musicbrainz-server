@@ -35,7 +35,7 @@ const strategyDescriptions = {
   merge: N_l('Merge mediums and recordings'),
 };
 
-function buildReleaseRow(release, index) {
+function buildReleaseRow(release: ReleaseT, index?: number) {
   return (
     <tr key={index == null ? null : 'release-' + index}>
       {release.gid ? (
@@ -82,7 +82,11 @@ function buildReleaseRow(release, index) {
   );
 }
 
-function buildChangesRow(change, index, editVersion) {
+function buildChangesRow(
+  change: MergeReleaseEditDisplayChangeT,
+  index: number,
+  editVersion: 1 | 2 | 3,
+) {
   return (
     <React.Fragment key={'changes-' + index}>
       {buildReleaseRow(change.release)}
@@ -147,7 +151,10 @@ function buildChangesRow(change, index, editVersion) {
   );
 }
 
-function buildRecordingMergeRow(merge, index) {
+function buildRecordingMergeRow(
+  merge: MergeReleaseEditDisplayRecordingMergeT,
+  index: number,
+) {
   const rowSpan = merge.sources.length;
 
   return (
@@ -194,7 +201,7 @@ function buildRecordingMergeRow(merge, index) {
   );
 }
 
-function getHtmlVars(vars) {
+function getHtmlVars(vars: {+[var: string]: string}) {
   if (!vars || Object.keys(vars).length === 0) {
     return vars;
   }

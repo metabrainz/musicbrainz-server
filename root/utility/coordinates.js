@@ -19,9 +19,8 @@ export function formatCoordinates(coordinates: ?CoordinatesT): string {
 }
 
 export function osmUrl(coordinates: CoordinatesT, zoom: number): string {
-  let {latitude, longitude} = coordinates;
-  latitude = encodeURIComponent(String(latitude));
-  longitude = encodeURIComponent(String(longitude));
+  const latitude = encodeURIComponent(String(coordinates.latitude));
+  const longitude = encodeURIComponent(String(coordinates.longitude));
   return 'http://www.openstreetmap.org/' +
     `?mlat=${latitude}&mlon=${longitude}` +
     `#map=${zoom}/${latitude}/${longitude}`;

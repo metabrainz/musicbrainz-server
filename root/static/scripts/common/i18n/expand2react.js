@@ -193,7 +193,7 @@ function parseContinuousArray<T: MatchUpperBoundT, V>(
   );
 }
 
-const parseHtmlAttrValue = args => (
+const parseHtmlAttrValue = (args: VarArgsClass<Input>) => (
   parseContinuousString(htmlAttrValueParsers, args)
 );
 
@@ -242,7 +242,7 @@ type HtmlAttrs = {
   ...
 };
 
-function parseHtmlAttr(args) {
+function parseHtmlAttr(args: VarArgsClass<Input>) {
   if (!gotMatch(accept(htmlAttrStart))) {
     return NO_MATCH_VALUE;
   }
@@ -277,7 +277,7 @@ function parseHtmlAttr(args) {
 
 const htmlAttrParsers = [parseHtmlAttr];
 
-function parseHtmlTag(args) {
+function parseHtmlTag(args: VarArgsClass<Input>) {
   if (!gotMatch(accept(htmlTagStart))) {
     return NO_MATCH_VALUE;
   }
@@ -349,7 +349,9 @@ const rootParsers = [
   parseHtmlTag,
 ];
 
-const parseRoot = args => parseContinuousArray(rootParsers, args);
+const parseRoot = (
+  args: VarArgsClass<Input>,
+) => parseContinuousArray(rootParsers, args);
 
 /*
  * `expand2react` takes a translated string and

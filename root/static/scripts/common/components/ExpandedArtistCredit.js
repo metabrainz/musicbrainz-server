@@ -25,7 +25,7 @@ export const ExpandedArtistCreditList = ({
   }
 
   const names = artistCredit.names;
-  let artistList = [];
+  let artistList: Array<Expand2ReactOutput> = [];
 
   if (names.some(x => x.artist.name !== x.name || x.artist.comment)) {
     artistList = names.map(name => {

@@ -10,6 +10,10 @@ import {
 } from '../../../constants';
 import Autocomplete2, {createInitialState as createInitialAutocompleteState}
   from '../common/components/Autocomplete2';
+import type {
+  ActionT as AutocompleteActionT,
+  StateT as AutocompleteStateT,
+} from '../common/components/Autocomplete2/types';
 import autocompleteReducer from '../common/components/Autocomplete2/reducer';
 import {keyBy} from '../common/utility/arrays';
 
@@ -19,6 +23,23 @@ import {keyBy} from '../common/utility/arrays';
  */
 // $FlowIgnore[cannot-resolve-module]
 import {linkAttributeTypes} from './typeInfo';
+
+type ActionT =
+  | {
+      +action: AutocompleteActionT<NonUrlCoreEntityT>,
+      +prop: 'entityAutocomplete',
+      +type: 'update-autocomplete',
+    }
+  | {
+      +action: AutocompleteActionT<LinkAttrTypeT>,
+      +prop: 'vocalAutocomplete',
+      +type: 'update-autocomplete',
+    };
+
+type StateT = {
+  +entityAutocomplete: AutocompleteStateT<NonUrlCoreEntityT>,
+  +vocalAutocomplete: AutocompleteStateT<LinkAttrTypeT>,
+};
 
 const attributeTypesById = keyBy(
   (linkAttributeTypes: $ReadOnlyArray<LinkAttrTypeT>),
@@ -51,7 +72,7 @@ $(function () {
   const container = document.createElement('div');
   document.body?.insertBefore(container, document.getElementById('page'));
 
-  function reducer(state, action) {
+  function reducer(state: StateT, action: ActionT) {
     switch (action.type) {
       case 'update-autocomplete':
         state = {...state};

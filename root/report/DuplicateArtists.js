@@ -27,8 +27,8 @@ const DuplicateArtists = ({
   items,
   pager,
 }: ReportDataT<ReportArtistT>): React.Element<typeof ReportLayout> => {
-  let currentKey = '';
-  let lastKey = '';
+  let currentKey: ?string = '';
+  let lastKey: ?string = '';
 
   return (
     <ReportLayout

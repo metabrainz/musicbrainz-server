@@ -12,7 +12,10 @@ import {
   EDIT_VOTE_NO,
 } from '../../constants';
 
-function countVotes(votes, voteValue): number {
+function countVotes(
+  votes: $ReadOnlyArray<VoteT>,
+  voteValue: number,
+): number {
   return votes.reduce(
     (count, vote) => {
       return count + ((vote.vote === voteValue && !vote.superseded) ? 1 : 0);
