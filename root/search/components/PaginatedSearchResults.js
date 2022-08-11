@@ -9,8 +9,10 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context';
 import PaginatedResults from '../../components/PaginatedResults';
 import {type SearchResultT} from '../types';
+import uriWith from '../../utility/uriWith';
 
 type Props<T> = {
   +buildResult: (SearchResultT<T>, number) => React.Node,
@@ -27,6 +29,12 @@ const PaginatedSearchResults = <T>({
   query,
   results,
 }: Props<T>): React.Element<typeof PaginatedResults | 'p'> => {
+  const $c = React.useContext(CatalystContext);
+  const hasLastPage = pager.total_entries > 0;
+  const lastPageUrl = hasLastPage
+    ? uriWith($c.req.uri, {page: pager.last_page})
+    : null;
+
   return results.length ? (
     <PaginatedResults pager={pager} query={query} search>
       <table className="tbl">
@@ -40,6 +48,13 @@ const PaginatedSearchResults = <T>({
         </tbody>
       </table>
     </PaginatedResults>
+  ) : nonEmpty(lastPageUrl) ? (
+    <p>
+      {exp.l(
+        'The last page of results is page {last_page}.',
+        {last_page: <a href={lastPageUrl}>{pager.last_page}</a>},
+      )}
+    </p>
   ) : <p>{l('No results found. Try refining your search query.')}</p>;
 };
 
