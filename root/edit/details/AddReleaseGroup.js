@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import DescriptiveLink from
-  '../../static/scripts/common/components/DescriptiveLink';
+  '../../static/scripts/common/components/DescriptiveLink.js';
 import ExpandedArtistCredit from
-  '../../static/scripts/common/components/ExpandedArtistCredit';
+  '../../static/scripts/common/components/ExpandedArtistCredit.js';
 
 type Props = {
   +allowNew?: boolean,

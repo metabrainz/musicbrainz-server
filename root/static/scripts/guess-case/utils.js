@@ -8,14 +8,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import clean from '../common/utility/clean';
+import clean from '../common/utility/clean.js';
 
-import * as flags from './flags';
-import * as modes from './modes';
-import type {GuessCaseModeT} from './types';
-import gc from './MB/GuessCase/Main';
-import input from './MB/GuessCase/Input';
-import output from './MB/GuessCase/Output';
+import * as flags from './flags.js';
+import * as modes from './modes.js';
+import type {GuessCaseModeT} from './types.js';
+import gc from './MB/GuessCase/Main.js';
+import input from './MB/GuessCase/Input.js';
+import output from './MB/GuessCase/Output.js';
 
 
 /*

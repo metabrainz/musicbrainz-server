@@ -10,7 +10,7 @@
 import {
   compareNumbers,
   compareStrings,
-} from './compare';
+} from './compare.js';
 
 /*
  * Checks if two arrays are equal using the provided `isEqual` function

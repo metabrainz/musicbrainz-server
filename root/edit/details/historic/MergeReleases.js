@@ -10,8 +10,8 @@
 import * as React from 'react';
 
 import DescriptiveLink
-  from '../../../static/scripts/common/components/DescriptiveLink';
-import yesNo from '../../../static/scripts/common/utility/yesNo';
+  from '../../../static/scripts/common/components/DescriptiveLink.js';
+import yesNo from '../../../static/scripts/common/utility/yesNo.js';
 
 type Props = {
   +edit: MergeReleasesHistoricEditT,

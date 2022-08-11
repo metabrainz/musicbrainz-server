@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import EntityTabLink from '../components/EntityTabLink';
-import SubHeader from '../components/SubHeader';
-import Tabs from '../components/Tabs';
-import EditorLink from '../static/scripts/common/components/EditorLink';
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import bracketed from '../static/scripts/common/utility/bracketed';
+import EntityTabLink from '../components/EntityTabLink.js';
+import SubHeader from '../components/SubHeader.js';
+import Tabs from '../components/Tabs.js';
+import EditorLink from '../static/scripts/common/components/EditorLink.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import bracketed from '../static/scripts/common/utility/bracketed.js';
 
 type Props = {
   +$c: CatalystContextT,

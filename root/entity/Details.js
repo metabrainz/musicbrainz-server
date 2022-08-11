@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import {ENTITIES} from '../static/scripts/common/constants';
+import {ENTITIES} from '../static/scripts/common/constants.js';
 import DBDefs from '../static/scripts/common/DBDefs.mjs';
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import chooseLayoutComponent from '../utility/chooseLayoutComponent';
-import formatUserDate from '../utility/formatUserDate';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
+import formatUserDate from '../utility/formatUserDate.js';
 
 type WSLinkProps = {
   +entityGid: string,

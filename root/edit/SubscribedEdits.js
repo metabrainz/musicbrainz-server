@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
+import Layout from '../layout/index.js';
 
-import EditList from './components/EditList';
+import EditList from './components/EditList.js';
 
 type Props = {
   +$c: CatalystContextT,

@@ -10,13 +10,13 @@
 import * as React from 'react';
 import type {CellRenderProps} from 'react-table';
 
-import Layout from '../../layout';
-import Table from '../../components/Table';
-import bracketed from '../../static/scripts/common/utility/bracketed';
+import Layout from '../../layout/index.js';
+import Table from '../../components/Table.js';
+import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import {isWikiTranscluder}
-  from '../../static/scripts/common/utility/privileges';
+  from '../../static/scripts/common/utility/privileges.js';
 
-import type {WikiDocT} from './types';
+import type {WikiDocT} from './types.js';
 
 type PropsT = {
   +$c: CatalystContextT,

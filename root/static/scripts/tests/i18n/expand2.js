@@ -1,11 +1,11 @@
 import test from 'tape';
 import * as React from 'react';
 
-import {VarArgs} from '../../common/i18n/expand2';
-import expand2html from '../../common/i18n/expand2html';
+import {VarArgs} from '../../common/i18n/expand2.js';
+import expand2html from '../../common/i18n/expand2html.js';
 import expand2text, {
   expand2textWithVarArgsClass,
-} from '../../common/i18n/expand2text';
+} from '../../common/i18n/expand2text.js';
 
 test('expand2', function (t) {
   t.plan(64);

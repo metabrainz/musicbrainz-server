@@ -11,19 +11,19 @@ import * as React from 'react';
 
 import UserAccountLayout, {
   sanitizedAccountLayoutUser,
-} from '../components/UserAccountLayout';
+} from '../components/UserAccountLayout.js';
 import DescriptiveLink
-  from '../static/scripts/common/components/DescriptiveLink';
-import Warning from '../static/scripts/common/components/Warning';
-import {FLUENCY_NAMES} from '../static/scripts/common/constants';
-import {compare} from '../static/scripts/common/i18n';
-import commaList from '../static/scripts/common/i18n/commaList';
-import expand2react from '../static/scripts/common/i18n/expand2react';
+  from '../static/scripts/common/components/DescriptiveLink.js';
+import Warning from '../static/scripts/common/components/Warning.js';
+import {FLUENCY_NAMES} from '../static/scripts/common/constants.js';
+import {compare} from '../static/scripts/common/i18n.js';
+import commaList from '../static/scripts/common/i18n/commaList.js';
+import expand2react from '../static/scripts/common/i18n/expand2react.js';
 import bracketed, {bracketedText}
-  from '../static/scripts/common/utility/bracketed';
-import * as TYPES from '../static/scripts/common/constants/editTypes';
+  from '../static/scripts/common/utility/bracketed.js';
+import * as TYPES from '../static/scripts/common/constants/editTypes.js';
 import escapeRegExp from '../static/scripts/common/utility/escapeRegExp.mjs';
-import nonEmpty from '../static/scripts/common/utility/nonEmpty';
+import nonEmpty from '../static/scripts/common/utility/nonEmpty.js';
 import {
   isAccountAdmin,
   isAddingNotesDisabled,
@@ -33,12 +33,12 @@ import {
   isRelationshipEditor,
   isSpammer,
   isWikiTranscluder,
-} from '../static/scripts/common/utility/privileges';
-import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
-import {formatCount, formatPercentage} from '../statistics/utilities';
-import formatUserDate from '../utility/formatUserDate';
-import {canNominate} from '../utility/voting';
-import {returnToCurrentPage} from '../utility/returnUri';
+} from '../static/scripts/common/utility/privileges.js';
+import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList.js';
+import {formatCount, formatPercentage} from '../statistics/utilities.js';
+import formatUserDate from '../utility/formatUserDate.js';
+import {canNominate} from '../utility/voting.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 const ADDED_ENTITIES_TYPES = {
   area:         N_l('Area'),

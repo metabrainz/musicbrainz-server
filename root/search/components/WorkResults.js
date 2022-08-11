@@ -10,13 +10,13 @@
 import * as React from 'react';
 
 import WorkListEntry
-  from '../../static/scripts/common/components/WorkListEntry';
+  from '../../static/scripts/common/components/WorkListEntry.js';
 import {isEditingEnabled}
-  from '../../static/scripts/common/utility/privileges';
-import type {ResultsPropsWithContextT, SearchResultT} from '../types';
+  from '../../static/scripts/common/utility/privileges.js';
+import type {ResultsPropsWithContextT, SearchResultT} from '../types.js';
 
-import PaginatedSearchResults from './PaginatedSearchResults';
-import ResultsLayout from './ResultsLayout';
+import PaginatedSearchResults from './PaginatedSearchResults.js';
+import ResultsLayout from './ResultsLayout.js';
 
 function buildResult(
   result: SearchResultT<WorkT>,

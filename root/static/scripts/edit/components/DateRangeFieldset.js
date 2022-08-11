@@ -9,16 +9,16 @@
 
 import {useCallback} from 'react';
 
-import FieldErrors from '../../../../components/FieldErrors';
+import FieldErrors from '../../../../components/FieldErrors.js';
 import FormRowPartialDate, {
   type ActionT as FormRowPartialDateActionT,
   runReducer as runFormRowPartialDateReducer,
-} from '../../../../components/FormRowPartialDate';
-import FormRowCheckbox from '../../../../components/FormRowCheckbox';
-import {applyAllPendingErrors} from '../../../../utility/subfieldErrors';
-import isDateEmpty from '../../common/utility/isDateEmpty';
-import parseIntegerOrNull from '../../common/utility/parseIntegerOrNull';
-import {isDatePeriodValid} from '../utility/dates';
+} from '../../../../components/FormRowPartialDate.js';
+import FormRowCheckbox from '../../../../components/FormRowCheckbox.js';
+import {applyAllPendingErrors} from '../../../../utility/subfieldErrors.js';
+import isDateEmpty from '../../common/utility/isDateEmpty.js';
+import parseIntegerOrNull from '../../common/utility/parseIntegerOrNull.js';
+import {isDatePeriodValid} from '../utility/dates.js';
 
 /* eslint-disable flowtype/sort-keys */
 export type ActionT =

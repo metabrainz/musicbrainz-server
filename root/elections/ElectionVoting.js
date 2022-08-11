@@ -10,10 +10,10 @@
 import * as React from 'react';
 
 import {canCancel, canSecond, canVote, isInvolved}
-  from '../utility/voting';
+  from '../utility/voting.js';
 import {
   isAutoEditor,
-} from '../static/scripts/common/utility/privileges';
+} from '../static/scripts/common/utility/privileges.js';
 
 type PropsT = {
   +$c: CatalystContextT,

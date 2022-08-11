@@ -9,13 +9,13 @@
 
 import * as React from 'react';
 
-import PaginatedResults from '../components/PaginatedResults';
+import PaginatedResults from '../components/PaginatedResults.js';
 import {CatalystContext} from '../context.mjs';
-import {formatCount} from '../statistics/utilities';
-import loopParity from '../utility/loopParity';
+import {formatCount} from '../statistics/utilities.js';
+import loopParity from '../utility/loopParity.js';
 
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT} from './types';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT} from './types.js';
 
 type ReportEntryT = {
   +count: number,

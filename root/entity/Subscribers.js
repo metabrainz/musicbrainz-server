@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import EditorLink from '../static/scripts/common/components/EditorLink';
+import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import isSpecialPurpose
-  from '../static/scripts/common/utility/isSpecialPurpose';
-import chooseLayoutComponent from '../utility/chooseLayoutComponent';
-import {returnToCurrentPage} from '../utility/returnUri';
+  from '../static/scripts/common/utility/isSpecialPurpose.js';
+import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 type Props = {
   +$c: CatalystContextT,

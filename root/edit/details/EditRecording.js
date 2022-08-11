@@ -10,16 +10,16 @@
 import * as React from 'react';
 
 import DescriptiveLink from
-  '../../static/scripts/common/components/DescriptiveLink';
-import Diff from '../../static/scripts/edit/components/edit/Diff';
+  '../../static/scripts/common/components/DescriptiveLink.js';
+import Diff from '../../static/scripts/edit/components/edit/Diff.js';
 import formatTrackLength from
-  '../../static/scripts/common/utility/formatTrackLength';
+  '../../static/scripts/common/utility/formatTrackLength.js';
 import FullChangeDiff from
-  '../../static/scripts/edit/components/edit/FullChangeDiff';
-import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
-import yesNo from '../../static/scripts/common/utility/yesNo';
+  '../../static/scripts/edit/components/edit/FullChangeDiff.js';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
+import yesNo from '../../static/scripts/common/utility/yesNo.js';
 import ExpandedArtistCredit from
-  '../../static/scripts/common/components/ExpandedArtistCredit';
+  '../../static/scripts/common/components/ExpandedArtistCredit.js';
 
 type Props = {
   +edit: EditRecordingEditT,

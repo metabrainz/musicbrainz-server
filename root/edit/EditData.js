@@ -9,14 +9,14 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import EditLink from '../static/scripts/common/components/EditLink';
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
-import {bracketedText} from '../static/scripts/common/utility/bracketed';
+import Layout from '../layout/index.js';
+import EditLink from '../static/scripts/common/components/EditLink.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList.js';
+import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
 import {formatPluralEntityTypeName}
-  from '../static/scripts/common/utility/formatEntityTypeName';
-import {getEditStatusName} from '../utility/edit';
+  from '../static/scripts/common/utility/formatEntityTypeName.js';
+import {getEditStatusName} from '../utility/edit.js';
 
 type Props = {
   +edit: GenericEditWithIdT,

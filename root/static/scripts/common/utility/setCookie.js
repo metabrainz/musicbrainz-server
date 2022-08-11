@@ -1,6 +1,6 @@
 import cookie from 'cookie';
 
-import _cookies from './_cookies';
+import _cookies from './_cookies.js';
 
 let defaultExport;
 

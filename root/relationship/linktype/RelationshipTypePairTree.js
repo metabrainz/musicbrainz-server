@@ -9,18 +9,19 @@
 
 import * as React from 'react';
 
-import Layout from '../../layout';
+import Layout from '../../layout/index.js';
 import * as manifest from '../../static/manifest.mjs';
-import Cardinality from '../../static/scripts/common/components/Cardinality';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import expand2react from '../../static/scripts/common/i18n/expand2react';
-import bracketed from '../../static/scripts/common/utility/bracketed';
+import Cardinality
+  from '../../static/scripts/common/components/Cardinality.js';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
+import expand2react from '../../static/scripts/common/i18n/expand2react.js';
+import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import formatEntityTypeName
-  from '../../static/scripts/common/utility/formatEntityTypeName';
+  from '../../static/scripts/common/utility/formatEntityTypeName.js';
 import {isRelationshipEditor}
-  from '../../static/scripts/common/utility/privileges';
-import compareChildren from '../utility/compareChildren';
-import RelationshipsHeader from '../RelationshipsHeader';
+  from '../../static/scripts/common/utility/privileges.js';
+import compareChildren from '../utility/compareChildren.js';
+import RelationshipsHeader from '../RelationshipsHeader.js';
 
 type RelationshipTypeDetailsProps = {
   +$c: CatalystContextT,

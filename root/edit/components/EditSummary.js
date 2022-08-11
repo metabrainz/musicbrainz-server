@@ -12,17 +12,17 @@ import * as React from 'react';
 import {
   EDIT_STATUS_OPEN,
   EDIT_STATUS_APPLIED,
-} from '../../constants';
+} from '../../constants.js';
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import {
   editorMayAddNote,
   editorMayApprove,
   editorMayCancel,
   getEditStatusName,
-} from '../../utility/edit';
-import returnUri from '../../utility/returnUri';
+} from '../../utility/edit.js';
+import returnUri from '../../utility/returnUri.js';
 
-import Vote from './Vote';
+import Vote from './Vote.js';
 
 type Props = {
   +$c: CatalystContextT,

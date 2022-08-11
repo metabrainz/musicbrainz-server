@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import ReleaseGroupUrlList from './components/ReleaseGroupUrlList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportReleaseGroupUrlT} from './types';
+import ReleaseGroupUrlList from './components/ReleaseGroupUrlList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportReleaseGroupUrlT} from './types.js';
 
 const DiscogsLinksWithMultipleReleaseGroups = ({
   canBeFiltered,

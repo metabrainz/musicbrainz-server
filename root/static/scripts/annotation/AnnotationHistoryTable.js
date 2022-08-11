@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import EditorLink from '../common/components/EditorLink';
-import bracketed from '../common/utility/bracketed';
-import formatUserDate from '../../../utility/formatUserDate';
+import EditorLink from '../common/components/EditorLink.js';
+import bracketed from '../common/utility/bracketed.js';
+import formatUserDate from '../../../utility/formatUserDate.js';
 
 type Props = {
   +$c: CatalystContextT,

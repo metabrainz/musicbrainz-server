@@ -10,11 +10,11 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
-import Layout from '../layout';
+import Layout from '../layout/index.js';
 import CollectionSidebar
-  from '../layout/components/sidebar/CollectionSidebar';
+  from '../layout/components/sidebar/CollectionSidebar.js';
 
-import CollectionHeader from './CollectionHeader';
+import CollectionHeader from './CollectionHeader.js';
 
 type Props = {
   +children: React.Node,

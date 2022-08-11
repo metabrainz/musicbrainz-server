@@ -9,8 +9,9 @@
 
 import * as React from 'react';
 
-import chooseLayoutComponent from '../utility/chooseLayoutComponent';
-import {MainTagEditor} from '../static/scripts/common/components/TagEditor';
+import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
+import {MainTagEditor}
+  from '../static/scripts/common/components/TagEditor.js';
 
 type Props = {
   +$c: CatalystContextT,

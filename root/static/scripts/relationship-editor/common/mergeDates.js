@@ -8,7 +8,7 @@
 
 import ko from 'knockout';
 
-import parseIntegerOrNull from '../../common/utility/parseIntegerOrNull';
+import parseIntegerOrNull from '../../common/utility/parseIntegerOrNull.js';
 
 function conflict(a, b, prop) {
   return nonEmpty(a[prop]) && nonEmpty(b[prop]) && a[prop] !== b[prop];

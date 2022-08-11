@@ -9,15 +9,15 @@
 
 import * as React from 'react';
 
-import PaginatedResults from '../components/PaginatedResults';
-import loopParity from '../utility/loopParity';
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import FormRow from '../components/FormRow';
-import FormSubmit from '../components/FormSubmit';
-import {returnToCurrentPage} from '../utility/returnUri';
+import PaginatedResults from '../components/PaginatedResults.js';
+import loopParity from '../utility/loopParity.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import FormRow from '../components/FormRow.js';
+import FormSubmit from '../components/FormSubmit.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
-import ReportLayout from './components/ReportLayout';
-import type {ReportArtistT, ReportDataT} from './types';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportArtistT, ReportDataT} from './types.js';
 
 const DuplicateArtists = ({
   $c,

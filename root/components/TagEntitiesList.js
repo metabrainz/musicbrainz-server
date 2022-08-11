@@ -9,15 +9,15 @@
 
 import * as React from 'react';
 
-import {type AccountLayoutUserT} from '../components/UserAccountLayout';
-import {ENTITIES} from '../static/scripts/common/constants';
+import {type AccountLayoutUserT} from '../components/UserAccountLayout.js';
+import {ENTITIES} from '../static/scripts/common/constants.js';
 import DescriptiveLink
-  from '../static/scripts/common/components/DescriptiveLink';
+  from '../static/scripts/common/components/DescriptiveLink.js';
 import TagLink, {UserTagLink}
-  from '../static/scripts/common/components/TagLink';
-import expand2text from '../static/scripts/common/i18n/expand2text';
-import {formatCount} from '../statistics/utilities';
-import UserTagFilters from '../user/components/UserTagFilters';
+  from '../static/scripts/common/components/TagLink.js';
+import expand2text from '../static/scripts/common/i18n/expand2text.js';
+import {formatCount} from '../statistics/utilities.js';
+import UserTagFilters from '../user/components/UserTagFilters.js';
 
 type Props = {
   +$c: CatalystContextT,

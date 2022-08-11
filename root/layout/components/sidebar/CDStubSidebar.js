@@ -9,13 +9,14 @@
 
 import * as React from 'react';
 
-import CDStubLink from '../../../static/scripts/common/components/CDStubLink';
+import CDStubLink
+  from '../../../static/scripts/common/components/CDStubLink.js';
 import escapeLuceneValue
-  from '../../../static/scripts/common/utility/escapeLuceneValue';
-import parseDate from '../../../static/scripts/common/utility/parseDate';
-import {age, displayAgeAgo} from '../../../utility/age';
+  from '../../../static/scripts/common/utility/escapeLuceneValue.js';
+import parseDate from '../../../static/scripts/common/utility/parseDate.js';
+import {age, displayAgeAgo} from '../../../utility/age.js';
 
-import {SidebarProperties, SidebarProperty} from './SidebarProperties';
+import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 
 type Props = {
   +cdstub: CDStubT,

@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import EditLink from '../static/scripts/common/components/EditLink';
-import {EDIT_STATUS_DELETED} from '../constants';
+import Layout from '../layout/index.js';
+import EditLink from '../static/scripts/common/components/EditLink.js';
+import {EDIT_STATUS_DELETED} from '../constants.js';
 
 type Props = {
   +edit: GenericEditWithIdT,

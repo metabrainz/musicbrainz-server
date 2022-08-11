@@ -10,13 +10,13 @@
 import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../../../../context.mjs';
-import formatUserDate from '../../../../utility/formatUserDate';
-import hydrate from '../../../../utility/hydrate';
-import bracketed from '../utility/bracketed';
-import {StaticRatingStars} from '../components/RatingStars';
+import formatUserDate from '../../../../utility/formatUserDate.js';
+import hydrate from '../../../../utility/hydrate.js';
+import bracketed from '../utility/bracketed.js';
+import {StaticRatingStars} from '../components/RatingStars.js';
 import DBDefs from '../DBDefs-client.mjs';
 
-import Collapsible from './Collapsible';
+import Collapsible from './Collapsible.js';
 
 type Props = {
   +review: CritiqueBrainzReviewT,

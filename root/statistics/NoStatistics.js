@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
+import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
 
-import StatisticsLayout from './StatisticsLayout';
+import StatisticsLayout from './StatisticsLayout.js';
 
 const NoStatistics = (): React.Element<typeof StatisticsLayout> => (
   <StatisticsLayout fullWidth page="index" title={l('No Statistics')}>

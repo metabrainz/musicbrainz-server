@@ -15,11 +15,11 @@ import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import commonLessUrl from '../../static/styles/common.less';
 import iconLessUrl from '../../static/styles/icons.less';
 import noScriptLessUrl from '../../static/styles/noscript.less';
-import escapeClosingTags from '../../utility/escapeClosingTags';
+import escapeClosingTags from '../../utility/escapeClosingTags.js';
 
 import globalsScript from './globalsScript.mjs';
-import FaviconLinks from './FaviconLinks';
-import MetaDescription from './MetaDescription';
+import FaviconLinks from './FaviconLinks.js';
+import MetaDescription from './MetaDescription.js';
 
 export type HeadProps = {
   +homepage?: boolean,

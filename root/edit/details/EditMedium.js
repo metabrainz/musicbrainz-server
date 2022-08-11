@@ -10,33 +10,33 @@
 import * as React from 'react';
 
 import {artistCreditsAreEqual}
-  from '../../static/scripts/common/immutable-entities';
+  from '../../static/scripts/common/immutable-entities.js';
 import ArtistCreditLink
-  from '../../static/scripts/common/components/ArtistCreditLink';
+  from '../../static/scripts/common/components/ArtistCreditLink.js';
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
 import DataTrackIcon
-  from '../../static/scripts/common/components/DataTrackIcon';
+  from '../../static/scripts/common/components/DataTrackIcon.js';
 import EntityLink
-  from '../../static/scripts/common/components/EntityLink';
+  from '../../static/scripts/common/components/EntityLink.js';
 import ExpandedArtistCredit
-  from '../../static/scripts/common/components/ExpandedArtistCredit';
+  from '../../static/scripts/common/components/ExpandedArtistCredit.js';
 import MediumLink
-  from '../../static/scripts/common/components/MediumLink';
+  from '../../static/scripts/common/components/MediumLink.js';
 import PregapTrackIcon
-  from '../../static/scripts/common/components/PregapTrackIcon';
+  from '../../static/scripts/common/components/PregapTrackIcon.js';
 import formatTrackLength
-  from '../../static/scripts/common/utility/formatTrackLength';
-import DiffSide from '../../static/scripts/edit/components/edit/DiffSide';
+  from '../../static/scripts/common/utility/formatTrackLength.js';
+import DiffSide from '../../static/scripts/edit/components/edit/DiffSide.js';
 import FullChangeDiff
-  from '../../static/scripts/edit/components/edit/FullChangeDiff';
+  from '../../static/scripts/edit/components/edit/FullChangeDiff.js';
 import InformationIcon
-  from '../../static/scripts/edit/components/InformationIcon';
-import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
+  from '../../static/scripts/edit/components/InformationIcon.js';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 import diffArtistCredits
-  from '../../static/scripts/edit/utility/diffArtistCredits';
-import {INSERT, DELETE} from '../../static/scripts/edit/utility/editDiff';
-import loopParity from '../../utility/loopParity';
+  from '../../static/scripts/edit/utility/diffArtistCredits.js';
+import {INSERT, DELETE} from '../../static/scripts/edit/utility/editDiff.js';
+import loopParity from '../../utility/loopParity.js';
 
 type TracklistChangesAddProps = {
   +change: TracklistChangesAddT,

@@ -9,13 +9,13 @@
 
 import * as React from 'react';
 
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import Diff from '../../static/scripts/edit/components/edit/Diff';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
+import Diff from '../../static/scripts/edit/components/edit/Diff.js';
 import FullChangeDiff from
-  '../../static/scripts/edit/components/edit/FullChangeDiff';
-import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
-import yesNo from '../../static/scripts/common/utility/yesNo';
-import formatDate from '../../static/scripts/common/utility/formatDate';
+  '../../static/scripts/edit/components/edit/FullChangeDiff.js';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
+import yesNo from '../../static/scripts/common/utility/yesNo.js';
+import formatDate from '../../static/scripts/common/utility/formatDate.js';
 
 type Props = {
   +edit: EditEventEditT,

@@ -9,26 +9,26 @@
 
 import * as React from 'react';
 
-import CountryAbbr from '../../../../../components/CountryAbbr';
-import {INSTRUMENT_ROOT_ID} from '../../constants';
-import {commaOnlyListText} from '../../i18n/commaOnlyList';
-import {unwrapNl} from '../../i18n';
-import {addColonText} from '../../i18n/addColon';
+import CountryAbbr from '../../../../../components/CountryAbbr.js';
+import {INSTRUMENT_ROOT_ID} from '../../constants.js';
+import {commaOnlyListText} from '../../i18n/commaOnlyList.js';
+import {unwrapNl} from '../../i18n.js';
+import {addColonText} from '../../i18n/addColon.js';
 import localizeLinkAttributeTypeDescription
-  from '../../i18n/localizeLinkAttributeTypeDescription';
+  from '../../i18n/localizeLinkAttributeTypeDescription.js';
 import localizeLinkAttributeTypeName
-  from '../../i18n/localizeLinkAttributeTypeName';
-import localizeLanguageName from '../../i18n/localizeLanguageName';
-import {reduceArtistCredit} from '../../immutable-entities';
-import bracketed, {bracketedText} from '../../utility/bracketed';
-import formatDate from '../../utility/formatDate';
-import formatDatePeriod from '../../utility/formatDatePeriod';
-import formatTrackLength from '../../utility/formatTrackLength';
+  from '../../i18n/localizeLinkAttributeTypeName.js';
+import localizeLanguageName from '../../i18n/localizeLanguageName.js';
+import {reduceArtistCredit} from '../../immutable-entities.js';
+import bracketed, {bracketedText} from '../../utility/bracketed.js';
+import formatDate from '../../utility/formatDate.js';
+import formatDatePeriod from '../../utility/formatDatePeriod.js';
+import formatTrackLength from '../../utility/formatTrackLength.js';
 
 import type {
   EntityItemT,
   ItemT,
-} from './types';
+} from './types.js';
 
 const nonLatinRegExp = /[^\u0000-\u02ff\u1E00-\u1EFF\u2000-\u207F]/;
 

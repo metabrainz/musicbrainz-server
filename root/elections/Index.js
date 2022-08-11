@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
+import Layout from '../layout/index.js';
 
-import ElectionTable from './ElectionTable';
+import ElectionTable from './ElectionTable/index.js';
 
 type Props = {
   +$c: CatalystContextT,

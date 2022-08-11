@@ -10,29 +10,29 @@
 import {
   INSTRUMENT_ROOT_ID,
   VOCAL_ROOT_ID,
-} from '../static/scripts/common/constants';
-import {compare} from '../static/scripts/common/i18n';
-import commaList from '../static/scripts/common/i18n/commaList';
+} from '../static/scripts/common/constants.js';
+import {compare} from '../static/scripts/common/i18n.js';
+import commaList from '../static/scripts/common/i18n/commaList.js';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import {
   compareStrings,
-} from '../static/scripts/common/utility/compare';
+} from '../static/scripts/common/utility/compare.js';
 import {compareDatePeriods}
-  from '../static/scripts/common/utility/compareDates';
+  from '../static/scripts/common/utility/compareDates.js';
 import {
   arraysEqual,
   mergeSortedArrayInto,
   sortedIndexWith,
-} from '../static/scripts/common/utility/arrays';
-import {uniqueId} from '../static/scripts/common/utility/strings';
+} from '../static/scripts/common/utility/arrays.js';
+import {uniqueId} from '../static/scripts/common/utility/strings.js';
 import {
   cmpLinkAttrs,
   getExtraAttributes,
   interpolate,
   interpolateText,
-} from '../static/scripts/edit/utility/linkPhrase';
+} from '../static/scripts/edit/utility/linkPhrase.js';
 
-import areDatePeriodsEqual from './areDatePeriodsEqual';
+import areDatePeriodsEqual from './areDatePeriodsEqual.js';
 
 const UNIT_SEP = '\x1F';
 

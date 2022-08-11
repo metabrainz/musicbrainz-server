@@ -8,7 +8,7 @@
 
 import $ from 'jquery';
 
-import setCookie from './utility/setCookie';
+import setCookie from './utility/setCookie.js';
 
 function isOneDayBanner(bannerName) {
   return bannerName === 'birthday_message' ||

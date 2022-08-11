@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import StatusPage from '../components/StatusPage';
+import StatusPage from '../components/StatusPage.js';
 
 type Props = {
   +message: string,

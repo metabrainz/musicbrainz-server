@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import {getEditStatusClass} from '../../utility/edit';
-import EditHeader from '../components/EditHeader';
-import EditNotes from '../components/EditNotes';
-import EditSummary from '../components/EditSummary';
-import getEditDetailsElement from '../utility/getEditDetailsElement';
+import {getEditStatusClass} from '../../utility/edit.js';
+import EditHeader from '../components/EditHeader.js';
+import EditNotes from '../components/EditNotes.js';
+import EditSummary from '../components/EditSummary.js';
+import getEditDetailsElement from '../utility/getEditDetailsElement.js';
 
 type Props = {
   +$c: CatalystContextT,

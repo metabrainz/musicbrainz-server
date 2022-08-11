@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import ENTITIES from '../../entities';
+import ENTITIES from '../../entities.json';
 
 /*
  * Returns the sort name for entities that have them, or falls back to

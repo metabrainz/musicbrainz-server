@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import ArtistSidebar from '../layout/components/sidebar/ArtistSidebar';
+import Layout from '../layout/index.js';
+import ArtistSidebar from '../layout/components/sidebar/ArtistSidebar.js';
 
-import ArtistHeader from './ArtistHeader';
+import ArtistHeader from './ArtistHeader.js';
 
 type Props = {
   +children: React.Node,

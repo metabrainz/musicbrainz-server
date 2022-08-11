@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import StatusPage from './StatusPage';
+import StatusPage from './StatusPage.js';
 
 const NotFound = StatusPage;
 

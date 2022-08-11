@@ -9,14 +9,14 @@
 
 import * as React from 'react';
 
-import EntityLink from '../../static/scripts/common/components/EntityLink';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import {isEditingEnabled}
-  from '../../static/scripts/common/utility/privileges';
-import loopParity from '../../utility/loopParity';
-import type {ResultsPropsWithContextT, SearchResultT} from '../types';
+  from '../../static/scripts/common/utility/privileges.js';
+import loopParity from '../../utility/loopParity.js';
+import type {ResultsPropsWithContextT, SearchResultT} from '../types.js';
 
-import PaginatedSearchResults from './PaginatedSearchResults';
-import ResultsLayout from './ResultsLayout';
+import PaginatedSearchResults from './PaginatedSearchResults.js';
+import ResultsLayout from './ResultsLayout.js';
 
 function buildResult(
   result: SearchResultT<SeriesT>,

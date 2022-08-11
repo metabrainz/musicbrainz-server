@@ -10,16 +10,16 @@ import ko from 'knockout';
 
 import 'knockout-arraytransforms';
 
-import {compare} from '../../common/i18n';
+import {compare} from '../../common/i18n.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
-import MB from '../../common/MB';
-import {compactMap, sortByString} from '../../common/utility/arrays';
-import {uniqueId} from '../../common/utility/strings';
-import deferFocus from '../../edit/utility/deferFocus';
+import MB from '../../common/MB.js';
+import {compactMap, sortByString} from '../../common/utility/arrays.js';
+import {uniqueId} from '../../common/utility/strings.js';
+import deferFocus from '../../edit/utility/deferFocus.js';
 
-import mergeDates from './mergeDates';
+import mergeDates from './mergeDates.js';
 
-import '../../common/entity';
+import '../../common/entity.js';
 
 function isBackward(relationship, source) {
   const entities = relationship.entities();

@@ -8,7 +8,7 @@
 
 import $ from 'jquery';
 
-import ratingTooltip from './utility/ratingTooltip';
+import ratingTooltip from './utility/ratingTooltip.js';
 
 $(document).on('click', 'span.star-rating a', function () {
   var $ratingLink = $(this);

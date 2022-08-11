@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import LabelList from './components/LabelList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportLabelT} from './types';
+import LabelList from './components/LabelList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportLabelT} from './types.js';
 
 const LabelsDisambiguationSameName = ({
   canBeFiltered,

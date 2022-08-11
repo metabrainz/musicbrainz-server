@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import {minimalEntity} from '../../../../utility/hydrate';
-import entityHref from '../utility/entityHref';
+import {minimalEntity} from '../../../../utility/hydrate.js';
+import entityHref from '../utility/entityHref.js';
 
 type Props = {
   +cachedImage: ?CommonsImageT,

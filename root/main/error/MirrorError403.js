@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import ErrorLayout from './ErrorLayout';
+import ErrorLayout from './ErrorLayout.js';
 
 const MirrorError403 = (): React.Element<typeof ErrorLayout> => (
   <ErrorLayout title={l('Forbidden Request')}>

@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import ReleaseList from './components/ReleaseList';
-import ReportLayout from './components/ReportLayout';
-import useReleaseLanguageColumn from './hooks/useReleaseLanguageColumn';
-import type {ReportDataT, ReportReleaseT} from './types';
+import ReleaseList from './components/ReleaseList.js';
+import ReportLayout from './components/ReportLayout.js';
+import useReleaseLanguageColumn from './hooks/useReleaseLanguageColumn.js';
+import type {ReportDataT, ReportReleaseT} from './types.js';
 
 const NoLanguage = ({
   canBeFiltered,

@@ -12,7 +12,7 @@ import ko from 'knockout';
 import * as Sentry from '@sentry/browser';
 
 import image404Url from '../../../images/image404-125.png';
-import MB from '../../common/MB';
+import MB from '../../common/MB.js';
 
 MB.CoverArt = {};
 

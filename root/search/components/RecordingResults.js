@@ -11,24 +11,24 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import * as manifest from '../../static/manifest.mjs';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import IsrcList from '../../static/scripts/common/components/IsrcList';
-import TaggerIcon from '../../static/scripts/common/components/TaggerIcon';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
+import IsrcList from '../../static/scripts/common/components/IsrcList.js';
+import TaggerIcon from '../../static/scripts/common/components/TaggerIcon.js';
 import formatTrackLength
-  from '../../static/scripts/common/utility/formatTrackLength';
+  from '../../static/scripts/common/utility/formatTrackLength.js';
 import {isEditingEnabled}
-  from '../../static/scripts/common/utility/privileges';
-import loopParity from '../../utility/loopParity';
+  from '../../static/scripts/common/utility/privileges.js';
+import loopParity from '../../utility/loopParity.js';
 import type {
   InlineResultsPropsWithContextT,
   ResultsPropsWithContextT,
   SearchResultT,
-} from '../types';
+} from '../types.js';
 import ArtistCreditLink
-  from '../../static/scripts/common/components/ArtistCreditLink';
+  from '../../static/scripts/common/components/ArtistCreditLink.js';
 
-import PaginatedSearchResults from './PaginatedSearchResults';
-import ResultsLayout from './ResultsLayout';
+import PaginatedSearchResults from './PaginatedSearchResults.js';
+import ResultsLayout from './ResultsLayout.js';
 
 let linenum = 0;
 

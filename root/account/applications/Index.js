@@ -9,13 +9,13 @@
 
 import * as React from 'react';
 
-import {ACCESS_SCOPE_PERMISSIONS} from '../../constants';
-import {compare} from '../../static/scripts/common/i18n';
-import Layout from '../../layout';
-import PaginatedResults from '../../components/PaginatedResults';
+import {ACCESS_SCOPE_PERMISSIONS} from '../../constants.js';
+import {compare} from '../../static/scripts/common/i18n.js';
+import Layout from '../../layout/index.js';
+import PaginatedResults from '../../components/PaginatedResults.js';
 import {commaOnlyListText}
-  from '../../static/scripts/common/i18n/commaOnlyList';
-import loopParity from '../../utility/loopParity';
+  from '../../static/scripts/common/i18n/commaOnlyList.js';
+import loopParity from '../../utility/loopParity.js';
 
 type Props = {
   +applications: $ReadOnlyArray<ApplicationT>,

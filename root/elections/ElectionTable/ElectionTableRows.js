@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import EditorLink from '../../static/scripts/common/components/EditorLink';
-import formatUserDate from '../../utility/formatUserDate';
-import {votesVisible} from '../../utility/voting';
+import EditorLink from '../../static/scripts/common/components/EditorLink.js';
+import formatUserDate from '../../utility/formatUserDate.js';
+import {votesVisible} from '../../utility/voting.js';
 
 type RowProps = {
   +$c: CatalystContextT,

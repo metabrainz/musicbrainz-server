@@ -9,8 +9,8 @@
 
 import linkedEntities from '../linkedEntities.mjs';
 
-import DescriptiveLink from './DescriptiveLink';
-import MediumDescription from './MediumDescription';
+import DescriptiveLink from './DescriptiveLink.js';
+import MediumDescription from './MediumDescription.js';
 
 type Props = {
   +allowNew?: boolean,

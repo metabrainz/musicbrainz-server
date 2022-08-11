@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import expand2react from '../static/scripts/common/i18n/expand2react';
-import {type AnyFieldT} from '../utility/iterSubfields';
-import subfieldErrors from '../utility/subfieldErrors';
+import expand2react from '../static/scripts/common/i18n/expand2react.js';
+import {type AnyFieldT} from '../utility/iterSubfields.js';
+import subfieldErrors from '../utility/subfieldErrors.js';
 
 // FIXME: Use expandable object instead of HTML string for safety (MBS-10632)
 const buildErrorListItem = (

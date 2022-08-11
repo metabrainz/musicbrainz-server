@@ -10,8 +10,8 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
-import RequestLogin from '../../components/RequestLogin';
-import returnUri, {returnToCurrentPage} from '../../utility/returnUri';
+import RequestLogin from '../../components/RequestLogin.js';
+import returnUri, {returnToCurrentPage} from '../../utility/returnUri.js';
 import {
   isAccountAdmin,
   isAdmin,
@@ -19,9 +19,9 @@ import {
   isLocationEditor,
   isRelationshipEditor,
   isWikiTranscluder,
-} from '../../static/scripts/common/utility/privileges';
+} from '../../static/scripts/common/utility/privileges.js';
 
-import Search from './Search';
+import Search from './Search.js';
 
 function userLink(userName: string, path: string) {
   return `/user/${encodeURIComponent(userName)}${path}`;

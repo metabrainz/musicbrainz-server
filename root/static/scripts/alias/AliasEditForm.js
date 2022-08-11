@@ -13,40 +13,40 @@ import * as React from 'react';
 import type {
   AliasEditFormT,
   WritableAliasEditFormT,
-} from '../../../entity/alias/types';
-import EnterEdit from '../../../components/EnterEdit';
-import EnterEditNote from '../../../components/EnterEditNote';
-import FormRowCheckbox from '../../../components/FormRowCheckbox';
-import FormRowSelect from '../../../components/FormRowSelect';
-import isBlank from '../common/utility/isBlank';
+} from '../../../entity/alias/types.js';
+import EnterEdit from '../../../components/EnterEdit.js';
+import EnterEditNote from '../../../components/EnterEditNote.js';
+import FormRowCheckbox from '../../../components/FormRowCheckbox.js';
+import FormRowSelect from '../../../components/FormRowSelect.js';
+import isBlank from '../common/utility/isBlank.js';
 import DateRangeFieldset, {
   type ActionT as DateRangeFieldsetActionT,
   runReducer as runDateRangeFieldsetReducer,
-} from '../edit/components/DateRangeFieldset';
+} from '../edit/components/DateRangeFieldset.js';
 import FormRowNameWithGuessCase, {
   runReducer as runNameReducer,
   type ActionT as NameActionT,
-} from '../edit/components/FormRowNameWithGuessCase';
+} from '../edit/components/FormRowNameWithGuessCase.js';
 import FormRowSortNameWithGuessCase, {
   runReducer as runSortNameReducer,
   type ActionT as SortNameActionT,
-} from '../edit/components/FormRowSortNameWithGuessCase';
+} from '../edit/components/FormRowSortNameWithGuessCase.js';
 import {
   createInitialState as createGuessCaseOptionsState,
   type StateT as GuessCaseOptionsStateT,
   type WritableStateT as WritableGuessCaseOptionsStateT,
-} from '../edit/components/GuessCaseOptions';
+} from '../edit/components/GuessCaseOptions.js';
 import copyFieldData, {
   copyDatePeriodField,
-} from '../edit/utility/copyFieldData';
+} from '../edit/utility/copyFieldData.js';
 import {
   createCompoundField,
   createField,
-} from '../edit/utility/createField';
+} from '../edit/utility/createField.js';
 import {
   applyAllPendingErrors,
   hasSubfieldErrors,
-} from '../../../utility/subfieldErrors';
+} from '../../../utility/subfieldErrors.js';
 
 type Props = {
   +$c: CatalystContextT,

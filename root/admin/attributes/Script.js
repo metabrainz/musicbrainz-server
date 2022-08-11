@@ -11,9 +11,9 @@
 
 import * as React from 'react';
 
-import Layout from '../../layout';
-import {compare} from '../../static/scripts/common/i18n';
-import loopParity from '../../utility/loopParity';
+import Layout from '../../layout/index.js';
+import {compare} from '../../static/scripts/common/i18n.js';
+import loopParity from '../../utility/loopParity.js';
 
 const frequencyLabels = {
   [1]: N_lp('Hidden', 'script frequency'),

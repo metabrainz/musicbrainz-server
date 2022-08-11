@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
 import escapeLuceneValue
-  from '../static/scripts/common/utility/escapeLuceneValue';
+  from '../static/scripts/common/utility/escapeLuceneValue.js';
 
 type Props = {
   +entityType: string,

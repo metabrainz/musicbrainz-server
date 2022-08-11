@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import FormSubmit from '../components/FormSubmit';
-import EntityLink from '../static/scripts/common/components/EntityLink';
+import FormSubmit from '../components/FormSubmit.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
-import CollectionLayout from './CollectionLayout';
+import CollectionLayout from './CollectionLayout.js';
 
 type Props = {
   +$c: CatalystContextT,

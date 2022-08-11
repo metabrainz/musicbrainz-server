@@ -10,13 +10,13 @@
 import * as React from 'react';
 import {createPortal} from 'react-dom';
 
-import useEventTrap from '../hooks/useEventTrap';
+import useEventTrap from '../hooks/useEventTrap.js';
 
 import Dialog, {
   getDialogRootNode,
   getElementFromRef,
   type RequiredPropsT as DialogPropsT,
-} from './Dialog';
+} from './Dialog.js';
 
 type PropsT = $ReadOnly<{
   ...DialogPropsT,

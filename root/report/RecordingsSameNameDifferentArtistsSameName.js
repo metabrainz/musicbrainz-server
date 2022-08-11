@@ -9,15 +9,15 @@
 
 import * as React from 'react';
 
-import PaginatedResults from '../components/PaginatedResults';
-import loopParity from '../utility/loopParity';
+import PaginatedResults from '../components/PaginatedResults.js';
+import loopParity from '../utility/loopParity.js';
 import ArtistCreditLink
-  from '../static/scripts/common/components/ArtistCreditLink';
-import {bracketedText} from '../static/scripts/common/utility/bracketed';
-import EntityLink from '../static/scripts/common/components/EntityLink';
+  from '../static/scripts/common/components/ArtistCreditLink.js';
+import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportRecordingT} from './types';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportRecordingT} from './types.js';
 
 const RecordingsSameNameDifferentArtistsSameName = ({
   canBeFiltered,

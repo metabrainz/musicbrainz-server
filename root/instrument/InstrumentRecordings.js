@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import RecordingList from '../components/list/RecordingList';
-import PaginatedResults from '../components/PaginatedResults';
-import {returnToCurrentPage} from '../utility/returnUri';
+import RecordingList from '../components/list/RecordingList.js';
+import PaginatedResults from '../components/PaginatedResults.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
-import InstrumentLayout from './InstrumentLayout';
+import InstrumentLayout from './InstrumentLayout.js';
 
 type Props = {|
   ...InstrumentCreditsAndRelTypesRoleT,

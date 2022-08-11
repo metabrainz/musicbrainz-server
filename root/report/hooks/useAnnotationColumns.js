@@ -13,8 +13,8 @@ import type {ColumnOptions} from 'react-table';
 import {
   defineTextHtmlColumn,
   defineTextColumn,
-} from '../../utility/tableColumns';
-import type {ReportAnnotationRoleT} from '../types';
+} from '../../utility/tableColumns.js';
+import type {ReportAnnotationRoleT} from '../types.js';
 
 function useAnnotationColumns<
   D: $ReadOnly<{...ReportAnnotationRoleT, ...}>,

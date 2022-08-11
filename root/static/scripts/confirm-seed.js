@@ -7,5 +7,5 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import './common/components/PostParameters';
-import './main/components/ConfirmSeedButtons';
+import './common/components/PostParameters.js';
+import './main/components/ConfirmSeedButtons.js';

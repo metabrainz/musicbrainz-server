@@ -8,8 +8,8 @@
 
 import test from 'tape';
 
-import commaList from '../common/i18n/commaList';
-import commaOnlyList from '../common/i18n/commaOnlyList';
+import commaList from '../common/i18n/commaList.js';
+import commaOnlyList from '../common/i18n/commaOnlyList.js';
 
 test('commaList', function (t) {
   t.plan(5);

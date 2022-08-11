@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
-import EditorLink from '../static/scripts/common/components/EditorLink';
-import loopParity from '../utility/loopParity';
+import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
+import EditorLink from '../static/scripts/common/components/EditorLink.js';
+import loopParity from '../utility/loopParity.js';
 
-import {formatCount} from './utilities';
-import StatisticsLayout from './StatisticsLayout';
+import {formatCount} from './utilities.js';
+import StatisticsLayout from './StatisticsLayout.js';
 
 type EditorsStatsT = {
   +$c: CatalystContextT,

@@ -10,13 +10,13 @@
 import * as React from 'react';
 import mutate from 'mutate-cow';
 
-import FormCsrfToken from '../../../../components/FormCsrfToken';
-import FormRow from '../../../../components/FormRow';
-import FormRowCheckbox from '../../../../components/FormRowCheckbox';
-import FormRowSelect from '../../../../components/FormRowSelect';
-import FormSubmit from '../../../../components/FormSubmit';
+import FormCsrfToken from '../../../../components/FormCsrfToken.js';
+import FormRow from '../../../../components/FormRow.js';
+import FormRowCheckbox from '../../../../components/FormRowCheckbox.js';
+import FormRowSelect from '../../../../components/FormRowSelect.js';
+import FormSubmit from '../../../../components/FormSubmit.js';
 import {SanitizedCatalystContext} from '../../../../context.mjs';
-import {formatUserDateObject} from '../../../../utility/formatUserDate';
+import {formatUserDateObject} from '../../../../utility/formatUserDate.js';
 
 type PreferencesFormT = FormT<{
   +csrf_token: FieldT<string>,

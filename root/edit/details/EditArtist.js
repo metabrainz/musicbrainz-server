@@ -14,18 +14,18 @@ import {
   artistBeginLabel,
   artistEndAreaLabel,
   artistEndLabel,
-} from '../../artist/utils';
-import Diff from '../../static/scripts/edit/components/edit/Diff';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
+} from '../../artist/utils.js';
+import Diff from '../../static/scripts/edit/components/edit/Diff.js';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import FullChangeDiff
-  from '../../static/scripts/edit/components/edit/FullChangeDiff';
-import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
+  from '../../static/scripts/edit/components/edit/FullChangeDiff.js';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
-import formatDate from '../../static/scripts/common/utility/formatDate';
-import yesNo from '../../static/scripts/common/utility/yesNo';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
+import formatDate from '../../static/scripts/common/utility/formatDate.js';
+import yesNo from '../../static/scripts/common/utility/yesNo.js';
 import {commaOnlyListText}
-  from '../../static/scripts/common/i18n/commaOnlyList';
+  from '../../static/scripts/common/i18n/commaOnlyList.js';
 
 type Props = {
   +edit: EditArtistEditT,

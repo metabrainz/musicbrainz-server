@@ -18,16 +18,16 @@ import {
   EDIT_STATUS_FAILEDPREREQ,
   EDIT_STATUS_NOVOTES,
   EDIT_STATUS_DELETED,
-} from '../constants';
+} from '../constants.js';
 import {
   EDIT_RELATIONSHIP_DELETE,
   EDIT_SERIES_EDIT,
-} from '../static/scripts/common/constants/editTypes';
+} from '../static/scripts/common/constants/editTypes.js';
 import {
   isAutoEditor,
   isBot,
   isEditingEnabled,
-} from '../static/scripts/common/utility/privileges';
+} from '../static/scripts/common/utility/privileges.js';
 
 const EXPIRE_ACTIONS = {
   [EDIT_EXPIRE_ACCEPT]:   N_l('Accept upon closing'),

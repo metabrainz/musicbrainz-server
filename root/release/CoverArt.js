@@ -9,12 +9,13 @@
 
 import * as React from 'react';
 
-import {Artwork} from '../components/Artwork';
-import RequestLogin from '../components/RequestLogin';
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import {commaOnlyListText} from '../static/scripts/common/i18n/commaOnlyList';
+import {Artwork} from '../components/Artwork.js';
+import RequestLogin from '../components/RequestLogin.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import {commaOnlyListText}
+  from '../static/scripts/common/i18n/commaOnlyList.js';
 
-import ReleaseLayout from './ReleaseLayout';
+import ReleaseLayout from './ReleaseLayout.js';
 
 type Props = {
   +$c: CatalystContextT,

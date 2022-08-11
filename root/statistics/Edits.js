@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import LinkSearchableEditType from '../components/LinkSearchableEditType';
-import {l as lMbServer} from '../static/scripts/common/i18n';
-import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
+import LinkSearchableEditType from '../components/LinkSearchableEditType.js';
+import {l as lMbServer} from '../static/scripts/common/i18n.js';
+import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
 
-import {formatCount, formatPercentage, TimelineLink} from './utilities';
-import StatisticsLayout from './StatisticsLayout';
+import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
+import StatisticsLayout from './StatisticsLayout.js';
 
 type EditCategoryT = {
   +edit_name: string,

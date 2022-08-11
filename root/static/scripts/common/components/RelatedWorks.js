@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import groupRelationships from '../../../../utility/groupRelationships';
+import groupRelationships from '../../../../utility/groupRelationships.js';
 import linkedEntities from '../linkedEntities.mjs';
 
-import EntityLink from './EntityLink';
-import StaticRelationshipsDisplay from './StaticRelationshipsDisplay';
+import EntityLink from './EntityLink.js';
+import StaticRelationshipsDisplay from './StaticRelationshipsDisplay.js';
 
 const targetEntityTypes = [
   'area',

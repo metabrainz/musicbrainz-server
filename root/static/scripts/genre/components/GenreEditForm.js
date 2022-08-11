@@ -10,14 +10,14 @@
 import $ from 'jquery';
 import * as React from 'react';
 
-import MB from '../../common/MB';
-import EnterEdit from '../../../../components/EnterEdit';
-import EnterEditNote from '../../../../components/EnterEditNote';
-import FormRowTextLong from '../../../../components/FormRowTextLong';
-import type {GenreFormT} from '../../../../genre/types';
-import {createExternalLinksEditor} from '../../edit/externalLinks';
-import {exportTypeInfo} from '../../relationship-editor/common/viewModel';
-import {prepareSubmission} from '../../relationship-editor/generic';
+import MB from '../../common/MB.js';
+import EnterEdit from '../../../../components/EnterEdit.js';
+import EnterEditNote from '../../../../components/EnterEditNote.js';
+import FormRowTextLong from '../../../../components/FormRowTextLong.js';
+import type {GenreFormT} from '../../../../genre/types.js';
+import {createExternalLinksEditor} from '../../edit/externalLinks.js';
+import {exportTypeInfo} from '../../relationship-editor/common/viewModel.js';
+import {prepareSubmission} from '../../relationship-editor/generic.js';
 
 type Props = {
   +$c: CatalystContextT,

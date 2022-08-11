@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import PaginatedResults from '../../components/PaginatedResults';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import bracketed from '../../static/scripts/common/utility/bracketed';
-import type {ReportLabelUrlT} from '../types';
+import PaginatedResults from '../../components/PaginatedResults.js';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
+import bracketed from '../../static/scripts/common/utility/bracketed.js';
+import type {ReportLabelUrlT} from '../types.js';
 
 type Props = {
   +items: $ReadOnlyArray<ReportLabelUrlT>,

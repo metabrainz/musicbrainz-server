@@ -9,18 +9,18 @@
 import $ from 'jquery';
 import balanced from 'balanced-match';
 
-import {MIN_NAME_SIMILARITY} from '../../common/constants';
-import MB from '../../common/MB';
-import {last} from '../../common/utility/arrays';
-import clean from '../../common/utility/clean';
+import {MIN_NAME_SIMILARITY} from '../../common/constants.js';
+import MB from '../../common/MB.js';
+import {last} from '../../common/utility/arrays.js';
+import clean from '../../common/utility/clean.js';
 import {cloneArrayDeep} from '../../common/utility/cloneDeep.mjs';
 
 import {
   fromFullwidthLatin,
   hasFullwidthLatin,
   toFullwidthLatin,
-} from './fullwidthLatin';
-import getSimilarity from './similarity';
+} from './fullwidthLatin.js';
+import getSimilarity from './similarity.js';
 
 /* eslint-disable sort-keys */
 const featRegex = /(?:^\s*|[,，－\-]\s*|\s+)((?:ft|feat|ｆｔ|ｆｅａｔ)(?:[.．]|(?=\s))|(?:featuring|ｆｅａｔｕｒｉｎｇ)(?=\s))\s*/i;

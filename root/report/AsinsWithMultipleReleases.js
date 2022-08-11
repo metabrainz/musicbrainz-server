@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import ReleaseUrlList from './components/ReleaseUrlList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportReleaseUrlT} from './types';
+import ReleaseUrlList from './components/ReleaseUrlList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportReleaseUrlT} from './types.js';
 
 const AsinsWithMultipleReleases = ({
   canBeFiltered,

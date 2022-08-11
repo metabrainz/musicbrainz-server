@@ -18,30 +18,30 @@ import {
   FAVICON_CLASSES,
   VIDEO_ATTRIBUTE_ID,
   VIDEO_ATTRIBUTE_GID,
-} from '../common/constants';
-import {compare, l} from '../common/i18n';
-import expand2react from '../common/i18n/expand2react';
+} from '../common/constants.js';
+import {compare, l} from '../common/i18n.js';
+import expand2react from '../common/i18n/expand2react.js';
 import linkedEntities from '../common/linkedEntities.mjs';
-import MB from '../common/MB';
-import {groupBy, keyBy, uniqBy} from '../common/utility/arrays';
-import isDateEmpty from '../common/utility/isDateEmpty';
-import formatDatePeriod from '../common/utility/formatDatePeriod';
-import {hasSessionStorage} from '../common/utility/storage';
-import {uniqueId} from '../common/utility/strings';
-import {bracketedText} from '../common/utility/bracketed';
-import {isMalware} from '../../../url/utility/isGreyedOut';
-import {compareDatePeriods} from '../common/utility/compareDates';
+import MB from '../common/MB.js';
+import {groupBy, keyBy, uniqBy} from '../common/utility/arrays.js';
+import isDateEmpty from '../common/utility/isDateEmpty.js';
+import formatDatePeriod from '../common/utility/formatDatePeriod.js';
+import {hasSessionStorage} from '../common/utility/storage.js';
+import {uniqueId} from '../common/utility/strings.js';
+import {bracketedText} from '../common/utility/bracketed.js';
+import {isMalware} from '../../../url/utility/isGreyedOut.js';
+import {compareDatePeriods} from '../common/utility/compareDates.js';
 
-import isPositiveInteger from './utility/isPositiveInteger';
-import HelpIcon from './components/HelpIcon';
-import RemoveButton from './components/RemoveButton';
-import URLInputPopover from './components/URLInputPopover';
-import {linkTypeOptions} from './forms';
-import * as URLCleanup from './URLCleanup';
-import type {RelationshipTypeT} from './URLCleanup';
-import * as validation from './validation';
+import isPositiveInteger from './utility/isPositiveInteger.js';
+import HelpIcon from './components/HelpIcon.js';
+import RemoveButton from './components/RemoveButton.js';
+import URLInputPopover from './components/URLInputPopover.js';
+import {linkTypeOptions} from './forms.js';
+import * as URLCleanup from './URLCleanup.js';
+import type {RelationshipTypeT} from './URLCleanup.js';
+import * as validation from './validation.js';
 import ExternalLinkAttributeDialog
-  from './components/ExternalLinkAttributeDialog';
+  from './components/ExternalLinkAttributeDialog.js';
 
 type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
 

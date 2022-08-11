@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import {HistoricReleaseListContent}
-  from '../../components/HistoricReleaseList';
+  from '../../components/HistoricReleaseList.js';
 
 type Props = {
   +edit: EditReleaseAttributesHistoricEditT,

@@ -9,10 +9,11 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import CodeLink from '../static/scripts/common/components/CodeLink';
-import WorkListEntry from '../static/scripts/common/components/WorkListEntry';
-import {returnToCurrentPage} from '../utility/returnUri';
+import Layout from '../layout/index.js';
+import CodeLink from '../static/scripts/common/components/CodeLink.js';
+import WorkListEntry
+  from '../static/scripts/common/components/WorkListEntry.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 type Props = {
   +$c: CatalystContextT,

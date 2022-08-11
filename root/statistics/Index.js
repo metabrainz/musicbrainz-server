@@ -11,11 +11,11 @@
 import * as React from 'react';
 
 import {l_statistics as l, lp_statistics as lp}
-  from '../static/scripts/common/i18n/statistics';
-import mapRange from '../static/scripts/common/utility/mapRange';
+  from '../static/scripts/common/i18n/statistics.js';
+import mapRange from '../static/scripts/common/utility/mapRange.js';
 
-import {formatCount, formatPercentage, TimelineLink} from './utilities';
-import StatisticsLayout from './StatisticsLayout';
+import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
+import StatisticsLayout from './StatisticsLayout.js';
 
 type MainStatsT = {
   +$c: CatalystContextT,

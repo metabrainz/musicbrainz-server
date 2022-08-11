@@ -9,7 +9,7 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
-import MB from '../../../common/MB';
+import MB from '../../../common/MB.js';
 
 MB.Control.Area = function (...selectors) {
   var bubble = new MB.Control.BubbleDoc();

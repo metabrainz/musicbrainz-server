@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import ArtistList from '../../components/list/ArtistList';
-import yesNo from '../../static/scripts/common/utility/yesNo';
+import ArtistList from '../../components/list/ArtistList.js';
+import yesNo from '../../static/scripts/common/utility/yesNo.js';
 
 type Props = {
   +edit: MergeArtistsEditT,

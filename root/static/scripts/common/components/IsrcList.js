@@ -10,10 +10,10 @@
 import * as React from 'react';
 
 import {SidebarProperty}
-  from '../../../../layout/components/sidebar/SidebarProperties';
+  from '../../../../layout/components/sidebar/SidebarProperties.js';
 
-import CodeLink from './CodeLink';
-import CollapsibleList from './CollapsibleList';
+import CodeLink from './CodeLink.js';
+import CollapsibleList from './CollapsibleList.js';
 
 const buildIsrcListRow = (isrc: IsrcT) => (
   <li className="isrc" key={isrc.isrc}>

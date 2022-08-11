@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import EnterEditNote from '../components/EnterEditNote';
-import EnterEdit from '../components/EnterEdit';
-import FormRowText from '../components/FormRowText';
-import FormRowTextArea from '../components/FormRowTextArea';
-import chooseLayoutComponent from '../utility/chooseLayoutComponent';
+import EnterEditNote from '../components/EnterEditNote.js';
+import EnterEdit from '../components/EnterEdit.js';
+import FormRowText from '../components/FormRowText.js';
+import FormRowTextArea from '../components/FormRowTextArea.js';
+import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
 type EditAnnotationFormT = FormT<{
   +changelog: ReadOnlyFieldT<string>,

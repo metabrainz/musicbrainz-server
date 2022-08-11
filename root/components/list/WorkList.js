@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import * as manifest from '../../static/manifest.mjs';
-import Table from '../Table';
+import Table from '../Table.js';
 import {
   defineArtistRolesColumn,
   defineCheckboxColumn,
@@ -24,7 +24,7 @@ import {
   removeFromMergeColumn,
   workArtistsColumn,
   workLanguagesColumn,
-} from '../../utility/tableColumns';
+} from '../../utility/tableColumns.js';
 
 type Props = {
   ...SeriesItemNumbersRoleT,

@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import CodeLink
-  from '../../static/scripts/common/components/CodeLink';
+  from '../../static/scripts/common/components/CodeLink.js';
 import EntityLink
-  from '../../static/scripts/common/components/EntityLink';
+  from '../../static/scripts/common/components/EntityLink.js';
 
 type Props = {
   +edit: AddIswcsEditT,

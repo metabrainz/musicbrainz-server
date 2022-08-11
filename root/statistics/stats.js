@@ -8,8 +8,8 @@
  */
 
 import formatEntityTypeName
-  from '../static/scripts/common/utility/formatEntityTypeName';
-import {fixedWidthInteger} from '../static/scripts/common/utility/strings';
+  from '../static/scripts/common/utility/formatEntityTypeName.js';
+import {fixedWidthInteger} from '../static/scripts/common/utility/strings.js';
 
 const stats = {
   'category': {

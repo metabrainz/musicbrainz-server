@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import EntityLink from '../../static/scripts/common/components/EntityLink';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 
 type Props = {
   +edit: AddSeriesEditT,

@@ -10,11 +10,13 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
-import EntityLink from '../../../static/scripts/common/components/EntityLink';
+import EntityLink
+  from '../../../static/scripts/common/components/EntityLink.js';
 import {SidebarTagEditor}
-  from '../../../static/scripts/common/components/TagEditor';
-import TagLink from '../../../static/scripts/common/components/TagLink';
-import commaOnlyList from '../../../static/scripts/common/i18n/commaOnlyList';
+  from '../../../static/scripts/common/components/TagEditor.js';
+import TagLink from '../../../static/scripts/common/components/TagLink.js';
+import commaOnlyList
+  from '../../../static/scripts/common/i18n/commaOnlyList.js';
 
 type TagListProps = {
   +entity: CoreEntityT,

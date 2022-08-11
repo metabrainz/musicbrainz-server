@@ -7,17 +7,17 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import FormCsrfToken from '../components/FormCsrfToken';
-import FormRowCheckbox from '../components/FormRowCheckbox';
-import FormRowText from '../components/FormRowText';
-import FormSubmit from '../components/FormSubmit';
+import FormCsrfToken from '../components/FormCsrfToken.js';
+import FormRowCheckbox from '../components/FormRowCheckbox.js';
+import FormRowText from '../components/FormRowText.js';
+import FormSubmit from '../components/FormSubmit.js';
 import PostParameters, {
   type PostParametersT,
-} from '../static/scripts/common/components/PostParameters';
-import Layout from '../layout';
+} from '../static/scripts/common/components/PostParameters.js';
+import Layout from '../layout/index.js';
 import * as manifest from '../static/manifest.mjs';
 import DBDefs from '../static/scripts/common/DBDefs.mjs';
-import returnUri from '../utility/returnUri';
+import returnUri from '../utility/returnUri.js';
 
 type PropsT = {
   +$c: CatalystContextT,

@@ -9,15 +9,15 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
-import {compare} from '../common/i18n';
-import {isCompleteArtistCredit} from '../common/immutable-entities';
-import MB from '../common/MB';
-import {compactMap, sortByString} from '../common/utility/arrays';
-import {debounceComputed} from '../common/utility/debounce';
-import request from '../common/utility/request';
+import {compare} from '../common/i18n.js';
+import {isCompleteArtistCredit} from '../common/immutable-entities.js';
+import MB from '../common/MB.js';
+import {compactMap, sortByString} from '../common/utility/arrays.js';
+import {debounceComputed} from '../common/utility/debounce.js';
+import request from '../common/utility/request.js';
 
-import releaseEditor from './viewModel';
-import utils from './utils';
+import releaseEditor from './viewModel.js';
+import utils from './utils.js';
 
 
 var releaseGroupReleases = ko.observableArray([]);

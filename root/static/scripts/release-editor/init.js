@@ -13,18 +13,18 @@ import {
   artistCreditsAreEqual,
   hasVariousArtists,
   reduceArtistCredit,
-} from '../common/immutable-entities';
-import MB from '../common/MB';
-import clean from '../common/utility/clean';
+} from '../common/immutable-entities.js';
+import MB from '../common/MB.js';
+import clean from '../common/utility/clean.js';
 import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
-import request from '../common/utility/request';
-import * as externalLinks from '../edit/externalLinks';
-import * as validation from '../edit/validation';
+import request from '../common/utility/request.js';
+import * as externalLinks from '../edit/externalLinks.js';
+import * as validation from '../edit/validation.js';
 
-import fields from './fields';
-import recordingAssociation from './recordingAssociation';
-import utils from './utils';
-import releaseEditor from './viewModel';
+import fields from './fields.js';
+import recordingAssociation from './recordingAssociation.js';
+import utils from './utils.js';
+import releaseEditor from './viewModel.js';
 
 Object.assign(releaseEditor, {
   activeTabID: ko.observable('#information'),

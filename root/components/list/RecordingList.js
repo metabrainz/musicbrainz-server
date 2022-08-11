@@ -12,13 +12,13 @@ import type {ColumnOptions} from 'react-table';
 
 import {SanitizedCatalystContext} from '../../context.mjs';
 import * as manifest from '../../static/manifest.mjs';
-import Table from '../Table';
+import Table from '../Table.js';
 import ReleaseGroupAppearances
-  from '../../static/scripts/common/components/ReleaseGroupAppearances';
+  from '../../static/scripts/common/components/ReleaseGroupAppearances.js';
 import formatTrackLength
-  from '../../static/scripts/common/utility/formatTrackLength';
+  from '../../static/scripts/common/utility/formatTrackLength.js';
 import {acoustIdsColumn}
-  from '../../static/scripts/common/utility/tableColumns';
+  from '../../static/scripts/common/utility/tableColumns.js';
 import {
   defineArtistCreditColumn,
   defineCheckboxColumn,
@@ -29,7 +29,7 @@ import {
   defineTextColumn,
   isrcsColumn,
   removeFromMergeColumn,
-} from '../../utility/tableColumns';
+} from '../../utility/tableColumns.js';
 
 type Props = {
   ...InstrumentCreditsAndRelTypesRoleT,

@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import {INSERT, DELETE} from '../../utility/editDiff';
+import {INSERT, DELETE} from '../../utility/editDiff.js';
 
-import DiffSide from './DiffSide';
+import DiffSide from './DiffSide.js';
 
 export type DiffProps = {
   +extraNew?: React.Node,

@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import {isAccountAdmin} from '../static/scripts/common/utility/privileges';
+import {isAccountAdmin} from '../static/scripts/common/utility/privileges.js';
 
-import EditorList from './components/EditorList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportEditorT} from './types';
+import EditorList from './components/EditorList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportEditorT} from './types.js';
 
 const LimitedEditors = ({
   $c,

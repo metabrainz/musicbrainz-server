@@ -7,12 +7,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as flags from '../../../flags';
-import * as modes from '../../../modes';
-import * as utils from '../../../utils';
-import gc from '../Main';
+import * as flags from '../../../flags.js';
+import * as modes from '../../../modes.js';
+import * as utils from '../../../utils.js';
+import gc from '../Main.js';
 
-import GuessCaseHandler from './Base';
+import GuessCaseHandler from './Base.js';
 
 // Area specific GuessCase functionality
 class GuessCaseAreaHandler extends GuessCaseHandler {

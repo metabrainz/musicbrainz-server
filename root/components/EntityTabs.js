@@ -10,16 +10,16 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
-import {ENTITIES} from '../static/scripts/common/constants';
+import {ENTITIES} from '../static/scripts/common/constants.js';
 import isSpecialPurpose
-  from '../static/scripts/common/utility/isSpecialPurpose';
+  from '../static/scripts/common/utility/isSpecialPurpose.js';
 import {
   isLocationEditor,
   isRelationshipEditor,
-} from '../static/scripts/common/utility/privileges';
+} from '../static/scripts/common/utility/privileges.js';
 
-import Tabs from './Tabs';
-import EntityTabLink from './EntityTabLink';
+import Tabs from './Tabs.js';
+import EntityTabLink from './EntityTabLink.js';
 
 const tabLinkNames = {
   artists: N_l('Artists'),

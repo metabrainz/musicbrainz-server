@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import LabelSidebar from '../layout/components/sidebar/LabelSidebar';
+import Layout from '../layout/index.js';
+import LabelSidebar from '../layout/components/sidebar/LabelSidebar.js';
 
-import LabelHeader from './LabelHeader';
+import LabelHeader from './LabelHeader.js';
 
 type Props = {
   +children: React.Node,

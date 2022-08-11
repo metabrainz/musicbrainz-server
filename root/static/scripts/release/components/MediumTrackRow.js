@@ -10,16 +10,16 @@
 import * as React from 'react';
 
 import GroupedTrackRelationships
-  from '../../../../components/GroupedTrackRelationships';
+  from '../../../../components/GroupedTrackRelationships.js';
 import {SanitizedCatalystContext} from '../../../../context.mjs';
-import loopParity from '../../../../utility/loopParity';
+import loopParity from '../../../../utility/loopParity.js';
 import ArtistCreditLink
-  from '../../common/components/ArtistCreditLink';
-import EntityLink from '../../common/components/EntityLink';
-import RatingStars from '../../common/components/RatingStars';
+  from '../../common/components/ArtistCreditLink.js';
+import EntityLink from '../../common/components/EntityLink.js';
+import RatingStars from '../../common/components/RatingStars.js';
 import formatTrackLength
-  from '../../common/utility/formatTrackLength';
-import type {CreditsModeT} from '../types';
+  from '../../common/utility/formatTrackLength.js';
+import type {CreditsModeT} from '../types.js';
 
 type PropsT = {
   +creditsMode: CreditsModeT,

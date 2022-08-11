@@ -10,17 +10,17 @@
 import * as React from 'react';
 
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
 import {commaOnlyListText}
-  from '../../static/scripts/common/i18n/commaOnlyList';
+  from '../../static/scripts/common/i18n/commaOnlyList.js';
 import localizeLanguageName
-  from '../../static/scripts/common/i18n/localizeLanguageName';
-import Diff from '../../static/scripts/edit/components/edit/Diff';
-import DiffSide from '../../static/scripts/edit/components/edit/DiffSide';
+  from '../../static/scripts/common/i18n/localizeLanguageName.js';
+import Diff from '../../static/scripts/edit/components/edit/Diff.js';
+import DiffSide from '../../static/scripts/edit/components/edit/DiffSide.js';
 import FullChangeDiff
-  from '../../static/scripts/edit/components/edit/FullChangeDiff';
-import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
-import {INSERT, DELETE} from '../../static/scripts/edit/utility/editDiff';
+  from '../../static/scripts/edit/components/edit/FullChangeDiff.js';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
+import {INSERT, DELETE} from '../../static/scripts/edit/utility/editDiff.js';
 
 type Props = {
   +edit: EditWorkEditT,

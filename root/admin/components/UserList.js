@@ -10,10 +10,10 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
-import EditorLink from '../../static/scripts/common/components/EditorLink';
-import bracketed from '../../static/scripts/common/utility/bracketed';
-import formatUserDate from '../../utility/formatUserDate';
-import loopParity from '../../utility/loopParity';
+import EditorLink from '../../static/scripts/common/components/EditorLink.js';
+import bracketed from '../../static/scripts/common/utility/bracketed.js';
+import formatUserDate from '../../utility/formatUserDate.js';
+import loopParity from '../../utility/loopParity.js';
 
 type Props = {
   +users: $ReadOnlyArray<UnsanitizedEditorT>,

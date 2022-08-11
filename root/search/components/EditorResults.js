@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import EditorLink from '../../static/scripts/common/components/EditorLink';
-import loopParity from '../../utility/loopParity';
-import type {ResultsPropsT, SearchResultT} from '../types';
+import EditorLink from '../../static/scripts/common/components/EditorLink.js';
+import loopParity from '../../utility/loopParity.js';
+import type {ResultsPropsT, SearchResultT} from '../types.js';
 
-import PaginatedSearchResults from './PaginatedSearchResults';
-import ResultsLayout from './ResultsLayout';
+import PaginatedSearchResults from './PaginatedSearchResults.js';
+import ResultsLayout from './ResultsLayout.js';
 
 function buildResult(result: SearchResultT<EditorT>, index: number) {
   const editor = result.entity;

@@ -21,7 +21,7 @@ import {
   SPAMMER_FLAG,
   UNTRUSTED_FLAG,
   WIKI_TRANSCLUSION_FLAG,
-} from '../../../../constants';
+} from '../../../../constants.js';
 
 type EditorPropT = ?{+privileges: number, ...};
 

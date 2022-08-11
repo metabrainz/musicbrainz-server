@@ -6,7 +6,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import L from 'leaflet/dist/leaflet-src';
+import L from 'leaflet/dist/leaflet-src.js';
 
 import arenaMarkerIconUrl
   from '../../images/leaflet/arena-marker-icon.png';

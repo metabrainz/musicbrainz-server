@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import FormRow from '../../components/FormRow';
+import FormRow from '../../components/FormRow.js';
 
 type PropsT = {
   +$c: CatalystContextT,

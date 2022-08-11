@@ -7,8 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import expand2react from '../i18n/expand2react';
-import expand2text from '../i18n/expand2text';
+import expand2react from '../i18n/expand2react.js';
+import expand2text from '../i18n/expand2text.js';
 
 type Args = {+type: '()' | '[]'};
 

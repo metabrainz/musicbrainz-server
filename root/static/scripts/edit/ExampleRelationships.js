@@ -1,9 +1,9 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
-import {ENTITY_NAMES} from '../common/constants';
-import MB from '../common/MB';
-import request from '../common/utility/request';
+import {ENTITY_NAMES} from '../common/constants.js';
+import MB from '../common/MB.js';
+import request from '../common/utility/request.js';
 
 MB.ExampleRelationshipsEditor = (function (ERE) {
   // Private variables

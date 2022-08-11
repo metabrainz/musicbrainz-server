@@ -9,7 +9,7 @@
 
 import ko from 'knockout';
 
-import clean from './clean';
+import clean from './clean.js';
 
 export default function releaseLabelKey(releaseLabel: ReleaseLabelT): string {
   let result = '';

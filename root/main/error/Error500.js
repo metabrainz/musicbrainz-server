@@ -9,13 +9,14 @@
 
 import * as React from 'react';
 
-import EditLink from '../../static/scripts/common/components/EditLink';
-import bracketed from '../../static/scripts/common/utility/bracketed';
-import bugTrackerURL from '../../static/scripts/common/utility/bugTrackerURL';
+import EditLink from '../../static/scripts/common/components/EditLink.js';
+import bracketed from '../../static/scripts/common/utility/bracketed.js';
+import bugTrackerURL
+  from '../../static/scripts/common/utility/bugTrackerURL.js';
 
-import ErrorLayout from './ErrorLayout';
-import ErrorEnvironment from './components/ErrorEnvironment';
-import ErrorInfo from './components/ErrorInfo';
+import ErrorLayout from './ErrorLayout.js';
+import ErrorEnvironment from './components/ErrorEnvironment.js';
+import ErrorInfo from './components/ErrorInfo.js';
 
 type Props = {
   +$c: CatalystContextT,

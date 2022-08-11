@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import HistoricReleaseList
-  from '../../components/HistoricReleaseList';
+  from '../../components/HistoricReleaseList.js';
 import DescriptiveLink
-  from '../../../static/scripts/common/components/DescriptiveLink';
+  from '../../../static/scripts/common/components/DescriptiveLink.js';
 
 type Props = {
   +edit: RemoveTrackHistoricEditT,

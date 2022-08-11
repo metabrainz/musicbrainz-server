@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import useOutsideClickEffect from '../hooks/useOutsideClickEffect';
-import useReturnFocus from '../hooks/useReturnFocus';
-import {unwrapNl} from '../i18n';
+import useOutsideClickEffect from '../hooks/useOutsideClickEffect.js';
+import useReturnFocus from '../hooks/useReturnFocus.js';
+import {unwrapNl} from '../i18n.js';
 
-import Popover from './Popover';
+import Popover from './Popover.js';
 
 type PropsT = {
   +buildChildren: (() => void) => React.Node,

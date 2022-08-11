@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import FormCsrfToken from '../components/FormCsrfToken';
-import FormRowTextArea from '../components/FormRowTextArea';
-import FormSubmit from '../components/FormSubmit';
-import Layout from '../layout';
+import FormCsrfToken from '../components/FormCsrfToken.js';
+import FormRowTextArea from '../components/FormRowTextArea.js';
+import FormSubmit from '../components/FormSubmit.js';
+import Layout from '../layout/index.js';
 
 type Props = {
   +form: ReadOnlyFormT<{

@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import CodeLink
-  from '../../static/scripts/common/components/CodeLink';
+  from '../../static/scripts/common/components/CodeLink.js';
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
 import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 
 type Props = {

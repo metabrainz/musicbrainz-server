@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import PaginatedResults from '../components/PaginatedResults';
-import EditorLink from '../static/scripts/common/components/EditorLink';
+import PaginatedResults from '../components/PaginatedResults.js';
+import EditorLink from '../static/scripts/common/components/EditorLink.js';
 
-import AreaLayout from './AreaLayout';
+import AreaLayout from './AreaLayout.js';
 
 type Props = {
   +area: AreaT,

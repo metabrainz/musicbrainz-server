@@ -10,12 +10,12 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
-import Table from '../Table';
+import Table from '../Table.js';
 import * as manifest from '../../static/manifest.mjs';
 import {commaOnlyListText}
-  from '../../static/scripts/common/i18n/commaOnlyList';
+  from '../../static/scripts/common/i18n/commaOnlyList.js';
 import localizeArtistRoles
-  from '../../static/scripts/common/i18n/localizeArtistRoles';
+  from '../../static/scripts/common/i18n/localizeArtistRoles.js';
 import {
   defineArtistRolesColumn,
   defineCheckboxColumn,
@@ -27,7 +27,7 @@ import {
   defineTypeColumn,
   defineTextColumn,
   removeFromMergeColumn,
-} from '../../utility/tableColumns';
+} from '../../utility/tableColumns.js';
 
 type Props = {
   ...SeriesItemNumbersRoleT,

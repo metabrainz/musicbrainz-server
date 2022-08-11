@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import EntityLink from '../../common/components/EntityLink';
-import DiffSide from '../components/edit/DiffSide';
+import EntityLink from '../../common/components/EntityLink.js';
+import DiffSide from '../components/edit/DiffSide.js';
 
 import editDiff, {
   INSERT,
@@ -18,7 +18,7 @@ import editDiff, {
   DELETE,
   CHANGE,
   CLASS_MAP,
-} from './editDiff';
+} from './editDiff.js';
 
 function areArtistCreditNamesEqual(
   a: ArtistCreditNameT,

@@ -14,28 +14,28 @@ import * as ReactDOMClient from 'react-dom/client';
 
 import AddEntityDialog, {
   TITLES as ADD_NEW_ENTITY_TITLES,
-} from '../../../edit/components/AddEntityDialog';
-import {ENTITIES, MAX_RECENT_ENTITIES} from '../../constants';
-import mbEntity from '../../entity';
-import {commaOnlyListText} from '../../i18n/commaOnlyList';
-import localizeLanguageName from '../../i18n/localizeLanguageName';
-import {reduceArtistCredit} from '../../immutable-entities';
-import MB from '../../MB';
-import {compactMap, first, groupBy, last} from '../../utility/arrays';
-import clean from '../../utility/clean';
-import formatDate from '../../utility/formatDate';
-import formatDatePeriod from '../../utility/formatDatePeriod';
-import formatTrackLength from '../../utility/formatTrackLength';
-import isBlank from '../../utility/isBlank';
-import primaryAreaCode from '../../utility/primaryAreaCode';
+} from '../../../edit/components/AddEntityDialog.js';
+import {ENTITIES, MAX_RECENT_ENTITIES} from '../../constants.js';
+import mbEntity from '../../entity.js';
+import {commaOnlyListText} from '../../i18n/commaOnlyList.js';
+import localizeLanguageName from '../../i18n/localizeLanguageName.js';
+import {reduceArtistCredit} from '../../immutable-entities.js';
+import MB from '../../MB.js';
+import {compactMap, first, groupBy, last} from '../../utility/arrays.js';
+import clean from '../../utility/clean.js';
+import formatDate from '../../utility/formatDate.js';
+import formatDatePeriod from '../../utility/formatDatePeriod.js';
+import formatTrackLength from '../../utility/formatTrackLength.js';
+import isBlank from '../../utility/isBlank.js';
+import primaryAreaCode from '../../utility/primaryAreaCode.js';
 import {
   isLocationEditor,
   isRelationshipEditor,
-} from '../../utility/privileges';
-import {localStorage} from '../../utility/storage';
-import {bracketedText} from '../../utility/bracketed';
+} from '../../utility/privileges.js';
+import {localStorage} from '../../utility/storage.js';
+import {bracketedText} from '../../utility/bracketed.js';
 
-import '../../../../lib/jquery-ui';
+import '../../../../lib/jquery-ui.js';
 
 $.widget('mb.entitylookup', $.ui.autocomplete, {
 

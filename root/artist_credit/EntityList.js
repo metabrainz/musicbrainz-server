@@ -9,13 +9,13 @@
 
 import * as React from 'react';
 
-import PaginatedResults from '../components/PaginatedResults';
+import PaginatedResults from '../components/PaginatedResults.js';
 import EntityLink
-  from '../static/scripts/common/components/EntityLink';
-import expand2text from '../static/scripts/common/i18n/expand2text';
-import {formatCount} from '../statistics/utilities';
+  from '../static/scripts/common/components/EntityLink.js';
+import expand2text from '../static/scripts/common/i18n/expand2text.js';
+import {formatCount} from '../statistics/utilities.js';
 
-import ArtistCreditLayout from './ArtistCreditLayout';
+import ArtistCreditLayout from './ArtistCreditLayout.js';
 
 const headingsText = {
   recording: N_ln('{num} recording found', '{num} recordings found'),

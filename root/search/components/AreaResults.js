@@ -10,18 +10,19 @@
 import * as React from 'react';
 
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
-import formatDate from '../../static/scripts/common/utility/formatDate';
-import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
+import formatDate from '../../static/scripts/common/utility/formatDate.js';
+import formatEndDate
+  from '../../static/scripts/common/utility/formatEndDate.js';
 import primaryAreaCode
-  from '../../static/scripts/common/utility/primaryAreaCode';
+  from '../../static/scripts/common/utility/primaryAreaCode.js';
 import {isLocationEditor}
-  from '../../static/scripts/common/utility/privileges';
-import loopParity from '../../utility/loopParity';
-import type {ResultsPropsWithContextT, SearchResultT} from '../types';
+  from '../../static/scripts/common/utility/privileges.js';
+import loopParity from '../../utility/loopParity.js';
+import type {ResultsPropsWithContextT, SearchResultT} from '../types.js';
 
-import PaginatedSearchResults from './PaginatedSearchResults';
-import ResultsLayout from './ResultsLayout';
+import PaginatedSearchResults from './PaginatedSearchResults.js';
+import ResultsLayout from './ResultsLayout.js';
 
 function buildResult(result: SearchResultT<AreaT>, index: number) {
   const area = result.entity;

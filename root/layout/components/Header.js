@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import HeaderLogo from './HeaderLogo';
-import TopMenu from './TopMenu';
-import BottomMenu from './BottomMenu';
+import HeaderLogo from './HeaderLogo.js';
+import TopMenu from './TopMenu.js';
+import BottomMenu from './BottomMenu.js';
 
 const Header = (): React.Element<'div'> => (
   <div className="header">

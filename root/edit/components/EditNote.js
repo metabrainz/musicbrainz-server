@@ -13,13 +13,13 @@ import {
   EDIT_VOTE_APPROVE,
   EDIT_VOTE_NO,
   EDIT_VOTE_YES,
-} from '../../constants';
+} from '../../constants.js';
 import {CatalystContext} from '../../context.mjs';
-import EditorLink from '../../static/scripts/common/components/EditorLink';
-import getVoteName from '../../static/scripts/edit/utility/getVoteName';
-import formatUserDate from '../../utility/formatUserDate';
+import EditorLink from '../../static/scripts/common/components/EditorLink.js';
+import getVoteName from '../../static/scripts/edit/utility/getVoteName.js';
+import formatUserDate from '../../utility/formatUserDate.js';
 
-import EditorTypeInfo from './EditorTypeInfo';
+import EditorTypeInfo from './EditorTypeInfo.js';
 
 type PropsT = {
   +edit: GenericEditWithIdT,

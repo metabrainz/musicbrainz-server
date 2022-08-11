@@ -9,7 +9,7 @@
 
 import $ from 'jquery';
 
-import {arraysEqual} from '../common/utility/arrays';
+import {arraysEqual} from '../common/utility/arrays.js';
 
 type EntityTypesMap = {
   +[entityType: CoreEntityTypeT]: string | $ReadOnlyArray<string>,

@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import EventList from './components/EventList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportEventT} from './types';
+import EventList from './components/EventList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportEventT} from './types.js';
 
 const EventSequenceNotInSeries = ({
   canBeFiltered,

@@ -8,7 +8,7 @@
 
 import $ from 'jquery';
 
-import MB from '../../MB';
+import MB from '../../MB.js';
 
 var SELECTED_CLASS = {
   '1':  'vote-yes',

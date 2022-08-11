@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
+import Layout from '../layout/index.js';
 import {
   isAccountAdmin,
   isRelationshipEditor,
-} from '../static/scripts/common/utility/privileges';
+} from '../static/scripts/common/utility/privileges.js';
 
 type ReportsIndexEntryProps = {
   +content: string,

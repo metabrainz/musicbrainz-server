@@ -8,8 +8,8 @@
 
 import * as React from 'react';
 
-import Autocomplete from '../../common/components/Autocomplete';
-import clean from '../../common/utility/clean';
+import Autocomplete from '../../common/components/Autocomplete.js';
+import clean from '../../common/utility/clean.js';
 
 class ArtistCreditNameEditor extends React.Component {
   constructor(props) {

@@ -7,18 +7,18 @@
  */
 
 import $ from 'jquery';
-import L from 'leaflet/dist/leaflet-src';
+import L from 'leaflet/dist/leaflet-src.js';
 import ko from 'knockout';
 
-import isBlank from '../common/utility/isBlank';
-import initializeDuplicateChecker from '../edit/check-duplicates';
-import {initializeArea} from '../edit/MB/Control/Area';
-import {initializeBubble} from '../edit/MB/Control/Bubble';
-import typeBubble from '../edit/typeBubble';
-import {errorField} from '../edit/validation';
-import {initializeGuessCase} from '../guess-case/MB/Control/GuessCase';
+import isBlank from '../common/utility/isBlank.js';
+import initializeDuplicateChecker from '../edit/check-duplicates.js';
+import {initializeArea} from '../edit/MB/Control/Area.js';
+import {initializeBubble} from '../edit/MB/Control/Bubble.js';
+import typeBubble from '../edit/typeBubble.js';
+import {errorField} from '../edit/validation.js';
+import {initializeGuessCase} from '../guess-case/MB/Control/GuessCase.js';
 
-import {map, marker} from './map';
+import {map, marker} from './map.js';
 
 initializeGuessCase('place', 'id-edit-place');
 initializeArea('span.area.autocomplete');

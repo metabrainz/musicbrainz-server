@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import SearchError from '../components/SearchError';
+import SearchError from '../components/SearchError.js';
 
 type Props = {
   +error: string,

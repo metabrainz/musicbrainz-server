@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
+import Layout from '../layout/index.js';
 import DBDefs from '../static/scripts/common/DBDefs.mjs';
-import bugTrackerURL from '../static/scripts/common/utility/bugTrackerURL';
+import bugTrackerURL from '../static/scripts/common/utility/bugTrackerURL.js';
 
-import DocSearchBox from './components/DocSearchBox';
+import DocSearchBox from './components/DocSearchBox.js';
 
 type Props = {
   +$c: CatalystContextT,

@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import TagLink from '../static/scripts/common/components/TagLink';
-import {sortByNumber} from '../static/scripts/common/utility/arrays';
-import {formatCount} from '../statistics/utilities';
-import loopParity from '../utility/loopParity';
+import Layout from '../layout/index.js';
+import TagLink from '../static/scripts/common/components/TagLink.js';
+import {sortByNumber} from '../static/scripts/common/utility/arrays.js';
+import {formatCount} from '../statistics/utilities.js';
+import loopParity from '../utility/loopParity.js';
 
 type Props = {
   +$c: CatalystContextT,

@@ -11,48 +11,49 @@ import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
 import {CatalystContext} from '../context.mjs';
-import ENTITIES from '../../entities';
-import InstrumentRelTypes from '../components/InstrumentRelTypes';
-import ReleaseCatnoList from '../components/ReleaseCatnoList';
-import ReleaseLabelList from '../components/ReleaseLabelList';
-import ReleaseLanguageScript from '../components/ReleaseLanguageScript';
-import SortableTableHeader from '../components/SortableTableHeader';
+import ENTITIES from '../../entities.json';
+import InstrumentRelTypes from '../components/InstrumentRelTypes.js';
+import ReleaseCatnoList from '../components/ReleaseCatnoList.js';
+import ReleaseLabelList from '../components/ReleaseLabelList.js';
+import ReleaseLanguageScript from '../components/ReleaseLanguageScript.js';
+import SortableTableHeader from '../components/SortableTableHeader.js';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import ArtistCreditLink
-  from '../static/scripts/common/components/ArtistCreditLink';
+  from '../static/scripts/common/components/ArtistCreditLink.js';
 import ArtistRoles
-  from '../static/scripts/common/components/ArtistRoles';
-import AttributeList from '../static/scripts/common/components/AttributeList';
-import CDTocLink from '../static/scripts/common/components/CDTocLink';
+  from '../static/scripts/common/components/ArtistRoles.js';
+import AttributeList
+  from '../static/scripts/common/components/AttributeList.js';
+import CDTocLink from '../static/scripts/common/components/CDTocLink.js';
 import DescriptiveLink
-  from '../static/scripts/common/components/DescriptiveLink';
-import EntityLink from '../static/scripts/common/components/EntityLink';
+  from '../static/scripts/common/components/DescriptiveLink.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import EventLocations
-  from '../static/scripts/common/components/EventLocations';
+  from '../static/scripts/common/components/EventLocations.js';
 import ExpandedArtistCredit
-  from '../static/scripts/common/components/ExpandedArtistCredit';
-import IsrcList from '../static/scripts/common/components/IsrcList';
-import IswcList from '../static/scripts/common/components/IswcList';
-import RatingStars from '../static/scripts/common/components/RatingStars';
+  from '../static/scripts/common/components/ExpandedArtistCredit.js';
+import IsrcList from '../static/scripts/common/components/IsrcList.js';
+import IswcList from '../static/scripts/common/components/IswcList.js';
+import RatingStars from '../static/scripts/common/components/RatingStars.js';
 import ReleaseEvents
-  from '../static/scripts/common/components/ReleaseEvents';
-import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
+  from '../static/scripts/common/components/ReleaseEvents.js';
+import TaggerIcon from '../static/scripts/common/components/TaggerIcon.js';
 import WorkArtists
-  from '../static/scripts/common/components/WorkArtists';
-import formatDate from '../static/scripts/common/utility/formatDate';
+  from '../static/scripts/common/components/WorkArtists.js';
+import formatDate from '../static/scripts/common/utility/formatDate.js';
 import formatDatePeriod
-  from '../static/scripts/common/utility/formatDatePeriod';
-import {formatCount} from '../statistics/utilities';
-import formatEndDate from '../static/scripts/common/utility/formatEndDate';
+  from '../static/scripts/common/utility/formatDatePeriod.js';
+import {formatCount} from '../statistics/utilities.js';
+import formatEndDate from '../static/scripts/common/utility/formatEndDate.js';
 import renderMergeCheckboxElement
-  from '../static/scripts/common/utility/renderMergeCheckboxElement';
-import expand2react from '../static/scripts/common/i18n/expand2react';
+  from '../static/scripts/common/utility/renderMergeCheckboxElement.js';
+import expand2react from '../static/scripts/common/i18n/expand2react.js';
 import localizeLanguageName
-  from '../static/scripts/common/i18n/localizeLanguageName';
-import yesNo from '../static/scripts/common/utility/yesNo';
-import type {ReportRelationshipRoleT} from '../report/types';
+  from '../static/scripts/common/i18n/localizeLanguageName.js';
+import yesNo from '../static/scripts/common/utility/yesNo.js';
+import type {ReportRelationshipRoleT} from '../report/types.js';
 
-import {returnToCurrentPage} from './returnUri';
+import {returnToCurrentPage} from './returnUri.js';
 
 type OrderableProps = {
   +order?: string,

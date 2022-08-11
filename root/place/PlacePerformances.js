@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import RelationshipsTable from '../components/RelationshipsTable';
+import RelationshipsTable from '../components/RelationshipsTable.js';
 
-import PlaceLayout from './PlaceLayout';
+import PlaceLayout from './PlaceLayout.js';
 
 type Props = {
   +$c: CatalystContextT,

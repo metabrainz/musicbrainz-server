@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import FormCsrfToken from '../components/FormCsrfToken';
-import FormRow from '../components/FormRow';
-import FormRowEmailLong from '../components/FormRowEmailLong';
-import FormSubmit from '../components/FormSubmit';
-import Layout from '../layout';
+import FormCsrfToken from '../components/FormCsrfToken.js';
+import FormRow from '../components/FormRow.js';
+import FormRowEmailLong from '../components/FormRowEmailLong.js';
+import FormSubmit from '../components/FormSubmit.js';
+import Layout from '../layout/index.js';
 
 type LostUsernameFormT = FormT<{
   +$c: CatalystContextT,

@@ -9,15 +9,15 @@
 
 import * as React from 'react';
 
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import entityHref from '../../static/scripts/common/utility/entityHref';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
+import entityHref from '../../static/scripts/common/utility/entityHref.js';
 import {
   isEditingEnabled,
   isLocationEditor,
   isRelationshipEditor,
-} from '../../static/scripts/common/utility/privileges';
+} from '../../static/scripts/common/utility/privileges.js';
 
-import AliasTable from './AliasTable';
+import AliasTable from './AliasTable.js';
 
 function canEdit($c: CatalystContextT, entityType: string) {
   if (isEditingEnabled($c.user)) {

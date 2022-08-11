@@ -10,14 +10,15 @@
 import * as React from 'react';
 
 import * as manifest from '../../static/manifest.mjs';
-import formatDate from '../../static/scripts/common/utility/formatDate';
+import formatDate from '../../static/scripts/common/utility/formatDate.js';
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import ReleaseEvents
-  from '../../static/scripts/common/components/ReleaseEvents';
-import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
-import Diff from '../../static/scripts/edit/components/edit/Diff';
+  from '../../static/scripts/common/components/ReleaseEvents.js';
+import formatBarcode
+  from '../../static/scripts/common/utility/formatBarcode.js';
+import Diff from '../../static/scripts/edit/components/edit/Diff.js';
 
 type Props = {
   +edit: EditReleaseLabelEditT,

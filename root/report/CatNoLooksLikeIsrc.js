@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import ReleaseList from './components/ReleaseList';
-import ReportLayout from './components/ReportLayout';
-import useCatNoColumn from './hooks/useCatNoColumn';
-import type {ReportDataT, ReportReleaseCatNoT} from './types';
+import ReleaseList from './components/ReleaseList.js';
+import ReportLayout from './components/ReportLayout.js';
+import useCatNoColumn from './hooks/useCatNoColumn.js';
+import type {ReportDataT, ReportReleaseCatNoT} from './types.js';
 
 const CatNoLooksLikeIsrc = ({
   canBeFiltered,

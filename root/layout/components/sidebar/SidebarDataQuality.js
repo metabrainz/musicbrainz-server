@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import {QUALITY_NAMES} from '../../../static/scripts/common/constants';
+import {QUALITY_NAMES} from '../../../static/scripts/common/constants.js';
 
-import {SidebarProperty} from './SidebarProperties';
+import {SidebarProperty} from './SidebarProperties.js';
 
 type Props = {
   +quality: QualityT,

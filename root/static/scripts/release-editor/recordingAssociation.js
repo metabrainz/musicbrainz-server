@@ -8,18 +8,18 @@
 
 import ko from 'knockout';
 
-import {MAX_LENGTH_DIFFERENCE} from '../common/constants';
+import {MAX_LENGTH_DIFFERENCE} from '../common/constants.js';
 import {
   isCompleteArtistCredit,
   reduceArtistCredit,
-} from '../common/immutable-entities';
-import MB from '../common/MB';
-import {uniqBy} from '../common/utility/arrays';
-import {debounceComputed} from '../common/utility/debounce';
-import similarity from '../edit/utility/similarity';
+} from '../common/immutable-entities.js';
+import MB from '../common/MB.js';
+import {uniqBy} from '../common/utility/arrays.js';
+import {debounceComputed} from '../common/utility/debounce.js';
+import similarity from '../edit/utility/similarity.js';
 
-import releaseEditor from './viewModel';
-import utils from './utils';
+import releaseEditor from './viewModel.js';
+import utils from './utils.js';
 
 const recordingAssociation = {};
 

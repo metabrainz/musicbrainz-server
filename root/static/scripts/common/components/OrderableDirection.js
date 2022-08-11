@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {bracketedText} from '../utility/bracketed';
+import {bracketedText} from '../utility/bracketed.js';
 
 type Props = {
   +direction: number,

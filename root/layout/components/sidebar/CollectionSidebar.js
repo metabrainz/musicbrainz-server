@@ -10,13 +10,15 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
-import EditorLink from '../../../static/scripts/common/components/EditorLink';
-import EntityLink from '../../../static/scripts/common/components/EntityLink';
-import {formatCount} from '../../../statistics/utilities';
-import {returnToCurrentPage} from '../../../utility/returnUri';
+import EditorLink
+  from '../../../static/scripts/common/components/EditorLink.js';
+import EntityLink
+  from '../../../static/scripts/common/components/EntityLink.js';
+import {formatCount} from '../../../statistics/utilities.js';
+import {returnToCurrentPage} from '../../../utility/returnUri.js';
 
-import MergeLink from './MergeLink';
-import {SidebarProperties, SidebarProperty} from './SidebarProperties';
+import MergeLink from './MergeLink.js';
+import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 
 type Props = {
   +collection: CollectionT,

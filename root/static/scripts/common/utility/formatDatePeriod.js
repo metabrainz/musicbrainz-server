@@ -9,7 +9,7 @@
 
 import ko from 'knockout';
 
-import formatDate from './formatDate';
+import formatDate from './formatDate.js';
 
 function formatDatePeriod<
   +T: $ReadOnly<{...DatePeriodRoleT, ...}>,

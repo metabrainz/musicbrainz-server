@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import ReleaseList from '../components/list/ReleaseList';
-import PaginatedResults from '../components/PaginatedResults';
-import RelationshipsTable from '../components/RelationshipsTable';
-import {returnToCurrentPage} from '../utility/returnUri';
+import ReleaseList from '../components/list/ReleaseList.js';
+import PaginatedResults from '../components/PaginatedResults.js';
+import RelationshipsTable from '../components/RelationshipsTable.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
-import AreaLayout from './AreaLayout';
+import AreaLayout from './AreaLayout.js';
 
 type Props = {
   +$c: CatalystContextT,

@@ -10,17 +10,19 @@
 import * as React from 'react';
 
 import DescriptiveLink from
-  '../../static/scripts/common/components/DescriptiveLink';
-import {DeletedLink} from '../../static/scripts/common/components/EntityLink';
+  '../../static/scripts/common/components/DescriptiveLink.js';
+import {DeletedLink}
+  from '../../static/scripts/common/components/EntityLink.js';
 import ExpandedArtistCredit from
-  '../../static/scripts/common/components/ExpandedArtistCredit';
-import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
-import Diff from '../../static/scripts/edit/components/edit/Diff';
+  '../../static/scripts/common/components/ExpandedArtistCredit.js';
+import formatBarcode
+  from '../../static/scripts/common/utility/formatBarcode.js';
+import Diff from '../../static/scripts/edit/components/edit/Diff.js';
 import FullChangeDiff
-  from '../../static/scripts/edit/components/edit/FullChangeDiff';
+  from '../../static/scripts/edit/components/edit/FullChangeDiff.js';
 import ReleaseEventsDiff
-  from '../../static/scripts/edit/components/edit/ReleaseEventsDiff';
-import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
+  from '../../static/scripts/edit/components/edit/ReleaseEventsDiff.js';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 
 type Props = {
   +edit: EditReleaseEditT,

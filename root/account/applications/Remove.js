@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import ConfirmLayout from '../../components/ConfirmLayout';
+import ConfirmLayout from '../../components/ConfirmLayout.js';
 
 type Props = {
   +form: SecureConfirmFormT,

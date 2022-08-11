@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
+import Layout from '../layout/index.js';
 
 const CannotVote = (): React.Element<typeof Layout> => (
   <Layout fullWidth title={l('Error Voting on Edits')}>

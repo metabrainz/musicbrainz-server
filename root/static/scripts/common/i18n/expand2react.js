@@ -14,7 +14,7 @@ import {
   l as lActual,
   ln as lnActual,
   lp as lpActual,
-} from '../i18n';
+} from '../i18n.js';
 
 import expand, {
   accept,
@@ -36,7 +36,7 @@ import expand, {
   type Parser,
   type VarArgsObject,
   type VarArgsClass,
-} from './expand2';
+} from './expand2.js';
 
 type Input = Expand2ReactInput;
 type Output = Expand2ReactOutput;

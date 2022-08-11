@@ -9,18 +9,18 @@
 
 import * as React from 'react';
 
-import VotingPeriod from '../../components/VotingPeriod';
-import {EDIT_STATUS_OPEN} from '../../constants';
+import VotingPeriod from '../../components/VotingPeriod.js';
+import {EDIT_STATUS_OPEN} from '../../constants.js';
 import {
   SidebarProperties,
   SidebarProperty,
-} from '../../layout/components/sidebar/SidebarProperties';
+} from '../../layout/components/sidebar/SidebarProperties.js';
 import {
   getEditExpireAction,
   getEditStatusName,
   getEditStatusDescription,
-} from '../../utility/edit';
-import formatUserDate from '../../utility/formatUserDate';
+} from '../../utility/edit.js';
+import formatUserDate from '../../utility/formatUserDate.js';
 
 type Props = {
   +$c: CatalystContextT,

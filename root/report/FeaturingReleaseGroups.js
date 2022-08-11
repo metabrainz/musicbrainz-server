@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import ReleaseGroupList from './components/ReleaseGroupList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportReleaseGroupT} from './types';
+import ReleaseGroupList from './components/ReleaseGroupList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportReleaseGroupT} from './types.js';
 
 const FeaturingReleaseGroups = ({
   canBeFiltered,

@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import RecordingList from './components/RecordingList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportRecordingT} from './types';
+import RecordingList from './components/RecordingList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportRecordingT} from './types.js';
 
 const RecordingsWithVaryingTrackLengths = ({
   canBeFiltered,

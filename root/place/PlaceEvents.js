@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import EventList from '../components/list/EventList';
-import PaginatedResults from '../components/PaginatedResults';
-import {returnToCurrentPage} from '../utility/returnUri';
+import EventList from '../components/list/EventList.js';
+import PaginatedResults from '../components/PaginatedResults.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
-import PlaceLayout from './PlaceLayout';
+import PlaceLayout from './PlaceLayout.js';
 
 type Props = {
   +$c: CatalystContextT,

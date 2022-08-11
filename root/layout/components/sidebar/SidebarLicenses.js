@@ -33,7 +33,7 @@ import ccSamplingIconUrl
   from '../../../static/images/licenses/CCSampling.png';
 import ccSamplingPlusIconUrl
   from '../../../static/images/licenses/CCSamplingPlus.png';
-import {compare} from '../../../static/scripts/common/i18n';
+import {compare} from '../../../static/scripts/common/i18n.js';
 import linkedEntities
   from '../../../static/scripts/common/linkedEntities.mjs';
 

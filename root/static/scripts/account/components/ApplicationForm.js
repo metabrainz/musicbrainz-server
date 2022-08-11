@@ -10,12 +10,12 @@
 import mutate from 'mutate-cow';
 import * as React from 'react';
 
-import FormCsrfToken from '../../../../components/FormCsrfToken';
-import FormRow from '../../../../components/FormRow';
-import FormRowSelect from '../../../../components/FormRowSelect';
-import FormRowText from '../../../../components/FormRowText';
-import FormRowURLLong from '../../../../components/FormRowURLLong';
-import FormSubmit from '../../../../components/FormSubmit';
+import FormCsrfToken from '../../../../components/FormCsrfToken.js';
+import FormRow from '../../../../components/FormRow.js';
+import FormRowSelect from '../../../../components/FormRowSelect.js';
+import FormRowText from '../../../../components/FormRowText.js';
+import FormRowURLLong from '../../../../components/FormRowURLLong.js';
+import FormSubmit from '../../../../components/FormSubmit.js';
 
 export type ApplicationFormT = FormT<{
   +csrf_token: FieldT<string>,

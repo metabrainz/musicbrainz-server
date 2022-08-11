@@ -11,12 +11,13 @@ import * as React from 'react';
 
 import * as manifest from '../../static/manifest.mjs';
 import DescriptiveLink from
-  '../../static/scripts/common/components/DescriptiveLink';
+  '../../static/scripts/common/components/DescriptiveLink.js';
 import ExpandedArtistCredit from
-  '../../static/scripts/common/components/ExpandedArtistCredit';
+  '../../static/scripts/common/components/ExpandedArtistCredit.js';
 import ReleaseEvents
-  from '../../static/scripts/common/components/ReleaseEvents';
-import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
+  from '../../static/scripts/common/components/ReleaseEvents.js';
+import formatBarcode
+  from '../../static/scripts/common/utility/formatBarcode.js';
 
 type Props = {
   +allowNew?: boolean,

@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import StatusPage from '../../components/StatusPage';
-import TagLookupForm from '../../taglookup/Form';
+import StatusPage from '../../components/StatusPage.js';
+import TagLookupForm from '../../taglookup/Form.js';
 
-import SearchForm from './SearchForm';
+import SearchForm from './SearchForm.js';
 
 type Props = {
   +children: React.Node,

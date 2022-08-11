@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import CDTocLink from '../../static/scripts/common/components/CDTocLink';
+import CDTocLink from '../../static/scripts/common/components/CDTocLink.js';
 import MediumLink
-  from '../../static/scripts/common/components/MediumLink';
+  from '../../static/scripts/common/components/MediumLink.js';
 
 type Props = {
   +edit: RemoveDiscIdEditT,

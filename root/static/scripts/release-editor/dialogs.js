@@ -10,16 +10,16 @@ import $ from 'jquery';
 import ko from 'knockout';
 import * as ReactDOMServer from 'react-dom/server';
 
-import {reduceArtistCredit} from '../common/immutable-entities';
-import {bracketedText} from '../common/utility/bracketed';
-import formatTrackLength from '../common/utility/formatTrackLength';
-import isBlank from '../common/utility/isBlank';
-import request from '../common/utility/request';
+import {reduceArtistCredit} from '../common/immutable-entities.js';
+import {bracketedText} from '../common/utility/bracketed.js';
+import formatTrackLength from '../common/utility/formatTrackLength.js';
+import isBlank from '../common/utility/isBlank.js';
+import request from '../common/utility/request.js';
 
-import fields from './fields';
-import trackParser from './trackParser';
-import utils from './utils';
-import releaseEditor from './viewModel';
+import fields from './fields.js';
+import trackParser from './trackParser.js';
+import utils from './utils.js';
+import releaseEditor from './viewModel.js';
 
 class Dialog {
   open() {

@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
+import Layout from '../layout/index.js';
 
-import TagLookupForm from './Form';
-import type {TagLookupPropsT} from './types';
-import TagLookupNagSection from './Nag';
+import TagLookupForm from './Form.js';
+import type {TagLookupPropsT} from './types.js';
+import TagLookupNagSection from './Nag.js';
 
 const TagLookup = (props: TagLookupPropsT): React.Element<typeof Layout> => (
   <Layout fullWidth title={l('Tag Lookup')}>

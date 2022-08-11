@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import StatusPage from '../components/StatusPage';
-import expand2react from '../static/scripts/common/i18n/expand2react';
+import StatusPage from '../components/StatusPage.js';
+import expand2react from '../static/scripts/common/i18n/expand2react.js';
 
 type Props = {
   +message: string,

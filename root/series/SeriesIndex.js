@@ -9,23 +9,24 @@
 
 import * as React from 'react';
 
-import Annotation from '../static/scripts/common/components/Annotation';
-import Relationships from '../static/scripts/common/components/Relationships';
-import ArtistList from '../components/list/ArtistList';
-import EventList from '../components/list/EventList';
-import RecordingList from '../components/list/RecordingList';
-import {ReleaseGroupListTable} from '../components/list/ReleaseGroupList';
-import ReleaseList from '../components/list/ReleaseList';
-import WorkList from '../components/list/WorkList';
-import PaginatedResults from '../components/PaginatedResults';
+import Annotation from '../static/scripts/common/components/Annotation.js';
+import Relationships
+  from '../static/scripts/common/components/Relationships.js';
+import ArtistList from '../components/list/ArtistList.js';
+import EventList from '../components/list/EventList.js';
+import RecordingList from '../components/list/RecordingList.js';
+import {ReleaseGroupListTable} from '../components/list/ReleaseGroupList.js';
+import ReleaseList from '../components/list/ReleaseList.js';
+import WorkList from '../components/list/WorkList.js';
+import PaginatedResults from '../components/PaginatedResults.js';
 import WikipediaExtract
-  from '../static/scripts/common/components/WikipediaExtract';
+  from '../static/scripts/common/components/WikipediaExtract.js';
 import {formatPluralEntityTypeName}
-  from '../static/scripts/common/utility/formatEntityTypeName';
-import CleanupBanner from '../components/CleanupBanner';
+  from '../static/scripts/common/utility/formatEntityTypeName.js';
+import CleanupBanner from '../components/CleanupBanner.js';
 import * as manifest from '../static/manifest.mjs';
 
-import SeriesLayout from './SeriesLayout';
+import SeriesLayout from './SeriesLayout.js';
 
 type ListPickerProps = {
   ...SeriesItemNumbersRoleT,

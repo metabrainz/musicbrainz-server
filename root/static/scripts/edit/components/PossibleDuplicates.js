@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import EntityLink from '../../common/components/EntityLink';
+import EntityLink from '../../common/components/EntityLink.js';
 
 type PropsT = {
   duplicates: $ReadOnlyArray<CoreEntityT>,

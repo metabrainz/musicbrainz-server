@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import CDStubLink from '../../static/scripts/common/components/CDStubLink';
-import loopParity from '../../utility/loopParity';
-import type {ResultsPropsT, SearchResultT} from '../types';
+import CDStubLink from '../../static/scripts/common/components/CDStubLink.js';
+import loopParity from '../../utility/loopParity.js';
+import type {ResultsPropsT, SearchResultT} from '../types.js';
 
-import PaginatedSearchResults from './PaginatedSearchResults';
-import ResultsLayout from './ResultsLayout';
+import PaginatedSearchResults from './PaginatedSearchResults.js';
+import ResultsLayout from './ResultsLayout.js';
 
 function buildResult(result: SearchResultT<CDStubT>, index: number) {
   const cdstub = result.entity;

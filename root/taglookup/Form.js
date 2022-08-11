@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import FormRow from '../components/FormRow';
-import FormRowText from '../components/FormRowText';
-import FormRowTextLong from '../components/FormRowTextLong';
-import FormSubmit from '../components/FormSubmit';
+import FormRow from '../components/FormRow.js';
+import FormRowText from '../components/FormRowText.js';
+import FormRowTextLong from '../components/FormRowTextLong.js';
+import FormSubmit from '../components/FormSubmit.js';
 
 type Props = {
   +form: TagLookupFormT,

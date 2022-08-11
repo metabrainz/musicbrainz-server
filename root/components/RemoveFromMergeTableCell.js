@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import ENTITIES from '../../entities';
-import {returnToCurrentPage} from '../utility/returnUri';
+import ENTITIES from '../../entities.json';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 type Props = {
   +$c: CatalystContextT,

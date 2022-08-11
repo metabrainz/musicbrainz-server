@@ -10,16 +10,16 @@ import $ from 'jquery';
 import ko from 'knockout';
 
 import localizeLinkAttributeTypeDescription
-  from '../../common/i18n/localizeLinkAttributeTypeDescription';
+  from '../../common/i18n/localizeLinkAttributeTypeDescription.js';
 import localizeLinkAttributeTypeName
-  from '../../common/i18n/localizeLinkAttributeTypeName';
+  from '../../common/i18n/localizeLinkAttributeTypeName.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
-import MB from '../../common/MB';
-import {groupBy} from '../../common/utility/arrays';
-import {hasSessionStorage} from '../../common/utility/storage';
-import {uniqueId} from '../../common/utility/strings';
+import MB from '../../common/MB.js';
+import {groupBy} from '../../common/utility/arrays.js';
+import {hasSessionStorage} from '../../common/utility/storage.js';
+import {uniqueId} from '../../common/utility/strings.js';
 
-import fields from './fields';
+import fields from './fields.js';
 
 const addAnotherEntityLabels = {
   area: N_l('Add another area'),

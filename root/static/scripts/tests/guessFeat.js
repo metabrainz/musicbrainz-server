@@ -9,8 +9,8 @@
 import test from 'tape';
 import ko from 'knockout';
 
-import guessFeat from '../edit/utility/guessFeat';
-import fields from '../release-editor/fields';
+import guessFeat from '../edit/utility/guessFeat.js';
+import fields from '../release-editor/fields.js';
 
 /* eslint-disable sort-keys */
 test('guessing feat. artists', function (t) {

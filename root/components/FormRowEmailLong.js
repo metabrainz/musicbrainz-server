@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import type {Props as FormRowTextProps} from './FormRowText';
-import FormRowTextLong from './FormRowTextLong';
+import type {Props as FormRowTextProps} from './FormRowText.js';
+import FormRowTextLong from './FormRowTextLong.js';
 
 const FormRowEmailLong = (
   props: FormRowTextProps,
