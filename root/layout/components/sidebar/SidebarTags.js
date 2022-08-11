@@ -59,7 +59,6 @@ const SidebarTags = ({
         {($c.user?.has_confirmed_email_address &&
           aggregatedTags && userTags) ? (
             <SidebarTagEditor
-              $c={$c}
               aggregatedTags={aggregatedTags}
               entity={entity}
               genreMap={$c.stash.genre_map}

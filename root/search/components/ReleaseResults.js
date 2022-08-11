@@ -26,8 +26,8 @@ import ReleaseCatnoList from '../../components/ReleaseCatnoList.js';
 import ReleaseLabelList from '../../components/ReleaseLabelList.js';
 import ReleaseLanguageScript from '../../components/ReleaseLanguageScript.js';
 import type {
-  InlineResultsPropsWithContextT,
-  ResultsPropsWithContextT,
+  InlineResultsPropsT,
+  ResultsPropsT,
   SearchResultT,
 } from '../types.js';
 
@@ -100,7 +100,7 @@ export const ReleaseResultsInline = ({
   pager,
   query,
   results,
-}: InlineResultsPropsWithContextT<ReleaseT>):
+}: InlineResultsPropsT<ReleaseT>):
 React.Element<typeof PaginatedSearchResults> => {
   const $c = React.useContext(CatalystContext);
 
@@ -133,29 +133,31 @@ React.Element<typeof PaginatedSearchResults> => {
 };
 
 const ReleaseResults = ({
-  $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<ReleaseT>):
-React.Element<typeof ResultsLayout> => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
-    <ReleaseResultsInline
-      pager={pager}
-      query={query}
-      results={results}
-    />
-    {isEditingEnabled($c.user) ? (
-      <p>
-        {exp.l('Alternatively, you may {uri|add a new release}.', {
-          uri: '/release/add',
-        })}
-      </p>
-    ) : null}
-    {manifest.js('common/components/TaggerIcon', {async: 'async'})}
-  </ResultsLayout>
-);
+}: ResultsPropsT<ReleaseT>):
+React.Element<typeof ResultsLayout> => {
+  const $c = React.useContext(CatalystContext);
+  return (
+    <ResultsLayout form={form} lastUpdated={lastUpdated}>
+      <ReleaseResultsInline
+        pager={pager}
+        query={query}
+        results={results}
+      />
+      {isEditingEnabled($c.user) ? (
+        <p>
+          {exp.l('Alternatively, you may {uri|add a new release}.', {
+            uri: '/release/add',
+          })}
+        </p>
+      ) : null}
+      {manifest.js('common/components/TaggerIcon', {async: 'async'})}
+    </ResultsLayout>
+  );
+};
 
 export default ReleaseResults;

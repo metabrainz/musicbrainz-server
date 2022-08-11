@@ -12,6 +12,7 @@ import * as React from 'react';
 import UserAccountLayout, {
   sanitizedAccountLayoutUser,
 } from '../components/UserAccountLayout.js';
+import {CatalystContext, SanitizedCatalystContext} from '../context.mjs';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink.js';
 import Warning from '../static/scripts/common/components/Warning.js';
@@ -127,7 +128,6 @@ const UserProfileProperty = ({
 );
 
 type UserProfileInformationProps = {
-  +$c: CatalystContextT,
   +applicationCount: number,
   +ipHashes: $ReadOnlyArray<string>,
   +subscribed: boolean,
@@ -138,7 +138,6 @@ type UserProfileInformationProps = {
 };
 
 const UserProfileInformation = ({
-  $c,
   applicationCount,
   ipHashes,
   subscribed,
@@ -147,6 +146,7 @@ const UserProfileInformation = ({
   user,
   viewingOwnProfile,
 }: UserProfileInformationProps) => {
+  const $c = React.useContext(CatalystContext);
   const showBioAndURL = !!(!user.is_limited || $c.user);
   let memberSince;
   if (user.name === 'rob') {
@@ -428,7 +428,6 @@ const UserProfileInformation = ({
 };
 
 type UserEditsPropertyProps = {
-  +$c: CatalystContextT,
   +addedEntities: number,
   +entityType: string,
   +name: string,
@@ -436,12 +435,12 @@ type UserEditsPropertyProps = {
 };
 
 const UserEditsProperty = ({
-  $c,
   addedEntities,
   entityType,
   name,
   user,
 }: UserEditsPropertyProps) => {
+  const $c = React.useContext(CatalystContext);
   const encodedName = encodeURIComponent(user.name);
   const createEditTypes: string = entityType === 'cover_art'
     ? String(TYPES.EDIT_RELEASE_ADD_COVER_ART)
@@ -523,7 +522,6 @@ type EntitiesStatsT = {
 };
 
 type UserProfileStatisticsProps = {
-  +$c: CatalystContextT,
   +addedEntities: EntitiesStatsT,
   +editStats: EditStatsT,
   +secondaryStats: SecondaryStatsT,
@@ -532,13 +530,13 @@ type UserProfileStatisticsProps = {
 };
 
 const UserProfileStatistics = ({
-  $c,
   editStats,
   user,
   votes,
   secondaryStats,
   addedEntities,
 }: UserProfileStatisticsProps) => {
+  const $c = React.useContext(CatalystContext);
   const voteTotals = votes.pop();
   const encodedName = encodeURIComponent(user.name);
   const allAppliedCount = editStats.accepted_count +
@@ -760,7 +758,6 @@ const UserProfileStatistics = ({
               .sort((a, b) => compare(a[1], b[1]))
               .map(([entityType, entityTypeName]) => (
                 <UserEditsProperty
-                  $c={$c}
                   addedEntities={addedEntities[entityType]}
                   entityType={entityType}
                   key={entityType}
@@ -834,7 +831,6 @@ const UserProfileStatistics = ({
 };
 
 type UserProfileProps = {
-  +$c: CatalystContextT,
   +addedEntities: EntitiesStatsT,
   +applicationCount: number,
   +editStats: EditStatsT,
@@ -848,7 +844,6 @@ type UserProfileProps = {
 };
 
 const UserProfile = ({
-  $c,
   applicationCount,
   editStats,
   ipHashes,
@@ -860,6 +855,7 @@ const UserProfile = ({
   votes,
   addedEntities,
 }: UserProfileProps): React.Element<typeof UserAccountLayout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const viewingOwnProfile = $c.user != null && $c.user.id === user.id;
   const adminViewing = $c.user != null && isAccountAdmin($c.user);
   const encodedName = encodeURIComponent(user.name);
@@ -891,7 +887,6 @@ const UserProfile = ({
           ) : null}
 
           <UserProfileInformation
-            $c={$c}
             applicationCount={applicationCount}
             ipHashes={ipHashes}
             subscribed={subscribed}
@@ -902,7 +897,6 @@ const UserProfile = ({
           />
 
           <UserProfileStatistics
-            $c={$c}
             addedEntities={addedEntities}
             editStats={editStats}
             secondaryStats={secondaryStats}

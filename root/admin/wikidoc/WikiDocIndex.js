@@ -12,6 +12,7 @@ import type {CellRenderProps} from 'react-table';
 
 import Layout from '../../layout/index.js';
 import Table from '../../components/Table.js';
+import {SanitizedCatalystContext} from '../../context.mjs';
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import {isWikiTranscluder}
   from '../../static/scripts/common/utility/privileges.js';
@@ -19,7 +20,6 @@ import {isWikiTranscluder}
 import type {WikiDocT} from './types.js';
 
 type PropsT = {
-  +$c: CatalystContextT,
   +pages: $ReadOnlyArray<WikiDocT>,
   +updatesRequired: boolean,
   +wikiIsUnreachable: boolean,
@@ -27,11 +27,11 @@ type PropsT = {
 };
 
 const WikiDocTable = ({
-  $c,
   pages,
   updatesRequired,
   wikiServer,
 }: PropsT) => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const columns = React.useMemo(
     () => {
       const nameColumn = {
@@ -145,50 +145,53 @@ const WikiDocTable = ({
   );
 };
 
-const WikiDocIndex = (props: PropsT): React.Element<typeof Layout> => (
-  <Layout fullWidth title={l('Transclusion Table')}>
-    <div className="content">
-      <h1>{l('Transclusion Table')}</h1>
-      <p>
-        {exp.l(
-          `Read the {doc|WikiDocs} documentation for an overview of how
-           transclusion works.`,
-          {doc: '/doc/WikiDocs'},
-        )}
-      </p>
-      {isWikiTranscluder(props.$c.user) ? (
-        <>
-          <ul>
-            <li key="create">
-              <a href="/admin/wikidoc/create">
-                {l('Add a new entry')}
-              </a>
-            </li>
-            <li key="history">
-              <a href="/admin/wikidoc/history">
-                {l('View transclusion history')}
-              </a>
-            </li>
-          </ul>
-          <p>
-            {exp.l(`<strong>Note:</strong> MediaWiki does not check to
-                    see if the version number matches the page name,
-                    it will take the version number and provide
-                    whatever page is associated with it. Make sure to
-                    double check your work when updating a page!`)}
-          </p>
-        </>
-      ) : null}
-
-      {props.wikiIsUnreachable ? (
-        <p style={{color: 'red', fontWeight: 'bold'}}>
-          {l('There was a problem accessing the wiki API.')}
+const WikiDocIndex = (props: PropsT): React.Element<typeof Layout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
+  return (
+    <Layout fullWidth title={l('Transclusion Table')}>
+      <div className="content">
+        <h1>{l('Transclusion Table')}</h1>
+        <p>
+          {exp.l(
+            `Read the {doc|WikiDocs} documentation for an overview of how
+             transclusion works.`,
+            {doc: '/doc/WikiDocs'},
+          )}
         </p>
-      ) : null}
-    </div>
+        {isWikiTranscluder($c.user) ? (
+          <>
+            <ul>
+              <li key="create">
+                <a href="/admin/wikidoc/create">
+                  {l('Add a new entry')}
+                </a>
+              </li>
+              <li key="history">
+                <a href="/admin/wikidoc/history">
+                  {l('View transclusion history')}
+                </a>
+              </li>
+            </ul>
+            <p>
+              {exp.l(`<strong>Note:</strong> MediaWiki does not check to
+                      see if the version number matches the page name,
+                      it will take the version number and provide
+                      whatever page is associated with it. Make sure to
+                      double check your work when updating a page!`)}
+            </p>
+          </>
+        ) : null}
 
-    <WikiDocTable {...props} />
-  </Layout>
-);
+        {props.wikiIsUnreachable ? (
+          <p style={{color: 'red', fontWeight: 'bold'}}>
+            {l('There was a problem accessing the wiki API.')}
+          </p>
+        ) : null}
+      </div>
+
+      <WikiDocTable {...props} />
+    </Layout>
+  );
+};
 
 export default WikiDocIndex;

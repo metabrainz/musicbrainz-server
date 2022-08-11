@@ -105,7 +105,7 @@ const ReportUser = ({
         <p>
           {exp.l(
             `Your report will be sent to our {uri|account administrators},
-             who will decide what action to take.`,
+              who will decide what action to take.`,
             {uri: {href: '/privileged', target: '_blank'}},
           )}
         </p>
@@ -153,7 +153,8 @@ const ReportUser = ({
               <p>
                 {exp.l(
                   `If you don’t want our admins to contact you further
-                   regarding this report, you can uncheck the checkbox above.
+                   regarding this report, you can uncheck the checkbox
+                   above.
                    <br />
                    We recommend leaving it checked, so that you can be
                    contacted if the report is resolved or the admins

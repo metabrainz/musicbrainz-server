@@ -18,7 +18,6 @@ import {reduceArtistCredit}
 import ReleaseGroupHeader from './ReleaseGroupHeader.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +children: React.Node,
   +entity: ReleaseGroupT,
   +fullWidth?: boolean,

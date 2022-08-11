@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {SanitizedCatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
 import CodeLink from '../static/scripts/common/components/CodeLink.js';
 import WorkListEntry
@@ -16,12 +17,12 @@ import WorkListEntry
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +iswcs: $ReadOnlyArray<IswcT>,
   +works: $ReadOnlyArray<WorkT>,
 };
 
-const Index = ({$c, iswcs, works}: Props): React.Element<typeof Layout> => {
+const Index = ({iswcs, works}: Props): React.Element<typeof Layout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const userExists = !!$c.user;
   const iswc = iswcs[0];
   return (

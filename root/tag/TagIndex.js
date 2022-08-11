@@ -16,7 +16,6 @@ import EntityLink
 import TagLayout from './TagLayout.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +tag: TagT,
   +taggedEntities: {
     +[entityType: string]: {

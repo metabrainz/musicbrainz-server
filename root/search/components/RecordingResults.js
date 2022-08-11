@@ -20,8 +20,8 @@ import {isEditingEnabled}
   from '../../static/scripts/common/utility/privileges.js';
 import loopParity from '../../utility/loopParity.js';
 import type {
-  InlineResultsPropsWithContextT,
-  ResultsPropsWithContextT,
+  InlineResultsPropsT,
+  ResultsPropsT,
   SearchResultT,
 } from '../types.js';
 import ArtistCreditLink
@@ -129,7 +129,7 @@ export const RecordingResultsInline = ({
   pager,
   query,
   results,
-}: InlineResultsPropsWithContextT<RecordingWithArtistCreditT>):
+}: InlineResultsPropsT<RecordingWithArtistCreditT>):
 React.Element<typeof PaginatedSearchResults> => {
   const $c = React.useContext(CatalystContext);
 
@@ -157,14 +157,14 @@ React.Element<typeof PaginatedSearchResults> => {
 };
 
 const RecordingResults = ({
-  $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<RecordingWithArtistCreditT>):
+}: ResultsPropsT<RecordingWithArtistCreditT>):
 React.Element<typeof ResultsLayout> => {
+  const $c = React.useContext(CatalystContext);
   linenum = 0;
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>

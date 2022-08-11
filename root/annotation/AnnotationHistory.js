@@ -18,14 +18,12 @@ import AnnotationHistoryTable
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
 type AnnotationHistoryProps = {
-  +$c: CatalystContextT,
   +annotations: $ReadOnlyArray<AnnotationT>,
   +entity: AnnotatedEntityT,
   +pager: PagerT,
 };
 
 const AnnotationHistory = ({
-  $c,
   annotations,
   entity,
   pager,
@@ -50,7 +48,6 @@ const AnnotationHistory = ({
         >
           <PaginatedResults pager={pager}>
             <AnnotationHistoryTable
-              $c={$c}
               annotations={annotations}
               baseUrl={baseUrl}
             />

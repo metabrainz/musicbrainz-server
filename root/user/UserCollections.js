@@ -13,6 +13,7 @@ import type {ColumnOptions} from 'react-table';
 import Table from '../components/Table.js';
 import UserAccountLayout, {type AccountLayoutUserT}
   from '../components/UserAccountLayout.js';
+import {SanitizedCatalystContext} from '../context.mjs';
 import {formatPluralEntityTypeName}
   from '../static/scripts/common/utility/formatEntityTypeName.js';
 import {
@@ -23,7 +24,6 @@ import {
 } from '../utility/tableColumns.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +collaborativeCollections: CollectionListT,
   +ownCollections: CollectionListT,
   +user: AccountLayoutUserT,
@@ -158,11 +158,11 @@ const CollectionsEntityTypeSection = ({
 };
 
 const UserCollections = ({
-  $c,
   ownCollections,
   collaborativeCollections,
   user,
 }: Props): React.Element<typeof UserAccountLayout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const activeUser = $c.user;
   const viewingOwnProfile = !!(activeUser && activeUser.id === user.id);
   const ownCollectionTypes = Object.keys(ownCollections);

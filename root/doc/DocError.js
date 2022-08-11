@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
 import DBDefs from '../static/scripts/common/DBDefs.mjs';
 import bugTrackerURL from '../static/scripts/common/utility/bugTrackerURL.js';
@@ -16,14 +17,14 @@ import bugTrackerURL from '../static/scripts/common/utility/bugTrackerURL.js';
 import DocSearchBox from './components/DocSearchBox.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +id: string,
 };
 
 const DocError = ({
-  $c,
   id,
 }: Props): React.Element<typeof Layout> => {
+  const $c = React.useContext(CatalystContext);
+
   // We check whether we have a Google Custom Search engine
   const useGoogleCustomSearch = !!DBDefs.GOOGLE_CUSTOM_SEARCH;
 

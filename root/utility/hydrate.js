@@ -94,18 +94,12 @@ if (__DEV__) {
 
 // Please keep the type signature in sync with root/vars.js.
 export default function hydrate<
-  Config: {+$c?: CatalystContextT, ...},
-  /* eslint-disable indent */
-  SanitizedConfig: {+$c?: SanitizedCatalystContextT, ...} = {
-    ...$Diff<Config, {$c?: CatalystContextT}>,
-    +$c?: SanitizedCatalystContextT,
-    ...
-  },
-  /* eslint-enable indent */
+  Config: {...},
+  SanitizedConfig = Config,
 >(
   containerSelector: string,
   Component: React.AbstractComponent<Config | SanitizedConfig>,
-  mungeProps?: ({...Config, ...}) => SanitizedConfig,
+  mungeProps?: (Config) => SanitizedConfig,
 ): React.AbstractComponent<Config, void> {
   const [containerTag, ...classes] = containerSelector.split('.');
   if (typeof document !== 'undefined') {
@@ -140,7 +134,7 @@ export default function hydrate<
               root,
               <React.StrictMode>
                 <SanitizedCatalystContext.Provider value={$c}>
-                  <Component $c={$c} {...props} />
+                  <Component {...props} />
                 </SanitizedCatalystContext.Provider>
               </React.StrictMode>,
             );
@@ -152,13 +146,13 @@ export default function hydrate<
     });
   }
   return (props: Config) => {
-    const dataProps: {...Config, ...} = {...props};
-    if (dataProps.$c) {
-      delete dataProps.$c;
-    }
-    let sanitizedDataProps: ?SanitizedConfig;
+    invariant(
+      !hasOwnProp(props, '$c'),
+      '`$c` should be accessed using the React context APIs, not props',
+    );
+    let sanitizedProps: ?SanitizedConfig;
     if (mungeProps) {
-      sanitizedDataProps = mungeProps(dataProps);
+      sanitizedProps = mungeProps(props);
     }
     return (
       <>
@@ -166,7 +160,7 @@ export default function hydrate<
           dangerouslySetInnerHTML={{
             __html: escapeClosingTags(
               JSON.stringify(
-                ((sanitizedDataProps ?? dataProps): Config | SanitizedConfig),
+                ((sanitizedProps ?? props): Config | SanitizedConfig),
               ) ?? '',
             ),
           }}

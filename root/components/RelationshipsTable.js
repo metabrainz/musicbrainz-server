@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../context.mjs';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import loopParity from '../utility/loopParity.js';
 import ArtistCreditLink
@@ -29,7 +30,6 @@ import uriWith from '../utility/uriWith.js';
 import PaginatedResults from './PaginatedResults.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +entity: CoreEntityT,
   +fallbackMessage?: string,
   +heading: string,
@@ -75,13 +75,14 @@ const getDirectionInteger = (backward: boolean) => {
 };
 
 const RelationshipsTable = ({
-  $c,
   entity,
   fallbackMessage,
   heading,
   pagedLinkTypeGroup,
   pager,
 }: Props): React.MixedElement | null => {
+  const $c = React.useContext(CatalystContext);
+
   if (pagedLinkTypeGroup && !pager) {
     throw new Error('Expected a pager');
   }

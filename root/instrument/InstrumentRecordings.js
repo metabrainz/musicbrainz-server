@@ -11,62 +11,64 @@ import * as React from 'react';
 
 import RecordingList from '../components/list/RecordingList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
+import {SanitizedCatalystContext} from '../context.mjs';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import InstrumentLayout from './InstrumentLayout.js';
 
 type Props = {|
   ...InstrumentCreditsAndRelTypesRoleT,
-  +$c: CatalystContextT,
   +instrument: InstrumentT,
   +pager: PagerT,
   +recordings: $ReadOnlyArray<RecordingWithArtistCreditT>,
 |};
 
 const InstrumentRecordings = ({
-  $c,
   instrument,
   instrumentCreditsAndRelTypes,
   pager,
   recordings,
-}: Props): React.Element<typeof InstrumentLayout> => (
-  <InstrumentLayout
-    entity={instrument}
-    page="recordings"
-    title={l('Recordings')}
-  >
-    <h2>{l('Recordings')}</h2>
+}: Props): React.Element<typeof InstrumentLayout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
+  return (
+    <InstrumentLayout
+      entity={instrument}
+      page="recordings"
+      title={l('Recordings')}
+    >
+      <h2>{l('Recordings')}</h2>
 
-    {recordings && recordings.length > 0 ? (
-      <form
-        action={'/recording/merge_queue?' + returnToCurrentPage($c)}
-        method="post"
-      >
-        <PaginatedResults pager={pager}>
-          <RecordingList
-            checkboxes="add-to-merge"
-            instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
-            recordings={recordings}
-            showInstrumentCreditsAndRelTypes
-            showRatings
-          />
-        </PaginatedResults>
-        {$c.user ? (
-          <div className="row">
-            <span className="buttons">
-              <button type="submit">
-                {l('Add selected recordings for merging')}
-              </button>
-            </span>
-          </div>
-        ) : null}
-      </form>
-    ) : (
-      <p>
-        {l('No recordings found.')}
-      </p>
-    )}
-  </InstrumentLayout>
-);
+      {recordings && recordings.length > 0 ? (
+        <form
+          action={'/recording/merge_queue?' + returnToCurrentPage($c)}
+          method="post"
+        >
+          <PaginatedResults pager={pager}>
+            <RecordingList
+              checkboxes="add-to-merge"
+              instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
+              recordings={recordings}
+              showInstrumentCreditsAndRelTypes
+              showRatings
+            />
+          </PaginatedResults>
+          {$c.user ? (
+            <div className="row">
+              <span className="buttons">
+                <button type="submit">
+                  {l('Add selected recordings for merging')}
+                </button>
+              </span>
+            </div>
+          ) : null}
+        </form>
+      ) : (
+        <p>
+          {l('No recordings found.')}
+        </p>
+      )}
+    </InstrumentLayout>
+  );
+};
 
 export default InstrumentRecordings;

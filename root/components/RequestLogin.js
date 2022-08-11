@@ -9,14 +9,20 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../context.mjs';
 import returnUri from '../utility/returnUri.js';
 
-type Props = {+$c: CatalystContextT, text?: string};
+type Props = {
+  +text?: string,
+};
 
-const RequestLogin = ({$c, text}: Props): React.Element<'a'> => (
-  <a href={returnUri($c, '/login')}>
-    {nonEmpty(text) ? text : l('Log in')}
-  </a>
-);
+const RequestLogin = ({text}: Props): React.Element<'a'> => {
+  const $c = React.useContext(CatalystContext);
+  return (
+    <a href={returnUri($c, '/login')}>
+      {nonEmpty(text) ? text : l('Log in')}
+    </a>
+  );
+};
 
 export default RequestLogin;

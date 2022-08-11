@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {SanitizedCatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
 import * as manifest from '../static/manifest.mjs';
 import ConfirmSeedButtons
@@ -18,16 +19,15 @@ import PostParameters, {
 } from '../static/scripts/common/components/PostParameters.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +origin: string,
   +postParameters: PostParametersT | null,
 };
 
 const ConfirmSeed = ({
-  $c,
   origin,
   postParameters,
 }: Props): React.Element<typeof Layout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const title = l('Confirm Form Submission');
   return (
     <Layout fullWidth title={title}>

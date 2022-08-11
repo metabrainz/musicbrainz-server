@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {type AccountLayoutUserT} from '../components/UserAccountLayout.js';
+import {CatalystContext} from '../context.mjs';
 import {ENTITIES} from '../static/scripts/common/constants.js';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink.js';
@@ -20,7 +21,6 @@ import {formatCount} from '../statistics/utilities.js';
 import UserTagFilters from '../user/components/UserTagFilters.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +showDownvoted?: boolean,
   +showLink?: boolean,
   +showVotesSelect?: boolean,
@@ -39,7 +39,6 @@ type Props = {
 };
 
 const TagEntitiesList = ({
-  $c,
   showDownvoted = false,
   showLink = false,
   showVotesSelect = false,
@@ -47,6 +46,8 @@ const TagEntitiesList = ({
   taggedEntities,
   user,
 }: Props): React.Element<typeof React.Fragment> => {
+  const $c = React.useContext(CatalystContext);
+
   const totalCount = Object.values(taggedEntities)
     // $FlowIssue[incompatible-use]
     .reduce((count, info) => count + info.count, 0);

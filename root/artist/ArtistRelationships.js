@@ -13,18 +13,15 @@ import RelationshipsTable from '../components/RelationshipsTable.js';
 import Relationships
   from '../static/scripts/common/components/Relationships.js';
 
-
 import ArtistLayout from './ArtistLayout.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +artist: ArtistT,
   +pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
   +pager: ?PagerT,
 };
 
 const ArtistRelationships = ({
-  $c,
   artist,
   pagedLinkTypeGroup,
   pager,
@@ -38,7 +35,6 @@ const ArtistRelationships = ({
       <Relationships showIfEmpty source={artist} />
     )}
     <RelationshipsTable
-      $c={$c}
       entity={artist}
       heading={l('Appearances')}
       pagedLinkTypeGroup={pagedLinkTypeGroup}

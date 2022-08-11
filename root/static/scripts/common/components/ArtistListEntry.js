@@ -127,7 +127,6 @@ const ArtistListRow = ({
       ) : null}
       {mergeForm && artistList ? (
         <RemoveFromMergeTableCell
-          $c={$c}
           entity={artist}
           toMerge={artistList}
         />

@@ -14,15 +14,14 @@ import Layout from '../layout/index.js';
 import ElectionTable from './ElectionTable/index.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +elections: $ReadOnlyArray<AutoEditorElectionT>,
 };
 
-const Index = ({$c, elections}: Props): React.Element<typeof Layout> => (
+const Index = ({elections}: Props): React.Element<typeof Layout> => (
   <Layout fullWidth title={l('Auto-editor elections')}>
     <h1>{l('Auto-editor elections')}</h1>
     {elections.length
-      ? <ElectionTable $c={$c} elections={elections} />
+      ? <ElectionTable elections={elections} />
       : <p>{l('No elections found.')}</p>}
   </Layout>
 );

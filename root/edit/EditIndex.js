@@ -12,6 +12,7 @@ import * as React from 'react';
 import Layout from '../layout/index.js';
 import FormSubmit from '../components/FormSubmit.js';
 import RequestLogin from '../components/RequestLogin.js';
+import {CatalystContext} from '../context.mjs';
 import DBDefs from '../static/scripts/common/DBDefs.mjs';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import EditLink from '../static/scripts/common/components/EditLink.js';
@@ -29,16 +30,15 @@ import VoteTally from './components/VoteTally.js';
 import getEditDetailsElement from './utility/getEditDetailsElement.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +edit: $ReadOnly<{...EditT, +id: number}>,
   +fullWidth?: boolean,
 };
 
 const EditIndex = ({
-  $c,
   edit,
   fullWidth = false,
 }: Props): React.Element<typeof Layout> => {
+  const $c = React.useContext(CatalystContext);
   const canAddNote = Boolean($c.user && editorMayAddNote(edit, $c.user));
   const isOwnEdit = Boolean($c.user && $c.user.id === edit.editor_id);
   const canVote = Boolean($c.user && editorMayVote(edit, $c.user));
@@ -47,7 +47,7 @@ const EditIndex = ({
   return (
     <Layout fullWidth={fullWidth} title={texp.l('Edit #{id}', {id: edit.id})}>
       <div id="content">
-        <EditHeader $c={$c} edit={edit} />
+        <EditHeader edit={edit} />
 
         <h2>{l('Changes')}</h2>
         {edit.data ? detailsElement : (
@@ -81,7 +81,7 @@ const EditIndex = ({
                   <tr className="noborder">
                     <th>{l('My vote:')}</th>
                     <td className="vote">
-                      <Vote $c={$c} edit={edit} />
+                      <Vote edit={edit} />
                     </td>
                   </tr>
                 ) : null}
@@ -147,7 +147,7 @@ const EditIndex = ({
             <p>
               {l('You must be logged in to vote on edits.')}
               {' '}
-              <RequestLogin $c={$c} />
+              <RequestLogin />
             </p>
           )}
 
@@ -165,14 +165,14 @@ const EditIndex = ({
             <p>
               {l('You must be logged in to see edit notes.')}
               {' '}
-              <RequestLogin $c={$c} />
+              <RequestLogin />
             </p>
           )}
         </form>
       </div>
 
       {fullWidth ? null : (
-        <EditSidebar $c={$c} edit={edit} />
+        <EditSidebar edit={edit} />
       )}
     </Layout>
   );

@@ -36,7 +36,6 @@ const PaginatedResults = ({
   const $c = React.useContext(CatalystContext);
   const paginator = (
     <Paginator
-      $c={$c}
       guessSearch={guessSearch}
       pageVar={pageVar}
       pager={pager}

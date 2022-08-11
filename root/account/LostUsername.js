@@ -16,7 +16,6 @@ import FormSubmit from '../components/FormSubmit.js';
 import Layout from '../layout/index.js';
 
 type LostUsernameFormT = FormT<{
-  +$c: CatalystContextT,
   +email: ReadOnlyFieldT<string>,
 }>;
 

@@ -86,7 +86,7 @@ const ReportLayout = ({
                   {date: formatUserDate($c, generated)})}
         </li>
 
-        {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
+        {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
       </ul>
 
       {children}

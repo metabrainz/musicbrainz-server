@@ -15,6 +15,7 @@ import Relationships
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract.js';
 import PaginatedResults from '../components/PaginatedResults.js';
+import {CatalystContext} from '../context.mjs';
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon.js';
 import loopParity from '../utility/loopParity.js';
 import ArtistCreditLink
@@ -35,7 +36,6 @@ import {returnToCurrentPage} from '../utility/returnUri.js';
 import ReleaseGroupLayout from './ReleaseGroupLayout.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +eligibleForCleanup: boolean,
   +numberOfRevisions: number,
   +pager: PagerT,
@@ -111,83 +111,84 @@ function buildReleaseStatusTable(
 }
 
 const ReleaseGroupIndex = ({
-  $c,
   eligibleForCleanup,
   pager,
   numberOfRevisions,
   releaseGroup,
   releases,
   wikipediaExtract,
-}: Props): React.Element<typeof ReleaseGroupLayout> => (
-  <ReleaseGroupLayout
-    $c={$c}
-    entity={releaseGroup}
-    page="index"
-  >
-    {eligibleForCleanup ? (
-      <CleanupBanner entityType="release_group" />
-    ) : null}
-    <Annotation
-      annotation={releaseGroup.latest_annotation}
-      collapse
+}: Props): React.Element<typeof ReleaseGroupLayout> => {
+  const $c = React.useContext(CatalystContext);
+  return (
+    <ReleaseGroupLayout
       entity={releaseGroup}
-      numberOfRevisions={numberOfRevisions}
-    />
-    <WikipediaExtract
-      cachedWikipediaExtract={wikipediaExtract}
-      entity={releaseGroup}
-    />
-    {releases.length ? (
-      <>
-        <h2>{releaseGroupType(releaseGroup)}</h2>
-        <form
-          action={'/release/merge_queue?' + returnToCurrentPage($c)}
-          method="post"
-        >
-          <PaginatedResults pager={pager}>
-            <table className="tbl">
-              <thead>
-                <tr>
-                  {$c.user ? (
-                    <th className="checkbox-cell">
-                      <input type="checkbox" />
-                    </th>
-                  ) : null}
-                  <th>{l('Release')}</th>
-                  <th>{l('Artist')}</th>
-                  <th>{l('Format')}</th>
-                  <th>{l('Tracks')}</th>
-                  <th>{l('Country') + lp('/', 'and') + l('Date')}</th>
-                  <th>{l('Label')}</th>
-                  <th>{l('Catalog#')}</th>
-                  <th>{l('Barcode')}</th>
-                  {$c.session?.tport
-                    ? <th>{l('Tagger')}</th> : null}
-                </tr>
-              </thead>
-              <tbody>
-                {releases.map(releaseStatusGroup => buildReleaseStatusTable(
-                  $c,
-                  releaseStatusGroup,
-                  releaseGroup.artistCredit.id,
-                ))}
-              </tbody>
-            </table>
-          </PaginatedResults>
-          {$c.user ? (
-            <FormRow>
-              <FormSubmit label={l('Add selected releases for merging')} />
-            </FormRow>
-          ) : null}
-        </form>
-      </>
-    ) : (
-      <p>{l('No releases found.')}</p>
-    )}
-    <Relationships source={releaseGroup} />
-    {manifest.js('release-group/index', {async: 'async'})}
-    {manifest.js('common/components/TaggerIcon', {async: 'async'})}
-  </ReleaseGroupLayout>
-);
+      page="index"
+    >
+      {eligibleForCleanup ? (
+        <CleanupBanner entityType="release_group" />
+      ) : null}
+      <Annotation
+        annotation={releaseGroup.latest_annotation}
+        collapse
+        entity={releaseGroup}
+        numberOfRevisions={numberOfRevisions}
+      />
+      <WikipediaExtract
+        cachedWikipediaExtract={wikipediaExtract}
+        entity={releaseGroup}
+      />
+      {releases.length ? (
+        <>
+          <h2>{releaseGroupType(releaseGroup)}</h2>
+          <form
+            action={'/release/merge_queue?' + returnToCurrentPage($c)}
+            method="post"
+          >
+            <PaginatedResults pager={pager}>
+              <table className="tbl">
+                <thead>
+                  <tr>
+                    {$c.user ? (
+                      <th className="checkbox-cell">
+                        <input type="checkbox" />
+                      </th>
+                    ) : null}
+                    <th>{l('Release')}</th>
+                    <th>{l('Artist')}</th>
+                    <th>{l('Format')}</th>
+                    <th>{l('Tracks')}</th>
+                    <th>{l('Country') + lp('/', 'and') + l('Date')}</th>
+                    <th>{l('Label')}</th>
+                    <th>{l('Catalog#')}</th>
+                    <th>{l('Barcode')}</th>
+                    {$c.session?.tport
+                      ? <th>{l('Tagger')}</th> : null}
+                  </tr>
+                </thead>
+                <tbody>
+                  {releases.map(releaseStatusGroup => buildReleaseStatusTable(
+                    $c,
+                    releaseStatusGroup,
+                    releaseGroup.artistCredit.id,
+                  ))}
+                </tbody>
+              </table>
+            </PaginatedResults>
+            {$c.user ? (
+              <FormRow>
+                <FormSubmit label={l('Add selected releases for merging')} />
+              </FormRow>
+            ) : null}
+          </form>
+        </>
+      ) : (
+        <p>{l('No releases found.')}</p>
+      )}
+      <Relationships source={releaseGroup} />
+      {manifest.js('release-group/index', {async: 'async'})}
+      {manifest.js('common/components/TaggerIcon', {async: 'async'})}
+    </ReleaseGroupLayout>
+  );
+};
 
 export default ReleaseGroupIndex;

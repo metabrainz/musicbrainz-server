@@ -16,14 +16,12 @@ import Relationships
 import LabelLayout from './LabelLayout.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +label: LabelT,
   +pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
   +pager: ?PagerT,
 };
 
 const LabelRelationships = ({
-  $c,
   label,
   pagedLinkTypeGroup,
   pager,
@@ -37,7 +35,6 @@ const LabelRelationships = ({
       <Relationships showIfEmpty source={label} />
     )}
     <RelationshipsTable
-      $c={$c}
       entity={label}
       heading={l('Appearances')}
       pagedLinkTypeGroup={pagedLinkTypeGroup}

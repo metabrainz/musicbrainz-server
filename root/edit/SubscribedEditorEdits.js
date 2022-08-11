@@ -14,7 +14,6 @@ import Layout from '../layout/index.js';
 import EditList from './components/EditList.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +editCountLimit: number,
   +edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
   +pager: PagerT,
@@ -22,7 +21,6 @@ type Props = {
 };
 
 const SubscribedEditorEdits = ({
-  $c,
   editCountLimit,
   edits,
   pager,
@@ -32,7 +30,6 @@ const SubscribedEditorEdits = ({
     <div id="content">
       <h1>{l('Edits by Your Subscribed Editors')}</h1>
       <EditList
-        $c={$c}
         editCountLimit={editCountLimit}
         edits={edits}
         guessSearch

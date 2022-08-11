@@ -14,21 +14,18 @@ import RelationshipsTable from '../components/RelationshipsTable.js';
 import AreaLayout from './AreaLayout.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +area: AreaT,
   +pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
   +pager: ?PagerT,
 };
 
 const AreaRecordings = ({
-  $c,
   area,
   pagedLinkTypeGroup,
   pager,
 }: Props): React.Element<typeof AreaLayout> => (
   <AreaLayout entity={area} page="recordings" title={l('Recordings')}>
     <RelationshipsTable
-      $c={$c}
       entity={area}
       fallbackMessage={l(
         'This area has no relationships to any recordings.',

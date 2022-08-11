@@ -14,14 +14,12 @@ import RelationshipsTable from '../components/RelationshipsTable.js';
 import PlaceLayout from './PlaceLayout.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
   +pager: ?PagerT,
   +place: PlaceT,
 };
 
 const PlacePerformances = ({
-  $c,
   pagedLinkTypeGroup,
   pager,
   place,
@@ -32,7 +30,6 @@ const PlacePerformances = ({
     title={l('Performances')}
   >
     <RelationshipsTable
-      $c={$c}
       entity={place}
       fallbackMessage={l(
         'No recordings, releases or release groups are linked to this place.',

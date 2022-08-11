@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../context.mjs';
 import {isAccountAdmin} from '../static/scripts/common/utility/privileges.js';
 
 import EditorList from './components/EditorList.js';
@@ -16,31 +17,33 @@ import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportEditorT} from './types.js';
 
 const LimitedEditors = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportEditorT>): React.Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={exp.l(
-      'This report lists {url|beginner/limited editors}.',
-      {url: '/doc/How_to_Create_an_Account'},
-    )}
-    entityType="editor"
-    filtered={filtered}
-    generated={generated}
-    title={l('Beginner/limited editors')}
-    totalEntries={pager.total_entries}
-  >
-    {isAccountAdmin($c.user) ? (
-      <EditorList items={items} pager={pager} />
-    ) : (
-      <p>{l('Sorry, you are not authorized to view this page.')}</p>
-    )}
-  </ReportLayout>
-);
+}: ReportDataT<ReportEditorT>): React.Element<typeof ReportLayout> => {
+  const $c = React.useContext(CatalystContext);
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={exp.l(
+        'This report lists {url|beginner/limited editors}.',
+        {url: '/doc/How_to_Create_an_Account'},
+      )}
+      entityType="editor"
+      filtered={filtered}
+      generated={generated}
+      title={l('Beginner/limited editors')}
+      totalEntries={pager.total_entries}
+    >
+      {isAccountAdmin($c.user) ? (
+        <EditorList items={items} pager={pager} />
+      ) : (
+        <p>{l('Sorry, you are not authorized to view this page.')}</p>
+      )}
+    </ReportLayout>
+  );
+};
 
 export default LimitedEditors;

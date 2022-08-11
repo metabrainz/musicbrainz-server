@@ -30,7 +30,10 @@ const OAuth2Authorize = ({
     <h1>{l('Authorization')}</h1>
 
     <p>
-      {texp.l('{app} is requesting permission to:', {app: application.name})}
+      {texp.l(
+        '{app} is requesting permission to:',
+        {app: application.name},
+      )}
     </p>
 
     <ul>

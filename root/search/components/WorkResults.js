@@ -9,11 +9,12 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context.mjs';
 import WorkListEntry
   from '../../static/scripts/common/components/WorkListEntry.js';
 import {isEditingEnabled}
   from '../../static/scripts/common/utility/privileges.js';
-import type {ResultsPropsWithContextT, SearchResultT} from '../types.js';
+import type {ResultsPropsT, SearchResultT} from '../types.js';
 
 import PaginatedSearchResults from './PaginatedSearchResults.js';
 import ResultsLayout from './ResultsLayout.js';
@@ -37,39 +38,41 @@ function buildResult(
 }
 
 const WorkResults = ({
-  $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<WorkT>):
-React.Element<typeof ResultsLayout> => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
-    <PaginatedSearchResults
-      buildResult={(result, index) => buildResult(result, index)}
-      columns={
-        <>
-          <th>{l('Name')}</th>
-          <th>{l('Writers')}</th>
-          <th>{l('Artists')}</th>
-          <th>{l('ISWC')}</th>
-          <th>{l('Type')}</th>
-          <th>{l('Lyrics Languages')}</th>
-        </>
-      }
-      pager={pager}
-      query={query}
-      results={results}
-    />
-    {isEditingEnabled($c.user) ? (
-      <p>
-        {exp.l('Alternatively, you may {uri|add a new work}.', {
-          uri: '/work/create?edit-work.name=' + encodeURIComponent(query),
-        })}
-      </p>
-    ) : null}
-  </ResultsLayout>
-);
+}: ResultsPropsT<WorkT>):
+React.Element<typeof ResultsLayout> => {
+  const $c = React.useContext(CatalystContext);
+  return (
+    <ResultsLayout form={form} lastUpdated={lastUpdated}>
+      <PaginatedSearchResults
+        buildResult={(result, index) => buildResult(result, index)}
+        columns={
+          <>
+            <th>{l('Name')}</th>
+            <th>{l('Writers')}</th>
+            <th>{l('Artists')}</th>
+            <th>{l('ISWC')}</th>
+            <th>{l('Type')}</th>
+            <th>{l('Lyrics Languages')}</th>
+          </>
+        }
+        pager={pager}
+        query={query}
+        results={results}
+      />
+      {isEditingEnabled($c.user) ? (
+        <p>
+          {exp.l('Alternatively, you may {uri|add a new work}.', {
+            uri: '/work/create?edit-work.name=' + encodeURIComponent(query),
+          })}
+        </p>
+      ) : null}
+    </ResultsLayout>
+  );
+};
 
 export default WorkResults;

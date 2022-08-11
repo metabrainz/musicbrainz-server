@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {SanitizedCatalystContext} from '../context.mjs';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import isSpecialPurpose
   from '../static/scripts/common/utility/isSpecialPurpose.js';
@@ -16,7 +17,6 @@ import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +entity: CoreEntityT | CollectionT | EditorT,
   +isSpecialEntity: boolean,
   +privateEditors: number,
@@ -25,12 +25,12 @@ type Props = {
 };
 
 const Subscribers = ({
-  $c,
   entity,
   privateEditors,
   publicEditors,
   subscribed,
 }: Props): React.MixedElement => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);
   const returnTo = '&' + returnToCurrentPage($c);

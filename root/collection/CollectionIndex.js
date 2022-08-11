@@ -23,6 +23,7 @@ import ReleaseList from '../components/list/ReleaseList.js';
 import SeriesList from '../components/list/SeriesList.js';
 import WorkList from '../components/list/WorkList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
+import {SanitizedCatalystContext} from '../context.mjs';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
 import {formatPluralEntityTypeName}
   from '../static/scripts/common/utility/formatEntityTypeName.js';
@@ -31,7 +32,6 @@ import UserInlineList from '../user/components/UserInlineList.js';
 import CollectionLayout from './CollectionLayout.js';
 
 type PropsForEntity<T: CoreEntityT> = {
-  +$c: CatalystContextT,
   +collection: CollectionT,
   +collectionEntityType: T['entityType'],
   +entities: $ReadOnlyArray<T>,
@@ -159,8 +159,8 @@ const listPicker = (
 
 const CollectionIndex = (props: Props):
 React.Element<typeof CollectionLayout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const {
-    $c,
     collection,
     collectionEntityType,
     entities,
