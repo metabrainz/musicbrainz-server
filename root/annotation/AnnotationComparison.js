@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import ENTITIES from '../../entities.json';
+import ENTITIES from '../../entities.mjs';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import DiffSide from '../static/scripts/edit/components/edit/DiffSide.js';
 import {INSERT, DELETE} from '../static/scripts/edit/utility/editDiff.js';

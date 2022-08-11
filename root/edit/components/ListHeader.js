@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
-import ENTITIES from '../../../entities.json';
+import ENTITIES from '../../../entities.mjs';
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import uriWith from '../../utility/uriWith.js';
 

@@ -133,7 +133,11 @@ function buildLinks(
     links.push(buildLink(l('Tags'), entity, 'tags', page));
   }
 
-  if (entityProperties.ratings || entityProperties.reviews) {
+  if (
+    entityProperties.ratings ||
+    // $FlowIssue[prop-missing]
+    entityProperties.reviews
+  ) {
     const ratingsTabTitle = entityProperties.reviews
       ? l('Reviews')
       : l('Ratings');

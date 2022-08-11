@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import ENTITIES from '../../entities.json';
+import ENTITIES from '../../entities.mjs';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 type Props = {

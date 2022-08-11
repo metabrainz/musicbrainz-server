@@ -18,9 +18,9 @@ import formatUserDate from '../utility/formatUserDate.js';
 type WSLinkProps = {
   +entityGid: string,
   +entityProperties: {
-    aliases: {[edit_type: string]: number},
-    artist_credits: boolean,
-    url: string,
+    +aliases?: {+[edit_type: string]: number},
+    +artist_credits?: boolean,
+    +url: string,
     ...
   },
   +entityType: CoreEntityTypeT,
@@ -45,7 +45,7 @@ const WSLink = ({
   if (entityProperties.aliases) {
     inc.push('aliases');
   }
-  if (entityProperties.artist_credits) {
+  if (entityProperties.artist_credits === true) {
     inc.push('artist-credits');
   }
   if (entityType === 'recording' || entityType === 'release_group') {

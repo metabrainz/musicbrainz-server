@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import ENTITIES from '../../entities.json';
+import ENTITIES from '../../entities.mjs';
 import ArtistCreditUsageLink
   from '../static/scripts/common/components/ArtistCreditUsageLink.js';
 import DescriptiveLink
