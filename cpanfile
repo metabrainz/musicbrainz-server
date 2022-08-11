@@ -28,7 +28,7 @@ requires 'DateTime::Format::Duration'                 => '1.04';
 requires 'DateTime::Format::ISO8601'                  => '0.08';
 requires 'DateTime::Format::Natural'                  => '1.08';
 requires 'DateTime::Format::Pg'                       => '0.16013';
-requires 'DateTime::Locale'                           => '1.35';
+requires 'DateTime::Locale'                           => '== 1.35';
 requires 'DateTime::TimeZone'                         => '2.38';
 requires 'DBD::Pg'                                    => '3.10.0';
 requires 'DBI'                                        => '1.642';
