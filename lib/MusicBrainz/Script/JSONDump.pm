@@ -8,7 +8,6 @@ use aliased 'MusicBrainz::Server::DatabaseConnectionFactory';
 use Data::Dumper;
 use DBDefs;
 use File::Copy qw( move );
-use File::Path qw( rmtree );
 use File::Spec::Functions qw( catdir catfile tmpdir );
 use File::Temp qw( tempdir );
 use Fcntl qw( :flock );
@@ -120,6 +119,8 @@ EOF
         move($mbdump->export_dir,
              catdir($mbdump->output_dir, $dump_fname)) or die $!;
     }
+
+    unlink "$dump_fpath.lock" or die $!;
 
     return;
 }
@@ -423,7 +424,7 @@ sub run {
     my $exit_code = $self->run_impl($c);
 
     $c->connector->disconnect;
-    rmtree($TMP_EXPORT_DIR);
+    rmdir($TMP_EXPORT_DIR) or die $!;
 
     log_info { 'Done' };
     return $exit_code;
