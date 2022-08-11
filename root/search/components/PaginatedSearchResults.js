@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context';
-import PaginatedResults from '../../components/PaginatedResults';
-import {type SearchResultT} from '../types';
-import uriWith from '../../utility/uriWith';
+import {CatalystContext} from '../../context.mjs';
+import PaginatedResults from '../../components/PaginatedResults.js';
+import {type SearchResultT} from '../types.js';
+import uriWith from '../../utility/uriWith.js';
 
 type Props<T> = {
   +buildResult: (SearchResultT<T>, number) => React.Node,
