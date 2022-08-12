@@ -10,11 +10,12 @@
 import * as React from 'react';
 
 import {Artwork} from '../components/Artwork.js';
-import EnterEdit from '../components/EnterEdit.js';
-import EnterEditNote from '../components/EnterEditNote.js';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
+import EnterEditNote
+  from '../static/scripts/edit/components/EnterEditNote.js';
 
 import ReleaseLayout from './ReleaseLayout.js';
 

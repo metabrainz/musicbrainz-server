@@ -9,13 +9,13 @@
 
 import * as React from 'react';
 
-import CountryAbbr from '../../../../components/CountryAbbr.js';
 import formatDate from '../utility/formatDate.js';
 import isDateEmpty from '../utility/isDateEmpty.js';
 
 import CollapsibleList, {
   type BuildRowPropsT,
 } from './CollapsibleList.js';
+import CountryAbbr from './CountryAbbr.js';
 import EntityLink from './EntityLink.js';
 
 const releaseEventKey = (event: ReleaseEventT) => (

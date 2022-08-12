@@ -11,10 +11,10 @@ import $ from 'jquery';
 import * as React from 'react';
 
 import MB from '../../common/MB.js';
-import EnterEdit from '../../../../components/EnterEdit.js';
-import EnterEditNote from '../../../../components/EnterEditNote.js';
-import FormRowTextLong from '../../../../components/FormRowTextLong.js';
 import type {GenreFormT} from '../../../../genre/types.js';
+import EnterEdit from '../../edit/components/EnterEdit.js';
+import EnterEditNote from '../../edit/components/EnterEditNote.js';
+import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
 import {createExternalLinksEditor} from '../../edit/externalLinks.js';
 import {exportTypeInfo} from '../../relationship-editor/common/viewModel.js';
 import {prepareSubmission} from '../../relationship-editor/generic.js';

@@ -7,8 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import isGreyedOut from '../url/utility/isGreyedOut.js';
-import isFutureDate from '../utility/isFutureDate.js';
+import isGreyedOut from '../../url/utility/isGreyedOut.js';
+
+import isFutureDate from './isFutureDate.js';
 
 export default function isDisabledLink(
   relationshipOrLinkDatePeriod: {

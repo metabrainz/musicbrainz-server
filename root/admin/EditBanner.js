@@ -9,9 +9,11 @@
 
 import * as React from 'react';
 
-import FormCsrfToken from '../components/FormCsrfToken.js';
-import FormRowTextArea from '../components/FormRowTextArea.js';
-import FormSubmit from '../components/FormSubmit.js';
+import FormCsrfToken
+  from '../static/scripts/edit/components/FormCsrfToken.js';
+import FormRowTextArea
+  from '../static/scripts/edit/components/FormRowTextArea.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import Layout from '../layout/index.js';
 
 type Props = {

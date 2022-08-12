@@ -11,11 +11,12 @@ import * as React from 'react';
 
 import sortByEntityName
   from '../static/scripts/common/utility/sortByEntityName.js';
-import EnterEdit from '../components/EnterEdit.js';
-import EnterEditNote from '../components/EnterEditNote.js';
-import FieldErrors from '../components/FieldErrors.js';
+import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 import WorkList from '../components/list/WorkList.js';
 import Layout from '../layout/index.js';
+import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
+import EnterEditNote
+  from '../static/scripts/edit/components/EnterEditNote.js';
 
 type Props = {
   +form: MergeFormT,

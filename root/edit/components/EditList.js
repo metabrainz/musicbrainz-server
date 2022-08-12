@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import ListEdit from '../components/ListEdit.js';
 import ListHeader from '../components/ListHeader.js';
-import FormSubmit from '../../components/FormSubmit.js';
+import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 import PaginatedResults from '../../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../../context.mjs';
 import * as manifest from '../../static/manifest.mjs';

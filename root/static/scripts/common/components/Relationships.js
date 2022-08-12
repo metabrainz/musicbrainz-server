@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import groupRelationships, {
   type RelationshipTargetTypeGroupT,
-} from '../../../../utility/groupRelationships.js';
+} from '../utility/groupRelationships.js';
 
 import EntityLink from './EntityLink.js';
 import RelatedSeries, {isNotSeriesPart} from './RelatedSeries.js';

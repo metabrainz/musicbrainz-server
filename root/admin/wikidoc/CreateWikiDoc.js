@@ -9,11 +9,13 @@
 
 import * as React from 'react';
 
-import FormCsrfToken from '../../components/FormCsrfToken.js';
-import FormRowText from '../../components/FormRowText.js';
-import FormRowTextLong from '../../components/FormRowTextLong.js';
-import FormSubmit from '../../components/FormSubmit.js';
 import Layout from '../../layout/index.js';
+import FormCsrfToken
+  from '../../static/scripts/edit/components/FormCsrfToken.js';
+import FormRowText from '../../static/scripts/edit/components/FormRowText.js';
+import FormRowTextLong
+  from '../../static/scripts/edit/components/FormRowTextLong.js';
+import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 
 type Props = {
   +form: FormT<{

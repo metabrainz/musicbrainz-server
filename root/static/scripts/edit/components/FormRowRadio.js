@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {unwrapNl} from '../static/scripts/common/i18n.js';
+import {unwrapNl} from '../../common/i18n.js';
 
 import FormRow from './FormRow.js';
 import FieldErrors from './FieldErrors.js';

@@ -13,12 +13,13 @@ import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import commaList from '../static/scripts/common/i18n/commaList.js';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
-import {interpolate} from '../static/scripts/edit/utility/linkPhrase.js';
 import groupRelationships, {
   type RelationshipPhraseGroupT,
   type RelationshipTargetGroupT,
-} from '../utility/groupRelationships.js';
-import relationshipDateText from '../utility/relationshipDateText.js';
+} from '../static/scripts/common/utility/groupRelationships.js';
+import relationshipDateText
+  from '../static/scripts/common/utility/relationshipDateText.js';
+import {interpolate} from '../static/scripts/edit/utility/linkPhrase.js';
 
 import RelationshipTargetLinks from './RelationshipTargetLinks.js';
 

@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import Layout from '../layout/index.js';
-import FormSubmit from '../components/FormSubmit.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import RequestLogin from '../components/RequestLogin.js';
 import {CatalystContext} from '../context.mjs';
 import DBDefs from '../static/scripts/common/DBDefs.mjs';

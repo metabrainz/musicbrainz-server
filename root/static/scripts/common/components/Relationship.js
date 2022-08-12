@@ -9,17 +9,16 @@
 
 import * as React from 'react';
 
-import linkedEntities from '../linkedEntities.mjs';
-import bracketed from '../utility/bracketed.js';
-import {displayLinkAttributes}
-  from '../utility/displayLinkAttribute.js';
 import {
   interpolate,
   getExtraAttributes,
 } from '../../edit/utility/linkPhrase.js';
-import isDisabledLink from '../../../../utility/isDisabledLink.js';
-import relationshipDateText
-  from '../../../../utility/relationshipDateText.js';
+import linkedEntities from '../linkedEntities.mjs';
+import bracketed from '../utility/bracketed.js';
+import {displayLinkAttributes}
+  from '../utility/displayLinkAttribute.js';
+import isDisabledLink from '../utility/isDisabledLink.js';
+import relationshipDateText from '../utility/relationshipDateText.js';
 
 import DescriptiveLink from './DescriptiveLink.js';
 

@@ -20,7 +20,7 @@ import WikipediaExtract
 import commaOnlyList, {commaOnlyListText}
   from '../static/scripts/common/i18n/commaOnlyList.js';
 import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
-import FormSubmit from '../components/FormSubmit.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import RecordingList from '../components/list/RecordingList.js';
 import ReleaseGroupList from '../components/list/ReleaseGroupList.js';
 import PaginatedResults from '../components/PaginatedResults.js';

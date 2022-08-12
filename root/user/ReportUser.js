@@ -9,16 +9,20 @@
 
 import * as React from 'react';
 
-import {CONTACT_URL} from '../constants.js';
 import UserAccountLayout, {
   type AccountLayoutUserT,
 } from '../components/UserAccountLayout.js';
-import FormCsrfToken from '../components/FormCsrfToken.js';
-import FormRow from '../components/FormRow.js';
-import FormRowCheckbox from '../components/FormRowCheckbox.js';
-import FormRowSelect from '../components/FormRowSelect.js';
-import FormRowTextArea from '../components/FormRowTextArea.js';
-import FormSubmit from '../components/FormSubmit.js';
+import {CONTACT_URL} from '../constants.js';
+import FormCsrfToken
+  from '../static/scripts/edit/components/FormCsrfToken.js';
+import FormRow from '../static/scripts/edit/components/FormRow.js';
+import FormRowCheckbox
+  from '../static/scripts/edit/components/FormRowCheckbox.js';
+import FormRowSelect
+  from '../static/scripts/edit/components/FormRowSelect.js';
+import FormRowTextArea
+  from '../static/scripts/edit/components/FormRowTextArea.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 type ReportReasonT =
   | 'enforcing_guidelines'

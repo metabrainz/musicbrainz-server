@@ -11,9 +11,6 @@ import * as React from 'react';
 
 import {isIrrelevantLinkType}
   from '../../../../components/GroupedTrackRelationships.js';
-import groupRelationships, {
-  type RelationshipTargetTypeGroupT,
-} from '../../../../utility/groupRelationships.js';
 import MediumDescription
   from '../../common/components/MediumDescription.js';
 import Relationships from '../../common/components/Relationships.js';
@@ -24,6 +21,9 @@ import {l} from '../../common/i18n.js';
 import {
   mergeLinkedEntities,
 } from '../../common/linkedEntities.mjs';
+import groupRelationships, {
+  type RelationshipTargetTypeGroupT,
+} from '../../common/utility/groupRelationships.js';
 import setCookie from '../../common/utility/setCookie.js';
 import type {
   PropsT,

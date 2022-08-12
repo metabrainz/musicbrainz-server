@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import FieldErrors from '../components/FieldErrors.js';
-import FormLabel from '../components/FormLabel.js';
-import FormRow from '../components/FormRow.js';
-import FormSubmit from '../components/FormSubmit.js';
+import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
+import FormLabel from '../static/scripts/edit/components/FormLabel.js';
+import FormRow from '../static/scripts/edit/components/FormRow.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 import type {OtherLookupFormT} from './types.js';
 

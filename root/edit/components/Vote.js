@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import FormSubmit from '../../components/FormSubmit.js';
+import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 import {
   EDIT_VOTE_NONE,
   EDIT_VOTE_ABSTAIN,

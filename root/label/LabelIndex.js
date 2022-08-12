@@ -10,8 +10,8 @@
 import * as React from 'react';
 
 import CleanupBanner from '../components/CleanupBanner.js';
-import FormRow from '../components/FormRow.js';
-import FormSubmit from '../components/FormSubmit.js';
+import FormRow from '../static/scripts/edit/components/FormRow.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
 import DescriptiveLink

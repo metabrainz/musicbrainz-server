@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {unwrapNl} from '../static/scripts/common/i18n.js';
+import {unwrapNl} from '../i18n.js';
 import getSelectValue from '../utility/getSelectValue.js';
 
 const buildOption = (option: SelectOptionT, index: number) => (

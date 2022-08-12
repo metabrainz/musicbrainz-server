@@ -24,9 +24,9 @@ import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff.js';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 import expand2react from '../../static/scripts/common/i18n/expand2react.js';
-import yesNo from '../../static/scripts/common/utility/yesNo.js';
 import relationshipDateText
-  from '../../utility/relationshipDateText.js';
+  from '../../static/scripts/common/utility/relationshipDateText.js';
+import yesNo from '../../static/scripts/common/utility/yesNo.js';
 
 type Props = {
   +edit: EditRelationshipTypeEditT,

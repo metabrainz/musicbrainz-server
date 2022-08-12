@@ -14,19 +14,21 @@ import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink.js';
 import commaOnlyList, {commaOnlyListText}
   from '../static/scripts/common/i18n/commaOnlyList.js';
+import semicolonOnlyList
+  from '../static/scripts/common/i18n/semicolonOnlyList.js';
+import {artistCreditsAreEqual}
+  from '../static/scripts/common/immutable-entities.js';
 import bracketed from '../static/scripts/common/utility/bracketed.js';
 import displayLinkAttribute
   from '../static/scripts/common/utility/displayLinkAttribute.js';
-import {artistCreditsAreEqual}
-  from '../static/scripts/common/immutable-entities.js';
-import semicolonOnlyList
-  from '../static/scripts/common/i18n/semicolonOnlyList.js';
 import type {
   DatedExtraAttributes,
   RelationshipTargetGroupT,
-} from '../utility/groupRelationships.js';
-import isDisabledLink from '../utility/isDisabledLink.js';
-import relationshipDateText from '../utility/relationshipDateText.js';
+} from '../static/scripts/common/utility/groupRelationships.js';
+import isDisabledLink
+  from '../static/scripts/common/utility/isDisabledLink.js';
+import relationshipDateText
+  from '../static/scripts/common/utility/relationshipDateText.js';
 
 export function displayDatedExtraAttributes(
   pair: DatedExtraAttributes,

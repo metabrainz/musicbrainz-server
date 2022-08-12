@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import ENTITIES from '../../entities.mjs';
-import FormSubmit from '../components/FormSubmit.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import * as manifest from '../static/manifest.mjs';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import AnnotationHistoryTable
   from '../static/scripts/annotation/AnnotationHistoryTable.js';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';

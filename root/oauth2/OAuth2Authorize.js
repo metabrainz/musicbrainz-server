@@ -9,9 +9,10 @@
 
 import * as React from 'react';
 
-import FormCsrfToken from '../components/FormCsrfToken.js';
 import {ACCESS_SCOPE_PERMISSIONS} from '../constants.js';
 import Layout from '../layout/index.js';
+import FormCsrfToken
+  from '../static/scripts/edit/components/FormCsrfToken.js';
 
 type Props = {
   +application: ApplicationT,

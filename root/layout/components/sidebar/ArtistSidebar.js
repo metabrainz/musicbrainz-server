@@ -21,10 +21,11 @@ import CommonsImage
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink.js';
 import entityHref from '../../../static/scripts/common/utility/entityHref.js';
+import isFutureDate
+  from '../../../static/scripts/common/utility/isFutureDate.js';
 import isSpecialPurpose
   from '../../../static/scripts/common/utility/isSpecialPurpose.js';
 import * as age from '../../../utility/age.js';
-import isFutureDate from '../../../utility/isFutureDate.js';
 import ExternalLinks from '../ExternalLinks.js';
 
 import AnnotationLinks from './AnnotationLinks.js';
