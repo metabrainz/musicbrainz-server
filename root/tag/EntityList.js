@@ -145,7 +145,6 @@ export const EntityListContent = ({
     </h2>
     {showVotesSelect ? (
       <UserTagFilters
-        $c={$c}
         showDownvoted={showDownvoted}
         showVotesSelect
       />

@@ -18,14 +18,12 @@ import WorkList from '../components/list/WorkList.js';
 import Layout from '../layout/index.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: MergeFormT,
   +iswcsDiffer?: boolean,
   +toMerge: $ReadOnlyArray<WorkT>,
 };
 
 const WorkMerge = ({
-  $c,
   form,
   iswcsDiffer = false,
   toMerge,
@@ -49,7 +47,7 @@ const WorkMerge = ({
           </p>
         </div>
       ) : null}
-      <form action={$c.req.uri} method="post">
+      <form method="post">
         <WorkList
           mergeForm={form}
           works={sortByEntityName(toMerge)}

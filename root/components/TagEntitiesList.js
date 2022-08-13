@@ -135,7 +135,6 @@ const TagEntitiesList = ({
       </h2>
       {showVotesSelect ? (
         <UserTagFilters
-          $c={$c}
           showDownvoted={showDownvoted}
           showVotesSelect
         />

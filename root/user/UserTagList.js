@@ -46,7 +46,6 @@ export function getTagListUrl(
 }
 
 type Props = {
-  +$c: CatalystContextT,
   +genres: $ReadOnlyArray<UserTagT>,
   +showDownvoted?: boolean,
   +sortBy?: 'count' | 'countdesc' | 'name',
@@ -55,7 +54,6 @@ type Props = {
 };
 
 const UserTagList = ({
-  $c,
   genres,
   showDownvoted = false,
   sortBy,
@@ -68,7 +66,6 @@ const UserTagList = ({
     </h2>
 
     <UserTagFilters
-      $c={$c}
       showDownvoted={showDownvoted}
       showSortSelect
       showVotesSelect

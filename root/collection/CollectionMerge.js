@@ -28,7 +28,6 @@ import {
 } from '../utility/tableColumns.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: MergeFormT,
   +privaciesDiffer?: boolean,
   +toMerge: $ReadOnlyArray<CollectionT>,
@@ -99,7 +98,6 @@ const CollectionMergeTable = ({
 };
 
 const CollectionMerge = ({
-  $c,
   form,
   privaciesDiffer,
   toMerge,
@@ -156,7 +154,7 @@ const CollectionMerge = ({
             </p>
           </div>
         ) : null}
-        <form action={$c.req.uri} method="post">
+        <form method="post">
           <CollectionMergeTable collections={collections} form={form} />
 
           {collaborators.length ? (

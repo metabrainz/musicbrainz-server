@@ -49,7 +49,6 @@ import {
 } from '../../../utility/subfieldErrors.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +aliasTypes: SelectOptionsT,
   +entity: CoreEntityT,
   +form: AliasEditFormT,
@@ -196,7 +195,6 @@ function reducer(state: StateT, action: ActionT): StateT {
 }
 
 const AliasEditForm = ({
-  $c,
   aliasTypes,
   entity,
   form: initialForm,
@@ -279,7 +277,6 @@ const AliasEditForm = ({
       </p>
 
       <form
-        action={$c.req.uri}
         className="edit-alias"
         method="post"
         onKeyDown={handleKeyDown}

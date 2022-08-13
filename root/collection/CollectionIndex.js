@@ -200,7 +200,7 @@ React.Element<typeof CollectionLayout> => {
       </div>
       <h2>{formatPluralEntityTypeName(collectionEntityType)}</h2>
       {entities.length > 0 ? (
-        <form action={$c.req.uri} method="post">
+        <form method="post">
           <PaginatedResults pager={pager}>
             {listPicker(props, canRemoveFromCollection)}
           </PaginatedResults>

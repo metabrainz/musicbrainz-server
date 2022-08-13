@@ -17,7 +17,6 @@ import GenreEditForm
 import type {GenreFormT} from './types.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +attrInfo: LinkAttrTypeOptionsT,
   +form: GenreFormT,
   +sourceEntity: {entityType: 'genre'},
@@ -25,7 +24,6 @@ type Props = {
 };
 
 const CreateGenre = ({
-  $c,
   attrInfo,
   form,
   sourceEntity,
@@ -35,7 +33,6 @@ const CreateGenre = ({
     <div id="content">
       <h1>{l('Add a new genre')}</h1>
       <GenreEditForm
-        $c={$c}
         attrInfo={attrInfo}
         form={form}
         sourceEntity={sourceEntity}

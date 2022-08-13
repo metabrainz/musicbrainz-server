@@ -19,13 +19,11 @@ import ArtistList from '../components/list/ArtistList.js';
 import Layout from '../layout/index.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: MergeFormT,
   +toMerge: $ReadOnlyArray<ArtistT>,
 };
 
 const ArtistMerge = ({
-  $c,
   form,
   toMerge,
 }: Props): React.Element<typeof Layout> => (
@@ -36,7 +34,7 @@ const ArtistMerge = ({
         {l(`You are about to merge all these artists into a single one.
             Please select the artist all others should be merged into:`)}
       </p>
-      <form action={$c.req.uri} method="post">
+      <form method="post">
         <ArtistList
           artists={sortByEntityName(toMerge)}
           mergeForm={form}

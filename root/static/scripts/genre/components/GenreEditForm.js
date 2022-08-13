@@ -20,7 +20,6 @@ import {exportTypeInfo} from '../../relationship-editor/common/viewModel.js';
 import {prepareSubmission} from '../../relationship-editor/generic.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +attrInfo: LinkAttrTypeOptionsT,
   +form: GenreFormT,
   +sourceEntity: GenreT | {entityType: 'genre'},
@@ -28,7 +27,6 @@ type Props = {
 };
 
 const GenreEditForm = ({
-  $c,
   attrInfo,
   form,
   sourceEntity,
@@ -83,7 +81,6 @@ const GenreEditForm = ({
 
   return (
     <form
-      action={$c.req.uri}
       className="edit-genre"
       method="post"
       onSubmit={handleSubmit}

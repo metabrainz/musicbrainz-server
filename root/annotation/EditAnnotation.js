@@ -24,7 +24,6 @@ type EditAnnotationFormT = FormT<{
 }>;
 
 type EditAnnotationProps = {
-  +$c: CatalystContextT,
   +entity: AnnotatedEntityT,
   +form: EditAnnotationFormT,
   +preview?: string,
@@ -32,7 +31,6 @@ type EditAnnotationProps = {
 };
 
 const EditAnnotation = ({
-  $c,
   entity,
   form,
   preview,
@@ -69,7 +67,7 @@ const EditAnnotation = ({
         </>
       ) : null}
 
-      <form action={$c.req.uri} method="post">
+      <form method="post">
         <FormRowTextArea
           cols={80}
           field={form.field.text}

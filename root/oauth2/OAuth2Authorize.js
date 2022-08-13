@@ -14,7 +14,6 @@ import {ACCESS_SCOPE_PERMISSIONS} from '../constants.js';
 import Layout from '../layout/index.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +application: ApplicationT,
   +form: SecureConfirmFormT,
   +offline: boolean,
@@ -22,7 +21,6 @@ type Props = {
 };
 
 const OAuth2Authorize = ({
-  $c,
   application,
   form,
   offline,
@@ -47,7 +45,7 @@ const OAuth2Authorize = ({
       ) : null}
     </ul>
 
-    <form action={$c.req.uri} method="post" name="confirm">
+    <form method="post" name="confirm">
       <FormCsrfToken form={form} />
       <span className="buttons">
         <button

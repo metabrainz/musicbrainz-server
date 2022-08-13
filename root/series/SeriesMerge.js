@@ -18,13 +18,11 @@ import SeriesList from '../components/list/SeriesList.js';
 import Layout from '../layout/index.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: MergeFormT,
   +toMerge: $ReadOnlyArray<SeriesT>,
 };
 
 const SeriesMerge = ({
-  $c,
   form,
   toMerge,
 }: Props): React.Element<typeof Layout> => (
@@ -35,7 +33,7 @@ const SeriesMerge = ({
         {l(`You are about to merge all these series into a single one.
             Please select the series all others should be merged into:`)}
       </p>
-      <form action={$c.req.uri} method="post">
+      <form method="post">
         <SeriesList
           mergeForm={form}
           series={sortByEntityName(toMerge)}

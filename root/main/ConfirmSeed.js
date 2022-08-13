@@ -48,7 +48,7 @@ const ConfirmSeed = ({
             Below this line, you can review the data being sent and make any
             modifications if desired.`)}
       </p>
-      <form action={$c.req.uri} method="post">
+      <form method="post">
         {postParameters ? <PostParameters params={postParameters} /> : null}
         <ConfirmSeedButtons />
       </form>

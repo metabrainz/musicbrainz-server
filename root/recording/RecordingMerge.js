@@ -18,14 +18,12 @@ import RecordingList from '../components/list/RecordingList.js';
 import Layout from '../layout/index.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: MergeFormT,
   +isrcsDiffer?: boolean,
   +toMerge: $ReadOnlyArray<RecordingWithArtistCreditT>,
 };
 
 const RecordingMerge = ({
-  $c,
   form,
   isrcsDiffer = false,
   toMerge,
@@ -49,7 +47,7 @@ const RecordingMerge = ({
           </p>
         </div>
       ) : null}
-      <form action={$c.req.uri} method="post">
+      <form method="post">
         <RecordingList
           mergeForm={form}
           recordings={sortByEntityName(toMerge)}

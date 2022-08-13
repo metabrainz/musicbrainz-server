@@ -18,13 +18,11 @@ import AreaList from '../components/list/AreaList.js';
 import Layout from '../layout/index.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: MergeFormT,
   +toMerge: $ReadOnlyArray<AreaT>,
 };
 
 const AreaMerge = ({
-  $c,
   form,
   toMerge,
 }: Props): React.Element<typeof Layout> => (
@@ -35,7 +33,7 @@ const AreaMerge = ({
         {l(`You are about to merge all these areas into a single one.
             Please select the area all others should be merged into:`)}
       </p>
-      <form action={$c.req.uri} method="post">
+      <form method="post">
         <AreaList
           areas={sortByEntityName(toMerge)}
           mergeForm={form}

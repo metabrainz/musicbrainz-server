@@ -18,13 +18,11 @@ import InstrumentList from '../components/list/InstrumentList.js';
 import Layout from '../layout/index.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: MergeFormT,
   +toMerge: $ReadOnlyArray<InstrumentT>,
 };
 
 const InstrumentMerge = ({
-  $c,
   form,
   toMerge,
 }: Props): React.Element<typeof Layout> => (
@@ -35,7 +33,7 @@ const InstrumentMerge = ({
         {l(`You are about to merge all these instruments into a single one.
             Please select the instrument all others should be merged into:`)}
       </p>
-      <form action={$c.req.uri} method="post">
+      <form method="post">
         <InstrumentList
           instruments={sortByEntityName(toMerge)}
           mergeForm={form}

@@ -18,13 +18,11 @@ import PlaceList from '../components/list/PlaceList.js';
 import Layout from '../layout/index.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: MergeFormT,
   +toMerge: $ReadOnlyArray<PlaceT>,
 };
 
 const PlaceMerge = ({
-  $c,
   form,
   toMerge,
 }: Props): React.Element<typeof Layout> => (
@@ -35,7 +33,7 @@ const PlaceMerge = ({
         {l(`You are about to merge all these places into a single one.
             Please select the place all others should be merged into:`)}
       </p>
-      <form action={$c.req.uri} method="post">
+      <form method="post">
         <PlaceList
           mergeForm={form}
           places={sortByEntityName(toMerge)}

@@ -29,7 +29,6 @@ type ReportReasonT =
   | 'voting';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: FormT<{
     +csrf_token: FieldT<string>,
     +message: FieldT<string>,
@@ -73,7 +72,6 @@ const reportReasonOptions = {
 };
 
 const ReportUser = ({
-  $c,
   form,
   user,
 }: Props): React.Element<typeof UserAccountLayout> => (
@@ -131,7 +129,7 @@ const ReportUser = ({
           )}
         </p>
 
-        <form action={$c.req.uri} className="report-form" method="post">
+        <form className="report-form" method="post">
           <FormCsrfToken form={form} />
 
           <FormRowSelect
