@@ -9,9 +9,8 @@
 
 import * as React from 'react';
 
-import entityHref from '../static/scripts/common/utility/entityHref.js';
-import primaryAreaCode
-  from '../static/scripts/common/utility/primaryAreaCode.js';
+import entityHref from '../utility/entityHref.js';
+import primaryAreaCode from '../utility/primaryAreaCode.js';
 
 type Props = {
   +className?: string,

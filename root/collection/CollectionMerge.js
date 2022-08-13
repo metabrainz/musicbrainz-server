@@ -10,7 +10,7 @@
 import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
-import FieldErrors from '../components/FieldErrors.js';
+import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 import Table from '../components/Table.js';
 import Layout from '../layout/index.js';
 import {ENTITY_NAMES} from '../static/scripts/common/constants.js';

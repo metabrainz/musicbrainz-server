@@ -9,14 +9,16 @@
 
 import * as React from 'react';
 
-import sortByEntityName
-  from '../static/scripts/common/utility/sortByEntityName.js';
-import EnterEdit from '../components/EnterEdit.js';
-import EnterEditNote from '../components/EnterEditNote.js';
-import FieldErrors from '../components/FieldErrors.js';
-import FormRowCheckbox from '../components/FormRowCheckbox.js';
 import ArtistList from '../components/list/ArtistList.js';
 import Layout from '../layout/index.js';
+import sortByEntityName
+  from '../static/scripts/common/utility/sortByEntityName.js';
+import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
+import FormRowCheckbox
+  from '../static/scripts/edit/components/FormRowCheckbox.js';
+import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
+import EnterEditNote
+  from '../static/scripts/edit/components/EnterEditNote.js';
 
 type Props = {
   +form: MergeFormT,

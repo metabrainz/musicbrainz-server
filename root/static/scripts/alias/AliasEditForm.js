@@ -14,19 +14,19 @@ import type {
   AliasEditFormT,
   WritableAliasEditFormT,
 } from '../../../entity/alias/types.js';
-import EnterEdit from '../../../components/EnterEdit.js';
-import EnterEditNote from '../../../components/EnterEditNote.js';
-import FormRowCheckbox from '../../../components/FormRowCheckbox.js';
-import FormRowSelect from '../../../components/FormRowSelect.js';
 import isBlank from '../common/utility/isBlank.js';
 import DateRangeFieldset, {
   type ActionT as DateRangeFieldsetActionT,
   runReducer as runDateRangeFieldsetReducer,
 } from '../edit/components/DateRangeFieldset.js';
+import EnterEdit from '../edit/components/EnterEdit.js';
+import EnterEditNote from '../edit/components/EnterEditNote.js';
+import FormRowCheckbox from '../edit/components/FormRowCheckbox.js';
 import FormRowNameWithGuessCase, {
   runReducer as runNameReducer,
   type ActionT as NameActionT,
 } from '../edit/components/FormRowNameWithGuessCase.js';
+import FormRowSelect from '../edit/components/FormRowSelect.js';
 import FormRowSortNameWithGuessCase, {
   runReducer as runSortNameReducer,
   type ActionT as SortNameActionT,
@@ -46,7 +46,7 @@ import {
 import {
   applyAllPendingErrors,
   hasSubfieldErrors,
-} from '../../../utility/subfieldErrors.js';
+} from '../edit/utility/subfieldErrors.js';
 
 type Props = {
   +aliasTypes: SelectOptionsT,

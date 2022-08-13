@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import expand2react from '../static/scripts/common/i18n/expand2react.js';
+import expand2react from '../../common/i18n/expand2react.js';
 import {type AnyFieldT} from '../utility/iterSubfields.js';
 import subfieldErrors from '../utility/subfieldErrors.js';
 

@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import FormSubmit from '../components/FormSubmit.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import ReleaseList from '../components/list/ReleaseList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';

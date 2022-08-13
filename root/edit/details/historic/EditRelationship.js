@@ -16,7 +16,8 @@ import DescriptiveLink
 import DiffSide
   from '../../../static/scripts/edit/components/edit/DiffSide.js';
 import Warning from '../../../static/scripts/common/components/Warning.js';
-import relationshipDateText from '../../../utility/relationshipDateText.js';
+import relationshipDateText
+  from '../../../static/scripts/common/utility/relationshipDateText.js';
 import {
   INSERT,
   DELETE,

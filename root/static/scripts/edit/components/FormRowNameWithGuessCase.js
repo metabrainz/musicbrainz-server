@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import FormRowText from '../../../../components/FormRowText.js';
 import GuessCase from '../../guess-case/MB/GuessCase/Main.js';
 
+import FormRowText from './FormRowText.js';
 import {
   createInitialState as createGuessCaseOptionsState,
   runReducer as runGuessCaseOptionsReducer,

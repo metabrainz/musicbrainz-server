@@ -15,15 +15,15 @@ import type {
   LinkRelationshipT,
   LinkStateT,
 } from '../externalLinks.js';
+import {copyDatePeriodField} from '../utility/copyFieldData.js';
 import {
   createCompoundField,
   createField,
-} from '../../edit/utility/createField.js';
+} from '../utility/createField.js';
 import {
   applyAllPendingErrors,
   hasSubfieldErrors,
-} from '../../../../utility/subfieldErrors.js';
-import {copyDatePeriodField} from '../utility/copyFieldData.js';
+} from '../utility/subfieldErrors.js';
 
 import DateRangeFieldset, {
   partialDateFromField,

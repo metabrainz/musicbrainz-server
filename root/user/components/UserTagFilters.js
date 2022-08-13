@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import FormRow from '../../components/FormRow.js';
+import FormRow from '../../static/scripts/edit/components/FormRow.js';
 
 type PropsT = {
   +showDownvoted: boolean,

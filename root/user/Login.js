@@ -9,17 +9,19 @@
 
 import * as React from 'react';
 
-import FormCsrfToken from '../components/FormCsrfToken.js';
-import FormRowCheckbox from '../components/FormRowCheckbox.js';
-import FormRowText from '../components/FormRowText.js';
-import FormSubmit from '../components/FormSubmit.js';
 import {CatalystContext} from '../context.mjs';
+import Layout from '../layout/index.js';
+import DBDefs from '../static/scripts/common/DBDefs.mjs';
 import PostParameters, {
   type PostParametersT,
 } from '../static/scripts/common/components/PostParameters.js';
-import Layout from '../layout/index.js';
+import FormCsrfToken
+  from '../static/scripts/edit/components/FormCsrfToken.js';
+import FormRowCheckbox
+  from '../static/scripts/edit/components/FormRowCheckbox.js';
+import FormRowText from '../static/scripts/edit/components/FormRowText.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import * as manifest from '../static/manifest.mjs';
-import DBDefs from '../static/scripts/common/DBDefs.mjs';
 import returnUri from '../utility/returnUri.js';
 
 type PropsT = {

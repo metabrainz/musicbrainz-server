@@ -22,8 +22,8 @@ import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import CleanupBanner from '../components/CleanupBanner.js';
-import FormRow from '../components/FormRow.js';
-import FormSubmit from '../components/FormSubmit.js';
+import FormRow from '../static/scripts/edit/components/FormRow.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import ReleaseEvents
   from '../static/scripts/common/components/ReleaseEvents.js';
 import ReleaseLabelList from '../components/ReleaseLabelList.js';

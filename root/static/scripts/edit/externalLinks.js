@@ -29,8 +29,8 @@ import formatDatePeriod from '../common/utility/formatDatePeriod.js';
 import {hasSessionStorage} from '../common/utility/storage.js';
 import {uniqueId} from '../common/utility/strings.js';
 import {bracketedText} from '../common/utility/bracketed.js';
-import {isMalware} from '../../../url/utility/isGreyedOut.js';
 import {compareDatePeriods} from '../common/utility/compareDates.js';
+import {isMalware} from '../url/utility/isGreyedOut.js';
 
 import isPositiveInteger from './utility/isPositiveInteger.js';
 import HelpIcon from './components/HelpIcon.js';

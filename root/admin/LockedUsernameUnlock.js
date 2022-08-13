@@ -9,9 +9,10 @@
 
 import * as React from 'react';
 
-import FormCsrfToken from '../components/FormCsrfToken.js';
-import FormSubmit from '../components/FormSubmit.js';
 import Layout from '../layout/index.js';
+import FormCsrfToken
+  from '../static/scripts/edit/components/FormCsrfToken.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import expand2text from '../static/scripts/common/i18n/expand2text.js';
 
 type Props = {

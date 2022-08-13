@@ -9,11 +9,12 @@
 
 import * as React from 'react';
 
+import SelectField from '../../common/components/SelectField.js';
+
 import FormRow from './FormRow.js';
 import FieldErrors from './FieldErrors.js';
 import FormLabel from './FormLabel.js';
 import HiddenField from './HiddenField.js';
-import SelectField from './SelectField.js';
 
 type Props = {
   // `allowEmpty` prepends an empty default option to the list.

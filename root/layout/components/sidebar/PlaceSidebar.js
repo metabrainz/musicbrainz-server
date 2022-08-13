@@ -14,8 +14,9 @@ import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage.js';
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink.js';
+import isFutureDate
+  from '../../../static/scripts/common/utility/isFutureDate.js';
 import * as age from '../../../utility/age.js';
-import isFutureDate from '../../../utility/isFutureDate.js';
 import {formatCoordinates, osmUrl} from '../../../utility/coordinates.js';
 import ExternalLinks from '../ExternalLinks.js';
 

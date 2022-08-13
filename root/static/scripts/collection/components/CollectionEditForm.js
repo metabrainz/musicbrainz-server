@@ -10,20 +10,19 @@
 import mutate from 'mutate-cow';
 import * as React from 'react';
 
-import {SanitizedCatalystContext} from '../../../../context.mjs';
-import FieldErrors from '../../../../components/FieldErrors.js';
-import FormRow from '../../../../components/FormRow.js';
-import FormLabel from '../../../../components/FormLabel.js';
-import FormRowCheckbox from '../../../../components/FormRowCheckbox.js';
-import FormRowSelect from '../../../../components/FormRowSelect.js';
-import FormRowTextArea from '../../../../components/FormRowTextArea.js';
-import FormRowTextLong from '../../../../components/FormRowTextLong.js';
-import FormSubmit from '../../../../components/FormSubmit.js';
-import Autocomplete from '../../common/components/Autocomplete.js';
-import {pushCompoundField}
-  from '../../edit/utility/pushField.js';
 import type {CollaboratorStateT, CollectionEditFormT}
   from '../../../../collection/types.js';
+import {SanitizedCatalystContext} from '../../../../context.mjs';
+import Autocomplete from '../../common/components/Autocomplete.js';
+import FieldErrors from '../../edit/components/FieldErrors.js';
+import FormRow from '../../edit/components/FormRow.js';
+import FormLabel from '../../edit/components/FormLabel.js';
+import FormRowCheckbox from '../../edit/components/FormRowCheckbox.js';
+import FormRowSelect from '../../edit/components/FormRowSelect.js';
+import FormRowTextArea from '../../edit/components/FormRowTextArea.js';
+import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
+import FormSubmit from '../../edit/components/FormSubmit.js';
+import {pushCompoundField} from '../../edit/utility/pushField.js';
 
 type Props = {
   +collectionTypes: SelectOptionsT,

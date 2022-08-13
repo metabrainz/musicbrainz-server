@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import FieldErrors from '../../../../components/FieldErrors.js';
-import SelectField from '../../../../components/SelectField.js';
+import SelectField from '../../common/components/SelectField.js';
+import FieldErrors from '../../edit/components/FieldErrors.js';
 import {addColonText} from '../i18n/addColon.js';
 
 export type FilterFormT = $ReadOnly<{

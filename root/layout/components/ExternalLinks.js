@@ -14,7 +14,8 @@ import {FAVICON_CLASSES} from '../../static/scripts/common/constants.js';
 import {compare, l} from '../../static/scripts/common/i18n.js';
 import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 import {uniqBy} from '../../static/scripts/common/utility/arrays.js';
-import isDisabledLink from '../../utility/isDisabledLink.js';
+import isDisabledLink
+  from '../../static/scripts/common/utility/isDisabledLink.js';
 
 function faviconClass(urlEntity: UrlT) {
   let matchingClass;

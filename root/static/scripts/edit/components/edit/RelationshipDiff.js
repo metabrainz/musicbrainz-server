@@ -9,8 +9,6 @@
 
 import * as React from 'react';
 
-import relationshipDateText
-  from '../../../../../utility/relationshipDateText.js';
 import {INSERT, DELETE} from '../../utility/editDiff.js';
 import DescriptiveLink from '../../../common/components/DescriptiveLink.js';
 import commaList from '../../../common/i18n/commaList.js';
@@ -23,7 +21,9 @@ import {keyBy} from '../../../common/utility/arrays.js';
 import bracketed from '../../../common/utility/bracketed.js';
 import displayLinkAttribute, {displayLinkAttributes}
   from '../../../common/utility/displayLinkAttribute.js';
-import isDisabledLink from '../../../../../utility/isDisabledLink.js';
+import isDisabledLink from '../../../common/utility/isDisabledLink.js';
+import relationshipDateText
+  from '../../../common/utility/relationshipDateText.js';
 import {
   getPhraseAndExtraAttributes,
   type LinkPhraseI18n,

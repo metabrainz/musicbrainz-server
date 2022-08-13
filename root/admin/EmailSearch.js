@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import FormRowText from '../components/FormRowText.js';
-import FormSubmit from '../components/FormSubmit.js';
+import FormRowText from '../static/scripts/edit/components/FormRowText.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import Layout from '../layout/index.js';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
 

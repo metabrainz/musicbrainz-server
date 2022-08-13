@@ -12,9 +12,10 @@ import * as React from 'react';
 import {CatalystContext} from '../../../context.mjs';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage.js';
+import areDatesEqual
+  from '../../../static/scripts/common/utility/areDatesEqual.js';
 import isDateEmpty
   from '../../../static/scripts/common/utility/isDateEmpty.js';
-import areDatesEqual from '../../../utility/areDatesEqual.js';
 import ExternalLinks from '../ExternalLinks.js';
 
 import AnnotationLinks from './AnnotationLinks.js';

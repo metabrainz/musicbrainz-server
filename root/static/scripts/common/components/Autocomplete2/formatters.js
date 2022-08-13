@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import CountryAbbr from '../../../../../components/CountryAbbr.js';
 import {INSTRUMENT_ROOT_ID} from '../../constants.js';
 import {commaOnlyListText} from '../../i18n/commaOnlyList.js';
 import {unwrapNl} from '../../i18n.js';
@@ -24,6 +23,7 @@ import bracketed, {bracketedText} from '../../utility/bracketed.js';
 import formatDate from '../../utility/formatDate.js';
 import formatDatePeriod from '../../utility/formatDatePeriod.js';
 import formatTrackLength from '../../utility/formatTrackLength.js';
+import CountryAbbr from '../CountryAbbr.js';
 
 import type {
   EntityItemT,

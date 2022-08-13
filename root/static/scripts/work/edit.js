@@ -15,15 +15,15 @@ import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 import {createStore} from 'redux';
 
-import FormRowSelectList from '../../../components/FormRowSelectList.js';
-import subfieldErrors from '../../../utility/subfieldErrors.js';
 import {groupBy} from '../common/utility/arrays.js';
 import getScriptArgs from '../common/utility/getScriptArgs.js';
+import FormRowSelectList from '../edit/components/FormRowSelectList.js';
 import {buildOptionsTree} from '../edit/forms.js';
 import typeBubble from '../edit/typeBubble.js';
 import {initializeBubble} from '../edit/MB/Control/Bubble.js';
 import {createCompoundField} from '../edit/utility/createField.js';
 import {pushCompoundField, pushField} from '../edit/utility/pushField.js';
+import subfieldErrors from '../edit/utility/subfieldErrors.js';
 import {initializeGuessCase} from '../guess-case/MB/Control/GuessCase.js';
 import {LANGUAGE_MUL_ID, LANGUAGE_ZXX_ID} from '../common/constants.js';
 

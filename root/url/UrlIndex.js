@@ -11,10 +11,9 @@ import * as React from 'react';
 
 import Relationships
   from '../static/scripts/common/components/Relationships.js';
-
+import isGreyedOut from '../static/scripts/url/utility/isGreyedOut.js';
 
 import UrlLayout from './UrlLayout.js';
-import isGreyedOut from './utility/isGreyedOut.js';
 
 type Props = {
   +url: UrlT,

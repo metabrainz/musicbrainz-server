@@ -77,7 +77,7 @@ sub check_imports {
 
         # otherwise, check that i18n functions aren't used
         my $quoted_import = shell_quote($import);
-        my $l_references = qx{ git grep -P '\\Wl[np_]\\W' -- $quoted_import };
+        my $l_references = qx{ git grep -P '\\Wl[np_]?\\W' -- $quoted_import };
         unless (
             ok(
                 !$l_references,
