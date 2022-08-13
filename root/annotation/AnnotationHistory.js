@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import ENTITIES from '../../entities.json';
+import ENTITIES from '../../entities.mjs';
 import FormSubmit from '../components/FormSubmit.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import * as manifest from '../static/manifest.mjs';

@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import ENTITIES from '../../../../../entities.json';
+import ENTITIES from '../../../../../entities.mjs';
 import AddEntityDialog from '../../edit/components/AddEntityDialog.js';
 import {MBID_REGEXP} from '../constants.js';
 import useOutsideClickEffect from '../hooks/useOutsideClickEffect.js';
@@ -81,6 +81,14 @@ function doSearch<T: EntityItemT>(
   const entityWebServicePath = state.entityType === 'editor'
     ? 'editor'
     : ENTITIES[state.entityType].url;
+
+  if (entityWebServicePath == null) {
+    throw new Error(
+      'Can\'t build a web service URL for ' +
+      JSON.stringify(state.entityType) +
+      ' entities.',
+    );
+  }
 
   const url = (
     '/ws/js/' + entityWebServicePath +

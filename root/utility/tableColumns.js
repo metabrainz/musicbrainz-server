@@ -11,7 +11,7 @@ import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
 import {CatalystContext} from '../context.mjs';
-import ENTITIES from '../../entities.json';
+import ENTITIES from '../../entities.mjs';
 import InstrumentRelTypes from '../components/InstrumentRelTypes.js';
 import ReleaseCatnoList from '../components/ReleaseCatnoList.js';
 import ReleaseLabelList from '../components/ReleaseLabelList.js';

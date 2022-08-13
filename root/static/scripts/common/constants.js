@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import ENTITIES from '../../../../entities.json';
+import ENTITIES from '../../../../entities.mjs';
 
 export {ENTITIES};
 
