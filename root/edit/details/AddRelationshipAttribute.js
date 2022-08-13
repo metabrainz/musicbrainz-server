@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import IntentionallyRawIcon
-  from '../components/IntentionallyRawIcon.js';
 import localizeLinkAttributeTypeName
   from '../../static/scripts/common/i18n/localizeLinkAttributeTypeName.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
+import IntentionallyRawIcon
+  from '../components/IntentionallyRawIcon.js';
 
 type Props = {
   +edit: AddRelationshipAttributeEditT,

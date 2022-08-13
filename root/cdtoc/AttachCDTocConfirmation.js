@@ -17,14 +17,14 @@ import ArtistCreditLink
 import EntityLink
   from '../static/scripts/common/components/EntityLink.js';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
-import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
-import EnterEditNote
-  from '../static/scripts/edit/components/EnterEditNote.js';
 import {arraysEqual} from '../static/scripts/common/utility/arrays.js';
 import formatTrackLength
   from '../static/scripts/common/utility/formatTrackLength.js';
 import mediumFormatName
   from '../static/scripts/common/utility/mediumFormatName.js';
+import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
+import EnterEditNote
+  from '../static/scripts/edit/components/EnterEditNote.js';
 
 type AttachCDTocConfirmationProps = {
   +cdToc: CDTocT,

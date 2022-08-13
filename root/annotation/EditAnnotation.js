@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import FormRowText from '../static/scripts/edit/components/FormRowText.js';
-import FormRowTextArea
-  from '../static/scripts/edit/components/FormRowTextArea.js';
 import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
 import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
+import FormRowText from '../static/scripts/edit/components/FormRowText.js';
+import FormRowTextArea
+  from '../static/scripts/edit/components/FormRowTextArea.js';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
 type EditAnnotationFormT = FormT<{

@@ -10,8 +10,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout/index.js';
 import Tabs from '../components/Tabs.js';
+import Layout from '../layout/index.js';
 import {unwrapNl} from '../static/scripts/common/i18n.js';
 import {l_statistics as l, N_l_statistics as N_l}
   from '../static/scripts/common/i18n/statistics.js';

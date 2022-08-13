@@ -13,8 +13,8 @@ import linkedEntities from '../../common/linkedEntities.mjs';
 import {keyBy} from '../../common/utility/arrays.js';
 import sleep from '../../common/utility/sleep.js';
 import {
-  exportLinkTypeInfo,
   exportLinkAttributeTypeInfo,
+  exportLinkTypeInfo,
 } from '../../relationship-editor/utility/exportTypeInfo.js';
 
 const typeInfoPromises = new Map();

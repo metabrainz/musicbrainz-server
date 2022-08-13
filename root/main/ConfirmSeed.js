@@ -12,11 +12,11 @@ import * as React from 'react';
 import {SanitizedCatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
 import * as manifest from '../static/manifest.mjs';
-import ConfirmSeedButtons
-  from '../static/scripts/main/components/ConfirmSeedButtons.js';
 import PostParameters, {
   type PostParametersT,
 } from '../static/scripts/common/components/PostParameters.js';
+import ConfirmSeedButtons
+  from '../static/scripts/main/components/ConfirmSeedButtons.js';
 
 type Props = {
   +origin: string,

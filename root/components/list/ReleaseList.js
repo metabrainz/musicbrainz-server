@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import * as manifest from '../../static/manifest.mjs';
-import Table from '../Table.js';
 import filterReleaseLabels
   from '../../static/scripts/common/utility/filterReleaseLabels.js';
 import formatBarcode
@@ -31,6 +30,7 @@ import {
   removeFromMergeColumn,
   taggerColumn,
 } from '../../utility/tableColumns.js';
+import Table from '../Table.js';
 
 type Props = {
   ...InstrumentCreditsAndRelTypesRoleT,

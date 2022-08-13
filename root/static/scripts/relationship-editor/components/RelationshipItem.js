@@ -10,17 +10,17 @@
 import * as React from 'react';
 import * as tree from 'weight-balanced-tree';
 
-import relationshipDateText
-  from '../../common/utility/relationshipDateText.js';
 import ButtonPopover from '../../common/components/ButtonPopover.js';
 import DescriptiveLink from '../../common/components/DescriptiveLink.js';
+import {bracketedText} from '../../common/utility/bracketed.js';
 import {displayLinkAttributesText}
   from '../../common/utility/displayLinkAttribute.js';
-import {bracketedText} from '../../common/utility/bracketed.js';
 import {
   performReactUpdateAndMaintainFocus,
 } from '../../common/utility/focusManagement.js';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
+import relationshipDateText
+  from '../../common/utility/relationshipDateText.js';
 import {
   getPhraseAndExtraAttributesText,
 } from '../../edit/utility/linkPhrase.js';

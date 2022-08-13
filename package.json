@@ -32,6 +32,7 @@
     "core-js": "3.6.5",
     "deep-freeze-strict": "1.1.1",
     "detect-node": "2.0.3",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "fast-diff": "1.2.0",
     "filesize": "2.0.4",
     "generic-diff": "1.0.1",

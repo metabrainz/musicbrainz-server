@@ -21,8 +21,8 @@ import type {
 
 import {cloneRelationshipState} from './cloneState.js';
 import {
-  findLinkPhraseGroupInTargetTypeGroups,
   findExistingRelationship,
+  findLinkPhraseGroupInTargetTypeGroups,
 } from './findState.js';
 import getRelationshipEditStatus from './getRelationshipEditStatus.js';
 import mergeDates from './mergeDates.js';

@@ -14,14 +14,14 @@ import {
 } from '../i18n.js';
 
 import expand, {
+  type VarArgsClass,
+  type VarArgsObject,
   createCondSubstParser,
   createTextContentParser,
   parseContinuousString,
   parseStringVarSubst,
   state,
   VarArgs,
-  type VarArgsObject,
-  type VarArgsClass,
 } from './expand2.js';
 
 const textContent = /^[^{}]+/;

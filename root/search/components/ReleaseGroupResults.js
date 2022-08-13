@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
-import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink.js';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import {isEditingEnabled}
   from '../../static/scripts/common/utility/privileges.js';
 import loopParity from '../../utility/loopParity.js';

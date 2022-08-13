@@ -9,9 +9,9 @@
 
 import commaList, {commaListText} from '../../common/i18n/commaList.js';
 import {
-  VarArgs,
-  type VarArgsObject,
   type VarArgsClass,
+  type VarArgsObject,
+  VarArgs,
 } from '../../common/i18n/expand2.js';
 import {
   expand2reactWithVarArgsInstance,

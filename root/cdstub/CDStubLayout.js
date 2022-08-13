@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout/index.js';
 import CDStubSidebar from '../layout/components/sidebar/CDStubSidebar.js';
+import Layout from '../layout/index.js';
 
 import CDStubHeader from './CDStubHeader.js';
 

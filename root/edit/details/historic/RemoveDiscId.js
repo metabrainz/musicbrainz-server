@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import HistoricReleaseList
-  from '../../components/HistoricReleaseList.js';
 import CDTocLink
   from '../../../static/scripts/common/components/CDTocLink.js';
+import HistoricReleaseList
+  from '../../components/HistoricReleaseList.js';
 
 type Props = {
   +edit: RemoveDiscIdHistoricEditT,

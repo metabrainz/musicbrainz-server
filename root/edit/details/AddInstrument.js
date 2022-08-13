@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import IntentionallyRawIcon from '../components/IntentionallyRawIcon.js';
 import EntityLink
   from '../../static/scripts/common/components/EntityLink.js';
 import expand2react from '../../static/scripts/common/i18n/expand2react.js';
+import IntentionallyRawIcon from '../components/IntentionallyRawIcon.js';
 
 type Props = {
   +allowNew?: boolean,

@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
+import PaginatedResults from '../components/PaginatedResults.js';
 import {CatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
-import PaginatedResults from '../components/PaginatedResults.js';
 import * as manifest from '../static/manifest.mjs';
 import EditLink from '../static/scripts/common/components/EditLink.js';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';

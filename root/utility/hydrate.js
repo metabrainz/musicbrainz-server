@@ -7,12 +7,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as Sentry from '@sentry/browser';
 import mutate from 'mutate-cow';
 import * as React from 'react';
 // $FlowIgnore[missing-export]
 import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
-import * as Sentry from '@sentry/browser';
 
 import {SanitizedCatalystContext} from '../context.mjs';
 import {

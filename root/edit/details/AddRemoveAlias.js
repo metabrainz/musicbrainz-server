@@ -9,15 +9,15 @@
 
 import * as React from 'react';
 
-import bracketed from '../../static/scripts/common/utility/bracketed.js';
-import formatEntityTypeName
-  from '../../static/scripts/common/utility/formatEntityTypeName.js';
-import formatDate from '../../static/scripts/common/utility/formatDate.js';
-import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty.js';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import locales from '../../static/scripts/common/constants/locales.json';
+import bracketed from '../../static/scripts/common/utility/bracketed.js';
+import formatDate from '../../static/scripts/common/utility/formatDate.js';
+import formatEntityTypeName
+  from '../../static/scripts/common/utility/formatEntityTypeName.js';
+import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty.js';
 import isolateText from '../../static/scripts/common/utility/isolateText.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
 

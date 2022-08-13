@@ -5,6 +5,7 @@ plugins:
   - react
   - flowtype
   - react-hooks
+  - simple-import-sort
 
 env:
   browser: true

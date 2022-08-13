@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout/index.js';
 import ArtistSidebar from '../layout/components/sidebar/ArtistSidebar.js';
+import Layout from '../layout/index.js';
 
 import ArtistHeader from './ArtistHeader.js';
 

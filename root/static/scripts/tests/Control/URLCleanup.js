@@ -10,9 +10,9 @@ import test from 'tape';
 
 import {arraysEqual} from '../../common/utility/arrays.js';
 import {
-  LINK_TYPES,
-  cleanURL,
   Checker,
+  cleanURL,
+  LINK_TYPES,
 } from '../../edit/URLCleanup.js';
 
 /*

@@ -12,7 +12,6 @@ import type {ColumnOptions} from 'react-table';
 
 import {SanitizedCatalystContext} from '../../context.mjs';
 import * as manifest from '../../static/manifest.mjs';
-import Table from '../Table.js';
 import ReleaseGroupAppearances
   from '../../static/scripts/common/components/ReleaseGroupAppearances.js';
 import formatTrackLength
@@ -30,6 +29,7 @@ import {
   isrcsColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns.js';
+import Table from '../Table.js';
 
 type Props = {
   ...InstrumentCreditsAndRelTypesRoleT,

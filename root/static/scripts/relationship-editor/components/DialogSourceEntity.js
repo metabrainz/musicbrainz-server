@@ -11,8 +11,8 @@ import * as React from 'react';
 
 import EntityLink from '../../common/components/EntityLink.js';
 import {
-  ENTITY_NAMES,
   ENTITIES_WITH_RELATIONSHIP_CREDITS,
+  ENTITY_NAMES,
 } from '../../common/constants.js';
 import {bracketedText} from '../../common/utility/bracketed.js';
 import * as URLCleanup from '../../edit/URLCleanup.js';

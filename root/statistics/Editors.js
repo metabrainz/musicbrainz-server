@@ -10,12 +10,12 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
-import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
+import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
 import loopParity from '../utility/loopParity.js';
 
-import {formatCount} from './utilities.js';
 import StatisticsLayout from './StatisticsLayout.js';
+import {formatCount} from './utilities.js';
 
 type EditorsStatsT = {
   +dateCollected: string,

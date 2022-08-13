@@ -20,8 +20,8 @@ import type {
   StateT as AutocompleteStateT,
 } from '../../common/components/Autocomplete2/types.js';
 import {
-  ENTITY_NAMES,
   ENTITIES_WITH_RELATIONSHIP_CREDITS,
+  ENTITY_NAMES,
   PART_OF_SERIES_LINK_TYPE_GIDS,
 } from '../../common/constants.js';
 import {

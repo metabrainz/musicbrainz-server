@@ -17,6 +17,10 @@ import {
 } from '../i18n.js';
 
 import expand, {
+  type NO_MATCH,
+  type Parser,
+  type VarArgsClass,
+  type VarArgsObject,
   accept,
   createCondSubstParser,
   createTextContentParser,
@@ -32,10 +36,6 @@ import expand, {
   state,
   substEnd,
   VarArgs,
-  type NO_MATCH,
-  type Parser,
-  type VarArgsObject,
-  type VarArgsClass,
 } from './expand2.js';
 
 type Input = Expand2ReactInput;

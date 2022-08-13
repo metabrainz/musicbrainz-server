@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout/index.js';
 import LabelSidebar from '../layout/components/sidebar/LabelSidebar.js';
+import Layout from '../layout/index.js';
 
 import LabelHeader from './LabelHeader.js';
 

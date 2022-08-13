@@ -9,9 +9,9 @@
 import ko from 'knockout';
 import * as React from 'react';
 
-import SearchIcon from './SearchIcon.js';
-
 import '../entity.js';
+
+import SearchIcon from './SearchIcon.js';
 
 class Autocomplete extends React.Component {
   componentDidMount() {

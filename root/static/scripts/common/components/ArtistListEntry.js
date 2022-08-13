@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../../../context.mjs';
 import InstrumentRelTypes
   from '../../../../components/InstrumentRelTypes.js';
 import RemoveFromMergeTableCell
   from '../../../../components/RemoveFromMergeTableCell.js';
+import {CatalystContext} from '../../../../context.mjs';
 import loopParity from '../../../../utility/loopParity.js';
 import formatDate from '../utility/formatDate.js';
 import formatEndDate from '../utility/formatEndDate.js';

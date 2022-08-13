@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
+import TagEntitiesList from '../components/TagEntitiesList.js';
 import UserAccountLayout, {type AccountLayoutUserT}
   from '../components/UserAccountLayout.js';
-import TagEntitiesList from '../components/TagEntitiesList.js';
 
 import {getTagListHeading, getTagListUrl} from './UserTagList.js';
 

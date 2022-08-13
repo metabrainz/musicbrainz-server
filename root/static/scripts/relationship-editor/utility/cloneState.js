@@ -11,9 +11,9 @@ import createFastObjectCloneFunction
   from '../../common/utility/createFastObjectCloneFunction.js';
 import type {
   RelationshipEditorStateT,
+  RelationshipLinkTypeGroupT,
   RelationshipPhraseGroupT,
   RelationshipStateT,
-  RelationshipLinkTypeGroupT,
   ReleaseRelationshipEditorStateT,
 } from '../types.js';
 

@@ -10,19 +10,19 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
-import Table from '../Table.js';
 import formatLabelCode from '../../utility/formatLabelCode.js';
 import {
   defineBeginDateColumn,
   defineCheckboxColumn,
   defineEndDateColumn,
-  defineNameColumn,
   defineEntityColumn,
+  defineNameColumn,
   defineRatingsColumn,
   defineTextColumn,
   defineTypeColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns.js';
+import Table from '../Table.js';
 
 type Props = {
   +checkboxes?: string,

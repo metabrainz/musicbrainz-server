@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout/index.js';
 import EventSidebar from '../layout/components/sidebar/EventSidebar.js';
+import Layout from '../layout/index.js';
 
 import EventHeader from './EventHeader.js';
 

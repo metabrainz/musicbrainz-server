@@ -10,10 +10,10 @@
 import {
   DARTIST_ID,
   DLABEL_ID,
-  NOLABEL_ID,
   NOLABEL_GID,
-  VARTIST_ID,
+  NOLABEL_ID,
   VARTIST_GID,
+  VARTIST_ID,
 } from '../constants.js';
 
 export default function isSpecialPurpose(

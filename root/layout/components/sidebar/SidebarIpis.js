@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-
 import {SidebarProperty} from './SidebarProperties.js';
 
 const buildSidebarIpi = (ipi: IpiCodeT) => (

@@ -10,9 +10,9 @@
 import {
   EDIT_VOTE_ABSTAIN,
   EDIT_VOTE_APPROVE,
-  EDIT_VOTE_YES,
   EDIT_VOTE_NO,
   EDIT_VOTE_NONE,
+  EDIT_VOTE_YES,
 } from '../../../../constants.js';
 
 export default function getVoteName(

@@ -7,23 +7,23 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
 import {captureException} from '@sentry/browser';
+import * as React from 'react';
 
 import mediumHasMultipleArtists
   from '../../../../utility/mediumHasMultipleArtists.js';
-import type {
-  LazyReleaseActionT,
-} from '../../release/types.js';
-import {uniqBy} from '../../common/utility/arrays.js';
-import pThrottle, {
-  ThrottleAbortError,
-} from '../../common/utility/pThrottle.js';
-import MediumDescription from '../components/MediumDescription.js';
 import {
   type LinkedEntitiesT,
   mergeLinkedEntities,
 } from '../../common/linkedEntities.mjs';
+import {uniqBy} from '../../common/utility/arrays.js';
+import pThrottle, {
+  ThrottleAbortError,
+} from '../../common/utility/pThrottle.js';
+import type {
+  LazyReleaseActionT,
+} from '../../release/types.js';
+import MediumDescription from '../components/MediumDescription.js';
 
 type TracksResponseT = {
   +linked_entities: {

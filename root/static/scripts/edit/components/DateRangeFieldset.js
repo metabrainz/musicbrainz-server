@@ -17,11 +17,11 @@ import useDateRangeFieldset from '../hooks/useDateRangeFieldset.js';
 import {isDatePeriodValid} from '../utility/dates.js';
 import {applyAllPendingErrors} from '../utility/subfieldErrors.js';
 
+import FormRowCheckbox from './FormRowCheckbox.js';
 import FormRowPartialDate, {
   type ActionT as FormRowPartialDateActionT,
   runReducer as runFormRowPartialDateReducer,
 } from './FormRowPartialDate.js';
-import FormRowCheckbox from './FormRowCheckbox.js';
 
 /* eslint-disable flowtype/sort-keys */
 export type ActionT =

@@ -6,11 +6,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import $ from 'jquery';
 import balanced from 'balanced-match';
+import $ from 'jquery';
+
+import '../../common/entity.js';
 
 import {MIN_NAME_SIMILARITY} from '../../common/constants.js';
-import '../../common/entity.js';
 import MB from '../../common/MB.js';
 import {last} from '../../common/utility/arrays.js';
 import clean from '../../common/utility/clean.js';

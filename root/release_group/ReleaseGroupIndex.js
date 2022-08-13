@@ -9,27 +9,27 @@
 
 import * as React from 'react';
 
-import Annotation from '../static/scripts/common/components/Annotation.js';
-import Relationships
-  from '../static/scripts/common/components/Relationships.js';
-import WikipediaExtract
-  from '../static/scripts/common/components/WikipediaExtract.js';
+import CleanupBanner from '../components/CleanupBanner.js';
 import PaginatedResults from '../components/PaginatedResults.js';
+import ReleaseCatnoList from '../components/ReleaseCatnoList.js';
+import ReleaseLabelList from '../components/ReleaseLabelList.js';
 import {CatalystContext} from '../context.mjs';
-import TaggerIcon from '../static/scripts/common/components/TaggerIcon.js';
-import loopParity from '../utility/loopParity.js';
+import * as manifest from '../static/manifest.mjs';
+import Annotation from '../static/scripts/common/components/Annotation.js';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
-import CleanupBanner from '../components/CleanupBanner.js';
-import FormRow from '../static/scripts/edit/components/FormRow.js';
-import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
+import Relationships
+  from '../static/scripts/common/components/Relationships.js';
 import ReleaseEvents
   from '../static/scripts/common/components/ReleaseEvents.js';
-import ReleaseLabelList from '../components/ReleaseLabelList.js';
-import ReleaseCatnoList from '../components/ReleaseCatnoList.js';
+import TaggerIcon from '../static/scripts/common/components/TaggerIcon.js';
+import WikipediaExtract
+  from '../static/scripts/common/components/WikipediaExtract.js';
 import formatBarcode from '../static/scripts/common/utility/formatBarcode.js';
-import * as manifest from '../static/manifest.mjs';
+import FormRow from '../static/scripts/edit/components/FormRow.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
+import loopParity from '../utility/loopParity.js';
 import releaseGroupType from '../utility/releaseGroupType.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 

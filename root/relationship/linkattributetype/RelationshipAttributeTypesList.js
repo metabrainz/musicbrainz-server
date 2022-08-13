@@ -17,8 +17,8 @@ import bracketed, {bracketedText}
 import {isRelationshipEditor}
   from '../../static/scripts/common/utility/privileges.js';
 import {upperFirst} from '../../static/scripts/common/utility/strings.js';
-import compareChildren from '../utility/compareChildren.js';
 import RelationshipsHeader from '../RelationshipsHeader.js';
+import compareChildren from '../utility/compareChildren.js';
 
 type AttributeTreeProps = {
   +attribute: LinkAttrTypeT,

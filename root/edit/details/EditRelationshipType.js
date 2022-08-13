@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import IntentionallyRawIcon from '../components/IntentionallyRawIcon.js';
 import Cardinality
   from '../../static/scripts/common/components/Cardinality.js';
 import DescriptiveLink
@@ -21,14 +20,15 @@ import OrderableDirection
   from '../../static/scripts/common/components/OrderableDirection.js';
 import Warning from '../../static/scripts/common/components/Warning.js';
 import {ENTITY_NAMES} from '../../static/scripts/common/constants.js';
-import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
-import FullChangeDiff from
-  '../../static/scripts/edit/components/edit/FullChangeDiff.js';
-import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 import expand2react from '../../static/scripts/common/i18n/expand2react.js';
+import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 import relationshipDateText
   from '../../static/scripts/common/utility/relationshipDateText.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
+import FullChangeDiff from
+  '../../static/scripts/edit/components/edit/FullChangeDiff.js';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
+import IntentionallyRawIcon from '../components/IntentionallyRawIcon.js';
 
 type Props = {
   +edit: EditRelationshipTypeEditT,

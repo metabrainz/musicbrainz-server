@@ -34,7 +34,7 @@ const FAST_DIFF_CHANGE_TYPE_MAP = new Map([
   [fastDiff.DELETE, DELETE],
 ]);
 
-export {INSERT, EQUAL, DELETE, CHANGE, CLASS_MAP};
+export {CHANGE, CLASS_MAP, DELETE, EQUAL, INSERT};
 
 type GenericEditDiff<+T> = {
   +added: boolean,

@@ -14,9 +14,9 @@ import UserAccountLayout, {
 } from '../components/UserAccountLayout.js';
 import {CatalystContext} from '../context.mjs';
 import * as manifest from '../static/manifest.mjs';
-import EditProfileForm
-  from '../static/scripts/account/components/EditProfileForm.js';
 import type {EditProfileFormPropsT}
+  from '../static/scripts/account/components/EditProfileForm.js';
+import EditProfileForm
   from '../static/scripts/account/components/EditProfileForm.js';
 
 const EditProfile = (

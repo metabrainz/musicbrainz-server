@@ -12,6 +12,8 @@ import ko from 'knockout';
 import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 
+import '../../../../lib/jquery-ui.js';
+
 import AddEntityDialog, {
   TITLES as ADD_NEW_ENTITY_TITLES,
 } from '../../../edit/components/AddEntityDialog.js';
@@ -27,6 +29,7 @@ import localizeLanguageName from '../../i18n/localizeLanguageName.js';
 import {reduceArtistCredit} from '../../immutable-entities.js';
 import MB from '../../MB.js';
 import {compactMap, first, groupBy, last} from '../../utility/arrays.js';
+import {bracketedText} from '../../utility/bracketed.js';
 import clean from '../../utility/clean.js';
 import formatDate from '../../utility/formatDate.js';
 import formatDatePeriod from '../../utility/formatDatePeriod.js';
@@ -37,9 +40,6 @@ import {
   isLocationEditor,
   isRelationshipEditor,
 } from '../../utility/privileges.js';
-import {bracketedText} from '../../utility/bracketed.js';
-
-import '../../../../lib/jquery-ui.js';
 
 $.widget('mb.entitylookup', $.ui.autocomplete, {
 

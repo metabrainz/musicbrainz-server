@@ -7,8 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
 import mutate from 'mutate-cow';
+import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import {formatUserDateObject} from '../../../../utility/formatUserDate.js';

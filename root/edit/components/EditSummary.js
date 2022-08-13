@@ -10,8 +10,8 @@
 import * as React from 'react';
 
 import {
-  EDIT_STATUS_OPEN,
   EDIT_STATUS_APPLIED,
+  EDIT_STATUS_OPEN,
 } from '../../constants.js';
 import {CatalystContext} from '../../context.mjs';
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';

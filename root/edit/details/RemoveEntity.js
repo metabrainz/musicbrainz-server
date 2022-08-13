@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import {ENTITY_NAMES} from '../../static/scripts/common/constants.js';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
+import {ENTITY_NAMES} from '../../static/scripts/common/constants.js';
 
 type Props = {
   +edit: RemoveEntityEditT,

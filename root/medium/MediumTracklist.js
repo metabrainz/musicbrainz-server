@@ -11,10 +11,10 @@ import * as React from 'react';
 
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
-import EntityLink, {DeletedLink}
-  from '../static/scripts/common/components/EntityLink.js';
 import DataTrackIcon
   from '../static/scripts/common/components/DataTrackIcon.js';
+import EntityLink, {DeletedLink}
+  from '../static/scripts/common/components/EntityLink.js';
 import PregapTrackIcon
   from '../static/scripts/common/components/PregapTrackIcon.js';
 import RatingStars from '../static/scripts/common/components/RatingStars.js';

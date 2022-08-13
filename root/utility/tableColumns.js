@@ -10,14 +10,14 @@
 import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
-import {CatalystContext} from '../context.mjs';
 import ENTITIES from '../../entities.mjs';
 import InstrumentRelTypes from '../components/InstrumentRelTypes.js';
 import ReleaseCatnoList from '../components/ReleaseCatnoList.js';
 import ReleaseLabelList from '../components/ReleaseLabelList.js';
 import ReleaseLanguageScript from '../components/ReleaseLanguageScript.js';
 import SortableTableHeader from '../components/SortableTableHeader.js';
-import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
+import {CatalystContext} from '../context.mjs';
+import type {ReportRelationshipRoleT} from '../report/types.js';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
 import ArtistRoles
@@ -40,18 +40,18 @@ import ReleaseEvents
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon.js';
 import WorkArtists
   from '../static/scripts/common/components/WorkArtists.js';
-import formatDate from '../static/scripts/common/utility/formatDate.js';
-import formatDatePeriod
-  from '../static/scripts/common/utility/formatDatePeriod.js';
-import {formatCount} from '../statistics/utilities.js';
-import formatEndDate from '../static/scripts/common/utility/formatEndDate.js';
-import renderMergeCheckboxElement
-  from '../static/scripts/common/utility/renderMergeCheckboxElement.js';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
 import localizeLanguageName
   from '../static/scripts/common/i18n/localizeLanguageName.js';
+import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
+import formatDate from '../static/scripts/common/utility/formatDate.js';
+import formatDatePeriod
+  from '../static/scripts/common/utility/formatDatePeriod.js';
+import formatEndDate from '../static/scripts/common/utility/formatEndDate.js';
+import renderMergeCheckboxElement
+  from '../static/scripts/common/utility/renderMergeCheckboxElement.js';
 import yesNo from '../static/scripts/common/utility/yesNo.js';
-import type {ReportRelationshipRoleT} from '../report/types.js';
+import {formatCount} from '../statistics/utilities.js';
 
 import {returnToCurrentPage} from './returnUri.js';
 

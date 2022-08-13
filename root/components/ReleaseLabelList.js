@@ -7,8 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList.js';
 import {uniqBy} from '../static/scripts/common/utility/arrays.js';
 
 const displayLabel = (label: LabelT) => (

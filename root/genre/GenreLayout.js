@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout/index.js';
 import GenreSidebar from '../layout/components/sidebar/GenreSidebar.js';
+import Layout from '../layout/index.js';
 
 import GenreHeader from './GenreHeader.js';
 

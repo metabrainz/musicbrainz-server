@@ -11,9 +11,9 @@ import * as React from 'react';
 
 import SelectField from '../../common/components/SelectField.js';
 
-import FormRow from './FormRow.js';
 import FieldErrors from './FieldErrors.js';
 import FormLabel from './FormLabel.js';
+import FormRow from './FormRow.js';
 import HiddenField from './HiddenField.js';
 
 type Props = {

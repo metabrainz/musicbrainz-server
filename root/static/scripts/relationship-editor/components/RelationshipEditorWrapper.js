@@ -16,9 +16,9 @@ import {
 import useEntityNameFromField from '../hooks/useEntityNameFromField.js';
 
 import RelationshipEditor, {
+  type InitialStateArgsT,
   loadOrCreateInitialState,
   reducer,
-  type InitialStateArgsT,
 } from './RelationshipEditor.js';
 
 /*

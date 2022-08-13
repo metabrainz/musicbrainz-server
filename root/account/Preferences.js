@@ -13,11 +13,11 @@ import UserAccountLayout, {
   sanitizedAccountLayoutUser,
 } from '../components/UserAccountLayout.js';
 import {CatalystContext} from '../context.mjs';
-import PreferencesForm
-  from '../static/scripts/account/components/PreferencesForm.js';
+import * as manifest from '../static/manifest.mjs';
 import type {PreferencesFormPropsT}
   from '../static/scripts/account/components/PreferencesForm.js';
-import * as manifest from '../static/manifest.mjs';
+import PreferencesForm
+  from '../static/scripts/account/components/PreferencesForm.js';
 
 const Preferences = (
   props: PreferencesFormPropsT,

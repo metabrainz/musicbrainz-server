@@ -10,9 +10,9 @@
 import * as tree from 'weight-balanced-tree';
 
 import {
-  SERIES_ORDERING_TYPE_AUTOMATIC,
-  SERIES_ORDERING_ATTRIBUTE,
   PART_OF_SERIES_LINK_TYPE_IDS,
+  SERIES_ORDERING_ATTRIBUTE,
+  SERIES_ORDERING_TYPE_AUTOMATIC,
 } from '../../common/constants.js';
 import {compare} from '../../common/i18n.js';
 import {compareStrings} from '../../common/utility/compare.js';

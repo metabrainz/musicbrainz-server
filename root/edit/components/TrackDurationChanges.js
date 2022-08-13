@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import DiffSide from '../../static/scripts/edit/components/edit/DiffSide.js';
-import {INSERT, DELETE} from '../../static/scripts/edit/utility/editDiff.js';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength.js';
+import DiffSide from '../../static/scripts/edit/components/edit/DiffSide.js';
+import {DELETE, INSERT} from '../../static/scripts/edit/utility/editDiff.js';
 
 type Props = {
   +newLabel?: string,

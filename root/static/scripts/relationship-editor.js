@@ -7,11 +7,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import './relationship-editor/components/RelationshipEditorWrapper.js';
+
 import {
   getSourceEntityDataForRelationshipEditor,
 } from './common/utility/catalyst.js';
 import {createExternalLinksEditorForHtmlForm} from './edit/externalLinks.js';
-import './relationship-editor/components/RelationshipEditorWrapper.js';
 
 const sourceData = getSourceEntityDataForRelationshipEditor();
 

@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {INSERT, DELETE} from '../../utility/editDiff.js';
 import DescriptiveLink from '../../../common/components/DescriptiveLink.js';
 import commaList from '../../../common/i18n/commaList.js';
 import {
@@ -24,9 +23,10 @@ import displayLinkAttribute, {displayLinkAttributes}
 import isDisabledLink from '../../../common/utility/isDisabledLink.js';
 import relationshipDateText
   from '../../../common/utility/relationshipDateText.js';
+import {DELETE, INSERT} from '../../utility/editDiff.js';
 import {
-  getPhraseAndExtraAttributes,
   type LinkPhraseI18n,
+  getPhraseAndExtraAttributes,
 } from '../../utility/linkPhrase.js';
 
 import DiffSide from './DiffSide.js';

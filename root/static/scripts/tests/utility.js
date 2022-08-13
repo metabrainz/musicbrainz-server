@@ -9,12 +9,12 @@
 import * as ReactDOMServer from 'react-dom/server';
 import test from 'tape';
 
-import formatDate from '../common/utility/formatDate.js';
 import * as age from '../../../utility/age.js';
 import formatUserDate from '../../../utility/formatUserDate.js';
 import compareDates, {
   compareDatePeriods,
 } from '../common/utility/compareDates.js';
+import formatDate from '../common/utility/formatDate.js';
 import formatDatePeriod from '../common/utility/formatDatePeriod.js';
 import formatSetlist from '../common/utility/formatSetlist.js';
 import formatTrackLength from '../common/utility/formatTrackLength.js';

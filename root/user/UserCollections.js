@@ -17,10 +17,10 @@ import {SanitizedCatalystContext} from '../context.mjs';
 import {formatPluralEntityTypeName}
   from '../static/scripts/common/utility/formatEntityTypeName.js';
 import {
+  defineActionsColumn,
   defineNameColumn,
   defineTypeColumn,
   subscriptionColumn,
-  defineActionsColumn,
 } from '../utility/tableColumns.js';
 
 type Props = {

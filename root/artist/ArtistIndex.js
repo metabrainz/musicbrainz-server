@@ -9,6 +9,12 @@
 
 import * as React from 'react';
 
+import RecordingList from '../components/list/RecordingList.js';
+import ReleaseGroupList from '../components/list/ReleaseGroupList.js';
+import PaginatedResults from '../components/PaginatedResults.js';
+import RelatedEntitiesDisplay from '../components/RelatedEntitiesDisplay.js';
+import {SanitizedCatalystContext} from '../context.mjs';
+import * as manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink.js';
@@ -20,14 +26,8 @@ import WikipediaExtract
 import commaOnlyList, {commaOnlyListText}
   from '../static/scripts/common/i18n/commaOnlyList.js';
 import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
-import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
-import RecordingList from '../components/list/RecordingList.js';
-import ReleaseGroupList from '../components/list/ReleaseGroupList.js';
-import PaginatedResults from '../components/PaginatedResults.js';
-import RelatedEntitiesDisplay from '../components/RelatedEntitiesDisplay.js';
-import {SanitizedCatalystContext} from '../context.mjs';
-import * as manifest from '../static/manifest.mjs';
 import entityHref from '../static/scripts/common/utility/entityHref.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ArtistLayout from './ArtistLayout.js';

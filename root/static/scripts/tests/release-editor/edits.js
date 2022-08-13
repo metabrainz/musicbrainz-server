@@ -13,7 +13,7 @@ import MB from '../../common/MB.js';
 import * as validation from '../../edit/validation.js';
 import fields from '../../release-editor/fields.js';
 import exportTypeInfo from '../exportTypeInfo.js';
-import {linkTypes, linkAttributeTypes} from '../typeInfo.js';
+import {linkAttributeTypes, linkTypes} from '../typeInfo.js';
 
 import * as common from './common.js';
 

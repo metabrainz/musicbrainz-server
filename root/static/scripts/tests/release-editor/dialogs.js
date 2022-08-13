@@ -10,6 +10,7 @@ import $ from 'jquery';
 import test from 'tape';
 
 import '../../../lib/jquery-ui.js';
+import '../../release-editor/init.js';
 
 import {
   addMediumDialog,
@@ -22,8 +23,6 @@ import trackParser from '../../release-editor/trackParser.js';
 import releaseEditor from '../../release-editor/viewModel.js';
 
 import * as common from './common.js';
-
-import '../../release-editor/init.js';
 
 $.ui.dialog.prototype.options.appendTo = '#fixture';
 

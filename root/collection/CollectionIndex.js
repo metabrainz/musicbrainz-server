@@ -12,8 +12,6 @@ import * as React from 'react';
 import AreaList from '../components/list/AreaList.js';
 import ArtistList from '../components/list/ArtistList.js';
 import EventList from '../components/list/EventList.js';
-import FormRow from '../static/scripts/edit/components/FormRow.js';
-import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import InstrumentList from '../components/list/InstrumentList.js';
 import LabelList from '../components/list/LabelList.js';
 import PlaceList from '../components/list/PlaceList.js';
@@ -27,6 +25,8 @@ import {SanitizedCatalystContext} from '../context.mjs';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
 import {formatPluralEntityTypeName}
   from '../static/scripts/common/utility/formatEntityTypeName.js';
+import FormRow from '../static/scripts/edit/components/FormRow.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import UserInlineList from '../user/components/UserInlineList.js';
 
 import CollectionLayout from './CollectionLayout.js';

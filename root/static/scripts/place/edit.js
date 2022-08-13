@@ -7,8 +7,8 @@
  */
 
 import $ from 'jquery';
-import L from 'leaflet/dist/leaflet-src.js';
 import ko from 'knockout';
+import L from 'leaflet/dist/leaflet-src.js';
 
 import isBlank from '../common/utility/isBlank.js';
 import initializeDuplicateChecker from '../edit/check-duplicates.js';

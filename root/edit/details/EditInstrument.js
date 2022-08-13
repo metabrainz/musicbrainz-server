@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import IntentionallyRawIcon
-  from '../components/IntentionallyRawIcon.js';
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff.js';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
+import IntentionallyRawIcon
+  from '../components/IntentionallyRawIcon.js';
 
 type Props = {
   +edit: EditInstrumentEditT,

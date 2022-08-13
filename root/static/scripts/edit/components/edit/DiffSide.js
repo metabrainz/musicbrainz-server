@@ -11,12 +11,12 @@
 import * as React from 'react';
 
 import editDiff, {
-  INSERT,
-  EQUAL,
+  type EditType,
   CHANGE,
   CLASS_MAP,
+  EQUAL,
+  INSERT,
   stringEditDiff,
-  type EditType,
 } from '../../utility/editDiff.js';
 
 /*

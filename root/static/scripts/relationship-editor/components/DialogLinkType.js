@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import expand2react from '../../common/i18n/expand2react.js';
 import Autocomplete2, {
   createInitialState as createInitialAutocompleteState,
 } from '../../common/components/Autocomplete2.js';
@@ -21,12 +20,13 @@ import type {
   PropsT as AutocompletePropsT,
 } from '../../common/components/Autocomplete2/types.js';
 import {PART_OF_SERIES_LINK_TYPE_IDS} from '../../common/constants.js';
+import expand2react from '../../common/i18n/expand2react.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
 import bracketed from '../../common/utility/bracketed.js';
 import isBlank from '../../common/utility/isBlank.js';
 import type {
-  DialogAttributeT,
   DialogAttributesStateT,
+  DialogAttributeT,
   DialogLinkTypeStateT,
   LinkAttributesByRootIdT,
 } from '../types.js';

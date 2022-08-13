@@ -10,13 +10,13 @@
 import ko from 'knockout';
 import * as React from 'react';
 
+import isGreyedOut from '../../url/utility/isGreyedOut.js';
 import localizeAreaName from '../i18n/localizeAreaName.js';
 import localizeInstrumentName from '../i18n/localizeInstrumentName.js';
 import bracketed, {bracketedText} from '../utility/bracketed.js';
 import entityHref from '../utility/entityHref.js';
 import formatDatePeriod from '../utility/formatDatePeriod.js';
 import isolateText from '../utility/isolateText.js';
-import isGreyedOut from '../../url/utility/isGreyedOut.js';
 
 type DeletedLinkProps = {
   +allowNew: boolean,
