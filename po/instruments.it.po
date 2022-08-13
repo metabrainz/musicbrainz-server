@@ -376,6 +376,11 @@ msgstr "angklung"
 msgid "ankle rattlers"
 msgstr "sonagli da caviglia"
 
+#: DB:instrument/name:1068
+msgctxt "Andean single row panpipe"
+msgid "antara"
+msgstr "antara"
+
 #: DB:instrument/name:720
 msgctxt "Tuned metal shape."
 msgid "anvil"
@@ -729,6 +734,11 @@ msgstr "bolon"
 msgid "bombarde"
 msgstr "bombarda"
 
+#: DB:instrument/name:1071
+msgctxt "Andean bass-drum"
+msgid "bombo legüero"
+msgstr "bombo legüero"
+
 #: DB:instrument/name:969
 msgctxt "Family of bronze gong-chime sets used in Javanese gamelan"
 msgid "bonang"
@@ -944,6 +954,7 @@ msgid "chap"
 msgstr "chap"
 
 #: DB:instrument/name:466
+msgctxt "Small Andean lute"
 msgid "charango"
 msgstr "charango"
 
@@ -1041,7 +1052,7 @@ msgid "clarinet"
 msgstr "clarinetto"
 
 #: DB:instrument/name:54
-msgctxt "Classical nylon string guitar"
+msgctxt "Modern acoustic gut/nylon string guitar"
 msgid "classical guitar"
 msgstr "chitarra classica"
 
@@ -1799,7 +1810,7 @@ msgid "gusli"
 msgstr "gusli"
 
 #: DB:instrument/name:567
-msgctxt "gut-stringed acoustic guitar"
+msgctxt "modern gut-stringed acoustic guitar"
 msgid "gut guitar"
 msgstr "chitarra con corde in budello"
 
@@ -3046,6 +3057,7 @@ msgid "quadruple reed"
 msgstr "ancia quadrupla"
 
 #: DB:instrument/name:437
+msgctxt "Small Andean end-blown flute"
 msgid "quena"
 msgstr "quena"
 
@@ -3161,8 +3173,14 @@ msgid "riq"
 msgstr "riq"
 
 #: DB:instrument/name:568
+msgctxt "Ecuadorean panpipes"
 msgid "rondador"
 msgstr "rondador"
+
+#: DB:instrument/name:1070
+msgctxt "South American square charango"
+msgid "ronroco"
+msgstr "ronroco"
 
 #: DB:instrument/name:731
 msgid "rototom"
@@ -3405,6 +3423,7 @@ msgid "shudraga"
 msgstr "shudraga"
 
 #: DB:instrument/name:569
+msgctxt "Andean double row panpipe"
 msgid "siku"
 msgstr "siku"
 
@@ -4224,6 +4243,11 @@ msgstr "sintetizzatore vocale"
 msgctxt "plastic horn"
 msgid "vuvuzela"
 msgstr "vuvuzela"
+
+#: DB:instrument/name:1069
+msgctxt "Smallest member of charango family"
+msgid "walaycho"
+msgstr "walaycho"
 
 #: DB:instrument/name:159
 msgid "washboard"

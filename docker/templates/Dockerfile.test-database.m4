@@ -29,6 +29,7 @@ copy_mb(`lib/ lib/')
 copy_mb(`script/ script/')
 copy_mb(`t/sql/initial.sql t/sql/')
 copy_mb(`entities.json entities.json')
+copy_mb(`entities.mjs entities.mjs')
 
 RUN mkdir -p '/home/musicbrainz/dumps' && \
     chown -R postgres:postgres /home/musicbrainz/dumps
