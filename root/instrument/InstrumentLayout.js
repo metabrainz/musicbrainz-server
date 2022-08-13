@@ -9,13 +9,13 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
+import Layout from '../layout/index.js';
 import InstrumentSidebar
-  from '../layout/components/sidebar/InstrumentSidebar';
+  from '../layout/components/sidebar/InstrumentSidebar.js';
 import localizeInstrumentName
-  from '../static/scripts/common/i18n/localizeInstrumentName';
+  from '../static/scripts/common/i18n/localizeInstrumentName.js';
 
-import InstrumentHeader from './InstrumentHeader';
+import InstrumentHeader from './InstrumentHeader.js';
 
 type Props = {
   +children: React.Node,

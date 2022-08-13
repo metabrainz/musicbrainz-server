@@ -11,12 +11,12 @@ import * as React from 'react';
 import mutate from 'mutate-cow';
 
 import {SanitizedCatalystContext} from '../../../../context.mjs';
-import formatUserDate from '../../../../utility/formatUserDate';
+import formatUserDate from '../../../../utility/formatUserDate.js';
 import sanitizedEditor from '../../../../utility/sanitizedEditor.mjs';
-import entityHref from '../utility/entityHref';
+import entityHref from '../utility/entityHref.js';
 
-import Collapsible from './Collapsible';
-import EditorLink from './EditorLink';
+import Collapsible from './Collapsible.js';
+import EditorLink from './EditorLink.js';
 
 type Props = {
   +annotation: ?AnnotationT,

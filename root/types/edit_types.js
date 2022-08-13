@@ -881,22 +881,28 @@ declare type EditRelationshipAttributeEditT = $ReadOnly<{
   + edit_type: EDIT_RELATIONSHIP_ATTRIBUTE_T,
 }>;
 
+declare type EditRelationshipTypeEditDisplayAttributeT = {
+  ...LinkTypeAttrTypeT,
+  +typeName: string,
+};
+
+declare type EditRelationshipTypeEditDisplayExampleT = {
+  +name: string,
+  +relationship: RelationshipT,
+};
+
 declare type EditRelationshipTypeEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +attributes: CompT<$ReadOnlyArray<{
-      ...LinkTypeAttrTypeT,
-      +typeName: string,
-    }>>,
+    +attributes: CompT<
+      $ReadOnlyArray<EditRelationshipTypeEditDisplayAttributeT>>,
     +child_order: CompT<number>,
     +description?: CompT<string | null>,
     +documentation: CompT<string | null>,
     +entity0_cardinality?: CompT<number>,
     +entity1_cardinality?: CompT<number>,
-    +examples: CompT<$ReadOnlyArray<{
-      +name: string,
-      +relationship: RelationshipT,
-    }>>,
+    +examples: CompT<
+      $ReadOnlyArray<EditRelationshipTypeEditDisplayExampleT>>,
     +has_dates: CompT<boolean>,
     +is_deprecated: CompT<boolean>,
     +link_phrase?: CompT<string>,
@@ -1088,6 +1094,25 @@ declare type MergeReleaseGroupsEditT = $ReadOnly<{
   +edit_type: EDIT_RELEASEGROUP_MERGE_T,
 }>;
 
+declare type MergeReleaseEditDisplayChangeT = {
+  +mediums: $ReadOnlyArray<{
+    +id: number,
+    +new_name: string,
+    +new_position: number,
+    +old_name: string,
+    +old_position: StrOrNum,
+  }>,
+  +release: ReleaseT,
+};
+
+declare type MergeReleaseEditDisplayRecordingMergeT = {
+  +destination: RecordingT,
+  +large_spread: boolean,
+  +medium: string,
+  +sources: $ReadOnlyArray<RecordingT>,
+  +track: string,
+};
+
 declare type MergeReleasesEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
@@ -1095,28 +1120,14 @@ declare type MergeReleasesEditT = $ReadOnly<{
       +message: string,
       +vars: {+[var: string]: string, ...},
     },
-    +changes: $ReadOnlyArray<{
-      +mediums: $ReadOnlyArray<{
-        +id: number,
-        +new_name: string,
-        +new_position: number,
-        +old_name: string,
-        +old_position: StrOrNum,
-      }>,
-      +release: ReleaseT,
-    }>,
+    +changes: $ReadOnlyArray<MergeReleaseEditDisplayChangeT>,
     +edit_version: 1 | 2 | 3,
     +empty_releases?: $ReadOnlyArray<ReleaseT>,
     +merge_strategy: 'append' | 'merge',
     +new: ReleaseT,
     +old: $ReadOnlyArray<ReleaseT>,
-    +recording_merges?: $ReadOnlyArray<{
-      +destination: RecordingT,
-      +large_spread: boolean,
-      +medium: string,
-      +sources: $ReadOnlyArray<RecordingT>,
-      +track: string,
-    }>,
+    +recording_merges?:
+      $ReadOnlyArray<MergeReleaseEditDisplayRecordingMergeT>,
   },
   +edit_type: EDIT_RELEASE_MERGE_T,
 }>;

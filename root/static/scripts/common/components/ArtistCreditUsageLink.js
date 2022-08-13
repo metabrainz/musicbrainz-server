@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import {reduceArtistCredit} from '../immutable-entities';
+import {reduceArtistCredit} from '../immutable-entities.js';
 
-import {MpIcon} from './ArtistCreditLink';
+import {MpIcon} from './ArtistCreditLink.js';
 
 type Props = {
   +artistCredit: ArtistCreditT,

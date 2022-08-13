@@ -8,7 +8,7 @@
 
 import ko from 'knockout';
 
-import MB from '../common/MB';
+import MB from '../common/MB.js';
 
 MB.releaseEditor = {
   rootField: {

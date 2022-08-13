@@ -9,92 +9,94 @@
 
 import * as React from 'react';
 
-import VotingPeriod from '../../components/VotingPeriod';
-import {EDIT_STATUS_OPEN} from '../../constants';
+import VotingPeriod from '../../components/VotingPeriod.js';
+import {EDIT_STATUS_OPEN} from '../../constants.js';
+import {SanitizedCatalystContext} from '../../context.mjs';
 import {
   SidebarProperties,
   SidebarProperty,
-} from '../../layout/components/sidebar/SidebarProperties';
+} from '../../layout/components/sidebar/SidebarProperties.js';
 import {
   getEditExpireAction,
   getEditStatusName,
   getEditStatusDescription,
-} from '../../utility/edit';
-import formatUserDate from '../../utility/formatUserDate';
+} from '../../utility/edit.js';
+import formatUserDate from '../../utility/formatUserDate.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +edit: GenericEditWithIdT,
 };
 
 const EditSidebar = ({
-  $c,
   edit,
-}: Props): React.Element<'div'> => (
-  <div id="sidebar">
-    <SidebarProperties className="edit-status">
-      <SidebarProperty className="" label={lp('Status:', 'edit status')}>
-        {getEditStatusName(edit)}
-      </SidebarProperty>
-    </SidebarProperties>
-
-    <p>{getEditStatusDescription(edit)}</p>
-
-    <SidebarProperties>
-      <SidebarProperty className="" label={l('Opened:')}>
-        {formatUserDate($c, edit.created_time)}
-      </SidebarProperty>
-
-      {edit.status === EDIT_STATUS_OPEN ? (
-        <SidebarProperty className="" label={addColonText(l('Voting'))}>
-          <div className="edit-expiration">
-            <VotingPeriod $c={$c} closingDate={edit.expires_time} />
-          </div>
+}: Props): React.Element<'div'> => {
+  const $c = React.useContext(SanitizedCatalystContext);
+  return (
+    <div id="sidebar">
+      <SidebarProperties className="edit-status">
+        <SidebarProperty className="" label={lp('Status:', 'edit status')}>
+          {getEditStatusName(edit)}
         </SidebarProperty>
-      ) : (
-        <SidebarProperty className="" label={l('Closed:')}>
-          <div className="edit-expiration">
-            {formatUserDate($c, edit.close_time)}
-          </div>
-        </SidebarProperty>
-      )}
+      </SidebarProperties>
 
-      <SidebarProperty
-        className=""
-        label={addColonText(l('For quicker closing'))}
-      >
-        {texp.ln(
-          '1 vote',
-          '{n} unanimous votes',
-          edit.conditions.votes,
-          {n: edit.conditions.votes},
+      <p>{getEditStatusDescription(edit)}</p>
+
+      <SidebarProperties>
+        <SidebarProperty className="" label={l('Opened:')}>
+          {formatUserDate($c, edit.created_time)}
+        </SidebarProperty>
+
+        {edit.status === EDIT_STATUS_OPEN ? (
+          <SidebarProperty className="" label={addColonText(l('Voting'))}>
+            <div className="edit-expiration">
+              <VotingPeriod closingDate={edit.expires_time} />
+            </div>
+          </SidebarProperty>
+        ) : (
+          <SidebarProperty className="" label={l('Closed:')}>
+            <div className="edit-expiration">
+              {formatUserDate($c, edit.close_time)}
+            </div>
+          </SidebarProperty>
         )}
-      </SidebarProperty>
 
-      <SidebarProperty
-        className=""
-        label={addColonText(l('If no votes cast'))}
-      >
-        {getEditExpireAction(edit)}
-      </SidebarProperty>
-    </SidebarProperties>
+        <SidebarProperty
+          className=""
+          label={addColonText(l('For quicker closing'))}
+        >
+          {texp.ln(
+            '1 vote',
+            '{n} unanimous votes',
+            edit.conditions.votes,
+            {n: edit.conditions.votes},
+          )}
+        </SidebarProperty>
 
-    <p>
-      {$c.user ? (
-        <a href={`/edit/${edit.id}/data`}>
-          <bdi>{l('Raw edit data for this edit')}</bdi>
-        </a>
-      ) : null}
-    </p>
+        <SidebarProperty
+          className=""
+          label={addColonText(l('If no votes cast'))}
+        >
+          {getEditExpireAction(edit)}
+        </SidebarProperty>
+      </SidebarProperties>
 
-    <p>{l('For more information:')}</p>
+      <p>
+        {$c.user ? (
+          <a href={`/edit/${edit.id}/data`}>
+            <bdi>{l('Raw edit data for this edit')}</bdi>
+          </a>
+        ) : null}
+      </p>
 
-    <ul className="links">
-      <li><a href="/doc/Introduction_to_Voting">{l('Voting FAQ')}</a></li>
-      <li><a href="/doc/Editing_FAQ">{l('Editing FAQ')}</a></li>
-      <li><a href="/doc/Edit_Types">{l('Edit Types')}</a></li>
-    </ul>
-  </div>
-);
+      <p>{l('For more information:')}</p>
+
+      <ul className="links">
+        <li><a href="/doc/Introduction_to_Voting">{l('Voting FAQ')}</a></li>
+        <li><a href="/doc/Editing_FAQ">{l('Editing FAQ')}</a></li>
+        <li><a href="/doc/Edit_Types">{l('Edit Types')}</a></li>
+      </ul>
+    </div>
+  );
+};
 
 export default EditSidebar;

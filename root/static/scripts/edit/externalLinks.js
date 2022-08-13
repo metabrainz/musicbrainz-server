@@ -18,30 +18,30 @@ import {
   FAVICON_CLASSES,
   VIDEO_ATTRIBUTE_ID,
   VIDEO_ATTRIBUTE_GID,
-} from '../common/constants';
-import {compare, l} from '../common/i18n';
-import expand2react from '../common/i18n/expand2react';
+} from '../common/constants.js';
+import {compare, l} from '../common/i18n.js';
+import expand2react from '../common/i18n/expand2react.js';
 import linkedEntities from '../common/linkedEntities.mjs';
-import MB from '../common/MB';
-import {groupBy, keyBy, uniqBy} from '../common/utility/arrays';
-import isDateEmpty from '../common/utility/isDateEmpty';
-import formatDatePeriod from '../common/utility/formatDatePeriod';
-import {hasSessionStorage} from '../common/utility/storage';
-import {uniqueId} from '../common/utility/strings';
-import {bracketedText} from '../common/utility/bracketed';
-import {isMalware} from '../../../url/utility/isGreyedOut';
-import {compareDatePeriods} from '../common/utility/compareDates';
+import MB from '../common/MB.js';
+import {groupBy, keyBy, uniqBy} from '../common/utility/arrays.js';
+import isDateEmpty from '../common/utility/isDateEmpty.js';
+import formatDatePeriod from '../common/utility/formatDatePeriod.js';
+import {hasSessionStorage} from '../common/utility/storage.js';
+import {uniqueId} from '../common/utility/strings.js';
+import {bracketedText} from '../common/utility/bracketed.js';
+import {compareDatePeriods} from '../common/utility/compareDates.js';
+import {isMalware} from '../url/utility/isGreyedOut.js';
 
-import isPositiveInteger from './utility/isPositiveInteger';
-import HelpIcon from './components/HelpIcon';
-import RemoveButton from './components/RemoveButton';
-import URLInputPopover from './components/URLInputPopover';
-import {linkTypeOptions} from './forms';
-import * as URLCleanup from './URLCleanup';
-import type {RelationshipTypeT} from './URLCleanup';
-import * as validation from './validation';
+import isPositiveInteger from './utility/isPositiveInteger.js';
+import HelpIcon from './components/HelpIcon.js';
+import RemoveButton from './components/RemoveButton.js';
+import URLInputPopover from './components/URLInputPopover.js';
+import {linkTypeOptions} from './forms.js';
+import * as URLCleanup from './URLCleanup.js';
+import type {RelationshipTypeT} from './URLCleanup.js';
+import * as validation from './validation.js';
 import ExternalLinkAttributeDialog
-  from './components/ExternalLinkAttributeDialog';
+  from './components/ExternalLinkAttributeDialog.js';
 
 type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
 
@@ -1003,7 +1003,7 @@ type TypeDescriptionProps = {
 const TypeDescription =
   (props: TypeDescriptionProps): React.Element<typeof HelpIcon> => {
     const linkType = props.type ? linkedEntities.link_type[props.type] : null;
-    let typeDescription = '';
+    let typeDescription: Expand2ReactOutput = '';
 
     if (linkType && linkType.description) {
       typeDescription = exp.l('{description} ({url|more documentation})', {
@@ -1431,7 +1431,7 @@ function newLinkState(state: $ReadOnly<$Partial<LinkStateT>>) {
   return {...defaultLinkState, ...state};
 }
 
-function linkTypeAndUrlString(link) {
+function linkTypeAndUrlString(link: LinkStateT | LinkRelationshipT) {
   /*
    * There's no reason why we should allow adding the same relationship
    * twice when the only difference is http vs https, so normalize this
@@ -1441,11 +1441,14 @@ function linkTypeAndUrlString(link) {
   return (link.type || '') + '\0' + httpUrl;
 }
 
-function isEmpty(link) {
+function isEmpty(link: LinkStateT | LinkRelationshipT | LinkProps) {
   return !(link.type || link.url);
 }
 
-function withOneEmptyLink(links, dontRemove) {
+function withOneEmptyLink(
+  links: $ReadOnlyArray<LinkStateT>,
+  dontRemove?: number,
+) {
   let emptyCount = 0;
   let canRemoveCount = 0;
   const canRemove = {};
@@ -1468,7 +1471,8 @@ function withOneEmptyLink(links, dontRemove) {
   return links;
 }
 
-const isVideoAttribute = attr => attr.type.gid === VIDEO_ATTRIBUTE_GID;
+const isVideoAttribute =
+  (attr: LinkAttrT) => attr.type.gid === VIDEO_ATTRIBUTE_GID;
 
 export function parseRelationships(
   relationships?: $ReadOnlyArray<RelationshipT | {
@@ -1683,25 +1687,25 @@ const URL_SHORTENERS = [
   'i',
 ));
 
-function isShortened(url) {
+function isShortened(url: string) {
   return URL_SHORTENERS.some(function (shortenerRegex) {
     return url.match(shortenerRegex) !== null;
   });
 }
 
-function isGoogleAmp(url) {
+function isGoogleAmp(url: string) {
   return /^https?:\/\/([^/]+\.)?google\.[^/]+\/amp/.test(url);
 }
 
-function isGoogleSearch(url) {
+function isGoogleSearch(url: string) {
   return /^https?:\/\/(?:[^/?#]+\.)?google\.[^/?#]+\/search/.test(url);
 }
 
-function isExample(url) {
+function isExample(url: string) {
   return /^https?:\/\/(?:[^/]+\.)?example\.(?:com|org|net)(?:\/.*)?$/.test(url);
 }
 
-function isMusicBrainz(url) {
+function isMusicBrainz(url: string) {
   return /^https?:\/\/([^/]+\.)?musicbrainz\.org/.test(url);
 }
 

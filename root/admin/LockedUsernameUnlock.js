@@ -9,19 +9,18 @@
 
 import * as React from 'react';
 
-import FormCsrfToken from '../components/FormCsrfToken';
-import FormSubmit from '../components/FormSubmit';
-import Layout from '../layout';
-import expand2text from '../static/scripts/common/i18n/expand2text';
+import Layout from '../layout/index.js';
+import FormCsrfToken
+  from '../static/scripts/edit/components/FormCsrfToken.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
+import expand2text from '../static/scripts/common/i18n/expand2text.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: SecureConfirmFormT,
   +username: string,
 };
 
 const LockedUsernameUnlock = ({
-  $c,
   form,
   username,
 }: Props): React.Element<typeof Layout> => (
@@ -35,7 +34,7 @@ const LockedUsernameUnlock = ({
           {username: username},
         )}
       </p>
-      <form action={$c.req.uri} method="post" name="confirm">
+      <form method="post" name="confirm">
         <FormCsrfToken form={form} />
         <FormSubmit
           label="Yes, I’m sure"

@@ -80,7 +80,6 @@ export type ReportCollaborationT = {
 };
 
 export type ReportDataT<T> = {
-  +$c: CatalystContextT,
   +canBeFiltered: boolean,
   +filtered: boolean,
   +generated: string,

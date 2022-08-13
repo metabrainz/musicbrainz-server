@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import {minimalEntity} from '../../../../utility/hydrate';
-import entityHref from '../utility/entityHref';
+import {minimalEntity} from '../../../../utility/hydrate.js';
+import entityHref from '../utility/entityHref.js';
 
-import Collapsible from './Collapsible';
+import Collapsible from './Collapsible.js';
 
 type Props = {
   +cachedWikipediaExtract: WikipediaExtractT | null,
@@ -38,7 +38,7 @@ class WikipediaExtract extends React.Component<Props, State> {
     }
   }
 
-  render() {
+  render(): React.MixedElement | null {
     const {wikipediaExtract} = this.state;
     return wikipediaExtract ? (
       <>

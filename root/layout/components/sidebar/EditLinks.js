@@ -10,8 +10,9 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
-import RequestLogin from '../../../components/RequestLogin';
-import EntityLink from '../../../static/scripts/common/components/EntityLink';
+import RequestLogin from '../../../components/RequestLogin.js';
+import EntityLink
+  from '../../../static/scripts/common/components/EntityLink.js';
 
 type Props = {
   +children?: React.Node,
@@ -25,7 +26,6 @@ const EditLinks = ({
   requiresPrivileges = false,
 }: Props): React.Element<typeof React.Fragment> => {
   const $c = React.useContext(CatalystContext);
-
   return (
     <>
       <h2 className="editing">{l('Editing')}</h2>
@@ -33,7 +33,7 @@ const EditLinks = ({
         {$c.user ? children : requiresPrivileges ? null : (
           <>
             <li>
-              <RequestLogin $c={$c} text={l('Log in to edit')} />
+              <RequestLogin text={l('Log in to edit')} />
             </li>
             <li className="separator" role="separator" />
           </>

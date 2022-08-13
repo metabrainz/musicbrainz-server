@@ -12,7 +12,7 @@ import * as React from 'react';
 import * as manifest from '../static/manifest.mjs';
 import DBDefs from '../static/scripts/common/DBDefs-client.mjs';
 
-import PlaceLayout from './PlaceLayout';
+import PlaceLayout from './PlaceLayout.js';
 
 type Props = {
   +mapDataArgs: {

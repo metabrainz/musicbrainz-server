@@ -10,13 +10,13 @@
 import * as React from 'react';
 
 import * as manifest from '../static/manifest.mjs';
-import GenreEditForm from '../static/scripts/genre/components/GenreEditForm';
+import GenreEditForm
+  from '../static/scripts/genre/components/GenreEditForm.js';
 
-import GenreLayout from './GenreLayout';
-import type {GenreFormT} from './types';
+import GenreLayout from './GenreLayout.js';
+import type {GenreFormT} from './types.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +attrInfo: LinkAttrTypeOptionsT,
   +entity: GenreT,
   +form: GenreFormT,
@@ -25,7 +25,6 @@ type Props = {
 };
 
 const EditGenre = ({
-  $c,
   attrInfo,
   entity,
   form,
@@ -39,7 +38,6 @@ const EditGenre = ({
     title={l('Edit genre')}
   >
     <GenreEditForm
-      $c={$c}
       attrInfo={attrInfo}
       form={form}
       sourceEntity={sourceEntity}

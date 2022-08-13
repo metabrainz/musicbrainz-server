@@ -9,16 +9,16 @@
 
 import * as React from 'react';
 
-import EntityLink from '../../static/scripts/common/components/EntityLink';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import formatEntityTypeName
-  from '../../static/scripts/common/utility/formatEntityTypeName';
-import loopParity from '../../utility/loopParity';
-import type {ResultsPropsT} from '../types';
+  from '../../static/scripts/common/utility/formatEntityTypeName.js';
+import loopParity from '../../utility/loopParity.js';
+import type {ResultsPropsT, SearchResultT} from '../types.js';
 
-import PaginatedSearchResults from './PaginatedSearchResults';
-import ResultsLayout from './ResultsLayout';
+import PaginatedSearchResults from './PaginatedSearchResults.js';
+import ResultsLayout from './ResultsLayout.js';
 
-function buildResult(result, index) {
+function buildResult(result: SearchResultT<AnnotationT>, index: number) {
   const annotation = result.entity;
   const score = result.score;
 
@@ -47,8 +47,7 @@ const AnnotationResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<AnnotationT>):
-React.Element<typeof ResultsLayout> => (
+}: ResultsPropsT<AnnotationT>): React.Element<typeof ResultsLayout> => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}

@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import informationIconUrl from '../../../images/icons/information.png';
-import Tooltip from '../../edit/components/Tooltip';
+import Tooltip from '../../edit/components/Tooltip.js';
 
-import EntityLink, {DeletedLink} from './EntityLink';
+import EntityLink, {DeletedLink} from './EntityLink.js';
 
 type Props = {
   +artistCredit: ArtistCreditT,

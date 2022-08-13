@@ -10,14 +10,14 @@
 import * as React from 'react';
 
 import IntentionallyRawIcon
-  from '../components/IntentionallyRawIcon';
-import expand2react from '../../static/scripts/common/i18n/expand2react';
+  from '../components/IntentionallyRawIcon.js';
+import expand2react from '../../static/scripts/common/i18n/expand2react.js';
 import localizeLinkAttributeTypeName
-  from '../../static/scripts/common/i18n/localizeLinkAttributeTypeName';
+  from '../../static/scripts/common/i18n/localizeLinkAttributeTypeName.js';
 import FullChangeDiff from
-  '../../static/scripts/edit/components/edit/FullChangeDiff';
-import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
-import yesNo from '../../static/scripts/common/utility/yesNo';
+  '../../static/scripts/edit/components/edit/FullChangeDiff.js';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
+import yesNo from '../../static/scripts/common/utility/yesNo.js';
 
 type Props = {
   +edit: EditRelationshipAttributeEditT,

@@ -11,30 +11,32 @@ import * as React from 'react';
 
 import UserAccountLayout, {
   sanitizedAccountLayoutUser,
-} from '../components/UserAccountLayout';
+} from '../components/UserAccountLayout.js';
+import {CatalystContext} from '../context.mjs';
 import PreferencesForm
-  from '../static/scripts/account/components/PreferencesForm';
+  from '../static/scripts/account/components/PreferencesForm.js';
 import type {PreferencesFormPropsT}
-  from '../static/scripts/account/components/PreferencesForm';
+  from '../static/scripts/account/components/PreferencesForm.js';
 import * as manifest from '../static/manifest.mjs';
 
-type Props = {
-  ...PreferencesFormPropsT,
-  +$c: $ReadOnly<{...CatalystContextT, user: UnsanitizedEditorT}>,
+const Preferences = (
+  props: PreferencesFormPropsT,
+): React.Element<typeof UserAccountLayout> | null => {
+  const $c = React.useContext(CatalystContext);
+  const user = $c.user;
+  if (!user) {
+    return null;
+  }
+  return (
+    <UserAccountLayout
+      entity={sanitizedAccountLayoutUser(user)}
+      page="preferences"
+      title={l('Preferences')}
+    >
+      <PreferencesForm {...props} />
+      {manifest.js('account/preferences')}
+    </UserAccountLayout>
+  );
 };
-
-const Preferences = ({
-  $c,
-  ...props
-}: Props): React.Element<typeof UserAccountLayout> => (
-  <UserAccountLayout
-    entity={sanitizedAccountLayoutUser($c.user)}
-    page="preferences"
-    title={l('Preferences')}
-  >
-    <PreferencesForm {...props} />
-    {manifest.js('account/preferences')}
-  </UserAccountLayout>
-);
 
 export default Preferences;

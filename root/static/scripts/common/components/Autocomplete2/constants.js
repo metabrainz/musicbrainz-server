@@ -7,19 +7,19 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {bracketedText} from '../../utility/bracketed';
+import {bracketedText} from '../../utility/bracketed.js';
 
 import {
   NOOP,
   SEARCH_AGAIN,
   SHOW_MORE_RESULTS,
   TOGGLE_INDEXED_SEARCH,
-} from './actions';
+} from './actions.js';
 import type {
   ActionItemT,
   HeaderItemT,
   SearchableTypeT,
-} from './types';
+} from './types.js';
 
 export const ARIA_LIVE_STYLE: {
   +height: string,

@@ -6,7 +6,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import MB from '../common/MB';
+import MB from '../common/MB.js';
 
 MB.confirmNavigationFallback = function () {
   /*

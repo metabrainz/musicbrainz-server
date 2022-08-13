@@ -9,37 +9,40 @@
 
 import * as React from 'react';
 
-import EditorLink from '../static/scripts/common/components/EditorLink';
-import formatUserDate from '../utility/formatUserDate';
+import {SanitizedCatalystContext} from '../context.mjs';
+import EditorLink from '../static/scripts/common/components/EditorLink.js';
+import formatUserDate from '../utility/formatUserDate.js';
 
 type PropsT = {
-  +$c: CatalystContextT,
   +election: AutoEditorElectionT,
 };
 
-const ElectionVotes = ({$c, election}: PropsT): React.Element<'table'> => (
-  <table className="tbl" style={{width: 'auto'}}>
-    <thead>
-      <tr>
-        <th>{l('Voter')}</th>
-        <th>{l('Vote')}</th>
-        <th>{l('Date')}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {election.votes.map((vote, index) => (
-        <tr className={index % 2 ? 'even' : 'odd'} key={vote.voter.id}>
-          <td><EditorLink editor={vote.voter} /></td>
-          <td>
-            {$c.user && $c.user.id === vote.voter.id
-              ? lp(vote.vote_name, 'vote')
-              : l('(private)')}
-          </td>
-          <td>{formatUserDate($c, vote.vote_time)}</td>
+const ElectionVotes = ({election}: PropsT): React.Element<'table'> => {
+  const $c = React.useContext(SanitizedCatalystContext);
+  return (
+    <table className="tbl" style={{width: 'auto'}}>
+      <thead>
+        <tr>
+          <th>{l('Voter')}</th>
+          <th>{l('Vote')}</th>
+          <th>{l('Date')}</th>
         </tr>
-      ))}
-    </tbody>
-  </table>
-);
+      </thead>
+      <tbody>
+        {election.votes.map((vote, index) => (
+          <tr className={index % 2 ? 'even' : 'odd'} key={vote.voter.id}>
+            <td><EditorLink editor={vote.voter} /></td>
+            <td>
+              {$c.user && $c.user.id === vote.voter.id
+                ? lp(vote.vote_name, 'vote')
+                : l('(private)')}
+            </td>
+            <td>{formatUserDate($c, vote.vote_time)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
 
 export default ElectionVotes;

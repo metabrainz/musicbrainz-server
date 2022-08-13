@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import EditLinks from './EditLinks';
-import LastUpdated from './LastUpdated';
+import EditLinks from './EditLinks.js';
+import LastUpdated from './LastUpdated.js';
 
 type Props = {
   +url: UrlT,

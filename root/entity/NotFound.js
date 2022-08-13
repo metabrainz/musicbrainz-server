@@ -10,8 +10,8 @@
 
 import * as React from 'react';
 
-import expand2react from '../static/scripts/common/i18n/expand2react';
-import NotFoundComponent from '../components/NotFound';
+import expand2react from '../static/scripts/common/i18n/expand2react.js';
+import NotFoundComponent from '../components/NotFound.js';
 
 const defaultSearchArgs = {search_url: '/search'};
 

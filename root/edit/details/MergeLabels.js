@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import LabelList from '../../components/list/LabelList';
+import LabelList from '../../components/list/LabelList.js';
 
 type Props = {
   +edit: MergeLabelsEditT,

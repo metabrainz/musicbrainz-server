@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import ArtistUrlList from './components/ArtistUrlList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportArtistUrlT, ReportDataT} from './types';
+import ArtistUrlList from './components/ArtistUrlList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportArtistUrlT, ReportDataT} from './types.js';
 
 const DiscogsLinksWithMultipleArtists = ({
   canBeFiltered,

@@ -9,14 +9,14 @@
 
 import * as React from 'react';
 
-import PaginatedResults from '../components/PaginatedResults';
+import PaginatedResults from '../components/PaginatedResults.js';
 import ArtistCreditLink
-  from '../static/scripts/common/components/ArtistCreditLink';
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import loopParity from '../utility/loopParity';
+  from '../static/scripts/common/components/ArtistCreditLink.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import loopParity from '../utility/loopParity.js';
 
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportReleaseGroupT} from './types';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportReleaseGroupT} from './types.js';
 
 type ReportReleaseGroupWithKeyT = {
   ...ReportReleaseGroupT,

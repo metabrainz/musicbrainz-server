@@ -11,30 +11,30 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
 import CommonsImage
-  from '../../../static/scripts/common/components/CommonsImage';
+  from '../../../static/scripts/common/components/CommonsImage.js';
 import DescriptiveLink
-  from '../../../static/scripts/common/components/DescriptiveLink';
+  from '../../../static/scripts/common/components/DescriptiveLink.js';
 import isSpecialPurpose
-  from '../../../static/scripts/common/utility/isSpecialPurpose';
-import * as age from '../../../utility/age';
-import formatLabelCode from '../../../utility/formatLabelCode';
-import ExternalLinks from '../ExternalLinks';
+  from '../../../static/scripts/common/utility/isSpecialPurpose.js';
+import * as age from '../../../utility/age.js';
+import formatLabelCode from '../../../utility/formatLabelCode.js';
+import ExternalLinks from '../ExternalLinks.js';
 
-import AnnotationLinks from './AnnotationLinks';
-import CollectionLinks from './CollectionLinks';
-import EditLinks from './EditLinks';
-import LastUpdated from './LastUpdated';
-import MergeLink from './MergeLink';
-import SidebarBeginDate from './SidebarBeginDate';
-import SidebarEndDate from './SidebarEndDate';
-import SidebarIpis from './SidebarIpis';
-import SidebarIsnis from './SidebarIsnis';
-import SidebarLicenses from './SidebarLicenses';
-import {SidebarProperty, SidebarProperties} from './SidebarProperties';
-import SidebarRating from './SidebarRating';
-import SidebarTags from './SidebarTags';
-import SidebarType from './SidebarType';
-import SubscriptionLinks from './SubscriptionLinks';
+import AnnotationLinks from './AnnotationLinks.js';
+import CollectionLinks from './CollectionLinks.js';
+import EditLinks from './EditLinks.js';
+import LastUpdated from './LastUpdated.js';
+import MergeLink from './MergeLink.js';
+import SidebarBeginDate from './SidebarBeginDate.js';
+import SidebarEndDate from './SidebarEndDate.js';
+import SidebarIpis from './SidebarIpis.js';
+import SidebarIsnis from './SidebarIsnis.js';
+import SidebarLicenses from './SidebarLicenses.js';
+import {SidebarProperty, SidebarProperties} from './SidebarProperties.js';
+import SidebarRating from './SidebarRating.js';
+import SidebarTags from './SidebarTags.js';
+import SidebarType from './SidebarType.js';
+import SubscriptionLinks from './SubscriptionLinks.js';
 
 type Props = {
   +label: LabelT,

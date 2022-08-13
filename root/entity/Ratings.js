@@ -9,20 +9,19 @@
 
 import * as React from 'react';
 
-import CritiqueBrainzLinks from '../components/CritiqueBrainzLinks';
-import chooseLayoutComponent from '../utility/chooseLayoutComponent';
+import CritiqueBrainzLinks from '../components/CritiqueBrainzLinks.js';
+import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 import * as manifest from '../static/manifest.mjs';
-import {ENTITIES} from '../static/scripts/common/constants';
+import {ENTITIES} from '../static/scripts/common/constants.js';
 import CritiqueBrainzReview
-  from '../static/scripts/common/components/CritiqueBrainzReview';
-import EditorLink from '../static/scripts/common/components/EditorLink';
-import EntityLink from '../static/scripts/common/components/EntityLink';
+  from '../static/scripts/common/components/CritiqueBrainzReview.js';
+import EditorLink from '../static/scripts/common/components/EditorLink.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import {
   StaticRatingStars,
-} from '../static/scripts/common/components/RatingStars';
+} from '../static/scripts/common/components/RatingStars.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +entity: RatableT | ReviewableT,
   +mostPopularReview: CritiqueBrainzReviewT,
   +mostRecentReview: CritiqueBrainzReviewT,

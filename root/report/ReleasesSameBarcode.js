@@ -9,15 +9,15 @@
 
 import * as React from 'react';
 
-import formatBarcode from '../static/scripts/common/utility/formatBarcode';
+import formatBarcode from '../static/scripts/common/utility/formatBarcode.js';
 import {
   defineEntityColumn,
   defineTextColumn,
-} from '../utility/tableColumns';
+} from '../utility/tableColumns.js';
 
-import ReleaseList from './components/ReleaseList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT} from './types';
+import ReleaseList from './components/ReleaseList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT} from './types.js';
 
 type ReportRowT = {
   +barcode: string,

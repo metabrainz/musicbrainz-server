@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import ArtistList from './components/ArtistList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportArtistT, ReportDataT} from './types';
+import ArtistList from './components/ArtistList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportArtistT, ReportDataT} from './types.js';
 
 const ArtistsThatMayBeGroups = ({
   canBeFiltered,

@@ -11,11 +11,11 @@ import * as React from 'react';
 
 import {
   relTypeColumn,
-} from '../utility/tableColumns';
+} from '../utility/tableColumns.js';
 
-import ArtistList from './components/ArtistList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportArtistRelationshipT, ReportDataT} from './types';
+import ArtistList from './components/ArtistList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportArtistRelationshipT, ReportDataT} from './types.js';
 
 const DeprecatedRelationshipArtists = ({
   canBeFiltered,

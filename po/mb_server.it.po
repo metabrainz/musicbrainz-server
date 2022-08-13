@@ -13,17 +13,17 @@
 # leofiore <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
 # Luca Salini <email address hidden>, 2012
-# salo.rock, 2012-2013,2016-2022
-# salo.rock, 2020
+# Luca Salini, 2012-2013,2016-2022
+# Luca Salini, 2020
 # Nicolás Tamargo <email address hidden>, 2021
 # nikki, 2012-2013
 # nikki, 2012-2013
 # nikki, 2013
 # nikki, 2012
-# salo.rock, 2012-2013
-# salo.rock, 2013-2016
-# salo.rock, 2012
-# salo.rock, 2022
+# Luca Salini, 2012-2013
+# Luca Salini, 2013-2016
+# Luca Salini, 2012
+# Luca Salini, 2022
 # yvanz, 2018
 msgid ""
 msgstr ""
@@ -31,7 +31,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-03 15:24+0300\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
-"Last-Translator: salo.rock, 2012-2013,2016-2022\n"
+"Last-Translator: Luca Salini, 2012-2013,2016-2022\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -8631,13 +8631,13 @@ msgstr "Sì, sono sicuro"
 
 #: ../root/components/CritiqueBrainzLinks.js:38
 msgid "An error occurred when loading reviews."
-msgstr ""
+msgstr "Si è verificato un errore durante il caricamento delle recensioni."
 
 #: ../root/components/CritiqueBrainzLinks.js:42
 msgid ""
 "No one has reviewed {entity} yet. Be the first to {write_link|write a "
 "review}."
-msgstr ""
+msgstr "Nessuno ha ancora scritto una recensione per {entity}. {write_link|Vuoi essere il primo}?"
 
 #: ../root/components/CritiqueBrainzLinks.js:51
 msgid ""
@@ -8690,7 +8690,7 @@ msgstr "Tag"
 #: ../root/components/EntityTabs.js:138 ../root/entity/Ratings.js:49
 #: ../root/entity/Ratings.js:94
 msgid "Reviews"
-msgstr ""
+msgstr "Recensioni"
 
 #: ../root/components/EntityTabs.js:157
 msgid "Edit Relationships"
@@ -14452,19 +14452,19 @@ msgstr "immagine IROMBOOK/IROMBOOKのイラスト"
 
 #: ../root/static/scripts/common/components/IsrcList.js:50
 msgid "Show all ISRCs"
-msgstr ""
+msgstr "Mostra tutti gli ISRC"
 
 #: ../root/static/scripts/common/components/IsrcList.js:51
 msgid "Show less ISRCs"
-msgstr ""
+msgstr "Mostra meno ISRC"
 
 #: ../root/static/scripts/common/components/IswcList.js:50
 msgid "Show all ISWCs"
-msgstr ""
+msgstr "Mostra tutti gli ISWC"
 
 #: ../root/static/scripts/common/components/IswcList.js:51
 msgid "Show less ISWCs"
-msgstr ""
+msgstr "Mostra meno ISWC"
 
 #: ../root/static/scripts/common/components/PostParameters.js:48
 msgid "Data submitted with this request"

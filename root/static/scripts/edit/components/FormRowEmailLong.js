@@ -9,13 +9,13 @@
 
 import * as React from 'react';
 
-import type {Props as FormRowTextProps} from './FormRowText';
-import FormRowTextLong from './FormRowTextLong';
+import type {Props as FormRowTextProps} from './FormRowText.js';
+import FormRowTextLong from './FormRowTextLong.js';
 
-const FormRowURLLong = (
+const FormRowEmailLong = (
   props: FormRowTextProps,
 ): React.Element<typeof FormRowTextLong> => (
-  <FormRowTextLong type="url" {...props} />
+  <FormRowTextLong type="email" {...props} />
 );
 
-export default FormRowURLLong;
+export default FormRowEmailLong;

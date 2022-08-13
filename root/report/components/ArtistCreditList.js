@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import PaginatedResults from '../../components/PaginatedResults';
+import PaginatedResults from '../../components/PaginatedResults.js';
 import ArtistCreditUsageLink
-  from '../../static/scripts/common/components/ArtistCreditUsageLink';
-import loopParity from '../../utility/loopParity';
-import type {ReportArtistCreditT} from '../types';
+  from '../../static/scripts/common/components/ArtistCreditUsageLink.js';
+import loopParity from '../../utility/loopParity.js';
+import type {ReportArtistCreditT} from '../types.js';
 
 type Props = {
   +items: $ReadOnlyArray<ReportArtistCreditT>,

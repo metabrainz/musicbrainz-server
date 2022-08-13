@@ -9,11 +9,11 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
-import getBooleanCookie from '../../../common/utility/getBooleanCookie';
-import setCookie from '../../../common/utility/setCookie';
-import gc from '../GuessCase/Main';
-import * as modes from '../../modes';
-import MB from '../../../common/MB';
+import getBooleanCookie from '../../../common/utility/getBooleanCookie.js';
+import setCookie from '../../../common/utility/setCookie.js';
+import gc from '../GuessCase/Main.js';
+import * as modes from '../../modes.js';
+import MB from '../../../common/MB.js';
 
 MB.Control.initializeGuessCase = function (type, formPrefix) {
   formPrefix = formPrefix ? (formPrefix + '\\.') : '';

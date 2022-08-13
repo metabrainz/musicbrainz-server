@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import {QUALITY_NAMES} from '../../../static/scripts/common/constants';
+import {QUALITY_NAMES} from '../../../static/scripts/common/constants.js';
 import DescriptiveLink
-  from '../../../static/scripts/common/components/DescriptiveLink';
+  from '../../../static/scripts/common/components/DescriptiveLink.js';
 
 type Props = {
   +edit: ChangeArtistQualityHistoricEditT,

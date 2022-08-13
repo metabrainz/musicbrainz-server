@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import Tabs from '../components/Tabs';
-import Layout from '../layout';
+import Tabs from '../components/Tabs.js';
+import Layout from '../layout/index.js';
 import ArtistCreditUsageLink
-  from '../static/scripts/common/components/ArtistCreditUsageLink';
+  from '../static/scripts/common/components/ArtistCreditUsageLink.js';
 import {reduceArtistCredit}
-  from '../static/scripts/common/immutable-entities';
+  from '../static/scripts/common/immutable-entities.js';
 
 type Props = {
   +artistCredit: $ReadOnly<{...ArtistCreditT, +id: number}>,

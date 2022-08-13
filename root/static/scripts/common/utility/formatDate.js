@@ -9,7 +9,7 @@
 
 import ko from 'knockout';
 
-import {fixedWidthInteger} from './strings';
+import {fixedWidthInteger} from './strings.js';
 
 function formatDate(date: PartialDateT | null): string {
   if (!date) {

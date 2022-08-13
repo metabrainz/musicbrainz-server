@@ -13,7 +13,7 @@ import tablesorter from 'tablesorter';
 
 tablesorter.addWidget({
   format: function (table) {
-    $('tbody tr', table).each(function (index) {
+    $('tbody tr', table).each(function (this: HTMLTableRowElement, index) {
       $(this).find('td:first').html((index + 1));
     });
   },
@@ -22,7 +22,7 @@ tablesorter.addWidget({
 
 tablesorter.addWidget({
   format: function (table) {
-    $('tbody tr', table).each(function (index) {
+    $('tbody tr', table).each(function (this: HTMLTableRowElement, index) {
       if ((index + 1) % 2 === 0) {
         $(this).addClass('even');
         $(this).removeClass('odd');

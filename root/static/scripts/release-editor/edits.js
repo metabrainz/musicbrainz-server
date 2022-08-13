@@ -10,22 +10,22 @@ import he from 'he';
 import $ from 'jquery';
 import ko from 'knockout';
 
-import {VIDEO_ATTRIBUTE_GID} from '../common/constants';
-import {reduceArtistCredit} from '../common/immutable-entities';
-import MB from '../common/MB';
-import {compactMap, keyBy, last} from '../common/utility/arrays';
-import clean from '../common/utility/clean';
+import {VIDEO_ATTRIBUTE_GID} from '../common/constants.js';
+import {reduceArtistCredit} from '../common/immutable-entities.js';
+import MB from '../common/MB.js';
+import {compactMap, keyBy, last} from '../common/utility/arrays.js';
+import clean from '../common/utility/clean.js';
 import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
-import {debounceComputed} from '../common/utility/debounce';
-import deepEqual from '../common/utility/deepEqual';
-import isBlank from '../common/utility/isBlank';
-import isPositiveInteger from '../edit/utility/isPositiveInteger';
-import * as validation from '../edit/validation';
+import {debounceComputed} from '../common/utility/debounce.js';
+import deepEqual from '../common/utility/deepEqual.js';
+import isBlank from '../common/utility/isBlank.js';
+import isPositiveInteger from '../edit/utility/isPositiveInteger.js';
+import * as validation from '../edit/validation.js';
 
-import releaseEditor from './viewModel';
-import utils from './utils';
+import releaseEditor from './viewModel.js';
+import utils from './utils.js';
 
-import './init';
+import './init.js';
 
 const WS_EDIT_RESPONSE_OK = 1;
 

@@ -9,16 +9,14 @@
 
 import ko from 'knockout';
 
-import formatDate from './formatDate';
+import formatDate from './formatDate.js';
 
 function formatDatePeriod<
   +T: $ReadOnly<{...DatePeriodRoleT, ...}>,
 >(entity: T): string {
-  let {begin_date: beginDate, end_date: endDate, ended} = entity;
-
-  beginDate = formatDate(beginDate);
-  endDate = formatDate(endDate);
-  ended = (ko.unwrap(ended): boolean);
+  const beginDate = formatDate(entity.begin_date);
+  const endDate = formatDate(entity.end_date);
+  const ended = (ko.unwrap(entity.ended): boolean);
 
   if (!beginDate && !endDate) {
     return ended ? l(' \u2013 ????') : '';

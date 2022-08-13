@@ -9,13 +9,13 @@
 
 import * as React from 'react';
 
-import FormCsrfToken from '../../components/FormCsrfToken';
-import FormRowText from '../../components/FormRowText';
-import FormSubmit from '../../components/FormSubmit';
-import Layout from '../../layout';
+import Layout from '../../layout/index.js';
+import FormCsrfToken
+  from '../../static/scripts/edit/components/FormCsrfToken.js';
+import FormRowText from '../../static/scripts/edit/components/FormRowText.js';
+import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +currentVersion: number,
   +form: FormT<{
     +csrf_token: FieldT<string>,
@@ -25,7 +25,6 @@ type Props = {
 };
 
 const EditWikiDoc = ({
-  $c,
   currentVersion,
   form,
   page,
@@ -33,7 +32,7 @@ const EditWikiDoc = ({
   <Layout fullWidth title={l('Update Page')}>
     <div id="content">
       <h1>{l('Update Page')}</h1>
-      <form action={$c.req.uri} method="post">
+      <form method="post">
         <FormCsrfToken form={form} />
         <div className="row">
           <label>{l('Page:')}</label>

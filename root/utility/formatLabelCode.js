@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {fixedWidthInteger} from '../static/scripts/common/utility/strings';
+import {fixedWidthInteger} from '../static/scripts/common/utility/strings.js';
 
 export default function formatLabelCode(code: number): string {
   return 'LC ' + fixedWidthInteger(code, 5);

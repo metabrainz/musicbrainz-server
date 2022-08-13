@@ -9,12 +9,13 @@
 
 import * as React from 'react';
 
-import PaginatedResults from '../components/PaginatedResults';
-import {WorkListRow} from '../static/scripts/common/components/WorkListEntry';
-import {bracketedText} from '../static/scripts/common/utility/bracketed';
+import PaginatedResults from '../components/PaginatedResults.js';
+import {WorkListRow}
+  from '../static/scripts/common/components/WorkListEntry.js';
+import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
 
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportIswcT} from './types';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportIswcT} from './types.js';
 
 const IswcsWithManyWorks = ({
   canBeFiltered,
@@ -23,8 +24,8 @@ const IswcsWithManyWorks = ({
   items,
   pager,
 }: ReportDataT<ReportIswcT>): React.Element<typeof ReportLayout> => {
-  let lastIswc = 0;
-  let currentIswc = 0;
+  let lastIswc: string = '';
+  let currentIswc: string = '';
 
   return (
     <ReportLayout

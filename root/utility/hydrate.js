@@ -16,7 +16,7 @@ import * as Sentry from '@sentry/browser';
 
 import {SanitizedCatalystContext} from '../context.mjs';
 
-import escapeClosingTags from './escapeClosingTags';
+import escapeClosingTags from './escapeClosingTags.js';
 
 type PropsDataT =
   | StrOrNum
@@ -94,7 +94,7 @@ if (__DEV__) {
 
 // Please keep the type signature in sync with root/vars.js.
 export default function hydrate<
-  Config: {+$c?: CatalystContextT, ...},
+  Config: {...},
   SanitizedConfig = Config,
 >(
   containerSelector: string,
@@ -134,7 +134,7 @@ export default function hydrate<
               root,
               <React.StrictMode>
                 <SanitizedCatalystContext.Provider value={$c}>
-                  <Component $c={$c} {...props} />
+                  <Component {...props} />
                 </SanitizedCatalystContext.Provider>
               </React.StrictMode>,
             );
@@ -146,18 +146,23 @@ export default function hydrate<
     });
   }
   return (props: Config) => {
-    let dataProps = {...props};
-    if (dataProps.$c) {
-      delete dataProps.$c;
-    }
+    invariant(
+      !hasOwnProp(props, '$c'),
+      '`$c` should be accessed using the React context APIs, not props',
+    );
+    let sanitizedProps: ?SanitizedConfig;
     if (mungeProps) {
-      dataProps = mungeProps(dataProps);
+      sanitizedProps = mungeProps(props);
     }
     return (
       <>
         <script
           dangerouslySetInnerHTML={{
-            __html: escapeClosingTags(JSON.stringify(dataProps) ?? ''),
+            __html: escapeClosingTags(
+              JSON.stringify(
+                ((sanitizedProps ?? props): Config | SanitizedConfig),
+              ) ?? '',
+            ),
           }}
           type="application/json"
         />

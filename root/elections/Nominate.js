@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import ConfirmLayout from '../components/ConfirmLayout';
-import EditorLink from '../static/scripts/common/components/EditorLink';
+import ConfirmLayout from '../components/ConfirmLayout.js';
+import EditorLink from '../static/scripts/common/components/EditorLink.js';
 
 type Props = {
   +candidate: EditorT,

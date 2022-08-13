@@ -11,10 +11,11 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import * as manifest from '../../static/manifest.mjs';
-import Table from '../Table';
+import Table from '../Table.js';
 import filterReleaseLabels
-  from '../../static/scripts/common/utility/filterReleaseLabels';
-import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
+  from '../../static/scripts/common/utility/filterReleaseLabels.js';
+import formatBarcode
+  from '../../static/scripts/common/utility/formatBarcode.js';
 import {
   defineArtistCreditColumn,
   defineCheckboxColumn,
@@ -28,7 +29,7 @@ import {
   defineSeriesNumberColumn,
   defineTextColumn,
   taggerColumn,
-} from '../../utility/tableColumns';
+} from '../../utility/tableColumns.js';
 
 type Props = {
   ...InstrumentCreditsAndRelTypesRoleT,

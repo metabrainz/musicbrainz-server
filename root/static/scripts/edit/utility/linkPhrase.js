@@ -7,21 +7,21 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import commaList, {commaListText} from '../../common/i18n/commaList';
+import commaList, {commaListText} from '../../common/i18n/commaList.js';
 import {
   VarArgs,
   type VarArgsObject,
   type VarArgsClass,
-} from '../../common/i18n/expand2';
+} from '../../common/i18n/expand2.js';
 import {
   expand2reactWithVarArgsInstance,
-} from '../../common/i18n/expand2react';
-import {expand2textWithVarArgsClass} from '../../common/i18n/expand2text';
+} from '../../common/i18n/expand2react.js';
+import {expand2textWithVarArgsClass} from '../../common/i18n/expand2text.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
-import clean from '../../common/utility/clean';
-import {compareStrings} from '../../common/utility/compare';
+import clean from '../../common/utility/clean.js';
+import {compareStrings} from '../../common/utility/compare.js';
 import displayLinkAttribute, {displayLinkAttributeText}
-  from '../../common/utility/displayLinkAttribute';
+  from '../../common/utility/displayLinkAttribute.js';
 
 const EMPTY_OBJECT = Object.freeze({});
 
@@ -176,7 +176,7 @@ export function cmpLinkAttrs(a: LinkAttrT, b: LinkAttrT): number {
 
 const requiredAttributesCache: {
   __proto__: null,
-  [linkTypeId: number]: {+[attributeName: string]: LinkAttrT, ...},
+  [linkTypeId: number]: {+[attributeName: string]: LinkAttrs},
   ...
 } = Object.create(null);
 
@@ -184,15 +184,15 @@ function _getRequiredAttributes(
   linkType: LinkTypeT,
   attributesByRootName: ?LinkAttrsByRootName,
 ) {
-  let required = requiredAttributesCache[linkType.id];
-  if (required) {
-    return required;
+  const cached = requiredAttributesCache[linkType.id];
+  if (cached) {
+    return cached;
   }
+  const required: LinkAttrsByRootName = {};
   for (const typeId of Object.keys(linkType.attributes)) {
     const {min} = linkType.attributes[Number(typeId)];
     if (min) {
       const attribute = linkedEntities.link_attribute_type[Number(typeId)];
-      required = required || {};
       required[attribute.name] = attributesByRootName ? (
         attributesByRootName[attribute.name]
       ) : {

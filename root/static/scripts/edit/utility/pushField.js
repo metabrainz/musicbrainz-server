@@ -11,7 +11,7 @@ import {
   createCompoundField,
   createField,
   type MapFields,
-} from './createField';
+} from './createField.js';
 
 export function pushField<V>(
   repeatable: RepeatableFieldT<FieldT<V>>,

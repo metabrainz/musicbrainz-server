@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import WarningIcon from './WarningIcon';
+import WarningIcon from './WarningIcon.js';
 
 type Props = {
   +className?: string,

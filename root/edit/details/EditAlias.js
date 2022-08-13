@@ -10,20 +10,20 @@
 import * as React from 'react';
 
 import formatEntityTypeName
-  from '../../static/scripts/common/utility/formatEntityTypeName';
+  from '../../static/scripts/common/utility/formatEntityTypeName.js';
 import bracketed, {bracketedText}
-  from '../../static/scripts/common/utility/bracketed';
+  from '../../static/scripts/common/utility/bracketed.js';
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import isolateText from '../../static/scripts/common/utility/isolateText';
-import Diff from '../../static/scripts/edit/components/edit/Diff';
-import locales from '../../static/scripts/common/constants/locales';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
+import isolateText from '../../static/scripts/common/utility/isolateText.js';
+import Diff from '../../static/scripts/edit/components/edit/Diff.js';
+import locales from '../../static/scripts/common/constants/locales.json';
 import FullChangeDiff
-  from '../../static/scripts/edit/components/edit/FullChangeDiff';
-import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
-import formatDate from '../../static/scripts/common/utility/formatDate';
-import yesNo from '../../static/scripts/common/utility/yesNo';
+  from '../../static/scripts/edit/components/edit/FullChangeDiff.js';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
+import formatDate from '../../static/scripts/common/utility/formatDate.js';
+import yesNo from '../../static/scripts/common/utility/yesNo.js';
 
 type Props = {
   +edit: EditAliasEditT,

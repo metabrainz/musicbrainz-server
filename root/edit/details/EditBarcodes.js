@@ -10,9 +10,10 @@
 import * as React from 'react';
 
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
-import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
-import Diff from '../../static/scripts/edit/components/edit/Diff';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
+import formatBarcode
+  from '../../static/scripts/common/utility/formatBarcode.js';
+import Diff from '../../static/scripts/edit/components/edit/Diff.js';
 
 type Props = {
   +edit: EditBarcodesEditT,

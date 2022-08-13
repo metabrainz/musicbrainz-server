@@ -11,17 +11,17 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../../../context.mjs';
 import InstrumentRelTypes
-  from '../../../../components/InstrumentRelTypes';
+  from '../../../../components/InstrumentRelTypes.js';
 import RemoveFromMergeTableCell
-  from '../../../../components/RemoveFromMergeTableCell';
-import loopParity from '../../../../utility/loopParity';
-import formatDate from '../utility/formatDate';
-import formatEndDate from '../utility/formatEndDate';
+  from '../../../../components/RemoveFromMergeTableCell.js';
+import loopParity from '../../../../utility/loopParity.js';
+import formatDate from '../utility/formatDate.js';
+import formatEndDate from '../utility/formatEndDate.js';
 import renderMergeCheckboxElement
-  from '../utility/renderMergeCheckboxElement';
+  from '../utility/renderMergeCheckboxElement.js';
 
-import DescriptiveLink from './DescriptiveLink';
-import RatingStars from './RatingStars';
+import DescriptiveLink from './DescriptiveLink.js';
+import RatingStars from './RatingStars.js';
 
 type ArtistListRowProps = {
   ...InstrumentCreditsAndRelTypesRoleT,
@@ -127,7 +127,6 @@ const ArtistListRow = ({
       ) : null}
       {mergeForm && artistList ? (
         <RemoveFromMergeTableCell
-          $c={$c}
           entity={artist}
           toMerge={artistList}
         />

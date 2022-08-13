@@ -13,14 +13,14 @@
 
 import ko from 'knockout';
 
-import {rstr_sha1 as rstrSha1} from '../../lib/sha1/sha1';
+import {rstr_sha1 as rstrSha1} from '../../lib/sha1/sha1.js';
 import {MAX_LENGTH_DIFFERENCE, MIN_NAME_SIMILARITY}
-  from '../common/constants';
-import escapeLuceneValue from '../common/utility/escapeLuceneValue';
-import request from '../common/utility/request';
-import similarity from '../edit/utility/similarity';
+  from '../common/constants.js';
+import escapeLuceneValue from '../common/utility/escapeLuceneValue.js';
+import request from '../common/utility/request.js';
+import similarity from '../edit/utility/similarity.js';
 
-import releaseEditor from './viewModel';
+import releaseEditor from './viewModel.js';
 
 const utils = {};
 

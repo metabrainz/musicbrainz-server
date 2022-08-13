@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import Modal from '../../common/components/Modal';
+import Modal from '../../common/components/Modal.js';
 
 export const TITLES: {+[entityType: string]: () => string} = {
   area: N_l('Add a new area'),

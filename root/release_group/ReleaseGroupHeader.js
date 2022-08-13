@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import EntityHeader from '../components/EntityHeader';
+import EntityHeader from '../components/EntityHeader.js';
 import ArtistCreditLink
-  from '../static/scripts/common/components/ArtistCreditLink';
+  from '../static/scripts/common/components/ArtistCreditLink.js';
 
 type Props = {
   page: string,

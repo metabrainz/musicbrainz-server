@@ -9,26 +9,27 @@
 
 import * as React from 'react';
 
-import {ENTITIES} from '../static/scripts/common/constants';
+import {CatalystContext} from '../context.mjs';
+import {ENTITIES} from '../static/scripts/common/constants.js';
 import DBDefs from '../static/scripts/common/DBDefs.mjs';
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import chooseLayoutComponent from '../utility/chooseLayoutComponent';
-import formatUserDate from '../utility/formatUserDate';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
+import formatUserDate from '../utility/formatUserDate.js';
 
 type WSLinkProps = {
   +entityGid: string,
   +entityProperties: {
-    aliases: {[edit_type: string]: number},
-    artist_credits: boolean,
-    url: string,
+    +aliases?: {+[edit_type: string]: number},
+    +artist_credits?: boolean,
+    +url: string,
     ...
   },
   +entityType: CoreEntityTypeT,
   +isJson?: boolean,
   +isSecureConnection: boolean,
 };
+
 type DetailsProps = {
-  +$c: CatalystContextT,
   +entity: CoreEntityT,
 };
 
@@ -45,7 +46,7 @@ const WSLink = ({
   if (entityProperties.aliases) {
     inc.push('aliases');
   }
-  if (entityProperties.artist_credits) {
+  if (entityProperties.artist_credits === true) {
     inc.push('artist-credits');
   }
   if (entityType === 'recording' || entityType === 'release_group') {
@@ -72,9 +73,9 @@ const WSLink = ({
 };
 
 const Details = ({
-  $c,
   entity,
 }: DetailsProps): React.MixedElement => {
+  const $c = React.useContext(CatalystContext);
   const entityType = entity.entityType;
   const entityProperties = ENTITIES[entityType];
   const entityTypeForUrl = entityProperties.url

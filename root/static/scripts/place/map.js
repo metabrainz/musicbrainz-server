@@ -6,8 +6,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {createMap, L} from '../common/leaflet';
-import getScriptArgs from '../common/utility/getScriptArgs';
+import {createMap, L} from '../common/leaflet.js';
+import getScriptArgs from '../common/utility/getScriptArgs.js';
 
 const {place, title} = getScriptArgs();
 

@@ -10,21 +10,20 @@
 import * as React from 'react';
 
 import sortByEntityName
-  from '../static/scripts/common/utility/sortByEntityName';
-import EnterEdit from '../components/EnterEdit';
-import EnterEditNote from '../components/EnterEditNote';
-import FieldErrors from '../components/FieldErrors';
-import {ReleaseGroupListTable} from '../components/list/ReleaseGroupList';
-import Layout from '../layout';
+  from '../static/scripts/common/utility/sortByEntityName.js';
+import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
+import {ReleaseGroupListTable} from '../components/list/ReleaseGroupList.js';
+import Layout from '../layout/index.js';
+import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
+import EnterEditNote
+  from '../static/scripts/edit/components/EnterEditNote.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: MergeFormT,
   +toMerge: $ReadOnlyArray<ReleaseGroupT>,
 };
 
 const ReleaseGroupMerge = ({
-  $c,
   form,
   toMerge,
 }: Props): React.Element<typeof Layout> => (
@@ -36,7 +35,7 @@ const ReleaseGroupMerge = ({
             Please select the release group all others
             should be merged into:`)}
       </p>
-      <form action={$c.req.uri} method="post">
+      <form method="post">
         <ReleaseGroupListTable
           mergeForm={form}
           releaseGroups={sortByEntityName(toMerge)}

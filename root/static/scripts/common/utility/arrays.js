@@ -10,7 +10,7 @@
 import {
   compareNumbers,
   compareStrings,
-} from './compare';
+} from './compare.js';
 
 /*
  * Checks if two arrays are equal using the provided `isEqual` function
@@ -19,7 +19,7 @@ import {
 export function arraysEqual<T>(
   a: $ReadOnlyArray<T>,
   b: $ReadOnlyArray<T>,
-  isEqual: (T, T) => boolean = (a, b) => a === b,
+  isEqual: (T, T) => boolean = (a: T, b: T) => a === b,
 ): boolean {
   const length = a.length;
   if (length !== b.length) {

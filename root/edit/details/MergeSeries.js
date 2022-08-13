@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import SeriesList from '../../components/list/SeriesList';
+import SeriesList from '../../components/list/SeriesList.js';
 
 type Props = {
   +edit: MergeSeriesEditT,

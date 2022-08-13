@@ -9,18 +9,19 @@
 
 import * as React from 'react';
 
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import commaList from '../static/scripts/common/i18n/commaList';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import commaList from '../static/scripts/common/i18n/commaList.js';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
-import {bracketedText} from '../static/scripts/common/utility/bracketed';
-import {interpolate} from '../static/scripts/edit/utility/linkPhrase';
+import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
 import groupRelationships, {
   type RelationshipPhraseGroupT,
   type RelationshipTargetGroupT,
-} from '../utility/groupRelationships';
-import relationshipDateText from '../utility/relationshipDateText';
+} from '../static/scripts/common/utility/groupRelationships.js';
+import relationshipDateText
+  from '../static/scripts/common/utility/relationshipDateText.js';
+import {interpolate} from '../static/scripts/edit/utility/linkPhrase.js';
 
-import RelationshipTargetLinks from './RelationshipTargetLinks';
+import RelationshipTargetLinks from './RelationshipTargetLinks.js';
 
 type Props = {
   +source: CoreEntityT,

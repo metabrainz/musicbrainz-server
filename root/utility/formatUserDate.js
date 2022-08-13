@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import parseIsoDate from './parseIsoDate';
+import parseIsoDate from './parseIsoDate.js';
 
 const formatterCache = new Map();
 

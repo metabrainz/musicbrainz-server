@@ -9,14 +9,15 @@
 
 import * as React from 'react';
 
-import uriWith from '../utility/uriWith';
+import {SanitizedCatalystContext} from '../context.mjs';
+import uriWith from '../utility/uriWith.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +filtered: boolean,
 };
 
-const FilterLink = ({$c, filtered = false}: Props): React.Element<'li'> => {
+const FilterLink = ({filtered = false}: Props): React.Element<'li'> => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const reqUri = $c.req.uri;
 
   return (

@@ -10,23 +10,23 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
-import {age} from '../utility/age';
-import {formatUserDateObject} from '../utility/formatUserDate';
+import {age} from '../utility/age.js';
+import {formatUserDateObject} from '../utility/formatUserDate.js';
 import getRequestCookie from '../utility/getRequestCookie.mjs';
-import {RT_MIRROR} from '../static/scripts/common/constants';
+import {RT_MIRROR} from '../static/scripts/common/constants.js';
 import DBDefs from '../static/scripts/common/DBDefs.mjs';
-import parseDate from '../static/scripts/common/utility/parseDate';
+import parseDate from '../static/scripts/common/utility/parseDate.js';
 import {
   isAddingNotesDisabled,
   isEditingDisabled,
-} from '../static/scripts/common/utility/privileges';
+} from '../static/scripts/common/utility/privileges.js';
 
-import Footer from './components/Footer';
-import Header from './components/Header';
-import Head, {type HeadProps} from './components/Head';
-import MergeHelper from './components/MergeHelper';
+import Footer from './components/Footer.js';
+import Header from './components/Header.js';
+import Head, {type HeadProps} from './components/Head.js';
+import MergeHelper from './components/MergeHelper.js';
 
-const DismissBannerButton = ({bannerName}) => (
+const DismissBannerButton = ({bannerName}: {+bannerName: string}) => (
   <button
     className="dismiss-banner remove-item icon"
     data-banner-name={bannerName}
@@ -42,7 +42,7 @@ const BirthdayCakes = () => (
   </span>
 );
 
-function showBirthdayBanner($c) {
+function showBirthdayBanner($c: CatalystContextT) {
   const birthDate = $c.user ? $c.user.birth_date : null;
   if (!birthDate) {
     return false;
@@ -55,7 +55,8 @@ function showBirthdayBanner($c) {
          !getRequestCookie($c.req, 'birthday_message_dismissed_mtime');
 }
 
-const AnniversaryBanner = ({$c}) => {
+const AnniversaryBanner = () => {
+  const $c = React.useContext(CatalystContext);
   const registrationDate = $c.user ? $c.user.registration_date : null;
   if (registrationDate == null) {
     return null;
@@ -261,7 +262,7 @@ const Layout = ({
           </div>
         ) : null}
 
-        <AnniversaryBanner $c={$c} />
+        <AnniversaryBanner />
 
         {showNewEditNotesBanner ? (
           <div className="banner new-edit-notes">

@@ -10,13 +10,15 @@
 import * as React from 'react';
 
 import {HistoricReleaseListContent}
-  from '../../components/HistoricReleaseList';
+  from '../../components/HistoricReleaseList.js';
 
 type Props = {
   +edit: EditReleaseAttributesHistoricEditT,
 };
 
-function getTypeName(type) {
+function getTypeName(
+  type: ReleaseGroupTypeT | ReleaseGroupHistoricTypeT | null,
+) {
   return type ? (
     type.historic ? lp_attributes(
       type.name,

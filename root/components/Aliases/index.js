@@ -9,15 +9,16 @@
 
 import * as React from 'react';
 
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import entityHref from '../../static/scripts/common/utility/entityHref';
+import {CatalystContext} from '../../context.mjs';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
+import entityHref from '../../static/scripts/common/utility/entityHref.js';
 import {
   isEditingEnabled,
   isLocationEditor,
   isRelationshipEditor,
-} from '../../static/scripts/common/utility/privileges';
+} from '../../static/scripts/common/utility/privileges.js';
 
-import AliasTable from './AliasTable';
+import AliasTable from './AliasTable.js';
 
 function canEdit($c: CatalystContextT, entityType: string) {
   if (isEditingEnabled($c.user)) {
@@ -35,12 +36,12 @@ function canEdit($c: CatalystContextT, entityType: string) {
 }
 
 type Props = {
-  +$c: CatalystContextT,
   +aliases: ?$ReadOnlyArray<AliasT>,
   +entity: CoreEntityT,
 };
 
-const Aliases = ({$c, aliases, entity}: Props): React.MixedElement => {
+const Aliases = ({aliases, entity}: Props): React.MixedElement => {
+  const $c = React.useContext(CatalystContext);
   const entityType = entity.entityType;
   const allowEditing = canEdit($c, entityType);
   return (

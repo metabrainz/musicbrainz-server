@@ -7,10 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {compare} from '../static/scripts/common/i18n';
-import compareDates from '../static/scripts/common/utility/compareDates';
+import {compare} from '../static/scripts/common/i18n.js';
+import compareDates from '../static/scripts/common/utility/compareDates.js';
 
-import getSortName from './getSortName';
+import getSortName from './getSortName.js';
 
 export default function compareRelationships(
   a: RelationshipT,

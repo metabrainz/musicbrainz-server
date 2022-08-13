@@ -7,13 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {INSTRUMENT_ROOT_ID} from '../constants';
-import commaList, {commaListText} from '../i18n/commaList';
-import {type VarArgsObject} from '../i18n/expand2';
+import {INSTRUMENT_ROOT_ID} from '../constants.js';
+import commaList, {commaListText} from '../i18n/commaList.js';
+import {type VarArgsObject} from '../i18n/expand2.js';
 import localizeLinkAttributeTypeName
-  from '../i18n/localizeLinkAttributeTypeName';
+  from '../i18n/localizeLinkAttributeTypeName.js';
 import linkedEntities from '../linkedEntities.mjs';
-import clean from '../utility/clean';
+import clean from '../utility/clean.js';
 
 function _displayLinkAttribute<T>(
   attribute: LinkAttrT,

@@ -15,17 +15,17 @@ import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 import {createStore} from 'redux';
 
-import FormRowSelectList from '../../../components/FormRowSelectList';
-import subfieldErrors from '../../../utility/subfieldErrors';
-import {groupBy} from '../common/utility/arrays';
-import getScriptArgs from '../common/utility/getScriptArgs';
-import {buildOptionsTree} from '../edit/forms';
-import typeBubble from '../edit/typeBubble';
-import {initializeBubble} from '../edit/MB/Control/Bubble';
-import {createCompoundField} from '../edit/utility/createField';
-import {pushCompoundField, pushField} from '../edit/utility/pushField';
-import {initializeGuessCase} from '../guess-case/MB/Control/GuessCase';
-import {LANGUAGE_MUL_ID, LANGUAGE_ZXX_ID} from '../common/constants';
+import {groupBy} from '../common/utility/arrays.js';
+import getScriptArgs from '../common/utility/getScriptArgs.js';
+import FormRowSelectList from '../edit/components/FormRowSelectList.js';
+import {buildOptionsTree} from '../edit/forms.js';
+import typeBubble from '../edit/typeBubble.js';
+import {initializeBubble} from '../edit/MB/Control/Bubble.js';
+import {createCompoundField} from '../edit/utility/createField.js';
+import {pushCompoundField, pushField} from '../edit/utility/pushField.js';
+import subfieldErrors from '../edit/utility/subfieldErrors.js';
+import {initializeGuessCase} from '../guess-case/MB/Control/GuessCase.js';
+import {LANGUAGE_MUL_ID, LANGUAGE_ZXX_ID} from '../common/constants.js';
 
 const scriptArgs = getScriptArgs();
 
@@ -166,12 +166,12 @@ class WorkAttribute {
     });
   }
 
-  allowsFreeText(typeID) {
+  allowsFreeText(typeID: number | null): boolean {
     return !typeID ||
       this.parent.attributeTypesByID[typeID].free_text;
   }
 
-  isGroupingType() {
+  isGroupingType(): boolean {
     return !this.allowsFreeText(this.typeID()) &&
            this.allowedValues().length === 0;
   }
@@ -241,7 +241,10 @@ class ViewModel {
   }
 }
 
-function byID(result, parent) {
+function byID(
+  result: {[id: StrOrNum]: WorkAttributeTypeTreeT},
+  parent: WorkAttributeTypeTreeT,
+) {
   result[parent.id] = parent;
   if (parent.children) {
     parent.children.reduce(byID, result);
@@ -276,7 +279,7 @@ function addLanguage() {
   store.dispatch({type: 'ADD_LANGUAGE'});
 }
 
-function editLanguage(i, languageId) {
+function editLanguage(i: number, languageId: string) {
   store.dispatch({
     index: i,
     languageId: languageId,
@@ -284,14 +287,14 @@ function editLanguage(i, languageId) {
   });
 }
 
-function removeLanguage(i) {
+function removeLanguage(i: number) {
   store.dispatch({
     index: i,
     type: 'REMOVE_LANGUAGE',
   });
 }
 
-const getSelectField = field => field;
+const getSelectField = (field: ReadOnlyFieldT<?number>) => field;
 
 const workLanguagesNode = document.getElementById('work-languages-editor');
 if (!workLanguagesNode) {

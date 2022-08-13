@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import WorkSidebar from '../layout/components/sidebar/WorkSidebar';
+import Layout from '../layout/index.js';
+import WorkSidebar from '../layout/components/sidebar/WorkSidebar.js';
 
-import WorkHeader from './WorkHeader';
+import WorkHeader from './WorkHeader.js';
 
 type Props = {
   +children: React.Node,

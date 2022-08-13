@@ -9,16 +9,20 @@
 
 import * as React from 'react';
 
-import {CONTACT_URL} from '../constants';
 import UserAccountLayout, {
   type AccountLayoutUserT,
-} from '../components/UserAccountLayout';
-import FormCsrfToken from '../components/FormCsrfToken';
-import FormRow from '../components/FormRow';
-import FormRowCheckbox from '../components/FormRowCheckbox';
-import FormRowSelect from '../components/FormRowSelect';
-import FormRowTextArea from '../components/FormRowTextArea';
-import FormSubmit from '../components/FormSubmit';
+} from '../components/UserAccountLayout.js';
+import {CONTACT_URL} from '../constants.js';
+import FormCsrfToken
+  from '../static/scripts/edit/components/FormCsrfToken.js';
+import FormRow from '../static/scripts/edit/components/FormRow.js';
+import FormRowCheckbox
+  from '../static/scripts/edit/components/FormRowCheckbox.js';
+import FormRowSelect
+  from '../static/scripts/edit/components/FormRowSelect.js';
+import FormRowTextArea
+  from '../static/scripts/edit/components/FormRowTextArea.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 type ReportReasonT =
   | 'enforcing_guidelines'
@@ -29,7 +33,6 @@ type ReportReasonT =
   | 'voting';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: FormT<{
     +csrf_token: FieldT<string>,
     +message: FieldT<string>,
@@ -73,7 +76,6 @@ const reportReasonOptions = {
 };
 
 const ReportUser = ({
-  $c,
   form,
   user,
 }: Props): React.Element<typeof UserAccountLayout> => (
@@ -107,7 +109,7 @@ const ReportUser = ({
         <p>
           {exp.l(
             `Your report will be sent to our {uri|account administrators},
-             who will decide what action to take.`,
+              who will decide what action to take.`,
             {uri: {href: '/privileged', target: '_blank'}},
           )}
         </p>
@@ -131,7 +133,7 @@ const ReportUser = ({
           )}
         </p>
 
-        <form action={$c.req.uri} className="report-form" method="post">
+        <form className="report-form" method="post">
           <FormCsrfToken form={form} />
 
           <FormRowSelect
@@ -155,7 +157,8 @@ const ReportUser = ({
               <p>
                 {exp.l(
                   `If you don’t want our admins to contact you further
-                   regarding this report, you can uncheck the checkbox above.
+                   regarding this report, you can uncheck the checkbox
+                   above.
                    <br />
                    We recommend leaving it checked, so that you can be
                    contacted if the report is resolved or the admins

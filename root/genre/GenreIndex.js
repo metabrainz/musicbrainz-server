@@ -9,14 +9,15 @@
 
 import * as React from 'react';
 
-import Annotation from '../static/scripts/common/components/Annotation';
-import Relationships from '../static/scripts/common/components/Relationships';
-import TagLink from '../static/scripts/common/components/TagLink';
+import Annotation from '../static/scripts/common/components/Annotation.js';
+import Relationships
+  from '../static/scripts/common/components/Relationships.js';
+import TagLink from '../static/scripts/common/components/TagLink.js';
 import WikipediaExtract
-  from '../static/scripts/common/components/WikipediaExtract';
+  from '../static/scripts/common/components/WikipediaExtract.js';
 import * as manifest from '../static/manifest.mjs';
 
-import GenreLayout from './GenreLayout';
+import GenreLayout from './GenreLayout.js';
 
 type Props = {
   +genre: GenreT,

@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
-import uriWith from '../utility/uriWith';
+import uriWith from '../utility/uriWith.js';
 
-function printSortArrows(name, order) {
+function printSortArrows(name: string, order: ?string) {
   if (order === name) {
     return ' ▴';
   } else if (order === '-' + name) {

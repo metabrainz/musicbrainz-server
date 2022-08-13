@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import {ReleaseResultsInline} from '../search/components/ReleaseResults';
+import {ReleaseResultsInline} from '../search/components/ReleaseResults.js';
 
-import TagLookupResults from './Results';
-import type {TagLookupResultsPropsT} from './types';
+import TagLookupResults from './Results.js';
+import type {TagLookupResultsPropsT} from './types.js';
 
 const TagLookupReleaseResults = (
   props: TagLookupResultsPropsT<ReleaseT>,

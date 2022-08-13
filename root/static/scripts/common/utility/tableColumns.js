@@ -9,7 +9,7 @@
 
 import type {ColumnOptions} from 'react-table';
 
-import AcoustIdCell from '../components/AcoustIdCell';
+import AcoustIdCell from '../components/AcoustIdCell.js';
 
 /*
  * NOTE: This file is like root/utility/tableColumns.js, but contains columns

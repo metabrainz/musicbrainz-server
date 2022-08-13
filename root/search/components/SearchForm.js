@@ -10,10 +10,13 @@
 import * as React from 'react';
 
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';
-import FormRowRadio from '../../components/FormRowRadio';
-import FormRowSelect from '../../components/FormRowSelect';
-import FormRowTextLong from '../../components/FormRowTextLong';
-import FormSubmit from '../../components/FormSubmit';
+import FormRowRadio
+  from '../../static/scripts/edit/components/FormRowRadio.js';
+import FormRowSelect
+  from '../../static/scripts/edit/components/FormRowSelect.js';
+import FormRowTextLong
+  from '../../static/scripts/edit/components/FormRowTextLong.js';
+import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 
 type Props = {
   +form: SearchFormT,

@@ -9,16 +9,16 @@
 
 import * as React from 'react';
 
-import PaginatedResults from '../components/PaginatedResults';
+import PaginatedResults from '../components/PaginatedResults.js';
 import ArtistCreditLink
-  from '../static/scripts/common/components/ArtistCreditLink';
-import EntityLink from '../static/scripts/common/components/EntityLink';
+  from '../static/scripts/common/components/ArtistCreditLink.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import formatTrackLength
-  from '../static/scripts/common/utility/formatTrackLength';
-import {bracketedText} from '../static/scripts/common/utility/bracketed';
+  from '../static/scripts/common/utility/formatTrackLength.js';
+import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
 
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportIsrcT} from './types';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportIsrcT} from './types.js';
 
 const IsrcsWithManyRecordings = ({
   canBeFiltered,
@@ -27,8 +27,8 @@ const IsrcsWithManyRecordings = ({
   items,
   pager,
 }: ReportDataT<ReportIsrcT>): React.Element<typeof ReportLayout> => {
-  let lastIsrc = 0;
-  let currentIsrc = 0;
+  let lastIsrc: string = '';
+  let currentIsrc: string = '';
 
   return (
     <ReportLayout

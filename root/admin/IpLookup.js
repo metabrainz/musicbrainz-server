@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
+import Layout from '../layout/index.js';
 
-import UserList from './components/UserList';
+import UserList from './components/UserList.js';
 
 type Props = {
   +ipHash: string,

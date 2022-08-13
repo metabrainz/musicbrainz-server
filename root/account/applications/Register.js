@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import Layout from '../../layout';
+import Layout from '../../layout/index.js';
 import * as manifest from '../../static/manifest.mjs';
 import ApplicationForm
-  from '../../static/scripts/account/components/ApplicationForm';
+  from '../../static/scripts/account/components/ApplicationForm.js';
 import type {ApplicationFormT}
-  from '../../static/scripts/account/components/ApplicationForm';
+  from '../../static/scripts/account/components/ApplicationForm.js';
 
 type Props = {
   +form: ApplicationFormT,

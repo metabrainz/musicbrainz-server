@@ -9,11 +9,13 @@
 
 import * as React from 'react';
 
-import EnterEditNote from '../components/EnterEditNote';
-import EnterEdit from '../components/EnterEdit';
-import FormRowText from '../components/FormRowText';
-import FormRowTextArea from '../components/FormRowTextArea';
-import chooseLayoutComponent from '../utility/chooseLayoutComponent';
+import FormRowText from '../static/scripts/edit/components/FormRowText.js';
+import FormRowTextArea
+  from '../static/scripts/edit/components/FormRowTextArea.js';
+import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
+import EnterEditNote
+  from '../static/scripts/edit/components/EnterEditNote.js';
+import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
 type EditAnnotationFormT = FormT<{
   +changelog: ReadOnlyFieldT<string>,
@@ -24,7 +26,6 @@ type EditAnnotationFormT = FormT<{
 }>;
 
 type EditAnnotationProps = {
-  +$c: CatalystContextT,
   +entity: AnnotatedEntityT,
   +form: EditAnnotationFormT,
   +preview?: string,
@@ -32,7 +33,6 @@ type EditAnnotationProps = {
 };
 
 const EditAnnotation = ({
-  $c,
   entity,
   form,
   preview,
@@ -69,7 +69,7 @@ const EditAnnotation = ({
         </>
       ) : null}
 
-      <form action={$c.req.uri} method="post">
+      <form method="post">
         <FormRowTextArea
           cols={80}
           field={form.field.text}

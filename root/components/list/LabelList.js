@@ -10,8 +10,8 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
-import Table from '../Table';
-import formatLabelCode from '../../utility/formatLabelCode';
+import Table from '../Table.js';
+import formatLabelCode from '../../utility/formatLabelCode.js';
 import {
   defineBeginDateColumn,
   defineCheckboxColumn,
@@ -22,7 +22,7 @@ import {
   defineTextColumn,
   defineTypeColumn,
   removeFromMergeColumn,
-} from '../../utility/tableColumns';
+} from '../../utility/tableColumns.js';
 
 type Props = {
   +checkboxes?: string,

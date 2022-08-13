@@ -10,13 +10,13 @@
 import * as React from 'react';
 import mutate from 'mutate-cow';
 
-import FormCsrfToken from '../../../../components/FormCsrfToken';
-import FormRow from '../../../../components/FormRow';
-import FormRowCheckbox from '../../../../components/FormRowCheckbox';
-import FormRowSelect from '../../../../components/FormRowSelect';
-import FormSubmit from '../../../../components/FormSubmit';
 import {SanitizedCatalystContext} from '../../../../context.mjs';
-import {formatUserDateObject} from '../../../../utility/formatUserDate';
+import {formatUserDateObject} from '../../../../utility/formatUserDate.js';
+import FormCsrfToken from '../../edit/components/FormCsrfToken.js';
+import FormRow from '../../edit/components/FormRow.js';
+import FormRowCheckbox from '../../edit/components/FormRowCheckbox.js';
+import FormRowSelect from '../../edit/components/FormRowSelect.js';
+import FormSubmit from '../../edit/components/FormSubmit.js';
 
 type PreferencesFormT = FormT<{
   +csrf_token: FieldT<string>,
@@ -60,7 +60,10 @@ const allowedDateTimeFormats = [
   '%m.%d.%Y %H:%M',
 ];
 
-function buildDateTimeFormatOptions($c, timezone) {
+function buildDateTimeFormatOptions(
+  $c: SanitizedCatalystContextT,
+  timezone: string,
+) {
   const hereAndNow = new Date();
   return {
     grouped: false,
@@ -144,7 +147,7 @@ class PreferencesForm extends React.Component<Props, State> {
     }));
   }
 
-  render() {
+  render(): React.Element<'form'> {
     const field = this.state.form.field;
     return (
       <form method="post">

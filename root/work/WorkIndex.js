@@ -9,18 +9,18 @@
 
 import * as React from 'react';
 
-import Annotation from '../static/scripts/common/components/Annotation';
-import Relationships from '../static/scripts/common/components/Relationships';
+import Annotation from '../static/scripts/common/components/Annotation.js';
+import Relationships
+  from '../static/scripts/common/components/Relationships.js';
 import WikipediaExtract
-  from '../static/scripts/common/components/WikipediaExtract';
-import CleanupBanner from '../components/CleanupBanner';
-import RelationshipsTable from '../components/RelationshipsTable';
+  from '../static/scripts/common/components/WikipediaExtract.js';
+import CleanupBanner from '../components/CleanupBanner.js';
+import RelationshipsTable from '../components/RelationshipsTable.js';
 import * as manifest from '../static/manifest.mjs';
 
-import WorkLayout from './WorkLayout';
+import WorkLayout from './WorkLayout.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +eligibleForCleanup: boolean,
   +numberOfRevisions: number,
   +pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
@@ -30,7 +30,6 @@ type Props = {
 };
 
 const WorkIndex = ({
-  $c,
   eligibleForCleanup,
   numberOfRevisions,
   pagedLinkTypeGroup,
@@ -54,7 +53,6 @@ const WorkIndex = ({
     />
     <Relationships source={work} />
     <RelationshipsTable
-      $c={$c}
       entity={work}
       heading={l('Recordings')}
       pagedLinkTypeGroup={pagedLinkTypeGroup}

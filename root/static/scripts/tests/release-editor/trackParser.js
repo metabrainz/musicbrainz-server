@@ -8,12 +8,12 @@
 
 import test from 'tape';
 
-import {reduceArtistCredit} from '../../common/immutable-entities';
-import fields from '../../release-editor/fields';
-import trackParser from '../../release-editor/trackParser';
-import releaseEditor from '../../release-editor/viewModel';
+import {reduceArtistCredit} from '../../common/immutable-entities.js';
+import fields from '../../release-editor/fields.js';
+import trackParser from '../../release-editor/trackParser.js';
+import releaseEditor from '../../release-editor/viewModel.js';
 
-import * as common from './common';
+import * as common from './common.js';
 
 function parserTest(name, callback) {
   test(name, function (t) {

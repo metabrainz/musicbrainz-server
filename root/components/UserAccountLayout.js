@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import EditorLink from '../static/scripts/common/components/EditorLink';
+import Layout from '../layout/index.js';
+import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import sanitizedEditor from '../utility/sanitizedEditor.mjs';
 
-import UserAccountTabs from './UserAccountTabs';
+import UserAccountTabs from './UserAccountTabs.js';
 
 export type AccountLayoutUserT = {
   +avatar: string,

@@ -11,23 +11,25 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
 import CommonsImage
-  from '../../../static/scripts/common/components/CommonsImage';
-import isDateEmpty from '../../../static/scripts/common/utility/isDateEmpty';
-import areDatesEqual from '../../../utility/areDatesEqual';
-import ExternalLinks from '../ExternalLinks';
+  from '../../../static/scripts/common/components/CommonsImage.js';
+import areDatesEqual
+  from '../../../static/scripts/common/utility/areDatesEqual.js';
+import isDateEmpty
+  from '../../../static/scripts/common/utility/isDateEmpty.js';
+import ExternalLinks from '../ExternalLinks.js';
 
-import AnnotationLinks from './AnnotationLinks';
-import CollectionLinks from './CollectionLinks';
-import EditLinks from './EditLinks';
-import LastUpdated from './LastUpdated';
-import MergeLink from './MergeLink';
-import SidebarBeginDate from './SidebarBeginDate';
-import SidebarEndDate from './SidebarEndDate';
-import SidebarLicenses from './SidebarLicenses';
-import {SidebarProperty, SidebarProperties} from './SidebarProperties';
-import SidebarRating from './SidebarRating';
-import SidebarTags from './SidebarTags';
-import SidebarType from './SidebarType';
+import AnnotationLinks from './AnnotationLinks.js';
+import CollectionLinks from './CollectionLinks.js';
+import EditLinks from './EditLinks.js';
+import LastUpdated from './LastUpdated.js';
+import MergeLink from './MergeLink.js';
+import SidebarBeginDate from './SidebarBeginDate.js';
+import SidebarEndDate from './SidebarEndDate.js';
+import SidebarLicenses from './SidebarLicenses.js';
+import {SidebarProperty, SidebarProperties} from './SidebarProperties.js';
+import SidebarRating from './SidebarRating.js';
+import SidebarTags from './SidebarTags.js';
+import SidebarType from './SidebarType.js';
 
 type Props = {
   +event: EventT,

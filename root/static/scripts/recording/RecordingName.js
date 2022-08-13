@@ -16,7 +16,7 @@ import FormRowNameWithGuessCase, {
   type ActionT as NameActionT,
   type StateT as NameStateT,
   type WritableStateT as WritableNameStateT,
-} from '../edit/components/FormRowNameWithGuessCase';
+} from '../edit/components/FormRowNameWithGuessCase.js';
 
 type Props = {
   +field: ReadOnlyFieldT<string>,

@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import IntentionallyRawIcon from '../components/IntentionallyRawIcon';
-import {ENTITY_NAMES} from '../../static/scripts/common/constants';
+import IntentionallyRawIcon from '../components/IntentionallyRawIcon.js';
+import {ENTITY_NAMES} from '../../static/scripts/common/constants.js';
 
 type Props = {
   +edit: RemoveRelationshipTypeEditT,

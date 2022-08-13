@@ -9,14 +9,14 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
+import Layout from '../layout/index.js';
 import * as manifest from '../static/manifest.mjs';
-import GenreEditForm from '../static/scripts/genre/components/GenreEditForm';
+import GenreEditForm
+  from '../static/scripts/genre/components/GenreEditForm.js';
 
-import type {GenreFormT} from './types';
+import type {GenreFormT} from './types.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +attrInfo: LinkAttrTypeOptionsT,
   +form: GenreFormT,
   +sourceEntity: {entityType: 'genre'},
@@ -24,7 +24,6 @@ type Props = {
 };
 
 const CreateGenre = ({
-  $c,
   attrInfo,
   form,
   sourceEntity,
@@ -34,7 +33,6 @@ const CreateGenre = ({
     <div id="content">
       <h1>{l('Add a new genre')}</h1>
       <GenreEditForm
-        $c={$c}
         attrInfo={attrInfo}
         form={form}
         sourceEntity={sourceEntity}

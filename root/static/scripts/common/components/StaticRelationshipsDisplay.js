@@ -10,17 +10,17 @@
 import * as React from 'react';
 
 import RelationshipTargetLinks
-  from '../../../../components/RelationshipTargetLinks';
+  from '../../../../components/RelationshipTargetLinks.js';
+import {commaOnlyListText} from '../i18n/commaOnlyList.js';
+import {bracketedText} from '../utility/bracketed.js';
 import {
   type RelationshipTargetTypeGroupT,
   compareTrackPositions,
-} from '../../../../utility/groupRelationships';
-import {commaOnlyListText} from '../i18n/commaOnlyList';
-import {bracketedText} from '../utility/bracketed';
+} from '../utility/groupRelationships.js';
 
 const detailsTableStyle = Object.freeze({width: '100%'});
 
-function formatTrackRange(range) {
+function formatTrackRange(range: [TrackT, TrackT | null]) {
   if (range[1] == null) {
     return range[0].number;
   }
@@ -30,7 +30,7 @@ function formatTrackRange(range) {
   });
 }
 
-function getTrackRanges(trackSet) {
+function getTrackRanges(trackSet: Set<TrackT>) {
   const tracks = [...trackSet].sort(compareTrackPositions);
 
   let range: [TrackT, TrackT | null] = [tracks[0], null];

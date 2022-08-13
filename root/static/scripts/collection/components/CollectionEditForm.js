@@ -10,20 +10,19 @@
 import mutate from 'mutate-cow';
 import * as React from 'react';
 
-import {SanitizedCatalystContext} from '../../../../context.mjs';
-import FieldErrors from '../../../../components/FieldErrors';
-import FormRow from '../../../../components/FormRow';
-import FormLabel from '../../../../components/FormLabel';
-import FormRowCheckbox from '../../../../components/FormRowCheckbox';
-import FormRowSelect from '../../../../components/FormRowSelect';
-import FormRowTextArea from '../../../../components/FormRowTextArea';
-import FormRowTextLong from '../../../../components/FormRowTextLong';
-import FormSubmit from '../../../../components/FormSubmit';
-import Autocomplete from '../../common/components/Autocomplete';
-import {pushCompoundField}
-  from '../../edit/utility/pushField';
 import type {CollaboratorStateT, CollectionEditFormT}
-  from '../../../../collection/types';
+  from '../../../../collection/types.js';
+import {SanitizedCatalystContext} from '../../../../context.mjs';
+import Autocomplete from '../../common/components/Autocomplete.js';
+import FieldErrors from '../../edit/components/FieldErrors.js';
+import FormRow from '../../edit/components/FormRow.js';
+import FormLabel from '../../edit/components/FormLabel.js';
+import FormRowCheckbox from '../../edit/components/FormRowCheckbox.js';
+import FormRowSelect from '../../edit/components/FormRowSelect.js';
+import FormRowTextArea from '../../edit/components/FormRowTextArea.js';
+import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
+import FormSubmit from '../../edit/components/FormSubmit.js';
+import {pushCompoundField} from '../../edit/utility/pushField.js';
 
 type Props = {
   +collectionTypes: SelectOptionsT,
@@ -49,7 +48,10 @@ const CollectionEditForm = ({collectionTypes, form}: Props) => {
     }));
   }
 
-  function handleCollaboratorChange(newCollaborator, index) {
+  function handleCollaboratorChange(
+    newCollaborator: EditorT,
+    index: number,
+  ) {
     setCollaborators(mutate<CollaboratorStateT, _>(collaborators, copy => {
       copy.field[index].field.id.value = newCollaborator.id;
       copy.field[index].field.name.value = newCollaborator.name;
@@ -68,7 +70,7 @@ const CollectionEditForm = ({collectionTypes, form}: Props) => {
   return (
     <SanitizedCatalystContext.Consumer>
       {$c => (
-        <form action={$c.req.uri} method="post">
+        <form method="post">
           <fieldset>
             <legend>{l('Collection details')}</legend>
             <FormRowTextLong
@@ -113,7 +115,9 @@ const CollectionEditForm = ({collectionTypes, form}: Props) => {
                       entity="editor"
                       inputID={'id-' + collaborator.html_name}
                       inputName={collaborator.field.name.html_name}
-                      onChange={(c) => handleCollaboratorChange(c, index)}
+                      onChange={(
+                        collaborator: EditorT,
+                      ) => handleCollaboratorChange(collaborator, index)}
                     >
                       <input
                         name={collaborator.field.id.html_name}

@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import LabelUrlList from './components/LabelUrlList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportLabelUrlT} from './types';
+import LabelUrlList from './components/LabelUrlList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportLabelUrlT} from './types.js';
 
 const DiscogsLinksWithMultipleLabels = ({
   canBeFiltered,

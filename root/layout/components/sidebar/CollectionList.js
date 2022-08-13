@@ -11,22 +11,30 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
 import typeof EntityLink
-  from '../../../static/scripts/common/components/EntityLink';
-import entityHref from '../../../static/scripts/common/utility/entityHref';
-import {returnToCurrentPage} from '../../../utility/returnUri';
+  from '../../../static/scripts/common/components/EntityLink.js';
+import entityHref from '../../../static/scripts/common/utility/entityHref.js';
+import {returnToCurrentPage} from '../../../utility/returnUri.js';
 
-function entityArg(entity) {
+function entityArg(entity: CoreEntityT) {
   return '?' + entity.entityType + '=' +
     encodeURIComponent(String(entity.id));
 }
 
-function collectionUrl($c, collection, entity, action) {
+function collectionUrl(
+  $c: CatalystContextT,
+  collection: CollectionT,
+  entity: CoreEntityT,
+  action: string,
+) {
   return entityHref(collection, 'collection_collaborator/' + action) +
     entityArg(entity) +
     '&' + returnToCurrentPage($c);
 }
 
-function hasEntity($c, collection) {
+function hasEntity(
+  $c: CatalystContextT,
+  collection: CollectionT,
+) {
   const containment = $c.stash.containment;
   return !!(containment && containment[collection.id]);
 }

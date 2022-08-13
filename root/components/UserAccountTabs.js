@@ -11,11 +11,11 @@ import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
 import DBDefs from '../static/scripts/common/DBDefs.mjs';
-import {isAccountAdmin} from '../static/scripts/common/utility/privileges';
-import buildTab from '../utility/buildTab';
+import {isAccountAdmin} from '../static/scripts/common/utility/privileges.js';
+import buildTab from '../utility/buildTab.js';
 
-import Tabs from './Tabs';
-import type {AccountLayoutUserT} from './UserAccountLayout';
+import Tabs from './Tabs.js';
+import type {AccountLayoutUserT} from './UserAccountLayout.js';
 
 function buildTabs(
   $c: CatalystContextT,

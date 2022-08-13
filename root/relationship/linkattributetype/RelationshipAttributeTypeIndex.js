@@ -9,20 +9,20 @@
 
 import * as React from 'react';
 
-import Layout from '../../layout';
-import expand2react from '../../static/scripts/common/i18n/expand2react';
+import {SanitizedCatalystContext} from '../../context.mjs';
+import Layout from '../../layout/index.js';
+import expand2react from '../../static/scripts/common/i18n/expand2react.js';
 import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 import bracketed, {bracketedText}
-  from '../../static/scripts/common/utility/bracketed';
+  from '../../static/scripts/common/utility/bracketed.js';
 import formatEntityTypeName
-  from '../../static/scripts/common/utility/formatEntityTypeName';
+  from '../../static/scripts/common/utility/formatEntityTypeName.js';
 import {isRelationshipEditor}
-  from '../../static/scripts/common/utility/privileges';
-import {upperFirst} from '../../static/scripts/common/utility/strings';
-import compareChildren from '../utility/compareChildren';
+  from '../../static/scripts/common/utility/privileges.js';
+import {upperFirst} from '../../static/scripts/common/utility/strings.js';
+import compareChildren from '../utility/compareChildren.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +attribute: LinkAttrTypeT,
   +relationships: Array<LinkTypeT>,
 };
@@ -65,10 +65,10 @@ const AttributeTree = ({
 };
 
 const RelationshipAttributeTypeIndex = ({
-  $c,
   attribute,
   relationships,
 }: Props): React.Element<typeof Layout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const isInstrumentRoot = attribute.id === 14;
   const isInstrumentChild = attribute.root_id === 14 && !isInstrumentRoot;
 

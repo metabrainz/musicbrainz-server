@@ -14,7 +14,7 @@ import {
   l as lActual,
   ln as lnActual,
   lp as lpActual,
-} from '../i18n';
+} from '../i18n.js';
 
 import expand, {
   accept,
@@ -36,7 +36,7 @@ import expand, {
   type Parser,
   type VarArgsObject,
   type VarArgsClass,
-} from './expand2';
+} from './expand2.js';
 
 type Input = Expand2ReactInput;
 type Output = Expand2ReactOutput;
@@ -193,7 +193,7 @@ function parseContinuousArray<T: MatchUpperBoundT, V>(
   );
 }
 
-const parseHtmlAttrValue = args => (
+const parseHtmlAttrValue = (args: VarArgsClass<Input>) => (
   parseContinuousString(htmlAttrValueParsers, args)
 );
 
@@ -242,7 +242,7 @@ type HtmlAttrs = {
   ...
 };
 
-function parseHtmlAttr(args) {
+function parseHtmlAttr(args: VarArgsClass<Input>) {
   if (!gotMatch(accept(htmlAttrStart))) {
     return NO_MATCH_VALUE;
   }
@@ -277,7 +277,7 @@ function parseHtmlAttr(args) {
 
 const htmlAttrParsers = [parseHtmlAttr];
 
-function parseHtmlTag(args) {
+function parseHtmlTag(args: VarArgsClass<Input>) {
   if (!gotMatch(accept(htmlTagStart))) {
     return NO_MATCH_VALUE;
   }
@@ -349,7 +349,9 @@ const rootParsers = [
   parseHtmlTag,
 ];
 
-const parseRoot = args => parseContinuousArray(rootParsers, args);
+const parseRoot = (
+  args: VarArgsClass<Input>,
+) => parseContinuousArray(rootParsers, args);
 
 /*
  * `expand2react` takes a translated string and

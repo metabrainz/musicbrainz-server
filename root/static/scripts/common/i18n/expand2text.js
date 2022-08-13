@@ -11,7 +11,7 @@ import {
   l as lActual,
   ln as lnActual,
   lp as lpActual,
-} from '../i18n';
+} from '../i18n.js';
 
 import expand, {
   createCondSubstParser,
@@ -22,7 +22,7 @@ import expand, {
   VarArgs,
   type VarArgsObject,
   type VarArgsClass,
-} from './expand2';
+} from './expand2.js';
 
 const textContent = /^[^{}]+/;
 const condSubstThenTextContent = /^[^{}|]+/;
@@ -67,7 +67,7 @@ const rootParsers = [
   parseCondSubst,
 ];
 
-function parseRoot(args) {
+function parseRoot(args: VarArgsClass<StrOrNum>) {
   return parseContinuousString<StrOrNum>(rootParsers, args);
 }
 

@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import TagLookupForm from '../taglookup/Form';
-import OtherLookupForm from '../otherlookup/OtherLookupForm';
-import type {OtherLookupFormT} from '../otherlookup/types';
+import Layout from '../layout/index.js';
+import TagLookupForm from '../taglookup/Form.js';
+import OtherLookupForm from '../otherlookup/OtherLookupForm.js';
+import type {OtherLookupFormT} from '../otherlookup/types.js';
 
-import SearchForm from './components/SearchForm';
+import SearchForm from './components/SearchForm.js';
 
 type Props = {
   +otherLookupForm: OtherLookupFormT,

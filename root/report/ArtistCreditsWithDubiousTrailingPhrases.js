@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import ArtistCreditList from './components/ArtistCreditList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportArtistCreditT, ReportDataT} from './types';
+import ArtistCreditList from './components/ArtistCreditList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportArtistCreditT, ReportDataT} from './types.js';
 
 const ArtistCreditsWithDubiousTrailingPhrases = ({
   canBeFiltered,

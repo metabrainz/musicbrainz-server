@@ -11,11 +11,11 @@ import * as React from 'react';
 
 import {
   relTypeColumn,
-} from '../utility/tableColumns';
+} from '../utility/tableColumns.js';
 
-import ReleaseGroupList from './components/ReleaseGroupList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportReleaseGroupRelationshipT} from './types';
+import ReleaseGroupList from './components/ReleaseGroupList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportReleaseGroupRelationshipT} from './types.js';
 
 const DeprecatedRelationshipReleaseGroups = ({
   canBeFiltered,

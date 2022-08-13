@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import PaginatedResults from '../../components/PaginatedResults';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import bracketed from '../../static/scripts/common/utility/bracketed';
-import type {ReportArtistUrlT} from '../types';
+import PaginatedResults from '../../components/PaginatedResults.js';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
+import bracketed from '../../static/scripts/common/utility/bracketed.js';
+import type {ReportArtistUrlT} from '../types.js';
 
 type Props = {
   +items: $ReadOnlyArray<ReportArtistUrlT>,
@@ -23,8 +23,8 @@ const ArtistUrlList = ({
   items,
   pager,
 }: Props): React.Element<typeof PaginatedResults> => {
-  let lastGID = 0;
-  let currentGID = 0;
+  let lastGID: string = '';
+  let currentGID: string = '';
 
   return (
     <PaginatedResults pager={pager}>

@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import formatEntityTypeName from '../utility/formatEntityTypeName';
+import formatEntityTypeName from '../utility/formatEntityTypeName.js';
 
 export default function localizeTypeNameForEntity(
   entity: CoreEntityT | CollectionT,

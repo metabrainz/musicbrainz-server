@@ -8,9 +8,9 @@
  */
 
 import DBDefs from '../static/scripts/common/DBDefs-client.mjs';
-import EntityLink from '../static/scripts/common/components/EntityLink';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
-const seeReviewsHref = (entity) => {
+const seeReviewsHref = (entity: ReviewableT) => {
   const reviewUrlEntity = entity.entityType === 'release_group'
     ? 'release-group'
     : entity.entityType;
@@ -21,7 +21,7 @@ const seeReviewsHref = (entity) => {
   );
 };
 
-const writeReviewLink = (entity) => (
+const writeReviewLink = (entity: ReviewableT) => (
   DBDefs.CRITIQUEBRAINZ_SERVER +
   `/review/write?${entity.entityType}=` +
   entity.gid

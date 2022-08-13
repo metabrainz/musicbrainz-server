@@ -4658,7 +4658,7 @@ msgstr "De Weense hoorn wordt (vooral in Weense orkesten) gebruikt voor klassiek
 #. name:Portuguese guitar
 #: DB:instrument/description:647
 msgid "Used in fado, it has twelve steel strings, strung in six courses."
-msgstr ""
+msgstr "De Portugese gitaar heeft twaalf stalen snaren in zes koren."
 
 #. name:danso
 #: DB:instrument/description:927
@@ -4691,17 +4691,17 @@ msgstr "De viola caipira is een Braziliaanse gitaar met tien stalen snaren in vi
 #. name:hichiriki
 #: DB:instrument/description:616
 msgid "Used in gagaku, it is a double reed flute"
-msgstr ""
+msgstr "De hichiriki is een dubbelrietfluit die wordt gebruikt in gagakumuziek."
 
 #. name:ryuteki
 #: DB:instrument/description:617
 msgid "Used in gagaku, it is a transverse flute"
-msgstr ""
+msgstr "De ryuteki is een dwarsfluit die wordt gebruikt in gagakumuziek."
 
 #. name:kagurabue
 #: DB:instrument/description:849
 msgid "Used in gagaku, this traditional bamboo flute has six holes."
-msgstr ""
+msgstr "De kagurabue is een traditionele Japanse bamboefluit met zes vingergaten die wordt gebruikt in gagakumuziek."
 
 #. name:kendang
 #: DB:instrument/description:989
@@ -4914,7 +4914,7 @@ msgid ""
 "With a pear shaped body made from a single piece of wood, this medieval "
 "bowed string instrument originated as a Byzantian lyra-like variant of the "
 "Arabic rebab and was a possible influence to the violin."
-msgstr ""
+msgstr "De peervormige klankkast van de rebec is uit één stuk hout vervaardigd. Dit middeleeuwse strijkinstrument begon als Byzantijnse variant op de Arabische rebab en heeft mogelijk de ontwikkeling van de viool beïnvloed."
 
 #. name:pang gu ly hu hmông
 #: DB:instrument/description:315

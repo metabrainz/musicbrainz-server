@@ -10,17 +10,17 @@
 import * as React from 'react';
 
 import ArtistCreditLink
-  from '../static/scripts/common/components/ArtistCreditLink';
+  from '../static/scripts/common/components/ArtistCreditLink.js';
 import EntityLink, {DeletedLink}
-  from '../static/scripts/common/components/EntityLink';
+  from '../static/scripts/common/components/EntityLink.js';
 import DataTrackIcon
-  from '../static/scripts/common/components/DataTrackIcon';
+  from '../static/scripts/common/components/DataTrackIcon.js';
 import PregapTrackIcon
-  from '../static/scripts/common/components/PregapTrackIcon';
-import RatingStars from '../static/scripts/common/components/RatingStars';
+  from '../static/scripts/common/components/PregapTrackIcon.js';
+import RatingStars from '../static/scripts/common/components/RatingStars.js';
 import formatTrackLength
-  from '../static/scripts/common/utility/formatTrackLength';
-import loopParity from '../utility/loopParity';
+  from '../static/scripts/common/utility/formatTrackLength.js';
+import loopParity from '../utility/loopParity.js';
 
 type Props = {
   +allowNew?: boolean,

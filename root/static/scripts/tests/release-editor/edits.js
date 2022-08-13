@@ -9,13 +9,13 @@
 import ko from 'knockout';
 import test from 'tape';
 
-import MB from '../../common/MB';
-import * as validation from '../../edit/validation';
-import '../../relationship-editor/common/viewModel';
-import fields from '../../release-editor/fields';
-import {linkTypeTree, linkAttributeTypes} from '../typeInfo';
+import MB from '../../common/MB.js';
+import * as validation from '../../edit/validation.js';
+import '../../relationship-editor/common/viewModel.js';
+import fields from '../../release-editor/fields.js';
+import {linkTypeTree, linkAttributeTypes} from '../typeInfo.js';
 
-import * as common from './common';
+import * as common from './common.js';
 
 MB.relationshipEditor.exportTypeInfo(
   linkTypeTree,

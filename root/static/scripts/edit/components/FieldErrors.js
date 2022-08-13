@@ -9,12 +9,16 @@
 
 import * as React from 'react';
 
-import expand2react from '../static/scripts/common/i18n/expand2react';
-import {type AnyFieldT} from '../utility/iterSubfields';
-import subfieldErrors from '../utility/subfieldErrors';
+import expand2react from '../../common/i18n/expand2react.js';
+import {type AnyFieldT} from '../utility/iterSubfields.js';
+import subfieldErrors from '../utility/subfieldErrors.js';
 
 // FIXME: Use expandable object instead of HTML string for safety (MBS-10632)
-const buildErrorListItem = (error, hasHtmlErrors = false, index) => {
+const buildErrorListItem = (
+  error: string,
+  hasHtmlErrors: boolean = false,
+  index: number,
+) => {
   if (hasHtmlErrors) {
     return (
       <li key={index}>{expand2react(error)}</li>

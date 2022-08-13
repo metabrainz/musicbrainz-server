@@ -8,31 +8,28 @@
  */
 
 import {
-  INSTRUMENT_ROOT_ID,
-  VOCAL_ROOT_ID,
-} from '../static/scripts/common/constants';
-import {compare} from '../static/scripts/common/i18n';
-import commaList from '../static/scripts/common/i18n/commaList';
-import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
-import {
-  compareStrings,
-} from '../static/scripts/common/utility/compare';
-import {compareDatePeriods}
-  from '../static/scripts/common/utility/compareDates';
-import {
-  arraysEqual,
-  mergeSortedArrayInto,
-  sortedIndexWith,
-} from '../static/scripts/common/utility/arrays';
-import {uniqueId} from '../static/scripts/common/utility/strings';
-import {
   cmpLinkAttrs,
   getExtraAttributes,
   interpolate,
   interpolateText,
-} from '../static/scripts/edit/utility/linkPhrase';
+} from '../../edit/utility/linkPhrase.js';
+import {
+  INSTRUMENT_ROOT_ID,
+  VOCAL_ROOT_ID,
+} from '../constants.js';
+import {compare} from '../i18n.js';
+import commaList from '../i18n/commaList.js';
+import linkedEntities from '../linkedEntities.mjs';
 
-import areDatePeriodsEqual from './areDatePeriodsEqual';
+import areDatePeriodsEqual from './areDatePeriodsEqual.js';
+import {
+  arraysEqual,
+  mergeSortedArrayInto,
+  sortedIndexWith,
+} from './arrays.js';
+import {compareStrings} from './compare.js';
+import {compareDatePeriods} from './compareDates.js';
+import {uniqueId} from './strings.js';
 
 const UNIT_SEP = '\x1F';
 
@@ -54,16 +51,18 @@ export type RelationshipTargetGroupT = {
   tracks: Set<TrackT> | null,
 };
 
+type PhraseGroupLinkTypeInfoT = {
+  editsPending: boolean,
+  phrase: Expand2ReactOutput,
+  rootTypeId: number | null,
+  textPhrase: string,
+  typeId: number,
+};
+
 export type RelationshipPhraseGroupT = {
   combinedPhrase: Expand2ReactOutput,
   key: string,
-  linkTypeInfo: Array<{
-    editsPending: boolean,
-    phrase: Expand2ReactOutput,
-    rootTypeId: number | null,
-    textPhrase: string,
-    typeId: number,
-  }>,
+  linkTypeInfo: Array<PhraseGroupLinkTypeInfoT>,
   targetGroups: Array<RelationshipTargetGroupT>,
 };
 
@@ -72,7 +71,10 @@ export type RelationshipTargetTypeGroupT = {
   +targetType: string,
 };
 
-function cmpRelationshipPhraseGroups(a, b) {
+function cmpRelationshipPhraseGroups(
+  a: RelationshipPhraseGroupT,
+  b: RelationshipPhraseGroupT,
+) {
   const linkTypeInfoA = a.linkTypeInfo[0];
   const linkTypeInfoB = b.linkTypeInfo[0];
   return (
@@ -81,7 +83,10 @@ function cmpRelationshipPhraseGroups(a, b) {
   );
 }
 
-const cmpPhraseGroupLinkTypeInfo = (a, b) => (
+const cmpPhraseGroupLinkTypeInfo = (
+  a: PhraseGroupLinkTypeInfoT,
+  b: PhraseGroupLinkTypeInfoT,
+) => (
   (a.typeId - b.typeId) ||
   compare(a.textPhrase, b.textPhrase)
 );
@@ -96,7 +101,10 @@ function cmpFirstDatePeriods(
   );
 }
 
-const cmpRelationshipTargetGroups = (a, b) => (
+const cmpRelationshipTargetGroups = (
+  a: RelationshipTargetGroupT,
+  b: RelationshipTargetGroupT,
+) => (
   ((a.linkOrder ?? 0) - (b.linkOrder ?? 0)) ||
   compareDatePeriods(a.earliestDatePeriod, b.earliestDatePeriod) ||
   compare(
@@ -106,13 +114,16 @@ const cmpRelationshipTargetGroups = (a, b) => (
   (a.target.id - b.target.id)
 );
 
-const areLinkAttrsEqual = (a, b) => (
+const areLinkAttrsEqual = (a: LinkAttrT, b: LinkAttrT) => (
   a.typeID === b.typeID &&
   a.text_value === b.text_value &&
   a.credited_as === b.credited_as
 );
 
-const areDatedExtraAttributesEqual = (a, b) => (
+const areDatedExtraAttributesEqual = (
+  a: DatedExtraAttributes,
+  b: DatedExtraAttributes,
+) => (
   arraysEqual(a.datePeriods, b.datePeriods, areDatePeriodsEqual) &&
   arraysEqual(a.attributes, b.attributes, areLinkAttrsEqual)
 );
@@ -168,32 +179,38 @@ const canMergeTargetGroupsByTracksOptions = {
   compareTracks: true,
 };
 
-const canMergeTargetGroupsByTracks =
-  (a, b) => compareRelationshipTargetGroups(
-    a, b, canMergeTargetGroupsByTracksOptions,
-  );
+const canMergeTargetGroupsByTracks = (
+  a: RelationshipTargetGroupT,
+  b: RelationshipTargetGroupT,
+) => compareRelationshipTargetGroups(
+  a, b, canMergeTargetGroupsByTracksOptions,
+);
 
 const canMergeTargetGroupsByAttributesOptions = {
   compareDatedExtraAttributesLists: true,
   compareTracks: false,
 };
 
-const canMergeTargetGroupsByAttributes =
-  (a, b) => compareRelationshipTargetGroups(
-    a, b, canMergeTargetGroupsByAttributesOptions,
-  );
+const canMergeTargetGroupsByAttributes = (
+  a: RelationshipTargetGroupT,
+  b: RelationshipTargetGroupT,
+) => compareRelationshipTargetGroups(
+  a, b, canMergeTargetGroupsByAttributesOptions,
+);
 
 const areTargetGroupsIdenticalOptions = {
   compareDatedExtraAttributesLists: true,
   compareTracks: true,
 };
 
-const areTargetGroupsIdentical =
-  (a, b) => compareRelationshipTargetGroups(
-    a, b, areTargetGroupsIdenticalOptions,
-  );
+const areTargetGroupsIdentical = (
+  a: RelationshipTargetGroupT,
+  b: RelationshipTargetGroupT,
+) => compareRelationshipTargetGroups(
+  a, b, areTargetGroupsIdenticalOptions,
+);
 
-function displayLinkPhrase(linkTypeInfo) {
+function displayLinkPhrase(linkTypeInfo: PhraseGroupLinkTypeInfoT) {
   const phrase = linkTypeInfo.phrase;
   if (linkTypeInfo.editsPending) {
     return <span className="mp">{phrase}</span>;
@@ -201,7 +218,7 @@ function displayLinkPhrase(linkTypeInfo) {
   return phrase;
 }
 
-function isNotInstrumentOrVocal(attribute) {
+function isNotInstrumentOrVocal(attribute: LinkAttrT) {
   const type = linkedEntities.link_attribute_type[attribute.typeID];
   return (
     type.root_id !== INSTRUMENT_ROOT_ID &&
@@ -210,8 +227,8 @@ function isNotInstrumentOrVocal(attribute) {
 }
 
 function areAttributeListsMergeable(
-  attributeList1,
-  attributeList2,
+  attributeList1: $ReadOnlyArray<LinkAttrT>,
+  attributeList2: $ReadOnlyArray<LinkAttrT>,
 ) {
   /*
    * Two attribute lists are mergeable for display if all their non-
@@ -261,7 +278,7 @@ function areAttributeListsMergeable(
  *   [{attributes: [bass, guitar], datePeriods: [1999-2005, 2009-]}]
  */
 
-function mergeDatedExtraAttributes(pairs) {
+function mergeDatedExtraAttributes(pairs: Array<DatedExtraAttributes>) {
   for (let i = 0; i < pairs.length; i++) {
     const a = pairs[i];
     for (let j = i + 1; j < pairs.length; j++) {
@@ -317,7 +334,9 @@ function mergeTargetGroupsByTracks(
   }
 }
 
-const getSortName = x => x.entityType === 'artist' ? x.sort_name : x.name;
+const getSortName = (x: CoreEntityT) => (
+  x.entityType === 'artist' ? x.sort_name : x.name
+);
 
 function targetIsOrderable(relationship: RelationshipT) {
   const linkType = linkedEntities.link_type[relationship.linkTypeID];

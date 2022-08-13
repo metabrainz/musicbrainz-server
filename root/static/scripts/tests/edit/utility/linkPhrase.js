@@ -14,7 +14,7 @@ import linkedEntities, {
 } from '../../../common/linkedEntities.mjs';
 import {
   getPhraseAndExtraAttributesText,
-} from '../../../edit/utility/linkPhrase';
+} from '../../../edit/utility/linkPhrase.js';
 
 test('required attributes are left with forGrouping', function (t) {
   t.plan(1);

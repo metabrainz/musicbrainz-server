@@ -12,13 +12,18 @@ import * as React from 'react';
 import linkedEntities
   from '../../../static/scripts/common/linkedEntities.mjs';
 import DescriptiveLink
-  from '../../../static/scripts/common/components/DescriptiveLink';
-import DiffSide from '../../../static/scripts/edit/components/edit/DiffSide';
-import Warning from '../../../static/scripts/common/components/Warning';
-import relationshipDateText from '../../../utility/relationshipDateText';
-import {INSERT, DELETE} from '../../../static/scripts/edit/utility/editDiff';
+  from '../../../static/scripts/common/components/DescriptiveLink.js';
+import DiffSide
+  from '../../../static/scripts/edit/components/edit/DiffSide.js';
+import Warning from '../../../static/scripts/common/components/Warning.js';
+import relationshipDateText
+  from '../../../static/scripts/common/utility/relationshipDateText.js';
+import {
+  INSERT,
+  DELETE,
+} from '../../../static/scripts/edit/utility/editDiff.js';
 import {interpolateText}
-  from '../../../static/scripts/edit/utility/linkPhrase';
+  from '../../../static/scripts/edit/utility/linkPhrase.js';
 
 type Props = {
   +edit: EditRelationshipHistoricEditT,

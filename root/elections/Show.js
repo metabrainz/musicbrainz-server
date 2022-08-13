@@ -9,18 +9,17 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
+import Layout from '../layout/index.js';
 
-import ElectionDetails from './ElectionDetails';
-import ElectionVotes from './ElectionVotes';
-import ElectionVoting from './ElectionVoting';
+import ElectionDetails from './ElectionDetails.js';
+import ElectionVotes from './ElectionVotes.js';
+import ElectionVoting from './ElectionVoting.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +election: AutoEditorElectionT,
 };
 
-const Show = ({$c, election}: Props): React.Element<typeof Layout> | null => {
+const Show = ({election}: Props): React.Element<typeof Layout> | null => {
   if (!election) {
     return null;
   }
@@ -31,11 +30,11 @@ const Show = ({$c, election}: Props): React.Element<typeof Layout> | null => {
       <p>
         <a href="/elections">{l('Back to elections')}</a>
       </p>
-      <ElectionDetails $c={$c} election={election} />
+      <ElectionDetails election={election} />
       <h2>{l('Voting')}</h2>
-      <ElectionVoting $c={$c} election={election} />
+      <ElectionVoting election={election} />
       <h2>{l('Votes cast')}</h2>
-      <ElectionVotes $c={$c} election={election} />
+      <ElectionVotes election={election} />
     </Layout>
   );
 };

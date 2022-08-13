@@ -11,22 +11,18 @@ import * as React from 'react';
 
 import UserAccountLayout, {
   sanitizedAccountLayoutUser,
-} from '../components/UserAccountLayout';
+} from '../components/UserAccountLayout.js';
+import {CatalystContext} from '../context.mjs';
 import * as manifest from '../static/manifest.mjs';
 import EditProfileForm
-  from '../static/scripts/account/components/EditProfileForm';
+  from '../static/scripts/account/components/EditProfileForm.js';
 import type {EditProfileFormPropsT}
-  from '../static/scripts/account/components/EditProfileForm';
+  from '../static/scripts/account/components/EditProfileForm.js';
 
-type Props = {
-  ...EditProfileFormPropsT,
-  +$c: CatalystContextT,
-};
-
-const EditProfile = ({
-  $c,
-  ...props
-}: Props): React.Element<typeof UserAccountLayout> | null => {
+const EditProfile = (
+  props: EditProfileFormPropsT,
+): React.Element<typeof UserAccountLayout> | null => {
+  const $c = React.useContext(CatalystContext);
   const user = $c.user;
   if (!user) {
     return null;

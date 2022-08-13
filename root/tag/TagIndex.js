@@ -9,14 +9,13 @@
 
 import * as React from 'react';
 
-import TagEntitiesList from '../components/TagEntitiesList';
+import TagEntitiesList from '../components/TagEntitiesList.js';
 import EntityLink
-  from '../static/scripts/common/components/EntityLink';
+  from '../static/scripts/common/components/EntityLink.js';
 
-import TagLayout from './TagLayout';
+import TagLayout from './TagLayout.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +tag: TagT,
   +taggedEntities: {
     +[entityType: string]: {

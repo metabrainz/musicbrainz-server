@@ -9,19 +9,17 @@
 
 import * as React from 'react';
 
-import ErrorLayout from './ErrorLayout';
-import ErrorEnvironment from './components/ErrorEnvironment';
-import ErrorInfo from './components/ErrorInfo';
+import ErrorLayout from './ErrorLayout.js';
+import ErrorEnvironment from './components/ErrorEnvironment.js';
+import ErrorInfo from './components/ErrorInfo.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +formattedErrors?: $ReadOnlyArray<string>,
   +hostname?: string,
   +useLanguages: boolean,
 };
 
 const TimeoutError = ({
-  $c,
   formattedErrors,
   hostname,
   useLanguages,
@@ -41,7 +39,6 @@ const TimeoutError = ({
       <h2>{l('Technical Information')}</h2>
       <ErrorInfo formattedErrors={formattedErrors} />
       <ErrorEnvironment
-        $c={$c}
         hostname={hostname}
         useLanguages={useLanguages}
       />

@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import areDatesEqual from './areDatesEqual';
+import areDatesEqual from './areDatesEqual.js';
 
 export default function areDatePeriodsEqual<
   T: $ReadOnly<{...DatePeriodRoleT, ...}>,

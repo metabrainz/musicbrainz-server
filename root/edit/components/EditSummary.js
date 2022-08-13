@@ -12,29 +12,29 @@ import * as React from 'react';
 import {
   EDIT_STATUS_OPEN,
   EDIT_STATUS_APPLIED,
-} from '../../constants';
+} from '../../constants.js';
+import {CatalystContext} from '../../context.mjs';
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import {
   editorMayAddNote,
   editorMayApprove,
   editorMayCancel,
   getEditStatusName,
-} from '../../utility/edit';
-import returnUri from '../../utility/returnUri';
+} from '../../utility/edit.js';
+import returnUri from '../../utility/returnUri.js';
 
-import Vote from './Vote';
+import Vote from './Vote.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +edit: GenericEditWithIdT,
   +index: number,
 };
 
 const EditSummary = ({
-  $c,
   edit,
   index,
 }: Props): React.Element<typeof React.Fragment> => {
+  const $c = React.useContext(CatalystContext);
   const user = $c.user;
   const mayAddNote = editorMayAddNote(edit, user);
   const mayApprove = editorMayApprove(edit, user);
@@ -49,7 +49,7 @@ const EditSummary = ({
           </div>
         ) : null}
 
-      <Vote $c={$c} edit={edit} index={index} summary />
+      <Vote edit={edit} index={index} summary />
 
       {($c.user && !DBDefs.DB_READ_ONLY &&
         (mayAddNote || mayApprove || mayCancel)

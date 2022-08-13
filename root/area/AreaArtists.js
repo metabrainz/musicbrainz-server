@@ -9,57 +9,59 @@
 
 import * as React from 'react';
 
-import ArtistList from '../components/list/ArtistList';
-import PaginatedResults from '../components/PaginatedResults';
-import {returnToCurrentPage} from '../utility/returnUri';
+import ArtistList from '../components/list/ArtistList.js';
+import PaginatedResults from '../components/PaginatedResults.js';
+import {SanitizedCatalystContext} from '../context.mjs';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
-import AreaLayout from './AreaLayout';
+import AreaLayout from './AreaLayout.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +area: AreaT,
   +artists: ?$ReadOnlyArray<ArtistT>,
   +pager: PagerT,
 };
 
 const AreaArtists = ({
-  $c,
   area,
   artists,
   pager,
-}: Props): React.Element<typeof AreaLayout> => (
-  <AreaLayout entity={area} page="artists" title={l('Artists')}>
-    <h2>{l('Artists')}</h2>
+}: Props): React.Element<typeof AreaLayout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
+  return (
+    <AreaLayout entity={area} page="artists" title={l('Artists')}>
+      <h2>{l('Artists')}</h2>
 
-    {artists?.length ? (
-      <form
-        action={'/artist/merge_queue?' + returnToCurrentPage($c)}
-        method="post"
-      >
-        <PaginatedResults pager={pager}>
-          <ArtistList
-            artists={artists}
-            checkboxes="add-to-merge"
-            showBeginEnd
-            showRatings
-          />
-        </PaginatedResults>
-        {$c.user ? (
-          <div className="row">
-            <span className="buttons">
-              <button type="submit">
-                {l('Add selected artists for merging')}
-              </button>
-            </span>
-          </div>
-        ) : null}
-      </form>
-    ) : (
-      <p>
-        {l('This area is not currently associated with any artists.')}
-      </p>
-    )}
-  </AreaLayout>
-);
+      {artists?.length ? (
+        <form
+          action={'/artist/merge_queue?' + returnToCurrentPage($c)}
+          method="post"
+        >
+          <PaginatedResults pager={pager}>
+            <ArtistList
+              artists={artists}
+              checkboxes="add-to-merge"
+              showBeginEnd
+              showRatings
+            />
+          </PaginatedResults>
+          {$c.user ? (
+            <div className="row">
+              <span className="buttons">
+                <button type="submit">
+                  {l('Add selected artists for merging')}
+                </button>
+              </span>
+            </div>
+          ) : null}
+        </form>
+      ) : (
+        <p>
+          {l('This area is not currently associated with any artists.')}
+        </p>
+      )}
+    </AreaLayout>
+  );
+};
 
 export default AreaArtists;

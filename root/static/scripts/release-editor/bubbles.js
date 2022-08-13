@@ -8,9 +8,9 @@
 
 import ko from 'knockout';
 
-import MB from '../common/MB';
+import MB from '../common/MB.js';
 
-import releaseEditor from './viewModel';
+import releaseEditor from './viewModel.js';
 
 function bubbleDoc(options) {
   var bubble = new MB.Control.BubbleDoc('Information');

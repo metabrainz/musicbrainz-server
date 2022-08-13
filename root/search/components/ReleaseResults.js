@@ -12,27 +12,33 @@ import * as React from 'react';
 import {CatalystContext} from '../../context.mjs';
 import * as manifest from '../../static/manifest.mjs';
 import ArtistCreditLink
-  from '../../static/scripts/common/components/ArtistCreditLink';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
+  from '../../static/scripts/common/components/ArtistCreditLink.js';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import ReleaseEvents
-  from '../../static/scripts/common/components/ReleaseEvents';
-import TaggerIcon from '../../static/scripts/common/components/TaggerIcon';
-import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
+  from '../../static/scripts/common/components/ReleaseEvents.js';
+import TaggerIcon from '../../static/scripts/common/components/TaggerIcon.js';
+import formatBarcode
+  from '../../static/scripts/common/utility/formatBarcode.js';
 import {isEditingEnabled}
-  from '../../static/scripts/common/utility/privileges';
-import loopParity from '../../utility/loopParity';
-import ReleaseCatnoList from '../../components/ReleaseCatnoList';
-import ReleaseLabelList from '../../components/ReleaseLabelList';
-import ReleaseLanguageScript from '../../components/ReleaseLanguageScript';
+  from '../../static/scripts/common/utility/privileges.js';
+import loopParity from '../../utility/loopParity.js';
+import ReleaseCatnoList from '../../components/ReleaseCatnoList.js';
+import ReleaseLabelList from '../../components/ReleaseLabelList.js';
+import ReleaseLanguageScript from '../../components/ReleaseLanguageScript.js';
 import type {
-  InlineResultsPropsWithContextT,
-  ResultsPropsWithContextT,
-} from '../types';
+  InlineResultsPropsT,
+  ResultsPropsT,
+  SearchResultT,
+} from '../types.js';
 
-import PaginatedSearchResults from './PaginatedSearchResults';
-import ResultsLayout from './ResultsLayout';
+import PaginatedSearchResults from './PaginatedSearchResults.js';
+import ResultsLayout from './ResultsLayout.js';
 
-function buildResult($c, result, index) {
+function buildResult(
+  $c: CatalystContextT,
+  result: SearchResultT<ReleaseT>,
+  index: number,
+) {
   const release = result.entity;
   const score = result.score;
   const typeName = release.releaseGroup?.typeName;
@@ -94,7 +100,7 @@ export const ReleaseResultsInline = ({
   pager,
   query,
   results,
-}: InlineResultsPropsWithContextT<ReleaseT>):
+}: InlineResultsPropsT<ReleaseT>):
 React.Element<typeof PaginatedSearchResults> => {
   const $c = React.useContext(CatalystContext);
 
@@ -127,29 +133,30 @@ React.Element<typeof PaginatedSearchResults> => {
 };
 
 const ReleaseResults = ({
-  $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<ReleaseT>):
-React.Element<typeof ResultsLayout> => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
-    <ReleaseResultsInline
-      pager={pager}
-      query={query}
-      results={results}
-    />
-    {isEditingEnabled($c.user) ? (
-      <p>
-        {exp.l('Alternatively, you may {uri|add a new release}.', {
-          uri: '/release/add',
-        })}
-      </p>
-    ) : null}
-    {manifest.js('common/components/TaggerIcon', {async: 'async'})}
-  </ResultsLayout>
-);
+}: ResultsPropsT<ReleaseT>): React.Element<typeof ResultsLayout> => {
+  const $c = React.useContext(CatalystContext);
+  return (
+    <ResultsLayout form={form} lastUpdated={lastUpdated}>
+      <ReleaseResultsInline
+        pager={pager}
+        query={query}
+        results={results}
+      />
+      {isEditingEnabled($c.user) ? (
+        <p>
+          {exp.l('Alternatively, you may {uri|add a new release}.', {
+            uri: '/release/add',
+          })}
+        </p>
+      ) : null}
+      {manifest.js('common/components/TaggerIcon', {async: 'async'})}
+    </ResultsLayout>
+  );
+};
 
 export default ReleaseResults;

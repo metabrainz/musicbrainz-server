@@ -10,14 +10,14 @@
 import $ from 'jquery';
 import * as React from 'react';
 
-import ArtistCreditLink from '../../common/components/ArtistCreditLink';
+import ArtistCreditLink from '../../common/components/ArtistCreditLink.js';
 import ArtistCreditUsageLink
-  from '../../common/components/ArtistCreditUsageLink';
-import {compare} from '../../common/i18n';
-import {reduceArtistCredit} from '../../common/immutable-entities';
-import bracketed, {bracketedText} from '../../common/utility/bracketed';
-import {sortedIndexWith} from '../../common/utility/arrays';
-import diffArtistCredits from '../../edit/utility/diffArtistCredits';
+  from '../../common/components/ArtistCreditUsageLink.js';
+import {compare} from '../../common/i18n.js';
+import {reduceArtistCredit} from '../../common/immutable-entities.js';
+import bracketed, {bracketedText} from '../../common/utility/bracketed.js';
+import {sortedIndexWith} from '../../common/utility/arrays.js';
+import diffArtistCredits from '../../edit/utility/diffArtistCredits.js';
 
 type ArtistCreditWithIdT = $ReadOnly<{
   ...ArtistCreditT,
@@ -63,7 +63,10 @@ type ActionT =
 
 const MARGIN_1EM = {margin: '1em'};
 
-function compareArtistCredits(ac1, ac2) {
+function compareArtistCredits(
+  ac1: ArtistCreditWithIdT,
+  ac2: ArtistCreditWithIdT,
+) {
   return compare(
     reduceArtistCredit(ac1),
     reduceArtistCredit(ac2),

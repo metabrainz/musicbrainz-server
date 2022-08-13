@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import Annotation from '../static/scripts/common/components/Annotation';
-import chooseLayoutComponent from '../utility/chooseLayoutComponent';
+import Annotation from '../static/scripts/common/components/Annotation.js';
+import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
 type AnnotationRevisionProps = {
   +annotation: AnnotationT | null,

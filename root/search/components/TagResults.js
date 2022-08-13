@@ -9,15 +9,18 @@
 
 import * as React from 'react';
 
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import TagLink from '../../static/scripts/common/components/TagLink';
-import loopParity from '../../utility/loopParity';
-import type {ResultsPropsT} from '../types';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
+import TagLink from '../../static/scripts/common/components/TagLink.js';
+import loopParity from '../../utility/loopParity.js';
+import type {ResultsPropsT, SearchResultT} from '../types.js';
 
-import PaginatedSearchResults from './PaginatedSearchResults';
-import ResultsLayout from './ResultsLayout';
+import PaginatedSearchResults from './PaginatedSearchResults.js';
+import ResultsLayout from './ResultsLayout.js';
 
-function buildResult(result, index) {
+function buildResult(
+  result: SearchResultT<TagT>,
+  index: number,
+) {
   const tag = result.entity;
   const score = result.score;
 
@@ -41,8 +44,7 @@ const TagResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<TagT>):
-React.Element<typeof ResultsLayout> => (
+}: ResultsPropsT<TagT>): React.Element<typeof ResultsLayout> => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}

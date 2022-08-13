@@ -11,13 +11,13 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
 import {isRelationshipEditor}
-  from '../../../static/scripts/common/utility/privileges';
-import ExternalLinks from '../ExternalLinks';
+  from '../../../static/scripts/common/utility/privileges.js';
+import ExternalLinks from '../ExternalLinks.js';
 
-import AnnotationLinks from './AnnotationLinks';
-import EditLinks from './EditLinks';
-import LastUpdated from './LastUpdated';
-import RemoveLink from './RemoveLink';
+import AnnotationLinks from './AnnotationLinks.js';
+import EditLinks from './EditLinks.js';
+import LastUpdated from './LastUpdated.js';
+import RemoveLink from './RemoveLink.js';
 
 type Props = {
   +genre: GenreT,

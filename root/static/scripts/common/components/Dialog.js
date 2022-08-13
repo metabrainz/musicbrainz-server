@@ -13,9 +13,9 @@ import {
   detectIfAnchorIsTabbable,
   findFirstTabbableElement,
   handleTabKeyPress,
-} from '../utility/focusManagement';
+} from '../utility/focusManagement.js';
 
-import ErrorBoundary from './ErrorBoundary';
+import ErrorBoundary from './ErrorBoundary.js';
 
 export type RequiredPropsT = {
   +children: React.Node,

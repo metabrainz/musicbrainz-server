@@ -9,22 +9,23 @@
 
 import * as React from 'react';
 
-import ReleaseLabelList from '../../components/ReleaseLabelList';
-import ReleaseCatnoList from '../../components/ReleaseCatnoList';
+import ReleaseLabelList from '../../components/ReleaseLabelList.js';
+import ReleaseCatnoList from '../../components/ReleaseCatnoList.js';
 import * as manifest from '../../static/manifest.mjs';
 import ArtistCreditLink
-  from '../../static/scripts/common/components/ArtistCreditLink';
+  from '../../static/scripts/common/components/ArtistCreditLink.js';
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
 import EntityLink
-  from '../../static/scripts/common/components/EntityLink';
+  from '../../static/scripts/common/components/EntityLink.js';
 import ReleaseEvents
-  from '../../static/scripts/common/components/ReleaseEvents';
-import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
+  from '../../static/scripts/common/components/ReleaseEvents.js';
+import formatBarcode
+  from '../../static/scripts/common/utility/formatBarcode.js';
 import formatTrackLength from
-  '../../static/scripts/common/utility/formatTrackLength';
-import loopParity from '../../utility/loopParity';
-import expand2react from '../../static/scripts/common/i18n/expand2react';
+  '../../static/scripts/common/utility/formatTrackLength.js';
+import loopParity from '../../utility/loopParity.js';
+import expand2react from '../../static/scripts/common/i18n/expand2react.js';
 
 type Props = {
   +edit: MergeReleasesEditT,
@@ -35,7 +36,7 @@ const strategyDescriptions = {
   merge: N_l('Merge mediums and recordings'),
 };
 
-function buildReleaseRow(release, index) {
+function buildReleaseRow(release: ReleaseT, index?: number) {
   return (
     <tr key={index == null ? null : 'release-' + index}>
       {release.gid ? (
@@ -82,7 +83,11 @@ function buildReleaseRow(release, index) {
   );
 }
 
-function buildChangesRow(change, index, editVersion) {
+function buildChangesRow(
+  change: MergeReleaseEditDisplayChangeT,
+  index: number,
+  editVersion: 1 | 2 | 3,
+) {
   return (
     <React.Fragment key={'changes-' + index}>
       {buildReleaseRow(change.release)}
@@ -147,7 +152,10 @@ function buildChangesRow(change, index, editVersion) {
   );
 }
 
-function buildRecordingMergeRow(merge, index) {
+function buildRecordingMergeRow(
+  merge: MergeReleaseEditDisplayRecordingMergeT,
+  index: number,
+) {
   const rowSpan = merge.sources.length;
 
   return (
@@ -194,7 +202,7 @@ function buildRecordingMergeRow(merge, index) {
   );
 }
 
-function getHtmlVars(vars) {
+function getHtmlVars(vars: {+[var: string]: string}) {
   if (!vars || Object.keys(vars).length === 0) {
     return vars;
   }

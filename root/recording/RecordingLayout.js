@@ -9,13 +9,14 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import RecordingSidebar from '../layout/components/sidebar/RecordingSidebar';
+import Layout from '../layout/index.js';
+import RecordingSidebar
+  from '../layout/components/sidebar/RecordingSidebar.js';
 import {
   reduceArtistCredit,
-} from '../static/scripts/common/immutable-entities';
+} from '../static/scripts/common/immutable-entities.js';
 
-import RecordingHeader from './RecordingHeader';
+import RecordingHeader from './RecordingHeader.js';
 
 type Props = {
   +children: React.Node,

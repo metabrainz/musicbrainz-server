@@ -9,9 +9,8 @@
 
 import * as React from 'react';
 
-import {isDateValid, isYearFourDigits}
-  from '../static/scripts/edit/utility/dates';
-import {applyPendingErrors} from '../utility/subfieldErrors';
+import {isDateValid, isYearFourDigits} from '../utility/dates.js';
+import {applyPendingErrors} from '../utility/subfieldErrors.js';
 
 /* eslint-disable flowtype/sort-keys */
 export type ActionT =

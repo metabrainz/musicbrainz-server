@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
-import entityHref from '../../../static/scripts/common/utility/entityHref';
+import entityHref from '../../../static/scripts/common/utility/entityHref.js';
 
 type Props = {
   +entity:

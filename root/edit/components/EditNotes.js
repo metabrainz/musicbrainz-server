@@ -13,9 +13,9 @@ import {CatalystContext} from '../../context.mjs';
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import {
   editorMayAddNote,
-} from '../../utility/edit';
+} from '../../utility/edit.js';
 
-import EditNote from './EditNote';
+import EditNote from './EditNote.js';
 
 type Props = {
   +edit: GenericEditWithIdT,

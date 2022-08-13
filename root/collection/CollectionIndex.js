@@ -9,29 +9,29 @@
 
 import * as React from 'react';
 
-import AreaList from '../components/list/AreaList';
-import ArtistList from '../components/list/ArtistList';
-import EventList from '../components/list/EventList';
-import FormRow from '../components/FormRow';
-import FormSubmit from '../components/FormSubmit';
-import InstrumentList from '../components/list/InstrumentList';
-import LabelList from '../components/list/LabelList';
-import PlaceList from '../components/list/PlaceList';
-import RecordingList from '../components/list/RecordingList';
-import ReleaseGroupList from '../components/list/ReleaseGroupList';
-import ReleaseList from '../components/list/ReleaseList';
-import SeriesList from '../components/list/SeriesList';
-import WorkList from '../components/list/WorkList';
-import PaginatedResults from '../components/PaginatedResults';
-import expand2react from '../static/scripts/common/i18n/expand2react';
+import AreaList from '../components/list/AreaList.js';
+import ArtistList from '../components/list/ArtistList.js';
+import EventList from '../components/list/EventList.js';
+import FormRow from '../static/scripts/edit/components/FormRow.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
+import InstrumentList from '../components/list/InstrumentList.js';
+import LabelList from '../components/list/LabelList.js';
+import PlaceList from '../components/list/PlaceList.js';
+import RecordingList from '../components/list/RecordingList.js';
+import ReleaseGroupList from '../components/list/ReleaseGroupList.js';
+import ReleaseList from '../components/list/ReleaseList.js';
+import SeriesList from '../components/list/SeriesList.js';
+import WorkList from '../components/list/WorkList.js';
+import PaginatedResults from '../components/PaginatedResults.js';
+import {SanitizedCatalystContext} from '../context.mjs';
+import expand2react from '../static/scripts/common/i18n/expand2react.js';
 import {formatPluralEntityTypeName}
-  from '../static/scripts/common/utility/formatEntityTypeName';
-import UserInlineList from '../user/components/UserInlineList';
+  from '../static/scripts/common/utility/formatEntityTypeName.js';
+import UserInlineList from '../user/components/UserInlineList.js';
 
-import CollectionLayout from './CollectionLayout';
+import CollectionLayout from './CollectionLayout.js';
 
 type PropsForEntity<T: CoreEntityT> = {
-  +$c: CatalystContextT,
   +collection: CollectionT,
   +collectionEntityType: T['entityType'],
   +entities: $ReadOnlyArray<T>,
@@ -159,8 +159,8 @@ const listPicker = (
 
 const CollectionIndex = (props: Props):
 React.Element<typeof CollectionLayout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const {
-    $c,
     collection,
     collectionEntityType,
     entities,
@@ -200,7 +200,7 @@ React.Element<typeof CollectionLayout> => {
       </div>
       <h2>{formatPluralEntityTypeName(collectionEntityType)}</h2>
       {entities.length > 0 ? (
-        <form action={$c.req.uri} method="post">
+        <form method="post">
           <PaginatedResults pager={pager}>
             {listPicker(props, canRemoveFromCollection)}
           </PaginatedResults>

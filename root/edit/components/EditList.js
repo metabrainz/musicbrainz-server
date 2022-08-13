@@ -9,15 +9,16 @@
 
 import * as React from 'react';
 
-import ListEdit from '../components/ListEdit';
-import ListHeader from '../components/ListHeader';
-import FormSubmit from '../../components/FormSubmit';
-import PaginatedResults from '../../components/PaginatedResults';
+import ListEdit from '../components/ListEdit.js';
+import ListHeader from '../components/ListHeader.js';
+import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
+import PaginatedResults from '../../components/PaginatedResults.js';
+import {SanitizedCatalystContext} from '../../context.mjs';
 import * as manifest from '../../static/manifest.mjs';
-import {isAutoEditor} from '../../static/scripts/common/utility/privileges';
+import {isAutoEditor}
+  from '../../static/scripts/common/utility/privileges.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +editCountLimit: number,
   +edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
   +entity?: CoreEntityT | CollectionT,
@@ -31,7 +32,6 @@ type Props = {
 };
 
 const EditList = ({
-  $c,
   editCountLimit,
   edits,
   entity,
@@ -43,6 +43,8 @@ const EditList = ({
   username,
   voter,
 }: Props): React.Element<typeof React.Fragment> => {
+  const $c = React.useContext(SanitizedCatalystContext);
+
   /*
    * guessSearch is used when we don't necessarily know the total
    * number of entries on the first page (and usually a few after), due
@@ -100,7 +102,6 @@ const EditList = ({
             <form action="/edit/enter_votes" method="post">
               {edits.map((edit, index) => (
                 <ListEdit
-                  $c={$c}
                   edit={edit}
                   index={index}
                   key={index}

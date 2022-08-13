@@ -9,18 +9,18 @@
 import * as ReactDOMServer from 'react-dom/server';
 import test from 'tape';
 
-import formatDate from '../common/utility/formatDate';
-import * as age from '../../../utility/age';
-import formatUserDate from '../../../utility/formatUserDate';
+import formatDate from '../common/utility/formatDate.js';
+import * as age from '../../../utility/age.js';
+import formatUserDate from '../../../utility/formatUserDate.js';
 import compareDates, {
   compareDatePeriods,
-} from '../common/utility/compareDates';
-import formatDatePeriod from '../common/utility/formatDatePeriod';
-import formatSetlist from '../common/utility/formatSetlist';
-import formatTrackLength from '../common/utility/formatTrackLength';
-import parseDate from '../common/utility/parseDate';
-import * as dates from '../edit/utility/dates';
-import * as fullwidthLatin from '../edit/utility/fullwidthLatin';
+} from '../common/utility/compareDates.js';
+import formatDatePeriod from '../common/utility/formatDatePeriod.js';
+import formatSetlist from '../common/utility/formatSetlist.js';
+import formatTrackLength from '../common/utility/formatTrackLength.js';
+import parseDate from '../common/utility/parseDate.js';
+import * as dates from '../edit/utility/dates.js';
+import * as fullwidthLatin from '../edit/utility/fullwidthLatin.js';
 
 test('age', function (t) {
   t.plan(11);

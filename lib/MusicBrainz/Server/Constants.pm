@@ -451,9 +451,13 @@ Readonly our %HISTORICAL_RELEASE_GROUP_TYPES => (
     11 => 'Other',
 );
 
-Readonly our %ENTITIES => %{
-    decode_json(read_file(File::Spec->catfile(dirname(__FILE__), '../../../entities.json')))
-};
+sub _decode_entities_json {
+    my $entities_json = decode_json(read_file(File::Spec->catfile(dirname(__FILE__), '../../../entities.json')));
+    delete $entities_json->{''};
+    return $entities_json;
+}
+
+Readonly our %ENTITIES => %{ _decode_entities_json() };
 
 sub extract_path {
     my ($entity, $path) = @_;

@@ -9,7 +9,7 @@
 
 import $ from 'jquery';
 
-import {arraysEqual} from '../common/utility/arrays';
+import {arraysEqual} from '../common/utility/arrays.js';
 
 type EntityTypesMap = {
   +[entityType: CoreEntityTypeT]: string | $ReadOnlyArray<string>,
@@ -335,7 +335,7 @@ export const ERROR_TARGETS = {
   URL: 'url',
 };
 
-function reencodeMediawikiLocalPart(url) {
+function reencodeMediawikiLocalPart(url: string) {
   const m = url.match(/^(https?:\/\/[^\/]+\/wiki\/)([^?#]+)(.*)$/);
   if (m) {
     url = m[1] + encodeURIComponent(decodeURIComponent(m[2])).replace(/%20/g, '_').replace(/%24/g, '$')
@@ -348,7 +348,7 @@ function reencodeMediawikiLocalPart(url) {
   return url;
 }
 
-function findAmazonTld(url) {
+function findAmazonTld(url: string) {
   let tld = '';
   let m;
 
@@ -5196,7 +5196,7 @@ const CLEANUPS: CleanupEntries = {
   },
 };
 
-function testAll(tests, text) {
+function testAll(tests: $ReadOnlyArray<RegExp>, text: string) {
   for (let i = 0; i < tests.length; i++) {
     if (tests[i].test(text)) {
       return true;
@@ -5312,7 +5312,7 @@ entitySpecificRules.recording = function (url) {
  *   ...
  * }
  */
-function multiple(...types): EntityTypesMap {
+function multiple(...types: $ReadOnlyArray<EntityTypeMap>): EntityTypesMap {
   const result = {};
   types.forEach(function (type: EntityTypeMap) {
     for (const [entityType, id] of Object.entries(type)) {
@@ -5510,7 +5510,7 @@ export function registerEvents($url: typeof $) {
   }
 
   $url.on('input', urlChanged)
-    .on('blur', function () {
+    .on('blur', function (this: HTMLInputElement) {
       this.value = this.value.trim();
     })
     .parents('form')

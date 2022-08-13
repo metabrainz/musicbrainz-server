@@ -9,26 +9,26 @@
 
 import * as React from 'react';
 
-import StatusPage from '../components/StatusPage';
+import StatusPage from '../components/StatusPage.js';
+import {SanitizedCatalystContext} from '../context.mjs';
 
-type Props = {
-  +$c: CatalystContextT,
+const PreferencesSaved = (): React.Element<typeof StatusPage> => {
+  const $c = React.useContext(SanitizedCatalystContext);
+  return (
+    <StatusPage title={l('Preferences')}>
+      <p>
+        {exp.l(
+          `Your preferences have been saved. Click {link|here} to
+           continue to your user page.`,
+          {
+            link: $c.user
+              ? '/user/' + encodeURIComponent($c.user.name)
+              : '/register',
+          },
+        )}
+      </p>
+    </StatusPage>
+  );
 };
-
-const PreferencesSaved = ({$c}: Props): React.Element<typeof StatusPage> => (
-  <StatusPage title={l('Preferences')}>
-    <p>
-      {exp.l(
-        `Your preferences have been saved. Click {link|here} to
-         continue to your user page.`,
-        {
-          link: $c.user
-            ? '/user/' + encodeURIComponent($c.user.name)
-            : '/register',
-        },
-      )}
-    </p>
-  </StatusPage>
-);
 
 export default PreferencesSaved;

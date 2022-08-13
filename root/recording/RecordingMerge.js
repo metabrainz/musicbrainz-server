@@ -10,22 +10,21 @@
 import * as React from 'react';
 
 import sortByEntityName
-  from '../static/scripts/common/utility/sortByEntityName';
-import EnterEdit from '../components/EnterEdit';
-import EnterEditNote from '../components/EnterEditNote';
-import FieldErrors from '../components/FieldErrors';
-import RecordingList from '../components/list/RecordingList';
-import Layout from '../layout';
+  from '../static/scripts/common/utility/sortByEntityName.js';
+import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
+import RecordingList from '../components/list/RecordingList.js';
+import Layout from '../layout/index.js';
+import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
+import EnterEditNote
+  from '../static/scripts/edit/components/EnterEditNote.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: MergeFormT,
   +isrcsDiffer?: boolean,
   +toMerge: $ReadOnlyArray<RecordingWithArtistCreditT>,
 };
 
 const RecordingMerge = ({
-  $c,
   form,
   isrcsDiffer = false,
   toMerge,
@@ -49,7 +48,7 @@ const RecordingMerge = ({
           </p>
         </div>
       ) : null}
-      <form action={$c.req.uri} method="post">
+      <form method="post">
         <RecordingList
           mergeForm={form}
           recordings={sortByEntityName(toMerge)}

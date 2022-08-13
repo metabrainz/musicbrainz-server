@@ -9,18 +9,19 @@
 
 import * as React from 'react';
 
-import FormSubmit from '../../components/FormSubmit';
+import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 import {
   EDIT_VOTE_NONE,
   EDIT_VOTE_ABSTAIN,
   EDIT_VOTE_NO,
   EDIT_VOTE_YES,
-} from '../../constants';
+} from '../../constants.js';
+import {CatalystContext} from '../../context.mjs';
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import {
   editorMayVote,
   getLatestVoteForEditor,
-} from '../../utility/edit';
+} from '../../utility/edit.js';
 
 type VoteCheckboxProps = {
   +edit: GenericEditWithIdT,
@@ -58,18 +59,17 @@ const VoteCheckbox = ({
 };
 
 type VoteProps = {
-  +$c: CatalystContextT,
   +edit: GenericEditWithIdT,
   +index?: number,
   +summary?: boolean,
 };
 
 const Vote = ({
-  $c,
   edit,
   index = 0,
   summary = false,
 }: VoteProps): React.Element<'div'> | null => {
+  const $c = React.useContext(CatalystContext);
   const user = $c.user;
   if (DBDefs.DB_READ_ONLY || !user || !editorMayVote(edit, user)) {
     return null;

@@ -9,11 +9,12 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import AreaSidebar from '../layout/components/sidebar/AreaSidebar';
-import localizeAreaName from '../static/scripts/common/i18n/localizeAreaName';
+import Layout from '../layout/index.js';
+import AreaSidebar from '../layout/components/sidebar/AreaSidebar.js';
+import localizeAreaName
+  from '../static/scripts/common/i18n/localizeAreaName.js';
 
-import AreaHeader from './AreaHeader';
+import AreaHeader from './AreaHeader.js';
 
 type Props = {
   +children: React.Node,

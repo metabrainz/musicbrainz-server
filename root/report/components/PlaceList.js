@@ -10,12 +10,12 @@
 import * as React from 'react';
 import type {ColumnOptionsNoValue} from 'react-table';
 
-import PaginatedResults from '../../components/PaginatedResults';
-import Table from '../../components/Table';
+import PaginatedResults from '../../components/PaginatedResults.js';
+import Table from '../../components/Table.js';
 import {
   defineEntityColumn,
-} from '../../utility/tableColumns';
-import type {ReportPlaceRelationshipT} from '../types';
+} from '../../utility/tableColumns.js';
+import type {ReportPlaceRelationshipT} from '../types.js';
 
 type Props<D: {+place: ?PlaceT, ...}> = {
   +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,

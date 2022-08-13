@@ -8,12 +8,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as flags from '../../flags';
-import * as modes from '../../modes';
-import * as utils from '../../utils';
+import * as flags from '../../flags.js';
+import * as modes from '../../modes.js';
+import * as utils from '../../utils.js';
 
-import gc from './Main';
-import input from './Input';
+import gc from './Main.js';
+import input from './Input.js';
 
 // Holds the output variables
 class GuessCaseOutput {

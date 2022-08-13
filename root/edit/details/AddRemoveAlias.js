@@ -9,17 +9,17 @@
 
 import * as React from 'react';
 
-import bracketed from '../../static/scripts/common/utility/bracketed';
+import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import formatEntityTypeName
-  from '../../static/scripts/common/utility/formatEntityTypeName';
-import formatDate from '../../static/scripts/common/utility/formatDate';
-import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty';
+  from '../../static/scripts/common/utility/formatEntityTypeName.js';
+import formatDate from '../../static/scripts/common/utility/formatDate.js';
+import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty.js';
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import locales from '../../static/scripts/common/constants/locales';
-import isolateText from '../../static/scripts/common/utility/isolateText';
-import yesNo from '../../static/scripts/common/utility/yesNo';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
+import locales from '../../static/scripts/common/constants/locales.json';
+import isolateText from '../../static/scripts/common/utility/isolateText.js';
+import yesNo from '../../static/scripts/common/utility/yesNo.js';
 
 type Props = {
   edit: AddRemoveAliasEditT,

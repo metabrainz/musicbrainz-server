@@ -12,7 +12,7 @@ import * as React from 'react';
 import type {
   ActionT,
   CreditsModeT,
-} from '../types';
+} from '../types.js';
 
 type PropsT = {
   +creditsMode: CreditsModeT,

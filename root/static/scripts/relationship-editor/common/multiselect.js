@@ -10,8 +10,8 @@ import $ from 'jquery';
 import ko from 'knockout';
 
 import linkedEntities from '../../common/linkedEntities.mjs';
-import clean from '../../common/utility/clean';
-import deferFocus from '../../edit/utility/deferFocus';
+import clean from '../../common/utility/clean.js';
+import deferFocus from '../../edit/utility/deferFocus.js';
 
 class Multiselect {
   constructor(params, $element) {

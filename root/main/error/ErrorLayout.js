@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import Layout from '../../layout';
+import Layout from '../../layout/index.js';
 
 type Props = {
   +children: React.Node,

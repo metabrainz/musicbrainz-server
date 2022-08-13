@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
 import {DeletedLink}
-  from '../../static/scripts/common/components/EntityLink';
+  from '../../static/scripts/common/components/EntityLink.js';
 
 type HistoricReleaseListContentProps = {
   +releases: $ReadOnlyArray<ReleaseT | null>,
