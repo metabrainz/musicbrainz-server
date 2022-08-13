@@ -14,7 +14,6 @@ import {
   CatalystContext,
   SanitizedCatalystContext,
 } from '../context.mjs';
-import getRequestCookie from '../utility/getRequestCookie.mjs';
 import sanitizedContext from '../utility/sanitizedContext.mjs';
 
 import components from './components.mjs';
@@ -41,10 +40,9 @@ export async function getResponse(requestBody, context) {
 
   /*
    * Set the current translations to be used for this request based on the
-   * given 'lang' cookie.
+   * given 'current_language' in the stash.
    */
-  const bcp47Locale = getRequestCookie(context.req, 'lang') || 'en';
-  gettext.setLocale(bcp47Locale.replace('-', '_'));
+  gettext.setLocale(context.stash.current_language || 'en');
 
   const componentPath = String(requestBody.component).replace(jsExt, '');
   const componentModule = components[componentPath];
