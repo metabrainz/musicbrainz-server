@@ -10,6 +10,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../context.mjs';
 import {l_statistics as l, lp_statistics as lp}
   from '../static/scripts/common/i18n/statistics.js';
 import mapRange from '../static/scripts/common/utility/mapRange.js';
@@ -18,7 +19,6 @@ import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
 import StatisticsLayout from './StatisticsLayout.js';
 
 type MainStatsT = {
-  +$c: CatalystContextT,
   +areaTypes: $ReadOnlyArray<AreaTypeT>,
   +dateCollected: string,
   +eventTypes: $ReadOnlyArray<EventTypeT>,
@@ -36,7 +36,6 @@ type MainStatsT = {
 };
 
 const Index = ({
-  $c,
   areaTypes,
   dateCollected,
   eventTypes,
@@ -52,6 +51,8 @@ const Index = ({
   workAttributeTypes,
   workTypes,
 }: MainStatsT): React.Element<typeof StatisticsLayout> => {
+  const $c = React.useContext(CatalystContext);
+
   const nonGroupCount = stats['count.artist.type.null'] +
     stats['count.artist.type.person'] +
     stats['count.artist.type.character'] +

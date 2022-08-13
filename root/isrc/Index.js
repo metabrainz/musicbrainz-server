@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {SanitizedCatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
@@ -20,16 +21,15 @@ import loopParity from '../utility/loopParity.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 type PropsT = {
-  +$c: CatalystContextT,
   +isrcs: $ReadOnlyArray<IsrcT>,
   +recordings: $ReadOnlyArray<RecordingWithArtistCreditT>,
 };
 
 const Index = ({
-  $c,
   isrcs,
   recordings,
 }: PropsT): React.Element<typeof Layout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const userExists = !!$c.user;
   const isrc = isrcs[0];
   return (

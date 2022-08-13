@@ -18,13 +18,11 @@ import LabelList from '../components/list/LabelList.js';
 import Layout from '../layout/index.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: MergeFormT,
   +toMerge: $ReadOnlyArray<LabelT>,
 };
 
 const LabelMerge = ({
-  $c,
   form,
   toMerge,
 }: Props): React.Element<typeof Layout> => (
@@ -35,7 +33,7 @@ const LabelMerge = ({
         {l(`You are about to merge all these labels into a single one.
             Please select the label all others should be merged into:`)}
       </p>
-      <form action={$c.req.uri} method="post">
+      <form method="post">
         <LabelList
           labels={sortByEntityName(toMerge)}
           mergeForm={form}

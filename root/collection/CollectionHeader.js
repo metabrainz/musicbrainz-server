@@ -12,21 +12,21 @@ import * as React from 'react';
 import EntityTabLink from '../components/EntityTabLink.js';
 import SubHeader from '../components/SubHeader.js';
 import Tabs from '../components/Tabs.js';
+import {SanitizedCatalystContext} from '../context.mjs';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import bracketed from '../static/scripts/common/utility/bracketed.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +collection: CollectionT,
   +page: string,
 };
 
 const CollectionHeader = ({
-  $c,
   collection,
   page,
 }: Props): React.Element<typeof React.Fragment> => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const owner = collection.editor;
   const viewingOwnCollection = Boolean(
     $c.user && owner && owner.id === $c.user.id,

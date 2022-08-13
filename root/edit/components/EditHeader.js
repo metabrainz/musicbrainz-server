@@ -13,6 +13,7 @@ import {EDIT_VOTE_APPROVE} from '../../constants.js';
 import RequestLogin from '../../components/RequestLogin.js';
 import SubHeader from '../../components/SubHeader.js';
 import VotingPeriod from '../../components/VotingPeriod.js';
+import {CatalystContext} from '../../context.mjs';
 import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 import EditLink from '../../static/scripts/common/components/EditLink.js';
 import EditorLink from '../../static/scripts/common/components/EditorLink.js';
@@ -32,7 +33,6 @@ import {returnToCurrentPage} from '../../utility/returnUri.js';
 import VoteTally from './VoteTally.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +edit: GenericEditWithIdT,
   +isSummary?: boolean,
   +voter?: UnsanitizedEditorT,
@@ -62,11 +62,11 @@ const EditorTypeInfo = ({editor}: {editor: EditorT}) => (
 );
 
 const EditHeader = ({
-  $c,
   edit,
   isSummary = false,
   voter,
 }: Props): React.Element<'div'> => {
+  const $c = React.useContext(CatalystContext);
   const user = $c.user;
   const mayApprove = editorMayApprove(edit, user);
   const mayCancel = editorMayCancel(edit, user);
@@ -111,7 +111,7 @@ const EditHeader = ({
       <EditorTypeInfo editor={editEditor} />
       {' '}
       {bracketed(
-        <RequestLogin $c={$c} text={l('log in to see who')} />,
+        <RequestLogin text={l('log in to see who')} />,
       )}
     </>
   );
@@ -169,7 +169,6 @@ const EditHeader = ({
                       <strong>{addColonText(l('Voting'))}</strong>
                       {' '}
                       <VotingPeriod
-                        $c={$c}
                         closingDate={edit.expires_time}
                       />
                     </>

@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {SanitizedCatalystContext} from '../context.mjs';
 import mapRange from '../static/scripts/common/utility/mapRange.js';
 import uriWith from '../utility/uriWith.js';
 
@@ -16,7 +17,6 @@ type PageQueryParam = 'apps_page' | 'page' | 'tokens_page';
 type PageQueryObject = {[pageVar: PageQueryParam]: number, ...};
 
 type Props = {
-  +$c: CatalystContextT,
   +guessSearch?: boolean,
   +hash?: string,
   +pager: PagerT,
@@ -40,14 +40,14 @@ function uriPage(
 }
 
 const Paginator = ({
-  $c,
   guessSearch = false,
   hash,
   pager,
   pageVar = 'page',
 }: Props): React.Element<'nav'> | null => {
-  const lastPage = pager.last_page;
+  const $c = React.useContext(SanitizedCatalystContext);
 
+  const lastPage = pager.last_page;
   if (lastPage <= 1) {
     return null;
   }

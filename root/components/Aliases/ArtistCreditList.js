@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {SanitizedCatalystContext} from '../../context.mjs';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink.js';
 import ArtistCreditUsageLink
@@ -18,16 +19,15 @@ import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import loopParity from '../../utility/loopParity.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +artistCredits: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
   +entity: CoreEntityT,
 };
 
 const ArtistCreditList = ({
-  $c,
   artistCredits,
   entity,
 }: Props): React.Element<typeof React.Fragment> => {
+  const $c = React.useContext(SanitizedCatalystContext);
   return (
     <>
       <h2>{l('Artist credits')}</h2>

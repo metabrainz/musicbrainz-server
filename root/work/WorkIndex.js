@@ -21,7 +21,6 @@ import * as manifest from '../static/manifest.mjs';
 import WorkLayout from './WorkLayout.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +eligibleForCleanup: boolean,
   +numberOfRevisions: number,
   +pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
@@ -31,7 +30,6 @@ type Props = {
 };
 
 const WorkIndex = ({
-  $c,
   eligibleForCleanup,
   numberOfRevisions,
   pagedLinkTypeGroup,
@@ -55,7 +53,6 @@ const WorkIndex = ({
     />
     <Relationships source={work} />
     <RelationshipsTable
-      $c={$c}
       entity={work}
       heading={l('Recordings')}
       pagedLinkTypeGroup={pagedLinkTypeGroup}

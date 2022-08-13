@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {SanitizedCatalystContext} from '../../context.mjs';
 import Layout from '../../layout/index.js';
 import expand2react from '../../static/scripts/common/i18n/expand2react.js';
 import bracketed, {bracketedText}
@@ -20,26 +21,23 @@ import compareChildren from '../utility/compareChildren.js';
 import RelationshipsHeader from '../RelationshipsHeader.js';
 
 type AttributeTreeProps = {
-  +$c: CatalystContextT,
   +attribute: LinkAttrTypeT,
 };
 
 type AttributeDetailsProps = {
-  +$c: CatalystContextT,
   +attribute: LinkAttrTypeT,
   +topLevel?: boolean,
 };
 
 type AttributesListProps = {
-  +$c: CatalystContextT,
   +root: LinkAttrTypeT,
 };
 
 const AttributeDetails = ({
-  $c,
   attribute,
   topLevel = false,
 }: AttributeDetailsProps) => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const isInstrumentRoot = attribute.id === 14;
   const childrenAttrs = attribute.children || [];
   const translatedDescription = attribute.description
@@ -99,7 +97,7 @@ const AttributeDetails = ({
   );
 };
 
-const AttributeTree = ({$c, attribute}: AttributeTreeProps) => {
+const AttributeTree = ({attribute}: AttributeTreeProps) => {
   const childrenAttrs = attribute.children || [];
   return (
     <li style={{marginTop: '0.25em'}}>
@@ -107,7 +105,7 @@ const AttributeTree = ({$c, attribute}: AttributeTreeProps) => {
 
       {' '}
 
-      <AttributeDetails $c={$c} attribute={attribute} />
+      <AttributeDetails attribute={attribute} />
 
       {childrenAttrs.length ? (
         <ul>
@@ -116,7 +114,6 @@ const AttributeTree = ({$c, attribute}: AttributeTreeProps) => {
             .sort(compareChildren)
             .map(attribute => (
               <AttributeTree
-                $c={$c}
                 attribute={attribute}
                 key={attribute.id}
               />
@@ -127,7 +124,7 @@ const AttributeTree = ({$c, attribute}: AttributeTreeProps) => {
   );
 };
 
-const AttributesList = ({$c, root}: AttributesListProps) => {
+const AttributesList = ({root}: AttributesListProps) => {
   const childrenAttrs = root.children || [];
   return (
     childrenAttrs.length ? (
@@ -142,7 +139,7 @@ const AttributesList = ({$c, root}: AttributesListProps) => {
                 {upperFirst(l_relationships(attribute.name))}
               </h2>
 
-              <AttributeDetails $c={$c} attribute={attribute} topLevel />
+              <AttributeDetails attribute={attribute} topLevel />
 
               {childrenAttrs.length ? (
                 <>
@@ -155,7 +152,6 @@ const AttributesList = ({$c, root}: AttributesListProps) => {
                       .sort(compareChildren)
                       .map(attribute => (
                         <AttributeTree
-                          $c={$c}
                           attribute={attribute}
                           key={attribute.id}
                         />
@@ -173,22 +169,24 @@ const AttributesList = ({$c, root}: AttributesListProps) => {
 };
 
 const RelationshipAttributeTypesList = ({
-  $c,
   root,
-}: AttributesListProps): React.Element<typeof Layout> => (
-  <Layout fullWidth noIcons title={l('Relationship Attributes')}>
-    <div id="content">
-      <RelationshipsHeader page="attributes" />
-      {isRelationshipEditor($c.user) ? (
-        <p>
-          <a href="/relationship-attributes/create">
-            {l('Create a new relationship attribute')}
-          </a>
-        </p>
-      ) : null}
-      <AttributesList $c={$c} root={root} />
-    </div>
-  </Layout>
-);
+}: AttributesListProps): React.Element<typeof Layout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
+  return (
+    <Layout fullWidth noIcons title={l('Relationship Attributes')}>
+      <div id="content">
+        <RelationshipsHeader page="attributes" />
+        {isRelationshipEditor($c.user) ? (
+          <p>
+            <a href="/relationship-attributes/create">
+              {l('Create a new relationship attribute')}
+            </a>
+          </p>
+        ) : null}
+        <AttributesList root={root} />
+      </div>
+    </Layout>
+  );
+};
 
 export default RelationshipAttributeTypesList;

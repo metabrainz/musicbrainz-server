@@ -16,7 +16,6 @@ import FormSubmit from '../../components/FormSubmit.js';
 import Layout from '../../layout/index.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: FormT<{
     +csrf_token: FieldT<string>,
     +page: FieldT<string>,
@@ -25,13 +24,12 @@ type Props = {
 };
 
 const CreateWikiDoc = ({
-  $c,
   form,
 }: Props): React.Element<typeof Layout> => (
   <Layout fullWidth title={l('Add Page')}>
     <div id="content">
       <h1>{l('Add Page')}</h1>
-      <form action={$c.req.uri} method="post">
+      <form method="post">
         <FormCsrfToken form={form} />
         <FormRowTextLong
           field={form.field.page}

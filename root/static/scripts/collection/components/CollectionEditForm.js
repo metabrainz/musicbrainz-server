@@ -71,7 +71,7 @@ const CollectionEditForm = ({collectionTypes, form}: Props) => {
   return (
     <SanitizedCatalystContext.Consumer>
       {$c => (
-        <form action={$c.req.uri} method="post">
+        <form method="post">
           <fieldset>
             <legend>{l('Collection details')}</legend>
             <FormRowTextLong

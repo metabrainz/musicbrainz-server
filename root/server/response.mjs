@@ -72,8 +72,6 @@ export async function getResponse(requestBody, context) {
     if (props == null) {
       props = {};
     }
-    props.$c = context;
-
     response = ReactDOMServer.renderToString(
       React.createElement(
         CatalystContext.Provider,

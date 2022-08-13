@@ -16,6 +16,7 @@ import {
   EDIT_VOTE_NO,
   EDIT_VOTE_YES,
 } from '../../constants.js';
+import {CatalystContext} from '../../context.mjs';
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import {
   editorMayVote,
@@ -58,18 +59,17 @@ const VoteCheckbox = ({
 };
 
 type VoteProps = {
-  +$c: CatalystContextT,
   +edit: GenericEditWithIdT,
   +index?: number,
   +summary?: boolean,
 };
 
 const Vote = ({
-  $c,
   edit,
   index = 0,
   summary = false,
 }: VoteProps): React.Element<'div'> | null => {
+  const $c = React.useContext(CatalystContext);
   const user = $c.user;
   if (DBDefs.DB_READ_ONLY || !user || !editorMayVote(edit, user)) {
     return null;

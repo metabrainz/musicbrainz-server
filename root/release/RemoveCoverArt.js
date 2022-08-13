@@ -19,14 +19,12 @@ import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import ReleaseLayout from './ReleaseLayout.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +artwork: ArtworkT,
   +form: ConfirmFormT,
   +release: ReleaseT,
 };
 
 const RemoveCoverArt = ({
-  $c,
   artwork,
   form,
   release,
@@ -49,7 +47,7 @@ const RemoveCoverArt = ({
       <p className="artwork">
         <Artwork artwork={artwork} />
       </p>
-      <form action={$c.req.uri} method="post">
+      <form method="post">
         <EnterEditNote field={form.field.edit_note} />
         <EnterEdit form={form} />
       </form>

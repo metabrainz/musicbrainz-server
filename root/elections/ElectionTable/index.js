@@ -12,12 +12,10 @@ import * as React from 'react';
 import Rows from './ElectionTableRows.js';
 
 type PropsT = {
-  +$c: CatalystContextT,
   +elections: $ReadOnlyArray<AutoEditorElectionT>,
 };
 
 const ElectionTable = ({
-  $c,
   elections,
 }: PropsT): React.Element<'table'> => (
   <table className="tbl" style={{width: 'auto'}}>
@@ -36,7 +34,7 @@ const ElectionTable = ({
       </tr>
     </thead>
     <tbody>
-      <Rows $c={$c} elections={elections} />
+      <Rows elections={elections} />
     </tbody>
   </table>
 );

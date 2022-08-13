@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import ENTITIES from '../../entities.mjs';
+import {SanitizedCatalystContext} from '../context.mjs';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import DiffSide from '../static/scripts/edit/components/edit/DiffSide.js';
 import {INSERT, DELETE} from '../static/scripts/edit/utility/editDiff.js';
@@ -17,7 +18,6 @@ import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 import formatUserDate from '../utility/formatUserDate.js';
 
 type AnnotationComparisonProps = {
-  +$c: CatalystContextT,
   +entity: AnnotatedEntityT,
   +newAnnotation: AnnotationT,
   +numberOfRevisions: number,
@@ -25,12 +25,12 @@ type AnnotationComparisonProps = {
 };
 
 const AnnotationComparison = ({
-  $c,
   entity,
   newAnnotation,
   numberOfRevisions,
   oldAnnotation,
 }: AnnotationComparisonProps): React.MixedElement => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const entityType = entity.entityType;
   const entityUrlFragment = ENTITIES[entityType].url;
   const LayoutComponent = chooseLayoutComponent(entityType);

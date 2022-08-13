@@ -17,13 +17,11 @@ import ErrorEnvironment from './components/ErrorEnvironment.js';
 import ErrorInfo from './components/ErrorInfo.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +message?: string,
   +useLanguages: boolean,
 };
 
 const Error400 = ({
-  $c,
   message,
   useLanguages,
 }: Props): React.Element<typeof ErrorLayout> => (
@@ -55,7 +53,7 @@ const Error400 = ({
 
     <h2>{l('Technical Information')}</h2>
 
-    <ErrorEnvironment $c={$c} useLanguages={useLanguages} />
+    <ErrorEnvironment useLanguages={useLanguages} />
   </ErrorLayout>
 );
 

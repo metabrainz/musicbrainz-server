@@ -17,7 +17,6 @@ import GenreLayout from './GenreLayout.js';
 import type {GenreFormT} from './types.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +attrInfo: LinkAttrTypeOptionsT,
   +entity: GenreT,
   +form: GenreFormT,
@@ -26,7 +25,6 @@ type Props = {
 };
 
 const EditGenre = ({
-  $c,
   attrInfo,
   entity,
   form,
@@ -40,7 +38,6 @@ const EditGenre = ({
     title={l('Edit genre')}
   >
     <GenreEditForm
-      $c={$c}
       attrInfo={attrInfo}
       form={form}
       sourceEntity={sourceEntity}

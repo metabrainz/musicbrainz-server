@@ -9,11 +9,12 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context.mjs';
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import {isEditingEnabled}
   from '../../static/scripts/common/utility/privileges.js';
 import loopParity from '../../utility/loopParity.js';
-import type {ResultsPropsWithContextT, SearchResultT} from '../types.js';
+import type {ResultsPropsT, SearchResultT} from '../types.js';
 
 import PaginatedSearchResults from './PaginatedSearchResults.js';
 import ResultsLayout from './ResultsLayout.js';
@@ -40,35 +41,37 @@ function buildResult(
 }
 
 const SeriesResults = ({
-  $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<SeriesT>):
-React.Element<typeof ResultsLayout> => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
-    <PaginatedSearchResults
-      buildResult={buildResult}
-      columns={
-        <>
-          <th>{l('Name')}</th>
-          <th>{l('Type')}</th>
-        </>
-      }
-      pager={pager}
-      query={query}
-      results={results}
-    />
-    {isEditingEnabled($c.user) ? (
-      <p>
-        {exp.l('Alternatively, you may {uri|add a new series}.', {
-          uri: '/series/create?edit-series.name=' + encodeURIComponent(query),
-        })}
-      </p>
-    ) : null}
-  </ResultsLayout>
-);
+}: ResultsPropsT<SeriesT>): React.Element<typeof ResultsLayout> => {
+  const $c = React.useContext(CatalystContext);
+  return (
+    <ResultsLayout form={form} lastUpdated={lastUpdated}>
+      <PaginatedSearchResults
+        buildResult={buildResult}
+        columns={
+          <>
+            <th>{l('Name')}</th>
+            <th>{l('Type')}</th>
+          </>
+        }
+        pager={pager}
+        query={query}
+        results={results}
+      />
+      {isEditingEnabled($c.user) ? (
+        <p>
+          {exp.l('Alternatively, you may {uri|add a new series}.', {
+            uri: '/series/create?edit-series.name=' +
+              encodeURIComponent(query),
+          })}
+        </p>
+      ) : null}
+    </ResultsLayout>
+  );
+};
 
 export default SeriesResults;

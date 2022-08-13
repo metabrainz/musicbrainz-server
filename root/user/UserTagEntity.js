@@ -19,7 +19,6 @@ import {EntityListContent} from '../tag/EntityList.js';
 import {getTagListHeading, getTagListUrl} from './UserTagList.js';
 
 type UserTagEntityProps = {
-  +$c: CatalystContextT,
   +entityTags: $ReadOnlyArray<{
     +entity: CoreEntityT,
     +entity_id: number,
@@ -44,7 +43,6 @@ function getAllEntitiesTagUrl(
 }
 
 const UserTagEntity = ({
-  $c,
   entityTags,
   entityType,
   pager,
@@ -77,7 +75,6 @@ const UserTagEntity = ({
       </ol>
     </nav>
     <EntityListContent
-      $c={$c}
       entityTags={entityTags}
       entityType={entityType}
       pager={pager}

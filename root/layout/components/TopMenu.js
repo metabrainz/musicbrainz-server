@@ -29,46 +29,49 @@ function userLink(userName: string, path: string) {
 
 type UserProp = {+user: UnsanitizedEditorT};
 
-const AccountMenu = ({
-  $c,
-  user,
-}: {
-  +$c: CatalystContextT,
+type AccountMenuPropsT = {
   +user: UnsanitizedEditorT,
-}) => (
-  <li className="account" tabIndex="-1">
-    <span className="menu-header">
-      {user.name}
-      {'\xA0\u25BE'}
-    </span>
-    <ul>
-      <li>
-        <a href={userLink(user.name, '')}>{l('Profile')}</a>
-      </li>
-      <li>
-        <a href="/account/applications">{l('Applications')}</a>
-      </li>
-      <li>
-        <a href={userLink(user.name, '/subscriptions/artist')}>
-          {l('Subscriptions')}
-        </a>
-      </li>
-      <li>
-        <a
-          href={
-            '/logout' + (
-              $c.stash.current_action_requires_auth === true
-                ? ''
-                : ('?' + returnToCurrentPage($c))
-            )
-          }
-        >
-          {l('Log Out')}
-        </a>
-      </li>
-    </ul>
-  </li>
-);
+};
+
+const AccountMenu = ({
+  user,
+}: AccountMenuPropsT) => {
+  const $c = React.useContext(CatalystContext);
+  return (
+    <li className="account" tabIndex="-1">
+      <span className="menu-header">
+        {user.name}
+        {'\xA0\u25BE'}
+      </span>
+      <ul>
+        <li>
+          <a href={userLink(user.name, '')}>{l('Profile')}</a>
+        </li>
+        <li>
+          <a href="/account/applications">{l('Applications')}</a>
+        </li>
+        <li>
+          <a href={userLink(user.name, '/subscriptions/artist')}>
+            {l('Subscriptions')}
+          </a>
+        </li>
+        <li>
+          <a
+            href={
+              '/logout' + (
+                $c.stash.current_action_requires_auth === true
+                  ? ''
+                  : ('?' + returnToCurrentPage($c))
+              )
+            }
+          >
+            {l('Log Out')}
+          </a>
+        </li>
+      </ul>
+    </li>
+  );
+};
 
 const DataMenu = ({user}: UserProp) => {
   const userName = user.name;
@@ -187,14 +190,14 @@ const UserMenu = () => {
     <ul className="menu" tabIndex="-1">
       {$c.user ? (
         <>
-          <AccountMenu $c={$c} user={$c.user} />
+          <AccountMenu user={$c.user} />
           <DataMenu user={$c.user} />
           {isAdmin($c.user) ? <AdminMenu user={$c.user} /> : null}
         </>
       ) : (
         <>
           <li>
-            <RequestLogin $c={$c} text={l('Log In')} />
+            <RequestLogin text={l('Log In')} />
           </li>
           <li>
             <a href={returnUri($c, '/register')}>

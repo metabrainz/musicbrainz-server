@@ -14,14 +14,12 @@ import AliasesComponent from '../components/Aliases/index.js';
 import ArtistCreditList from '../components/Aliases/ArtistCreditList.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +aliases: $ReadOnlyArray<AliasT>,
   +artistCredits?: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
   +entity: CoreEntityT,
 };
 
 const Aliases = ({
-  $c,
   aliases,
   artistCredits,
   entity,
@@ -35,10 +33,9 @@ const Aliases = ({
       page="aliases"
       title={l('Aliases')}
     >
-      <AliasesComponent $c={$c} aliases={aliases} entity={entity} />
+      <AliasesComponent aliases={aliases} entity={entity} />
       {artistCredits?.length ? (
         <ArtistCreditList
-          $c={$c}
           artistCredits={artistCredits}
           entity={entity}
         />

@@ -16,7 +16,6 @@ import EnterEditNote from '../../components/EnterEditNote.js';
 import type {AliasDeleteFormT} from './types.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +alias: AliasT,
   +entity: CoreEntityT,
   +form: AliasDeleteFormT,
@@ -24,7 +23,6 @@ type Props = {
 };
 
 const DeleteAlias = ({
-  $c,
   alias,
   entity,
   form,
@@ -54,7 +52,7 @@ const DeleteAlias = ({
         )}
       </p>
 
-      <form action={$c.req.uri} method="post">
+      <form method="post">
         <EnterEditNote field={form.field.edit_note} />
         <EnterEdit form={form} />
       </form>

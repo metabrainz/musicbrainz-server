@@ -19,7 +19,6 @@ import localizeTypeNameForEntity
   from '../static/scripts/common/i18n/localizeTypeNameForEntity.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +editCountLimit: number,
   +edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
   +entity: CoreEntityT | CollectionT,
@@ -30,7 +29,6 @@ type Props = {
 };
 
 const Edits = ({
-  $c,
   editCountLimit,
   edits,
   entity,
@@ -88,7 +86,6 @@ const Edits = ({
           <SubHeader subHeading={pageSubHeading} />
         </div>
         <EditList
-          $c={$c}
           editCountLimit={editCountLimit}
           edits={edits}
           entity={entity}

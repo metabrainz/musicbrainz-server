@@ -22,7 +22,6 @@ import {
 } from '../static/scripts/common/components/RatingStars.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +entity: RatableT | ReviewableT,
   +mostPopularReview: CritiqueBrainzReviewT,
   +mostRecentReview: CritiqueBrainzReviewT,

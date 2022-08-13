@@ -25,6 +25,7 @@ import RecordingList from '../components/list/RecordingList.js';
 import ReleaseGroupList from '../components/list/ReleaseGroupList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import RelatedEntitiesDisplay from '../components/RelatedEntitiesDisplay.js';
+import {SanitizedCatalystContext} from '../context.mjs';
 import * as manifest from '../static/manifest.mjs';
 import entityHref from '../static/scripts/common/utility/entityHref.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
@@ -42,7 +43,6 @@ type FooterSwitchProps = {
 };
 
 type Props = {
-  +$c: CatalystContextT,
   +ajaxFilterFormUrl: string,
   +artist: ArtistT,
   +eligibleForCleanup: boolean,
@@ -192,7 +192,6 @@ const FooterSwitch = ({
 };
 
 const ArtistIndex = ({
-  $c,
   ajaxFilterFormUrl,
   artist,
   eligibleForCleanup,
@@ -214,6 +213,7 @@ const ArtistIndex = ({
   showingVariousArtistsOnly,
   wikipediaExtract,
 }: Props): React.Element<typeof ArtistLayout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const existingRecordings = recordings?.length ? recordings : null;
   const existingReleaseGroups = releaseGroups?.length ? releaseGroups : null;
 

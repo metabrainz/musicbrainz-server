@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {SanitizedCatalystContext} from '../../context.mjs';
 import Layout from '../../layout/index.js';
 import * as manifest from '../../static/manifest.mjs';
 import Cardinality
@@ -24,19 +25,17 @@ import compareChildren from '../utility/compareChildren.js';
 import RelationshipsHeader from '../RelationshipsHeader.js';
 
 type RelationshipTypeDetailsProps = {
-  +$c: CatalystContextT,
   +relType: LinkTypeT,
 };
 
 type RelationshipTypePairTreeProps = {
-  +$c: CatalystContextT,
   +root: LinkTypeT,
 };
 
 const RelationshipTypeDetails = ({
-  $c,
   relType,
 }: RelationshipTypeDetailsProps) => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const childrenTypes = relType.children || [];
   return (
     <li style={{paddingTop: '0.5em'}}>
@@ -145,7 +144,6 @@ const RelationshipTypeDetails = ({
             .sort(compareChildren)
             .map(childrenType => (
               <RelationshipTypeDetails
-                $c={$c}
                 key={childrenType.gid}
                 relType={childrenType}
               />
@@ -157,9 +155,9 @@ const RelationshipTypeDetails = ({
 };
 
 const RelationshipTypePairTree = ({
-  $c,
   root,
 }: RelationshipTypePairTreeProps): React.Element<typeof Layout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const childrenTypes = root.children || [];
   const type0 = root.type0;
   const type1 = root.type1;
@@ -222,7 +220,6 @@ const RelationshipTypePairTree = ({
                 .sort(compareChildren)
                 .map(childrenType => (
                   <RelationshipTypeDetails
-                    $c={$c}
                     key={childrenType.gid}
                     relType={childrenType}
                   />

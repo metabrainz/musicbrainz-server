@@ -29,7 +29,6 @@ type ReportReasonT =
   | 'voting';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: FormT<{
     +csrf_token: FieldT<string>,
     +message: FieldT<string>,
@@ -73,7 +72,6 @@ const reportReasonOptions = {
 };
 
 const ReportUser = ({
-  $c,
   form,
   user,
 }: Props): React.Element<typeof UserAccountLayout> => (
@@ -107,7 +105,7 @@ const ReportUser = ({
         <p>
           {exp.l(
             `Your report will be sent to our {uri|account administrators},
-             who will decide what action to take.`,
+              who will decide what action to take.`,
             {uri: {href: '/privileged', target: '_blank'}},
           )}
         </p>
@@ -131,7 +129,7 @@ const ReportUser = ({
           )}
         </p>
 
-        <form action={$c.req.uri} className="report-form" method="post">
+        <form className="report-form" method="post">
           <FormCsrfToken form={form} />
 
           <FormRowSelect
@@ -155,7 +153,8 @@ const ReportUser = ({
               <p>
                 {exp.l(
                   `If you don’t want our admins to contact you further
-                   regarding this report, you can uncheck the checkbox above.
+                   regarding this report, you can uncheck the checkbox
+                   above.
                    <br />
                    We recommend leaving it checked, so that you can be
                    contacted if the report is resolved or the admins

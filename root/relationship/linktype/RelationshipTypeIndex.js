@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {SanitizedCatalystContext} from '../../context.mjs';
 import Layout from '../../layout/index.js';
 import Cardinality
   from '../../static/scripts/common/components/Cardinality.js';
@@ -29,14 +30,13 @@ import {isRelationshipEditor}
 import {upperFirst} from '../../static/scripts/common/utility/strings.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +relType: LinkTypeT,
 };
 
 const RelationshipTypeIndex = ({
-  $c,
   relType,
 }: Props): React.Element<typeof Layout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const childrenTypes = relType.children || [];
   const typeName = upperFirst(l_relationships(relType.name));
   const title = l('Relationship Type') + ' / ' + typeName;

@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import PaginatedResults from '../components/PaginatedResults.js';
+import {CatalystContext} from '../context.mjs';
 import EntityLink
   from '../static/scripts/common/components/EntityLink.js';
 import expand2text from '../static/scripts/common/i18n/expand2text.js';
@@ -35,7 +36,6 @@ const noEntitiesText = {
 };
 
 type Props = {
-  +$c: CatalystContextT,
   +artistCredit: $ReadOnly<{...ArtistCreditT, +id: number}>,
   +entities: $ReadOnlyArray<CoreEntityT | TrackT>,
   +entityType: string,
@@ -44,37 +44,39 @@ type Props = {
 };
 
 const EntityList = ({
-  $c,
   artistCredit,
   entities,
   entityType,
   page,
   pager,
-}: Props): React.Element<typeof ArtistCreditLayout> => (
-  <ArtistCreditLayout artistCredit={artistCredit} page={page}>
-    <h2>
-      {expand2text(
-        headingsText[entityType](pager.total_entries),
-        {num: formatCount($c, pager.total_entries)},
-      )}
-    </h2>
+}: Props): React.Element<typeof ArtistCreditLayout> => {
+  const $c = React.useContext(CatalystContext);
+  return (
+    <ArtistCreditLayout artistCredit={artistCredit} page={page}>
+      <h2>
+        {expand2text(
+          headingsText[entityType](pager.total_entries),
+          {num: formatCount($c, pager.total_entries)},
+        )}
+      </h2>
 
-    {entities.length ? (
-      <PaginatedResults pager={pager}>
-        <ul>
-          {entities.map(entity => (
-            <li key={entity.id}>
-              {entity.entityType === 'track' ? (
-                <a href={`/track/${entity.gid}`}>
-                  {entity.name}
-                </a>
-              ) : <EntityLink entity={entity} />}
-            </li>
-          ))}
-        </ul>
-      </PaginatedResults>
-    ) : <p>{noEntitiesText[entityType]()}</p>}
-  </ArtistCreditLayout>
-);
+      {entities.length ? (
+        <PaginatedResults pager={pager}>
+          <ul>
+            {entities.map(entity => (
+              <li key={entity.id}>
+                {entity.entityType === 'track' ? (
+                  <a href={`/track/${entity.gid}`}>
+                    {entity.name}
+                  </a>
+                ) : <EntityLink entity={entity} />}
+              </li>
+            ))}
+          </ul>
+        </PaginatedResults>
+      ) : <p>{noEntitiesText[entityType]()}</p>}
+    </ArtistCreditLayout>
+  );
+};
 
 export default EntityList;

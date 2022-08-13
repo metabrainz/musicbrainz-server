@@ -7,18 +7,20 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as React from 'react';
+
+import {SanitizedCatalystContext} from '../context.mjs';
 import {formatUserDateObject} from '../utility/formatUserDate.js';
 import parseIsoDate from '../utility/parseIsoDate.js';
 
 type PropsT = {
-  +$c: CatalystContextT,
   +closingDate: string,
 };
 
 const VotingPeriod = ({
-  $c,
   closingDate,
 }: PropsT): Expand2ReactOutput | null => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const date = parseIsoDate(closingDate);
   if (!date) {
     return null;

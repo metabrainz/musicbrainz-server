@@ -11,7 +11,6 @@ import * as React from 'react';
 import {captureException} from '@sentry/browser';
 
 import Paginator from '../../../../components/Paginator.js';
-import {CatalystContext} from '../../../../context.mjs';
 import mediumHasMultipleArtists
   from '../../../../utility/mediumHasMultipleArtists.js';
 import DataTrackIcon
@@ -72,8 +71,6 @@ const MediumTable = (React.memo<PropsT>(({
   release,
   tracks,
 }: PropsT) => {
-  const $c = React.useContext(CatalystContext);
-
   const [loadingMessage, setLoadingMessage] =
     React.useState('');
 
@@ -234,7 +231,6 @@ const MediumTable = (React.memo<PropsT>(({
                     )}
                   </p>
                   <Paginator
-                    $c={$c}
                     hash={'medium' + medium.position}
                     pager={tracksPager}
                   />

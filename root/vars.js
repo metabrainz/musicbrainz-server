@@ -28,7 +28,7 @@ declare var hasOwnProp: (
 ) => boolean;
 declare var hydrate: (
   <
-    Config: {+$c?: CatalystContextT, ...},
+    Config: {...},
     SanitizedConfig = Config,
   >(
     containerSelector: string,

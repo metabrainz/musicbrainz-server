@@ -12,6 +12,7 @@ import * as React from 'react';
 import PaginatedResults from '../components/PaginatedResults.js';
 import ReleaseLabelList from '../components/ReleaseLabelList.js';
 import ReleaseCatnoList from '../components/ReleaseCatnoList.js';
+import {CatalystContext} from '../context.mjs';
 import * as manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
 import ArtistCreditLink
@@ -31,7 +32,6 @@ import TaggerIcon from '../static/scripts/common/components/TaggerIcon.js';
 import RecordingLayout from './RecordingLayout.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +numberOfRevisions: number,
   +pager: PagerT,
   +recording: RecordingWithArtistCreditT,
@@ -39,126 +39,128 @@ type Props = {
 };
 
 const RecordingAppearancesTable = ({
-  $c,
   recording,
   tracks,
 }: {
-  $c: CatalystContextT,
   recording: RecordingWithArtistCreditT,
   tracks: Props['tracks'],
-}) => (
-  <table className="tbl">
-    <thead>
-      <tr>
-        <th className="t pos">{l('#')}</th>
-        <th>{l('Title')}</th>
-        <th className="treleases">{l('Length')}</th>
-        <th>{l('Track Artist')}</th>
-        <th>{l('Release Title')}</th>
-        <th>{l('Release Artist')}</th>
-        <th>{l('Release Group Type')}</th>
-        <th>{l('Country') + lp('/', 'and') + l('Date')}</th>
-        <th>{l('Label')}</th>
-        <th>{l('Catalog#')}</th>
-        {$c?.session?.tport == null
-          ? null
-          : <th>{l('Tagger')}</th>}
-      </tr>
-    </thead>
-    <tbody>
-      {tracks.map((tracksWithReleaseStatus) => {
-        const sampleRelease =
-          linkedEntities.release[
-            tracksWithReleaseStatus[0].medium.release_id
-          ];
-        const status = sampleRelease.status;
-        return (
-          <React.Fragment key={status ? status.name : 'no-status'}>
-            <tr className="subh">
-              <th colSpan={$c?.session?.tport == null ? 10 : 11}>
-                {status
-                  ? lp_attributes(status.name, 'release_status')
-                  : lp('(unknown)', 'release status')
-                }
-              </th>
-            </tr>
-            {tracksWithReleaseStatus.map((track, index) => {
-              const release =
-                linkedEntities.release[track.medium.release_id];
-              return (
-                <tr className={loopParity(index)} key={track.gid}>
-                  <td>
-                    <a
-                      href={`/track/${track.gid}`}
-                      title={texp.l(
-                        'Medium {medium_num}, track {track_num}',
-                        {
-                          medium_num: track.medium.position,
-                          track_num: track.position,
-                        },
-                      )}
-                    >
-                      {`${track.medium.position}.${track.position}`}
-                    </a>
-                  </td>
-                  <td>{isolateText(track.name)}</td>
-                  <td>{formatTrackLength(track.length)}</td>
-                  {/* The class being added is for usage with userscripts */}
-                  <td className={
-                    track.artistCredit.id === recording.artistCredit.id
-                      ? null
-                      : 'artist-credit-variation'}
-                  >
-                    <ArtistCreditLink artistCredit={track.artistCredit} />
-                  </td>
-                  <td>
-                    <EntityLink entity={release} />
-                  </td>
-                  <td>
-                    <ArtistCreditLink artistCredit={release.artistCredit} />
-                  </td>
-                  <td>
-                    {release.releaseGroup &&
-                      nonEmpty(release.releaseGroup.typeName)
-                      ? lp_attributes(
-                        release.releaseGroup.typeName,
-                        'release_group_primary_type',
-                      )
-                      : null}
-                  </td>
-                  <td>
-                    <ReleaseEvents events={release.events} />
-                    {manifest.js(
-                      'common/components/ReleaseEvents',
-                      {async: 'async'},
-                    )}
-                  </td>
-                  <td>
-                    <ReleaseLabelList labels={release.labels} />
-                  </td>
-                  <td>
-                    <ReleaseCatnoList labels={release.labels} />
-                  </td>
-                  {$c.session?.tport == null ? null : (
+}) => {
+  const $c = React.useContext(CatalystContext);
+  return (
+    <table className="tbl">
+      <thead>
+        <tr>
+          <th className="t pos">{l('#')}</th>
+          <th>{l('Title')}</th>
+          <th className="treleases">{l('Length')}</th>
+          <th>{l('Track Artist')}</th>
+          <th>{l('Release Title')}</th>
+          <th>{l('Release Artist')}</th>
+          <th>{l('Release Group Type')}</th>
+          <th>{l('Country') + lp('/', 'and') + l('Date')}</th>
+          <th>{l('Label')}</th>
+          <th>{l('Catalog#')}</th>
+          {$c?.session?.tport == null
+            ? null
+            : <th>{l('Tagger')}</th>}
+        </tr>
+      </thead>
+      <tbody>
+        {tracks.map((tracksWithReleaseStatus) => {
+          const sampleRelease =
+            linkedEntities.release[
+              tracksWithReleaseStatus[0].medium.release_id
+            ];
+          const status = sampleRelease.status;
+          return (
+            <React.Fragment key={status ? status.name : 'no-status'}>
+              <tr className="subh">
+                <th colSpan={$c.session?.tport == null ? 10 : 11}>
+                  {status
+                    ? lp_attributes(status.name, 'release_status')
+                    : lp('(unknown)', 'release status')
+                  }
+                </th>
+              </tr>
+              {tracksWithReleaseStatus.map((track, index) => {
+                const release =
+                  linkedEntities.release[track.medium.release_id];
+                return (
+                  <tr className={loopParity(index)} key={track.gid}>
                     <td>
-                      <TaggerIcon
-                        entityType="release"
-                        gid={release.gid}
-                      />
+                      <a
+                        href={`/track/${track.gid}`}
+                        title={texp.l(
+                          'Medium {medium_num}, track {track_num}',
+                          {
+                            medium_num: track.medium.position,
+                            track_num: track.position,
+                          },
+                        )}
+                      >
+                        {`${track.medium.position}.${track.position}`}
+                      </a>
                     </td>
-                  )}
-                </tr>
-              );
-            })}
-          </React.Fragment>
-        );
-      })}
-    </tbody>
-  </table>
-);
+                    <td>{isolateText(track.name)}</td>
+                    <td>{formatTrackLength(track.length)}</td>
+                    {/*
+                      * The class being added is for usage with userscripts.
+                      */}
+                    <td className={
+                      track.artistCredit.id === recording.artistCredit.id
+                        ? null
+                        : 'artist-credit-variation'}
+                    >
+                      <ArtistCreditLink artistCredit={track.artistCredit} />
+                    </td>
+                    <td>
+                      <EntityLink entity={release} />
+                    </td>
+                    <td>
+                      <ArtistCreditLink artistCredit={release.artistCredit} />
+                    </td>
+                    <td>
+                      {release.releaseGroup &&
+                        nonEmpty(release.releaseGroup.typeName)
+                        ? lp_attributes(
+                          release.releaseGroup.typeName,
+                          'release_group_primary_type',
+                        )
+                        : null}
+                    </td>
+                    <td>
+                      <ReleaseEvents events={release.events} />
+                      {manifest.js(
+                        'common/components/ReleaseEvents',
+                        {async: 'async'},
+                      )}
+                    </td>
+                    <td>
+                      <ReleaseLabelList labels={release.labels} />
+                    </td>
+                    <td>
+                      <ReleaseCatnoList labels={release.labels} />
+                    </td>
+                    {$c.session?.tport == null ? null : (
+                      <td>
+                        <TaggerIcon
+                          entityType="release"
+                          gid={release.gid}
+                        />
+                      </td>
+                    )}
+                  </tr>
+                );
+              })}
+            </React.Fragment>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+};
 
 const RecordingIndex = ({
-  $c,
   numberOfRevisions,
   pager,
   recording,
@@ -175,7 +177,6 @@ const RecordingIndex = ({
     <PaginatedResults pager={pager}>
       {tracks?.length ? (
         <RecordingAppearancesTable
-          $c={$c}
           recording={recording}
           tracks={tracks}
         />

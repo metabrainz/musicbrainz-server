@@ -55,7 +55,8 @@ function showBirthdayBanner($c: CatalystContextT) {
          !getRequestCookie($c.req, 'birthday_message_dismissed_mtime');
 }
 
-const AnniversaryBanner = ({$c}: {+$c: CatalystContextT}) => {
+const AnniversaryBanner = () => {
+  const $c = React.useContext(CatalystContext);
   const registrationDate = $c.user ? $c.user.registration_date : null;
   if (registrationDate == null) {
     return null;
@@ -261,7 +262,7 @@ const Layout = ({
           </div>
         ) : null}
 
-        <AnniversaryBanner $c={$c} />
+        <AnniversaryBanner />
 
         {showNewEditNotesBanner ? (
           <div className="banner new-edit-notes">

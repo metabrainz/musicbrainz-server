@@ -12,6 +12,7 @@ import * as React from 'react';
 import FormSubmit from '../components/FormSubmit.js';
 import RecordingList from '../components/list/RecordingList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
+import {SanitizedCatalystContext} from '../context.mjs';
 import Filter from '../static/scripts/common/components/Filter.js';
 import {type FilterFormT}
   from '../static/scripts/common/components/FilterForm.js';
@@ -30,7 +31,6 @@ type FooterSwitchProps = {
 
 type Props = {
   ...ReleaseGroupAppearancesRoleT,
-  +$c: CatalystContextT,
   +ajaxFilterFormUrl: string,
   +artist: ArtistT,
   +filterForm: ?FilterFormT,
@@ -124,7 +124,6 @@ const FooterSwitch = ({
 };
 
 const ArtistRecordings = ({
-  $c,
   ajaxFilterFormUrl,
   artist,
   filterForm,
@@ -136,55 +135,58 @@ const ArtistRecordings = ({
   releaseGroupAppearances,
   standaloneOnly,
   videoOnly,
-}: Props): React.Element<typeof ArtistLayout> => (
-  <ArtistLayout
-    entity={artist}
-    page="recordings"
-    title={l('Recordings')}
-  >
-    <h2>{l('Recordings')}</h2>
+}: Props): React.Element<typeof ArtistLayout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
+  return (
+    <ArtistLayout
+      entity={artist}
+      page="recordings"
+      title={l('Recordings')}
+    >
+      <h2>{l('Recordings')}</h2>
 
-    <Filter
-      ajaxFormUrl={ajaxFilterFormUrl}
-      initialFilterForm={filterForm}
-    />
+      <Filter
+        ajaxFormUrl={ajaxFilterFormUrl}
+        initialFilterForm={filterForm}
+      />
 
-    {recordings.length ? (
-      <form
-        action={'/recording/merge_queue?' + returnToCurrentPage($c)}
-        method="post"
-      >
-        <PaginatedResults pager={pager}>
-          <RecordingList
-            checkboxes="add-to-merge"
-            recordings={recordings}
-            releaseGroupAppearances={releaseGroupAppearances}
-            showRatings
-            showReleaseGroups
-          />
-        </PaginatedResults>
-        {$c.user ? (
-          <div className="row">
-            <FormSubmit label={l('Add selected recordings for merging')} />
-          </div>
-        ) : null}
-      </form>
-    ) : (
-      <p>
-        {hasFilter
-          ? l('No recordings found that match this search.')
-          : l('No recordings found.')}
-      </p>
-    )}
+      {recordings.length ? (
+        <form
+          action={'/recording/merge_queue?' + returnToCurrentPage($c)}
+          method="post"
+        >
+          <PaginatedResults pager={pager}>
+            <RecordingList
+              checkboxes="add-to-merge"
+              recordings={recordings}
+              releaseGroupAppearances={releaseGroupAppearances}
+              showRatings
+              showReleaseGroups
+            />
+          </PaginatedResults>
+          {$c.user ? (
+            <div className="row">
+              <FormSubmit label={l('Add selected recordings for merging')} />
+            </div>
+          ) : null}
+        </form>
+      ) : (
+        <p>
+          {hasFilter
+            ? l('No recordings found that match this search.')
+            : l('No recordings found.')}
+        </p>
+      )}
 
-    <FooterSwitch
-      artist={artist}
-      hasStandalone={hasStandalone}
-      hasVideo={hasVideo}
-      standaloneOnly={standaloneOnly}
-      videoOnly={videoOnly}
-    />
-  </ArtistLayout>
-);
+      <FooterSwitch
+        artist={artist}
+        hasStandalone={hasStandalone}
+        hasVideo={hasVideo}
+        standaloneOnly={standaloneOnly}
+        videoOnly={videoOnly}
+      />
+    </ArtistLayout>
+  );
+};
 
 export default ArtistRecordings;

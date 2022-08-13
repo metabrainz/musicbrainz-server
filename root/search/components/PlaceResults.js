@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context.mjs';
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import formatDate from '../../static/scripts/common/utility/formatDate.js';
 import formatEndDate
@@ -16,7 +17,7 @@ import formatEndDate
 import {isEditingEnabled}
   from '../../static/scripts/common/utility/privileges.js';
 import loopParity from '../../utility/loopParity.js';
-import type {ResultsPropsWithContextT, SearchResultT} from '../types.js';
+import type {ResultsPropsT, SearchResultT} from '../types.js';
 
 import PaginatedSearchResults from './PaginatedSearchResults.js';
 import ResultsLayout from './ResultsLayout.js';
@@ -46,39 +47,40 @@ function buildResult(result: SearchResultT<PlaceT>, index: number) {
 }
 
 const PlaceResults = ({
-  $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<PlaceT>):
-React.Element<typeof ResultsLayout> => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
-    <PaginatedSearchResults
-      buildResult={buildResult}
-      columns={
-        <>
-          <th>{l('Name')}</th>
-          <th>{l('Type')}</th>
-          <th>{l('Address')}</th>
-          <th>{l('Area')}</th>
-          <th>{l('Begin')}</th>
-          <th>{l('End')}</th>
-        </>
-      }
-      pager={pager}
-      query={query}
-      results={results}
-    />
-    {isEditingEnabled($c.user) ? (
-      <p>
-        {exp.l('Alternatively, you may {uri|add a new place}.', {
-          uri: '/place/create?edit-place.name=' + encodeURIComponent(query),
-        })}
-      </p>
-    ) : null}
-  </ResultsLayout>
-);
+}: ResultsPropsT<PlaceT>): React.Element<typeof ResultsLayout> => {
+  const $c = React.useContext(CatalystContext);
+  return (
+    <ResultsLayout form={form} lastUpdated={lastUpdated}>
+      <PaginatedSearchResults
+        buildResult={buildResult}
+        columns={
+          <>
+            <th>{l('Name')}</th>
+            <th>{l('Type')}</th>
+            <th>{l('Address')}</th>
+            <th>{l('Area')}</th>
+            <th>{l('Begin')}</th>
+            <th>{l('End')}</th>
+          </>
+        }
+        pager={pager}
+        query={query}
+        results={results}
+      />
+      {isEditingEnabled($c.user) ? (
+        <p>
+          {exp.l('Alternatively, you may {uri|add a new place}.', {
+            uri: '/place/create?edit-place.name=' + encodeURIComponent(query),
+          })}
+        </p>
+      ) : null}
+    </ResultsLayout>
+  );
+};
 
 export default PlaceResults;

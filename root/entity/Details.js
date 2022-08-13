@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../context.mjs';
 import {ENTITIES} from '../static/scripts/common/constants.js';
 import DBDefs from '../static/scripts/common/DBDefs.mjs';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
@@ -27,8 +28,8 @@ type WSLinkProps = {
   +isJson?: boolean,
   +isSecureConnection: boolean,
 };
+
 type DetailsProps = {
-  +$c: CatalystContextT,
   +entity: CoreEntityT,
 };
 
@@ -72,9 +73,9 @@ const WSLink = ({
 };
 
 const Details = ({
-  $c,
   entity,
 }: DetailsProps): React.MixedElement => {
+  const $c = React.useContext(CatalystContext);
   const entityType = entity.entityType;
   const entityProperties = ENTITIES[entityType];
   const entityTypeForUrl = entityProperties.url

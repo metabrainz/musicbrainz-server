@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
+import {SanitizedCatalystContext} from '../../../context.mjs';
 import EditorLink from '../common/components/EditorLink.js';
 import bracketed from '../common/utility/bracketed.js';
 import formatUserDate from '../../../utility/formatUserDate.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +annotations: $ReadOnlyArray<AnnotationT>,
   +baseUrl: string,
 };
@@ -60,10 +60,11 @@ function reducer(state: StateT, action: ActionT): StateT {
 }
 
 const AnnotationHistoryTable = ({
-  $c,
   annotations,
   baseUrl,
 }: Props): React.Element<'table'> => {
+  const $c = React.useContext(SanitizedCatalystContext);
+
   const canCompare = annotations.length > 1;
 
   const [state, dispatch] = React.useReducer(

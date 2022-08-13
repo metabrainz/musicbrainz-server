@@ -18,13 +18,11 @@ import {ReleaseGroupListTable} from '../components/list/ReleaseGroupList.js';
 import Layout from '../layout/index.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: MergeFormT,
   +toMerge: $ReadOnlyArray<ReleaseGroupT>,
 };
 
 const ReleaseGroupMerge = ({
-  $c,
   form,
   toMerge,
 }: Props): React.Element<typeof Layout> => (
@@ -36,7 +34,7 @@ const ReleaseGroupMerge = ({
             Please select the release group all others
             should be merged into:`)}
       </p>
-      <form action={$c.req.uri} method="post">
+      <form method="post">
         <ReleaseGroupListTable
           mergeForm={form}
           releaseGroups={sortByEntityName(toMerge)}
