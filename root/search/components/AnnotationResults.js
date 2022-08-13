@@ -47,8 +47,7 @@ const AnnotationResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<AnnotationT>):
-React.Element<typeof ResultsLayout> => (
+}: ResultsPropsT<AnnotationT>): React.Element<typeof ResultsLayout> => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}

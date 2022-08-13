@@ -35,8 +35,7 @@ const EditorResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<EditorT>):
-React.Element<typeof ResultsLayout> => (
+}: ResultsPropsT<EditorT>): React.Element<typeof ResultsLayout> => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}

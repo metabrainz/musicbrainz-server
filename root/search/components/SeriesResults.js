@@ -46,8 +46,7 @@ const SeriesResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<SeriesT>):
-React.Element<typeof ResultsLayout> => {
+}: ResultsPropsT<SeriesT>): React.Element<typeof ResultsLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>

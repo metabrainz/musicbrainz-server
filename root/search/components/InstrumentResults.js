@@ -42,8 +42,7 @@ const InstrumentResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<InstrumentT>):
-React.Element<typeof ResultsLayout> => {
+}: ResultsPropsT<InstrumentT>): React.Element<typeof ResultsLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>

@@ -52,8 +52,7 @@ const ReleaseGroupResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<ReleaseGroupT>):
-React.Element<typeof ResultsLayout> => {
+}: ResultsPropsT<ReleaseGroupT>): React.Element<typeof ResultsLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>

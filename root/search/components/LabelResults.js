@@ -55,8 +55,7 @@ const LabelResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<LabelT>):
-React.Element<typeof ResultsLayout> => {
+}: ResultsPropsT<LabelT>): React.Element<typeof ResultsLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>

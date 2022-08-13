@@ -37,8 +37,7 @@ const CDStubResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<CDStubT>):
-React.Element<typeof ResultsLayout> => (
+}: ResultsPropsT<CDStubT>): React.Element<typeof ResultsLayout> => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}

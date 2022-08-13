@@ -43,8 +43,7 @@ const WorkResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<WorkT>):
-React.Element<typeof ResultsLayout> => {
+}: ResultsPropsT<WorkT>): React.Element<typeof ResultsLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>

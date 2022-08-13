@@ -62,8 +62,7 @@ const EventResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<EventT>):
-React.Element<typeof ResultsLayout> => {
+}: ResultsPropsT<EventT>): React.Element<typeof ResultsLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>

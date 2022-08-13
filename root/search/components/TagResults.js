@@ -44,8 +44,7 @@ const TagResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<TagT>):
-React.Element<typeof ResultsLayout> => (
+}: ResultsPropsT<TagT>): React.Element<typeof ResultsLayout> => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
