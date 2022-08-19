@@ -1,11 +1,13 @@
 package MusicBrainz::Server::Controller::Root;
 use Carp qw( croak );
+use DateTime::Locale;
 use Digest::MD5 qw( md5_hex );
 use Moose;
 use Try::Tiny;
 use List::AllUtils qw( max );
 use Readonly;
 use Scalar::Util qw( blessed );
+use URI::Escape qw( uri_escape_utf8 );
 use URI::QueryParam;
 
 BEGIN { extends 'Catalyst::Controller' }
@@ -76,13 +78,20 @@ Sets the language; designed to be used from the language switcher
 sub set_language : Path('set-language') Args(1)
 {
     my ($self, $c, $lang) = @_;
+
     if ($lang eq 'unset') {
         # force the cookie to expire
         $c->res->cookies->{lang} = { 'value' => '', 'path' => '/', 'expires' => time()-86400 };
     } else {
         # set the cookie to expire in a year
         $c->set_language_cookie($lang);
-        my $flash = l('Language set.');
+        my $prev_lang = $c->stash->{current_language} // 'en';
+        my $flash = l(
+            'Language set. If it was not intended, just {url|set “{prev_lang_name}” back}.',
+            {
+                prev_lang_name => ucfirst DateTime::Locale->load($prev_lang)->native_name,
+                url => {href => '/set-language/' . $prev_lang . '?returnto=' . uri_escape_utf8($c->req->query_params->{returnto} || '/')},
+            });
         Translation->instance->set_language($lang);
         $flash .= '<br/>' . l(
             'If you find any problems with the translation, please {url|help us improve it}!',
