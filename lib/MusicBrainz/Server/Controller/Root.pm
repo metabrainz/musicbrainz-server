@@ -92,10 +92,12 @@ sub set_language : Path('set-language') Args(1)
                 prev_lang_name => ucfirst DateTime::Locale->load($prev_lang)->native_name,
                 url => {href => '/set-language/' . $prev_lang . '?returnto=' . uri_escape_utf8($c->req->query_params->{returnto} || '/')},
             });
-        Translation->instance->set_language($lang);
-        $flash .= '<br/>' . l(
-            'If you find any problems with the translation, please {url|help us improve it}!',
-            {url => {href => 'https://www.transifex.com/musicbrainz/musicbrainz/', target => '_blank'}});
+        if ($lang ne 'en') {
+            Translation->instance->set_language($lang);
+            $flash .= '<br/>' . l(
+                'If you find any problems with the translation, please {url|help us improve it}!',
+                {url => {href => 'https://www.transifex.com/musicbrainz/musicbrainz/', target => '_blank'}});
+        }
         $c->flash->{message} = $flash;
     }
     $c->redirect_back;
