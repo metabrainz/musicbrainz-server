@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-13 10:21+0300\n"
+"POT-Creation-Date: 2022-08-22 14:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2800,8 +2800,8 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:308
 msgid ""
-"Please enter the barcode of the release you are entering, see <a "
-"href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
+"Please enter the barcode of the release you are entering, see <a href="
+"\"{url}\" target=\"_blank\">Barcode</a> for more information."
 msgstr ""
 
 #: ../root/account/change_password.tt:13
@@ -9795,8 +9795,8 @@ msgstr ""
 
 #: ../root/edit/details/ReorderMediums.js:63
 msgid ""
-"Medium <span class=\"new\">{new}</span> (moved from position <span "
-"class=\"old\">{old}</span>)"
+"Medium <span class=\"new\">{new}</span> (moved from position <span class="
+"\"old\">{old}</span>)"
 msgstr ""
 
 #: ../root/edit/details/ReorderRelationships.js:23

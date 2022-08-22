@@ -10,6 +10,7 @@
 # reneweesp <email address hidden>, 2018-2019
 # <email address hidden>, 2012
 #   <email address hidden>, 2012
+# Hendrik Maryns <email address hidden>, 2022
 # Ian McEwen <email address hidden>, 2012
 # Ian McEwen <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
@@ -32,7 +33,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-13 10:21+0300\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
-"Last-Translator: Maurits Meulenbelt, 2012-2022\n"
+"Last-Translator: Hendrik Maryns <hendrik@hendrikmaryns.name>, 2022\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2343,7 +2344,7 @@ msgid ""
 "Make sure all mediums in the releases being merged are in the correct "
 "position. For example, to merge a medium into medium 2 of a release, it will"
 " need to be set as medium 2 of the release being merged."
-msgstr "Let er op dat alle media in deze uitgave in de correcte positie worden samengevoegd. Om bijvoorbeeld een medium van een uitgave samen te voegen met het tweede medium van een andere uitgave, moet het medium van de eerste uitgave ook ingesteld zijn op de tweede positie."
+msgstr "Let erop dat alle media in deze uitgave in de correcte positie worden samengevoegd. Om bijvoorbeeld een medium van een uitgave samen te voegen met het tweede medium van een andere uitgave, moet het medium van de eerste uitgave ook ingesteld zijn op de tweede positie."
 
 #: ../root/release/edit/tracklist.tt:246
 msgid "Manual entry"
