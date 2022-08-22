@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import formatDate from '../../static/scripts/common/utility/formatDate';
-import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import yesNo from '../../static/scripts/common/utility/yesNo';
+import formatDate from '../../static/scripts/common/utility/formatDate.js';
+import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty.js';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
+import yesNo from '../../static/scripts/common/utility/yesNo.js';
 
 type Props = {
   +edit: AddEventEditT,

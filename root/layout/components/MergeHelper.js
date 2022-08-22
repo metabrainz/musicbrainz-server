@@ -11,8 +11,8 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
-import {returnToCurrentPage} from '../../utility/returnUri';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
+import {returnToCurrentPage} from '../../utility/returnUri.js';
 
 type Props = {
   +merger: MergeQueueT,

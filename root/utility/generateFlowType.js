@@ -29,18 +29,21 @@ class TypeInfo {
   primitive: number;
 */
 
-  constructor(parent, isEditDataTypeInfo) {
+  constructor(
+    parent/*: TypeInfo | null */,
+    isEditDataTypeInfo/*:: ?: boolean */,
+  ) {
     this.array = null;
     this.count = 0;
     this.object = null;
     this.isEditDataTypeInfo =
-      (isEditDataTypeInfo == null
+      ((parent != null && isEditDataTypeInfo == null)
         ? parent.isEditDataTypeInfo
-        : isEditDataTypeInfo);
+        : (isEditDataTypeInfo ?? false));
     this.primitive = 0;
   }
 
-  printTypeInfo(indentation) {
+  printTypeInfo(indentation/*: string */)/*: string */ {
     const types = [];
     if ((this.primitive & TYPE_STRING) === TYPE_STRING) {
       types.push('string');
@@ -80,7 +83,7 @@ class TypeInfo {
     return types.join(' | ');
   }
 
-  processTypes(data) {
+  processTypes(data/*: mixed */)/*: void */ {
     this.count++;
     if (this.isEditDataTypeInfo && data == null) {
       throw new Error('data should not be null');
@@ -145,7 +148,7 @@ class TypeInfo {
         return;
       }
     }
-    throw new Error('Unknown value: ' + JSON.stringify(data));
+    throw new Error('Unknown value: ' + (JSON.stringify(data) ?? ''));
   }
 }
 

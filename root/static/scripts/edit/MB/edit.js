@@ -8,15 +8,15 @@
 
 import ko from 'knockout';
 
-import {hex_sha1 as hexSha1} from '../../../lib/sha1/sha1';
-import {VIDEO_ATTRIBUTE_GID} from '../../common/constants';
-import * as TYPES from '../../common/constants/editTypes';
+import {hex_sha1 as hexSha1} from '../../../lib/sha1/sha1.js';
+import {VIDEO_ATTRIBUTE_GID} from '../../common/constants.js';
+import * as TYPES from '../../common/constants/editTypes.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
-import MB from '../../common/MB';
-import {compactMap, sortByNumber} from '../../common/utility/arrays';
-import clean from '../../common/utility/clean';
-import deepEqual from '../../common/utility/deepEqual';
-import request from '../../common/utility/request';
+import MB from '../../common/MB.js';
+import {compactMap, sortByNumber} from '../../common/utility/arrays.js';
+import clean from '../../common/utility/clean.js';
+import deepEqual from '../../common/utility/deepEqual.js';
+import request from '../../common/utility/request.js';
 
 (function (edit) {
   edit.TYPES = TYPES;

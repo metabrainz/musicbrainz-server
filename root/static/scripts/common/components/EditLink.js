@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {editHref} from '../utility/entityHref';
+import {editHref} from '../utility/entityHref.js';
 
 type Props = {
   +content: string,

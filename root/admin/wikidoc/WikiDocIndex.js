@@ -8,17 +8,18 @@
  */
 
 import * as React from 'react';
+import type {CellRenderProps} from 'react-table';
 
-import Layout from '../../layout';
-import Table from '../../components/Table';
-import bracketed from '../../static/scripts/common/utility/bracketed';
+import Layout from '../../layout/index.js';
+import Table from '../../components/Table.js';
+import {SanitizedCatalystContext} from '../../context.mjs';
+import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import {isWikiTranscluder}
-  from '../../static/scripts/common/utility/privileges';
+  from '../../static/scripts/common/utility/privileges.js';
 
-import type {WikiDocT} from './types';
+import type {WikiDocT} from './types.js';
 
 type PropsT = {
-  +$c: CatalystContextT,
   +pages: $ReadOnlyArray<WikiDocT>,
   +updatesRequired: boolean,
   +wikiIsUnreachable: boolean,
@@ -26,25 +27,25 @@ type PropsT = {
 };
 
 const WikiDocTable = ({
-  $c,
   pages,
   updatesRequired,
   wikiServer,
 }: PropsT) => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const columns = React.useMemo(
     () => {
       const nameColumn = {
-        Cell: ({cell: {value}}) => (
+        Cell: ({cell: {value}}: CellRenderProps<WikiDocT, string>) => (
           <a href={'/doc/' + encodeURIComponent(value)}>{value}</a>
         ),
         Header: N_l('Page name'),
-        accessor: x => x.id,
+        accessor: (x: WikiDocT) => x.id,
         cellProps: {className: 'title'},
         id: 'name',
       };
       const transcludedVersionColumn = {
         Header: N_l('Transcluded version'),
-        accessor: x => x.version,
+        accessor: (x: WikiDocT) => x.version,
         cellProps: {
           className: 'c transcluded-version',
           style: (updatesRequired && isWikiTranscluder($c.user))
@@ -55,7 +56,7 @@ const WikiDocTable = ({
         id: 'transcluded-version',
       };
       const wikiVersionColumn = {
-        Cell: ({row: {original}}) => (
+        Cell: ({row: {original}}: CellRenderProps<WikiDocT, number>) => (
           <>
             {original.wiki_version === original.version ? null : (
               <>
@@ -87,12 +88,12 @@ const WikiDocTable = ({
           </>
         ),
         Header: N_l('Wiki version'),
-        accessor: x => x.wiki_version,
+        accessor: (x: WikiDocT) => x.wiki_version,
         headerProps: {className: 'c'},
         id: 'wiki-version',
       };
       const actionsColumn = {
-        Cell: ({row: {original}}) => (
+        Cell: ({row: {original}}: CellRenderProps<WikiDocT, string>) => (
           <>
             <a href={'/admin/wikidoc/edit' +
                      '?page=' + encodeURIComponent(original.id) +
@@ -115,7 +116,7 @@ const WikiDocTable = ({
           </>
         ),
         Header: l('Actions'),
-        accessor: x => x.id,
+        accessor: (x: WikiDocT) => x.id,
         cellProps: {className: 'actions c'},
         headerProps: {className: 'c'},
         id: 'actions',
@@ -144,50 +145,53 @@ const WikiDocTable = ({
   );
 };
 
-const WikiDocIndex = (props: PropsT): React.Element<typeof Layout> => (
-  <Layout fullWidth title={l('Transclusion Table')}>
-    <div className="content">
-      <h1>{l('Transclusion Table')}</h1>
-      <p>
-        {exp.l(
-          `Read the {doc|WikiDocs} documentation for an overview of how
-           transclusion works.`,
-          {doc: '/doc/WikiDocs'},
-        )}
-      </p>
-      {isWikiTranscluder(props.$c.user) ? (
-        <>
-          <ul>
-            <li key="create">
-              <a href="/admin/wikidoc/create">
-                {l('Add a new entry')}
-              </a>
-            </li>
-            <li key="history">
-              <a href="/admin/wikidoc/history">
-                {l('View transclusion history')}
-              </a>
-            </li>
-          </ul>
-          <p>
-            {exp.l(`<strong>Note:</strong> MediaWiki does not check to
-                    see if the version number matches the page name,
-                    it will take the version number and provide
-                    whatever page is associated with it. Make sure to
-                    double check your work when updating a page!`)}
-          </p>
-        </>
-      ) : null}
-
-      {props.wikiIsUnreachable ? (
-        <p style={{color: 'red', fontWeight: 'bold'}}>
-          {l('There was a problem accessing the wiki API.')}
+const WikiDocIndex = (props: PropsT): React.Element<typeof Layout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
+  return (
+    <Layout fullWidth title={l('Transclusion Table')}>
+      <div className="content">
+        <h1>{l('Transclusion Table')}</h1>
+        <p>
+          {exp.l(
+            `Read the {doc|WikiDocs} documentation for an overview of how
+             transclusion works.`,
+            {doc: '/doc/WikiDocs'},
+          )}
         </p>
-      ) : null}
-    </div>
+        {isWikiTranscluder($c.user) ? (
+          <>
+            <ul>
+              <li key="create">
+                <a href="/admin/wikidoc/create">
+                  {l('Add a new entry')}
+                </a>
+              </li>
+              <li key="history">
+                <a href="/admin/wikidoc/history">
+                  {l('View transclusion history')}
+                </a>
+              </li>
+            </ul>
+            <p>
+              {exp.l(`<strong>Note:</strong> MediaWiki does not check to
+                      see if the version number matches the page name,
+                      it will take the version number and provide
+                      whatever page is associated with it. Make sure to
+                      double check your work when updating a page!`)}
+            </p>
+          </>
+        ) : null}
 
-    <WikiDocTable {...props} />
-  </Layout>
-);
+        {props.wikiIsUnreachable ? (
+          <p style={{color: 'red', fontWeight: 'bold'}}>
+            {l('There was a problem accessing the wiki API.')}
+          </p>
+        ) : null}
+      </div>
+
+      <WikiDocTable {...props} />
+    </Layout>
+  );
+};
 
 export default WikiDocIndex;

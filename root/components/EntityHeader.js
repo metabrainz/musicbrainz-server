@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import EntityLink from '../static/scripts/common/components/EntityLink';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
-import EntityTabs from './EntityTabs';
-import typeof EntityTabLink from './EntityTabLink';
-import SubHeader from './SubHeader';
+import EntityTabs from './EntityTabs.js';
+import typeof EntityTabLink from './EntityTabLink.js';
+import SubHeader from './SubHeader.js';
 
 type Props = {
   +editTab?: React.Element<EntityTabLink>,

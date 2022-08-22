@@ -9,12 +9,13 @@
 
 import * as React from 'react';
 
-import FormRowCheckbox from '../components/FormRowCheckbox';
-import FormRowText from '../components/FormRowText';
-import FormSubmit from '../components/FormSubmit';
-import Layout from '../layout';
-import expand2react from '../static/scripts/common/i18n/expand2react';
-import bracketed from '../static/scripts/common/utility/bracketed';
+import Layout from '../layout/index.js';
+import FormRowCheckbox
+  from '../static/scripts/edit/components/FormRowCheckbox.js';
+import FormRowText from '../static/scripts/edit/components/FormRowText.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
+import expand2react from '../static/scripts/common/i18n/expand2react.js';
+import bracketed from '../static/scripts/common/utility/bracketed.js';
 
 type Props = {
   +form: FormT<{

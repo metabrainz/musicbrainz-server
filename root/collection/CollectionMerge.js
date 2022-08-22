@@ -10,32 +10,39 @@
 import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
-import FieldErrors from '../components/FieldErrors';
-import Table from '../components/Table';
-import Layout from '../layout';
-import {ENTITY_NAMES} from '../static/scripts/common/constants';
-import {sortByString, uniqBy} from '../static/scripts/common/utility/arrays';
-import UserInlineList from '../user/components/UserInlineList';
+import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
+import Table from '../components/Table.js';
+import Layout from '../layout/index.js';
+import {ENTITY_NAMES} from '../static/scripts/common/constants.js';
+import {
+  sortByString,
+  uniqBy,
+} from '../static/scripts/common/utility/arrays.js';
+import UserInlineList from '../user/components/UserInlineList.js';
 import {
   defineCheckboxColumn,
   defineNameColumn,
   defineTextColumn,
   defineTypeColumn,
   removeFromMergeColumn,
-} from '../utility/tableColumns';
+} from '../utility/tableColumns.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: MergeFormT,
   +privaciesDiffer?: boolean,
   +toMerge: $ReadOnlyArray<CollectionT>,
   +typesDiffer?: boolean,
 };
 
+type CollectionMergeTablePropsT = {
+  +collections: $ReadOnlyArray<CollectionT>,
+  +form: MergeFormT,
+};
+
 const CollectionMergeTable = ({
   collections,
   form,
-}) => {
+}: CollectionMergeTablePropsT) => {
   const columns = React.useMemo(
     () => {
       const checkboxColumn = defineCheckboxColumn({mergeForm: form});
@@ -91,7 +98,6 @@ const CollectionMergeTable = ({
 };
 
 const CollectionMerge = ({
-  $c,
   form,
   privaciesDiffer,
   toMerge,
@@ -148,7 +154,7 @@ const CollectionMerge = ({
             </p>
           </div>
         ) : null}
-        <form action={$c.req.uri} method="post">
+        <form method="post">
           <CollectionMergeTable collections={collections} form={form} />
 
           {collaborators.length ? (

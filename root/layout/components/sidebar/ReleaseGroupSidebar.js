@@ -10,21 +10,21 @@
 import * as React from 'react';
 
 import ArtistCreditLink
-  from '../../../static/scripts/common/components/ArtistCreditLink';
-import entityHref from '../../../static/scripts/common/utility/entityHref';
-import ExternalLinks from '../ExternalLinks';
-import releaseGroupType from '../../../utility/releaseGroupType';
-import {Artwork} from '../../../components/Artwork';
+  from '../../../static/scripts/common/components/ArtistCreditLink.js';
+import entityHref from '../../../static/scripts/common/utility/entityHref.js';
+import ExternalLinks from '../ExternalLinks.js';
+import releaseGroupType from '../../../utility/releaseGroupType.js';
+import {Artwork} from '../../../components/Artwork.js';
 
-import AnnotationLinks from './AnnotationLinks';
-import CollectionLinks from './CollectionLinks';
-import EditLinks from './EditLinks';
-import LastUpdated from './LastUpdated';
-import MergeLink from './MergeLink';
-import SidebarLicenses from './SidebarLicenses';
-import {SidebarProperty, SidebarProperties} from './SidebarProperties';
-import SidebarRating from './SidebarRating';
-import SidebarTags from './SidebarTags';
+import AnnotationLinks from './AnnotationLinks.js';
+import CollectionLinks from './CollectionLinks.js';
+import EditLinks from './EditLinks.js';
+import LastUpdated from './LastUpdated.js';
+import MergeLink from './MergeLink.js';
+import SidebarLicenses from './SidebarLicenses.js';
+import {SidebarProperty, SidebarProperties} from './SidebarProperties.js';
+import SidebarRating from './SidebarRating.js';
+import SidebarTags from './SidebarTags.js';
 
 type Props = {
   +releaseGroup: ReleaseGroupT,

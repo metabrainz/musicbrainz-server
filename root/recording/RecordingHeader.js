@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import EntityHeader from '../components/EntityHeader';
+import EntityHeader from '../components/EntityHeader.js';
 import * as manifest from '../static/manifest.mjs';
 import ArtistCreditLink
-  from '../static/scripts/common/components/ArtistCreditLink';
-import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
+  from '../static/scripts/common/components/ArtistCreditLink.js';
+import TaggerIcon from '../static/scripts/common/components/TaggerIcon.js';
 
 type Props = {
   +page: string,

@@ -9,14 +9,14 @@
 
 import * as Sentry from '@sentry/browser';
 
-import {MAX_RECENT_ENTITIES} from '../../constants';
+import {MAX_RECENT_ENTITIES} from '../../constants.js';
 import linkedEntities from '../../linkedEntities.mjs';
-import {localStorage} from '../../utility/storage';
+import {localStorage} from '../../utility/storage.js';
 
 import type {
   EntityItemT,
   OptionItemT,
-} from './types';
+} from './types.js';
 
 /*
  * `entityTypeKey` is typically just the entity type.

@@ -9,8 +9,8 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
-import MB from '../../../common/MB';
-import deferFocus from '../../utility/deferFocus';
+import MB from '../../../common/MB.js';
+import deferFocus from '../../utility/deferFocus.js';
 
 class BubbleBase {
   /*

@@ -8,9 +8,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as utils from '../../utils';
+import * as utils from '../../utils.js';
 
-import gc from './Main';
+import gc from './Main.js';
 
 /*
  * Holds the input variables
@@ -177,7 +177,7 @@ class GuessCaseInput {
     input = input.replace(/\s\s*/g, ' '); // compress whitespace:
     const chars = input.split('');
     const splitwords = [];
-    let word = [];
+    let word: Array<string> = [];
     if (!gc.regexes.SPLITWORDSANDPUNCTUATION) {
       gc.regexes.SPLITWORDSANDPUNCTUATION = /[^!¿¡\"%&'´`‘’‹›“”„“«»()\[\]\{\}\*\+‐\-,\.\/:;<=>\?\s#]/;
     }

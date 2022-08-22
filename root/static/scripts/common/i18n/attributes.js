@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as wrapGettext from './wrapGettext';
+import * as wrapGettext from './wrapGettext.js';
 
 export const l_attributes: (string) => string =
   wrapGettext.dgettext('attributes');

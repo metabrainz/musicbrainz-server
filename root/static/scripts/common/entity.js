@@ -9,28 +9,28 @@
 import ko from 'knockout';
 import * as ReactDOMServer from 'react-dom/server';
 
-import formatLabelCode from '../../../utility/formatLabelCode';
+import formatLabelCode from '../../../utility/formatLabelCode.js';
 
-import ArtistCreditLink from './components/ArtistCreditLink';
-import EditorLink from './components/EditorLink';
-import EntityLink from './components/EntityLink';
-import DescriptiveLink from './components/DescriptiveLink';
-import MediumDescription from './components/MediumDescription';
+import ArtistCreditLink from './components/ArtistCreditLink.js';
+import EditorLink from './components/EditorLink.js';
+import EntityLink from './components/EntityLink.js';
+import DescriptiveLink from './components/DescriptiveLink.js';
+import MediumDescription from './components/MediumDescription.js';
 import {
   ENTITY_NAMES,
   PART_OF_SERIES_LINK_TYPES,
   PROBABLY_CLASSICAL_LINK_TYPES,
-} from './constants';
+} from './constants.js';
 import {
   artistCreditsAreEqual,
   isCompleteArtistCredit,
-} from './immutable-entities';
+} from './immutable-entities.js';
 import linkedEntities from './linkedEntities.mjs';
-import MB from './MB';
-import {bracketedText} from './utility/bracketed';
-import clean from './utility/clean';
+import MB from './MB.js';
+import {bracketedText} from './utility/bracketed.js';
+import clean from './utility/clean.js';
 import {cloneArrayDeep, cloneObjectDeep} from './utility/cloneDeep.mjs';
-import formatTrackLength from './utility/formatTrackLength';
+import formatTrackLength from './utility/formatTrackLength.js';
 
 (function () {
   /*

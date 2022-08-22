@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import {CONTACT_URL} from '../constants';
-import StatusPage from '../components/StatusPage';
+import {CONTACT_URL} from '../constants.js';
+import StatusPage from '../components/StatusPage.js';
 
 const LostPasswordSent = (): React.Element<typeof StatusPage> => (
   <StatusPage title={hyphenateTitle(l('Lost Password'), l('Email Sent!'))}>

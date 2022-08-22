@@ -10,10 +10,10 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
-import Table from '../Table';
-import releaseGroupType from '../../utility/releaseGroupType';
-import {groupBy} from '../../static/scripts/common/utility/arrays';
-import parseDate from '../../static/scripts/common/utility/parseDate';
+import Table from '../Table.js';
+import releaseGroupType from '../../utility/releaseGroupType.js';
+import {groupBy} from '../../static/scripts/common/utility/arrays.js';
+import parseDate from '../../static/scripts/common/utility/parseDate.js';
 import {
   defineArtistCreditColumn,
   defineCheckboxColumn,
@@ -23,7 +23,7 @@ import {
   defineSeriesNumberColumn,
   defineTextColumn,
   removeFromMergeColumn,
-} from '../../utility/tableColumns';
+} from '../../utility/tableColumns.js';
 
 type ReleaseGroupListTableProps = {
   ...SeriesItemNumbersRoleT,

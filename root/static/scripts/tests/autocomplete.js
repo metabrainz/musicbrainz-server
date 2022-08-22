@@ -10,8 +10,8 @@ import $ from 'jquery';
 import ko from 'knockout';
 import test from 'tape';
 
-import '../../lib/jquery-ui';
-import '../common/MB/Control/Autocomplete';
+import '../../lib/jquery-ui.js';
+import '../common/MB/Control/Autocomplete.js';
 
 function autocompleteTest(name, callback) {
   test(name, function (t) {

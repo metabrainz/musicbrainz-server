@@ -27,8 +27,11 @@ yargs
   await pgClient.connect();
 
   class SingleColumnCursor extends Cursor/*:: <string> */ {
-    constructor(config, values, callback) {
-      super(config, values, callback);
+    constructor(
+      config/*: string */,
+      values/*: $ReadOnlyArray<mixed> */,
+    ) {
+      super(config, values);
       this._result.parseRow = function (rowData) {
         return rowData[0];
       };

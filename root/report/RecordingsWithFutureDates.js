@@ -12,11 +12,11 @@ import * as React from 'react';
 import {
   defineTextColumn,
   relTypeColumn,
-} from '../utility/tableColumns';
+} from '../utility/tableColumns.js';
 
-import RecordingList from './components/RecordingList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportRecordingRelationshipT} from './types';
+import RecordingList from './components/RecordingList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportRecordingRelationshipT} from './types.js';
 
 
 const RecordingsWithFutureDates = ({

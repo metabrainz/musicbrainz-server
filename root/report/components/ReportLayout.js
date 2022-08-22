@@ -10,10 +10,10 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
-import Layout from '../../layout';
-import expand2text from '../../static/scripts/common/i18n/expand2text';
-import formatUserDate from '../../utility/formatUserDate';
-import FilterLink from '../FilterLink';
+import Layout from '../../layout/index.js';
+import expand2text from '../../static/scripts/common/i18n/expand2text.js';
+import formatUserDate from '../../utility/formatUserDate.js';
+import FilterLink from '../FilterLink.js';
 
 const countTextPicker = {
   artist: N_l('Total artists found: {count}'),
@@ -86,7 +86,7 @@ const ReportLayout = ({
                   {date: formatUserDate($c, generated)})}
         </li>
 
-        {canBeFiltered ? <FilterLink $c={$c} filtered={filtered} /> : null}
+        {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
       </ul>
 
       {children}

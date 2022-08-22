@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import expand2react from '../../common/i18n/expand2react';
-import bracketed from '../../common/utility/bracketed';
-import getBooleanCookie from '../../common/utility/getBooleanCookie';
-import setCookie from '../../common/utility/setCookie';
-import * as modes from '../../guess-case/modes';
-import gc from '../../guess-case/MB/GuessCase/Main';
+import expand2react from '../../common/i18n/expand2react.js';
+import bracketed from '../../common/utility/bracketed.js';
+import getBooleanCookie from '../../common/utility/getBooleanCookie.js';
+import setCookie from '../../common/utility/setCookie.js';
+import * as modes from '../../guess-case/modes.js';
+import gc from '../../guess-case/MB/GuessCase/Main.js';
 
 /* eslint-disable flowtype/sort-keys */
 export type ActionT =
@@ -82,24 +82,28 @@ const GuessCaseOptions = ({
   modeName,
   upperCaseRoman,
 }: PropsT): React.Element<'div'> => {
-  function handleModeChange(event) {
-    const newModeName = event.target.value;
+  function handleModeChange(event: SyntheticEvent<HTMLSelectElement>) {
+    const newModeName = event.currentTarget.value;
 
     if (newModeName !== gc.modeName) {
       dispatch({modeName: newModeName, type: 'set-mode'});
     }
   }
 
-  function handleKeepUpperCaseChanged(event) {
+  function handleKeepUpperCaseChanged(
+    event: SyntheticEvent<HTMLInputElement>,
+  ) {
     dispatch({
-      enabled: event.target.checked,
+      enabled: event.currentTarget.checked,
       type: 'set-keep-upper-case',
     });
   }
 
-  function handleUpperCaseRomanChanged(event) {
+  function handleUpperCaseRomanChanged(
+    event: SyntheticEvent<HTMLInputElement>,
+  ) {
     dispatch({
-      enabled: event.target.checked,
+      enabled: event.currentTarget.checked,
       type: 'set-upper-case-roman',
     });
   }

@@ -9,9 +9,9 @@
 
 'use strict';
 
-import global from '../global';
+import global from '../global.js';
 
-import * as constants from './constants';
+import * as constants from './constants.js';
 
 // Namespaces
 const MB: {[namespace: string]: {...}, ...} = {

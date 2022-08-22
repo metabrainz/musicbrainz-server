@@ -10,15 +10,15 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../context.mjs';
 import {l_statistics as l, lp_statistics as lp}
-  from '../static/scripts/common/i18n/statistics';
-import mapRange from '../static/scripts/common/utility/mapRange';
+  from '../static/scripts/common/i18n/statistics.js';
+import mapRange from '../static/scripts/common/utility/mapRange.js';
 
-import {formatCount, formatPercentage, TimelineLink} from './utilities';
-import StatisticsLayout from './StatisticsLayout';
+import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
+import StatisticsLayout from './StatisticsLayout.js';
 
 type MainStatsT = {
-  +$c: CatalystContextT,
   +areaTypes: $ReadOnlyArray<AreaTypeT>,
   +dateCollected: string,
   +eventTypes: $ReadOnlyArray<EventTypeT>,
@@ -36,7 +36,6 @@ type MainStatsT = {
 };
 
 const Index = ({
-  $c,
   areaTypes,
   dateCollected,
   eventTypes,
@@ -52,13 +51,15 @@ const Index = ({
   workAttributeTypes,
   workTypes,
 }: MainStatsT): React.Element<typeof StatisticsLayout> => {
+  const $c = React.useContext(CatalystContext);
+
   const nonGroupCount = stats['count.artist.type.null'] +
     stats['count.artist.type.person'] +
     stats['count.artist.type.character'] +
     stats['count.artist.type.other'];
 
   // formatCount shortcut (with timeline link)
-  const fc = (a) => (
+  const fc = (a: string) => (
     <>
       {formatCount($c, stats['count.' + a])}
       {' '}
@@ -67,7 +68,7 @@ const Index = ({
   );
 
   // formatPercentage shortcut
-  const fp = (a, b) => (
+  const fp = (a: string, b: string) => (
     formatPercentage($c, stats['count.' + a] / stats['count.' + b], 1)
   );
 
@@ -75,7 +76,8 @@ const Index = ({
    * Long-form for cases where `a` or `b` aren't keys in `stats`,
    * but so `$c` and `digits` still don't need to be provided.
    */
-  const _formatPercentage = (a, b) => formatPercentage($c, a / b, 1);
+  const _formatPercentage =
+    (a: number, b: number) => formatPercentage($c, a / b, 1);
 
   return (
     <StatisticsLayout fullWidth page="index" title={l('Overview')}>

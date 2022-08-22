@@ -9,23 +9,21 @@
 
 import * as React from 'react';
 
-import ENTITIES from '../../entities';
-import FormSubmit from '../components/FormSubmit';
-import PaginatedResults from '../components/PaginatedResults';
+import ENTITIES from '../../entities.mjs';
+import PaginatedResults from '../components/PaginatedResults.js';
 import * as manifest from '../static/manifest.mjs';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import AnnotationHistoryTable
-  from '../static/scripts/annotation/AnnotationHistoryTable';
-import chooseLayoutComponent from '../utility/chooseLayoutComponent';
+  from '../static/scripts/annotation/AnnotationHistoryTable.js';
+import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
 type AnnotationHistoryProps = {
-  +$c: CatalystContextT,
   +annotations: $ReadOnlyArray<AnnotationT>,
   +entity: AnnotatedEntityT,
   +pager: PagerT,
 };
 
 const AnnotationHistory = ({
-  $c,
   annotations,
   entity,
   pager,
@@ -50,7 +48,6 @@ const AnnotationHistory = ({
         >
           <PaginatedResults pager={pager}>
             <AnnotationHistoryTable
-              $c={$c}
               annotations={annotations}
               baseUrl={baseUrl}
             />

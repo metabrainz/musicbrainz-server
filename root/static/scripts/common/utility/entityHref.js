@@ -9,7 +9,7 @@
 
 import ko from 'knockout';
 
-import {ENTITIES} from '../constants';
+import {ENTITIES} from '../constants.js';
 
 const leadingSlash = /^\/?(.*)/;
 
@@ -23,7 +23,12 @@ type LinkableEntity =
   | {+entityType: 'collection', +gid: string, ...}
   | {+entityType: 'link_type', +gid: string, ...};
 
-function generateHref(path, id, subPath, anchorPath) {
+function generateHref(
+  path: string,
+  id: string,
+  subPath: ?string,
+  anchorPath?: string,
+) {
   let href = '/' + path + '/';
 
   href += encodeURIComponent(id);

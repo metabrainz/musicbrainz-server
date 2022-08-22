@@ -10,12 +10,12 @@
 import * as React from 'react';
 
 import {commaOnlyListText}
-  from '../../static/scripts/common/i18n/commaOnlyList';
-import formatDate from '../../static/scripts/common/utility/formatDate';
-import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty';
+  from '../../static/scripts/common/i18n/commaOnlyList.js';
+import formatDate from '../../static/scripts/common/utility/formatDate.js';
+import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty.js';
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
-import yesNo from '../../static/scripts/common/utility/yesNo';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
+import yesNo from '../../static/scripts/common/utility/yesNo.js';
 
 type Props = {
   +edit: AddAreaEditT,

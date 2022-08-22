@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import ReleaseLayout from './ReleaseLayout';
+import ReleaseLayout from './ReleaseLayout.js';
 
 type Props = {
   +release: ReleaseT,

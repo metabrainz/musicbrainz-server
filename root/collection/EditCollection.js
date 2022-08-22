@@ -11,10 +11,10 @@ import * as React from 'react';
 
 import * as manifest from '../static/manifest.mjs';
 import CollectionEditForm
-  from '../static/scripts/collection/components/CollectionEditForm';
+  from '../static/scripts/collection/components/CollectionEditForm.js';
 
-import CollectionLayout from './CollectionLayout';
-import type {CollectionEditFormT} from './types';
+import CollectionLayout from './CollectionLayout.js';
+import type {CollectionEditFormT} from './types.js';
 
 type Props = {
   +collection: CollectionT,

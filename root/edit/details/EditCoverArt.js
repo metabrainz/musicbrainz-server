@@ -9,31 +9,31 @@
 
 import * as React from 'react';
 
-import EditArtwork from '../components/EditArtwork';
+import EditArtwork from '../components/EditArtwork.js';
 import {commaOnlyListText}
-  from '../../static/scripts/common/i18n/commaOnlyList';
+  from '../../static/scripts/common/i18n/commaOnlyList.js';
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
-import Diff from '../../static/scripts/edit/components/edit/Diff';
-import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
+import Diff from '../../static/scripts/edit/components/edit/Diff.js';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 
 type Props = {
   +edit: EditCoverArtEditT,
 };
 
+function displayCoverArtTypes(types: $ReadOnlyArray<CoverArtTypeT>) {
+  if (types?.length) {
+    return commaOnlyListText(types.map(
+      type => lp_attributes(type.name, 'cover_art_type'),
+    ));
+  }
+  return '';
+}
+
 const EditCoverArt = ({edit}: Props): React.Element<'table'> => {
   const display = edit.display_data;
   const comment = display.comment;
   const types = display.types;
-
-  function displayCoverArtTypes(types) {
-    if (types?.length) {
-      return commaOnlyListText(types.map(
-        type => lp_attributes(type.name, 'cover_art_type'),
-      ));
-    }
-    return '';
-  }
 
   return (
     <table className="details remove-cover-art">

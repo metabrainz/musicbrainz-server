@@ -9,21 +9,21 @@
 
 import * as React from 'react';
 
-import ENTITIES from '../../entities';
-import {returnToCurrentPage} from '../utility/returnUri';
+import ENTITIES from '../../entities.mjs';
+import {SanitizedCatalystContext} from '../context.mjs';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +entity: CoreEntityT,
   +toMerge: $ReadOnlyArray<CoreEntityT>,
 };
 
 // Converted to react-table at root/utility/tableColumns.js
 const RemoveFromMergeTableCell = ({
-  $c,
   entity,
   toMerge,
 }: Props): React.Element<'td'> | null => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const url = ENTITIES[entity.entityType].url;
   return (
     toMerge.length > 2 ? (

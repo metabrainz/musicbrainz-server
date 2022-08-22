@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import FieldErrors from './FieldErrors';
-import FormRow from './FormRow';
+import FieldErrors from './FieldErrors.js';
+import FormRow from './FormRow.js';
 
 type Props = {
   +field: ReadOnlyFieldT<string>,

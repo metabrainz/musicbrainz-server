@@ -11,7 +11,7 @@ import test from 'tape';
 import {
   unformatTrackLength,
   calculateDiscID,
-} from '../../release-editor/utils';
+} from '../../release-editor/utils.js';
 
 test('unformatTrackLength', function (t) {
   t.plan(7);

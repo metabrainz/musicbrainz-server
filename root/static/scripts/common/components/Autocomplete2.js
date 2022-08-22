@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import ENTITIES from '../../../../../entities';
-import AddEntityDialog from '../../edit/components/AddEntityDialog';
-import {MBID_REGEXP} from '../constants';
-import useOutsideClickEffect from '../hooks/useOutsideClickEffect';
-import clean from '../utility/clean';
+import ENTITIES from '../../../../../entities.mjs';
+import AddEntityDialog from '../../edit/components/AddEntityDialog.js';
+import {MBID_REGEXP} from '../constants.js';
+import useOutsideClickEffect from '../hooks/useOutsideClickEffect.js';
+import clean from '../utility/clean.js';
 
 import {
   CLOSE_ADD_ENTITY_DIALOG,
@@ -25,19 +25,19 @@ import {
   SHOW_MENU,
   SHOW_SEARCH_ERROR,
   STOP_SEARCH,
-} from './Autocomplete2/actions';
+} from './Autocomplete2/actions.js';
 import {
   ARIA_LIVE_STYLE,
   DISPLAY_NONE_STYLE,
   SEARCH_PLACEHOLDERS,
-} from './Autocomplete2/constants';
-import formatItem from './Autocomplete2/formatters';
-import {getOrFetchRecentItems} from './Autocomplete2/recentItems';
+} from './Autocomplete2/constants.js';
+import formatItem from './Autocomplete2/formatters.js';
+import {getOrFetchRecentItems} from './Autocomplete2/recentItems.js';
 import {
   defaultStaticItemsFilter,
   generateItems,
   generateStatusMessage,
-} from './Autocomplete2/reducer';
+} from './Autocomplete2/reducer.js';
 import type {
   ActionT,
   EntityItemT,
@@ -45,7 +45,7 @@ import type {
   OptionItemT,
   PropsT,
   StateT,
-} from './Autocomplete2/types';
+} from './Autocomplete2/types.js';
 
 /*
  * `doSearch` performs a direct or indexed search (via /ws/js). This is the
@@ -82,6 +82,14 @@ function doSearch<T: EntityItemT>(
     ? 'editor'
     : ENTITIES[state.entityType].url;
 
+  if (entityWebServicePath == null) {
+    throw new Error(
+      'Can\'t build a web service URL for ' +
+      JSON.stringify(state.entityType) +
+      ' entities.',
+    );
+  }
+
   const url = (
     '/ws/js/' + entityWebServicePath +
     '/?q=' + encodeURIComponent(state.inputValue || '') +
@@ -93,7 +101,7 @@ function doSearch<T: EntityItemT>(
   searchXhr.send();
 }
 
-function handleItemMouseDown(event) {
+function handleItemMouseDown(event: SyntheticMouseEvent<HTMLLIElement>) {
   event.preventDefault();
 }
 
@@ -213,7 +221,10 @@ const AutocompleteItem = React.memo(<+T: EntityItemT>({
     invariant(item.level == null || item.level >= 0);
   }
 
-  let style = (item.level && item.level > 0)
+  let style: ?{
+    +paddingLeft?: string,
+    +textAlign?: string,
+  } = (item.level && item.level > 0)
     ? {paddingLeft: String(4 + (item.level * 8)) + 'px'}
     : null;
 
@@ -349,7 +360,10 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
     beginLookupOrSearch(inputValue, newCleanInputValue);
   }
 
-  function beginLookupOrSearch(oldInputValue, newCleanInputValue) {
+  function beginLookupOrSearch(
+    oldInputValue: string,
+    newCleanInputValue: string,
+  ) {
     const mbidMatch = newCleanInputValue.match(MBID_REGEXP);
     if (mbidMatch) {
       /*

@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import Layout from '../../layout';
+import Layout from '../../layout/index.js';
 import formatEntityTypeName
-  from '../../static/scripts/common/utility/formatEntityTypeName';
-import RelationshipsHeader from '../RelationshipsHeader';
+  from '../../static/scripts/common/utility/formatEntityTypeName.js';
+import RelationshipsHeader from '../RelationshipsHeader.js';
 
 type Props = {
   +table: $ReadOnlyArray<$ReadOnlyArray<$ReadOnlyArray<string>>>,

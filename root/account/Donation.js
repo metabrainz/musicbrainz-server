@@ -11,9 +11,9 @@ import * as React from 'react';
 
 import UserAccountLayout, {
   sanitizedAccountLayoutUser,
-} from '../components/UserAccountLayout';
-import {CONTACT_URL, DONATE_URL} from '../constants';
-import Warning from '../static/scripts/common/components/Warning';
+} from '../components/UserAccountLayout.js';
+import {CONTACT_URL, DONATE_URL} from '../constants.js';
+import Warning from '../static/scripts/common/components/Warning.js';
 
 type Props = {
   +checkFailed: boolean,

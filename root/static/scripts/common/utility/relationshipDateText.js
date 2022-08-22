@@ -7,10 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {bracketedText} from '../static/scripts/common/utility/bracketed';
-import formatDate from '../static/scripts/common/utility/formatDate';
-
-import areDatesEqual from './areDatesEqual';
+import areDatesEqual from './areDatesEqual.js';
+import {bracketedText} from './bracketed.js';
+import formatDate from './formatDate.js';
 
 export default function relationshipDateText(
   r: $ReadOnly<{...DatePeriodRoleT, ...}>,

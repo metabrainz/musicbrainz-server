@@ -10,8 +10,9 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
-import EntityLink from '../../../static/scripts/common/components/EntityLink';
-import {returnToCurrentPage} from '../../../utility/returnUri';
+import EntityLink
+  from '../../../static/scripts/common/components/EntityLink.js';
+import {returnToCurrentPage} from '../../../utility/returnUri.js';
 
 type Props = {
   +entity: CoreEntityT,

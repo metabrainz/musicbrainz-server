@@ -241,7 +241,7 @@ export const createCondSubstParser = <T, V>(
 
   const thenChildren = thenParser(args);
 
-  let elseChildren = '';
+  let elseChildren: T | string = '';
   if (gotMatch(accept(verticalPipe))) {
     elseChildren = elseParser(args);
   }

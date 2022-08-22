@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import DescriptiveLink from './DescriptiveLink';
+import DescriptiveLink from './DescriptiveLink.js';
 
 type Props = {
   +event: EventT,

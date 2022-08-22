@@ -378,6 +378,11 @@ msgstr "アンクルン"
 msgid "ankle rattlers"
 msgstr "ankle rattlers"
 
+#: DB:instrument/name:1068
+msgctxt "Andean single row panpipe"
+msgid "antara"
+msgstr ""
+
 #: DB:instrument/name:720
 msgctxt "Tuned metal shape."
 msgid "anvil"
@@ -731,6 +736,11 @@ msgstr "ボロン"
 msgid "bombarde"
 msgstr "ボルバルド"
 
+#: DB:instrument/name:1071
+msgctxt "Andean bass-drum"
+msgid "bombo legüero"
+msgstr ""
+
 #: DB:instrument/name:969
 msgctxt "Family of bronze gong-chime sets used in Javanese gamelan"
 msgid "bonang"
@@ -946,8 +956,9 @@ msgid "chap"
 msgstr "チャープ"
 
 #: DB:instrument/name:466
+msgctxt "Small Andean lute"
 msgid "charango"
-msgstr "チャランゴ"
+msgstr ""
 
 #: DB:instrument/name:640
 msgid "chau gong"
@@ -1043,7 +1054,7 @@ msgid "clarinet"
 msgstr "クラリネット"
 
 #: DB:instrument/name:54
-msgctxt "Classical nylon string guitar"
+msgctxt "Modern acoustic gut/nylon string guitar"
 msgid "classical guitar"
 msgstr "クラシック・ギター"
 
@@ -1801,7 +1812,7 @@ msgid "gusli"
 msgstr "グースリ"
 
 #: DB:instrument/name:567
-msgctxt "gut-stringed acoustic guitar"
+msgctxt "modern gut-stringed acoustic guitar"
 msgid "gut guitar"
 msgstr "ガットギター"
 
@@ -3048,8 +3059,9 @@ msgid "quadruple reed"
 msgstr "四重リード"
 
 #: DB:instrument/name:437
+msgctxt "Small Andean end-blown flute"
 msgid "quena"
-msgstr "ケーナ"
+msgstr ""
 
 #: DB:instrument/name:755
 msgctxt "Jawbone rattle"
@@ -3163,8 +3175,14 @@ msgid "riq"
 msgstr "リク"
 
 #: DB:instrument/name:568
+msgctxt "Ecuadorean panpipes"
 msgid "rondador"
 msgstr "ロンダドール"
+
+#: DB:instrument/name:1070
+msgctxt "South American square charango"
+msgid "ronroco"
+msgstr ""
 
 #: DB:instrument/name:731
 msgid "rototom"
@@ -3407,6 +3425,7 @@ msgid "shudraga"
 msgstr "shudraga"
 
 #: DB:instrument/name:569
+msgctxt "Andean double row panpipe"
 msgid "siku"
 msgstr "サンポーニャ"
 
@@ -4226,6 +4245,11 @@ msgstr "ヴォイス・シンセサイザー/音声合成システム"
 msgctxt "plastic horn"
 msgid "vuvuzela"
 msgstr "ブブゼラ"
+
+#: DB:instrument/name:1069
+msgctxt "Smallest member of charango family"
+msgid "walaycho"
+msgstr ""
 
 #: DB:instrument/name:159
 msgid "washboard"

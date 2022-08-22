@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import Tabs from '../components/Tabs';
-import Layout from '../layout';
-import TagLink from '../static/scripts/common/components/TagLink';
+import Tabs from '../components/Tabs.js';
+import Layout from '../layout/index.js';
+import TagLink from '../static/scripts/common/components/TagLink.js';
 
 type Props = {
   +children: React.Node,

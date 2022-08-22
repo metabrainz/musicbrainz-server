@@ -11,11 +11,11 @@ import * as React from 'react';
 
 import {
   relTypeColumn,
-} from '../utility/tableColumns';
+} from '../utility/tableColumns.js';
 
-import PlaceList from './components/PlaceList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportPlaceRelationshipT} from './types';
+import PlaceList from './components/PlaceList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportPlaceRelationshipT} from './types.js';
 
 const DeprecatedRelationshipPlaces = ({
   canBeFiltered,

@@ -13,7 +13,7 @@ import {
   type FormOrAnyFieldT,
   type WritableAnyFieldT,
   type WritableFormOrAnyFieldT,
-} from './iterSubfields';
+} from './iterSubfields.js';
 
 export function applyAllPendingErrors(
   formOrField: WritableFormOrAnyFieldT,

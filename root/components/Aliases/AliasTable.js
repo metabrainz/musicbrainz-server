@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import AliasTableBody from './AliasTableBody';
+import AliasTableBody from './AliasTableBody.js';
 
 type Props = {
   +aliases: $ReadOnlyArray<AliasT>,

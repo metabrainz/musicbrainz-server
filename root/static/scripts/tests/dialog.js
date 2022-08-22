@@ -19,7 +19,16 @@ const useReturnFocus = require('../common/hooks/useReturnFocus').default;
 const container = document.createElement('div');
 document.body?.insertBefore(container, document.getElementById('page'));
 
-function reducer(state, action) {
+type ActionT =
+  | {+open: boolean, +type: 'toggle-modal'}
+  | {+open: boolean, +type: 'toggle-popover'};
+
+type StateT = {
+  +isModalOpen: boolean,
+  +isPopoverOpen: boolean,
+};
+
+function reducer(state: StateT, action: ActionT) {
   switch (action.type) {
     case 'toggle-modal':
       return {

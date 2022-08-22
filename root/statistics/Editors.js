@@ -9,15 +9,15 @@
 
 import * as React from 'react';
 
-import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
-import EditorLink from '../static/scripts/common/components/EditorLink';
-import loopParity from '../utility/loopParity';
+import {CatalystContext} from '../context.mjs';
+import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
+import EditorLink from '../static/scripts/common/components/EditorLink.js';
+import loopParity from '../utility/loopParity.js';
 
-import {formatCount} from './utilities';
-import StatisticsLayout from './StatisticsLayout';
+import {formatCount} from './utilities.js';
+import StatisticsLayout from './StatisticsLayout.js';
 
 type EditorsStatsT = {
-  +$c: CatalystContextT,
   +dateCollected: string,
   +topEditors: $ReadOnlyArray<EditorStatT>,
   +topRecentlyActiveEditors: $ReadOnlyArray<EditorStatT>,
@@ -26,7 +26,6 @@ type EditorsStatsT = {
 };
 
 type EditorStatsTableProps = {
-  +$c: CatalystContextT,
   countLabel: string,
   dataPoints: $ReadOnlyArray<EditorStatT>,
   editorLabel: string,
@@ -39,56 +38,57 @@ type EditorStatT = {
 };
 
 const EditorStatsTable = ({
-  $c,
   countLabel,
   dataPoints,
   editorLabel,
   tableLabel,
-}: EditorStatsTableProps) => (
-  <>
-    <h3>{tableLabel}</h3>
-    <table className="tbl">
-      <thead>
-        <tr>
-          <th className="pos">{l('Rank')}</th>
-          <th>
-            {editorLabel}
-            <div className="arrow" />
-          </th>
-          <th>
-            {countLabel}
-            <div className="arrow" />
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {dataPoints.length > 0 ? (
-          dataPoints.map((editorStat, index) => (
-            <tr
-              className={loopParity(index)}
-              key={
-                editorStat.editor
-                  ? editorStat.editor.id
-                  : `missing-${index}`
-              }
-            >
-              <td className="t">{index + 1}</td>
-              <td><EditorLink editor={editorStat.editor} /></td>
-              <td className="t">{formatCount($c, editorStat.count)}</td>
-            </tr>
-          ))
-        ) : (
-          <tr className="even">
-            <td colSpan="3">{l('There is no data to display here.')}</td>
+}: EditorStatsTableProps) => {
+  const $c = React.useContext(CatalystContext);
+  return (
+    <>
+      <h3>{tableLabel}</h3>
+      <table className="tbl">
+        <thead>
+          <tr>
+            <th className="pos">{l('Rank')}</th>
+            <th>
+              {editorLabel}
+              <div className="arrow" />
+            </th>
+            <th>
+              {countLabel}
+              <div className="arrow" />
+            </th>
           </tr>
-        )}
-      </tbody>
-    </table>
-  </>
-);
+        </thead>
+        <tbody>
+          {dataPoints.length > 0 ? (
+            dataPoints.map((editorStat, index) => (
+              <tr
+                className={loopParity(index)}
+                key={
+                  editorStat.editor
+                    ? editorStat.editor.id
+                    : `missing-${index}`
+                }
+              >
+                <td className="t">{index + 1}</td>
+                <td><EditorLink editor={editorStat.editor} /></td>
+                <td className="t">{formatCount($c, editorStat.count)}</td>
+              </tr>
+            ))
+          ) : (
+            <tr className="even">
+              <td colSpan="3">{l('There is no data to display here.')}</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </>
+  );
+};
 
 const Editors = ({
-  $c,
   dateCollected,
   topEditors,
   topRecentlyActiveEditors,
@@ -108,14 +108,12 @@ const Editors = ({
     >
       <h2 style={{marginTop: 0}}>{l('Editors')}</h2>
       <EditorStatsTable
-        $c={$c}
         countLabel={l('Open and applied edits in past week')}
         dataPoints={topRecentlyActiveEditors}
         editorLabel={l('Editor')}
         tableLabel={l('Most active editors in the past week')}
       />
       <EditorStatsTable
-        $c={$c}
         countLabel={l('Total applied edits')}
         dataPoints={topEditors}
         editorLabel={l('Editor')}
@@ -127,14 +125,12 @@ const Editors = ({
     >
       <h2 style={{marginTop: 0}}>{l('Voters')}</h2>
       <EditorStatsTable
-        $c={$c}
         countLabel={l('Votes in past week')}
         dataPoints={topRecentlyActiveVoters}
         editorLabel={l('Voter')}
         tableLabel={l('Most active voters in the past week')}
       />
       <EditorStatsTable
-        $c={$c}
         countLabel={l('Total votes')}
         dataPoints={topVoters}
         editorLabel={l('Voter')}

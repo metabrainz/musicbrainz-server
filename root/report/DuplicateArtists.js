@@ -9,26 +9,28 @@
 
 import * as React from 'react';
 
-import PaginatedResults from '../components/PaginatedResults';
-import loopParity from '../utility/loopParity';
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import FormRow from '../components/FormRow';
-import FormSubmit from '../components/FormSubmit';
-import {returnToCurrentPage} from '../utility/returnUri';
+import PaginatedResults from '../components/PaginatedResults.js';
+import {SanitizedCatalystContext} from '../context.mjs';
+import loopParity from '../utility/loopParity.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import FormRow from '../static/scripts/edit/components/FormRow.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
-import ReportLayout from './components/ReportLayout';
-import type {ReportArtistT, ReportDataT} from './types';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportArtistT, ReportDataT} from './types.js';
 
 const DuplicateArtists = ({
-  $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
 }: ReportDataT<ReportArtistT>): React.Element<typeof ReportLayout> => {
-  let currentKey = '';
-  let lastKey = '';
+  const $c = React.useContext(SanitizedCatalystContext);
+
+  let currentKey: ?string = '';
+  let lastKey: ?string = '';
 
   return (
     <ReportLayout

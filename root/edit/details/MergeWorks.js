@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import WorkList from '../../components/list/WorkList';
+import WorkList from '../../components/list/WorkList.js';
 
 type Props = {
   +edit: MergeWorksEditT,

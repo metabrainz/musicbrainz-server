@@ -9,12 +9,14 @@
 
 import * as React from 'react';
 
-import FormCsrfToken from '../components/FormCsrfToken';
-import FormRow from '../components/FormRow';
-import FormRowText from '../components/FormRowText';
-import FormRowEmailLong from '../components/FormRowEmailLong';
-import FormSubmit from '../components/FormSubmit';
-import Layout from '../layout';
+import Layout from '../layout/index.js';
+import FormCsrfToken
+  from '../static/scripts/edit/components/FormCsrfToken.js';
+import FormRow from '../static/scripts/edit/components/FormRow.js';
+import FormRowText from '../static/scripts/edit/components/FormRowText.js';
+import FormRowEmailLong
+  from '../static/scripts/edit/components/FormRowEmailLong.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 type LostPasswordFormT = FormT<{
   +email: ReadOnlyFieldT<string>,

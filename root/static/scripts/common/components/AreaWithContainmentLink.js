@@ -7,11 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import commaOnlyList from '../../common/i18n/commaOnlyList';
+import commaOnlyList from '../../common/i18n/commaOnlyList.js';
 
-import EntityLink from './EntityLink';
+import EntityLink from './EntityLink.js';
 
-const makeContainmentLink = (x, i) => (
+const makeContainmentLink = (x: AreaT, i: number) => (
   <EntityLink entity={x} key={i + 1} />
 );
 

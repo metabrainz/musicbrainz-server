@@ -9,33 +9,34 @@
 
 import * as React from 'react';
 
-import Layout from '../../layout';
-import Cardinality from '../../static/scripts/common/components/Cardinality';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
+import {SanitizedCatalystContext} from '../../context.mjs';
+import Layout from '../../layout/index.js';
+import Cardinality
+  from '../../static/scripts/common/components/Cardinality.js';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import OrderableDirection
-  from '../../static/scripts/common/components/OrderableDirection';
+  from '../../static/scripts/common/components/OrderableDirection.js';
 import Relationship
-  from '../../static/scripts/common/components/Relationship';
+  from '../../static/scripts/common/components/Relationship.js';
 import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
-import {compare} from '../../static/scripts/common/i18n';
-import expand2react from '../../static/scripts/common/i18n/expand2react';
+import {compare} from '../../static/scripts/common/i18n.js';
+import expand2react from '../../static/scripts/common/i18n/expand2react.js';
 import localizeLinkAttributeTypeName
-  from '../../static/scripts/common/i18n/localizeLinkAttributeTypeName';
+  from '../../static/scripts/common/i18n/localizeLinkAttributeTypeName.js';
 import formatEntityTypeName
-  from '../../static/scripts/common/utility/formatEntityTypeName';
+  from '../../static/scripts/common/utility/formatEntityTypeName.js';
 import {isRelationshipEditor}
-  from '../../static/scripts/common/utility/privileges';
-import {upperFirst} from '../../static/scripts/common/utility/strings';
+  from '../../static/scripts/common/utility/privileges.js';
+import {upperFirst} from '../../static/scripts/common/utility/strings.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +relType: LinkTypeT,
 };
 
 const RelationshipTypeIndex = ({
-  $c,
   relType,
 }: Props): React.Element<typeof Layout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const childrenTypes = relType.children || [];
   const typeName = upperFirst(l_relationships(relType.name));
   const title = l('Relationship Type') + ' / ' + typeName;

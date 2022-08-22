@@ -1,4 +1,5 @@
 {
+    "": "Automatically generated, do not edit. Refer to entities.mjs for instructions.",
     "annotation": {
         "model": "Annotation"
     },
@@ -16,7 +17,16 @@
             "id": 1
         },
         "collections": true,
-        "custom_tabs": ["artists", "events", "labels", "releases", "recordings", "places", "users", "works"],
+        "custom_tabs": [
+            "artists",
+            "events",
+            "labels",
+            "releases",
+            "recordings",
+            "places",
+            "users",
+            "works"
+        ],
         "date_period": true,
         "disambiguation": true,
         "edit_table": true,
@@ -65,7 +75,12 @@
             "id": 3
         },
         "collections": true,
-        "custom_tabs": ["releases", "recordings", "works", "events"],
+        "custom_tabs": [
+            "releases",
+            "recordings",
+            "works",
+            "events"
+        ],
         "date_period": true,
         "disambiguation": true,
         "edit_table": true,
@@ -86,7 +101,10 @@
         "ratings": true,
         "removal": {
             "automatic": {
-                "exempt": [1, 2],
+                "exempt": [
+                    1,
+                    2
+                ],
                 "extra_fks": {
                     "artist_credit_name": "artist"
                 }
@@ -280,7 +298,11 @@
             "id": 11
         },
         "collections": true,
-        "custom_tabs": ["artists", "releases", "recordings"],
+        "custom_tabs": [
+            "artists",
+            "releases",
+            "recordings"
+        ],
         "disambiguation": true,
         "edit_table": true,
         "last_updated_column": true,
@@ -357,7 +379,9 @@
         "ratings": true,
         "removal": {
             "automatic": {
-                "exempt": [1],
+                "exempt": [
+                    1
+                ],
                 "extra_fks": {
                     "release_label": "label"
                 }
@@ -420,8 +444,12 @@
         "model": "LinkType",
         "url": "relationship"
     },
-    "medium": {"model": "Medium"},
-    "medium_cdtoc": {"model": "MediumCDTOC"},
+    "medium": {
+        "model": "Medium"
+    },
+    "medium_cdtoc": {
+        "model": "MediumCDTOC"
+    },
     "medium_format": {
         "cache": {
             "id": 19
@@ -442,7 +470,11 @@
             "id": 20
         },
         "collections": true,
-        "custom_tabs": ["events", "performances", "map"],
+        "custom_tabs": [
+            "events",
+            "performances",
+            "map"
+        ],
         "date_period": true,
         "disambiguation": true,
         "edit_table": true,
@@ -496,7 +528,9 @@
             "id": 22
         },
         "collections": true,
-        "custom_tabs": ["fingerprints"],
+        "custom_tabs": [
+            "fingerprints"
+        ],
         "disambiguation": true,
         "edit_table": true,
         "last_updated_column": true,

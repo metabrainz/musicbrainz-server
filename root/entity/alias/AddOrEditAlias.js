@@ -10,15 +10,14 @@
 
 import * as React from 'react';
 
-import chooseLayoutComponent from '../../utility/chooseLayoutComponent';
+import chooseLayoutComponent from '../../utility/chooseLayoutComponent.js';
 import * as manifest from '../../static/manifest.mjs';
-import AliasEditForm from '../../static/scripts/alias/AliasEditForm';
-import {ENTITIES} from '../../static/scripts/common/constants';
+import AliasEditForm from '../../static/scripts/alias/AliasEditForm.js';
+import {ENTITIES} from '../../static/scripts/common/constants.js';
 
-import type {AliasEditFormT} from './types';
+import type {AliasEditFormT} from './types.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +aliasTypes: SelectOptionsT,
   +entity: CoreEntityT,
   +form: AliasEditFormT,
@@ -28,7 +27,6 @@ type Props = {
 };
 
 const AddOrEditAlias = ({
-  $c,
   aliasTypes,
   entity,
   form,
@@ -51,7 +49,6 @@ const AddOrEditAlias = ({
     >
       <h2>{header}</h2>
       <AliasEditForm
-        $c={$c}
         aliasTypes={aliasTypes}
         entity={entity}
         form={form}

@@ -9,16 +9,15 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
+import Layout from '../layout/index.js';
 import ReleaseGroupSidebar
-  from '../layout/components/sidebar/ReleaseGroupSidebar';
+  from '../layout/components/sidebar/ReleaseGroupSidebar.js';
 import {reduceArtistCredit}
-  from '../static/scripts/common/immutable-entities';
+  from '../static/scripts/common/immutable-entities.js';
 
-import ReleaseGroupHeader from './ReleaseGroupHeader';
+import ReleaseGroupHeader from './ReleaseGroupHeader.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +children: React.Node,
   +entity: ReleaseGroupT,
   +fullWidth?: boolean,

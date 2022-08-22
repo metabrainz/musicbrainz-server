@@ -8,10 +8,11 @@
  */
 
 import * as React from 'react';
+import type {CellRenderProps} from 'react-table';
 
-import ReleaseList from './components/ReleaseList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportReleaseLabelT} from './types';
+import ReleaseList from './components/ReleaseList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportReleaseLabelT} from './types.js';
 
 const ReleaseLabelSameArtist = ({
   canBeFiltered,
@@ -21,7 +22,9 @@ const ReleaseLabelSameArtist = ({
   pager,
 }: ReportDataT<ReportReleaseLabelT>): React.Element<typeof ReportLayout> => {
   const labelColumn = {
-    Cell: ({row: {original}}) => (
+    Cell: ({
+      row: {original},
+    }: CellRenderProps<ReportReleaseLabelT, empty>) => (
       <a href={'/label/' + encodeURIComponent(original.label_gid)}>
         {original.label_name}
       </a>

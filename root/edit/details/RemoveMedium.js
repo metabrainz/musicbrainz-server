@@ -9,23 +9,23 @@
 
 import * as React from 'react';
 
-import {EDIT_STATUS_OPEN} from '../../constants';
+import {EDIT_STATUS_OPEN} from '../../constants.js';
 import MediumTracklist
-  from '../../medium/MediumTracklist';
+  from '../../medium/MediumTracklist.js';
 import MediumLink
-  from '../../static/scripts/common/components/MediumLink';
-import Warning from '../../static/scripts/common/components/Warning';
+  from '../../static/scripts/common/components/MediumLink.js';
+import Warning from '../../static/scripts/common/components/Warning.js';
 import {
   artistCreditsAreEqual,
-} from '../../static/scripts/common/immutable-entities';
-import {arraysEqual} from '../../static/scripts/common/utility/arrays';
+} from '../../static/scripts/common/immutable-entities.js';
+import {arraysEqual} from '../../static/scripts/common/utility/arrays.js';
 
 type Props = {
   +allowNew?: boolean,
   +edit: RemoveMediumEditT,
 };
 
-const areTracksEqual = (a, b) => (
+const areTracksEqual = (a: TrackT, b: TrackT) => (
   a.name === b.name &&
   artistCreditsAreEqual(a.artistCredit, b.artistCredit) &&
   a.length === b.length

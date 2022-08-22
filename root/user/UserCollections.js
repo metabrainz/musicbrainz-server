@@ -10,30 +10,32 @@
 import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
-import Table from '../components/Table';
+import Table from '../components/Table.js';
 import UserAccountLayout, {type AccountLayoutUserT}
-  from '../components/UserAccountLayout';
+  from '../components/UserAccountLayout.js';
+import {SanitizedCatalystContext} from '../context.mjs';
 import {formatPluralEntityTypeName}
-  from '../static/scripts/common/utility/formatEntityTypeName';
+  from '../static/scripts/common/utility/formatEntityTypeName.js';
 import {
   defineNameColumn,
   defineTypeColumn,
   subscriptionColumn,
   defineActionsColumn,
-} from '../utility/tableColumns';
+} from '../utility/tableColumns.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +collaborativeCollections: CollectionListT,
   +ownCollections: CollectionListT,
   +user: AccountLayoutUserT,
 };
 
+type CollectionWithSubscribedT = $ReadOnly<{
+  ...CollectionT,
+  subscribed: boolean,
+}>;
+
 type CollectionListT = {
-  +[entityType: string]: $ReadOnlyArray<$ReadOnly<{
-    ...CollectionT,
-    subscribed: boolean,
-  }>>,
+  +[entityType: string]: $ReadOnlyArray<CollectionWithSubscribedT>,
 };
 
 const collectionsListTitles = {
@@ -78,13 +80,21 @@ function formatPrivacy(
   );
 }
 
+type CollectionsEntityTypeSectionPropsT = {
+  +activeUserId: number | void,
+  +collections: $ReadOnlyArray<CollectionWithSubscribedT>,
+  +isCollaborative: boolean,
+  +type: string,
+  +user: AccountLayoutUserT,
+};
+
 const CollectionsEntityTypeSection = ({
   activeUserId,
-  isCollaborative,
   collections,
+  isCollaborative,
   type,
   user,
-}) => {
+}: CollectionsEntityTypeSectionPropsT) => {
   const columns = React.useMemo(
     () => {
       const viewingOwnProfile =
@@ -148,11 +158,11 @@ const CollectionsEntityTypeSection = ({
 };
 
 const UserCollections = ({
-  $c,
   ownCollections,
   collaborativeCollections,
   user,
 }: Props): React.Element<typeof UserAccountLayout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const activeUser = $c.user;
   const viewingOwnProfile = !!(activeUser && activeUser.id === user.id);
   const ownCollectionTypes = Object.keys(ownCollections);

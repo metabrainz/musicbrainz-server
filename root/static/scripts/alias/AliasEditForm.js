@@ -13,43 +13,42 @@ import * as React from 'react';
 import type {
   AliasEditFormT,
   WritableAliasEditFormT,
-} from '../../../entity/alias/types';
-import EnterEdit from '../../../components/EnterEdit';
-import EnterEditNote from '../../../components/EnterEditNote';
-import FormRowCheckbox from '../../../components/FormRowCheckbox';
-import FormRowSelect from '../../../components/FormRowSelect';
-import isBlank from '../common/utility/isBlank';
+} from '../../../entity/alias/types.js';
+import isBlank from '../common/utility/isBlank.js';
 import DateRangeFieldset, {
   type ActionT as DateRangeFieldsetActionT,
   runReducer as runDateRangeFieldsetReducer,
-} from '../edit/components/DateRangeFieldset';
+} from '../edit/components/DateRangeFieldset.js';
+import EnterEdit from '../edit/components/EnterEdit.js';
+import EnterEditNote from '../edit/components/EnterEditNote.js';
+import FormRowCheckbox from '../edit/components/FormRowCheckbox.js';
 import FormRowNameWithGuessCase, {
   runReducer as runNameReducer,
   type ActionT as NameActionT,
-} from '../edit/components/FormRowNameWithGuessCase';
+} from '../edit/components/FormRowNameWithGuessCase.js';
+import FormRowSelect from '../edit/components/FormRowSelect.js';
 import FormRowSortNameWithGuessCase, {
   runReducer as runSortNameReducer,
   type ActionT as SortNameActionT,
-} from '../edit/components/FormRowSortNameWithGuessCase';
+} from '../edit/components/FormRowSortNameWithGuessCase.js';
 import {
   createInitialState as createGuessCaseOptionsState,
   type StateT as GuessCaseOptionsStateT,
   type WritableStateT as WritableGuessCaseOptionsStateT,
-} from '../edit/components/GuessCaseOptions';
+} from '../edit/components/GuessCaseOptions.js';
 import copyFieldData, {
   copyDatePeriodField,
-} from '../edit/utility/copyFieldData';
+} from '../edit/utility/copyFieldData.js';
 import {
   createCompoundField,
   createField,
-} from '../edit/utility/createField';
+} from '../edit/utility/createField.js';
 import {
   applyAllPendingErrors,
   hasSubfieldErrors,
-} from '../../../utility/subfieldErrors';
+} from '../edit/utility/subfieldErrors.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +aliasTypes: SelectOptionsT,
   +entity: CoreEntityT,
   +form: AliasEditFormT,
@@ -103,7 +102,7 @@ const blankDatePeriod = {
   type: 'compound_field',
 };
 
-function createInitialState(form, searchHintType) {
+function createInitialState(form: AliasEditFormT, searchHintType: number) {
   return {
     form,
     guessCaseOptions: createGuessCaseOptionsState(),
@@ -196,7 +195,6 @@ function reducer(state: StateT, action: ActionT): StateT {
 }
 
 const AliasEditForm = ({
-  $c,
   aliasTypes,
   entity,
   form: initialForm,
@@ -252,14 +250,14 @@ const AliasEditForm = ({
   const hasErrors = missingRequired || hasSubfieldErrors(state.form);
 
   // Ensure errors are shown if the user tries to submit with Enter
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: SyntheticKeyboardEvent<HTMLFormElement>) => {
     if (event.key === 'Enter' && hasErrors) {
       dispatch({type: 'show-all-pending-errors'});
       event.preventDefault();
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     if (hasErrors) {
       dispatch({type: 'show-all-pending-errors'});
       event.preventDefault();
@@ -279,7 +277,6 @@ const AliasEditForm = ({
       </p>
 
       <form
-        action={$c.req.uri}
         className="edit-alias"
         method="post"
         onKeyDown={handleKeyDown}

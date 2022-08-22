@@ -9,12 +9,15 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context.mjs';
-import {VARTIST_GID} from '../../static/scripts/common/constants';
-import {capitalize} from '../../static/scripts/common/utility/strings';
-import {returnToCurrentPage} from '../../utility/returnUri';
+import {SanitizedCatalystContext} from '../../context.mjs';
+import {VARTIST_GID} from '../../static/scripts/common/constants.js';
+import {capitalize} from '../../static/scripts/common/utility/strings.js';
+import {returnToCurrentPage} from '../../utility/returnUri.js';
 
-function languageName(language, selected) {
+function languageName(
+  language: ?ServerLanguageT,
+  selected: boolean,
+) {
   if (!language) {
     return '';
   }
@@ -42,58 +45,69 @@ function languageName(language, selected) {
   return text;
 }
 
-const LanguageLink = ({$c, language}) => (
-  <a
-    href={
-      '/set-language/' + encodeURIComponent(language.name) +
-      '?' + returnToCurrentPage($c)
-    }
-  >
-    {languageName(language, false)}
-  </a>
-);
+type LanguageLinkPropsT = {
+  language: ServerLanguageT,
+};
+
+const LanguageLink = ({
+  language,
+}: LanguageLinkPropsT) => {
+  const $c = React.useContext(SanitizedCatalystContext);
+  return (
+    <a
+      href={
+        '/set-language/' + encodeURIComponent(language.name) +
+        '?' + returnToCurrentPage($c)
+      }
+    >
+      {languageName(language, false)}
+    </a>
+  );
+};
 
 type LanguageMenuProps = {
-  +$c: CatalystContextT,
   +currentBCP47Language: string,
   +serverLanguages: $ReadOnlyArray<ServerLanguageT>,
 };
 
 const LanguageMenu = ({
-  $c,
   currentBCP47Language,
   serverLanguages,
-}: LanguageMenuProps) => (
-  <li className="language-selector" tabIndex="-1">
-    <span className="menu-header">
-      {languageName(
-        serverLanguages.find(x => x.name === currentBCP47Language),
-        true,
-      )}
-    </span>
-    <ul>
-      {serverLanguages.map(function (language, index) {
-        let inner = <LanguageLink $c={$c} language={language} />;
+}: LanguageMenuProps) => {
+  const $c = React.useContext(SanitizedCatalystContext);
+  return (
+    <li className="language-selector" tabIndex="-1">
+      <span className="menu-header">
+        {languageName(
+          serverLanguages.find(x => x.name === currentBCP47Language),
+          true,
+        )}
+      </span>
+      <ul>
+        {serverLanguages.map(function (language, index) {
+          let inner: React.MixedElement =
+            <LanguageLink language={language} />;
 
-        if (language.name === currentBCP47Language) {
-          inner = <strong>{inner}</strong>;
-        }
+          if (language.name === currentBCP47Language) {
+            inner = <strong>{inner}</strong>;
+          }
 
-        return <li key={index}>{inner}</li>;
-      })}
-      <li>
-        <a href={'/set-language/unset?' + returnToCurrentPage($c)}>
-          {l('(reset language)')}
-        </a>
-      </li>
-      <li className="separator">
-        <a href="https://www.transifex.com/musicbrainz/musicbrainz/">
-          {l('Help Translate')}
-        </a>
-      </li>
-    </ul>
-  </li>
-);
+          return <li key={index}>{inner}</li>;
+        })}
+        <li>
+          <a href={'/set-language/unset?' + returnToCurrentPage($c)}>
+            {l('(reset language)')}
+          </a>
+        </li>
+        <li className="separator">
+          <a href="https://www.transifex.com/musicbrainz/musicbrainz/">
+            {l('Help Translate')}
+          </a>
+        </li>
+      </ul>
+    </li>
+  );
+};
 
 const AboutMenu = () => (
   <li className="about" tabIndex="-1">
@@ -314,7 +328,7 @@ const DocumentationMenu = () => (
 );
 
 const BottomMenu = (): React.Element<'div'> => {
-  const $c = React.useContext(CatalystContext);
+  const $c = React.useContext(SanitizedCatalystContext);
   const serverLanguages = $c.stash.server_languages;
   return (
     <div className="bottom">
@@ -326,7 +340,6 @@ const BottomMenu = (): React.Element<'div'> => {
         <DocumentationMenu />
         {serverLanguages && serverLanguages.length > 1 ? (
           <LanguageMenu
-            $c={$c}
             currentBCP47Language={$c.stash.current_language.replace('_', '-')}
             serverLanguages={serverLanguages}
           />

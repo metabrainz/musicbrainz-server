@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import EventSidebar from '../layout/components/sidebar/EventSidebar';
+import Layout from '../layout/index.js';
+import EventSidebar from '../layout/components/sidebar/EventSidebar.js';
 
-import EventHeader from './EventHeader';
+import EventHeader from './EventHeader.js';
 
 type Props = {
   +children: React.Node,

@@ -9,10 +9,11 @@
 
 import * as React from 'react';
 
-import {commaOnlyListText} from '../static/scripts/common/i18n/commaOnlyList';
-import {bracketedText} from '../static/scripts/common/utility/bracketed';
+import {commaOnlyListText}
+  from '../static/scripts/common/i18n/commaOnlyList.js';
+import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
 
-const lType = (x) => lp_attributes(x, 'cover_art_type');
+const lType = (x: string) => lp_attributes(x, 'cover_art_type');
 
 function artworkHover(artwork: ArtworkT) {
   let result = '';

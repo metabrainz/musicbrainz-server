@@ -12,8 +12,8 @@ import type {ColumnOptionsNoValue} from 'react-table';
 
 import {
   defineTextColumn,
-} from '../../utility/tableColumns';
-import type {ReportReleaseCatNoT} from '../types';
+} from '../../utility/tableColumns.js';
+import type {ReportReleaseCatNoT} from '../types.js';
 
 function useCatNoColumn<
   D: $ReadOnly<{...ReportReleaseCatNoT, ...}>,

@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import localizeLanguageName
-  from '../static/scripts/common/i18n/localizeLanguageName';
+  from '../static/scripts/common/i18n/localizeLanguageName.js';
 
-import LinkSearchableProperty from './LinkSearchableProperty';
+import LinkSearchableProperty from './LinkSearchableProperty.js';
 
 type Props = {
   +entityType: string,

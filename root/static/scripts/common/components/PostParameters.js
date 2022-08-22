@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {compareStrings} from '../utility/compare';
+import {compareStrings} from '../utility/compare.js';
 
 export type PostParametersT = {
   +[param: string]: string | $ReadOnlyArray<string>,

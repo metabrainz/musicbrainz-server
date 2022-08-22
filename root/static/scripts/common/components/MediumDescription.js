@@ -7,9 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {addColonText} from '../i18n/addColon';
-import isolateText from '../utility/isolateText';
-import mediumFormatName from '../utility/mediumFormatName';
+import {addColonText} from '../i18n/addColon.js';
+import isolateText from '../utility/isolateText.js';
+import mediumFormatName from '../utility/mediumFormatName.js';
 
 type Props = {
   +medium: MediumT,

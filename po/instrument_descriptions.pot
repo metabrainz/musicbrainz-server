@@ -13,8 +13,8 @@ msgstr ""
 msgid ""
 "\"Drum\" or \"drums\" is a common but generic credit can refer to multiple "
 "instruments. If you know which instrument this is, please select the "
-"specific instrument: <ul> <li> For the instrument commonly known as "
-"\"drums\", and often used in Western popular music, use <a href=\"/"
+"specific instrument: <ul> <li> For the instrument commonly known as \"drums"
+"\", and often used in Western popular music, use <a href=\"/"
 "instrument/12092505-6ee1-46af-a15a-b5b468b6b155\">drums (drum set)</a>. </"
 "li> <li> For programmed or \"drum-loops\" use <a href=\"/instrument/"
 "ce0eed13-58d8-4744-8ad0-b7d6182a2d0f\">drum machine</a>. </li> <li> For "
@@ -58,9 +58,9 @@ msgid ""
 "13th century or earlier South Indian fretless slide lute used in Carnatic "
 "music. Hollow body made of jack-fruit with a secondary resonator of hollowed "
 "out gourd, it has 6 main, 3 drone and 11-12 sympathetic strings with a "
-"sliding block of hardwood to vary pitch. Much like the North Indian <a "
-"href=\"/instrument/b4d38ac1-7f12-437c-a61a-be2796ffc559\">vichitra veena</a> "
-"is to the <a href=\"/instrument/aea9661c-cbda-4bf3-a61d-d78697472f29\">rudra "
+"sliding block of hardwood to vary pitch. Much like the North Indian <a href="
+"\"/instrument/b4d38ac1-7f12-437c-a61a-be2796ffc559\">vichitra veena</a> is "
+"to the <a href=\"/instrument/aea9661c-cbda-4bf3-a61d-d78697472f29\">rudra "
 "veena</a>, chitra veena is to the <a href=\"/instrument/41761936-5dbc-433f-"
 "b558-a7ef14fe9b08\">Saraswati veena</a>."
 msgstr ""
@@ -302,6 +302,13 @@ msgid ""
 "museum examples are now used by Swedish folk musicians."
 msgstr ""
 
+#. name:steel-string acoustic guitar 
+#: DB:instrument/description:653
+msgid ""
+"Also know and \"flat-top\", it is a hollow-body acoustic guitar strung with "
+"steel strings."
+msgstr ""
+
 #. name:cello 
 #: DB:instrument/description:60
 msgid ""
@@ -315,6 +322,13 @@ msgstr ""
 msgid ""
 "Also known as Melodeon, it has 1 to 2 rows of buttons that each produce two "
 "tones (bisonoric)."
+msgstr ""
+
+#. name:classical guitar 
+#: DB:instrument/description:54
+msgid ""
+"Also known as Spanish guitar, it is used in classical, folk and other "
+"styles, the strings are nylon or gut."
 msgstr ""
 
 #. name:gopichant 
@@ -422,8 +436,8 @@ msgstr ""
 #. name:gizmo 
 #: DB:instrument/description:796
 msgid ""
-"An effects device to be clamped on the bridge, it produces \"synthesizer-"
-"like\" sounds"
+"An effects device to be clamped on the bridge, it produces \"synthesizer-like"
+"\" sounds"
 msgstr ""
 
 #. name:Pianet 
@@ -438,6 +452,12 @@ msgstr ""
 msgid ""
 "An idiophone is a musical instrument which creates sound by the instrument "
 "as a whole vibrating without the use of strings or membranes."
+msgstr ""
+
+#. name:ronroco 
+#: DB:instrument/description:1070
+msgid ""
+"An octave lower than the charango, it is the largest member of the family."
 msgstr ""
 
 #. name:natural horn 
@@ -1169,6 +1189,14 @@ msgid ""
 "and dance."
 msgstr ""
 
+#. name:siku 
+#: DB:instrument/description:569
+msgid ""
+"For the Italian bag-pipe, see <a href=\"/\">zampogna</a>.<br /> Also known "
+"as zampona, traditional Andean panpipe has two rows of pipes tied together "
+"with colourful bands."
+msgstr ""
+
 #. name:lira da braccio 
 #: DB:instrument/description:1016
 msgid ""
@@ -1350,11 +1378,6 @@ msgstr ""
 msgid "Hollow-body acoustic guitar strung with nylon-strings."
 msgstr ""
 
-#. name:steel-string acoustic guitar 
-#: DB:instrument/description:653
-msgid "Hollow-body acoustic guitar strung with steel strings."
-msgstr ""
-
 #. name:mendoza 
 #: DB:instrument/description:114
 msgid ""
@@ -1381,8 +1404,8 @@ msgstr ""
 #. name:guban 
 #: DB:instrument/description:956
 msgid ""
-"Important in Yue, Kunkqu and Peking opera, it consists of the drum <a "
-"href=\"/instrument/42349583-c10d-4c6e-b553-28d916113856\">bangu</a> and the "
+"Important in Yue, Kunkqu and Peking opera, it consists of the drum <a href="
+"\"/instrument/42349583-c10d-4c6e-b553-28d916113856\">bangu</a> and the "
 "clapper <a href=\"/instrument/c641bccc-2060-4871-9c12-e2df2523e53c\">paiban</"
 "a>. Drum is played by one hand and clapper with the other."
 msgstr ""
@@ -1413,9 +1436,9 @@ msgstr ""
 #. name:baroque rackett 
 #: DB:instrument/description:897
 msgid ""
-"Improved by Johann Christoph Denner sometime around 1730, its \"coiled "
-"snake\" bore now is conical, in addition it is played through a removable "
-"metal curled mouth piece."
+"Improved by Johann Christoph Denner sometime around 1730, its \"coiled snake"
+"\" bore now is conical, in addition it is played through a removable metal "
+"curled mouth piece."
 msgstr ""
 
 #. name:sursingar 
@@ -1794,9 +1817,9 @@ msgstr ""
 #. name:żummara 
 #: DB:instrument/description:592
 msgid ""
-"Made of bamboo with one end covered with grease-paper, it is a \"side-"
-"blown\" mirliton.<br /> Not to be confused with the Egyptian/Iraqi zummara "
-"which is an instrument similar to a chalumeau."
+"Made of bamboo with one end covered with grease-paper, it is a \"side-blown"
+"\" mirliton.<br /> Not to be confused with the Egyptian/Iraqi zummara which "
+"is an instrument similar to a chalumeau."
 msgstr ""
 
 #. name:suling 
@@ -1812,6 +1835,11 @@ msgstr ""
 msgid ""
 "Made of bone or wood, these are paired sticks of sonorous material used in "
 "folk music."
+msgstr ""
+
+#. name:rondador 
+#: DB:instrument/description:568
+msgid "Made of cane, it is used in Ecuador."
 msgstr ""
 
 #. name:calabash 
@@ -2100,9 +2128,9 @@ msgid ""
 "One of the two subfamilies of Indian chordophones, the South Indian gourd "
 "lute used in classical Carnatic music has a single gourd music-box "
 "(sometimes a secondary small resonator gourd) with an often hollow neck.<br /"
-"> Commonly called just \"veena\" or \"vina\", the representative is <a "
-"href=\"/instrument/41761936-5dbc-433f-b558-a7ef14fe9b08\">Saraswati veena</"
-"a>, and credits to just \"veena\" are usually that."
+"> Commonly called just \"veena\" or \"vina\", the representative is <a href="
+"\"/instrument/41761936-5dbc-433f-b558-a7ef14fe9b08\">Saraswati veena</a>, "
+"and credits to just \"veena\" are usually that."
 msgstr ""
 
 #. name:bonang barung 
@@ -2305,6 +2333,13 @@ msgid ""
 "Played by manipulating the airstream through bamboo pipes using cupping and "
 "clapping, this Vietnamesian \"Air Xylophone\" was traditionally played in "
 "the rice-field."
+msgstr ""
+
+#. name:udu 
+#: DB:instrument/description:330
+msgid ""
+"Played ceremonially by Igbo people, it is a clay jug beaten with hands to "
+"create sounds."
 msgstr ""
 
 #. name:kendhang indung 
@@ -2664,8 +2699,7 @@ msgstr ""
 #. name:tenor guitar 
 #: DB:instrument/description:434
 msgid ""
-"Slightly smaller, four-string version of the steel-string acoustic guitar or "
-"electric guitar"
+"Slightly smaller, four-string version of the steel-string acoustic guitar"
 msgstr ""
 
 #. name:flabiol 
@@ -2716,6 +2750,11 @@ msgid ""
 "narrower bore."
 msgstr ""
 
+#. name:walaycho 
+#: DB:instrument/description:1069
+msgid "Smaller than the charango, it has 10 strings."
+msgstr ""
+
 #. name:kendhang ketipung 
 #: DB:instrument/description:991
 msgid ""
@@ -2727,8 +2766,8 @@ msgstr ""
 #. name:electric bass guitar 
 #: DB:instrument/description:51
 msgid ""
-"Solid body 4-stringed electric bass guitar. The most common for \"bass "
-"guitar\" and \"bass\" credits in popular (rock) music."
+"Solid body 4-stringed electric bass guitar. The most common for \"bass guitar"
+"\" and \"bass\" credits in popular (rock) music."
 msgstr ""
 
 #. name:Mark tree 
@@ -3117,11 +3156,6 @@ msgstr ""
 #. name:chanzy 
 #: DB:instrument/description:713
 msgid "The chanzy is a three-stringed Tuvan lute."
-msgstr ""
-
-#. name:charango 
-#: DB:instrument/description:466
-msgid "The charango is a small South American lute."
 msgstr ""
 
 #. name:chau gong 
@@ -3574,8 +3608,8 @@ msgstr ""
 #. name:kendang wadon 
 #: DB:instrument/description:995
 msgid ""
-"The larger and deeper pitched of the Bali kendang, it is the leader "
-"\"female\" drum."
+"The larger and deeper pitched of the Bali kendang, it is the leader \"female"
+"\" drum."
 msgstr ""
 
 #. name:contrabass saxophone 
@@ -3665,8 +3699,8 @@ msgstr ""
 #. name:violin 
 #: DB:instrument/description:62
 msgid ""
-"The most famous member of the violin family, it is actually the \"small "
-"viol\". Its register is soprano and it's a principal member of the symphony "
+"The most famous member of the violin family, it is actually the \"small viol"
+"\". Its register is soprano and it's a principal member of the symphony "
 "orchestra."
 msgstr ""
 
@@ -3798,17 +3832,12 @@ msgid ""
 "skin."
 msgstr ""
 
-#. name:quena 
-#: DB:instrument/description:437
-msgid "The quena is a traditional bamboo flute from the Andes."
-msgstr ""
-
 #. name:rammana 
 #: DB:instrument/description:628
 msgid ""
 "The rammana is a frame drum used in classical Thai and Cambodian music which "
-"forms one part of <a href=\"http://en.wikipedia.org/wiki/"
-"Thon_and_rammana\">thon and rammana</a>."
+"forms one part of <a href=\"http://en.wikipedia.org/wiki/Thon_and_rammana"
+"\">thon and rammana</a>."
 msgstr ""
 
 #. name:ranat ek 
@@ -3843,11 +3872,6 @@ msgstr ""
 msgid ""
 "The riq is a type of tambourine used as a traditional instrument in Arabic "
 "music."
-msgstr ""
-
-#. name:rondador 
-#: DB:instrument/description:568
-msgid "The rondador is a set of chorded bamboo panpipes from Ecuador."
 msgstr ""
 
 #. name:rototom 
@@ -3961,16 +3985,11 @@ msgstr ""
 msgid "The shudraga is a Mongolian fretless lute with three strings."
 msgstr ""
 
-#. name:siku 
-#: DB:instrument/description:569
-msgid "The siku is a traditional Andean panpipe."
-msgstr ""
-
 #. name:kendang lanang 
 #: DB:instrument/description:994
 msgid ""
-"The smaller and higher pitched of the Bali kendang, it is the follower "
-"\"male\" drum."
+"The smaller and higher pitched of the Bali kendang, it is the follower \"male"
+"\" drum."
 msgstr ""
 
 #. name:song loan 
@@ -4143,13 +4162,6 @@ msgid ""
 "with folk music of Punjab."
 msgstr ""
 
-#. name:udu 
-#: DB:instrument/description:330
-msgid ""
-"The udu is a Nigerian idiophone consisting of a water jug with an additional "
-"hole."
-msgstr ""
-
 #. name:ukeke 
 #: DB:instrument/description:631
 msgid ""
@@ -4258,9 +4270,9 @@ msgstr ""
 #. name:đing năm 
 #: DB:instrument/description:319
 msgid ""
-"The đing năm is a <a href=\"https://en.wikipedia.org/wiki/"
-"Gourd_mouth_organ\">gourd mouth organ</a> used by minority ethnic groups in "
-"the central highlands of Vietnam."
+"The đing năm is a <a href=\"https://en.wikipedia.org/wiki/Gourd_mouth_organ"
+"\">gourd mouth organ</a> used by minority ethnic groups in the central "
+"highlands of Vietnam."
 msgstr ""
 
 #. name:đàn nguyệt 
@@ -4533,6 +4545,13 @@ msgid ""
 "traditionally to accompany didgeridoo. There are also Boomerang clapsticks."
 msgstr ""
 
+#. name:charango 
+#: DB:instrument/description:466
+msgid ""
+"Used by the Quechua and Aymara, it is a small lute of 5 courses with 10 "
+"strings"
+msgstr ""
+
 #. name:swarmandal 
 #: DB:instrument/description:716
 msgid ""
@@ -4651,6 +4670,14 @@ msgstr ""
 msgid "Used in folk-music, It has ten steel strings in five courses."
 msgstr ""
 
+#. name:bombo legüero 
+#: DB:instrument/description:1071
+msgid ""
+"Used in folklore music of Andes, it is a descendant of European bass drum. "
+"It has a shoulder strap and two soft headed mallets used to strike the goat "
+"or llama pelt membrane."
+msgstr ""
+
 #. name:hichiriki 
 #: DB:instrument/description:616
 msgid "Used in gagaku, it is a double reed flute"
@@ -4718,6 +4745,16 @@ msgstr ""
 msgid ""
 "Used in the traditional music of Vietnam, it is made of wood with a "
 "gourdshaped bell."
+msgstr ""
+
+#. name:quena 
+#: DB:instrument/description:437
+msgid "Used in traditional Andean music, it is the smallest of its family"
+msgstr ""
+
+#. name:antara 
+#: DB:instrument/description:1068
+msgid "Used in traditional Andes music, it consists of a single row of pipes."
 msgstr ""
 
 #. name:hyoshigi 
@@ -5018,8 +5055,8 @@ msgstr ""
 #: DB:instrument/description:391
 msgid ""
 "do not confuse with: Serb-Croat \"tamburica\" ensemble. Persian/Turkish "
-"ancient things evolved/came from \"tanbur\". unrelated Indian drone "
-"\"tanpura\" related Indian \"pandour\""
+"ancient things evolved/came from \"tanbur\". unrelated Indian drone \"tanpura"
+"\" related Indian \"pandour\""
 msgstr ""
 
 #. name:Cembalet 

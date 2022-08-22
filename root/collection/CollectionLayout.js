@@ -9,12 +9,11 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../context.mjs';
-import Layout from '../layout';
+import Layout from '../layout/index.js';
 import CollectionSidebar
-  from '../layout/components/sidebar/CollectionSidebar';
+  from '../layout/components/sidebar/CollectionSidebar.js';
 
-import CollectionHeader from './CollectionHeader';
+import CollectionHeader from './CollectionHeader.js';
 
 type Props = {
   +children: React.Node,
@@ -31,7 +30,6 @@ const CollectionLayout = ({
   page,
   title,
 }: Props): React.Element<typeof Layout> => {
-  const $c = React.useContext(CatalystContext);
   const mainTitle = texp.l(
     'Collection “{collection}”',
     {collection: collection.name},
@@ -43,7 +41,6 @@ const CollectionLayout = ({
     >
       <div id="content">
         <CollectionHeader
-          $c={$c}
           collection={collection}
           page={page}
         />

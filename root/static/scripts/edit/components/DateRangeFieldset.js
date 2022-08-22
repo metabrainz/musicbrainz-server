@@ -9,16 +9,16 @@
 
 import {useCallback} from 'react';
 
-import FieldErrors from '../../../../components/FieldErrors';
+import isDateEmpty from '../../common/utility/isDateEmpty.js';
+import parseIntegerOrNull from '../../common/utility/parseIntegerOrNull.js';
+import FieldErrors from '../../edit/components/FieldErrors.js';
 import FormRowPartialDate, {
   type ActionT as FormRowPartialDateActionT,
   runReducer as runFormRowPartialDateReducer,
-} from '../../../../components/FormRowPartialDate';
-import FormRowCheckbox from '../../../../components/FormRowCheckbox';
-import {applyAllPendingErrors} from '../../../../utility/subfieldErrors';
-import isDateEmpty from '../../common/utility/isDateEmpty';
-import parseIntegerOrNull from '../../common/utility/parseIntegerOrNull';
-import {isDatePeriodValid} from '../utility/dates';
+} from '../../edit/components/FormRowPartialDate.js';
+import FormRowCheckbox from '../../edit/components/FormRowCheckbox.js';
+import {isDatePeriodValid} from '../utility/dates.js';
+import {applyAllPendingErrors} from '../utility/subfieldErrors.js';
 
 /* eslint-disable flowtype/sort-keys */
 export type ActionT =
@@ -68,7 +68,11 @@ function validateDatePeriod(state: WritableStateT) {
   state.pendingErrors = pendingErrors;
 }
 
-function runDateFieldReducer(dateField, action, state) {
+function runDateFieldReducer(
+  dateField: WritablePartialDateFieldT,
+  action: FormRowPartialDateActionT,
+  state: WritableStateT,
+) {
   runFormRowPartialDateReducer(
     dateField,
     action,

@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import EntityLink from '../static/scripts/common/components/EntityLink';
+import Layout from '../layout/index.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
 type PropsT = {
   +genres: $ReadOnlyArray<GenreT>,

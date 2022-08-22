@@ -10,21 +10,20 @@
 import * as React from 'react';
 
 import sortByEntityName
-  from '../static/scripts/common/utility/sortByEntityName';
-import EnterEdit from '../components/EnterEdit';
-import EnterEditNote from '../components/EnterEditNote';
-import FieldErrors from '../components/FieldErrors';
-import EventList from '../components/list/EventList';
-import Layout from '../layout';
+  from '../static/scripts/common/utility/sortByEntityName.js';
+import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
+import EventList from '../components/list/EventList.js';
+import Layout from '../layout/index.js';
+import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
+import EnterEditNote
+  from '../static/scripts/edit/components/EnterEditNote.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: MergeFormT,
   +toMerge: $ReadOnlyArray<EventT>,
 };
 
 const EventMerge = ({
-  $c,
   form,
   toMerge,
 }: Props): React.Element<typeof Layout> => (
@@ -35,7 +34,7 @@ const EventMerge = ({
         {l(`You are about to merge all these events into a single one.
             Please select the event all others should be merged into:`)}
       </p>
-      <form action={$c.req.uri} method="post">
+      <form method="post">
         <EventList
           events={sortByEntityName(toMerge)}
           mergeForm={form}

@@ -11,26 +11,27 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
 import CommonsImage
-  from '../../../static/scripts/common/components/CommonsImage';
+  from '../../../static/scripts/common/components/CommonsImage.js';
 import DescriptiveLink
-  from '../../../static/scripts/common/components/DescriptiveLink';
-import * as age from '../../../utility/age';
-import isFutureDate from '../../../utility/isFutureDate';
-import {formatCoordinates, osmUrl} from '../../../utility/coordinates';
-import ExternalLinks from '../ExternalLinks';
+  from '../../../static/scripts/common/components/DescriptiveLink.js';
+import isFutureDate
+  from '../../../static/scripts/common/utility/isFutureDate.js';
+import * as age from '../../../utility/age.js';
+import {formatCoordinates, osmUrl} from '../../../utility/coordinates.js';
+import ExternalLinks from '../ExternalLinks.js';
 
-import AnnotationLinks from './AnnotationLinks';
-import CollectionLinks from './CollectionLinks';
-import EditLinks from './EditLinks';
-import LastUpdated from './LastUpdated';
-import MergeLink from './MergeLink';
-import SidebarBeginDate from './SidebarBeginDate';
-import SidebarEndDate from './SidebarEndDate';
-import SidebarLicenses from './SidebarLicenses';
-import {SidebarProperty, SidebarProperties} from './SidebarProperties';
-import SidebarRating from './SidebarRating';
-import SidebarTags from './SidebarTags';
-import SidebarType from './SidebarType';
+import AnnotationLinks from './AnnotationLinks.js';
+import CollectionLinks from './CollectionLinks.js';
+import EditLinks from './EditLinks.js';
+import LastUpdated from './LastUpdated.js';
+import MergeLink from './MergeLink.js';
+import SidebarBeginDate from './SidebarBeginDate.js';
+import SidebarEndDate from './SidebarEndDate.js';
+import SidebarLicenses from './SidebarLicenses.js';
+import {SidebarProperty, SidebarProperties} from './SidebarProperties.js';
+import SidebarRating from './SidebarRating.js';
+import SidebarTags from './SidebarTags.js';
+import SidebarType from './SidebarType.js';
 
 type Props = {
   +place: PlaceT,

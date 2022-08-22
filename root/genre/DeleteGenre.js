@@ -9,21 +9,20 @@
 
 import * as React from 'react';
 
-import EnterEdit from '../components/EnterEdit';
-import EnterEditNote from '../components/EnterEditNote';
-import EntityLink from '../static/scripts/common/components/EntityLink';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
+import EnterEditNote
+  from '../static/scripts/edit/components/EnterEditNote.js';
 
-import GenreLayout from './GenreLayout';
-import type {GenreDeleteFormT} from './types';
+import GenreLayout from './GenreLayout.js';
+import type {GenreDeleteFormT} from './types.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +entity: GenreT,
   +form: GenreDeleteFormT,
 };
 
 const DeleteGenre = ({
-  $c,
   entity: genre,
   form,
 }: Props): React.Element<typeof GenreLayout> => (
@@ -39,7 +38,7 @@ const DeleteGenre = ({
              {genre: <EntityLink entity={genre} />})}
     </p>
 
-    <form action={$c.req.uri} method="post">
+    <form method="post">
       <EnterEditNote field={form.field.edit_note} />
       <EnterEdit form={form} />
     </form>

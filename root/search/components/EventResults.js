@@ -9,22 +9,24 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context.mjs';
 import * as manifest from '../../static/manifest.mjs';
-import ArtistRoles from '../../static/scripts/common/components/ArtistRoles';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
+import ArtistRoles
+  from '../../static/scripts/common/components/ArtistRoles.js';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import EventLocations
-  from '../../static/scripts/common/components/EventLocations';
+  from '../../static/scripts/common/components/EventLocations.js';
 import formatDatePeriod
-  from '../../static/scripts/common/utility/formatDatePeriod';
+  from '../../static/scripts/common/utility/formatDatePeriod.js';
 import {isEditingEnabled}
-  from '../../static/scripts/common/utility/privileges';
-import loopParity from '../../utility/loopParity';
-import type {ResultsPropsWithContextT} from '../types';
+  from '../../static/scripts/common/utility/privileges.js';
+import loopParity from '../../utility/loopParity.js';
+import type {ResultsPropsT, SearchResultT} from '../types.js';
 
-import PaginatedSearchResults from './PaginatedSearchResults';
-import ResultsLayout from './ResultsLayout';
+import PaginatedSearchResults from './PaginatedSearchResults.js';
+import ResultsLayout from './ResultsLayout.js';
 
-function buildResult(result, index) {
+function buildResult(result: SearchResultT<EventT>, index: number) {
   const event = result.entity;
   const score = result.score;
 
@@ -55,39 +57,40 @@ function buildResult(result, index) {
 }
 
 const EventResults = ({
-  $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<EventT>):
-React.Element<typeof ResultsLayout> => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
-    <PaginatedSearchResults
-      buildResult={buildResult}
-      columns={
-        <>
-          <th>{l('Name')}</th>
-          <th>{l('Date')}</th>
-          <th>{l('Time')}</th>
-          <th>{l('Type')}</th>
-          <th>{l('Artists')}</th>
-          <th>{l('Location')}</th>
-        </>
-      }
-      pager={pager}
-      query={query}
-      results={results}
-    />
-    {isEditingEnabled($c.user) ? (
-      <p>
-        {exp.l('Alternatively, you may {uri|add a new event}.', {
-          uri: '/event/create?edit-event.name=' + encodeURIComponent(query),
-        })}
-      </p>
-    ) : null}
-  </ResultsLayout>
-);
+}: ResultsPropsT<EventT>): React.Element<typeof ResultsLayout> => {
+  const $c = React.useContext(CatalystContext);
+  return (
+    <ResultsLayout form={form} lastUpdated={lastUpdated}>
+      <PaginatedSearchResults
+        buildResult={buildResult}
+        columns={
+          <>
+            <th>{l('Name')}</th>
+            <th>{l('Date')}</th>
+            <th>{l('Time')}</th>
+            <th>{l('Type')}</th>
+            <th>{l('Artists')}</th>
+            <th>{l('Location')}</th>
+          </>
+        }
+        pager={pager}
+        query={query}
+        results={results}
+      />
+      {isEditingEnabled($c.user) ? (
+        <p>
+          {exp.l('Alternatively, you may {uri|add a new event}.', {
+            uri: '/event/create?edit-event.name=' + encodeURIComponent(query),
+          })}
+        </p>
+      ) : null}
+    </ResultsLayout>
+  );
+};
 
 export default EventResults;

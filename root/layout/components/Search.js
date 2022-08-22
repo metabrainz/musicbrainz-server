@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import SearchIcon from '../../static/scripts/common/components/SearchIcon';
+import SearchIcon from '../../static/scripts/common/components/SearchIcon.js';
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';
-import {compare} from '../../static/scripts/common/i18n';
+import {compare} from '../../static/scripts/common/i18n.js';
 
 type SearchOptionValueT =
   (() => string) | null;

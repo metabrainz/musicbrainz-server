@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import PaginatedResults from '../components/PaginatedResults';
-import EntityLink from '../static/scripts/common/components/EntityLink';
+import PaginatedResults from '../components/PaginatedResults.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
-import ReportLayout from './components/ReportLayout';
-import type {ReportCollaborationT, ReportDataT} from './types';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportCollaborationT, ReportDataT} from './types.js';
 
 const CollaborationRelationships = ({
   canBeFiltered,

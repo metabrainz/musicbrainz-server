@@ -10,17 +10,16 @@
 import $ from 'jquery';
 import * as React from 'react';
 
-import MB from '../../common/MB';
-import EnterEdit from '../../../../components/EnterEdit';
-import EnterEditNote from '../../../../components/EnterEditNote';
-import FormRowTextLong from '../../../../components/FormRowTextLong';
-import type {GenreFormT} from '../../../../genre/types';
-import {createExternalLinksEditor} from '../../edit/externalLinks';
-import {exportTypeInfo} from '../../relationship-editor/common/viewModel';
-import {prepareSubmission} from '../../relationship-editor/generic';
+import MB from '../../common/MB.js';
+import type {GenreFormT} from '../../../../genre/types.js';
+import EnterEdit from '../../edit/components/EnterEdit.js';
+import EnterEditNote from '../../edit/components/EnterEditNote.js';
+import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
+import {createExternalLinksEditor} from '../../edit/externalLinks.js';
+import {exportTypeInfo} from '../../relationship-editor/common/viewModel.js';
+import {prepareSubmission} from '../../relationship-editor/generic.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +attrInfo: LinkAttrTypeOptionsT,
   +form: GenreFormT,
   +sourceEntity: GenreT | {entityType: 'genre'},
@@ -28,7 +27,6 @@ type Props = {
 };
 
 const GenreEditForm = ({
-  $c,
   attrInfo,
   form,
   sourceEntity,
@@ -83,7 +81,6 @@ const GenreEditForm = ({
 
   return (
     <form
-      action={$c.req.uri}
       className="edit-genre"
       method="post"
       onSubmit={handleSubmit}

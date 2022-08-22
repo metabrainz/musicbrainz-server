@@ -8,7 +8,7 @@
 
 import * as React from 'react';
 
-import Tooltip from './Tooltip';
+import Tooltip from './Tooltip.js';
 
 class HelpIcon extends React.Component {
   constructor(props) {

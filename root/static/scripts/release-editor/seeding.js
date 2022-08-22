@@ -8,9 +8,9 @@
 
 import ko from 'knockout';
 
-import fields from './fields';
-import utils from './utils';
-import releaseEditor from './viewModel';
+import fields from './fields.js';
+import utils from './utils.js';
+import releaseEditor from './viewModel.js';
 
 releaseEditor.seedErrors = ko.observable(null);
 

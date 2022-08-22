@@ -9,9 +9,8 @@
 
 import * as React from 'react';
 
-import entityHref from '../static/scripts/common/utility/entityHref';
-import primaryAreaCode
-  from '../static/scripts/common/utility/primaryAreaCode';
+import entityHref from '../utility/entityHref.js';
+import primaryAreaCode from '../utility/primaryAreaCode.js';
 
 type Props = {
   +className?: string,
@@ -31,7 +30,7 @@ const CountryAbbr = ({
   const combinedClass =
     ('flag flag-' + primaryCode) +
     (nonEmpty(className) ? (' ' + className) : '');
-  let content = (
+  let content: React.MixedElement = (
     <abbr title={l_countries(country.name)}>
       {primaryCode}
     </abbr>

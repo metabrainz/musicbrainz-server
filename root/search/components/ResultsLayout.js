@@ -10,10 +10,10 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
-import Layout from '../../layout';
-import formatUserDate from '../../utility/formatUserDate';
+import Layout from '../../layout/index.js';
+import formatUserDate from '../../utility/formatUserDate.js';
 
-import SearchForm from './SearchForm';
+import SearchForm from './SearchForm.js';
 
 type Props = {
   +children: React.Node,

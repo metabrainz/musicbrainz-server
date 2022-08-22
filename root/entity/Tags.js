@@ -9,11 +9,12 @@
 
 import * as React from 'react';
 
-import chooseLayoutComponent from '../utility/chooseLayoutComponent';
-import {MainTagEditor} from '../static/scripts/common/components/TagEditor';
+import {CatalystContext} from '../context.mjs';
+import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
+import {MainTagEditor}
+  from '../static/scripts/common/components/TagEditor.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +allTags: $ReadOnlyArray<AggregatedTagT>,
   +entity: CoreEntityT,
   +moreTags: boolean,
@@ -21,19 +22,18 @@ type Props = {
 };
 
 const Tags = ({
-  $c,
   allTags,
   entity,
   moreTags,
   userTags,
 }: Props): React.MixedElement => {
+  const $c = React.useContext(CatalystContext);
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);
 
   return (
     <LayoutComponent entity={entity} page="tags" title={l('Tags')}>
       <MainTagEditor
-        $c={$c}
         aggregatedTags={allTags}
         entity={entity}
         genreMap={$c.stash.genre_map}

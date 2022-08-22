@@ -11,11 +11,11 @@ import * as React from 'react';
 
 import {
   defineEntityColumn,
-} from '../utility/tableColumns';
+} from '../utility/tableColumns.js';
 
-import ReleaseList from './components/ReleaseList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportReleaseReleaseGroupT} from './types';
+import ReleaseList from './components/ReleaseList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportReleaseReleaseGroupT} from './types.js';
 
 const ReleaseRgDifferentName = ({
   canBeFiltered,

@@ -10,15 +10,15 @@
 import * as React from 'react';
 
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
 import {commaOnlyListText}
-  from '../../static/scripts/common/i18n/commaOnlyList';
-import formatDate from '../../static/scripts/common/utility/formatDate';
-import yesNo from '../../static/scripts/common/utility/yesNo';
-import Diff from '../../static/scripts/edit/components/edit/Diff';
+  from '../../static/scripts/common/i18n/commaOnlyList.js';
+import formatDate from '../../static/scripts/common/utility/formatDate.js';
+import yesNo from '../../static/scripts/common/utility/yesNo.js';
+import Diff from '../../static/scripts/edit/components/edit/Diff.js';
 import FullChangeDiff
-  from '../../static/scripts/edit/components/edit/FullChangeDiff';
-import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
+  from '../../static/scripts/edit/components/edit/FullChangeDiff.js';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 
 type Props = {
   +edit: EditAreaEditT,

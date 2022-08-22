@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import EventList from '../../components/list/EventList';
+import EventList from '../../components/list/EventList.js';
 
 type Props = {
   +edit: MergeEventsEditT,

@@ -8,7 +8,7 @@
 
 import $ from 'jquery';
 
-import MB from '../../common/MB';
+import MB from '../../common/MB.js';
 
 MB.initializeToggleEnded = function (formID) {
   $(function () {

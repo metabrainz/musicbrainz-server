@@ -313,6 +313,13 @@ msgid ""
 "museum examples are now used by Swedish folk musicians."
 msgstr ""
 
+#. name:steel-string acoustic guitar
+#: DB:instrument/description:653
+msgid ""
+"Also know and \"flat-top\", it is a hollow-body acoustic guitar strung with "
+"steel strings."
+msgstr ""
+
 #. name:cello
 #: DB:instrument/description:60
 msgid ""
@@ -326,6 +333,13 @@ msgstr ""
 msgid ""
 "Also known as Melodeon, it has 1 to 2 rows of buttons that each produce two "
 "tones (bisonoric)."
+msgstr ""
+
+#. name:classical guitar
+#: DB:instrument/description:54
+msgid ""
+"Also known as Spanish guitar, it is used in classical, folk and other "
+"styles, the strings are nylon or gut."
 msgstr ""
 
 #. name:gopichant
@@ -364,6 +378,13 @@ msgid ""
 "Not to be confused with the side-blown (concerto) <a "
 "href=\"/instrument/b524b7a7-2d87-43a7-9977-8a9081ff6e0f/\">soprano "
 "flute</a>."
+msgstr ""
+
+#. name:siku
+#: DB:instrument/description:569
+msgid ""
+"Also known as zampona, traditional Andean panpipe has two rows of pipes tied"
+" together with colourful bands."
 msgstr ""
 
 #. name:alto viol
@@ -451,6 +472,12 @@ msgstr ""
 msgid ""
 "An idiophone is a musical instrument which creates sound by the instrument "
 "as a whole vibrating without the use of strings or membranes."
+msgstr ""
+
+#. name:ronroco
+#: DB:instrument/description:1070
+msgid ""
+"An octave lower than the charango, it is the largest member of the family."
 msgstr ""
 
 #. name:natural horn
@@ -1366,11 +1393,6 @@ msgstr ""
 msgid "Hollow-body acoustic guitar strung with nylon-strings."
 msgstr ""
 
-#. name:steel-string acoustic guitar
-#: DB:instrument/description:653
-msgid "Hollow-body acoustic guitar strung with steel strings."
-msgstr ""
-
 #. name:mendoza
 #: DB:instrument/description:114
 msgid ""
@@ -1831,6 +1853,11 @@ msgstr ""
 msgid ""
 "Made of bone or wood, these are paired sticks of sonorous material used in "
 "folk music."
+msgstr ""
+
+#. name:rondador
+#: DB:instrument/description:568
+msgid "Made of cane, it is used in Ecuador."
 msgstr ""
 
 #. name:calabash
@@ -2688,8 +2715,7 @@ msgstr ""
 #. name:tenor guitar
 #: DB:instrument/description:434
 msgid ""
-"Slightly smaller, four-string version of the steel-string acoustic guitar or"
-" electric guitar"
+"Slightly smaller, four-string version of the steel-string acoustic guitar"
 msgstr ""
 
 #. name:flabiol
@@ -2738,6 +2764,11 @@ msgstr ""
 msgid ""
 "Small, high-pitched, transverse flute, similar to the piccolo, but with a "
 "narrower bore."
+msgstr ""
+
+#. name:walaycho
+#: DB:instrument/description:1069
+msgid "Smaller than the charango, it has 10 strings."
 msgstr ""
 
 #. name:kendhang ketipung
@@ -3146,11 +3177,6 @@ msgstr ""
 #: DB:instrument/description:713
 msgid "The chanzy is a three-stringed Tuvan lute."
 msgstr ""
-
-#. name:charango
-#: DB:instrument/description:466
-msgid "The charango is a small South American lute."
-msgstr "väike Lõuna-Ameerika lauto"
 
 #. name:chau gong
 #: DB:instrument/description:640
@@ -3830,11 +3856,6 @@ msgid ""
 "skin."
 msgstr ""
 
-#. name:quena
-#: DB:instrument/description:437
-msgid "The quena is a traditional bamboo flute from the Andes."
-msgstr ""
-
 #. name:rammana
 #: DB:instrument/description:628
 msgid ""
@@ -3875,11 +3896,6 @@ msgstr ""
 msgid ""
 "The riq is a type of tambourine used as a traditional instrument in Arabic "
 "music."
-msgstr ""
-
-#. name:rondador
-#: DB:instrument/description:568
-msgid "The rondador is a set of chorded bamboo panpipes from Ecuador."
 msgstr ""
 
 #. name:rototom
@@ -3991,11 +4007,6 @@ msgstr ""
 #. name:shudraga
 #: DB:instrument/description:593
 msgid "The shudraga is a Mongolian fretless lute with three strings."
-msgstr ""
-
-#. name:siku
-#: DB:instrument/description:569
-msgid "The siku is a traditional Andean panpipe."
 msgstr ""
 
 #. name:kendang lanang
@@ -4567,6 +4578,13 @@ msgid ""
 "traditionally to accompany didgeridoo. There are also Boomerang clapsticks."
 msgstr ""
 
+#. name:charango
+#: DB:instrument/description:466
+msgid ""
+"Used by the Quechua and Aymara, it is a small lute of 5 courses with 10 "
+"strings"
+msgstr ""
+
 #. name:swarmandal
 #: DB:instrument/description:716
 msgid ""
@@ -4686,6 +4704,14 @@ msgstr ""
 msgid "Used in folk-music, It has ten steel strings in five courses."
 msgstr ""
 
+#. name:bombo legüero
+#: DB:instrument/description:1071
+msgid ""
+"Used in folklore music of Andes, it is a descendant of European bass drum. "
+"It has a shoulder strap and two soft headed mallets used to strike the goat "
+"or llama pelt membrane."
+msgstr ""
+
 #. name:hichiriki
 #: DB:instrument/description:616
 msgid "Used in gagaku, it is a double reed flute"
@@ -4753,6 +4779,16 @@ msgstr ""
 msgid ""
 "Used in the traditional music of Vietnam, it is made of wood with a "
 "gourdshaped bell."
+msgstr ""
+
+#. name:quena
+#: DB:instrument/description:437
+msgid "Used in traditional Andean music, it is the smallest of its family"
+msgstr ""
+
+#. name:antara
+#: DB:instrument/description:1068
+msgid "Used in traditional Andes music, it consists of a single row of pipes."
 msgstr ""
 
 #. name:hyoshigi

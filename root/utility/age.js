@@ -8,9 +8,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import getDaysInMonth from './getDaysInMonth';
+import getDaysInMonth from './getDaysInMonth.js';
 
-function timestamp(date) {
+function timestamp(date: PartialDateT) {
   return Date.UTC(
     (date.year ?? 1),
     (date.month ?? 1) - 1,

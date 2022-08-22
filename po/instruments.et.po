@@ -368,6 +368,11 @@ msgstr ""
 msgid "ankle rattlers"
 msgstr ""
 
+#: DB:instrument/name:1068
+msgctxt "Andean single row panpipe"
+msgid "antara"
+msgstr ""
+
 #: DB:instrument/name:720
 msgctxt "Tuned metal shape."
 msgid "anvil"
@@ -721,6 +726,11 @@ msgstr ""
 msgid "bombarde"
 msgstr ""
 
+#: DB:instrument/name:1071
+msgctxt "Andean bass-drum"
+msgid "bombo legüero"
+msgstr ""
+
 #: DB:instrument/name:969
 msgctxt "Family of bronze gong-chime sets used in Javanese gamelan"
 msgid "bonang"
@@ -936,6 +946,7 @@ msgid "chap"
 msgstr "chap"
 
 #: DB:instrument/name:466
+msgctxt "Small Andean lute"
 msgid "charango"
 msgstr ""
 
@@ -1033,7 +1044,7 @@ msgid "clarinet"
 msgstr "klarnet"
 
 #: DB:instrument/name:54
-msgctxt "Classical nylon string guitar"
+msgctxt "Modern acoustic gut/nylon string guitar"
 msgid "classical guitar"
 msgstr "klassikaline kitarr"
 
@@ -1791,7 +1802,7 @@ msgid "gusli"
 msgstr ""
 
 #: DB:instrument/name:567
-msgctxt "gut-stringed acoustic guitar"
+msgctxt "modern gut-stringed acoustic guitar"
 msgid "gut guitar"
 msgstr ""
 
@@ -3038,6 +3049,7 @@ msgid "quadruple reed"
 msgstr ""
 
 #: DB:instrument/name:437
+msgctxt "Small Andean end-blown flute"
 msgid "quena"
 msgstr "quena"
 
@@ -3153,8 +3165,14 @@ msgid "riq"
 msgstr ""
 
 #: DB:instrument/name:568
+msgctxt "Ecuadorean panpipes"
 msgid "rondador"
 msgstr "rondador"
+
+#: DB:instrument/name:1070
+msgctxt "South American square charango"
+msgid "ronroco"
+msgstr ""
 
 #: DB:instrument/name:731
 msgid "rototom"
@@ -3397,8 +3415,9 @@ msgid "shudraga"
 msgstr "šudraga"
 
 #: DB:instrument/name:569
+msgctxt "Andean double row panpipe"
 msgid "siku"
-msgstr "siku"
+msgstr ""
 
 #: DB:instrument/name:146
 msgid "singing bowl"
@@ -4215,6 +4234,11 @@ msgstr "kõnesüntesaator"
 #: DB:instrument/name:877
 msgctxt "plastic horn"
 msgid "vuvuzela"
+msgstr ""
+
+#: DB:instrument/name:1069
+msgctxt "Smallest member of charango family"
+msgid "walaycho"
 msgstr ""
 
 #: DB:instrument/name:159

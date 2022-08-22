@@ -15,11 +15,11 @@ import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import commonLessUrl from '../../static/styles/common.less';
 import iconLessUrl from '../../static/styles/icons.less';
 import noScriptLessUrl from '../../static/styles/noscript.less';
-import escapeClosingTags from '../../utility/escapeClosingTags';
+import escapeClosingTags from '../../utility/escapeClosingTags.js';
 
 import globalsScript from './globalsScript.mjs';
-import FaviconLinks from './FaviconLinks';
-import MetaDescription from './MetaDescription';
+import FaviconLinks from './FaviconLinks.js';
+import MetaDescription from './MetaDescription.js';
 
 export type HeadProps = {
   +homepage?: boolean,
@@ -29,13 +29,13 @@ export type HeadProps = {
 };
 
 const canonRegexp = new RegExp('^(https?:)?//' + DBDefs.WEB_SERVER);
-function canonicalize(url) {
+function canonicalize(url: string) {
   return DBDefs.CANONICAL_SERVER
     ? url.replace(canonRegexp, DBDefs.CANONICAL_SERVER)
     : url;
 }
 
-function getTitle(props) {
+function getTitle(props: HeadProps) {
   const pager = props.pager;
   let title = props.title;
 
@@ -57,7 +57,7 @@ function getTitle(props) {
   return title;
 }
 
-const CanonicalLink = ({requestUri}) => {
+const CanonicalLink = ({requestUri}: {+requestUri: string}) => {
   const canonUri = canonicalize(requestUri);
   if (requestUri !== canonUri) {
     return <link href={canonUri} rel="canonical" />;

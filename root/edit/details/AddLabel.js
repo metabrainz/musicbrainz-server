@@ -10,12 +10,12 @@
 import * as React from 'react';
 
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import formatDate from '../../static/scripts/common/utility/formatDate';
-import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty';
-import yesNo from '../../static/scripts/common/utility/yesNo';
-import formatIsni from '../../utility/formatIsni';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
+import formatDate from '../../static/scripts/common/utility/formatDate.js';
+import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty.js';
+import yesNo from '../../static/scripts/common/utility/yesNo.js';
+import formatIsni from '../../utility/formatIsni.js';
 
 type Props = {
   +allowNew?: boolean,

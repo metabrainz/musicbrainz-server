@@ -9,14 +9,15 @@
 
 import * as React from 'react';
 
-import FormCsrfToken from '../../components/FormCsrfToken';
-import FormRowText from '../../components/FormRowText';
-import FormRowTextLong from '../../components/FormRowTextLong';
-import FormSubmit from '../../components/FormSubmit';
-import Layout from '../../layout';
+import Layout from '../../layout/index.js';
+import FormCsrfToken
+  from '../../static/scripts/edit/components/FormCsrfToken.js';
+import FormRowText from '../../static/scripts/edit/components/FormRowText.js';
+import FormRowTextLong
+  from '../../static/scripts/edit/components/FormRowTextLong.js';
+import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: FormT<{
     +csrf_token: FieldT<string>,
     +page: FieldT<string>,
@@ -25,13 +26,12 @@ type Props = {
 };
 
 const CreateWikiDoc = ({
-  $c,
   form,
 }: Props): React.Element<typeof Layout> => (
   <Layout fullWidth title={l('Add Page')}>
     <div id="content">
       <h1>{l('Add Page')}</h1>
-      <form action={$c.req.uri} method="post">
+      <form method="post">
         <FormCsrfToken form={form} />
         <FormRowTextLong
           field={form.field.page}

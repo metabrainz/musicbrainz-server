@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import EditList from '../edit/components/EditList';
-import EditorLink from '../static/scripts/common/components/EditorLink';
+import {SanitizedCatalystContext} from '../context.mjs';
+import Layout from '../layout/index.js';
+import EditList from '../edit/components/EditList.js';
+import EditorLink from '../static/scripts/common/components/EditorLink.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +editCountLimit: number,
   +edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
   +pager: PagerT,
@@ -24,7 +24,6 @@ type Props = {
 };
 
 const UserEdits = ({
-  $c,
   editCountLimit,
   edits,
   pager,
@@ -32,10 +31,11 @@ const UserEdits = ({
   user,
   voter,
 }: Props): React.Element<typeof Layout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const titleParam = {name: user.name};
   const headingParam = {name: <EditorLink editor={user} />};
   let pageTitle = '';
-  let pageHeading = '';
+  let pageHeading: Expand2ReactOutput = '';
 
   switch ($c.action.name) {
     case 'votes':
@@ -81,7 +81,6 @@ const UserEdits = ({
       <div id="content">
         <h2>{pageHeading}</h2>
         <EditList
-          $c={$c}
           editCountLimit={editCountLimit}
           edits={edits}
           guessSearch

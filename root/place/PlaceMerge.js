@@ -10,21 +10,20 @@
 import * as React from 'react';
 
 import sortByEntityName
-  from '../static/scripts/common/utility/sortByEntityName';
-import EnterEdit from '../components/EnterEdit';
-import EnterEditNote from '../components/EnterEditNote';
-import FieldErrors from '../components/FieldErrors';
-import PlaceList from '../components/list/PlaceList';
-import Layout from '../layout';
+  from '../static/scripts/common/utility/sortByEntityName.js';
+import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
+import PlaceList from '../components/list/PlaceList.js';
+import Layout from '../layout/index.js';
+import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
+import EnterEditNote
+  from '../static/scripts/edit/components/EnterEditNote.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: MergeFormT,
   +toMerge: $ReadOnlyArray<PlaceT>,
 };
 
 const PlaceMerge = ({
-  $c,
   form,
   toMerge,
 }: Props): React.Element<typeof Layout> => (
@@ -35,7 +34,7 @@ const PlaceMerge = ({
         {l(`You are about to merge all these places into a single one.
             Please select the place all others should be merged into:`)}
       </p>
-      <form action={$c.req.uri} method="post">
+      <form method="post">
         <PlaceList
           mergeForm={form}
           places={sortByEntityName(toMerge)}

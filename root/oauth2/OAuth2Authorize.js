@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import FormCsrfToken from '../components/FormCsrfToken';
-import {ACCESS_SCOPE_PERMISSIONS} from '../constants';
-import Layout from '../layout';
+import {ACCESS_SCOPE_PERMISSIONS} from '../constants.js';
+import Layout from '../layout/index.js';
+import FormCsrfToken
+  from '../static/scripts/edit/components/FormCsrfToken.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +application: ApplicationT,
   +form: SecureConfirmFormT,
   +offline: boolean,
@@ -22,7 +22,6 @@ type Props = {
 };
 
 const OAuth2Authorize = ({
-  $c,
   application,
   form,
   offline,
@@ -32,7 +31,10 @@ const OAuth2Authorize = ({
     <h1>{l('Authorization')}</h1>
 
     <p>
-      {texp.l('{app} is requesting permission to:', {app: application.name})}
+      {texp.l(
+        '{app} is requesting permission to:',
+        {app: application.name},
+      )}
     </p>
 
     <ul>
@@ -47,7 +49,7 @@ const OAuth2Authorize = ({
       ) : null}
     </ul>
 
-    <form action={$c.req.uri} method="post" name="confirm">
+    <form method="post" name="confirm">
       <FormCsrfToken form={form} />
       <span className="buttons">
         <button

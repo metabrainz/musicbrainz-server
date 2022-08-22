@@ -10,22 +10,22 @@ import $ from 'jquery';
 import ko from 'knockout';
 import * as ReactDOMServer from 'react-dom/server';
 
-import '../../../lib/jquery-ui';
+import '../../../lib/jquery-ui.js';
 
 import {ENTITY_NAMES, PART_OF_SERIES_LINK_TYPES}
-  from '../../common/constants';
-import {compare} from '../../common/i18n';
-import expand2react from '../../common/i18n/expand2react';
+  from '../../common/constants.js';
+import {compare} from '../../common/i18n.js';
+import expand2react from '../../common/i18n/expand2react.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
-import MB from '../../common/MB';
-import * as URLCleanup from '../../edit/URLCleanup';
-import * as dates from '../../edit/utility/dates';
-import isPositiveInteger from '../../edit/utility/isPositiveInteger';
-import {stripAttributes} from '../../edit/utility/linkPhrase';
-import {groupBy} from '../../common/utility/arrays';
-import isBlank from '../../common/utility/isBlank';
-import {debounceComputed} from '../../common/utility/debounce';
-import deepEqual from '../../common/utility/deepEqual';
+import MB from '../../common/MB.js';
+import * as URLCleanup from '../../edit/URLCleanup.js';
+import * as dates from '../../edit/utility/dates.js';
+import isPositiveInteger from '../../edit/utility/isPositiveInteger.js';
+import {stripAttributes} from '../../edit/utility/linkPhrase.js';
+import {groupBy} from '../../common/utility/arrays.js';
+import isBlank from '../../common/utility/isBlank.js';
+import {debounceComputed} from '../../common/utility/debounce.js';
+import deepEqual from '../../common/utility/deepEqual.js';
 
 const PART_OF_SERIES_LINK_TYPE_GIDS =
   Object.values(PART_OF_SERIES_LINK_TYPES);

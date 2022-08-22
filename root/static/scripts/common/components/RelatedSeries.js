@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import groupRelationships from '../../../../utility/groupRelationships';
-import {PART_OF_SERIES_LINK_TYPES} from '../constants';
+import {PART_OF_SERIES_LINK_TYPES} from '../constants.js';
 import linkedEntities from '../linkedEntities.mjs';
+import groupRelationships from '../utility/groupRelationships.js';
 
-import EntityLink from './EntityLink';
-import StaticRelationshipsDisplay from './StaticRelationshipsDisplay';
+import EntityLink from './EntityLink.js';
+import StaticRelationshipsDisplay from './StaticRelationshipsDisplay.js';
 
 type Props = {
   +seriesIds: $ReadOnlyArray<number>,

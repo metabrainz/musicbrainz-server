@@ -8,7 +8,7 @@
 
 import $ from 'jquery';
 
-import setCookie from '../common/utility/setCookie';
+import setCookie from '../common/utility/setCookie.js';
 
 $('#alert-new-edit-notes')
   .on('change', function () {

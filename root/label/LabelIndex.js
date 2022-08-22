@@ -9,25 +9,25 @@
 
 import * as React from 'react';
 
-import CleanupBanner from '../components/CleanupBanner';
-import FormRow from '../components/FormRow';
-import FormSubmit from '../components/FormSubmit';
-import PaginatedResults from '../components/PaginatedResults';
+import CleanupBanner from '../components/CleanupBanner.js';
+import FormRow from '../static/scripts/edit/components/FormRow.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
+import PaginatedResults from '../components/PaginatedResults.js';
+import {SanitizedCatalystContext} from '../context.mjs';
 import DescriptiveLink
-  from '../static/scripts/common/components/DescriptiveLink';
+  from '../static/scripts/common/components/DescriptiveLink.js';
 import WikipediaExtract
-  from '../static/scripts/common/components/WikipediaExtract';
-import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
-import ReleaseList from '../components/list/ReleaseList';
-import RelatedEntitiesDisplay from '../components/RelatedEntitiesDisplay';
+  from '../static/scripts/common/components/WikipediaExtract.js';
+import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList.js';
+import ReleaseList from '../components/list/ReleaseList.js';
+import RelatedEntitiesDisplay from '../components/RelatedEntitiesDisplay.js';
 import * as manifest from '../static/manifest.mjs';
-import Annotation from '../static/scripts/common/components/Annotation';
-import {returnToCurrentPage} from '../utility/returnUri';
+import Annotation from '../static/scripts/common/components/Annotation.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
-import LabelLayout from './LabelLayout';
+import LabelLayout from './LabelLayout.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +eligibleForCleanup: boolean,
   +label: LabelT,
   +numberOfRevisions: number,
@@ -39,7 +39,6 @@ type Props = {
 };
 
 const LabelIndex = ({
-  $c,
   eligibleForCleanup,
   label,
   numberOfRevisions,
@@ -48,59 +47,62 @@ const LabelIndex = ({
   renamedFrom,
   renamedInto,
   wikipediaExtract,
-}: Props): React.Element<typeof LabelLayout> => (
-  <LabelLayout entity={label} page="index">
-    {eligibleForCleanup ? (
-      <CleanupBanner entityType="label" />
-    ) : null}
-    <Annotation
-      annotation={label.latest_annotation}
-      collapse
-      entity={label}
-      numberOfRevisions={numberOfRevisions}
-    />
-    {renamedFrom.length ? (
-      <RelatedEntitiesDisplay title={l('Previously known as')}>
-        {commaOnlyList(renamedFrom.map(
-          label => <DescriptiveLink entity={label} key={label.gid} />,
-        ))}
-      </RelatedEntitiesDisplay>
-    ) : null}
-    {renamedInto.length ? (
-      <RelatedEntitiesDisplay title={l('Renamed to')}>
-        {commaOnlyList(renamedInto.map(
-          label => <DescriptiveLink entity={label} key={label.gid} />,
-        ))}
-      </RelatedEntitiesDisplay>
-    ) : null}
-    <WikipediaExtract
-      cachedWikipediaExtract={wikipediaExtract}
-      entity={label}
-    />
-    <h2 className="releases">{l('Releases')}</h2>
-    {releases?.length ? (
-      <form
-        action={'/release/merge_queue?' + returnToCurrentPage($c)}
-        method="post"
-      >
-        <PaginatedResults pager={pager}>
-          <ReleaseList
-            checkboxes="add-to-merge"
-            filterLabel={label}
-            releases={releases}
-          />
-        </PaginatedResults>
-        {$c.user ? (
-          <FormRow>
-            <FormSubmit label={l('Add selected releases for merging')} />
-          </FormRow>
-        ) : null}
-      </form>
-    ) : (
-      <p>{l('This label does not have any releases.')}</p>
-    )}
-    {manifest.js('label/index', {async: 'async'})}
-  </LabelLayout>
-);
+}: Props): React.Element<typeof LabelLayout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
+  return (
+    <LabelLayout entity={label} page="index">
+      {eligibleForCleanup ? (
+        <CleanupBanner entityType="label" />
+      ) : null}
+      <Annotation
+        annotation={label.latest_annotation}
+        collapse
+        entity={label}
+        numberOfRevisions={numberOfRevisions}
+      />
+      {renamedFrom.length ? (
+        <RelatedEntitiesDisplay title={l('Previously known as')}>
+          {commaOnlyList(renamedFrom.map(
+            label => <DescriptiveLink entity={label} key={label.gid} />,
+          ))}
+        </RelatedEntitiesDisplay>
+      ) : null}
+      {renamedInto.length ? (
+        <RelatedEntitiesDisplay title={l('Renamed to')}>
+          {commaOnlyList(renamedInto.map(
+            label => <DescriptiveLink entity={label} key={label.gid} />,
+          ))}
+        </RelatedEntitiesDisplay>
+      ) : null}
+      <WikipediaExtract
+        cachedWikipediaExtract={wikipediaExtract}
+        entity={label}
+      />
+      <h2 className="releases">{l('Releases')}</h2>
+      {releases?.length ? (
+        <form
+          action={'/release/merge_queue?' + returnToCurrentPage($c)}
+          method="post"
+        >
+          <PaginatedResults pager={pager}>
+            <ReleaseList
+              checkboxes="add-to-merge"
+              filterLabel={label}
+              releases={releases}
+            />
+          </PaginatedResults>
+          {$c.user ? (
+            <FormRow>
+              <FormSubmit label={l('Add selected releases for merging')} />
+            </FormRow>
+          ) : null}
+        </form>
+      ) : (
+        <p>{l('This label does not have any releases.')}</p>
+      )}
+      {manifest.js('label/index', {async: 'async'})}
+    </LabelLayout>
+  );
+};
 
 export default LabelIndex;

@@ -9,8 +9,8 @@
 
 import * as ReactDOMServer from 'react-dom/server';
 
-import type {VarArgsObject} from './expand2';
-import expand2react from './expand2react';
+import type {VarArgsObject} from './expand2.js';
+import expand2react from './expand2react.js';
 
 export default function expand2html(
   source: string,

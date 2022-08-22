@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import CDTocReleaseList from './components/CDTocReleaseList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportCDTocReleaseT} from './types';
+import CDTocReleaseList from './components/CDTocReleaseList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportCDTocReleaseT} from './types.js';
 
 const CDTocNotApplied = ({
   canBeFiltered,

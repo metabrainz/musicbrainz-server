@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import {Artwork} from '../../components/Artwork';
+import {Artwork} from '../../components/Artwork.js';
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
-import expand2html from '../../static/scripts/common/i18n/expand2html';
-import entityHref from '../../static/scripts/common/utility/entityHref';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
+import expand2html from '../../static/scripts/common/i18n/expand2html.js';
+import entityHref from '../../static/scripts/common/utility/entityHref.js';
 
 type Props = {
   +edit: ReorderCoverArtEditT,

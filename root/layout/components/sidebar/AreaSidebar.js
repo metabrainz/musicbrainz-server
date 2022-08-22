@@ -11,24 +11,24 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
 import CommonsImage
-  from '../../../static/scripts/common/components/CommonsImage';
+  from '../../../static/scripts/common/components/CommonsImage.js';
 import {isLocationEditor}
-  from '../../../static/scripts/common/utility/privileges';
-import * as age from '../../../utility/age';
-import ExternalLinks from '../ExternalLinks';
+  from '../../../static/scripts/common/utility/privileges.js';
+import * as age from '../../../utility/age.js';
+import ExternalLinks from '../ExternalLinks.js';
 
-import AnnotationLinks from './AnnotationLinks';
-import CollectionLinks from './CollectionLinks';
-import EditLinks from './EditLinks';
-import LastUpdated from './LastUpdated';
-import MergeLink from './MergeLink';
-import RemoveLink from './RemoveLink';
-import SidebarBeginDate from './SidebarBeginDate';
-import SidebarEndDate from './SidebarEndDate';
-import SidebarLicenses from './SidebarLicenses';
-import {SidebarProperty, SidebarProperties} from './SidebarProperties';
-import SidebarTags from './SidebarTags';
-import SidebarType from './SidebarType';
+import AnnotationLinks from './AnnotationLinks.js';
+import CollectionLinks from './CollectionLinks.js';
+import EditLinks from './EditLinks.js';
+import LastUpdated from './LastUpdated.js';
+import MergeLink from './MergeLink.js';
+import RemoveLink from './RemoveLink.js';
+import SidebarBeginDate from './SidebarBeginDate.js';
+import SidebarEndDate from './SidebarEndDate.js';
+import SidebarLicenses from './SidebarLicenses.js';
+import {SidebarProperty, SidebarProperties} from './SidebarProperties.js';
+import SidebarTags from './SidebarTags.js';
+import SidebarType from './SidebarType.js';
 
 type Props = {
   +area: AreaT,

@@ -11,11 +11,11 @@ import * as React from 'react';
 
 import {
   relTypeColumn,
-} from '../utility/tableColumns';
+} from '../utility/tableColumns.js';
 
-import LabelList from './components/LabelList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportLabelRelationshipT} from './types';
+import LabelList from './components/LabelList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportLabelRelationshipT} from './types.js';
 
 const DeprecatedRelationshipLabels = ({
   canBeFiltered,

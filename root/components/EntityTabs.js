@@ -10,16 +10,16 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
-import {ENTITIES} from '../static/scripts/common/constants';
+import {ENTITIES} from '../static/scripts/common/constants.js';
 import isSpecialPurpose
-  from '../static/scripts/common/utility/isSpecialPurpose';
+  from '../static/scripts/common/utility/isSpecialPurpose.js';
 import {
   isLocationEditor,
   isRelationshipEditor,
-} from '../static/scripts/common/utility/privileges';
+} from '../static/scripts/common/utility/privileges.js';
 
-import Tabs from './Tabs';
-import EntityTabLink from './EntityTabLink';
+import Tabs from './Tabs.js';
+import EntityTabLink from './EntityTabLink.js';
 
 const tabLinkNames = {
   artists: N_l('Artists'),
@@ -37,11 +37,11 @@ const tabLinkNames = {
 
 const buildLink = (
   content: string,
-  entity,
-  subPath,
-  page,
-  disabled = false,
-  pageName = subPath,
+  entity: CoreEntityT,
+  subPath: string,
+  page: ?string,
+  disabled?: boolean = false,
+  pageName?: string = subPath,
 ) => (
   <EntityTabLink
     content={content}
@@ -133,7 +133,11 @@ function buildLinks(
     links.push(buildLink(l('Tags'), entity, 'tags', page));
   }
 
-  if (entityProperties.ratings || entityProperties.reviews) {
+  if (
+    entityProperties.ratings ||
+    // $FlowIssue[prop-missing]
+    entityProperties.reviews
+  ) {
     const ratingsTabTitle = entityProperties.reviews
       ? l('Reviews')
       : l('Ratings');

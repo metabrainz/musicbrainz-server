@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import GenreSidebar from '../layout/components/sidebar/GenreSidebar';
+import Layout from '../layout/index.js';
+import GenreSidebar from '../layout/components/sidebar/GenreSidebar.js';
 
-import GenreHeader from './GenreHeader';
+import GenreHeader from './GenreHeader.js';
 
 type Props = {
   +children: React.Node,

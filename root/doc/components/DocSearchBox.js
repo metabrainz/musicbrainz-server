@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import FormSubmit from '../../components/FormSubmit';
+import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 
 const DocSearchBox = (): React.Element<'div'> => (
   <div className="wikidoc-search">

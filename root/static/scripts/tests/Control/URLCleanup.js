@@ -8,12 +8,12 @@
 
 import test from 'tape';
 
-import {arraysEqual} from '../../common/utility/arrays';
+import {arraysEqual} from '../../common/utility/arrays.js';
 import {
   LINK_TYPES,
   cleanURL,
   Checker,
-} from '../../edit/URLCleanup';
+} from '../../edit/URLCleanup.js';
 
 /*
  * This file tests the cleanups and autoselect / restrictions defined in

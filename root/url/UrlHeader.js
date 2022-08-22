@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import EntityHeader from '../components/EntityHeader';
-import EntityLink from '../static/scripts/common/components/EntityLink';
+import EntityHeader from '../components/EntityHeader.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
 type Props = {
   page: string,

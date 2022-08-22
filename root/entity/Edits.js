@@ -9,17 +9,16 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import SubHeader from '../components/SubHeader';
-import EditList from '../edit/components/EditList';
+import Layout from '../layout/index.js';
+import SubHeader from '../components/SubHeader.js';
+import EditList from '../edit/components/EditList.js';
 import ArtistCreditLink
-  from '../static/scripts/common/components/ArtistCreditLink';
-import EntityLink from '../static/scripts/common/components/EntityLink';
+  from '../static/scripts/common/components/ArtistCreditLink.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import localizeTypeNameForEntity
-  from '../static/scripts/common/i18n/localizeTypeNameForEntity';
+  from '../static/scripts/common/i18n/localizeTypeNameForEntity.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +editCountLimit: number,
   +edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
   +entity: CoreEntityT | CollectionT,
@@ -30,7 +29,6 @@ type Props = {
 };
 
 const Edits = ({
-  $c,
   editCountLimit,
   edits,
   entity,
@@ -62,7 +60,7 @@ const Edits = ({
     : exp.l('Edits for {name}', {name: headingLink});
 
   const subHeadingTypeName = localizeTypeNameForEntity(entity);
-  let pageSubHeading = subHeadingTypeName;
+  let pageSubHeading: Expand2ReactOutput = subHeadingTypeName;
   if (hasOwnProp(entity, 'artistCredit')) {
     // $FlowIgnore[prop-missing] as per hasOwnProp above
     const artistCredit = entity.artistCredit;
@@ -88,7 +86,6 @@ const Edits = ({
           <SubHeader subHeading={pageSubHeading} />
         </div>
         <EditList
-          $c={$c}
           editCountLimit={editCountLimit}
           edits={edits}
           entity={entity}

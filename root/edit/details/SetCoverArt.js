@@ -9,13 +9,13 @@
 
 import * as React from 'react';
 
-import {Artwork} from '../../components/Artwork';
+import {Artwork} from '../../components/Artwork.js';
 import * as manifest from '../../static/manifest.mjs';
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
 import ReleaseEvents
-  from '../../static/scripts/common/components/ReleaseEvents';
-import commaList from '../../static/scripts/common/i18n/commaList';
+  from '../../static/scripts/common/components/ReleaseEvents.js';
+import commaList from '../../static/scripts/common/i18n/commaList.js';
 
 type Props = {
   +edit: SetCoverArtEditT,

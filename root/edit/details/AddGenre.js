@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
 
 type Props = {
   +edit: AddGenreEditT,

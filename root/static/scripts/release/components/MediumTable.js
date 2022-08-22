@@ -10,24 +10,23 @@
 import * as React from 'react';
 import {captureException} from '@sentry/browser';
 
-import Paginator from '../../../../components/Paginator';
-import {CatalystContext} from '../../../../context.mjs';
+import Paginator from '../../../../components/Paginator.js';
 import mediumHasMultipleArtists
-  from '../../../../utility/mediumHasMultipleArtists';
+  from '../../../../utility/mediumHasMultipleArtists.js';
 import DataTrackIcon
-  from '../../common/components/DataTrackIcon';
+  from '../../common/components/DataTrackIcon.js';
 import MediumDescription
-  from '../../common/components/MediumDescription';
-import {uniqBy} from '../../common/utility/arrays';
+  from '../../common/components/MediumDescription.js';
+import {uniqBy} from '../../common/utility/arrays.js';
 import pThrottle, {
   ThrottleAbortError,
-} from '../../common/utility/pThrottle';
-import type {CreditsModeT, ActionT} from '../types';
+} from '../../common/utility/pThrottle.js';
+import type {CreditsModeT, ActionT} from '../types.js';
 import {
   mergeLinkedEntities,
 } from '../../common/linkedEntities.mjs';
 
-import MediumTrackRow from './MediumTrackRow';
+import MediumTrackRow from './MediumTrackRow.js';
 
 type PropsT = {
   +creditsMode: CreditsModeT,
@@ -72,8 +71,6 @@ const MediumTable = (React.memo<PropsT>(({
   release,
   tracks,
 }: PropsT) => {
-  const $c = React.useContext(CatalystContext);
-
   const [loadingMessage, setLoadingMessage] =
     React.useState('');
 
@@ -173,7 +170,7 @@ const MediumTable = (React.memo<PropsT>(({
     loadMoreTracks,
   ]);
 
-  function toggleMedium(event) {
+  function toggleMedium(event: SyntheticMouseEvent<HTMLAnchorElement>) {
     // Prevent the browser from following the link.
     event.preventDefault();
     dispatch({medium, type: 'toggle-medium'});
@@ -234,7 +231,6 @@ const MediumTable = (React.memo<PropsT>(({
                     )}
                   </p>
                   <Paginator
-                    $c={$c}
                     hash={'medium' + medium.position}
                     pager={tracksPager}
                   />

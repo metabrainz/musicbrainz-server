@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
-import FieldErrors from '../components/FieldErrors';
-import FormLabel from '../components/FormLabel';
-import FormRow from '../components/FormRow';
-import FormSubmit from '../components/FormSubmit';
+import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
+import FormLabel from '../static/scripts/edit/components/FormLabel.js';
+import FormRow from '../static/scripts/edit/components/FormRow.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
-import type {OtherLookupFormT} from './types';
+import type {OtherLookupFormT} from './types.js';
 
 type OtherLookupFormProps = {
   +form: OtherLookupFormT,

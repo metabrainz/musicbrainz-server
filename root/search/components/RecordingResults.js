@@ -11,27 +11,28 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import * as manifest from '../../static/manifest.mjs';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import IsrcList from '../../static/scripts/common/components/IsrcList';
-import TaggerIcon from '../../static/scripts/common/components/TaggerIcon';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
+import IsrcList from '../../static/scripts/common/components/IsrcList.js';
+import TaggerIcon from '../../static/scripts/common/components/TaggerIcon.js';
 import formatTrackLength
-  from '../../static/scripts/common/utility/formatTrackLength';
+  from '../../static/scripts/common/utility/formatTrackLength.js';
 import {isEditingEnabled}
-  from '../../static/scripts/common/utility/privileges';
-import loopParity from '../../utility/loopParity';
+  from '../../static/scripts/common/utility/privileges.js';
+import loopParity from '../../utility/loopParity.js';
 import type {
-  InlineResultsPropsWithContextT,
-  ResultsPropsWithContextT,
-} from '../types';
+  InlineResultsPropsT,
+  ResultsPropsT,
+  SearchResultT,
+} from '../types.js';
 import ArtistCreditLink
-  from '../../static/scripts/common/components/ArtistCreditLink';
+  from '../../static/scripts/common/components/ArtistCreditLink.js';
 
-import PaginatedSearchResults from './PaginatedSearchResults';
-import ResultsLayout from './ResultsLayout';
+import PaginatedSearchResults from './PaginatedSearchResults.js';
+import ResultsLayout from './ResultsLayout.js';
 
 let linenum = 0;
 
-const buildRecordingColumns = recording => (
+const buildRecordingColumns = (recording: RecordingWithArtistCreditT) => (
   <>
     <td>
       <EntityLink entity={recording} />
@@ -50,7 +51,11 @@ const buildRecordingColumns = recording => (
   </>
 );
 
-const buildTaggerIcon = ($c, entityType, gid) => (
+const buildTaggerIcon = (
+  $c: CatalystContextT,
+  entityType: 'recording' | 'release',
+  gid: string,
+) => (
   $c.session?.tport == null ? null : (
     <td>
       <TaggerIcon entityType={entityType} gid={gid} />
@@ -58,7 +63,10 @@ const buildTaggerIcon = ($c, entityType, gid) => (
   )
 );
 
-function buildResultWithReleases($c, result) {
+function buildResultWithReleases(
+  $c: CatalystContextT,
+  result: SearchResultT<RecordingWithArtistCreditT>,
+) {
   const recording = result.entity;
   const score = result.score;
 
@@ -92,7 +100,10 @@ function buildResultWithReleases($c, result) {
   });
 }
 
-function buildResult($c, result) {
+function buildResult(
+  $c: CatalystContextT,
+  result: SearchResultT<RecordingWithArtistCreditT>,
+) {
   const recording = result.entity;
   const score = result.score;
 
@@ -118,7 +129,7 @@ export const RecordingResultsInline = ({
   pager,
   query,
   results,
-}: InlineResultsPropsWithContextT<RecordingWithArtistCreditT>):
+}: InlineResultsPropsT<RecordingWithArtistCreditT>):
 React.Element<typeof PaginatedSearchResults> => {
   const $c = React.useContext(CatalystContext);
 
@@ -146,14 +157,14 @@ React.Element<typeof PaginatedSearchResults> => {
 };
 
 const RecordingResults = ({
-  $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<RecordingWithArtistCreditT>):
+}: ResultsPropsT<RecordingWithArtistCreditT>):
 React.Element<typeof ResultsLayout> => {
+  const $c = React.useContext(CatalystContext);
   linenum = 0;
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>

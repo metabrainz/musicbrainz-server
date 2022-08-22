@@ -21,7 +21,7 @@ const NULL_DATE_PERIOD: DatePeriodRoleT = Object.freeze({
 });
 /* eslint-enable sort-keys */
 
-function compareNullableNumbers(a, b) {
+function compareNullableNumbers(a: ?number, b: ?number) {
   // Sort null values first
   if (a == null) {
     return b == null ? 0 : -1;

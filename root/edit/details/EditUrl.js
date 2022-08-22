@@ -11,11 +11,11 @@ import * as React from 'react';
 
 import {
   EDIT_STATUS_OPEN,
-} from '../../constants';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import DiffSide from '../../static/scripts/edit/components/edit/DiffSide';
-import WordDiff from '../../static/scripts/edit/components/edit/WordDiff';
-import {INSERT, DELETE} from '../../static/scripts/edit/utility/editDiff';
+} from '../../constants.js';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
+import DiffSide from '../../static/scripts/edit/components/edit/DiffSide.js';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
+import {INSERT, DELETE} from '../../static/scripts/edit/utility/editDiff.js';
 
 type Props = {
   +edit: EditUrlEditT,

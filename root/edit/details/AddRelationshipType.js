@@ -9,12 +9,13 @@
 
 import * as React from 'react';
 
-import IntentionallyRawIcon from '../components/IntentionallyRawIcon';
-import Cardinality from '../../static/scripts/common/components/Cardinality';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
+import IntentionallyRawIcon from '../components/IntentionallyRawIcon.js';
+import Cardinality
+  from '../../static/scripts/common/components/Cardinality.js';
+import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import OrderableDirection
-  from '../../static/scripts/common/components/OrderableDirection';
-import {ENTITY_NAMES} from '../../static/scripts/common/constants';
+  from '../../static/scripts/common/components/OrderableDirection.js';
+import {ENTITY_NAMES} from '../../static/scripts/common/constants.js';
 
 type Props = {
   +edit: AddRelationshipTypeEditT,

@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import {unwrapNl} from '../static/scripts/common/i18n';
-import getSelectValue from '../utility/getSelectValue';
+import {unwrapNl} from '../i18n.js';
+import getSelectValue from '../utility/getSelectValue.js';
 
 const buildOption = (option: SelectOptionT, index: number) => (
   <option key={index} value={option.value}>
@@ -18,7 +18,10 @@ const buildOption = (option: SelectOptionT, index: number) => (
   </option>
 );
 
-const buildOptGroup = (optgroup, index) => (
+const buildOptGroup = (
+  optgroup: {+optgroup: string, +options: SelectOptionsT},
+  index: number,
+) => (
   <optgroup key={index} label={optgroup.optgroup}>
     {optgroup.options.map(buildOption)}
   </optgroup>

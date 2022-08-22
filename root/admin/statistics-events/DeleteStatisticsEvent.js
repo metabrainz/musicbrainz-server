@@ -9,19 +9,17 @@
 
 import * as React from 'react';
 
-import Layout from '../../layout';
-import FormSubmit from '../../components/FormSubmit';
-import expand2react from '../../static/scripts/common/i18n/expand2react';
+import Layout from '../../layout/index.js';
+import expand2react from '../../static/scripts/common/i18n/expand2react.js';
+import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 
-import type {StatisticsEventT} from './types';
+import type {StatisticsEventT} from './types.js';
 
 type PropsT = {
-  +$c: CatalystContextT,
   +event: StatisticsEventT,
 };
 
 const DeleteStatisticsEvent = ({
-  $c,
   event,
 }: PropsT): React.Element<typeof Layout> => (
   <Layout fullWidth title={l('Remove statistics event')}>
@@ -47,7 +45,7 @@ const DeleteStatisticsEvent = ({
     <p>
       {l('Are you sure you want to remove this statistics event?')}
     </p>
-    <form action={$c.req.uri} method="post">
+    <form method="post">
       <FormSubmit label={l('Remove statistics event')} />
     </form>
   </Layout>

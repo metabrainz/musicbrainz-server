@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import {HistoricRelationship}
-  from '../../../static/scripts/common/components/Relationship';
+  from '../../../static/scripts/common/components/Relationship.js';
 
 type Props = {
   +edit: RemoveRelationshipHistoricEditT,

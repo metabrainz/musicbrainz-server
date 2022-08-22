@@ -9,27 +9,27 @@
 
 import * as React from 'react';
 
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import loopParity from '../utility/loopParity';
+import {CatalystContext} from '../context.mjs';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import loopParity from '../utility/loopParity.js';
 import ArtistCreditLink
-  from '../static/scripts/common/components/ArtistCreditLink';
-import {compare} from '../static/scripts/common/i18n';
-import commaList from '../static/scripts/common/i18n/commaList';
+  from '../static/scripts/common/components/ArtistCreditLink.js';
+import {compare} from '../static/scripts/common/i18n.js';
+import commaList from '../static/scripts/common/i18n/commaList.js';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import formatDatePeriod
-  from '../static/scripts/common/utility/formatDatePeriod';
+  from '../static/scripts/common/utility/formatDatePeriod.js';
 import formatTrackLength
-  from '../static/scripts/common/utility/formatTrackLength';
+  from '../static/scripts/common/utility/formatTrackLength.js';
 import displayLinkAttribute
-  from '../static/scripts/common/utility/displayLinkAttribute';
-import {interpolateText} from '../static/scripts/edit/utility/linkPhrase';
-import {formatCount} from '../statistics/utilities';
-import uriWith from '../utility/uriWith';
+  from '../static/scripts/common/utility/displayLinkAttribute.js';
+import {interpolateText} from '../static/scripts/edit/utility/linkPhrase.js';
+import {formatCount} from '../statistics/utilities.js';
+import uriWith from '../utility/uriWith.js';
 
-import PaginatedResults from './PaginatedResults';
+import PaginatedResults from './PaginatedResults.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +entity: CoreEntityT,
   +fallbackMessage?: string,
   +heading: string,
@@ -40,7 +40,7 @@ type Props = {
 const generalTypesList = ['recording', 'release', 'release_group', 'work'];
 const recordingOnlyTypesList = ['recording'];
 
-const pickAppearancesTypes = (entityType) => {
+const pickAppearancesTypes = (entityType: CoreEntityTypeT) => {
   switch (entityType) {
     case 'area':
     case 'artist':
@@ -55,7 +55,7 @@ const pickAppearancesTypes = (entityType) => {
   }
 };
 
-const getLinkPhraseForGroup = (linkTypeGroup) => (
+const getLinkPhraseForGroup = (linkTypeGroup: PagedLinkTypeGroupT) => (
   interpolateText(
     linkedEntities.link_type[linkTypeGroup.link_type_id],
     [],
@@ -70,18 +70,19 @@ const getLinkPhraseForGroup = (linkTypeGroup) => (
  * Matches $DIRECTION_FORWARD and $DIRECTION_BACKWARD from
  * lib/MusicBrainz/Server/Constants.pm.
  */
-const getDirectionInteger = (backward) => {
+const getDirectionInteger = (backward: boolean) => {
   return backward ? 2 : 1;
 };
 
 const RelationshipsTable = ({
-  $c,
   entity,
   fallbackMessage,
   heading,
   pagedLinkTypeGroup,
   pager,
 }: Props): React.MixedElement | null => {
+  const $c = React.useContext(CatalystContext);
+
   if (pagedLinkTypeGroup && !pager) {
     throw new Error('Expected a pager');
   }
@@ -95,10 +96,20 @@ const RelationshipsTable = ({
   let columnsCount = 1;
   let totalRelationships = 0;
 
+  type PagedLinkTypeGroupWithPhraseT = $ReadOnly<{
+    ...PagedLinkTypeGroupT,
+    +phrase: string,
+  }>;
+
+  type RelationshipsTableGroupPropsT = {
+    +group: PagedLinkTypeGroupWithPhraseT,
+    +relationshipRows: $ReadOnlyArray<React.MixedElement>,
+  };
+
   const RelationshipsTableGroup = ({
     group,
     relationshipRows,
-  }) => {
+  }: RelationshipsTableGroupPropsT) => {
     const isLimited = (
       group.total_relationships >
       (group.offset + group.relationships.length)
@@ -137,13 +148,21 @@ const RelationshipsTable = ({
     );
   };
 
+  type RelationshipsTableRowPropsT = {
+    +artistCredit: ?ArtistCreditT,
+    +index: number,
+    +relationship: RelationshipT,
+    +sourceCredit: string,
+    +targetCredit: string,
+  };
+
   const RelationshipsTableRow = ({
     artistCredit,
     index,
     relationship,
     sourceCredit,
     targetCredit,
-  }) => {
+  }: RelationshipsTableRowPropsT) => {
     return (
       <tr className={loopParity(index)} key={relationship.id}>
         <td>{formatDatePeriod(relationship)}</td>
@@ -198,11 +217,11 @@ const RelationshipsTable = ({
     );
   };
 
-  const tableRows = [];
+  const tableRows: Array<React.MixedElement> = [];
 
   const getRelationshipRows = (
-    linkTypeGroup,
-    rows,
+    linkTypeGroup: PagedLinkTypeGroupT | PagedLinkTypeGroupWithPhraseT,
+    rows: Array<React.MixedElement>,
   ) => {
     let index = 0;
 
@@ -285,7 +304,7 @@ const RelationshipsTable = ({
         .sort((a, b) => compare(a.phrase, b.phrase));
 
       for (const linkTypeGroup of linkTypeGroups) {
-        const relationshipRows = [];
+        const relationshipRows: Array<React.MixedElement> = [];
         getRelationshipRows(linkTypeGroup, relationshipRows);
 
         tableRows.push(
@@ -326,7 +345,7 @@ const RelationshipsTable = ({
       </tbody>
     </table>
   );
-  let pageContent = tableElement;
+  let pageContent: React.MixedElement = tableElement;
   let finalHeading = heading;
 
   if (pagedLinkTypeGroup /*:: && pager */) {

@@ -9,14 +9,15 @@
 
 import * as React from 'react';
 
-import FormCsrfToken from '../components/FormCsrfToken';
-import FormRow from '../components/FormRow';
-import FormRowEmailLong from '../components/FormRowEmailLong';
-import FormSubmit from '../components/FormSubmit';
-import Layout from '../layout';
+import Layout from '../layout/index.js';
+import FormCsrfToken
+  from '../static/scripts/edit/components/FormCsrfToken.js';
+import FormRow from '../static/scripts/edit/components/FormRow.js';
+import FormRowEmailLong
+  from '../static/scripts/edit/components/FormRowEmailLong.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 type LostUsernameFormT = FormT<{
-  +$c: CatalystContextT,
   +email: ReadOnlyFieldT<string>,
 }>;
 

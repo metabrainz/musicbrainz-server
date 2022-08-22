@@ -6,7 +6,7 @@
 /* eslint-disable import/no-commonjs */
 
 import {DEVELOPMENT_SERVER} from './common/DBDefs-client.mjs';
-import MB from './common/MB';
+import MB from './common/MB.js';
 
 /* Global polyfills not provided by core-js */
 require('whatwg-fetch');
@@ -41,11 +41,11 @@ require('./common/MB/Control/Autocomplete');
 require('./common/MB/Control/SelectAll');
 require('./common/components/TagEditor');
 
-import('./common/artworkViewer');
-import('./common/dialogs');
-import('./common/components/Filter');
-import('./common/MB/Control/Menu');
-import('./common/MB/edit_search');
-import('./common/ratings');
-import('./common/coverart');
-import('./common/banner');
+import('./common/artworkViewer.js');
+import('./common/dialogs.js');
+import('./common/components/Filter.js');
+import('./common/MB/Control/Menu.js');
+import('./common/MB/edit_search.js');
+import('./common/ratings.js');
+import('./common/coverart.js');
+import('./common/banner.js');

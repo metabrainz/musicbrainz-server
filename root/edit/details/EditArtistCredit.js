@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import ArtistCreditUsageLink
-  from '../../static/scripts/common/components/ArtistCreditUsageLink';
+  from '../../static/scripts/common/components/ArtistCreditUsageLink.js';
 import ExpandedArtistCredit from
-  '../../static/scripts/common/components/ExpandedArtistCredit';
+  '../../static/scripts/common/components/ExpandedArtistCredit.js';
 
 type Props = {
   +edit: EditArtistCreditEditT,

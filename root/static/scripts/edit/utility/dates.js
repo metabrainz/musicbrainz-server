@@ -7,8 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import getDaysInMonth from '../../../../utility/getDaysInMonth';
-import parseInteger from '../../common/utility/parseInteger';
+import getDaysInMonth from '../../../../utility/getDaysInMonth.js';
+import parseInteger from '../../common/utility/parseInteger.js';
 
 type PartialDateWithStringsT = {
   +day: StrOrNum | null,

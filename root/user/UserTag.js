@@ -10,13 +10,12 @@
 import * as React from 'react';
 
 import UserAccountLayout, {type AccountLayoutUserT}
-  from '../components/UserAccountLayout';
-import TagEntitiesList from '../components/TagEntitiesList';
+  from '../components/UserAccountLayout.js';
+import TagEntitiesList from '../components/TagEntitiesList.js';
 
-import {getTagListHeading, getTagListUrl} from './UserTagList';
+import {getTagListHeading, getTagListUrl} from './UserTagList.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +showDownvoted?: boolean,
   +tag: TagT,
   +taggedEntities: {
@@ -33,7 +32,6 @@ type Props = {
 };
 
 const UserTag = ({
-  $c,
   showDownvoted = false,
   tag,
   taggedEntities,
@@ -53,7 +51,6 @@ const UserTag = ({
       </ol>
     </nav>
     <TagEntitiesList
-      $c={$c}
       showDownvoted={showDownvoted}
       showLink
       showVotesSelect

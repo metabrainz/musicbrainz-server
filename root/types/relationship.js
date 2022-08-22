@@ -10,9 +10,7 @@
 declare type LinkAttrT = {
   +credited_as?: string,
   +text_value?: string,
-  type: {
-    +gid: string,
-  },
+  type: {+gid: string} | LinkAttrTypeT,
   +typeID: number,
   +typeName: string,
 };

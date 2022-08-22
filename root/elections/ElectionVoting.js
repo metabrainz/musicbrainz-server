@@ -9,18 +9,19 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../context.mjs';
 import {canCancel, canSecond, canVote, isInvolved}
-  from '../utility/voting';
+  from '../utility/voting.js';
 import {
   isAutoEditor,
-} from '../static/scripts/common/utility/privileges';
+} from '../static/scripts/common/utility/privileges.js';
 
 type PropsT = {
-  +$c: CatalystContextT,
   +election: AutoEditorElectionT,
 };
 
-const ElectionVoting = ({$c, election}: PropsT): React.MixedElement => {
+const ElectionVoting = ({election}: PropsT): React.MixedElement => {
+  const $c = React.useContext(CatalystContext);
   let message = exp.l(
     'To find out if you can vote for this candidate, please {url|log in}.',
     {url: '/login'},

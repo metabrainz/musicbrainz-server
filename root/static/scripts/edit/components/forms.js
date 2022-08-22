@@ -10,11 +10,11 @@ import ko from 'knockout';
 import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 
-import MB from '../../common/MB';
-import FieldErrors from '../../../../components/FieldErrors';
-import FormRow from '../../../../components/FormRow';
+import MB from '../../common/MB.js';
 
-import ArtistCreditEditor from './ArtistCreditEditor';
+import ArtistCreditEditor from './ArtistCreditEditor.js';
+import FieldErrors from './FieldErrors.js';
+import FormRow from './FormRow.js';
 
 export const FormRowArtistCredit = ({form, entity}) => (
   <FormRow>

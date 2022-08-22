@@ -9,27 +9,28 @@
 
 import * as React from 'react';
 
-import Annotation from '../static/scripts/common/components/Annotation';
+import Annotation from '../static/scripts/common/components/Annotation.js';
 import DescriptiveLink
-  from '../static/scripts/common/components/DescriptiveLink';
-import Filter from '../static/scripts/common/components/Filter';
+  from '../static/scripts/common/components/DescriptiveLink.js';
+import Filter from '../static/scripts/common/components/Filter.js';
 import {type FilterFormT}
-  from '../static/scripts/common/components/FilterForm';
+  from '../static/scripts/common/components/FilterForm.js';
 import WikipediaExtract
-  from '../static/scripts/common/components/WikipediaExtract';
+  from '../static/scripts/common/components/WikipediaExtract.js';
 import commaOnlyList, {commaOnlyListText}
-  from '../static/scripts/common/i18n/commaOnlyList';
-import {bracketedText} from '../static/scripts/common/utility/bracketed';
-import FormSubmit from '../components/FormSubmit';
-import RecordingList from '../components/list/RecordingList';
-import ReleaseGroupList from '../components/list/ReleaseGroupList';
-import PaginatedResults from '../components/PaginatedResults';
-import RelatedEntitiesDisplay from '../components/RelatedEntitiesDisplay';
+  from '../static/scripts/common/i18n/commaOnlyList.js';
+import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
+import RecordingList from '../components/list/RecordingList.js';
+import ReleaseGroupList from '../components/list/ReleaseGroupList.js';
+import PaginatedResults from '../components/PaginatedResults.js';
+import RelatedEntitiesDisplay from '../components/RelatedEntitiesDisplay.js';
+import {SanitizedCatalystContext} from '../context.mjs';
 import * as manifest from '../static/manifest.mjs';
-import entityHref from '../static/scripts/common/utility/entityHref';
-import {returnToCurrentPage} from '../utility/returnUri';
+import entityHref from '../static/scripts/common/utility/entityHref.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
-import ArtistLayout from './ArtistLayout';
+import ArtistLayout from './ArtistLayout.js';
 
 type FooterSwitchProps = {
   +artist: ArtistT,
@@ -42,7 +43,6 @@ type FooterSwitchProps = {
 };
 
 type Props = {
-  +$c: CatalystContextT,
   +ajaxFilterFormUrl: string,
   +artist: ArtistT,
   +eligibleForCleanup: boolean,
@@ -76,7 +76,12 @@ const FooterSwitch = ({
 }: FooterSwitchProps): React.Element<'p' | typeof React.Fragment> => {
   const artistLink = entityHref(artist);
 
-  function buildLinks(showDefault, showAll, showVA, showAllVA) {
+  function buildLinks(
+    showDefault: boolean,
+    showAll: boolean,
+    showVA: boolean,
+    showAllVA: boolean,
+  ) {
     const links = [];
     if (showDefault) {
       links.push(
@@ -187,7 +192,6 @@ const FooterSwitch = ({
 };
 
 const ArtistIndex = ({
-  $c,
   ajaxFilterFormUrl,
   artist,
   eligibleForCleanup,
@@ -209,6 +213,7 @@ const ArtistIndex = ({
   showingVariousArtistsOnly,
   wikipediaExtract,
 }: Props): React.Element<typeof ArtistLayout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const existingRecordings = recordings?.length ? recordings : null;
   const existingReleaseGroups = releaseGroups?.length ? releaseGroups : null;
 

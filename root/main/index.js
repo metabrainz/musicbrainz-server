@@ -10,12 +10,12 @@
 import he from 'he';
 import * as React from 'react';
 
-import {ArtworkImage} from '../components/Artwork';
-import Layout from '../layout';
-import {CONTACT_URL} from '../static/scripts/common/constants';
+import {ArtworkImage} from '../components/Artwork.js';
+import Layout from '../layout/index.js';
+import {CONTACT_URL} from '../static/scripts/common/constants.js';
 import {reduceArtistCredit}
-  from '../static/scripts/common/immutable-entities';
-import entityHref from '../static/scripts/common/utility/entityHref';
+  from '../static/scripts/common/immutable-entities.js';
+import entityHref from '../static/scripts/common/utility/entityHref.js';
 
 type BlogEntryT = {
   +title: string,

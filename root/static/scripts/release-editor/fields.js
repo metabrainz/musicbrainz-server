@@ -9,31 +9,31 @@
 import ko from 'knockout';
 import * as ReactDOMServer from 'react-dom/server';
 
-import mbEntity from '../common/entity';
+import mbEntity from '../common/entity.js';
 import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
-import releaseLabelKey from '../common/utility/releaseLabelKey';
+import releaseLabelKey from '../common/utility/releaseLabelKey.js';
 import {
   artistCreditsAreEqual,
   hasVariousArtists,
   isCompleteArtistCredit,
   reduceArtistCredit,
-} from '../common/immutable-entities';
-import MB from '../common/MB';
-import {groupBy} from '../common/utility/arrays';
-import {debounceComputed} from '../common/utility/debounce';
-import formatTrackLength from '../common/utility/formatTrackLength';
-import isBlank from '../common/utility/isBlank';
-import request from '../common/utility/request';
-import {fixedWidthInteger, uniqueId} from '../common/utility/strings';
-import mbEdit from '../edit/MB/edit';
-import * as dates from '../edit/utility/dates';
-import * as validation from '../edit/validation';
+} from '../common/immutable-entities.js';
+import MB from '../common/MB.js';
+import {groupBy} from '../common/utility/arrays.js';
+import {debounceComputed} from '../common/utility/debounce.js';
+import formatTrackLength from '../common/utility/formatTrackLength.js';
+import isBlank from '../common/utility/isBlank.js';
+import request from '../common/utility/request.js';
+import {fixedWidthInteger, uniqueId} from '../common/utility/strings.js';
+import mbEdit from '../edit/MB/edit.js';
+import * as dates from '../edit/utility/dates.js';
+import * as validation from '../edit/validation.js';
 
 import 'knockout-arraytransforms';
 
-import recordingAssociation from './recordingAssociation';
-import utils from './utils';
-import releaseEditor from './viewModel';
+import recordingAssociation from './recordingAssociation.js';
+import utils from './utils.js';
+import releaseEditor from './viewModel.js';
 
 const fields = {};
 

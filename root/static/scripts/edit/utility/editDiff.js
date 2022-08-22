@@ -85,15 +85,15 @@ export default function editDiff<T>(
   for (let i = 0; i < diffs.length; i++) {
     const diff = diffs[i];
 
-    let changeType = getChangeType<T>(diff);
+    let changeType: EditType = getChangeType<T>(diff);
 
     let nextDiff;
     if ((i + 1) < diffs.length) {
       nextDiff = diffs[i + 1];
     }
 
-    let oldItems = [];
-    let newItems = [];
+    let oldItems: $ReadOnlyArray<T> = [];
+    let newItems: $ReadOnlyArray<T> = [];
 
     switch (changeType) {
       case INSERT:
@@ -133,7 +133,7 @@ export function stringEditDiff(
   for (let i = 0; i < diffs.length; i++) {
     const diff = diffs[i];
 
-    let changeType = FAST_DIFF_CHANGE_TYPE_MAP.get(diff[0]);
+    let changeType: ?EditType = FAST_DIFF_CHANGE_TYPE_MAP.get(diff[0]);
     invariant(
       changeType != null,
       'fast-diff change type is null or undefined',

@@ -9,37 +9,41 @@
 
 import * as React from 'react';
 
-import relationshipDateText
-  from '../../../../../utility/relationshipDateText';
-import {INSERT, DELETE} from '../../utility/editDiff';
-import DescriptiveLink from '../../../common/components/DescriptiveLink';
-import commaList from '../../../common/i18n/commaList';
+import {INSERT, DELETE} from '../../utility/editDiff.js';
+import DescriptiveLink from '../../../common/components/DescriptiveLink.js';
+import commaList from '../../../common/i18n/commaList.js';
 import {
   expand2reactWithVarArgsInstance,
   hooks as expand2reactHooks,
-} from '../../../common/i18n/expand2react';
+} from '../../../common/i18n/expand2react.js';
 import linkedEntities from '../../../common/linkedEntities.mjs';
-import {keyBy} from '../../../common/utility/arrays';
-import bracketed from '../../../common/utility/bracketed';
+import {keyBy} from '../../../common/utility/arrays.js';
+import bracketed from '../../../common/utility/bracketed.js';
 import displayLinkAttribute, {displayLinkAttributes}
-  from '../../../common/utility/displayLinkAttribute';
-import isDisabledLink from '../../../../../utility/isDisabledLink';
+  from '../../../common/utility/displayLinkAttribute.js';
+import isDisabledLink from '../../../common/utility/isDisabledLink.js';
+import relationshipDateText
+  from '../../../common/utility/relationshipDateText.js';
 import {
   getPhraseAndExtraAttributes,
   type LinkPhraseI18n,
-} from '../../utility/linkPhrase';
+} from '../../utility/linkPhrase.js';
 
-import DiffSide from './DiffSide';
+import DiffSide from './DiffSide.js';
 
-const diffOnlyA = content => <span className="diff-only-a">{content}</span>;
-const diffOnlyB = content => <span className="diff-only-b">{content}</span>;
+const diffOnlyA = (
+  content: Expand2ReactOutput,
+) => <span className="diff-only-a">{content}</span>;
+const diffOnlyB = (
+  content: Expand2ReactOutput,
+) => <span className="diff-only-b">{content}</span>;
 
 type Props = {
   newRelationship: RelationshipT,
   oldRelationship: RelationshipT,
 };
 
-const getTypeId = x => String(x.typeID);
+const getTypeId = (x: LinkAttrT) => String(x.typeID);
 
 const RelationshipDiff = ({
   newRelationship,
@@ -118,8 +122,10 @@ const RelationshipDiff = ({
     />
   );
 
-  let [oldPhrase, oldExtraAttributes] = ['', []];
-  let [newPhrase, newExtraAttributes] = ['', []];
+  let oldPhrase: Expand2ReactOutput = '';
+  let oldExtraAttributes: Array<LinkAttrT> = [];
+  let newPhrase: Expand2ReactOutput = '';
+  let newExtraAttributes: Array<LinkAttrT> = [];
 
   try {
     if (oldLinkType !== newLinkType) {

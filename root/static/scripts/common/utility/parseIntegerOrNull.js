@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import parseInteger from './parseInteger';
+import parseInteger from './parseInteger.js';
 
 export default function parseIntegerOrNull(value: ?StrOrNum): number | null {
   if (value == null) {

@@ -10,12 +10,13 @@
 import * as React from 'react';
 
 import {bracketedText}
-  from '../../../static/scripts/common/utility/bracketed';
-import formatDate from '../../../static/scripts/common/utility/formatDate';
-import isDateEmpty from '../../../static/scripts/common/utility/isDateEmpty';
-import {displayAgeAgo} from '../../../utility/age';
+  from '../../../static/scripts/common/utility/bracketed.js';
+import formatDate from '../../../static/scripts/common/utility/formatDate.js';
+import isDateEmpty
+  from '../../../static/scripts/common/utility/isDateEmpty.js';
+import {displayAgeAgo} from '../../../utility/age.js';
 
-import {SidebarProperty} from './SidebarProperties';
+import {SidebarProperty} from './SidebarProperties.js';
 
 type Props = {
   +age?: [number, number, number] | null,

@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import LabelLayout from './LabelLayout';
+import LabelLayout from './LabelLayout.js';
 
 type Props = {
   +label: LabelT,

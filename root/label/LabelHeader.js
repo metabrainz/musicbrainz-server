@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import EntityHeader from '../components/EntityHeader';
+import EntityHeader from '../components/EntityHeader.js';
 
 type Props = {
   +label: LabelT,

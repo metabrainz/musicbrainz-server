@@ -10,8 +10,9 @@
 import * as React from 'react';
 
 import DescriptiveLink
-  from '../../../static/scripts/common/components/DescriptiveLink';
-import WordDiff from '../../../static/scripts/edit/components/edit/WordDiff';
+  from '../../../static/scripts/common/components/DescriptiveLink.js';
+import WordDiff
+  from '../../../static/scripts/edit/components/edit/WordDiff.js';
 
 type Props = {
   +edit: EditTrackHistoricEditT,

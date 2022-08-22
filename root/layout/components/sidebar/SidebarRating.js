@@ -9,9 +9,10 @@
 
 import * as React from 'react';
 
-import EntityLink from '../../../static/scripts/common/components/EntityLink';
+import EntityLink
+  from '../../../static/scripts/common/components/EntityLink.js';
 import RatingStars
-  from '../../../static/scripts/common/components/RatingStars';
+  from '../../../static/scripts/common/components/RatingStars.js';
 
 type Props = {
   +entity: RatableT,

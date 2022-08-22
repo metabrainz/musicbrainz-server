@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
-import formatUserDate from '../../../utility/formatUserDate';
+import formatUserDate from '../../../utility/formatUserDate.js';
 
 type Props = {
   +entity: CoreEntityT,

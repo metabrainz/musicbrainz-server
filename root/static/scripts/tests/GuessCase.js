@@ -8,8 +8,8 @@
 
 import test from 'tape';
 
-import setCookie from '../common/utility/setCookie';
-import gc from '../guess-case/MB/GuessCase/Main';
+import setCookie from '../common/utility/setCookie.js';
+import gc from '../guess-case/MB/GuessCase/Main.js';
 
 setCookie('guesscase_roman', 'false');
 gc.CFG_KEEP_UPPERCASED = 'false';

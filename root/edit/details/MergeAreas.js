@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import AreaList from '../../components/list/AreaList';
+import AreaList from '../../components/list/AreaList.js';
 
 type Props = {
   +edit: MergeAreasEditT,

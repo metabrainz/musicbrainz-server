@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import formatDate from '../utility/formatDate';
-import isDateEmpty from '../utility/isDateEmpty';
+import formatDate from '../utility/formatDate.js';
+import isDateEmpty from '../utility/isDateEmpty.js';
 
-import EntityLink from './EntityLink';
+import EntityLink from './EntityLink.js';
 
 type Props = {
   +event: ReleaseEventT,

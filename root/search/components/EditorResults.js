@@ -9,14 +9,14 @@
 
 import * as React from 'react';
 
-import EditorLink from '../../static/scripts/common/components/EditorLink';
-import loopParity from '../../utility/loopParity';
-import type {ResultsPropsT} from '../types';
+import EditorLink from '../../static/scripts/common/components/EditorLink.js';
+import loopParity from '../../utility/loopParity.js';
+import type {ResultsPropsT, SearchResultT} from '../types.js';
 
-import PaginatedSearchResults from './PaginatedSearchResults';
-import ResultsLayout from './ResultsLayout';
+import PaginatedSearchResults from './PaginatedSearchResults.js';
+import ResultsLayout from './ResultsLayout.js';
 
-function buildResult(result, index) {
+function buildResult(result: SearchResultT<EditorT>, index: number) {
   const editor = result.entity;
   const score = result.score;
 
@@ -35,8 +35,7 @@ const EditorResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<EditorT>):
-React.Element<typeof ResultsLayout> => (
+}: ResultsPropsT<EditorT>): React.Element<typeof ResultsLayout> => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}

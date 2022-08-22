@@ -750,7 +750,7 @@ END -%]
       isni.replace('(.{4})(.{4})(.{4})(.{4})', '$1 $2 $3 $4');
     END -%]
 
-[%~ MACRO country_abbr(country) BLOCK # Converted to React at root/components/CountryAbbr.js -%]
+[%~ MACRO country_abbr(country) BLOCK # Converted to React at root/static/scripts/common/components/CountryAbbr.js -%]
     <span class="flag flag-[% country.primary_code %]"></span>
     <abbr title="[% html_escape(country.l_name) %]">[% country.primary_code %]</abbr>
 [%- END -%]

@@ -9,21 +9,23 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context.mjs';
 import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
-import formatDate from '../../static/scripts/common/utility/formatDate';
-import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
+  from '../../static/scripts/common/components/DescriptiveLink.js';
+import formatDate from '../../static/scripts/common/utility/formatDate.js';
+import formatEndDate
+  from '../../static/scripts/common/utility/formatEndDate.js';
 import primaryAreaCode
-  from '../../static/scripts/common/utility/primaryAreaCode';
+  from '../../static/scripts/common/utility/primaryAreaCode.js';
 import {isLocationEditor}
-  from '../../static/scripts/common/utility/privileges';
-import loopParity from '../../utility/loopParity';
-import type {ResultsPropsWithContextT} from '../types';
+  from '../../static/scripts/common/utility/privileges.js';
+import loopParity from '../../utility/loopParity.js';
+import type {ResultsPropsT, SearchResultT} from '../types.js';
 
-import PaginatedSearchResults from './PaginatedSearchResults';
-import ResultsLayout from './ResultsLayout';
+import PaginatedSearchResults from './PaginatedSearchResults.js';
+import ResultsLayout from './ResultsLayout.js';
 
-function buildResult(result, index) {
+function buildResult(result: SearchResultT<AreaT>, index: number) {
   const area = result.entity;
   const score = result.score;
 
@@ -45,38 +47,39 @@ function buildResult(result, index) {
 }
 
 const AreaResults = ({
-  $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<AreaT>):
-React.Element<typeof ResultsLayout> => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
-    <PaginatedSearchResults
-      buildResult={buildResult}
-      columns={
-        <>
-          <th>{l('Name')}</th>
-          <th>{l('Type')}</th>
-          <th>{l('Code')}</th>
-          <th>{l('Begin')}</th>
-          <th>{l('End')}</th>
-        </>
-      }
-      pager={pager}
-      query={query}
-      results={results}
-    />
-    {isLocationEditor($c.user) ? (
-      <p>
-        {exp.l('Alternatively, you may {uri|add a new area}.', {
-          uri: '/area/create?edit-area.name=' + encodeURIComponent(query),
-        })}
-      </p>
-    ) : null}
-  </ResultsLayout>
-);
+}: ResultsPropsT<AreaT>): React.Element<typeof ResultsLayout> => {
+  const $c = React.useContext(CatalystContext);
+  return (
+    <ResultsLayout form={form} lastUpdated={lastUpdated}>
+      <PaginatedSearchResults
+        buildResult={buildResult}
+        columns={
+          <>
+            <th>{l('Name')}</th>
+            <th>{l('Type')}</th>
+            <th>{l('Code')}</th>
+            <th>{l('Begin')}</th>
+            <th>{l('End')}</th>
+          </>
+        }
+        pager={pager}
+        query={query}
+        results={results}
+      />
+      {isLocationEditor($c.user) ? (
+        <p>
+          {exp.l('Alternatively, you may {uri|add a new area}.', {
+            uri: '/area/create?edit-area.name=' + encodeURIComponent(query),
+          })}
+        </p>
+      ) : null}
+    </ResultsLayout>
+  );
+};
 
 export default AreaResults;

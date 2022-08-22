@@ -13,7 +13,7 @@ import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 import mutate from 'mutate-cow';
 
-import Autocomplete from '../../common/components/Autocomplete';
+import Autocomplete from '../../common/components/Autocomplete.js';
 import {
   artistCreditsAreEqual,
   hasArtist,
@@ -21,10 +21,10 @@ import {
   isCompleteArtistCredit,
   isComplexArtistCredit,
   reduceArtistCredit,
-} from '../../common/immutable-entities';
-import {localStorage} from '../../common/utility/storage';
+} from '../../common/immutable-entities.js';
+import {localStorage} from '../../common/utility/storage.js';
 
-import ArtistCreditBubble from './ArtistCreditBubble';
+import ArtistCreditBubble from './ArtistCreditBubble.js';
 
 function setAutoJoinPhrases(ac) {
   const names = ac.names;

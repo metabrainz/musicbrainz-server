@@ -9,11 +9,11 @@
 
 import $ from 'jquery';
 
-import {initializeBubble} from '../edit/MB/Control/Bubble';
+import {initializeBubble} from '../edit/MB/Control/Bubble.js';
 
 export default function typeBubble(typeIdField: string): void {
   initializeBubble('#type-bubble', typeIdField);
-  $(typeIdField).on('change', function () {
+  $(typeIdField).on('change', function (this: HTMLSelectElement) {
     if (this.value.match(/\S/g)) {
       $('#type-bubble-default').hide();
       $('.type-bubble-description').hide();

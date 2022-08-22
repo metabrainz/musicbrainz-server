@@ -9,13 +9,14 @@
 
 import * as React from 'react';
 
-import Annotation from '../static/scripts/common/components/Annotation';
-import Relationships from '../static/scripts/common/components/Relationships';
+import Annotation from '../static/scripts/common/components/Annotation.js';
+import Relationships
+  from '../static/scripts/common/components/Relationships.js';
 import WikipediaExtract
-  from '../static/scripts/common/components/WikipediaExtract';
+  from '../static/scripts/common/components/WikipediaExtract.js';
 import * as manifest from '../static/manifest.mjs';
 
-import AreaLayout from './AreaLayout';
+import AreaLayout from './AreaLayout.js';
 
 type Props = {
   +area: AreaT,

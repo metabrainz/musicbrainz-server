@@ -11,13 +11,13 @@ import * as React from 'react';
 
 import UserAccountLayout, {
   type AccountLayoutUserT,
-} from '../components/UserAccountLayout';
-import EditorLink from '../static/scripts/common/components/EditorLink';
-import {UserTagLink} from '../static/scripts/common/components/TagLink';
-import expand2react from '../static/scripts/common/i18n/expand2react';
-import loopParity from '../utility/loopParity';
+} from '../components/UserAccountLayout.js';
+import EditorLink from '../static/scripts/common/components/EditorLink.js';
+import {UserTagLink} from '../static/scripts/common/components/TagLink.js';
+import expand2react from '../static/scripts/common/i18n/expand2react.js';
+import loopParity from '../utility/loopParity.js';
 
-import UserTagFilters from './components/UserTagFilters';
+import UserTagFilters from './components/UserTagFilters.js';
 
 const headingsText: {+[vote: string]: () => string} = {
   down: N_l('Tags {user} downvoted'),
@@ -46,7 +46,6 @@ export function getTagListUrl(
 }
 
 type Props = {
-  +$c: CatalystContextT,
   +genres: $ReadOnlyArray<UserTagT>,
   +showDownvoted?: boolean,
   +sortBy?: 'count' | 'countdesc' | 'name',
@@ -55,7 +54,6 @@ type Props = {
 };
 
 const UserTagList = ({
-  $c,
   genres,
   showDownvoted = false,
   sortBy,
@@ -68,7 +66,6 @@ const UserTagList = ({
     </h2>
 
     <UserTagFilters
-      $c={$c}
       showDownvoted={showDownvoted}
       showSortSelect
       showVotesSelect

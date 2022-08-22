@@ -9,13 +9,13 @@
 
 import * as React from 'react';
 
-import EntityHeader from '../components/EntityHeader';
+import EntityHeader from '../components/EntityHeader.js';
 import * as manifest from '../static/manifest.mjs';
 import ArtistCreditLink
-  from '../static/scripts/common/components/ArtistCreditLink';
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
-import bracketed from '../static/scripts/common/utility/bracketed';
+  from '../static/scripts/common/components/ArtistCreditLink.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import TaggerIcon from '../static/scripts/common/components/TaggerIcon.js';
+import bracketed from '../static/scripts/common/utility/bracketed.js';
 
 type Props = {
   +page?: string,

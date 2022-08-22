@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {VARTIST_GID} from './constants';
+import {VARTIST_GID} from './constants.js';
 
 const reduceName = (memo: string, x: ArtistCreditNameT): string => (
   memo +

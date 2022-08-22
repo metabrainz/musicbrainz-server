@@ -13,13 +13,13 @@ import {
   hasVariousArtists,
   isComplexArtistCredit,
   reduceArtistCredit,
-} from '../common/immutable-entities';
-import GuessCase from '../guess-case/MB/GuessCase/Main';
-import deferFocus from '../edit/utility/deferFocus';
-import guessFeat from '../edit/utility/guessFeat';
+} from '../common/immutable-entities.js';
+import GuessCase from '../guess-case/MB/GuessCase/Main.js';
+import deferFocus from '../edit/utility/deferFocus.js';
+import guessFeat from '../edit/utility/guessFeat.js';
 
-import fields from './fields';
-import releaseEditor from './viewModel';
+import fields from './fields.js';
+import releaseEditor from './viewModel.js';
 
 const actions = {
 

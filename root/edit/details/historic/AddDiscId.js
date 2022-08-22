@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import HistoricReleaseList
-  from '../../components/HistoricReleaseList';
+  from '../../components/HistoricReleaseList.js';
 import CDTocLink
-  from '../../../static/scripts/common/components/CDTocLink';
+  from '../../../static/scripts/common/components/CDTocLink.js';
 
 type Props = {
   +edit: AddDiscIdHistoricEditT,

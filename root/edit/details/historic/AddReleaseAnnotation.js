@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import HistoricReleaseList from '../../components/HistoricReleaseList';
+import HistoricReleaseList from '../../components/HistoricReleaseList.js';
 
 type Props = {
   +edit: AddReleaseAnnotationHistoricEditT,

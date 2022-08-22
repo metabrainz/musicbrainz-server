@@ -141,7 +141,7 @@ m4_define(
     `copy_common_mbs_files',
     `m4_dnl
 copy_mb(``admin/ admin/'')
-copy_mb(``app.psgi entities.json ./'')
+copy_mb(``app.psgi entities.json entities.mjs ./'')
 copy_mb(``bin/ bin/'')
 copy_mb(``lib/ lib/'')
 copy_mb(``script/functions.sh script/git_info script/'')')

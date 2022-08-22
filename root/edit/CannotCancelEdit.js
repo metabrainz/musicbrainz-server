@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
-import EditLink from '../static/scripts/common/components/EditLink';
+import Layout from '../layout/index.js';
+import EditLink from '../static/scripts/common/components/EditLink.js';
 
 type Props = {
   +edit: GenericEditWithIdT,

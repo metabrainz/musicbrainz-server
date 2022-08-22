@@ -10,13 +10,13 @@
 import * as React from 'react';
 
 import HistoricReleaseList
-  from '../../components/HistoricReleaseList';
+  from '../../components/HistoricReleaseList.js';
 import EntityLink
-  from '../../../static/scripts/common/components/EntityLink';
+  from '../../../static/scripts/common/components/EntityLink.js';
 import formatDate
-  from '../../../static/scripts/common/utility/formatDate';
+  from '../../../static/scripts/common/utility/formatDate.js';
 import formatTrackLength
-  from '../../../static/scripts/common/utility/formatTrackLength';
+  from '../../../static/scripts/common/utility/formatTrackLength.js';
 
 type Props = {
   +edit: AddReleaseHistoricEditT,

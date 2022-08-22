@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import CDTocList from './components/CDTocList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportCDTocT} from './types';
+import CDTocList from './components/CDTocList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportCDTocT} from './types.js';
 
 const CDTocDubiousLength = ({
   canBeFiltered,

@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import Layout from '../layout';
+import Layout from '../layout/index.js';
 
-import TagLookupForm from './Form';
-import TagLookupNagSection from './Nag';
-import type {TagLookupResultsPropsT} from './types';
+import TagLookupForm from './Form.js';
+import TagLookupNagSection from './Nag.js';
+import type {TagLookupResultsPropsT} from './types.js';
 
 const TagLookupResults = <T>(
   props: TagLookupResultsPropsT<T>,

@@ -104,14 +104,22 @@ const hasOwnProperty = Object.prototype.hasOwnProperty;
 const EMPTY_OBJECT = Object.freeze({});
 
 const linkedEntities/*: LinkedEntitiesT */ = Object.create(Object.seal({
+  area:                           EMPTY_OBJECT,
+  artist:                         EMPTY_OBJECT,
   artist_type:                    EMPTY_OBJECT,
   editor:                         EMPTY_OBJECT,
+  event:                          EMPTY_OBJECT,
+  genre:                          EMPTY_OBJECT,
+  instrument:                     EMPTY_OBJECT,
+  label:                          EMPTY_OBJECT,
   language:                       EMPTY_OBJECT,
   link_attribute_type:            EMPTY_OBJECT,
   link_type:                      EMPTY_OBJECT,
   link_type_tree:                 EMPTY_OBJECT,
+  place:                          EMPTY_OBJECT,
   recording:                      EMPTY_OBJECT,
   release:                        EMPTY_OBJECT,
+  release_group:                  EMPTY_OBJECT,
   release_group_primary_type:     EMPTY_OBJECT,
   release_group_secondary_type:   EMPTY_OBJECT,
   release_packaging:              EMPTY_OBJECT,
@@ -120,6 +128,7 @@ const linkedEntities/*: LinkedEntitiesT */ = Object.create(Object.seal({
   series:                         EMPTY_OBJECT,
   series_ordering_type:           EMPTY_OBJECT,
   series_type:                    EMPTY_OBJECT,
+  url:                            EMPTY_OBJECT,
   work:                           EMPTY_OBJECT,
   work_attribute_type:            EMPTY_OBJECT,
 }));

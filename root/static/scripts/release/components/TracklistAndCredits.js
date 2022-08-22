@@ -10,30 +10,30 @@
 import * as React from 'react';
 
 import {isIrrelevantLinkType}
-  from '../../../../components/GroupedTrackRelationships';
-import groupRelationships, {
-  type RelationshipTargetTypeGroupT,
-} from '../../../../utility/groupRelationships';
+  from '../../../../components/GroupedTrackRelationships.js';
 import MediumDescription
-  from '../../common/components/MediumDescription';
-import Relationships from '../../common/components/Relationships';
+  from '../../common/components/MediumDescription.js';
+import Relationships from '../../common/components/Relationships.js';
 import StaticRelationshipsDisplay
-  from '../../common/components/StaticRelationshipsDisplay';
-import WarningIcon from '../../common/components/WarningIcon';
-import {l} from '../../common/i18n';
+  from '../../common/components/StaticRelationshipsDisplay.js';
+import WarningIcon from '../../common/components/WarningIcon.js';
+import {l} from '../../common/i18n.js';
 import {
   mergeLinkedEntities,
 } from '../../common/linkedEntities.mjs';
-import setCookie from '../../common/utility/setCookie';
+import groupRelationships, {
+  type RelationshipTargetTypeGroupT,
+} from '../../common/utility/groupRelationships.js';
+import setCookie from '../../common/utility/setCookie.js';
 import type {
   PropsT,
   StateT,
   ActionT,
   CreditsModeT,
-} from '../types';
+} from '../types.js';
 
-import MediumTable from './MediumTable';
-import MediumToolbox from './MediumToolbox';
+import MediumTable from './MediumTable.js';
+import MediumToolbox from './MediumToolbox.js';
 
 function reducer(
   state: StateT,
@@ -95,14 +95,20 @@ function createInitialState(creditsMode: CreditsModeT) {
   };
 }
 
-function isMediumExpanded(expandedMediums, medium) {
+function isMediumExpanded(
+  expandedMediums: Map<number, boolean>,
+  medium: MediumWithRecordingsT,
+) {
   const expanded = expandedMediums.get(medium.position);
   return expanded == null
     ? (medium.tracks != null)
     : expanded;
 }
 
-function getMediumTracks(loadedTracks, medium) {
+function getMediumTracks(
+  loadedTracks: Map<number, $ReadOnlyArray<TrackWithRecordingT>>,
+  medium: MediumWithRecordingsT,
+) {
   return loadedTracks.get(medium.position) ?? medium.tracks ?? null;
 }
 
@@ -124,7 +130,10 @@ function getCombinedTrackRelationships(
   // Maps relationships to the tracks they're associated with.
   const trackMapping = new Map<string, Set<TrackT>>();
 
-  const pushRelationship = (relationship, track) => {
+  const pushRelationship = (
+    relationship: RelationshipT,
+    track: TrackWithRecordingT,
+  ) => {
     const relationshipId = relationship.linkTypeID + '-' + relationship.id;
 
     const associatedTracks = trackMapping.get(relationshipId);

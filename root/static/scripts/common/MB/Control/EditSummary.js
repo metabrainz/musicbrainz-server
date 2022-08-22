@@ -8,7 +8,7 @@
 
 import $ from 'jquery';
 
-import MB from '../../MB';
+import MB from '../../MB.js';
 
 MB.Control.EditSummary = function (container) {
   var self = {};

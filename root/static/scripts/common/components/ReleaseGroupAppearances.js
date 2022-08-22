@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import EntityLink from './EntityLink';
+import EntityLink from './EntityLink.js';
 
 const buildAppearancesRow = (releaseGroup: ReleaseGroupT) => (
   <li key={releaseGroup.id}>

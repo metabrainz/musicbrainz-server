@@ -9,18 +9,17 @@
 
 import * as React from 'react';
 
-import FormCsrfToken from '../../components/FormCsrfToken';
-import FormSubmit from '../../components/FormSubmit';
-import Layout from '../../layout';
+import Layout from '../../layout/index.js';
+import FormCsrfToken
+  from '../../static/scripts/edit/components/FormCsrfToken.js';
+import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +form: SecureConfirmFormT,
   +page: string,
 };
 
 const DeleteWikiDoc = ({
-  $c,
   form,
   page,
 }: Props): React.Element<typeof Layout> => (
@@ -35,7 +34,7 @@ const DeleteWikiDoc = ({
                  page_uri: '/doc/' + encodeURIComponent(page),
                })}
       </p>
-      <form action={$c.req.uri} method="post" name="confirm">
+      <form method="post" name="confirm">
         <FormCsrfToken form={form} />
         <FormSubmit
           label={l('Yes, I\'m sure')}

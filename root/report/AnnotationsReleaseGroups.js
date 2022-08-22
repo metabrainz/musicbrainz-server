@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import {ANNOTATION_REPORT_TEXT} from './constants';
-import ReleaseGroupList from './components/ReleaseGroupList';
-import ReportLayout from './components/ReportLayout';
-import useAnnotationColumns from './hooks/useAnnotationColumns';
-import type {ReportDataT, ReportReleaseGroupAnnotationT} from './types';
+import {ANNOTATION_REPORT_TEXT} from './constants.js';
+import ReleaseGroupList from './components/ReleaseGroupList.js';
+import ReportLayout from './components/ReportLayout.js';
+import useAnnotationColumns from './hooks/useAnnotationColumns.js';
+import type {ReportDataT, ReportReleaseGroupAnnotationT} from './types.js';
 
 const AnnotationsReleaseGroups = ({
   canBeFiltered,

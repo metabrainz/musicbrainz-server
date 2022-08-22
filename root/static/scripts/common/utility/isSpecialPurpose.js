@@ -14,7 +14,7 @@ import {
   NOLABEL_GID,
   VARTIST_ID,
   VARTIST_GID,
-} from '../constants';
+} from '../constants.js';
 
 export default function isSpecialPurpose(
   entity: CoreEntityT | CollectionT | EditorT,

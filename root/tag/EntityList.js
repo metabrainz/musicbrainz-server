@@ -9,17 +9,18 @@
 
 import * as React from 'react';
 
-import PaginatedResults from '../components/PaginatedResults';
-import type {AccountLayoutUserT} from '../components/UserAccountLayout';
+import PaginatedResults from '../components/PaginatedResults.js';
+import type {AccountLayoutUserT} from '../components/UserAccountLayout.js';
+import {CatalystContext} from '../context.mjs';
 import DescriptiveLink
-  from '../static/scripts/common/components/DescriptiveLink';
-import TagLink from '../static/scripts/common/components/TagLink';
-import expand2react from '../static/scripts/common/i18n/expand2react';
-import expand2text from '../static/scripts/common/i18n/expand2text';
-import {formatCount} from '../statistics/utilities';
-import UserTagFilters from '../user/components/UserTagFilters';
+  from '../static/scripts/common/components/DescriptiveLink.js';
+import TagLink from '../static/scripts/common/components/TagLink.js';
+import expand2react from '../static/scripts/common/i18n/expand2react.js';
+import expand2text from '../static/scripts/common/i18n/expand2text.js';
+import {formatCount} from '../statistics/utilities.js';
+import UserTagFilters from '../user/components/UserTagFilters.js';
 
-import TagLayout from './TagLayout';
+import TagLayout from './TagLayout.js';
 
 const upvotedHeadingText: {+[entity: string]: () => string} = {
   area: N_l('Areas tagged as “{tag}”'),
@@ -102,7 +103,6 @@ function getTagEntityListHeading(
 }
 
 type EntityListContentProps = {
-  +$c: CatalystContextT,
   +entityTags: $ReadOnlyArray<{
     +count?: number,
     +entity: CoreEntityT,
@@ -117,7 +117,6 @@ type EntityListContentProps = {
 };
 
 type EntityListProps = {
-  +$c: CatalystContextT,
   +entityTags: $ReadOnlyArray<{
     +count: number,
     +entity: CoreEntityT,
@@ -130,7 +129,6 @@ type EntityListProps = {
 };
 
 export const EntityListContent = ({
-  $c,
   entityTags,
   entityType,
   pager,
@@ -138,41 +136,42 @@ export const EntityListContent = ({
   showVotesSelect = false,
   tag,
   user,
-}: EntityListContentProps): React.Element<typeof React.Fragment> => (
-  <>
-    <h2>
-      {getTagEntityListHeading(user?.name, tag, showDownvoted, entityType)}
-    </h2>
-    {showVotesSelect ? (
-      <UserTagFilters
-        $c={$c}
-        showDownvoted={showDownvoted}
-        showVotesSelect
-      />
-    ) : null}
-    <p>
-      {expand2text(
-        resultCountText[entityType](pager.total_entries),
-        {num: formatCount($c, pager.total_entries)},
-      )}
-    </p>
-    <PaginatedResults pager={pager}>
-      <ul>
-        {entityTags.map(tag => (
-          <li key={tag.entity_id}>
-            {tag.count == null
-              ? null
-              : String(tag.count) + ' - '}
-            <DescriptiveLink entity={tag.entity} />
-          </li>
-        ))}
-      </ul>
-    </PaginatedResults>
-  </>
-);
+}: EntityListContentProps): React.Element<typeof React.Fragment> => {
+  const $c = React.useContext(CatalystContext);
+  return (
+    <>
+      <h2>
+        {getTagEntityListHeading(user?.name, tag, showDownvoted, entityType)}
+      </h2>
+      {showVotesSelect ? (
+        <UserTagFilters
+          showDownvoted={showDownvoted}
+          showVotesSelect
+        />
+      ) : null}
+      <p>
+        {expand2text(
+          resultCountText[entityType](pager.total_entries),
+          {num: formatCount($c, pager.total_entries)},
+        )}
+      </p>
+      <PaginatedResults pager={pager}>
+        <ul>
+          {entityTags.map(tag => (
+            <li key={tag.entity_id}>
+              {tag.count == null
+                ? null
+                : String(tag.count) + ' - '}
+              <DescriptiveLink entity={tag.entity} />
+            </li>
+          ))}
+        </ul>
+      </PaginatedResults>
+    </>
+  );
+};
 
 const EntityList = ({
-  $c,
   entityTags,
   entityType,
   page,
@@ -181,7 +180,6 @@ const EntityList = ({
 }: EntityListProps): React.Element<typeof TagLayout> => (
   <TagLayout page={page} tag={tag}>
     <EntityListContent
-      $c={$c}
       entityTags={entityTags}
       entityType={entityType}
       pager={pager}

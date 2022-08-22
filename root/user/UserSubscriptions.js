@@ -9,15 +9,16 @@
 
 import * as React from 'react';
 
-import FormSubmit from '../components/FormSubmit';
-import PaginatedResults from '../components/PaginatedResults';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
+import PaginatedResults from '../components/PaginatedResults.js';
 import UserAccountLayout, {
   type AccountLayoutUserT,
-} from '../components/UserAccountLayout';
-import EditorLink from '../static/scripts/common/components/EditorLink';
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import loopParity from '../utility/loopParity';
-import {returnToCurrentPage} from '../utility/returnUri';
+} from '../components/UserAccountLayout.js';
+import {SanitizedCatalystContext} from '../context.mjs';
+import EditorLink from '../static/scripts/common/components/EditorLink.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import loopParity from '../utility/loopParity.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 const titleByEntityType = {
   artist: N_l('Artist Subscriptions'),
@@ -100,7 +101,6 @@ const UserSubscriptionsSection = ({
 );
 
 type UserSubscriptionsProps = {
-  +$c: CatalystContextT,
   +entities: $ReadOnlyArray<
     ArtistT | CollectionT | EditorT | LabelT | SeriesT>,
   +hiddenPrivateCollectionCount?: number,
@@ -118,7 +118,6 @@ type UserSubscriptionsProps = {
 };
 
 const UserSubscriptions = ({
-  $c,
   entities,
   hiddenPrivateCollectionCount,
   pager,
@@ -127,6 +126,7 @@ const UserSubscriptions = ({
   user,
   visiblePrivateCollections,
 }: UserSubscriptionsProps): React.Element<typeof UserAccountLayout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const viewingOwnProfile = Boolean($c.user && $c.user.id === user.id);
   const isAdminViewingPrivate = Boolean(
     $c.user && !viewingOwnProfile && !user.preferences.public_subscriptions,

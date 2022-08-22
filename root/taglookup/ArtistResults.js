@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import {ArtistResultsInline} from '../search/components/ArtistResults';
+import {ArtistResultsInline} from '../search/components/ArtistResults.js';
 
-import TagLookupResults from './Results';
-import type {TagLookupResultsPropsT} from './types';
+import TagLookupResults from './Results.js';
+import type {TagLookupResultsPropsT} from './types.js';
 
 const TagLookupArtistResults = (
   props: TagLookupResultsPropsT<ArtistT>,

@@ -9,31 +9,31 @@
 
 import * as React from 'react';
 
-import {getEditStatusClass} from '../../utility/edit';
-import EditHeader from '../components/EditHeader';
-import EditNotes from '../components/EditNotes';
-import EditSummary from '../components/EditSummary';
-import getEditDetailsElement from '../utility/getEditDetailsElement';
+import {getEditStatusClass} from '../../utility/edit.js';
+import EditHeader from '../components/EditHeader.js';
+import EditNotes from '../components/EditNotes.js';
+import EditSummary from '../components/EditSummary.js';
+import {SanitizedCatalystContext} from '../../context.mjs';
+import getEditDetailsElement from '../utility/getEditDetailsElement.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +edit: $ReadOnly<{...EditT, +id: number}>,
   +index: number,
   +voter?: UnsanitizedEditorT,
 };
 
 const ListEdit = ({
-  $c,
   edit,
   index,
   voter,
 }: Props): React.Element<'div'> => {
+  const $c = React.useContext(SanitizedCatalystContext);
   const editStatusClass = getEditStatusClass(edit);
   const detailsElement = getEditDetailsElement(edit);
 
   return (
     <div className="edit-list">
-      <EditHeader $c={$c} edit={edit} isSummary voter={voter} />
+      <EditHeader edit={edit} isSummary voter={voter} />
 
       <input
         name={`enter-vote.vote.${index}.edit_id`}
@@ -42,7 +42,7 @@ const ListEdit = ({
       />
 
       <div className={`edit-actions c ${editStatusClass}`}>
-        <EditSummary $c={$c} edit={edit} index={index} />
+        <EditSummary edit={edit} index={index} />
       </div>
 
       <div className="edit-details">

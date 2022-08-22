@@ -11,26 +11,26 @@ import ko from 'knockout';
 import {
   SERIES_ORDERING_ATTRIBUTE,
   SERIES_ORDERING_TYPE_AUTOMATIC,
-} from '../../common/constants';
+} from '../../common/constants.js';
 import localizeLinkAttributeTypeName
-  from '../../common/i18n/localizeLinkAttributeTypeName';
+  from '../../common/i18n/localizeLinkAttributeTypeName.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
-import mbEntity from '../../common/entity';
-import MB from '../../common/MB';
-import clean from '../../common/utility/clean';
-import * as dates from '../../edit/utility/dates';
-import deepEqual from '../../common/utility/deepEqual';
+import mbEntity from '../../common/entity.js';
+import MB from '../../common/MB.js';
+import clean from '../../common/utility/clean.js';
+import * as dates from '../../edit/utility/dates.js';
+import deepEqual from '../../common/utility/deepEqual.js';
 import {displayLinkAttributesText}
-  from '../../common/utility/displayLinkAttribute';
-import formatDate from '../../common/utility/formatDate';
-import formatDatePeriod from '../../common/utility/formatDatePeriod';
-import {isDateObservableEmpty} from '../../common/utility/isDateEmpty';
-import request from '../../common/utility/request';
-import {fixedWidthInteger, uniqueId} from '../../common/utility/strings';
-import mbEdit from '../../edit/MB/edit';
-import * as linkPhrase from '../../edit/utility/linkPhrase';
+  from '../../common/utility/displayLinkAttribute.js';
+import formatDate from '../../common/utility/formatDate.js';
+import formatDatePeriod from '../../common/utility/formatDatePeriod.js';
+import {isDateObservableEmpty} from '../../common/utility/isDateEmpty.js';
+import request from '../../common/utility/request.js';
+import {fixedWidthInteger, uniqueId} from '../../common/utility/strings.js';
+import mbEdit from '../../edit/MB/edit.js';
+import * as linkPhrase from '../../edit/utility/linkPhrase.js';
 
-import mergeDates from './mergeDates';
+import mergeDates from './mergeDates.js';
 
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 

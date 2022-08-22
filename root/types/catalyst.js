@@ -98,6 +98,7 @@ declare type SanitizedCatalystContextT = {
   +stash: {
     +current_language: string,
     +genre_map?: {+[genreName: string]: GenreT, ...},
+    +server_languages?: $ReadOnlyArray<ServerLanguageT>,
   },
   +user: ActiveEditorT | null,
 };

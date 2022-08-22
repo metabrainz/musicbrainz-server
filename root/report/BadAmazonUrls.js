@@ -8,12 +8,13 @@
  */
 
 import * as React from 'react';
+import type {CellRenderProps} from 'react-table';
 
-import EntityLink from '../static/scripts/common/components/EntityLink';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
-import ReleaseList from './components/ReleaseList';
-import ReportLayout from './components/ReportLayout';
-import type {ReportDataT, ReportReleaseUrlT} from './types';
+import ReleaseList from './components/ReleaseList.js';
+import ReportLayout from './components/ReportLayout.js';
+import type {ReportDataT, ReportReleaseUrlT} from './types.js';
 
 const BadAmazonUrls = ({
   canBeFiltered,
@@ -23,7 +24,7 @@ const BadAmazonUrls = ({
   pager,
 }: ReportDataT<ReportReleaseUrlT>): React.Element<typeof ReportLayout> => {
   const urlColumn = {
-    Cell: ({row: {original}}) => {
+    Cell: ({row: {original}}: CellRenderProps<ReportReleaseUrlT, empty>) => {
       const url = original.url;
       return (
         url ? (

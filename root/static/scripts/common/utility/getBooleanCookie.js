@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import getCookie from './getCookie';
+import getCookie from './getCookie.js';
 
 function getBooleanCookie(
   name: string,

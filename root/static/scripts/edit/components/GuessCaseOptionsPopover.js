@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import ButtonPopover from '../../common/components/ButtonPopover';
+import ButtonPopover from '../../common/components/ButtonPopover.js';
 
 import GuessCaseOptions, {
   type PropsT as GuessCaseOptionsPropsT,
-} from './GuessCaseOptions';
+} from './GuessCaseOptions.js';
 
 type Props = $ReadOnly<{
   +isOpen: boolean,

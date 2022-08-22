@@ -9,19 +9,21 @@
 
 import * as React from 'react';
 
+import {CatalystContext} from '../../context.mjs';
 import ArtistListEntry
-  from '../../static/scripts/common/components/ArtistListEntry';
+  from '../../static/scripts/common/components/ArtistListEntry.js';
 import {isEditingEnabled}
-  from '../../static/scripts/common/utility/privileges';
+  from '../../static/scripts/common/utility/privileges.js';
 import type {
-  InlineResultsPropsWithContextT,
-  ResultsPropsWithContextT,
-} from '../types';
+  InlineResultsPropsT,
+  ResultsPropsT,
+  SearchResultT,
+} from '../types.js';
 
-import PaginatedSearchResults from './PaginatedSearchResults';
-import ResultsLayout from './ResultsLayout';
+import PaginatedSearchResults from './PaginatedSearchResults.js';
+import ResultsLayout from './ResultsLayout.js';
 
-function buildResult(result, index) {
+function buildResult(result: SearchResultT<ArtistT>, index: number) {
   const artist = result.entity;
   const score = result.score;
 
@@ -41,7 +43,7 @@ export const ArtistResultsInline = ({
   pager,
   query,
   results,
-}: InlineResultsPropsWithContextT<ArtistT>):
+}: InlineResultsPropsT<ArtistT>):
 React.Element<typeof PaginatedSearchResults> => (
   <PaginatedSearchResults
     buildResult={(result, index) => buildResult(result, index)}
@@ -65,28 +67,30 @@ React.Element<typeof PaginatedSearchResults> => (
 );
 
 const ArtistResults = ({
-  $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsWithContextT<ArtistT>):
-React.Element<typeof ResultsLayout> => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
-    <ArtistResultsInline
-      pager={pager}
-      query={query}
-      results={results}
-    />
-    {isEditingEnabled($c.user) ? (
-      <p>
-        {exp.l('Alternatively, you may {uri|add a new artist}.', {
-          uri: '/artist/create?edit-artist.name=' + encodeURIComponent(query),
-        })}
-      </p>
-    ) : null}
-  </ResultsLayout>
-);
+}: ResultsPropsT<ArtistT>): React.Element<typeof ResultsLayout> => {
+  const $c = React.useContext(CatalystContext);
+  return (
+    <ResultsLayout form={form} lastUpdated={lastUpdated}>
+      <ArtistResultsInline
+        pager={pager}
+        query={query}
+        results={results}
+      />
+      {isEditingEnabled($c.user) ? (
+        <p>
+          {exp.l('Alternatively, you may {uri|add a new artist}.', {
+            uri: '/artist/create?edit-artist.name=' +
+              encodeURIComponent(query),
+          })}
+        </p>
+      ) : null}
+    </ResultsLayout>
+  );
+};
 
 export default ArtistResults;

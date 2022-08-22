@@ -9,9 +9,10 @@
 
 import * as React from 'react';
 
-import FieldErrors from './FieldErrors';
-import FormRow from './FormRow';
-import SelectField from './SelectField';
+import SelectField from '../../common/components/SelectField.js';
+
+import FieldErrors from './FieldErrors.js';
+import FormRow from './FormRow.js';
 
 type Props<S> = {
   +addId: string,

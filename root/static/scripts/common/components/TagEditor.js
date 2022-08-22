@@ -10,16 +10,17 @@
 import he from 'he';
 import * as React from 'react';
 
-import {minimalEntity} from '../../../../utility/hydrate';
-import loopParity from '../../../../utility/loopParity';
-import {unwrapNl} from '../i18n';
-import {keyBy, sortByNumber} from '../utility/arrays';
-import bracketed, {bracketedText} from '../utility/bracketed';
-import {compareStrings} from '../utility/compare';
-import debounce from '../utility/debounce';
-import isBlank from '../utility/isBlank';
+import {SanitizedCatalystContext} from '../../../../context.mjs';
+import {minimalEntity} from '../../../../utility/hydrate.js';
+import loopParity from '../../../../utility/loopParity.js';
+import {unwrapNl} from '../i18n.js';
+import {keyBy, sortByNumber} from '../utility/arrays.js';
+import bracketed, {bracketedText} from '../utility/bracketed.js';
+import {compareStrings} from '../utility/compare.js';
+import debounce from '../utility/debounce.js';
+import isBlank from '../utility/isBlank.js';
 
-import TagLink from './TagLink';
+import TagLink from './TagLink.js';
 
 const VOTE_ACTIONS = {
   '-1': 'downvote',
@@ -34,12 +35,12 @@ const VOTE_ACTIONS = {
  */
 const VOTE_DELAY = 1000;
 
-const cmpTags = (a, b) => (
+const cmpTags = (a: UserTagT, b: UserTagT) => (
   (b.count - a.count) || compareStrings(a.tag.name, b.tag.name)
 );
 
-function formatGenreLabel(genre) {
-  let output = he.encode(genre.name);
+function formatGenreLabel(genre: GenreT) {
+  let output: string = he.encode(genre.name);
   if (genre.comment) {
     output += (
       '<span class="small"> ' +
@@ -50,16 +51,16 @@ function formatGenreLabel(genre) {
   return output;
 }
 
-function getTagsPath(entity) {
+function getTagsPath(entity: CoreEntityT | MinimalCoreEntityT) {
   const type = entity.entityType.replace('_', '-');
   return `/${type}/${entity.gid}/tags`;
 }
 
-function isAlwaysVisible(tag) {
+function isAlwaysVisible(tag: UserTagT) {
   return tag.vote > 0 || (tag.vote === 0 && tag.count > 0);
 }
 
-function splitTags(tags) {
+function splitTags(tags: string) {
   return (
     tags
       .trim()
@@ -104,10 +105,7 @@ const VoteButton = ({
       disabled={isActive}
       onClick={isActive
         ? null
-        : ((...args) => callback(
-          currentVote === 0 ? vote : 0,
-          ...args,
-        ))}
+        : () => callback(currentVote === 0 ? vote : 0)}
       title={buttonTitle}
       type="button"
     >
@@ -145,20 +143,19 @@ const DownvoteButton = ({
 );
 
 type VoteButtonsPropsT = {
-  $c: CatalystContextT,
   callback: (VoteT) => void,
   count: number,
   currentVote: VoteT,
 };
 
 const VoteButtons = ({
-  $c,
   callback,
   count,
   currentVote,
 }: VoteButtonsPropsT): React.Element<'span'> => {
-  let className = '';
+  const $c = React.useContext(SanitizedCatalystContext);
 
+  let className = '';
   if (currentVote === 1) {
     className = ' tag-upvoted';
   } else if (currentVote === -1) {
@@ -179,7 +176,6 @@ const VoteButtons = ({
 };
 
 type TagRowPropsT = {
-  $c: CatalystContextT,
   callback: (VoteT) => void,
   count: number,
   currentVote: VoteT,
@@ -188,7 +184,6 @@ type TagRowPropsT = {
 };
 
 const TagRow = ({
-  $c,
   callback,
   count,
   currentVote,
@@ -198,7 +193,6 @@ const TagRow = ({
   <li className={loopParity(index)} key={tag.name}>
     <TagLink tag={tag.name} />
     <VoteButtons
-      $c={$c}
       callback={callback}
       count={count}
       currentVote={currentVote}
@@ -207,7 +201,6 @@ const TagRow = ({
 );
 
 type TagEditorProps = {
-  +$c: CatalystContextT,
   +aggregatedTags: $ReadOnlyArray<AggregatedTagT>,
   +entity: CoreEntityT | MinimalCoreEntityT,
   +genreMap: ?{+[genreName: string]: GenreT, ...},
@@ -293,7 +286,9 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     let doRequest;
     if (asap) {
       const $ = require('jquery');
-      doRequest = args => $.ajax({...args, dataType: 'json'});
+      doRequest = (
+        args: {+url: string},
+      ) => $.ajax({...args, dataType: 'json'});
     } else {
       doRequest = require('../utility/request').default;
     }
@@ -321,11 +316,14 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     window.removeEventListener('beforeunload', this.onBeforeUnloadBound);
   }
 
-  createTagRows() {
+  createTagRows(): {
+    +genres: $ReadOnlyArray<React.MixedElement>,
+    +tags: $ReadOnlyArray<React.MixedElement>,
+    } {
     const tags = this.state.tags;
 
     return tags.reduce((accum, t, index) => {
-      const callback = newVote => {
+      const callback = (newVote: VoteT) => {
         this.updateVote(index, newVote);
         this.addPendingVote(t.tag, newVote, index);
       };
@@ -335,7 +333,6 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
         const tagRow = (
           <TagRow
-            $c={this.props.$c}
             callback={callback}
             count={t.count}
             currentVote={t.vote}
@@ -356,7 +353,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     }, {genres: [], tags: []});
   }
 
-  getNewCount(index: number, vote: VoteT) {
+  getNewCount(index: number, vote: VoteT): number {
     const current = this.state.tags[index];
 
     if (!current) {
@@ -465,7 +462,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
         return false;
       },
 
-      select: function (event, ui) {
+      select: function (this: HTMLInputElement, event, ui) {
         const terms = splitTags(this.value);
         terms.pop();
         terms.push(ui.item.value, '');
@@ -554,78 +551,91 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
             <p>{l('Nobody has tagged this yet.')}</p>
           )}
 
-          {(positiveTagsOnly && !tags.every(isAlwaysVisible)) ? (
-            <>
-              {this.props.$c.user?.has_confirmed_email_address ? (
-                <p>
-                  {l(
-                    `Tags with a score of zero or below,
-                     and tags that you’ve downvoted are hidden.`,
-                  )}
-                </p>
-              ) : (
-                <p>
-                  {l('Tags with a score of zero or below are hidden.')}
-                </p>
-              )}
-              <p>
-                <a href="#" onClick={(event) => this.showAllTags(event)}>
-                  {l('Show all tags.')}
-                </a>
-              </p>
-            </>
-          ) : null}
-
-          {positiveTagsOnly === false ? (
-            <>
-              <p>
-                {l('All tags are being shown.')}
-              </p>
-              {this.props.$c.user?.has_confirmed_email_address ? (
-                <p>
-                  <a
-                    href="#"
-                    onClick={(event) => this.hideNegativeTags(event)}
-                  >
-                    {l(
-                      `Hide tags with a score of zero or below,
-                       and tags that you’ve downvoted.`,
+          <SanitizedCatalystContext.Consumer>
+            {($c: SanitizedCatalystContextT) => (
+              <>
+                {(positiveTagsOnly && !tags.every(isAlwaysVisible)) ? (
+                  <>
+                    {$c.user?.has_confirmed_email_address ? (
+                      <p>
+                        {l(
+                          `Tags with a score of zero or below,
+                           and tags that you’ve downvoted are hidden.`,
+                        )}
+                      </p>
+                    ) : (
+                      <p>
+                        {l('Tags with a score of zero or below are hidden.')}
+                      </p>
                     )}
-                  </a>
-                </p>
-              ) : (
-                <p>
-                  <a
-                    href="#"
-                    onClick={(event) => this.hideNegativeTags(event)}
-                  >
-                    {l('Hide tags with a score of zero or below.')}
-                  </a>
-                </p>
-              )}
-            </>
-          ) : null}
+                    <p>
+                      <a
+                        href="#"
+                        onClick={(event) => this.showAllTags(event)}
+                      >
+                        {l('Show all tags.')}
+                      </a>
+                    </p>
+                  </>
+                ) : null}
 
-          {this.props.$c.user?.has_confirmed_email_address ? (
-            <>
-              <h2>{l('Add Tags')}</h2>
-              <p>
-                {exp.l(
-                  `You can add your own {tagdocs|tags} below.
-                   Use commas to separate multiple tags.`,
-                  {tagdocs: '/doc/Folksonomy_Tagging'},
-                )}
-              </p>
-              <form id="tag-form" onSubmit={this.handleSubmitBound}>
-                <p>
-                  <textarea cols="50" ref={this.setTagsInputBound} rows="5" />
-                </p>
-                <button className="styled-button" type="submit">
-                  {l('Submit tags')}
-                </button>
-              </form>
-            </>
-          ) : null}
+                {positiveTagsOnly === false ? (
+                  <>
+                    <p>
+                      {l('All tags are being shown.')}
+                    </p>
+                    {$c.user?.has_confirmed_email_address ? (
+                      <p>
+                        <a
+                          href="#"
+                          onClick={(event) => this.hideNegativeTags(event)}
+                        >
+                          {l(
+                            `Hide tags with a score of zero or below,
+                             and tags that you’ve downvoted.`,
+                          )}
+                        </a>
+                      </p>
+                    ) : (
+                      <p>
+                        <a
+                          href="#"
+                          onClick={(event) => this.hideNegativeTags(event)}
+                        >
+                          {l('Hide tags with a score of zero or below.')}
+                        </a>
+                      </p>
+                    )}
+                  </>
+                ) : null}
+
+                {$c.user?.has_confirmed_email_address ? (
+                  <>
+                    <h2>{l('Add Tags')}</h2>
+                    <p>
+                      {exp.l(
+                        `You can add your own {tagdocs|tags} below.
+                        Use commas to separate multiple tags.`,
+                        {tagdocs: '/doc/Folksonomy_Tagging'},
+                      )}
+                    </p>
+                    <form id="tag-form" onSubmit={this.handleSubmitBound}>
+                      <p>
+                        <textarea
+                          cols="50"
+                          ref={this.setTagsInputBound}
+                          rows="5"
+                        />
+                      </p>
+                      <button className="styled-button" type="submit">
+                        {l('Submit tags')}
+                      </button>
+                    </form>
+                  </>
+                ) : null}
+              </>
+            )}
+          </SanitizedCatalystContext.Consumer>
         </div>
       );
     }

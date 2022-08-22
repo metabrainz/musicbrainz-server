@@ -10,10 +10,10 @@
 import * as React from 'react';
 
 import AreaContainmentLink
-  from '../static/scripts/common/components/AreaContainmentLink';
+  from '../static/scripts/common/components/AreaContainmentLink.js';
 import localizeTypeNameForEntity
-  from '../static/scripts/common/i18n/localizeTypeNameForEntity';
-import EntityHeader from '../components/EntityHeader';
+  from '../static/scripts/common/i18n/localizeTypeNameForEntity.js';
+import EntityHeader from '../components/EntityHeader.js';
 
 type Props = {
   +area: AreaT,
@@ -25,7 +25,7 @@ const AreaHeader = ({
   page,
 }: Props): React.Element<typeof EntityHeader> => {
   const areaType = localizeTypeNameForEntity(area);
-  let subHeading = areaType;
+  let subHeading: Expand2ReactOutput = areaType;
   if (area.containment?.length) {
     const parentAreas = <AreaContainmentLink area={area} />;
     subHeading = exp.l('{area_type} in {parent_areas}', {

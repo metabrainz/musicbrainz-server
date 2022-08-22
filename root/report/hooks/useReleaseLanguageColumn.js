@@ -12,8 +12,8 @@ import type {ColumnOptionsNoValue} from 'react-table';
 
 import {
   defineReleaseLanguageColumn,
-} from '../../utility/tableColumns';
-import type {ReportReleaseT} from '../types';
+} from '../../utility/tableColumns.js';
+import type {ReportReleaseT} from '../types.js';
 
 function useReleaseLanguageColumn<
   D: $ReadOnly<{...ReportReleaseT, ...}>,

@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
-import ENTITIES from '../../../entities';
+import ENTITIES from '../../../entities.mjs';
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';
-import uriWith from '../../utility/uriWith';
+import uriWith from '../../utility/uriWith.js';
 
 type Props = {
   +entity?: CoreEntityT | CollectionT,

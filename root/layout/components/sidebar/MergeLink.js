@@ -10,13 +10,16 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
-import {returnToCurrentPage} from '../../../utility/returnUri';
+import {returnToCurrentPage} from '../../../utility/returnUri.js';
 
 type Props = {
   +entity: CoreEntityT | CollectionT,
 };
 
-const mergeUrl = ($c, entity) => {
+const mergeUrl = (
+  $c: CatalystContextT,
+  entity: CoreEntityT | CollectionT,
+) => {
   const entityType = entity.entityType;
   const id = encodeURIComponent(String(entity.id));
   return `/${entityType}/merge_queue?add-to-merge=${id}&` +

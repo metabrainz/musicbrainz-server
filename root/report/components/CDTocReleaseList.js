@@ -9,14 +9,14 @@
 
 import * as React from 'react';
 
-import PaginatedResults from '../../components/PaginatedResults';
-import Table from '../../components/Table';
+import PaginatedResults from '../../components/PaginatedResults.js';
+import Table from '../../components/Table.js';
 import {
   defineCDTocColumn,
   defineEntityColumn,
   defineArtistCreditColumn,
-} from '../../utility/tableColumns';
-import type {ReportCDTocReleaseT} from '../types';
+} from '../../utility/tableColumns.js';
+import type {ReportCDTocReleaseT} from '../types.js';
 
 type Props = {
   +items: $ReadOnlyArray<ReportCDTocReleaseT>,

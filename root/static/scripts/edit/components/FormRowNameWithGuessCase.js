@@ -9,17 +9,17 @@
 
 import * as React from 'react';
 
-import FormRowText from '../../../../components/FormRowText';
-import GuessCase from '../../guess-case/MB/GuessCase/Main';
+import GuessCase from '../../guess-case/MB/GuessCase/Main.js';
 
+import FormRowText from './FormRowText.js';
 import {
   createInitialState as createGuessCaseOptionsState,
   runReducer as runGuessCaseOptionsReducer,
   type ActionT as GuessCaseOptionsActionT,
   type StateT as GuessCaseOptionsStateT,
   type WritableStateT as WritableGuessCaseOptionsStateT,
-} from './GuessCaseOptions';
-import GuessCaseOptionsPopover from './GuessCaseOptionsPopover';
+} from './GuessCaseOptions.js';
+import GuessCaseOptionsPopover from './GuessCaseOptionsPopover.js';
 
 type NamedEntityT = {
   +entityType: CoreEntityTypeT,

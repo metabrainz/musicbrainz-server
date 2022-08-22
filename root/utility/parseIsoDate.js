@@ -30,7 +30,7 @@ const isoFormat = new RegExp(
   'Z$',
 );
 
-const parseIntBase10 = x => parseInt(x, 10);
+const parseIntBase10 = (x: string) => parseInt(x, 10);
 
 export default function parseIsoDate(isoDate: string): Date | null {
   const match = isoDate.match(isoFormat);

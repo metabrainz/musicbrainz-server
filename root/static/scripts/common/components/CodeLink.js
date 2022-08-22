@@ -9,14 +9,14 @@
 
 import * as React from 'react';
 
-import entityHref from '../utility/entityHref';
+import entityHref from '../utility/entityHref.js';
 
 type Props = {
   +code: IsrcT | IswcT,
 };
 
 const CodeLink = ({code}: Props): React.MixedElement=> {
-  let link = (
+  let link: React.MixedElement = (
     <a href={entityHref(code)}>
       <bdi>
         {/* $FlowIssue[prop-missing] */}

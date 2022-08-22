@@ -9,7 +9,8 @@
 
 import * as React from 'react';
 
-import {ReleaseGroupListTable} from '../../components/list/ReleaseGroupList';
+import {ReleaseGroupListTable}
+  from '../../components/list/ReleaseGroupList.js';
 
 type Props = {
   +edit: MergeReleaseGroupsEditT,

@@ -9,10 +9,11 @@
 
 import * as React from 'react';
 
-import {RecordingResultsInline} from '../search/components/RecordingResults';
+import {RecordingResultsInline}
+  from '../search/components/RecordingResults.js';
 
-import TagLookupResults from './Results';
-import type {TagLookupResultsPropsT} from './types';
+import TagLookupResults from './Results.js';
+import type {TagLookupResultsPropsT} from './types.js';
 
 const TagLookupRecordingResults = (
   props: TagLookupResultsPropsT<RecordingWithArtistCreditT>,

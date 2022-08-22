@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import 'leaflet.markercluster/dist/leaflet.markercluster-src';
+import 'leaflet.markercluster/dist/leaflet.markercluster-src.js';
 
 import he from 'he';
 import * as ReactDOMServer from 'react-dom/server';
@@ -28,9 +28,9 @@ import arenaMarkerIconUrl
   from '../../images/leaflet/arena-marker-icon.png';
 import religiousMarkerIconUrl
   from '../../images/leaflet/religious-marker-icon.png';
-import EntityLink from '../common/components/EntityLink';
-import {createMap, L} from '../common/leaflet';
-import getScriptArgs from '../common/utility/getScriptArgs';
+import EntityLink from '../common/components/EntityLink.js';
+import {createMap, L} from '../common/leaflet.js';
+import getScriptArgs from '../common/utility/getScriptArgs.js';
 
 const {places} = getScriptArgs();
 

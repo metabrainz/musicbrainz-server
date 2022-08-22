@@ -7,11 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import {uniqBy} from '../static/scripts/common/utility/arrays';
+import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import {uniqBy} from '../static/scripts/common/utility/arrays.js';
 
-const displayLabel = (label) => (
+const displayLabel = (label: LabelT) => (
   <EntityLink entity={label} />
 );
 
@@ -19,7 +19,7 @@ type ReleaseLabelsProps = {
   +labels: ?$ReadOnlyArray<ReleaseLabelT>,
 };
 
-const getLabelGid = x => x.gid;
+const getLabelGid = (x: LabelT) => x.gid;
 
 const ReleaseLabelList = ({
   labels: releaseLabels,

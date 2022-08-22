@@ -9,19 +9,24 @@
 
 import * as React from 'react';
 
-import CountryAbbr from '../../../../components/CountryAbbr';
-import formatDate from '../utility/formatDate';
-import isDateEmpty from '../utility/isDateEmpty';
+import formatDate from '../utility/formatDate.js';
+import isDateEmpty from '../utility/isDateEmpty.js';
 
-import CollapsibleList from './CollapsibleList';
-import EntityLink from './EntityLink';
+import CollapsibleList, {
+  type BuildRowPropsT,
+} from './CollapsibleList.js';
+import CountryAbbr from './CountryAbbr.js';
+import EntityLink from './EntityLink.js';
 
-const releaseEventKey = event => (
+const releaseEventKey = (event: ReleaseEventT) => (
   String(event.country ? event.country.id : '') + '\0' +
   formatDate(event.date)
 );
 
-const buildReleaseEventRow = (event, props) => {
+const buildReleaseEventRow = (
+  event: ReleaseEventT,
+  props: ?BuildRowPropsT,
+) => {
   const abbreviated = !!(props?.abbreviated);
   const country = event.country;
   const hasDate = !isDateEmpty(event.date);

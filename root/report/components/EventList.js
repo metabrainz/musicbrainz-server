@@ -10,8 +10,8 @@
 import * as React from 'react';
 import type {ColumnOptionsNoValue} from 'react-table';
 
-import PaginatedResults from '../../components/PaginatedResults';
-import Table from '../../components/Table';
+import PaginatedResults from '../../components/PaginatedResults.js';
+import Table from '../../components/Table.js';
 import * as manifest from '../../static/manifest.mjs';
 import {
   defineArtistRolesColumn,
@@ -19,8 +19,8 @@ import {
   defineEntityColumn,
   defineLocationColumn,
   defineTextColumn,
-} from '../../utility/tableColumns';
-import type {ReportEventT} from '../types';
+} from '../../utility/tableColumns.js';
+import type {ReportEventT} from '../types.js';
 
 type Props<D: {+event: ?EventT, ...}> = {
   +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,

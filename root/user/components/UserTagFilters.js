@@ -9,10 +9,9 @@
 
 import * as React from 'react';
 
-import FormRow from '../../components/FormRow';
+import FormRow from '../../static/scripts/edit/components/FormRow.js';
 
 type PropsT = {
-  +$c: CatalystContextT,
   +showDownvoted: boolean,
   +showSortSelect?: boolean,
   +showVotesSelect?: boolean,
@@ -29,14 +28,13 @@ const InlineSubmitButton = (): React.Element<typeof React.Fragment> => (
 );
 
 const UserTagFilters = ({
-  $c,
   showDownvoted,
   showSortSelect = false,
   showVotesSelect = false,
   sortBy,
 }: PropsT): Expand2ReactOutput | null => (
   (showSortSelect || showVotesSelect) ? (
-    <form action={$c.req.uri} style={{marginTop: '1em'}}>
+    <form style={{marginTop: '1em'}}>
       {showVotesSelect ? (
         <FormRow>
           <label>

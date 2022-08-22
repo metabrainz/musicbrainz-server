@@ -10,9 +10,9 @@ import querystring from 'querystring';
 
 import $ from 'jquery';
 
-import MB from './common/MB';
-import './common/MB/Control/EditList';
-import './common/MB/Control/EditSummary';
+import MB from './common/MB.js';
+import './common/MB/Control/EditList.js';
+import './common/MB/Control/EditSummary.js';
 
 $('.edit-list').each(function () {
   MB.Control.EditSummary(this);

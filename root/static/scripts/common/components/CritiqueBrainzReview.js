@@ -10,24 +10,24 @@
 import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../../../../context.mjs';
-import formatUserDate from '../../../../utility/formatUserDate';
-import hydrate from '../../../../utility/hydrate';
-import bracketed from '../utility/bracketed';
-import {StaticRatingStars} from '../components/RatingStars';
+import formatUserDate from '../../../../utility/formatUserDate.js';
+import hydrate from '../../../../utility/hydrate.js';
+import bracketed from '../utility/bracketed.js';
+import {StaticRatingStars} from '../components/RatingStars.js';
 import DBDefs from '../DBDefs-client.mjs';
 
-import Collapsible from './Collapsible';
+import Collapsible from './Collapsible.js';
 
 type Props = {
   +review: CritiqueBrainzReviewT,
   +title: string,
 };
 
-const authorHref = author => (
+const authorHref = (author: CritiqueBrainzUserT) => (
   DBDefs.CRITIQUEBRAINZ_SERVER + '/user/' + author.id
 );
 
-const reviewHref = review => (
+const reviewHref = (review: CritiqueBrainzReviewT) => (
   DBDefs.CRITIQUEBRAINZ_SERVER + '/review/' + review.id
 );
 
@@ -59,7 +59,7 @@ const CritiqueBrainzReview = ({review, title}: Props) => (
   </>
 );
 
-export default (hydrate<Props>(
+export default (hydrate<Props, Props>(
   'div.critiquebrainz-review',
   CritiqueBrainzReview,
 ): React.AbstractComponent<Props, void>);

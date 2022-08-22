@@ -9,18 +9,16 @@
 
 import * as React from 'react';
 
-import FormSubmit from '../components/FormSubmit';
-import EntityLink from '../static/scripts/common/components/EntityLink';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
-import CollectionLayout from './CollectionLayout';
+import CollectionLayout from './CollectionLayout.js';
 
 type Props = {
-  +$c: CatalystContextT,
   +collection: CollectionT,
 };
 
 const DeleteCollection = ({
-  $c,
   collection,
 }: Props): React.Element<typeof CollectionLayout> => (
   <CollectionLayout
@@ -34,7 +32,7 @@ const DeleteCollection = ({
       {exp.l('Are you sure you want to remove the collection {collection}?',
              {collection: <EntityLink entity={collection} />})}
     </p>
-    <form action={$c.req.uri} method="post">
+    <form method="post">
       <FormSubmit label={l('Remove collection')} />
     </form>
 
