@@ -93,6 +93,7 @@ echo `date`: Importing tag data from latest dump
     --table release_group_tag \
     --table series_tag \
     --table work_tag \
+    --noupdate-replication-control \
     "$DUMP_FILE"
 
 echo `date`: Restoring saved tag data from tmp tables
