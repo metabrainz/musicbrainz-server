@@ -1,6 +1,30 @@
 package MusicBrainz::Script::RemoveUnreferencedRows;
 use Moose;
 
+=head1 DESCRIPTION
+
+This script process the rows of the table 'unreferenced_row_log' that have been
+inserted more than 7 days ago.
+
+This table weakly references rows (of other tables) that have been temporarily
+unreferenced but might be referenced again by an edit, hence the 7 days delay.
+
+When processing an 'unreferenced_row_log' row, the script removes the weakly
+referenced row if it is still unreferenced by checking 'ref_count', and removes
+the 'unreferenced_row_log' row in any case.
+
+=cut
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2022 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut
+
 use MusicBrainz::Errors qw( capture_exceptions );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Log qw( log_info );
