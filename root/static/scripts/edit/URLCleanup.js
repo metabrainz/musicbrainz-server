@@ -600,8 +600,8 @@ const CLEANUPS: CleanupEntries = {
         '^(https?://)?' +
         '(((?!music)[^/])+\.)?' +
         '(amazon\\.(' + (
-          'ae|at|com\\.au|com\\.br|ca|cn|com|de|es|fr|in' +
-          '|it|jp|co\\.jp|com\\.mx|nl|pl|se|sg|com\\.tr|co\\.uk'
+          'ae|at|com\\.au|com\\.br|ca|cn|com|de|eg|es|fr|in' +
+          '|it|jp|co\\.jp|com\\.mx|nl|pl|sa|se|sg|com\\.tr|co\\.uk'
         ) + ')|amzn\\.com)',
         'i',
       ),
@@ -669,7 +669,7 @@ const CLEANUPS: CleanupEntries = {
 
       // If you change this, please update the BadAmazonURLs report.
       return {
-        result: /^https:\/\/www\.amazon\.(ae|at|com\.au|com\.br|ca|cn|com|de|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|se|sg|com\.tr|co\.uk)\//.test(url),
+        result: /^https:\/\/www\.amazon\.(ae|at|com\.au|com\.br|ca|cn|com|de|eg|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|sa|se|sg|com\.tr|co\.uk)\//.test(url),
         target: ERROR_TARGETS.URL,
       };
     },
@@ -710,7 +710,7 @@ const CLEANUPS: CleanupEntries = {
     },
     validate: function (url, id) {
       // If you change this, please update the BadAmazonURLs report.
-      const m = /^https:\/\/music\.amazon\.(?:ae|at|com\.au|com\.br|ca|cn|com|de|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|se|sg|com\.tr|co\.uk)\/(albums|artists)/.exec(url);
+      const m = /^https:\/\/music\.amazon\.(?:ae|at|com\.au|com\.br|ca|cn|com|de|eg|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|sa|se|sg|com\.tr|co\.uk)\/(albums|artists)/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
