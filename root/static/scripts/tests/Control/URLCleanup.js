@@ -403,6 +403,18 @@ const testData = [
             expected_clean_url: 'https://www.amazon.se/gp/product/B08HG3BKQK',
   },
   {
+                     input_url: 'https://www.amazon.eg/dp/B091CW2QM2/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'amazon',
+            expected_clean_url: 'https://www.amazon.eg/gp/product/B091CW2QM2',
+  },
+  {
+                     input_url: 'https://www.amazon.sa/dp/B0914VB72Y/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'amazon',
+            expected_clean_url: 'https://www.amazon.sa/gp/product/B0914VB72Y',
+  },
+  {
                      input_url: 'https://www.amazon.pl/gp/product/B07TJKC2DG/#customerReviews',
              input_entity_type: 'release',
     expected_relationship_type: 'amazon',
