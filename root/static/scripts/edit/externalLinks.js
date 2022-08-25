@@ -1643,6 +1643,7 @@ const URL_SHORTENERS = [
   'lsnto.me',
   'many.link',
   'mcaf.ee',
+  'mez.ink',
   'moourl.com',
   'music.indiefy.net',
   'musics.link',
