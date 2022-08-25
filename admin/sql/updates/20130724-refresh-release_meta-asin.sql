@@ -6,7 +6,7 @@ FROM (
   FROM (
     SELECT entity0 AS release,
       array_agg(
-        regexp_replace(url.url, E'^http://(?:www.)?(.*?)(?:\\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)', E'\\2')
+        regexp_replace(url.url, E'^https?://(?:www.)?(.*?)(?:\\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)', E'\\2')
         ORDER BY l_release_url.last_updated DESC
       ) asins
     FROM l_release_url
