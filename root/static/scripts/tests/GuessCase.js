@@ -413,7 +413,7 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-  t.plan(30);
+  t.plan(31);
 
   const tests = [
     {
@@ -558,6 +558,12 @@ test('BugFixes', function (t) {
       input: 'A story of YouTube (youtube edit)',
       expected: 'A Story of YouTube (YouTube edit)',
       bug: 'MBS-12017',
+      mode: 'English',
+    },
+    {
+      input: 'Chronic Attention Seeking Inspires the Golden Calf of Self-Centeredness, Just Open Tiktok to Witness Irredeemable Narcissism on Every Profile',
+      expected: 'Chronic Attention Seeking Inspires the Golden Calf of Self-Centeredness, Just Open TikTok to Witness Irredeemable Narcissism on Every Profile',
+      bug: 'MBS-12543',
       mode: 'English',
     },
     {
