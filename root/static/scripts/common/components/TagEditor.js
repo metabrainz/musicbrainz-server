@@ -519,7 +519,7 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
       this.setState({positiveTagsOnly: false});
     }
 
-    render() {
+    render(): React.MixedElement {
       const {tags, positiveTagsOnly} = this.state;
       const tagRows = this.createTagRows();
 
@@ -646,7 +646,7 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
 export const SidebarTagEditor = (hydrate<TagEditorProps>(
   'div.sidebar-tags',
   class extends TagEditor {
-    render() {
+    render(): React.MixedElement {
       const tagRows = this.createTagRows();
       return (
         <>
