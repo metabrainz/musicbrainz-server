@@ -1634,6 +1634,7 @@ const URL_SHORTENERS = [
   'li.sten.to',
   'linkco.re',
   'lnkfi.re',
+  'linkfly.to',
   'linktr.ee',
   'listen.lt',
   'lnk.bio',
