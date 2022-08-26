@@ -3890,6 +3890,12 @@ CREATE TABLE medium_index ( -- replicate
     toc                 CUBE
 );
 
+CREATE TABLE unreferenced_row_log (
+    table_name          VARCHAR NOT NULL, -- PK
+    row_id              INTEGER NOT NULL, -- PK
+    inserted            TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 CREATE TABLE url ( -- replicate
     id                  SERIAL,
     gid                 UUID NOT NULL,
