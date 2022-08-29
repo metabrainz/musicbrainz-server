@@ -1,13 +1,14 @@
 package t::MusicBrainz::Server::Edit::Artist::AddAnnotation;
 use Test::Routine;
 use Test::More;
+use Test::Fatal;
 
 with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Artist::AddAnnotation }
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_ADD_ANNOTATION );
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( capture_edits );
 
 test 'Entering add annotation edit works as expected' => sub {
 
@@ -39,6 +40,27 @@ test 'Entering add annotation edit works as expected' => sub {
     is_deeply($annotation, $annotation2);
 };
 
+test 'MBS-12556: Cannot create edit unless annotation has changed' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+annotation');
+
+    my $text = 'Test annotation';
+
+    my @edits = capture_edits { create_edit($c, $text) } $test->c;
+
+    is(@edits, 1, 'We entered an edit adding an annotation to the artist');
+
+    isa_ok($edits[0], 'MusicBrainz::Server::Edit::Artist::AddAnnotation');
+
+    my $exception = exception { create_edit($c, $text, 'A changelog') };
+    ok(
+        defined $exception,
+        'We tried to add the same annotation text again with a changelog and got an exception',
+    );
+    isa_ok($exception, 'MusicBrainz::Server::Edit::Exceptions::NoChanges');
+};
 
 sub create_edit {
     my ($c, $text, $changelog) = @_;

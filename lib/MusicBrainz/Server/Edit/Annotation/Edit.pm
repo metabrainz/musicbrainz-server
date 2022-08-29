@@ -153,6 +153,10 @@ role {
             ? $annotation_model->get_latest($entity->id)
             : undef;
 
+        MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
+            if $latest_annotation &&
+               $latest_annotation->text eq $opts{text};
+
         $self->data({
             %opts,
             editor_id => $self->editor_id,
