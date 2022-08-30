@@ -13,8 +13,7 @@ after 'load' => sub {
     my $entity_properties = $ENTITIES{ $entity->entity_type };
     my $returning_jsonld = $self->can('should_return_jsonld') && $self->should_return_jsonld($c);
 
-    if ($entity_properties->{reviews} && $c->action->name ne 'edit') {
-        # Only needed by pages showing the sidebar
+    if ($entity_properties->{reviews}) {
         $c->model('CritiqueBrainz')->load_review_count($entity)
             unless $returning_jsonld;
     }
