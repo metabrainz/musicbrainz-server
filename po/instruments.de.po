@@ -4069,8 +4069,9 @@ msgid "tōkere"
 msgstr ""
 
 #: DB:instrument/name:330
+msgctxt "Nigerian clay jug idiophone"
 msgid "udu"
-msgstr "Udu"
+msgstr ""
 
 #: DB:instrument/name:967
 msgctxt "Deep pitch gangsa used in Balinese gamelan"

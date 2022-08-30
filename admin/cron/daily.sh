@@ -61,6 +61,9 @@ echo Removing unused urls
 echo Removing unused works
 ./admin/cleanup/RemoveEmpty work
 
+echo Removing unreferenced rows
+./admin/cleanup/RemoveUnreferencedRows
+
 # Dump all the data
 # Only do this on the nominated days 3=Wed and 6=Sat (for reference 0=Sun)
 if date +%w | grep -qw '[36]'

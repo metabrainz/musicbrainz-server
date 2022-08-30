@@ -403,6 +403,18 @@ const testData = [
             expected_clean_url: 'https://www.amazon.se/gp/product/B08HG3BKQK',
   },
   {
+                     input_url: 'https://www.amazon.eg/dp/B091CW2QM2/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'amazon',
+            expected_clean_url: 'https://www.amazon.eg/gp/product/B091CW2QM2',
+  },
+  {
+                     input_url: 'https://www.amazon.sa/dp/B0914VB72Y/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'amazon',
+            expected_clean_url: 'https://www.amazon.sa/gp/product/B0914VB72Y',
+  },
+  {
                      input_url: 'https://www.amazon.pl/gp/product/B07TJKC2DG/#customerReviews',
              input_entity_type: 'release',
     expected_relationship_type: 'amazon',
@@ -5253,6 +5265,17 @@ limited_link_type_combinations: [
                 expected_error: {
                                   error: 'no entries for specific releases',
                                   target: 'entity',
+                                },
+  },
+  {
+                     input_url: 'https://en.wikipedia.org/wiki/User:JackDormantPress/By_The_Rivers_(band)',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'wikipedia',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'Wikipedia user pages are not allowed',
+                                  target: 'url',
                                 },
   },
   // Wikisource

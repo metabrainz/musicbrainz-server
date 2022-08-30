@@ -4070,6 +4070,7 @@ msgid "tōkere"
 msgstr ""
 
 #: DB:instrument/name:330
+msgctxt "Nigerian clay jug idiophone"
 msgid "udu"
 msgstr ""
 

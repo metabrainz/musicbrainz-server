@@ -389,13 +389,6 @@ msgid ""
 "flute</a>."
 msgstr "Conosciuto anche come discanto, è il più comune e terzo più piccolo membro della famiglia dei flauti dolci moderna. <br /> Realizzato tradizionalmente in diversi tipi di legno, oggi è spesso realizzato in plastica e utilizzato per l'insegnamento musicale ai bambini. <br /> Da non confondere con il <a href=\"/instrument/b524b7a7-2d87-43a7-9977-8a9081ff6e0f/\">flauto soprano</a> traverso (da concerto) a imboccatura laterale."
 
-#. name:siku
-#: DB:instrument/description:569
-msgid ""
-"Also known as zampona, traditional Andean panpipe has two rows of pipes tied"
-" together with colourful bands."
-msgstr "Conosciuto anche come zampoña, è un flauto di Pan tradizionale andino con due file di canne tenute insieme da fasce colorate."
-
 #. name:alto viol
 #: DB:instrument/description:923
 msgid ""
@@ -1219,6 +1212,14 @@ msgid ""
 "it is richly decorated and used in the traditional \"halling\" folk music "
 "and dance."
 msgstr "Violino folk originario dell'Hardanger, in Norvegia. Ha 4 corde melodiche e 4 o 5 corde bordone, è riccamente decorato ed è utilizzato nella musica e danza tradizionale \"halling\"."
+
+#. name:siku
+#: DB:instrument/description:569
+msgid ""
+"For the Italian bag-pipe, see <a href=\"/\">zampogna</a>.<br /> Also known "
+"as zampona, traditional Andean panpipe has two rows of pipes tied together "
+"with colourful bands."
+msgstr "Per la cornamusa italiana, utilizza <a href=\"/\">zampogna</a>.<br /> Conosciuto anche come zampoña, è un flauto di Pan tradizionale andino con due file di canne tenute insieme da fasce colorate."
 
 #. name:lira da braccio
 #: DB:instrument/description:1016
@@ -2364,6 +2365,13 @@ msgid ""
 "clapping, this Vietnamesian \"Air Xylophone\" was traditionally played in "
 "the rice-field."
 msgstr "Suonato alterando il flusso d'aria che passa attraverso le canne in bambù mettendo le mani a conchetta o battendole, questo \"xilofono ad aria\" vietnamita era tradizionalmente suonato nelle risaie."
+
+#. name:udu
+#: DB:instrument/description:330
+msgid ""
+"Played ceremonially by Igbo people, it is a clay jug beaten with hands to "
+"create sounds."
+msgstr "Suonato dagli igbo durante le cerimonie, è un'anfora in argilla che viene percossa con le mani per produrre suoni."
 
 #. name:kendhang indung
 #: DB:instrument/description:996
@@ -4194,13 +4202,6 @@ msgid ""
 "The tumbi is a high pitched, single string plucking instrument associated "
 "with folk music of Punjab."
 msgstr "Strumento a singola corda pizzicata, dal tono acuto e associato alla musica tradizionale del Punjab."
-
-#. name:udu
-#: DB:instrument/description:330
-msgid ""
-"The udu is a Nigerian idiophone consisting of a water jug with an additional"
-" hole."
-msgstr "Idiofono nigeriano che consiste in un recipiente per l'acqua con un foro aggiuntivo."
 
 #. name:ukeke
 #: DB:instrument/description:631

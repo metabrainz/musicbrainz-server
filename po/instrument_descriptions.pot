@@ -13,8 +13,8 @@ msgstr ""
 msgid ""
 "\"Drum\" or \"drums\" is a common but generic credit can refer to multiple "
 "instruments. If you know which instrument this is, please select the "
-"specific instrument: <ul> <li> For the instrument commonly known as \"drums"
-"\", and often used in Western popular music, use <a href=\"/"
+"specific instrument: <ul> <li> For the instrument commonly known as "
+"\"drums\", and often used in Western popular music, use <a href=\"/"
 "instrument/12092505-6ee1-46af-a15a-b5b468b6b155\">drums (drum set)</a>. </"
 "li> <li> For programmed or \"drum-loops\" use <a href=\"/instrument/"
 "ce0eed13-58d8-4744-8ad0-b7d6182a2d0f\">drum machine</a>. </li> <li> For "
@@ -58,9 +58,9 @@ msgid ""
 "13th century or earlier South Indian fretless slide lute used in Carnatic "
 "music. Hollow body made of jack-fruit with a secondary resonator of hollowed "
 "out gourd, it has 6 main, 3 drone and 11-12 sympathetic strings with a "
-"sliding block of hardwood to vary pitch. Much like the North Indian <a href="
-"\"/instrument/b4d38ac1-7f12-437c-a61a-be2796ffc559\">vichitra veena</a> is "
-"to the <a href=\"/instrument/aea9661c-cbda-4bf3-a61d-d78697472f29\">rudra "
+"sliding block of hardwood to vary pitch. Much like the North Indian <a "
+"href=\"/instrument/b4d38ac1-7f12-437c-a61a-be2796ffc559\">vichitra veena</a> "
+"is to the <a href=\"/instrument/aea9661c-cbda-4bf3-a61d-d78697472f29\">rudra "
 "veena</a>, chitra veena is to the <a href=\"/instrument/41761936-5dbc-433f-"
 "b558-a7ef14fe9b08\">Saraswati veena</a>."
 msgstr ""
@@ -436,8 +436,8 @@ msgstr ""
 #. name:gizmo 
 #: DB:instrument/description:796
 msgid ""
-"An effects device to be clamped on the bridge, it produces \"synthesizer-like"
-"\" sounds"
+"An effects device to be clamped on the bridge, it produces \"synthesizer-"
+"like\" sounds"
 msgstr ""
 
 #. name:Pianet 
@@ -1312,11 +1312,6 @@ msgstr ""
 msgid "Gourd (hue) shakers with seeds intact"
 msgstr ""
 
-#. name:syrinx 
-#: DB:instrument/description:298
-msgid "Greek Panflute"
-msgstr ""
-
 #. name:khim 
 #: DB:instrument/description:287
 msgid "Hammered dulcimer of Thailand and Cambodia it was imported via China."
@@ -1404,8 +1399,8 @@ msgstr ""
 #. name:guban 
 #: DB:instrument/description:956
 msgid ""
-"Important in Yue, Kunkqu and Peking opera, it consists of the drum <a href="
-"\"/instrument/42349583-c10d-4c6e-b553-28d916113856\">bangu</a> and the "
+"Important in Yue, Kunkqu and Peking opera, it consists of the drum <a "
+"href=\"/instrument/42349583-c10d-4c6e-b553-28d916113856\">bangu</a> and the "
 "clapper <a href=\"/instrument/c641bccc-2060-4871-9c12-e2df2523e53c\">paiban</"
 "a>. Drum is played by one hand and clapper with the other."
 msgstr ""
@@ -1436,9 +1431,9 @@ msgstr ""
 #. name:baroque rackett 
 #: DB:instrument/description:897
 msgid ""
-"Improved by Johann Christoph Denner sometime around 1730, its \"coiled snake"
-"\" bore now is conical, in addition it is played through a removable metal "
-"curled mouth piece."
+"Improved by Johann Christoph Denner sometime around 1730, its \"coiled "
+"snake\" bore now is conical, in addition it is played through a removable "
+"metal curled mouth piece."
 msgstr ""
 
 #. name:sursingar 
@@ -1817,9 +1812,9 @@ msgstr ""
 #. name:żummara 
 #: DB:instrument/description:592
 msgid ""
-"Made of bamboo with one end covered with grease-paper, it is a \"side-blown"
-"\" mirliton.<br /> Not to be confused with the Egyptian/Iraqi zummara which "
-"is an instrument similar to a chalumeau."
+"Made of bamboo with one end covered with grease-paper, it is a \"side-"
+"blown\" mirliton.<br /> Not to be confused with the Egyptian/Iraqi zummara "
+"which is an instrument similar to a chalumeau."
 msgstr ""
 
 #. name:suling 
@@ -2029,9 +2024,19 @@ msgid ""
 "consort."
 msgstr ""
 
-#. name:nai 
-#: DB:instrument/description:297
-msgid "Nai, Romanian Panflute"
+#. name:pan flute 
+#: DB:instrument/description:16
+msgid ""
+"Named after the Greek god Pan, they are a selection of end-blown pipes made "
+"of reeds, bamboo, wood or similar. Many different variations exists around "
+"the world, especially in South America."
+msgstr ""
+
+#. name:syrinx 
+#: DB:instrument/description:298
+msgid ""
+"Named after the myth of the nymph Syrinx, this reed pan flute was used in "
+"ancient Greece."
 msgstr ""
 
 #. name:kannel 
@@ -2128,9 +2133,9 @@ msgid ""
 "One of the two subfamilies of Indian chordophones, the South Indian gourd "
 "lute used in classical Carnatic music has a single gourd music-box "
 "(sometimes a secondary small resonator gourd) with an often hollow neck.<br /"
-"> Commonly called just \"veena\" or \"vina\", the representative is <a href="
-"\"/instrument/41761936-5dbc-433f-b558-a7ef14fe9b08\">Saraswati veena</a>, "
-"and credits to just \"veena\" are usually that."
+"> Commonly called just \"veena\" or \"vina\", the representative is <a "
+"href=\"/instrument/41761936-5dbc-433f-b558-a7ef14fe9b08\">Saraswati veena</"
+"a>, and credits to just \"veena\" are usually that."
 msgstr ""
 
 #. name:bonang barung 
@@ -2766,8 +2771,8 @@ msgstr ""
 #. name:electric bass guitar 
 #: DB:instrument/description:51
 msgid ""
-"Solid body 4-stringed electric bass guitar. The most common for \"bass guitar"
-"\" and \"bass\" credits in popular (rock) music."
+"Solid body 4-stringed electric bass guitar. The most common for \"bass "
+"guitar\" and \"bass\" credits in popular (rock) music."
 msgstr ""
 
 #. name:Mark tree 
@@ -3608,8 +3613,8 @@ msgstr ""
 #. name:kendang wadon 
 #: DB:instrument/description:995
 msgid ""
-"The larger and deeper pitched of the Bali kendang, it is the leader \"female"
-"\" drum."
+"The larger and deeper pitched of the Bali kendang, it is the leader "
+"\"female\" drum."
 msgstr ""
 
 #. name:contrabass saxophone 
@@ -3699,8 +3704,8 @@ msgstr ""
 #. name:violin 
 #: DB:instrument/description:62
 msgid ""
-"The most famous member of the violin family, it is actually the \"small viol"
-"\". Its register is soprano and it's a principal member of the symphony "
+"The most famous member of the violin family, it is actually the \"small "
+"viol\". Its register is soprano and it's a principal member of the symphony "
 "orchestra."
 msgstr ""
 
@@ -3836,8 +3841,8 @@ msgstr ""
 #: DB:instrument/description:628
 msgid ""
 "The rammana is a frame drum used in classical Thai and Cambodian music which "
-"forms one part of <a href=\"http://en.wikipedia.org/wiki/Thon_and_rammana"
-"\">thon and rammana</a>."
+"forms one part of <a href=\"http://en.wikipedia.org/wiki/"
+"Thon_and_rammana\">thon and rammana</a>."
 msgstr ""
 
 #. name:ranat ek 
@@ -3988,8 +3993,8 @@ msgstr ""
 #. name:kendang lanang 
 #: DB:instrument/description:994
 msgid ""
-"The smaller and higher pitched of the Bali kendang, it is the follower \"male"
-"\" drum."
+"The smaller and higher pitched of the Bali kendang, it is the follower "
+"\"male\" drum."
 msgstr ""
 
 #. name:song loan 
@@ -4197,13 +4202,6 @@ msgid ""
 "with only one string per note"
 msgstr ""
 
-#. name:wot 
-#: DB:instrument/description:711
-msgid ""
-"The wot is a circular panpipe from Laos and the Isan region of northeastern "
-"Thailand."
-msgstr ""
-
 #. name:xiaoluo 
 #: DB:instrument/description:550
 msgid ""
@@ -4270,9 +4268,9 @@ msgstr ""
 #. name:đing năm 
 #: DB:instrument/description:319
 msgid ""
-"The đing năm is a <a href=\"https://en.wikipedia.org/wiki/Gourd_mouth_organ"
-"\">gourd mouth organ</a> used by minority ethnic groups in the central "
-"highlands of Vietnam."
+"The đing năm is a <a href=\"https://en.wikipedia.org/wiki/"
+"Gourd_mouth_organ\">gourd mouth organ</a> used by minority ethnic groups in "
+"the central highlands of Vietnam."
 msgstr ""
 
 #. name:đàn nguyệt 
@@ -4615,6 +4613,14 @@ msgid ""
 "set in a 75 cm long wooden frame."
 msgstr ""
 
+#. name:wot 
+#: DB:instrument/description:711
+msgid ""
+"Used in Laos and Isan traditional music, it is made of bamboo or ku wood, "
+"the individual stopped pipes are arranged around a central core using "
+"beeswax."
+msgstr ""
+
 #. name:octavilla 
 #: DB:instrument/description:940
 msgid ""
@@ -4802,6 +4808,13 @@ msgid ""
 "technique, it is 75 cm long with 3 to 6 holes depending on subtype. <br /> "
 "<ul> <li>saluang darek \"inland\" 4 holes</li> <li>saluang pauh/padang 6 "
 "holes</li> <li>saluang sungai pagu 3 holes</li> </ul>"
+msgstr ""
+
+#. name:nai 
+#: DB:instrument/description:297
+msgid ""
+"Used traditionally since 16th-17th century by lǎutari, it is made of bamboo "
+"or reed stopped with cork and beeswax set in a curved bottom bar."
 msgstr ""
 
 #. name:gendèr 
@@ -5055,8 +5068,8 @@ msgstr ""
 #: DB:instrument/description:391
 msgid ""
 "do not confuse with: Serb-Croat \"tamburica\" ensemble. Persian/Turkish "
-"ancient things evolved/came from \"tanbur\". unrelated Indian drone \"tanpura"
-"\" related Indian \"pandour\""
+"ancient things evolved/came from \"tanbur\". unrelated Indian drone "
+"\"tanpura\" related Indian \"pandour\""
 msgstr ""
 
 #. name:Cembalet 

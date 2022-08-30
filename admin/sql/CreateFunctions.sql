@@ -101,13 +101,12 @@ DECLARE
     ref_count integer;
 BEGIN
     -- decrement ref_count for the old name,
-    -- or delete it if ref_count would drop to 0
+    -- or prepare it for deletion if ref_count would drop to 0
     EXECUTE 'SELECT ref_count FROM ' || tbl || ' WHERE id = ' || row_id || ' FOR UPDATE' INTO ref_count;
     IF ref_count <= val THEN
-        EXECUTE 'DELETE FROM ' || tbl || ' WHERE id = ' || row_id;
-    ELSE
-        EXECUTE 'UPDATE ' || tbl || ' SET ref_count = ref_count - ' || val || ' WHERE id = ' || row_id;
+        EXECUTE 'INSERT INTO unreferenced_row_log (table_name, row_id) VALUES ($1, $2)' USING tbl, row_id;
     END IF;
+    EXECUTE 'UPDATE ' || tbl || ' SET ref_count = ref_count - ' || val || ' WHERE id = ' || row_id;
     RETURN;
 END;
 $$ LANGUAGE 'plpgsql';

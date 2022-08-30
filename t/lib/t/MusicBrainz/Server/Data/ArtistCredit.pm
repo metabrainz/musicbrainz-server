@@ -88,6 +88,11 @@ test 'Merging updates matching names' => sub {
     my $artist_credit_data = $c->model('ArtistCredit');
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+artistcredit');
+    my $old_redirect_gid = '949a7fd5-fe73-3e8f-922e-01ff4ca958f6';
+    $c->sql->do(<<~"SQL", $old_redirect_gid);
+        INSERT INTO artist_credit_gid_redirect (gid, new_id)
+            VALUES (?, 1);
+        SQL
 
     my $queen_and_david_bowie_gid = $c->sql->select_single_value(
       'SELECT gid FROM artist_credit ac WHERE name = ?', 'Queen & David Bowie');
@@ -125,11 +130,16 @@ test 'Merging updates matching names' => sub {
         'SELECT name FROM artist_credit ac WHERE id=?', $artist_credit_id);
     is( $name, 'Queen & Merge', 'Name is Queen & Merge' );
 
-    my $new_id = $c->sql->select_single_value(
+    my $new_redirect_new_id = $c->sql->select_single_value(
         'SELECT new_id FROM artist_credit_gid_redirect WHERE gid = ?',
         $queen_and_david_bowie_gid
     );
-    is($new_id, $ac->id, 'Old “Queen & David Bowie” redirects to “Queen & Merge”');
+    is($new_redirect_new_id, $ac->id, 'Old “Queen & David Bowie” redirects to “Queen & Merge”');
+    my $old_redirect_new_id = $c->sql->select_single_value(
+        'SELECT new_id FROM artist_credit_gid_redirect WHERE gid = ?',
+        $old_redirect_gid
+    );
+    is($old_redirect_new_id, $ac->id, 'Old existing redirect now points to “Queen & Merge”');
 
     # The credited name "Bowie" is different from the artist name, so it's
     # left alone.
@@ -160,11 +170,11 @@ test 'Merging updates matching names' => sub {
     );
     is($name, 'Queen & Bowie', 'Name is Queen & Bowie');
 
-    $new_id = $c->sql->select_single_value(
+    $new_redirect_new_id = $c->sql->select_single_value(
         'SELECT new_id FROM artist_credit_gid_redirect WHERE gid = ?',
         $queen_and_bowie_gid
     );
-    is($new_id, $ac->id, 'Old “Queen & Bowie” redirects to the new “Queen & Bowie”');
+    is($new_redirect_new_id, $ac->id, 'Old “Queen & Bowie” redirects to the new “Queen & Bowie”');
 };
 
 test 'Merging clears the cache' => sub {

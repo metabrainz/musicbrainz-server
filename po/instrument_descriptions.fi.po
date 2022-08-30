@@ -385,13 +385,6 @@ msgid ""
 "flute</a>."
 msgstr ""
 
-#. name:siku
-#: DB:instrument/description:569
-msgid ""
-"Also known as zampona, traditional Andean panpipe has two rows of pipes tied"
-" together with colourful bands."
-msgstr ""
-
 #. name:alto viol
 #: DB:instrument/description:923
 msgid ""
@@ -1214,6 +1207,14 @@ msgid ""
 "Folk-fiddle from Hardanger, Norway. It has 4 melody- and 4-5 drone-strings, "
 "it is richly decorated and used in the traditional \"halling\" folk music "
 "and dance."
+msgstr ""
+
+#. name:siku
+#: DB:instrument/description:569
+msgid ""
+"For the Italian bag-pipe, see <a href=\"/\">zampogna</a>.<br /> Also known "
+"as zampona, traditional Andean panpipe has two rows of pipes tied together "
+"with colourful bands."
 msgstr ""
 
 #. name:lira da braccio
@@ -2359,6 +2360,13 @@ msgid ""
 "Played by manipulating the airstream through bamboo pipes using cupping and "
 "clapping, this Vietnamesian \"Air Xylophone\" was traditionally played in "
 "the rice-field."
+msgstr ""
+
+#. name:udu
+#: DB:instrument/description:330
+msgid ""
+"Played ceremonially by Igbo people, it is a clay jug beaten with hands to "
+"create sounds."
 msgstr ""
 
 #. name:kendhang indung
@@ -4189,13 +4197,6 @@ msgstr ""
 msgid ""
 "The tumbi is a high pitched, single string plucking instrument associated "
 "with folk music of Punjab."
-msgstr ""
-
-#. name:udu
-#: DB:instrument/description:330
-msgid ""
-"The udu is a Nigerian idiophone consisting of a water jug with an additional"
-" hole."
 msgstr ""
 
 #. name:ukeke

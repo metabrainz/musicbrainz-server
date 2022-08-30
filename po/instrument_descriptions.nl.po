@@ -382,13 +382,6 @@ msgid ""
 "flute</a>."
 msgstr "De sopraanblokfluit is het op twee na kleinste en meest bespeelde lid van de moderne blokfluitfamilie. <br />Traditioneel wordt het instrument van verschillende soorten hout gemaakt, maar tegenwoordig ook van kunststof. Het wordt vaak gebruikt om kinderen muziek te leren.<br />Dit is een ander instrument dan de <a href=\"/instrument/b524b7a7-2d87-43a7-9977-8a9081ff6e0f/\">sopraanfluit</a>, een dwarsfluit."
 
-#. name:siku
-#: DB:instrument/description:569
-msgid ""
-"Also known as zampona, traditional Andean panpipe has two rows of pipes tied"
-" together with colourful bands."
-msgstr ""
-
 #. name:alto viol
 #: DB:instrument/description:923
 msgid ""
@@ -1212,6 +1205,14 @@ msgid ""
 "it is richly decorated and used in the traditional \"halling\" folk music "
 "and dance."
 msgstr "De hardangerviool is een viool uit de regio Hardanger in Noorwegen met vier melodiesnaren en vier tot vijf resonantiesnaren. Het instrument is meestal rijk versierd en wordt gebruikt bij traditionele hallingmuziek en -dans."
+
+#. name:siku
+#: DB:instrument/description:569
+msgid ""
+"For the Italian bag-pipe, see <a href=\"/\">zampogna</a>.<br /> Also known "
+"as zampona, traditional Andean panpipe has two rows of pipes tied together "
+"with colourful bands."
+msgstr ""
 
 #. name:lira da braccio
 #: DB:instrument/description:1016
@@ -2357,6 +2358,13 @@ msgid ""
 "clapping, this Vietnamesian \"Air Xylophone\" was traditionally played in "
 "the rice-field."
 msgstr "Een k'lông pút wordt bespeeld door de luchtstroom door bamboebuizen met de hand te manipuleren. Deze Vietnamese ‘luchtxylofoon’ werd traditioneel in de rijstvelden bespeeld."
+
+#. name:udu
+#: DB:instrument/description:330
+msgid ""
+"Played ceremonially by Igbo people, it is a clay jug beaten with hands to "
+"create sounds."
+msgstr ""
 
 #. name:kendhang indung
 #: DB:instrument/description:996
@@ -4187,13 +4195,6 @@ msgid ""
 "The tumbi is a high pitched, single string plucking instrument associated "
 "with folk music of Punjab."
 msgstr "De tumbi of toombi is een tokkelinstrument met één snaar uit Punjab."
-
-#. name:udu
-#: DB:instrument/description:330
-msgid ""
-"The udu is a Nigerian idiophone consisting of a water jug with an additional"
-" hole."
-msgstr "Een udu is een Nigeriaanse ideofoon bestaande uit een waterkruik met een extra gat."
 
 #. name:ukeke
 #: DB:instrument/description:631

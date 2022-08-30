@@ -24,7 +24,7 @@ type Props<T> = {
   +buildRowProps?: BuildRowPropsT,
   +className: string,
   +ContainerElement?: 'dl' | 'ul',
-  +InnerElement?: 'p' | 'li',
+  +InnerElement?: 'p' | 'li' | 'div',
   +rows: ?$ReadOnlyArray<T>,
   +showAllTitle: string,
   +showLessTitle: string,
