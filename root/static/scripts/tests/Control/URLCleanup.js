@@ -5267,6 +5267,17 @@ limited_link_type_combinations: [
                                   target: 'entity',
                                 },
   },
+  {
+                     input_url: 'https://en.wikipedia.org/wiki/User:JackDormantPress/By_The_Rivers_(band)',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'wikipedia',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'Wikipedia user pages are not allowed',
+                                  target: 'url',
+                                },
+  },
   // Wikisource
   {
                      input_url: 'https://pt.wikisource.org/wiki/A_Portuguesa',
