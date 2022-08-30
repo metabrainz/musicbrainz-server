@@ -42,7 +42,7 @@ const IswcList = ({
 }: IswcListProps) => (
   <CollapsibleList
     ContainerElement={isSidebar ? 'dl' : 'ul'}
-    InnerElement={isSidebar ? 'p' : 'li'}
+    InnerElement={isSidebar ? 'div' : 'li'}
     ariaLabel={l('ISWCs')}
     buildRow={isSidebar ? buildIswcSidebarRow : buildIswcListRow}
     className={isSidebar ? 'properties iswcs' : 'iswcs'}

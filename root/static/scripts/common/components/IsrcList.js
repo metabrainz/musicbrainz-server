@@ -42,7 +42,7 @@ const IsrcList = ({
 }: IsrcListProps) => (
   <CollapsibleList
     ContainerElement={isSidebar ? 'dl' : 'ul'}
-    InnerElement={isSidebar ? 'p' : 'li'}
+    InnerElement={isSidebar ? 'div' : 'li'}
     ariaLabel={l('ISRCs')}
     buildRow={isSidebar ? buildIsrcSidebarRow : buildIsrcListRow}
     className={isSidebar ? 'properties isrcs' : 'isrcs'}
