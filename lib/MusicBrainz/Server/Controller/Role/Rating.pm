@@ -6,6 +6,20 @@ use MusicBrainz::Server::Constants qw( %ENTITIES );
 
 requires 'load';
 
+after 'load' => sub {
+    my ($self, $c) = @_;
+
+    my $entity = $c->stash->{$self->{entity_name}};
+    my $entity_properties = $ENTITIES{ $entity->entity_type };
+    my $returning_jsonld = $self->can('should_return_jsonld') && $self->should_return_jsonld($c);
+
+    if ($entity_properties->{reviews} && $c->action->name ne 'edit') {
+        # Only needed by pages showing the sidebar
+        $c->model('CritiqueBrainz')->load_review_count($entity)
+            unless $returning_jsonld;
+    }
+};
+
 sub ratings : Chained('load') PathPart('ratings')
 {
     my ($self, $c) = @_;

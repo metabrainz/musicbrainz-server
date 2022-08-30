@@ -25,6 +25,7 @@ import RemoveLink from './RemoveLink.js';
 import SidebarLicenses from './SidebarLicenses.js';
 import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
+import SidebarReviews from './SidebarReviews.js';
 import SidebarTags from './SidebarTags.js';
 
 component RecordingSidebar(recording: RecordingWithArtistCreditT) {
@@ -74,6 +75,8 @@ component RecordingSidebar(recording: RecordingWithArtistCreditT) {
       </SidebarProperties>
 
       <SidebarRating entity={recording} />
+
+      <SidebarReviews entity={recording} />
 
       <SidebarTags entity={recording} />
 
