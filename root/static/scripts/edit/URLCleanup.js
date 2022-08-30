@@ -5038,6 +5038,16 @@ const CLEANUPS: CleanupEntries = {
           target: ERROR_TARGETS.URL,
         };
       }
+      if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\/wiki\/User:.*/.test(url)) {
+        return {
+          error: l(
+            `Links to Wikipedia user pages are not allowed. Please link only
+             to actual Wikipedia articles.`,
+          ),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
       return {
         result: /^https:\/\/[a-z]+\.wikipedia\.org\/wiki\//.test(url),
         target: ERROR_TARGETS.URL,
