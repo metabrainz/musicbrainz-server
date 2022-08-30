@@ -672,6 +672,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
           disabled={disabled}
           id={inputId}
           onChange={handleInputChange}
+          onClick={handleInputFocus}
           onFocus={handleInputFocus}
           onKeyDown={handleInputKeyDown}
           placeholder={
