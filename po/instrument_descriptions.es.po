@@ -182,7 +182,7 @@ msgstr ""
 #: DB:instrument/description:516
 msgid ""
 "A koto with 17 rather than 13 strings, sometimes described as a bass koto."
-msgstr ""
+msgstr "Un koto con 17 cuerdas en lugar de 13, a veces descrito como un koto bajo."
 
 #. name:daire
 #: DB:instrument/description:532
@@ -197,14 +197,14 @@ msgid ""
 "A laser harp is an electronic musical instrument consisting of several laser"
 " beams to be blocked, in analogy with the plucking of the strings of a harp,"
 " in order to produce sounds."
-msgstr ""
+msgstr "Un arpa láser es un instrumento musical electrónico que consta de varios rayos láser que deben bloquearse, de forma análoga al punteo de las cuerdas de un arpa, para producir sonidos."
 
 #. name:đàn tứ dây
 #: DB:instrument/description:233
 msgid ""
 "A latter-day construction in the form of a four-stringed, square-bodied bass"
 " guitar"
-msgstr ""
+msgstr "Una construcción moderna en forma de bajo de cuatro cuerdas y cuerpo cuadrado."
 
 #. name:pōrutu
 #: DB:instrument/description:787
@@ -394,13 +394,6 @@ msgid ""
 "Not to be confused with the side-blown (concerto) <a "
 "href=\"/instrument/b524b7a7-2d87-43a7-9977-8a9081ff6e0f/\">soprano "
 "flute</a>."
-msgstr ""
-
-#. name:siku
-#: DB:instrument/description:569
-msgid ""
-"Also known as zampona, traditional Andean panpipe has two rows of pipes tied"
-" together with colourful bands."
 msgstr ""
 
 #. name:alto viol
@@ -1225,6 +1218,14 @@ msgid ""
 "Folk-fiddle from Hardanger, Norway. It has 4 melody- and 4-5 drone-strings, "
 "it is richly decorated and used in the traditional \"halling\" folk music "
 "and dance."
+msgstr ""
+
+#. name:siku
+#: DB:instrument/description:569
+msgid ""
+"For the Italian bag-pipe, see <a href=\"/\">zampogna</a>.<br /> Also known "
+"as zampona, traditional Andean panpipe has two rows of pipes tied together "
+"with colourful bands."
 msgstr ""
 
 #. name:lira da braccio
@@ -2370,6 +2371,13 @@ msgid ""
 "Played by manipulating the airstream through bamboo pipes using cupping and "
 "clapping, this Vietnamesian \"Air Xylophone\" was traditionally played in "
 "the rice-field."
+msgstr ""
+
+#. name:udu
+#: DB:instrument/description:330
+msgid ""
+"Played ceremonially by Igbo people, it is a clay jug beaten with hands to "
+"create sounds."
 msgstr ""
 
 #. name:kendhang indung
@@ -4200,13 +4208,6 @@ msgstr ""
 msgid ""
 "The tumbi is a high pitched, single string plucking instrument associated "
 "with folk music of Punjab."
-msgstr ""
-
-#. name:udu
-#: DB:instrument/description:330
-msgid ""
-"The udu is a Nigerian idiophone consisting of a water jug with an additional"
-" hole."
 msgstr ""
 
 #. name:ukeke
