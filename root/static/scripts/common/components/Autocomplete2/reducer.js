@@ -492,6 +492,16 @@ export function runReducer<+T: EntityItemT>(
 
     case 'set-recent-items': {
       state.recentItems = action.items;
+
+      const staticItems = state.staticItems;
+      if (staticItems) {
+        state.recentItems = state.recentItems.filter(
+          (recentItem) => (
+            staticItems.find(staticItem => staticItem.id === recentItem.id)
+          ),
+        );
+      }
+
       updateItems = true;
       break;
     }
