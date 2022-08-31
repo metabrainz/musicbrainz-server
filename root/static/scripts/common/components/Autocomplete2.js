@@ -134,6 +134,7 @@ type InitialStateT<T: EntityItemT> = {
   +disabled?: boolean,
   +entityType: T['entityType'],
   +id: string,
+  +inputClass?: string,
   +inputValue?: string,
   +placeholder?: string,
   +recentItemsKey?: string,
@@ -665,12 +666,18 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
           autoComplete="off"
           className={
             (
+              state.inputClass == null
+                ? ''
+                : (state.inputClass + ' ')
+            ) +
+            ((
               state.isLookupPerformed == null
                 ? selectedEntity
                 : state.isLookupPerformed
             )
               ? 'lookup-performed'
-              : ''}
+              : '')
+          }
           disabled={disabled}
           id={inputId}
           onChange={handleInputChange}

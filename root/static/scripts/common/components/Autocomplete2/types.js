@@ -18,6 +18,7 @@ export type StateT<T: EntityItemT> = {
   +highlightedIndex: number,
   +id: string,
   +indexedSearch: boolean,
+  +inputClass?: string,
   +inputValue: string,
   +isAddEntityDialogOpen?: boolean,
   +isLookupPerformed?: boolean,
