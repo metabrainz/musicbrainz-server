@@ -16,6 +16,7 @@ import {
   MBID_REGEXP,
 } from '../constants.js';
 import useOutsideClickEffect from '../hooks/useOutsideClickEffect.js';
+import {unwrapNl} from '../i18n.js';
 import clean from '../utility/clean.js';
 
 import {
@@ -139,7 +140,7 @@ type InitialStateT<T: EntityItemT> = {
   +labelStyle?: {...},
   +placeholder?: string,
   +recentItemsKey?: string,
-  +selectedEntity?: T | null,
+  +selectedItem?: OptionItemT<T> | null,
   +staticItems?: $ReadOnlyArray<ItemT<T>>,
   +staticItemsFilter?: (ItemT<T>, string) => boolean,
   +width?: string,
@@ -155,14 +156,16 @@ export function createInitialState<+T: EntityItemT>(
     entityType,
     inputValue: initialInputValue,
     recentItemsKey,
-    selectedEntity,
+    selectedItem,
     staticItems,
     staticItemsFilter,
     ...restProps
   } = initialState;
 
   const inputValue =
-    initialInputValue ?? (selectedEntity?.name) ?? '';
+    initialInputValue ??
+    (selectedItem == null ? null : unwrapNl<string>(selectedItem.name)) ??
+    '';
 
   let staticResults = staticItems ?? null;
   if (staticResults && nonEmpty(inputValue)) {
@@ -186,7 +189,7 @@ export function createInitialState<+T: EntityItemT>(
     recentItems: null,
     recentItemsKey: recentItemsKey ?? entityType,
     results: staticResults,
-    selectedEntity: selectedEntity ?? null,
+    selectedItem: selectedItem ?? null,
     staticItems,
     staticItemsFilter,
     statusMessage: '',
@@ -285,7 +288,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
     items,
     pendingSearch,
     recentItems,
-    selectedEntity,
+    selectedItem,
     staticItems,
     statusMessage,
   } = state;
@@ -617,9 +620,9 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
         autocompleteId={id}
         isHighlighted={!!(highlightedItem && item.id === highlightedItem.id)}
         isSelected={!!(
-          selectedEntity &&
+          selectedItem &&
           item.type === 'option' &&
-          item.entity.id === selectedEntity.id
+          item.entity.id === selectedItem.id
         )}
         item={item}
         key={item.id}
@@ -631,7 +634,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
       id,
       items,
       selectItem,
-      selectedEntity,
+      selectedItem,
     ],
   );
 
@@ -675,7 +678,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
             ) +
             ((
               state.isLookupPerformed == null
-                ? selectedEntity
+                ? selectedItem
                 : state.isLookupPerformed
             )
               ? 'lookup-performed'

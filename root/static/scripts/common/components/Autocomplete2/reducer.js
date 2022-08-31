@@ -100,7 +100,7 @@ export function generateItems<+T: EntityItemT>(
 
   const isInputValueNonEmpty = nonEmpty(state.inputValue);
   const hasStaticItems = !!state.staticItems;
-  const hasSelection = !!state.selectedEntity;
+  const hasSelection = !!state.selectedItem;
   const showingRecentItems = !!(
     !isInputValueNonEmpty && recentItems?.length
   );
@@ -235,8 +235,8 @@ export function generateStatusMessage<+T: EntityItemT>(
         )
       );
     }
-  } else if (state.selectedEntity) {
-    return state.selectedEntity.name;
+  } else if (state.selectedItem) {
+    return unwrapNl<string>(state.selectedItem.name);
   }
 
   return '';
@@ -297,16 +297,15 @@ function selectItem<+T: EntityItemT>(
       return;
     }
     case 'option': {
-      const entity = item.entity;
-      const entityName = entity.name;
+      const itemName = unwrapNl<string>(item.name);
 
-      state.selectedEntity = entity;
+      state.selectedItem = item;
 
-      if (entityName !== state.inputValue) {
+      if (itemName !== state.inputValue) {
         if (state.staticItems) {
-          filterStaticItems<T>(state, entityName);
+          filterStaticItems<T>(state, itemName);
         }
-        state.inputValue = entityName;
+        state.inputValue = itemName;
       }
 
       if (!state.staticItems) {
@@ -388,7 +387,7 @@ export function runReducer<+T: EntityItemT>(
     case 'change-entity-type': {
       const oldEntityType = state.entityType;
       state.entityType = action.entityType;
-      state.selectedEntity = null;
+      state.selectedItem = null;
       state.recentItems = null;
       if (state.recentItemsKey === oldEntityType) {
         state.recentItemsKey = action.entityType;
@@ -563,7 +562,7 @@ export function runReducer<+T: EntityItemT>(
 
       state.error = 0;
       state.inputValue = newInputValue;
-      state.selectedEntity = null;
+      state.selectedItem = null;
       state.highlightedIndex = -1;
 
       updateItems = true;

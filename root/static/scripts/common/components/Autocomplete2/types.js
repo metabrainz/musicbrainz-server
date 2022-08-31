@@ -32,7 +32,7 @@ export type StateT<T: EntityItemT> = {
   +recentItems: $ReadOnlyArray<ItemT<T>> | null,
   +recentItemsKey: string,
   +results: $ReadOnlyArray<ItemT<T>> | null,
-  +selectedEntity: T | null,
+  +selectedItem: OptionItemT<T> | null,
   +staticItems?: $ReadOnlyArray<ItemT<T>>,
   +staticItemsFilter?: (ItemT<T>, string) => boolean,
   +statusMessage: string,
