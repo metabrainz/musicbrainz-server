@@ -131,6 +131,7 @@ function setScrollPosition(menuId: string) {
 type InitialStateT<T: EntityItemT> = {
   +canChangeType?: (string) => boolean,
   +containerClass?: string,
+  +disabled?: boolean,
   +entityType: T['entityType'],
   +id: string,
   +inputValue?: string,
@@ -148,6 +149,7 @@ export function createInitialState<+T: EntityItemT>(
   initialState: InitialStateT<T>,
 ): {...StateT<T>} {
   const {
+    disabled = false,
     entityType,
     inputValue: initialInputValue,
     recentItemsKey,
@@ -169,6 +171,7 @@ export function createInitialState<+T: EntityItemT>(
   }
 
   const state: {...StateT<T>} = {
+    disabled,
     entityType,
     error: 0,
     highlightedIndex: -1,
