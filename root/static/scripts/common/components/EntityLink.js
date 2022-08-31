@@ -20,12 +20,14 @@ import isGreyedOut from '../../url/utility/isGreyedOut.js';
 
 type DeletedLinkProps = {
   +allowNew: boolean,
+  +className?: string,
   +deletedCaption?: string,
   +name: ?Expand2ReactOutput,
 };
 
 export const DeletedLink = ({
   allowNew,
+  className,
   deletedCaption,
   name,
 }: DeletedLinkProps): React.Element<'span'> => {
@@ -35,7 +37,11 @@ export const DeletedLink = ({
 
   return (
     <span
-      className={(allowNew ? '' : 'deleted ') + 'tooltip'}
+      className={
+        (className ? className + ' ' : '') +
+        (allowNew ? '' : 'deleted ') +
+        'tooltip'
+      }
       title={caption}
     >
       {isolateText(name || l('[removed]'))}
