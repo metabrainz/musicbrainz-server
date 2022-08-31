@@ -53,7 +53,14 @@ const ButtonPopover = (props: PropsT): React.MixedElement => {
        * Clicking the opener again registers as an outside
        * click, but is already handled separately.
        */
-      if (event.target !== buttonRef.current) {
+      if (
+        event.target !== buttonRef.current &&
+        /*
+         * If the event target is the <html> element, the user probably
+         * clicked the scrollbar.
+         */
+        event.target !== document.documentElement
+      ) {
         /*
          * Don't return focus here, since the user maybe be clicking
          * on an unrelated field in the page.
