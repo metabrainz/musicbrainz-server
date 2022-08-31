@@ -651,7 +651,9 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
         id={labelId}
         style={state.labelStyle || DISPLAY_NONE_STYLE}
       >
-        {state.placeholder || SEARCH_PLACEHOLDERS[entityType]()}
+        {addColonText(
+          state.placeholder || SEARCH_PLACEHOLDERS[entityType](),
+        )}
       </label>
       <div
         aria-expanded={isOpen ? 'true' : 'false'}
