@@ -200,7 +200,7 @@ const DateRangeFieldset = ({
             className="icon copy-date"
             disabled={disabled}
             onClick={handleDateCopy}
-            title={l('Copy date')}
+            title={l('Copy to end date')}
             type="button"
           />
         </FormRowPartialDate>
