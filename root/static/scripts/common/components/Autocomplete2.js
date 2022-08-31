@@ -129,7 +129,6 @@ function setScrollPosition(menuId: string) {
 }
 
 type InitialStateT<T: EntityItemT> = {
-  +activeUser?: ActiveEditorT,
   +canChangeType?: (string) => boolean,
   +entityType: T['entityType'],
   +id: string,
@@ -169,7 +168,6 @@ export function createInitialState<+T: EntityItemT>(
   }
 
   const state: {...StateT<T>} = {
-    activeUser: null,
     entityType,
     error: 0,
     highlightedIndex: -1,

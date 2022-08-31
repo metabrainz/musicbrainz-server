@@ -11,6 +11,7 @@ import {
   TITLES as ADD_NEW_ENTITY_TITLES,
 } from '../../../edit/components/AddEntityDialog.js';
 import {unwrapNl} from '../../i18n.js';
+import {getCatalystContext} from '../../utility/catalyst.js';
 import {
   isLocationEditor,
   isRelationshipEditor,
@@ -163,7 +164,7 @@ export function generateItems<+T: EntityItemT>(
 export function determineIfUserCanAddEntities<+T: EntityItemT>(
   state: StateT<T>,
 ): boolean {
-  const user = state.activeUser;
+  const user = getCatalystContext().user;
 
   if (!user || !IS_TOP_WINDOW) {
     return false;

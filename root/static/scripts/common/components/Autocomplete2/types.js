@@ -10,7 +10,6 @@
 export type SearchableTypeT = EntityItemT['entityType'];
 
 export type StateT<T: EntityItemT> = {
-  +activeUser: ActiveEditorT | null,
   +canChangeType?: (string) => boolean,
   +containerClass?: string,
   +disabled?: boolean,
