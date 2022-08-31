@@ -55,10 +55,7 @@ const GuessCaseOptionsPopover = (React.memo(({
         className="buttons"
         style={{marginTop: '1em'}}
       >
-        <div
-          className="buttons-right"
-          style={{float: 'right', textAlign: 'right'}}
-        >
+        <div className="buttons-right">
           <button
             className="positive"
             onClick={closeAndReturnFocus}

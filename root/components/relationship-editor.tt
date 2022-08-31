@@ -3,7 +3,7 @@
 
   <div class="buttons ui-helper-clearfix" style="margin-top: 1em">
     <button type="button" class="negative" data-bind="click: function () { $data.close(true) }">[% l('Cancel') %]</button>
-    <div class="buttons-right" style="float: right; text-align: right;">
+    <div class="buttons-right">
       <button type="button" class="positive" data-bind="disable: hasErrors() || loading(), click: function () { $data.accept() }">[% l('Done') %]</button>
     </div>
   </div>
