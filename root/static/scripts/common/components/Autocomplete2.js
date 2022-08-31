@@ -130,6 +130,7 @@ function setScrollPosition(menuId: string) {
 
 type InitialStateT<T: EntityItemT> = {
   +canChangeType?: (string) => boolean,
+  +containerClass?: string,
   +entityType: T['entityType'],
   +id: string,
   +inputValue?: string,
