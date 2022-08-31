@@ -136,6 +136,7 @@ type InitialStateT<T: EntityItemT> = {
   +id: string,
   +inputClass?: string,
   +inputValue?: string,
+  +labelStyle?: {...},
   +placeholder?: string,
   +recentItemsKey?: string,
   +selectedEntity?: T | null,
@@ -648,7 +649,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
         className={state.labelClass}
         htmlFor={inputId}
         id={labelId}
-        style={DISPLAY_NONE_STYLE}
+        style={state.labelStyle || DISPLAY_NONE_STYLE}
       >
         {state.placeholder || SEARCH_PLACEHOLDERS[entityType]()}
       </label>

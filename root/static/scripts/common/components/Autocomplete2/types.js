@@ -25,6 +25,7 @@ export type StateT<T: EntityItemT> = {
   +isOpen: boolean,
   +items: $ReadOnlyArray<ItemT<T>>,
   +labelClass?: string,
+  +labelStyle?: {...},
   +page: number,
   +pendingSearch: string | null,
   +placeholder?: string,
