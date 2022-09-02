@@ -935,15 +935,22 @@ INSERT INTO series_alias_type VALUES (2, 'Search hint', NULL, 0, NULL, '8950366b
 INSERT INTO series_ordering_type VALUES (1, 'Automatic', NULL, 0, 'Sorts the items in the series automatically by their number attributes, using a natural sort order.', 'ec5fa247-c37a-39b3-b31d-bdac6207344e');
 INSERT INTO series_ordering_type VALUES (2, 'Manual', NULL, 1, 'Allows for manually setting the position of each item in the series.', '2950ba43-3532-39e9-a7d1-7dc7e271fa25');
 
-INSERT INTO series_type VALUES (1, 'Release group', 'release_group', NULL, 0, 'A series of release groups.', '4c1c4949-7b6c-3a2d-9d54-a50a27e4fa77');
-INSERT INTO series_type VALUES (2, 'Release', 'release', NULL, 1, 'A series of releases.', '52b90f1e-ff62-3bd0-b254-5d91ced5d757');
-INSERT INTO series_type VALUES (3, 'Recording', 'recording', NULL, 2, 'A series of recordings.', 'dd968243-7128-30a2-81f0-79843430a8e2');
-INSERT INTO series_type VALUES (4, 'Work', 'work', NULL, 3, 'A series of works.', 'b689f694-6305-3d78-954d-df6759a1877b');
+INSERT INTO series_type VALUES (1, 'Release group series', 'release_group', NULL, 0, 'A series of release groups.', '4c1c4949-7b6c-3a2d-9d54-a50a27e4fa77');
+INSERT INTO series_type VALUES (47, 'Release group award', 'release_group', 1, 0, 'A series of release groups honoured by the same award.', '133524ac-b9e4-4c6f-becb-774ab963de2f');
+INSERT INTO series_type VALUES (2, 'Release series', 'release', NULL, 1, 'A series of releases.', '52b90f1e-ff62-3bd0-b254-5d91ced5d757');
+INSERT INTO series_type VALUES (3, 'Recording series', 'recording', NULL, 2, 'A series of recordings.', 'dd968243-7128-30a2-81f0-79843430a8e2');
+INSERT INTO series_type VALUES (48, 'Recording award', 'recording', 3, 0, 'A series of recordings honoured by the same award.', 'e667457d-77e7-4848-8472-5b65ff191896');
+INSERT INTO series_type VALUES (4, 'Work series', 'work', NULL, 3, 'A series of works.', 'b689f694-6305-3d78-954d-df6759a1877b');
 INSERT INTO series_type VALUES (5, 'Catalogue', 'work', 4, 0, 'A series of works which form a catalogue of classical compositions.', '49482ff0-fc9e-3b8c-a2d0-30e84d9df002');
-INSERT INTO series_type VALUES (6, 'Event', 'event', NULL, 5, 'A series of events.', '64640a2a-1c31-394d-b7b0-683a32ff9aff');
+INSERT INTO series_type VALUES (46, 'Work award', 'work', 4, 0, 'A series of works honoured by the same award.', '2b446390-880b-4f58-814c-d51c79575823');
+INSERT INTO series_type VALUES (6, 'Event series', 'event', NULL, 5, 'A series of events.', '64640a2a-1c31-394d-b7b0-683a32ff9aff');
 INSERT INTO series_type VALUES (7, 'Tour', 'event', 6, 0, 'A series of related concerts by an artist in different locations.', '8ff6df0e-3dce-3bdf-bd57-d386c51b0060');
 INSERT INTO series_type VALUES (8, 'Festival', 'event', 6, 1, 'A recurring festival, usually happening annually in the same location.', '44e9f6b1-34a7-3a17-a5d5-07bb100d8887');
 INSERT INTO series_type VALUES (9, 'Run', 'event', 6, 2, 'A series of performances of the same show at the same venue.', '975e9447-dfa8-3e29-82d6-07908fe36f3e');
+INSERT INTO series_type VALUES (12, 'Residency', 'event', 6, 3, 'A series of related concerts by an artist in the same location.', '252fd661-fdf6-405c-8f9d-43379847e0ae');
+INSERT INTO series_type VALUES (15, 'Award ceremony', 'event', 6, 4, 'A series of award ceremonies, usually one per year.', '991925f8-ad29-4ff0-a777-fa2214f8b8e9');
+INSERT INTO series_type VALUES (13, 'Artist series', 'artist', NULL, 4, 'A series of artists.', 'c5358f01-618a-396d-8c78-9e76e6a52d7d');
+INSERT INTO series_type VALUES (14, 'Artist award', 'artist', 13, 0, 'A series of artists honoured by the same award.', 'dca73eca-a855-3408-9094-f7d5d073cef0');
 
 INSERT INTO work_alias_type VALUES (1, 'Work name', NULL, 0, NULL, 'a18cab3f-0ae2-3978-8f75-dd9c09702b25');
 INSERT INTO work_alias_type VALUES (2, 'Search hint', NULL, 0, NULL, '02238bc1-dfd8-39a8-bbf8-c697747291ec');
