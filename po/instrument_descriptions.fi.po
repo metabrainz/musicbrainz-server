@@ -1333,11 +1333,6 @@ msgstr ""
 msgid "Gourd (hue) shakers with seeds intact"
 msgstr ""
 
-#. name:syrinx
-#: DB:instrument/description:298
-msgid "Greek Panflute"
-msgstr "Kreikkalainen panhuilu"
-
 #. name:khim
 #: DB:instrument/description:287
 msgid "Hammered dulcimer of Thailand and Cambodia it was imported via China."
@@ -2053,9 +2048,19 @@ msgid ""
 "consort."
 msgstr ""
 
-#. name:nai
-#: DB:instrument/description:297
-msgid "Nai, Romanian Panflute"
+#. name:pan flute
+#: DB:instrument/description:16
+msgid ""
+"Named after the Greek god Pan, they are a selection of end-blown pipes made "
+"of reeds, bamboo, wood or similar. Many different variations exists around "
+"the world, especially in South America."
+msgstr ""
+
+#. name:syrinx
+#: DB:instrument/description:298
+msgid ""
+"Named after the myth of the nymph Syrinx, this reed pan flute was used in "
+"ancient Greece."
 msgstr ""
 
 #. name:kannel
@@ -4234,13 +4239,6 @@ msgid ""
 "with only one string per note"
 msgstr ""
 
-#. name:wot
-#: DB:instrument/description:711
-msgid ""
-"The wot is a circular panpipe from Laos and the Isan region of northeastern "
-"Thailand."
-msgstr ""
-
 #. name:xiaoluo
 #: DB:instrument/description:550
 msgid ""
@@ -4654,6 +4652,14 @@ msgid ""
 "set in a 75 cm long wooden frame."
 msgstr ""
 
+#. name:wot
+#: DB:instrument/description:711
+msgid ""
+"Used in Laos and Isan traditional music, it is made of bamboo or ku wood, "
+"the individual stopped pipes are arranged around a central core using "
+"beeswax."
+msgstr ""
+
 #. name:octavilla
 #: DB:instrument/description:940
 msgid ""
@@ -4842,6 +4848,13 @@ msgid ""
 " technique, it is 75 cm long with 3 to 6 holes depending on subtype. <br /> "
 "<ul> <li>saluang darek \"inland\" 4 holes</li> <li>saluang pauh/padang 6 "
 "holes</li> <li>saluang sungai pagu 3 holes</li> </ul>"
+msgstr ""
+
+#. name:nai
+#: DB:instrument/description:297
+msgid ""
+"Used traditionally since 16th-17th century by lǎutari, it is made of bamboo "
+"or reed stopped with cork and beeswax set in a curved bottom bar."
 msgstr ""
 
 #. name:gendèr

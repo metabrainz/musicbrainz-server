@@ -1363,16 +1363,6 @@ msgid ""
 "diatonically."
 msgstr ""
 
-#. name:gut guitar 
-#: DB:instrument/description:567
-msgid "Hollow-body acoustic guitar strung with gut-strings."
-msgstr ""
-
-#. name:nylon acoustic guitar 
-#: DB:instrument/description:566
-msgid "Hollow-body acoustic guitar strung with nylon-strings."
-msgstr ""
-
 #. name:mendoza 
 #: DB:instrument/description:114
 msgid ""

@@ -93,6 +93,7 @@ echo `date`: Importing tag data from latest dump
     --table release_group_tag \
     --table series_tag \
     --table work_tag \
+    --noupdate-replication-control \
     "$DUMP_FILE"
 
 echo `date`: Restoring saved tag data from tmp tables
@@ -144,8 +145,9 @@ INSERT INTO work_tag (SELECT * FROM tmp_work_tag_mbs_12508)
     ON CONFLICT (work, tag) DO UPDATE SET count = excluded.count, last_updated = excluded.last_updated;
 DROP TABLE tmp_work_tag_mbs_12508;
 
+DELETE FROM tag WHERE id IN (SELECT id FROM tmp_tag_mbs_12508);
 INSERT INTO tag (SELECT * FROM tmp_tag_mbs_12508)
-    ON CONFLICT (id) DO UPDATE SET ref_count = excluded.ref_count;
+    ON CONFLICT (name) DO UPDATE SET id = excluded.id, ref_count = excluded.ref_count;
 DROP TABLE tmp_tag_mbs_12508;
 SQL
 ) || ( echo "$OUTPUT" && exit 1 )

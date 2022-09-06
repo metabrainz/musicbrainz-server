@@ -31,14 +31,14 @@
 # AO <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
 # Youenn Piolet, 2015
-# yvanz, 2016-2021
+# yvanz, 2016-2022
 # yvanz, 2016
 # yvanz, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: Nicolás Tamargo <reosarevok@gmail.com>, 2022\n"
+"Last-Translator: yvanz, 2016-2022\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -861,6 +861,12 @@ msgstr "Relie une parution à un événement où elle était offerte. Ceci est p
 #: DB:link_type/description:823
 msgid "Links a series to another series that exists within it."
 msgstr "Relie une série à une autre série comprise en elle-même."
+
+#: DB:link_type/description:1094
+msgid ""
+"Links an award series to the award ceremony series of events where it's "
+"announced and/or awarded."
+msgstr ""
 
 #: DB:link_type/description:798
 msgid "Links an event to (one of) its main performer(s)."
@@ -2076,7 +2082,7 @@ msgstr "Ceci est utilisé pour relier la page Discogs pour cet artiste."
 
 #: DB:link_type/description:1089
 msgid "This is used to link the Discogs page for this genre/style."
-msgstr ""
+msgstr "Ceci est utilisé pour relier la page Discogs pour ce genre/style."
 
 #: DB:link_type/description:217
 msgid "This is used to link the Discogs page for this label."
@@ -2538,7 +2544,7 @@ msgstr "Ceci relie un artiste à une une discographie en ligne de ses œuvres. L
 
 #: DB:link_type/description:1080
 msgid "This links an artist to its channel at YouTube Music."
-msgstr ""
+msgstr "Ceci relie un artiste à sa chaîne sur YouTube Music."
 
 #: DB:link_type/description:718
 msgid "This links an artist to its page at Bandcamp."
@@ -3323,7 +3329,7 @@ msgstr "Ceci devrait être utilisé quand l’on donne crédit à un artiste dan
 msgid ""
 "This specifies the credited task(s) for a relationship that can be credited "
 "in many different ways, such as \"producer\", or one that is otherwise "
-"generic \"miscellaneous support\"."
+"generic, such as \"miscellaneous support\"."
 msgstr ""
 
 #: DB:link_attribute_type/description:568
@@ -3519,11 +3525,11 @@ msgstr "Page Wikipédia pour"
 
 #: DB:link_type/link_phrase:1080
 msgid "YouTube Music"
-msgstr ""
+msgstr "YouTube Music"
 
 #: DB:link_type/reverse_link_phrase:1080
 msgid "YouTube Music channel for"
-msgstr ""
+msgstr "Chaîne YouTube Music pour"
 
 #: DB:link_type/reverse_link_phrase:791 DB:link_type/reverse_link_phrase:792
 #: DB:link_type/reverse_link_phrase:193 DB:link_type/reverse_link_phrase:225
@@ -3686,6 +3692,14 @@ msgstr "proposé sur"
 #: DB:link_type/link_phrase:795
 msgid "available releases"
 msgstr "parutions proposées"
+
+#: DB:link_type/link_phrase:1094 DB:link_type/name:1094
+msgid "award ceremony"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1094
+msgid "award ceremony for"
+msgstr ""
 
 #: DB:link_attribute_type/name:1137
 msgid "bachelor’s degree"
@@ -4508,7 +4522,7 @@ msgstr "a un ID VIAF à"
 
 #: DB:link_type/long_link_phrase:1080
 msgid "has YouTube Music channel at"
-msgstr ""
+msgstr "a une chaîne YouTube Music à"
 
 #: DB:link_type/long_link_phrase:190
 msgid "has a BBC Music page at"
@@ -4720,6 +4734,10 @@ msgstr "a une page de communauté en ligne sur"
 #: DB:link_type/long_link_phrase:350
 msgid "has arrangement"
 msgstr "a un arrangement"
+
+#: DB:link_type/long_link_phrase:1094
+msgid "has award ceremony"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:66
 msgid "has business association with"
@@ -5024,7 +5042,7 @@ msgstr "est un hommage à"
 msgid ""
 "is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
 "{karaoke} recording of"
-msgstr ""
+msgstr "est un {medley:pot-pourri} {live:en public} {medley:incluant un} enregistrement {karaoke:karaoké} {partial:partiel} {instrumental:instrumental} {cover:une reprise} de"
 
 #: DB:link_type/long_link_phrase:15
 msgid "is a {translated} {parody} cover of"
@@ -7054,7 +7072,7 @@ msgstr "youtube"
 
 #: DB:link_type/name:1080
 msgid "youtube music"
-msgstr ""
+msgstr "youtube music"
 
 #: DB:link_type/reverse_link_phrase:886
 msgid "{additional:additionally} arranged at"
@@ -7941,13 +7959,13 @@ msgstr "technicien en {instrument:%|instruments} pour"
 msgid ""
 "{live} {medley:medley including a} {partial} {instrumental} {cover} "
 "{karaoke} recording of"
-msgstr ""
+msgstr "{medley:pot-pourri} {live:en public} {medley:incluant un} enregistrement {karaoke:karaoké} {partial:partiel} {instrumental:instrumental} {cover:une reprise} de"
 
 #: DB:link_type/reverse_link_phrase:278
 msgid ""
 "{live} {medley:medleys including} {partial} {instrumental} {cover} {karaoke}"
 " recordings"
-msgstr ""
+msgstr "{medley:pot-pourri} {live:en public} {medley:incluant des} enregistrements {karaoke:karaoké} {partial:partiels} {instrumental:instrumentaux} {cover:des reprises}"
 
 #: DB:link_type/link_phrase:109
 msgid "{step}children"

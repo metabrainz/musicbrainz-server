@@ -29,9 +29,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-22 14:31+0000\n"
+"POT-Creation-Date: 2022-08-30 18:50+0300\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
-"Last-Translator: salo.rock, 2012-2013,2016-2022\n"
+"Last-Translator: salo.rock, 2022\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -5535,13 +5535,20 @@ msgstr "Gli ID della vecchia e nuova annotazione devono essere numeri interi uni
 msgid "[unknown]"
 msgstr "[sconosciuto]"
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:86
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:90
+#, perl-brace-format
 msgid ""
-"Language set. If you find any problems with the translation, please "
-"{url|help us improve it}!"
-msgstr "Lingua impostata correttamente. Se noti un problema con la traduzione, {url|aiutaci a migliorarla}!"
+"Language set. If it was not intended, just {url|set “{prev_lang_name}” "
+"back}."
+msgstr "Lingua impostata correttamente. Se non l'hai fatto di proposito, {url|reimposta la lingua “{prev_lang_name}”}."
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:326
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:98
+msgid ""
+"If you find any problems with the translation, please {url|help us improve "
+"it}!"
+msgstr "Se noti un problema con la traduzione, {url|aiutaci a migliorarla}!"
+
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:340
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
@@ -14909,32 +14916,38 @@ msgid ""
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr "I collegamenti a specifiche sezioni di articoli di Wikipedia non sono consentiti. Se l'articolo è comunque pertinente, rimuovi “{fragment}”. Consulta le {url|linee guida}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5148
+#: ../root/static/scripts/edit/URLCleanup.js:5044
+msgid ""
+"Links to Wikipedia user pages are not allowed. Please link only to actual "
+"Wikipedia articles."
+msgstr "I collegamenti a pagine utente di Wikipedia non sono consentiti. Aggiungi solo collegamenti ad articoli di Wikipedia."
+
+#: ../root/static/scripts/edit/URLCleanup.js:5158
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
 "entity, if it exists, instead."
 msgstr "Questo è un collegamento ad una playlist, che non è un canale di video e non è detto che sia autorizzata in modo ufficiale. Aggiungi piuttosto un collegamento al canale ufficiale di questa entità, se esiste."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5188
+#: ../root/static/scripts/edit/URLCleanup.js:5198
 msgid "Only video and playlist links are allowed on releases."
 msgstr "Solo collegamenti video e playlist sono consentiti sulle pubblicazioni."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5224
+#: ../root/static/scripts/edit/URLCleanup.js:5234
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia"
 " links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr "Wikipedia non ha solitamente voci su pubblicazioni specifiche, perciò al momento non è consentito aggiungere collegamenti a Wikipedia ad una pubblicazione. Aggiungi piuttosto questo collegamento a Wikipedia al gruppo di pubblicazioni, se pertinente."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5236
+#: ../root/static/scripts/edit/URLCleanup.js:5246
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr "Wikidata non ha solitamente voci su pubblicazioni specifiche, perciò al momento non è consentito aggiungere collegamenti a Wikidata ad una pubblicazione. Aggiungi piuttosto questo collegamento a Wikidata al gruppo di pubblicazioni, se pertinente."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5255
+#: ../root/static/scripts/edit/URLCleanup.js:5265
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -14943,7 +14956,7 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr "Questo è un profilo di Bandcamp e non una pagina per una pubblicazione specifica. Anche se in questo momento mostra questa pubblicazione, ciò potrebbe cambiare quando l'artista ne pubblicherà un'altra. Ti chiediamo perciò di trovare e aggiungere la pagina corretta per la pubblicazione (“{album_url_pattern}” o “{single_url_pattern}”). Aggiungi pure questo collegamento di profilo all'artista o all'etichetta attinente."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5283
+#: ../root/static/scripts/edit/URLCleanup.js:5293
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases"
@@ -14952,11 +14965,11 @@ msgid ""
 "the appropriate artist or label."
 msgstr "Questo è un profilo di Bandcamp e non una pagina per una registrazione specifica. Anche se in questo momento mostra una registrazione singola, ciò potrebbe cambiare quando l'artista ne pubblicherà un'altra. Ti chiediamo perciò di trovare e aggiungere la pagina corretta per la registrazione (“{album_url_pattern}” o “{single_url_pattern}”). Aggiungi pure questo collegamento di profilo all'artista o all'etichetta attinente."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5446
+#: ../root/static/scripts/edit/URLCleanup.js:5456
 msgid "Some relationship types are missing for this URL."
 msgstr "Alcuni tipi di relazione per questo URL sono mancanti."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5463
+#: ../root/static/scripts/edit/URLCleanup.js:5473
 #: ../root/static/scripts/edit/externalLinks.js:886
 msgid "This relationship type combination is invalid."
 msgstr "Questa combinazione di tipi di relazione non è valida."
@@ -15244,14 +15257,14 @@ msgstr "Dettagli sul genere"
 msgid "Guess Case Options"
 msgstr "Opzioni ritocco maiuscolo/minuscolo"
 
-#: ../root/static/scripts/guess-case/modes.js:310
+#: ../root/static/scripts/guess-case/modes.js:311
 msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and"
 " short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr "Questa modalità rende maiuscole quasi tutte le parole, con solo alcune parole (principalmente articoli e preposizioni brevi) in minuscolo. Alcune parole potrebbero dover essere corrette manualmente per seguire le {url|linee guida su maiuscolo/minuscolo per l'inglese}."
 
-#: ../root/static/scripts/guess-case/modes.js:347
+#: ../root/static/scripts/guess-case/modes.js:348
 msgid ""
 "This mode capitalises titles as sentence mode, but also inserts spaces "
 "before semicolons, colons, exclamation marks and question marks, and inside "
@@ -15259,14 +15272,14 @@ msgid ""
 "{url|French capitalisation guidelines}."
 msgstr "Questa modalità gestisce maiuscole e minuscole come la modalità frase, ma in più inserisce gli spazi prima di punto e virgola, due punti, punti esclamativi, punti interrogativi e all'interno delle virgolette. Alcune parole potrebbero dover essere corrette manualmente per seguire le {url|linee guida su maiuscolo/minuscolo per il francese}."
 
-#: ../root/static/scripts/guess-case/modes.js:371
+#: ../root/static/scripts/guess-case/modes.js:372
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
 msgstr "Questa modalità rende maiuscola la prima parola di una frase, con la maggior parte delle altre parole in minuscolo. Alcune parole, spesso nomi propri, potrebbero dover essere corrette manualmente per seguire le {url|linee guida su maiuscolo/minuscolo per quella lingua}."
 
-#: ../root/static/scripts/guess-case/modes.js:386
+#: ../root/static/scripts/guess-case/modes.js:387
 msgid ""
 "This mode handles the Turkish capitalisation of 'i' ('İ') and 'ı' ('I'). "
 "Some words may need to be manually corrected according to the {url|Turkish "
