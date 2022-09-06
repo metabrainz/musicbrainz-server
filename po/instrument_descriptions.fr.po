@@ -14,6 +14,7 @@
 # Jack, 2016
 # Léonard Cardyn <email address hidden>, 2015
 # murdos <email address hidden>, 2011-2012
+# Nicolás Tamargo <email address hidden>, 2022
 # AO <email address hidden>, 2015
 # AO <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
@@ -24,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 19:17+0000\n"
-"Last-Translator: Idlusen <boulanger.m@mailoo.org>, 2019\n"
+"Last-Translator: Nicolás Tamargo <reosarevok@gmail.com>, 2022\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -395,13 +396,6 @@ msgid ""
 "Not to be confused with the side-blown (concerto) <a "
 "href=\"/instrument/b524b7a7-2d87-43a7-9977-8a9081ff6e0f/\">soprano "
 "flute</a>."
-msgstr ""
-
-#. name:siku
-#: DB:instrument/description:569
-msgid ""
-"Also known as zampona, traditional Andean panpipe has two rows of pipes tied"
-" together with colourful bands."
 msgstr ""
 
 #. name:alto viol
@@ -1228,6 +1222,14 @@ msgid ""
 "and dance."
 msgstr ""
 
+#. name:siku
+#: DB:instrument/description:569
+msgid ""
+"For the Italian bag-pipe, see <a href=\"/\">zampogna</a>.<br /> Also known "
+"as zampona, traditional Andean panpipe has two rows of pipes tied together "
+"with colourful bands."
+msgstr ""
+
 #. name:lira da braccio
 #: DB:instrument/description:1016
 msgid ""
@@ -1343,11 +1345,6 @@ msgstr "Gong fait d'une variété de jade (pounamou) et d'os de dauphin, avec un
 #: DB:instrument/description:857
 msgid "Gourd (hue) shakers with seeds intact"
 msgstr "Sistre fait de courges remplies de graines."
-
-#. name:syrinx
-#: DB:instrument/description:298
-msgid "Greek Panflute"
-msgstr "La flûte de Pan grecque"
 
 #. name:khim
 #: DB:instrument/description:287
@@ -2064,10 +2061,20 @@ msgid ""
 "consort."
 msgstr ""
 
-#. name:nai
-#: DB:instrument/description:297
-msgid "Nai, Romanian Panflute"
-msgstr "La naÏ, flûte de Pan roumaine"
+#. name:pan flute
+#: DB:instrument/description:16
+msgid ""
+"Named after the Greek god Pan, they are a selection of end-blown pipes made "
+"of reeds, bamboo, wood or similar. Many different variations exists around "
+"the world, especially in South America."
+msgstr ""
+
+#. name:syrinx
+#: DB:instrument/description:298
+msgid ""
+"Named after the myth of the nymph Syrinx, this reed pan flute was used in "
+"ancient Greece."
+msgstr ""
 
 #. name:kannel
 #: DB:instrument/description:872
@@ -2371,6 +2378,13 @@ msgid ""
 "Played by manipulating the airstream through bamboo pipes using cupping and "
 "clapping, this Vietnamesian \"Air Xylophone\" was traditionally played in "
 "the rice-field."
+msgstr ""
+
+#. name:udu
+#: DB:instrument/description:330
+msgid ""
+"Played ceremonially by Igbo people, it is a clay jug beaten with hands to "
+"create sounds."
 msgstr ""
 
 #. name:kendhang indung
@@ -3879,7 +3893,7 @@ msgid ""
 "The rammana is a frame drum used in classical Thai and Cambodian music which"
 " forms one part of <a "
 "href=\"http://en.wikipedia.org/wiki/Thon_and_rammana\">thon and rammana</a>."
-msgstr "Le rammana est un tambour sur cadre utilisé dans la musique classique Thaï et cambodgienne. Il forme une partie du <a href=\"http://en.wikipedia.org/wiki/Thon_and_rammana\">thon et rammana."
+msgstr "Le rammana est un tambour sur cadre utilisé dans la musique classique Thaï et cambodgienne. Il forme une partie du <a href=\"http://en.wikipedia.org/wiki/Thon_and_rammana\">thon et rammana</a>."
 
 #. name:ranat ek
 #: DB:instrument/description:614
@@ -4146,7 +4160,7 @@ msgid ""
 "The thon is a goblet drum with a ceramic or wooden body used in classical "
 "Thai and Cambodian music which forms one part of <a "
 "href=\"http://en.wikipedia.org/wiki/Thon_and_rammana\">thon and rammana</a>."
-msgstr "Le thon est un tambour en gobelet avec un corps en céramique ou en bois utilisé dans la musique classique thaïlandaise et cambodgienne."
+msgstr "Le thon est un tambour en gobelet avec un corps en céramique ou en bois utilisé dans la musique classique thaïlandaise et cambodgienne. Il forme une partie du <a href=\"http://en.wikipedia.org/wiki/Thon_and_rammana\">thon et rammana</a>."
 
 #. name:tinya
 #: DB:instrument/description:724
@@ -4203,13 +4217,6 @@ msgid ""
 "with folk music of Punjab."
 msgstr "Le tumbi est un instrument aigu à une corde pincée associé à la musique folklorique du Punjab."
 
-#. name:udu
-#: DB:instrument/description:330
-msgid ""
-"The udu is a Nigerian idiophone consisting of a water jug with an additional"
-" hole."
-msgstr "Percussion idiophone nigérienne consistant en une jarre en terre cuite avec un trou additionnel sur le côté."
-
 #. name:ukeke
 #: DB:instrument/description:631
 msgid ""
@@ -4244,13 +4251,6 @@ msgid ""
 "The virginals is a smaller and simpler rectangular form of the harpsichord "
 "with only one string per note"
 msgstr "Le virginal est une sorte de clavecin rectangulaire plus petit et plus simple à seulement un note par corde."
-
-#. name:wot
-#: DB:instrument/description:711
-msgid ""
-"The wot is a circular panpipe from Laos and the Isan region of northeastern "
-"Thailand."
-msgstr "Le wot est une flûte de pan circulaire du Laos et de la région Isan du Nord-Est de la Thaïlande."
 
 #. name:xiaoluo
 #: DB:instrument/description:550
@@ -4665,6 +4665,14 @@ msgid ""
 "set in a 75 cm long wooden frame."
 msgstr ""
 
+#. name:wot
+#: DB:instrument/description:711
+msgid ""
+"Used in Laos and Isan traditional music, it is made of bamboo or ku wood, "
+"the individual stopped pipes are arranged around a central core using "
+"beeswax."
+msgstr ""
+
 #. name:octavilla
 #: DB:instrument/description:940
 msgid ""
@@ -4853,6 +4861,13 @@ msgid ""
 " technique, it is 75 cm long with 3 to 6 holes depending on subtype. <br /> "
 "<ul> <li>saluang darek \"inland\" 4 holes</li> <li>saluang pauh/padang 6 "
 "holes</li> <li>saluang sungai pagu 3 holes</li> </ul>"
+msgstr ""
+
+#. name:nai
+#: DB:instrument/description:297
+msgid ""
+"Used traditionally since 16th-17th century by lǎutari, it is made of bamboo "
+"or reed stopped with cork and beeswax set in a curved bottom bar."
 msgstr ""
 
 #. name:gendèr

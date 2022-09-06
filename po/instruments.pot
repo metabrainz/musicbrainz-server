@@ -1794,11 +1794,6 @@ msgctxt "Traditional Russian plucked psaltery"
 msgid "gusli"
 msgstr ""
 
-#: DB:instrument/name:567
-msgctxt "modern gut-stringed acoustic guitar"
-msgid "gut guitar"
-msgstr ""
-
 #: DB:instrument/name:452
 msgid "guzheng"
 msgstr ""
@@ -2631,6 +2626,7 @@ msgid "nagak"
 msgstr ""
 
 #: DB:instrument/name:297
+msgctxt "Romanian diatonic pan flute"
 msgid "nai"
 msgstr ""
 
@@ -2689,11 +2685,6 @@ msgstr ""
 
 #: DB:instrument/name:228
 msgid "nyckelharpa"
-msgstr ""
-
-#: DB:instrument/name:566
-msgctxt "Modern nylon-stringed acoustic guitar"
-msgid "nylon acoustic guitar"
 msgstr ""
 
 #: DB:instrument/name:8
@@ -2815,6 +2806,7 @@ msgid "pakhawaj"
 msgstr ""
 
 #: DB:instrument/name:16
+msgctxt "Collection of end-blown pipes"
 msgid "pan flute"
 msgstr ""
 
@@ -3623,6 +3615,7 @@ msgid "synthesizer"
 msgstr ""
 
 #: DB:instrument/name:298
+msgctxt "Ancient Greek pan flute"
 msgid "syrinx"
 msgstr ""
 
@@ -4297,6 +4290,7 @@ msgid "woodwind"
 msgstr ""
 
 #: DB:instrument/name:711
+msgctxt "Round Southeast Asian traditional pan-flute"
 msgid "wot"
 msgstr ""
 

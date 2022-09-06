@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: salo.rock, 2012,2017,2020-2022\n"
+"Last-Translator: salo.rock, 2022\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -841,6 +841,12 @@ msgstr "Collega una pubblicazione ad un evento nel quale era disponibile. Serve 
 #: DB:link_type/description:823
 msgid "Links a series to another series that exists within it."
 msgstr "Collega una serie ad un'altra serie che esiste al suo interno."
+
+#: DB:link_type/description:1094
+msgid ""
+"Links an award series to the award ceremony series of events where it's "
+"announced and/or awarded."
+msgstr "Collega una serie di premi con la serie di eventi di cerimonie di premiazione in cui i premi vengono annunciati e/o assegnati."
 
 #: DB:link_type/description:798
 msgid "Links an event to (one of) its main performer(s)."
@@ -3303,8 +3309,8 @@ msgstr "Da usare quando un artista è accreditato nelle note di libretto o in fo
 msgid ""
 "This specifies the credited task(s) for a relationship that can be credited "
 "in many different ways, such as \"producer\", or one that is otherwise "
-"generic \"miscellaneous support\"."
-msgstr "Specifica l'incarico (o incarichi) accreditato per una relazione che può essere accreditata in molti modi diversi, come per esempio \"produttore\", o per un altrimenti generico \"supporto a vario titolo\"."
+"generic, such as \"miscellaneous support\"."
+msgstr "Specifica l'incarico (o incarichi) accreditato per una relazione che può essere accreditata in molti modi diversi, come per es. \"produttore\", o per una relazione altrimenti generica, come per es. \"supporto a vario titolo\"."
 
 #: DB:link_attribute_type/description:568
 msgid "This specifies the medium the relationship applies to."
@@ -3666,6 +3672,14 @@ msgstr "disponibile su"
 #: DB:link_type/link_phrase:795
 msgid "available releases"
 msgstr "pubblicazioni disponibili"
+
+#: DB:link_type/link_phrase:1094 DB:link_type/name:1094
+msgid "award ceremony"
+msgstr "cerimonia di premiazione"
+
+#: DB:link_type/reverse_link_phrase:1094
+msgid "award ceremony for"
+msgstr "cerimonia di premiazione per"
 
 #: DB:link_attribute_type/name:1137
 msgid "bachelor’s degree"
@@ -4700,6 +4714,10 @@ msgstr "ha una pagina di comunità online su"
 #: DB:link_type/long_link_phrase:350
 msgid "has arrangement"
 msgstr "ha l'arrangiamento"
+
+#: DB:link_type/long_link_phrase:1094
+msgid "has award ceremony"
+msgstr "ha la cerimonia di premiazione"
 
 #: DB:link_type/long_link_phrase:66
 msgid "has business association with"

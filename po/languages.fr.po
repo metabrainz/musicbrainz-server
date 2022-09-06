@@ -145,7 +145,7 @@ msgstr "Arawak"
 #. frequency:1 iso_code_3:pka
 #: DB:language/name:5403
 msgid "Ardhamāgadhī Prākrit"
-msgstr ""
+msgstr "Ardha-Magadhi Prâkrit"
 
 #. frequency:1 iso_code_3:hye
 #: DB:language/name:21
@@ -215,7 +215,7 @@ msgstr "Azéri"
 #. frequency:1 iso_code_3:bvd
 #: DB:language/name:1470
 msgid "Baeggu"
-msgstr ""
+msgstr "Baeggu"
 
 #. frequency:1 iso_code_3:ban
 #: DB:language/name:40

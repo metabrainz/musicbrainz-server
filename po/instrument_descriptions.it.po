@@ -389,13 +389,6 @@ msgid ""
 "flute</a>."
 msgstr "Conosciuto anche come discanto, è il più comune e terzo più piccolo membro della famiglia dei flauti dolci moderna. <br /> Realizzato tradizionalmente in diversi tipi di legno, oggi è spesso realizzato in plastica e utilizzato per l'insegnamento musicale ai bambini. <br /> Da non confondere con il <a href=\"/instrument/b524b7a7-2d87-43a7-9977-8a9081ff6e0f/\">flauto soprano</a> traverso (da concerto) a imboccatura laterale."
 
-#. name:siku
-#: DB:instrument/description:569
-msgid ""
-"Also known as zampona, traditional Andean panpipe has two rows of pipes tied"
-" together with colourful bands."
-msgstr "Conosciuto anche come zampoña, è un flauto di Pan tradizionale andino con due file di canne tenute insieme da fasce colorate."
-
 #. name:alto viol
 #: DB:instrument/description:923
 msgid ""
@@ -1220,6 +1213,14 @@ msgid ""
 "and dance."
 msgstr "Violino folk originario dell'Hardanger, in Norvegia. Ha 4 corde melodiche e 4 o 5 corde bordone, è riccamente decorato ed è utilizzato nella musica e danza tradizionale \"halling\"."
 
+#. name:siku
+#: DB:instrument/description:569
+msgid ""
+"For the Italian bag-pipe, see <a href=\"/\">zampogna</a>.<br /> Also known "
+"as zampona, traditional Andean panpipe has two rows of pipes tied together "
+"with colourful bands."
+msgstr "Per la cornamusa italiana, utilizza <a href=\"/\">zampogna</a>.<br /> Conosciuto anche come zampoña, è un flauto di Pan tradizionale andino con due file di canne tenute insieme da fasce colorate."
+
 #. name:lira da braccio
 #: DB:instrument/description:1016
 msgid ""
@@ -1335,11 +1336,6 @@ msgstr "Gong realizzato in pounamu (pietra verde) e osso di globicefalo, con una
 #: DB:instrument/description:857
 msgid "Gourd (hue) shakers with seeds intact"
 msgstr "Shaker fatti di zucca a fiasco (detta hue) con semi ancora intatti."
-
-#. name:syrinx
-#: DB:instrument/description:298
-msgid "Greek Panflute"
-msgstr "Flauto di Pan greco"
 
 #. name:khim
 #: DB:instrument/description:287
@@ -2056,10 +2052,20 @@ msgid ""
 "consort."
 msgstr "Oggi il membro più comune della famiglia delle viole da gamba, in origine era la viola da gamba di gamma bassa."
 
-#. name:nai
-#: DB:instrument/description:297
-msgid "Nai, Romanian Panflute"
-msgstr "Flauto di Pan rumeno"
+#. name:pan flute
+#: DB:instrument/description:16
+msgid ""
+"Named after the Greek god Pan, they are a selection of end-blown pipes made "
+"of reeds, bamboo, wood or similar. Many different variations exists around "
+"the world, especially in South America."
+msgstr "Un assortimento di flauti con imboccatura a un'estremità realizzati in giunchi, bambù, legno o simili, prendono il nome dal dio greco Pan. Ne esistono molte varianti in giro per il mondo, e in particolare in America meridionale."
+
+#. name:syrinx
+#: DB:instrument/description:298
+msgid ""
+"Named after the myth of the nymph Syrinx, this reed pan flute was used in "
+"ancient Greece."
+msgstr "Flauto di Pan in giunchi usato nell'antica Grecia, prende il nome dal mito della ninfa Siringa."
 
 #. name:kannel
 #: DB:instrument/description:872
@@ -2364,6 +2370,13 @@ msgid ""
 "clapping, this Vietnamesian \"Air Xylophone\" was traditionally played in "
 "the rice-field."
 msgstr "Suonato alterando il flusso d'aria che passa attraverso le canne in bambù mettendo le mani a conchetta o battendole, questo \"xilofono ad aria\" vietnamita era tradizionalmente suonato nelle risaie."
+
+#. name:udu
+#: DB:instrument/description:330
+msgid ""
+"Played ceremonially by Igbo people, it is a clay jug beaten with hands to "
+"create sounds."
+msgstr "Suonato dagli igbo durante le cerimonie, è un'anfora in argilla che viene percossa con le mani per produrre suoni."
 
 #. name:kendhang indung
 #: DB:instrument/description:996
@@ -4195,13 +4208,6 @@ msgid ""
 "with folk music of Punjab."
 msgstr "Strumento a singola corda pizzicata, dal tono acuto e associato alla musica tradizionale del Punjab."
 
-#. name:udu
-#: DB:instrument/description:330
-msgid ""
-"The udu is a Nigerian idiophone consisting of a water jug with an additional"
-" hole."
-msgstr "Idiofono nigeriano che consiste in un recipiente per l'acqua con un foro aggiuntivo."
-
 #. name:ukeke
 #: DB:instrument/description:631
 msgid ""
@@ -4236,13 +4242,6 @@ msgid ""
 "The virginals is a smaller and simpler rectangular form of the harpsichord "
 "with only one string per note"
 msgstr "Strumento dalla forma più piccola e semplice rispetto al clavicembalo, dotato di una sola corda per ciascuna nota."
-
-#. name:wot
-#: DB:instrument/description:711
-msgid ""
-"The wot is a circular panpipe from Laos and the Isan region of northeastern "
-"Thailand."
-msgstr "Flauto di Pan circolare proveniente dal Laos e dalla regione dell'Isan nella Thailandia nordorientale."
 
 #. name:xiaoluo
 #: DB:instrument/description:550
@@ -4657,6 +4656,14 @@ msgid ""
 "set in a 75 cm long wooden frame."
 msgstr "Usato nel gamelan giavanese, ha 6 (slendro) o 7 (pelog) sbarre in bronzo percosse da una mazzuola a disco (tabuh) e sospese su risuonatori individuali cilindrici in metallo o in bambù, disposti in un telaio in legno lungo 75 cm."
 
+#. name:wot
+#: DB:instrument/description:711
+msgid ""
+"Used in Laos and Isan traditional music, it is made of bamboo or ku wood, "
+"the individual stopped pipes are arranged around a central core using "
+"beeswax."
+msgstr "Usato nella musica tradizionale lao e isan, è realizzato in bambù o legno di ku. Le canne, individuali e chiuse a un estremità, sono disposte attorno a un nucleo centrale utilizzando la cera d'api."
+
 #. name:octavilla
 #: DB:instrument/description:940
 msgid ""
@@ -4846,6 +4853,13 @@ msgid ""
 "<ul> <li>saluang darek \"inland\" 4 holes</li> <li>saluang pauh/padang 6 "
 "holes</li> <li>saluang sungai pagu 3 holes</li> </ul>"
 msgstr "Tradizionalmente usato dai minang di Sumatra occidentale per canzoni d'amore, riti sciamanici e per catturare le tigri, questo flauto aperto in bambù con imboccatura a un'estremità può essere decorato per ricordare il mantello striato di una tigre. Suonato con una tecnica di respirazione circolare, è lungo 75 cm e ha dai 3 ai 6 fori a seconda del sottotipo. <br /> <ul> <li>Saluang darek \"dell'entroterra\": 4 fori</li> <li>Saluang pauh/padang: 6 fori</li> <li>Saluang sungai pagu: 3 fori</li> </ul>"
+
+#. name:nai
+#: DB:instrument/description:297
+msgid ""
+"Used traditionally since 16th-17th century by lǎutari, it is made of bamboo "
+"or reed stopped with cork and beeswax set in a curved bottom bar."
+msgstr "Tradizionalmente usato dai lǎutari a partire dal XVI-XVII secolo, è realizzato in bambù o giunchi chiusi a un'estremità con sughero e cera d'api e disposti su una sbarra inferiore ricurva."
 
 #. name:gendèr
 #: DB:instrument/description:961

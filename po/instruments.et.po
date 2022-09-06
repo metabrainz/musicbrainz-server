@@ -2638,6 +2638,7 @@ msgid "nagak"
 msgstr ""
 
 #: DB:instrument/name:297
+msgctxt "Romanian diatonic pan flute"
 msgid "nai"
 msgstr "nai"
 
@@ -2822,8 +2823,9 @@ msgid "pakhawaj"
 msgstr ""
 
 #: DB:instrument/name:16
+msgctxt "Collection of end-blown pipes"
 msgid "pan flute"
-msgstr "paaniflööt"
+msgstr ""
 
 #: DB:instrument/name:315
 msgid "pang gu ly hu hmông"
@@ -3630,8 +3632,9 @@ msgid "synthesizer"
 msgstr "süntesaator"
 
 #: DB:instrument/name:298
+msgctxt "Ancient Greek pan flute"
 msgid "syrinx"
-msgstr "süürinks"
+msgstr ""
 
 #: DB:instrument/name:316
 msgid "sáo meò"
@@ -4057,8 +4060,9 @@ msgid "tōkere"
 msgstr ""
 
 #: DB:instrument/name:330
+msgctxt "Nigerian clay jug idiophone"
 msgid "udu"
-msgstr "udu (lisaauguga veekann)"
+msgstr ""
 
 #: DB:instrument/name:967
 msgctxt "Deep pitch gangsa used in Balinese gamelan"
@@ -4303,6 +4307,7 @@ msgid "woodwind"
 msgstr "puupuhkpillid"
 
 #: DB:instrument/name:711
+msgctxt "Round Southeast Asian traditional pan-flute"
 msgid "wot"
 msgstr ""
 
