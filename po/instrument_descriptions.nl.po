@@ -1330,11 +1330,6 @@ msgstr "De pahuu pounamu is een gong van pounamu, een groene steensoort. De klop
 msgid "Gourd (hue) shakers with seeds intact"
 msgstr "Hue puruwai zijn shakers gemaakt van kalebas (hue), waarvan de zaden nog aanwezig zijn."
 
-#. name:syrinx
-#: DB:instrument/description:298
-msgid "Greek Panflute"
-msgstr "Griekse panfluit"
-
 #. name:khim
 #: DB:instrument/description:287
 msgid "Hammered dulcimer of Thailand and Cambodia it was imported via China."
@@ -2050,10 +2045,20 @@ msgid ""
 "consort."
 msgstr "De basgamba is tegenwoordig het meest bespeelde lid uit de viola da gamba-familie."
 
-#. name:nai
-#: DB:instrument/description:297
-msgid "Nai, Romanian Panflute"
-msgstr "Een nai is een Roemeense panfluit."
+#. name:pan flute
+#: DB:instrument/description:16
+msgid ""
+"Named after the Greek god Pan, they are a selection of end-blown pipes made "
+"of reeds, bamboo, wood or similar. Many different variations exists around "
+"the world, especially in South America."
+msgstr ""
+
+#. name:syrinx
+#: DB:instrument/description:298
+msgid ""
+"Named after the myth of the nymph Syrinx, this reed pan flute was used in "
+"ancient Greece."
+msgstr ""
 
 #. name:kannel
 #: DB:instrument/description:872
@@ -4231,13 +4236,6 @@ msgid ""
 "with only one string per note"
 msgstr "Een virginaal is een toetsinstrument met enkelkorige besnaring die parallel aan het toetsenbord ligt."
 
-#. name:wot
-#: DB:instrument/description:711
-msgid ""
-"The wot is a circular panpipe from Laos and the Isan region of northeastern "
-"Thailand."
-msgstr "Een wot is een cirkelvormige panfluit uit Laos en de Isanregio in het noordoosten van Thailand."
-
 #. name:xiaoluo
 #: DB:instrument/description:550
 msgid ""
@@ -4651,6 +4649,14 @@ msgid ""
 "set in a 75 cm long wooden frame."
 msgstr "De slentem bestaat uit zes sléndro- en zeven pélogtoetsen van brons. Elke toets hangt boven een eigen resonator van metaal of bamboe. Het instrument maakt deel uit van het Javaanse gamelanensemble."
 
+#. name:wot
+#: DB:instrument/description:711
+msgid ""
+"Used in Laos and Isan traditional music, it is made of bamboo or ku wood, "
+"the individual stopped pipes are arranged around a central core using "
+"beeswax."
+msgstr ""
+
 #. name:octavilla
 #: DB:instrument/description:940
 msgid ""
@@ -4840,6 +4846,13 @@ msgid ""
 "<ul> <li>saluang darek \"inland\" 4 holes</li> <li>saluang pauh/padang 6 "
 "holes</li> <li>saluang sungai pagu 3 holes</li> </ul>"
 msgstr "De saluang wordt traditioneel door de Minang uit West-Sumatra bespeeld voor liefdesliederen en bij sjamaanrituelen en het vangen van tijgers. Het is een open, verticale fluit die vaak met tijgerstrepen wordt versierd. Het instrument wordt met een circulaire ademhalingstechniek bespeeld, is 75 cm lang en heeft afhankelijk van het type drie tot zes vingergaten. <br /><ul><li>de saluang darek (uit het binnenland) met vier gaten</li> <li>de saluang pauh/padang met zes gaten </li><li>de saluang sungai pagu met drie gaten</li> </ul>"
+
+#. name:nai
+#: DB:instrument/description:297
+msgid ""
+"Used traditionally since 16th-17th century by lǎutari, it is made of bamboo "
+"or reed stopped with cork and beeswax set in a curved bottom bar."
+msgstr ""
 
 #. name:gendèr
 #: DB:instrument/description:961

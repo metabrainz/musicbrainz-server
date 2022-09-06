@@ -64,7 +64,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-22 14:31+0000\n"
+"POT-Creation-Date: 2022-08-30 18:50+0300\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: yvanz, 2016-2022\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
@@ -5553,12 +5553,12 @@ msgstr "L’ID de révision d’annotation doit être un entier positif"
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:76
 #, perl-brace-format
 msgid "Found no annotation with ID “{id}”."
-msgstr ""
+msgstr "Trouvé aucune annotation avec l‘ID « {id} »."
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:91
 #, perl-brace-format
 msgid "The annotation with ID “{id}” is not associated with this entity."
-msgstr ""
+msgstr "L’annotation avec l’ID « {id} » n’est pas associée avec cette entité."
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:230
 msgid "The old and new annotation ids must be unique, positive integers."
@@ -5570,13 +5570,20 @@ msgstr "Les anciens et nouveaux ID d’annotation doivent être des entiers posi
 msgid "[unknown]"
 msgstr "[inconnu]"
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:86
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:90
+#, perl-brace-format
 msgid ""
-"Language set. If you find any problems with the translation, please "
-"{url|help us improve it}!"
-msgstr "Langue appliquée. Si vous rencontrez un quelconque problème de traduction, n’hésitez pas à {url|nous aider à l’améliorer} !"
+"Language set. If it was not intended, just {url|set “{prev_lang_name}” "
+"back}."
+msgstr "Langue sélectionnée. Si c’était involontaire, vous pouvez {url|restaurer « {prev_lang_name} »} tout simplement."
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:326
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:98
+msgid ""
+"If you find any problems with the translation, please {url|help us improve "
+"it}!"
+msgstr "Si vous rencontrez un quelconque problème de traduction, n’hésitez pas à {url|nous aider à l’améliorer} !"
+
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:340
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
@@ -5903,15 +5910,15 @@ msgstr "Genre"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAlias.pm:11
 msgid "Add genre alias"
-msgstr ""
+msgstr "Ajouter un alias de genre"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAnnotation.pm:11
 msgid "Add genre annotation"
-msgstr ""
+msgstr "Ajouter une annotation de genre"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:20
 msgid "Add genre"
-msgstr ""
+msgstr "Ajouter un genre"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Delete.pm:10
 #: ../root/genre/DeleteGenre.js:33 ../root/genre/DeleteGenre.js:35
@@ -5920,7 +5927,7 @@ msgstr "Enlever le genre"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/DeleteAlias.pm:15
 msgid "Remove genre alias"
-msgstr ""
+msgstr "Enlever l’alias de genre"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:24
 #: ../root/genre/EditGenre.js:38
@@ -5929,7 +5936,7 @@ msgstr "Modifier le genre"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/EditAlias.pm:12
 msgid "Edit genre alias"
-msgstr ""
+msgstr "Modifier l’alias de genre"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/AddDiscID.pm:11
@@ -6674,11 +6681,11 @@ msgstr "Diffusion en flux Spotify"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Tidal.pm:14
 msgid "Purchase at Tidal"
-msgstr ""
+msgstr "Achat Tidal"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Tidal.pm:16
 msgid "Stream at Tidal"
-msgstr ""
+msgstr "Diffusion en flux Tidal"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Weibo.pm:13
 msgid "Weibo"
@@ -6936,7 +6943,7 @@ msgstr "Le protocole de l’URL doit être HTTP, HTTPS ou FTP"
 #: ../lib/MusicBrainz/Server/Form/Filter/Event.pm:28
 msgctxt "event type"
 msgid "[none]"
-msgstr ""
+msgstr "[aucun]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:57
 msgid ""
@@ -6948,11 +6955,11 @@ msgstr "Doit être une date valide ou partielle. Exemples : 2006-05-25, 1990-01
 #: ../lib/MusicBrainz/Server/Form/Filter/ReleaseGroup.pm:60
 msgctxt "release group type"
 msgid "[none]"
-msgstr ""
+msgstr "[aucun]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:26
 msgid "As performer"
-msgstr ""
+msgstr "Comme interprète"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:27
 msgid "As writer"
@@ -6961,7 +6968,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:34
 msgctxt "work type"
 msgid "[none]"
-msgstr ""
+msgstr "[aucun]"
 
 #: ../lib/MusicBrainz/Server/Form/Merge.pm:18
 msgid "Please pick the entity you want the others merged into."
@@ -7097,7 +7104,7 @@ msgstr "Recherche directe dans la base de données"
 
 #: ../lib/MusicBrainz/Server/Form/Series.pm:26
 msgid "A type is required."
-msgstr ""
+msgstr "Un type est requis."
 
 #: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:51
 msgid "The old password is incorrect"
@@ -7367,7 +7374,7 @@ msgstr "Vérification de don"
 msgid ""
 "We were not able to check your donation status right now. Please try again "
 "later."
-msgstr ""
+msgstr "Nous ne pouvons pas vérifier l’état de votre don actuellement. Merci de réessayer plus tard."
 
 #: ../root/account/Donation.js:47
 msgid ""
@@ -7659,18 +7666,18 @@ msgstr "Empreinte IP :"
 
 #: ../root/admin/PrivilegeSearch.js:46 ../root/admin/PrivilegeSearch.js:48
 msgid "Search users by privileges"
-msgstr ""
+msgstr "Chercher des utilisateurs par droits"
 
 #: ../root/admin/PrivilegeSearch.js:52
 msgid ""
 "Select the flags you want to match. Editors which have other flags in "
 "addition to the selected ones will also be shown, unless you select “Exact "
 "match only” below."
-msgstr ""
+msgstr "Sélectionnez les droits que vous voulez voir. Les éditeurs qui ont d’autres droits en plus de ceux sélectionnés seront également listés, à moins que vous n’ayez sélectionné « Correspondance exacte seulement » ci-dessous."
 
 #: ../root/admin/PrivilegeSearch.js:60
 msgid "Exact match only"
-msgstr ""
+msgstr "Correspondance exacte seulement"
 
 #: ../root/admin/PrivilegeSearch.js:137
 msgid "MBID submitter"
@@ -7872,11 +7879,11 @@ msgstr "Comparaison d’annotations"
 
 #: ../root/annotation/AnnotationComparison.js:49
 msgid "Old annotation"
-msgstr ""
+msgstr "Ancienne annotation"
 
 #: ../root/annotation/AnnotationComparison.js:58
 msgid "New annotation"
-msgstr ""
+msgstr "Nouvelle annotation"
 
 #: ../root/annotation/AnnotationComparison.js:71
 msgid ""
@@ -7899,7 +7906,7 @@ msgstr "Comparer les versions"
 
 #: ../root/annotation/AnnotationHistory.js:64
 msgid "This entity has no annotation history."
-msgstr ""
+msgstr "Cette entité n’a jamais eu d’annotation."
 
 #: ../root/annotation/EditAnnotation.js:49
 #: ../root/annotation/EditAnnotation.js:51
@@ -7913,7 +7920,7 @@ msgid ""
 "Please note that any content submitted to MusicBrainz will be made available"
 " to the public under {open|open licenses}, do not submit any copyrighted "
 "text here!"
-msgstr ""
+msgstr "Notez que tout contenu envoyés à MusicBrainz sera publié sous une licence {open|ouverte et libre}, ne publiez pas de texte protégé par copyright ici !"
 
 #: ../root/annotation/EditAnnotation.js:64
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:70
@@ -7952,7 +7959,7 @@ msgstr "Rubriques :"
 
 #: ../root/annotation/EditAnnotation.js:116
 msgid "= Title 1 =; == Title 2 ==; === Title 3 ==="
-msgstr ""
+msgstr "= Titre 1 =; == Titre 2 ==; === Titre 3 ==="
 
 #: ../root/annotation/EditAnnotation.js:120
 msgid "Lists:"
@@ -8072,7 +8079,7 @@ msgstr "Cette région n’a de relation avec aucune œuvre."
 
 #: ../root/artist/ArtistEvents.js:78
 msgid "No events found that match this search."
-msgstr ""
+msgstr "Aucun événement de trouvé qui corresponde à cette recherche."
 
 #: ../root/artist/ArtistEvents.js:79
 msgid "This artist is not currently associated with any events."
@@ -8255,7 +8262,7 @@ msgstr "Ajouter les œuvres choisies pour la fusion"
 
 #: ../root/artist/ArtistWorks.js:74
 msgid "No works found that match this search."
-msgstr ""
+msgstr "Aucune œuvre de trouvée qui corresponde à cette recherche."
 
 #: ../root/artist/ArtistWorks.js:75
 msgid "This artist is not currently associated with any works."
@@ -8669,13 +8676,13 @@ msgstr "Oui, je suis sûr"
 
 #: ../root/components/CritiqueBrainzLinks.js:38
 msgid "An error occurred when loading reviews."
-msgstr ""
+msgstr "Une erreur est survenue pendant le chargement des critiques."
 
 #: ../root/components/CritiqueBrainzLinks.js:42
 msgid ""
 "No one has reviewed {entity} yet. Be the first to {write_link|write a "
 "review}."
-msgstr ""
+msgstr "Personne n’a encore laissé de critique de {entity}. Soyez le premier à {write_link|rédiger une critique}."
 
 #: ../root/components/CritiqueBrainzLinks.js:51
 msgid ""
@@ -8720,7 +8727,7 @@ msgstr "Tags"
 #: ../root/components/EntityTabs.js:142 ../root/entity/Ratings.js:48
 #: ../root/entity/Ratings.js:93
 msgid "Reviews"
-msgstr ""
+msgstr "Critiques"
 
 #: ../root/components/EntityTabs.js:161
 msgid "Edit Relationships"
@@ -9260,7 +9267,7 @@ msgstr[2] "Trouvé {n} modifications"
 
 #: ../root/edit/components/EditList.js:116
 msgid "Submit votes & edit notes"
-msgstr ""
+msgstr "Envoyer vos votes & notes de modification"
 
 #: ../root/edit/components/EditList.js:125
 msgid "No edits were found matching your query. Please {search|try again}."
@@ -9364,19 +9371,19 @@ msgstr "Toutes les modifications par {user}"
 
 #: ../root/edit/components/ListHeader.js:72
 msgid "Open edits for this collection"
-msgstr ""
+msgstr "Modifications ouvertes pour cette collection"
 
 #: ../root/edit/components/ListHeader.js:73
 msgid "Open edits for this entity"
-msgstr ""
+msgstr "Modifications ouvertes pour cette entité"
 
 #: ../root/edit/components/ListHeader.js:83
 msgid "All edits for this collection"
-msgstr ""
+msgstr "Toutes les modifications pour cette collection"
 
 #: ../root/edit/components/ListHeader.js:84
 msgid "All edits for this entity"
-msgstr ""
+msgstr "Toutes les modifications pour cette entité"
 
 #: ../root/edit/components/ListHeader.js:93
 msgid "Open edits for your subscribed entities"
@@ -9881,11 +9888,11 @@ msgstr ""
 
 #: ../root/edit/details/RemoveMedium.js:80
 msgid "Original tracklist"
-msgstr ""
+msgstr "Liste de pistes originale"
 
 #: ../root/edit/details/RemoveMedium.js:99
 msgid "Current tracklist"
-msgstr ""
+msgstr "Liste de pistes actuelle"
 
 #: ../root/edit/details/ReorderCoverArt.js:43
 msgid "Old positions:"
@@ -10853,15 +10860,15 @@ msgstr "Flux de données en direct"
 
 #: ../root/layout/components/BottomMenu.js:219
 msgid "Advanced Search"
-msgstr ""
+msgstr "Recherche avancée"
 
 #: ../root/layout/components/BottomMenu.js:222
 msgid "Edit Search"
-msgstr ""
+msgstr "Rechercher de modification"
 
 #: ../root/layout/components/BottomMenu.js:225
 msgid "Tag Cloud"
-msgstr ""
+msgstr "Nuage de balises"
 
 #: ../root/layout/components/BottomMenu.js:237
 #: ../root/layout/components/sidebar/CollectionSidebar.js:62
@@ -11081,7 +11088,7 @@ msgstr "Recherche par courriel"
 
 #: ../root/layout/components/TopMenu.js:174
 msgid "Privilege Search"
-msgstr ""
+msgstr "Recherche par droits"
 
 #: ../root/layout/components/TopMenu.js:178
 msgid "Locked Username Search"
@@ -11996,7 +12003,7 @@ msgstr "Valeurs possibles"
 msgid ""
 "The possible values for this relationship can be seen from the "
 "{instrument_list|instrument list}."
-msgstr ""
+msgstr "Les valeurs possibles pour cette relation peuvent être vues depuis la {instrument_list|liste des instruments}."
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:170
 msgid "Relationship usage"
@@ -12931,12 +12938,12 @@ msgid ""
 "to just be indicating its position (such a first medium with the title “Disc"
 " 1”). These should usually be removed, as per {release_style|the release "
 "guidelines}."
-msgstr ""
+msgstr "Ce rapport liste les parutions qui ont au moins un support dont le titre semble être un simple indicateur de sa position (comme par exemple le titre « Disque 1 » pour le premier support). Ces titres doivent être généralement enlevés, selon les {release_style|recommandations (en anglais) pour les parutions}."
 
 #: ../root/report/MediumsWithOrderInTitle.js:35
 #: ../root/report/ReportsIndex.js:365
 msgid "Releases with mediums named after their position"
-msgstr ""
+msgstr "Parutions dont les supports sont nommés selon leur position"
 
 #: ../root/report/MediumsWithSequenceIssues.js:26
 msgid ""
@@ -14239,7 +14246,7 @@ msgstr "Image {current} sur {total}"
 
 #: ../root/static/scripts/common/components/Annotation.js:62
 msgid "This annotation is blank."
-msgstr ""
+msgstr "Cette annotation est vide."
 
 #: ../root/static/scripts/common/components/Annotation.js:80
 msgid "(no changelog)"
@@ -14438,7 +14445,7 @@ msgstr "Filtrer"
 
 #: ../root/static/scripts/common/components/FilterForm.js:42
 msgid "Filter events"
-msgstr ""
+msgstr "Filtrer les événements"
 
 #: ../root/static/scripts/common/components/FilterForm.js:44
 msgid "Filter recordings"
@@ -14454,11 +14461,11 @@ msgstr "Filtrer les groupes de parution"
 
 #: ../root/static/scripts/common/components/FilterForm.js:50
 msgid "Filter works"
-msgstr ""
+msgstr "Filtrer les œuvres"
 
 #: ../root/static/scripts/common/components/FilterForm.js:93
 msgid "Secondary type"
-msgstr ""
+msgstr "Type secondaire"
 
 #: ../root/static/scripts/common/components/FilterForm.js:112
 msgid "Artist credit:"
@@ -14482,19 +14489,19 @@ msgstr "Illustration IROMBOOK / IROMBOOKのイラスト"
 
 #: ../root/static/scripts/common/components/IsrcList.js:50
 msgid "Show all ISRCs"
-msgstr ""
+msgstr "Montrer tous les ISRC"
 
 #: ../root/static/scripts/common/components/IsrcList.js:51
 msgid "Show less ISRCs"
-msgstr ""
+msgstr "Montrer moins d’ISRC"
 
 #: ../root/static/scripts/common/components/IswcList.js:50
 msgid "Show all ISWCs"
-msgstr ""
+msgstr "Montrer tous les ISWC"
 
 #: ../root/static/scripts/common/components/IswcList.js:51
 msgid "Show less ISWCs"
-msgstr ""
+msgstr "Montrer moins d’ISWC"
 
 #: ../root/static/scripts/common/components/PostParameters.js:48
 msgid "Data submitted with this request"
@@ -14944,32 +14951,38 @@ msgid ""
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr "Les liens vers les sections spécifiques des articles Wikipédia ne sont pas autorisés. Veuillez supprimer « {fragment} » si cela reste approprié. Voir les {url|directives}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5148
+#: ../root/static/scripts/edit/URLCleanup.js:5044
+msgid ""
+"Links to Wikipedia user pages are not allowed. Please link only to actual "
+"Wikipedia articles."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:5158
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
 "entity, if it exists, instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5188
+#: ../root/static/scripts/edit/URLCleanup.js:5198
 msgid "Only video and playlist links are allowed on releases."
 msgstr "Seuls les liens vers des vidéos ou des listes de lecture sont autorisés pour les parutions."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5224
+#: ../root/static/scripts/edit/URLCleanup.js:5234
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia"
 " links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr "Wikpédia n’a normalement aucune entrée pour des parutions spécifiques, donc les liens Wikpédia sont bloqués pour les parutions. À la place, merci d’ajouter ce lien Wikpédia au groupe de parution, si approprié."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5236
+#: ../root/static/scripts/edit/URLCleanup.js:5246
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr "Wikidata n’a normalement aucune entrée pour des parutions spécifiques, donc les liens Wikidata sont bloqués pour les parutions. À la place, merci d’ajouter ce lien Wikidata au groupe de parution, si approprié."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5255
+#: ../root/static/scripts/edit/URLCleanup.js:5265
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -14978,7 +14991,7 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr "Ceci est un profil Bandcamp, pas une page de parution. Même si elle est montre une parution actuellement, cela pourrait changer quand l’artiste sortira une nouvelle parution. Merci de trouver et d’ajouter la page de parution appropriée (« {album_url_pattern} » ou « {single_url_pattern} ») à la place, et n’hésitez pas à ajouter ce profil Bandcamp à l’artiste ou au label correspondant."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5283
+#: ../root/static/scripts/edit/URLCleanup.js:5293
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases"
@@ -14987,11 +15000,11 @@ msgid ""
 "the appropriate artist or label."
 msgstr "Ceci est un profil Bandcamp, pas une page pour un enregistrement. Même si elle est montre un seul enregistrement actuellement, cela pourrait changer quand l’artiste sortira un nouvel enregistrement. Merci de trouver et d’ajouter la page appropriée pour cet enregistrement (« {single_url_pattern} ») à la place, et n’hésitez pas à ajouter ce profil Bandcamp à l’artiste ou au label correspondant."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5446
+#: ../root/static/scripts/edit/URLCleanup.js:5456
 msgid "Some relationship types are missing for this URL."
 msgstr "Certains types de relation sont manquants pour cette URL."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5463
+#: ../root/static/scripts/edit/URLCleanup.js:5473
 #: ../root/static/scripts/edit/externalLinks.js:886
 msgid "This relationship type combination is invalid."
 msgstr "Cette combinaison de types de relation est invalide."
@@ -15279,14 +15292,14 @@ msgstr "Détails du genre"
 msgid "Guess Case Options"
 msgstr "Options de détermination de la casse"
 
-#: ../root/static/scripts/guess-case/modes.js:310
+#: ../root/static/scripts/guess-case/modes.js:311
 msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and"
 " short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr "Ce mode met en majuscule presque tous les mots, avec certains en minuscule (principalement les articles et les prépositions). Certains mots devront peut-être être mis en majuscule manuellement pour suivre les {url|directives de mise en majuscule en anglais}."
 
-#: ../root/static/scripts/guess-case/modes.js:347
+#: ../root/static/scripts/guess-case/modes.js:348
 msgid ""
 "This mode capitalises titles as sentence mode, but also inserts spaces "
 "before semicolons, colons, exclamation marks and question marks, and inside "
@@ -15294,14 +15307,14 @@ msgid ""
 "{url|French capitalisation guidelines}."
 msgstr "Ce mode met en majuscule les titres en mode phrase, mais insère des espaces devant les points-virgules, deux-points, points d’exclamation, points d’interrogation et à l’intérieure des guillemets. Certains mots devront peut-être être mis en majuscule manuellement pour suivre les {url|directives de mise en majuscule en français}."
 
-#: ../root/static/scripts/guess-case/modes.js:371
+#: ../root/static/scripts/guess-case/modes.js:372
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
 msgstr "Ce mode met en majuscule le premier mot de la phrase, la plupart des autres mots sont en minuscule. Certains mots, souvent des noms propres, peuvent devoir être changés manuellement suivant les {url|directives propres à la langue}."
 
-#: ../root/static/scripts/guess-case/modes.js:386
+#: ../root/static/scripts/guess-case/modes.js:387
 msgid ""
 "This mode handles the Turkish capitalisation of 'i' ('İ') and 'ı' ('I'). "
 "Some words may need to be manually corrected according to the {url|Turkish "
@@ -15376,7 +15389,7 @@ msgstr "Ajouter un autre événement"
 
 #: ../root/static/scripts/relationship-editor/common/viewModel.js:28
 msgid "Add another genre"
-msgstr ""
+msgstr "Ajouter un autre genre"
 
 #: ../root/static/scripts/relationship-editor/common/viewModel.js:30
 msgid "Add another label"
@@ -15789,11 +15802,11 @@ msgstr ""
 
 #: ../root/tag/TagCloud.js:111
 msgid "Show as a cloud instead."
-msgstr ""
+msgstr "Montrer plutôt sous forme de nuage."
 
 #: ../root/tag/TagCloud.js:113
 msgid "Show as a list instead."
-msgstr ""
+msgstr "Montrer plutôt sous forme de liste."
 
 #: ../root/tag/TagCloud.js:123
 msgid "No genre tags have been used yet."
@@ -16151,7 +16164,7 @@ msgstr "Modifications automatiques par {name}"
 
 #: ../root/user/UserEdits.js:70 ../root/user/UserEdits.js:71
 msgid "Applied edits by {name}"
-msgstr ""
+msgstr "Modifications appliquées par {name}"
 
 #: ../root/user/UserEdits.js:74 ../root/user/UserEdits.js:75
 msgid "Edits by {name}"

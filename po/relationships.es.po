@@ -844,6 +844,12 @@ msgstr ""
 msgid "Links a series to another series that exists within it."
 msgstr ""
 
+#: DB:link_type/description:1094
+msgid ""
+"Links an award series to the award ceremony series of events where it's "
+"announced and/or awarded."
+msgstr ""
+
 #: DB:link_type/description:798
 msgid "Links an event to (one of) its main performer(s)."
 msgstr ""
@@ -3305,7 +3311,7 @@ msgstr ""
 msgid ""
 "This specifies the credited task(s) for a relationship that can be credited "
 "in many different ways, such as \"producer\", or one that is otherwise "
-"generic \"miscellaneous support\"."
+"generic, such as \"miscellaneous support\"."
 msgstr ""
 
 #: DB:link_attribute_type/description:568
@@ -3668,6 +3674,14 @@ msgstr "disponible en"
 #: DB:link_type/link_phrase:795
 msgid "available releases"
 msgstr "Lanzamientos Disponibles"
+
+#: DB:link_type/link_phrase:1094 DB:link_type/name:1094
+msgid "award ceremony"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1094
+msgid "award ceremony for"
+msgstr ""
 
 #: DB:link_attribute_type/name:1137
 msgid "bachelor’s degree"
@@ -4701,6 +4715,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:350
 msgid "has arrangement"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1094
+msgid "has award ceremony"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:66

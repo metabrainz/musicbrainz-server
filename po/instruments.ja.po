@@ -2648,8 +2648,9 @@ msgid "nagak"
 msgstr "螺角（ナッカク）"
 
 #: DB:instrument/name:297
+msgctxt "Romanian diatonic pan flute"
 msgid "nai"
-msgstr "ナイ"
+msgstr ""
 
 #: DB:instrument/name:599
 msgid "naobo"
@@ -2832,8 +2833,9 @@ msgid "pakhawaj"
 msgstr "パクハヴァジュ"
 
 #: DB:instrument/name:16
+msgctxt "Collection of end-blown pipes"
 msgid "pan flute"
-msgstr "パンパイプ"
+msgstr ""
 
 #: DB:instrument/name:315
 msgid "pang gu ly hu hmông"
@@ -3640,8 +3642,9 @@ msgid "synthesizer"
 msgstr "シンセサイザー"
 
 #: DB:instrument/name:298
+msgctxt "Ancient Greek pan flute"
 msgid "syrinx"
-msgstr "シュリンクス"
+msgstr ""
 
 #: DB:instrument/name:316
 msgid "sáo meò"
@@ -4314,6 +4317,7 @@ msgid "woodwind"
 msgstr "木管楽器"
 
 #: DB:instrument/name:711
+msgctxt "Round Southeast Asian traditional pan-flute"
 msgid "wot"
 msgstr "wot"
 
