@@ -798,12 +798,6 @@ END -%]
   [%- END -%]
 [%~ END ~%]
 
-[%~ MACRO bugtracker_url(description) BLOCK; # Converted to React at root/static/scripts/common/utility/bugTrackerURL.js
-    'http://tickets.metabrainz.org/secure/CreateIssueDetails!init.jspa?' _
-    'pid=10000&issuetype=1' _
-    (description == '' ? '' : '&description=' _ uri_escape(description));
-END ~%]
-
 [%- MACRO remove_from_merge_header(to_merge) BLOCK -%] [% # Converted to React at root/utility/tableColumns.js %]
   [% IF to_merge.size > 2 %]
       <th aria-label="[% l('Remove from merge') %]" style="width: 1em" />
