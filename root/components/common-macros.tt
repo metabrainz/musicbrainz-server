@@ -6,14 +6,6 @@
 [%~ MACRO add_commas(n) GET n.chunk(-3).join(',') -%]
 [%~ MACRO replace(text, search, replace) BLOCK; text | replace(search, replace); END # Converted to React with standard String.replace
 -%]
-[%~# Use uri_escape for percent-encoding random text to be used as a parameter
-   # in an external URL (use c.uri_for(_action) for making internal URLs).
-   # A URL passed in from somewhere, on the other hand, should already be
-   # percent-encoded and not be run through uri_escape; just use html_escape
-   # for entity-encoding reserved characters (the ampersand, in particular).
-   # ~%]
-[%~ MACRO uri_escape(text) BLOCK; text | uri; END # Converted to React with standard encodeURIComponent
-~%]
 [%~ MACRO html_escape(text) BLOCK; text | html; END # Converted to React (unneeded)
 ~%]
 [%~ MACRO html_unescape(text) BLOCK; text.replace('&quot;', '"').replace('&lt;', '<').replace('&gt;', '>').replace('&#39;', "'").replace('&amp;', '&'); END -%]
