@@ -756,13 +756,6 @@ END -%]
       l('{variable}:', { variable => variable });
     END -%]
 
-[%~ MACRO link_type_cardinality_name(cardinality) BLOCK ~%] [% # Converted to React at root/static/scripts/common/components/Cardinality.js %]
-  [%~ IF cardinality == 0; l('Few relationships');
-      ELSIF cardinality == 1; l('Many relationships');
-      ELSE; l('Unknown');
-  END %] ([% cardinality %])
-[%~ END ~%]
-
 [%~ MACRO pregap_track_icon BLOCK ~%]  [% # Converted to React at root/static/scripts/common/components/PregapTrackIcon.js %]
   <div class="pregap-track icon img" title="[% l('This track is hidden in the pregap.') %]"></div>
 [%~ END ~%]
