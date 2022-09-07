@@ -475,7 +475,6 @@ export default {
   'static/scripts/artist/components/ArtistCreditRenamer': (): Promise<mixed> => import('../static/scripts/artist/components/ArtistCreditRenamer.js'),
   'static/scripts/common/components/Annotation': (): Promise<mixed> => import('../static/scripts/common/components/Annotation.js'),
   'static/scripts/common/components/ArtistCreditLink': (): Promise<mixed> => import('../static/scripts/common/components/ArtistCreditLink.js'),
-  'static/scripts/common/components/CritiqueBrainzReview': (): Promise<mixed> => import('../static/scripts/common/components/CritiqueBrainzReview.js'),
   'static/scripts/common/components/Relationship': (): Promise<mixed> => import('../static/scripts/common/components/Relationship.js'),
   'static/scripts/common/components/Relationships': (): Promise<mixed> => import('../static/scripts/common/components/Relationships.js'),
   'static/scripts/common/components/ReleaseEvents': (): Promise<mixed> => import('../static/scripts/common/components/ReleaseEvents.js'),
