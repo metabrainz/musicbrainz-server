@@ -417,10 +417,6 @@ END -%]
     INCLUDE _link_mbid_entity entity=url type='url' action=action content=text;
 END -%]
 
-[%~ MACRO link_tag(tag, action, text) BLOCK;
-    INCLUDE _link_other_entity content=text action=action type='tag' default_content=tag.name;
-END -%]
-
 [%~ MACRO link_cdtoc(cdtoc, action, text) BLOCK; # Converted to React at root/static/scripts/common/components/CDTocLink.js
     INCLUDE _link_other_entity content=text action=action type='cdtoc' default_content=cdtoc.discid;
 END -%]
