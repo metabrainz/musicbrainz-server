@@ -498,22 +498,6 @@ END -%]
     comma_only_list(out);
 END -%]
 
-[%~ MACRO entity_label(type) BLOCK;
-    IF type == 'artist'; l('Artist:');
-    ELSIF type == 'area'; l('Area:');
-    ELSIF type == 'event'; l('Event:');
-    ELSIF type == 'instrument'; l('Instrument:');
-    ELSIF type == 'label'; l('Label:');
-    ELSIF type == 'place'; l('Place:');
-    ELSIF type == 'release'; l('Release:');
-    ELSIF type == 'release_group'; l('Release group:');
-    ELSIF type == 'recording'; l('Recording:');
-    ELSIF type == 'series'; lp('Series:', 'singular');
-    ELSIF type == 'work'; l('Work:');
-    ELSIF type == 'url'; l('URL:');
-    END;
-END -%]
-
 [%~ MACRO edit_status_class(edit) BLOCK # Converted to React as getEditStatusClass at root/utility/edit.js ~%]
     [%~ IF edit.status == 1 ~%]
         [%- " open" -%]
