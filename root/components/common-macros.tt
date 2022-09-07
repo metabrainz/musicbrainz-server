@@ -514,23 +514,6 @@ END -%]
     END;
 END -%]
 
-[%~ MACRO format_entity_type_name(type_name) BLOCK # Converted to React at root/static/scripts/common/utility/formatEntityTypeName.js -%]
-    [%- IF    type_name == 'artist'; l('Artist');
-        ELSIF type_name == 'area'; l('Area');
-        ELSIF type_name == 'event'; l('Event');
-        ELSIF type_name == 'collection'; l('Collection');
-        ELSIF type_name == 'instrument'; l('Instrument');
-        ELSIF type_name == 'place'; l('Place');
-        ELSIF type_name == 'release'; l('Release');
-        ELSIF type_name == 'recording'; l('Recording');
-        ELSIF type_name == 'release_group'; l('Release Group');
-        ELSIF type_name == 'series'; lp('Series', 'singular');
-        ELSIF type_name == 'work'; l('Work');
-        ELSIF type_name == 'label'; l('Label');
-        ELSIF type_name == 'url'; l('URL');
-    END -%]
-[%- END -%]
-
 [%~ MACRO edit_status_class(edit) BLOCK # Converted to React as getEditStatusClass at root/utility/edit.js ~%]
     [%~ IF edit.status == 1 ~%]
         [%- " open" -%]
