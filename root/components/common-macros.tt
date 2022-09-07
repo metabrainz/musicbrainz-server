@@ -513,18 +513,6 @@ END -%]
     [% medium.l_format_name or l("Medium") | html %]
 [%- END -%]
 
-[%~ MACRO medium_description(medium) BLOCK; # Converted to React at root/static/scripts/common/components/MediumDescription.js
-    format_position = l('{medium_format} {position}', {
-        medium_format => medium_format_name(medium),
-        position => medium.position,
-    });
-    IF medium.name != '';
-        '<span>' _ add_colon(format_position) _ '</span> <span class="medium-name">' _ isolate_text(medium.name) _ '</span>';
-    ELSE;
-        '<span>' _ format_position _ '</span>';
-    END;
-END ~%]
-
 [%~ MACRO medium_in_release(release, medium) BLOCK -%]
     [%- fragment = "disc" _ medium.position -%]
     <a id="[%- fragment -%]"
