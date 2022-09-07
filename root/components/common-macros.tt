@@ -763,13 +763,6 @@ END -%]
   END %] ([% cardinality %])
 [%~ END ~%]
 
-[%~ MACRO orderable_direction_name(direction) BLOCK ~%]  [% # Converted to React at root/static/scripts/common/components/OrderableDirection.js %]
-  [%~ IF direction == 0; l('None');
-      ELSIF direction == 1; l('Forward');
-      ELSIF direction == 2; l('Backward');
-  END %] ([% direction %])
-[%~ END ~%]
-
 [%~ MACRO pregap_track_icon BLOCK ~%]  [% # Converted to React at root/static/scripts/common/components/PregapTrackIcon.js %]
   <div class="pregap-track icon img" title="[% l('This track is hidden in the pregap.') %]"></div>
 [%~ END ~%]
