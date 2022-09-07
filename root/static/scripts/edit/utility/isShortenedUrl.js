@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import escapeRegExp from '../../common/utility/escapeRegExp.mjs';
+
 // For shortener pages which should still be allowed as a host-only link
 const SHORTENER_ALLOWED_HOSTS = [
   'bruit.app',
@@ -103,8 +105,8 @@ const URL_SHORTENERS = [
   'yep.it',
 ].map(shortener => new RegExp(
   '^https?://([^/]+\\.)?' +
-  shortener +
-  (SHORTENER_ALLOWED_HOSTS.includes(shortener) ? '/.+' : ''),
+  escapeRegExp(shortener) +
+  (SHORTENER_ALLOWED_HOSTS.includes(shortener) ? '/.+' : '(?:/.*)?$'),
   'i',
 ));
 
