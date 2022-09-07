@@ -486,7 +486,6 @@ export default {
   'static/scripts/edit/components/FormRowNameWithGuessCase': (): Promise<mixed> => import('../static/scripts/edit/components/FormRowNameWithGuessCase.js'),
   'static/scripts/edit/components/GuessCaseIcon': (): Promise<mixed> => import('../static/scripts/edit/components/GuessCaseIcon.js'),
   'static/scripts/edit/components/InformationIcon': (): Promise<mixed> => import('../static/scripts/edit/components/InformationIcon.js'),
-  'static/scripts/edit/components/edit/RelationshipDiff': (): Promise<mixed> => import('../static/scripts/edit/components/edit/RelationshipDiff.js'),
   'static/scripts/edit/components/edit/ReleaseEventsDiff': (): Promise<mixed> => import('../static/scripts/edit/components/edit/ReleaseEventsDiff.js'),
   'static/scripts/recording/RecordingName': (): Promise<mixed> => import('../static/scripts/recording/RecordingName.js'),
   'statistics/StatisticsCSS': (): Promise<mixed> => import('../statistics/StatisticsCSS.js'),
