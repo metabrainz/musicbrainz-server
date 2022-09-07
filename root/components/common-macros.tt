@@ -447,13 +447,6 @@ END -%]
     INCLUDE _link_other_entity content=text action=action type='edit' default_content=edit.id;
 END -%]
 
-[%~ MACRO link_searchable_property(search_field, search_value, entity_type, text) BLOCK # Converted to React at root/components/LinkSearchableProperty.js -%]
-  [%- text = text == '' ? search_value : text -%]
-  [%- search_field = search_value == '*' ? '-' _ search_field : search_field -%]
-  [%- -%]<a href="[% c.uri_for('/search', {query => search_field _ ':' _ search_value, type => entity_type, limit => 25, method => 'advanced'}) | html %]">
-      [%- text -%]</a>
-[%- END -%]
-
 [%~ MACRO login_url(redirect) BLOCK;
     c.uri_for_action('/user/login', { returnto => c.req.query_params.returnto || redirect || c.relative_uri });
 END -%]
