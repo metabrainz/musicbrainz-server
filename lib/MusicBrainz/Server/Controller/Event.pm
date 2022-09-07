@@ -31,6 +31,7 @@ with 'MusicBrainz::Server::Controller::Role::Art' => {
     reorder_art_edit_type => $EDIT_EVENT_REORDER_EVENT_ART,
 };
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
+with 'MusicBrainz::Server::Controller::Role::CritiqueBrainzReviews';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Rating';

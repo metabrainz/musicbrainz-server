@@ -7,10 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import CritiqueBrainzLinks from '../components/CritiqueBrainzLinks.js';
 import manifest from '../static/manifest.mjs';
-import CritiqueBrainzReview
-  from '../static/scripts/common/components/CritiqueBrainzReview.js';
+import CritiqueBrainzReviewsSection
+  from '../static/scripts/common/components/CritiqueBrainzReviewsSection.js';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import {
@@ -21,8 +20,6 @@ import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
 component Ratings(
   entity: RatableT | ReviewableT,
-  mostPopularReview: CritiqueBrainzReviewT,
-  mostRecentReview: CritiqueBrainzReviewT,
   privateRatingCount: number,
   publicRatings: $ReadOnlyArray<RatingT>,
 ) {
@@ -78,28 +75,9 @@ component Ratings(
       ) : null}
 
       {entityProperties.reviews ? (
-        <>
-          <h2>{l('Reviews')}</h2>
-
-          <CritiqueBrainzLinks entity={entity} />
-          <div id="critiquebrainz-reviews">
-            {mostRecentReview ? (
-              <CritiqueBrainzReview
-                review={mostRecentReview}
-                title={l('Most recent')}
-              />
-            ) : null}
-            {mostPopularReview &&
-              mostPopularReview.id !== mostRecentReview.id ? (
-                <CritiqueBrainzReview
-                  review={mostPopularReview}
-                  title={l('Most popular')}
-                />
-              ) : null}
-          </div>
-        </>
+        <CritiqueBrainzReviewsSection entity={entity} />
       ) : null}
-      {manifest('reviews')}
+      {manifest('reviews', {async: 'async'})}
     </LayoutComponent>
   );
 }

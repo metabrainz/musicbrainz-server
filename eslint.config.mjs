@@ -753,6 +753,7 @@ export default [
       'ft-flow/no-existential-type': 'warn',
       'ft-flow/no-flow-fix-me-comments': 'error',
       'ft-flow/no-flow-suppressions-in-strict-files': ['warn', {
+        "$FlowExpectedError": false,
         "$FlowIssue": false,
       }],
       'ft-flow/no-internal-flow-type': 'warn',

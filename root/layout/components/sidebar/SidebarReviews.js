@@ -9,7 +9,9 @@
 
 import * as React from 'react';
 
-import CritiqueBrainzLinks from '../../../components/CritiqueBrainzLinks.js';
+import manifest from '../../../static/manifest.mjs';
+import CritiqueBrainzLinks
+  from '../../../static/scripts/common/components/CritiqueBrainzLinks.js';
 
 component SidebarReviews(entity: ReviewableT, heading?: string) {
   return (
@@ -17,9 +19,8 @@ component SidebarReviews(entity: ReviewableT, heading?: string) {
       <h2 className="reviews">
         {nonEmpty(heading) ? heading : l('Reviews')}
       </h2>
-      <p>
-        <CritiqueBrainzLinks entity={entity} isSidebar />
-      </p>
+      <CritiqueBrainzLinks entity={entity} isSidebar />
+      {manifest('reviews', {async: 'async'})}
     </>
   );
 }
