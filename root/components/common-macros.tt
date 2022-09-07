@@ -569,14 +569,6 @@ END -%]
     [%~ END ~%]
 [%~ END ~%]
 
-[%~ MACRO vote_tally(edit) BLOCK # Converted to React at root/edit/components/VoteTally.js -%]
-    [%- IF edit.auto_edit; '<strong>' _ l('automatically applied') _ '</strong>';
-       ELSE; l('{yes} yes : {no} no',
-        { yes => '<strong>' _ edit.yes_votes _ '</strong>',
-          no => '<strong>' _ edit.no_votes _ '</strong>' });
-    END -%]
-[%- END -%]
-
 [%~ MACRO css_class_name(name) BLOCK; # React equivalent is kebabCase at root/static/scripts/common/utility/strings.js
     name | lower | replace('[^a-z]+', '-') | remove('^-|-$');
     END -%]
