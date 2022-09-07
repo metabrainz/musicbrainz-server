@@ -56,10 +56,6 @@ END; -%]
     Translation.N_ln(text, plural);
 END; -%]
 
-[%~ MACRO expand(text, args) BLOCK; # Converted to React at root/static/scripts/common/i18n/expand2.js
-    Translation.expand(text, args);
-END; -%]
-
 [%~ MACRO display_age_ago(age) BLOCK; # Converted to React at root/utility/age.js
         IF age.0;
           ln('{num} year ago', '{num} years ago', age.0, { num => age.0 });
