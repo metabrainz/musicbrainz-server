@@ -473,7 +473,6 @@ export default {
   'release_group/ReleaseGroupHeader': (): Promise<mixed> => import('../release_group/ReleaseGroupHeader.js'),
   'series/SeriesHeader': (): Promise<mixed> => import('../series/SeriesHeader.js'),
   'static/scripts/artist/components/ArtistCreditRenamer': (): Promise<mixed> => import('../static/scripts/artist/components/ArtistCreditRenamer.js'),
-  'static/scripts/common/components/Annotation': (): Promise<mixed> => import('../static/scripts/common/components/Annotation.js'),
   'static/scripts/common/components/ArtistCreditLink': (): Promise<mixed> => import('../static/scripts/common/components/ArtistCreditLink.js'),
   'static/scripts/common/components/ReleaseEvents': (): Promise<mixed> => import('../static/scripts/common/components/ReleaseEvents.js'),
   'static/scripts/common/components/SearchIcon': (): Promise<mixed> => import('../static/scripts/common/components/SearchIcon.js'),
