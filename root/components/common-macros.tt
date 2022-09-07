@@ -525,13 +525,6 @@ END -%]
     END;
 END ~%]
 
-[%~ MACRO medium_link(medium) BLOCK; # Converted to React at root/static/scripts/common/components/MediumLink.js
-    l('{medium} on {release}', {
-        medium => medium_description(medium),
-        release => descriptive_link(medium.release),
-    });
-END ~%]
-
 [%~ MACRO medium_in_release(release, medium) BLOCK -%]
     [%- fragment = "disc" _ medium.position -%]
     <a id="[%- fragment -%]"
