@@ -481,7 +481,6 @@ export default {
   'static/scripts/common/components/SearchIcon': (): Promise<mixed> => import('../static/scripts/common/components/SearchIcon.js'),
   'static/scripts/common/components/TaggerIcon': (): Promise<mixed> => import('../static/scripts/common/components/TaggerIcon.js'),
   'static/scripts/common/components/WarningIcon': (): Promise<mixed> => import('../static/scripts/common/components/WarningIcon.js'),
-  'static/scripts/common/components/WikipediaExtract': (): Promise<mixed> => import('../static/scripts/common/components/WikipediaExtract.js'),
   'static/scripts/edit/components/AddIcon': (): Promise<mixed> => import('../static/scripts/edit/components/AddIcon.js'),
   'static/scripts/edit/components/FormRowNameWithGuessCase': (): Promise<mixed> => import('../static/scripts/edit/components/FormRowNameWithGuessCase.js'),
   'static/scripts/edit/components/GuessCaseIcon': (): Promise<mixed> => import('../static/scripts/edit/components/GuessCaseIcon.js'),

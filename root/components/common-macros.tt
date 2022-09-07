@@ -662,14 +662,6 @@ END ~%]
     [%~ type_id == 1 ? l('Died:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Dissolved:') : l('End date:') ~%]
 [%~ END -%]
 
-[%~ MACRO show_wikipedia_extract BLOCK # Converted to React at root/static/scripts/common/components/WikipediaExtract.js
--%]
-    [%- React.embed(c, 'static/scripts/common/components/WikipediaExtract', {
-        entity => {entityType => entity.entity_type, gid => entity.gid},
-        cachedWikipediaExtract => React.to_json_object(wikipedia_extract),
-    }) -%]
-[%- END -%]
-
 [%~ MACRO track_duration_changes(loop_over, old_base, new_base, old_prop, new_prop, old_label, new_label) BLOCK # Converted to React at root/edit/components/TrackDurationChanges.js -%]
   [% USE Diff %]
   [%- IF old_label && new_label -%]
