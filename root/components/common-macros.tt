@@ -695,18 +695,6 @@ END ~%]
   [%- END -%]
 [%- END -%]
 
-[%~ MACRO relationship_target_links(rel, for_grouping) BLOCK;
-    '<span class="mp mp-rel">' IF rel.edits_pending;
-    IF rel.target.artist_credit AND rel.target.artist_credit.name == hide_ac;
-        link_entity(rel.target, 'show', '', rel.target_credit);
-    ELSE;
-        descriptive_link(rel.target, rel.target_credit);
-    END;
-    bracketedWithSpace(for_grouping ? rel.extra_grouping_phrase_attributes : rel.extra_phrase_attributes);
-    bracketedWithSpace(rel.link.formatted_date);
-    '</span>' IF rel.edits_pending;
-END ~%]
-
 [%~ MACRO release_countries_list(release_events) BLOCK;
     out = [];
     FOR event=release_events;
