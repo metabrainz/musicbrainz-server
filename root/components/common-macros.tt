@@ -421,10 +421,6 @@ END -%]
     INCLUDE _link_other_entity content=text action=action type='tag' default_content=tag.name;
 END -%]
 
-[%~ MACRO link_isrc(isrc, action, text) BLOCK;
-    INCLUDE _link_other_entity content=text action=action type='isrc' default_content=isrc.isrc edits_pending=isrc.edits_pending code_tag=1;
-END -%]
-
 [%~ MACRO link_cdtoc(cdtoc, action, text) BLOCK; # Converted to React at root/static/scripts/common/components/CDTocLink.js
     INCLUDE _link_other_entity content=text action=action type='cdtoc' default_content=cdtoc.discid;
 END -%]
