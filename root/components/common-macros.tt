@@ -177,8 +177,6 @@ END; -%]
   [%- expanded_artist_credit_list(ac) -%]<br />
 [%- END -%]
 
-[%~ MACRO entity_exists(entity) BLOCK; entity.gid.defined; END -%]
-
 [%~ MACRO link_entity(entity, action, text, credited_as, no_escape) BLOCK; # Converted to React at root/static/scripts/common/components/EntityLink.js
     # no_escape is only available for artists and recordings
     show_disambiguation = text == '';
