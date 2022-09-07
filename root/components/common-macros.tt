@@ -729,15 +729,6 @@ END -%]
     comma_only_list(out);
 END -%]
 
-[%~ MACRO release_event(event) BLOCK; # Converted to React at root/static/scripts/common/components/ReleaseEvent.js
-      date = event.date;
-      country = event.country;
-      parts = [];
-      parts.push(link_entity(country)) IF country.id;
-      parts.push('<span class="release-date">' _ date.format _ '</span>') UNLESS date.is_empty;
-      parts.join('<br />');
-    END -%]
-
 [%~ MACRO country_abbr(country) BLOCK # Converted to React at root/static/scripts/common/components/CountryAbbr.js -%]
     <span class="flag flag-[% country.primary_code %]"></span>
     <abbr title="[% html_escape(country.l_name) %]">[% country.primary_code %]</abbr>
