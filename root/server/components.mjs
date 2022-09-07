@@ -345,7 +345,6 @@ export default {
   'collection/CollectionHeader': (): Promise<mixed> => import('../collection/CollectionHeader.js'),
   'components/Aliases': (): Promise<mixed> => import('../components/Aliases/index.js'),
   'components/GroupedTrackRelationships': (): Promise<mixed> => import('../components/GroupedTrackRelationships.js'),
-  'components/RelationshipsTable': (): Promise<mixed> => import('../components/RelationshipsTable.js'),
   'components/UserAccountTabs': (): Promise<mixed> => import('../components/UserAccountTabs.js'),
   'edit/components/EditList': (): Promise<mixed> => import('../edit/components/EditList.js'),
   'edit/components/EditNote': (): Promise<mixed> => import('../edit/components/EditNote.js'),
