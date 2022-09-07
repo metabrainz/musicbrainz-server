@@ -586,13 +586,6 @@ END -%]
    [% React.embed(c, 'static/scripts/common/components/WarningIcon') %]
 [%- END -%]
 
-[%~ MACRO error(message, class) BLOCK -%]
-   <div class="warning[% ' ' _ class IF class %]">
-     [%- warning_icon %]
-     <p>[% l('<strong>Error</strong>:') %] [% message %]</p>
-   </div>
-[%- END -%]
-
 [%~ MACRO warning(message, class) BLOCK # Converted to React at root/static/scripts/components/Warning.js
 -%]
    <div class="warning[% ' ' _ class IF class %]">
@@ -653,14 +646,6 @@ END ~%]
     [%~ END ~%]
     </a>
 [%- END -%]
-
-[%~ MACRO artist_begin_label_from_type(type_id) BLOCK ~%]
-    [%~ type_id == 1 ? l('Born:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Founded:') : l('Begin date:') ~%]
-[%~ END -%]
-
-[%~ MACRO artist_end_label_from_type(type_id) BLOCK ~%]
-    [%~ type_id == 1 ? l('Died:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Dissolved:') : l('End date:') ~%]
-[%~ END -%]
 
 [%~ MACRO track_duration_changes(loop_over, old_base, new_base, old_prop, new_prop, old_label, new_label) BLOCK # Converted to React at root/edit/components/TrackDurationChanges.js -%]
   [% USE Diff %]
