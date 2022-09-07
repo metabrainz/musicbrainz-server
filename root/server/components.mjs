@@ -343,7 +343,6 @@ export default {
   'area/AreaHeader': (): Promise<mixed> => import('../area/AreaHeader.js'),
   'artist/ArtistHeader': (): Promise<mixed> => import('../artist/ArtistHeader.js'),
   'collection/CollectionHeader': (): Promise<mixed> => import('../collection/CollectionHeader.js'),
-  'components/Aliases': (): Promise<mixed> => import('../components/Aliases/index.js'),
   'components/UserAccountTabs': (): Promise<mixed> => import('../components/UserAccountTabs.js'),
   'edit/components/EditList': (): Promise<mixed> => import('../edit/components/EditList.js'),
   'edit/components/EditNote': (): Promise<mixed> => import('../edit/components/EditNote.js'),
