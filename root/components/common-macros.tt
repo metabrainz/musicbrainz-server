@@ -548,13 +548,6 @@ END -%]
     END -%]
 [%- END -%]
 
-[%~ MACRO quality_name(quality) SWITCH quality; # Converted to React as QUALITY_NAMES in root/static/scripts/common/constants.js
-    CASE 0;  l('Low');
-    CASE 1;  l('Normal');
-    CASE -1; l('Normal');
-    CASE 2;  l('High');
-END -%]
-
 [%~ MACRO edit_status_class(edit) BLOCK # Converted to React as getEditStatusClass at root/utility/edit.js ~%]
     [%~ IF edit.status == 1 ~%]
         [%- " open" -%]
