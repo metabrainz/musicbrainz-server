@@ -27,7 +27,6 @@
 [%~ MACRO va_doc_link BLOCK -%]
     [%- doc_link('Style/Unknown_and_untitled/Special_purpose_artist#List_of_official_SPAs') -%]
 [%- END -%]
-[%~ MACRO yesno(b) BLOCK; b ? l('Yes') : l('No'); END ~%] [% # Converted to React at root/static/scripts/common/utility/yesNo.js %]
 
 [%~ MACRO isolate_text(text) BLOCK; # Converted to React at root/static/scripts/common/utility/isolateText.js
     IF text != ''; INCLUDE _wrap_text options=['isolate', 'escape'] content=text;
