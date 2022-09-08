@@ -81,6 +81,7 @@ export default {
   'artist/SpecialPurpose': (): Promise<mixed> => import('../artist/SpecialPurpose.js'),
   'artist_credit/ArtistCreditIndex': (): Promise<mixed> => import('../artist_credit/ArtistCreditIndex.js'),
   'artist_credit/EntityList': (): Promise<mixed> => import('../artist_credit/EntityList.js'),
+  'cdtoc/SetTracklistDurations': (): Promise<mixed> => import('../cdtoc/SetTracklistDurations.js'),
   'collection/CollectionIndex': (): Promise<mixed> => import('../collection/CollectionIndex.js'),
   'collection/CollectionMerge': (): Promise<mixed> => import('../collection/CollectionMerge.js'),
   'collection/CreateCollection': (): Promise<mixed> => import('../collection/CreateCollection.js'),

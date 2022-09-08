@@ -189,6 +189,7 @@ around TO_JSON => sub {
 
     if ($self->all_tracks) {
         $data->{tracks} = to_json_array($self->tracks);
+        $data->{cdtoc_tracks} = to_json_array($self->cdtoc_tracks);
     }
 
     if ($self->tracks_pager) {
