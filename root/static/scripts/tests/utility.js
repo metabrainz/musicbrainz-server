@@ -21,6 +21,7 @@ import formatTrackLength from '../common/utility/formatTrackLength.js';
 import parseDate from '../common/utility/parseDate.js';
 import * as dates from '../edit/utility/dates.js';
 import * as fullwidthLatin from '../edit/utility/fullwidthLatin.js';
+import isShortenedUrl from '../edit/utility/isShortenedUrl.js';
 
 test('age', function (t) {
   t.plan(11);
@@ -606,4 +607,32 @@ test('formatSetlist', function (t) {
     '</strong><br/>' +
     'plain text work<br/><br/><br/>',
   );
+});
+
+test('isShortenedUrl', function (t) {
+  t.plan(17);
+
+  t.ok(isShortenedUrl('https://su.pr/example'));
+  t.ok(isShortenedUrl('https://t.co/example'));
+  t.ok(isShortenedUrl('https://bit.ly/example'));
+  t.ok(isShortenedUrl('http://example.su.pr'));
+  t.ok(isShortenedUrl('http://example.t.co'));
+  t.ok(isShortenedUrl('http://example.bit.ly'));
+
+  // Allowed host-only shorteners
+  t.ok(!isShortenedUrl('https://example.bruit.app/'));
+  t.ok(!isShortenedUrl('https://example.distrokid.com'));
+  t.ok(!isShortenedUrl('https://example.trac.co'));
+
+  t.ok(isShortenedUrl('https://bruit.app/abc'));
+  t.ok(isShortenedUrl('https://example.distrokid.com/abc'));
+  t.ok(isShortenedUrl('https://example.trac.co/abc'));
+
+  // MBS-12566
+  t.ok(!isShortenedUrl('https://surprisechef.bandcamp.com' +
+                       '/album/velodrome-b-w-springs-theme'));
+  t.ok(!isShortenedUrl('https://t.co.example'));
+  t.ok(!isShortenedUrl('https://taco.example'));
+  t.ok(!isShortenedUrl('https://bit.ly.example'));
+  t.ok(!isShortenedUrl('https://bitaly.example'));
 });
