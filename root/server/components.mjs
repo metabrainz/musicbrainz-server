@@ -165,6 +165,7 @@ export default {
   'release/CoverArt': (): Promise<mixed> => import('../release/CoverArt.js'),
   'release/CoverArtDarkened': (): Promise<mixed> => import('../release/CoverArtDarkened.js'),
   'release/ReleaseIndex': (): Promise<mixed> => import('../release/ReleaseIndex.js'),
+  'release/ReleaseMerge': (): Promise<mixed> => import('../release/ReleaseMerge.js'),
   'release/RemoveCoverArt': (): Promise<mixed> => import('../release/RemoveCoverArt.js'),
   'release_group/ReleaseGroupIndex': (): Promise<mixed> => import('../release_group/ReleaseGroupIndex.js'),
   'release_group/ReleaseGroupMerge': (): Promise<mixed> => import('../release_group/ReleaseGroupMerge.js'),

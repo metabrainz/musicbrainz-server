@@ -9,7 +9,7 @@
 
 export default function renderMergeCheckboxElement(
   entity: CoreEntityT,
-  form: MergeFormT,
+  form: MergeFormT | MergeReleasesFormT,
   index: number,
 ): React$MixedElement {
   return (
@@ -20,7 +20,9 @@ export default function renderMergeCheckboxElement(
         value={entity.id}
       />
       <input
-        defaultChecked={entity.id === form.field.target.value}
+        defaultChecked={
+          String(entity.id) === String(form.field.target.value)
+        }
         name="merge.target"
         type="radio"
         value={entity.id}

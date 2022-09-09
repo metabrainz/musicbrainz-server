@@ -14,12 +14,31 @@ declare type ConfirmFormT = FormT<{
   +submit: ReadOnlyFieldT<string>,
 }>;
 
+declare type MediumFieldT = CompoundFieldT<{
+  +id: FieldT<number>,
+  +name: FieldT<string>,
+  +position: FieldT<number>,
+  +release_id: FieldT<number>,
+}>;
+
 declare type MergeFormT = FormT<{
   +edit_note: FieldT<string>,
   +make_votable: FieldT<boolean>,
   +merging: RepeatableFieldT<FieldT<number>>,
   +rename: FieldT<boolean>,
   +target: FieldT<number>,
+}>;
+
+declare type MergeReleasesFormT = FormT<{
+  +edit_note: FieldT<string>,
+  +make_votable: FieldT<boolean>,
+  +medium_positions: CompoundFieldT<{
+    +map: CompoundFieldT<$ReadOnlyArray<MediumFieldT>>,
+  }>,
+  +merge_strategy: FieldT<StrOrNum>,
+  +merging: RepeatableFieldT<FieldT<StrOrNum>>,
+  +rename: FieldT<boolean>,
+  +target: FieldT<StrOrNum>,
 }>;
 
 declare type SearchFormT = FormT<{

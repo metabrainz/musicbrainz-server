@@ -192,7 +192,7 @@ export function defineCDTocColumn<D>(
 
 export function defineCheckboxColumn(
   props: {
-    +mergeForm?: MergeFormT,
+    +mergeForm?: MergeFormT | MergeReleasesFormT,
     +name?: string,
   },
 ): ColumnOptions<CoreEntityT, number> {
