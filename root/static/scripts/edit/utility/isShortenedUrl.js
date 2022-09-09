@@ -92,6 +92,7 @@ const URL_SHORTENERS = [
   'spread.link',
   'streamerlinks.com',
   'streamlink.to',
+  'strm.to',
   'su.pr',
   't.co',
   'tiny.cc',
