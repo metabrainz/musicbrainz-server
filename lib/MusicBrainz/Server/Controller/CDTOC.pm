@@ -70,10 +70,40 @@ sub show : Chained('load') PathPart('')
 sub remove : Local Edit
 {
     my ($self, $c) = @_;
-    my $cdtoc_id  = $c->req->query_params->{cdtoc_id};
-    my $medium_id = $c->req->query_params->{medium_id};
+    my $cdtoc_id  = $c->req->query_params->{cdtoc_id}
+        or $self->error(
+            $c, status => HTTP_BAD_REQUEST,
+            message => l('Please provide a CD TOC ID.')
+        );
 
-    my $medium  = $c->model('Medium')->get_by_id($medium_id);
+    $self->error($c, status => HTTP_BAD_REQUEST,
+                 message => l('The provided CD TOC ID is not valid.')
+        ) unless is_database_row_id($cdtoc_id);
+
+    my $medium_id = $c->req->query_params->{medium_id}
+        or $self->error(
+            $c, status => HTTP_BAD_REQUEST,
+            message => l('Please provide a medium ID.')
+        );
+
+    $self->error($c, status => HTTP_BAD_REQUEST,
+                 message => l('The provided medium id is not valid.')
+        ) unless is_database_row_id($medium_id);
+
+    my $medium = $c->model('Medium')->get_by_id($medium_id)
+            or $self->error(
+            $c, status => HTTP_BAD_REQUEST,
+            message => l('The provided medium ID doesn’t exist.')
+        );
+
+    my $cdtoc = $c->model('MediumCDTOC')->get_by_medium_cdtoc($medium_id, $cdtoc_id)
+            or $self->error(
+            $c, status => HTTP_BAD_REQUEST,
+            message => l('The provided CD TOC ID doesn’t exist or is not connected to the provided medium.')
+        );
+
+    $c->model('CDTOC')->load($cdtoc);
+
     my $release = $c->model('Release')->get_by_id($medium->release_id);
     $c->model('ArtistCredit')->load($release);
     $c->model('ReleaseGroup')->load($release);
@@ -83,9 +113,6 @@ sub remove : Local Edit
     $c->model('Medium')->load_for_releases($release);
     my $cdtoc_count = $c->model('MediumCDTOC')->find_count_by_release($release->id);
     $c->stash->{release_cdtoc_count} = $cdtoc_count;
-
-    my $cdtoc = $c->model('MediumCDTOC')->get_by_medium_cdtoc($medium_id, $cdtoc_id);
-    $c->model('CDTOC')->load($cdtoc);
 
     $self->edit_action($c,
         form        => 'Confirm',
