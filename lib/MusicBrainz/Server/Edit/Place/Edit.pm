@@ -186,7 +186,7 @@ sub _edit_hash {
     return $self->merge_changes;
 }
 
-sub edit_template_react { 'EditPlace' }
+sub edit_template { 'EditPlace' }
 
 around extract_property => sub {
     my ($orig, $self) = splice(@_, 0, 2);

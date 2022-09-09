@@ -34,7 +34,7 @@ sub edit_name { N_l('Edit area') }
 sub edit_type { $EDIT_AREA_EDIT }
 
 sub _edit_model { 'Area' }
-sub edit_template_react { 'EditArea' }
+sub edit_template { 'EditArea' }
 
 sub change_fields
 {

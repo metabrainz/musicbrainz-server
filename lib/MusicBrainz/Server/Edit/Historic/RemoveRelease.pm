@@ -16,7 +16,7 @@ sub edit_name     { N_l('Remove release') }
 sub edit_kind     { 'remove' }
 sub historic_type { 12 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_RELEASE }
-sub edit_template_react { 'historic/RemoveRelease' }
+sub edit_template { 'historic/RemoveRelease' }
 
 sub _build_related_entities
 {

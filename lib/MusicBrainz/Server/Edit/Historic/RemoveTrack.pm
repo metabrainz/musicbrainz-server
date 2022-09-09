@@ -12,7 +12,7 @@ sub edit_name     { N_l('Remove track') }
 sub edit_kind     { 'remove' }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_TRACK }
 sub historic_type { 11 }
-sub edit_template_react { 'historic/RemoveTrack' }
+sub edit_template { 'historic/RemoveTrack' }
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 

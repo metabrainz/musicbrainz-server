@@ -28,7 +28,7 @@ use aliased 'MusicBrainz::Server::Entity::URL';
 sub edit_name { N_l('Edit URL') }
 sub edit_type { $EDIT_URL_EDIT }
 sub _edit_model { 'URL' }
-sub edit_template_react { 'EditUrl' }
+sub edit_template { 'EditUrl' }
 sub url_id { shift->entity_id }
 
 sub change_fields

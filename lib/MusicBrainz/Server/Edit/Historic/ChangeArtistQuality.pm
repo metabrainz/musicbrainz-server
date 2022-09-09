@@ -14,7 +14,7 @@ sub edit_name     { N_l('Change artist quality (historic)') }
 sub edit_kind     { 'other' }
 sub historic_type { 52 }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_ARTIST_QUALITY }
-sub edit_template_react { 'historic/ChangeArtistQuality' }
+sub edit_template { 'historic/ChangeArtistQuality' }
 
 sub _build_related_entities
 {

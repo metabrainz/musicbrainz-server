@@ -44,7 +44,7 @@ with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
 sub edit_name { N_l('Edit artist') }
 sub edit_type { $EDIT_ARTIST_EDIT }
 
-sub edit_template_react { 'EditArtist' }
+sub edit_template { 'EditArtist' }
 
 sub _edit_model { 'Artist' }
 

@@ -21,7 +21,7 @@ use aliased 'MusicBrainz::Server::Entity::Medium';
 sub edit_name { N_l('Move disc ID') }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_MEDIUM_MOVE_DISCID }
-sub edit_template_react { 'MoveDiscId' }
+sub edit_template { 'MoveDiscId' }
 
 has '+data' => (
     isa => Dict[

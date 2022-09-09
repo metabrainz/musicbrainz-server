@@ -25,7 +25,7 @@ with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Edit instrument') }
 sub edit_type { $EDIT_INSTRUMENT_EDIT }
-sub edit_template_react { 'EditInstrument' }
+sub edit_template { 'EditInstrument' }
 
 sub _edit_model { 'Instrument' }
 

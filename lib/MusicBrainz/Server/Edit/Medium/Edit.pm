@@ -51,7 +51,7 @@ sub edit_type { $EDIT_MEDIUM_EDIT }
 sub edit_name { N_l('Edit medium') }
 sub edit_kind { 'edit' }
 sub _edit_model { 'Medium' }
-sub edit_template_react { 'EditMedium' }
+sub edit_template { 'EditMedium' }
 
 sub entity_id { shift->data->{entity_id} }
 sub medium_id { shift->entity_id }

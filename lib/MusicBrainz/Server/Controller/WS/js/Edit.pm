@@ -761,12 +761,12 @@ sub preview : Chained('edit') PathPart('preview') Edit {
     my @previews = map {
         my $edit = $_;
 
-        my $edit_template_react = $edit->edit_template_react;
+        my $edit_template = $edit->edit_template;
         my $preview;
 
         my $response = render_component(
             $c,
-            "edit/details/$edit_template_react",
+            "edit/details/$edit_template",
             {edit => to_json_object($edit), allowNew => \1},
         );
         my $body = $response->{body} // '';

@@ -49,7 +49,7 @@ sub edit_type { $EDIT_RELEASE_EDIT }
 sub edit_name { N_l('Edit release') }
 sub _edit_model { 'Release' }
 sub release_id { shift->data->{entity}{id} }
-sub edit_template_react { 'EditRelease' }
+sub edit_template { 'EditRelease' }
 
 sub change_fields
 {

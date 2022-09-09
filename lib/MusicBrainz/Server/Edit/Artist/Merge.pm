@@ -138,7 +138,7 @@ around build_display_data => sub {
     return $data;
 };
 
-sub edit_template_react { 'MergeArtists' };
+sub edit_template { 'MergeArtists' };
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

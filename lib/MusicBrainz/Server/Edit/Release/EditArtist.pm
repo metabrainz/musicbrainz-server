@@ -32,7 +32,7 @@ sub edit_name { N_l('Edit release') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_ARTIST }
 sub release_id { shift->data->{entity}{id} }
-sub edit_template_react { 'EditRelease' }
+sub edit_template { 'EditRelease' }
 
 has '+data' => (
     isa => Dict[

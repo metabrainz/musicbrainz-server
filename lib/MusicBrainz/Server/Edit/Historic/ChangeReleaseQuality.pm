@@ -14,7 +14,7 @@ sub edit_name     { N_l('Change release data quality') }
 sub edit_kind     { 'other' }
 sub historic_type { 63 }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_RELEASE_QUALITY }
-sub edit_template_react { 'historic/ChangeReleaseQuality' }
+sub edit_template { 'historic/ChangeReleaseQuality' }
 
 sub _build_related_entities
 {

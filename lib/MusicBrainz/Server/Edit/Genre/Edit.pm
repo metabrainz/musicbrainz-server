@@ -25,7 +25,7 @@ sub edit_name { N_l('Edit genre') }
 sub edit_type { $EDIT_GENRE_EDIT }
 
 sub _edit_model { 'Genre' }
-sub edit_template_react { 'EditGenre' }
+sub edit_template { 'EditGenre' }
 
 sub change_fields
 {

@@ -22,7 +22,7 @@ extends 'MusicBrainz::Server::Edit';
 sub edit_name { N_l('Reorder relationships') }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELATIONSHIPS_REORDER }
-sub edit_template_react { 'ReorderRelationships' }
+sub edit_template { 'ReorderRelationships' }
 
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 with 'MusicBrainz::Server::Edit::Role::Preview';

@@ -25,7 +25,7 @@ with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 sub edit_name { N_l('Edit artist credit') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_ARTIST_EDITCREDIT }
-sub edit_template_react { 'EditArtistCredit' }
+sub edit_template { 'EditArtistCredit' }
 
 sub new_artist_ids {
     my $self = shift;

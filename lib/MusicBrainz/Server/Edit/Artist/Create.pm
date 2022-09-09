@@ -119,7 +119,7 @@ sub restore {
     $self->data($data);
 }
 
-sub edit_template_react { 'AddArtist' };
+sub edit_template { 'AddArtist' };
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
