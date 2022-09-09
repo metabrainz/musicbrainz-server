@@ -81,6 +81,7 @@ export default {
   'artist/SpecialPurpose': (): Promise<mixed> => import('../artist/SpecialPurpose.js'),
   'artist_credit/ArtistCreditIndex': (): Promise<mixed> => import('../artist_credit/ArtistCreditIndex.js'),
   'artist_credit/EntityList': (): Promise<mixed> => import('../artist_credit/EntityList.js'),
+  'cdstub/CDStubIndex': (): Promise<mixed> => import('../cdstub/CDStubIndex.js'),
   'cdtoc/AttachCDTocConfirmation': (): Promise<mixed> => import('../cdtoc/AttachCDTocConfirmation.js'),
   'cdtoc/RemoveDiscId': (): Promise<mixed> => import('../cdtoc/RemoveDiscId.js'),
   'cdtoc/SetTracklistDurations': (): Promise<mixed> => import('../cdtoc/SetTracklistDurations.js'),

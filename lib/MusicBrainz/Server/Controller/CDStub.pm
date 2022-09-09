@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::ControllerUtils::CDTOC qw( add_dash );
 
@@ -99,7 +100,18 @@ sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
 
-    $c->stash( template => 'cdstub/index.tt' );
+    my $cdstub = $c->stash->{cdstub};
+
+    my %props = (
+        cdstub      => $cdstub->TO_JSON,
+        showArtists => boolean_to_json($c->stash->{show_artists}),
+    );
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'cdstub/CDStubIndex.js',
+        component_props => \%props,
+    );
 }
 
 sub browse : Path('browse')
