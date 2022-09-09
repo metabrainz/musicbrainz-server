@@ -171,10 +171,7 @@ export function defineCDTocColumn<D>(
     Cell: ({row: {original}}) => {
       const cdToc = props.getCDToc(original);
       return (cdToc ? (
-        <CDTocLink
-          cdToc={cdToc}
-          content={cdToc.discid}
-        />
+        <CDTocLink cdToc={cdToc} />
       ) : null);
     },
     Header: (props.sortable

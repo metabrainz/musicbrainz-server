@@ -32,10 +32,7 @@ const RemoveDiscId = ({edit}: Props): React.Element<'table'> => {
       <tr>
         <th>{l('Disc ID:')}</th>
         <td>
-          <CDTocLink
-            cdToc={cdToc}
-            content={cdToc.discid}
-          />
+          <CDTocLink cdToc={cdToc} />
         </td>
       </tr>
     </table>

@@ -24,10 +24,7 @@ const RemoveDiscId = ({edit}: Props): React.Element<'table'> => (
     <tr>
       <th>{l('Disc ID:')}</th>
       <td>
-        <CDTocLink
-          cdToc={edit.display_data.cdtoc}
-          content={edit.display_data.cdtoc.discid}
-        />
+        <CDTocLink cdToc={edit.display_data.cdtoc} />
       </td>
     </tr>
   </table>
