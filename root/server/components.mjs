@@ -82,6 +82,7 @@ export default {
   'artist_credit/ArtistCreditIndex': (): Promise<mixed> => import('../artist_credit/ArtistCreditIndex.js'),
   'artist_credit/EntityList': (): Promise<mixed> => import('../artist_credit/EntityList.js'),
   'cdtoc/AttachCDTocConfirmation': (): Promise<mixed> => import('../cdtoc/AttachCDTocConfirmation.js'),
+  'cdtoc/RemoveDiscId': (): Promise<mixed> => import('../cdtoc/RemoveDiscId.js'),
   'cdtoc/SetTracklistDurations': (): Promise<mixed> => import('../cdtoc/SetTracklistDurations.js'),
   'collection/CollectionIndex': (): Promise<mixed> => import('../collection/CollectionIndex.js'),
   'collection/CollectionMerge': (): Promise<mixed> => import('../collection/CollectionMerge.js'),

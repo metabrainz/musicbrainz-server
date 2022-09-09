@@ -8,7 +8,6 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_REMOVE_DISCID
     $EDIT_MEDIUM_MOVE_DISCID
     $EDIT_SET_TRACK_LENGTHS
-    %ENTITIES
 );
 use MusicBrainz::Server::Entity::CDTOC;
 use MusicBrainz::Server::Translation qw( l );
@@ -88,15 +87,6 @@ sub remove : Local Edit
     my $cdtoc = $c->model('MediumCDTOC')->get_by_medium_cdtoc($medium_id, $cdtoc_id);
     $c->model('CDTOC')->load($cdtoc);
 
-    $c->stash(
-        medium_cdtoc => $cdtoc,
-        medium       => $medium,
-        release      => $release,
-        # These added so the entity tabs will appear properly
-        entity       => $release,
-        entity_properties => $ENTITIES{release}
-    );
-
     $self->edit_action($c,
         form        => 'Confirm',
         form_args   => { requires_edit_note => 1 },
@@ -108,7 +98,19 @@ sub remove : Local Edit
         on_creation => sub {
             $c->response->redirect($c->uri_for_action('/release/discids', [ $release->gid ]));
         }
-    )
+    );
+
+    my %props = (
+        mediumCDToc => $cdtoc->TO_JSON,
+        form        => $c->stash->{form}->TO_JSON,
+        release     => $release->TO_JSON,
+    );
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'cdtoc/RemoveDiscId.js',
+        component_props => \%props,
+    );
 }
 
 sub set_durations : Chained('load') PathPart('set-durations') Edit
