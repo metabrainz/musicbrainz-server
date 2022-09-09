@@ -208,9 +208,6 @@ sub attach : Local DenyWhenReadonly Edit
         $c->model('Recording')->load($medium->all_tracks);
         $c->model('ArtistCredit')->load($medium->all_tracks, $medium->release);
 
-        $c->stash( medium => $medium );
-
-        $c->stash(template => 'cdtoc/attach_confirm.tt');
         $self->edit_action($c,
             form        => 'Confirm',
             type        => $EDIT_MEDIUM_ADD_DISCID,
@@ -224,6 +221,18 @@ sub attach : Local DenyWhenReadonly Edit
                     $c->uri_for_action(
                         '/release/discids' => [ $medium->release->gid ]));
             }
+        );
+
+        my %props = (
+            cdToc   => $cdtoc->TO_JSON,
+            form    => $c->stash->{form}->TO_JSON,
+            medium  => $medium->TO_JSON,
+        );
+
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'cdtoc/AttachCDTocConfirmation.js',
+            component_props => \%props,
         );
     } else {
         $self->_attach_list($c, $cdtoc);
@@ -411,12 +420,6 @@ sub move : Local Edit
         $c->model('Label')->load($medium->release->all_labels);
         $c->model('ArtistCredit')->load($medium->all_tracks, $medium->release, $medium_cdtoc->medium->release);
 
-        $c->stash(
-            medium => $medium
-        );
-
-
-        $c->stash(template => 'cdtoc/attach_confirm.tt');
         $self->edit_action($c,
             form        => 'Confirm',
             type        => $EDIT_MEDIUM_MOVE_DISCID,
@@ -429,7 +432,19 @@ sub move : Local Edit
                     $c->uri_for_action(
                         '/release/discids' => [ $medium->release->gid ]));
             }
-        )
+        );
+
+        my %props = (
+            cdToc   => $cdtoc->TO_JSON,
+            form    => $c->stash->{form}->TO_JSON,
+            medium  => $medium->TO_JSON,
+        );
+
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'cdtoc/AttachCDTocConfirmation.js',
+            component_props => \%props,
+        );
     }
     else {
         my $search_release = $c->form( query_release => 'Search::Query',
