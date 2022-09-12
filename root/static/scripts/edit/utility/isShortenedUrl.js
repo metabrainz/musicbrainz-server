@@ -74,6 +74,7 @@ const URL_SHORTENERS = [
   'mylink.page',
   'myurls.bio',
   'odesli.co',
+  'onerpm.link',
   'orcd.co',
   'owl.ly',
   'page.link',
