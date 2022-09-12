@@ -1169,6 +1169,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://brahms.ircam.fr/fr/anders-hillborg',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://brahms.ircam.fr/anders-hillborg',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'http://brahms.ircam.fr/works/work/6385/',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
