@@ -1319,7 +1319,7 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?brahms\\.ircam\\.fr/', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?brahms\.ircam\.fr\/((works\/work)(?:\/)([0-9]+)|(?!works)[^?\/#]+).*$/, 'http://brahms.ircam.fr/$1');
+      return url.replace(/^(?:https?:\/\/)?brahms\.ircam\.fr\/(?:(?:en|fr)\/)?((works\/work)(?:\/)([0-9]+)|(?!works)[^?\/#]+).*$/, 'http://brahms.ircam.fr/$1');
     },
     validate: function (url, id) {
       const m = /^(?:https?:\/\/)?brahms\.ircam\.fr\/(works\/work|(?!works)[^?\/#]+).*$/.exec(url);
