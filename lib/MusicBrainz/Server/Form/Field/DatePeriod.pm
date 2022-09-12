@@ -1,9 +1,9 @@
 package MusicBrainz::Server::Form::Field::DatePeriod;
 
 use HTML::FormHandler::Moose;
-use Date::Calc;
 use List::AllUtils qw ( any );
 use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Validation qw( is_date_range_valid );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 extends 'HTML::FormHandler::Field::Compound';
 
@@ -42,14 +42,5 @@ after 'validate' => sub {
 
     return 1;
 };
-
-sub is_date_range_valid {
-    my ($a, $b) = @_;
-
-    my @a = ($a->{year}, $a->{month} || 1, $a->{day} || 1);
-    my @b = ($b->{year}, $b->{month} || 12, $b->{day} || Date::Calc::Days_in_Month($b->{year}, $b->{month} || 12));
-
-    return Date::Calc::Delta_Days(@a, @b) >= 0;
-}
 
 1;
