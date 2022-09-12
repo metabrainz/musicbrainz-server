@@ -51,6 +51,8 @@ const URL_SHORTENERS = [
   'hyperurl.co',
   'is.gd',
   'kl.am',
+  'koji.game',
+  'koji.sh',
   'laburbain.com',
   'li.sten.to',
   'linkco.re',
@@ -102,6 +104,7 @@ const URL_SHORTENERS = [
   'unitedmasters.com',
   'untd.io',
   'vyd.co',
+  'withkoji.com',
   'yep.it',
 ].map(shortener => new RegExp(
   '^https?://([^/]+\\.)?' +
