@@ -61,6 +61,10 @@ sub search : Path('')
             $c->forward($form->field('method')->value eq 'direct' ? 'direct' : 'external');
         }
 
+        # $c->error may be set if an Internal Server Error occurs within the
+        # direct/external search methods, e.g. a database query timeout.
+        return if @{ $c->error };
+
         if ($type ne 'doc') {
             my $stash = $c->stash;
 
