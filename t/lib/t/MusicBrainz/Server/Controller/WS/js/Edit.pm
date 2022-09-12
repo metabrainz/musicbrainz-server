@@ -778,6 +778,27 @@ test 'adding a relationship with an invalid date' => sub {
 
     my $response = from_json($mech->content);
     like($response->{error}, qr/^invalid date/, 'error is returned for invalid begin date');
+
+    $edit_data = [ {
+        edit_type   => $EDIT_RELATIONSHIP_CREATE,
+        linkTypeID  => 148,
+        attributes  => [],
+        entities => [
+            { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
+            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
+        ],
+        begin_date   => { year => 2000, month => undef, day => undef },
+        end_date     => { year => 1999, month => undef, day => undef },
+    } ];
+
+    @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => $edit_data }));
+    } $c;
+
+    ok(scalar(@edits) == 0, 'relationship for invalid date range is not created');
+
+    my $response = from_json($mech->content);
+    like($response->{error}, qr/^invalid date range/, 'error is returned for invalid date range');
 };
 
 

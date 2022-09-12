@@ -46,6 +46,7 @@ use MusicBrainz::Server::Renderer qw( render_component );
 use MusicBrainz::Server::Translation qw( comma_list comma_only_list l );
 use MusicBrainz::Server::Validation qw(
     is_database_row_id
+    is_date_range_valid
     is_guid
     is_valid_edit_note
     is_valid_url
@@ -418,6 +419,14 @@ sub process_relationship {
     $data->{begin_date} = $begin_date;
     $data->{end_date} = $end_date;
     $data->{ended} = boolean_from_json($ended) if defined $ended;
+
+    if (
+        non_empty($begin_date->{year}) &&
+        non_empty($end_date->{year}) &&
+        !is_date_range_valid($begin_date, $end_date)
+    ) {
+        die 'invalid date range: the end date cannot precede the begin date';
+    }
 
     if (defined $data->{attributes}) {
         $data->{attributes} = merge_link_attributes(
