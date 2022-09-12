@@ -22,6 +22,9 @@ export type LinkedEntitiesT = {
   artist_type: {
     [artistId: number]: ArtistTypeT,
   },
+  edit: {
+    [editId: number]: EditWithIdT,
+  },
   editor: {
     [editorId: number]: EditorT,
   },
@@ -107,6 +110,7 @@ const linkedEntities/*: LinkedEntitiesT */ = Object.create(Object.seal({
   area:                           EMPTY_OBJECT,
   artist:                         EMPTY_OBJECT,
   artist_type:                    EMPTY_OBJECT,
+  edit:                           EMPTY_OBJECT,
   editor:                         EMPTY_OBJECT,
   event:                          EMPTY_OBJECT,
   genre:                          EMPTY_OBJECT,

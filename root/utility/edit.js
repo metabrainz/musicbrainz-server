@@ -28,6 +28,7 @@ import {
   isBot,
   isEditingEnabled,
 } from '../static/scripts/common/utility/privileges.js';
+import {kebabCase} from '../static/scripts/common/utility/strings.js';
 
 const EXPIRE_ACTIONS = {
   [EDIT_EXPIRE_ACCEPT]:   N_l('Accept upon closing'),
@@ -89,6 +90,13 @@ export function getEditStatusDescription(edit: GenericEditWithIdT): string {
     default:
       return '';
   }
+}
+
+export function getEditHeaderClass(edit: GenericEditWithIdT): string {
+  return 'edit-header' + ' ' +
+         getEditStatusClass(edit) + ' ' +
+         'edit-' + edit.edit_kind + ' ' +
+         kebabCase(edit.edit_name);
 }
 
 export function getEditStatusClass(edit: GenericEditWithIdT): string {

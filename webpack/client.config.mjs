@@ -58,7 +58,7 @@ const entries = [
   'common/components/WorkArtists',
   'confirm-seed',
   'edit',
-  'edit/notes-received',
+  'edit/components/NewNotesAlertCheckbox',
   'event/edit',
   'event/index',
   'genre/components/GenreEditForm',
