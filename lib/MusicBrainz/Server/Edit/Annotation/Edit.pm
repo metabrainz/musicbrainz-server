@@ -190,6 +190,6 @@ role {
     };
 };
 
-sub edit_template_react { 'AddAnnotation' };
+sub edit_template { 'AddAnnotation' };
 
 1;

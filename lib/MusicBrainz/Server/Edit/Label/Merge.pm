@@ -31,7 +31,7 @@ sub foreign_keys
     }
 }
 
-sub edit_template_react { 'MergeLabels' };
+sub edit_template { 'MergeLabels' };
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

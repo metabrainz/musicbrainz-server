@@ -139,7 +139,7 @@ sub _build_recording_merges {
 sub edit_name { N_l('Merge releases') }
 sub edit_type { $EDIT_RELEASE_MERGE }
 sub _merge_model { 'Release' }
-sub edit_template_react { 'MergeReleases' }
+sub edit_template { 'MergeReleases' }
 
 sub release_ids { @{ shift->_entity_ids } }
 

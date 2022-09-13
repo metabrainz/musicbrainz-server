@@ -28,7 +28,7 @@ sub foreign_keys
     }
 }
 
-sub edit_template_react { 'MergePlaces' };
+sub edit_template { 'MergePlaces' };
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

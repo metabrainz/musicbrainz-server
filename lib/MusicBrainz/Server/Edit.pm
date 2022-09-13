@@ -26,11 +26,7 @@ sub edit_name { die 'Unimplemented' }
 sub edit_kind { die 'Unimplemented' }
 sub l_edit_name { l(shift->edit_name) }
 
-sub edit_template {
-    lc(shift->edit_name) =~ s/\s+/_/gr
-}
-
-sub edit_template_react { '' }
+sub edit_template { die 'Unimplemented' }
 
 has 'c' => (
     isa => 'Object',

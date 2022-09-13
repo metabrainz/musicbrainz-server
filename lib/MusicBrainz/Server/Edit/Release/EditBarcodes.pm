@@ -20,7 +20,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 sub edit_name { N_l('Edit barcodes') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_EDIT_BARCODES }
-sub edit_template_react { 'EditBarcodes' }
+sub edit_template { 'EditBarcodes' }
 
 has '+data' => (
     isa => Dict[

@@ -50,7 +50,7 @@ around build_display_data => sub {
     return $data;
 };
 
-sub edit_template_react { 'MergeRecordings' };
+sub edit_template { 'MergeRecordings' };
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

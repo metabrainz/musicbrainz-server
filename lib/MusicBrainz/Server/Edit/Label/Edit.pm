@@ -42,7 +42,7 @@ with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
 
 sub edit_type { $EDIT_LABEL_EDIT }
 sub edit_name { N_l('Edit label') }
-sub edit_template_react { 'EditLabel' }
+sub edit_template { 'EditLabel' }
 sub _edit_model { 'Label' }
 sub label_id { shift->entity_id }
 

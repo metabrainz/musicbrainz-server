@@ -29,7 +29,7 @@ sub edit_name { N_l('Add label') }
 sub edit_type { $EDIT_LABEL_CREATE }
 sub _create_model { 'Label' }
 sub label_id { shift->entity_id }
-sub edit_template_react { 'AddLabel' }
+sub edit_template { 'AddLabel' }
 
 has '+data' => (
     isa => Dict[

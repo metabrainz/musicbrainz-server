@@ -159,6 +159,6 @@ role {
     };
 };
 
-sub edit_template_react { 'AddRemoveAlias' };
+sub edit_template { 'AddRemoveAlias' };
 
 1;

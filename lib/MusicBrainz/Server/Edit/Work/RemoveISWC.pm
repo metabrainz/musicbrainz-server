@@ -23,7 +23,7 @@ with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
 sub edit_name { N_l('Remove ISWC') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_WORK_REMOVE_ISWC }
-sub edit_template_react { 'RemoveIswc' }
+sub edit_template { 'RemoveIswc' }
 
 sub work_id { shift->data->{work}{id} }
 

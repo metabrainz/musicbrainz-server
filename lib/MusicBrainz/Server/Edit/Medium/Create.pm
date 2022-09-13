@@ -32,7 +32,7 @@ sub edit_name { N_l('Add medium') }
 sub _create_model { 'Medium' }
 sub medium_id { shift->entity_id }
 sub release_id { shift->data->{release}->{id} }
-sub edit_template_react { 'AddMedium' }
+sub edit_template { 'AddMedium' }
 
 has '+data' => (
     isa => Dict[

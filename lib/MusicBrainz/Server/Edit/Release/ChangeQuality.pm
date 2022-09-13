@@ -26,7 +26,7 @@ sub edit_name { N_l('Change release data quality') }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASE_CHANGE_QUALITY }
 sub release_id { shift->data->{release}{id} }
-sub edit_template_react { 'ChangeReleaseQuality' }
+sub edit_template { 'ChangeReleaseQuality' }
 
 method alter_edit_pending
 {

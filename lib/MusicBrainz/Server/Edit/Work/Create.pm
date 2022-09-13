@@ -19,7 +19,7 @@ sub edit_name { N_l('Add work') }
 sub edit_type { $EDIT_WORK_CREATE }
 sub _create_model { 'Work' }
 sub work_id { shift->entity_id }
-sub edit_template_react { 'AddWork' }
+sub edit_template { 'AddWork' }
 
 has '+data' => (
     isa => Dict[

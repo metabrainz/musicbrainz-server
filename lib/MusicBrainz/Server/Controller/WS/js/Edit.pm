@@ -761,31 +761,19 @@ sub preview : Chained('edit') PathPart('preview') Edit {
     my @previews = map {
         my $edit = $_;
 
-        my $edit_template_react = $edit->edit_template_react;
+        my $edit_template = $edit->edit_template;
         my $preview;
 
-        if ($edit_template_react) {
-            my $response = render_component(
-                $c,
-                "edit/details/$edit_template_react",
-                {edit => to_json_object($edit), allowNew => \1},
-            );
-            my $body = $response->{body} // '';
-            my $content_type = $response->{content_type} // '';
-            $preview = $content_type eq 'text/html'
-                ? $body
-                : encode_entities($body);
-        } else {
-            my $edit_template = $edit->edit_template;
-            my $out = '';
-
-            $preview = $TT->process(
-                "edit/details/${edit_template}.tt",
-                {edit => $edit, c => $c, allow_new => 1},
-                \$out,
-                binmode => 1,
-            ) ? $out : '' . $TT->error();
-        }
+        my $response = render_component(
+            $c,
+            "edit/details/$edit_template",
+            {edit => to_json_object($edit), allowNew => \1},
+        );
+        my $body = $response->{body} // '';
+        my $content_type = $response->{content_type} // '';
+        $preview = $content_type eq 'text/html'
+            ? $body
+            : encode_entities($body);
 
         { preview => $preview, editName => $edit->l_edit_name };
     } @edits;

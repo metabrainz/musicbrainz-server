@@ -227,7 +227,7 @@ sub _edit_hash
     return $data;
 }
 
-sub edit_template_react { 'EditReleaseGroup' }
+sub edit_template { 'EditReleaseGroup' }
 
 before accept => sub {
     my ($self) = @_;

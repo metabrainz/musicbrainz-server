@@ -15,7 +15,7 @@ sub edit_name     { N_l('Edit release') }
 sub edit_kind     { 'edit' }
 sub historic_type { 8 }
 sub edit_type     { $EDIT_HISTORIC_MOVE_RELEASE }
-sub edit_template_react { 'historic/MoveRelease' }
+sub edit_template { 'historic/MoveRelease' }
 
 sub _build_related_entities
 {

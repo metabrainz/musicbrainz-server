@@ -13,7 +13,7 @@ sub edit_name     { N_l('Remove releases (historic)') }
 sub edit_kind     { 'remove' }
 sub historic_type { 24 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_RELEASES }
-sub edit_template_react { 'historic/RemoveReleases' }
+sub edit_template { 'historic/RemoveReleases' }
 
 sub _build_related_entities {
     my $self = shift;

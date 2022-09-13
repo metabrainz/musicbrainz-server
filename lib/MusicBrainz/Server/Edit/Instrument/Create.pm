@@ -20,7 +20,7 @@ sub edit_name { N_l('Add instrument') }
 sub edit_type { $EDIT_INSTRUMENT_CREATE }
 sub _create_model { 'Instrument' }
 sub instrument_id { shift->entity_id }
-sub edit_template_react { 'AddInstrument' }
+sub edit_template { 'AddInstrument' }
 
 has '+data' => (
     isa => Dict[

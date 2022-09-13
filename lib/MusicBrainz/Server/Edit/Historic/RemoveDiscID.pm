@@ -13,7 +13,7 @@ sub edit_name     { N_l('Remove disc ID') }
 sub edit_kind     { 'remove' }
 sub historic_type { 20 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_DISCID }
-sub edit_template_react { 'historic/RemoveDiscId' }
+sub edit_template { 'historic/RemoveDiscId' }
 
 sub _build_related_entities
 {

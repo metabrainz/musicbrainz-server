@@ -24,7 +24,7 @@ sub edit_name     { N_l('Edit recording') }
 sub edit_kind     { 'edit' }
 sub historic_type { 4 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_TRACKNAME }
-sub edit_template_react { 'EditRecording' }
+sub edit_template { 'EditRecording' }
 
 sub _build_related_entities
 {

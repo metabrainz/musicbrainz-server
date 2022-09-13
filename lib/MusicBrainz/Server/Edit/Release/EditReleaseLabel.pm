@@ -28,7 +28,7 @@ with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 sub edit_name { N_l('Edit release label') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_EDITRELEASELABEL }
-sub edit_template_react { 'EditReleaseLabel' }
+sub edit_template { 'EditReleaseLabel' }
 
 sub alter_edit_pending { { Release => [ shift->release_id ] } }
 

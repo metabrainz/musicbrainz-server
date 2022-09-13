@@ -12,7 +12,7 @@ sub edit_name     { N_l('Add track (historic)') }
 sub edit_kind     { 'add' }
 sub historic_type { 18 }
 sub edit_type     { $EDIT_HISTORIC_ADD_TRACK_KV }
-sub edit_template_react { 'historic/AddTrackKV' }
+sub edit_template { 'historic/AddTrackKV' }
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 use aliased 'MusicBrainz::Server::Entity::Release';

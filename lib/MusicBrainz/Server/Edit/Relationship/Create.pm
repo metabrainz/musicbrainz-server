@@ -31,7 +31,7 @@ use aliased 'MusicBrainz::Server::Entity::PartialDate';
 sub edit_type { $EDIT_RELATIONSHIP_CREATE }
 sub edit_name { N_l('Add relationship') }
 sub _create_model { 'Relationship' }
-sub edit_template_react { 'AddRelationship' }
+sub edit_template { 'AddRelationship' }
 
 has '+data' => (
     isa => Dict[

@@ -43,7 +43,7 @@ use aliased 'MusicBrainz::Server::Entity::Recording';
 
 sub edit_type { $EDIT_RECORDING_EDIT }
 sub edit_name { N_l('Edit recording') }
-sub edit_template_react { 'EditRecording' }
+sub edit_template { 'EditRecording' }
 sub _edit_model { 'Recording' }
 sub recording_id { return shift->entity_id }
 

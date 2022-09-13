@@ -12,7 +12,7 @@ sub edit_name     { N_l('Edit release') }
 sub edit_kind     { 'edit' }
 sub historic_type { 3 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_NAME }
-sub edit_template_react { 'historic/EditReleaseName' }
+sub edit_template { 'historic/EditReleaseName' }
 
 sub _build_related_entities
 {

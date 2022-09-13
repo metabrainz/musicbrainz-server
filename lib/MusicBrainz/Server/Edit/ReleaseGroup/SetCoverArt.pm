@@ -21,7 +21,7 @@ sub edit_name { N_l('Set cover art') }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASEGROUP_SET_COVER_ART }
 sub release_group_ids { shift->data->{entity}->{id} }
-sub edit_template_react { 'SetCoverArt' }
+sub edit_template { 'SetCoverArt' }
 
 sub alter_edit_pending {
     my $self = shift;
