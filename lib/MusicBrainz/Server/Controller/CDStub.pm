@@ -53,12 +53,9 @@ sub add : Path('add') DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
-    if ($c->user_exists) {
-        $c->res->code(403);
-        $c->stash( template => 'cdstub/logged_in.tt' );
-    }
+    my $passed_toc = $c->req->query_params->{toc};
+    my $toc = CDTOC->new_from_toc($passed_toc);
 
-    my $toc = CDTOC->new_from_toc( $c->req->query_params->{toc} );
     if (!$toc) {
         $c->stash( message => l('The required TOC parameter was invalid or not present') );
         $c->detach('/error_400');
@@ -73,6 +70,17 @@ sub add : Path('add') DenyWhenReadonly
     if ($c->model('CDTOC')->get_by_discid($toc->discid)) {
         $c->response->redirect(
             $c->uri_for_action('/cdtoc/show', [ $toc->discid ]));
+        $c->detach;
+    }
+
+    if ($c->user_exists) {
+        $c->res->code(403);
+
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'cdstub/CDStubAddWhileLoggedIn.js',
+            component_props => { cdToc => $passed_toc },
+        );
         $c->detach;
     }
 
