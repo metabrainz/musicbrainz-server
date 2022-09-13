@@ -10,6 +10,19 @@
 declare type CDTocT = $ReadOnly<{
   ...EntityRoleT<'cdtoc'>,
   +discid: string,
+  +freedb_id: string,
+  +leadout_offset: number,
+  +length: number,
+  +track_count: number,
+  +track_details: $ReadOnlyArray<{
+    +end_sectors: number,
+    +end_time: number,
+    +length_sectors: number,
+    +length_time: number,
+    +start_sectors: number,
+    +start_time: number,
+  }>,
+  +track_offset: $ReadOnlyArray<number>,
 }>;
 
 declare type MediumCDTocT = $ReadOnly<{

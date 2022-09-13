@@ -345,6 +345,7 @@ export default {
    */
   'area/AreaHeader': (): Promise<mixed> => import('../area/AreaHeader.js'),
   'artist/ArtistHeader': (): Promise<mixed> => import('../artist/ArtistHeader.js'),
+  'cdtoc/CDTocInfo': (): Promise<mixed> => import('../cdtoc/CDTocInfo.js'),
   'collection/CollectionHeader': (): Promise<mixed> => import('../collection/CollectionHeader.js'),
   'components/UserAccountTabs': (): Promise<mixed> => import('../components/UserAccountTabs.js'),
   'edit/components/EditList': (): Promise<mixed> => import('../edit/components/EditList.js'),

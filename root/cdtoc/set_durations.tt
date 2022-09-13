@@ -5,7 +5,8 @@
           to match that of the below disc ID.') %]
   </p>
 
-  [% INCLUDE 'cdtoc/info.tt' %]
+  [%- cdtoc_json_obj = React.to_json_object(cdtoc) -%]
+  [% React.embed(c, 'cdtoc/CDTocInfo', {cdToc => cdtoc_json_obj}) %]
 
   <h2>[% l('Medium') %]</h2>
   <table class="tbl"><tbody>

@@ -38,18 +38,6 @@ has 'degraded' => (
     isa => 'Boolean'
 );
 
-sub first_track
-{
-    return 1;
-}
-
-sub last_track
-{
-    my ($self) = @_;
-
-    return $self->track_count;
-}
-
 sub sectors_to_ms
 {
     return int($_[0] / 75 * 1000);
@@ -69,14 +57,14 @@ sub track_details
     my @track_info;
     foreach my $track (0 .. ($self->track_count - 1)) {
         my %info;
-        $info{start_sectors} = $self->track_offset->[$track];
-        $info{start_time} = sectors_to_ms($info{start_sectors});
+        $info{start_sectors} = 0 + $self->track_offset->[$track];
+        $info{start_time} = 0 + sectors_to_ms($info{start_sectors});
         $info{end_sectors} = ($track == $self->track_count - 1)
-            ? $self->leadout_offset
-            : $self->track_offset->[$track + 1];
-        $info{end_time} = sectors_to_ms($info{end_sectors});
-        $info{length_sectors} = $info{end_sectors} - $info{start_sectors};
-        $info{length_time} = sectors_to_ms($info{length_sectors});
+            ? 0 + $self->leadout_offset
+            : 0 + $self->track_offset->[$track + 1];
+        $info{end_time} = 0 + sectors_to_ms($info{end_sectors});
+        $info{length_sectors} = 0 + ($info{end_sectors} - $info{start_sectors});
+        $info{length_time} = 0 + sectors_to_ms($info{length_sectors});
         push @track_info, \%info;
     }
     return \@track_info;
@@ -143,10 +131,18 @@ with 'MusicBrainz::Server::Entity::Role::TOC';
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
-    my $json = $self->$orig;
-    $json->{discid} = $self->discid;
+    my $data = {
+        %{ $self->$orig },
+        discid          => $self->discid,
+        freedb_id       => $self->freedb_id,
+        leadout_offset  => 0 + $self->leadout_offset,
+        length          => 0 + $self->length,
+        track_count     => 0 + $self->track_count,
+        track_details   => $self->track_details,
+        track_offset    => [map { 0 + $_ } @{ $self->track_offset }],
+    };
 
-    return $json;
+    return $data;
 };
 
 
