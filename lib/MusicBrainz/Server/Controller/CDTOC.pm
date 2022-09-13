@@ -147,6 +147,18 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit
                 $c->uri_for_action($self->action_for('show'), [ $cdtoc->discid ]));
         }
     );
+
+    my %props = (
+        cdToc   => $cdtoc->TO_JSON,
+        form    => $c->stash->{form}->TO_JSON,
+        medium  => $medium->TO_JSON,
+    );
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'cdtoc/SetTracklistDurations.js',
+        component_props => \%props,
+    );
 }
 
 sub attach : Local DenyWhenReadonly Edit
