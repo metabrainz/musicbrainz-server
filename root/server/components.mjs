@@ -85,6 +85,7 @@ export default {
   'cdstub/CDStubIndex': (): Promise<mixed> => import('../cdstub/CDStubIndex.js'),
   'cdstub/CDStubNotFound': (): Promise<mixed> => import('../cdstub/CDStubNotFound.js'),
   'cdstub/DiscIdNotValid': (): Promise<mixed> => import('../cdstub/DiscIdNotValid.js'),
+  'cdstub/ImportCDStub': (): Promise<mixed> => import('../cdstub/ImportCDStub.js'),
   'cdtoc/AttachCDTocConfirmation': (): Promise<mixed> => import('../cdtoc/AttachCDTocConfirmation.js'),
   'cdtoc/RemoveDiscId': (): Promise<mixed> => import('../cdtoc/RemoveDiscId.js'),
   'cdtoc/SetTracklistDurations': (): Promise<mixed> => import('../cdtoc/SetTracklistDurations.js'),
