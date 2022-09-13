@@ -6,8 +6,10 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::ControllerUtils::CDTOC qw( add_dash );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model       => 'CDStub',
@@ -164,10 +166,21 @@ sub import : Chained('load') RequireAuth
         $search_query = $form->field('query')->value;
     }
 
+    my $artists = $self->_load_paged($c, sub {
+        $c->model('Search')->search('artist', $search_query, shift, shift);
+    });
+
+    my %props = (
+        artists     => to_json_array($artists),
+        cdstub      => $cdstub->TO_JSON,
+        form        => $form->TO_JSON,
+        pager       => serialize_pager($c->stash->{pager}),
+    );
+
     $c->stash(
-        artists => $self->_load_paged($c, sub {
-            $c->model('Search')->search('artist', $search_query, shift, shift);
-        })
+        current_view => 'Node',
+        component_path => 'cdstub/ImportCDStub.js',
+        component_props => \%props,
     );
 }
 
