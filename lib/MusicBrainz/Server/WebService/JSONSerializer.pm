@@ -11,6 +11,7 @@ use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
     number
     serialize_entity
 );
+use Try::Tiny;
 
 sub mime_type { 'application/json' }
 sub fmt { 'json' }
@@ -53,7 +54,16 @@ sub serialize_internal {
     my $model = type_to_model($type);
 
     my $js_model = "MusicBrainz::Server::Controller::WS::js::$model";
-    load_class($js_model);
+    try {
+        load_class($js_model);
+    }
+    catch {
+        MusicBrainz::Server::Controller::WS::js->critical_error(
+            $c,
+            qq{Tried to load unsupported entity type "$type".},
+        );
+    };
+
     $js_model->_load_entities($c, $entity);
 
     return $entity->TO_JSON;
