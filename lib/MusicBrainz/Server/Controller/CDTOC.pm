@@ -3,7 +3,6 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_ADD_DISCID
     $EDIT_MEDIUM_REMOVE_DISCID
@@ -14,7 +13,9 @@ use MusicBrainz::Server::Constants qw(
 use MusicBrainz::Server::Entity::CDTOC;
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::ControllerUtils::CDTOC qw( add_dash );
-
+use MusicBrainz::Server::Validation qw(
+    is_database_row_id
+);
 use List::AllUtils qw( sort_by );
 
 use HTTP::Status qw( :constants );
@@ -179,7 +180,7 @@ sub attach : Local DenyWhenReadonly Edit
     if (my $medium_id = $c->req->query_params->{medium}) {
         $self->error($c, status => HTTP_BAD_REQUEST,
                      message => l('The provided medium id is not valid')
-            ) unless looks_like_number($medium_id);
+            ) unless is_database_row_id($medium_id);
 
         if ($c->model('MediumCDTOC')->medium_has_cdtoc($medium_id, $cdtoc)) {
             $c->stash->{medium_has_cdtoc} = $medium_id;
@@ -189,6 +190,11 @@ sub attach : Local DenyWhenReadonly Edit
         }
 
         my $medium = $c->model('Medium')->get_by_id($medium_id);
+
+        $self->error($c, status => HTTP_BAD_REQUEST,
+                     message => l('The provided medium ID doesn’t exist.')
+            ) unless defined $medium;
+
         $c->model('MediumFormat')->load($medium);
 
         $self->error(
@@ -202,9 +208,6 @@ sub attach : Local DenyWhenReadonly Edit
         $c->model('Recording')->load($medium->all_tracks);
         $c->model('ArtistCredit')->load($medium->all_tracks, $medium->release);
 
-        $c->stash( medium => $medium );
-
-        $c->stash(template => 'cdtoc/attach_confirm.tt');
         $self->edit_action($c,
             form        => 'Confirm',
             type        => $EDIT_MEDIUM_ADD_DISCID,
@@ -219,6 +222,18 @@ sub attach : Local DenyWhenReadonly Edit
                         '/release/discids' => [ $medium->release->gid ]));
             }
         );
+
+        my %props = (
+            cdToc   => $cdtoc->TO_JSON,
+            form    => $c->stash->{form}->TO_JSON,
+            medium  => $medium->TO_JSON,
+        );
+
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'cdtoc/AttachCDTocConfirmation.js',
+            component_props => \%props,
+        );
     } else {
         $self->_attach_list($c, $cdtoc);
     }
@@ -231,7 +246,7 @@ sub _attach_list {
 
         $self->error($c, status => HTTP_BAD_REQUEST,
                      message => l('The provided artist id is not valid')
-            ) unless looks_like_number($artist_id);
+            ) unless is_database_row_id($artist_id);
 
         # List releases
         my $artist = $c->model('Artist')->get_by_id($artist_id);
@@ -379,9 +394,14 @@ sub move : Local Edit
     if (my $medium_id = $c->req->query_params->{medium}) {
         $self->error($c, status => HTTP_BAD_REQUEST,
                      message => l('The provided medium id is not valid')
-            ) unless looks_like_number($medium_id);
+            ) unless is_database_row_id($medium_id);
 
         my $medium = $c->model('Medium')->get_by_id($medium_id);
+
+        $self->error($c, status => HTTP_BAD_REQUEST,
+                     message => l('The provided medium ID doesn’t exist.')
+            ) unless defined $medium;
+
         $c->model('MediumFormat')->load($medium);
         $self->error(
             $c,
@@ -400,12 +420,6 @@ sub move : Local Edit
         $c->model('Label')->load($medium->release->all_labels);
         $c->model('ArtistCredit')->load($medium->all_tracks, $medium->release, $medium_cdtoc->medium->release);
 
-        $c->stash(
-            medium => $medium
-        );
-
-
-        $c->stash(template => 'cdtoc/attach_confirm.tt');
         $self->edit_action($c,
             form        => 'Confirm',
             type        => $EDIT_MEDIUM_MOVE_DISCID,
@@ -418,7 +432,19 @@ sub move : Local Edit
                     $c->uri_for_action(
                         '/release/discids' => [ $medium->release->gid ]));
             }
-        )
+        );
+
+        my %props = (
+            cdToc   => $cdtoc->TO_JSON,
+            form    => $c->stash->{form}->TO_JSON,
+            medium  => $medium->TO_JSON,
+        );
+
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'cdtoc/AttachCDTocConfirmation.js',
+            component_props => \%props,
+        );
     }
     else {
         my $search_release = $c->form( query_release => 'Search::Query',

@@ -525,39 +525,6 @@ END -%]
     </a>
 [%- END -%]
 
-[%~ MACRO track_duration_changes(loop_over, old_base, new_base, old_prop, new_prop, old_label, new_label) BLOCK # Converted to React at root/edit/components/TrackDurationChanges.js -%]
-  [% USE Diff %]
-  [%- IF old_label && new_label -%]
-    <table class="wrap-block details">
-        <tr>
-            <th>[%- old_label -%]</th>
-        </tr>
-        <tr>
-            <th>[%- new_label -%]</th>
-        </tr>
-    </table>
-  [%- END -%]  
-  [%- FOR i = loop_over %]
-     [%- IF old_prop;
-       old_length = old_base.${ loop.index }.${ old_prop } | format_length;
-         ELSE;
-       old_length = old_base.${ loop.index } | format_length;
-         END;
-         IF new_prop;
-       new_length = new_base.${ loop.index }.${ new_prop } | format_length;
-         ELSE;
-       new_length = new_base.${ loop.index } | format_length;
-         END %]
-     <table class="wrap-block details">
-         <tr>
-             <td class="old">[%- Diff.diff_side(old_length, new_length, '-', '') -%]</td>
-         </tr><tr>
-             <td class="new">[%- Diff.diff_side(old_length, new_length, '+', '') -%]</td>
-         </tr>
-     </table>
-  [%- END -%]
-[%- END -%]
-
 [%~ MACRO release_countries_list(release_events) BLOCK;
     out = [];
     FOR event=release_events;
