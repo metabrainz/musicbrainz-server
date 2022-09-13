@@ -27,7 +27,6 @@ import formatTrackLength
 import releaseLabelKey
   from '../../../static/scripts/common/utility/releaseLabelKey.js';
 import {Artwork} from '../../../components/Artwork.js';
-import CritiqueBrainzLinks from '../../../components/CritiqueBrainzLinks.js';
 import LinkSearchableLanguage
   from '../../../components/LinkSearchableLanguage.js';
 import LinkSearchableProperty
@@ -44,6 +43,7 @@ import SidebarDataQuality from './SidebarDataQuality.js';
 import SidebarLicenses from './SidebarLicenses.js';
 import {SidebarProperty, SidebarProperties} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
+import SidebarReviews from './SidebarReviews.js';
 import SidebarTags from './SidebarTags.js';
 
 type Props = {
@@ -231,16 +231,10 @@ const ReleaseSidebar = ({release}: Props): React.Element<'div'> | null => {
         heading={l('Release group rating')}
       />
 
-      {releaseGroup.review_count == null ? null : (
-        <>
-          <h2 className="reviews">
-            {l('Release group reviews')}
-          </h2>
-          <p>
-            <CritiqueBrainzLinks entity={releaseGroup} />
-          </p>
-        </>
-      )}
+      <SidebarReviews
+        entity={releaseGroup}
+        heading={l('Release group reviews')}
+      />
 
       <SidebarTags entity={release} />
 

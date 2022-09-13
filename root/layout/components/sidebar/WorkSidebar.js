@@ -30,6 +30,7 @@ import MergeLink from './MergeLink.js';
 import SidebarLicenses from './SidebarLicenses.js';
 import {SidebarProperty, SidebarProperties} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
+import SidebarReviews from './SidebarReviews.js';
 import SidebarTags from './SidebarTags.js';
 import SidebarType from './SidebarType.js';
 
@@ -105,6 +106,8 @@ const WorkSidebar = ({work}: Props): React.Element<'div'> => {
       ) : null}
 
       <SidebarRating entity={work} />
+
+      <SidebarReviews entity={work} />
 
       <SidebarTags entity={work} />
 

@@ -30,6 +30,7 @@ import SidebarEndDate from './SidebarEndDate.js';
 import SidebarLicenses from './SidebarLicenses.js';
 import {SidebarProperty, SidebarProperties} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
+import SidebarReviews from './SidebarReviews.js';
 import SidebarTags from './SidebarTags.js';
 import SidebarType from './SidebarType.js';
 
@@ -100,6 +101,8 @@ const PlaceSidebar = ({place}: Props): React.Element<'div'> => {
       </SidebarProperties>
 
       <SidebarRating entity={place} />
+
+      <SidebarReviews entity={place} />
 
       <SidebarTags entity={place} />
 

@@ -139,7 +139,10 @@ function buildLinks(
     entityProperties.reviews
   ) {
     const ratingsTabTitle = entityProperties.reviews
-      ? l('Reviews')
+      ? texp.l(
+        'Reviews ({num})',
+        {num: entity.review_count || 0},
+      )
       : l('Ratings');
     links.push(buildLink(ratingsTabTitle, entity, 'ratings', page));
   }

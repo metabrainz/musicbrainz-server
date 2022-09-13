@@ -24,6 +24,7 @@ import MergeLink from './MergeLink.js';
 import SidebarLicenses from './SidebarLicenses.js';
 import {SidebarProperty, SidebarProperties} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
+import SidebarReviews from './SidebarReviews.js';
 import SidebarTags from './SidebarTags.js';
 
 type Props = {
@@ -59,6 +60,8 @@ const ReleaseGroupSidebar = ({releaseGroup}: Props): React.Element<'div'> => {
       </SidebarProperties>
 
       <SidebarRating entity={releaseGroup} />
+
+      <SidebarReviews entity={releaseGroup} />
 
       <SidebarTags entity={releaseGroup} />
 

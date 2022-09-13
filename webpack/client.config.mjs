@@ -75,6 +75,7 @@ const entries = [
   'release-group/index',
   'release/coverart',
   'release/index',
+  'reviews',
   'series/edit',
   'series/index',
   'statistics',

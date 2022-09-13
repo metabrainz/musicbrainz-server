@@ -118,7 +118,7 @@ after 'load' => sub {
 
     if ($c->action->name ne 'edit') {
         # Only needed by pages showing the sidebar
-        $c->model('CritiqueBrainz')->load_display_reviews($release->release_group)
+        $c->model('CritiqueBrainz')->load_review_count($release->release_group)
             unless $returning_jsonld;
     }
 };

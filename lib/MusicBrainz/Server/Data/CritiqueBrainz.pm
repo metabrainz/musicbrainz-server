@@ -12,6 +12,30 @@ use aliased 'MusicBrainz::Server::Entity::CritiqueBrainz::User';
 
 with 'MusicBrainz::Server::Data::Role::Context';
 
+# TODO: improve this file to use an entity endpoint if CB-427 is merged
+
+sub load_review_count {
+    my ($self, $entity) = @_;
+
+    my $url = URI->new(DBDefs->CRITIQUEBRAINZ_SERVER . '/ws/1/review/');
+
+    my %params = (
+        entity_id => $entity->gid,
+        entity_type => $entity->entity_type,
+        offset => 0,
+        limit => 1,
+        review_type => 'review', # Get only text reviews, not bare ratings
+        sort => 'published_on'
+    );
+
+    $url->query_form(%params);
+
+    my $content = $self->_get_review($url->as_string);
+    return unless $content;
+
+    $entity->review_count($content->{count});
+}
+
 sub load_display_reviews {
     my ($self, $entity) = @_;
 

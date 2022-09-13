@@ -9,12 +9,11 @@
 
 import * as React from 'react';
 
-import CritiqueBrainzLinks from '../components/CritiqueBrainzLinks.js';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 import * as manifest from '../static/manifest.mjs';
 import {ENTITIES} from '../static/scripts/common/constants.js';
-import CritiqueBrainzReview
-  from '../static/scripts/common/components/CritiqueBrainzReview.js';
+import CritiqueBrainzReviewsSection
+  from '../static/scripts/common/components/CritiqueBrainzReviewsSection.js';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import {
@@ -23,16 +22,12 @@ import {
 
 type Props = {
   +entity: RatableT | ReviewableT,
-  +mostPopularReview: CritiqueBrainzReviewT,
-  +mostRecentReview: CritiqueBrainzReviewT,
   +privateRatingCount: number,
   +publicRatings: $ReadOnlyArray<RatingT>,
 };
 
 const Ratings = ({
   entity,
-  mostPopularReview,
-  mostRecentReview,
   privateRatingCount,
   publicRatings,
 }: Props): React.MixedElement => {
@@ -89,29 +84,9 @@ const Ratings = ({
       ) : null}
 
       {entityProperties.reviews ? (
-        <>
-          <h2>{l('Reviews')}</h2>
-
-          {/* $FlowIgnore[incompatible-type] we know it has reviews */}
-          <CritiqueBrainzLinks entity={entity} />
-          <div id="critiquebrainz-reviews">
-            {mostRecentReview ? (
-              <CritiqueBrainzReview
-                review={mostRecentReview}
-                title={l('Most Recent')}
-              />
-            ) : null}
-            {mostPopularReview &&
-              mostPopularReview.id !== mostRecentReview.id ? (
-                <CritiqueBrainzReview
-                  review={mostPopularReview}
-                  title={l('Most Popular')}
-                />
-              ) : null}
-          </div>
-        </>
+        <CritiqueBrainzReviewsSection entity={entity} />
       ) : null}
-      {manifest.js('reviews')}
+      {manifest.js('reviews', {async: 'async'})}
     </LayoutComponent>
   );
 };

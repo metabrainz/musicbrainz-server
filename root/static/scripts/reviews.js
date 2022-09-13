@@ -7,4 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import './common/components/CritiqueBrainzLinks.js';
 import './common/components/CritiqueBrainzReview.js';
+import './common/components/CritiqueBrainzReviewsSection.js';
