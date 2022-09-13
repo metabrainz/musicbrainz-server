@@ -56,10 +56,7 @@ const SetTrackLengths = ({edit}: Props): React.Element<'table'> => {
         <th>{addColonText(l('Disc ID'))}</th>
         <td colSpan="2">
           {cdtoc ? (
-            <CDTocLink
-              cdToc={cdtoc}
-              content={cdtoc.discid}
-            />
+            <CDTocLink cdToc={cdtoc} />
           ) : l('[removed]')}
         </td>
       </tr>

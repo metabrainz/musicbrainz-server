@@ -8,7 +8,6 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_REMOVE_DISCID
     $EDIT_MEDIUM_MOVE_DISCID
     $EDIT_SET_TRACK_LENGTHS
-    %ENTITIES
 );
 use MusicBrainz::Server::Entity::CDTOC;
 use MusicBrainz::Server::Translation qw( l );
@@ -71,10 +70,40 @@ sub show : Chained('load') PathPart('')
 sub remove : Local Edit
 {
     my ($self, $c) = @_;
-    my $cdtoc_id  = $c->req->query_params->{cdtoc_id};
-    my $medium_id = $c->req->query_params->{medium_id};
+    my $cdtoc_id  = $c->req->query_params->{cdtoc_id}
+        or $self->error(
+            $c, status => HTTP_BAD_REQUEST,
+            message => l('Please provide a CD TOC ID.')
+        );
 
-    my $medium  = $c->model('Medium')->get_by_id($medium_id);
+    $self->error($c, status => HTTP_BAD_REQUEST,
+                 message => l('The provided CD TOC ID is not valid.')
+        ) unless is_database_row_id($cdtoc_id);
+
+    my $medium_id = $c->req->query_params->{medium_id}
+        or $self->error(
+            $c, status => HTTP_BAD_REQUEST,
+            message => l('Please provide a medium ID.')
+        );
+
+    $self->error($c, status => HTTP_BAD_REQUEST,
+                 message => l('The provided medium id is not valid.')
+        ) unless is_database_row_id($medium_id);
+
+    my $medium = $c->model('Medium')->get_by_id($medium_id)
+            or $self->error(
+            $c, status => HTTP_BAD_REQUEST,
+            message => l('The provided medium ID doesn’t exist.')
+        );
+
+    my $cdtoc = $c->model('MediumCDTOC')->get_by_medium_cdtoc($medium_id, $cdtoc_id)
+            or $self->error(
+            $c, status => HTTP_BAD_REQUEST,
+            message => l('The provided CD TOC ID doesn’t exist or is not connected to the provided medium.')
+        );
+
+    $c->model('CDTOC')->load($cdtoc);
+
     my $release = $c->model('Release')->get_by_id($medium->release_id);
     $c->model('ArtistCredit')->load($release);
     $c->model('ReleaseGroup')->load($release);
@@ -84,18 +113,6 @@ sub remove : Local Edit
     $c->model('Medium')->load_for_releases($release);
     my $cdtoc_count = $c->model('MediumCDTOC')->find_count_by_release($release->id);
     $c->stash->{release_cdtoc_count} = $cdtoc_count;
-
-    my $cdtoc = $c->model('MediumCDTOC')->get_by_medium_cdtoc($medium_id, $cdtoc_id);
-    $c->model('CDTOC')->load($cdtoc);
-
-    $c->stash(
-        medium_cdtoc => $cdtoc,
-        medium       => $medium,
-        release      => $release,
-        # These added so the entity tabs will appear properly
-        entity       => $release,
-        entity_properties => $ENTITIES{release}
-    );
 
     $self->edit_action($c,
         form        => 'Confirm',
@@ -108,7 +125,19 @@ sub remove : Local Edit
         on_creation => sub {
             $c->response->redirect($c->uri_for_action('/release/discids', [ $release->gid ]));
         }
-    )
+    );
+
+    my %props = (
+        mediumCDToc => $cdtoc->TO_JSON,
+        form        => $c->stash->{form}->TO_JSON,
+        release     => $release->TO_JSON,
+    );
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'cdtoc/RemoveDiscId.js',
+        component_props => \%props,
+    );
 }
 
 sub set_durations : Chained('load') PathPart('set-durations') Edit
