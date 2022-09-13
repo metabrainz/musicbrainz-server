@@ -9,17 +9,14 @@
 
 import * as React from 'react';
 
+import calculateFullToc
+  from '../static/scripts/common/utility/calculateFullToc.js';
 import formatTrackLength
   from '../static/scripts/common/utility/formatTrackLength.js';
 
 type Props = {
   +cdToc: CDTocT,
 };
-
-function calculateFullToc(cdtoc: CDTocT) {
-  const trackOffsets = cdtoc.track_offset.join(' ');
-  return `1 ${cdtoc.track_count} ${cdtoc.leadout_offset} ${trackOffsets}`;
-}
 
 const CDTocInfo = ({cdToc}: Props): React.Element<typeof React.Fragment> => (
   <>
