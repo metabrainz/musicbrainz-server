@@ -24,20 +24,20 @@ sub _load
 
     if (!is_valid_discid($id)) {
         $c->stash(
-                template  => 'cdstub/error.tt',
-                not_valid => 1,
-                discid    => $id
-                );
+            component_path => 'cdstub/DiscIdNotValid.js',
+            component_props => { discId => $id },
+            current_view => 'Node',
+        );
         $c->detach;
         return;
     }
     my $cdstub = $c->model('CDStub')->get_by_discid($id);
     if (!$cdstub) {
         $c->stash(
-                template  => 'cdstub/error.tt',
-                not_found => 1,
-                discid    => $id
-                );
+            component_path => 'cdstub/CDStubNotFound.js',
+            component_props => { discId => $id },
+            current_view => 'Node',
+        );
         $c->detach;
         return;
     }
