@@ -56,6 +56,7 @@ sub add : Path('add') DenyWhenReadonly
     if ($c->user_exists) {
         $c->res->code(403);
         $c->stash( template => 'cdstub/logged_in.tt' );
+        $c->detach;
     }
 
     my $toc = CDTOC->new_from_toc( $c->req->query_params->{toc} );
