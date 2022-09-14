@@ -20,6 +20,7 @@ import ReleaseGroupHeader from './ReleaseGroupHeader.js';
 type Props = {
   +children: React.Node,
   +entity: ReleaseGroupT,
+  +firstReleaseGid?: string | null,
   +fullWidth?: boolean,
   +page: string,
   +title?: string,
@@ -28,6 +29,7 @@ type Props = {
 const ReleaseGroupLayout = ({
   children,
   entity: releaseGroup,
+  firstReleaseGid,
   fullWidth = false,
   page,
   title,
@@ -44,7 +46,12 @@ const ReleaseGroupLayout = ({
         <ReleaseGroupHeader page={page} releaseGroup={releaseGroup} />
         {children}
       </div>
-      {fullWidth ? null : <ReleaseGroupSidebar releaseGroup={releaseGroup} />}
+      {fullWidth ? null : (
+        <ReleaseGroupSidebar
+          firstReleaseGid={firstReleaseGid}
+          releaseGroup={releaseGroup}
+        />
+      )}
     </Layout>
   );
 };

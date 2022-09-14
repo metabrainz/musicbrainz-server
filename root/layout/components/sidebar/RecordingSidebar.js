@@ -22,6 +22,7 @@ import CollectionLinks from './CollectionLinks.js';
 import EditLinks from './EditLinks.js';
 import LastUpdated from './LastUpdated.js';
 import MergeLink from './MergeLink.js';
+import PlayOnListenBrainzButton from './PlayOnListenBrainzButton.js';
 import RemoveLink from './RemoveLink.js';
 import SidebarLicenses from './SidebarLicenses.js';
 import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
@@ -37,6 +38,11 @@ const RecordingSidebar = ({recording}: Props): React.Element<'div'> => {
 
   return (
     <div id="sidebar">
+      <PlayOnListenBrainzButton
+        entityType="recording"
+        mbids={recording.gid}
+      />
+
       <h2 className="recording-information">
         {l('Recording information')}
       </h2>

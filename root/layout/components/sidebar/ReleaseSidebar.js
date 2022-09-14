@@ -39,6 +39,7 @@ import CollectionLinks from './CollectionLinks.js';
 import EditLinks from './EditLinks.js';
 import LastUpdated from './LastUpdated.js';
 import MergeLink from './MergeLink.js';
+import PlayOnListenBrainzButton from './PlayOnListenBrainzButton.js';
 import RemoveLink from './RemoveLink.js';
 import SidebarDataQuality from './SidebarDataQuality.js';
 import SidebarLicenses from './SidebarLicenses.js';
@@ -107,6 +108,11 @@ const ReleaseSidebar = ({release}: Props): React.Element<'div'> | null => {
           </p>
         )}
       </div>
+
+      <PlayOnListenBrainzButton
+        entityType="release"
+        mbids={release.gid}
+      />
 
       <h2 className="release-information">
         {l('Release information')}

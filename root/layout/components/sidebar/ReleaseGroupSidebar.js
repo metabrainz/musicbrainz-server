@@ -21,16 +21,21 @@ import CollectionLinks from './CollectionLinks.js';
 import EditLinks from './EditLinks.js';
 import LastUpdated from './LastUpdated.js';
 import MergeLink from './MergeLink.js';
+import PlayOnListenBrainzButton from './PlayOnListenBrainzButton.js';
 import SidebarLicenses from './SidebarLicenses.js';
 import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
 import SidebarTags from './SidebarTags.js';
 
 type Props = {
+  +firstReleaseGid?: string | null,
   +releaseGroup: ReleaseGroupT,
 };
 
-const ReleaseGroupSidebar = ({releaseGroup}: Props): React.Element<'div'> => {
+const ReleaseGroupSidebar = ({
+  firstReleaseGid,
+  releaseGroup,
+}: Props): React.Element<'div'> => {
   const gid = encodeURIComponent(releaseGroup.gid);
   const typeName = releaseGroupType(releaseGroup);
 
@@ -40,6 +45,13 @@ const ReleaseGroupSidebar = ({releaseGroup}: Props): React.Element<'div'> => {
         <div className="cover-art">
           <Artwork artwork={releaseGroup.cover_art} />
         </div>
+      ) : null}
+
+      {nonEmpty(firstReleaseGid) ? (
+        <PlayOnListenBrainzButton
+          entityType="release"
+          mbids={firstReleaseGid}
+        />
       ) : null}
 
       <h2 className="release-group-information">
