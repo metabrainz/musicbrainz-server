@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-14 10:26-0500\n"
+"POT-Creation-Date: 2022-09-14 11:39-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -537,7 +537,7 @@ msgstr ""
 #: ../root/edit/details/historic/RemoveRelease.js:28
 #: ../root/layout/components/sidebar/RecordingSidebar.js:45
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:50
-#: ../root/static/scripts/edit/components/forms.js:23
+#: ../root/static/scripts/edit/components/forms.js:24
 msgid "Artist:"
 msgstr ""
 
@@ -10895,7 +10895,7 @@ msgstr ""
 msgid "Series information"
 msgstr ""
 
-#: ../root/layout/components/sidebar/SidebarIpis.js:19
+#: ../root/layout/components/sidebar/SidebarIpis.js:18
 msgid "IPI code:"
 msgstr ""
 
