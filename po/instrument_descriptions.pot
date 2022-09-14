@@ -1000,8 +1000,8 @@ msgid ""
 "Giannini."
 msgstr ""
 
-#. name:dobro 
-#: DB:instrument/description:184
+#. name:resonator guitar 
+#: DB:instrument/description:386
 msgid "Dobro, resonator guitar"
 msgstr ""
 

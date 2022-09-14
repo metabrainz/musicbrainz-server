@@ -1273,10 +1273,6 @@ msgctxt "ancient Iraqi bowed string instrument"
 msgid "djoza"
 msgstr ""
 
-#: DB:instrument/name:184
-msgid "dobro"
-msgstr ""
-
 #: DB:instrument/name:399
 msgid "dohol"
 msgstr ""
