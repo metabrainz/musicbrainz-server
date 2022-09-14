@@ -18,14 +18,17 @@ import {formatCount} from '../../../statistics/utilities.js';
 import {returnToCurrentPage} from '../../../utility/returnUri.js';
 
 import MergeLink from './MergeLink.js';
+import PlayOnListenBrainzButton from './PlayOnListenBrainzButton.js';
 import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 
 type Props = {
   +collection: CollectionT,
+  +recordingMbids?: $ReadOnlyArray<string> | null,
 };
 
 const CollectionSidebar = ({
   collection,
+  recordingMbids,
 }: Props): React.Element<'div'> => {
   const $c = React.useContext(CatalystContext);
   const typeName = collection.typeName;
@@ -36,6 +39,13 @@ const CollectionSidebar = ({
 
   return (
     <div id="sidebar">
+      {recordingMbids == null ? null : (
+        <PlayOnListenBrainzButton
+          entityType="recording"
+          mbids={recordingMbids}
+        />
+      )}
+
       <h2 className="collection-information">
         {l('Collection information')}
       </h2>

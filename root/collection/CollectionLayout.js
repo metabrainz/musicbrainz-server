@@ -20,6 +20,7 @@ type Props = {
   +entity: CollectionT,
   +fullWidth?: boolean,
   +page: string,
+  +recordingMbids?: $ReadOnlyArray<string> | null,
   +title?: string,
 };
 
@@ -28,6 +29,7 @@ const CollectionLayout = ({
   entity: collection,
   fullWidth = false,
   page,
+  recordingMbids,
   title,
 }: Props): React.Element<typeof Layout> => {
   const mainTitle = texp.l(
@@ -46,7 +48,12 @@ const CollectionLayout = ({
         />
         {children}
       </div>
-      {fullWidth ? null : <CollectionSidebar collection={collection} />}
+      {fullWidth ? null : (
+        <CollectionSidebar
+          collection={collection}
+          recordingMbids={recordingMbids}
+        />
+      )}
     </Layout>
   );
 };
