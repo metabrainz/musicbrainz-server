@@ -1,0 +1,1648 @@
+{
+  title: 'Release Relationship Editor',
+  commands: [
+    {
+      command: 'open',
+      target: '/release/868cc741-e3bc-31bc-9dac-756e35c8f152/edit-relationships',
+      value: '',
+    },
+    {
+      command: 'check',
+      target: 'id=medium-recordings-checkbox-249114',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=button.batch-add-recording-relationship',
+      value: '',
+    },
+    {
+      command: 'select',
+      target: 'css=#batch-add-recording-relationship-dialog select.entity-type',
+      value: 'label=Label',
+    },
+    {
+      command: 'type',
+      target: 'css=#batch-add-recording-relationship-dialog input.relationship-target',
+      value: '5faa3d4f-6db9-4b93-a4c3-8efcea9b678f',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#batch-add-recording-relationship-dialog input.relationship-type',
+      value: 'copyright${KEY_ENTER}',
+    },
+    {
+      command: 'type',
+      target: 'id=id-period.begin_date.year',
+      value: '1999',
+    },
+    {
+      command: 'click',
+      target: 'css=#batch-add-recording-relationship-dialog button.copy-date',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#batch-add-recording-relationship-dialog div.buttons button.positive',
+      value: '${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'css=button.batch-add-recording-relationship',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#batch-add-recording-relationship-dialog input.relationship-target',
+      value: '0798d15b-64e2-499f-9969-70167b1d8617',
+    },
+    {
+      command: 'pause',
+      target: '500',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#batch-add-recording-relationship-dialog input.relationship-type',
+      value: 'performer${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'css=#additional-checkbox',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#batch-add-recording-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    // Add the same performer relationships again with mergeable attributes.
+    {
+      command: 'click',
+      target: 'css=button.batch-add-recording-relationship',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#batch-add-recording-relationship-dialog input.relationship-target',
+      value: '0798d15b-64e2-499f-9969-70167b1d8617',
+    },
+    {
+      command: 'pause',
+      target: '500',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#batch-add-recording-relationship-dialog input.relationship-type',
+      value: 'performer${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'css=#additional-checkbox',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-period.begin_date.year',
+      value: '1998',
+    },
+    {
+      command: 'type',
+      target: 'id=id-period.end_date.year',
+      value: '1998',
+    },
+    {
+      command: 'click',
+      target: 'css=#batch-add-recording-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=button.batch-create-works',
+      value: '',
+    },
+    {
+      command: 'select',
+      target: 'id=work-type',
+      value: 'label=Motet',
+    },
+    {
+      command: 'sendKeys',
+      target: 'xpath=(//div[@id="batch-create-works-dialog"]//input[contains(@class, "lyrics-language")])[1]',
+      value: 'hindi${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'css=#batch-create-works-dialog td.lyrics-languages button.add-item',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'xpath=(//div[@id="batch-create-works-dialog"]//input[contains(@class, "lyrics-language")])[2]',
+      value: 'welsh${KEY_ENTER}',
+    },
+    {
+      command: 'check',
+      target: 'id=instrumental-checkbox',
+      value: '',
+    },
+    {
+      command: 'check',
+      target: 'id=medley-checkbox',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#batch-create-works-dialog div.buttons button.positive',
+      value: '',
+    },
+    {
+      command: 'check',
+      target: 'id=medium-works-checkbox-249114',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=button.batch-add-work-relationship',
+      value: '',
+    },
+    {
+      command: 'select',
+      target: 'css=#batch-add-work-relationship-dialog select.entity-type',
+      value: 'label=Series',
+    },
+    {
+      command: 'type',
+      target: 'css=#batch-add-work-relationship-dialog input.relationship-target',
+      value: 'vcnworks',
+    },
+    {
+      command: 'pause',
+      target: '2000',
+      value: '',
+    },
+    {
+      command: 'mouseOver',
+      target: 'xpath=//div[@id="batch-add-work-relationship-dialog"]//div[contains(@class, "relationship-target")]//ul/li[contains(@class, "action-item")][contains(., "Add a new series")]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=//div[@id="batch-add-work-relationship-dialog"]//div[contains(@class, "relationship-target")]//ul/li[contains(@class, "action-item")][contains(., "Add a new series")]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '2000',
+      value: '',
+    },
+    // Can only access the iframe document through JavaScript.
+    {
+      command: 'runScript',
+      target: 'document.querySelector("#add-series-dialog iframe").contentDocument.getElementById("id-edit-series.type_id").value = 4;',
+      value: '',
+    },
+    {
+      command: 'runScript',
+      target: 'document.querySelector("#add-series-dialog iframe").contentDocument.querySelector("form.edit-series button.submit.positive").click();',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '2000',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        type: 140,
+        status: 2,
+        data: {
+          comment: '',
+          entity_gid: '$$__IGNORE__$$',
+          entity_id: 1,
+          name: 'vcnworks',
+          ordering_type_id: 1,
+          type_id: 4,
+        },
+      },
+    },
+    {
+      command: 'focus',
+      target: 'css=#batch-add-work-relationship-dialog input.relationship-type',
+      value: '',
+    },
+    // "part of" should already be selected, since it's the only option; <Enter> should close the dialog.
+    {
+      command: 'sendKeys',
+      target: 'css=#batch-add-work-relationship-dialog input.relationship-type',
+      value: '${KEY_ESC}${KEY_ENTER}',
+    },
+    // Set the number attributes on the added series-work relationships.
+    {
+      command: 'click',
+      target: 'xpath=(//td[contains(@class, "works")])[10]//table[contains(@class, "rel-editor-table")]//button[contains(@class, "edit-item")]',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#edit-relationship-dialog div.attribute-container.text input',
+      value: 'A${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//td[contains(@class, "works")])[11]//table[contains(@class, "rel-editor-table")]//button[contains(@class, "edit-item")]',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#edit-relationship-dialog div.attribute-container.text input',
+      value: 'B${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//td[contains(@class, "works")])[12]//table[contains(@class, "rel-editor-table")]//button[contains(@class, "edit-item")]',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#edit-relationship-dialog div.attribute-container.text input',
+      value: 'C${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'css=#release-rels button.add-item',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: 'Osaka',
+    },
+    {
+      command: 'pause',
+      target: '1500',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '${KEY_ENTER}',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog tr.target-entity-credit input.entity-credit',
+      value: 'oh',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'manuf${KEY_ENTER}',
+    },
+    {
+      command: 'check',
+      target: 'id=id-period.ended',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#release-group-rels button.add-item',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '0798d15b-64e2-499f-9969-70167b1d8617',
+    },
+    {
+      command: 'pause',
+      target: '1500',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'ded${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//tr[contains(@class, "additional-performer")])[1]//button[contains(@class, "edit-item")]',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=tr.target-entity-credit input.entity-credit',
+      value: 'brdms',
+    },
+    {
+      command: 'check',
+      target: 'css=tr.target-entity-credit label.change-credits-checkbox input',
+      value: '',
+    },
+    {
+      command: 'check',
+      target: 'css=#edit-relationship-dialog tr.target-entity-credit div.change-credits-radio-options input[value="same-relationship-type"]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#edit-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=#relationship-editor-form button.positive',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 2,
+      value: {
+        type: 41,
+        status: 2,
+        data: {
+          comment: '',
+          entity_gid: '$$__IGNORE__$$',
+          entity_id: 1,
+          languages: [171, 455],
+          name: '☉',
+          type_id: 9,
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 3,
+      value: {
+        type: 41,
+        status: 2,
+        data: {
+          comment: '',
+          entity_gid: '$$__IGNORE__$$',
+          entity_id: 2,
+          languages: [171, 455],
+          name: '⧖',
+          type_id: 9,
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 4,
+      value: {
+        type: 41,
+        status: 2,
+        data: {
+          comment: '',
+          entity_gid: '$$__IGNORE__$$',
+          entity_id: 3,
+          languages: [171, 455],
+          name: '◌',
+          type_id: 9,
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 5,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          attributes: [
+            {
+              type: {
+                gid: '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f',
+                id: 1,
+                name: 'additional',
+                root: {
+                  gid: '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f',
+                  id: 1,
+                  name: 'additional',
+                },
+              },
+            },
+          ],
+          begin_date: {
+            day: null,
+            month: null,
+            year: 1998,
+          },
+          edit_version: 2,
+          end_date: {
+            day: null,
+            month: null,
+            year: 1998,
+          },
+          ended: 1,
+          entity0: {
+            gid: '0798d15b-64e2-499f-9969-70167b1d8617',
+            id: 39282,
+            name: 'Boredoms',
+          },
+          entity0_credit: 'brdms',
+          entity1: {
+            gid: '19506825-c404-43eb-9b09-86fc152c6780',
+            id: 1040491,
+            name: '☉',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 156,
+            link_phrase: '{additional:additionally} {guest} {solo} performed',
+            long_link_phrase: '{additional:additionally} {guest} {solo} performed',
+            name: 'performer',
+            reverse_link_phrase: '{additional} {guest} {solo} performer',
+          },
+          type0: 'artist',
+          type1: 'recording',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 6,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          begin_date: {
+            day: null,
+            month: null,
+            year: 1999,
+          },
+          edit_version: 2,
+          end_date: {
+            day: null,
+            month: null,
+            year: 1999,
+          },
+          ended: 1,
+          entity0: {
+            gid: '5faa3d4f-6db9-4b93-a4c3-8efcea9b678f',
+            id: 100084,
+            name: 'A.K.A.records',
+          },
+          entity1: {
+            gid: '19506825-c404-43eb-9b09-86fc152c6780',
+            id: 1040491,
+            name: '☉',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 867,
+            link_phrase: 'holds phonographic copyright for',
+            long_link_phrase: 'holds phonographic copyright for',
+            name: 'phonographic copyright',
+            reverse_link_phrase: 'phonographic copyright by',
+          },
+          type0: 'label',
+          type1: 'recording',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 7,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          attributes: [
+            {
+              type: {
+                gid: 'c031ed4f-c9bb-4394-8cf5-e8ce4db512ae',
+                id: 580,
+                name: 'instrumental',
+                root: {
+                  gid: 'c031ed4f-c9bb-4394-8cf5-e8ce4db512ae',
+                  id: 580,
+                  name: 'instrumental',
+                },
+              },
+            },
+            {
+              type: {
+                gid: '37da3398-5d1b-4acb-be25-df95e33e423c',
+                id: 750,
+                name: 'medley',
+                root: {
+                  gid: '37da3398-5d1b-4acb-be25-df95e33e423c',
+                  id: 750,
+                  name: 'medley',
+                },
+              },
+            },
+          ],
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '19506825-c404-43eb-9b09-86fc152c6780',
+            id: 1040491,
+            name: '☉',
+          },
+          entity1: {
+            gid: '$$__IGNORE__$$',
+            id: 1,
+            name: '☉',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 278,
+            link_phrase: '{live} {medley:medley including a} {partial} {instrumental} {cover} recording of',
+            long_link_phrase: 'is a {live} {medley:medley including a} {partial} {instrumental} {cover} recording of',
+            name: 'performance',
+            reverse_link_phrase: '{live} {medley:medleys including} {partial} {instrumental} {cover} recordings',
+          },
+          type0: 'recording',
+          type1: 'work',
+        }
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 8,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          attributes: [
+            {
+              text_value: 'A',
+              type: {
+                gid: 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
+                id: 788,
+                name: 'number',
+                root: {
+                  gid: 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
+                  id: 788,
+                  name: 'number',
+                },
+              },
+            },
+          ],
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '$$__IGNORE__$$',
+            id: 1,
+            name: 'vcnworks',
+          },
+          entity1: {
+            gid: '$$__IGNORE__$$',
+            id: 1,
+            name: '☉',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 743,
+            link_phrase: 'has parts',
+            long_link_phrase: 'has part',
+            name: 'part of',
+            reverse_link_phrase: 'part of',
+          },
+          type0: 'series',
+          type1: 'work',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 9,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          attributes: [
+            {
+              type: {
+                gid: '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f',
+                id: 1,
+                name: 'additional',
+                root: {
+                  gid: '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f',
+                  id: 1,
+                  name: 'additional',
+                },
+              },
+            },
+          ],
+          begin_date: {
+            day: null,
+            month: null,
+            year: 1998,
+          },
+          edit_version: 2,
+          end_date: {
+            day: null,
+            month: null,
+            year: 1998,
+          },
+          ended: 1,
+          entity0: {
+            gid: '0798d15b-64e2-499f-9969-70167b1d8617',
+            id: 39282,
+            name: 'Boredoms',
+          },
+          entity0_credit: 'brdms',
+          entity1: {
+            gid: '821f9cce-be76-4278-ab5c-63169792deb1',
+            id: 1040492,
+            name: '⧖',
+          },
+          entity_id: 2,
+          link_type: {
+            id: 156,
+            link_phrase: '{additional:additionally} {guest} {solo} performed',
+            long_link_phrase: '{additional:additionally} {guest} {solo} performed',
+            name: 'performer',
+            reverse_link_phrase: '{additional} {guest} {solo} performer',
+          },
+          type0: 'artist',
+          type1: 'recording',
+        }
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 10,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          begin_date: {
+            day: null,
+            month: null,
+            year: 1999,
+          },
+          edit_version: 2,
+          end_date: {
+            day: null,
+            month: null,
+            year: 1999,
+          },
+          ended: 1,
+          entity0: {
+            gid: '5faa3d4f-6db9-4b93-a4c3-8efcea9b678f',
+            id: 100084,
+            name: 'A.K.A.records',
+          },
+          entity1: {
+            gid: '821f9cce-be76-4278-ab5c-63169792deb1',
+            id: 1040492,
+            name: '⧖',
+          },
+          entity_id: 2,
+          link_type: {
+            id: 867,
+            link_phrase: 'holds phonographic copyright for',
+            long_link_phrase: 'holds phonographic copyright for',
+            name: 'phonographic copyright',
+            reverse_link_phrase: 'phonographic copyright by',
+          },
+          type0: 'label',
+          type1: 'recording',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 11,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          attributes: [
+            {
+              type: {
+                gid: 'c031ed4f-c9bb-4394-8cf5-e8ce4db512ae',
+                id: 580,
+                name: 'instrumental',
+                root: {
+                  gid: 'c031ed4f-c9bb-4394-8cf5-e8ce4db512ae',
+                  id: 580,
+                  name: 'instrumental',
+                },
+              },
+            },
+            {
+              type: {
+                gid: '37da3398-5d1b-4acb-be25-df95e33e423c',
+                id: 750,
+                name: 'medley',
+                root: {
+                  gid: '37da3398-5d1b-4acb-be25-df95e33e423c',
+                  id: 750,
+                  name: 'medley',
+                },
+              },
+            },
+          ],
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '821f9cce-be76-4278-ab5c-63169792deb1',
+            id: 1040492,
+            name: '⧖',
+          },
+          entity1: {
+            gid: '$$__IGNORE__$$',
+            id: 2,
+            name: '⧖',
+          },
+          entity_id: 2,
+          link_type: {
+            id: 278,
+            link_phrase: '{live} {medley:medley including a} {partial} {instrumental} {cover} recording of',
+            long_link_phrase: 'is a {live} {medley:medley including a} {partial} {instrumental} {cover} recording of',
+            name: 'performance',
+            reverse_link_phrase: '{live} {medley:medleys including} {partial} {instrumental} {cover} recordings',
+          },
+          type0: 'recording',
+          type1: 'work',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 12,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          attributes: [
+            {
+              text_value: 'B',
+              type: {
+                gid: 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
+                id: 788,
+                name: 'number',
+                root: {
+                  gid: 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
+                  id: 788,
+                  name: 'number',
+                },
+              },
+            },
+          ],
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '$$__IGNORE__$$',
+            id: 1,
+            name: 'vcnworks',
+          },
+          entity1: {
+            gid: '$$__IGNORE__$$',
+            id: 2,
+            name: '⧖',
+          },
+          entity_id: 2,
+          link_type: {
+            id: 743,
+            link_phrase: 'has parts',
+            long_link_phrase: 'has part',
+            name: 'part of',
+            reverse_link_phrase: 'part of',
+          },
+          type0: 'series',
+          type1: 'work',
+        }
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 13,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          attributes: [
+            {
+              type: {
+                gid: '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f',
+                id: 1,
+                name: 'additional',
+                root: {
+                  gid: '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f',
+                  id: 1,
+                  name: 'additional',
+                },
+              },
+            },
+          ],
+          begin_date: {
+            day: null,
+            month: null,
+            year: 1998,
+          },
+          edit_version: 2,
+          end_date: {
+            day: null,
+            month: null,
+            year: 1998,
+          },
+          ended: 1,
+          entity0: {
+            gid: '0798d15b-64e2-499f-9969-70167b1d8617',
+            id: 39282,
+            name: 'Boredoms',
+          },
+          entity0_credit: 'brdms',
+          entity1: {
+            gid: '65d62fc9-a9d5-4470-aef1-1b5bff4b9424',
+            id: 1040493,
+            name: '◌',
+          },
+          entity_id: 3,
+          link_type: {
+            id: 156,
+            link_phrase: '{additional:additionally} {guest} {solo} performed',
+            long_link_phrase: '{additional:additionally} {guest} {solo} performed',
+            name: 'performer',
+            reverse_link_phrase: '{additional} {guest} {solo} performer',
+          },
+          type0: 'artist',
+          type1: 'recording',
+        }
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 14,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          begin_date: {
+            day: null,
+            month: null,
+            year: 1999,
+          },
+          edit_version: 2,
+          end_date: {
+            day: null,
+            month: null,
+            year: 1999,
+          },
+          ended: 1,
+          entity0: {
+            gid: '5faa3d4f-6db9-4b93-a4c3-8efcea9b678f',
+            id: 100084,
+            name: 'A.K.A.records',
+          },
+          entity1: {
+            gid: '65d62fc9-a9d5-4470-aef1-1b5bff4b9424',
+            id: 1040493,
+            name: '◌',
+          },
+          entity_id: 3,
+          link_type: {
+            id: 867,
+            link_phrase: 'holds phonographic copyright for',
+            long_link_phrase: 'holds phonographic copyright for',
+            name: 'phonographic copyright',
+            reverse_link_phrase: 'phonographic copyright by',
+          },
+          type0: 'label',
+          type1: 'recording',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 15,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          attributes: [
+            {
+              type: {
+                gid: 'c031ed4f-c9bb-4394-8cf5-e8ce4db512ae',
+                id: 580,
+                name: 'instrumental',
+                root: {
+                  gid: 'c031ed4f-c9bb-4394-8cf5-e8ce4db512ae',
+                  id: 580,
+                  name: 'instrumental',
+                },
+              },
+            },
+            {
+              type: {
+                gid: '37da3398-5d1b-4acb-be25-df95e33e423c',
+                id: 750,
+                name: 'medley',
+                root: {
+                  gid: '37da3398-5d1b-4acb-be25-df95e33e423c',
+                  id: 750,
+                  name: 'medley',
+                },
+              },
+            },
+          ],
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '65d62fc9-a9d5-4470-aef1-1b5bff4b9424',
+            id: 1040493,
+            name: '◌',
+          },
+          entity1: {
+            gid: '$$__IGNORE__$$',
+            id: 3,
+            name: '◌',
+          },
+          entity_id: 3,
+          link_type: {
+            id: 278,
+            link_phrase: '{live} {medley:medley including a} {partial} {instrumental} {cover} recording of',
+            long_link_phrase: 'is a {live} {medley:medley including a} {partial} {instrumental} {cover} recording of',
+            name: 'performance',
+            reverse_link_phrase: '{live} {medley:medleys including} {partial} {instrumental} {cover} recordings',
+          },
+          type0: 'recording',
+          type1: 'work',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 16,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          attributes: [
+            {
+              text_value: 'C',
+              type: {
+                gid: 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
+                id: 788,
+                name: 'number',
+                root: {
+                  gid: 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
+                  id: 788,
+                  name: 'number',
+                },
+              },
+            },
+          ],
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '$$__IGNORE__$$',
+            id: 1,
+            name: 'vcnworks',
+          },
+          entity1: {
+            gid: '$$__IGNORE__$$',
+            id: 3,
+            name: '◌',
+          },
+          entity_id: 3,
+          link_type: {
+            id: 743,
+            link_phrase: 'has parts',
+            long_link_phrase: 'has part',
+            name: 'part of',
+            reverse_link_phrase: 'part of',
+          },
+          type0: 'series',
+          type1: 'work',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 17,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: 1,
+          entity0: {
+            gid: '30bcaa92-9870-4798-be1a-4e0036755316',
+            id: 7282,
+            name: 'Osaka',
+          },
+          entity0_credit: 'oh',
+          entity1: {
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            id: 249113,
+            name: 'Vision Creation Newsun',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 835,
+            link_phrase: 'manufacturing location for',
+            long_link_phrase: 'was the manufacturing location for',
+            name: 'manufactured in',
+            reverse_link_phrase: 'manufactured in',
+          },
+          type0: 'area',
+          type1: 'release',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 18,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '0798d15b-64e2-499f-9969-70167b1d8617',
+            id: 39282,
+            name: 'Boredoms',
+          },
+          entity1: {
+            gid: '1c205925-2cfe-35c0-81de-d7ef17df9658',
+            id: 83146,
+            name: 'Vision Creation Newsun',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 868,
+            link_phrase: 'dedications',
+            long_link_phrase: 'has dedication',
+            name: 'dedicated to',
+            reverse_link_phrase: 'dedicated to',
+          },
+          type0: 'artist',
+          type1: 'release_group',
+        },
+      },
+    },
+    {
+      command: 'open',
+      target: '/release/868cc741-e3bc-31bc-9dac-756e35c8f152/edit-relationships',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//tr[contains(@class, "additional-performer")])[1]//button[contains(@class, "edit-item")]',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=tr.target-entity-credit input.entity-credit',
+      value: '${KEY_BKSP}${KEY_BKSP}${KEY_BKSP}${KEY_BKSP}${KEY_BKSP}',
+    },
+    {
+      command: 'check',
+      target: 'css=tr.target-entity-credit label.change-credits-checkbox input',
+      value: '',
+    },
+    {
+      command: 'check',
+      target: 'css=#edit-relationship-dialog tr.target-entity-credit div.change-credits-radio-options input[value="all"]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#edit-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//tr[contains(@class, "phonographic-copyright-by")])[1]//button[contains(@class, "remove-item")]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//tr[contains(@class, "phonographic-copyright-by")])[2]//button[contains(@class, "remove-item")]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//tr[contains(@class, "phonographic-copyright-by")])[3]//button[contains(@class, "remove-item")]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#release-rels tr.manufactured-in button.edit-item',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=tr.target-entity-credit input.entity-credit',
+      value: '${KEY_BKSP}${KEY_BKSP}',
+    },
+    {
+      command: 'type',
+      target: 'css=#edit-relationship-dialog input.relationship-type',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#edit-relationship-dialog input.relationship-type',
+      value: 'arr${KEY_ENTER}',
+    },
+    {
+      command: 'type',
+      target: 'id=id-period.begin_date.year',
+      value: '1999',
+    },
+    // Check that invalid date ranges can't be submitted.
+    {
+      command: 'sendKeys',
+      target: 'id=id-period.end_date.year',
+      value: '1998${KEY_ENTER}',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.querySelector("#edit-relationship-dialog ul.errors").textContent',
+      value: 'The end date cannot precede the begin date.',
+    },
+    // Clear the erroneous end date value.
+    {
+      command: 'sendKeys',
+      target: 'id=id-period.end_date.year',
+      value: '${KEY_BKSP}${KEY_BKSP}${KEY_BKSP}${KEY_BKSP}${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'css=#release-group-rels tr.dedicated-to button.remove-item',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=#relationship-editor-form button.positive',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 19,
+      value: {
+        type: 91,
+        status: 2,
+        data: {
+          edit_version: 2,
+          entity0_credit: 'brdms',
+          entity1_credit: '',
+          link: {
+            attributes: [
+              {
+                type: {
+                  gid: '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f',
+                  id: 1,
+                  name: 'additional',
+                  root: {
+                    gid: '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f',
+                    id: 1,
+                    name: 'additional',
+                  },
+                },
+              },
+            ],
+            begin_date: {
+              day: null,
+              month: null,
+              year: 1998,
+            },
+            end_date: {
+              day: null,
+              month: null,
+              year: 1998,
+            },
+            ended: '1',
+            entity0: {
+              gid: '0798d15b-64e2-499f-9969-70167b1d8617',
+              id: 39282,
+              name: 'Boredoms',
+            },
+            entity1: {
+              gid: '19506825-c404-43eb-9b09-86fc152c6780',
+              id: 1040491,
+              name: '☉',
+            },
+            link_type: {
+              id: 156,
+              link_phrase: '{additional:additionally} {guest} {solo} performed',
+              long_link_phrase: '{additional:additionally} {guest} {solo} performed',
+              name: 'performer',
+              reverse_link_phrase: '{additional} {guest} {solo} performer',
+            },
+          },
+          new: {
+            entity0_credit: '',
+          },
+          old: {
+            entity0_credit: 'brdms',
+          },
+          relationship_id: 1,
+          type0: 'artist',
+          type1: 'recording',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 20,
+      value: {
+        type: 92,
+        status: 1,
+        data: {
+          edit_version: 2,
+          relationship: {
+            entity0: {
+              gid: '5faa3d4f-6db9-4b93-a4c3-8efcea9b678f',
+              id: 100084,
+              name: 'A.K.A.records',
+            },
+            entity1: {
+              gid: '19506825-c404-43eb-9b09-86fc152c6780',
+              id: 1040491,
+              name: '☉',
+            },
+            id: 1,
+            link: {
+              attributes: [],
+              begin_date: {
+                day: null,
+                month: null,
+                year: 1999,
+              },
+              end_date: {
+                day: null,
+                month: null,
+                year: 1999,
+              },
+              ended: '1',
+              type: {
+                entity0_type: 'label',
+                entity1_type: 'recording',
+                id: 867,
+                long_link_phrase: 'holds phonographic copyright for',
+              },
+            },
+          },
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 21,
+      value: {
+        type: 91,
+        status: 2,
+        data: {
+          edit_version: 2,
+          entity0_credit: 'brdms',
+          entity1_credit: '',
+          link: {
+            attributes: [
+              {
+                type: {
+                  gid: '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f',
+                  id: 1,
+                  name: 'additional',
+                  root: {
+                    gid: '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f',
+                    id: 1,
+                    name: 'additional',
+                  },
+                },
+              },
+            ],
+            begin_date: {
+              day: null,
+              month: null,
+              year: 1998,
+            },
+            end_date: {
+              day: null,
+              month: null,
+              year: 1998,
+            },
+            ended: 1,
+            entity0: {
+              gid: '0798d15b-64e2-499f-9969-70167b1d8617',
+              id: 39282,
+              name: 'Boredoms',
+            },
+            entity1: {
+              gid: '821f9cce-be76-4278-ab5c-63169792deb1',
+              id: 1040492,
+              name: '⧖',
+            },
+            link_type: {
+              id: 156,
+              link_phrase: '{additional:additionally} {guest} {solo} performed',
+              long_link_phrase: '{additional:additionally} {guest} {solo} performed',
+              name: 'performer',
+              reverse_link_phrase: '{additional} {guest} {solo} performer',
+            }
+          },
+          new: {
+            entity0_credit: '',
+          },
+          old: {
+            entity0_credit: 'brdms',
+          },
+          relationship_id: 2,
+          type0: 'artist',
+          type1: 'recording',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 22,
+      value: {
+        type: 92,
+        status: 1,
+        data: {
+          edit_version: 2,
+          relationship: {
+            entity0: {
+              gid: '5faa3d4f-6db9-4b93-a4c3-8efcea9b678f',
+              id: 100084,
+              name: 'A.K.A.records',
+            },
+            entity1: {
+              gid: '821f9cce-be76-4278-ab5c-63169792deb1',
+              id: 1040492,
+              name: '⧖',
+            },
+            id: 2,
+            link: {
+              attributes: [],
+              begin_date: {
+                day: null,
+                month: null,
+                year: 1999,
+              },
+              end_date: {
+                day: null,
+                month: null,
+                year: 1999,
+              },
+              ended: 1,
+              type: {
+                entity0_type: 'label',
+                entity1_type: 'recording',
+                id: 867,
+                long_link_phrase: 'holds phonographic copyright for',
+              },
+            },
+          },
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 23,
+      value: {
+        type: 91,
+        status: 2,
+        data: {
+          edit_version: 2,
+          entity0_credit: 'brdms',
+          entity1_credit: '',
+          link: {
+            attributes: [
+              {
+                type: {
+                  gid: '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f',
+                  id: 1,
+                  name: 'additional',
+                  root: {
+                    gid: '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f',
+                    id: 1,
+                    name: 'additional',
+                  },
+                },
+              },
+            ],
+            begin_date: {
+              day: null,
+              month: null,
+              year: 1998,
+            },
+            end_date: {
+              day: null,
+              month: null,
+              year: 1998,
+            },
+            ended: '1',
+            entity0: {
+              gid: '0798d15b-64e2-499f-9969-70167b1d8617',
+              id: 39282,
+              name: 'Boredoms',
+            },
+            entity1: {
+              gid: '65d62fc9-a9d5-4470-aef1-1b5bff4b9424',
+              id: 1040493,
+              name: '◌',
+            },
+            link_type: {
+              id: 156,
+              link_phrase: '{additional:additionally} {guest} {solo} performed',
+              long_link_phrase: '{additional:additionally} {guest} {solo} performed',
+              name: 'performer',
+              reverse_link_phrase: '{additional} {guest} {solo} performer',
+            },
+          },
+          new: {
+            entity0_credit: '',
+          },
+          old: {
+            entity0_credit: 'brdms',
+          },
+          relationship_id: 3,
+          type0: 'artist',
+          type1: 'recording',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 24,
+      value: {
+        type: 92,
+        status: 1,
+        data: {
+          edit_version: 2,
+          relationship: {
+            entity0: {
+              gid: '5faa3d4f-6db9-4b93-a4c3-8efcea9b678f',
+              id: 100084,
+              name: 'A.K.A.records',
+            },
+            entity1: {
+              gid: '65d62fc9-a9d5-4470-aef1-1b5bff4b9424',
+              id: 1040493,
+              name: '◌',
+            },
+            id: 3,
+            link: {
+              attributes: [],
+              begin_date: {
+                day: null,
+                month: null,
+                year: 1999,
+              },
+              end_date: {
+                day: null,
+                month: null,
+                year: 1999,
+              },
+              ended: '1',
+              type: {
+                entity0_type: 'label',
+                entity1_type: 'recording',
+                id: 867,
+                long_link_phrase: 'holds phonographic copyright for',
+              },
+            },
+          },
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 25,
+      value: {
+        type: 91,
+        status: 2,
+        data: {
+          edit_version: 2,
+          entity0_credit: 'oh',
+          entity1_credit: '',
+          link: {
+            attributes: [],
+            begin_date: {
+              day: null,
+              month: null,
+              year: null,
+            },
+            end_date: {
+              day: null,
+              month: null,
+              year: null,
+            },
+            ended: '1',
+            entity0: {
+              gid: '30bcaa92-9870-4798-be1a-4e0036755316',
+              id: 7282,
+              name: 'Osaka',
+            },
+            entity1: {
+              gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+              id: 249113,
+              name: 'Vision Creation Newsun',
+            },
+            link_type: {
+              id: 835,
+              link_phrase: 'manufacturing location for',
+              long_link_phrase: 'was the manufacturing location for',
+              name: 'manufactured in',
+              reverse_link_phrase: 'manufactured in',
+            },
+          },
+          new: {
+            begin_date: {
+              day: null,
+              month: null,
+              year: 1999,
+            },
+            entity0_credit: '',
+            link_type: {
+              id: 863,
+              link_phrase: 'arranging location for',
+              long_link_phrase: 'was the arranging location for',
+              name: 'arranged in',
+              reverse_link_phrase: 'arranged in',
+            },
+          },
+          old: {
+            begin_date: {
+              day: null,
+              month: null,
+              year: null,
+            },
+            entity0_credit: 'oh',
+            link_type: {
+              id: 835,
+              link_phrase: 'manufacturing location for',
+              long_link_phrase: 'was the manufacturing location for',
+              name: 'manufactured in',
+              reverse_link_phrase: 'manufactured in',
+            },
+          },
+          relationship_id: 1,
+          type0: 'area',
+          type1: 'release',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 26,
+      value: {
+        type: 92,
+        status: 1,
+        data: {
+          edit_version: 2,
+          relationship: {
+            entity0: {
+              gid: '0798d15b-64e2-499f-9969-70167b1d8617',
+              id: 39282,
+              name: 'Boredoms',
+            },
+            entity1: {
+              gid: '1c205925-2cfe-35c0-81de-d7ef17df9658',
+              id: 83146,
+              name: 'Vision Creation Newsun',
+            },
+            id: 1,
+            link: {
+              attributes: [],
+              begin_date: {
+                day: null,
+                month: null,
+                year: null,
+              },
+              end_date: {
+                day: null,
+                month: null,
+                year: null,
+              },
+              ended: '0',
+              type: {
+                entity0_type: 'artist',
+                entity1_type: 'release_group',
+                id: 868,
+                long_link_phrase: 'has dedication',
+              },
+            },
+          },
+        },
+      },
+    },
+  ],
+}

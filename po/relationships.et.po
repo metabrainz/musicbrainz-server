@@ -4021,8 +4021,7 @@ msgstr ""
 msgid "cover art link"
 msgstr ""
 
-#: DB:link_type/name:12 DB:link_type/name:4 DB:link_type/name:233
-#: DB:link_type/long_link_phrase:12
+#: DB:link_type/name:12 DB:link_type/name:4 DB:link_type/long_link_phrase:12
 msgid "covers and versions"
 msgstr "Kaverid ja versioonid"
 
@@ -5771,8 +5770,8 @@ msgstr "Muud andmebaasid"
 msgid "other version"
 msgstr ""
 
-#: DB:link_type/link_phrase:233 DB:link_type/reverse_link_phrase:233
-#: DB:link_type/long_link_phrase:233
+#: DB:link_type/link_phrase:233 DB:link_type/name:233
+#: DB:link_type/reverse_link_phrase:233 DB:link_type/long_link_phrase:233
 msgid "other versions"
 msgstr "Teised versioonid"
 

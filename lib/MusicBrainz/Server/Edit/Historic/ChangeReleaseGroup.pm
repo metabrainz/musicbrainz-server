@@ -14,7 +14,7 @@ sub edit_name     { N_l('Edit release') }
 sub edit_kind     { 'edit' }
 sub historic_type { 73 }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_RELEASE_GROUP }
-sub edit_template_react { 'historic/ChangeReleaseGroup' }
+sub edit_template { 'historic/ChangeReleaseGroup' }
 
 sub _release_group_ids
 {

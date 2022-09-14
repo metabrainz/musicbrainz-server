@@ -10,9 +10,9 @@
 import * as React from 'react';
 import type {CellRenderProps} from 'react-table';
 
-import Layout from '../../layout/index.js';
 import Table from '../../components/Table.js';
 import {SanitizedCatalystContext} from '../../context.mjs';
+import Layout from '../../layout/index.js';
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import {isWikiTranscluder}
   from '../../static/scripts/common/utility/privileges.js';

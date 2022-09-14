@@ -8,11 +8,11 @@
  */
 
 import {
-  useTable,
   type Cell,
   type ColumnInstance,
   type HeaderGroup,
   type Row,
+  useTable,
 } from 'react-table';
 
 import loopParity from '../utility/loopParity.js';

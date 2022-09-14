@@ -10,8 +10,8 @@
 import * as React from 'react';
 
 import FieldErrors from './FieldErrors.js';
-import FormRow from './FormRow.js';
 import FormLabel from './FormLabel.js';
+import FormRow from './FormRow.js';
 import PartialDateInput, {
   type ActionT as PartialDateInputActionT,
   runReducer as runPartialDateInputReducer,
@@ -25,6 +25,7 @@ type CommonProps = {
   +field: PartialDateFieldT,
   +label: string,
   +required?: boolean,
+  +yearInputRef?: {current: HTMLInputElement | null},
 };
 
 type Props =

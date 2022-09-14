@@ -17,6 +17,10 @@ import {
 } from '../i18n.js';
 
 import expand, {
+  type NO_MATCH,
+  type Parser,
+  type VarArgsClass,
+  type VarArgsObject,
   accept,
   createCondSubstParser,
   createTextContentParser,
@@ -32,16 +36,10 @@ import expand, {
   state,
   substEnd,
   VarArgs,
-  type NO_MATCH,
-  type Parser,
-  type VarArgsObject,
-  type VarArgsClass,
 } from './expand2.js';
 
 type Input = Expand2ReactInput;
 type Output = Expand2ReactOutput;
-
-const EMPTY_ARRAY: Array<any> = Object.freeze([]);
 
 const textContent = /^[^<>{}]+/;
 const condSubstThenTextContent = /^[^<>{}|]+/;
@@ -189,7 +187,7 @@ function parseContinuousArray<T: MatchUpperBoundT, V>(
     parsers,
     args,
     concatArrayMatch,
-    EMPTY_ARRAY,
+    [],
   );
 }
 

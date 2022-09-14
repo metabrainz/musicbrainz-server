@@ -18,6 +18,9 @@ const MB: {[namespace: string]: {...}, ...} = {
   // Classes, common controls used throughout MusicBrainz
   Control: {},
 
+  // Exposes relationship editor internals for userscripts.
+  relationshipEditor: {},
+
   // Utility functions
   utility: {},
 

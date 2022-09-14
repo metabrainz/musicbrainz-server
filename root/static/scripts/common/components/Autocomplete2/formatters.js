@@ -10,14 +10,14 @@
 import * as React from 'react';
 
 import {INSTRUMENT_ROOT_ID} from '../../constants.js';
-import {commaOnlyListText} from '../../i18n/commaOnlyList.js';
 import {unwrapNl} from '../../i18n.js';
 import {addColonText} from '../../i18n/addColon.js';
+import {commaOnlyListText} from '../../i18n/commaOnlyList.js';
+import localizeLanguageName from '../../i18n/localizeLanguageName.js';
 import localizeLinkAttributeTypeDescription
   from '../../i18n/localizeLinkAttributeTypeDescription.js';
 import localizeLinkAttributeTypeName
   from '../../i18n/localizeLinkAttributeTypeName.js';
-import localizeLanguageName from '../../i18n/localizeLanguageName.js';
 import {reduceArtistCredit} from '../../immutable-entities.js';
 import bracketed, {bracketedText} from '../../utility/bracketed.js';
 import formatDate from '../../utility/formatDate.js';
@@ -262,10 +262,20 @@ function formatLinkAttributeType(type: LinkAttrTypeT) {
 
 function formatLinkType(linkType: LinkTypeT) {
   const description = stripHtml(linkType.l_description);
+  const linkPhrase = linkType.l_link_phrase;
+  const reverseLinkPhrase = linkType.l_reverse_link_phrase;
 
   return (
     <>
       {linkType.l_name}
+      {nonEmpty(linkPhrase) ? showExtraInfoLine(
+        l('Forward link phrase:') + ' ' + linkPhrase,
+        'comment',
+      ) : null}
+      {nonEmpty(reverseLinkPhrase) ? showExtraInfoLine(
+        l('Reverse link phrase:') + ' ' + reverseLinkPhrase,
+        'comment',
+      ) : null}
       {nonEmpty(description) ? showExtraInfoLine(description) : null}
     </>
   );

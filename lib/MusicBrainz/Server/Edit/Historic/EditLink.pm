@@ -16,7 +16,7 @@ sub edit_name     { N_l('Edit relationship') }
 sub edit_kind     { 'edit' }
 sub edit_type     { $EDIT_HISTORIC_EDIT_LINK }
 sub historic_type { 34 }
-sub edit_template_react { 'historic/EditRelationship' }
+sub edit_template { 'historic/EditRelationship' }
 
 sub _links {
     my $self = shift;

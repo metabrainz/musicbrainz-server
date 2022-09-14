@@ -10,8 +10,8 @@
 import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../context.mjs';
-import Layout from '../layout/index.js';
 import EditList from '../edit/components/EditList.js';
+import Layout from '../layout/index.js';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 
 type Props = {

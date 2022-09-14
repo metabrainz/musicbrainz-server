@@ -93,7 +93,7 @@ class ArtistCreditNameEditor extends React.Component {
   render() {
     const {entity, index, name} = this.props;
 
-    const id = 'ac-' + entity.uniqueID;
+    const id = 'ac-' + (entity.uniqueID || entity.id || 'source');
 
     return (
       <tr>

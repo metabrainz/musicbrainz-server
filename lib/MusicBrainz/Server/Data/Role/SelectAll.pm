@@ -22,7 +22,12 @@ role
 
     method '_delete_all_from_cache' => sub {
         my $self = shift;
-        $self->c->cache->delete($self->_type . ':all');
+        my $type = $self->_type;
+        $self->c->cache->delete_multi(
+            "$type:all",
+            "js_${type}_info",
+            "js_${type}_info:etag",
+        );
     };
 
     # Clear cached data if the list of all entities has changed.

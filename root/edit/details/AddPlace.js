@@ -11,10 +11,10 @@ import * as React from 'react';
 
 import DescriptiveLink from
   '../../static/scripts/common/components/DescriptiveLink.js';
-import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty.js';
-import {formatCoordinates} from '../../utility/coordinates.js';
 import formatDate from '../../static/scripts/common/utility/formatDate.js';
+import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
+import {formatCoordinates} from '../../utility/coordinates.js';
 
 type Props = {
   +edit: AddPlaceEditT,

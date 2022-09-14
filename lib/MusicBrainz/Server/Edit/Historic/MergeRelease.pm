@@ -14,7 +14,7 @@ sub edit_name     { N_l('Merge releases') }
 sub edit_kind     { 'merge' }
 sub historic_type { 23 }
 sub edit_type     { $EDIT_HISTORIC_MERGE_RELEASE }
-sub edit_template_react { 'historic/MergeReleases' }
+sub edit_template { 'historic/MergeReleases' }
 
 sub _build_related_entities
 {

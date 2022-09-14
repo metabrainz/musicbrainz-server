@@ -22,7 +22,7 @@ import EditLinks from './EditLinks.js';
 import LastUpdated from './LastUpdated.js';
 import MergeLink from './MergeLink.js';
 import SidebarLicenses from './SidebarLicenses.js';
-import {SidebarProperty, SidebarProperties} from './SidebarProperties.js';
+import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 import SidebarTags from './SidebarTags.js';
 import SidebarType from './SidebarType.js';
 import SubscriptionLinks from './SubscriptionLinks.js';

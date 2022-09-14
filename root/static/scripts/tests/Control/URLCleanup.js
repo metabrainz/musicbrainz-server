@@ -10,9 +10,9 @@ import test from 'tape';
 
 import {arraysEqual} from '../../common/utility/arrays.js';
 import {
-  LINK_TYPES,
-  cleanURL,
   Checker,
+  cleanURL,
+  LINK_TYPES,
 } from '../../edit/URLCleanup.js';
 
 /*
@@ -1166,6 +1166,13 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://brahms.ircam.fr/gilbert-amy',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://brahms.ircam.fr/fr/anders-hillborg',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://brahms.ircam.fr/anders-hillborg',
        only_valid_entity_types: ['artist'],
   },
   {

@@ -69,6 +69,7 @@ around TO_JSON => sub {
         isDataTrack     => boolean_to_json($self->is_data_track),
         length          => $self->length,
         medium          => $self->medium ? $self->medium->TO_JSON : undef,
+        medium_id       => 0 + $self->medium_id,
         number          => $self->number,
         position        => $self->position,
     };

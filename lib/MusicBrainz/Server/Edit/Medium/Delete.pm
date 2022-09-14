@@ -23,7 +23,7 @@ sub edit_type { $EDIT_MEDIUM_DELETE }
 sub edit_name { N_l('Remove medium') }
 sub edit_kind { 'remove' }
 sub medium_id { shift->data->{medium_id} }
-sub edit_template_react { 'RemoveMedium' }
+sub edit_template { 'RemoveMedium' }
 
 has '+data' => (
     isa => Dict[

@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout/index.js';
 import ReleaseSidebar from '../layout/components/sidebar/ReleaseSidebar.js';
+import Layout from '../layout/index.js';
 import {reduceArtistCredit}
   from '../static/scripts/common/immutable-entities.js';
 

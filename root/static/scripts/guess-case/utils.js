@@ -10,12 +10,12 @@
 
 import clean from '../common/utility/clean.js';
 
+import input from './MB/GuessCase/Input.js';
+import gc from './MB/GuessCase/Main.js';
+import output from './MB/GuessCase/Output.js';
 import * as flags from './flags.js';
 import * as modes from './modes.js';
 import type {GuessCaseModeT} from './types.js';
-import gc from './MB/GuessCase/Main.js';
-import input from './MB/GuessCase/Input.js';
-import output from './MB/GuessCase/Output.js';
 
 
 /*

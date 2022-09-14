@@ -14,9 +14,9 @@ import {
   isComplexArtistCredit,
   reduceArtistCredit,
 } from '../common/immutable-entities.js';
-import GuessCase from '../guess-case/MB/GuessCase/Main.js';
 import deferFocus from '../edit/utility/deferFocus.js';
 import guessFeat from '../edit/utility/guessFeat.js';
+import GuessCase from '../guess-case/MB/GuessCase/Main.js';
 
 import fields from './fields.js';
 import releaseEditor from './viewModel.js';

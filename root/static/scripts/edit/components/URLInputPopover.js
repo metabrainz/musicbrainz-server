@@ -123,10 +123,7 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
           >
             {l('Cancel')}
           </button>
-          <div
-            className="buttons-right"
-            style={{float: 'right', textAlign: 'right'}}
-          >
+          <div className="buttons-right">
             <button
               className="positive"
               onClick={() => handleConfirm(closeAndReturnFocus)}

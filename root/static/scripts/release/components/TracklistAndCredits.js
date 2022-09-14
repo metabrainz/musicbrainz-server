@@ -26,14 +26,54 @@ import groupRelationships, {
 } from '../../common/utility/groupRelationships.js';
 import setCookie from '../../common/utility/setCookie.js';
 import type {
-  PropsT,
-  StateT,
   ActionT,
   CreditsModeT,
+  LazyReleaseActionT,
+  LazyReleaseStateT,
+  LoadedTracksMapT,
+  PropsT,
+  StateT,
 } from '../types.js';
 
 import MediumTable from './MediumTable.js';
 import MediumToolbox from './MediumToolbox.js';
+
+export function runLazyReleaseReducer(
+  newState: {...LazyReleaseStateT, ...},
+  action: LazyReleaseActionT,
+): void {
+  switch (action.type) {
+    case 'toggle-medium': {
+      const medium = action.medium;
+      const newExpandedMediums = new Map(newState.expandedMediums);
+      newExpandedMediums.set(
+        medium.position,
+        !isMediumExpanded(newExpandedMediums, medium),
+      );
+      newState.expandedMediums = newExpandedMediums;
+      break;
+    }
+    case 'toggle-all-mediums': {
+      const newExpandedMediums = new Map(newState.expandedMediums);
+      for (const medium of action.mediums) {
+        newExpandedMediums.set(medium.position, action.expanded);
+      }
+      newState.expandedMediums = newExpandedMediums;
+      break;
+    }
+    case 'load-tracks': {
+      const medium = action.medium;
+      const newLoadedTracks = new Map(newState.loadedTracks);
+      newLoadedTracks.set(medium.position, action.tracks);
+      newState.loadedTracks = newLoadedTracks;
+      break;
+    }
+    default: {
+      /*:: exhaustive(action); */
+      throw new Error('Unknown action: ' + action.type);
+    }
+  }
+}
 
 function reducer(
   state: StateT,
@@ -52,39 +92,16 @@ function reducer(
       }
       break;
     }
-    case 'toggle-medium': {
-      const medium = action.medium;
-      const newExpandedMediums = new Map(state.expandedMediums);
-      newExpandedMediums.set(
-        medium.position,
-        !isMediumExpanded(newExpandedMediums, medium),
-      );
-      newState.expandedMediums = newExpandedMediums;
-      break;
-    }
-    case 'toggle-all-mediums': {
-      const newExpandedMediums = new Map(state.expandedMediums);
-      for (const medium of action.mediums) {
-        newExpandedMediums.set(medium.position, action.expanded);
-      }
-      newState.expandedMediums = newExpandedMediums;
-      break;
-    }
-    case 'load-tracks': {
-      const medium = action.medium;
-      const newLoadedTracks = new Map(state.loadedTracks);
-      newLoadedTracks.set(medium.position, action.tracks);
-      newState.loadedTracks = newLoadedTracks;
-      break;
+    default: {
+      runLazyReleaseReducer(newState, action);
     }
   }
 
   return newState;
 }
 
-function createInitialState(creditsMode: CreditsModeT) {
+export function createInitialLazyReleaseState(): $Exact<LazyReleaseStateT> {
   return {
-    creditsMode,
     /*
      * This information is stored separate from the medium objects
      * to maintain referential equality of those and minimize the
@@ -95,21 +112,28 @@ function createInitialState(creditsMode: CreditsModeT) {
   };
 }
 
-function isMediumExpanded(
-  expandedMediums: Map<number, boolean>,
+function createInitialState(creditsMode: CreditsModeT) {
+  return {
+    creditsMode,
+    ...createInitialLazyReleaseState(),
+  };
+}
+
+export function isMediumExpanded(
+  expandedMediums: $ReadOnlyMap<number, boolean>,
   medium: MediumWithRecordingsT,
-) {
+): boolean {
   const expanded = expandedMediums.get(medium.position);
   return expanded == null
     ? (medium.tracks != null)
     : expanded;
 }
 
-function getMediumTracks(
-  loadedTracks: Map<number, $ReadOnlyArray<TrackWithRecordingT>>,
+export function getMediumTracks(
+  loadedTracks: LoadedTracksMapT,
   medium: MediumWithRecordingsT,
-) {
-  return loadedTracks.get(medium.position) ?? medium.tracks ?? null;
+): $ReadOnlyArray<TrackWithRecordingT> | null {
+  return loadedTracks.get(medium.position) || medium.tracks || null;
 }
 
 const combinedTrackRelsCache = new WeakMap();
@@ -184,6 +208,23 @@ function getCombinedTrackRelationships(
   return result;
 }
 
+export function useUnloadedTracksMap(
+  mediums: $ReadOnlyArray<MediumWithRecordingsT>,
+  loadedTracks: LoadedTracksMapT,
+): $ReadOnlyMap<number, boolean> {
+  return React.useMemo(() => new Map(
+    mediums.map(medium => [
+      medium.id,
+      (
+        medium.track_count != null &&
+        medium.track_count > 0 &&
+        medium.track_count >
+          ((getMediumTracks(loadedTracks, medium)?.length) ?? 0)
+      ),
+    ]),
+  ), [loadedTracks, mediums]);
+}
+
 const TracklistAndCredits = React.memo<PropsT>((props: PropsT) => {
   const {
     noScript,
@@ -210,17 +251,8 @@ const TracklistAndCredits = React.memo<PropsT>((props: PropsT) => {
     loadedTracks,
   } = state;
 
-  const hasUnloadedTracksPerMedium = React.useMemo(() => new Map(
-    mediums.map(medium => [
-      medium.id,
-      (
-        medium.track_count != null &&
-        medium.track_count > 0 &&
-        medium.track_count >
-          ((getMediumTracks(loadedTracks, medium)?.length) ?? 0)
-      ),
-    ]),
-  ), [loadedTracks, mediums]);
+  const hasUnloadedTracksPerMedium =
+    useUnloadedTracksMap(mediums, loadedTracks);
 
   const hasUnloadedTracks = React.useMemo(() => {
     for (const value of hasUnloadedTracksPerMedium.values()) {

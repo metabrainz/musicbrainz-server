@@ -18,7 +18,7 @@ with 'MusicBrainz::Server::Edit::Release';
 sub edit_name { N_l('Edit release') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_MOVE }
-sub edit_template_react { 'historic/MoveReleaseToReleaseGroup' }
+sub edit_template { 'historic/MoveReleaseToReleaseGroup' }
 
 sub release_id { shift->data->{release}{id} }
 sub release_ids { shift->release_id }

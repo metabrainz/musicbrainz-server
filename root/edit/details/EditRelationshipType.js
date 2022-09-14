@@ -9,24 +9,26 @@
 
 import * as React from 'react';
 
-import IntentionallyRawIcon from '../components/IntentionallyRawIcon.js';
 import Cardinality
   from '../../static/scripts/common/components/Cardinality.js';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
-import EntityLink from '../../static/scripts/common/components/EntityLink.js';
+import EntityLink, {
+  DeletedLink,
+} from '../../static/scripts/common/components/EntityLink.js';
 import OrderableDirection
   from '../../static/scripts/common/components/OrderableDirection.js';
 import Warning from '../../static/scripts/common/components/Warning.js';
 import {ENTITY_NAMES} from '../../static/scripts/common/constants.js';
-import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
-import FullChangeDiff from
-  '../../static/scripts/edit/components/edit/FullChangeDiff.js';
-import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 import expand2react from '../../static/scripts/common/i18n/expand2react.js';
+import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 import relationshipDateText
   from '../../static/scripts/common/utility/relationshipDateText.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
+import FullChangeDiff from
+  '../../static/scripts/edit/components/edit/FullChangeDiff.js';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
+import IntentionallyRawIcon from '../components/IntentionallyRawIcon.js';
 
 type Props = {
   +edit: EditRelationshipTypeEditT,
@@ -64,7 +66,9 @@ function formatExample(
 ) {
   const sourceId = example.relationship.source_id;
   const sourceType = example.relationship.source_type;
-  const source = linkedEntities[sourceType][sourceId];
+  const source = sourceId == null
+    ? null
+    : linkedEntities[sourceType][sourceId];
   const target = example.relationship.target;
 
   return (
@@ -74,7 +78,9 @@ function formatExample(
           example.relationship.verbosePhrase,
         ),
         {
-          entity0: <DescriptiveLink entity={source} />,
+          entity0: source
+            ? <DescriptiveLink entity={source} />
+            : <DeletedLink allowNew={false} name={null} />,
           entity1: <DescriptiveLink entity={target} />,
         },
       )}

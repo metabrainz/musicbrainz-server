@@ -15,6 +15,7 @@ import {
   reduceArtistCredit,
 } from '../common/immutable-entities.js';
 import MB from '../common/MB.js';
+import {getSourceEntityData} from '../common/utility/catalyst.js';
 import clean from '../common/utility/clean.js';
 import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
 import request from '../common/utility/request.js';
@@ -292,7 +293,7 @@ releaseEditor.init = function (options) {
   this.seed(options.seed);
 
   if (this.action === 'edit') {
-    this.releaseLoaded(options.release);
+    this.releaseLoaded(getSourceEntityData());
   } else {
     releaseEditor.createExternalLinksEditor(
       {entityType: 'release'},

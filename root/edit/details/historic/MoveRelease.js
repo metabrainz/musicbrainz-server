@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import HistoricReleaseList from '../../components/HistoricReleaseList.js';
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink.js';
 import yesNo from '../../../static/scripts/common/utility/yesNo.js';
+import HistoricReleaseList from '../../components/HistoricReleaseList.js';
 
 type Props = {
   +edit: MoveReleaseHistoricEditT,

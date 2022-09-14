@@ -9,13 +9,13 @@
 
 import * as React from 'react';
 
-import EditArtwork from '../components/EditArtwork.js';
-import {commaOnlyListText}
-  from '../../static/scripts/common/i18n/commaOnlyList.js';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
+import {commaOnlyListText}
+  from '../../static/scripts/common/i18n/commaOnlyList.js';
 import Diff from '../../static/scripts/edit/components/edit/Diff.js';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
+import EditArtwork from '../components/EditArtwork.js';
 
 type Props = {
   +edit: EditCoverArtEditT,

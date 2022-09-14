@@ -9,9 +9,9 @@
 import ko from 'knockout';
 import test from 'tape';
 
-import mbEdit from '../edit/MB/edit.js';
-
 import '../edit/forms.js';
+
+import mbEdit from '../edit/MB/edit.js';
 
 test((
   'missing track numbers should be empty strings, not null (MBS-7246)'

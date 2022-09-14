@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
-import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 import {MainTagEditor}
   from '../static/scripts/common/components/TagEditor.js';
+import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
 type Props = {
   +allTags: $ReadOnlyArray<AggregatedTagT>,

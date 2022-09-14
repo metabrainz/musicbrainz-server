@@ -7,18 +7,21 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {useCallback} from 'react';
+import mutate from 'mutate-cow';
+import * as React from 'react';
 
 import isDateEmpty from '../../common/utility/isDateEmpty.js';
 import parseIntegerOrNull from '../../common/utility/parseIntegerOrNull.js';
 import FieldErrors from '../../edit/components/FieldErrors.js';
+import useDateRangeFieldset from '../hooks/useDateRangeFieldset.js';
+import {isDatePeriodValid} from '../utility/dates.js';
+import {applyAllPendingErrors} from '../utility/subfieldErrors.js';
+
+import FormRowCheckbox from './FormRowCheckbox.js';
 import FormRowPartialDate, {
   type ActionT as FormRowPartialDateActionT,
   runReducer as runFormRowPartialDateReducer,
-} from '../../edit/components/FormRowPartialDate.js';
-import FormRowCheckbox from '../../edit/components/FormRowCheckbox.js';
-import {isDatePeriodValid} from '../utility/dates.js';
-import {applyAllPendingErrors} from '../utility/subfieldErrors.js';
+} from './FormRowPartialDate.js';
 
 /* eslint-disable flowtype/sort-keys */
 export type ActionT =
@@ -148,7 +151,16 @@ export function runReducer(
   }
 }
 
-const DateRangeFieldset = ({
+export function reducer(
+  state: StateT,
+  action: ActionT,
+): StateT {
+  return mutate<WritableStateT, StateT>(state, (newState) => {
+    runReducer(newState, action);
+  });
+}
+
+const DateRangeFieldset = (React.memo<PropsT>(({
   disabled = false,
   dispatch,
   endedLabel,
@@ -156,30 +168,7 @@ const DateRangeFieldset = ({
 }: PropsT): React$Element<React$FragmentType> => {
   const subfields = field.field;
 
-  const handleEndedChange = useCallback((
-    event: SyntheticEvent<HTMLInputElement>,
-  ) => {
-    dispatch({
-      enabled: event.currentTarget.checked,
-      type: 'set-ended',
-    });
-  }, [dispatch]);
-
-  const handleDateCopy = () => {
-    dispatch({type: 'copy-date'});
-  };
-
-  const beginDateDispatch = useCallback((
-    action: FormRowPartialDateActionT,
-  ) => {
-    dispatch({action, type: 'update-begin-date'});
-  }, [dispatch]);
-
-  const endDateDispatch = useCallback((
-    action: FormRowPartialDateActionT,
-  ) => {
-    dispatch({action, type: 'update-end-date'});
-  }, [dispatch]);
+  const hooks = useDateRangeFieldset(dispatch);
 
   return (
     <>
@@ -192,23 +181,25 @@ const DateRangeFieldset = ({
         </p>
         <FormRowPartialDate
           disabled={disabled}
-          dispatch={beginDateDispatch}
+          dispatch={hooks.beginDateDispatch}
           field={subfields.begin_date}
           label={addColonText(l('Begin date'))}
+          yearInputRef={hooks.beginYearInputRef}
         >
           <button
             className="icon copy-date"
             disabled={disabled}
-            onClick={handleDateCopy}
-            title={l('Copy date')}
+            onClick={hooks.handleDateCopy}
+            title={l('Copy to end date')}
             type="button"
           />
         </FormRowPartialDate>
         <FormRowPartialDate
           disabled={disabled}
-          dispatch={endDateDispatch}
+          dispatch={hooks.endDateDispatch}
           field={subfields.end_date}
           label={addColonText(l('End date'))}
+          yearInputRef={hooks.endYearInputRef}
         />
         <FieldErrors
           field={field}
@@ -221,11 +212,11 @@ const DateRangeFieldset = ({
           }
           field={subfields.ended}
           label={endedLabel}
-          onChange={handleEndedChange}
+          onChange={hooks.handleEndedChange}
         />
       </fieldset>
     </>
   );
-};
+}): React.AbstractComponent<PropsT>);
 
 export default DateRangeFieldset;

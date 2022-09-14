@@ -17,7 +17,7 @@ sub edit_name     { N_l('Convert release to multiple artists (historic)') }
 sub edit_kind     { 'other' }
 sub historic_type { 9 }
 sub edit_type     { $EDIT_HISTORIC_SAC_TO_MAC }
-sub edit_template_react { 'historic/ChangeReleaseArtist' }
+sub edit_template { 'historic/ChangeReleaseArtist' }
 
 sub _build_related_entities
 {

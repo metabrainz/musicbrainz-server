@@ -14,7 +14,7 @@ sub edit_name     { N_l('Convert release to single artist (historic)') }
 sub edit_kind     { 'other' }
 sub historic_type { 13 }
 sub edit_type     { $EDIT_HISTORIC_MAC_TO_SAC }
-sub edit_template_react { 'historic/ChangeReleaseArtist' }
+sub edit_template { 'historic/ChangeReleaseArtist' }
 
 sub _build_related_entities {
     my $self = shift;

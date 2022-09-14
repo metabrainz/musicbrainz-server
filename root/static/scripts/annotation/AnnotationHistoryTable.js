@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../../../context.mjs';
+import formatUserDate from '../../../utility/formatUserDate.js';
 import EditorLink from '../common/components/EditorLink.js';
 import bracketed from '../common/utility/bracketed.js';
-import formatUserDate from '../../../utility/formatUserDate.js';
 
 type Props = {
   +annotations: $ReadOnlyArray<AnnotationT>,

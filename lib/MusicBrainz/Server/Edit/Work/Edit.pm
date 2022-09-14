@@ -86,7 +86,7 @@ sub _work_attribute_to_edit {
 
 sub edit_type { $EDIT_WORK_EDIT }
 sub edit_name { N_l('Edit work') }
-sub edit_template_react { 'EditWork' }
+sub edit_template { 'EditWork' }
 sub _edit_model { 'Work' }
 sub work_id { shift->entity_id }
 

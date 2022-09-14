@@ -8,7 +8,7 @@ module.exports = [
    * to the node_modules exclusion. These most likely use language features
    * that aren't supported in all of our supported browsers.
    */
-  /node_modules\/(?!@babel\/runtime|@popperjs|jed|mutate-cow|punycode|react)/,
+  /node_modules\/(?!@babel\/runtime|@popperjs|jed|mutate-cow|punycode|react|weight-balanced-tree)/,
   /root\/static\/scripts\/tests\/typeInfo\.js/,
   /root\/static\/build\/jed-[A-z_-]+?\.source\.js$/,
 ];

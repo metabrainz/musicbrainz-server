@@ -8,6 +8,7 @@ plugins:
   - flowtype
   - fb-flow
   - react-hooks
+  - simple-import-sort
 
 env:
   browser: true
@@ -214,7 +215,7 @@ rules:
   require-yield: error
   rest-spread-spacing: [warn, never]
   # sort-imports does not support Flow 'type' imports, so we use the
-  # import/order rule from eslint-plugin-import instead.
+  # imports rule from simple-import-sort instead.
   sort-imports: off
   template-curly-spacing: [warn, never]
 
@@ -230,7 +231,6 @@ rules:
   import/no-duplicates: warn
   import/no-dynamic-require: error
   import/no-unresolved: error
-  import/order: [warn, {newlines-between: always}]
 
   #######################
   # eslint-plugin-react #
@@ -326,7 +326,7 @@ rules:
   flowtype/boolean-style: [warn, boolean]
   flowtype/define-flow-type: warn
   flowtype/delimiter-dangle: [warn, always-multiline]
-  flowtype/generic-spacing: [warn, never]
+  flowtype/generic-spacing: off
   flowtype/no-dupe-keys: error
   flowtype/no-flow-fix-me-comments: off
   flowtype/no-mutable-array: off
@@ -357,3 +357,23 @@ rules:
 
   react-hooks/exhaustive-deps: error
   react-hooks/rules-of-hooks: error
+
+  ####################################
+  # eslint-plugin-simple-import-sort #
+  ####################################
+
+  simple-import-sort/imports: [warn, {groups: [
+      # Node.js builtins. You could also generate this regex if you use a `.js` config.
+      # For example: `^(${require("module").builtinModules.join("|")})(/|$)`
+      ["^(assert|buffer|child_process|cluster|console|constants|crypto|dgram|dns|domain|events|fs|http|https|module|net|os|path|punycode|querystring|readline|repl|stream|string_decoder|sys|timers|tls|tty|url|util|vm|zlib|freelist|v8|process|async_hooks|http2|perf_hooks)(/.*|$)"],
+      # Packages.
+      ["^@?\\w"],
+      # Side effect imports.
+      ["^\\u0000"],
+      # Parent imports. Put `..` last.
+      ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+      # Other relative imports. Put same-folder imports and `.` last.
+      ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+    ],
+  }]
+  simple-import-sort/exports: warn

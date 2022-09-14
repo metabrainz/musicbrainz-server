@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
-import Table from '../Table.js';
 import * as manifest from '../../static/manifest.mjs';
 import {commaOnlyListText}
   from '../../static/scripts/common/i18n/commaOnlyList.js';
@@ -24,10 +23,11 @@ import {
   defineNameColumn,
   defineRatingsColumn,
   defineSeriesNumberColumn,
-  defineTypeColumn,
   defineTextColumn,
+  defineTypeColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns.js';
+import Table from '../Table.js';
 
 type Props = {
   ...SeriesItemNumbersRoleT,

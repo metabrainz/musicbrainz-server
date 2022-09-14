@@ -11,8 +11,8 @@ import * as React from 'react';
 
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
-import EntityTabs from './EntityTabs.js';
 import typeof EntityTabLink from './EntityTabLink.js';
+import EntityTabs from './EntityTabs.js';
 import SubHeader from './SubHeader.js';
 
 type Props = {

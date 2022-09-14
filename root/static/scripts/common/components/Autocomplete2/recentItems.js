@@ -11,6 +11,8 @@ import * as Sentry from '@sentry/browser';
 
 import {MAX_RECENT_ENTITIES} from '../../constants.js';
 import linkedEntities from '../../linkedEntities.mjs';
+import isDatabaseRowId from '../../utility/isDatabaseRowId.js';
+import isGuid from '../../utility/isGuid.js';
 import {localStorage} from '../../utility/storage.js';
 
 import type {
@@ -59,6 +61,12 @@ function _getGidOrId(object: {...}): string | null {
   if (hasOwnProp(object, 'id')) {
     // $FlowIgnore[prop-missing]
     const id = object.id;
+    /*
+     * This shouldn't check `isDatabaseRowId`, because we want pending
+     * entities (e.g. batch-created works in the release relationship editor)
+     * to appear in the list.  We do filter these out before saving them to
+     * localStorage.
+     */
     if (typeof id === 'number') {
       return String(id);
     }
@@ -106,12 +114,29 @@ function _getRecentEntityIds(
   return ids;
 }
 
+function _filterFakeIds(
+  ids: Set<string>,
+): $ReadOnlyArray<string> {
+  /*
+   * Some of the recent item IDs may actually be pending entities
+   * (e.g. batch-created works in the release relationship editor).
+   * Filter out the fake IDs from real ones.
+   */
+  const validIds = [];
+  for (const id of ids) {
+    if (isGuid(id) || isDatabaseRowId(+id)) {
+      validIds.push(id);
+    }
+  }
+  return validIds;
+}
+
 function _setRecentEntityIds(
   key: string,
   ids: Set<string> | null,
 ): void {
   const storedMap = _getStoredMap();
-  storedMap[key] = ids ? [...ids] : [];
+  storedMap[key] = ids ? _filterFakeIds(ids) : [];
 
   localStorage(
     'recentAutocompleteEntities',
@@ -169,37 +194,41 @@ export async function getOrFetchRecentItems<+T: EntityItemT>(
   }
 
   if (ids.size) {
-    // $FlowIgnore[incompatible-return]
-    return fetch(
-      '/ws/js/entities/' +
-      entityType + '/' +
-      Array.from(ids.values()).join('+'),
-    ).then((resp) => {
-      if (!resp.ok) {
-        return null;
-      }
-      return resp.json();
-    }).then((data: WsJsEntitiesDataT<T> | null) => {
-      if (!data) {
-        return cachedList;
-      }
-
-      const results = data.results;
-
-      for (const id of ids) {
-        const entity: ?T = results[id];
-        if (entity && entity.entityType === entityType) {
-          cachedList.push({
-            entity,
-            id: String(entity.id) + '-recent',
-            name: entity.name,
-            type: 'option',
-          });
+    const rowIds = _filterFakeIds(ids);
+    if (rowIds.length) {
+      // $FlowIgnore[incompatible-return]
+      return fetch(
+        '/ws/js/entities/' +
+        entityType + '/' +
+        rowIds.join('+'),
+      ).then((resp) => {
+        if (!resp.ok) {
+          return null;
         }
-      }
+        return resp.json();
+      }).then((data: WsJsEntitiesDataT<T> | null) => {
+        if (!data) {
+          return cachedList;
+        }
 
-      return cachedList;
-    });
+        const results = data.results;
+
+        for (const id of ids) {
+          const entity = results[id];
+          if (entity && entity.entityType === entityType) {
+            cachedList.push({
+              // $FlowIgnore[incompatible-return]
+              entity,
+              id: String(entity.id) + '-recent',
+              name: entity.name,
+              type: 'option',
+            });
+          }
+        }
+
+        return cachedList;
+      });
+    }
   }
 
   return Promise.resolve(cachedList);

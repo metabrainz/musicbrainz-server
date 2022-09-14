@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Validation;
 
+use Date::Calc;
 use List::AllUtils qw( any );
 
 require Exporter;
@@ -33,6 +34,7 @@ require Exporter;
         is_valid_iso_3166_2
         is_valid_iso_3166_3
         is_valid_partial_date
+        is_date_range_valid
         is_valid_edit_note
         encode_entities
         normalise_strings
@@ -77,6 +79,7 @@ sub is_positive_integer
     is_integer($t) and $t > 0;
 }
 
+# Converted to JavaScript at root/static/scripts/common/utility/isDatabaseRowId.js
 sub is_database_row_id {
     my $t = shift;
 
@@ -286,6 +289,15 @@ sub is_valid_partial_date
     }
 
     return 1;
+}
+
+sub is_date_range_valid {
+    my ($a, $b) = @_;
+
+    my @a = ($a->{year}, $a->{month} || 1, $a->{day} || 1);
+    my @b = ($b->{year}, $b->{month} || 12, $b->{day} || Date::Calc::Days_in_Month($b->{year}, $b->{month} || 12));
+
+    return Date::Calc::Delta_Days(@a, @b) >= 0;
 }
 
 # Keep in sync with invalidEditNote in static/scripts/release-editor/init.js

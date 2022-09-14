@@ -13,9 +13,9 @@ import PaginatedResults from '../components/PaginatedResults.js';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
 import formatTrackLength
   from '../static/scripts/common/utility/formatTrackLength.js';
-import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
 
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportIsrcT} from './types.js';

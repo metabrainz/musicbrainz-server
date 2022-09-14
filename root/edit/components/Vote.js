@@ -9,15 +9,15 @@
 
 import * as React from 'react';
 
-import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 import {
-  EDIT_VOTE_NONE,
   EDIT_VOTE_ABSTAIN,
   EDIT_VOTE_NO,
+  EDIT_VOTE_NONE,
   EDIT_VOTE_YES,
 } from '../../constants.js';
 import {CatalystContext} from '../../context.mjs';
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';
+import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 import {
   editorMayVote,
   getLatestVoteForEditor,

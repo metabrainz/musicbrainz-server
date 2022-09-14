@@ -7,8 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
 import mutate from 'mutate-cow';
+import * as React from 'react';
 
 import ButtonPopover from '../../common/components/ButtonPopover.js';
 import type {
@@ -17,7 +17,7 @@ import type {
 } from '../externalLinks.js';
 import {copyDatePeriodField} from '../utility/copyFieldData.js';
 import {
-  createCompoundField,
+  createCompoundFieldFromObject,
   createField,
 } from '../utility/createField.js';
 import {
@@ -26,9 +26,9 @@ import {
 } from '../utility/subfieldErrors.js';
 
 import DateRangeFieldset, {
+  type ActionT as DateRangeFieldsetActionT,
   partialDateFromField,
   runReducer as runDateRangeFieldsetReducer,
-  type ActionT as DateRangeFieldsetActionT,
 } from './DateRangeFieldset.js';
 
 type PropsT = {
@@ -68,7 +68,7 @@ const createInitialState = (props: PropsT): StateT => {
     errors: [],
     has_errors: false,
     field: {
-      begin_date: createCompoundField(
+      begin_date: createCompoundFieldFromObject(
         'period.begin_date',
         {
           day: beginDate?.day ?? null,
@@ -76,7 +76,7 @@ const createInitialState = (props: PropsT): StateT => {
           year: beginDate?.year ?? null,
         },
       ),
-      end_date: createCompoundField(
+      end_date: createCompoundFieldFromObject(
         'period.end_date',
         {
           day: endDate?.day ?? null,
@@ -207,10 +207,7 @@ const ExternalLinkAttributeDialog = (props: PropsT): React.MixedElement => {
             >
               {l('Cancel')}
             </button>
-            <div
-              className="buttons-right"
-              style={{float: 'right', textAlign: 'right'}}
-            >
+            <div className="buttons-right">
               <button
                 className="positive"
                 disabled={hasErrors}

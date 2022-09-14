@@ -9,9 +9,9 @@
 
 import commaList, {commaListText} from '../../common/i18n/commaList.js';
 import {
-  VarArgs,
-  type VarArgsObject,
   type VarArgsClass,
+  type VarArgsObject,
+  VarArgs,
 } from '../../common/i18n/expand2.js';
 import {
   expand2reactWithVarArgsInstance,
@@ -241,9 +241,11 @@ export function getPhraseAndExtraAttributes<T>(
    * are currently no orderable link types with any required
    * attributes.
    */
-  const shouldStripAttributes =
-    forGrouping &&
-    linkType.orderable_direction > 0;
+  const shouldStripAttributes = forGrouping && (
+    phraseProp === 'reverse_link_phrase'
+      ? (linkType.orderable_direction === 2)
+      : (linkType.orderable_direction === 1)
+  );
 
   if (phraseProp === 'long_link_phrase' && entity0 && entity1) {
     if (!entity0Subst.test(phraseSource)) {

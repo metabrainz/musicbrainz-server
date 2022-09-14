@@ -10,11 +10,11 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults.js';
+import ArtistCreditLink
+  from '../../static/scripts/common/components/ArtistCreditLink.js';
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import type {ReportReleaseGroupUrlT} from '../types.js';
-import ArtistCreditLink
-  from '../../static/scripts/common/components/ArtistCreditLink.js';
 
 type Props = {
   +items: $ReadOnlyArray<ReportReleaseGroupUrlT>,

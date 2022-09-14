@@ -1024,8 +1024,8 @@ msgid ""
 "Giannini."
 msgstr "Distintamente asimmetrica, a differenza della chitarra standard, il suo timbro è una combinazione di clavicembalo (\"cravo\" in portoghese) e viola claipira. Può avere sei o dodici corde in nylon o acciaio ed è prodotta esclusivamente dalla Giannini."
 
-#. name:dobro
-#: DB:instrument/description:184
+#. name:resonator guitar
+#: DB:instrument/description:386
 msgid "Dobro, resonator guitar"
 msgstr "Chitarra resofonica"
 
@@ -1387,16 +1387,6 @@ msgid ""
 "sound-holes. It has 3 to 4 metal strings (including drone) and is fretted "
 "diatonically."
 msgstr "Storicamente uno strumento tradizionale dell'Appalachia, la sua cassa di risonanza allungata a forma di 8 è realizzata in vari legni e ha spesso dei fori di risonanza a forma di cuore. Ha 3 o 4 corde in metallo (comprese corde bordone) ed è dotato di tasti diatonici."
-
-#. name:gut guitar
-#: DB:instrument/description:567
-msgid "Hollow-body acoustic guitar strung with gut-strings."
-msgstr "Chitarra acustica con cassa cava e incordata con corde in budello."
-
-#. name:nylon acoustic guitar
-#: DB:instrument/description:566
-msgid "Hollow-body acoustic guitar strung with nylon-strings."
-msgstr "Chitarra acustica con cassa cava e incordata con corde in nylon."
 
 #. name:mendoza
 #: DB:instrument/description:114

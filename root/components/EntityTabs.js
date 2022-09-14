@@ -18,8 +18,8 @@ import {
   isRelationshipEditor,
 } from '../static/scripts/common/utility/privileges.js';
 
-import Tabs from './Tabs.js';
 import EntityTabLink from './EntityTabLink.js';
+import Tabs from './Tabs.js';
 
 const tabLinkNames = {
   artists: N_l('Artists'),

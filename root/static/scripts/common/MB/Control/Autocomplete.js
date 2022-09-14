@@ -12,16 +12,24 @@ import ko from 'knockout';
 import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 
+import '../../../../lib/jquery-ui.js';
+
 import AddEntityDialog, {
   TITLES as ADD_NEW_ENTITY_TITLES,
 } from '../../../edit/components/AddEntityDialog.js';
-import {ENTITIES, MAX_RECENT_ENTITIES} from '../../constants.js';
+import {
+  clearRecentItems,
+  getOrFetchRecentItems,
+  pushRecentItem,
+} from '../../components/Autocomplete2/recentItems.js';
+import {ENTITIES} from '../../constants.js';
 import mbEntity from '../../entity.js';
 import {commaOnlyListText} from '../../i18n/commaOnlyList.js';
 import localizeLanguageName from '../../i18n/localizeLanguageName.js';
 import {reduceArtistCredit} from '../../immutable-entities.js';
 import MB from '../../MB.js';
 import {compactMap, first, groupBy, last} from '../../utility/arrays.js';
+import {bracketedText} from '../../utility/bracketed.js';
 import clean from '../../utility/clean.js';
 import formatDate from '../../utility/formatDate.js';
 import formatDatePeriod from '../../utility/formatDatePeriod.js';
@@ -32,10 +40,6 @@ import {
   isLocationEditor,
   isRelationshipEditor,
 } from '../../utility/privileges.js';
-import {localStorage} from '../../utility/storage.js';
-import {bracketedText} from '../../utility/bracketed.js';
-
-import '../../../../lib/jquery-ui.js';
 
 $.widget('mb.entitylookup', $.ui.autocomplete, {
 
@@ -191,25 +195,34 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
         return;
       }
 
-      var recent = self.recentEntities();
+      const entityType = self.entityType();
+      const eventTarget = this;
 
-      if (!this.value && recent && recent.length && !self.menu.active) {
-        /*
-         * Setting ac.term to "" prevents the autocomplete plugin
-         * from running its own search, which closes our menu.
-         */
-        self.term = '';
+      getOrFetchRecentItems(entityType).then((recentItems) => {
+        if (
+          !eventTarget.value &&
+          recentItems &&
+          recentItems.length &&
+          !self.menu.active
+        ) {
+          /*
+           * Setting ac.term to "" prevents the autocomplete plugin
+           * from running its own search, which closes our menu.
+           */
+          self.term = '';
 
-        recent.push({
-          label: l('Clear recent items'),
-          action: function () {
-            self.recentEntities([]);
-            self.clear();
-          },
-        });
-
-        self._suggest(recent);
-      }
+          self._suggest([
+            ...recentItems.map((item) => item.entity),
+            {
+              label: l('Clear recent items'),
+              action: function () {
+                clearRecentItems(entityType);
+                self.clear();
+              },
+            },
+          ]);
+        }
+      });
     });
 
 
@@ -325,16 +338,12 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
 
     if (hasID) {
       // Add/move to the top of the recent entities menu.
-      var recent = this.recentEntities();
-      var entityProperties = ENTITIES[this.entityType()];
-      const idProp = entityProperties.mbid ? 'gid' : 'id';
-      var duplicate = recent.find(
-        x => x[idProp] === data[idProp],
-      );
-
-      duplicate && recent.splice(recent.indexOf(duplicate), 1);
-      recent.unshift(data.toJSON());
-      this.recentEntities(recent);
+      pushRecentItem({
+        entity: data,
+        id: data.id,
+        name: data.name,
+        type: 'option',
+      });
     }
   },
 
@@ -574,35 +583,6 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
 
   entityType: function () {
     return this.entity.replace('-', '_');
-  },
-
-  recentEntities: function (newEntities) {
-    var entityType = this.entityType();
-    var recentEntities = {};
-    var storedRecentEntities = localStorage('recentAutocompleteEntities');
-
-    if (storedRecentEntities) {
-      try {
-        recentEntities = JSON.parse(storedRecentEntities);
-      } catch (e) {
-        recentEntities = {};
-      }
-
-      if (!recentEntities || typeof recentEntities !== 'object') {
-        recentEntities = {};
-      }
-    }
-
-    if (newEntities) {
-      recentEntities[entityType] = newEntities.slice(0, MAX_RECENT_ENTITIES);
-      localStorage(
-        'recentAutocompleteEntities',
-        JSON.stringify(recentEntities),
-      );
-      return undefined;
-    }
-
-    return recentEntities[entityType] || [];
   },
 });
 

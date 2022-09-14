@@ -23,24 +23,24 @@ import EnterEdit from '../edit/components/EnterEdit.js';
 import EnterEditNote from '../edit/components/EnterEditNote.js';
 import FormRowCheckbox from '../edit/components/FormRowCheckbox.js';
 import FormRowNameWithGuessCase, {
-  runReducer as runNameReducer,
   type ActionT as NameActionT,
+  runReducer as runNameReducer,
 } from '../edit/components/FormRowNameWithGuessCase.js';
 import FormRowSelect from '../edit/components/FormRowSelect.js';
 import FormRowSortNameWithGuessCase, {
-  runReducer as runSortNameReducer,
   type ActionT as SortNameActionT,
+  runReducer as runSortNameReducer,
 } from '../edit/components/FormRowSortNameWithGuessCase.js';
 import {
-  createInitialState as createGuessCaseOptionsState,
   type StateT as GuessCaseOptionsStateT,
   type WritableStateT as WritableGuessCaseOptionsStateT,
+  createInitialState as createGuessCaseOptionsState,
 } from '../edit/components/GuessCaseOptions.js';
 import copyFieldData, {
   copyDatePeriodField,
 } from '../edit/utility/copyFieldData.js';
 import {
-  createCompoundField,
+  createCompoundFieldFromObject,
   createField,
 } from '../edit/utility/createField.js';
 import {
@@ -86,11 +86,11 @@ type WritableStateT = {
 const blankDatePeriod = {
   errors: [],
   field: {
-    begin_date: createCompoundField(
+    begin_date: createCompoundFieldFromObject(
       'period.begin_date',
       {day: '', month: '', year: ''},
     ),
-    end_date: createCompoundField(
+    end_date: createCompoundFieldFromObject(
       'period.end_date',
       {day: '', month: '', year: ''},
     ),

@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import ErrorLayout from './ErrorLayout.js';
 import ErrorEnvironment from './components/ErrorEnvironment.js';
 import ErrorInfo from './components/ErrorInfo.js';
+import ErrorLayout from './ErrorLayout.js';
 
 type Props = {
   +formattedErrors?: $ReadOnlyArray<string>,

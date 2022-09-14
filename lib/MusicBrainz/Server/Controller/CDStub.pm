@@ -5,8 +5,11 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::ControllerUtils::CDTOC qw( add_dash );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model       => 'CDStub',
@@ -23,20 +26,20 @@ sub _load
 
     if (!is_valid_discid($id)) {
         $c->stash(
-                template  => 'cdstub/error.tt',
-                not_valid => 1,
-                discid    => $id
-                );
+            component_path => 'cdstub/DiscIdNotValid.js',
+            component_props => { discId => $id },
+            current_view => 'Node',
+        );
         $c->detach;
         return;
     }
     my $cdstub = $c->model('CDStub')->get_by_discid($id);
     if (!$cdstub) {
         $c->stash(
-                template  => 'cdstub/error.tt',
-                not_found => 1,
-                discid    => $id
-                );
+            component_path => 'cdstub/CDStubNotFound.js',
+            component_props => { discId => $id },
+            current_view => 'Node',
+        );
         $c->detach;
         return;
     }
@@ -52,12 +55,9 @@ sub add : Path('add') DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
-    if ($c->user_exists) {
-        $c->res->code(403);
-        $c->stash( template => 'cdstub/logged_in.tt' );
-    }
+    my $passed_toc = $c->req->query_params->{toc};
+    my $toc = CDTOC->new_from_toc($passed_toc);
 
-    my $toc = CDTOC->new_from_toc( $c->req->query_params->{toc} );
     if (!$toc) {
         $c->stash( message => l('The required TOC parameter was invalid or not present') );
         $c->detach('/error_400');
@@ -72,6 +72,17 @@ sub add : Path('add') DenyWhenReadonly
     if ($c->model('CDTOC')->get_by_discid($toc->discid)) {
         $c->response->redirect(
             $c->uri_for_action('/cdtoc/show', [ $toc->discid ]));
+        $c->detach;
+    }
+
+    if ($c->user_exists) {
+        $c->res->code(403);
+
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'cdstub/CDStubAddWhileLoggedIn.js',
+            component_props => { cdToc => $passed_toc },
+        );
         $c->detach;
     }
 
@@ -99,7 +110,18 @@ sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
 
-    $c->stash( template => 'cdstub/index.tt' );
+    my $cdstub = $c->stash->{cdstub};
+
+    my %props = (
+        cdstub      => $cdstub->TO_JSON,
+        showArtists => boolean_to_json($c->stash->{show_artists}),
+    );
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'cdstub/CDStubIndex.js',
+        component_props => \%props,
+    );
 }
 
 sub browse : Path('browse')
@@ -144,10 +166,21 @@ sub import : Chained('load') RequireAuth
         $search_query = $form->field('query')->value;
     }
 
+    my $artists = $self->_load_paged($c, sub {
+        $c->model('Search')->search('artist', $search_query, shift, shift);
+    });
+
+    my %props = (
+        artists     => to_json_array($artists),
+        cdstub      => $cdstub->TO_JSON,
+        form        => $form->TO_JSON,
+        pager       => serialize_pager($c->stash->{pager}),
+    );
+
     $c->stash(
-        artists => $self->_load_paged($c, sub {
-            $c->model('Search')->search('artist', $search_query, shift, shift);
-        })
+        current_view => 'Node',
+        component_path => 'cdstub/ImportCDStub.js',
+        component_props => \%props,
     );
 }
 

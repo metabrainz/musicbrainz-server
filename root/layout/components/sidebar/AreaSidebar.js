@@ -26,7 +26,7 @@ import RemoveLink from './RemoveLink.js';
 import SidebarBeginDate from './SidebarBeginDate.js';
 import SidebarEndDate from './SidebarEndDate.js';
 import SidebarLicenses from './SidebarLicenses.js';
-import {SidebarProperty, SidebarProperties} from './SidebarProperties.js';
+import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 import SidebarTags from './SidebarTags.js';
 import SidebarType from './SidebarType.js';
 

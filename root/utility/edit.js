@@ -10,14 +10,14 @@
 import {
   EDIT_EXPIRE_ACCEPT,
   EDIT_EXPIRE_REJECT,
-  EDIT_STATUS_OPEN,
   EDIT_STATUS_APPLIED,
-  EDIT_STATUS_FAILEDVOTE,
-  EDIT_STATUS_FAILEDDEP,
-  EDIT_STATUS_ERROR,
-  EDIT_STATUS_FAILEDPREREQ,
-  EDIT_STATUS_NOVOTES,
   EDIT_STATUS_DELETED,
+  EDIT_STATUS_ERROR,
+  EDIT_STATUS_FAILEDDEP,
+  EDIT_STATUS_FAILEDPREREQ,
+  EDIT_STATUS_FAILEDVOTE,
+  EDIT_STATUS_NOVOTES,
+  EDIT_STATUS_OPEN,
 } from '../constants.js';
 import {
   EDIT_RELATIONSHIP_DELETE,
@@ -28,6 +28,7 @@ import {
   isBot,
   isEditingEnabled,
 } from '../static/scripts/common/utility/privileges.js';
+import {kebabCase} from '../static/scripts/common/utility/strings.js';
 
 const EXPIRE_ACTIONS = {
   [EDIT_EXPIRE_ACCEPT]:   N_l('Accept upon closing'),
@@ -89,6 +90,13 @@ export function getEditStatusDescription(edit: GenericEditWithIdT): string {
     default:
       return '';
   }
+}
+
+export function getEditHeaderClass(edit: GenericEditWithIdT): string {
+  return 'edit-header' + ' ' +
+         getEditStatusClass(edit) + ' ' +
+         'edit-' + edit.edit_kind + ' ' +
+         kebabCase(edit.edit_name);
 }
 
 export function getEditStatusClass(edit: GenericEditWithIdT): string {

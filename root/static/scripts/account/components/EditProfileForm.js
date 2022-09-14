@@ -10,11 +10,11 @@
 import mutate from 'mutate-cow';
 import * as React from 'react';
 
-import DBDefs from '../../common/DBDefs-client.mjs';
-import {FLUENCY_NAMES} from '../../common/constants.js';
 import Autocomplete from '../../common/components/Autocomplete.js';
 import SelectField from '../../common/components/SelectField.js';
 import Warning from '../../common/components/Warning.js';
+import {FLUENCY_NAMES} from '../../common/constants.js';
+import DBDefs from '../../common/DBDefs-client.mjs';
 import {N_lp_attributes} from '../../common/i18n/attributes.js';
 import FieldErrors from '../../edit/components/FieldErrors.js';
 import FormCsrfToken from '../../edit/components/FormCsrfToken.js';

@@ -10,11 +10,11 @@
 import * as React from 'react';
 
 import PaginatedResults from '../components/PaginatedResults.js';
-import loopParity from '../utility/loopParity.js';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
-import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
+import loopParity from '../utility/loopParity.js';
 
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportRecordingT} from './types.js';

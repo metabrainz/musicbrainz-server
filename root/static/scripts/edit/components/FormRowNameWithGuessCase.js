@@ -13,11 +13,11 @@ import GuessCase from '../../guess-case/MB/GuessCase/Main.js';
 
 import FormRowText from './FormRowText.js';
 import {
-  createInitialState as createGuessCaseOptionsState,
-  runReducer as runGuessCaseOptionsReducer,
   type ActionT as GuessCaseOptionsActionT,
   type StateT as GuessCaseOptionsStateT,
   type WritableStateT as WritableGuessCaseOptionsStateT,
+  createInitialState as createGuessCaseOptionsState,
+  runReducer as runGuessCaseOptionsReducer,
 } from './GuessCaseOptions.js';
 import GuessCaseOptionsPopover from './GuessCaseOptionsPopover.js';
 

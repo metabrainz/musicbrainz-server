@@ -10,7 +10,6 @@
 import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
-import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 import Table from '../components/Table.js';
 import Layout from '../layout/index.js';
 import {ENTITY_NAMES} from '../static/scripts/common/constants.js';
@@ -18,6 +17,7 @@ import {
   sortByString,
   uniqBy,
 } from '../static/scripts/common/utility/arrays.js';
+import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 import UserInlineList from '../user/components/UserInlineList.js';
 import {
   defineCheckboxColumn,

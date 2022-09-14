@@ -23,7 +23,7 @@ with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 sub edit_name { N_l('Set track lengths') }
 sub edit_type { $EDIT_SET_TRACK_LENGTHS }
 sub edit_kind { 'other' }
-sub edit_template_react { 'SetTrackLengths' }
+sub edit_template { 'SetTrackLengths' }
 
 has '+data' => (
     isa => Dict[

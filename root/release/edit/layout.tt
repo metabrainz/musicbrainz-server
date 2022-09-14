@@ -75,21 +75,13 @@
   [% script_manifest('edit.js') %]
   [% script_manifest('release-editor.js') %]
 
-  [% PROCESS 'components/relationship-editor.tt' %]
-
   <script>
-    MB.relationshipEditor.exportTypeInfo(
-      [% closing_tag_escape(type_info) %],
-      [% closing_tag_escape(attr_info) %]
-    );
-
     MB.formatsWithDiscIDs = [% discid_formats %];
 
     MB.mediumFormatDates = [% medium_format_dates %];
 
     MB.releaseEditor.init({
     [%- IF release.gid %]
-      release: [% closing_tag_escape(release_json) %],
       action: "edit",
     [%- ELSE %]
       action: "add",

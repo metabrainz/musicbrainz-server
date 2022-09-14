@@ -35,6 +35,20 @@ has 'length' => (
     isa => 'Int'
 );
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $output = {
+        %{ $self->$orig },
+        artist          => $self->artist,
+        length          => 0 + $self->length,
+        sequence        => 0 + $self->sequence,
+        title           => $self->title,
+    };
+
+    return $output;
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

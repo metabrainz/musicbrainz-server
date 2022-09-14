@@ -12,9 +12,9 @@ import * as React from 'react';
 import * as manifest from '../../../static/manifest.mjs';
 import ArtistCreditLink
   from '../../../static/scripts/common/components/ArtistCreditLink.js';
+import IsrcList from '../../../static/scripts/common/components/IsrcList.js';
 import formatTrackLength
   from '../../../static/scripts/common/utility/formatTrackLength.js';
-import IsrcList from '../../../static/scripts/common/components/IsrcList.js';
 import ExternalLinks from '../ExternalLinks.js';
 
 import AnnotationLinks from './AnnotationLinks.js';
@@ -24,7 +24,7 @@ import LastUpdated from './LastUpdated.js';
 import MergeLink from './MergeLink.js';
 import RemoveLink from './RemoveLink.js';
 import SidebarLicenses from './SidebarLicenses.js';
-import {SidebarProperty, SidebarProperties} from './SidebarProperties.js';
+import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
 import SidebarTags from './SidebarTags.js';
 

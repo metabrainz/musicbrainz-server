@@ -11,6 +11,7 @@ import {
   TITLES as ADD_NEW_ENTITY_TITLES,
 } from '../../../edit/components/AddEntityDialog.js';
 import {unwrapNl} from '../../i18n.js';
+import {getCatalystContext} from '../../utility/catalyst.js';
 import {
   isLocationEditor,
   isRelationshipEditor,
@@ -30,6 +31,10 @@ import {
   PAGE_SIZE,
   RECENT_ITEMS_HEADER,
 } from './constants.js';
+import {
+  clearRecentItems,
+  pushRecentItem,
+} from './recentItems.js';
 import type {
   ActionT,
   EntityItemT,
@@ -37,10 +42,6 @@ import type {
   SearchActionT,
   StateT,
 } from './types.js';
-import {
-  clearRecentItems,
-  pushRecentItem,
-} from './recentItems.js';
 
 function initSearch<+T: EntityItemT>(
   state: {...StateT<T>},
@@ -99,7 +100,7 @@ export function generateItems<+T: EntityItemT>(
 
   const isInputValueNonEmpty = nonEmpty(state.inputValue);
   const hasStaticItems = !!state.staticItems;
-  const hasSelection = !!state.selectedEntity;
+  const hasSelection = !!state.selectedItem;
   const showingRecentItems = !!(
     !isInputValueNonEmpty && recentItems?.length
   );
@@ -163,7 +164,7 @@ export function generateItems<+T: EntityItemT>(
 export function determineIfUserCanAddEntities<+T: EntityItemT>(
   state: StateT<T>,
 ): boolean {
-  const user = state.activeUser;
+  const user = getCatalystContext().user;
 
   if (!user || !IS_TOP_WINDOW) {
     return false;
@@ -234,8 +235,8 @@ export function generateStatusMessage<+T: EntityItemT>(
         )
       );
     }
-  } else if (state.selectedEntity) {
-    return state.selectedEntity.name;
+  } else if (state.selectedItem) {
+    return unwrapNl<string>(state.selectedItem.name);
   }
 
   return '';
@@ -296,16 +297,15 @@ function selectItem<+T: EntityItemT>(
       return;
     }
     case 'option': {
-      const entity = item.entity;
-      const entityName = entity.name;
+      const itemName = unwrapNl<string>(item.name);
 
-      state.selectedEntity = entity;
+      state.selectedItem = item;
 
-      if (entityName !== state.inputValue) {
+      if (itemName !== state.inputValue) {
         if (state.staticItems) {
-          filterStaticItems<T>(state, entityName);
+          filterStaticItems<T>(state, itemName);
         }
-        state.inputValue = entityName;
+        state.inputValue = itemName;
       }
 
       if (!state.staticItems) {
@@ -387,7 +387,7 @@ export function runReducer<+T: EntityItemT>(
     case 'change-entity-type': {
       const oldEntityType = state.entityType;
       state.entityType = action.entityType;
-      state.selectedEntity = null;
+      state.selectedItem = null;
       state.recentItems = null;
       if (state.recentItemsKey === oldEntityType) {
         state.recentItemsKey = action.entityType;
@@ -492,6 +492,16 @@ export function runReducer<+T: EntityItemT>(
 
     case 'set-recent-items': {
       state.recentItems = action.items;
+
+      const staticItems = state.staticItems;
+      if (staticItems) {
+        state.recentItems = state.recentItems.filter(
+          (recentItem) => (
+            staticItems.find(staticItem => staticItem.id === recentItem.id)
+          ),
+        );
+      }
+
       updateItems = true;
       break;
     }
@@ -552,7 +562,7 @@ export function runReducer<+T: EntityItemT>(
 
       state.error = 0;
       state.inputValue = newInputValue;
-      state.selectedEntity = null;
+      state.selectedItem = null;
       state.highlightedIndex = -1;
 
       updateItems = true;

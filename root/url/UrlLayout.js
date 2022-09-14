@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout/index.js';
 import UrlSidebar from '../layout/components/sidebar/UrlSidebar.js';
+import Layout from '../layout/index.js';
 
 import UrlHeader from './UrlHeader.js';
 

@@ -20,7 +20,7 @@ import DiffSide from '../../static/scripts/edit/components/edit/DiffSide.js';
 import FullChangeDiff
   from '../../static/scripts/edit/components/edit/FullChangeDiff.js';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
-import {INSERT, DELETE} from '../../static/scripts/edit/utility/editDiff.js';
+import {DELETE, INSERT} from '../../static/scripts/edit/utility/editDiff.js';
 
 type Props = {
   +edit: EditWorkEditT,

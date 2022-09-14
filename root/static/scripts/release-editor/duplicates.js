@@ -16,8 +16,8 @@ import {compactMap, sortByString} from '../common/utility/arrays.js';
 import {debounceComputed} from '../common/utility/debounce.js';
 import request from '../common/utility/request.js';
 
-import releaseEditor from './viewModel.js';
 import utils from './utils.js';
+import releaseEditor from './viewModel.js';
 
 
 var releaseGroupReleases = ko.observableArray([]);

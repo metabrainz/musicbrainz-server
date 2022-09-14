@@ -58,27 +58,28 @@ fieldset {
 
 fieldset legend { margin-top: 0; }
 
-form div.row {
-    clear: left;
-    margin: 6px 0;
-}
+form, div.form {
+    div.row {
+        clear: left;
+        margin: 6px 0;
+    }
 
-form div.row label,
-form div.row div.label,
-form fieldset.row legend {
-    float: left;
-    text-align: right;
-    min-width: @form-label-width;
-    margin-right: @form-margin;
-}
+    div.row label,
+    div.row div.label {
+        float: left;
+        text-align: right;
+        min-width: @form-label-width;
+        margin-right: @form-margin;
+    }
 
-form div.row.no-label label {
-    float: none;
-}
+    div.row.no-label label {
+        float: none;
+    }
 
-form div.row button.icon {
-    margin-left: 2px;
-    vertical-align: text-top;
+    div.row button.icon {
+        margin-left: 2px;
+        vertical-align: text-top;
+    }
 }
 
 div.form-row-text-list, div.form-row-select-list {
@@ -266,7 +267,7 @@ table.row-form {
             box-sizing: border-box;
             vertical-align: top;
 
-            label { width: 100% !important; }
+            label { width: 100%; }
         }
     }
 
@@ -279,15 +280,6 @@ table.row-form {
     tr.error td:first-child { padding: 0; }
 
     ul.errors { margin: 0; }
-}
-
-div.checkbox {
-    display: table;
-    > div {
-        display: table-row;
-        > input { display: table-cell; }
-        > label { display: table-cell; text-align: left; }
-    }
 }
 
 /* __________________________________
@@ -511,8 +503,8 @@ ul.conditions button.remove img {
 }
 
 input.icon, div.icon.img, button.icon {
-    width: @form-icon-size;
-    height: @form-icon-size;
+    min-width: @form-icon-size;
+    min-height: @form-icon-size;
     border: 0 !important;
     background-repeat: no-repeat;
     background-color: transparent;
@@ -751,103 +743,6 @@ table.artist-credit-editor {
     word-break: break-all;
 }
 
-/* Relationship editor */
-
-.remove-button { cursor: pointer; color: @button-text; padding: 0 0.5em; }
-.remove-button:hover { color: @negative-bg; text-decoration: none; }
-.remove-button:visited { color: @button-text; }
-
-.rel-add { background: @positive-bg; }
-.rel-edit { background: @rel-edit; }
-.rel-remove { background: @negative-bg !important; cursor: default !important; }
-
-div.rel-editor-dialog {
-    display: none;
-    max-width: 500px;
-
-    span.autocomplete, span.autocomplete input { width: 100%; }
-    p.msg { margin: 0.5em; margin-bottom: 1em; }
-    span.error, div.error { color: @negative-text; }
-
-    table { border-spacing: 0; width: 100%; }
-
-    table td { padding: 0.25em 0; }
-
-    table td.section {
-        font-weight: bold;
-        vertical-align: top;
-        text-align: right;
-        white-space: nowrap;
-        padding-right: 1em !important;
-    }
-
-    input[type=text], textarea {
-        box-sizing: border-box;
-    }
-
-    textarea { margin-top: 0.5em; }
-    .buttons { display: block !important; }
-
-    div.ar-descr {
-        box-sizing: border-box;
-        margin: 6px 0;
-    }
-
-    #attrs button {
-        background-color: @very-light-bg;
-        border: 1px solid @dark-button-border;
-        border-top: 1px solid @light-button-border;
-        border-left: 1px solid @light-button-border;
-        font-weight: bold;
-        color: @button-text;
-        cursor: pointer;
-    }
-
-    .change-direction { padding: 2px !important; }
-
-    .attribute-container {
-        margin-bottom: (@form-margin / 2);
-    }
-
-    .attribute-credit {
-        width: 40% !important;
-    }
-
-    .instrument-selection-credit {
-        span.autocomplete {
-            width: 50%;
-            input { width: 100%; }
-        }
-    }
-}
-
-#relationship-editor {
-    display: none;
-    margin-top: 1em;
-
-    button.add-item {
-        padding-top: 4px;
-        padding-bottom: 4px;
-        margin-top: -4px;
-        margin-bottom: 4px;
-        margin-left: 40px;
-    }
-
-    legend button.add-item {
-        margin-left: 0;
-    }
-
-    .relationship-list {
-        width: 100%;
-        & > div { padding: 6px; }
-    }
-
-    .no-value {
-        color: @dark-grey;
-        border-bottom: 1px @dark-grey dotted;
-    }
-}
-
 /* Guess user timezone */
 
 button.guess-timezone {
@@ -901,6 +796,10 @@ button.guess-timezone {
          */
         z-index: 200;
 
+        /* Center the modal horizontally. */
+        left: 50%;
+        transform: translateX(-50%);
+
         .title-bar {
             display: flex;
             padding: 8px;
@@ -915,7 +814,7 @@ button.guess-timezone {
     }
 
     &.popover {
-        max-width: 500px;
+        max-width: 450px;
         .border-radius(12px);
 
         div[data-popper-arrow] {

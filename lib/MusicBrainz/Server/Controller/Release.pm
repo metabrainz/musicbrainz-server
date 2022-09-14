@@ -39,13 +39,7 @@ use MusicBrainz::Server::Validation qw(
     is_positive_integer
 );
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
-use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
-use MusicBrainz::Server::Form::Utils qw(
-    build_grouped_options
-    select_options
-    language_options
-    build_type_info
-);
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use POSIX qw( ceil );
 use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Data::Utils qw(
@@ -141,6 +135,44 @@ sub discids : Chained('load') {
     $c->stash( has_cdtocs => scalar(@medium_cdtocs) > 0 );
 }
 
+sub _load_mediums_limited {
+    my ($self, $c, $mediums, $paged_medium, $medium_page_number) = @_;
+
+    my @mediums = @{$mediums};
+    my $user_id = $c->user->id if $c->user_exists;
+
+    if (@mediums && !defined $paged_medium) {
+        my $medium_counter = 0;
+        my $track_counter = 0;
+        my @preloaded_mediums;
+
+        for my $medium (@mediums) {
+            $medium_counter += 1;
+            last if $medium_counter > $MAX_INITIAL_MEDIUMS;
+            $track_counter += $medium->track_count;
+            last if $track_counter > $MAX_INITIAL_TRACKS;
+            push @preloaded_mediums, $medium;
+        }
+
+        if (@preloaded_mediums) {
+            $c->model('Medium')->load_related_info($user_id, @preloaded_mediums);
+        } else {
+            # If even the first medium exceeds $MAX_INITIAL_TRACKS, page that
+            # instead of loading nothing. This is equivalent to navigating to
+            # the /disc/1 subpath, except $no_script will remain 0.
+            $paged_medium = $mediums[0];
+        }
+    }
+
+    if ($paged_medium) {
+        $c->model('Medium')->load_related_info_paged(
+            $user_id,
+            $paged_medium,
+            $medium_page_number,
+        );
+    }
+}
+
 =head2 show
 
 Display a release to the user.
@@ -191,38 +223,7 @@ sub show : Chained('load') PathPart('') {
         }
     }
 
-    my $user_id = $c->user->id if $c->user_exists;
-
-    if (@mediums && !defined $paged_medium) {
-        my $medium_counter = 0;
-        my $track_counter = 0;
-        my @preloaded_mediums;
-
-        for my $medium (@mediums) {
-            $medium_counter += 1;
-            last if $medium_counter > $MAX_INITIAL_MEDIUMS;
-            $track_counter += $medium->track_count;
-            last if $track_counter > $MAX_INITIAL_TRACKS;
-            push @preloaded_mediums, $medium;
-        }
-
-        if (@preloaded_mediums) {
-            $c->model('Medium')->load_related_info($user_id, @preloaded_mediums);
-        } else {
-            # If even the first medium exceeds $MAX_INITIAL_TRACKS, page that
-            # instead of loading nothing. This is equivalent to navigating to
-            # the /disc/1 subpath, except $no_script will remain 0.
-            $paged_medium = $mediums[0];
-        }
-    }
-
-    if ($paged_medium) {
-        $c->model('Medium')->load_related_info_paged(
-            $user_id,
-            $paged_medium,
-            $medium_page_number,
-        );
-    }
+    $self->_load_mediums_limited($c, \@mediums, $paged_medium, $medium_page_number);
 
     my $bottom_credits = $c->req->cookies->{'bottom-credits'};
     my $credits_mode = defined $bottom_credits &&
@@ -427,6 +428,7 @@ sub _merge_form_arguments {
             push @mediums, {
                 id => $medium->id,
                 release_id => $medium->release_id,
+                release => $medium->release,
                 position => $position,
                 name => $name
             };
@@ -530,7 +532,12 @@ around _validate_merge => sub {
         if (@bad_recording_merges) {
             $c->model('ArtistCredit')->load(map { @$_ } @bad_recording_merges);
         }
-        $c->stash(bad_recording_merges => \@bad_recording_merges);
+
+        $c->stash(
+            bad_recording_merges => [
+                map { to_json_array($_) } @bad_recording_merges
+            ]
+        );
     }
 
     return 0 unless $self->$orig($c, $form);
@@ -715,15 +722,13 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit {
     $c->model('ReleaseGroup')->load_meta($release->release_group);
     $c->model('Relationship')->load_cardinal($release->release_group);
 
-    my @link_type_tree = $c->model('LinkType')->get_full_tree;
-    my @link_attribute_types = $c->model('LinkAttributeType')->get_all;
+    $self->_load_mediums_limited($c, $release->mediums, undef, 1);
 
     $c->stash(
-        work_types      => select_options($c, 'WorkType'),
-        work_languages  => build_grouped_options($c, language_options($c, 'work')),
-        source_entity   => $c->json->encode($release),
-        attr_info       => $c->json->encode(\@link_attribute_types),
-        type_info       => $c->json->encode(build_type_info($c, qr/(recording|work|release)/, @link_type_tree)),
+        component_path => 'release/EditRelationships',
+        component_props => {},
+        current_view => 'Node',
+        source_entity => to_json_object($release),
     );
 }
 

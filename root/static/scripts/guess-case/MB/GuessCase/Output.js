@@ -12,8 +12,8 @@ import * as flags from '../../flags.js';
 import * as modes from '../../modes.js';
 import * as utils from '../../utils.js';
 
-import gc from './Main.js';
 import input from './Input.js';
+import gc from './Main.js';
 
 // Holds the output variables
 class GuessCaseOutput {

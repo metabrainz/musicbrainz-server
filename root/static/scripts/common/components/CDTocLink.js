@@ -14,7 +14,7 @@ import entityHref from '../utility/entityHref.js';
 type Props = {
   +anchorPath?: string,
   +cdToc: CDTocT,
-  +content: string,
+  +content?: string,
   +subPath?: string,
 };
 
@@ -23,7 +23,7 @@ const CDTocLink = (
 ): React.Element<'a'> => (
   <a href={entityHref(cdToc, subPath, anchorPath)}>
     <bdi>
-      {content}
+      {nonEmpty(content) ? content : cdToc.discid}
     </bdi>
   </a>
 );

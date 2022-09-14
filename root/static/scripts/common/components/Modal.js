@@ -13,9 +13,9 @@ import {createPortal} from 'react-dom';
 import useEventTrap from '../hooks/useEventTrap.js';
 
 import Dialog, {
+  type RequiredPropsT as DialogPropsT,
   getDialogRootNode,
   getElementFromRef,
-  type RequiredPropsT as DialogPropsT,
 } from './Dialog.js';
 
 type PropsT = $ReadOnly<{
@@ -54,11 +54,8 @@ const Modal = (props: PropsT): React.Portal => {
   );
 
   React.useLayoutEffect(() => {
-    const {scrollX, scrollY} = window;
-
     const dialogNodeStyle = getElementFromRef(dialogRef).style;
-    dialogNodeStyle.left = String(scrollX + 16) + 'px';
-    dialogNodeStyle.top = String(scrollY + 16) + 'px';
+    dialogNodeStyle.top = String(window.scrollY + 16) + 'px';
   });
 
   return createPortal(

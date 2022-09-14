@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import Layout from '../layout/index.js';
 import CollectionSidebar
   from '../layout/components/sidebar/CollectionSidebar.js';
+import Layout from '../layout/index.js';
 
 import CollectionHeader from './CollectionHeader.js';
 

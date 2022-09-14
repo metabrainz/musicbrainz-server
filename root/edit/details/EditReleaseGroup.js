@@ -11,12 +11,12 @@ import * as React from 'react';
 
 import DescriptiveLink from
   '../../static/scripts/common/components/DescriptiveLink.js';
-import Diff from '../../static/scripts/edit/components/edit/Diff.js';
 import ExpandedArtistCredit from
   '../../static/scripts/common/components/ExpandedArtistCredit.js';
-import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
+import Diff from '../../static/scripts/edit/components/edit/Diff.js';
 import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff.js';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 
 type Props = {
   +edit: EditReleaseGroupEditT,

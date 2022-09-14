@@ -17,7 +17,7 @@ with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 sub edit_name { N_l('Edit relationship attribute') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELATIONSHIP_ATTRIBUTE }
-sub edit_template_react { 'EditRelationshipAttribute' }
+sub edit_template { 'EditRelationshipAttribute' }
 
 sub change_fields
 {

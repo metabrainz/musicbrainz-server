@@ -13,11 +13,11 @@ import EntityLink from '../../common/components/EntityLink.js';
 import DiffSide from '../components/edit/DiffSide.js';
 
 import editDiff, {
-  INSERT,
-  EQUAL,
-  DELETE,
   CHANGE,
   CLASS_MAP,
+  DELETE,
+  EQUAL,
+  INSERT,
 } from './editDiff.js';
 
 function areArtistCreditNamesEqual(

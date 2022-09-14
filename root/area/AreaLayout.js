@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout/index.js';
 import AreaSidebar from '../layout/components/sidebar/AreaSidebar.js';
+import Layout from '../layout/index.js';
 import localizeAreaName
   from '../static/scripts/common/i18n/localizeAreaName.js';
 

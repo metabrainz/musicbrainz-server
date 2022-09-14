@@ -9,9 +9,9 @@
 import ko from 'knockout';
 import * as ReactDOMServer from 'react-dom/server';
 
+import 'knockout-arraytransforms';
+
 import mbEntity from '../common/entity.js';
-import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
-import releaseLabelKey from '../common/utility/releaseLabelKey.js';
 import {
   artistCreditsAreEqual,
   hasVariousArtists,
@@ -20,16 +20,16 @@ import {
 } from '../common/immutable-entities.js';
 import MB from '../common/MB.js';
 import {groupBy} from '../common/utility/arrays.js';
+import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
 import {debounceComputed} from '../common/utility/debounce.js';
 import formatTrackLength from '../common/utility/formatTrackLength.js';
 import isBlank from '../common/utility/isBlank.js';
+import releaseLabelKey from '../common/utility/releaseLabelKey.js';
 import request from '../common/utility/request.js';
 import {fixedWidthInteger, uniqueId} from '../common/utility/strings.js';
 import mbEdit from '../edit/MB/edit.js';
 import * as dates from '../edit/utility/dates.js';
 import * as validation from '../edit/validation.js';
-
-import 'knockout-arraytransforms';
 
 import recordingAssociation from './recordingAssociation.js';
 import utils from './utils.js';
@@ -824,7 +824,7 @@ class ReleaseEvent {
 
     this.hasInvalidDate = ko.computed(function () {
       var date = self.unwrapDate();
-      return !dates.isDateValid(date.year, date.month, date.day);
+      return !dates.isDateValid(date);
     });
 
     this.hasTooShortYear = debounceComputed(function () {

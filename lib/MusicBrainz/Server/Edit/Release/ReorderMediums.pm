@@ -13,7 +13,7 @@ extends 'MusicBrainz::Server::Edit';
 sub edit_name { N_l('Reorder mediums') }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASE_REORDER_MEDIUMS }
-sub edit_template_react { 'ReorderMediums' }
+sub edit_template { 'ReorderMediums' }
 
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
