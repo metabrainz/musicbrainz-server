@@ -3,6 +3,7 @@ use Moose;
 
 use List::AllUtils qw( any sum );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
@@ -170,6 +171,7 @@ sub cdtoc_tracks {
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
+    my $cdtoc_track_count = $self->cdtoc_track_count;
     my $track_count = $self->track_count;
     my $format_id = $self->format_id;
     my $position = $self->position;
@@ -177,9 +179,12 @@ around TO_JSON => sub {
 
     my $data = {
         %{ $self->$orig },
+        cdtoc_track_count => defined $cdtoc_track_count ? (0 + $cdtoc_track_count) : undef,
         cdtocs      => [map { $_->cdtoc->toc } $self->all_cdtocs],
         format      => $self->format ? $self->format->TO_JSON : undef,
         format_id   => defined $format_id ? (0 + $format_id) : undef,
+        may_have_discids => boolean_to_json($self->may_have_discids),
+        name        => $self->name,
         position    => defined $position ? (0 + $position) : undef,
         release_id  => defined $release_id ? (0 + $release_id) : undef,
         track_count => defined $track_count ? (0 + $track_count) : undef,

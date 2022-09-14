@@ -53,6 +53,7 @@ const entries = [
   'common/components/AcoustIdCell',
   'common/components/ArtistRoles',
   'common/components/AttributeList',
+  'common/components/CDTocReleaseListTable',
   'common/components/IsrcList',
   'common/components/IswcList',
   'common/components/ReleaseEvents',
