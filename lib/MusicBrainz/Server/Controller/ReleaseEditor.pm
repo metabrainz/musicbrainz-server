@@ -12,13 +12,13 @@ use Try::Tiny;
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MusicBrainz::Server::Track qw( unformat_track_length );
 use MusicBrainz::Server::Data::Utils qw( non_empty sanitize trim );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Form::Utils qw(
     language_options
     script_options
     select_options
     select_options_tree
     build_grouped_options
-    build_type_info
 );
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
@@ -35,9 +35,6 @@ sub _init_release_editor
 
     $options{seeded_data} = $c->json->encode($self->_seeded_data($c) // {});
 
-    my $url_link_types = $c->model('LinkType')->get_tree('release', 'url');
-    my @link_attribute_types = $c->model('LinkAttributeType')->get_all;
-
     my @medium_formats = $c->model('MediumFormat')->get_all;
     my $discid_formats = [ grep { $_ } map { $_->has_discids ? ($_->id) : () } @medium_formats ];
     my %medium_format_dates = map { $_->id => $_->year } @medium_formats;
@@ -50,11 +47,10 @@ sub _init_release_editor
         statuses            => select_options_tree($c, 'ReleaseStatus'),
         languages           => build_grouped_options($c, language_options($c)),
         scripts             => build_grouped_options($c, script_options($c)),
+        source_entity       => to_json_object($c->stash->{release}),
         packagings          => select_options_tree($c, 'ReleasePackaging'),
         countries           => select_options($c, 'CountryArea'),
         formats             => select_options_tree($c, 'MediumFormat'),
-        type_info           => $c->json->encode(build_type_info($c, qr/release-url/, $url_link_types)),
-        attr_info           => $c->json->encode(\@link_attribute_types),
         discid_formats      => $c->json->encode($discid_formats),
         medium_format_dates => $c->json->encode(\%medium_format_dates),
         # The merge helper doesn't really work well together with the release editor process
@@ -77,7 +73,6 @@ sub edit : Chained('/release/load') PathPart('edit') Edit RequireAuth
     $self->_init_release_editor(
         $c,
         return_to => $c->uri_for_action('/release/show', [ $release->gid ]),
-        release_json => $c->json->encode($release),
     );
 }
 

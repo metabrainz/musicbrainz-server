@@ -60,6 +60,15 @@ div.half-width {
     }
 }
 
+div.checkbox {
+    display: table;
+    > div {
+        display: table-row;
+        > input { display: table-cell; }
+        > label { display: table-cell; text-align: left; }
+    }
+}
+
 /* __________________________________
 
        TRACKLIST TAB

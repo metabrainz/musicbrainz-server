@@ -18,6 +18,7 @@ declare type TrackT = $ReadOnly<{
   +isDataTrack: boolean,
   +length: number,
   +medium: MediumT | null,
+  +medium_id: number,
   +name: string,
   +number: string,
   +position: number,

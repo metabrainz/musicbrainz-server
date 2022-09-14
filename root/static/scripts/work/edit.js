@@ -21,7 +21,7 @@ import FormRowSelectList from '../edit/components/FormRowSelectList.js';
 import {buildOptionsTree} from '../edit/forms.js';
 import typeBubble from '../edit/typeBubble.js';
 import {initializeBubble} from '../edit/MB/Control/Bubble.js';
-import {createCompoundField} from '../edit/utility/createField.js';
+import {createCompoundFieldFromObject} from '../edit/utility/createField.js';
 import {pushCompoundField, pushField} from '../edit/utility/pushField.js';
 import subfieldErrors from '../edit/utility/subfieldErrors.js';
 import {initializeGuessCase} from '../guess-case/MB/Control/GuessCase.js';
@@ -232,7 +232,7 @@ class ViewModel {
     const attributesField = form.field.attributes;
     const fieldName = attributesField.html_name + '.' +
       String(attributesField.field.length);
-    const attr = new WorkAttribute(createCompoundField(fieldName, {
+    const attr = new WorkAttribute(createCompoundFieldFromObject(fieldName, {
       type_id: null,
       value: null,
     }), this);

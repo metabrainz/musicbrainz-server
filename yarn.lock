@@ -6064,6 +6064,11 @@ webpack@5.73.0:
     watchpack "^2.3.1"
     webpack-sources "^3.2.3"
 
+weight-balanced-tree@0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/weight-balanced-tree/-/weight-balanced-tree-0.6.1.tgz#a9909ac0483ec298ee390122825a8f3c7753a835"
+  integrity sha512-3FHKP1wai9P1KdPz/rM6RHIvTCB3qN4MQ3zWvM8pUu0tcHl3vwWX7RANUx3YqOTLvxmg3DszCeUNpO0gADtgfA==
+
 whatwg-fetch@3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-3.4.0.tgz#e11de14f4878f773fbebcde8871b2c0699af8b30"

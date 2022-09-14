@@ -40,7 +40,7 @@ import copyFieldData, {
   copyDatePeriodField,
 } from '../edit/utility/copyFieldData.js';
 import {
-  createCompoundField,
+  createCompoundFieldFromObject,
   createField,
 } from '../edit/utility/createField.js';
 import {
@@ -86,11 +86,11 @@ type WritableStateT = {
 const blankDatePeriod = {
   errors: [],
   field: {
-    begin_date: createCompoundField(
+    begin_date: createCompoundFieldFromObject(
       'period.begin_date',
       {day: '', month: '', year: ''},
     ),
-    end_date: createCompoundField(
+    end_date: createCompoundFieldFromObject(
       'period.end_date',
       {day: '', month: '', year: ''},
     ),

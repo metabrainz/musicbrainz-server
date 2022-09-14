@@ -1293,10 +1293,6 @@ msgctxt "ancient Iraqi bowed string instrument"
 msgid "djoza"
 msgstr ""
 
-#: DB:instrument/name:184
-msgid "dobro"
-msgstr "dobro"
-
 #: DB:instrument/name:399
 msgid "dohol"
 msgstr "dohol"
@@ -1812,11 +1808,6 @@ msgstr ""
 #: DB:instrument/name:423
 msgctxt "Traditional Russian plucked psaltery"
 msgid "gusli"
-msgstr ""
-
-#: DB:instrument/name:567
-msgctxt "modern gut-stringed acoustic guitar"
-msgid "gut guitar"
 msgstr ""
 
 #: DB:instrument/name:452
@@ -2711,11 +2702,6 @@ msgstr ""
 #: DB:instrument/name:228
 msgid "nyckelharpa"
 msgstr "nyckelharpa"
-
-#: DB:instrument/name:566
-msgctxt "Modern nylon-stringed acoustic guitar"
-msgid "nylon acoustic guitar"
-msgstr ""
 
 #: DB:instrument/name:8
 msgid "oboe"

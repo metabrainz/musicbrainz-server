@@ -1,7 +1,10 @@
 package MusicBrainz::Server::Entity::Relationship;
 
 use Moose;
-use MusicBrainz::Server::Constants qw( :direction );
+use MusicBrainz::Server::Constants qw(
+    :direction
+    $SERIES_ORDERING_TYPE_MANUAL
+);
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Validation qw( trim_in_place );
 use MusicBrainz::Server::Translation qw( comma_list comma_only_list );
@@ -95,6 +98,33 @@ sub entity_is_orderable {
         ($orderable_direction == 2 && $entity == $self->entity0)
     );
 
+    return 0;
+}
+
+sub unorderable_entity {
+    my ($self) = @_;
+    my $orderable_direction = $self->link->type->orderable_direction;
+    if ($orderable_direction == 0) {
+        return;
+    } elsif ($orderable_direction == 1) {
+        return $self->entity0;
+    } elsif ($orderable_direction == 2) {
+        return $self->entity1
+    }
+    die 'Entity::Relationship::unorderable_entity: ' .
+        'Invalid orderable_direction';
+}
+
+sub can_manually_reorder {
+    my ($self) = @_;
+    my $unorderable_entity = $self->unorderable_entity;
+    return 0 unless $unorderable_entity;
+    if (
+        !$unorderable_entity->isa('MusicBrainz::Server::Entity::Series') ||
+        $unorderable_entity->ordering_type_id == $SERIES_ORDERING_TYPE_MANUAL
+    ) {
+        return 1;
+    }
     return 0;
 }
 

@@ -41,8 +41,6 @@ import expand, {
 type Input = Expand2ReactInput;
 type Output = Expand2ReactOutput;
 
-const EMPTY_ARRAY: Array<any> = Object.freeze([]);
-
 const textContent = /^[^<>{}]+/;
 const condSubstThenTextContent = /^[^<>{}|]+/;
 const percentSign = /(%)/;
@@ -189,7 +187,7 @@ function parseContinuousArray<T: MatchUpperBoundT, V>(
     parsers,
     args,
     concatArrayMatch,
-    EMPTY_ARRAY,
+    [],
   );
 }
 

@@ -696,12 +696,14 @@ table.tbl {
         background: data-uri('../images/layout/table-header.gif') repeat-x 0 50%;
     }
 
-    th {
+    > thead th {
         font-size: @small-text;
         padding: 0.2em 0.4em;
         text-align: left;
+        background: none;
         border-bottom: solid 1px @dark-border;
         border-left: solid 1px @medium-border;
+        border-right: 1px solid @dark-border;
         word-break: keep-all;
         white-space: nowrap;
 
@@ -724,9 +726,14 @@ table.tbl {
         &:first-child {
             border-left: none;
         }
+
+        &:last-child {
+            border-right: none;
+        }
     }
 
-    td {
+    /* Should not apply to nested tables. */
+    > tbody > tr > td {
         padding: 0.2em 0.4em;
     }
 
@@ -743,15 +750,6 @@ table.tbl {
             font-weight: bold;
             border-top: solid 1px @dark-border;
             border-bottom: solid 1px @dark-border;
-        }
-    }
-
-    tbody th {
-        border-right: 1px solid @dark-border;
-        background: none;
-
-        &:last-child {
-            border-right: 0;
         }
     }
 

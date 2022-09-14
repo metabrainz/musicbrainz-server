@@ -22,6 +22,8 @@ type DescriptiveLinkProps = {
   +disableLink?: boolean,
   +entity: CollectionT | CoreEntityT,
   +showDeletedArtists?: boolean,
+  +showDisambiguation?: boolean,
+  +showEditsPending?: boolean,
   +showIcon?: boolean,
   +subPath?: string,
   +target?: '_blank',
@@ -35,19 +37,26 @@ const DescriptiveLink = ({
   disableLink = false,
   entity,
   showDeletedArtists = true,
+  showDisambiguation = true,
+  showEditsPending = true,
   showIcon = false,
   subPath,
   target,
 }: DescriptiveLinkProps): Expand2ReactOutput | React.Node => {
+  const sharedProps = {
+    showDisambiguation,
+    showEditsPending,
+    showIcon,
+  };
+
   const props = {
     allowNew,
     content,
     deletedCaption,
     disableLink,
-    showDisambiguation: true,
-    showIcon,
     subPath,
     target,
+    ...sharedProps,
   };
 
   // $FlowFixMe
@@ -65,6 +74,7 @@ const DescriptiveLink = ({
         <ArtistCreditLink
           artistCredit={ko.unwrap(artistCredit)}
           showDeleted={showDeletedArtists}
+          {...sharedProps}
         />
       ),
       entity: link,
@@ -74,7 +84,11 @@ const DescriptiveLink = ({
   if (entity.entityType === 'place' && entity.area) {
     return exp.l('{place} in {area}', {
       area: (
-        <AreaWithContainmentLink area={entity.area} showIcon={showIcon} />
+        <AreaWithContainmentLink
+          area={entity.area}
+          showIcon={showIcon}
+          {...sharedProps}
+        />
       ),
       place: link,
     });

@@ -37,8 +37,6 @@ export const ARIA_LIVE_STYLE: {
   width: '1px',
 });
 
-export const DISPLAY_NONE_STYLE = {display: 'none'};
-
 export const ERROR_LOOKUP: 1 = 1;
 export const ERROR_LOOKUP_TYPE: 2 = 2;
 export const ERROR_SEARCH: 3 = 3;
@@ -130,8 +128,10 @@ export const SEARCH_PLACEHOLDERS: {
   artist: N_l('Search for an artist'),
   editor: N_l('Search for an editor'),
   event: N_l('Search for an event'),
+  genre: N_l('Search for a genre'),
   instrument: N_l('Search for an instrument'),
   label: N_l('Search for a label'),
+  link_attribute_type: () => '',
   link_type: N_l('Search for a relationship type'),
   place: N_l('Search for a place'),
   recording: N_l('Search for a recording'),

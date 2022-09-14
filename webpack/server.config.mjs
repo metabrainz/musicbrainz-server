@@ -52,8 +52,12 @@ export default {
        *
        * mutate-cow is allowed because it's published as an ES module, which
        * must be converted to CommonJS.
+       *
+       * weight-balanced-tree is allowed because it needs to be transpiled to
+       * remove Flow and ESM syntax; this is also fine because it's free of
+       * side-effects.
        */
-      allowlist: [/(jquery|@popperjs|mutate-cow)/],
+      allowlist: [/(jquery|@popperjs|mutate-cow|weight-balanced-tree)/],
       modulesFromFile: true,
     }),
   ],
@@ -67,6 +71,9 @@ export default {
   node: false,
 
   output: {
+    environment: {
+      module: false,
+    },
     filename: '[name].js',
     libraryTarget: 'commonjs2',
     path: BUILD_DIR,

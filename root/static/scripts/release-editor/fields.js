@@ -824,7 +824,7 @@ class ReleaseEvent {
 
     this.hasInvalidDate = ko.computed(function () {
       var date = self.unwrapDate();
-      return !dates.isDateValid(date.year, date.month, date.day);
+      return !dates.isDateValid(date);
     });
 
     this.hasTooShortYear = debounceComputed(function () {

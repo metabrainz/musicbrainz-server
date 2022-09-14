@@ -50,7 +50,7 @@ export type LinkedEntitiesT = {
     [linkTypeIdOrGid: StrOrNum]: LinkTypeT,
   },
   link_type_tree: {
-    [entityTypes: string]: $ReadOnlyArray<LinkTypeT>,
+    [entityTypes: string]: Array<LinkTypeT>,
   },
   place: {
     [placeId: number]: PlaceT,
@@ -86,7 +86,7 @@ export type LinkedEntitiesT = {
     [seriesOrderingTypeId: number]: SeriesOrderingTypeT,
   },
   series_type: {
-    [seriesTypeId: number]: SeriesTypeT,
+    [seriesTypeId: string]: SeriesTypeT,
   },
   url: {
     [urlId: number]: UrlT,
@@ -96,6 +96,9 @@ export type LinkedEntitiesT = {
   },
   work_attribute_type: {
     [workAttributeTypeId: number]: WorkAttributeTypeT,
+  },
+  work_type: {
+    [workTypeId: string]: WorkTypeT,
   },
   ...
 };
@@ -135,6 +138,7 @@ const linkedEntities/*: LinkedEntitiesT */ = Object.create(Object.seal({
   url:                            EMPTY_OBJECT,
   work:                           EMPTY_OBJECT,
   work_attribute_type:            EMPTY_OBJECT,
+  work_type:                      EMPTY_OBJECT,
 }));
 
 export default linkedEntities;

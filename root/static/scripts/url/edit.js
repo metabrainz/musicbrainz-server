@@ -1,21 +1,19 @@
-import $ from 'jquery';
-import ko from 'knockout';
+/*
+ * @flow strict-local
+ * Copyright (C) 2021 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
-import MB from '../common/MB.js';
-import {getUnicodeUrl} from '../edit/externalLinks.js';
+// $FlowIgnore[untyped-import]
+import $ from 'jquery';
+
 import {registerEvents} from '../edit/URLCleanup.js';
 
+import './components/UrlRelationshipEditor.js';
+
 $(function () {
-  var $urlControl = $('#id-edit-url\\.url');
-
-  registerEvents($urlControl);
-
-  var vm = MB.sourceRelationshipEditor;
-  var source = vm.source;
-  source.name = ko.observable(source.name);
-
-  $urlControl.on('change', function () {
-    this.value = getUnicodeUrl(this.value);
-    source.name(this.value);
-  });
+  registerEvents($('#id-edit-url\\.url'));
 });

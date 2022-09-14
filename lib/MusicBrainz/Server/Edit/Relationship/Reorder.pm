@@ -177,25 +177,39 @@ sub adjust_edit_pending
 sub initialize {
     my ($self, %opts) = @_;
 
-    my $link_type_id = delete $opts{link_type_id} or die 'Missing link type';
+    my $link_type = delete $opts{link_type} or die 'Missing link type';
     my $relationship_order = $opts{relationship_order} or die 'Missing relationship order';
 
-    my $lt = $self->c->model('LinkType')->get_by_id($link_type_id);
+    die 'Link type is unorderable'
+        unless $link_type->orderable_direction;
 
     $relationship_order = [ grep {
         $_->{old_order} != $_->{new_order}
     } @$relationship_order ];
 
+    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
+        unless @$relationship_order;
+
     my @relationships = map { $_->{relationship} } @$relationship_order;
     $self->c->model('Relationship')->load_entities(@relationships);
 
-    for (@$relationship_order) {
-        my $relationship = delete $_->{relationship};
+    my $unorderable_entity;
+
+    for my $order_item (@$relationship_order) {
+        my $relationship = delete $order_item->{relationship};
         my $link = $relationship->link;
 
-        die 'Relationship link type mismatch' if $link->type_id != $lt->id;
+        die 'Relationship link type mismatch' if $link->type_id != $link_type->id;
 
-        $_->{relationship} = {
+        if (defined $unorderable_entity) {
+            if ($unorderable_entity->id != $relationship->unorderable_entity->id) {
+                die 'Relationship unorderable entity mismatch';
+            }
+        } else {
+            $unorderable_entity = $relationship->unorderable_entity;
+        }
+
+        $order_item->{relationship} = {
             id => $relationship->id,
             begin_date => partial_date_to_hash($link->begin_date),
             end_date => partial_date_to_hash($link->end_date),
@@ -213,13 +227,13 @@ sub initialize {
     }
 
     $opts{link_type} = {
-        id => $lt->id,
-        name => $lt->name,
-        link_phrase => $lt->link_phrase,
-        reverse_link_phrase => $lt->reverse_link_phrase,
-        long_link_phrase => $lt->long_link_phrase,
-        entity0_type => $lt->entity0_type,
-        entity1_type => $lt->entity1_type,
+        id => $link_type->id,
+        name => $link_type->name,
+        link_phrase => $link_type->link_phrase,
+        reverse_link_phrase => $link_type->reverse_link_phrase,
+        long_link_phrase => $link_type->long_link_phrase,
+        entity0_type => $link_type->entity0_type,
+        entity1_type => $link_type->entity1_type,
     };
 
     $opts{edit_version} = 2;

@@ -1,10 +1,17 @@
 #content.rel-editor #tracklist td {vertical-align: top;}
 #content.rel-editor #tracklist td.midcol {vertical-align: middle; font-size: @small-text;}
+#content.rel-editor #tracklist input[type="checkbox"] {vertical-align: middle;}
 #content.rel-editor #batch-tools {width: 100%; margin: 0.8em;}
 #content.rel-editor div.ars {padding: 0; margin: 0.5em 0; margin-left: 1.5em;}
-#content.rel-editor span.link-phrase {color: @text-black; cursor: pointer; text-decoration: none;}
-#content.rel-editor span.link-phrase:hover {background: @rel-edit;}
 #content.rel-editor #release-rels {margin-top: 1em;}
+
+fieldset#relationship-editor {
+    padding: @form-margin;
+}
+
+.rel-add { background: @positive-bg; }
+.rel-edit { background: @rel-edit; }
+.rel-remove { background: @negative-bg; }
 
 #content.rel-editor .btn {
     cursor: pointer;
@@ -29,6 +36,123 @@ div.rel-editor-dialog .warning {
 }
 #content.rel-editor .error-field {border-bottom: 2px red dotted;}
 
+div.relationship-dialog, div.work-dialog {
+    width: 450px;
+    fieldset {
+        margin: 0px;
+        legend {
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+        table.details th {
+            width: auto;
+        }
+        > p {
+            margin: 0px;
+        }
+    }
+    table.relationship-details, table.work-details {
+        border-spacing: 4px;
+        width: 100%;
+        td.section {
+            vertical-align: top;
+            text-align: right;
+            &.required {font-weight: bold;}
+        }
+        td.fields {
+            width: 320px;
+            padding-bottom: 6px;
+        }
+        div.autocomplete2 { width: 100%; }
+    }
+}
+
+div.relationship-dialog {
+    table.relationship-details {
+        select.entity-type, input.entity-credit { min-width: 60%; }
+    }
+    div.credit-section {
+        margin: 6px 0;
+
+        label.credit-field input {
+            /*
+             * We subtract 20px to match the length of both autocompletes
+             * (target entity and link type).
+             */
+            width: ~"calc(100% - 20px)";
+        }
+    }
+    label.change-credits-checkbox {
+        display: flex;
+        padding-top: 6px;
+        input[type="checkbox"] { margin-top: 1px; }
+    }
+    div.change-credits-radio-options {
+        margin-top: 8px;
+        label { display: block; }
+    }
+    button.change-direction {
+        float: right;
+    }
+    input[type="checkbox"] {
+        vertical-align: middle;
+    }
+}
+
+div.multiselect-value {
+    padding-top: 6px;
+    padding-left: 6px;
+}
+
+div.attribute-container {
+    &.multiselect, &.text {
+        padding-top: 6px;
+    }
+    button.add-item {
+        margin-top: 6px;
+    }
+}
+
+div.ar-descr {
+    width: 95%;
+}
+
 button.copy-date {
     background-image: data-uri('../images/icons/down.png');
+}
+
+div.relationship-editor, div.release-relationship-editor {
+    margin-top: 1em;
+
+    legend button.add-item {
+        margin-left: 0;
+    }
+
+    table.rel-editor-table {
+        width: 100%;
+
+        > tbody > tr {
+            &.add-item-row > td {
+                margin-bottom: @form-margin;
+            }
+            > th {
+                text-align: right;
+                min-width: 160px;
+                vertical-align: top;
+            }
+            > td.relationship-list {
+                width: 100%;
+                div.relationship-item {
+                    display: flex;
+                    > button.icon { padding: 1px; }
+                    > span { margin-left: 4px; }
+                }
+            }
+        }
+    }
+
+    .no-value {
+        color: @dark-grey;
+        border-bottom: 1px @dark-grey dotted;
+    }
 }

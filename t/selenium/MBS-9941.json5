@@ -43,7 +43,7 @@
     },
     {
       command: 'type',
-      target: 'css=#dialog input.name',
+      target: 'css=#add-relationship-dialog input.relationship-target',
       value: 'Starman',
     },
     {
@@ -52,13 +52,18 @@
       value: '',
     },
     {
-      command: 'click',
-      target: "xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'Starman')]",
-      value: '',
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '${KEY_ENTER}',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'Autor${KEY_ENTER}',
     },
     {
       command: 'click',
-      target: 'css=#dialog button.positive',
+      target: 'css=#add-relationship-dialog button.positive',
       value: '',
     },
     {

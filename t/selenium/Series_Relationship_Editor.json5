@@ -1,0 +1,297 @@
+{
+  title: 'Series Relationship Editor',
+  commands: [
+    {
+      command: 'open',
+      target: '/series/create',
+      value: '',
+    },
+    // Series type is initially deselected.
+    {
+      command: 'assertEval',
+      target: 'document.getElementById("id-edit-series.type_id").value.trim() === ""',
+      value: 'true',
+    },
+    {
+      command: 'select',
+      target: 'id=id-edit-series.type_id',
+      value: 'label=regexp:\\s*Recording series',
+    },
+    {
+      command: 'click',
+      target: 'css=#relationship-editor button.add-item',
+      value: '',
+    },
+    // Input an artist for the relationship target.
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: 'b7ffd2af-418f-4be2-bdd1-22f8b48613da',
+    },
+    {
+        command: 'pause',
+        target: '1000',
+        value: '',
+    },
+    // Since the series type was set to "Recording series" above, the
+    // "part of" link type should not be available for artists.
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'part of${KEY_ENTER}',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#add-relationship-dialog div.relationship-type li')).map(li => li.textContent).join('')",
+      value: '(No results)',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#add-relationship-dialog button.positive').disabled",
+      value: 'true',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog button.negative',
+      value: '',
+    },
+    // Clear the series type.
+    {
+      command: 'select',
+      target: 'id=id-edit-series.type_id',
+      value: 'label=regexp:^\\s*$',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.getElementById("id-edit-series.type_id").value.trim() === ""',
+      value: 'true',
+    },
+    {
+      command: 'click',
+      target: 'css=#relationship-editor button.add-item',
+      value: '',
+    },
+    // Input a recording for the relationship target.
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '96f64611-49df-4e54-84e7-0f9a30f01766',
+    },
+    {
+        command: 'pause',
+        target: '1000',
+        value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'part of',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: '${KEY_ENTER}',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog div.attribute-container.text input',
+      value: 'rec1',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog button.positive',
+      value: '',
+    },
+    // Since a recording "part of" relationship was added, the series type
+    // should now be set to "Recording series."
+    {
+      command: 'assertEval',
+      target: 'document.getElementById("id-edit-series.type_id").value',
+      value: '3',
+    },
+    // Enable manual series ordering.
+    {
+      command: 'select',
+      target: 'id=id-edit-series.ordering_type_id',
+      value: 'label=Manual',
+    },
+    {
+      command: 'check',
+      target: 'css=tr.has-parts + tr input[type=checkbox]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#relationship-editor tr.has-parts button.edit-item',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#edit-relationship-dialog tr.link-order input',
+      value: '3',
+    },
+    {
+      command: 'click',
+      target: 'css=#edit-relationship-dialog button.positive',
+      value: '',
+    },
+    // Try adding a duplicate relationship (with the same link order) and
+    // ensure the dialog can't be submitted.
+    {
+      command: 'click',
+      target: 'css=#relationship-editor button.add-item',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '96f64611-49df-4e54-84e7-0f9a30f01766',
+    },
+    {
+        command: 'pause',
+        target: '1000',
+        value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'part of',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: '${KEY_ENTER}',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog div.attribute-container.text input',
+      value: 'rec1',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog tr.link-order input',
+      value: '3',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.querySelector("#add-relationship-dialog div.form > p.error").textContent',
+      value: 'This relationship already exists.',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.querySelector("#add-relationship-dialog button.positive").disabled',
+      value: 'true',
+    },
+    // Ensure <Enter> can't submit the dialog despite the error.
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog tr.link-order input',
+      value: '${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog button.negative',
+      value: '',
+    },
+    // The form is disabled because we didn't enter a name yet.
+    // Manually submit the form so we can check if relationships are
+    // preserved after the form reloads due to an error.
+    {
+      command: 'runScript',
+      target: "document.getElementById('id-edit-series.name').removeAttribute('required')",
+      value: '',
+    },
+    {
+      command: 'runScript',
+      target: "MB.validation.errorFields([])",
+      value: '',
+    },
+    {
+      command: 'runScriptAndWait',
+      target: "document.querySelector('form.edit-series').requestSubmit()",
+      value: '',
+    },
+    {
+      command: 'assertLocationMatches',
+      target: '\\/series\\/create',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-series.name',
+      value: 'rec-series',
+    },
+    // Submit the form, this time with a series name entered. We'll know if
+    // the relationship was preserved and submitted by checking the edits
+    // below.
+    {
+      command: 'clickAndWait',
+      target: 'css=form.edit-series button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        type: 140,
+        status: 2,
+        data: {
+          comment: '',
+          entity_gid: '$$__IGNORE__$$',
+          entity_id: 1,
+          name: 'rec-series',
+          ordering_type_id: 2,
+          type_id: 3,
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 2,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          attributes: [
+            {
+              text_value: 'rec1',
+              type: {
+                gid: 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
+                id: 788,
+                name: 'number',
+                root: {
+                  gid: 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
+                  id: 788,
+                  name: 'number',
+                },
+              },
+            },
+          ],
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '96f64611-49df-4e54-84e7-0f9a30f01766',
+            id: 164872,
+            name: 'mr self destruct',
+          },
+          entity1: {
+            gid: '$$__IGNORE__$$',
+            id: 1,
+            name: 'rec-series',
+          },
+          entity_id: 1,
+          link_order: 3,
+          link_type: {
+            id: 740,
+            link_phrase: 'part of',
+            long_link_phrase: 'is a part of',
+            name: 'part of',
+            reverse_link_phrase: 'has parts',
+          },
+          type0: 'recording',
+          type1: 'series',
+        },
+      },
+    },
+  ],
+}

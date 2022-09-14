@@ -7,6 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+// $FlowIgnore[missing-export]
+import {flushSync} from 'react-dom';
+
 function isElementVisible(element: HTMLElement) {
   let currentElement: ?(Element | HTMLElement) = element;
   while (currentElement) {
@@ -32,13 +35,16 @@ function isElementVisible(element: HTMLElement) {
  */
 let IS_ANCHOR_TABBABLE = true;
 
-function isElementTabbable(element: HTMLElement) {
+export function isElementTabbable(
+  element: HTMLElement,
+  skipAnchors?: ?boolean,
+): boolean {
   if (!isElementVisible(element)) {
     return false;
   }
   switch (element.nodeName) {
     case 'A':
-      if (!IS_ANCHOR_TABBABLE) {
+      if (!IS_ANCHOR_TABBABLE || (skipAnchors ?? false)) {
         return false;
       }
       // $FlowIssue[prop-missing]
@@ -137,6 +143,7 @@ export function findTabbableElement(
   startingElement: Element | null,
   elementGetter: (HTMLElement, Element | null) => Element | null,
   includeStartingElement?: boolean = false,
+  skipAnchors?: ?boolean,
 ): HTMLElement | null {
   if (startingElement === containerElement) {
     return null;
@@ -154,7 +161,7 @@ export function findTabbableElement(
   while (currentElement) {
     const thisElement = currentElement;
     if (thisElement instanceof HTMLElement) {
-      if (isElementTabbable(thisElement)) {
+      if (isElementTabbable(thisElement, skipAnchors)) {
         return thisElement;
       }
     }
@@ -166,12 +173,14 @@ export function findTabbableElement(
 
 export function findFirstTabbableElement(
   container: HTMLElement,
+  skipAnchors?: ?boolean,
 ): HTMLElement | null {
   return findTabbableElement(
     container,
     container.firstElementChild ?? null,
     getNextElement,
     true,
+    skipAnchors,
   );
 }
 
@@ -189,30 +198,89 @@ export function findLastTabbableElement(
   );
 }
 
-export function handleTabKeyPress(
-  event: SyntheticKeyboardEvent<HTMLElement>,
+export function handleTab(
+  activeElement: HTMLElement | null,
   container: HTMLElement,
-  trapFocus?: boolean = false,
+  trapFocus: boolean = false,
+  event: SyntheticKeyboardEvent<HTMLElement> | null,
 ): HTMLElement | null {
-  const activeElement = document.activeElement;
   if (activeElement && container.contains(activeElement)) {
+    const shiftKey = (event?.shiftKey) === true;
     let tabbableElement = findTabbableElement(
       container,
       activeElement,
-      event.shiftKey ? getPreviousElement : getNextElement,
+      shiftKey ? getPreviousElement : getNextElement,
     );
     if (!tabbableElement && trapFocus) {
       tabbableElement = (
-        event.shiftKey
+        shiftKey
           ? findLastTabbableElement
           : findFirstTabbableElement
       )(container);
       if (tabbableElement) {
-        event.preventDefault();
+        if (event != null) {
+          event.preventDefault();
+        }
         tabbableElement.focus();
       }
     }
     return tabbableElement;
   }
   return null;
+}
+
+export function handleTabKeyPress(
+  event: SyntheticKeyboardEvent<HTMLElement>,
+  container: HTMLElement,
+  trapFocus?: boolean = false,
+): HTMLElement | null {
+  return handleTab(
+    document.activeElement,
+    container,
+    trapFocus,
+    event,
+  );
+}
+
+export function performReactUpdateAndMaintainFocus(
+  elementIdToFocus: string,
+  callback: () => void,
+): void {
+  let elementToFocus = document.getElementById(elementIdToFocus);
+
+  const parents: Array<HTMLElement> = [];
+  let current: ?Element = elementToFocus;
+  while (current) {
+    const parent = current.parentElement;
+    if (parent && parent instanceof HTMLElement) {
+      parents.push(parent);
+    }
+    current = parent;
+  }
+
+  flushSync(callback);
+
+  // The element may have moved outside of its existing tree.  Find it.
+  elementToFocus = document.getElementById(elementIdToFocus);
+
+  if (elementToFocus) {
+    if (elementToFocus !== document.activeElement) {
+      elementToFocus.focus();
+    }
+    return;
+  }
+
+  // If it no longer exists, return focus to the closest tabbable element.
+  for (const parent of parents) {
+    if (parent.isConnected) {
+      const tabbableElement = findFirstTabbableElement(
+        parent,
+        false,
+      );
+      if (tabbableElement) {
+        tabbableElement.focus();
+        break;
+      }
+    }
+  }
 }

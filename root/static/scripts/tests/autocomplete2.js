@@ -107,18 +107,17 @@ $(function () {
     },
     privileges: LOCATION_EDITOR_FLAG | RELATIONSHIP_EDITOR_FLAG,
   };
+  window[GLOBAL_JS_NAMESPACE] = {$c: {user: activeUser}};
 
   function createInitialState() {
     return {
       entityAutocomplete: createInitialAutocompleteState<NonUrlCoreEntityT>({
-        activeUser,
         canChangeType: () => true,
         entityType: 'artist',
         id: 'entity-test',
         width: '200px',
       }),
       vocalAutocomplete: createInitialAutocompleteState<LinkAttrTypeT>({
-        activeUser,
         entityType: 'link_attribute_type',
         id: 'vocal-test',
         placeholder: 'Choose an attribute type',

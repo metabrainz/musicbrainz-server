@@ -305,6 +305,7 @@ INSERT INTO link_type VALUES (865, NULL, 0, '03a9e95d-986f-40e4-985d-7487bfccfbb
 INSERT INTO link_type VALUES (866, NULL, 0, 'ce8dbff2-0f07-45f3-8b7c-2ea40d82cbfe', 'place', 'recording', 'arranged at', 'Links a recording to the place it was arranged at.', 'arranging location for', 'arranged at', 'was the arranging location for', 0, '2015-07-15 10:21:18.720585+00', false, true, 1, 0);
 INSERT INTO link_type VALUES (867, NULL, 0, 'fd841726-ba3c-47f7-af8e-6734ab6243ff', 'label', 'recording', 'phonographic copyright', 'This relationship indicates the label is the <a href="//en.wikipedia.org/wiki/Sound_recording_copyright_symbol">phonographic copyright</a> holder for this recording. ', 'holds phonographic copyright for', 'phonographic copyright by', 'holds phonographic copyright for', 0, '2015-07-15 10:40:11.190165+00', false, true, 1, 0);
 INSERT INTO link_type VALUES (868, NULL, 1, 'b41e7530-cde4-459c-b8c5-dfef08fc8295', 'artist', 'release_group', 'dedicated to', 'This links a release group to an artist it is dedicated to. This is for dedications such as "This album is dedicated to the memory of Artist" - for tribute albums consisting of covers of the artist, use the <a href="/relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff">tribute relationship</a>.', 'dedications', 'dedicated to', 'has dedication', 0, '2015-07-16 11:01:22.195512+00', false, false, 1, 0);
+INSERT INTO link_type VALUES (996, NULL, 1, 'd1a845d1-8c03-3191-9454-e4e8d37fa5e0', 'artist', 'series', 'part of', 'Indicates that the artist is part of a series.', 'part of', 'has parts', 'is a part of', 0, '2021-05-17 17:59:32.408107+00', false, true, 0, 0);
 INSERT INTO link_type VALUES (2, 4, 0, 'fc399d47-23a7-4c28-bfcf-0607a562b644', 'release', 'release', 'transl-tracklisting', 'This indicates that one release is identical to another release, but that the release title and track titles have been either translated (into another language) or transliterated (into another script).', 'transliterated/translated track listings', 'transliterated/translated track listing of', 'is the original for the transliterated/translated track listing', 0, '2015-07-17 08:53:57.281375+00', false, false, 0, 0);
 INSERT INTO link_type VALUES (6, 4, 1, '48e327b5-2d04-4518-93f1-fed5f0f0fa3c', 'release', 'release', 'remaster', 'This links two releases, where one is a <a href="/doc/Mix_Terminology#remaster">remaster</a> of the other. This is usually done to improve the audio quality or to adjust for more modern playback equipment. The process generally doesn''t involve changing the music in any artistically important way. It may, however, result in recordings that differ in length by a few seconds.', 'remaster of', 'remastered versions', 'is a remaster of', 0, '2015-01-20 15:06:21.861743+00', false, true, 0, 0);
 INSERT INTO link_type VALUES (8, 13, 0, 'd3286b50-a9d9-4cc3-94ad-cd7e2ffc787a', 'release_group', 'release_group', 'DJ-mix', 'This is used to link a release group containing a <a href="/doc/Mix_Terminology#DJ_mix">DJ-mixed</a> version of a release to the release group containing the source release. See <a href="/relationship/9162dedd-790c-446c-838e-240f877dbfe2">DJ-mixer</a> for crediting the person who created the DJ-mix.', 'DJ-mix of', 'DJ-mixed versions', 'is a DJ-mix of', 0, '2014-05-18 11:37:56.566256+00', false, false, 0, 0);
@@ -868,6 +869,7 @@ INSERT INTO medium_format VALUES (59, 'VHD', 13, 0, 1983, false, 'Video High Den
 INSERT INTO medium_format VALUES (60, 'CED', 13, 0, 1981, false, 'The Capacitance Electronic Disc (CED) is an analog video disc playback system developed by RCA, in which video and audio could be played back on a TV set using a special needle and high-density groove system similar to phonograph records.', '38910592-1be4-371d-b34d-2df852c8b9ea');
 INSERT INTO medium_format VALUES (61, 'Copy Control CD', 1, 0, NULL, true, 'Copy Control CD (CCCD) is an umbrella term for CDs released circa 2001-2006 containing software that is ostensibly designed to prevent the CD from being ripped. There are a number of software variants: the most well-known are Macrovision''s Cactus Data Shield (CDS) and SunnComm''s MediaMax.', '1a648190-5c75-3b74-b8c5-8150c97af0f5');
 
+INSERT INTO orderable_link_type VALUES (278, 1);
 INSERT INTO orderable_link_type VALUES (281, 1);
 INSERT INTO orderable_link_type VALUES (740, 2);
 INSERT INTO orderable_link_type VALUES (741, 2);
@@ -934,15 +936,22 @@ INSERT INTO series_alias_type VALUES (2, 'Search hint', NULL, 0, NULL, '8950366b
 INSERT INTO series_ordering_type VALUES (1, 'Automatic', NULL, 0, 'Sorts the items in the series automatically by their number attributes, using a natural sort order.', 'ec5fa247-c37a-39b3-b31d-bdac6207344e');
 INSERT INTO series_ordering_type VALUES (2, 'Manual', NULL, 1, 'Allows for manually setting the position of each item in the series.', '2950ba43-3532-39e9-a7d1-7dc7e271fa25');
 
-INSERT INTO series_type VALUES (1, 'Release group', 'release_group', NULL, 0, 'A series of release groups.', '4c1c4949-7b6c-3a2d-9d54-a50a27e4fa77');
-INSERT INTO series_type VALUES (2, 'Release', 'release', NULL, 1, 'A series of releases.', '52b90f1e-ff62-3bd0-b254-5d91ced5d757');
-INSERT INTO series_type VALUES (3, 'Recording', 'recording', NULL, 2, 'A series of recordings.', 'dd968243-7128-30a2-81f0-79843430a8e2');
-INSERT INTO series_type VALUES (4, 'Work', 'work', NULL, 3, 'A series of works.', 'b689f694-6305-3d78-954d-df6759a1877b');
+INSERT INTO series_type VALUES (1, 'Release group series', 'release_group', NULL, 0, 'A series of release groups.', '4c1c4949-7b6c-3a2d-9d54-a50a27e4fa77');
+INSERT INTO series_type VALUES (47, 'Release group award', 'release_group', 1, 0, 'A series of release groups honoured by the same award.', '133524ac-b9e4-4c6f-becb-774ab963de2f');
+INSERT INTO series_type VALUES (2, 'Release series', 'release', NULL, 1, 'A series of releases.', '52b90f1e-ff62-3bd0-b254-5d91ced5d757');
+INSERT INTO series_type VALUES (3, 'Recording series', 'recording', NULL, 2, 'A series of recordings.', 'dd968243-7128-30a2-81f0-79843430a8e2');
+INSERT INTO series_type VALUES (48, 'Recording award', 'recording', 3, 0, 'A series of recordings honoured by the same award.', 'e667457d-77e7-4848-8472-5b65ff191896');
+INSERT INTO series_type VALUES (4, 'Work series', 'work', NULL, 3, 'A series of works.', 'b689f694-6305-3d78-954d-df6759a1877b');
 INSERT INTO series_type VALUES (5, 'Catalogue', 'work', 4, 0, 'A series of works which form a catalogue of classical compositions.', '49482ff0-fc9e-3b8c-a2d0-30e84d9df002');
-INSERT INTO series_type VALUES (6, 'Event', 'event', NULL, 5, 'A series of events.', '64640a2a-1c31-394d-b7b0-683a32ff9aff');
+INSERT INTO series_type VALUES (46, 'Work award', 'work', 4, 0, 'A series of works honoured by the same award.', '2b446390-880b-4f58-814c-d51c79575823');
+INSERT INTO series_type VALUES (6, 'Event series', 'event', NULL, 5, 'A series of events.', '64640a2a-1c31-394d-b7b0-683a32ff9aff');
 INSERT INTO series_type VALUES (7, 'Tour', 'event', 6, 0, 'A series of related concerts by an artist in different locations.', '8ff6df0e-3dce-3bdf-bd57-d386c51b0060');
 INSERT INTO series_type VALUES (8, 'Festival', 'event', 6, 1, 'A recurring festival, usually happening annually in the same location.', '44e9f6b1-34a7-3a17-a5d5-07bb100d8887');
 INSERT INTO series_type VALUES (9, 'Run', 'event', 6, 2, 'A series of performances of the same show at the same venue.', '975e9447-dfa8-3e29-82d6-07908fe36f3e');
+INSERT INTO series_type VALUES (12, 'Residency', 'event', 6, 3, 'A series of related concerts by an artist in the same location.', '252fd661-fdf6-405c-8f9d-43379847e0ae');
+INSERT INTO series_type VALUES (15, 'Award ceremony', 'event', 6, 4, 'A series of award ceremonies, usually one per year.', '991925f8-ad29-4ff0-a777-fa2214f8b8e9');
+INSERT INTO series_type VALUES (13, 'Artist series', 'artist', NULL, 4, 'A series of artists.', 'c5358f01-618a-396d-8c78-9e76e6a52d7d');
+INSERT INTO series_type VALUES (14, 'Artist award', 'artist', 13, 0, 'A series of artists honoured by the same award.', 'dca73eca-a855-3408-9094-f7d5d073cef0');
 
 INSERT INTO work_alias_type VALUES (1, 'Work name', NULL, 0, NULL, 'a18cab3f-0ae2-3978-8f75-dd9c09702b25');
 INSERT INTO work_alias_type VALUES (2, 'Search hint', NULL, 0, NULL, '02238bc1-dfd8-39a8-bbf8-c697747291ec');

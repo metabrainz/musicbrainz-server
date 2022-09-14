@@ -28,6 +28,7 @@ import {
 import linkedEntities from './linkedEntities.mjs';
 import MB from './MB.js';
 import {bracketedText} from './utility/bracketed.js';
+import {getSourceEntityData} from './utility/catalyst.js';
 import clean from './utility/clean.js';
 import {cloneArrayDeep, cloneObjectDeep} from './utility/cloneDeep.mjs';
 import formatTrackLength from './utility/formatTrackLength.js';
@@ -127,6 +128,15 @@ import formatTrackLength from './utility/formatTrackLength.js';
     }
 
     return entity;
+  };
+
+  MB._sourceEntityInstance = null;
+  MB.getSourceEntityInstance = function () {
+    if (MB._sourceEntityInstance != null) {
+      return MB._sourceEntityInstance;
+    }
+    MB._sourceEntityInstance = MB.entity(getSourceEntityData());
+    return MB._sourceEntityInstance;
   };
 
   // Used by MB.entity() above to cache everything with a GID.

@@ -7,16 +7,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable sort-keys */
-const NULL_DATE: PartialDateT = Object.freeze({
-  year: null,
-  month: null,
-  day: null,
-});
+import {EMPTY_PARTIAL_DATE} from '../constants.js';
 
+/* eslint-disable sort-keys */
 const NULL_DATE_PERIOD: DatePeriodRoleT = Object.freeze({
-  begin_date: NULL_DATE,
-  end_date: NULL_DATE,
+  begin_date: EMPTY_PARTIAL_DATE,
+  end_date: EMPTY_PARTIAL_DATE,
   ended: false,
 });
 /* eslint-enable sort-keys */
@@ -35,8 +31,8 @@ export default function compareDates(
   a: ?PartialDateT,
   b: ?PartialDateT,
 ): number {
-  a = a ?? NULL_DATE;
-  b = b ?? NULL_DATE;
+  a = a ?? EMPTY_PARTIAL_DATE;
+  b = b ?? EMPTY_PARTIAL_DATE;
 
   return (
     compareNullableNumbers(a.year, b.year) ||
@@ -52,10 +48,10 @@ export function compareDatePeriods(
   a = a ?? NULL_DATE_PERIOD;
   b = b ?? NULL_DATE_PERIOD;
 
-  const beginDateA = a.begin_date ?? NULL_DATE;
-  const beginDateB = b.begin_date ?? NULL_DATE;
-  const endDateA = a.end_date ?? NULL_DATE;
-  const endDateB = b.end_date ?? NULL_DATE;
+  const beginDateA = a.begin_date ?? EMPTY_PARTIAL_DATE;
+  const beginDateB = b.begin_date ?? EMPTY_PARTIAL_DATE;
+  const endDateA = a.end_date ?? EMPTY_PARTIAL_DATE;
+  const endDateB = b.end_date ?? EMPTY_PARTIAL_DATE;
 
   return (
     compareNullableNumbers(beginDateA.year, beginDateB.year) ||

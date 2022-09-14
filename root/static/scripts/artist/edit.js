@@ -10,6 +10,7 @@
 import typeBubble from '../edit/typeBubble.js';
 
 import './components/ArtistCreditRenamer.js';
+import '../relationship-editor/components/RelationshipEditorWrapper.js';
 
 const typeIdField = 'select[name=edit-artist\\.type_id]';
 typeBubble(typeIdField);

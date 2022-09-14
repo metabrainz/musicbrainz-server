@@ -39,15 +39,33 @@ const diffOnlyB = (
 ) => <span className="diff-only-b">{content}</span>;
 
 type Props = {
+  makeEntityLink?: (
+    entity: CoreEntityT,
+    content: string,
+    relationship: RelationshipT,
+  ) => React.MixedElement,
   newRelationship: RelationshipT,
   oldRelationship: RelationshipT,
 };
 
 const getTypeId = (x: LinkAttrT) => String(x.typeID);
 
-const RelationshipDiff = ({
+const makeDescriptiveLink = (
+  entity: CoreEntityT,
+  content: string,
+  relationship: RelationshipT,
+) => (
+  <DescriptiveLink
+    content={content}
+    disableLink={isDisabledLink(relationship, entity)}
+    entity={entity}
+  />
+);
+
+const RelationshipDiff = (React.memo(({
   newRelationship,
   oldRelationship,
+  makeEntityLink = makeDescriptiveLink,
 }: Props): React.Element<typeof React.Fragment> => {
   const oldAttrs = oldRelationship.attributes
     ? keyBy(oldRelationship.attributes, getTypeId)
@@ -75,51 +93,63 @@ const RelationshipDiff = ({
     expand: expand2reactWithVarArgsInstance,
   };
 
-  const oldLinkType = linkedEntities.link_type[oldRelationship.linkTypeID];
-  const newLinkType = linkedEntities.link_type[newRelationship.linkTypeID];
+  const oldLinkType = oldRelationship.linkTypeID == null
+    ? null
+    : linkedEntities.link_type[oldRelationship.linkTypeID];
+  const newLinkType = newRelationship.linkTypeID == null
+    ? null
+    : linkedEntities.link_type[newRelationship.linkTypeID];
+
+  invariant(
+    oldLinkType && newLinkType,
+    'No link type found',
+  );
 
   /*
    * The display data relationships are created with direction=forward,
    * so entity0 is always the source.
    */
-  const oldSource =
-    linkedEntities[oldLinkType.type0][oldRelationship.entity0_id];
-  const newSource =
-    linkedEntities[newLinkType.type0][newRelationship.entity0_id];
-
-  const oldTarget = oldRelationship.target;
-  const newTarget = newRelationship.target;
-
-  const oldSourceLink = (
-    <DescriptiveLink
-      content={oldRelationship.entity0_credit}
-      disableLink={isDisabledLink(oldRelationship, oldSource)}
-      entity={oldSource}
-    />
+  const oldSource = oldRelationship.entity0 ?? (
+    oldRelationship.entity0_id == null
+      ? null
+      : linkedEntities[oldLinkType.type0][oldRelationship.entity0_id]
+  );
+  const newSource = newRelationship.entity0 ?? (
+    newRelationship.entity0_id == null
+      ? null
+      : linkedEntities[newLinkType.type0][newRelationship.entity0_id]
   );
 
-  const newSourceLink = (
-    <DescriptiveLink
-      content={newRelationship.entity0_credit}
-      disableLink={isDisabledLink(newRelationship, newSource)}
-      entity={newSource}
-    />
+  invariant(
+    oldSource && newSource,
+    'No source entity found',
   );
 
-  const oldTargetLink = (
-    <DescriptiveLink
-      content={oldRelationship.entity1_credit}
-      disableLink={isDisabledLink(oldRelationship, oldTarget)}
-      entity={oldTarget}
-    />
+  const oldTarget = oldRelationship.entity1 || oldRelationship.target;
+  const newTarget = newRelationship.entity1 || newRelationship.target;
+
+  const oldSourceLink = makeEntityLink(
+    oldSource,
+    oldRelationship.entity0_credit,
+    oldRelationship,
   );
 
-  const newTargetLink = (
-    <DescriptiveLink
-      content={newRelationship.entity1_credit}
-      disableLink={isDisabledLink(newRelationship, newTarget)}
-      entity={newTarget}
-    />
+  const newSourceLink = makeEntityLink(
+    newSource,
+    newRelationship.entity0_credit,
+    newRelationship,
+  );
+
+  const oldTargetLink = makeEntityLink(
+    oldTarget,
+    oldRelationship.entity1_credit,
+    oldRelationship,
+  );
+
+  const newTargetLink = makeEntityLink(
+    newTarget,
+    newRelationship.entity1_credit,
+    newRelationship,
   );
 
   let oldPhrase: Expand2ReactOutput = '';
@@ -197,6 +227,6 @@ const RelationshipDiff = ({
       </tr>
     </>
   );
-};
+}): React.AbstractComponent<Props, void>);
 
 export default RelationshipDiff;

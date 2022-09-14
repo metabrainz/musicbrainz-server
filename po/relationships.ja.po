@@ -4030,8 +4030,7 @@ msgstr "次のカバーアート"
 msgid "cover art link"
 msgstr "カバーアートリンク"
 
-#: DB:link_type/name:12 DB:link_type/name:4 DB:link_type/name:233
-#: DB:link_type/long_link_phrase:12
+#: DB:link_type/name:12 DB:link_type/name:4 DB:link_type/long_link_phrase:12
 msgid "covers and versions"
 msgstr ""
 
@@ -5780,8 +5779,8 @@ msgstr "その他のデータベース"
 msgid "other version"
 msgstr "他のバージョン"
 
-#: DB:link_type/link_phrase:233 DB:link_type/reverse_link_phrase:233
-#: DB:link_type/long_link_phrase:233
+#: DB:link_type/link_phrase:233 DB:link_type/name:233
+#: DB:link_type/reverse_link_phrase:233 DB:link_type/long_link_phrase:233
 msgid "other versions"
 msgstr "他のバージョン"
 

@@ -25,6 +25,7 @@ type CommonProps = {
   +field: PartialDateFieldT,
   +label: string,
   +required?: boolean,
+  +yearInputRef?: {current: HTMLInputElement | null},
 };
 
 type Props =
