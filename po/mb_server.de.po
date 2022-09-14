@@ -69,7 +69,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-13 14:57-0500\n"
+"POT-Creation-Date: 2022-09-14 11:39-0500\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: Till Berger <till@mellthas.de>, 2017,2021\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
@@ -587,7 +587,7 @@ msgstr "Künstler {n}:"
 #: ../root/edit/details/historic/RemoveRelease.js:28
 #: ../root/layout/components/sidebar/RecordingSidebar.js:45
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:50
-#: ../root/static/scripts/edit/components/forms.js:23
+#: ../root/static/scripts/edit/components/forms.js:24
 msgid "Artist:"
 msgstr "Künstler:"
 
@@ -2284,7 +2284,7 @@ msgid "No releases have cover art marked as \"Front\", cannot set cover art."
 msgstr "Keine Veröffentlichungen haben Cover-Art, das als „Vorderseite“ markiert ist; kann Cover-Art nicht festlegen."
 
 #: ../root/release/edit/tracklist.tt:140 ../root/admin/IpLookup.js:35
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:459
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:468
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:88
 msgid "No results"
 msgstr "Keine Ergebnisse"
@@ -3228,7 +3228,7 @@ msgstr ""
 #: ../root/release/edit/recordings.tt:30 ../root/edit/details/AddMedium.js:156
 #: ../root/edit/details/RemoveMedium.js:91
 #: ../root/edit/details/RemoveMedium.js:108
-#: ../root/static/scripts/release/components/MediumRelationshipEditor.js:142
+#: ../root/static/scripts/release/components/MediumRelationshipEditor.js:168
 msgid "The tracklist for this medium is unknown."
 msgstr "Die Titelliste für dieses Medium ist unbekannt."
 
@@ -3462,7 +3462,7 @@ msgid "This recording cannot be removed because it is still used on releases."
 msgstr "Diese Aufnahme kann nicht entfernt werden, da sie noch in Veröffentlichungen verwendet wird."
 
 #: ../root/components/common-macros.tt:239
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:705
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:685
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:311
 #: ../root/static/scripts/common/components/EntityLink.js:303
 msgid "This recording is a video"
@@ -3677,7 +3677,7 @@ msgstr "Twitter"
 #: ../root/static/scripts/account/components/ApplicationForm.js:88
 #: ../root/static/scripts/alias/AliasEditForm.js:325
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:84
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:891
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:871
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:472
 #: ../root/static/scripts/common/components/FilterForm.js:77
 #: ../root/static/scripts/edit/externalLinks.js:1171
@@ -7291,7 +7291,7 @@ msgstr "Da eckige Klammern [] benutzt werden, um Links zu erstellen, musst du di
 #: ../root/report/components/EventList.js:67
 #: ../root/search/components/EventResults.js:77
 #: ../root/search/components/WorkResults.js:56
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:912
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:892
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:480
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:15
 #: ../root/tag/TagLayout.js:25 ../root/utility/tableColumns.js:762
@@ -8505,7 +8505,7 @@ msgstr "Status"
 #: ../root/report/IswcsWithManyWorks.js:51
 #: ../root/report/components/WorkList.js:52
 #: ../root/search/components/WorkResults.js:55
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:911
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:891
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:479
 msgid "Writers"
 msgstr "Autoren"
@@ -10982,7 +10982,7 @@ msgstr "Datenqualität ändern"
 msgid "Series information"
 msgstr "Serieninformationen"
 
-#: ../root/layout/components/sidebar/SidebarIpis.js:19
+#: ../root/layout/components/sidebar/SidebarIpis.js:18
 msgid "IPI code:"
 msgstr "IPI-Code:"
 
@@ -11836,7 +11836,7 @@ msgid ""
 msgstr "Bist du sicher, dass du das Cover-Art unten von {release} von {artist} entfernen möchtest?"
 
 #: ../root/release_group/ReleaseGroupHeader.js:30
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:830
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:810
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:429
 msgid "Release group by {artist}"
 msgstr "Veröffentlichungsgruppe von {artist}"
@@ -13161,7 +13161,7 @@ msgstr ""
 
 #: ../root/report/ReportsIndex.js:590
 #: ../root/search/components/RecordingResults.js:144
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:737
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:717
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:336
 #: ../root/static/scripts/common/components/IsrcList.js:46
 #: ../root/utility/tableColumns.js:654
@@ -13447,7 +13447,7 @@ msgid "Documentation Search"
 msgstr "Dokumentationssuche"
 
 #: ../root/search/components/EventResults.js:78
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:1064
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:1044
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:198
 #: ../root/utility/tableColumns.js:359
 msgid "Location"
@@ -13779,7 +13779,7 @@ msgid "Show more artist credits"
 msgstr ""
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:267
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:466
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:475
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:101
 #: ../root/static/scripts/common/components/Collapsible.js:76
 msgid "Show more..."
@@ -13809,55 +13809,55 @@ msgstr "Sammlung erstellen"
 msgid "Update collection"
 msgstr "Änderungen speichern"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:84
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:88
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:94
 msgid "An error occurred while searching. Click here to try again."
 msgstr "Während der Suche ist ein Fehler aufgetreten. Klicke hier, um es erneut zu versuchen."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:89
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:93
 msgid "Try with direct search instead."
 msgstr "Versuch’s nochmal mit der direkten Suche."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:90
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:94
 msgid "Try with indexed search instead."
 msgstr "Versuch’s nochmal mit der indexierten Suche."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:122
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:126
 #: ../root/static/scripts/common/components/Autocomplete2.js:723
 msgid "Type to search, or paste an MBID"
 msgstr "Suchbegriff eingeben oder MBID einfügen"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:204
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:217
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:49
 msgid "Clear recent items"
 msgstr "Letzte Elemente löschen"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:473
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:482
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:108
 msgid "Not found? Try again with direct search."
 msgstr "Nichts gefunden? Versuch’s nochmal mit der direkten Suche."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:474
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:483
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:115
 msgid "Slow? Switch back to indexed search."
 msgstr "Zu langsam? Verwende wieder die indexierte Suche."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:724
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:704
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:328
 msgid "appears on"
 msgstr "erscheint auf"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:730
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:710
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:332
 msgid "standalone recording"
 msgstr "alleinstehende Aufnahme"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:824
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:804
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:424
 msgid "{release_group_type} by {artist}"
 msgstr "{release_group_type} von {artist}"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:1063
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:1043
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:195
 msgid "Performers"
 msgstr "Interpreten"
@@ -13876,7 +13876,7 @@ msgstr "Bild {current} von {total}"
 
 #: ../root/static/scripts/common/components/AcoustIdCell.js:117
 #: ../root/static/scripts/common/components/FingerprintTable.js:97
-#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:104
+#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:108
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:101
 #: ../root/static/scripts/edit/components/withLoadedTypeInfo.js:142
 msgid "Loading..."
@@ -14352,17 +14352,17 @@ msgstr "Du hast {area} ausgewählt."
 msgid "You selected {releasegroup}."
 msgstr "Du hast {releasegroup} ausgewählt."
 
-#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:134
+#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:138
 msgid "Failed to load the medium."
 msgstr "Laden des Mediums fehlgeschlagen."
 
-#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:204
+#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:209
 msgid ""
 "This medium has too many tracks to load at once; currently showing "
 "{loaded_track_count} out of {total_track_count} total."
 msgstr ""
 
-#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:221
+#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:226
 msgid "Load all tracks..."
 msgstr ""
 
