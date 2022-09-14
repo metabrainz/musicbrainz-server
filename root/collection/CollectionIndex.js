@@ -172,8 +172,17 @@ React.Element<typeof CollectionLayout> => {
     (user.id === collection.editor.id ||
       collection.collaborators.some(x => x.id === user.id));
 
+  const recordingMbids = props.collectionEntityType === 'recording' &&
+                         props.entities.length > 0
+    ? props.entities.map(entity => entity.gid)
+    : null;
+
   return (
-    <CollectionLayout entity={collection} page="index">
+    <CollectionLayout
+      entity={collection}
+      page="index"
+      recordingMbids={recordingMbids}
+    >
       <div className="description">
         {collection.description_html ? (
           <>
