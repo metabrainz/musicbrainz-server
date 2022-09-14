@@ -17,9 +17,6 @@ import {
 } from 'weight-balanced-tree/update';
 
 import hydrate from '../../../../utility/hydrate.js';
-import EnterEdit from '../../edit/components/EnterEdit.js';
-import EnterEditNote from '../../edit/components/EnterEditNote.js';
-import areDatesEqual from '../../common/utility/areDatesEqual.js';
 import {
   EMPTY_PARTIAL_DATE,
   RECORDING_OF_LINK_TYPE_ID,
@@ -27,10 +24,10 @@ import {
   WS_EDIT_RESPONSE_OK,
 } from '../../common/constants.js';
 import {
-  EDIT_RELATIONSHIPS_REORDER,
   EDIT_RELATIONSHIP_CREATE,
   EDIT_RELATIONSHIP_DELETE,
   EDIT_RELATIONSHIP_EDIT,
+  EDIT_RELATIONSHIPS_REORDER,
   EDIT_WORK_CREATE,
 } from '../../common/constants/editTypes.js';
 import {createWorkObject} from '../../common/entity2.js';
@@ -38,6 +35,7 @@ import linkedEntities, {
   mergeLinkedEntities,
 } from '../../common/linkedEntities.mjs';
 import MB from '../../common/MB.js';
+import areDatesEqual from '../../common/utility/areDatesEqual.js';
 import {bracketedText} from '../../common/utility/bracketed.js';
 import {
   getSourceEntityDataForRelationshipEditor,
@@ -48,7 +46,14 @@ import isDateEmpty from '../../common/utility/isDateEmpty.js';
 import {uniqueNegativeId} from '../../common/utility/numbers.js';
 import setMapDefault from '../../common/utility/setMapDefault.js';
 import sleep from '../../common/utility/sleep.js';
+import EnterEdit from '../../edit/components/EnterEdit.js';
+import EnterEditNote from '../../edit/components/EnterEditNote.js';
+import {
+  withLoadedTypeInfoForRelationshipEditor,
+} from '../../edit/components/withLoadedTypeInfo.js';
 import {createField} from '../../edit/utility/createField.js';
+import reducerWithErrorHandling
+  from '../../edit/utility/reducerWithErrorHandling.js';
 import {
   getInitialRelationshipUpdates,
   getUpdatesForAcceptedRelationship,
@@ -57,11 +62,6 @@ import {
 import RelationshipTargetTypeGroups
   // eslint-disable-next-line max-len
   from '../../relationship-editor/components/RelationshipTargetTypeGroups.js';
-import {
-  withLoadedTypeInfoForRelationshipEditor,
-} from '../../edit/components/withLoadedTypeInfo.js';
-import reducerWithErrorHandling
-  from '../../edit/utility/reducerWithErrorHandling.js';
 import {
   REL_STATUS_ADD,
   REL_STATUS_EDIT,

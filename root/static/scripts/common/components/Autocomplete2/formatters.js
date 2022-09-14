@@ -10,14 +10,14 @@
 import * as React from 'react';
 
 import {INSTRUMENT_ROOT_ID} from '../../constants.js';
-import {commaOnlyListText} from '../../i18n/commaOnlyList.js';
 import {unwrapNl} from '../../i18n.js';
 import {addColonText} from '../../i18n/addColon.js';
+import {commaOnlyListText} from '../../i18n/commaOnlyList.js';
+import localizeLanguageName from '../../i18n/localizeLanguageName.js';
 import localizeLinkAttributeTypeDescription
   from '../../i18n/localizeLinkAttributeTypeDescription.js';
 import localizeLinkAttributeTypeName
   from '../../i18n/localizeLinkAttributeTypeName.js';
-import localizeLanguageName from '../../i18n/localizeLanguageName.js';
 import {reduceArtistCredit} from '../../immutable-entities.js';
 import bracketed, {bracketedText} from '../../utility/bracketed.js';
 import formatDate from '../../utility/formatDate.js';

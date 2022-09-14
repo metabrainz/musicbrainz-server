@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import {ANNOTATION_REPORT_TEXT} from './constants.js';
-import WorkList from './components/WorkList.js';
 import ReportLayout from './components/ReportLayout.js';
+import WorkList from './components/WorkList.js';
 import useAnnotationColumns from './hooks/useAnnotationColumns.js';
+import {ANNOTATION_REPORT_TEXT} from './constants.js';
 import type {ReportDataT, ReportWorkAnnotationT} from './types.js';
 
 const AnnotationsWorks = ({

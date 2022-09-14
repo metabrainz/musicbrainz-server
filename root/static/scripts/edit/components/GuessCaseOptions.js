@@ -13,8 +13,8 @@ import expand2react from '../../common/i18n/expand2react.js';
 import bracketed from '../../common/utility/bracketed.js';
 import getBooleanCookie from '../../common/utility/getBooleanCookie.js';
 import setCookie from '../../common/utility/setCookie.js';
-import * as modes from '../../guess-case/modes.js';
 import gc from '../../guess-case/MB/GuessCase/Main.js';
+import * as modes from '../../guess-case/modes.js';
 
 /* eslint-disable flowtype/sort-keys */
 export type ActionT =

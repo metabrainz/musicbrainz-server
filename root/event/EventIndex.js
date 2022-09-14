@@ -9,14 +9,14 @@
 
 import * as React from 'react';
 
+import CleanupBanner from '../components/CleanupBanner.js';
+import * as manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
 import Relationships
   from '../static/scripts/common/components/Relationships.js';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract.js';
 import formatSetlist from '../static/scripts/common/utility/formatSetlist.js';
-import CleanupBanner from '../components/CleanupBanner.js';
-import * as manifest from '../static/manifest.mjs';
 
 import EventLayout from './EventLayout.js';
 

@@ -8,10 +8,10 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
+import mutate from 'mutate-cow';
 import * as React from 'react';
 import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
-import mutate from 'mutate-cow';
 
 import Autocomplete from '../../common/components/Autocomplete.js';
 import {

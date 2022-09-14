@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout/index.js';
 import PlaceSidebar from '../layout/components/sidebar/PlaceSidebar.js';
+import Layout from '../layout/index.js';
 
 import PlaceHeader from './PlaceHeader.js';
 

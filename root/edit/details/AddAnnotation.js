@@ -11,10 +11,10 @@ import * as React from 'react';
 
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
+import {addColonText} from '../../static/scripts/common/i18n/addColon.js';
 import formatEntityTypeName
   from '../../static/scripts/common/utility/formatEntityTypeName.js';
 import Diff from '../../static/scripts/edit/components/edit/Diff.js';
-import {addColonText} from '../../static/scripts/common/i18n/addColon.js';
 
 type Props = {
   +edit: AddAnnotationEditT,

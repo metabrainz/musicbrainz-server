@@ -10,10 +10,10 @@
 
 import * as React from 'react';
 
-import chooseLayoutComponent from '../../utility/chooseLayoutComponent.js';
 import * as manifest from '../../static/manifest.mjs';
 import AliasEditForm from '../../static/scripts/alias/AliasEditForm.js';
 import {ENTITIES} from '../../static/scripts/common/constants.js';
+import chooseLayoutComponent from '../../utility/chooseLayoutComponent.js';
 
 import type {AliasEditFormT} from './types.js';
 

@@ -13,8 +13,8 @@ import {
   relTypeColumn,
 } from '../utility/tableColumns.js';
 
-import UrlList from './components/UrlList.js';
 import ReportLayout from './components/ReportLayout.js';
+import UrlList from './components/UrlList.js';
 import type {ReportDataT, ReportUrlRelationshipT} from './types.js';
 
 const DeprecatedRelationshipUrls = ({

@@ -9,9 +9,8 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context.mjs';
 import RequestLogin from '../../components/RequestLogin.js';
-import returnUri, {returnToCurrentPage} from '../../utility/returnUri.js';
+import {CatalystContext} from '../../context.mjs';
 import {
   isAccountAdmin,
   isAdmin,
@@ -20,6 +19,7 @@ import {
   isRelationshipEditor,
   isWikiTranscluder,
 } from '../../static/scripts/common/utility/privileges.js';
+import returnUri, {returnToCurrentPage} from '../../utility/returnUri.js';
 
 import Search from './Search.js';
 

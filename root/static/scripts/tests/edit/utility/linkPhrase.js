@@ -15,11 +15,11 @@ import linkedEntities, {
 import {
   getPhraseAndExtraAttributesText,
 } from '../../../edit/utility/linkPhrase.js';
-import {linkTypes, linkAttributeTypes} from '../../typeInfo.js';
 import {
   exportLinkAttributeTypeInfo,
   exportLinkTypeInfo,
 } from '../../../relationship-editor/utility/exportTypeInfo.js';
+import {linkAttributeTypes, linkTypes} from '../../typeInfo.js';
 
 exportLinkTypeInfo(linkTypes);
 exportLinkAttributeTypeInfo(linkAttributeTypes);

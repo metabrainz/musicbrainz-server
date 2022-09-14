@@ -7,8 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import DBDefs from '../static/scripts/common/DBDefs-client.mjs';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import DBDefs from '../static/scripts/common/DBDefs-client.mjs';
 
 const seeReviewsHref = (entity: ReviewableT) => {
   const reviewUrlEntity = entity.entityType === 'release_group'

@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../../context.mjs';
 import RequestLogin from '../../../components/RequestLogin.js';
+import {CatalystContext} from '../../../context.mjs';
 import EntityLink
   from '../../../static/scripts/common/components/EntityLink.js';
 

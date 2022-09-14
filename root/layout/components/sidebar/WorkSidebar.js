@@ -9,17 +9,17 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../../context.mjs';
 import LinkSearchableLanguage
   from '../../../components/LinkSearchableLanguage.js';
+import {CatalystContext} from '../../../context.mjs';
 import * as manifest from '../../../static/manifest.mjs';
 import AttributeList
   from '../../../static/scripts/common/components/AttributeList.js';
+import CommonsImage from
+  '../../../static/scripts/common/components/CommonsImage.js';
 import IswcList from '../../../static/scripts/common/components/IswcList.js';
 import commaOnlyList
   from '../../../static/scripts/common/i18n/commaOnlyList.js';
-import CommonsImage from
-  '../../../static/scripts/common/components/CommonsImage.js';
 import ExternalLinks from '../ExternalLinks.js';
 
 import AnnotationLinks from './AnnotationLinks.js';
@@ -28,7 +28,7 @@ import EditLinks from './EditLinks.js';
 import LastUpdated from './LastUpdated.js';
 import MergeLink from './MergeLink.js';
 import SidebarLicenses from './SidebarLicenses.js';
-import {SidebarProperty, SidebarProperties} from './SidebarProperties.js';
+import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
 import SidebarTags from './SidebarTags.js';
 import SidebarType from './SidebarType.js';

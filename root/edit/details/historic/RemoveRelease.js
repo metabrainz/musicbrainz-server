@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import HistoricReleaseList
-  from '../../components/HistoricReleaseList.js';
 import ArtistCreditLink
   from '../../../static/scripts/common/components/ArtistCreditLink.js';
+import HistoricReleaseList
+  from '../../components/HistoricReleaseList.js';
 
 type Props = {
   +edit: RemoveReleaseHistoricEditT,

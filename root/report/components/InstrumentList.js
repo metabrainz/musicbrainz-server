@@ -9,15 +9,15 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context.mjs';
 import PaginatedResults from '../../components/PaginatedResults.js';
 import Table from '../../components/Table.js';
+import {CatalystContext} from '../../context.mjs';
+import formatUserDate from '../../utility/formatUserDate.js';
 import {
   defineEntityColumn,
   defineTextColumn,
 } from '../../utility/tableColumns.js';
 import type {ReportInstrumentT} from '../types.js';
-import formatUserDate from '../../utility/formatUserDate.js';
 
 type Props = {
   +items: $ReadOnlyArray<ReportInstrumentT>,

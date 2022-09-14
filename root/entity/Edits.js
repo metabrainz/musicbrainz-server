@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import Layout from '../layout/index.js';
 import SubHeader from '../components/SubHeader.js';
 import EditList from '../edit/components/EditList.js';
+import Layout from '../layout/index.js';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';

@@ -19,13 +19,13 @@ import type {
   ReleaseRelationshipEditorStateT,
 } from '../types.js';
 
+import {compareRecordings, compareWorks} from './comparators.js';
 import {
   compareTargetTypeWithGroup,
   findTargetTypeGroups,
 } from './findState.js';
-import type {RelationshipUpdateT} from './updateRelationships.js';
-import {compareRecordings, compareWorks} from './comparators.js';
 import updateRecordingStates from './updateRecordingStates.js';
+import type {RelationshipUpdateT} from './updateRelationships.js';
 import {
   compareWorkWithWorkState,
   getWorkRecordings,

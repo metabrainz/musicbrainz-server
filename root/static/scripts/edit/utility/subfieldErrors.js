@@ -8,11 +8,11 @@
  */
 
 import {
-  iterSubfields,
-  iterWritableSubfields,
   type FormOrAnyFieldT,
   type WritableAnyFieldT,
   type WritableFormOrAnyFieldT,
+  iterSubfields,
+  iterWritableSubfields,
 } from './iterSubfields.js';
 
 export function applyAllPendingErrors(

@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {INSERT, DELETE} from '../../utility/editDiff.js';
+import {DELETE, INSERT} from '../../utility/editDiff.js';
 
 import DiffSide from './DiffSide.js';
 

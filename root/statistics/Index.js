@@ -15,8 +15,8 @@ import {l_statistics as l, lp_statistics as lp}
   from '../static/scripts/common/i18n/statistics.js';
 import mapRange from '../static/scripts/common/utility/mapRange.js';
 
-import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
 import StatisticsLayout from './StatisticsLayout.js';
+import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
 
 type MainStatsT = {
   +areaTypes: $ReadOnlyArray<AreaTypeT>,

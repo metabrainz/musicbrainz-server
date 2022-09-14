@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout/index.js';
 import ReleaseList from '../components/list/ReleaseList.js';
+import Layout from '../layout/index.js';
 
 type Props = {
   +pager: PagerT,

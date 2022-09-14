@@ -15,9 +15,9 @@ import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import bugTrackerURL
   from '../../static/scripts/common/utility/bugTrackerURL.js';
 
-import ErrorLayout from './ErrorLayout.js';
 import ErrorEnvironment from './components/ErrorEnvironment.js';
 import ErrorInfo from './components/ErrorInfo.js';
+import ErrorLayout from './ErrorLayout.js';
 
 type Props = {
   +edits?: $ReadOnlyArray<GenericEditWithIdT>,

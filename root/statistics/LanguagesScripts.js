@@ -10,14 +10,14 @@
 
 import * as React from 'react';
 
+import LinkSearchableProperty from '../components/LinkSearchableProperty.js';
 import {CatalystContext} from '../context.mjs';
 import * as manifest from '../static/manifest.mjs';
 import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
 import loopParity from '../utility/loopParity.js';
-import LinkSearchableProperty from '../components/LinkSearchableProperty.js';
 
-import {formatCount, TimelineLink} from './utilities.js';
 import StatisticsLayout from './StatisticsLayout.js';
+import {formatCount, TimelineLink} from './utilities.js';
 
 type LanguagesScriptsStatsT = {
   +dateCollected: string,

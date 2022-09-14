@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import Layout from '../layout/index.js';
 import RecordingSidebar
   from '../layout/components/sidebar/RecordingSidebar.js';
+import Layout from '../layout/index.js';
 import {
   reduceArtistCredit,
 } from '../static/scripts/common/immutable-entities.js';

@@ -9,14 +9,14 @@
 
 import * as React from 'react';
 
-import {EDIT_VOTE_APPROVE} from '../../constants.js';
 import RequestLogin from '../../components/RequestLogin.js';
 import SubHeader from '../../components/SubHeader.js';
 import VotingPeriod from '../../components/VotingPeriod.js';
+import {EDIT_VOTE_APPROVE} from '../../constants.js';
 import {CatalystContext} from '../../context.mjs';
-import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 import EditLink from '../../static/scripts/common/components/EditLink.js';
 import EditorLink from '../../static/scripts/common/components/EditorLink.js';
+import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import {isBot} from '../../static/scripts/common/utility/privileges.js';
 import getVoteName from '../../static/scripts/edit/utility/getVoteName.js';

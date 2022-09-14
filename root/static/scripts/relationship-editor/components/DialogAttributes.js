@@ -17,9 +17,9 @@ import bracketed from '../../common/utility/bracketed.js';
 import clean from '../../common/utility/clean.js';
 import {uniqueId} from '../../common/utility/numbers.js';
 import type {
-  DialogAttributeT,
-  DialogAttributesT,
   DialogAttributesStateT,
+  DialogAttributesT,
+  DialogAttributeT,
   LinkAttributesByRootIdT,
 } from '../types.js';
 import type {
@@ -34,8 +34,8 @@ import BooleanAttribute, {
   reducer as booleanAttributeReducer,
 } from './DialogAttribute/BooleanAttribute.js';
 import MultiselectAttribute, {
-  reducer as multiselectAttributeReducer,
   createMultiselectAttributeValue,
+  reducer as multiselectAttributeReducer,
 } from './DialogAttribute/MultiselectAttribute.js';
 import TextAttribute, {
   reducer as textAttributeReducer,

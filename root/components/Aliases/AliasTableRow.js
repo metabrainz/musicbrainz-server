@@ -9,13 +9,13 @@
 
 import * as React from 'react';
 
-import isolateText from '../../static/scripts/common/utility/isolateText.js';
+import locales from '../../static/scripts/common/constants/locales.json';
+import bracketed from '../../static/scripts/common/utility/bracketed.js';
+import entityHref from '../../static/scripts/common/utility/entityHref.js';
 import formatDate from '../../static/scripts/common/utility/formatDate.js';
 import formatEndDate
   from '../../static/scripts/common/utility/formatEndDate.js';
-import entityHref from '../../static/scripts/common/utility/entityHref.js';
-import bracketed from '../../static/scripts/common/utility/bracketed.js';
-import locales from '../../static/scripts/common/constants/locales.json';
+import isolateText from '../../static/scripts/common/utility/isolateText.js';
 
 type Props = {
   +alias: AliasT,

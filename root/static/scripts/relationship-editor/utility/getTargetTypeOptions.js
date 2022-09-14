@@ -15,8 +15,8 @@ import {
   isRelationshipEditor,
 } from '../../common/utility/privileges.js';
 import type {
-  TargetTypeOptionT,
   TargetTypeOptionsT,
+  TargetTypeOptionT,
 } from '../types.js';
 import {
   hasDialogLinkTypeOptions,

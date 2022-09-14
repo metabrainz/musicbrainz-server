@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import RecordingList from '../components/list/RecordingList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
@@ -17,6 +16,7 @@ import Filter from '../static/scripts/common/components/Filter.js';
 import {type FilterFormT}
   from '../static/scripts/common/components/FilterForm.js';
 import bracketed from '../static/scripts/common/utility/bracketed.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ArtistLayout from './ArtistLayout.js';

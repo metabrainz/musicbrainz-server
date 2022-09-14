@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import Layout from '../../layout/index.js';
-import ApplicationForm
-  from '../../static/scripts/account/components/ApplicationForm.js';
 import type {ApplicationFormT}
+  from '../../static/scripts/account/components/ApplicationForm.js';
+import ApplicationForm
   from '../../static/scripts/account/components/ApplicationForm.js';
 
 type Props = {

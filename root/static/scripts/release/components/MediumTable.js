@@ -13,7 +13,7 @@ import Paginator from '../../../../components/Paginator.js';
 import DataTrackIcon
   from '../../common/components/DataTrackIcon.js';
 import usePagedMediumTable from '../../common/hooks/usePagedMediumTable.js';
-import type {CreditsModeT, ActionT} from '../types.js';
+import type {ActionT, CreditsModeT} from '../types.js';
 
 import MediumTrackRow from './MediumTrackRow.js';
 

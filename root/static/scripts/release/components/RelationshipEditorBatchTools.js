@@ -15,11 +15,11 @@ import {
   useAddRelationshipDialogContent,
 } from '../../relationship-editor/hooks/useRelationshipDialogContent.js';
 import type {
-  ReleaseRelationshipEditorActionT,
-} from '../../relationship-editor/types/actions.js';
-import type {
   RelationshipDialogLocationT,
 } from '../../relationship-editor/types.js';
+import type {
+  ReleaseRelationshipEditorActionT,
+} from '../../relationship-editor/types/actions.js';
 
 import {BatchCreateWorksButtonPopover} from './BatchCreateWorksDialog.js';
 

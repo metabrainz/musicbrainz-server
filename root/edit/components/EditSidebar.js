@@ -18,8 +18,8 @@ import {
 } from '../../layout/components/sidebar/SidebarProperties.js';
 import {
   getEditExpireAction,
-  getEditStatusName,
   getEditStatusDescription,
+  getEditStatusName,
 } from '../../utility/edit.js';
 import formatUserDate from '../../utility/formatUserDate.js';
 

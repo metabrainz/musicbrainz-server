@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import WorkList from './components/WorkList.js';
 import ReportLayout from './components/ReportLayout.js';
+import WorkList from './components/WorkList.js';
 import type {ReportDataT, ReportWorkT} from './types.js';
 
 const DuplicateRelationshipsWorks = ({

@@ -7,27 +7,27 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import 'leaflet.markercluster/dist/leaflet.markercluster-src.js';
-
 import he from 'he';
 import * as ReactDOMServer from 'react-dom/server';
 
+import 'leaflet.markercluster/dist/leaflet.markercluster-src.js';
+
+import arenaMarkerIconUrl
+  from '../../images/leaflet/arena-marker-icon.png';
 import clusterMarkerIconUrl
   from '../../images/leaflet/cluster-marker-icon.png';
 import endedMarkerIconUrl
   from '../../images/leaflet/ended-marker-icon.png';
+import markerIconUrl
+  from '../../images/leaflet/marker-icon.png';
+import religiousMarkerIconUrl
+  from '../../images/leaflet/religious-marker-icon.png';
+import stadiumMarkerIconUrl
+  from '../../images/leaflet/stadium-marker-icon.png';
 import studioMarkerIconUrl
   from '../../images/leaflet/studio-marker-icon.png';
 import venueMarkerIconUrl
   from '../../images/leaflet/venue-marker-icon.png';
-import markerIconUrl
-  from '../../images/leaflet/marker-icon.png';
-import stadiumMarkerIconUrl
-  from '../../images/leaflet/stadium-marker-icon.png';
-import arenaMarkerIconUrl
-  from '../../images/leaflet/arena-marker-icon.png';
-import religiousMarkerIconUrl
-  from '../../images/leaflet/religious-marker-icon.png';
 import EntityLink from '../common/components/EntityLink.js';
 import {createMap, L} from '../common/leaflet.js';
 import getScriptArgs from '../common/utility/getScriptArgs.js';

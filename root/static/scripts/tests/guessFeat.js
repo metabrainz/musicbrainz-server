@@ -6,8 +6,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import test from 'tape';
 import ko from 'knockout';
+import test from 'tape';
 
 import guessFeat from '../edit/utility/guessFeat.js';
 import fields from '../release-editor/fields.js';

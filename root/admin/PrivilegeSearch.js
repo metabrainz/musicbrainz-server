@@ -10,10 +10,10 @@
 import * as React from 'react';
 
 import PaginatedResults from '../components/PaginatedResults.js';
+import Layout from '../layout/index.js';
 import FormRowCheckbox
   from '../static/scripts/edit/components/FormRowCheckbox.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
-import Layout from '../layout/index.js';
 
 import UserList from './components/UserList.js';
 

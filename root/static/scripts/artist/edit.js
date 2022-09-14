@@ -7,10 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import typeBubble from '../edit/typeBubble.js';
-
 import './components/ArtistCreditRenamer.js';
 import '../relationship-editor/components/RelationshipEditorWrapper.js';
+
+import typeBubble from '../edit/typeBubble.js';
 
 const typeIdField = 'select[name=edit-artist\\.type_id]';
 typeBubble(typeIdField);

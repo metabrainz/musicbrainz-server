@@ -10,8 +10,8 @@
 import * as React from 'react';
 
 import PaginatedResults from '../components/PaginatedResults.js';
-import ReleaseLabelList from '../components/ReleaseLabelList.js';
 import ReleaseCatnoList from '../components/ReleaseCatnoList.js';
+import ReleaseLabelList from '../components/ReleaseLabelList.js';
 import {CatalystContext} from '../context.mjs';
 import * as manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
@@ -22,12 +22,12 @@ import Relationships
   from '../static/scripts/common/components/Relationships.js';
 import ReleaseEvents
   from '../static/scripts/common/components/ReleaseEvents.js';
+import TaggerIcon from '../static/scripts/common/components/TaggerIcon.js';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
-import isolateText from '../static/scripts/common/utility/isolateText.js';
 import formatTrackLength
   from '../static/scripts/common/utility/formatTrackLength.js';
+import isolateText from '../static/scripts/common/utility/isolateText.js';
 import loopParity from '../utility/loopParity.js';
-import TaggerIcon from '../static/scripts/common/components/TaggerIcon.js';
 
 import RecordingLayout from './RecordingLayout.js';
 

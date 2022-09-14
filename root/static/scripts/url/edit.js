@@ -10,9 +10,9 @@
 // $FlowIgnore[untyped-import]
 import $ from 'jquery';
 
-import {registerEvents} from '../edit/URLCleanup.js';
-
 import './components/UrlRelationshipEditor.js';
+
+import {registerEvents} from '../edit/URLCleanup.js';
 
 $(function () {
   registerEvents($('#id-edit-url\\.url'));

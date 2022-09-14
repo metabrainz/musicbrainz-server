@@ -8,12 +8,12 @@
 
 import ko from 'knockout';
 
+import '../../release-editor/edits.js';
+import '../../release-editor/seeding.js';
+
 import fields from '../../release-editor/fields.js';
 import trackParser from '../../release-editor/trackParser.js';
 import releaseEditor from '../../release-editor/viewModel.js';
-
-import '../../release-editor/edits.js';
-import '../../release-editor/seeding.js';
 
 export function setupReleaseAdd(data) {
   releaseEditor.action = 'add';

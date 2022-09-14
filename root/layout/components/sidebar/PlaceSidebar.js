@@ -28,7 +28,7 @@ import MergeLink from './MergeLink.js';
 import SidebarBeginDate from './SidebarBeginDate.js';
 import SidebarEndDate from './SidebarEndDate.js';
 import SidebarLicenses from './SidebarLicenses.js';
-import {SidebarProperty, SidebarProperties} from './SidebarProperties.js';
+import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
 import SidebarTags from './SidebarTags.js';
 import SidebarType from './SidebarType.js';

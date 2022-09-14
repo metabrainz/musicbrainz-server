@@ -20,18 +20,18 @@ import type {
 } from '../types.js';
 
 import {cloneRelationshipState} from './cloneState.js';
-import getRelationshipEditStatus from './getRelationshipEditStatus.js';
-import isRelationshipBackward from './isRelationshipBackward.js';
-import {
-  ADD_RELATIONSHIP,
-  REMOVE_RELATIONSHIP,
-} from './updateRelationships.js';
-import type {RelationshipUpdateT} from './updateRelationships.js';
 import {
   compareLinkTypeGroupKeyWithGroup,
   compareTargetTypeWithGroup,
   findTargetTypeGroups,
 } from './findState.js';
+import getRelationshipEditStatus from './getRelationshipEditStatus.js';
+import isRelationshipBackward from './isRelationshipBackward.js';
+import type {RelationshipUpdateT} from './updateRelationships.js';
+import {
+  ADD_RELATIONSHIP,
+  REMOVE_RELATIONSHIP,
+} from './updateRelationships.js';
 
 export default function* updateEntityCredits(
   sourceGroups: RelationshipSourceGroupsT,

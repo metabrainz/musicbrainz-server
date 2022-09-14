@@ -23,18 +23,18 @@ import EnterEdit from '../edit/components/EnterEdit.js';
 import EnterEditNote from '../edit/components/EnterEditNote.js';
 import FormRowCheckbox from '../edit/components/FormRowCheckbox.js';
 import FormRowNameWithGuessCase, {
-  runReducer as runNameReducer,
   type ActionT as NameActionT,
+  runReducer as runNameReducer,
 } from '../edit/components/FormRowNameWithGuessCase.js';
 import FormRowSelect from '../edit/components/FormRowSelect.js';
 import FormRowSortNameWithGuessCase, {
-  runReducer as runSortNameReducer,
   type ActionT as SortNameActionT,
+  runReducer as runSortNameReducer,
 } from '../edit/components/FormRowSortNameWithGuessCase.js';
 import {
-  createInitialState as createGuessCaseOptionsState,
   type StateT as GuessCaseOptionsStateT,
   type WritableStateT as WritableGuessCaseOptionsStateT,
+  createInitialState as createGuessCaseOptionsState,
 } from '../edit/components/GuessCaseOptions.js';
 import copyFieldData, {
   copyDatePeriodField,

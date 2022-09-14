@@ -10,8 +10,8 @@
 import * as React from 'react';
 
 import {
-  interpolate,
   getExtraAttributes,
+  interpolate,
 } from '../../edit/utility/linkPhrase.js';
 import linkedEntities from '../linkedEntities.mjs';
 import bracketed from '../utility/bracketed.js';

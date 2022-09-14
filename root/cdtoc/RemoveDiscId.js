@@ -12,10 +12,10 @@ import * as React from 'react';
 import ReleaseLayout from '../release/ReleaseLayout.js';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
-import EntityLink
-  from '../static/scripts/common/components/EntityLink.js';
 import CDTocLink
   from '../static/scripts/common/components/CDTocLink.js';
+import EntityLink
+  from '../static/scripts/common/components/EntityLink.js';
 import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
 import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';

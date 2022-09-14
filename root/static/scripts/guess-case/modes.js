@@ -15,10 +15,10 @@ import {capitalize} from '../common/utility/strings.js';
 
 import type {GuessCaseModeT} from './types.js';
 import {
-  isPrepBracketWord,
   isPrepBracketSingleWord,
-  turkishUpperCase,
+  isPrepBracketWord,
   turkishLowerCase,
+  turkishUpperCase,
 } from './utils.js';
 
 /*

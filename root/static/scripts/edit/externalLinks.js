@@ -26,30 +26,30 @@ import expand2react from '../common/i18n/expand2react.js';
 import linkedEntities from '../common/linkedEntities.mjs';
 import MB from '../common/MB.js';
 import {groupBy, keyBy, uniqBy} from '../common/utility/arrays.js';
+import {bracketedText} from '../common/utility/bracketed.js';
 import {getSourceEntityData} from '../common/utility/catalyst.js';
-import isDateEmpty from '../common/utility/isDateEmpty.js';
+import {compareDatePeriods} from '../common/utility/compareDates.js';
 import formatDatePeriod from '../common/utility/formatDatePeriod.js';
+import isDateEmpty from '../common/utility/isDateEmpty.js';
 import {hasSessionStorage} from '../common/utility/storage.js';
 import {uniqueId} from '../common/utility/strings.js';
-import {bracketedText} from '../common/utility/bracketed.js';
-import {compareDatePeriods} from '../common/utility/compareDates.js';
 import {
   appendHiddenRelationshipInputs,
 } from '../relationship-editor/utility/prepareHtmlFormSubmission.js';
 import {isMalware} from '../url/utility/isGreyedOut.js';
 
-import isPositiveInteger from './utility/isPositiveInteger.js';
-import isShortenedUrl from './utility/isShortenedUrl.js';
+import ExternalLinkAttributeDialog
+  from './components/ExternalLinkAttributeDialog.js';
 import HelpIcon from './components/HelpIcon.js';
 import RemoveButton from './components/RemoveButton.js';
 import URLInputPopover from './components/URLInputPopover.js';
-import {linkTypeOptions} from './forms.js';
-import * as URLCleanup from './URLCleanup.js';
-import type {RelationshipTypeT} from './URLCleanup.js';
-import * as validation from './validation.js';
-import ExternalLinkAttributeDialog
-  from './components/ExternalLinkAttributeDialog.js';
 import withLoadedTypeInfo from './components/withLoadedTypeInfo.js';
+import isPositiveInteger from './utility/isPositiveInteger.js';
+import isShortenedUrl from './utility/isShortenedUrl.js';
+import {linkTypeOptions} from './forms.js';
+import type {RelationshipTypeT} from './URLCleanup.js';
+import * as URLCleanup from './URLCleanup.js';
+import * as validation from './validation.js';
 
 type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
 

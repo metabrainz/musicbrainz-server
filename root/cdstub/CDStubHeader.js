@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
+import SubHeader from '../components/SubHeader.js';
 import Tabs from '../components/Tabs.js';
 import CDStubLink from '../static/scripts/common/components/CDStubLink.js';
-import SubHeader from '../components/SubHeader.js';
 
 type Props = {
   +cdstub: CDStubT,

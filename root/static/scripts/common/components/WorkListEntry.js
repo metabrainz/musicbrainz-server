@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import localizeLanguageName from '../i18n/localizeLanguageName.js';
 import {CatalystContext} from '../../../../context.mjs';
-import * as manifest from '../../../manifest.mjs';
 import loopParity from '../../../../utility/loopParity.js';
+import * as manifest from '../../../manifest.mjs';
+import localizeLanguageName from '../i18n/localizeLanguageName.js';
 
 import ArtistRoles from './ArtistRoles.js';
 import AttributeList from './AttributeList.js';

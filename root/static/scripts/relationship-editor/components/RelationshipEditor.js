@@ -8,9 +8,9 @@
  */
 
 // $FlowIgnore[untyped-import]
+import {captureException} from '@sentry/browser';
 import deepFreeze from 'deep-freeze-strict';
 import * as React from 'react';
-import {captureException} from '@sentry/browser';
 import * as tree from 'weight-balanced-tree';
 import {ValueExistsError} from 'weight-balanced-tree/errors';
 import {

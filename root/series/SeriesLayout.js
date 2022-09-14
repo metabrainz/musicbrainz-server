@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout/index.js';
 import SeriesSidebar from '../layout/components/sidebar/SeriesSidebar.js';
+import Layout from '../layout/index.js';
 
 import SeriesHeader from './SeriesHeader.js';
 

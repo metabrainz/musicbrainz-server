@@ -8,9 +8,9 @@
  */
 
 import {
+  type MapFields,
   createCompoundFieldFromObject,
   createField,
-  type MapFields,
 } from './createField.js';
 
 export function pushField<V>(

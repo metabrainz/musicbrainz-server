@@ -7,8 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
 import * as Sentry from '@sentry/browser';
+import * as React from 'react';
 
 /*
  * Flow doesn't have very good support for Symbols, so we use a unique

@@ -17,12 +17,13 @@ import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink.js';
 import Warning from '../static/scripts/common/components/Warning.js';
 import {FLUENCY_NAMES} from '../static/scripts/common/constants.js';
+import * as TYPES from '../static/scripts/common/constants/editTypes.js';
 import {compare} from '../static/scripts/common/i18n.js';
 import commaList from '../static/scripts/common/i18n/commaList.js';
+import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList.js';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
 import bracketed, {bracketedText}
   from '../static/scripts/common/utility/bracketed.js';
-import * as TYPES from '../static/scripts/common/constants/editTypes.js';
 import escapeRegExp from '../static/scripts/common/utility/escapeRegExp.mjs';
 import nonEmpty from '../static/scripts/common/utility/nonEmpty.js';
 import {
@@ -35,11 +36,10 @@ import {
   isSpammer,
   isWikiTranscluder,
 } from '../static/scripts/common/utility/privileges.js';
-import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList.js';
 import {formatCount, formatPercentage} from '../statistics/utilities.js';
 import formatUserDate from '../utility/formatUserDate.js';
-import {canNominate} from '../utility/voting.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
+import {canNominate} from '../utility/voting.js';
 
 const ADDED_ENTITIES_TYPES = {
   area:         N_l('Area'),

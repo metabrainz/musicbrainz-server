@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
+import EntityHeader from '../components/EntityHeader.js';
 import AreaContainmentLink
   from '../static/scripts/common/components/AreaContainmentLink.js';
 import localizeTypeNameForEntity
   from '../static/scripts/common/i18n/localizeTypeNameForEntity.js';
-import EntityHeader from '../components/EntityHeader.js';
 
 type Props = {
   +area: AreaT,

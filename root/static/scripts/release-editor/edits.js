@@ -10,6 +10,8 @@ import he from 'he';
 import $ from 'jquery';
 import ko from 'knockout';
 
+import './init.js';
+
 import {VIDEO_ATTRIBUTE_GID} from '../common/constants.js';
 import {reduceArtistCredit} from '../common/immutable-entities.js';
 import MB from '../common/MB.js';
@@ -22,10 +24,8 @@ import isBlank from '../common/utility/isBlank.js';
 import isPositiveInteger from '../edit/utility/isPositiveInteger.js';
 import * as validation from '../edit/validation.js';
 
-import releaseEditor from './viewModel.js';
 import utils from './utils.js';
-
-import './init.js';
+import releaseEditor from './viewModel.js';
 
 const WS_EDIT_RESPONSE_OK = 1;
 

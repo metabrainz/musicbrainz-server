@@ -18,11 +18,11 @@ import OrderableDirection
   from '../../static/scripts/common/components/OrderableDirection.js';
 import Relationship
   from '../../static/scripts/common/components/Relationship.js';
-import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 import {compare} from '../../static/scripts/common/i18n.js';
 import expand2react from '../../static/scripts/common/i18n/expand2react.js';
 import localizeLinkAttributeTypeName
   from '../../static/scripts/common/i18n/localizeLinkAttributeTypeName.js';
+import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 import formatEntityTypeName
   from '../../static/scripts/common/utility/formatEntityTypeName.js';
 import {isRelationshipEditor}

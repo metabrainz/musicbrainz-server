@@ -15,9 +15,9 @@ import {
 } from '../../edit/components/withLoadedTypeInfo.js';
 import {getUnicodeUrl} from '../../edit/externalLinks.js';
 import RelationshipEditor, {
+  type InitialStateArgsT,
   loadOrCreateInitialState,
   reducer,
-  type InitialStateArgsT,
 } from '../../relationship-editor/components/RelationshipEditor.js';
 import useEntityNameFromField
   from '../../relationship-editor/hooks/useEntityNameFromField.js';

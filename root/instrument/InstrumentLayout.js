@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import Layout from '../layout/index.js';
 import InstrumentSidebar
   from '../layout/components/sidebar/InstrumentSidebar.js';
+import Layout from '../layout/index.js';
 import localizeInstrumentName
   from '../static/scripts/common/i18n/localizeInstrumentName.js';
 

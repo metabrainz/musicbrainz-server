@@ -11,20 +11,20 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import * as manifest from '../../static/manifest.mjs';
-import Table from '../Table.js';
 import {
+  attributesColumn,
   defineArtistRolesColumn,
   defineCheckboxColumn,
   defineNameColumn,
   defineRatingsColumn,
   defineSeriesNumberColumn,
   defineTypeColumn,
-  attributesColumn,
   iswcsColumn,
   removeFromMergeColumn,
   workArtistsColumn,
   workLanguagesColumn,
 } from '../../utility/tableColumns.js';
+import Table from '../Table.js';
 
 type Props = {
   ...SeriesItemNumbersRoleT,

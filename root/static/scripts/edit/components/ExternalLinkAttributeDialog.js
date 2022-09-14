@@ -7,8 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
 import mutate from 'mutate-cow';
+import * as React from 'react';
 
 import ButtonPopover from '../../common/components/ButtonPopover.js';
 import type {
@@ -26,9 +26,9 @@ import {
 } from '../utility/subfieldErrors.js';
 
 import DateRangeFieldset, {
+  type ActionT as DateRangeFieldsetActionT,
   partialDateFromField,
   runReducer as runDateRangeFieldsetReducer,
-  type ActionT as DateRangeFieldsetActionT,
 } from './DateRangeFieldset.js';
 
 type PropsT = {

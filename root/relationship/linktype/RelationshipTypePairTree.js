@@ -21,8 +21,8 @@ import formatEntityTypeName
   from '../../static/scripts/common/utility/formatEntityTypeName.js';
 import {isRelationshipEditor}
   from '../../static/scripts/common/utility/privileges.js';
-import compareChildren from '../utility/compareChildren.js';
 import RelationshipsHeader from '../RelationshipsHeader.js';
+import compareChildren from '../utility/compareChildren.js';
 
 type RelationshipTypeDetailsProps = {
   +relType: LinkTypeT,

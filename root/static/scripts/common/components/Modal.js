@@ -13,9 +13,9 @@ import {createPortal} from 'react-dom';
 import useEventTrap from '../hooks/useEventTrap.js';
 
 import Dialog, {
+  type RequiredPropsT as DialogPropsT,
   getDialogRootNode,
   getElementFromRef,
-  type RequiredPropsT as DialogPropsT,
 } from './Dialog.js';
 
 type PropsT = $ReadOnly<{

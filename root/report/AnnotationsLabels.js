@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import {ANNOTATION_REPORT_TEXT} from './constants.js';
 import LabelList from './components/LabelList.js';
 import ReportLayout from './components/ReportLayout.js';
 import useAnnotationColumns from './hooks/useAnnotationColumns.js';
+import {ANNOTATION_REPORT_TEXT} from './constants.js';
 import type {ReportDataT, ReportLabelAnnotationT} from './types.js';
 
 const AnnotationsLabels = ({

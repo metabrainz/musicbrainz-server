@@ -2,11 +2,11 @@ import $ from 'jquery';
 import ko from 'knockout';
 
 import '../common/entity.js';
+import './components/SeriesRelationshipEditor.js';
+
 import MB from '../common/MB.js';
 import initializeDuplicateChecker from '../edit/check-duplicates.js';
 import {createExternalLinksEditorForHtmlForm} from '../edit/externalLinks.js';
-
-import './components/SeriesRelationshipEditor.js';
 
 $(function () {
   var $type = $('#id-edit-series\\.type_id');

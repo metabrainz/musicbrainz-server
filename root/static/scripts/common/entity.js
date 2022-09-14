@@ -12,10 +12,15 @@ import * as ReactDOMServer from 'react-dom/server';
 import formatLabelCode from '../../../utility/formatLabelCode.js';
 
 import ArtistCreditLink from './components/ArtistCreditLink.js';
+import DescriptiveLink from './components/DescriptiveLink.js';
 import EditorLink from './components/EditorLink.js';
 import EntityLink from './components/EntityLink.js';
-import DescriptiveLink from './components/DescriptiveLink.js';
 import MediumDescription from './components/MediumDescription.js';
+import {bracketedText} from './utility/bracketed.js';
+import {getSourceEntityData} from './utility/catalyst.js';
+import clean from './utility/clean.js';
+import {cloneArrayDeep, cloneObjectDeep} from './utility/cloneDeep.mjs';
+import formatTrackLength from './utility/formatTrackLength.js';
 import {
   ENTITY_NAMES,
   PART_OF_SERIES_LINK_TYPES,
@@ -27,11 +32,6 @@ import {
 } from './immutable-entities.js';
 import linkedEntities from './linkedEntities.mjs';
 import MB from './MB.js';
-import {bracketedText} from './utility/bracketed.js';
-import {getSourceEntityData} from './utility/catalyst.js';
-import clean from './utility/clean.js';
-import {cloneArrayDeep, cloneObjectDeep} from './utility/cloneDeep.mjs';
-import formatTrackLength from './utility/formatTrackLength.js';
 
 (function () {
   /*

@@ -9,8 +9,8 @@
 
 import isNodeJS from 'detect-node';
 
-import parseCookie from './parseCookie.mjs';
 import _cookies from './_cookies.js';
+import parseCookie from './parseCookie.mjs';
 
 let defaultExport: (name: string, defaultValue?: string) => string =
   getCookieFallback;

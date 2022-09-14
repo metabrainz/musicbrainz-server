@@ -10,11 +10,11 @@ import {
 } from '../../../constants.js';
 import Autocomplete2, {createInitialState as createInitialAutocompleteState}
   from '../common/components/Autocomplete2.js';
+import autocompleteReducer from '../common/components/Autocomplete2/reducer.js';
 import type {
   ActionT as AutocompleteActionT,
   StateT as AutocompleteStateT,
 } from '../common/components/Autocomplete2/types.js';
-import autocompleteReducer from '../common/components/Autocomplete2/reducer.js';
 import {keyBy} from '../common/utility/arrays.js';
 
 /*

@@ -15,8 +15,8 @@ import ArtistCreditUsageLink
   from '../../common/components/ArtistCreditUsageLink.js';
 import {compare} from '../../common/i18n.js';
 import {reduceArtistCredit} from '../../common/immutable-entities.js';
-import bracketed, {bracketedText} from '../../common/utility/bracketed.js';
 import {sortedIndexWith} from '../../common/utility/arrays.js';
+import bracketed, {bracketedText} from '../../common/utility/bracketed.js';
 import diffArtistCredits from '../../edit/utility/diffArtistCredits.js';
 
 type ArtistCreditWithIdT = $ReadOnly<{

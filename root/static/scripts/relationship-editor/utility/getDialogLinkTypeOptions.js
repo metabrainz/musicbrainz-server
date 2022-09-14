@@ -10,11 +10,11 @@
 import {type OptionItemT}
   from '../../common/components/Autocomplete2/types.js';
 import {
-  PART_OF_SERIES_LINK_TYPES,
   PART_OF_SERIES_LINK_TYPE_GIDS,
+  PART_OF_SERIES_LINK_TYPES,
 } from '../../common/constants.js';
-import linkedEntities from '../../common/linkedEntities.mjs';
 import {compare, unwrapNl} from '../../common/i18n.js';
+import linkedEntities from '../../common/linkedEntities.mjs';
 
 function cmpLinkTypeOptions(
   a: OptionItemT<LinkTypeT>,

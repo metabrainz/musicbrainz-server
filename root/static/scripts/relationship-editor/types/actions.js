@@ -15,6 +15,12 @@ import type {
 import type {
   ActionT as DateRangeFieldsetActionT,
 } from '../../edit/components/DateRangeFieldset.js';
+import type {
+  MultiselectActionT,
+} from '../../edit/components/Multiselect.js';
+import type {
+  WorkTypeSelectActionT,
+} from '../../release/components/WorkTypeSelect.js';
 import type {LazyReleaseActionT} from '../../release/types.js';
 import type {
   CreditChangeOptionT,
@@ -23,12 +29,6 @@ import type {
   RelationshipPhraseGroupT,
   RelationshipStateT,
 } from '../types.js';
-import type {
-  MultiselectActionT,
-} from '../../edit/components/Multiselect.js';
-import type {
-  WorkTypeSelectActionT,
-} from '../../release/components/WorkTypeSelect.js';
 
 export type DialogEntityCreditActionT =
  | {

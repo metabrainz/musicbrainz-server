@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import UserAccountLayout, {
   type AccountLayoutUserT,
@@ -17,6 +16,7 @@ import UserAccountLayout, {
 import {SanitizedCatalystContext} from '../context.mjs';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import loopParity from '../utility/loopParity.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 

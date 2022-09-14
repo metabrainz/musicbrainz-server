@@ -31,6 +31,10 @@ import {
   PAGE_SIZE,
   RECENT_ITEMS_HEADER,
 } from './constants.js';
+import {
+  clearRecentItems,
+  pushRecentItem,
+} from './recentItems.js';
 import type {
   ActionT,
   EntityItemT,
@@ -38,10 +42,6 @@ import type {
   SearchActionT,
   StateT,
 } from './types.js';
-import {
-  clearRecentItems,
-  pushRecentItem,
-} from './recentItems.js';
 
 function initSearch<+T: EntityItemT>(
   state: {...StateT<T>},
