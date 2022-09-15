@@ -210,7 +210,7 @@
     },
     {
       command: 'pause',
-      target: '2000',
+      target: '3000',
       value: '',
     },
     {
