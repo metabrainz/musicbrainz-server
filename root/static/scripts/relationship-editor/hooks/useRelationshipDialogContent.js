@@ -58,7 +58,7 @@ export default function useRelationshipDialogContent(
   }>,
 ): (
   closeAndReturnFocus: () => void,
-) => React.Element<typeof RelationshipDialogContent> {
+) => React.MixedElement {
   const {
     batchSelectionCount,
     dispatch,
@@ -70,19 +70,36 @@ export default function useRelationshipDialogContent(
     user,
   } = options;
 
-  return React.useCallback((closeAndReturnFocus) => (
-    <RelationshipDialogContent
-      batchSelectionCount={batchSelectionCount}
-      closeDialog={closeAndReturnFocus}
-      initialRelationship={relationship}
-      source={source}
-      sourceDispatch={dispatch}
-      targetTypeOptions={targetTypeOptions}
-      targetTypeRef={targetTypeRef}
-      title={title}
-      user={user}
-    />
-  ), [
+  return React.useCallback((closeAndReturnFocus) => {
+    if (targetTypeOptions != null && !targetTypeOptions.length) {
+      /*
+       * This string should not be seen by users outside of development
+       * servers.
+       */
+      return (
+        <p>
+          {
+            'No relationship types are available for ' +
+            JSON.stringify(source.entityType) +
+            ' entities.'
+          }
+        </p>
+      );
+    }
+    return (
+      <RelationshipDialogContent
+        batchSelectionCount={batchSelectionCount}
+        closeDialog={closeAndReturnFocus}
+        initialRelationship={relationship}
+        source={source}
+        sourceDispatch={dispatch}
+        targetTypeOptions={targetTypeOptions}
+        targetTypeRef={targetTypeRef}
+        title={title}
+        user={user}
+      />
+    );
+  }, [
     batchSelectionCount,
     dispatch,
     relationship,
@@ -125,19 +142,23 @@ export function useAddRelationshipDialogContent(
   const targetType = (
     targetTypeRef.current ||
     defaultTargetType ||
-    (targetTypeOptions?.[0].value)
+    (targetTypeOptions?.[0]?.value)
   );
-
-  invariant(targetType);
 
   const defaultTargetObject = React.useMemo(() => {
     return createCoreEntityObject(
-      targetType,
+      /*
+       * targetType may be undefined if the current server doesn't have any
+       * available link types for the source entity type.  In that case this
+       * object won't be used, but a dummy 'artist' type is supplied to
+       * simplify type-checking.
+       */
+      targetType || 'artist',
       {id: uniqueNegativeId(), name: ''},
     );
   }, [targetType]);
 
-  if (backward != null) {
+  if (targetType && backward != null) {
     invariant(
       backward
         ? (source.entityType >= targetType)
