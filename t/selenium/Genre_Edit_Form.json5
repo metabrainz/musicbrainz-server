@@ -32,6 +32,11 @@
       value: '',
     },
     {
+      command: 'type',
+      target: 'css=#external-link-0 input[type=url]',
+      value: 'https://bandcamp.com/tag/newgenre',
+    },
+    {
       command: 'clickAndWait',
       target: 'css=form.edit-genre button[type=submit]',
       value: '',
@@ -53,6 +58,38 @@
     {
       command: 'assertEditData',
       target: 2,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '$$__IGNORE__$$',
+            id: 1,
+            name: 'newgenre',
+          },
+          entity1: {
+            gid: '$$__IGNORE__$$',
+            id: 1,
+            name: 'https://bandcamp.com/tag/newgenre',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 1092,
+            link_phrase: 'Bandcamp',
+            long_link_phrase: 'has Bandcamp page at',
+            name: 'bandcamp',
+            reverse_link_phrase: 'Bandcamp page for',
+          },
+          type0: 'genre',
+          type1: 'url',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 3,
       value: {
         type: 90,
         status: 2,
@@ -108,13 +145,28 @@
       value: '',
     },
     {
+      command: 'click',
+      target: 'css=#external-link-0 button.edit-item',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#url-input-popover input.raw-url',
+      value: 'https://bandcamp.com/tag/newgenre2',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#url-input-popover input.raw-url',
+      value: '${KEY_ENTER}',
+    },
+    {
       command: 'clickAndWait',
       target: 'css=form.edit-genre button[type=submit]',
       value: '',
     },
     {
       command: 'assertEditData',
-      target: 3,
+      target: 4,
       value: {
         type: 161,
         status: 2,
@@ -135,7 +187,68 @@
     },
     {
       command: 'assertEditData',
-      target: 4,
+      target: 5,
+      value: {
+        type: 91,
+        status: 1,
+        data: {
+          edit_version: 2,
+          entity0_credit: '',
+          entity1_credit: '',
+          link: {
+            attributes: [],
+            begin_date: {
+              day: null,
+              month: null,
+              year: null,
+            },
+            end_date: {
+              day: null,
+              month: null,
+              year: null,
+            },
+            ended: 0,
+            entity0: {
+              gid: '$$__IGNORE__$$',
+              id: 1,
+              name: 'newgenre!',
+            },
+            entity1: {
+              gid: '$$__IGNORE__$$',
+              id: 1,
+              name: 'https://bandcamp.com/tag/newgenre',
+            },
+            link_type: {
+              id: 1092,
+              link_phrase: 'Bandcamp',
+              long_link_phrase: 'has Bandcamp page at',
+              name: 'bandcamp',
+              reverse_link_phrase: 'Bandcamp page for',
+            },
+          },
+          new: {
+            entity1: {
+              gid: '$$__IGNORE__$$',
+              id: 2,
+              name: 'https://bandcamp.com/tag/newgenre2',
+            },
+          },
+          old: {
+            entity1: {
+              gid: '$$__IGNORE__$$',
+              id: 1,
+              name: 'https://bandcamp.com/tag/newgenre',
+            },
+          },
+          relationship_id: 1,
+          type0: 'genre',
+          type1: 'url',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 6,
       value: {
         type: 91,
         status: 2,
@@ -183,6 +296,65 @@
           relationship_id: 1,
           type0: 'area',
           type1: 'genre',
+        },
+      },
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=.tabs a[href$="/edit"]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#external-link-0 button.remove-item',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=form.edit-genre button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 7,
+      value: {
+        type: 92,
+        status: 1,
+        data: {
+          edit_version: 2,
+          relationship: {
+            entity0: {
+              gid: '$$__IGNORE__$$',
+              id: 1,
+              name: 'newgenre!',
+            },
+            entity1: {
+              gid: '$$__IGNORE__$$',
+              id: 1,
+              name: 'https://bandcamp.com/tag/newgenre',
+            },
+            id: 1,
+            link: {
+              attributes: [],
+              begin_date: {
+                day: null,
+                month: null,
+                year: null,
+              },
+              end_date: {
+                day: null,
+                month: null,
+                year: null,
+              },
+              ended: 0,
+              type: {
+                entity0_type: 'genre',
+                entity1_type: 'url',
+                id: 1092,
+                long_link_phrase: 'has Bandcamp page at',
+              },
+            },
+          },
         },
       },
     },

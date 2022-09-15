@@ -148,6 +148,7 @@ function pushRelationshipHiddenInputs(
 }
 
 export function appendHiddenRelationshipInputs(
+  hiddenInputsContainerId: string,
   callback: ((string, string, string) => void) => void,
 ): number {
   const hiddenInputs = document.createDocumentFragment();
@@ -178,18 +179,18 @@ export function appendHiddenRelationshipInputs(
     submitButton.disabled = true;
   }
 
-  const relationshipEditorContainer =
-    document.getElementById('relationship-editor');
-  invariant(relationshipEditorContainer);
+  const hiddenInputsContainer =
+    document.getElementById(hiddenInputsContainerId);
+  invariant(hiddenInputsContainer);
 
   const existingHiddenInputs =
-    relationshipEditorContainer.querySelectorAll('input[type=hidden]');
+    hiddenInputsContainer.querySelectorAll('input[type=hidden]');
 
   for (const input of existingHiddenInputs) {
-    relationshipEditorContainer.removeChild(input);
+    hiddenInputsContainer.removeChild(input);
   }
 
-  relationshipEditorContainer.appendChild(hiddenInputs);
+  hiddenInputsContainer.appendChild(hiddenInputs);
   return fieldCount;
 }
 
@@ -197,34 +198,37 @@ export default function prepareHtmlFormSubmission(
   formName: string,
   state: RelationshipEditorStateT,
 ): void {
-  appendHiddenRelationshipInputs(function (pushInput) {
-    const targetTypeGroups = findTargetTypeGroups(
-      state.relationshipsBySource,
-      state.entity,
-    );
-
-    let relIndex = 0;
-    for (
-      const relationship of
-      iterateRelationshipsInTargetTypeGroups(targetTypeGroups)
-    ) {
-      if (relationship._status === REL_STATUS_NOOP) {
-        continue;
-      }
-      pushRelationshipHiddenInputs(
-        formName,
+  appendHiddenRelationshipInputs(
+    'relationship-editor',
+    function (pushInput) {
+      const targetTypeGroups = findTargetTypeGroups(
+        state.relationshipsBySource,
         state.entity,
-        relationship,
-        relIndex++,
-        pushInput,
       );
-    }
 
-    if (hasSessionStorage) {
-      window.sessionStorage.setItem(
-        'relationshipEditorState',
-        JSON.stringify(compactEntityJson(state)),
-      );
-    }
-  });
+      let relIndex = 0;
+      for (
+        const relationship of
+        iterateRelationshipsInTargetTypeGroups(targetTypeGroups)
+      ) {
+        if (relationship._status === REL_STATUS_NOOP) {
+          continue;
+        }
+        pushRelationshipHiddenInputs(
+          formName,
+          state.entity,
+          relationship,
+          relIndex++,
+          pushInput,
+        );
+      }
+
+      if (hasSessionStorage) {
+        window.sessionStorage.setItem(
+          'relationshipEditorState',
+          JSON.stringify(compactEntityJson(state)),
+        );
+      }
+    },
+  );
 }
