@@ -34,12 +34,9 @@ export default function sanitizedContext(
     } : null,
     stash: {
       current_language: stash.current_language,
+      seeded_relationships: stash.seeded_relationships,
       server_languages: stash.server_languages,
-      ...(
-        stash.source_entity == null
-          ? null
-          : {source_entity: stash.source_entity}
-      ),
+      source_entity: stash.source_entity,
     },
     user: user ? activeSanitizedEditor(user) : null,
   };

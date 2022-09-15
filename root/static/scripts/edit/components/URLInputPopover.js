@@ -63,6 +63,8 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
       <form
         onSubmit={(event: SyntheticEvent<HTMLFormElement>) => {
           event.preventDefault();
+          // Prevent the submit event from propagating to the parent form.
+          event.stopPropagation();
           handleConfirm(closeAndReturnFocus);
         }}
       >
