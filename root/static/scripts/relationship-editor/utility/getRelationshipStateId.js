@@ -8,7 +8,6 @@
  */
 
 import {uniqueId} from '../../common/utility/numbers.js';
-import type {SeededRelationshipT} from '../types.js';
 
 export default function getRelationshipStateId(
   relationship: RelationshipT | SeededRelationshipT | null,

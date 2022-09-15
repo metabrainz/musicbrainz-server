@@ -33,6 +33,7 @@ const EditGenre = ({
   >
     <GenreEditForm form={form} />
     {manifest.js('genre/components/GenreEditForm', {async: 'async'})}
+    {manifest.js('relationship-editor', {async: 'async'})}
   </GenreLayout>
 );
 

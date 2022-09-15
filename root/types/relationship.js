@@ -102,3 +102,11 @@ declare type RelationshipT = $ReadOnly<{
   +target_type: CoreEntityTypeT,
   +verbosePhrase: string,
 }>;
+
+declare type SeededRelationshipT = $ReadOnly<{
+  ...RelationshipT,
+  +entity0_id: number | null,
+  +entity1_id: number | null,
+  +id: null,
+  +linkTypeID: number | null,
+}>;

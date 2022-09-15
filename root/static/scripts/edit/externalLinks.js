@@ -1769,12 +1769,31 @@ export function prepareExternalLinksHtmlFormSubmission(
   formName: string,
   externalLinksEditor: _ExternalLinksEditor,
 ): void {
-  appendHiddenRelationshipInputs(function (pushInput) {
-    externalLinksEditor.getFormData(formName + '.url', 0, pushInput);
+  let hiddenInputsContainer = document.getElementById(
+    'external-links-editor-submission',
+  );
+  if (!hiddenInputsContainer) {
+    hiddenInputsContainer = document.createElement('div');
+    hiddenInputsContainer.setAttribute(
+      'id',
+      'external-links-editor-submission',
+    );
+    document.querySelector('#page form')?.appendChild(
+      hiddenInputsContainer,
+    );
+  }
+  appendHiddenRelationshipInputs(
+    'external-links-editor-submission',
+    function (pushInput) {
+      externalLinksEditor.getFormData(formName + '.url', 0, pushInput);
 
-    const links = externalLinksEditor.state.links;
-    if (hasSessionStorage && links.length) {
-      window.sessionStorage.setItem('submittedLinks', JSON.stringify(links));
-    }
-  });
+      const links = externalLinksEditor.state.links;
+      if (hasSessionStorage && links.length) {
+        window.sessionStorage.setItem(
+          'submittedLinks',
+          JSON.stringify(links),
+        );
+      }
+    },
+  );
 }

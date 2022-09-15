@@ -40,7 +40,6 @@ import type {
   RelationshipSourceGroupsT,
   RelationshipStateT,
   ReleaseRelationshipEditorStateT,
-  SeededRelationshipT,
 } from '../types.js';
 import type {
   RelationshipEditorActionT,
