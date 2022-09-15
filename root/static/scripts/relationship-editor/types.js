@@ -127,14 +127,6 @@ export type RelationshipEditorStateT = {
   +relationshipsBySource: RelationshipSourceGroupsT,
 };
 
-export type SeededRelationshipT = $ReadOnly<{
-  ...RelationshipT,
-  +entity0_id: number | null,
-  +entity1_id: number | null,
-  +id: null,
-  +linkTypeID: number | null,
-}>;
-
 export type RelationshipDialogStateT = {
   +attributes: DialogAttributesStateT,
   +backward: boolean,

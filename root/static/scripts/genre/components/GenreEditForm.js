@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../../../context.mjs';
+import {SanitizedCatalystContext} from '../../../../context.mjs';
 import type {GenreFormT} from '../../../../genre/types.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
@@ -18,6 +18,9 @@ import {
   ExternalLinksEditor,
   prepareExternalLinksHtmlFormSubmission,
 } from '../../edit/externalLinks.js';
+import {
+  NonHydratedRelationshipEditorWrapper as RelationshipEditorWrapper,
+} from '../../relationship-editor/components/RelationshipEditorWrapper.js';
 
 type Props = {
   +form: GenreFormT,
@@ -26,7 +29,7 @@ type Props = {
 const GenreEditForm = ({
   form,
 }: Props): React.Element<'form'> => {
-  const $c = React.useContext(CatalystContext);
+  const $c = React.useContext(SanitizedCatalystContext);
 
   const genre = $c.stash.source_entity;
   invariant(genre && genre.entityType === 'genre');
@@ -62,9 +65,10 @@ const GenreEditForm = ({
             uncontrolled
           />
         </fieldset>
-
-        <div data-form-name="edit-genre" id="relationship-editor" />
-
+        <RelationshipEditorWrapper
+          formName={form.name}
+          seededRelationships={$c.stash.seeded_relationships}
+        />
         <fieldset>
           <legend>{l('External Links')}</legend>
           <ExternalLinksEditor

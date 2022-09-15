@@ -121,7 +121,7 @@ export function useAddRelationshipDialogContent(
   }>,
 ): (
   closeAndReturnFocus: () => void,
-) => React.Element<typeof RelationshipDialogContent> {
+) => React.MixedElement {
   const {
     backward,
     defaultTargetType,

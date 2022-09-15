@@ -1,0 +1,190 @@
+{
+  title: 'Genre Edit Form',
+  commands: [
+    {
+      command: 'open',
+      target: '/genre/create',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-genre.name',
+      value: 'newgenre',
+    },
+    {
+      command: 'click',
+      target: 'css=#relationship-editor button.add-item',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: 'f0b226db-8e22-40e6-9a53-d839cfec6228',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog button.positive',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=form.edit-genre button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        type: 160,
+        status: 2,
+        data: {
+          comment: '',
+          entity_gid: '$$__IGNORE__$$',
+          entity_id: 1,
+          name: 'newgenre',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 2,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+              gid: 'f0b226db-8e22-40e6-9a53-d839cfec6228',
+              id: 3813,
+              name: 'Cardiff',
+          },
+          entity1: {
+              gid: '$$__IGNORE__$$',
+              id: 1,
+              name: 'newgenre',
+          },
+          entity_id: 1,
+          link_type: {
+              id: 1088,
+              link_phrase: 'genres',
+              long_link_phrase: '{entity1} is a genre from {entity0}',
+              name: 'genre origin',
+              reverse_link_phrase: 'from',
+          },
+          type0: 'area',
+          type1: 'genre',
+        },
+      },
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=.tabs a[href$="/edit"]',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-genre.name',
+      value: 'newgenre!',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//tr[contains(@class, "from")])[1]//button[contains(@class, "edit-item")]',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#edit-relationship-dialog tr.target-entity-credit input.entity-credit',
+      value: 'crdff',
+    },
+    {
+      command: 'click',
+      target: 'css=#edit-relationship-dialog button.positive',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=form.edit-genre button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 3,
+      value: {
+        type: 161,
+        status: 2,
+        data: {
+          entity : {
+            gid: '$$__IGNORE__$$',
+            id: 1,
+            name: 'newgenre',
+          },
+          new : {
+            name : 'newgenre!',
+          },
+          old : {
+            name : 'newgenre',
+          },
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 4,
+      value: {
+        type: 91,
+        status: 2,
+        data: {
+          edit_version: 2,
+          entity0_credit: '',
+          entity1_credit: '',
+          link: {
+            attributes: [],
+            begin_date: {
+              day: null,
+              month: null,
+              year: null,
+            },
+            end_date: {
+              day: null,
+              month: null,
+              year: null,
+            },
+            ended: 0,
+            entity0: {
+              gid: 'f0b226db-8e22-40e6-9a53-d839cfec6228',
+              id: 3813,
+              name: 'Cardiff',
+            },
+            entity1: {
+              gid: '$$__IGNORE__$$',
+              id: 1,
+              name: 'newgenre!',
+            },
+            link_type: {
+              id: 1088,
+              link_phrase: 'genres',
+              long_link_phrase: '{entity1} is a genre from {entity0}',
+              name: 'genre origin',
+              reverse_link_phrase: 'from',
+            },
+          },
+          new: {
+            entity0_credit: 'crdff',
+          },
+          old: {
+            entity0_credit: '',
+          },
+          relationship_id: 1,
+          type0: 'area',
+          type1: 'genre',
+        },
+      },
+    },
+  ],
+}

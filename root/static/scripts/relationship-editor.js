@@ -15,7 +15,16 @@ import {
 import {createExternalLinksEditorForHtmlForm} from './edit/externalLinks.js';
 
 const sourceData = getSourceEntityDataForRelationshipEditor();
+const entityType = sourceData.entityType;
 
-createExternalLinksEditorForHtmlForm(
-  'edit-' + sourceData.entityType.replace('_', '-'),
-);
+if (
+  /*
+   * Exclude React edit pages which use the <ExternalLinksEditor /> component
+   * directly.
+   */
+  entityType !== 'genre'
+) {
+  createExternalLinksEditorForHtmlForm(
+    'edit-' + entityType.replace('_', '-'),
+  );
+}

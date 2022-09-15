@@ -665,6 +665,10 @@ const seleniumTests = [
     name: 'Series_Relationship_Editor.json5',
     login: true,
   },
+  {
+    name: 'Genre_Edit_Form.json5',
+    login: true,
+  },
 ];
 
 const testPath = name => path.resolve(DBDefs.MB_SERVER_ROOT, 't/selenium', name);

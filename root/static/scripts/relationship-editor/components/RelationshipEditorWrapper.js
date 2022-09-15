@@ -63,6 +63,9 @@ RelationshipEditorWrapper =
     RelationshipEditorWrapper,
   );
 
+export const NonHydratedRelationshipEditorWrapper =
+  RelationshipEditorWrapper;
+
 RelationshipEditorWrapper = hydrate<PropsT>(
   'div.relationship-editor',
   RelationshipEditorWrapper,
