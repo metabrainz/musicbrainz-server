@@ -140,8 +140,8 @@ export function useAddRelationshipDialogContent(
   const targetTypeRef = React.useRef<CoreEntityTypeT | null>(null);
 
   const targetType = (
-    targetTypeRef.current ||
     defaultTargetType ||
+    targetTypeRef.current ||
     (targetTypeOptions?.[0]?.value)
   );
 

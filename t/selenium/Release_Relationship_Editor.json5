@@ -1644,5 +1644,100 @@
         },
       },
     },
+    // MBS-12606: This test relies on opening an add-relationship dialog for
+    // a phrase group, e.g. by clicking "Add another work" under
+    // "recording of:", and then changing the target entity type within the
+    // dialog such that it would change the direction of the relationship
+    // (like from recording-work to area-recording).
+    {
+      command: 'open',
+      target: '/release/868cc741-e3bc-31bc-9dac-756e35c8f152/edit-relationships',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//td[contains(@class, "recording")])[10]//table[contains(@class, "rel-editor-table")]//button[text() = "Add another work"]',
+      value: '',
+    },
+    {
+      command: 'select',
+      target: 'css=#add-relationship-dialog select.entity-type',
+      value: 'label=Area',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '471c46a7-afc5-31c4-923c-d0444f5053a4',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'arr',
+    },
+    // Accept the "arranged in" from the list.
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: '${KEY_ENTER}',
+    },
+    // Accept the dialog.
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: '${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//td[contains(@class, "recording")])[10]//table[contains(@class, "rel-editor-table")]//button[text() = "Add another work"]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.querySelector("#add-relationship-dialog select.entity-type").value === "work"',
+      value: 'true',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog button.negative',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=#relationship-editor-form button.positive',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 27,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '471c46a7-afc5-31c4-923c-d0444f5053a4',
+            id: 194,
+            name: 'Spain',
+          },
+          entity1: {
+            gid: '19506825-c404-43eb-9b09-86fc152c6780',
+            id: 1040491,
+            name: '☉',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 864,
+            link_phrase: 'arranging location for',
+            long_link_phrase: 'was the arranging location for',
+            name: 'arranged in',
+            reverse_link_phrase: 'arranged in',
+          },
+          type0: 'area',
+          type1: 'recording',
+        },
+      },
+    },
+    // End of test for MBS-12606.
   ],
 }
