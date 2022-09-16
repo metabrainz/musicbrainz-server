@@ -103,6 +103,7 @@ const RelatedWorkHeading = ({
     <h3>
       <input
         checked={isSelected}
+        className="work"
         onChange={selectWork}
         type="checkbox"
       />
@@ -147,6 +148,7 @@ const NewRelatedWorkHeading = ({
     <h3 id={'new-work-' + String(work.id)}>
       <input
         checked={isSelected}
+        className="work"
         onChange={selectWork}
         type="checkbox"
       />
@@ -361,6 +363,7 @@ const TrackRelationshipEditor = (React.memo<TrackRelationshipEditorPropsT>(({
       <td className="recording">
         <input
           checked={recordingState.isSelected}
+          className="recording"
           onChange={selectRecording}
           type="checkbox"
         />
