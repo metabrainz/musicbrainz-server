@@ -4,10 +4,10 @@ use Moose;
 =head1 DESCRIPTION
 
 This script process the rows of the table 'unreferenced_row_log' that have been
-inserted more than 7 days ago.
+inserted more than 2 days ago.
 
 This table weakly references rows (of other tables) that have been temporarily
-unreferenced but might be referenced again by an edit, hence the 7 days delay.
+unreferenced but might be referenced again by an edit, hence the 2 days delay.
 
 When processing an 'unreferenced_row_log' row, the script removes the weakly
 referenced row if it is still unreferenced by checking 'ref_count', and removes
@@ -51,7 +51,7 @@ sub run {
               SELECT table_name,
                      array_agg(row_id) AS row_ids
                 FROM unreferenced_row_log
-               WHERE inserted < now() - '7 day'::interval
+               WHERE inserted < now() - '2 day'::interval
             GROUP BY table_name
             SQL
     };
@@ -67,7 +67,7 @@ sub run {
         my $removed = 0;
 
         log_info {
-            sprintf 'Found %d %s row%s unreferenced for 7 or more days.',
+            sprintf 'Found %d %s row%s unreferenced for 2 or more days.',
                 $count, $table_name, ($count==1 ? '' : 's');
         };
 
