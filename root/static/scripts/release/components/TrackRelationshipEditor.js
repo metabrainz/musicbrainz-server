@@ -53,6 +53,7 @@ const TrackLink = React.memo<TrackLinkPropsT>(({
         content={track.name}
         customArtistCredit={track.artistCredit}
         entity={track.recording}
+        showDisambiguation={false}
         target="_blank"
       />
     );
@@ -61,6 +62,7 @@ const TrackLink = React.memo<TrackLinkPropsT>(({
       <EntityLink
         content={track.name}
         entity={track.recording}
+        showDisambiguation={false}
         target="_blank"
       />
     );
