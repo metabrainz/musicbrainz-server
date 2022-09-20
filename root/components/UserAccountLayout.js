@@ -66,7 +66,7 @@ const UserAccountLayout = ({
     {...layoutProps}
   >
     <h1>
-      <EditorLink avatarSize={54} editor={user} />
+      <EditorLink avatarSize={31} editor={user} />
     </h1>
     <UserAccountTabs page={page} user={user} />
     {children}
