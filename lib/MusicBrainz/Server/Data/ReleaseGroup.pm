@@ -16,8 +16,6 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
-
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Relatable';
 with 'MusicBrainz::Server::Data::Role::Name';
@@ -899,17 +897,11 @@ sub is_empty {
     my $used_in_relationship =
         used_in_relationship($self->c, release_group => 'release_group_row.id');
 
-    return $self->sql->select_single_value(<<~"SQL", $release_group_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<~"SQL", $release_group_id);
         SELECT TRUE
         FROM release_group release_group_row
         WHERE id = ?
-        AND edits_pending = 0
         AND NOT (
-            EXISTS (
-                SELECT TRUE FROM edit_release_group
-                JOIN edit ON edit.id = edit_release_group.edit
-                WHERE status = ? AND release_group = release_group_row.id
-            ) OR
             EXISTS (
                 SELECT TRUE FROM release
                 WHERE release.release_group = release_group_row.id

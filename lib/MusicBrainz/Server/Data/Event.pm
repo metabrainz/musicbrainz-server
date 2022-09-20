@@ -4,7 +4,6 @@ use DateTime;
 use Moose;
 use namespace::autoclean;
 use List::AllUtils qw( any uniq );
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Entity::Event;
 use MusicBrainz::Server::Entity::PartialDate;
@@ -156,19 +155,11 @@ sub is_empty {
     my ($self, $event_id) = @_;
 
     my $used_in_relationship = used_in_relationship($self->c, event => 'event_row.id');
-    return $self->sql->select_single_value(<<~"SQL", $event_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<~"SQL", $event_id);
         SELECT TRUE
         FROM event event_row
         WHERE id = ?
-        AND edits_pending = 0
-        AND NOT (
-            EXISTS (
-                SELECT TRUE
-                FROM edit_event JOIN edit ON edit_event.edit = edit.id
-                WHERE status = ? AND event = event_row.id
-            ) OR
-            $used_in_relationship
-        )
+        AND NOT $used_in_relationship
         SQL
 }
 
