@@ -17,6 +17,7 @@ import {
 } from 'weight-balanced-tree/update';
 
 import hydrate from '../../../../utility/hydrate.js';
+import {expect} from '../../../../utility/invariant.js';
 import {
   EMPTY_PARTIAL_DATE,
   RECORDING_OF_LINK_TYPE_ID,
@@ -107,8 +108,10 @@ import getRelationshipLinkType
   from '../../relationship-editor/utility/getRelationshipLinkType.js';
 import isRelationshipBackward
   from '../../relationship-editor/utility/isRelationshipBackward.js';
-import updateRecordingStates
-  from '../../relationship-editor/utility/updateRecordingStates.js';
+import updateRecordingStates, {
+  compareMediumWithMediumStateTuple,
+  compareRecordingIdWithRecordingState,
+} from '../../relationship-editor/utility/updateRecordingStates.js';
 import updateRelationships, {
   ADD_RELATIONSHIP,
   REMOVE_RELATIONSHIP,
@@ -869,6 +872,22 @@ const reducer = reducerWithErrorHandling<
     case 'accept-batch-create-works-dialog': {
       const getBatchUpdates = function* () {
         for (const recording of tree.iterate(state.selectedRecordings)) {
+          const mediums =
+            expect(state.mediumsByRecordingId.get(recording.id));
+          // Skip recordings that already have linked works.
+          if (
+            expect(tree.find(
+              expect(tree.find(
+                state.mediums,
+                mediums[0],
+                compareMediumWithMediumStateTuple,
+              ))[1],
+              recording.id,
+              compareRecordingIdWithRecordingState,
+            )).relatedWorks != null
+          ) {
+            continue;
+          }
           const newWork = createWorkObject({
             _fromBatchCreateWorksDialog: true,
             id: uniqueNegativeId(),
