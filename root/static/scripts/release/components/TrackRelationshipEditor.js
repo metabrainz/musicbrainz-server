@@ -10,8 +10,8 @@
 import * as React from 'react';
 import * as tree from 'weight-balanced-tree';
 
-import ArtistCreditLink from '../../common/components/ArtistCreditLink.js';
 import ButtonPopover from '../../common/components/ButtonPopover.js';
+import DescriptiveLink from '../../common/components/DescriptiveLink.js';
 import EntityLink from '../../common/components/EntityLink.js';
 import {RECORDING_OF_LINK_TYPE_ID} from '../../common/constants.js';
 import {createWorkObject} from '../../common/entity2.js';
@@ -46,21 +46,25 @@ const TrackLink = React.memo<TrackLinkPropsT>(({
   showArtists,
   track,
 }) => {
-  let trackLink: Expand2ReactOutput = (
-    <EntityLink
-      content={track.name}
-      entity={track.recording}
-      target="_blank"
-    />
-  );
-
+  let trackLink: Expand2ReactOutput;
   if (showArtists) {
-    trackLink = exp.l('{entity} by {artist}', {
-      artist: <ArtistCreditLink artistCredit={track.artistCredit} />,
-      entity: trackLink,
-    });
+    trackLink = (
+      <DescriptiveLink
+        content={track.name}
+        customArtistCredit={track.artistCredit}
+        entity={track.recording}
+        target="_blank"
+      />
+    );
+  } else {
+    trackLink = (
+      <EntityLink
+        content={track.name}
+        entity={track.recording}
+        target="_blank"
+      />
+    );
   }
-
   return (
     <>
       {trackLink}
