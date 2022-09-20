@@ -825,6 +825,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
       {source ? (
         <DialogPreview
           backward={backward}
+          batchSelectionCount={batchSelectionCount}
           dispatch={dispatch}
           newRelationship={newRelationshipState}
           oldRelationship={initialRelationship._original}
