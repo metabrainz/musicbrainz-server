@@ -241,7 +241,11 @@ function updateDialogStateForTargetTypeChange(
     ...oldLinkTypeAutocompleteState,
     inputValue: onlyLinkType
       ? onlyLinkType.name
-      : oldLinkTypeAutocompleteState.inputValue,
+      : (
+        oldLinkTypeAutocompleteState.selectedItem
+          ? ''
+          : oldLinkTypeAutocompleteState.inputValue
+      ),
     recentItems: null,
     recentItemsKey: 'link_type-' + sourceType + '-' + newTargetType,
     results: newLinkTypeOptions,
