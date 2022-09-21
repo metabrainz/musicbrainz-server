@@ -136,7 +136,7 @@ const CollectionEditForm = ({collectionTypes, form}: Props) => {
                     <FieldErrors field={collaborator.field.name} />
                   </div>
                 ))}
-                <div className="form-row-add">
+                <div className="form-row-add short">
                   <button
                     className="with-label add-item"
                     onClick={handleCollaboratorAdd}
