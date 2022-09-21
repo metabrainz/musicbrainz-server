@@ -205,7 +205,6 @@ export function createInitialState(): ReleaseRelationshipEditorStateT {
     selectedWorks: null,
     submissionError: null,
     submissionInProgress: false,
-    workRecordings: null,
   };
 
   if (release.mediums) {

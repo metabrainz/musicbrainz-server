@@ -8,13 +8,9 @@
  */
 
 import * as tree from 'weight-balanced-tree';
-import {
-  onNotFoundDoNothing,
-} from 'weight-balanced-tree/update';
 
 import type {
   MediumWorkStateT,
-  RelationshipStateForTypesT,
   RelationshipTargetTypeGroupsT,
   ReleaseRelationshipEditorStateT,
 } from '../types.js';
@@ -23,31 +19,17 @@ import {compareRecordings, compareWorks} from './comparators.js';
 import {
   compareTargetTypeWithGroup,
   findTargetTypeGroups,
+  iterateRelationshipsInTargetTypeGroup,
 } from './findState.js';
 import updateRecordingStates from './updateRecordingStates.js';
 import type {RelationshipUpdateT} from './updateRelationships.js';
 import {
   compareWorkWithWorkState,
-  getWorkRecordings,
+  findWorkRecordings,
 } from './updateWorkStates.js';
 
 export const ADD_RELATIONSHIP: 1 = 1;
 export const REMOVE_RELATIONSHIP: 2 = 2;
-
-function compareWorkToWorkRecordings(
-  work: WorkT,
-  workRecordings: [number, tree.ImmutableTree<RecordingT> | null],
-): number {
-  return work.id - workRecordings[0];
-}
-
-// This should only be passed recording-work relationships.
-function compareRelationshipToWorkRecordings(
-  relationship: RelationshipStateForTypesT<RecordingT, WorkT>,
-  workRecordings: [number, tree.ImmutableTree<RecordingT> | null],
-): number {
-  return compareWorkToWorkRecordings(relationship.entity1, workRecordings);
-}
 
 function compareWorkStates(
   a: MediumWorkStateT,
@@ -55,13 +37,6 @@ function compareWorkStates(
 ): number {
   return a.work.id - b.work.id;
 }
-
-const createWorkRecordings = (
-  relationship: RelationshipStateForTypesT<RecordingT, WorkT>,
-) => {
-  const recording = relationship.entity0;
-  return [relationship.entity1.id, tree.create(recording)];
-};
 
 function* findRecordingWorks(
   recordingTargetTypeGroups: RelationshipTargetTypeGroupsT,
@@ -74,55 +49,20 @@ function* findRecordingWorks(
   if (!targetTypeGroup) {
     return;
   }
-  const [/* 'work' */, linkTypeGroups] = targetTypeGroup;
-  for (const linkTypeGroup of tree.iterate(linkTypeGroups)) {
-    for (
-      const linkPhraseGroup of
-      tree.iterate(linkTypeGroup.phraseGroups)
-    ) {
-      for (
-        const relationship of
-        tree.iterate(linkPhraseGroup.relationships)
-      ) {
-        /*:: invariant(relationship.entity1.entityType === 'work'); */
-        yield relationship.entity1;
-      }
-    }
+  for (
+    const relationship of
+    iterateRelationshipsInTargetTypeGroup(targetTypeGroup)
+  ) {
+    /*:: invariant(relationship.entity1.entityType === 'work'); */
+    yield relationship.entity1;
   }
 }
 
-function insertWorkRecording(
-  workIdAndRecordings: [number, tree.ImmutableTree<RecordingT> | null],
-  relationship: RelationshipStateForTypesT<RecordingT, WorkT>,
-): [number, tree.ImmutableTree<RecordingT> | null] {
-  const [workId, recordings] = workIdAndRecordings;
-  const recording = relationship.entity0;
-  const newRecordings = tree.insertIfNotExists(
-    recordings,
-    recording,
-    compareRecordings,
-  );
-  if (newRecordings !== recordings) {
-    return [workId, newRecordings];
-  }
-  return workIdAndRecordings;
-}
-
-function removeWorkRecording(
-  workIdAndRecordings: [number, tree.ImmutableTree<RecordingT> | null],
-  relationship: RelationshipStateForTypesT<RecordingT, WorkT>,
-): [number, tree.ImmutableTree<RecordingT> | null] {
-  const [workId, recordings] = workIdAndRecordings;
-  const recording: RecordingT = relationship.entity0;
-  const newRecordings = tree.removeIfExists(
-    recordings,
-    recording,
-    compareRecordings,
-  );
-  if (newRecordings !== recordings) {
-    return [workId, newRecordings];
-  }
-  return workIdAndRecordings;
+function workHasNoRecordings(
+  writableRootState: ReleaseRelationshipEditorStateT,
+  work: WorkT,
+): boolean {
+  return findWorkRecordings(writableRootState, work).next().done;
 }
 
 export default function updateReleaseRelationships(
@@ -133,7 +73,6 @@ export default function updateReleaseRelationships(
     writableRootState.entity.entityType === 'release',
   );
 
-  const existingWorkRecordings = writableRootState.workRecordings;
   let updatedRecordings = null;
 
   for (const update of updates) {
@@ -147,46 +86,11 @@ export default function updateReleaseRelationships(
           entity0,
           compareRecordings,
         );
-        if (entity1.entityType === 'work') {
-          switch (update.type) {
-            /* eslint-disable flowtype/no-weak-types */
-            case ADD_RELATIONSHIP: {
-              writableRootState.workRecordings = tree.update(
-                writableRootState.workRecordings,
-                (
-                  // $FlowIgnore[unclear-type] - proved per above
-                  (relationship: any):
-                  RelationshipStateForTypesT<RecordingT, WorkT>
-                ),
-                compareRelationshipToWorkRecordings,
-                insertWorkRecording,
-                createWorkRecordings,
-              );
-              break;
-            }
-            case REMOVE_RELATIONSHIP: {
-              writableRootState.workRecordings = tree.update(
-                writableRootState.workRecordings,
-                (
-                  // $FlowIgnore[unclear-type] - proved per above
-                  (relationship: any):
-                  RelationshipStateForTypesT<RecordingT, WorkT>
-                ),
-                compareRelationshipToWorkRecordings,
-                removeWorkRecording,
-                onNotFoundDoNothing,
-              );
-              break;
-            }
-            /* eslint-enable flowtype/no-weak-types */
-          }
-        }
         break;
       }
       case 'work': {
         for (
-          const recording of
-          getWorkRecordings(existingWorkRecordings, entity0.id)
+          const recording of findWorkRecordings(writableRootState, entity0)
         ) {
           updatedRecordings = tree.insertIfNotExists(
             updatedRecordings,
@@ -208,8 +112,7 @@ export default function updateReleaseRelationships(
       }
       case 'work': {
         for (
-          const recording of
-          getWorkRecordings(existingWorkRecordings, entity1.id)
+          const recording of findWorkRecordings(writableRootState, entity1)
         ) {
           updatedRecordings = tree.insertIfNotExists(
             updatedRecordings,
@@ -282,11 +185,7 @@ export default function updateReleaseRelationships(
           );
           if (
             workState.isSelected &&
-            tree.find(
-              writableRootState.workRecordings,
-              workState.work,
-              compareWorkToWorkRecordings,
-            )?.[1] == null
+            workHasNoRecordings(writableRootState, workState.work)
           ) {
             selectedWorksToRemove = tree.insertIfNotExists(
               selectedWorksToRemove,

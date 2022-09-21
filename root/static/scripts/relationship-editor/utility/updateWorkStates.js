@@ -15,10 +15,13 @@ import {
 import type {
   MediumWorkStateT,
   ReleaseRelationshipEditorStateT,
-  WorkRecordingsT,
 } from '../types.js';
 
 import {compareRecordings, compareWorks} from './comparators.js';
+import {
+  compareTargetTypeWithGroup,
+  findTargetTypeGroups,
+} from './findState.js';
 import updateRecordingStates from './updateRecordingStates.js';
 
 export const ADD_RELATIONSHIP: 1 = 1;
@@ -31,27 +34,33 @@ export function compareWorkWithWorkState(
   return work.id - workState.work.id;
 }
 
-function compareWorkIdWithWorkRecordings(
-  workId: number,
-  workRecordings: [number, tree.ImmutableTree<RecordingT> | null],
-): number {
-  return workId - workRecordings[0];
-}
-
-export function* getWorkRecordings(
-  workRecordings: WorkRecordingsT,
-  workId: number,
+export function* findWorkRecordings(
+  writableRootState: ReleaseRelationshipEditorStateT,
+  work: WorkT,
 ): Generator<RecordingT, void, void> {
-  const recordingsTuple = tree.find(
-    workRecordings,
-    workId,
-    compareWorkIdWithWorkRecordings,
+  const targetTypeGroup = tree.find(
+    findTargetTypeGroups(
+      writableRootState.relationshipsBySource,
+      work,
+    ),
+    'recording',
+    compareTargetTypeWithGroup,
   );
-  if (recordingsTuple) {
-    const recordings = recordingsTuple[1];
-    if (recordings) {
-      for (const recording of tree.iterate(recordings)) {
-        yield recording;
+  if (!targetTypeGroup) {
+    return;
+  }
+  const [/* 'recording' */, linkTypeGroups] = targetTypeGroup;
+  for (const linkTypeGroup of tree.iterate(linkTypeGroups)) {
+    for (
+      const linkPhraseGroup of
+      tree.iterate(linkTypeGroup.phraseGroups)
+    ) {
+      for (
+        const relationship of
+        tree.iterate(linkPhraseGroup.relationships)
+      ) {
+        /*:: invariant(relationship.entity0.entityType === 'recording'); */
+        yield relationship.entity0;
       }
     }
   }
@@ -67,9 +76,9 @@ export default function updateWorkStates(
 
   for (const work of works) {
     for (
-      const recording of getWorkRecordings(
-        writableRootState.workRecordings,
-        work.id,
+      const recording of findWorkRecordings(
+        writableRootState,
+        work,
       )
     ) {
       recordingsToUpdate = tree.insertIfNotExists(
