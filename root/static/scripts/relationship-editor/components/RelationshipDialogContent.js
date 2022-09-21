@@ -729,7 +729,12 @@ const RelationshipDialogContent = (React.memo<PropsT>((
   const handleKeyDown = React.useCallback((event) => {
     if (
       event.keyCode === 13 &&
-      !event.isDefaultPrevented()
+      !event.isDefaultPrevented() &&
+      /*
+       * MBS-12619: Hitting <Enter> on a button should click the button
+       * rather than accept the dialog.
+       */
+      !(event.target instanceof HTMLButtonElement)
     ) {
       // Prevent a click event on the ButtonPopover.
       event.preventDefault();
