@@ -19,6 +19,11 @@
  *    -> [{"1": 2}, "key", "value"]
  */
 
+const functionToString: () => string =
+  // $FlowIgnore[method-unbinding]
+  Function.prototype.toString;
+const objectCtorString: string = functionToString.call(Object);
+
 function _indexValue(
   value: mixed,
   indexCache: Map<mixed, number>,
@@ -54,27 +59,35 @@ function _indexValue(
               ),
             );
           }
-        } else if (value.constructor === Object) {
-          compactValue = {};
-          for (const objectKey in value) {
-            if (hasOwnProp(value, objectKey)) {
-              const compactObjectKey = _indexValue(
-                objectKey,
-                indexCache,
-                result,
-              );
-              const compactObjectValue = _indexValue(
-                value[objectKey],
-                indexCache,
-                result,
-              );
-              compactValue[compactObjectKey] = compactObjectValue;
-            }
-          }
         } else {
-          throw new Error(
-            'Only plain objects and arrays can be converted into JSON',
-          );
+          const prototype = Object.getPrototypeOf(value);
+          if (
+            prototype &&
+            // $FlowIgnore[prop-missing]
+            typeof prototype.constructor === 'function' &&
+            functionToString.call(prototype.constructor) === objectCtorString
+          ) {
+            compactValue = {};
+            for (const objectKey in value) {
+              if (hasOwnProp(value, objectKey)) {
+                const compactObjectKey = _indexValue(
+                  objectKey,
+                  indexCache,
+                  result,
+                );
+                const compactObjectValue = _indexValue(
+                  value[objectKey],
+                  indexCache,
+                  result,
+                );
+                compactValue[compactObjectKey] = compactObjectValue;
+              }
+            }
+          } else {
+            throw new Error(
+              'Only plain objects and arrays can be converted into JSON',
+            );
+          }
         }
       } else {
         compactValue = null;
