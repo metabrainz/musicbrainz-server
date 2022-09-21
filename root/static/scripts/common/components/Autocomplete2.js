@@ -518,7 +518,8 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
         }
         break;
 
-      case 'Enter': {
+      case 'Enter':
+      case 'Tab': {
         if (isOpen) {
           event.preventDefault();
           if (highlightedItem) {
@@ -749,6 +750,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
           onKeyDown={handleInputKeyDown}
           ref={buttonRef}
           role="button"
+          tabIndex="-1"
           title={l('Search')}
           type="button"
         />
