@@ -533,7 +533,7 @@ export default function formatItem<+T: EntityItemT>(
           return formatWork(entity);
 
         default:
-          return formatName(entity);
+          return unwrapNl<string>(item.name);
       }
     }
   }
