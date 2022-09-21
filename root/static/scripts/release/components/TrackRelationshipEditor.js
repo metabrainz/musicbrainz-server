@@ -22,6 +22,7 @@ import NewWorkLink
 import RelationshipTargetTypeGroups
   // eslint-disable-next-line max-len
   from '../../relationship-editor/components/RelationshipTargetTypeGroups.js';
+import {REL_STATUS_REMOVE} from '../../relationship-editor/constants.js';
 import {
   useAddRelationshipDialogContent,
 } from '../../relationship-editor/hooks/useRelationshipDialogContent.js';
@@ -34,6 +35,10 @@ import type {
 import type {
   ReleaseRelationshipEditorActionT,
 } from '../../relationship-editor/types/actions.js';
+import {
+  compareTargetTypeWithGroup,
+  iterateRelationshipsInTargetTypeGroup,
+} from '../../relationship-editor/utility/findState.js';
 
 import EditWorkDialog from './EditWorkDialog.js';
 
@@ -88,13 +93,17 @@ const WorkLink = React.memo<WorkLinkPropsT>(({
 
 type RelatedWorkHeadingPropsT = {
   +dispatch: (ReleaseRelationshipEditorActionT) => void,
+  +isRemoved: boolean,
   +isSelected: boolean,
+  +removeWorkButton: React.MixedElement,
   +work: WorkT,
 };
 
 const RelatedWorkHeading = ({
   dispatch,
+  isRemoved,
   isSelected,
+  removeWorkButton,
   work,
 }: RelatedWorkHeadingPropsT) => {
   const selectWork = React.useCallback((event) => {
@@ -105,6 +114,15 @@ const RelatedWorkHeading = ({
     });
   }, [dispatch, work]);
 
+  let workLink: React.MixedElement = <WorkLink work={work} />;
+  if (isRemoved) {
+    workLink = (
+      <span className="rel-remove">
+        {workLink}
+      </span>
+    );
+  }
+
   return (
     <h3>
       <input
@@ -114,7 +132,9 @@ const RelatedWorkHeading = ({
         type="checkbox"
       />
       {' '}
-      <WorkLink work={work} />
+      {removeWorkButton}
+      {' '}
+      {workLink}
     </h3>
   );
 };
@@ -122,6 +142,7 @@ const RelatedWorkHeading = ({
 const NewRelatedWorkHeading = ({
   dispatch,
   isSelected,
+  removeWorkButton,
   work,
 }: RelatedWorkHeadingPropsT) => {
   const selectWork = React.useCallback((event) => {
@@ -159,6 +180,7 @@ const NewRelatedWorkHeading = ({
         type="checkbox"
       />
       {' '}
+      {removeWorkButton}
       <ButtonPopover
         buildChildren={buildEditWorkPopoverContent}
         buttonContent={null}
@@ -228,6 +250,52 @@ const RelatedWorkRelationshipEditor = React.memo<
     work,
   ]);
 
+  const removeWork = React.useCallback(() => {
+    dispatch({
+      recording: track.recording,
+      type: 'remove-work',
+      workState: relatedWork,
+    });
+  }, [dispatch, track.recording, relatedWork]);
+
+  const removeWorkButton = React.useMemo(() => (
+    <button
+      className="icon remove-item"
+      onClick={removeWork}
+      type="button"
+    />
+  ), [removeWork]);
+
+  const isWorkRemoved = React.useMemo(() => {
+    if (isNewWork) {
+      /*
+       * Pending works are removed once their last recording link is removed,
+       * so if we still exist then this can't be true.
+       */
+      return false;
+    }
+    const targetTypeGroup = tree.find(
+      relatedWork.targetTypeGroups,
+      'recording',
+      compareTargetTypeWithGroup,
+    );
+    if (!targetTypeGroup) {
+      return true;
+    }
+    for (
+      const relationship of
+      iterateRelationshipsInTargetTypeGroup(targetTypeGroup)
+    ) {
+      if (relationship._status !== REL_STATUS_REMOVE) {
+        return false;
+      }
+    }
+    return true;
+  }, [
+    isNewWork,
+    relatedWork.targetTypeGroups,
+  ]);
+
   const RelatedWorkHeadingComponent =
     isNewWork ? NewRelatedWorkHeading : RelatedWorkHeading;
 
@@ -235,7 +303,9 @@ const RelatedWorkRelationshipEditor = React.memo<
     <>
       <RelatedWorkHeadingComponent
         dispatch={dispatch}
+        isRemoved={isWorkRemoved}
         isSelected={relatedWork.isSelected}
+        removeWorkButton={removeWorkButton}
         work={work}
       />
       <RelationshipTargetTypeGroups

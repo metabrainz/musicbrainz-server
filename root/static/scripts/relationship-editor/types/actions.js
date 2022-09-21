@@ -25,6 +25,7 @@ import type {LazyReleaseActionT} from '../../release/types.js';
 import type {
   CreditChangeOptionT,
   MediumRecordingStateTreeT,
+  MediumWorkStateT,
   RelationshipDialogLocationT,
   RelationshipPhraseGroupT,
   RelationshipStateT,
@@ -224,6 +225,11 @@ export type ReleaseRelationshipEditorActionT =
       +relationships: $ReadOnlyArray<RelationshipT>,
       +type: 'load-work-relationships',
       +work: WorkT,
+    }
+  | {
+      +recording: RecordingT,
+      +type: 'remove-work',
+      +workState: MediumWorkStateT,
     }
   | {
       +isSelected: boolean,

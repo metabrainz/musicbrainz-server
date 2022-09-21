@@ -279,6 +279,9 @@ export const reducer: ((
   const writableState: {...RelationshipEditorStateT} =
     cloneRelationshipEditorState(state);
   runReducer(writableState, action);
+  if (__DEV__) {
+    deepFreeze(writableState);
+  }
   return writableState;
 });
 
@@ -476,10 +479,6 @@ export function runReducer(
     default: {
       /*:: exhaustive(action); */
     }
-  }
-
-  if (__DEV__) {
-    deepFreeze(writableState);
   }
 }
 
