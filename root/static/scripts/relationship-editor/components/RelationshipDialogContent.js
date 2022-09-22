@@ -16,6 +16,9 @@ import {
   resetPage as resetAutocompletePage,
 } from '../../common/components/Autocomplete2/reducer.js';
 import {
+  indexItems,
+} from '../../common/components/Autocomplete2/searchItems.js';
+import {
   createNonUrlCoreEntityObject,
   createUrlObject,
 } from '../../common/entity2.js';
@@ -71,6 +74,7 @@ import DialogDatePeriod from './DialogDatePeriod.js';
 import DialogLinkOrder from './DialogLinkOrder.js';
 import DialogLinkType, {
   createInitialState as createDialogLinkTypeState,
+  extractLinkTypeSearchTerms,
   updateDialogState as updateDialogLinkTypeState,
 } from './DialogLinkType.js';
 import DialogPreview from './DialogPreview.js';
@@ -231,6 +235,8 @@ function updateDialogStateForTargetTypeChange(
     source,
     newTargetType,
   );
+
+  indexItems(newLinkTypeOptions, extractLinkTypeSearchTerms);
 
   const onlyLinkType = newLinkTypeOptions.length === 1
     ? newLinkTypeOptions[0].entity

@@ -13,11 +13,6 @@ import localizeLinkAttributeTypeName
   from '../../common/i18n/localizeLinkAttributeTypeName.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
 import {groupBy} from '../../common/utility/arrays.js';
-import {unaccent} from '../../common/utility/strings.js';
-
-function normalize(str: string): string {
-  return unaccent(str).toLowerCase();
-}
 
 export function exportLinkTypeInfo(
   allLinkTypes: $ReadOnlyArray<LinkTypeT>,
@@ -46,7 +41,6 @@ export function exportLinkTypeInfo(
     }
 
     item.l_name = l_relationships(item.name);
-    item.l_name_normalized = normalize(item.l_name);
 
     if (item.link_phrase) {
       item.l_link_phrase = l_relationships(item.link_phrase);
@@ -101,8 +95,6 @@ export function exportLinkAttributeTypeInfo(
     }
 
     item.l_name = localizeLinkAttributeTypeName(item);
-    item.l_name_normalized = normalize(item.l_name);
-
     item.l_description = localizeLinkAttributeTypeDescription(item);
   }
 

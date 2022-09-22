@@ -37,10 +37,13 @@ import {
 import formatItem from './Autocomplete2/formatters.js';
 import {getOrFetchRecentItems} from './Autocomplete2/recentItems.js';
 import {
-  defaultStaticItemsFilter,
   generateItems,
   generateStatusMessage,
 } from './Autocomplete2/reducer.js';
+import searchItems, {
+  getItemName,
+  indexItems,
+} from './Autocomplete2/searchItems.js';
 import type {
   ActionT,
   EntityItemT,
@@ -136,6 +139,7 @@ type InitialStateT<T: EntityItemT> = {
   +containerClass?: string,
   +disabled?: boolean,
   +entityType: T['entityType'],
+  +extractSearchTerms?: (OptionItemT<T>) => Array<string>,
   +id: string,
   +inputChangeHook?: (
     inputValue: string,
@@ -149,7 +153,6 @@ type InitialStateT<T: EntityItemT> = {
   +recentItemsKey?: string,
   +selectedItem?: OptionItemT<T> | null,
   +staticItems?: $ReadOnlyArray<ItemT<T>>,
-  +staticItemsFilter?: (ItemT<T>, string) => boolean,
   +width?: string,
 };
 
@@ -161,11 +164,11 @@ export function createInitialState<+T: EntityItemT>(
   const {
     disabled = false,
     entityType,
+    extractSearchTerms = getItemName,
     inputValue: initialInputValue,
     recentItemsKey,
     selectedItem,
     staticItems,
-    staticItemsFilter,
     ...restProps
   } = initialState;
 
@@ -174,12 +177,13 @@ export function createInitialState<+T: EntityItemT>(
     (selectedItem == null ? null : unwrapNl<string>(selectedItem.name)) ??
     '';
 
+  if (staticItems) {
+    indexItems(staticItems, extractSearchTerms);
+  }
+
   let staticResults = staticItems ?? null;
   if (staticResults && nonEmpty(inputValue)) {
-    const filter = staticItemsFilter || defaultStaticItemsFilter;
-    staticResults = staticResults.filter(
-      (item) => filter(item, inputValue),
-    );
+    staticResults = searchItems(staticResults, inputValue);
   }
 
   const state: {...StateT<T>} = {
@@ -198,7 +202,6 @@ export function createInitialState<+T: EntityItemT>(
     results: staticResults,
     selectedItem: selectedItem ?? null,
     staticItems,
-    staticItemsFilter,
     statusMessage: '',
     totalPages: null,
     ...restProps,

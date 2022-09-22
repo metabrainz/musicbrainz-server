@@ -34,9 +34,6 @@ import type {
 import type {
   DialogMultiselectAttributeActionT,
 } from '../../types/actions.js';
-import {
-  autocompleteLinkAttributeTypeFilter,
-} from '../../utility/autocompleteTypeFilter.js';
 
 const addAttributeLabels = {
   [INSTRUMENT_ROOT_ID]: N_l('Add instrument'),
@@ -94,6 +91,12 @@ const ATTR_VALUE_LABEL_STYLE = {
   clear: 'both',
 };
 
+function extractLinkAttributeTypeSearchTerms(
+  item: OptionItemT<LinkAttrTypeT>,
+): Array<string> {
+  return [item.entity.l_name ?? ''];
+}
+
 export function createMultiselectAttributeValue(
   rootAttribute: LinkAttrTypeT,
   selectedAttribute: LinkAttrTypeT | null,
@@ -103,6 +106,7 @@ export function createMultiselectAttributeValue(
   return {
     autocomplete: createAutocompleteState<LinkAttrTypeT>({
       entityType: 'link_attribute_type',
+      extractSearchTerms: extractLinkAttributeTypeSearchTerms,
       id: 'attribute-' + String(key),
       labelStyle: ATTR_VALUE_LABEL_STYLE,
       placeholder: localizeLinkAttributeTypeName(rootAttribute),
@@ -114,7 +118,6 @@ export function createMultiselectAttributeValue(
         type: 'option',
       } : null,
       staticItems: createLinkAttributeTypeOptions(rootAttribute),
-      staticItemsFilter: autocompleteLinkAttributeTypeFilter,
     }),
     control: 'multiselect-value',
     creditedAs,
