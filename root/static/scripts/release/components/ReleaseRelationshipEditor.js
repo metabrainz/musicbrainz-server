@@ -357,12 +357,21 @@ async function submitWorkEdits(
   }
 }
 
-async function submitRelationshipEdits(
-  dispatch: (ReleaseRelationshipEditorActionT) => void,
+function* getAllRelationshipEdits(
   state: ReleaseRelationshipEditorStateT,
-): Promise<void> {
+): Generator<
+  {
+    +edits: Generator<
+      [Array<RelationshipStateT>, WsJsEditRelationshipT],
+      void,
+      void,
+    >,
+    +entity: CoreEntityT,
+  },
+  void,
+  void,
+> {
   const seenRelationships = new Map();
-  let editCount = 0;
 
   function linkAttributeEditData(
     attr: LinkAttrT,
@@ -401,11 +410,6 @@ async function submitRelationshipEdits(
         editData.gid = entity.gid;
       }
       return editData;
-    } else if (entity.entityType === 'work') {
-      invariant(
-        entity._fromBatchCreateWorksDialog !== true &&
-        isDatabaseRowId(entity.id),
-      );
     }
     return {
       entityType: (entity.entityType: NonUrlCoreEntityTypeT),
@@ -414,10 +418,13 @@ async function submitRelationshipEdits(
     };
   }
 
-  function getRelationshipEditsForEntity(
+  function* getRelationshipEditsForEntity(
     targetTypeGroups: RelationshipTargetTypeGroupsT,
-  ): Array<[Array<RelationshipStateT>, WsJsEditRelationshipT]> {
-    const edits = [];
+  ): Generator<
+    [Array<RelationshipStateT>, WsJsEditRelationshipT],
+    void,
+    void,
+  > {
     const reorderedRelationships: Map<
       number,
       Map<
@@ -490,10 +497,10 @@ async function submitRelationshipEdits(
           if (relationship.linkOrder != null) {
             editData.linkOrder = relationship.linkOrder;
           }
-          edits.push([
+          yield [
             [relationship],
             (editData: WsJsEditRelationshipCreateT),
-          ]);
+          ];
           break;
         }
         case REL_STATUS_EDIT: {
@@ -612,10 +619,10 @@ async function submitRelationshipEdits(
               }
             }
           }
-          edits.push([
+          yield [
             [relationship],
             (editData: WsJsEditRelationshipEditT),
-          ]);
+          ];
           break;
         }
         case REL_STATUS_REMOVE: {
@@ -624,11 +631,11 @@ async function submitRelationshipEdits(
             origRelationship &&
             origRelationship.linkTypeID != null,
           );
-          edits.push([[relationship], {
+          yield [[relationship], {
             edit_type: EDIT_RELATIONSHIP_DELETE,
             id: origRelationship.id,
             linkTypeID: origRelationship.linkTypeID,
-          }]);
+          }];
           break;
         }
       }
@@ -651,69 +658,73 @@ async function submitRelationshipEdits(
           });
         }
 
-        edits.push([relationships, {
+        yield [relationships, {
           edit_type: EDIT_RELATIONSHIPS_REORDER,
           linkTypeID: linkTypeId,
           relationship_order: relationshipOrderEditData,
-        }]);
+        }];
       }
     }
-    editCount += edits.length;
-    return edits;
   }
 
-  let responseData;
-  mediumLoop:
   for (const [/* position */, mediumState] of tree.iterate(state.mediums)) {
     for (const recordingState of tree.iterate(mediumState)) {
-      /* eslint-disable no-await-in-loop */
-      responseData = await wsJsEditSubmission(
-        dispatch,
-        state,
-        getRelationshipEditsForEntity(recordingState.targetTypeGroups),
-      );
-      if (responseData === null) {
-        break mediumLoop;
-      }
+      yield {
+        edits: getRelationshipEditsForEntity(recordingState.targetTypeGroups),
+        entity: recordingState.recording,
+      };
 
       for (const relatedWork of tree.iterate(recordingState.relatedWorks)) {
-        responseData = await wsJsEditSubmission(
-          dispatch,
-          state,
-          getRelationshipEditsForEntity(relatedWork.targetTypeGroups),
-        );
-        if (responseData === null) {
-          break mediumLoop;
-        }
+        yield {
+          edits: getRelationshipEditsForEntity(relatedWork.targetTypeGroups),
+          entity: relatedWork.work,
+        };
       }
-      /* eslint-enable no-await-in-loop */
     }
   }
 
-  responseData = await wsJsEditSubmission(
-    dispatch,
-    state,
-    getRelationshipEditsForEntity(findTargetTypeGroups(
+  yield {
+    edits: getRelationshipEditsForEntity(findTargetTypeGroups(
       state.relationshipsBySource,
       state.entity,
     )),
-  );
-  if (responseData === null) {
-    return;
-  }
+    entity: state.entity,
+  };
 
-  responseData = await wsJsEditSubmission(
-    dispatch,
-    state,
-    getRelationshipEditsForEntity(findTargetTypeGroups(
+  yield {
+    edits: getRelationshipEditsForEntity(findTargetTypeGroups(
       state.relationshipsBySource,
       state.entity.releaseGroup,
     )),
-  );
-  if (responseData === null) {
-    return;
-  }
+    entity: state.entity.releaseGroup,
+  };
+}
 
+function stateHasPendingEdits(
+  state: ReleaseRelationshipEditorStateT,
+): boolean {
+  for (const {edits} of getAllRelationshipEdits(state)) {
+    if (!edits.next().done) {
+      return true;
+    }
+  }
+  return false;
+}
+
+async function submitRelationshipEdits(
+  dispatch: (ReleaseRelationshipEditorActionT) => void,
+  state: ReleaseRelationshipEditorStateT,
+): Promise<void> {
+  let editCount = 0;
+  let responseData;
+  for (const {edits} of getAllRelationshipEdits(state)) {
+    const editsList = Array.from(edits);
+    editCount += editsList.length;
+    responseData = await wsJsEditSubmission(dispatch, state, editsList);
+    if (responseData === null) {
+      return;
+    }
+  }
   if (editCount === 0) {
     alert(l('You haven’t made any changes!'));
   } else {
@@ -1561,6 +1572,29 @@ let ReleaseRelationshipEditor: React.AbstractComponent<{}, void> = (
       MB.relationshipEditor.state = null;
     };
   }, [dispatch, state]);
+
+  const hasPendingEdits = React.useMemo(() => {
+    return stateHasPendingEdits(state);
+  }, [state]);
+
+  React.useEffect(() => {
+    const beforeUnload = function (event: BeforeUnloadEvent) {
+      if (state.submissionInProgress) {
+        return undefined;
+      }
+      if (hasPendingEdits) {
+        // Modern browsers don't actually display this string for security.
+        event.returnValue =
+          'All of your changes will be lost if you leave this page.';
+        return event.returnValue;
+      }
+      return undefined;
+    };
+    window.addEventListener('beforeunload', beforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', beforeUnload);
+    };
+  }, [state.submissionInProgress, hasPendingEdits]);
 
   const handleSubmit = React.useCallback((
     event: SyntheticEvent<HTMLFormElement>,
