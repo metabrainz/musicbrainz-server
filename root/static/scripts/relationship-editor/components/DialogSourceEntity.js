@@ -14,7 +14,6 @@ import {
   ENTITIES_WITH_RELATIONSHIP_CREDITS,
   ENTITY_NAMES,
 } from '../../common/constants.js';
-import {bracketedText} from '../../common/utility/bracketed.js';
 import * as URLCleanup from '../../edit/URLCleanup.js';
 import type {
   DialogSourceEntityStateT,
@@ -23,6 +22,7 @@ import type {
 import type {
   DialogEntityCreditActionT,
 } from '../types/actions.js';
+import getBatchSelectionMessage from '../utility/getBatchSelectionMessage.js';
 import getRelationshipLinkType from '../utility/getRelationshipLinkType.js';
 import isRelationshipBackward from '../utility/isRelationshipBackward.js';
 
@@ -89,31 +89,6 @@ export function reducer(
   action: DialogEntityCreditActionT,
 ): DialogSourceEntityStateT {
   return dialogEntityCreditReducer(state, action);
-}
-
-function getBatchSelectionMessage(
-  sourceType: CoreEntityTypeT,
-  batchSelectionCount: number,
-): string {
-  switch (sourceType) {
-    case 'recording': {
-      return bracketedText(texp.ln(
-        '{n} recording selected',
-        '{n} recordings selected',
-        batchSelectionCount,
-        {n: batchSelectionCount},
-      ));
-    }
-    case 'work': {
-      return bracketedText(texp.ln(
-        '{n} work selected',
-        '{n} works selected',
-        batchSelectionCount,
-        {n: batchSelectionCount},
-      ));
-    }
-  }
-  return '';
 }
 
 const DialogSourceEntity = (React.memo<PropsT>(({

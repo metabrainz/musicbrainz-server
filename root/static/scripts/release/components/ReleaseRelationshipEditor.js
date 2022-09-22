@@ -36,7 +36,6 @@ import linkedEntities, {
 } from '../../common/linkedEntities.mjs';
 import MB from '../../common/MB.js';
 import areDatesEqual from '../../common/utility/areDatesEqual.js';
-import {bracketedText} from '../../common/utility/bracketed.js';
 import {
   getSourceEntityDataForRelationshipEditor,
 } from '../../common/utility/catalyst.js';
@@ -101,6 +100,8 @@ import {
   iterateRelationshipsInTargetTypeGroup,
   iterateRelationshipsInTargetTypeGroups,
 } from '../../relationship-editor/utility/findState.js';
+import getBatchSelectionMessage
+  from '../../relationship-editor/utility/getBatchSelectionMessage.js';
 import getRelationshipEditStatus
   from '../../relationship-editor/utility/getRelationshipEditStatus.js';
 import getRelationshipKey
@@ -1388,12 +1389,7 @@ const TrackRelationshipsSection = React.memo(({
                   {' '}
                   {l('Recording')}
                   {' '}
-                  {bracketedText(texp.ln(
-                    '{n} recording selected',
-                    '{n} recordings selected',
-                    recordingCount,
-                    {n: recordingCount},
-                  ))}
+                  {getBatchSelectionMessage('recording', recordingCount)}
                 </th>
                 <th className="works">
                   <input
@@ -1405,12 +1401,7 @@ const TrackRelationshipsSection = React.memo(({
                   {' '}
                   {l('Related Works')}
                   {' '}
-                  {bracketedText(texp.ln(
-                    '{n} work selected',
-                    '{n} works selected',
-                    workCount,
-                    {n: workCount},
-                  ))}
+                  {getBatchSelectionMessage('work', workCount)}
                 </th>
               </tr>
             </thead>

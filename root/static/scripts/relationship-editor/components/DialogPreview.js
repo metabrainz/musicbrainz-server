@@ -19,31 +19,18 @@ import RelationshipDiff from '../../edit/components/edit/RelationshipDiff.js';
 import type {
   RelationshipStateT,
 } from '../types.js';
+import getBatchSelectionMessage from '../utility/getBatchSelectionMessage.js';
 import relationshipsHaveSamePhraseGroup
   from '../utility/relationshipsHaveSamePhraseGroup.js';
 
 type PropsT = {
   +backward: boolean,
+  +batchSelectionCount: number | void,
   +dispatch: ({+type: 'change-direction'}) => void,
   +newRelationship: RelationshipStateT | null,
   +oldRelationship: RelationshipStateT | null,
   +source: CoreEntityT,
 };
-
-const makeEntityLink = (
-  entity: CoreEntityT,
-  content: string,
-  relationship: RelationshipT,
-) => (
-  <EntityLink
-    allowNew
-    content={content}
-    disableLink={isDisabledLink(relationship, entity)}
-    entity={entity}
-    showDisambiguation={false}
-    target="_blank"
-  />
-);
 
 const createRelationshipTFromState = (
   relationship: RelationshipStateT,
@@ -89,6 +76,7 @@ function relationshipsAreIdenticalIgnoringLinkOrder(
 
 const DialogPreview = (React.memo<PropsT>(({
   backward,
+  batchSelectionCount,
   dispatch,
   source,
   newRelationship,
@@ -101,6 +89,26 @@ const DialogPreview = (React.memo<PropsT>(({
   const targetType = backward
     ? newRelationship?.entity0.entityType
     : newRelationship?.entity1.entityType;
+
+  const makeEntityLink = (
+    entity: CoreEntityT,
+    content: string,
+    relationship: RelationshipT,
+  ) => (
+    <EntityLink
+      allowNew
+      content={content}
+      deletedCaption={
+        (batchSelectionCount != null && entity === source)
+          ? getBatchSelectionMessage(source.entityType, batchSelectionCount)
+          : undefined
+      }
+      disableLink={isDisabledLink(relationship, entity)}
+      entity={entity}
+      showDisambiguation={false}
+      target="_blank"
+    />
+  );
 
   const relationshipPreview = (
     relationship: RelationshipStateT,
