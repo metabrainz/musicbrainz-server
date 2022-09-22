@@ -264,19 +264,20 @@ function formatLinkType(linkType: LinkTypeT) {
   const description = stripHtml(linkType.l_description);
   const linkPhrase = linkType.l_link_phrase;
   const reverseLinkPhrase = linkType.l_reverse_link_phrase;
+  const isGroupingType = !nonEmpty(description);
 
   return (
     <>
       {linkType.l_name}
-      {nonEmpty(linkPhrase) ? showExtraInfoLine(
+      {nonEmpty(linkPhrase) && !isGroupingType ? showExtraInfoLine(
         l('Forward link phrase:') + ' ' + linkPhrase,
         'comment',
       ) : null}
-      {nonEmpty(reverseLinkPhrase) ? showExtraInfoLine(
+      {nonEmpty(reverseLinkPhrase) && !isGroupingType ? showExtraInfoLine(
         l('Reverse link phrase:') + ' ' + reverseLinkPhrase,
         'comment',
       ) : null}
-      {nonEmpty(description) ? showExtraInfoLine(description) : null}
+      {isGroupingType ? null : showExtraInfoLine(description)}
     </>
   );
 }
