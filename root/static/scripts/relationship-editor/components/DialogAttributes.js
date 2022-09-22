@@ -16,6 +16,7 @@ import linkedEntities from '../../common/linkedEntities.mjs';
 import bracketed from '../../common/utility/bracketed.js';
 import clean from '../../common/utility/clean.js';
 import {uniqueId} from '../../common/utility/numbers.js';
+import {kebabCase} from '../../common/utility/strings.js';
 import useRangeSelectionHandler from '../hooks/useRangeSelectionHandler.js';
 import type {
   DialogAttributesStateT,
@@ -396,7 +397,11 @@ const DialogAttributes = (React.memo<PropsT>(({
 
           return (
             <div
-              className={'attribute-container ' + attribute.control}
+              className={
+                'attribute-container ' +
+                attribute.control + ' ' +
+                kebabCase(attribute.type.name)
+              }
               key={attribute.key}
             >
               {attributeElement}

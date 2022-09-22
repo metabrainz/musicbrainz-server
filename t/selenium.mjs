@@ -666,6 +666,10 @@ const seleniumTests = [
     login: true,
   },
   {
+    name: 'Artist_Edit_Form.json5',
+    login: true,
+  },
+  {
     name: 'Genre_Edit_Form.json5',
     login: true,
   },
