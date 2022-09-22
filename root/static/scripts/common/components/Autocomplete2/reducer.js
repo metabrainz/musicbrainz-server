@@ -147,7 +147,10 @@ export function generateItems<+T: EntityItemT>(
       } else {
         items.push(MENU_ITEMS.TRY_AGAIN_INDEXED);
       }
-      if (determineIfUserCanAddEntities(state)) {
+      if (
+        determineIfUserCanAddEntities(state) &&
+        typeof ADD_NEW_ENTITY_TITLES[state.entityType] === 'function'
+      ) {
         items.push({
           action: OPEN_ADD_ENTITY_DIALOG,
           id: 'add-new-entity',
@@ -176,6 +179,7 @@ export function determineIfUserCanAddEntities<+T: EntityItemT>(
     case 'genre':
     case 'link_type':
     case 'link_attribute_type':
+    case 'release':
       return false;
     case 'instrument':
       return isRelationshipEditor(user);

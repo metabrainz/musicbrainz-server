@@ -92,7 +92,7 @@ const RelationshipTargetTypeGroups = (React.memo<PropsT>(({
               buildChildren={buildPopoverContent}
               buttonContent={l('Add relationship')}
               buttonProps={{
-                className: 'add-item with-label',
+                className: 'add-item with-label add-relationship',
               }}
               buttonRef={addButtonRef}
               className="relationship-dialog"
