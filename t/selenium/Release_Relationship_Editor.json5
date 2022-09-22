@@ -1739,5 +1739,84 @@
       },
     },
     // End of test for MBS-12606.
+    // MBS-12616: Searching for a release crashes the relationship dialog.
+    {
+      command: 'open',
+      target: '/release/868cc741-e3bc-31bc-9dac-756e35c8f152/edit-relationships',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#release-rels .rel-editor-table button.add-relationship',
+      value: '',
+    },
+    {
+      command: 'select',
+      target: 'css=#add-relationship-dialog select.entity-type',
+      value: 'label=Release',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: 'Demons',
+    },
+    {
+      command: 'pause',
+      target: '1500',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=//div[contains(@class, "relationship-target")]/ul/li[contains(descendant::text(), "Demons")]',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'supporting${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=#relationship-editor-form button.positive',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 28,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            id: 249113,
+            name: 'Vision Creation Newsun',
+          },
+          entity1: {
+            gid: 'dd245091-b21e-48a3-b59a-f9b8ed8a0469',
+            id: 26,
+            name: 'Demons',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 3,
+            link_phrase: 'released in support of',
+            long_link_phrase: 'was released in support of',
+            name: 'supporting release',
+            reverse_link_phrase: 'supporting releases',
+          },
+          type0: 'release',
+          type1: 'release',
+        },
+      },
+    },
+    // End of test for MBS-12616.
   ],
 }

@@ -17,6 +17,7 @@ import {
 } from 'weight-balanced-tree/update';
 
 import hydrate from '../../../../utility/hydrate.js';
+import {expect} from '../../../../utility/invariant.js';
 import {
   EMPTY_PARTIAL_DATE,
   RECORDING_OF_LINK_TYPE_ID,
@@ -36,7 +37,6 @@ import linkedEntities, {
 } from '../../common/linkedEntities.mjs';
 import MB from '../../common/MB.js';
 import areDatesEqual from '../../common/utility/areDatesEqual.js';
-import {bracketedText} from '../../common/utility/bracketed.js';
 import {
   getSourceEntityDataForRelationshipEditor,
 } from '../../common/utility/catalyst.js';
@@ -69,6 +69,8 @@ import {
   REL_STATUS_REMOVE,
   RelationshipSourceGroupsContext,
 } from '../../relationship-editor/constants.js';
+import useRangeSelectionHandler
+  from '../../relationship-editor/hooks/useRangeSelectionHandler.js';
 import type {
   MediumRecordingStateTreeT,
   MediumStateTreeT,
@@ -99,6 +101,8 @@ import {
   iterateRelationshipsInTargetTypeGroup,
   iterateRelationshipsInTargetTypeGroups,
 } from '../../relationship-editor/utility/findState.js';
+import getBatchSelectionMessage
+  from '../../relationship-editor/utility/getBatchSelectionMessage.js';
 import getRelationshipEditStatus
   from '../../relationship-editor/utility/getRelationshipEditStatus.js';
 import getRelationshipKey
@@ -107,8 +111,10 @@ import getRelationshipLinkType
   from '../../relationship-editor/utility/getRelationshipLinkType.js';
 import isRelationshipBackward
   from '../../relationship-editor/utility/isRelationshipBackward.js';
-import updateRecordingStates
-  from '../../relationship-editor/utility/updateRecordingStates.js';
+import updateRecordingStates, {
+  compareMediumWithMediumStateTuple,
+  compareRecordingIdWithRecordingState,
+} from '../../relationship-editor/utility/updateRecordingStates.js';
 import updateRelationships, {
   ADD_RELATIONSHIP,
   REMOVE_RELATIONSHIP,
@@ -354,12 +360,21 @@ async function submitWorkEdits(
   }
 }
 
-async function submitRelationshipEdits(
-  dispatch: (ReleaseRelationshipEditorActionT) => void,
+function* getAllRelationshipEdits(
   state: ReleaseRelationshipEditorStateT,
-): Promise<void> {
+): Generator<
+  {
+    +edits: Generator<
+      [Array<RelationshipStateT>, WsJsEditRelationshipT],
+      void,
+      void,
+    >,
+    +entity: CoreEntityT,
+  },
+  void,
+  void,
+> {
   const seenRelationships = new Map();
-  let editCount = 0;
 
   function linkAttributeEditData(
     attr: LinkAttrT,
@@ -398,11 +413,6 @@ async function submitRelationshipEdits(
         editData.gid = entity.gid;
       }
       return editData;
-    } else if (entity.entityType === 'work') {
-      invariant(
-        entity._fromBatchCreateWorksDialog !== true &&
-        isDatabaseRowId(entity.id),
-      );
     }
     return {
       entityType: (entity.entityType: NonUrlCoreEntityTypeT),
@@ -411,10 +421,13 @@ async function submitRelationshipEdits(
     };
   }
 
-  function getRelationshipEditsForEntity(
+  function* getRelationshipEditsForEntity(
     targetTypeGroups: RelationshipTargetTypeGroupsT,
-  ): Array<[Array<RelationshipStateT>, WsJsEditRelationshipT]> {
-    const edits = [];
+  ): Generator<
+    [Array<RelationshipStateT>, WsJsEditRelationshipT],
+    void,
+    void,
+  > {
     const reorderedRelationships: Map<
       number,
       Map<
@@ -487,10 +500,10 @@ async function submitRelationshipEdits(
           if (relationship.linkOrder != null) {
             editData.linkOrder = relationship.linkOrder;
           }
-          edits.push([
+          yield [
             [relationship],
             (editData: WsJsEditRelationshipCreateT),
-          ]);
+          ];
           break;
         }
         case REL_STATUS_EDIT: {
@@ -609,10 +622,10 @@ async function submitRelationshipEdits(
               }
             }
           }
-          edits.push([
+          yield [
             [relationship],
             (editData: WsJsEditRelationshipEditT),
-          ]);
+          ];
           break;
         }
         case REL_STATUS_REMOVE: {
@@ -621,11 +634,11 @@ async function submitRelationshipEdits(
             origRelationship &&
             origRelationship.linkTypeID != null,
           );
-          edits.push([[relationship], {
+          yield [[relationship], {
             edit_type: EDIT_RELATIONSHIP_DELETE,
             id: origRelationship.id,
             linkTypeID: origRelationship.linkTypeID,
-          }]);
+          }];
           break;
         }
       }
@@ -648,69 +661,73 @@ async function submitRelationshipEdits(
           });
         }
 
-        edits.push([relationships, {
+        yield [relationships, {
           edit_type: EDIT_RELATIONSHIPS_REORDER,
           linkTypeID: linkTypeId,
           relationship_order: relationshipOrderEditData,
-        }]);
+        }];
       }
     }
-    editCount += edits.length;
-    return edits;
   }
 
-  let responseData;
-  mediumLoop:
   for (const [/* position */, mediumState] of tree.iterate(state.mediums)) {
     for (const recordingState of tree.iterate(mediumState)) {
-      /* eslint-disable no-await-in-loop */
-      responseData = await wsJsEditSubmission(
-        dispatch,
-        state,
-        getRelationshipEditsForEntity(recordingState.targetTypeGroups),
-      );
-      if (responseData === null) {
-        break mediumLoop;
-      }
+      yield {
+        edits: getRelationshipEditsForEntity(recordingState.targetTypeGroups),
+        entity: recordingState.recording,
+      };
 
       for (const relatedWork of tree.iterate(recordingState.relatedWorks)) {
-        responseData = await wsJsEditSubmission(
-          dispatch,
-          state,
-          getRelationshipEditsForEntity(relatedWork.targetTypeGroups),
-        );
-        if (responseData === null) {
-          break mediumLoop;
-        }
+        yield {
+          edits: getRelationshipEditsForEntity(relatedWork.targetTypeGroups),
+          entity: relatedWork.work,
+        };
       }
-      /* eslint-enable no-await-in-loop */
     }
   }
 
-  responseData = await wsJsEditSubmission(
-    dispatch,
-    state,
-    getRelationshipEditsForEntity(findTargetTypeGroups(
+  yield {
+    edits: getRelationshipEditsForEntity(findTargetTypeGroups(
       state.relationshipsBySource,
       state.entity,
     )),
-  );
-  if (responseData === null) {
-    return;
-  }
+    entity: state.entity,
+  };
 
-  responseData = await wsJsEditSubmission(
-    dispatch,
-    state,
-    getRelationshipEditsForEntity(findTargetTypeGroups(
+  yield {
+    edits: getRelationshipEditsForEntity(findTargetTypeGroups(
       state.relationshipsBySource,
       state.entity.releaseGroup,
     )),
-  );
-  if (responseData === null) {
-    return;
-  }
+    entity: state.entity.releaseGroup,
+  };
+}
 
+function stateHasPendingEdits(
+  state: ReleaseRelationshipEditorStateT,
+): boolean {
+  for (const {edits} of getAllRelationshipEdits(state)) {
+    if (!edits.next().done) {
+      return true;
+    }
+  }
+  return false;
+}
+
+async function submitRelationshipEdits(
+  dispatch: (ReleaseRelationshipEditorActionT) => void,
+  state: ReleaseRelationshipEditorStateT,
+): Promise<void> {
+  let editCount = 0;
+  let responseData;
+  for (const {edits} of getAllRelationshipEdits(state)) {
+    const editsList = Array.from(edits);
+    editCount += editsList.length;
+    responseData = await wsJsEditSubmission(dispatch, state, editsList);
+    if (responseData === null) {
+      return;
+    }
+  }
   if (editCount === 0) {
     alert(l('You haven’t made any changes!'));
   } else {
@@ -869,6 +886,22 @@ const reducer = reducerWithErrorHandling<
     case 'accept-batch-create-works-dialog': {
       const getBatchUpdates = function* () {
         for (const recording of tree.iterate(state.selectedRecordings)) {
+          const mediums =
+            expect(state.mediumsByRecordingId.get(recording.id));
+          // Skip recordings that already have linked works.
+          if (
+            expect(tree.find(
+              expect(tree.find(
+                state.mediums,
+                mediums[0],
+                compareMediumWithMediumStateTuple,
+              ))[1],
+              recording.id,
+              compareRecordingIdWithRecordingState,
+            )).relatedWorks != null
+          ) {
+            continue;
+          }
           const newWork = createWorkObject({
             _fromBatchCreateWorksDialog: true,
             id: uniqueNegativeId(),
@@ -1333,6 +1366,19 @@ const TrackRelationshipsSection = React.memo(({
     });
   }, [dispatch]);
 
+  const recordingRangeSelectionHandler =
+    useRangeSelectionHandler('recording');
+  const workRangeSelectionHandler =
+    useRangeSelectionHandler('work');
+
+  const rangeSelectionHandler = React.useCallback((event: MouseEvent) => {
+    recordingRangeSelectionHandler(event);
+    workRangeSelectionHandler(event);
+  }, [
+    recordingRangeSelectionHandler,
+    workRangeSelectionHandler,
+  ]);
+
   return (
     <>
       <h2>{l('Track Relationships')}</h2>
@@ -1355,7 +1401,11 @@ const TrackRelationshipsSection = React.memo(({
               mediums={release.mediums}
             />
           </span>
-          <table className="tbl" id="tracklist">
+          <table
+            className="tbl"
+            id="tracklist"
+            onClick={rangeSelectionHandler}
+          >
             <thead>
               <tr>
                 <th className="pos t">{l('#')}</th>
@@ -1369,12 +1419,7 @@ const TrackRelationshipsSection = React.memo(({
                   {' '}
                   {l('Recording')}
                   {' '}
-                  {bracketedText(texp.ln(
-                    '{n} recording selected',
-                    '{n} recordings selected',
-                    recordingCount,
-                    {n: recordingCount},
-                  ))}
+                  {getBatchSelectionMessage('recording', recordingCount)}
                 </th>
                 <th className="works">
                   <input
@@ -1386,12 +1431,7 @@ const TrackRelationshipsSection = React.memo(({
                   {' '}
                   {l('Related Works')}
                   {' '}
-                  {bracketedText(texp.ln(
-                    '{n} work selected',
-                    '{n} works selected',
-                    workCount,
-                    {n: workCount},
-                  ))}
+                  {getBatchSelectionMessage('work', workCount)}
                 </th>
               </tr>
             </thead>
@@ -1551,6 +1591,29 @@ let ReleaseRelationshipEditor: React.AbstractComponent<{}, void> = (
       MB.relationshipEditor.state = null;
     };
   }, [dispatch, state]);
+
+  const hasPendingEdits = React.useMemo(() => {
+    return stateHasPendingEdits(state);
+  }, [state]);
+
+  React.useEffect(() => {
+    const beforeUnload = function (event: BeforeUnloadEvent) {
+      if (state.submissionInProgress) {
+        return undefined;
+      }
+      if (hasPendingEdits) {
+        // Modern browsers don't actually display this string for security.
+        event.returnValue =
+          'All of your changes will be lost if you leave this page.';
+        return event.returnValue;
+      }
+      return undefined;
+    };
+    window.addEventListener('beforeunload', beforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', beforeUnload);
+    };
+  }, [state.submissionInProgress, hasPendingEdits]);
 
   const handleSubmit = React.useCallback((
     event: SyntheticEvent<HTMLFormElement>,

@@ -10,8 +10,8 @@
 import * as React from 'react';
 import * as tree from 'weight-balanced-tree';
 
-import ArtistCreditLink from '../../common/components/ArtistCreditLink.js';
 import ButtonPopover from '../../common/components/ButtonPopover.js';
+import DescriptiveLink from '../../common/components/DescriptiveLink.js';
 import EntityLink from '../../common/components/EntityLink.js';
 import {RECORDING_OF_LINK_TYPE_ID} from '../../common/constants.js';
 import {createWorkObject} from '../../common/entity2.js';
@@ -46,21 +46,27 @@ const TrackLink = React.memo<TrackLinkPropsT>(({
   showArtists,
   track,
 }) => {
-  let trackLink: Expand2ReactOutput = (
-    <EntityLink
-      content={track.name}
-      entity={track.recording}
-      target="_blank"
-    />
-  );
-
+  let trackLink: Expand2ReactOutput;
   if (showArtists) {
-    trackLink = exp.l('{entity} by {artist}', {
-      artist: <ArtistCreditLink artistCredit={track.artistCredit} />,
-      entity: trackLink,
-    });
+    trackLink = (
+      <DescriptiveLink
+        content={track.name}
+        customArtistCredit={track.artistCredit}
+        entity={track.recording}
+        showDisambiguation={false}
+        target="_blank"
+      />
+    );
+  } else {
+    trackLink = (
+      <EntityLink
+        content={track.name}
+        entity={track.recording}
+        showDisambiguation={false}
+        target="_blank"
+      />
+    );
   }
-
   return (
     <>
       {trackLink}
@@ -103,6 +109,7 @@ const RelatedWorkHeading = ({
     <h3>
       <input
         checked={isSelected}
+        className="work"
         onChange={selectWork}
         type="checkbox"
       />
@@ -147,6 +154,7 @@ const NewRelatedWorkHeading = ({
     <h3 id={'new-work-' + String(work.id)}>
       <input
         checked={isSelected}
+        className="work"
         onChange={selectWork}
         type="checkbox"
       />
@@ -361,6 +369,7 @@ const TrackRelationshipEditor = (React.memo<TrackRelationshipEditorPropsT>(({
       <td className="recording">
         <input
           checked={recordingState.isSelected}
+          className="recording"
           onChange={selectRecording}
           type="checkbox"
         />

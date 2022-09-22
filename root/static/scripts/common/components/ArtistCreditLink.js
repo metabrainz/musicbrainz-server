@@ -72,7 +72,7 @@ export const MpIcon = (hydrate<MpIconProps>('span.ac-mp', (
 const ArtistCreditLink = ({
   artistCredit,
   showDeleted = true,
-  showDisambiguation = true,
+  showDisambiguation = false,
   showEditsPending = true,
   showIcon = false,
   ...props

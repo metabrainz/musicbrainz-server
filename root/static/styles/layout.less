@@ -696,7 +696,8 @@ table.tbl {
         background: data-uri('../images/layout/table-header.gif') repeat-x 0 50%;
     }
 
-    > thead th {
+    /* Should not apply to nested tables. */
+    > thead th, > tbody > tr > th {
         font-size: @small-text;
         padding: 0.2em 0.4em;
         text-align: left;

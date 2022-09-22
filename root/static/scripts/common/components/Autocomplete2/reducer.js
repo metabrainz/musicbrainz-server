@@ -122,7 +122,8 @@ export function generateItems<+T: EntityItemT>(
 
     if (resultCount > 0) {
       const visibleResults = Math.min(resultCount, page * PAGE_SIZE);
-      const totalPages = Math.ceil(resultCount / PAGE_SIZE);
+      const totalPages = state.totalPages ??
+        Math.ceil(resultCount / PAGE_SIZE);
 
       if (showingRecentItems) {
         items.push({...results[0], separator: true});
@@ -147,7 +148,10 @@ export function generateItems<+T: EntityItemT>(
       } else {
         items.push(MENU_ITEMS.TRY_AGAIN_INDEXED);
       }
-      if (determineIfUserCanAddEntities(state)) {
+      if (
+        determineIfUserCanAddEntities(state) &&
+        typeof ADD_NEW_ENTITY_TITLES[state.entityType] === 'function'
+      ) {
         items.push({
           action: OPEN_ADD_ENTITY_DIALOG,
           id: 'add-new-entity',
@@ -176,6 +180,7 @@ export function determineIfUserCanAddEntities<+T: EntityItemT>(
     case 'genre':
     case 'link_type':
     case 'link_attribute_type':
+    case 'release':
       return false;
     case 'instrument':
       return isRelationshipEditor(user);
@@ -284,6 +289,7 @@ export function resetPage<+T: EntityItemT>(
   state.highlightedIndex = -1;
   state.isOpen = false;
   state.page = 1;
+  state.totalPages = null;
   state.error = 0;
 }
 
@@ -460,7 +466,7 @@ export function runReducer<+T: EntityItemT>(
     }
 
     case 'show-ws-results': {
-      const {entities, page} = action;
+      const {entities, page, totalPages} = action;
 
       let newResults: Array<ItemT<T>> = entities.map((entity: T) => ({
         entity,
@@ -476,14 +482,20 @@ export function runReducer<+T: EntityItemT>(
         newResults = prevResults.concat(
           newResults.filter(x => !prevIds.has(x.id)),
         );
+        /*
+         * Keep the previous `highlightedIndex` position here (most likely
+         * where "Show more" was clicked).
+         */
+      } else {
+        state.highlightedIndex = 0;
       }
 
       state.results = newResults;
       state.isOpen = true;
       state.page = page;
+      state.totalPages = totalPages;
       state.pendingSearch = null;
       state.error = 0;
-      state.highlightedIndex = 0;
 
       updateItems = true;
       updateStatusMessage = true;

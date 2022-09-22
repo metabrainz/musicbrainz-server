@@ -47,6 +47,7 @@ const DescriptiveLink = ({
     showDisambiguation,
     showEditsPending,
     showIcon,
+    target,
   };
 
   const props = {
