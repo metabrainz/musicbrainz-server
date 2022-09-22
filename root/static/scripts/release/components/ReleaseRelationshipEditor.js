@@ -69,6 +69,8 @@ import {
   REL_STATUS_REMOVE,
   RelationshipSourceGroupsContext,
 } from '../../relationship-editor/constants.js';
+import useRangeSelectionHandler
+  from '../../relationship-editor/hooks/useRangeSelectionHandler.js';
 import type {
   MediumRecordingStateTreeT,
   MediumStateTreeT,
@@ -1333,6 +1335,19 @@ const TrackRelationshipsSection = React.memo(({
     });
   }, [dispatch]);
 
+  const recordingRangeSelectionHandler =
+    useRangeSelectionHandler('recording');
+  const workRangeSelectionHandler =
+    useRangeSelectionHandler('work');
+
+  const rangeSelectionHandler = React.useCallback((event: MouseEvent) => {
+    recordingRangeSelectionHandler(event);
+    workRangeSelectionHandler(event);
+  }, [
+    recordingRangeSelectionHandler,
+    workRangeSelectionHandler,
+  ]);
+
   return (
     <>
       <h2>{l('Track Relationships')}</h2>
@@ -1355,7 +1370,11 @@ const TrackRelationshipsSection = React.memo(({
               mediums={release.mediums}
             />
           </span>
-          <table className="tbl" id="tracklist">
+          <table
+            className="tbl"
+            id="tracklist"
+            onClick={rangeSelectionHandler}
+          >
             <thead>
               <tr>
                 <th className="pos t">{l('#')}</th>

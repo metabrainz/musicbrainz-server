@@ -52,6 +52,7 @@ const BooleanAttribute = (React.memo(({
   <label>
     <input
       checked={state.enabled}
+      className="boolean"
       id={kebabCase(state.type.name) + '-checkbox'}
       onChange={(event: SyntheticEvent<HTMLInputElement>) => {
         dispatch(state.key, {
