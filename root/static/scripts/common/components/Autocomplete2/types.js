@@ -39,7 +39,6 @@ export type StateT<T: EntityItemT> = {
   +results: $ReadOnlyArray<ItemT<T>> | null,
   +selectedItem: OptionItemT<T> | null,
   +staticItems?: $ReadOnlyArray<ItemT<T>>,
-  +staticItemsFilter?: (ItemT<T>, string) => boolean,
   +statusMessage: string,
   +width?: string,
 };

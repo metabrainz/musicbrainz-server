@@ -35,6 +35,7 @@ import {
   clearRecentItems,
   pushRecentItem,
 } from './recentItems.js';
+import searchItems from './searchItems.js';
 import type {
   ActionT,
   EntityItemT,
@@ -246,36 +247,9 @@ export function filterStaticItems<+T: EntityItemT>(
   state: {...StateT<T>},
   newInputValue: string,
 ): void {
-  const {
-    inputValue: prevInputValue,
-    results: prevResults,
-    staticItems,
-    staticItemsFilter: filter = defaultStaticItemsFilter,
-  } = state;
-
+  const staticItems = state.staticItems;
   invariant(staticItems);
-
-  /*
-   * If the new search term starts with the previous one,
-   * we can filter the existing items rather than starting
-   * anew.
-   */
-  const itemsToFilter = (
-    nonEmpty(prevInputValue) &&
-    newInputValue.startsWith(prevInputValue)
-  ) ? prevResults : staticItems;
-
-  state.results = (itemsToFilter && nonEmpty(newInputValue))
-    ? (itemsToFilter.reduce(
-        (accum: Array<ItemT<T>>, item: ItemT<T>) => {
-          if (filter(item, newInputValue)) {
-            accum.push(item);
-          }
-          return accum;
-        },
-        [],
-    ): $ReadOnlyArray<ItemT<T>>)
-    : itemsToFilter;
+  state.results = searchItems(staticItems, newInputValue);
 }
 
 export function resetPage<+T: EntityItemT>(
@@ -360,18 +334,6 @@ function highlightNextItem<+T: EntityItemT>(
     }
     index += offset;
   }
-}
-
-export function defaultStaticItemsFilter<+T: EntityItemT>(
-  item: ItemT<T>,
-  searchTerm: string,
-): boolean {
-  if (item.type === 'option') {
-    return unwrapNl<string>(item.name)
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-  }
-  return true;
 }
 
 // `runReducer` should only be run on a copy of the existing state.
