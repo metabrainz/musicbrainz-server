@@ -16,7 +16,7 @@ export function compareMediumWithMediumStateTuple(
   return medium.position - mediumStateTuple[0].position;
 }
 
-function compareRecordingIdWithRecordingState(
+export function compareRecordingIdWithRecordingState(
   recordingId: number,
   recordingState: MediumRecordingStateT,
 ): number {
