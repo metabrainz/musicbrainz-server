@@ -19,8 +19,8 @@ import type {
 
 import {compareRecordings, compareWorks} from './comparators.js';
 import {
-  compareTargetTypeWithGroup,
   findTargetTypeGroups,
+  iterateTargetEntitiesOfType,
 } from './findState.js';
 import updateRecordingStates from './updateRecordingStates.js';
 
@@ -38,32 +38,14 @@ export function* findWorkRecordings(
   writableRootState: ReleaseRelationshipEditorStateT,
   work: WorkT,
 ): Generator<RecordingT, void, void> {
-  const targetTypeGroup = tree.find(
+  yield *iterateTargetEntitiesOfType<RecordingT>(
     findTargetTypeGroups(
       writableRootState.relationshipsBySource,
       work,
     ),
     'recording',
-    compareTargetTypeWithGroup,
+    'entity0',
   );
-  if (!targetTypeGroup) {
-    return;
-  }
-  const [/* 'recording' */, linkTypeGroups] = targetTypeGroup;
-  for (const linkTypeGroup of tree.iterate(linkTypeGroups)) {
-    for (
-      const linkPhraseGroup of
-      tree.iterate(linkTypeGroup.phraseGroups)
-    ) {
-      for (
-        const relationship of
-        tree.iterate(linkPhraseGroup.relationships)
-      ) {
-        /*:: invariant(relationship.entity0.entityType === 'recording'); */
-        yield relationship.entity0;
-      }
-    }
-  }
 }
 
 export default function updateWorkStates(

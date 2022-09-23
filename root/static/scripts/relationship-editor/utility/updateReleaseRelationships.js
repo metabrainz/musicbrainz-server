@@ -11,15 +11,13 @@ import * as tree from 'weight-balanced-tree';
 
 import type {
   MediumWorkStateT,
-  RelationshipTargetTypeGroupsT,
   ReleaseRelationshipEditorStateT,
 } from '../types.js';
 
 import {compareRecordings, compareWorks} from './comparators.js';
 import {
-  compareTargetTypeWithGroup,
   findTargetTypeGroups,
-  iterateRelationshipsInTargetTypeGroup,
+  iterateTargetEntitiesOfType,
 } from './findState.js';
 import updateRecordingStates from './updateRecordingStates.js';
 import type {RelationshipUpdateT} from './updateRelationships.js';
@@ -36,26 +34,6 @@ function compareWorkStates(
   b: MediumWorkStateT,
 ): number {
   return a.work.id - b.work.id;
-}
-
-function* findRecordingWorks(
-  recordingTargetTypeGroups: RelationshipTargetTypeGroupsT,
-): Generator<WorkT, void, void> {
-  const targetTypeGroup = tree.find(
-    recordingTargetTypeGroups,
-    'work',
-    compareTargetTypeWithGroup,
-  );
-  if (!targetTypeGroup) {
-    return;
-  }
-  for (
-    const relationship of
-    iterateRelationshipsInTargetTypeGroup(targetTypeGroup)
-  ) {
-    /*:: invariant(relationship.entity1.entityType === 'work'); */
-    yield relationship.entity1;
-  }
 }
 
 function workHasNoRecordings(
@@ -140,7 +118,13 @@ export default function updateReleaseRelationships(
 
       const recordingWorkIds = new Set();
 
-      for (const work of findRecordingWorks(newTargetTypeGroups)) {
+      for (
+        const work of iterateTargetEntitiesOfType<WorkT>(
+          newTargetTypeGroups,
+          'work',
+          'entity1',
+        )
+      ) {
         recordingWorkIds.add(work.id);
 
         const updateWorkState = (
