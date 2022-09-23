@@ -220,9 +220,9 @@
           attributes: [
             {
               type: {
-                gid: 'f68936f2-194c-4bcd-94a9-81e1dd947b8d',
-                id: 75,
-                name: 'guitars',
+                gid: '21bd4d63-a75a-4022-abd3-52ba7487c2de',
+                id: 109,
+                name: 'lyre',
                 root: {
                   gid: '0abd7f04-5e28-425b-956f-94789d9bcbe2',
                   id: 14,
@@ -266,9 +266,9 @@
           attributes: [
             {
               type: {
-                gid: '21bd4d63-a75a-4022-abd3-52ba7487c2de',
-                id: 109,
-                name: 'lyre',
+                gid: '63021302-86cd-4aee-80df-2270d54f4978',
+                id: 229,
+                name: 'guitar',
                 root: {
                   gid: '0abd7f04-5e28-425b-956f-94789d9bcbe2',
                   id: 14,

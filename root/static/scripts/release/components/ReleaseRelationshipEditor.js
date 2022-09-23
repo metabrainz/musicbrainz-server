@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import deepFreeze from 'deep-freeze-strict';
 import * as React from 'react';
 // $FlowIgnore[missing-export]
 import {flushSync} from 'react-dom';
@@ -205,7 +206,6 @@ export function createInitialState(): ReleaseRelationshipEditorStateT {
     selectedWorks: null,
     submissionError: null,
     submissionInProgress: false,
-    workRecordings: null,
   };
 
   if (release.mediums) {
@@ -834,6 +834,26 @@ const reducer = reducerWithErrorHandling<
       );
       break;
     }
+    case 'remove-work': {
+      const {recording, workState} = action;
+      for (
+        const relationship of
+        iterateRelationshipsInTargetTypeGroups(
+          workState.targetTypeGroups,
+        )
+      ) {
+        if (
+          relationship.entity0.entityType === 'recording' &&
+          relationship.entity0.id === recording.id
+        ) {
+          runRelationshipEditorReducer(
+            newState,
+            {relationship, type: 'remove-relationship'},
+          );
+        }
+      }
+      break;
+    }
     case 'update-relationship-state': {
       const {
         batchSelectionCount,
@@ -1275,6 +1295,10 @@ const reducer = reducerWithErrorHandling<
     default: {
       /*:: exhaustive(action); */
     }
+  }
+
+  if (__DEV__) {
+    deepFreeze(newState);
   }
 
   return newState;
