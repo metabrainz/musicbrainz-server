@@ -45,7 +45,6 @@ export const cloneReleaseRelationshipEditorState:
     selectedWorks: null,
     submissionError: null,
     submissionInProgress: null,
-    workRecordings: null,
   });
 
 export const cloneLinkTypeGroup:

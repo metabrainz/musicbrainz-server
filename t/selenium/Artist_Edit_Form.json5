@@ -1,0 +1,306 @@
+{
+  title: 'Artist Edit Form',
+  commands: [
+    {
+      command: 'open',
+      target: '/artist/create',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-artist.name',
+      value: 'new artist',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-artist.sort_name',
+      value: 'artist, new',
+    },
+    {
+      command: 'select',
+      target: 'id=id-edit-artist.type_id',
+      value: 'label=Group',
+    },
+    {
+      command: 'click',
+      target: 'css=#relationship-editor button.add-item',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: 'group member',
+    },
+    {
+      command: 'pause',
+      target: '2000',
+      value: '',
+    },
+    {
+      command: 'mouseOver',
+      target: 'xpath=//div[@id="add-relationship-dialog"]//div[contains(@class, "relationship-target")]//ul/li[contains(@class, "action-item")][contains(., "Add a new artist")]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=//div[@id="add-relationship-dialog"]//div[contains(@class, "relationship-target")]//ul/li[contains(@class, "action-item")][contains(., "Add a new artist")]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '2000',
+      value: '',
+    },
+    // Can only access the iframe document through JavaScript.
+    {
+      command: 'runScript',
+      target: 'document.querySelector("#add-artist-dialog iframe").contentDocument.querySelector("button.sortname-copy").click();',
+      value: '',
+    },
+    {
+      command: 'runScript',
+      target: 'document.querySelector("#add-artist-dialog iframe").contentDocument.getElementById("id-edit-artist.type_id").value = 1;',
+      value: '',
+    },
+    {
+      command: 'runScript',
+      target: 'document.querySelector("#add-artist-dialog iframe").contentDocument.querySelector("form.edit-artist button.submit.positive").click();',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '3000',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        type: 1,
+        status: 2,
+        data: {
+          area_id: null,
+          begin_area_id: null,
+          begin_date: {
+            day: null,
+            month: null,
+            year: null,
+          },
+          comment: '',
+          end_area_id: null,
+          end_date: {
+            day: null,
+            month: null,
+            year: null,
+          },
+          ended: 0,
+          entity_gid: '$$__IGNORE__$$',
+          entity_id: 3,
+          gender_id: null,
+          ipi_codes: [],
+          isni_codes: [],
+          name: 'group member',
+          sort_name: 'group member',
+          type_id: 1,
+        },
+      },
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'member${KEY_ENTER}',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog .attribute-container.multiselect.instrument > .multiselect-value:nth-child(1) input[aria-autocomplete]',
+      value: 'guitar${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog .attribute-container.multiselect.instrument button.add-item',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog .attribute-container.multiselect.instrument > .multiselect-value:nth-child(2) input[aria-autocomplete]',
+      value: 'lyre${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog button.change-direction',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog button.positive',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#external-link-0 input[type=url]',
+      value: 'https://newartist.bandcamp.com',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=form.edit-artist button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 2,
+      value: {
+        type: 1,
+        status: 2,
+        data: {
+          area_id: null,
+          begin_area_id: null,
+          begin_date: {
+            day: null,
+            month: null,
+            year: null,
+          },
+          comment: '',
+          end_area_id: null,
+          end_date: {
+            day: null,
+            month: null,
+            year: null,
+          },
+          ended: 0,
+          entity_gid: '$$__IGNORE__$$',
+          entity_id: 4,
+          gender_id: null,
+          ipi_codes: [],
+          isni_codes: [],
+          name: 'new artist',
+          sort_name: 'artist, new',
+          type_id: 2,
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 3,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '$$__IGNORE__$$',
+            id: 4,
+            name: 'new artist',
+          },
+          entity1: {
+            gid: '$$__IGNORE__$$',
+            id: 1,
+            name: 'https://newartist.bandcamp.com/',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 718,
+            link_phrase: 'Bandcamp',
+            long_link_phrase: 'has Bandcamp page at',
+            name: 'bandcamp',
+            reverse_link_phrase: 'Bandcamp page for',
+          },
+          type0: 'artist',
+          type1: 'url',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 4,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          attributes: [
+            {
+              type: {
+                gid: '21bd4d63-a75a-4022-abd3-52ba7487c2de',
+                id: 109,
+                name: 'lyre',
+                root: {
+                  gid: '0abd7f04-5e28-425b-956f-94789d9bcbe2',
+                  id: 14,
+                  name: 'instrument',
+                },
+              },
+            },
+          ],
+          edit_version: 2,
+          ended: '0',
+          entity0: {
+            gid: '$$__IGNORE__$$',
+            id: 3,
+            name: 'group member',
+          },
+          entity1: {
+            gid: '$$__IGNORE__$$',
+            id: 4,
+            name: 'new artist',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 103,
+            link_phrase: '{additional} {founder:founding} member of',
+            long_link_phrase: 'is/was {additional:an additional|a} member of {founder:and founded|}',
+            name: 'member of band',
+            reverse_link_phrase: '{additional} {founder:founding} members',
+          },
+          type0: 'artist',
+          type1: 'artist',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 5,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          attributes: [
+            {
+              type: {
+                gid: '63021302-86cd-4aee-80df-2270d54f4978',
+                id: 229,
+                name: 'guitar',
+                root: {
+                  gid: '0abd7f04-5e28-425b-956f-94789d9bcbe2',
+                  id: 14,
+                  name: 'instrument',
+                },
+              },
+            },
+          ],
+          edit_version: 2,
+          ended: '0',
+          entity0: {
+            gid: '$$__IGNORE__$$',
+            id: 3,
+            name: 'group member',
+          },
+          entity1: {
+            gid: '$$__IGNORE__$$',
+            id: 4,
+            name: 'new artist',
+          },
+          entity_id: 2,
+          link_type: {
+            id: 103,
+            link_phrase: '{additional} {founder:founding} member of',
+            long_link_phrase: 'is/was {additional:an additional|a} member of {founder:and founded|}',
+            name: 'member of band',
+            reverse_link_phrase: '{additional} {founder:founding} members',
+          },
+          type0: 'artist',
+          type1: 'artist',
+        },
+      },
+    },
+  ],
+}

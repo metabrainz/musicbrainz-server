@@ -275,7 +275,7 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
             buildChildren={buildPopoverContent}
             buttonContent={addAnotherEntityLabels[targetType]()}
             buttonProps={{
-              className: 'add-item with-label',
+              className: 'add-item with-label add-another-entity',
             }}
             buttonRef={addButtonRef}
             className="relationship-dialog"

@@ -655,6 +655,11 @@ msgctxt "Tuned metal cups"
 msgid "bell"
 msgstr "ベル"
 
+#: DB:instrument/name:1072
+msgctxt "Set of tuned metal plates used in western orchestra"
+msgid "bell plate"
+msgstr ""
+
 #: DB:instrument/name:479
 msgid "bell tree"
 msgstr "ベルツリー"
@@ -2970,6 +2975,7 @@ msgid "portative"
 msgstr "portative"
 
 #: DB:instrument/name:626
+msgctxt "Post-signalling valveless coiled brass"
 msgid "post horn"
 msgstr "ポストホルン"
 

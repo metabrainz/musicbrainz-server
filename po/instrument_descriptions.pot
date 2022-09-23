@@ -926,6 +926,13 @@ msgid ""
 "century, it has an extended neck with a second pegbox."
 msgstr ""
 
+#. name:post horn 
+#: DB:instrument/description:626
+msgid ""
+"Developed as early as the 1500-hundreds and used for mail-carrier "
+"signalling, it was coiled (usually just once) and valveless."
+msgstr ""
+
 #. name:chitarra battente 
 #: DB:instrument/description:939
 msgid ""
@@ -1569,13 +1576,6 @@ msgstr ""
 msgid "Kanun, Arabic plucked strings"
 msgstr ""
 
-#. name:keyed brass instruments 
-#: DB:instrument/description:154
-msgid ""
-"Keyed brass instruments use holes along the body of the instrument in a "
-"similar way to a woodwind instrument."
-msgstr ""
-
 #. name:klong that 
 #: DB:instrument/description:673
 msgid ""
@@ -2067,6 +2067,15 @@ msgid ""
 "buttons operating the reeds in the \"neck\""
 msgstr ""
 
+#. name:mellophone 
+#: DB:instrument/description:37
+msgid ""
+"Not to be confused with <a href=\"/instrument/eafabec6-af67-4a49-"
+"be38-4401e7200494\">melophone</a>, a bellowed free reed shaped like a lute."
+"<br /> Originating in the 19th century horn-design boom, it is used mostly "
+"in outside concert and marching music"
+msgstr ""
+
 #. name:ghijak 
 #: DB:instrument/description:932
 msgid ""
@@ -2229,13 +2238,6 @@ msgid ""
 "one opening and a gut string which ends in a bamboo piece attached to the "
 "membrane. The instrument is held in the armpit and played by plucking the "
 "string while pulling the it."
-msgstr ""
-
-#. name:mellophone 
-#: DB:instrument/description:37
-msgid ""
-"Originating in the 19th century horn-design boom, it is used mostly in "
-"outside concert and marching music"
 msgstr ""
 
 #. name:octavina 
@@ -3808,13 +3810,6 @@ msgid ""
 "as the regular trumpet."
 msgstr ""
 
-#. name:post horn 
-#: DB:instrument/description:626
-msgid ""
-"The post horn is a valveless coiled brass instrument used to signal the "
-"arrival or departure of a post rider or mail coach."
-msgstr ""
-
 #. name:pātē 
 #: DB:instrument/description:726
 msgid "The pātē is a Polynesian slit drum made from a hollowed-out log."
@@ -4355,6 +4350,13 @@ msgid ""
 "in experimental music."
 msgstr ""
 
+#. name:keyed brass instruments 
+#: DB:instrument/description:154
+msgid ""
+"These have holes along the body and sound production is similarly to "
+"woodwinds."
+msgstr ""
+
 #. name:lute 
 #: DB:instrument/description:83
 msgid ""
@@ -4773,6 +4775,14 @@ msgid ""
 "Used in wayang puppetry, it is made of 1 to 4 iron (sometimes bronze) plates "
 "hung by strings, The puppeteer uses a small mallet set in the foot to hit "
 "the plate(s)."
+msgstr ""
+
+#. name:bell plate 
+#: DB:instrument/description:1072
+msgid ""
+"Used occasionally in the western classical orchestra and theatre, it "
+"consists of several tuned aluminium, steel or bronze plates, struck to "
+"imitate the sound of bells."
 msgstr ""
 
 #. name:bonang panerus 

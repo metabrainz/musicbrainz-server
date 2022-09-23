@@ -91,25 +91,43 @@ const MediumRelationshipEditor = (React.memo<PropsT>(({
     isExpanded,
   });
 
-  const selectMediumRecordings = React.useCallback((
-    event: SyntheticEvent<HTMLInputElement>,
-  ) => {
+  const allMediumRecordingsChecked = React.useMemo(() => {
+    for (const recordingState of tree.iterate(recordingStates)) {
+      if (!recordingState.isSelected) {
+        return false;
+      }
+    }
+    return true;
+  }, [recordingStates]);
+
+  const allMediumWorksChecked = React.useMemo(() => {
+    let hasWorks = false;
+    for (const recordingState of tree.iterate(recordingStates)) {
+      for (const workState of tree.iterate(recordingState.relatedWorks)) {
+        if (!workState.isSelected) {
+          return false;
+        }
+        hasWorks = true;
+      }
+    }
+    return hasWorks;
+  }, [recordingStates]);
+
+  const selectMediumRecordings = React.useCallback(() => {
     dispatch({
-      isSelected: event.currentTarget.checked,
+      isSelected: !allMediumRecordingsChecked,
       type: 'toggle-select-medium-recordings',
       recordingStates,
     });
-  }, [dispatch, recordingStates]);
+  }, [dispatch, allMediumRecordingsChecked, recordingStates]);
 
-  const selectMediumWorks = React.useCallback((
-    event: SyntheticEvent<HTMLInputElement>,
-  ) => {
+  const selectMediumWorks = React.useCallback(() => {
     dispatch({
-      isSelected: event.currentTarget.checked,
+      isSelected: !allMediumWorksChecked,
       type: 'toggle-select-medium-works',
       recordingStates,
     });
-  }, [dispatch, recordingStates]);
+  }, [dispatch, allMediumWorksChecked, recordingStates]);
 
   return (
     <>
@@ -118,8 +136,8 @@ const MediumRelationshipEditor = (React.memo<PropsT>(({
           <td />
           <td>
             <input
+              checked={allMediumRecordingsChecked}
               className="medium-recordings"
-              defaultChecked={false}
               id={'medium-recordings-checkbox-' + String(medium.id)}
               onChange={selectMediumRecordings}
               type="checkbox"
@@ -129,8 +147,8 @@ const MediumRelationshipEditor = (React.memo<PropsT>(({
           </td>
           <td>
             <input
+              checked={allMediumWorksChecked}
               className="medium-works"
-              defaultChecked={false}
               id={'medium-works-checkbox-' + String(medium.id)}
               onChange={selectMediumWorks}
               type="checkbox"

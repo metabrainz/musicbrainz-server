@@ -16,6 +16,8 @@ import linkedEntities from '../../common/linkedEntities.mjs';
 import bracketed from '../../common/utility/bracketed.js';
 import clean from '../../common/utility/clean.js';
 import {uniqueId} from '../../common/utility/numbers.js';
+import {kebabCase} from '../../common/utility/strings.js';
+import useRangeSelectionHandler from '../hooks/useRangeSelectionHandler.js';
 import type {
   DialogAttributesStateT,
   DialogAttributesT,
@@ -346,6 +348,9 @@ const DialogAttributes = (React.memo<PropsT>(({
     });
   }, [dispatch]);
 
+  const booleanRangeSelectionHandler =
+    useRangeSelectionHandler('boolean');
+
   return state.attributesList.length ? (
     <tr>
       <td className="section">
@@ -357,7 +362,7 @@ const DialogAttributes = (React.memo<PropsT>(({
           </a>,
         )}
       </td>
-      <td className="fields">
+      <td className="fields" onClick={booleanRangeSelectionHandler}>
         {state.attributesList.map((attribute) => {
           let attributeElement;
           switch (attribute.control) {
@@ -392,7 +397,11 @@ const DialogAttributes = (React.memo<PropsT>(({
 
           return (
             <div
-              className={'attribute-container ' + attribute.control}
+              className={
+                'attribute-container ' +
+                attribute.control + ' ' +
+                kebabCase(attribute.type.name)
+              }
               key={attribute.key}
             >
               {attributeElement}

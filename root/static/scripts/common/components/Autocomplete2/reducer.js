@@ -35,6 +35,7 @@ import {
   clearRecentItems,
   pushRecentItem,
 } from './recentItems.js';
+import searchItems from './searchItems.js';
 import type {
   ActionT,
   EntityItemT,
@@ -122,7 +123,8 @@ export function generateItems<+T: EntityItemT>(
 
     if (resultCount > 0) {
       const visibleResults = Math.min(resultCount, page * PAGE_SIZE);
-      const totalPages = Math.ceil(resultCount / PAGE_SIZE);
+      const totalPages = state.totalPages ??
+        Math.ceil(resultCount / PAGE_SIZE);
 
       if (showingRecentItems) {
         items.push({...results[0], separator: true});
@@ -147,7 +149,10 @@ export function generateItems<+T: EntityItemT>(
       } else {
         items.push(MENU_ITEMS.TRY_AGAIN_INDEXED);
       }
-      if (determineIfUserCanAddEntities(state)) {
+      if (
+        determineIfUserCanAddEntities(state) &&
+        typeof ADD_NEW_ENTITY_TITLES[state.entityType] === 'function'
+      ) {
         items.push({
           action: OPEN_ADD_ENTITY_DIALOG,
           id: 'add-new-entity',
@@ -176,6 +181,7 @@ export function determineIfUserCanAddEntities<+T: EntityItemT>(
     case 'genre':
     case 'link_type':
     case 'link_attribute_type':
+    case 'release':
       return false;
     case 'instrument':
       return isRelationshipEditor(user);
@@ -246,36 +252,9 @@ export function filterStaticItems<+T: EntityItemT>(
   state: {...StateT<T>},
   newInputValue: string,
 ): void {
-  const {
-    inputValue: prevInputValue,
-    results: prevResults,
-    staticItems,
-    staticItemsFilter: filter = defaultStaticItemsFilter,
-  } = state;
-
+  const staticItems = state.staticItems;
   invariant(staticItems);
-
-  /*
-   * If the new search term starts with the previous one,
-   * we can filter the existing items rather than starting
-   * anew.
-   */
-  const itemsToFilter = (
-    nonEmpty(prevInputValue) &&
-    newInputValue.startsWith(prevInputValue)
-  ) ? prevResults : staticItems;
-
-  state.results = (itemsToFilter && nonEmpty(newInputValue))
-    ? (itemsToFilter.reduce(
-        (accum: Array<ItemT<T>>, item: ItemT<T>) => {
-          if (filter(item, newInputValue)) {
-            accum.push(item);
-          }
-          return accum;
-        },
-        [],
-    ): $ReadOnlyArray<ItemT<T>>)
-    : itemsToFilter;
+  state.results = searchItems(staticItems, newInputValue);
 }
 
 export function resetPage<+T: EntityItemT>(
@@ -284,6 +263,7 @@ export function resetPage<+T: EntityItemT>(
   state.highlightedIndex = -1;
   state.isOpen = false;
   state.page = 1;
+  state.totalPages = null;
   state.error = 0;
 }
 
@@ -360,18 +340,6 @@ function highlightNextItem<+T: EntityItemT>(
     }
     index += offset;
   }
-}
-
-export function defaultStaticItemsFilter<+T: EntityItemT>(
-  item: ItemT<T>,
-  searchTerm: string,
-): boolean {
-  if (item.type === 'option') {
-    return unwrapNl<string>(item.name)
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-  }
-  return true;
 }
 
 // `runReducer` should only be run on a copy of the existing state.
@@ -460,7 +428,7 @@ export function runReducer<+T: EntityItemT>(
     }
 
     case 'show-ws-results': {
-      const {entities, page} = action;
+      const {entities, page, totalPages} = action;
 
       let newResults: Array<ItemT<T>> = entities.map((entity: T) => ({
         entity,
@@ -476,14 +444,20 @@ export function runReducer<+T: EntityItemT>(
         newResults = prevResults.concat(
           newResults.filter(x => !prevIds.has(x.id)),
         );
+        /*
+         * Keep the previous `highlightedIndex` position here (most likely
+         * where "Show more" was clicked).
+         */
+      } else {
+        state.highlightedIndex = 0;
       }
 
       state.results = newResults;
       state.isOpen = true;
       state.page = page;
+      state.totalPages = totalPages;
       state.pendingSearch = null;
       state.error = 0;
-      state.highlightedIndex = 0;
 
       updateItems = true;
       updateStatusMessage = true;

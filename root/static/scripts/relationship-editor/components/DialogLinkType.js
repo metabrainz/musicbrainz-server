@@ -17,12 +17,14 @@ import {
 } from '../../common/components/Autocomplete2/reducer.js';
 import type {
   ItemT as AutocompleteItemT,
+  OptionItemT as AutocompleteOptionItemT,
   PropsT as AutocompletePropsT,
 } from '../../common/components/Autocomplete2/types.js';
 import {PART_OF_SERIES_LINK_TYPE_IDS} from '../../common/constants.js';
 import expand2react from '../../common/i18n/expand2react.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
 import bracketed from '../../common/utility/bracketed.js';
+import clean from '../../common/utility/clean.js';
 import isBlank from '../../common/utility/isBlank.js';
 import type {
   DialogAttributesStateT,
@@ -33,9 +35,6 @@ import type {
 import type {
   DialogLinkTypeActionT,
 } from '../types/actions.js';
-import {
-  autocompleteLinkTypeFilter,
-} from '../utility/autocompleteTypeFilter.js';
 
 import {
   createDialogAttributesList,
@@ -87,6 +86,21 @@ function getLinkTypeError(
   return '';
 }
 
+function stripLinkPhraseSyntax(linkPhrase: string): string {
+  return clean(linkPhrase.replace(/[{}%|:]/g, ' '));
+}
+
+export function extractLinkTypeSearchTerms(
+  item: AutocompleteOptionItemT<LinkTypeT>,
+): Array<string> {
+  const entity = item.entity;
+  return [
+    entity.l_name ?? '',
+    stripLinkPhraseSyntax(entity.l_link_phrase ?? ''),
+    stripLinkPhraseSyntax(entity.l_reverse_link_phrase ?? ''),
+  ];
+}
+
 export function createInitialState(
   linkType: LinkTypeT | null,
   source: CoreEntityT,
@@ -105,6 +119,7 @@ export function createInitialState(
       containerClass: 'relationship-type',
       disabled,
       entityType: 'link_type',
+      extractSearchTerms: extractLinkTypeSearchTerms,
       id: 'relationship-type-' + id,
       inputClass: 'relationship-type',
       inputValue: (selectedLinkType?.name) ?? '',
@@ -116,7 +131,6 @@ export function createInitialState(
         type: 'option',
       } : null,
       staticItems: linkTypeOptions,
-      staticItemsFilter: autocompleteLinkTypeFilter,
     }),
     error: getLinkTypeError(selectedLinkType, source),
   };

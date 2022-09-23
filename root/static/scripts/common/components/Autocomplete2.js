@@ -37,10 +37,13 @@ import {
 import formatItem from './Autocomplete2/formatters.js';
 import {getOrFetchRecentItems} from './Autocomplete2/recentItems.js';
 import {
-  defaultStaticItemsFilter,
   generateItems,
   generateStatusMessage,
 } from './Autocomplete2/reducer.js';
+import searchItems, {
+  getItemName,
+  indexItems,
+} from './Autocomplete2/searchItems.js';
 import type {
   ActionT,
   EntityItemT,
@@ -71,12 +74,14 @@ function doSearch<T: EntityItemT>(
     }
 
     const entities = JSON.parse(searchXhr.responseText);
-    const pager = entities.pop();
+    const pager: {+current: StrOrNum, +pages: StrOrNum} = entities.pop();
     const newPage = parseInt(pager.current, 10);
+    const totalPages = parseInt(pager.pages, 10);
 
     dispatch({
       entities,
       page: newPage,
+      totalPages,
       type: 'show-ws-results',
     });
   });
@@ -134,6 +139,7 @@ type InitialStateT<T: EntityItemT> = {
   +containerClass?: string,
   +disabled?: boolean,
   +entityType: T['entityType'],
+  +extractSearchTerms?: (OptionItemT<T>) => Array<string>,
   +id: string,
   +inputChangeHook?: (
     inputValue: string,
@@ -147,7 +153,6 @@ type InitialStateT<T: EntityItemT> = {
   +recentItemsKey?: string,
   +selectedItem?: OptionItemT<T> | null,
   +staticItems?: $ReadOnlyArray<ItemT<T>>,
-  +staticItemsFilter?: (ItemT<T>, string) => boolean,
   +width?: string,
 };
 
@@ -159,11 +164,11 @@ export function createInitialState<+T: EntityItemT>(
   const {
     disabled = false,
     entityType,
+    extractSearchTerms = getItemName,
     inputValue: initialInputValue,
     recentItemsKey,
     selectedItem,
     staticItems,
-    staticItemsFilter,
     ...restProps
   } = initialState;
 
@@ -172,12 +177,13 @@ export function createInitialState<+T: EntityItemT>(
     (selectedItem == null ? null : unwrapNl<string>(selectedItem.name)) ??
     '';
 
+  if (staticItems) {
+    indexItems(staticItems, extractSearchTerms);
+  }
+
   let staticResults = staticItems ?? null;
   if (staticResults && nonEmpty(inputValue)) {
-    const filter = staticItemsFilter || defaultStaticItemsFilter;
-    staticResults = staticResults.filter(
-      (item) => filter(item, inputValue),
-    );
+    staticResults = searchItems(staticResults, inputValue);
   }
 
   const state: {...StateT<T>} = {
@@ -196,8 +202,8 @@ export function createInitialState<+T: EntityItemT>(
     results: staticResults,
     selectedItem: selectedItem ?? null,
     staticItems,
-    staticItemsFilter,
     statusMessage: '',
+    totalPages: null,
     ...restProps,
   };
 
@@ -518,7 +524,8 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
         }
         break;
 
-      case 'Enter': {
+      case 'Enter':
+      case 'Tab': {
         if (isOpen) {
           event.preventDefault();
           if (highlightedItem) {
@@ -749,6 +756,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
           onKeyDown={handleInputKeyDown}
           ref={buttonRef}
           role="button"
+          tabIndex="-1"
           title={l('Search')}
           type="button"
         />

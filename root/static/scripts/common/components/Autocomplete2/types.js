@@ -39,8 +39,8 @@ export type StateT<T: EntityItemT> = {
   +results: $ReadOnlyArray<ItemT<T>> | null,
   +selectedItem: OptionItemT<T> | null,
   +staticItems?: $ReadOnlyArray<ItemT<T>>,
-  +staticItemsFilter?: (ItemT<T>, string) => boolean,
   +statusMessage: string,
+  +totalPages: ?number,
   +width?: string,
 };
 
@@ -74,6 +74,7 @@ export type ActionT<+T: EntityItemT> =
       +type: 'show-ws-results',
       +entities: $ReadOnlyArray<T>,
       +page: number,
+      +totalPages: number,
     }
   | { +type: 'show-lookup-error' }
   | { +type: 'show-lookup-type-error' }

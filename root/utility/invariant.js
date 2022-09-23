@@ -22,3 +22,8 @@ export default function invariant(
     throw new Error(msg);
   }
 }
+
+export function expect<T>(value: ?T): T {
+  invariant(value != null, 'Expected a non-null value');
+  return value;
+}

@@ -268,12 +268,6 @@ export type ReleaseWithMediumsAndReleaseGroupT = $ReadOnly<{
 // Associates a recording ID with all of the medium IDs it appears on.
 export type RecordingMediumsT = Map<number, Array<MediumWithRecordingsT>>;
 
-// Associates a work with all of its recordings.
-export type WorkRecordingsT = tree.ImmutableTree<[
-  number,
-  tree.ImmutableTree<RecordingT> | null,
-]> | null;
-
 export type MediumWorkStateT = {
   +isSelected: boolean,
   +targetTypeGroups: RelationshipTargetTypeGroupsT,
@@ -312,7 +306,6 @@ export type ReleaseRelationshipEditorStateT = {
   +selectedWorks: tree.ImmutableTree<WorkT> | null,
   +submissionError: ?string,
   +submissionInProgress: boolean,
-  +workRecordings: WorkRecordingsT,
 };
 
 export type RelationshipSourceGroupsContextT = {

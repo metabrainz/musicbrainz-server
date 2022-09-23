@@ -179,3 +179,27 @@ export function* iterateRelationshipsInTargetTypeGroups(
     );
   }
 }
+
+export function* iterateTargetEntitiesOfType<T: CoreEntityT>(
+  targetTypeGroups: RelationshipTargetTypeGroupsT | null,
+  targetType: T['entityType'],
+  targetProperty: 'entity0' | 'entity1',
+): Generator<T, void, void> {
+  const targetTypeGroup = tree.find(
+    targetTypeGroups,
+    targetType,
+    compareTargetTypeWithGroup,
+  );
+  if (!targetTypeGroup) {
+    return;
+  }
+  for (
+    const relationship of
+    iterateRelationshipsInTargetTypeGroup(targetTypeGroup)
+  ) {
+    const target = relationship[targetProperty];
+    invariant(target.entityType === targetType);
+    // $FlowIgnore[unclear-type]
+    yield (target: any);
+  }
+}
