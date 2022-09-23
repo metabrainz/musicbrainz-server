@@ -38,12 +38,12 @@
     {
       command: 'sendKeys',
       target: 'css=#add-relationship-dialog input.relationship-type',
-      value: 'part of${KEY_ENTER}',
+      value: 'part of',
     },
     {
       command: 'assertEval',
-      target: "Array.from(document.querySelectorAll('#add-relationship-dialog div.relationship-type li')).map(li => li.textContent).join('')",
-      value: '(No results)',
+      target: "Array.from(document.querySelectorAll('#add-relationship-dialog div.relationship-type li')).filter(li => li.textContent.includes('part of')).length",
+      value: '0',
     },
     {
       command: 'assertEval',
