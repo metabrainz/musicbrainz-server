@@ -1487,6 +1487,18 @@ msgid ""
 "degree."
 msgstr "Dit geeft aan dat (meestal) een festival opdracht heeft gegeven voor de compositie. Dit komt vaak voor bij klassieke muziek, maar soms ook bij andere genres."
 
+#: DB:link_type/description:1097
+msgid ""
+"This indicates that a genre has influences of another, but is not connected "
+"to it enough to be a subgenre of it."
+msgstr ""
+
+#: DB:link_type/description:1096
+msgid ""
+"This indicates that a genre originated as a hybrid of two or more other "
+"genres."
+msgstr ""
+
 #: DB:link_type/description:305
 msgid "This indicates that a person is, or was, a conductor for a group."
 msgstr "Dit geeft aan dat een persoon de dirigent van een groep is of was."
@@ -1609,6 +1621,12 @@ msgid ""
 "happening on multiple venues over the course of a few days)."
 msgstr "Dit geeft aan dat een evenement uit meerdere delen bestaat (bijvoorbeeld een festival dat op verschillende dagen of op verschillende locaties plaatsvindt)."
 
+#: DB:link_type/description:739
+msgid ""
+"This indicates that an instrument (often an ensemble or family) consists of "
+"two or more other instruments."
+msgstr ""
+
 #: DB:link_type/description:916
 msgid ""
 "This indicates that an instrument is a hybrid of two or more other "
@@ -1685,6 +1703,12 @@ msgid ""
 "still contain backing vocals and other sections that would not be present in"
 " a true instrumental recording."
 msgstr "Deze eigenschap geeft aan dat dit een karaokeopname van de compositie is. Het verschil met een instrumentale opname is dat de karaoke speciaal bedoeld is om over te zingen, waardoor de tekst nog steeds belangrijk is, bijvoorbeeld omdat achtergrondvocalen en andere elementen in tegenstelling tot een instrumentale opname wel te horen zijn."
+
+#: DB:link_type/description:738
+msgid ""
+"This indicates that two instruments are related in a way not covered by "
+"other, more specific relationships."
+msgstr ""
 
 #: DB:link_type/description:973
 msgid "This indicates the artist that inspired this artist’s name."
@@ -2176,6 +2200,10 @@ msgstr "Deze relatie koppelt een tournee aan een gerelateerde uitgavegroep (mees
 msgid "This links a genre to its page at Bandcamp."
 msgstr "Deze relatie koppelt een genre aan zijn Bandcamp-pagina."
 
+#: DB:link_type/description:1095
+msgid "This links a genre to its subgenres."
+msgstr ""
+
 #: DB:link_type/description:855
 msgid ""
 "This links a group (often an orchestra) to a composer who has a composer-in-"
@@ -2624,6 +2652,14 @@ msgid ""
 "This links an event to the relevant crowdfunding project at a crowdfunding "
 "site like Kickstarter or Indiegogo."
 msgstr "Deze relatie koppelt een evenement aan een gerelateerd project op een crowdfundingwebsite zoals Kickstarter of Indiegogo."
+
+#: DB:link_type/description:737
+msgid "This links an instrument to an older instrument that it was based on."
+msgstr ""
+
+#: DB:link_type/description:736
+msgid "This links an instrument to more specific subtypes of it."
+msgstr ""
 
 #: DB:link_type/description:111
 msgid "This links artists who were married."
@@ -4103,7 +4139,7 @@ msgstr "afleiding"
 msgid "derivations"
 msgstr "afleidingen"
 
-#: DB:link_type/description:737 DB:link_type/reverse_link_phrase:737
+#: DB:link_type/reverse_link_phrase:737
 msgid "derived from"
 msgstr "afgeleid van"
 
@@ -4378,6 +4414,10 @@ msgstr "gratis streamen"
 #: DB:link_type/reverse_link_phrase:1088 DB:link_type/reverse_link_phrase:752
 msgid "from"
 msgstr "uit"
+
+#: DB:link_type/link_phrase:1096 DB:link_type/name:1096
+msgid "fusion of"
+msgstr ""
 
 #: DB:link_type/name:1088
 msgid "genre origin"
@@ -4734,6 +4774,10 @@ msgstr "heeft afbeeldingen op"
 msgid "has derived instrument"
 msgstr "heeft afgeleid instrument"
 
+#: DB:link_type/reverse_link_phrase:1096
+msgid "has fusion genres"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:916
 msgid "has hybrids"
 msgstr "hybride afgeleide"
@@ -4741,6 +4785,10 @@ msgstr "hybride afgeleide"
 #: DB:link_type/long_link_phrase:725
 msgid "has imprint"
 msgstr "heeft het imprint"
+
+#: DB:link_type/long_link_phrase:1097
+msgid "has influences of"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:984 DB:link_type/long_link_phrase:211
 msgid "has its history presented at"
@@ -4794,6 +4842,10 @@ msgstr "heeft revisie"
 #: DB:link_type/long_link_phrase:729
 msgid "has show notes at"
 msgstr "heeft shownotities op"
+
+#: DB:link_type/long_link_phrase:1095
+msgid "has subgenre"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:823
 msgid "has subseries"
@@ -4898,6 +4950,14 @@ msgstr "maakt deel uit van"
 msgid "includes"
 msgstr "bevat"
 
+#: DB:link_type/link_phrase:1097 DB:link_type/name:1097
+msgid "influenced by"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1097
+msgid "influenced genres"
+msgstr ""
+
 #: DB:link_type/description:734 DB:link_type/link_phrase:734
 #: DB:link_type/name:734 DB:link_type/reverse_link_phrase:734
 #: DB:link_type/long_link_phrase:734
@@ -4970,6 +5030,10 @@ msgstr "is een dj-mix van"
 #: DB:link_type/long_link_phrase:228
 msgid "is a compilation of"
 msgstr "is een compilatie van"
+
+#: DB:link_type/long_link_phrase:1096
+msgid "is a fusion of"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:916
 msgid "is a hybrid of"
@@ -5837,10 +5901,10 @@ msgstr "deel van een set"
 msgid "partial"
 msgstr "gedeeltelijk"
 
-#: DB:link_type/description:739 DB:link_type/link_phrase:818
-#: DB:link_type/link_phrase:717 DB:link_type/link_phrase:281
-#: DB:link_type/link_phrase:356 DB:link_type/name:739 DB:link_type/name:818
-#: DB:link_type/name:717 DB:link_type/name:281
+#: DB:link_type/link_phrase:818 DB:link_type/link_phrase:717
+#: DB:link_type/link_phrase:281 DB:link_type/link_phrase:356
+#: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:717
+#: DB:link_type/name:281
 msgid "parts"
 msgstr "delen"
 
@@ -6301,7 +6365,7 @@ msgstr "heruitgever van de catalogus van"
 msgid "related instruments"
 msgstr "gerelateerde instrumenten"
 
-#: DB:link_type/description:738 DB:link_type/name:738
+#: DB:link_type/name:738
 msgid "related to"
 msgstr "gerelateerd aan"
 
@@ -6611,6 +6675,18 @@ msgstr "leerlingen"
 msgid "studied at"
 msgstr "onderwezen aan"
 
+#: DB:link_type/name:1095
+msgid "subgenre"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1095
+msgid "subgenre of"
+msgstr ""
+
+#: DB:link_type/link_phrase:1095
+msgid "subgenres"
+msgstr ""
+
 #: DB:link_type/name:722
 msgid "subgroup"
 msgstr "subgroep"
@@ -6812,7 +6888,7 @@ msgstr "hommage-evenementen"
 msgid "tribute to"
 msgstr "hommage aan"
 
-#: DB:link_type/description:736 DB:link_type/reverse_link_phrase:736
+#: DB:link_type/reverse_link_phrase:736
 msgid "type of"
 msgstr "type"
 
