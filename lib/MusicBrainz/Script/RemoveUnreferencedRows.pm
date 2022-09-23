@@ -75,23 +75,28 @@ sub run {
         my $quoted_table_name =
             $self->c->sql->dbh->quote_identifier($table_name);
 
+        my $columns = 'ref_count';
+
+        if ($table_name eq 'artist_credit') {
+            $columns .= ', edits_pending';
+        }
+
         for my $id (@$row_ids) {
             capture_exceptions(sub {
                 Sql::run_in_transaction(sub {
-                    # We want to ensure the row is still unreferenced
                     my $query = <<~"SQL";
-                        SELECT ref_count
+                        SELECT $columns
                           FROM $quoted_table_name
                          WHERE id = ?
                            FOR UPDATE
                         SQL
 
-                    my $ref_count = $self->c->sql->select_single_value(
+                    my $row = $self->c->sql->select_single_row_hash(
                         $query,
                         $id,
                     );
 
-                    if (!defined $ref_count) {
+                    if (!defined $row) {
                         # The row was deleted by some other means.
                         # This may be normal; for artist_credit, we do delete
                         # rows ourselves in `_swap_artist_credits`, at least.
@@ -103,32 +108,52 @@ sub run {
                             sprintf "Did not find id=%s in $table_name, skipping.",
                             $id,
                         };
-                    } elsif ($ref_count == 0) {
-                        log_info {
-                            sprintf "Will remove id=%s from $table_name.",
-                            $id,
-                        };
-
-                        unless ($self->dry_run) {
-                            if ($table_name eq 'artist_credit') {
-                                $self->sql->do(<<~'SQL', $id);
-                                    DELETE FROM artist_credit_gid_redirect
-                                          WHERE new_id = ?
-                                    SQL
-                            }
-
-                            $self->c->sql->do(<<~"SQL", $id);
-                                DELETE FROM $quoted_table_name
-                                      WHERE id = ?
-                                SQL
-
-                            ++$removed;
-                        }
                     } else {
-                        log_info {
-                            sprintf "Found references for id=%s from $table_name.",
-                            $id,
-                        };
+
+                        # We want to skip any artist credits with pending edits.
+                        # We do not remove them from the table because eventually
+                        # either they'll be empty and get deleted
+                        # or have a reference and be dropped from the table 
+                        my $edits_pending = $row->{edits_pending};
+
+                        if (defined $edits_pending && $edits_pending > 0) {
+                            log_info {
+                                sprintf "id=%s from $table_name has pending edits, skipping.",
+                                $id,
+                            };
+                            return;
+                        }
+
+                        # We want to ensure the row is still unreferenced
+                        my $ref_count = $row->{ref_count};
+
+                        if ($ref_count == 0) {
+                            log_info {
+                                sprintf "Will remove id=%s from $table_name.",
+                                $id,
+                            };
+
+                            unless ($self->dry_run) {
+                                if ($table_name eq 'artist_credit') {
+                                    $self->sql->do(<<~'SQL', $id);
+                                        DELETE FROM artist_credit_gid_redirect
+                                            WHERE new_id = ?
+                                        SQL
+                                }
+
+                                $self->c->sql->do(<<~"SQL", $id);
+                                    DELETE FROM $quoted_table_name
+                                        WHERE id = ?
+                                    SQL
+
+                                ++$removed;
+                            }
+                        } else {
+                            log_info {
+                                sprintf "Found references for id=%s from $table_name.",
+                                $id,
+                            };
+                        }
                     }
 
                     unless ($self->dry_run) {

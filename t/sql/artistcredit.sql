@@ -23,3 +23,6 @@ INSERT INTO recording (id, gid, name, artist_credit)
 
 INSERT INTO release_group (id, gid, name, artist_credit, type)
     VALUES (1, 'bdaeec2d-94f1-46b5-91f3-340ec6939c66', 'Under Pressure', 1, 2);
+
+INSERT INTO editor (id, name, password, email, privs, ha1, email_confirm_date)
+VALUES (1, 'boring_editor', '{CLEARTEXT}pass', 'boring_editor@example.com', 0, 'c88bfbed8b931a64c5feb069fe03c0c2', now());

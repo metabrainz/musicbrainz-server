@@ -6,6 +6,10 @@ use Test::Routine;
 use Test::More;
 use Test::Fatal;
 
+use MusicBrainz::Server::Constants qw(
+    $EDIT_ARTIST_EDITCREDIT
+    $STATUS_OPEN
+);
 use MusicBrainz::Script::RemoveUnreferencedRows;
 
 with 't::Context';
@@ -258,6 +262,103 @@ test 'The RemoveUnreferencedRows script keeps ACs that are in use again' => sub 
         $c->sql->select_single_value($unreferenced_query),
         0,
         'The AC row was removed from the unreferenced rows table',
+    );
+
+    is(
+        $c->sql->select_single_value($redirect_query, $old_redirect_gid),
+        1,
+        'There is still an old redirect pointing to the AC',
+    );
+};
+
+test 'The RemoveUnreferencedRows script keeps ACs that have pending edits' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    prepare_test($test);
+
+    is(
+        $c->sql->select_single_value($ac_query),
+        2,
+        'There are two artist credits originally',
+    );
+
+    is(
+        $c->sql->select_single_value($redirect_query, $old_redirect_gid),
+        1,
+        'There is an old redirect pointing to the first AC',
+    );
+
+    ok !exception {
+      $c->sql->do(<<~'SQL');
+          UPDATE recording
+             SET artist_credit = 2
+           WHERE id = 1
+          SQL
+    }, 'The only recording using the AC was changed to a different one';
+
+    ok !exception {
+        $c->sql->do(<<~'SQL');
+            UPDATE release_group
+               SET artist_credit = 2
+             WHERE id = 1
+            SQL
+    }, 'The only release group using the AC was changed to a different one';
+
+    is(
+        $c->sql->select_single_value($unreferenced_query),
+        1,
+        'The now unused AC row has been added to the unreferenced rows table',
+    );
+
+    ok !exception {
+        $c->sql->do(<<~'SQL');
+            UPDATE unreferenced_row_log
+            SET inserted = now() - '8 day'::interval
+            WHERE row_id = 1
+            AND table_name = 'artist_credit'
+            SQL
+    }, 'The unreferenced row for the AC was marked as 8 days old';
+
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDITCREDIT,
+        editor_id => 1,
+        to_edit => $c->model('ArtistCredit')->get_by_id(1),
+        artist_credit => {
+            names => [
+                {
+                    artist => { id => 1, name => 'Queen' },
+                    name => 'Sovereign',
+                    join_phrase => ' & ',
+                },
+                {
+                    artist => { id => 2, name => 'David Bowie' },
+                    name => 'David Bowie',
+                    join_phrase => '',
+                },
+            ],
+        },
+    );
+
+    is($edit->status, $STATUS_OPEN, 'A new edit was opened editing the AC');
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::EditArtistCredit');
+
+    my $script = MusicBrainz::Script::RemoveUnreferencedRows->new( c => $c );
+    ok !exception {
+        $script->run()
+    }, 'The script to remove unreferenced rows was ran successfully';
+
+    is(
+        $c->sql->select_single_value($ac_query),
+        2,
+        'There are still two artist credits after running the script',
+    );
+
+    is(
+        $c->sql->select_single_value($unreferenced_query),
+        1,
+        'The AC row was not removed from the unreferenced rows table',
     );
 
     is(
