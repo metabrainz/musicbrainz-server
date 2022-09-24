@@ -152,7 +152,7 @@ type InitialStateT<T: EntityItemT> = {
   +placeholder?: string,
   +recentItemsKey?: string,
   +selectedItem?: OptionItemT<T> | null,
-  +staticItems?: $ReadOnlyArray<ItemT<T>>,
+  +staticItems?: $ReadOnlyArray<OptionItemT<T>>,
   +width?: string,
 };
 

@@ -13,7 +13,7 @@ import {
   createInitialState as createAutocompleteState,
 } from '../../common/components/Autocomplete2.js';
 import type {
-  ItemT as AutocompleteItemT,
+  OptionItemT as AutocompleteOptionItemT,
 } from '../../common/components/Autocomplete2/types.js';
 import {
   LANGUAGE_ZXX_ID,
@@ -70,7 +70,7 @@ export function createInitialState(
 }
 
 export function createSelectedLanguageValue(
-  staticItems: $ReadOnlyArray<AutocompleteItemT<LanguageT>>,
+  staticItems: $ReadOnlyArray<AutocompleteOptionItemT<LanguageT>>,
   selectedLanguage: LanguageT | null,
 ): MultiselectLanguageValueStateT {
   const key = uniqueId();
