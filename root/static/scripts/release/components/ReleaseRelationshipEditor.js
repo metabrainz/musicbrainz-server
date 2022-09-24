@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {captureException} from '@sentry/browser';
 import deepFreeze from 'deep-freeze-strict';
 import * as React from 'react';
 // $FlowIgnore[missing-export]
@@ -249,6 +250,35 @@ export function createInitialState(): ReleaseRelationshipEditorStateT {
   return newState;
 }
 
+function handleSubmissionError(
+  dispatch: (ReleaseRelationshipEditorActionT) => void,
+  error: mixed,
+): void {
+  captureException(error);
+
+  console.error(error);
+
+  const errorString = String(error) || 'unknown error';
+
+  dispatch({
+    error: errorString,
+    type: 'stop-submission',
+  });
+  alert(l('An error occurred:') + ' ' + errorString);
+}
+
+class SubmissionRejected {}
+
+function handlePromiseRejection<T>(
+  dispatch: (ReleaseRelationshipEditorActionT) => void,
+  promise: Promise<T | SubmissionRejected>,
+): Promise<T | SubmissionRejected> {
+  return promise.catch(function (error: mixed) {
+    handleSubmissionError(dispatch, error);
+    return new SubmissionRejected();
+  });
+}
+
 async function wsJsEditSubmission(
   dispatch: (ReleaseRelationshipEditorActionT) => void,
   state: ReleaseRelationshipEditorStateT,
@@ -265,34 +295,44 @@ async function wsJsEditSubmission(
     makeVotable: state.enterEditForm.field.make_votable.value,
   };
   await sleep(500);
-  const resp: Response = await fetch('/ws/js/edit/create', {
-    body: JSON.stringify(submissionData),
-    headers: {
-      'Accept': 'application/json; charset=utf-8',
-      'Content-Type': 'application/json; charset=utf-8',
-    },
-    method: 'POST',
-  });
-  const respJson = await resp.json();
-  if (!resp.ok) {
+  const resp: Response | SubmissionRejected = await handlePromiseRejection(
+    dispatch,
+    fetch('/ws/js/edit/create', {
+      body: JSON.stringify(submissionData),
+      headers: {
+        'Accept': 'application/json; charset=utf-8',
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      method: 'POST',
+    }),
+  );
+  if (resp instanceof SubmissionRejected) {
+    return null;
+  }
+  const respJson:
+    | (WsJsEditResponseT | {+error: string, ...})
+    | SubmissionRejected =
+    await handlePromiseRejection(dispatch, resp.json());
+  if (respJson instanceof SubmissionRejected) {
+    return null;
+  }
+  if (!resp.ok || (respJson?.error) != null) {
     const error = (
       (
         respJson != null && typeof respJson === 'object'
       ) ? String(respJson.error) : ''
     ) || 'unknown error';
-    dispatch({
-      error,
-      type: 'stop-submission',
-    });
-    alert(l('An error occurred:') + ' ' + error);
+    handleSubmissionError(dispatch, error);
     return null;
   }
+  // $FlowIgnore[unclear-type]
+  const editResponseData: WsJsEditResponseT = (respJson: any);
   dispatch({
     edits,
-    responseData: respJson,
+    responseData: editResponseData,
     type: 'update-submitted-relationships',
   });
-  return respJson;
+  return editResponseData;
 }
 
 async function submitWorkEdits(
@@ -356,7 +396,10 @@ async function submitWorkEdits(
   }
 
   if (workEdits.length) {
-    await wsJsEditSubmission(dispatch, state, workEdits);
+    await handlePromiseRejection(
+      dispatch,
+      wsJsEditSubmission(dispatch, state, workEdits),
+    );
   }
 }
 
@@ -723,8 +766,14 @@ async function submitRelationshipEdits(
   for (const {edits} of getAllRelationshipEdits(state)) {
     const editsList = Array.from(edits);
     editCount += editsList.length;
-    responseData = await wsJsEditSubmission(dispatch, state, editsList);
-    if (responseData === null) {
+    responseData = await handlePromiseRejection(
+      dispatch,
+      wsJsEditSubmission(dispatch, state, editsList),
+    );
+    if (
+      responseData === null ||
+      responseData instanceof SubmissionRejected
+    ) {
       return;
     }
   }
@@ -747,9 +796,15 @@ async function submitEdits(
     });
   };
   dispatch({type: 'start-submission'});
-  await submitWorkEdits(syncDispatch, currentStateRef.current);
+  await handlePromiseRejection(
+    syncDispatch,
+    submitWorkEdits(syncDispatch, currentStateRef.current),
+  );
   await sleep(500);
-  await submitRelationshipEdits(syncDispatch, currentStateRef.current);
+  await handlePromiseRejection(
+    syncDispatch,
+    submitRelationshipEdits(syncDispatch, currentStateRef.current),
+  );
 }
 
 function setRecordingsAsSelected(
@@ -1643,7 +1698,10 @@ let ReleaseRelationshipEditor: React.AbstractComponent<{}, void> = (
     event: SyntheticEvent<HTMLFormElement>,
   ) => {
     event.preventDefault();
-    submitEdits(dispatch, currentStateRef);
+    submitEdits(dispatch, currentStateRef)
+      .catch(function (error: mixed) {
+        handleSubmissionError(dispatch, error);
+      });
   }, [dispatch]);
 
   const dialogLocation = state.dialogLocation;
