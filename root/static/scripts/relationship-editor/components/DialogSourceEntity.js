@@ -102,42 +102,41 @@ const DialogSourceEntity = (React.memo<PropsT>(({
 }: PropsT): React.MixedElement => {
   const sourceType = source.entityType;
   return (
-    <>
-      <tr>
-        <td className="required section">
-          {addColonText(ENTITY_NAMES[sourceType]())}
-        </td>
-        <td className="fields">
-          {source && batchSelectionCount == null ? (
-            <>
-              <EntityLink
-                allowNew
-                content={source.name || l('[unknown]')}
-                entity={source}
-                target="_blank"
-              />
-              <div className="error">
-                {state.error}
-              </div>
-            </>
-          // $FlowIgnore[sketchy-null-number]
-          ) : batchSelectionCount ? (
-            getBatchSelectionMessage(sourceType, batchSelectionCount)
-          ) : null}
-        </td>
-      </tr>
-      {ENTITIES_WITH_RELATIONSHIP_CREDITS[sourceType] ? (
-        <DialogEntityCredit
-          backward={backward}
-          dispatch={dispatch}
-          entityName={source.name}
-          forEntity="source"
-          linkType={linkType}
-          state={state}
-          targetType={targetType}
-        />
-      ) : null}
-    </>
+    <tr>
+      <td className="required section">
+        {addColonText(ENTITY_NAMES[sourceType]())}
+      </td>
+      <td className="fields">
+        {source && batchSelectionCount == null ? (
+          <>
+            <EntityLink
+              allowNew
+              content={source.name || l('[unknown]')}
+              entity={source}
+              target="_blank"
+            />
+            <div className="error">
+              {state.error}
+            </div>
+          </>
+        // $FlowIgnore[sketchy-null-number]
+        ) : batchSelectionCount ? (
+          getBatchSelectionMessage(sourceType, batchSelectionCount)
+        ) : null}
+
+        {ENTITIES_WITH_RELATIONSHIP_CREDITS[sourceType] ? (
+          <DialogEntityCredit
+            backward={backward}
+            dispatch={dispatch}
+            entityName={source.name}
+            forEntity="source"
+            linkType={linkType}
+            state={state}
+            targetType={targetType}
+          />
+        ) : null}
+      </td>
+    </tr>
   );
 }): React.AbstractComponent<PropsT>);
 

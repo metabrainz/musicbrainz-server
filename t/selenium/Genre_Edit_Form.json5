@@ -136,7 +136,7 @@
     },
     {
       command: 'type',
-      target: 'css=#edit-relationship-dialog tr.target-entity-credit input.entity-credit',
+      target: 'css=#edit-relationship-dialog div.target-entity-credit input.entity-credit',
       value: 'crdff',
     },
     {
