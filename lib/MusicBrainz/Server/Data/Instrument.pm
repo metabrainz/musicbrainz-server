@@ -85,7 +85,7 @@ sub delete {
 
 after qw( insert update delete merge ) => sub {
     my ($self) = @_;
-    $self->c->model('LinkAttributeType')->_delete_from_cache('all');
+    $self->c->model('LinkAttributeType')->_delete_all_from_cache;
 };
 
 sub _merge_impl {
