@@ -194,7 +194,7 @@ export const MultiselectValue: MultiselectValueComponentT = React.memo(<
         * lost and/or doesn't need to be shifted to an unrelated row;
         * neither situation is accessible.
         */}
-      {state.removed ? null : (
+      {state.removed ? l('[removed]') : (
         <>
           <Autocomplete2
             dispatch={autocompleteDispatch}
@@ -205,12 +205,11 @@ export const MultiselectValue: MultiselectValueComponentT = React.memo(<
       )}
       <button
         aria-disabled={state.removed}
-        className="remove-item with-label"
+        className="remove-item icon"
         onClick={handleRemove}
+        title={l('Remove')}
         type="button"
-      >
-        {state.removed ? l('[removed]') : l('Remove')}
-      </button>
+      />
     </div>
   );
 });
