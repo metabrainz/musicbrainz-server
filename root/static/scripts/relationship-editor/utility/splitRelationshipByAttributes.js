@@ -15,6 +15,7 @@ import {
 import {INSTRUMENT_ROOT_ID, VOCAL_ROOT_ID} from '../../common/constants.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
+import {uniqueNegativeId} from '../../common/utility/numbers.js';
 import {REL_STATUS_ADD} from '../constants.js';
 import type {
   RelationshipStateT,
@@ -93,6 +94,7 @@ export default function splitRelationshipByAttributes(
 
   if (isExistingRelationship) {
     const newRelationship = cloneRelationshipState(relationship);
+    newRelationship.id = uniqueNegativeId();
     newRelationship.attributes = tree.union(
       preservedInstrumentsAndVocals,
       otherLinkAttributes,
@@ -105,6 +107,7 @@ export default function splitRelationshipByAttributes(
 
   for (const linkAttribute of addedInstrumentsAndVocals) {
     const newRelationship = cloneRelationshipState(relationship);
+    newRelationship.id = uniqueNegativeId();
     newRelationship.attributes = tree.insert(
       otherLinkAttributes,
       linkAttribute,
