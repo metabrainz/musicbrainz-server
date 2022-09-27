@@ -102,7 +102,7 @@ export function indexItems<+T: EntityItemT>(
 
 function getItem<+T: EntityItemT>(
   itemAndRank: [OptionItemT<T>, number],
-): ItemT<T> {
+): OptionItemT<T> {
   return itemAndRank[0];
 }
 
@@ -141,9 +141,9 @@ function weightEntry<+T: EntityItemT>(
 }
 
 export default function searchItems<+T: EntityItemT>(
-  items: $ReadOnlyArray<ItemT<T>>,
+  items: $ReadOnlyArray<OptionItemT<T>>,
   searchTerm: string,
-): $ReadOnlyArray<ItemT<T>> {
+): $ReadOnlyArray<OptionItemT<T>> {
   if (!searchTerm) {
     return items;
   }
