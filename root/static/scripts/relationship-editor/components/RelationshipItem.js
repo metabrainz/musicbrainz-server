@@ -85,7 +85,7 @@ const RelationshipItem = (React.memo<PropsT>(({
       <DescriptiveLink
         content={targetCredit}
         entity={target}
-        showDisambiguation={false}
+        showDisambiguation
         /*
          * The entity pending edits display conflicts with the relationship
          * editor's display of pending (unsubmitted) relationship edits.
