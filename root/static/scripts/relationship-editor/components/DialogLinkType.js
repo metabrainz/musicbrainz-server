@@ -16,7 +16,6 @@ import {
   default as autocompleteReducer,
 } from '../../common/components/Autocomplete2/reducer.js';
 import type {
-  ItemT as AutocompleteItemT,
   OptionItemT as AutocompleteOptionItemT,
   PropsT as AutocompletePropsT,
 } from '../../common/components/Autocomplete2/types.js';
@@ -105,7 +104,7 @@ export function createInitialState(
   linkType: LinkTypeT | null,
   source: CoreEntityT,
   targetType: CoreEntityTypeT,
-  linkTypeOptions: $ReadOnlyArray<AutocompleteItemT<LinkTypeT>>,
+  linkTypeOptions: $ReadOnlyArray<AutocompleteOptionItemT<LinkTypeT>>,
   id: string,
   disabled?: boolean = false,
 ): DialogLinkTypeStateT {

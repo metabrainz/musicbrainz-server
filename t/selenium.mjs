@@ -757,7 +757,7 @@ async function runCommands(commands, t) {
 }
 
 (async function runTests() {
-  const TEST_TIMEOUT = 300000; // 300 seconds
+  const TEST_TIMEOUT = 480000; // 8 minutes
 
   async function cleanSeleniumDb(t, extraSql) {
     const startTime = new Date();

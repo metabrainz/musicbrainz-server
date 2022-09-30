@@ -1818,5 +1818,243 @@
       },
     },
     // End of test for MBS-12616.
+    // MBS-12626: Add more than one instrument relationship between the same
+    // two entities.  (Tests the `splitRelationshipByAttributes` code path.)
+    {
+      command: 'open',
+      target: '/release/868cc741-e3bc-31bc-9dac-756e35c8f152/edit-relationships',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//tr[contains(@class, "track")])[1]//button[contains(@class, "add-relationship")]',
+      value: '',
+    },
+    {
+      command: 'select',
+      target: 'css=#add-relationship-dialog select.entity-type',
+      value: 'label=Artist',
+    },
+    {
+      command: 'focus',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '',
+    },
+    // "Boredoms" should be in the recent entities list.
+    {
+      command: 'click',
+      target: 'xpath=//div[@id = "add-relationship-dialog"]//div[contains(@class, "relationship-target")]//li[contains(descendant::text(), "Boredoms")]',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'instrument${KEY_ENTER}',
+    },
+    {
+      command: 'sendKeys',
+      target: 'xpath=((//div[@id = "add-relationship-dialog"]//div[contains(@class, "instrument")])[1]//input[@aria-autocomplete])[1]',
+      value: 'violin${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//div[@id = "add-relationship-dialog"]//div[contains(@class, "instrument")])[1]//button[contains(@class, "add-item")]',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'xpath=((//div[@id = "add-relationship-dialog"]//div[contains(@class, "instrument")])[1]//input[@aria-autocomplete])[2]',
+      value: 'bass guitar${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=#relationship-editor-form button.positive',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 29,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          attributes: [
+            {
+              type: {
+                gid: '17f9f065-2312-4a24-8309-6f6dd63e2e33',
+                id: 277,
+                name: 'bass guitar',
+                root: {
+                  gid: '0abd7f04-5e28-425b-956f-94789d9bcbe2',
+                  id: 14,
+                  name: 'instrument',
+                },
+              },
+            },
+          ],
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '0798d15b-64e2-499f-9969-70167b1d8617',
+            id: 39282,
+            name: 'Boredoms',
+          },
+          entity1: {
+            gid: 'f66857fb-bb59-444e-97dc-62c73e5eddae',
+            id: 636551,
+            name: '○',
+          },
+          entity_id: 4,
+          link_type: {
+            id: 148,
+            link_phrase: '{additional} {guest} {solo} {instrument:%|instruments}',
+            long_link_phrase: 'performed {additional} {guest} {solo} {instrument:%|instruments} on',
+            name: 'instrument',
+            reverse_link_phrase: '{additional} {guest} {solo} {instrument:%|instruments}',
+          },
+          type0: 'artist',
+          type1: 'recording',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 30,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          attributes: [
+            {
+              type: {
+                gid: '089f123c-0f7d-4105-a64e-49de81ca8fa4',
+                id: 86,
+                name: 'violin',
+                root: {
+                  gid: '0abd7f04-5e28-425b-956f-94789d9bcbe2',
+                  id: 14,
+                  name: 'instrument',
+                },
+              },
+            },
+          ],
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '0798d15b-64e2-499f-9969-70167b1d8617',
+            id: 39282,
+            name: 'Boredoms',
+          },
+          entity1: {
+            gid: 'f66857fb-bb59-444e-97dc-62c73e5eddae',
+            id: 636551,
+            name: '○',
+          },
+          entity_id: 5,
+          link_type: {
+            id: 148,
+            link_phrase: '{additional} {guest} {solo} {instrument:%|instruments}',
+            long_link_phrase: 'performed {additional} {guest} {solo} {instrument:%|instruments} on',
+            name: 'instrument',
+            reverse_link_phrase: '{additional} {guest} {solo} {instrument:%|instruments}',
+          },
+          type0: 'artist',
+          type1: 'recording',
+        },
+      },
+    },
+    // Repeat the above test, but add another instrument to an existing relationship.
+    {
+      command: 'open',
+      target: '/release/868cc741-e3bc-31bc-9dac-756e35c8f152/edit-relationships',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=((//tr[contains(@class, "track")])[1]//tr[contains(@class, "bass-guitar")]/following-sibling::tr[contains(@class, "add-item")])[1]//button[contains(@class, "add-item")]',
+      value: '',
+    },
+    {
+      command: 'focus',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=//div[@id = "add-relationship-dialog"]//div[contains(@class, "relationship-target")]//li[contains(descendant::text(), "Boredoms")]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//div[@id = "add-relationship-dialog"]//div[contains(@class, "instrument")])[1]//button[contains(@class, "add-item")]',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'xpath=((//div[@id = "add-relationship-dialog"]//div[contains(@class, "instrument")])[1]//input[@aria-autocomplete])[2]',
+      value: 'zither${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=#relationship-editor-form button.positive',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 31,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          attributes: [
+            {
+              type: {
+                gid: 'c6a133d5-c1e0-47d6-bc30-30d102a78893',
+                id: 123,
+                name: 'zither',
+                root: {
+                  gid: '0abd7f04-5e28-425b-956f-94789d9bcbe2',
+                  id: 14,
+                  name: 'instrument',
+                },
+              },
+            },
+          ],
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '0798d15b-64e2-499f-9969-70167b1d8617',
+            id: 39282,
+            name: 'Boredoms',
+          },
+          entity1: {
+            gid: 'f66857fb-bb59-444e-97dc-62c73e5eddae',
+            id: 636551,
+            name: '○',
+          },
+          entity_id: 6,
+          link_type: {
+            id: 148,
+            link_phrase: '{additional} {guest} {solo} {instrument:%|instruments}',
+            long_link_phrase: 'performed {additional} {guest} {solo} {instrument:%|instruments} on',
+            name: 'instrument',
+            reverse_link_phrase: '{additional} {guest} {solo} {instrument:%|instruments}',
+          },
+          type0: 'artist',
+          type1: 'recording',
+        },
+      },
+    },
+    // End of test for MBS-12626.
   ],
 }

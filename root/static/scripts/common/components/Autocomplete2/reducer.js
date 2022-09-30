@@ -470,9 +470,9 @@ export function runReducer<+T: EntityItemT>(
       const staticItems = state.staticItems;
       if (staticItems) {
         state.recentItems = state.recentItems.filter(
-          (recentItem) => (
-            staticItems.find(staticItem => staticItem.id === recentItem.id)
-          ),
+          (recentItem) => staticItems.find((staticItem) => (
+            staticItem.entity.id === recentItem.entity.id
+          )),
         );
       }
 

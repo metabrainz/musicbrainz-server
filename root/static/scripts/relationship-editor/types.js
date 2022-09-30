@@ -10,7 +10,7 @@
 import * as tree from 'weight-balanced-tree';
 
 import type {
-  ItemT as AutocompleteItemT,
+  OptionItemT as AutocompleteOptionItemT,
   StateT as AutocompleteStateT,
 } from '../common/components/Autocomplete2/types.js';
 import type {LazyReleaseStateT} from '../release/types.js';
@@ -252,7 +252,7 @@ export type MultiselectLanguageValueStateT = {
 
 export type MultiselectLanguageStateT = {
   +max: number | null,
-  +staticItems: $ReadOnlyArray<AutocompleteItemT<LanguageT>>,
+  +staticItems: $ReadOnlyArray<AutocompleteOptionItemT<LanguageT>>,
   +values: $ReadOnlyArray<MultiselectLanguageValueStateT>,
 };
 
