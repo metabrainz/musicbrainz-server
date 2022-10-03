@@ -293,7 +293,7 @@
     },
     {
       command: 'type',
-      target: 'css=#add-relationship-dialog tr.target-entity-credit input.entity-credit',
+      target: 'css=#add-relationship-dialog div.target-entity-credit input.entity-credit',
       value: 'oh',
     },
     {
@@ -343,17 +343,17 @@
     },
     {
       command: 'type',
-      target: 'css=tr.target-entity-credit input.entity-credit',
+      target: 'css=div.target-entity-credit input.entity-credit',
       value: 'brdms',
     },
     {
       command: 'check',
-      target: 'css=tr.target-entity-credit label.change-credits-checkbox input',
+      target: 'css=div.target-entity-credit label.change-credits-checkbox input',
       value: '',
     },
     {
       command: 'check',
-      target: 'css=#edit-relationship-dialog tr.target-entity-credit div.change-credits-radio-options input[value="same-relationship-type"]',
+      target: 'css=#edit-relationship-dialog div.target-entity-credit div.change-credits-radio-options input[value="same-relationship-type"]',
       value: '',
     },
     {
@@ -1108,17 +1108,17 @@
     },
     {
       command: 'sendKeys',
-      target: 'css=tr.target-entity-credit input.entity-credit',
+      target: 'css=div.target-entity-credit input.entity-credit',
       value: '${KEY_BKSP}${KEY_BKSP}${KEY_BKSP}${KEY_BKSP}${KEY_BKSP}',
     },
     {
       command: 'check',
-      target: 'css=tr.target-entity-credit label.change-credits-checkbox input',
+      target: 'css=div.target-entity-credit label.change-credits-checkbox input',
       value: '',
     },
     {
       command: 'check',
-      target: 'css=#edit-relationship-dialog tr.target-entity-credit div.change-credits-radio-options input[value="all"]',
+      target: 'css=#edit-relationship-dialog div.target-entity-credit div.change-credits-radio-options input[value="all"]',
       value: '',
     },
     {
@@ -1148,7 +1148,7 @@
     },
     {
       command: 'sendKeys',
-      target: 'css=tr.target-entity-credit input.entity-credit',
+      target: 'css=div.target-entity-credit input.entity-credit',
       value: '${KEY_BKSP}${KEY_BKSP}',
     },
     {

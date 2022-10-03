@@ -9,6 +9,7 @@
 
 import {
   createArtistObject,
+  createEventObject,
   createRecordingObject,
   createReleaseObject,
 } from '../../common/entity2.js';
@@ -19,6 +20,10 @@ import type {
 
 export const artist: ArtistT = createArtistObject({
   name: 'Artist',
+});
+
+export const event: EventT = createEventObject({
+  name: 'Event',
 });
 
 export const recording: RecordingT = createRecordingObject({

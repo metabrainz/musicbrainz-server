@@ -112,7 +112,7 @@
     },
     {
       command: 'sendKeys',
-      target: 'css=#add-relationship-dialog .attribute-container.multiselect.instrument > .multiselect-value:nth-child(1) input[aria-autocomplete]',
+      target: 'xpath=(//div[@id="add-relationship-dialog"]//div[contains(@class, "attribute-container multiselect instrument")]//div[contains(@class, "multiselect-value")])[1]//input[@aria-autocomplete]',
       value: 'guitar${KEY_ENTER}',
     },
     {
@@ -122,7 +122,7 @@
     },
     {
       command: 'sendKeys',
-      target: 'css=#add-relationship-dialog .attribute-container.multiselect.instrument > .multiselect-value:nth-child(2) input[aria-autocomplete]',
+      target: 'xpath=(//div[@id="add-relationship-dialog"]//div[contains(@class, "attribute-container multiselect instrument")]//div[contains(@class, "multiselect-value")])[2]//input[@aria-autocomplete]',
       value: 'lyre${KEY_ENTER}',
     },
     {

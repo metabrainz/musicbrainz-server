@@ -93,6 +93,8 @@ export const ReleaseGroupListTable = ({
       const artistCreditColumn = defineArtistCreditColumn<ReleaseGroupT>({
         columnName: 'artist',
         getArtistCredit: entity => entity.artistCredit,
+        order: order,
+        sortable: sortable,
         title: l('Artist'),
       });
       const typeColumn = defineTextColumn<ReleaseGroupT>({

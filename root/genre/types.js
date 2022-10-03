@@ -16,5 +16,12 @@ export type GenreFormT = FormT<{
   +comment: ReadOnlyFieldT<string>,
   +edit_note: ReadOnlyFieldT<string>,
   +make_votable: ReadOnlyFieldT<boolean>,
-  +name: ReadOnlyFieldT<string>,
+  +name: ReadOnlyFieldT<string | null>,
+}>;
+
+export type WritableGenreFormT = FormT<{
+  +comment: FieldT<string>,
+  +edit_note: FieldT<string>,
+  +make_votable: FieldT<boolean>,
+  +name: FieldT<string | null>,
 }>;

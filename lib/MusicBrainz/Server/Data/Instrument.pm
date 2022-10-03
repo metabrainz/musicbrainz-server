@@ -20,6 +20,7 @@ with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'instrument' }
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::Collection';
+with 'MusicBrainz::Server::Data::Role::SelectAll';
 
 sub _type { 'instrument' }
 
@@ -85,7 +86,7 @@ sub delete {
 
 after qw( insert update delete merge ) => sub {
     my ($self) = @_;
-    $self->c->model('LinkAttributeType')->_delete_from_cache('all');
+    $self->c->model('LinkAttributeType')->_delete_all_from_cache;
 };
 
 sub _merge_impl {
@@ -134,14 +135,6 @@ sub _order_by {
     });
 
     return $order_by
-}
-
-sub get_all {
-    my $self = shift;
-
-    my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table;
-
-    $self->query_to_list($query);
 }
 
 __PACKAGE__->meta->make_immutable;

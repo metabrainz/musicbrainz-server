@@ -326,42 +326,41 @@ const DialogTargetEntity = (React.memo<PropsT>((
   );
 
   return (
-    <>
-      <tr>
-        <td className="required section">
-          {addColonText(ENTITY_NAMES[targetType]())}
-        </td>
-        <td className="fields">
-          {targetType === 'url' ? (
-            <input
-              onChange={handleUrlTextChange}
-              type="text"
-              value={state.target.name}
-            />
-          ) : autocomplete ? (
-            <TargetAutocomplete
-              dispatch={autocompleteDispatch}
-              state={autocomplete}
-            />
-          ) : null}
+    <tr>
+      <td className="required section">
+        {addColonText(ENTITY_NAMES[targetType]())}
+      </td>
+      <td className="fields">
+        {targetType === 'url' ? (
+          <input
+            onChange={handleUrlTextChange}
+            type="text"
+            value={state.target.name}
+          />
+        ) : autocomplete ? (
+          <TargetAutocomplete
+            dispatch={autocompleteDispatch}
+            state={autocomplete}
+          />
+        ) : null}
 
-          <div className="error">
-            {state.error}
-          </div>
-        </td>
-      </tr>
-      {showTargetCredit ? (
-        <DialogEntityCredit
-          backward={backward}
-          dispatch={creditDispatch}
-          entityName={state.target.name}
-          forEntity="target"
-          linkType={linkType}
-          state={state}
-          targetType={source.entityType}
-        />
-      ) : null}
-    </>
+        <div className="error">
+          {state.error}
+        </div>
+
+        {showTargetCredit ? (
+          <DialogEntityCredit
+            backward={backward}
+            dispatch={creditDispatch}
+            entityName={state.target.name}
+            forEntity="target"
+            linkType={linkType}
+            state={state}
+            targetType={source.entityType}
+          />
+        ) : null}
+      </td>
+    </tr>
   );
 }): React.AbstractComponent<PropsT>);
 

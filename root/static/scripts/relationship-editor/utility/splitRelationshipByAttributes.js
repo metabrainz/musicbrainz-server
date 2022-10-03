@@ -16,7 +16,10 @@ import {INSTRUMENT_ROOT_ID, VOCAL_ROOT_ID} from '../../common/constants.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import {uniqueNegativeId} from '../../common/utility/numbers.js';
-import {REL_STATUS_ADD} from '../constants.js';
+import {
+  REL_STATUS_ADD,
+  REL_STATUS_NOOP,
+} from '../constants.js';
 import type {
   RelationshipStateT,
 } from '../types.js';
@@ -94,7 +97,6 @@ export default function splitRelationshipByAttributes(
 
   if (isExistingRelationship) {
     const newRelationship = cloneRelationshipState(relationship);
-    newRelationship.id = uniqueNegativeId();
     newRelationship.attributes = tree.union(
       preservedInstrumentsAndVocals,
       otherLinkAttributes,
@@ -102,7 +104,12 @@ export default function splitRelationshipByAttributes(
       onConflictThrowError,
     );
     newRelationship._status = getRelationshipEditStatus(newRelationship);
-    splitRelationships.push(newRelationship);
+    if (newRelationship._status === REL_STATUS_NOOP) {
+      /*:: invariant(relationship._original); */
+      splitRelationships.push(relationship._original);
+    } else {
+      splitRelationships.push(newRelationship);
+    }
   }
 
   for (const linkAttribute of addedInstrumentsAndVocals) {

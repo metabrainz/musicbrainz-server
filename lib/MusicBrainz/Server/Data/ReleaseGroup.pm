@@ -633,8 +633,8 @@ sub _order_by {
         },
         'artist' => sub {
             $extra_join = 'JOIN artist_credit ac ON ac.id = rg.artist_credit';
-            $also_select = 'ac.name AS ac_name';
-            return 'ac_name COLLATE musicbrainz, release_group.name COLLATE musicbrainz';
+            $also_select = 'ac.name AS ac_name, rg.name AS rg_name';
+            return 'ac_name COLLATE musicbrainz, rg_name COLLATE musicbrainz';
         },
         'primary_type' => sub {
             return 'primary_type_id, name COLLATE musicbrainz'
@@ -645,7 +645,7 @@ sub _order_by {
     });
 
     my $inner_order_by = $order_by
-        =~ s/ac_name/ac.name/r;
+        =~ s/(ac|rg)_name/\1.name/gr;
 
     return ($order_by, $extra_join, $also_select, $inner_order_by);
 }

@@ -77,7 +77,10 @@ import updateRelationships, {
 
 import RelationshipTargetTypeGroups from './RelationshipTargetTypeGroups.js';
 
-// Export weight-balanced-tree in case userscripts need access to it.
+// Export modules that userscripts may need access to.
+
+// $FlowIgnore[prop-missing]
+MB.relationshipEditor.getRelationshipStateId = getRelationshipStateId;
 MB.tree = tree;
 
 export type PropsT = {

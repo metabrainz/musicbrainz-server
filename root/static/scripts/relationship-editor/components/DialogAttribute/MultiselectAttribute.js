@@ -87,10 +87,6 @@ const createLinkAttributeTypeOptions = (
   return options;
 };
 
-const ATTR_VALUE_LABEL_STYLE = {
-  clear: 'both',
-};
-
 function extractLinkAttributeTypeSearchTerms(
   item: OptionItemT<LinkAttrTypeT>,
 ): Array<string> {
@@ -108,7 +104,6 @@ export function createMultiselectAttributeValue(
       entityType: 'link_attribute_type',
       extractSearchTerms: extractLinkAttributeTypeSearchTerms,
       id: 'attribute-' + String(key),
-      labelStyle: ATTR_VALUE_LABEL_STYLE,
       placeholder: localizeLinkAttributeTypeName(rootAttribute),
       recentItemsKey: 'link_attribute_type-' + rootAttribute.name,
       selectedItem: selectedAttribute ? {
@@ -209,22 +204,24 @@ const MultiselectAttribute = (React.memo<PropsT>(({
     };
 
     return (
-      <div className="credit-section">
-        <label className="credit-field">
-          {l('Credited as:')}
-          <br />
-          <input
-            className="attribute-credit"
-            disabled={!attributeType?.creditable}
-            onChange={handleCreditChange}
-            placeholder={attributeType?.name}
-            type="text"
-            value={valueState.creditedAs ?? ''}
-          />
-        </label>
-      </div>
+      <input
+        aria-label={l('Credited as')}
+        className="attribute-credit"
+        disabled={!(
+          attributeType
+            ? attributeType.creditable
+            : state.type.creditable
+        )}
+        onChange={handleCreditChange}
+        placeholder={l('Credited as')}
+        type="text"
+        value={valueState.creditedAs ?? ''}
+      />
     );
-  }, [multiselectDispatch]);
+  }, [
+    multiselectDispatch,
+    state.type.creditable,
+  ]);
 
   // XXX: https://github.com/facebook/flow/issues/7672
   const LinkAttrTypeMultiselect = (
@@ -241,12 +238,16 @@ const MultiselectAttribute = (React.memo<PropsT>(({
   );
 
   return (
-    <LinkAttrTypeMultiselect
-      addLabel={addLabel ? addLabel() : ''}
-      buildExtraValueChildren={buildExtraValueChildren}
-      dispatch={multiselectDispatch}
-      state={state}
-    />
+    <>
+      {addColonText(localizeLinkAttributeTypeName(state.type))}
+      <br />
+      <LinkAttrTypeMultiselect
+        addLabel={addLabel ? addLabel() : ''}
+        buildExtraValueChildren={buildExtraValueChildren}
+        dispatch={multiselectDispatch}
+        state={state}
+      />
+    </>
   );
 }): React.AbstractComponent<PropsT, mixed>);
 

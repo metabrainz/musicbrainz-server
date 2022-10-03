@@ -9,6 +9,9 @@
 
 import test from 'tape';
 import * as tree from 'weight-balanced-tree';
+import {
+  onConflictUseSecondValue,
+} from 'weight-balanced-tree/union';
 
 import {defaultContext} from '../../../context.mjs';
 import linkedEntities from '../common/linkedEntities.mjs';
@@ -16,7 +19,11 @@ import {
   createInitialState,
   reducer,
 } from '../relationship-editor/components/RelationshipEditor.js';
-import {REL_STATUS_ADD} from '../relationship-editor/constants.js';
+import {
+  REL_STATUS_ADD,
+  REL_STATUS_EDIT,
+  REL_STATUS_NOOP,
+} from '../relationship-editor/constants.js';
 import type {
   RelationshipEditorStateT,
   RelationshipLinkTypeGroupT,
@@ -34,12 +41,15 @@ import {
 } from '../relationship-editor/utility/mergeRelationship.js';
 import relationshipsAreIdentical
   from '../relationship-editor/utility/relationshipsAreIdentical.js';
+import splitRelationshipByAttributes
+  from '../relationship-editor/utility/splitRelationshipByAttributes.js';
 import updateRelationships, {
   ADD_RELATIONSHIP,
 } from '../relationship-editor/utility/updateRelationships.js';
 
 import {
   artist,
+  event,
   recording,
 } from './relationship-editor/constants.js';
 
@@ -257,6 +267,188 @@ test('merging duplicate relationships', function (t) {
   );
 
   t.end();
+});
+
+test('splitRelationshipByAttributes', function (t) {
+  t.plan(7);
+
+  const lyre = {
+    type: {
+      gid: '21bd4d63-a75a-4022-abd3-52ba7487c2de',
+    },
+    typeID: 109,
+    typeName: 'lyre',
+  };
+
+  const originalAttributes = tree.fromDistinctAscArray([
+    lyre,
+    {
+      type: {
+        gid: 'c6a133d5-c1e0-47d6-bc30-30d102a78893',
+      },
+      typeID: 123,
+      typeName: 'zither',
+    },
+  ]);
+
+  let existingRelationship: RelationshipStateT = {
+    _original: null,
+    _status: REL_STATUS_NOOP,
+    attributes: originalAttributes,
+    begin_date: null,
+    editsPending: false,
+    end_date: null,
+    ended: false,
+    entity0: artist,
+    entity0_credit: '',
+    entity1: event,
+    entity1_credit: '',
+    id: 1,
+    linkOrder: 0,
+    linkTypeID: 798,
+  };
+  Object.freeze(existingRelationship);
+
+  const drums = {
+    type: {
+      gid: '3bccb7eb-cbca-42cd-b0ac-a5e959df7221',
+    },
+    typeID: 125,
+    typeName: 'drums',
+  };
+
+  // This edit just adds drums.
+  const modifiedRelationship1 = {
+    ...existingRelationship,
+    _original: existingRelationship,
+    _status: REL_STATUS_EDIT,
+    attributes: tree.union(
+      existingRelationship.attributes,
+      tree.fromDistinctAscArray([drums]),
+      compareLinkAttributeIds,
+      onConflictUseSecondValue,
+    ),
+  };
+  Object.freeze(modifiedRelationship1);
+
+  let splitRelationships =
+    splitRelationshipByAttributes(modifiedRelationship1);
+
+  t.ok(
+    splitRelationships.length === 2,
+    'two relationships are returned',
+  );
+  t.ok(
+    splitRelationships[0] === existingRelationship,
+    'first relationship is the original',
+  );
+  t.deepEqual(
+    splitRelationships[1],
+    {
+      ...modifiedRelationship1,
+      _original: null,
+      _status: REL_STATUS_ADD,
+      attributes: tree.fromDistinctAscArray([drums]),
+      id: splitRelationships[1].id,
+    },
+    'second relationship only contains drums',
+  );
+
+  // This edit adds drums, but also a credit on lyre.
+  const modifiedRelationship2 = {
+    ...existingRelationship,
+    _original: existingRelationship,
+    _status: REL_STATUS_EDIT,
+    attributes: tree.union(
+      existingRelationship.attributes,
+      tree.fromDistinctAscArray([
+        // Add a new credit to the existing lyre attribute.
+        {...lyre, credited_as: 'LYRE'},
+        drums,
+      ]),
+      compareLinkAttributeIds,
+      onConflictUseSecondValue,
+    ),
+  };
+  Object.freeze(modifiedRelationship2);
+
+  splitRelationships =
+    splitRelationshipByAttributes(modifiedRelationship2);
+
+  t.ok(
+    splitRelationships.length === 2,
+    'two relationships are returned',
+  );
+  t.deepEqual(
+    splitRelationships[0],
+    {
+      ...modifiedRelationship2,
+      _status: REL_STATUS_EDIT,
+      attributes: tree.union(
+        existingRelationship.attributes,
+        tree.fromDistinctAscArray([
+          {...lyre, credited_as: 'LYRE'},
+        ]),
+        compareLinkAttributeIds,
+        onConflictUseSecondValue,
+      ),
+    },
+    'first relationship contains the new lyre credit',
+  );
+  t.deepEqual(
+    splitRelationships[1],
+    {
+      ...modifiedRelationship2,
+      _original: null,
+      _status: REL_STATUS_ADD,
+      attributes: tree.fromDistinctAscArray([drums]),
+      id: splitRelationships[1].id,
+    },
+    'second relationship only contains drums',
+  );
+
+  /*
+   * MBS-12646: This relationship type supports instrument attributes, but
+   * this particular (existing) relationship doesn't have any.  It should
+   * be returned unmodified.
+   */
+  existingRelationship = ({
+    _original: null,
+    _status: REL_STATUS_NOOP,
+    attributes: tree.fromDistinctAscArray([
+      {
+        text_value: '6:00',
+        type: {
+          gid: 'ebd303c3-7f57-452a-aa3b-d780ebad868d',
+        },
+        typeID: 830,
+        typeName: 'time',
+      },
+    ]),
+    begin_date: null,
+    editsPending: false,
+    end_date: null,
+    ended: false,
+    entity0: artist,
+    entity0_credit: '',
+    entity1: event,
+    entity1_credit: '',
+    id: 1,
+    linkOrder: 0,
+    linkTypeID: 798,
+  }: RelationshipStateT);
+  // $FlowIgnore[cannot-write]
+  existingRelationship._original = existingRelationship;
+  Object.freeze(existingRelationship);
+
+  splitRelationships =
+    splitRelationshipByAttributes(existingRelationship);
+
+  t.ok(
+    splitRelationships.length === 1 &&
+    splitRelationships[0] === existingRelationship,
+    'the same relationship is returned back',
+  );
 });
 
 function addRelationships(

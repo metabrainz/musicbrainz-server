@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {stripAttributes} from '../../../edit/utility/linkPhrase.js';
 import {INSTRUMENT_ROOT_ID} from '../../constants.js';
 import {unwrapNl} from '../../i18n.js';
 import {addColonText} from '../../i18n/addColon.js';
@@ -270,11 +271,13 @@ function formatLinkType(linkType: LinkTypeT) {
     <>
       {linkType.l_name}
       {nonEmpty(linkPhrase) && !isGroupingType ? showExtraInfoLine(
-        l('Forward link phrase:') + ' ' + linkPhrase,
+        l('Forward link phrase:') + ' ' +
+          stripAttributes(linkType, linkPhrase),
         'comment',
       ) : null}
       {nonEmpty(reverseLinkPhrase) && !isGroupingType ? showExtraInfoLine(
-        l('Reverse link phrase:') + ' ' + reverseLinkPhrase,
+        l('Reverse link phrase:') + ' ' +
+        stripAttributes(linkType, reverseLinkPhrase),
         'comment',
       ) : null}
       {isGroupingType ? null : showExtraInfoLine(description)}
