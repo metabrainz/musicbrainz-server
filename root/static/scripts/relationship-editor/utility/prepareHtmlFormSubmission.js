@@ -74,23 +74,16 @@ function pushRelationshipHiddenInputs(
     }
   };
 
+  const newAttributes = relationship.attributes;
+  let attributeIndex = 0;
+  for (const attribute of tree.iterate(newAttributes)) {
+    pushAttributeInputs(attributeIndex, attribute);
+    attributeIndex++;
+  }
+
   const origRelationship = relationship._original;
   if (origRelationship) {
     const origAttributes = origRelationship.attributes;
-    const newAttributes = relationship.attributes;
-
-    let index = 0;
-    for (const attribute of tree.iterate(newAttributes)) {
-      const origAttribute = tree.find(
-        origAttributes,
-        attribute,
-        compareLinkAttributeIds,
-      );
-      if (!origAttribute) {
-        pushAttributeInputs(index, attribute);
-      }
-      index++;
-    }
 
     for (const attribute of tree.iterate(origAttributes)) {
       const newAttribute = tree.find(
@@ -99,17 +92,9 @@ function pushRelationshipHiddenInputs(
         compareLinkAttributeIds,
       );
       if (!newAttribute) {
-        pushAttributeInputs(index++, attribute, true /* removed */);
+        pushAttributeInputs(attributeIndex++, attribute, true /* removed */);
       }
-      index++;
-    }
-  } else {
-    const newAttributes = relationship.attributes;
-
-    let index = 0;
-    for (const attribute of tree.iterate(newAttributes)) {
-      pushAttributeInputs(index, attribute);
-      index++;
+      attributeIndex++;
     }
   }
 
