@@ -74,6 +74,8 @@ const DialogEntityCredit = (React.memo<PropsT, void>(({
 }: PropsT): React.MixedElement => {
   const creditedAsOrName = state.creditedAs || entityName;
   const origCredit = React.useRef(creditedAsOrName);
+  const inputRef = React.useRef(null);
+  const inputId = React.useId();
 
   function handleCreditedAsChange(event: SyntheticEvent<HTMLInputElement>) {
     dispatch({
@@ -100,9 +102,6 @@ const DialogEntityCredit = (React.memo<PropsT, void>(({
       value: (event.currentTarget.value: any),
     });
   }
-
-  const inputRef = React.useRef(null);
-  const inputId = React.useId();
 
   let changeCreditsSection;
   if (
@@ -190,35 +189,27 @@ const DialogEntityCredit = (React.memo<PropsT, void>(({
     );
   }
 
+  const helpText = l(
+    `A credited name is optional. You can leave this field blank
+     to keep the current name.`,
+  );
+
   return (
-    <tr className={forEntity + '-entity-credit'}>
-      <td className="section">
-        <label
-          className="credit-field"
-          htmlFor={inputId}
-        >
-          {addColonText('Credited as')}
-        </label>
-      </td>
-      <td className="fields">
-        <input
-          className="entity-credit"
-          id={inputId}
-          onChange={handleCreditedAsChange}
-          placeholder={entityName}
-          ref={inputRef}
-          type="text"
-          value={state.creditedAs}
-        />
-        <HelpIcon
-          content={l(
-            `A credited name is optional. You can leave this field blank
-             to keep the current name.`,
-          )}
-        />
-        {changeCreditsSection}
-      </td>
-    </tr>
+    <div className={forEntity + '-entity-credit'}>
+      <input
+        aria-description={helpText}
+        aria-label={l('Credited as')}
+        className="entity-credit"
+        id={inputId}
+        onChange={handleCreditedAsChange}
+        placeholder={l('Credited as')}
+        ref={inputRef}
+        type="text"
+        value={state.creditedAs}
+      />
+      <HelpIcon content={helpText} />
+      {changeCreditsSection}
+    </div>
   );
 }): React.AbstractComponent<PropsT, void>);
 

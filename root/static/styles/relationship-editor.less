@@ -37,7 +37,7 @@ div.rel-editor-dialog .warning {
 #content.rel-editor .error-field {border-bottom: 2px red dotted;}
 
 div.relationship-dialog, div.work-dialog {
-    width: 450px;
+    width: 500px;
     fieldset {
         margin: 0px;
         legend {
@@ -52,16 +52,15 @@ div.relationship-dialog, div.work-dialog {
         }
     }
     table.relationship-details, table.work-details {
-        border-spacing: 4px;
         width: 100%;
         td.section {
             vertical-align: top;
             text-align: right;
+            width: 25%;
             &.required {font-weight: bold;}
         }
         td.fields {
             width: 320px;
-            padding-bottom: 6px;
         }
         div.autocomplete2 { width: 100%; }
     }
@@ -71,16 +70,8 @@ div.relationship-dialog {
     table.relationship-details {
         select.entity-type, input.entity-credit { min-width: 60%; }
     }
-    div.credit-section {
-        margin: 6px 0;
-
-        label.credit-field input {
-            /*
-             * We subtract 20px to match the length of both autocompletes
-             * (target entity and link type).
-             */
-            width: ~"calc(100% - 20px)";
-        }
+    input.attribute-credit {
+        width: 130px;
     }
     label.change-credits-checkbox {
         display: flex;
@@ -100,8 +91,8 @@ div.relationship-dialog {
 }
 
 div.multiselect-value {
-    padding-top: 6px;
-    padding-left: 6px;
+    display: flex;
+    align-items: center;
 }
 
 div.attribute-container {

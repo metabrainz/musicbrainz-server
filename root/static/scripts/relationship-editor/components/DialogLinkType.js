@@ -23,8 +23,8 @@ import {PART_OF_SERIES_LINK_TYPE_IDS} from '../../common/constants.js';
 import expand2react from '../../common/i18n/expand2react.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
 import bracketed from '../../common/utility/bracketed.js';
-import clean from '../../common/utility/clean.js';
 import isBlank from '../../common/utility/isBlank.js';
+import {stripAttributes} from '../../edit/utility/linkPhrase.js';
 import type {
   DialogAttributesStateT,
   DialogAttributeT,
@@ -85,18 +85,14 @@ function getLinkTypeError(
   return '';
 }
 
-function stripLinkPhraseSyntax(linkPhrase: string): string {
-  return clean(linkPhrase.replace(/[{}%|:]/g, ' '));
-}
-
 export function extractLinkTypeSearchTerms(
   item: AutocompleteOptionItemT<LinkTypeT>,
 ): Array<string> {
   const entity = item.entity;
   return [
     entity.l_name ?? '',
-    stripLinkPhraseSyntax(entity.l_link_phrase ?? ''),
-    stripLinkPhraseSyntax(entity.l_reverse_link_phrase ?? ''),
+    stripAttributes(entity, entity.l_link_phrase ?? ''),
+    stripAttributes(entity, entity.l_reverse_link_phrase ?? ''),
   ];
 }
 
