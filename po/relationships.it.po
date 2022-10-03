@@ -1495,13 +1495,13 @@ msgstr "Indica che (più comunemente) un festival ha commissionato l'opera. Ciò
 msgid ""
 "This indicates that a genre has influences of another, but is not connected "
 "to it enough to be a subgenre of it."
-msgstr ""
+msgstr "Indica che un genere è influenzato da un altro, ma non gli è collegato abbastanza da esserne un sottogenere."
 
 #: DB:link_type/description:1096
 msgid ""
 "This indicates that a genre originated as a hybrid of two or more other "
 "genres."
-msgstr ""
+msgstr "Indica che un genere ha avuto origine come un ibrido di due o più altri generi."
 
 #: DB:link_type/description:305
 msgid "This indicates that a person is, or was, a conductor for a group."
@@ -1629,7 +1629,7 @@ msgstr "Indica che un evento è composto di più parti (per es. un festival che 
 msgid ""
 "This indicates that an instrument (often an ensemble or family) consists of "
 "two or more other instruments."
-msgstr ""
+msgstr "Indica che uno strumento (spesso un'ensemble o famiglia) consta di due o più altri strumenti."
 
 #: DB:link_type/description:916
 msgid ""
@@ -1712,7 +1712,7 @@ msgstr "Indica che questa è una registrazione karaoke dell'opera. Si differenzi
 msgid ""
 "This indicates that two instruments are related in a way not covered by "
 "other, more specific relationships."
-msgstr ""
+msgstr "Indica che due strumenti sono imparentati in un modo che non è coperto da altre relazioni più specifiche."
 
 #: DB:link_type/description:973
 msgid "This indicates the artist that inspired this artist’s name."
@@ -2206,7 +2206,7 @@ msgstr "Collega un genere alla sua pagina di Bandcamp."
 
 #: DB:link_type/description:1095
 msgid "This links a genre to its subgenres."
-msgstr ""
+msgstr "Collega un genere ai suoi sottogeneri."
 
 #: DB:link_type/description:855
 msgid ""
@@ -2659,11 +2659,11 @@ msgstr "Collega un evento al progetto di crowdfunding dedicatogli su un sito com
 
 #: DB:link_type/description:737
 msgid "This links an instrument to an older instrument that it was based on."
-msgstr ""
+msgstr "Collega uno strumento ad uno strumento più vecchio su cui si basa."
 
 #: DB:link_type/description:736
 msgid "This links an instrument to more specific subtypes of it."
-msgstr ""
+msgstr "Collega uno strumento ai suoi sottotipi più specifici."
 
 #: DB:link_type/description:111
 msgid "This links artists who were married."
@@ -4421,7 +4421,7 @@ msgstr "da"
 
 #: DB:link_type/link_phrase:1096 DB:link_type/name:1096
 msgid "fusion of"
-msgstr ""
+msgstr "fusione di"
 
 #: DB:link_type/name:1088
 msgid "genre origin"
@@ -4780,7 +4780,7 @@ msgstr "ha lo strumento derivato"
 
 #: DB:link_type/reverse_link_phrase:1096
 msgid "has fusion genres"
-msgstr ""
+msgstr "ha i generi fusione"
 
 #: DB:link_type/reverse_link_phrase:916
 msgid "has hybrids"
@@ -4792,7 +4792,7 @@ msgstr "ha il marchio discografico"
 
 #: DB:link_type/long_link_phrase:1097
 msgid "has influences of"
-msgstr ""
+msgstr "ha influenze da"
 
 #: DB:link_type/long_link_phrase:984 DB:link_type/long_link_phrase:211
 msgid "has its history presented at"
@@ -4849,7 +4849,7 @@ msgstr "ha le note di episodio su"
 
 #: DB:link_type/long_link_phrase:1095
 msgid "has subgenre"
-msgstr ""
+msgstr "ha il sottogenere"
 
 #: DB:link_type/long_link_phrase:823
 msgid "has subseries"
@@ -4956,11 +4956,11 @@ msgstr "comprende"
 
 #: DB:link_type/link_phrase:1097 DB:link_type/name:1097
 msgid "influenced by"
-msgstr ""
+msgstr "influenzato da"
 
 #: DB:link_type/reverse_link_phrase:1097
 msgid "influenced genres"
-msgstr ""
+msgstr "generi influenzati"
 
 #: DB:link_type/description:734 DB:link_type/link_phrase:734
 #: DB:link_type/name:734 DB:link_type/reverse_link_phrase:734
@@ -5037,7 +5037,7 @@ msgstr "è una raccolta di"
 
 #: DB:link_type/long_link_phrase:1096
 msgid "is a fusion of"
-msgstr ""
+msgstr "è una fusione di"
 
 #: DB:link_type/long_link_phrase:916
 msgid "is a hybrid of"
@@ -6681,15 +6681,15 @@ msgstr "ha studiato presso"
 
 #: DB:link_type/name:1095
 msgid "subgenre"
-msgstr ""
+msgstr "sottogenere"
 
 #: DB:link_type/reverse_link_phrase:1095
 msgid "subgenre of"
-msgstr ""
+msgstr "sottogenere di"
 
 #: DB:link_type/link_phrase:1095
 msgid "subgenres"
-msgstr ""
+msgstr "sottogeneri"
 
 #: DB:link_type/name:722
 msgid "subgroup"

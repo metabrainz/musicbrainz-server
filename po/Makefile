@@ -57,7 +57,7 @@ install: $(MOFILES)
 		install -m 0644 $$file ../lib/LocaleData/$$lang/LC_MESSAGES/$$catalog.mo; \
 	done
 
-pot: mb_server.pot statistics.pot languages.pot languages_notrim.pot scripts.pot relationships.pot attributes.pot instruments.pot instrument_descriptions.pot
+pot: mb_server.pot statistics.pot countries.pot languages.pot languages_notrim.pot scripts.pot relationships.pot attributes.pot instruments.pot instrument_descriptions.pot
 
 mb_server.pot: $(POTFILES) $(JSFILES) $(TT) $(wildcard extract_pot_templates)
 	@echo "Rebuilding the mb_server.pot file";

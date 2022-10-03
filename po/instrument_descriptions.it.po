@@ -955,7 +955,7 @@ msgstr "Sviluppata come un liuto basso a gamma estesa in Italia nel tardo XVI se
 msgid ""
 "Developed as early as the 1500-hundreds and used for mail-carrier "
 "signalling, it was coiled (usually just once) and valveless."
-msgstr ""
+msgstr "Sviluppato già nel XVI secolo e usato per la segnalazione dai corrieri postali, aveva un canneggio a spirale (solitamente una sola) ed era senza pistoni."
 
 #. name:chitarra battente
 #: DB:instrument/description:939
@@ -2103,7 +2103,7 @@ msgid ""
 "href=\"/instrument/eafabec6-af67-4a49-be38-4401e7200494\">melophone</a>, a "
 "bellowed free reed shaped like a lute.<br /> Originating in the 19th century"
 " horn-design boom, it is used mostly in outside concert and marching music"
-msgstr ""
+msgstr "Da non confondere con il <a href=\"/instrument/eafabec6-af67-4a49-be38-4401e7200494\">melofono</a>, un aerofono ad ancia libera con mantici, ma dalla forma di liuto.<br /> Ebbe origine durante il boom dell'ideazione di corni nel XIX secolo ed è usato soprattutto nella musica da concerti all'aperto e da banda."
 
 #. name:ghijak
 #: DB:instrument/description:932
@@ -4398,7 +4398,7 @@ msgstr "Ne esistono due tipi: quelli detti \"madre\" e \"figlio\", a forma di ba
 msgid ""
 "These have holes along the body and sound production is similarly to "
 "woodwinds."
-msgstr ""
+msgstr "Hanno fori lungo il corpo e producono suono in modo simile ai legni."
 
 #. name:lute
 #: DB:instrument/description:83
@@ -4827,7 +4827,7 @@ msgid ""
 "Used occasionally in the western classical orchestra and theatre, it "
 "consists of several tuned aluminium, steel or bronze plates, struck to "
 "imitate the sound of bells."
-msgstr ""
+msgstr "Usato talvolta nelle orchestre classiche e nel teatro occidentali, è composto da diverse lastre intonate in alluminio, acciaio o bronzo che vengono percosse per imitare il suono delle campane."
 
 #. name:bonang panerus
 #: DB:instrument/description:971
