@@ -633,6 +633,24 @@ const RelationshipDialogContent = (React.memo<PropsT>((
     source,
   ]);
 
+  const formDivRef = React.useRef<HTMLDivElement | null>(null);
+
+  const closeDialogWithEvent = React.useCallback((
+    eventType: 'accept' | 'cancel',
+  ) => {
+    const formDiv = formDivRef.current;
+    if (formDiv) {
+      const event =
+        new Event('mb-close-relationship-dialog', {bubbles: true});
+      // $FlowIgnore[prop-missing]
+      event.closeEventType = eventType;
+      // $FlowIgnore[prop-missing]
+      event.dialogState = state;
+      formDiv.dispatchEvent(event);
+    }
+    closeDialog();
+  }, [closeDialog, state]);
+
   const acceptDialog = React.useCallback(() => {
     if (!(
       newRelationshipState &&
@@ -680,7 +698,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
         sourceEntity: source,
         type: 'update-relationship-state',
       });
-      closeDialog();
+      closeDialogWithEvent('accept');
     };
 
     if (isDatabaseRowId(initialRelationship.id)) {
@@ -704,8 +722,12 @@ const RelationshipDialogContent = (React.memo<PropsT>((
     targetEntityState.creditsToChange,
     initialRelationship,
     newRelationshipState,
-    closeDialog,
+    closeDialogWithEvent,
   ]);
+
+  const cancelDialog = React.useCallback(() => {
+    closeDialogWithEvent('cancel');
+  }, [closeDialogWithEvent]);
 
   const sourceEntityDispatch = React.useCallback((action) => {
     dispatch({action, type: 'update-source-entity'});
@@ -757,6 +779,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
     <div
       className="form"
       onKeyDown={handleKeyDown}
+      ref={formDivRef}
     >
       <h1>{title}</h1>
 
@@ -858,7 +881,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
           hasPendingDateErrors ||
           relationshipAlreadyExists
         )}
-        onCancel={closeDialog}
+        onCancel={cancelDialog}
         onDone={acceptDialog}
       />
     </div>
