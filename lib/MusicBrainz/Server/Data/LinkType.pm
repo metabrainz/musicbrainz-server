@@ -18,6 +18,7 @@ use MusicBrainz::Server::Validation qw( is_positive_integer );
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::GetByGID';
 with 'MusicBrainz::Server::Data::Role::EntityCache';
+with 'MusicBrainz::Server::Data::Role::SelectAll';
 
 sub _type { 'link_type' }
 
@@ -112,27 +113,21 @@ sub load
     load_subobjects($self, 'type', @objs);
 }
 
-sub get_all {
-    my ($self) = @_;
+around '_get_all_from_db' => sub {
+    my ($orig, $self, $p) = @_;
 
+    my @all = $self->$orig($p);
+    my @ids;
     my %id_to_obj;
-    my @objs;
 
-    for my $row (@{
-        $self->sql->select_list_of_hashes(
-            'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
-            ' ORDER BY id',
-        )
-    }) {
-        my $obj = $self->_new_from_row($row);
+    for my $obj (@all) {
+        push @ids, $obj->id;
         $id_to_obj{$obj->id} = $obj;
-        push @objs, $obj;
     }
 
-    $self->_load_attributes(\%id_to_obj, keys %id_to_obj);
-
-    return @objs;
-}
+    $self->_load_attributes(\%id_to_obj, @ids);
+    return @all;
+};
 
 sub get_tree
 {
@@ -494,14 +489,6 @@ sub load_documentation {
         $link_type->examples($examples{$id} // []);
     }
 }
-
-after _delete_from_cache => sub {
-    my ($self) = @_;
-    $self->c->cache->delete_multi(
-        'js_link_type_info',
-        'js_link_type_info:etag',
-    );
-};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
