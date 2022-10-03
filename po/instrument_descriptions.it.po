@@ -337,13 +337,6 @@ msgid ""
 "orchestra."
 msgstr "Il membro di registro medio basso della moderna famiglia dei violini e un membro di base dell'orchestra sinfonica."
 
-#. name:diatonic button accordion
-#: DB:instrument/description:361
-msgid ""
-"Also known as Melodeon, it has 1 to 2 rows of buttons that each produce two "
-"tones (bisonoric)."
-msgstr "Conosciuta anche come melodeon, ha 1 o 2 file di bottoni ognuno dei quali produce due toni (bitonale)."
-
 #. name:classical guitar
 #: DB:instrument/description:54
 msgid ""
@@ -369,14 +362,6 @@ msgid ""
 "the Jamaican Burru music and Rastafari movement, it is part of the "
 "Nyabinghi/Akete drums."
 msgstr "Conosciuto anche come kette o keteh, è il tamburo nyabinghi di dimensione più piccola e tono più acuto. Ha una membrana tesa in pelle di capra e viene percosso con la punta delle dita. Importante per la musica burru giamaicana e per il movimento rastafari, forma parte dei tamburi nyabinghi/akete."
-
-#. name:reed organ
-#: DB:instrument/description:204
-msgid ""
-"Also known as pump organ, it is large, looks like an upright piano and has "
-"pedals attached to bellows with reeds. Sound is produced by playing the "
-"keyboard."
-msgstr "Conosciuto anche come organo ad ance, è grande, dall'aspetto simile ad un pianoforte verticale e ha pedali collegati a mantici con ance. Il suono è generato suonando la tastiera."
 
 #. name:soprano recorder
 #: DB:instrument/description:469
@@ -1228,6 +1213,29 @@ msgid ""
 "with colourful bands."
 msgstr "Per la cornamusa italiana, utilizza <a href=\"/\">zampogna</a>.<br /> Conosciuto anche come zampoña, è un flauto di Pan tradizionale andino con due file di canne tenute insieme da fasce colorate."
 
+#. name:reed organ
+#: DB:instrument/description:204
+msgid ""
+"For the accordion also known as Melodeon, see <a "
+"href=\"/instrument/842d3d24-f638-47e6-a239-8578723db09c\">diatonic button "
+"accordion</a>.<br /> For the mouth blown keyed MELODION, see <a "
+"href=\"/instrument/8ab40df2-106b-4b9b-a50c-0798ee95da8f\">melodica</a>.<br "
+"/> Also known as pump organ, it is large, looks like an upright piano and "
+"has pedals attached to bellows with reeds. Sound is produced by playing the "
+"keyboard."
+msgstr ""
+
+#. name:diatonic button accordion
+#: DB:instrument/description:361
+msgid ""
+"For the organ also known as Melodeon, see <a "
+"href=\"/instrument/20443ce3-cde1-4968-b7cc-65e45bb9714f\">reed organ</a>.<br"
+" /> For the mouth blown keyed MELODION, see <a "
+"href=\"/instrument/8ab40df2-106b-4b9b-a50c-0798ee95da8f\">melodica</a>.<br "
+"/> Also known as Melodeon, it has 1 to 2 rows of buttons that each produce "
+"two tones (bisonoric)."
+msgstr ""
+
 #. name:lira da braccio
 #: DB:instrument/description:1016
 msgid ""
@@ -1509,6 +1517,22 @@ msgid ""
 "alternating length PVC pipes and hit with sticks or flaps. It is popular "
 "with street musicians."
 msgstr "Inventato o almeno reso popolare dal Blue Man Group, è composto da tubi in PVC di alterna lunghezza che vengono colpiti con bacchette o oggetti piatti. È popolare tra i musicisti di strada."
+
+#. name:accordion
+#: DB:instrument/description:41
+msgid ""
+"Invented and developed by several people in the early 1800's, it has an arm "
+"operated bellows with keys or buttons at one end and bass buttons at the "
+"other."
+msgstr ""
+
+#. name:bandoneón
+#: DB:instrument/description:193
+msgid ""
+"Invented and used in 1800's Europe, it became popular in Argentina. Unlike "
+"concertinas it is square, but alike its button action is parallel, typically"
+" it has several reeds per button."
+msgstr ""
 
 #. name:mandora / gallichon
 #: DB:instrument/description:895
@@ -2952,13 +2976,6 @@ msgstr "Piano elettrico in cui ance piatte in acciaio sono percosse da martellet
 msgid "The Xaphoon is a keyless chromatic single-reed woodwind instrument."
 msgstr "Strumento della famiglia dei legni cromatico, ad ancia singola e senza tasti."
 
-#. name:accordion
-#: DB:instrument/description:41
-msgid ""
-"The accordion is a rectangular free-reed bellows-driven instrument with a "
-"keyboard & buttons."
-msgstr "Strumento rettangolare ad ancia libera azionato da un mantice, con tastiera e bottoni."
-
 #. name:agogô
 #: DB:instrument/description:487
 msgid ""
@@ -3043,13 +3060,6 @@ msgid ""
 "The bajo sexto is a Mexican string instrument with 12 strings in 6 double "
 "courses."
 msgstr "Strumento a corda messicano con 12 corde in 6 ordini doppi."
-
-#. name:bandoneón
-#: DB:instrument/description:193
-msgid ""
-"The bandoneón is a type of bisonoric concertina popular in parts of South "
-"America and in Lithuania."
-msgstr "Tipo di concertina bitonale popolare in parti del Sud America e in Lituania."
 
 #. name:banhu
 #: DB:instrument/description:221

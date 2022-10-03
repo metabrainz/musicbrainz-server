@@ -280,8 +280,9 @@ msgid "accordina"
 msgstr "Accordina"
 
 #: DB:instrument/name:41
+msgctxt "Commonly used bellowed free reed with keys/buttons"
 msgid "accordion"
-msgstr "Akkordeon"
+msgstr ""
 
 #: DB:instrument/name:50
 msgid "acoustic bass guitar"

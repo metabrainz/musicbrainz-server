@@ -64,7 +64,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 16:20-0500\n"
+"POT-Creation-Date: 2022-10-03 16:18-0500\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: yvanz, 2016-2022\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
@@ -117,7 +117,7 @@ msgstr "« YY » sont les 2 derniers chiffres de l’année d’inscription."
 #: ../root/edit/details/historic/AddRelease.js:90
 #: ../root/recording/RecordingIndex.js:53
 #: ../root/static/scripts/release/components/MediumTable.js:83
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1435
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1490
 #: ../root/utility/tableColumns.js:538
 msgid "#"
 msgstr "no"
@@ -513,7 +513,7 @@ msgstr "Région :"
 #: ../root/components/RelationshipsTable.js:339
 #: ../root/components/list/ArtistList.js:68
 #: ../root/components/list/RecordingList.js:106
-#: ../root/components/list/ReleaseGroupList.js:96
+#: ../root/components/list/ReleaseGroupList.js:98
 #: ../root/components/list/ReleaseList.js:88
 #: ../root/edit/details/AddArtist.js:42 ../root/edit/details/AddMedium.js:170
 #: ../root/edit/details/AddRelease.js:58
@@ -1122,7 +1122,7 @@ msgstr "Détails"
 #: ../root/edit/details/EditRelease.js:95
 #: ../root/edit/details/EditReleaseGroup.js:52
 #: ../root/edit/details/EditSeries.js:50 ../root/edit/details/EditWork.js:61
-#: ../root/static/scripts/genre/components/GenreEditForm.js:64
+#: ../root/static/scripts/genre/components/GenreEditForm.js:150
 msgid "Disambiguation"
 msgstr "Désambiguïsation"
 
@@ -1410,7 +1410,7 @@ msgstr "Faire expirer l’action"
 #: ../root/recording/edit_form.tt:51 ../root/release/edit/information.tt:262
 #: ../root/release_group/edit_form.tt:23 ../root/series/edit_form.tt:26
 #: ../root/work/edit_form.tt:90
-#: ../root/static/scripts/genre/components/GenreEditForm.js:73
+#: ../root/static/scripts/genre/components/GenreEditForm.js:159
 msgid "External Links"
 msgstr "Liens externes"
 
@@ -1485,7 +1485,7 @@ msgstr "Forums"
 #: ../root/relationship/linktype/form.tt:13
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:198
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:65
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:273
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:274
 msgid "Forward link phrase:"
 msgstr "Phrase de liaison à l’endroit :"
 
@@ -2205,7 +2205,7 @@ msgstr "MusicBrainz n’a qu’un seul type de compte pour tous les utilisateurs
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:78
 #: ../root/static/scripts/common/components/FilterForm.js:129
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:112
-#: ../root/static/scripts/genre/components/GenreEditForm.js:58
+#: ../root/static/scripts/genre/components/GenreEditForm.js:146
 #: ../root/user/UserSubscriptions.js:45
 msgid "Name"
 msgstr "Nom"
@@ -2568,7 +2568,7 @@ msgstr "Évaluations"
 #: ../root/search/components/SearchForm.js:40
 #: ../root/static/scripts/common/constants.js:31
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:64
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1444
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1499
 #: ../root/user/UserProfile.js:52
 msgid "Recording"
 msgstr "Enregistrement"
@@ -2757,7 +2757,7 @@ msgstr "Parution :"
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:124
 #: ../root/release/CoverArt.js:116
 #: ../root/static/scripts/account/components/EditProfileForm.js:285
-#: ../root/static/scripts/edit/components/Multiselect.js:212
+#: ../root/static/scripts/edit/components/Multiselect.js:210
 #: ../root/user/UserCollections.js:135
 msgid "Remove"
 msgstr "Enlever"
@@ -2886,7 +2886,7 @@ msgstr "Montrer mon adresse courriel"
 #: ../root/edit/details/RemoveRelationshipType.js:94
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:203
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:72
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:277
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:279
 msgid "Reverse link phrase:"
 msgstr "Phrase de liaison à l’envers : "
 
@@ -3138,7 +3138,7 @@ msgid "Submit this CD using the simple method."
 msgstr "Envoyer ce CD avec la méthode simple."
 
 #: ../root/release/edit/editnote.tt:44
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1721
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1779
 msgid "Submitting edits..."
 msgstr "Envoi des modifications..."
 
@@ -3462,7 +3462,7 @@ msgstr "Cet enregistrement ne peut pas être enlevé car il est encore utilisé 
 
 #: ../root/components/common-macros.tt:239
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:685
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:312
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:315
 #: ../root/static/scripts/common/components/EntityLink.js:303
 msgid "This recording is a video"
 msgstr "Cet enregistrement est une vidéo"
@@ -3637,7 +3637,7 @@ msgstr "Twitter"
 
 #: ../root/edit/search_macros.tt:423 ../root/account/applications/Index.js:142
 #: ../root/components/Aliases/AliasTable.js:28
-#: ../root/components/list/ReleaseGroupList.js:103
+#: ../root/components/list/ReleaseGroupList.js:105
 #: ../root/components/list/ReleaseList.js:149
 #: ../root/edit/details/AddArea.js:63 ../root/edit/details/AddArtist.js:71
 #: ../root/edit/details/AddEvent.js:58
@@ -3677,7 +3677,7 @@ msgstr "Twitter"
 #: ../root/static/scripts/alias/AliasEditForm.js:325
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:84
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:871
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:473
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:476
 #: ../root/static/scripts/common/components/FilterForm.js:77
 #: ../root/static/scripts/edit/externalLinks.js:1171
 #: ../root/static/scripts/edit/externalLinks.js:1478
@@ -4014,7 +4014,7 @@ msgid "You haven’t entered a complete artist credit."
 msgstr "Vous n’avez pas saisi de crédit d’artiste complet."
 
 #: ../root/release/edit/editnote.tt:10
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:732
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:781
 msgid "You haven’t made any changes!"
 msgstr "Vous n’avez apporté aucun changement !"
 
@@ -4109,7 +4109,7 @@ msgstr "Vous avez utilisé l’artiste à usage spécial {valink|Artistes divers
 #: ../root/edit/details/SetTrackLengths.js:60
 #: ../root/static/scripts/common/components/EntityLink.js:47
 #: ../root/static/scripts/common/i18n/localizeLanguageName.js:15
-#: ../root/static/scripts/edit/components/Multiselect.js:212
+#: ../root/static/scripts/edit/components/Multiselect.js:197
 msgid "[removed]"
 msgstr "[enlevé]"
 
@@ -4188,7 +4188,7 @@ msgstr "modifications"
 #: ../root/release/edit/tracklist.tt:491 ../root/release/edit/tracklist.tt:506
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:123
 #: ../root/static/scripts/relationship-editor/components/DialogAttributes.js:361
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:299
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:294
 msgid "help"
 msgstr "aide"
 
@@ -4503,7 +4503,7 @@ msgstr "« Précédent"
 #: ../root/components/paginator.tt:19 ../root/components/paginator.tt:31
 #: ../root/components/paginator.tt:39 ../root/components/Paginator.js:94
 #: ../root/components/Paginator.js:119 ../root/components/Paginator.js:133
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:140
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:141
 msgid "…"
 msgstr "…"
 
@@ -4840,7 +4840,7 @@ msgstr "Les anciens et nouveaux ID d’annotation doivent être des entiers posi
 #: ../lib/MusicBrainz/Server/Controller/Role/EditRelationships.pm:210
 #: ../root/layout/components/sidebar/SidebarEndDate.js:40
 #: ../root/static/scripts/common/utility/formatEndDate.js:18
-#: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:115
+#: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:114
 msgid "[unknown]"
 msgstr "[inconnu]"
 
@@ -5001,7 +5001,7 @@ msgstr "Une parution existe déjà pour cet ID de disque"
 msgid "There is already a CD stub with this disc ID"
 msgstr "Il y a déjà une ébauche de CD avec cet ID de disque"
 
-#: ../lib/MusicBrainz/Server/Data/LinkType.pm:219
+#: ../lib/MusicBrainz/Server/Data/LinkType.pm:214
 #, perl-brace-format
 msgid "{t0}-{t1} relationships"
 msgstr "{t0}-{t1} relations"
@@ -7304,7 +7304,7 @@ msgstr "Comme les crochets [] sont utilisés pour créer des hyperliens, vous de
 #: ../root/search/components/EventResults.js:77
 #: ../root/search/components/WorkResults.js:56
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:892
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:481
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:484
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:15
 #: ../root/tag/TagLayout.js:25 ../root/utility/tableColumns.js:762
 msgid "Artists"
@@ -7398,7 +7398,7 @@ msgstr "Cette région n’a de relation avec aucun enregistrement."
 #: ../root/components/EntityTabs.js:93 ../root/label/LabelRelationships.js:32
 #: ../root/relationship/RelationshipsHeader.js:39
 #: ../root/static/scripts/common/components/Relationships.js:90
-#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:551
+#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:554
 msgid "Relationships"
 msgstr "Relations"
 
@@ -7408,7 +7408,7 @@ msgstr "Relations"
 #: ../root/artist_credit/ArtistCreditLayout.js:29
 #: ../root/components/EntityTabs.js:33
 #: ../root/components/TagEntitiesList.js:187
-#: ../root/components/list/ReleaseGroupList.js:108
+#: ../root/components/list/ReleaseGroupList.js:110
 #: ../root/edit/details/SetTrackLengths.js:49
 #: ../root/instrument/InstrumentReleases.js:37
 #: ../root/instrument/InstrumentReleases.js:39 ../root/label/LabelIndex.js:81
@@ -8518,7 +8518,7 @@ msgstr "Code"
 msgid "Address"
 msgstr "Adresse"
 
-#: ../root/components/list/ReleaseGroupList.js:166
+#: ../root/components/list/ReleaseGroupList.js:168
 msgid "Unspecified type"
 msgstr "Type non spécifié"
 
@@ -8540,7 +8540,7 @@ msgstr "Statut"
 #: ../root/report/components/WorkList.js:52
 #: ../root/search/components/WorkResults.js:55
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:891
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:480
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:483
 msgid "Writers"
 msgstr "Écrivains"
 
@@ -11198,7 +11198,7 @@ msgid "Internal Server Error"
 msgstr "Erreur interne du serveur"
 
 #: ../root/main/error/Error500.js:40
-#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:541
+#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:544
 msgid "Oops, something went wrong!"
 msgstr "Oups, quelque chose a mal tourné !"
 
@@ -11718,7 +11718,7 @@ msgstr "{entity0}-{entity1}"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:126
 #: ../root/static/scripts/edit/externalLinks.js:741
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:64
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:63
 msgid "This relationship type is deprecated and should not be used."
 msgstr "Ce type de relation est obsolète et ne devrait pas être utilisé."
 
@@ -11887,7 +11887,7 @@ msgstr "Êtes-vous certain de vouloir supprimer l’Illustration ci-dessous de l
 
 #: ../root/release_group/ReleaseGroupHeader.js:30
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:810
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:430
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:433
 msgid "Release group by {artist}"
 msgstr "Groupe de parution par {artist}"
 
@@ -13212,7 +13212,7 @@ msgstr "URL Wikidata liées à de multiple entités"
 #: ../root/report/ReportsIndex.js:590
 #: ../root/search/components/RecordingResults.js:144
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:717
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:337
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:340
 #: ../root/static/scripts/common/components/IsrcList.js:46
 #: ../root/utility/tableColumns.js:654
 msgid "ISRCs"
@@ -13498,7 +13498,7 @@ msgstr "Recherche dans la documentation"
 
 #: ../root/search/components/EventResults.js:78
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:1044
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:198
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:199
 #: ../root/utility/tableColumns.js:359
 msgid "Location"
 msgstr "Lieu"
@@ -13894,22 +13894,22 @@ msgid "Slow? Switch back to indexed search."
 msgstr "Lent ? Revenez à la recherche indexée."
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:704
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:329
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:332
 msgid "appears on"
 msgstr "apparaît dans"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:710
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:333
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:336
 msgid "standalone recording"
 msgstr "enregistrement isolé"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:804
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:425
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:428
 msgid "{release_group_type} by {artist}"
 msgstr "{release_group_type} par {artist}"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:1043
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:195
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:196
 msgid "Performers"
 msgstr "Interprètes"
 
@@ -14061,11 +14061,11 @@ msgstr "Chercher une série"
 msgid "Search for a work"
 msgstr "Chercher une œuvre"
 
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:324
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:327
 msgid "by {artist}"
 msgstr "par {artist}"
 
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:388
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:391
 msgid "{first_list_item} … {last_list_item}"
 msgstr "{first_list_item} … {last_list_item}"
 
@@ -14764,7 +14764,7 @@ msgstr "Cette combinaison de types de relation est invalide."
 
 #: ../root/static/scripts/edit/check-duplicates.js:156
 #: ../root/static/scripts/edit/externalLinks.js:681
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:55
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:54
 #: ../root/static/scripts/relationship-editor/components/DialogTargetEntity.js:83
 #: ../root/static/scripts/release/components/EditWorkDialog.js:169
 msgid "Required field."
@@ -15016,8 +15016,8 @@ msgid "Please select a link type for the URL you’ve entered."
 msgstr "Veuillez choisir un type de lien pour l’URL que vous avez saisie."
 
 #: ../root/static/scripts/edit/externalLinks.js:751
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:852
-#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:469
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:875
+#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:472
 msgid "This relationship already exists."
 msgstr "Cette relation existe déjà."
 
@@ -15077,7 +15077,7 @@ msgid "This URL is not allowed for works."
 msgstr "Cette URL n’est pas permise pour les œuvres."
 
 #: ../root/static/scripts/edit/externalLinks.js:1110
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:313
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:308
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|plus de documentation})"
 
@@ -15105,7 +15105,7 @@ msgstr "Ajouter un autre lien"
 msgid "Add another relationship"
 msgstr "Ajouter une autre relation"
 
-#: ../root/static/scripts/genre/components/GenreEditForm.js:55
+#: ../root/static/scripts/genre/components/GenreEditForm.js:139
 msgid "Genre details"
 msgstr "Détails du genre"
 
@@ -15154,31 +15154,34 @@ msgstr "Laisser"
 msgid "Add vocal"
 msgstr "Ajouter une voix"
 
-#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:181
+#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:176
 msgid "This attribute is required."
 msgstr "Cet attribut est requis."
 
-#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:214
-msgid "Credited as:"
-msgstr "Crédité en tant que :"
+#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:208
+#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:216
+#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:201
+#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:205
+msgid "Credited as"
+msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:124
+#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:123
 msgid "Change credits for other {entity} relationships on the page."
 msgstr "Changer les crédits pour les autres relations de {entity} dans cette page."
 
-#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:140
+#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:139
 msgid "All of these relationships."
 msgstr "Toutes ces relations."
 
-#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:152
+#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:151
 msgid "Only relationships to {entity_type} entities."
 msgstr "Seulement les relations avec une entité de type {entity_type}."
 
-#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:170
+#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:169
 msgid "Only “{relationship_type}” relationships to {entity_type} entities."
 msgstr "Seulement les relations de type « {relationship_type} » avec une entité de type {entity_type}."
 
-#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:215
+#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:193
 msgid ""
 "A credited name is optional. You can leave this field blank to keep the "
 "current name."
@@ -15195,17 +15198,17 @@ msgid ""
 "down-arrow buttons)."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:58
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:57
 msgid ""
 "Please select a subtype of the currently selected relationship type. The "
 "selected relationship type is only used for grouping subtypes."
 msgstr "Veuillez choisir un sous-type pour le type de relation sélectionné actuellement. Le type de relation sélectionné est uniquement utilisé pour regrouper des sous-types."
 
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:80
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:79
 msgid "This relationship type is not allowed with the current series type."
 msgstr "Ce type de relation n’est pas autorisé pour ce type de série."
 
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:295
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:290
 msgid "Relationship type"
 msgstr "Type de relation"
 
@@ -15257,17 +15260,17 @@ msgstr "Les entités d’une relation ne peuvent pas être les mêmes."
 msgid "Related entity type"
 msgstr "Type d’entité connexe"
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:772
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:795
 msgid ""
 "Warning: This relationship has pending edits. {show|Click here} to view "
 "these edits and make sure they do not conflict with your own."
 msgstr "Avertissement : cette relation a des modifications en attente. {show|Cliquez ici} pour voir ces modifications et vous assurez qu’elles n’entrent pas en conflit avec les vôtres."
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:871
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:894
 msgid "This will add a relationship to all checked recordings."
 msgstr "Ceci ajoutera une relation à tous les enregistrements cochés."
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:874
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:897
 msgid "This will add a relationship to all checked works."
 msgstr "Ceci ajoutera une relation à toutes les œuvres cochées."
 
@@ -15533,28 +15536,28 @@ msgstr "Ajout par lot de relations aux œuvres"
 msgid "[selected work]"
 msgstr "[œuvre sélectionnée]"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:287
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:267
 msgid "An error occurred:"
 msgstr "Une erreur est survenue :"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1408
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1463
 msgid "Track Relationships"
 msgstr "Relations de piste"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1456
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1511
 msgid "Related Works"
 msgstr "Œuvres connexes"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1480
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1535
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:361
 msgid "We have no information about this release’s media and tracklist."
 msgstr "Nous n’avons pas d’information à propos des supports et des pistes."
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1515
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1570
 msgid "Release Relationships"
 msgstr "Relations de parution"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1555
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1610
 msgid "Release Group Relationships"
 msgstr "Relations de groupe de parution"
 

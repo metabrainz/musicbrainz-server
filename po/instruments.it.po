@@ -277,6 +277,7 @@ msgid "accordina"
 msgstr "accordina"
 
 #: DB:instrument/name:41
+msgctxt "Commonly used bellowed free reed with keys/buttons"
 msgid "accordion"
 msgstr "fisarmonica"
 
