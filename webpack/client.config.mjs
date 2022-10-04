@@ -61,6 +61,7 @@ const entries = [
   'confirm-seed',
   'edit',
   'edit/components/NewNotesAlertCheckbox',
+  'event/components/EventEditForm',
   'event/edit',
   'event/index',
   'genre/components/GenreEditForm',
