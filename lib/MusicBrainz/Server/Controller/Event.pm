@@ -138,8 +138,8 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
 
 before qw( create edit ) => sub {
     my ($self, $c) = @_;
-    my %event_types = map {$_->id => $_} $c->model('EventType')->get_all();
-    $c->stash->{event_types} = \%event_types;
+    my %event_descriptions = map { $_->id => $_->l_description } $c->model('EventType')->get_all();
+    $c->stash->{event_descriptions} = \%event_descriptions;
 };
 
 1;
