@@ -14,7 +14,6 @@
 
 /* eslint-disable no-unused-vars */
 
-// eslint-disable-next-line camelcase
 declare var __webpack_public_path__: string;
 declare var __DEV__: boolean;
 declare var GLOBAL_JS_NAMESPACE: '__MB__';
