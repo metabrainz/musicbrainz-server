@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -205,6 +205,7 @@ export const FAVICON_CLASSES = {
   'viaf.org': 'viaf',
   'videogam.in': 'videogamin',
   'vimeo.com/ondemand': 'vimeoondemand',
+  // eslint-disable-next-line sort-keys
   'vimeo.com': 'vimeo',
   'vk.com': 'vk',
   'vkdb.jp': 'vkdb',
@@ -240,7 +241,8 @@ export const PART_OF_SERIES_LINK_TYPES: {
 };
 
 export const PART_OF_SERIES_LINK_TYPE_GIDS: $ReadOnlyArray<string> =
-  (Object.values(PART_OF_SERIES_LINK_TYPES).filter(Boolean): any);
+  // $FlowIssue (Flow thinks Object.values is Array<mixed>)
+  (Object.values(PART_OF_SERIES_LINK_TYPES).filter(Boolean));
 
 export const PART_OF_SERIES_LINK_TYPE_IDS: $ReadOnlyArray<number> = [
   740, // recording
