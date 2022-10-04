@@ -967,6 +967,7 @@ export default [
       'root/static/scripts/edit/components/URLInputPopover.js',
       'root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js',
       'root/static/scripts/edit/externalLinks.js',
+      'root/static/scripts/event/components/EventEditForm.js',
       'root/static/scripts/relationship-editor/components/DialogPreview.js',
     ],
     rules: {
