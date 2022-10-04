@@ -30,6 +30,13 @@ import escapeRegExp
   from '../root/static/scripts/common/utility/escapeRegExp.mjs';
 import writeCoverage from '../root/utility/writeCoverage.mjs';
 
+/*
+ * We can't run all of the Selenium tests concurrently
+ * because all tests share a database and Chrome driver
+ * so disabling no-await-in-loop for this file instead
+ */
+/* eslint-disable no-await-in-loop */
+
 const argv = yargs
   .option('b', {
     alias: 'browser',
