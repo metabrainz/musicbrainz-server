@@ -28,11 +28,12 @@ const providePluginConfig = {
   'addColon': [addColonPath, 'default'],
   'addColonText': [addColonPath, 'addColonText'],
   'hasOwnProp': [hasOwnPropPath, 'default'],
-  'hyphenateTitle': [hyphenateTitlePath, 'default'],
   'hydrate': [hydratePath, 'default'],
+  'hyphenateTitle': [hyphenateTitlePath, 'default'],
   'invariant': [invariantPath, 'default'],
   'nonEmpty': [nonEmptyPath, 'default'],
 
+  /* eslint-disable sort-keys */
   'l': [i18nPath, 'l'],
   'ln': [i18nPath, 'ln'],
   'lp': [i18nPath, 'lp'],
@@ -48,6 +49,7 @@ const providePluginConfig = {
   'texp.l': [expandTextPath, 'l'],
   'texp.ln': [expandTextPath, 'ln'],
   'texp.lp': [expandTextPath, 'lp'],
+  /* eslint-enable sort-keys */
 };
 
 GETTEXT_DOMAINS.forEach(domain => {

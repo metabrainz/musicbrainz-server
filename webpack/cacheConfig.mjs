@@ -13,10 +13,10 @@ import MB_SERVER_ROOT from '../root/utility/serverRootDir.mjs';
 import {WEBPACK_MODE} from './constants.mjs';
 
 export default {
-  type: 'filesystem',
   buildDependencies: {
     config: [path.resolve(MB_SERVER_ROOT, 'webpack') + path.sep],
   },
+  type: 'filesystem',
   version: (
     WEBPACK_MODE + '-' +
     String(process.env.NODE_ENV) + '-' +

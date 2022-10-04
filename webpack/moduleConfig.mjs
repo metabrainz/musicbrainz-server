@@ -34,22 +34,22 @@ export default {
       },
     },
     {
-      test: /\.(png|svg|jpg|gif)$/,
-      type: 'asset/resource',
       generator: {
         filename: PRODUCTION_MODE
           ? '[name]-[hash:7][ext]'
           : '[name][ext]',
       },
+      test: /\.(png|svg|jpg|gif)$/,
+      type: 'asset/resource',
     },
     {
-      test: /\.less$/,
-      type: 'asset/resource',
       generator: {
         filename: PRODUCTION_MODE
           ? '[name]-[hash:7].css'
           : '[name].css',
       },
+      test: /\.less$/,
+      type: 'asset/resource',
       use: [
         {
           loader: 'less-loader',
