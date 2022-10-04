@@ -14,19 +14,20 @@ import path from 'path';
 import defined from 'defined';
 import httpProxy from 'http-proxy';
 import JSON5 from 'json5';
-import test from 'tape';
-import TestCls from 'tape/lib/test.js';
 import webdriver from 'selenium-webdriver';
 import chrome from 'selenium-webdriver/chrome.js';
 import firefox from 'selenium-webdriver/firefox.js';
-import webdriverProxy from 'selenium-webdriver/proxy.js';
 import {Key} from 'selenium-webdriver/lib/input.js';
 import until from 'selenium-webdriver/lib/until.js';
+import webdriverProxy from 'selenium-webdriver/proxy.js';
+import test from 'tape';
+import TestCls from 'tape/lib/test.js';
 import yargs from 'yargs';
 
 import * as DBDefs from '../root/static/scripts/common/DBDefs.mjs';
 import deepEqual from '../root/static/scripts/common/utility/deepEqual.js';
-import escapeRegExp from '../root/static/scripts/common/utility/escapeRegExp.mjs';
+import escapeRegExp
+  from '../root/static/scripts/common/utility/escapeRegExp.mjs';
 import writeCoverage from '../root/utility/writeCoverage.mjs';
 
 const argv = yargs
@@ -80,11 +81,11 @@ function compareEditDataValues(actualValue, expectedValue) {
 
 TestCls.prototype.deepEqual2 = function (a, b, msg, extra) {
   this._assert(deepEqual(a, b, compareEditDataValues), {
-    message: defined(msg, 'should be equivalent'),
-    operator: 'deepEqual2',
     actual: a,
     expected: b,
     extra: extra,
+    message: defined(msg, 'should be equivalent'),
+    operator: 'deepEqual2',
   });
 };
 
@@ -609,6 +610,7 @@ async function handleCommand({command, target, value}, t) {
   return null;
 }
 
+/* eslint-disable sort-keys */
 const seleniumTests = [
   {name: 'Create_Account.json5'},
   {name: 'MBS-5387.json5', login: true},
@@ -678,8 +680,10 @@ const seleniumTests = [
     login: true,
   },
 ];
+/* eslint-enable sort-keys */
 
-const testPath = name => path.resolve(DBDefs.MB_SERVER_ROOT, 't/selenium', name);
+const testPath =
+  name => path.resolve(DBDefs.MB_SERVER_ROOT, 't/selenium', name);
 
 seleniumTests.forEach(x => {
   x.path = testPath(x.name);
@@ -708,7 +712,7 @@ async function runCommands(commands, t) {
   await driver.manage().window().setRect({height: 768, width: 1024});
 
   for (let i = 0; i < commands.length; i++) {
-    let reqsCountBeforeCommand = reqsCount;
+    const reqsCountBeforeCommand = reqsCount;
 
     await handleCommand(commands[i], t);
 
@@ -767,7 +771,9 @@ async function runCommands(commands, t) {
     const startTime = new Date();
     await execFile(
       path.resolve(DBDefs.MB_SERVER_ROOT, 'script/reset_selenium_env.sh'),
-      extraSql ? [path.resolve(DBDefs.MB_SERVER_ROOT, 't/sql', extraSql)] : [],
+      extraSql
+        ? [path.resolve(DBDefs.MB_SERVER_ROOT, 't/sql', extraSql)]
+        : [],
     );
     const finishTime = new Date();
     const elapsedTime = (finishTime - startTime) / 1000;
