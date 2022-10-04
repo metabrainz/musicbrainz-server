@@ -44,7 +44,7 @@ CDP((client) => {
     Runtime.consoleAPICalled(function (event) {
       clearTimeout(timeout);
 
-      let args = event.args.map(getValue);
+      const args = event.args.map(getValue);
       (console[event.type] || console.log).apply(console, args);
 
       if (/^\s*# ok\s*$/.test(args[0])) {
