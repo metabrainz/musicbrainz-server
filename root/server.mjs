@@ -6,9 +6,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {spawnSync} from 'child_process';
 import cluster from 'cluster';
 import fs from 'fs';
-import {spawnSync} from 'child_process';
 
 import Sentry from '@sentry/node';
 
