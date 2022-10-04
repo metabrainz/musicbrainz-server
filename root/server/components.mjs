@@ -113,6 +113,7 @@ export default {
   'entity/alias/AddOrEditAlias': (): Promise<mixed> => import('../entity/alias/AddOrEditAlias.js'),
   'entity/alias/DeleteAlias': (): Promise<mixed> => import('../entity/alias/DeleteAlias.js'),
   'entity/Aliases': (): Promise<mixed> => import('../entity/Aliases.js'),
+  'entity/Collections': (): Promise<mixed> => import('../entity/Collections.js'),
   'entity/Details': (): Promise<mixed> => import('../entity/Details.js'),
   'entity/Edits': (): Promise<mixed> => import('../entity/Edits.js'),
   'entity/NotFound': (): Promise<mixed> => import('../entity/NotFound.js'),

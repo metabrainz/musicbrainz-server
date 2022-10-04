@@ -109,11 +109,16 @@ View a list of collections that this work has been added to.
 
         $c->model('Editor')->load(@public_collections);
 
-        $c->stash
-          (entity_type => $entity_type,
-           public_collections => \@public_collections,
-           private_collections => $private_collections,
-           template => 'entity/collections.tt',
+        my %props = (
+            entity => $c->stash->{$entity_name}->TO_JSON,
+            privateCollectionCount => 0 + $private_collections,
+            publicCollections => to_json_array(\@public_collections),
+        );
+
+        $c->stash(
+            component_path => 'entity/Collections.js',
+            component_props => \%props,
+            current_view => 'Node',
         );
     };
 };
