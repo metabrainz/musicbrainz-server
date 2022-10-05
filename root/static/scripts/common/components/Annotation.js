@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -49,7 +49,8 @@ const Annotation = ({
   showChangeLog = false,
   showEmpty = false,
 }: Props) => {
-  if (!annotation || (!annotation.text && !showEmpty)) {
+  const annotationIsEmpty = !nonEmpty(annotation?.text);
+  if (!annotation || (annotationIsEmpty && !showEmpty)) {
     return null;
   }
   const latestAnnotation = entity.latest_annotation;
@@ -57,7 +58,7 @@ const Annotation = ({
     <>
       <h2 className="annotation">{l('Annotation')}</h2>
 
-      {(showEmpty && !annotation.text) ? (
+      {(showEmpty && annotationIsEmpty) ? (
         <div className="annotation-body small">
           {l('This annotation is blank.')}
         </div>
