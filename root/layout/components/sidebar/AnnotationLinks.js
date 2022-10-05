@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -21,6 +21,7 @@ const AnnotationLinks = ({
   entity,
 }: Props): React.Element<typeof React.Fragment> => {
   const $c = React.useContext(CatalystContext);
+  const numberOfRevisions = $c.stash.number_of_revisions ?? 0;
 
   return (
     <>
@@ -32,12 +33,12 @@ const AnnotationLinks = ({
             $c.req.uri,
           )}
         >
-          {entity.latest_annotation && entity.latest_annotation.text
+          {entity.latest_annotation && nonEmpty(entity.latest_annotation.text)
             ? l('Edit annotation')
             : l('Add annotation')}
         </a>
       </li>
-      {$c.stash.number_of_revisions ? (
+      {numberOfRevisions > 0 ? (
         <li>
           <a href={entityHref(entity, 'annotations')}>
             {l('View annotation history')}
