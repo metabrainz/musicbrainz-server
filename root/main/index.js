@@ -33,7 +33,7 @@ const Homepage = ({
 }: Props): React.Element<typeof Layout> => (
   <Layout
     fullWidth
-    homepage
+    isHomepage
     title={l('MusicBrainz - The Open Music Encyclopedia')}
   >
     <div id="maincontent">
