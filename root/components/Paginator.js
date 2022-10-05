@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -67,15 +67,15 @@ const Paginator = ({
   return (
     <nav>
       <ul className="pagination">
-        {previousPage ? (
+        {previousPage == null ? (
+          <li key="no-previous">
+            <span>{l('Previous')}</span>
+          </li>
+        ) : (
           <li key="previous">
             <a href={uriPage(reqUri, pageVar, previousPage, hash)}>
               {l('Previous')}
             </a>
-          </li>
-        ) : (
-          <li key="no-previous">
-            <span>{l('Previous')}</span>
           </li>
         )}
 
@@ -135,15 +135,15 @@ const Paginator = ({
         ) : null}
 
         <li className="separator" key="separate-next">
-          {nextPage ? (
+          {nextPage == null ? (
+            <li key="no-next">
+              <span>{l('Next')}</span>
+            </li>
+          ) : (
             <li key="next">
               <a href={uriPage(reqUri, pageVar, nextPage, hash)}>
                 {l('Next')}
               </a>
-            </li>
-          ) : (
-            <li key="no-next">
-              <span>{l('Next')}</span>
             </li>
           )}
         </li>
