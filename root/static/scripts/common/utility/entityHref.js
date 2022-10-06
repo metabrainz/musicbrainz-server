@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -31,13 +31,12 @@ function generateHref(
   anchorPath?: string,
 ) {
   let href = '/' + path + '/';
-
   href += encodeURIComponent(id);
 
   if (nonEmpty(subPath)) {
-    subPath = subPath.replace(leadingSlash, '$1');
-    if (subPath) {
-      href += '/' + subPath;
+    const cleanedSubPath = subPath.replace(leadingSlash, '$1');
+    if (cleanedSubPath) {
+      href += '/' + cleanedSubPath;
     }
   }
 
