@@ -173,7 +173,7 @@ Webpack's [ProvidePlugin](webpack/providePluginConfig.js).
 We have a couple of scripts you may find useful that generate Flow object
 types based on JSON data:
 
- * `./script/generate_edit_data_flow_type.mjs --edit-type $EDIT_TYPE_ID`
+ * `./bin/sucrase-node script/generate_edit_data_flow_type.mjs --edit-type $EDIT_TYPE_ID`
    will generate an object type to represent the edit data of `$EDIT_TYPE_ID`.
    However, this requires having a `PROD_STANDBY` database configured in
    DBDefs.pm, as it uses production data to ensure a correct type.
