@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,7 +9,9 @@
 
 import Jed from 'jed';
 
+import nonEmpty from '../static/scripts/common/utility/nonEmpty.js';
 import jedData from '../static/scripts/jed-data.mjs';
+import invariant from '../utility/invariant.js';
 
 import * as poFile from './gettext/poFile.mjs';
 
@@ -35,7 +37,7 @@ export function setLocale(locale: string) {
 
 export function loadDomain(domain: string) {
   const locale = jedInstance.locale;
-  invariant(locale, 'Expected a locale');
+  invariant(nonEmpty(locale), 'Expected a locale');
   const localeData = jedInstance.options.locale_data;
 
   if (!localeData[domain]) {
