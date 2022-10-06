@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2017 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
