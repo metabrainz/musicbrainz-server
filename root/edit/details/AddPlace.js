@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2019 Anirudh Jain
  *
  * This file is part of MusicBrainz, the open internet music database,
