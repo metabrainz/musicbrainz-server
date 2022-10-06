@@ -35,6 +35,7 @@ export function setLocale(locale /*: string */) {
 
 export function loadDomain(domain /*: string */) {
   const locale = jedInstance.locale;
+  invariant(locale, 'Expected a locale');
   const localeData = jedInstance.options.locale_data;
 
   if (!localeData[domain]) {
