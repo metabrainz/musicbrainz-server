@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -100,6 +100,7 @@ export function getString(x: mixed): string {
 
 export function getVarSubstArg(x: mixed): React$MixedElement | string {
   if (React.isValidElement(x)) {
+    // $FlowIgnore[unclear-type] We know this is a valid element
     return ((x: any): React$MixedElement);
   }
   return getString(x);
@@ -254,6 +255,11 @@ export const createCondSubstParser = <T, V>(
 
   if (args.has(name)) {
     const value = args.get(name);
+    /*
+     * The Flow lint is disabled because we intend to
+     * strip /all/ falsey values here.
+     */
+    // flowlint-next-line sketchy-null-mixed:off
     if (value) {
       return thenChildren;
     }
@@ -281,7 +287,7 @@ export default function expand<+T, V>(
   source: ?string,
   args: ?VarArgsClass<V>,
 ): T | string {
-  if (!source) {
+  if (!nonEmpty(source)) {
     return '';
   }
 
