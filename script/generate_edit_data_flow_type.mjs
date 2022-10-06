@@ -26,10 +26,10 @@ yargs
   const pgClient = new pg.Client(DBDefs.DATABASES.PROD_STANDBY);
   await pgClient.connect();
 
-  class SingleColumnCursor extends Cursor/*:: <string> */ {
+  class SingleColumnCursor extends Cursor<string> {
     constructor(
-      config/*: string */,
-      values/*: $ReadOnlyArray<mixed> */,
+      config: string,
+      values: $ReadOnlyArray<mixed>,
     ) {
       super(config, values);
       this._result.parseRow = function (rowData) {
@@ -52,7 +52,7 @@ yargs
   );
 
   const createIterator = () => {
-    let buffer/*: Array<string> | null */ = [];
+    let buffer: Array<string> | null = [];
     let index = 0;
     const it = {
       /*:: @@asyncIterator: function () { return it; }, */

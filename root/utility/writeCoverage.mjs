@@ -19,8 +19,8 @@ if (!fs.existsSync(COVERAGE_DIR)) {
 }
 
 export default function writeCoverage(
-  fileName /*: string */,
-  coverageString /*: string */,
+  fileName: string,
+  coverageString: string,
 ) {
   const coverageFileName = `${fileName}.json`;
 

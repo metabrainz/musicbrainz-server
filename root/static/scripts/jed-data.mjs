@@ -7,19 +7,15 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable multiline-comment-style */
-/*::
 import type {JedOptions} from 'jed';
 
 type JedData = {
   locale: string,
-  [string]: JedOptions,
+  [locale: string]: JedOptions,
   ...
 };
-*/
-/* eslint-enable  multiline-comment-style */
 
-const jedData /*: JedData */ = {
+const jedData: JedData = {
   en: {
     domain: 'mb_server',
     locale_data: {

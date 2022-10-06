@@ -18,10 +18,10 @@ import {parse} from 'cookie';
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 export default function parseCookie(
-  cookie /*: mixed */,
-  name /*: string */,
-  defaultValue /*: string */ = '',
-) /*: string */ {
+  cookie: mixed,
+  name: string,
+  defaultValue: string = '',
+): string {
   if (typeof cookie === 'string') {
     const values = parse(cookie);
     if (hasOwnProperty.call(values, name)) {
