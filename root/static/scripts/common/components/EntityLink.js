@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2015–2016 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -32,20 +32,20 @@ export const DeletedLink = ({
   deletedCaption,
   name,
 }: DeletedLinkProps): React.Element<'span'> => {
-  const caption = deletedCaption || (allowNew
+  const caption = nonEmpty(deletedCaption) ? deletedCaption : (allowNew
     ? l('This entity will be created by this edit.')
     : l('This entity has been removed, and cannot be displayed correctly.'));
 
   return (
     <span
       className={
-        (className ? className + ' ' : '') +
+        (nonEmpty(className) ? className + ' ' : '') +
         (allowNew ? '' : 'deleted ') +
         'tooltip'
       }
       title={caption}
     >
-      {isolateText(name || l('[removed]'))}
+      {isolateText(nonEmpty(name) ? name : l('[removed]'))}
     </span>
   );
 };
@@ -108,15 +108,15 @@ const AreaDisambiguation = ({area}: {+area: AreaT}) => {
   const beginYear = area.begin_date ? area.begin_date.year : null;
   const endYear = area.end_date ? area.end_date.year : null;
 
-  if (beginYear && endYear) {
+  if (beginYear != null && endYear != null) {
     comment = texp.l(
       'historical, {begin}-{end}',
       {begin: beginYear, end: endYear},
     );
-  } else if (endYear) {
-    comment = texp.l('historical, until {end}', {end: endYear});
-  } else {
+  } else if (endYear == null) {
     comment = l('historical');
+  } else {
+    comment = texp.l('historical, until {end}', {end: endYear});
   }
 
   return <Comment className="historical" comment={comment} />;
@@ -170,24 +170,32 @@ type EntityLinkProps = {
 
 const EntityLink = ({
   allowNew = false,
-  content,
+  content: passedContent,
   deletedCaption,
   disableLink = false,
   entity,
-  hover,
-  nameVariation,
-  showCaaPresence,
+  hover: passedHover,
+  nameVariation: passedNameVariation = false,
+  showCaaPresence = false,
   showDeleted = true,
-  showDisambiguation,
+  showDisambiguation: passedShowDisambiguation,
   showEditsPending = true,
   showEventDate = true,
-  showIcon = false,
+  showIcon: passedShowIcon = false,
   subPath,
   ...anchorProps
 }: EntityLinkProps):
 $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
-  const hasCustomContent = nonEmpty(content);
-  const comment = entity.comment ? ko.unwrap(entity.comment) : '';
+  const hasCustomContent = nonEmpty(passedContent);
+  const hasEditsPending = entity.editsPending || false;
+  const hasSubPath = nonEmpty(subPath);
+  const comment = nonEmpty(entity.comment) ? ko.unwrap(entity.comment) : '';
+
+  let content = passedContent;
+  let hover = passedHover;
+  let nameVariation = passedNameVariation;
+  let showDisambiguation = passedShowDisambiguation;
+  let showIcon = passedShowIcon;
 
   if (showDisambiguation === undefined) {
     showDisambiguation = !hasCustomContent;
@@ -198,14 +206,14 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
   }
 
   if (entity.entityType === 'area') {
-    content = content || localizeAreaName(entity);
+    content = nonEmpty(content) ? content : localizeAreaName(entity);
   } else if (entity.entityType === 'instrument') {
-    content = content || localizeInstrumentName(entity);
+    content = nonEmpty(content) ? content : localizeInstrumentName(entity);
   } else if (entity.entityType === 'link_type') {
-    content = content || l_relationships(entity.name);
+    content = nonEmpty(content) ? content : l_relationships(entity.name);
   }
 
-  content = content || ko.unwrap(entity.name);
+  content = nonEmpty(content) ? content : ko.unwrap(entity.name);
 
   if (!ko.unwrap(entity.gid)) {
     if (entity.entityType === 'url') {
@@ -233,13 +241,13 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
   }
 
   // URLs are kind of weird and we probably don't care to set this for them
-  if (!subPath && entity.entityType !== 'url') {
+  if (!hasSubPath && entity.entityType !== 'url') {
     if (nameVariation === undefined && typeof content === 'string') {
       nameVariation = content !== entity.name;
     }
 
     if (nameVariation) {
-      if (hover) {
+      if (nonEmpty(hover)) {
         hover = texp.l('{name} – {additional_info}', {
           additional_info: hover,
           name: entity.name,
@@ -252,7 +260,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
 
   anchorProps.href = href;
 
-  if (hover) {
+  if (nonEmpty(hover)) {
     anchorProps.title = hover;
   }
 
@@ -281,11 +289,11 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     );
   }
 
-  if (showEditsPending && !subPath && entity.editsPending) {
+  if (showEditsPending && !hasSubPath && hasEditsPending) {
     content = <span className="mp" key="mp">{content}</span>;
   }
 
-  if (!subPath && entity.entityType === 'area') {
+  if (!hasSubPath && entity.entityType === 'area') {
     const isoCodes = entity.iso_3166_1_codes;
     if (isoCodes && isoCodes.length) {
       content = (
@@ -298,7 +306,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     }
   }
 
-  if (!subPath && entity.entityType === 'recording' && entity.video) {
+  if (!hasSubPath && entity.entityType === 'recording' && entity.video) {
     content = (
       <React.Fragment key="video">
         <span className="video" title={l('This recording is a video')} />
@@ -338,7 +346,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     }
   }
 
-  if (!subPath && entity.entityType === 'release') {
+  if (!hasSubPath && entity.entityType === 'release') {
     if (entity.quality === 2) {
       content = (
         <>
@@ -376,7 +384,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     );
   }
 
-  if (!showDisambiguation && !infoLink) {
+  if (!showDisambiguation && !nonEmpty(infoLink)) {
     return parts;
   }
 
@@ -400,7 +408,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     }
   }
 
-  if (infoLink) {
+  if (nonEmpty(infoLink)) {
     parts.push(
       ' ',
       bracketed(
