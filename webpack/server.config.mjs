@@ -20,8 +20,8 @@ import {
   SCRIPTS_DIR,
   WEBPACK_MODE,
 } from './constants.mjs';
-import moduleConfig from './moduleConfig.mjs';
 import definePluginConfig from './definePluginConfig.mjs';
+import moduleConfig from './moduleConfig.mjs';
 import providePluginConfig from './providePluginConfig.mjs';
 
 export default {
@@ -33,6 +33,7 @@ export default {
 
   entry: {
     server: {
+      chunkLoading: false,
       import: path.resolve(ROOT_DIR, 'server.mjs'),
       /*
        * This prevents code-splitting of async imports into separate chunks.
@@ -40,7 +41,6 @@ export default {
        * certain modules that must be shared into each chunk (context,
        * gettext, DBDefs, linkedEntities, ...).
        */
-      chunkLoading: false,
     },
   },
 

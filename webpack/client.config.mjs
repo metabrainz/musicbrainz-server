@@ -10,8 +10,8 @@ import fs from 'fs';
 import path from 'path';
 
 import canonicalJson from 'canonical-json';
-import shell from 'shelljs';
 import shellQuote from 'shell-quote';
+import shell from 'shelljs';
 import TerserPlugin from 'terser-webpack-plugin';
 import webpack from 'webpack';
 
@@ -120,7 +120,7 @@ function mtime(fpath) {
 }
 
 function findNewerPo(domain, lang, bundleMtime) {
-  let srcPo = poFile.find(domain, lang);
+  const srcPo = poFile.find(domain, lang);
   const poMtime = mtime(srcPo);
   if (poMtime === null) {
     console.warn(`Warning: ${srcPo} does not exist, skipping`);
