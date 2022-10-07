@@ -13,7 +13,7 @@ import mutate from 'mutate-cow';
 // $FlowIgnore[missing-export]
 import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
-import {createStore} from 'redux';
+import {legacy_createStore as createStore} from 'redux';
 
 import {LANGUAGE_MUL_ID, LANGUAGE_ZXX_ID} from '../common/constants.js';
 import {groupBy} from '../common/utility/arrays.js';

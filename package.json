@@ -58,7 +58,7 @@
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-table": "7.8.0",
-    "redux": "3.6.0",
+    "redux": "4.2.0",
     "shell-quote": "1.7.3",
     "shelljs": "0.8.5",
     "sliced": "1.0.1",
