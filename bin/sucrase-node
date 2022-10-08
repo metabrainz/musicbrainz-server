@@ -3,10 +3,16 @@
 MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
 
 NODE_VERSION="$(node --version)"
-if [[ $NODE_VERSION =~ ^v16\. ]]
+if [[ $NODE_VERSION =~ ^v([0-9]+)\.([0-9]+) ]]
 then
-    NODE_MINOR_VERSION=$(echo "$NODE_VERSION" | sed 's/^v16\.\([0-9]\+\)\.[0-9]\+$/\1/')
+    NODE_MAJOR_VERSION="${BASH_REMATCH[1]}"
+    NODE_MINOR_VERSION="${BASH_REMATCH[2]}"
 else
+    echo 'Unable to parse Node.js version number.'
+    exit 1
+fi
+
+if (( $NODE_MAJOR_VERSION < 16 )); then
     echo 'Node.js >= v16 is required. An LTS release (>= v16.13.0) is strongly recommended.'
     exit 1
 fi
@@ -16,7 +22,7 @@ fi
 #
 # It appears that version v16.13.0 (the first LTS release) is identical to
 # v16.12.0.
-if (( $NODE_MINOR_VERSION >= 12 ))
+if (( $NODE_MAJOR_VERSION > 16 || $NODE_MINOR_VERSION >= 12 ))
 then
     LOADER="$MB_SERVER_ROOT"/root/utility/sucraseLoader.mjs
 else
