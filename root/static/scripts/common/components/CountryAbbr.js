@@ -24,7 +24,7 @@ const CountryAbbr = ({
   withLink = false,
 }: Props): React.Element<'span'> | null => {
   const primaryCode = primaryAreaCode(country);
-  if (!nonEmpty(primaryCode)) {
+  if (empty(primaryCode)) {
     return null;
   }
   const combinedClass =

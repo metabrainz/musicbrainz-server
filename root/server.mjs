@@ -14,7 +14,7 @@ import Sentry from '@sentry/node';
 
 import createServer from './server/createServer.mjs';
 import * as DBDefs from './static/scripts/common/DBDefs.mjs';
-import nonEmpty from './static/scripts/common/utility/nonEmpty.js';
+import nonEmpty, {empty} from './static/scripts/common/utility/nonEmpty.js';
 import writeCoverage from './utility/writeCoverage.mjs';
 
 function sentryInit(config) {
@@ -45,7 +45,7 @@ if (nonEmpty(SERVER_STARTER_PORT)) {
   SERVER_STARTER_FD = fd;
 } else {
   SOCKET_PATH = process.env.RENDERER_SOCKET;
-  if (!nonEmpty(SOCKET_PATH)) {
+  if (empty(SOCKET_PATH)) {
     SOCKET_PATH = DBDefs.RENDERER_SOCKET;
   }
 }

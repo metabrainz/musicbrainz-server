@@ -59,7 +59,7 @@ export const ReleaseGroupListTable = ({
   const $c = React.useContext(CatalystContext);
 
   function getFirstReleaseYear(entity: ReleaseGroupT) {
-    if (!nonEmpty(entity.firstReleaseDate)) {
+    if (empty(entity.firstReleaseDate)) {
       return '—';
     }
 

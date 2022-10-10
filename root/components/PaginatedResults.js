@@ -47,7 +47,7 @@ const PaginatedResults = ({
       {paginator}
       {(search || total) ? (
         <p className="pageselector-results">
-          {(total || !nonEmpty(query)) ? (
+          {(total || empty(query)) ? (
             texp.ln(
               'Found {n} result', 'Found {n} results',
               pager.total_entries,

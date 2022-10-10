@@ -45,7 +45,7 @@ const EditorLink = ({
   }
 
   let content = passedContent;
-  if (!nonEmpty(content)) {
+  if (empty(content)) {
     content = editor.name;
   }
 

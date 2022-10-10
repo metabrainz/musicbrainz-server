@@ -108,7 +108,7 @@ function formatArtist(artist: ArtistT) {
   if (
     sortName &&
     sortName !== artist.name &&
-    !nonEmpty(artist.primaryAlias) &&
+    empty(artist.primaryAlias) &&
     isNonLatin(artist.name)
   ) {
     extraInfo = (info: Array<string>) => {
@@ -265,7 +265,7 @@ function formatLinkType(linkType: LinkTypeT) {
   const description = stripHtml(linkType.l_description);
   const linkPhrase = linkType.l_link_phrase;
   const reverseLinkPhrase = linkType.l_reverse_link_phrase;
-  const isGroupingType = !nonEmpty(description);
+  const isGroupingType = empty(description);
 
   return (
     <>

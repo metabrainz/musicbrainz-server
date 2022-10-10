@@ -49,7 +49,7 @@ const Annotation = ({
   showChangeLog = false,
   showEmpty = false,
 }: Props) => {
-  const annotationIsEmpty = !nonEmpty(annotation?.text);
+  const annotationIsEmpty = empty(annotation?.text);
   if (!annotation || (annotationIsEmpty && !showEmpty)) {
     return null;
   }

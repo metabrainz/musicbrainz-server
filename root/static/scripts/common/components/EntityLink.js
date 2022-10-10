@@ -201,7 +201,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     showDisambiguation = !hasCustomContent;
   }
 
-  if (entity.entityType === 'artist' && !nonEmpty(hover)) {
+  if (entity.entityType === 'artist' && empty(hover)) {
     hover = entity.sort_name + (comment ? ' ' + bracketedText(comment) : '');
   }
 
@@ -384,7 +384,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     );
   }
 
-  if (!showDisambiguation && !nonEmpty(infoLink)) {
+  if (!showDisambiguation && empty(infoLink)) {
     return parts;
   }
 

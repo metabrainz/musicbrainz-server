@@ -287,7 +287,7 @@ export default function expand<+T, V>(
   source: ?string,
   args: ?VarArgsClass<V>,
 ): T | string {
-  if (!nonEmpty(source)) {
+  if (empty(source)) {
     return '';
   }
 
