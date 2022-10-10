@@ -4,9 +4,9 @@ use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use Moose;
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Editable';
 with 'MusicBrainz::Server::Entity::Role::DatePeriod';
 with 'MusicBrainz::Server::Entity::Role::Name';
+with 'MusicBrainz::Server::Entity::Role::PendingEdits';
 with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'AliasType' };
 
 has 'sort_name' => (

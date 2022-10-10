@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Entity::Role::Editable;
+package MusicBrainz::Server::Entity::Role::PendingEdits;
 
 use Moose::Role;
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );

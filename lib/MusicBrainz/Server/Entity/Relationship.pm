@@ -14,8 +14,8 @@ use MusicBrainz::Server::Data::Utils qw( boolean_to_json partial_date_to_hash );
 use overload '<=>' => \&_cmp, fallback => 1;
 
 extends 'MusicBrainz::Server::Entity';
-with  'MusicBrainz::Server::Entity::Role::Editable';
 with  'MusicBrainz::Server::Entity::Role::LastUpdate';
+with  'MusicBrainz::Server::Entity::Role::PendingEdits';
 
 sub entity_type { 'relationship' }
 

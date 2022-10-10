@@ -3,11 +3,11 @@ package MusicBrainz::Server::Entity::CoreEntity;
 use Moose;
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Editable';
 with 'MusicBrainz::Server::Entity::Role::GID';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Relatable';
 with 'MusicBrainz::Server::Entity::Role::Name';
+with 'MusicBrainz::Server::Entity::Role::PendingEdits';
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
