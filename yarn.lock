@@ -4074,10 +4074,10 @@ ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
-mutate-cow@4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/mutate-cow/-/mutate-cow-4.1.0.tgz#6c9af2991e060e12857d87dd43c14f3169b2e037"
-  integrity sha512-Wp24WmzRFFOg2gVMxbaemOxfNGMt8Xzdi4ZfIZdnhV3YtIhimfn7w8Fao5ZcnAYGzn2d3ELSid3F4dNxtQq5hg==
+mutate-cow@4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/mutate-cow/-/mutate-cow-4.1.1.tgz#891958a0d249fce617e5044c78fbf4615e0a9fba"
+  integrity sha512-7ZTSKpGSU7eH75b+JsKAozym+XGdvPga6CyDhGQHct3LVZzkMacaxaaECQKcagKJqESzcXc+3DCx5Gqti8gE6Q==
 
 mz@^2.7.0:
   version "2.7.0"
