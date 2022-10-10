@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2015 Ulrich Klauer
  * Copyright (C) 2019 MetaBrainz Foundation
  *
