@@ -40,6 +40,10 @@ function nonEmptyFn(value: mixed): boolean %checks {
   return value !== null && value !== undefined && value !== '';
 }
 declare var nonEmpty: typeof nonEmptyFn;
+function emptyFn(value: mixed): boolean %checks {
+  return !nonEmptyFn(value);
+}
+declare var empty: typeof emptyFn;
 
 declare var l: (key: string) => string;
 declare var ln: (skey: string, pkey: string, val: number) => string;

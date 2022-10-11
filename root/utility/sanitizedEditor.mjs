@@ -16,13 +16,13 @@ const publicFlags = 1 & // AUTO_EDITOR_FLAG
                     256 & // LOCATION_EDITOR_FLAG
                     512; // BANNER_EDITOR_FLAG
 
-function sanitizePrivileges(privileges /*: number */) /*: number */ {
+function sanitizePrivileges(privileges: number): number {
   return (privileges & publicFlags);
 }
 
 export default function sanitizedEditor(
-  editor /*: UnsanitizedEditorT | EditorT */,
-) /*: EditorT */ {
+  editor: UnsanitizedEditorT | EditorT,
+): EditorT {
   /*
    * If you return more data here, please
    *  - ensure it doesn't constitute private/non-public info

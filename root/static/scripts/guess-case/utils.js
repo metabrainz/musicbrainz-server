@@ -193,7 +193,7 @@ export function titleString(
   inputString: string | null,
   forceCaps?: boolean,
 ): string {
-  if (!nonEmpty(inputString)) {
+  if (empty(inputString)) {
     return '';
   }
   const guessCaseMode = modes[gc.modeName];
@@ -317,7 +317,7 @@ export function titleStringByMode(
   inputString: string | null,
   forceCaps: boolean,
 ): string {
-  if (!nonEmpty(inputString)) {
+  if (empty(inputString)) {
     return '';
   }
 

@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -163,6 +163,7 @@ export function editorMayApprove(
       const oldOrderingType = (edit.data.old?.ordering_type_id) ?? 0;
       const newOrderingType = (edit.data.new?.ordering_type_id) ?? 0;
       // Intentional != since some edit data store numbers as strings
+      // eslint-disable-next-line eqeqeq
       if (oldOrderingType != newOrderingType) {
         return false;
       }

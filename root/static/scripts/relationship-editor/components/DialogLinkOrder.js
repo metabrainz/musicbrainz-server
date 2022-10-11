@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import {MAX_POSTGRES_INT} from '../../common/utility/isDatabaseRowId.js';
-// $FlowIgnore[untyped-import]
 import HelpIcon from '../../edit/components/HelpIcon.js';
 import type {
   DialogLinkOrderActionT,

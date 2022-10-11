@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -36,9 +36,9 @@ const EntityHeader = ({
 }: Props): React.Element<typeof React.Fragment> => (
   <>
     <div className={'entityheader ' + headerClass}>
-      {preHeader || null}
+      {nonEmpty(preHeader) ? preHeader : null}
       <h1>
-        {heading || <EntityLink entity={entity} />}
+        {nonEmpty(heading) ? heading : <EntityLink entity={entity} />}
       </h1>
       <SubHeader subHeading={subHeading} />
     </div>

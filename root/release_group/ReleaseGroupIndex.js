@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -54,7 +54,7 @@ function buildReleaseStatusTable(
     <React.Fragment key={status ? status.name : 'no-status'}>
       <tr className="subh">
         {$c.user ? <th /> : null}
-        <th colSpan={$c.session && $c.session.tport ? 9 : 8}>
+        <th colSpan={$c.session?.tport == null ? 8 : 9}>
           {status?.name
             ? lp_attributes(status.name, 'release_status')
             : lp('(unknown)', 'release status')}
@@ -83,8 +83,16 @@ function buildReleaseStatusTable(
           >
             <ArtistCreditLink artistCredit={release.artistCredit} />
           </td>
-          <td>{release.combined_format_name || l('[missing media]')}</td>
-          <td>{release.combined_track_count || lp('-', 'missing data')}</td>
+          <td>
+            {nonEmpty(release.combined_format_name)
+              ? release.combined_format_name
+              : l('[missing media]')}
+          </td>
+          <td>
+            {nonEmpty(release.combined_track_count)
+              ? release.combined_track_count
+              : lp('-', 'missing data')}
+          </td>
           <td>
             <ReleaseEvents events={release.events} />
             {manifest.js(
@@ -161,8 +169,9 @@ const ReleaseGroupIndex = ({
                     <th>{l('Label')}</th>
                     <th>{l('Catalog#')}</th>
                     <th>{l('Barcode')}</th>
-                    {$c.session?.tport
-                      ? <th>{l('Tagger')}</th> : null}
+                    {$c.session?.tport == null
+                      ? null
+                      : <th>{l('Tagger')}</th>}
                   </tr>
                 </thead>
                 <tbody>

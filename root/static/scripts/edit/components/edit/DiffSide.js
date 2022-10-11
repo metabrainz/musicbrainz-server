@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2015 Ulrich Klauer
  * Copyright (C) 2019 MetaBrainz Foundation
  *
@@ -26,11 +26,12 @@ import editDiff, {
 const FAST_DIFF_FALLBACK_LENGTH = 1024;
 
 function splitText(text: string, split: string = '') {
+  let splitRegExp = split;
   if (split !== '') {
-    split = '(' + split + ')';
+    splitRegExp = '(' + split + ')';
   }
   // the capture group becomes a separate part of the split output
-  return text.split(new RegExp(split, 'u'));
+  return text.split(new RegExp(splitRegExp, 'u'));
 }
 
 type Props = {
@@ -76,8 +77,8 @@ const DiffSide = ({
       continue;
     }
 
-    oldText = diff.oldItems ? diff.oldItems.join('') : diff.oldText;
-    newText = diff.newItems ? diff.newItems.join('') : diff.newText;
+    const diffOldText = diff.oldItems ? diff.oldItems.join('') : diff.oldText;
+    const diffNewText = diff.newItems ? diff.newItems.join('') : diff.newText;
 
     const sameChangeTypeAsBefore = !!(
       stack.length && stack[stack.length - 1].type === changeType
@@ -99,7 +100,7 @@ const DiffSide = ({
       stack[stack.length - 1].type === nextChangeType &&
       split !== '' &&
       changeType === EQUAL &&
-      splitMatch.test(newText)
+      splitMatch.test(diffNewText)
     );
 
     if (!sameChangeTypeAsBefore && !isSeparatorBetweenChanges) {
@@ -108,10 +109,11 @@ const DiffSide = ({
     }
 
     if (changeType === CHANGE) {
-      stack[stack.length - 1].text += filter === INSERT ? newText : oldText;
+      stack[stack.length - 1].text += filter === INSERT
+        ? diffNewText : diffOldText;
     } else {
       stack[stack.length - 1].text += changeType === INSERT
-        ? newText : oldText;
+        ? diffNewText : diffOldText;
     }
   }
 

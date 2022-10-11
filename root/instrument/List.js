@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 Shamroy Pellew
  *
  * This file is part of MusicBrainz, the open internet music database,

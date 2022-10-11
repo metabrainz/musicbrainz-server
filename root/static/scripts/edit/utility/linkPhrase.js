@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -65,8 +65,8 @@ class PhraseVarArgs<T>
    ) {
      super(args || EMPTY_OBJECT);
      this.i18n = i18n;
-     this.entity0 = entity0 || '';
-     this.entity1 = entity1 || '';
+     this.entity0 = nonEmpty(entity0) ? entity0 : '';
+     this.entity1 = nonEmpty(entity1) ? entity1 : '';
      this.usedPhraseAttributes = [];
    }
 
@@ -191,7 +191,7 @@ function _getRequiredAttributes(
   const required: LinkAttrsByRootName = {};
   for (const typeId of Object.keys(linkType.attributes)) {
     const {min} = linkType.attributes[Number(typeId)];
-    if (min) {
+    if (min != null && min > 0) {
       const attribute = linkedEntities.link_attribute_type[Number(typeId)];
       required[attribute.name] = attributesByRootName ? (
         attributesByRootName[attribute.name]
@@ -247,7 +247,8 @@ export function getPhraseAndExtraAttributes<T>(
       : (linkType.orderable_direction === 1)
   );
 
-  if (phraseProp === 'long_link_phrase' && entity0 && entity1) {
+  if (phraseProp === 'long_link_phrase' &&
+      nonEmpty(entity0) && nonEmpty(entity1)) {
     if (!entity0Subst.test(phraseSource)) {
       phraseSource = '{entity0} ' + phraseSource;
     }

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -114,7 +114,7 @@ class PreferencesForm extends React.Component<Props, State> {
       // ignored where Intl.DateTimeFormat is unsupported
     }
     const guess = maybeGuess;
-    if (guess) {
+    if (nonEmpty(guess)) {
       for (const option of this.state.timezoneOptions.options) {
         if (option.value === guess) {
           this.setState(prevState => mutate<State, _>(prevState, newState => {

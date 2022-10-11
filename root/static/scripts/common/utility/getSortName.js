@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -16,7 +16,7 @@ import ENTITIES from '../../../../../entities.mjs';
 
 export default function getSortName(entity: CoreEntityT): string {
   const hasSortName = ENTITIES[entity.entityType].sort_name;
-  return hasSortName /*:: && entity.sort_name */
+  return hasSortName /*:: && nonEmpty(entity.sort_name) */
     ? entity.sort_name
     : entity.name;
 }

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -66,11 +66,12 @@ type PropsT = {
 
 const Relationships = (React.memo<PropsT>(({
   noRelationshipsHeading = false,
-  relationships,
+  relationships: passedRelationships,
   showIfEmpty = false,
   source,
 }: PropsT): React.Element<typeof React.Fragment> => {
   let srcRels = source.relationships;
+  let relationships = passedRelationships;
   if (!relationships) {
     if (srcRels && source.entityType === 'series') {
       srcRels = srcRels.filter(isNotSeriesPart);

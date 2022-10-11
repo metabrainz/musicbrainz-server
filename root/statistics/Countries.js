@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 Shamroy Pellew
  * Copyright (C) 2019 MetaBrainz Foundation
  *

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * This file is part of MusicBrainz, the open internet music database.
  * Copyright (C) 2015 MetaBrainz Foundation
  * Licensed under the GPL version 2, or (at your option) any later version:
@@ -35,13 +35,13 @@ function pathTo(manifest: string) {
     ).toString());
   }
 
-  manifest = manifest.replace(/^\//, '');
+  const cleanedManifest = manifest.replace(/^\//, '');
 
   const publicPath = STATIC_RESOURCES_LOCATION + '/' +
-    revManifest[manifest];
+    revManifest[cleanedManifest];
 
   if (!publicPath) {
-    return manifest;
+    return cleanedManifest;
   }
 
   return publicPath;

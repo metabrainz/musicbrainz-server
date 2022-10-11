@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -33,7 +33,7 @@ const Homepage = ({
 }: Props): React.Element<typeof Layout> => (
   <Layout
     fullWidth
-    homepage
+    isHomepage
     title={l('MusicBrainz - The Open Music Encyclopedia')}
   >
     <div id="maincontent">

@@ -27,6 +27,7 @@ const invariantPath = path.resolve(MB_SERVER_ROOT, 'root/utility/invariant');
 const providePluginConfig = {
   'addColon': [addColonPath, 'default'],
   'addColonText': [addColonPath, 'addColonText'],
+  'empty': [nonEmptyPath, 'empty'],
   'hasOwnProp': [hasOwnPropPath, 'default'],
   'hydrate': [hydratePath, 'default'],
   'hyphenateTitle': [hyphenateTitlePath, 'default'],

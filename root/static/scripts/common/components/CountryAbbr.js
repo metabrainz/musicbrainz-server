@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -24,7 +24,7 @@ const CountryAbbr = ({
   withLink = false,
 }: Props): React.Element<'span'> | null => {
   const primaryCode = primaryAreaCode(country);
-  if (!nonEmpty(primaryCode)) {
+  if (empty(primaryCode)) {
     return null;
   }
   const combinedClass =

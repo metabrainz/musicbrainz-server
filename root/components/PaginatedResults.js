@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -47,7 +47,7 @@ const PaginatedResults = ({
       {paginator}
       {(search || total) ? (
         <p className="pageselector-results">
-          {(total || !query) ? (
+          {(total || empty(query)) ? (
             texp.ln(
               'Found {n} result', 'Found {n} results',
               pager.total_entries,
