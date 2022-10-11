@@ -6,7 +6,11 @@ use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Filters qw( format_wikitext );
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
+extends 'MusicBrainz::Server::Entity';
+with 'MusicBrainz::Server::Entity::Role::Editable';
+with 'MusicBrainz::Server::Entity::Role::GID';
+with 'MusicBrainz::Server::Entity::Role::Name';
+
 
 with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'CollectionType' };
 
