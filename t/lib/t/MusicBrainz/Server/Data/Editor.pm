@@ -37,9 +37,21 @@ INSERT INTO artist_rating_raw (artist, editor, rating) VALUES (1, 1, 80);
     my $editor = $test->c->model('Editor')->get_by_id(1);
     my $ratings = $test->c->model('Editor')->summarize_ratings($editor);
 
-    is($ratings->{artist}->[0]->id => 1, 'has artist entity');
-    is($ratings->{artist}->[0]->rating, 80, 'has raw rating');
-    is($ratings->{artist}->[0]->rating_count => 1, 'has rating on entity');
+    is(
+        $ratings->{artist}->[0]->{id},
+        1,
+        'The results include the rated artist entity',
+    );
+    is(
+        $ratings->{artist}->[0]->{rating},
+        80,
+        'The inserted raw rating is present',
+    );
+    is(
+        $ratings->{artist}->[0]->{rating_count},
+        1,
+        'The amount of ratings for the entity is correct',
+    );
 };
 
 test 'Remember me tokens' => sub {

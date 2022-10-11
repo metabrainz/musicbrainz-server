@@ -515,11 +515,16 @@ sub rating_summary : Chained('load') PathPart('ratings') Args(0) HiddenOnMirrors
 
     my $ratings = $c->model('Editor')->summarize_ratings($user,
                         $c->stash->{viewing_own_profile});
-    $c->model('ArtistCredit')->load(map { @$_ } values %$ratings);
+
+    my %props = (
+        ratings => $ratings,
+        user => $self->serialize_user($user),
+    );
 
     $c->stash(
-        ratings => $ratings,
-        template => 'user/ratings_summary.tt',
+        component_path  => 'user/UserRatingList',
+        component_props => \%props,
+        current_view    => 'Node',
     );
 }
 

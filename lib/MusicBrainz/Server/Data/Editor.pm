@@ -13,6 +13,7 @@ use Encode;
 use MusicBrainz::Server::Constants qw( :edit_status entities_with );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Data::Utils qw(
     generate_token
     hash_to_row
@@ -100,7 +101,9 @@ sub summarize_ratings
             my ($entities) = $self->c->model(type_to_model($_))->rating
                 ->find_editor_ratings($user->id, $me, 10, 0);
 
-            ($_ => $entities);
+            $self->c->model('ArtistCredit')->load(@$entities);
+
+            ($_ => to_json_array($entities));
         } entities_with('ratings')
     };
 }
