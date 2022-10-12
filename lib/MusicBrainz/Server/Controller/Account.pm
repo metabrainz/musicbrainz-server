@@ -292,6 +292,14 @@ sub reset_password : Path('/reset-password') ForbiddenOnMirrors DenyWhenReadonly
 
     my $form = $c->form( form => 'User::ResetPassword' );
 
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'account/ResetPassword.js',
+        component_props => {
+            form => $form->TO_JSON,
+        },
+    );
+
     if ($c->form_posted_and_valid($form)) {
         my $password = $form->field('password')->value;
         $c->model('Editor')->update_password($editor->name, $password);
