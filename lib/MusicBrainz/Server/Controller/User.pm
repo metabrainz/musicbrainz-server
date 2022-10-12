@@ -557,9 +557,17 @@ sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnMirrors
     }, limit => 100);
     $c->model('ArtistCredit')->load(@$ratings);
 
+    my %props = (
+        entityType => $type,
+        pager => serialize_pager($c->stash->{pager}),
+        ratings => to_json_array($ratings),
+        user => $self->serialize_user($user),
+    );
+
     $c->stash(
-        ratings => $ratings,
-        type => $type
+        component_path  => 'user/UserRatingEntity',
+        component_props => \%props,
+        current_view    => 'Node',
     );
 }
 

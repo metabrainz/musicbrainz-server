@@ -24,7 +24,7 @@ type Props = {
   +user: AccountLayoutUserT,
 };
 
-const headingText: {+[entity: RatableEntityTypeT]: () => string} = {
+export const headingText: {+[entity: RatableEntityTypeT]: () => string} = {
   artist: N_l('Artist ratings'),
   event: N_l('Event ratings'),
   label: N_l('Label ratings'),
