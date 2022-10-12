@@ -25,6 +25,7 @@ export default {
   'account/applications/Register': (): Promise<mixed> => import('../account/applications/Register.js'),
   'account/applications/Remove': (): Promise<mixed> => import('../account/applications/Remove.js'),
   'account/applications/RevokeAccess': (): Promise<mixed> => import('../account/applications/RevokeAccess.js'),
+  'account/ChangePassword': (): Promise<mixed> => import('../account/ChangePassword.js'),
   'account/Donation': (): Promise<mixed> => import('../account/Donation.js'),
   'account/EditProfile': (): Promise<mixed> => import('../account/EditProfile.js'),
   'account/EmailVerificationStatus': (): Promise<mixed> => import('../account/EmailVerificationStatus.js'),
