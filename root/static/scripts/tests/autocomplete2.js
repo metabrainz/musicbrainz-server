@@ -32,13 +32,13 @@ type ActionT =
     }
   | {
       +action: AutocompleteActionT<LinkAttrTypeT>,
-      +prop: 'vocalAutocomplete',
+      +prop: 'attributeTypeAutocomplete',
       +type: 'update-autocomplete',
     };
 
 type StateT = {
+  +attributeTypeAutocomplete: AutocompleteStateT<LinkAttrTypeT>,
   +entityAutocomplete: AutocompleteStateT<NonUrlCoreEntityT>,
-  +vocalAutocomplete: AutocompleteStateT<LinkAttrTypeT>,
 };
 
 const attributeTypesById = keyBy(
@@ -83,11 +83,12 @@ $(function () {
               action.action,
             );
             break;
-          case 'vocalAutocomplete':
-            state.vocalAutocomplete = autocompleteReducer<LinkAttrTypeT>(
-              state.vocalAutocomplete,
-              action.action,
-            );
+          case 'attributeTypeAutocomplete':
+            state.attributeTypeAutocomplete =
+              autocompleteReducer<LinkAttrTypeT>(
+                state.attributeTypeAutocomplete,
+                action.action,
+              );
             break;
         }
         break;
@@ -111,17 +112,18 @@ $(function () {
 
   function createInitialState() {
     return {
+      attributeTypeAutocomplete:
+        createInitialAutocompleteState<LinkAttrTypeT>({
+          entityType: 'link_attribute_type',
+          id: 'attribute-type-test',
+          placeholder: 'Choose an attribute type',
+          staticItems: attributeTypeOptions,
+          width: '200px',
+        }),
       entityAutocomplete: createInitialAutocompleteState<NonUrlCoreEntityT>({
         canChangeType: () => true,
         entityType: 'artist',
         id: 'entity-test',
-        width: '200px',
-      }),
-      vocalAutocomplete: createInitialAutocompleteState<LinkAttrTypeT>({
-        entityType: 'link_attribute_type',
-        id: 'vocal-test',
-        placeholder: 'Choose an attribute type',
-        staticItems: attributeTypeOptions,
         width: '200px',
       }),
     };
@@ -142,10 +144,10 @@ $(function () {
       });
     }, []);
 
-    const vocalAutocompleteDispatch = React.useCallback((action) => {
+    const attributeTypeAutocompleteDispatch = React.useCallback((action) => {
       dispatch({
         action,
-        prop: 'vocalAutocomplete',
+        prop: 'attributeTypeAutocomplete',
         type: 'update-autocomplete',
       });
     }, []);
@@ -184,11 +186,11 @@ $(function () {
           />
         </div>
         <div>
-          <h2>{'Vocal autocomplete'}</h2>
+          <h2>{'Attribute type autocomplete'}</h2>
           {/* $FlowIssue[incompatible-use] */}
           <Autocomplete2
-            dispatch={vocalAutocompleteDispatch}
-            state={state.vocalAutocomplete}
+            dispatch={attributeTypeAutocompleteDispatch}
+            state={state.attributeTypeAutocomplete}
           />
         </div>
       </>
