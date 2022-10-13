@@ -1216,26 +1216,6 @@ const ExternalLinkRelationship =
                     ) : null
                   )
               }
-              {linkType &&
-                hasOwnProp(
-                  linkType.attributes,
-                  String(VIDEO_ATTRIBUTE_ID),
-                ) ? (
-                  <div className="attribute-container">
-                    <label>
-                      <input
-                        checked={link.video}
-                        onChange={
-                          (event) => props.onVideoChange(link.index, event)
-                        }
-                        style={{verticalAlign: 'text-top'}}
-                        type="checkbox"
-                      />
-                      {' '}
-                      {l('video')}
-                    </label>
-                  </div>
-                ) : null}
               {link.url && !link.error && !hasUrlError
                 ? <TypeDescription type={link.type} url={link.url} />
                 : null}
@@ -1247,6 +1227,26 @@ const ExternalLinkRelationship =
               ) : null}
             </label>
           </div>
+          {linkType &&
+            hasOwnProp(
+              linkType.attributes,
+              String(VIDEO_ATTRIBUTE_ID),
+            ) ? (
+              <div className="attribute-container">
+                <label>
+                  <input
+                    checked={link.video}
+                    onChange={
+                      (event) => props.onVideoChange(link.index, event)
+                    }
+                    style={{verticalAlign: 'text-top'}}
+                    type="checkbox"
+                  />
+                  {' '}
+                  {l('video')}
+                </label>
+              </div>
+            ) : null}
           {link.error ? (
             <div className="error field-error" data-visible="1">
               {link.error.message}
