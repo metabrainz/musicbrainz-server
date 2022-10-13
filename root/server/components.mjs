@@ -35,6 +35,7 @@ export default {
   'account/LostUsernameSent': (): Promise<mixed> => import('../account/LostUsernameSent.js'),
   'account/Preferences': (): Promise<mixed> => import('../account/Preferences.js'),
   'account/PreferencesSaved': (): Promise<mixed> => import('../account/PreferencesSaved.js'),
+  'account/Register': (): Promise<mixed> => import('../account/Register.js'),
   'account/ResetPassword': (): Promise<mixed> => import('../account/ResetPassword.js'),
   'account/ResetPasswordStatus': (): Promise<mixed> => import('../account/ResetPasswordStatus.js'),
   'account/sso/DiscourseRegistered': (): Promise<mixed> => import('../account/sso/DiscourseRegistered.js'),

@@ -631,10 +631,15 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
         if $use_captcha;
 
     $c->stash(
-        use_captcha   => $use_captcha,
-        captcha       => $captcha_html,
-        register_form => $form,
-        template      => 'account/register.tt',
+        current_view => 'Node',
+        component_path => 'account/Register',
+        component_props => {
+            captcha => $captcha_html,
+            form => $form->TO_JSON,
+            invalidCaptchaResponse => boolean_to_json(
+                $c->stash->{invalid_captcha_response} // 0
+            ),
+        },
     );
 }
 
