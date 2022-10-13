@@ -630,6 +630,7 @@ const seleniumTests = [
   {name: 'MBS-11730.json5', login: true},
   {name: 'MBS-11735.json5', login: true},
   {name: 'Artist_Credit_Editor.json5', login: true},
+  {name: 'Autocomplete2.json5'},
   {name: 'CAA.json5', login: true},
   {name: 'External_Links_Editor.json5', login: true},
   {name: 'Work_Editor.json5', login: true},

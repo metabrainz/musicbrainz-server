@@ -1,0 +1,22 @@
+{
+  title: 'Autocomplete2',
+  commands: [
+    {
+      command: 'open',
+      target: '/static/scripts/tests/autocomplete2.html',
+      value: '',
+    },
+    // MBS-12631: Don't show unselectable (disabled) items when typing.
+    {
+      command: 'type',
+      target: 'id=attribute-type-test-input',
+      value: 'im disabled',
+    },
+    {
+      command: 'assertEval',
+      target: 'Array.from(document.getElementById("attribute-type-test-menu").children).filter(li => li.textContent.trim() === "im disabled").length',
+      value: '0',
+    },
+    // End of test for MBS-12631.
+  ],
+}
