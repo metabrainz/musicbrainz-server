@@ -11,7 +11,13 @@ sub dialog : Path('/dialog') Edit {
     if (!$path) {
         $self->bad_request($c, 'path not specified');
     }
-    elsif ($c->dispatcher->get_action_by_path($path)) {
+
+    my $path_uri = URI->new($path);
+    $path = $path_uri->path;
+
+    if ($c->dispatcher->get_action_by_path($path)) {
+        %{ $c->req->query_params } = $path_uri->query_form;
+        %{ $c->req->params } = $path_uri->query_form;
         $c->stash( template => 'forms/dialog.tt' );
         $c->forward($path, [ within_dialog => 1 ]);
     }
