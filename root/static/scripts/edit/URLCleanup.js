@@ -2953,6 +2953,24 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'melon': {
+    match: [
+      new RegExp('^(https?://)?((www|m2)\\.)?melon\\.com/album/', 'i'),
+    ],
+    restrict: [
+      multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
+      LINK_TYPES.streamingpaid,
+    ],
+    select: function () {
+      return [
+        LINK_TYPES.downloadpurchase.release,
+        LINK_TYPES.streamingpaid.release,
+      ];
+    },
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:(?:www|m2)\.)?melon\.com\/album\/(?:detail|music)\.htm\?albumId=(\d+)(?:[\/#&].*)?$/, 'https://www.melon.com/album/detail.htm?albumId=$1');
+    },
+  },
   'metalarchives': {
     match: [new RegExp('^(https?://)?(www\\.)?metal-archives\\.com/', 'i')],
     restrict: [{...LINK_TYPES.otherdatabases, ...LINK_TYPES.review}],

@@ -2953,6 +2953,37 @@ limited_link_type_combinations: [
             expected_clean_url: 'http://www.maniadb.com/album/736792',
        only_valid_entity_types: ['release_group'],
   },
+  // Melon
+  {
+                     input_url: 'https://www.melon.com/album/detail.htm?albumId=11074452#d_cmtpgn',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.melon.com/album/detail.htm?albumId=11074452',
+  },
+  {
+                     input_url: 'melon.com/album/detail.htm?albumId=11074452',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.melon.com/album/detail.htm?albumId=11074452',
+  },
+  {
+                     input_url: 'https://m2.melon.com/album/music.htm?albumId=11074452',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.melon.com/album/detail.htm?albumId=11074452',
+  },
   // (The) Metal Archives
   {
                      input_url: 'http://metal-archives.com/artists/Phillip_Gallagher/591782',
