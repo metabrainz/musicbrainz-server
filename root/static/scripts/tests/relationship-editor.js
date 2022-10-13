@@ -270,7 +270,7 @@ test('merging duplicate relationships', function (t) {
 });
 
 test('splitRelationshipByAttributes', function (t) {
-  t.plan(7);
+  t.plan(12);
 
   const lyre = {
     type: {
@@ -280,18 +280,20 @@ test('splitRelationshipByAttributes', function (t) {
     typeName: 'lyre',
   };
 
+  const zither = {
+    type: {
+      gid: 'c6a133d5-c1e0-47d6-bc30-30d102a78893',
+    },
+    typeID: 123,
+    typeName: 'zither',
+  };
+
   const originalAttributes = tree.fromDistinctAscArray([
     lyre,
-    {
-      type: {
-        gid: 'c6a133d5-c1e0-47d6-bc30-30d102a78893',
-      },
-      typeID: 123,
-      typeName: 'zither',
-    },
+    zither,
   ]);
 
-  let existingRelationship: RelationshipStateT = {
+  const existingRelationship: RelationshipStateT = {
     _original: null,
     _status: REL_STATUS_NOOP,
     attributes: originalAttributes,
@@ -342,15 +344,17 @@ test('splitRelationshipByAttributes', function (t) {
     splitRelationships[0] === existingRelationship,
     'first relationship is the original',
   );
-  t.deepEqual(
-    splitRelationships[1],
-    {
-      ...modifiedRelationship1,
-      _original: null,
-      _status: REL_STATUS_ADD,
-      attributes: tree.fromDistinctAscArray([drums]),
-      id: splitRelationships[1].id,
-    },
+  t.ok(
+    relationshipsAreIdentical(
+      splitRelationships[1],
+      {
+        ...modifiedRelationship1,
+        _original: null,
+        _status: REL_STATUS_ADD,
+        attributes: tree.fromDistinctAscArray([drums]),
+        id: splitRelationships[1].id,
+      },
+    ),
     'second relationship only contains drums',
   );
 
@@ -379,31 +383,35 @@ test('splitRelationshipByAttributes', function (t) {
     splitRelationships.length === 2,
     'two relationships are returned',
   );
-  t.deepEqual(
-    splitRelationships[0],
-    {
-      ...modifiedRelationship2,
-      _status: REL_STATUS_EDIT,
-      attributes: tree.union(
-        existingRelationship.attributes,
-        tree.fromDistinctAscArray([
-          {...lyre, credited_as: 'LYRE'},
-        ]),
-        compareLinkAttributeIds,
-        onConflictUseSecondValue,
-      ),
-    },
+  t.ok(
+    relationshipsAreIdentical(
+      splitRelationships[0],
+      {
+        ...modifiedRelationship2,
+        _status: REL_STATUS_EDIT,
+        attributes: tree.union(
+          existingRelationship.attributes,
+          tree.fromDistinctAscArray([
+            {...lyre, credited_as: 'LYRE'},
+          ]),
+          compareLinkAttributeIds,
+          onConflictUseSecondValue,
+        ),
+      },
+    ),
     'first relationship contains the new lyre credit',
   );
-  t.deepEqual(
-    splitRelationships[1],
-    {
-      ...modifiedRelationship2,
-      _original: null,
-      _status: REL_STATUS_ADD,
-      attributes: tree.fromDistinctAscArray([drums]),
-      id: splitRelationships[1].id,
-    },
+  t.ok(
+    relationshipsAreIdentical(
+      splitRelationships[1],
+      {
+        ...modifiedRelationship2,
+        _original: null,
+        _status: REL_STATUS_ADD,
+        attributes: tree.fromDistinctAscArray([drums]),
+        id: splitRelationships[1].id,
+      },
+    ),
     'second relationship only contains drums',
   );
 
@@ -412,7 +420,7 @@ test('splitRelationshipByAttributes', function (t) {
    * this particular (existing) relationship doesn't have any.  It should
    * be returned unmodified.
    */
-  existingRelationship = ({
+  const existingRelationship2 = ({
     _original: null,
     _status: REL_STATUS_NOOP,
     attributes: tree.fromDistinctAscArray([
@@ -438,15 +446,111 @@ test('splitRelationshipByAttributes', function (t) {
     linkTypeID: 798,
   }: RelationshipStateT);
   // $FlowIgnore[cannot-write]
-  existingRelationship._original = existingRelationship;
-  Object.freeze(existingRelationship);
+  existingRelationship2._original = existingRelationship2;
+  Object.freeze(existingRelationship2);
 
   splitRelationships =
-    splitRelationshipByAttributes(existingRelationship);
+    splitRelationshipByAttributes(existingRelationship2);
 
   t.ok(
     splitRelationships.length === 1 &&
-    splitRelationships[0] === existingRelationship,
+    splitRelationships[0] === existingRelationship2,
+    'the same relationship is returned back',
+  );
+
+  /*
+   * This test adds a credit to the existing lyre attribute, and also adds a
+   * new lyre attribute with a different credit (MBS-9417).
+   */
+  const modifiedRelationship3 = {
+    ...existingRelationship,
+    _original: existingRelationship,
+    _status: REL_STATUS_EDIT,
+    attributes: tree.fromDistinctAscArray([
+      {...lyre, credited_as: 'LYRE1'},
+      {...lyre, credited_as: 'LYRE2'},
+    ]),
+  };
+  Object.freeze(modifiedRelationship3);
+
+  splitRelationships =
+    splitRelationshipByAttributes(modifiedRelationship3);
+
+  t.ok(
+    splitRelationships.length === 2,
+    'two relationships are returned',
+  );
+  t.ok(
+    relationshipsAreIdentical(
+      splitRelationships[0],
+      {
+        ...existingRelationship,
+        _original: existingRelationship,
+        _status: REL_STATUS_EDIT,
+        attributes: tree.fromDistinctAscArray([
+          {...lyre, credited_as: 'LYRE1'},
+        ]),
+      },
+    ),
+    'first relationship is edited to contain the first lyre credit',
+  );
+  t.ok(
+    relationshipsAreIdentical(
+      splitRelationships[1],
+      {
+        ...existingRelationship,
+        _original: null,
+        _status: REL_STATUS_ADD,
+        attributes: tree.fromDistinctAscArray([
+          {...lyre, credited_as: 'LYRE2'},
+        ]),
+        id: splitRelationships[1].id,
+      },
+    ),
+    'second relationship contains the second lyre attribute and credit',
+  );
+
+  /*
+   * This test changes the instrument on a relationship which only has one
+   * instrument, and ensures a duplicate relationship is not created
+   * (MBS-12680, MBS-12688).
+   */
+
+  const existingRelationship3: RelationshipStateT = {
+    _original: null,
+    _status: REL_STATUS_NOOP,
+    attributes: tree.fromDistinctAscArray([zither]),
+    begin_date: null,
+    editsPending: false,
+    end_date: null,
+    ended: false,
+    entity0: artist,
+    entity0_credit: '',
+    entity1: event,
+    entity1_credit: '',
+    id: 3,
+    linkOrder: 0,
+    linkTypeID: 798,
+  };
+  Object.freeze(existingRelationship3);
+
+  const modifiedRelationship4 = {
+    ...existingRelationship3,
+    _original: existingRelationship3,
+    _status: REL_STATUS_EDIT,
+    attributes: tree.fromDistinctAscArray([drums]),
+  };
+  Object.freeze(modifiedRelationship4);
+
+  splitRelationships =
+    splitRelationshipByAttributes(modifiedRelationship4);
+
+  t.ok(
+    splitRelationships.length === 1,
+    'one relationships is returned',
+  );
+  t.ok(
+    splitRelationships[0] === modifiedRelationship4,
     'the same relationship is returned back',
   );
 });

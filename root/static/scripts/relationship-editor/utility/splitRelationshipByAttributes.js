@@ -8,11 +8,13 @@
  */
 
 import * as tree from 'weight-balanced-tree';
-import {
-  onConflictThrowError,
-} from 'weight-balanced-tree/update';
+import {onConflictThrowError} from 'weight-balanced-tree/update';
 
-import {INSTRUMENT_ROOT_ID, VOCAL_ROOT_ID} from '../../common/constants.js';
+import {expect} from '../../../../utility/invariant.js';
+import {
+  INSTRUMENT_ROOT_ID,
+  VOCAL_ROOT_ID,
+} from '../../common/constants.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import {uniqueNegativeId} from '../../common/utility/numbers.js';
@@ -25,8 +27,23 @@ import type {
 } from '../types.js';
 
 import {cloneRelationshipState} from './cloneState.js';
-import {compareLinkAttributeIds} from './compareRelationships.js';
+import {
+  compareLinkAttributeIds,
+  compareLinkAttributeRootIds,
+  compareLinkAttributes,
+} from './compareRelationships.js';
 import getRelationshipEditStatus from './getRelationshipEditStatus.js';
+import relationshipsAreIdentical from './relationshipsAreIdentical.js';
+
+const isInstrumentOrVocal = (linkAttribute: LinkAttrT): boolean => {
+  const linkAttributeType =
+    linkedEntities.link_attribute_type[linkAttribute.typeID];
+  const rootTypeId = linkAttributeType.root_id;
+  return (
+    rootTypeId === INSTRUMENT_ROOT_ID ||
+    rootTypeId === VOCAL_ROOT_ID
+  );
+};
 
 /*
  * Implement MBS-1377 in the relationship editor UI. (This is also handled
@@ -36,10 +53,31 @@ export default function splitRelationshipByAttributes(
   relationship: RelationshipStateT,
 ): $ReadOnlyArray<RelationshipStateT> {
   const splitRelationships = [];
-  const existingInstrumentAndVocalIds = new Set();
-  const addedInstrumentsAndVocals = [];
-  let preservedInstrumentsAndVocals = null;
-  let otherLinkAttributes = null;
+  const origRelationship = isDatabaseRowId(relationship.id)
+    ? relationship._original
+    : null;
+  const newLinkType = expect(
+    relationship.linkTypeID == null
+      ? null
+      : linkedEntities.link_type[relationship.linkTypeID],
+  );
+  /*
+   * Attributes that will be preserved on the original relationship,
+   * if this is an existing relationship in the database.
+   */
+  let attributesForExistingRelationship = null;
+  /*
+   * Individual instrument and vocal attributes that are to be split
+   * into separate relationships.
+   */
+  let newAttributesToSplit = null;
+  // Common attributes that will exist on all split relationships.
+  let commonAttributes = null;
+  let newAttributes = relationship.attributes;
+  let origInstrumentsAndVocals = tree.fromDistinctAscArray(
+    tree.toArray(origRelationship ? origRelationship.attributes : null)
+      .filter(isInstrumentOrVocal),
+  );
 
   /*
    * If this is an existing relationship, split any newly-added instrument
@@ -47,76 +85,131 @@ export default function splitRelationshipByAttributes(
    * removed/split manually, but it's better not to enter any edits the user
    * didn't intend to, as this can cause confusion.
    */
-  const isExistingRelationship = isDatabaseRowId(relationship.id);
-  if (isExistingRelationship) {
-    /*:: invariant(relationship._original); */
-    for (
-      const linkAttribute of tree.iterate(relationship._original.attributes)
-    ) {
-      const linkAttributeType =
-        linkedEntities.link_attribute_type[linkAttribute.typeID];
-      const rootId = linkAttributeType.root_id;
-      if (
-        rootId === INSTRUMENT_ROOT_ID ||
-        rootId === VOCAL_ROOT_ID
-      ) {
-        existingInstrumentAndVocalIds.add(linkAttribute.typeID);
-      }
-    }
-  }
-
-  for (const linkAttribute of tree.iterate(relationship.attributes)) {
-    const linkAttributeType =
-      linkedEntities.link_attribute_type[linkAttribute.typeID];
-    const rootId = linkAttributeType.root_id;
-    if (
-      rootId === INSTRUMENT_ROOT_ID || rootId === VOCAL_ROOT_ID
-    ) {
-      if (existingInstrumentAndVocalIds.has(linkAttribute.typeID)) {
+  for (
+    const comparator of [
+      /*
+       * First, look for an identical attribute in the new set of attributes
+       * (including the credited-as field).
+       */
+      compareLinkAttributes,
+      // Otherwise, look for an attribute with just the same type ID.
+      compareLinkAttributeIds,
+      // Otherwise, use the first attribute with the same root type ID.
+      compareLinkAttributeRootIds,
+    ]
+  ) {
+    for (const origAttribute of tree.iterate(origInstrumentsAndVocals)) {
+      let preservedAttribute: LinkAttrT | void = tree.find(
+        newAttributes,
+        origAttribute,
+        comparator,
+      );
+      if (preservedAttribute) {
+        const newAttributesForExistingRelationship =
+          tree.insertIfNotExists(
+            attributesForExistingRelationship,
+            preservedAttribute,
+            compareLinkAttributeIds,
+          );
         /*
-         * The attribute type exists on the original relationship, but the
-         * new version may have a different attribute credit, which we want
-         * to preserve.
+         * Note that the relationship dialog also allows adding two of the
+         * same instrument or vocal with different credits.  This isn't
+         * allowed by our database schema, so such attributes are also split
+         * into separate relationships.
          */
-        preservedInstrumentsAndVocals = tree.insert(
-          preservedInstrumentsAndVocals,
-          linkAttribute,
+        if (
+          newAttributesForExistingRelationship ===
+          attributesForExistingRelationship
+        ) {
+          newAttributesToSplit = tree.insertOrThrowIfExists(
+            newAttributesToSplit,
+            preservedAttribute,
+            compareLinkAttributes,
+          );
+        } else {
+          attributesForExistingRelationship =
+            newAttributesForExistingRelationship;
+        }
+        // Remove the attribute we've preserved, so that it's not used twice.
+        newAttributes = tree.remove(
+          newAttributes,
+          preservedAttribute,
+          compareLinkAttributes,
+        );
+        origInstrumentsAndVocals = tree.remove(
+          origInstrumentsAndVocals,
+          origAttribute,
           compareLinkAttributeIds,
         );
-      } else {
-        addedInstrumentsAndVocals.push(linkAttribute);
       }
-    } else {
-      otherLinkAttributes = tree.insert(
-        otherLinkAttributes,
-        linkAttribute,
-        compareLinkAttributeIds,
-      );
     }
   }
 
-  if (isExistingRelationship) {
+  for (const newAttribute of tree.iterate(newAttributes)) {
+    if (isInstrumentOrVocal(newAttribute)) {
+      newAttributesToSplit = tree.insertOrThrowIfExists(
+        newAttributesToSplit,
+        newAttribute,
+        compareLinkAttributes,
+      );
+    } else {
+      const newCommonAttributes = tree.insertIfNotExists(
+        commonAttributes,
+        newAttribute,
+        compareLinkAttributeIds,
+      );
+      if (commonAttributes === newCommonAttributes) {
+        const linkAttributeType =
+          linkedEntities.link_attribute_type[newAttribute.typeID];
+        const rootTypeId = linkAttributeType.root_id;
+        const linkTypeAttribute = newLinkType.attributes[rootTypeId];
+        if (
+          linkTypeAttribute.max == null ||
+          linkTypeAttribute.max > 1
+        ) {
+          const rootAttributeType =
+            linkedEntities.link_attribute_type[rootTypeId];
+          invariant(
+            rootAttributeType.creditable ||
+            rootAttributeType.free_text,
+            'Got multiple attributes with the same type ID, but they ' +
+            'aren\'t creditable or free-text.',
+          );
+          newAttributesToSplit = tree.insertOrThrowIfExists(
+            newAttributesToSplit,
+            newAttribute,
+            compareLinkAttributes,
+          );
+        }
+      } else {
+        commonAttributes = newCommonAttributes;
+      }
+    }
+  }
+
+  if (origRelationship) {
     const newRelationship = cloneRelationshipState(relationship);
     newRelationship.attributes = tree.union(
-      preservedInstrumentsAndVocals,
-      otherLinkAttributes,
+      attributesForExistingRelationship,
+      commonAttributes,
       compareLinkAttributeIds,
       onConflictThrowError,
     );
     newRelationship._status = getRelationshipEditStatus(newRelationship);
     if (newRelationship._status === REL_STATUS_NOOP) {
-      /*:: invariant(relationship._original); */
-      splitRelationships.push(relationship._original);
+      splitRelationships.push(origRelationship);
+    } else if (relationshipsAreIdentical(newRelationship, relationship)) {
+      splitRelationships.push(relationship);
     } else {
       splitRelationships.push(newRelationship);
     }
   }
 
-  for (const linkAttribute of addedInstrumentsAndVocals) {
+  for (const linkAttribute of tree.iterate(newAttributesToSplit)) {
     const newRelationship = cloneRelationshipState(relationship);
     newRelationship.id = uniqueNegativeId();
     newRelationship.attributes = tree.insert(
-      otherLinkAttributes,
+      commonAttributes,
       linkAttribute,
       compareLinkAttributeIds,
     );
