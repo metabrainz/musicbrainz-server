@@ -6,12 +6,8 @@ use Moose;
 extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
 with 'MusicBrainz::Server::Entity::Role::DatePeriod';
+with 'MusicBrainz::Server::Entity::Role::Name';
 with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'AliasType' };
-
-has 'name' => (
-    is => 'rw',
-    isa => 'Str'
-);
 
 has 'sort_name' => (
     is => 'rw',
@@ -33,7 +29,6 @@ around TO_JSON => sub {
 
     return {
         %{ $self->$orig },
-        name => $self->name,
         locale => $self->locale,
         primary_for_locale => boolean_to_json($self->primary_for_locale),
         sort_name => $self->sort_name,
