@@ -43,11 +43,6 @@ has 'number' => (
     isa => 'Str'
 );
 
-has 'name' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
 has 'length' => (
     is => 'rw',
     isa => 'Maybe[Int]',
