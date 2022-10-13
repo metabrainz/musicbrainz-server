@@ -27,7 +27,12 @@ export function getCatalystContext(): SanitizedCatalystContextT {
 
 export function getSourceEntityData():
     | CoreEntityT
-    | {+entityType: CoreEntityTypeT, +isNewEntity: true}
+    | {
+        +entityType: CoreEntityTypeT,
+        +isNewEntity: true,
+        +name?: string,
+        +orderingTypeID?: number,
+      }
     | null {
   const $c = getCatalystContext();
   return $c.stash.source_entity ?? null;
@@ -44,7 +49,6 @@ export function getSourceEntityDataForRelationshipEditor(): CoreEntityT {
       case 'series': {
         source = createSeriesObject({
           orderingTypeID: parseInt(
-            // $FlowIgnore[prop-missing]
             source.orderingTypeID,
             10,
           ) || 1,
@@ -52,7 +56,10 @@ export function getSourceEntityDataForRelationshipEditor(): CoreEntityT {
         break;
       }
       default: {
-        source = createCoreEntityObject(source.entityType);
+        source = createCoreEntityObject(
+          source.entityType,
+          {name: source.name ?? ''},
+        );
         break;
       }
     }

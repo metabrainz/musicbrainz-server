@@ -106,6 +106,8 @@ type LinksEditorProps = {
         +entityType: CoreEntityTypeT,
         +id?: void,
         +isNewEntity?: true,
+        +name?: string,
+        +orderingTypeID?: number,
         +relationships?: void,
       },
 };
