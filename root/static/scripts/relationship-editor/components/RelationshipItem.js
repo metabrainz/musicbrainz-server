@@ -19,6 +19,9 @@ import {
   performReactUpdateAndMaintainFocus,
 } from '../../common/utility/focusManagement.js';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
+import {
+  isLinkTypeOrderableByUser,
+} from '../../common/utility/isLinkTypeDirectionOrderable.js';
 import relationshipDateText
   from '../../common/utility/relationshipDateText.js';
 import {
@@ -249,12 +252,20 @@ const RelationshipItem = (React.memo<PropsT>(({
           </>
         ) : null}
         <span className={getRelationshipStyling(relationship)}>
-          {relationship.linkOrder ? (
-            exp.l('{num}. {relationship}', {
-              num: relationship.linkOrder,
-              relationship: targetDisplay,
-            })
-          ) : targetDisplay}
+          {(
+            relationship.linkOrder &&
+            isLinkTypeOrderableByUser(
+              relationship.linkTypeID,
+              source,
+              backward,
+            )
+          ) ? (
+              exp.l('{num}. {relationship}', {
+                num: relationship.linkOrder,
+                relationship: targetDisplay,
+              })
+            )
+            : targetDisplay}
           {datesAndAttributes}
         </span>
       </div>
