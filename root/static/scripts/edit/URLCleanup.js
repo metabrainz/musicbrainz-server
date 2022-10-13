@@ -1963,8 +1963,8 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?d-nb\.info\//, 'http://d-nb.info/');
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac(?:\.htm\?)?.*\bquery=nid%3D(1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X]).*$/, 'http://d-nb.info/gnd/$1');
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac(?:\.htm\?)?.*\bquery=idn%3D(1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X]).*$/, 'http://d-nb.info/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac(?:\.htm\?)?.*\bquery=nid%3D([0-9X-]{9,10}).*$/, 'http://d-nb.info/gnd/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac(?:\.htm\?)?.*\bquery=idn%3D([0-9X-]{9,10}).*$/, 'http://d-nb.info/$1');
       return url;
     },
     validate: function (url, id) {
@@ -1974,17 +1974,17 @@ const CLEANUPS: CleanupEntries = {
         case LINK_TYPES.otherdatabases.series:
         case LINK_TYPES.otherdatabases.work:
           return {
-            result: /^http:\/\/d-nb\.info\/(?:gnd\/)?(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url),
+            result: /^http:\/\/d-nb\.info\/(?:gnd\/)?[0-9X-]{9,10}$/.test(url),
             target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.otherdatabases.label:
           return {
-            result: /^http:\/\/d-nb\.info\/(?:(?:dnbn|gnd)\/)?(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url),
+            result: /^http:\/\/d-nb\.info\/(?:(?:dnbn|gnd)\/)?[0-9X-]{9,10}$/.test(url),
             target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.otherdatabases.release:
           return {
-            result: /^http:\/\/d-nb\.info\/(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url),
+            result: /^http:\/\/d-nb\.info\/[0-9X-]{9,10}$/.test(url),
             target: ERROR_TARGETS.ENTITY,
           };
       }

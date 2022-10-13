@@ -1849,6 +1849,13 @@ limited_link_type_combinations: [
             expected_clean_url: 'http://d-nb.info/1181136512',
        only_valid_entity_types: ['artist', 'label', 'place', 'release', 'series', 'work'],
   },
+  {
+                     input_url: 'http://d-nb.info/97248485X',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/97248485X',
+       only_valid_entity_types: ['artist', 'label', 'place', 'release', 'series', 'work'],
+  },
   // Dogmazic
   {
                      input_url: 'https://play.dogmazic.net/artists.php?action=show_all_songs&artist=2283',
