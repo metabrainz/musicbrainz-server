@@ -1189,6 +1189,27 @@ limited_link_type_combinations: [
        input_relationship_type: 'otherdatabases',
        only_valid_entity_types: [],
   },
+  // Bugs
+  {
+                     input_url: 'https://music.bugs.co.kr/album/20488834?wl_ref=M_contents_01_07',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://music.bugs.co.kr/album/20488834',
+  },
+  {
+                     input_url: 'https://m.bugs.co.kr/album/20488834?wl_ref=M_contents_01_07',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://music.bugs.co.kr/album/20488834',
+  },
   // Cancioneros Musicales Españoles (CME)
   {
                      input_url: 'cancioneros.si/mediawiki/index.php?title=Cancionero_Musical_de_Palacio#RELACI.C3.93N_DE_OBRAS',

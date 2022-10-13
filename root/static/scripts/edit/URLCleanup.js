@@ -1342,6 +1342,24 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'bugs': {
+    match: [
+      new RegExp('^(https?://)?(music|m)\\.bugs\\.co\\.kr/album/', 'i'),
+    ],
+    restrict: [
+      multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
+      LINK_TYPES.streamingpaid,
+    ],
+    select: function () {
+      return [
+        LINK_TYPES.downloadpurchase.release,
+        LINK_TYPES.streamingpaid.release,
+      ];
+    },
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:music|m)\.bugs\.co\.kr\/album\/(\d+)(?:[\/?#].*)?$/, 'https://music.bugs.co.kr/album/$1');
+    },
+  },
   'cancionerosmewiki': {
     match: [new RegExp(
       '^(https?://)?(www\\.)?cancioneros\\.si/mediawiki/',
