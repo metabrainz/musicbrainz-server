@@ -645,7 +645,7 @@ sub _order_by {
     });
 
     my $inner_order_by = $order_by
-        =~ s/(ac|rg)_name/\1.name/gr;
+        =~ s/(ac|rg)_name/$1.name/gr;
 
     return ($order_by, $extra_join, $also_select, $inner_order_by);
 }
