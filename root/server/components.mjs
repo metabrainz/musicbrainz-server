@@ -43,6 +43,7 @@ export default {
   'admin/attributes/Index': (): Promise<mixed> => import('../admin/attributes/Index.js'),
   'admin/attributes/Language': (): Promise<mixed> => import('../admin/attributes/Language.js'),
   'admin/attributes/Script': (): Promise<mixed> => import('../admin/attributes/Script.js'),
+  'admin/DeleteUser': (): Promise<mixed> => import('../admin/DeleteUser.js'),
   'admin/EditBanner': (): Promise<mixed> => import('../admin/EditBanner.js'),
   'admin/EmailSearch': (): Promise<mixed> => import('../admin/EmailSearch.js'),
   'admin/IpLookup': (): Promise<mixed> => import('../admin/IpLookup.js'),
