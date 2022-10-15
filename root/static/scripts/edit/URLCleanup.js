@@ -1344,20 +1344,92 @@ const CLEANUPS: CleanupEntries = {
   },
   'bugs': {
     match: [
-      new RegExp('^(https?://)?(music|m)\\.bugs\\.co\\.kr/album/', 'i'),
+      new RegExp('^(https?://)?(music|m)\\.bugs\\.co\\.kr/', 'i'),
     ],
     restrict: [
       multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
       LINK_TYPES.streamingpaid,
     ],
-    select: function () {
-      return [
-        LINK_TYPES.downloadpurchase.release,
-        LINK_TYPES.streamingpaid.release,
-      ];
+    select: function (url, sourceType) {
+      const m = /^https:\/\/music\.bugs\.co\.kr\/(album|artist|track|mv)/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (prefix) {
+          case 'album':
+            if (sourceType === 'release') {
+              return [
+                LINK_TYPES.downloadpurchase.release,
+                LINK_TYPES.streamingpaid.release,
+              ];
+            }
+            break;
+          case 'artist':
+            if (sourceType === 'artist') {
+              return [
+                LINK_TYPES.downloadpurchase.artist,
+                LINK_TYPES.streamingpaid.artist,
+              ];
+            }
+            break;
+          case 'track':
+            if (sourceType === 'recording') {
+              return [
+                LINK_TYPES.downloadpurchase.recording,
+                LINK_TYPES.streamingpaid.recording,
+              ];
+            }
+            break;
+          default: // mv
+            if (sourceType === 'recording') {
+              return [
+                LINK_TYPES.downloadpurchase.recording,
+                LINK_TYPES.streamingpaid.recording,
+              ];
+            }
+            break;
+        }
+      }
+      return false;
     },
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:music|m)\.bugs\.co\.kr\/album\/(\d+)(?:[\/?#].*)?$/, 'https://music.bugs.co.kr/album/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:music|m)\.bugs\.co\.kr\//, 'https://music.bugs.co.kr/');
+      url = url.replace(/^(https:\/\/music\.bugs\.co\.kr)\/(album|artist|track|mv)\/(\d+)(?:[\/.?#].*)?$/, '$1/$2/$3');
+      return url;
+    },
+    validate: function (url, id) {
+      if (/https:\/\/music\.bugs\.co\.kr\/search\//.test(url)) {
+        return {
+          error: noLinkToSearchMsg(),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+      const m = /^https:\/\/music\.bugs\.co\.kr\/(album|artist|track|mv)\/\d+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.release:
+          case LINK_TYPES.streamingpaid.release:
+            return {
+              result: prefix === 'album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.artist:
+          case LINK_TYPES.streamingpaid.artist:
+            return {
+              result: prefix === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.recording:
+          case LINK_TYPES.streamingpaid.recording:
+            return {
+              result: prefix === 'track' || prefix === 'mv',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'cancionerosmewiki': {
