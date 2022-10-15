@@ -3040,6 +3040,38 @@ limited_link_type_combinations: [
                                 ],
             expected_clean_url: 'https://www.melon.com/album/detail.htm?albumId=11074452',
   },
+  {
+                     input_url: 'https://www.melon.com/artist/timeline.htm?artistId=1284664#params[listType]=C',
+             input_entity_type: 'artist',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.melon.com/artist/detail.htm?artistId=1284664',
+  },
+  {
+                     input_url: 'https://www.melon.com/artist/album.htm?artistId=1284664',
+             input_entity_type: 'artist',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.melon.com/artist/detail.htm?artistId=1284664',
+  },
+  {
+                     input_url: 'https://www.melon.com/search/total/index.htm?q=dreamcatcher',
+             input_entity_type: 'artist',
+       input_relationship_type: 'streamingpaid',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://www.melon.com/search/total/index.htm?q=dreamcatcher',
+                expected_error: {
+                                  error: 'a link to a search result',
+                                  target: 'url',
+                                },
+       only_valid_entity_types: [],
+  },
   // (The) Metal Archives
   {
                      input_url: 'http://metal-archives.com/artists/Phillip_Gallagher/591782',
