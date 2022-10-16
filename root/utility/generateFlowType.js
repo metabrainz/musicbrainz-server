@@ -135,7 +135,10 @@ class TypeInfo {
         } else {
           let objectKeyInfo = this.object;
           if (objectKeyInfo == null) {
-            objectKeyInfo = this.object = Object.create(null);
+            objectKeyInfo = this.object = (Object.create(null): {
+              __proto__: null,
+              [property: string]: TypeInfo,
+            });
           }
           for (const key in data) {
             let keyTypeInfo = objectKeyInfo[key];
