@@ -7,6 +7,7 @@ use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity';
+with 'MusicBrainz::Server::Entity::Role::Name';
 
 has 'owner' => (
     isa => 'Editor',
@@ -15,11 +16,6 @@ has 'owner' => (
 
 has 'owner_id' => (
     isa => 'Int',
-    is  => 'rw',
-);
-
-has 'name' => (
-    isa => 'Str',
     is  => 'rw',
 );
 
@@ -59,7 +55,6 @@ around TO_JSON => sub {
     return {
         %{ $self->$orig },
         is_server           => boolean_to_json($self->is_server),
-        name                => $self->name,
         oauth_id            => $self->oauth_id,
         oauth_redirect_uri  => $self->oauth_redirect_uri,
         oauth_secret        => $self->oauth_secret,
