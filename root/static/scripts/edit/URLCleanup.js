@@ -1342,6 +1342,96 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'bugs': {
+    match: [
+      new RegExp('^(https?://)?(music|m)\\.bugs\\.co\\.kr/', 'i'),
+    ],
+    restrict: [
+      multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
+      LINK_TYPES.streamingpaid,
+    ],
+    select: function (url, sourceType) {
+      const m = /^https:\/\/music\.bugs\.co\.kr\/(album|artist|track|mv)/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (prefix) {
+          case 'album':
+            if (sourceType === 'release') {
+              return [
+                LINK_TYPES.downloadpurchase.release,
+                LINK_TYPES.streamingpaid.release,
+              ];
+            }
+            break;
+          case 'artist':
+            if (sourceType === 'artist') {
+              return [
+                LINK_TYPES.downloadpurchase.artist,
+                LINK_TYPES.streamingpaid.artist,
+              ];
+            }
+            break;
+          case 'track':
+            if (sourceType === 'recording') {
+              return [
+                LINK_TYPES.downloadpurchase.recording,
+                LINK_TYPES.streamingpaid.recording,
+              ];
+            }
+            break;
+          default: // mv
+            if (sourceType === 'recording') {
+              return [
+                LINK_TYPES.downloadpurchase.recording,
+                LINK_TYPES.streamingpaid.recording,
+              ];
+            }
+            break;
+        }
+      }
+      return false;
+    },
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:music|m)\.bugs\.co\.kr\//, 'https://music.bugs.co.kr/');
+      url = url.replace(/^(https:\/\/music\.bugs\.co\.kr)\/(album|artist|track|mv)\/(\d+)(?:[\/.?#].*)?$/, '$1/$2/$3');
+      return url;
+    },
+    validate: function (url, id) {
+      if (/https:\/\/music\.bugs\.co\.kr\/search\//.test(url)) {
+        return {
+          error: noLinkToSearchMsg(),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+      const m = /^https:\/\/music\.bugs\.co\.kr\/(album|artist|track|mv)\/\d+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.release:
+          case LINK_TYPES.streamingpaid.release:
+            return {
+              result: prefix === 'album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.artist:
+          case LINK_TYPES.streamingpaid.artist:
+            return {
+              result: prefix === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.recording:
+          case LINK_TYPES.streamingpaid.recording:
+            return {
+              result: prefix === 'track' || prefix === 'mv',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'cancionerosmewiki': {
     match: [new RegExp(
       '^(https?://)?(www\\.)?cancioneros\\.si/mediawiki/',
@@ -2927,6 +3017,90 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.release_group:
             return {
               result: prefix === 'album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'melon': {
+    match: [
+      new RegExp('^(https?://)?((www|m2)\\.)?melon\\.com/', 'i'),
+    ],
+    restrict: [
+      multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
+      LINK_TYPES.streamingpaid,
+    ],
+    select: function (url, sourceType) {
+      const m = /^https:\/\/www\.melon\.com\/(album|artist|song)/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (prefix) {
+          case 'album':
+            if (sourceType === 'release') {
+              return [
+                LINK_TYPES.downloadpurchase.release,
+                LINK_TYPES.streamingpaid.release,
+              ];
+            }
+            break;
+          case 'artist':
+            if (sourceType === 'artist') {
+              return [
+                LINK_TYPES.downloadpurchase.artist,
+                LINK_TYPES.streamingpaid.artist,
+              ];
+            }
+            break;
+          default: // song
+            if (sourceType === 'recording') {
+              return [
+                LINK_TYPES.downloadpurchase.recording,
+                LINK_TYPES.streamingpaid.recording,
+              ];
+            }
+            break;
+        }
+      }
+      return false;
+    },
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:(?:www|m2)\.)?melon\.com\//, 'https://www.melon.com/');
+      url = url.replace(/^(https:\/\/www\.melon\.com\/album)\/(?:detail|music)\.htm\?(albumId=\d+)(?:[\/#&].*)?$/, '$1/detail.htm?$2');
+      url = url.replace(/^(https:\/\/www\.melon\.com\/artist)\/(?:timeline|detail|song|album|video|photo|fan|hifi|song\/all|detail\/info|magazine)\.htm\?(artistId=\d+)(?:[\/#&].*)?$/, '$1/detail.htm?$2');
+      url = url.replace(/^(https:\/\/www\.melon\.com\/song\/detail\.htm\?songId=\d+)(?:[\/#&].*)?$/, '$1');
+      return url;
+    },
+    validate: function (url, id) {
+      if (/https:\/\/www\.melon\.com\/search\//.test(url)) {
+        return {
+          error: noLinkToSearchMsg(),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+      const m = /^https:\/\/www\.melon\.com\/(album|artist|song)\/detail.htm\?(?:albumId|artistId|songId)=\d+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.release:
+          case LINK_TYPES.streamingpaid.release:
+            return {
+              result: prefix === 'album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.artist:
+          case LINK_TYPES.streamingpaid.artist:
+            return {
+              result: prefix === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.recording:
+          case LINK_TYPES.streamingpaid.recording:
+            return {
+              result: prefix === 'song',
               target: ERROR_TARGETS.ENTITY,
             };
         }
