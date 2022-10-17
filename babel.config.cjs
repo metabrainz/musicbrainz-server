@@ -11,19 +11,28 @@ const BROWSER_TARGETS = {
   safari: '9.0',
 };
 
+const MODERN_BROWSER_TARGETS = {
+  chrome: '106',
+  firefox: '105',
+  safari: '15.0',
+};
+
 const NODE_TARGETS = {
   node: process.versions.node,
 };
 
 module.exports = function (api) {
   api.cache.using(() => process.env.NODE_ENV);
+  api.cache.using(() => process.env.MODERN_BROWSERS === '1');
 
   const presets = [
     ['@babel/preset-env', {
       corejs: 3,
       targets: api.caller(caller => caller && caller.target === 'node')
         ? NODE_TARGETS
-        : BROWSER_TARGETS,
+        : (process.env.MODERN_BROWSERS === '1'
+          ? MODERN_BROWSER_TARGETS
+          : BROWSER_TARGETS),
       useBuiltIns: 'usage',
     }],
   ];
