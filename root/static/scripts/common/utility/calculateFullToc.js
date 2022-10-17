@@ -8,6 +8,13 @@
  */
 
 export default function calculateFullToc(cdtoc: CDStubT | CDTocT): string {
-  const trackOffsets = cdtoc.track_offset.join(' ');
-  return `1 ${cdtoc.track_count} ${cdtoc.leadout_offset} ${trackOffsets}`;
+  const trackOffset = cdtoc.track_offset;
+  invariant(trackOffset != null, 'Expected a defined track offset');
+
+  const leadoutOffset = cdtoc.leadout_offset;
+  invariant(leadoutOffset != null, 'Expected a defined leadout offset');
+
+  const trackOffsets = trackOffset.join(' ');
+
+  return `1 ${cdtoc.track_count} ${leadoutOffset} ${trackOffsets}`;
 }

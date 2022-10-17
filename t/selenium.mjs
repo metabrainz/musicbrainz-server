@@ -664,6 +664,7 @@ const seleniumTests = [
     sql: 'duplicate_checker.sql',
   },
   {name: 'CD_Lookup.json5', login: true},
+  {name: 'CD_Stub_Search.json5', sql: 'cdstub_raw.sql'},
   {name: 'FilterForm.json5', sql: 'filtering.sql'},
   {
     name: 'Release_Relationship_Editor.json5',
