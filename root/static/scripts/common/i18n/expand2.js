@@ -12,15 +12,9 @@ import * as React from 'react';
 
 /*
  * Flow doesn't have very good support for Symbols, so we use a unique
- * singleton class to fill its role.
+ * class instance to fill its role.
  */
-export class NO_MATCH {
-  static instance: ?NO_MATCH;
-
-  constructor(): NO_MATCH {
-    return NO_MATCH.instance || (NO_MATCH.instance = this);
-  }
-}
+export class NO_MATCH {}
 
 export const NO_MATCH_VALUE: NO_MATCH = new NO_MATCH();
 Object.freeze(NO_MATCH);
