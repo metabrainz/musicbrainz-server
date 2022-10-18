@@ -1223,7 +1223,7 @@ msgid ""
 "/> Also known as pump organ, it is large, looks like an upright piano and "
 "has pedals attached to bellows with reeds. Sound is produced by playing the "
 "keyboard."
-msgstr ""
+msgstr "Per la fisarmonica conosciuta anche come melodeon, utilizza <a href=\"/instrument/842d3d24-f638-47e6-a239-8578723db09c\">fisarmonica diatonica a bottoni</a>.<br /> Per l'aerofono ad ancia dotato di tastiera conosciuto anche come melodion, utilizza <a href=\"/instrument/8ab40df2-106b-4b9b-a50c-0798ee95da8f\">melodica</a>.<br /> Conosciuto anche come organo ad ance, è grande, simile a un pianoforte verticale e ha pedali collegati a mantici con ance. Il suono è prodotto suonando la tastiera."
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
@@ -1234,7 +1234,7 @@ msgid ""
 "href=\"/instrument/8ab40df2-106b-4b9b-a50c-0798ee95da8f\">melodica</a>.<br "
 "/> Also known as Melodeon, it has 1 to 2 rows of buttons that each produce "
 "two tones (bisonoric)."
-msgstr ""
+msgstr "Per l'organo conosciuto anche come melodeon, utilizza <a href=\"/instrument/20443ce3-cde1-4968-b7cc-65e45bb9714f\">organo a pompa</a>.<br /> Per l'aerofono ad ancia dotato di tastiera conosciuto anche come melodion, utilizza <a href=\"/instrument/8ab40df2-106b-4b9b-a50c-0798ee95da8f\">melodica</a>.<br /> Conosciuta anche come melodeon o organetto, ha una o due file di bottoni ognuno dei quali produce due toni (bitonico)."
 
 #. name:lira da braccio
 #: DB:instrument/description:1016
@@ -1524,7 +1524,7 @@ msgid ""
 "Invented and developed by several people in the early 1800's, it has an arm "
 "operated bellows with keys or buttons at one end and bass buttons at the "
 "other."
-msgstr ""
+msgstr "Inventata e sviluppata da più persone nei primi anni del XIX secolo, ha un mantice azionato con le braccia con tasti o bottoni ad un'estremità e bottoni dei bassi all'altra."
 
 #. name:bandoneón
 #: DB:instrument/description:193
@@ -1532,7 +1532,7 @@ msgid ""
 "Invented and used in 1800's Europe, it became popular in Argentina. Unlike "
 "concertinas it is square, but alike its button action is parallel, typically"
 " it has several reeds per button."
-msgstr ""
+msgstr "Inventato e utilizzato nell'Europa del XIX secolo, divenne popolare in Argentina. A differenza della concertina è di forma quadrata, ma come essa ha bottoni azionati in parallelo. In genere ha più ance per ogni bottone."
 
 #. name:mandora / gallichon
 #: DB:instrument/description:895
@@ -2716,7 +2716,7 @@ msgstr "Strumento semplice, monotonale e dal corpo arrotondato, spesso usato per
 msgid ""
 "Simultaneously a woodwind and membranophone, sound is produced by singing or"
 " speaking into a thin buzzing membrane."
-msgstr "Contemporaneamente un legno e un membranofono, il suono è generato cantando o parlando in una sottile membrana ronzante."
+msgstr "Contemporaneamente un legno e un membranofono, il suono è prodotto cantando o parlando in una sottile membrana ronzante."
 
 #. name:kempli
 #: DB:instrument/description:982
