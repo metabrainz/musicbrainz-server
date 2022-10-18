@@ -71,7 +71,7 @@ if [[ $SIR_DIR ]]; then
     echo `date` : Creating sir triggers
     OUTPUT=`./admin/psql SELENIUM <"$SIR_DIR"/sql/CreateTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
-    cd "$SIR_DIR"
+    pushd "$SIR_DIR"
     . venv/bin/activate
 
     # Unfortunately, we must work around SOLR-109 for the time being by
@@ -108,4 +108,7 @@ if [[ $SIR_DIR ]]; then
     disown
     echo "$SIR_PID" > "$SIR_PID_FILE"
     deactivate
+    popd
 fi
+
+OUTPUT=`./admin/PruneCache 2>&1` || ( echo "$OUTPUT" && exit 1 )

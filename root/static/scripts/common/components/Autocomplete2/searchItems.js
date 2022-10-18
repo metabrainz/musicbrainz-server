@@ -81,7 +81,7 @@ export function indexItems<+T: EntityItemT>(
   }
   const index: Map<string, Set<OptionItemT<T>>> = new Map();
   for (const item of items) {
-    if (item.type === 'option') {
+    if (item.type === 'option' && item.disabled !== true) {
       const searchTerms = extractSearchTerms(item)
         .map(clean)
         .filter(nonEmpty);

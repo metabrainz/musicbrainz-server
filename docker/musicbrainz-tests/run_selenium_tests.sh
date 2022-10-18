@@ -52,7 +52,7 @@ sv start artwork-indexer artwork-redirect ssssss
 sudo -E -H -u musicbrainz yarn
 sudo -E -H -u musicbrainz make -C po all_quiet deploy
 NODE_ENV=test WEBPACK_MODE=development NO_PROGRESS=1 \
-     sudo -E -H -u musicbrainz carton exec -- ./script/compile_resources.sh
+     sudo -E -H -u musicbrainz carton exec -- ./script/compile_resources.sh default tests
 
 # Add mbtest host alias to work around NO_PROXY restriction.
 # See add_mbtest_alias.sh for details.
