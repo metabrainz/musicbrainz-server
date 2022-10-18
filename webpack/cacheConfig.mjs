@@ -20,6 +20,7 @@ export default {
   version: (
     WEBPACK_MODE + '-' +
     String(process.env.NODE_ENV) + '-' +
+    String(process.env.MODERN_BROWSERS === '1') + '-' +
     String(process.env.MUSICBRAINZ_RUNNING_TESTS)
   ),
 };
