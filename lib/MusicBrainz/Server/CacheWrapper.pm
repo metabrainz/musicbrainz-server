@@ -1,6 +1,7 @@
 package MusicBrainz::Server::CacheWrapper;
 
 use Moose;
+use namespace::autoclean;
 use Moose::Util::TypeConstraints;
 use Storable;
 
@@ -57,7 +58,6 @@ sub disconnect {}
 sub clear {}
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 =head1 COPYRIGHT AND LICENSE

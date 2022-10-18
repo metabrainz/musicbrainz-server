@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::WS::js::ParseCoordinates;
 use Moose;
+use namespace::autoclean;
 use JSON;
 use utf8;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }

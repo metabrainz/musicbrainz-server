@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Historic::MergeReleaseMAC;
 use Moose;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MERGE_RELEASE_MAC );
 use MusicBrainz::Server::Translation qw( N_l );

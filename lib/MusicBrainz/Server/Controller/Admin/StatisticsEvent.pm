@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Admin::StatisticsEvent;
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };

@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::CoverArtArchive;
 use Moose;
+use namespace::autoclean;
 
 with 'MusicBrainz::Server::Data::Role::Sql';
 use DBDefs;

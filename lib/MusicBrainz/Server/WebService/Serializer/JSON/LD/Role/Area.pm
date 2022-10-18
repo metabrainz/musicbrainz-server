@@ -1,5 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Area;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 
 use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity );
 
@@ -35,7 +36,6 @@ role {
     };
 };
 
-no Moose::Role;
 1;
 
 =head1 COPYRIGHT AND LICENSE

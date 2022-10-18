@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::WS::js::CheckDuplicates;
 use Moose;
+use namespace::autoclean;
 use JSON;
 use Try::Tiny;
 use MusicBrainz::Server::Data::Utils qw(type_to_model);

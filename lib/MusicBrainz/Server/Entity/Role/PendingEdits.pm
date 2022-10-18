@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::Role::PendingEdits;
 
 use Moose::Role;
+use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 
 has 'edits_pending' => (

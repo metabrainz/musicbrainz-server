@@ -16,6 +16,7 @@ allow_includes=1
 [Modules::RequireFilenameMatchesPackage]
 
 [Moose::ProhibitNewMethod]
+[Moose::RequireCleanNamespace]
 
 [Subroutines::ProhibitReturnSort]
 

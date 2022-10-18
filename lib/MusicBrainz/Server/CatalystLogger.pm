@@ -1,5 +1,6 @@
 package MusicBrainz::Server::CatalystLogger;
 use Moose;
+use namespace::autoclean;
 
 has dispatch => (
     is => 'ro',

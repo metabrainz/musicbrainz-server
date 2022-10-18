@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::WS::2::Tag;
 use Moose;
+use namespace::autoclean;
 
 use English;
 

@@ -3,6 +3,7 @@ package MusicBrainz::Server::Controller::Artist;
 use utf8;
 
 use Moose;
+use namespace::autoclean;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 

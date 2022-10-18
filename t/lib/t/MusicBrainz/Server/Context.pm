@@ -9,10 +9,12 @@ use Test::More;
 {
     package t::MusicBrainz::Server::Context::TestCache1;
     use Moose;
+    use namespace::autoclean;
     sub get { Storable::freeze(\'1') }
     sub set {}
     package t::MusicBrainz::Server::Context::TestCache2;
     use Moose;
+    use namespace::autoclean;
     sub get { Storable::freeze(\'2') }
     sub set {}
 }

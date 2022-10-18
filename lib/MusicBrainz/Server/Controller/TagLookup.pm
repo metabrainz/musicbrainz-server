@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::TagLookup;
 use Moose;
+use namespace::autoclean;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use List::AllUtils qw( any );

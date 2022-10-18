@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::ISWC;
 use Moose;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Validation qw( format_iswc is_valid_iswc );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );

@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Role::GIDEntityCache;
 
 use Moose::Role;
+use namespace::autoclean;
 
 with 'MusicBrainz::Server::Data::Role::EntityCache';
 

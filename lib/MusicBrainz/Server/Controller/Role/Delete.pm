@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Role::Delete;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json model_to_type );
 

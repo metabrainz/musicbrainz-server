@@ -1,5 +1,6 @@
 package MusicBrainz::Server::EditSearch::Predicate::RelationshipType;
 use Moose;
+use namespace::autoclean;
 
 with 'MusicBrainz::Server::EditSearch::Predicate';
 

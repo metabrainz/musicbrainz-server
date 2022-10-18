@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Dialog;
 use Encode qw( decode_utf8 );
 use Moose;
+use namespace::autoclean;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 

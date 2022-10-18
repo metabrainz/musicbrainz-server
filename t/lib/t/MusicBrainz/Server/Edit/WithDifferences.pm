@@ -8,6 +8,7 @@ use Test::More;
 {
     package t::MusicBrainz::Server::Edit::WithDifferences::Entity;
     use Moose;
+    use namespace::autoclean;
 
     has 'foo_id' => (
         is => 'ro',
@@ -20,6 +21,8 @@ use Test::More;
 {
     package t::MusicBrainz::Server::Edit::WithDifferences::TestEdit;
     use Moose;
+    use namespace::autoclean;
+
     extends 'MusicBrainz::Server::Edit::WithDifferences';
 
     sub edit_name { 'Test Edit' }

@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Alias::Add;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Data::Utils qw( model_to_type boolean_to_json );

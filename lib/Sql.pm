@@ -3,6 +3,7 @@ package Sql;
 use feature 'state';
 
 use Moose;
+use namespace::autoclean;
 use DBDefs;
 use English;
 use Carp qw( cluck croak );

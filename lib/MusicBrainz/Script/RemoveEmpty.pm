@@ -1,5 +1,6 @@
 package MusicBrainz::Script::RemoveEmpty;
 use Moose;
+use namespace::autoclean;
 
 use DBDefs;
 use List::AllUtils qw( any );

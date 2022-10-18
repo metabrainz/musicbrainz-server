@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
+use namespace::autoclean;
 use Try::Tiny;
 
 __PACKAGE__->config( namespace => 'elections' );

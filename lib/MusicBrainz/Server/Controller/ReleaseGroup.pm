@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::ReleaseGroup;
 use Moose;
+use namespace::autoclean;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 use MusicBrainz::Server::Constants qw(

@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Role::Collection;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 parameter 'entity_name' => (

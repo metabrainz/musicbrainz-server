@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Entity::URL::License;
 use Moose::Role;
+use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 
 requires 'sidebar_name';

@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Release::ChangeQuality;
 use Moose;
+use namespace::autoclean;
 use Method::Signatures::Simple;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
@@ -109,5 +110,4 @@ sub allow_auto_edit
     return $self->data->{new}{quality} != $QUALITY_HIGH && $self->can_amend($self->release_id);
 }
 
-no Moose;
 __PACKAGE__->meta->make_immutable;

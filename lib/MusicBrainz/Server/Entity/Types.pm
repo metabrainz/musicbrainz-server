@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::Types;
 
 use Moose::Util::TypeConstraints;
+use namespace::autoclean;
 
 for my $cls (qw(AggregatedTag AggregatedGenre Annotation Application
                 Area AreaAlias AreaAliasType AreaType

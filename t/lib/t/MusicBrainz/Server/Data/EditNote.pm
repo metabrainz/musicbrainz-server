@@ -18,6 +18,8 @@ use MusicBrainz::Server::Test;
 BEGIN {
     package MockEdit;
     use Moose;
+    use namespace::autoclean;
+
     extends 'MusicBrainz::Server::Edit';
 
     sub edit_type { 111; }

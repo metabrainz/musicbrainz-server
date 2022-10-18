@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::CDStub;
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Validation qw( is_valid_discid );
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 

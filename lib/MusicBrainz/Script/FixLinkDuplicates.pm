@@ -1,5 +1,6 @@
 package MusicBrainz::Script::FixLinkDuplicates;
 use Moose;
+use namespace::autoclean;
 use DBDefs;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Log qw( log_info );

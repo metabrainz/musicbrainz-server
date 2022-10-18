@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::ArtistCredit;
 use Moose;
+use namespace::autoclean;
 use Moose::Util qw( find_meta );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }

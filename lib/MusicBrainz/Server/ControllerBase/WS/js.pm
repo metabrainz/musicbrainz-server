@@ -1,5 +1,6 @@
 package MusicBrainz::Server::ControllerBase::WS::js;
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::WebService::Format;
 use MusicBrainz::Server::WebService::JSONSerializer;
 

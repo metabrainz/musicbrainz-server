@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Genre::Create;
 use Moose;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_GENRE_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );

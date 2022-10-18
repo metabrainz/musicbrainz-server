@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Historic::RemoveLink;
 use Moose;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_LINK );
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date );

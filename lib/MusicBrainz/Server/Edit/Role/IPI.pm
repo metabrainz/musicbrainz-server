@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Edit::Role::IPI;
 use 5.10.0;
 use Moose::Role;
+use namespace::autoclean;
 use utf8;
 
 use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT );
@@ -100,7 +101,6 @@ after post_insert => sub {
     }
 };
 
-no Moose;
 1;
 
 =head1 COPYRIGHT AND LICENSE

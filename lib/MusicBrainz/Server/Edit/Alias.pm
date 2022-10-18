@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Alias;
 use Moose::Role;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash non_empty );
 use MusicBrainz::Server::Constants qw( %ENTITIES );

@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Historic::AddReleaseEvents;
 use Moose;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_HISTORIC_ADD_RELEASE_EVENTS

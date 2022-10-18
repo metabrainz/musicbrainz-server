@@ -1,5 +1,7 @@
 package MusicBrainz::Server::Controller::OtherLookup;
 use Moose;
+use namespace::autoclean;
+
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use Moose::Util qw( find_meta );

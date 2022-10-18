@@ -1,6 +1,7 @@
 package MusicBrainz::Server::WebService::Validator;
 use List::AllUtils qw( uniq );
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 use aliased 'MusicBrainz::Server::WebService::WebServiceInc';
 use MusicBrainz::Server::Constants qw(
     $ACCESS_SCOPE_TAG

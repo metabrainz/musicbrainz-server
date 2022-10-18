@@ -1,6 +1,7 @@
 package MusicBrainz::WWW::Mechanize;
 
 use Moose;
+use namespace::autoclean;
 use LWP::Authen::Digest;
 
 extends 'Test::WWW::Mechanize::Catalyst';

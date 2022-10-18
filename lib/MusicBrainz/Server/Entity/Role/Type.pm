@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Entity::Role::Type;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 use MusicBrainz::Server::Entity::Util::JSON qw( add_linked_entity );
 
 parameter model => (
