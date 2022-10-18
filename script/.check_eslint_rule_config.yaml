@@ -25,6 +25,7 @@ globals:
   MUSICBRAINZ_RUNNING_TESTS: readonly
   addColon: readonly
   addColonText: readonly
+  empty: readonly
   hasOwnProp: readonly
   hydrate: readonly
   hyphenateTitle: readonly

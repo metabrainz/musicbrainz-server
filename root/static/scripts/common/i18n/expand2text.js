@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -28,10 +28,11 @@ const textContent = /^[^{}]+/;
 const condSubstThenTextContent = /^[^{}|]+/;
 
 function handleTextContentText(text: string) {
+  let handledText = text;
   if (typeof state.replacement === 'string') {
-    text = text.replace(/%/g, state.replacement);
+    handledText = text.replace(/%/g, state.replacement);
   }
-  return text;
+  return handledText;
 }
 
 const parseRootTextContent = createTextContentParser(

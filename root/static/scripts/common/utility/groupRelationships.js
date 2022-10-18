@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -122,8 +122,8 @@ const cmpRelationshipTargetGroups = (
 
 export const areLinkAttrsEqual = (a: LinkAttrT, b: LinkAttrT): boolean => (
   a.typeID === b.typeID &&
-  a.text_value === b.text_value &&
-  a.credited_as === b.credited_as
+  (a.text_value ?? '') === (b.text_value ?? '') &&
+  (a.credited_as ?? '') === (b.credited_as ?? '')
 );
 
 const areDatedExtraAttributesEqual = (

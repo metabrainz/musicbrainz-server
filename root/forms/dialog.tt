@@ -9,7 +9,7 @@
     </head>
   [% ELSE %]
     [%- React.embed(c, 'layout/components/Head', {
-            homepage => homepage,
+            isHomepage => homepage,
             noIcons => boolean_to_json(no_icons),
             pager => React.serialize_pager(pager),
             title => title,

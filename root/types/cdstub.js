@@ -17,13 +17,13 @@ declare type CDStubT = $ReadOnly<{
   +date_added: string | null,
   +discid: string,
   +last_modified: string | null,
-  +leadout_offset: number,
+  +leadout_offset: number | null,
   +lookup_count: number | null,
   +modify_count: number | null,
   +title: string,
   +toc: string | null,
   +track_count: number,
-  +track_offset: $ReadOnlyArray<number>,
+  +track_offset: $ReadOnlyArray<number> | null,
   +tracks: $ReadOnlyArray<CDStubTrackT>,
 }>;
 

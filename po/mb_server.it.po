@@ -15128,7 +15128,7 @@ msgstr "Questo attributo è necessario."
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:201
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:205
 msgid "Credited as"
-msgstr ""
+msgstr "Accreditato come"
 
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:123
 msgid "Change credits for other {entity} relationships on the page."

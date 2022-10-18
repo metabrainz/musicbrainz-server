@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2016 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -38,7 +38,7 @@ export const reduceArtistCredit =
 export const isComplexArtistCredit = function (ac: ArtistCreditT): boolean {
   const firstName = ac.names[0];
   if (firstName && hasArtist(firstName)) {
-    return !nonEmpty(firstName.name) ||
+    return empty(firstName.name) ||
       firstName.artist.name !== reduceArtistCredit(ac);
   }
   return false;

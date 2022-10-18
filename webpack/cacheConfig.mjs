@@ -13,13 +13,14 @@ import MB_SERVER_ROOT from '../root/utility/serverRootDir.mjs';
 import {WEBPACK_MODE} from './constants.mjs';
 
 export default {
-  type: 'filesystem',
   buildDependencies: {
     config: [path.resolve(MB_SERVER_ROOT, 'webpack') + path.sep],
   },
+  type: 'filesystem',
   version: (
     WEBPACK_MODE + '-' +
     String(process.env.NODE_ENV) + '-' +
+    String(process.env.MODERN_BROWSERS === '1') + '-' +
     String(process.env.MUSICBRAINZ_RUNNING_TESTS)
   ),
 };

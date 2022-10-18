@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2014 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -16,25 +16,25 @@ function formatDate(date: PartialDateT | null): string {
     return '';
   }
 
-  const y: number = ko.unwrap(date.year);
-  const m: number = ko.unwrap(date.month);
-  const d: number = ko.unwrap(date.day);
+  const y: number | null = ko.unwrap(date.year);
+  const m: number | null = ko.unwrap(date.month);
+  const d: number | null = ko.unwrap(date.day);
 
   let result = '';
 
   if (nonEmpty(y)) {
     result += fixedWidthInteger(y, 4);
-  } else if (m || d) {
+  } else if (m != null || d != null) {
     result = '????';
   }
 
-  if (m) {
+  if (m != null) {
     result += '-' + fixedWidthInteger(m, 2);
-  } else if (d) {
+  } else if (d != null) {
     result += '-??';
   }
 
-  if (d) {
+  if (d != null) {
     result += '-' + fixedWidthInteger(d, 2);
   }
 

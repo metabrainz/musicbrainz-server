@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -32,7 +32,7 @@ const MediumTrackRow = (React.memo<PropsT>(({
   creditsMode,
   index,
   track,
-  showArtists,
+  showArtists = false,
 }: PropsT) => {
   const $c = React.useContext(SanitizedCatalystContext);
   const recordingAC = track.recording?.artistCredit;

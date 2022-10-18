@@ -122,10 +122,7 @@ role {
 
     method _merge_confirm => sub {
         my ($self, $c) = @_;
-        $c->stash(
-            template => $c->namespace . '/merge.tt',
-            hide_merge_helper => 1
-        );
+        $c->stash( hide_merge_helper => 1 );
 
         my $merger = $c->session->{merger}
             or $c->res->redirect('/'), $c->detach;

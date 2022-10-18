@@ -433,6 +433,7 @@
                    [ 'area', l('Area') ],
                    [ 'artist', l('Artist') ],
                    [ 'event', l('Event') ],
+                   [ 'genre', l('Genre') ],
                    [ 'instrument', l('Instrument') ],
                    [ 'label', l('Label') ],
                    [ 'place', l('Place') ],
@@ -476,7 +477,7 @@
          predicate_subscription(linked_type);
        END %]
 
-    [% FOR linked_type=[ 'area', 'event', 'instrument', 'place', 'recording', 'release_group', 'release', 'work' ];
+    [% FOR linked_type=[ 'area', 'event', 'genre', 'instrument', 'place', 'recording', 'release_group', 'release', 'work' ];
          predicate_link(linked_type);
        END %]
 

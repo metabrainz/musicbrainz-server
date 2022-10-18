@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -162,7 +162,7 @@ export type Props = $ReadOnly<{
 const Layout = ({
   children,
   fullWidth = false,
-  homepage = false,
+  isHomepage = false,
   noIcons,
   pager,
   title,
@@ -183,7 +183,7 @@ const Layout = ({
   return (
     <html lang={$c.stash.current_language_html}>
       <Head
-        homepage={homepage}
+        isHomepage={isHomepage}
         noIcons={noIcons}
         pager={pager}
         title={title}
@@ -296,7 +296,7 @@ const Layout = ({
 
         <div
           className={(fullWidth ? 'fullwidth ' : '') +
-            (homepage ? 'homepage' : '')}
+            (isHomepage ? 'homepage' : '')}
           id="page"
         >
           {children}

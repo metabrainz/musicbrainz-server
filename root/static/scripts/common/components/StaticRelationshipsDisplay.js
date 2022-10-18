@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -77,6 +77,7 @@ const StaticRelationshipsDisplay = (React.memo<PropsT>(({
 
       for (let k = 0; k < groupSize; k++) {
         const targetGroup = phraseGroup.targetGroups[k];
+        const linkOrder = targetGroup.linkOrder ?? 0;
 
         const relationshipLink = (
           <RelationshipTargetLinks
@@ -87,15 +88,15 @@ const StaticRelationshipsDisplay = (React.memo<PropsT>(({
 
         phraseRows.push(
           <React.Fragment key={targetGroup.key}>
-            {targetGroup.linkOrder ? (
+            {linkOrder > 0 ? (
               targetGroup.isOrderable ? (
                 exp.l('{num}. {relationship}', {
-                  num: targetGroup.linkOrder,
+                  num: linkOrder,
                   relationship: relationshipLink,
                 })
               ) : (
                 exp.l('{relationship} (order: {num})', {
-                  num: targetGroup.linkOrder,
+                  num: linkOrder,
                   relationship: relationshipLink,
                 })
               )

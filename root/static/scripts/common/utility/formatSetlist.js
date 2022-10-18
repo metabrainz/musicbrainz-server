@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2021 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -15,7 +15,7 @@ function setlistLink(
   content: string,
 ) {
   let formattedContent = content;
-  if (!nonEmpty(formattedContent)) {
+  if (empty(formattedContent)) {
     formattedContent = entityType + ':' + entityGid;
   }
 
@@ -54,7 +54,7 @@ export default function formatSetlist(
   const elements = [];
 
   for (const rawLine of rawLines) {
-    if (!nonEmpty(rawLine)) {
+    if (empty(rawLine)) {
       elements.push(<br />);
       continue;
     }

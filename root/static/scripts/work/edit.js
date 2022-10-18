@@ -8,12 +8,15 @@
  */
 
 import $ from 'jquery';
-import ko from 'knockout';
+import ko, {
+  type Observable as KnockoutObservable,
+  type ObservableArray as KnockoutObservableArray,
+} from 'knockout';
 import mutate from 'mutate-cow';
 // $FlowIgnore[missing-export]
 import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
-import {createStore} from 'redux';
+import {legacy_createStore as createStore} from 'redux';
 
 import {LANGUAGE_MUL_ID, LANGUAGE_ZXX_ID} from '../common/constants.js';
 import {groupBy} from '../common/utility/arrays.js';
@@ -103,19 +106,19 @@ function removeLanguageFromState(form: WorkForm, i: number): WorkForm {
 class WorkAttribute {
   allowedValues: () => OptionListT;
 
-  attributeValue: KnockoutObservable<string>;
+  attributeValue: KnockoutObservable<?StrOrNum>;
 
   errors: KnockoutObservableArray<string>;
 
   parent: ViewModel;
 
-  previousTypeID: number | null;
+  previousTypeID: ?StrOrNum;
 
-  previousValue: string | null;
+  previousValue: ?StrOrNum;
 
   typeHasFocus: KnockoutObservable<boolean>;
 
-  typeID: KnockoutObservable<number>;
+  typeID: KnockoutObservable<?StrOrNum>;
 
   constructor(
     data: WorkAttributeField,
@@ -166,7 +169,7 @@ class WorkAttribute {
     });
   }
 
-  allowsFreeText(typeID: number | null): boolean {
+  allowsFreeText(typeID: ?StrOrNum): boolean {
     return !typeID ||
       this.parent.attributeTypesByID[typeID].free_text;
   }

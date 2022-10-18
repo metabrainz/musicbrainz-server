@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2022 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import {ENTITY_NAMES} from '../../common/constants.js';
-// $FlowIgnore[untyped-import]
 import HelpIcon from '../../edit/components/HelpIcon.js';
 import {stripAttributes} from '../../edit/utility/linkPhrase.js';
 import type {

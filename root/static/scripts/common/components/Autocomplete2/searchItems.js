@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2022 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -81,7 +81,7 @@ export function indexItems<+T: EntityItemT>(
   }
   const index: Map<string, Set<OptionItemT<T>>> = new Map();
   for (const item of items) {
-    if (item.type === 'option') {
+    if (item.type === 'option' && item.disabled !== true) {
       const searchTerms = extractSearchTerms(item)
         .map(clean)
         .filter(nonEmpty);

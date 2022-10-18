@@ -6,6 +6,5 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-// eslint-disable-next-line camelcase
 __webpack_public_path__ =
   window[GLOBAL_JS_NAMESPACE].DBDefs.STATIC_RESOURCES_LOCATION + '/';

@@ -33,6 +33,7 @@ import formatDatePeriod from '../common/utility/formatDatePeriod.js';
 import isDateEmpty from '../common/utility/isDateEmpty.js';
 import {hasSessionStorage} from '../common/utility/storage.js';
 import {uniqueId} from '../common/utility/strings.js';
+import {stripAttributes} from '../edit/utility/linkPhrase.js';
 import {
   appendHiddenRelationshipInputs,
 } from '../relationship-editor/utility/prepareHtmlFormSubmission.js';
@@ -106,6 +107,8 @@ type LinksEditorProps = {
         +entityType: CoreEntityTypeT,
         +id?: void,
         +isNewEntity?: true,
+        +name?: string,
+        +orderingTypeID?: number,
         +relationships?: void,
       },
 };
@@ -1201,32 +1204,20 @@ const ExternalLinkRelationship =
                     />
                   ) : (
                     linkType ? (
-                      backward
-                        ? l_relationships(linkType.reverse_link_phrase)
-                        : l_relationships(linkType.link_phrase)
+                      backward ? (
+                        stripAttributes(
+                          linkType,
+                          linkType.l_reverse_link_phrase ?? '',
+                        )
+                      ) : (
+                        stripAttributes(
+                          linkType,
+                          linkType.l_link_phrase ?? '',
+                        )
+                      )
                     ) : null
                   )
               }
-              {linkType &&
-                hasOwnProp(
-                  linkType.attributes,
-                  String(VIDEO_ATTRIBUTE_ID),
-                ) ? (
-                  <div className="attribute-container">
-                    <label>
-                      <input
-                        checked={link.video}
-                        onChange={
-                          (event) => props.onVideoChange(link.index, event)
-                        }
-                        style={{verticalAlign: 'text-top'}}
-                        type="checkbox"
-                      />
-                      {' '}
-                      {l('video')}
-                    </label>
-                  </div>
-                ) : null}
               {link.url && !link.error && !hasUrlError
                 ? <TypeDescription type={link.type} url={link.url} />
                 : null}
@@ -1238,6 +1229,26 @@ const ExternalLinkRelationship =
               ) : null}
             </label>
           </div>
+          {linkType &&
+            hasOwnProp(
+              linkType.attributes,
+              String(VIDEO_ATTRIBUTE_ID),
+            ) ? (
+              <div className="attribute-container">
+                <label>
+                  <input
+                    checked={link.video}
+                    onChange={
+                      (event) => props.onVideoChange(link.index, event)
+                    }
+                    style={{verticalAlign: 'text-top'}}
+                    type="checkbox"
+                  />
+                  {' '}
+                  {l('video')}
+                </label>
+              </div>
+            ) : null}
           {link.error ? (
             <div className="error field-error" data-visible="1">
               {link.error.message}
@@ -1470,21 +1481,25 @@ export class ExternalLink extends React.Component<LinkProps> {
             />
         ))}
         {firstLink.pendingTypes &&
-          firstLink.pendingTypes.map((type) => (
-            <tr className="relationship-item" key={type}>
-              <td />
-              <td>
-                <div className="relationship-content">
-                  <label>{addColonText(l('Type'))}</label>
-                  <label className="relationship-name">
-                    {l_relationships(
-                      linkedEntities.link_type[type].link_phrase,
-                    )}
-                  </label>
-                </div>
-              </td>
-            </tr>
-        ))}
+          firstLink.pendingTypes.map((type) => {
+            const relType = linkedEntities.link_type[type];
+            return (
+              <tr className="relationship-item" key={type}>
+                <td />
+                <td>
+                  <div className="relationship-content">
+                    <label>{addColonText(l('Type'))}</label>
+                    <label className="relationship-name">
+                      {stripAttributes(
+                        relType,
+                        relType.l_link_phrase ?? '',
+                      )}
+                    </label>
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
         {/*
           * Hide the button when link is not submitted
           * or link type is auto-selected.

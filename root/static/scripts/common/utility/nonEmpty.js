@@ -7,7 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-// If you modify this, please do the same in root/vars.js
+// If you modify these, please do the same in root/vars.js
+export function empty(value: mixed): boolean %checks {
+  return !nonEmpty(value);
+}
+
 export default function nonEmpty(value: mixed): boolean %checks {
   return value !== null && value !== undefined && value !== '';
 }

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,14 +9,16 @@
 
 import Jed from 'jed';
 
+import nonEmpty from '../static/scripts/common/utility/nonEmpty.js';
 import jedData from '../static/scripts/jed-data.mjs';
+import invariant from '../utility/invariant.js';
 
 import * as poFile from './gettext/poFile.mjs';
 
-export const jedInstance/*: Jed */ = new Jed(jedData.en);
+export const jedInstance: Jed = new Jed(jedData.en);
 jedInstance.locale = 'en';
 
-export function setLocale(locale /*: string */) {
+export function setLocale(locale: string) {
   let options = jedData[locale];
 
   if (!options) {
@@ -33,8 +35,9 @@ export function setLocale(locale /*: string */) {
   jedInstance.options = options;
 }
 
-export function loadDomain(domain /*: string */) {
+export function loadDomain(domain: string) {
   const locale = jedInstance.locale;
+  invariant(nonEmpty(locale), 'Expected a locale');
   const localeData = jedInstance.options.locale_data;
 
   if (!localeData[domain]) {
@@ -51,16 +54,16 @@ export function loadDomain(domain /*: string */) {
 }
 
 export const dgettext = (
-  domain/*: string */,
-  key/*: string */,
-)/*: string */ => jedInstance.dgettext(domain, key);
+  domain: string,
+  key: string,
+): string => jedInstance.dgettext(domain, key);
 
 export const dngettext = (
-  domain/*: string */,
-  singularKey/*: string */,
-  pluralKey/*: string */,
-  value/*: number */,
-)/*: string */ => jedInstance.dngettext(
+  domain: string,
+  singularKey: string,
+  pluralKey: string,
+  value: number,
+): string => jedInstance.dngettext(
   domain,
   singularKey,
   pluralKey,
@@ -68,7 +71,7 @@ export const dngettext = (
 );
 
 export const dpgettext = (
-  domain/*: string */,
-  context/*: string */,
-  key/*: string */,
-)/*: string */ => jedInstance.dpgettext(domain, context, key);
+  domain: string,
+  context: string,
+  key: string,
+): string => jedInstance.dpgettext(domain, context, key);

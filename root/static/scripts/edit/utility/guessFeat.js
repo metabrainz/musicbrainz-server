@@ -206,7 +206,7 @@ function expandCredit(fullName, artists, isProbablyClassical) {
 export default function guessFeat(entity) {
   const name = entity.name();
 
-  if (!nonEmpty(name)) {
+  if (empty(name)) {
     // Nothing to guess from an empty name
     return;
   }

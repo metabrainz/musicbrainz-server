@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -244,7 +244,7 @@ const AutocompleteItem = React.memo(<+T: EntityItemT>({
   let style: ?{
     +paddingLeft?: string,
     +textAlign?: string,
-  } = (item.level && item.level > 0)
+  } = (item.level != null && item.level > 0)
     ? {paddingLeft: String(4 + (item.level * 8)) + 'px'}
     : null;
 
@@ -253,7 +253,7 @@ const AutocompleteItem = React.memo(<+T: EntityItemT>({
   }
 
   function handleItemClick() {
-    if (!item.disabled) {
+    if (!isDisabled) {
       selectItem(item);
     }
   }
@@ -289,13 +289,13 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
   const {
     canChangeType,
     containerClass,
-    disabled,
+    disabled = false,
     entityType,
     highlightedIndex,
     id,
     inputChangeHook,
     inputValue,
-    isAddEntityDialogOpen,
+    isAddEntityDialogOpen = false,
     isOpen,
     items,
     pendingSearch,
@@ -333,7 +333,9 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
   }, [dispatch, pendingSearch]);
 
   const selectItem = React.useCallback((item) => {
-    if (!item.disabled) {
+    const isDisabled = !!item.disabled;
+
+    if (!isDisabled) {
       stopRequests();
       if (item.type === 'option') {
         const newEntityType = item.entity.entityType;
@@ -617,7 +619,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
 
     if (
       !staticItems &&
-      pendingSearch &&
+      nonEmpty(pendingSearch) &&
       !inputTimeout.current &&
       !xhr.current
     ) {
@@ -648,6 +650,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
 
   // XXX Until Flow supports https://github.com/facebook/flow/issues/7672
   const AutocompleteItemWithType: AutocompleteItemComponent<T> =
+    // $FlowIssue[unclear-type]
     (AutocompleteItem: any);
 
   const menuItemElements = React.useMemo(
@@ -677,12 +680,13 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
   return (
     <div
       className={
-        'autocomplete2' + (containerClass ? ' ' + containerClass : '')}
+        'autocomplete2' +
+        (nonEmpty(containerClass) ? ' ' + containerClass : '')}
       onBlur={handleBlur}
       ref={node => {
         containerRef.current = node;
       }}
-      style={state.width ? {width: state.width} : null}
+      style={nonEmpty(state.width) ? {width: state.width} : null}
     >
       <label
         className={state.labelClass}
@@ -691,7 +695,9 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
         style={state.labelStyle || DISPLAY_NONE_STYLE}
       >
         {addColonText(
-          state.placeholder || SEARCH_PLACEHOLDERS[entityType](),
+          nonEmpty(state.placeholder)
+            ? state.placeholder
+            : SEARCH_PLACEHOLDERS[entityType](),
         )}
       </label>
       <div
@@ -727,7 +733,9 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
           onFocus={handleInputFocus}
           onKeyDown={handleInputKeyDown}
           placeholder={
-            state.placeholder || l('Type to search, or paste an MBID')
+            nonEmpty(state.placeholder)
+              ? state.placeholder
+              : l('Type to search, or paste an MBID')
           }
           ref={inputRef}
           value={inputValue}
@@ -741,7 +749,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
           className={
             'search' +
             ((
-              pendingSearch &&
+              nonEmpty(pendingSearch) &&
               !disabled &&
               /*
                * Lookups for static item lists complete near-instantly,
@@ -798,6 +806,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
       ) : null}
     </div>
   );
+// $FlowIgnore[unclear-type]
 }): React$AbstractComponent<PropsT<any>, void>);
 
 export default Autocomplete2;

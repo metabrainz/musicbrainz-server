@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2022 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -14,6 +14,7 @@ import EntityLink from '../../common/components/EntityLink.js';
 import Relationship from '../../common/components/Relationship.js';
 import areDatePeriodsEqual
   from '../../common/utility/areDatePeriodsEqual.js';
+import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import isDisabledLink from '../../common/utility/isDisabledLink.js';
 import RelationshipDiff from '../../edit/components/edit/RelationshipDiff.js';
 import type {
@@ -97,7 +98,14 @@ const DialogPreview = (React.memo<PropsT>(({
   ) => (
     <EntityLink
       allowNew
-      content={content}
+      content={
+        nonEmpty(content)
+          ? content
+          : (
+            (isDatabaseRowId(entity.id) || nonEmpty(entity.name))
+              ? '' // have EntityLink determine the content
+              : l('[unknown]'))
+      }
       deletedCaption={
         (batchSelectionCount != null && entity === source)
           ? getBatchSelectionMessage(source.entityType, batchSelectionCount)
