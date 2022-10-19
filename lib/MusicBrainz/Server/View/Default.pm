@@ -6,7 +6,7 @@ use base 'Catalyst::View::TT';
 use DBDefs;
 use MRO::Compat;
 use MusicBrainz::Server::Data::Utils;
-use MusicBrainz::Server::Translation;
+use MusicBrainz::Server::Translation ();
 use MusicBrainz::Server::View::Base;
 
 __PACKAGE__->config(TEMPLATE_EXTENSION => '.tt');
