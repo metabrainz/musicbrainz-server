@@ -74,6 +74,27 @@ sub get_by_ids_sorted_by_name
 no Moose::Role;
 1;
 
+=head1 NAME
+
+MusicBrainz::Server::Data::Role::Name
+
+=head1 METHODS
+
+=head2 find_by_name ($name)
+
+Loads and returns the first instance for the specified $name.
+
+=head2 find_by_names (@names)
+
+Loads and returns all instances for the specified @names;
+The response is an array of instantiated entities.
+
+=head2 get_by_ids_sorted_by_name (@ids)
+
+Loads and returns all instances for the specified @ids,
+sorted by name or sorted by sort name for artist;
+The response is an array of instantiated entities.
+
 =head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2009,2011 Lukas Lalinsky
