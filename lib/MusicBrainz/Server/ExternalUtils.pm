@@ -1,4 +1,6 @@
 package MusicBrainz::Server::ExternalUtils;
+use strict;
+use warnings;
 
 use base 'Exporter';
 

@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Form::Field::DatePeriod;
+use strict;
+use warnings;
 
 use HTML::FormHandler::Moose;
 use List::AllUtils qw ( any );

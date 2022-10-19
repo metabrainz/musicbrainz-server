@@ -1,4 +1,6 @@
 package t::MusicBrainz::Server::Controller::RelationshipEditor;
+use strict;
+use warnings;
 
 require Exporter;
 our @ISA = qw( Exporter );

@@ -1,11 +1,14 @@
 package t::MusicBrainz::Server::Controller::User::Login;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use Hook::LexWrap;
 use MusicBrainz::Server::Test qw( html_ok );
 use DBDefs;
 use Encode;
-use utf8;
 
 with 't::Mechanize', 't::Context';
 

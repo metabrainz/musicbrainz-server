@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Edit::Utils;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Edit::Utils qw(

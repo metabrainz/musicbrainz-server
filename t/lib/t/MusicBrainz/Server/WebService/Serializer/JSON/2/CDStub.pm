@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::WebService::Serializer::JSON::2::CDStub;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use JSON qw( decode_json );

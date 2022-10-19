@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Test;
+use strict;
+use warnings;
 
 use feature 'state';
 

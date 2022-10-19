@@ -1,7 +1,10 @@
 package t::MusicBrainz::Server::Controller::Instrument::Recordings;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
-use utf8;
 
 with 't::Mechanize', 't::Context';
 

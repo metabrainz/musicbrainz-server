@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::WS::js::Work;
+use strict;
+use warnings;
+
 use Test::More;
 use Test::Routine;
 use JSON;

@@ -1,4 +1,6 @@
 package MusicBrainz::Server::JSONLookup;
+use strict;
+use warnings;
 
 use base 'Exporter';
 

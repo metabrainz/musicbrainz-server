@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Form::User::LostPassword;
+use strict;
+use warnings;
 
 use HTML::FormHandler::Moose;
 

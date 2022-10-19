@@ -1,6 +1,7 @@
 package MusicBrainz::Server::View::Default;
-
 use strict;
+use warnings;
+
 use base 'Catalyst::View::TT';
 use DBDefs;
 use MRO::Compat;

@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 use DBDefs;
 use File::Spec;
 use File::Temp qw( tempdir );

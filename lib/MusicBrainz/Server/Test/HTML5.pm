@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Test::HTML5;
-
 use utf8;
+use strict;
+use warnings;
+
 use DBDefs;
 use Encode;
 use File::Temp qw( tempfile );

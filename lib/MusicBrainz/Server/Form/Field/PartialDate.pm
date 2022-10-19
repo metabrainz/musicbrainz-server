@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Field::PartialDate;
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( is_valid_partial_date );
 use HTML::FormHandler::Moose;

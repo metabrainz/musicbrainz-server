@@ -1,7 +1,10 @@
 package t::MusicBrainz::Server::Controller::Rating;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
-use utf8;
 
 with 't::Context', 't::Mechanize';
 

@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Edit::Recording::Create;
-
 use utf8;
+use strict;
+use warnings;
 
 use Test::Deep qw( cmp_set );
 use Test::Routine;

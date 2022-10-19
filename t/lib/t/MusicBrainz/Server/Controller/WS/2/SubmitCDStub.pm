@@ -1,10 +1,13 @@
 package t::MusicBrainz::Server::Controller::WS::2::SubmitCDStub;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 
 with 't::Mechanize', 't::Context';
 
-use utf8;
 use HTTP::Status qw( :constants );
 
 use MusicBrainz::Server::Test qw( xml_ok xml_post );

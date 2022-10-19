@@ -1,4 +1,6 @@
 package t::MusicBrainz::Server::Edit::Release::ReorderMediums;
+use strict;
+use warnings;
 
 use Test::Deep qw( cmp_set );
 use Test::Routine;

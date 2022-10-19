@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Form::Admin::LockedUsernameSearch;
+use strict;
+use warnings;
 
 use HTML::FormHandler::Moose;
 

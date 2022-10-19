@@ -1,5 +1,8 @@
 package t::MusicBrainz::Server::Controller::Artist::Create;
 use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );

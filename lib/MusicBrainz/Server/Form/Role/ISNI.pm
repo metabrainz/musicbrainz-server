@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Role::ISNI;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose::Role;
 
 use List::AllUtils qw( uniq );

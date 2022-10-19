@@ -1,7 +1,10 @@
 package t::MusicBrainz::Server::Data::WikipediaExtract;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
-use utf8;
 
 use FindBin qw($Bin);
 use LWP::UserAgent::Mockable;

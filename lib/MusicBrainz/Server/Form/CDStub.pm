@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::CDStub;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 
 use MusicBrainz::Server::Translation qw( N_l l );

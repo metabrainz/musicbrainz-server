@@ -1,4 +1,6 @@
 package MusicBrainz::Server::ControllerUtils::CDTOC;
+use strict;
+use warnings;
 
 use base 'Exporter';
 

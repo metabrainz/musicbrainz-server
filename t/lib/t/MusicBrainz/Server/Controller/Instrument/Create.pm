@@ -1,4 +1,6 @@
 package t::MusicBrainz::Server::Controller::Instrument::Create;
+use strict;
+use warnings;
 
 use Test::Routine;
 use Test::More;

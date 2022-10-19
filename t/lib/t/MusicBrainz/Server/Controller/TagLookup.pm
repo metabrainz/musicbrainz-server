@@ -1,5 +1,8 @@
 package t::MusicBrainz::Server::Controller::TagLookup;
 use utf8;
+use strict;
+use warnings;
+
 use HTTP::Response;
 use LWP::UserAgent::Mockable;
 use Test::Routine;

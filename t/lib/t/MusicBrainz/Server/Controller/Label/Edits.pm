@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Label::Edits;
+use strict;
+use warnings;
+
 use Test::Routine;
 
 with 't::Mechanize', 't::Context';

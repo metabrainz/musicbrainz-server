@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Artist::Details;
+use strict;
+use warnings;
+
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok );
 

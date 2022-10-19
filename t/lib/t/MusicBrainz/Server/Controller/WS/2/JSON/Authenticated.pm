@@ -1,5 +1,8 @@
 package t::MusicBrainz::Server::Controller::WS::2::JSON::Authenticated;
 use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use MusicBrainz::Server::Test ws_test_json => {
     version => 2

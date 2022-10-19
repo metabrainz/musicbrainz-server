@@ -1,4 +1,6 @@
 package t::MusicBrainz::Server::Edit::Instrument::Merge;
+use strict;
+use warnings;
 
 use Test::Routine;
 use Test::More;

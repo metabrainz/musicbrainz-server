@@ -1,4 +1,6 @@
 package t::MusicBrainz::Server::Controller::Genre::Edit;
+use strict;
+use warnings;
 
 use Test::Routine;
 use Test::More;

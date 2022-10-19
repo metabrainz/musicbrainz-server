@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Release::EditRelationships;
+use strict;
+use warnings;
+
 use Test::Routine;
 
 with 't::Context', 't::Mechanize';

@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Validation;
+use strict;
+use warnings;
 
 use Date::Calc;
 use List::AllUtils qw( any );

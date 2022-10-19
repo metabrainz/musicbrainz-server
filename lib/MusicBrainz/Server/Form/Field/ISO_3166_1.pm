@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Field::ISO_3166_1;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 
 use MusicBrainz::Server::Translation qw( l );

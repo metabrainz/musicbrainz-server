@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Sitemap::Constants;
+use strict;
+use warnings;
 
 use base 'Exporter';
 use MusicBrainz::Server::Constants qw(

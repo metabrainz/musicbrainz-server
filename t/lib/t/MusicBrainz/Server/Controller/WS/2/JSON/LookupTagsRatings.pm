@@ -1,4 +1,6 @@
 package t::MusicBrainz::Server::Controller::WS::2::JSON::LookupTagsRatings;
+use strict;
+use warnings;
 
 use JSON;
 use Test::Routine;

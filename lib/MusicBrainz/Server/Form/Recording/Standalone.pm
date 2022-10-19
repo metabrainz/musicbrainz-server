@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Recording::Standalone;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 extends 'MusicBrainz::Server::Form::Recording';
 use MusicBrainz::Server::Translation qw( N_l );

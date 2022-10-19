@@ -1,5 +1,6 @@
 #!/usr/bin/env perl
 
+use strict;
 use warnings;
 
 package DBDefs::Default;

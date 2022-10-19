@@ -1,11 +1,14 @@
 package t::MusicBrainz::Server::Controller::WS::js::Edit;
+use utf8;
+use strict;
+use warnings;
+
 use t::MusicBrainz::Server::Controller::RelationshipEditor qw(
     $additional_attribute
     $string_instruments_attribute
     $guitar_attribute
     $crazy_guitar
 );
-use utf8;
 use JSON;
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_EDIT

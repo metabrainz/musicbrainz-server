@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Form::User::Register;
+use strict;
+use warnings;
 
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Form::Utils qw( validate_username );

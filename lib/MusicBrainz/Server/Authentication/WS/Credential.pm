@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Authentication::WS::Credential;
+use strict;
+use warnings;
+
 use parent qw/Catalyst::Authentication::Credential::HTTP/;
 
 use DBDefs;

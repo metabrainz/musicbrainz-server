@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::ISRC::Show;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );

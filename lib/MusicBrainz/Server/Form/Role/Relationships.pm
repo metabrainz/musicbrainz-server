@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Role::Relationships;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose::Role;
 
 has_field 'url' => (

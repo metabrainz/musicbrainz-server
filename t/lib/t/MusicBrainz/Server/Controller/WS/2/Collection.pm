@@ -1,4 +1,8 @@
 package t::MusicBrainz::Server::Controller::WS::2::Collection;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use MusicBrainz::Server::Test::WS qw(
     ws2_test_xml
@@ -9,8 +13,6 @@ use MusicBrainz::Server::Test::WS qw(
 );
 
 with 't::Mechanize', 't::Context';
-
-use utf8;
 
 test 'collection lookup' => sub {
     my $test = shift;

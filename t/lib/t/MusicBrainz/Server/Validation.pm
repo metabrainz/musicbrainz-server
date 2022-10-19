@@ -1,8 +1,11 @@
 package t::MusicBrainz::Server::Validation;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use Test::Warn;
-use utf8;
 
 use MusicBrainz::Server::Validation qw(
     is_positive_integer
