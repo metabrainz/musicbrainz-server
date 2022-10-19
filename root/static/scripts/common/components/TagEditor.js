@@ -650,8 +650,9 @@ export const SidebarTagEditor = (hydrate<TagEditorProps>(
       const tagRows = this.createTagRows();
       return (
         <>
-          <h2>{l('Genres')}</h2>
+          <h2>{l('Tags')}</h2>
 
+          <h3>{l('Genres')}</h3>
           {tagRows.genres.length ? (
             <ul className="genre-list">
               {tagRows.genres}
@@ -660,8 +661,7 @@ export const SidebarTagEditor = (hydrate<TagEditorProps>(
             <p>{lp('(none)', 'genre')}</p>
           )}
 
-          <h2>{l('Other tags')}</h2>
-
+          <h3>{l('Other tags')}</h3>
           {tagRows.tags.length ? (
             <ul className="tag-list">
               {tagRows.tags}
