@@ -9,6 +9,7 @@ use Sql;
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::GetByGID';
+with 'MusicBrainz::Server::Data::Role::Name';
 
 sub _main_table {
     my $type = shift->_type;
@@ -112,68 +113,6 @@ sub _insert_hook_make_row {
 sub _insert_hook_after_each { }
 
 sub _insert_hook_after { }
-
-sub find_by_name
-{
-    my ($self, $name) = @_;
-    my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
-                  WHERE lower(musicbrainz_unaccent(name)) = lower(musicbrainz_unaccent(?))';
-    $self->query_to_list($query, [$name]);
-}
-
-sub get_by_ids_sorted_by_name
-{
-    my ($self, @ids) = @_;
-    @ids = grep { defined && $_ } @ids;
-    return [] unless @ids;
-
-    my $ordering_condition = $self->_type eq 'artist'
-        ? 'sort_name COLLATE musicbrainz'
-        : 'name COLLATE musicbrainz';
-
-    my $key = $self->_id_column;
-    my $query = 'SELECT ' . $self->_columns .
-                ' FROM ' . $self->_table .
-                " WHERE $key IN (" . placeholders(@ids) . ') ' .
-                " ORDER BY $ordering_condition";
-
-    my @result;
-    for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
-        my $obj = $self->_new_from_row($row);
-        push @result, $obj;
-    }
-    return \@result;
-}
-
-sub find_by_names
-{
-    my $self = shift;
-    my @names = @_;
-
-    return () unless scalar @names;
-
-    my $query = 'SELECT ' . $self->_columns . ', search_terms.term '
-        .'FROM ' . $self->_table
-        . ', (VALUES '
-        .     join (q(,), ('(?)') x scalar(@names))
-        .    ') search_terms (term)'
-        .' WHERE lower(musicbrainz_unaccent(name)) = '
-        .' lower(musicbrainz_unaccent(search_terms.term));';
-
-    my $results = $self->c->sql->select_list_of_hashes($query, @names);
-
-    my %mapped;
-    for my $row (@$results)
-    {
-        my $key = delete $row->{term};
-
-        $mapped{$key} //= [];
-
-        push @{ $mapped{$key} }, $self->_new_from_row($row);
-    }
-
-    return %mapped;
-}
 
 sub load_gid_redirects {
     my ($self, @entities) = @_;
