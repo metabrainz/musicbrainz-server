@@ -69,7 +69,7 @@ sub _authenticate_bearer
 
     my @authorization = $c->req->headers->header('Authorization');
     for my $authorization (@authorization) {
-        next unless $authorization =~ s/^\s*Bearer\s+(\S+)\s*$/\1/;
+        next unless $authorization =~ s/^\s*Bearer\s+(\S+)\s*$/$1/;
         $c->log->debug('Found bearer access token in Authorization header') if $c->debug;
         my $user = $realm->find_user( { oauth_access_token => $authorization }, $c);
         return $user if $user && !$user->oauth_token->is_expired;
