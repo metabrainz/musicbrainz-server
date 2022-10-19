@@ -71,8 +71,8 @@ sub format_message
     }
     else
     {
-        return sprintf("%s%s: %s\n ⤷ line %d (col %d): %s", $msg->{type},
-                        $ignored, $msg->{message}, $msg->{lastLine},
+        return sprintf("%s: %s\n ⤷ line %d (col %d): %s", $msg->{type},
+                        $msg->{message}, $msg->{lastLine},
                         $msg->{firstColumn}, $msg->{extract});
 
     }
