@@ -1,4 +1,6 @@
 package DBDefs;
+use strict;
+use warnings;
 
 use parent 'DBDefs::Default';
 use MusicBrainz::Server::DatabaseConnectionFactory;
