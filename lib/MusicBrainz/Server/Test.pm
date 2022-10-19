@@ -172,16 +172,6 @@ sub capture_edits (&$)
 
 my $Test = Test::Builder->new();
 
-sub diag_lineno
-{
-    my @lines = split /\n/, $_[0];
-    my $line = 1;
-    foreach (@lines) {
-        diag $line, $_;
-        $line += 1;
-    }
-}
-
 =func test_xpath_html
 
 Instantiate Test::XPath with the html namespace.
