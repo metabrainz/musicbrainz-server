@@ -9,7 +9,7 @@
 
 type Props = {
   +forField?: {+html_name: string, ...},
-  +label: string,
+  +label: React$Node,
   +required?: boolean,
 };
 

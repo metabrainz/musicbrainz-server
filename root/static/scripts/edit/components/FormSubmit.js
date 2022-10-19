@@ -10,7 +10,7 @@
 type Props = {
   +className?: string,
   +inputClassName?: string,
-  +label: string,
+  +label: React$Node,
   +name?: string,
   +value?: string,
 };
