@@ -7,8 +7,7 @@ use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( placeholders object_to_ids );
 use MusicBrainz::Server::Validation qw( is_guid );
 
-requires '_main_table';
-# '_type' is indirectly required too.
+requires '_main_table', '_type';
 requires 'c', 'get_by_gid', 'get_by_gids', 'get_by_id', 'get_by_ids', 'sql';
 
 sub _delete_and_redirect_gids

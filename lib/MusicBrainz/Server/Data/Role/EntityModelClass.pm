@@ -5,7 +5,7 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
-# '_type' is indirectly required.
+requires '_type';
 
 sub _entity_class { 'MusicBrainz::Server::Entity::' . type_to_model(shift->_type) }
 

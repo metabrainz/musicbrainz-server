@@ -5,8 +5,7 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 
-requires '_columns', '_id_column', '_new_from_row', '_table';
-# '_type' is indirectly required too.
+requires '_columns', '_id_column', '_new_from_row', '_table', '_type';
 requires 'c', 'query_to_list', 'sql';
 
 sub find_by_name

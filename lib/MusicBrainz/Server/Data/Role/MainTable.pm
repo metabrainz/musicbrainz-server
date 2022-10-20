@@ -5,7 +5,7 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 
-# '_type' is indirectly required.
+requires '_type';
 
 sub _main_table {
     my $type = shift->_type;
