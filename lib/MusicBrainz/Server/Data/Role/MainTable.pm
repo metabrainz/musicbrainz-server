@@ -17,6 +17,25 @@ sub _table { shift->_main_table }
 no Moose::Role;
 1;
 
+=head1 NAME
+
+MusicBrainz::Server::Data::Role::MainTable
+
+=head1 DESCRIPTION
+
+Define C<_main_table> method using either
+the value of C<_type> match the key of
+an object literal in C<entities.json> file
+with a C<table> subkey, C<_type> otherwise.
+
+Also define C<_table> with the same value.
+
+=head1 METHODS
+
+=head2 _main_class
+
+Return the name of the main table of this entity type.
+
 =head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2009,2011 Lukas Lalinsky
