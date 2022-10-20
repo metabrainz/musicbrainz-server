@@ -3,11 +3,11 @@ package MusicBrainz::Server::Data::Role::EntityModelClass;
 use Moose::Role;
 use namespace::autoclean;
 
-use MusicBrainz::Server::Constants qw( %ENTITIES );
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
 # '_type' is indirectly required.
 
-sub _entity_class { 'MusicBrainz::Server::Entity::' . $ENTITIES{shift->_type}{model} }
+sub _entity_class { 'MusicBrainz::Server::Entity::' . type_to_model(shift->_type) }
 
 no Moose::Role;
 1;
