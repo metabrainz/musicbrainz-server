@@ -18,7 +18,9 @@ use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved
 use MusicBrainz::Server::Entity::Series;
 use MusicBrainz::Server::Entity::SeriesType;
 
-extends 'MusicBrainz::Server::Data::CoreEntity';
+extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::Relatable';
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'series' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'series' };
 with 'MusicBrainz::Server::Data::Role::GIDEntityCache';

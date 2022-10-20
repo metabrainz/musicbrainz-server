@@ -10,7 +10,9 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Entity::Instrument;
 
-extends 'MusicBrainz::Server::Data::CoreEntity';
+extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::Relatable';
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::GIDEntityCache';

@@ -15,7 +15,8 @@ with 't::Context' => { -excludes => '_build_context' };
 
     package t::GIDEntityCache::MyEntityData;
     use Moose;
-    extends 'MusicBrainz::Server::Data::CoreEntity';
+    extends 'MusicBrainz::Server::Data::Entity';
+    with 'MusicBrainz::Server::Data::Role::GetByGID';
     has 'get_by_id_called' => ( is => 'rw', isa => 'Bool', default => 0 );
     has 'get_by_gid_called' => ( is => 'rw', isa => 'Bool', default => 0 );
     sub get_by_ids
