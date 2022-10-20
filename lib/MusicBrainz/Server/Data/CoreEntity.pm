@@ -2,23 +2,15 @@ package MusicBrainz::Server::Data::CoreEntity;
 
 use Moose;
 use namespace::autoclean;
-use MusicBrainz::Server::Constants qw( %ENTITIES );
 use Sql;
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityModelClass';
 with 'MusicBrainz::Server::Data::Role::GetByGID';
+with 'MusicBrainz::Server::Data::Role::MainTable';
 with 'MusicBrainz::Server::Data::Role::GID';
 with 'MusicBrainz::Server::Data::Role::GIDRedirect';
 with 'MusicBrainz::Server::Data::Role::Name';
-
-sub _main_table {
-    my $type = shift->_type;
-    return $ENTITIES{$type}{table} // $type;
-}
-
-# Override this for joins etc. if necessary.
-sub _table { shift->_main_table }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
