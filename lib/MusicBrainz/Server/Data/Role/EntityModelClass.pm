@@ -12,6 +12,24 @@ sub _entity_class { 'MusicBrainz::Server::Entity::' . $ENTITIES{shift->_type}{mo
 no Moose::Role;
 1;
 
+=head1 NAME
+
+MusicBrainz::Server::Data::Role::EntityModelClass
+
+=head1 DESCRIPTION
+
+Define C<_entity_class> method assuming that
+the value of C<_type> match the key of
+an object literal in C<entities.json> file
+with a C<model> subkey.
+
+=head1 METHODS
+
+=head2 _entity_class
+
+Return the full name of the corresponding
+C<MusicBrainz::Server::Entity> subclass.
+
 =head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2009,2011 Lukas Lalinsky
