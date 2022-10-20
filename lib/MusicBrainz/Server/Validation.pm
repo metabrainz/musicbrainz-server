@@ -177,7 +177,10 @@ sub is_valid_url
     my $u = eval { URI->new($url) }
         or return 0;
 
-    return 0 if $u->scheme eq '';
+    my $scheme = $u->scheme;
+
+    return 0 unless defined $scheme;
+    return 0 if $scheme eq '';
     return 0 if $u->can('authority') && !($u->authority =~ /\./);
     return 1;
 }
