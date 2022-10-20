@@ -283,8 +283,8 @@ sub schema_validator
 {
     my $version = shift;
 
+    $version = '2.0' if !$version || $version == 2;
     $version = '1.4' if $version == 1;
-    $version = '2.0' if $version == 2 || !$version;
 
     my $mmd_root = $ENV{'MMD_SCHEMA_ROOT'} ||
                    Cwd::realpath( File::Basename::dirname(__FILE__) ) . '/../../../../mmd-schema';
