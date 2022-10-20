@@ -20,7 +20,7 @@ use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release_group' };
-with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'release_group' };

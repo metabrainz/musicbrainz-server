@@ -24,7 +24,7 @@ extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'event' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'event' };
 with 'MusicBrainz::Server::Data::Role::Area';
-with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'event' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'event' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'event' };

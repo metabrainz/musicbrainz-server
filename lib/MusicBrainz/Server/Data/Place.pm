@@ -22,7 +22,7 @@ use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'place' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'place' };
-with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'place' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'place' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'place' };

@@ -30,7 +30,7 @@ with 'MusicBrainz::Server::Data::Role::Area';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::IPI' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::ISNI' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'artist' };

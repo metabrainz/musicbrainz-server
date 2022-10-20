@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Data::Role::CoreEntityCache;
+package MusicBrainz::Server::Data::Role::GIDEntityCache;
 
 use Moose::Role;
 

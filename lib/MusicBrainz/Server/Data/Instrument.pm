@@ -13,7 +13,7 @@ use MusicBrainz::Server::Entity::Instrument;
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'instrument' };
-with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'instrument' };

@@ -10,7 +10,7 @@ use MusicBrainz::Server::Entity::Genre;
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'genre' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'genre' };
-with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'genre' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'genre' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
