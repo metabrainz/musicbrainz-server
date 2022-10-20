@@ -4,7 +4,7 @@ use warnings;
 
 use Test::Routine;
 use Test::More;
-use Test::Deep;
+use Test::Deep qw( cmp_deeply ignore );
 
 with 't::Context';
 
