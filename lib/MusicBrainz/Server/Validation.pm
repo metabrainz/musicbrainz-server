@@ -344,7 +344,7 @@ sub encode_entities
 sub normalise_strings
 {
     my @r = map {
-        my $t = $_;
+        my $t = $_ // '';
 
         # Using lc() on U+0130 LATIN CAPITAL LETTER I WITH DOT ABOVE turns it into U+0069 LATIN SMALL LETTER I
         # and U+0307 COMBINING DOT ABOVE which causes problems later, so remove that before using lc().
