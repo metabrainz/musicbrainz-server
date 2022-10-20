@@ -122,7 +122,7 @@ test all => sub {
     is(scalar @$alias_set, 0, 'Artist #1 now has no aliases');
 
     # Test inserting new aliases
-    my $alias = $artist_data->alias->insert({
+    my $alias2 = $artist_data->alias->insert({
                                  artist_id => 1,
                                  name => 'New alias',
                                  sort_name => 'New sort name',
@@ -130,7 +130,7 @@ test all => sub {
                                  primary_for_locale => 1,
                                  ended => 0
                                 });
-    my $alias_id = $alias->{id};
+    my $alias_id = $alias2->{id};
     $alias_set = $artist_data->alias->find_by_entity_id(1);
     is(scalar @$alias_set, 1, 'Artist #1 has a single newly inserted alias');
     verify_artist_alias(
