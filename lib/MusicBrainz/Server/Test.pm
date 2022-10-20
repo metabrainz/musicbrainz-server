@@ -161,9 +161,9 @@ sub get_latest_edit
 sub capture_edits (&$)
 {
     my ($code, $c) = @_;
-    my $current_max = $c->sql->select_single_value('SELECT max(id) FROM edit');
+    my $current_max = $c->sql->select_single_value('SELECT max(id) FROM edit') // 0;
     $code->();
-    my $new_max = $c->sql->select_single_value('SELECT max(id) FROM edit');
+    my $new_max = $c->sql->select_single_value('SELECT max(id) FROM edit') // 0;
     return () if $new_max <= $current_max;
     return nsort_by { $_->id } values %{ $c->model('Edit')->get_by_ids(
         ($current_max + 1)..$new_max
