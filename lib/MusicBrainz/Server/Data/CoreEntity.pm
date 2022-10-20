@@ -6,6 +6,7 @@ use MusicBrainz::Server::Constants qw( %ENTITIES );
 use Sql;
 
 extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::EntityModelClass';
 with 'MusicBrainz::Server::Data::Role::GetByGID';
 with 'MusicBrainz::Server::Data::Role::GID';
 with 'MusicBrainz::Server::Data::Role::GIDRedirect';
@@ -18,8 +19,6 @@ sub _main_table {
 
 # Override this for joins etc. if necessary.
 sub _table { shift->_main_table }
-
-sub _entity_class { 'MusicBrainz::Server::Entity::' . $ENTITIES{shift->_type}{model} }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
