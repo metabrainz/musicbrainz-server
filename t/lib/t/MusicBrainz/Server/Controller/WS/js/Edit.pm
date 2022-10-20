@@ -800,8 +800,8 @@ test 'adding a relationship with an invalid date' => sub {
 
     ok(scalar(@edits) == 0, 'relationship for invalid date range is not created');
 
-    my $response = from_json($mech->content);
-    like($response->{error}, qr/^invalid date range/, 'error is returned for invalid date range');
+    my $response2 = from_json($mech->content);
+    like($response2->{error}, qr/^invalid date range/, 'error is returned for invalid date range');
 };
 
 
