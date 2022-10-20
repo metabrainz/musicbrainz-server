@@ -2,7 +2,7 @@
 @form-margin: 12px;
 @form-label-width: 150px;
 @form-input-width: @form-half-width - @form-label-width - (@form-margin * 3);
-@form-input-width-short: 220px;
+@form-input-width-short: 260px;
 @form-icon-size: 16px;
 @form-bubble-label-width: @form-label-width;
 @form-bubble-input-width: 176px;
@@ -173,7 +173,10 @@ form div.no-margin {
     margin-left: 0;
 }
 
-#collaborators-form-list ul.errors { margin-left: 0; }
+.collaborators-form-list {
+    div.autocomplete2 { width: @form-input-width-short; }
+    ul.errors { margin-left: 0; }
+}
 
 .select-list-row ul.errors {
     margin-left: 0;
