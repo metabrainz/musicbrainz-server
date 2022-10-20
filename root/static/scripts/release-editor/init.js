@@ -285,6 +285,7 @@ releaseEditor.init = function (options) {
   // Keep in sync with is_valid_edit_note in Server::Validation
   this.rootField.invalidEditNote = function () {
     return self.action === 'add' && (
+      empty(self.rootField.editNote()) ||
       /^[\p{White_Space}\p{Punctuation}]+$/u.test(self.rootField.editNote()) ||
       /^\p{ASCII}$/u.test(self.rootField.editNote())
     );

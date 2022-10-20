@@ -307,6 +307,8 @@ sub is_valid_edit_note
 {
     my $edit_note = shift;
 
+    return 0 unless $edit_note;
+
     # An edit note with only spaces and / or punctuation is useless
     return 0 if $edit_note =~ /^[[:space:][:punct:]]+$/;
 
