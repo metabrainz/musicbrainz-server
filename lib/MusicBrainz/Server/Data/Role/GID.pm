@@ -5,8 +5,7 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Data::Utils qw( generate_gid );
 
-requires '_main_table';
-# '_hash_to_row' is indirectly required too.
+requires '_hash_to_row', '_main_table';
 requires 'sql';
 
 sub insert {

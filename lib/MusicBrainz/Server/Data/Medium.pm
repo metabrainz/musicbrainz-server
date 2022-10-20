@@ -119,7 +119,7 @@ sub update
     my ($self, $medium_id, $medium_hash) = @_;
     die 'update cannot update tracklist' if exists $medium_hash->{tracklist};
 
-    my $row = $self->_create_row($medium_hash);
+    my $row = $self->_hash_to_row($medium_hash);
     return unless %$row;
 
     $self->sql->update_row('medium', $row, { id => $medium_id });
@@ -137,7 +137,7 @@ sub insert
     my @created;
     for my $medium_hash (@medium_hashes) {
         my $tracklist = delete $medium_hash->{tracklist};
-        my $row = $self->_create_row($medium_hash);
+        my $row = $self->_hash_to_row($medium_hash);
 
         my $medium_created = {
             id => $self->sql->insert_row('medium', $row, 'id'),
@@ -176,7 +176,7 @@ sub delete
     $self->sql->do('DELETE FROM medium WHERE id IN (' . placeholders(@ids) . ')', @ids);
 }
 
-sub _create_row
+sub _hash_to_row
 {
     my ($self, $medium_hash) = @_;
     my %row;

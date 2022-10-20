@@ -215,7 +215,7 @@ sub _insert_hook_make_row {
     delete $track_hash->{id};
     $track_hash->{number} //= '';
     $track_hash->{is_data_track} //= 0;
-    my $row = $self->_create_row($track_hash);
+    my $row = $self->_hash_to_row($track_hash);
 
     push @{ $extra_data->{recording_ids} }, $row->{recording};
 
@@ -239,7 +239,7 @@ sub update
     my ($self, $track_id, $update) = @_;
     my $old_recording = $self->sql->select_single_value('SELECT recording FROM track WHERE id = ? FOR UPDATE', $track_id);
 
-    my $row = $self->_create_row($update);
+    my $row = $self->_hash_to_row($update);
     $self->sql->update_row('track', $row, { id => $track_id });
 
     my $mediums = $self->_medium_ids($track_id);
@@ -295,7 +295,7 @@ sub merge_mediums
     }
 }
 
-sub _create_row {
+sub _hash_to_row {
     my ($self, $track_hash) = @_;
 
     my $row = hash_to_row($track_hash, { reverse %{ $self->_column_mapping } });
