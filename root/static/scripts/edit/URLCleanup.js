@@ -5303,6 +5303,8 @@ const CLEANUPS: CleanupEntries = {
         /^https:\/\/www\.youtube\.com\/([a-zA-Z0-9_-]+)\/(?:about|channels|community|featured|playlists|videos)(?:[\/?&#].*)?$/,
         'https://www.youtube.com/$1',
       );
+      // YouTube handle
+      url = url.replace(/^https:\/\/www\.youtube\.com\/(@[a-zA-Z0-9_.-]{3,30}).*$/, 'https://www.youtube.com/$1');
       // YouTube URL shortener
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtu\.be\/([a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?v=$1');
       // YouTube standard watch URL
