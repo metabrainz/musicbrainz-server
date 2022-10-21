@@ -332,7 +332,11 @@ sub handle_replication_sequence($$) {
     my (%changes, %change_keys);
     open my $dbmirror_pending, '<', "$output_dir/mbdump/dbmirror_pending";
     while (<$dbmirror_pending>) {
-        my ($seq_id, $table_name, $op) = split /\t/;
+        my $line = $_;
+
+        next if $line =~ /^\s*$/;
+
+        my ($seq_id, $table_name, $op) = split /\t/, $line;
 
         my ($schema, $table) = map { m/"(.*?)"/; $1 } split /\./, $table_name;
 
@@ -348,7 +352,11 @@ sub handle_replication_sequence($$) {
     # File::Slurp is required so that fork() doesn't interrupt IO.
     my @dbmirror_pendingdata = read_file("$output_dir/mbdump/dbmirror_pendingdata");
     for (@dbmirror_pendingdata) {
-        my ($seq_id, $is_key, $data) = split /\t/;
+        my $line = $_;
+
+        next if $line =~ /^\s*$/;
+
+        my ($seq_id, $is_key, $data) = split /\t/, $line;
 
         chomp $data;
         $data = MusicBrainz::Server::dbmirror::unpack_data($data, $seq_id);
