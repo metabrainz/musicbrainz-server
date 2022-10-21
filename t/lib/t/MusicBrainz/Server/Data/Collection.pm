@@ -166,9 +166,12 @@ is($hits, 2, 'Editor #1 is still subscribed to now private collection they colla
 
 # Checking for subscription changes when collaborator is removed
 $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cb/own_collection/edit');
-$mech->form_number(2);
-$mech->field('edit-list.collaborators.0.id', '');
-$mech->click();
+$mech->submit_form_ok({
+   with_fields => {
+      'edit-list.collaborators.0.id' => '',
+      'edit-list.collaborators.0.name' => '',
+   },
+}, 'The form returned a 2xx response code');
 
 my $tx = test_xpath_html($mech->content);
 $tx->is('//div[@id="content"]/div[@class="collaborators"]/p/a', '',
