@@ -681,7 +681,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
     };
   });
 
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     const shouldUpdateScrollPosition = (
       (isOpen && !prevIsOpen.current) ||
       shouldUpdateScrollPositionRef.current
