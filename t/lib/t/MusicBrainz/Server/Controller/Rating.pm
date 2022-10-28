@@ -8,7 +8,7 @@ use Test::More;
 
 with 't::Context', 't::Mechanize';
 
-test 'Can rate' => sub {
+test 'Ratings are inserted / updated as expected' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c = $test->c;
@@ -16,10 +16,30 @@ test 'Can rate' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c);
 
     $mech->get_ok('/login');
-    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+    $mech->submit_form(
+        with_fields => {username => 'new_editor', password => 'password' }
+    );
 
     $mech->get('/rating/rate/?entity_type=label&entity_id=2&rating=100');
-    is ($mech->status, 200);
+    is($mech->status, 200, 'First time rating submission went through');
+
+    my $label = $c->model('Label')->get_by_id(2);
+    $c->model('Label')->load_meta($label);
+    is($label->rating, 100, 'The rating was successfully added');
+
+    $mech->get('/rating/rate/?entity_type=label&entity_id=2&rating=20');
+    is($mech->status, 200, 'Re-rating submission went through');
+
+    $label = $c->model('Label')->get_by_id(2);
+    $c->model('Label')->load_meta($label);
+    is($label->rating, 20, 'The rating was successfully updated');
+
+    $mech->get('/rating/rate/?entity_type=label&entity_id=2&rating=0');
+    is($mech->status, 200, 'Delete rating submission went through');
+
+    $label = $c->model('Label')->get_by_id(2);
+    $c->model('Label')->load_meta($label);
+    is($label->rating, undef, 'The rating was successfully deleted');
 };
 
 test 'Cannot rate without a confirmed email address' => sub {
