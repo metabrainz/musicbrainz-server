@@ -19,6 +19,7 @@ const SHORTENER_ALLOWED_HOSTS = [
 const URL_SHORTENERS = [
   'adf.ly',
   'album.link',
+  'allmylinks.com',
   'ampl.ink',
   'amu.se',
   'artist.link',
