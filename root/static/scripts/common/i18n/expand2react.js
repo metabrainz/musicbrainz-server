@@ -296,7 +296,7 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
     // Self-closing tag
     return React.createElement(
       name,
-      Object.assign({}, ...attributes),
+      Object.assign(({}: HtmlAttrs), ...attributes),
     );
   }
 
@@ -312,7 +312,7 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
 
   return React.createElement(
     name,
-    Object.assign({}, ...attributes),
+    Object.assign(({}: HtmlAttrs), ...attributes),
     ...children,
   );
 }

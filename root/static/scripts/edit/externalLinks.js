@@ -168,7 +168,7 @@ class _ExternalLinksEditor
             '\\.url\\.([0-9]+)\\.(text|link_type_id)=([^&]+)',
           'g',
         );
-        const urls = {};
+        const urls: {[index: string]: {[key: string]: string}} = {};
         let match;
 
         while ((match = seededLinkRegex.exec(window.location.search))) {
@@ -667,7 +667,7 @@ class _ExternalLinksEditor
     let error: ErrorT | null = null;
 
     const linkType = link.type
-      ? linkedEntities.link_type[link.type] : {};
+      ? linkedEntities.link_type[link.type] : null;
     // Use existing checker if possible, otherwise create a new one
     checker = checker ||
       new URLCleanup.Checker(link.url, this.sourceType);
@@ -738,7 +738,9 @@ class _ExternalLinksEditor
         target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
       };
     } else if (
-      linkType.deprecated && (isNewLink || linkTypeChanged)
+      linkType &&
+      linkType.deprecated &&
+      (isNewLink || linkTypeChanged)
     ) {
       error = {
         message: l(`This relationship type is deprecated 
@@ -754,7 +756,7 @@ class _ExternalLinksEditor
         message: l('This relationship already exists.'),
         target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
       };
-    } else if (isNewOrChangedLink) {
+    } else if (linkType && isNewOrChangedLink) {
       const check = checker.checkRelationship(linkType.gid);
       if (!check.result) {
         error = ({
@@ -925,13 +927,15 @@ class _ExternalLinksEditor
               url, this.sourceType,
             );
             const possibleTypes = checker.getPossibleTypes();
-            const selectedTypes = [];
+            const selectedTypes: Array<string> = [];
             const typeOptions = this.filterTypeOptions(possibleTypes);
             links.forEach(link => {
               linkIndexes.push(link.index);
               const linkType = link.type
-                ? linkedEntities.link_type[link.type] : {};
-              selectedTypes.push(linkType.gid);
+                ? linkedEntities.link_type[link.type] : null;
+              if (linkType) {
+                selectedTypes.push(linkType.gid);
+              }
 
               /*
                * FIXME: Why are links validated on every render, rather than
@@ -1568,7 +1572,7 @@ function withOneEmptyLink(
 ) {
   let emptyCount = 0;
   let canRemoveCount = 0;
-  const canRemove = {};
+  const canRemove: {[index: number]: boolean} = {};
 
   links.forEach(function (link, index) {
     if (isEmpty(link)) {

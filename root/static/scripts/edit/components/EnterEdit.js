@@ -36,7 +36,11 @@ const EnterEdit = ({
   ...otherProps
 }: Props): React.MixedElement => {
   const isMakeVotableChecked = form.field.make_votable.value;
-  const makeVotableProps = {};
+  const makeVotableProps: {
+    checked?: boolean,
+    defaultChecked?: boolean,
+    onChange?: (event: SyntheticEvent<HTMLInputElement>) => void,
+  } = {};
   if (otherProps.controlled) {
     makeVotableProps.checked = isMakeVotableChecked;
     makeVotableProps.onChange = otherProps.onChange;

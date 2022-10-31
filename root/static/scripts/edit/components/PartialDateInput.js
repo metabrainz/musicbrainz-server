@@ -94,14 +94,21 @@ export function runReducer(
   }
 }
 
+type DatePartPropsT = {
+  defaultValue?: StrOrNum | null,
+  onBlur?: () => void,
+  onChange?: (SyntheticEvent<HTMLInputElement>) => void,
+  value?: StrOrNum,
+};
+
 const PartialDateInput = (props: Props): React.Element<'span'> => {
   const disabled = props.disabled ?? false;
   const field = props.field;
   const yearInputRef = props.yearInputRef;
 
-  const yearProps = {};
-  const monthProps = {};
-  const dayProps = {};
+  const yearProps: DatePartPropsT = {};
+  const monthProps: DatePartPropsT = {};
+  const dayProps: DatePartPropsT = {};
 
   if (props.uncontrolled) {
     yearProps.defaultValue = field.field.year.value;

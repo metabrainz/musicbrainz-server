@@ -272,7 +272,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 
   flushPendingVotes(asap?: boolean) {
-    const actions = {};
+    const actions: {[action: string]: Array<PendingVoteT>} = {};
 
     for (const item of this.pendingVotes.values()) {
       const action =

@@ -39,7 +39,11 @@ const FormRowCheckbox = ({
   onChange,
   uncontrolled,
 }: Props): React.Element<typeof FormRow> => {
-  const extraProps = {};
+  const extraProps: {
+    checked?: boolean,
+    defaultChecked?: boolean,
+    onChange?: (event: SyntheticEvent<HTMLInputElement>) => void,
+  } = {};
   if (uncontrolled) {
     extraProps.defaultChecked = field.value;
   } else {

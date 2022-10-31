@@ -5657,9 +5657,13 @@ entitySpecificRules.recording = function (url) {
  * }
  */
 function multiple(...types: $ReadOnlyArray<EntityTypeMap>): EntityTypesMap {
-  const result = {};
+  const result: {[entityType: CoreEntityTypeT]: Array<string>} = {};
   types.forEach(function (type: EntityTypeMap) {
-    for (const [entityType, id] of Object.entries(type)) {
+    for (
+      const [entityType, id] of
+      // $FlowIssue[incompatible-cast]
+      (Object.entries(type): Array<[CoreEntityTypeT, string]>)
+    ) {
       result[entityType] = result[entityType] || [];
       result[entityType].push(id);
     }
