@@ -239,7 +239,7 @@ sub get_linked_entities($$$$) {
 
     if (@$joins) {
         $first_join = $joins->[0];
-        $last_join = $joins->[scalar(@$joins) - 1];
+        $last_join = $joins->[-1];
 
         # The target entity table we're selecting from should always be the
         # RHS of the first join. Conversely, the source table - i.e., where

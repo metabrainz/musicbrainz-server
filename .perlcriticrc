@@ -35,3 +35,4 @@ allow=refs
 [Variables::ProhibitUnusedVarsStricter]
 allow_unused_subroutine_arguments = 1
 [Variables::RequireLexicalLoopIterators]
+[Variables::RequireNegativeIndices]
