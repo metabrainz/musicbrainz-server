@@ -244,7 +244,7 @@ sub DEMOLISH {
         -d "$export_dir/mbdump"
     ) {
         # Buffer this so concurrent processes don't overlap.
-        my $log_output .= "Disk space just before erasing $export_dir:\n";
+        my $log_output = "Disk space just before erasing $export_dir:\n";
         $log_output .= qx(/bin/df -m 2>&1);
         $log_output .= "Erasing $export_dir\n";
         my $quoted_dir = shell_quote($export_dir);
