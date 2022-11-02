@@ -5,6 +5,7 @@ use warnings;
 
 use base 'Exporter';
 use DBDefs;
+use English;
 use File::Temp qw( tempdir );
 use GnuPG qw( :algo );
 use HTTP::Status qw( RC_NOT_FOUND );
@@ -28,9 +29,9 @@ sub decompress_packet {
     my $tar = `which tar`;
     chomp $tar;
     system $tar, '-C', $output_dir, '--bzip2', '-xvf', $local_file;
-    exit $? if $?;
+    exit $CHILD_ERROR if $CHILD_ERROR;
 
-    unlink $local_file or warn "unlink $local_file: $!\n";
+    unlink $local_file or warn "unlink $local_file: $OS_ERROR\n";
     return $output_dir;
 }
 
@@ -71,13 +72,13 @@ sub validate_file_signature {
     my ($file, $signature) = @_;
 
     # Make sure that the file to be tested exists
-    die "Can't find file $file: $!" unless -e $file;
+    die "Can't find file $file: $OS_ERROR" unless -e $file;
 
     # Make sure that the signature exists
     unless (-e $signature) {
         # React based on the configured mode for missing signature
         (DBDefs->GPG_MISSING_SIGNATURE_MODE =~ m/FAIL/i)
-            ? die "Can't find signature file $file: $!"
+            ? die "Can't find signature file $file: $OS_ERROR"
             : return;
     }
 
@@ -88,7 +89,7 @@ sub validate_file_signature {
     try {
         $gpg->import_keys(keys => [DBDefs->GPG_PUB_KEY]);
         $gpg->verify(signature => $signature, file => $file);
-        unlink $signature or warn "unlink $signature: $!\n";
+        unlink $signature or warn "unlink $signature: $OS_ERROR\n";
     } catch {
         # Exist with and error if verification failed
         printf STDERR "Failed to verify signature for $file \nGPG returned $_";

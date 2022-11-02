@@ -9,6 +9,7 @@ use Carp qw( croak );
 use CGI::Simple::Util qw( escape );
 use DBDefs;
 use Devel::StackTrace;
+use English;
 use IO::File;
 use Scalar::Util qw( blessed );
 use Try::Tiny;
@@ -31,7 +32,7 @@ sub sentry_enabled () {
             require Sentry::Raven;
             Sentry::Raven->import;
         };
-        $_sentry_enabled = $@ ? 0 : 1;
+        $_sentry_enabled = $EVAL_ERROR ? 0 : 1;
     } else {
         $_sentry_enabled = 0;
     }
@@ -96,7 +97,7 @@ sub sig_die_handler {
 
     my $stacktrace;
     {
-        local $@;
+        local $EVAL_ERROR;
         eval {
             $stacktrace = Devel::StackTrace->new(
                 message => $message,
@@ -122,7 +123,7 @@ sub sig_die_handler {
             ++$i;
             my %context;
             {
-                local $@;
+                local $EVAL_ERROR;
                 eval {
                     %context = get_context($frame->filename, $frame->line);
                 };
@@ -241,7 +242,7 @@ sub build_request_and_user_context {
     my $req = $c->req;
     my $body = $req->body;
     if (ref $body) {
-        $body = eval { local $/; seek $body, 0, 0; <$body> };
+        $body = eval { local $INPUT_RECORD_SEPARATOR; seek $body, 0, 0; <$body> };
     }
 
     my @sentry_context;

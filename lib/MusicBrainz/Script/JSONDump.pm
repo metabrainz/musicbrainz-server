@@ -7,6 +7,7 @@ use feature 'state';
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory';
 use Data::Dumper;
 use DBDefs;
+use English;
 use File::Copy qw( move );
 use File::Path qw( rmtree );
 use File::Spec::Functions qw( catdir catfile tmpdir );
@@ -102,13 +103,13 @@ EOF
     $mbdump->copy_file(
         catfile(DBDefs->MB_SERVER_ROOT, 'admin', 'COPYING-PublicDomain'),
         'COPYING'
-    ) or die $!;
+    ) or die $OS_ERROR;
 
     $mbdump->write_file('JSON_DUMPS_SCHEMA_NUMBER', "1\n");
 
     my $dest_dump_fpath = catfile(
         $mbdump->export_dir, 'mbdump', $dump_fname);
-    move($dump_fpath, $dest_dump_fpath) or die $!;
+    move($dump_fpath, $dest_dump_fpath) or die $OS_ERROR;
 
     if ($self->compression_enabled) {
         $mbdump->make_tar(
@@ -118,7 +119,7 @@ EOF
         );
     } else {
         move($mbdump->export_dir,
-             catdir($mbdump->output_dir, $dump_fname)) or die $!;
+             catdir($mbdump->output_dir, $dump_fname)) or die $OS_ERROR;
     }
 
     return;
@@ -130,15 +131,15 @@ sub write_json {
     return unless @{$entities_json_array};
 
     my $lock_path = "$dump_path.lock";
-    open(my $lock_fh, '>', $lock_path) or die $!;
-    flock $lock_fh, LOCK_EX or die $!;
+    open(my $lock_fh, '>', $lock_path) or die $OS_ERROR;
+    flock $lock_fh, LOCK_EX or die $OS_ERROR;
 
-    open (my $dump_fh, '>>', $dump_path) or die $!;
+    open (my $dump_fh, '>>', $dump_path) or die $OS_ERROR;
     print $dump_fh "\n" if -s $dump_path;
     print $dump_fh (join "\n", @{$entities_json_array});
     close $dump_fh;
 
-    flock $lock_fh, LOCK_UN or die $!;
+    flock $lock_fh, LOCK_UN or die $OS_ERROR;
 }
 
 sub fetch_entities_json {
@@ -399,13 +400,13 @@ sub with_incremental_dump_lock {
     my ($self, $callback) = @_;
 
     my $lock_path = '/tmp/.json-dump-incremental.lock';
-    open(my $lock_fh, '>', $lock_path) or die $!;
-    flock $lock_fh, LOCK_EX or die $!;
+    open(my $lock_fh, '>', $lock_path) or die $OS_ERROR;
+    flock $lock_fh, LOCK_EX or die $OS_ERROR;
 
     eval { $callback->() };
-    my $error = $@;
+    my $error = $EVAL_ERROR;
 
-    flock $lock_fh, LOCK_UN or die $!;
+    flock $lock_fh, LOCK_UN or die $OS_ERROR;
     close $lock_fh;
 
     die $error if $error;

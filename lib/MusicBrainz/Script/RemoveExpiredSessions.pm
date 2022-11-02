@@ -16,6 +16,7 @@ necessary to re-run this script.
 use Moose;
 use namespace::autoclean;
 
+use English;
 use POSIX qw( ceil );
 
 with 'MooseX::Runnable';
@@ -46,7 +47,7 @@ has 'batch_size' => (
 
 sub run {
     my ($self, @args) = @_;
-    die "Usage error ($0 takes no arguments)" if @args;
+    die "Usage error ($PROGRAM_NAME takes no arguments)" if @args;
 
     my $store = $self->c->store;
     my $r = $store->_connection;

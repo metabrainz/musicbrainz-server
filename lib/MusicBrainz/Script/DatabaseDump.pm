@@ -1,6 +1,7 @@
 package MusicBrainz::Script::DatabaseDump;
 
 use Encode qw( encode );
+use English;
 use Fcntl qw( LOCK_EX );
 use List::AllUtils qw( natatime );
 use Moose;
@@ -76,8 +77,8 @@ around begin_dump => sub {
     # can't update replication_control, failing with the above error. The
     # solution is to get a lock (outside of the database) before we start the
     # serializable transaction.
-    open(my $lock_fh, '>>' . $self->tmp_dir . '/.mb-export-lock') or die $!;
-    flock($lock_fh, LOCK_EX) or die $!;
+    open(my $lock_fh, '>>' . $self->tmp_dir . '/.mb-export-lock') or die $OS_ERROR;
+    flock($lock_fh, LOCK_EX) or die $OS_ERROR;
     $self->lock_fh($lock_fh);
 
     my $sql = $self->sql;
@@ -88,7 +89,7 @@ around begin_dump => sub {
 
     $self->$orig;
 
-    $| = 1;
+    $OUTPUT_AUTOFLUSH = 1;
     log_info { sprintf "%-30.30s %9s %4s %9s\n", qw(Table Rows est% rows/sec) };
 };
 
@@ -129,7 +130,7 @@ sub _open_table_file {
     my $table_file = $self->table_file_mapping->{$table} // $table;
     my $table_file_path = $self->export_dir . "/mbdump/$table_file";
     my $table_file_is_new = !-e $table_file_path;
-    open(my $dump_fh, "${mode}${table_file_path}") or die $!;
+    open(my $dump_fh, "${mode}${table_file_path}") or die $OS_ERROR;
 
     return ($dump_fh, $table_file_path, $table_file_is_new);
 }
@@ -163,7 +164,7 @@ sub dump_table {
 
     my $buffer;
     while ($dbh->pg_getcopydata($buffer) >= 0) {
-        print $dump_fh encode('utf-8', $buffer) or die $!;
+        print $dump_fh encode('utf-8', $buffer) or die $OS_ERROR;
 
         ++$rows;
         unless ($rows & 0xFFF) {
@@ -171,7 +172,7 @@ sub dump_table {
         }
     }
 
-    close $dump_fh or die $!;
+    close $dump_fh or die $OS_ERROR;
 
     $progress->((-t STDOUT ? "\r" : ''),
                 sprintf(" %.2f sec\n", $interval),
@@ -207,11 +208,11 @@ sub dump_rows {
 
         my $buffer;
         while ($dbh->pg_getcopydata($buffer) >= 0) {
-            print $dump_fh encode('utf-8', $buffer) or die $!;
+            print $dump_fh encode('utf-8', $buffer) or die $OS_ERROR;
         }
     }
 
-    close $dump_fh or die $!;
+    close $dump_fh or die $OS_ERROR;
 
     if ($table_file_is_new) {
         $self->inc_total_tables;
@@ -229,7 +230,7 @@ sub end_dump {
     # Make sure our replication data is safe before we commit its removal from
     # the database.
     system '/bin/sync';
-    $? == 0 or die "sync failed (rc=$?)";
+    $CHILD_ERROR == 0 or die "sync failed (rc=$CHILD_ERROR)";
     $self->sql->commit;
 
     log_info { sprintf "Dumped %d tables (%d rows) in %d seconds\n",

@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 
+use English;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
@@ -101,7 +102,7 @@ sub parse_file {
     my ($file) = @_;
 
     my $string = q{};
-    open FILE, $file or die "Couldn't open file: $!";
+    open FILE, $file or die "Couldn't open file: $OS_ERROR";
     while (<FILE>){
         $string .= $_;
     }

@@ -3,6 +3,7 @@
 use warnings;
 use strict;
 
+use English;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
@@ -113,7 +114,7 @@ for my $arg (@ARGV)
 
     use File::Temp qw( tempdir );
     my $dir = tempdir('MBImport-XXXXXXXX', DIR => $tmpdir, CLEANUP => 1)
-        or die $!;
+        or die $OS_ERROR;
 
     validate_tar($arg, $dir, $decompress);
     push @tar_to_extract, [ $arg, $dir, $decompress ];
@@ -126,7 +127,7 @@ for (@tar_to_extract)
     my ($tar, $dir, $decompress) = @$_;
     print localtime() . " : tar -C $dir $decompress -xvf $tar\n";
     system "tar -C $dir $decompress -xvf $tar";
-    exit($? >> 8) if $?;
+    exit($CHILD_ERROR >> 8) if $CHILD_ERROR;
 }
 
 print localtime() . " : Validating snapshot\n";
@@ -144,7 +145,7 @@ if (not defined $SCHEMA_SEQUENCE)
 {
     print STDERR localtime() . " : No SCHEMA_SEQUENCE in import files - continuing anyway\n";
     print STDERR localtime() . " : Don't be surprised if this import fails\n";
-    $| = 1, print(chr(7)), sleep 5
+    $OUTPUT_AUTOFLUSH = 1, print(chr(7)), sleep 5
         if -t STDOUT;
 } elsif ($SCHEMA_SEQUENCE != DBDefs->DB_SCHEMA_SEQUENCE) {
     printf STDERR "%s : Schema sequence mismatch - codebase is %d, snapshot files are %d\n",
@@ -237,7 +238,7 @@ sub ImportTable
                 $rows / ($interval||1);
     };
 
-    $| = 1;
+    $OUTPUT_AUTOFLUSH = 1;
 
     eval
     {
@@ -245,7 +246,7 @@ sub ImportTable
         # UTF-8 byte sequences in --fix-broken-utf8 mode.
         # in default mode, the Pg driver will take care of the UTF-8 transformation
         # and croak on any invalid UTF-8 character
-        open(LOAD, '<:bytes', $file) or die "open $file: $!";
+        open(LOAD, '<:bytes', $file) or die "open $file: $OS_ERROR";
 
         # If you're looking at this code because your import failed, maybe
         # with an error like this:
@@ -292,7 +293,7 @@ sub ImportTable
         $p->(($fProgress ? "\r" : ''), sprintf(" %.2f sec\n", $interval));
 
         close LOAD
-                or die $!;
+                or die $OS_ERROR;
 
         $sql->commit;
 
@@ -305,8 +306,8 @@ sub ImportTable
         1;
     };
 
-    return 1 unless $@;
-    warn "Error loading $file: $@";
+    return 1 unless $EVAL_ERROR;
+    warn "Error loading $file: $EVAL_ERROR";
     $sql->rollback;
 
     ++$errors, return 0 if $fIgnoreErrors;
@@ -390,8 +391,8 @@ sub read_all_and_check
 
     for my $foundfile (@files)
     {
-        open(my $fh, "<$foundfile") or die $!;
-        my $contents = do { local $/; <$fh> };
+        open(my $fh, "<$foundfile") or die $OS_ERROR;
+        my $contents = do { local $INPUT_RECORD_SEPARATOR; <$fh> };
         close $fh;
         $contents{$foundfile} = $contents;
         ++$uniq{$contents};
@@ -436,7 +437,7 @@ sub validate_tar
 
     if (open(my $fh, '<', "$dir/SCHEMA_SEQUENCE"))
     {
-        my $all = do { local $/; <$fh> };
+        my $all = do { local $INPUT_RECORD_SEPARATOR; <$fh> };
         close $fh;
         chomp($all);
         if ($all ne DBDefs->DB_SCHEMA_SEQUENCE)

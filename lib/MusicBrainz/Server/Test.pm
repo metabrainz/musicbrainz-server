@@ -8,6 +8,7 @@ binmode STDOUT, ':utf8';
 binmode STDERR, ':utf8';
 
 use DBDefs;
+use English;
 use Encode qw( encode );
 use FindBin '$Bin';
 use Getopt::Long;
@@ -99,7 +100,7 @@ sub _load_query
 
         open my $fh, '< :encoding(UTF-8)', $file_name
             or die "Could not open $file_name";
-        $query = do { local $/; <$fh> // die "Error reading $file_name" };
+        $query = do { local $INPUT_RECORD_SEPARATOR; <$fh> // die "Error reading $file_name" };
         close $fh or die "Error closing $file_name";
     }
 
@@ -222,8 +223,8 @@ sub xml_ok
 
     my $parser = XML::Parser->new(Style => 'Tree');
     eval { $parser->parse($content) };
-    if ($@) {
-        my $error = $@;
+    if ($EVAL_ERROR) {
+        my $error = $EVAL_ERROR;
         my @lines = split /\n/, $content;
         my $line = 1;
         foreach (@lines) {
@@ -297,7 +298,7 @@ sub schema_validator
         $rngschema = XML::LibXML::RelaxNG->new( location => $rng_file );
     };
 
-    if ($@)
+    if ($EVAL_ERROR)
     {
         warn 'Cannot find or parse RNG schema. Set environment var MMD_SCHEMA_ROOT to point '.
             'to the mmd-schema directory or check out the mmd-schema in parallel to '.
@@ -321,7 +322,7 @@ sub schema_validator
           {
               $rngschema->validate( $doc );
           };
-          is( $@, '', "$message (validate)");
+          is( $EVAL_ERROR, '', "$message (validate)");
 
         }
     };

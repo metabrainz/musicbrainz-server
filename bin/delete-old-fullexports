@@ -8,6 +8,7 @@ my $show_removed;
 my $dry_run;
 my $just_echo;
 
+use English;
 use Getopt::Long;
 Getopt::Long::Configure(qw( no_ignore_case ));
 GetOptions(
@@ -28,7 +29,7 @@ sub prune_dir
     my ($fullexport) = @_;
 
     my @dirs;
-    opendir(my $dh, $fullexport) or die "opendir $fullexport: $!\n";
+    opendir(my $dh, $fullexport) or die "opendir $fullexport: $OS_ERROR\n";
     push @dirs, sort
         grep { -d "$fullexport/$_" }
         grep /\A\d\d\d\d\d\d\d\d-\d\d\d\d\d\d\z/,
@@ -52,9 +53,9 @@ sub prune_dir
         my @echo = ($just_echo ? ('echo') : ());
         system @echo, '/bin/rm', '-rf', "$fullexport/$dir";
 
-        unless ($? == 0)
+        unless ($CHILD_ERROR == 0)
         {
-                warn "'rm -rf $fullexport/$dir' failed (rc=$?)\n";
+                warn "'rm -rf $fullexport/$dir' failed (rc=$CHILD_ERROR)\n";
                 ++$errors;
         }
     }

@@ -2,6 +2,7 @@
 
 use warnings;
 
+use English;
 use FindBin;
 use lib "$FindBin::Bin/../../lib";
 
@@ -93,11 +94,11 @@ my $lockfh;
 {
     use Fcntl qw( LOCK_EX LOCK_NB O_CREAT O_WRONLY );
     sysopen($lockfh, $lockfile, O_CREAT|O_WRONLY, 0600)
-        or die "open >$lockfile: $!";
+        or die "open >$lockfile: $OS_ERROR";
     flock($lockfh, LOCK_EX|LOCK_NB)
         and last;
-    $!{EWOULDBLOCK}
-        or die "flock $lockfile: $!";
+    $OS_ERROR{EWOULDBLOCK}
+        or die "flock $lockfile: $OS_ERROR";
     print localtime() . " : There is already an instance of LoadReplicationChanges running - aborting\n";
     exit;
 }
@@ -306,7 +307,7 @@ system "$FindBin::Bin/ImportReplicationChanges",
     '--tmp-dir', $tmpdir,
     '--',
     map { "$mydir/mbdump/$_" } @pending_files;
-exit $? if $?;
+exit $CHILD_ERROR if $CHILD_ERROR;
 
 # Wipe the temporary directory
 print localtime() . " : Removing $mydir\n";
@@ -318,12 +319,12 @@ APPLY_CHANGES:
 # Apply the changes (ProcessReplicationChanges)
 system "$FindBin::Bin/ProcessReplicationChanges", @process_opts,
     ($dbmirror2 ? '--dbmirror2' : ());
-exit $? if $?;
+exit $CHILD_ERROR if $CHILD_ERROR;
 
 if (-x "$FindBin::Bin/hooks/post-process") {
     print localtime() . " : Running post-process hook\n";
     system "$FindBin::Bin/hooks/post-process";
-    exit $? if $?;
+    exit $CHILD_ERROR if $CHILD_ERROR;
 }
 
 # Check that current_replication_sequence has gone up by one
@@ -352,7 +353,7 @@ sub read_file
     my $file = shift;
     open(my $fh, "<$mydir/$file")
         or return undef;
-    local $/;
+    local $INPUT_RECORD_SEPARATOR;
     <$fh>;
 }
 

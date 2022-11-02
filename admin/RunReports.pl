@@ -2,6 +2,7 @@
 use strict;
 use warnings;
 
+use English;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
@@ -10,7 +11,7 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Log qw( log_info log_debug );
 use MusicBrainz::Server::ReportFactory;
 use POSIX qw( SIGALRM );
-$| = 1;
+$OUTPUT_AUTOFLUSH = 1;
 
 @ARGV = '^' if not @ARGV;
 my $c = MusicBrainz::Server::Context->create_script_context();
@@ -49,12 +50,12 @@ for my $name (MusicBrainz::Server::ReportFactory->all_report_names) {
         }
 
         waitpid($child, 0);
-        if (($? >> 8) == 42) {
+        if (($CHILD_ERROR >> 8) == 42) {
             die 'Report took over 1 hour to run';
         }
     };
-    if ($@) {
-        warn "$name died with $@\n";
+    if ($EVAL_ERROR) {
+        warn "$name died with $EVAL_ERROR\n";
         ++$errors;
         next;
     }

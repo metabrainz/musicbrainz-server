@@ -4,6 +4,7 @@ use feature 'state';
 
 use Moose;
 use DBDefs;
+use English;
 use Carp qw( cluck croak );
 use List::AllUtils qw( any );
 use Try::Tiny;
@@ -627,7 +628,7 @@ sub DEMOLISH
     # than $somelimit
     #return if $t < 0.1;
 
-    local $" = ', ';
+    local $" = ', '; ## no critic (ProhibitPunctuationVars) - English version breaks for some reason
     my $msg = sprintf 'SQL: %8.4fs "%s" (%s)', $t,
         $sql, join(', ', @{ $self->args });
 

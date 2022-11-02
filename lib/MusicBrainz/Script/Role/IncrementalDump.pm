@@ -5,6 +5,7 @@ use warnings;
 
 use Data::Dumper;
 use DBDefs;
+use English;
 use File::Path qw( rmtree );
 use File::Slurp qw( read_file );
 use HTTP::Status qw( RC_OK RC_NOT_MODIFIED );
@@ -99,11 +100,11 @@ our $saved_database;
 our $saved_dump_schema;
 
 BEGIN {
-    $parent_pid = $$;
+    $parent_pid = $PROCESS_ID;
 }
 
 END {
-    return unless ($$ == $parent_pid &&
+    return unless ($PROCESS_ID == $parent_pid &&
                    $saved_database &&
                    $saved_dump_schema);
 

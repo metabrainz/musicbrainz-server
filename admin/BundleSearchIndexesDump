@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 
+use English;
 use Getopt::Long qw( GetOptions );
 use List::AllUtils qw ( any );
 use Pod::Usage qw( pod2usage );
@@ -85,7 +86,7 @@ my $COMPRESSION_THREADS = DBDefs->DUMP_COMPRESSION_THREADS;
 my @backup_dirs;
 my @extraneous_files;
 
-opendir(my $wdh, $working_dir) or die $!;
+opendir(my $wdh, $working_dir) or die $OS_ERROR;
 for my $filename (sort grep { ! /^\.\.?$/ } readdir $wdh)
 {
     if ($filename =~ /^backup_${BACKUP_STAMP}_/)
@@ -125,7 +126,7 @@ for my $backup_dir (@backup_dirs)
 {
     my $collection = $backup_dir =~ s/^backup_\d{8}-\d{6}_//r;
     my $dump_dir = $collection;
-    opendir(my $bdh, "$working_dir/$backup_dir") or die $!;
+    opendir(my $bdh, "$working_dir/$backup_dir") or die $OS_ERROR;
     if (any { /^$collection$/ } @private_collections)
     {
         system 'rm', '-fr', "$working_dir/$backup_dir";
@@ -142,13 +143,13 @@ for my $backup_dir (@backup_dirs)
         if scalar @extraneous_files;
 
     my $working_dump_dir = "$working_dir/$dump_dir";
-    move("$working_dir/$backup_dir", $working_dump_dir) or die $!;
-    move("$working_dump_dir/snapshot.shard1", "$working_dump_dir/index") or die $!;
+    move("$working_dir/$backup_dir", $working_dump_dir) or die $OS_ERROR;
+    move("$working_dump_dir/snapshot.shard1", "$working_dump_dir/index") or die $OS_ERROR;
 
     my $license_file = (grep { /^$collection$/ } @public_domain_collections)
         ? "$FindBin::Bin/COPYING-PublicDomain"
         : "$FindBin::Bin/COPYING-CCShareAlike";
-    copy($license_file, "$working_dump_dir/COPYING") or die $!;
+    copy($license_file, "$working_dump_dir/COPYING") or die $OS_ERROR;
 
     my $readme_text = <<EOF;
 The files in the directory 'index' are a snapshot of the search index
@@ -174,9 +175,9 @@ EOF
             shell_quote($dump_dir) .
             " | zstd -T$COMPRESSION_THREADS -$COMPRESSION_LEVEL" .
             ' > ' . shell_quote("$working_dir/$tar_file");
-    if ($? != 0)
+    if ($CHILD_ERROR != 0)
     {
-        _error('Tar returned ' . ($? >> 8));
+        _error('Tar returned ' . ($CHILD_ERROR >> 8));
         exit 70; # EX_SOFTWARE
     }
 
@@ -189,9 +190,9 @@ for my $hash_program ('md5sum', 'sha256sum') {
     my $hash_command = "cd $working_dir" .
         " && $hash_bin --binary *.tar.zst > $hash_output_file";
     system $hash_command;
-    if ($? != 0)
+    if ($CHILD_ERROR != 0)
     {
-        _error('Failed command with ' . ($? >> 8) . ": $hash_command");
+        _error('Failed command with ' . ($CHILD_ERROR >> 8) . ": $hash_command");
         exit 70; # EX_SOFTWARE
     }
 
@@ -207,7 +208,7 @@ sub _write_file
 {
     my ($parent_dir, $file, $contents) = @_;
 
-    open(my $fh, '>' . $parent_dir . "/$file") or die $!;
-    print $fh $contents or die $!;
-    close $fh or die $!;
+    open(my $fh, '>' . $parent_dir . "/$file") or die $OS_ERROR;
+    print $fh $contents or die $OS_ERROR;
+    close $fh or die $OS_ERROR;
 }

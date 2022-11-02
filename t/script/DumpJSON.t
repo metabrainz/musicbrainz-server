@@ -2,6 +2,7 @@ use strict;
 use warnings;
 
 use DBDefs;
+use English;
 use File::Slurp;
 use File::Spec;
 use File::Temp;
@@ -103,8 +104,8 @@ test all => sub {
         my ($dir, $entity, $expected) = @_;
 
         my $quoted_dir = shell_quote($dir);
-        system("cd $quoted_dir && md5sum -c MD5SUMS") == 0 or die $!;
-        system("cd $quoted_dir && sha256sum -c SHA256SUMS") == 0 or die $!;
+        system("cd $quoted_dir && md5sum -c MD5SUMS") == 0 or die $OS_ERROR;
+        system("cd $quoted_dir && sha256sum -c SHA256SUMS") == 0 or die $OS_ERROR;
 
         my $entity_dir = File::Spec->catdir($dir, $entity);
         my $quoted_entity_dir = shell_quote($entity_dir);
@@ -114,7 +115,7 @@ test all => sub {
             'tar',
             '-C', $quoted_entity_dir,
             '-xJf', shell_quote(File::Spec->catfile($dir, "$entity.tar.xz")),
-        ) == 0 or die $!;
+        ) == 0 or die $OS_ERROR;
 
         chomp $expected;
         my $got = read_file(
