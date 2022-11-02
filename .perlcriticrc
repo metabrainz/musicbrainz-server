@@ -33,6 +33,7 @@ allow=refs
 [ValuesAndExpressions::ProhibitMixedBooleanOperators]
 
 [Variables::ProhibitAugmentedAssignmentInDeclaration]
+[Variables::ProhibitConditionalDeclarations]
 [Variables::ProhibitUnusedVarsStricter]
 allow_unused_subroutine_arguments = 1
 [Variables::ProtectPrivateVars]
