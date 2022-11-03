@@ -3,6 +3,7 @@ severity=1
 
 [BuiltinFunctions::ProhibitBooleanGrep]
 [BuiltinFunctions::ProhibitLvalueSubstr]
+[BuiltinFunctions::ProhibitReverseSortBlock]
 [BuiltinFunctions::ProhibitShiftRef]
 [BuiltinFunctions::ProhibitStringyEval]
 allow_includes=1

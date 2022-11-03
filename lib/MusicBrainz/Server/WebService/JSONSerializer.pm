@@ -239,7 +239,7 @@ sub _with_primary_alias {
             my $out = $renderer->($result);
 
             my ($primary_alias) =
-                reverse sort {
+                reverse sort { ## no critic (ProhibitReverseSortBlock) False positive
                     my $pref_a = $alias_preference{$munge_lang->($a->locale)};
                     my $pref_b = $alias_preference{$munge_lang->($b->locale)};
 

@@ -21,7 +21,7 @@ sub run {
             $self->render_list_pairs(
                 [
                     map { $_, sprintf('%.5f', $call_times{$_}) }
-                        sort { $call_times{$b} <=> $call_times{$a} }
+                        reverse sort { $call_times{$a} <=> $call_times{$b} }
                             keys %call_times ]));
     };
 }

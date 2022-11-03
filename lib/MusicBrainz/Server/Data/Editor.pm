@@ -159,7 +159,7 @@ sub get_tags
     my @tags;
     $order //= '';
     if ($order eq 'count') {
-        @tags = sort { $b->{count} <=> $a->{count} } values %$tags;
+        @tags = reverse sort { $a->{count} <=> $b->{count} } values %$tags;
     } elsif ($order eq 'countdesc') {
         @tags = sort { $a->{count} <=> $b->{count} } values %$tags;
     } else {
