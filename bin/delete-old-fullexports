@@ -32,7 +32,7 @@ sub prune_dir
     opendir(my $dh, $fullexport) or die "opendir $fullexport: $OS_ERROR\n";
     push @dirs, sort
         grep { -d "$fullexport/$_" }
-        grep /\A\d\d\d\d\d\d\d\d-\d\d\d\d\d\d\z/,
+        grep { /\A\d\d\d\d\d\d\d\d-\d\d\d\d\d\d\z/ }
         readdir $dh;
     closedir $dh;
 

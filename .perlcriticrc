@@ -11,6 +11,7 @@ allow_includes=1
 [BuiltinFunctions::ProhibitUniversalIsa]
 [BuiltinFunctions::ProhibitVoidGrep]
 [BuiltinFunctions::ProhibitVoidMap]
+[BuiltinFunctions::RequireBlockGrep]
 
 [CodeLayout::ProhibitHardTabs]
 [CodeLayout::ProhibitTrailingWhitespace]

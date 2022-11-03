@@ -406,7 +406,7 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'editor', @objs);
-    $self->load_preferences(map { $_->editor } grep defined, @objs);
+    $self->load_preferences(map { $_->editor } grep { defined } @objs);
 }
 
 sub load_preferences

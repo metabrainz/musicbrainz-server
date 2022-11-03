@@ -56,7 +56,7 @@ sub initialize {
         cover_art_id => $cover_art->id,
         cover_art_comment => $cover_art->comment,
         cover_art_types => [
-            grep defined, map { $type_map{$_}->id } @{ $cover_art->types }
+            grep { defined } map { $type_map{$_}->id } @{ $cover_art->types }
         ],
         cover_art_mime_type => $cover_art->mime_type,
         cover_art_suffix => $cover_art->suffix
