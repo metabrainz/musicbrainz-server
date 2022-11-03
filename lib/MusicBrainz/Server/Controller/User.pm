@@ -667,8 +667,7 @@ sub tag : Chained('load_tag') PathPart('')
     );
 }
 
-map {
-    my $entity_type = $_;
+for my $entity_type (entities_with('tags')) {
     my $entity_properties = $ENTITIES{$entity_type};
     my $url = $entity_properties->{url};
 
@@ -716,7 +715,7 @@ map {
 
     find_meta(__PACKAGE__)->add_method($entity_type . '_tag' => $method);
     find_meta(__PACKAGE__)->register_method_attributes($method, [q{Chained('load_tag')}, "PathPart('$url')"]);
-} entities_with('tags');
+}
 
 sub privileged : Path('/privileged')
 {
