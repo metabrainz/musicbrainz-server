@@ -9,6 +9,7 @@ severity=1
 allow_includes=1
 [BuiltinFunctions::ProhibitStringySplit]
 [BuiltinFunctions::ProhibitUniversalIsa]
+[BuiltinFunctions::ProhibitVoidGrep]
 
 [CodeLayout::ProhibitHardTabs]
 [CodeLayout::ProhibitTrailingWhitespace]
