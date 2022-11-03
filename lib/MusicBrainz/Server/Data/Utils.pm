@@ -381,7 +381,7 @@ sub trim_multiline_text {
     #   either list formatting in Wikitext
     #   or block in Markdown.
     # - Splitting on \n so that \s doesn’t match any \n
-    $t = join ("\n", map { $_ =~ s/\s+$//r } (split "\n", $t));
+    $t = join ("\n", map { $_ =~ s/\s+$//r } (split /\n/, $t));
 
     # Merge consecutive blank lines together
     $t =~ s/\n+(\n\n)/$1/g;
@@ -493,7 +493,7 @@ sub order_by
     }
 
     if ($desc) {
-        my @list = map { "$_ DESC" } split q(,), $order_by;
+        my @list = map { "$_ DESC" } split /,/, $order_by;
         $order_by = join q(,), @list;
     }
 

@@ -7,6 +7,7 @@ severity=1
 [BuiltinFunctions::ProhibitShiftRef]
 [BuiltinFunctions::ProhibitStringyEval]
 allow_includes=1
+[BuiltinFunctions::ProhibitStringySplit]
 
 [CodeLayout::ProhibitHardTabs]
 [CodeLayout::ProhibitTrailingWhitespace]
