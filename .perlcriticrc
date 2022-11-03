@@ -8,6 +8,7 @@ severity=1
 [BuiltinFunctions::ProhibitStringyEval]
 allow_includes=1
 [BuiltinFunctions::ProhibitStringySplit]
+[BuiltinFunctions::ProhibitUniversalIsa]
 
 [CodeLayout::ProhibitHardTabs]
 [CodeLayout::ProhibitTrailingWhitespace]
