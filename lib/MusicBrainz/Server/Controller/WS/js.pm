@@ -96,7 +96,7 @@ sub medium : Chained('root') PathPart Args(1) {
 
     if ($c->stash->{inc}->recordings) {
         $c->model('Recording')->load($medium->all_tracks);
-        $c->model('ArtistCredit')->load(map $_->recording, $medium->all_tracks);
+        $c->model('ArtistCredit')->load(map { $_->recording } $medium->all_tracks);
 
         if ($c->stash->{inc}->rels) {
             $c->model('Relationship')->load_cardinal(map { $_->recording } $medium->all_tracks);
