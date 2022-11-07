@@ -125,9 +125,9 @@ INSERT INTO place_gid_redirect (gid, new_id, created) VALUES
     ('bcdf4f88-7a7c-3fd4-d7db-23a2bc8a20b9', 1161, '2012-04-09 20:07:05.161415+00');
 
 INSERT INTO recording (id, gid, name, artist_credit, length, comment, edits_pending, last_updated, video) VALUES
-    (164872, '96f64611-49df-4e54-84e7-0f9a30f01766', 'mr self destruct', 347, 270573, '', 0, '2017-09-29 09:00:51.064128+00', 'f'),
-    (164873, '429f0b1a-0293-4793-993b-0bb5f73567f2', 'Piggy', 347, 264426, '', 0, '2017-01-16 21:00:48.187704+00', 'f'),
-    (20937085, '0f42ab32-22cd-4dcf-927b-a8d9a183d68b', 'Travelling Man', 347, 270573, '', 0, '2017-05-15 20:36:38.082509+00', 'f');
+    (164872, '96f64611-49df-4e54-84e7-0f9a30f01766', 'mr self destruct', 347, NULL, '', 0, '2017-09-29 09:00:51.064128+00', 'f'),
+    (164873, '429f0b1a-0293-4793-993b-0bb5f73567f2', 'Piggy', 347, NULL, '', 0, '2017-01-16 21:00:48.187704+00', 'f'),
+    (20937085, '0f42ab32-22cd-4dcf-927b-a8d9a183d68b', 'Travelling Man', 347, NULL, '', 0, '2017-05-15 20:36:38.082509+00', 'f');
 
 INSERT INTO recording_gid_redirect (gid, new_id, created) VALUES
     ('23ba24f0-dc22-fcd4-b729-b86d381a9d8a', 20937085, '2012-04-09 20:07:05.161415+00');

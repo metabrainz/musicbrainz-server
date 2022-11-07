@@ -1,0 +1,160 @@
+{
+  title: 'Recording Edit Form',
+  commands: [
+    {
+      command: 'open',
+      target: '/recording/96f64611-49df-4e54-84e7-0f9a30f01766/edit',
+      value: '',
+    },
+    // MBS-12694: In the recording edit form, adding a relationship to an
+    // artist that appears in the recording AC, by selecting it from the
+    // recent entities list, triggers a JavaScript error which prevents
+    // submission of the relationship.
+    {
+      command: 'click',
+      target: 'css=#artist-credit-editor button.open-ac',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#artist-credit-bubble button.add-item',
+      value: '',
+    },
+    // Ensure the artist we select for the relationship target is in the
+    // recent entities list.
+    {
+      command: 'type',
+      target: 'id=ac-source-artist-1',
+      value: '2437980f-513a-44fc-80f1-b90d9d7fcf8f',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#artist-credit-bubble div.buttons button.positive',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#relationship-editor button.add-item',
+      value: '',
+    },
+    {
+      command: 'select',
+      target: 'css=#add-relationship-dialog select.entity-type',
+      value: 'label=Artist',
+    },
+    {
+      command: 'focus',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=//div[@id = "add-relationship-dialog"]//div[contains(@class, "relationship-target")]//li[contains(descendant::text(), "Bing Crosby")]',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'performer${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=form.edit-recording button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        type: 72,
+        status: 1,
+        data: {
+          entity: {
+            gid: "96f64611-49df-4e54-84e7-0f9a30f01766",
+            id: 164872,
+            name: "mr self destruct",
+          },
+          new: {
+            artist_credit: {
+              names: [
+                {
+                  artist: {
+                    id: 347,
+                    name: "Nine Inch Nails",
+                  },
+                  join_phrase: " & ",
+                  name: "Nine Inch Nails",
+                },
+                {
+                  artist: {
+                    id: 99,
+                    name: "Bing Crosby",
+                  },
+                  join_phrase: "",
+                  name: "Bing Crosby",
+                },
+              ],
+            },
+          },
+          old: {
+            artist_credit: {
+              names: [
+                {
+                  artist: {
+                    id: 347,
+                    name: "Nine Inch Nails",
+                  },
+                  join_phrase: "",
+                  name: "Nine Inch Nails",
+                },
+              ],
+            },
+          },
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 2,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '2437980f-513a-44fc-80f1-b90d9d7fcf8f',
+            id: 99,
+            name: 'Bing Crosby',
+          },
+          entity1: {
+            gid: '96f64611-49df-4e54-84e7-0f9a30f01766',
+            id: 164872,
+            name: 'mr self destruct',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 156,
+            link_phrase: '{additional:additionally} {guest} {solo} performed',
+            long_link_phrase: '{additional:additionally} {guest} {solo} performed',
+            name: 'performer',
+            reverse_link_phrase: '{additional} {guest} {solo} performer',
+          },
+          type0: 'artist',
+          type1: 'recording',
+        },
+      },
+    },
+    // End of test for MBS-12694.
+  ],
+}
