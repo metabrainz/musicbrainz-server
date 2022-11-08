@@ -27,7 +27,7 @@ type Props = {
   +creditedEntities: {
     +[entityType: string]: {
       +count: number,
-      +entities: $ReadOnlyArray<CoreEntityT | TrackT>,
+      +entities: $ReadOnlyArray<EntityWithArtistCreditsT>,
     },
   },
 };

@@ -66,6 +66,12 @@ declare type CoreEntityTypeT =
   | NonUrlCoreEntityTypeT
   | 'url';
 
+declare type EntityWithArtistCreditsT =
+  | RecordingT
+  | ReleaseGroupT
+  | ReleaseT
+  | TrackT;
+
 declare type DatePeriodRoleT = {
   +begin_date: PartialDateT | null,
   +end_date: PartialDateT | null,
