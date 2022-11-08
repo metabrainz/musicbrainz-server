@@ -13,7 +13,13 @@ use MusicBrainz::Server::Data::Utils qw(
 use List::AllUtils qw( any uniq uniq_by zip );
 use MusicBrainz::Server::Constants qw( entities_with );
 
-extends 'MusicBrainz::Server::Data::CoreEntity';
+extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::EntityModelClass';
+with 'MusicBrainz::Server::Data::Role::GetByGID';
+with 'MusicBrainz::Server::Data::Role::MainTable';
+with 'MusicBrainz::Server::Data::Role::GID';
+with 'MusicBrainz::Server::Data::Role::GIDRedirect';
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_collection',
     column => 'collection',

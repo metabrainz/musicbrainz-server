@@ -1,4 +1,4 @@
-package t::MusicBrainz::Server::Data::CoreEntityCache;
+package t::MusicBrainz::Server::Data::Role::GIDEntityCache;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
@@ -9,36 +9,37 @@ use MusicBrainz::Server::Context;
 with 't::Context' => { -excludes => '_build_context' };
 
 {
-    package t::CoreEntityCache::MyEntity;
+    package t::GIDEntityCache::MyEntity;
     use Moose;
     extends 'MusicBrainz::Server::Entity::CoreEntity';
 
-    package t::CoreEntityCache::MyEntityData;
+    package t::GIDEntityCache::MyEntityData;
     use Moose;
-    extends 'MusicBrainz::Server::Data::CoreEntity';
+    extends 'MusicBrainz::Server::Data::Entity';
+    with 'MusicBrainz::Server::Data::Role::GetByGID';
     has 'get_by_id_called' => ( is => 'rw', isa => 'Bool', default => 0 );
     has 'get_by_gid_called' => ( is => 'rw', isa => 'Bool', default => 0 );
     sub get_by_ids
     {
         my $self = shift;
         $self->get_by_id_called(1);
-        return { 1 => t::CoreEntityCache::MyEntity->new(id => 1, gid => 'abc') };
+        return { 1 => t::GIDEntityCache::MyEntity->new(id => 1, gid => 'abc') };
     }
     sub get_by_gid
     {
         my $self = shift;
         $self->get_by_gid_called(1);
-        return t::CoreEntityCache::MyEntity->new(id => 1, gid => 'abc');
+        return t::GIDEntityCache::MyEntity->new(id => 1, gid => 'abc');
     }
 
-    package t::CoreEntityCache::MyCachedEntityData;
+    package t::GIDEntityCache::MyCachedEntityData;
     use Moose;
-    extends 't::CoreEntityCache::MyEntityData';
-    with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+    extends 't::GIDEntityCache::MyEntityData';
+    with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
     sub _type { 'my_cached_entity_data' }
     sub _cache_id { 1 }
 
-    package t::CoreEntityCache::MockCache;
+    package t::GIDEntityCache::MockCache;
     use Moose;
     has 'data' => ( is => 'rw', isa => 'HashRef', default => sub { +{} } );
     has 'get_called' => ( is => 'rw', isa => 'Int', default => 0 );
@@ -61,7 +62,7 @@ sub _build_context {
     my $cache_manager = MusicBrainz::Server::CacheManager->new(
         profiles => {
             test => {
-                class => 't::CoreEntityCache::MockCache',
+                class => 't::GIDEntityCache::MockCache',
                 wrapped => 1,
                 keys => ['my_cached_entity_data'],
             },
@@ -75,7 +76,7 @@ sub _build_context {
 test all => sub {
 
 my $test = shift;
-my $entity_data = t::CoreEntityCache::MyCachedEntityData->new(c => $test->c);
+my $entity_data = t::GIDEntityCache::MyCachedEntityData->new(c => $test->c);
 
 my $entity = $entity_data->get_by_gid('abc');
 is ( $entity->id, 1 );
