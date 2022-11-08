@@ -18,7 +18,7 @@ import type {AliasDeleteFormT} from './types.js';
 
 type Props = {
   +alias: AliasT,
-  +entity: CoreEntityT,
+  +entity: EntityWithAliasesT,
   +form: AliasDeleteFormT,
   +type: string,
 };

@@ -19,7 +19,7 @@ import type {AliasEditFormT} from './types.js';
 
 type Props = {
   +aliasTypes: SelectOptionsT,
-  +entity: CoreEntityT,
+  +entity: EntityWithAliasesT,
   +form: AliasEditFormT,
   +formType: string,
   +locales: SelectOptionsT,

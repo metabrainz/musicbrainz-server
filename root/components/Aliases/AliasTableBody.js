@@ -14,7 +14,7 @@ import AliasTableRow from './AliasTableRow.js';
 type Props = {
   +aliases: $ReadOnlyArray<AliasT>,
   +allowEditing: boolean,
-  +entity: CoreEntityT,
+  +entity: EntityWithAliasesT,
 };
 
 const AliasTableBody = ({
