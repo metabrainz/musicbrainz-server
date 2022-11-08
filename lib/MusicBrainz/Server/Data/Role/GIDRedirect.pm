@@ -150,11 +150,11 @@ MusicBrainz::Server::Data::Role::GIDRedirect
 
 =head2 get_by_gid ($gid)
 
-Loads and returns a single CoreEntity instance for the specified $gid.
+Loads and returns a single Entity instance for the specified $gid.
 
 =head2 get_by_gids (@gids)
 
-Loads and returns multiple CoreEntity instances for the specified @gids;
+Loads and returns multiple Entity instances for the specified @gids;
 The response is a GID-keyed HASH reference.
 
 =head1 COPYRIGHT AND LICENSE
