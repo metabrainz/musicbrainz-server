@@ -20,7 +20,7 @@ import loopParity from '../../utility/loopParity.js';
 
 type Props = {
   +artistCredits: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
-  +entity: CoreEntityT,
+  +entity: ArtistT,
 };
 
 const ArtistCreditList = ({

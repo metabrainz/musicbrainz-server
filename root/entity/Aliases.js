@@ -37,7 +37,8 @@ const Aliases = ({
       {artistCredits?.length ? (
         <ArtistCreditList
           artistCredits={artistCredits}
-          entity={entity}
+          // $FlowIgnore[unclear-type] Only artists have credits
+          entity={((entity: any): ArtistT)}
         />
       ) : null}
     </LayoutComponent>
