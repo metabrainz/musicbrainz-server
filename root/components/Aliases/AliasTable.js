@@ -14,7 +14,7 @@ import AliasTableBody from './AliasTableBody.js';
 type Props = {
   +aliases: $ReadOnlyArray<AliasT>,
   +allowEditing: boolean,
-  +entity: CoreEntityT,
+  +entity: EntityWithAliasesT,
 };
 
 const AliasTable = (props: Props): React.Element<'table'> => (

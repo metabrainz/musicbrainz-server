@@ -50,7 +50,7 @@ import {
 
 type Props = {
   +aliasTypes: SelectOptionsT,
-  +entity: CoreEntityT,
+  +entity: EntityWithAliasesT,
   +form: AliasEditFormT,
   +locales: SelectOptionsT,
   +searchHintType: number,

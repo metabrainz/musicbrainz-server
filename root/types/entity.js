@@ -7,6 +7,20 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+declare type EntityWithAliasesT =
+  | AreaT
+  | ArtistT
+  | EventT
+  | GenreT
+  | InstrumentT
+  | LabelT
+  | PlaceT
+  | RecordingT
+  | ReleaseGroupT
+  | ReleaseT
+  | SeriesT
+  | WorkT;
+
 declare type AppearancesT<T> = {
   +hits: number,
   +results: $ReadOnlyArray<T>,
