@@ -15,7 +15,7 @@ import typeof EntityLink
 import entityHref from '../../../static/scripts/common/utility/entityHref.js';
 import {returnToCurrentPage} from '../../../utility/returnUri.js';
 
-function entityArg(entity: CoreEntityT) {
+function entityArg(entity: CollectableCoreEntityT) {
   return '?' + entity.entityType + '=' +
     encodeURIComponent(String(entity.id));
 }
@@ -23,7 +23,7 @@ function entityArg(entity: CoreEntityT) {
 function collectionUrl(
   $c: CatalystContextT,
   collection: CollectionT,
-  entity: CoreEntityT,
+  entity: CollectableCoreEntityT,
   action: string,
 ) {
   return entityHref(collection, 'collection_collaborator/' + action) +
@@ -41,19 +41,19 @@ function hasEntity(
 
 type CollectionAddRemoveProps = {
   +collections?: $ReadOnlyArray<CollectionT>,
-  +entity: CoreEntityT,
+  +entity: CollectableCoreEntityT,
   +noneText?: string,
 };
 
 type CollaborativeCollectionListProps = {
   +collections?: $ReadOnlyArray<CollectionT>,
-  +entity: CoreEntityT,
+  +entity: CollectableCoreEntityT,
 };
 
 type OwnCollectionListProps = {
   +addText: string,
   +collections?: $ReadOnlyArray<CollectionT>,
-  +entity: CoreEntityT,
+  +entity: CollectableCoreEntityT,
   +noneText: string,
 };
 
@@ -61,7 +61,7 @@ type CollectionListProps = {
   +addCollectionText: string,
   +collaborativeCollections?: $ReadOnlyArray<CollectionT>,
   +collaborativeCollectionsHeader: string,
-  +entity: CoreEntityT,
+  +entity: CollectableCoreEntityT,
   +header: string,
   +ownCollections?: $ReadOnlyArray<CollectionT>,
   +ownCollectionsHeader: string,
