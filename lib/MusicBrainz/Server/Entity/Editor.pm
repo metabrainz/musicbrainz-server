@@ -422,7 +422,7 @@ The editor should not be nagged to donate
 
 =head2 is_mbid_submitter
 
-The editor may specify custom MBIDs for core entities
+The editor may specify custom MBIDs for entities
 
 =head2 is_relationship_editor
 
