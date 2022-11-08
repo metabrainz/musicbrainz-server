@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Entity::Role::Linkable;
+package MusicBrainz::Server::Entity::Role::Relatable;
 use Moose::Role;
 
 use List::AllUtils qw( partition_by sort_by );
@@ -132,7 +132,7 @@ around TO_JSON => sub {
 
 =head1 NAME
 
-MusicBrainz::Server::Entity::Role::Linkable
+MusicBrainz::Server::Entity::Role::Relatable
 
 =head1 ATTRIBUTES
 
