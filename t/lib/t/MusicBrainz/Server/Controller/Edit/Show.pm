@@ -78,33 +78,6 @@ test 'Check edit page differences for own edit' => sub {
     );
 };
 
-test 'Check edit page differences for beginner editor' => sub {
-    my $test = shift;
-    my $mech = $test->mech;
-    my $edit = prepare($test);
-
-    $mech->get_ok('/login');
-    $mech->submit_form( with_fields => {
-        username => 'editor5',
-        password => 'pass',
-    } );
-
-    $mech->get_ok(
-        '/edit/' . $edit->id,
-        'Fetched edit page as a beginner editor other than the edit author',
-    );
-    html_ok($mech->content);
-
-    $mech->content_contains(
-        'You are not currently able to vote on this edit',
-        'The message about not being able to vote is present',
-    );
-    $mech->content_contains(
-        'You are not currently able to add notes to this edit',
-        'The message about not being able to add notes is present',
-    );
-};
-
 test 'Check edit page differences when logged out' => sub {
     my $test = shift;
     my $mech = $test->mech;

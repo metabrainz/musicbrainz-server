@@ -125,8 +125,7 @@ export function editorMayAddNote(
   edit: GenericEditWithIdT,
   editor: ?UnsanitizedEditorT,
 ): boolean {
-  return !!editor && nonEmpty(editor.email_confirmation_date) &&
-    (editor.id === edit.editor_id || !editor.is_limited);
+  return !!editor && nonEmpty(editor.email_confirmation_date);
 }
 
 export function editorMayApprove(
@@ -189,7 +188,6 @@ export function editorMayVote(
     !!editor &&
     edit.status === EDIT_STATUS_OPEN &&
     editor.id !== edit.editor_id &&
-    !editor.is_limited &&
     !isBot(editor) &&
     isEditingEnabled(editor)
   );
