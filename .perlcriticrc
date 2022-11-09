@@ -15,6 +15,7 @@ allow_includes=1
 
 [ClassHierarchies::ProhibitAutoloading]
 [ClassHierarchies::ProhibitExplicitISA]
+[ClassHierarchies::ProhibitOneArgBless]
 
 [CodeLayout::ProhibitHardTabs]
 [CodeLayout::ProhibitTrailingWhitespace]
