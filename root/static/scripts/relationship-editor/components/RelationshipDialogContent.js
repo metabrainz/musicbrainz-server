@@ -75,6 +75,7 @@ import DialogLinkOrder from './DialogLinkOrder.js';
 import DialogLinkType, {
   createInitialState as createDialogLinkTypeState,
   extractLinkTypeSearchTerms,
+  updateDialogAttributesStateForLinkType,
   updateDialogState as updateDialogLinkTypeState,
 } from './DialogLinkType.js';
 import DialogPreview from './DialogPreview.js';
@@ -106,7 +107,6 @@ export type PropsT = {
 
 export function createInitialState(props: PropsT): RelationshipDialogStateT {
   const relationship = props.initialRelationship;
-  const linkType = getRelationshipLinkType(relationship);
   const beginDate = relationship.begin_date;
   const endDate = relationship.end_date;
 
@@ -138,6 +138,15 @@ export function createInitialState(props: PropsT): RelationshipDialogStateT {
   const targetType = backward
     ? relationship.entity0.entityType
     : relationship.entity1.entityType;
+  const linkTypeOptions = getDialogLinkTypeOptions(
+    source,
+    targetType,
+  );
+  const linkType = getRelationshipLinkType(relationship) ?? (
+    linkTypeOptions.length === 1
+      ? linkTypeOptions[0].entity
+      : null
+  ) ?? null;
 
   return {
     attributes: createDialogAttributesState(
@@ -188,13 +197,10 @@ export function createInitialState(props: PropsT): RelationshipDialogStateT {
     }),
     linkOrder: relationship.linkOrder,
     linkType: createDialogLinkTypeState(
-      getRelationshipLinkType(relationship),
+      linkType,
       source,
       targetType,
-      getDialogLinkTypeOptions(
-        source,
-        targetType,
-      ),
+      linkTypeOptions,
       getRelationshipKey(relationship),
     ),
     resultingDatePeriod: {
@@ -224,8 +230,8 @@ function updateDialogStateForTargetTypeChange(
 ): void {
   /*
    * This function handles updating the available link type options,
-   * the direction, and the source error when the target type changes.
-   * Note that it doesn't update the target entity at all, as it's
+   * attributes, the direction, and the source error when the target type
+   * changes. Note that it doesn't update the target entity at all, as it's
    * used from both the `update-target-entity` and `update-target-type`
    * actions; those each handle updating the target entity on their own
    * in different ways.
@@ -273,6 +279,11 @@ function updateDialogStateForTargetTypeChange(
     ...newState.linkType,
     autocomplete: newLinkTypeAutocompleteState,
   };
+
+  updateDialogAttributesStateForLinkType(
+    newState,
+    onlyLinkType,
+  );
 
   newState.backward = sourceType > newTargetType;
 
