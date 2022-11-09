@@ -45,6 +45,7 @@ import {
   RelationshipSourceGroupsContext,
 } from '../constants.js';
 import type {
+  ExternalLinkAttrT,
   LinkAttributesByRootIdT,
   RelationshipDialogStateT,
   RelationshipStateT,
@@ -104,34 +105,42 @@ export type PropsT = {
   +user: ActiveEditorT,
 };
 
+function accumulateRelationshipLinkAttributeByRootId(
+  result: LinkAttributesByRootIdT,
+  linkAttribute: LinkAttrT | ExternalLinkAttrT,
+) {
+  const attributeType =
+    linkedEntities.link_attribute_type[linkAttribute.type.gid];
+  const rootId = attributeType.root_id;
+
+  let children = result.get(rootId);
+  if (children == null) {
+    children = [];
+    result.set(rootId, children);
+  }
+
+  children.push({
+    credited_as: linkAttribute.credited_as,
+    text_value: linkAttribute.text_value,
+    type: attributeType,
+  });
+  return result;
+}
+
+function getAttributeRootIdMap(
+  attributes: $ReadOnlyArray<LinkAttrT | ExternalLinkAttrT>,
+): LinkAttributesByRootIdT {
+  return attributes.reduce<LinkAttributesByRootIdT>(
+    accumulateRelationshipLinkAttributeByRootId,
+    new Map(),
+  );
+}
+
 export function createInitialState(props: PropsT): RelationshipDialogStateT {
   const relationship = props.initialRelationship;
   const linkType = getRelationshipLinkType(relationship);
   const beginDate = relationship.begin_date;
   const endDate = relationship.end_date;
-
-  function accumulateRelationshipLinkAttributeByRootId(
-    result: LinkAttributesByRootIdT,
-    linkAttribute: LinkAttrT,
-  ) {
-    const attributeType =
-      linkedEntities.link_attribute_type[linkAttribute.typeID];
-    const rootId = attributeType.root_id;
-
-    let children = result.get(rootId);
-    if (children == null) {
-      children = [];
-      result.set(rootId, children);
-    }
-
-    children.push({
-      credited_as: linkAttribute.credited_as,
-      text_value: linkAttribute.text_value,
-      type: attributeType,
-    });
-    return result;
-  }
-
   const source = props.source;
   const backward = isRelationshipBackward(relationship, source);
   const sourceType = source.entityType;
@@ -142,11 +151,7 @@ export function createInitialState(props: PropsT): RelationshipDialogStateT {
   return {
     attributes: createDialogAttributesState(
       linkType,
-      tree.toArray(relationship.attributes)
-        .reduce<LinkAttributesByRootIdT>(
-          accumulateRelationshipLinkAttributeByRootId,
-          new Map(),
-        ),
+      getAttributeRootIdMap(tree.toArray(relationship.attributes)),
     ),
     backward,
     datePeriodField: createCompoundField('period', {
@@ -291,6 +296,18 @@ export function reducer(
   switch (action.type) {
     case 'change-direction': {
       newState.backward = !state.backward;
+      break;
+    }
+
+    /*
+     * This action is not used internally, and only implemented for
+     * userscripts.
+     */
+    case 'set-attributes': {
+      newState.attributes = createDialogAttributesState(
+        (state.linkType.autocomplete.selectedItem?.entity) ?? null,
+        getAttributeRootIdMap(action.attributes),
+      );
       break;
     }
 

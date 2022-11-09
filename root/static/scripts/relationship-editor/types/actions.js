@@ -24,6 +24,7 @@ import type {
 import type {LazyReleaseActionT} from '../../release/types.js';
 import type {
   CreditChangeOptionT,
+  ExternalLinkAttrT,
   MediumRecordingStateTreeT,
   MediumWorkStateT,
   RelationshipDialogLocationT,
@@ -49,6 +50,10 @@ export type DialogLinkOrderActionT = {
 export type DialogActionT =
   | {
       +type: 'change-direction',
+    }
+  | {
+      +attributes: $ReadOnlyArray<ExternalLinkAttrT>,
+      +type: 'set-attributes',
     }
   | {
       +action: DialogEntityCreditActionT,
