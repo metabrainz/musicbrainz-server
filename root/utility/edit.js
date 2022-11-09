@@ -24,6 +24,7 @@ import {
   EDIT_SERIES_EDIT,
 } from '../static/scripts/common/constants/editTypes.js';
 import {
+  isAddingNotesDisabled,
   isAutoEditor,
   isBot,
   isEditingEnabled,
@@ -125,7 +126,8 @@ export function editorMayAddNote(
   edit: GenericEditWithIdT,
   editor: ?UnsanitizedEditorT,
 ): boolean {
-  return !!editor && nonEmpty(editor.email_confirmation_date);
+  return !!editor && nonEmpty(editor.email_confirmation_date) &&
+    !isAddingNotesDisabled(editor);
 }
 
 export function editorMayApprove(
