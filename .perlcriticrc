@@ -19,6 +19,7 @@ allow_includes=1
 
 [CodeLayout::ProhibitHardTabs]
 allow_leading_tabs = 0
+[CodeLayout::ProhibitQuotedWordLists]
 [CodeLayout::ProhibitTrailingWhitespace]
 [CodeLayout::RequireConsistentNewlines]
 

@@ -50,7 +50,7 @@ around serialize => sub {
 
 sub sameas_url {
     my ($rel) = @_;
-    my @acceptable = (
+    my @acceptable = ( ## no critic (ProhibitQuotedWordLists) - for comments
         'fe33d22f-c3b0-4d68-bd53-a856badf2b15', # artist official homepage
         'c550166e-0548-4a18-b1d4-e2ae423a3e88', # artist bandcamp
         'd028a975-000c-4525-9333-d3c8425e4b54', # artist bbc-music
