@@ -11,9 +11,8 @@ use constant RT_STANDALONE => 3;
 
 use constant REPLICATION_ACCESS_URI => 'https://metabrainz.org/api/musicbrainz';
 
-use Exporter;
+use base 'Exporter';
 {
-    our @ISA = qw( Exporter );
     our %EXPORT_TAGS = (
         replication_type => [qw(
                 RT_MASTER

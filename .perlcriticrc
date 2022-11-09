@@ -14,6 +14,7 @@ allow_includes=1
 [BuiltinFunctions::RequireBlockGrep]
 
 [ClassHierarchies::ProhibitAutoloading]
+[ClassHierarchies::ProhibitExplicitISA]
 
 [CodeLayout::ProhibitHardTabs]
 [CodeLayout::ProhibitTrailingWhitespace]
