@@ -37,8 +37,8 @@ around serialize => sub {
 
     my @production_types = uniq grep { defined } map { production_type($_) } grep { defined } $entity->all_secondary_types;
     if (scalar $entity->all_secondary_types == 0) {
-	# XXX: We don't have a way to explicitly track studio album, so we'll
-	# assume that studio albums are those without any secondary types.
+    # XXX: We don't have a way to explicitly track studio album, so we'll
+    # assume that studio albums are those without any secondary types.
         $ret->{albumProductionType} = 'http://schema.org/StudioAlbum';
     } elsif (@production_types) {
         $ret->{albumProductionType} = list_or_single(@production_types);

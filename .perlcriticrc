@@ -18,6 +18,7 @@ allow_includes=1
 [ClassHierarchies::ProhibitOneArgBless]
 
 [CodeLayout::ProhibitHardTabs]
+allow_leading_tabs = 0
 [CodeLayout::ProhibitTrailingWhitespace]
 [CodeLayout::RequireConsistentNewlines]
 
