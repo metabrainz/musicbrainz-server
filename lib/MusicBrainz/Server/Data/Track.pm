@@ -255,7 +255,7 @@ sub delete
         'WHERE id IN (' . placeholders(@track_ids) . ')';
 
     my $recording_ids = $self->sql->select_single_column_array(
-        $recording_query, @track_ids
+        $recording_query, @track_ids,
     );
 
     $self->remove_gid_redirects(@track_ids);

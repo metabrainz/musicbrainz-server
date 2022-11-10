@@ -12,13 +12,13 @@ has data => (
     default => sub { {} },
     handles => {
         statistic => 'get',
-        statistic_names => 'keys'
-    }
+        statistic_names => 'keys',
+    },
 );
 
 has date_collected => (
    is => 'rw',
-   isa => Str
+   isa => Str,
 );
 
 sub summed_statistics {

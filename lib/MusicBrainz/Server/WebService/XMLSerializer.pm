@@ -284,7 +284,7 @@ my %rg_fallback_type_order = (
     Soundtrack => 2,
     Live => 3,
     Spokenword => 4,
-    Interview => 5
+    Interview => 5,
 );
 
 sub _serialize_release_group
@@ -371,7 +371,7 @@ sub _serialize_release_list
 my %quality_names = (
     $QUALITY_LOW => 'low',
     $QUALITY_NORMAL => 'normal',
-    $QUALITY_HIGH => 'high'
+    $QUALITY_HIGH => 'high',
 );
 
 sub _serialize_release_event {

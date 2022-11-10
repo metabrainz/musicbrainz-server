@@ -8,22 +8,22 @@ extends 'MusicBrainz::Server::Form::Admin::LinkType';
 
 has_field 'examples' => (
     type => 'Repeatable',
-    num_when_empty => 0
+    num_when_empty => 0,
 );
 
 has_field 'examples.relationship' => (
     type => 'Compound',
-    required => 1
+    required => 1,
 );
 
 has_field 'examples.relationship.id' => (
     type => 'Integer',
-    required => 1
+    required => 1,
 );
 
 has_field 'examples.name' => (
     type => '+MusicBrainz::Server::Form::Field::Text',
-    not_nullable => 1
+    not_nullable => 1,
 );
 
 override edit_field_names => sub {

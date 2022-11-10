@@ -30,7 +30,7 @@ sub options_type_id {
     return [
         { value => '-1', label => lp('[none]', 'event type') },
         map +{ value => $_->id, label => $_->l_name },
-        @{ $self->types }
+        @{ $self->types },
     ];
 }
 

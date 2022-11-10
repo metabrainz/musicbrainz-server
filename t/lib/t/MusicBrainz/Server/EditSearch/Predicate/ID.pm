@@ -14,8 +14,8 @@ test 'operator =' => sub {
         'id' =>
         {
             operator => '=',
-            args => [ 59 ]
-        }
+            args => [ 59 ],
+        },
     );
 
     ok(defined $field, 'did construct a field');
@@ -36,8 +36,8 @@ test 'operator = with empty string' => sub {
         'id' =>
         {
             operator => '=',
-            args => [ '' ]
-        }
+            args => [ '' ],
+        },
     );
 
     ok(defined $field, 'did construct a field');

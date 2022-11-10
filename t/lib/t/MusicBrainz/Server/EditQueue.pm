@@ -42,7 +42,7 @@ MusicBrainz::Server::EditRegistry->register_type('t::MusicBrainz::Server::EditQu
 
 has null_logger => (
     is => 'ro',
-    default => sub { Log::Dispatch->new( outputs => [ [ 'Null', min_level => 'debug' ] ] ); }
+    default => sub { Log::Dispatch->new( outputs => [ [ 'Null', min_level => 'debug' ] ] ); },
 );
 
 has 'edit_queue' => (
@@ -52,7 +52,7 @@ has 'edit_queue' => (
     default => sub {
         my $test = shift;
         MusicBrainz::Server::EditQueue->new( c => $test->c, log => $test->null_logger );
-    }
+    },
 );
 
 test 'Edit queue does not close open edits with insufficient votes' => sub {

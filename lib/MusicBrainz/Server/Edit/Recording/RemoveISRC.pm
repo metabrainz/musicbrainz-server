@@ -29,20 +29,20 @@ has '+data' => (
     isa => Dict[
         isrc => Dict[
             id   => Int,
-            isrc => Str
+            isrc => Str,
         ],
         recording => Dict[
             id   => Int,
-            name => Str
-        ]
-    ]
+            name => Str,
+        ],
+    ],
 );
 
 method alter_edit_pending
 {
     return {
         Recording => [ $self->data->{recording}{id} ],
-        ISRC      => [ $self->data->{isrc}{id} ]
+        ISRC      => [ $self->data->{isrc}{id} ],
     }
 }
 
@@ -62,7 +62,7 @@ method build_display_data ($loaded)
             recording => $loaded->{Recording}{ $self->data->{recording}{id} } //
                          Recording->new(
                              id => $self->data->{recording}{id},
-                             name => $self->data->{recording}{name}
+                             name => $self->data->{recording}{name},
                          ),
             recording_id => $self->data->{recording}{id},
         );
@@ -83,8 +83,8 @@ sub initialize
         },
         recording => {
             id   => $isrc->recording->id,
-            name => $isrc->recording->name
-        }
+            name => $isrc->recording->name,
+        },
     });
 }
 

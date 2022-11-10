@@ -16,7 +16,7 @@ extends 'MusicBrainz::Server::Data::Entity';
 has [qw( type table )] => (
     is => 'rw',
     isa => 'Str',
-    required => 1
+    required => 1,
 );
 
 sub _table
@@ -75,11 +75,11 @@ sub edit
     my $annotation_id = $self->sql->insert_row('annotation', {
         editor => $annotation_hash->{editor_id},
         text => $annotation_hash->{text},
-        changelog => $annotation_hash->{changelog}
+        changelog => $annotation_hash->{changelog},
     }, 'id');
     $self->sql->insert_row($self->table, {
         $self->type => $annotation_hash->{entity_id},
-        annotation => $annotation_id
+        annotation => $annotation_id,
     });
     return $annotation_id;
 }
@@ -115,7 +115,7 @@ sub merge
                  WHERE $type IN (".placeholders(@ids).')
              ) s
              WHERE row_number = 1',
-            @ids
+            @ids,
         )
     };
 
@@ -134,7 +134,7 @@ sub merge
                 editor => $modbot,
                 entity => $self->c->model($model)->get_by_id($new_id),
                 text => $new_text,
-                changelog => "Result of $type merge"
+                changelog => "Result of $type merge",
             );
         }
     }

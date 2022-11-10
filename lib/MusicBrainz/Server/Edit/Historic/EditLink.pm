@@ -44,11 +44,11 @@ sub _upgrade
                 $self->new_value->{$prefix . 'entity1id'},
                 $self->new_value->{$prefix . 'entity1name'},
                 $self->new_value->{$prefix . 'linktypephrase'},
-            )
+            ),
         ],
         begin_date       => upgrade_date($hash->{$prefix . 'begindate'}),
         end_date         => upgrade_date($hash->{$prefix . 'enddate'}),
-        attributes       => [ split / /, ($hash->{$prefix . 'attrs'} || '') ]
+        attributes       => [ split / /, ($hash->{$prefix . 'attrs'} || '') ],
     }
 }
 
@@ -63,7 +63,7 @@ sub build_display_data
         relationship => {
             old => $self->_display_relationships($old_rel, $loaded),
             new => $self->_display_relationships($new_rel, $loaded),
-        }
+        },
     }
 }
 

@@ -20,7 +20,7 @@ sub _build_related_entities
     my $self = shift;
     return {
         artist  => [ $self->artist_id ],
-        release => $self->data->{release_ids}
+        release => $self->data->{release_ids},
     }
 }
 
@@ -28,7 +28,7 @@ sub foreign_keys
 {
     my $self = shift;
     return {
-        Release => { map { $_ => [ 'ArtistCredit' ] } @{ $self->data->{release_ids} } }
+        Release => { map { $_ => [ 'ArtistCredit' ] } @{ $self->data->{release_ids} } },
     }
 }
 
@@ -38,7 +38,7 @@ sub build_display_data
     return {
         releases => [ map { to_json_object($loaded->{Release}{$_}) } @{ $self->data->{release_ids} } ],
         cdtoc => to_json_object(
-            MusicBrainz::Server::Entity::CDTOC->new_from_toc($self->data->{full_toc})
+            MusicBrainz::Server::Entity::CDTOC->new_from_toc($self->data->{full_toc}),
         ),
         full_toc => $self->data->{full_toc},
     }

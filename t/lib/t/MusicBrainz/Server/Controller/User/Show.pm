@@ -164,7 +164,7 @@ test 'Spammer editors are hidden, except for admins' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'alice', password => 'secret1' }
+        with_fields => { username => 'alice', password => 'secret1' },
     );
 
     $mech->get_ok('/user/SPAMVIKING', 'Fetched spammer page as normal user');
@@ -180,7 +180,7 @@ test 'Spammer editors are hidden, except for admins' => sub {
     $mech->get('/logout');
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'kuno', password => 'byld' }
+        with_fields => { username => 'kuno', password => 'byld' },
     );
 
     $mech->get_ok('/user/SPAMVIKING', 'Fetched spammer page as admin');

@@ -53,7 +53,7 @@ sub release_type {
         1 => 'Album',
         2 => 'Single',
         3 => 'EP',
-        12 => 'Broadcast'
+        12 => 'Broadcast',
     );
 
     my $name;
@@ -72,7 +72,7 @@ sub production_type {
         7 => 'Remix',
         8 => 'DJMix',
         9 => 'Mixtape',
-        10 => 'Demo'
+        10 => 'Demo',
     );
     my $name;
     if ($name = $map{$secondary_type->id}) {

@@ -35,8 +35,8 @@ use Sub::Exporter -setup => { ## no critic 'ProhibitUnusedImport'
             critical
             alert
             emergency
-        )
-    ]
+        ),
+    ],
 };
 
 Readonly our $MAX_MESSAGE_LENGTH => 1024 * 16;
@@ -78,7 +78,7 @@ sub _do_log {
         local $_ = Dumper(@args);
         $logger->log(
             level => $level,
-            message => $message_gen->(@args)
+            message => $message_gen->(@args),
         )
     }
     @args;

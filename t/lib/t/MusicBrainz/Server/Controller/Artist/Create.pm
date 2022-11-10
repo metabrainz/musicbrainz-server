@@ -76,13 +76,13 @@ test 'Creating artist with most fields filled in' => sub {
             begin_date => {
                 year => 1990,
                 month => 1,
-                day => 2
+                day => 2,
             },
             begin_area_id => 222,
             end_date => {
                 year => 2003,
                 month => 4,
-                day => 15
+                day => 15,
             },
             end_area_id => 222,
             ended => 1,
@@ -189,11 +189,11 @@ test 'Creating artist with only the minimal amount of fields' => sub {
     );
     ok(
         PartialDate->new($edit->data->{begin_date})->is_empty,
-        'The edit data has an empty begin date'
+        'The edit data has an empty begin date',
     );
     ok(
         PartialDate->new($edit->data->{end_date})->is_empty,
-        'The edit data has an empty end date'
+        'The edit data has an empty end date',
     );
 
     # Test display of edit data
@@ -335,7 +335,7 @@ sub prepare_test {
 
     $test->mech->get('/login');
     $test->mech->submit_form(
-        with_fields => { username => 'new_editor', password => 'password' }
+        with_fields => { username => 'new_editor', password => 'password' },
     );
 }
 

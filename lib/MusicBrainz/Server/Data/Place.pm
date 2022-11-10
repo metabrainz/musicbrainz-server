@@ -62,7 +62,7 @@ sub _column_mapping
         edits_pending => 'edits_pending',
         comment => 'comment',
         last_updated => 'last_updated',
-        ended => 'ended'
+        ended => 'ended',
     };
 }
 
@@ -120,7 +120,7 @@ sub _merge_impl
     my @merge_options = ($self->sql => (
                            table => 'place',
                            old_ids => \@old_ids,
-                           new_id => $new_id
+                           new_id => $new_id,
                         ));
 
     merge_table_attributes(@merge_options, columns => [ qw( type area coordinates ) ]);
@@ -138,7 +138,7 @@ sub _hash_to_row
     my $row = hash_to_row($place, {
         area => 'area_id',
         type => 'type_id',
-        map { $_ => $_ } qw( address comment ended name )
+        map { $_ => $_ } qw( address comment ended name ),
     });
 
     add_partial_date_to_row($row, $place->{begin_date}, 'begin_date');
@@ -191,7 +191,7 @@ sub _order_by {
         },
         'type' => sub {
             return 'type, name COLLATE musicbrainz'
-        }
+        },
     });
 
     return $order_by

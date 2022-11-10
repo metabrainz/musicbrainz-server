@@ -14,7 +14,7 @@ use Try::Tiny;
 use URI::Escape;
 
 use Sub::Exporter -setup => {
-    exports => [qw( format_editnote format_wikitext )]
+    exports => [qw( format_editnote format_wikitext )],
 };
 
 sub format_length
@@ -52,8 +52,8 @@ sub format_wikitext
                 extended => 1,
                 nofollow_extended => 1,
                 absolute_links => 1,
-                implicit_links => 0
-            })
+                implicit_links => 0,
+            }),
       );
 }
 

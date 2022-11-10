@@ -5,12 +5,12 @@ use MooseX::Types::URI qw( Uri );
 
 has 'date' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'title' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'link' => (
@@ -21,7 +21,7 @@ has 'link' => (
 
 has 'description' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 sub TO_JSON {

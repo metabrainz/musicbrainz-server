@@ -29,12 +29,12 @@ has_field 'comment' => (
 );
 
 has_field 'artist_credit' => (
-    type => '+MusicBrainz::Server::Form::Field::ArtistCredit'
+    type => '+MusicBrainz::Server::Form::Field::ArtistCredit',
 );
 
 has_field 'secondary_type_ids' => (
     type => 'Select',
-    multiple => 1
+    multiple => 1,
 );
 
 sub options_primary_type_id { select_options_tree(shift->ctx, 'ReleaseGroupType') }
@@ -47,7 +47,7 @@ after BUILD => sub {
 
     if (defined $self->init_object) {
         $self->field('secondary_type_ids')->value(
-            [ map { $_->id } $self->init_object->all_secondary_types ]
+            [ map { $_->id } $self->init_object->all_secondary_types ],
         );
     }
 };

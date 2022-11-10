@@ -12,7 +12,7 @@ around run_test => sub {
 
     $test->mech->get('/login');
     $test->mech->submit_form(
-        with_fields => { username => 'editor1', password => 'pass' }
+        with_fields => { username => 'editor1', password => 'pass' },
     );
 
     $test->$orig(@args);

@@ -24,7 +24,7 @@ with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_collection',
     column => 'collection',
-    active_class => 'MusicBrainz::Server::Entity::CollectionSubscription'
+    active_class => 'MusicBrainz::Server::Entity::CollectionSubscription',
 };
 
 sub _type { 'collection' }
@@ -175,7 +175,7 @@ sub merge {
 
     # Move all collaborators to the destination collection
     $self->set_collaborators(
-        $new_id, \@collaborators
+        $new_id, \@collaborators,
     ) if @collaborators;
 
     # Remove all collaborators from the collection(s) being merged
@@ -364,7 +364,7 @@ sub _insert_hook_after_each {
     my ($self, $created, $collection) = @_;
 
     $self->set_collaborators(
-        $created->{id}, $collection->{collaborators}
+        $created->{id}, $collection->{collaborators},
     ) if $collection->{collaborators};
 }
 
@@ -391,7 +391,7 @@ sub update {
     croak '$collection_id must be present and > 0' unless $collection_id > 0;
 
     $self->set_collaborators(
-        $collection_id, $update->{collaborators}
+        $collection_id, $update->{collaborators},
     ) if $update->{collaborators};
 
     my $row = $self->_hash_to_row($update);
@@ -442,8 +442,8 @@ sub delete_editor {
     $self->delete(
         @{ $self->sql->select_single_column_array(
             'SELECT id FROM editor_collection WHERE editor = ?',
-            $editor_id
-        ) }
+            $editor_id,
+        ) },
     );
 }
 
@@ -458,7 +458,7 @@ sub set_collaborators {
         map +{
             collection => $collection_id,
             editor     => $_->{id},
-        }, @$collaborators
+        }, @$collaborators,
     );
 
     # Remove non-owner, no-longer-collaborator subscriptions if collection is private
@@ -485,7 +485,7 @@ sub _hash_to_row {
 
     my $row = hash_to_row($collection, {
         type    => 'type_id',
-        map { $_ => $_ } qw( description name public )
+        map { $_ => $_ } qw( description name public ),
     });
 
     return $row;

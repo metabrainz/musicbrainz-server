@@ -37,12 +37,12 @@ test 'Authenticate WS bearer' => sub {
     # Correctly authenticated
     $test->mech->get_ok(
         "$path?access_token=Nlaa7v15QHm9g8rUOmT3dQ",
-        'Correct token is accepted'
+        'Correct token is accepted',
     );
     $test->mech->get_ok(
         $path,
         { Authorization => 'Bearer Nlaa7v15QHm9g8rUOmT3dQ' },
-        'Correct bearer is accepted'
+        'Correct bearer is accepted',
     );
 
     # MAC tokens can't be used as bearer

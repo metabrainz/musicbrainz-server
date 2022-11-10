@@ -24,7 +24,7 @@ test all => sub {
         Authen::Passphrase::BlowfishCrypt->new(
             cost => 8,
             salt_random => 1,
-            passphrase => encode('utf-8', 'ıaa2')
+            passphrase => encode('utf-8', 'ıaa2'),
         )->as_rfc2307, 'new_editor');
 
     $mech->get_ok('https://localhost/login');
@@ -96,7 +96,7 @@ test 'Can login with usernames that contain the "/" character' => sub {
     $mech->content_contains('ocharles/bot');
     $mech->follow_link_ok({ url_regex => qr{/login} });
     $mech->submit_form(
-        with_fields => { username => 'ocharles/bot', password => 'mb' }
+        with_fields => { username => 'ocharles/bot', password => 'mb' },
     );
     like($mech->uri->path, qr{/user/ocharles%2Fbot});
     $enable_ssl->DESTROY;
@@ -114,7 +114,7 @@ test 'Deleted editors cannot login (even if they have a password)' => sub {
         Authen::Passphrase::BlowfishCrypt->new(
             cost => 8,
             salt_random => 1,
-            passphrase => encode('utf-8', 'ıaa2')
+            passphrase => encode('utf-8', 'ıaa2'),
         )->as_rfc2307, 'new_editor');
 
     $mech->get_ok('https://localhost/login');

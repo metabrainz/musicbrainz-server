@@ -18,7 +18,7 @@ override 'foreign_keys' => sub {
     my $data = super();
 
     $data->{ReleaseGroup} = {
-        $self->release_group_id => [ 'ArtistCredit' ]
+        $self->release_group_id => [ 'ArtistCredit' ],
     };
     return $data;
 };

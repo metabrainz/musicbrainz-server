@@ -4,7 +4,7 @@ use Moose;
 use MusicBrainz::Server::Exceptions;
 
 use Sub::Exporter -setup => {
-    exports => [qw( assert_uniqueness_conserved )]
+    exports => [qw( assert_uniqueness_conserved )],
 };
 
 sub assert_uniqueness_conserved {
@@ -43,7 +43,7 @@ sub assert_uniqueness_conserved {
 
         if ($conflict) {
             MusicBrainz::Server::Exceptions::DuplicateViolation->throw({
-                conflict => $conflict
+                conflict => $conflict,
             })
         }
     }

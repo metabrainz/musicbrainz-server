@@ -62,13 +62,13 @@ has '+data' => (
         entity_id => NullableOnPreview[Int],
         release => Dict[
             id => Int,
-            name => Str
+            name => Str,
         ],
         separate_tracklists => Optional[Bool],
         current_tracklist => Optional[Int],
         old => change_fields(),
-        new => change_fields()
-    ]
+        new => change_fields(),
+    ],
 );
 
 around _build_related_entities => sub {
@@ -90,7 +90,7 @@ around _build_related_entities => sub {
                          $track->{position},
                          join('', map {
                              $_->{artist}{id}, $_->{name}, $_->{join_phrase} || ''
-                             } @{$track->{artist_credit}{names}})
+                             } @{$track->{artist_credit}{names}}),
                      )
                 })
            };
@@ -124,7 +124,7 @@ sub alter_edit_pending
     my $self = shift;
     return {
         'Medium' => [ $self->entity_id ],
-        'Release' => [ $self->data->{release}->{id} ]
+        'Release' => [ $self->data->{release}->{id} ],
     }
 }
 
@@ -171,9 +171,9 @@ sub initialize
             entity_id => $entity->id,
             release => {
                 id => $entity->release->id,
-                name => $entity->release->name
+                name => $entity->release->name,
             },
-            $self->_changes($entity, %opts)
+            $self->_changes($entity, %opts),
         };
 
         if ($tracklist && @$tracklist) {
@@ -254,7 +254,7 @@ sub build_display_data
         Medium->new(
             release_id => $self->data->{release}{id},
             release => $release,
-        )
+        ),
     );
 
     if (exists $self->data->{new}{format_id}) {
@@ -297,13 +297,13 @@ sub build_display_data
                             '',
                             map {
                                 join('', $_->name, $_->join_phrase // '')
-                            } $track->artist_credit->all_names
+                            } $track->artist_credit->all_names,
                         ),
                         $track->is_data_track ? 1 : 0,
                         $track->position ? 1 : 0,
                     );
-                }
-            ) }
+                },
+            ) },
         ];
 
         my $i = 0;
@@ -397,7 +397,7 @@ sub accept {
 
     if (!$self->c->model('Medium')->get_by_id($self->entity_id)) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'This edit cannot be applied, as the medium being edited no longer exists.'
+            'This edit cannot be applied, as the medium being edited no longer exists.',
         )
     }
 
@@ -484,7 +484,7 @@ sub accept {
 
         my @final_tracklist;
         my $existing_recordings = $self->c->sql->select_single_column_array(
-            'SELECT id FROM recording WHERE id = any(?)', \@merged_recordings
+            'SELECT id FROM recording WHERE id = any(?)', \@merged_recordings,
         );
         my %existing_recordings = map { $_ => 1 } @$existing_recordings;
         while (1) {
@@ -516,7 +516,7 @@ sub accept {
                 length => $length eq $UNDEF_MARKER ? undef : $length,
                 recording_id => $recording_id,
                 artist_credit => $hashed_artist_credits{shift(@merged_artist_credits)},
-                is_data_track => $is_data_track
+                is_data_track => $is_data_track,
             }
         }
 
@@ -599,9 +599,9 @@ sub allow_auto_edit
                         $track->{name},
                         format_track_length($track->{length}),
                         hash_artist_credit($track->{artist_credit}),
-                        $track->{recording_id} // 'new'
+                        $track->{recording_id} // 'new',
                     );
-                }
+                },
             ) };
 
         # If this edit adds or removes tracks, it's not an auto-edit

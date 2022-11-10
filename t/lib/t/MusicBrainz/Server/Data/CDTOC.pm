@@ -33,7 +33,7 @@ test 'Adding a CDTOC to a medium removes CD stubs' => sub {
 
     $test->c->model('MediumCDTOC')->insert({
         medium => 1,
-        cdtoc  => 3
+        cdtoc  => 3,
     });
 
     $cdstub = $test->c->model('CDStub')->get_by_discid($discid);

@@ -20,7 +20,7 @@ sub _build_related_entities {
     my $self = shift;
     return {
         artist => [ $self->data->{old_artist_id}, $self->data->{new_artist_id} ],
-        release => [ $self->_release_ids ]
+        release => [ $self->_release_ids ],
     }
 }
 
@@ -35,7 +35,7 @@ sub foreign_keys
     my $self = shift;
     return {
         Artist  => [ $self->data->{old_artist_id}, $self->data->{new_artist_id} ],
-        Release => [ $self->_release_ids ]
+        Release => [ $self->_release_ids ],
     }
 }
 
@@ -47,7 +47,7 @@ sub build_display_data
 
     $new_artist = $new_artist->meta->clone_object(
         $new_artist,
-        name => $self->data->{artist_name}
+        name => $self->data->{artist_name},
     );
 
     return {
@@ -57,7 +57,7 @@ sub build_display_data
         artist => {
             old => to_json_object($loaded->{Artist}{ $self->data->{old_artist_id} }),
             new => to_json_object($new_artist),
-        }
+        },
     }
 }
 
@@ -72,7 +72,7 @@ sub upgrade
         release_ids   => $self->album_release_ids($self->row_id),
         artist_name   => $self->new_value->{name},
         new_artist_id => $target || 0,
-        old_artist_id => 1
+        old_artist_id => 1,
     });
 
     return $self;

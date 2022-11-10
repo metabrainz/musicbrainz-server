@@ -34,7 +34,7 @@ sub throw_if_release_label_is_duplicate {
 
         if ($label_id == $new_label_id && $catalog_number eq $new_catalog_number) {
             MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-                'The label and catalog number in this edit already exist on the release.'
+                'The label and catalog number in this edit already exist on the release.',
             );
         }
     }

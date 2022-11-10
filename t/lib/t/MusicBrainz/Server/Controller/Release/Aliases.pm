@@ -38,7 +38,7 @@ test 'Release alias appears on alias page content and on JSON-LD' => sub {
         'recordLabel' => {
             'name' => 'Warp Records',
             '@type' => 'MusicLabel',
-            '@id' => 'http://musicbrainz.org/label/46f0f4cd-8aab-4b33-b698-f459faf64190'
+            '@id' => 'http://musicbrainz.org/label/46f0f4cd-8aab-4b33-b698-f459faf64190',
         },
         'releaseOf' => {
             'albumReleaseType' => 'http://schema.org/AlbumRelease',
@@ -51,18 +51,18 @@ test 'Release alias appears on alias page content and on JSON-LD' => sub {
             'name' => 'Aerial',
             '@type' => 'MusicAlbum',
             '@id' => 'http://musicbrainz.org/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5',
-            'albumProductionType' => 'http://schema.org/StudioAlbum'
+            'albumProductionType' => 'http://schema.org/StudioAlbum',
         },
         'hasReleaseRegion' => [
             {
                 'releaseCountry' => {
                     '@type' => 'Country',
                     '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
-                    'name' => 'United Kingdom'
+                    'name' => 'United Kingdom',
                 },
                 '@type' => 'CreativeWorkReleaseRegion',
-                'releaseDate' => '2005-11-07'
-            }
+                'releaseDate' => '2005-11-07',
+            },
         ],
         '@type' => 'MusicRelease',
         'catalogNumber' => '343 960 2',
@@ -70,7 +70,7 @@ test 'Release alias appears on alias page content and on JSON-LD' => sub {
         '@id' => 'http://musicbrainz.org/release/f205627f-b70a-409d-adbe-66289b614e80',
         'name' => 'Aerial',
         'musicReleaseFormat' => 'http://schema.org/CDFormat',
-        '@context' => 'https://schema.org/docs/jsonldcontext.json'
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
     };
 };
 

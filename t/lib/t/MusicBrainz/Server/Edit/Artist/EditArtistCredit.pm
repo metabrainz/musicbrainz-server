@@ -80,15 +80,15 @@ sub _create_edit {
                 {
                     artist => { id => 6, name => 'Ed Rush' },
                     name => 'Ed Rush',
-                    join_phrase => undef
+                    join_phrase => undef,
                 },
                 {
                     artist => { id => 7, name => 'Optical' },
                     name => 'Optical',
-                    join_phrase => ''
-                }
-            ]
-        }
+                    join_phrase => '',
+                },
+            ],
+        },
     );
 }
 
@@ -98,7 +98,7 @@ sub artist_credits_is {
         $c->model('ReleaseGroup')->get_by_id(1),
         $c->model('Release')->get_by_id(1),
         $c->model('Recording')->get_by_id(1),
-        $c->model('Track')->get_by_id(1)
+        $c->model('Track')->get_by_id(1),
     );
 
     return (grep { $_->artist_credit_id == $id } @ents) == @ents;

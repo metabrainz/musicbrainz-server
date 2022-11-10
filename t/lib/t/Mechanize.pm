@@ -9,7 +9,7 @@ has mech => (
     required => 1,
     lazy => 1,
     builder => 'make_mech',
-    clearer => '_clear_mech'
+    clearer => '_clear_mech',
 );
 
 before run_test => sub {

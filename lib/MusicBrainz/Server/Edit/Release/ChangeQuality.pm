@@ -47,11 +47,11 @@ has '+data' => (
     isa => Dict[
         release => Dict[
             id => Int,
-            name => Str
+            name => Str,
         ],
         old     => change_fields(),
-        new     => change_fields()
-    ]
+        new     => change_fields(),
+    ],
 );
 
 method foreign_keys
@@ -74,7 +74,7 @@ method build_display_data ($loaded)
         quality => {
             old => $self->data->{old}{quality} + 0,
             new => $self->data->{new}{quality} + 0,
-        }
+        },
     }
 }
 
@@ -88,7 +88,7 @@ method initialize (%opts)
     $self->data({
         release => {
             id => $release->id,
-            name => $release->name
+            name => $release->name,
         },
         old => { quality => $release->quality },
         new => { quality => $opts{quality} + 0 },
@@ -100,7 +100,7 @@ method accept
 {
     $self->c->model('Release')->update(
         $self->release_id,
-        { quality => $self->data->{new}{quality} }
+        { quality => $self->data->{new}{quality} },
     );
 }
 

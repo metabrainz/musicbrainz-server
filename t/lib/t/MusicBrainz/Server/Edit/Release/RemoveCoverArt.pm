@@ -51,7 +51,7 @@ sub create_edit {
         cover_art_types => [ ],
         cover_art_position => 1,
         cover_art_comment => '',
-        cover_art_mime_type => 'image/jpeg'
+        cover_art_mime_type => 'image/jpeg',
     )->accept;
 
     my ($artwork) = @{ $c->model('Artwork')->find_by_release($release) };
@@ -64,7 +64,7 @@ sub create_edit {
         to_delete => $artwork,
 
         cover_art_type => 'cover',
-        cover_art_page => 2
+        cover_art_page => 2,
     );
 }
 

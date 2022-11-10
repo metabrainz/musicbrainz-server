@@ -209,13 +209,13 @@ is($place->coordinates->latitude, 0.1);
 is($place->coordinates->longitude, 0.2);
 
 $place_data->update($place->id, {
-        type_id => 2
+        type_id => 2,
     });
 $place = $place_data->get_by_id($place->id);
 is($place->type_id, 2);
 
 $place_data->update($place->id, {
-        coordinates => undef
+        coordinates => undef,
     });
 
 $place = $place_data->get_by_id($place->id);

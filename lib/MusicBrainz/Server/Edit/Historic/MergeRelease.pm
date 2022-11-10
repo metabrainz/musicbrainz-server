@@ -57,8 +57,8 @@ sub foreign_keys
     my $self = shift;
     return {
         Release => {
-            map { $_ => [ 'ArtistCredit' ] } $self->_release_ids
-        }
+            map { $_ => [ 'ArtistCredit' ] } $self->_release_ids,
+        },
     }
 }
 
@@ -74,21 +74,21 @@ sub build_display_data
                         map { ## no critic (ProhibitVoidMap) - False positive
                             to_json_object(
                                 $loaded->{Release}{$_} //
-                                Release->new(name => $old_release->{name})
+                                Release->new(name => $old_release->{name}),
                             )
                         } @ids;
                     }
                     else {
                         to_json_object(Release->new(name => $_->{name} ))
                     }
-                } $self->_old_releases
+                } $self->_old_releases,
             ],
             new => [ do {
                 if (my @ids = $self->_new_release_ids) {
                     map { ## no critic (ProhibitVoidMap) - False positive
                         to_json_object(
                             $loaded->{Release}{$_} //
-                            Release->new(name => $self->data->{new_release}{name})
+                            Release->new(name => $self->data->{new_release}{name}),
                         )
                     } @ids;
                 }
@@ -98,7 +98,7 @@ sub build_display_data
             } ],
         },
         merge_attributes => $self->data->{merge_attributes},
-        merge_language   => $self->data->{merge_language}
+        merge_language   => $self->data->{merge_language},
     }
 }
 
@@ -117,14 +117,14 @@ sub upgrade
     $self->data({
         new_release => {
             release_ids => $self->album_release_ids($new_release_id),
-            name => $self->new_value->{AlbumName0}
+            name => $self->new_value->{AlbumName0},
         },
         old_releases => [
             map { +{
                 release_ids => $self->album_release_ids(
                     $self->new_value->{"AlbumId$_"}),
-                name => $self->new_value->{"AlbumName$_"}
-            } } @old_releases
+                name => $self->new_value->{"AlbumName$_"},
+            } } @old_releases,
         ],
         merge_language   => $self->new_value->{merge_langscript} || 0,
         merge_attributes => $self->new_value->{merge_attributes} || 0,

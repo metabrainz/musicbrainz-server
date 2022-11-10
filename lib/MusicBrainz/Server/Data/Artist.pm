@@ -41,7 +41,7 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_artist',
     column => 'artist',
     active_class => 'MusicBrainz::Server::Entity::Subscription::Artist',
-    deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedArtist'
+    deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedArtist',
 };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Area';
@@ -81,7 +81,7 @@ sub _column_mapping
         edits_pending => 'edits_pending',
         comment => 'comment',
         last_updated => 'last_updated',
-        ended => 'ended'
+        ended => 'ended',
     };
 }
 
@@ -233,7 +233,7 @@ sub _order_by {
         },
         'type' => sub {
             return 'type, sort_name COLLATE musicbrainz'
-        }
+        },
     });
 
     return $order_by
@@ -315,7 +315,7 @@ sub can_delete
     my $active_credits = $self->sql->select_single_column_array(
         'SELECT ref_count FROM artist_credit, artist_credit_name name
           WHERE name.artist = ? AND name.artist_credit = id AND ref_count > 0',
-        $artist_id
+        $artist_id,
     );
     return @$active_credits == 0;
 }
@@ -424,16 +424,16 @@ sub merge
                 table => 'artist',
                 columns => $merge_columns,
                 old_ids => $old_ids,
-                new_id => $new_id
-            )
+                new_id => $new_id,
+            ),
         );
 
         merge_date_period(
             $self->sql => (
                 table => 'artist',
                 old_ids => $old_ids,
-                new_id => $new_id
-            )
+                new_id => $new_id,
+            ),
         );
     }
 
@@ -451,7 +451,7 @@ sub _hash_to_row
         end_area => 'end_area_id',
         gender  => 'gender_id',
         type    => 'type_id',
-        map { $_ => $_ } qw( comment ended name sort_name )
+        map { $_ => $_ } qw( comment ended name sort_name ),
     });
 
     if (exists $artist->{begin_date}) {

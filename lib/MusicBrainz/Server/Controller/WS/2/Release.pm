@@ -356,9 +356,9 @@ sub release_submit : Private
                     edit_type => $EDIT_RELEASE_EDIT_BARCODES,
                     submissions => [ map +{
                         release => $gid_map{ $_->{release} },
-                        barcode => $_->{barcode}
+                        barcode => $_->{barcode},
                     }, @submit ],
-                    client_version => $client
+                    client_version => $client,
                 );
             });
         }

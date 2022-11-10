@@ -32,9 +32,9 @@ has '+data' => (
         attributes    => Optional[ArrayRef[Dict[
             attribute_text => Maybe[Str],
             attribute_value_id => Maybe[Int],
-            attribute_type_id => Int
-        ]]]
-    ]
+            attribute_type_id => Int,
+        ]]],
+    ],
 );
 
 sub foreign_keys
@@ -62,7 +62,7 @@ sub build_display_data
         iswc          => $data->{iswc} // '',
         work          => to_json_object((defined($self->entity_id) &&
             $loaded->{Work}{ $self->entity_id }) ||
-            Work->new( name => $self->data->{name} )
+            Work->new( name => $self->data->{name} ),
         ),
         ($data->{attributes} && @{ $data->{attributes} } ?
          ( attributes => { $self->grouped_attributes_by_type($data->{attributes}, 1) } ) : ()
@@ -76,7 +76,7 @@ sub build_display_data
 
     if (defined $data->{languages}) {
         $display->{languages} = to_json_array([
-            map { $loaded->{Language}{$_} } @{ $data->{languages} }
+            map { $loaded->{Language}{$_} } @{ $data->{languages} },
         ]);
     }
 

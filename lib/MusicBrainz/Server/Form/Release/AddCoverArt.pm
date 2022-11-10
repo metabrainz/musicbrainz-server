@@ -57,7 +57,7 @@ sub validate_nonce {
     if (!defined $stored_nonce || $stored_nonce ne $nonce) {
         return $field->push_errors(l(
             'The form you’ve submitted has expired. ' .
-            'Please resubmit your request.'
+            'Please resubmit your request.',
         ));
     }
 }

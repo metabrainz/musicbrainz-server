@@ -37,12 +37,12 @@ around BUILDARGS => sub {
 
 has 'status_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'status' => (
     is => 'rw',
-    isa => 'ReleaseStatus'
+    isa => 'ReleaseStatus',
 );
 
 sub status_name
@@ -59,12 +59,12 @@ sub l_status_name
 
 has 'packaging_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'packaging' => (
     is => 'rw',
-    isa => 'ReleasePackaging'
+    isa => 'ReleasePackaging',
 );
 
 sub packaging_name
@@ -81,12 +81,12 @@ sub l_packaging_name
 
 has 'release_group' => (
     is => 'rw',
-    isa => 'ReleaseGroup'
+    isa => 'ReleaseGroup',
 );
 
 has 'release_group_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'barcode' => (
@@ -98,22 +98,22 @@ has 'barcode' => (
 
 has 'language_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'language' => (
     is => 'rw',
-    isa => 'Language'
+    isa => 'Language',
 );
 
 has 'script_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'script' => (
     is => 'rw',
-    isa => 'Script'
+    isa => 'Script',
 );
 
 has 'labels' => (
@@ -126,8 +126,8 @@ has 'labels' => (
         all_labels => 'elements',
         add_label => 'push',
         clear_labels => 'clear',
-        label_count => 'count'
-    }
+        label_count => 'count',
+    },
 );
 
 has 'mediums' => (
@@ -140,8 +140,8 @@ has 'mediums' => (
         all_mediums => 'elements',
         add_medium => 'push',
         clear_mediums => 'clear',
-        medium_count => 'count'
-    }
+        medium_count => 'count',
+    },
 );
 
 has 'mediums_loaded' => (
@@ -159,8 +159,8 @@ has events => (
     handles => {
         add_event => 'push',
         all_events => 'elements',
-        event_count => 'count'
-    }
+        event_count => 'count',
+    },
 );
 
 sub combined_track_count
@@ -196,7 +196,7 @@ has 'cover_art' => (
 
 has 'cover_art_presence' => (
     isa => 'Str',
-    is => 'rw'
+    is => 'rw',
 );
 
 =head2 has_no_tracks

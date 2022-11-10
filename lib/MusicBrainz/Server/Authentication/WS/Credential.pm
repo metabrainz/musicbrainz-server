@@ -55,7 +55,7 @@ sub _build_bearer_auth_header
     my ($self, $c, $opts) = @_;
 
     return Catalyst::Authentication::Credential::HTTP::_join_auth_header_parts(
-        Bearer => $self->_build_auth_header_common($c, $opts)
+        Bearer => $self->_build_auth_header_common($c, $opts),
     );
 }
 

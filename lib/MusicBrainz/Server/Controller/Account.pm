@@ -55,7 +55,7 @@ sub verify_email : Path('/verify-email') ForbiddenOnMirrors DenyWhenReadonly
             component_path => 'account/EmailVerificationStatus',
             component_props => {
                 message => l('The user ID is missing or is in an invalid format.'),
-            }
+            },
         );
     }
 
@@ -65,7 +65,7 @@ sub verify_email : Path('/verify-email') ForbiddenOnMirrors DenyWhenReadonly
             component_path => 'account/EmailVerificationStatus',
             component_props => {
                 message => l('The email address is missing.'),
-            }
+            },
         );
     }
 
@@ -75,7 +75,7 @@ sub verify_email : Path('/verify-email') ForbiddenOnMirrors DenyWhenReadonly
             component_path => 'account/EmailVerificationStatus',
             component_props => {
                 message => l('The time is missing or is in an invalid format.'),
-            }
+            },
         );
         $c->detach;
     }
@@ -86,7 +86,7 @@ sub verify_email : Path('/verify-email') ForbiddenOnMirrors DenyWhenReadonly
             component_path => 'account/EmailVerificationStatus',
             component_props => {
                 message => l('The verification key is missing.'),
-            }
+            },
         );
         $c->detach;
     }
@@ -97,7 +97,7 @@ sub verify_email : Path('/verify-email') ForbiddenOnMirrors DenyWhenReadonly
             component_path => 'account/EmailVerificationStatus',
             component_props => {
                 message => l('The checksum is invalid, please double check your email.'),
-            }
+            },
         );
         $c->detach;
     }
@@ -108,7 +108,7 @@ sub verify_email : Path('/verify-email') ForbiddenOnMirrors DenyWhenReadonly
             component_path => 'account/EmailVerificationStatus',
             component_props => {
                 message => l('Sorry, this email verification link has expired.'),
-            }
+            },
         );
         $c->detach;
     }
@@ -121,7 +121,7 @@ sub verify_email : Path('/verify-email') ForbiddenOnMirrors DenyWhenReadonly
             component_props => {
                 message => l(q(The user with ID '{user_id}' could not be found.),
                                                 { user_id => $user_id }),
-            }
+            },
         );
         $c->detach;
     }
@@ -171,7 +171,7 @@ sub _send_password_reset_email
     catch {
         $c->flash->{message} = l(
             'We were unable to send login information to your email address.  Please try again, ' .
-            'however if you continue to experience difficulty contact us at support@musicbrainz.org.'
+            'however if you continue to experience difficulty contact us at support@musicbrainz.org.',
         );
     };
 }
@@ -235,7 +235,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnMirrors DenyWhenReadonly
             component_path => 'account/ResetPasswordStatus',
             component_props => {
                 message => l('Your password has been reset.'),
-            }
+            },
         );
         $c->detach;
     }
@@ -250,7 +250,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnMirrors DenyWhenReadonly
             component_path => 'account/ResetPasswordStatus',
             component_props => {
                 message => l('Missing one or more required parameters.'),
-            }
+            },
         );
         $c->detach;
     }
@@ -261,7 +261,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnMirrors DenyWhenReadonly
             component_path => 'account/ResetPasswordStatus',
             component_props => {
                 message => l('Sorry, this password reset link has expired.'),
-            }
+            },
         );
         $c->detach;
     }
@@ -272,7 +272,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnMirrors DenyWhenReadonly
             component_path => 'account/ResetPasswordStatus',
             component_props => {
                 message => l('The checksum is invalid, please double check your email.'),
-            }
+            },
         );
         $c->detach;
     }
@@ -285,7 +285,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnMirrors DenyWhenReadonly
             component_props => {
                 message => l(q(The user with ID '{user_id}' could not be found.),
                                                 { user_id => $editor_id }),
-            }
+            },
         );
         $c->detach;
     }
@@ -396,7 +396,7 @@ sub edit : Local RequireAuth DenyWhenReadonly SecureForm {
 
         $c->model('Editor')->update_profile(
             $editor,
-            $form->value
+            $form->value,
         );
 
         my $old_email = $editor->email || '';
@@ -414,7 +414,7 @@ sub edit : Local RequireAuth DenyWhenReadonly SecureForm {
 
         $c->model('EditorLanguage')->set_languages(
             $c->user->id,
-            $form->field('languages')->value
+            $form->field('languages')->value,
         );
 
         my $flash = l('Your profile has been updated.');
@@ -473,8 +473,8 @@ sub change_password : Path('/account/change-password') RequireSSL DenyWhenReadon
         init_object => {
             username => $c->user_exists
                 ? $c->user->name
-                : ($c->req->query_parameters->{username} // '')
-        }
+                : ($c->req->query_parameters->{username} // ''),
+        },
     );
 
     $c->stash(
@@ -577,7 +577,7 @@ sub preferences : Path('/account/preferences') RequireAuth DenyWhenReadonly Secu
                     grouped => JSON::false,
                     options => [ map { {
                         value => $_,
-                        label => $_
+                        label => $_,
                       } } uniq values @{ $form->options_timezone } ],
                 },
             },
@@ -619,7 +619,7 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
 
             $valid = $captcha->check_answer_v2(
                 DBDefs->RECAPTCHA_PRIVATE_KEY,
-                $response, $c->req->address
+                $response, $c->req->address,
                 )->{is_valid}
             unless $response eq '';
         }
@@ -650,7 +650,7 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
                     component_path => 'account/sso/DiscourseRegistered',
                     component_props => {
                         emailAddress => $email,
-                    }
+                    },
                 );
                 $c->detach;
             }
@@ -677,7 +677,7 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
             captcha => $captcha_html,
             form => $form->TO_JSON,
             invalidCaptchaResponse => boolean_to_json(
-                $c->stash->{invalid_captcha_response} // 0
+                $c->stash->{invalid_captcha_response} // 0,
             ),
         },
     );
@@ -725,14 +725,14 @@ sub _send_confirmation_email
             $c->model('Email')->send_email_in_use(
                 email             => $email,
                 ip                => $c->req->address,
-                editor            => $editor
+                editor            => $editor,
             );
         } else {
             $c->model('Email')->send_email_verification(
                 email             => $email,
                 verification_link => $verification_link,
                 ip                => $c->req->address,
-                editor            => $editor
+                editor            => $editor,
             );
         }
     }
@@ -743,8 +743,8 @@ sub _send_confirmation_email
             '{mail|support@musicbrainz.org}.',
             {
                 settings => $c->uri_for_action('/account/edit'),
-                mail => 'mailto:support@musicbrainz.org'
-            }
+                mail => 'mailto:support@musicbrainz.org',
+            },
         );
     };
 }
@@ -778,7 +778,7 @@ sub donation : Local RequireAuth HiddenOnMirrors
             days => sprintf('%.0f', $result->{days}),
             nag => boolean_to_json($nag),
             user => $c->controller('User')->serialize_user($c->user),
-        }
+        },
     );
 }
 
@@ -822,7 +822,7 @@ sub revoke_application_access : Path('/account/applications/revoke-access') Args
     );
     $c->detach(
         '/error_404',
-        [ l('There is no OAuth token with these parameters.') ]
+        [ l('There is no OAuth token with these parameters.') ],
     ) unless $token_exists;
 
     my $application = $c->model('Application')->get_by_id($application_id);

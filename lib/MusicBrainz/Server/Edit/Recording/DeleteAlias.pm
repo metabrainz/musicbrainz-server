@@ -29,7 +29,7 @@ has 'recording_id' => (
     isa => 'Int',
     is => 'rw',
     lazy => 1,
-    default => sub { shift->data->{entity}{id} }
+    default => sub { shift->data->{entity}{id} },
 );
 
 sub foreign_keys {
@@ -46,7 +46,7 @@ around 'build_display_data' => sub {
     my $data = $self->$orig($loaded);
     $data->{recording} = to_json_object(
         $loaded->{Recording}{ $self->recording_id } ||
-        Recording->new(name => $self->data->{entity}{name})
+        Recording->new(name => $self->data->{entity}{name}),
     );
 
     return $data;

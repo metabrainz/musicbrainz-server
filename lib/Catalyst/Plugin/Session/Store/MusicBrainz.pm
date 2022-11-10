@@ -10,7 +10,7 @@ extends 'Catalyst::Plugin::Session::Store';
 has '_datastore' => (
     is => 'rw',
     does => 'MusicBrainz::DataStore',
-    default => sub { return MusicBrainz::DataStore::RedisMulti->new; }
+    default => sub { return MusicBrainz::DataStore::RedisMulti->new; },
 );
 
 sub get_session_data {

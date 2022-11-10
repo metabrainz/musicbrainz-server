@@ -57,7 +57,7 @@ sub _column_mapping
         begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
         end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
         type_id => 'type',
-        map {$_ => $_} qw( id gid name comment edits_pending last_updated ended iso_3166_1 iso_3166_2 iso_3166_3 )
+        map {$_ => $_} qw( id gid name comment edits_pending last_updated ended iso_3166_1 iso_3166_2 iso_3166_3 ),
     };
 }
 
@@ -88,7 +88,7 @@ sub load_containment {
     } @results;
 
     my $parent_areas = $self->get_by_ids(
-        map { $_->{parent} } @results
+        map { $_->{parent} } @results,
     );
 
     for my $area (@areas) {
@@ -108,7 +108,7 @@ sub _set_codes
     $self->sql->do(
         "INSERT INTO $type (area, code) VALUES " .
             join(', ', ('(?, ?)') x @$codes),
-        map { $area, $_ } @$codes
+        map { $area, $_ } @$codes,
    ) if @$codes;
 }
 
@@ -219,7 +219,7 @@ sub _merge_impl
          WHERE area = any(?) AND NOT EXISTS (
            SELECT TRUE FROM country_area WHERE area = ?
          )',
-         $new_id, \@old_ids, $new_id
+         $new_id, \@old_ids, $new_id,
     );
 
     for my $update (
@@ -229,18 +229,18 @@ sub _merge_impl
         [ label => 'area' ],
         [ place => 'area' ],
         [ editor => 'area' ],
-        [ release_country => 'country' ]
+        [ release_country => 'country' ],
     ) {
         my ($table, $column) = @$update;
         $self->sql->do(
             "UPDATE $table SET $column = ? WHERE $column = any(?)",
-            $new_id, \@old_ids
+            $new_id, \@old_ids,
         );
     }
 
     $self->sql->do(
         'DELETE FROM country_area WHERE area = any(?)',
-        \@old_ids
+        \@old_ids,
     );
 
     merge_table_attributes(
@@ -248,16 +248,16 @@ sub _merge_impl
             table => 'area',
             columns => [ qw( type ) ],
             old_ids => \@old_ids,
-            new_id => $new_id
-        )
+            new_id => $new_id,
+        ),
     );
 
     merge_date_period(
         $self->sql => (
             table => 'area',
             old_ids => \@old_ids,
-            new_id => $new_id
-        )
+            new_id => $new_id,
+        ),
     );
 
     $self->_delete_and_redirect_gids('area', $new_id, @old_ids);
@@ -283,7 +283,7 @@ sub _hash_to_row
 
     my $row = hash_to_row($area, {
         type => 'type_id',
-        map { $_ => $_ } qw( comment ended name )
+        map { $_ => $_ } qw( comment ended name ),
     });
 
     add_partial_date_to_row($row, $area->{begin_date}, 'begin_date');
@@ -358,7 +358,7 @@ sub _order_by {
         },
         'type' => sub {
             return 'type, name COLLATE musicbrainz'
-        }
+        },
     });
 
     return $order_by

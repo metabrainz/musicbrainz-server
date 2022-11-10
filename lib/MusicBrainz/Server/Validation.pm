@@ -455,7 +455,7 @@ sub validate_coordinates {
         my ($lat, $long) = swap($2, $4, degree($1, $2), degree($3, $4));
         return {
             latitude => $lat,
-            longitude => $long
+            longitude => $long,
         };
     }
 
@@ -467,7 +467,7 @@ sub validate_coordinates {
 
         return {
             latitude  => $lat,
-            longitude => $long
+            longitude => $long,
         };
     }
 

@@ -34,7 +34,7 @@ sub upgrade
 
     $self->data({
         alias => $self->previous_value,
-        alias_id => $self->row_id
+        alias_id => $self->row_id,
     });
 
     return $self;

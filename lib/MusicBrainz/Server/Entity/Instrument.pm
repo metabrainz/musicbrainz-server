@@ -25,7 +25,7 @@ sub l_name {
 
 has 'description' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 sub l_description {

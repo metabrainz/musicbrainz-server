@@ -25,7 +25,7 @@ sub entity_type { 'event' }
 
 has 'setlist' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'cancelled' => (
@@ -52,14 +52,14 @@ has 'performers' => (
         Dict[
             credit => Str,
             roles => ArrayRef[Str],
-            entity => Object
-        ]
+            entity => Object,
+        ],
     ],
     default => sub { [] },
     handles => {
         add_performer => 'push',
         all_performers => 'elements',
-    }
+    },
 );
 
 has 'places' => (
@@ -68,14 +68,14 @@ has 'places' => (
     isa => ArrayRef[
         Dict[
             credit => Str,
-            entity => Object
-        ]
+            entity => Object,
+        ],
     ],
     default => sub { [] },
     handles => {
         add_place => 'push',
         all_places => 'elements',
-    }
+    },
 );
 
 has 'areas' => (
@@ -84,14 +84,14 @@ has 'areas' => (
     isa => ArrayRef[
         Dict[
             credit => Str,
-            entity => Object
-        ]
+            entity => Object,
+        ],
     ],
     default => sub { [] },
     handles => {
         add_area => 'push',
         all_areas => 'elements',
-    }
+    },
 );
 
 sub related_series {

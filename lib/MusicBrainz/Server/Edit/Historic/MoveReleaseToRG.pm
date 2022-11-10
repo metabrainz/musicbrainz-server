@@ -27,17 +27,17 @@ has '+data' => (
     isa => Dict[
         release => Dict[
             id => Int,
-            name => Str
+            name => Str,
         ],
         old_release_group => Dict[
             id => Int,
-            name => Str
+            name => Str,
         ],
         new_release_group => Dict[
             id => Int,
-            name => Str
-        ]
-    ]
+            name => Str,
+        ],
+    ],
 );
 
 sub _build_related_entities
@@ -53,7 +53,7 @@ sub _build_related_entities
     return {
         artist => [
             uniq map { $_->artist_id } map { @{ $_->artist_credit->names } }
-                @releases, @groups
+                @releases, @groups,
         ],
         release =>       [ uniq map { $_->id } @releases ],
         release_group => [ uniq map { $_->id } @groups ],
@@ -81,7 +81,7 @@ sub build_display_data
             Release->new(
                 id => $self->data->{release}{id},
                 name => $self->data->{release}{name},
-            )
+            ),
         ),
         release_group => {
             old => to_json_object(
@@ -89,16 +89,16 @@ sub build_display_data
                 ReleaseGroup->new(
                     id => $self->data->{old_release_group}{id},
                     name => $self->data->{old_release_group}{name},
-                )
+                ),
             ),
             new => to_json_object(
                 $loaded->{ReleaseGroup}{ $self->data->{new_release_group}{id} } ||
                 ReleaseGroup->new(
                     id => $self->data->{new_release_group}{id},
                     name => $self->data->{new_release_group}{name},
-                )
+                ),
             ),
-        }
+        },
     };
 }
 

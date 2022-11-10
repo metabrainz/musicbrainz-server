@@ -24,7 +24,7 @@ test 'Updated email address is escaped in flash message' => sub {
     html_ok($mech->content);
     $mech->content_contains(
         'We have sent you a verification email to ' .
-        '<code>&quot;&amp;&amp;&amp;&quot;@example.com</code>.'
+        '<code>&quot;&amp;&amp;&amp;&quot;@example.com</code>.',
     );
 };
 

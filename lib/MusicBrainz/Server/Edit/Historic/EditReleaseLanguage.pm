@@ -21,7 +21,7 @@ sub _build_related_entities
 {
     my $self = shift;
     return {
-        release => [ map { @{ $_->{release_ids} } } @{ $self->data->{old} } ]
+        release => [ map { @{ $_->{release_ids} } } @{ $self->data->{old} } ],
     }
 }
 
@@ -35,13 +35,13 @@ sub foreign_keys
         Language => [
             grep { is_positive_integer($_) }
             $self->data->{language_id},
-            map { $_->{language_id} } @{ $self->data->{old} }
+            map { $_->{language_id} } @{ $self->data->{old} },
         ],
         Script => [
             grep { is_positive_integer($_) }
             $self->data->{script_id},
-            map { $_->{script_id} } @{ $self->data->{old} }
-        ]
+            map { $_->{script_id} } @{ $self->data->{old} },
+        ],
     }
 }
 
@@ -62,12 +62,12 @@ sub build_display_data
                                 Release->new(
                                     id => $_,
                                     name => $release_name,
-                                )
+                                ),
                             )
-                        } @{ $_->{release_ids} }
-                    ]
+                        } @{ $_->{release_ids} },
+                    ],
                 }
-            } @{ $self->data->{old} }
+            } @{ $self->data->{old} },
         ],
         language => to_json_object($loaded->{Language}{ $self->data->{language_id} }),
         script   => to_json_object($loaded->{Script}{ $self->data->{script_id} }),
@@ -89,7 +89,7 @@ sub upgrade
             release_ids  => $self->album_release_ids($album_id),
             language_id  => $language_id,
             script_id    => $script_id,
-            release_name => $self->new_value->{"AlbumName$i"}
+            release_name => $self->new_value->{"AlbumName$i"},
         }
     }
 
@@ -97,7 +97,7 @@ sub upgrade
     $self->data({
         language_id => $language_id,
         script_id   => $script_id,
-        old => \@old
+        old => \@old,
     });
 
     return $self;

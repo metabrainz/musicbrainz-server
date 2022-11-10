@@ -27,23 +27,23 @@ has '+data' => (
     isa => Dict[
         medium_cdtoc => Dict[
             id => Int,
-            toc => Str
+            toc => Str,
         ],
         old_medium => Dict[
             id => Int,
             release => Dict[
                 name => Str,
-                id => Int
-            ]
+                id => Int,
+            ],
         ],
         new_medium => Dict[
             id => Int,
             release => Dict[
                 name => Str,
-                id => Int
-            ]
+                id => Int,
+            ],
         ],
-    ]
+    ],
 );
 
 sub release_ids
@@ -51,7 +51,7 @@ sub release_ids
     my $self = shift;
     return (
         $self->data->{old_medium}{release}{id},
-        $self->data->{new_medium}{release}{id}
+        $self->data->{new_medium}{release}{id},
     );
 }
 
@@ -60,7 +60,7 @@ sub alter_edit_pending
     my ($self) = @_;
     return {
         Release => [ $self->release_ids ],
-        MediumCDTOC => [ $self->data->{medium_cdtoc}{id} ]
+        MediumCDTOC => [ $self->data->{medium_cdtoc}{id} ],
     };
 }
 
@@ -77,10 +77,10 @@ sub _build_related_entities
     return {
         artist => [
             map { $_->artist_id } map { $_->artist_credit->all_names }
-                @releases, @release_groups
+                @releases, @release_groups,
         ],
         release_group => [ map { $_->id } @release_groups ],
-        release => [ $self->release_ids ]
+        release => [ $self->release_ids ],
     }
 }
 
@@ -102,8 +102,8 @@ sub build_display_data
         medium_cdtoc => to_json_object(
             $loaded->{MediumCDTOC}{ $self->data->{medium_cdtoc}{id} } ||
             MediumCDTOC->new(
-                cdtoc => CDTOC->new_from_toc($self->data->{medium_cdtoc}{toc})
-            )
+                cdtoc => CDTOC->new_from_toc($self->data->{medium_cdtoc}{toc}),
+            ),
         ),
         map {
             $_ => to_json_object(
@@ -115,7 +115,7 @@ sub build_display_data
                             id => $self->data->{$_}{release}{id},
                             name => $self->data->{$_}{release}{name},
                         ),
-                )
+                ),
             )
         } qw( new_medium old_medium ),
     }
@@ -137,22 +137,22 @@ sub initialize
     $self->data({
         medium_cdtoc => {
             id => $medium_cdtoc->id,
-            toc => $medium_cdtoc->cdtoc->toc
+            toc => $medium_cdtoc->cdtoc->toc,
         },
         old_medium => {
             id => $medium_cdtoc->medium->id,
             release => {
                 id => $medium_cdtoc->medium->release->id,
                 name => $medium_cdtoc->medium->release->name,
-            }
+            },
         },
         new_medium => {
             id => $new->id,
             release => {
                 id => $new->release->id,
-                name => $new->release->name
-            }
-        }
+                name => $new->release->name,
+            },
+        },
     });
 }
 
@@ -161,7 +161,7 @@ sub accept
     my $self = shift;
     my $medium = $self->c->model('Medium')->get_by_id($self->data->{new_medium}{id})
         or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'The target medium no longer exists'
+            'The target medium no longer exists',
         );
 
     my $medium_cdtoc = $self->c->model('MediumCDTOC')->get_by_id($self->data->{medium_cdtoc}{id});
@@ -169,23 +169,23 @@ sub accept
 
     if (!$medium_cdtoc || !$medium_cdtoc->cdtoc) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'This disc ID no longer exists'
+            'This disc ID no longer exists',
         )
     }
 
     if ($self->data->{old_medium}{id} != $self->data->{new_medium}{id} &&
         $self->c->model('MediumCDTOC')->medium_has_cdtoc(
             $medium->id,
-            $medium_cdtoc->cdtoc
+            $medium_cdtoc->cdtoc,
     )) {
         $self->c->model('MediumCDTOC')->delete(
-            $self->data->{medium_cdtoc}{id}
+            $self->data->{medium_cdtoc}{id},
         );
     }
     else {
         $self->c->model('MediumCDTOC')->update(
             $self->data->{medium_cdtoc}{id},
-            { medium_id => $medium->id  }
+            { medium_id => $medium->id  },
         )
     }
 }

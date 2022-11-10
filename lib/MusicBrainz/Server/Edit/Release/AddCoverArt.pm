@@ -30,14 +30,14 @@ has '+data' => (
         entity => Dict[
             id   => Int,
             name => Str,
-            mbid => Str
+            mbid => Str,
         ],
         cover_art_types => ArrayRef[Int],
         cover_art_position => Int,
         cover_art_id   => Int,
         cover_art_comment => Str,
         cover_art_mime_type => Str,
-    ]
+    ],
 );
 
 sub initialize {
@@ -48,7 +48,7 @@ sub initialize {
         entity => {
             id => $release->id,
             name => $release->name,
-            mbid => $release->gid
+            mbid => $release->gid,
         },
         cover_art_types => $opts{cover_art_types},
         cover_art_position => $opts{cover_art_position},
@@ -63,7 +63,7 @@ sub accept {
 
     $self->c->model('Release')->get_by_gid($self->data->{entity}{mbid})
         or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'This release no longer exists'
+            'This release no longer exists',
         );
 }
 
@@ -80,7 +80,7 @@ sub post_insert {
         $self->data->{cover_art_position},
         $self->data->{cover_art_types},
         $self->data->{cover_art_comment},
-        $self->data->{cover_art_mime_type}
+        $self->data->{cover_art_mime_type},
     );
 }
 
@@ -95,9 +95,9 @@ sub foreign_keys {
     my ($self) = @_;
     return {
         Release => {
-            $self->data->{entity}{id} => [ 'ArtistCredit' ]
+            $self->data->{entity}{id} => [ 'ArtistCredit' ],
         },
-        CoverArtType => $self->data->{cover_art_types}
+        CoverArtType => $self->data->{cover_art_types},
     };
 }
 

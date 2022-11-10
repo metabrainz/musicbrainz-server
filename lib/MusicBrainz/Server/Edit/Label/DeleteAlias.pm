@@ -36,12 +36,12 @@ has 'label_id' => (
     isa => 'Int',
     is => 'rw',
     lazy => 1,
-    default => sub { shift->data->{entity}{id} }
+    default => sub { shift->data->{entity}{id} },
 );
 
 has 'label' => (
     isa => 'Label',
-    is => 'rw'
+    is => 'rw',
 );
 
 sub foreign_keys
@@ -60,7 +60,7 @@ around 'build_display_data' => sub
     my $data = $self->$orig($loaded);
     $data->{label} = to_json_object(
         $loaded->{Label}{ $self->label_id } ||
-        Label->new(name => $self->data->{entity}{name})
+        Label->new(name => $self->data->{entity}{name}),
     );
 
     return $data;

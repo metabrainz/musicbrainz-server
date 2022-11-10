@@ -183,8 +183,8 @@ test 'Loading work attributes for works with free text attributes' => sub {
         1,
         {
             attribute_type_id => 6,
-            attribute_text => 'Value'
-        }
+            attribute_text => 'Value',
+        },
     );
 
     my $work = $test->c->model('Work')->get_by_id(1);
@@ -206,7 +206,7 @@ test 'Loading work attributes for works with finite values' => sub {
         {
             attribute_type_id => 1,
             attribute_value_id => 33,
-        }
+        },
     );
 
     my $work = $test->c->model('Work')->get_by_id(1);
@@ -231,8 +231,8 @@ test 'Multiple attributes for a work' => sub {
         },
         {
             attribute_type_id => 6,
-            attribute_text => 'Anything you want'
-        }
+            attribute_text => 'Anything you want',
+        },
     );
 
     my $work = $test->c->model('Work')->get_by_id(1);
@@ -268,7 +268,7 @@ test 'Merge attributes for works' => sub {
     $work_data->set_attributes(
         $a->{id},
         { attribute_type_id => 1, attribute_value_id => 13 },
-        { attribute_type_id => 6, attribute_text => 'Free Text' }
+        { attribute_type_id => 6, attribute_text => 'Free Text' },
     );
 
     $work_data->set_attributes(
@@ -276,7 +276,7 @@ test 'Merge attributes for works' => sub {
         { attribute_type_id => 1, attribute_value_id => 13 },
         { attribute_type_id => 1, attribute_value_id => 28 },
         { attribute_type_id => 4, attribute_value_id => 35 },
-        { attribute_type_id => 6, attribute_text => 'Free Text' }
+        { attribute_type_id => 6, attribute_text => 'Free Text' },
     );
 
     $work_data->merge($a->{id}, $b->{id});
@@ -289,21 +289,21 @@ test 'Merge attributes for works' => sub {
         set(
             methods(
                 type => methods(id => 1),
-                value_id => 13
+                value_id => 13,
             ),
             methods(
                 type => methods(id => 1),
-                value_id => 28
+                value_id => 28,
             ),
             methods(
                 type => methods(id => 6),
-                value => 'Free Text'
+                value => 'Free Text',
             ),
             methods(
                 type => methods(id => 4),
-                value_id => 35
-            )
-        )
+                value_id => 35,
+            ),
+        ),
     )
 };
 

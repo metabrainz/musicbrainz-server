@@ -23,7 +23,7 @@ has [qw( candidate_id proposer_id seconder_1_id seconder_2_id)] => (
 
 has 'status' => (
     isa => AutoEditorElectionStatus,
-    is  => 'rw'
+    is  => 'rw',
 );
 
 has 'yes_votes' => (
@@ -31,7 +31,7 @@ has 'yes_votes' => (
     isa       => 'Int',
     is        => 'rw',
     handles   => {
-        _inc_yes => 'inc'
+        _inc_yes => 'inc',
     },
     default   => 0,
 );
@@ -41,7 +41,7 @@ has 'no_votes' => (
     isa       => 'Int',
     is        => 'rw',
     handles   => {
-        _inc_no => 'inc'
+        _inc_no => 'inc',
     },
     default   => 0,
 );
@@ -49,7 +49,7 @@ has 'no_votes' => (
 has [qw( propose_time open_time close_time )] => (
     isa => DateTime,
     is  => 'rw',
-    coerce => 1
+    coerce => 1,
 );
 
 has 'votes' => (
@@ -61,8 +61,8 @@ has 'votes' => (
     handles => {
         all_votes => 'elements',
         add_vote => 'push',
-        clear_votes => 'clear'
-    }
+        clear_votes => 'clear',
+    },
 );
 
 sub is_open

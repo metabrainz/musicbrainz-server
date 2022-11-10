@@ -8,7 +8,7 @@ requires 'target_id', 'type';
 
 has 'last_edit_sent' => (
     isa => 'Int',
-    is => 'ro'
+    is => 'ro',
 );
 
 1;

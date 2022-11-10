@@ -14,7 +14,7 @@ use utf8 ();
 has 'debug' => (
     isa => 'Bool',
     is => 'rw',
-    default => sub { exists $ENV{SQL_DEBUG} && $ENV{SQL_DEBUG} }
+    default => sub { exists $ENV{SQL_DEBUG} && $ENV{SQL_DEBUG} },
 );
 
 has 'conn' => (
@@ -33,7 +33,7 @@ has 'quiet' => (
 has '_auto_commit' => (
     isa => 'Bool',
     is => 'rw',
-    default => 0
+    default => 0,
 );
 
 has 'sth' => (
@@ -44,7 +44,7 @@ has 'sth' => (
         next_row_ref => 'fetch',
         next_row_hash_ref => 'fetchrow_hashref',
     },
-    clearer => 'clear_sth'
+    clearer => 'clear_sth',
 );
 
 sub finish
@@ -236,8 +236,8 @@ has 'transaction_depth' => (
     traits => [ 'Counter' ],
     handles => {
         inc_transaction_depth => 'inc',
-        dec_transaction_depth => 'dec'
-    }
+        dec_transaction_depth => 'dec',
+    },
 );
 
 sub begin
@@ -577,11 +577,11 @@ use Time::HiRes qw( gettimeofday tv_interval );
 
 has 'sql' => (
     isa => 'Str',
-    is => 'rw'
+    is => 'rw',
 );
 
 has 'args' => (
-    is => 'ro'
+    is => 'ro',
 );
 
 has 'file' => (
@@ -591,12 +591,12 @@ has 'file' => (
 
 has 'line_number' => (
     isa => 'Num',
-    is => 'ro'
+    is => 'ro',
 );
 
 has 't0' => (
     isa => 'ArrayRef',
-    is => 'ro'
+    is => 'ro',
 );
 
 sub BUILDARGS

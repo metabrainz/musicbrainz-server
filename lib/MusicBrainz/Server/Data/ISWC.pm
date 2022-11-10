@@ -224,7 +224,7 @@ sub filter_additions
                 map {
                     $i++, $_->{iswc}, $_->{work}{id}
                 } @additions
-            }
+            },
         )
     };
     return map { $additions[$_] } @filtered;

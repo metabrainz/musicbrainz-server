@@ -32,8 +32,8 @@ has '+data' => (
         tracklist => Optional[ArrayRef[track()]],
         name => Str,
         position => Int,
-        release_id => Int
-    ]
+        release_id => Int,
+    ],
 );
 
 sub alter_edit_pending
@@ -41,7 +41,7 @@ sub alter_edit_pending
     my $self = shift;
     return {
         'Medium' => [ $self->medium_id ],
-        'Release' => [ $self->data->{release_id} ]
+        'Release' => [ $self->data->{release_id} ],
     }
 }
 

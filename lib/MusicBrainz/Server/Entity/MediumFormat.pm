@@ -19,12 +19,12 @@ sub l_name {
 
 has 'year' => (
     is => 'rw',
-    isa => 'Maybe[Int]'
+    isa => 'Maybe[Int]',
 );
 
 has 'has_discids' => (
     is => 'rw',
-    isa => 'Bool'
+    isa => 'Bool',
 );
 
 around TO_JSON => sub {

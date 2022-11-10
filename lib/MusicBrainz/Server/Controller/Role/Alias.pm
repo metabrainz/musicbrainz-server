@@ -12,27 +12,27 @@ my %model_to_edit_type = (
         take => sub {
             my (undef, $info) = @_;
             return ($info->{model} => $info->{aliases}{add_edit_type} )
-        }
+        },
     ) },
     delete => { entities_with('aliases',
         take => sub {
             my (undef, $info) = @_;
             return ($info->{model} => $info->{aliases}{delete_edit_type} )
-        }
+        },
     ) },
     edit => { entities_with('aliases',
         take => sub {
             my (undef, $info) = @_;
             return ($info->{model} => $info->{aliases}{edit_edit_type} )
-        }
-    ) }
+        },
+    ) },
 );
 
 my %model_to_search_hint_type_id = entities_with('aliases',
     take => sub {
         my (undef, $info) = @_;
         return ($info->{model} => $info->{aliases}{search_hint_type} )
-    }
+    },
 );
 
 sub aliases : Chained('load') PathPart('aliases')
@@ -92,22 +92,22 @@ sub add_alias : Chained('load') PathPart('add-alias') Edit
         form_args => {
             parent_id => $entity->id,
             alias_model => $alias_model,
-            search_hint_type_id => $model_to_search_hint_type_id{ $self->{model} }
+            search_hint_type_id => $model_to_search_hint_type_id{ $self->{model} },
         },
         type => $model_to_edit_type{add}->{ $self->{model} },
         edit_args => {
-            entity => $entity
+            entity => $entity,
         },
         item => {
             name => $entity->name,
-            id => $entity->id
+            id => $entity->id,
         },
         on_creation => sub { $self->_redir_to_aliases($c) },
         pre_validation => sub {
             my $form = shift;
             $props{aliasTypes} = $form->options_type_id;
             $props{locales} = $form->options_locale;
-        }
+        },
     );
 }
 
@@ -138,7 +138,7 @@ sub delete_alias : Chained('alias') PathPart('delete') Edit
             type => $model_to_edit_type{delete}->{ $self->{model} },
             edit_args => {
                 alias  => $alias,
-                entity => $c->stash->{ $self->{entity_name} }
+                entity => $c->stash->{ $self->{entity_name} },
             },
             on_creation => sub { $self->_redir_to_aliases($c) },
         );
@@ -157,7 +157,7 @@ sub edit_alias : Chained('alias') PathPart('edit') Edit
     my %props = (
         type => $entity_type,
         entity => $entity->TO_JSON,
-        formType => $form_type
+        formType => $form_type,
     );
 
     $c->stash(
@@ -172,20 +172,20 @@ sub edit_alias : Chained('alias') PathPart('edit') Edit
             parent_id => $entity->id,
             alias_model => $alias_model,
             id => $alias->id,
-            search_hint_type_id => $model_to_search_hint_type_id{ $self->{model} }
+            search_hint_type_id => $model_to_search_hint_type_id{ $self->{model} },
         },
         item => $alias,
         type => $model_to_edit_type{edit}->{ $self->{model} },
         edit_args => {
             alias  => $alias,
-            entity => $c->stash->{ $self->{entity_name} }
+            entity => $c->stash->{ $self->{entity_name} },
         },
         on_creation => sub { $self->_redir_to_aliases($c) },
         pre_validation => sub {
             my $form = shift;
             $props{aliasTypes} = $form->options_type_id;
             $props{locales} = $form->options_locale;
-        }
+        },
     );
 }
 

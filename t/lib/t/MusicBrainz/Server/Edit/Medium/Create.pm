@@ -36,12 +36,12 @@ my $tracklist = [
                     artist => Artist->new(
                         id => 2,
                         name => 'Artist',
-                    )
+                    ),
                 )]),
         recording_id => 1,
         position => 1,
-        is_data_track => 0
-    )
+        is_data_track => 0,
+    ),
 ];
 
 my $edit = $c->model('Edit')->create(
@@ -51,7 +51,7 @@ my $edit = $c->model('Edit')->create(
     position => 1,
     format_id => 1,
     release => $c->model('Release')->get_by_id(1),
-    tracklist => $tracklist
+    tracklist => $tracklist,
 );
 
 cmp_set($edit->related_entities->{artist}, [ 1, 2 ]);
@@ -95,8 +95,8 @@ $edit = $c->model('Edit')->create(
     release => $c->model('Release')->get_by_id(1),
     tracklist => [
         $tracklist->[0],
-        $tracklist->[0]->meta->clone_object($tracklist->[0], position => 2)
-    ]
+        $tracklist->[0]->meta->clone_object($tracklist->[0], position => 2),
+    ],
 );
 
 my $medium_id = $edit->medium_id;
@@ -116,11 +116,11 @@ my $tracks_creating_recordings = [
                     artist => Artist->new(
                         id => 2,
                         name => 'Artist',
-                    )
+                    ),
                 )]),
         position => 1,
-        is_data_track => 0
-    )
+        is_data_track => 0,
+    ),
 ];
 
 $edit = $c->model('Edit')->create(
@@ -130,7 +130,7 @@ $edit = $c->model('Edit')->create(
     position => 2,
     format_id => 1,
     release => $c->model('Release')->get_by_id(1),
-    tracklist => $tracks_creating_recordings
+    tracklist => $tracks_creating_recordings,
 );
 
 $c->model('Edit')->load_all($edit);

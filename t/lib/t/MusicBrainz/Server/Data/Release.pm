@@ -67,7 +67,7 @@ test 'filter_barcode_changes' => sub {
         cmp_bag(
             \@out,
             [ { release => '6b4faa80-72d9-11de-8a39-0800200c9a66', barcode => '796122009228' } ],
-            'no-ops are filtered out'
+            'no-ops are filtered out',
         );
     }
 
@@ -115,7 +115,7 @@ test 'filter_barcode_changes' => sub {
         my @out = $test->c->model('Release')->filter_barcode_changes(@in);
 
         cmp_bag(\@out, [
-            { release => '1b4faa80-72d9-11de-8a39-0800200c9a66', barcode => '600116802422' }
+            { release => '1b4faa80-72d9-11de-8a39-0800200c9a66', barcode => '600116802422' },
         ], 'inspects over gid redirects');
     }
 };
@@ -128,28 +128,28 @@ test 'can_merge for the merge strategy' => sub {
 
     ($can_merge) = $test->c->model('Release')->can_merge({
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
-        new_id => 6, old_ids => [ 7 ]
+        new_id => 6, old_ids => [ 7 ],
     });
     ok($can_merge, 'can merge 2 discs with equal track counts');
 
     ($can_merge) = $test->c->model('Release')->can_merge({
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
         new_id => 7,
-        old_ids => [ 6 ]
+        old_ids => [ 6 ],
     });
     ok($can_merge, 'can merge 2 discs with equal track counts in opposite direction');
 
     ($can_merge) = $test->c->model('Release')->can_merge({
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
         new_id => 6,
-        old_ids => [ 3 ]
+        old_ids => [ 3 ],
     });
     ok(!$can_merge, 'cannot merge releases with different track counts');
 
     ($can_merge) = $test->c->model('Release')->can_merge({
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
         new_id => 3,
-        old_ids => [ 6 ]
+        old_ids => [ 6 ],
     });
     ok(!$can_merge, 'cannot merge releases with different track counts in opposite direction');
 
@@ -159,28 +159,28 @@ test 'can_merge for the merge strategy' => sub {
         old_ids => [ 7 ],
         medium_positions => {
             2 => 1,
-            3 => 2
-        }
+            3 => 2,
+        },
     );
 
     ($can_merge) = $test->c->model('Release')->can_merge({
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
         new_id => 6,
-        old_ids => [ 8 ]
+        old_ids => [ 8 ],
     });
     ok($can_merge, 'can merge with differing medium counts as long as position/track count matches');
 
     ($can_merge) = $test->c->model('Release')->can_merge({
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
         new_id => 6,
-        old_ids => [ 3 ]
+        old_ids => [ 3 ],
     });
     ok(!$can_merge, 'cannot merge with differing medium counts when there is a track count mismatch');
 
     ($can_merge) = $test->c->model('Release')->can_merge({
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
         new_id => 8,
-        old_ids => [ 6]
+        old_ids => [ 6],
     });
     ok(!$can_merge, 'cannot merge when old mediums are not accounted for');
 
@@ -230,8 +230,8 @@ test 'can_merge for the append strategy' => sub {
         old_ids => [ 3 ],
         medium_positions => {
             1 => 1,
-            3 => 2
-        }
+            3 => 2,
+        },
     });
     ok($can_merge);
 
@@ -241,8 +241,8 @@ test 'can_merge for the append strategy' => sub {
         old_ids => [ 3 ],
         medium_positions => {
             1 => 1,
-            3 => 2
-        }
+            3 => 2,
+        },
     );
 
     ($can_merge) = $test->c->model('Release')->can_merge({
@@ -253,7 +253,7 @@ test 'can_merge for the append strategy' => sub {
             1 => 1,
             2 => 2,
             3 => 3,
-        }
+        },
     });
     ok($can_merge);
 };
@@ -269,8 +269,8 @@ test 'preserve cover_art_presence on merge' => sub {
         old_ids => [ 7 ],
         medium_positions => {
             2 => 1,
-            3 => 2
-        }
+            3 => 2,
+        },
     );
 
     my $present_result = $c->model('Release')->get_by_id(6);
@@ -280,7 +280,7 @@ test 'preserve cover_art_presence on merge' => sub {
     $c->model('Release')->merge(
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
         new_id => 8,
-        old_ids => [ 9 ]
+        old_ids => [ 9 ],
     );
 
     my $darkened_result = $c->model('Release')->get_by_id(8);
@@ -296,7 +296,7 @@ test 'preserve track MBIDs on merge' => sub {
     $c->model('Release')->merge(
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
         new_id => 8,
-        old_ids => [ 9 ]
+        old_ids => [ 9 ],
     );
 
     my $redirects = $c->sql->select_list_of_hashes('SELECT gid, new_id FROM track_gid_redirect');
@@ -394,8 +394,8 @@ $release = $release_data->insert({
         MusicBrainz::Server::Entity::ReleaseEvent->new(
             country_id => 221,
             date => MusicBrainz::Server::Entity::PartialDate->new( year => 2001, month => 2, day => 15 ),
-        )
-    ]
+        ),
+    ],
 });
 
 $release = $release_data->get_by_id($release->{id});
@@ -420,9 +420,9 @@ $release_data->update($release->id, {
     name => 'Blue Lines',
     events => [
         MusicBrainz::Server::Entity::ReleaseEvent->new(
-            date => MusicBrainz::Server::Entity::PartialDate->new( year => 2002 )
-        )
-    ]
+            date => MusicBrainz::Server::Entity::PartialDate->new( year => 2002 ),
+        ),
+    ],
 });
 
 $release = $release_data->get_by_id($release->id);
@@ -460,8 +460,8 @@ $release_data->merge(
     old_ids => [ 7 ],
     medium_positions => {
         3 => 1,
-        2 => 2
-    }
+        2 => 2,
+    },
 );
 
 $release = $release_data->get_by_id(6);
@@ -492,7 +492,7 @@ is($release->mediums->[0]->position, 1);
 # Make sure it merged the recordings
 is(
     $test->c->model('Recording')->get_by_gid('64cac850-f0cc-11df-98cf-0800200c9a66')->id,
-    $test->c->model('Recording')->get_by_gid('691ee030-f0cc-11df-98cf-0800200c9a66')->id
+    $test->c->model('Recording')->get_by_gid('691ee030-f0cc-11df-98cf-0800200c9a66')->id,
 );
 
 # Only #6 is now in the DB
@@ -537,12 +537,12 @@ $release_data->merge(
     old_ids => [ 7 ],
     medium_positions => {
         3 => 1,
-        2 => 2
+        2 => 2,
     },
     medium_names => {
         3 => 'Foo',
-        2 => 'Bar'
-    }
+        2 => 'Bar',
+    },
 );
 
 my $release = $release_data->get_by_id(6);
@@ -587,7 +587,7 @@ test 'find_by_artist orders by release date and country for non-VA, id only for 
     my ($releases, undef) = $c->model('Release')->find_by_artist(1, 10, 0);
     is_deeply(
         [map { $_->id } @$releases],
-        [1, 2, 6, 7, 8, 9, 100, 110]
+        [1, 2, 6, 7, 8, 9, 100, 110],
     );
 
     $c->sql->do(<<~'SQL');
@@ -597,7 +597,7 @@ test 'find_by_artist orders by release date and country for non-VA, id only for 
     ($releases, undef) = $c->model('Release')->find_by_artist(3, 10, 0);
     is_deeply(
         [map { $_->id } @$releases],
-        [8, 7, 1, 9, 110, 100, 2, 6, 10]
+        [8, 7, 1, 9, 110, 100, 2, 6, 10],
     );
 };
 
@@ -623,7 +623,7 @@ test 'find_by_label orders by release date, catalog_number, name, country, barco
     my ($releases, undef) = $c->model('Release')->find_by_label(1, 10, 0);
     is_deeply(
         [map { $_->id } @$releases],
-        [2, 7, 1]
+        [2, 7, 1],
     );
 };
 
@@ -636,7 +636,7 @@ test 'find_by_cdtoc' => sub {
     my ($releases, undef) = $c->model('Release')->find_for_cdtoc(1, 1);
     is_deeply(
       [map { $_->id } @$releases],
-      [8, 9, 6, 7, 110]
+      [8, 9, 6, 7, 110],
     );
 };
 
@@ -649,7 +649,7 @@ test 'load_with_medium_for_recording' => sub {
     my ($releases, undef) = $c->model('Release')->load_with_medium_for_recording(1);
     is_deeply(
       [map { $_->id } @$releases],
-      [3]
+      [3],
     );
 };
 
@@ -659,7 +659,7 @@ test 'find_by_disc_id' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+cdtoc');
     my @releases = $c->model('Release')->find_by_disc_id(
-        'tLGBAiCflG8ZI6lFcOt87vXjEcI-'
+        'tLGBAiCflG8ZI6lFcOt87vXjEcI-',
     );
 
     is(@releases, 2);
@@ -723,7 +723,7 @@ test 'merge release events' => sub {
     $c->model('Release')->merge(
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
         new_id => 8,
-        old_ids => [ 9 ]
+        old_ids => [ 9 ],
     );
 
     my $release = $c->model('Release')->get_by_id(8);
@@ -789,7 +789,7 @@ test 'Merging releases with the same date should discard unknown country events'
     $release_data->merge(
         old_ids => [ 9 ],
         new_id => 8,
-        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
     );
     my $release = $release_data->get_by_id(8);
     $release_data->load_release_events($release);

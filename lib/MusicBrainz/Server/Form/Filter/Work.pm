@@ -36,7 +36,7 @@ sub options_type_id {
     return [
         { value => '-1', label => lp('[none]', 'work type') },
         map +{ value => $_->id, label => $_->l_name },
-        @{ $self->types }
+        @{ $self->types },
     ];
 }
 

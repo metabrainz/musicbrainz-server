@@ -9,7 +9,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_URL_EDIT );
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'URL',
     entity_name     => 'url',
-    relationships   => { all => ['show', 'edit'] }
+    relationships   => { all => ['show', 'edit'] },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::EditListing';

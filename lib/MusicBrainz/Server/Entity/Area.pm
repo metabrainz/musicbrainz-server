@@ -41,7 +41,7 @@ has 'iso_3166_1' => (
     handles => {
         add_iso_3166_1 => 'push',
         iso_3166_1_codes => 'elements',
-    }
+    },
 );
 
 has 'iso_3166_2' => (
@@ -52,7 +52,7 @@ has 'iso_3166_2' => (
     handles => {
         add_iso_3166_2 => 'push',
         iso_3166_2_codes => 'elements',
-    }
+    },
 );
 
 has 'iso_3166_3' => (
@@ -63,7 +63,7 @@ has 'iso_3166_3' => (
     handles => {
         add_iso_3166_3 => 'push',
         iso_3166_3_codes => 'elements',
-    }
+    },
 );
 
 sub primary_code

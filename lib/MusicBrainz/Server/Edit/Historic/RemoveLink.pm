@@ -23,7 +23,7 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     return {
-        relationships => $self->_display_relationships($self->data, $loaded)
+        relationships => $self->_display_relationships($self->data, $loaded),
     }
 }
 
@@ -41,8 +41,8 @@ sub upgrade
                 $self->new_value->{entity1type},
                 $self->new_value->{entity1id},
                 $self->new_value->{entity1name},
-                $self->new_value->{linktypephrase}
-            )
+                $self->new_value->{linktypephrase},
+            ),
         ],
         link_type_id => $self->new_value->{linktypeid},
         link_id      => $self->new_value->{linkid},

@@ -11,7 +11,7 @@ has isni_codes => (
     handles => {
         add_isni => 'push',
         all_isni_codes => 'elements',
-    }
+    },
 );
 
 around TO_JSON => sub {

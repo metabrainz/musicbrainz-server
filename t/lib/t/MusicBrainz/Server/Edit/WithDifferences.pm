@@ -32,7 +32,7 @@ use Test::More;
     {
         return (
             foo => 'foo_id',
-            bar => sub { shift->code }
+            bar => sub { shift->code },
         )
     }
 };

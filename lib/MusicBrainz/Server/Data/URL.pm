@@ -267,7 +267,7 @@ sub _merge_impl
 
     my @old_gids = @{
         $self->c->sql->select_single_column_array(
-            'SELECT gid FROM url WHERE id = any(?)', \@old_ids
+            'SELECT gid FROM url WHERE id = any(?)', \@old_ids,
         )
     };
 

@@ -27,9 +27,9 @@ sub _build_related_entities
     my $self = shift;
     return {
         release_group => [
-            $self->_release_group_ids
+            $self->_release_group_ids,
         ],
-        release       => $self->data->{release_ids}
+        release       => $self->data->{release_ids},
     }
 }
 
@@ -50,18 +50,18 @@ sub build_display_data
         releases => [
             map {
                 to_json_object($loaded->{Release}{$_})
-            } @{ $self->data->{release_ids} }
+            } @{ $self->data->{release_ids} },
         ],
         release_group => {
             old => to_json_object(
                 $loaded->{ReleaseGroup}{ $self->data->{old}{release_group_id} } ||
-                ReleaseGroup->new( id => $self->data->{old}{release_group_id} )
+                ReleaseGroup->new( id => $self->data->{old}{release_group_id} ),
             ),
             new => to_json_object(
                 $loaded->{ReleaseGroup}{ $self->data->{new}{release_group_id} } ||
-                ReleaseGroup->new( id => $self->data->{new}{release_group_id} )
+                ReleaseGroup->new( id => $self->data->{new}{release_group_id} ),
             ),
-        }
+        },
     }
 }
 

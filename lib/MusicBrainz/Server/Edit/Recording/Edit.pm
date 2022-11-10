@@ -64,7 +64,7 @@ sub change_fields
         artist_credit => Optional[ArtistCreditDefinition],
         length        => Nullable[Int],
         comment       => Nullable[Str],
-        video         => Optional[Bool]
+        video         => Optional[Bool],
     ];
 }
 
@@ -73,11 +73,11 @@ has '+data' => (
         entity => Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ],
         old => change_fields(),
         new => change_fields(),
-    ]
+    ],
 );
 
 sub to_hash {
@@ -115,7 +115,7 @@ sub foreign_keys
         $relations->{Artist} = {
             map {
                 load_artist_credit_definitions($self->data->{$_}{artist_credit})
-            } qw( new old )
+            } qw( new old ),
         }
     }
 
@@ -153,7 +153,7 @@ sub build_display_data
 
     $data->{recording} = to_json_object(
         $loaded->{Recording}{ $self->data->{entity}{id} } ||
-        Recording->new( name => $self->data->{entity}{name} )
+        Recording->new( name => $self->data->{entity}{name} ),
     );
 
     return $data;

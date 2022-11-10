@@ -3,17 +3,17 @@ use Moose::Role;
 
 has 'review_count' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'most_recent_review' => (
     is => 'rw',
-    isa => 'Maybe[CritiqueBrainz::Review]'
+    isa => 'Maybe[CritiqueBrainz::Review]',
 );
 
 has 'most_popular_review' => (
     is => 'rw',
-    isa => 'Maybe[CritiqueBrainz::Review]'
+    isa => 'Maybe[CritiqueBrainz::Review]',
 );
 
 around TO_JSON => sub {

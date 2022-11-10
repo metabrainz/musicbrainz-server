@@ -45,7 +45,7 @@ test all => sub {
         from => $user1,
         to => $user2,
         subject => 'Hey',
-        message => 'Hello!'
+        message => 'Hello!',
         );
 
     is($email->transport->delivery_count, 1);
@@ -342,7 +342,7 @@ EOS
         from_editor => $user1,
         edit_id => 9000,
         note_text => 'This edit is totally wrong!',
-        own_edit => 1
+        own_edit => 1,
         );
 
     is($email->transport->delivery_count, 1);

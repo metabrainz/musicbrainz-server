@@ -197,7 +197,7 @@ test 'basic release with tags' => sub {
             disambiguation => '',
             packaging => JSON::null,
             'packaging-id' => JSON::null,
-            tags => [ { count => 1, name => 'hello project' } ]
+            tags => [ { count => 1, name => 'hello project' } ],
         };
 };
 
@@ -267,7 +267,7 @@ test 'basic release with collections' => sub {
                     type => 'Release',
                     'type-id' => 'd94659b2-4ce5-3a98-b4b8-da1131cf33ee',
                     'entity-type' => 'release',
-                    'release-count' => 1
+                    'release-count' => 1,
                 },
             ],
         };
@@ -283,7 +283,7 @@ test 'basic release with collections' => sub {
                     type => 'Release',
                     'type-id' => 'd94659b2-4ce5-3a98-b4b8-da1131cf33ee',
                     'entity-type' => 'release',
-                    'release-count' => 1
+                    'release-count' => 1,
                 },
                 {
                     id => '5e8dd65f-7d52-4d6e-93f6-f84651e137ca',
@@ -292,7 +292,7 @@ test 'basic release with collections' => sub {
                     type => 'Release',
                     'type-id' => 'd94659b2-4ce5-3a98-b4b8-da1131cf33ee',
                     'entity-type' => 'release',
-                    'release-count' => 1
+                    'release-count' => 1,
                 },
             ],
         }, { username => 'editor', password => 'mb' };
@@ -340,7 +340,7 @@ test 'release lookup with artists + aliases' => sub {
                             { 'sort-name' => 'えむふろう', name => 'えむふろう', locale => JSON::null, primary => JSON::null, type => JSON::null, 'type-id' => JSON::null, begin => JSON::null, end => JSON::null, ended => JSON::false },
                             { 'sort-name' => 'エムフロウ', name => 'エムフロウ', locale => JSON::null, primary => JSON::null, type => JSON::null, 'type-id' => JSON::null, begin => JSON::null, end => JSON::null, ended => JSON::false },
                             ],
-                    }
+                    },
                 }],
             date => '2004-03-17',
             country => 'JP',
@@ -466,7 +466,7 @@ test 'release lookup with labels and recordings' => sub {
                         'label-code' => JSON::null,
                         type => 'Original Production',
                         'type-id' => '7aaa37fe-2def-3476-b359-80245850062d',
-                    }
+                    },
                 }],
             media => [
                 {
@@ -490,7 +490,7 @@ test 'release lookup with labels and recordings' => sub {
                                 disambiguation => '',
                                 video => JSON::false,
                                 'first-release-date' => '2004-03-17',
-                            }
+                            },
                         },
                         {
                             id => '2519283c-93d9-30de-a0ba-75f99ca25604',
@@ -505,7 +505,7 @@ test 'release lookup with labels and recordings' => sub {
                                 disambiguation => '',
                                 video => JSON::false,
                                 'first-release-date' => '2004-03-17',
-                            }
+                            },
                         },
                         {
                             id => '4ffc18f0-96cc-3e1f-8192-cf0d0c489beb',
@@ -520,8 +520,8 @@ test 'release lookup with labels and recordings' => sub {
                                 disambiguation => '',
                                 video => JSON::false,
                                 'first-release-date' => '2004-03-17',
-                            }
-                        }]
+                            },
+                        }],
                 }],
         };
 };
@@ -577,7 +577,7 @@ test 'release lookup with release-groups' => sub {
                     'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
                    },
                    joinphrase => '',
-                }
+                },
             ],
             'release-group' => {
                 id => '153f0a09-fead-3370-9b17-379ebd09446b',
@@ -600,9 +600,9 @@ test 'release lookup with release-groups' => sub {
                           'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
                        },
                        joinphrase => '',
-                    }
+                    },
                 ],
-            }
+            },
         };
 };
 
@@ -657,7 +657,7 @@ test 'release lookup with release-group and ratings' => sub {
                 'secondary-types' => [],
                 'secondary-type-ids' => [],
                 rating => { 'votes-count' => 2, value => 5 },
-            }
+            },
         };
 
     ws2_test_json 'release lookup with release-groups and user ratings',
@@ -705,7 +705,7 @@ test 'release lookup with release-group and ratings' => sub {
                 'secondary-types' => [],
                 'secondary-type-ids' => [],
                 'user-rating' => { value => JSON::null },
-            }
+            },
         }, { username => 'the-anti-kuno', password => 'notreally' };
 
     ws2_test_json_unauthorized 'release lookup with release-groups and user ratings, bad credentials',
@@ -843,10 +843,10 @@ test 'release lookup with discids' => sub {
                             offsets => [
                                 150,
                                 22352,
-                                38335
+                                38335,
                             ],
-                            sectors => 60295
-                        }
+                            sectors => 60295,
+                        },
                     ],
                     'track-count' => 3,
                     'track-offset' => 0,
@@ -864,7 +864,7 @@ test 'release lookup with discids' => sub {
                                 disambiguation => '',
                                 video => JSON::false,
                                 'first-release-date' => '2001-07-04',
-                            }
+                            },
                         },
                         {
                             id => 'c7c21691-6f85-3ec7-9b08-e431c3b310a5',
@@ -879,7 +879,7 @@ test 'release lookup with discids' => sub {
                                 disambiguation => '',
                                 video => JSON::false,
                                 'first-release-date' => '2001-07-04',
-                            }
+                            },
                         },
                         {
                             id => 'e436c057-ca19-36c6-9f1e-dc4ada2604b0',
@@ -894,9 +894,9 @@ test 'release lookup with discids' => sub {
                                 disambiguation => '',
                                 video => JSON::false,
                                 'first-release-date' => '2001-07-04',
-                            }
-                        }]
-                }]
+                            },
+                        }],
+                }],
         };
 };
 
@@ -1000,7 +1000,7 @@ test 'release lookup, relation attributes' => sub {
             disambiguation => '',
             'text-representation' => {
                 language => 'jpn',
-                script => 'Jpan'
+                script => 'Jpan',
             },
             quality => 'normal',
             packaging => JSON::null,
@@ -1010,7 +1010,7 @@ test 'release lookup, relation attributes' => sub {
                 back => JSON::false,
                 front => JSON::false,
                 count => 0,
-                artwork => JSON::false
+                artwork => JSON::false,
             },
             date => '2004-01-15',
             asin => 'B0000YGBSG',
@@ -1024,7 +1024,7 @@ test 'release lookup, relation attributes' => sub {
                     'type' => JSON::null,
                     'type-id' => JSON::null,
                 },
-                date => '2004-01-15'
+                date => '2004-01-15',
             }],
             relations => [{
                 begin => JSON::null,
@@ -1056,7 +1056,7 @@ test 'release lookup, relation attributes' => sub {
                     disambiguation => '',
                     'text-representation' => {
                         language => 'jpn',
-                        script => 'Latn'
+                        script => 'Latn',
                     },
                     quality => 'normal',
                     packaging => JSON::null,
@@ -1072,14 +1072,14 @@ test 'release lookup, relation attributes' => sub {
                             'type' => JSON::null,
                             'type-id' => JSON::null,
                         },
-                        date => '2004-01-15'
+                        date => '2004-01-15',
                     }],
                     title => 'LOVE & HONESTY',
                     country => 'JP',
                     status => JSON::null,
                     'status-id' => JSON::null,
                     id => '757a1723-3769-4298-89cd-48d31177852a',
-                    barcode => JSON::null
+                    barcode => JSON::null,
                 },
                 direction => 'forward',
                 ended => JSON::false,
@@ -1096,7 +1096,7 @@ test 'release lookup, relation attributes' => sub {
             status => 'Official',
             'status-id' => '4e304316-386d-3409-af2e-78857eec5cfe',
             id => '28fc2337-985b-3da9-ac40-ad6f28ff0d8e',
-            barcode => '4988064173891'
+            barcode => '4988064173891',
         };
 };
 
@@ -1131,7 +1131,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                 ],
             },
             joinphrase => '',
-            name => 'Plone'
+            name => 'Plone',
         } ],
         asin => 'B00001IVAI',
         barcode => '5021603064126',
@@ -1141,7 +1141,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
             back => JSON::false,
             count => 0,
             darkened => JSON::false,
-            front => JSON::false
+            front => JSON::false,
         },
         date => '1999-09-13',
         disambiguation => '',
@@ -1186,14 +1186,14 @@ test 'release lookup, related artists have no tags/genres' => sub {
                                 'source-credit' => '',
                                 'target-credit' => '',
                                 'target-type' => 'artist',
-                            }
+                            },
                         ],
                         tags => [],
                         genres => [],
                         title => 'On My Bus',
                         'first-release-date' => '1999-09-13',
                     },
-                    title => 'On My Bus'
+                    title => 'On My Bus',
                 },
                 {
                     id => 'f38b8e31-a10d-3973-8c1f-10923ee61adc',
@@ -1232,7 +1232,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         title => 'Top & Low Rent',
                         'first-release-date' => '1999-09-13',
                     },
-                    title => 'Top & Low Rent'
+                    title => 'Top & Low Rent',
                 },
                 {
                     id => 'd17bed32-940a-3fcc-9210-a5d7c516b4bb',
@@ -1271,7 +1271,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         title => 'Plock',
                         'first-release-date' => '1999-09-13',
                     },
-                    title => 'Plock'
+                    title => 'Plock',
                 },
                 {
                     id => '001bc675-ba25-32bc-9914-d5d9e22c3c44',
@@ -1310,7 +1310,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         title => 'Marbles',
                         'first-release-date' => '1999-09-13',
                     },
-                    title => 'Marbles'
+                    title => 'Marbles',
                 },
                 {
                     id => 'c009176f-ff26-3f5f-bd16-46cede30ebe6',
@@ -1349,7 +1349,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         title => 'Busy Working',
                         'first-release-date' => '1999-09-13',
                     },
-                    title => 'Busy Working'
+                    title => 'Busy Working',
                 },
                 {
                     id => '70454e43-b39b-3ca7-8c50-ae235b5ef358',
@@ -1388,7 +1388,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         title => 'The Greek Alphabet',
                         'first-release-date' => '1999-09-13',
                     },
-                    title => 'The Greek Alphabet'
+                    title => 'The Greek Alphabet',
                 },
                 {
                     id => '1b5da50c-e20f-3762-839c-5a0eea89d6a5',
@@ -1427,7 +1427,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         title => 'Press a Key',
                         'first-release-date' => '1999-09-13',
                     },
-                    title => 'Press a Key'
+                    title => 'Press a Key',
                 },
                 {
                     id => 'f1b5bd23-ad01-3c0c-a49a-cf8e99088369',
@@ -1466,7 +1466,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         title => 'Bibi Plone',
                         'first-release-date' => '1999-09-13',
                     },
-                    title => 'Bibi Plone'
+                    title => 'Bibi Plone',
                 },
                 {
                     id => '928f2274-5694-35f9-92da-a1fc565867cf',
@@ -1505,7 +1505,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         title => 'Be Rude to Your School',
                         'first-release-date' => '1999-09-13',
                     },
-                    title => 'Be Rude to Your School'
+                    title => 'Be Rude to Your School',
                 },
                 {
                     id => '40727388-237d-34b2-8a3a-288878e5c883',
@@ -1544,9 +1544,9 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         title => 'Summer Plays Out',
                         'first-release-date' => '1999-09-13',
                     },
-                    title => 'Summer Plays Out'
-                }
-            ]
+                    title => 'Summer Plays Out',
+                },
+            ],
         } ],
         packaging => JSON::null,
         'packaging-id' => JSON::null,
@@ -1583,7 +1583,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                 'type' => JSON::null,
                 'type-id' => JSON::null,
             },
-            date => '1999-09-13'
+            date => '1999-09-13',
         } ],
         status => 'Official',
         'status-id' => '4e304316-386d-3409-af2e-78857eec5cfe',
@@ -1591,9 +1591,9 @@ test 'release lookup, related artists have no tags/genres' => sub {
         genres => [],
         'text-representation' => {
             language => 'eng',
-            script => 'Latn'
+            script => 'Latn',
         },
-        title => 'For Beginner Piano'
+        title => 'For Beginner Piano',
     };
 };
 
@@ -1610,7 +1610,7 @@ test 'release lookup, pregap track' => sub {
             'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
         },
         joinphrase => '',
-        name => 'Blind Melon'
+        name => 'Blind Melon',
     }]);
 
     ws2_test_json 'release lookup, pregap track',
@@ -1624,7 +1624,7 @@ test 'release lookup, pregap track' => sub {
             back => JSON::false,
             count => 0,
             darkened => JSON::false,
-            front => JSON::false
+            front => JSON::false,
         },
         disambiguation => '',
         id => 'ec0d0122-b559-4aa1-a017-7068814aae57',
@@ -1649,7 +1649,7 @@ test 'release lookup, pregap track' => sub {
                     length => 128000,
                     video => JSON::false,
                     %artist_credit,
-                }
+                },
             },
             tracks => [
                 {
@@ -1666,7 +1666,7 @@ test 'release lookup, pregap track' => sub {
                         length => 211133,
                         video => JSON::false,
                         %artist_credit,
-                    }
+                    },
                 },
                 {
                     id => 'e9f7ca98-ba9d-3276-97a4-26475c9f4527',
@@ -1682,9 +1682,9 @@ test 'release lookup, pregap track' => sub {
                         length => 240400,
                         video => JSON::false,
                         %artist_credit,
-                    }
-                }
-            ]
+                    },
+                },
+            ],
         } ],
         packaging => JSON::null,
         'packaging-id' => JSON::null,
@@ -1693,9 +1693,9 @@ test 'release lookup, pregap track' => sub {
         'status-id' => '4e304316-386d-3409-af2e-78857eec5cfe',
         'text-representation' => {
             language => 'eng',
-            script => 'Latn'
+            script => 'Latn',
         },
-        title => 'Soup'
+        title => 'Soup',
     };
 };
 
@@ -1729,7 +1729,7 @@ test 'MBS-7914' => sub {
                 'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
             },
             joinphrase => '',
-            name => 'Gustav Mahler'
+            name => 'Gustav Mahler',
         }],
         asin => JSON::null,
         barcode => JSON::null,
@@ -1738,7 +1738,7 @@ test 'MBS-7914' => sub {
             back => JSON::false,
             count => 0,
             darkened => JSON::false,
-            front => JSON::false
+            front => JSON::false,
         },
         disambiguation => '',
         id => 'a3ea3821-5955-4cee-b44f-4f7da8a332f7',
@@ -1771,7 +1771,7 @@ test 'MBS-7914' => sub {
                         'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
                     },
                     joinphrase => '',
-                    name => 'Gustav Mahler'
+                    name => 'Gustav Mahler',
                 }],
                 id => '8ac89142-1318-490a-bed2-5b0c89b251b2',
                 length => JSON::null,
@@ -1800,16 +1800,16 @@ test 'MBS-7914' => sub {
                             'type-id' => 'a0b36c92-3eb1-3839-a4f9-4799823f54a5',
                         },
                         joinphrase => '',
-                        name => 'Chicago Symphony Orchestra'
+                        name => 'Chicago Symphony Orchestra',
                     }],
                     disambiguation => '',
                     id => '36d398e2-85bf-40d5-8686-4f0b78c80ca8',
                     length => JSON::null,
                     title => 'Symphony no. 2 in C minor: I. Allegro maestoso',
-                    video => JSON::false
+                    video => JSON::false,
                 },
-                title => 'Symphony no. 2 in C minor: I. Allegro maestoso'
-            }]
+                title => 'Symphony no. 2 in C minor: I. Allegro maestoso',
+            }],
         }],
         packaging => JSON::null,
         'packaging-id' => JSON::null,
@@ -1817,7 +1817,7 @@ test 'MBS-7914' => sub {
         status => JSON::null,
         'status-id' => JSON::null,
         'text-representation' => { language => JSON::null, script => JSON::null },
-        title => 'Symphony no. 2'
+        title => 'Symphony no. 2',
     };
 };
 

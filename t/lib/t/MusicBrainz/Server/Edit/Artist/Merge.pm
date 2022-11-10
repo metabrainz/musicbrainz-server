@@ -308,7 +308,7 @@ sub create_edit {
         editor_id => 1,
         old_entities => [ { id => 3, name => 'Old Artist' } ],
         new_entity => { id => 4, name => 'New Artist' },
-        rename => $rename // 0
+        rename => $rename // 0,
     );
 }
 

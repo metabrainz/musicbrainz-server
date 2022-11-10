@@ -29,7 +29,7 @@ has 'release_id' => (
     isa => 'Int',
     is => 'rw',
     lazy => 1,
-    default => sub { shift->data->{entity}{id} }
+    default => sub { shift->data->{entity}{id} },
 );
 
 sub foreign_keys {
@@ -46,7 +46,7 @@ around 'build_display_data' => sub {
     my $data = $self->$orig($loaded);
     $data->{release} = to_json_object(
         $loaded->{Release}{ $self->release_id } ||
-        Release->new(name => $self->data->{entity}{name})
+        Release->new(name => $self->data->{entity}{name}),
     );
 
     return $data;

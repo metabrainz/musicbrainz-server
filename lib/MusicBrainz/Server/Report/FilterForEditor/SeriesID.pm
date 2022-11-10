@@ -10,7 +10,7 @@ sub filter_sql {
     return (
         'JOIN editor_subscribe_series ess ON ess.series = series_id
          WHERE ess.editor = ?',
-        $editor_id
+        $editor_id,
     );
 }
 

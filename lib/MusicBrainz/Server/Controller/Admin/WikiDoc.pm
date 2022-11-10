@@ -134,7 +134,7 @@ sub delete : Local Args(0) RequireAuth(wiki_transcluder) Edit SecureForm
     my $page = $c->req->params->{page};
     my $version = $c->model('WikiDocIndex')->get_page_version($page);
     my $form = $c->form(
-        form => 'SecureConfirm'
+        form => 'SecureConfirm',
     );
 
     if ($c->form_posted_and_valid($form)) {
@@ -173,7 +173,7 @@ sub history : Local Args(0) RequireAuth {
         $c->uri_for_action('/edit/search', {
             'conditions.0.field'    => 'type',
             'conditions.0.operator' => '=',
-            'conditions.0.args'     => $EDIT_WIKIDOC_CHANGE
+            'conditions.0.args'     => $EDIT_WIKIDOC_CHANGE,
         }));
 }
 

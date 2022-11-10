@@ -19,7 +19,7 @@ sub _build_related_entities
 {
     my $self = shift;
     return {
-        release => $self->data->{release_ids}
+        release => $self->data->{release_ids},
     }
 }
 
@@ -30,8 +30,8 @@ sub foreign_keys
     my $self = shift;
     return {
         Release => {
-            map { $_ => [ 'ArtistCredit' ] } $self->release_ids
-        }
+            map { $_ => [ 'ArtistCredit' ] } $self->release_ids,
+        },
     }
 }
 
@@ -43,11 +43,11 @@ sub build_display_data
         releases => [
             map {
                 to_json_object($loaded->{Release}{$_})
-            } $self->release_ids
+            } $self->release_ids,
         ],
         position    => $self->data->{position},
         name        => $self->data->{name},
-        artist_name => $self->data->{artist_name}
+        artist_name => $self->data->{artist_name},
     }
 }
 
@@ -75,7 +75,7 @@ sub deserialize_new_value
 
     my %deserialized = (
         name     => $name,
-        position => $position
+        position => $position,
     );
 
     $deserialized{artist_name} = $lines[3] if $lines[3];

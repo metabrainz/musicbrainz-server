@@ -23,7 +23,7 @@ has 'migration' => (
         artist_name
         label_id_from_alias
         resolve_annotation_id
-    )]
+    )],
 );
 
 has [qw( artist_id row_id )] => (
@@ -33,7 +33,7 @@ has [qw( artist_id row_id )] => (
 
 has [qw( table column )] => (
     isa => Str,
-    is  => 'ro'
+    is  => 'ro',
 );
 
 has [qw( new_value previous_value )] => (

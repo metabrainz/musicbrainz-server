@@ -19,10 +19,10 @@ around '_build_related_entities' => sub
     return {
         artist => [
             map { $_->artist_id } map { @{ $_->artist_credit->names } }
-                $release, $release_group
+                $release, $release_group,
         ],
         release_group => [ $release_group->id ],
-        release => [ $release->id ]
+        release => [ $release->id ],
     }
 };
 

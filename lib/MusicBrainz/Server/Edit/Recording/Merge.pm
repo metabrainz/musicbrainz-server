@@ -8,7 +8,7 @@ use MusicBrainz::Server::Edit::Utils qw( large_spread );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
-    -excludes => 'recording_ids'
+    -excludes => 'recording_ids',
 };
 with 'MusicBrainz::Server::Edit::Recording';
 
@@ -26,8 +26,8 @@ sub foreign_keys
             $self->data->{new_entity}{id} => [ 'ArtistCredit' ],
             map {
                 $_->{id} => [ 'ArtistCredit' ]
-            } @{ $self->data->{old_entities} }
-        }
+            } @{ $self->data->{old_entities} },
+        },
     }
 }
 
@@ -35,7 +35,7 @@ before build_display_data => sub {
     my ($self, $loaded) = @_;
 
     $self->c->model('ISRC')->load_for_recordings(
-        grep { $_ && !$_->all_isrcs } map { $loaded->{Recording}{$_} } $self->recording_ids
+        grep { $_ && !$_->all_isrcs } map { $loaded->{Recording}{$_} } $self->recording_ids,
     );
 };
 

@@ -26,7 +26,7 @@ test 'Adding a new series, including relationships' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'editor', password => 'pass' }
+        with_fields => { username => 'editor', password => 'pass' },
     );
 
     $mech->get_ok(
@@ -56,7 +56,7 @@ test 'Adding a new series, including relationships' => sub {
                 'edit-series.rel.1.attributes.0.type.gid' => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
                 'edit-series.rel.1.attributes.0.text_value' => 'Bar',
             },
-            'The form returned a 2xx response code'
+            'The form returned a 2xx response code',
         );
     } $c;
 
@@ -95,19 +95,19 @@ test 'Adding a new series, including relationships' => sub {
             entity0 => {
                 name => 'totally nonexistent series',
                 id => 4,
-                gid => ignore()
+                gid => ignore(),
             },
             entity1 => {
                 name => 'http://en.wikipedia.org/wiki/Totally_Nonexistent_Series',
                 id => 1,
-                gid => ignore()
+                gid => ignore(),
             },
             link_type => {
                 long_link_phrase => 'has a Wikipedia page at',
                 link_phrase => 'Wikipedia',
                 name => 'wikipedia',
                 id => 744,
-                reverse_link_phrase => 'Wikipedia page for'
+                reverse_link_phrase => 'Wikipedia page for',
             },
             ended => 0,
             edit_version => 2,
@@ -124,8 +124,8 @@ test 'Adding a new series, including relationships' => sub {
                 id => 788,
                 gid => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
                 name => 'number',
-            }
-        }
+            },
+        },
     };
 
     isa_ok($edits[2], 'MusicBrainz::Server::Edit::Relationship::Create');
@@ -138,19 +138,19 @@ test 'Adding a new series, including relationships' => sub {
             entity0 => {
                 name => 'totally nonexistent series',
                 id => 4,
-                gid => ignore()
+                gid => ignore(),
             },
             entity1 => {
                 name => 'Wōrk1',
                 id => 1,
-                gid => '7e0e3ea0-d674-11e3-9c1a-0800200c9a66'
+                gid => '7e0e3ea0-d674-11e3-9c1a-0800200c9a66',
             },
             link_type => {
                 long_link_phrase => 'has part',
                 link_phrase => 'has parts',
                 name => 'part of',
                 id => 743,
-                reverse_link_phrase => 'part of'
+                reverse_link_phrase => 'part of',
             },
             ended => 0,
             link_order => 1,
@@ -170,19 +170,19 @@ test 'Adding a new series, including relationships' => sub {
             entity0 => {
                 name => 'totally nonexistent series',
                 id => 4,
-                gid => ignore()
+                gid => ignore(),
             },
             entity1 => {
                 name => 'Wōrk2',
                 id => 2,
-                gid => 'f89a8de8-f0e3-453c-9516-5bc3edd2fd88'
+                gid => 'f89a8de8-f0e3-453c-9516-5bc3edd2fd88',
             },
             link_type => {
                 long_link_phrase => 'has part',
                 link_phrase => 'has parts',
                 name => 'part of',
                 id => 743,
-                reverse_link_phrase => 'part of'
+                reverse_link_phrase => 'part of',
             },
             ended => 0,
             link_order => 2,

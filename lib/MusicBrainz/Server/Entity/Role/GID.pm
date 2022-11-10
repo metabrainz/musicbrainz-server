@@ -4,7 +4,7 @@ use Moose::Role;
 
 has 'gid' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'gid_redirects' => (
@@ -16,7 +16,7 @@ has 'gid_redirects' => (
         add_gid_redirect => 'push',
         clear_gid_redirects => 'clear',
         all_gid_redirects => 'elements',
-    }
+    },
 );
 
 around TO_JSON => sub {

@@ -25,7 +25,7 @@ test 'Adding a new (non-ended) area' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'area_editor', password => 'pass' }
+        with_fields => { username => 'area_editor', password => 'pass' },
     );
 
     $mech->get_ok(

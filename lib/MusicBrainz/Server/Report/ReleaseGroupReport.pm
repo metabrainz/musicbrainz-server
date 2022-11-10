@@ -19,7 +19,7 @@ around inflate_rows => sub {
     my $items = $self->$orig(@_);
 
     my $releasegroups = $self->c->model('ReleaseGroup')->get_by_ids(
-        map { $_->{release_group_id} } @$items
+        map { $_->{release_group_id} } @$items,
     );
 
     $self->_load_extra_release_group_info(values %$releasegroups);
@@ -28,7 +28,7 @@ around inflate_rows => sub {
         map +{
             %$_,
             release_group => to_json_object($releasegroups->{ $_->{release_group_id} }),
-        }, @$items
+        }, @$items,
     ];
 };
 

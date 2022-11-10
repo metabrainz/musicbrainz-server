@@ -4,7 +4,7 @@ extends 'MusicBrainz::Server::Entity::Editor';
 
 has 'auth_realm' => (
     isa => 'Str',
-    is => 'rw'
+    is => 'rw',
 );
 
 sub supports

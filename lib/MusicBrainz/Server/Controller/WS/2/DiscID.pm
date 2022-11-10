@@ -17,7 +17,7 @@ my $ws_defs = Data::OptList::mkopt([
                                           tags user-tags genres user-genres
                                           aliases puids isrcs _relations cdstubs ) ],
                          optional => [ qw( fmt limit offset ) ],
-     }
+     },
 ]);
 
 with 'MusicBrainz::Server::WebService::Validator' =>
@@ -61,7 +61,7 @@ sub discid : Chained('root') PathPart('discid') {
 
             my ($releases, $hits) = $c->model('Release')->find_by_medium(
                 [map { $_->medium_id } @mediumcdtocs],
-                $limit, $offset
+                $limit, $offset,
             );
 
             $opts->{releases} = $self->make_list($releases, $hits, $offset);
@@ -115,7 +115,7 @@ sub discid : Chained('root') PathPart('discid') {
         $c->res->body($c->stash->{serializer}->serialize(
             'release_list',
             $release_list,
-            $inc, $stash
+            $inc, $stash,
         ));
 
         return;

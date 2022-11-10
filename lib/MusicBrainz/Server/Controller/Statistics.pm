@@ -179,7 +179,7 @@ sub countries : Local
                 'release_count' => $stats->statistic($release_stat),
                 'label_count' => $stats->statistic($label_stat),
                 'event_count' => $stats->statistic($event_stat),
-                'place_count' => $stats->statistic($place_stat)
+                'place_count' => $stats->statistic($place_stat),
             }));
         }
     }
@@ -249,7 +249,7 @@ sub languages_scripts : Path('languages-scripts')
     my $script_stats = [];
     my %language_column_stat = (
         releases => 'count.release.language',
-        works => 'count.work.language'
+        works => 'count.work.language',
     );
     my %languages = map { $_->iso_code_3 => $_ }
         grep { defined $_->iso_code_3 } $c->model('Language')->get_all();
@@ -270,7 +270,7 @@ sub languages_scripts : Path('languages-scripts')
         push @language_stats, {
             entity => to_json_object($languages{$iso_code}),
             %counts,
-            total => $total
+            total => $total,
         };
     }
 
@@ -375,7 +375,7 @@ sub _editor_data_point {
 
     return {
         editor_id => $editor_id,
-        count => $count
+        count => $count,
     }
 }
 
@@ -384,7 +384,7 @@ sub _editor_data_points {
     return [
         grep { defined }
             map { _editor_data_point($stats, $editor_id, $count, $_) }
-                (1..25)
+                (1..25),
     ];
 }
 
@@ -423,7 +423,7 @@ sub edits : Path('edits') {
             reverse sort {
                 ($stats->statistic('count.edit.type.' . $a->{edit_type}) // 0) <=>
                     ($stats->statistic('count.edit.type.' . $b->{edit_type}) // 0)
-                } @{ $by_category{$category} }
+                } @{ $by_category{$category} },
             ];
     }
 

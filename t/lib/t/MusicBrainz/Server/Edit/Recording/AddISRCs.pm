@@ -74,8 +74,8 @@ sub create_edit {
         editor_id => 1,
         privileges => $privs,
         isrcs => [
-            { recording => { id => 1, name => 'Recording' }, isrc => 'DEE250800232' }
-        ]
+            { recording => { id => 1, name => 'Recording' }, isrc => 'DEE250800232' },
+        ],
     );
 }
 

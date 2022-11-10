@@ -7,12 +7,12 @@ extends 'MusicBrainz::Server::Entity::IPI';
 
 has 'label_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'label' => (
     is => 'rw',
-    isa => 'Label'
+    isa => 'Label',
 );
 
 __PACKAGE__->meta->make_immutable;

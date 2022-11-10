@@ -5,12 +5,12 @@ use MusicBrainz::Server::Types;
 
 has area_id => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has area => (
     is => 'rw',
-    isa => 'Area'
+    isa => 'Area',
 );
 
 around TO_JSON => sub {

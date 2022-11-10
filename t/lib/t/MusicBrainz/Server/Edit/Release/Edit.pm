@@ -115,8 +115,8 @@ test 'Check conflicts (non-conflicting edits)' => sub {
         editor_id => 1,
         to_edit   => $c->model('Release')->get_by_id(1),
         events => [{
-            date => { year => '1990', month => '4', day => '29' }
-        }]
+            date => { year => '1990', month => '4', day => '29' },
+        }],
     );
 
     is exception { $edit_1->accept }, undef, 'accepted edit 1';
@@ -233,7 +233,7 @@ sub create_edit {
         barcode => 'BARCODE',
         events => [{
             date => {
-                year => 1985, month => 4, day => 13
+                year => 1985, month => 4, day => 13,
             },
             country_id => 221,
         }],
@@ -241,8 +241,8 @@ sub create_edit {
             names => [
                 {
                     artist => { id => 2, name => 'New Artist' },
-                    name => 'New Artist'
-                }
+                    name => 'New Artist',
+                },
             ],
         },
         language_id => 145,

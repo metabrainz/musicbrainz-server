@@ -21,8 +21,8 @@ sub _build_related_entities
     return {
         release => [
             @{ $self->data->{release_ids} },
-            @{ $self->data->{new_release_ids} }
-        ]
+            @{ $self->data->{new_release_ids} },
+        ],
     }
 }
 
@@ -33,8 +33,8 @@ sub foreign_keys
         Release => {
             map { $_ => [ 'ArtistCredit' ] }
                 @{ $self->data->{release_ids} },
-                @{ $self->data->{new_release_ids} }
-        }
+                @{ $self->data->{new_release_ids} },
+        },
     }
 }
 
@@ -55,7 +55,7 @@ sub upgrade
         release_ids     => $self->album_release_ids($self->row_id),
         new_release_ids => $self->album_release_ids($self->new_value->{NewAlbumId}),
         full_toc        => $self->new_value->{FullTOC} || '',
-        disc_id         => $self->new_value->{DiscId} || $self->new_value->{DiskId}
+        disc_id         => $self->new_value->{DiscId} || $self->new_value->{DiskId},
     });
 
     return $self;

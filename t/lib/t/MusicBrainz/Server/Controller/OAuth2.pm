@@ -469,7 +469,7 @@ test 'Exchange authorization code' => sub {
         client_secret => 'id-desktop-secret',
         grant_type => 'authorization_code',
         redirect_uri => 'xxx',
-        code => $code
+        code => $code,
     });
     $response = from_json($test->mech->content);
     is($test->mech->status, 400);
@@ -492,7 +492,7 @@ test 'Exchange authorization code' => sub {
         client_secret => 'id-web-secret',
         grant_type => 'authorization_code',
         redirect_uri => 'http://www.example.com/callback',
-        code => $code
+        code => $code,
     });
     $response = from_json($test->mech->content);
     is($test->mech->status, 400);
@@ -794,7 +794,7 @@ test 'Token info' => sub {
     is($response->{token_type}, 'Bearer');
     cmp_set(
         [ split /\s+/, $response->{scope} ],
-        [ qw( profile collection rating email tag submit_barcode submit_isrc ) ]
+        [ qw( profile collection rating email tag submit_barcode submit_isrc ) ],
     );
     $test->mech->header_is('access-control-allow-origin', '*');
 };

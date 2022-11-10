@@ -84,7 +84,7 @@ sub extract_property {
     return (
         merge_value($ancestor->{$property}),
         merge_value($current->$property),
-        merge_value($new->{$property})
+        merge_value($new->{$property}),
     );
 }
 
@@ -119,7 +119,7 @@ sub merge_changes {
                     $name,
                     $ancestor_data,
                     $current_data,
-                    $new_data
+                    $new_data,
                 );
 
             # Stores a mapping of the JSON serialization to the object value
@@ -133,7 +133,7 @@ sub merge_changes {
                     property => $name,
                     ancestor => $ancestor,
                     current  => $current,
-                    new      => $new
+                    new      => $new,
                 }, 'Conflict');
             }
 

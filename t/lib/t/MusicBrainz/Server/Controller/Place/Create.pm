@@ -26,7 +26,7 @@ test 'Adding a new place' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'Alice', password => 'secret1' }
+        with_fields => { username => 'Alice', password => 'secret1' },
     );
 
     $mech->get_ok(

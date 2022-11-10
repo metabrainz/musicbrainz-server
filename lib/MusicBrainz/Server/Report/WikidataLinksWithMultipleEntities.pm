@@ -10,7 +10,7 @@ sub query {
 
     my $inner_table = join(
         ' UNION ',
-        map {<<~"SQL"} @tables
+        map {<<~"SQL"} @tables,
             SELECT link_type.id AS link_type_id, l_table.id AS rel_id, ${\$_->[1]} AS url
             FROM link_type
             JOIN link ON link.link_type = link_type.id

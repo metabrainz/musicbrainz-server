@@ -77,7 +77,7 @@ sub _vote_on_tags {
     my $tags_model = $c->model($self->{model})->tags;
 
     $c->res->body($c->json->encode({
-        updates => [map { $tags_model->$method($c->user->id, $entity->id, $_) } @tags]
+        updates => [map { $tags_model->$method($c->user->id, $entity->id, $_) } @tags],
     }));
 }
 

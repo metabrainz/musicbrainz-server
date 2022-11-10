@@ -39,14 +39,14 @@ test 'Artist relationships page contains the expected data and JSON-LD' => sub {
     );
     $mech->content_contains(
         '/recording/123c079d-374e-4436-9448-da92dedef3ce',
-        'A link to the related entity is present'
+        'A link to the related entity is present',
     );
 
     page_test_jsonld $mech => {
         'location' => {
             'name' => 'United Kingdom',
             '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
-            '@type' => 'Country'
+            '@type' => 'Country',
         },
         '@context' => 'https://schema.org/docs/jsonldcontext.json',
         '@type' => ['Person', 'MusicGroup'],
@@ -54,16 +54,16 @@ test 'Artist relationships page contains the expected data and JSON-LD' => sub {
         'birthPlace' => {
             '@type' => 'Country',
             '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
-            'name' => 'United Kingdom'
+            'name' => 'United Kingdom',
         },
         'name' => 'Test Artist',
         'deathDate' => '2009-03-04',
         'deathPlace' => {
             'name' => 'United Kingdom',
             '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
-            '@type' => 'Country'
+            '@type' => 'Country',
         },
-        '@id' => 'http://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce'
+        '@id' => 'http://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
     };
 };
 

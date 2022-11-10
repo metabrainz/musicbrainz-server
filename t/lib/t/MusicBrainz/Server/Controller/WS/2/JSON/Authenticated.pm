@@ -5,7 +5,7 @@ use warnings;
 
 use Test::Routine;
 use MusicBrainz::Server::Test ws_test_json => {
-    version => 2
+    version => 2,
 };
 
 with 't::Mechanize', 't::Context';
@@ -67,7 +67,7 @@ test 'lookup tag for user' => sub {
   '/tag?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist' =>
       {
         'user-tags' => [
-          {name => 'japanese'}
+          {name => 'japanese'},
         ],
       }, { username => 'new_editor', password => 'password' };
 };

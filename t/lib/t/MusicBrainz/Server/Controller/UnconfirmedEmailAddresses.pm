@@ -41,7 +41,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
 
     cmp_set(
         \@actions_without_edit_attribute,
-        \@unconfirmed_email_whitelist
+        \@unconfirmed_email_whitelist,
     );
 };
 

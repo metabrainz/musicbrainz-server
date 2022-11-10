@@ -101,7 +101,7 @@ EOF
 
     $mbdump->copy_file(
         catfile(DBDefs->MB_SERVER_ROOT, 'admin', 'COPYING-PublicDomain'),
-        'COPYING'
+        'COPYING',
     ) or die $OS_ERROR;
 
     $mbdump->write_file('JSON_DUMPS_SCHEMA_NUMBER', "1\n");
@@ -158,7 +158,7 @@ sub fetch_entities_json {
         while (my @next_ids = $it->()) {
             $self->_fetch_entities_json(
                 $c, $entity_type, $replication_sequence, $last_modified,
-                \@next_ids, $callback, %options
+                \@next_ids, $callback, %options,
             );
         }
     } else {
@@ -201,7 +201,7 @@ sub fetch_entities_json {
 
             $self->_fetch_entities_json(
                 $c, $entity_type, $replication_sequence, $last_modified,
-                $next_ids, $callback, %options
+                $next_ids, $callback, %options,
             );
         }
 
@@ -292,7 +292,7 @@ SQL
         # matter what. Are we somehow selecting entities added in a later
         # replication sequence?
         my $current_replication_sequence = $c->sql->select_single_value(
-            'SELECT current_replication_sequence FROM replication_control'
+            'SELECT current_replication_sequence FROM replication_control',
         );
         unless ($force_update || $replication_sequence == $current_replication_sequence) {
             my $message =

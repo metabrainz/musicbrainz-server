@@ -45,7 +45,7 @@ sub _build_related_entities
                 map {
                     $_->{old}, $_->{new}
                 } @{ $self->data->{edits} },
-        ]
+        ],
     }
 }
 
@@ -95,11 +95,11 @@ sub build_display_data
                 },
                 label_id => {
                     old => $_->{old}{label_id},
-                    new => $_->{new}{label_id}
+                    new => $_->{new}{label_id},
                 },
                 date    => {
                     old => to_json_object(MusicBrainz::Server::Entity::PartialDate->new_from_row($_->{old}{date})),
-                    new => to_json_object(MusicBrainz::Server::Entity::PartialDate->new_from_row($_->{new}{date}))
+                    new => to_json_object(MusicBrainz::Server::Entity::PartialDate->new_from_row($_->{new}{date})),
                 },
                 country => {
                     old => to_json_object($loaded->{Area}{ $_->{old}{country_id} }),
@@ -117,8 +117,8 @@ sub build_display_data
                     old => $_->{old}{catalog_number},
                     new => $_->{new}{catalog_number},
                 },
-            } } $self->_edits
-        ]
+            } } $self->_edits,
+        ],
     }
 }
 
@@ -143,7 +143,7 @@ sub upgrade_re
         label_id       => upgrade_id($event{"${prefix}l"}),
         catalog_number => _decode($event{"${prefix}n"}),
         barcode        => _decode($event{"${prefix}b"}),
-        format_id      => upgrade_id($event{"${prefix}f"})
+        format_id      => upgrade_id($event{"${prefix}f"}),
     };
 }
 
@@ -174,7 +174,7 @@ sub upgrade
         push @edits, {
             release_id => $id,
             old        => $old,
-            new        => $new
+            new        => $new,
         };
     }
 

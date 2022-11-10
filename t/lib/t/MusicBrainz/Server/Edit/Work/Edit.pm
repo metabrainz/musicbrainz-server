@@ -189,9 +189,9 @@ test 'Adding first work attributes is an auto-edit for non-auto-editors' => sub 
             {
                 attribute_type_id => 6,
                 attribute_text => 'Attr value',
-                attribute_value_id => undef
-            }
-        ]
+                attribute_value_id => undef,
+            },
+        ],
     );
 
     ok(!$edit->is_open);
@@ -214,8 +214,8 @@ test 'Adding first work attribute of a kind is an auto-edit for non-auto-editors
                 attribute_type_id => 1,
                 attribute_value_id => 13,
                 attribute_text => undef,
-            }
-        ]
+            },
+        ],
     );
 
     my $edit = create_edit(
@@ -230,9 +230,9 @@ test 'Adding first work attribute of a kind is an auto-edit for non-auto-editors
             {
                 attribute_type_id => 6,
                 attribute_text => 'Attr value',
-                attribute_value_id => undef
-            }
-        ]
+                attribute_value_id => undef,
+            },
+        ],
     );
 
     ok(!$edit->is_open);
@@ -261,8 +261,8 @@ test 'Adding work attribute of existing kind is not an auto-edit for non-auto-ed
                 attribute_type_id => 1,
                 attribute_value_id => 33,
                 attribute_text => undef,
-            }
-        ]
+            },
+        ],
     );
 
     ok($edit->is_open);
@@ -287,8 +287,8 @@ test 'Changing work attribute is not an auto-edit for non-auto-editors' => sub {
                 attribute_type_id => 1,
                 attribute_value_id => 33,
                 attribute_text => undef,
-            }
-        ]
+            },
+        ],
     );
 
     ok($edit->is_open);
@@ -308,7 +308,7 @@ test 'Deleting work attribute is not an auto-edit for non-auto-editors' => sub {
     my $edit = create_edit(
         $c,
         $work,
-        attributes => []
+        attributes => [],
     );
 
     ok($edit->is_open);
@@ -334,8 +334,8 @@ test 'Check conflicts (non-conflicting edits)' => sub {
             {
                 attribute_type_id => 6,
                 attribute_text => 'Attr value',
-                attribute_value_id => undef
-            }
+                attribute_value_id => undef,
+            },
         ],
     );
 
@@ -349,8 +349,8 @@ test 'Check conflicts (non-conflicting edits)' => sub {
             {
                 attribute_type_id => 6,
                 attribute_text => 'Attr value',
-                attribute_value_id => undef
-            }
+                attribute_value_id => undef,
+            },
         ],
     );
 

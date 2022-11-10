@@ -63,7 +63,7 @@ sub create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_RECORDING_DELETE,
         to_delete => $recording,
-        editor_id => 1
+        editor_id => 1,
     );
 }
 

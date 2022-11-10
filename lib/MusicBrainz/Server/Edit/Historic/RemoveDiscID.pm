@@ -19,7 +19,7 @@ sub _build_related_entities
 {
     my $self = shift;
     return {
-        release => $self->data->{release_ids}
+        release => $self->data->{release_ids},
     }
 }
 
@@ -27,7 +27,7 @@ sub foreign_keys
 {
     my $self = shift;
     return {
-        Release => { map { $_ => [ 'ArtistCredit' ] } @{ $self->data->{release_ids} } }
+        Release => { map { $_ => [ 'ArtistCredit' ] } @{ $self->data->{release_ids} } },
     }
 }
 
@@ -52,7 +52,7 @@ sub upgrade
         release_ids => $self->album_release_ids($self->new_value->{AlbumId}),
         full_toc    => $self->new_value->{FullToc},
         disc_id     => $self->previous_value,
-        cdtoc_id    => $self->new_value->{CDTOCId}
+        cdtoc_id    => $self->new_value->{CDTOCId},
     });
 
     return $self;

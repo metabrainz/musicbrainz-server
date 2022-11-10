@@ -21,7 +21,7 @@ override 'foreign_keys' => sub {
 
     $data->{ReleaseGroup} = {
         map { $_ => [ 'ArtistCredit', 'ReleaseGroupType', 'ReleaseGroupMeta' ] }
-            $self->release_group_ids
+            $self->release_group_ids,
     };
 
     return $data;

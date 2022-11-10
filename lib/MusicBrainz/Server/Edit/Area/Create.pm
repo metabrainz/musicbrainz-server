@@ -39,7 +39,7 @@ has '+data' => (
         iso_3166_1  => Optional[ArrayRef[Str]],
         iso_3166_2  => Optional[ArrayRef[Str]],
         iso_3166_3  => Optional[ArrayRef[Str]],
-    ]
+    ],
 );
 
 sub foreign_keys
@@ -72,7 +72,7 @@ sub build_display_data
         end_date   => to_json_object(PartialDate->new($self->data->{end_date})),
         area       => to_json_object((defined($self->entity_id) &&
             $loaded->{Area}{ $self->entity_id }) ||
-            Area->new( name => $self->data->{name} )
+            Area->new( name => $self->data->{name} ),
         ),
         ended      => boolean_to_json($self->data->{ended}),
         iso_3166_1 => @{ $self->data->{iso_3166_1} } ? $self->data->{iso_3166_1} : undef,

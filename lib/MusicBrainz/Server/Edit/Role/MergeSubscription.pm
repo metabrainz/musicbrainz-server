@@ -19,8 +19,8 @@ around do_merge => sub {
         $self->id,
         map +{
             editor => $_->{editor},
-            gid => $entities->{ $_->{ model_to_type($self->_merge_model) } }->gid
-        }, @$editors
+            gid => $entities->{ $_->{ model_to_type($self->_merge_model) } }->gid,
+        }, @$editors,
     );
 };
 

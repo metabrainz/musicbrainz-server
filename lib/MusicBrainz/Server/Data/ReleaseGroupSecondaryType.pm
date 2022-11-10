@@ -34,7 +34,7 @@ sub load_for_release_groups {
              FROM release_group_secondary_type_join
              JOIN release_group_secondary_type ON id = secondary_type
              WHERE release_group = any(?)',
-            \@ids
+            \@ids,
         )
     };
 
@@ -48,7 +48,7 @@ sub load_for_release_groups {
             $rg->secondary_types([
                 map {
                     MusicBrainz::Server::Entity::ReleaseGroupSecondaryType->new($_)
-                } @{ $types_by_rg->{$rg->id} }
+                } @{ $types_by_rg->{$rg->id} },
             ]);
         }
     }

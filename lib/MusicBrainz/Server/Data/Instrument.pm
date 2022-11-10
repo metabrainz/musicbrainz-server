@@ -105,7 +105,7 @@ sub _merge_impl {
     my @merge_options = ($self->sql => (
                            table => 'instrument',
                            old_ids => \@old_ids,
-                           new_id => $new_id
+                           new_id => $new_id,
                         ));
 
     merge_table_attributes(@merge_options, columns => [ qw( type ) ]);
@@ -120,7 +120,7 @@ sub _hash_to_row {
 
     my $row = hash_to_row($instrument, {
         type => 'type_id',
-        map { $_ => $_ } qw( comment description name )
+        map { $_ => $_ } qw( comment description name ),
     });
 
     return $row;
@@ -134,7 +134,7 @@ sub _order_by {
         },
         'type' => sub {
             return 'type, name COLLATE musicbrainz'
-        }
+        },
     });
 
     return $order_by

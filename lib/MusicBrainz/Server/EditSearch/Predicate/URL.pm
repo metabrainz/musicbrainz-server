@@ -7,7 +7,7 @@ with 'MusicBrainz::Server::EditSearch::Predicate';
 
 has name => (
     is => 'ro',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 sub operator_cardinality_map {
@@ -28,7 +28,7 @@ sub combine_with_query {
 
     $query->add_where([
         ($self->operator eq '!=' ? 'NOT ' : '') .
-        'EXISTS (SELECT 1 FROM edit_url JOIN url ON edit_url.url = url.id WHERE edit = edit.id AND url.url = ?)', $self->sql_arguments
+        'EXISTS (SELECT 1 FROM edit_url JOIN url ON edit_url.url = url.id WHERE edit = edit.id AND url.url = ?)', $self->sql_arguments,
     ]);
 }
 

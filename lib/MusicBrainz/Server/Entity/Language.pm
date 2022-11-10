@@ -13,27 +13,27 @@ sub l_name {
 
 has 'iso_code_2t' => (
     is => 'rw',
-    isa => 'Maybe[Str]'
+    isa => 'Maybe[Str]',
 );
 
 has 'iso_code_2b' => (
     is => 'rw',
-    isa => 'Maybe[Str]'
+    isa => 'Maybe[Str]',
 );
 
 has 'iso_code_1' => (
     is => 'rw',
-    isa => 'Maybe[Str]'
+    isa => 'Maybe[Str]',
 );
 
 has 'iso_code_3' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'frequency' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 sub bcp47 {

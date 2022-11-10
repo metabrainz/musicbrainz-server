@@ -7,32 +7,32 @@ extends 'MusicBrainz::Server::Entity';
 
 has 'cdstub_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'cdstub' => (
     is => 'rw',
-    isa => 'CDStub'
+    isa => 'CDStub',
 );
 
 has 'title' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'artist' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'sequence' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'length' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 around TO_JSON => sub {

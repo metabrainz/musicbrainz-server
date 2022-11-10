@@ -26,7 +26,7 @@ is( $date->day, 2 );
 
 my $model = $test->c->model('ArtistType');
 my @result = $model->query_to_list(
-  'SELECT * FROM artist_type WHERE id IN (1, 2) ORDER BY id'
+  'SELECT * FROM artist_type WHERE id IN (1, 2) ORDER BY id',
 );
 is( scalar(@result), 2 );
 is( $result[0]->id, 1 );
@@ -34,7 +34,7 @@ is( $result[1]->id, 2 );
 
 my $offset = 0;
 my ($result, $hits) = $model->query_to_list_limited(
-    'SELECT * FROM artist_type WHERE id IN (1, 2) ORDER BY id', [], 1, $offset
+    'SELECT * FROM artist_type WHERE id IN (1, 2) ORDER BY id', [], 1, $offset,
 );
 @result = @{$result};
 is( scalar(@result), 1, 'got one result');
@@ -43,7 +43,7 @@ is( $result[0]->id, 1, 'got result with id 1 as the first' );
 
 $offset = 1;
 my ($result2, $hits2) = $model->query_to_list_limited(
-    'SELECT * FROM artist_type WHERE id IN (1, 2) ORDER BY id', [], 1, $offset
+    'SELECT * FROM artist_type WHERE id IN (1, 2) ORDER BY id', [], 1, $offset,
 );
 @result = @{$result2};
 is( scalar(@result), 1, 'got one result (with offset)' );

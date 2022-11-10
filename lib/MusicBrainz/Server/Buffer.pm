@@ -11,7 +11,7 @@ has 'contents' => (
         _push => 'push',
         count => 'count',
         empty => 'clear',
-    }
+    },
 );
 
 has 'on_full' => (
@@ -21,19 +21,19 @@ has 'on_full' => (
     handles  => {
         callback => 'execute',
     },
-    required => 1
+    required => 1,
 );
 
 has 'limit' => (
     isa      => 'Int',
     required => 1,
-    is       => 'ro'
+    is       => 'ro',
 );
 
 has 'skip_empty' => (
     isa => 'Bool',
     is => 'ro',
-    default => 1
+    default => 1,
 );
 
 sub flush_on_complete

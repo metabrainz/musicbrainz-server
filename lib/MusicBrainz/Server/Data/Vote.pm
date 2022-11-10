@@ -163,8 +163,8 @@ sub editor_statistics
             },
             all => {
                 count      => sum(values %$all_votes) || 0,
-            }
-        }
+            },
+        },
     ]
 }
 
@@ -183,12 +183,12 @@ sub summarize_votes
             name    => $names{$vote_kind},
             recent  => {
                 count      => $recent_votes->{$vote_kind} || 0,
-                percentage => int(($recent_votes->{$vote_kind} || 0) / (sum(values %$recent_votes) || 1) * 100 + 0.5)
+                percentage => int(($recent_votes->{$vote_kind} || 0) / (sum(values %$recent_votes) || 1) * 100 + 0.5),
             },
             all     => {
                 count      => ($all_votes->{$vote_kind} || 0),
-                percentage => int(($all_votes->{$vote_kind} || 0) / (sum(values %$all_votes) || 1) * 100 + 0.5)
-            }
+                percentage => int(($all_votes->{$vote_kind} || 0) / (sum(values %$all_votes) || 1) * 100 + 0.5),
+            },
         }
     )
 }

@@ -267,7 +267,7 @@ sub build_one_entity {
     # Find the counts in each potential batch of 50,000
     my $raw_batches = $sql->select_list_of_hashes(
         "SELECT batch, count(id) FROM (SELECT id, ceil(id / ?::float) AS batch FROM $entity_type) q GROUP BY batch ORDER BY batch ASC",
-        $MAX_SITEMAP_SIZE
+        $MAX_SITEMAP_SIZE,
     );
 
     return unless @{$raw_batches};

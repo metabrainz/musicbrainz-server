@@ -21,7 +21,7 @@ with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_type     => 'event'
+    entity_type     => 'event',
 };
 
 use MusicBrainz::Server::Constants qw(

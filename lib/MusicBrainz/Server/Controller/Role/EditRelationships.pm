@@ -44,7 +44,7 @@ role {
         my $entity_map = {};
 
         my $link_types = $c->model('LinkType')->get_by_ids(
-            map { $_->{link_type_id} } @rels
+            map { $_->{link_type_id} } @rels,
         );
 
         for my $field (@rels) {
@@ -404,7 +404,7 @@ role {
             my $relationship;
             if ($field->{relationship_id}) {
                 $relationship = $c->model('Relationship')->get_by_id(
-                   $link_type->entity0_type, $link_type->entity1_type, $field->{relationship_id}
+                   $link_type->entity0_type, $link_type->entity1_type, $field->{relationship_id},
                 );
 
                 # MBS-7354: relationship may have been deleted after the form was created
@@ -420,7 +420,7 @@ role {
             if (my $attributes = $field->{attributes}) {
                 $args{attributes} = merge_link_attributes(
                     $attributes,
-                    [$relationship ? $relationship->link->all_attributes : ()]
+                    [$relationship ? $relationship->link->all_attributes : ()],
                 );
             }
 

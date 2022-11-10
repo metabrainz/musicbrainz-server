@@ -17,7 +17,7 @@ has '+name' => ( default => 'attr' );
 has_field 'name' => (
     type      => 'Text',
     required  => 1,
-    maxlength => 255
+    maxlength => 255,
 );
 
 has_field 'iso_code' => (
@@ -34,7 +34,7 @@ has_field 'iso_number' => (
 
 has_field 'frequency' => (
     type => 'Select',
-    required => 1
+    required => 1,
 );
 
 sub options_frequency {

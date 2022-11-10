@@ -10,7 +10,7 @@ extends 'MusicBrainz::Server::Form::Merge';
 has_field 'merge_strategy' => (
     type => 'Select',
     default => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
-    required => 1
+    required => 1,
 );
 
 has_field 'medium_positions' => (
@@ -21,14 +21,14 @@ has_field 'medium_positions' => (
             return {
                 map {
                     $_->{id} => $_->{position}
-                } @{ $value->{map} }
+                } @{ $value->{map} },
             }
-        }
-    }]
+        },
+    }],
 );
 
 has_field 'medium_positions.map' => (
-    type => 'Repeatable'
+    type => 'Repeatable',
 );
 
 has_field 'medium_positions.map.id' => (
@@ -36,7 +36,7 @@ has_field 'medium_positions.map.id' => (
 );
 
 has_field 'medium_positions.map.release_id' => (
-    type => '+MusicBrainz::Server::Form::Field::Integer'
+    type => '+MusicBrainz::Server::Form::Field::Integer',
 );
 
 has_field 'medium_positions.map.position' => (
@@ -52,7 +52,7 @@ sub edit_field_names { qw(merge_strategy) }
 sub options_merge_strategy {
     return [
         $MusicBrainz::Server::Data::Release::MERGE_APPEND, l('Append mediums to target release'),
-        $MusicBrainz::Server::Data::Release::MERGE_MERGE, l('Merge mediums and recordings')
+        $MusicBrainz::Server::Data::Release::MERGE_MERGE, l('Merge mediums and recordings'),
     ]
 }
 

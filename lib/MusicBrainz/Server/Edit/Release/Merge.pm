@@ -21,7 +21,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities' => {
-    -excludes => 'release_ids'
+    -excludes => 'release_ids',
 };
 with 'MusicBrainz::Server::Edit::Release';
 
@@ -52,16 +52,16 @@ has '+data' => (
             ]]],
             mediums => Optional[ArrayRef[Dict[
                 track_count => Int,
-                format_name => Nullable[Str]
+                format_name => Nullable[Str],
             ]]],
             labels => Optional[ArrayRef[Dict[
                 label => Nullable[Dict[
                     id => Int,
-                    name => Str
+                    name => Str,
                 ]],
-                catalog_number => Nullable[Str]
+                catalog_number => Nullable[Str],
             ]]],
-            artist_credit => Optional[ArtistCreditDefinition]
+            artist_credit => Optional[ArtistCreditDefinition],
         ],
         old_entities => ArrayRef[ Dict[
             name => Str,
@@ -73,16 +73,16 @@ has '+data' => (
             ]]],
             mediums => Optional[ArrayRef[Dict[
                 track_count => Int,
-                format_name => Nullable[Str]
+                format_name => Nullable[Str],
             ]]],
             labels => Optional[ArrayRef[Dict[
                 label => Nullable[Dict[
                     id => Int,
-                    name => Str
+                    name => Str,
                 ]],
-                catalog_number => Nullable[Str]
+                catalog_number => Nullable[Str],
             ]]],
-            artist_credit => Optional[ArtistCreditDefinition]
+            artist_credit => Optional[ArtistCreditDefinition],
         ] ],
         merge_strategy => Int,
         _edit_version => Int,
@@ -90,7 +90,7 @@ has '+data' => (
             ArrayRef[Dict[
                 release => Dict[
                     id => Int,
-                    name => Str
+                    name => Str,
                 ],
                 mediums => ArrayRef[Dict[
                     id           => Int,
@@ -98,10 +98,10 @@ has '+data' => (
                     new_position => Int,
                     old_name => Str,
                     new_name => Str,
-                ]]
+                ]],
             ]]],
         recording_merges => Nullable[RecordingMergesArray],
-    ]
+    ],
 );
 
 has recording_merges => (
@@ -167,7 +167,7 @@ sub foreign_keys
         Release => {
             map { $_ => [ 'ArtistCredit', 'ReleaseLabel' ] }
                 $self->data->{new_entity}{id},
-                (map { $_->{id} } @{ $self->data->{old_entities} })
+                (map { $_->{id} } @{ $self->data->{old_entities} }),
         },
         Area => [ map { $_->{country_id} } map { @{ $_->{events} // [] } } @{ $self->data->{old_entities} }, $self->data->{new_entity} ],
         Label => [ map { $_->{label}{id} } map { @{ $_->{labels} // [] } } @{ $self->data->{old_entities} }, $self->data->{new_entity} ],
@@ -205,12 +205,12 @@ sub _build_missing_entity {
             ),
             join_phrase => $_->{join_phrase},
             name => $_->{name},
-        }, @{ $data->{artist_credit}{names} }
+        }, @{ $data->{artist_credit}{names} },
     ]) if $data->{artist_credit};
 
     $new_data{mediums} = [map { Medium->new(
         track_count => $_->{track_count},
-        format => ($_->{format_name} ? MediumFormat->new( name => $_->{format_name}) : undef)
+        format => ($_->{format_name} ? MediumFormat->new( name => $_->{format_name}) : undef),
     ) } @{ delete $data->{mediums} }] if $data->{mediums};
 
     $new_data{events} = [map { ReleaseEvent->new(
@@ -220,15 +220,15 @@ sub _build_missing_entity {
         date => PartialDate->new({
             year => $_->{date}{year},
             month => $_->{date}{month},
-            day => $_->{date}{day}
-        })
+            day => $_->{date}{day},
+        }),
     ) } @{ delete $data->{events} }] if $data->{events};
 
     $new_data{labels} = [map { ReleaseLabel->new(
         label => $_->{label} &&
             ($loaded->{Label}{ $_->{label}{id} } //
                 ($_->{label}{name} ? Label->new(name => $_->{label}{name}) : undef)),
-        catalog_number => $_->{catalog_number}
+        catalog_number => $_->{catalog_number},
     ) } @{ delete $data->{labels} }] if $data->{labels};
 
     return Release->new(\%new_data);
@@ -245,16 +245,16 @@ override build_display_data => sub
             map +{
                 release => to_json_object(
                     $loaded->{Release}{ $_->{release}{id} }
-                    || Release->new( name => $_->{release}{name} )
+                    || Release->new( name => $_->{release}{name} ),
                 ),
-                mediums => to_json_array($_->{mediums})
-            }, @{ $self->data->{medium_changes} }
+                mediums => to_json_array($_->{mediums}),
+            }, @{ $self->data->{medium_changes} },
         ];
         $data->{empty_releases} = to_json_array([
             map {
                 $loaded->{Release}{ $_->{id} } //
                 Release->new(name => $_->{name}),
-            } grep { defined $_->{mediums} && scalar @{ $_->{mediums} } == 0 } @{ $self->data->{old_entities} }
+            } grep { defined $_->{mediums} && scalar @{ $_->{mediums} } == 0 } @{ $self->data->{old_entities} },
         ]);
     } elsif ($self->data->{merge_strategy} == $MusicBrainz::Server::Data::Release::MERGE_MERGE) {
         my $recording_merges = $self->recording_merges;
@@ -299,7 +299,7 @@ sub do_merge
         $medium_names = {
             map { $_->{id} => $_->{new_name} }
             map { @{ $_->{mediums} } }
-            @{ $self->data->{medium_changes} }
+            @{ $self->data->{medium_changes} },
         };
     }
 
@@ -312,9 +312,9 @@ sub do_merge
         medium_positions => {
             map { $_->{id} => $_->{new_position} }
             map { @{ $_->{mediums} } }
-            @{ $self->data->{medium_changes} }
+            @{ $self->data->{medium_changes} },
         },
-        medium_names => $medium_names
+        medium_names => $medium_names,
     );
 
     my ($can_merge, $cannot_merge_reason) = $self->c->model('Release')->can_merge(\%opts);

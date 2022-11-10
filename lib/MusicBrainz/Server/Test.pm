@@ -82,7 +82,7 @@ sub create_test_context
         );
         MusicBrainz::Server::Context->new(
             cache_manager => $cache_manager,
-            %args
+            %args,
         );
     };
 
@@ -167,7 +167,7 @@ sub capture_edits (&$)
     my $new_max = $c->sql->select_single_value('SELECT max(id) FROM edit') // 0;
     return () if $new_max <= $current_max;
     return nsort_by { $_->id } values %{ $c->model('Edit')->get_by_ids(
-        ($current_max + 1)..$new_max
+        ($current_max + 1)..$new_max,
     ) };
 }
 
@@ -273,7 +273,7 @@ sub old_edit_row
         expiretime => '2010-02-05 19:34:17+00',
         tab        => 'artist',
         col        => 'name',
-        %args
+        %args,
     };
 }
 

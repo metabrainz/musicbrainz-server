@@ -15,11 +15,11 @@ my $ws_defs = Data::OptList::mkopt([
     'release' => {
         method   => 'GET',
         required => [ qw(q) ],
-        optional => [ qw(direct limit page timestamp) ]
+        optional => [ qw(direct limit page timestamp) ],
     },
     'release' => {
         method => 'GET',
-        inc => [ qw(recordings rels) ]
+        inc => [ qw(recordings rels) ],
     },
 ]);
 

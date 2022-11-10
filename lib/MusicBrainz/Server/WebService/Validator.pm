@@ -41,8 +41,8 @@ our %relation_types = (
         take => sub {
             my (undef, $info) = @_;
             return ($info->{url} . '-rels' => 1)
-        })
-    }
+        }),
+    },
 );
 
 
@@ -86,7 +86,7 @@ sub load_type_and_status
         (
             lc($name) => $id,
             lc("sa-$name") => $id,
-            lc("va-$name") => $id
+            lc("va-$name") => $id,
         )
     } (
         (map +[ lc($_->name) => $_->id ], $c->model('ReleaseGroupType')->get_all()),

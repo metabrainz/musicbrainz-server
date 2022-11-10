@@ -30,7 +30,7 @@ has 'area_id' => (
     isa => 'Int',
     is => 'rw',
     lazy => 1,
-    default => sub { shift->data->{entity}{id} }
+    default => sub { shift->data->{entity}{id} },
 );
 
 sub foreign_keys
@@ -49,7 +49,7 @@ around 'build_display_data' => sub
     my $data = $self->$orig($loaded);
     $data->{area} = to_json_object(
         $loaded->{Area}{ $self->area_id } ||
-        Area->new(name => $self->data->{entity}{name})
+        Area->new(name => $self->data->{entity}{name}),
     );
 
     return $data;

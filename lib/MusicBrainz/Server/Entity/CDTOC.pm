@@ -10,27 +10,27 @@ sub entity_type { 'cdtoc' }
 
 has 'discid' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'freedb_id' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'track_count' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'leadout_offset' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'track_offset' => (
     is => 'rw',
-    isa => 'ArrayRef[Int]'
+    isa => 'ArrayRef[Int]',
 );
 
 sub sectors_to_ms

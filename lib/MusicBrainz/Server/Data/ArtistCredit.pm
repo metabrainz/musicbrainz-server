@@ -206,9 +206,9 @@ sub find_for_artist {
             MusicBrainz::Server::Entity::ArtistCreditName->new(
                 name        => $artist->name,
                 artist_id   => $artist->id,
-                artist      => $artist
-            )
-        ]
+                artist      => $artist,
+            ),
+        ],
     );
 }
 
@@ -245,7 +245,7 @@ sub merge_artists
                )
              ) artist_credit_name
              GROUP BY artist_credit',
-            $old_ids, $new_id, $old_ids
+            $old_ids, $new_id, $old_ids,
         ]
     }
 
@@ -260,7 +260,7 @@ sub merge_artists
                 SELECT artist_credit FROM artist_credit_name WHERE artist = any(?)
            )
          GROUP BY artist_credit',
-        $old_ids, $new_id, $old_ids
+        $old_ids, $new_id, $old_ids,
     ];
 
     # Now do the actual swapping. Queries are run serially so if applicable some ACs are replaced twice.
@@ -278,9 +278,9 @@ sub merge_artists
                             id => $artists->[$_],
                         },
                         name => $names->[$_],
-                        join_phrase => $join_phrases->[$_]
-                    }, (0 .. $n - 1)
-                ]
+                        join_phrase => $join_phrases->[$_],
+                    }, (0 .. $n - 1),
+                ],
             });
 
             $self->_swap_artist_credits($old_credit_id, $new_credit_id);
@@ -323,7 +323,7 @@ sub _swap_artist_credits {
         my $ids = $self->c->sql->select_single_column_array(
             "UPDATE $table SET artist_credit = ?
              WHERE artist_credit = ? RETURNING id",
-            $new_credit_id, $old_credit_id
+            $new_credit_id, $old_credit_id,
         );
         $self->c->model(type_to_model($table))->_delete_from_cache(@$ids) if $table ne 'track';
     }
@@ -331,13 +331,13 @@ sub _swap_artist_credits {
     $self->c->sql->do(
         'DELETE FROM artist_credit_name
          WHERE artist_credit = ?',
-        $old_credit_id
+        $old_credit_id,
     );
 
     $self->c->sql->do(
         'DELETE FROM artist_credit
          WHERE id = ?',
-        $old_credit_id
+        $old_credit_id,
     );
 
     $self->c->sql->do(<<~'SQL', $new_credit_id, $old_credit_id);
@@ -366,7 +366,7 @@ sub in_use {
     for my $t (entities_with('artist_credits')) {
         return 1 if $self->c->sql->select_single_value(
             "SELECT TRUE FROM $t WHERE artist_credit = ? LIMIT 1",
-            $ac_id
+            $ac_id,
         );
     }
 
@@ -381,14 +381,14 @@ sub related_entities {
 
     for my $t (entities_with([['artist_credits'], ['mbid', 'relatable']])) {
         my $uses = $self->c->sql->select_single_column_array(
-            "SELECT DISTINCT id FROM $t WHERE artist_credit = ?", $ac_id
+            "SELECT DISTINCT id FROM $t WHERE artist_credit = ?", $ac_id,
         );
         push @{ $related->{$t} }, @$uses;
     }
 
     my $track_ac_releases = $self->c->sql->select_single_column_array(
         'SELECT DISTINCT medium.release FROM track JOIN medium ON track.medium = medium.id WHERE track.artist_credit = ?',
-        $ac_id
+        $ac_id,
     );
 
     push @{ $related->{release} }, @{ $track_ac_releases };
@@ -453,7 +453,7 @@ sub _delete_and_redirect_gids
     if ($self->can('_delete_from_cache')) {
         $self->_delete_from_cache(
             $new_id, @old_ids,
-            @$old_gids
+            @$old_gids,
         );
     }
 }

@@ -5,7 +5,7 @@ use warnings;
 use JSON;
 use Test::Routine;
 use MusicBrainz::Server::Test ws_test_json => {
-    version => 2
+    version => 2,
 };
 
 with 't::Mechanize', 't::Context';

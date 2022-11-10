@@ -7,7 +7,7 @@ with 'MusicBrainz::Server::EditSearch::Predicate::Role::User' => {
         SELECT TRUE FROM edit_note
          WHERE ROLE_CLAUSE(edit_note.editor)
            AND edit_note.edit = edit.id
-    )'
+    )',
 };
 with 'MusicBrainz::Server::EditSearch::Predicate';
 

@@ -20,7 +20,7 @@ sub _build_related_entities
 {
     my $self = shift;
     return {
-        artist => [ $self->data->{artist_id} ]
+        artist => [ $self->data->{artist_id} ],
     }
 }
 
@@ -38,12 +38,12 @@ sub build_display_data
     return {
         artist => to_json_object(
             $loaded->{Artist}{ $self->data->{artist_id} } ||
-            Artist->new( id => $self->data->{artist_id} )
+            Artist->new( id => $self->data->{artist_id} ),
         ),
         quality => {
             old => $self->data->{old}{quality} + 0, # force number
             new => $self->data->{new}{quality} + 0, # force number
-        }
+        },
     }
 }
 

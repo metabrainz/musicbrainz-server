@@ -8,7 +8,7 @@ extends 'MusicBrainz::Server::Form';
 has '+name' => ( default => 'other-lookup' );
 
 has_field 'catno' => (
-    type => 'Text'
+    type => 'Text',
 );
 
 has_field 'barcode'  => (
@@ -18,7 +18,7 @@ has_field 'barcode'  => (
         # Remove all spaces for barcode search since we don't store them
         $string =~ s/\s+//g;
         return $string;
-    } }
+    } },
 );
 
 has_field 'url'  => (

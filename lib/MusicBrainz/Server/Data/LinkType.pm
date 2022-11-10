@@ -240,7 +240,7 @@ sub get_attribute_type_list
     else {
         $rows = $self->sql->select_list_of_hashes(
             'SELECT t.id, t.name FROM link_attribute_type t
-              WHERE t.parent IS NULL ORDER BY t.child_order, t.id'
+              WHERE t.parent IS NULL ORDER BY t.child_order, t.id',
         );
     }
     my @result;
@@ -289,8 +289,8 @@ sub insert
         'documentation.link_type_documentation',
         {
             documentation => $values->{documentation} // '',
-            id => $id
-        }
+            id => $id,
+        },
     );
     if (exists $values->{attributes}) {
         foreach my $attrib (@{$values->{attributes}}) {
@@ -306,7 +306,7 @@ sub insert
     if (is_positive_integer($values->{orderable_direction})) {
         $self->sql->insert_row('orderable_link_type', {
             link_type => $id,
-            direction => $values->{orderable_direction}
+            direction => $values->{orderable_direction},
         });
     }
 
@@ -320,7 +320,7 @@ sub set_examples {
         q(SELECT 'l_' || entity_type0 || '_' || entity_type1
          FROM link_type
          WHERE id = ?),
-        $id
+        $id,
     );
 
     my $documentation_link_table = sprintf 'documentation.%s_example',
@@ -335,7 +335,7 @@ sub set_examples {
              JOIN link ON (link.id = l.link)
              WHERE link.link_type = ?
          )",
-        $id
+        $id,
     );
 
     for my $example (@$examples) {
@@ -344,8 +344,8 @@ sub set_examples {
             {
                 name => $example->{name},
                 id => $example->{relationship}{id},
-                published => 1
-            }
+                published => 1,
+            },
         );
     }
 }
@@ -362,7 +362,7 @@ sub update
         $self->sql->update_row(
             'documentation.link_type_documentation',
             { documentation => $values->{documentation} },
-            { id => $id }
+            { id => $id },
         );
     }
 
@@ -389,7 +389,7 @@ sub update
     if (is_positive_integer($values->{orderable_direction})) {
         $self->sql->insert_row('orderable_link_type', {
             link_type => $id,
-            direction => $values->{orderable_direction}
+            direction => $values->{orderable_direction},
         });
     }
 }
@@ -423,7 +423,7 @@ sub _hash_to_row
             name
             priority
             reverse_link_phrase
-        )
+        ),
     });
 
     return $row;
@@ -433,7 +433,7 @@ sub in_use {
     my ($self, $link_type_id) = @_;
     return $self->sql->select_single_value(
         'SELECT TRUE FROM link WHERE link_type = ? LIMIT 1',
-        $link_type_id
+        $link_type_id,
     );
 }
 
@@ -446,7 +446,7 @@ sub load_documentation {
         $self->sql->select_list_of_lists(
             'SELECT id, documentation
              FROM documentation.link_type_documentation
-             WHERE id = any(?)', $link_type_ids
+             WHERE id = any(?)', $link_type_ids,
          );
     };
 
@@ -464,7 +464,7 @@ sub load_documentation {
                      JOIN link ON (l.link = link.id)
                      JOIN link_type ON (link.link_type = link_type.id)"
                 }
-                $self->c->model('Relationship')->all_pairs
+                $self->c->model('Relationship')->all_pairs,
             );
 
     my %examples;
@@ -477,8 +477,8 @@ sub load_documentation {
                 published => $example->{published},
                 relationship => $self->c->model('Relationship')->get_by_id(
                     $example->{entity_type0}, $example->{entity_type1},
-                    $example->{id}
-                )
+                    $example->{id},
+                ),
             )
     }
 

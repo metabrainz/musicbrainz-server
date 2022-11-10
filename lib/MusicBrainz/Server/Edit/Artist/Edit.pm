@@ -61,7 +61,7 @@ sub change_fields
         isni_codes  => Optional[ArrayRef[Str]],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
-        ended      => Optional[Bool]
+        ended      => Optional[Bool],
     ];
 }
 
@@ -70,11 +70,11 @@ has '+data' => (
         entity => Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ],
         new => change_fields(),
         old => change_fields(),
-    ]
+    ],
 );
 
 around initialize => sub {
@@ -118,14 +118,14 @@ sub build_display_data
         name       => 'name',
         sort_name  => 'sort_name',
         comment    => 'comment',
-        ended      => 'ended'
+        ended      => 'ended',
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
 
     $data->{artist} = to_json_object(
         $loaded->{Artist}{ $self->data->{entity}{id} } ||
-        Artist->new( name => $self->data->{entity}{name} )
+        Artist->new( name => $self->data->{entity}{name} ),
     );
 
     for my $area (@areas) {
@@ -271,7 +271,7 @@ around merge_changes => sub {
 
     if (defined $gender_id && defined $type_id) {
         MusicBrainz::Server::Edit::Exceptions::GeneralError->throw(
-            'A group of artists cannot have a gender.'
+            'A group of artists cannot have a gender.',
         ) if ($type_id == $ARTIST_TYPE_GROUP) || $self->c->sql->select_single_value(
             'SELECT 1 FROM artist_type WHERE id = ? AND parent = ?',
             $type_id, $ARTIST_TYPE_GROUP,

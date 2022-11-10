@@ -38,12 +38,12 @@ has '+data' => (
         entity0      => Dict[
             id   => NullableOnPreview[Int],
             gid  => NullableOnPreview[Str],
-            name => Str
+            name => Str,
         ],
         entity1      => Dict[
             id   => NullableOnPreview[Int],
             gid  => NullableOnPreview[Str],
-            name => Str
+            name => Str,
         ],
         entity0_credit => Optional[Str],
         entity1_credit => Optional[Str],
@@ -52,7 +52,7 @@ has '+data' => (
             name => Str,
             link_phrase => Str,
             reverse_link_phrase => Str,
-            long_link_phrase => Str
+            long_link_phrase => Str,
         ],
         attributes   => Nullable[LinkAttributesArray],
         begin_date   => Nullable[PartialDateHash],
@@ -62,7 +62,7 @@ has '+data' => (
         ended        => Optional[Bool],
         link_order   => Optional[Int],
         edit_version => Optional[Int],
-    ]
+    ],
 );
 
 sub link_type { shift->data->{link_type} }
@@ -110,7 +110,7 @@ sub initialize
         name => $lt->name,
         link_phrase => $lt->link_phrase,
         reverse_link_phrase => $lt->reverse_link_phrase,
-        long_link_phrase => $lt->long_link_phrase
+        long_link_phrase => $lt->long_link_phrase,
     };
 
     $opts{type0} = $lt->entity0_type;
@@ -185,7 +185,7 @@ sub build_display_data
     my $entity0 = $loaded_entity_0 ||
         $self->c->model($model0)->_entity_class->new(
             id => $self->data->{entity0}{id} // 0,
-            name => $self->data->{entity0}{name}
+            name => $self->data->{entity0}{name},
         );
     my $entity1_gid_or_id = gid_or_id($self->data->{entity1});
     my $loaded_entity_1;
@@ -195,7 +195,7 @@ sub build_display_data
     my $entity1 = $loaded_entity_1 ||
         $self->c->model($model1)->_entity_class->new(
             id => $self->data->{entity1}{id} // 0,
-            name => $self->data->{entity1}{name}
+            name => $self->data->{entity1}{name},
         );
     my $entity0_credit = $self->data->{entity0_credit} // '';
     my $entity1_credit = $self->data->{entity1_credit} // '';
@@ -223,7 +223,7 @@ sub build_display_data
                         else {
                             ()
                         }
-                    } @{ $self->data->{attributes} }
+                    } @{ $self->data->{attributes} },
                 ],
             ),
             entity0 => $entity0,
@@ -242,7 +242,7 @@ sub build_display_data
         )),
         unknown_attributes => boolean_to_json(scalar(
             grep { !exists $loaded->{LinkAttributeType}{$_->{type}{id}} }
-                @{ $self->data->{attributes} // [] }
+                @{ $self->data->{attributes} // [] },
         )),
     }
 }
@@ -306,7 +306,7 @@ sub reject
     $self->c->model('Relationship')->delete(
         $self->data->{type0},
         $self->data->{type1},
-        $self->entity_id
+        $self->entity_id,
     );
 }
 

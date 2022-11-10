@@ -14,12 +14,12 @@ has 'year' => (
 
 has 'month' => (
     is => 'ro',
-    isa => 'Maybe[Int]'
+    isa => 'Maybe[Int]',
 );
 
 has 'day' => (
     is => 'ro',
-    isa => 'Maybe[Int]'
+    isa => 'Maybe[Int]',
 );
 
 around BUILDARGS => sub {

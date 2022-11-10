@@ -59,12 +59,12 @@ sub _build_related_entities {
 has '+data' => (
     isa => Dict[
         old => Dict[
-            artist_credit => ArtistCreditDefinition
+            artist_credit => ArtistCreditDefinition,
         ],
         new => Dict[
-            artist_credit => ArtistCreditDefinition
-        ]
-    ]
+            artist_credit => ArtistCreditDefinition,
+        ],
+    ],
 );
 
 sub foreign_keys
@@ -75,7 +75,7 @@ sub foreign_keys
     $relations->{Artist} = {
         map {
             load_artist_credit_definitions($self->data->{$_}{artist_credit})
-        } qw( new old )
+        } qw( new old ),
     };
 
     return $relations;
@@ -88,7 +88,7 @@ sub build_display_data
     my $data = {};
     $data->{artist_credit} = {
         new => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{new}{artist_credit})),
-        old => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit}))
+        old => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})),
     };
 
     my $old_ac_id = $self->c->model('ArtistCredit')->find($self->data->{old}{artist_credit});
@@ -106,11 +106,11 @@ sub initialize {
 
     my $data = {
         new => {
-            artist_credit => clean_submitted_artist_credits($opts{artist_credit})
+            artist_credit => clean_submitted_artist_credits($opts{artist_credit}),
         },
         old => {
-            artist_credit => artist_credit_to_ref($old_ac)
-        }
+            artist_credit => artist_credit_to_ref($old_ac),
+        },
     };
 
     MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
@@ -127,7 +127,7 @@ sub accept {
 
     $self->c->model('ArtistCredit')->replace(
         $self->data->{old}{artist_credit},
-        $self->data->{new}{artist_credit}
+        $self->data->{new}{artist_credit},
     );
 }
 

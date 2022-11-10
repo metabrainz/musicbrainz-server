@@ -46,7 +46,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
             email                   => $user->email,
             skip_verification       => 0,
             website                 => $user->website,
-            biography               => $user->biography
+            biography               => $user->biography,
         },
     );
 
@@ -297,7 +297,7 @@ sub privilege_search : Path('/admin/privilege-search') Args(0) RequireAuth(accou
                 $privs,
                 $values->{show_exact},
                 shift,
-                shift
+                shift,
             );
         });
     }

@@ -32,7 +32,7 @@ test 'Can merge areas are used as entity areas' => sub {
         edit_type => $EDIT_AREA_MERGE,
         editor_id => 1,
         old_entities => [ { id => 13, name => 'Australia' } ],
-        new_entity => { id => 81, name => 'Germany' }
+        new_entity => { id => 81, name => 'Germany' },
     );
 
     is exception { $edit->accept }, undef;
@@ -65,7 +65,7 @@ test 'Can merge country areas' => sub {
         edit_type => $EDIT_AREA_MERGE,
         editor_id => 1,
         old_entities => [ { id => 13, name => 'Australia' } ],
-        new_entity => { id => 81, name => 'Germany' }
+        new_entity => { id => 81, name => 'Germany' },
     );
 
     is exception { $edit->accept }, undef;

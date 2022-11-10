@@ -27,7 +27,7 @@ test 'Adding a new instrument' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'instrument_editor', password => 'pass' }
+        with_fields => { username => 'instrument_editor', password => 'pass' },
     );
 
     $mech->get_ok(

@@ -10,7 +10,7 @@ with 'MusicBrainz::Server::Entity::Role::PendingEdits';
 
 has 'sort_name' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'locale' => (

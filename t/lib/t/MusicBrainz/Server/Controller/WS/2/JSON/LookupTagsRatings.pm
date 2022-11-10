@@ -5,7 +5,7 @@ use warnings;
 use JSON;
 use Test::Routine;
 use MusicBrainz::Server::Test ws_test_json => {
-    version => 2
+    version => 2,
 };
 
 with 't::Mechanize', 't::Context';
@@ -26,31 +26,31 @@ test 'artist lookups' => sub {
             'life-span' => {
                 'ended' => JSON::false,
                 'begin' => '1986-11-05',
-                'end' => JSON::null
+                'end' => JSON::null,
             },
             'rating' => {
                 'value' => '4.35',
-                'votes-count' => 3
+                'votes-count' => 3,
             },
             'genres' => [
                 {
                     'name' => 'j-pop',
                     'disambiguation' => '',
                     'count' => 1,
-                    'id' => 'eba7715e-ee26-4989-8d49-9db382955419'
+                    'id' => 'eba7715e-ee26-4989-8d49-9db382955419',
                 },
                 {
                     'name' => 'k-pop',
                     'disambiguation' => '',
                     'id' => 'b74b3b6c-0700-46b1-aa55-1f2869a3bd1a',
-                    'count' => 1
+                    'count' => 1,
                 },
                 {
                     'count' => 1,
                     'id' => '911c7bbb-172d-4df8-9478-dbff4296e791',
                     'name' => 'pop',
-                    'disambiguation' => ''
-                }
+                    'disambiguation' => '',
+                },
             ],
             'area' => JSON::null,
             'sort-name' => 'BoA',
@@ -61,37 +61,37 @@ test 'artist lookups' => sub {
             'tags' => [
                 {
                     'count' => 1,
-                    'name' => 'c-pop'
+                    'name' => 'c-pop',
                 },
                 {
                     'name' => 'j-pop',
-                    'count' => 1
+                    'count' => 1,
                 },
                 {
                     'name' => 'japanese',
-                    'count' => 1
+                    'count' => 1,
                 },
                 {
                     'name' => 'jpop',
-                    'count' => 1
+                    'count' => 1,
                 },
                 {
                     'name' => 'k-pop',
-                    'count' => 1
+                    'count' => 1,
                 },
                 {
                     'count' => 1,
-                    'name' => 'kpop'
+                    'name' => 'kpop',
                 },
                 {
                     'name' => 'pop',
-                    'count' => 1
-                }
+                    'count' => 1,
+                },
             ],
             'disambiguation' => '',
             'ipis' => [],
             'gender-id' => JSON::null,
-            'country' => JSON::null
+            'country' => JSON::null,
         };
 
     ws_test_json 'artist lookup with tags, genres, user-tags, and user-genres',
@@ -109,95 +109,95 @@ test 'artist lookups' => sub {
                     'name' => 'big beat',
                     'id' => 'aac07ae0-8acf-4249-b5c0-2762b53947a2',
                     'count' => 4,
-                    'disambiguation' => ''
+                    'disambiguation' => '',
                 },
                 {
                     'id' => '89255676-1f14-4dd8-bbad-fca839d6aff4',
                     'count' => 8,
                     'disambiguation' => '',
-                    'name' => 'electronic'
+                    'name' => 'electronic',
                 },
                 {
                     'id' => '53a3cea3-17af-4421-a07a-5824b540aeb5',
                     'count' => 2,
                     'disambiguation' => '',
-                    'name' => 'electronica'
+                    'name' => 'electronica',
                 },
                 {
                     'name' => 'house',
                     'disambiguation' => '',
                     'count' => 1,
-                    'id' => 'a2782cb6-1cd0-477c-a61d-b3f8b42dd1b3'
-                }
+                    'id' => 'a2782cb6-1cd0-477c-a61d-b3f8b42dd1b3',
+                },
             ],
             'type' => 'Group',
             'tags' => [
                 {
                     'count' => 4,
-                    'name' => 'big beat'
+                    'name' => 'big beat',
                 },
                 {
                     'name' => 'british',
-                    'count' => 6
+                    'count' => 6,
                 },
                 {
                     'name' => 'dance and electronica',
-                    'count' => 1
+                    'count' => 1,
                 },
                 {
                     'name' => 'electronic',
-                    'count' => 8
+                    'count' => 8,
                 },
                 {
                     'count' => 2,
-                    'name' => 'electronica'
+                    'name' => 'electronica',
                 },
                 {
                     'count' => 1,
-                    'name' => 'english'
+                    'name' => 'english',
                 },
                 {
                     'name' => 'house',
-                    'count' => 1
+                    'count' => 1,
                 },
                 {
                     'count' => 1,
-                    'name' => 'manchester'
+                    'name' => 'manchester',
                 },
                 {
                     'count' => 1,
-                    'name' => 'trip-hop'
+                    'name' => 'trip-hop',
                 },
                 {
                     'count' => 1,
-                    'name' => 'uk'
+                    'name' => 'uk',
                 },
                 {
                     'name' => 'united kingdom',
-                    'count' => 1
-                }
+                    'count' => 1,
+                },
             ],
             'name' => 'The Chemical Brothers',
             'end_area' => JSON::null,
             'user-tags' => [
                 {
-                    'name' => 'big beat'
+                    'name' => 'big beat',
                 },
                 {
-                    'name' => 'electronic'
-                }
+                    'name' => 'electronic',
+                },
             ],
             'user-genres' => [
                 {
                     'name' => 'big beat',
                     'disambiguation' => '',
-                    'id' => 'aac07ae0-8acf-4249-b5c0-2762b53947a2'
+                    'id' => 'aac07ae0-8acf-4249-b5c0-2762b53947a2',
                 },
                 {
                     'id' => '89255676-1f14-4dd8-bbad-fca839d6aff4',
                     'disambiguation' => '',
-                    'name' => 'electronic'
-                }
+                    'name' => 'electronic',
+                },
             ],
             'id' => '1946a82a-f927-40c2-8235-38d64f50d043',
             'ipis' => [],
@@ -205,10 +205,10 @@ test 'artist lookups' => sub {
             'life-span' => {
                 'ended' => JSON::false,
                 'end' => JSON::null,
-                'begin' => '1989'
+                'begin' => '1989',
             },
             'disambiguation' => '',
-            'country' => JSON::null
+            'country' => JSON::null,
         },  { username => 'the-anti-kuno', password => 'notreally' };
 
     ws_test_json 'artist lookup with release-groups, tags, genres and ratings',
@@ -217,32 +217,32 @@ test 'artist lookups' => sub {
             'tags' => [
                 {
                     'count' => 1,
-                    'name' => 'c-pop'
+                    'name' => 'c-pop',
                 },
                 {
                     'count' => 1,
-                    'name' => 'j-pop'
+                    'name' => 'j-pop',
                 },
                 {
                     'count' => 1,
-                    'name' => 'japanese'
+                    'name' => 'japanese',
                 },
                 {
                     'count' => 1,
-                    'name' => 'jpop'
+                    'name' => 'jpop',
                 },
                 {
                     'name' => 'k-pop',
-                    'count' => 1
+                    'count' => 1,
                 },
                 {
                     'count' => 1,
-                    'name' => 'kpop'
+                    'name' => 'kpop',
                 },
                 {
                     'count' => 1,
-                    'name' => 'pop'
-                }
+                    'name' => 'pop',
+                },
             ],
             'gender' => JSON::null,
             'isnis' => [],
@@ -255,7 +255,7 @@ test 'artist lookups' => sub {
             'life-span' => {
                 'ended' => JSON::false,
                 'end' => JSON::null,
-                'begin' => '1986-11-05'
+                'begin' => '1986-11-05',
             },
             'gender-id' => JSON::null,
             'genres' => [
@@ -263,20 +263,20 @@ test 'artist lookups' => sub {
                     'id' => 'eba7715e-ee26-4989-8d49-9db382955419',
                     'name' => 'j-pop',
                     'count' => 1,
-                    'disambiguation' => ''
+                    'disambiguation' => '',
                 },
                 {
                     'id' => 'b74b3b6c-0700-46b1-aa55-1f2869a3bd1a',
                     'name' => 'k-pop',
                     'disambiguation' => '',
-                    'count' => 1
+                    'count' => 1,
                 },
                 {
                     'id' => '911c7bbb-172d-4df8-9478-dbff4296e791',
                     'name' => 'pop',
                     'disambiguation' => '',
-                    'count' => 1
-                }
+                    'count' => 1,
+                },
             ],
             'type' => 'Person',
             'id' => 'a16d1433-ba89-4f72-a47b-a370add0bb55',
@@ -284,7 +284,7 @@ test 'artist lookups' => sub {
             'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
             'rating' => {
                 'votes-count' => 3,
-                'value' => '4.35'
+                'value' => '4.35',
             },
             'area' => JSON::null,
             'end_area' => JSON::null,
@@ -302,11 +302,11 @@ test 'artist lookups' => sub {
                     'tags' => [
                         {
                             'name' => 'format-dvd-video',
-                            'count' => 1
-                        }
-                    ]
-                }
-            ]
+                            'count' => 1,
+                        },
+                    ],
+                },
+            ],
         };
 };
 

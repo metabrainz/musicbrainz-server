@@ -24,7 +24,7 @@ test 'Adding a new work, including ISWCs' => sub {
 
     $mech->get_ok('/login');
     $mech->submit_form(
-        with_fields => { username => 'new_editor', password => 'password' }
+        with_fields => { username => 'new_editor', password => 'password' },
     );
 
     $mech->get_ok(
@@ -45,7 +45,7 @@ test 'Adding a new work, including ISWCs' => sub {
                 'edit-work.languages.0' => '120',
                 'edit-work.languages.1' => '134',
             },
-            'The form returned a 2xx response code'
+            'The form returned a 2xx response code',
         );
     } $c;
 

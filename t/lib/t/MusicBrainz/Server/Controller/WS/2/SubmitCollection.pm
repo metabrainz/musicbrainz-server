@@ -15,7 +15,7 @@ use Test::XML::SemanticCompare;
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Test qw( xml_ok );
 use MusicBrainz::Server::Test ws_test => {
-    version => 2
+    version => 2,
 };
 
 test all => sub {

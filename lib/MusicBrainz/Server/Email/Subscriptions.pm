@@ -20,7 +20,7 @@ has 'editor' => (
 has 'to' => (
     is => 'ro',
     lazy => 1,
-    default => sub { shift->editor->email }
+    default => sub { shift->editor->email },
 );
 
 has 'collator' => (
@@ -39,20 +39,20 @@ has 'deletes' => (
     default => sub { [] },
     handles => {
         has_deletes => 'count',
-    }
+    },
 );
 
 has 'edits' => (
     isa => Map[Str, ArrayRef],
     is => 'ro',
-    default => sub { {} }
+    default => sub { {} },
 );
 
 sub extra_headers {
     my $self = shift;
     return (
         'Reply-To' => $EMAIL_SUPPORT_ADDRESS,
-        'Message-Id' => MusicBrainz::Server::Email::_message_id('subscriptions-%s-%d', $self->editor->id, time())
+        'Message-Id' => MusicBrainz::Server::Email::_message_id('subscriptions-%s-%d', $self->editor->id, time()),
     )
 }
 
@@ -66,29 +66,29 @@ sub text {
     push @sections, $self->edits_for_type(
         'Changes for your subscribed artists',
         [ sort_by { $self->collator->getSortKey($_->{subscription}->artist->sort_name) } @{ $self->edits->{artist} } ],
-        'artist'
+        'artist',
     ) if exists $self->edits->{artist};
 
     push @sections, $self->edits_for_type(
         'Changes for your subscribed collections',
         [ sort_by { $self->collator->getSortKey($_->{subscription}->collection->name) } @{ $self->edits->{collection} } ],
-        'collection'
+        'collection',
     ) if exists $self->edits->{collection};
 
     push @sections, $self->edits_for_type(
         'Changes for your subscribed labels',
         [ sort_by { $self->collator->getSortKey($_->{subscription}->label->name) } @{ $self->edits->{label} } ],
-        'label'
+        'label',
     ) if exists $self->edits->{label};
 
     push @sections, $self->edits_for_type(
         'Changes for your subscribed series',
         [ sort_by { $self->collator->getSortKey($_->{subscription}->series->name) } @{ $self->edits->{series} } ],
-        'series'
+        'series',
     ) if exists $self->edits->{series};
 
     push @sections, $self->edits_for_editors(
-        sort_by { $self->collator->getSortKey($_->{subscription}->subscribed_editor->name) } @{ $self->edits->{editor} }
+        sort_by { $self->collator->getSortKey($_->{subscription}->subscribed_editor->name) } @{ $self->edits->{editor} },
     ) if exists $self->edits->{editor};
 
     return join("\n\n", @sections);

@@ -80,15 +80,15 @@ __PACKAGE__->config(
         ENCODING => 'UTF-8',
         EVAL_PERL => 1,
         COMPILE_EXT => '.ttc',
-        COMPILE_DIR => '/tmp/ttc'
+        COMPILE_DIR => '/tmp/ttc',
     },
     'Plugin::Session' => {
-        expires => DBDefs->SESSION_EXPIRE
+        expires => DBDefs->SESSION_EXPIRE,
     },
     stacktrace => {
-        enable => 1
+        enable => 1,
     },
-    use_request_uri_for_path => 1
+    use_request_uri_for_path => 1,
 );
 
 if ($ENV{'MUSICBRAINZ_USE_PROXY'})
@@ -116,8 +116,8 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
                 class => '+MusicBrainz::Server::Authentication::Credential',
             },
             store => {
-                class => '+MusicBrainz::Server::Authentication::Store'
-            }
+                class => '+MusicBrainz::Server::Authentication::Store',
+            },
         },
         'musicbrainz.org' => {
             use_session => 0,
@@ -125,13 +125,13 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
                 class => '+MusicBrainz::Server::Authentication::WS::Credential',
                 type => 'digest',
                 password_field => 'ha1',
-                password_type => 'clear'
+                password_type => 'clear',
             },
             store => {
-                class => '+MusicBrainz::Server::Authentication::WS::Store'
-            }
-        }
-    }
+                class => '+MusicBrainz::Server::Authentication::WS::Store',
+            },
+        },
+    },
 };
 
 # This bit is only required to load if we're running under a proxy
@@ -164,7 +164,7 @@ if ($ENV{'MUSICBRAINZ_RUNNING_TESTS'}) {
             json => 'application/json; charset=UTF-8',
         },
         dirs => [ 'static' ],
-        no_logs => 1
+        no_logs => 1,
     }
 } else {
     push @args, DBDefs->SESSION_STORE;
@@ -303,7 +303,7 @@ sub get_collator
 {
     my ($self) = @_;
     return MusicBrainz::Server::Translation::get_collator(
-        $self->stash->{current_language} // 'en'
+        $self->stash->{current_language} // 'en',
     );
 }
 
@@ -350,7 +350,7 @@ sub with_translations {
     $c->stash(
         current_language => $lang,
         current_language_html => $html_lang,
-        use_languages => scalar @{ Translation->instance->all_languages() }
+        use_languages => scalar @{ Translation->instance->all_languages() },
     );
 
     $code->();
@@ -484,7 +484,7 @@ around dispatch => sub {
             }
             MusicBrainz::Server::Exceptions::GenericTimeout->throw(
                 $c->req->method . ' ' . $c->req->uri .
-                " took more than $max_request_time seconds"
+                " took more than $max_request_time seconds",
             );
         });
         $action->safe(1);
@@ -592,28 +592,28 @@ has json => (
     is => 'ro',
     default => sub {
         return JSON->new->allow_blessed->convert_blessed;
-    }
+    },
 );
 
 has json_canonical => (
     is => 'ro',
     default => sub {
         return JSON->new->allow_blessed->canonical->convert_blessed;
-    }
+    },
 );
 
 has json_canonical_utf8 => (
     is => 'ro',
     default => sub {
         return JSON->new->allow_blessed->canonical->convert_blessed->utf8;
-    }
+    },
 );
 
 has json_utf8 => (
     is => 'ro',
     default => sub {
         return JSON->new->allow_blessed->convert_blessed->utf8;
-    }
+    },
 );
 
 sub form_posted_and_valid {

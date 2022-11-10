@@ -5,12 +5,12 @@ use utf8;
 
 has 'latitude' => (
     is => 'rw',
-    isa => 'Num'
+    isa => 'Num',
 );
 
 has 'longitude' => (
     is => 'rw',
-    isa => 'Num'
+    isa => 'Num',
 );
 
 sub new_from_row {

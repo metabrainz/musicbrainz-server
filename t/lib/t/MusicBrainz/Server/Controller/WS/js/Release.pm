@@ -71,7 +71,7 @@ test all => sub {
                 type => {
                     gid => 'b3045913-62ac-433e-9211-ac683cdf6b5c',
                 },
-            }
+            },
         ],
         linkOrder => 0,
         entity0_credit => '',
@@ -80,13 +80,13 @@ test all => sub {
         entity1_id => 4525123,
         source_id => 4525123,
         source_type => 'recording',
-        target_type => 'artist'
+        target_type => 'artist',
     }, 'BoA performed vocals');
 
     is_deeply(
         $data->{mediums}->[0]->{tracks}->[1]->{recording}->{relationships},
         [],
-        'No relationships on second track'
+        'No relationships on second track',
     );
 };
 

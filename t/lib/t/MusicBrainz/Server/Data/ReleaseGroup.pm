@@ -151,7 +151,7 @@ test 'Merge releases in seperate release groups where release groups have cover 
 
     ok( $test->c->model('Release')->merge(
             new_id => 4, old_ids => [ 5 ],
-            merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE
+            merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
         ), 'Merge releases with cover art');
 
     my $results = $test->c->sql->select_list_of_hashes(<<~'SQL');
@@ -178,7 +178,7 @@ test 'Merge releases in the same release group where the release group has cover
 
     ok( $test->c->model('Release')->merge(
             new_id => 4, old_ids => [ 5 ],
-            merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE
+            merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
         ), 'Merge releases with cover art');
 
     my $results = $test->c->sql->select_list_of_hashes(<<~'SQL');
@@ -231,8 +231,8 @@ test 'Merging release groups with cover art set preserves target cover art' => s
     is(
         $c->sql->select_single_value(
             'SELECT release FROM cover_art_archive.release_group_cover_art
-             WHERE release_group = ?', 4
-        ), 4
+             WHERE release_group = ?', 4,
+        ), 4,
     );
 };
 
@@ -252,8 +252,8 @@ test 'Merging release groups with cover art otherwise uses a random choice' => s
     ok(
         $c->sql->select_single_value(
             'SELECT release FROM cover_art_archive.release_group_cover_art
-             WHERE release_group = ?', 3
-        )
+             WHERE release_group = ?', 3,
+        ),
     );
 };
 

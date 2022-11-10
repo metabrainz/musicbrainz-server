@@ -34,7 +34,7 @@ sub all_events {
     return [
         map { $_->{title} = l($_->{title}); $_->{description} = l($_->{description}); $_; }
         @{$self->sql->select_list_of_hashes(
-            'SELECT * FROM statistics.statistic_event ORDER BY date ASC'
+            'SELECT * FROM statistics.statistic_event ORDER BY date ASC',
         )},
     ];
 }
@@ -81,7 +81,7 @@ sub insert {
         } else {
             $self->sql->insert_row(
                 $self->_table,
-                { name => $key, value => $updates{$key} }
+                { name => $key, value => $updates{$key} },
             );
         }
     }
@@ -107,7 +107,7 @@ my %stats = (
                  GROUP BY edit.editor, editor.name
                  ORDER BY count(edit.id) DESC, editor.name COLLATE musicbrainz
                  LIMIT 25},
-                $STATUS_OPEN, $STATUS_APPLIED
+                $STATUS_OPEN, $STATUS_APPLIED,
             );
 
             my %map;
@@ -119,7 +119,7 @@ my %stats = (
             }
 
             return \%map;
-        }
+        },
     },
     'editor.top_active' => {
         DESC => 'Top active editors',
@@ -145,7 +145,7 @@ my %stats = (
             }
 
             return \%map;
-        }
+        },
     },
     'editor.top_recently_active_voters' => {
         DESC => 'Top recently active voters',
@@ -159,7 +159,7 @@ my %stats = (
                    AND cast(privs AS bit(10)) & 2::bit(10) = 0::bit(10)
                  GROUP BY vote.editor, editor.name
                  ORDER BY count(vote.id) DESC, editor.name COLLATE musicbrainz
-                 LIMIT 25}
+                 LIMIT 25},
             );
 
             my %map;
@@ -171,7 +171,7 @@ my %stats = (
             }
 
             return \%map;
-        }
+        },
     },
     'editor.top_active_voters' => {
         DESC => 'Top active voters',
@@ -184,7 +184,7 @@ my %stats = (
                    AND cast(privs AS bit(10)) & 2::bit(10) = 0::bit(10)
                  GROUP BY editor, editor.name
                  ORDER BY count(vote.id) DESC, editor.name COLLATE musicbrainz
-                 LIMIT 25'
+                 LIMIT 25',
             );
 
             my %map;
@@ -196,14 +196,14 @@ my %stats = (
             }
 
             return \%map;
-        }
+        },
     },
     'count.mbid' => {
         DESC => 'Count of all MBIDs known/allocated',
         SQL => 'SELECT ' .
             join(' + ',
                  (map { "(SELECT COUNT(gid) FROM $_)" } entities_with('mbid', take => sub { my $type = shift; return shift->{table} // $type })),
-                 (map { "(SELECT COUNT(gid) FROM ${_}_gid_redirect)" } entities_with(['mbid', 'multiple'], take => sub { my $type = shift; return shift->{table} // $type })))
+                 (map { "(SELECT COUNT(gid) FROM ${_}_gid_redirect)" } entities_with(['mbid', 'multiple'], take => sub { my $type = shift; return shift->{table} // $type }))),
     },
     'count.release' => {
         DESC => 'Count of all releases',
@@ -239,7 +239,7 @@ my %stats = (
             +{
                 map {
                     'count.area.type.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -266,7 +266,7 @@ my %stats = (
                 'count.artist.type.character'  => $dist{4} || 0,
                 'count.artist.type.orchestra'  => $dist{5} || 0,
                 'count.artist.type.choir'  => $dist{6} || 0,
-                'count.artist.type.null' => $dist{null} || 0
+                'count.artist.type.null' => $dist{null} || 0,
             };
         },
     },
@@ -301,7 +301,7 @@ my %stats = (
                 'count.artist.gender.other' => $dist{3} || 0,
                 'count.artist.gender.not_applicable' => $dist{4} || 0,
                 'count.artist.gender.nonbinary' => $dist{5} || 0,
-                'count.artist.gender.null' => $dist{null} || 0
+                'count.artist.gender.null' => $dist{null} || 0,
             };
         },
     },
@@ -372,7 +372,7 @@ my %stats = (
             +{
                 map {
                     'count.event.country.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -394,7 +394,7 @@ my %stats = (
             +{
                 map {
                     'count.event.type.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -424,7 +424,7 @@ my %stats = (
             +{
                 map {
                     'count.instrument.type.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -459,7 +459,7 @@ my %stats = (
             +{
                 map {
                     'count.place.country.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -481,7 +481,7 @@ my %stats = (
             +{
                 map {
                     'count.place.type.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -506,7 +506,7 @@ my %stats = (
             +{
                 map {
                     'count.series.type.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -535,7 +535,7 @@ my %stats = (
             +{
                 map {
                     'count.coverart.type.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -576,7 +576,7 @@ my %stats = (
             +{
                 map {
                     'count.release.status.'.$_. '.has_coverart' => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -595,7 +595,7 @@ my %stats = (
                    ON release.release_group = release_group.id
                  FULL OUTER JOIN release_group_primary_type
                    ON release_group_primary_type.id = release_group.type
-                 GROUP BY coalesce(release_group_primary_type.name, 'null')}
+                 GROUP BY coalesce(release_group_primary_type.name, 'null')},
             );
 
             my %dist = map { @$_ } @$data;
@@ -603,7 +603,7 @@ my %stats = (
             +{
                 map {
                     'count.release.type.'.$_. '.has_coverart' => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -629,7 +629,7 @@ my %stats = (
             +{
                 map {
                     'count.release.format.'.$_. '.has_coverart' => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -663,7 +663,7 @@ my %stats = (
             +{
                 map {
                     'count.coverart.per_release.'.$_. 'images' => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -690,7 +690,7 @@ my %stats = (
             +{
                 map {
                     'count.label.type.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -785,7 +785,7 @@ my %stats = (
                 'count.editor.valid.validated_only' => sub {
                     my $row = shift;
                     return $row->{valid} && $row->{validated} && !(grep { $row->{$_} } @active_markers)
-                }
+                },
             };
             my %ret = map { $_ => 0 } (keys %$stats, map { 'count.editor.valid.active.'.$_ } @active_markers);
             for my $row (@$data) {
@@ -862,7 +862,7 @@ my %stats = (
             +{
                 map {
                     'count.work.language.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -884,7 +884,7 @@ my %stats = (
             +{
                 map {
                     'count.work.type.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -907,7 +907,7 @@ my %stats = (
             +{
                 map {
                     'count.work.attribute.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -996,7 +996,7 @@ my %stats = (
             +{
                 map {
                     'count.label.country.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -1020,7 +1020,7 @@ my %stats = (
             +{
                 map {
                     'count.release.country.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -1040,7 +1040,7 @@ my %stats = (
             +{
                 map {
                     'count.release.format.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
          },
     },
@@ -1060,7 +1060,7 @@ my %stats = (
             +{
                 map {
                     'count.medium.format.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
          },
     },
@@ -1085,7 +1085,7 @@ my %stats = (
             +{
                 map {
                     'count.release.language.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -1106,7 +1106,7 @@ my %stats = (
             +{
                 map {
                     'count.release.script.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -1127,7 +1127,7 @@ my %stats = (
             +{
                 map {
                     'count.release.status.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -1148,7 +1148,7 @@ my %stats = (
             +{
                 map {
                     'count.release.packaging.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -1178,7 +1178,7 @@ my %stats = (
             +{
                 map {
                     'count.releasegroup.'.$_.'releases' => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -1200,7 +1200,7 @@ my %stats = (
             +{
                 map {
                     'count.releasegroup.primary_type.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -1225,7 +1225,7 @@ my %stats = (
             +{
                 map {
                     'count.releasegroup.secondary_type.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -1237,12 +1237,12 @@ my %stats = (
           JOIN musicbrainz.release
             ON musicbrainz.release.id = cover_art_archive.index_listing.release
          WHERE is_front = true
-        }
+        },
     },
     'count.releasegroup.caa.manually_selected' => {
         DESC => 'Count of release groups that have CAA artwork manually selected',
         SQL => 'SELECT count(DISTINCT release_group)
-                FROM cover_art_archive.release_group_cover_art'
+                FROM cover_art_archive.release_group_cover_art',
     },
     'count.releasegroup.caa.inferred' => {
         PREREQ => [qw[ count.releasegroup.caa count.releasegroup.caa.manually_selected ]],
@@ -1251,7 +1251,7 @@ my %stats = (
             my ($self, $sql) = @_;
             return $self->fetch('count.releasegroup.caa') -
                 $self->fetch('count.releasegroup.caa.manually_selected');
-        }
+        },
     },
     'count.release.various' => {
         DESC => q(Count of all 'Various Artists' releases),
@@ -1386,9 +1386,9 @@ my %stats = (
             +{
                 map {
                     'count.edit.type.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
-        }
+        },
     },
 
     'count.cdstub' => {
@@ -1434,7 +1434,7 @@ my %stats = (
             +{
                 map {
                     'count.artist.country.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -1789,7 +1789,7 @@ my %stats = (
             +{
                 map {
                     'count.release.'.$_.'discids' => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -1828,7 +1828,7 @@ my %stats = (
             +{
                 map {
                     'count.medium.'.$_.'discids' => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -1907,7 +1907,7 @@ my %stats = (
             +{
                 map {
                     'count.recording.'.$_.'releases' => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
         },
     },
@@ -1926,7 +1926,7 @@ my %stats = (
                          RIGHT JOIN
                              (SELECT * FROM link_type WHERE entity_type0 = ? AND entity_type1 = ?)
                          AS lt ON link.link_type = lt.id
-                     GROUP BY lt.name, lt.id, lt.parent", @$t
+                     GROUP BY lt.name, lt.id, lt.parent", @$t,
                 );
 
                 for (@$data) {
@@ -1956,9 +1956,9 @@ my %stats = (
             +{
                 map {
                     'count.ar.links.'.$_ => $dist{$_}
-                } keys %dist
+                } keys %dist,
             };
-        }
+        },
     },
 
     'count.ar.links' => {
@@ -1985,7 +1985,7 @@ my %stats = (
             "count.ar.links.l_${l0}_${l1}" => {
                 DESC => "Count of $l0-$l1 advanced relationship links",
                 PREREQ => [qw( count.ar.links )],
-                PREREQ_ONLY => 1
+                PREREQ_ONLY => 1,
             }
         } MusicBrainz::Server::Data::Relationship->all_pairs
     ),

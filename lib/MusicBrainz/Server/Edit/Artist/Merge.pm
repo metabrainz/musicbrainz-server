@@ -29,8 +29,8 @@ sub foreign_keys
             } (
                 $self->data->{new_entity}{id},
                 map { $_->{id} } @{ $self->data->{old_entities} },
-            )
-        }
+            ),
+        },
     }
 }
 
@@ -38,14 +38,14 @@ has '+data' => (
     isa => Dict[
         new_entity => Dict[
             id   => Int,
-            name => Str
+            name => Str,
         ],
         old_entities => ArrayRef[ Dict[
             name => Str,
-            id   => Int
+            id   => Int,
         ] ],
-        rename => Bool
-    ]
+        rename => Bool,
+    ],
 );
 
 sub do_merge
@@ -58,7 +58,7 @@ sub do_merge
     my (undef, $dropped_columns) = $self->c->model('Artist')->merge(
         $new_id,
         \@old_ids,
-        rename => $self->data->{rename}
+        rename => $self->data->{rename},
     );
 
     if ($dropped_columns->{type}) {

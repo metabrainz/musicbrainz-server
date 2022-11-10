@@ -31,7 +31,7 @@ sub open : Chained('/user/load') PathPart('edits/open') RequireAuth HiddenOnMirr
     my $edits = $self->_edits($c, sub {
         return $c->model('Edit')->find({
             editor => $c->stash->{user}->id,
-            status => $STATUS_OPEN
+            status => $STATUS_OPEN,
         }, shift, shift);
     });
 
@@ -69,7 +69,7 @@ sub cancelled : Chained('/user/load') PathPart('edits/cancelled') RequireAuth Hi
     my $edits = $self->_edits($c, sub {
         return $c->model('Edit')->find({
             editor => $c->stash->{user}->id,
-            status => $STATUS_DELETED
+            status => $STATUS_DELETED,
         }, shift, shift);
     });
 
@@ -108,7 +108,7 @@ sub accepted : Chained('/user/load') PathPart('edits/accepted') RequireAuth Hidd
         return $c->model('Edit')->find({
             editor => $c->stash->{user}->id,
             status => $STATUS_APPLIED,
-            autoedit => 0
+            autoedit => 0,
         }, shift, shift);
     });
 
@@ -147,7 +147,7 @@ sub failed : Chained('/user/load') PathPart('edits/failed') RequireAuth HiddenOn
         return $c->model('Edit')->find({
             editor => $c->stash->{user}->id,
             status => [ $STATUS_FAILEDDEP, $STATUS_FAILEDPREREQ,
-                        $STATUS_ERROR, $STATUS_NOVOTES ]
+                        $STATUS_ERROR, $STATUS_NOVOTES ],
         }, shift, shift);
     });
 
@@ -188,7 +188,7 @@ sub rejected : Chained('/user/load') PathPart('edits/rejected') RequireAuth Hidd
     my $edits = $self->_edits($c, sub {
         return $c->model('Edit')->find({
             editor => $c->stash->{user}->id,
-            status => [ $STATUS_FAILEDVOTE ]
+            status => [ $STATUS_FAILEDVOTE ],
         }, shift, shift);
     });
 
@@ -226,7 +226,7 @@ sub autoedits : Chained('/user/load') PathPart('edits/autoedits') RequireAuth Hi
     my $edits = $self->_edits($c, sub {
         return $c->model('Edit')->find({
             editor => $c->stash->{user}->id,
-            autoedit => 1
+            autoedit => 1,
         }, shift, shift);
     });
 
@@ -298,7 +298,7 @@ sub all : Chained('/user/load') PathPart('edits') RequireAuth HiddenOnMirrors {
     my ($self, $c) = @_;
     my $edits = $self->_edits($c, sub {
         return $c->model('Edit')->find({
-            editor => $c->stash->{user}->id
+            editor => $c->stash->{user}->id,
         }, shift, shift);
     });
 

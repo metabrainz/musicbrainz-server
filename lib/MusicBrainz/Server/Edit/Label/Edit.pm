@@ -57,7 +57,7 @@ sub change_fields
         isni_codes  => Optional[ArrayRef[Str]],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
-        ended      => Optional[Bool]
+        ended      => Optional[Bool],
     ];
 }
 
@@ -66,11 +66,11 @@ has '+data' => (
         entity => Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ],
         new => change_fields(),
         old => change_fields(),
-    ]
+    ],
 );
 
 sub foreign_keys
@@ -98,7 +98,7 @@ sub build_display_data
         label_code => 'label_code',
         comment    => 'comment',
         area       => [ qw( area_id Area ) ],
-        ended      => 'ended'
+        ended      => 'ended',
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
@@ -115,7 +115,7 @@ sub build_display_data
 
     $data->{label} = to_json_object(
         $loaded->{Label}{ $self->data->{entity}{id} } ||
-        Label->new( name => $self->data->{entity}{name} )
+        Label->new( name => $self->data->{entity}{name} ),
     );
 
     if (exists $self->data->{new}{ipi_codes}) {

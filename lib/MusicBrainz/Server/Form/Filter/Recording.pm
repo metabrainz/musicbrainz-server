@@ -23,7 +23,7 @@ sub options_artist_credit_id {
     my ($self, $field) = @_;
     return [
         map +{ value => $_->id, label => $_->name },
-        @{ $self->artist_credits }
+        @{ $self->artist_credits },
     ];
 }
 

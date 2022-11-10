@@ -31,20 +31,20 @@ has '+data' => (
     isa => Dict[
         iswc => Dict[
             id   => Int,
-            iswc => Str
+            iswc => Str,
         ],
         work => Dict[
             id   => Int,
-            name => Str
-        ]
-    ]
+            name => Str,
+        ],
+    ],
 );
 
 sub alter_edit_pending {
     my ($self) = @_;
     return {
         Work => [ $self->data->{work}{id} ],
-        ISWC => [ $self->data->{iswc}{id} ]
+        ISWC => [ $self->data->{iswc}{id} ],
     }
 }
 
@@ -65,7 +65,7 @@ sub build_display_data {
             work => $loaded->{Work}{ $self->data->{work}{id} } //
                     Work->new(
                         id => $self->data->{work}{id},
-                        name => $self->data->{work}{name}
+                        name => $self->data->{work}{name},
                     ),
             work_id => $self->data->{work}{id},
         );
@@ -85,8 +85,8 @@ sub initialize {
         },
         work => {
             id   => $iswc->work->id,
-            name => $iswc->work->name
-        }
+            name => $iswc->work->name,
+        },
     });
 }
 

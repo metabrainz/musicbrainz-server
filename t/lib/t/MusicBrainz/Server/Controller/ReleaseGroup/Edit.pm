@@ -23,7 +23,7 @@ test 'Editing a release group' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'new_editor', password => 'password' }
+        with_fields => { username => 'new_editor', password => 'password' },
     );
 
     $mech->get_ok(
@@ -43,7 +43,7 @@ test 'Editing a release group' => sub {
                 'edit-release-group.artist_credit.names.0.artist.name' => 'Bar',
                 'edit-release-group.artist_credit.names.0.artist.id' => '3',
             },
-            'The form returned a 2xx response code'
+            'The form returned a 2xx response code',
         );
     } $c;
 

@@ -23,7 +23,7 @@ has 'host' => (
 
 has 'port' => (
     isa => 'Int',
-    is  => 'rw'
+    is  => 'rw',
 );
 
 sub shell_args
@@ -34,7 +34,7 @@ sub shell_args
     my %vars = (
         '-h' => $self->host,
         '-p' => $self->port,
-        '-U' => $self->username
+        '-U' => $self->username,
     );
 
     push @args, map { $_ => $vars{$_} } grep { $vars{$_} } keys %vars;

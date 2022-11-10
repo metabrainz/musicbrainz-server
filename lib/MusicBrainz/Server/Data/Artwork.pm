@@ -10,7 +10,7 @@ use MusicBrainz::Server::Validation qw( is_database_bigint_id );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::PendingEdits' => {
-    table => 'cover_art_archive.cover_art'
+    table => 'cover_art_archive.cover_art',
 };
 
 sub _table

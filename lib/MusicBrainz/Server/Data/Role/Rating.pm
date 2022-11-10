@@ -18,7 +18,7 @@ role
     has 'rating' => (
         is => 'ro',
         builder => '_build_rating',
-        lazy => 1
+        lazy => 1,
     );
 
     method '_build_rating' => sub
@@ -27,7 +27,7 @@ role
         return MusicBrainz::Server::Data::Rating->new(
             c => $self->c,
             type => $params->type,
-            parent => $self
+            parent => $self,
         );
     }
 };

@@ -180,7 +180,7 @@ sub _extract_by_language_callback
                                       language => $opts{language},
                                       url => sprintf 'https://%s.wikipedia.org/wiki/%s',
                                                      $opts{language},
-                                                     uri_escape_utf8($opts{fetched}{title} =~ tr/ /_/r)
+                                                     uri_escape_utf8($opts{fetched}{title} =~ tr/ /_/r),
         );
     }
 }

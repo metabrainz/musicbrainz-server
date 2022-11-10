@@ -10,7 +10,7 @@ use MusicBrainz::Server::Validation qw( is_valid_url );
 extends 'HTML::FormHandler::Field::Text';
 
 has '+deflate_method' => (
-    default => sub { \&deflate_url }
+    default => sub { \&deflate_url },
 );
 
 my %ALLOWED_PROTOCOLS = map { $_ => 1 } qw( http https ftp );
@@ -26,7 +26,7 @@ sub validate
 
     return $self->add_error(l(
             'Please enter a valid URL, such as “{example_url}”.',
-            { example_url => 'http://example.com/' }
+            { example_url => 'http://example.com/' },
         ))
         unless is_valid_url($url->as_string);
 

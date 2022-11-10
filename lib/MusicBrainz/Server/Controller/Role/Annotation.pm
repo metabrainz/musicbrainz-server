@@ -41,7 +41,7 @@ sub latest_annotation : Chained('load') PathPart('annotation')
     my $annotations = $self->_load_paged(
         $c, sub {
             $annotation_model->get_history($entity->id, @_);
-        }
+        },
     );
 
     my %props = (
@@ -65,7 +65,7 @@ sub annotation_revision : Chained('load') PathPart('annotation') Args(1)
 
     if (!is_nat($id)) {
         $c->stash(
-            message => l('The annotation revision ID must be a positive integer')
+            message => l('The annotation revision ID must be a positive integer'),
         );
         $c->detach('/error_400')
     }
@@ -82,7 +82,7 @@ sub annotation_revision : Chained('load') PathPart('annotation') Args(1)
     my $annotations = $self->_load_paged(
         $c, sub {
             $annotation_model->get_history($entity->id, @_);
-        }
+        },
     );
 
     if (!(scalar @$annotations) || !(any { $id == $_->{id} } @$annotations)) {
@@ -90,7 +90,7 @@ sub annotation_revision : Chained('load') PathPart('annotation') Args(1)
             message => l(
                 'The annotation with ID “{id}” is not associated with this entity.',
                 { id => $id },
-            )
+            ),
         );
         $c->detach('/error_400')
     }
@@ -169,12 +169,12 @@ sub edit_annotation : Chained('load') PathPart Edit
             if ($form->field('preview')->input) {
                 $c->stash->{component_props}{showPreview} = boolean_to_json(1);
                 $c->stash->{component_props}{preview} = format_wikitext(
-                    $form->field('text')->value
+                    $form->field('text')->value,
                 );
                 return 0;
             }
             return 1;
-        }
+        },
     );
 }
 
@@ -189,7 +189,7 @@ sub annotation_history : Chained('load') PathPart('annotations') RequireAuth
     my $annotations = $self->_load_paged(
         $c, sub {
             $annotation_model->get_history($entity->id, @_);
-        }
+        },
     );
 
     $c->model('Editor')->load(@$annotations);
@@ -217,7 +217,7 @@ sub annotation_diff : Chained('load') PathPart('annotations-differences') Requir
     my $annotations = $self->_load_paged(
         $c, sub {
             $annotation_model->get_history($entity->id, @_);
-        }
+        },
     );
 
     my $old = $c->req->query_params->{old};
@@ -227,7 +227,7 @@ sub annotation_diff : Chained('load') PathPart('annotations-differences') Requir
             is_positive_integer($new) &&
             $old != $new) {
         $c->stash(
-            message => l('The old and new annotation ids must be unique, positive integers.')
+            message => l('The old and new annotation ids must be unique, positive integers.'),
         );
         $c->detach('/error_400')
     }

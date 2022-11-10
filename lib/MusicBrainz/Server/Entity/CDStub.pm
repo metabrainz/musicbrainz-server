@@ -15,59 +15,59 @@ sub entity_type { 'cdstub' }
 
 has 'discid' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'track_count' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'leadout_offset' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'track_offset' => (
     is => 'rw',
-    isa => 'ArrayRef[Int]'
+    isa => 'ArrayRef[Int]',
 );
 
 has 'title' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'artist' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'date_added' => (
     is => 'rw',
     isa => DateTime,
-    coerce => 1
+    coerce => 1,
 );
 
 has 'last_modified' => (
     is => 'rw',
     isa => DateTime,
-    coerce => 1
+    coerce => 1,
 );
 
 has 'lookup_count' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'modify_count' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'source' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'barcode' => (
@@ -79,7 +79,7 @@ has 'barcode' => (
 
 has 'comment' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'tracks' => (
@@ -91,8 +91,8 @@ has 'tracks' => (
     handles => {
         all_tracks => 'elements',
         add_track => 'push',
-        clear_tracks => 'clear'
-    }
+        clear_tracks => 'clear',
+    },
 );
 
 with 'MusicBrainz::Server::Entity::Role::TOC';

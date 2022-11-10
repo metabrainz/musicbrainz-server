@@ -58,7 +58,7 @@ sub verify_artist_credits
             push @artist_ids, $_->{artist}->{id};
             if ($_->{name} eq '') {
                 MusicBrainz::Server::Edit::Exceptions::GeneralError->throw(
-                    'The credited-as name in an artist credit cannot be empty'
+                    'The credited-as name in an artist credit cannot be empty',
                 );
             }
         }
@@ -68,7 +68,7 @@ sub verify_artist_credits
 
     if (@artists != uniq @artist_ids) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'An artist that is used in the new artist credits has been deleted'
+            'An artist that is used in the new artist credits has been deleted',
         )
     }
 }
@@ -129,7 +129,7 @@ sub artist_credit_from_loaded_definition
         my $ac = MusicBrainz::Server::Entity::ArtistCreditName->new(
             name => $ac_name->{name},
             artist => $loaded->{Artist}->{ $ac_name->{artist}->{id} } ||
-                Artist->new( $ac_name->{artist} )
+                Artist->new( $ac_name->{artist} ),
         );
 
         $ac->join_phrase($ac_name->{join_phrase}) if defined $ac_name->{join_phrase};
@@ -137,7 +137,7 @@ sub artist_credit_from_loaded_definition
     }
 
     return MusicBrainz::Server::Entity::ArtistCredit->new(
-        names => \@names
+        names => \@names,
     );
 }
 
@@ -171,7 +171,7 @@ sub artist_credit_preview
     }
 
     return MusicBrainz::Server::Entity::ArtistCredit->new(
-        names => \@names
+        names => \@names,
     );
 }
 

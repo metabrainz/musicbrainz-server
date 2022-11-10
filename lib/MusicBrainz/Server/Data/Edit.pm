@@ -50,7 +50,7 @@ my $EDIT_IDS_FOR_COLLECTION_SQL =
            "SELECT ${edit_table}.edit FROM ${edit_table}
               JOIN ${coll_table} ON ${edit_table}.${type} = ${coll_table}.${type}
             WHERE ${coll_table}.collection = ?"
-       } entities_with('collections')
+       } entities_with('collections'),
       );
 
 sub _table
@@ -471,7 +471,7 @@ sub _max_open_duration {
 sub _max_open_duration_search_format {
     my ($self, %opts) = @_;
     my $parser = DateTime::Format::Duration->new(
-        pattern => '%s seconds ago'
+        pattern => '%s seconds ago',
     );
     return $parser->format_duration($self->_max_open_duration);
 }
@@ -531,7 +531,7 @@ sub _create_instance {
         c => $self->c,
         editor_id => $editor->id,
         editor => $editor,
-        preview => $previewing
+        preview => $previewing,
     );
 
     MusicBrainz::Server::Edit::Exceptions::Forbidden->throw
@@ -589,7 +589,7 @@ sub create {
         open_time => \'now()',
         expire_time => \"now() + interval '$interval'",
         autoedit => $edit->auto_edit,
-        close_time => $edit->close_time
+        close_time => $edit->close_time,
     };
     my $edit_id = $self->c->sql->insert_row('edit', $row, 'id');
     state $json = JSON::XS->new;
@@ -765,8 +765,8 @@ sub approve
         $editor,
         [{
             vote    => $VOTE_APPROVE,
-            edit_id => $edit->id
-        }]
+            edit_id => $edit->id,
+        }],
     );
 
     # Apply the changes and close the edit
@@ -787,8 +787,8 @@ sub _do_accept
             $self->c->model('EditNote')->add_note(
                 $edit->id => {
                     editor_id => $EDITOR_MODBOT,
-                    text => $err->message
-                }
+                    text => $err->message,
+                },
             );
             return $STATUS_FAILEDDEP;
         }
@@ -796,8 +796,8 @@ sub _do_accept
             $self->c->model('EditNote')->add_note(
                 $edit->id => {
                     editor_id => $EDITOR_MODBOT,
-                    text => $err->message
-                }
+                    text => $err->message,
+                },
             );
             return $STATUS_ERROR;
         }
@@ -805,8 +805,8 @@ sub _do_accept
             $self->c->model('EditNote')->add_note(
                 $edit->id => {
                     editor_id => $EDITOR_MODBOT,
-                    text => $err->message
-                }
+                    text => $err->message,
+                },
             );
             return $STATUS_ERROR;
         }
@@ -833,8 +833,8 @@ sub _do_reject
                 $edit->id,
                 {
                     editor_id => $EDITOR_MODBOT,
-                    text => $err
-                 }
+                    text => $err,
+                 },
             );
             return $STATUS_APPLIED;
         }

@@ -21,8 +21,8 @@ has '+data' => (
     isa => Dict[
         page => Str,
         old_version => Nullable[Int],
-        new_version => Nullable[Int]
-    ]
+        new_version => Nullable[Int],
+    ],
 );
 
 sub initialize
@@ -32,7 +32,7 @@ sub initialize
     $self->data({
         page => $opts{page},
         old_version => $opts{old_version},
-        new_version => $opts{new_version}
+        new_version => $opts{new_version},
     });
 }
 

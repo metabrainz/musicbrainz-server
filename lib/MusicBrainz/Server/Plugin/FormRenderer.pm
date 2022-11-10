@@ -20,7 +20,7 @@ sub new
     return bless {
         form => $form,
         h => HTML::Tiny->new,
-        id_prefix => $opts->{id_prefix} || ''
+        id_prefix => $opts->{id_prefix} || '',
     }, $class;
 }
 
@@ -63,7 +63,7 @@ sub _render_input
             name => $field->html_name,
             class => $class . ($field->has_errors ? ' error' : ''),
             disabled => $field->disabled,
-            %attrs
+            %attrs,
         });
 }
 
@@ -135,7 +135,7 @@ sub label
         return $self->h->div({
             class => join(' ', 'label', @class),
             id => 'label-' . $self->_id($field),
-            %$attrs
+            %$attrs,
         }, $label);
     }
     else
@@ -144,7 +144,7 @@ sub label
             id => 'label-' . $self->_id($field),
             for => 'id-' . $field->id,
             class => join(' ', @class) || undef,
-            %$attrs
+            %$attrs,
         }, $label);
     }
 }
@@ -209,7 +209,7 @@ sub select
         multiple => $field->multiple ? 'multiple' : undef,
         disabled => $field->disabled ? 'disabled' : undef,
         class => $attrs->{class},
-        %{ $attrs || {} }
+        %{ $attrs || {} },
     }, \@options);
 }
 
@@ -227,7 +227,7 @@ sub radio
         checked => $field->value && $value eq $field->value ? 'checked' : undef,
         disabled => $field->disabled ? 'disabled' : undef,
         value => $value,
-        %{ $attrs || {} }
+        %{ $attrs || {} },
     });
 }
 
@@ -238,7 +238,7 @@ sub checkbox
     return $self->_render_input($field, 'checkbox',
         checked => $field->value ? 'checked' : undef,
         value => $field->checkbox_value,
-        %$attrs
+        %$attrs,
     );
 }
 
@@ -250,7 +250,7 @@ sub date
         join('-',
              $self->text($field->field('year'),  { class => 'partial-date-year', maxlength => 4, placeholder => l('YYYY'), size => 4 }),
              $self->text($field->field('month'), { class => 'partial-date-month', maxlength => 2, placeholder => l('MM'), size => 2 }),
-             $self->text($field->field('day'),   { class => 'partial-date-day', maxlength => 2, placeholder => l('DD'), size => 2 }))
+             $self->text($field->field('day'),   { class => 'partial-date-day', maxlength => 2, placeholder => l('DD'), size => 2 })),
     ]);
 }
 

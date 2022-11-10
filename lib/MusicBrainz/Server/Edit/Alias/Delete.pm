@@ -20,7 +20,7 @@ has '+data' => (
         alias_id  => Int,
         entity    => Dict[
             id   => Int,
-            name => Str
+            name => Str,
         ],
         name      => Str,
         sort_name => Optional[Str],
@@ -30,7 +30,7 @@ has '+data' => (
         type_id => Nullable[Int],
         primary_for_locale => Nullable[Bool],
         ended => Optional[Bool],
-    ]
+    ],
 );
 
 sub build_display_data
@@ -48,7 +48,7 @@ sub build_display_data
         end_date => to_json_object($end_date),
         # `ended` info was not stored prior to fixing MBS-10460
         ended => boolean_to_json($end_date->is_empty ? $self->data->{ended} : 1),
-        primary_for_locale => boolean_to_json($self->data->{primary_for_locale})
+        primary_for_locale => boolean_to_json($self->data->{primary_for_locale}),
     };
 }
 
@@ -56,7 +56,7 @@ has 'alias_id' => (
     isa => 'Int',
     is => 'rw',
     default => sub { shift->data->{alias_id} },
-    lazy => 1
+    lazy => 1,
 );
 
 has 'alias' => (
@@ -79,7 +79,7 @@ sub initialize
     $self->data({
         entity    => {
             id   => $entity->id,
-            name => $entity->name
+            name => $entity->name,
         },
         alias_id  => $alias->id,
         name      => $alias->name,
@@ -89,7 +89,7 @@ sub initialize
         end_date => partial_date_to_hash($alias->end_date),
         ended => $alias->ended,
         type_id => $alias->type_id,
-        primary_for_locale => $alias->primary_for_locale
+        primary_for_locale => $alias->primary_for_locale,
     });
 }
 

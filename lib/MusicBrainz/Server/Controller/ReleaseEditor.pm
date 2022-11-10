@@ -5,7 +5,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 __PACKAGE__->config(
-    namespace => 'release_editor'
+    namespace => 'release_editor',
 );
 
 use Try::Tiny;
@@ -55,7 +55,7 @@ sub _init_release_editor
         medium_format_dates => $c->json->encode(\%medium_format_dates),
         # The merge helper doesn't really work well together with the release editor process
         hide_merge_helper   => 1,
-        %options
+        %options,
     );
 }
 

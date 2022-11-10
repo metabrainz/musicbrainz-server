@@ -41,7 +41,7 @@ has [qw(email_on_no_vote email_on_notes email_on_vote)] => (
     isa => 'Bool',
     default => 1,
     is =>'rw',
-    lazy => 1
+    lazy => 1,
 );
 
 has [qw( subscribe_to_created_artists
@@ -50,7 +50,7 @@ has [qw( subscribe_to_created_artists
     isa => 'Bool',
     default => 1,
     is =>'rw',
-    lazy => 1
+    lazy => 1,
 );
 
 has 'subscriptions_email_period' => (

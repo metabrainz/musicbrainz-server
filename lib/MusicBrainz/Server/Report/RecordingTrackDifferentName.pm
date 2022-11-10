@@ -27,14 +27,14 @@ sub inflate_rows
     my ($self, $items) = @_;
 
     my $tracks = $self->c->model('Track')->get_by_ids(
-        map { $_->{track_id} } @$items
+        map { $_->{track_id} } @$items,
     );
 
     return [
         map +{
             %$_,
             track => to_json_object($tracks->{ $_->{track_id} }),
-        }, @$items
+        }, @$items,
     ];
 }
 

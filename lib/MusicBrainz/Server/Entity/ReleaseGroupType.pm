@@ -27,7 +27,7 @@ around TO_JSON => sub {
     my ($orig, $self) = @_;
     return {
         %{ $self->$orig },
-        historic => boolean_to_json($self->historic)
+        historic => boolean_to_json($self->historic),
     };
 };
 

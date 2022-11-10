@@ -305,7 +305,7 @@ sub filter : Private
         $c->stash(
             search_results => $self->_load_paged($c, sub {
                     $c->model('DirectSearch')->search($type, $q, shift, shift)
-                })
+                }),
         );
     }
 

@@ -42,14 +42,14 @@ sub build_display_data
     return {
         releases => to_json_array([
             map { $loaded->{Release}{$_} // Release->new( id => $_ ) }
-                @{ $self->data->{release_ids} }
+                @{ $self->data->{release_ids} },
         ]),
         cdtoc => to_json_object( $loaded->{CDTOC}{ $self->data->{cdtoc} } ),
         length => {
             map {
                 $_ => [ map { MusicBrainz::Server::Track::UnformatTrackLength($_) }
                             split /\s+(?!ms)/, $self->data->{$_}{lengths} ]
-            } qw( old new)
+            } qw( old new),
         },
     }
 }

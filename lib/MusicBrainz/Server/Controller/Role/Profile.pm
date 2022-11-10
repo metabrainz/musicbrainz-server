@@ -5,7 +5,7 @@ use namespace::autoclean;
 
 parameter 'threshold' => (
     required => 1,
-    default => 0
+    default => 0,
 );
 
 role {
@@ -28,7 +28,7 @@ role {
                 my (undef, $name, $duration) = @$stat;
                 if ($name eq 'request' && $duration > $threshold) {
                     $c->log->warn(
-                        sprintf('Slow request (%.3fs): %s %s', $duration, $c->req->method, $c->req->uri)
+                        sprintf('Slow request (%.3fs): %s %s', $duration, $c->req->method, $c->req->uri),
                     );
                 }
             }

@@ -21,15 +21,15 @@ use MusicBrainz::Server::Constants qw( :edit_status );
 
 my $c = MusicBrainz::Server::Test->create_test_context(
     models => {
-        map { $_ => mock } qw( Artist Editor Edit EditorSubscriptions )
-    }
+        map { $_ => mock } qw( Artist Editor Edit EditorSubscriptions ),
+    },
 );
 
 has emailer => (
     is => 'ro',
     default => sub { mock },
     lazy => 1,
-    clearer => 'clear_emailer'
+    clearer => 'clear_emailer',
 );
 
 has script => (
@@ -37,7 +37,7 @@ has script => (
     default => sub {
         my $test = shift;
         Script->new(
-            c => $c, emailer => $test->emailer, verbose => 0, dry_run => 0
+            c => $c, emailer => $test->emailer, verbose => 0, dry_run => 0,
         );
     },
     lazy => 1,
@@ -53,7 +53,7 @@ before run_test => sub {
 my $acid2 = Editor->new(
     name => 'aCiD2', id => 1,
     email => 'acid2@example.com',
-    email_confirmation_date => DateTime->now
+    email_confirmation_date => DateTime->now,
 );
 
 test 'Sending edits' => sub {
@@ -70,8 +70,8 @@ test 'Sending edits' => sub {
             $acid2->id => [ $spor_subscription ],
         },
         edits => [
-            [ $spor_subscription => [ $open_edit, $applied_edit ]]
-        ]
+            [ $spor_subscription => [ $open_edit, $applied_edit ]],
+        ],
     );
 
     $test->script->run;
@@ -91,9 +91,9 @@ test 'Sending edits' => sub {
                 artist => [{
                     subscription => $spor_subscription,
                     open => [ $open_edit ],
-                    applied => [ $applied_edit ]
-                }]
-            }
+                    applied => [ $applied_edit ],
+                }],
+            },
         }, 'notifies about 1 open edit to Spor');
     };
 
@@ -108,7 +108,7 @@ test 'No edits means no email' => sub {
     my $warp = Editor->new(
         name => 'warp', id => 2,
         email => 'warp@example.com',
-        email_confirmation_date => DateTime->now
+        email_confirmation_date => DateTime->now,
     );
     my $lady_gaga_subscription = ArtistSubscription->new( editor => $warp, artist_id => 1, editor_id => $warp->id,
                                                           last_edit_sent => 0 );
@@ -116,9 +116,9 @@ test 'No edits means no email' => sub {
     mock_subscriptions(
         editors => [ $warp ],
         subscriptions => {
-            $warp->id => [ $lady_gaga_subscription ]
+            $warp->id => [ $lady_gaga_subscription ],
         },
-        edits => [ ]
+        edits => [ ],
     );
 
     $test->script->run;
@@ -137,7 +137,7 @@ test 'Handling deletes and merges' => sub {
         last_known_name => 'Revolution Records',
         last_known_comment => 'drum & bass',
         editor_id => $acid2->id,
-        reason => 'merged'
+        reason => 'merged',
     );
 
     my $artist = DeletedArtistSubscription->new(
@@ -146,14 +146,14 @@ test 'Handling deletes and merges' => sub {
         editor_id => $acid2->id,
         last_known_name => 'Nosaj Thing',
         last_known_comment => '',
-        reason => 'deleted'
+        reason => 'deleted',
     );
 
     mock_subscriptions(
         editors => [ $acid2 ],
         subscriptions => {
-            $acid2->id => [ $artist, $label ]
-        }
+            $acid2->id => [ $artist, $label ],
+        },
     );
 
     $test->script->run;
@@ -163,7 +163,7 @@ test 'Handling deletes and merges' => sub {
             ->arguments;
 
         is_deeply($args{deletes} => [
-            $artist, $label
+            $artist, $label,
         ], 'has information about the deleted label and merged artist')
     };
 
@@ -186,12 +186,12 @@ test 'Editor subscriptions' => sub {
     mock_subscriptions(
         editors => [ $acid2 ],
         subscriptions => {
-            $acid2->id => [ $editor_sub, $self_editor_sub ]
+            $acid2->id => [ $editor_sub, $self_editor_sub ],
         },
         edits => [
             [ $editor_sub => [ $open_edit, $applied_edit ] ],
             [ $self_editor_sub => [ $self_edit ] ],
-        ]
+        ],
     );
     when($c->model('Editor'))->get_by_id($editor->id)->then_return($editor);
     when($c->model('Editor'))->get_by_id($acid2->id)->then_return($acid2);
@@ -206,13 +206,13 @@ test 'Editor subscriptions' => sub {
             editor => [{
                 open => [ $open_edit ],
                 applied => [ $applied_edit ],
-                subscription => $editor_sub
+                subscription => $editor_sub,
             },
             {
                 open => [ ],
                 applied => [ $self_edit ],
-                subscription => $self_editor_sub
-            }]
+                subscription => $self_editor_sub,
+            }],
         });
         is($editor_sub->subscribed_editor => $editor,
             'did load the editor');
@@ -234,11 +234,11 @@ test 'Does not send an editors own edits' => sub {
     mock_subscriptions(
         editors => [ $acid2 ],
         subscriptions => {
-            $acid2->id => [ $artist_sub ]
+            $acid2->id => [ $artist_sub ],
         },
         edits => [
-            [ $artist_sub => [ $open_edit ] ]
-        ]
+            [ $artist_sub => [ $open_edit ] ],
+        ],
     );
 
     $test->script->run;

@@ -21,7 +21,7 @@ sub extra_headers {
     my @headers = (
         'References'  => MusicBrainz::Server::Email::_message_id('autoeditor-election-%s', $self->election->id),
         'In-Reply-To' => MusicBrainz::Server::Email::_message_id('autoeditor-election-%s', $self->election->id),
-        'Message-Id'  => MusicBrainz::Server::Email::_message_id('autoeditor-election-%s-%d', $self->election->id, time())
+        'Message-Id'  => MusicBrainz::Server::Email::_message_id('autoeditor-election-%s-%d', $self->election->id, time()),
     );
     push @headers, (BCC => MusicBrainz::Server::Email::_user_address($self->election->candidate))
         if $self->election->candidate->email;

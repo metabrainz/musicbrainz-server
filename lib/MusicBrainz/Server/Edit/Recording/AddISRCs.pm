@@ -11,7 +11,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
-    -excludes => 'recording_ids'
+    -excludes => 'recording_ids',
 };
 with 'MusicBrainz::Server::Edit::Recording';
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
@@ -32,12 +32,12 @@ has '+data' => (
             isrc      => Str,
             recording => Dict[
                 id => Int,
-                name => Str
+                name => Str,
             ],
             source    => Nullable[Int],
         ]],
-        client_version => Nullable[Str]
-    ]
+        client_version => Nullable[Str],
+    ],
 );
 
 sub initialize
@@ -51,7 +51,7 @@ sub initialize
     else {
         $self->data({
             isrcs => \@isrcs,
-            client_version => $opts{client_version}
+            client_version => $opts{client_version},
         });
     }
 }
@@ -62,7 +62,7 @@ sub _build_related_entities
     return {
         recording => [ uniq map {
             $_->{recording}{id}
-        } @{ $self->data->{isrcs} } ]
+        } @{ $self->data->{isrcs} } ],
     }
 }
 
@@ -72,7 +72,7 @@ sub foreign_keys
     return {
         Recording => { map {
             $_->{recording}{id} => ['ArtistCredit']
-        } @{ $self->data->{isrcs} } }
+        } @{ $self->data->{isrcs} } },
     }
 }
 
@@ -84,11 +84,11 @@ sub build_display_data
             map { +{
                 recording => to_json_object(
                     $loaded->{Recording}{ $_->{recording}{id} } ||
-                    Recording->new( id => $_->{recording}{id}, name => $_->{recording}{name} )
+                    Recording->new( id => $_->{recording}{id}, name => $_->{recording}{name} ),
                 ),
                 isrc      => to_json_object(ISRC->new( isrc => $_->{isrc} )),
-                source    => $_->{source}
-            } } @{ $self->data->{isrcs} }
+                source    => $_->{source},
+            } } @{ $self->data->{isrcs} },
         ],
         client_version => $self->data->{client_version},
 
@@ -107,7 +107,7 @@ sub accept
         } map +{
             recording_id => $_->{recording}{id},
             isrc => $_->{isrc},
-            source => $_->{source}
+            source => $_->{source},
         }, @{ $self->data->{isrcs} };
 
     $self->c->model('ISRC')->insert(@new_isrcs) if @new_isrcs;

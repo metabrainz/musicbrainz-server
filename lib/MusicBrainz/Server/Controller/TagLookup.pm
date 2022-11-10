@@ -132,7 +132,7 @@ sub external : Private
         recording => 'track',
         release => 'release',
         dur => 'duration',
-        tnum => 'tracknum'
+        tnum => 'tracknum',
     };
 
     # Collect all the terms we have
@@ -200,7 +200,7 @@ sub index : Path('')
         map {
             ("tag-lookup.$_" => $c->req->query_params->{"tag-lookup.$_"} //
                                 $c->req->query_params->{$_})
-        } qw( artist release tracknum track duration filename )
+        } qw( artist release tracknum track duration filename ),
     };
 
     $c->stash(

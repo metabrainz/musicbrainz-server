@@ -23,17 +23,17 @@ around '_build_related_entities' => sub
 
     return {
         artist => [
-            map { $_->entity0_id } map { $_->all_relationships } @works
+            map { $_->entity0_id } map { $_->all_relationships } @works,
         ],
         recording => [
-            @recording_ids
+            @recording_ids,
         ],
         release => [
-            map { $_->id } @$releases
+            map { $_->id } @$releases,
         ],
         work => [
-            $self->work_ids
-        ]
+            $self->work_ids,
+        ],
     }
 };
 

@@ -24,18 +24,18 @@ with 'MusicBrainz::Server::Data::Role::Sql';
 
 has 'table' => (
     is => 'ro',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'column' => (
     is => 'ro',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'active_class' => (
     is => 'ro',
     isa => 'Str',
-    required => 1
+    required => 1,
 );
 
 has 'deleted_class' => (
@@ -228,7 +228,7 @@ sub transfer_to_merge_target
                  WHERE t2.$column = ? AND t2.editor = t1.editor
                 )
        GROUP BY editor, $column",
-        $new_id, @old_ids, $new_id
+        $new_id, @old_ids, $new_id,
     );
 }
 
@@ -242,7 +242,7 @@ sub delete
     return $self->sql->select_list_of_hashes(
         "DELETE FROM $table WHERE $column = any(?)
          RETURNING editor, $column",
-        \@ids
+        \@ids,
     );
 }
 
@@ -252,8 +252,8 @@ sub log_deletion_for_editors {
         $edit_id,
         map +{
             gid => $gid,
-            editor => $_
-        }, @editors
+            editor => $_,
+        }, @editors,
     );
 }
 
@@ -264,7 +264,7 @@ sub log_deletions {
         map +{
             %$_,
             deleted_by => $edit_id,
-        }, @deletions
+        }, @deletions,
     );
 }
 

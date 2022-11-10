@@ -66,8 +66,8 @@ test 'Edit an already transcluded page' => sub {
     my @edits = capture_edits {
         $mech->submit_form_ok({
             with_fields => {
-                'wikidoc.version' => 10
-            }
+                'wikidoc.version' => 10,
+            },
         },
         'The form returned a 2xx response code')
     } $c;

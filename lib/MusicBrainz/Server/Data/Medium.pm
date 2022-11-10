@@ -166,7 +166,7 @@ sub delete
     my @tocs = @{
         $self->sql->select_single_column_array(
             'SELECT id FROM medium_cdtoc WHERE medium IN (' . placeholders(@ids) . ')',
-            @ids
+            @ids,
         )
     };
 
@@ -247,7 +247,7 @@ sub set_lengths_to_cdtoc
         my $track = $medium_tracks[$i];
 
         $self->c->model('Track')->update(
-            $track->id, { length => $info[$i]->{length_time} }
+            $track->id, { length => $info[$i]->{length_time} },
         );
 
         push @recording_ids, $track->recording_id;
@@ -285,7 +285,7 @@ sub reorder {
                      AS mpos (medium, position)
                   WHERE mpos.medium = medium.id)
           WHERE id IN (' . placeholders(@medium_ids) . ')',
-        %ordering, @medium_ids
+        %ordering, @medium_ids,
     )
 }
 

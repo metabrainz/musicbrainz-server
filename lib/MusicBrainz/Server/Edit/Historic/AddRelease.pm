@@ -107,7 +107,7 @@ sub build_display_data
         artist         => $artist,
         releases       => [
             map { to_json_object($loaded->{Release}{$_}) }
-            grep { defined } $self->_release_ids
+            grep { defined } $self->_release_ids,
         ],
         status         => defined($self->data->{status_id}) &&
                             to_json_object($loaded->{ReleaseStatus}{ $self->data->{status_id} }),
@@ -127,8 +127,8 @@ sub build_display_data
                 catalog_number => $_->{catalog_number},
                 barcode        => $_->{barcode},
                 format         => defined($_->{format_id}) &&
-                                    to_json_object($loaded->{MediumFormat}{ $_->{format_id} })
-            } } $self->_release_events
+                                    to_json_object($loaded->{MediumFormat}{ $_->{format_id} }),
+            } } $self->_release_events,
         ],
         tracks => [
             map {
@@ -155,8 +155,8 @@ sub build_display_data
                                         id => $_->{recording_id},
                                         name => $_->{name},
                                     )),
-                } } sort { $a->{position} <=> $b->{position} } $self->_tracks
-        ]
+                } } sort { $a->{position} <=> $b->{position} } $self->_tracks,
+        ],
     }
 }
 
@@ -208,7 +208,7 @@ sub upgrade
             label_id       => upgrade_id($label_id),
             catalog_number => $catalog_number,
             barcode        => $barcode,
-            format_id      => upgrade_id($format_id)
+            format_id      => upgrade_id($format_id),
         };
 
         push @{ $data->{release_ids} }, ($self->resolve_release_id($release_event_id) || ());
@@ -220,7 +220,7 @@ sub upgrade
         $self->new_value->{ReleaseGroupID},
         map {
             $self->find_release_group_id($_)
-        } @{ $data->{release_ids} }
+        } @{ $data->{release_ids} },
     )];
 
     for (my $i = 1; 1; $i++) {
@@ -239,7 +239,7 @@ sub upgrade
             artist_id    => $artist_id,
             artist_name  => $self->new_value->{"Artist$i"},
             length       => $length,
-            recording_id => $self->resolve_recording_id($track_id)
+            recording_id => $self->resolve_recording_id($track_id),
         }
     }
 

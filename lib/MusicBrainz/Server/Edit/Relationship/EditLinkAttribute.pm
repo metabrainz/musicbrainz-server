@@ -49,8 +49,8 @@ has '+data' => (
     isa => Dict[
         entity_id => Int,
         old       => change_fields(),
-        new       => change_fields()
-    ]
+        new       => change_fields(),
+    ],
 );
 
 sub foreign_keys

@@ -4,7 +4,7 @@ use namespace::autoclean;
 use Scalar::Util qw( looks_like_number );
 
 parameter type => (
-    required => 1
+    required => 1,
 );
 
 role {
@@ -12,13 +12,13 @@ role {
 
     has name => (
         is => 'ro',
-        isa => 'Str'
+        isa => 'Str',
     );
 
     method operator_cardinality_map => sub {
         return (
             '=' => 1,
-            '!=' => 1
+            '!=' => 1,
         );
     };
 
@@ -29,7 +29,7 @@ role {
 
         $query->add_where([
             ($self->operator eq '!=' ? 'NOT ' : '') .
-            "EXISTS (SELECT 1 FROM $table WHERE edit = edit.id AND $column = ?)", $self->sql_arguments
+            "EXISTS (SELECT 1 FROM $table WHERE edit = edit.id AND $column = ?)", $self->sql_arguments,
         ]);
     };
 

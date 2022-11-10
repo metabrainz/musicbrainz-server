@@ -15,7 +15,7 @@ has '+name' => ( default => 'change-release-quality' );
 
 has_field 'quality' => (
     type => 'Select',
-    required => 1
+    required => 1,
 );
 
 sub options_quality

@@ -52,7 +52,7 @@ sub _create_edit {
         name => 'Another alias',
         sort_name => 'Another alias sort name',
         primary_for_locale => 0,
-        ended => 0
+        ended => 0,
     );
 }
 

@@ -165,7 +165,7 @@ has [qw( registration_date )] => (
     lazy   => 1,
     # This is the date of the first commit, and will be moved to the database
     # in the next schema change
-    default => sub { DateTime->new( year => 2000, month => 9, day => 7 ) }
+    default => sub { DateTime->new( year => 2000, month => 9, day => 7 ) },
 );
 
 has [qw( last_login_date email_confirmation_date )] => (
@@ -185,14 +185,14 @@ sub is_newbie
     my $self = shift;
     return DateTime::Duration->compare(
         DateTime->now - $self->registration_date,
-        DateTime::Duration->new( weeks => 2 )
+        DateTime::Duration->new( weeks => 2 ),
       ) == -1;
 }
 
 has 'preferences' => (
     is => 'rw',
     lazy => 1,
-    default => sub { MusicBrainz::Server::Entity::Preferences->new }
+    default => sub { MusicBrainz::Server::Entity::Preferences->new },
 );
 
 sub is_limited
@@ -208,7 +208,7 @@ sub is_limited
 has birth_date => (
    is => 'rw',
    isa => DateTimeType,
-   coerce => 1
+   coerce => 1,
 );
 
 has gender_id => (
@@ -227,7 +227,7 @@ has area_id => (
 
 has area => (
     is => 'rw',
-    isa => 'Area'
+    isa => 'Area',
 );
 
 sub age {
@@ -250,7 +250,7 @@ has languages => (
     traits => [ 'Array' ],
     handles => {
         add_language => 'push',
-    }
+    },
 );
 
 sub requires_password_reset {

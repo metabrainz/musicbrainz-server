@@ -16,7 +16,7 @@ use Try::Tiny;
 with 'MusicBrainz::Server::WebService::Format';
 
 with 'MusicBrainz::Server::Controller::Role::Profile' => {
-    threshold => DBDefs->PROFILE_WEB_SERVICE()
+    threshold => DBDefs->PROFILE_WEB_SERVICE(),
 };
 
 with 'MusicBrainz::Server::Controller::Role::CORS';
@@ -98,7 +98,7 @@ sub method_not_allowed : Private {
     $c->res->status(405);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->output_error(
-        $c->req->method . ' is not allowed on this endpoint.'
+        $c->req->method . ' is not allowed on this endpoint.',
     ));
 }
 
@@ -184,7 +184,7 @@ sub _search
     my $result = $c->model('WebService')->xml_search($entity, $c->stash->{args});
     if (DBDefs->SEARCH_X_ACCEL_REDIRECT && exists $result->{redirect_url}) {
         $c->res->headers->header(
-            'X-Accel-Redirect' => $result->{redirect_url}
+            'X-Accel-Redirect' => $result->{redirect_url},
         );
     } else {
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -295,7 +295,7 @@ sub _limit_and_offset
 
     if (!(is_nat($limit) && is_nat($offset))) {
         $self->_error(
-            $c, q(The 'limit' and 'offset' parameters must be positive integers)
+            $c, q(The 'limit' and 'offset' parameters must be positive integers),
         );
     }
 
@@ -309,7 +309,7 @@ sub make_list
     return {
         items => $results,
         total => defined $total ? $total : scalar @$results,
-        offset => defined $offset ? $offset : 0
+        offset => defined $offset ? $offset : 0,
     };
 }
 
@@ -613,7 +613,7 @@ sub load_relationships {
 
         my @load_language_for = (
             @releases,
-            map { $collect_works->($_) } (@rels, map { $_->all_relationships } @works)
+            map { $collect_works->($_) } (@rels, map { $_->all_relationships } @works),
         );
 
         $c->model('Language')->load(@load_language_for);

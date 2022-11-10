@@ -81,7 +81,7 @@ test 'Unused tracks are correctly deleted after tracklist changes' => sub {
                 artist => Artist->new(
                     id => 2,
                     name => 'Artist',
-                ))
+                )),
         ]);
 
     my $medium = $c->model('Medium')->get_by_id(1);
@@ -167,12 +167,12 @@ test 'Edits are rejected if they conflict' => sub {
                         artist => Artist->new(
                             id => 2,
                             name => 'Artist',
-                        )
+                        ),
                     )]),
             recording_id => 1,
             position => 1,
-            is_data_track => 0
-        )
+            is_data_track => 0,
+        ),
     ]);
     my $edit2 = create_edit($c, $medium, [
         Track->new(
@@ -184,12 +184,12 @@ test 'Edits are rejected if they conflict' => sub {
                         artist => Artist->new(
                             id => 2,
                             name => 'Artist',
-                        )
+                        ),
                     )]),
             recording_id => 1,
             position => 1,
-            is_data_track => 0
-        )
+            is_data_track => 0,
+        ),
     ]);
 
     accept_edit($c, $edit1);
@@ -250,13 +250,13 @@ test 'Accept/failure conditions regarding links' => sub {
                                 artist => Artist->new(
                                     id => 2,
                                     name => 'Artist',
-                                )
+                                ),
                             )]),
                     position => 1,
                     length => undef,
-                    is_data_track => 0
-                )
-            ]
+                    is_data_track => 0,
+                ),
+            ],
         );
 
         $c->model('Edit')->load_all($edit);
@@ -288,9 +288,9 @@ test 'Accept/failure conditions regarding links' => sub {
             to_edit   => $medium,
             tracklist => [
                 $track->meta->clone_object($track,
-                    recording_id => 1
-                )
-            ]
+                    recording_id => 1,
+                ),
+            ],
         );
 
         ok !exception { $edit->accept };
@@ -311,12 +311,12 @@ test 'Accept/failure conditions regarding links' => sub {
     my ($merge_target, $merge_me) = $c->model('Recording')->insert(
         {
             name => 'Merge into me',
-            artist_credit => 1
+            artist_credit => 1,
         },
         {
             name => 'Merge me away',
-            artist_credit => 1
-        }
+            artist_credit => 1,
+        },
     );
 
     # XXX TODO You should be able to do this!
@@ -332,9 +332,9 @@ test 'Accept/failure conditions regarding links' => sub {
             to_edit   => $medium,
             tracklist => [
                 $track->meta->clone_object($track,
-                    recording_id => $merge_me->{id}
-                )
-            ]
+                    recording_id => $merge_me->{id},
+                ),
+            ],
         );
 
         $c->model('Recording')->merge($merge_target->{id}, $merge_me->{id});
@@ -344,7 +344,7 @@ test 'Accept/failure conditions regarding links' => sub {
 
     my $new_rec = $c->model('Recording')->insert({
         name => 'Existing recording',
-        artist_credit => 1
+        artist_credit => 1,
     });
 
     subtest 'Adding a new recording with an existing ID is successful' => sub {
@@ -368,14 +368,14 @@ test 'Accept/failure conditions regarding links' => sub {
                                 artist => Artist->new(
                                     id => 2,
                                     name => 'Artist',
-                                )
+                                ),
                             )]),
                     position => 2,
                     recording_id => $new_rec->{id},
                     length => undef,
-                    is_data_track => 0
-                )
-            ]
+                    is_data_track => 0,
+                ),
+            ],
         );
 
         $medium = $c->model('Medium')->get_by_id(1);
@@ -404,12 +404,12 @@ test 'Accept/failure conditions regarding links' => sub {
                 map {
                     Track->meta->clone_object($_, name => 'Renamed track')
                 } $medium->all_tracks,
-            ]
+            ],
         );
 
         my $recording = $c->model('Recording')->insert({
             artist_credit => 1,
-            name => 'New recording'
+            name => 'New recording',
         });
 
         $c->model('Recording')->merge($recording->{id}, $new_rec->{id});
@@ -453,13 +453,13 @@ test 'Auto-editing edit medium' => sub {
                                     artist => Artist->new(
                                         id => 2,
                                         name => 'Artist',
-                                    )
+                                    ),
                                 )]),
                         position => 1,
                         length => undef,
-                        is_data_track => 0
-                    )
-                ]
+                        is_data_track => 0,
+                    ),
+                ],
             )
         }
     };
@@ -478,8 +478,8 @@ test 'Auto-editing edit medium' => sub {
                 edit_type  => $EDIT_MEDIUM_EDIT,
                 to_edit    => $medium,
                 tracklist  => [
-                    $track->meta->clone_object($track, recording_id => 1)
-                ]
+                    $track->meta->clone_object($track, recording_id => 1),
+                ],
             )
         };
     };
@@ -522,8 +522,8 @@ test 'Pregap tracks can be added' => sub {
             artist_credit => $ac,
             recording_id => 2,
             position => 0,
-            number => 0
-        )
+            number => 0,
+        ),
     ]);
 
     $edit->accept;
@@ -543,7 +543,7 @@ test 'Tracks can be reordered' => sub {
 
     my $artist_row = $c->model('Artist')->insert({
         name => 'Artist',
-        sort_name => 'Artist'
+        sort_name => 'Artist',
     });
 
     my $ac_hash = { names => [{ artist => $artist_row, name => 'Artist' }] };
@@ -552,7 +552,7 @@ test 'Tracks can be reordered' => sub {
     my $release_row = $c->model('Release')->insert({
         name => 'Release',
         artist_credit => $ac_id,
-        release_group_id => $c->model('ReleaseGroup')->insert({ name => 'ReleaseGroup', artist_credit => $ac_id })->{id}
+        release_group_id => $c->model('ReleaseGroup')->insert({ name => 'ReleaseGroup', artist_credit => $ac_id })->{id},
     });
 
     my $medium_row = $c->model('Medium')->insert({
@@ -563,15 +563,15 @@ test 'Tracks can be reordered' => sub {
                 position => 1,
                 name => 'Track 1',
                 artist_credit => $ac_hash,
-                recording_id => $c->model('Recording')->insert({ name => 'Recording 1', artist_credit => $ac_id })->{id}
+                recording_id => $c->model('Recording')->insert({ name => 'Recording 1', artist_credit => $ac_id })->{id},
             },
             {
                 position => 2,
                 name => 'Track 2',
                 artist_credit => $ac_hash,
-                recording_id => $c->model('Recording')->insert({ name => 'Recording 2', artist_credit => $ac_id })->{id}
-            }
-        ]
+                recording_id => $c->model('Recording')->insert({ name => 'Recording 2', artist_credit => $ac_id })->{id},
+            },
+        ],
     });
 
     my $medium = $c->model('Medium')->get_by_id($medium_row->{id});
@@ -590,8 +590,8 @@ test 'Tracks can be reordered' => sub {
         to_edit => $medium,
         tracklist => [
             $medium->tracks->[1],
-            $medium->tracks->[0]
-        ]
+            $medium->tracks->[0],
+        ],
     );
 
     $edit->accept;
@@ -602,19 +602,19 @@ test 'Tracks can be reordered' => sub {
             tracklist => [
                 # The positions would be changed in a real edit, so we mock that
                 {%{$track_hashes->[1]}, position => 1},
-                {%{$track_hashes->[0]}, position => 2}
-            ]
+                {%{$track_hashes->[0]}, position => 2},
+            ],
         },
         old => {
             tracklist => [
                 $track_hashes->[0],
-                $track_hashes->[1]
-            ]
+                $track_hashes->[1],
+            ],
         },
         release => {
             id => $release_row->{id},
-            name => 'Release'
-        }
+            name => 'Release',
+        },
     })
 };
 
@@ -753,13 +753,13 @@ sub create_edit {
                         artist => Artist->new(
                             id => 2,
                             name => 'Artist',
-                        )
+                        ),
                     )]),
             recording_id => 1,
             position => 1,
             number => 1,
-            is_data_track => 0
-        )
+            is_data_track => 0,
+        ),
     ];
 
     return $c->model('Edit')->create(

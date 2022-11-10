@@ -17,7 +17,7 @@ test 'Ratings are inserted / updated as expected' => sub {
 
     $mech->get_ok('/login');
     $mech->submit_form(
-        with_fields => {username => 'new_editor', password => 'password' }
+        with_fields => {username => 'new_editor', password => 'password' },
     );
 
     $mech->get('/rating/rate/?entity_type=label&entity_id=2&rating=100');
@@ -51,7 +51,7 @@ test 'Cannot rate without a confirmed email address' => sub {
 
     $c->model('Editor')->insert({
         name => 'iwannarate',
-        password => 'password'
+        password => 'password',
     });
 
     $mech->get_ok('/login');

@@ -64,17 +64,17 @@ has '+data' => (
                     id => Optional[Int],
                     entity0_type => Str,
                     entity1_type => Str,
-                    long_link_phrase => Optional[Str]
-                ]
-            ]
+                    long_link_phrase => Optional[Str],
+                ],
+            ],
         ],
         edit_version => Optional[Int],
-    ]
+    ],
 );
 
 has 'relationship' => (
     isa => 'Relationship',
-    is => 'rw'
+    is => 'rw',
 );
 
 # Some old edits don't actually have a link type ID stored
@@ -123,12 +123,12 @@ sub build_display_data
                     root_id => $type->{root}{id},
                     root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                         name => $type->{root}{name},
-                    )
+                    ),
                 ),
                 credited_as => $_->{credited_as},
                 text_value => $_->{text_value},
             );
-        } @{ $relationship->{link}{attributes} }
+        } @{ $relationship->{link}{attributes} },
     ];
 
     my $link_type = $relationship->{link}{type};
@@ -154,7 +154,7 @@ sub build_display_data
             entity1_type => $entity1_type,
             long_link_phrase => $link_type->{long_link_phrase} // $relationship->{phrase} // '',
         ),
-        attributes => $attrs
+        attributes => $attrs,
     );
 
     my $entity0_data = $relationship->{entity0};
@@ -162,12 +162,12 @@ sub build_display_data
     my $entity0 = $loaded->{ $self->model0 }{ gid_or_id($entity0_data) } ||
         $self->c->model($self->model0)->_entity_class->new(
             id => $entity0_data->{id},
-            name => $entity0_data->{name}
+            name => $entity0_data->{name},
         );
     my $entity1 = $loaded->{ $self->model1 }{ gid_or_id($entity1_data) } ||
         $self->c->model($self->model1)->_entity_class->new(
             id => $entity1_data->{id},
-            name => $entity1_data->{name}
+            name => $entity1_data->{name},
         );
     my $entity0_credit = $relationship->{entity0_credit} // '';
     my $entity1_credit = $relationship->{entity1_credit} // '';
@@ -185,7 +185,7 @@ sub build_display_data
         target_type => $entity1_type,
         source_credit => $entity0_credit,
         target_credit => $entity1_credit,
-        link => $link
+        link => $link,
     );
     if ($relationship->{phrase}) {
         $relationship_opts{_verbose_phrase} = [
@@ -196,8 +196,8 @@ sub build_display_data
 
     return {
         relationship => to_json_object(MusicBrainz::Server::Entity::Relationship->new(
-            %relationship_opts
-        ))
+            %relationship_opts,
+        )),
     }
 }
 
@@ -245,12 +245,12 @@ sub initialize
             entity0 => {
                 id => $relationship->entity0_id,
                 gid => $relationship->entity0->gid,
-                name => $relationship->entity0->name
+                name => $relationship->entity0->name,
             },
             entity1 => {
                 id => $relationship->entity1_id,
                 gid => $relationship->entity1->gid,
-                name => $relationship->entity1->name
+                name => $relationship->entity1->name,
             },
             $relationship->entity0_credit ? (entity0_credit => $relationship->entity0_credit) : (),
             $relationship->entity1_credit ? (entity1_credit => $relationship->entity1_credit) : (),
@@ -264,8 +264,8 @@ sub initialize
                     entity0_type => $relationship->link->type->entity0_type,
                     entity1_type => $relationship->link->type->entity1_type,
                     long_link_phrase => $relationship->link->type->long_link_phrase,
-                }
-            }
+                },
+            },
         },
         edit_version => 2,
     });
@@ -281,7 +281,7 @@ sub accept {
     my $relationship = $self->c->model('Relationship')->get_by_id(
         $link_type_data->{entity0_type},
         $link_type_data->{entity1_type},
-        $relationship_data->{id}
+        $relationship_data->{id},
     ) or return;
 
     $self->c->model('Link')->load($relationship);
@@ -304,12 +304,12 @@ sub accept {
     $self->c->model('Relationship')->delete(
         $link_type_data->{entity0_type},
         $link_type_data->{entity1_type},
-        $relationship_data->{id}
+        $relationship_data->{id},
     );
 
     if ($link_type_data->{id} == $AMAZON_ASIN_LINK_TYPE_ID) {
         $self->c->model('Release')->update_amazon_asin(
-            $relationship->entity0_id
+            $relationship->entity0_id,
         );
     }
 }
@@ -338,8 +338,8 @@ before restore => sub {
                     id => ($_->{id} // $_->{root_id}),
                     $_->{gid} ? (gid => $_->{gid}) : (),
                     name => ($_->{name} // $_->{root_name}),
-                }
-            }, @$attributes
+                },
+            }, @$attributes,
         ];
     }
 };

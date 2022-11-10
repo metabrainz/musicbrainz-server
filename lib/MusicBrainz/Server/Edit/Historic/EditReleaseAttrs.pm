@@ -40,15 +40,15 @@ sub foreign_keys
     my $self = shift;
     return {
         Release => [
-            map { $_ => ['ArtistCredit'] } $self->_release_ids
+            map { $_ => ['ArtistCredit'] } $self->_release_ids,
         ],
         ReleaseStatus    => [
             $self->data->{new_status_id},
-            map { $_->{old_status_id} } $self->_changes
+            map { $_->{old_status_id} } $self->_changes,
         ],
         ReleaseGroupType => [
             $self->data->{new_type_id},
-            map { $_->{old_type_id} } $self->_changes
+            map { $_->{old_type_id} } $self->_changes,
         ],
     }
 }
@@ -102,7 +102,7 @@ sub upgrade
     $self->data({
         changes       => [@changes],
         new_type_id   => $new_type,
-        new_status_id => $new_status
+        new_status_id => $new_status,
     });
 
     return $self;

@@ -41,8 +41,8 @@ has '+data' => (
         has_dates => Optional[Bool],
         entity0_cardinality => Optional[Int],
         entity1_cardinality => Optional[Int],
-        orderable_direction => Optional[Int]
-    ]
+        orderable_direction => Optional[Int],
+    ],
 );
 
 sub foreign_keys {
@@ -52,8 +52,8 @@ sub foreign_keys {
         LinkAttributeType => [
             grep { defined }
             map { $_->{type} }
-                @{ $self->data->{attributes} }
-            ]
+                @{ $self->data->{attributes} },
+            ],
     }
 }
 
@@ -67,7 +67,7 @@ sub insert {
 
 sub reject {
     MusicBrainz::Server::Edit::Exceptions::MustApply->throw(
-        'Edits of this type cannot be rejected'
+        'Edits of this type cannot be rejected',
     );
 }
 
@@ -88,7 +88,7 @@ sub build_display_data {
         orderable_direction => $self->data->{orderable_direction},
         defined($self->entity_id) ? (relationship_type => to_json_object(
             $loaded->{LinkType}{ $self->entity_id } ||
-            MusicBrainz::Server::Entity::LinkType->new( name => $self->data->{name} ))
+            MusicBrainz::Server::Entity::LinkType->new( name => $self->data->{name} )),
         ) : (),
         reverse_link_phrase => $self->data->{reverse_link_phrase},
     }
@@ -103,10 +103,10 @@ sub _build_attributes {
                 max => $_->{max},
                 type => $loaded->{LinkAttributeType}{ $_->{type} } ||
                     MusicBrainz::Server::Entity::LinkAttributeType->new(
-                        name => $_->{name}
-                    )
+                        name => $_->{name},
+                    ),
                   ))
-          } @$list
+          } @$list,
     ]
 }
 

@@ -19,7 +19,7 @@ use Sub::Exporter -setup => {
                       build_options_tree
                       indentation
                       validate_username
-              )]
+              )],
 };
 
 sub language_options {
@@ -114,7 +114,7 @@ sub select_options_tree
     my $root_option = $root_or_model->can('get_tree') ? $root_or_model->get_tree : $root_or_model;
 
     return [
-        build_options_tree($root_option, $accessor, $coll)
+        build_options_tree($root_option, $accessor, $coll),
     ];
 }
 

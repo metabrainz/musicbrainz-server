@@ -40,12 +40,12 @@ has '+data' => (
         entity => Dict[
             id   => Int,
             name => Str,
-            mbid => Str
+            mbid => Str,
         ],
         id => Int,
         old => change_fields(),
         new => change_fields(),
-    ]
+    ],
 );
 
 sub initialize {
@@ -66,10 +66,10 @@ sub initialize {
         entity => {
             id => $release->id,
             name => $release->name,
-            mbid => $release->gid
+            mbid => $release->gid,
         },
         id => $opts{artwork_id},
-        $self->_change_data(\%old, %new)
+        $self->_change_data(\%old, %new),
     });
 }
 
@@ -78,19 +78,19 @@ sub accept {
 
     my $release = $self->c->model('Release')->get_by_gid($self->data->{entity}{mbid})
         or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'This release no longer exists'
+            'This release no longer exists',
         );
 
     $self->c->model('CoverArtArchive')->exists($self->data->{id})
         or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'This cover art no longer exists'
+            'This cover art no longer exists',
         );
 
     $self->c->model('CoverArtArchive')->update_cover_art(
         $release->id,
         $self->data->{id},
         $self->data->{new}->{types},
-        $self->data->{new}->{comment}
+        $self->data->{new}->{comment},
     );
 }
 
@@ -110,16 +110,16 @@ sub foreign_keys {
     my %fk;
 
     $fk{Release} = {
-        $self->data->{entity}{id} => [ 'ArtistCredit' ]
+        $self->data->{entity}{id} => [ 'ArtistCredit' ],
     };
 
     $fk{Artwork} = {
-        $self->data->{id} => [ 'Release' ]
+        $self->data->{id} => [ 'Release' ],
     };
 
     $fk{CoverArtType} = [
         @{ $self->data->{new}->{types} },
-        @{ $self->data->{old}->{types} }
+        @{ $self->data->{old}->{types} },
     ] if defined $self->data->{new}->{types};
 
     return \%fk;
@@ -144,8 +144,8 @@ sub build_display_data {
                      comment => $self->data->{new}{comment} // '',
                      cover_art_types => [ map {
                          $loaded->{CoverArtType}{$_}
-                     } @{ $self->data->{new}{types} // [] }]
-        )
+                     } @{ $self->data->{new}{types} // [] }],
+        ),
     );
 
     if ($self->data->{old}{types})
@@ -164,7 +164,7 @@ sub build_display_data {
     {
         $data{comment} = {
             old => $self->data->{old}{comment},
-            new => $self->data->{new}{comment}
+            new => $self->data->{new}{comment},
         }
     }
 

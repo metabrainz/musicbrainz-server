@@ -35,15 +35,15 @@ has '+data' => (
         release => Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ],
         label => Nullable[Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ]],
-        catalog_number => Nullable[Str]
-    ]
+        catalog_number => Nullable[Str],
+    ],
 );
 
 around '_build_related_entities' => sub {
@@ -83,14 +83,14 @@ sub build_display_data {
         catalog_number => $data->{catalog_number},
         release => to_json_object(
             $loaded->{Release}{ gid_or_id($data->{release}) } //
-            Release->new(name => $data->{release}{name})
+            Release->new(name => $data->{release}{name}),
         ),
     };
 
     if ($label) {
         $display_data->{label} = to_json_object(
             $loaded->{Label}{gid_or_id($label)} //
-            Label->new(name => $label->{name})
+            Label->new(name => $label->{name}),
         );
     }
 
@@ -118,13 +118,13 @@ sub initialize
         label => $release_label->label ? {
             id => $release_label->label->id,
             gid => $release_label->label->gid,
-            name => $release_label->label->name
+            name => $release_label->label->name,
         } : undef,
         release => {
             id => $release_label->release->id,
             gid => $release_label->release->gid,
-            name => $release_label->release->name
-        }
+            name => $release_label->release->name,
+        },
     });
 };
 

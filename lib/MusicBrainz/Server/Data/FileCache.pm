@@ -15,27 +15,27 @@ use MooseX::Types::Structured qw( Map );
 has manifest_mtime => (
     isa => Int,
     is => 'rw',
-    default => sub { 0 }
+    default => sub { 0 },
 );
 
 has manifest_last_checked => (
     isa => Int,
     is => 'rw',
-    default => sub { 0 }
+    default => sub { 0 },
 );
 
 has manifest_signatures => (
     isa => Map[Str, Str],
     is => 'rw',
     traits => [ 'Hash' ],
-    default => sub { {} }
+    default => sub { {} },
 );
 
 has file_signatures => (
     isa => Map[Str, Str],
     is => 'ro',
     traits => [ 'Hash' ],
-    default => sub { {} }
+    default => sub { {} },
 );
 
 sub manifest_signature {

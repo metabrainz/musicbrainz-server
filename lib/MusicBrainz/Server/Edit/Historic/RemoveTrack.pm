@@ -36,7 +36,7 @@ sub foreign_keys
     my $self = shift;
     return {
         Release   => [ map { $_ => ['ArtistCredit'] } $self->_release_ids ],
-        Recording => [ $self->data->{recording_id} ]
+        Recording => [ $self->data->{recording_id} ],
     }
 }
 
@@ -47,13 +47,13 @@ sub build_display_data
         name => $self->data->{name},
         recording => to_json_object(
             $loaded->{Recording}{ $self->data->{recording_id} } ||
-            Recording->new( name => $self->data->{name} )
+            Recording->new( name => $self->data->{name} ),
         ),
         releases => [
             map {
                 to_json_object($loaded->{Release}{$_})
-            } $self->_release_ids
-        ]
+            } $self->_release_ids,
+        ],
     }
 }
 

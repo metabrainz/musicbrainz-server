@@ -18,7 +18,7 @@ has 'editor_id' => (
 
 has 'editor' => (
     isa => 'Editor',
-    is => 'rw'
+    is => 'rw',
 );
 
 has 'edit_note_id' => (
@@ -29,7 +29,7 @@ has 'edit_note_id' => (
 has 'edit_note' => (
     isa => 'EditNote',
     is => 'rw',
-    weak_ref => 1
+    weak_ref => 1,
 );
 
 has 'reason' => (
@@ -40,7 +40,7 @@ has 'reason' => (
 has 'change_time' => (
     isa => DateTime,
     is => 'rw',
-    coerce => 1
+    coerce => 1,
 );
 
 has 'status' => (

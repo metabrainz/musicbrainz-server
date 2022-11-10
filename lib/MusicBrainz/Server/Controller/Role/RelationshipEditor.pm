@@ -33,7 +33,7 @@ sub try_and_edit {
     my $edit;
     $c->model('MB')->with_transaction(sub {
         $edit = $self->_insert_edit(
-            $c, $form, edit_type => $EDIT_RELATIONSHIP_EDIT, %params
+            $c, $form, edit_type => $EDIT_RELATIONSHIP_EDIT, %params,
         );
     });
     return $edit;
@@ -56,14 +56,14 @@ sub try_and_insert {
 
     my @edits;
     my $attributes = $c->model('LinkAttributeType')->get_by_gids(
-        map { $_->{type}{gid} } @{ $params{attributes} // [] }
+        map { $_->{type}{gid} } @{ $params{attributes} // [] },
     );
     my @relationships = split_relationship_by_attributes($attributes, \%params);
 
     $c->model('MB')->with_transaction(sub {
         @edits = map {
             $self->_insert_edit(
-                $c, $form, edit_type => $EDIT_RELATIONSHIP_CREATE, %$_
+                $c, $form, edit_type => $EDIT_RELATIONSHIP_CREATE, %$_,
             )
         } @relationships
     });
@@ -76,7 +76,7 @@ sub delete_relationship {
     my $edit;
     $c->model('MB')->with_transaction(sub {
         $edit = $self->_insert_edit(
-            $c, $form, edit_type => $EDIT_RELATIONSHIP_DELETE, %params
+            $c, $form, edit_type => $EDIT_RELATIONSHIP_DELETE, %params,
         );
         return 1;
     });
@@ -89,7 +89,7 @@ sub reorder_relationships {
     my $edit;
     $c->model('MB')->with_transaction(sub {
         $edit = $self->_insert_edit(
-            $c, $form, edit_type => $EDIT_RELATIONSHIPS_REORDER, %params
+            $c, $form, edit_type => $EDIT_RELATIONSHIPS_REORDER, %params,
         );
         return 1;
     });

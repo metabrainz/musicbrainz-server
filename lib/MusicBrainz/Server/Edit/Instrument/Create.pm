@@ -29,7 +29,7 @@ has '+data' => (
         comment     => Nullable[Str],
         type_id     => Nullable[Int],
         description => Nullable[Str],
-    ]
+    ],
 );
 
 sub foreign_keys {
@@ -50,7 +50,7 @@ sub build_display_data {
         type        => $type ? to_json_object($loaded->{InstrumentType}{$type}) : undef,
         instrument  => to_json_object((defined($self->entity_id) &&
             $loaded->{Instrument}{ $self->entity_id }) ||
-            Instrument->new( name => $self->data->{name} )
+            Instrument->new( name => $self->data->{name} ),
         ),
         comment     => $self->data->{comment},
         description => $self->data->{description},

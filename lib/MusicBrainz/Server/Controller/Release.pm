@@ -24,7 +24,7 @@ with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     },
 };
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_type => 'release'
+    entity_type => 'release',
 };
 
 use List::AllUtils qw( first nsort_by uniq );
@@ -268,7 +268,7 @@ sub change_quality : Chained('load') PathPart('change-quality') Edit {
         on_creation => sub {
             my $uri = $c->uri_for_action('/release/show', [ $release->gid ]);
             $c->response->redirect($uri);
-        }
+        },
     );
 
     my %props = (
@@ -301,7 +301,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
             component_path => 'release/CoverArtDarkened',
             component_props => {
                 release => $entity->TO_JSON,
-            }
+            },
         );
         $c->detach;
     }
@@ -330,8 +330,8 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
         form => 'Release::AddCoverArt',
         item => {
             id => $id,
-            position => $count
-        }
+            position => $count,
+        },
     );
 
     my $accept = $c->req->header('Accept');
@@ -346,7 +346,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
                 release => $entity,
                 cover_art_types => [
                     grep { defined $_ && looks_like_number($_) }
-                        @{ $form->field('type_id')->value }
+                        @{ $form->field('type_id')->value },
                     ],
                 cover_art_position => $form->field('position')->value,
                 cover_art_id => $form->field('id')->value,
@@ -386,7 +386,7 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') Edit {
             component_path => 'release/CoverArtDarkened',
             component_props => {
                 release => $entity->TO_JSON,
-            }
+            },
         );
         $c->detach;
     }
@@ -403,7 +403,7 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') Edit {
 
     my $form = $c->form(
         form => 'Release::ReorderCoverArt',
-        init_object => { artwork => \@positions }
+        init_object => { artwork => \@positions },
     );
     if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {
@@ -412,7 +412,7 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') Edit {
                 edit_type => $EDIT_RELEASE_REORDER_COVER_ART,
                 release => $entity,
                 old => \@positions,
-                new => $form->field('artwork')->value
+                new => $form->field('artwork')->value,
             );
         });
 
@@ -450,7 +450,7 @@ sub _merge_form_arguments {
                 release_id => $medium->release_id,
                 release => $medium->release,
                 position => $position,
-                name => $name
+                name => $name,
             };
             $medium_by_id{$medium->id} = $medium;
         }
@@ -463,7 +463,7 @@ sub _merge_form_arguments {
     );
 
     return (
-        init_object => { medium_positions => { map => \@mediums } }
+        init_object => { medium_positions => { map => \@mediums } },
     );
 }
 
@@ -494,11 +494,11 @@ sub _merge_parameters {
                 map +{
                     release => {
                         id => $_,
-                        name => $release_map{$_}->name
+                        name => $release_map{$_}->name,
                     },
-                    mediums => $medium_changes{$_}
-                }, keys %medium_changes
-            ]
+                    mediums => $medium_changes{$_},
+                }, keys %medium_changes,
+            ],
         );
     } else {
         return ();
@@ -555,8 +555,8 @@ around _validate_merge => sub {
 
         $c->stash(
             bad_recording_merges => [
-                map { to_json_array($_) } @bad_recording_merges
-            ]
+                map { to_json_array($_) } @bad_recording_merges,
+            ],
         );
     }
 
@@ -582,7 +582,7 @@ around _validate_merge => sub {
         $merge_opts{ medium_positions } = {
             map { $_->{id} => $_->{new_position} }
             map { @{ $_->{mediums} } }
-                @{ $extra_params{medium_changes} }
+                @{ $extra_params{medium_changes} },
         };
     }
 
@@ -597,7 +597,7 @@ around _validate_merge => sub {
 
     unless ($can_merge) {
         $form->field('merge_strategy')->add_error(
-            l('This merge strategy is not applicable to the releases you have selected.')
+            l('This merge strategy is not applicable to the releases you have selected.'),
         );
         $form->field('merge_strategy')->add_error(
             l($cannot_merge_reason->{message}, $cannot_merge_reason->{vars} // {}),
@@ -638,7 +638,7 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit {
     $c->stash({
         artwork => $artwork,
         images => \@artwork,
-        index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . '/release/' . $entity->gid . '/'
+        index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . '/release/' . $entity->gid . '/',
     });
 
     my @type_ids = map { $_->id } $c->model('CoverArtType')->get_by_name(@{ $artwork->types });
@@ -649,7 +649,7 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit {
             id => $id,
             type_id => \@type_ids,
             comment => $artwork->comment,
-        }
+        },
     );
     if ($c->form_posted_and_valid($form)) {
         $c->model('MB')->with_transaction(sub {
@@ -689,11 +689,11 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit
             type        => $EDIT_RELEASE_REMOVE_COVER_ART,
             edit_args   => {
                 release   => $release,
-                to_delete => $artwork
+                to_delete => $artwork,
             },
             on_creation => sub {
                 $c->response->redirect($c->uri_for_action('/release/cover_art', [ $release->gid ]));
-            }
+            },
         );
     });
 
@@ -704,7 +704,7 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit
             artwork => $artwork->TO_JSON,
             form => $c->stash->{form}->TO_JSON,
             release => $release->TO_JSON,
-        }
+        },
     );
 }
 
@@ -728,7 +728,7 @@ sub cover_art : Chained('load') PathPart('cover-art') {
         component_props => {
             coverArt => to_json_array($artwork),
             release => $release->TO_JSON,
-        }
+        },
     );
 }
 

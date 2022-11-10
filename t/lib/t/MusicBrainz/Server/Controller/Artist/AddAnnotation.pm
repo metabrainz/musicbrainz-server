@@ -190,7 +190,7 @@ sub prepare_test {
 
     $test->mech->get('/login');
     $test->mech->submit_form(
-        with_fields => { username => 'new_editor', password => 'password' }
+        with_fields => { username => 'new_editor', password => 'password' },
     );
 }
 

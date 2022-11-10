@@ -11,13 +11,13 @@ has data => (
     traits => [ 'Hash' ],
     default => sub { {} },
     handles => {
-        statistic_for => 'get'
-    }
+        statistic_for => 'get',
+    },
 );
 
 has name => (
    is => 'rw',
-   isa => 'Str'
+   isa => 'Str',
 );
 
 __PACKAGE__->meta->make_immutable;

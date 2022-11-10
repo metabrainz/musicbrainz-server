@@ -47,7 +47,7 @@ has_field 'iso_3166_3.contains' => (
 
 has_field 'period' => (
     type => '+MusicBrainz::Server::Form::Field::DatePeriod',
-    not_nullable => 1
+    not_nullable => 1,
 );
 
 has_field 'comment' => (

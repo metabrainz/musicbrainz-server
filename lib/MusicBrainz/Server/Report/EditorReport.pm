@@ -11,7 +11,7 @@ around inflate_rows => sub {
     my $items = $self->$orig($rows, $c);
 
     my $editors = $self->c->model('Editor')->get_by_ids(
-        map { $_->{id} } @$items
+        map { $_->{id} } @$items,
     );
 
     return [
@@ -27,7 +27,7 @@ around inflate_rows => sub {
                 ) : undef,
             };
             $result
-        } @$items
+        } @$items,
     ];
 };
 

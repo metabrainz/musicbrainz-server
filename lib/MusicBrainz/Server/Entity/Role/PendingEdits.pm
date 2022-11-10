@@ -6,7 +6,7 @@ use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 
 has 'edits_pending' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 around TO_JSON => sub {

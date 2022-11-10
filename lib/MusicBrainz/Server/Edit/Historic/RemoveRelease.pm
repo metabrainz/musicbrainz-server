@@ -22,7 +22,7 @@ sub _build_related_entities
 {
     my $self = shift;
     return {
-        release => $self->data->{release_ids}
+        release => $self->data->{release_ids},
     }
 }
 
@@ -31,7 +31,7 @@ sub foreign_keys
     my $self = shift;
     return {
         Release => { map { $_ => [ 'ArtistCredit' ] } @{ $self->data->{release_ids} } },
-        Artist  => [ $self->data->{artist_id} ]
+        Artist  => [ $self->data->{artist_id} ],
     }
 }
 
@@ -45,18 +45,18 @@ sub build_display_data
             map {
                 to_json_object(
                     $loaded->{Release}{$_} ||
-                    Release->new( name => $self->data->{name} )
+                    Release->new( name => $self->data->{name} ),
                 )
-            } @{ $self->data->{release_ids} }
-        ]
+            } @{ $self->data->{release_ids} },
+        ],
     };
 
     if (my $artist = $loaded->{Artist}{ $self->data->{artist_id} }) {
         $data->{artist_credit} = to_json_object(ArtistCredit->new( names => [
             ArtistCreditName->new(
                 name   => $artist->name,
-                artist => $artist
-            )
+                artist => $artist,
+            ),
         ]));
     }
 

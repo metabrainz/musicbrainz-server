@@ -420,7 +420,7 @@ $rel = $rel_data->insert('artist', 'recording', {
         { type => { id => 229 } },
     ],
     entity0_id => 1,
-    entity1_id => 1
+    entity1_id => 1,
 });
 $sql->commit;
 is($rel->id, 4);
@@ -453,7 +453,7 @@ $rel_data->update('artist', 'recording', 4, {
     ended => 0,
     attributes => [{ type => { id => 302 } }],
     entity0_id => 1,
-    entity1_id => 1
+    entity1_id => 1,
 });
 $sql->commit;
 
@@ -470,7 +470,7 @@ is($rel->phrase,
    '<a href="/instrument/b879ca9a-bf4b-41f8-b1a3-aa109f2e3bea">' .
        'plucked string instruments' .
    '</a>',
-   'phrase'
+   'phrase',
 );
 
 $rel = $rel_data->get_by_id('artist', 'recording', 4);

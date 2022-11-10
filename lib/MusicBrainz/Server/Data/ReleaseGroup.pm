@@ -59,7 +59,7 @@ sub _column_mapping {
         comment => 'comment',
         edits_pending => 'edits_pending',
         last_updated => 'last_updated',
-        first_release_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, 'first_release_date_') }
+        first_release_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, 'first_release_date_') },
     }
 }
 
@@ -641,7 +641,7 @@ sub _order_by {
         },
         'year' => sub {
             return 'first_release_date_year, name COLLATE musicbrainz'
-        }
+        },
     });
 
     my $inner_order_by = $order_by
@@ -723,7 +723,7 @@ sub clear_empty_release_groups {
                UNION ALL
                SELECT TRUE FROM l_release_group_url WHERE entity0 = outer_rg.id
          )',
-            \@group_ids
+            \@group_ids,
         )
     };
 
@@ -749,8 +749,8 @@ sub _merge_impl
             table => 'release_group',
             columns => [ qw( type ) ],
             old_ids => \@old_ids,
-            new_id => $new_id
-        )
+            new_id => $new_id,
+        ),
     );
 
     # Move releases to the new release group
@@ -768,7 +768,7 @@ sub _hash_to_row
 
     my $row = hash_to_row($release_group, {
         type => 'primary_type_id',
-        map { $_ => $_ } qw( artist_credit comment edits_pending name )
+        map { $_ => $_ } qw( artist_credit comment edits_pending name ),
     });
 
     return $row;

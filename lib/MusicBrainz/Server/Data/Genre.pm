@@ -68,7 +68,7 @@ sub _hash_to_row {
     my ($self, $genre) = @_;
 
     my $row = hash_to_row($genre, {
-        map { $_ => $_ } qw( comment name )
+        map { $_ => $_ } qw( comment name ),
     });
 
     return $row;

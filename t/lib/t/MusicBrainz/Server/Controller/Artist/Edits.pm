@@ -33,8 +33,8 @@ test 'Edits appear on the edit lists' => sub {
     $mech->submit_form(
         with_fields => {
             'edit-artist.name' => 'history viewing',
-            'edit-artist.rename_artist_credit' => undef
-        }
+            'edit-artist.rename_artist_credit' => undef,
+        },
     );
 
     my $edit = MusicBrainz::Server::Test->get_latest_edit($c);

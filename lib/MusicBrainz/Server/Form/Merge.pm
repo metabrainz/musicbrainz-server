@@ -19,16 +19,16 @@ has_field 'target' => (
     type => '+MusicBrainz::Server::Form::Field::Integer',
     required => 1,
     required_message => N_l('Please pick the entity you want the others merged into.'),
-    localize_meth => sub { my ($self, @message) = @_; return l(@message); }
+    localize_meth => sub { my ($self, @message) = @_; return l(@message); },
 );
 
 has_field 'merging' => (
     type => 'Repeatable',
-    required => 1
+    required => 1,
 );
 
 has_field 'merging.contains' => (
-    type => '+MusicBrainz::Server::Form::Field::Integer'
+    type => '+MusicBrainz::Server::Form::Field::Integer',
 );
 
 1;

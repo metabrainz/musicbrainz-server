@@ -25,7 +25,7 @@ sub serialize
             };
             serialize_type($attr_output, $_, $inc, $stash, 1);
             $attr_output
-        } $entity->all_attributes
+        } $entity->all_attributes,
     ];
 
     my @languages = map { $_->language->alpha_3_code } $entity->all_languages;

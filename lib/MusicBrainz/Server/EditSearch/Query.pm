@@ -63,27 +63,27 @@ my %field_map = (
 has negate => (
     isa => Bool,
     is => 'ro',
-    default => 0
+    default => 0,
 );
 
 has combinator => (
     isa => enum([qw( or and )]),
     is => 'ro',
     required => 1,
-    default => 'and'
+    default => 'and',
 );
 
 has order => (
     isa => enum([qw( asc desc closed_asc closed_desc vote_closing_asc vote_closing_desc latest_note rand )]),
     is => 'ro',
     required => 1,
-    default => 'desc'
+    default => 'desc',
 );
 
 has auto_edit_filter => (
     isa => Maybe[Bool],
     is => 'ro',
-    default => undef
+    default => undef,
 );
 
 has where => (
@@ -94,7 +94,7 @@ has where => (
     handles => {
         where => 'elements',
         'add_where' => 'push',
-    }
+    },
 );
 
 has fields => (
@@ -104,7 +104,7 @@ has fields => (
     traits => [ 'Array' ],
     handles => {
         fields => 'elements',
-    }
+    },
 );
 
 sub new_from_user_input {
@@ -120,8 +120,8 @@ sub new_from_user_input {
         fields => [
             map {
                 $class->_construct_predicate($_, $user)
-            } grep { defined } @{ $input->{conditions} }
-        ]
+            } grep { defined } @{ $input->{conditions} },
+        ],
     );
 }
 
@@ -208,7 +208,7 @@ sub arguments {
     my $self = shift;
     return (
         $self->auto_edit_filter // (),
-        map { @{$_->[1]} } $self->where
+        map { @{$_->[1]} } $self->where,
     );
 }
 

@@ -39,7 +39,7 @@ has '+data' => (
         begin_date  => Nullable[PartialDateHash],
         end_date    => Nullable[PartialDateHash],
         ended       => Optional[Bool],
-    ]
+    ],
 );
 
 sub foreign_keys
@@ -65,7 +65,7 @@ sub build_display_data
         end_date    => to_json_object(PartialDate->new($self->data->{end_date})),
         place       => to_json_object((defined($self->entity_id) &&
             $loaded->{Place}{ $self->entity_id }) ||
-            Place->new( name => $self->data->{name} )
+            Place->new( name => $self->data->{name} ),
         ),
         ended       => boolean_to_json($self->data->{ended}),
         comment     => $self->data->{comment},
@@ -73,7 +73,7 @@ sub build_display_data
         coordinates => defined $self->data->{coordinates} &&
                        to_json_object(Coordinates->new($self->data->{coordinates})),
         area        => defined($self->data->{area_id}) &&
-                       to_json_object($loaded->{Area}{ $self->data->{area_id} } // Area->new())
+                       to_json_object($loaded->{Area}{ $self->data->{area_id} } // Area->new()),
     };
 }
 
@@ -93,7 +93,7 @@ override _is_disambiguation_needed => sub {
     my $duplicate_areas = $self->c->sql->select_single_column_array(
         'SELECT area FROM place
          WHERE lower(musicbrainz_unaccent(name)) = lower(musicbrainz_unaccent(?))',
-        $name
+        $name,
     );
 
     return $self->_possible_duplicate_area($area_id, @$duplicate_areas);

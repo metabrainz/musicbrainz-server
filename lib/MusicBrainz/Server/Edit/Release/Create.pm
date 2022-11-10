@@ -50,8 +50,8 @@ has '+data' => (
         events => Optional[ArrayRef[Dict[
             date => Nullable[PartialDateHash],
             country_id => Nullable[Int],
-        ]]]
-    ]
+        ]]],
+    ],
 );
 
 after 'initialize' => sub {
@@ -122,11 +122,11 @@ sub build_display_data
                     date => PartialDate->new({
                         year => $_->{date}{year},
                         month => $_->{date}{month},
-                        day => $_->{date}{day}
-                    })
+                        day => $_->{date}{day},
+                    }),
                 )
-            } @{ $self->data->{events} }
-        ])
+            } @{ $self->data->{events} },
+        ]),
     };
 }
 

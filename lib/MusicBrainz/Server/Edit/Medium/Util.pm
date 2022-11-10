@@ -85,13 +85,13 @@ sub tracklist_foreign_keys {
     $fk->{Artist} = {
         map {
             load_artist_credit_definitions($_->{artist_credit})
-        } @$tracklist
+        } @$tracklist,
     };
 
     $fk->{Recording} = {
         map { $_ => [ 'ArtistCredit' ] }
             grep { defined }
-                map { $_->{recording_id } } @$tracklist
+                map { $_->{recording_id } } @$tracklist,
     };
 }
 
@@ -104,7 +104,7 @@ sub track {
         recording_id => NullableOnPreview[Int],
         position => Int,
         number => Nullable[Str],
-        is_data_track => Optional[Bool]
+        is_data_track => Optional[Bool],
     ];
 }
 
@@ -126,7 +126,7 @@ sub display_tracklist {
                 defined($_->{recording_id}) ?
                     (recording_id => $_->{recording_id}) : (),
                 defined($_->{id}) ?
-                    (id => $_->{id}) : ()
+                    (id => $_->{id}) : (),
             )
     } sort { $a->{position} <=> $b->{position} } @$tracklist ];
 }

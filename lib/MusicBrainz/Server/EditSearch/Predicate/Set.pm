@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::EditSearch::Predicate';
 sub operator_cardinality_map {
     return (
         '=' => undef,
-        '!=' => undef
+        '!=' => undef,
     )
 }
 
@@ -31,14 +31,14 @@ sub combine_with_query {
         join(' ', 'edit.'.$self->field_name, $self->operator,
              $self->operator eq '='  ? 'any(?)' :
              $self->operator eq '!=' ? 'all(?)' : die 'Shouldnt get here'),
-        $self->sql_arguments
+        $self->sql_arguments,
     ]) if $self->arguments > 0;
 }
 
 sub sql_arguments {
     my $self = shift;
     return [
-        [ map { split /,/, $_ } $self->arguments ]
+        [ map { split /,/, $_ } $self->arguments ],
     ];
 }
 

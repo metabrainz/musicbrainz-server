@@ -116,7 +116,7 @@ sub artist_credit_to_ref
             artist => {
                 name => $ac->artist->name,
                 id => $ac->artist->id,
-            }
+            },
         );
 
         push @{ $ret{names} }, \%ac_name;
@@ -181,7 +181,7 @@ sub load_meta
         $c->sql->select_list_of_hashes(
             "SELECT * FROM $table
              WHERE id IN (" . placeholders(@ids) . ')',
-            @ids
+            @ids,
         )
     }) {
         my $obj = $id_to_obj{$row->{id}};
@@ -195,7 +195,7 @@ sub partial_date_to_hash
     return {
         year => $date->year,
         month => $date->month,
-        day => $date->day
+        day => $date->day,
     };
 }
 
@@ -205,7 +205,7 @@ sub coordinates_to_hash
     return undef unless defined $coordinates;
     return {
         latitude => $coordinates->latitude,
-        longitude => $coordinates->longitude
+        longitude => $coordinates->longitude,
     };
 }
 
@@ -522,7 +522,7 @@ sub map_query
     my ($sql, $key, $value, $query, @bind_params) = @_;
     return {
         map { $_->{$key} => $_->{$value} }
-            @{ $sql->select_list_of_hashes($query, @bind_params) }
+            @{ $sql->select_list_of_hashes($query, @bind_params) },
     }
 }
 

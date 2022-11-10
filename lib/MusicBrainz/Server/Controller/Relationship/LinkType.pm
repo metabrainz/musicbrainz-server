@@ -49,7 +49,7 @@ sub list : Path('/relationships') Args(0)
 
     my %props = (
         types => \@types,
-        table => [ map { [ sort_by { $_->[0] } @{ $by_second_type{$_} } ] } @types ]
+        table => [ map { [ sort_by { $_->[0] } @{ $by_second_type{$_} } ] } @types ],
     );
 
     $c->stash(
@@ -69,8 +69,8 @@ sub type_specific : Chained('/') PathPart('relationships') CaptureArgs(1) {
         $c->stash(
             message  => l(
                 q('{types}' is not a valid pair of types for relationships.),
-                { types => $types }
-            )
+                { types => $types },
+            ),
         );
         $c->detach('/error_400');
         $c->detach;
@@ -82,7 +82,7 @@ sub type_specific : Chained('/') PathPart('relationships') CaptureArgs(1) {
         type1 => $type1,
         type0_name => type_to_model($type0),
         type1_name => type_to_model($type1),
-        types => $types
+        types => $types,
     );
 }
 
@@ -132,7 +132,7 @@ sub create : Chained('type_specific') PathPart('create') RequireAuth(relationshi
         root => $c->model('LinkType')->get_tree(
             $c->stash->{type0},
             $c->stash->{type1},
-            get_deprecated_and_empty => 1)
+            get_deprecated_and_empty => 1),
     );
     $form->field('parent_id')->_load_options;
 
@@ -146,7 +146,7 @@ sub create : Chained('type_specific') PathPart('create') RequireAuth(relationshi
             $self->_insert_edit(
                 $c, $form,
                 edit_type => $EDIT_RELATIONSHIP_ADD_TYPE,
-                %$values
+                %$values,
             );
         });
 
@@ -174,17 +174,17 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
                 qw( parent_id child_order name link_phrase reverse_link_phrase
                     long_link_phrase description priority documentation
                     examples is_deprecated has_dates entity0_cardinality entity1_cardinality
-                    orderable_direction )
+                    orderable_direction ),
         },
         root => $c->model('LinkType')->get_tree($link_type->entity0_type,
                                                 $link_type->entity1_type,
-                                                get_deprecated_and_empty => 1)
+                                                get_deprecated_and_empty => 1),
     );
     $form->field('parent_id')->_load_options;
 
     my $relationship_map = {
         map { $_->relationship->id => $_->relationship }
-            $link_type->all_examples
+            $link_type->all_examples,
     };
 
     $c->stash( relationship_map => $relationship_map );
@@ -197,7 +197,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
             max => $_->{max},
             type => $_->{type},
             name => $attrib_names{$_->{type}},
-        }, grep { $_->{active} } @{ $old_values->{attributes} }
+        }, grep { $_->{active} } @{ $old_values->{attributes} },
     ];
 
     if ($c->form_posted) {
@@ -214,7 +214,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
             my $rel = $relationship_map->{$relationship_id} =
                 $c->model('Relationship')->get_by_id(
                     $link_type->entity0_type, $link_type->entity1_type,
-                    $relationship_id
+                    $relationship_id,
                 );
 
             push @load_subdata, $rel;
@@ -230,7 +230,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
                 map {
                     my %attr = (%{$_}, name => $attrib_names{$_->{type}});
                     \%attr
-                } @{ $self->_get_attribute_values($form) }
+                } @{ $self->_get_attribute_values($form) },
             ];
 
             # Inflate the provided example relationships so we have sufficient
@@ -252,14 +252,14 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
                     id => $e0->id,
                     name => $e0->name,
                     gid => $e0->gid,
-                    comment => $e0->can('comment') ? $e0->comment : ''
+                    comment => $e0->can('comment') ? $e0->comment : '',
                 };
 
                 $example->{relationship}{entity1} = {
                     id => $e1->id,
                     name => $e1->name,
                     gid => $e1->gid,
-                    comment => $e1->can('comment') ? $e1->comment : ''
+                    comment => $e1->can('comment') ? $e1->comment : '',
                 };
 
                 $example->{relationship}{link} = {
@@ -270,7 +270,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
                     link_type => {
                         entity0_type => $link_type->entity0_type,
                         entity1_type => $link_type->entity1_type,
-                    }
+                    },
                 };
 
 
@@ -297,7 +297,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
                     edit_type => $EDIT_RELATIONSHIP_EDIT_LINK_TYPE,
                     old => $old_values,
                     new => $values,
-                    link_id => $link_type->id
+                    link_id => $link_type->id,
                 );
             });
 
@@ -352,9 +352,9 @@ sub delete : Chained('load') RequireAuth(relationship_editor) SecureForm
                         map +{
                             type => $_->type_id,
                             min => $_->min,
-                            max => $_->max
-                        }, $link_type->all_attributes
-                    ]
+                            max => $_->max,
+                        }, $link_type->all_attributes,
+                    ],
                 );
             });
         }

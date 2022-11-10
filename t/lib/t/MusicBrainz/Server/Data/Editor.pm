@@ -462,7 +462,7 @@ test 'Deleting editors removes most information' => sub {
     # The name should be prevented from being reused by default (MBS-9271).
     ok(
         $c->sql->select_single_value(
-            'SELECT 1 FROM old_editor_name WHERE name = ?', 'Bob'
+            'SELECT 1 FROM old_editor_name WHERE name = ?', 'Bob',
         ),
         'The editor name is listed in old_editor_name as not reusable',
     );
@@ -498,7 +498,7 @@ test 'Deleting editors removes most information' => sub {
 
     # Ensure all tags are cleared
     my $tags = $c->sql->select_single_column_array(
-        'SELECT tag FROM area_tag_raw WHERE editor = ?', 1
+        'SELECT tag FROM area_tag_raw WHERE editor = ?', 1,
     );
     is(@$tags, 0, 'All tags by the editor have been blanked');
 };
@@ -576,7 +576,7 @@ test 'Deleting an editor changes all Yes/No votes on open edits to Abstain' => s
         [{
             vote    => $VOTE_NO,
             edit_id => $edit->id,
-        }]
+        }],
     );
 
     $c->model('Vote')->load_for_edits($edit);
@@ -619,7 +619,7 @@ test 'Deleting an editor changes all Yes/No votes on open edits to Abstain, even
         [{
             vote    => $VOTE_NO,
             edit_id => $edit->id,
-        }]
+        }],
     );
 
     $c->model('Vote')->load_for_edits($edit);
@@ -629,7 +629,7 @@ test 'Deleting an editor changes all Yes/No votes on open edits to Abstain, even
 
     note('We revoke the editing/voting privileges for editor 2');
     $test->c->sql->do(
-        "UPDATE editor SET privs = $EDITING_DISABLED_FLAG WHERE id = 2"
+        "UPDATE editor SET privs = $EDITING_DISABLED_FLAG WHERE id = 2",
     );
 
     note('We delete editor 2');
@@ -677,7 +677,7 @@ test 'Open edit and last-24-hour counts' => sub {
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'An additional comment',
         ipi_codes => [],
-        isni_codes => []
+        isni_codes => [],
     );
 
     note('We enter a normal for the editor');

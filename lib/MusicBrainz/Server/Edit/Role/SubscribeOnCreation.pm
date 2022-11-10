@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 parameter editor_subscription_preference => (
     isa => 'CodeRef',
-    required => 1
+    required => 1,
 );
 
 role {

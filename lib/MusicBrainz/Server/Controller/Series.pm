@@ -18,7 +18,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     relationships => {
         cardinal => ['edit'],
         subset => {show => ['area', 'artist', 'label', 'place', 'recording', 'release_group', 'series', 'url', 'work']},
-        default => ['url']
+        default => ['url'],
     },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
@@ -33,7 +33,7 @@ with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_type => 'series'
+    entity_type => 'series',
 };
 
 sub base : Chained('/') PathPart('series') CaptureArgs(0) { }
@@ -153,7 +153,7 @@ around _merge_submit => sub {
         $self->$orig($c, $form, $entities);
     } else {
         $form->field('target')->add_error(
-            l('Series that have different entity types cannot be merged.')
+            l('Series that have different entity types cannot be merged.'),
         );
     }
 };
@@ -175,7 +175,7 @@ before qw( edit create ) => sub {
     my %series_types = map {$_->id => $_} $c->model('SeriesType')->get_all();
 
     my $series_ordering_types = {
-        map { $_->id => $_->TO_JSON } $c->model('SeriesOrderingType')->get_all
+        map { $_->id => $_->TO_JSON } $c->model('SeriesOrderingType')->get_all,
     };
 
     $c->stash(

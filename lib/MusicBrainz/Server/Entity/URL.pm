@@ -12,7 +12,7 @@ sub entity_type { 'url' }
 has 'url' => (
     is => 'ro',
     isa => Uri,
-    coerce => 1
+    coerce => 1,
 );
 
 has 'name' => (

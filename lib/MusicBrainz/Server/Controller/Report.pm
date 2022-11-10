@@ -24,7 +24,7 @@ sub show : Path Args(1)
     my ($self, $c, $name) = @_;
 
     my $report = MusicBrainz::Server::ReportFactory->create_report(
-        $name, $c->model('MB')->context
+        $name, $c->model('MB')->context,
     ) or $c->detach('/error_404');
 
     if (!$report->generated) {

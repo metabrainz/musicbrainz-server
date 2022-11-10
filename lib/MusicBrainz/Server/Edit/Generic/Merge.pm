@@ -23,7 +23,7 @@ sub alter_edit_pending
 {
     my $self = shift;
     return {
-        $self->_merge_model => $self->_entity_ids
+        $self->_merge_model => $self->_entity_ids,
     }
 }
 
@@ -31,7 +31,7 @@ sub _build_related_entities
 {
     my $self = shift;
     return {
-        model_to_type($self->_merge_model) => $self->_entity_ids
+        model_to_type($self->_merge_model) => $self->_entity_ids,
     }
 }
 
@@ -39,13 +39,13 @@ has '+data' => (
     isa => Dict[
         new_entity => Dict[
             id   => Int,
-            name => Str
+            name => Str,
         ],
         old_entities => ArrayRef[ Dict[
             name => Str,
-            id   => Int
-        ] ]
-    ]
+            id   => Int,
+        ] ],
+    ],
 );
 
 sub new_entity { shift->data->{new_entity} }
@@ -54,7 +54,7 @@ sub foreign_keys
 {
     my $self = shift;
     return {
-        $self->_merge_model => $self->_entity_ids
+        $self->_merge_model => $self->_entity_ids,
     }
 }
 
@@ -77,33 +77,33 @@ sub build_display_data
         $self->c->model('Label')->load(
             grep { $_->label_id && !defined($_->label) }
             map { $_->all_labels }
-            @releases
+            @releases,
         );
 
         $self->c->model('Medium')->load_for_releases(
             grep { $_->medium_count < 1 }
-            @releases
+            @releases,
         );
 
         $self->c->model('MediumFormat')->load(
             grep { $_->format_id && !defined($_->format) }
             map { $_->all_mediums }
-            @releases
+            @releases,
         );
 
         $self->c->model('Release')->load_release_events(
-            @releases
+            @releases,
         );
     }
 
     my $new_entity = to_json_object(
         $loaded->{$model}{ $self->new_entity->{id} } ||
-        $self->_build_missing_entity($loaded, $self->new_entity)
+        $self->_build_missing_entity($loaded, $self->new_entity),
     );
 
     my $data = {
         new => $new_entity,
-        old => []
+        old => [],
     };
 
     for my $old (@{ $self->data->{old_entities} }) {
@@ -122,12 +122,12 @@ sub accept
     my $model = $self->c->model( $self->_merge_model );
     if (!$model->get_by_id($self->new_entity->{id})) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'The target has been removed since this edit was entered'
+            'The target has been removed since this edit was entered',
         );
     }
     if (!values %{ $model->get_by_ids($self->_old_ids) }) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'There are no longer any entities to merge'
+            'There are no longer any entities to merge',
         );
     }
     else {
@@ -146,7 +146,7 @@ sub _entity_ids
     my $self = shift;
     return [
         $self->new_entity->{id},
-        $self->_old_ids
+        $self->_old_ids,
     ];
 }
 

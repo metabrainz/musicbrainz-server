@@ -65,7 +65,7 @@ if ($child) {
         if ($EVAL_ERROR) {
             die (
                 'The CPAN package Server::Starter must be installed ' .
-                'in production environments.'
+                'in production environments.',
             );
         }
         exec 'start_server', '--path', $socket, 'node', $server_build;

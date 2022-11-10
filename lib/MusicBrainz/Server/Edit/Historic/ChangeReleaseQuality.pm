@@ -23,7 +23,7 @@ sub _build_related_entities
         artist => [ $self->artist_id ],
         release => [ map {
             @{ $_->{release_ids} }
-        } @{ $self->data->{changes} } ]
+        } @{ $self->data->{changes} } ],
     }
 }
 
@@ -33,7 +33,7 @@ sub foreign_keys
     return {
         Release => { map {
             map { $_ => ['ArtistCredit'] } @{ $_->{release_ids} }
-        } @{ $self->data->{changes} } }
+        } @{ $self->data->{changes} } },
     }
 }
 
@@ -51,16 +51,16 @@ sub build_display_data
                             Release->new(
                                 id => $_,
                                 name => $change->{release_name},
-                            )
+                            ),
                         )
-                    } @{ $_->{release_ids} }
+                    } @{ $_->{release_ids} },
                 ],
                 quality => {
                     new => $_->{new}{quality} + 0, # force number
-                    old => $_->{old}{quality} + 0  # force number
-                }
+                    old => $_->{old}{quality} + 0,  # force number
+                },
             }
-        } @{ $self->data->{changes} } ]
+        } @{ $self->data->{changes} } ],
     }
 }
 
@@ -77,12 +77,12 @@ sub upgrade
             release_ids  => $self->album_release_ids($album_id),
             release_name => $self->new_value->{"ReleaseName$i"},
             old          => { quality => $self->new_value->{"Prev$i"} },
-            new          => { quality => $self->new_value->{Quality} }
+            new          => { quality => $self->new_value->{Quality} },
         };
     }
 
     $self->data({
-        changes => \@changes
+        changes => \@changes,
     });
 
     return $self;

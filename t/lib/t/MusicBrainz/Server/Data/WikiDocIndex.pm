@@ -17,7 +17,7 @@ my $test = shift;
 
 my $wdi = MusicBrainz::Server::Data::WikiDocIndex->new(
     c => $test->c,
-    sql => $test->c->sql
+    sql => $test->c->sql,
 );
 
 $wdi->set_page_version('Test_Page', 123);

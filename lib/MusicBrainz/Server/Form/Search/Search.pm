@@ -16,13 +16,13 @@ has_field 'query' => (
 
 has_field 'type' => (
     type => 'Select',
-    required => 1
+    required => 1,
 );
 
 has_field 'method' => (
     type => 'Select',
     required => 1,
-    default => 'indexed'
+    default => 'indexed',
 );
 
 has_field 'limit' => (
@@ -62,7 +62,7 @@ sub options_method
     return [
         'indexed' => l('Indexed search'),
         'advanced' => l('Indexed search with advanced query syntax'),
-        'direct' => l('Direct database search')
+        'direct' => l('Direct database search'),
     ]
 }
 

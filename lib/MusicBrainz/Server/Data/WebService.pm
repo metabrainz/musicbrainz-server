@@ -44,7 +44,7 @@ sub xml_search
         if (ref($args->{query})) {
             return {
                 error => 'Must specify at most 1 query argument',
-                code  => HTTP_BAD_REQUEST
+                code  => HTTP_BAD_REQUEST,
             };
         }
 
@@ -194,7 +194,7 @@ sub xml_search
     {
         return {
             error => "Invalid resource $resource.",
-            code  => HTTP_BAD_REQUEST
+            code  => HTTP_BAD_REQUEST,
         };
     }
 
@@ -204,7 +204,7 @@ sub xml_search
     {
         return {
             error => q(You submitted a blank search query. You must include a non-blank 'query=' parameter with your search.),
-            code  => HTTP_BAD_REQUEST
+            code  => HTTP_BAD_REQUEST,
         };
     }
 
@@ -248,14 +248,14 @@ sub xml_search
             {
                 return {
                     error => 'Search server could not complete query: Bad request',
-                    code  => HTTP_BAD_REQUEST
+                    code  => HTTP_BAD_REQUEST,
                 }
             }
             else
             {
                 return {
                     error => "Could not retrieve sub-document page from search server. Error: $url  -> " . $response->status_line,
-                    code  => HTTP_SERVICE_UNAVAILABLE
+                    code  => HTTP_SERVICE_UNAVAILABLE,
                 }
             }
         }

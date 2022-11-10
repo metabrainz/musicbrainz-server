@@ -30,7 +30,7 @@ has 'artist_id' => (
     isa => 'Int',
     is => 'rw',
     lazy => 1,
-    default => sub { shift->data->{entity}{id} }
+    default => sub { shift->data->{entity}{id} },
 );
 
 sub foreign_keys
@@ -49,7 +49,7 @@ around 'build_display_data' => sub
     my $data = $self->$orig($loaded);
     $data->{artist} = to_json_object(
         $loaded->{Artist}{ $self->artist_id } ||
-        Artist->new(name => $self->data->{entity}{name})
+        Artist->new(name => $self->data->{entity}{name}),
     );
 
     return $data;

@@ -18,8 +18,8 @@ has '_cache' => (
     default => sub { +{} },
     traits => [ 'Hash' ],
     handles => {
-        _get_cache => 'get'
-    }
+        _get_cache => 'get',
+    },
 );
 
 has 'default_profile' => (

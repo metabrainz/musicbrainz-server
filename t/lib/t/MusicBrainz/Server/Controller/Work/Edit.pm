@@ -27,7 +27,7 @@ test 'Editing a work' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'new_editor', password => 'password' }
+        with_fields => { username => 'new_editor', password => 'password' },
     );
 
     $mech->get_ok(
@@ -43,7 +43,7 @@ test 'Editing a work' => sub {
                 'edit-work.comment' => 'A comment!',
                 'edit-work.type_id' => 26,
                 'edit-work.name' => 'Another name',
-                'edit-work.iswcs.0' => 'T-000.000.002-0'
+                'edit-work.iswcs.0' => 'T-000.000.002-0',
             },
             'The form returned a 2xx response code',
         );
@@ -64,7 +64,7 @@ test 'Editing a work' => sub {
             entity => {
                 id => 1,
                 gid => '745c079d-374e-4436-9448-da92dedef3ce',
-                name => 'Dancing Queen'
+                name => 'Dancing Queen',
             },
             new => {
                 name => 'Another name',
@@ -74,7 +74,7 @@ test 'Editing a work' => sub {
             old => {
                 type_id => 1,
                 comment => '',
-                name => 'Dancing Queen'
+                name => 'Dancing Queen',
             },
         },
         'The edit work edit contains the right data',
@@ -155,7 +155,7 @@ test 'Editing work attributes' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'new_editor', password => 'password' }
+        with_fields => { username => 'new_editor', password => 'password' },
     );
 
     $mech->get_ok(
@@ -190,7 +190,7 @@ test 'Editing work attributes' => sub {
             entity => {
                 id => 1,
                 gid => '745c079d-374e-4436-9448-da92dedef3ce',
-                name => 'Dancing Queen'
+                name => 'Dancing Queen',
             },
             new => {
                 attributes => [
@@ -223,7 +223,7 @@ test 'Relationship can be added to series which contains duplicates (MBS-8636)' 
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'editor', password => 'pass' }
+        with_fields => { username => 'editor', password => 'pass' },
     );
 
     my @edits = capture_edits {
@@ -308,7 +308,7 @@ test 'Editing (multiple) work languages' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'new_editor', password => 'password' }
+        with_fields => { username => 'new_editor', password => 'password' },
     );
 
     $mech->get_ok(
@@ -342,7 +342,7 @@ test 'Editing (multiple) work languages' => sub {
             entity => {
                 id => 1,
                 gid => '745c079d-374e-4436-9448-da92dedef3ce',
-                name => 'Dancing Queen'
+                name => 'Dancing Queen',
             },
             new => {
                 languages => ['120', '145', '198'],
@@ -392,7 +392,7 @@ test 'Editing (multiple) work languages' => sub {
             entity => {
                 id => 1,
                 gid => '745c079d-374e-4436-9448-da92dedef3ce',
-                name => 'Dancing Queen'
+                name => 'Dancing Queen',
             },
             new => {
                 languages => ['145'],

@@ -24,8 +24,8 @@ test 'Adding cover art' => sub {
     my @edits = capture_edits {
         $mech->submit_form(
             with_fields => {
-                'edit-cover-art.comment' => $new_comment
-            }
+                'edit-cover-art.comment' => $new_comment,
+            },
         );
     } $c;
 

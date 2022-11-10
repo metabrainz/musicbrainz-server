@@ -49,7 +49,7 @@ sub _changes {
 
     return (
         old => $old,
-        new => $new
+        new => $new,
     );
 }
 

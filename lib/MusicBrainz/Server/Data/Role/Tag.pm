@@ -6,13 +6,13 @@ use MusicBrainz::Server::Data::EntityTag;
 
 parameter 'type' => (
     isa => 'Str',
-    required => 1
+    required => 1,
 );
 
 parameter 'tag_table' => (
     isa => 'Str',
     lazy => 1,
-    default => sub { shift->type . '_tag' }
+    default => sub { shift->type . '_tag' },
 );
 
 role
@@ -24,7 +24,7 @@ role
     has 'tags' => (
         is => 'ro',
         lazy => 1,
-        builder => '_build_tags'
+        builder => '_build_tags',
     );
 
     method '_build_tags' => sub

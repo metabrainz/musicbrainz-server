@@ -220,7 +220,7 @@ sub can_delete {
     my ($self, $recording_id) = @_;
     return !$self->sql->select_single_value(
         'SELECT 1 FROM track WHERE recording = ? LIMIT 1',
-        $recording_id
+        $recording_id,
     );
 }
 
@@ -265,7 +265,7 @@ sub _hash_to_row
 {
     my ($self, $recording) = @_;
     my $row = hash_to_row($recording, {
-        map { $_ => $_ } qw( artist_credit comment length name video )
+        map { $_ => $_ } qw( artist_credit comment length name video ),
     });
 
     return $row;
@@ -303,8 +303,8 @@ sub _merge_impl
             table => 'recording',
             columns => [ qw( length ) ],
             old_ids => \@old_ids,
-            new_id => $new_id
-        )
+            new_id => $new_id,
+        ),
     );
 
     merge_boolean_attributes(
@@ -312,8 +312,8 @@ sub _merge_impl
             table => 'recording',
             columns => [ qw( video ) ],
             old_ids => \@old_ids,
-            new_id => $new_id
-        )
+            new_id => $new_id,
+        ),
     );
 
     $self->_delete_and_redirect_gids('recording', $new_id, @old_ids);

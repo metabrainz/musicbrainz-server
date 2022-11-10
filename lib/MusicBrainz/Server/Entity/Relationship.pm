@@ -32,7 +32,7 @@ has 'link' => (
 has 'direction' => (
     is => 'ro',
     isa => 'Int',
-    default => $DIRECTION_FORWARD
+    default => $DIRECTION_FORWARD,
 );
 
 has 'entity0_id' => (
@@ -73,13 +73,13 @@ has 'link_order' => (
 has '_phrase' => (
     is => 'ro',
     builder => '_build_phrase',
-    lazy => 1
+    lazy => 1,
 );
 
 has '_verbose_phrase' => (
     is => 'ro',
     builder => '_build_verbose_phrase',
-    lazy => 1
+    lazy => 1,
 );
 
 has '_grouping_phrase' => (
@@ -200,7 +200,7 @@ sub _build_phrase {
     $self->_interpolate(
         $self->direction == $DIRECTION_FORWARD
             ? $self->link->type->l_link_phrase()
-            : $self->link->type->l_reverse_link_phrase()
+            : $self->link->type->l_reverse_link_phrase(),
     );
 }
 

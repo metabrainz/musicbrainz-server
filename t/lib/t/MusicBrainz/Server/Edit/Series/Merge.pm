@@ -45,7 +45,7 @@ test all => sub {
     (my $items, $hits) = $c->model('Series')->get_entities($l1);
 
     my @recordings = map +{
-        gid => $_->{entity}->gid, text_value => $_->{ordering_key}
+        gid => $_->{entity}->gid, text_value => $_->{ordering_key},
     }, @$items;
 
     is_deeply(\@recordings, [
@@ -56,7 +56,7 @@ test all => sub {
     ($items, $hits) = $c->model('Series')->get_entities($l2);
 
     @recordings = map +{
-        gid => $_->{entity}->gid, text_value => $_->{ordering_key}
+        gid => $_->{entity}->gid, text_value => $_->{ordering_key},
     }, @$items;
 
     is_deeply(\@recordings, [
@@ -79,7 +79,7 @@ test all => sub {
     ($items, $hits) = $c->model('Series')->get_entities($l1);
 
     @recordings = map +{
-        gid => $_->{entity}->gid, text_value => $_->{ordering_key}
+        gid => $_->{entity}->gid, text_value => $_->{ordering_key},
     }, @$items;
 
     is_deeply(\@recordings, [

@@ -4,7 +4,7 @@ use Moose::Role;
 
 has 'name' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 around TO_JSON => sub {

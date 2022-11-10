@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 has comment => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 around TO_JSON => sub {

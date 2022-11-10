@@ -43,7 +43,7 @@ has dry_run => (
     is => 'ro',
     default => 0,
     traits => [ 'Getopt' ],
-    cmd_flag => 'dry-run'
+    cmd_flag => 'dry-run',
 );
 
 has summary => (
@@ -101,7 +101,7 @@ sub run {
     my ($count, $removed) = (0, 0);
     my @entities = values %{
         $self->c->model(type_to_model($entity))->get_by_ids(
-            @{ $self->c->sql->select_single_column_array($query) }
+            @{ $self->c->sql->select_single_column_array($query) },
         )
     };
     my $modbot = $self->c->model('Editor')->get_by_id($EDITOR_MODBOT);
@@ -128,7 +128,7 @@ sub run {
                         edit_type => $edit_class{$entity},
                         to_delete => $e,
                         editor => $modbot,
-                        privileges => $BOT_FLAG | $AUTO_EDITOR_FLAG
+                        privileges => $BOT_FLAG | $AUTO_EDITOR_FLAG,
                     );
 
                     $self->c->model('EditNote')->add_note(
@@ -143,9 +143,9 @@ sub run {
                                     'If you consider this was a valid, non-duplicate entry ' .
                                     'that does belong in MusicBrainz, feel free to add it again, ' .
                                     'but please ensure enough data is added to it this time ' .
-                                    'to avoid another automatic removal.')
-                            )
-                        }
+                                    'to avoid another automatic removal.'),
+                            ),
+                        },
                     );
 
                     ++$removed

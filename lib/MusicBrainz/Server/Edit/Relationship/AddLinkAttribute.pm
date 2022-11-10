@@ -26,7 +26,7 @@ has '+data' => (
         child_order => Str,
         creditable => Optional[Bool],
         free_text => Optional[Bool],
-    ]
+    ],
 );
 
 sub foreign_keys
@@ -62,7 +62,7 @@ sub insert {
 
 sub reject {
     MusicBrainz::Server::Edit::Exceptions::MustApply->throw(
-        'Edits of this type cannot be rejected'
+        'Edits of this type cannot be rejected',
     );
 }
 

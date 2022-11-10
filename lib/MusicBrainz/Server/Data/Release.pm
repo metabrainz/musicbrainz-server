@@ -93,7 +93,7 @@ sub _column_mapping
             $quality = $QUALITY_UNKNOWN unless defined($quality);
             return $quality == $QUALITY_UNKNOWN ? $QUALITY_UNKNOWN_MAPPED : $quality;
         },
-        last_updated => 'last_updated'
+        last_updated => 'last_updated',
     };
 }
 
@@ -586,7 +586,7 @@ sub find_by_recordings
             release             => $self->_new_from_row($row),
             track_position      => $row->{track_position},
             medium_position     => $row->{medium_position},
-            medium_track_count  => $row->{medium_track_count}
+            medium_track_count  => $row->{medium_track_count},
         }
     }
 
@@ -841,7 +841,7 @@ sub _insert_hook_after_each {
     my ($self, $created, $release) = @_;
 
     $self->set_release_events(
-        $created->{id}, $release->{release_group_id}, _release_events_from_spec($release->{events} // [])
+        $created->{id}, $release->{release_group_id}, _release_events_from_spec($release->{events} // []),
     );
 }
 
@@ -851,9 +851,9 @@ sub _release_events_from_spec {
         map {
             MusicBrainz::Server::Entity::ReleaseEvent->new(
                 country_id => $_->{country_id},
-                date => MusicBrainz::Server::Entity::PartialDate->new($_->{date})
+                date => MusicBrainz::Server::Entity::PartialDate->new($_->{date}),
             )
-        } @$events
+        } @$events,
     ];
 }
 
@@ -862,7 +862,7 @@ sub update {
 
     my $new_release_group_id = $update->{release_group_id};
     my $old_release_group_id = $self->sql->select_single_value(
-        'SELECT release_group FROM release WHERE id = ?', $release_id
+        'SELECT release_group FROM release WHERE id = ?', $release_id,
     );
     if (
         defined $new_release_group_id &&
@@ -873,7 +873,7 @@ sub update {
     my $release_group_id = $new_release_group_id // $old_release_group_id;
 
     $self->set_release_events(
-        $release_id, $release_group_id, _release_events_from_spec($update->{events})
+        $release_id, $release_group_id, _release_events_from_spec($update->{events}),
     ) if $update->{events};
 
     my $row = $self->_hash_to_row($update);
@@ -922,7 +922,7 @@ sub delete
     my @mediums = @{
         $self->sql->select_single_column_array(
             'SELECT id FROM medium WHERE release IN (' . placeholders(@release_ids) . ')',
-            @release_ids
+            @release_ids,
         )
     };
 
@@ -931,7 +931,7 @@ sub delete
     my @release_group_ids = @{
         $self->sql->select_single_column_array(
             'SELECT release_group FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
-            @release_ids
+            @release_ids,
         )
     };
 
@@ -1000,7 +1000,7 @@ sub can_merge {
 
         my $medium_ids = $self->sql->select_single_column_array(
             'SELECT id FROM medium WHERE release = any(?)',
-            [$new_id, @old_ids]
+            [$new_id, @old_ids],
         );
 
         my %mediums_by_position =
@@ -1032,7 +1032,7 @@ sub can_merge {
         # All mediums on the source releases must be moved
         my @must_move_mediums = @{ $self->sql->select_single_column_array(
             'SELECT id FROM medium WHERE release = any(?)',
-            \@old_ids
+            \@old_ids,
         ) };
 
         return @failure if any { !exists $positions{$_} } @must_move_mediums;
@@ -1273,8 +1273,8 @@ sub merge
             table => 'release',
             columns => [ qw( status packaging barcode script language ) ],
             old_ids => \@old_ids,
-            new_id => $new_id
-        )
+            new_id => $new_id,
+        ),
     );
 
     # Remove any release_unknown_country rows if other releases have the same
@@ -1347,13 +1347,13 @@ sub merge
     $self->sql->do(
         'UPDATE release_country SET release = ? WHERE release = any(?)',
         $new_id,
-        [ $new_id, @old_ids ]
+        [ $new_id, @old_ids ],
     );
 
     $self->sql->do(
         'UPDATE release_unknown_country SET release = ? WHERE release = any(?)',
         $new_id,
-        [ $new_id, @old_ids ]
+        [ $new_id, @old_ids ],
     );
 
     if ($merge_strategy == $MERGE_APPEND) {
@@ -1366,7 +1366,7 @@ sub merge
 
         my @existing_mediums = @{ $self->sql->select_list_of_hashes(
             'SELECT id, position FROM medium WHERE release IN (' . placeholders($new_id, @old_ids) . ')',
-            $new_id, @old_ids
+            $new_id, @old_ids,
         ) };
 
         confess('medium_positions does not account for all mediums in all releases')
@@ -1436,7 +1436,7 @@ sub _hash_to_row
         release_group => 'release_group_id',
         script => 'script_id',
         status => 'status_id',
-        map { $_ => $_ } qw( artist_credit barcode comment name quality )
+        map { $_ => $_ } qw( artist_credit barcode comment name quality ),
     });
 
     return $row;
@@ -1537,7 +1537,7 @@ sub filter_barcode_changes {
              LEFT JOIN release_gid_redirect rgr ON rgr.gid = change.release
              JOIN release ON (release.gid = change.release OR rgr.new_id = release.id)
              WHERE change.barcode IS DISTINCT FROM release.barcode',
-            map { $_->{release}, $_->{barcode} } @barcodes
+            map { $_->{release}, $_->{barcode} } @barcodes,
         )
     };
 }
@@ -1588,7 +1588,7 @@ sub load_release_events {
     $self->c->model('Area')->load(
         grep { $_->country_id && !defined($_->country) }
         map { $_->all_events }
-        @releases
+        @releases,
     );
 }
 
@@ -1614,7 +1614,7 @@ sub find_release_events {
         push @{ $ret{$event->{release}} },
             MusicBrainz::Server::Entity::ReleaseEvent->new(
                 country_id => $event->{country},
-                date => MusicBrainz::Server::Entity::PartialDate->new_from_row($event, 'date_')
+                date => MusicBrainz::Server::Entity::PartialDate->new_from_row($event, 'date_'),
             );
     }
 
@@ -1636,8 +1636,8 @@ sub set_release_events {
             country => $_->country_id,
             date_year => $_->date->year,
             date_month => $_->date->month,
-            date_day => $_->date->day
-        }, @$with_country
+            date_day => $_->date->day,
+        }, @$with_country,
     );
 
     $self->sql->insert_many(
@@ -1646,8 +1646,8 @@ sub set_release_events {
             release => $release_id,
             date_year => $_->date->year,
             date_month => $_->date->month,
-            date_day => $_->date->day
-        }, @$without_country
+            date_day => $_->date->day,
+        }, @$without_country,
     );
 
     # To ensure the new first release date is cached

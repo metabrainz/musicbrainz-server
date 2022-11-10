@@ -34,7 +34,7 @@ use MusicBrainz::Server::Constants qw(
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name => 'user',
-    model => 'Editor'
+    model => 'Editor',
 };
 
 =head1 NAME
@@ -85,7 +85,7 @@ sub _perform_login {
         if ($c->user->requires_password_reset) {
             $c->response->redirect($c->uri_for_action('/account/change_password', {
                 username => $c->user->name,
-                mandatory => 1
+                mandatory => 1,
             } ));
             $c->logout;
             $c->detach;
@@ -361,7 +361,7 @@ sub contact : Chained('load') RequireAuth HiddenOnMirrors SecureForm
                 message  => l(q(Your email has been successfully sent! Click {link|here} to continue to {user}'s profile.),
                             {
                                 link => $c->uri_for_action('/user/profile', [ $editor->name ]),
-                                user => $editor->name
+                                user => $editor->name,
                             }),
             },
             current_view    => 'Node',
@@ -550,8 +550,8 @@ sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnMirrors
         $c->stash(
             message  => l(
                 q('{type}' is not an entity type that can have ratings.),
-                { type => $type }
-            )
+                { type => $type },
+            ),
         );
         $c->detach('/error_400');
     }

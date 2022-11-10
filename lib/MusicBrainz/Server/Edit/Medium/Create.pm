@@ -41,10 +41,10 @@ has '+data' => (
         position     => Int,
         release      => NullableOnPreview[Dict[
             id => Int,
-            name => Str
+            name => Str,
         ]],
-        tracklist    => ArrayRef[track()]
-    ]
+        tracklist    => ArrayRef[track()],
+    ],
 );
 
 has 'tracklist' => (
@@ -76,7 +76,7 @@ sub alter_edit_pending
     my $self = shift;
     return {
         'Medium' => [ $self->entity_id ],
-        'Release' => [ $self->data->{release}->{id} ]
+        'Release' => [ $self->data->{release}->{id} ],
     }
 }
 
@@ -99,7 +99,7 @@ sub initialize {
 
     $opts{release} = {
         id => $release->id,
-        name => $release->name
+        name => $release->name,
     } if $release;
 
     $self->data(\%opts);
@@ -145,8 +145,8 @@ sub build_display_data
             $loaded->{Release}{ $self->data->{release}{id} } ||
             Release->new(
                 id => $self->data->{release}{id},
-                name => $self->data->{release}{name}
-            )
+                name => $self->data->{release}{name},
+            ),
         );
     }
 

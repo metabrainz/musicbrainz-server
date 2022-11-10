@@ -42,7 +42,7 @@ sub show : Chained('load') PathPart('')
             %{$c->stash->{component_props}},
             isrcs => to_json_array($isrcs),
             recordings => to_json_array(\@recordings),
-        }
+        },
     );
 }
 

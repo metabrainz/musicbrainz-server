@@ -19,12 +19,12 @@ sub entity_type { 'place' }
 
 has 'address' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'coordinates' => (
     is => 'rw',
-    isa => 'Coordinates'
+    isa => 'Coordinates',
 );
 
 around TO_JSON => sub {

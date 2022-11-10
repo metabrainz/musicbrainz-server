@@ -233,7 +233,7 @@ sub _merge_impl
            ?, work_attribute_type, work_attribute_text,
            work_attribute_type_allowed_value
          FROM all_attributes',
-      [ $new_id, @old_ids ], $new_id
+      [ $new_id, @old_ids ], $new_id,
     );
 
     merge_table_attributes(
@@ -241,8 +241,8 @@ sub _merge_impl
             table => 'work',
             columns => [ qw( type ) ],
             old_ids => \@old_ids,
-            new_id => $new_id
-        )
+            new_id => $new_id,
+        ),
     );
 
     $self->_delete_and_redirect_gids('work', $new_id, @old_ids);
@@ -255,7 +255,7 @@ sub _hash_to_row
 
     my $row = hash_to_row($work, {
         type => 'type_id',
-        map { $_ => $_ } qw( comment name )
+        map { $_ => $_ } qw( comment name ),
     });
 
     return $row;
@@ -404,7 +404,7 @@ sub _find_writers
         push @{ $map->{$work_id} }, {
             credit => $credit,
             entity => $artists->{$artist_id},
-            roles => [ uniq @{ $roles } ]
+            roles => [ uniq @{ $roles } ],
         }
     }
 }
@@ -465,7 +465,7 @@ sub _find_recording_artists
         my $artist_credit_ids = $work_acs{$work_id};
         $map->{$work_id} ||= [];
         push @{ $map->{$work_id} }, map +{
-            entity => $artist_credits->{$_}
+            entity => $artist_credits->{$_},
         }, @$artist_credit_ids
     }
 }
@@ -494,8 +494,8 @@ sub set_attributes {
                 exists $_->{attribute_text} ?  $_->{attribute_text} : undef,
             work_attribute_type_allowed_value =>
                 exists $_->{attribute_value_id} ? $_->{attribute_value_id} :
-                    undef
-        }, @attributes
+                    undef,
+        }, @attributes,
     );
 }
 

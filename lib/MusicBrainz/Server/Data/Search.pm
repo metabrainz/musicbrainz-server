@@ -67,7 +67,7 @@ use Readonly;
 extends 'MusicBrainz::Server::Data::Entity';
 
 use Sub::Exporter -setup => {
-    exports => [qw( escape_query )]
+    exports => [qw( escape_query )],
 };
 
 sub search
@@ -375,7 +375,7 @@ sub search
         my $res = MusicBrainz::Server::Entity::SearchResult->new(
             position => $pos++,
             score => int(1000 * $row->{rank}),
-            entity => $model->_new_from_row($row)
+            entity => $model->_new_from_row($row),
         );
         push @result, $res;
     }
@@ -529,14 +529,14 @@ sub schema_fixup
             defined $data->{'text-representation'}->{language})
         {
             $data->{language} = $self->c->model('Language')->find_by_code(
-                $data->{'text-representation'}{language}
+                $data->{'text-representation'}{language},
             );
         }
         if (defined $data->{'text-representation'} &&
             defined $data->{'text-representation'}->{script})
         {
             $data->{script} = $self->c->model('Script')->find_by_code(
-                $data->{'text-representation'}{script}
+                $data->{'text-representation'}{script},
             );
         }
 
@@ -547,11 +547,11 @@ sub schema_fixup
                         label => $_->{label}->{id} &&
                             MusicBrainz::Server::Entity::Label->new(
                                 name => $_->{label}->{name},
-                                gid => $_->{label}->{id}
+                                gid => $_->{label}->{id},
                             ),
-                        catalog_number => $_->{'catalog-number'}
+                        catalog_number => $_->{'catalog-number'},
                     )
-                } @{ $data->{'label-info'}}
+                } @{ $data->{'label-info'}},
             ];
         }
 
@@ -565,8 +565,8 @@ sub schema_fixup
                     track_count => $medium_data->{'track-count'},
                     format => $format &&
                         MusicBrainz::Server::Entity::MediumFormat->new(
-                            name => $format
-                        )
+                            name => $format,
+                        ),
                 );
 
                 push @{$data->{mediums}}, $medium;
@@ -578,12 +578,12 @@ sub schema_fixup
         my $release_group = delete $data->{'release-group'};
 
         $data->{release_group} = MusicBrainz::Server::Entity::ReleaseGroup->new(
-            fixup_rg($release_group)
+            fixup_rg($release_group),
         );
 
         if ($data->{status}) {
             $data->{status} = MusicBrainz::Server::Entity::ReleaseStatus->new(
-                name => delete $data->{status}
+                name => delete $data->{status},
             )
         }
 
@@ -595,18 +595,18 @@ sub schema_fixup
                 # MB Solr search server v3.1
                 $data->{packaging} = MusicBrainz::Server::Entity::ReleasePackaging->new(
                     name => $packaging->{name},
-                    defined $packaging->{id} ? (gid => $packaging->{id}) : ()
+                    defined $packaging->{id} ? (gid => $packaging->{id}) : (),
                 )
             } elsif ($packaging_id) {
                 # MB Solr search server v3.2? (SOLR-121)
                 $data->{packaging} = MusicBrainz::Server::Entity::ReleasePackaging->new(
                     name => $packaging,
-                    gid => $packaging_id
+                    gid => $packaging_id,
                 )
             } else {
                 # MB Lucene search server
                 $data->{packaging} = MusicBrainz::Server::Entity::ReleasePackaging->new(
-                    name => $packaging
+                    name => $packaging,
                 )
             }
         }
@@ -630,23 +630,23 @@ sub schema_fixup
                 tracks => [ MusicBrainz::Server::Entity::Track->new(
                     position => $release->{'media'}->[0]->{'track-offset'} + 1,
                     recording => MusicBrainz::Server::Entity::Recording->new(
-                        gid => $data->{gid}
-                    )
-                ) ]
+                        gid => $data->{gid},
+                    ),
+                ) ],
             );
             my $release_group = MusicBrainz::Server::Entity::ReleaseGroup->new(
-                fixup_rg($release->{'release-group'})
+                fixup_rg($release->{'release-group'}),
             );
             push @releases, {
                 release            => MusicBrainz::Server::Entity::Release->new(
                     gid            => $release->{id},
                     name           => $release->{title},
                     mediums        => [ $medium ],
-                    release_group  => $release_group
+                    release_group  => $release_group,
                 ),
                 track_position      => $medium->{tracks}->[0]->{position},
                 medium_position     => $medium->{position},
-                medium_track_count  => $medium->{track_count}
+                medium_track_count  => $medium->{track_count},
             };
         }
         $data->{_extra} = \@releases;
@@ -655,8 +655,8 @@ sub schema_fixup
     if ($type eq 'recording' && defined $data->{'isrcs'}) {
         $data->{isrcs} = [
             map { MusicBrainz::Server::Entity::ISRC->new(
-                isrc => (DBDefs->SEARCH_ENGINE eq 'LUCENE') ? $_->{id} : $_
-            ) } @{ $data->{'isrcs'} }
+                isrc => (DBDefs->SEARCH_ENGINE eq 'LUCENE') ? $_->{id} : $_,
+            ) } @{ $data->{'isrcs'} },
         ];
     }
 
@@ -699,9 +699,9 @@ sub schema_fixup
                 link => MusicBrainz::Server::Entity::Link->new(
                     type => MusicBrainz::Server::Entity::LinkType->new(
                         entity1_type => $entity_type,
-                        name => $rel->{type}
-                    )
-                )
+                        name => $rel->{type},
+                    ),
+                ),
             );
         }
 
@@ -750,12 +750,12 @@ sub schema_fixup
                         # TODO: Pass the actual credit when SEARCH-585 is fixed
                         credit => '',
                         entity => $relationships[0]->entity1,
-                        roles  => [ map { $_->link->type->name } grep { $_->link->type->entity1_type eq 'artist' } @relationships ]
+                        roles  => [ map { $_->link->type->name } grep { $_->link->type->entity1_type eq 'artist' } @relationships ],
                     }
                 } grep {
                     my @relationships = @{ $relationship_map{$_} };
                     any { $_->link->type->entity1_type eq 'artist' } @relationships;
-                } keys %relationship_map
+                } keys %relationship_map,
             ];
         }
 
@@ -776,7 +776,7 @@ sub schema_fixup
             $data->{iswcs} = [
                 map {
                     MusicBrainz::Server::Entity::ISWC->new( iswc => $_ )
-                } @{ $data->{'iswcs'} }
+                } @{ $data->{'iswcs'} },
             ]
         }
     }
@@ -790,7 +790,7 @@ sub fixup_rg {
     if ($release_group->{'primary-type'}) {
         $rg_args->{primary_type} =
             MusicBrainz::Server::Entity::ReleaseGroupType->new(
-                name => $release_group->{'primary-type'}
+                name => $release_group->{'primary-type'},
             );
     }
 
@@ -798,9 +798,9 @@ sub fixup_rg {
         $rg_args->{secondary_types} = [
             map {
                 MusicBrainz::Server::Entity::ReleaseGroupSecondaryType->new(
-                    name => $_
+                    name => $_,
                 )
-            } @{ $release_group->{'secondary-types'} }
+            } @{ $release_group->{'secondary-types'} },
         ]
     }
 
@@ -910,7 +910,7 @@ sub external_search
                     position => $pos++,
                     score  => $t->{score},
                     entity => $entity_model->new($t),
-                    extra  => $t->{_extra} || []   # Not all data fits into the object model, this is for those cases
+                    extra  => $t->{_extra} || [],   # Not all data fits into the object model, this is for those cases
                 );
         }
         my ($total_hits) = $data->{count};

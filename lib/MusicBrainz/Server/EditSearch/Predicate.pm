@@ -26,7 +26,7 @@ sub supports_operator {
 has operator => (
     isa => Str,
     is => 'ro',
-    required => 1
+    required => 1,
 );
 
 has arguments => (
@@ -37,8 +37,8 @@ has arguments => (
     handles => {
         arguments => 'elements',
         argument => 'get',
-        _find_argument => 'first'
-    }
+        _find_argument => 'first',
+    },
 );
 
 sub find_argument {
@@ -49,7 +49,7 @@ sub find_argument {
 has field_name => (
     isa => Str,
     is => 'ro',
-    required => 1
+    required => 1,
 );
 
 sub transform_user_input {
@@ -64,7 +64,7 @@ sub new_from_input {
 
     my $op = $input->{operator};
     MusicBrainz::Server::EditSearch::Exceptions::UnsupportOperator->throw(
-        l('This operator is not supported')
+        l('This operator is not supported'),
     ) unless $class->supports_operator($op);
 
     my $cardinality = $class->operator_cardinality($op);

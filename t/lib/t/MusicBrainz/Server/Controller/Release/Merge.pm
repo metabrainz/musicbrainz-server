@@ -27,8 +27,8 @@ $mech->submit_form_ok({
     with_fields => {
         'merge.target' => '6',
         'merge.merge_strategy' => '1',
-        'merge.edit_note' => 'Mandatory'
-    }
+        'merge.edit_note' => 'Mandatory',
+    },
 });
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
@@ -43,18 +43,18 @@ cmp_deeply($edit->data, {
                 {
                     artist => {
                         id => 1,
-                        name => 'Name'
+                        name => 'Name',
                     },
                     join_phrase => '',
-                    name => 'Name'
-                }
-            ]
+                    name => 'Name',
+                },
+            ],
         },
         mediums => [{
             format_name => undef,
-            track_count => 1
+            track_count => 1,
         }],
-        events => []
+        events => [],
     },
     old_entities => [{
         id => 7,
@@ -65,18 +65,18 @@ cmp_deeply($edit->data, {
                 {
                     artist => {
                         id => 1,
-                        name => 'Name'
+                        name => 'Name',
                     },
                     join_phrase => '',
-                    name => 'Name'
-                }
-            ]
+                    name => 'Name',
+                },
+            ],
         },
         mediums => [{
             format_name => undef,
-            track_count => 1
+            track_count => 1,
         }],
-        events => []
+        events => [],
     }],
     merge_strategy => 1,
     _edit_version => 3,
@@ -92,7 +92,7 @@ cmp_deeply($edit->data, {
                 new_position => 1,
                 old_name => '',
                 new_name => '',
-            }]
+            }],
         },
         {
             release => {
@@ -105,9 +105,9 @@ cmp_deeply($edit->data, {
                 new_position => 2,
                 old_name => '',
                 new_name => '',
-            }]
+            }],
         },
-    )
+    ),
 });
 
 };
@@ -133,8 +133,8 @@ $mech->submit_form_ok({
         'merge.merge_strategy' => '1',
         'merge.medium_positions.map.0.name' => 'Foo',
         'merge.medium_positions.map.1.name' => 'Bar',
-        'merge.edit_note' => 'Empty Edit Note'
-    }
+        'merge.edit_note' => 'Empty Edit Note',
+    },
 });
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
@@ -149,18 +149,18 @@ cmp_deeply($edit->data, {
                 {
                     artist => {
                         id => 1,
-                        name => 'Name'
+                        name => 'Name',
                     },
                     join_phrase => '',
-                    name => 'Name'
-                }
-            ]
+                    name => 'Name',
+                },
+            ],
         },
         mediums => [{
             format_name => undef,
-            track_count => 1
+            track_count => 1,
         }],
-        events => []
+        events => [],
     },
     old_entities => [{
         id => 7,
@@ -171,18 +171,18 @@ cmp_deeply($edit->data, {
                 {
                     artist => {
                         id => 1,
-                        name => 'Name'
+                        name => 'Name',
                     },
                     join_phrase => '',
-                    name => 'Name'
-                }
-            ]
+                    name => 'Name',
+                },
+            ],
         },
         mediums => [{
             format_name => undef,
-            track_count => 1
+            track_count => 1,
         }],
-        events => []
+        events => [],
     }],
     merge_strategy => 1,
     _edit_version => 3,
@@ -198,7 +198,7 @@ cmp_deeply($edit->data, {
                 new_position => 1,
                 old_name => '',
                 new_name => 'Foo',
-            }]
+            }],
         },
         {
             release => {
@@ -211,9 +211,9 @@ cmp_deeply($edit->data, {
                 new_position => 2,
                 old_name => '',
                 new_name => 'Bar',
-            }]
+            }],
         },
-    )
+    ),
 });
 
 };
@@ -236,7 +236,7 @@ test 'Edit note is required' => sub {
         with_fields => {
             'merge.target' => '6',
             'merge.merge_strategy' => '1',
-        }
+        },
     });
     $mech->content_contains('You must provide an edit note', 'contains warning about edit note being required');
 };
