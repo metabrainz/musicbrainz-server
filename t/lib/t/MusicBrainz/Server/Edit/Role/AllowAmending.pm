@@ -55,6 +55,6 @@ sub create_edit {
         format_id => $format,
         name => 'Medium Name',
     );
-};
+}
 
 1;

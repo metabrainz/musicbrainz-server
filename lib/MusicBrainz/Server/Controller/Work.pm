@@ -189,7 +189,7 @@ sub _merge_load_entities
             iswcs_differ => (any { $get_iswc_set->($_) != $expect } @tail),
         );
     }
-};
+}
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Work',

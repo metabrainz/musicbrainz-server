@@ -398,7 +398,7 @@ for my $method (qw( create edit merge merge_queue delete add_alias edit_alias de
             $c->detach('/error_403');
         }
     };
-};
+}
 
 before qw( create edit ) => sub {
     my ($self, $c) = @_;
@@ -411,7 +411,7 @@ sub _merge_load_entities
     my ($self, $c, @areas) = @_;
     $c->model('Area')->load_containment(@areas);
     $c->model('AreaType')->load(@areas);
-};
+}
 
 =head1 COPYRIGHT AND LICENSE
 

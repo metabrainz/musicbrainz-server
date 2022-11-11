@@ -398,7 +398,7 @@ sub linked_recordings
         {
             $isrc_per_recording{$_->recording_id} = [] unless $isrc_per_recording{$_->recording_id};
             push @{ $isrc_per_recording{$_->recording_id} }, $_;
-        };
+        }
 
         for (@$recordings)
         {

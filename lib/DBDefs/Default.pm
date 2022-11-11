@@ -343,12 +343,12 @@ sub RECAPTCHA_PUBLIC_KEY { return undef }
 sub RECAPTCHA_PRIVATE_KEY { return undef }
 
 # internet archive private/public keys (for coverartarchive.org).
-sub COVER_ART_ARCHIVE_ACCESS_KEY { };
-sub COVER_ART_ARCHIVE_SECRET_KEY { };
-sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf('//%s.s3.us.archive.org/', shift) };
-sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { '//coverartarchive.org' };
-sub COVER_ART_ARCHIVE_IA_DOWNLOAD_PREFIX { '//archive.org/download' };
-sub COVER_ART_ARCHIVE_IA_METADATA_PREFIX { 'https://archive.org/metadata' };
+sub COVER_ART_ARCHIVE_ACCESS_KEY { }
+sub COVER_ART_ARCHIVE_SECRET_KEY { }
+sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf('//%s.s3.us.archive.org/', shift) }
+sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { '//coverartarchive.org' }
+sub COVER_ART_ARCHIVE_IA_DOWNLOAD_PREFIX { '//archive.org/download' }
+sub COVER_ART_ARCHIVE_IA_METADATA_PREFIX { 'https://archive.org/metadata' }
 
 # Mapbox access token must be set to display area/place maps.
 sub MAPBOX_MAP_ID { 'mapbox/streets-v11' }

@@ -37,7 +37,7 @@ sub build_display_data {
 sub accept {
     my $self = shift;
     $self->c->model('LinkAttributeType')->delete($self->data->{id});
-};
+}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

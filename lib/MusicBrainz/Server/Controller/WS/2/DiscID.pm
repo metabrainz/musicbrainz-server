@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Controller::WS::2::DiscID;
 use Moose;
 use namespace::autoclean;
-BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' };
+BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Validation qw( is_valid_discid );

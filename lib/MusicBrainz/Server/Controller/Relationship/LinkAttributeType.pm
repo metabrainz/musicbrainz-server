@@ -16,7 +16,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name => 'link_attr_type',
 };
 
-BEGIN { extends 'MusicBrainz::Server::Controller' };
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 sub _load_tree
 {

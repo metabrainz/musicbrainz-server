@@ -195,7 +195,7 @@ sub tracklist_results {
     }
 
     return uniq_by { $_->{medium_id} } @output;
-};
+}
 
 sub disc_results {
     my ($self, $type, $results) = @_;
@@ -216,7 +216,7 @@ sub disc_results {
     }
 
     return @output;
-};
+}
 
 sub disc_search {
     my ($self, $c, $type) = @_;
@@ -263,7 +263,7 @@ sub disc_search {
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body(encode_json(\@output));
-};
+}
 
 sub medium_search : Chained('root') PathPart('medium') Args(0) {
     my ($self, $c) = @_;
@@ -275,7 +275,7 @@ sub cdstub_search : Chained('root') PathPart('cdstub') Args(0) {
     my ($self, $c) = @_;
 
     return $self->disc_search($c, 'cdstub');
-};
+}
 
 sub _detach_with_ia_server_error {
     my ($self, $c, $error) = @_;
@@ -541,7 +541,7 @@ sub entity : Chained('root') PathPart('entity') Args(1)
     if ($entity_properties->{mbid}{relatable}) {
         my $relationships = [map {$_->TO_JSON} $entity->all_relationships];
         $data->{relationships} = $relationships if @$relationships;
-    };
+    }
 
     if ($type eq 'Event') {
         my %related_entities =

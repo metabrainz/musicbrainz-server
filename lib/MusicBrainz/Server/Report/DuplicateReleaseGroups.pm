@@ -28,7 +28,6 @@ SELECT q.rgid AS release_group_id, q.key, row_number() OVER (ORDER BY ac COLLATE
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
-;
 
 =head1 COPYRIGHT AND LICENSE
 

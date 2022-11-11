@@ -178,7 +178,7 @@ sub current_instance {
     $self->_load_alias;
 }
 
-sub edit_template { 'EditAlias' };
+sub edit_template { 'EditAlias' }
 
 around TO_JSON => sub {
     my ($orig, $self) = @_;

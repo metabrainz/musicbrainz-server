@@ -727,7 +727,7 @@ sub _merge_load_entities {
     $c->model('Gender')->load(@artists);
     $c->model('Area')->load(@artists);
     $c->model('Area')->load_containment(map { $_->{area} } @artists);
-};
+}
 
 around _validate_merge => sub {
     my ($orig, $self, $c, $form) = @_;

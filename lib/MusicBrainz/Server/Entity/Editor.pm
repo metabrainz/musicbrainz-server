@@ -256,7 +256,7 @@ has languages => (
 sub requires_password_reset {
     my $self = shift;
     return $self->last_login_date < $LATEST_SECURITY_VULNERABILITY;
-};
+}
 
 has ha1 => (
     isa => 'Str',

@@ -23,7 +23,7 @@ sub serialize
         ],
         'track-count' => $cdstub->track_count,
     };
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

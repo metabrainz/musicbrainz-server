@@ -52,7 +52,7 @@ sub serialize
     }
 
     return \%body;
-};
+}
 
 sub serialize_track {
     my ($self, $entity, $inc, $stash) = @_;

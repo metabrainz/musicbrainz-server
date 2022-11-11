@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 use Try::Tiny;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' };
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Constants qw( :privileges );

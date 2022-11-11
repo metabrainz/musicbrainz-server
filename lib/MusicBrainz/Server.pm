@@ -356,7 +356,7 @@ sub with_translations {
     $code->();
 
     Translation->instance->unset_language();
-};
+}
 
 around dispatch => sub {
     my ($orig, $c, @args) = @_;

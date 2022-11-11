@@ -124,7 +124,7 @@ sub insert_cover_art {
         $self->sql->do(
             'INSERT INTO cover_art_archive.cover_art_type (id, type_id) VALUES (?, ?)',
             $cover_art_id, $type_id);
-    };
+    }
 }
 
 sub update_cover_art {
@@ -149,7 +149,7 @@ sub update_cover_art {
             $self->sql->do(
                 'INSERT INTO cover_art_archive.cover_art_type (id, type_id) VALUES (?, ?)',
                 $cover_art_id, $type_id);
-        };
+        }
     }
 }
 

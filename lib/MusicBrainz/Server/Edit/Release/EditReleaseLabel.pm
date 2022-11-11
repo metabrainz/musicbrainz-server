@@ -257,7 +257,7 @@ sub initialize
         if $release_label->release->barcode;
 
     $self->data($data);
-};
+}
 
 sub accept {
     my $self = shift;

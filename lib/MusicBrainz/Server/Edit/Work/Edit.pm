@@ -242,7 +242,7 @@ sub _edit_hash {
     my $d = $self->merge_changes;
     delete $d->{iswc};
     return $d;
-};
+}
 
 after accept => sub {
     my $self = shift;

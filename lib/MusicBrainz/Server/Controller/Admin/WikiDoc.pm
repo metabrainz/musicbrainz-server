@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Controller::Admin::WikiDoc;
 use Moose;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' };
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Constants qw( $EDIT_WIKIDOC_CHANGE );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );

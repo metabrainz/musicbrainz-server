@@ -106,7 +106,7 @@ sub _insert_hash
     my ($self, $data) = @_;
     $data->{sort_name} ||= $data->{name};
     return $data;
-};
+}
 
 sub restore {
     my ($self, $data) = @_;
@@ -120,7 +120,7 @@ sub restore {
     $self->data($data);
 }
 
-sub edit_template { 'AddArtist' };
+sub edit_template { 'AddArtist' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

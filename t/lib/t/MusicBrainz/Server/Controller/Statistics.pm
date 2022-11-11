@@ -17,7 +17,7 @@ sub initialize_stats {
     MusicBrainz::Server::Test->prepare_test_database($c, '+statistics');
 
     $c->model('Statistics')->recalculate_all;
-};
+}
 
 sub statistics_test {
     my (@endpoints) = @_;

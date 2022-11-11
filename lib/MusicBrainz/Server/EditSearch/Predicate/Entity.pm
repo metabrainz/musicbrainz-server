@@ -39,7 +39,7 @@ with 'MusicBrainz::Server::EditSearch::Predicate::Role::LinkedEntity' => { type 
 $subs_section
 with 'MusicBrainz::Server::EditSearch::Predicate';
 EOF
-};
+}
 
 1;
 

@@ -33,7 +33,7 @@ sub upgrade
         changelog => $self->new_value->{ChangeLog},
     });
     return $self;
-};
+}
 
 sub foreign_keys
 {

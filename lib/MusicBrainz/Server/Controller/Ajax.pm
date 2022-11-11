@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Controller::Ajax;
 use Moose;
 
-BEGIN { extends 'Catalyst::Controller' };
+BEGIN { extends 'Catalyst::Controller' }
 
 use JSON qw( encode_json );
 use namespace::autoclean;

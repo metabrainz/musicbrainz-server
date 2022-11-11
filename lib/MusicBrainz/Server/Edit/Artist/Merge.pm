@@ -110,7 +110,7 @@ sub do_merge
             },
         );
     }
-};
+}
 
 around _build_related_entities => sub {
     my ($orig, $self, @args) = @_;
@@ -138,7 +138,7 @@ around build_display_data => sub {
     return $data;
 };
 
-sub edit_template { 'MergeArtists' };
+sub edit_template { 'MergeArtists' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

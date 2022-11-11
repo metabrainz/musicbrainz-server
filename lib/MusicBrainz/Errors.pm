@@ -110,7 +110,7 @@ sub sig_die_handler {
                 }) : (),
             );
         };
-    };
+    }
     return unless $stacktrace;
 
     my %sentry_frames;
@@ -127,7 +127,7 @@ sub sig_die_handler {
                 eval {
                     %context = get_context($frame->filename, $frame->line);
                 };
-            };
+            }
 
             push @included_frames, { %{ $frames->[$i] }, %context };
         }

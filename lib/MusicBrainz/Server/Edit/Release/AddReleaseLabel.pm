@@ -81,7 +81,7 @@ sub initialize {
     } if $opts{label};
 
     $self->data(\%opts);
-};
+}
 
 sub foreign_keys {
     my $self = shift;
@@ -93,7 +93,7 @@ sub foreign_keys {
     $fk{Label} = [gid_or_id($data->{label})] if $data->{label};
 
     return \%fk;
-};
+}
 
 sub build_display_data {
     my ($self, $loaded) = @_;

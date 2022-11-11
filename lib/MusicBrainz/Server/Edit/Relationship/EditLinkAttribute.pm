@@ -88,7 +88,7 @@ sub accept {
     my $self = shift;
     $self->c->model('LinkAttributeType')->update($self->data->{entity_id},
                                                  $self->data->{new});
-};
+}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

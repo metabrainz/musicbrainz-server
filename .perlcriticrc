@@ -48,6 +48,7 @@ allow=refs
 [ValuesAndExpressions::ProhibitLeadingZeros]
 [ValuesAndExpressions::ProhibitMismatchedOperators]
 [ValuesAndExpressions::ProhibitMixedBooleanOperators]
+[ValuesAndExpressions::ProhibitNullStatements]
 
 [Variables::ProhibitAugmentedAssignmentInDeclaration]
 [Variables::ProhibitConditionalDeclarations]

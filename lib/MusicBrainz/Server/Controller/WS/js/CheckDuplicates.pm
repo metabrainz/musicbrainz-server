@@ -55,6 +55,6 @@ sub check_duplicates : Chained('root') PathPart('check_duplicates') Args(0) {
             @duplicates,
         ],
     }));
-};
+}
 
 1;

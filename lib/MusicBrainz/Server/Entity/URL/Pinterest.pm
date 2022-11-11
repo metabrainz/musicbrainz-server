@@ -14,7 +14,7 @@ sub sidebar_name {
     else {
         return 'Pinterest';
     }
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

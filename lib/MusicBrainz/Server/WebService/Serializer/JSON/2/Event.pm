@@ -16,7 +16,7 @@ sub serialize
     $body{cancelled} = boolean($entity->cancelled);
 
     return \%body;
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

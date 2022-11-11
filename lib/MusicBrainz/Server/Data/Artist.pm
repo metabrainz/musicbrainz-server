@@ -508,7 +508,7 @@ sub load_for_artist_credits {
             $artist_name->artist($artists->{$artist_name->artist_id});
         }
     }
-};
+}
 
 sub is_empty {
     my ($self, $artist_id) = @_;

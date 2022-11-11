@@ -89,6 +89,6 @@ sub install_logging {
             $orig->(@_);
         }
     });
-};
+}
 
 1;

@@ -418,7 +418,7 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') Edit {
 
         $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
         $c->detach;
-    };
+    }
 }
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
@@ -612,7 +612,7 @@ sub _merge_load_entities {
     my ($self, $c, @releases) = @_;
     $c->model('ArtistCredit')->load(@releases);
     $c->model('Release')->load_related_info(@releases);
-};
+}
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type        => $EDIT_RELEASE_DELETE,

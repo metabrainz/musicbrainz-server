@@ -72,7 +72,7 @@ sub build_display_data
     };
 }
 
-sub edit_template { 'AddEvent' };
+sub edit_template { 'AddEvent' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

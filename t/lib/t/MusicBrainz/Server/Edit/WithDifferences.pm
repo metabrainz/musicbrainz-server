@@ -16,7 +16,7 @@ use Test::More;
     );
 
     sub code { 'potatoes' }
-};
+}
 
 {
     package t::MusicBrainz::Server::Edit::WithDifferences::TestEdit;
@@ -35,7 +35,7 @@ use Test::More;
             bar => sub { shift->code },
         );
     }
-};
+}
 
 test 'Check _change_hash' => sub {
     my $edit = t::MusicBrainz::Server::Edit::WithDifferences::TestEdit->new;

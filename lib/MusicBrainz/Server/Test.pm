@@ -141,7 +141,7 @@ sub prepare_test_server
         $ENV{MUSICBRAINZ_RUNNING_TESTS} = 1;
         $ENV{PERL_JSON_BACKEND} = 2;
         *DBDefs::REPLICATION_TYPE = sub { RT_STANDALONE };
-    };
+    }
 
     $test_transport->clear_deliveries;
 }

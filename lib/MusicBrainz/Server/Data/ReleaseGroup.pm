@@ -854,7 +854,7 @@ sub merge_releases {
     for my $row (@$rg_ids) {
         $release_rg{$row->{id}} = $row->{release_group};
         $release_group_ids{$row->{release_group}} = 1;
-    };
+    }
 
     my @release_group_ids = keys %release_group_ids;
     my $rg_cover_art = $self->c->sql->select_list_of_hashes(

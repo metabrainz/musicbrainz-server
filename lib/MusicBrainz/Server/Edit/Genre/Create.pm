@@ -54,7 +54,7 @@ sub build_display_data
     };
 }
 
-sub edit_template { 'AddGenre' };
+sub edit_template { 'AddGenre' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
