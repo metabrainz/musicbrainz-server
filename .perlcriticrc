@@ -43,6 +43,7 @@ allow=refs
 [TooMuchCode::ProhibitUnusedImport]
 [TooMuchCode::ProhibitUnusedInclude]
 
+[ValuesAndExpressions::ProhibitEmptyCommas]
 [ValuesAndExpressions::ProhibitInterpolationOfLiterals]
 [ValuesAndExpressions::ProhibitLeadingZeros]
 [ValuesAndExpressions::ProhibitMismatchedOperators]
