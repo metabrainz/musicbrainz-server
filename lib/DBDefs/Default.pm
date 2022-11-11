@@ -292,7 +292,7 @@ sub DB_READ_ONLY { 0 }
 # Set this value to a message that you'd like to display to users when
 # they attempt to write to your read-only database (not used if DB_READ_ONLY
 # is false)
-sub DB_READ_ONLY_MESSAGE { <<EOF }
+sub DB_READ_ONLY_MESSAGE { <<'EOF' }
 This server is temporarily in read-only mode
 for database maintainance.
 EOF

@@ -326,7 +326,7 @@ test 'collection lookup errors' => sub {
     my $bad_entity_response = sub {
         my ($entity_type) = @_;
 
-        <<EOXML;
+        <<"EOXML";
 <?xml version="1.0" encoding="UTF-8"?>
 <error>
   <text>This is not a collection for entity type $entity_type.</text>

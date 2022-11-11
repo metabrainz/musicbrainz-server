@@ -1432,9 +1432,9 @@ test 'MBS-13309: Cross-origin requests are limited to bot accounts' => sub {
     my ($c, $mech) = ($test->c, $test->mech);
 
     MusicBrainz::Server::Test->prepare_test_database($c);
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~SQL);
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO editor (id, name, password, privs, email, email_confirm_date, member_since, ha1)
-        VALUES (2, 'bot_editor', '{CLEARTEXT}password', 2, 'bot\@editor.org', '2023-11-04', '2023-11-04', '');
+        VALUES (2, 'bot_editor', '{CLEARTEXT}password', 2, 'bot@editor.org', '2023-11-04', '2023-11-04', '');
         SQL
 
     $mech->get_ok('/login');

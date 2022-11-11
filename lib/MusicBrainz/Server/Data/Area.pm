@@ -75,7 +75,7 @@ sub load_containment {
 
     my $area_containment_table = get_area_containment_join($self->sql);
 
-    my @results = @{ $self->sql->select_list_of_hashes(<<~SQL, [map { $_->id } @areas]) };
+    my @results = @{ $self->sql->select_list_of_hashes(<<~"SQL", [map { $_->id } @areas]) };
         SELECT ac.*
           FROM $area_containment_table ac
           JOIN area parent_area ON parent_area.id = ac.parent

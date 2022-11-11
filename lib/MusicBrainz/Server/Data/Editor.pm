@@ -756,7 +756,7 @@ sub secondary_counts {
             map { "SELECT is_upvote FROM $_ WHERE editor = ?" } @tag_tables,
         );
 
-        my $query = <<~SQL;
+        my $query = <<~"SQL";
             SELECT x.is_upvote, count(*)
             FROM ($tag_inner_query) x
             GROUP BY x.is_upvote

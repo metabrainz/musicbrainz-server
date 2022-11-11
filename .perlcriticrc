@@ -49,6 +49,7 @@ allow=refs
 [ValuesAndExpressions::ProhibitMismatchedOperators]
 [ValuesAndExpressions::ProhibitMixedBooleanOperators]
 [ValuesAndExpressions::ProhibitNullStatements]
+[ValuesAndExpressions::RequireQuotedHeredocTerminator]
 [ValuesAndExpressions::RequireUpperCaseHeredocTerminator]
 
 [Variables::ProhibitAugmentedAssignmentInDeclaration]
