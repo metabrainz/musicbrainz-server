@@ -61,7 +61,7 @@ sub _make_link
 {
     my ($type, $mbid, $content) = @_;
     $content //= "$type:$mbid";
-    return qq(<a href="/$type/$mbid">$content</a>)
+    return qq(<a href="/$type/$mbid">$content</a>);
 }
 
 sub encode_square_brackets
@@ -93,7 +93,7 @@ sub normalise_url {
     # percent encoded parenthesis.
 
     shift =~ s/%28/\(/gr
-          =~ s/%29/\)/gr
+          =~ s/%29/\)/gr;
 }
 
 sub format_editnote
@@ -158,11 +158,11 @@ sub locale
     my $locale_name = shift or return '';
     try {
         my $locale = DateTime::Locale->load($locale_name);
-        return $locale->name
+        return $locale->name;
     }
     catch {
         return;
-    }
+    };
 }
 
 1;

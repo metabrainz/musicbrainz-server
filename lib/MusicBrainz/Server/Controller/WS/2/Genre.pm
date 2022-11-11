@@ -34,7 +34,7 @@ sub serializers {
         'MusicBrainz::Server::WebService::XMLSerializer',
         'MusicBrainz::Server::WebService::JSONSerializer',
         'MusicBrainz::Server::WebService::TXTSerializer',
-    ]
+    ];
 }
 
 sub base : Chained('root') PathPart('genre') CaptureArgs(0) { }

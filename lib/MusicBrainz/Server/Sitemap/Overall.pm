@@ -342,7 +342,7 @@ sub construct_url_lists($$$@) {
         }
     }
 
-    return {base => \@base_urls, paginated => \@paginated_urls}
+    return {base => \@base_urls, paginated => \@paginated_urls};
 }
 
 =head2 build_one_batch

@@ -21,7 +21,7 @@ sub _build_related_entities {
     my $self = shift;
     return {
         release => $self->data->{release_ids},
-    }
+    };
 }
 
 sub upgrade

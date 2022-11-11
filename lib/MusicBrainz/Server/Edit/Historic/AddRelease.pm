@@ -63,7 +63,7 @@ sub _build_related_entities
         recording => [ $self->_recording_ids ],
         release   => [ $self->_release_ids ],
         release_group => $self->data->{release_group_ids},
-    }
+    };
 }
 
 sub foreign_keys {
@@ -157,7 +157,7 @@ sub build_display_data
                                     )),
                 } } sort { $a->{position} <=> $b->{position} } $self->_tracks,
         ],
-    }
+    };
 }
 
 our %status_map = (
@@ -240,7 +240,7 @@ sub upgrade
             artist_name  => $self->new_value->{"Artist$i"},
             length       => $length,
             recording_id => $self->resolve_recording_id($track_id),
-        }
+        };
     }
 
     $self->data($data);

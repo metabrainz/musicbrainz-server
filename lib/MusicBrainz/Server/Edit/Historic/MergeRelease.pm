@@ -22,7 +22,7 @@ sub _build_related_entities
     return {
         artist    => [ $self->artist_id ],
         release   => [ $self->_release_ids ],
-    }
+    };
 }
 
 sub _new_release_ids
@@ -59,7 +59,7 @@ sub foreign_keys
         Release => {
             map { $_ => [ 'ArtistCredit' ] } $self->_release_ids,
         },
-    }
+    };
 }
 
 sub build_display_data
@@ -99,7 +99,7 @@ sub build_display_data
         },
         merge_attributes => $self->data->{merge_attributes},
         merge_language   => $self->data->{merge_language},
-    }
+    };
 }
 
 sub upgrade

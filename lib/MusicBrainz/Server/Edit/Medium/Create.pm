@@ -77,7 +77,7 @@ sub alter_edit_pending
     return {
         'Medium' => [ $self->entity_id ],
         'Release' => [ $self->data->{release}->{id} ],
-    }
+    };
 }
 
 sub initialize {

@@ -59,7 +59,7 @@ sub query {
             results
         WHERE
             (maxdiff / 75) > (3*60)  -- cutoff 3min
-    }
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

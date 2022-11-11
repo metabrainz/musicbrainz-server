@@ -68,7 +68,7 @@ sub _column_mapping
 
 sub _area_columns
 {
-    return ['area']
+    return ['area'];
 }
 
 sub load
@@ -175,26 +175,26 @@ sub _order_by {
     my ($self, $order) = @_;
     my $order_by = order_by($order, 'name', {
         'name' => sub {
-            return 'name COLLATE musicbrainz'
+            return 'name COLLATE musicbrainz';
         },
         'area' => sub {
-            return 'area, name COLLATE musicbrainz'
+            return 'area, name COLLATE musicbrainz';
         },
         'address' => sub {
-            return 'address COLLATE musicbrainz, name COLLATE musicbrainz'
+            return 'address COLLATE musicbrainz, name COLLATE musicbrainz';
         },
         'begin_date' => sub {
-            return 'begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz'
+            return 'begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz';
         },
         'end_date' => sub {
-            return 'end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz'
+            return 'end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz';
         },
         'type' => sub {
-            return 'type, name COLLATE musicbrainz'
+            return 'type, name COLLATE musicbrainz';
         },
     });
 
-    return $order_by
+    return $order_by;
 }
 
 __PACKAGE__->meta->make_immutable;

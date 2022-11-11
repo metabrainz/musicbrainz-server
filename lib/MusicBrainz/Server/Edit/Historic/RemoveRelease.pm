@@ -23,7 +23,7 @@ sub _build_related_entities
     my $self = shift;
     return {
         release => $self->data->{release_ids},
-    }
+    };
 }
 
 sub foreign_keys
@@ -32,7 +32,7 @@ sub foreign_keys
     return {
         Release => { map { $_ => [ 'ArtistCredit' ] } @{ $self->data->{release_ids} } },
         Artist  => [ $self->data->{artist_id} ],
-    }
+    };
 }
 
 sub build_display_data

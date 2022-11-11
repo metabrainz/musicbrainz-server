@@ -11,19 +11,19 @@ my %model_to_edit_type = (
     add => { entities_with('aliases',
         take => sub {
             my (undef, $info) = @_;
-            return ($info->{model} => $info->{aliases}{add_edit_type} )
+            return ($info->{model} => $info->{aliases}{add_edit_type} );
         },
     ) },
     delete => { entities_with('aliases',
         take => sub {
             my (undef, $info) = @_;
-            return ($info->{model} => $info->{aliases}{delete_edit_type} )
+            return ($info->{model} => $info->{aliases}{delete_edit_type} );
         },
     ) },
     edit => { entities_with('aliases',
         take => sub {
             my (undef, $info) = @_;
-            return ($info->{model} => $info->{aliases}{edit_edit_type} )
+            return ($info->{model} => $info->{aliases}{edit_edit_type} );
         },
     ) },
 );
@@ -31,7 +31,7 @@ my %model_to_edit_type = (
 my %model_to_search_hint_type_id = entities_with('aliases',
     take => sub {
         my (undef, $info) = @_;
-        return ($info->{model} => $info->{aliases}{search_hint_type} )
+        return ($info->{model} => $info->{aliases}{search_hint_type} );
     },
 );
 

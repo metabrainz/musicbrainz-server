@@ -33,14 +33,14 @@ method alter_edit_pending
 {
     return {
         Release => [ $self->release_id ],
-    }
+    };
 }
 
 sub change_fields
 {
     return Dict[
         quality => Int,
-    ]
+    ];
 }
 
 has '+data' => (

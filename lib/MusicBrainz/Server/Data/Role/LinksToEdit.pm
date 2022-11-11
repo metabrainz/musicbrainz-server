@@ -9,7 +9,7 @@ parameter 'table' => (
 
 role {
     my $params = shift;
-    method 'edit_link_table' => sub { $params->table }
+    method 'edit_link_table' => sub { $params->table };
 };
 
 1;

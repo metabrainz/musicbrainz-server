@@ -10,7 +10,7 @@ around '_build_related_entities' => sub
     my $self = shift;
 
     my @works = values %{
-        $self->c->model('Work')->get_by_ids($self->work_ids)
+        $self->c->model('Work')->get_by_ids($self->work_ids);
     };
 
     my ($recordings, undef) = $self->c->model('Recording')->find_by_works([$self->work_ids]);
@@ -34,7 +34,7 @@ around '_build_related_entities' => sub
         work => [
             $self->work_ids,
         ],
-    }
+    };
 };
 
 sub work_ids { shift->work_id }

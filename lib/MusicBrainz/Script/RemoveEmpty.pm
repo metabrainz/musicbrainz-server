@@ -102,7 +102,7 @@ sub run {
     my @entities = values %{
         $self->c->model(type_to_model($entity))->get_by_ids(
             @{ $self->c->sql->select_single_column_array($query) },
-        )
+        );
     };
     my $modbot = $self->c->model('Editor')->get_by_id($EDITOR_MODBOT);
 
@@ -120,7 +120,7 @@ sub run {
             if ($entity eq 'url') {
                 Sql::run_in_transaction(sub {
                     $self->c->model('URL')->delete($e->id);
-                    ++$removed
+                    ++$removed;
                 }, $self->c->sql);
             } else {
                 Sql::run_in_transaction(sub {
@@ -148,7 +148,7 @@ sub run {
                         },
                     );
 
-                    ++$removed
+                    ++$removed;
                 }, $self->c->sql);
             }
         }

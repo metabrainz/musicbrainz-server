@@ -30,7 +30,7 @@ sub edit_template { 'ReorderCoverArt' }
 sub alter_edit_pending {
     return {
         Release => [ shift->release_ids ],
-    }
+    };
 }
 
 has '+data' => (

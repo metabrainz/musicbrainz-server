@@ -24,7 +24,7 @@ sub group_by_release_status_nested (&@) {
     my %grouped = partition_by { $accessor->($_)->status_name // '' } @releases;
     return [
         nsort_by { $accessor->($_->[0])->status_id || '100' } values %grouped,
-    ]
+    ];
 }
 
 =func group_by_release_status

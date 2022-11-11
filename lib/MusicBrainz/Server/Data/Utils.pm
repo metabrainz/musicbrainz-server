@@ -85,7 +85,7 @@ sub copy_escape {
     shift =~ s/\n/\\n/gr
           =~ s/\t/\\t/gr
           =~ s/\r/\\r/gr
-          =~ s/\\/\\\\/gr
+          =~ s/\\/\\\\/gr;
 }
 
 sub ref_to_type
@@ -182,7 +182,7 @@ sub load_meta
             "SELECT * FROM $table
              WHERE id IN (" . placeholders(@ids) . ')',
             @ids,
-        )
+        );
     }) {
         my $obj = $id_to_obj{$row->{id}};
         $builder->($obj, $row);
@@ -326,7 +326,7 @@ sub collapse_whitespace {
     =~ s/\s/ /gr
 
     # Compress whitespace
-    =~ s/\s{2,}/ /gr
+    =~ s/\s{2,}/ /gr;
 }
 
 sub sanitize {
@@ -435,7 +435,7 @@ sub remove_invalid_characters {
     # - bom
     # - Supplementary private use areas
     # - Noncharacters
-    =~ s/[\x{FEFF}\x{F0000}-\x{FFFFF}\x{100000}-\x{10FFFF}${noncharacter_pattern}]//gr
+    =~ s/[\x{FEFF}\x{F0000}-\x{FFFFF}\x{100000}-\x{10FFFF}${noncharacter_pattern}]//gr;
 }
 
 sub remove_lineformatting_characters {
@@ -444,7 +444,7 @@ sub remove_lineformatting_characters {
     # - zwsp
     # - shy
     # - Other, control (including TAB \x09, LF \x0A, and CR \x0D)
-    =~ s/[\x{200B}\x{00AD}\p{Cc}]//gr
+    =~ s/[\x{200B}\x{00AD}\p{Cc}]//gr;
 }
 
 sub type_to_model
@@ -523,7 +523,7 @@ sub map_query
     return {
         map { $_->{$key} => $_->{$value} }
             @{ $sql->select_list_of_hashes($query, @bind_params) },
-    }
+    };
 }
 
 sub check_data
@@ -615,7 +615,7 @@ sub merge_boolean_attributes {
                       )';
             } @$columns) . '
             WHERE id = ?',
-           (@$all_ids) x @$columns, $new_id)
+           (@$all_ids) x @$columns, $new_id);
     }, @_);
 }
 
@@ -646,7 +646,7 @@ sub merge_partial_date {
               AND $table.$day IS NULL
               AND $table.$month IS NULL
               AND $table.$year IS NULL",
-                     $old_ids, $new_id)
+                     $old_ids, $new_id);
     }, @_);
 }
 

@@ -21,7 +21,7 @@ sub _build_related_entities
     my $self = shift;
     return {
         artist => [ $self->data->{artist_id} ],
-    }
+    };
 }
 
 sub foreign_keys
@@ -29,7 +29,7 @@ sub foreign_keys
     my $self = shift;
     return {
         Artist => [ $self->data->{artist_id} ],
-    }
+    };
 }
 
 sub build_display_data
@@ -44,7 +44,7 @@ sub build_display_data
             old => $self->data->{old}{quality} + 0, # force number
             new => $self->data->{new}{quality} + 0, # force number
         },
-    }
+    };
 }
 
 sub upgrade

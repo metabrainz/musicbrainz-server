@@ -171,7 +171,7 @@ test 'Loading work attributes for works with no attributes' => sub {
     my $work = $test->c->model('Work')->get_by_id(1);
     is exception { $test->c->model('WorkAttribute')->load_for_works($work) }, undef;
 
-    is($work->all_attributes, 0, 'work has no attributes')
+    is($work->all_attributes, 0, 'work has no attributes');
 };
 
 test 'Loading work attributes for works with free text attributes' => sub {
@@ -304,7 +304,7 @@ test 'Merge attributes for works' => sub {
                 value_id => 35,
             ),
         ),
-    )
+    );
 };
 
 test 'Deleting a work with work attributes' => sub {
@@ -319,7 +319,7 @@ test 'Deleting a work with work attributes' => sub {
         { attribute_type_id => 1, attribute_value_id => 13 },
     );
 
-    ok !exception { $work_data->delete($a->{id}); }
+    ok !exception { $work_data->delete($a->{id}); };
 };
 
 1;

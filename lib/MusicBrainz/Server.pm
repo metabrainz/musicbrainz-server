@@ -165,7 +165,7 @@ if ($ENV{'MUSICBRAINZ_RUNNING_TESTS'}) {
         },
         dirs => [ 'static' ],
         no_logs => 1,
-    }
+    };
 } else {
     push @args, DBDefs->SESSION_STORE;
     __PACKAGE__->config->{'Plugin::Session'} = DBDefs->SESSION_STORE_ARGS;
@@ -388,7 +388,7 @@ around dispatch => sub {
         $c->res->redirect($new_url, 307);
     } else {
         $c->with_translations(sub {
-            $c->$orig(@args)
+            $c->$orig(@args);
         });
     }
 };

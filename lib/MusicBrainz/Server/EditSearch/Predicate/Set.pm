@@ -10,7 +10,7 @@ sub operator_cardinality_map {
     return (
         '=' => undef,
         '!=' => undef,
-    )
+    );
 }
 
 sub valid {

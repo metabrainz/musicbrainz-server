@@ -40,7 +40,7 @@ our %relation_types = (
     2 => { entities_with(['mbid', 'relatable'],
         take => sub {
             my (undef, $info) = @_;
-            return ($info->{url} . '-rels' => 1)
+            return ($info->{url} . '-rels' => 1);
         }),
     },
 );

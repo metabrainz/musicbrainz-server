@@ -72,7 +72,7 @@ sub BUILD {
             $model->[1] =>
                 methods => {
                     ACCEPT_CONTEXT => sub {
-                        return $dao
+                        return $dao;
                     },
                 });
     }

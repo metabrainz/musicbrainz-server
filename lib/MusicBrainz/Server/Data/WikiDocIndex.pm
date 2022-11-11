@@ -19,7 +19,7 @@ sub _load_index_from_db {
     my $self = shift;
     return {
         map { @$_ } @{
-            $self->sql->select_list_of_lists('SELECT page_name, revision FROM wikidocs.wikidocs_index')
+            $self->sql->select_list_of_lists('SELECT page_name, revision FROM wikidocs.wikidocs_index');
         },
     };
 }

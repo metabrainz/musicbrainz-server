@@ -19,7 +19,7 @@ sub query {
             ON r.id = t.recording
         WHERE (SELECT COUNT(*) FROM track WHERE recording = r.id) = 1
           AND r.name != t.name
-    '
+    ';
 }
 
 sub inflate_rows

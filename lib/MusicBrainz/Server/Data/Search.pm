@@ -584,7 +584,7 @@ sub schema_fixup
         if ($data->{status}) {
             $data->{status} = MusicBrainz::Server::Entity::ReleaseStatus->new(
                 name => delete $data->{status},
-            )
+            );
         }
 
         my $packaging = delete $data->{packaging};
@@ -596,18 +596,18 @@ sub schema_fixup
                 $data->{packaging} = MusicBrainz::Server::Entity::ReleasePackaging->new(
                     name => $packaging->{name},
                     defined $packaging->{id} ? (gid => $packaging->{id}) : (),
-                )
+                );
             } elsif ($packaging_id) {
                 # MB Solr search server v3.2? (SOLR-121)
                 $data->{packaging} = MusicBrainz::Server::Entity::ReleasePackaging->new(
                     name => $packaging,
                     gid => $packaging_id,
-                )
+                );
             } else {
                 # MB Lucene search server
                 $data->{packaging} = MusicBrainz::Server::Entity::ReleasePackaging->new(
                     name => $packaging,
-                )
+                );
             }
         }
     }
@@ -777,7 +777,7 @@ sub schema_fixup
                 map {
                     MusicBrainz::Server::Entity::ISWC->new( iswc => $_ )
                 } @{ $data->{'iswcs'} },
-            ]
+            ];
         }
     }
 }
@@ -801,7 +801,7 @@ sub fixup_rg {
                     name => $_,
                 )
             } @{ $release_group->{'secondary-types'} },
-        ]
+        ];
     }
 
     return %$rg_args;

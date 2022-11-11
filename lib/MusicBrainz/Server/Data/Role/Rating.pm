@@ -29,7 +29,7 @@ role
             type => $params->type,
             parent => $self,
         );
-    }
+    };
 };
 
 1;

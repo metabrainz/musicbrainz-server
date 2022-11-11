@@ -20,7 +20,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
     my $user = $c->model('Editor')->get_by_name($user_name);
 
     if (not defined $user) {
-        $c->detach('/user/not_found')
+        $c->detach('/user/not_found');
     }
     $c->stash->{viewing_own_profile} = $c->user_exists && $c->user->id == $user->id;
 

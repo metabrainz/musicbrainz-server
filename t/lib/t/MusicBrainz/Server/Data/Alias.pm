@@ -306,7 +306,7 @@ test 'Exists only checks a single entity' => sub {
             locale => undef,
             type_id => undef,
             not_id => undef,
-            entity => shift})
+            entity => shift});
       };
 
     ok($check_alias->('Old name', 1), 'Old name aliased to artist #1');

@@ -25,7 +25,7 @@ sub _build_related_entities
     return {
         artist => [ $self->data->{old_artist_id} ],
         release => $self->data->{release_ids},
-    }
+    };
 }
 
 sub release_ids
@@ -43,7 +43,7 @@ sub foreign_keys
                 $self->release_ids,
         },
         Artist => [ $VARTIST_ID, $self->data->{old_artist_id} ],
-    }
+    };
 }
 
 sub build_display_data

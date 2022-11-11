@@ -510,7 +510,7 @@ test q(Merging an artist that's in a collection) => sub {
     $c->model('Collection')->add_entities_to_collection('artist', $collection->{id}, $artist1->{id});
     $c->model('Artist')->merge($artist2->{id}, [$artist1->{id}]);
 
-    ok($c->sql->select_single_value('SELECT 1 FROM editor_collection_artist WHERE artist = ?', $artist2->{id}))
+    ok($c->sql->select_single_value('SELECT 1 FROM editor_collection_artist WHERE artist = ?', $artist2->{id}));
 };
 
 1;

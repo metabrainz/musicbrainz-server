@@ -187,7 +187,7 @@ sub enable_ssl {
 
     # This returns a lexically scoped wrapper so the assignments are needed
     # See https://metacpan.org/pod/Hook::LexWrap#Lexically-scoped-wrappers
-    return $wrapper
+    return $wrapper;
 }
 
 1;

@@ -13,7 +13,7 @@ sub entity_type { 'artist_type' }
 
 sub l_name {
     my $self = shift;
-    return lp($self->name, 'artist_type')
+    return lp($self->name, 'artist_type');
 }
 
 sub l_description {

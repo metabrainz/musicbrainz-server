@@ -440,7 +440,7 @@ sub get_current_replication_sequence {
 
     my $replication_info = decode_json($response->content);
 
-    $replication_info->{last_packet} =~ s/^replication-([0-9]+)\.tar\.bz2$/$1/r
+    $replication_info->{last_packet} =~ s/^replication-([0-9]+)\.tar\.bz2$/$1/r;
 }
 
 sub run_incremental_dump {

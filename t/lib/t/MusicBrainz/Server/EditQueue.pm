@@ -119,7 +119,7 @@ test 'Edit queue correctly handles locked edits' => sub {
             $other_dbh->sql->do('DELETE FROM edit');
             $other_dbh->sql->do('DELETE FROM editor');
         }, $other_dbh->sql);
-    }
+    };
 };
 
 test 'Edit queue can close edits with sufficient yes votes early' => sub {

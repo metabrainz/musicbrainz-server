@@ -65,7 +65,7 @@ sub try_and_insert {
             $self->_insert_edit(
                 $c, $form, edit_type => $EDIT_RELATIONSHIP_CREATE, %$_,
             )
-        } @relationships
+        } @relationships;
     });
     return @edits;
 }

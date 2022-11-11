@@ -46,7 +46,7 @@ sub _build_related_entities
                     $_->{old}, $_->{new}
                 } @{ $self->data->{edits} },
         ],
-    }
+    };
 }
 
 sub foreign_keys
@@ -62,7 +62,7 @@ sub foreign_keys
         Label        => [ map { $_->{label_id   } } @everything ],
         MediumFormat => [ map { $_->{format_id  } } @everything ],
         Release      => [ $self->_release_ids ],
-    }
+    };
 }
 
 sub _build_re {
@@ -76,7 +76,7 @@ sub _build_re {
         catalog_number => $re->{catalog_number},
         barcode        => $re->{barcode},
         date           => to_json_object(MusicBrainz::Server::Entity::PartialDate->new_from_row( $re->{date} )),
-    }
+    };
 }
 
 sub build_display_data
@@ -119,7 +119,7 @@ sub build_display_data
                 },
             } } $self->_edits,
         ],
-    }
+    };
 }
 
 sub upgrade_re

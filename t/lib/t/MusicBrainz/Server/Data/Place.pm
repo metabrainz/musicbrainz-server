@@ -281,7 +281,7 @@ test q(Merging a place that's in a collection) => sub {
     $c->model('Collection')->add_entities_to_collection('place', $collection->{id}, $place1->{id});
     $c->model('Place')->merge($place2->{id}, $place1->{id});
 
-    ok($c->sql->select_single_value('SELECT 1 FROM editor_collection_place WHERE place = ?', $place2->{id}))
+    ok($c->sql->select_single_value('SELECT 1 FROM editor_collection_place WHERE place = ?', $place2->{id}));
 };
 
 1;

@@ -57,7 +57,7 @@ sub _build_related_entities
         ],
         release =>       [ uniq map { $_->id } @releases ],
         release_group => [ uniq map { $_->id } @groups ],
-    }
+    };
 }
 
 sub foreign_keys
@@ -69,7 +69,7 @@ sub foreign_keys
             $self->data->{old_release_group}{id} => [ 'ArtistCredit' ],
             $self->data->{new_release_group}{id} => [ 'ArtistCredit' ],
         },
-    }
+    };
 }
 
 sub build_display_data

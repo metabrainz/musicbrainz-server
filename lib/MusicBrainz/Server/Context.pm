@@ -29,7 +29,7 @@ has 'database' => (
     default => sub {
         DBDefs->DB_READ_ONLY || DBDefs->REPLICATION_TYPE == RT_MIRROR
             ? 'READONLY'
-            : 'READWRITE'
+            : 'READWRITE';
     },
     lazy => 1,
     clearer => 'clear_database',

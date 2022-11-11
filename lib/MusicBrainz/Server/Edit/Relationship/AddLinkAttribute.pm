@@ -34,7 +34,7 @@ sub foreign_keys
     my $self = shift;
     return {
         LinkAttributeType => [ $self->data->{parent_id} ],
-    }
+    };
 }
 
 sub build_display_data
@@ -49,7 +49,7 @@ sub build_display_data
         parent => defined $parent_id ? to_json_object($loaded->{LinkAttributeType}{$parent_id}) : undef,
         creditable => boolean_to_json($self->data->{creditable}),
         free_text => boolean_to_json($self->data->{free_text}),
-    }
+    };
 }
 
 sub insert {

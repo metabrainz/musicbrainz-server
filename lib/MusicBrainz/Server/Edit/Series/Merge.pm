@@ -26,7 +26,7 @@ sub foreign_keys {
                 map { $_->{id} } @{ $self->data->{old_entities} },
             ),
         },
-    }
+    };
 }
 
 sub edit_template { 'MergeSeries' };

@@ -607,7 +607,7 @@ sub create {
     my $ents = $edit->related_entities;
     while (my ($type, $ids) = each %$ents) {
         @$ids = uniq map { $_->id } values %{
-            $self->c->model(type_to_model($type))->get_by_any_ids(grep { defined } @$ids)
+            $self->c->model(type_to_model($type))->get_by_any_ids(grep { defined } @$ids);
         };
         @$ids or next;
 

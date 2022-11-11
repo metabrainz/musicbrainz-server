@@ -40,7 +40,7 @@ sub remove_entities {
     my %all_existing = map { $_ => 1 } grep { $_ } $self->all_entities;
     $self->entities([
         grep { !exists $to_remove{$_} } keys %all_existing,
-    ])
+    ]);
 }
 
 sub TO_JSON {

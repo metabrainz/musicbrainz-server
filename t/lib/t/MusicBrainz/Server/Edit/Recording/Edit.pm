@@ -170,7 +170,7 @@ sub is_unchanged {
         is($recording->comment, 'a comment');
         is($recording->artist_credit_id, 1);
         is($recording->length, undef);
-    }
+    };
 }
 
 1;

@@ -23,7 +23,7 @@ around '_build_related_entities' => sub
         ],
         release_group => [ $release_group->id ],
         release => [ $release->id ],
-    }
+    };
 };
 
 1;

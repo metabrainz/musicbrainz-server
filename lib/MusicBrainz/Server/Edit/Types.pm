@@ -35,7 +35,7 @@ sub Changeset
     return (
         old => Dict[%fields],
         new => Dict[%fields],
-    )
+    );
 }
 
 subtype PartialDateHash,

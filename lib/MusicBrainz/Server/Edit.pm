@@ -219,7 +219,7 @@ sub approval_requires_comment {
     return $self->_grep_votes(sub {
         $_->vote == $VOTE_NO &&
             !$_->superseded &&
-                $_->editor_id != $editor->id
+                $_->editor_id != $editor->id;
     }) > 0;
 }
 

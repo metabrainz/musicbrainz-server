@@ -21,7 +21,7 @@ sub _build_related_entities {
     return {
         artist => [ $self->data->{old_artist_id}, $self->data->{new_artist_id} ],
         release => [ $self->_release_ids ],
-    }
+    };
 }
 
 sub _release_ids
@@ -36,7 +36,7 @@ sub foreign_keys
     return {
         Artist  => [ $self->data->{old_artist_id}, $self->data->{new_artist_id} ],
         Release => [ $self->_release_ids ],
-    }
+    };
 }
 
 sub build_display_data
@@ -58,7 +58,7 @@ sub build_display_data
             old => to_json_object($loaded->{Artist}{ $self->data->{old_artist_id} }),
             new => to_json_object($new_artist),
         },
-    }
+    };
 }
 
 sub upgrade

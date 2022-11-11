@@ -117,7 +117,7 @@ around accept => sub {
                 SQL
             $new_id,
             $AMAZON_ASIN_LINK_TYPE_ID,
-        )
+        );
     };
 
     $self->c->model('Release')->update_amazon_asin($_) for @release_ids;
@@ -139,7 +139,7 @@ after insert => sub {
 
 sub current_instance {
     my $self = shift;
-    $self->c->model('URL')->get_by_id($self->url_id),
+    $self->c->model('URL')->get_by_id($self->url_id);
 }
 
 around extract_property => sub {

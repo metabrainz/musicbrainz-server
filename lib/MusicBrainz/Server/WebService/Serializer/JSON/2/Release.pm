@@ -51,7 +51,7 @@ sub serialize
 
         $body{'release-events'} = [
             map { $add_release_event->($_, {}) } $entity->all_events,
-        ]
+        ];
     }
 
     $body{asin} = $entity->amazon_asin if ($toplevel);

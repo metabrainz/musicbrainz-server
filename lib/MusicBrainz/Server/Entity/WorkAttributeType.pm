@@ -34,17 +34,17 @@ has allowed_values => (
 
 sub l_name {
     my $self = shift;
-    return lp($self->name, 'work_attribute_type')
+    return lp($self->name, 'work_attribute_type');
 }
 
 sub l_comment {
     my $self = shift;
-    return lp($self->name, 'work_attribute_type')
+    return lp($self->name, 'work_attribute_type');
 }
 
 sub l_description {
     my $self = shift;
-    return lp($self->name, 'work_attribute_type')
+    return lp($self->name, 'work_attribute_type');
 }
 
 sub allows_value {

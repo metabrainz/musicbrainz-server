@@ -224,7 +224,7 @@ sub _with_primary_alias {
     my @output;
     if (@$results) {
         my $munge_lang = sub {
-            shift =~ s/_[A-Z]{2}/_/r
+            shift =~ s/_[A-Z]{2}/_/r;
         };
 
         my %alias_preference = (
@@ -327,7 +327,7 @@ sub autocomplete_genre {
     my ($self, $results, $pager) = @_;
 
     my $output = _with_primary_alias($results, sub {
-        shift->TO_JSON
+        shift->TO_JSON;
     });
 
     push @$output, {

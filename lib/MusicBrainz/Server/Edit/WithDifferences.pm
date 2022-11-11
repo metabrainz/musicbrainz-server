@@ -26,7 +26,7 @@ sub _property_to_edit {
 
     my $mapped = exists $mapping{$property} ? $mapping{$property} : $property;
     if (ref $mapped eq 'CODE') {
-        return $mapped->($instance)
+        return $mapped->($instance);
     }
     elsif (blessed $instance)
     {

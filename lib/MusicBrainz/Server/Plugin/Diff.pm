@@ -104,7 +104,7 @@ sub _render_side_diff {
             $text = encode_entities($text) if $escape_output;
             $class ? $h->span({ class => $class }, $text) : $text
         } @stack,
-    )
+    );
 }
 
 sub _link_artist_credit_name {

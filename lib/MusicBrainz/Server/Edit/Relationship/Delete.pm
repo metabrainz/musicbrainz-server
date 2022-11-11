@@ -191,14 +191,14 @@ sub build_display_data
         $relationship_opts{_verbose_phrase} = [
                 $relationship->{phrase},
                 $relationship->{extra_phrase_attributes},
-            ],
+            ];
     }
 
     return {
         relationship => to_json_object(MusicBrainz::Server::Entity::Relationship->new(
             %relationship_opts,
         )),
-    }
+    };
 }
 
 sub directly_related_entities {

@@ -62,7 +62,7 @@ sub enter_votes
         unless ($opts{override_privs}) {
             @votes = grep {
                 $_->{vote} == $VOTE_APPROVE || $edits->{ $_->{edit_id} }->editor_may_vote_on_edit($editor)
-            } @votes
+            } @votes;
         };
 
         return unless @votes;
@@ -165,7 +165,7 @@ sub editor_statistics
                 count      => sum(values %$all_votes) || 0,
             },
         },
-    ]
+    ];
 }
 
 sub summarize_votes
@@ -190,7 +190,7 @@ sub summarize_votes
                 percentage => int(($all_votes->{$vote_kind} || 0) / (sum(values %$all_votes) || 1) * 100 + 0.5),
             },
         }
-    )
+    );
 }
 
 sub load_for_edits

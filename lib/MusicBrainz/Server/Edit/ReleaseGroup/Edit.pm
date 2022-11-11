@@ -91,7 +91,7 @@ sub foreign_keys
             map {
                 load_artist_credit_definitions($self->data->{$_}{artist_credit})
             } qw( new old ),
-        }
+        };
     }
 
     $relations->{ReleaseGroup} = {
@@ -152,7 +152,7 @@ sub _mapping
             return artist_credit_to_ref(shift->artist_credit);
         },
         secondary_type_ids => sub {
-            return [ map { $_->id } shift->all_secondary_types ]
+            return [ map { $_->id } shift->all_secondary_types ];
         },
         type_id => 'primary_type_id',
     );
@@ -186,7 +186,7 @@ around extract_property => sub {
             merge_value($ancestor->{type_id}),
             merge_value($current->primary_type_id),
             merge_value($new->{type_id}),
-        )
+        );
     }
     elsif ($property eq 'secondary_type_ids') {
         my $type_list_gen = sub {
@@ -197,7 +197,7 @@ around extract_property => sub {
             $type_list_gen->( $ancestor->{secondary_type_ids} ),
             $type_list_gen->( [ map { $_->id } $current->all_secondary_types ] ),
             $type_list_gen->( $new->{secondary_type_ids} ),
-        )
+        );
     }
     else {
         return $self->$orig(@_);

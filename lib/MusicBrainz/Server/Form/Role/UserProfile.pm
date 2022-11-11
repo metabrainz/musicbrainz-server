@@ -80,7 +80,7 @@ sub options_languages_fluency {
         'intermediate', l('Intermediate'),
         'advanced', l('Advanced'),
         'native', l('Native'),
-    ]
+    ];
 }
 
 sub validate_birth_date {

@@ -135,7 +135,7 @@ sub _insert_hash
     my ($self, $data) = @_;
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit});
     $data->{comment} = '' unless defined $data->{comment};
-    return $data
+    return $data;
 }
 
 sub restore {
@@ -153,7 +153,7 @@ sub restore {
 
             exists $data->{country_id}
                 ? (country_id => delete $data->{country_id}) : ()
-        }]
+        }];
     }
 
     $self->data($data);

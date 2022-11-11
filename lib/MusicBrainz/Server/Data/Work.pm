@@ -160,10 +160,10 @@ sub _order_by {
     my ($self, $order) = @_;
     my $order_by = order_by($order, 'name', {
         'name' => sub {
-            return 'name COLLATE musicbrainz'
+            return 'name COLLATE musicbrainz';
         },
         'type' => sub {
-            return 'type, name COLLATE musicbrainz'
+            return 'type, name COLLATE musicbrainz';
         },
     });
 
@@ -405,7 +405,7 @@ sub _find_writers
             credit => $credit,
             entity => $artists->{$artist_id},
             roles => [ uniq @{ $roles } ],
-        }
+        };
     }
 }
 
@@ -458,7 +458,7 @@ sub _find_recording_artists
     for my $row (@$rows) {
         my ($work_id, $ac_id) = @$row;
         $work_acs{$work_id} ||= [];
-        push @{ $work_acs{$work_id} }, $ac_id
+        push @{ $work_acs{$work_id} }, $ac_id;
     }
 
     for my $work_id (keys %work_acs) {
@@ -466,7 +466,7 @@ sub _find_recording_artists
         $map->{$work_id} ||= [];
         push @{ $map->{$work_id} }, map +{
             entity => $artist_credits->{$_},
-        }, @$artist_credit_ids
+        }, @$artist_credit_ids;
     }
 }
 

@@ -60,7 +60,7 @@ sub foreign_keys {
         },
         CDTOC => [ $self->data->{cdtoc}{id} ],
         $medium_id ? (Medium => { $medium_id => [ 'Release ArtistCredit', 'MediumFormat' ] } ) : (),
-    }
+    };
 }
 
 around _build_related_entities => sub {
@@ -111,7 +111,7 @@ sub build_display_data {
         length => {
             map { $_ => $self->data->{length}{$_} } qw( old new ),
         },
-    }
+    };
 }
 
 sub initialize {
@@ -148,7 +148,7 @@ sub initialize {
             old => [ map { $_->length } @{ $medium->cdtoc_tracks } ],
             new => [ map { $_->{length_time} } @{ $cdtoc->track_details } ],
         },
-    })
+    });
 }
 
 sub accept {

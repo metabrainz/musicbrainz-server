@@ -153,7 +153,7 @@ sub get_tree
         $self->sql->select_list_of_hashes(
             'SELECT ' . $self->_columns . ' FROM ' . $self->_table . ' lt
              WHERE entity_type0=? AND entity_type1=? ' . $extra_condition . '
-             ORDER BY child_order, id', $type0, $type1)
+             ORDER BY child_order, id', $type0, $type1);
     }) {
         my $obj = $self->_new_from_row($row);
         $id_to_obj{$obj->id} = $obj;
@@ -198,7 +198,7 @@ sub get_full_tree
         $self->sql->select_list_of_hashes(
             'SELECT '  .$self->_columns . ' FROM ' . $self->_table . ' lt ' .
              $extra_condition . '
-             ORDER BY entity_type0, entity_type1, child_order, id')
+             ORDER BY entity_type0, entity_type1, child_order, id');
     }) {
         my $obj = $self->_new_from_row($row);
         $id_to_obj{$obj->id} = $obj;
@@ -469,7 +469,7 @@ sub load_documentation {
 
     my %examples;
     for my $example (@{
-        $self->sql->select_list_of_hashes($all_examples_query, $link_type_ids)
+        $self->sql->select_list_of_hashes($all_examples_query, $link_type_ids);
     }) {
         push @{ $examples{ $example->{link_type} } //= [] },
             MusicBrainz::Server::Entity::ExampleRelationship->new(

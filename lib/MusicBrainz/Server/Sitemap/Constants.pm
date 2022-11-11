@@ -217,7 +217,7 @@ our Readonly %SITEMAP_SUFFIX_INFO = map {
                 }
                 return {base => [], paginated => \@paginated_urls};
             },
-        }
+        };
     }
 
     if ($entity_type eq 'release_group') {

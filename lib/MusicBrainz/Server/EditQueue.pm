@@ -84,7 +84,7 @@ sub process_edits
         capture_exceptions(sub {
             my $action;
             Sql::run_in_transaction(sub {
-                $action = $self->_process_edit($edit_id) || 'no change'
+                $action = $self->_process_edit($edit_id) || 'no change';
             }, $sql);
             $stats{$action} += 1;
         }, sub {

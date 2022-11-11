@@ -29,7 +29,7 @@ sub parse_coordinates : Chained('root') PathPart('parse-coordinates') {
     $c->detach('bad_req') unless $coordinates;
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body(encode_json({ coordinates => $coordinates }))
+    $c->res->body(encode_json({ coordinates => $coordinates }));
 }
 
 1;

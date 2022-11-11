@@ -91,8 +91,8 @@ around _build_related_entities => sub {
                          join('', map {
                              $_->{artist}{id}, $_->{name}, $_->{join_phrase} || ''
                              } @{$track->{artist_credit}{names}}),
-                     )
-                })
+                     );
+                });
            };
 
         push @{ $related->{artist} },
@@ -125,7 +125,7 @@ sub alter_edit_pending
     return {
         'Medium' => [ $self->entity_id ],
         'Release' => [ $self->data->{release}->{id} ],
-    }
+    };
 }
 
 sub change_fields
@@ -188,7 +188,7 @@ sub initialize
             {
                 check_track_hash($new);
                 my $id_set = sub {
-                    Set::Scalar->new(grep { defined $_ } map { $_->{id} } @_)
+                    Set::Scalar->new(grep { defined $_ } map { $_->{id} } @_);
                 };
                 die 'New tracklist uses track IDs not in the old tracklist'
                     unless $id_set->(@$new) <= $id_set->(@$old);
@@ -398,7 +398,7 @@ sub accept {
     if (!$self->c->model('Medium')->get_by_id($self->entity_id)) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
             'This edit cannot be applied, as the medium being edited no longer exists.',
-        )
+        );
     }
 
     my $data_new = clone($self->data->{new});
@@ -517,7 +517,7 @@ sub accept {
                 recording_id => $recording_id,
                 artist_credit => $hashed_artist_credits{shift(@merged_artist_credits)},
                 is_data_track => $is_data_track,
-            }
+            };
         }
 
         verify_artist_credits($self->c, map {
@@ -632,7 +632,7 @@ sub artist_ids
     return map { $_->{artist} }
         grep { ref($_) } map { @{ $_->{artist_credit} } }
         @{ $self->data->{new}{tracklist} },
-        @{ $self->data->{old}{tracklist} }
+        @{ $self->data->{old}{tracklist} };
 }
 
 sub recording_ids
@@ -641,7 +641,7 @@ sub recording_ids
     grep { defined }
         map { $_->{recording_id} }
         @{ $self->data->{new}{tracklist} },
-        @{ $self->data->{old}{tracklist} }
+        @{ $self->data->{old}{tracklist} };
 }
 
 before restore => sub {

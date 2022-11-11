@@ -17,7 +17,7 @@ before run_test => sub {
 };
 
 sub make_mech {
-    MusicBrainz::WWW::Mechanize->new( catalyst_app => 'MusicBrainz::Server', quiet => 1 )
+    MusicBrainz::WWW::Mechanize->new( catalyst_app => 'MusicBrainz::Server', quiet => 1 );
 }
 
 1;

@@ -25,7 +25,7 @@ my $url = MusicBrainz::Server::Entity::URL->new(
     url => 'http://www.invalid.fail/%FC',
 );
 
-is ($url->pretty_name => 'http://www.invalid.fail/%FC')
+is ($url->pretty_name => 'http://www.invalid.fail/%FC');
 
 };
 

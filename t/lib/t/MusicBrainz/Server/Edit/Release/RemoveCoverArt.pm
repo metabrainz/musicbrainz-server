@@ -23,7 +23,7 @@ test 'Accepting removes the linked cover art' => sub {
     ok !exception {
         my $edit = create_edit($c);
         accept_edit($c, $edit);
-    }
+    };
 };
 
 test 'Rejecting does not make any changes' => sub {

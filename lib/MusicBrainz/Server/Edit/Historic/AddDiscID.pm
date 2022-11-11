@@ -21,7 +21,7 @@ sub _build_related_entities
     return {
         artist  => [ $self->artist_id ],
         release => $self->data->{release_ids},
-    }
+    };
 }
 
 sub foreign_keys
@@ -29,7 +29,7 @@ sub foreign_keys
     my $self = shift;
     return {
         Release => { map { $_ => [ 'ArtistCredit' ] } @{ $self->data->{release_ids} } },
-    }
+    };
 }
 
 sub build_display_data
@@ -41,7 +41,7 @@ sub build_display_data
             MusicBrainz::Server::Entity::CDTOC->new_from_toc($self->data->{full_toc}),
         ),
         full_toc => $self->data->{full_toc},
-    }
+    };
 }
 
 sub upgrade

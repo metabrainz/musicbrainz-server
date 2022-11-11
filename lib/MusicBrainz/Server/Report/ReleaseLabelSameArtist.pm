@@ -21,7 +21,7 @@ sub query {
         l.name = acn.name
       OR
         l.name = a.name
-    }
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

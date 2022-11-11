@@ -42,7 +42,7 @@ sub alter_edit_pending {
     return {
         Artist => [ keys(%old) ],
         ArtistCredit => [ $old_ac_id ],
-    }
+    };
 }
 
 sub _build_related_entities {

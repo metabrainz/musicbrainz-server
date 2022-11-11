@@ -285,7 +285,7 @@ sub merge_mediums
               GROUP BY newt.id',
             $new_medium_id,
             \@old_medium_ids,
-        )
+        );
     };
 
     for my $track_merge (@track_merges) {

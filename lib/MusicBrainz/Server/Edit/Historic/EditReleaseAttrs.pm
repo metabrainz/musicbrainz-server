@@ -24,7 +24,7 @@ sub _changes     { return @{ shift->data->{changes} } }
 sub _release_ids
 {
     my $self = shift;
-    return uniq map { @{ $_->{release_ids} } } $self->_changes
+    return uniq map { @{ $_->{release_ids} } } $self->_changes;
 }
 
 sub _build_related_entities
@@ -32,7 +32,7 @@ sub _build_related_entities
     my $self = shift;
     return {
         release => [ $self->_release_ids ],
-    }
+    };
 }
 
 sub foreign_keys
@@ -50,7 +50,7 @@ sub foreign_keys
             $self->data->{new_type_id},
             map { $_->{old_type_id} } $self->_changes,
         ],
-    }
+    };
 }
 
 sub build_display_data
@@ -62,10 +62,10 @@ sub build_display_data
                 if (my @ids = @{ $_->{release_ids} }) {
                     map { ## no critic (ProhibitVoidMap) - False positive
                         to_json_object($loaded->{Release}{$_})
-                    } @ids
+                    } @ids;
                 }
                 else {
-                    to_json_object(Release->new(name => $_->{release_name})),
+                    to_json_object(Release->new(name => $_->{release_name}));
                 }
             } ],
             status => $_->{old_status_id} && to_json_object($loaded->{ReleaseStatus}{ $_->{old_status_id} }),

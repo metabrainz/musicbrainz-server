@@ -189,7 +189,7 @@ sub alter_edit_pending
     return {
         Release => [ $self->release_ids ],
         @recording_ids ? (Recording => [ @recording_ids ]) : (),
-    }
+    };
 }
 
 sub _build_missing_entity {

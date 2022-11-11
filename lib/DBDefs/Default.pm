@@ -223,7 +223,7 @@ sub CACHE_MANAGER_OPTIONS {
         default_profile => 'external',
     );
 
-    return \%CACHE_MANAGER_OPTIONS
+    return \%CACHE_MANAGER_OPTIONS;
 }
 
 # Sets the TTL for entities stored in Redis, in seconds. On mirror servers,
@@ -402,7 +402,7 @@ sub HTML_VALIDATOR { 'http://validator.w3.org/nu/?out=json' }
 # and don't have the renderer running, as any attempts to communicate with it
 # will just result in socket timeouts.
 sub RENDERER_SOCKET {
-    catfile(tmpdir, 'musicbrainz-template-renderer.socket')
+    catfile(tmpdir, 'musicbrainz-template-renderer.socket');
 }
 # If FORK_RENDERER is set to a true value, MusicBrainz Server will fork and
 # exec root/server.mjs automatically. TERM signals received by plackup will
@@ -507,7 +507,7 @@ sub LOGGER_ARGUMENTS {
         outputs => [
             [ 'Screen', min_level => 'debug', newline => 1 ],
         ],
-    )
+    );
 }
 
 1;

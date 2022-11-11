@@ -76,7 +76,7 @@ sub change_fields
             name => Str,
             published => Bool,
         ]]],
-    ]
+    ];
 }
 
 has '+data' => (
@@ -102,7 +102,7 @@ sub foreign_keys {
             map { $self->data->{$_}{parent_id} }
                 qw( old new ),
             ],
-    }
+    };
 }
 
 sub _build_attributes {
@@ -118,7 +118,7 @@ sub _build_attributes {
                     ),
                   ))
           } @$list,
-    ]
+    ];
 }
 
 sub build_display_data {
@@ -175,14 +175,14 @@ sub build_display_data {
                     ? to_json_object($loaded->{LinkType}{ $self->data->{$_}{parent_id} })
                     : undef;
             } qw( old new ),
-        }
+        };
     } elsif ($self->data->{old}{parent_id} && $self->data->{new}{parent_id} &&
         ($self->data->{old}{parent_id} ne $self->data->{new}{parent_id})) {
         $display_data->{parent} = {
             map {
                 $_ => to_json_object(LinkType->new( name => $self->data->{$_}{parent_id} ));
             } qw( old new ),
-        }
+        };
     }
 
     my ($old_examples, $new_examples) =
@@ -238,7 +238,7 @@ sub build_display_data {
                     } @{ $self->data->{$_}{examples} // [] },
                 ]
             } qw( old new ),
-        }
+        };
     }
 
     return $display_data;

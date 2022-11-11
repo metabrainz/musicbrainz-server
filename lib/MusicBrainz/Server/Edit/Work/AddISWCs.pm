@@ -56,7 +56,7 @@ sub _build_related_entities
     my $self = shift;
     return {
         work => [ $self->work_ids ],
-    }
+    };
 }
 
 sub foreign_keys
@@ -64,7 +64,7 @@ sub foreign_keys
     my $self = shift;
     return {
         Work => [ $self->work_ids ],
-    }
+    };
 }
 
 sub build_display_data
@@ -80,7 +80,7 @@ sub build_display_data
                 iswc => to_json_object(ISWC->new( iswc => $_->{iswc} )),
             } } @{ $self->data->{iswcs} },
         ],
-    }
+    };
 }
 
 sub accept {

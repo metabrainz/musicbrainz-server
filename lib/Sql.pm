@@ -273,7 +273,7 @@ sub commit
         cluck $err unless ($self->quiet);
         eval { $self->rollback };
         croak $err;
-    }
+    };
 }
 
 sub rollback
@@ -299,7 +299,7 @@ sub rollback
         $self->dbh->{AutoCommit} = 1;
         cluck $err unless $self->quiet;
         croak $err;
-    }
+    };
 }
 
 # AutoTransaction: call back the given code reference,
@@ -344,7 +344,7 @@ sub _auto_transaction {
             eval { $sql->rollback };
         }
         croak $err;
-    }
+    };
 }
 
 sub _run_in_transaction_one

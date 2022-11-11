@@ -211,32 +211,32 @@ sub _order_by {
     my ($self, $order) = @_;
     my $order_by = order_by($order, 'name', {
         'name' => sub {
-            return 'sort_name COLLATE musicbrainz'
+            return 'sort_name COLLATE musicbrainz';
         },
         'area' => sub {
-            return 'area, name COLLATE musicbrainz'
+            return 'area, name COLLATE musicbrainz';
         },
         'gender' => sub {
-            return 'gender, sort_name COLLATE musicbrainz'
+            return 'gender, sort_name COLLATE musicbrainz';
         },
         'begin_date' => sub {
-            return 'begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz'
+            return 'begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz';
         },
         'begin_area' => sub {
-            return 'begin_area, name COLLATE musicbrainz'
+            return 'begin_area, name COLLATE musicbrainz';
         },
         'end_date' => sub {
-            return 'end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz'
+            return 'end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz';
         },
         'end_area' => sub {
-            return 'end_area, name COLLATE musicbrainz'
+            return 'end_area, name COLLATE musicbrainz';
         },
         'type' => sub {
-            return 'type, sort_name COLLATE musicbrainz'
+            return 'type, sort_name COLLATE musicbrainz';
         },
     });
 
-    return $order_by
+    return $order_by;
 }
 
 sub _area_columns

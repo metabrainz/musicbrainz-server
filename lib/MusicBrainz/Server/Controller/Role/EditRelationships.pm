@@ -198,7 +198,7 @@ role {
                 }
                 next unless $target_type;
                 if ($target_gid) {
-                    $target = $c->model(type_to_model($target_type))->get_by_gid($target_gid)
+                    $target = $c->model(type_to_model($target_type))->get_by_gid($target_gid);
                 }
             }
 

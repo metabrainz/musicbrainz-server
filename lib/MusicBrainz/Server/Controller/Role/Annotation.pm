@@ -67,7 +67,7 @@ sub annotation_revision : Chained('load') PathPart('annotation') Args(1)
         $c->stash(
             message => l('The annotation revision ID must be a positive integer'),
         );
-        $c->detach('/error_400')
+        $c->detach('/error_400');
     }
 
     my $annotation = $c->model($self->{model})->annotation->get_by_id($id)
@@ -92,7 +92,7 @@ sub annotation_revision : Chained('load') PathPart('annotation') Args(1)
                 { id => $id },
             ),
         );
-        $c->detach('/error_400')
+        $c->detach('/error_400');
     }
 
     my %props = (
@@ -229,7 +229,7 @@ sub annotation_diff : Chained('load') PathPart('annotations-differences') Requir
         $c->stash(
             message => l('The old and new annotation ids must be unique, positive integers.'),
         );
-        $c->detach('/error_400')
+        $c->detach('/error_400');
     }
 
     my $old_annotation = $annotation_model->get_by_id($old);

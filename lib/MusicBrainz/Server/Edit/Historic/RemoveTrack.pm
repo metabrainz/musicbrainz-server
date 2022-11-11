@@ -28,7 +28,7 @@ sub _build_related_entities
     return {
         release   => $self->data->{release_ids},
         recording => [ $self->data->{recording_id} ],
-    }
+    };
 }
 
 sub foreign_keys
@@ -37,7 +37,7 @@ sub foreign_keys
     return {
         Release   => [ map { $_ => ['ArtistCredit'] } $self->_release_ids ],
         Recording => [ $self->data->{recording_id} ],
-    }
+    };
 }
 
 sub build_display_data
@@ -54,7 +54,7 @@ sub build_display_data
                 to_json_object($loaded->{Release}{$_})
             } $self->_release_ids,
         ],
-    }
+    };
 }
 
 sub upgrade
@@ -80,7 +80,7 @@ sub deserialize_previous_value
     return {
         name     => $name,
         album_id => $album_id,
-    }
+    };
 }
 
 1;

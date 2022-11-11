@@ -44,7 +44,7 @@ sub assert_uniqueness_conserved {
         if ($conflict) {
             MusicBrainz::Server::Exceptions::DuplicateViolation->throw({
                 conflict => $conflict,
-            })
+            });
         }
     }
 }

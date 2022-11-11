@@ -198,7 +198,7 @@ sub _order_by {
 
     my $order_by = order_by($order, 'name', {
         'name' => sub {
-            return 'name COLLATE musicbrainz'
+            return 'name COLLATE musicbrainz';
         },
         'artist' => sub {
             $extra_join = 'JOIN artist_credit ac ON ac.id = recording.artist_credit';
@@ -206,7 +206,7 @@ sub _order_by {
             return 'ac_name COLLATE musicbrainz, recording.name COLLATE musicbrainz';
         },
         'length' => sub {
-            return 'length, name COLLATE musicbrainz'
+            return 'length, name COLLATE musicbrainz';
         },
     });
 

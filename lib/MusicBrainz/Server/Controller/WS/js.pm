@@ -608,11 +608,11 @@ sub entities : Chained('root') PathPart('entities') Args(2)
     my @gids = defined $gids ? @$gids : ();
 
     if (@ids && !$type_model->can('get_by_ids')) {
-        $self->detach_with_error($c, "model does not support numeric ids: $type_name", 400)
+        $self->detach_with_error($c, "model does not support numeric ids: $type_name", 400);
     }
 
     if (@gids && !$type_model->can('get_by_gids')) {
-        $self->detach_with_error($c, "model does not support gids: $type_name", 400)
+        $self->detach_with_error($c, "model does not support gids: $type_name", 400);
     }
 
     my $results = {};

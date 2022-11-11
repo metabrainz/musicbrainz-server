@@ -264,7 +264,7 @@ sub clear {
              JOIN tag t ON t.id = $table.tag
              WHERE editor = ?",
             $editor_id,
-        )
+        );
     }) {
         $self->withdraw($editor_id, $row->{$entity_type}, $row->{tag});
     }

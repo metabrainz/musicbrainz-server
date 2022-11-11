@@ -43,7 +43,7 @@ sub options_frequency {
         $SCRIPT_FREQUENCY_UNCOMMON, lp('Other (Uncommon)', 'script frequency'),
         $SCRIPT_FREQUENCY_OTHER, lp('Other', 'script frequency'),
         $SCRIPT_FREQUENCY_FREQUENT, lp('Frequently used', 'script frequency'),
-    ]
+    ];
 }
 
 1;

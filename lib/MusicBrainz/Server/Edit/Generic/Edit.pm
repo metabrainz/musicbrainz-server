@@ -35,9 +35,9 @@ sub alter_edit_pending
     if ($model->does('MusicBrainz::Server::Data::Role::PendingEdits')) {
         return {
             $self->_edit_model => [ $self->entity_id ],
-        }
+        };
     } else {
-        return { }
+        return { };
     }
 }
 
@@ -48,9 +48,9 @@ sub _build_related_entities
     if ($model->does('MusicBrainz::Server::Data::Role::LinksToEdit')) {
         return {
             $model->edit_link_table => [ $self->entity_id ],
-        }
+        };
     } else {
-        return { }
+        return { };
     }
 }
 
@@ -83,7 +83,7 @@ override 'accept' => sub
     if (!$self->c->model($self->_edit_model)->get_by_id($self->entity_id)) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
             'This entity no longer exists',
-        )
+        );
     }
 
     my $data = $self->_edit_hash(clone($self->data->{new}));

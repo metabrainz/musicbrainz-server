@@ -17,7 +17,7 @@ sub edit_template { 'historic/RemoveLabelAlias' }
 
 sub _build_related_entities {
     my $self = shift;
-    return { }
+    return { };
 }
 
 sub build_display_data
@@ -25,7 +25,7 @@ sub build_display_data
     my $self = shift;
     return {
         alias => to_json_object($self->data->{alias}),
-    }
+    };
 }
 
 sub upgrade

@@ -24,7 +24,7 @@ sub alter_edit_pending
     my $self = shift;
     return {
         $self->_merge_model => $self->_entity_ids,
-    }
+    };
 }
 
 sub _build_related_entities
@@ -32,7 +32,7 @@ sub _build_related_entities
     my $self = shift;
     return {
         model_to_type($self->_merge_model) => $self->_entity_ids,
-    }
+    };
 }
 
 has '+data' => (
@@ -55,7 +55,7 @@ sub foreign_keys
     my $self = shift;
     return {
         $self->_merge_model => $self->_entity_ids,
-    }
+    };
 }
 
 sub _build_missing_entity {
@@ -153,7 +153,7 @@ sub _entity_ids
 sub _old_ids
 {
     my $self = shift;
-    return map { $_->{id} } @{ $self->data->{old_entities} }
+    return map { $_->{id} } @{ $self->data->{old_entities} };
 }
 
 sub _xml_arguments { ForceArray => ['old_entities'] }

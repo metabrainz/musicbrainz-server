@@ -10,7 +10,7 @@ around '_build_related_entities' => sub
     my $self = shift;
 
     my @release_groups = values %{
-        $self->c->model('ReleaseGroup')->get_by_ids($self->release_group_ids)
+        $self->c->model('ReleaseGroup')->get_by_ids($self->release_group_ids);
     };
     $self->c->model('ArtistCredit')->load(@release_groups);
 
@@ -20,7 +20,7 @@ around '_build_related_entities' => sub
                 @release_groups,
         ],
         release_group => [ map { $_->id } @release_groups ],
-    }
+    };
 };
 
 sub release_group_ids { shift->release_group_id }

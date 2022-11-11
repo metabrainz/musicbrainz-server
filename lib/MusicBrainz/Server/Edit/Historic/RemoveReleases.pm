@@ -19,7 +19,7 @@ sub _build_related_entities {
     my $self = shift;
     return {
         release => [ map { $_->{id} } @{ $self->data->{releases} } ],
-    }
+    };
 }
 
 sub foreign_keys
@@ -28,7 +28,7 @@ sub foreign_keys
 
     return {
         Release => { map { $_->{id} => [ 'ArtistCredit' ] } @{ $self->data->{releases} } },
-    }
+    };
 }
 
 sub build_display_data

@@ -47,7 +47,7 @@ after 'load' => sub {
 
     $c->stash(
         is_collection_collaborator => $is_collection_collaborator,
-    )
+    );
 };
 
 sub own_collection : Chained('load') CaptureArgs(0) RequireAuth {

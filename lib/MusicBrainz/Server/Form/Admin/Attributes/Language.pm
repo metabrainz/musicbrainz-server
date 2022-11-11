@@ -51,7 +51,7 @@ sub options_frequency {
         $LANGUAGE_FREQUENCY_HIDDEN, lp('Hidden', 'language optgroup'),
         $LANGUAGE_FREQUENCY_OTHER, lp('Other', 'language optgroup'),
         $LANGUAGE_FREQUENCY_FREQUENT, lp('Frequently used', 'language optgroup'),
-    ]
+    ];
 }
 
 1;

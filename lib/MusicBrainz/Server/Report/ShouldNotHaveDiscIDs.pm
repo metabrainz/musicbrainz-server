@@ -20,7 +20,7 @@ sub query {
               AND id IN (SELECT medium FROM medium_cdtoc)
           )
         ) r
-    }
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

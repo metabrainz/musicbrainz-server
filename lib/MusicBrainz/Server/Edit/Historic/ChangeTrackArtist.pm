@@ -22,7 +22,7 @@ sub _build_related_entities {
     return {
         artist    => [ $self->data->{new_artist_id}, $self->data->{old_artist_id} ],
         recording => [ $self->data->{recording_id} ],
-    }
+    };
 }
 
 sub foreign_keys
@@ -31,7 +31,7 @@ sub foreign_keys
     return {
         Artist    => [ $self->data->{new_artist_id}, $self->data->{old_artist_id} ],
         Recording => [ $self->data->{recording_id} ],
-    }
+    };
 }
 
 sub build_display_data
@@ -60,7 +60,7 @@ sub build_display_data
                 ),
             ),
         },
-    }
+    };
 }
 
 sub upgrade
@@ -89,7 +89,7 @@ sub deserialize_new_value
         name      => $name,
         sort_name => $sort_name,
         artist_id => $id || 0,  # Some edits appear to lack this - 1792375
-    }
+    };
 }
 
 1;

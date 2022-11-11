@@ -26,7 +26,7 @@ sub _build_related_entities
             $self->data->{artist_id},
         ],
         release => $self->data->{release_ids},
-    }
+    };
 }
 
 sub release_ids { @{ shift->data->{release_ids} } }
@@ -42,7 +42,7 @@ sub foreign_keys
             $self->data->{old_artist_id},
             $self->data->{artist_id},
         ],
-    }
+    };
 }
 
 sub build_display_data
@@ -78,7 +78,7 @@ sub build_display_data
             old => to_json_object($old_artist),
         },
         move_tracks => boolean_to_json($self->data->{move_tracks}),
-    }
+    };
 }
 
 sub upgrade

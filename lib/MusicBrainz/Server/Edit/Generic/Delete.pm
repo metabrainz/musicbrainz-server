@@ -29,9 +29,9 @@ sub alter_edit_pending
     if ($model->does('MusicBrainz::Server::Data::Role::PendingEdits')) {
         return {
             $self->_delete_model => [ $self->entity_id ],
-        }
+        };
     } else {
-        return { }
+        return { };
     }
 }
 
@@ -43,9 +43,9 @@ sub _build_related_entities
             $model->does('MusicBrainz::Server::Data::Role::LinksToEdit')) {
         return {
             $model->edit_link_table => [ $self->entity_id ],
-        }
+        };
     } else {
-        return { }
+        return { };
     }
 }
 
@@ -62,7 +62,7 @@ sub foreign_keys {
     my ($self) = @_;
     return {
         $self->_delete_model => [ $self->data->{entity_id} ],
-    }
+    };
 }
 
 sub build_display_data

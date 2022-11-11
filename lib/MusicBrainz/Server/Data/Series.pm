@@ -77,14 +77,14 @@ sub _order_by {
     my ($self, $order) = @_;
     my $order_by = order_by($order, 'name', {
         'name' => sub {
-            return 'name COLLATE musicbrainz'
+            return 'name COLLATE musicbrainz';
         },
         'type' => sub {
-            return 'type, name COLLATE musicbrainz'
+            return 'type, name COLLATE musicbrainz';
         },
     });
 
-    return $order_by
+    return $order_by;
 }
 
 sub _merge_impl {
@@ -300,7 +300,7 @@ sub automatically_reorder {
         $a->link->begin_date <=> $b->link->begin_date ||
         $a->link->end_date <=> $b->link->end_date ||
         $target_ordering->($a, $b) ||
-        $a->$target_prop->name cmp $b->$target_prop->name
+        $a->$target_prop->name cmp $b->$target_prop->name;
     };
 
     for my $text_value (@sorted_values) {

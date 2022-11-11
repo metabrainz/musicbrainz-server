@@ -97,7 +97,7 @@ role {
         return 1 unless $self->operator_cardinality($self->operator);
         my @args = $self->arguments;
         return scalar(@args) == 1 && is_database_row_id($args[0]);
-    }
+    };
 };
 
 1;

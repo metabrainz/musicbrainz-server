@@ -425,7 +425,7 @@ sub begin : Private
     if (my $merger = $c->try_get_session('merger')) {
         my $model = $c->model(type_to_model($merger->type));
         my @merge = values %{
-            $model->get_by_ids($merger->all_entities)
+            $model->get_by_ids($merger->all_entities);
         };
         $c->model('ArtistCredit')->load(@merge);
 

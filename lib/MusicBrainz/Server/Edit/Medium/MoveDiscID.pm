@@ -68,7 +68,7 @@ sub _build_related_entities
 {
     my $self = shift;
     my @releases = values %{
-        $self->c->model('Release')->get_by_ids($self->release_ids)
+        $self->c->model('Release')->get_by_ids($self->release_ids);
     };
     $self->c->model('ReleaseGroup')->load(@releases);
     my @release_groups = map { $_->release_group } @releases;
@@ -81,7 +81,7 @@ sub _build_related_entities
         ],
         release_group => [ map { $_->id } @release_groups ],
         release => [ $self->release_ids ],
-    }
+    };
 }
 
 sub foreign_keys
@@ -92,7 +92,7 @@ sub foreign_keys
         MediumCDTOC => { $self->data->{medium_cdtoc}{id} => [ 'CDTOC' ] },
         Medium => { map { $self->data->{$_}{id} => [ 'MediumFormat', 'Release ArtistCredit' ] }
                     qw( new_medium old_medium ) },
-    }
+    };
 }
 
 sub build_display_data
@@ -118,7 +118,7 @@ sub build_display_data
                 ),
             )
         } qw( new_medium old_medium ),
-    }
+    };
 }
 
 sub initialize
@@ -170,7 +170,7 @@ sub accept
     if (!$medium_cdtoc || !$medium_cdtoc->cdtoc) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
             'This disc ID no longer exists',
-        )
+        );
     }
 
     if ($self->data->{old_medium}{id} != $self->data->{new_medium}{id} &&

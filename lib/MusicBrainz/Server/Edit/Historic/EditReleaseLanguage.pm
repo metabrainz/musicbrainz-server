@@ -22,7 +22,7 @@ sub _build_related_entities
     my $self = shift;
     return {
         release => [ map { @{ $_->{release_ids} } } @{ $self->data->{old} } ],
-    }
+    };
 }
 
 sub foreign_keys
@@ -42,7 +42,7 @@ sub foreign_keys
             $self->data->{script_id},
             map { $_->{script_id} } @{ $self->data->{old} },
         ],
-    }
+    };
 }
 
 sub build_display_data
@@ -71,7 +71,7 @@ sub build_display_data
         ],
         language => to_json_object($loaded->{Language}{ $self->data->{language_id} }),
         script   => to_json_object($loaded->{Script}{ $self->data->{script_id} }),
-    }
+    };
 }
 
 sub upgrade
@@ -90,7 +90,7 @@ sub upgrade
             language_id  => $language_id,
             script_id    => $script_id,
             release_name => $self->new_value->{"AlbumName$i"},
-        }
+        };
     }
 
     my ($language_id, $script_id) = split /,/, $self->new_value->{Language};

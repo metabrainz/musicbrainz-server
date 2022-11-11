@@ -96,7 +96,7 @@ sub build_display_data {
         $data->{artist_credit} = {
             new => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{new_artist_credit})),
             old => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{old_artist_credit})),
-        }
+        };
     }
 
     $data->{update_tracklists} = $self->data->{update_tracklists};

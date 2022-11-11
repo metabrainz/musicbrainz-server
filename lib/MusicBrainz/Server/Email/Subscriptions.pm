@@ -53,7 +53,7 @@ sub extra_headers {
     return (
         'Reply-To' => $EMAIL_SUPPORT_ADDRESS,
         'Message-Id' => MusicBrainz::Server::Email::_message_id('subscriptions-%s-%d', $self->editor->id, time()),
-    )
+    );
 }
 
 sub text {
@@ -176,7 +176,7 @@ type = sub.isa('MusicBrainz::Server::Entity::Subscription::DeletedArtist') ? 'ar
 [% self.server %]/edit/[% edit %]
 [% END -%]
 [%- END %]
-}
+};
 }
 
 1;

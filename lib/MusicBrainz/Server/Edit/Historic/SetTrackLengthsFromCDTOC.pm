@@ -23,7 +23,7 @@ sub _build_related_entities
     return {
         artist  => [ $self->artist_id ],
         release => $self->data->{release_ids},
-    }
+    };
 }
 
 sub foreign_keys
@@ -32,7 +32,7 @@ sub foreign_keys
     return {
         Release => { map { $_ => [ 'ArtistCredit' ] } @{ $self->data->{release_ids} } },
         CDTOC => [ $self->data->{cdtoc} ],
-    }
+    };
 }
 
 sub build_display_data
@@ -51,7 +51,7 @@ sub build_display_data
                             split /\s+(?!ms)/, $self->data->{$_}{lengths} ]
             } qw( old new),
         },
-    }
+    };
 }
 
 sub upgrade

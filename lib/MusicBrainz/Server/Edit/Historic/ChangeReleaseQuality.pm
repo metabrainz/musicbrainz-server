@@ -24,7 +24,7 @@ sub _build_related_entities
         release => [ map {
             @{ $_->{release_ids} }
         } @{ $self->data->{changes} } ],
-    }
+    };
 }
 
 sub foreign_keys
@@ -34,7 +34,7 @@ sub foreign_keys
         Release => { map {
             map { $_ => ['ArtistCredit'] } @{ $_->{release_ids} }
         } @{ $self->data->{changes} } },
-    }
+    };
 }
 
 sub build_display_data
@@ -61,7 +61,7 @@ sub build_display_data
                 },
             }
         } @{ $self->data->{changes} } ],
-    }
+    };
 }
 
 sub upgrade

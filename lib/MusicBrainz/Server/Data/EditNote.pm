@@ -34,7 +34,7 @@ sub _column_mapping
         edit_id => 'edit',
         text => 'text',
         post_time => 'post_time',
-    }
+    };
 }
 
 sub _entity_class

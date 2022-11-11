@@ -158,13 +158,13 @@ sub external : Private
     # Try and find the most exact search
     my $type;
     if ($terms{recording} || $terms{tnum} || $terms{dur}) {
-        $type = 'recording'
+        $type = 'recording';
     }
     elsif ($terms{release}) {
-        $type = 'release'
+        $type = 'release';
     }
     elsif ($terms{artist}) {
-        $type = 'artist'
+        $type = 'artist';
     }
     else {
         $c->detach('not_found');

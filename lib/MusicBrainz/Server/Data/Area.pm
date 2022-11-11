@@ -354,14 +354,14 @@ sub _order_by {
 
     my $order_by = order_by($order, 'name', {
         'name' => sub {
-            return 'name COLLATE musicbrainz'
+            return 'name COLLATE musicbrainz';
         },
         'type' => sub {
-            return 'type, name COLLATE musicbrainz'
+            return 'type, name COLLATE musicbrainz';
         },
     });
 
-    return $order_by
+    return $order_by;
 }
 
 __PACKAGE__->meta->make_immutable;

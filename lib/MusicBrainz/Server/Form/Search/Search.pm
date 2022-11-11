@@ -63,7 +63,7 @@ sub options_method
         'indexed' => l('Indexed search'),
         'advanced' => l('Indexed search with advanced query syntax'),
         'direct' => l('Direct database search'),
-    ]
+    ];
 }
 
 1;

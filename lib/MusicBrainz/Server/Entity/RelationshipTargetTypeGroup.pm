@@ -17,7 +17,7 @@ has 'link_type_groups' => (
 );
 
 sub all_relationships {
-    map { $_->all_relationships } values %{ shift->link_type_groups }
+    map { $_->all_relationships } values %{ shift->link_type_groups };
 }
 
 sub TO_JSON {

@@ -14,7 +14,7 @@ sub operator_cardinality_map {
   return (
     'subscribed' => undef,
     'not_subscribed' => undef,
-  )
+  );
 }
 
 sub combine_with_query {

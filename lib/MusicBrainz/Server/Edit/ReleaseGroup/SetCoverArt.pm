@@ -28,7 +28,7 @@ sub alter_edit_pending {
 
     return {
         ReleaseGroup => [ $self->data->{entity}->{id} ],
-    }
+    };
 }
 
 sub change_fields

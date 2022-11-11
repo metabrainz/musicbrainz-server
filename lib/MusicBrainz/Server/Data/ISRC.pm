@@ -154,7 +154,7 @@ sub filter_additions
                     $i++, $_->{isrc}, $_->{recording}{id}
                 } @additions
             },
-        )
+        );
     };
     return map { $additions[$_] } @filtered;
 }

@@ -67,7 +67,7 @@ sub set_languages {
     my %language_fluencys;
     for my $language (@$languages) {
         $language_fluencys{$language->{language_id}} ||= [];
-        push @{ $language_fluencys{$language->{language_id}} }, $language->{fluency}
+        push @{ $language_fluencys{$language->{language_id}} }, $language->{fluency};
     }
 
     for my $language_id (keys %language_fluencys) {

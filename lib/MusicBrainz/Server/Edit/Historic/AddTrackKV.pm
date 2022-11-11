@@ -24,7 +24,7 @@ sub _build_related_entities
         artist    => [ $self->data->{artist_id} ],
         release   => $self->data->{release_ids},
         recording => [ $self->data->{recording_id} ],
-    }
+    };
 }
 
 sub release_ids { @{ shift->data->{release_ids} } }
@@ -38,7 +38,7 @@ sub foreign_keys
         },
         Artist => [ $self->data->{artist_id} ],
         Recording => [ $self->data->{recording_id} ],
-    }
+    };
 }
 
 sub build_display_data
@@ -66,7 +66,7 @@ sub build_display_data
             $loaded->{Recording}{ $self->data->{recording_id} } ||
             Recording->new( name => $self->data->{name} ),
         ),
-    }
+    };
 }
 
 sub upgrade

@@ -10,7 +10,7 @@ around '_build_related_entities' => sub
     my $self = shift;
 
     my @recordings = values %{
-        $self->c->model('Recording')->get_by_ids($self->recording_ids)
+        $self->c->model('Recording')->get_by_ids($self->recording_ids);
     };
 
     my ($releases, undef) = $self->c->model('Release')->find_by_recording(
@@ -29,7 +29,7 @@ around '_build_related_entities' => sub
         release => [ map { $_->id } @releases ],
         release_group => [ map { $_->release_group_id } @releases ],
         recording => [ map { $_->id } @recordings ],
-    }
+    };
 };
 
 sub recording_ids { shift->recording_id }

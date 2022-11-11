@@ -252,13 +252,13 @@ sub _order_by {
 
     my $order_by = order_by($order, 'date', {
         'date' => sub {
-            return 'begin_date_year, begin_date_month, begin_date_day, time, name COLLATE musicbrainz'
+            return 'begin_date_year, begin_date_month, begin_date_day, time, name COLLATE musicbrainz';
         },
         'name' => sub {
-            return 'name COLLATE musicbrainz, begin_date_year, begin_date_month, begin_date_day, time'
+            return 'name COLLATE musicbrainz, begin_date_year, begin_date_month, begin_date_day, time';
         },
         'type' => sub {
-            return 'type, begin_date_year, begin_date_month, begin_date_day, time, name COLLATE musicbrainz'
+            return 'type, begin_date_year, begin_date_month, begin_date_day, time, name COLLATE musicbrainz';
         },
     });
 
@@ -335,7 +335,7 @@ sub find_related_entities
                     ? [ @performers[ 0 .. ($limit-1) ] ]
                     : \@performers,
             },
-        }
+        };
     }
 
     return %map;
@@ -417,7 +417,7 @@ sub _find_performers
             credit => $credit,
             entity => $artists->{$artist_id},
             roles => [ uniq @{ $roles } ],
-        }
+        };
     }
 }
 
@@ -477,7 +477,7 @@ sub _find_places
         push @{ $map->{$event_id} }, {
             credit => $credit,
             entity => $places->{$place_id},
-        }
+        };
     }
 }
 
@@ -508,7 +508,7 @@ sub _find_areas
         push @{ $map->{$event_id} }, {
             credit => $credit,
             entity => $areas->{$area_id},
-        }
+        };
     }
 }
 

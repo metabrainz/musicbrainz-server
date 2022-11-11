@@ -109,7 +109,7 @@ sub unorderable_entity {
     } elsif ($orderable_direction == 1) {
         return $self->entity0;
     } elsif ($orderable_direction == 2) {
-        return $self->entity1
+        return $self->entity1;
     }
     die 'Entity::Relationship::unorderable_entity: ' .
         'Invalid orderable_direction';

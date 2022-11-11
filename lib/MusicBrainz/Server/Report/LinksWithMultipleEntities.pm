@@ -34,7 +34,7 @@ sub query {
         HAVING count(*) > 1
         SQL
 
-    return $query
+    return $query;
 }
 
 __PACKAGE__->meta->make_immutable;

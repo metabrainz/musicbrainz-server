@@ -365,7 +365,7 @@ sub release_submit : Private
         catch {
             my $e = $_;
             $self->_error($c, "This edit could not be successfully created: $e");
-        }
+        };
     }
 
     $c->detach('success');

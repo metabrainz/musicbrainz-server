@@ -85,7 +85,7 @@ has user => (
     default => sub {
         MusicBrainz::Server::Entity::Editor->new(
             privileges => 0,
-        )
+        );
     },
 );
 

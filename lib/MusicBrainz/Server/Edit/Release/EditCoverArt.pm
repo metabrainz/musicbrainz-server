@@ -157,7 +157,7 @@ sub build_display_data {
             new => [ map {
                 to_json_object($loaded->{CoverArtType}{$_})
             } @{ $self->data->{new}{types} // [] } ],
-        }
+        };
     }
 
     if (exists $self->data->{old}{comment})
@@ -165,7 +165,7 @@ sub build_display_data {
         $data{comment} = {
             old => $self->data->{old}{comment},
             new => $self->data->{new}{comment},
-        }
+        };
     }
 
     return \%data;

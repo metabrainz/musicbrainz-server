@@ -20,7 +20,7 @@ sub _build_related_entities
     my $self = shift;
     return {
         release => $self->data->{release_ids},
-    }
+    };
 }
 
 sub foreign_keys
@@ -28,7 +28,7 @@ sub foreign_keys
     my $self = shift;
     return {
         Release => { map { $_ => [ 'ArtistCredit' ] } @{ $self->data->{release_ids} } },
-    }
+    };
 }
 
 sub build_display_data
@@ -62,7 +62,7 @@ sub deserialize_previous_value { my $self = shift; return shift; }
 sub deserialize_new_value {
     my ($self, $value) = @_;
     if ($value eq 'DELETE') {
-        return { FullToc => '', CDTOCId => 0, AlbumId => 0 }
+        return { FullToc => '', CDTOCId => 0, AlbumId => 0 };
     }
     else {
         $self->deserialize($value);

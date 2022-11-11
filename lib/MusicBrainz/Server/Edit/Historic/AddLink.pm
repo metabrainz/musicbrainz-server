@@ -24,7 +24,7 @@ sub build_display_data
     my ($self, $loaded) = @_;
     return {
         relationships => $self->_display_relationships($self->data, $loaded),
-    }
+    };
 }
 
 sub upgrade

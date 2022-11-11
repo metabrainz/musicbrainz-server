@@ -92,7 +92,7 @@ around _build_related_entities => sub {
 
     if ($self->data->{new}{release_group_id}) {
         push @{ $related->{release_group} },
-            map { $self->data->{$_}{release_group_id} } qw( old new )
+            map { $self->data->{$_}{release_group_id} } qw( old new );
     }
 
     return $related;
@@ -114,7 +114,7 @@ sub foreign_keys
             map {
                 load_artist_credit_definitions($self->data->{$_}{artist_credit})
             } qw( new old ),
-        }
+        };
     }
 
     $relations->{Release} = {
@@ -125,7 +125,7 @@ sub foreign_keys
         $relations->{ReleaseGroup} = {
             $self->data->{new}{release_group_id} => [ 'ArtistCredit' ],
             $self->data->{old}{release_group_id} => [ 'ArtistCredit' ],
-        }
+        };
     }
 
     $relations->{Area} = [
@@ -157,7 +157,7 @@ sub build_display_data
         $data->{artist_credit} = {
             new => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{new}{artist_credit})),
             old => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})),
-        }
+        };
     }
 
     if (exists $self->data->{new}{barcode}) {
@@ -200,7 +200,7 @@ sub build_display_data
                 country_id => $country_id,
                 defined $country_id ? (country => $loaded->{Area}{$country_id}) : (),
                 date => MusicBrainz::Server::Entity::PartialDate->new_from_row($event->{date}),
-            )
+            );
         };
 
         $data->{events} = {
@@ -225,7 +225,7 @@ sub _mapping
     my $self = shift;
     return (
         artist_credit => sub {
-            clean_submitted_artist_credits(shift->artist_credit)
+            clean_submitted_artist_credits(shift->artist_credit);
         },
         barcode => sub { shift->barcode->code },
         events => sub {

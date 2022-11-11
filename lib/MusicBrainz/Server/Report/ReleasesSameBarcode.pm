@@ -24,7 +24,7 @@ sub query {
                 AND r2.status != 3 -- skip bootlegs
                 AND r.release_group != r2.release_group
         )
-    }
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

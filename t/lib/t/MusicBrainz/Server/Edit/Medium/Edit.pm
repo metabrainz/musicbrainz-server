@@ -461,7 +461,7 @@ test 'Auto-editing edit medium' => sub {
                     ),
                 ],
             )
-        }
+        };
     };
 
     subtest 'Can change the recording to another existing recording' => sub {
@@ -615,7 +615,7 @@ test 'Tracks can be reordered' => sub {
             id => $release_row->{id},
             name => 'Release',
         },
-    })
+    });
 };
 
 test 'Tracklist merging (MBS-8752 / MBS-7475)' => sub {

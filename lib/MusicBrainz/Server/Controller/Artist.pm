@@ -853,7 +853,7 @@ sub split : Chained('load') Edit {
             }
 
             $c->res->redirect(
-                $c->uri_for_action('/artist/show', [ $artist->gid ]))
+                $c->uri_for_action('/artist/show', [ $artist->gid ]));
         },
     );
 }

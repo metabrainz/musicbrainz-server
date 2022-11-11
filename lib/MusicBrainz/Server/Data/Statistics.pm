@@ -776,15 +776,15 @@ my %stats = (
                 'count.editor.valid' => sub { return shift->{valid} },
                 'count.editor.valid.inactive' => sub {
                     my $row = shift;
-                    return $row->{valid} && !$row->{validated} && !(grep { $row->{$_} } @active_markers)
+                    return $row->{valid} && !$row->{validated} && !(grep { $row->{$_} } @active_markers);
                 },
                 'count.editor.valid.active' => sub {
                     my $row = shift;
-                    return $row->{valid} && (grep { $row->{$_} } @active_markers)
+                    return $row->{valid} && (grep { $row->{$_} } @active_markers);
                 },
                 'count.editor.valid.validated_only' => sub {
                     my $row = shift;
-                    return $row->{valid} && $row->{validated} && !(grep { $row->{$_} } @active_markers)
+                    return $row->{valid} && $row->{validated} && !(grep { $row->{$_} } @active_markers);
                 },
             };
             my %ret = map { $_ => 0 } (keys %$stats, map { 'count.editor.valid.active.'.$_ } @active_markers);
@@ -1267,7 +1267,7 @@ my %stats = (
             my ($self, $sql) = @_;
 
             $self->fetch('count.release')
-                - $self->fetch('count.release.various')
+                - $self->fetch('count.release.various');
         },
     },
     'count.medium.has_discid' => {

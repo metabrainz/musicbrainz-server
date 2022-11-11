@@ -116,7 +116,7 @@ method build_display_data ($loaded)
                 cdtoc => CDTOC->new_from_toc($self->data->{cdtoc}),
             ),
         ),
-    }
+    };
 }
 
 override 'insert' => sub {

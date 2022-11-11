@@ -369,7 +369,7 @@ sub _build_ws_test_xml {
             is_xml_same($expected, $mech->content);
             $Test->note($mech->content);
         });
-    }
+    };
 }
 
 sub _build_ws_test_json {

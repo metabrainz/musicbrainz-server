@@ -28,7 +28,7 @@ sub foreign_keys
                 $_->{id} => [ 'ArtistCredit' ]
             } @{ $self->data->{old_entities} },
         },
-    }
+    };
 }
 
 before build_display_data => sub {

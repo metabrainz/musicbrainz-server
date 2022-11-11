@@ -376,7 +376,7 @@ sub _editor_data_point {
     return {
         editor_id => $editor_id,
         count => $count,
-    }
+    };
 }
 
 sub _editor_data_points {

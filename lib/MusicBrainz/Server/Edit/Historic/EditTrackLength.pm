@@ -21,7 +21,7 @@ sub _build_related_entities
     my $self = shift;
     return {
         recording => [ $self->data->{recording_id} ],
-    }
+    };
 }
 
 sub foreign_keys

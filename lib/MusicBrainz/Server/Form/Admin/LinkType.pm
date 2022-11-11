@@ -12,7 +12,7 @@ sub edit_field_names {
     qw( parent_id child_order name link_phrase reverse_link_phrase
         long_link_phrase description priority attributes documentation
         is_deprecated has_dates entity0_cardinality entity1_cardinality
-        orderable_direction )
+        orderable_direction );
 }
 
 has '+name' => ( default => 'linktype' );

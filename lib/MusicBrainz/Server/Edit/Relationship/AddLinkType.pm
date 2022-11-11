@@ -54,7 +54,7 @@ sub foreign_keys {
             map { $_->{type} }
                 @{ $self->data->{attributes} },
             ],
-    }
+    };
 }
 
 sub insert {
@@ -91,7 +91,7 @@ sub build_display_data {
             MusicBrainz::Server::Entity::LinkType->new( name => $self->data->{name} )),
         ) : (),
         reverse_link_phrase => $self->data->{reverse_link_phrase},
-    }
+    };
 }
 
 sub _build_attributes {
@@ -107,7 +107,7 @@ sub _build_attributes {
                     ),
                   ))
           } @$list,
-    ]
+    ];
 }
 
 before restore => sub {

@@ -22,6 +22,7 @@ allow_leading_tabs = 0
 [CodeLayout::ProhibitQuotedWordLists]
 [CodeLayout::ProhibitTrailingWhitespace]
 [CodeLayout::RequireConsistentNewlines]
+[CodeLayout::RequireFinalSemicolon]
 [CodeLayout::RequireTrailingCommaAtNewline]
 
 [ControlStructures::ProhibitUnreachableCode]

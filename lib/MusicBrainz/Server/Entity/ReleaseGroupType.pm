@@ -20,7 +20,7 @@ sub entity_type { 'release_group_primary_type' }
 
 sub l_name {
     my $self = shift;
-    return lp($self->name, 'release_group_primary_type')
+    return lp($self->name, 'release_group_primary_type');
 }
 
 around TO_JSON => sub {

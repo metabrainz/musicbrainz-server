@@ -103,7 +103,7 @@ character entities.
 sub pretty_name {
     my $self = shift;
 
-    $self->uses_legacy_encoding ? $self->name : $self->decoded
+    $self->uses_legacy_encoding ? $self->name : $self->decoded;
 }
 
 sub affiliate_url { shift->url }

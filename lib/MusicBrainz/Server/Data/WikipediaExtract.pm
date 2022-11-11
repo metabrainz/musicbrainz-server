@@ -141,7 +141,7 @@ sub get_available_languages
             if ($link->isa('MusicBrainz::Server::Entity::URL::Wikipedia')) {
                 push @$ret, {lang => $link->language, title => $link->page_name};
             }
-            return ($ret, $link)
+            return ($ret, $link);
         }
     }
     return (undef, undef);
@@ -156,7 +156,7 @@ sub _wikidata_languages_callback
             if ($wiki =~ /wiki$/ and $wiki ne 'commonswiki') {
                 my $lang = $wiki =~ s/wiki$//r;
                 my $page = $opts{fetched}{content}{sitelinks}{$wiki}{title};
-                push @langs, {'lang' => $lang, 'title' => $page}
+                push @langs, {'lang' => $lang, 'title' => $page};
             }
         }
         return \@langs;

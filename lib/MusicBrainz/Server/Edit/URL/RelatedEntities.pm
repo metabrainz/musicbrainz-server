@@ -11,7 +11,7 @@ around '_build_related_entities' => sub
     my $self = shift;
 
     my @urls = values %{
-        $self->c->model('URL')->get_by_ids($self->url_ids)
+        $self->c->model('URL')->get_by_ids($self->url_ids);
     };
 
     $self->c->model('Relationship')->load(@urls);

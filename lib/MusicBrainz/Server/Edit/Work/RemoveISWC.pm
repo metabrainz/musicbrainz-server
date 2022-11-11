@@ -45,7 +45,7 @@ sub alter_edit_pending {
     return {
         Work => [ $self->data->{work}{id} ],
         ISWC => [ $self->data->{iswc}{id} ],
-    }
+    };
 }
 
 sub foreign_keys {
@@ -53,7 +53,7 @@ sub foreign_keys {
     return {
         ISWC => { $self->data->{iswc}{id} => [ 'Work' ] },
         Work => [ $self->data->{work}{id} ],
-    }
+    };
 }
 
 sub build_display_data {

@@ -44,7 +44,7 @@ sub foreign_keys
     return {
         Artist    => { load_artist_credit_definitions($self->data->{artist_credit}) },
         Recording => { $self->entity_id => [ 'ArtistCredit' ] },
-    }
+    };
 }
 
 sub build_display_data
@@ -70,7 +70,7 @@ sub _insert_hash
     my ($self, $data) = @_;
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit});
     $data->{comment} //= '';
-    return $data
+    return $data;
 }
 
 around reject => sub {

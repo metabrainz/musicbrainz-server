@@ -31,7 +31,7 @@ sub summed_statistics {
     } else {
         $sum = $self->statistic($stats) || 0;
     }
-    return $sum
+    return $sum;
 }
 
 sub ratio {

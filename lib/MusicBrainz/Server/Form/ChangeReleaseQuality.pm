@@ -24,7 +24,7 @@ sub options_quality
         $QUALITY_LOW => l('Low'),
         $QUALITY_NORMAL => l('Normal'),
         $QUALITY_HIGH => l('High'),
-    ]
+    ];
 }
 
 no Moose;

@@ -246,7 +246,7 @@ sub merge_artists
              ) artist_credit_name
              GROUP BY artist_credit',
             $old_ids, $new_id, $old_ids,
-        ]
+        ];
     }
 
     # Now that any renaming is done (if applicable), replace ACs with versions with the new artist ID

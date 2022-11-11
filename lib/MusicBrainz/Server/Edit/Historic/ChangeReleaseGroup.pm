@@ -19,7 +19,7 @@ sub edit_template { 'historic/ChangeReleaseGroup' }
 sub _release_group_ids
 {
     my $self = shift;
-    map { $self->data->{$_}{release_group_id} } qw( old new )
+    map { $self->data->{$_}{release_group_id} } qw( old new );
 }
 
 sub _build_related_entities
@@ -30,7 +30,7 @@ sub _build_related_entities
             $self->_release_group_ids,
         ],
         release       => $self->data->{release_ids},
-    }
+    };
 }
 
 sub foreign_keys
@@ -39,7 +39,7 @@ sub foreign_keys
     return {
         Release      => $self->data->{release_ids},
         ReleaseGroup => [ $self->_release_group_ids ],
-    }
+    };
 }
 
 sub build_display_data
@@ -62,7 +62,7 @@ sub build_display_data
                 ReleaseGroup->new( id => $self->data->{new}{release_group_id} ),
             ),
         },
-    }
+    };
 }
 
 sub upgrade

@@ -587,7 +587,7 @@ sub find_by_recordings
             track_position      => $row->{track_position},
             medium_position     => $row->{medium_position},
             medium_track_count  => $row->{medium_track_count},
-        }
+        };
     }
 
     return %map;
@@ -766,10 +766,10 @@ sub _order_by {
 
     my $order_by = order_by($order, 'date', {
         'date' => sub {
-            return 'date_year, date_month, date_day, release.name COLLATE musicbrainz'
+            return 'date_year, date_month, date_day, release.name COLLATE musicbrainz';
         },
         'name' => sub {
-            return 'release.name COLLATE musicbrainz, date_year, date_month, date_day'
+            return 'release.name COLLATE musicbrainz, date_year, date_month, date_day';
         },
         'country' => sub {
             $extra_join = 'LEFT JOIN area ON release_event.country = area.id';
@@ -814,7 +814,7 @@ sub _order_by {
             return 'total_track_count, release.name COLLATE musicbrainz';
         },
         'barcode' => sub {
-            return 'length(barcode), barcode, release.name COLLATE musicbrainz'
+            return 'length(barcode), barcode, release.name COLLATE musicbrainz';
         },
     });
 
@@ -923,7 +923,7 @@ sub delete
         $self->sql->select_single_column_array(
             'SELECT id FROM medium WHERE release IN (' . placeholders(@release_ids) . ')',
             @release_ids,
-        )
+        );
     };
 
     $self->c->model('Medium')->delete($_) for @mediums;
@@ -932,7 +932,7 @@ sub delete
         $self->sql->select_single_column_array(
             'SELECT release_group FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
             @release_ids,
-        )
+        );
     };
 
     $self->delete_returning_gids(@release_ids);
@@ -1059,7 +1059,7 @@ sub can_merge {
              ) s
              GROUP BY position
              HAVING count(id) > 1
-             ', map { $_, $positions{$_} } keys %positions)
+             ', map { $_, $positions{$_} } keys %positions);
         };
 
         return @failure if @conflicts;
@@ -1538,7 +1538,7 @@ sub filter_barcode_changes {
              JOIN release ON (release.gid = change.release OR rgr.new_id = release.id)
              WHERE change.barcode IS DISTINCT FROM release.barcode',
             map { $_->{release}, $_->{barcode} } @barcodes,
-        )
+        );
     };
 }
 

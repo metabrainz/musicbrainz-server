@@ -60,7 +60,7 @@ sub _column_mapping {
         edits_pending => 'edits_pending',
         last_updated => 'last_updated',
         first_release_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, 'first_release_date_') },
-    }
+    };
 }
 
 sub _id_column
@@ -629,7 +629,7 @@ sub _order_by {
 
     my $order_by = order_by($order, 'name', {
         'name' => sub {
-            return 'name COLLATE musicbrainz'
+            return 'name COLLATE musicbrainz';
         },
         'artist' => sub {
             $extra_join = 'JOIN artist_credit ac ON ac.id = rg.artist_credit';
@@ -637,10 +637,10 @@ sub _order_by {
             return 'ac_name COLLATE musicbrainz, rg_name COLLATE musicbrainz';
         },
         'primary_type' => sub {
-            return 'primary_type_id, name COLLATE musicbrainz'
+            return 'primary_type_id, name COLLATE musicbrainz';
         },
         'year' => sub {
-            return 'first_release_date_year, name COLLATE musicbrainz'
+            return 'first_release_date_year, name COLLATE musicbrainz';
         },
     });
 
@@ -724,7 +724,7 @@ sub clear_empty_release_groups {
                SELECT TRUE FROM l_release_group_url WHERE entity0 = outer_rg.id
          )',
             \@group_ids,
-        )
+        );
     };
 
     $self->delete(@group_ids);

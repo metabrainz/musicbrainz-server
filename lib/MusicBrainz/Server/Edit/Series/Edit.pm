@@ -133,7 +133,7 @@ around editor_may_approve => sub {
 
 sub current_instance {
     my $self = shift;
-    $self->c->model('Series')->get_by_id($self->entity_id),
+    $self->c->model('Series')->get_by_id($self->entity_id);
 }
 
 sub _edit_hash {

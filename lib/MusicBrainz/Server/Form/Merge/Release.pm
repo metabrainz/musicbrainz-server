@@ -22,7 +22,7 @@ has_field 'medium_positions' => (
                 map {
                     $_->{id} => $_->{position}
                 } @{ $value->{map} },
-            }
+            };
         },
     }],
 );
@@ -53,7 +53,7 @@ sub options_merge_strategy {
     return [
         $MusicBrainz::Server::Data::Release::MERGE_APPEND, l('Append mediums to target release'),
         $MusicBrainz::Server::Data::Release::MERGE_MERGE, l('Merge mediums and recordings'),
-    ]
+    ];
 }
 
 after validate => sub {

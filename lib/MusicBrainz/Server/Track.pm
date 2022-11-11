@@ -9,13 +9,13 @@ use Scalar::Util qw( looks_like_number );
 use Sub::Exporter -setup => {
     exports => [
         format_track_length => sub {
-            sub { FormatTrackLength(shift) }
+            sub { FormatTrackLength(shift) };
         },
         unformat_track_length => sub {
-            sub { UnformatTrackLength(shift) }
+            sub { UnformatTrackLength(shift) };
         },
         format_iso_duration => sub {
-            sub { FormatTrackLength(shift, print_formats => {hms => 'PT%dH%02dM%02dS', ms => 'PT%02dM%02dS'}) }
+            sub { FormatTrackLength(shift, print_formats => {hms => 'PT%dH%02dM%02dS', ms => 'PT%02dM%02dS'}) };
         },
     ],
 };

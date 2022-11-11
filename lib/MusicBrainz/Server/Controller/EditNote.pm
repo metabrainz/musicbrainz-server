@@ -229,7 +229,7 @@ sub edit_note_change : PathPart('change') Chained('load') Args(1) RequireAuth(ac
         $c->stash(
             message => 'The note change ID must be a positive integer',
         );
-        $c->detach('/error_400')
+        $c->detach('/error_400');
     }
 
     my $note_change = $c->model('EditNoteChange')->get_by_id($change_id)
@@ -248,7 +248,7 @@ sub edit_note_change : PathPart('change') Chained('load') Args(1) RequireAuth(ac
             message =>
                 "The note change with ID “$change_id” is not associated with this note.",
         );
-        $c->detach('/error_400')
+        $c->detach('/error_400');
     }
 
     $c->model('Editor')->load($note_change);

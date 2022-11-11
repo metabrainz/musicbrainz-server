@@ -79,7 +79,7 @@ sub _do_log {
         $logger->log(
             level => $level,
             message => $message_gen->(@args),
-        )
+        );
     }
     @args;
 }
@@ -101,7 +101,7 @@ sub log_assertion (&$) {
         log_debug {
             'Stacktrace: ' .
                 Devel::StackTrace->new( ignore_class => 'MusicBrainz::Server::Log' )->as_string
-              }
+              };
     }
 }
 

@@ -1269,7 +1269,7 @@ sub _serialize_isrc
                 items => \@recordings,
                 total => scalar @recordings,
             };
-            $self->_serialize_recording_list($isrc_node, $recordings, $inc, $stash, $toplevel)
+            $self->_serialize_recording_list($isrc_node, $recordings, $inc, $stash, $toplevel);
         }
     }
 }

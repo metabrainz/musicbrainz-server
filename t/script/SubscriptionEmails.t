@@ -164,12 +164,12 @@ test 'Handling deletes and merges' => sub {
 
         is_deeply($args{deletes} => [
             $artist, $label,
-        ], 'has information about the deleted label and merged artist')
+        ], 'has information about the deleted label and merged artist');
     };
 
     subtest 'Deleted deleted and merged subscriptions from the database' => sub {
         verify($c->model('EditorSubscriptions'))->update_subscriptions(10, $acid2->id);
-    }
+    };
 };
 
 test 'Editor subscriptions' => sub {
@@ -222,7 +222,7 @@ test 'Editor subscriptions' => sub {
 
     subtest 'Loads the editor in question' => sub {
         verify($c->model('Editor'))->get_by_id($editor->id);
-    }
+    };
 };
 
 test 'Does not send an editors own edits' => sub {

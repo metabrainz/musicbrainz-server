@@ -42,7 +42,7 @@ sub alter_edit_pending
     return {
         'Medium' => [ $self->medium_id ],
         'Release' => [ $self->data->{release_id} ],
-    }
+    };
 }
 
 sub foreign_keys
@@ -88,7 +88,7 @@ sub build_display_data
     return {
         medium => to_json_object($medium),
         tracks => to_json_array(display_tracklist($loaded, $self->data->{tracklist})),
-    }
+    };
 }
 
 sub initialize

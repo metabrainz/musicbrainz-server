@@ -31,7 +31,7 @@ sub run {
                      '</table>'
                  } @output),
         );
-    }
+    };
 }
 
 package My::Template::Context;

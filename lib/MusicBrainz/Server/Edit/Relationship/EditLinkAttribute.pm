@@ -28,7 +28,7 @@ sub change_fields
         child_order => Optional[Int],
         creditable => Optional[Bool],
         free_text => Optional[Bool],
-    ]
+    ];
 }
 
 sub to_hash {
@@ -87,7 +87,7 @@ sub build_display_data
 sub accept {
     my $self = shift;
     $self->c->model('LinkAttributeType')->update($self->data->{entity_id},
-                                                 $self->data->{new})
+                                                 $self->data->{new});
 };
 
 no Moose;

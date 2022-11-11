@@ -282,7 +282,7 @@ sub _attach_list {
         # List releases
         my $artist = $c->model('Artist')->get_by_id($artist_id);
         my $releases = $self->_load_paged($c, sub {
-            $c->model('Release')->find_for_cdtoc($artist_id, $cdtoc->track_count, shift, shift)
+            $c->model('Release')->find_for_cdtoc($artist_id, $cdtoc->track_count, shift, shift);
         });
         $c->model('Release')->load_related_info(@$releases);
 
@@ -311,7 +311,7 @@ sub _attach_list {
         # One of these must have been submitted to get here
         if ($c->form_submitted_and_valid($search_artist, $c->req->query_params)) {
             my $artists = $self->_load_paged($c, sub {
-                $c->model('Search')->search('artist', $search_artist->field('query')->value, shift, shift)
+                $c->model('Search')->search('artist', $search_artist->field('query')->value, shift, shift);
             });
             my %props = (
                 form        => $search_artist->TO_JSON,

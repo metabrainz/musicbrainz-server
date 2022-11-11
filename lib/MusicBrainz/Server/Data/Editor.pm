@@ -357,7 +357,7 @@ sub update_profile
 
     if (my $date = delete $row->{birth_date}) {
         if (%$date) { # if date is given but all NULL, it will be an empty hash.
-            $row->{birth_date} = sprintf '%d-%d-%d', map { $date->{$_} } qw( year month day )
+            $row->{birth_date} = sprintf '%d-%d-%d', map { $date->{$_} } qw( year month day );
         }
         else {
             $row->{birth_date} = undef;
@@ -830,7 +830,7 @@ sub hash_password {
         salt_random => 1,
         cost => $PASSPHRASE_BCRYPT_COST,
         passphrase => encode('utf-8', $password),
-    )->as_rfc2307
+    )->as_rfc2307;
 }
 
 sub ha1_password {

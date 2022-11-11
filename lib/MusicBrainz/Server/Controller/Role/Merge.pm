@@ -129,7 +129,7 @@ role {
             or $c->res->redirect('/'), $c->detach;
 
         my @entities = values %{
-            $c->model($self->{model})->get_by_ids($merger->all_entities)
+            $c->model($self->{model})->get_by_ids($merger->all_entities);
         };
 
         unless ($merger->ready_to_merge) {
@@ -142,7 +142,7 @@ role {
             # Ensure that we use the entities that appeared on the page and the right type,
             # in case the merger has changed since that page loaded (MBS-7057)
             @entities = values %{
-                $c->model($self->{model})->get_by_ids(map { $_->value } $check_form->field('merging')->fields)
+                $c->model($self->{model})->get_by_ids(map { $_->value } $check_form->field('merging')->fields);
             };
 
             my $target = $check_form->field('target')->value;
@@ -235,11 +235,11 @@ role {
     };
 
     method _merge_parameters => sub {
-        return ()
+        return ();
     };
 
     method _extra_entity_data => sub {
-        return ()
+        return ();
     };
 };
 

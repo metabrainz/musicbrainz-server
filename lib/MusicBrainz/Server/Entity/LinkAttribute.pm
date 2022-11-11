@@ -30,7 +30,7 @@ sub html {
     }
 
     if (non_empty($self->credited_as) && $type->l_name ne $self->credited_as) {
-        $value = l('{attribute} [{credited_as}]', { attribute => $value, credited_as => encode_entities($self->credited_as) })
+        $value = l('{attribute} [{credited_as}]', { attribute => $value, credited_as => encode_entities($self->credited_as) });
     }
 
     if (non_empty($self->text_value)) {

@@ -565,7 +565,7 @@ sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnMirrors
 
     my $ratings = $self->_load_paged($c, sub {
         $c->model($model)->rating->find_editor_ratings(
-            $user->id, $c->user_exists && $user->id == $c->user->id, shift, shift)
+            $user->id, $c->user_exists && $user->id == $c->user->id, shift, shift);
     }, limit => 100);
     $c->model('ArtistCredit')->load(@$ratings);
 

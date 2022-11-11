@@ -38,7 +38,7 @@ sub _id_column
 
 sub is_valid_id {
     (undef, my $id) = @_;
-    is_database_bigint_id($id)
+    is_database_bigint_id($id);
 }
 
 sub _column_mapping

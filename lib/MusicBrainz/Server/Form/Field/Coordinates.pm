@@ -29,7 +29,7 @@ sub reverse_direction {
         @dirs = qw( e w );
     }
     my $direction = first { ($number > 0) eq ($DIRECTIONS{lc $_} > 0) } @dirs;
-    return $number * $DIRECTIONS{$direction} . uc $direction
+    return $number * $DIRECTIONS{$direction} . uc $direction;
 }
 
 sub validate {

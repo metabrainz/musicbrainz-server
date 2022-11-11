@@ -98,7 +98,7 @@ sub release_event {
         $ret->{releaseDate} = $event->date->format;
     }
     if ($event->country) {
-        $ret->{releaseCountry} = serialize_entity($event->country, $inc, $stash)
+        $ret->{releaseCountry} = serialize_entity($event->country, $inc, $stash);
     }
     return $ret;
 }

@@ -15,7 +15,7 @@ with 'MusicBrainz::Server::Data::Role::Context';
 
 # Escape special characters in a Lucene search query
 sub escape_query {
-    (shift // '') =~ s/([+\-&|!(){}\[\]\^"~*?:\\])/\\$1/gr
+    (shift // '') =~ s/([+\-&|!(){}\[\]\^"~*?:\\])/\\$1/gr;
 }
 
 # construct a lucene search query based on the args given and then pass it to a search server.
@@ -30,11 +30,11 @@ sub xml_search
     my $dismax = 'false';
 
     if (is_positive_integer($args->{offset})) {
-        $offset = $args->{offset}
+        $offset = $args->{offset};
     }
 
     if (is_positive_integer($args->{limit})) {
-        $limit = $args->{limit}
+        $limit = $args->{limit};
     }
 
     $limit = 25 if ($limit < 1 || $limit > 100);
@@ -234,7 +234,7 @@ sub xml_search
     }
 
     if (DBDefs->SEARCH_X_ACCEL_REDIRECT) {
-        return { redirect_url => '/internal/search/' . DBDefs->SEARCH_SERVER . $url_ext }
+        return { redirect_url => '/internal/search/' . DBDefs->SEARCH_SERVER . $url_ext };
     } else {
         my $url = 'http://' . DBDefs->SEARCH_SERVER . $url_ext;
         my $response = $self->c->lwp->get($url);
@@ -249,14 +249,14 @@ sub xml_search
                 return {
                     error => 'Search server could not complete query: Bad request',
                     code  => HTTP_BAD_REQUEST,
-                }
+                };
             }
             else
             {
                 return {
                     error => "Could not retrieve sub-document page from search server. Error: $url  -> " . $response->status_line,
                     code  => HTTP_SERVICE_UNAVAILABLE,
-                }
+                };
             }
         }
     }

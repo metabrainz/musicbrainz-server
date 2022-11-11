@@ -35,7 +35,7 @@ sub load_for_release_groups {
              JOIN release_group_secondary_type ON id = secondary_type
              WHERE release_group = any(?)',
             \@ids,
-        )
+        );
     };
 
     my $types_by_rg = {};

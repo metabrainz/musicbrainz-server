@@ -116,7 +116,7 @@ sub merge
              ) s
              WHERE row_number = 1',
             @ids,
-        )
+        );
     };
 
     my $current_target_annotation_text = $entity_to_annotation{$new_id} // '';

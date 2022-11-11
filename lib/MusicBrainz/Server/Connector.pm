@@ -22,7 +22,7 @@ has 'sql' => (
     is => 'ro',
     default => sub {
         my $self = shift;
-        Sql->new( $self->conn )
+        Sql->new( $self->conn );
     },
     lazy => 1,
     clearer => '_clear_sql',
@@ -72,7 +72,7 @@ sub _disconnect {
 
 sub disconnect {
     my $self = shift;
-    $self->_disconnect
+    $self->_disconnect;
 }
 
 sub refresh {

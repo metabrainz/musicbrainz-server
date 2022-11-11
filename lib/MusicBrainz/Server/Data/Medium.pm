@@ -167,7 +167,7 @@ sub delete
         $self->sql->select_single_column_array(
             'SELECT id FROM medium_cdtoc WHERE medium IN (' . placeholders(@ids) . ')',
             @ids,
-        )
+        );
     };
 
     $self->c->model('MediumCDTOC')->delete($_) for @tocs;
@@ -286,7 +286,7 @@ sub reorder {
                   WHERE mpos.medium = medium.id)
           WHERE id IN (' . placeholders(@medium_ids) . ')',
         %ordering, @medium_ids,
-    )
+    );
 }
 
 sub load_related_info {

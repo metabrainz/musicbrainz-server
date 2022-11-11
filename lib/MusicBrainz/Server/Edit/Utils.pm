@@ -69,7 +69,7 @@ sub verify_artist_credits
     if (@artists != uniq @artist_ids) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
             'An artist that is used in the new artist credits has been deleted',
-        )
+        );
     }
 }
 
@@ -261,7 +261,7 @@ sub changed_display_data
         $display->{$tt_field} = {
             new => defined $new ? (defined $model ? $loaded->{$model}->{$new} : $new) : undef,
             old => defined $old ? (defined $model ? $loaded->{$model}->{$old} : $old) : undef,
-        }
+        };
     }
 
     return $display;
@@ -298,11 +298,11 @@ sub status_names
 }
 
 sub hash_artist_credit {
-    return _hash_artist_credit(shift)
+    return _hash_artist_credit(shift);
 }
 
 sub hash_artist_credit_without_join_phrases {
-    return _hash_artist_credit(shift, 1)
+    return _hash_artist_credit(shift, 1);
 }
 
 sub _hash_artist_credit {

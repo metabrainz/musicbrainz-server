@@ -218,10 +218,10 @@ sub build_display_data
                                 type => $attr,
                                 credited_as => $_->{credited_as},
                                 text_value => $_->{text_value},
-                            )
+                            );
                         }
                         else {
-                            ()
+                            ();
                         }
                     } @{ $self->data->{attributes} },
                 ],
@@ -244,7 +244,7 @@ sub build_display_data
             grep { !exists $loaded->{LinkAttributeType}{$_->{type}{id}} }
                 @{ $self->data->{attributes} // [] },
         )),
-    }
+    };
 }
 
 sub directly_related_entities {

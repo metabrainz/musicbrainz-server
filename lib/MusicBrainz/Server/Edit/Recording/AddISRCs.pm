@@ -63,7 +63,7 @@ sub _build_related_entities
         recording => [ uniq map {
             $_->{recording}{id}
         } @{ $self->data->{isrcs} } ],
-    }
+    };
 }
 
 sub foreign_keys
@@ -73,7 +73,7 @@ sub foreign_keys
         Recording => { map {
             $_->{recording}{id} => ['ArtistCredit']
         } @{ $self->data->{isrcs} } },
-    }
+    };
 }
 
 sub build_display_data
@@ -92,7 +92,7 @@ sub build_display_data
         ],
         client_version => $self->data->{client_version},
 
-    }
+    };
 }
 
 sub accept

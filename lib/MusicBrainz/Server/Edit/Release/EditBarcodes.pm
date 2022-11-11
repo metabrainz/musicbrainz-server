@@ -43,7 +43,7 @@ sub alter_edit_pending
     my $self = shift;
     return {
         Release => [ $self->release_ids ],
-    }
+    };
 }
 
 sub foreign_keys
@@ -67,7 +67,7 @@ sub build_display_data
                 exists $_->{old_barcode} ? (old_barcode => $_->{old_barcode}) : (),
             }, @{ $self->data->{submissions} },
         ],
-    }
+    };
 }
 
 sub accept {

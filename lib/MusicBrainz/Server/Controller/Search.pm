@@ -304,7 +304,7 @@ sub filter : Private
         my $q = $query->field('query')->value;
         $c->stash(
             search_results => $self->_load_paged($c, sub {
-                    $c->model('DirectSearch')->search($type, $q, shift, shift)
+                    $c->model('DirectSearch')->search($type, $q, shift, shift);
                 }),
         );
     }
