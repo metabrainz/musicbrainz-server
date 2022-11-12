@@ -1,11 +1,13 @@
 package t::MusicBrainz::Server::Controller::WS::2::Authenticated;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use Test::XML::SemanticCompare;
 
 with 't::Mechanize', 't::Context';
-
-use utf8;
 
 use MusicBrainz::Server::Test qw( xml_ok schema_validator xml_post );
 use MusicBrainz::Server::Test ws_test => {

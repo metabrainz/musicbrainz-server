@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Artist::Show;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );

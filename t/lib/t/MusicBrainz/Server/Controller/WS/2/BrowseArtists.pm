@@ -1,11 +1,14 @@
 package t::MusicBrainz::Server::Controller::WS::2::BrowseArtists;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use HTTP::Status qw( :constants );
 
 with 't::Mechanize', 't::Context';
 
-use utf8;
 use MusicBrainz::Server::Test::WS qw(
     ws2_test_xml
     ws2_test_xml_forbidden

@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Artist::Edits;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( accept_edit html_ok );

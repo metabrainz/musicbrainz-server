@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Field::ArtistCredit;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 use Storable qw( dclone );
 use Text::Trim qw( );

@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Release::Merge;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use Test::Deep qw( cmp_deeply bag );

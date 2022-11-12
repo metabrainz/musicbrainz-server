@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Collection::Show;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Constants qw( :edit_status );

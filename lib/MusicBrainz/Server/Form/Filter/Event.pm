@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Filter::Event;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation qw( lp );
 extends 'MusicBrainz::Server::Form::Filter::Generic';

@@ -1,5 +1,7 @@
 package t::MusicBrainz::Server::Data::Collate;
 use utf8;
+use strict;
+use warnings;
 
 use Test::Routine;
 use Test::More;

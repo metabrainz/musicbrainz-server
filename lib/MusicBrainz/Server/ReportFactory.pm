@@ -1,9 +1,11 @@
 package MusicBrainz::Server::ReportFactory;
+use strict;
+use warnings;
 
 use DBDefs;
 use MusicBrainz::Server::PagedReport;
 
-@all = qw(
+my @all = qw(
     ASINsWithMultipleReleases
     AnnotationsArtists
     AnnotationsEvents

@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Admin::WikiDoc::Create;
+use strict;
+use warnings;
+
 use Digest::MD5 qw( md5_hex );
 use Test::Routine;
 use Test::More;

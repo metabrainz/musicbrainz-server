@@ -785,6 +785,7 @@ const ENTITIES = {
     last_updated_column: true,
     mbid: {
       multiple: true,
+      relatable: false,
     },
     model: 'Track',
     plural: 'tracks',

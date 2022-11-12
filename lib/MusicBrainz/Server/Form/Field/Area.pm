@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Field::Area;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 
 extends 'HTML::FormHandler::Field::Compound';

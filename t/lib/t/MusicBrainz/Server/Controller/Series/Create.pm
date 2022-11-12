@@ -1,5 +1,8 @@
 package t::MusicBrainz::Server::Controller::Series::Create;
 use utf8;
+use strict;
+use warnings;
+
 use Test::Deep qw( cmp_deeply ignore );
 use Test::Routine;
 use Test::More;

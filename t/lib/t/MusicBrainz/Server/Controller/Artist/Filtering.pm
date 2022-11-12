@@ -1,5 +1,8 @@
 package t::MusicBrainz::Server::Controller::Artist::Filtering;
 use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use MusicBrainz::Server::Test qw( test_xpath_html );
 

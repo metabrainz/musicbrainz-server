@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Form::Field::PartialDate;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 

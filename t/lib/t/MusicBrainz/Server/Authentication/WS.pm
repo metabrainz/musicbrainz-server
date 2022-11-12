@@ -1,7 +1,10 @@
 package t::MusicBrainz::Server::Authentication::WS;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
-use utf8;
 
 use URI;
 use URI::QueryParam;

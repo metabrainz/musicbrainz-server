@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::UnconfirmedEmailAddresses;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::Deep qw( cmp_set );
 

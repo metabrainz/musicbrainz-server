@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Alias;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 
 use DateTime::Locale;

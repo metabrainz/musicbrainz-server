@@ -1,10 +1,13 @@
 package t::MusicBrainz::Server::Form::Field::Coordinates;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use Test::Deep qw( cmp_deeply num );
 use MusicBrainz::Server::Entity::Coordinates;
 use URI;
-use utf8;
 
 {
     package t::MusicBrainz::Server::Form::Field::Coordinates::TestForm;

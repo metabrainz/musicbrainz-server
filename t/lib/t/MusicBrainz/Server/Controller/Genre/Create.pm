@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Genre::Create;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );

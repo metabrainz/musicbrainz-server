@@ -1,5 +1,7 @@
 package Plack::Middleware::Debug::TemplateToolkit;
 use strict;
+use warnings;
+
 use parent qw(Plack::Middleware::Debug::Base);
 
 our @output;

@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Search::Indexed;
+use strict;
+use warnings;
+
 use HTTP::Response;
 use LWP::UserAgent::Mockable;
 use Test::Routine;

@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Search::Edits;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 
 use MusicBrainz::Server::Edit::Utils qw( status_names );

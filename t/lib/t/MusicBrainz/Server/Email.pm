@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Email;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::LongString;
 use Test::More;

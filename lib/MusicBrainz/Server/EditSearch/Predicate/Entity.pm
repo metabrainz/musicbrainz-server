@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Constants qw( %ENTITIES @RELATABLE_ENTITIES );
 
 for my $type (@RELATABLE_ENTITIES) {

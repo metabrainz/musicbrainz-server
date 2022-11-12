@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Form::Field::IPI;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 

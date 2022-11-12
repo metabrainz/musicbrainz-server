@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Field::IPI;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 
 use MusicBrainz::Server::Translation qw( l );

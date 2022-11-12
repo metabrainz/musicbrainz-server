@@ -1,4 +1,6 @@
 package t::MusicBrainz::Server::Controller::WS::2::JSON::LookupISRC;
+use strict;
+use warnings;
 
 use JSON;
 use Test::Routine;

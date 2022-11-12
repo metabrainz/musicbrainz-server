@@ -1,11 +1,14 @@
 package t::MusicBrainz::Server::Controller::WS::js::Edit;
+use utf8;
+use strict;
+use warnings;
+
 use t::MusicBrainz::Server::Controller::RelationshipEditor qw(
     $additional_attribute
     $string_instruments_attribute
     $guitar_attribute
     $crazy_guitar
 );
-use utf8;
 use JSON;
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_EDIT
@@ -797,8 +800,8 @@ test 'adding a relationship with an invalid date' => sub {
 
     ok(scalar(@edits) == 0, 'relationship for invalid date range is not created');
 
-    my $response = from_json($mech->content);
-    like($response->{error}, qr/^invalid date range/, 'error is returned for invalid date range');
+    my $response2 = from_json($mech->content);
+    like($response2->{error}, qr/^invalid date range/, 'error is returned for invalid date range');
 };
 
 

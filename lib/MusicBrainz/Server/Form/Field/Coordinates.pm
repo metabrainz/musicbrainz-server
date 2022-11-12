@@ -1,8 +1,11 @@
 package MusicBrainz::Server::Form::Field::Coordinates;
+use utf8;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation qw( l );
 use List::AllUtils qw( first );
-use utf8;
 use MusicBrainz::Server::Validation qw( validate_coordinates );
 
 extends 'MusicBrainz::Server::Form::Field::Text';

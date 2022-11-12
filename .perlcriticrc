@@ -21,6 +21,8 @@ allow_includes=1
 
 [TestingAndDebugging::ProhibitNoStrict]
 allow=refs
+[TestingAndDebugging::RequireUseStrict]
+[TestingAndDebugging::RequireUseWarnings]
 
 [TooMuchCode::ProhibitUnusedImport]
 [TooMuchCode::ProhibitUnusedInclude]

@@ -1,4 +1,6 @@
 package t::MusicBrainz::Server::Data::CoverArtArchive;
+use strict;
+use warnings;
 
 use Test::Deep qw( cmp_deeply );
 use Test::Routine;

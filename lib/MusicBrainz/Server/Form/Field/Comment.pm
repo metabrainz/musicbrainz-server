@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Field::Comment;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Data::Utils qw( trim_comment );
 

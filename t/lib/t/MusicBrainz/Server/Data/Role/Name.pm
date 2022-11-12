@@ -1,4 +1,8 @@
 package t::MusicBrainz::Server::Data::Role::Name;
+
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::Moose;
 use Test::More;

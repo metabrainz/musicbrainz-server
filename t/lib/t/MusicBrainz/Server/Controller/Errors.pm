@@ -1,4 +1,6 @@
 package t::MusicBrainz::Server::Controller::Errors;
+use strict;
+use warnings;
 
 use Catalyst::Test 'MusicBrainz::Server';
 use HTTP::Request;

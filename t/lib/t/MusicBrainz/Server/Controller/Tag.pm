@@ -1,7 +1,10 @@
 package t::MusicBrainz::Server::Controller::Tag;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
-use utf8;
 
 use MusicBrainz::Server::Test qw( html_ok );
 

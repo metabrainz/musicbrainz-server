@@ -1,10 +1,13 @@
 package t::MusicBrainz::Server::Controller::WS::2::LookupInstrument;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 
 with 't::Mechanize', 't::Context';
 
-use utf8;
 use Test::XML::SemanticCompare;
 use MusicBrainz::Server::Test ws_test => {
     version => 2

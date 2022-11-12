@@ -1,8 +1,10 @@
 package t::MusicBrainz::Server::Track;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
-
-use utf8;
 
 use MusicBrainz::Server::Track qw( format_track_length unformat_track_length);
 

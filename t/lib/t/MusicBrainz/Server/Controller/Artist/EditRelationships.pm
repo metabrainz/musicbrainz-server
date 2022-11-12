@@ -1,11 +1,14 @@
 package t::MusicBrainz::Server::Controller::Artist::EditRelationships;
+use utf8;
+use strict;
+use warnings;
+
 use t::MusicBrainz::Server::Controller::RelationshipEditor qw(
     $additional_attribute
     $string_instruments_attribute
     $guitar_attribute
     $crazy_guitar
 );
-use utf8;
 use Test::Deep qw( cmp_deeply );
 use Test::Routine;
 use Test::Fatal;

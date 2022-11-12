@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Merge;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Translation qw( l N_l );

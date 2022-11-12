@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Annotation;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Data::Utils qw( trim_multiline_text );
 extends 'MusicBrainz::Server::Form';

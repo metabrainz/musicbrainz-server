@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Collection::New;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( test_xpath_html );

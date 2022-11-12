@@ -1,6 +1,9 @@
 package t::MusicBrainz::Server::Controller::URL::Show;
-use Test::Routine;
 use utf8;
+use strict;
+use warnings;
+
+use Test::Routine;
 
 with 't::Mechanize', 't::Context';
 

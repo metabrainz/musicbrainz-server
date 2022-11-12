@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Form::Release::ReorderCoverArt;
+use strict;
+use warnings;
 
 use HTML::FormHandler::Moose;
 extends 'MusicBrainz::Server::Form';

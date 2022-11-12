@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Track::Show;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 

@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Release::CoverArt;
+use strict;
+use warnings;
+
 use DBDefs;
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );

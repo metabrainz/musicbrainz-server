@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Form::User::WatchPreferences;
+use strict;
+use warnings;
 
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation qw( l );

@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::ChangeReleaseQuality;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Constants qw( :quality );
 

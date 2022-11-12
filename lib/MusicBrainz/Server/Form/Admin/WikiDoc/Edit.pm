@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Form::Admin::WikiDoc::Edit;
+use strict;
+use warnings;
 
 use HTML::FormHandler::Moose;
 
