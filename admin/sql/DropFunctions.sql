@@ -17,7 +17,6 @@ DROP FUNCTION a_ins_alternative_medium_track();
 DROP FUNCTION a_ins_alternative_release_or_track();
 DROP FUNCTION a_ins_artist();
 DROP FUNCTION a_ins_edit_note();
-DROP FUNCTION a_ins_editor();
 DROP FUNCTION a_ins_event();
 DROP FUNCTION a_ins_instrument();
 DROP FUNCTION a_ins_l_area_area_mirror();
