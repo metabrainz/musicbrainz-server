@@ -208,7 +208,7 @@ sub should_follow_table {
 
     return 0 if $table =~ /_type$/;
     return 0 if $table =~ qr'[._](tag_|tag$)';
-    return 0 if $table =~ qw'_(meta|raw|gid_redirect)$';
+    return 0 if $table =~ qr'_(meta|raw|gid_redirect)$';
 
     return 1;
 }
