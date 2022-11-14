@@ -1,7 +1,7 @@
 // Automatically generated, do not edit.
 // - Database schema sequence: 27
 digraph entity_network_details {
-    tooltip = "Tables specifically related to core entities"
+    tooltip = "Tables specifically related to central entities"
     graph [
         bgcolor = "#cb75ab:#f0976c"
         concentrate = true

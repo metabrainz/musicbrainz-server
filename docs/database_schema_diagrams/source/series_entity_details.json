@@ -1,5 +1,5 @@
 {
-  "tooltip": "Tables for the “series” core entity type properties",
+  "tooltip": "Tables for the “series” central entity type properties",
   "_comment": "Show replicated tables used to define any series entity, beyond relationships. The main table is highlighted.",
   "tables": {
     "annotation": [],

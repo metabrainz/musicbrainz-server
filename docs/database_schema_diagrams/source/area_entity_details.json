@@ -1,5 +1,5 @@
 {
-  "tooltip": "Tables for the “area” core entity type properties",
+  "tooltip": "Tables for the “area” central entity type properties",
   "_comment": "Show replicated and materialized tables used to define any area entity, beyond relationships. The main table is highlighted.",
   "tables": {
     "annotation": [],

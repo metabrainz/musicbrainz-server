@@ -1,7 +1,7 @@
 // Automatically generated, do not edit.
 // - Database schema sequence: 27
 digraph label_entity_details {
-    tooltip = "Tables for the “label” core entity type properties"
+    tooltip = "Tables for the “label” central entity type properties"
     graph [
         bgcolor = "#cb75ab:#f0976c"
         concentrate = true

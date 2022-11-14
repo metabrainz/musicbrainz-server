@@ -1,6 +1,6 @@
 {
   "tooltip": "Tables for cover art",
-  "_comment": "It shows tables used to set a cover art for releases and release groups. These two core entities are highlighted. It also shows when tables belong to the 'cover_art_archive' schema.",
+  "_comment": "It shows tables used to set a cover art for releases and release groups. These two central entities are highlighted. It also shows when tables belong to the 'cover_art_archive' schema.",
   "tables": {
     "art_type": [],
     "cover_art": [],

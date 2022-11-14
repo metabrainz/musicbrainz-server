@@ -1,5 +1,5 @@
 {
-  "tooltip": "Tables for the “place” core entity type properties",
+  "tooltip": "Tables for the “place” central entity type properties",
   "_comment": "Show replicated tables used to define any place entity, beyond relationships. The main table is highlighted.",
   "tables": {
     "annotation": [],

@@ -1,7 +1,7 @@
 // Automatically generated, do not edit.
 // - Database schema sequence: 27
 digraph instrument_entity_details {
-    tooltip = "Tables for the “instrument” core entity type properties"
+    tooltip = "Tables for the “instrument” central entity type properties"
     graph [
         bgcolor = "#cb75ab:#f0976c"
         concentrate = true

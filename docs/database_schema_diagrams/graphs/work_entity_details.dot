@@ -1,7 +1,7 @@
 // Automatically generated, do not edit.
 // - Database schema sequence: 27
 digraph work_entity_details {
-    tooltip = "Tables for the “work” core entity properties"
+    tooltip = "Tables for the “work” central entity properties"
     graph [
         bgcolor = "#cb75ab:#f0976c"
         concentrate = true

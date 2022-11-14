@@ -1,5 +1,5 @@
 {
-  "tooltip": "Tables specifically related to core entities",
+  "tooltip": "Tables specifically related to central entities",
   "_comment": "It shows tables unique to some entities; That is beyond alias, collection, disambiguation comment, edit, link, subscription, rating, tag.",
   "tables": {
     "area": ["highlighted"],
