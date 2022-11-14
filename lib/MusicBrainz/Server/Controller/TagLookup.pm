@@ -9,8 +9,9 @@ use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Search qw( escape_query );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
+use Readonly;
 
-use constant LOOKUPS_PER_NAG => 5;
+Readonly my $LOOKUPS_PER_NAG => 5;
 
 sub _parse_filename
 {
@@ -116,7 +117,7 @@ sub nag_check
 
     $session->{nag}++;
 
-    return 0 if ($session->{nag} < LOOKUPS_PER_NAG);
+    return 0 if ($session->{nag} < $LOOKUPS_PER_NAG);
 
     $session->{nag} = 0;
     return 1; # nag this user.
