@@ -28,7 +28,7 @@ use Test::Builder;
 use Test::Deep qw( cmp_deeply );
 use Test::Differences;
 use Test::WWW::Mechanize::Catalyst;
-use Test::XML::SemanticCompare;
+use Test::XML::SemanticCompare qw( is_xml_same );
 use Test::XPath;
 use XML::LibXML;
 use Email::Sender::Transport::Test;

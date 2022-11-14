@@ -10,7 +10,7 @@ with 't::Mechanize', 't::Context';
 
 use HTTP::Status qw( :constants );
 use HTTP::Request::Common qw( DELETE );
-use Test::XML::SemanticCompare;
+use Test::XML::SemanticCompare qw( is_xml_same );
 
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Test qw( xml_ok );
