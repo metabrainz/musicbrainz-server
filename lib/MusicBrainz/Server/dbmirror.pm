@@ -1,9 +1,7 @@
-#!/usr/bin/env perl
+package MusicBrainz::Server::dbmirror;
 
 use warnings;
 use strict;
-
-package MusicBrainz::Server::dbmirror;
 
 use English;
 

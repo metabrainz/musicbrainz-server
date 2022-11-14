@@ -28,6 +28,7 @@ allow_leading_tabs = 0
 
 [ControlStructures::ProhibitUnreachableCode]
 
+[Modules::ProhibitModuleShebang]
 [Modules::RequireFilenameMatchesPackage]
 
 [Moose::ProhibitNewMethod]
