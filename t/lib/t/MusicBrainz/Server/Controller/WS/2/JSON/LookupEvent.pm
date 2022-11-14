@@ -81,3 +81,5 @@ test 'basic event lookup, inc=aliases' => sub {
             ],
         };
 };
+
+1;

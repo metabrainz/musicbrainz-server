@@ -18,3 +18,5 @@ sub add_dash
        $c->detach;
    }
 }
+
+1;

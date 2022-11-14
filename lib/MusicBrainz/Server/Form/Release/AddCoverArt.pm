@@ -65,6 +65,7 @@ sub validate_nonce {
 no Moose;
 __PACKAGE__->meta->make_immutable;
 
+1;
 
 =head1 COPYRIGHT AND LICENSE
 

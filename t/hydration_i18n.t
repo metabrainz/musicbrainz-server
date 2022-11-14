@@ -102,3 +102,5 @@ sub check_imports {
 }
 
 done_testing;
+
+1;

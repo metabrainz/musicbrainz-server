@@ -31,6 +31,7 @@ allow_leading_tabs = 0
 [Modules::ProhibitAutomaticExportation]
 [Modules::ProhibitConditionalUseStatements]
 [Modules::ProhibitModuleShebang]
+[Modules::RequireEndWithOne]
 [Modules::RequireFilenameMatchesPackage]
 
 [Moose::ProhibitNewMethod]

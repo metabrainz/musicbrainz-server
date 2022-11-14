@@ -73,3 +73,5 @@ role {
         return $self->expand(decode('utf-8', dngettext($params->domain => $msgid, $msgid_plural, $n)), %vars);
     };
 };
+
+1;

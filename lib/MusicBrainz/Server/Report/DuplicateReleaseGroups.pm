@@ -29,6 +29,8 @@ SELECT q.rgid AS release_group_id, q.key, row_number() OVER (ORDER BY ac COLLATE
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
+1;
+
 =head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2014 MetaBrainz Foundation

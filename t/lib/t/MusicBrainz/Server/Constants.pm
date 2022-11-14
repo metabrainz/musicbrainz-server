@@ -15,3 +15,5 @@ test 'Test entities_with' => sub {
             ['recording', 'release', 'release_group'],
             'entities_with for artist credits + relatable MBID returns proper three values');
 };
+
+1;

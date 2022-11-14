@@ -52,6 +52,8 @@ Readonly our %DUMPED_ENTITY_TYPES => (
     },
 );
 
+1;
+
 =head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2017 MetaBrainz Foundation

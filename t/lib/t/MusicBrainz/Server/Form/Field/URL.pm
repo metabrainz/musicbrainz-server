@@ -47,3 +47,5 @@ test 'URL FIF' => sub {
 
     is($form->field('url')->fif, 'http://musicbrainz.org/');
 };
+
+1;

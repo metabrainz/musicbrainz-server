@@ -76,3 +76,5 @@ sub serialize_link_attribute {
         $a->type->free_text ? (text_value => $a->text_value) : (),
     };
 }
+
+1;
