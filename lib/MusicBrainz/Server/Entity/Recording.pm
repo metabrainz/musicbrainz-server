@@ -10,7 +10,7 @@ use MusicBrainz::Server::Entity::Util::JSON qw(
 );
 use List::AllUtils qw( uniq_by );
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
+extends 'MusicBrainz::Server::Entity::CentralEntity';
 with 'MusicBrainz::Server::Entity::Role::Taggable';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::Rating';

@@ -10,7 +10,7 @@ use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::MediumFormat qw( combined_medium_format_name );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
+extends 'MusicBrainz::Server::Entity::CentralEntity';
 with 'MusicBrainz::Server::Entity::Role::Taggable';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::Quality';

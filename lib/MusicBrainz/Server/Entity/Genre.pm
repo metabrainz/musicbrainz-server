@@ -3,7 +3,7 @@ package MusicBrainz::Server::Entity::Genre;
 use Moose;
 use MusicBrainz::Server::Entity::Types;
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
+extends 'MusicBrainz::Server::Entity::CentralEntity';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::Comment';
 

@@ -4,7 +4,7 @@ use Moose;
 use MooseX::Types::URI qw( Uri );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
+extends 'MusicBrainz::Server::Entity::CentralEntity';
 
 sub entity_type { 'url' }
 
