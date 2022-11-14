@@ -3,6 +3,7 @@ use utf8;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 
@@ -24,7 +25,7 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
 $mech->get('/ws/2/series/d977f7fd-96c9-4e3e-83b5-eb484a9e6582?inc=coffee');
-is($mech->status, 400);
+is($mech->status, HTTP_BAD_REQUEST);
 is_xml_same($mech->content, q{<?xml version="1.0"?>
 <error>
   <text>coffee is not a valid inc parameter for the series resource.</text>

@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::ArtistCredit::Show;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
@@ -65,14 +66,14 @@ test 'Page fails gracefully when sent an invalid ID' => sub {
     $mech->get('/artist-credit/2775611341');
     is(
         $mech->status(),
-        404,
+        HTTP_NOT_FOUND,
         'Trying to fetch an AC by DB ID with a too-large integer 404s',
     );
 
     $mech->get('/artist-credit/undefined');
     is(
         $mech->status(),
-        404,
+        HTTP_NOT_FOUND,
         'Trying to fetch an AC by an invalid ID 404s',
     );
 

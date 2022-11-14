@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Controller::Role::Tag;
+use HTTP::Status qw( :constants );
 use List::AllUtils qw( uniq );
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 use MusicBrainz::Server::Data::Utils qw( trim );
@@ -67,7 +68,7 @@ sub _vote_on_tags {
 
     $c->res->headers->header('X-Robots-Tag' => 'noindex');
     if (!$c->user_exists || !$c->user->has_confirmed_email_address) {
-        $c->res->status(401);
+        $c->res->status(HTTP_UNAUTHORIZED);
         $c->res->body('{}');
         $c->detach;
     }

@@ -3,6 +3,7 @@ use utf8;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 
@@ -23,7 +24,7 @@ $mech->default_header('Accept' => 'application/xml');
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
 $mech->get('/ws/2/event/eb668bdc-a928-49a1-beb7-8e37db2a5b65?inc=coffee');
-is($mech->status, 400);
+is($mech->status, HTTP_BAD_REQUEST);
 is_xml_same($mech->content, q{<?xml version="1.0"?>
 <error>
   <text>coffee is not a valid inc parameter for the event resource.</text>

@@ -140,19 +140,19 @@ test 'Private collection pages are private' => sub {
     my $mech = $test->mech;
 
     $mech->get('/collection/a34c079d-374e-4436-9448-da92dedef3cb');
-    is($mech->status, 403, 'Main collection page is private');
+    is($mech->status, HTTP_FORBIDDEN, 'Main collection page is private');
     $mech->get('/collection/a34c079d-374e-4436-9448-da92dedef3cb/subscribers');
-    is($mech->status, 403, 'Subscribers page is private');
+    is($mech->status, HTTP_FORBIDDEN, 'Subscribers page is private');
 
     $mech->get('/collection/f34c079d-374e-4436-9448-da92dedef3cd');
-    is($mech->status, 200, 'Main collection page is visible to owner');
+    is($mech->status, HTTP_OK, 'Main collection page is visible to owner');
     $mech->get('/collection/f34c079d-374e-4436-9448-da92dedef3cd/subscribers');
-    is($mech->status, 200, 'Subscribers page is visible to owner');
+    is($mech->status, HTTP_OK, 'Subscribers page is visible to owner');
 
     $mech->get('/collection/a34c079d-374e-4436-9448-da92dedef3ce');
-    is($mech->status, 200, 'Main collection page is visible to collaborator');
+    is($mech->status, HTTP_OK, 'Main collection page is visible to collaborator');
     $mech->get('/collection/a34c079d-374e-4436-9448-da92dedef3ce/subscribers');
-    is($mech->status, 200, 'Subscribers page is visible to collaborator');
+    is($mech->status, HTTP_OK, 'Subscribers page is visible to collaborator');
 };
 
 test 'Unknown collection fails gracefully' => sub {

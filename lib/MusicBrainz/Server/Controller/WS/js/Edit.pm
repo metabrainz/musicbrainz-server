@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::WS::js::Edit;
 use DBDefs;
 use File::Spec::Functions qw( catdir );
 use HTML::Entities qw( encode_entities );
+use HTTP::Status qw( :constants );
 use JSON qw( encode_json );
 use Moose;
 use MusicBrainz::Server::Constants qw(
@@ -675,7 +676,7 @@ sub create_edits {
             );
         } catch {
             if (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::Forbidden') {
-                $c->forward('/ws/js/detach_with_error', ['editor is forbidden to enter this edit', 403]);
+                $c->forward('/ws/js/detach_with_error', ['editor is forbidden to enter this edit', HTTP_FORBIDDEN]);
             } elsif (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
                 # The data submitted doesn't change anything. This happens
                 # occasionally when stale search indexes are used as a source

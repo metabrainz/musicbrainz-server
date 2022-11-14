@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Admin::DeleteEditor;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );
@@ -46,7 +47,7 @@ test 'Delete account as a regular user' => sub {
     );
 
     $mech->get('/admin/user/delete/new_editor');
-    is($mech->status(), 403, 'Regular user cannot delete other accounts');
+    is($mech->status(), HTTP_FORBIDDEN, 'Regular user cannot delete other accounts');
 
     $mech->get_ok(
         '/account/delete',
@@ -72,7 +73,7 @@ test 'Delete account as a regular user' => sub {
     $second_session->get('/');
     is(
         $second_session->status,
-        500,
+        HTTP_INTERNAL_SERVER_ERROR,
         'Restoring the deleted user in the second session fails',
     );
 

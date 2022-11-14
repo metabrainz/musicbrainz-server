@@ -3,6 +3,7 @@ use utf8;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use JSON;
 use Test::Routine;
 use Test::More;
@@ -22,7 +23,7 @@ test 'errors' => sub {
     my $mech = $test->mech;
     $mech->default_header('Accept' => 'application/json');
     $mech->get('/ws/2/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=coffee');
-    is($mech->status, 400);
+    is($mech->status, HTTP_BAD_REQUEST);
 
     is_json($mech->content, encode_json({
         error => 'coffee is not a valid inc parameter for the artist resource.',
@@ -30,7 +31,7 @@ test 'errors' => sub {
     }));
 
     $mech->get('/ws/2/artist/00000000-1111-2222-3333-444444444444');
-    is($mech->status, 404);
+    is($mech->status, HTTP_NOT_FOUND);
     is_json($mech->content, encode_json({
           error => 'Not Found',
           help => 'For usage, please see: https://musicbrainz.org/development/mmd',

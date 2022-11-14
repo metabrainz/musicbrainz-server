@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use HTTP::Response;
+use HTTP::Status qw( :constants );
 use LWP::UserAgent::Mockable;
 use Test::Routine;
 
@@ -27,7 +28,7 @@ test 'Can perform tag lookups with artist and release titles' => sub {
 
     LWP::UserAgent::Mockable->set_record_pre_callback(sub {
         my $response = HTTP::Response->new;
-        $response->code(200);
+        $response->code(HTTP_OK);
         $response->content(<<~"EOF");
             {
               "created": "2015-01-12T22:18:04.27Z",

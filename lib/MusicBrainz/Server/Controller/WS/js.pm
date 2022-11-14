@@ -8,6 +8,7 @@ use Data::OptList;
 use DBDefs;
 use English;
 use HTTP::Request;
+use HTTP::Status qw( :constants );
 use Digest::MD5 qw( md5_hex );
 use IO::Compress::Gzip qw( gzip $GzipError );
 use JSON qw( encode_json decode_json );
@@ -110,11 +111,11 @@ sub medium : Chained('root') PathPart Args(1) {
 sub tracks : Chained('root') PathPart Args(1) {
     my ($self, $c, $medium_id) = @_;
 
-    $self->detach_with_error($c, "malformed medium id: $medium_id", 400)
+    $self->detach_with_error($c, "malformed medium id: $medium_id", HTTP_BAD_REQUEST)
         unless is_database_row_id($medium_id);
 
     my $page = $c->stash->{args}{page} || 1;
-    $self->detach_with_error($c, "malformed page: $page", 400)
+    $self->detach_with_error($c, "malformed page: $page", HTTP_BAD_REQUEST)
         unless is_positive_integer($page);
 
     my ($pager, $tracks) = $c->model('Track')->load_for_medium_paged($medium_id, $page);
@@ -298,7 +299,7 @@ sub _detach_with_temporary_delay : Private {
             'We’ve hit a temporary delay while trying to fetch metadata ' .
             'from the Internet Archive. Please wait a minute and try again.',
         ),
-    }, 500);
+    }, HTTP_INTERNAL_SERVER_ERROR);
 }
 
 sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
@@ -357,7 +358,7 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
         my $response = $context->lwp->request($s3_request);
         if ($response->is_success) {
             # The bucket was created succesfully.
-        } elsif ($response->code == 409) {
+        } elsif ($response->code == HTTP_CONFLICT) {
             my $s3_error_code;
             my $xp_error;
 
@@ -578,7 +579,7 @@ sub entities : Chained('root') PathPart('entities') Args(2)
 
     my $type_model_name = eval { type_to_model($type_name) };
 
-    $self->detach_with_error($c, "unknown type: $type_name", 400)
+    $self->detach_with_error($c, "unknown type: $type_name", HTTP_BAD_REQUEST)
         if $EVAL_ERROR;
 
     my $type_model = $c->model($type_model_name);
@@ -600,7 +601,7 @@ sub entities : Chained('root') PathPart('entities') Args(2)
         $self->detach_with_error(
             $c,
             'invalid ids: ' . (join q(, ), @$invalid_ids),
-            400,
+            HTTP_BAD_REQUEST,
         );
     }
 
@@ -608,11 +609,11 @@ sub entities : Chained('root') PathPart('entities') Args(2)
     my @gids = defined $gids ? @$gids : ();
 
     if (@ids && !$type_model->can('get_by_ids')) {
-        $self->detach_with_error($c, "model does not support numeric ids: $type_name", 400);
+        $self->detach_with_error($c, "model does not support numeric ids: $type_name", HTTP_BAD_REQUEST);
     }
 
     if (@gids && !$type_model->can('get_by_gids')) {
-        $self->detach_with_error($c, "model does not support gids: $type_name", 400);
+        $self->detach_with_error($c, "model does not support gids: $type_name", HTTP_BAD_REQUEST);
     }
 
     my $results = {};
@@ -723,12 +724,12 @@ sub type_info : Chained('root') PathPart('type-info') Args(1) {
 
     my $type_model_name = eval { type_to_model($type_name) };
 
-    $self->detach_with_error($c, "unknown type: $type_name", 400)
+    $self->detach_with_error($c, "unknown type: $type_name", HTTP_BAD_REQUEST)
         if $EVAL_ERROR;
 
     my $type_model = $c->model($type_model_name);
 
-    $self->detach_with_error($c, "unsupported type: $type_name", 400)
+    $self->detach_with_error($c, "unsupported type: $type_name", HTTP_BAD_REQUEST)
         unless $type_model->can('get_all');
 
     my $cache = $c->model('MB')->cache;
@@ -770,7 +771,7 @@ sub detach_with_error : Private {
     $c->res->body(encode_json({
         error => (blessed($error) ? "$error" : $error),
     }));
-    $c->res->status($status // 400);
+    $c->res->status($status // HTTP_BAD_REQUEST);
     $c->detach;
 }
 
@@ -781,7 +782,7 @@ sub critical_error : Private {
     $c->stash->{body} = encode_json({
         error => (blessed($error) ? "$error" : $error),
     });
-    $c->stash->{status} = $status // 400;
+    $c->stash->{status} = $status // HTTP_BAD_REQUEST;
     die $error;
 }
 

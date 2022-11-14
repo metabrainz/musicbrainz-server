@@ -3,6 +3,7 @@ use utf8;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use MusicBrainz::Server::Test::WS qw(
     ws2_test_xml
@@ -337,43 +338,43 @@ EOXML
 
     ws2_test_xml 'GET /areas on a release collection 400s',
         '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/areas',
-        $bad_entity_response->('area'), { response_code => 400 };
+        $bad_entity_response->('area'), { response_code => HTTP_BAD_REQUEST };
 
     ws2_test_xml 'GET /artists on a release collection 400s',
         '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/artists',
-        $bad_entity_response->('artist'), { response_code => 400 };
+        $bad_entity_response->('artist'), { response_code => HTTP_BAD_REQUEST };
 
     ws2_test_xml 'GET /events on a release collection 400s',
         '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/events',
-        $bad_entity_response->('event'), { response_code => 400 };
+        $bad_entity_response->('event'), { response_code => HTTP_BAD_REQUEST };
 
     ws2_test_xml 'GET /instruments on a release collection 400s',
         '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/instruments',
-        $bad_entity_response->('instrument'), { response_code => 400 };
+        $bad_entity_response->('instrument'), { response_code => HTTP_BAD_REQUEST };
 
     ws2_test_xml 'GET /labels on a release collection 400s',
         '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/labels',
-        $bad_entity_response->('label'), { response_code => 400 };
+        $bad_entity_response->('label'), { response_code => HTTP_BAD_REQUEST };
 
     ws2_test_xml 'GET /places on a release collection 400s',
         '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/places',
-        $bad_entity_response->('place'), { response_code => 400 };
+        $bad_entity_response->('place'), { response_code => HTTP_BAD_REQUEST };
 
     ws2_test_xml 'GET /releases on a release group collection 400s',
         '/collection/dadae81b-ff9e-464e-8c38-51156557bc36/releases',
-        $bad_entity_response->('release'), { response_code => 400 };
+        $bad_entity_response->('release'), { response_code => HTTP_BAD_REQUEST };
 
     ws2_test_xml 'GET /release-groups on a release collection 400s',
         '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/release-groups',
-        $bad_entity_response->('release-group'), { response_code => 400 };
+        $bad_entity_response->('release-group'), { response_code => HTTP_BAD_REQUEST };
 
     ws2_test_xml 'GET /series on a release collection 400s',
         '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/series',
-        $bad_entity_response->('series'), { response_code => 400 };
+        $bad_entity_response->('series'), { response_code => HTTP_BAD_REQUEST };
 
     ws2_test_xml 'GET /works on a release collection 400s',
         '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/works',
-        $bad_entity_response->('work'), { response_code => 400 };
+        $bad_entity_response->('work'), { response_code => HTTP_BAD_REQUEST };
 };
 
 test 'browsing by area' => sub {

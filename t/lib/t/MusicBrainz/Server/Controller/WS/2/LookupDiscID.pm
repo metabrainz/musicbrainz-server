@@ -3,6 +3,7 @@ use utf8;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 
@@ -202,7 +203,11 @@ ws_test 'lookup via toc',
 
 subtest 'lookup of invalid discid with no toc parameter' => sub {
     $mech->get('/ws/2/discid/-');
-    is($mech->status, 400, 'lookup of invalid discid with no toc parameter still fails');
+    is(
+      $mech->status,
+      HTTP_BAD_REQUEST,
+      'lookup of invalid discid with no toc parameter still fails',
+    );
     is_xml_same($mech->content, q{<?xml version="1.0"?>
     <error>
       <text>Invalid discid.</text>

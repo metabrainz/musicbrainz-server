@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Admin;
 use Moose;
 use namespace::autoclean;
+use HTTP::Status qw( :constants );
 use Try::Tiny;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
@@ -187,7 +188,7 @@ sub email_search : Path('/admin/email-search') Args(0) RequireAuth(account_admin
             my $error = $_;
             if ("$error" =~ m/invalid regular expression/) {
                 $form->field('email')->add_error(l('Invalid regular expression.'));
-                $c->response->status(400);
+                $c->response->status(HTTP_BAD_REQUEST);
             } else {
                 die $error;
             }
@@ -253,7 +254,7 @@ sub locked_username_search : Path('/admin/locked-usernames/search') Args(0) Requ
             my $error = $_;
             if ("$error" =~ m/invalid regular expression/) {
                 $form->field('username')->add_error(l('Invalid regular expression.'));
-                $c->response->status(400);
+                $c->response->status(HTTP_BAD_REQUEST);
             } else {
                 die $error;
             }

@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::ISRC::Show;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );
@@ -38,10 +39,10 @@ test 'ISRC index page contains the expected data' => sub {
     $mech->content_contains('DEE250800230', 'The ISRC itself is listed');
 
     $mech->get('/isrc/DEE250812345');
-    is($mech->status(), 404, 'Valid but not used ISRC page 404s');
+    is($mech->status(), HTTP_NOT_FOUND, 'Valid but not used ISRC page 404s');
 
     $mech->get('/isrc/xxx');
-    is($mech->status(), 404, 'Invalid ISRC page 404s');
+    is($mech->status(), HTTP_NOT_FOUND, 'Invalid ISRC page 404s');
 };
 
 1;

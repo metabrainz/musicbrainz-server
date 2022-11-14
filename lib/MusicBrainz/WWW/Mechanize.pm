@@ -2,6 +2,7 @@ package MusicBrainz::WWW::Mechanize;
 
 use Moose;
 use namespace::autoclean;
+use HTTP::Status qw( :constants );
 use LWP::Authen::Digest;
 
 extends 'Test::WWW::Mechanize::Catalyst';
@@ -18,7 +19,7 @@ around '_make_request' => sub
     # So let's do it ourselves here, every request which results in a '401'
     # response is attempted again with the credentials set using ->credentials.
 
-    if ($response->headers->{status} eq '401' && defined($response->headers->{'www-authenticate'})) {
+    if ($response->headers->{status} eq HTTP_UNAUTHORIZED && defined($response->headers->{'www-authenticate'})) {
         my @challenge = $response->headers->header('WWW-Authenticate');
         for my $challenge (@challenge) {
             $challenge =~ tr/,/;/;

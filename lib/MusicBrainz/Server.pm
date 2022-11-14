@@ -8,6 +8,7 @@ use Class::Load qw( load_class );
 use DBDefs;
 use Digest::SHA qw( sha256 );
 use HTML::Entities ();
+use HTTP::Status qw( :constants );
 use JSON;
 use MIME::Base64 qw( encode_base64 );
 use Moose::Util qw( does_role );
@@ -324,7 +325,7 @@ sub handle_unicode_encoding_exception {
     my $self = shift;
 
     $self->res->body('Sorry, but your request could not be decoded. Please ensure your request is encoded as UTF-8 and try again.');
-    $self->res->status(400);
+    $self->res->status(HTTP_BAD_REQUEST);
 }
 
 # Set and unset translation language
@@ -385,7 +386,7 @@ around dispatch => sub {
             !($c->req->uri =~ /set-beta-preference$/)) {
         my $ws = DBDefs->WEB_SERVER;
         my $new_url = $c->req->uri =~ s/$ws/DBDefs->BETA_REDIRECT_HOSTNAME/er;
-        $c->res->redirect($new_url, 307);
+        $c->res->redirect($new_url, HTTP_TEMPORARY_REDIRECT);
     } else {
         $c->with_translations(sub {
             $c->$orig(@args);
@@ -545,7 +546,9 @@ around 'finalize_error' => sub {
                 # [1] https://github.com/perl-catalyst/catalyst-runtime/
                 #     blob/5757858/lib/Catalyst/Engine.pm#L253-L259
                 $c->encoding('UTF-8');
-                $c->res->{status} = $timed_out ? 503 : 500;
+                $c->res->{status} = $timed_out
+                    ? HTTP_SERVICE_UNAVAILABLE
+                    : HTTP_INTERNAL_SERVER_ERROR;
             }
         }
     });
@@ -580,7 +583,7 @@ around get_session_id => sub {
             $sid = HTML::Entities::encode_entities($sid);
             my $err = "Invalid session ID '$sid'";
             $self->log->error($err);
-            $self->res->status(400);
+            $self->res->status(HTTP_BAD_REQUEST);
             $self->res->content_type('text/plain; charset=utf-8');
             $self->res->body($err);
         }

@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use base 'Exporter';
+use HTTP::Status qw( :constants );
 use Readonly;
 use MusicBrainz::Server::Test ws_test => { version => 2 };
 use MusicBrainz::Server::Test ws_test_json => { version => 2 };
@@ -69,7 +70,7 @@ sub ws2_test_json_forbidden {
     my ($msg, $url, $opts) = @_;
 
     $opts //= {};
-    $opts->{response_code} = 401;
+    $opts->{response_code} = HTTP_UNAUTHORIZED;
     ws_test_json($msg, $url, $FORBIDDEN_JSON_RESPONSE, $opts);
 }
 
@@ -77,7 +78,7 @@ sub ws2_test_json_unauthorized {
     my ($msg, $url, $opts) = @_;
 
     $opts //= {};
-    $opts->{response_code} = 401;
+    $opts->{response_code} = HTTP_UNAUTHORIZED;
     ws_test_json($msg, $url, $UNAUTHORIZED_JSON_RESPONSE, $opts);
 }
 
@@ -87,7 +88,7 @@ sub ws2_test_xml_forbidden {
     my ($msg, $url, $opts) = @_;
 
     $opts //= {};
-    $opts->{response_code} = 401;
+    $opts->{response_code} = HTTP_UNAUTHORIZED;
     ws_test($msg, $url, $FORBIDDEN_XML_RESPONSE, $opts);
 }
 
@@ -95,7 +96,7 @@ sub ws2_test_xml_unauthorized {
     my ($msg, $url, $opts) = @_;
 
     $opts //= {};
-    $opts->{response_code} = 401;
+    $opts->{response_code} = HTTP_UNAUTHORIZED;
     ws_test($msg, $url, $UNAUTHORIZED_XML_RESPONSE, $opts);
 }
 
@@ -103,7 +104,7 @@ sub ws2_test_xml_not_found {
     my ($msg, $url, $opts) = @_;
 
     $opts //= {};
-    $opts->{response_code} = 404;
+    $opts->{response_code} = HTTP_NOT_FOUND;
     ws_test($msg, $url, $NOT_FOUND_XML_RESPONSE, $opts);
 }
 
@@ -111,7 +112,7 @@ sub ws2_test_xml_invalid_mbid {
     my ($msg, $url, $opts) = @_;
 
     $opts //= {};
-    $opts->{response_code} = 400;
+    $opts->{response_code} = HTTP_BAD_REQUEST;
     ws_test($msg, $url, $INVALID_MBID_XML_RESPONSE, $opts);
 }
 

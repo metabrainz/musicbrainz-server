@@ -8,7 +8,7 @@ use DBDefs;
 use English;
 use File::Path qw( rmtree );
 use File::Slurp qw( read_file );
-use HTTP::Status qw( RC_OK RC_NOT_MODIFIED );
+use HTTP::Status qw( :constants );
 use JSON qw( decode_json );
 use Moose::Role;
 use MusicBrainz::Script::Utils qw( get_primary_keys retry );
@@ -319,7 +319,7 @@ sub handle_replication_sequence($$) {
     my $local_file = "/tmp/$file";
 
     my $resp = retrieve_remote_file($url, $local_file);
-    unless ($resp->code == RC_OK or $resp->code == RC_NOT_MODIFIED) {
+    unless ($resp->code == HTTP_OK or $resp->code == HTTP_NOT_MODIFIED) {
         die $resp->as_string;
     }
 
@@ -433,7 +433,7 @@ sub get_current_replication_sequence {
     my $replication_info_uri = $self->replication_access_uri . '/replication-info';
     my $response = $c->lwp->get("$replication_info_uri?token=" . DBDefs->REPLICATION_ACCESS_TOKEN);
 
-    unless ($response->code == 200) {
+    unless ($response->code == HTTP_OK) {
         log_info { "ERROR: Request to $replication_info_uri returned status code " . $response->code };
         exit 1;
     }

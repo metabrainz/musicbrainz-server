@@ -9,6 +9,7 @@ use t::MusicBrainz::Server::Controller::RelationshipEditor qw(
     $guitar_attribute
     $crazy_guitar
 );
+use HTTP::Status qw( :constants );
 use JSON;
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_EDIT
@@ -1442,7 +1443,7 @@ test 'MBS-13309: Cross-origin requests are limited to bot accounts' => sub {
     $mech->add_header('Origin' => 'https://bot.example.com');
     note('We try to enter a cross-origin edit as a non-bot editor');
     post_json($mech, '/ws/js/edit/create', encode_json({ edits => [] }));
-    is($mech->status, 403, 'The edit attempt was rejected');
+    is($mech->status, HTTP_FORBIDDEN, 'The edit attempt was rejected');
     $mech->get_ok('/logout');
     $mech->delete_header('Origin');
 
@@ -1451,7 +1452,7 @@ test 'MBS-13309: Cross-origin requests are limited to bot accounts' => sub {
     $mech->add_header('Origin' => 'https://bot.example.com');
     note('We try to enter the same cross-origin edit as a bot editor');
     post_json($mech, '/ws/js/edit/create', encode_json({ edits => [] }));
-    is($mech->status, 200, 'The edit attempt was accepted');
+    is($mech->status, HTTP_OK, 'The edit attempt was accepted');
 };
 
 1;

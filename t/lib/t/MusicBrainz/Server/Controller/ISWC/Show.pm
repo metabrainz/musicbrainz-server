@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::ISWC::Show;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );
@@ -53,7 +54,7 @@ test 'ISWC index page contains the expected data' => sub {
     );
 
     $mech->get('/iswc/xxx');
-    is($mech->status(), 404, 'Invalid ISWC page 404s');
+    is($mech->status(), HTTP_NOT_FOUND, 'Invalid ISWC page 404s');
 };
 
 1;

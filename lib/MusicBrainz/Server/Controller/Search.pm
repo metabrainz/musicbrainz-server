@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
+use HTTP::Status qw( :constants );
 use List::AllUtils qw( min max );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw( datetime_to_iso8601 type_to_model );
@@ -256,12 +257,12 @@ sub do_external_search {
 
         # Switch on the response code to decide which template to provide
         my $code = $ret->{code};
-        if ($code == 404) { $template .= 'NoResults'; }
-        elsif ($code == 403) { $template .= 'NoInfo'; }
-        elsif ($code == 414) { $template .= 'UriTooLarge'; }
-        elsif ($code == 500) { $template .= 'InternalError'; }
-        elsif ($code == 400) { $template .= 'Invalid'; }
-        elsif ($code == 503) { $template .= 'RateLimited'; }
+        if ($code == HTTP_NOT_FOUND) { $template .= 'NoResults'; }
+        elsif ($code == HTTP_FORBIDDEN) { $template .= 'NoInfo'; }
+        elsif ($code == HTTP_URI_TOO_LONG) { $template .= 'UriTooLarge'; }
+        elsif ($code == HTTP_INTERNAL_SERVER_ERROR) { $template .= 'InternalError'; }
+        elsif ($code == HTTP_BAD_REQUEST) { $template .= 'Invalid'; }
+        elsif ($code == HTTP_SERVICE_UNAVAILABLE) { $template .= 'RateLimited'; }
         else { $template .= 'General'; }
 
         my %props = (

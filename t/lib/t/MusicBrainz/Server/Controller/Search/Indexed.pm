@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use HTTP::Response;
+use HTTP::Status qw( :constants );
 use LWP::UserAgent::Mockable;
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok );
@@ -15,7 +16,7 @@ test all => sub {
 
     LWP::UserAgent::Mockable->set_record_pre_callback(sub {
         my $response = HTTP::Response->new;
-        $response->code(200);
+        $response->code(HTTP_OK);
         $response->content(<<~'EOF');
             {
               "offset": 0,

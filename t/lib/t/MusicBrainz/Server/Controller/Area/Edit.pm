@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Area::Edit;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
@@ -94,7 +95,7 @@ test 'Area editing is blocked for unprivileged users' => sub {
     $mech->get('/area/29a709d8-0320-493e-8d0c-f2c386662b7f/edit');
     is(
         $mech->status,
-        403,
+        HTTP_FORBIDDEN,
         'Trying to edit an area without the right privileges gives a 403 Forbidden error',
     );
 };

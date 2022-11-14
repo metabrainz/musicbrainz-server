@@ -3,6 +3,7 @@ use utf8;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use JSON;
 use Test::Routine;
 use Test::More;
@@ -22,7 +23,7 @@ test 'errors' => sub {
     my $mech = $test->mech;
     $mech->default_header('Accept' => 'application/json');
     $mech->get('/ws/2/release?recording=7b1f6e95-b523-43b6-a048-810ea5d463a8');
-    is($mech->status, 404, 'browse releases via non-existent recording');
+    is($mech->status, HTTP_NOT_FOUND, 'browse releases via non-existent recording');
 
     is_json($mech->content, encode_json({
           error => 'Not Found',

@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use Digest::MD5 qw( md5_hex );
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
@@ -47,7 +48,7 @@ test 'Edit an already transcluded page' => sub {
     $mech->get('/admin/wikidoc/edit?page=Transclusion_Testing');
     is(
         $mech->status,
-        403,
+        HTTP_FORBIDDEN,
         'Non-privileged user cannot access the Edit Page WikiDoc page',
     );
 
