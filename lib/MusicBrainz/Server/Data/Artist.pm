@@ -443,26 +443,23 @@ sub merge
 
 sub _hash_to_row
 {
-    my ($self, $values) = @_;
+    my ($self, $artist) = @_;
 
-    my $row = hash_to_row($values, {
+    my $row = hash_to_row($artist, {
         area => 'area_id',
         begin_area => 'begin_area_id',
         end_area => 'end_area_id',
-        type    => 'type_id',
         gender  => 'gender_id',
-        comment => 'comment',
-        ended => 'ended',
-        name => 'name',
-        sort_name => 'sort_name',
+        type    => 'type_id',
+        map { $_ => $_ } qw( comment ended name sort_name )
     });
 
-    if (exists $values->{begin_date}) {
-        add_partial_date_to_row($row, $values->{begin_date}, 'begin_date');
+    if (exists $artist->{begin_date}) {
+        add_partial_date_to_row($row, $artist->{begin_date}, 'begin_date');
     }
 
-    if (exists $values->{end_date}) {
-        add_partial_date_to_row($row, $values->{end_date}, 'end_date');
+    if (exists $artist->{end_date}) {
+        add_partial_date_to_row($row, $artist->{end_date}, 'end_date');
     }
 
     return $row;

@@ -57,9 +57,9 @@ sub _id_column
 sub _column_mapping
 {
     return {
-        type_id => 'type',
         begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
         end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
+        type_id => 'type',
         map { $_ => $_ } qw( id gid comment setlist time ended name cancelled edits_pending last_updated)
     };
 }
@@ -130,14 +130,16 @@ sub _merge_impl
 
 sub _hash_to_row
 {
-    my ($self, $event, $names) = @_;
+    my ($self, $event) = @_;
+
     my $row = hash_to_row($event, {
         type => 'type_id',
-        map { $_ => $_ } qw( comment setlist time ended name cancelled )
+        map { $_ => $_ } qw( cancelled comment ended name setlist time )
     });
 
     add_partial_date_to_row($row, $event->{begin_date}, 'begin_date');
     add_partial_date_to_row($row, $event->{end_date}, 'end_date');
+
     return $row;
 }
 

@@ -265,8 +265,7 @@ sub _hash_to_row
 {
     my ($self, $recording) = @_;
     my $row = hash_to_row($recording, {
-        video => 'video',
-        map { $_ => $_ } qw( artist_credit length comment name )
+        map { $_ => $_ } qw( artist_credit comment length name video )
     });
 
     return $row;

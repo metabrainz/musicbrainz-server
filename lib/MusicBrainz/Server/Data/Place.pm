@@ -133,19 +133,19 @@ sub _merge_impl
 
 sub _hash_to_row
 {
-    my ($self, $place, $names) = @_;
+    my ($self, $place) = @_;
+
     my $row = hash_to_row($place, {
-        type => 'type_id',
-        ended => 'ended',
-        name => 'name',
         area => 'area_id',
-        map { $_ => $_ } qw( comment address )
+        type => 'type_id',
+        map { $_ => $_ } qw( address comment ended name )
     });
 
     add_partial_date_to_row($row, $place->{begin_date}, 'begin_date');
     add_partial_date_to_row($row, $place->{end_date}, 'end_date');
     add_coordinates_to_row($row, $place->{coordinates}, 'coordinates')
         if exists $place->{coordinates};
+
     return $row;
 }
 

@@ -216,14 +216,14 @@ sub delete
 
 sub _hash_to_row
 {
-    my ($self, $values) = @_;
+    my ($self, $link_attribute_type) = @_;
 
-    return hash_to_row($values, {
-        parent          => 'parent_id',
-        child_order      => 'child_order',
-        name            => 'name',
-        description     => 'description',
+    my $row = hash_to_row($link_attribute_type, {
+        parent  => 'parent_id',
+        map { $_ => $_ } qw( child_order description name )
     });
+
+    return $row;
 }
 
 sub get_by_gid

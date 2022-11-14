@@ -252,6 +252,7 @@ sub _merge_impl
 sub _hash_to_row
 {
     my ($self, $work) = @_;
+
     my $row = hash_to_row($work, {
         type => 'type_id',
         map { $_ => $_ } qw( comment name )

@@ -7,6 +7,7 @@ use Carp;
 use Sql;
 use MusicBrainz::Server::Entity::Collection;
 use MusicBrainz::Server::Data::Utils qw(
+    hash_to_row
     load_subobjects
     placeholders
 );
@@ -480,16 +481,14 @@ sub set_collaborators {
 }
 
 sub _hash_to_row {
-    my ($self, $values) = @_;
+    my ($self, $collection) = @_;
 
-    my %row = (
-        name => $values->{name},
-        public => $values->{public},
-        description => $values->{description},
-        type => $values->{type_id},
-    );
+    my $row = hash_to_row($collection, {
+        type    => 'type_id',
+        map { $_ => $_ } qw( description name public )
+    });
 
-    return \%row;
+    return $row;
 }
 
 __PACKAGE__->meta->make_immutable;

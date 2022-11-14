@@ -280,11 +280,10 @@ sub merge_codes
 sub _hash_to_row
 {
     my ($self, $area) = @_;
+
     my $row = hash_to_row($area, {
         type => 'type_id',
-        ended => 'ended',
-        name => 'name',
-        map { $_ => $_ } qw( comment )
+        map { $_ => $_ } qw( comment ended name )
     });
 
     add_partial_date_to_row($row, $area->{begin_date}, 'begin_date');

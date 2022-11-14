@@ -321,10 +321,13 @@ sub delete {
 
 sub _hash_to_row
 {
-    my ($self, $values) = @_;
-    return hash_to_row($values, {
+    my ($self, $url) = @_;
+
+    my $row = hash_to_row($url, {
         url => 'url',
     });
+
+    return $row;
 }
 
 sub insert { confess 'Should not be used for URLs' }
