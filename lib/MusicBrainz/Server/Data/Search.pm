@@ -7,6 +7,7 @@ use Class::Load qw( load_class );
 use HTTP::Status qw( :constants );
 use JSON;
 use Sql;
+use Data::Dumper;
 use Data::Page;
 use URI::Escape qw( uri_escape_utf8 );
 use List::AllUtils qw( any partition_by );
@@ -884,7 +885,6 @@ sub external_search
             $data = JSON->new->utf8->decode($response->content);
         }
         catch {
-            use Data::Dumper;
             croak "Failed to decode JSON search data:\n" .
                   Dumper($response->content) . "\n" .
                   "Exception:\n" . Dumper($_) . "\n" .
