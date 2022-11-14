@@ -34,7 +34,7 @@ test 'Adding release annotations' => sub {
     my @edits = capture_edits {
         $mech->submit_form_ok({
             with_fields => {
-                'edit-annotation.text' => "    * Test annotation\x{0007} for a release  \r\n\r\n\t\x{00A0}\r\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets  \t\t",
+                'edit-annotation.text' => "    * Test annotation\N{BEL} for a release  \r\n\r\n\t\N{NO-BREAK SPACE}\r\n    * This anno\N{ZERO WIDTH SPACE}tation has\ttwo bul\N{SOFT HYPHEN}lets  \t\t",
                 'edit-annotation.changelog' => 'Changelog here',
             },
         },
@@ -58,7 +58,7 @@ test 'Adding release annotations' => sub {
                 id => 2,
                 name => 'Aerial',
             },
-            text => "    * Test annotation for a release\n\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets",
+            text => "    * Test annotation for a release\n\n    * This anno\N{ZERO WIDTH SPACE}tation has\ttwo bul\N{SOFT HYPHEN}lets",
             changelog => 'Changelog here',
             editor_id => 1,
             old_annotation_id => undef,

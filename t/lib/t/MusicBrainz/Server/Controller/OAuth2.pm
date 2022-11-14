@@ -340,7 +340,7 @@ test 'Exchange authorization code' => sub {
     }
 
     # Malformed authorization code
-    $code = qq{'"\x00<script>alert(1);</script>};
+    $code = qq{'"\N{NULL}<script>alert(1);</script>};
     $test->mech->post('/oauth2/token', {
         client_id => 'id-desktop',
         client_secret => 'id-desktop-secret',

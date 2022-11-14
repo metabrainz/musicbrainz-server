@@ -673,7 +673,7 @@ test 'previewing/creating/editing a release group and release' => sub {
     my $annotation_edits = [ {
         edit_type       => $EDIT_RELEASE_ADD_ANNOTATION,
         entity          => $release_id,
-        text            => "    * Test annotation\x{0007} in release editor  \r\n\r\n\t\x{00A0}\r\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets  \t\t",
+        text            => "    * Test annotation\N{BEL} in release editor  \r\n\r\n\t\N{NO-BREAK SPACE}\r\n    * This anno\N{ZERO WIDTH SPACE}tation has\ttwo bul\N{SOFT HYPHEN}lets  \t\t",
     } ];
 
     @edits = capture_edits {
@@ -688,7 +688,7 @@ test 'previewing/creating/editing a release group and release' => sub {
         editor_id         => 1,
         entity            => { id => $release_id, name => 'Vision Creation Newsun' },
         old_annotation_id => undef,
-        text              => "    * Test annotation in release editor\n\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets",
+        text              => "    * Test annotation in release editor\n\n    * This anno\N{ZERO WIDTH SPACE}tation has\ttwo bul\N{SOFT HYPHEN}lets",
     });
 };
 

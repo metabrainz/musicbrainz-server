@@ -33,7 +33,7 @@ test 'Release alias appears on alias page content and on JSON-LD' => sub {
 
     page_test_jsonld $mech => {
         'gtin14' => '0094634396028',
-        'alternateName' => ["\x{c6}rial"],
+        'alternateName' => ["\N{LATIN CAPITAL LETTER AE}rial"],
         'creditedTo' => 'Kate Bush',
         'recordLabel' => {
             'name' => 'Warp Records',
