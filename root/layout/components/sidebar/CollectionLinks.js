@@ -16,7 +16,7 @@ import EntityLink
 import CollectionList from './CollectionList.js';
 
 type Props = {
-  +entity: CollectableCoreEntityT,
+  +entity: CollectableEntityT,
 };
 
 const noCollectionsStrings = {
