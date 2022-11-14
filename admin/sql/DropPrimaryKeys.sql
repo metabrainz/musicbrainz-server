@@ -350,6 +350,7 @@ ALTER TABLE tag_relation DROP CONSTRAINT IF EXISTS tag_relation_pkey;
 ALTER TABLE track DROP CONSTRAINT IF EXISTS track_pkey;
 ALTER TABLE track_gid_redirect DROP CONSTRAINT IF EXISTS track_gid_redirect_pkey;
 ALTER TABLE track_raw DROP CONSTRAINT IF EXISTS track_raw_pkey;
+ALTER TABLE unreferenced_row_log DROP CONSTRAINT IF EXISTS unreferenced_row_log_pkey;
 ALTER TABLE url DROP CONSTRAINT IF EXISTS url_pkey;
 ALTER TABLE url_gid_redirect DROP CONSTRAINT IF EXISTS url_gid_redirect_pkey;
 ALTER TABLE vote DROP CONSTRAINT IF EXISTS vote_pkey;

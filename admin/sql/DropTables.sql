@@ -355,6 +355,7 @@ DROP TABLE tag_relation;
 DROP TABLE track;
 DROP TABLE track_gid_redirect;
 DROP TABLE track_raw;
+DROP TABLE unreferenced_row_log;
 DROP TABLE url;
 DROP TABLE url_gid_redirect;
 DROP TABLE vote;
