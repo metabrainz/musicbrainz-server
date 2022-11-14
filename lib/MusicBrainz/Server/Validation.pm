@@ -45,7 +45,6 @@ use base 'Exporter';
     );
 }
 
-use strict;
 use Carp qw( carp );
 use List::AllUtils qw( any );
 use Encode qw( decode encode );
