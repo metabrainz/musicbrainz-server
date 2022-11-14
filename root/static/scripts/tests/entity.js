@@ -10,7 +10,7 @@ import test from 'tape';
 
 import mbEntity from '../common/entity.js';
 
-test('CoreEntity', function (t) {
+test('CentralEntity', function (t) {
   t.plan(2);
 
   const source = mbEntity(

@@ -15,7 +15,7 @@ import EntityLink
 import {returnToCurrentPage} from '../../../utility/returnUri.js';
 
 type Props = {
-  +entity: CoreEntityT,
+  +entity: CentralEntityT,
 };
 
 const SubscriptionLinks = ({

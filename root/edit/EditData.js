@@ -22,8 +22,8 @@ type Props = {
   +edit: GenericEditWithIdT,
   +rawData: string,
   +relatedEntities: {
-    +[type: CoreEntityTypeT]: {
-      +[entityId: string]: CoreEntityT,
+    +[type: CentralEntityTypeT]: {
+      +[entityId: string]: CentralEntityT,
     },
   },
 };

@@ -11,6 +11,6 @@
 declare type GenreT = $ReadOnly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT<'genre'>,
+  ...CentralEntityRoleT<'genre'>,
   +primaryAlias?: string | null,
 }>;

@@ -62,7 +62,7 @@ type OrderableProps = {
 
 export function defineActionsColumn(
   props: {+actions: $ReadOnlyArray<[string, string]>},
-): ColumnOptions<CoreEntityT | CollectionT, number> {
+): ColumnOptions<CentralEntityT | CollectionT, number> {
   return {
     Cell: ({row: {original}}) => (
       <>
@@ -201,7 +201,7 @@ export function defineCheckboxColumn(
     +mergeForm?: MergeFormT | MergeReleasesFormT,
     +name?: string,
   },
-): ColumnOptions<CoreEntityT, number> {
+): ColumnOptions<CentralEntityT, number> {
   return {
     Cell: ({row: {index, original}}) => props.mergeForm
       ? renderMergeCheckboxElement(original, props.mergeForm, index)
@@ -301,7 +301,7 @@ export function defineEntityColumn<D>(
     ...OrderableProps,
     +columnName: string,
     +descriptive?: boolean,
-    +getEntity: (D) => CoreEntityT | null,
+    +getEntity: (D) => CentralEntityT | null,
     +subPath?: string,
     +title: string,
   },
@@ -395,7 +395,7 @@ export function defineLinkColumn<D>(
   };
 }
 
-export function defineNameColumn<T: CoreEntityT | CollectionT>(
+export function defineNameColumn<T: CentralEntityT | CollectionT>(
   props: {
     ...OrderableProps,
     +descriptive?: boolean,
@@ -550,7 +550,7 @@ export function defineSeriesNumberColumn(
   props: {
     +seriesItemNumbers: $ReadOnlyArray<string>,
   },
-): ColumnOptions<CoreEntityT, number> {
+): ColumnOptions<CentralEntityT, number> {
   return {
     Cell: ({row: {index}}) => props.seriesItemNumbers[index],
     cellProps: {className: 'number-column'},

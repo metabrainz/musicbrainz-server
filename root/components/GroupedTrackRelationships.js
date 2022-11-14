@@ -24,7 +24,7 @@ import {interpolate} from '../static/scripts/edit/utility/linkPhrase.js';
 import RelationshipTargetLinks from './RelationshipTargetLinks.js';
 
 type Props = {
-  +source: CoreEntityT,
+  +source: CentralEntityT,
 };
 
 const renderTargetGroup = (targetGroup: RelationshipTargetGroupT) => (
@@ -89,7 +89,7 @@ const renderWorkRelationship = (relationship: RelationshipT) => {
  * The format of the map is [id, is backward (direction)]
  */
 const irrelevantLinkTypes: {
-  [entity: CoreEntityTypeT]: Map<number, boolean>,
+  [entity: CentralEntityTypeT]: Map<number, boolean>,
 } = {
   recording: new Map([
     [226, false], // karaoke versions of this
@@ -113,7 +113,7 @@ const irrelevantLinkTypes: {
 
 export function isIrrelevantLinkType(
   relationship: RelationshipT,
-  targetType: CoreEntityTypeT,
+  targetType: CentralEntityTypeT,
 ): boolean {
   const irrelevantTypesForTargetType = irrelevantLinkTypes[targetType];
   if (irrelevantTypesForTargetType == null) {
@@ -133,8 +133,8 @@ const GroupedTrackRelationships = ({
     {
       filter: (
         relationship: RelationshipT,
-        target: CoreEntityT,
-        targetType: CoreEntityTypeT,
+        target: CentralEntityT,
+        targetType: CentralEntityTypeT,
       ) => {
         if (targetType === 'work') {
           if (!isIrrelevantLinkType(relationship, targetType)) {

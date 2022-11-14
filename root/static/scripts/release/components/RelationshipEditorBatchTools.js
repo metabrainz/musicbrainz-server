@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import ButtonPopover from '../../common/components/ButtonPopover.js';
-import {createCoreEntityObject} from '../../common/entity2.js';
+import {createCentralEntityObject} from '../../common/entity2.js';
 import {
   useAddRelationshipDialogContent,
 } from '../../relationship-editor/hooks/useRelationshipDialogContent.js';
@@ -38,7 +38,7 @@ type BatchAddRelationshipButtonPopoverPropsT = {
   +entityPlaceholder: string,
   +isOpen: boolean,
   +popoverId: string,
-  +sourceType: CoreEntityTypeT,
+  +sourceType: CentralEntityTypeT,
 };
 
 const BatchAddRelationshipButtonPopover = ({
@@ -53,7 +53,7 @@ const BatchAddRelationshipButtonPopover = ({
 }: BatchAddRelationshipButtonPopoverPropsT) => {
   const addButtonRef = React.useRef<HTMLButtonElement | null>(null);
 
-  const sourcePlaceholder = createCoreEntityObject(sourceType, {
+  const sourcePlaceholder = createCentralEntityObject(sourceType, {
     name: entityPlaceholder,
   });
 

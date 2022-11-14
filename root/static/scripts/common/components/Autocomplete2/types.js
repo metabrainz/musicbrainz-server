@@ -122,7 +122,7 @@ export type ItemT<+T: EntityItemT> =
 /* eslint-enable flowtype/sort-keys */
 
 /*
- * This is basically CoreEntityT without UrlT (since those aren't
+ * This is basically CentralEntityT without UrlT (since those aren't
  * searchable), plus EditorT (which isn't a core entity, but is
  * searchable).
  */

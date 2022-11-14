@@ -14,7 +14,7 @@ import entityHref from '../utility/entityHref.js';
 
 type Props = {
   +cachedImage: ?CommonsImageT,
-  +entity: CoreEntityT,
+  +entity: CentralEntityT,
 };
 
 type State = {

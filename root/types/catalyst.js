@@ -52,7 +52,7 @@ declare type CatalystStashT = {
   +current_action_requires_auth?: boolean,
   +current_language: string,
   +current_language_html: string,
-  +entity?: CoreEntityT,
+  +entity?: CentralEntityT,
   +genre_map?: {+[genreName: string]: GenreT, ...},
   +globals_script_nonce?: string,
   +hide_merge_helper?: boolean,
@@ -70,9 +70,9 @@ declare type CatalystStashT = {
   +release_cdtoc_count?: number,
   +seeded_relationships?: ?$ReadOnlyArray<SeededRelationshipT>,
   +server_languages?: $ReadOnlyArray<ServerLanguageT>,
-  +source_entity?: ?CoreEntityT,
+  +source_entity?: ?CentralEntityT,
   +subscribed?: boolean,
-  +to_merge?: $ReadOnlyArray<CoreEntityT>,
+  +to_merge?: $ReadOnlyArray<CentralEntityT>,
   +top_tags?: $ReadOnlyArray<AggregatedTagT>,
   +user_tags?: $ReadOnlyArray<UserTagT>,
 };
@@ -81,7 +81,7 @@ declare type CatalystStashT = {
 declare type MergeQueueT = {
   +entities: $ReadOnlyArray<number>,
   +ready_to_merge: boolean,
-  +type: CoreEntityTypeT,
+  +type: CentralEntityTypeT,
 };
 
 // root/utility/sanitizedContext.mjs
@@ -104,7 +104,7 @@ declare type SanitizedCatalystContextT = {
     +genre_map?: {+[genreName: string]: GenreT, ...},
     +seeded_relationships?: ?$ReadOnlyArray<SeededRelationshipT>,
     +server_languages?: $ReadOnlyArray<ServerLanguageT>,
-    +source_entity?: ?CoreEntityT,
+    +source_entity?: ?CentralEntityT,
   },
   +user: ActiveEditorT | null,
 };

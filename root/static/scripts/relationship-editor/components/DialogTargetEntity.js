@@ -25,7 +25,7 @@ import {
   PART_OF_SERIES_LINK_TYPE_GIDS,
 } from '../../common/constants.js';
 import {
-  createNonUrlCoreEntityObject,
+  createNonUrlCentralEntityObject,
 } from '../../common/entity2.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
@@ -51,7 +51,7 @@ type PropsT = {
   +backward: boolean,
   +dispatch: (DialogTargetEntityActionT) => void,
   +linkType: ?LinkTypeT,
-  +source: CoreEntityT,
+  +source: CentralEntityT,
   +state: DialogTargetEntityStateT,
 };
 
@@ -64,7 +64,7 @@ const INCORRECT_SERIES_ENTITY_MESSAGES = {
   work: N_l('The series you’ve selected is for works.'),
 };
 
-function isTargetSelectable(target: CoreEntityT): boolean {
+function isTargetSelectable(target: CentralEntityT): boolean {
   return (
     isDatabaseRowId(target.id) ||
     (
@@ -75,8 +75,8 @@ function isTargetSelectable(target: CoreEntityT): boolean {
 }
 
 export function getTargetError(
-  target: ?CoreEntityT,
-  source: CoreEntityT,
+  target: ?CentralEntityT,
+  source: CentralEntityT,
   linkType: ?LinkTypeT,
 ): string {
   if (!target || !isTargetSelectable(target)) {
@@ -110,12 +110,12 @@ export function getTargetError(
 const returnFalse = () => false;
 
 export function createInitialAutocompleteStateForTarget(
-  target: NonUrlCoreEntityT,
+  target: NonUrlCentralEntityT,
   relationshipId: number,
   allowedTypes: TargetTypeOptionsT | null,
-): AutocompleteStateT<NonUrlCoreEntityT> {
+): AutocompleteStateT<NonUrlCentralEntityT> {
   const selectedEntity = isTargetSelectable(target) ? target : null;
-  return createInitialAutocompleteState<NonUrlCoreEntityT>({
+  return createInitialAutocompleteState<NonUrlCentralEntityT>({
     canChangeType: allowedTypes ? (newType) => (
       allowedTypes.some(option => option.value === newType)
     ) : returnFalse,
@@ -136,7 +136,7 @@ export function createInitialAutocompleteStateForTarget(
 
 export function createInitialState(
   user: ActiveEditorT,
-  source: CoreEntityT,
+  source: CentralEntityT,
   initialRelationship: RelationshipStateT,
   allowedTypes: TargetTypeOptionsT | null,
 ): DialogTargetEntityStateT {
@@ -177,8 +177,8 @@ const NEW_WORK_HASH = /#new-work-(-[0-9]+)$/;
 
 function selectNewWork(
   newInputValue: string,
-  state: AutocompleteStateT<NonUrlCoreEntityT>,
-  selectItem: (OptionItemT<NonUrlCoreEntityT>) => boolean,
+  state: AutocompleteStateT<NonUrlCentralEntityT>,
+  selectItem: (OptionItemT<NonUrlCentralEntityT>) => boolean,
 ): boolean {
   const match = newInputValue.match(NEW_WORK_HASH);
   if (match) {
@@ -202,7 +202,7 @@ export function updateTargetAutocomplete(
 ): void {
   invariant(newState.autocomplete);
 
-  newState.autocomplete = autocompleteReducer<NonUrlCoreEntityT>(
+  newState.autocomplete = autocompleteReducer<NonUrlCentralEntityT>(
     newState.autocomplete,
     action.action,
   );
@@ -233,7 +233,7 @@ export function reducer(
       newState.targetType = autocomplete.entityType;
 
       const newTarget = (autocomplete.selectedItem?.entity) ||
-        createNonUrlCoreEntityObject(newState.targetType, {
+        createNonUrlCentralEntityObject(newState.targetType, {
           name: autocomplete.inputValue,
         });
 
@@ -276,7 +276,7 @@ export function reducer(
 
 // XXX Until Flow supports https://github.com/facebook/flow/issues/7672
 const TargetAutocomplete:
-  React$AbstractComponent<AutocompletePropsT<NonUrlCoreEntityT>, void> =
+  React$AbstractComponent<AutocompletePropsT<NonUrlCentralEntityT>, void> =
   // $FlowIgnore[incompatible-type]
   Autocomplete2;
 

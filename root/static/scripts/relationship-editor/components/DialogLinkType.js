@@ -42,13 +42,13 @@ import {
 
 type PropsT = {
   +dispatch: (DialogLinkTypeActionT) => void,
-  +source: CoreEntityT,
+  +source: CentralEntityT,
   +state: DialogLinkTypeStateT,
 };
 
 function getLinkTypeError(
   linkType: ?LinkTypeT,
-  source: CoreEntityT,
+  source: CentralEntityT,
 ): React$Node {
   if (!linkType) {
     return l('Required field.');
@@ -98,8 +98,8 @@ export function extractLinkTypeSearchTerms(
 
 export function createInitialState(
   linkType: LinkTypeT | null,
-  source: CoreEntityT,
-  targetType: CoreEntityTypeT,
+  source: CentralEntityT,
+  targetType: CentralEntityTypeT,
   linkTypeOptions: $ReadOnlyArray<AutocompleteOptionItemT<LinkTypeT>>,
   id: string,
   disabled?: boolean = false,
@@ -169,7 +169,7 @@ export function updateDialogState(
   newState: {...PartialDialogStateT, ...},
   action: {
     +action: DialogLinkTypeActionT,
-    +source: CoreEntityT,
+    +source: CentralEntityT,
     +type: 'update-link-type',
   },
 ): boolean {

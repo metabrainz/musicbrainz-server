@@ -22,8 +22,8 @@ type PropsT = {
   +dialogLocation: RelationshipDialogLocationT | null,
   +dispatch: (RelationshipEditorActionT) => void,
   +linkTypeGroup: RelationshipLinkTypeGroupT,
-  +source: CoreEntityT,
-  +targetType: CoreEntityTypeT,
+  +source: CentralEntityT,
+  +targetType: CentralEntityTypeT,
   +track: TrackWithRecordingT | null,
 };
 

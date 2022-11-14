@@ -16,7 +16,7 @@ import Collapsible from './Collapsible.js';
 
 type Props = {
   +cachedWikipediaExtract: WikipediaExtractT | null,
-  +entity: CoreEntityT | MinimalCoreEntityT,
+  +entity: CentralEntityT | MinimalCentralEntityT,
 };
 
 type State = {

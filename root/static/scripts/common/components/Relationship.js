@@ -30,7 +30,7 @@ type RelationshipPropsT = {
   +allowNewEntity0?: boolean,
   +allowNewEntity1?: boolean,
   +makeEntityLink?: (
-    entity: CoreEntityT,
+    entity: CentralEntityT,
     content: string,
     relationship: RelationshipT,
     allowNew: ?boolean,
@@ -39,7 +39,7 @@ type RelationshipPropsT = {
 };
 
 const makeDescriptiveLink = (
-  entity: CoreEntityT,
+  entity: CentralEntityT,
   content: string,
   relationship: RelationshipT,
   allowNew: ?boolean,

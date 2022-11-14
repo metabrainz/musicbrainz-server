@@ -53,7 +53,7 @@ type PropsT = {
   +hasOrdering: boolean,
   +isDialogOpen: boolean,
   +relationship: RelationshipStateT,
-  +source: CoreEntityT,
+  +source: CentralEntityT,
   +track: TrackWithRecordingT | null,
 };
 
@@ -67,7 +67,7 @@ const RelationshipItem = (React.memo<PropsT>(({
   track,
 }: PropsT): React.MixedElement => {
   const backward = relationship.entity1.id === source.id;
-  const target: CoreEntityT = backward
+  const target: CentralEntityT = backward
     ? relationship.entity0
     : relationship.entity1;
   const [sourceCredit, targetCredit] = backward

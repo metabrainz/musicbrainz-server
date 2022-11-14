@@ -15,7 +15,7 @@ import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import uriWith from '../../utility/uriWith.js';
 
 type Props = {
-  +entity?: CoreEntityT | CollectionT,
+  +entity?: CentralEntityT | CollectionT,
   +isSearch?: boolean,
   +page: string,
   +refineUrlArgs?: {+[argument: string]: string},

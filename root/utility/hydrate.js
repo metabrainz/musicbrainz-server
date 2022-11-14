@@ -178,7 +178,7 @@ export default function hydrate<
   };
 }
 
-type PropsWithEntity = {entity: MinimalCoreEntityT, ...};
+type PropsWithEntity = {entity: MinimalCentralEntityT, ...};
 
 export function minimalEntity<T: $ReadOnly<PropsWithEntity>>(
   props: $Exact<T>,

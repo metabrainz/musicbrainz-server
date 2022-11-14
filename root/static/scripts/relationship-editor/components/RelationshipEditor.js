@@ -98,7 +98,7 @@ export function* getInitialRelationshipUpdates(
   relationships:
     | $ReadOnlyArray<RelationshipT>
     | $ReadOnlyArray<SeededRelationshipT>,
-  source: CoreEntityT,
+  source: CentralEntityT,
 ): Generator<RelationshipUpdateT, void, void> {
   for (const relationshipData of relationships) {
     if (relationshipData.target_type === 'url') {
@@ -224,7 +224,7 @@ export function* getUpdatesForAcceptedRelationship(
     ...
   },
   newRelationshipState: RelationshipStateT,
-  source: CoreEntityT,
+  source: CentralEntityT,
 ): Generator<RelationshipUpdateT, void, void> {
   const mergeAndYieldUpdates = function* (
     relationshipState: RelationshipStateT,

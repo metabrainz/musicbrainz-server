@@ -51,8 +51,8 @@ type PropsT = {
   +dispatch: (RelationshipEditorActionT) => void,
   +linkPhraseGroup: RelationshipPhraseGroupT,
   +linkTypeId: number,
-  +source: CoreEntityT,
-  +targetType: CoreEntityTypeT,
+  +source: CentralEntityT,
+  +targetType: CentralEntityTypeT,
   +track: TrackWithRecordingT | null,
 };
 

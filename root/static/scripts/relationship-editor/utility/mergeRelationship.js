@@ -128,7 +128,7 @@ export default function mergeRelationship(
   targetTypeGroups: RelationshipTargetTypeGroupsT | null,
   existingTargetTypeGroups: RelationshipTargetTypeGroupsT | null,
   sourceRelationship: RelationshipStateT,
-  source: CoreEntityT,
+  source: CentralEntityT,
 ): $ReadOnlyArray<RelationshipUpdateT> | null {
   // Refuse to merge an existing relationship.
   if (isDatabaseRowId(sourceRelationship.id)) {

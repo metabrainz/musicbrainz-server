@@ -148,7 +148,7 @@ type EntityLinkProps = {
   +content?: ?Expand2ReactOutput,
   +deletedCaption?: string,
   +disableLink?: boolean,
-  +entity: CoreEntityT | CollectionT | LinkTypeT,
+  +entity: CentralEntityT | CollectionT | LinkTypeT,
   +hover?: string,
   +nameVariation?: boolean,
   +showCaaPresence?: boolean,

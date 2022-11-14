@@ -12,7 +12,7 @@ import * as React from 'react';
 import EntityLink from '../../common/components/EntityLink.js';
 
 type PropsT = {
-  duplicates: $ReadOnlyArray<CoreEntityT>,
+  duplicates: $ReadOnlyArray<CentralEntityT>,
   name: string,
   onCheckboxChange: (event: SyntheticEvent<HTMLInputElement>) => void,
 };

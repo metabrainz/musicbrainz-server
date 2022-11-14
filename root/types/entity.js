@@ -30,13 +30,13 @@ declare type CommentRoleT = {
   +comment: string,
 };
 
-declare type CoreEntityRoleT<+T> = {
+declare type CentralEntityRoleT<+T> = {
   ...EntityRoleT<T>,
   ...LastUpdateRoleT,
   +gid: string,
   +name: string,
   +paged_relationship_groups?: {
-    +[targetType: CoreEntityTypeT]: PagedTargetTypeGroupT | void,
+    +[targetType: CentralEntityTypeT]: PagedTargetTypeGroupT | void,
   },
   +relationships?: $ReadOnlyArray<RelationshipT>,
 };
@@ -54,15 +54,15 @@ declare type CollectableEntityT =
   | SeriesT
   | WorkT;
 
-declare type NonUrlCoreEntityT =
+declare type NonUrlCentralEntityT =
   | CollectableEntityT
   | GenreT;
 
-declare type CoreEntityT =
-  | NonUrlCoreEntityT
+declare type CentralEntityT =
+  | NonUrlCentralEntityT
   | UrlT;
 
-declare type NonUrlCoreEntityTypeT =
+declare type NonUrlCentralEntityTypeT =
   | 'area'
   | 'artist'
   | 'event'
@@ -76,8 +76,8 @@ declare type NonUrlCoreEntityTypeT =
   | 'series'
   | 'work';
 
-declare type CoreEntityTypeT =
-  | NonUrlCoreEntityTypeT
+declare type CentralEntityTypeT =
+  | NonUrlCentralEntityTypeT
   | 'url';
 
 declare type EntityWithArtistCreditsT =
@@ -105,8 +105,8 @@ declare type LastUpdateRoleT = {
   +last_updated: string | null,
 };
 
-declare type MinimalCoreEntityT = {
-  +entityType: CoreEntityTypeT,
+declare type MinimalCentralEntityT = {
+  +entityType: CentralEntityTypeT,
   +gid: string,
 };
 

@@ -8,7 +8,7 @@
  */
 
 import {
-  createCoreEntityObject,
+  createCentralEntityObject,
   createSeriesObject,
 } from '../entity2.js';
 
@@ -26,9 +26,9 @@ export function getCatalystContext(): SanitizedCatalystContextT {
 }
 
 export function getSourceEntityData():
-    | CoreEntityT
+    | CentralEntityT
     | {
-        +entityType: CoreEntityTypeT,
+        +entityType: CentralEntityTypeT,
         +isNewEntity: true,
         +name?: string,
         +orderingTypeID?: number,
@@ -38,7 +38,7 @@ export function getSourceEntityData():
   return $c.stash.source_entity ?? null;
 }
 
-export function getSourceEntityDataForRelationshipEditor(): CoreEntityT {
+export function getSourceEntityDataForRelationshipEditor(): CentralEntityT {
   let source = getSourceEntityData();
   invariant(
     source,
@@ -56,7 +56,7 @@ export function getSourceEntityDataForRelationshipEditor(): CoreEntityT {
         break;
       }
       default: {
-        source = createCoreEntityObject(
+        source = createCentralEntityObject(
           source.entityType,
           {name: source.name ?? ''},
         );

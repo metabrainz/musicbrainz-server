@@ -27,7 +27,7 @@ import {linkAttributeTypes} from './typeInfo.js';
 
 type ActionT =
   | {
-      +action: AutocompleteActionT<NonUrlCoreEntityT>,
+      +action: AutocompleteActionT<NonUrlCentralEntityT>,
       +prop: 'entityAutocomplete',
       +type: 'update-autocomplete',
     }
@@ -39,7 +39,7 @@ type ActionT =
 
 type StateT = {
   +attributeTypeAutocomplete: AutocompleteStateT<LinkAttrTypeT>,
-  +entityAutocomplete: AutocompleteStateT<NonUrlCoreEntityT>,
+  +entityAutocomplete: AutocompleteStateT<NonUrlCentralEntityT>,
 };
 
 const attributeTypesById = keyBy(
@@ -102,7 +102,7 @@ $(function () {
         state = {...state};
         switch (action.prop) {
           case 'entityAutocomplete':
-            state.entityAutocomplete = autocompleteReducer<NonUrlCoreEntityT>(
+            state.entityAutocomplete = autocompleteReducer<NonUrlCentralEntityT>(
               state.entityAutocomplete,
               action.action,
             );
@@ -144,7 +144,7 @@ $(function () {
           staticItems: attributeTypeOptions,
           width: '200px',
         }),
-      entityAutocomplete: createInitialAutocompleteState<NonUrlCoreEntityT>({
+      entityAutocomplete: createInitialAutocompleteState<NonUrlCentralEntityT>({
         canChangeType: () => true,
         entityType: 'artist',
         id: 'entity-test',

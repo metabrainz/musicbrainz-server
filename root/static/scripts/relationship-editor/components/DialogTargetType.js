@@ -19,11 +19,11 @@ import type {
 type PropsT = {
   +dispatch: (DialogActionT) => void,
   +options: TargetTypeOptionsT,
-  +source: CoreEntityT,
-  +targetType: CoreEntityTypeT,
+  +source: CentralEntityT,
+  +targetType: CentralEntityTypeT,
 };
 
-const foo: {+[key: CoreEntityTypeT]: null} = {
+const foo: {+[key: CentralEntityTypeT]: null} = {
   artist: null,
 };
 

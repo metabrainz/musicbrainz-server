@@ -14,8 +14,8 @@ import {SanitizedCatalystContext} from '../context.mjs';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 type Props = {
-  +entity: CoreEntityT,
-  +toMerge: $ReadOnlyArray<CoreEntityT>,
+  +entity: CentralEntityT,
+  +toMerge: $ReadOnlyArray<CentralEntityT>,
 };
 
 // Converted to react-table at root/utility/tableColumns.js

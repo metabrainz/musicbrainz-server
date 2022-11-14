@@ -11,7 +11,7 @@
 declare type AreaT = $ReadOnly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT<'area'>,
+  ...CentralEntityRoleT<'area'>,
   ...DatePeriodRoleT,
   ...TypeRoleT<AreaTypeT>,
   +containment: $ReadOnlyArray<AreaT> | null,

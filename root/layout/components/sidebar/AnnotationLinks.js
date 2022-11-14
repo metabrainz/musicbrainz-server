@@ -14,7 +14,7 @@ import entityHref from '../../../static/scripts/common/utility/entityHref.js';
 import returnUri from '../../../utility/returnUri.js';
 
 type Props = {
-  +entity: CoreEntityT,
+  +entity: CentralEntityT,
 };
 
 const AnnotationLinks = ({

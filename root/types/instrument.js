@@ -17,7 +17,7 @@ declare type InstrumentCreditsAndRelTypesRoleT = {
 declare type InstrumentT = $ReadOnly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT<'instrument'>,
+  ...CentralEntityRoleT<'instrument'>,
   ...TypeRoleT<InstrumentTypeT>,
   +description: string,
   +primaryAlias?: string | null,
