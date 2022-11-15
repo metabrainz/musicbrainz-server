@@ -2,7 +2,8 @@ package MusicBrainz::Server;
 
 use Moose;
 use namespace::autoclean;
-BEGIN { extends 'Catalyst' }
+
+extends 'Catalyst';
 
 use Class::Load qw( load_class );
 use DBDefs;
