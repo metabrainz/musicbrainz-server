@@ -1,7 +1,8 @@
 package MusicBrainz::Server::Controller::Doc;
 use Moose;
+use MooseX::MethodAttributes;
 
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+extends 'MusicBrainz::Server::Controller';
 
 use DBDefs;
 use HTTP::Status qw( :constants );

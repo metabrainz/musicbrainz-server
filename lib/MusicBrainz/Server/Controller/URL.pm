@@ -1,8 +1,9 @@
 package MusicBrainz::Server::Controller::URL;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+extends 'MusicBrainz::Server::Controller';
 
 use MusicBrainz::Server::Constants qw( $EDIT_URL_EDIT );
 

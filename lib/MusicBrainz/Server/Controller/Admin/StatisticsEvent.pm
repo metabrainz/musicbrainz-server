@@ -1,9 +1,10 @@
 package MusicBrainz::Server::Controller::Admin::StatisticsEvent;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+extends 'MusicBrainz::Server::Controller';
 
 sub _form_to_hash {
     my ($self, $form) = @_;

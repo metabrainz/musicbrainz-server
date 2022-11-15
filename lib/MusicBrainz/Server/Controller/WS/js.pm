@@ -1,7 +1,9 @@
 package MusicBrainz::Server::Controller::WS::js;
 
 use Moose;
-BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js'; }
+use MooseX::MethodAttributes;
+
+extends 'MusicBrainz::Server::ControllerBase::WS::js';
 
 use utf8;
 use Data::OptList;

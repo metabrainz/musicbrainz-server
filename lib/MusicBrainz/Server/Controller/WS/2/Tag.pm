@@ -1,10 +1,11 @@
 package MusicBrainz::Server::Controller::WS::2::Tag;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
 
 use English;
 
-BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
+extends 'MusicBrainz::Server::ControllerBase::WS::2';
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Data::Utils qw( non_empty trim type_to_model );

@@ -1,7 +1,9 @@
 package MusicBrainz::Server::Controller::WS::js::Recording;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
-BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
+
+extends 'MusicBrainz::Server::ControllerBase::WS::js';
 
 with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion::WithArtistCredits';
 with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion::PrimaryAlias' => {

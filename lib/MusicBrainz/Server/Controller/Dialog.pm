@@ -1,10 +1,11 @@
 package MusicBrainz::Server::Controller::Dialog;
 use Encode qw( decode_utf8 );
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
 use HTTP::Status qw( :constants );
 
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+extends 'MusicBrainz::Server::Controller';
 
 sub dialog : Path('/dialog') Edit {
     my ($self, $c) = @_;

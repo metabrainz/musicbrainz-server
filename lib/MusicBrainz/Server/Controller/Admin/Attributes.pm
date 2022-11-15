@@ -1,12 +1,13 @@
 package MusicBrainz::Server::Controller::Admin::Attributes;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
 use utf8;
 
 use MusicBrainz::Server::Data::Utils qw( contains_string );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+extends 'MusicBrainz::Server::Controller';
 
 my @models = qw(
     AreaType

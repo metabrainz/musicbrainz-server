@@ -1,11 +1,13 @@
 package MusicBrainz::Server::ControllerBase::WS::js;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
 use HTTP::Status qw( :constants );
+
 use MusicBrainz::Server::WebService::Format;
 use MusicBrainz::Server::WebService::JSONSerializer;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+extends 'MusicBrainz::Server::Controller';
 
 with 'MusicBrainz::Server::WebService::Format';
 
