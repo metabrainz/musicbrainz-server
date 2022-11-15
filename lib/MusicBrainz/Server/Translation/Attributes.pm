@@ -1,8 +1,8 @@
 package MusicBrainz::Server::Translation::Attributes;
 use Moose;
 use namespace::autoclean;
-BEGIN { extends 'MusicBrainz::Server::Translation'; }
 
+extends 'MusicBrainz::Server::Translation';
 with 'MusicBrainz::Server::Role::Translation' => { domain => 'attributes' };
 
 sub l { __PACKAGE__->instance->gettext(@_) }
