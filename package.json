@@ -25,7 +25,7 @@
     "@popperjs/core": "2.5.3",
     "@sentry/browser": "5.10.2",
     "@sentry/node": "5.10.2",
-    "babel-loader": "8.2.2",
+    "babel-loader": "9.1.0",
     "balanced-match": "0.2.0",
     "canonical-json": "0.0.4",
     "cookie": "0.4.1",
