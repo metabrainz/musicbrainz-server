@@ -17,6 +17,8 @@ allow_includes=1
 
 [Moose::ProhibitNewMethod]
 
+[MusicBrainz::RequirePodSectionsAlways]
+
 [Subroutines::ProhibitReturnSort]
 
 [TestingAndDebugging::ProhibitNoStrict]
