@@ -102,10 +102,11 @@ $(function () {
         state = {...state};
         switch (action.prop) {
           case 'entityAutocomplete':
-            state.entityAutocomplete = autocompleteReducer<NonUrlCentralEntityT>(
-              state.entityAutocomplete,
-              action.action,
-            );
+            state.entityAutocomplete =
+              autocompleteReducer<NonUrlCentralEntityT>(
+                state.entityAutocomplete,
+                action.action,
+              );
             break;
           case 'attributeTypeAutocomplete':
             state.attributeTypeAutocomplete =
@@ -144,12 +145,13 @@ $(function () {
           staticItems: attributeTypeOptions,
           width: '200px',
         }),
-      entityAutocomplete: createInitialAutocompleteState<NonUrlCentralEntityT>({
-        canChangeType: () => true,
-        entityType: 'artist',
-        id: 'entity-test',
-        width: '200px',
-      }),
+      entityAutocomplete:
+        createInitialAutocompleteState<NonUrlCentralEntityT>({
+          canChangeType: () => true,
+          entityType: 'artist',
+          id: 'entity-test',
+          width: '200px',
+        }),
     };
   }
 
