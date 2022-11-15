@@ -37,6 +37,8 @@ allow_leading_tabs = 0
 [Moose::ProhibitNewMethod]
 [Moose::RequireCleanNamespace]
 
+[MusicBrainz::RequirePodSectionsAlways]
+
 [Subroutines::ProhibitReturnSort]
 
 [TestingAndDebugging::ProhibitNoStrict]
