@@ -8,7 +8,7 @@ use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether release group ratings are properly displayed on the
 ratings page, and that private ratings are hidden.

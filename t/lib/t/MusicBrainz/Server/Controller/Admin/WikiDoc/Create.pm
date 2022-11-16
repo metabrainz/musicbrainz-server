@@ -9,7 +9,7 @@ use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks that the WikiDoc Add Page form is blocked for users without
 the appropriate privileges, that it loads for privileged users, and that

@@ -8,7 +8,7 @@ use MusicBrainz::Server::Test qw( accept_edit html_ok );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether artist edits are correctly listed under both the
 "all edits" and the "open edits" lists.

@@ -11,7 +11,7 @@ use List::AllUtils qw( sort_by );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks that the artist edit form works properly, including when
 updating artist credits.

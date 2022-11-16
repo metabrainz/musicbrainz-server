@@ -10,7 +10,7 @@ use MusicBrainz::Script::RemoveEmpty;
 
 with 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether the RemoveEmpty script is working as expected
 for URLS, deleting only URLs that are unused, not new,

@@ -8,7 +8,7 @@ use MusicBrainz::Server::Test qw( test_xpath_html );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether the privilege search works as expected, and whether
 it's blocked for non-admins.

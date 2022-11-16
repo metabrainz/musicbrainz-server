@@ -8,7 +8,7 @@ use MusicBrainz::Server::Test qw( capture_edits );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether basic instrument editing works. It also ensures
 unprivileged users cannot edit instruments.

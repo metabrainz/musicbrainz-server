@@ -8,7 +8,7 @@ use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether admins can delete an editor account, and whether
 the editors themselves can do it. It also checks whether users are logged out

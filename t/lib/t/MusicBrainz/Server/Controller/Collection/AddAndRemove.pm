@@ -20,7 +20,7 @@ around run_test => sub {
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether adding entities to collections and removing them
 works, and whether trying to add a non-existing entity fails gracefully.

@@ -8,7 +8,7 @@ use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether linked recordings are appropriately displayed
 on the ISRC index page.

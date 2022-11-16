@@ -30,7 +30,7 @@ around run_test => sub {
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks artist merges, and especially the artist credit renaming
 code.

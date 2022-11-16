@@ -9,7 +9,7 @@ use MusicBrainz::Server::Entity::CDTOC;
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether adding duplicate CDStubs is blocked as intended.
 

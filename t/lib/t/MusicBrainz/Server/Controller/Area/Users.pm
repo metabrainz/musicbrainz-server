@@ -8,7 +8,7 @@ use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether the Users tab for an area correctly lists editors
 who have their area set to it or to an area contained in it.

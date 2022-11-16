@@ -10,7 +10,7 @@ use MusicBrainz::Script::RemoveUnreferencedRows;
 
 with 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether the RemoveUnreferencedRows script is working
 as expected for artist credits, deleting only the ones that are unused

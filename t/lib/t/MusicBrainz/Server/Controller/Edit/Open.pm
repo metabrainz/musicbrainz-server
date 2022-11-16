@@ -15,7 +15,7 @@ use MusicBrainz::Server::Test qw( accept_edit html_ok );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether the /edit/open page (for all open edits in the
 database) works as expected, including not showing your own edits.

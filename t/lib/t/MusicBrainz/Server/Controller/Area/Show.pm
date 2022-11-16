@@ -7,7 +7,7 @@ use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether basic area data is correctly listed in the JSON-LD
 of an area's index (main) page.

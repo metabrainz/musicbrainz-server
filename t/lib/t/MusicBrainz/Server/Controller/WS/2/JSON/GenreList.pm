@@ -9,7 +9,7 @@ use MusicBrainz::Server::Test::WS qw( ws2_test_json );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test ensures the full genre list at genre/all is working as intended
 for fmt=json.

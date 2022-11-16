@@ -8,7 +8,7 @@ use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether the disc ID page displays data about both the disc ID
 itself and the releases the disc ID is attached to.

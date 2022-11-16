@@ -11,7 +11,7 @@ with 't::Mechanize', 't::Context';
 
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks that the artist create form works properly with both complete
 and minimal data, plus some edge cases.

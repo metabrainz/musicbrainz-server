@@ -8,7 +8,7 @@ plan skip_all => 'Test::EOL required' if $@;
 use FindBin '$Bin';
 use File::Find;
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether Perl and TT files have lines that end
 with Windows EOL characters rather than Unix ones.

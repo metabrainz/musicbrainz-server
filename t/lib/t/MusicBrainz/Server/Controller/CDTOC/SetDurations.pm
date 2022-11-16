@@ -8,7 +8,7 @@ use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether the set track lengths page for disc IDs allows
 entering edits.

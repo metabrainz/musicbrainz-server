@@ -8,7 +8,7 @@ use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether basic artist credit data is correctly listed in an
 artist credit page, and whether trying to load a nonexistent artist credit

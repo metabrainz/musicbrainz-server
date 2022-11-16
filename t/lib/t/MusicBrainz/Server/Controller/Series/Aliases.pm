@@ -9,7 +9,7 @@ with 't::Edit';
 with 't::Mechanize';
 with 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether series aliases are correctly listed on the series
 alias page.

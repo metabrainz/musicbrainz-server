@@ -20,7 +20,7 @@ around run_test => sub {
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether collection index pages display the expected data.
 

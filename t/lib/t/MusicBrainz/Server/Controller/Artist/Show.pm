@@ -8,7 +8,7 @@ use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether basic artist data is correctly listed on an artist’s
 index (main) page both on the site itself and on the JSON-LD data.

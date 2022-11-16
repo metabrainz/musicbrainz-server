@@ -8,7 +8,7 @@ use Hook::LexWrap;
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether the Browse CD Stubs page shows data as expected.
 

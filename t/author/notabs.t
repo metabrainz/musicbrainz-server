@@ -8,7 +8,7 @@ plan skip_all => 'Test::NoTabs required' if $@;
 use FindBin '$Bin';
 use File::Find;
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether Perl and TT files use tabs
 when they should use multiple spaces instead.

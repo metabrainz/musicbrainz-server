@@ -7,7 +7,7 @@ use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
   This test checks whether the instrument releases page correctly lists
   releases connected to the instrument.

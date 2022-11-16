@@ -13,7 +13,7 @@ use MusicBrainz::DataStore::Redis;
 use MusicBrainz::DataStore::RedisMulti;
 use DBDefs;
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks basic tasks for the RedisMulti store (including adding,
 deleting and expiring keys), which distributes queries to multiple underlying

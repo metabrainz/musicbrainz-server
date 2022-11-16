@@ -12,7 +12,7 @@ use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether the shared components of edit display pages work as
 expected for all kinds of editors: default / author / beginner / logged out.

@@ -8,7 +8,7 @@ use MusicBrainz::Server::Test qw( capture_edits );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether non-ended areas can be edited (which used to ISE, see
 MBS-8661) and, by extension, whether basic area editing works. It also ensures

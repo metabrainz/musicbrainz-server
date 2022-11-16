@@ -14,7 +14,7 @@ use DBDefs;
 
 with 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks basic tasks for the Redis store, including adding, deleting
 and expiring keys.

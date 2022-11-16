@@ -11,7 +11,7 @@ use URI::QueryParam;
 
 with 't::Context', 't::Mechanize';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks OAuth authentication in the web service, by attempting
 to request data for a private collection.

@@ -7,7 +7,7 @@ use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
   This test checks whether basic instrument data is correctly listed on an
   instrument's index (main) page.
