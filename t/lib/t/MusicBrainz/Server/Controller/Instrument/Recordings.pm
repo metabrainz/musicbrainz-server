@@ -8,7 +8,7 @@ use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
   This test checks whether the instrument recordings page correctly lists
   recordings connected to the instrument.

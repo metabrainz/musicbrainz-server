@@ -9,7 +9,7 @@ use Time::HiRes qw( gettimeofday tv_interval );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether adding annotations for artists works, including
 whether four spaces at the start of the annotation are left untrimmed

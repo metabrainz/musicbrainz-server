@@ -9,7 +9,7 @@ use MusicBrainz::Server::Data::Utils qw( contains_string );
 use String::ShellQuote qw( shell_quote );
 use Test::More;
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks that any components using hydration exist under
 root/static/scripts/.  It also checks that any imported files that use

@@ -9,7 +9,7 @@ use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
 with 't::Edit', 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether alias adding for series works, including whether
 the sort name defaults to the name when not explicitly entered.
