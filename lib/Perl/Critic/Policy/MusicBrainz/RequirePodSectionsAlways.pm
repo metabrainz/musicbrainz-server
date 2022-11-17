@@ -20,11 +20,16 @@ Readonly::Scalar my $NO_COPYRIGHT_SECTION_DESCRIPTION =>
 Readonly::Scalar my $NO_COPYRIGHT_SECTION_EXPLANATION =>
     'Every file should indicate its copyright and license.';
 
+Readonly::Scalar my $NO_TEST_INFO_DESCRIPTION =>
+    'This test file is missing the DESCRIPTION POD section.';
+Readonly::Scalar my $NO_TEST_INFO_EXPLANATION =>
+    'Every test file should indicate what it tests for in the DESCRIPTION.';
+
 #-----------------------------------------------------------------------------
 
-sub default_severity { return $SEVERITY_LOW }
-sub default_themes   { return qw( documentation musicbrainz ) }
-sub applies_to       { return 'PPI::Document' }
+sub default_severity { return $SEVERITY_LOW            }
+sub default_themes   { return qw( musicbrainz ) }
+sub applies_to       { return 'PPI::Document'          }
 
 #-----------------------------------------------------------------------------
 
@@ -67,6 +72,20 @@ sub violates {
         push @violations, $self->violation(
             $NO_COPYRIGHT_SECTION_DESCRIPTION,
             $NO_COPYRIGHT_SECTION_EXPLANATION,
+            $pod_of_record || $pods_ref->[0],
+        );
+    }
+
+
+    my $includes_ref = $doc->find('PPI::Statement::Include');
+
+    # We assume the file is a test if it imports a Test:: package
+    my $is_test = scalar grep { m/ \b Test:: \b/xms }  @{ $includes_ref };
+
+    if ( $is_test && (not exists $found_sections{'DESCRIPTION'}) ) {
+        push @violations, $self->violation(
+            $NO_TEST_INFO_DESCRIPTION,
+            $NO_TEST_INFO_EXPLANATION,
             $pod_of_record || $pods_ref->[0],
         );
     }
