@@ -92,7 +92,7 @@ declare type DatePeriodRoleT = {
   +ended: boolean,
 };
 
-declare type EditableRoleT = {
+declare type PendingEditsRoleT = {
   +editsPending: boolean,
 };
 
