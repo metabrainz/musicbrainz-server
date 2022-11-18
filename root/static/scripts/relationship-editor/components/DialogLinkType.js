@@ -36,9 +36,7 @@ import type {
 } from '../types/actions.js';
 
 import {
-  createDialogAttributesList,
   createInitialState as createDialogAttributesState,
-  getLinkAttributesFromState,
 } from './DialogAttributes.js';
 
 type PropsT = {
