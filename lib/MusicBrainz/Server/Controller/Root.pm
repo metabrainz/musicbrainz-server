@@ -1,12 +1,10 @@
 package MusicBrainz::Server::Controller::Root;
-use Carp qw( croak );
 use DateTime::Locale;
 use Digest::MD5 qw( md5_hex );
 use Moose;
 use Try::Tiny;
 use List::AllUtils qw( max );
 use Readonly;
-use Scalar::Util qw( blessed );
 use URI::Escape qw( uri_escape_utf8 );
 use URI::QueryParam;
 
@@ -14,7 +12,6 @@ BEGIN { extends 'Catalyst::Controller' }
 
 # Import MusicBrainz libraries
 use DBDefs;
-use MusicBrainz::Errors qw( capture_exceptions );
 use MusicBrainz::Server::Constants qw( $VARTIST_GID $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model );
@@ -266,28 +263,7 @@ sub begin : Private
     $c->stats->enable(1) if DBDefs->DEVELOPMENT_SERVER;
 
     # Can we automatically login?
-    my $needs_login;
-    capture_exceptions(
-        # This may throw if someone sets an invalid musicbrainz_server_session
-        # cookie.  In that case we'd prefer to respond with Bad Request rather
-        # than Internal Server Error.  The exception is sent to Sentry in any
-        # case.
-        sub { $needs_login = !$c->user },
-        sub {
-            my $error = $_;
-            if (
-                blessed($error) &&
-                $error->isa('Catalyst::Exception') &&
-                $error->message =~ /^Tried to set invalid session ID/
-            ) {
-                $c->stash->{message} = $error->message;
-                $c->detach('/error_400');
-            } else {
-                croak $error;
-            }
-        },
-    );
-    if ($needs_login) {
+    if (!$c->user) {
         $c->forward('/user/cookie_login');
     }
 
