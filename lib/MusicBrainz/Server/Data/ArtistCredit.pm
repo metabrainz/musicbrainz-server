@@ -13,7 +13,7 @@ use MusicBrainz::Server::Constants qw( entities_with );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache';
-with 'MusicBrainz::Server::Data::Role::Editable' => {
+with 'MusicBrainz::Server::Data::Role::PendingEdits' => {
     table => 'artist_credit',
 };
 with 'MusicBrainz::Server::Data::Role::GetByGID';

@@ -32,7 +32,7 @@ sub alter_edit_pending
 {
     my $self = shift;
     my $model = $self->c->model( $self->_edit_model);
-    if ($model->does('MusicBrainz::Server::Data::Role::Editable')) {
+    if ($model->does('MusicBrainz::Server::Data::Role::PendingEdits')) {
         return {
             $self->_edit_model => [ $self->entity_id ]
         }

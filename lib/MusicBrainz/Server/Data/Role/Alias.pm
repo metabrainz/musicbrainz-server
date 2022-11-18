@@ -44,7 +44,7 @@ role
             entity => $self->_entity_class . 'Alias',
             parent => $self
         );
-        ensure_all_roles($alias, 'MusicBrainz::Server::Data::Role::Editable' => { table => $params->table });
+        ensure_all_roles($alias, 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => $params->table });
     };
 
     method '_build_alias_type' => sub

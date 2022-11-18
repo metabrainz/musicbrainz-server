@@ -30,7 +30,7 @@ with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::IPI' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::ISNI' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'label' };
+with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'label' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
