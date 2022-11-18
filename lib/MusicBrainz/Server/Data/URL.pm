@@ -94,6 +94,7 @@ my %URL_SPECIALIZATIONS = (
     'Joysound'            => qr{^https?://(?:www\.)?joysound\.com/}i,
     'JunoDownload'        => qr{^https?://(?:www\.)?junodownload\.com/}i,
     'Kashinavi'           => qr{^https?://(?:www\.)?kashinavi\.com/}i,
+    'KBR'                 => qr{^https?://opac\.kbr\.be/}i,
     'Kget'                => qr{^https?://(?:www\.)?kget\.jp/}i,
     'Kickstarter'         => qr{^https?://(?:www\.)?kickstarter\.com/}i,
     'Kofi'                => qr{^https?://(?:www\.)?ko-fi\.com/}i,

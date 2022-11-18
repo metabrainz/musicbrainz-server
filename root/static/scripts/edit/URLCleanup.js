@@ -2666,6 +2666,35 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'kbr': {
+    match: [new RegExp('^(https?://)?opac\\.kbr\\.be/', 'i')],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      // Standardise to https
+      return url.replace(/^https?:\/\/(?:www\.)?(.*)$/, 'https://$1');
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/opac\.kbr\.be\/LIBRARY\/doc\/(AUTHORITY|SYRACUSE)\/[0-9]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+          case LINK_TYPES.otherdatabases.label:
+            return {
+              result: prefix === 'AUTHORITY',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.release:
+            return {
+              result: prefix === 'SYRACUSE',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'kget': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?kget\\.jp/', 'i')],
     restrict: [LINK_TYPES.lyrics],
