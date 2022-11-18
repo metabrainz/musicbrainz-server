@@ -29,6 +29,7 @@ my %URL_SPECIALIZATIONS = (
     'AppleBooks'          => qr{^https?://books\.apple\.com/}i,
     'AppleMusic'          => qr{^https?://music\.apple\.com/}i,
     'ASIN'                => qr{^https?://(?:www\.)?amazon(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i,
+    'Audiomack'           => qr{^https?://(?:www\.)?audiomack\.com/}i,
     'BaiduBaike'          => qr{^https?://baike\.baidu\.com/}i,
     'Bandcamp'            => qr{^https?://([^/]+\.)?bandcamp\.com/}i,
     'Bandsintown'         => qr{^https?://(?:www\.)?bandsintown\.com/}i,

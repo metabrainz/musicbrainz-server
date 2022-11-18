@@ -639,6 +639,28 @@ limited_link_type_combinations: [
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
   },
+  // Audiomack
+  {
+                     input_url: 'http://www.audiomack.com/dablixx-osha',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://audiomack.com/dablixx-osha',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://audiomack.com/dablixx-osha/song/they-cant-understand/',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://audiomack.com/dablixx-osha/song/they-cant-understand',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://audiomack.com/dablixx-osha/album/country-boy#testy',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://audiomack.com/dablixx-osha/album/country-boy',
+       only_valid_entity_types: ['release'],
+  },
   // Avex Trax
   {
                      input_url: 'http://avexnet.jp/id/supeg/discography/product/CTCR-11051.html',

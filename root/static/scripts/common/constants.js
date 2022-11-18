@@ -59,6 +59,7 @@ export const FAVICON_CLASSES = {
   'animenewsnetwork.com': 'animenewsnetwork',
   'anison.info': 'anisongeneration',
   'archive.org': 'archive',
+  'audiomack.com': 'audiomack',
   'baidu.com': 'baidu',
   'bandcamp.com': 'bandcamp',
   'bandsintown.com': 'bandsintown',
