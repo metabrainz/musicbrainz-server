@@ -29,7 +29,7 @@
     {
       command: 'type',
       target: 'css=#add-relationship-dialog input.relationship-target',
-      value: 'group member',
+      value: 'gröup member',
     },
     {
       command: 'pause',
@@ -99,8 +99,8 @@
           gender_id: null,
           ipi_codes: [],
           isni_codes: [],
-          name: 'group member',
-          sort_name: 'group member',
+          name: 'gröup member',
+          sort_name: 'gröup member',
           type_id: 1,
         },
       },
@@ -236,7 +236,7 @@
           entity0: {
             gid: '$$__IGNORE__$$',
             id: 3,
-            name: 'group member',
+            name: 'gröup member',
           },
           entity1: {
             gid: '$$__IGNORE__$$',
@@ -282,7 +282,7 @@
           entity0: {
             gid: '$$__IGNORE__$$',
             id: 3,
-            name: 'group member',
+            name: 'gröup member',
           },
           entity1: {
             gid: '$$__IGNORE__$$',
