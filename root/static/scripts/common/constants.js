@@ -148,6 +148,7 @@ export const FAVICON_CLASSES = {
   'ocremix.org': 'ocremix',
   'offiziellecharts.de': 'offiziellecharts',
   'online-bijbel.nl': 'onlinebijbel',
+  'opac.kbr.be': 'kbr',
   'openlibrary.org': 'openlibrary',
   'operabase.com': 'operabase',
   'overture.doremus.org': 'overture',

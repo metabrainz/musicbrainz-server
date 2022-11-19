@@ -2701,6 +2701,28 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://kashinavi.com/song_view.html?68574',
        only_valid_entity_types: ['work'],
   },
+  // KBR
+  {
+                     input_url: 'http://opac.kbr.be/LIBRARY/doc/AUTHORITY/14160974',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://opac.kbr.be/LIBRARY/doc/AUTHORITY/14160974',
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+                     input_url: 'https://opac.kbr.be/LIBRARY/doc/AUTHORITY/13974166',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://opac.kbr.be/LIBRARY/doc/AUTHORITY/13974166',
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+                     input_url: 'https://opac.kbr.be/LIBRARY/doc/SYRACUSE/17060572',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://opac.kbr.be/LIBRARY/doc/SYRACUSE/17060572',
+       only_valid_entity_types: ['release'],
+  },
   // Kget.jp
   {
                      input_url: 'http://www.kget.jp/search/index.php?c=0&r=%E3%83%A4%E3%83%B3%E3%82%B0%E3%83%BB%E3%83%95%E3%83%AC%E3%83%83%E3%82%B7%E3%83%A5&t=&v=&f=',
