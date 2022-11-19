@@ -29,7 +29,7 @@ import type {
 } from '../types/actions.js';
 import {
   areLinkAttributesEqual,
-  compareLinkAttributeIds,
+  compareLinkAttributes,
 } from '../utility/compareRelationships.js';
 
 import BooleanAttribute, {
@@ -181,7 +181,7 @@ export function getLinkAttributesFromState(
                 typeID: linkAttributeType.id,
                 typeName: linkAttributeType.name,
               },
-              compareLinkAttributeIds,
+              compareLinkAttributes,
             );
           }
           break;
@@ -204,7 +204,7 @@ export function getLinkAttributesFromState(
                   typeID: linkAttributeType.id,
                   typeName: linkAttributeType.name,
                 },
-                compareLinkAttributeIds,
+                compareLinkAttributes,
               );
             }
           }
@@ -224,7 +224,7 @@ export function getLinkAttributesFromState(
                 typeID: linkAttributeType.id,
                 typeName: linkAttributeType.name,
               },
-              compareLinkAttributeIds,
+              compareLinkAttributes,
             );
           }
           break;
