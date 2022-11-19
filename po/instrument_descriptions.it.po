@@ -976,6 +976,14 @@ msgid ""
 "drone and melody strings operated by buttons or keys."
 msgstr "Sviluppato a partire dal <a href=\"/instrument/1975ee04-30de-4835-9656-102ccd49c0c7\">taishogoto</a> giapponese, è realizzato in legno e spesso ha un contenitore integrale. Ha due ordini di corde, melodiche e bordone, azionate attraverso bottoni o tasti."
 
+#. name:pedal accordion
+#: DB:instrument/description:1076
+msgid ""
+"Developed in Warszaw, Poland, it is used in folk music. It has two foot-"
+"operated bellows attached via metal/brass pipe; its body-bellows are only "
+"used for accents."
+msgstr "Sviluppata a Varsavia (Polonia) e utilizzata nella musica tradizionale. Ha due mantici azionati con i piedi e collegati da una canna in metallo o ottone; i suoi mantici sono usati solo per gli accenti."
+
 #. name:violin family
 #: DB:instrument/description:59
 msgid ""
@@ -1044,6 +1052,15 @@ msgid ""
 "Early 19th century brass instrument with a conical bore, it is more compact "
 "and mellower than the trumpet which it resembles."
 msgstr "Strumento in ottone a sezione conica risalente al primo XIX secolo, è più compatto e melodioso della tromba, a cui assomiglia."
+
+#. name:flutina
+#: DB:instrument/description:1074
+msgid ""
+"Early predecessor to the <a "
+"href=\"/instrument/842d3d24-f638-47e6-a239-8578723db09c\">diatonic "
+"accordion</a>, it was similar to the German concertina and had 4 fold "
+"bellows and brass reeds."
+msgstr "Antenato della <a href=\"/instrument/842d3d24-f638-47e6-a239-8578723db09c\">fisarmonica diatonica</a>, era simile alla concertina tedesca e aveva un mantice a soffietto a 4 pieghe e ance in ottone."
 
 #. name:đing buốt
 #: DB:instrument/description:306
@@ -1220,10 +1237,12 @@ msgid ""
 "href=\"/instrument/842d3d24-f638-47e6-a239-8578723db09c\">diatonic button "
 "accordion</a>.<br /> For the mouth blown keyed MELODION, see <a "
 "href=\"/instrument/8ab40df2-106b-4b9b-a50c-0798ee95da8f\">melodica</a>.<br "
+"/> For the portable reed organ used in India see <a "
+"href=\"/instrument/c43c7647-077d-4d60-a01b-769de71b82f2\">harmonium</a>.<br "
 "/> Also known as pump organ, it is large, looks like an upright piano and "
 "has pedals attached to bellows with reeds. Sound is produced by playing the "
 "keyboard."
-msgstr "Per la fisarmonica conosciuta anche come melodeon, utilizza <a href=\"/instrument/842d3d24-f638-47e6-a239-8578723db09c\">fisarmonica diatonica a bottoni</a>.<br /> Per l'aerofono ad ancia dotato di tastiera conosciuto anche come melodion, utilizza <a href=\"/instrument/8ab40df2-106b-4b9b-a50c-0798ee95da8f\">melodica</a>.<br /> Conosciuto anche come organo ad ance, è grande, simile a un pianoforte verticale e ha pedali collegati a mantici con ance. Il suono è prodotto suonando la tastiera."
+msgstr "Per la fisarmonica conosciuta anche come melodeon, utilizza <a href=\"/instrument/842d3d24-f638-47e6-a239-8578723db09c\">fisarmonica diatonica a bottoni</a>.<br /> Per l'aerofono ad ancia dotato di tastiera conosciuto anche come melodion, utilizza <a href=\"/instrument/8ab40df2-106b-4b9b-a50c-0798ee95da8f\">melodica</a>.<br /> Per l'organo a pompa portatile usato in India, utilizza <a href=\"/instrument/c43c7647-077d-4d60-a01b-769de71b82f2\">armonium</a>.<br /> Conosciuto anche come organo ad ance, è grande, simile a un pianoforte verticale e ha pedali collegati a un mantice con ance. Il suono è prodotto suonando la tastiera."
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
@@ -1259,7 +1278,7 @@ msgstr "Liuto a quattro corde e simile a un banjo proveniente dall'Africa occide
 msgid ""
 "Free reeds with bellows attached, often in a square shape, thence called "
 "squeezebox"
-msgstr "Ance libere attaccate a un mantice, spesso di forma quadrata e perciò chiamate squeezebox."
+msgstr "Ance libere attaccate a mantici, spesso di forma quadrata e perciò chiamata squeezebox."
 
 #. name:friction idiophone
 #: DB:instrument/description:701
@@ -1368,7 +1387,7 @@ msgid ""
 "Harmonica/Accordion hybrid where the bellows for the accordion bit with "
 "buttons/keys receive air though the user blowing into the instrument like an"
 " harmonica"
-msgstr "Ibrido di armonica a bocca e fisarmonica in cui i mantici della fisarmonica, con bottoni o tasti, ricevono aria soffiando nello strumento come in un'armonica."
+msgstr "Ibrido di armonica a bocca e fisarmonica in cui il mantice della fisarmonica, con bottoni o tasti, riceve aria soffiando nello strumento come in un'armonica."
 
 #. name:ghaychak
 #: DB:instrument/description:931
@@ -1851,6 +1870,14 @@ msgid ""
 "music."
 msgstr "Realizzato con una zucca avvolta in una rete decorata con perline, è usato nella musica afoxé brasiliana."
 
+#. name:żaqq
+#: DB:instrument/description:590
+msgid ""
+"Made of a whole animal-skin, it is used in festivals. The blowpipe (mserka) "
+"is made of rubber or cane, the chanter (saqqafa) are two cane pipes, one 2 "
+"holed, the other 5 holed, with the bell of an ox horn."
+msgstr "Realizzato a partire dalla pelle intera di un animale, è utilizzato nei festival tradizionali. La canna di imboccatura (mserka) è in gomma o canna di bambù, mentre le canne del canto (saqqafa) sono due canne di bambù, rispettivamente con 2 e 5 fori, con una campana in corno di bue."
+
 #. name:żummara
 #: DB:instrument/description:592
 msgid ""
@@ -2105,11 +2132,6 @@ msgid ""
 "the two middle open strings.\""
 msgstr "Chiamata anche \"violin octet\" in inglese, è composta da otto violini di dimensioni proporzionali sviluppati principalmente da Carleen Hutchins. Ogni strumento si basa direttamente sul violino standard e sulle sue proprietà acustiche, e di conseguenza il loro suono ha un'intonazione più omogenea \"prossima alle due corde vuote centrali\"."
 
-#. name:Northumbrian pipes
-#: DB:instrument/description:358
-msgid "Northumbrian (small)pipes"
-msgstr "Detta anche piccola cornamusa del Northumberland"
-
 #. name:melophone
 #: DB:instrument/description:1022
 msgid ""
@@ -2127,7 +2149,18 @@ msgid ""
 "href=\"/instrument/eafabec6-af67-4a49-be38-4401e7200494\">melophone</a>, a "
 "bellowed free reed shaped like a lute.<br /> Originating in the 19th century"
 " horn-design boom, it is used mostly in outside concert and marching music"
-msgstr "Da non confondere con il <a href=\"/instrument/eafabec6-af67-4a49-be38-4401e7200494\">melofono</a>, un aerofono ad ancia libera con mantici, ma dalla forma di liuto.<br /> Ebbe origine durante il boom dell'ideazione di corni nel XIX secolo ed è usato soprattutto nella musica da concerti all'aperto e da banda."
+msgstr "Da non confondere con il <a href=\"/instrument/eafabec6-af67-4a49-be38-4401e7200494\">melofono</a>, un aerofono ad ancia libera con un mantice, ma dalla forma di liuto.<br /> Ebbe origine durante il boom dell'ideazione di corni nel XIX secolo ed è usato soprattutto nella musica da concerti all'aperto e da banda."
+
+#. name:harmonium
+#: DB:instrument/description:135
+msgid ""
+"Not to be confused with European upright <a "
+"href=\"/instrument/20443ce3-cde1-4968-b7cc-65e45bb9714f\">reed organ</a> "
+"also commonly known as \"Harmonium\". <br /> Also known as the samvadini, it"
+" was developed in India from imported reed organs. Consists of a wooden box-"
+"shape with a keyboard and a bellows in the back; both are operated by the "
+"same player, often a singer. While upright versions exist, they are rare."
+msgstr "Da non confondere con l'<a href=\"/instrument/20443ce3-cde1-4968-b7cc-65e45bb9714f\">organo a pompa</a> verticale europeo anch'esso comunemente noto come \"armonium\". <br /> Conosciuto anche come samvadini, fu sviluppato in India a partire da organi a pompa di importazione. È composto da una cassa squadrata in legno con una tastiera e un mantice sul retro; entrambi sono azionati dallo stesso musicista, che spesso è anche un cantante. Ne esistono anche versioni verticali, seppur rare."
 
 #. name:ghijak
 #: DB:instrument/description:932
@@ -2574,7 +2607,7 @@ msgstr "Mediorientale"
 msgid ""
 "Scraper made of bones tied together with rope scraped with a conch-shell, in"
 " Catalonia it's scraped with a castanet. Ginebra is a variant made of cane."
-msgstr "Idiofono a raschiamento fatto di ossa legate con una corda e sfregate con un guscio di conchiglia, in Catalogna è sfregato con una castagnetta. La ginebra è una variante fatta di bastoni."
+msgstr "Idiofono a raschiamento fatto di ossa legate con una corda e sfregate con un guscio di conchiglia, in Catalogna è sfregato con una castagnetta. La ginebra è una variante fatta di canne di bambù."
 
 #. name:pemade
 #: DB:instrument/description:976
@@ -4381,14 +4414,6 @@ msgid ""
 "donax reed attached."
 msgstr "Detta anche rabbaba, è un tamburo a frizione maltese composto da un contenitore (realizzato in latta, ceramica o legno) ricoperto di pelle animale con attaccata una lunga canna."
 
-#. name:żaqq
-#: DB:instrument/description:590
-msgid ""
-"The żaqq is a Maltese bagpipe made from the complete skin of an animal "
-"(typically a premature calf, goat or dog). The chanter consists of two side-"
-"by-side pipes and a bull's horn is normally attached to the end."
-msgstr "Cornamusa maltese realizzata con l'intera pelle di un animale (in genere un vitello nato prematuro, una capra o un cane). La canna del canto è composta da due canne parallele e solitamente ha un corno di toro attaccato all'estremità."
-
 #. name:theatre organ
 #: DB:instrument/description:347
 msgid "Theatre organ, such as the Wurlitzer"
@@ -4665,6 +4690,13 @@ msgid ""
 "the individual stopped pipes are arranged around a central core using "
 "beeswax."
 msgstr "Usato nella musica tradizionale lao e isan, è realizzato in bambù o legno di ku. Le canne, individuali e chiuse a un estremità, sono disposte attorno a un nucleo centrale utilizzando la cera d'api."
+
+#. name:garmon
+#: DB:instrument/description:1075
+msgid ""
+"Used in Russian, Mari and Caucasus folk music, it has two rows of buttons in"
+" a diatonic scale, as well as additional bass buttons."
+msgstr "Usato nella musica tradizionale russa, mari e caucasica, ha due file di bottoni in scala diatonica, così come bottoni aggiuntivi dei bassi."
 
 #. name:octavilla
 #: DB:instrument/description:940

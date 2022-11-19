@@ -972,6 +972,14 @@ msgid ""
 "drone and melody strings operated by buttons or keys."
 msgstr ""
 
+#. name:pedal accordion
+#: DB:instrument/description:1076
+msgid ""
+"Developed in Warszaw, Poland, it is used in folk music. It has two foot-"
+"operated bellows attached via metal/brass pipe; its body-bellows are only "
+"used for accents."
+msgstr ""
+
 #. name:violin family
 #: DB:instrument/description:59
 msgid ""
@@ -1039,6 +1047,15 @@ msgstr "Puhaltamalla ohjattava Akain valmistama syntetisaattori."
 msgid ""
 "Early 19th century brass instrument with a conical bore, it is more compact "
 "and mellower than the trumpet which it resembles."
+msgstr ""
+
+#. name:flutina
+#: DB:instrument/description:1074
+msgid ""
+"Early predecessor to the <a "
+"href=\"/instrument/842d3d24-f638-47e6-a239-8578723db09c\">diatonic "
+"accordion</a>, it was similar to the German concertina and had 4 fold "
+"bellows and brass reeds."
 msgstr ""
 
 #. name:đing buốt
@@ -1216,6 +1233,8 @@ msgid ""
 "href=\"/instrument/842d3d24-f638-47e6-a239-8578723db09c\">diatonic button "
 "accordion</a>.<br /> For the mouth blown keyed MELODION, see <a "
 "href=\"/instrument/8ab40df2-106b-4b9b-a50c-0798ee95da8f\">melodica</a>.<br "
+"/> For the portable reed organ used in India see <a "
+"href=\"/instrument/c43c7647-077d-4d60-a01b-769de71b82f2\">harmonium</a>.<br "
 "/> Also known as pump organ, it is large, looks like an upright piano and "
 "has pedals attached to bellows with reeds. Sound is produced by playing the "
 "keyboard."
@@ -1847,6 +1866,14 @@ msgid ""
 "music."
 msgstr ""
 
+#. name:żaqq
+#: DB:instrument/description:590
+msgid ""
+"Made of a whole animal-skin, it is used in festivals. The blowpipe (mserka) "
+"is made of rubber or cane, the chanter (saqqafa) are two cane pipes, one 2 "
+"holed, the other 5 holed, with the bell of an ox horn."
+msgstr ""
+
 #. name:żummara
 #: DB:instrument/description:592
 msgid ""
@@ -2101,11 +2128,6 @@ msgid ""
 "the two middle open strings.\""
 msgstr ""
 
-#. name:Northumbrian pipes
-#: DB:instrument/description:358
-msgid "Northumbrian (small)pipes"
-msgstr ""
-
 #. name:melophone
 #: DB:instrument/description:1022
 msgid ""
@@ -2123,6 +2145,17 @@ msgid ""
 "href=\"/instrument/eafabec6-af67-4a49-be38-4401e7200494\">melophone</a>, a "
 "bellowed free reed shaped like a lute.<br /> Originating in the 19th century"
 " horn-design boom, it is used mostly in outside concert and marching music"
+msgstr ""
+
+#. name:harmonium
+#: DB:instrument/description:135
+msgid ""
+"Not to be confused with European upright <a "
+"href=\"/instrument/20443ce3-cde1-4968-b7cc-65e45bb9714f\">reed organ</a> "
+"also commonly known as \"Harmonium\". <br /> Also known as the samvadini, it"
+" was developed in India from imported reed organs. Consists of a wooden box-"
+"shape with a keyboard and a bellows in the back; both are operated by the "
+"same player, often a singer. While upright versions exist, they are rare."
 msgstr ""
 
 #. name:ghijak
@@ -4377,14 +4410,6 @@ msgid ""
 "donax reed attached."
 msgstr ""
 
-#. name:żaqq
-#: DB:instrument/description:590
-msgid ""
-"The żaqq is a Maltese bagpipe made from the complete skin of an animal "
-"(typically a premature calf, goat or dog). The chanter consists of two side-"
-"by-side pipes and a bull's horn is normally attached to the end."
-msgstr ""
-
 #. name:theatre organ
 #: DB:instrument/description:347
 msgid "Theatre organ, such as the Wurlitzer"
@@ -4660,6 +4685,13 @@ msgid ""
 "Used in Laos and Isan traditional music, it is made of bamboo or ku wood, "
 "the individual stopped pipes are arranged around a central core using "
 "beeswax."
+msgstr ""
+
+#. name:garmon
+#: DB:instrument/description:1075
+msgid ""
+"Used in Russian, Mari and Caucasus folk music, it has two rows of buttons in"
+" a diatonic scale, as well as additional bass buttons."
 msgstr ""
 
 #. name:octavilla
