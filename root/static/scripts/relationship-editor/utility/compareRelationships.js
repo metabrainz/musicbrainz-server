@@ -15,6 +15,7 @@ import {
   SERIES_ORDERING_TYPE_AUTOMATIC,
 } from '../../common/constants.js';
 import {compare} from '../../common/i18n.js';
+import linkedEntities from '../../common/linkedEntities.mjs';
 import {compareStrings} from '../../common/utility/compare.js';
 import compareDates, {
   compareDatePeriods,
@@ -26,11 +27,54 @@ import type {
   RelationshipStateT,
 } from '../../relationship-editor/types.js';
 
+/*
+ * Link attributes are sorted by root ID and ID.  In the relationship dialog,
+ * they are further sorted by credit and text value (with duplicate IDs
+ * handled by `splitRelationshipByAttributes`).
+ *
+ * Note that since they are kept in a tree, items can be found by any set of
+ * leading sort criteria.
+ */
+export function compareLinkAttributeRootIds(
+  a: LinkAttrT,
+  b: LinkAttrT,
+): number {
+  const attributeTypeA = linkedEntities.link_attribute_type[a.typeID];
+  const attributeTypeB = linkedEntities.link_attribute_type[b.typeID];
+  return attributeTypeA.root_id - attributeTypeB.root_id;
+}
+
 export function compareLinkAttributeIds(
   a: LinkAttrT,
   b: LinkAttrT,
 ): number {
-  return a.typeID - b.typeID;
+  return compareLinkAttributeRootIds(a, b) || (a.typeID - b.typeID);
+}
+
+export function compareLinkAttributes(
+  a: LinkAttrT,
+  b: LinkAttrT,
+): number {
+  let result = compareLinkAttributeIds(a, b);
+  if (result) {
+    return result;
+  }
+  const attributeType = linkedEntities.link_attribute_type[a.typeID];
+  const rootAttributeType =
+    linkedEntities.link_attribute_type[attributeType.root_id];
+  if (rootAttributeType.creditable) {
+    result = compareStrings(a.credited_as ?? '', b.credited_as ?? '');
+    if (result) {
+      return result;
+    }
+  }
+  if (rootAttributeType.free_text) {
+    result = compareStrings(a.text_value ?? '', b.text_value ?? '');
+    if (result) {
+      return result;
+    }
+  }
+  return 0;
 }
 
 export function areLinkAttributesEqual(

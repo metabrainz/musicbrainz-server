@@ -1,4 +1,6 @@
 package t::MusicBrainz::Server::Controller::Errors;
+use strict;
+use warnings;
 
 use Catalyst::Test 'MusicBrainz::Server';
 use HTTP::Request;
@@ -90,29 +92,34 @@ test 'Respond with Bad Request for "invalid session ID"' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
-    local $MusicBrainz::Errors::_sentry_enabled = 1;
-
-    my $sentry_ua = bless {
-        ctx_request => \&ctx_request,
-        posted_error => undef,
-    }, 'SentryUserAgent';
-
-    local $MusicBrainz::Errors::sentry = Sentry::Raven->new(
-        ua_obj => $sentry_ua,
-        sentry_dsn => 'http://user:password@localhost/sentry-test/1',
-    );
-
     $mech->request(HTTP::Request->new('GET', '/', [
         'Cookie' => 'musicbrainz_server_session=heheh',
     ]));
-    is($mech->response->code, 400);
-
-    my $sentry_error = decode_json($sentry_ua->{posted_error});
-    my $exception_value = $sentry_error->{'sentry.interfaces.Exception'}{value};
-
     is(
-        $exception_value,
-        q(Tried to set invalid session ID 'heheh'),
+        $mech->response->code,
+        400,
+        'bad request is returned for an invalid session ID',
+    );
+    is(
+        $mech->response->content,
+        q(Invalid session ID 'heheh'),
+        'an error message is returned in the response',
+    );
+
+    # Try with beta=on, since that triggers a redirect before
+    # any action is dispatched.
+    $mech->request(HTTP::Request->new('GET', '/', [
+        'Cookie' => 'musicbrainz_server_session=hahah; beta=on',
+    ]));
+    is(
+        $mech->response->code,
+        400,
+        'bad request is returned for an invalid session ID with beta=on',
+    );
+    is(
+        $mech->response->content,
+        q(Invalid session ID 'hahah'),
+        'an error message is returned in the response',
     );
 };
 

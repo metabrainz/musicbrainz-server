@@ -345,7 +345,11 @@ sub delete : Chained('load') RequireAuth(relationship_editor) SecureForm
             );
         });
 
-        $c->response->redirect($c->uri_for_action('/relationship/linktype/tree', [ $c->stash->{types} ]));
+        # So we send the user back to the right entity pair page
+        my $types_string =
+            $link_type->entity0_type . '-' . $link_type->entity1_type;
+
+        $c->response->redirect($c->uri_for_action('/relationship/linktype/tree', [ $types_string ]));
         $c->detach;
     }
 }

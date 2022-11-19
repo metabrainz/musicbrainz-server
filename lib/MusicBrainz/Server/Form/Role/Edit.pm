@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Role::Edit;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose::Role;
 
 with 'MusicBrainz::Server::Form::Role::EditNote';

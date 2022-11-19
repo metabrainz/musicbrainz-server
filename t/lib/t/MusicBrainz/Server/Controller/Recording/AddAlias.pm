@@ -1,8 +1,11 @@
 package t::MusicBrainz::Server::Controller::Recording::AddAlias;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
-use utf8;
 
 with 't::Mechanize', 't::Context';
 

@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Search::Search;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
 

@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Work::Create;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use HTTP::Request::Common;

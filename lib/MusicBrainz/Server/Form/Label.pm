@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Label;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 extends 'MusicBrainz::Server::Form';

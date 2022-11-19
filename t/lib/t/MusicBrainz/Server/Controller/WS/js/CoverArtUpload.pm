@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::WS::js::CoverArtUpload;
+use strict;
+use warnings;
+
 use Test::More;
 use Test::Routine;
 use Test::JSON import => [ 'is_json' ];

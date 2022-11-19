@@ -688,6 +688,10 @@ const seleniumTests = [
     name: 'Genre_Edit_Form.json5',
     login: true,
   },
+  {
+    name: 'Recording_Edit_Form.json5',
+    login: true,
+  },
 ];
 /* eslint-enable sort-keys */
 

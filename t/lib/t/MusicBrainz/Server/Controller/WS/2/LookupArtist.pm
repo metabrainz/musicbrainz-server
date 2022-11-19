@@ -1,4 +1,8 @@
 package t::MusicBrainz::Server::Controller::WS::2::LookupArtist;
+use utf8;
+use strict;
+use warnings;
+
 use HTTP::Request;
 use Test::Deep qw( cmp_bag );
 use Test::Routine;
@@ -6,7 +10,6 @@ use Test::More;
 
 with 't::Mechanize', 't::Context';
 
-use utf8;
 use Test::XML::SemanticCompare;
 use MusicBrainz::Server::Test ws_test => {
     version => 2

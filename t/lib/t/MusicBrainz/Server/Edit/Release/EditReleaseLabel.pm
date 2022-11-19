@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Edit::Release::EditReleaseLabel;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use Test::Fatal;

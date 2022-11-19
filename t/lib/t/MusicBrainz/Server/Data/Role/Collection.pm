@@ -1,4 +1,6 @@
 package t::MusicBrainz::Server::Data::Role::Collection;
+use strict;
+use warnings;
 
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 use Test::Routine;

@@ -1,4 +1,6 @@
 package MusicBrainz::Server::EditRegistry;
+use strict;
+use warnings;
 
 use Class::Load qw( load_class );
 

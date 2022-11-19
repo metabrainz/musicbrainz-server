@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Admin::LinkType::Edit;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 
 extends 'MusicBrainz::Server::Form::Admin::LinkType';

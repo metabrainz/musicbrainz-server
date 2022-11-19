@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Edit::URL::Edit;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use Test::Fatal;

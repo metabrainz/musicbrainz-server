@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Edit::Historic::EditReleaseAttrs;
+use strict;
+use warnings;
 
 use MusicBrainz::Server::Edit::Historic::Base;
 

@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::User::Donation;
+use strict;
+use warnings;
+
 use Test::Routine;
 
 use LWP;

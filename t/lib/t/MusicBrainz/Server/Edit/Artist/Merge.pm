@@ -1,5 +1,8 @@
 package t::MusicBrainz::Server::Edit::Artist::Merge;
 use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use Test::Fatal;

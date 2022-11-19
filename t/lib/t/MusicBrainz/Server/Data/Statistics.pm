@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Data::Statistics;
+use strict;
+use warnings;
+
 use Test::Fatal;
 use Test::Routine;
 use Test::Moose;

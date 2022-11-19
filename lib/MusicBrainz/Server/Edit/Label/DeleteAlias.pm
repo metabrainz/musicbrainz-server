@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Label::DeleteAlias;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_DELETE_ALIAS );
+use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 

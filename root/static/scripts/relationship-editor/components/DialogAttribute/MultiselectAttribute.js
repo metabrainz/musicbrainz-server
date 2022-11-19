@@ -146,24 +146,6 @@ export function reducer(
         action,
         () => createMultiselectAttributeValue(state.type, null),
       );
-      if (
-        action.type === 'add-value' ||
-        action.type === 'update-value-autocomplete'
-      ) {
-        // Don't allow more than one attribute of the same type.
-        const selectedAttributeIds = new Set();
-        for (const value of newState.values) {
-          const attributeId = value.autocomplete.selectedItem?.entity?.id;
-          if (attributeId != null) {
-            if (selectedAttributeIds.has(attributeId)) {
-              newState.values = state.values;
-              break;
-            } else {
-              selectedAttributeIds.add(attributeId);
-            }
-          }
-        }
-      }
     }
   }
 

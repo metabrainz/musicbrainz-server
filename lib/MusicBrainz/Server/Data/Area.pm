@@ -21,10 +21,12 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
-extends 'MusicBrainz::Server::Data::CoreEntity';
+extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::Relatable';
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'area' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'area' };
-with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'area' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'area' };
 with 'MusicBrainz::Server::Data::Role::Merge';

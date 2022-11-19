@@ -29,7 +29,7 @@ import type {
 } from '../types/actions.js';
 import {
   areLinkAttributesEqual,
-  compareLinkAttributeIds,
+  compareLinkAttributes,
 } from '../utility/compareRelationships.js';
 
 import BooleanAttribute, {
@@ -54,7 +54,7 @@ const DIALOG_ATTRIBUTE_ORDER = {
   text: 2,
 };
 
-export function createDialogAttributesList(
+function createDialogAttributesList(
   linkType: ?LinkTypeT,
   existingAttributesByRootId: LinkAttributesByRootIdT | null,
 ): DialogAttributesT {
@@ -164,7 +164,7 @@ export function createInitialState(
   };
 }
 
-export function getLinkAttributesFromState(
+function getLinkAttributesFromState(
   attributesList: DialogAttributesT,
 ): tree.ImmutableTree<LinkAttrT> | null {
   return attributesList.reduce(
@@ -181,7 +181,7 @@ export function getLinkAttributesFromState(
                 typeID: linkAttributeType.id,
                 typeName: linkAttributeType.name,
               },
-              compareLinkAttributeIds,
+              compareLinkAttributes,
             );
           }
           break;
@@ -204,7 +204,7 @@ export function getLinkAttributesFromState(
                   typeID: linkAttributeType.id,
                   typeName: linkAttributeType.name,
                 },
-                compareLinkAttributeIds,
+                compareLinkAttributes,
               );
             }
           }
@@ -224,7 +224,7 @@ export function getLinkAttributesFromState(
                 typeID: linkAttributeType.id,
                 typeName: linkAttributeType.name,
               },
-              compareLinkAttributeIds,
+              compareLinkAttributes,
             );
           }
           break;

@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Form::Filter::Release;
+use strict;
+use warnings;
 
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Data::Utils qw( non_empty );

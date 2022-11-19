@@ -1,8 +1,11 @@
 package t::MusicBrainz::Server::Controller::OAuth2;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use Test::Deep qw( cmp_set );
-use utf8;
 
 use Encode;
 use HTTP::Request;

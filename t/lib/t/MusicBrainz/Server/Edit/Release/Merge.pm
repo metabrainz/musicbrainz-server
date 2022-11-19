@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Edit::Release::Merge;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 

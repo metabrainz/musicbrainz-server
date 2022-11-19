@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::WebService::Serializer::JSON::2::Utils;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::Fatal;
 use Test::More;

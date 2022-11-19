@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 
 for my $type (grep { $_ ne 'instrument' && $_ ne 'area' } entities_with('annotations')) {

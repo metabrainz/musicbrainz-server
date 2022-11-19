@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Edit::Exceptions;
+use strict;
+use warnings;
 
 use Exception::Class ( ## no critic 'ProhibitUnusedImport'
     'MusicBrainz::Server::Edit::Exceptions::NoChanges',

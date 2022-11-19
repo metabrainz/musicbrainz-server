@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Field::Relationship;
+use strict;
+use warnings;
+
 
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler::Field::Compound';

@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::WS::js::Autocomplete;
+use strict;
+use warnings;
+
 use Test::Deep qw( ignore );
 use Test::Routine;
 

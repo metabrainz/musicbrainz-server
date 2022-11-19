@@ -3,6 +3,7 @@
 <PROJECT_ROOT>/.nyc_output/.*
 <PROJECT_ROOT>/coverage/.*
 <PROJECT_ROOT>/lib/.*
+<PROJECT_ROOT>/node_modules/resolve/test/resolver/malformed_package_json/package.json
 <PROJECT_ROOT>/root/static/build/.*
 <PROJECT_ROOT>/perl_modules/.*
 <PROJECT_ROOT>/t/.*

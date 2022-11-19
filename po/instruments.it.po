@@ -118,6 +118,10 @@ msgctxt "Modern 24-stringed stainless steel kora"
 msgid "Gravikord"
 msgstr "gravikord"
 
+#: DB:instrument/name:1073
+msgid "Great Highland bagpipe"
+msgstr "cornamusa scozzese"
+
 #: DB:instrument/name:795
 msgctxt "electric lamellophone"
 msgid "Guitaret"
@@ -1541,6 +1545,10 @@ msgctxt "Reedless aerophone"
 msgid "flute"
 msgstr "flauto"
 
+#: DB:instrument/name:1074
+msgid "flutina"
+msgstr "flutina"
+
 #: DB:instrument/name:415
 msgid "flûte d'amour"
 msgstr "flauto d'amore"
@@ -1638,6 +1646,11 @@ msgstr "tamburo garifuna"
 #: DB:instrument/name:289
 msgid "garklein recorder"
 msgstr "flauto dolce garklein"
+
+#: DB:instrument/name:1075
+msgctxt "Russian diatonic folk accordion"
+msgid "garmon"
+msgstr "garmon"
 
 #: DB:instrument/name:75
 msgid "gayageum"
@@ -1863,7 +1876,7 @@ msgid "harmonica"
 msgstr "armonica (a bocca)"
 
 #: DB:instrument/name:135
-msgctxt "reed organ"
+msgctxt "Portable Indian reed organ"
 msgid "harmonium"
 msgstr "armonium"
 
@@ -2836,6 +2849,11 @@ msgstr "pang gu ly hu hmông"
 msgctxt "Smallest member of the viol family"
 msgid "pardessus de viole"
 msgstr "pardessus de viole"
+
+#: DB:instrument/name:1076
+msgctxt "Polish foot-pedal accordion"
+msgid "pedal accordion"
+msgstr "fisarmonica a pedali"
 
 #: DB:instrument/name:606
 msgid "pedal piano"
@@ -4496,6 +4514,7 @@ msgid "żafżafa"
 msgstr "żafżafa"
 
 #: DB:instrument/name:590
+msgctxt "Maltese mouth-blown bagpipe"
 msgid "żaqq"
 msgstr "żaqq"
 

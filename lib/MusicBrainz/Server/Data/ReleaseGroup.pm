@@ -18,9 +18,11 @@ use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 
-extends 'MusicBrainz::Server::Data::CoreEntity';
+extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::Relatable';
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release_group' };
-with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'release_group' };

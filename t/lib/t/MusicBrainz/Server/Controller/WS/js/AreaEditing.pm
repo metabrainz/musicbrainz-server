@@ -1,4 +1,6 @@
 package t::MusicBrainz::Server::Controller::WS::js::AreaEditing;
+use strict;
+use warnings;
 
 use JSON;
 use Test::More;

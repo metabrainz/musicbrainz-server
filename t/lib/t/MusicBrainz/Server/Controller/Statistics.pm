@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Statistics;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 

@@ -36,8 +36,7 @@ import type {
 } from '../types/actions.js';
 
 import {
-  createDialogAttributesList,
-  getLinkAttributesFromState,
+  createInitialState as createDialogAttributesState,
 } from './DialogAttributes.js';
 
 type PropsT = {
@@ -104,11 +103,6 @@ export function createInitialState(
   id: string,
   disabled?: boolean = false,
 ): DialogLinkTypeStateT {
-  const selectedLinkType = linkType ?? (
-    linkTypeOptions.length === 1
-      ? linkTypeOptions[0].entity
-      : null
-  ) ?? null;
   return {
     autocomplete: createInitialAutocompleteState<LinkTypeT>({
       containerClass: 'relationship-type',
@@ -117,17 +111,17 @@ export function createInitialState(
       extractSearchTerms: extractLinkTypeSearchTerms,
       id: 'relationship-type-' + id,
       inputClass: 'relationship-type',
-      inputValue: (selectedLinkType?.name) ?? '',
+      inputValue: (linkType?.name) ?? '',
       recentItemsKey: 'link_type-' + source.entityType + '-' + targetType,
-      selectedItem: selectedLinkType ? {
-        entity: selectedLinkType,
-        id: selectedLinkType.id,
-        name: l_relationships(selectedLinkType.name),
+      selectedItem: linkType ? {
+        entity: linkType,
+        id: linkType.id,
+        name: l_relationships(linkType.name),
         type: 'option',
       } : null,
       staticItems: linkTypeOptions,
     }),
-    error: getLinkTypeError(selectedLinkType, source),
+    error: getLinkTypeError(linkType, source),
   };
 }
 
@@ -180,25 +174,25 @@ export function updateDialogState(
   const newLinkType = newState.linkType.autocomplete.selectedItem?.entity;
 
   if (oldLinkType !== newLinkType) {
-    const newAttributesList = createDialogAttributesList(
-      newLinkType,
-      newState.attributes.attributesList
-        .reduce<LinkAttributesByRootIdT>(
-          accumulateDialogAttributeByRootId,
-          new Map(),
-        ),
-    );
-    newState.attributes = {
-      ...newState.attributes,
-      attributesList: newAttributesList,
-      resultingLinkAttributes: getLinkAttributesFromState(
-        newAttributesList,
-      ),
-    };
+    updateDialogAttributesStateForLinkType(newState, newLinkType ?? null);
     return true;
   }
 
   return false;
+}
+
+export function updateDialogAttributesStateForLinkType(
+  newState: {...PartialDialogStateT, ...},
+  newLinkType: LinkTypeT | null,
+): void {
+  newState.attributes = createDialogAttributesState(
+    newLinkType ?? null,
+    newState.attributes.attributesList
+      .reduce<LinkAttributesByRootIdT>(
+        accumulateDialogAttributeByRootId,
+        new Map(),
+      ),
+  );
 }
 
 function accumulateDialogAttributeByRootId(

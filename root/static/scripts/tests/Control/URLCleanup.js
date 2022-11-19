@@ -5570,6 +5570,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
+                     input_url: 'https://www.youtube.com/@MetaBrainz#soon',
+             input_entity_type: 'label',
+    expected_relationship_type: 'youtube',
+            expected_clean_url: 'https://www.youtube.com/@MetaBrainz',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
                      input_url: 'https://www.youtube.com/playlist?list=PL43OynbWaTMKSxLVnUF0HbHHiXEgAVm3Q',
              input_entity_type: 'series',
     expected_relationship_type: 'youtube',

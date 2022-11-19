@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Form::Application;
+use strict;
+use warnings;
 
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Constants qw( :oauth_redirect_uri_re );

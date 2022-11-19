@@ -1,7 +1,10 @@
 package t::MusicBrainz::Server::Controller::Area::Aliases;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
-use utf8;
 
 with 't::Mechanize', 't::Context';
 

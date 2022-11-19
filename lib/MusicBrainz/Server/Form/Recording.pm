@@ -1,5 +1,8 @@
 package MusicBrainz::Server::Form::Recording;
 use utf8;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 use List::AllUtils qw( uniq );
 use MusicBrainz::Server::Translation qw( l );

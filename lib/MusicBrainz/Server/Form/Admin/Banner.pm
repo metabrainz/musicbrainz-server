@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Form::Admin::Banner;
+use strict;
+use warnings;
 
 use HTML::FormHandler::Moose;
 

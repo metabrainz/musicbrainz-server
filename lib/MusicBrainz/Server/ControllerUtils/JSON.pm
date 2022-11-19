@@ -1,4 +1,6 @@
 package MusicBrainz::Server::ControllerUtils::JSON;
+use strict;
+use warnings;
 
 use base 'Exporter';
 

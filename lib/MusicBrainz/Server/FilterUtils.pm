@@ -1,4 +1,6 @@
 package MusicBrainz::Server::FilterUtils;
+use strict;
+use warnings;
 
 use base 'Exporter';
 

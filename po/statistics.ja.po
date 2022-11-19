@@ -1235,7 +1235,7 @@ msgstr "最終更新日: {date}"
 
 #: ../root/statistics/Countries.js:48 ../root/statistics/Editors.js:53
 #: ../root/statistics/Formats.js:55 ../root/statistics/LanguagesScripts.js:66
-#: ../root/statistics/LanguagesScripts.js:147
+#: ../root/statistics/LanguagesScripts.js:154
 msgid "Rank"
 msgstr "ランク"
 
@@ -1251,7 +1251,7 @@ msgstr "アーティスト"
 #: ../root/statistics/Countries.js:58 ../root/statistics/CoverArt.js:106
 #: ../root/statistics/Formats.js:57 ../root/statistics/Index.js:376
 #: ../root/statistics/LanguagesScripts.js:72
-#: ../root/statistics/LanguagesScripts.js:153 ../root/statistics/stats.js:664
+#: ../root/statistics/LanguagesScripts.js:160 ../root/statistics/stats.js:664
 msgid "Releases"
 msgstr "リリース"
 
@@ -2027,19 +2027,19 @@ msgstr ""
 msgid "Languages"
 msgstr "言語"
 
-#: ../root/statistics/LanguagesScripts.js:93
+#: ../root/statistics/LanguagesScripts.js:97
 msgid "Unknown language"
 msgstr "不明な言語"
 
-#: ../root/statistics/LanguagesScripts.js:143
+#: ../root/statistics/LanguagesScripts.js:150
 msgid "Scripts"
 msgstr "文字"
 
-#: ../root/statistics/LanguagesScripts.js:149
+#: ../root/statistics/LanguagesScripts.js:156
 msgid "Script"
 msgstr "文字"
 
-#: ../root/statistics/LanguagesScripts.js:166
+#: ../root/statistics/LanguagesScripts.js:173
 msgid "Unknown script"
 msgstr "不明な文字"
 

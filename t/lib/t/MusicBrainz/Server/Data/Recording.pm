@@ -1,11 +1,14 @@
 package t::MusicBrainz::Server::Data::Recording;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::Moose;
 use Test::More;
 
 use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::Search;
-use utf8;
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;

@@ -1,11 +1,13 @@
 package t::MusicBrainz::Server::Controller::WS::2::TXT::GenreList;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 
 use MusicBrainz::Server::Test::WS qw( ws2_test_txt );
 
 with 't::Mechanize', 't::Context';
-
-use utf8;
 
 =head2 Test description
 

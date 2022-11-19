@@ -2,6 +2,7 @@
 # Translators:
 # Adolfo Jayme-Barrientos, 2014
 # Alexander Dupuy <email address hidden>, 2012
+# Antonio Perea, 2022
 # Antony Duran <email address hidden>, 2017
 # daniel plinplon <email address hidden>, 2015
 # Biel Perelló <email address hidden>, 2018
@@ -20,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: Stich Lilo <fitifag378@inbov03.com>, 2020\n"
+"Last-Translator: Antonio Perea, 2022\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1158,13 +1159,13 @@ msgstr ""
 
 #: DB:link_attribute_type/description:3
 msgid "This attribute describes a type of vocal performance."
-msgstr ""
+msgstr "Este atributo describe un tipo de interpretación vocal."
 
 #: DB:link_attribute_type/description:2
 msgid ""
 "This attribute describes if a particular collaboration was considered equal "
 "or minor."
-msgstr ""
+msgstr "Este atributo describe si una colaboración en particular fue considerada igual o menor."
 
 #: DB:link_attribute_type/description:1
 msgid ""
@@ -1195,13 +1196,13 @@ msgstr ""
 msgid ""
 "This attribute indicates a version with satirical, ironic, or otherwise "
 "humorous intent. Parodies in most cases have altered lyrics."
-msgstr ""
+msgstr "Este atributo indica una versión con un propósito satírico, irónico o humorístico. La mayoría de parodias alteran la letra original."
 
 #: DB:link_attribute_type/description:517
 msgid ""
 "This attribute indicates a version with the lyrics in a different language "
 "than the original."
-msgstr ""
+msgstr "Este atributo indica una versión con letra diferente al idioma original."
 
 #: DB:link_attribute_type/description:525
 msgid ""
@@ -2289,7 +2290,7 @@ msgstr ""
 
 #: DB:link_type/description:302
 msgid "This links a recording to a license under which it is available."
-msgstr ""
+msgstr "Esto enlaza una grabación a una licencia bajo la que está disponible."
 
 #: DB:link_type/description:255
 msgid ""
@@ -3673,7 +3674,7 @@ msgstr ""
 
 #: DB:link_type/name:993
 msgid "artwork"
-msgstr ""
+msgstr "portada"
 
 #: DB:link_attribute_type/name:526
 msgid "assistant"
@@ -3881,7 +3882,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1204
 msgid "classical music"
-msgstr ""
+msgstr "música clásica"
 
 #: DB:link_attribute_type/name:424
 msgid "co"
@@ -4709,7 +4710,7 @@ msgstr "tiene una página en una red social en"
 
 #: DB:link_type/long_link_phrase:287
 msgid "has a standalone website at"
-msgstr ""
+msgstr "tiene un sitio web independiente en"
 
 #: DB:link_type/long_link_phrase:755 DB:link_type/long_link_phrase:284
 #: DB:link_type/long_link_phrase:283 DB:link_type/long_link_phrase:285
@@ -4750,7 +4751,7 @@ msgstr "tiene un canal de vídeo oficial en"
 
 #: DB:link_type/long_link_phrase:185
 msgid "has an online community page at"
-msgstr ""
+msgstr "tiene una comunidad online en"
 
 #: DB:link_type/long_link_phrase:350
 msgid "has arrangement"
@@ -4885,7 +4886,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:984 DB:link_type/link_phrase:211
 msgid "history page"
-msgstr ""
+msgstr "historial"
 
 #: DB:link_type/reverse_link_phrase:984 DB:link_type/reverse_link_phrase:211
 msgid "history page for"
@@ -4990,7 +4991,7 @@ msgstr ""
 
 #: DB:link_type/name:986 DB:link_type/name:987
 msgid "instrument technician"
-msgstr ""
+msgstr "Técnico de instrumento"
 
 #: DB:link_attribute_type/name:580
 msgid "instrumental"
@@ -5069,7 +5070,7 @@ msgstr "es una parte de"
 
 #: DB:link_type/long_link_phrase:6 DB:link_type/long_link_phrase:236
 msgid "is a remaster of"
-msgstr ""
+msgstr "es una versión remasterizada de"
 
 #: DB:link_type/long_link_phrase:230 DB:link_type/long_link_phrase:9
 msgid "is a remix of"
@@ -5136,7 +5137,7 @@ msgstr "es la base de"
 
 #: DB:link_type/long_link_phrase:238
 msgid "is the earliest release of"
-msgstr ""
+msgstr "es el primer lanzamiento de"
 
 #: DB:link_type/long_link_phrase:241
 msgid "is the earliest version of {translated} {parody}"
@@ -5740,7 +5741,7 @@ msgstr "página oficial de"
 #: DB:link_type/link_phrase:183 DB:link_type/link_phrase:219
 #: DB:link_type/link_phrase:363
 msgid "official homepages"
-msgstr ""
+msgstr "páginas oficiales"
 
 #: DB:link_type/name:219
 msgid "official site"
@@ -6148,7 +6149,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:117 DB:link_type/name:117
 msgid "producer position"
-msgstr ""
+msgstr "posición de productor"
 
 #: DB:link_type/reverse_link_phrase:117
 msgid "producers"
@@ -6188,7 +6189,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:142
 msgid "provided legal representation for"
-msgstr ""
+msgstr "ofreció representación legal para"
 
 #: DB:link_type/long_link_phrase:137 DB:link_type/long_link_phrase:18
 msgid "provided {additional} art direction on"

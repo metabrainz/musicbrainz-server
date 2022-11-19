@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Form::Admin::LinkAttributeType;
+use strict;
+use warnings;
 
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Form::Utils qw( select_options_tree );

@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::ArtistCredit::Show;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok test_xpath_html );

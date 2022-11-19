@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Edit::Series::Edit;
+use strict;
+use warnings;
+
 use Test::Fatal;
 use Test::More;
 use Test::Routine;

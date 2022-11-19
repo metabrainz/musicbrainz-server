@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Sitemap::Utils;
+use strict;
+use warnings;
 
 use base 'Exporter';
 use MusicBrainz::Server::Data::Utils qw( non_empty );

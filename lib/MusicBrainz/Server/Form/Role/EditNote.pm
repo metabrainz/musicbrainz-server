@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Role::EditNote;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose::Role;
 
 use MusicBrainz::Server::Translation qw( l );

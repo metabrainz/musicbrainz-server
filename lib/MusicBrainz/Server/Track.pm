@@ -1,5 +1,7 @@
 package MusicBrainz::Server::Track;
 use strict;
+use warnings;
+
 use Carp qw( confess );
 use POSIX qw( floor );
 use Scalar::Util qw( looks_like_number );

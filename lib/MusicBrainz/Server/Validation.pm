@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Validation;
+use strict;
+use warnings;
 
 use Date::Calc;
 use List::AllUtils qw( any );
@@ -175,7 +177,10 @@ sub is_valid_url
     my $u = eval { URI->new($url) }
         or return 0;
 
-    return 0 if $u->scheme eq '';
+    my $scheme = $u->scheme;
+
+    return 0 unless defined $scheme;
+    return 0 if $scheme eq '';
     return 0 if $u->can('authority') && !($u->authority =~ /\./);
     return 1;
 }
@@ -305,6 +310,8 @@ sub is_valid_edit_note
 {
     my $edit_note = shift;
 
+    return 0 unless $edit_note;
+
     # An edit note with only spaces and / or punctuation is useless
     return 0 if $edit_note =~ /^[[:space:][:punct:]]+$/;
 
@@ -337,7 +344,7 @@ sub encode_entities
 sub normalise_strings
 {
     my @r = map {
-        my $t = $_;
+        my $t = $_ // '';
 
         # Using lc() on U+0130 LATIN CAPITAL LETTER I WITH DOT ABOVE turns it into U+0069 LATIN SMALL LETTER I
         # and U+0307 COMBINING DOT ABOVE which causes problems later, so remove that before using lc().

@@ -1,4 +1,8 @@
-package t::MusicBrainz::Server::Data::CoreEntity;
+package t::MusicBrainz::Server::Data::Role::Name;
+
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::Moose;
 use Test::More;
@@ -13,7 +17,7 @@ test find_by_names => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+data_artist');
 
-    # Test Data::CoreEntity->find_by_names using Data::Artist.
+    # Test Data::Role::Name->find_by_names using Data::Artist.
     my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $test->c);
 
     my %results = $artist_data->find_by_names('test artist', 'minimal Artist');

@@ -67,7 +67,9 @@ const SidebarTags = ({
             />
           ) : (
             <div id="sidebar-tags">
-              <h2>{l('Genres')}</h2>
+              <h2>{l('Tags')}</h2>
+
+              <h3>{l('Genres')}</h3>
               <div className="genre-list">
                 <p>
                   <TagList
@@ -78,7 +80,7 @@ const SidebarTags = ({
                 </p>
               </div>
 
-              <h2>{l('Other tags')}</h2>
+              <h3>{l('Other tags')}</h3>
               <div id="sidebar-tag-list">
                 <p>
                   <TagList

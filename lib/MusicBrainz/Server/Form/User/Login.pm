@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::User::Login;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation qw( l N_l );
 extends 'HTML::FormHandler';

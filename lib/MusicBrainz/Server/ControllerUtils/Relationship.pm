@@ -1,4 +1,6 @@
 package MusicBrainz::Server::ControllerUtils::Relationship;
+use strict;
+use warnings;
 
 use base 'Exporter';
 use MusicBrainz::Server::Data::Utils qw( trim non_empty );

@@ -1,10 +1,13 @@
 package t::MusicBrainz::Server::Controller::WS::2::SubmitCollection;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 
 with 't::Mechanize', 't::Context';
 
-use utf8;
 use HTTP::Status qw( :constants );
 use HTTP::Request::Common qw( DELETE );
 use Test::XML::SemanticCompare;

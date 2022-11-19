@@ -564,6 +564,7 @@ Readonly our @CORE_TABLE_LIST => qw(
     l_area_area
     l_area_artist
     l_area_event
+    l_area_genre
     l_area_instrument
     l_area_label
     l_area_place
@@ -575,6 +576,7 @@ Readonly our @CORE_TABLE_LIST => qw(
     l_area_work
     l_artist_artist
     l_artist_event
+    l_artist_genre
     l_artist_instrument
     l_artist_label
     l_artist_place
@@ -585,6 +587,7 @@ Readonly our @CORE_TABLE_LIST => qw(
     l_artist_url
     l_artist_work
     l_event_event
+    l_event_genre
     l_event_instrument
     l_event_label
     l_event_place
@@ -594,6 +597,16 @@ Readonly our @CORE_TABLE_LIST => qw(
     l_event_series
     l_event_url
     l_event_work
+    l_genre_genre
+    l_genre_instrument
+    l_genre_label
+    l_genre_place
+    l_genre_recording
+    l_genre_release
+    l_genre_release_group
+    l_genre_series
+    l_genre_url
+    l_genre_work
     l_instrument_instrument
     l_instrument_label
     l_instrument_place

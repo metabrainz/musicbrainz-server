@@ -7,7 +7,8 @@ use MusicBrainz::Server::Data::Utils qw( generate_gid hash_to_row );
 use MusicBrainz::Server::Entity::URL;
 use URI;
 
-extends 'MusicBrainz::Server::Data::CoreEntity';
+extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::Relatable';
 with
     'MusicBrainz::Server::Data::Role::Editable' => { table => 'url' },
     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'url' },

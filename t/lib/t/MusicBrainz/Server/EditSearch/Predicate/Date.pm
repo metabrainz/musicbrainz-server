@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::EditSearch::Predicate::Date;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 

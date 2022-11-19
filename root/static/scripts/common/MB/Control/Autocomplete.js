@@ -339,7 +339,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
     if (hasID) {
       // Add/move to the top of the recent entities menu.
       pushRecentItem({
-        entity: data,
+        entity: typeof data.toJSON === 'function' ? data.toJSON() : data,
         id: data.id,
         name: data.name,
         type: 'option',
