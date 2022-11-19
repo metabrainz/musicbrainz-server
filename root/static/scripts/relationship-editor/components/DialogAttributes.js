@@ -54,7 +54,7 @@ const DIALOG_ATTRIBUTE_ORDER = {
   text: 2,
 };
 
-export function createDialogAttributesList(
+function createDialogAttributesList(
   linkType: ?LinkTypeT,
   existingAttributesByRootId: LinkAttributesByRootIdT | null,
 ): DialogAttributesT {
@@ -164,7 +164,7 @@ export function createInitialState(
   };
 }
 
-export function getLinkAttributesFromState(
+function getLinkAttributesFromState(
   attributesList: DialogAttributesT,
 ): tree.ImmutableTree<LinkAttrT> | null {
   return attributesList.reduce(
