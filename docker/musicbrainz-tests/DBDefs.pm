@@ -148,6 +148,7 @@ sub DISABLE_LAST_LOGIN_UPDATE { 1 }
 # a different hostname alias.
 sub WEB_SERVER { 'mbtest:5000' }
 sub STATIC_RESOURCES_LOCATION { '//mbtest:5000/static/build' }
+sub BETA_REDIRECT_HOSTNAME { 'mbtest-beta:5000' }
 
 sub REPLICATION_USE_DBMIRROR2 { 1 }
 
