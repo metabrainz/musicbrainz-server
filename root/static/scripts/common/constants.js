@@ -18,7 +18,7 @@ export const EMPTY_PARTIAL_DATE: PartialDateT = Object.freeze({
 });
 
 export const ENTITY_NAMES: {
-  +[entityType: CoreEntityTypeT]: () => string,
+  +[entityType: CentralEntityTypeT]: () => string,
   ...
 } = {
   area: N_l('Area'),
@@ -226,7 +226,7 @@ export const FAVICON_CLASSES = {
 };
 
 export const PART_OF_SERIES_LINK_TYPES: {
-  +[type: CoreEntityTypeT]: string | null,
+  +[type: CentralEntityTypeT]: string | null,
 } = {
   area: null,
   artist: 'd1a845d1-8c03-3191-9454-e4e8d37fa5e0',

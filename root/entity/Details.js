@@ -24,13 +24,13 @@ type WSLinkProps = {
     +url: string,
     ...
   },
-  +entityType: CoreEntityTypeT,
+  +entityType: CentralEntityTypeT,
   +isJson?: boolean,
   +isSecureConnection: boolean,
 };
 
 type DetailsProps = {
-  +entity: CoreEntityT,
+  +entity: CentralEntityT,
 };
 
 const WSLink = ({

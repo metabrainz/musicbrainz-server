@@ -142,7 +142,7 @@ import MB from './MB.js';
   // Used by MB.entity() above to cache everything with a GID.
   MB.entityCache = {};
 
-  class CoreEntity extends Entity {
+  class CentralEntity extends Entity {
     constructor(data) {
       super(data);
 
@@ -152,8 +152,8 @@ import MB from './MB.js';
         this.artistCredit = cloneObjectDeep(data.artistCredit);
       }
 
-      if (this._afterCoreEntityCtor) {
-        this._afterCoreEntityCtor(data);
+      if (this._afterCentralEntityCtor) {
+        this._afterCentralEntityCtor(data);
       }
     }
 
@@ -217,7 +217,7 @@ import MB from './MB.js';
     }
   }
 
-  class Editor extends CoreEntity {
+  class Editor extends CentralEntity {
     reactElement() {
       return (
         <EditorLink editor={{entityType: 'editor', name: this.name}} />
@@ -227,23 +227,23 @@ import MB from './MB.js';
 
   Editor.prototype.entityType = 'editor';
 
-  class Artist extends CoreEntity {}
+  class Artist extends CentralEntity {}
 
   Artist.prototype.entityType = 'artist';
 
-  class Event extends CoreEntity {}
+  class Event extends CentralEntity {}
 
   Event.prototype.entityType = 'event';
 
-  class Genre extends CoreEntity {}
+  class Genre extends CentralEntity {}
 
   Genre.prototype.entityType = 'genre';
 
-  class Instrument extends CoreEntity {}
+  class Instrument extends CentralEntity {}
 
   Instrument.prototype.entityType = 'instrument';
 
-  class Label extends CoreEntity {
+  class Label extends CentralEntity {
     selectionMessage() {
       const code = this.label_code;
 
@@ -267,7 +267,7 @@ import MB from './MB.js';
 
   Label.prototype.entityType = 'label';
 
-  class Area extends CoreEntity {
+  class Area extends CentralEntity {
     toJSON() {
       return Object.assign(
         super.toJSON(),
@@ -287,11 +287,11 @@ import MB from './MB.js';
 
   Area.prototype.entityType = 'area';
 
-  class Place extends CoreEntity {}
+  class Place extends CentralEntity {}
 
   Place.prototype.entityType = 'place';
 
-  class Recording extends CoreEntity {
+  class Recording extends CentralEntity {
     constructor(data) {
       super(data);
 
@@ -335,7 +335,7 @@ import MB from './MB.js';
 
   Recording.prototype.entityType = 'recording';
 
-  class Release extends CoreEntity {
+  class Release extends CentralEntity {
     constructor(data) {
       super(data);
 
@@ -368,7 +368,7 @@ import MB from './MB.js';
 
   Release.prototype.entityType = 'release';
 
-  class ReleaseGroup extends CoreEntity {
+  class ReleaseGroup extends CentralEntity {
     selectionMessage() {
       return ReactDOMServer.renderToStaticMarkup(
         exp.l('You selected {releasegroup}.', {
@@ -380,7 +380,7 @@ import MB from './MB.js';
 
   ReleaseGroup.prototype.entityType = 'release_group';
 
-  class Series extends CoreEntity {
+  class Series extends CentralEntity {
     constructor(data) {
       super(data);
       this.type = ko.observable(data.type);
@@ -413,7 +413,7 @@ import MB from './MB.js';
 
   Series.prototype.entityType = 'series';
 
-  class Track extends CoreEntity {
+  class Track extends CentralEntity {
     constructor(data) {
       super(data);
 
@@ -447,11 +447,11 @@ import MB from './MB.js';
 
   Track.prototype.entityType = 'track';
 
-  class URL extends CoreEntity {}
+  class URL extends CentralEntity {}
 
   URL.prototype.entityType = 'url';
 
-  class Work extends CoreEntity {
+  class Work extends CentralEntity {
     toJSON() {
       return Object.assign(super.toJSON(), {artists: this.artists});
     }
@@ -475,7 +475,7 @@ import MB from './MB.js';
 
   MB.entity.Area = Area;
   MB.entity.Artist = Artist;
-  MB.entity.CoreEntity = CoreEntity;
+  MB.entity.CentralEntity = CentralEntity;
   MB.entity.Editor = Editor;
   MB.entity.Entity = Entity;
   MB.entity.Event = Event;

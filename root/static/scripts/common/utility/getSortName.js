@@ -14,7 +14,7 @@ import ENTITIES from '../../../../../entities.mjs';
  * the name otherwise.
  */
 
-export default function getSortName(entity: CoreEntityT): string {
+export default function getSortName(entity: CentralEntityT): string {
   const hasSortName = ENTITIES[entity.entityType].sort_name;
   return hasSortName /*:: && nonEmpty(entity.sort_name) */
     ? entity.sort_name

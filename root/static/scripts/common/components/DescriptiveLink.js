@@ -20,7 +20,7 @@ type DescriptiveLinkProps = {
   +customArtistCredit?: ArtistCreditT,
   +deletedCaption?: string,
   +disableLink?: boolean,
-  +entity: CollectionT | CoreEntityT,
+  +entity: CollectionT | CentralEntityT,
   +showDeletedArtists?: boolean,
   +showDisambiguation?: boolean,
   +showEditsPending?: boolean,

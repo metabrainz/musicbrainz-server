@@ -30,7 +30,7 @@ import uriWith from '../utility/uriWith.js';
 import PaginatedResults from './PaginatedResults.js';
 
 type Props = {
-  +entity: CoreEntityT,
+  +entity: CentralEntityT,
   +fallbackMessage?: string,
   +heading: string,
   +pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
@@ -40,7 +40,7 @@ type Props = {
 const generalTypesList = ['recording', 'release', 'release_group', 'work'];
 const recordingOnlyTypesList = ['recording'];
 
-const pickAppearancesTypes = (entityType: CoreEntityTypeT) => {
+const pickAppearancesTypes = (entityType: CentralEntityTypeT) => {
   switch (entityType) {
     case 'area':
     case 'artist':

@@ -23,7 +23,7 @@ type Props = {
       +count: number,
       +tags: $ReadOnlyArray<{
         +count: number,
-        +entity: CoreEntityT,
+        +entity: CentralEntityT,
         +entity_id: number,
       }>,
     },

@@ -40,7 +40,7 @@ const diffOnlyB = (
 
 type Props = {
   makeEntityLink?: (
-    entity: CoreEntityT,
+    entity: CentralEntityT,
     content: string,
     relationship: RelationshipT,
   ) => React.MixedElement,
@@ -51,7 +51,7 @@ type Props = {
 const getTypeId = (x: LinkAttrT) => String(x.typeID);
 
 const makeDescriptiveLink = (
-  entity: CoreEntityT,
+  entity: CentralEntityT,
   content: string,
   relationship: RelationshipT,
 ) => (

@@ -24,7 +24,7 @@ export function compareRecordings(a: RecordingT, b: RecordingT): number {
 }
 
 export function compareSourceWithSourceGroup(
-  a: CoreEntityT,
+  a: CentralEntityT,
   [b]: RelationshipSourceGroupT,
 ): number {
   return (

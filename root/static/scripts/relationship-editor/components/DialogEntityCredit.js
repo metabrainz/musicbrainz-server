@@ -26,7 +26,7 @@ type PropsT = {
   +forEntity: string,
   +linkType: ?LinkTypeT,
   +state: $ReadOnly<{...DialogEntityCreditStateT, ...}>,
-  +targetType: CoreEntityTypeT,
+  +targetType: CentralEntityTypeT,
 };
 
 export function createInitialState(

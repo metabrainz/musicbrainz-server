@@ -21,7 +21,7 @@ import ListHeader from '../components/ListHeader.js';
 type Props = {
   +editCountLimit: number,
   +edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
-  +entity?: CoreEntityT | CollectionT,
+  +entity?: CentralEntityT | CollectionT,
   +guessSearch?: boolean,
   +isSearch?: boolean,
   +page: string,

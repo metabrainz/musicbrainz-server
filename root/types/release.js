@@ -29,7 +29,7 @@ declare type ReleaseT = $ReadOnly<{
   ...AnnotationRoleT,
   ...ArtistCreditRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT<'release'>,
+  ...CentralEntityRoleT<'release'>,
   +barcode: string | null,
   +combined_format_name?: string,
   +combined_track_count?: string,

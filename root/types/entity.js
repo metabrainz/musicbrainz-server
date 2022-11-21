@@ -7,6 +7,20 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+declare type EntityWithAliasesT =
+  | AreaT
+  | ArtistT
+  | EventT
+  | GenreT
+  | InstrumentT
+  | LabelT
+  | PlaceT
+  | RecordingT
+  | ReleaseGroupT
+  | ReleaseT
+  | SeriesT
+  | WorkT;
+
 declare type AppearancesT<T> = {
   +hits: number,
   +results: $ReadOnlyArray<T>,
@@ -16,18 +30,18 @@ declare type CommentRoleT = {
   +comment: string,
 };
 
-declare type CoreEntityRoleT<+T> = {
+declare type CentralEntityRoleT<+T> = {
   ...EntityRoleT<T>,
   ...LastUpdateRoleT,
   +gid: string,
   +name: string,
   +paged_relationship_groups?: {
-    +[targetType: CoreEntityTypeT]: PagedTargetTypeGroupT | void,
+    +[targetType: CentralEntityTypeT]: PagedTargetTypeGroupT | void,
   },
   +relationships?: $ReadOnlyArray<RelationshipT>,
 };
 
-declare type CollectableCoreEntityT =
+declare type CollectableEntityT =
   | AreaT
   | ArtistT
   | EventT
@@ -40,15 +54,15 @@ declare type CollectableCoreEntityT =
   | SeriesT
   | WorkT;
 
-declare type NonUrlCoreEntityT =
-  | CollectableCoreEntityT
+declare type NonUrlCentralEntityT =
+  | CollectableEntityT
   | GenreT;
 
-declare type CoreEntityT =
-  | NonUrlCoreEntityT
+declare type CentralEntityT =
+  | NonUrlCentralEntityT
   | UrlT;
 
-declare type NonUrlCoreEntityTypeT =
+declare type NonUrlCentralEntityTypeT =
   | 'area'
   | 'artist'
   | 'event'
@@ -62,9 +76,15 @@ declare type NonUrlCoreEntityTypeT =
   | 'series'
   | 'work';
 
-declare type CoreEntityTypeT =
-  | NonUrlCoreEntityTypeT
+declare type CentralEntityTypeT =
+  | NonUrlCentralEntityTypeT
   | 'url';
+
+declare type EntityWithArtistCreditsT =
+  | RecordingT
+  | ReleaseGroupT
+  | ReleaseT
+  | TrackT;
 
 declare type DatePeriodRoleT = {
   +begin_date: PartialDateT | null,
@@ -85,8 +105,8 @@ declare type LastUpdateRoleT = {
   +last_updated: string | null,
 };
 
-declare type MinimalCoreEntityT = {
-  +entityType: CoreEntityTypeT,
+declare type MinimalCentralEntityT = {
+  +entityType: CentralEntityTypeT,
   +gid: string,
 };
 

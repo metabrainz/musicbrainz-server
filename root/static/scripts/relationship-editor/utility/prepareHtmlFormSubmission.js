@@ -31,7 +31,7 @@ import {
 
 function pushRelationshipHiddenInputs(
   formName: string,
-  source: CoreEntityT,
+  source: CentralEntityT,
   relationship: RelationshipStateT,
   index: number,
   pushInput: (string, string, string) => void,

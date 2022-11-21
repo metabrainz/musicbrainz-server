@@ -43,7 +43,7 @@ export default function moveRelationship(
     | {...RelationshipEditorStateT}
     | {...ReleaseRelationshipEditorStateT},
   relationship: RelationshipStateT,
-  source: CoreEntityT,
+  source: CentralEntityT,
   moveForward: boolean,
 ): void {
   const targetTypeGroups = findTargetTypeGroups(

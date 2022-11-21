@@ -49,7 +49,7 @@ export type RelationshipTargetGroupT = {
   isOrderable: boolean,
   key: string,
   linkOrder: number | null,
-  target: CoreEntityT,
+  target: CentralEntityT,
   targetCredit: string,
   tracks: Set<TrackT> | null,
 };
@@ -72,11 +72,11 @@ export type RelationshipPhraseGroupT = {
 
 export type RelationshipTargetTypeGroupT = {
   +relationshipPhraseGroups: Array<RelationshipPhraseGroupT>,
-  +targetType: CoreEntityTypeT,
+  +targetType: CentralEntityTypeT,
 };
 
 export function cmpTargetTypeGroups<
-  T: {+targetType: CoreEntityTypeT, ...},
+  T: {+targetType: CentralEntityTypeT, ...},
 >(a: T, b: T): number {
   return compareStrings(a.targetType, b.targetType);
 }
@@ -355,10 +355,10 @@ function areSetsEqual<T>(a: Set<T>, b: Set<T>): boolean {
 export default function groupRelationships(
   relationships: ?$ReadOnlyArray<RelationshipT>,
   args?: {
-    +filter?: (RelationshipT, CoreEntityT, CoreEntityTypeT) => boolean,
+    +filter?: (RelationshipT, CentralEntityT, CentralEntityTypeT) => boolean,
     +result?: Array<RelationshipTargetTypeGroupT>,
     +trackMapping?: Map<string, Set<TrackT>>,
-    +types?: ?$ReadOnlyArray<CoreEntityTypeT>,
+    +types?: ?$ReadOnlyArray<CentralEntityTypeT>,
   },
 ): $ReadOnlyArray<RelationshipTargetTypeGroupT> {
   if (!relationships) {

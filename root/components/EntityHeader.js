@@ -17,7 +17,7 @@ import SubHeader from './SubHeader.js';
 
 type Props = {
   +editTab?: React.Element<EntityTabLink>,
-  +entity: CoreEntityT,
+  +entity: CentralEntityT,
   +headerClass: string,
   +heading?: Expand2ReactOutput,
   +page?: string,

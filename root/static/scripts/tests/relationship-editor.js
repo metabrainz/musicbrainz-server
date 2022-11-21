@@ -557,7 +557,7 @@ test('splitRelationshipByAttributes', function (t) {
 
 function addRelationships(
   rootState: RelationshipEditorStateT,
-  source: CoreEntityT,
+  source: CentralEntityT,
   relationships: $ReadOnlyArray<RelationshipStateT>,
 ): RelationshipEditorStateT {
   let newState = rootState;
@@ -569,7 +569,7 @@ function addRelationships(
 
 function addRelationship(
   rootState: RelationshipEditorStateT,
-  source: CoreEntityT,
+  source: CentralEntityT,
   relationship: RelationshipStateT,
 ): RelationshipEditorStateT {
   return reducer(

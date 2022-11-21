@@ -51,7 +51,7 @@ function formatGenreLabel(genre: GenreT) {
   return output;
 }
 
-function getTagsPath(entity: CoreEntityT | MinimalCoreEntityT) {
+function getTagsPath(entity: CentralEntityT | MinimalCentralEntityT) {
   const type = entity.entityType.replace('_', '-');
   return `/${type}/${entity.gid}/tags`;
 }
@@ -202,7 +202,7 @@ const TagRow = ({
 
 type TagEditorProps = {
   +aggregatedTags: $ReadOnlyArray<AggregatedTagT>,
-  +entity: CoreEntityT | MinimalCoreEntityT,
+  +entity: CentralEntityT | MinimalCentralEntityT,
   +genreMap: ?{+[genreName: string]: GenreT, ...},
   +more: boolean,
   +userTags: $ReadOnlyArray<UserTagT>,

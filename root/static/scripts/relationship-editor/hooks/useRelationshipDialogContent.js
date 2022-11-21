@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {createCoreEntityObject} from '../../common/entity2.js';
+import {createCentralEntityObject} from '../../common/entity2.js';
 import {uniqueNegativeId} from '../../common/utility/numbers.js';
 import RelationshipDialogContent
   from '../components/RelationshipDialogContent.js';
@@ -44,7 +44,7 @@ const RELATIONSHIP_DEFAULTS = {
 type CommonOptionsT = {
   +batchSelectionCount?: number,
   +dispatch: (UpdateRelationshipActionT) => void,
-  +source: CoreEntityT,
+  +source: CentralEntityT,
   +title: string,
 };
 
@@ -53,7 +53,7 @@ export default function useRelationshipDialogContent(
     ...CommonOptionsT,
     +relationship: RelationshipStateT,
     +targetTypeOptions: TargetTypeOptionsT | null,
-    +targetTypeRef: {-current: CoreEntityTypeT} | null,
+    +targetTypeRef: {-current: CentralEntityTypeT} | null,
     +user: ActiveEditorT,
   }>,
 ): (
@@ -117,7 +117,7 @@ export function useAddRelationshipDialogContent(
     +backward?: boolean,
     +buildNewRelationshipData?:
       () => $Partial<RelationshipStateT> | null,
-    +defaultTargetType: CoreEntityTypeT | null,
+    +defaultTargetType: CentralEntityTypeT | null,
   }>,
 ): (
   closeAndReturnFocus: () => void,
@@ -137,7 +137,7 @@ export function useAddRelationshipDialogContent(
   }, [user, source.entityType]);
 
   // Remembers the most recently selected target type.
-  const targetTypeRef = React.useRef<CoreEntityTypeT | null>(null);
+  const targetTypeRef = React.useRef<CentralEntityTypeT | null>(null);
 
   const targetType = (
     defaultTargetType ||
@@ -146,7 +146,7 @@ export function useAddRelationshipDialogContent(
   );
 
   const defaultTargetObject = React.useMemo(() => {
-    return createCoreEntityObject(
+    return createCentralEntityObject(
       /*
        * targetType may be undefined if the current server doesn't have any
        * available link types for the source entity type.  In that case this

@@ -13,8 +13,8 @@ import isRelationshipBackward from './isRelationshipBackward.js';
 
 export default function getRelationshipTarget(
   relationship: RelationshipStateT,
-  source: CoreEntityT,
-): CoreEntityT {
+  source: CentralEntityT,
+): CentralEntityT {
   if (isRelationshipBackward(relationship, source)) {
     return relationship.entity0;
   }

@@ -11,7 +11,7 @@
 declare type LabelT = $ReadOnly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT<'label'>,
+  ...CentralEntityRoleT<'label'>,
   ...DatePeriodRoleT,
   ...IpiCodesRoleT,
   ...IsniCodesRoleT,

@@ -11,11 +11,11 @@ import {compare} from '../i18n.js';
 
 import getSortName from './getSortName.js';
 
-function compareEntities(a: CoreEntityT, b: CoreEntityT): number {
+function compareEntities(a: CentralEntityT, b: CentralEntityT): number {
   return compare(getSortName(a), getSortName(b)) || (a.id - b.id);
 }
 
-export default function sortByEntityName<T: CoreEntityT>(
+export default function sortByEntityName<T: CentralEntityT>(
   entities: $ReadOnlyArray<T>,
 ): $ReadOnlyArray<T> {
   return entities.slice(0).sort(compareEntities);

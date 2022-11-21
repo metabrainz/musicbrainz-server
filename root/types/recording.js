@@ -11,7 +11,7 @@
 declare type RecordingT = $ReadOnly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT<'recording'>,
+  ...CentralEntityRoleT<'recording'>,
   ...RatableRoleT,
   ...ReviewableRoleT,
   +appearsOn?: AppearancesT<{gid: string, name: string}>,

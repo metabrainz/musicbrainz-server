@@ -8,7 +8,7 @@
  */
 
 export default function renderMergeCheckboxElement(
-  entity: CoreEntityT,
+  entity: CentralEntityT,
   form: MergeFormT | MergeReleasesFormT,
   index: number,
 ): React$MixedElement {

@@ -22,7 +22,7 @@ type Props = {
   +annotation: ?AnnotationT,
   +collapse?: boolean,
   +entity: $ReadOnly<{
-    ...MinimalCoreEntityT,
+    ...MinimalCentralEntityT,
     +latest_annotation: ?AnnotationT,
     ...
   }>,
@@ -34,7 +34,7 @@ type Props = {
 type WritableProps = {
   annotation: ?{...AnnotationT},
   entity: {
-    ...MinimalCoreEntityT,
+    ...MinimalCentralEntityT,
     latest_annotation: ?{...AnnotationT},
     ...
   },

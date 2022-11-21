@@ -16,7 +16,7 @@ import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 type Props = {
   +aliases: $ReadOnlyArray<AliasT>,
   +artistCredits?: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
-  +entity: CoreEntityT,
+  +entity: EntityWithAliasesT,
 };
 
 const Aliases = ({
@@ -37,7 +37,8 @@ const Aliases = ({
       {artistCredits?.length ? (
         <ArtistCreditList
           artistCredits={artistCredits}
-          entity={entity}
+          // $FlowIgnore[unclear-type] Only artists have credits
+          entity={((entity: any): ArtistT)}
         />
       ) : null}
     </LayoutComponent>

@@ -18,7 +18,7 @@ declare type CollectionT = {
   +editor_is_limited: boolean,
   +entity_count: number,
   +gid: string,
-  +item_entity_type?: CoreEntityTypeT,
+  +item_entity_type?: CentralEntityTypeT,
   +name: string,
   +public: boolean,
   +subscribed?: boolean,
