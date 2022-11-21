@@ -11,6 +11,13 @@ use MusicBrainz::Server::Entity::CDStub;
 use MusicBrainz::Server::Entity::CDStubTrack;
 use MusicBrainz::Server::WebService::JSONSerializer;
 
+=head1 DESCRIPTION
+
+This test checks whether the JSON CD stub serializer returns
+the expected data.
+
+=cut
+
 test 'Can serialize CD stubs to JSON' => sub {
     my $serializer = MusicBrainz::Server::WebService::JSONSerializer->new;
 
@@ -45,7 +52,8 @@ test 'Can serialize CD stubs to JSON' => sub {
             'track-count' => $cdstub->track_count,
             id => $cdstub->discid,
             barcode => $cdstub->barcode
-        }
+        },
+        'The serialized data matches our expectations',
     );
 };
 
