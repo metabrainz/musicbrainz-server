@@ -10,8 +10,15 @@ use Test::XML::SemanticCompare;
 
 with 't::Mechanize', 't::Context';
 
-test 'webservice request format handling (XML)' => sub {
+=head1 DESCRIPTION
 
+This test checks whether the web service understands and properly handles
+different ways to request a specific response format (JSON/XML) and properly
+rejects invalid requests.
+
+=cut
+
+test 'Webservice request format handling (XML)' => sub {
     my $test = shift;
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+webservice');
 
@@ -19,13 +26,15 @@ test 'webservice request format handling (XML)' => sub {
 
     my $Test = Test::Builder->new();
 
-    my $expected = '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
-        <name>Distance</name><sort-name>Distance</sort-name>
-        <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
-    </artist>
-</metadata>';
+    my $expected = <<~'XML';
+        <?xml version="1.0" encoding="UTF-8"?>
+        <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+            <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
+                <name>Distance</name><sort-name>Distance</sort-name>
+                <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
+            </artist>
+        </metadata>
+        XML
 
     $Test->note('Accept: <blank>');
     $mech->default_header('Accept' => '');
@@ -50,11 +59,9 @@ test 'webservice request format handling (XML)' => sub {
     $mech->get('/ws/2/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?fmt=xml');
     ok($mech->success, 'request successful');
     is_xml_same($mech->content, $expected);
-
 };
 
-test 'webservice request format handling (JSON)' => sub {
-
+test 'Webservice request format handling (JSON)' => sub {
     my $test = shift;
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+webservice');
 
@@ -97,11 +104,9 @@ test 'webservice request format handling (JSON)' => sub {
     $mech->get('/ws/2/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?fmt=json');
     ok($mech->success, 'request successful');
     is_json($mech->content, encode_json($expected), 'expected contents');
-
 };
 
-test 'webservice request format handling (errors)' => sub {
-
+test 'Webservice request format handling (errors)' => sub {
     my $test = shift;
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+webservice');
 
@@ -109,11 +114,13 @@ test 'webservice request format handling (errors)' => sub {
 
     my $Test = Test::Builder->new();
 
-    my $expected = '<?xml version="1.0"?>
-<error>
-  <text>Invalid format. Either set an Accept header (recognized mime types are application/json and application/xml), or include a fmt= argument in the query string (valid values for fmt are json and xml).</text>
-  <text>For usage, please see: https://musicbrainz.org/development/mmd</text>
-</error>';
+    my $expected = <<~'XML';
+        <?xml version="1.0"?>
+        <error>
+            <text>Invalid format. Either set an Accept header (recognized mime types are application/json and application/xml), or include a fmt= argument in the query string (valid values for fmt are json and xml).</text>
+            <text>For usage, please see: https://musicbrainz.org/development/mmd</text>
+        </error>
+        XML
 
     $Test->note('Accept: application/something-else');
     $mech->default_header('Accept' => 'application/something-else');
@@ -126,7 +133,6 @@ test 'webservice request format handling (errors)' => sub {
     $mech->get('/ws/2/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?fmt=unicorn');
     is($mech->status, 406, 'server reports 406 - Not Acceptable');
     is_xml_same($mech->content, $expected);
-
 };
 
 1;
