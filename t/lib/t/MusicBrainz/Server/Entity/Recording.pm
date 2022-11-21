@@ -8,16 +8,34 @@ use Test::More;
 
 use MusicBrainz::Server::Entity::Recording;
 
-test all => sub {
+=head1 DESCRIPTION
 
-my $rec = MusicBrainz::Server::Entity::Recording->new(id => 1, name => 'Recording 1');
+This test checks whether recording data is stored correctly.
 
-is ( $rec->id, 1 );
-is ( $rec->name, 'Recording 1' );
+=cut
 
-$rec->edits_pending(2);
-is( $rec->edits_pending, 2 );
+test 'Recording data is stored properly' => sub {
+    my $rec = MusicBrainz::Server::Entity::Recording->new(
+        id => 1,
+        name => 'Recording 1',
+    );
 
+    is ($rec->id, 1, 'The recording id is stored as expected');
+    is (
+        $rec->name,
+        'Recording 1',
+        'The recording name is stored as expected',
+    );
+};
+
+test 'Can store recording pending edits' => sub {
+    my $rec = MusicBrainz::Server::Entity::Recording->new();
+    $rec->edits_pending(2);
+    is(
+        $rec->edits_pending,
+        2,
+        'The number of pending edits is stored as expected',
+    );
 };
 
 1;
