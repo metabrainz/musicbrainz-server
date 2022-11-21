@@ -59,7 +59,7 @@ test 'Release group alias appears on alias page content and on JSON-LD' => sub {
         'albumProductionType' => 'http://schema.org/StudioAlbum',
         'name' => 'Test RG 1',
         '@type' => 'MusicAlbum',
-        '@context' => 'http://schema.org'
+        '@context' => 'https://schema.org/docs/jsonldcontext.json'
     };
 };
 

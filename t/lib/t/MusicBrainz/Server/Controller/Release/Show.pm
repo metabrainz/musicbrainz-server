@@ -198,7 +198,7 @@ page_test_jsonld $mech => {
             'duration' => 'PT07M53S'
         }
     ],
-    '@context' => 'http://schema.org',
+    '@context' => 'https://schema.org/docs/jsonldcontext.json',
     'hasReleaseRegion' => [
         {
             'releaseCountry' => {
