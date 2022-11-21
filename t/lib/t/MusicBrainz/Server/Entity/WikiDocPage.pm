@@ -8,16 +8,25 @@ use Test::More;
 
 use MusicBrainz::Server::Entity::WikiDocPage;
 
-test all => sub {
+=head1 DESCRIPTION
 
-my $page = MusicBrainz::Server::Entity::WikiDocPage->new(
-    title => 'About MusicBrainz',
-    version => 14508,
-    content => '<p>Hello</p>');
+This test checks whether WikiDoc page data is stored correctly.
 
-is($page->title, 'About MusicBrainz');
-is($page->version, 14508);
+=cut
 
+test 'New WikiDocPage stores the right data' => sub {
+    my $page = MusicBrainz::Server::Entity::WikiDocPage->new(
+        title => 'About MusicBrainz',
+        version => 14508,
+        content => '<p>Hello</p>',
+    );
+
+    is(
+        $page->title,
+        'About MusicBrainz',
+        'The expected page title is stored',
+    );
+    is($page->version, 14508, 'The expected page version is stored');
 };
 
 1;
