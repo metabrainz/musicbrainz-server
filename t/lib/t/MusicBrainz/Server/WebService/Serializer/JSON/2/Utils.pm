@@ -11,6 +11,13 @@ use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
     serializer
 );
 
+=head1 DESCRIPTION
+
+This test checks the JSON ws/2 web service picks the right serializer for
+the requested entity, and fails correctly if a wrong type is requested.
+
+=cut
+
 test 'Correctly identifies serializers' => sub {
     my $artist = MusicBrainz::Server::Entity::Artist->new();
     my $serializer = serializer($artist);
@@ -20,8 +27,11 @@ test 'Correctly identifies serializers' => sub {
 
 test 'Throws exception if asked to serialize an unknown entity' => sub {
     my $wazoodle = bless { }, 'Wazoodle';
-    like(exception { serializer($wazoodle) },
-          qr/^No serializer found for Wazoodle/);
+    like(
+        exception { serializer($wazoodle) },
+        qr/^No serializer found for Wazoodle/,
+        'The expected error message is returned',
+    );
 };
 
 1;
