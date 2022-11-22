@@ -99,6 +99,7 @@ export const FAVICON_CLASSES = {
   'gutenberg.org': 'gutenberg',
   'hoick.jp': 'hoick',
   'ibdb.com': 'ibdb',
+  'idref.fr': 'idref',
   'imdb.com': 'imdb',
   'imslp.org': 'imslp',
   'imvdb.com': 'imvdb',

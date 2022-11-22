@@ -2352,6 +2352,14 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.ibdb.com/broadway-cast-staff/antonin-leopold-dvorak-447817',
   },
+  // IdRef
+  {
+                     input_url: 'http://idref.fr/172248248',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.idref.fr/172248248',
+       only_valid_entity_types: ['artist', 'genre', 'instrument', 'label', 'place', 'series', 'work'],
+  },
   // IMDb (Internet Movie Database)
   {
                      input_url: 'http://www.imdb.com/name/nm1539156/',
