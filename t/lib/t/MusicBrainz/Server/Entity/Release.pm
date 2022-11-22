@@ -13,50 +13,137 @@ use aliased 'MusicBrainz::Server::Entity::ReleaseStatus';
 use aliased 'MusicBrainz::Server::Entity::Medium';
 use aliased 'MusicBrainz::Server::Entity::MediumFormat';
 
-test all => sub {
+=head1 DESCRIPTION
 
-my $release = Release->new();
-does_ok( $release, 'MusicBrainz::Server::Entity::Role::Quality' );
+This test checks whether release data is stored and calculated correctly.
 
-$release->edits_pending(2);
-is( $release->edits_pending, 2 );
+=cut
 
-is( $release->status_name, undef );
-$release->status(ReleaseStatus->new(id => 1, name => 'Official'));
-is( $release->status_name, 'Official', 'Release status is Official' );
-is( $release->status->id, 1 );
-is( $release->status->name, 'Official', 'Release status is Official' );
+test 'Empty release has expected calculated data' => sub {
+    my $release = Release->new();
+    does_ok($release, 'MusicBrainz::Server::Entity::Role::Quality');
 
-is( $release->packaging_name, undef );
-$release->packaging(ReleasePackaging->new(id => 1, name => 'Jewel Case'));
-is( $release->packaging_name, 'Jewel Case', 'Release packaging is Jewel Case' );
-is( $release->packaging->id, 1 );
-is( $release->packaging->name, 'Jewel Case', 'Release packaging is Jewel Case' );
+    is(
+        $release->status_name,
+        undef,
+        'Undefined release status name is calculated when no status explicitly set',
+    );
+    is(
+        $release->packaging_name,
+        undef,
+        'Undefined release packaging name is calculated when no packaging explicitly set',
+    );
 
-ok( @{$release->labels} == 0 );
-ok( @{$release->mediums} == 0 );
+    ok(
+        @{$release->labels} == 0,
+        'The count of labels for an empty release is 0',
+    );
+    ok(
+        @{$release->mediums} == 0,
+        'The count of mediums for an empty release is 0',
+    );
 
-is( $release->combined_format_name, '' );
-is( $release->combined_track_count, '' );
+    is(
+        $release->combined_format_name,
+        '',
+        'The combined release format is empty when there are no mediums yet',
+    );
+    is(
+        $release->combined_track_count,
+        '',
+        'The combined track count is empty when there are no mediums yet',
+    );
+};
 
-my $medium1 = Medium->new(track_count => 10, position => 1);
-$medium1->format(MediumFormat->new(id => 1, name => 'CD'));
-$release->add_medium($medium1);
-is( $release->combined_format_name, 'CD', 'Release format is CD' );
-is( $release->combined_track_count, '10', 'Release has 10 tracks' );
+test 'Release status data is stored and calculated properly' => sub {
+    my $release = Release->new();
+    $release->status(ReleaseStatus->new(id => 1, name => 'Official'));
+    is(
+        $release->status_name,
+        'Official',
+        'Expected release status name is returned after setting a status',
+    );
+    is($release->status->id, 1, 'The status id is stored as expected');
+    is(
+        $release->status->name,
+        'Official',
+        'The status name is stored as expected',
+    );
+};
 
-my $medium2 = Medium->new(track_count => 22, position => 2);
-$medium2->format(MediumFormat->new(id => 2, name => 'DVD'));
-$release->add_medium($medium2);
-is( $release->combined_format_name, 'CD + DVD', 'Release format is CD + DVD' );
-is( $release->combined_track_count, '10 + 22', 'Release has 10 + 22 tracks' );
+test 'Release packaging data is stored and calculated properly' => sub {
+    my $release = Release->new();
+    $release->packaging(ReleasePackaging->new(id => 1, name => 'Jewel Case'));
+    is(
+        $release->packaging_name,
+        'Jewel Case',
+        'Expected release packaging name is returned after setting a packaging',
+    );
+    is($release->packaging->id, 1, 'The packaging id is stored as expected');
+    is(
+        $release->packaging->name,
+        'Jewel Case',
+        'The packaging name is stored as expected',
+    );
+};
 
-my $medium3 = Medium->new(track_count => 10, position => 3);
-$medium3->format(MediumFormat->new(id => 1, name => 'CD'));
-$release->add_medium($medium3);
-is( $release->combined_format_name, '2×CD + DVD', 'Release format is 2xCD + DVD' );
-is( $release->combined_track_count, '10 + 22 + 10', 'Release has 10 + 22 + 10 tracks' );
+test 'Medium data is stored and calculated properly' => sub {
+    my $release = Release->new();
 
+    note('We add one medium, a 10 track CD');
+    my $medium1 = Medium->new(track_count => 10, position => 1);
+    $medium1->format(MediumFormat->new(id => 1, name => 'CD'));
+    $release->add_medium($medium1);
+    is(
+        $release->combined_format_name,
+        'CD',
+        'The combined release format is CD',
+    );
+    is(
+        $release->combined_track_count,
+        '10',
+        'The combined release track count is 10',
+    );
+
+    note('We add a second medium, a 22 track DVD');
+    my $medium2 = Medium->new(track_count => 22, position => 2);
+    $medium2->format(MediumFormat->new(id => 2, name => 'DVD'));
+    $release->add_medium($medium2);
+    is(
+        $release->combined_format_name,
+        'CD + DVD',
+        'The combined release format is CD + DVD',
+    );
+    is(
+        $release->combined_track_count,
+        '10 + 22',
+        'The combined release track count is 10 + 22',
+    );
+
+    note('We add a third medium, another 10 track CD');
+    my $medium3 = Medium->new(track_count => 10, position => 3);
+    $medium3->format(MediumFormat->new(id => 1, name => 'CD'));
+    $release->add_medium($medium3);
+    is(
+        $release->combined_format_name,
+        '2×CD + DVD',
+        'The combined release format is 2×CD + DVD',
+    );
+    is(
+        $release->combined_track_count,
+        '10 + 22 + 10',
+        'The combined release track count is 10 + 22 + 10',
+    );
+};
+
+test 'Can store release pending edits' => sub {
+    my $release = Release->new();
+    $release->edits_pending(2);
+    is(
+        $release->edits_pending,
+        2,
+        'The number of pending edits is stored as expected',
+    );
 };
 
 1;
