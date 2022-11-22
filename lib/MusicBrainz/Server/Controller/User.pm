@@ -269,6 +269,7 @@ sub _renew_login_cookie
             : '',
         samesite => 'Lax',
         $c->req->secure ? (secure => 1) : (),
+        httponly => 1,
     };
 }
 
