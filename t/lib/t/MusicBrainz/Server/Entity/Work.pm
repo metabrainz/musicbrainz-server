@@ -10,17 +10,54 @@ use MusicBrainz::Server::Entity::Work;
 use MusicBrainz::Server::Entity::WorkType;
 use MusicBrainz::Server::Entity::WorkAlias;
 
-test all => sub {
+=head1 DESCRIPTION
 
-my $work = MusicBrainz::Server::Entity::Work->new();
+This test checks whether work data is stored and calculated correctly.
 
-is( $work->type_name, undef );
-$work->type(MusicBrainz::Server::Entity::WorkType->new(id => 1, name => 'Composition'));
-is( $work->type_name, 'Composition' );
+=cut
 
-$work->edits_pending(2);
-is( $work->edits_pending, 2 );
+test 'Empty work has undefined calculated data' => sub {
+    my $work = MusicBrainz::Server::Entity::Work->new();
 
+    is(
+        $work->type_name,
+        undef,
+        'Undefined work type name is calculated when no type explicitly set',
+    );
+};
+
+test 'Work type data is stored and calculated properly' => sub {
+    my $work = MusicBrainz::Server::Entity::Work->new();
+    $work->type(
+        MusicBrainz::Server::Entity::WorkType->new(
+            id => 1,
+            name => 'Composition',
+        )
+    );
+
+    is(
+        $work->type_name,
+        'Composition',
+        'Expected work type name is returned after setting a type',
+    );
+
+    is($work->type->id, 1, 'The type id is stored as expected');
+
+    is(
+        $work->type->name,
+        'Composition',
+        'The type name is stored as expected',
+    );
+};
+
+test 'Can store work pending edits' => sub {
+    my $work = MusicBrainz::Server::Entity::Work->new();
+    $work->edits_pending(2);
+    is(
+        $work->edits_pending,
+        2,
+        'The number of pending edits is stored as expected',
+    );
 };
 
 1;
