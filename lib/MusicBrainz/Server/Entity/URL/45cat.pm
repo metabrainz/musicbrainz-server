@@ -5,6 +5,10 @@ use Moose;
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
+override href_url => sub {
+    shift->url->as_string =~ s{^http:}{https:}r;
+};
+
 sub sidebar_name { '45cat' }
 
 __PACKAGE__->meta->make_immutable;
