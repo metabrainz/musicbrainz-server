@@ -6,15 +6,28 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 
-BEGIN { use MusicBrainz::Server::Entity::EditorOAuthToken };
+use MusicBrainz::Server::Entity::EditorOAuthToken;
 
 use DateTime;
 
-test all => sub {
+=head1 DESCRIPTION
 
-my $token = MusicBrainz::Server::Entity::EditorOAuthToken->new(expire_time => DateTime->now->add( hours => 1));
-ok(!$token->is_expired, 'Token is not expired');
+This test checks whether OAuth tokens get correctly marked as expired.
 
+=cut
+
+test 'Token with expire_time in the future is not marked expired' => sub {
+    my $token = MusicBrainz::Server::Entity::EditorOAuthToken->new(
+        expire_time => DateTime->now->add(hours => 1),
+    );
+    ok(!$token->is_expired, 'Token is not expired');
+};
+
+test 'Token with expire_time in the past is marked expired' => sub {
+    my $token = MusicBrainz::Server::Entity::EditorOAuthToken->new(
+        expire_time => DateTime->now->add(hours => -1),
+    );
+    ok($token->is_expired, 'Token is expired');
 };
 
 1;
