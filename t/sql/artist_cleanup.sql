@@ -5,12 +5,16 @@ INSERT INTO artist (id, gid, name, sort_name, edits_pending) VALUES
     (4, '5cd50089-fd14-460c-ae72-e94277b15ae4', 'Relationship Artist', 'Relationship Artist', 0),
     (5, '74b265fe-aeaf-4f47-a619-98d70ff61ffa', 'Open Edit Artist', 'Open Edit Artist', 2),
     (6, '08d33da4-d011-4731-897a-3df1fcfc4ed5', 'Empty Artist', 'Empty Artist', 0),
-    (7, 'c1f4717d-32af-418c-abae-e85ded7bd420', 'Open Creation Edit Artist', 'Open Creation Edit Artist', 1);
+    (7, 'c1f4717d-32af-418c-abae-e85ded7bd420', 'Open Creation Edit Artist', 'Open Creation Edit Artist', 1),
+    (8, 'aa8a22fd-c2de-46df-be6e-327da6fce73d', 'Unused Artist Credit Artist', 'Unused Artist Credit Artist', 0);
 
 INSERT INTO artist_credit (id, name, artist_count, gid)
-  VALUES (1, 'Recording Artist', 1, '7511889a-0c25-4991-8799-2ee08c54d9a3');
+  VALUES (1, 'Recording Artist', 1, '7511889a-0c25-4991-8799-2ee08c54d9a3'),
+         (2, 'Unused Artist Credit Artist', 1, '87b038df-6fbd-483e-ba6f-7ac80efdc3cd');
+
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
-  VALUES (1, 1, 3, 'Recording Artist', '');
+  VALUES (1, 1, 3, 'Recording Artist', ''),
+         (2, 1, 8, 'Unused Artist Credit Artist', '');
 
 INSERT INTO recording (id, gid, name, artist_credit, length) VALUES
     (1, '4d463513-8744-45d5-b425-e6e55c724d2e', 'Test Recording', 1, 123456);

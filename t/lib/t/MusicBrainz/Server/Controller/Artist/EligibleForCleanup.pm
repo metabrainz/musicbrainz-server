@@ -124,4 +124,26 @@ test 'Cleanup banner appears for empty artist with only creation edit open' => s
     );
 };
 
+test 'Cleanup banner appears for artist with only unused artist credits' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database(
+        $c,
+        '+artist_cleanup',
+    );
+
+    $mech->get_ok(
+        '/artist/aa8a22fd-c2de-46df-be6e-327da6fce73d',
+        'Fetched the index page for an artist with an unused artist credit',
+    );
+
+    html_ok($mech->content);
+    $mech->content_contains(
+      'will be removed automatically',
+      'The artist page shows a cleanup banner',
+    );
+};
+
 1;

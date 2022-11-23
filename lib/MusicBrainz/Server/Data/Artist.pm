@@ -518,9 +518,12 @@ sub is_empty {
         WHERE id = ?
         AND NOT (
             EXISTS (
-                SELECT TRUE FROM artist_credit_name
-                WHERE artist = artist_row.id
-                LIMIT 1
+                SELECT TRUE
+                  FROM artist_credit_name acn
+                  JOIN artist_credit ac ON ac.id = acn.artist_credit
+                 WHERE acn.artist = artist_row.id
+                   AND ac.ref_count > 0
+                 LIMIT 1
             ) OR
             $used_in_relationship
         )
