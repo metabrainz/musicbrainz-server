@@ -2340,6 +2340,31 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  'idref': {
+    match: [new RegExp('^(https?://)?(www\\.)?idref\\.fr/', 'i')],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?idref\.fr/, 'https://www.idref.fr');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.idref\.fr\/\d+?$/.exec(url);
+      if (m) {
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+          case LINK_TYPES.otherdatabases.genre:
+          case LINK_TYPES.otherdatabases.instrument:
+          case LINK_TYPES.otherdatabases.label:
+          case LINK_TYPES.otherdatabases.place:
+          case LINK_TYPES.otherdatabases.series:
+          case LINK_TYPES.otherdatabases.work:
+            return {result: true};
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'imdb': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?imdb\\.', 'i')],
     restrict: [LINK_TYPES.imdb],
