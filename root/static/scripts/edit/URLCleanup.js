@@ -915,6 +915,42 @@ const CLEANUPS: CleanupEntries = {
       return url.replace(/^(https:\/\/archive\.org\/details\/[A-Za-z0-9._-]+)\/$/, '$1');
     },
   },
+  'audiomack': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?audiomack\\.com/', 'i')],
+    restrict: [LINK_TYPES.streamingfree],
+    clean: function (url) {
+      url = url.replace(
+        /^https?:\/\/(?:www.)?audiomack.com\/([^\/?&#]+(?:\/(album|song)\/[^\/?&#]+)?).*$/,
+        'https://audiomack.com/$1',
+      );
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/audiomack\.com\/[^\/?&#]+(?:\/(album|song)\/[^\/?&#]+)?$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingfree.artist:
+            return {
+              result: !prefix,
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.release:
+            return {
+              result: prefix === 'album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.recording:
+            return {
+              result: prefix === 'song',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'baidubaike': {
     match: [new RegExp('^(https?://)?baike\\.baidu\\.com/', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
