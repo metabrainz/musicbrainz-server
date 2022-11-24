@@ -86,7 +86,6 @@ sub is_closed
            $self->status == $ELECTION_CANCELLED;
 }
 
-# XXX not translatable
 our %STATUS_NAMES = (
     $ELECTION_SECONDER_1  => N_lp('Awaiting 1st seconder', 'autoeditor election status'),
     $ELECTION_SECONDER_2  => N_lp('Awaiting 2nd seconder', 'autoeditor election status'),
