@@ -4,18 +4,25 @@ use warnings;
 
 use Test::Routine;
 use Test::Moose;
-use Test::More;
 
-test all => sub {
-    use MusicBrainz::Server::Entity::Rating;
-    ok 1;
+use MusicBrainz::Server::Entity::Rating;
+
+=head1 DESCRIPTION
+
+This test ensures that Rating has the expected attributes.
+
+=cut
+
+test 'Rating has the expected attributes' => sub {
+    my $rating = MusicBrainz::Server::Entity::Rating->new();
+    has_attribute_ok($rating, $_) for qw( editor_id editor rating );
 };
 
 1;
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2011 MetaBrainz Foundation
+Copyright (C) 2022 MetaBrainz Foundation
 
 This file is part of MusicBrainz, the open internet music database,
 and is licensed under the GPL version 2, or (at your option) any
