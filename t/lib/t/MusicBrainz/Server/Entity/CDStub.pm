@@ -9,44 +9,70 @@ use Test::More;
 use MusicBrainz::Server::Entity::CDStub;
 use MusicBrainz::Server::Entity::CDStubTrack;
 
-test all => sub {
+=head1 DESCRIPTION
 
-#check to see that all the attributes are present
-my $cdstubtrack = MusicBrainz::Server::Entity::CDStubTrack->new();
-has_attribute_ok($cdstubtrack, $_) for qw( cdstub_id cdstub title artist sequence length );
+This test checks whether CD stub data is stored and calculated correctly.
 
-my $cdstub = MusicBrainz::Server::Entity::CDStub->new();
-has_attribute_ok($cdstub, $_) for qw(
-    artist
-    barcode
-    comment
-    date_added
-    discid
-    last_modified
-    leadout_offset
-    lookup_count
-    modify_count
-    source
-    title
-    track_count
-    track_offset
-);
+=cut
 
-# Now contstruct CDStub and a CDStubTrack
-$cdstubtrack->title('Track title');
-$cdstub->title('CDStub Title');
-$cdstub->tracks([$cdstubtrack]);
-$cdstub->leadout_offset('100000');
+test 'CD stub classes have the expected attributes' => sub {
+    my $cdstubtrack = MusicBrainz::Server::Entity::CDStubTrack->new();
+    note('Check for CDStubTrack attributes');
+    has_attribute_ok($cdstubtrack, $_) for qw(
+        cdstub_id
+        cdstub
+        title
+        artist
+        sequence
+        length
+    );
 
-# Check to see that the title of the CD Stub is as we expected
-is ($cdstub->title, 'CDStub Title');
+    my $cdstub = MusicBrainz::Server::Entity::CDStub->new();
+    note('Check for CDStub attributes');
+    has_attribute_ok($cdstub, $_) for qw(
+        artist
+        barcode
+        comment
+        date_added
+        discid
+        last_modified
+        leadout_offset
+        lookup_count
+        modify_count
+        source
+        title
+        track_count
+        track_offset
+    );
+};
 
-# Check to see that the title of the CD Stub Track is as we expected
-is ($cdstub->tracks->[0]->title, 'Track title');
+test 'CD stub data is stored / calculated properly' => sub {
+    my $cdstubtrack = MusicBrainz::Server::Entity::CDStubTrack->new();
+    my $cdstub = MusicBrainz::Server::Entity::CDStub->new();
 
-# Check to see if the calculated length is correct
-is ($cdstub->length, '1333333');
+    note('We add basic data to track and CD stub');
+    $cdstubtrack->title('Track title');
+    $cdstub->title('CDStub Title');
+    $cdstub->tracks([$cdstubtrack]);
+    $cdstub->leadout_offset('100000');
 
+    is(
+        $cdstub->title,
+        'CDStub Title',
+        'The CD stub title is stored as expected',
+    );
+
+    is(
+        $cdstub->tracks->[0]->title,
+        'Track title',
+        'The CD stub track title is stored as expected',
+    );
+
+    is(
+        $cdstub->length,
+        '1333333',
+        'The CD stub length is calculated correctly',
+    );
 };
 
 1;
