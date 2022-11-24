@@ -1,38 +1,51 @@
 package MusicBrainz::Server::Data::Role::OptionsTree;
-use Moose::Role;
+use MooseX::Role::Parameterized;
 use namespace::autoclean;
 
-with 'MusicBrainz::Server::Data::Role::Context';
-with 'MusicBrainz::Server::Data::Role::SelectAll';
+# This is not used by the role directly,
+# but passed to Role::SelectAll below
+parameter 'order_by' => (
+    isa => 'ArrayRef',
+    default => sub { ['id'] },
+);
 
-sub get_tree {
-    my ($self, $filter, $root_id) = @_;
+role {
+    my $p = shift;
+    my $order_by = $p->order_by;
 
-    my @objects;
+    with 'MusicBrainz::Server::Data::Role::Context';
+    with 'MusicBrainz::Server::Data::Role::SelectAll' => {
+            order_by => $order_by,
+         };
 
-    $filter ||= sub { return 1 };
+    sub get_tree {
+        my ($self, $filter, $root_id) = @_;
 
-    my %id_to_obj = map {
-        my $obj = $_;
-        push @objects, $obj;
-        $obj->id => $obj;
-    } grep {
-        $filter->($_);
-    } $self->get_all;
+        my @objects;
 
-    my $root = $self->_entity_class->new;
+        $filter ||= sub { return 1 };
 
-    foreach my $obj (@objects) {
-        my $parent = $obj->parent_id ? $id_to_obj{$obj->parent_id} : $root;
-        $parent->add_child($obj);
+        my %id_to_obj = map {
+            my $obj = $_;
+            push @objects, $obj;
+            $obj->id => $obj;
+        } grep {
+            $filter->($_);
+        } $self->get_all;
+
+        my $root = $self->_entity_class->new;
+
+        foreach my $obj (@objects) {
+            my $parent = $obj->parent_id ? $id_to_obj{$obj->parent_id} : $root;
+            $parent->add_child($obj);
+        }
+
+        return $id_to_obj{$root_id} if defined $root_id;
+
+        return $root;
     }
+};
 
-    return $id_to_obj{$root_id} if defined $root_id;
-
-    return $root;
-}
-
-no Moose;
 1;
 
 =head1 COPYRIGHT AND LICENSE
