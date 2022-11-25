@@ -91,8 +91,10 @@ role {
         }
     };
 
-    method valid => sub {
-        my ($self) = @_;
+    # We would probably want 'override' here but 'around' is needed
+    # to work around method name conflicts
+    around valid => sub {
+        my ($orig, $self) = @_;
 
         return 1 unless $self->operator_cardinality($self->operator);
         my @args = $self->arguments;

@@ -3,9 +3,9 @@ use Moose;
 use namespace::autoclean;
 
 with 'MusicBrainz::Server::EditSearch::Predicate::Role::User' => {
-    template_clause => 'ROLE_CLAUSE(edit.editor)',
-};
-with 'MusicBrainz::Server::EditSearch::Predicate';
+        template_clause => 'ROLE_CLAUSE(edit.editor)',
+     },
+     'MusicBrainz::Server::EditSearch::Predicate';
 
 1;
 
