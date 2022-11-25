@@ -2,8 +2,8 @@ package MusicBrainz::Server::Report;
 use Moose::Role;
 use namespace::autoclean;
 
-with 'MusicBrainz::Server::Data::Role::Sql';
-with 'MusicBrainz::Server::Data::Role::QueryToList';
+with 'MusicBrainz::Server::Data::Role::Sql',
+     'MusicBrainz::Server::Data::Role::QueryToList';
 
 use String::CamelCase qw( decamelize );
 

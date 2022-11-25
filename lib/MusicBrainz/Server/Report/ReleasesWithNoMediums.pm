@@ -1,8 +1,8 @@
 package MusicBrainz::Server::Report::ReleasesWithNoMediums;
 use Moose;
 
-with 'MusicBrainz::Server::Report::ReleaseReport';
-with 'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
+with 'MusicBrainz::Server::Report::ReleaseReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
 sub query {
     q{
