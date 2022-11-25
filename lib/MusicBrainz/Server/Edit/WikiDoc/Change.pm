@@ -9,8 +9,8 @@ use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::WikiDoc';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::WikiDoc',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_type { $EDIT_WIKIDOC_CHANGE }
 sub edit_name { N_l('Change WikiDoc') }

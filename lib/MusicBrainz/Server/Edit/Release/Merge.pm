@@ -21,9 +21,9 @@ use MooseX::Types::Structured qw( Dict Optional );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities' => {
-    -excludes => 'release_ids',
-};
-with 'MusicBrainz::Server::Edit::Release';
+        -excludes => 'release_ids',
+     },
+     'MusicBrainz::Server::Edit::Release';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Medium';

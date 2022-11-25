@@ -27,15 +27,15 @@ use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
-with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Recording';
-with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
-    create_edit_type => $EDIT_RECORDING_CREATE,
-    entity_type => 'recording',
-};
-with 'MusicBrainz::Server::Edit::Role::EditArtistCredit';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::CheckForConflicts';
+with 'MusicBrainz::Server::Edit::Recording::RelatedEntities',
+     'MusicBrainz::Server::Edit::Recording',
+     'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+        create_edit_type => $EDIT_RECORDING_CREATE,
+        entity_type => 'recording',
+     },
+     'MusicBrainz::Server::Edit::Role::EditArtistCredit',
+     'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::CheckForConflicts';
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 

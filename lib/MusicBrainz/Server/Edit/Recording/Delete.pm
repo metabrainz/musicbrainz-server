@@ -5,8 +5,8 @@ use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_DELETE );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Delete';
-with 'MusicBrainz::Server::Edit::Recording';
-with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Recording',
+     'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 
 sub edit_type { $EDIT_RECORDING_DELETE }
 sub edit_name { N_l('Remove recording') }

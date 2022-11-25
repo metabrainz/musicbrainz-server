@@ -9,10 +9,10 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities' => {
-    -excludes => 'work_ids',
-};
-with 'MusicBrainz::Server::Edit::Work';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+        -excludes => 'work_ids',
+     },
+     'MusicBrainz::Server::Edit::Work',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 use aliased 'MusicBrainz::Server::Entity::ISWC';

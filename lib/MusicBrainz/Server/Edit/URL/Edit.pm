@@ -17,9 +17,9 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
-with 'MusicBrainz::Server::Edit::URL';
-with 'MusicBrainz::Server::Edit::URL::RelatedEntities';
-with 'MusicBrainz::Server::Edit::CheckForConflicts';
+with 'MusicBrainz::Server::Edit::URL',
+     'MusicBrainz::Server::Edit::URL::RelatedEntities',
+     'MusicBrainz::Server::Edit::CheckForConflicts';
 
 use aliased 'MusicBrainz::Server::Entity::URL';
 

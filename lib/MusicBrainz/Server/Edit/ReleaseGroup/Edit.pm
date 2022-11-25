@@ -28,15 +28,15 @@ use Scalar::Util qw( looks_like_number );
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
-with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
-with 'MusicBrainz::Server::Edit::ReleaseGroup';
-with 'MusicBrainz::Server::Edit::CheckForConflicts';
-with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
-    create_edit_type => $EDIT_RELEASEGROUP_CREATE,
-    entity_type => 'release_group',
-};
-with 'MusicBrainz::Server::Edit::Role::EditArtistCredit';
-with 'MusicBrainz::Server::Edit::Role::Preview';
+with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities',
+     'MusicBrainz::Server::Edit::ReleaseGroup',
+     'MusicBrainz::Server::Edit::CheckForConflicts',
+     'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+        create_edit_type => $EDIT_RELEASEGROUP_CREATE,
+        entity_type => 'release_group',
+     },
+     'MusicBrainz::Server::Edit::Role::EditArtistCredit',
+     'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_type { $EDIT_RELEASEGROUP_EDIT }
 sub edit_name { N_l('Edit release group') }

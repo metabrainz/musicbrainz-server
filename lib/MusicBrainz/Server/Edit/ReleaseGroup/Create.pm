@@ -18,10 +18,10 @@ use MusicBrainz::Server::Translation qw( N_l );
 use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
-with 'MusicBrainz::Server::Edit::ReleaseGroup';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities',
+     'MusicBrainz::Server::Edit::ReleaseGroup',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 

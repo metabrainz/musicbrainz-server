@@ -23,41 +23,43 @@ use Set::Scalar;
 use aliased 'MusicBrainz::Server::Entity::Work';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
-with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Work';
-with 'MusicBrainz::Server::Edit::CheckForConflicts';
-with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
-    create_edit_type => $EDIT_WORK_CREATE,
-    entity_type => 'work',
-};
-with 'MusicBrainz::Server::Edit::Role::ValueSet' => {
-    prop_name => 'attributes',
-    get_current => sub { shift->current_instance->attributes },
-    extract_value => \&_work_attribute_to_edit,
-    hash => sub {
-        my $input = shift;
-        state $json = JSON->new->allow_blessed->canonical;
+with 'MusicBrainz::Server::Edit::Work::RelatedEntities',
+     'MusicBrainz::Server::Edit::Work',
+     'MusicBrainz::Server::Edit::CheckForConflicts',
+     'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+        create_edit_type => $EDIT_WORK_CREATE,
+        entity_type => 'work',
+     },
+     'MusicBrainz::Server::Edit::Role::ValueSet' => {
+        prop_name => 'attributes',
+        get_current => sub { shift->current_instance->attributes },
+        extract_value => \&_work_attribute_to_edit,
+        hash => sub {
+            my $input = shift;
+            state $json = JSON->new->allow_blessed->canonical;
 
-        # The various string append and 0 additions here are to create a
-        # canonical form for hashing, as we will later be doing a string
-        # comparison on the JavaScript. Thus "foo":0 and "foo":"0" will be
-        # different, so we need to make sure all keys are normalised.
-        return $json->encode({
-            attribute_text => '' . ($input->{attribute_text} // ''),
-            attribute_type_id => 0 + $input->{attribute_type_id},
-            attribute_value_id => 0 + ($input->{attribute_value_id} // 0),
-        });
-    },
-};
-with 'MusicBrainz::Server::Edit::Role::ValueSet' => {
-    prop_name => 'languages',
-    get_current => sub {
-        my $self = shift;
+            # The various string append and 0 additions here are to create a
+            # canonical form for hashing, as we will later be doing a string
+            # comparison on the JavaScript. Thus "foo":0 and "foo":"0" will be
+            # different, so we need to make sure all keys are normalised.
+            return $json->encode({
+                attribute_text => '' . ($input->{attribute_text} // ''),
+                attribute_type_id => 0 + $input->{attribute_type_id},
+                attribute_value_id => 0 + ($input->{attribute_value_id} // 0),
+            });
+        },
+     },
+     'MusicBrainz::Server::Edit::Role::ValueSet' => {
+        prop_name => 'languages',
+        get_current => sub {
+            my $self = shift;
 
-        $self->c->model('Work')->language->find_by_entity_id($self->entity_id);
-    },
-    extract_value => sub { shift->language_id },
-};
+            $self->c->model('Work')->language->find_by_entity_id(
+                $self->entity_id,
+            );
+        },
+        extract_value => sub { shift->language_id },
+     };
 
 sub _mapping {
     my $self = shift;

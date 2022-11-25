@@ -10,18 +10,17 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_MEDIUMS );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Release::RelatedEntities',
+     'MusicBrainz::Server::Edit::Release',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+
+use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_name { N_l('Reorder mediums') }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASE_REORDER_MEDIUMS }
 sub edit_template { 'ReorderMediums' }
-
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Release';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
-
-use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub release_id { shift->data->{release}{id} }
 
