@@ -10,15 +10,16 @@ sub serialize
 {
     my ($self, $entity, $inc, $stash, $toplevel) = @_;
 
-    my @body = map {
+    my %body;
+    $body{names} = [map {
         {
             'name' => $_->name,
             'joinphrase' => $_->join_phrase,
             'artist' => serialize_entity($_->artist, $inc, $stash),
         }
-    } @{ $entity->names };
+    } @{ $entity->names }];
 
-    return \@body;
+    return \%body;
 };
 
 __PACKAGE__->meta->make_immutable;
