@@ -83,6 +83,13 @@ sub _get_hash_by_keys
     return \%result;
 }
 
+sub _get_by_keys
+{
+    my ($self, $key_column, @keys) = @_;
+
+    return values %{ $self->_get_hash_by_keys($key_column, @keys) };
+}
+
 sub load
 {
     my ($self, @objs) = @_;
@@ -468,6 +475,14 @@ __PACKAGE__->meta->make_immutable;
 MusicBrainz::Server::Data::ArtistCredit
 
 =head1 METHODS
+
+=head2 _get_by_keys ($key_column, @keys)
+
+Given a key column (for example C<id>, C<gid>) and a list of keys for this column,
+it loads and returns an array reference of C<ArtistCredit> instances.
+
+Note: This method overrides the method C<_get_by_keys> of the extended
+C<Musicbrainz::Server::Data::Entity> class.
 
 =head2 _get_hash_by_keys ($key_column, @keys)
 
